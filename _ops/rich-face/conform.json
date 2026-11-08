@@ -30,5 +30,24 @@
       "why": "a template a script fills in to make a page (its data is a placeholder like /*__DATA__*/); as written it is never served as a piece"
     }
   ],
-  "allow": []
+  "allow": [
+    {
+      "piece": "Projects/BLUELINE/proofs/m1-animatic/m1-animatic.html",
+      "rule": "file-missing",
+      "key": "storyboard.json",
+      "why": "a gathered proof, a record no face shows; it fetches storyboard.json inside a try and plays with its defaults when the fetch fails, so the miss costs nothing. The file was never committed beside it (BLUELINE's only storyboard.json is m0-previz's). Left standing on Loudon's yes of 2026-11-07, named to BLUELINE."
+    },
+    {
+      "piece": "Projects/BLUELINE/proofs/m2-motion-comic/m2-motion-comic.html",
+      "rule": "file-missing",
+      "key": "storyboard.json",
+      "why": "a gathered proof, a record no face shows; it fetches storyboard.json inside a try and plays with its defaults when the fetch fails, so the miss costs nothing. The file was never committed beside it (BLUELINE's only storyboard.json is m0-previz's). Left standing on Loudon's yes of 2026-11-07, named to BLUELINE."
+    },
+    {
+      "piece": "Projects/Quantum Synthesizer/quantum-synthesizer-demo-01.html",
+      "rule": "file-missing",
+      "key": "quantum-membrane.js",
+      "why": "a gathered demo, a record no face shows; quantum-membrane.js never existed in the palace's history, and the page carries the script's code as text further down. Left standing on Loudon's yes of 2026-11-07, named to Quantum Synthesizer."
+    }
+  ]
 }

@@ -1,0 +1,71 @@
+# Synth Templates — card 0.2 — Timbale
+# A tom with a metal shell: a sine with a quick pitch bend, noise for the stick, and a resonant highpass sat on the drum's note so the shell rings.
+schema: synth-template-card/0.2
+id: timbale
+name: Timbale
+family: Drums and Percussion
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Resonance: boost at cutoff; self-oscillation"
+  - "Key → pitch (keytracking)"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, retrigger: true}
+    noise:   {kind: oscillator, wave: noise, level: low}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: high, note: "the resonant peak sits on the drum's note: the shell's ring; the noise passes above it"}
+    amp:     {kind: amplifier, level: full}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: fast, s: zero, r: fast}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: a fifth, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,          why: "the head's note"}
+  - {block: menv,    param: amount,    value: a fifth,       why: "a quick bend, as on a tom; the metal shell is what makes it a timbale"}
+  - {block: menv,    param: decay,     value: fast}
+  - {block: noise,   param: level,     value: low,           why: "the stick on a metal rim: more than a tom's"}
+  - {block: filter1, param: type,      value: highpass 12 dB, why: "lets the noise through above the note and puts a resonant peak on the note itself"}
+  - {block: filter1, param: cutoff,    value: dark,          why: "tuned to the drum: the peak and the sine meet"}
+  - {block: filter1, param: resonance, value: high,          why: "the metallic ring: the shell keeps sounding after the head has stopped"}
+  - {block: aenv,    param: decay,     value: medium}
+  - {block: aenv,    param: sustain,   value: zero}
+  - {block: aenv,    param: mode,      value: one-shot}
+
+taste:
+  - {block: aenv,    param: decay,     range: "short – slow",        default: medium}
+  - {block: filter1, param: resonance, range: "moderate – self-oscillating", default: high, why: "how much shell"}
+  - {block: noise,   param: level,     range: "little – half",       default: low}
+  - {block: menv,    param: amount,    range: "a fifth – about an octave", default: a fifth}
+  - {block: osc1,    param: pitch,     range: "G3 – G4",             default: D4}
+
+listening:
+  cue: "A tom that rings like a pipe. The pitched knock is there, and under it a brighter metallic tone that lasts a little longer than the head."
+  ab: "Set the filter resonance to none: a tom with extra noise. Back to high and the shell comes back. Then set the noise to off: a bent sine with a whistle, no stick."
+
+render:
+  tempo: 110
+  note: [D4, D4, A3]
+  velocity: [100, 90, 115]
+  pattern: "two on the high drum, one on the low, quarters; the last left to ring"
+  length_s: 2.5
+
+mappings: {}

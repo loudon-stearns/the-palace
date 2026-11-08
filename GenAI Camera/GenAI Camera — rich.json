@@ -1,0 +1,168 @@
+{
+ "title": "GenAI Camera — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[GenAI Camera]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[ControlNet as Topology]]",
+   "type": "connects-to",
+   "label": "same-renders-other-claim"
+  }
+ ],
+ "forward_vector": "I am the manifest of the GenAI Camera's rich face, its first round at Sketch tier: four pieces made from the bundle's own tracked renders, each walking up to a test of what the page says the camera learned: the depth dial counted against its bands, the thin pose plate shown where it fails, the depth auto-range measured on the scale it was meant to fill, and the segment-or-inpaint shootout counted pixel by pixel. I hold the fingerprint of the words each was laid against; I never hold the entry's words. I grow when the camera runs again and leaves new renders to test.",
+ "entry": "GenAI Camera",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "How it runs (proven 2026-07-09)",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Two numbers in the depth gotcha don't match what the plates hold. \"A ~0.4 bu figure inside a 1.2 bu range fills only a quarter of 0→1\" is a third by the sentence's own numbers, and the body's visible surface in the pre-fix plate (render 005) used less: its interior sits at 191–221 of 255, 12% of the scale, nine in ten pixels within 194–203. \"So it always fills the gradient\": after the fix (render 008) the interior sits at 154–244, 35% of the scale, nine in ten within 163–196. That's about three times the range, not all of it. cam_z_range() (blender_panel.py:20–35) brackets the whole mesh, back included, which the camera never sees, plus 0.03 each side, and the hands, the nearest part, take the top of what's left. Measured twice: PIL in checks.py and the depth auto-range piece's own engine in headless Chromium agree. Proposed: \"fills only a third of 0→1 at best (the visible surface measured 12%)\" and \"so the body gets about three times the gradient it had (35% of 0–255 against 12%)\". If the fix should fill the whole gradient, bracketing the visible surface (a depth pre-pass, or the near/far of rendered Z) would do it. That change is for the rig, not the text. Confirmed by the challenger by a second route: the after plate's 90 levels at 35.3% imply a bracket of about 0.40 bu, the page's own figure depth."
+  },
+  {
+   "section": "Gotchas & recipes (accumulated 2026-07-09)",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "The costume dial, counted, with hair, hood, sword and the paper's edge set aside (the challenge found the first count carried the sword and the hair). The light cloth each figure grows beyond its body's depth outline, as a share of what pose alone grew, at depth 0 / 0.15 / 0.30 / 0.45 / 0.60 / 0.80: robes (render 021) 100 / 70 / 33 / 18 / 11 / 1%; fur (render 022) 100 / 64 / 21 / 12 / 0 / 0%. Two routes agree (checks.py, and the piece's engine in headless Chromium). The rule stands: depth locks the surface. What the count shows of the bands: most of the light cloth goes between 0.15 and 0.30, a third or less is left in the sweet spot, and the fur's light part is gone by 0.60, as written. Neither a steady fall nor the bands is shown. The bands are the eye's judgment on whether a costume reads and whether the body has form, and this count is the weaker instrument, a proxy for the first. \"Fur … tolerates a hair more depth\" can't be tested by the count, which can't see black cloth. By eye the barbarian's black cape is whole through 0.45 and gone at 0.60, so if the sentence means the cape, the eye agrees. Proposed: no change to the bands. At most, add that the light parts of both garments are mostly gone by 0.30, and name the cape if that is the garment meant."
+  },
+  {
+   "section": "Gotchas & recipes (accumulated 2026-07-09)",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "The thin-plate evidence is stronger in the sweeps than in the check the text cites. In pose_check (render 020, seed 7, pose-only txt2img at 1.0), with the skeleton laid over each drawing, both put their hands near the skeleton's wrists; the thin plate's arms ride a little lower. \"Arms drift down\" is a small drift there. The clear case is the barbarian sweep on each plate, same seed 21 (render 019 thin, render 022 thick). At pose only, the thin plate's figure ignores the skeleton's scale and stance: he grows past its feet and his hands drop to his hips. The thick plate's figure stands inside it. From depth 0.15 up both hold the stance, because depth carries it. Proposed: cite renders 019 and 022 for the diagnosis, and narrow \"where the thin-pose ones let it drift\" to \"where pose worked alone (depth 0)\". That is the recipe's own costume setting, so the narrowing doesn't weaken the gotcha. This is a reading of overlays, not a count. A cross-face note: the ControlNet as Topology face's open offer cites render 020 as the diagnosis (ControlNet as Topology — rich.json, its Pose vs depth offer). The two faces disagree on 020, this one finding the drift there small. They agree on 011: both read it through the record's caveat (thin plate, the init did the work). Whichever offer lands second should cite 019 against 022 too. The challenger confirmed this reading by eye: at pose only the thin-plate barbarian's hands sit about 50 px lower and his feet about 55 px lower than the thick plate's."
+  }
+ ],
+ "sections": [
+  {
+   "heading": "The multi-camera move",
+   "made_against": "f51a66682968",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "GenAI Camera — rich — segment or inpaint.html",
+     "origin": "made",
+     "by": "pixel count · region overlay",
+     "place": "band",
+     "height": 1750,
+     "near": "each is welded from its own viewpoint",
+     "title": "segment or inpaint · four steps",
+     "caption": "**Who decides where the figure stands: tested on the record's own shootout.** It builds up from the environment lens alone, then a figure lens from the same camera that lands on the floor with no offset, then the region the inpaint lets the barbarian grow in (his silhouette grown 40 px, and about 8 more by the inpaint node). Last come renders 012 and 013, each diffed against the base it was painted into. The inpaint changed 10.9% of the frame, 98.6% of it inside his region; the segment changed 45.4%, only 23.2% inside: a giant, cut out faithfully. The share is high partly by construction; the overlay is what shows the inpaint figure at the plate's scale. The edit fades out over about 12 px past the region (73, 34, 9, 3.5 levels in 4-px rings): a soft blend, not a cut. Render 013 ran on the thin pose plate, so the region did the placing, not the pose."
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "GenAI Camera — rich — segment or inpaint.html",
+      "verdict": "remake",
+      "why": "A real test and the conclusion holds, but the region is grown 16 px where VAEEncodeForInpaint grows about 8 (nodes.py:411–414; at the true grow inpaint 98.6% inside, segment 23.2%), and the seam is measured where the edit has already died (change 3.5 levels there), so 2.67 vs 2.62 is equal by construction. Fix the grow, re-bake, and show the fall-off instead (73/34/9/3.5 levels in 4-px rings: a 12-px feather, not a cut)."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "How it runs (proven 2026-07-09)",
+   "made_against": "de234c539112",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "GenAI Camera — rich — depth auto-range.html",
+     "origin": "made",
+     "by": "histogram · stretch · probe",
+     "place": "band",
+     "height": 1800,
+     "near": "so it always fills the gradient",
+     "title": "depth auto-range · four steps",
+     "caption": "**How much of the gradient the body gets, measured.** It builds up from one depth pass you can probe, then the same figure before the near/far fix, then both stretched to show they carry the same shape. Last, the body's interior on 0–255, before and after. The fix about triples the range, from 12% of the scale to 35%. It doesn't fill the gradient: the bracket spans the whole mesh, back included, and the hands take the top. The plates are renders 005 and 008."
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "GenAI Camera — rich — depth auto-range.html",
+      "verdict": "keep",
+      "why": "Tests 'always fills the gradient' and finds it doesn't. Numbers reproduce (11.8% to 35.3%); 005/008 silhouettes IoU 0.998; and 30 levels of 1.2 bu over 35.3% implies a 0.40 bu bracket, the whole mesh, confirming the cam_z_range reading by a second route."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Gotchas & recipes (accumulated 2026-07-09)",
+   "made_against": "27fe79f123ae",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "GenAI Camera — rich — the costume dial.html",
+     "origin": "made",
+     "by": "pixel count · depth-outline overlay",
+     "place": "band",
+     "height": 1700,
+     "near": "An expressive dial, not just a correctness knob",
+     "title": "the costume dial · four steps",
+     "caption": "**Depth locks the surface, counted.** It builds up from the two plates one camera sends, then pose alone with the body's outline laid over it, then the dial turned through renders 021 and 022. Last, the light cloth beyond the body at every step against the page's bands. The sorceress's hair and hood, the barbarian's sword and the paper's edge are set aside and shown grey. The cloth falls at every step, most of it between 0.15 and 0.30: a third or less is left in the sweet spot (robes 33% and 18%, fur 21% and 12%), and the fur's light part is gone by 0.60. That fits neither a steady fall nor the bands. The bands are the eye's judgment and this count is a weaker proxy; it can't see the barbarian's black cape."
+    },
+    {
+     "file": "GenAI Camera — rich — thin plate, thick plate.html",
+     "origin": "made",
+     "by": "skeleton overlay",
+     "place": "band",
+     "height": 1450,
+     "near": "the pose now genuinely holds the stance",
+     "title": "thin plate, thick plate · three steps",
+     "caption": "**Does the pose take? Shown where it matters.** It builds up from two drawings of one skeleton (the thick plate carries 1.59 times the ink on the same joints), then the record's own check with the skeleton laid over each drawing, where the difference is small. Last, the barbarian sweep run on each plate. At pose only, the thin plate's figure outgrows the skeleton and drops his arms, while the thick plate's figure stands in it. From depth 0.15 up, depth holds both. One seed per plate, and the two sweeps were separate runs, so the plate is the difference that shows, not provably the only one."
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "GenAI Camera — rich — the costume dial.html",
+      "verdict": "remake",
+      "why": "Depth locking the surface holds, but the count it calls fur and robes is in good part the barbarian's sword (62% of his count at 0.30, 69% at 0.45; fur alone about 100/64/21/12/0/0) and the sorceress's hair, and 'falls steadily, not in bands' misreads its own shelf at 0.30–0.45. Mask or name the sword and hair, re-run both routes, and say the count is one proxy for the eye's bands."
+     },
+     {
+      "file": "GenAI Camera — rich — thin plate, thick plate.html",
+      "verdict": "keep",
+      "why": "An honest overlay test that moves the evidence to where the fault shows: 020 is near-identical, while 019 vs 022 at pose only puts the thin-plate figure's hands and feet about 50 px low and depth carries both from 0.15. Note one seed per plate and two separate runs."
+     }
+    ]
+   }
+  }
+ ]
+}

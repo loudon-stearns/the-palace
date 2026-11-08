@@ -1,0 +1,74 @@
+# Synth Templates — card — Flute
+# A nearly pure tone with breath on top. The noise oscillator gets its own envelope: the breath is loudest at the attack.
+schema: synth-template-card/0.2
+id: flute
+name: Flute
+family: Brass and Winds
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Triangle as a filtered square"
+  - "Noise for softness and high end"
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+  - "CC1 → pitch LFO depth"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: triangle, octave: 0, note: "nearly a sine; the odd harmonics are quiet"}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "the breath; its own envelope below"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp,   shape: {a: short, d: medium, s: held, r: short}, category: sustaining}
+    menv:    {kind: envelope, role: noise, shape: {a: instant, d: short, s: little, r: short}, category: percussive, note: "the breath burst: loud at the attack, a little stays"}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: menv,  to: noise.level, amount: moderate, essential: true}
+    - {from: lfo1,  to: osc1.pitch, amount: little, essential: false}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: false}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+    - {from: key,   to: menv.gate, essential: true}
+
+essentials:
+  - {block: osc1,  param: wave,    value: triangle,         why: "almost a sine, with a little odd-harmonic edge; a sine is too pure, a square too hollow"}
+  - {block: noise, param: level,   value: little,           why: "the breath that never quite stops"}
+  - {block: menv,  param: target,  value: noise level,      why: "the noise has its own envelope: most instruments are noisiest at the attack, before the tone settles"}
+  - {block: menv,  param: decay,   value: short,            why: "the puff of air, then the note"}
+  - {block: menv,  param: sustain, value: little,           why: "some breath stays under the held note"}
+  - {block: aenv,  param: attack,  value: short,            why: "soft: the air gets the tube going, it does not strike it"}
+  - {block: aenv,  param: sustain, value: held}
+  - {block: filter1, param: type,  value: lowpass 12 dB,    why: "gentle; only takes the hiss off the noise"}
+  - {block: mode,  param: voices,  value: mono,             why: "one flute plays one line"}
+
+taste:
+  - {block: noise,   param: level,   range: "off – half",         default: little,  why: "more is a breathier player"}
+  - {block: menv,    param: amount,  range: "some – generous",    default: moderate, why: "how hard the attack puffs"}
+  - {block: filter1, param: cutoff,  range: "mid – open",         default: bright}
+  - {block: aenv,    param: attack,  range: "fast – medium",      default: short}
+  - {block: aenv,    param: release, range: "short – medium",     default: short}
+  - {block: lfo1,    param: depth,   range: "none – some",        default: little}
+  - {block: lfo1,    param: rate,    range: "medium – fast",      default: medium}
+
+listening:
+  cue: "A puff of air, then a clean tone with a faint hiss riding on it. Push the wheel and the pitch wavers like a held breath."
+  ab: "Turn the noise oscillator off: a plain soft triangle, a recorder from a toy. Put it back and the air returns, and the note has a beginning."
+
+render:
+  tempo: 96
+  note: [G4, A4, B4, D5]
+  velocity: 90
+  pattern: "four notes, one per beat, the last held a bar; the wheel pushed up through the held note"
+  length_s: 5.0
+
+mappings: {}

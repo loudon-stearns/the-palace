@@ -1,7 +1,38 @@
 <!doctype html>
+<html lang="en">
 <meta charset="utf-8">
 <title>Semantic Webcam — A Deck in Seven Facets</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#08080c">
+<link rel="icon" href="Semantic%20Webcam%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: link. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: #12121a; --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--ink, #e8e8f0); --fx-fg-2: #c8c8d8; --fx-fg-3: var(--ink-dim, #8a8aa0); --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: var(--rule, #4a4a5e); --fx-border-soft: rgba(255,255,255,0.06); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: #e8b84a; --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
 <style>
   :root{
     --bg:#08080c; --ink:#f3c879; --ink-dim:#8b8b98; --ink-cool:#74e6d8;
@@ -49,13 +80,13 @@
 <body>
 <header>
   <div class="eyebrow">Oblique Enrichment · iterable cards</div>
-  <h1>Semantic Webcam — <em>a deck in seven facets</em></h1>
+  <h1>Semantic Webcam — <em>a deck in ten cards</em></h1>
   <p class="blurb">
-    Serve this folder over http (06 and 07 load a face mesh from the web; from a
+    Serve this folder over http (06, 07, 09 and 10 load a face mesh from the web; from a
     file they fall back and say so).
     
     A camera that renders you as typeset language. The project <em>is</em> its build
-    history — seven facets that could not stop iterating each other. Each card below
+    history — ten cards that could not stop iterating each other. Each card below
     opens the live cam. They are the answer the entry gave to its own carried question:
     <em>is legibility just another band of light?</em>
   </p>
@@ -172,6 +203,40 @@
       <div class="actions">
         <a href="08-tonal-bench.html" target="_blank">Open the bench →</a>
         <span class="tag">facet · the carried question</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card live">
+    <div class="num">09</div>
+    <div>
+      <h2>Reactive Cam <em>acts</em></h2>
+      <p>Card 07, made to answer back. A blink rewrites the line on your eyes, so
+        they open onto a new sentence. Each opening of your mouth moves the speaking
+        text on one word, so your mouth reads its passage aloud a syllable at a
+        time. The body is the cursor as well as the canvas. Keys e and o fake a
+        blink and a syllable; add #proof=2 to the address to see it on a still.</p>
+      <div class="actions">
+        <a href="09-reactive-cam.html" target="_blank">Open the cam →</a>
+        <span class="tag">facet · body as cursor</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card live">
+    <div class="num">10</div>
+    <div>
+      <h2>The Sitting <em>tunes</em></h2>
+      <p>Card 09 with a tuning panel, for the one sitting in front of the cam.
+        Calibrate takes ten seconds: sit still, blink, count out loud, and the
+        blink and mouth triggers are set from your own face instead of a guess.
+        A live trace shows both signals against their lines. Set the region
+        sizes, the tint, the cell size and how often the mesh runs while
+        watching the frame rate, then save. Add #sit to the address for the
+        headless proof.</p>
+      <div class="actions">
+        <a href="10-sitting-cam.html" target="_blank">Open the cam →</a>
+        <span class="tag">facet · tuned to one face</span>
       </div>
     </div>
   </div>

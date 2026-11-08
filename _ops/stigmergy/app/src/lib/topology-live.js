@@ -31,7 +31,7 @@ const CANON_TYPES = new Set([
 const EXCLUDE_PARTS = new Set([
   '.git', '.obsidian', '.claude', '__pycache__', 'node_modules', 'venv', '.venv',
   '.venvs', 'dist', 'build', '.next', '.cache', 'site-packages', '_tools', 'entries',
-  '_manim_media',
+  '_manim_media', 'proofs',
 ]);
 
 // Machinery subtrees under _ops/ whose files are not ceremony cards

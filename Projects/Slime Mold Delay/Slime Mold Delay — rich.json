@@ -1,0 +1,225 @@
+{
+  "title": "Slime Mold Delay — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Slime Mold Delay]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Slime Mold Delay's rich face: the flow dish and the steward's renders laid beside the sections they serve, and two made walks that run the dish's own engine against what the page says about roads that compete and about the eat/starve knob, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Slime Mold Delay",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Mapping",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The page writes the delay as length × velocity twice: the table, 'delay-time = tube length × signal velocity' (Slime Mold Delay.md:63), and DSP Architecture item 2, DelayLine(time=length × velocity, …) (:96). Both engines divide, delay = L ÷ v: the dish at slime-mold-flow-dish.html:511 (len / speed) and :543 (t.L / v), the renderer at headless/physarum_flow.py:31 (delay = L / VELOCITY) and :50 (delay = length / velocity). That is what makes a longer tube a later echo, and it holds by dimension: dish widths ÷ dish widths a second is seconds. Suggested: 'delay-time = tube length ÷ streaming velocity' at :63, and time=length ÷ velocity at :96. The walk's first step shows 0.60 ÷ 0.9 = 0.67 s."
+    },
+    {
+      "section": "DSP Architecture",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Item 6's 1.73× and 1.28× are medians over the 40 dishes, and they compare cycle 10's one-strand start under the saturating law with the mesh under the competing law with turns, so the number credits the start and the law together. Re-run here, same seeds: 1.731× (36 of 40 fed all four flakes) and 1.284× (38 of 40). Suggested: 'Across 40 seeded dishes, the mesh with this law brought a clustered dish's median from 1.73× to 1.28× the shortest straight-road network.'"
+    },
+    {
+      "section": "DSP Architecture",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "An addition to item 6, not a correction. The page gives the competing law and the turns as one remedy, and the steward's tuning item 1 already holds that both are needed. What is new is the turns-only row. On the same 40 dishes: turns without the competing law reach 1.349×, lean only because they let flakes go (0 of 40 dishes fed all four; 2.0 heard on average). The competing law without turns, on a mesh, gives 1.985× (40 of 40 fed), and the mesh alone on the old law gives 2.021×. Suggested sentence: 'Neither half works alone: the law without turns stays near 1.99×, and turns without the law keep the network lean only by losing flakes.'"
+    },
+    {
+      "section": "DSP Architecture",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Item 5 says 'less efficient tubes are pruned to make room for new ones.' Nothing in either engine prunes to make room: a tip that would overflow the budget is refused (the engine's budget_refused branch), and room appears only when the flow law cuts a tube on its own. In the tight-budget render (budget 1.15, all five flakes sounding 30 s) the mold fed the two left flakes, refused 15 tips, and never reached the other three. Suggested: 'a tip that would overflow the budget is refused; the budget forces economy only through what the flow law prunes,' or a rule that does prune to make room, if that is the instrument wanted."
+    },
+    {
+      "section": "DSP Architecture",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Item 3 says each delay line measures recent RMS at its output, and the topology engine reads those to update diameters. The measure is RMS, but the place is wrong. The dish takes the RMS at each flake (one analyser per flake, slime-mold-flow-dish.html:498, levels() at :547–556). The flakes push by that loudness, and every diameter follows the Kirchhoff flow those pushes set. No line's output is measured. Suggested: 'Flow tracking: each food source's recent RMS sets how hard it pushes; pressure settles by Kirchhoff, and each tube's flow updates its diameter per the Physarum rule.'"
+    },
+    {
+      "section": "Interface Mythology",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "'Starve = prune aggressively' is not what either engine does. Forty colonies, 20 s fed then 12 s at the knob: under the dish's current law starving prunes 1.2 tubes to eating's 2.8 (counting only tubes already there, 1.3 cuts begun to eating's 2.1); under cycle 10's law 1.1 to 2.6. Counting only tubes already there, cycle 10's law leans the other way: starving begins slightly more cuts than eating, 0.8 against 0.725. So starving cuts fewer under the current law and about as many under the old. Starving stops growth (0.2 tips against 1.9) and thins every tube by the same factor, so the middle road settles at 0.625 of its fed thickness and the summed send drops 3.3 dB; since the competing law prunes on flow, and flow depends only on the tubes' thickness against one another, no road loses its place. The 2026-10-13 feast/famine render agrees: its starve windows pruned 1 and 0 tubes, its eat windows 2, 2 and 1. Suggested: 'Eat = grow new branches. Starve = stop growing and fade: every road thins, none is cut.' Or, if a cull is the instrument wanted, the engine needs a starve that raises the prune line, and the text can stay."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Slime Mold Delay",
+      "made_against": "0a1fd8453616",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "slime-mold-flow-dish.html",
+          "origin": "gathered",
+          "by": "Slime Mold Delay's steward · cycles 9–11",
+          "title": "the flow dish · the playable proof",
+          "caption": "**Feed the dish and listen to the routing grow.** Place flakes, play into them, and the tubes grow on the mold's flow law while every tube sounds as a delay line. Press THE MUSIC MOVES: the left flakes play for fifteen seconds, then the right. In the steward's forty-dish check the roads ended on the right in 39 of 40, overtaking the left a median 5.0 s after the music moved. Nobody has listened to it yet: the browser run proves it plays (peak −7.4 dBFS, no errors), not that it sounds good. Its mic button needs a microphone grant this face has not been given.",
+          "near": "As the audio plays, the slime mold continues to optimize",
+          "place": "band",
+          "height": 1620,
+          "contract": {
+            "needs": "microphone"
+          }
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "slime-mold-flow-dish.html",
+            "verdict": "keep",
+            "why": "The instrument itself, and the only place the opening's claim that the routing learns the music can be tried; the caption's 39 of 40 and 5.0 s match the steward's cycle 11 table. The conform error (microphone grant) stands on Loudon's yes; everything but the mic button plays."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Interface Mythology",
+      "made_against": "baca056af00f",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Slime Mold Delay — rich — eat and starve.html",
+          "origin": "made",
+          "by": "Web Audio · canvas · the dish's engine",
+          "title": "eat and starve · a walk in three steps",
+          "caption": "**Turn the knob and count what starving does.** A fed colony on the clustered dish; the knob turned to starve, with every road's thickness read against what it was when the knob moved; then forty colonies fed and forty starved. Starving prunes fewer tubes than eating, 1.2 against 2.8 in twelve seconds under the dish's current law, and stops growth: every tube thins by the same factor (the middle road settles at 0.625, 1 ⁄ 1.6) and the summed send drops 3.3 dB. The colony keeps its shape and fades. The page says starve prunes aggressively; this engine freezes and fades.",
+          "near": "a knob that simulates feeding the colony",
+          "place": "band",
+          "height": 1330
+        },
+        {
+          "file": "headless/2026-10-13-flow-feast-famine.wav",
+          "origin": "gathered",
+          "by": "physarum_flow.py · 2026-10-13",
+          "title": "feast and famine, rendered · 30 s · unheard",
+          "caption": "Rendered offline on cycle 8's law, before the mesh and the competing law; nobody has listened to it. All five flakes sound while the knob turns every six seconds: eat from 0, 12 and 24 s, starve from 6 and 18 s. In its log the starve windows grew 1 and 0 tips and pruned 1 and 0, where the eat windows grew 4, 2 and 2 and pruned 2, 2 and 1; the summed thickness fell 24% and 11% while starving. Listen for the level to sag, 0.6 to 1.5 dB RMS under the eat windows beside it, rather than for roads to go.",
+          "near": "a knob that simulates feeding the colony",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Slime Mold Delay — rich — eat and starve.html",
+            "verdict": "keep",
+            "why": "A real test: forty colonies could have shown starve pruning more, and they show 1.2 against 2.8 (re-run, all pass). Walks up fed colony, knob, count; its last step even names the one case that leans the page's way (cycle 10's law, older tubes, 0.8 against 0.7)."
+          },
+          {
+            "file": "headless/2026-10-13-flow-feast-famine.wav",
+            "verdict": "keep",
+            "why": "Gathered evidence from an independent engine (cycle 8's Python law); the caption's tips, prunes, 24% and 11% and 0.6 to 1.5 dB all re-check from its log and samples, and it says plainly the render is unheard and on the older law."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "DSP Architecture",
+      "made_against": "8c50adcee252",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "headless/2026-10-13-flow-tight-budget.wav",
+          "origin": "gathered",
+          "by": "physarum_flow.py · 2026-10-13",
+          "title": "a tight budget, rendered · 30 s · unheard",
+          "caption": "Rendered offline on cycle 8's law; nobody has listened to it. All five flakes sound for thirty seconds with only 1.15 dish widths of tube allowed. The mold fed the two left flakes, refused fifteen tips that would have overflowed the budget, and never reached the other three. Nothing was pruned to make room: in this engine a tip that would overflow is refused.",
+          "near": "maximum total tube length budget",
+          "place": "margin"
+        },
+        {
+          "file": "Slime Mold Delay — rich — roads that compete.html",
+          "origin": "made",
+          "by": "Web Audio · canvas · the dish's engine",
+          "title": "roads that compete · a walk in five steps",
+          "caption": "**From one tube to forty dishes.** One tube is one delay line, thickening with its flow; two roads share one load, and under the competing law the longer is cut in 2.8 s where the saturating law keeps both; two flakes take turns and their roads can merge (12 of 20 seeds; never without turns); a dish starts as a mesh and thins; then forty dishes a row, run on the dish's own engine. The page's numbers come back to the third decimal, 1.731× and 1.284×, both medians. Taken apart, neither half of the new law does it alone: the competing law without turns stays at 1.985×, and turns without it look lean (1.349×) only by letting flakes go, not one dish of forty feeding all four.",
+          "near": "the real plasmodium doesn't build its network strand by strand",
+          "place": "band",
+          "height": 1440
+        },
+        {
+          "file": "headless/2026-10-18-mesh-dish-carving.png",
+          "origin": "gathered",
+          "by": "Slime Mold Delay's steward · cycle 11",
+          "title": "the mesh, carved · a browser run at 1.5, 9, 14 and 29 s",
+          "caption": "The flow dish in a headless browser: the mold covering the agar at 1.5 s, carved to two roads by 9 s while the left flakes play, and moved to the right-hand flakes by 29 s, after the music moved at 15 s.",
+          "near": "the real plasmodium doesn't build its network strand by strand",
+          "place": "band"
+        },
+        {
+          "file": "headless/2026-10-18-clustered-old-vs-new.png",
+          "origin": "gathered",
+          "by": "Slime Mold Delay's steward · cycle 11",
+          "title": "the clustered dish at 30 s · cycle 10 above, cycle 11 below",
+          "caption": "Three arbitrary seeds. On these three the two molds come out about even, 1.51×, 1.96× and 1.76× for cycle 10 against 1.63×, 1.61× and 1.54× now, which is why the median of forty is the number to trust. The new mold's roads still bend along the mesh's lattice.",
+          "near": "the real plasmodium doesn't build its network strand by strand",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "headless/2026-10-13-flow-tight-budget.wav",
+            "verdict": "keep",
+            "why": "Tests item 5 in an engine the maker did not write: 15 refused, only the left flakes fed, nothing pruned to make room (summary json and log re-read). Honest about being cycle 8's law and unheard."
+          },
+          {
+            "file": "Slime Mold Delay — rich — roads that compete.html",
+            "verdict": "keep",
+            "why": "Walks one tube, two roads, turns, mesh, then the forty-dish test, and the test could have failed: 1.731× and 1.284× come back exact, and the two halves of the law taken apart (1.985×, 1.349× with 0 of 40 fed) re-run here. Engine is the dish's byte for byte (sha256 matched)."
+          },
+          {
+            "file": "headless/2026-10-18-mesh-dish-carving.png",
+            "verdict": "keep",
+            "why": "Illustrates rather than tests: a single browser run of the carving. Caption matches the four frames. Worth its place as the picture of 'start dense, then thin', which no other figure gives."
+          },
+          {
+            "file": "headless/2026-10-18-clustered-old-vs-new.png",
+            "verdict": "keep",
+            "why": "Earns its place as a caution: three seeds where old and new come out even, so the reader learns why the median of forty is the number. Six ratios in the caption match the image labels."
+          }
+        ]
+      }
+    }
+  ]
+}

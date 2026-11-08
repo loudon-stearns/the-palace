@@ -5,7 +5,7 @@ pillars:
   - creation
   - tools
 born: 2026-04
-stage: growing
+stage: composting
 energy: high
 forward_vector: >
   Provide the complete visual language and component kit for STIGMERGY — the palace's
@@ -32,6 +32,14 @@ links:
 # BBS Design System
 
 ![[BBS Design System — hero.png]]
+
+## Composting Note — 2026-11
+
+This entry is being released. It was never dormant: [[The Daily Page]] dealt it on 2026-11-01, and the sit on 2026-11-02 folded it into [[STIGMERGY]] on Loudon's yes. It held the look of a thing that already had its own page.
+
+What was valuable here: the palace's first design system (April 2026), with its name rule, its phosphor non-negotiables and colour reserved as signal. It is the grammar that [[Drafting Table Design System]] and Loudon Live's Worn Broadcast look grew from.
+
+Its nutrients: [[STIGMERGY]] § The look carries the rules, and the kit itself stays at `_ops/stigmergy/design-system/`. Two lines of the vector were let go. "Trickster channel glowing gold" had no gold token behind it. "Agent health visible" would show nothing, because every message on the board scores green.
 
 A complete visual language and React component kit for **STIGMERGY** — the human-readable face of the palace's BBS Blackboard. Arrived April 2026 as a Claude Design handoff bundle.
 

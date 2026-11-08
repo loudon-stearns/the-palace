@@ -1,0 +1,70 @@
+# Synth Templates — card 0.2 — Celesta
+# The soft bell: a sine body with a triangle on top for the bright strike, and a filter that lets the brightness go first.
+schema: synth-template-card/0.2
+id: celesta
+name: Celesta
+family: Keys and Mallets
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Triangle as a filtered square"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, note: "the body"}
+    osc2:    {kind: oscillator, wave: triangle, octave: 1, level: half, note: "the strike: odd harmonics, gentle"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short,  s: low,  r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: zero, r: medium}, category: struck}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: sine,          why: "the steel plate's body: round, almost pure"}
+  - {block: osc2,    param: wave,    value: triangle,      why: "a few soft odd harmonics an octave up: the bright edge of the hammer, without a saw's buzz"}
+  - {block: filter1, param: type,    value: lowpass 12 dB, why: "gentle; it only takes the triangle's edge away as the note settles"}
+  - {block: fenv,    param: decay,   value: short,         why: "the brightness is in the strike and goes first"}
+  - {block: aenv,    param: attack,  value: instant,       why: "a hammer on a plate"}
+  - {block: aenv,    param: decay,   value: medium,        why: "between marimba and vibraphone: a plate on a wooden resonator"}
+  - {block: aenv,    param: sustain, value: zero,          why: "struck, then left to ring"}
+  - {block: aenv,    param: release, value: medium,        why: "a damper, but a soft felt one"}
+  - {block: mode,    param: voices,  value: poly}
+
+taste:
+  - {block: osc2,    param: level,   range: "little – equal to osc1", default: half, why: "more triangle, more glass"}
+  - {block: filter1, param: cutoff,  range: "mid – bright",           default: mid}
+  - {block: fenv,    param: amount,  range: "little – generous",      default: moderate}
+  - {block: aenv,    param: decay,   range: "short – long",           default: medium}
+  - {block: aenv,    param: release, range: "short – long",           default: medium}
+
+listening:
+  cue: "A soft glass bell: a bright tap that settles at once into a round, pure tone. Think of the Sugar Plum Fairy. Nothing buzzes."
+  ab: "Mute the triangle: a plain sine with no strike, more like a soft flute than a bell. Bring it back and the tap returns. Then swap the triangle for a square: the same part turns harsh and the celesta becomes a toy."
+
+render:
+  tempo: 100
+  note: [C5, E5, G5, C6, G5, E5, C5, G4]
+  velocity: 85
+  pattern: "eighths, one bar, an arpeggio up and down, each an eighth long"
+  length_s: 3.5
+
+mappings: {}

@@ -1,0 +1,236 @@
+{
+  "title": "Haptic Handwheel — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Haptic Handwheel]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walks-built-by-the-method"
+    },
+    {
+      "target": "[[Simondon]]",
+      "type": "connects-to",
+      "label": "the-two-parts-test"
+    }
+  ],
+  "forward_vector": "I am the manifest of Haptic Handwheel's rich face: three walks the Shop made on the steward's own feel engine (the struck spring measured against the pendulum, a stiff spring sent down a wire until the engine draws where every feel can live, and the knob with a light against the knob with a motor, ending on a note you land three ways), beside the steward's feel lab, his renders of four feels and his stability chart, with the fingerprint of the words each was made against. A screen can't push back, so every piece says what it can test and what only a hand can. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Haptic Handwheel",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Two kinds of force",
+      "kind": "no-claim-edit",
+      "what": "The steward's own cycle-1 finding, carried to the page: 'Over USB to Max, the stiffest feel that stays calm with no hand on the knob is 0.022 N·m/rad, which is softer than a pitch-wheel return spring' (scroll, cycle 1), and his verdict table marks the 0.03 row 'only while held' on both wire lanes; the 0.002 N·m·s/rad rescue and the back-EMF brake are his too. On his frictionless test knob, the pitch-wheel return at 0.03 N·m/rad grows hands off over USB (×6.74 in 30 swings; edge 0.022) and as an audio line (×25.8; edge 0.019). With the engine's own 3 mN·m friction on, a plain 0.03 spring comes to rest over USB: the friction is damping on the device. The sharper case is the pitch-wheel return as built (the engine's `centre` feel, 0.03 plus its 0.01 N·m centring push): with friction on and no hand, it buzzes about ±0.10 rad on an audio line, settles over USB from a small pull, and settles on every lane with the motor's own brake at its low guess. So 'Soft feels can cross a cable' wants the damping kept on the device, which the page doesn't say. Possible wording: 'Soft feels can cross a cable, if the damping stays on the device.' Shown in 'a stiff spring down a wire'; checks.mjs re-runs every number.",
+      "status": "open"
+    },
+    {
+      "section": "What the hand should feel",
+      "kind": "no-claim-edit",
+      "what": "'A pendulum quickens as it settles' is true of a hard strike, and a light one hides it. On the steward's engine with the pretend motor's friction, from 2.3 rad the pendulum climbs 4.61 → 5.78 Hz (+25.4%; about A₁²/16 = +27.6% is available, A₁ being the first measured swing, 1.87 rad) while the spring holds 5.89 → 5.81 Hz; from 1 rad the pendulum climbs only +3.1%; from 0.5 rad not at all; and under about 0.3 rad friction stops either knob within a swing. The spring's rate never slows: in its last half swing or two, dry friction has moved the point it rings about by 0.035 rad, and the meter, timing crossings of the old rest point, reads them late. With friction off it holds 5.89 Hz to its last swing. Possible wording: 'a spring wobbles at one rate all the way down, and a pendulum, struck hard, quickens as it settles.' The piece 'the struck spring' measures it; checks.mjs re-runs it.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "What the hand should feel",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "made_against": "8f7b5dd1cb00",
+      "pieces": [
+        {
+          "file": "proofs/feel-lab/frets_landing.wav",
+          "origin": "gathered",
+          "by": "steward · cycle 6",
+          "title": "pitch you can lean on · frets, let go thirty-two times",
+          "caption": "Four passes of eight let-gos, clicks marking the passes: no motor bumps, the motor's raw bumps, bumps cancelled, then bumps cancelled with the push off the ridge. Each landed note plays beside its in-tune neighbour, so slow beating means a sour landing. The steward's feel map measured the last pass landing within 2.4 cents every time. Rendered by the engine, not yet heard by an agent.",
+          "near": "Pitch you can lean on",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/feel-lab/lock.wav",
+          "origin": "gathered",
+          "by": "steward · cycle 1",
+          "title": "the lock · an LFO eased down to the beat",
+          "caption": "The hand eases an LFO's rate down to the beat over eight seconds; the tremolo crawls against the clicks, then locks. Where each click landed in the wobble, as a fraction of its cycle, in the same run: 0.50, 0.99, 0.48, 0.01, 0.26, 0.50, 0.74, 0.98, 0.23 while it crawls, then 0.02, 0.01, 0.01, 0.00, 1.00, 1.00 … once locked: the same point every time. Not yet heard by an agent.",
+          "near": "Slow an LFO toward the tempo",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/feel-lab/follow_melody.wav",
+          "origin": "gathered",
+          "by": "steward · cycle 1",
+          "title": "haptic filtering · the knob plays a melody",
+          "caption": "The knob turns itself to each note of a melody, then a finger brakes it and the glides slow, then the hand grips it and adds vibrato. The sound follows where the knob actually is. Not yet heard by an agent.",
+          "near": "A monosynth plays a melody",
+          "place": "margin"
+        },
+        {
+          "file": "proofs/feel-lab/turntable_hold.wav",
+          "origin": "gathered",
+          "by": "steward · cycle 7",
+          "title": "the turntable · four ways to hold 33⅓",
+          "caption": "A riff on the platter through one scene of braking and letting go, four times, one to four ticks marking each: the push alone, an ordinary speed correction (listen for the yelp after the drag), one that learns only near speed, and the final design, which knows the cost of spinning and trims. The steward notes he hasn't listened to it either.",
+          "near": "The knob turns on its own and the hand slows it",
+          "place": "margin"
+        },
+        {
+          "file": "Haptic Handwheel — rich — the struck spring.html",
+          "origin": "made",
+          "by": "the Maker · canvas + web audio",
+          "height": 980,
+          "title": "the struck spring · a walk in four steps",
+          "caption": "**Does a spring wobble at one rate all the way down, and does a pendulum quicken?** Strike a spring, then a pendulum, put a finger on it, then strike both from one pull and read the rates the engine measures each half swing. From 2.3 rad on the pretend motor the spring holds 5.89 → 5.81 Hz and the pendulum climbs 4.61 → 5.78 Hz, with the last two half swings set aside: there friction has moved the rest point and the meter reads late. From a small pull the two can't be told apart. The pull stops at 2.3 rad because the 0.2 N·m clamp binds the spring at 2.353; it never touches the pendulum. Sound after a click.",
+          "near": "a spring wobbles at one rate all the way down"
+        },
+        {
+          "file": "proofs/feel-lab/feel-lab.html",
+          "origin": "gathered",
+          "by": "steward · cycles 1 to 9",
+          "height": 1150,
+          "title": "the feel lab · every feel, dragged",
+          "caption": "The steward's lab: the seven feels on one simulated knob you drag, with the motor's brake and bumps switchable and the feel map's table. The pieces on this face run the same engine, inlined unchanged. Its own notes box is the steward's; nothing typed there is kept.",
+          "near": "Here the disturbance is the playing",
+          "contract": {
+            "needs": ""
+          }
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/feel-lab/frets_landing.wav",
+            "verdict": "keep",
+            "why": "The steward's render, caption checked against feel_map_results.json (max 2.39 cents). Anchored at the struck-spring phrase; re-anchor to 'Pitch you can lean on'."
+          },
+          {
+            "file": "proofs/feel-lab/lock.wav",
+            "verdict": "keep",
+            "why": "Click phases in the caption match feel_lab_results.json. Anchored at the struck-spring phrase; re-anchor to 'The lock'."
+          },
+          {
+            "file": "proofs/feel-lab/follow_melody.wav",
+            "verdict": "keep",
+            "why": "The steward's render of haptic filtering, captioned honestly. Anchored at the struck-spring phrase; re-anchor to 'Haptic filtering'."
+          },
+          {
+            "file": "proofs/feel-lab/turntable_hold.wav",
+            "verdict": "keep",
+            "why": "The steward's cycle-7 render, captioned honestly. Anchored at the struck-spring phrase; re-anchor to 'The turntable'."
+          },
+          {
+            "file": "Haptic Handwheel — rich — the struck spring.html",
+            "verdict": "keep",
+            "why": "A test that found the page's condition (a hard strike); the engine matches the exact pendulum period at every measured swing. Notes: the caption should say the last two half swings are set aside, and the end dip is the meter timing zero crossings around a rest point friction moved 0.035 rad, not the spring slowing."
+          },
+          {
+            "file": "proofs/feel-lab/feel-lab.html",
+            "verdict": "keep",
+            "why": "The steward's lab framed whole, captioned honestly."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Two kinds of force",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "made_against": "075fcbba73d8",
+      "pieces": [
+        {
+          "file": "proofs/feel-lab/stability.svg",
+          "origin": "gathered",
+          "by": "steward · cycle 1",
+          "title": "how stiff before delay makes it buzz · the steward's sweep",
+          "caption": "The stiffest spring that stays calm on each lane, hands off (bright) and gripped (dim), on a log scale, with the stiffness each feel needs as numbered lines. Simulated with assumed numbers; it matches the closed form within about 10%. The walk beside it draws the same edge cell by cell.",
+          "near": "delay makes a stiff spring unstable",
+          "place": "margin"
+        },
+        {
+          "file": "Haptic Handwheel — rich — a stiff spring down a wire.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1040,
+          "title": "a stiff spring down a wire · a walk in five steps",
+          "caption": "**Is a stiff feel only safe near the motor, and can a soft one cross a cable?** One spring on the motor, then down a wire, then held, then with damping kept on the device; last, the engine draws stiffness against delay and runs every feel on every lane. The stiff feels need the motor. The softest feel crosses a cable only with damping kept local or a hand on it. Silent.",
+          "near": "delay makes a stiff spring unstable"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "proofs/feel-lab/stability.svg",
+            "verdict": "keep",
+            "why": "The steward's sweep; 'within about 10%' is his own figure."
+          },
+          {
+            "file": "Haptic Handwheel — rich — a stiff spring down a wire.html",
+            "verdict": "keep",
+            "why": "A real test: 24 of 24 verdict cells match the steward and the map agrees with K(T/2+d)<b away from the edge. Note: its step-5 verdict line should say 'on a knob with no friction', as its honest box already does; with the engine's 3 mN·m friction on, 0.03 settles over USB."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Feedback folded into the control",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "made_against": "dd98c0052b18",
+      "pieces": [
+        {
+          "file": "Haptic Handwheel — rich — two parts or one.html",
+          "origin": "made",
+          "by": "the Maker · canvas + web audio",
+          "height": 960,
+          "title": "two parts or one · a walk in four steps",
+          "caption": "**Does the news come back through the part already in the hand?** A plain knob, then a light beside it (two parts), then one motor that senses and pushes, then the test: land twelve named notes four ways, one of them a snap knob that rounds to the nearest note on let-go with no motor, as the control. The motor and the snap knob both land in tune by correction, so the test scores finding the right note apart from cents, and only that column speaks to the claim. On the engine, a dragged motor knob spends 65% of its time within 15 cents of a note, the plain and snap knobs 30%: the notches are what's left to count. A screen can't push back, so this tests where the news lives, not whether a hand feels it. Sound after a click.",
+          "near": "Here the motor both senses and pushes"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Haptic Handwheel — rich — two parts or one.html",
+            "verdict": "remake",
+            "why": "Demonstrates the engine's detent rather than testing the Simondon claim: a snap-to-note plain knob would also land 9 of 9, so 'landed within 10 cents' can't come out against the claim. Remake: add a snap-to-note control way, score right note and cents separately, drive the verdict from the right-note column, and reword 'The one part carried the news'."
+          }
+        ]
+      }
+    }
+  ]
+}

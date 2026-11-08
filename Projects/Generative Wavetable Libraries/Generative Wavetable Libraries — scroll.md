@@ -15,24 +15,37 @@ forward_vector: "I am Generative Wavetable Libraries's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T12:43:42.519Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-28T22:49:16.215Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 18 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (18 days ago) · 4 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 20 · last ran 2026-10-28 (today)
+- **Plan:** agreed 2026-09-25 (33 days ago) · 7 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — I turned 508 notes from music AIs into wavetables. The family chain glides a third time, but here Position means pure to reedy, not dull to bright. (`gwl-steward-047`)
-- **Last commit touching this project:** 2026-10-14 `7487a7d5` — steward(Generative Wavetable Libraries): cycle 17 — SPINNING UP — cycle 17
+- **Last shipped:** 2026-10-28 (today) — I exported the palace's own tables as 57 single-cycle WAVs: crystal, Floquet and Shepard cycles at three lengths, looped and tuned for samplers and hardware. (`gwl-steward-052`)
+- **Last commit touching this project:** 2026-10-28 `b4391993` — steward(Generative Wavetable Libraries): cycle 19 — SPINNING UP. HOME: [Generative Wavetable Libraries](obsidian://open?vau…
 - **Signal:** steady
-- **Drift:** 9 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
+- **Drift:** 11 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-28 — cycle 20 · taught item 3, proposed item 4 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 2 — items 2, 4; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 4, from cycle 20 — 2026-10-28 — [[Generative Wavetable Libraries — tuning]]
 
 ### Where this stands
 
-This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. Behind it are the crystal-lattice sweep and the Shepard dark-to-bright, both of which you heard work, plus a Floquet table. Earlier today I ran the chat interview on two big folders of AKWF cycles (122 FM, 142 organ). Both times a 'family chain' glided where the old dull-to-bright order lurched. Which order becomes the default is still your open question. This cycle starts the next part of the plan, widening the sources, with an audio AI's output. I didn't render anything new. The sister project, Generative Sample Libraries, had already rendered about 1600 MusicGen and Stable Audio notes and graded each…
+This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. You've heard the crystal-lattice and Shepard tables work. In October I ran the chat interview on big AKWF folders and on cycles pulled from music-AI notes, and you picked the 'family chain' order. Last cycle I traced the buzz you heard to the sweep jumping between frames that are too different, not to the loop points, and smoothed the three family chains. That A/B is still waiting on your ears. The plan's next step after the interview is finishing the formats: Serum and Ableton are done, and what was missing is single cycles for hardware and samplers. This cycle built that exporter and ran it on the thre…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 16:** Only the three family chains are smoothed. _(in 2 notes, the latest cycle 19)_
+- **rough since cycle 16:** Nobody has heard it. _(in 3 notes, the latest cycle 20)_
+- **rough since cycle 16:** No one has heard any of it, and the CLM files pass a read-back check but haven't been loaded in Serum. _(in 3 notes, the latest cycle 18)_
 
 ### Open asks
 
-- `gwl-steward-043` — directional_decision · posted 2026-10-14 · options: FAMILY-CHAIN · KEEP-CENTROID · WALK · FAMILIES-ONLY
+- `gwl-steward-050` — sensory_verification · posted 2026-10-28 · options: KEEP-SIGMA-1 · MORE · LESS · NOT-IT
 
 ### Answered, not yet consumed
 
@@ -40,6 +53,7 @@ _None._
 
 ### Decided
 
+- `gwl-steward-043` — directional_decision → GRANTED — option_id=FAMILY-CHAIN; notes: "I did find a persistant buzz present that felt incorrect to me, can we work on smoothing the loop points?" (2026-10-15)
 - `gwl-steward-040` — directional_decision → GRANTED — option_id=SCALE-UP (2026-06-25)
 - `gwl-steward-037` — directional_decision → GRANTED — option_id=AKWF-IMPORT (2026-06-23)
 - `gwl-steward-034` — directional_decision → GRANTED — option_id=FLOQUET (2026-06-23)
@@ -47,6 +61,22 @@ _None._
 - `gwl-steward-029` — sensory_verification → GRANTED — (no option_id); notes: "they all work very well, propose a major build" (2026-06-23)
 - `gwl-steward-027` — directional_decision → GRANTED — option_id=VERIFY-IN-SYNTH; notes: "make it really easy to open the files in serum and ableton, open the folder and tell me exactly what you need tested and what I should be listening for
  " (2026-06-23)
+
+### Runs
+
+- 2026-10-28 — cycle 20 · taught item 3, proposed item 4 for canon
+- 2026-10-28 — cycle 19 · taught item 1, proposed item 2 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-28 · [[Generative Wavetable Libraries]] · § What Requires Development, new bullet after 'Phase coherence across frames' — the page names phase coherence as the open frame-to-frame problem, and this is the second one, found from Loudon's buzz note
+- **4.** 2026-10-28 · [[Generative Wavetable Libraries]] · § Single-Cycle Waveforms, a new last sentence — the page lists single cycles as a format family with nothing built, and now there is a tested writer for it
 
 <!-- scroll:now:end -->
 
@@ -75,6 +105,133 @@ Loudon's direction from the board, approved as orders on 2026-09-25:
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gwl-steward-052" -->
+### 2026-10-28 — cycle 20 — I exported the palace's own tables as 57 single-cycle WAVs: crystal, Floquet and Shepard cycles at three lengths, looped and tuned for samplers and hardware.
+> shipped · smoothing ask still open · steward leans 600-samples as the default hardware length
+
+`single-cycle/export_single_cycles.py` takes any cycle and writes it as a standalone single-cycle WAV at 2048, 600 and 256 samples. I ran it on 19 cycles: the seven pure crystal lattices (cubic to triclinic), plus six evenly spaced frames each from the Floquet and Shepard tables. That makes 57 files, 304 KB in all. Each file is 16-bit mono at 44.1 kHz. The short lengths are cut in the spectrum, so a short cycle drops the harmonics it can't hold instead of folding them back as noise. Each file is free of DC, peaked at -0.3 dB, and starts on a zero crossing, so there's no click when a note starts. Each one also carries a loop and its root note inside the file. The 600-sample cycles play at D2.
+
+Two things I found while checking and then fixed. First, the three lengths of the same cycle were starting at different points, up to half a cycle apart, because several crossings rose almost equally steeply. Now each cycle's start is chosen once, on the full-length version, and kept at every length; they line up within 1.3%. Second, a crossing that sat exactly on the cycle's wrap point was being missed at some lengths.
+
+The results: below each length's cut, every file matches its source to -94 dB or better. Every loop seam is no bigger than the cycle's own sharpest step. The one real cost is the bright end of the Shepard table at 256 samples, which keeps only 52-96% of its energy. Those sounds live above the 127 harmonics a 256-sample cycle can hold, so use the 600 or 2048 versions of them.
+
+What to listen for, per your standing order. Open `single_cycles_600_audition.wav`: every cycle held 1.2 seconds at D2, looped the way a sampler loops it. Crystal starts at 0 s, Floquet at 10.2 s, Shepard at 18.9 s. You should hear no click at any note start and a steady tone with no flutter. Then ask whether the lattices still sound like one family getting brighter and rougher, and whether any cycle is too thin to be worth having alone. To try them in instruments: drag a file from `cycles/2048/` onto a Serum or Vital oscillator, or a file from `cycles/600/` into Simpler with loop on, and play D2. The steps are in [the build notes](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Wavetable%20Libraries/single-cycle/BUILD.md).
+
+**Artifacts:**
+- [all 19 cycles: the 2048 version in gold over the 256 in blue. Only the bright Shepard frames come apart.](Projects/Generative Wavetable Libraries/single-cycle/single_cycles_contact_sheet.png)
+- [every 600-sample cycle held at D2, looped: crystal from 0 s, Floquet from 10.2 s, Shepard from 18.9 s.](Projects/Generative Wavetable Libraries/single-cycle/single_cycles_600_audition.wav)
+- [what's in the folder, the checks, and what to open in Serum and Simpler.](Projects/Generative Wavetable Libraries/single-cycle/BUILD.md)
+- [the exporter: band-limited cut, start on a zero crossing, loop and root note written into the file.](Projects/Generative Wavetable Libraries/single-cycle/export_single_cycles.py)
+- [rebuilds the contact sheet.](Projects/Generative Wavetable Libraries/single-cycle/figure.py)
+- [every file's root note, match, energy kept, seam and start value.](Projects/Generative Wavetable Libraries/single-cycle/export_report.json)
+- [one of the 57: the roughest lattice at the AKWF length.](Projects/Generative Wavetable Libraries/single-cycle/cycles/600/crystal_triclinic_600.wav)
+- [one of the 57: the far end of the Floquet table, ready to drop into Serum.](Projects/Generative Wavetable Libraries/single-cycle/cycles/2048/floquet_pos1p00_2048.wav)
+
+_what each length keeps (worst case across the 19 cycles)_
+| length | root a sampler plays it at | match below the cut | energy kept, worst |
+| --- | --- | --- | --- |
+| 2048 | 21.5 Hz (MIDI 16) | -103 dB | 100% |
+| 600 | 73.5 Hz (D2) | -98 dB | 99.96% |
+| 256 | 172 Hz (MIDI 52) | -95 dB | 52% (Shepard, far end); crystal and Floquet 99.9%+ |
+
+_Changed in the workshop:_ BUILD — new workshop folder: the single-cycle exporter, its checks, and what to open and listen for.
+_Proposed for canon:_ Generative Wavetable Libraries (§ Single-Cycle Waveforms, a new last sentence) — the page lists single cycles as a format family with nothing built, and now there is a tested writer for it; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard it. No hardware or sampler has loaded these files. Which device takes which length is a convention, not a tested fact. I haven't checked which samplers read the loop and root note stored in the file.
+
+_Next moves named:_ When you answer the smoothing question, apply your verdict to the other tables (centroid, walk, tilted, per-family), then run the single-cycle exporter over the AKWF family chains too. · Point the exporter at one named piece of hardware you own and check its length and format rules, so the 'for' column becomes tested fact. · If a Max for Live loader is ever wanted, it needs only a folder in, the files' root notes, and a looped buffer per cycle. That's written down in BUILD.md for when the Max pause lifts.
+<sub>`gwl-steward-052` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-77be2d72c0" -->
+### 2026-10-28 — cycle 20
+
+taught item 3, proposed item 4 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="gwl-steward-050" -->
+### 2026-10-28 — cycle 19 — Is the buzz you heard gone in the smoothed FM chain, and was the smoothing too much, too little, or right?
+> still working · A/B sweeps ready · steward leans KEEP-SIGMA-1
+
+You picked the family chain as the default wavetable order and heard a persistent buzz in it. I measured it. The loop seams are clean. The buzz is the table stepping between frames that differ too much, five to eleven times a second during a sweep. Blending each frame gently into its neighbours cuts it 10 to 18 dB and changes 2 to 6 percent of each frame's sound. The FM A/B plays the shipped sweep, then the smoothed one. If it sounds right, I make this the packers' default and rebuild every table. A wider blur takes out more buzz and washes out more timbre, and a narrower one keeps more edge. If it isn't the buzz you meant, tell me where you heard it. I'll keep working on the formats either way.
+
+**Artifacts:**
+- [shipped, one second of silence, then smoothed.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_fmsynth_family_chain_AB_shipped_then_smooth.wav)
+- [the dial, and the striping on the 330 Hz harmonic before and after.](Projects/Generative Wavetable Libraries/loop-smoothing/smoothing.png)
+- [contact_sheet_family_chain_tilted.png](Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_family_chain_tilted.png)
+- [contact_sheet_family_chain.png](Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_family_chain.png)
+- [contact_sheet_centroid_order.png](Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_centroid_order.png)
+- [ai_cycles_asked_violin_audition_sweep.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin_audition_sweep.wav)
+- [ai_cycles_asked_violin_ableton.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin_ableton.wav)
+- [ai_cycles_asked_violin.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin.wav)
+- [ai_cycles_asked_piano_audition_sweep.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_piano_audition_sweep.wav)
+- [ai_cycles_asked_piano_ableton.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_piano_ableton.wav)
+- [ai_cycles_asked_piano.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_piano.wav)
+- [ai_cycles_asked_marimba_hit_audition_sweep.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba_hit_audition_sweep.wav)
+- [ai_cycles_asked_marimba_hit_ableton.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba_hit_ableton.wav)
+- [ai_cycles_asked_marimba_hit.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba_hit.wav)
+<sub>`gwl-steward-050` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="gwl-steward-049" -->
+### 2026-10-28 — cycle 19 — The buzz wasn't the loop seam. It was the table stepping between frames. A one-frame blur along Position cuts it 10 to 18 dB, and here it is to A/B.
+> shipped · three family chains smoothed, A/B sweeps ready · unheard · steward leans sigma 1
+
+**Where the buzz is not.** In all 122 FM and 154 organ source cycles, the end meets the start cleanly: the seam step is never more than twice the cycle's own sharpest step inside it. I read AKWF from the Desktop copy, because the Dropbox copy has gone online-only. A single frame held still at A2 is clean too: −71 dB off its harmonics in the median frame. And when I swapped in a fully band-limited player, the sweeps didn't change at all, so this isn't foldback either.
+
+**Where it is.** In the audition sweeps, the energy off the note sits 4 to 15 Hz either side of every harmonic. That is the rate the sweep steps through frames (5 a second on FM, 11 on the AI table). Window by window it follows how different the neighbouring frames are (correlation 0.87). Each frame boundary is a corner in the crossfade, and a big jump repeated five times a second becomes a flutter-buzz riding on the note. You can see it as vertical striping on the 330 Hz harmonic in [smoothing.png](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Wavetable%20Libraries/loop-smoothing/smoothing.png).
+
+**The fix.** Each frame is blended gently with its neighbours, a Gaussian one frame wide, on frames already lined up so nothing cancels. Rounding the corners alone with a cubic curve gained 3 dB at most. What matters is how big each jump is.
+
+**What to open, in order** (what to test and listen for is in [BUILD.md](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Wavetable%20Libraries/loop-smoothing/BUILD.md)):
+1. [the FM chain, shipped then smoothed](open:Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_fmsynth_family_chain_AB_shipped_then_smooth.wav): two 24 s sweeps with a second of silence between. Listen for the fast flutter on the note in the first half and whether it's gone in the second. Then listen for the cost: does the timbre still travel as far, or does it sound washed?
+2. The same A/B for the [organ](open:Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_eorgan_family_chain_AB_shipped_then_smooth.wav) and the [AI cycles](open:Projects/Generative Wavetable Libraries/loop-smoothing/tables/ai_cycles_family_chain_AB_shipped_then_smooth.wav). The AI table had the most buzz.
+3. In Serum, drag `<name>_smooth.wav` onto oscillator A. In Ableton's Wavetable, drag `<name>_smooth_ableton.wav` onto the oscillator display. Turn Position fast: the buzz grows with speed, so a fast turn is the hard test.
+
+**Artifacts:**
+- [FM chain sweep: shipped, a second of silence, smoothed. Start here.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_fmsynth_family_chain_AB_shipped_then_smooth.wav)
+- [organ chain: shipped then smoothed.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_eorgan_family_chain_AB_shipped_then_smooth.wav)
+- [AI-cycles chain: shipped then smoothed. The biggest change.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/ai_cycles_family_chain_AB_shipped_then_smooth.wav)
+- [the dial (buzz against blur width), and the 330 Hz harmonic striped before, smooth after.](Projects/Generative Wavetable Libraries/loop-smoothing/smoothing.png)
+- [Serum/Vital/Surge: FM chain smoothed, 122 frames, CLM.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_fmsynth_family_chain_smooth.wav)
+- [Ableton Wavetable: FM chain smoothed.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_fmsynth_family_chain_smooth_ableton.wav)
+- [FM chain smoothed, sweep alone.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_fmsynth_family_chain_smooth_audition_sweep.wav)
+- [Serum/Vital/Surge: organ chain smoothed, 142 frames, CLM.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_eorgan_family_chain_smooth.wav)
+- [Ableton Wavetable: organ chain smoothed.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_eorgan_family_chain_smooth_ableton.wav)
+- [organ chain smoothed, sweep alone.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/akwf_eorgan_family_chain_smooth_audition_sweep.wav)
+- [Serum/Vital/Surge: AI chain smoothed, 256 frames, CLM.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/ai_cycles_family_chain_smooth.wav)
+- [Ableton Wavetable: AI chain smoothed.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/ai_cycles_family_chain_smooth_ableton.wav)
+- [AI chain smoothed, sweep alone.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/ai_cycles_family_chain_smooth_audition_sweep.wav)
+- [what the buzz is, the fix, what to open and listen for, what isn't verified.](Projects/Generative Wavetable Libraries/loop-smoothing/BUILD.md)
+- [the measurements: off-note energy, naive vs band-limited playback.](Projects/Generative Wavetable Libraries/loop-smoothing/buzz_probe.py)
+- [smooths any CLM table (--sigma), writes Serum, Ableton, sweep and A/B.](Projects/Generative Wavetable Libraries/loop-smoothing/smooth_tables.py)
+- [draws smoothing.png.](Projects/Generative Wavetable Libraries/loop-smoothing/figure.py)
+- [every number: the full sigma dial per table, and the spline-only result.](Projects/Generative Wavetable Libraries/loop-smoothing/smoothing.json)
+
+_Buzz (energy 4–15 Hz off the harmonics, 24 s sweep, band-limited playback) before and after a one-frame blur_
+| family chain | as shipped | smoothed (sigma 1) | share of each frame changed | worst morph dip |
+| --- | --- | --- | --- | --- |
+| FM (122 frames) | −26.1 dB | −36.6 dB | −12 dB, about 6 % | −2.9 → −0.7 dB |
+| organ (142) | −25.4 dB | −38.9 dB | −14 dB, about 4 % | −2.7 → −0.7 dB |
+| AI cycles (256) | −16.9 dB | −34.9 dB | −17 dB, about 2 % | −2.5 → −0.8 dB |
+
+_Changed in the workshop:_ BUILD — new workshop folder: the buzz diagnosis, the smoothing, and what to listen for.
+_Proposed for canon:_ Generative Wavetable Libraries (§ What Requires Development, new bullet after 'Phase coherence across frames') — the page names phase coherence as the open frame-to-frame problem, and this is the second one, found from Loudon's buzz note; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard it. 'Buzz' is my measured reading of your word, and it scales with how fast Position moves. Only the three family chains are smoothed. The packers don't smooth by default yet.
+
+_Next moves named:_ Your ears on the FM A/B. If the buzz you meant is gone and nothing went washed, the packers smooth at sigma 1 by default and I rebuild every table. · If it isn't the buzz you heard, tell me where in the sweep or in which synth, and I'll measure that spot. · Then back on the plan, finishing the formats: single-cycle exports for hardware and Eurorack, and a Surge XT .wt of a family chain for you to load.
+<sub>`gwl-steward-049` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-a1de94de2e" -->
+### 2026-10-28 — cycle 19
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gwl-steward-047" -->
 ### 2026-10-14 — cycle 18 — I turned 508 notes from music AIs into wavetables. The family chain glides a third time, but here Position means pure to reedy, not dull to bright.
 > shipped · 256-frame AI tables + per-family + per-instrument, Serum + Ableton · steward leans FAMILY-CHAIN

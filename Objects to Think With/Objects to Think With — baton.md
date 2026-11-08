@@ -10,42 +10,33 @@ forward_vector: "I carry the in-progress move on [[Objects to Think With]] acros
 
 ## Move
 
-Place the loose-bar forward vector, the :86 Forward Vectors bullet, and the exemplifies links from the instance side, drafted below and waiting for Loudon's yes.
+Add `exemplifies` → [[Objects to Think With]] (label `object-to-think-with`) from the instance side on the eighteen qualifying projects, each with the sentence in its own body that says it — for a Weave, not a deposit. Smaller, beside it: at `Objects to Think With.md:33–34`, replace the unverified list with Papert & Harel's own words (1991) and name *cultural presence* beside body-syntonic.
 
 ## Why this move matters
 
-On 2026-10-25 Loudon took the loose bar ("loose"): an object qualifies when the idea is heard or seen in it, even if the entry never names a part for the learner to *be*. The count at `:43` now says twenty-two of fifty-one (b14566a4). The page's forward vector and its Forward Vectors bullet still carry the old numbers, and eighteen of the twenty-two don't yet declare `exemplifies` from their own side.
+On 2026-10-26 Loudon placed the page's loose-bar forward vector and its Forward Vectors bullet, and ruled the rest: "leave the eighteen exemplifies links to a Weave." The page now says eighteen further projects qualify and do not yet declare it; until they do, the claim lives on one side only. Its own `:33–34` also quotes a list the recount could not find in Papert, and drops the third of his three terms.
 
 ## Current state
 
-- The recount is in the bundle: `Objects to Think With — sketch — papert-recount.md` (landed 86d6714c), with all 51 verdicts, their quotes and reasons.
-- On the loose bar, the 22 are the 11 strict qualifies plus the 11 can't-tells that fail only at gate 3, identification. The three can't-tells that fail at gate 1 stay out: [[Biomechanical Synthesis]], [[1 from 2]], [[Meadows and an Artist's Career]].
-- Four already declare `exemplifies`: [[Blood Compressor]], [[Compressor Design]], [[2D Torus Wavetable Synthesizer]], [[Action Potential Oscillator]] (checked on main, 2026-10-25).
-- Loudon has seen only the strict-bar drafts for these three places. The loose-bar words below are the Concierge's re-derivation from the table.
+- The recount is in the bundle: `Objects to Think With — sketch — papert-recount.md` (landed 86d6714c), with all 51 verdicts, their quotes and reasons. It is the list for this move.
+- The count at `:43` (twenty-two of fifty-one, b14566a4), the forward vector at `:26` and the Forward Vectors bullet at `:86–87` are placed on the loose bar.
+- Four already declare `exemplifies`: [[Blood Compressor]], [[Compressor Design]], [[2D Torus Wavetable Synthesizer]], [[Action Potential Oscillator]].
 
 ## Next move
 
-Show Loudon the three drafts below; place what he says yes to.
-
-1. **`Objects to Think With.md:26`, the frontmatter `forward_vector`.**
-   Old: `I name what forty-one projects are for. I want the seventeen that qualify and do not yet say so to declare it from their own side, and I want the harder thing the palace has never collected — evidence that an object actually taught its idea, including a case where one didn't.`
-   New: `I name what the palace's projects are for. I want the eighteen that qualify and do not yet say so to declare it from their own side, and I want the harder thing the palace has never collected — evidence that an object actually taught its idea, including a case where one didn't.`
-   (The project count is left out, as the recount advised, so it can't go stale again.)
-2. **`Objects to Think With.md:86–87`, the Forward Vectors bullet.**
-   Old: `- Seventeen further `Projects/` entries qualify and do not yet declare it. A Weave should add` / `` `exemplifies` from the instance side rather than a deposit adding twenty-one links at once.``
-   New: `- Eighteen further `Projects/` entries qualify and do not yet declare it. A Weave should add` / `` `exemplifies` from the instance side rather than a deposit adding them all at once.``
-3. **The `exemplifies` links, from the instance side**, each in the project's own frontmatter `links:`, in the shape the four existing ones use:
+1. **The eighteen**, each in the project's own frontmatter `links:`, in the shape the four use, with a body sentence that names the object and the idea it carries:
    ```yaml
      - target: "[[Objects to Think With]]"
        type: exemplifies
        label: object-to-think-with
    ```
-   The eighteen. Strict qualifies (10): [[Haptic Handwheel]] · [[Portamento and Physical Pitch Modeling]] · [[Floquet Time-Modulated Loops]] · [[Waveguide Synthesizer]] · [[Tract Mirror]] · [[Murmuration]] · [[Frequency-Time Duality]] · [[Shepard Tone Synthesizer]] · [[Retrospective Delay]] · [[Semantic Webcam]]. Loose-bar additions (8): [[Quantum Synthesizer]] · [[Inharmonic Wavetable Synthesis]] · [[Neural Granular Synthesis]] · [[Piano String Inharmonicity]] · [[Crystal Synthesizer]] · [[Particle Synthesis]] · [[Slime Mold Delay]] · [[Bayesian Granular Synthesizer]].
+   Strict qualifies (10): [[Haptic Handwheel]] · [[Portamento and Physical Pitch Modeling]] · [[Floquet Time-Modulated Loops]] · [[Waveguide Synthesizer]] · [[Tract Mirror]] · [[Murmuration]] · [[Frequency-Time Duality]] · [[Shepard Tone Synthesizer]] · [[Retrospective Delay]] · [[Semantic Webcam]]. Loose-bar additions (8): [[Quantum Synthesizer]] · [[Inharmonic Wavetable Synthesis]] · [[Neural Granular Synthesis]] · [[Piano String Inharmonicity]] · [[Crystal Synthesizer]] · [[Particle Synthesis]] · [[Slime Mold Delay]] · [[Bayesian Granular Synthesizer]].
+2. **`:33–34`**: Papert & Harel, "Situating Constructionism" (1991) — *"constructing a public entity, whether it's a sand castle on the beach or a theory of the universe"* — in place of the unverified list, and *cultural presence* named beside body-syntonic (recount, item at its line 104). Show Loudon the words first.
 
 ## Calibrations
 
 - Link from the instance side, never from this page (SCHEMA §4, directionality).
-- Also offered by the recount, smaller, not in this move: replace the unverified list at `:33–34` with Papert & Harel's own words (1991), and name *cultural presence* beside body-syntonic.
+- Each link carries its sentence; a bare link added in bulk is what the page's own bullet warns against.
 
 ## Load these files first
 

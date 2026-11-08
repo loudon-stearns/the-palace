@@ -1,0 +1,387 @@
+<!doctype html>
+<!--
+  title: Floquet Theory — rich — same equation twice
+  born: 2026-11-03
+  links: [[Floquet Theory]] connects-to · rich-face-piece-of · [[Crystal Synthesizer]] connects-to · the spatial twin · [[Mathieu Equation]] connects-to · the equation read both ways · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am the Floquet ↔ Bloch section as a walk of four steps: a wave in a cosine lattice, the same numbers
+    read as a pumped spring, the band structure laid beside the tongues, and then the test of "the same theorem": the
+    space side computed with no integration and the time side with no plane waves, agreeing to the eighth place. I want
+    the duality to be something you can check, not only admire, and I name exactly which letter maps to which.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="ft-engine": band() finds the allowed energies of −y'' + 2q cos(2s)·y = a·y at Bloch
+    momentum k by Sturm counting on the plane-wave matrix; monodromy() integrates y'' + (a − 2q cos 2s)y = 0 over one
+    period by RK4. The two never share a line of code.
+  checks: Floquet Theory — proof — rich checks.mjs, beside this file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Same equation, read twice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .ft-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .ft-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .ft-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .ft-sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .ft-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .ft-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .ft-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .ft-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.ft-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.ft-go.ft-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .ft-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .ft-step.ft-shown { display: block; }
+  .ft-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .ft-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 12px; }
+  .ft-p { font-size: 13.5px; line-height: 1.6; max-width: 78ch; margin: 8px 0; }
+  .ft-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; touch-action: none; }
+  .ft-two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+  .ft-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .ft-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 11ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .ft-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 9ch; font-variant-numeric: tabular-nums; }
+  .ft-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .ft-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .ft-cell .ft-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .ft-cell .ft-v { font-family: var(--mono); font-size: 15px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .ft-cell.ft-a .ft-v { color: var(--amber); } .ft-cell.ft-c .ft-v { color: var(--cyan); }
+  .ft-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .ft-eq .ft-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .ft-eq .ft-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .ft-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 86ch; margin: 12px 0 4px; }
+  .ft-test b { color: var(--amber); font-weight: 500; }
+  .ft-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; }
+  .ft-scroll { overflow-x: auto; }
+  table.ft-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.ft-t th, table.ft-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; vertical-align: top; }
+  table.ft-t th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  table.ft-t td:first-child, table.ft-t th:first-child { text-align: left; }
+  table.ft-t td.ft-l { text-align: left; }
+  .ft-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .ft-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .ft-foot i { color: var(--amber); font-weight: 300; }
+  .ft-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .ft-legend .ft-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+</style>
+</head>
+<body>
+<main class="ft-piece">
+  <div class="ft-kicker">Floquet · Floquet and Bloch</div>
+  <h1 class="ft-title">Same equation, read twice</h1>
+  <p class="ft-sub">The page says Floquet's theorem and Bloch's are the same theorem with time in place of space. For one pair it is more than that: the Mathieu equation is word for word the wave equation of an electron in a cosine lattice. Four steps: a wave in the lattice, the same numbers read as a pumped spring, the bands beside the tongues, and the test, where the two sides are computed by methods that share nothing.</p>
+  <nav class="ft-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · a wave in a lattice</button>
+    <button data-go="2" aria-pressed="false">2 · read it as time</button>
+    <button data-go="3" aria-pressed="false">3 · bands and tongues</button>
+    <button data-go="4" aria-pressed="false">4 · is it the same?</button>
+  </nav>
+
+  <section class="ft-step ft-shown" data-step="1">
+    <h2>1 · A wave in a lattice</h2>
+    <p class="ft-idea">A row of identical cells, each with the same bump of potential, 2q cos 2s, one every π along the line. Send in a wave of energy a. At most energies it travels: it wobbles with the lattice but keeps its size, cell after cell. At some it can't: the wave either dies away or, followed the other way, swells, cell after cell, by the same factor. Those energies are the gaps.</p>
+    <div class="ft-row"><label for="a1">energy, a</label><input id="a1" type="range" min="-0.6" max="6" step="0.005" value="0.4"><span class="ft-val" id="a1v"></span>
+      <button data-a1="0.4">in a band</button><button data-a1="1">in a gap</button></div>
+    <div class="ft-row"><label for="q1">lattice depth, q</label><input id="q1" type="range" min="0" max="1.5" step="0.01" value="0.3"><span class="ft-val" id="q1v"></span></div>
+    <div class="ft-label"><span>the potential (grey) and the wave across 12 cells</span><span id="h1"></span></div>
+    <canvas id="c1"></canvas>
+    <div class="ft-eq"><div class="ft-sym">−ψ''(s) + 2q cos(2s) · ψ(s) = a · ψ(s)</div>
+      <div class="ft-words">the wave’s bend, plus the lattice’s bump times the wave, equals its energy times the wave</div></div>
+    <p class="ft-test" id="t1"></p>
+  </section>
+
+  <section class="ft-step" data-step="2">
+    <h2>2 · Read it as time</h2>
+    <p class="ft-idea">Move one term across and nothing changes but the name of the letter. Call s time instead of place, and the lattice becomes a spring whose stiffness is pumped, one pump period per cell. The energy becomes the spring's pitch squared. The curve below is the same array of numbers either way; the switch only relabels it. Look at the wave once per cell, or the spring once per pump period, and each look turns by one fixed angle: Bloch's crystal momentum k, Floquet's quasi-frequency.</p>
+    <div class="ft-row"><button data-read="space" aria-pressed="true">read as space · Bloch</button><button data-read="time" aria-pressed="false">read as time · Floquet</button></div>
+    <div class="ft-row"><label for="a2">a</label><input id="a2" type="range" min="-0.6" max="6" step="0.005" value="0.4"><span class="ft-val" id="a2v"></span></div>
+    <div class="ft-two"><div><div class="ft-label"><span id="h2a"></span></div><canvas id="c2"></canvas></div>
+      <div><div class="ft-label"><span id="h2b"></span></div><canvas id="c2b"></canvas></div></div>
+    <div class="ft-eq"><div class="ft-sym" id="eq2"></div><div class="ft-words" id="eq2w"></div></div>
+    <p class="ft-test" id="t2"></p>
+  </section>
+
+  <section class="ft-step" data-step="3">
+    <h2>3 · Bands beside tongues</h2>
+    <p class="ft-idea">Left, the crystal's band structure: every allowed energy a at every momentum k, found from plane waves, with no integrating at all. Right, on the same vertical scale, the spring's growth per pump period at each a, found by integrating one period, with no plane waves at all. Drag the level across both.</p>
+    <div class="ft-row"><label for="q3">depth, q</label><input id="q3" type="range" min="0" max="1.5" step="0.01" value="0.6"><span class="ft-val" id="q3v"></span></div>
+    <div class="ft-row"><label for="a3">level, a</label><input id="a3" type="range" min="-1" max="10" step="0.005" value="1"><span class="ft-val" id="a3v"></span></div>
+    <div class="ft-two"><div><div class="ft-label"><span>Bloch · bands a(k), gaps shaded</span></div><canvas id="c3a"></canvas></div>
+      <div><div class="ft-label"><span>Floquet · growth per pump period, ln|ρ|</span></div><canvas id="c3b"></canvas></div></div>
+    <p class="ft-test" id="t3"></p>
+  </section>
+
+  <section class="ft-step" data-step="4">
+    <h2>4 · Is it the same theorem?</h2>
+    <p class="ft-idea">The test. If the two readings are one theorem, every gap edge the plane waves find at k = 0 or k = 1 is a tongue edge the integrator finds where half the trace of M reaches ±1, and inside a band, half the trace is cos kπ at the k the plane waves used. Two methods that share no code.</p>
+    <div class="ft-row"><label for="q4">depth, q</label><input id="q4" type="range" min="0.05" max="1.5" step="0.05" value="0.3"><span class="ft-val" id="q4v"></span></div>
+    <div class="ft-scroll"><table class="ft-t" id="tab4"></table></div>
+    <div class="ft-scroll"><table class="ft-t" id="tab4b"></table></div>
+    <div class="ft-eq"><div class="ft-sym">ρ = e^(μT) ,  μ = i·k   ⇔   tr M / 2 = cos(kπ)</div>
+      <div class="ft-words">the multiplier is the exponent raised over one period; inside a band the exponent is i times Bloch’s momentum, so half the trace of one period’s map is the cosine of k times π</div></div>
+    <p class="ft-test" id="t4"></p>
+  </section>
+
+  <div class="ft-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="ft-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+<script id="ft-engine">
+/* One equation, two readings: y'' + (a − 2q cos 2s) y = 0, with s read as a place along a crystal or as time.
+   The space side (Bloch): plane waves e^{i(k+2m)s}, m = −M..M, make the matrix H with (k+2m)² on its diagonal and q
+   beside it (2q cos 2s = q e^{2is} + q e^{−2is}); its eigenvalues are the allowed energies a at crystal momentum k,
+   the bands. Found by Sturm counting on the tridiagonal matrix, no integration anywhere.
+   The time side (Floquet): integrate one period, s = 0 → π, from (1,0) and (0,1); half the trace of that monodromy
+   is cos(kπ) inside a band; where it passes ±1 the pair leaves the circle. No matrix of plane waves anywhere. */
+function bandCount(E, k, q, M) { // how many eigenvalues of H(k) lie below E (Sturm sequence)
+  let c = 0, d = 1;
+  for (let m = -M; m <= M; m++) {
+    const diag = (k + 2 * m) * (k + 2 * m) - E;
+    d = diag - (m === -M ? 0 : q * q / d);
+    if (d === 0) d = 1e-300;
+    if (d < 0) c++;
+  }
+  return c;
+}
+function band(n, k, q, M) { // the n-th allowed energy (n = 0, 1, 2 …) at momentum k
+  M = M || 12; let lo = -2 * q - 1, hi = (Math.abs(k) + 2 * M) ** 2 + 2 * q + 1;
+  for (let i = 0; i < 80; i++) { const mid = (lo + hi) / 2; if (bandCount(mid, k, q, M) > n) hi = mid; else lo = mid; }
+  return (lo + hi) / 2;
+}
+function monodromy(a, q, N) {
+  N = N || 400; const h = Math.PI / N, M = [0, 0, 0, 0];
+  const f = (t, x) => -(a - 2 * q * Math.cos(2 * t)) * x;
+  for (let c = 0; c < 2; c++) {
+    let x = c ? 0 : 1, v = c ? 1 : 0, t = 0;
+    for (let i = 0; i < N; i++) {
+      const k1x = v, k1v = f(t, x), k2x = v + h / 2 * k1v, k2v = f(t + h / 2, x + h / 2 * k1x);
+      const k3x = v + h / 2 * k2v, k3v = f(t + h / 2, x + h / 2 * k2x), k4x = v + h * k3v, k4v = f(t + h, x + h * k3x);
+      x += h / 6 * (k1x + 2 * k2x + 2 * k3x + k4x); v += h / 6 * (k1v + 2 * k2v + 2 * k3v + k4v); t += h;
+    }
+    M[c] = x; M[2 + c] = v;
+  }
+  return M;
+}
+const halfTrace = (a, q, N) => { const M = monodromy(a, q, N); return (M[0] + M[3]) / 2; };
+/* A gap's edge by integration alone: bisect a on |½ tr M| = 1 between a0 and a1. */
+function edgeT(a0, a1, q, N) {
+  const s0 = Math.abs(halfTrace(a0, q, N)) > 1;
+  for (let i = 0; i < 60; i++) { const m = (a0 + a1) / 2; if ((Math.abs(halfTrace(m, q, N)) > 1) === s0) a0 = m; else a1 = m; }
+  return (a0 + a1) / 2;
+}
+/* the wave itself over n cells, from (1, 0) */
+function wave(a, q, cells, per) {
+  const N = per || 64, h = Math.PI / N, out = new Float64Array(cells * N + 1); let x = 1, v = 0, t = 0; out[0] = 1;
+  const f = (t, x) => -(a - 2 * q * Math.cos(2 * t)) * x;
+  for (let i = 1; i <= cells * N; i++) {
+    const k1x = v, k1v = f(t, x), k2x = v + h / 2 * k1v, k2v = f(t + h / 2, x + h / 2 * k1x);
+    const k3x = v + h / 2 * k2v, k3v = f(t + h / 2, x + h / 2 * k2x), k4x = v + h * k3v, k4v = f(t + h, x + h * k3x);
+    x += h / 6 * (k1x + 2 * k2x + 2 * k3x + k4x); v += h / 6 * (k1v + 2 * k2v + 2 * k3v + k4v); t += h; out[i] = x;
+  }
+  return out;
+}
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const COL = { bg: '#0a0a0f', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', amber: '#e8b84a', cyan: '#6aa8e8', grid: 'rgba(255,255,255,.07)' };
+function cv(id, ratio, hMin) {
+  const c = $(id), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 500;
+  const h = Math.max(hMin || 120, Math.round(w * ratio));
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.fillStyle = COL.bg; g.fillRect(0, 0, w, h);
+  g.font = '11px JetBrains Mono, monospace'; return { g, w, h };
+}
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+const st = { a1: 0.4, q1: 0.3, a2: 0.4, read: 'space', q3: 0.6, a3: 1, q4: 0.3 };
+const CELLS = 12, PER = 64;
+
+/* where a stands: in a band (with its k from the integrator) or in which gap */
+function classify(a, q) {
+  const ht = halfTrace(a, q);
+  if (Math.abs(ht) <= 1) return { band: true, ht, k: Math.acos(ht) / Math.PI };
+  const rho = ht > 0 ? ht + Math.sqrt(ht * ht - 1) : ht - Math.sqrt(ht * ht - 1);
+  const bottom = band(0, 0, q);
+  return { band: false, ht, rho, where: a < bottom ? 'below' : ht < 0 ? 'edge' : 'centre' };
+}
+function waveDraw(id, a, q, read, ratio) {
+  const { g, w, h } = cv(id, ratio || 0.32, 190), y = wave(a, q, CELLS, PER), n = y.length, x0 = 8, xs = (i) => x0 + (w - 16) * i / (n - 1);
+  let mx = 1e-9; for (let i = 0; i < n; i++) mx = Math.max(mx, Math.abs(y[i]));
+  const cy = h * 0.55, amp = h * 0.38;
+  g.fillStyle = 'rgba(138,138,160,.13)'; g.beginPath(); g.moveTo(xs(0), h);
+  for (let i = 0; i < n; i++) { const s = i / PER * Math.PI; g.lineTo(xs(i), h - 6 - (h * 0.16) * (1 + Math.cos(2 * s)) / 2 * (q > 0 ? 1 : 0)); } g.lineTo(xs(n - 1), h); g.fill();
+  g.strokeStyle = COL.grid; for (let c = 0; c <= CELLS; c++) { g.beginPath(); g.moveTo(xs(c * PER), 4); g.lineTo(xs(c * PER), h - 4); g.stroke(); }
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x0, cy); g.lineTo(w - 8, cy); g.stroke();
+  g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath(); for (let i = 0; i < n; i++) { const Y = cy - y[i] / mx * amp; i ? g.lineTo(xs(i), Y) : g.moveTo(xs(i), Y); } g.stroke(); g.lineWidth = 1;
+  g.fillStyle = COL.cyan; for (let c = 0; c <= CELLS; c++) { g.beginPath(); g.arc(xs(c * PER), cy - y[c * PER] / mx * amp, 3, 0, 7); g.fill(); }
+  g.fillStyle = COL.fg3; g.fillText(read === 'time' ? 'time t →  one pump period per cell' : 'place s →  one lattice cell per division', x0 + 4, 14);
+  g.fillText('scaled to its largest value, ×' + mx.toPrecision(3), w - 230, 14);
+  return { y, mx };
+}
+function planeDraw(id, c) {
+  const { g, w, h } = cv(id, 0.78, 200), cx = w / 2, cy = h / 2, sc = Math.min(w, h) / 2 / 1.6;
+  g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(0, cy); g.lineTo(w, cy); g.moveTo(cx, 0); g.lineTo(cx, h); g.stroke();
+  g.strokeStyle = COL.cyan; g.lineWidth = 1.5; g.beginPath(); g.arc(cx, cy, sc, 0, 7); g.stroke(); g.lineWidth = 1;
+  g.fillStyle = COL.fg3; g.fillText('−1', cx - sc - 20, cy + 14); g.fillText('+1', cx + sc + 4, cy + 14);
+  const pts = c.band ? [[Math.cos(c.k * Math.PI), Math.sin(c.k * Math.PI)], [Math.cos(c.k * Math.PI), -Math.sin(c.k * Math.PI)]] : [[c.rho, 0], [1 / c.rho, 0]];
+  if (c.band) { g.strokeStyle = COL.amberline || 'rgba(232,184,74,.5)'; g.beginPath(); g.arc(cx, cy, sc * 0.35, -c.k * Math.PI, 0); g.stroke(); g.fillStyle = COL.amber; g.fillText('kπ', cx + sc * 0.38, cy - 8); }
+  pts.forEach(([x, y]) => { g.fillStyle = COL.amber; g.strokeStyle = COL.bg; g.lineWidth = 2; g.beginPath(); g.arc(cx + Math.max(-1.55, Math.min(1.55, x)) * sc, cy - y * sc, 6, 0, 7); g.fill(); g.stroke(); g.lineWidth = 1; });
+}
+
+function draw1() {
+  $('a1v').textContent = st.a1.toFixed(3); $('q1v').textContent = st.q1.toFixed(2);
+  const { y } = waveDraw('c1', st.a1, st.q1, 'space'), c = classify(st.a1, st.q1);
+  $('h1').textContent = c.band ? 'in a band' : 'in a gap';
+  const ends = []; for (let k = 0; k <= CELLS; k++) ends.push(Math.abs(y[k * PER]));
+  $('t1').innerHTML = c.band
+    ? '<b>It travels.</b> Across twelve cells the wave never exceeds ' + Math.max(...y.map(Math.abs)).toFixed(2) + ' times where it started. The lattice shapes it, cell by cell, but takes nothing from it.'
+    : '<b>It can’t travel.</b> Each cell multiplies the wave by ' + c.rho.toFixed(3) + ', so twelve cells take it to ' + Math.abs(Math.pow(c.rho, 12)).toExponential(1) + '. Read the other way along the line, the same factor is a wave dying: an energy with no wave that keeps its size.' + (c.rho < 0 ? ' The sign flips every cell.' : '');
+}
+function draw2() {
+  const read = st.read; $('a2v').textContent = st.a2.toFixed(3);
+  document.querySelectorAll('[data-read]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.read === read)));
+  waveDraw('c2', st.a2, 0.3, read, 0.62);
+  const c = classify(st.a2, 0.3); planeDraw('c2b', c);
+  $('h2a').textContent = read === 'time' ? 'a spring, its stiffness pumped · q = 0.3' : 'a wave in the lattice · q = 0.3';
+  $('h2b').textContent = read === 'time' ? 'the multipliers, ρ = e^(μπ)' : 'one cell on: the factor e^(ikπ)';
+  $('eq2').textContent = read === 'time' ? 'x(t + π) = ρ · x(t) ,  ρ = e^(μπ) ,  μ = i·β' : 'ψ(s + π) = e^(ikπ) · ψ(s)';
+  $('eq2w').textContent = read === 'time' ? 'one pump period on, a Floquet mode is the same motion times ρ; in a band μ is i times a quasi-frequency β, and ρ sits on the circle' : 'one cell on, a Bloch wave is the same wave turned by k times π';
+  $('t2').innerHTML = c.band
+    ? '<b>One angle, two names.</b> Here ½ tr M = ' + c.ht.toFixed(5) + ', so the angle is ' + (c.k).toFixed(4) + 'π. ' + (read === 'time' ? 'Floquet calls it the quasi-frequency, β = ' + c.k.toFixed(4) + ' (μ = ' + c.k.toFixed(4) + 'i): the imaginary part of the exponent, not the exponent itself.' : 'Bloch calls it the crystal momentum, k = ' + c.k.toFixed(4) + '.') + ' Same number, from the same integration.'
+    : '<b>Off the circle.</b> ½ tr M = ' + c.ht.toFixed(4) + ', so ρ = ' + c.rho.toFixed(4) + ' and 1/ρ. ' + (read === 'time' ? 'The spring grows by |ρ| every pump period: an instability tongue.' : 'The lattice has no travelling wave at this energy: a band gap.') + (c.where === 'edge' ? ' ρ is negative: k sits at the zone edge, k = 1, and in time the motion flips sign each period.' : c.where === 'centre' ? ' ρ is positive: k sits at the zone centre, k = 0.' : ' This is below the lowest band, where nothing travels and every spring grows.');
+}
+
+/* step 3 */
+let cache3 = null;
+function bands3(q) {
+  if (cache3 && cache3.q === q) return cache3;
+  const K = 101, B = [], A0 = -1, A1 = 10, NA = 360, gr = [];
+  for (let n = 0; n < 5; n++) { const row = []; for (let i = 0; i < K; i++) row.push(band(n, -1 + 2 * i / (K - 1), q)); B.push(row); }
+  for (let i = 0; i < NA; i++) { const a = A0 + (A1 - A0) * i / (NA - 1), ht = halfTrace(a, q), at = Math.abs(ht); gr.push([a, at > 1 ? Math.log(at + Math.sqrt(at * at - 1)) : 0]); }
+  cache3 = { q, B, gr, A0, A1 }; return cache3;
+}
+function draw3() {
+  $('q3v').textContent = st.q3.toFixed(2); $('a3v').textContent = st.a3.toFixed(3);
+  const D = bands3(st.q3), q = st.q3, { A0, A1 } = D;
+  const L = cv('c3a', 0.9, 260), R = cv('c3b', 0.9, 260);
+  const yA = (h) => (a) => 10 + (h - 30) * (A1 - a) / (A1 - A0);
+  // gaps, from the plane-wave bands
+  const gaps = [[A0, Math.min(...D.B[0])]]; for (let n = 0; n < 4; n++) { const top = Math.max(...D.B[n]), bot = Math.min(...D.B[n + 1]); if (bot > top) gaps.push([top, bot]); }
+  [L, R].forEach(({ g, w, h }) => { const y = yA(h); g.fillStyle = 'rgba(232,184,74,.10)'; gaps.forEach(([lo, hi]) => g.fillRect(36, y(hi), w - 44, y(lo) - y(hi))); g.fillStyle = COL.fg4; for (let a = 0; a <= 10; a += 2) { g.fillText(a + '', 6, y(a) + 4); g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(36, y(a)); g.lineTo(w - 8, y(a)); g.stroke(); } });
+  { const { g, w, h } = L, y = yA(h), xk = (k) => 36 + (w - 44) * (k + 1) / 2;
+    g.save(); g.beginPath(); g.rect(36, y(A1), w - 44, y(A0) - y(A1)); g.clip();
+    g.strokeStyle = COL.cyan; g.lineWidth = 1.5; D.B.forEach((row) => { g.beginPath(); row.forEach((a, i) => { const X = xk(-1 + 2 * i / (row.length - 1)), Y = y(a); i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); g.stroke(); }); g.lineWidth = 1; g.restore();
+    g.fillStyle = COL.fg3; g.fillText('k = −1', 36, h - 6); g.fillText('0', xk(0) - 3, h - 6); g.fillText('+1', w - 26, h - 6); }
+  const floor = Math.min(...D.B[0]); let gmax = 0.2; D.gr.forEach(([a, v]) => { if (a >= floor) gmax = Math.max(gmax, v * 1.1); });
+  { const { g, w, h } = R, y = yA(h), xg = (v) => 36 + (w - 44) * v / gmax;
+    g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath(); D.gr.forEach(([a, v], i) => { const X = Math.min(w - 8, xg(v)), Y = y(a); i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); g.stroke(); g.lineWidth = 1;
+    g.fillStyle = COL.fg4; g.fillText('below the lowest band it runs off the scale', 44, y(A0) - 6);
+    g.fillStyle = COL.fg3; g.fillText('0', 36, h - 6); g.fillText(gmax.toFixed(2), w - 40, h - 6); }
+  // the level, and where the integrator puts k on it
+  const c = classify(st.a3, q);
+  [L, R].forEach(({ g, w, h }) => { const y = yA(h)(st.a3); g.strokeStyle = COL.fg2; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(36, y); g.lineTo(w - 8, y); g.stroke(); g.setLineDash([]); });
+  if (c.band) { const { g, w, h } = L, y = yA(h)(st.a3); [c.k, -c.k].forEach((k) => { g.fillStyle = COL.amber; g.strokeStyle = COL.bg; g.lineWidth = 2; g.beginPath(); g.arc(36 + (w - 44) * (k + 1) / 2, y, 6, 0, 7); g.fill(); g.stroke(); g.lineWidth = 1; }); }
+  // which band, and the plane-wave energy at the integrator's k
+  let near = null; if (c.band) for (let n = 0; n < 5; n++) { const e = band(n, c.k, q); if (!near || Math.abs(e - st.a3) < Math.abs(near.e - st.a3)) near = { n, e }; }
+  $('t3').innerHTML = c.band
+    ? '<b>In a band.</b> The integrator says ½ tr M = ' + c.ht.toFixed(6) + ', so k = ' + c.k.toFixed(5) + '. The amber dots are placed at that k, and they sit on the blue curve: the plane waves give band ' + (near.n + 1) + ' at that k an energy of ' + near.e.toFixed(6) + ', against the level ' + st.a3.toFixed(6) + '.'
+    : '<b>In a gap, and in a tongue.</b> No blue curve crosses this level; on the right the spring grows by ' + Math.abs(c.rho).toFixed(4) + ' a period (ln|ρ| = ' + Math.log(Math.abs(c.rho)).toFixed(4) + '). ' + (c.where === 'edge' ? 'The gap opens at the zone’s edge, k = ±1, and the multiplier there is negative: this is a tongue where the period doubles.' : c.where === 'centre' ? 'The gap opens at the zone’s centre, k = 0, and the multiplier is positive: a tongue where the period stays.' : 'Below the lowest band nothing travels and every spring grows: the region left of the first tongue.');
+}
+
+/* step 4, the test */
+function draw4() {
+  const q = st.q4; $('q4v').textContent = q.toFixed(2);
+  let html = '<tr><th>gap</th><th>where in k</th><th>edges by plane waves</th><th>edges by integration</th><th>largest difference</th><th>sign of ρ inside</th></tr>', worst = 0;
+  for (let n = 0; n < 4; n++) {
+    const kz = n % 2 === 0 ? 1 : 0, lo = band(n, kz, q, 16), hi = band(n + 1, kz, q, 16);
+    const inBandLo = band(n, 0.5, q, 16), inBandHi = band(n + 1, 0.5, q, 16), mid = (lo + hi) / 2;
+    const tl = edgeT(mid, inBandLo, q, 3000), th = edgeT(mid, inBandHi, q, 3000), d = Math.max(Math.abs(tl - lo), Math.abs(th - hi));
+    worst = Math.max(worst, d); const sgn = halfTrace(mid, q, 3000) < 0 ? 'negative' : 'positive';
+    html += '<tr><td>' + (n + 1) + '</td><td class="ft-l">' + (kz ? 'zone edge, k = 1' : 'zone centre, k = 0') + '</td><td>' + lo.toFixed(7) + ' – ' + hi.toFixed(7) + '</td><td>' + tl.toFixed(7) + ' – ' + th.toFixed(7) + '</td><td>' + d.toExponential(1) + '</td><td>' + sgn + '</td></tr>';
+  }
+  $('tab4').innerHTML = html;
+  let h2 = '<tr><th>band</th><th>k</th><th>energy by plane waves</th><th>tr M / 2 there, by integration</th><th>cos kπ</th><th>difference</th></tr>', w2 = 0;
+  for (let n = 0; n < 3; n++) for (const k of [0.25, 0.5, 0.75]) {
+    const a = band(n, k, q, 16), ht = halfTrace(a, q, 3000), ck = Math.cos(k * Math.PI), d = Math.abs(ht - ck); w2 = Math.max(w2, d);
+    h2 += '<tr><td>' + (n + 1) + '</td><td>' + k + '</td><td>' + a.toFixed(7) + '</td><td>' + ht.toFixed(9) + '</td><td>' + ck.toFixed(9) + '</td><td>' + d.toExponential(1) + '</td></tr>';
+  }
+  $('tab4b').innerHTML = h2;
+  $('t4').innerHTML = '<b>' + (worst < 1e-6 && w2 < 1e-6 ? 'The same theorem, to the seventh place.' : 'They disagree somewhere.') + '</b> Every gap edge agrees within ' + worst.toExponential(0) + ', and inside the bands half the trace is cos kπ within ' + w2.toExponential(0) + '. The odd gaps open at the zone edge with a negative multiplier, the even ones at the centre with a positive one: Bragg reflection at the zone edge is the tongue where the period doubles. '
+    + 'One thing the comparison makes exact: what stands in for Bloch’s k is not μ but its imaginary part, μ = ik, and what stands in for the energy E is a, the spring’s pitch squared. So the time side’s band structure is a plotted against Im μ at fixed q, which is the left canvas of step 3, read as time.';
+}
+
+let step = 1;
+const DRAW = { 1: draw1, 2: draw2, 3: draw3, 4: () => { $('tab4').innerHTML = '<tr><td>computing…</td></tr>'; setTimeout(draw4, 30); } };
+function show(n) {
+  step = Math.max(1, Math.min(4, n));
+  document.querySelectorAll('.ft-step').forEach((s) => s.classList.toggle('ft-shown', +s.dataset.step === step));
+  document.querySelectorAll('.ft-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 4; DRAW[step]();
+}
+document.querySelectorAll('.ft-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+let raf = 0; const later = (f) => { cancelAnimationFrame(raf); raf = requestAnimationFrame(f); };
+[['a1', 'a1', draw1], ['q1', 'q1', draw1], ['a2', 'a2', draw2], ['q3', 'q3', draw3], ['a3', 'a3', draw3]].forEach(([id, k, f]) => $(id).addEventListener('input', (e) => { st[k] = +e.target.value; later(f); }));
+$('q4').addEventListener('change', (e) => { st.q4 = +e.target.value; DRAW[4](); }); $('q4').addEventListener('input', (e) => { $('q4v').textContent = (+e.target.value).toFixed(2); });
+document.querySelectorAll('[data-a1]').forEach((b) => b.addEventListener('click', () => { st.a1 = +b.dataset.a1; $('a1').value = st.a1; draw1(); }));
+document.querySelectorAll('[data-read]').forEach((b) => b.addEventListener('click', () => { st.read = b.dataset.read; draw2(); }));
+window.addEventListener('resize', () => { if (step < 4) DRAW[step](); });
+sigil(); show(1);
+</script>
+</body>
+</html>

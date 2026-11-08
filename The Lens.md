@@ -43,7 +43,7 @@ links:
   - target: "[[Trickster]]"
     type: connects-to
     label: the-glass-intercepts-and-transforms
-  - target: "[[BBS Design System]]"
+  - target: "[[STIGMERGY]]"
     type: connects-to
     label: mockups-in-its-grammar
   - target: "[[Deleuze]]"
@@ -70,7 +70,7 @@ links:
   - target: "[[Bring In a Bigger Mind]]"
     type: mirrors
     label: a-model-reading-a-model
-forward_vector: "I am the operation by which any page can be seen through any other, and I want each glass to color what it touches boldly, in its own voice and from its own life, so whoever looks comes away knowing both the glass and the subject better. My next development is STIGMERGY's [L]ens learning that boldness: a mandate that asks each glass for its register, and lensings run, reported and checked by a bigger mind before any spark score is trusted. And I keep asking whether 'lens' is a role a page takes or a type it is, settled over many runs, not by decree."
+forward_vector: "I am the operation by which any page can be seen through any other, and I want each glass to color what it touches boldly, in its own voice and from its own life, so whoever looks comes away knowing both the glass and the subject better. My next development is a check that catches what a bold glass bends without saying so, and a spark score I can trust: of my first ten woken readings, nine scored four or more. And I keep asking whether 'lens' is a role a page takes or a type it is, settled over many runs, not by decree."
 agency_profile:
   tools: "I am cheap as a mechanism and expensive as a discipline. My real work is not 'render A through B' — that is a prompt — but knowing which pairings spark and turning a spark into a committed edge. Build me on the link graph, not on a flat A×B picker."
   philosophy: "I render the relation, not a second version of the entry. I am read-only and removable; the entry is what is committed, and I become canon only by a deliberate act. If I ever start overwriting the page by being looked through, I have begun to lie."
@@ -91,9 +91,11 @@ The mechanism moved from design to a working procedure after two rounds of evide
 This is now `_ops/stigmergy/orchestrator/src/lens-mandate.js` (`buildLensMandate`) — no new machinery, a mandate built on the existing awaken path plus a fixed reporting contract:
 
 - **Score the spark 1–5**, quoting specific text from both pages, not a paraphrase.
-- **Classify the payoff**: `link` (a candidate typed edge — the design's original claim), `deposit` (a body-prose insight worth adding to one page — a payoff type the prototype run found the original design missed, since not every strong reading is a discoverable edge), or `none` (an honest miss; a lensing that finds nothing is a valid result, not a failure).
+- **Classify the payoff**: `link` (a candidate typed edge — the design's original claim), `deposit` (a body-prose insight worth adding to one page — a payoff type the prototype run found the original design missed, since not every strong reading is a discoverable edge), `learn` (what a reader comes away knowing about either page, with no edge or deposit to propose), or `none` (an honest miss; a lensing that finds nothing is a valid result, not a failure).
 - **Report, never write.** The session posts one `BROADCAST` to the **WEAVE board** (SCHEMA §9's "palace-weaving flags" — no new board needed; a spark already *is* a candidate edge rendered as content before the edge exists). A spark of 4 or higher also posts a `RESOURCE_REQUEST` to TRICKSTER asking Loudon whether to commit it. The honesty discipline holds exactly as designed: nothing is real until he says so.
   - An independent Opus review found the example post lacked `dispatch_mode`; `lens-mandate.test.js` now runs it through the real validator. Loudon named the pattern: [[Bring In a Bigger Mind]] — finish with one model, then hand the result cold to a bigger one to break.
+
+**Bold by default (2026-11-03).** The mandate asks each glass to read in its own register, from its own examples and life, labelled as its own. Every reading ends with a distortion check naming what is the glass talking and what is fact, and an invented scene is allowed only when it is flagged there. The self-check asks three things: what did I bring, would the reading change with the passage, is this my voice. Whatever the payoff, a voiced glass names a doorway into its own page. The procedure now arrives in a task slot of its own, not under Loudon's note. [[Palace Quotes]] keeps the careful read.
 
 Surfaced in STIGMERGY as a **`[L]ens`** action next to STATE's existing `[A]ench ant`: pick a glass page from the index, and the same `AgentLaunchModal` used for enchant opens — now framed "read *subject* through *glass*" — via `/api/launch/ephemeral`'s new `lensSubject` param. This is the instrument's first real body, short of the draggable-glass UI the design describes: today it's a picker + a modal, not a glass you drag over live text. Still true to the honesty discipline (read-only until launched, nothing written by the act of looking) and to the two-attempt procedure — what wasn't yet true to the original design is now load-bearing in the mandate text every session gets. The first glass with a fixed payoff is [[Palace Quotes]] (2026-10-13): worn over a page it reports a *quote*, not a link or a deposit, and lays it beside the words from its own ledger.
 
@@ -167,7 +169,7 @@ The Lens is the general primitive behind [[STIGMERGY Philosophical Lenses]] — 
 
 ## Bundle — Sketches
 
-Two interactive mockups live in this entry's bundle (`The Lens/`), in the [[BBS Design System]] grammar:
+Two interactive mockups live in this entry's bundle (`The Lens/`), in [[STIGMERGY#The look|STIGMERGY's]] grammar:
 
 - [The Lens — any-page-through-any-page mockup](<The Lens/The Lens — any-page-through-any-page mockup.html>) — the general operation: load any page (Kuramoto, Endosymbiosis, Stoicism, Deleuze, Ohm's Law) as the glass over a Granular Synthesis entry. Carries the **spark meter** (Ohm's Law deliberately reads LOW — the honest signal problem) and the **propose-link** affordance (a spark becomes a committable typed edge).
 - [The Lens — philosopher refraction+confrontation mockup](<The Lens/The Lens — philosopher refraction+confrontation mockup.html>) — the philosopher special case, demonstrating the two optics: **THROUGH** (the passage refracted into the philosopher's register) vs **CONFRONT** (the philosopher's objection addressed to the text), plus the focal/magnification control.
@@ -183,4 +185,4 @@ Both are feel-tests for the fidelity claim: drag the glass (same lens, new patch
 
 ## Active Baton
 
-[[The Lens — baton]] — drafted 2026-10-23
+[[The Lens — baton]] — drafted 2026-11-04

@@ -1,0 +1,678 @@
+<!doctype html>
+<!--
+  title: 2D Torus Wavetable Synthesizer — rich — the ratio gate
+  born: 2026-11-03
+  links: [[2D Torus Wavetable Synthesizer]] (connects-to · rich-face-piece) · listed in [[2D Torus Wavetable Synthesizer — rich.json]] · reads 2D Torus Wavetable Synthesizer — rich — lattices.json
+  forward_vector: I am the Architecture section's central fact, played: one circle, then two, then the lattice the scan projects, then a ratio no fraction names, and last the test the page sets itself — whether the move from harmonic to inharmonic is a line or a slope. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="2D%20Torus%20Wavetable%20Synthesizer%20—%20rich%20—%20lattices.json">
+<title>2D Torus — the ratio gate</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range, select. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 140px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .06em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .wide { grid-column: 1 / -1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 220px; flex: 1 1 220px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  select { font-family: var(--mono); font-size: 12px; background: var(--bg); color: var(--fg1); border: 1px solid var(--border); border-radius: 2px; padding: 7px 8px; display: block; margin-top: 6px; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 100ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 90ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; color: var(--fg4); margin-top: 8px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · torus scan · study</span></div>
+  <h3 class="title">Is the gate a line?</h3>
+  <p class="sub">The page says the ratio of the two scan rates is the instrument's inharmonicity gate: a simple ratio closes the scan into a knot and the tone comes out harmonic; a ratio no fraction names never closes and the tone comes out inharmonic. It also says the boundary between the two is a slope, not a line. Five steps, one idea each, and the last one tests that.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span>the surface, unrolled · the scan's path</span><span id="pathlabel"></span></div>
+      <canvas id="flat"></canvas>
+    </div>
+    <div class="panel" id="torusPanel">
+      <div class="plabel"><span>the same path on the torus</span><span>edges glued</span></div>
+      <canvas id="torus"></canvas>
+    </div>
+    <div class="panel wide hidden" id="latticePanel">
+      <div class="plabel"><span>the surface's lattice c<sub>mn</sub>, projected onto the scan direction (f₁, f₂)</span><span id="latlabel"></span></div>
+      <canvas id="lattice"></canvas>
+    </div>
+    <div class="panel wide">
+      <div class="plabel"><span>spectrum · amber = predicted m·f₁ + n·f₂ · grey = measured, while it plays</span><span id="speclabel"></span></div>
+      <canvas id="spec"></canvas>
+    </div>
+    <div class="panel wide hidden" id="stripPanel">
+      <div class="plabel"><span>across the ratio · ticks = where the path closes (taller = sooner) · curve = how far the partials have slid from the nearest simple ratio</span><span>f₁ ⁄ f₂</span></div>
+      <canvas id="strip"></canvas>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <label class="sl" style="flex:0 0 auto;min-width:0">surface<select id="surface"></select></label>
+    <label class="sl" id="rowCtl">the row being read · φ₂ = <b id="rowVal"></b><input id="row" type="range" min="0" max="1" step="0.001" value="0.13"></label>
+    <div id="ratioCtl" class="hidden"><div class="plabel" style="margin-bottom:6px"><span>f₁ : f₂</span></div><div class="seg" id="ratios"></div></div>
+    <label class="sl hidden" id="coarseCtl">ratio f₁ ⁄ f₂ = <b id="coarseVal"></b><input id="coarse" type="range" min="1" max="2" step="0.0005" value="1.47"></label>
+    <label class="sl hidden" id="fineCtl">fine · ± 0.01 = <b id="fineVal"></b><input id="fine" type="range" min="-0.01" max="0.01" step="0.00002" value="0"></label>
+    <div id="testBtns" class="hidden" style="display:flex;gap:8px"><button id="snap">snap to 3⁄2</button><button id="nudge">+ 10⁻⁹</button></div>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="hint" id="hint"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+
+  <div class="eqs">
+    <div class="eq">y(t) = W(φ₁(t), φ₂(t)), &nbsp; φ₁ = 2π·f₁·t, &nbsp; φ₂ = 2π·f₂·t</div>
+    <div class="words">(what you hear) = the surface's height at the point the scan has reached, where the scan runs around one circle f₁ times a second and around the other f₂ times a second.</div>
+    <div class="eq">W = Σ c<sub>mn</sub> · e<sup>i(mφ₁ + nφ₂)</sup> &nbsp; ⇒ &nbsp; partials at f = m·f₁ + n·f₂</div>
+    <div class="words">(the surface) = a sum of ripples, each with a count m along one circle and n along the other; scanning puts every ripple at (m × the first rate) + (n × the second rate).</div>
+    <div class="eq">f₁ ⁄ f₂ = p ⁄ q &nbsp; ⇒ &nbsp; f = (m·p + n·q) · f₂ ⁄ q</div>
+    <div class="words">(when the ratio is a fraction in lowest terms) every partial is a whole-number multiple of f₂ ÷ q: harmonic, with the path closing after q turns of the second circle.</div>
+    <div class="eq">f₁ = (p ⁄ q)·f₂ + δ &nbsp; ⇒ &nbsp; each partial moves by m·δ; partials that shared a harmonic beat at multiples of |q·f₁ − p·f₂|</div>
+    <div class="words">(just off that fraction, by δ hertz) every partial slides by its count m times δ, so ripples that landed together drift apart at a rate that falls smoothly to zero as the ratio arrives.</div>
+    <div class="note">Surfaces rebuilt from their lattices (the c<sub>mn</sub> holding 99.5% of each catalog table's energy) into a 512 × 512 table, read bilinearly, as the instrument reads its own. f₂ = 110 Hz from step 2 on. What you hear passes a 20 Hz high-pass (the measured spectrum is taken before it): some surfaces put their loudest ripple below hearing near a simple ratio.</div>
+  </div>
+</div>
+
+<script id="torus-math">
+// Pure functions, shared by the page and its offline check (Rich face checks/check-pieces.mjs).
+const TorusMath = (() => {
+  const TP = 2 * Math.PI;
+  // A surface table from its lattice terms: W[j*N + i] = sum a*cos(m*phi1_i + n*phi2_j + th), dc left out.
+  function buildTable(terms, N) {
+    const W = new Float32Array(N * N), cm = new Float64Array(N), sm = new Float64Array(N);
+    for (const [m, n, a, th] of terms) {
+      for (let i = 0; i < N; i++) { const x = (m * TP * i) / N; cm[i] = Math.cos(x); sm[i] = Math.sin(x); }
+      for (let j = 0; j < N; j++) {
+        const y = (n * TP * j) / N + th, cy = a * Math.cos(y), sy = a * Math.sin(y), row = j * N;
+        for (let i = 0; i < N; i++) W[row + i] += cm[i] * cy - sm[i] * sy;
+      }
+    }
+    let e = 0; for (let k = 0; k < W.length; k++) e += W[k] * W[k];
+    const g = 0.22 / Math.sqrt(e / W.length || 1);
+    for (let k = 0; k < W.length; k++) W[k] *= g;
+    return W;
+  }
+  // The best fraction for x, within tol, by continued fractions.
+  function fraction(x, tol = 1e-12, qmax = 1e12) {
+    let h0 = 1, h1 = 0, k0 = 0, k1 = 1, b = x;
+    for (let it = 0; it < 64; it++) {
+      const a = Math.floor(b), h = a * h0 + h1, k = a * k0 + k1;
+      if (k > qmax) break;
+      h1 = h0; h0 = h; k1 = k0; k0 = k;
+      if (Math.abs(x - h / k) <= tol * Math.max(1, Math.abs(x))) break;
+      const r = b - a; if (r < 1e-15) break; b = 1 / r;
+    }
+    return [h0, k0];
+  }
+  const gcd = (a, b) => (b ? gcd(b, a % b) : Math.abs(a));
+  // The nearest fraction p/q with q <= Q (Q small: the ratios an ear treats as simple).
+  function nearestSimple(r, Q = 6) {
+    let best = null;
+    for (let q = 1; q <= Q; q++) {
+      const p = Math.round(r * q);
+      if (gcd(p, q) !== 1) continue;
+      const d = Math.abs(r - p / q);
+      if (!best || d < best.d - 1e-15) best = { p, q, d };
+    }
+    return best;
+  }
+  // Predicted lines for a scan at f1, f2: one per lattice term, at |m f1 + n f2|.
+  function lines(terms, f1, f2) {
+    return terms.map(([m, n, a]) => ({ m, n, a, f: Math.abs(m * f1 + n * f2), s: Math.sign(m * f1 + n * f2) || 1 }));
+  }
+  // Near p/q: which terms shared a harmonic at exactly p/q, and how fast they now beat apart.
+  function stacks(terms, p, q, f1, f2) {
+    const groups = new Map();
+    for (const [m, n, a] of terms) {
+      const k = m * p + n * q; if (k === 0) continue;
+      const key = Math.abs(k);
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push({ m, n, a, s: Math.sign(k) });
+    }
+    const delta = f1 - (p / q) * f2;
+    const out = [];
+    for (const [k, g] of groups) {
+      if (g.length < 2) continue;
+      const pos = g.map((t) => t.s * t.m * delta);
+      let slow = Infinity;
+      for (let i = 0; i < pos.length; i++) for (let j = i + 1; j < pos.length; j++) { const d = Math.abs(pos[i] - pos[j]); if (d > 1e-12) slow = Math.min(slow, d); }
+      out.push({ k, harmonic: (k * f2) / q, terms: g, beat: slow });
+    }
+    out.sort((a, b) => a.k - b.k);
+    return { delta, groups: out };
+  }
+  // Largest slide of any partial from where it sat at p/q: max |m| * |delta|.
+  function slide(terms, r, f2, Q = 6) {
+    const s = nearestSimple(r, Q), d = Math.abs((r - s.p / s.q) * f2);
+    let mm = 0; for (const [m] of terms) mm = Math.max(mm, Math.abs(m));
+    return { ...s, hz: mm * d, delta: d };
+  }
+  const WORKLET = `
+class TorusScan extends AudioWorkletProcessor {
+  constructor() {
+    super(); this.T = null; this.N = 0; this.p1 = 0; this.p2 = 0;
+    this.f1 = 110; this.f2 = 0; this.t1 = 110; this.t2 = 0; this.g = 0; this.tg = 0;
+    this.port.onmessage = (e) => {
+      const d = e.data;
+      if (d.table) { this.T = d.table; this.N = d.N; }
+      if (d.f1 !== undefined) this.t1 = d.f1;
+      if (d.f2 !== undefined) this.t2 = d.f2;
+      if (d.jump) { this.f1 = this.t1; this.f2 = this.t2; }
+      if (d.p1 !== undefined) this.p1 = d.p1;
+      if (d.p2 !== undefined) this.p2 = d.p2;
+      if (d.gain !== undefined) this.tg = d.gain;
+    };
+  }
+  process(_in, outs) {
+    const L = outs[0][0], R = outs[0][1] || L, T = this.T, N = this.N;
+    if (!T) { L.fill(0); if (R !== L) R.fill(0); return true; }
+    const sr = sampleRate, k = 1 - Math.exp(-1 / (0.025 * sr)), kg = 1 - Math.exp(-1 / (0.03 * sr));
+    let p1 = this.p1, p2 = this.p2;
+    for (let s = 0; s < L.length; s++) {
+      this.f1 += (this.t1 - this.f1) * k; this.f2 += (this.t2 - this.f2) * k; this.g += (this.tg - this.g) * kg;
+      const x = p1 * N, y = p2 * N;
+      const i0 = Math.floor(x) % N, j0 = Math.floor(y) % N, fx = x - Math.floor(x), fy = y - Math.floor(y);
+      const i1 = (i0 + 1) % N, j1 = (j0 + 1) % N, r0 = j0 * N, r1 = j1 * N;
+      const top = T[r0 + i0] + (T[r0 + i1] - T[r0 + i0]) * fx;
+      const bot = T[r1 + i0] + (T[r1 + i1] - T[r1 + i0]) * fx;
+      const v = (top + (bot - top) * fy) * this.g;
+      L[s] = v; R[s] = v;
+      p1 += this.f1 / sr; p1 -= Math.floor(p1);
+      p2 += this.f2 / sr; p2 -= Math.floor(p2);
+    }
+    this.p1 = p1; this.p2 = p2;
+    return true;
+  }
+}
+registerProcessor('torus-scan', TorusScan);`;
+  return { buildTable, fraction, nearestSimple, lines, stacks, slide, WORKLET, gcd };
+})();
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const DATA_URL = '2D%20Torus%20Wavetable%20Synthesizer%20—%20rich%20—%20lattices.json';
+const N = 512, F2 = 110, F1_1D = 110;
+const PHI = (1 + Math.sqrt(5)) / 2;
+const STEPS = [
+  { key: 'one', name: 'one circle',
+    say: 'An ordinary wavetable is one row read round and round: <i>one phasor, one circle</i>. Here the second phasor is stopped (f₂ = 0), so the scan reads a single row of the surface at 110 Hz. Move the row. The colour changes and the pitch does not: every partial is a whole multiple of f₁.' },
+  { key: 'two', name: 'two circles make a torus',
+    say: 'Start the second phasor at 110 Hz. Glue the square\'s edges, right to left and top to bottom, and it is a torus: <i>two circles at once</i>. At a simple ratio f₁ : f₂ = p : q the path winds p times one way and q times the other, then closes: a (p,q) knot. Closed means the sound repeats every q ⁄ f₂ seconds.' },
+  { key: 'lattice', name: 'where the partials come from',
+    say: 'The surface is a lattice of ripples c<sub>mn</sub>; the bigger the dot, the louder the ripple. Scanning <i>projects the lattice onto one line</i>, the direction (f₁, f₂): each ripple lands at m·f₁ + n·f₂. At a simple ratio, ripples land on top of each other, and every landing is a whole multiple of f₂ ⁄ q. Play, and the grey measured spectrum should sit under the amber lines.' },
+  { key: 'open', name: 'a ratio no fraction names',
+    say: 'Now a ratio that is no fraction: the golden ratio, √2, √3. The path <i>never closes</i>; leave it running and it fills the torus. On the lattice no two ripples ever land together, and the landings fall off every harmonic grid. The spectrum is inharmonic, and the surface decides how.' },
+  { key: 'test', name: 'the test: line or slope?',
+    say: 'The page holds both: rational closes and irrational opens, and <i>the boundary between harmonic and inharmonic is a continuous geometric parameter, not a categorical line</i>. Drag the ratio slowly through 3 ⁄ 2. The period readout jumps every time the slider lands on a new fraction: that is the categorical line, and it is everywhere. Watch the lines instead. Do they jump, or slide?' },
+];
+const RATIOS = {
+  two: [[1, 1], [2, 1], [3, 2], [4, 3], [5, 3], [5, 4]],
+  lattice: [[1, 1], [2, 1], [3, 2], [4, 3], [5, 3], [5, 4]],
+  open: [['φ', PHI], ['√2', Math.SQRT2], ['√3', Math.sqrt(3)], ['π ⁄ 2', Math.PI / 2], ['3 ⁄ 2', 1.5]],
+};
+
+const S = { step: 0, surf: 5, row: 0.13, rp: 3, rq: 2, rIrr: null, rLabel: '3 : 2', coarse: 1.47, fine: 0, nudge: 0, t0: performance.now() };
+let DATA = null, tables = new Map(), ctx = null, node = null, master = null, analyser = null, playing = false, spectrumBuf = null;
+
+const fmt = (x, d = 2) => (Math.abs(x) >= 1000 ? x.toFixed(0) : x.toFixed(d));
+function surface() { return DATA.surfaces[S.surf]; }
+function terms() { return surface().terms; }
+function ratio() {
+  const k = STEPS[S.step].key;
+  if (k === 'one') return null;
+  if (k === 'test') return S.coarse + S.fine + S.nudge;
+  if (S.rIrr != null) return S.rIrr;
+  return S.rp / S.rq;
+}
+function freqs() { const r = ratio(); return r == null ? [F1_1D, 0] : [r * F2, F2]; }
+function table() {
+  const id = surface().id;
+  if (!tables.has(id)) tables.set(id, TorusMath.buildTable(terms(), N));
+  return tables.get(id);
+}
+
+// ---------- sound ----------
+async function start() {
+  if (!DATA) return; // nothing to play until the surfaces have loaded
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([TorusMath.WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'torus-scan', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    analyser = ctx.createAnalyser(); analyser.fftSize = 16384; analyser.smoothingTimeConstant = 0.55;
+    spectrumBuf = new Float32Array(analyser.frequencyBinCount);
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    const sub = ctx.createBiquadFilter(); sub.type = 'highpass'; sub.frequency.value = 20; sub.Q.value = 0.7;
+    master = ctx.createGain(); master.gain.value = 0.9;
+    node.connect(analyser); node.connect(sub).connect(comp).connect(master).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) { playing = false; paintGo(); } };
+    sendTable(); sendFreqs(true);
+  }
+  await ctx.resume();
+  node.port.postMessage({ gain: 1 });
+  playing = true; paintGo();
+}
+function stop() {
+  if (!ctx || !playing) return;
+  node.port.postMessage({ gain: 0 });
+  playing = false; paintGo();
+  setTimeout(() => { if (!playing && ctx) ctx.suspend(); }, 160);
+}
+function paintGo() { $('go').textContent = playing ? '❚❚ stop' : '▸ play'; }
+function sendTable() { if (node) { const T = table(); node.port.postMessage({ table: T.slice(), N }); } }
+function sendFreqs(jump) {
+  if (!node) return;
+  const [f1, f2] = freqs();
+  const msg = { f1, f2, jump: !!jump };
+  if (STEPS[S.step].key === 'one') { msg.p2 = S.row; msg.f2 = 0; }
+  node.port.postMessage(msg);
+}
+
+// ---------- canvases ----------
+function fit(c, h) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1, H = h || w;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+const heat = new Map();
+function heatImage() {
+  const id = surface().id;
+  if (heat.has(id)) return heat.get(id);
+  const M = 128, T = table(), cv = document.createElement('canvas'); cv.width = M; cv.height = M;
+  const g = cv.getContext('2d'), img = g.createImageData(M, M);
+  let peak = 1e-9; for (let k = 0; k < T.length; k += 7) peak = Math.max(peak, Math.abs(T[k]));
+  for (let j = 0; j < M; j++) for (let i = 0; i < M; i++) {
+    const v = T[(Math.floor(j * N / M)) * N + Math.floor(i * N / M)] / peak, o = ((M - 1 - j) * M + i) * 4;
+    const a = Math.min(1, Math.abs(v));
+    if (v >= 0) { img.data[o] = 10 + 222 * a; img.data[o + 1] = 10 + 174 * a; img.data[o + 2] = 15 + 59 * a; }
+    else { img.data[o] = 10 + 89 * a; img.data[o + 1] = 10 + 92 * a; img.data[o + 2] = 15 + 226 * a; }
+    img.data[o + 3] = 255;
+  }
+  g.putImageData(img, 0, 0); heat.set(id, cv); return cv;
+}
+// Exact straight segments of the linear flow on the unit square, for s in [0, Sturns] turns of phi2.
+function flatSegments(r, Sturns, maxSeg = 4000) {
+  const segs = []; let x = 0, y = 0, s = 0;
+  if (r == null) return segs;
+  while (s < Sturns - 1e-12 && segs.length < maxSeg) {
+    const dsX = (1 - x) / r, dsY = 1 - y, ds = Math.min(dsX, dsY, Sturns - s);
+    const x2 = x + r * ds, y2 = y + ds;
+    segs.push([x, y, x2, y2]);
+    s += ds; x = x2; y = y2;
+    if (x >= 1 - 1e-12) x -= 1; if (y >= 1 - 1e-12) y -= 1;
+  }
+  return segs;
+}
+let pathS = 0, lastFrame = performance.now(), closedAt = null;
+function resetPath() { pathS = 0; closedAt = null; }
+
+function drawFlat() {
+  const { g, w } = fit($('flat'));
+  const pad = 22, side = w - pad * 2;
+  g.clearRect(0, 0, w, w);
+  g.globalAlpha = 0.85; g.imageSmoothingEnabled = true; g.drawImage(heatImage(), pad, pad, side, side); g.globalAlpha = 1;
+  g.strokeStyle = '#4a4a5e'; g.lineWidth = 1; g.strokeRect(pad, pad, side, side);
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  g.fillText('φ₁ → (along a row)', w / 2, w - 6);
+  g.save(); g.translate(10, w / 2); g.rotate(-Math.PI / 2); g.fillText('φ₂ → (row to row)', 0, 0); g.restore();
+  const X = (u) => pad + u * side, Y = (v) => pad + (1 - v) * side;
+  const k = STEPS[S.step].key, r = ratio();
+  g.lineCap = 'round';
+  if (k === 'one') {
+    g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath(); g.moveTo(X(0), Y(S.row)); g.lineTo(X(1), Y(S.row)); g.stroke();
+    const hx = ((performance.now() - S.t0) / 1000 * 0.35) % 1;
+    g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X(hx), Y(S.row), 4, 0, 7); g.fill();
+    $('pathlabel').textContent = 'one row · closes every turn';
+    return;
+  }
+  const segs = flatSegments(r, pathS);
+  g.strokeStyle = 'rgba(232,184,74,0.85)'; g.lineWidth = segs.length > 600 ? 0.8 : 1.5;
+  g.beginPath(); for (const [a, b, c, d] of segs) { g.moveTo(X(a), Y(b)); g.lineTo(X(c), Y(d)); } g.stroke();
+  const last = segs[segs.length - 1];
+  if (last) { g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X(last[2] % 1), Y(last[3] % 1), 4, 0, 7); g.fill(); }
+}
+
+function drawTorus() {
+  const { g, w } = fit($('torus'));
+  g.clearRect(0, 0, w, w);
+  const k = STEPS[S.step].key, r = ratio();
+  const R0 = w * 0.27, r0 = w * 0.12, cx = w / 2, cy = w / 2, tilt = 1.05, spin = (performance.now() - S.t0) / 1000 * 0.12;
+  const ct = Math.cos(tilt), st = Math.sin(tilt);
+  const P = (u, v) => { // u = phi1 around the big circle, v = phi2 around the tube
+    const a = u * 2 * Math.PI + spin, b = v * 2 * Math.PI;
+    const x = (R0 + r0 * Math.cos(b)) * Math.cos(a), y = (R0 + r0 * Math.cos(b)) * Math.sin(a), z = r0 * Math.sin(b);
+    const y2 = y * ct - z * st, z2 = y * st + z * ct;
+    return [cx + x, cy + y2, z2];
+  };
+  g.lineWidth = 1;
+  for (let i = 0; i < 24; i++) { g.strokeStyle = 'rgba(138,138,160,0.10)'; g.beginPath(); for (let j = 0; j <= 40; j++) { const p = P(i / 24, j / 40); j ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); } g.stroke(); }
+  for (let j = 0; j < 8; j++) { g.strokeStyle = 'rgba(138,138,160,0.10)'; g.beginPath(); for (let i = 0; i <= 80; i++) { const p = P(i / 80, j / 8); i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); } g.stroke(); }
+  const pts = [];
+  if (k === 'one') { for (let i = 0; i <= 200; i++) pts.push(P(i / 200, S.row)); }
+  else {
+    const Sx = Math.min(pathS, 60), n = Math.max(2, Math.ceil(Sx * 260));
+    for (let i = 0; i <= n; i++) { const s = (Sx * i) / n; pts.push(P((r * s) % 1, s % 1)); }
+  }
+  const buckets = [[], [], [], []];
+  for (let i = 1; i < pts.length; i++) { const z = (pts[i][2] + pts[i - 1][2]) / 2; const b = Math.max(0, Math.min(3, Math.floor(((z / (r0 + 1e-9)) * 0.5 + 0.5) * 3.999))); buckets[b].push(i); }
+  const alphas = [0.9, 0.6, 0.35, 0.18];
+  buckets.forEach((idx, b) => { g.strokeStyle = `rgba(232,184,74,${alphas[b] * (pts.length > 4000 ? 0.7 : 1)})`; g.lineWidth = pts.length > 4000 ? 0.7 : 1.4; g.beginPath(); for (const i of idx) { g.moveTo(pts[i - 1][0], pts[i - 1][1]); g.lineTo(pts[i][0], pts[i][1]); } g.stroke(); });
+}
+
+function latticeRange() { let L = 1; for (const [m, n] of terms()) { if (Math.abs(m) <= 12 && Math.abs(n) <= 12) L = Math.max(L, Math.abs(m), Math.abs(n)); } return Math.max(3, L); }
+function drawLattice() {
+  const c = $('lattice'); const { g, w } = fit(c, Math.min(420, Math.max(300, c.clientWidth * 0.42)));
+  const h = c.height / (devicePixelRatio || 1);
+  g.clearRect(0, 0, w, h);
+  const L = latticeRange(), [f1, f2] = freqs();
+  const cell = Math.min((h - 30) / (2 * L + 1), (w * 0.5) / (2 * L + 1)), ox = w * 0.27, oy = h / 2;
+  const PX = (m) => ox + m * cell, PY = (n) => oy - n * cell;
+  g.fillStyle = '#4a4a5a';
+  for (let m = -L; m <= L; m++) for (let n = -L; n <= L; n++) { g.beginPath(); g.arc(PX(m), PY(n), 1, 0, 7); g.fill(); }
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(PX(-L), oy); g.lineTo(PX(L), oy); g.moveTo(ox, PY(-L)); g.lineTo(ox, PY(L)); g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left';
+  g.fillText('m →', PX(L) + 4, oy + 3); g.fillText('n ↑', ox + 4, PY(L) - 4);
+  // the scan direction (f1, f2) and the projection of every ripple onto it
+  const nrm = Math.hypot(f1, f2) || 1, ux = f1 / nrm, uy = f2 / nrm;
+  g.strokeStyle = 'rgba(232,184,74,0.45)'; g.setLineDash([5, 4]);
+  g.beginPath(); g.moveTo(PX(-L * 1.4 * ux), PY(-L * 1.4 * uy)); g.lineTo(PX(L * 1.4 * ux), PY(L * 1.4 * uy)); g.stroke(); g.setLineDash([]);
+  const T = terms().filter(([m, n]) => Math.abs(m) <= L && Math.abs(n) <= L);
+  const amax = Math.max(...terms().map((t) => t[2]));
+  const r = ratio(), ns = r == null ? { p: 1, q: 0 } : TorusMath.nearestSimple(r, 8);
+  const exact = r != null && Math.abs(r - ns.p / ns.q) < 1e-12;
+  // which projections coincide (exactly, at an exact simple ratio)
+  const key = (m, n) => Math.abs(m * f1 + n * f2).toFixed(6);
+  const count = new Map(); for (const [m, n] of terms()) { const kk = key(m, n); count.set(kk, (count.get(kk) || 0) + 1); }
+  for (const [m, n, a] of T) for (const sgn of [1, -1]) {
+    const mm = sgn * m, nn = sgn * n, t = mm * ux + nn * uy;
+    const stacked = (count.get(key(m, n)) || 0) > 1;
+    g.strokeStyle = stacked ? 'rgba(232,184,74,0.55)' : 'rgba(99,102,241,0.35)'; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(PX(mm), PY(nn)); g.lineTo(PX(t * ux), PY(t * uy)); g.stroke();
+    const rad = 2 + 8 * Math.sqrt(a / amax);
+    g.fillStyle = sgn > 0 ? (stacked ? '#e8b84a' : '#6366F1') : 'rgba(99,102,241,0.35)';
+    g.beginPath(); g.arc(PX(mm), PY(nn), rad, 0, 7); g.fill();
+  }
+  // the 1D landing strip on the right: |f| for each term
+  const x0 = w * 0.58, x1 = w - 16, fmax = specMax();
+  const FX = (f) => x0 + (f / fmax) * (x1 - x0);
+  g.strokeStyle = '#4a4a5e'; g.beginPath(); g.moveTo(x0, oy); g.lineTo(x1, oy); g.stroke();
+  g.fillStyle = '#8a8aa0'; g.textAlign = 'center';
+  for (let f = 0; f <= fmax; f += 500) { g.fillRect(FX(f), oy, 1, 4); g.fillText(f + ' Hz', FX(f), oy + 16); }
+  if (r != null && ns.q && exact) { g.strokeStyle = 'rgba(232,184,74,0.18)'; for (let k2 = 1; (k2 * f2) / ns.q <= fmax; k2++) { g.beginPath(); g.moveTo(FX((k2 * f2) / ns.q), oy - 70); g.lineTo(FX((k2 * f2) / ns.q), oy); g.stroke(); } }
+  for (const [m, n, a] of terms()) {
+    const f = Math.abs(m * f1 + n * f2); if (f > fmax) continue;
+    const stacked = (count.get(key(m, n)) || 0) > 1;
+    g.fillStyle = stacked ? '#e8b84a' : '#6366F1';
+    const hgt = 6 + 60 * Math.sqrt(a / amax);
+    g.fillRect(FX(f) - 1, oy - hgt, 2, hgt);
+  }
+  g.fillStyle = '#8a8aa0'; g.textAlign = 'left';
+  g.fillText('where each ripple lands: |m·f₁ + n·f₂|', x0, oy - 84);
+  const stackedN = [...count.values()].filter((v) => v > 1).reduce((a, b) => a + b, 0);
+  $('latlabel').textContent = (L < Math.max(...terms().map((t) => Math.max(Math.abs(t[0]), Math.abs(t[1])))) ? `showing |m|,|n| ≤ ${L} · ` : '') + (stackedN ? `${stackedN} ripples share a landing` : 'no two ripples share a landing');
+}
+
+function specMax() { const k = STEPS[S.step].key; return k === 'one' ? 2000 : 2600; }
+function drawSpec() {
+  const { g, w, h } = fit($('spec'), 150);
+  g.clearRect(0, 0, w, h);
+  const fmax = specMax(), X = (f) => 8 + (f / fmax) * (w - 16), base = h - 20;
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(8, base); g.lineTo(w - 8, base); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  for (let f = 0; f <= fmax; f += 250) { g.fillRect(X(f), base, 1, 4); if (f % 500 === 0) g.fillText(f, X(f), h - 5); }
+  const [f1, f2] = freqs(), k = STEPS[S.step].key, r = ratio();
+  // harmonic grid of the nearest exact closure
+  if (k === 'one') { g.strokeStyle = 'rgba(232,184,74,0.14)'; for (let f = f1; f <= fmax; f += f1) { g.beginPath(); g.moveTo(X(f), 8); g.lineTo(X(f), base); g.stroke(); } }
+  else if (r != null) { const ns = TorusMath.nearestSimple(r, 8); const grid = f2 / ns.q; g.strokeStyle = Math.abs(r - ns.p / ns.q) < 1e-12 ? 'rgba(232,184,74,0.14)' : 'rgba(138,138,160,0.10)'; for (let f = grid; f <= fmax; f += grid) { g.beginPath(); g.moveTo(X(f), 8); g.lineTo(X(f), base); g.stroke(); } }
+  // measured
+  if (playing && analyser) {
+    analyser.getFloatFrequencyData(spectrumBuf);
+    const bin = ctx.sampleRate / analyser.fftSize;
+    g.strokeStyle = 'rgba(200,200,216,0.55)'; g.lineWidth = 1; g.beginPath();
+    let first = true;
+    for (let i = 1; i * bin <= fmax; i++) { const db = Math.max(-110, spectrumBuf[i]); const y = base - ((db + 110) / 100) * (base - 10); const x = X(i * bin); first ? g.moveTo(x, y) : g.lineTo(x, y); first = false; }
+    g.stroke();
+  }
+  // predicted
+  let lines;
+  if (k === 'one') {
+    // one row: the n-sum collapses each column m into one harmonic, with amplitude |sum_n c_mn e^{i n phi2}|
+    const acc = new Map();
+    for (const [m, n, a, th] of terms()) {
+      for (const sg of [1, -1]) {
+        const mm = sg * m; if (mm <= 0) continue;
+        const ph = sg * (n * 2 * Math.PI * S.row + th);
+        const c = acc.get(mm) || [0, 0]; c[0] += a * Math.cos(ph); c[1] += a * Math.sin(ph); acc.set(mm, c);
+      }
+    }
+    lines = [...acc].map(([mm, c]) => ({ f: mm * f1, a: Math.hypot(c[0], c[1]) }));
+  } else lines = TorusMath.lines(terms(), f1, f2);
+  const amax = Math.max(1e-9, ...terms().map((t) => t[2]));
+  g.fillStyle = '#e8b84a';
+  for (const L of lines) { if (L.f > fmax || L.f < 1) continue; const hh = 4 + (base - 14) * Math.sqrt(L.a / amax) * 0.9; g.fillRect(X(L.f) - 1, base - hh, 2, hh); }
+  $('speclabel').textContent = k === 'one' ? `f₁ = ${f1} Hz · f₂ = 0` : `f₁ = ${fmt(f1, 3)} Hz · f₂ = ${f2} Hz`;
+}
+
+// The strip across the ratio: closure ticks (height 1/q) and the slide curve.
+function drawStrip() {
+  const { g, w, h } = fit($('strip'), 150);
+  g.clearRect(0, 0, w, h);
+  const lo = 1, hi = 2, X = (r) => 10 + ((r - lo) / (hi - lo)) * (w - 20), base = h - 22;
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(10, base); g.lineTo(w - 10, base); g.stroke();
+  for (let q = 1; q <= 24; q++) for (let p = q; p <= 2 * q; p++) {
+    if (TorusMath.gcd(p, q) !== 1) continue;
+    const hh = (base - 12) * (1 / q) * 0.95;
+    g.fillStyle = q <= 6 ? 'rgba(232,184,74,0.75)' : 'rgba(138,138,160,0.45)';
+    g.fillRect(X(p / q) - 0.5, base - hh, 1.5, hh);
+    if (q <= 4) { g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center'; g.fillText(`${p}/${q}`, X(p / q), h - 6); }
+  }
+  // slide curve, log scale 0.01 .. 1000 Hz
+  const Y = (hz) => base - (Math.log10(Math.max(0.01, hz)) + 2) / 5 * (base - 12);
+  g.strokeStyle = 'rgba(99,102,241,0.9)'; g.lineWidth = 1.4; g.beginPath();
+  for (let i = 0; i <= 900; i++) { const r = lo + ((hi - lo) * i) / 900; const s = TorusMath.slide(terms(), r, F2); const x = X(r), y = Y(s.hz); i ? g.lineTo(x, y) : g.moveTo(x, y); }
+  g.stroke();
+  g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.font = '10px JetBrains Mono, monospace';
+  g.fillText('slide, Hz (log): 0.01 · 1 · 100', 14, 12);
+  const r = ratio(); if (r != null) { g.strokeStyle = '#e8e8f0'; g.beginPath(); g.moveTo(X(r), 4); g.lineTo(X(r), base); g.stroke(); }
+}
+
+// ---------- readouts ----------
+function readouts() {
+  const k = STEPS[S.step].key, r = ratio(), [f1, f2] = freqs(), out = [];
+  if (k === 'one') {
+    out.push(`f₁ <b>${f1} Hz</b>`, `f₂ <b>0</b>`, `period <b>${fmt(1000 / f1)} ms</b>`, `every partial a whole multiple of <b>${f1} Hz</b>`);
+  } else if (k === 'two' || k === 'lattice') {
+    const p = S.rp, q = S.rq;
+    out.push(`f₁ : f₂ = <b>${p} : ${q}</b>`, `closes after <b>${q}</b> turn${q > 1 ? 's' : ''} of φ₂ and <b>${p}</b> of φ₁`, `period q ⁄ f₂ = <b>${fmt((1000 * q) / f2)} ms</b>`, `harmonic grid f₂ ⁄ q = <b>${fmt(f2 / q)} Hz</b>`);
+    if (k === 'lattice') { const st = TorusMath.stacks(terms(), p, q, f1, f2); out.push(`<span class="hot">${st.groups.length ? st.groups.length + ' harmonic' + (st.groups.length > 1 ? 's' : '') + ' made of two or more ripples' : 'every ripple lands alone'}</span>`); }
+  } else if (k === 'open') {
+    const [pp, qq] = TorusMath.fraction(r, 1e-12, 1e9);
+    const irr = S.rIrr != null && S.rLabel !== '3 ⁄ 2';
+    out.push(`f₁ ⁄ f₂ = <b>${S.rLabel}</b> = <b>${r.toFixed(9)}</b>`);
+    out.push(irr ? `<span class="hot">never closes</span> · the nearest fraction within a trillionth, ${pp}/${qq}, would close only after <b>${fmtDur(qq / f2)}</b>` : `closes after <b>2</b> turns · <b>18.18 ms</b>`);
+  } else {
+    const [pp, qq] = TorusMath.fraction(r, 1e-13, 1e13);
+    const ns = TorusMath.nearestSimple(r, 6), st = TorusMath.stacks(terms(), ns.p, ns.q, f1, f2), sl = TorusMath.slide(terms(), r, f2);
+    out.push(`f₁ ⁄ f₂ = <b>${r.toFixed(9)}</b>`, `as a fraction, to 13 places <b>${pp}/${qq}</b>`, `path closes after <b class="hot">${fmtDur(qq / f2)}</b>`);
+    out.push(`nearest simple ratio <b>${ns.p}/${ns.q}</b>`, `δ = f₁ − (${ns.p}/${ns.q})·f₂ = <b>${fmtHz(st.delta)}</b>`, `largest slide max|m|·|δ| = <b>${fmtHz(sl.hz)}</b>`);
+    const beats = st.groups.filter((g2) => isFinite(g2.beat)).map((g2) => g2.beat);
+    out.push(beats.length ? `ripples that shared a harmonic at ${ns.p}/${ns.q} beat at <b class="hot">${fmtHz(Math.min(...beats))}</b>` : `<span>no two ripples shared a harmonic at ${ns.p}/${ns.q} on this surface: nothing beats, they only slide</span>`);
+  }
+  $('read').innerHTML = out.map((x) => `<span>${x}</span>`).join('');
+  if (k === 'test') { $('coarseVal').textContent = S.coarse.toFixed(4); $('fineVal').textContent = (S.fine >= 0 ? '+' : '') + S.fine.toFixed(5); }
+  $('rowVal').textContent = S.row.toFixed(3) + ' of a turn';
+}
+function fmtHz(x) { const a = Math.abs(x); return a === 0 ? '0 Hz' : a < 1e-4 ? a.toExponential(1) + ' Hz' : a < 1 ? a.toFixed(4) + ' Hz' : a.toFixed(2) + ' Hz'; }
+function fmtDur(s) {
+  if (s < 1) return (s * 1000).toFixed(2) + ' ms';
+  if (s < 120) return s.toFixed(2) + ' s';
+  if (s < 7200) return (s / 60).toFixed(1) + ' min';
+  if (s < 172800) return (s / 3600).toFixed(1) + ' h';
+  if (s < 3.15e7 * 2) return (s / 86400).toFixed(0) + ' days';
+  return (s / 3.15e7).toExponential(1) + ' years';
+}
+
+// ---------- steps ----------
+function hintFor(k) {
+  const name = surface().name;
+  if (k === 'one') return 'Try Theta Surface or Membrane and sweep the row: some rows go thin, some go full, and none of them change the pitch. That is the 1D synth the Hopf section puts at the south pole of its sphere.';
+  if (k === 'two') return 'The path is drawn slowed down, a few turns a second; the sound runs it 110 times a second. 1 : 1 is a single diagonal; 3 : 2 is the trefoil-shaped (3,2) knot. Knot Shadow\'s ridges lie along that (3,2) direction.';
+  if (k === 'lattice') return `On ${name}, look for amber: ripples that share a landing. They add into one partial, and how loud it comes out depends on where on the surface the closed path sits (longitude, on the Hopf sphere). Ripples that land alone stay blue.`;
+  if (k === 'open') return 'A computer can only hold a fraction, so the readout says how long the stored number\'s path would take to close. The ear has no such patience. Then press 3 ⁄ 2 again and hear the difference.';
+  return `Two things to try. On Membrane, drag through 1 ⁄ 1: ripples (2,1) and (1,2) shared the 330 Hz harmonic and now beat at exactly |f₁ − f₂|. That is the chorus the page says the ratio unifies. On Knot Shadow, drag through 3 ⁄ 2: its ridge ripples land at 0 Hz there (the scan rides the ridge) and climb out of the floor as you detune. The Kuramoto scan in the Five Generating Logics section is a different instrument choice: it puts a snap back on purpose.`;
+}
+function setStep(i) {
+  stop();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i));
+  const k = STEPS[S.step].key;
+  [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === S.step));
+  $('say').innerHTML = STEPS[S.step].say;
+  $('rowCtl').classList.toggle('hidden', k !== 'one');
+  $('ratioCtl').classList.toggle('hidden', !(k === 'two' || k === 'lattice' || k === 'open'));
+  $('coarseCtl').classList.toggle('hidden', k !== 'test');
+  $('fineCtl').classList.toggle('hidden', k !== 'test');
+  $('testBtns').classList.toggle('hidden', k !== 'test');
+  $('latticePanel').classList.toggle('hidden', !(k === 'lattice' || k === 'open' || k === 'test'));
+  $('stripPanel').classList.toggle('hidden', k !== 'test');
+  if (k === 'open' && (S.rIrr == null)) { S.rIrr = PHI; S.rLabel = 'φ'; }
+  if (k === 'two' || k === 'lattice') S.rIrr = null;
+  if (k === 'test') S.nudge = 0;
+  buildRatioButtons();
+  $('hint').textContent = hintFor(k);
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  resetPath(); sendFreqs(true); readouts();
+}
+function buildRatioButtons() {
+  const k = STEPS[S.step].key, box = $('ratios'); box.innerHTML = '';
+  if (!RATIOS[k]) return;
+  for (const item of RATIOS[k]) {
+    const b = document.createElement('button');
+    if (k === 'open') {
+      const [label, val] = item; b.textContent = label;
+      b.classList.toggle('on', S.rLabel === label);
+      b.onclick = () => { S.rIrr = val; S.rLabel = label; buildRatioButtons(); resetPath(); sendFreqs(); readouts(); };
+    } else {
+      const [p, q] = item; b.textContent = `${p} : ${q}`;
+      b.classList.toggle('on', S.rIrr == null && S.rp === p && S.rq === q);
+      b.onclick = () => { S.rp = p; S.rq = q; S.rIrr = null; buildRatioButtons(); resetPath(); sendFreqs(); readouts(); };
+    }
+    box.appendChild(b);
+  }
+}
+
+function frame(now) {
+  requestAnimationFrame(frame);
+  const dt = Math.min(0.1, (now - lastFrame) / 1000); lastFrame = now;
+  const k = STEPS[S.step].key, r = ratio();
+  if (k !== 'one' && r != null) {
+    const ns = TorusMath.nearestSimple(r, 64), exact = Math.abs(r - ns.p / ns.q) < 1e-12;
+    const cap = exact ? ns.q : 48;
+    pathS = Math.min(cap, pathS + dt * (exact ? Math.max(0.6, ns.q / 6) : 1.2));
+    $('pathlabel').textContent = exact ? (pathS >= ns.q ? `closed after ${ns.q} turn${ns.q > 1 ? 's' : ''} of φ₂` : `${pathS.toFixed(1)} turns`) : `${pathS.toFixed(1)} turns · still open`;
+  }
+  if (!DATA) return;
+  drawFlat(); drawTorus(); drawSpec();
+  if (!$('latticePanel').classList.contains('hidden')) drawLattice();
+  if (!$('stripPanel').classList.contains('hidden')) drawStrip();
+}
+
+// sigil: a 3:2 Lissajous, the house mark
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+
+async function boot() {
+  STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+  $('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+  $('go').onclick = () => (playing ? stop() : start());
+  try { const res = await fetch(DATA_URL); if (!res.ok) throw new Error('HTTP ' + res.status); const d = await res.json(); if (!d || !Array.isArray(d.surfaces)) throw new Error('no surfaces in the file'); DATA = d; }
+  catch (e) { $('say').textContent = 'The surfaces could not be loaded (' + e.message + ').'; return; }
+  DATA.surfaces.forEach((s, i) => { const o = document.createElement('option'); o.value = i; o.textContent = s.name + (s.symmetry ? ' · ' + s.symmetry : ''); $('surface').appendChild(o); });
+  $('surface').value = S.surf;
+  $('surface').onchange = () => { S.surf = +$('surface').value; sendTable(); $('hint').textContent = hintFor(STEPS[S.step].key); readouts(); };
+  $('row').oninput = () => { S.row = +$('row').value; sendFreqs(); readouts(); };
+  $('coarse').oninput = () => { S.coarse = +$('coarse').value; S.nudge = 0; resetPath(); sendFreqs(); readouts(); };
+  $('fine').oninput = () => { S.fine = +$('fine').value; S.nudge = 0; resetPath(); sendFreqs(); readouts(); };
+  $('snap').onclick = () => { S.coarse = 1.5; S.fine = 0; S.nudge = 0; $('coarse').value = 1.5; $('fine').value = 0; resetPath(); sendFreqs(); readouts(); };
+  $('nudge').onclick = () => { S.nudge += 1e-9; resetPath(); sendFreqs(); readouts(); };
+  setStep(0);
+  requestAnimationFrame(frame);
+}
+boot();
+</script>
+</body>
+</html>

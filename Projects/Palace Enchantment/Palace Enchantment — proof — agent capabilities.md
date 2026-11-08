@@ -19,6 +19,39 @@ So this page holds **runs**, newest first. Each run says when, on which version,
 
 ---
 
+## Run 2 — 2026-10-13/14
+
+**Setup.** Not a battery: two findings from a planning session on how sessions could land work on main, written down here from operator memory on 2026-11-07. The Claude Code version was not recorded. Desktop app, Opus as the main session.
+
+### What held
+
+**The worktree isolation guard (tested)**
+- **A subagent spawned with `isolation: 'worktree'` cannot run git against the owner's checkout, even to read.** `git -C "<owner>" rev-parse` and `git -C "<owner>" status` were both refused: "a worktree-isolated agent's git operations must target its own worktree." This answers Run 1's untested `isolation: 'worktree'`.
+- **It can still see.** It read the owner's files by absolute path, read the shared `main` ref from its own worktree (`git rev-parse main`), and saw `CLAUDE_CODE_SESSION_ID`.
+- **Sessions born in the owner's folder meet no guard** — 256 of the 274 sessions on record then.
+- So a landing step that means "run git in the owner" cannot be done by an isolated hand. A landing by refs alone (`merge-tree`, `commit-tree`, `update-ref main <new> <old>`) can, but leaves the owner's checkout behind main.
+
+**Messages between sessions, by permission mode (documented; one incident, 2026-09-26)**
+- **Sessions fall into two classes: bypass, and everything else.** A message within a class is delivered. A message across classes is *held* at the receiver, and the desktop app and `claude -p` cannot show the approval dialog, so it expires after five minutes and is dropped without a trace. All 76 delivered messages on record were bypass to bypass.
+- **A session with no live process has no inbox.**
+- **The Concierge, as `palace-writer`, has no SendMessage**, so it answers only to the session that holds its ID.
+
+**What a subagent costs between uses**
+- **Parked is free.** A spawned agent stops after each turn and sits at no cost; holding its ID costs nothing. The cost is paid at the spawn and at every resume, which re-reads a context that keeps growing, so resumes get dearer as the session goes on. It is gone when the session ends, not kept across `claude` invocations.
+
+### What it means for the palace
+
+1. **Never lean on a message without a durable twin** — a board line or a commit. Before relying on a peer's message, check both sessions' modes.
+2. **A landing is made in the main checkout**, through the door ([[How the Palace Commits]]). Whether an isolated subagent can run the lander, which runs git there from a node script, is untested (below).
+
+### Not yet tested
+
+- Whether `cd`, `--git-dir`, or git run inside a node script also meet the guard. Going around a guard is Loudon's call.
+- Whether desktop app-worktree *sessions* (not subagents) meet it.
+- `crossSessionInbound: "accept"` as the override for held messages.
+
+---
+
 ## Run 1 — 2026-09-26
 
 **Setup.** Claude Code 2.1.280 in the desktop app, bypass mode, Opus 5.5 as the main session. The probes were Haiku; they were mechanical checks, not enchantments, which [[Palace Enchantment]] keeps off Haiku. The test session's own lead ran on Sonnet. The agent-teams flag (`CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`) was set to `0` in `~/.claude/settings.json` just before the run. Teams were tested only inside a throwaway command-line session that switched the flag on for itself alone.

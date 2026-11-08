@@ -1,0 +1,128 @@
+{
+ "rendered": "2026-11-03",
+ "engine": "kokoro-onnx 0.5.0, kokoro-v1.0.onnx, voices-v1.0.bin, en-us, speed 1.0, its own silence trim on (the build's settings)",
+ "voices": [
+  "am_adam",
+  "af_bella"
+ ],
+ "spellings": {
+  "brrrrahhh": {
+   "ipa": "bˌiːˌɑːɹɹˌɑːɹɹˈɑːɹɹˈɑː",
+   "files": {
+    "am_adam": "spelling-brrrrahhh-am_adam.wav",
+    "af_bella": "spelling-brrrrahhh-af_bella.wav"
+   }
+  },
+  "brah": {
+   "ipa": "bɹˈɑː",
+   "files": {
+    "am_adam": "spelling-brah-am_adam.wav",
+    "af_bella": "spelling-brah-af_bella.wav"
+   }
+  },
+  "vrrrrah": {
+   "ipa": "vˌiːˌɑːɹɹˌɑːɹɹˈɑːɹɹˈɑː",
+   "files": {
+    "am_adam": "spelling-vrrrrah-am_adam.wav",
+    "af_bella": "spelling-vrrrrah-af_bella.wav"
+   }
+  },
+  "rrrrah": {
+   "ipa": "ˌɑːɹɹˌɑːɹɹˈɑːɹɹˈɑː",
+   "files": {
+    "am_adam": "spelling-rrrrah-am_adam.wav",
+    "af_bella": "spelling-rrrrah-af_bella.wav"
+   }
+  },
+  "brrah": {
+   "ipa": "bˌiːˈɑːɹɹˈɑː",
+   "files": {
+    "am_adam": "spelling-brrah-am_adam.wav",
+    "af_bella": "spelling-brrah-af_bella.wav"
+   }
+  },
+  "rraaaaah": {
+   "ipa": "ˈɑːɹɹˈææææə",
+   "files": {
+    "am_adam": "spelling-rraaaaah-am_adam.wav",
+    "af_bella": "spelling-rraaaaah-af_bella.wav"
+   }
+  },
+  "burrrrrah": {
+   "ipa": "bˈɜːrɹə",
+   "files": {
+    "am_adam": "spelling-burrrrrah-am_adam.wav",
+    "af_bella": "spelling-burrrrrah-af_bella.wav"
+   }
+  },
+  "ssssss": {
+   "ipa": "ˌɛsˌɛsˈɛsˌɛsˌɛsˈɛs",
+   "files": {
+    "am_adam": "spelling-ssssss-am_adam.wav",
+    "af_bella": "spelling-ssssss-af_bella.wav"
+   }
+  },
+  "ahhh": {
+   "ipa": "ˈɑː",
+   "files": {
+    "am_adam": "spelling-ahhh-am_adam.wav",
+    "af_bella": "spelling-ahhh-af_bella.wav"
+   }
+  },
+  "fffff": {
+   "ipa": "ˌɛfˌɛfˈɛfˌɛfˈɛf",
+   "files": {}
+  },
+  "uuuuh": {
+   "ipa": "ˈuːuː",
+   "files": {}
+  },
+  "knock": {
+   "ipa": "nˈɑːk",
+   "files": {}
+  },
+  "rah rah rah": {
+   "ipa": "ɹˈɑː ɹˈɑː ɹˈɑː",
+   "files": {}
+  },
+  "b": {
+   "ipa": "bˈiː",
+   "files": {}
+  },
+  "r": {
+   "ipa": "ˈɑːɹ",
+   "files": {}
+  },
+  "s": {
+   "ipa": "ˈɛs",
+   "files": {}
+  },
+  "v": {
+   "ipa": "vˈiː",
+   "files": {}
+  }
+ },
+ "phonemes": {
+  "door-brrrr-ah": {
+   "ipa": "brrrrˈɑː",
+   "files": {
+    "am_adam": "door-brrrr-ah-am_adam.wav",
+    "af_bella": "door-brrrr-ah-af_bella.wav"
+   }
+  },
+  "door-burrrrr-ah": {
+   "ipa": "bˈʌrrrrrɑː",
+   "files": {
+    "am_adam": "door-burrrrr-ah-am_adam.wav",
+    "af_bella": "door-burrrrr-ah-af_bella.wav"
+   }
+  },
+  "door-br-ah": {
+   "ipa": "bˈrɑː",
+   "files": {
+    "am_adam": "door-br-ah-am_adam.wav",
+    "af_bella": "door-br-ah-af_bella.wav"
+   }
+  }
+ }
+}

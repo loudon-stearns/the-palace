@@ -1,0 +1,542 @@
+<!doctype html>
+<!--
+  title: Synthesis ↔ Emergence — rich — predicted beside measured
+  born: 2026-11-03
+  links: [[Synthesis ↔ Emergence]] connects-to · rich-face-piece · listed in [[Synthesis ↔ Emergence — rich.json]] under "Unpredictability ≠ Randomness"
+  forward_vector: I am the section's claim, "deterministic, but you can't predict the sound from parameters alone",
+    put to the sound. I set a formula's prediction beside a measurement of the sound itself and show where it
+    holds and where it fails: the two-sine pair is predicted exactly by Bessel functions at every depth; the
+    DX7's feedback loop is predicted by Bessel's series for Kepler's equation while the push stays at or under 1;
+    past that only running it tells you; and past an edge near 3.9 its Lyapunov exponent turns positive, the
+    weather the section names. A plain one-sample loop reaches that edge sooner, near 2.45, and I say so.
+    I change only when the section does.
+  engine: the pair, sin(2π·fc·t + I·sin(2π·fm·t)), and the DX7-style feedback loop, y = sin(2π·f·t + β·(y₋₁ + y₋₂)/2),
+    the same loop FM Synthesis's feedback piece runs. Synthesis ↔ Emergence — rich — checks.mjs runs ENGINE_SRC
+    in Node against every claim the steps make.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Predicted beside measured — where the formula stops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --soft:rgba(255,255,255,.06); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 18px; height: 18px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .tabs { display: flex; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button { border-radius: 0; margin: 0 -1px -1px 0; }
+  .tabs button.ahead { color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 92px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .step { border: 1px solid var(--soft); background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .stephead b { color: var(--fg1); font-weight: 500; }
+  .teach { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 8px; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 6px 0 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); min-width: 220px; flex: 1; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 10px 12px; margin-bottom: 10px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  #spec { height: 250px; } #twins { height: 170px; }
+  .walk { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 15px; line-height: 1.55; color: var(--fg1); min-height: 1.5em; max-width: 82ch; }
+  .verdict .fam { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-right: 8px; }
+  .eqs { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); font-variant-numeric: lining-nums; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 82ch; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .key i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .key i.ring { width: 8px; height: 8px; border: 1.5px solid #8b8df5; border-radius: 50%; background: none; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg>made · Web Audio Worklet · sketch</div>
+  <h3 class="title">Predicted beside measured — where the formula stops</h3>
+  <p class="sub">The section says FM is deterministic but you can't predict the sound from its parameters alone. This piece puts a prediction made from the parameters beside a measurement of the sound, first for the page's two-sine pair, then for the DX7's feedback loop, one sine feeding back on itself, and looks for the place where prediction really fails. The last step is the test.</p>
+
+  <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="step" id="step" aria-live="polite">
+    <div class="stephead"><b id="stepname"></b><span id="stepcount"></span></div>
+    <p class="teach" id="teach"></p>
+    <div id="controls"></div>
+    <p class="back" id="backline"></p>
+  </div>
+
+  <div class="walk">
+    <button id="back">◂ back</button>
+    <button id="go" class="go">▸ play</button>
+    <button id="next">next ▸</button>
+    <span class="hint" id="state">silent until you press play</span>
+  </div>
+
+  <div class="panel">
+    <div class="plabel"><span id="speclabel"></span><span class="key"><i class="ring"></i>predicted, from the parameters<i style="background:#e8b84a" id="keymeas"></i><span id="keymeasw">measured, from the sound</span></span></div>
+    <canvas id="spec"></canvas>
+  </div>
+  <div class="panel" id="twinpanel" hidden>
+    <div class="plabel"><span>two copies started a billionth apart · the gap between them, log scale · 20 ms</span><span class="key"><i style="background:#e8b84a"></i>the DX7's loop at this β<i style="background:#8a8aa0"></i>the pair, depth 5</span></div>
+    <canvas id="twins"></canvas>
+  </div>
+  <div class="read">
+    <span id="r-what"></span>
+    <span id="w-gap">predicted vs measured <b id="r-gap"></b></span>
+    <span id="w-rep" hidden>repeats every cycle <b id="r-rep"></b></span>
+    <span id="w-lam" hidden>exponent <b id="r-lam"></b></span>
+    <span id="w-plain" hidden>a plain one-sample loop here <b id="r-plain"></b></span>
+    <span id="w-tw" hidden>twins <b id="r-tw"></b></span>
+    <span id="w-avg" hidden>4-second averages, copy A / copy B <b id="r-avg"></b></span>
+  </div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="eqs">
+    <div class="eq">sin( ω<sub>c</sub>t + I · sin ω<sub>m</sub>t ) = Σ<sub>k</sub> J<sub>k</sub>(I) · sin( (ω<sub>c</sub> + k ω<sub>m</sub>) t )</div>
+    <div class="words">(the pair's sound) = the sum, over every whole number k, of (the k-th Bessel function, at the depth) × (a sine at the carrier plus k modulators). Two numbers in, every partial out, with no sound rendered.</div>
+    <div class="eq">y = sin( ωt + β · y ) &nbsp;⇒&nbsp; y = Σ<sub>n≥1</sub> ( 2 / nβ ) · J<sub>n</sub>(nβ) · sin nωt, &nbsp; while β ≤ 1</div>
+    <div class="words">(a sine whose own output pushes its phase, as hard as β) = a sum of harmonics, the n-th as loud as 2·Jₙ(nβ)/(nβ). It is Kepler's equation for where a planet is on its orbit, with β in the place of the orbit's eccentricity, and this is the series Bessel wrote for it. Past β = 1 the equation has three answers at some instants, and the series no longer describes the sound.</div>
+  </div>
+  <div class="hint">The pair is measured at 48 kHz on its 200 Hz grid, the loop at 192 kHz on its 200 Hz note, each partial by an exact sum over whole cycles; at 192 kHz the loop's one-step delay sits close enough to the equation for the series to be a fair test. What repeats, the exponent and the twins are read at 48 kHz on a 200 Hz note. For the DX7's loop the exponent is negative to β 3.90, mixed in a narrow band, and positive at every β tested from 4.1; for a plain loop that feeds back only its last output it is positive from about 2.45. Both edges move a little with the sample rate and the pitch. Past the edge the exact figures differ from one JavaScript engine to the next (the same code in Node and in Chromium, on one Mac, disagrees), since the last bit of the arithmetic decides them; that is the point. The loop averages its last two outputs, as the DX7 does; β = π is the DX7's feedback 7, and FM Synthesis's feedback piece walks that loop to its edge.</div>
+  <div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+(() => {
+// ───────────── the engine and its maths ─────────────
+const ENGINE_SRC = String.raw`
+function besselJ(n, x) { const M = Math.max(256, 4 * Math.ceil(n + Math.abs(x))); let s = 0; for (let i = 0; i < M; i++) { const t = Math.PI * (i + 0.5) / M; s += Math.cos(n * t - x * Math.sin(t)); } return s / M; }
+class Voice {
+  constructor(sr) {
+    this.sr = sr; this.kind = 'pair'; this.gate = 0; this.g = 0;
+    this.fc = 400; this.fm = 200; this.index = 0; this.I = 0; this.pc = 0; this.pm = 0;
+    this.f = 200; this.beta = 0; this.b = 0; this.ph = 0; this.y1 = 0; this.y2 = 0; this.avg = true;
+    this.sm = 1 - Math.exp(-1 / (0.015 * sr)); this.gm = 1 - Math.exp(-1 / (0.006 * sr));
+  }
+  set(d) {
+    const was = this.kind;
+    for (const k of ['kind', 'fc', 'fm', 'index', 'f', 'beta', 'gate', 'avg']) if (d[k] !== undefined) this[k] = d[k];
+    if (d.snap || was !== this.kind) { this.I = this.index; this.b = this.beta; this.y1 = this.y2 = 0; }
+  }
+  step() {
+    const TP = 2 * Math.PI;
+    if (this.kind === 'pair') {
+      this.I += (this.index - this.I) * this.sm;
+      const y = Math.sin(TP * this.pc + this.I * Math.sin(TP * this.pm));
+      this.pc += this.fc / this.sr; this.pc -= Math.floor(this.pc);
+      this.pm += this.fm / this.sr; this.pm -= Math.floor(this.pm);
+      return y;
+    }
+    this.b += (this.beta - this.b) * this.sm;
+    const y = Math.sin(TP * this.ph + (this.avg ? this.b * 0.5 * (this.y1 + this.y2) : this.b * this.y1));
+    this.y2 = this.y1; this.y1 = y;
+    this.ph += this.f / this.sr; this.ph -= Math.floor(this.ph);
+    return y;
+  }
+  render(L, R, n) { for (let i = 0; i < n; i++) { this.g += (this.gate - this.g) * this.gm; L[i] = 0.28 * this.g * this.step(); R[i] = L[i]; } }
+}
+// exact amplitude of each multiple of the grid, over whole grid cycles
+function harmonics(x, P, K) {
+  const out = [];
+  for (let k = 1; k <= K; k++) { let re = 0, im = 0; for (let i = 0; i < x.length; i++) { const a = 2 * Math.PI * k * i / P; re += x[i] * Math.cos(a); im -= x[i] * Math.sin(a); } out.push(Math.hypot(re, im) * 2 / x.length); }
+  return out;
+}
+// The pair. Predicted: sideband k at fc + k·fm with amplitude J_k(I), J_−k = (−1)^k J_k; one below 0 Hz folds
+// back with its sign turned, one at 0 Hz is sin(0), nothing. Measured: the sound, on the 200 Hz grid.
+function predictPair(fc, fm, I, K = 17) {
+  const amp = new Array(K).fill(0), grid = 200;
+  for (let k = -40; k <= 40; k++) {
+    let f = fc + k * fm, a = (k < 0 && (-k) % 2 ? -1 : 1) * besselJ(Math.abs(k), I);
+    if (Math.abs(f) < 1e-6) continue; if (f < 0) { f = -f; a = -a; }
+    const h = Math.round(f / grid); if (h >= 1 && h <= K) amp[h - 1] += a;
+  }
+  return amp.map(Math.abs);
+}
+function measurePair(fc, fm, I, K = 17) {
+  const SR = 48000, P = 240, e = new Voice(SR); e.set({ kind: 'pair', fc, fm, index: I, snap: true });
+  const x = new Float64Array(P * 20); for (let i = 0; i < x.length; i++) x[i] = e.step();
+  return harmonics(x, P, K);
+}
+// The loop. Predicted: Bessel's series for Kepler's equation. Measured: the loop at 192 kHz on a 200 Hz note,
+// settled for 40 cycles, read over 60, so its one-step delay sits close to the equation. What repeats, and the
+// twins, are read at 48 kHz, where it is heard: the share of its energy that is the same in every cycle.
+function predictLoop(beta, K = 16) { const out = []; for (let n = 1; n <= K; n++) out.push(beta > 1e-6 ? Math.abs(2 * besselJ(n, n * beta) / (n * beta)) : (n === 1 ? 1 : 0)); return out; }
+function measureLoop(beta, K = 16) {
+  const SR = 192000, P = 960, C = 60, e = new Voice(SR); e.set({ kind: 'loop', f: 200, beta, snap: true });
+  for (let i = 0; i < P * 40; i++) e.step();
+  const x = new Float64Array(P * C); for (let i = 0; i < x.length; i++) x[i] = e.step();
+  return { amp: harmonics(x, P, K), repeats: repeatsLoop(beta) };
+}
+function repeatsLoop(beta, avg = true) {
+  const SR = 48000, P = 240, C = 80, e = new Voice(SR); e.set({ kind: 'loop', f: 200, beta, avg, snap: true });
+  for (let i = 0; i < P * 40; i++) e.step();
+  const x = new Float64Array(P * C); for (let i = 0; i < x.length; i++) x[i] = e.step();
+  const mean = new Float64Array(P); for (let c = 0; c < C; c++) for (let i = 0; i < P; i++) mean[i] += x[c * P + i] / C;
+  let tot = 0, per = 0; for (let c = 0; c < C; c++) for (let i = 0; i < P; i++) { tot += x[c * P + i] ** 2; per += mean[i] ** 2; }
+  return per / tot;
+}
+// The gap, in dB, between two spectra each read against its own loudest, over the harmonics either one holds
+// within 40 dB of its top.
+function gap(meas, pred) {
+  const tm = Math.max(...meas), tp = Math.max(...pred); let ss = 0, n = 0, worst = 0, at = 0;
+  for (let k = 0; k < meas.length; k++) {
+    const dm = 20 * Math.log10(meas[k] / tm + 1e-12), dp = 20 * Math.log10(pred[k] / tp + 1e-12);
+    if (dm < -40 && dp < -40) continue;
+    const g = Math.abs(Math.max(dm, -80) - Math.max(dp, -80)); ss += g * g; n++; if (g > worst) { worst = g; at = k + 1; }
+  }
+  return { rms: n ? Math.sqrt(ss / n) : 0, worst, at };
+}
+// Twins: two copies of one sound, run 0.1 s, then one nudged by a billionth (the pair's modulator phase, the
+// loop's last output), and run on for total milliseconds at 48 kHz. Kept: the gap sample by sample for the first
+// ms milliseconds, when they first part (gap over 0.1), the last time they are apart, and the largest gap in the
+// final 10 ms.
+function twins(kind, value, ms = 20, total = 1000, nudge = 1e-9) {
+  const SR = 48000, a = new Voice(SR), b = new Voice(SR);
+  const d = kind === 'pair' ? { kind, fc: 400, fm: 200, index: value, snap: true } : { kind, f: 200, beta: value, snap: true };
+  a.set(d); b.set(d);
+  for (let i = 0; i < SR / 10; i++) { a.step(); b.step(); }
+  if (kind === 'pair') b.pm += nudge; else b.y1 += nudge;
+  const N = Math.round(SR * ms / 1000), T = Math.round(SR * total / 1000), gapOf = new Float64Array(N);
+  let part = null, lastApart = null, tail = 0;
+  for (let i = 0; i < T; i++) {
+    const g = Math.abs(a.step() - b.step());
+    if (i < N) gapOf[i] = g;
+    if (g > 0.1) { if (part === null) part = i / SR * 1000; lastApart = i / SR * 1000; }
+    if (i >= T - SR / 100) tail = Math.max(tail, g);
+  }
+  return { gap: gapOf, part, lastApart, tail, apart: part !== null && tail > 0.1 };
+}
+// The largest Lyapunov exponent, per sample: how fast a small difference grows (positive) or shrinks (negative).
+// The loop at 48 kHz on 200 Hz, from rest, settled 0.25 s, averaged over 1 s, carrying a tangent vector through
+// the same equation and renormalising each sample. avg: the DX7's loop (the average of the last two outputs);
+// otherwise the plain loop, y = sin(θ + β·y₋₁).
+function exponent(beta, avg = true, seconds = 1) {
+  const SR = 48000, F = 200, N0 = SR / 4, N1 = Math.round(SR * seconds), TP = 2 * Math.PI;
+  let ph = 0, y1 = 0, y2 = 0, d1 = 1, d2 = 0, sum = 0;
+  for (let i = 0; i < N0 + N1; i++) {
+    const arg = TP * ph + (avg ? beta * 0.5 * (y1 + y2) : beta * y1), y = Math.sin(arg), c = Math.cos(arg);
+    const d = avg ? c * beta * 0.5 * (d1 + d2) : c * beta * d1;
+    d2 = d1; d1 = d; y2 = y1; y1 = y;
+    const n = Math.hypot(d1, d2) || 1e-300; if (i >= N0) sum += Math.log(n); d1 /= n; d2 /= n;
+    ph += F / SR; ph -= Math.floor(ph);
+  }
+  return sum / N1;
+}
+// What the twins still share: loudness (rms) and a brightness (the rms of the slope over the rms, as a frequency),
+// each over the seconds after the nudge.
+function twinAverages(beta, seconds = 4) {
+  const SR = 48000, a = new Voice(SR), b = new Voice(SR), d = { kind: 'loop', f: 200, beta, snap: true };
+  a.set(d); b.set(d);
+  for (let i = 0; i < SR / 10; i++) { a.step(); b.step(); }
+  b.y1 += 1e-9;
+  const st = () => ({ p: 0, s: 0, last: 0 }), A = st(), B = st(), N = Math.round(SR * seconds);
+  for (let i = 0; i < N; i++) for (const [v, y] of [[a, A], [b, B]]) { const x = v.step(); y.p += x * x; if (i) y.s += (x - y.last) ** 2; y.last = x; }
+  const out = s => ({ rms: Math.sqrt(s.p / N), bright: Math.sqrt(s.s / s.p) * SR / (2 * Math.PI) });
+  return { a: out(A), b: out(B) };
+}
+`;
+const PROC_SRC = ENGINE_SRC + `
+class Proc extends AudioWorkletProcessor {
+  constructor() { super(); this.e = new Voice(sampleRate); this.port.onmessage = ({ data }) => this.e.set(data); }
+  process(_, outs) { const o = outs[0]; this.e.render(o[0], o[1] || o[0], o[0].length); return true; }
+}
+registerProcessor('se-predicted', Proc);`;
+const { Voice, predictPair, measurePair, predictLoop, measureLoop, repeatsLoop, gap, twins, twinAverages, exponent } =
+  new Function(ENGINE_SRC + '; return { Voice, predictPair, measurePair, predictLoop, measureLoop, repeatsLoop, gap, twins, twinAverages, exponent };')();
+
+// ───────────── the walk ─────────────
+const S = { step: 0, reached: 0, kind: 'pair', index: 2, beta: 0.6, playing: false, sweep: null, sweepWorst: null, showMeas: true, twins: false, max: 5 };
+const STEPS = [
+  { name: 'a prediction · before any sound', kind: 'pair', index: 2, meas: false, ctl: ['index'],
+    teach: 'The page\'s pair, a carrier at 400 Hz and a modulator at 200, at depth 2. The rings are the partials as a formula predicts them from two numbers alone, the depth and the ratio: each one\'s loudness is a Bessel function of the depth. Move the depth. Nothing has been played, and nothing has been read from a sound.' },
+  { name: 'the measurement · beside it', kind: 'pair', index: 2, meas: true, ctl: ['index'],
+    teach: 'Now the sound itself, rendered and measured: the solid lines are what the sound holds, the rings what the formula said. Press play, move the depth, and read the gap between them.',
+    back: 'Step 1 is the rings alone.' },
+  { name: 'sweep 0 → 5 · the pair, all the way', kind: 'pair', index: 0, meas: true, ctl: ['index', 'sweep'],
+    teach: 'Sweep the depth across the whole range the page names, 0 to 5, and keep the worst gap. If the parameters alone could not predict the sound, this is where it would show.',
+    back: 'Stop the sweep anywhere and it is step 2.' },
+  { name: 'one operator · listening to itself', kind: 'loop', beta: 0.6, max: 1, meas: true, ctl: ['beta'],
+    teach: 'A different rule: one sine whose own output pushes its own phase. This is the DX7\'s loop, which feeds back the average of its last two outputs; Advanced Applications names feedback FM without saying which loop, and step 6 sets a plainer one beside it. Surely this is past prediction? Not yet. While the push β stays at or under 1 there is a formula for it too, and it is Bessel again: the series he wrote for Kepler\'s equation of an orbit. The rings are that series, the lines the loop, measured.',
+    back: 'At β = 0 it is one sine, as in step 1 at depth 0.' },
+  { name: 'past β = 1 · the formula stops', kind: 'loop', beta: 2, max: 3.6, meas: true, ctl: ['beta'],
+    teach: 'Push past 1. The equation the loop stands for now has three answers at some instants, so the loop must jump from one to another, and a sawtooth\'s jump grows in the wave. The series still gives numbers, but they are no longer this sound: watch the gap open. And yet the loop is steady, every cycle the same. Nothing predicts it from the parameters but running it. This is the section\'s sentence exactly: deterministic, and known only by calculating.',
+    back: 'Bring β under 1 and it is step 4.' },
+  { name: 'twins · the test', kind: 'loop', beta: 2, max: 4.8, meas: true, twins: true, ctl: ['beta', 'presets'],
+    teach: 'The test of "cannot predict". Run two copies of the same sound, nudge one by a billionth, and watch the gap between them for 20 ms on a log scale. The pair, in grey, keeps its tiny difference, no larger and no smaller. The DX7\'s loop, below its edge, shrinks the difference away. Push β on. The readout that decides is the exponent: how fast a small difference grows, per sample. For this loop it stays negative to about 3.9 (the DX7\'s feedback 7.31), changes sign back and forth in a narrow band, and is positive at every β tested from about 4.1 (feedback 7.38). There, deterministic as it is, running it tells you one copy\'s wave and not the next one\'s. The twins can miss it: once a cycle the loop squeezes their gap below the last bit a double holds, and they meet again while the loop still does not repeat. A plain loop that feeds back only its last output gets there sooner, from about 2.45, inside the DX7\'s range.' },
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const c of kids) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+const dbs = v => v < 0.005 ? 'under 0.01' : v.toFixed(2);
+const fbOf = b => b > 0 ? 7 + Math.log2(b / Math.PI) : -Infinity;
+let syncers = [];
+function controls(list) {
+  syncers = [];
+  const out = [];
+  for (const c of list) {
+    if (c === 'index') {
+      const val = el('b'), input = el('input', { type: 'range', min: 0, max: 5, step: 0.01, 'aria-label': 'depth' });
+      syncers.push(() => { input.value = S.index; val.textContent = S.index.toFixed(2); });
+      input.addEventListener('input', () => { S.sweep = null; S.index = +input.value; schedule(); });
+      out.push(el('div', { class: 'row' }, el('label', { class: 'sl' }, 'depth (the index I) ', val, input)));
+    }
+    if (c === 'sweep') {
+      const b = el('button', { onclick: async () => {
+        if (S.sweep) { S.sweep = null; schedule(); return; }
+        if (!S.playing) await play();
+        const t0 = performance.now(), dur = 12000, me = S.sweep = {}; S.sweepWorst = { worst: 0, at: 0, I: 0 };
+        (function tick() { if (S.sweep !== me) return; const q = Math.min(1, (performance.now() - t0) / dur); S.index = 5 * q; update(); if (q < 1) requestAnimationFrame(tick); else { S.sweep = null; update(); } })();
+      } }, 'sweep 0 → 5 over 12 s');
+      syncers.push(() => { b.textContent = S.sweep ? 'stop the sweep' : 'sweep 0 → 5 over 12 s'; });
+      out.push(el('div', { class: 'row' }, b));
+    }
+    if (c === 'beta') {
+      const val = el('b'), input = el('input', { type: 'range', min: 0, max: S.max, step: 0.005, 'aria-label': 'feedback beta' });
+      syncers.push(() => { input.max = S.max; input.value = S.beta; const fb = fbOf(S.beta); val.textContent = S.beta.toFixed(3) + (S.beta > 0 ? ' · the DX7\'s feedback ' + (fb < 1 ? 'under 1' : fb.toFixed(2)) : ''); });
+      input.addEventListener('input', () => { S.beta = +input.value; schedule(); });
+      out.push(el('div', { class: 'row' }, el('label', { class: 'sl' }, 'feedback β ', val, input)));
+    }
+    if (c === 'presets') {
+      const set = [[0.8, 'β 0.8 · under 1'], [2, 'β 2 · past 1'], [Math.PI, 'β π · the DX7\'s 7'], [4.4, 'β 4.4 · past the edge']];
+      const bs = set.map(([v, t]) => el('button', { onclick: () => { S.beta = v; schedule(); } }, t));
+      syncers.push(() => bs.forEach((b, i) => b.setAttribute('aria-pressed', String(Math.abs(S.beta - set[i][0]) < 1e-6))));
+      out.push(el('div', { class: 'row' }, ...bs));
+    }
+  }
+  return out;
+}
+function go(i) {
+  if (i !== S.step) stop();                          // changing step stops the sound
+  S.sweep = null; S.sweepWorst = null; S.step = i; S.reached = Math.max(S.reached, i);
+  const s = STEPS[i];
+  S.kind = s.kind; S.showMeas = s.meas; S.twins = !!s.twins; S.max = s.max || 5;
+  if (s.index !== undefined) S.index = s.index;
+  if (s.beta !== undefined) S.beta = s.beta;
+  $('stepname').textContent = (i + 1) + ' · ' + s.name;
+  $('stepcount').textContent = 'step ' + (i + 1) + ' of ' + STEPS.length;
+  $('teach').textContent = s.teach;
+  $('backline').textContent = s.back || ''; $('backline').hidden = !s.back;
+  const host = $('controls'); host.textContent = ''; host.append(...controls(s.ctl));
+  $('back').hidden = i === 0; $('next').hidden = i === STEPS.length - 1;
+  $('twinpanel').hidden = !S.twins;
+  const tabs = $('tabs'); tabs.textContent = '';
+  STEPS.forEach((t, j) => tabs.append(el('button', { 'aria-pressed': String(j === i), class: j > S.reached ? 'ahead' : '', onclick: () => go(j) }, (j + 1) + ' · ' + t.name.split(' · ')[0])));
+  update(); send(true);
+}
+$('back').addEventListener('click', () => go(Math.max(0, S.step - 1)));
+$('next').addEventListener('click', () => go(Math.min(STEPS.length - 1, S.step + 1)));
+
+// ───────────── audio: nothing exists before the first click ─────────────
+let ctx = null, port = null, booting = null;
+function boot() {
+  if (booting) return booting;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  comp.connect(ctx.destination);
+  // the kit may quiet the context (a hidden tab, a minute untouched): the button and the sweep follow it
+  ctx.addEventListener('statechange', () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; S.sweep = null; send(true); paint(); for (const f of syncers) f(); } });
+  booting = (async () => {
+    try {
+      const url = URL.createObjectURL(new Blob([PROC_SRC], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      const node = new AudioWorkletNode(ctx, 'se-predicted', { numberOfInputs: 0, outputChannelCount: [2] });
+      node.connect(comp); port = node.port;
+    } catch (e) {                                    // a page opened from a file: the same engine on the main thread
+      const eng = new Voice(ctx.sampleRate), sp = ctx.createScriptProcessor(1024, 0, 2);
+      sp.onaudioprocess = ev => eng.render(ev.outputBuffer.getChannelData(0), ev.outputBuffer.getChannelData(1), 1024);
+      sp.connect(comp); port = { postMessage: d => eng.set(d) };
+    }
+    send(true);
+  })();
+  return booting;
+}
+function send(snap) { if (port) port.postMessage({ kind: S.kind, fc: 400, fm: 200, index: S.index, f: 200, beta: S.beta, gate: S.playing ? 1 : 0, snap: !!snap }); }
+async function play() {
+  await boot();
+  if (ctx.state !== 'running') await ctx.resume();
+  S.playing = true; send(false); paint();
+}
+function stop() { S.sweep = null; if (!S.playing) return; S.playing = false; send(false); paint(); }
+$('go').addEventListener('click', () => (S.playing ? stop() : play()));
+function paint() {
+  $('go').textContent = S.playing ? '❚❚ stop' : '▸ play';
+  $('state').textContent = S.playing ? (S.kind === 'pair' ? 'the pair, playing' : 'the loop, playing') : 'silent until you press play';
+}
+
+// ───────────── readouts and drawing ─────────────
+let pending = false;
+function schedule() { for (const f of syncers) f(); send(false); if (pending) return; pending = true; requestAnimationFrame(() => { pending = false; update(); }); }
+let D = null, avgTimer = 0;
+function update() {
+  for (const f of syncers) f();
+  const pair = S.kind === 'pair';
+  const pred = pair ? predictPair(400, 200, S.index) : predictLoop(S.beta);
+  const m = pair ? { amp: measurePair(400, 200, S.index), repeats: 1 } : measureLoop(S.beta);
+  const gp = gap(m.amp, pred);
+  D = { pred, meas: m.amp, gp, pair };
+  if (S.sweep && S.sweepWorst && gp.worst >= S.sweepWorst.worst) S.sweepWorst = { worst: gp.worst, at: gp.at, I: S.index };
+  $('speclabel').textContent = pair ? 'the pair, 400 : 200 · each harmonic of 200 Hz · dB, −60 to 0' : 'the loop on a 200 Hz note · harmonics 1 to 16 · dB, −60 to 0';
+  $('keymeas').hidden = $('keymeasw').hidden = !S.showMeas;
+  $('r-what').textContent = pair ? 'depth ' + S.index.toFixed(2) : 'β ' + S.beta.toFixed(3);
+  $('w-gap').hidden = !S.showMeas;
+  $('r-gap').textContent = dbs(gp.rms) + ' dB rms · worst ' + dbs(gp.worst) + ' dB' + (gp.worst > 0.05 ? ', harmonic ' + gp.at : '');
+  $('w-rep').hidden = pair || S.step < 4;
+  $('r-rep').textContent = (100 * m.repeats).toFixed(1) + ' %';
+  let tw = null, ref = null, lam = null, plain = null;
+  if (S.twins) {
+    tw = twins('loop', S.beta); ref = twins('pair', 5);
+    lam = exponent(S.beta, true);
+    plain = { lam: exponent(S.beta, false), rep: repeatsLoop(S.beta, false) };
+    D.tw = tw; D.ref = ref;
+    $('w-lam').hidden = false; $('w-plain').hidden = false;
+    $('r-lam').textContent = lamWords(lam);
+    $('r-plain').textContent = 'exponent ' + (plain.lam >= 0 ? '+' : '−') + Math.abs(plain.lam).toFixed(3) + ' · repeats ' + (100 * plain.rep).toFixed(1) + ' %';
+    $('w-tw').hidden = false;
+    $('r-tw').textContent = tw.apart ? 'part after ' + tw.part.toFixed(2) + ' ms, still apart a second later'
+      : tw.part !== null ? 'part after ' + tw.part.toFixed(2) + ' ms, the same numbers again by ' + Math.ceil(tw.lastApart) + ' ms'
+      : tw.tail < 1e-12 ? (lam > 0 ? 'never part: their gap fell below the last bit a double holds' : 'the difference shrinks away') : 'stay within ' + tw.tail.toExponential(0);
+    clearTimeout(avgTimer); $('w-avg').hidden = true;
+    if (tw.apart) avgTimer = setTimeout(() => {
+      const av = twinAverages(S.beta);
+      $('w-avg').hidden = false;
+      $('r-avg').textContent = 'loudness ' + av.a.rms.toFixed(3) + ' / ' + av.b.rms.toFixed(3) + ' · brightness ' + Math.round(av.a.bright) + ' / ' + Math.round(av.b.bright) + ' Hz';
+    }, 160);
+  } else { $('w-tw').hidden = true; $('w-avg').hidden = true; $('w-lam').hidden = true; $('w-plain').hidden = true; }
+  verdict(gp, m, tw, lam, plain);
+  drawAll();
+}
+function lamWords(l) {
+  const sgn = (l >= 0 ? '+' : '−') + Math.abs(l).toFixed(3) + ' per sample';
+  if (Math.abs(l) < 0.002) return sgn + ' · on the edge';
+  return sgn + (l > 0 ? ' · a difference grows e-fold every ' + Math.max(1, Math.round(1 / l)) + ' samples' : ' · a difference shrinks');
+}
+function verdict(gp, m, tw, lam, plain) {
+  const v = $('verdict'); v.textContent = '';
+  const fam = t => el('span', { class: 'fam' }, t);
+  if (!S.showMeas) { v.append(fam('predicted'), 'Rings only: a prediction, from the depth and the ratio. Play the next step to put the sound beside it.'); return; }
+  if (S.kind === 'pair') {
+    if (S.step === 2 && S.sweepWorst && !S.sweep && S.index > 4.99) {
+      v.append(fam('formula'), 'Across the whole sweep, 0 to 5, the formula and the sound never differed by more than ' + dbs(S.sweepWorst.worst) + ' dB on any partial within 40 dB of the top. The parameters alone predict the pair\'s sound, partial by partial. What no formula tells you is whether you will call it brass.');
+      return;
+    }
+    v.append(fam('formula'), 'The formula and the sound agree to ' + dbs(gp.worst) + ' dB on every partial within 40 dB of the top. ' + (S.step === 2 ? (S.sweep ? 'Sweeping…' : 'Run the sweep.') : ''));
+    return;
+  }
+  const b = S.beta;
+  const plainNote = plain && plain.lam > 0 && (lam === null || lam < 0) ? ' A plain loop that feeds back only its last output is already chaotic at this push (exponent +' + plain.lam.toFixed(3) + ', ' + (100 * plain.rep).toFixed(0) + ' % repeats): which loop you build decides.' : '';
+  if (lam !== null && lam > 0) {
+    const twinLine = tw.apart ? ' The twins part after ' + tw.part.toFixed(2) + ' ms and are still apart a second later; only their averages agree.'
+      : tw.part !== null ? ' The twins parted after ' + tw.part.toFixed(2) + ' ms and met again by ' + Math.ceil(tw.lastApart) + ' ms. Not order: once a cycle the loop squeezes their gap below the last bit a double holds, and from then on they are the same numbers.'
+      : ' Here the twins never even part: once a cycle the loop squeezes their billionth below the last bit a double holds, before it can grow. The exponent is the measure, not the twins.';
+    v.append(fam('chaos'), 'Past the edge, for the DX7\'s loop. The exponent is positive, ' + lamWords(lam) + ', and only ' + (100 * m.repeats).toFixed(0) + ' % of the loop repeats each cycle.' + twinLine + ' Deterministic, and past a horizon of milliseconds, unpredictable: the weather the section names.');
+    return;
+  }
+  if (b <= 1 && gp.rms <= 1.5) { v.append(fam('formula'), 'The series and the loop agree to ' + dbs(gp.rms) + ' dB rms over the first 16 harmonics. The DX7\'s loop, feeding back on itself, and still predicted from β alone.' + (tw ? ' Its exponent is negative: a difference shrinks away.' : '') + plainNote); return; }
+  if (gp.rms <= 1.5) { v.append(fam('formula, barely'), 'Past 1 the equation has more than one answer at some instants, yet the series still lands within ' + gp.rms.toFixed(2) + ' dB rms here. Push on and watch it come apart.'); return; }
+  v.append(fam('calculation'), 'The series is ' + gp.rms.toFixed(1) + ' dB rms off the sound' + (gp.worst > 3 ? ', ' + gp.worst.toFixed(0) + ' dB at harmonic ' + gp.at : '') + ': its numbers are no longer this loop. Yet ' + (100 * m.repeats).toFixed(1) + ' % of the loop repeats every cycle' + (lam !== null ? ', and its exponent is negative: a difference shrinks' : '') + '. Deterministic, known only by running it.' + plainNote);
+}
+function sized(cv) {
+  const d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (!w) return null;
+  if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h);
+  return { g, w, h };
+}
+function drawAll() { drawSpec(); if (S.twins) drawTwins(); }
+function drawSpec() {
+  const c = sized($('spec')); if (!c || !D) return;
+  const { g, w, h } = c, K = D.pred.length, DB = -60;
+  const X = k => 18 + (k - 0.5) / K * (w - 30), Y = db => h - 20 - (Math.max(DB, db) - DB) / -DB * (h - 34);
+  g.font = '10px "JetBrains Mono", monospace';
+  for (const db of [0, -20, -40]) { g.strokeStyle = 'rgba(255,255,255,.06)'; g.beginPath(); g.moveTo(10, Y(db)); g.lineTo(w - 10, Y(db)); g.stroke(); g.fillStyle = '#4a4a5a'; g.fillText(db + ' dB', 12, Y(db) - 3); }
+  g.strokeStyle = 'rgba(255,255,255,.14)'; g.beginPath(); g.moveTo(10, Y(DB)); g.lineTo(w - 10, Y(DB)); g.stroke();
+  for (let k = 1; k <= K; k++) if (k === 1 || k % 2 === 0) { g.fillStyle = '#5a5a6e'; const t = String(k * 200); g.fillText(t, X(k) - t.length * 3, h - 4); }
+  const tm = Math.max(...D.meas), tp = Math.max(...D.pred);
+  if (S.showMeas) {
+    g.lineWidth = 3; g.strokeStyle = '#e8b84a';
+    D.meas.forEach((a, i) => { const db = 20 * Math.log10(a / tm + 1e-12); if (db < DB) return; g.beginPath(); g.moveTo(X(i + 1), Y(DB)); g.lineTo(X(i + 1), Y(db)); g.stroke(); });
+  }
+  const stale = !D.pair && S.beta > 1;
+  g.lineWidth = 1.5; g.strokeStyle = stale ? 'rgba(139,141,245,.6)' : '#8b8df5';
+  D.pred.forEach((a, i) => { const db = 20 * Math.log10(a / tp + 1e-12); if (db < DB) return; g.beginPath(); g.arc(X(i + 1), Y(db), 4.5, 0, 2 * Math.PI); g.stroke(); });
+  if (stale) { g.fillStyle = '#8b8df5'; g.fillText('the rings: the series\'s numbers, past where it holds', w - 330, 14); }
+}
+function drawTwins() {
+  const c = sized($('twins')); if (!c || !D || !D.tw) return;
+  const { g, w, h } = c, LO = -16, X = i => 40 + i / (D.tw.gap.length - 1) * (w - 50), Y = l => 8 + (0 - Math.max(LO, Math.min(0.5, l))) / -LO * (h - 26);
+  g.font = '10px "JetBrains Mono", monospace';
+  for (const l of [0, -4, -8, -12, -16]) { g.strokeStyle = 'rgba(255,255,255,.06)'; g.beginPath(); g.moveTo(40, Y(l)); g.lineTo(w - 10, Y(l)); g.stroke(); g.fillStyle = '#4a4a5a'; g.fillText('1e' + l, 4, Y(l) + 3); }
+  g.strokeStyle = 'rgba(232,184,74,.35)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(40, Y(-1)); g.lineTo(w - 10, Y(-1)); g.stroke(); g.setLineDash([]);
+  g.fillStyle = '#8a8aa0'; g.fillText('apart (0.1)', 44, Y(-1) + 12);
+  for (let t = 0; t <= 20; t += 5) { g.fillStyle = '#5a5a6e'; g.fillText(t + ' ms', Math.min(w - 40, X(t / 20 * (D.tw.gap.length - 1)) - 10), h - 4); }
+  const trace = (arr, col) => {
+    g.strokeStyle = col; g.lineWidth = 1.4; g.beginPath();
+    // one point per pixel: the largest gap in that pixel's samples
+    const n = arr.length, px = Math.max(1, Math.floor(w - 50));
+    for (let p = 0; p <= px; p++) { let mx = 0; const i0 = Math.floor(p / px * (n - 1)), i1 = Math.max(i0 + 1, Math.floor((p + 1) / px * (n - 1))); for (let i = i0; i < i1 && i < n; i++) mx = Math.max(mx, arr[i]); const l = Math.log10(mx + 1e-17); p ? g.lineTo(X(i0), Y(l)) : g.moveTo(X(i0), Y(l)); }
+    g.stroke();
+  };
+  trace(D.ref.gap, '#8a8aa0'); trace(D.tw.gap, '#e8b84a');
+}
+addEventListener('resize', drawAll);
+
+// the sigil: the house's Lissajous, 3 : 2
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('sigil').setAttribute('d', d); })();
+
+go(0);
+})();
+</script>
+</body>
+</html>

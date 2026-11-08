@@ -1,0 +1,51 @@
+# Synth Templates — card — Feedback FM
+# Technique demonstration: a sine that modulates its own frequency. More feedback, more of a saw; nothing else is in the path.
+schema: synth-template-card/0.2
+id: feedback-fm
+name: Feedback FM
+family: Technique Demonstrations
+tier: 3
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Waveforms: saw, square, triangle, sine, noise"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, feedback: light, note: "one operator, its own output fed back into its frequency. The voice cannot yet feed an oscillator to itself; drawn, not heard"}
+    amp:  {kind: amplifier, level: under unity}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, osc1, fm]
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,     value: sine, why: "a single operator; everything it becomes it makes from itself"}
+  - {block: osc1, param: routing,  value: into its own fm, why: "the modulator is the carrier: ratio 1:1 by definition, so every sideband is a harmonic and the result stays a note"}
+  - {block: osc1, param: feedback, value: light, why: "the index: at zero a sine, rising it fills in the harmonic series evenly, which is a saw"}
+
+taste:
+  - {block: osc1, param: feedback, range: "none – heavy", default: light, why: "the sweep: sine, through a brightening buzz, to a saw; past that it breaks into noise"}
+  - {block: osc1, param: octave,   range: "-1 – +1", default: 0}
+  - {block: aenv, param: release,  range: "short – medium", default: short}
+
+listening:
+  cue: "A sine that turns into a saw without a second oscillator or a filter. The harmonics come in together, evenly, the way a saw's are. Push the feedback too far and the note dissolves into hiss."
+  ab: "Set feedback to none: a bare sine. Raise it to light: a soft saw. Compare it with a real saw at the same pitch: the same family of sound, made a different way."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "one note held six seconds while feedback rises from none to heavy"
+  length_s: 7.0
+
+mappings: {}

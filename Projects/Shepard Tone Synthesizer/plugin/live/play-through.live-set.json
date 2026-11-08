@@ -1,0 +1,109 @@
+{
+  "_about": "Shepard Tone's play-through, made by plugin/live/play-through.py: six sections, each named for what to listen for. Values in the plugin's units.",
+  "tempo": 100,
+  "configure": [
+    "center",
+    "width",
+    "glide",
+    "climb",
+    "wave",
+    "tone",
+    "resonance",
+    "drift",
+    "track_note",
+    "level"
+  ],
+  "silentOnOpen": true,
+  "set": {
+    "width": 1.4,
+    "wave": 1.0,
+    "level": -6.0
+  },
+  "sections": [
+    {
+      "name": "1 Twelve keys, round and round: the keys fall back, the ear keeps climbing",
+      "bars": 13,
+      "center": 440.0,
+      "glide": 0.001,
+      "climb": 0.0,
+      "tone": 4.0,
+      "resonance": 0.0,
+      "drift": 0.0,
+      "track_note": 0.0
+    },
+    {
+      "name": "2 Hold one note, turn Climb up then down: the endless glissando",
+      "bars": 16,
+      "center": 440.0,
+      "glide": 0.15,
+      "climb": [
+        0,
+        4,
+        4,
+        4,
+        0,
+        -4,
+        -4,
+        -4,
+        0
+      ],
+      "tone": 4.0,
+      "resonance": 0.0,
+      "drift": 0.0,
+      "track_note": 0.0
+    },
+    {
+      "name": "3 Break it, the first way: a scale up the keys with Drift rising, and the octaves stop agreeing",
+      "bars": 12,
+      "center": 440.0,
+      "glide": 0.4,
+      "climb": 0.0,
+      "tone": 4.0,
+      "resonance": 0.0,
+      "drift": [
+        0,
+        0.8,
+        0.8,
+        0
+      ],
+      "track_note": 0.0
+    },
+    {
+      "name": "4 Break it, the second way: Track the note, and the brightness steps once an octave",
+      "bars": 8,
+      "center": 440.0,
+      "glide": 0.15,
+      "climb": 3.0,
+      "tone": 8.0,
+      "resonance": 0.5,
+      "drift": 0.0,
+      "track_note": 1.0
+    },
+    {
+      "name": "5 Mend it: Track the note off, and the steps smooth away",
+      "bars": 6,
+      "center": 440.0,
+      "glide": 0.15,
+      "climb": 3.0,
+      "tone": 8.0,
+      "resonance": 0.5,
+      "drift": 0.0,
+      "track_note": 0.0
+    },
+    {
+      "name": "6 Move the window: the same climb, lit low, then high, then low",
+      "bars": 10,
+      "center": [
+        120,
+        1600,
+        120
+      ],
+      "glide": 0.15,
+      "climb": 2.0,
+      "tone": 4.0,
+      "resonance": 0.0,
+      "drift": 0.0,
+      "track_note": 0.0
+    }
+  ]
+}

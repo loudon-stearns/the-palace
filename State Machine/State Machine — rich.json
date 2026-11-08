@@ -1,0 +1,127 @@
+{
+  "title": "State Machine — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[State Machine]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Action Potential Oscillator]]",
+      "type": "connects-to",
+      "label": "engine-from"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walk-built-by-the-method"
+    }
+  ],
+  "forward_vector": "I am the manifest of State Machine's rich face: one walk the Shop made, the four problems taken one at a time on the Action Potential Oscillator's neuron and ending on three bugs you can hear, and the steward's proof that the same machine written as Faust and as if/else codebox sounds the same, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "State Machine",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Core Pattern",
+      "kind": "no-claim-edit",
+      "what": "'when Phase 2 ends, the system latches V_start_actual = V … for use in the next cycle's drive calculation' is the three-state Stage 3's edge. In the four-state oscillator the section is describing, the charge starts when Phase 3 (the recovery) ends, and that is where neuropulse.dsp v0.4 latches it (neuropulse.dsp:113, (p == 3) & (nph == 0)); the value feeds the charge that follows at once, not the next cycle. Taken literally in the four-state machine, latching as Phase 2 ends makes every note sharp: +146 cents at 110 Hz, +97 at 55, +77 at 300 (the piece's step 5, re-run by checks.mjs); in Stage 3, latching as Phase 2 ends is right and plays in tune (+1.4 cents). Proposed: 'when the recovery ends (Phase 3; Phase 2 in the three-state Stage 3), the system latches V_start_actual = V, capturing the exact voltage the charge starts from, for the drive that has to reach threshold in what is left of the period.'",
+      "status": "open"
+    },
+    {
+      "section": "Boxes and Lines: The Gen~ Module Approach",
+      "kind": "claim-change",
+      "what": "'Gen~ switch inlet order: switch(condition, value_if_true, value_if_false) … This is the opposite of most programming languages' ternary operator.' The order given is right, and it is the same as C's and JavaScript's ternary, cond ? a : b (Cycling '74's gen common operators: 'the second argument will be output when the first is true, and the third argument … otherwise'). The one that runs the other way is Faust's select2(cond, value_if_false, value_if_true): compiled, select2(c, 10, 20) becomes c ? 20 : 10, while ba.if(c, 10, 20) becomes c ? 10 : 20 (checks.mjs compiles the probe). The palace's own Faust crowd uses select2 for every transition (neuropulse.dsp:104–110). Python's a if cond else b puts the condition in the middle. Proposed: 'switch(condition, value_if_true, value_if_false), the same order as a C or JavaScript ternary. The order that bites is Faust's select2(condition, value_if_false, value_if_true), the reverse, which the Faust crowd uses for every transition. Verify it every time you cross between them.'",
+      "status": "open"
+    },
+    {
+      "section": "Best Practices",
+      "kind": "claim-change",
+      "what": "'Guard every input … with max(), clamp(), or conditionals before they enter the state logic': the piece's step 5 confirms it and finds its limit. Unguarded, a 1 ms pull of the τ cable to 0 turns V to NaN in the next state that reads τ (the charge or the recovery; the rise and fall never read it), every comparison with NaN is false, and the machine stays in that state for good after the cable is back. Guarded, the pull is a glitch. But with the guard in, τ = 0.1 ms (the dev plan's floor) started from rest is silent at 110 Hz with no NaN: the charge stops 2.2e-16 short of threshold, and from rest nothing sounds below about 318 Hz in this engine; turned down to 0.1 ms while running it keeps sounding down to about 177 Hz. Signal-Rate CV Architecture's face found the same mechanism with different edges per engine, as rounding-decided edges will be: 282.8 Hz on the plan's Stage 2, about 294–311 Hz on neuropulse.dsp in double precision, and silent through 440 Hz in Faust's default single precision. Proposed, after the paragraph: 'A guard keeps the numbers finite; it does not keep a transition reachable. Set the floor where the threshold can still be crossed, not just above zero, and remember that a NaN in a History variable holds the machine in one state forever.' The same piece supports 'Test at boundaries' as written: a transition flag missing its state gate is inaudible above 248.7 Hz and pins the notes below it to 248.7 Hz, a floor set by the refractory timer; just above it, 248.1–249.3 Hz, two exits open on the same sample every other cycle and the note drops to 160 Hz.",
+      "status": "open"
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "what": "The third question ('Does that difference produce different musical results … or is it purely a notation difference?') has an answer in the Action Potential Oscillator's folder for this oscillator: the steward ran the same 30 s coupling sweep through the Faust crowd (select2 threading, double precision) and the hand-written RNBO codebox (imperative if/else, rnbo/neuropulse-crowd.codebox:105–119), and the largest sample difference was 6.0e-8 (codebox-vs-faust.png, laid in the face). For this machine, at the same precision, it is notation. The 6.0e-8 is about the size of float32 rounding, and the harness reads both outputs as float32 (check_codebox.py:22–29), so it is probably the output format, not the machines (the challenger's inference, not run). The test doesn't reach what comes with the Faust toolchain rather than the functional style: single precision by default (against it the samples part after 9 ms, scroll.md:206), and sliders read once a block (compiled neuropulse.dsp hoists its slider math out of the sample loop). Proposed: keep the question and add 'for the Action Potential Oscillator, at the same precision, the two agree to 6e-8 over a 30 s sweep; what differs in practice is Faust's defaults (single precision, sliders read once a block), not the threading.' A pointer for the first question, not measured here: the June Python audition (population_audition.py:84–101) already advances every neuron at once with boolean masks per state (a two-state machine, charging and refractory, not the four-state one), the Gen~ compute-every-branch-then-select pattern turned into array arithmetic.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Core Pattern",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "State Machine — rich — four problems.html",
+            "verdict": "remake",
+            "why": "A real test that walks up well and runs clean, but two of its own readouts are wrong in places: the ambiguous bug is not inaudible above its floor (248.1–249.3 Hz both exits open on one sample, go = 2, the rise is skipped, 319.7 Hz, +435 c), and the silent line at τ = 0.1 ms is measured from rest (from rest it plays from 317.5 Hz; turned down while running it keeps sounding to 176.5 Hz). Name the band in the ambiguous verdict and add 248.5 Hz to checks.mjs; label the silent readout \"from rest\"."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "State Machine — rich — four problems.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "height": 1560,
+          "place": "band",
+          "title": "four problems, one neuron · a walk in five steps",
+          "caption": "**Where do state machine bugs surface?** One integer that remembers (a pulse wave), then the Action Potential Oscillator's four-state neuron with its diagram and its code lit as it runs: what each state does, how it leaves, what happens once on the way out. The last step switches in three one-line bugs (a transition flag without its state, an input without its guard, the V_start latch in the wrong place, including on the edge this section names) so you can hear and see each one. With no bug the engine is the oscillator's stage 4, sample for sample.",
+          "near": "Transition logic is where bugs live"
+        }
+      ],
+      "made_against": "106addbe0724",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Open Questions",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Action Potential Oscillator/codebox-vs-faust.png",
+            "verdict": "keep",
+            "why": "A real test of the third question (6.0e-8 apart, synchrony identical), tracked and loading. Caption note: end \"the same music\" with \"at the same precision\", since against Faust single precision the samples part after 9 ms (scroll.md:206)."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/Action Potential Oscillator/codebox-vs-faust.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "the same machine, threaded and branched · the steward, October",
+          "caption": "Top: the crowd of 32 neurons through the same 30 s coupling sweep, once as Faust (state threaded through one recursion, every branch computed and selected) and once as the hand-written RNBO codebox (if/else, only the running branch computed), run in Node. The largest sample difference is 6.0e-8. Middle and bottom: the codebox playing a four-note phrase with its coupling breathing, rendered by the steward's harness and not yet heard in Max. For this oscillator, the functional and the imperative machine are the same music, at the same precision.",
+          "near": "Faust's functional state threading"
+        }
+      ],
+      "made_against": "4a14738338de",
+      "stamped": "2026-11-03"
+    }
+  ]
+}

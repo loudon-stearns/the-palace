@@ -6,10 +6,12 @@
 #include <juce_gui_extra/juce_gui_extra.h>
 #include "PluginProcessor.h"
 
+#include <array>
 #include <memory>
 #include <vector>
 
-class Editor : public juce::AudioProcessorEditor
+class Editor : public juce::AudioProcessorEditor,
+               private juce::Timer
 {
 public:
     explicit Editor (Processor&);
@@ -20,6 +22,10 @@ public:
 private:
     std::optional<juce::WebBrowserComponent::Resource> provide (const juce::String& url) const;
     juce::var pluginInfo() const;
+    void timerCallback() override;   // the CRT's feed, about 60 times a second
+
+    std::array<float, Processor::kFeedWidth> lastFrame {};
+    std::vector<float> feedFrames = std::vector<float> ((size_t) Processor::kFeedFrames * Processor::kFeedWidth);
 
     Processor& proc;
 

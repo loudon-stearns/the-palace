@@ -1,0 +1,1154 @@
+{
+ "checks": 3990,
+ "fails": [],
+ "dialects": {
+  "berklee": "Berklee",
+  "jazz": "Jazz shorthand",
+  "lead": "Lead sheet",
+  "classical": "Classical"
+ },
+ "sheet": [
+  {
+   "mode": "Lydian",
+   "feel": "dreamy, floating, luminous",
+   "scale": "C D E F♯ G A B",
+   "degrees": "1 2 3 ♯4 5 6 7",
+   "chords": [
+    {
+     "deg": "1",
+     "dialects": {
+      "berklee": {
+       "roman": "Imaj7",
+       "symbol": "Cmaj7"
+      },
+      "jazz": {
+       "roman": "IΔ7",
+       "symbol": "CΔ7"
+      },
+      "lead": {
+       "roman": "Imaj7",
+       "symbol": "Cmaj7"
+      },
+      "classical": {
+       "roman": "IM7",
+       "symbol": "CM7"
+      }
+     },
+     "tens": "9 13 ♯11"
+    },
+    {
+     "deg": "2",
+     "dialects": {
+      "berklee": {
+       "roman": "II7",
+       "symbol": "D7"
+      },
+      "jazz": {
+       "roman": "II7",
+       "symbol": "D7"
+      },
+      "lead": {
+       "roman": "II7",
+       "symbol": "D7"
+      },
+      "classical": {
+       "roman": "II7",
+       "symbol": "D7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "3",
+     "dialects": {
+      "berklee": {
+       "roman": "III–7",
+       "symbol": "E–7"
+      },
+      "jazz": {
+       "roman": "III–7",
+       "symbol": "E–7"
+      },
+      "lead": {
+       "roman": "IIIm7",
+       "symbol": "Em7"
+      },
+      "classical": {
+       "roman": "iii7",
+       "symbol": "Em7"
+      }
+     },
+     "tens": "(♭13) 11 9"
+    },
+    {
+     "deg": "♯4",
+     "dialects": {
+      "berklee": {
+       "roman": "♯IV–7(♭5)",
+       "symbol": "F♯–7(♭5)"
+      },
+      "jazz": {
+       "roman": "♯IVø7",
+       "symbol": "F♯ø7"
+      },
+      "lead": {
+       "roman": "♯IVm7♭5",
+       "symbol": "F♯m7♭5"
+      },
+      "classical": {
+       "roman": "♯ivø7",
+       "symbol": "F♯ø7"
+      }
+     },
+     "tens": "(♭9) ♭13 11"
+    },
+    {
+     "deg": "5",
+     "dialects": {
+      "berklee": {
+       "roman": "Vmaj7",
+       "symbol": "Gmaj7"
+      },
+      "jazz": {
+       "roman": "VΔ7",
+       "symbol": "GΔ7"
+      },
+      "lead": {
+       "roman": "Vmaj7",
+       "symbol": "Gmaj7"
+      },
+      "classical": {
+       "roman": "VM7",
+       "symbol": "GM7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "6",
+     "dialects": {
+      "berklee": {
+       "roman": "VI–7",
+       "symbol": "A–7"
+      },
+      "jazz": {
+       "roman": "VI–7",
+       "symbol": "A–7"
+      },
+      "lead": {
+       "roman": "VIm7",
+       "symbol": "Am7"
+      },
+      "classical": {
+       "roman": "vi7",
+       "symbol": "Am7"
+      }
+     },
+     "tens": "11 9 13"
+    },
+    {
+     "deg": "7",
+     "dialects": {
+      "berklee": {
+       "roman": "VII–7",
+       "symbol": "B–7"
+      },
+      "jazz": {
+       "roman": "VII–7",
+       "symbol": "B–7"
+      },
+      "lead": {
+       "roman": "VIIm7",
+       "symbol": "Bm7"
+      },
+      "classical": {
+       "roman": "vii7",
+       "symbol": "Bm7"
+      }
+     },
+     "tens": "(♭9) (♭13) 11"
+    }
+   ]
+  },
+  {
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "scale": "C D E F G A B",
+   "degrees": "1 2 3 4 5 6 7",
+   "chords": [
+    {
+     "deg": "1",
+     "dialects": {
+      "berklee": {
+       "roman": "Imaj7",
+       "symbol": "Cmaj7"
+      },
+      "jazz": {
+       "roman": "IΔ7",
+       "symbol": "CΔ7"
+      },
+      "lead": {
+       "roman": "Imaj7",
+       "symbol": "Cmaj7"
+      },
+      "classical": {
+       "roman": "IM7",
+       "symbol": "CM7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "2",
+     "dialects": {
+      "berklee": {
+       "roman": "II–7",
+       "symbol": "D–7"
+      },
+      "jazz": {
+       "roman": "II–7",
+       "symbol": "D–7"
+      },
+      "lead": {
+       "roman": "IIm7",
+       "symbol": "Dm7"
+      },
+      "classical": {
+       "roman": "ii7",
+       "symbol": "Dm7"
+      }
+     },
+     "tens": "11 9 13"
+    },
+    {
+     "deg": "3",
+     "dialects": {
+      "berklee": {
+       "roman": "III–7",
+       "symbol": "E–7"
+      },
+      "jazz": {
+       "roman": "III–7",
+       "symbol": "E–7"
+      },
+      "lead": {
+       "roman": "IIIm7",
+       "symbol": "Em7"
+      },
+      "classical": {
+       "roman": "iii7",
+       "symbol": "Em7"
+      }
+     },
+     "tens": "(♭9) (♭13) 11"
+    },
+    {
+     "deg": "4",
+     "dialects": {
+      "berklee": {
+       "roman": "IVmaj7",
+       "symbol": "Fmaj7"
+      },
+      "jazz": {
+       "roman": "IVΔ7",
+       "symbol": "FΔ7"
+      },
+      "lead": {
+       "roman": "IVmaj7",
+       "symbol": "Fmaj7"
+      },
+      "classical": {
+       "roman": "IVM7",
+       "symbol": "FM7"
+      }
+     },
+     "tens": "9 13 ♯11"
+    },
+    {
+     "deg": "5",
+     "dialects": {
+      "berklee": {
+       "roman": "V7",
+       "symbol": "G7"
+      },
+      "jazz": {
+       "roman": "V7",
+       "symbol": "G7"
+      },
+      "lead": {
+       "roman": "V7",
+       "symbol": "G7"
+      },
+      "classical": {
+       "roman": "V7",
+       "symbol": "G7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "6",
+     "dialects": {
+      "berklee": {
+       "roman": "VI–7",
+       "symbol": "A–7"
+      },
+      "jazz": {
+       "roman": "VI–7",
+       "symbol": "A–7"
+      },
+      "lead": {
+       "roman": "VIm7",
+       "symbol": "Am7"
+      },
+      "classical": {
+       "roman": "vi7",
+       "symbol": "Am7"
+      }
+     },
+     "tens": "(♭13) 11 9"
+    },
+    {
+     "deg": "7",
+     "dialects": {
+      "berklee": {
+       "roman": "VII–7(♭5)",
+       "symbol": "B–7(♭5)"
+      },
+      "jazz": {
+       "roman": "VIIø7",
+       "symbol": "Bø7"
+      },
+      "lead": {
+       "roman": "VIIm7♭5",
+       "symbol": "Bm7♭5"
+      },
+      "classical": {
+       "roman": "viiø7",
+       "symbol": "Bø7"
+      }
+     },
+     "tens": "(♭9) ♭13 11"
+    }
+   ]
+  },
+  {
+   "mode": "Mixolydian",
+   "feel": "bright with a bluesy, rock pull",
+   "scale": "C D E F G A B♭",
+   "degrees": "1 2 3 4 5 6 ♭7",
+   "chords": [
+    {
+     "deg": "1",
+     "dialects": {
+      "berklee": {
+       "roman": "I7",
+       "symbol": "C7"
+      },
+      "jazz": {
+       "roman": "I7",
+       "symbol": "C7"
+      },
+      "lead": {
+       "roman": "I7",
+       "symbol": "C7"
+      },
+      "classical": {
+       "roman": "I7",
+       "symbol": "C7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "2",
+     "dialects": {
+      "berklee": {
+       "roman": "II–7",
+       "symbol": "D–7"
+      },
+      "jazz": {
+       "roman": "II–7",
+       "symbol": "D–7"
+      },
+      "lead": {
+       "roman": "IIm7",
+       "symbol": "Dm7"
+      },
+      "classical": {
+       "roman": "ii7",
+       "symbol": "Dm7"
+      }
+     },
+     "tens": "(♭13) 11 9"
+    },
+    {
+     "deg": "3",
+     "dialects": {
+      "berklee": {
+       "roman": "III–7(♭5)",
+       "symbol": "E–7(♭5)"
+      },
+      "jazz": {
+       "roman": "IIIø7",
+       "symbol": "Eø7"
+      },
+      "lead": {
+       "roman": "IIIm7♭5",
+       "symbol": "Em7♭5"
+      },
+      "classical": {
+       "roman": "iiiø7",
+       "symbol": "Eø7"
+      }
+     },
+     "tens": "(♭9) ♭13 11"
+    },
+    {
+     "deg": "4",
+     "dialects": {
+      "berklee": {
+       "roman": "IVmaj7",
+       "symbol": "Fmaj7"
+      },
+      "jazz": {
+       "roman": "IVΔ7",
+       "symbol": "FΔ7"
+      },
+      "lead": {
+       "roman": "IVmaj7",
+       "symbol": "Fmaj7"
+      },
+      "classical": {
+       "roman": "IVM7",
+       "symbol": "FM7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "5",
+     "dialects": {
+      "berklee": {
+       "roman": "V–7",
+       "symbol": "G–7"
+      },
+      "jazz": {
+       "roman": "V–7",
+       "symbol": "G–7"
+      },
+      "lead": {
+       "roman": "Vm7",
+       "symbol": "Gm7"
+      },
+      "classical": {
+       "roman": "v7",
+       "symbol": "Gm7"
+      }
+     },
+     "tens": "11 9 13"
+    },
+    {
+     "deg": "6",
+     "dialects": {
+      "berklee": {
+       "roman": "VI–7",
+       "symbol": "A–7"
+      },
+      "jazz": {
+       "roman": "VI–7",
+       "symbol": "A–7"
+      },
+      "lead": {
+       "roman": "VIm7",
+       "symbol": "Am7"
+      },
+      "classical": {
+       "roman": "vi7",
+       "symbol": "Am7"
+      }
+     },
+     "tens": "(♭9) (♭13) 11"
+    },
+    {
+     "deg": "♭7",
+     "dialects": {
+      "berklee": {
+       "roman": "♭VIImaj7",
+       "symbol": "B♭maj7"
+      },
+      "jazz": {
+       "roman": "♭VIIΔ7",
+       "symbol": "B♭Δ7"
+      },
+      "lead": {
+       "roman": "♭VIImaj7",
+       "symbol": "B♭maj7"
+      },
+      "classical": {
+       "roman": "♭VIIM7",
+       "symbol": "B♭M7"
+      }
+     },
+     "tens": "9 13 ♯11"
+    }
+   ]
+  },
+  {
+   "mode": "Dorian",
+   "feel": "cool, hopeful minor",
+   "scale": "C D E♭ F G A B♭",
+   "degrees": "1 2 ♭3 4 5 6 ♭7",
+   "chords": [
+    {
+     "deg": "1",
+     "dialects": {
+      "berklee": {
+       "roman": "I–7",
+       "symbol": "C–7"
+      },
+      "jazz": {
+       "roman": "I–7",
+       "symbol": "C–7"
+      },
+      "lead": {
+       "roman": "Im7",
+       "symbol": "Cm7"
+      },
+      "classical": {
+       "roman": "i7",
+       "symbol": "Cm7"
+      }
+     },
+     "tens": "11 9 13"
+    },
+    {
+     "deg": "2",
+     "dialects": {
+      "berklee": {
+       "roman": "II–7",
+       "symbol": "D–7"
+      },
+      "jazz": {
+       "roman": "II–7",
+       "symbol": "D–7"
+      },
+      "lead": {
+       "roman": "IIm7",
+       "symbol": "Dm7"
+      },
+      "classical": {
+       "roman": "ii7",
+       "symbol": "Dm7"
+      }
+     },
+     "tens": "(♭9) (♭13) 11"
+    },
+    {
+     "deg": "♭3",
+     "dialects": {
+      "berklee": {
+       "roman": "♭IIImaj7",
+       "symbol": "E♭maj7"
+      },
+      "jazz": {
+       "roman": "♭IIIΔ7",
+       "symbol": "E♭Δ7"
+      },
+      "lead": {
+       "roman": "♭IIImaj7",
+       "symbol": "E♭maj7"
+      },
+      "classical": {
+       "roman": "♭IIIM7",
+       "symbol": "E♭M7"
+      }
+     },
+     "tens": "9 13 ♯11"
+    },
+    {
+     "deg": "4",
+     "dialects": {
+      "berklee": {
+       "roman": "IV7",
+       "symbol": "F7"
+      },
+      "jazz": {
+       "roman": "IV7",
+       "symbol": "F7"
+      },
+      "lead": {
+       "roman": "IV7",
+       "symbol": "F7"
+      },
+      "classical": {
+       "roman": "IV7",
+       "symbol": "F7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "5",
+     "dialects": {
+      "berklee": {
+       "roman": "V–7",
+       "symbol": "G–7"
+      },
+      "jazz": {
+       "roman": "V–7",
+       "symbol": "G–7"
+      },
+      "lead": {
+       "roman": "Vm7",
+       "symbol": "Gm7"
+      },
+      "classical": {
+       "roman": "v7",
+       "symbol": "Gm7"
+      }
+     },
+     "tens": "(♭13) 11 9"
+    },
+    {
+     "deg": "6",
+     "dialects": {
+      "berklee": {
+       "roman": "VI–7(♭5)",
+       "symbol": "A–7(♭5)"
+      },
+      "jazz": {
+       "roman": "VIø7",
+       "symbol": "Aø7"
+      },
+      "lead": {
+       "roman": "VIm7♭5",
+       "symbol": "Am7♭5"
+      },
+      "classical": {
+       "roman": "viø7",
+       "symbol": "Aø7"
+      }
+     },
+     "tens": "(♭9) ♭13 11"
+    },
+    {
+     "deg": "♭7",
+     "dialects": {
+      "berklee": {
+       "roman": "♭VIImaj7",
+       "symbol": "B♭maj7"
+      },
+      "jazz": {
+       "roman": "♭VIIΔ7",
+       "symbol": "B♭Δ7"
+      },
+      "lead": {
+       "roman": "♭VIImaj7",
+       "symbol": "B♭maj7"
+      },
+      "classical": {
+       "roman": "♭VIIM7",
+       "symbol": "B♭M7"
+      }
+     },
+     "tens": "(11) 9 13"
+    }
+   ]
+  },
+  {
+   "mode": "Aeolian",
+   "feel": "sad, serious (natural minor)",
+   "scale": "C D E♭ F G A♭ B♭",
+   "degrees": "1 2 ♭3 4 5 ♭6 ♭7",
+   "chords": [
+    {
+     "deg": "1",
+     "dialects": {
+      "berklee": {
+       "roman": "I–7",
+       "symbol": "C–7"
+      },
+      "jazz": {
+       "roman": "I–7",
+       "symbol": "C–7"
+      },
+      "lead": {
+       "roman": "Im7",
+       "symbol": "Cm7"
+      },
+      "classical": {
+       "roman": "i7",
+       "symbol": "Cm7"
+      }
+     },
+     "tens": "(♭13) 11 9"
+    },
+    {
+     "deg": "2",
+     "dialects": {
+      "berklee": {
+       "roman": "II–7(♭5)",
+       "symbol": "D–7(♭5)"
+      },
+      "jazz": {
+       "roman": "IIø7",
+       "symbol": "Dø7"
+      },
+      "lead": {
+       "roman": "IIm7♭5",
+       "symbol": "Dm7♭5"
+      },
+      "classical": {
+       "roman": "iiø7",
+       "symbol": "Dø7"
+      }
+     },
+     "tens": "(♭9) ♭13 11"
+    },
+    {
+     "deg": "♭3",
+     "dialects": {
+      "berklee": {
+       "roman": "♭IIImaj7",
+       "symbol": "E♭maj7"
+      },
+      "jazz": {
+       "roman": "♭IIIΔ7",
+       "symbol": "E♭Δ7"
+      },
+      "lead": {
+       "roman": "♭IIImaj7",
+       "symbol": "E♭maj7"
+      },
+      "classical": {
+       "roman": "♭IIIM7",
+       "symbol": "E♭M7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "4",
+     "dialects": {
+      "berklee": {
+       "roman": "IV–7",
+       "symbol": "F–7"
+      },
+      "jazz": {
+       "roman": "IV–7",
+       "symbol": "F–7"
+      },
+      "lead": {
+       "roman": "IVm7",
+       "symbol": "Fm7"
+      },
+      "classical": {
+       "roman": "iv7",
+       "symbol": "Fm7"
+      }
+     },
+     "tens": "11 9 13"
+    },
+    {
+     "deg": "5",
+     "dialects": {
+      "berklee": {
+       "roman": "V–7",
+       "symbol": "G–7"
+      },
+      "jazz": {
+       "roman": "V–7",
+       "symbol": "G–7"
+      },
+      "lead": {
+       "roman": "Vm7",
+       "symbol": "Gm7"
+      },
+      "classical": {
+       "roman": "v7",
+       "symbol": "Gm7"
+      }
+     },
+     "tens": "(♭9) (♭13) 11"
+    },
+    {
+     "deg": "♭6",
+     "dialects": {
+      "berklee": {
+       "roman": "♭VImaj7",
+       "symbol": "A♭maj7"
+      },
+      "jazz": {
+       "roman": "♭VIΔ7",
+       "symbol": "A♭Δ7"
+      },
+      "lead": {
+       "roman": "♭VImaj7",
+       "symbol": "A♭maj7"
+      },
+      "classical": {
+       "roman": "♭VIM7",
+       "symbol": "A♭M7"
+      }
+     },
+     "tens": "9 13 ♯11"
+    },
+    {
+     "deg": "♭7",
+     "dialects": {
+      "berklee": {
+       "roman": "♭VII7",
+       "symbol": "B♭7"
+      },
+      "jazz": {
+       "roman": "♭VII7",
+       "symbol": "B♭7"
+      },
+      "lead": {
+       "roman": "♭VII7",
+       "symbol": "B♭7"
+      },
+      "classical": {
+       "roman": "♭VII7",
+       "symbol": "B♭7"
+      }
+     },
+     "tens": "(11) 9 13"
+    }
+   ]
+  },
+  {
+   "mode": "Phrygian",
+   "feel": "dark, tense, Spanish or metal",
+   "scale": "C D♭ E♭ F G A♭ B♭",
+   "degrees": "1 ♭2 ♭3 4 5 ♭6 ♭7",
+   "chords": [
+    {
+     "deg": "1",
+     "dialects": {
+      "berklee": {
+       "roman": "I–7",
+       "symbol": "C–7"
+      },
+      "jazz": {
+       "roman": "I–7",
+       "symbol": "C–7"
+      },
+      "lead": {
+       "roman": "Im7",
+       "symbol": "Cm7"
+      },
+      "classical": {
+       "roman": "i7",
+       "symbol": "Cm7"
+      }
+     },
+     "tens": "(♭9) (♭13) 11"
+    },
+    {
+     "deg": "♭2",
+     "dialects": {
+      "berklee": {
+       "roman": "♭IImaj7",
+       "symbol": "D♭maj7"
+      },
+      "jazz": {
+       "roman": "♭IIΔ7",
+       "symbol": "D♭Δ7"
+      },
+      "lead": {
+       "roman": "♭IImaj7",
+       "symbol": "D♭maj7"
+      },
+      "classical": {
+       "roman": "♭IIM7",
+       "symbol": "D♭M7"
+      }
+     },
+     "tens": "9 13 ♯11"
+    },
+    {
+     "deg": "♭3",
+     "dialects": {
+      "berklee": {
+       "roman": "♭III7",
+       "symbol": "E♭7"
+      },
+      "jazz": {
+       "roman": "♭III7",
+       "symbol": "E♭7"
+      },
+      "lead": {
+       "roman": "♭III7",
+       "symbol": "E♭7"
+      },
+      "classical": {
+       "roman": "♭III7",
+       "symbol": "E♭7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "4",
+     "dialects": {
+      "berklee": {
+       "roman": "IV–7",
+       "symbol": "F–7"
+      },
+      "jazz": {
+       "roman": "IV–7",
+       "symbol": "F–7"
+      },
+      "lead": {
+       "roman": "IVm7",
+       "symbol": "Fm7"
+      },
+      "classical": {
+       "roman": "iv7",
+       "symbol": "Fm7"
+      }
+     },
+     "tens": "(♭13) 11 9"
+    },
+    {
+     "deg": "5",
+     "dialects": {
+      "berklee": {
+       "roman": "V–7(♭5)",
+       "symbol": "G–7(♭5)"
+      },
+      "jazz": {
+       "roman": "Vø7",
+       "symbol": "Gø7"
+      },
+      "lead": {
+       "roman": "Vm7♭5",
+       "symbol": "Gm7♭5"
+      },
+      "classical": {
+       "roman": "vø7",
+       "symbol": "Gø7"
+      }
+     },
+     "tens": "(♭9) ♭13 11"
+    },
+    {
+     "deg": "♭6",
+     "dialects": {
+      "berklee": {
+       "roman": "♭VImaj7",
+       "symbol": "A♭maj7"
+      },
+      "jazz": {
+       "roman": "♭VIΔ7",
+       "symbol": "A♭Δ7"
+      },
+      "lead": {
+       "roman": "♭VImaj7",
+       "symbol": "A♭maj7"
+      },
+      "classical": {
+       "roman": "♭VIM7",
+       "symbol": "A♭M7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "♭7",
+     "dialects": {
+      "berklee": {
+       "roman": "♭VII–7",
+       "symbol": "B♭–7"
+      },
+      "jazz": {
+       "roman": "♭VII–7",
+       "symbol": "B♭–7"
+      },
+      "lead": {
+       "roman": "♭VIIm7",
+       "symbol": "B♭m7"
+      },
+      "classical": {
+       "roman": "♭vii7",
+       "symbol": "B♭m7"
+      }
+     },
+     "tens": "11 9 13"
+    }
+   ]
+  },
+  {
+   "mode": "Locrian",
+   "feel": "unstable, never quite home",
+   "scale": "C D♭ E♭ F G♭ A♭ B♭",
+   "degrees": "1 ♭2 ♭3 4 ♭5 ♭6 ♭7",
+   "chords": [
+    {
+     "deg": "1",
+     "dialects": {
+      "berklee": {
+       "roman": "I–7(♭5)",
+       "symbol": "C–7(♭5)"
+      },
+      "jazz": {
+       "roman": "Iø7",
+       "symbol": "Cø7"
+      },
+      "lead": {
+       "roman": "Im7♭5",
+       "symbol": "Cm7♭5"
+      },
+      "classical": {
+       "roman": "iø7",
+       "symbol": "Cø7"
+      }
+     },
+     "tens": "(♭9) ♭13 11"
+    },
+    {
+     "deg": "♭2",
+     "dialects": {
+      "berklee": {
+       "roman": "♭IImaj7",
+       "symbol": "D♭maj7"
+      },
+      "jazz": {
+       "roman": "♭IIΔ7",
+       "symbol": "D♭Δ7"
+      },
+      "lead": {
+       "roman": "♭IImaj7",
+       "symbol": "D♭maj7"
+      },
+      "classical": {
+       "roman": "♭IIM7",
+       "symbol": "D♭M7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "♭3",
+     "dialects": {
+      "berklee": {
+       "roman": "♭III–7",
+       "symbol": "E♭–7"
+      },
+      "jazz": {
+       "roman": "♭III–7",
+       "symbol": "E♭–7"
+      },
+      "lead": {
+       "roman": "♭IIIm7",
+       "symbol": "E♭m7"
+      },
+      "classical": {
+       "roman": "♭iii7",
+       "symbol": "E♭m7"
+      }
+     },
+     "tens": "11 9 13"
+    },
+    {
+     "deg": "4",
+     "dialects": {
+      "berklee": {
+       "roman": "IV–7",
+       "symbol": "F–7"
+      },
+      "jazz": {
+       "roman": "IV–7",
+       "symbol": "F–7"
+      },
+      "lead": {
+       "roman": "IVm7",
+       "symbol": "Fm7"
+      },
+      "classical": {
+       "roman": "iv7",
+       "symbol": "Fm7"
+      }
+     },
+     "tens": "(♭9) (♭13) 11"
+    },
+    {
+     "deg": "♭5",
+     "dialects": {
+      "berklee": {
+       "roman": "♭Vmaj7",
+       "symbol": "G♭maj7"
+      },
+      "jazz": {
+       "roman": "♭VΔ7",
+       "symbol": "G♭Δ7"
+      },
+      "lead": {
+       "roman": "♭Vmaj7",
+       "symbol": "G♭maj7"
+      },
+      "classical": {
+       "roman": "♭VM7",
+       "symbol": "G♭M7"
+      }
+     },
+     "tens": "9 13 ♯11"
+    },
+    {
+     "deg": "♭6",
+     "dialects": {
+      "berklee": {
+       "roman": "♭VI7",
+       "symbol": "A♭7"
+      },
+      "jazz": {
+       "roman": "♭VI7",
+       "symbol": "A♭7"
+      },
+      "lead": {
+       "roman": "♭VI7",
+       "symbol": "A♭7"
+      },
+      "classical": {
+       "roman": "♭VI7",
+       "symbol": "A♭7"
+      }
+     },
+     "tens": "(11) 9 13"
+    },
+    {
+     "deg": "♭7",
+     "dialects": {
+      "berklee": {
+       "roman": "♭VII–7",
+       "symbol": "B♭–7"
+      },
+      "jazz": {
+       "roman": "♭VII–7",
+       "symbol": "B♭–7"
+      },
+      "lead": {
+       "roman": "♭VIIm7",
+       "symbol": "B♭m7"
+      },
+      "classical": {
+       "roman": "♭vii7",
+       "symbol": "B♭m7"
+      }
+     },
+     "tens": "(♭13) 11 9"
+    }
+   ]
+  }
+ ],
+ "edges": [
+  "C♯ Lydian: C♯ D♯ E♯ F𝄪 G♯ A♯ B♯",
+  "C♭ Locrian: C♭ D𝄫 E𝄫 F♭ G𝄫 A𝄫 B𝄫",
+  "G Ionian: G A B C D E F♯",
+  "F Ionian: F G A B♭ C D E",
+  "F♯ Phrygian: F♯ G A B C♯ D E",
+  "G♭ Lydian: G♭ A♭ B♭ C D♭ E♭ F"
+ ]
+}

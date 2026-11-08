@@ -15,24 +15,37 @@ forward_vector: "I am Meadows and an Artist's Career's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T13:22:51.029Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-30T10:17:21.845Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 12 · last ran 2026-10-14 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 14 · last ran 2026-10-30 (today)
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Worksheet v4: after your ten are placed, a four-step exercise walks your lowest decision one move up and saves it with your shape. (`meadows-career-steward-033`)
-- **Last commit touching this project:** 2026-10-14 `d87113a6` — steward(Meadows and an Artist's Career): cycle 11 — SPINNING UP. HOME: [Meadows and an Artist's Career](obsidian://open?vau…
-- **Signal:** steady
+- **Last shipped:** 2026-10-30 (today) — This project still has no agreed plan. Adopt this one, rewritten around your journaling note? (`meadows-career-steward-036`)
+- **Last commit touching this project:** 2026-10-30 `aebc6322` — steward(Meadows and an Artist's Career): cycle 13 — SPINNING UP. HOME: [Meadows and an Artist's Career](obsidian://open?vau…
+- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Left uncommitted:** ⚠ 6 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Meadows and an Artist's Career/drive-v5-by-hand-filled.png`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand-report.txt`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand-saved.png`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand-saved.txt`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand.mjs`, and 1 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-30 — cycle 14, posted nothing · nothing new
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 1, from cycle 13 — 2026-10-30 — [[Meadows and an Artist's Career — tuning]]
 
 ### Where this stands
 
-This project points Donella Meadows' twelve leverage points at an artist's career. Her ladder runs from the weakest place to push (tweak a number: gear, price, schedule) to the strongest (let go of what the whole thing is for). The worksheet has you place your last ten career decisions on those rungs and shows your shape beside three real careers: Brian Eno, Pauline Oliveros and Agnes Martin. Until now it stopped at a diagnosis. This cycle added the part that asks you to act on one decision. You take the lowest decision you placed, see what one band higher looked like in all three careers, and write your own higher move. That move is a rule, a feedback loop or a goal that would have made th…
+This project points Donella Meadows' twelve leverage points at an artist's career. Her ladder runs from the weakest place to push (tweak a number: gear, price, schedule) up to the strongest (let go of what the whole thing is for). The worksheet has you take your last ten career decisions, place each on a rung, and see your shape beside three real careers: Brian Eno, Pauline Oliveros and Agnes Martin. After that, an exercise takes your lowest decision one move up. When you answered the proposed plan on 2026-10-15, you said the look and questions were good, but each question needed more context, and above all it needed space for freeform writing, more like a journal than clicking buttons. Thi…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 10:** I never clicked the + buttons or the save button by hand. _(in 3 notes, the latest cycle 11)_
+- **rough since cycle 11:** I checked it through headless Chrome only, using a ?demo= setting that fills in a sample ten; _(in 2 notes, the latest cycle 13)_
+- **rough since cycle 11:** v2, v3 and the case-studies page are still in the folder, waiting for you to say which ones to retire. _(in 2 notes, the latest cycle 12)_
 
 ### Open asks
 
-- `meadows-career-steward-029` — proposed plan revision: a first agreed plan for the project · posted 2026-10-14 · options: adopt · keep
+- `meadows-career-steward-036` — proposed plan revision: a first agreed plan, now with journaling at its centre · posted 2026-10-30 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -40,7 +53,17 @@ _None._
 
 ### Decided
 
+- `meadows-career-steward-029` — a first agreed plan for the project → GRANTED — (no option_id); notes: "This is good, the look and the questions are good, the questions each need more context, and more importantly they need to have prompts for freeform text, the goal can be like journaling, encourage though not just clicking buttons. Simply encouraging reflection is a positive step." (2026-10-15)
 - `meadows-career-steward-025` — directional_steer → GRANTED — option_id=HARDEN-WORKSHEET (2026-08-26)
+
+### Runs
+
+- 2026-10-30 — cycle 14, posted nothing · nothing new
+- 2026-10-30 — cycle 13 · taught item 1
+
+### Owed
+
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -59,6 +82,57 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-01a38d527d" -->
+### 2026-10-30 — cycle 14, posted nothing
+
+nothing new
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="meadows-career-steward-036" -->
+### 2026-10-30 — cycle 13 — This project still has no agreed plan. Adopt this one, rewritten around your journaling note?
+> still working · v5 journal shipped · steward leans adopt
+
+Catch-up: this project applies Meadows' twelve leverage points to an artist's career. The worksheet has you place your last ten decisions on her ladder beside Eno, Oliveros and Martin, then take your lowest one move up. On 2026-10-15 you answered my proposed plan with a note (more context per question, and freeform writing like a journal) but didn't pick 'adopt', so the scroll's Plan is still empty. I've now built your note as v5. This plan puts journaling at the centre of every step, and it adds one new idea: the worksheet as a tool for Loud'n Live coaching, since that's where the project is heading. I keep building along it either way. Answer when it suits you.
+
+**Artifacts:**
+- [leverage-diagnostic-v4-preview.png](Projects/Meadows and an Artist's Career/leverage-diagnostic-v4-preview.png)
+- [leverage-diagnostic-v4.html](Projects/Meadows and an Artist's Career/leverage-diagnostic-v4.html)
+<sub>`meadows-career-steward-036` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="meadows-career-steward-035" -->
+### 2026-10-30 — cycle 13 — Worksheet v5, the journaling edition: you write your ten decisions first, and every rung opens into plain context and a question to write about.
+> shipped · your note on the plan, built · steward leans you try writing in it once
+
+[leverage-diagnostic-v5.html](open:Projects/Meadows and an Artist's Career/leverage-diagnostic-v5.html), with [a preview](open:Projects/Meadows and an Artist's Career/leverage-diagnostic-v5-preview.png) showing a sample ten and one journal entry.
+
+What changed from v4:
+
+- **You write before you sort.** The +/− counters are gone. A new box at the top holds ten numbered spaces: write each decision the way you'd tell a friend, saying what you decided and what it changed. Each one then gets a dropdown for its rung, and the counts follow from what you wrote. Before the ladder appears, a line explains why you write first: it keeps you honest about the decisions you'd rather forget.
+- **Your own words show up on the ladder.** Next to each rung, your filed decisions appear by number and sentence, so you can see what actually sits on rung 12.
+- **Every rung has context and a journal prompt.** Under each rung, 'sit with this rung' opens two or three plain sentences on what Meadows meant by it, then one open question and space to write. Rung 12, for example: 'Name the last knob you turned. What were you hoping it would change, underneath? Did it?' Rung 3: 'Finish the sentence without editing yourself: My career is for… Whose sentence is that?' Once you've written something, the rung shows 'written'.
+- **Reflection after the shape.** After the reading come two prompts: which decisions you filed lower or higher than you expected, and 'How do you feel, having looked at it?' That second one is the Hilaritas question, with a line saying the feeling is information the numbers don't carry.
+- **The exercise gets context too.** Each of its steps now says why it matters, and step 1 quotes your own sentences from your lowest rung back to you.
+- **Saving keeps everything.** The saved text keeps v4's per-rung lines, so older pages can still read it, then adds your ten in your own words, every journal entry with its question, the two reflections, and the move. It all stays in your browser. 'Clear everything' now asks before wiping, since there's writing to lose.
+
+**Artifacts:**
+- [the journaling worksheet: write your ten, file them, sit with each rung, reflect, take one move up.](Projects/Meadows and an Artist's Career/leverage-diagnostic-v5.html)
+- [headless preview: a sample ten written and filed, the shape bar, and rung 12 open with a journal entry.](Projects/Meadows and an Artist's Career/leverage-diagnostic-v5-preview.png)
+
+_Left rough:_ I checked it through headless Chrome only, using a ?demo= setting that fills in a sample ten; no person has typed into it by hand yet. The rung context lines are my plain-words reading of Meadows and haven't been checked against her 1999 paper this cycle. v2, v3 and v4 are still in the folder.
+
+_Next moves named:_ Have one real person (you, ideally) write their ten in v5 and tell me where the writing felt like a chore and where it opened something. · Widen the cases with two careers that aren't famous, a working session player and a teacher-composer, so the comparison isn't only against biographies. · Once v5 has been used by a real person, retire v2 to v4, but only with your say.
+<sub>`meadows-career-steward-035` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-be2e57cc99" -->
+### 2026-10-30 — cycle 13
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="meadows-career-steward-033" -->
 ### 2026-10-14 — cycle 12 — Worksheet v4: after your ten are placed, a four-step exercise walks your lowest decision one move up and saves it with your shape.
 > shipped · one-move-up exercise built · steward leans widen the cases next, with your say

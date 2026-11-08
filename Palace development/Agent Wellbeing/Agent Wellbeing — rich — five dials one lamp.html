@@ -1,0 +1,225 @@
+<!doctype html>
+<!--
+  title: Agent Wellbeing — rich — five dials one lamp
+  born: 2026-11-03
+  links: [[Agent Wellbeing]] (connects-to · rich-face-piece) · listed in [[Agent Wellbeing — rich.json]] · its lamp is STIGMERGY's own rule, scoreFor in _ops/stigmergy/orchestrator/src/health.js:33–41, copied verbatim; the live path's stub is buildHealthBlock in the same file
+  forward_vector: I am the walk up to the section's claim that one number hides an agent's health. One dial into one lamp; the instruments the lamp reads; the two dials only a reader can judge, which it doesn't; how much a three-colour lamp has to leave out; and last, a sweep of every state that pushes acuity and drift to their worst and counts how often the lamp moves, beside a control that shows the sweep can see a wire. I change only when the section I serve does, or when health.js does.
+  data: rich-checks/check-pieces.mjs pulls scoreFor out of this file, runs it against the real health.js on every state, and drives the walk headless.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; no sound -->
+<meta name="piece:needs" content="">
+<title>Five dials, one lamp · Agent Wellbeing</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --green:#3ad17a; --yellow:#e8b84a; --red:#ff4d4d; --warn:#e8651b;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .board{display:grid;grid-template-columns:1fr 220px;gap:18px;align-items:start}
+  .dial{display:grid;grid-template-columns:170px 1fr 92px;gap:4px 14px;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-soft)}
+  .dial label{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);line-height:1.35}
+  .dial label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px;color:var(--fg-3)}
+  .dial input[type=range]{width:100%;accent-color:var(--accent)}
+  .dial .v{font-family:var(--mono);font-size:13px;color:var(--fg-1);text-align:right}
+  .dial .wire{grid-column:2 / 4;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+  .dial .wire.on{color:var(--fg-3)} .dial .wire.off{color:var(--warn)}
+  .lampbox{display:flex;flex-direction:column;align-items:center;gap:8px;position:sticky;top:10px}
+  .lampbox .name{font-family:var(--display);font-size:26px;letter-spacing:.04em}
+  .lampbox .why{font-family:var(--sans);font-size:12.5px;color:var(--fg-3);text-align:center;line-height:1.5}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;line-height:1.6}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:4px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.go{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .verdict{font-family:var(--sans);font-size:15px;color:var(--fg-1);line-height:1.6;margin:8px 0 0}
+  .verdict b{color:var(--accent);font-weight:500}
+  table.marks{border-collapse:collapse;margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks td.n{text-align:right}
+  .g{color:var(--green)} .y{color:var(--yellow)} .r{color:var(--red)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  [hidden]{display:none !important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:680px){.board{grid-template-columns:1fr}.lampbox{position:static}.dial{grid-template-columns:120px 1fr 70px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Agent Wellbeing · the measurable floor · five steps</div>
+  <h1>Five dials, one lamp</h1>
+  <p class="lead">The page names five ways an agent can be unwell, and says STIGMERGY flattened them into one green, yellow or red. This lamp is that rule, copied from the orchestrator’s code. Turn the dials and watch what the lamp can and can’t see.</p>
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <div class="eyebrow" id="stepEyebrow"></div>
+  <h2 id="stepTitle"></h2>
+  <p class="say" id="stepSay"></p>
+  <div id="stage"></div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path d="M0-9C6-9 9-3 6 2S-6 9-8 3-5-9 0-9" fill="none" stroke="#8a8aa0" stroke-width="1"/></svg><b>LOUD’N LIVE</b> made for the rich face of Agent Wellbeing. The rule is _ops/stigmergy/orchestrator/src/health.js, lines 33 to 41.</footer>
+</main>
+<script>
+// BEGIN scoreFor — verbatim from _ops/stigmergy/orchestrator/src/health.js:33–41
+function scoreFor({ context_pct, duplicate_flags = 0, posting_discipline_violations = 0, max_tokens_hits = 0 }) {
+  if (context_pct > 0.85 || duplicate_flags >= 2 || posting_discipline_violations >= 2 || max_tokens_hits >= 2) {
+    return 'red';
+  }
+  if (context_pct >= 0.70 || duplicate_flags >= 1 || posting_discipline_violations >= 1 || max_tokens_hits >= 1) {
+    return 'yellow';
+  }
+  return 'green';
+}
+// END scoreFor
+// The live path (Path 2) stamps buildHealthBlock's stub, health.js:57–76: score 'green', whatever the dials read.
+function liveStub() { return 'green'; }
+
+(() => {
+  const $ = id => document.getElementById(id);
+  const LEVELS = ['clear', 'softening', 'thinning', 'poor', 'gone'];
+  const S = { step: 0, cap: 40, distress: 0, integrity: 0, dup: 0, acuity: 0, drift: 0, live: false, sweep: null };
+  // Every dial goes to the rule, acuity and drift included; the rule takes the fields it names.
+  const asInput = st => ({ context_pct: st.cap / 100, max_tokens_hits: st.distress, posting_discipline_violations: st.integrity, duplicate_flags: st.dup, acuity: st.acuity, drift: st.drift });
+  const lampOf = st => S.live ? liveStub(asInput(st)) : scoreFor(asInput(st));
+
+  // Every state on the dials: capacity 0–100% by 1, three counts 0–3, acuity and drift on five levels each.
+  function* states() { for (let cap = 0; cap <= 100; cap++) for (let distress = 0; distress < 4; distress++) for (let integrity = 0; integrity < 4; integrity++) for (let dup = 0; dup < 4; dup++) for (let acuity = 0; acuity < 5; acuity++) for (let drift = 0; drift < 5; drift++) yield { cap, distress, integrity, dup, acuity, drift }; }
+  function census() { const t = { green: 0, yellow: 0, red: 0, all: 0 }; for (const st of states()) { t[scoreFor(asInput(st))]++; t.all++; } return t; }
+  function sweep() {
+    const f = st => scoreFor(asInput(st));
+    const probe = st => ({ ...st, acuity: 4, drift: 4 }), control = st => ({ ...st, cap: Math.min(100, st.cap + 20) });
+    let n = 0, moved = 0, ctl = 0, live = 0;
+    for (const st of states()) { n++; if (f(probe(st)) !== f(st)) moved++; if (f(control(st)) !== f(st)) ctl++; if (liveStub(asInput(st)) !== 'green') live++; }
+    return { n, moved, ctl, live };
+  }
+
+  const DIALS = [
+    { k: 'cap', name: 'Capacity', sub: 'context fullness · instrument', min: 0, max: 100, fmt: v => v + '%', from: 1, wire: 'context_pct' },
+    { k: 'distress', name: 'Distress', sub: 'cut off mid-thought · instrument', min: 0, max: 3, fmt: v => v + (v === 1 ? ' cut-off' : ' cut-offs'), from: 2, wire: 'max_tokens_hits' },
+    { k: 'integrity', name: 'Integrity', sub: 'broke the frame · instrument', min: 0, max: 3, fmt: v => v + (v === 1 ? ' breach' : ' breaches'), from: 2, wire: 'posting_discipline_violations' },
+    { k: 'dup', name: 'Duplicate flags', sub: 'the code’s fourth input; not on the page’s table', min: 0, max: 3, fmt: v => String(v), from: 2, wire: 'duplicate_flags' },
+    { k: 'acuity', name: 'Acuity', sub: 'thinking thinning out · a reader judges', min: 0, max: 4, fmt: v => LEVELS[v], from: 3, wire: null },
+    { k: 'drift', name: 'Drift', sub: 'losing the thread · a reader judges', min: 0, max: 4, fmt: v => LEVELS[v], from: 3, wire: null },
+  ];
+  const STEPS = [
+    { rail: 'one dial', title: 'One dial, one lamp', say: 'Start with the dial the harness can read most easily: how full the agent’s context is. The lamp turns yellow at 70% and red past 85%. Drag it and watch the colour follow.' },
+    { rail: 'the instruments', title: 'The instruments it reads', say: 'Three more inputs join. Two are on the page’s table: distress, counted as replies cut off at the length limit, and integrity, counted as breaches of the posting rule. The fourth, duplicate flags, is in the code but not on the page’s table. The lamp shows the worst of them. One of anything turns it yellow; two turn it red.' },
+    { rail: 'the reader’s dials', title: 'The two dials only a reader can judge', say: 'Acuity and drift: is the thinking thinning out, is it losing the thread. The page says only a fresh reader can judge these. Push them all the way to gone and watch the lamp.' },
+    { rail: 'what one lamp holds', title: 'How much three colours can hold', say: 'Count every setting of these six dials and sort them by the colour the lamp shows. Each colour stands for many different agents, and nothing in the colour says which.' },
+    { rail: 'the test', title: 'The test: does acuity or drift ever move the lamp?', say: 'Take every one of those states and hand the rule all six dials, acuity and drift included. In each, push acuity and drift to gone and see whether the lamp changes. A sweep that finds nothing proves little unless it could have found something, so the same sweep also pushes capacity up 20 points, a dial the lamp does read. Then switch to the live path, the one the palace actually runs.' },
+  ];
+  const shown = step => DIALS.filter(d => d.from <= step + 1);
+
+  function lampSVG(c) { const col = { green: '#3ad17a', yellow: '#e8b84a', red: '#ff4d4d' }[c]; return `<svg width="150" height="150" viewBox="0 0 150 150" role="img" aria-label="lamp ${c}"><defs><radialGradient id="gl"><stop offset="0" stop-color="${col}" stop-opacity=".55"/><stop offset="1" stop-color="${col}" stop-opacity="0"/></radialGradient></defs><circle cx="75" cy="75" r="72" fill="url(#gl)"/><circle cx="75" cy="75" r="40" fill="${col}"/><circle cx="75" cy="75" r="40" fill="none" stroke="#0a0a0f" stroke-opacity=".4" stroke-width="2"/></svg>`; }
+  function boardHTML() {
+    const L = lampOf(S);
+    const rows = shown(S.step).map(d => `<div class="dial"><label for="d-${d.k}">${d.name}<i>${d.sub}</i></label><input id="d-${d.k}" type="range" min="${d.min}" max="${d.max}" step="1" value="${S[d.k]}"><span class="v" id="v-${d.k}">${d.fmt(S[d.k])}</span><span class="wire ${d.wire ? 'on' : 'off'}">${d.wire ? (S.live ? 'wired to ' + d.wire + ', which the live path ignores' : 'wired to the lamp as ' + d.wire) : 'no wire to the lamp'}</span></div>`).join('');
+    return `<div class="panel board"><div>${rows}</div><div class="lampbox">${lampSVG(L)}<div class="name ${L[0]}" id="lampName">${L}</div><div class="why" id="lampWhy">${why()}</div></div></div>`;
+  }
+  function why() {
+    if (S.live) return 'the live path stamps green on every dispatch';
+    const r = []; if (S.cap > 85) r.push('capacity past 85%'); else if (S.cap >= 70) r.push('capacity at 70% or more');
+    [['distress', 'distress'], ['integrity', 'integrity'], ['dup', 'duplicate flags']].forEach(([k, n]) => { if (S[k] >= 1) r.push(n + ' at ' + S[k]); });
+    return r.length ? r.join(' · ') : 'nothing it reads is up';
+  }
+  const EQ = `<div class="eq">lamp = red    if c &gt; 0.85 or d ≥ 2 or v ≥ 2 or m ≥ 2<br>       yellow if c ≥ 0.70 or d ≥ 1 or v ≥ 1 or m ≥ 1<br>       green  otherwise</div><div class="eq words">In words: c is how full the context is, d the duplicate flags, v the breaches of the posting rule, m the replies cut off at the length limit. Red if the context is more than 85% full or any count reaches two; yellow from 70%, or any count of one; green otherwise. Acuity and drift appear nowhere in it.</div>`;
+
+  function stageHTML() {
+    const s = S.step;
+    if (s <= 2) return boardHTML() + (s >= 1 ? `<div class="panel">${EQ}</div>` : '') + (s === 2 ? `<p class="hint">The page says these two are judged by reading the output, and STIGMERGY’s rule has nothing to read them with. Here they have dials so you can push them; nothing connects them to the lamp.</p>` : '');
+    if (s === 3) { const t = census(); const pct = n => (Math.round(n / t.all * 1000) / 10) + '%';
+      return `<div class="panel"><table class="marks"><tr><th>lamp</th><th>states</th><th>share</th></tr><tr><td class="g">green</td><td class="n">${t.green.toLocaleString('en')}</td><td class="n">${pct(t.green)}</td></tr><tr><td class="y">yellow</td><td class="n">${t.yellow.toLocaleString('en')}</td><td class="n">${pct(t.yellow)}</td></tr><tr><td class="r">red</td><td class="n">${t.red.toLocaleString('en')}</td><td class="n">${pct(t.red)}</td></tr><tr><td>all</td><td class="n">${t.all.toLocaleString('en')}</td><td></td></tr></table>
+      <p class="verdict">The states: capacity in 1% steps from 0 to 100, each count from 0 to 3, acuity and drift on five levels each, 101 × 4 × 4 × 4 × 5 × 5. <b>Every green the lamp shows stands for ${t.green.toLocaleString('en')} of them</b>, from a fresh, clear agent to one whose acuity and drift both read gone. A red says something is wrong and not which dial. The shares are of this grid of settings, not of real agents.</p></div>`; }
+    if (s === 4) {
+      const r = S.sweep;
+      return `<div class="panel"><div class="rowb" style="margin-top:0"><button class="go" id="run">Run the sweep</button><button class="ghost" id="live" aria-pressed="${S.live}">${S.live ? 'live path: on' : 'live path: off'}</button></div>
+      ${r ? `<table class="marks" style="margin-top:14px"><tr><th>what the sweep pushed</th><th>states</th><th>lamp changed in</th></tr>
+        <tr><td>acuity and drift to gone</td><td class="n">${r.n.toLocaleString('en')}</td><td class="n" id="moved">${r.moved.toLocaleString('en')}</td></tr>
+        <tr><td>control: capacity up 20 points</td><td class="n">${r.n.toLocaleString('en')}</td><td class="n" id="ctl">${r.ctl.toLocaleString('en')}</td></tr>
+        <tr><td>the live path, anything at all</td><td class="n">${r.n.toLocaleString('en')}</td><td class="n" id="liveN">${r.live.toLocaleString('en')}</td></tr></table>
+        <p class="verdict"><b>The lamp moved in ${r.moved} of ${r.n.toLocaleString('en')} states when acuity and drift went to gone.</b> Any number above zero would have meant the rule reads them. The control moved it in ${r.ctl.toLocaleString('en')}, so the sweep can see a wire when there is one. On the live path nothing moves it: the stub is green in all ${r.n.toLocaleString('en')}.</p>
+        <p class="verdict">What this shows about the page: the rule doesn’t flatten five dials into one colour. It reads three of the page’s five, plus a count the page doesn’t name, and has no input at all for acuity or drift. The live path stamps green on every board message, and the rule itself has no caller outside its own unit test (git grep scoreFor). One thing the page doesn’t say: since 2026-09-23 a steward’s own state does go yellow after a cycle that made nothing and red once it stalls (process-cycle.js:551). That is one integrity signal reaching a colour, on the steward’s dot rather than the board.</p>` : '<p class="hint" style="margin-top:12px">The sweep runs every state twice over, in your browser, in well under a second.</p>'}</div>` + boardHTML();
+    }
+    return '';
+  }
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => go(i); r.appendChild(b); }); }
+  function draw() {
+    const s = STEPS[S.step]; rail();
+    $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('stage').innerHTML = stageHTML();
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    DIALS.forEach(d => { const el = $('d-' + d.k); if (el) el.oninput = () => { S[d.k] = +el.value; $('v-' + d.k).textContent = d.fmt(S[d.k]); const L = lampOf(S); document.querySelector('.lampbox svg').outerHTML = lampSVG(L); $('lampName').textContent = L; $('lampName').className = 'name ' + L[0]; $('lampWhy').textContent = why(); expose(); }; });
+    const run = $('run'); if (run) run.onclick = () => { S.sweep = sweep(); draw(); };
+    const lv = $('live'); if (lv) lv.onclick = () => { S.live = !S.live; draw(); };
+    expose();
+  }
+  function expose() { window.fiveDialsState = { step: S.step, lamp: lampOf(S), live: S.live, sweep: S.sweep, census: S.step === 3 ? census() : null }; }
+  function go(i) { S.step = Math.max(0, Math.min(STEPS.length - 1, i)); if (S.step < 4) S.live = false; draw(); }
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  draw();
+})();
+</script>
+</body>
+</html>

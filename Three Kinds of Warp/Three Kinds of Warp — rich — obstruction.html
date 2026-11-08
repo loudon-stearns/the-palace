@@ -1,0 +1,455 @@
+<!doctype html>
+<!--
+  title: Three Kinds of Warp — rich — obstruction
+  born: 2026-11-03
+  links: [[Three Kinds of Warp]] (connects-to · rich-face-piece) · listed in [[Three Kinds of Warp — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the 1D obstruction theorem as something to try to break. One sine read by one phasor, then a shape in the table, then a warp of the lap, then any warp you can draw, and last the one move that does escape: a speed change whose cycle is not the lap. The readout counts the energy between the harmonic lines, so the theorem is measured, not asserted. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; Three Kinds of Warp/workshop/rich-checks.mjs re-runs the claims on it. The audio worklet is built from the same lookup function.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Try to break the lattice</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 76ch; margin: 0 0 14px; min-height: 3.2em; }
+  .stage { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  canvas.draw { cursor: crosshair; touch-action: none; }
+  .spec { margin-top: 16px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 220px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .verdict { color: var(--amber); }
+  .read .verdict.broke { color: var(--warn); }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 90ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot svg { width: 22px; height: 22px; }
+  @media (max-width: 700px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio Worklet · sketch · a walk in five steps</div>
+  <h3 class="title">Try to break the lattice</h3>
+  <p class="sub">A phasor runs round a lap of length T and reads a wavetable as it goes. The theorem says that whatever you do to the table, and whatever you do to how the phasor moves inside the lap, the sound's energy stays on the lines k/T. The readout below the spectrum counts the energy that lands <i>between</i> those lines. Walk up to the warp you can draw, try everything, and then take the one step that does get off the lines.</p>
+
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span>what you hear · three laps</span><span id="lapnote">ticks mark the lap</span></div>
+      <canvas id="wave"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span id="rightlabel">the table</span><span id="rightnote"></span></div>
+      <canvas id="right"></canvas>
+    </div>
+  </div>
+  <div class="panel spec">
+    <div class="plabel"><span>spectrum · in harmonics of 1/T · the grid lines are k/T</span><span>dB</span></div>
+    <canvas id="spec"></canvas>
+  </div>
+  <div class="read">
+    <span>energy between the lines: <b id="off"></b></span>
+    <span class="verdict" id="verdict"></span>
+    <span id="extra"></span>
+  </div>
+
+  <div class="controls" id="controls"></div>
+
+  <div class="nav">
+    <button id="back">← back</button>
+    <button class="go" id="go">▸ play</button>
+    <button id="next">next step →</button>
+  </div>
+  <div class="hint">Measured on an exact lap of 256 samples, 32 laps long, so a line on the grid is an exact bin and anything between the lines is real. A digital oscillator at an arbitrary pitch also folds harmonics above half the sample rate back between the lines. That is aliasing, an error of the sampling, not a new partial of the warp.</div>
+
+  <div class="eqs">
+    <div class="eq">φ(t + T) − φ(t) = 2π  ⟹  y(t) = W(φ(t)) has Fourier support in { k ⁄ T : k ∈ ℤ }</div>
+    <div class="words">(if the phase advances exactly one lap every T seconds) then (the table read through it, whatever the table and however the phase moves inside the lap) has energy only at (whole-number multiples of one over the lap time)</div>
+    <div class="eq">y = W(g(φ mod 2π))</div>
+    <div class="words">(a warp) = (the table) read at (any function you like) of (the phase, wrapped back into one lap): the wrap comes first, so the warp can never see past the lap</div>
+  </div>
+  <div class="foot"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg><span>Three Kinds of Warp · rich face · Loud’n Live</span></div>
+</div>
+
+<script id="engine">
+/*ENGINE-START*/
+const N = 2048;            // table length, one lap
+const L = 256, P = 32;     // analysis: samples per lap, laps per window
+const TWO_PI = 2 * Math.PI;
+const HARM = { sine: (k) => (k === 1 ? 1 : 0), saw: (k) => 1 / k, square: (k) => (k % 2 ? 1 / k : 0) };
+
+function frac(x) { return x - Math.floor(x); }
+function lookup(T, u) {            // read a periodic table at u laps, linear interpolation
+  const n = T.length, x = (u - Math.floor(u)) * n, i = Math.floor(x), f = x - i;
+  const a = T[i % n], b = T[(i + 1) % n];
+  return a + (b - a) * f;
+}
+function harmonicTable(kind, kmax = 32) {
+  const amp = HARM[kind], T = new Float64Array(N);
+  for (let k = 1; k <= kmax; k++) { const a = amp(k); if (!a) continue; for (let i = 0; i < N; i++) T[i] += a * Math.sin(TWO_PI * k * i / N); }
+  let m = 0; for (let i = 0; i < N; i++) m = Math.max(m, Math.abs(T[i])); for (let i = 0; i < N; i++) T[i] /= m || 1;
+  return T;
+}
+function drawnTable(pts) {         // pts: values around one lap, read periodically
+  const T = new Float64Array(N), M = pts.length;
+  for (let i = 0; i < N; i++) { const x = i / N * M, j = Math.floor(x), f = x - j; T[i] = pts[j % M] + (pts[(j + 1) % M] - pts[j % M]) * f; }
+  return T;
+}
+// A warp g takes the wrapped phase x in [0,1) to any number: the table is read at g(x), wrapped.
+function warpFn(kind, a, drawn) {
+  switch (kind) {
+    case 'bend': { const p = Math.pow(2, 2.2 * a); return (x) => Math.pow(x, p); }
+    case 'pd': { const d = 0.5 - 0.46 * a; return (x) => (x < d ? 0.5 * x / d : 0.5 + 0.5 * (x - d) / (1 - d)); }
+    case 'sync': { const s = 1 + 3 * a; return (x) => x * s; }
+    case 'speed': return (x) => x - a * 0.9 * Math.sin(TWO_PI * x) / TWO_PI;
+    case 'fold': return (x) => 0.5 - Math.abs(0.5 - x) * (1 + 2 * a);
+    case 'drawn': { const M = drawn.length - 1; return (x) => { const t = x * M, j = Math.min(Math.floor(t), M - 1), f = t - j; return drawn[j] + (drawn[j + 1] - drawn[j]) * f; }; }
+    default: return (x) => x;
+  }
+}
+function composite(T, g) {         // one table, already warped: C(x) = W(g(x))
+  const C = new Float64Array(N);
+  for (let i = 0; i < N; i++) C[i] = lookup(T, g(i / N));
+  return C;
+}
+// The phase in laps at sample n. wob.d is a speed wobble's depth, wob.rho its cycles per lap.
+// rate = (1/L)(1 + d sin(2 pi rho n / L)), integrated in closed form so nothing drifts.
+function phaseAt(n, wob) {
+  const base = n / L;
+  if (!wob || !wob.d) return base;
+  return base + (wob.d / (TWO_PI * wob.rho)) * (1 - Math.cos(TWO_PI * wob.rho * n / L));
+}
+function render(C, wob, laps = P) {
+  const y = new Float64Array(L * laps);
+  for (let n = 0; n < y.length; n++) y[n] = lookup(C, phaseAt(n, wob));
+  return y;
+}
+function fft(re, im) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const ang = -TWO_PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+      for (let k = 0; k < len / 2; k++) { const a = i + k, b = a + len / 2, xr = re[b] * cr - im[b] * ci, xi = re[b] * ci + im[b] * cr;
+        re[b] = re[a] - xr; im[b] = im[a] - xi; re[a] += xr; im[a] += xi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+}
+// Power per bin over a whole number of laps (rectangular window): a periodic signal lands only on bins k*P.
+function spectrum(y) {
+  const n = y.length, re = Float64Array.from(y), im = new Float64Array(n);
+  fft(re, im);
+  const pw = new Float64Array(n / 2 + 1);
+  for (let i = 0; i <= n / 2; i++) pw[i] = (re[i] * re[i] + im[i] * im[i]) * (i === 0 || i === n / 2 ? 1 : 2);
+  let tot = 0, on = 0;
+  for (let i = 0; i <= n / 2; i++) { tot += pw[i]; if (i % P === 0) on += pw[i]; }
+  return { pw, offGrid: tot > 0 ? Math.max(0, (tot - on) / tot) : 0, tot };
+}
+/*ENGINE-END*/
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const S = {
+  step: 1, table: 'sine', drawnTable: null, warp: 'none', amt: 0.6, drawnWarp: null,
+  wobD: 0, wobRho: Math.SQRT2, f0: 110,
+};
+const RHO = [ ['1 per lap', 1], ['2 per lap', 2], ['1 every 2 laps', 0.5], ['√2 per lap', Math.SQRT2], ['golden', (1 + Math.sqrt(5)) / 2] ];
+// default drawn shapes: the table starts as a lopsided bump; the warp starts as whatever warp you had
+S.drawnTable = Array.from({ length: 48 }, (_, i) => { const x = i / 48; return Math.sin(TWO_PI * x) * 0.7 + 0.3 * Math.sin(TWO_PI * 3 * x + 1); });
+function warpSamples(kind, a) { const g = warpFn(kind, a); return Array.from({ length: 33 }, (_, i) => g(Math.min(i / 32, 0.999999))); }
+
+const STEPS = [
+  { n: 1, name: 'One sine, one lap', says: 'A phasor runs round a lap of T seconds and reads one sine as it goes. One lap, one line: everything sits at 1/T. This is the whole grid, so far with one point on it.' },
+  { n: 2, name: 'A shape in the table', says: 'Put any shape in the table. More lines appear, and every one sits on a whole number. The lap draws the grid; the table only decides how loud each line is. Sine takes you back to step 1. Pick draw and drag across the table to make your own.' },
+  { n: 3, name: 'Warp the lap', says: 'Now bend how the phasor moves inside the lap: a bend, a phase-distortion knee, a sync window, a speed that changes round the lap, a fold. These are the warps the commercial synths offer. Energy moves from line to line. Watch the readout: nothing lands between them. None takes you back to step 2.' },
+  { n: 4, name: 'Draw any warp', says: 'The test. Drag across the warp to draw anything: jumps, folds, a warp that runs backwards, one that ends nowhere near where a lap should. The readout is the theorem. Try to make it move.' },
+  { n: 5, name: 'Break the period', says: 'The one move the theorem does not cover: make the phasor’s speed wobble on a cycle that is not the lap. At one or two wobbles per lap the lap still repeats, and the lines hold. At one wobble every two laps the sound repeats every two laps, and new lines appear halfway between. At √2 or golden nothing repeats at all. Depth 0 takes you back to step 4.' },
+];
+
+// ── what to read, by step ──
+function current() {
+  const tableKind = S.step >= 2 ? S.table : 'sine';
+  const T = tableKind === 'draw' ? drawnTable(S.drawnTable) : harmonicTable(tableKind);
+  let g = (x) => x, kind = 'none';
+  if (S.step >= 4 && S.drawnWarp) { kind = 'drawn'; g = warpFn('drawn', 0, S.drawnWarp); }
+  else if (S.step >= 3) { kind = S.warp; g = warpFn(S.warp, S.amt); }
+  const C = composite(T, g);
+  const wob = S.step >= 5 ? { d: S.wobD, rho: S.wobRho } : null;
+  return { T, g, kind, C, wob };
+}
+let cur = null, spec = null, wave = null;
+function recompute() {
+  cur = current();
+  const y = render(cur.C, cur.wob);
+  spec = spectrum(y);
+  wave = y.subarray(0, L * 3);
+  readouts(); send(); drawAll();
+}
+function fmtShare(s) {
+  if (s < 1e-12) return '0 · under one part in a trillion';
+  if (s < 1e-6) return s.toExponential(1).replace('e-', ' × 10^−');
+  return (s * 100).toFixed(s < 0.001 ? 4 : 2) + ' %';
+}
+function readouts() {
+  $('off').textContent = fmtShare(spec.offGrid);
+  const v = $('verdict');
+  const broke = spec.offGrid > 1e-9;
+  v.classList.toggle('broke', broke);
+  if (!broke) v.textContent = S.step < 3 ? 'every line on the grid' : 'the warp moved energy among the lines, never between them';
+  else {
+    const r = S.wobRho, isWhole = Math.abs(r - Math.round(r)) < 1e-9;
+    v.textContent = Math.abs(r - 0.5) < 1e-9 ? 'a new, longer lap: two laps long, lines every 1/(2T)' : isWhole ? 'off the grid' : 'no lap at all: lines between every pair';
+  }
+  let extra = '';
+  if (S.step === 4 && S.drawnWarp) { const end = S.drawnWarp[S.drawnWarp.length - 1] - S.drawnWarp[0]; extra = `your warp runs ${end.toFixed(2)} laps from start to end${Math.abs(end - 1) > 0.02 ? ': not a circle map, still on the grid' : ''}`; }
+  if (S.step === 5) extra = S.wobD ? `wobble ${S.wobRho === Math.SQRT2 ? '√2' : S.wobRho === (1 + Math.sqrt(5)) / 2 ? 'golden' : S.wobRho} per lap, depth ${S.wobD.toFixed(2)}` : 'depth 0: this is step 4';
+  $('extra').textContent = extra;
+}
+
+// ── controls, built per step ──
+function seg(items, get, set) {
+  const s = document.createElement('span'); s.className = 'seg';
+  for (const [label, val] of items) { const b = document.createElement('button'); b.textContent = label; if (get() === val) b.classList.add('on');
+    b.onclick = () => { set(val); [...s.children].forEach((c) => c.classList.toggle('on', c === b)); recompute(); }; s.append(b); }
+  return s;
+}
+function slider(label, min, max, step, get, set, fmt) {
+  const l = document.createElement('label'); l.className = 'sl ctl';
+  const b = document.createElement('b'); const i = document.createElement('input');
+  Object.assign(i, { type: 'range', min, max, step, value: get() });
+  const show = () => (b.textContent = fmt(get()));
+  i.oninput = () => { set(+i.value); show(); recompute(); };
+  l.append(label + ' ', b, i); show(); return l;
+}
+function buildControls() {
+  const c = $('controls'); c.innerHTML = '';
+  if (S.step === 2) c.append(seg([['sine', 'sine'], ['saw', 'saw'], ['square', 'square'], ['draw', 'draw']], () => S.table, (v) => (S.table = v)));
+  if (S.step === 3) {
+    c.append(seg([['none', 'none'], ['bend', 'bend'], ['pd knee', 'pd'], ['sync', 'sync'], ['speed', 'speed'], ['fold', 'fold']], () => S.warp, (v) => (S.warp = v)));
+    c.append(slider('amount', -1, 1, 0.01, () => S.amt, (v) => (S.amt = v), (v) => v.toFixed(2)));
+  }
+  if (S.step === 4) {
+    const r = document.createElement('button'); r.textContent = 'start from step 3’s warp'; r.onclick = () => { S.drawnWarp = warpSamples(S.warp, S.amt); recompute(); };
+    const w = document.createElement('button'); w.textContent = 'scribble one'; w.onclick = () => { S.drawnWarp = Array.from({ length: 33 }, () => Math.random() * 1.5 - 0.25); recompute(); };
+    c.append(r, w);
+  }
+  if (S.step === 5) {
+    c.append(seg(RHO, () => S.wobRho, (v) => (S.wobRho = v)));
+    c.append(slider('wobble depth', 0, 0.5, 0.01, () => S.wobD, (v) => (S.wobD = v), (v) => v.toFixed(2)));
+  }
+}
+function buildRail() {
+  const r = $('rail'); r.innerHTML = '';
+  for (const s of STEPS) { const b = document.createElement('button'); b.textContent = s.n + ' · ' + s.name;
+    if (s.n === S.step) b.classList.add('here'); else if (s.n > S.step) b.classList.add('ahead');
+    b.onclick = () => goStep(s.n); r.append(b); }
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n));
+  if (n !== S.step) stop();                         // changing step stops the sound
+  if (n === 4 && !S.drawnWarp) S.drawnWarp = warpSamples(S.warp, S.amt);
+  S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`;
+  $('says').textContent = s.says;
+  $('back').disabled = n === 1; $('next').disabled = n === STEPS.length;
+  $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →';
+  buildRail(); buildControls(); recompute();
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+
+// ── drawing on the right panel: the table (step 2, draw) or the warp (step 4) ──
+function rightMode() { return S.step >= 3 ? 'warp' : 'table'; }
+function drawable() { return (S.step === 2 && S.table === 'draw') || S.step === 4; }
+(function bindDraw() {
+  const c = $('right'); let down = false;
+  const at = (e) => { const r = c.getBoundingClientRect(); return [(e.clientX - r.left) / r.width, (e.clientY - r.top) / r.height]; };
+  const paint = (e) => {
+    const [x, yy] = at(e);
+    if (rightMode() === 'table') { const M = S.drawnTable.length, i = Math.max(0, Math.min(M - 1, Math.round(x * M - 0.5))); S.drawnTable[i] = Math.max(-1, Math.min(1, 1 - 2 * yy)); }
+    else { const M = S.drawnWarp.length, i = Math.max(0, Math.min(M - 1, Math.round(x * (M - 1)))); S.drawnWarp[i] = WARP_TOP - yy * (WARP_TOP - WARP_BOT); }
+    recompute();
+  };
+  c.addEventListener('pointerdown', (e) => { if (!drawable()) return; down = true; c.setPointerCapture(e.pointerId); paint(e); });
+  c.addEventListener('pointermove', (e) => { if (down) paint(e); });
+  c.addEventListener('pointerup', () => (down = false));
+  c.addEventListener('pointercancel', () => (down = false));
+})();
+const WARP_TOP = 1.5, WARP_BOT = -0.5;
+
+function fit(c, hgt) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(hgt * d)) { c.width = Math.round(w * d); c.height = Math.round(hgt * d); c.style.height = hgt + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: hgt };
+}
+function drawAll() {
+  if (!cur) return;
+  // what you hear: three laps
+  { const { g, w, h } = fit($('wave'), 170); g.clearRect(0, 0, w, h);
+    g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+    for (let k = 0; k <= 3; k++) { const X = 6 + (w - 12) * k / 3; g.strokeStyle = '#4a4a5a'; g.setLineDash([2, 4]); g.beginPath(); g.moveTo(X, 8); g.lineTo(X, h - 8); g.stroke(); g.setLineDash([]); }
+    let m = 0; for (const v of wave) m = Math.max(m, Math.abs(v)); m = m || 1;
+    g.strokeStyle = '#e8b84a'; g.lineWidth = 1.5; g.beginPath();
+    for (let i = 0; i < wave.length; i++) { const X = 6 + (w - 12) * i / (wave.length - 1), Y = h / 2 - (h / 2 - 12) * wave[i] / m; i ? g.lineTo(X, Y) : g.moveTo(X, Y); }
+    g.stroke(); g.lineWidth = 1; }
+  // right panel
+  { const { g, w, h } = fit($('right'), 170); g.clearRect(0, 0, w, h);
+    if (rightMode() === 'table') {
+      $('rightlabel').textContent = 'the table · one lap'; $('rightnote').textContent = drawable() ? 'drag to draw' : '';
+      g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+      g.strokeStyle = '#6366F1'; g.lineWidth = 1.5; g.beginPath();
+      for (let i = 0; i <= 256; i++) { const v = lookup(cur.T, i / 256), X = (w) * i / 256, Y = h / 2 - (h / 2 - 10) * v; i ? g.lineTo(X, Y) : g.moveTo(X, Y); }
+      g.stroke(); g.lineWidth = 1;
+    } else {
+      $('rightlabel').textContent = 'the warp g · where in the table each moment of the lap reads';
+      $('rightnote').textContent = S.step >= 4 ? 'drag to draw' : '';
+      const Y = (v) => h * (WARP_TOP - v) / (WARP_TOP - WARP_BOT);
+      for (const v of [0, 1]) { g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(0, Y(v)); g.lineTo(w, Y(v)); g.stroke(); }
+      g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.fillText('0', 4, Y(0) - 3); g.fillText('1 lap', 4, Y(1) - 3);
+      g.strokeStyle = '#4a4a5a'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(0, Y(0)); g.lineTo(w, Y(1)); g.stroke(); g.setLineDash([]);
+      g.strokeStyle = '#e8e8f0'; g.lineWidth = 1.5; g.beginPath();
+      for (let i = 0; i <= 300; i++) { const x = Math.min(i / 300, 0.999999), X = w * x, v = Math.max(WARP_BOT, Math.min(WARP_TOP, cur.g(x))); i ? g.lineTo(X, Y(v)) : g.moveTo(X, Y(v)); }
+      g.stroke(); g.lineWidth = 1;
+    }
+  }
+  // spectrum
+  { const { g, w, h } = fit($('spec'), 220); g.clearRect(0, 0, w, h);
+    const KMAX = 24, padL = 34, padR = 10, top = 10, base = h - 22, X = (k) => padL + (w - padL - padR) * k / KMAX;
+    const pw = spec.pw; let mx = 0; for (let i = 1; i < pw.length; i++) mx = Math.max(mx, pw[i]); mx = mx || 1;
+    const FLOOR = -90, Ydb = (p) => { const db = 10 * Math.log10(p / mx + 1e-30); return top + (base - top) * Math.min(1, Math.max(0, db / FLOOR)); };
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'right';
+    for (const db of [0, -30, -60, -90]) { const yy = top + (base - top) * db / FLOOR; g.fillText(db, padL - 6, yy + 3); g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(padL, yy); g.lineTo(w - padR, yy); g.stroke(); }
+    g.textAlign = 'center';
+    for (let k = 0; k <= KMAX; k++) { g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(X(k), top); g.lineTo(X(k), base); g.stroke(); if (k % 2 === 0) { g.fillStyle = '#4a4a5a'; g.fillText(k, X(k), h - 6); } }
+    // everything between the lines, as a continuous trace
+    g.strokeStyle = 'rgba(255,155,74,.85)'; g.beginPath(); let started = false;
+    const iMax = KMAX * P;
+    for (let i = 1; i <= iMax; i++) { if (i % P === 0) continue; const p = pw[i]; const yy = Ydb(p); const xx = X(i / P); if (!started) { g.moveTo(xx, yy); started = true; } else g.lineTo(xx, yy); }
+    if (spec.offGrid > 1e-9) g.stroke();
+    // the lines on the grid
+    for (let k = 1; k <= KMAX; k++) { const p = pw[k * P]; if (p / mx < 1e-9) continue; g.strokeStyle = '#e8b84a'; g.lineWidth = 3; g.beginPath(); g.moveTo(X(k), base); g.lineTo(X(k), Ydb(p)); g.stroke(); g.lineWidth = 1; }
+  }
+}
+addEventListener('resize', drawAll);
+
+// ── sound: the same lookup, at 110 Hz ──
+const WORKLET = `
+const N = ${N};
+${lookup.toString()}
+class WarpLap extends AudioWorkletProcessor {
+  constructor() { super(); this.C = new Float32Array(N); this.p = 0; this.q = 0; this.f0 = 110; this.d = 0; this.rho = 1; this.g = 0; this.tg = 0;
+    this.port.onmessage = (e) => { const m = e.data; if (m.C) this.C = m.C; if (m.f0) this.f0 = m.f0; if (m.d !== undefined) this.d = m.d; if (m.rho) this.rho = m.rho; if (m.on !== undefined) this.tg = m.on ? 0.22 : 0; }; }
+  process(_i, outs) {
+    const o = outs[0], Lc = o[0], R = o[1] || o[0], dt = 1 / sampleRate, TP = 2 * Math.PI;
+    for (let n = 0; n < Lc.length; n++) {
+      this.g += (this.tg - this.g) * 0.0015;
+      const rate = this.f0 * (1 + this.d * Math.sin(TP * this.q));
+      this.p += rate * dt; this.p -= Math.floor(this.p);
+      this.q += this.rho * this.f0 * dt; this.q -= Math.floor(this.q);
+      const y = lookup(this.C, this.p) * this.g; Lc[n] = y; R[n] = y;
+    }
+    return true;
+  }
+}
+registerProcessor('warp-lap', WarpLap);`;
+let ctx = null, node = null, running = false;
+function send() {
+  if (!node || !cur) return;
+  node.port.postMessage({ C: Float32Array.from(cur.C), f0: S.f0, d: cur.wob ? cur.wob.d : 0, rho: cur.wob ? cur.wob.rho : 1 });
+}
+async function start() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'warp-lap', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    node.connect(comp).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && running) { running = false; $('go').textContent = '▸ play'; } };
+  }
+  send();
+  await ctx.resume();
+  node.port.postMessage({ on: true });
+  running = true; $('go').textContent = '❚❚ stop';
+}
+function stop() {
+  if (!running) return;
+  running = false; $('go').textContent = '▸ play';
+  if (node) node.port.postMessage({ on: false });
+  if (ctx) setTimeout(() => { if (!running) ctx.suspend(); }, 250);
+}
+$('go').onclick = () => (running ? stop() : start());
+addEventListener('message', (e) => { if (e.data && e.data.type === 'rich:hush') stop(); });
+
+// the sigil: a 3:2 Lissajous, a closed lap on the torus
+{ let d = ''; for (let i = 0; i <= 240; i++) { const t = TWO_PI * i / 240; d += (i ? 'L' : 'M') + (Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (Math.sin(2 * t)).toFixed(3); } $('sigil').setAttribute('d', d); }
+
+goStep(1);
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+# Synth Templates — card — Portamento Bass
+# A plain saw bass whose whole lesson is the voice: one note at a time, and tied notes slide.
+schema: synth-template-card/0.2
+id: portamento-bass
+name: Portamento Bass
+family: Bass
+tier: 1
+mode: mono legato
+classics: ""
+status: drafted
+concepts:
+  - "Glide / portamento time; legato mode as default"
+  - "Poly vs mono; max voices"
+  - "Voice priority: last / top / bottom; voice stealing"
+  - "Subtractive: rich wave then filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, glide: legato}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,   value: mono legato,  why: "one voice; an overlapping note does not retrigger the envelopes, it slides"}
+  - {block: mode,    param: priority, value: last,         why: "the newest key wins, so a held root does not swallow the line"}
+  - {block: osc1,    param: glide,    value: legato only,  why: "only overlapping notes glide; separated notes jump. Some slide, some do not, and the playing decides"}
+  - {block: osc1,    param: glide,    value: medium,       why: "long enough to hear the pitch travel, short enough to arrive before the next note"}
+  - {block: osc1,    param: wave,     value: saw,          why: "a full set of harmonics so the glide is heard in the filter too"}
+  - {block: filter1, param: cutoff,   value: mid,          why: "half open; this card is about the voice, not the filter"}
+  - {block: aenv,    param: sustain,  value: held,         why: "a tied note has to still be sounding when the next one arrives"}
+
+taste:
+  - {block: osc1,    param: glide,   range: "short – medium",    default: medium}
+  - {block: filter1, param: cutoff,  range: "dark – bright",     default: mid}
+  - {block: fenv,    param: amount,  range: "none – moderate",   default: moderate}
+  - {block: aenv,    param: release, range: "short – medium",    default: short}
+  - {block: filter1, param: resonance, range: "none – moderate", default: little}
+
+listening:
+  cue: "Some notes land, some slide in: the slid notes have no new attack, just the pitch bending up or down into place. The jumps are where the player lifted a finger."
+  ab: "Set glide to always: every note slurs, and the line turns to a seasick smear. Set it to none: it is a clean bass with no character. Legato only gives both in one patch."
+
+render:
+  tempo: 100
+  note: [C2, Eb2, G2, F2, C2]
+  velocity: 100
+  pattern: "one bar: C2 then a tied Eb2 (slide), a separate G2, a tied F2 (slide), a separate C2"
+  length_s: 3.0
+
+mappings: {}

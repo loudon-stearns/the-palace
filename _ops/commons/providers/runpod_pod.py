@@ -1,6 +1,6 @@
 """RunPod pod provider — the InstanceProvider for RunPod GPU pods.
 
-Wraps the hard-won RunPod REST surface (create with flaky-500 recover-by-name,
+Wraps the hard-won RunPod surface (create with flaky-500 recover-by-name,
 name-scoped list/cull/terminate) behind the Commons InstanceProvider, so every
 guard/cull/reap is scoped to THIS agent's slug by construction — an agent can only
 ever see and touch pods named `<base>--<slug>` for its own slug.
@@ -8,28 +8,18 @@ ever see and touch pods named `<base>--<slug>` for its own slug.
 Ownership is carried in the pod NAME (the only handle RunPod's API gives): a pod is
 attributed to `owner_of_name(name)`. Pods without the `--<slug>` marker are treated
 as not-Commons-managed (owner None → never reaped).
+
+Runpod itself — hosts, version, shapes, user-agent — is `..runpod_api`, the one place
+that knows it. This file speaks the v1 dialect its callers were written in (`api()` takes
+v1 paths and bodies); runpod_api's shim serves it from v2.
 """
-import json
-import ssl
 import time
-import urllib.error
-import urllib.request
 from datetime import datetime
 from pathlib import Path
 
 from .. import board, identity
 from ..provider import InstanceProvider, Resource
-
-UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
-      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
-
-
-def _ctx():
-    try:
-        import certifi
-        return ssl.create_default_context(cafile=certifi.where())
-    except Exception:
-        return ssl._create_unverified_context()
+from ..runpod_api import UA, Runpod, RunpodError, proxy_url   # noqa: F401  (UA, proxy_url re-exported)
 
 
 def _created_ts(pod: dict) -> float | None:
@@ -55,26 +45,13 @@ class RunpodPodProvider(InstanceProvider):
     def __init__(self, config_path: str | Path | None = None, api_key: str | None = None,
                  steward: str = "RunPod GPU Backend"):
         self.steward = steward
-        self._ctx = _ctx()
-        if api_key:
-            self.key = api_key
-        else:
-            from ..runpod_config import runpod_config_path   # the one place that knows where the key lives
-            cfg = Path(config_path) if config_path else runpod_config_path()
-            self.key = json.load(open(cfg))["api_key"]
+        self.rp = Runpod(api_key=api_key, config_path=config_path)
+        self.key = self.rp.key
 
     # ── transport ────────────────────────────────────────────────────────────
     def api(self, method: str, path: str, body: dict | None = None, timeout: int = 60):
-        data = json.dumps(body).encode() if body is not None else None
-        req = urllib.request.Request(
-            "https://rest.runpod.io/v1" + path, data=data, method=method,
-            headers={"Authorization": f"Bearer {self.key}", "Content-Type": "application/json"})
-        try:
-            with urllib.request.urlopen(req, timeout=timeout, context=self._ctx) as r:
-                b = r.read()
-                return (json.loads(b) if b else {}), r.status
-        except urllib.error.HTTPError as e:
-            return {"_error": e.read().decode()[:400]}, e.code
+        """v1 path + body → v1-shaped (data, status), served by v2 (runpod_api.legacy)."""
+        return self.rp.legacy(method, path, body, timeout=timeout)
 
     # ── ownership-scoped views ────────────────────────────────────────────────
     def _to_resource(self, pod: dict) -> Resource:
@@ -90,9 +67,11 @@ class RunpodPodProvider(InstanceProvider):
         )
 
     def list_all(self) -> list[Resource]:
-        d, _ = self.api("GET", "/pods")
-        pods = d if isinstance(d, list) else []
-        return [self._to_resource(p) for p in pods]
+        """Every pod on the account. Raises on a failed list — never a false empty (the reaper relies on it)."""
+        d, code = self.api("GET", "/pods")
+        if code != 200 or not isinstance(d, list):
+            raise RunpodError(code, str(d)[:200], "/pods")
+        return [self._to_resource(p) for p in d]
 
     def _named(self, name: str) -> list[Resource]:
         return [r for r in self.list_all() if r.name == name]
@@ -100,7 +79,8 @@ class RunpodPodProvider(InstanceProvider):
     # ── lifecycle ─────────────────────────────────────────────────────────────
     def create(self, spec: dict) -> Resource:
         """spec: {base, image, gpuTypeIds, gpuCount?, ports?, containerDiskInGb, dockerStartCmd,
-        max_tries?, delay?}. Returns the created pod as a Resource, owner-tagged in its name."""
+        max_tries?, delay?} plus any optional field below. Returns the created pod as a Resource,
+        owner-tagged in its name. gpuTypeIds is tried in order (v2 takes one type per create)."""
         base = spec["base"]
         name = identity.owner_name(base)          # "<base>--<slug>"
         body = {
@@ -110,13 +90,13 @@ class RunpodPodProvider(InstanceProvider):
             "gpuCount": spec.get("gpuCount", 1),
             "ports": spec.get("ports", ["8188/http"]),
             "containerDiskInGb": spec["containerDiskInGb"],
-            "dockerStartCmd": spec["dockerStartCmd"],
+            "dockerStartCmd": spec.get("dockerStartCmd", []),
         }
         # Optional RunPod create fields, forwarded only when the spec sets them (e.g. m3's
         # network volume where its FLUX Union ControlNet lives). Keeps naming/ownership
         # invariant while letting a spec carry whatever the pod actually needs.
-        for opt in ("networkVolumeId", "volumeMountPath", "volumeInGb", "env",
-                    "allowedCudaVersions", "dataCenterIds", "cloudType"):
+        for opt in ("networkVolumeId", "volumeMountPath", "volumeInGb", "env", "dockerEntrypoint",
+                    "allowedCudaVersions", "minCudaVersion", "dataCenterIds", "cloudType"):
             if spec.get(opt) is not None:
                 body[opt] = spec[opt]
         max_tries, delay = spec.get("max_tries", 6), spec.get("delay", 30)
@@ -167,6 +147,17 @@ class RunpodPodProvider(InstanceProvider):
             time.sleep(3)
         print(f"[runpod_pod] WARNING could not confirm {pid} gone — CHECK CONSOLE")
         return False
+
+    # ── watching a pod (v2) ───────────────────────────────────────────────────
+    def logs(self, resource, **kw):
+        """Container/system log lines {ts, source, line} — see runpod_api.Runpod.pod_logs."""
+        pid = resource.id if isinstance(resource, Resource) else resource
+        return self.rp.pod_logs(pid, **kw)
+
+    def wait_http(self, resource, port: int, path: str = "/", **kw) -> bool:
+        """True once the pod's proxy answers 200 on `path` — RUNNING is not ready."""
+        pid = resource.id if isinstance(resource, Resource) else resource
+        return self.rp.wait_http(pid, port, path, **kw)
 
     # ── liveness (so the reaper protects my live pods) ────────────────────────
     def _heartbeat(self, base: str) -> None:

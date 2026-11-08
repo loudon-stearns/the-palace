@@ -1,0 +1,34 @@
+{
+ "entry": "Brian Eno",
+ "path": "People/Brian Eno.md",
+ "type": "person",
+ "stage": "seed",
+ "weight": 8,
+ "claim": "How his mind moves: tape loops of different lengths drifting out of phase — 'he set the lengths, the room made the piece' — and Where he can't see: the system only sounds free because someone chose the frame.",
+ "pieces": [
+  {
+   "section": "How his mind moves",
+   "what": "Music for Airports-style loops: set loop lengths and let them run; incommensurate lengths never repeat, commensurate ones repeat fast. Opens on one loop alone",
+   "kind": "audio",
+   "walks_up_from": "one tape loop"
+  },
+  {
+   "section": "Where he can't see",
+   "what": "The same engine with the frame choices exposed and counted (which notes, which lengths, which take) — the listener tallies how much was chosen before 'the system did it'",
+   "kind": "interactive",
+   "walks_up_from": "one chosen loop length"
+  },
+  {
+   "section": "How his mind moves",
+   "what": "An Oblique Strategy drawn into a stuck patch, changing one parameter literally",
+   "kind": "interactive",
+   "walks_up_from": "one card"
+  }
+ ],
+ "gathered": [
+  "People/Brian Eno/Brian Eno — speech.md",
+  "People/Brian Eno/Brian Eno — diary.md"
+ ],
+ "tier": "study",
+ "slice": 2
+}

@@ -15,25 +15,22 @@ forward_vector: "I am Palace Map's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T13:17:41.445Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:17:04.887Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** — · **Stage:** growing · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-10-22 (today) · 4 made things since
-- **Waiting on you:** nothing
-- **Last shipped:** 2026-10-22 (today) — The open check is done: a fresh Concierge answered from the ring unprompted — the plan of 2026-10-22 is complete, nothing owed (`palace-map-ring-check-done-2026-10-22`)
-- **Last commit touching this page:** 2026-10-22 `5c46da8b` — edit(Palace Map): the scroll's trail records Move 2 landed (ca616cac) and the plan complete; one check open
+- **Plan:** agreed 2026-10-23 (12 days ago) · 5 made things since
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — keeper · constellation for the Daily Page sit, Quantization ↔ Precision vs Flow · 7 pages, 13 edges, 4 types, 10/10 · taught: a set that crosses two types reads as one idea; ask for three before the eye settles
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item —, from the first use — 2026-11-03 — [[Palace Map — tuning]]
 
-### Where this stands
+### Runs
 
-Loudon, 2026-10-22: "…record the plan complete on the scroll." A fresh resident born with the new charter at 5c46da8b, with no word about the map in its prompt, took one gatherer address (collect the entries on Kuramoto Coupling and Endosymbiosis, and the bridges between them) and one oracle address (does the palace have a page on Resonance and Damping, and where would it live?). Both products cited `palace-map.py near` and `path` output, named the build they read (2026-09-26) and said what the map leaves out. The gatherer read the two homes' rings first and marked a body-only bridge, Palace Conatus, as not in the ring. The oracle found Resonance and Damping as a forward ghost from Differen…
+- 2026-11-03 — keeper · constellation for the Daily Page sit, Quantization ↔ Precision vs Flow · 7 pages, 13 edges, 4 types, 10/10 · taught: a set that crosses two types reads as one idea; ask for three before the eye settles
 
-### Open asks
+### Owed
 
-_None — nothing is waiting on you._
-
-### Decided
-
-_Nothing decided on the board yet._
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -95,6 +92,84 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="palace-map-keeper-rhyme-flagged-2026-11-03" -->
+### 2026-11-03 — The keeper's rhyme is a weave flag (commons-the-palace-1793711823205); its reading for the sit is in the proof folder (c528c3ab)
+> flagged on Loudon's yes · Move 3's done-when now has a flag for a Weave to take up
+
+Loudon, 2026-11-03: "Yes, flag it." The rhyme from the first use — Quantization ↔ Precision vs Flow ~ Synthesis ↔ Emergence, no edge either way, ranked first at 0.23 sharing Brian Eno, Cross-Domain Resonances and Flocking, both mirroring Flocking — is on the WEAVE board as a `weave_flag`, posted by `python3 -m commons weave-flag`, id `commons-the-palace-1793711823205`, proposed `couples-with`, unjudged. The next Weave's Step 1c reads it; taking it up or declining it meets Move 3's done-when. `sit-reading.md`, the keeper's prose as returned (what the set shows, pillars by role, the opening question, the log), joins the proof folder, and RESULTS points at it.
+
+**Artifacts:**
+- [sit-reading.md — The Grid and the Flock, as returned](_ops/Palace Map/proofs/2026-11-03-keeper-first-run/sit-reading.md)
+
+_Next moves named:_ Move 3, second use: a route for a Walk's door, on Loudon's word · The next Weave reads the flag
+<sub>`palace-map-keeper-rhyme-flagged-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="palace-map-keeper-first-use-2026-11-03" -->
+### 2026-11-03 — Move 3's first use: the keeper drew The Grid and the Flock for today's Daily Page sit (5a54034b) — the map's tuning ledger is open; Move 3 half met
+> shipped · Move 3 of the plan agreed 2026-10-23, first of four uses · done-when half met: the ledger is open, no Weave flag yet
+
+Loudon, 2026-11-03: "Run the first use." The keeper, re-addressed, drew a constellation for the dealt page Quantization ↔ Precision vs Flow: **The Grid and the Flock** — that page, Flocking, Synthesis ↔ Emergence, Brian Eno, Cross-Domain Resonances, Kuramoto Coupling, Haptic Handwheel. On the 2026-11-03 build: 10/10 triples real; `connected`, 13 inner edges across connects-to, member-of, mirrors, spawned; one rhyme, Synthesis ↔ Emergence (unlinked, two hops, 0.23, `couples-with` as a candidate only — the Weave sees it on Loudon's yes); pillars read by role and checked against frontmatter; a first set crossing two types swapped for one crossing four; 127,623 tokens. Record: `_ops/Palace Map/proofs/2026-11-03-keeper-first-run/` (`sit.md`, `RESULTS.md` § First use). The reading and the opening question went to Loudon in the session. **The map's tuning ledger opened** at `_ops/Palace Map/Palace Map — tuning.md` with the run's line and its lesson: a set that crosses two types reads as one idea; ask for three before the eye settles. Move 3's done-when is half met: the ledger is open; no Weave flag yet. Next: a route on one relation for a Walk's door.
+
+**Artifacts:**
+- [sit.md — the ten triples of The Grid and the Flock](_ops/Palace Map/proofs/2026-11-03-keeper-first-run/sit.md)
+- [Palace Map — tuning — the ledger, opened](_ops/Palace Map/Palace Map — tuning.md)
+
+_Next moves named:_ Move 3, second use: a route for a Walk's door, on Loudon's word
+<sub>`palace-map-keeper-first-use-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-257a370310" -->
+### 2026-11-03 — keeper · constellation for the Daily Page sit, Quantization ↔ Precision vs Flow · 7 pages, 13 edges, 4 types, 10/10
+
+taught: a set that crosses two types reads as one idea; ask for three before the eye settles
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="palace-map-keeper-donewhen-met-2026-11-03" -->
+### 2026-11-03 — Move 2's done-when met: the keeper, spawned fresh on today's build, answered both proof sets — 63/63 edges real, every count by script (1b3f1324). Move 3 next
+> checked · Move 2 of the plan agreed 2026-10-23 done · Move 3, first runs, is the baton's move
+
+Loudon, 2026-11-03: "Yes, place and test." The keeper was spawned fresh by the README's recipe at 9480f97d on the 2026-11-03 build (327 nodes, 2450 edges) and given the proof's questions.md and creative.md. It read the TSV whole, used the scripts for every count and route, cited every edge as a triple, kept a log per creative move, ran verify-triples.py on itself (two reversed triples caught and fixed, then 63/63) and wrote nothing; 120,679 tokens. The working Claude checked all ten facts against the script; the Concierge re-ran verify-triples.py on the answer file when placing the record: 63/63. The run sits in `_ops/Palace Map/proofs/2026-11-03-keeper-first-run/` with a line on the proof front page. Two things it disclosed, now open questions on the baton: no verb counts relation types (it used `cut | sort | uniq` and said so — a `types` verb would close it), and pillars are not in the map. The charter stands unchanged. Next: Move 3's first use — a constellation for a Daily Page sit, or the Walk's door.
+
+**Artifacts:**
+- [RESULTS.md — the first run](_ops/Palace Map/proofs/2026-11-03-keeper-first-run/RESULTS.md)
+- [answer.md — 63 triples, all real](_ops/Palace Map/proofs/2026-11-03-keeper-first-run/answer.md)
+
+_Next moves named:_ Move 3's first use: a constellation for a Daily Page sit, or a route for the Walk's door · Open: a types verb on palace-map.py; pillars in the map
+<sub>`palace-map-keeper-donewhen-met-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="palace-map-keeper-move2-landed-2026-11-03" -->
+### 2026-11-03 — Move 2 of the keeper plan landed: the keeper has a profile, a charter and a spawn recipe (eb42b932) — its done-when check is open and running
+> shipped · Move 2 of the plan agreed 2026-10-23 · the check runs now, on today's build
+
+Loudon, 2026-11-03: "Yes, place and test." eb42b932 makes the keeper: a `palace-map-keeper` profile in Agent Toolbox with Read and Bash only, generated into `.claude/agents/palace-map-keeper.md`; the charter at `_ops/palace-map-keeper/charter.md` (Sonnet, the newest TSV whole at boot, an intuition then the script, every edge a triple as the map spells it, `verify-triples.py` on its own answer, nothing written); the spawn recipe in `_ops/palace-map-keeper/README.md`; and Palace Map § Seeing and Counting saying what the keeper now is and is not yet (no postures, no ledger). The baton moves to Move 3, first runs. **Open check, running in this session:** the keeper spawned fresh by the recipe, on today's build, answers the proof's two question sets with the facts exact and every cited edge real, and its invention answers carry the log; `verify-triples.py` on its return. The result goes on this trail; if it fails, the charter changes before Move 3.
+
+**Artifacts:**
+- [charter.md — the keeper](_ops/palace-map-keeper/charter.md)
+- [README.md — spawn once, hold the ID](_ops/palace-map-keeper/README.md)
+- [palace-map-keeper.md — the generated profile](.claude/agents/palace-map-keeper.md)
+
+_Next moves named:_ The done-when check on today's build, recorded here · Move 3: first runs — a constellation for a Daily Page sit first
+<sub>`palace-map-keeper-move2-landed-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="palace-map-keeper-move1-landed-2026-11-03" -->
+### 2026-11-03 — Move 1 of the keeper plan landed: the keeper's tools (1c6da6a0) — the baton now carries Move 2, the keeper itself
+> shipped · Move 1 of the plan agreed 2026-10-23 · baton updated, not closed
+
+Loudon, 2026-11-03: "Catch the baton." The Palace Map baton of 2026-10-23 was caught from the file (never board-announced) and its move landed as 1c6da6a0. `_ops/swarm/verify-triples.py` checks every `[Source | relation | Target]` in a text against a build and exits 1 on a fake. `palace-map.py` gained `path --only`, `rhymes` (hubs set aside, the hybrid's chk2.py rule) and `connected` (a set's pieces and the relation types crossed); `--json` and `--map` work before or after the verb. `test-palace-map.py` holds the proof's ground truth against the 2026-10-23 build taken from git: 13 tests pass. On today's build the mirrors route Kuramoto Coupling → Haptic Handwheel is 5 hops, not 4, since the 10-24 Weave re-cut the graph; the truth is pinned to the build it was read from. The baton is updated in place: its Move is now Move 2 (the Agent Toolbox profile with Read and Bash, the charter at `_ops/palace-map-keeper/charter.md`, Sonnet, the whole edge list at boot, intuition then script, every edge a checked triple), its Next move is Move 2's first step.
+
+**Artifacts:**
+- [verify-triples.py — every cited edge checked](_ops/swarm/verify-triples.py)
+- [palace-map.py — path --only, rhymes, connected](_ops/swarm/palace-map.py)
+- [the baton, now carrying Move 2](_ops/Palace Map/Palace Map — baton.md)
+
+_Next moves named:_ Move 2: the keeper — profile and charter drafted for Loudon's read · Move 3: first runs
+<sub>`palace-map-keeper-move1-landed-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-10-23" -->
 ### 2026-10-23 — Plan agreed: build the map's keeper — its tools, the keeper, its first runs
 Loudon, 2026-10-23: "The words are approved as drafted, and the Plan is agreed as written. Have the Concierge place them, the proof files first, run the checks, and commit the deposit." Replaces the plan of 2026-10-22, recorded complete on this trail. Why it changed: the map-agent test ([[Palace Map — proof — map-agent-test]]) showed the map has a door but no keeper, and what a keeper needs. Placed by the Concierge with deposit D-2026-10-23-MAPAGENT.

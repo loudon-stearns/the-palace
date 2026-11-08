@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-03
 stage: growing
-version: "1.3"
+version: "1.4"
 trigger: ["walk", "let's walk"]
 links:
   - target: "[[The Cooperation Path]]"
@@ -55,7 +55,7 @@ Then follow one of its typed links. The link type is a suggestion about what kin
 
 At each entry, the question is simple: *what do I notice, arriving here from where I just came?* Not a checklist — just that. What shifted in the journey between the last entry and this one? What feels different about this idea when approached from that direction? Is there something here that wants to be said that hasn't been said yet?
 
-Keep walking until something genuinely surprising appears — a connection that wasn't visible from the starting point, a resonance between two ideas that haven't been held together before, a question the palace is carrying that the walk suddenly makes legible. Four to six entries is usually enough. When the path begins to feel familiar, or loops back toward where it started, the walk has found its natural end.
+Keep walking until the path has something to say, or until it clearly doesn't — a connection that wasn't visible from the starting point, a resonance between two ideas that haven't been held together before, a question the palace is carrying that the walk suddenly makes legible, or an honest nothing. Four to six entries is usually enough. When the path begins to feel familiar, or loops back toward where it started, the walk has found its natural end.
 
 Close by naming what was found. One thing, said clearly. Then — if the walk revealed that something in the palace should change (a new link, a stage transition, a note added to an entry) — propose it. Show it before writing it. If changes are made, commit: `Walk — [date] — [starting entry] — metadata updates`. If nothing changed in the files, the walk is still complete. The trace it leaves is in the conversation, not necessarily in the palace.
 
@@ -65,7 +65,7 @@ The Walk is not a Weave. The Weave reads all entries and produces a topology rep
 
 The Walk is not a Deposit. If the walk surfaces a new idea that deserves a palace entry, note it and flag it for Harvest/Deposit. Don't build mid-walk.
 
-The Walk is not a task. It has no output requirement beyond a named surprise. Some walks produce no file changes at all and are still complete.
+The Walk is not a task. It has no output requirement beyond naming what it turned up. Some walks produce no file changes at all and are still complete.
 
 ## The Songline
 

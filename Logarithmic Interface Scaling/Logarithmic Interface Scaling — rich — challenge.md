@@ -1,0 +1,71 @@
+---
+title: "Logarithmic Interface Scaling — rich — challenge"
+born: 2026-11-03
+links:
+  - target: "[[Logarithmic Interface Scaling]]"
+    type: connects-to
+    label: challenge-of
+forward_vector: "I am the challenger's record of this page's first rich face: two walks kept, the cutoff walk sent back once so its caption stops contradicting the page's own inverse-relationships section and its blind test uses the check it already has, and all three offers reworked from the numbers up, so Loudon can approve or revise without redoing the sums."
+---
+
+# Challenge — Logarithmic Interface Scaling, rich face, proposal round
+
+Challenger: claude-opus-5-5, 2026-11-03. Maker's commit `54705224`, read as the only account of the run. The `.md` is untouched by that commit (it adds five files under the bundle and no others).
+
+## The verdicts
+
+**Double and halve** (The Interface Design Problem) — **keep.**
+
+1. *Test or decoration?* A test of the section's numbers. The piece computes where 1.0 sits on a linear 0.5–20 slider from its own mapping, (1 − 0.5) ÷ 19.5 = 0.0256, and gets the page's 2.6% and 97.4% (`Logarithmic Interface Scaling.md:33-34`). If the page's numbers were wrong, the meter would say so. The cost of a doubling, v ÷ 19.5, and of a halving, v ÷ 39, is derived, not asserted: 5.1% and 2.6% from 1, 51.3% from 10. "Fine control is impossible at the low end" gets a number too: one 0.1% step moves the value 3.9% of itself at 0.5 and 0.1% at 20. The hand test is the weakest part as a test, since the travel of a landed move is fixed by the mapping within the 4% tolerance. Only the times are your own, and the piece says so.
+2. *Faithful?* Yes, and it is careful in one spot where it could have smoothed. The log slider on 0.5–20 puts 1.0 at 18.8%, not the centre (3.16), and step 3 says so plainly instead of hiding it. That is offer 2, shown rather than argued.
+3. *Walks up?* Yes. Linear slider alone, then the two moves on it, then log alone, then both, then your hand.
+
+**The symmetry test** (Interface Design Best Practices) — **keep.**
+
+1. *Test or decoration?* A test, and the best piece on the face. It runs the page's four steps (`Logarithmic Interface Scaling.md:134-138`) word for word under both readings of step 3, and both of the page's tests on five implementations. It found the example numbers don't fit the step that names them. Either reading of step 3 could have failed, and one does.
+2. *Faithful?* Yes. Where the piece disagrees with the text, it holds the disagreement as a reading and shows its sums, so it's an offer, not a rewrite. One wording note, taste: "each test catches something the other misses" is fair for the S-curve. For the 0.5–20 slider, the symmetry test isn't catching a bad mapping. It's catching the centring the page itself promises at line 44, and that promise is the thing offer 2 questions. The meter already says "fails symmetry only because its centre is 3.16", which is honest.
+3. *Walks up?* Yes. The centre alone, then equal moves, then the steps as written, then the ends, then the test of the tests.
+
+The finding about the two implementations, derived: the S-curve is v = 10^(u³) with u = 2p − 1. Since u³ is odd, v(½ − d) × v(½ + d) = 10^(−(2d)³ + (2d)³) = 1 for every d, and v(½) = 1, so it passes symmetry at any move size. Each 5% step multiplies v by 10^(u₁³ − u₀³), which runs from 1.002 near the centre to 1.866 at the ends, so it fails constant ratio. Plain log on 0.5–20 is v = 0.5 × 40^p, and every 5% step multiplies v by 40^0.05 = 1.2025, so it passes constant ratio. Its centre is √10 = 3.162, and A × B = 10 = centre², so it fails symmetry only through step 1's expectation of 1.0. **Confirmed.** The S-curve passes only under the from-A reading. Under the from-centre reading it gives A × B = 1.138 and fails, which the piece's step 5 states by naming the reading it uses.
+
+**Cutoff by ear** (When to Use This Pattern) — **remake.**
+
+1. *Test or decoration?* A test. The page's diagnostic (`Logarithmic Interface Scaling.md:93`) asks whether doubling *feels* like the same gesture as halving. This is the only piece that asks the question of a sense rather than a number. The blind design is sound. Each move is the same knob travel down and up, p₀ ± Δp, by construction. The five moves are shuffled and the knob is hidden. On four of the moves (a, b, c, d) the two rulers disagree, and they disagree in both directions: octaves predicts 0, −1, −1, 0, while hertz predicts +1, 0, 0, +1. So neither "always the same" nor "always bigger" names a ruler (I drove both headless: no ruler). A guesser names one by chance 2 times in 81.
+2. *Faithful?* Two things are not.
+   - **The caption contradicts the page.** Its last sentence reads "A log taper doesn't fix a knob whose effect goes as one over its value." The page's Forward Vector section says the opposite in general: "Inverse relationships are linear in log-space … logarithmic interface scaling is the natural choice" (`Logarithmic Interface Scaling.md:147-157`). Both can be true, but not as the caption puts it. Going as 1/R isn't what breaks the log taper. 1/x is a straight line in log-log, which is the page's point. What breaks it is that the effect is *heard in decibels*, a ruler that is already logarithmic, and the decibels the hit loses (24 − 24/R) move evenly with 1/R. So the even knob is 1/R, the slope, not log R. On a log taper from 2:1, doubling the ratio takes the hit 6 dB, while halving it takes the hit 12 dB, for the same travel. That's why the diagnostic, asked of the effect, fails the log ratio knob. The reveal note gets closer ("what the hit loses in decibels goes as one over the ratio"), but it doesn't name the decibel half of the reason either.
+   - **The verdict rule is half applied.** It names a ruler only when every split move matches it, and that is right. But check.mjs calls move e "the check" (from 10 kHz on the linear knob, 0.32 against 0.26 octaves, 1998 Hz each way), and the reveal ignores it. I drove the piece with Math.random pinned, answered the octave pattern, and answered e as "bigger". The reveal still said "Your answers follow octaves". The rule the Boundary-Crossing challenger imposed (`Boundary-Crossing Instruments/Boundary-Crossing Instruments — rich — challenge.md`, remake (a)) names a ruler only when the check held.
+3. *Walks up?* Yes. One cutoff halved and doubled, then the linear knob, then the log knob, then the blind test.
+
+**The remake, exactly:**
+- (a) Caption, last sentence. Replace it with the condition. For example: "A log taper doesn't fix it, because what you hear there is decibels, already a ratio ruler, and the decibels the hit loses move evenly with one over the ratio. The page's inverse-relationships section holds when the result is read as a ratio; here it's read in decibels." Give the reveal note's last sentence the same "in decibels, already a ratio ruler" clause.
+- (b) In `rulerOf`, name a ruler only when move e was answered "the same". If it wasn't, the reveal says the check move didn't come out the same, so the answers don't pick a ruler, and offers the reshuffle. Update check.mjs's "e answered either way leaves the verdict alone" case to match.
+
+Notes, taste, not part of the remake. The order is always start · down · start · up · start, so "down" is always heard first. Counterbalancing it per move would remove an order bias the shuffle doesn't. The level drop is named in the caption, and it cuts both ways: it pushes linear moves toward "down bigger" (the octave answer) and log moves away from "the same" (no ruler). That is mixed, not one-way, and fine to leave named.
+
+## Checks run
+
+- `node _ops/rich-face/conform.mjs "Logarithmic Interface Scaling"`: 3 pieces, all introduced, errors 0, warnings 0. The browser pass ran at 760 and 1130 px. The maker's three file-local warnings are gone now that the pieces are committed.
+- `node _ops/rich-face/fingerprint.mjs "Logarithmic Interface Scaling"`: the three proposal sections are in step (372a04fc78b4, 91e46b9ec8c3, 834f55208a47).
+- `node "Logarithmic Interface Scaling/… — rich — check.mjs"`: all PASS.
+- `rich-server.mjs --root <worktree> --detach`, `?entry=Logarithmic Interface Scaling`, headless Chromium at 1300 px. The console was empty across scrolling and every step of all three pieces. All three frames reported a height (963, 1021, 986 px), and each carries the `proposal · 2026-11-03` chip. The five-implementation table matched the check line for line. The cutoff piece was opened on its own four times with the order pinned: the octave pattern names octaves, the hertz pattern names hertz, one miss names neither, and octaves with e answered "bigger" still names octaves (remake b). The server was stopped.
+- Sound starts on a click. `ensure()`, which makes the AudioContext, is called only from Play's click handler, and changing step stops the sound. The piece has no hush or visibility code. That is correct per `_ops/rich-face/README.md` § Making pieces: the kit cuts on a hidden page and after the time cap. Every file the face needs is tracked in 54705224. Nothing is licensed: the tone is three Web Audio sawtooths.
+- Not checked: anything heard. Whether the resonant peak reads as a pitch, and how loud it is, are a listener's call.
+
+## Recomputed
+
+- **The section's numbers:** linear 0.5–20 puts 1.0 at 0.5 ÷ 19.5 = 0.02564, so 2.6% and 97.4%. Confirmed. A doubling from v costs (2v − v) ÷ 19.5 = v ÷ 19.5. Confirmed. On log, log 2 ÷ log 40 = 0.30103 ÷ 1.60206 = **0.18790**, so 18.8% for every doubling and halving. Confirmed.
+- **Cutoff knob:** 1 kHz at 980 ÷ 19 980 = 4.9%. The top octave is 10 000 ÷ 19 980 = 50.05%. The bottom five octaves take 620 ÷ 19 980 = 3.1%. On log, an octave is log 2 ÷ log 1000 = 10.03%, and 1 kHz sits at 56.6%. All confirmed.
+
+## The offers
+
+**Offer 1, Interface Design Best Practices, no-claim-edit.** *Confirmed, with one sharpening.* On 0.1–10, ±10% of travel from the centre gives 10^(±0.2) = **0.631 and 1.585**. The page's pair is 10^(±0.1) = **0.794 and 1.259**, which is a 5% move on two decades or a 10% move on one decade (0.316–3.16). Step 3 counted from the centre gives B = 10^0.4 = **2.512**, and A × B = **1.585**, so a correct slider fails. Counted from A, it gives B = **1.585**, and A × B = **1.000**.
+
+Which reading the page means: **from A**, or put the same way, equal moves either side of the centre. Step 4 expects reciprocals, and only that reading gives them. The bundle's own pseudocode settles it, since it runs the test as positions 30 and 70, "20% left of center" and "20% right of center" (`Logarithmic Interface Scaling/log_slider_python_pseudocode.md:108-109`). That makes "20% right from center" a slip, for "from A" or "10% right of center". The worked example is **mislabelled, not miscomputed**. 0.79 × 1.26 = 0.995 really are reciprocals. They just aren't the pair the stated 10% move gives on the page's 0.1–10 slider. Note that the Testing subsection names no range of its own: 0.1–10 is the page's example at line 84. The suggested wording, which names the range, fixes that too. One addition for the offer: the bundle holds two more example pairs. The design guide's 0.5 and 2.0 is 15% either side, and the pseudocode's 20% pair, which it prints but doesn't state, is 0.398 and 2.512.
+
+**Offer 2, The Logarithmic Mapping Solution, claim-change.** *Confirmed.* centre = √(min × max), so 1.0 sits at the centre only when min × max = 1. On 0.5–20 the centre is √10 = **3.162**, and 1.0 sits at log 2 ÷ log 40 = **18.8%**. The page does claim centring in general. Line 44 lists "The reference value (1.0) naturally sits at the center" among the properties of the log mapping as such, and line 29 offers 0.5–20 as an equal example of the problem. So the claim breaks on the page's own second range. The suggested condition is right. The piece's point that step 1 then checks the ends, not the mapping, follows from it.
+
+**Offer 3, When to Use This Pattern, claim-change.** *Numbers confirmed. The stated reason is disputed.* Boundary-Crossing Instruments' landed check (b01c93cd is on main) prints the stretch from 20:1 to 100:1 as **78.4%** of a linear knob's travel and **33.9%** of a log one's, moving the loudest hit **0.96 dB**. I reworked the numbers: 0.97 − 0.97 × 19/99 = 0.784, 0.97 × log 5 ÷ log 100 = 0.339, and 24/20 − 24/100 = 0.96. All three match. Those numbers come from that face's taper, with ∞ in a notch over the last 3%, and the offer should say so. The substance stands: ask the diagnostic of the effect, not the label. Asked of the effect, it does fail the log ratio knob (from 2:1, doubling moves the hit 6 dB and halving moves it 12 dB, for equal travel). But the suggested sentence, "when what changes goes as one over the value … a log taper on the value is still the wrong ruler", would put this section against the page's Forward Vector section, which says inverse relationships are what log scaling suits (lines 147-157). Reword it to name the real condition. When the effect is heard on a ruler that is already logarithmic (decibels) and moves evenly with 1/value, the even control is 1/value. When the result is read as a ratio (B ∝ 1/T, read in cents or ratios), log stays right. That is a contradiction worth holding on the page, not one to smooth over, and it belongs in the claim-change through the Deposit map.
+
+## The face as a whole
+
+It makes the page's idea felt, and it does more than that: it puts the page's own sums under test, and two of them give way. The double-and-halve walk puts the asymmetry under your thumb. The symmetry walk is the page's test turned on itself, and it is the most useful thing on the face. It shows that the test's example doesn't fit its own step, that the test can pass a bent mapping, and that the page's second range quietly breaks its promise about the centre. The cutoff walk carries the diagnostic from the eye to the ear, where the page says it belongs. With its reason corrected, it also marks the edge of the pattern rather than only its middle: log is right for what you hear as ratio, and not for what you hear in decibels already. It isn't busy. Three pieces, one per claim worth testing, each walking up to its test. The remake is small: one sentence of caption and one clause of the verdict rule.

@@ -1,0 +1,436 @@
+{
+  "title": "Crystal Sonification Reference — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Crystal Sonification Reference]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Crystal Synthesizer]]",
+      "type": "connects-to",
+      "label": "belongs-to"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Crystal Sonification Reference's rich face, its first round, a Study: the bundle's charts and strikes laid beside the crystals they draw and sound, and four walks made to test the page's own numbers, the transposition that keeps only ratios, the stretch parameter's claim about α = 1, the interval names, and where obsidian's glass lands. I hold the fingerprint of the words each piece was laid against, and the offers the making found for the text; I never hold the entry's words.",
+  "entry": "Crystal Sonification Reference",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "grain": "The page opens sections at ## only. Its crystals are ### under one ## heading, so The Crystals is one section: one stamp, one approval for its seventeen figures. The four mapping parameters are likewise one section.",
+  "sections": [
+    {
+      "heading": "The Universal Transposition System",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Crystal Sonification Reference — rich — only ratios.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio",
+          "height": 900,
+          "title": "only ratios · a walk in three steps",
+          "caption": "**The section's one critical insight, and what it leaves out.** Ruby's seven modes divided by the lowest, then multiplied up to a note you choose. Then the test: the cancelling factor is shown once as the algebra it is, and the page's own doublet, where it puts the rubiness, is scored at every note under rules set first. Scaling keeps its interval, 61.8 cents, everywhere; its beat is 0.04 × the root, 2.2 Hz at MIDI 33 to 83.7 Hz at 96, and passes the 15 Hz shimmer rule only up to MIDI 66. The control, shifting every partial by the same hertz, keeps the 8.8 Hz beat and breaks the chord. Checked headless, and through the rendered sound.",
+          "near": "The scale factor that converts THz to Hz"
+        }
+      ],
+      "made_against": "848b24cd005d",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Crystal Sonification Reference — rich — only ratios.html",
+            "verdict": "remake",
+            "why": "Walks up well and the 10⁻⁹ finding is real, but step 3's null is an algebraic identity in float64 and can't fail, and 'which two are the same chord' is answered by the button labels. Make the last test the ruby doublet's beat across the note range (0.04 × f_root: 2.2 Hz at MIDI 33, 41.9 Hz at 96), rule stated first, both outcomes scored."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Creative Mapping Parameters",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "charts/mapping_function_alpha_curves.png",
+          "origin": "gathered",
+          "title": "the stretch curves · the bundle's chart, 2026-04-12",
+          "caption": "The section's image prompt, drawn from its formula: α 0.4, 1 and 2.5. Its x-axis is labelled r_n ⁄ r_max, as the prompt asks, but the formula's input is (r_n − 1) ⁄ (r_max − 1), which is what the curves actually plot from 0 to 1.",
+          "near": "The most musically powerful parameter"
+        },
+        {
+          "file": "Crystal Sonification Reference — rich — where is the physics.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, canvas",
+          "height": 1080,
+          "title": "where is the physics · a walk in four steps",
+          "caption": "**The stretch, from the section's own formula, walked up to its own sentence.** Ruby as the table, the bundle's chart and the synthesized sound agree (to 0.001 and 3×10⁻⁶); the span alone, with the doublet pulling apart; α alone, with the page's 8-second sweep; then a search for the setting where you hear the table. At the sweep's two octaves no α does: the top mode sits at 4.00, not 1.98. α = 1 is the physics only at ruby's own span, log₂ 1.98 = 0.99 octaves; elsewhere it keeps the spacing in hertz in proportion, not the ratios. Checked headless against an independent copy of the formula.",
+          "near": "At α = 1, you are hearing the crystal"
+        }
+      ],
+      "made_against": "800bfe4395ed",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "charts/mapping_function_alpha_curves.png",
+            "verdict": "keep",
+            "why": "Caption true: the chart labels its x-axis r_n / r_max and its curves start at 0, so they plot (r_n − 1)/(r_max − 1)."
+          },
+          {
+            "file": "Crystal Sonification Reference — rich — where is the physics.html",
+            "verdict": "keep",
+            "why": "A test that could have read 0.00 Hz: the map is the page's formula verbatim, the 0.5 Hz rule is stated first, and it walks ruby, span, α, test. Recomputed: span 2 puts the top at 4.00, 444.4 Hz and 1217.4 c off, for every α."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Crystals",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "charts/diamond_spectrum.png",
+          "origin": "gathered",
+          "title": "diamond · the bundle's chart, 2026-04-12",
+          "caption": "This crystal's image prompt, drawn from its own table: ratio across, amplitude up, interval names on top. The axis says log₂; its ticks are evenly spaced, so it is linear.",
+          "near": "The ratio range is only 1.65:1"
+        },
+        {
+          "file": "triclinic-proof/diamond_strike.wav",
+          "origin": "gathered",
+          "title": "diamond · struck, 2026-06-25",
+          "caption": "What the paragraph predicts, struck at A2: five partials, not the four the paragraph counts. One engine for every mineral, so the ratio table is the only thing that changes; not the prompt's root or envelope. Every table mode is in the file, within 0.003 Hz.",
+          "near": "Brilliant and thick"
+        },
+        {
+          "file": "charts/ruby_spectrum.png",
+          "origin": "gathered",
+          "title": "ruby · the bundle's chart, 2026-04-12",
+          "caption": "This crystal's image prompt, drawn from its own table: ratio across, amplitude up, interval names on top. The axis says log₂; its ticks are evenly spaced, so it is linear.",
+          "near": "The near-doublets at 1.10/1.14"
+        },
+        {
+          "file": "palette-strikes/ruby_strike.wav",
+          "origin": "gathered",
+          "title": "ruby · struck, 2026-09-15",
+          "caption": "What the paragraph predicts, struck at A2: the 1.10/1.14 doublet beats at 4.4 Hz here, half the prompt's 8.8 Hz, because the root is an octave lower. One engine for every mineral, so the ratio table is the only thing that changes; not the prompt's root or envelope. Every table mode is in the file, within 0.003 Hz.",
+          "near": "Warm, shimmering, with a natural ensemble quality"
+        },
+        {
+          "file": "charts/amethyst_spectrum.png",
+          "origin": "gathered",
+          "title": "amethyst / quartz · the bundle's chart, 2026-04-12",
+          "caption": "This crystal's image prompt, drawn from its own table: ratio across, amplitude up, interval names on top. The axis says log₂; its ticks are evenly spaced, so it is linear.",
+          "near": "Ratio range 1.00 to 8.32"
+        },
+        {
+          "file": "palette-strikes/amethyst_strike.wav",
+          "origin": "gathered",
+          "title": "amethyst / quartz · struck, 2026-09-15",
+          "caption": "What the paragraph predicts, struck at A2: all nine partials, the soft mode at 1.62 among them. One engine for every mineral, so the ratio table is the only thing that changes; not the prompt's root or envelope. Every table mode is in the file, within 0.003 Hz.",
+          "near": "Wide, bell-like, with a deep body"
+        },
+        {
+          "file": "charts/fluorite_spectrum.png",
+          "origin": "gathered",
+          "title": "fluorite · the bundle's chart, 2026-04-12",
+          "caption": "This crystal's image prompt, drawn from its own table: ratio across, amplitude up, interval names on top. The axis says log₂; its ticks are evenly spaced, so it is linear.",
+          "near": "The ionic gap is the defining feature"
+        },
+        {
+          "file": "palette-strikes/fluorite_strike.wav",
+          "origin": "gathered",
+          "title": "fluorite · struck, 2026-09-15",
+          "caption": "What the paragraph predicts, struck at A2: the two degenerate TA modes sound as one partial. One engine for every mineral, so the ratio table is the only thing that changes; not the prompt's root or envelope. Every table mode is in the file, within 0.003 Hz.",
+          "near": "Two distinct tonal registers"
+        },
+        {
+          "file": "charts/emerald_spectrum.png",
+          "origin": "gathered",
+          "title": "emerald · the bundle's chart, 2026-04-12",
+          "caption": "This crystal's image prompt, drawn from its own table: ratio across, amplitude up, interval names on top. The axis says log₂; its ticks are evenly spaced, so it is linear.",
+          "near": "The seven structural modes span a modest 3.33:1 range"
+        },
+        {
+          "file": "palette-strikes/emerald_strike.wav",
+          "origin": "gathered",
+          "title": "emerald · struck, 2026-09-15",
+          "caption": "What the paragraph predicts, struck at A2: the seven structural modes, without the channel-water overtone. One engine for every mineral, so the ratio table is the only thing that changes; not the prompt's root or envelope. Every table mode is in the file, within 0.003 Hz.",
+          "near": "Rich, layered, slightly diffuse"
+        },
+        {
+          "file": "Crystal Sonification Reference — rich — the intervals named.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio",
+          "height": 900,
+          "title": "the intervals named · a walk in three steps",
+          "caption": "**The page's interval names, put to the ear before the cents.** A ratio heard as an interval; then four namings, each a three-way choice among named intervals (the two either side of the crystal and the page's name), the 50-cent rule and the one-in-three chance stated before the first trial, the numbers shown only after you pick. Soft mode 835 cents holds as a minor sixth; ruby's 1.10 (165 c, a major second), emerald's 1.68 (898 c, a major sixth) and amethyst's 8.32 (three octaves and 68 c) don't. Every dyad at the same RMS. Checked headless.",
+          "near": "Rich, layered, slightly diffuse"
+        },
+        {
+          "file": "charts/topaz_spectrum.png",
+          "origin": "gathered",
+          "title": "topaz · the bundle's chart, 2026-04-12",
+          "caption": "This crystal's image prompt, drawn from its own table: ratio across, amplitude up, interval names on top. The axis says log₂; its ticks are evenly spaced, so it is linear.",
+          "near": "Ratio range 1.00 to 6.05"
+        },
+        {
+          "file": "palette-strikes/topaz_strike.wav",
+          "origin": "gathered",
+          "title": "topaz · struck, 2026-09-15",
+          "caption": "What the paragraph predicts, struck at A2: all eight modes. One engine for every mineral, so the ratio table is the only thing that changes; not the prompt's root or envelope. Every table mode is in the file, within 0.003 Hz.",
+          "near": "Balanced and complex"
+        },
+        {
+          "file": "charts/labradorite_spectrum.png",
+          "origin": "gathered",
+          "title": "labradorite · the bundle's chart, 2026-04-12",
+          "caption": "This crystal's image prompt, drawn from its own table: ratio across, amplitude up, interval names on top. The axis says log₂; its ticks are evenly spaced, so it is linear.",
+          "near": "The ratio range of approximately 17.5:1"
+        },
+        {
+          "file": "triclinic-proof/labradorite_strike.wav",
+          "origin": "gathered",
+          "title": "labradorite · struck, 2026-06-25",
+          "caption": "What the paragraph predicts, struck at A2: all eight selected modes. One engine for every mineral, so the ratio table is the only thing that changes; not the prompt's root or envelope. Every table mode is in the file, within 0.003 Hz. The bell you hear is the summer engine's shared 5.5 s ring: the parent's ring study, with labradorite's estimated Q, hears a dull knock with a bright tick instead (crystal-rings/README.md, on the Crystal Synthesizer face).",
+          "near": "Deeply inharmonic and alien"
+        },
+        {
+          "file": "charts/obsidian_vdos_comparison.png",
+          "origin": "gathered",
+          "title": "quartz's lines, obsidian's density · the bundle's chart, 2026-04-12",
+          "caption": "The VDOS comparison the section asks for. The chart draws the glass in quartz's own ratios, its two bumps near r 3.1 and 7.0, that is about 400 and 900 cm⁻¹; the text puts the second near 1000.",
+          "near": "Not a spectrum of discrete partials"
+        },
+        {
+          "file": "Crystal Sonification Reference — rich — crystal to glass.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio",
+          "height": 960,
+          "title": "crystal to glass · a walk in four steps",
+          "caption": "**The section's two audio prompts, built, and a test of where the glass lands.** Quartz's nine partials; the glass alone as the obsidian noise prompt shapes it; the crossfade; then the test. The crossfade prompt names no frame for its noise, so the walk uses the noise prompt's (wavenumber to hertz at A4): there the glass lands 1.80 octaves below the ring modes it should smear, while every crystal maps its lowest mode to the root. In quartz's own frame the bands land inside the ring modes and the stretches. Everything plays at one fixed gain with the glass at the quartz's RMS. Checked headless, the band centres read off the rendered noise.",
+          "near": "Dark, dense, shaped noise"
+        }
+      ],
+      "made_against": "27d995bac0bd",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "charts/diamond_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "triclinic-proof/diamond_strike.wav",
+            "verdict": "keep",
+            "why": "FFT'd myself: all five modes within 0.000 Hz over 110 Hz; 'five, not four' is right; honest about root and envelope."
+          },
+          {
+            "file": "charts/ruby_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/ruby_strike.wav",
+            "verdict": "keep",
+            "why": "FFT'd myself: all seven modes within 0.000 Hz; 4.4 Hz beat at A2 is 110 × 0.04; honest about root and envelope."
+          },
+          {
+            "file": "charts/amethyst_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/amethyst_strike.wav",
+            "verdict": "keep",
+            "why": "Same engine and check as the three I FFT'd; nine partials, the soft mode among them; honest about root and envelope."
+          },
+          {
+            "file": "charts/fluorite_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/fluorite_strike.wav",
+            "verdict": "keep",
+            "why": "FFT'd myself: all modes within 0.003 Hz, the degenerate TA as one partial; honest about root and envelope."
+          },
+          {
+            "file": "charts/emerald_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/emerald_strike.wav",
+            "verdict": "keep",
+            "why": "Same engine and check as the three I FFT'd; seven structural modes, no water, as the caption says."
+          },
+          {
+            "file": "Crystal Sonification Reference — rich — the intervals named.html",
+            "verdict": "remake",
+            "why": "The cents lookup is sound (one holds, three fail), but step 2 prints a verdict before the 50-cent rule appears in step 3, and the 'nearest' button shows only when the naming fails, so the buttons give the answer before the ear does. State the rule in step 2 and give every block the same buttons (or drop 'decide by ear')."
+          },
+          {
+            "file": "charts/topaz_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "palette-strikes/topaz_strike.wav",
+            "verdict": "keep",
+            "why": "Same engine and check as the three I FFT'd; all eight modes, as the caption says."
+          },
+          {
+            "file": "charts/labradorite_spectrum.png",
+            "verdict": "keep",
+            "why": "The page's own image prompt, drawn from its table, beside its paragraph; the linear-axis-under-a-log₂-label caption checked on ruby and fluorite."
+          },
+          {
+            "file": "triclinic-proof/labradorite_strike.wav",
+            "verdict": "keep",
+            "why": "True as captioned, but the bell is the summer engine's shared ring; a clause pointing to the parent's ring study (crystal-rings/README.md:49–52, a dull knock at Q 30) would keep it from reading as confirmation."
+          },
+          {
+            "file": "charts/obsidian_vdos_comparison.png",
+            "verdict": "keep",
+            "why": "Caption true: bumps near r 3.1 and 7.0, i.e. 397 and 896 cm⁻¹."
+          },
+          {
+            "file": "Crystal Sonification Reference — rich — crystal to glass.html",
+            "verdict": "remake",
+            "why": "A real test that walks up, but step 2's 'the glass plays at the level of the quartz render' is false as played (playBuf peak-normalises; the glass alone is 3.3 dB under quartz; use the unused playBufAt), and the answer should say the crossfade prompt names no frame and the noise prompt fixes it at A4."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Comparative Spectrum — All Eight Crystals",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "charts/comparative_all_crystals.png",
+          "origin": "gathered",
+          "title": "the palette compared · the bundle's chart, 2026-04-12",
+          "caption": "The comparative chart the section's image prompt asks for: every crystal's modes on one axis, obsidian as a band. Diamond inside 1.65, labradorite out to 17.5. The axis is linear, its octave lines widening to the right, though the prompt asks for a logarithmic scale.",
+          "near": "Crystal Sonic Palette"
+        },
+        {
+          "file": "palette-strikes/palette_tour.wav",
+          "origin": "gathered",
+          "title": "the palette tour · 2026-09-15",
+          "caption": "The nearest thing in the bundle to the section's full palette demonstration, and not it: seven strikes at A2, 3.2 s each with 0.6 s between, 26.6 s in all, in the order diamond, fluorite, emerald, ruby, amethyst, topaz, labradorite, and no obsidian. Same controlled engine as the strikes above.",
+          "near": "full palette demonstration"
+        }
+      ],
+      "made_against": "c2f17f22770e",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "charts/comparative_all_crystals.png",
+            "verdict": "remake",
+            "why": "Caption only: it says 'one log axis' but the chart is linear (ticks 2.5 to 17.5 evenly spaced, octave lines widening), though the page's prompt asks for log; say so, and add it to offer 8."
+          },
+          {
+            "file": "palette-strikes/palette_tour.wav",
+            "verdict": "keep",
+            "why": "Checked: 26.6 s, order diamond, fluorite, emerald, ruby, amethyst, topaz, labradorite (render_palette.py:48–60); honest that it is not the 90-second demonstration."
+          }
+        ]
+      }
+    }
+  ],
+  "offers": [
+    {
+      "section": "Creative Mapping Parameters",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "\"At α = 1, you are hearing the crystal's physics exactly as scaled\" and the table's \"(the physics, undistorted)\" hold only when the span is the crystal's own, log₂ r_max: 0.99 octaves for ruby. At the sweep prompt's 2 octaves, α = 1 puts ruby's top mode at 4.00 × the root, not 1.98: 444.4 Hz off over A3, 1217 cents, and no α between 0.3 and 3 comes within the page's 0.5 Hz (closest 444.4 Hz). What α = 1 keeps at every span is the spacing in hertz in proportion, (r − 1)/(r_max − 1), exact to 10⁻¹⁶; the ratios change. \"Proportionally\" is accurate; \"undistorted\" and \"exactly as scaled\" are not. Suggested: at α = 1 the spacing is kept in proportion; at α = 1 and a span of log₂ r_max you hear the physics exactly. § 2's \"even though every ratio relationship is preserved proportionally\" wants the same fix. Each crystal's own span: diamond 0.72, ruby 0.99, fluorite 1.31, emerald 1.74, topaz 2.60, amethyst 3.06, labradorite 4.13 octaves."
+    },
+    {
+      "section": "Creative Mapping in Practice",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "From the same piece's numbers; the page already says the doublets move outward, so this is narrow. At α = 1 the ruby doublet (modes 2 and 3) is 61.8 cents and 8.8 Hz apart over A3 in the physics, 63.0 c and 9.0 Hz at a 1-octave span, 155.1 c and 26.9 Hz at 2 (a rough interval, no longer a slow shimmer), 375.1 c and 134.7 Hz at 4, nearly a major third. \"Audible in all three\" as doublets holds only at 1 octave; \"audible in all three, widening into intervals\" would be exact. The diamond α-sweep prompt also says \"the same four frequencies\" while listing five ratios."
+    },
+    {
+      "section": "The Universal Transposition System",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The claim held: scaling the terahertz set by 10⁻⁹ and by any note's factor gives ratios that agree to 2.2×10⁻¹⁶ at every MIDI note from 33 to 96, and an additive control fails by at least 0.025. But \"roughly 10⁻⁹\" is off by about a hundred: at 10⁻⁹ ruby's root is 11.3 kHz (MIDI 125) and its top mode 22.4 kHz. The page's own prompts imply about 10⁻¹¹ (ruby at A3 1.94×10⁻¹¹, diamond at G3 8.1×10⁻¹², labradorite at A2 6.1×10⁻¹¹). Suggested: \"roughly 10⁻¹¹ for a root near A3\"."
+    },
+    {
+      "section": "The Crystals",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Three interval names don't hold (rule: within 50 cents). Ruby: \"between 1.00 and 1.10 is approximately a minor second\" — 1.10 is 165 cents, nearer a major second (−35); the bundle's chart labels it M2. Emerald: \"1.68 … close to a perfect fifth\" — 898 cents, a major sixth to within 2 cents; the chart labels it M6; Predicted Sound's \"fifth-adjacent partial\" follows the same slip. Amethyst: \"1.00 to 8.32 … nearly three octaves and a major third\" — 3668 cents, three octaves and 68 cents. The soft mode's \"close to a minor sixth\" holds (835 cents). From reading: ruby's \"(seven semitones, two semitones, one semitone)\" matches no steps in its table; the lower steps are 165, 62 and 74 cents."
+    },
+    {
+      "section": "The Crystals",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "From reading, checked against the table and the chart. Fluorite's ionic gap is put at \"~1.5–2.5 … no modes exist here\", but the table's own F₂g Raman mode sits at 1.69, inside it; the TO–LO range the math gives (257 to 471 cm⁻¹, 1.35 to 2.48) holds both F₂g (322) and LA (280). The chart shades 1.78 to 2.38 (measured off its pixels). The empty stretch in this palette is 1.69 to 2.48. Diamond: \"reducing the effective palette to four distinct pitches\" and the prompt's \"4 distinct diamond partials\" list five distinct ratios (1.00, 1.32, 1.48, 1.57, 1.65)."
+    },
+    {
+      "section": "The Crystals",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Name the frame in the crystal-to-glass prompt. It says only \"shaped noise matching the obsidian VDOS profile\"; the obsidian noise prompt fixes a frame (400 and 1000 Hz × f/440), and in that frame at A3 the bands sit at 200 and 500 Hz, 1.796 and 1.528 octaves below quartz's ring modes (609–799 Hz) and Si-O stretches (1199–1830 Hz), the families the glass is meant to smear; the two frames differ by 440/128 = 3.4375 at every note. Mapped as quartz's modes are (cm⁻¹ × f_root / 128 cm⁻¹) the bands land at 687.5 and 1718.8 Hz, inside both. The sentence \"a smeared version of the quartz spectrum\" is about wavenumber and holds. Suggested: in the crossfade prompt, centre = 400 (and 1000) × f_root / 128."
+    },
+    {
+      "section": "Creative Mapping Parameters",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "The mapping-curve image prompt labels its x-axis \"Input ratio (r_n / r_max)\", but the formula's input is (r_n − 1)/(r_max − 1); the bundle's chart carries the same label. Suggested: \"Input position (r_n − 1)/(r_max − 1)\"."
+    },
+    {
+      "section": "Asset Production Plan",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Production Status reads Type B audio \"Ready to begin\". The bundle now holds a strike for each of the seven crystalline minerals (triclinic-proof 2026-06-25, palette-strikes 2026-09-15), every table mode present to within 0.003 Hz (checked here), though at A2 with the palette's own envelope rather than the prompts' roots and envelopes, and no audio/ folder exists. Obsidian is still unbuilt there. Also, from the charts: every per-crystal chart labels its x-axis \"log₂ scale = semitones\" while its ticks are evenly spaced (linear); the ruby chart draws mode 6 at full height and mode 7 at 0.85, where the sustained prompt sets modes 1 and 7 full. And the comparative chart's axis is linear, where its prompt asks for a logarithmic scale."
+    }
+  ]
+}

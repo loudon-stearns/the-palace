@@ -1,0 +1,95 @@
+{
+  "title": "The Dichotomy of Control — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[The Dichotomy of Control]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    }
+  ],
+  "forward_vector": "I am the manifest of The Dichotomy of Control's rich face, its first round at Sketch tier, a proposal: one made walk for the technical face, which builds the page's own situation (a plant, a disturbance, a controller with a bounded actuator) as a turntable platter and puts the page's sentence against it under rules stated before the runs. The Life Face has no piece: its claim is a practice, not a measure, and a sorting toy would only score costs I made up. I grow toward the worked example the page owes, one real decision sorted in two columns, if Loudon wants it played. I never hold the entry's words.",
+  "entry": "The Dichotomy of Control",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Palace / Technical Face",
+      "kind": "claim-change",
+      "what": "Narrowed to noise, as the challenger read it. Of the four things the page calls disturbance, noise is the one a controller can't reject by effort: on the platter, P alone at Kp 1, 5 and 20 shakes the platter 0.020%, 0.064% and about 0.30% (0.34% in the piece's 10-second window), because the controller acts on its sensor's mistakes. In the textbook's terms, load is rejected through the sensitivity S and noise passes through T, and S + T = 1, so no gain rejects both. Suggested: '… models the rest as disturbance to reject, not to fight — except the noise in its own measurements, which more effort only lets in.' The numbers are this model platter's, not a real turntable's.",
+      "status": "open"
+    },
+    {
+      "section": "The Palace / Technical Face",
+      "kind": "no-claim-edit",
+      "what": "Split off from the first offer, and a refinement of definitions, not a correction. The page's bin (load, the plant's own dynamics, the future reference) is a real engineering bin: the internal model principle treats reference and load as one class of outside signals a controller follows or rejects by carrying a model of them, and active disturbance rejection control counts unmodelled plant dynamics as disturbance. If the agency profile's 'mapping made exact' is wanted, the page could name the terms: a reference is followed, a load rejected, the plant's dynamics designed around (the belt's lag sets the platter's edge at Kp 23.5). The reference was never measured by the piece.",
+      "status": "open"
+    },
+    {
+      "section": "The Palace / Technical Face",
+      "kind": "claim-change",
+      "what": "A model rejects what it is a model of, and a model far from its disturbance can do worse than none. Tuned to 0.40 Hz instead of once a turn (0.556 Hz, 28% low), the platter's model leaves 1.70% wow against 1.43% with no model; a model 4–8% off (0.53–0.60 Hz) still cuts it to 0.47–0.71%. Suggested, after 'not to fight': '… and a model of the wrong disturbance can do worse than none.' The Serenity Prayer's third line, in control terms: the wisdom to know the difference, closely enough.",
+      "status": "open"
+    },
+    {
+      "section": "The Palace / Technical Face",
+      "kind": "no-claim-edit",
+      "what": "The page's register is real controllers, and real controllers have lag and noise; the page never claimed fighting is costly on an ideal plant. On the platter with no belt lag and no sensor noise, fighting costs no jitter, by construction (there is no noise to let in, and the plant is stable at any gain), and it is free of jitter only: the model still wins on wow there, 0.000% against 0.050% for Kp 100, Ki 40, at the same motor movement (0.035). If wanted, a clause saying why fighting costs: 'turning the gain up feeds the loop's own noise and lag back into what it controls'.",
+      "status": "open"
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "what": "The blurred middle, measured once, for a controller only. A hand pressing at 0.9 of a motor's full torque, when holding speed needs 1.3, is partly within reach and partly not; the seam runs through the hand, at the actuator's limit. The motor gives all it has, and four times the gain (asking 16.9 against 65.5) ends the press at the same 25.4%, where the platter's balance says it must, (1 − 0.9) ÷ 0.4 = 25%. What costs is holding on: a memory that keeps adding the error it can't act on overshoots 129% when the hand lifts; one that holds still at the limit (anti-windup, textbook integrator windup), 6.4%. This supports the page's own second option, that the discipline is the refusal to let the middle swell, in the controller's register; it does not reach 'a relationship, a reputation', where influence runs through another's choice rather than an actuator's limit. Suggested, under the question: 'In a controller the middle needs no third column: the seam runs through the act, at the limit of reach, and what costs is the memory that keeps pushing past it.'",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Palace / Technical Face",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round · cloud",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5 · cloud",
+        "verdicts": [
+          {
+            "file": "The Dichotomy of Control — rich — the hand on the platter.html",
+            "verdict": "remake",
+            "why": "A real test: the model beats the fight (0.02% against 0.34% wow), and every number survives a second route (RK4, frequency response, Routh). Remake for one round: cap the tuning slider below 0.85 Hz, where Kp 5, Ki 2, Kr 3 goes unstable (at 1 Hz the meter prints a limit cycle as wow, and check.mjs counts it as worse than none); state rule 1 on wow alone and mark the ideal platter’s no-jitter as by construction; reword step 7’s “not a disturbance” as the maker’s offer, not the page; give the fight’s jitter as about 0.35% (0.26–0.50% over eight seeds), not 0.41%."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "The Dichotomy of Control — rich — the hand on the platter.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas and Web Audio",
+          "title": "The hand on the platter · authority, disturbance and the grip",
+          "caption": "**Does a controller do best by spending effort only where it has authority, and modelling the rest instead of fighting it?** Seven steps on a turntable platter. First the platter alone: the motor is yours to set, a finger on the edge is not, and it slows to half speed. Then a controller that pushes back, on an ideal platter, where fighting harder simply works: the sag is 0.2 ÷ (0.4 + Kp). Then the belt's lag and the sensor's noise every real loop has: now more gain shakes the platter with the sensor's mistakes, and past Kp 23.5 it swings for good. Then a memory, which removes a steady drag at a modest gain. Then a rub that comes round once a turn: fighting it at Kp 20 leaves 0.34% wow and adds about 0.35–0.4% jitter (0.26–0.50% across noise seeds); a once-a-turn model at Kp 5 leaves 0.02%, the sensor's floor; the model tuned wrong leaves 1.70%, worse than none. Then a hand heavier than the motor can hold: four times the gain ends the press at the same 25.4%, and a memory that keeps winding overshoots 129% when the hand lifts, against 6.4% for one that lets go. Last, the page's sentence against fourteen runs, under four rules stated before them; rule 1 is scored on wow alone, and the ideal platter's lack of jitter is by construction, since it has no sensor noise. The model's limits: a round-number platter, a linear belt and sensor, a rub of one pure frequency, and noise of one size. Its percentages are its own, not a real turntable's. *Hear it* plays 33⅓ as 440 Hz beside the platter's own tone: a sag is a beat, wow a beat that comes and goes once a turn.\n\nJ·dω/dt = τ − b·ω − d   ·   u = clamp(Kp·e + Ki·∫e dt + Kr·ṁ, 0, 1)\n\n(the platter's weight to turn) × (how fast its speed changes) = (the motor's push) − (the friction) − (what drags on it); (the motor's share) = Kp × (the error now) + Ki × (all the error so far) + Kr × (the once-a-turn model), and never less than nothing or more than all the motor has",
+          "near": "Actuation authority = prohairesis",
+          "place": "band",
+          "height": 1450
+        }
+      ],
+      "made_against": "0cd3b9582f5d",
+      "stamped": "2026-11-03"
+    }
+  ]
+}

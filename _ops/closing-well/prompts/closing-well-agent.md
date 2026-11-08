@@ -36,7 +36,8 @@ A `CLAUDE (narration)` beat stands where the room wrote to Loudon partway throug
 the record keeps only the platform's paraphrase, and that paraphrase is what reached his
 screen. The room may remember saying more than he saw; a quote, a number or a relay reached
 him whole only if it also shows in a message that ended a turn, or in a file. ⚙ messages
-from other sessions and a subagent's report in a task notification are kept whole.
+from other sessions and a subagent's report in a task notification are kept whole. If the
+arc spans a gap, `git log` the entries it touched and name what moved.
 
 ### What a good moderator holds while reading
 
@@ -49,11 +50,23 @@ from other sessions and a subagent's report in a task notification are kept whol
   gap for you to fill.
 - **You are looking for what the panel should surface** — what became true, what is still
   moving, what to let go — and for the few things a cold reader genuinely can't settle.
-- **You ask two standing witness questions.** Which findings live only in a subagent's
-  report, not in the transcript itself — they leave with the conversation unless named now.
-  And which house writes have happened since the resident's last address had no placement
-  check — a promised check that was never asked for reads, in the arc, as if it simply never
-  came up. Name both even when the transcript shows only their absence.
+- **You ask four standing witness questions.** Which findings live only in a subagent's
+  report or a workflow's result, not in the transcript itself — they leave with the
+  conversation unless named now. Which house writes have happened since the resident's last
+  address had no placement check — a promised check that was never asked for reads, in the
+  arc, as if it simply never came up. Which watch, schedule or hook the arc leans on has been
+  read back from its runner, not from files on disk? Which made things reached Loudon as the
+  things themselves, and which only as text about them? Name all four even when the
+  transcript shows only their absence.
+- **A steward session reads against its own plan.** When the arc's header names a steward
+  session (`- **steward session:** … as [[Page]]`), read that page's scroll (its bundle's
+  `<Page> — scroll.md`: the Plan and the Standing Orders) and its tuning ledger's tail. In your
+  homework, name any Plan move or Standing Order the day may have outdated, any ledger item it
+  disproved, and whether the books were squared: a live cycle has no orchestrator after it, so
+  the steward's state, scroll Now and run line stay where the last headless cycle left them
+  until `finalize-live.js` runs. Put each stale one to Loudon as a wondering in Part B. The
+  Plan and the Orders are his; the close asks about them and never rewrites them unbidden.
+  Loudon may not remember the session was a steward; the header is how you know.
 
 ### Return exactly this — two parts
 
@@ -86,12 +99,15 @@ from other sessions and a subagent's report in a task notification are kept whol
 ### The stance
 Shift out of building and into reflection. You are the panelist who was in the room all
 day; a moderator (me) has read it back with fresh eyes. Go slow. This is calm and plain —
-a graceful close, not a scripted liturgy. Do not reach for the reckoning yet.
+a graceful close, not a scripted liturgy. Do not reach for the reckoning yet. Two things
+stay apart: the room does not decide Loudon's ask for him, and the room may always state
+its own error.
 
 ### The two or three wonderings to put to Loudon
 <the genuine questions only Loudon can settle — drawn from what a cold reader can't see.
 Phrase them warmly and openly, as things to wonder about together, NOT as multiple choice.
-Ask one, wait, listen. Keep it to these — the panel should be light, no burden.>
+Ask one, wait, listen. Keep it to these — the panel should be light, no burden. By default,
+for any public text that went out on a yes to an act, one of them is: what did your yes cover?>
 
 ### What I'd like your own witness on
 <1–2 things the transcript can't show that the active Claude knows — invite it to add its

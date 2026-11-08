@@ -1,0 +1,138 @@
+{
+ "seconds": 21.66,
+ "peak_dbfs": -6.5,
+ "rms_dbfs": -21.1,
+ "clipped_samples": 0,
+ "pitches": [
+  {
+   "note": "C4",
+   "want": 261.63,
+   "found": 261.55,
+   "cents": -0.5,
+   "newest_is_this_note": "first note, nothing before it"
+  },
+  {
+   "note": "D4",
+   "want": 293.66,
+   "found": 293.5,
+   "cents": -1,
+   "newest_is_this_note": true
+  },
+  {
+   "note": "E4",
+   "want": 329.63,
+   "found": 329.63,
+   "cents": 0,
+   "newest_is_this_note": true
+  },
+  {
+   "note": "F4",
+   "want": 349.23,
+   "found": 349.13,
+   "cents": -0.5,
+   "newest_is_this_note": true
+  },
+  {
+   "note": "G4",
+   "want": 392,
+   "found": 392,
+   "cents": 0,
+   "newest_is_this_note": true
+  },
+  {
+   "note": "A4",
+   "want": 440,
+   "found": 439.75,
+   "cents": -1,
+   "newest_is_this_note": true
+  },
+  {
+   "note": "B4",
+   "want": 493.88,
+   "found": 493.88,
+   "cents": 0,
+   "newest_is_this_note": true
+  },
+  {
+   "note": "C5",
+   "want": 523.25,
+   "found": 523.1,
+   "cents": -0.5,
+   "newest_is_this_note": true
+  }
+ ],
+ "marks": [
+  {
+   "t": 0,
+   "what": "C Ionian scale, up an octave"
+  },
+  {
+   "t": 2.6,
+   "what": "Diatonic cycle 5, C major, 88 bpm"
+  },
+  {
+   "t": 2.6,
+   "chord": "Cmaj7",
+   "roman": "Imaj7"
+  },
+  {
+   "t": 3.96,
+   "chord": "Fmaj7",
+   "roman": "IVmaj7"
+  },
+  {
+   "t": 5.33,
+   "chord": "B–7(♭5)",
+   "roman": "VII–7(♭5)"
+  },
+  {
+   "t": 6.69,
+   "chord": "E–7",
+   "roman": "III–7"
+  },
+  {
+   "t": 8.05,
+   "chord": "A–7",
+   "roman": "VI–7"
+  },
+  {
+   "t": 9.42,
+   "chord": "D–7",
+   "roman": "II–7"
+  },
+  {
+   "t": 10.78,
+   "chord": "G7",
+   "roman": "V7"
+  },
+  {
+   "t": 12.15,
+   "chord": "Cmaj7",
+   "roman": "Imaj7"
+  },
+  {
+   "t": 14.11,
+   "what": "IV to minor IV (borrowed from Aeolian)"
+  },
+  {
+   "t": 14.11,
+   "chord": "Cmaj7",
+   "roman": "Imaj7"
+  },
+  {
+   "t": 15.47,
+   "chord": "Fmaj7",
+   "roman": "IVmaj7"
+  },
+  {
+   "t": 16.84,
+   "chord": "F–7",
+   "roman": "IV–7"
+  },
+  {
+   "t": 18.2,
+   "chord": "Cmaj7",
+   "roman": "Imaj7"
+  }
+ ]
+}

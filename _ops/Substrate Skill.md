@@ -20,6 +20,9 @@ links:
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
     label: bundle-vocabulary
+  - target: "[[Substrate Skill — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 # Substrate Skill (Palace Edition)
 
@@ -94,7 +97,7 @@ When a ceremony (Baton, Deposit, Enrichment) needs a file to live somewhere entr
 
 File naming inside the bundle: `[Entry] — [type] [— qualifier].md`. The entry-prefix is required because Obsidian's wikilink namespace is flat across the vault.
 
-When a bundle file is consumed (e.g., a superseded source or a spent sketch), move it to `[Entry]/Archive/` rather than deleting. Git carries history; archive preserves locality. (Batons are the exception — deleted on pickup, with git as their archive; see [[Baton Ceremony]].)
+When a bundle file is consumed (e.g., a superseded source or a spent sketch), move it to `[Entry]/Archive/` rather than deleting. Git carries history; archive preserves locality. (Batons are the exception — deleted when their move lands, with git as their archive; see [[Baton Ceremony]].)
 
 Bundle files are not first-class entries. They do not appear in Weave audits, do not need full entry frontmatter (no `type`, `pillars`, or `stage`), and do not require typed-link participation in the palace graph. But every bundle file carries minimal YAML — title, born, at least one link to the parent entry, and a short forward_vector — so every file in the palace remains self-describing.
 
@@ -129,9 +132,9 @@ An entry's `stage` field doubles as a confidence interval on alignment between L
 
 **Earlier stages require more discussion *before building* — not a ban on building.** A `seed` entry is a hypothesis about Loudon's intent; a `mature` entry is verified, co-authored truth. The discussion budget is inverse to the stage: more conversation up front, less re-litigation later. But every stage ships *something* — the budget governs how much you discuss *around* the artifact, never whether you make one. Vector tuning, plan tuning, and convention agreement are the work of seed and sprout, pursued around a sketch or probe rather than in place of one.
 
-**Stage-conditional posture for the Steward agent** (canonical home: [[Project Stewardship System]]; the running coordination system is [[STIGMERGY]], its grammar and wire spec are [[SCHEMA]] §9, its origin concept is [[BBS Blackboard]], and its executor is [[Palace Orchestrator]]):
+**Stage-conditional posture for the Steward agent** (canonical here; the system that runs it is [[Project Stewardship System]]; the running coordination system is [[STIGMERGY]], its grammar and wire spec are [[SCHEMA]] §9, its origin concept is [[BBS Blackboard]], and its executor is [[Palace Orchestrator]]):
 
-| Stage | Agent's job | BBS posture |
+| Stage | Steward's job | Board posture |
 |---|---|---|
 | seed | Surface underspecified parts; propose vector and plan refinements *around an artifact* | Make a sketch or probe and discuss around it — still ships a (rough) made thing. A genuine fork goes to TRICKSTER, `blocking: true`. |
 | sprout | Plan-level detail; named tradeoffs; flag default-traps | Build a small working prototype each cycle; proposals ride alongside it, never instead of it. |
@@ -249,7 +252,7 @@ Before anything visual, read the design manifest for the dress it wears ([[CHILD
 
 - **The work itself** — a plugin or AU face, an instrument panel, a part drawing, a tool's UI, a page about a build — wears the **[[Drafting Table Design System]]**. Manifest: `_ops/drafting-table/design-system/SKILL.md`.
 - **What the public channel shows** — a stream card, a session artifact, a slide deck, a learning poster, Loud'n Live's pages — wears the **[[Loudon Live Design System]]**: a small non-negotiable floor (the studio voice, the Lissajous sigil, the nevers — no emoji / no hype) and a house style over six per-stream skins, the home of the **Loud'n Live** projection of Loudon's [[The Multilinear Self|multilinear self]]. Manifest: `_ops/loudon-live/design-system/SKILL.md`. Its footer reads `Loud'n Live` — the wordmark alone (audience named situationally in prose, never stamped on every artifact); no emoji, no CDN icon libraries, no outcome promises in titles. The wordmark grammar and audience-phrasing bank are on its page.
-- **STIGMERGY**, the board and its app, wears the **[[BBS Design System]]**.
+- **STIGMERGY**, the board and its app, wears **its own look** ([[STIGMERGY#The look|STIGMERGY § The look]]).
 
 Each is a floor, not a cage: the reliable default a thing reaches for, departed from deliberately with a reason written down. Invoke the manifest before generating the artifact — the fonts, tokens and full rule set live there. A new context with a dress of its own requires a deliberate decision documented in the artifact's parent entry.
 

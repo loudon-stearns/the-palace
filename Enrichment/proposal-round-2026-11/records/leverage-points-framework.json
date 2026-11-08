@@ -1,0 +1,26 @@
+{
+ "entry": "Leverage Points Framework",
+ "path": "Leverage Points Framework.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 6,
+ "claim": "§ Meadows' Core Insight: 'By intervening at high-leverage points, small efforts create massive systemic change' — and, under § The 12 Leverage Points, #9 Delays: 'social media gives instant feedback (likes, views) which hijacks slower, more valuable feedback (student growth, wellbeing)'; the intervention is temporal discipline.",
+ "pieces": [
+  {
+   "section": "Meadows' Core Insight",
+   "what": "One small stock-and-flow model (a creator's practice: a stock of work, an audience stock, a wellbeing stock, with inflows, outflows and one feedback loop). The same budget of effort is spent three ways — at a parameter (post more), at a delay (check the metric less often), at the goal (what the loop optimizes for) — and the result is scored by one measure stated before the first run (how far the system moves from its baseline per unit of effort, with the measure's units named). A test, not an illustration: it can come out with the parameter winning, and the piece says what result would have meant the core insight failed in this model.",
+   "kind": "interactive",
+   "walks_up_from": "one stock with one inflow and one outflow, pushed by hand"
+  },
+  {
+   "section": "The 12 Leverage Points (Lowest to Highest)",
+   "what": "The #9 claim as a controller problem: one actor steering by two feedback signals, a fast noisy one (views today) and a slow true one (growth over months). The reader sets the delay on the slow signal and the gain on each; the piece shows when the fast signal captures the controller — the actor's moves track the noise and the slow stock drifts away from its goal — and scores the capture (correlation of the actor's moves with each signal, and the slow stock's final distance from goal). Then the page's own intervention, lengthening the fast signal's sampling interval, is tried and scored by the same rule. The test states before any run what would count as 'hijacked'.",
+   "kind": "interactive",
+   "walks_up_from": "one actor steering by one signal with no delay"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "Weight-6 board line of the 2026-11-03 round. Grain: the 12-point section is one ## with seven ### under it (tuning item 11d), so the #9 piece carries one stamp and one approval for all twelve points; say so in the manifest. Prior art worth reading before building: Projects/Meadows and an Artist's Career — sketch — self-diagnostic.html (a sibling page's self-diagnostic, not this page's, and its numbers are that page's); Donella Meadows.md and Meadows and Music — Leverage Points.md for what the palace already says the points mean. Every number is the model's, not the platform's; say whose numbers these are. No baton on the page; no board notes.",
+ "slice": "cloud-3"
+}

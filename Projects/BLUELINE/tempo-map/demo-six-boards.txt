@@ -1,0 +1,37 @@
+# The six animatic boards on demo-set.als's clock: 4/4 at 120, a jump to 96 in 7/8,
+# a ramp to 150 through 3/4, 4/4 at 150. The shape of cut 1 (changes quicken into the drop),
+# laid over a clock that changes under it. cut.py fills nothing in here; it reads BAR and BEAT.
+
+# === BIBLE ===
+CLOCK: demo-set.als
+FPS: 24
+
+# === BOARD ===
+SHOT_ID: 01
+BAR: 3
+BEAT: 1                      # intro, 4/4 at 120
+
+# === BOARD ===
+SHOT_ID: 02
+BAR: 5
+BEAT: 1                      # the jump: 96 bpm and 7/8 start here
+
+# === BOARD ===
+SHOT_ID: 03
+BAR: 9
+BEAT: 1                      # the ramp begins, 3/4
+
+# === BOARD ===
+SHOT_ID: 04
+BAR: 11
+BEAT: 2                      # mid-ramp, off the downbeat
+
+# === BOARD ===
+SHOT_ID: 05
+BAR: 13
+BEAT: 1                      # the drop, 150 bpm
+
+# === BOARD ===
+SHOT_ID: 06
+BAR: 15
+BEAT: 1

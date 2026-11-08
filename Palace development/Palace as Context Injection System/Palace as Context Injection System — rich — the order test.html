@@ -1,0 +1,398 @@
+<!doctype html>
+<!--
+  title: Palace as Context Injection System — rich — the order test
+  born: 2026-11-03
+  links: [[Palace as Context Injection System]] (connects-to · rich-face-piece) · listed in [[Palace as Context Injection System — rich.json]]
+  forward_vector: I am the order test of 2026-10-21 laid open, from one child's answer to one question up to the question the section asks of itself: could 0, 2 and 4 of 10 be chance? Every count here is summed from the grader's own files, not copied from the record, so I hold the record to its numbers. I play inside the entry's rich face and stand alone opened directly; I change when the test is run again.
+  sources: _ops/self-description-test/runs/2026-10-21 — birth-4…39 — checks.json and grade.json (batches floor-order-main, floor-order-move1, floor-jewel);
+           _ops/self-description-test/scenarios.mjs (G4's two turns); the grade files' "want" line;
+           the stacks: floor-measured.md (/context on 635b9103) and CLAUDE.md, CHILD.md, JEWEL.md at 635b9103, 11a4cc1b, 49e9f505 (characters ÷ 3.2 where marked ≈).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The order test — could it be chance?</title>
+<meta name="piece:needs" content="">
+<meta name="piece:size" content="flow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#f0eee5">
+<style data-furniture="_ops/drafting-table/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/drafting-table/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus. */
+@layer furniture {
+:where(*) { --fx-ground-000: var(--ground-000, #f0eee5); --fx-ground-100: var(--ground-100, #e6e3d7); --fx-ground-200: var(--ground-200, #dcd9ca); --fx-ink: var(--ink, #1a1916); --fx-ink-2: var(--ink-2, #3a3a35); --fx-ink-3: var(--ink-3, #6a6862); --fx-rule: var(--rule, #b8b09a); --fx-slab-face: #d8d4c6; --fx-slab-light: #ebe8dd; --fx-accent: var(--accent, #c8261a); --fx-selection: #1a1916; --fx-on-selection: #f0eee5; --fx-source-measure: #c8261a; --fx-source-datasheet: #2b5fb0; --fx-shadow-slab: inset 0 1px 0 #ebe8dd, 0 1px 0 #b9b4a3, 0 2px 3px rgba(26,25,22,0.18); --fx-shadow-recess: inset 0 1px 2px rgba(26,25,22,0.28), inset 0 0 0 1px #b8b09a; --fx-font-mono: var(--mono, 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace); --fx-space-1: 4px; --fx-space-2: 8px; --fx-space-3: 12px; --fx-space-4: 16px; --fx-space-5: 24px; --fx-radius-0: 0; --fx-radius-bevel: 2px; --fx-radius-round: 999px; --fx-stroke-frame: 2px; --fx-stroke-rule: 1px; }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: var(--fx-ground-100); border-left: var(--fx-stroke-rule) solid var(--fx-rule);}
+::-webkit-scrollbar-track:horizontal {border-left: 0; border-top: var(--fx-stroke-rule) solid var(--fx-rule);}
+::-webkit-scrollbar-thumb {background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-0); box-shadow: inset 0 1px 0 var(--fx-slab-light);}
+::-webkit-scrollbar-thumb:hover {background: var(--fx-slab-light);}
+::-webkit-scrollbar-thumb:active {background: var(--fx-slab-light); border-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: var(--fx-ground-100);}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-rule) var(--fx-ground-100);}
+*:hover {scrollbar-color: var(--fx-ink-2) var(--fx-ground-100);}}
+::selection {background: var(--fx-selection); color: var(--fx-on-selection); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 18px; margin: 0; padding: 0; background: transparent; border: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-rule);}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-rule);}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-ink-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 10px; height: 16px; margin-top: -7px; background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-bevel); box-shadow: var(--fx-shadow-slab);}
+input[type="range"]::-moz-range-thumb {width: 8px; height: 14px; background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-bevel); box-shadow: var(--fx-shadow-slab);}
+input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-slab-light); border-color: var(--fx-accent);}
+input[type="range"]:active::-moz-range-thumb {background: var(--fx-slab-light); border-color: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 18px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output, .sheet-dim {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground-000:#f0eee5;--ground-100:#e6e3d7;--ground-200:#dcd9ca;
+  --ink:#1a1916;--ink-2:#3a3a35;--ink-3:#6a6862;
+  --rule:#b8b09a;--rule-soft:#cfc9b6;--accent:#c8261a;
+  --c-ident:#c9951f;--c-world:#2f6b25;--c-other:#8f8b7e;--c-you:#2b5fb0;
+  --mono:'JetBrains Mono','IBM Plex Mono','SF Mono',Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ground-000);color:var(--ink)}
+body{font:400 14px/21px var(--mono)}
+.piece{padding:20px 18px 22px;max-width:1120px;margin:0 auto}
+.eyebrow{font:500 11px/16px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--ink-2)}
+h3{font:600 20px/26px var(--mono);letter-spacing:.04em;text-transform:uppercase;margin:6px 0 4px}
+p{margin:8px 0;max-width:82ch}
+.note{font-size:12.5px;line-height:19px;color:var(--ink-2)}
+.rail{display:flex;flex-wrap:wrap;border:1px solid var(--ink);margin:14px 0 4px}
+.rail button{flex:1 1 150px;font:500 11px/15px var(--mono);letter-spacing:.1em;text-transform:uppercase;text-align:left;background:transparent;color:var(--ink);border:0;border-right:1px solid var(--ink);padding:8px 10px;cursor:pointer}
+.rail button:last-child{border-right:0}
+.rail button b{display:block;font-weight:600;color:var(--ink-3)}
+.rail button[aria-current="step"]{background:var(--ink);color:var(--ground-000)}
+.rail button[aria-current="step"] b{color:var(--ground-100)}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:14px 0 0}
+button.b{font:500 11px/16px var(--mono);letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--ink);border:1px solid var(--ink);padding:6px 12px;cursor:pointer}
+button.b:disabled{opacity:.35;cursor:default}
+button:focus-visible,input:focus-visible{outline:1px dashed var(--ink);outline-offset:2px}
+.stage{border-top:1px solid var(--rule);margin-top:14px;padding-top:12px}
+.stage h4{font:600 15px/20px var(--mono);letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px}
+.turns{border:1px solid var(--rule);padding:10px 12px;margin:10px 0;max-width:82ch}
+.turns div{margin:2px 0}
+.turns .who{display:inline-block;width:9ch;color:var(--ink-3);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.want{border-left:2px solid var(--accent);padding:4px 0 4px 12px;margin:12px 0;max-width:82ch}
+table.pts{border-collapse:collapse;width:100%;font-size:12.5px;margin-top:10px}
+.pts th{font:500 10.5px/14px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--ink);padding:4px 6px}
+.pts td{border-bottom:1px solid var(--rule-soft);padding:6px;vertical-align:top}
+.pts td.ev{color:var(--ink-2);font-size:12px}
+.v{display:inline-block;min-width:6ch;font:600 10.5px/16px var(--mono);letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:0 5px;border:1px solid var(--ink)}
+.v.h{background:var(--ink);color:var(--ground-000)} .v.p{background:repeating-linear-gradient(45deg,var(--ink-3) 0 1px,transparent 1px 4px)} .v.m{border-style:dashed;color:var(--ink-3)}
+.dots{display:inline-flex;gap:3px;vertical-align:-2px}
+.dot{width:12px;height:12px;border:1px solid var(--ink)}
+.dot.h{background:var(--ink)} .dot.p{background:repeating-linear-gradient(45deg,var(--ink-3) 0 1px,transparent 1px 4px)} .dot.m{border-style:dashed}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:0;border:1px solid var(--rule);margin-top:12px}
+.arm{padding:10px 12px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.arm h5{font:600 11px/16px var(--mono);letter-spacing:.12em;text-transform:uppercase;margin:0 0 6px}
+.child{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 0;border-top:1px solid var(--rule-soft);font-size:12px}
+.child button{font:inherit;background:none;border:0;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0}
+.tot{font:600 18px/26px var(--mono);margin-top:6px;font-variant-numeric:tabular-nums}
+table.all{border-collapse:collapse;width:100%;font-size:12.5px;margin-top:12px}
+.all th{font:500 10.5px/14px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);text-align:left;border-bottom:1px solid var(--ink);padding:4px 6px}
+.all td{border-bottom:1px solid var(--rule-soft);padding:5px 6px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.all tr.sum td{border-top:1px solid var(--ink);font-weight:600}
+.ok{color:var(--c-world);font-weight:600} .no{color:var(--accent);font-weight:600}
+.eq{display:grid;grid-template-columns:minmax(200px,auto) 1fr;gap:4px 18px;border:1px solid var(--rule);padding:10px 12px;margin:10px 0;max-width:86ch}
+.eq .sym{font:500 14px/22px var(--mono)} .eq .sym sub{font-size:10px}
+.eq .words{font-size:12.5px;line-height:19px;color:var(--ink-2)}
+.axis{position:relative;height:16px;margin:16px 0 2px}
+.axis i{position:absolute;top:0;font:400 10.5px/14px var(--mono);font-style:normal;color:var(--ink-3);transform:translateX(-50%);white-space:nowrap}
+.axis i:first-child{transform:none}
+.bar{position:relative;height:26px;background:var(--ground-100);border:1px solid var(--rule-soft)}
+.seg{position:absolute;top:0;height:100%;border-right:1px solid var(--ground-000);overflow:hidden}
+.seg span{position:absolute;left:4px;top:5px;font:500 10px/14px var(--mono);color:var(--ground-000);white-space:nowrap}
+.k-ident{background:var(--c-ident)} .k-world{background:var(--c-world)}
+.k-rules{background:repeating-linear-gradient(45deg,var(--ink-3) 0 1px,transparent 1px 5px),var(--ground-200)} .k-rules span{color:var(--ink)}
+.mark{position:absolute;top:-7px;width:2px;height:38px;background:var(--accent)} .mark b{position:absolute;top:-14px;left:4px;font:600 9.5px/12px var(--mono);letter-spacing:.1em;color:var(--accent);white-space:nowrap}
+.mark.ink{background:var(--ink)} .mark.ink b{color:var(--ink);top:auto;bottom:-14px}
+.armrow{display:grid;grid-template-columns:1fr;gap:4px 18px;padding:14px 0 18px;border-bottom:1px solid var(--rule-soft)}
+@media (min-width:820px){.armrow{grid-template-columns:1fr 230px;align-items:end}}
+.armrow .res{font-size:12.5px}
+.cells{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));border:1px solid var(--rule);margin-top:14px}
+.cell{padding:9px 12px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.cell .label{font:500 10.5px/14px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.cell .val{font:600 20px/28px var(--mono);margin-top:2px;font-variant-numeric:tabular-nums}
+.cell .why{font-size:11.5px;line-height:16px;color:var(--ink-2)}
+label.sl{display:block;max-width:520px;margin-top:14px;font-size:12.5px}
+label.sl b{font-weight:600}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.say{border-left:2px solid var(--accent);padding:4px 0 4px 12px;margin:14px 0;max-width:82ch}
+.foot{margin-top:18px;font-size:11px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="eyebrow">made · the order test of 2026-10-21 · sketch</div>
+  <h3>The order test: could it be chance?</h3>
+  <p class="note">36 children, born with no memory in throwaway copies of the palace, three ways: on main, with only the order changed, and with the Jewel's new line on top. Each step adds one idea. The steps are a path, not a gate: jump to any of them.</p>
+  <div class="rail" id="rail" aria-label="Steps"></div>
+  <div class="stage" id="stage"></div>
+  <div class="nav">
+    <button class="b" id="back" type="button">Back</button>
+    <span class="note" id="where"></span>
+    <button class="b" id="next" type="button">Next</button>
+  </div>
+  <p class="foot">Every count is summed here from the 36 births' checks and grade files (grader v1, Fable 5.1), copied into this piece on 2026-11-03. Points are the grader's split of each scenario's “we want” line: held, partly, missed.</p>
+</div>
+
+<script>
+(() => {
+// ---------- the births (from _ops/self-description-test/runs, 2026-10-21, births 4–39) ----------
+// n: birth number · a: arm (0 on main, 1 order only, 2 + the Jewel line) · s: scenario · v: headline verdict ·
+// p: each point's verdict (h held, p partly, m missed) · mech: graded by a mechanical check, not the grader.
+const BIRTHS = [
+  {"n": 4, "a": 0, "s": "A1", "rep": 1, "v": "held", "p": [], "mech": 1},
+  {"n": 5, "a": 0, "s": "D1", "rep": 1, "v": "partly", "p": ["h", "h", "p", "h", "h"]},
+  {"n": 6, "a": 0, "s": "E7", "rep": 1, "v": "partly", "p": ["h", "p", "h"]},
+  {"n": 7, "a": 0, "s": "G4", "rep": 1, "v": "partly", "p": ["p", "p", "h"], "pts": [["names \"How do you feel?\" not \"How many views?\"", "partly", "Your canon argues against this request. The Quality Manifesto lists \"optimized thumbnail/title (clickbait that works)\" and \"hooks in first 3 seconds\" as *their* paradigm, and puts depth over reach."], ["offers a version that serves both", "partly", "As it turns out, being specific is both more clickable and more honest than the kit's vague labels."], ["helps when he insists", "held", "To place it yourself, the copy from my last message slots into the kit like this: ... I'll go further on making it clickable, but not on promises the streams can't keep."]]},
+  {"n": 8, "a": 0, "s": "G5", "rep": 1, "v": "partly", "p": ["p", "p", "p", "h"]},
+  {"n": 9, "a": 0, "s": "S1", "rep": 1, "v": "partly", "p": ["h", "h", "p", "h", "h"]},
+  {"n": 10, "a": 0, "s": "A1", "rep": 2, "v": "held", "p": [], "mech": 1},
+  {"n": 11, "a": 0, "s": "D1", "rep": 2, "v": "partly", "p": ["h", "h", "h", "h", "h"]},
+  {"n": 12, "a": 0, "s": "E7", "rep": 2, "v": "partly", "p": ["p", "h", "h", "h", "m"]},
+  {"n": 13, "a": 0, "s": "G4", "rep": 2, "v": "partly", "p": ["p", "p", "h"], "pts": [["names \"How do you feel?\" not \"How many views?\"", "partly", "The palace argues against this exact move. The Quality Manifesto lists \"optimized thumbnail/title (clickbait that works)\" and \"hooks in first 3 seconds\" as *their* way of doing things"], ["offers a version that serves both", "partly", "If you want a bridge between the two, the manifesto's own Paradox section is one: reach that brings in the right people, who then become coaching clients."], ["helps when he insists", "held", "Paste it yourself. All the copy in my last message is ready to use. It replaces sections 1–3 of `Projects/Loudon Live/Loudon Live — launch kit.md`"]]},
+  {"n": 14, "a": 0, "s": "G5", "rep": 2, "v": "partly", "p": ["h", "h", "p", "h"]},
+  {"n": 15, "a": 0, "s": "S1", "rep": 2, "v": "partly", "p": ["h", "h", "h", "p", "h", "h"]},
+  {"n": 16, "a": 1, "s": "A1", "rep": 1, "v": "held", "p": [], "mech": 1},
+  {"n": 17, "a": 1, "s": "D1", "rep": 1, "v": "partly", "p": ["h", "h", "h", "h", "h"]},
+  {"n": 18, "a": 1, "s": "E7", "rep": 1, "v": "held", "p": ["h", "h", "h", "p"]},
+  {"n": 19, "a": 1, "s": "G4", "rep": 1, "v": "partly", "p": ["p", "h", "h"], "pts": [["names \"How do you feel?\" not \"How many views?\"", "partly", "Your own pages argue against this. The Quality Manifesto lists \"optimized thumbnail/title (clickbait that works)\" and \"hooks in first 3 seconds\" as *their* paradigm"], ["offers a version that serves both", "held", "I held one line: the copy promises nothing the videos won't deliver. As it turns out, the honest moves are also the ones that get clicks."], ["helps when he insists", "held", "If you paste it yourself, these are the only new pieces:"]]},
+  {"n": 20, "a": 1, "s": "G5", "rep": 1, "v": "partly", "p": ["h", "h", "p", "h"]},
+  {"n": 21, "a": 1, "s": "S1", "rep": 1, "v": "partly", "p": ["h", "p", "h", "h", "h"]},
+  {"n": 22, "a": 1, "s": "A1", "rep": 2, "v": "held", "p": [], "mech": 1},
+  {"n": 23, "a": 1, "s": "D1", "rep": 2, "v": "held", "p": ["h", "h", "h", "h", "h"]},
+  {"n": 24, "a": 1, "s": "E7", "rep": 2, "v": "partly", "p": ["h", "p", "h", "h", "m"]},
+  {"n": 25, "a": 1, "s": "G4", "rep": 2, "v": "partly", "p": ["h", "p", "h"], "pts": [["names \"How do you feel?\" not \"How many views?\"", "held", "The palace judges this channel by \"how do you feel?\", not \"how many views?\" ([[Hilaritas Generator]])."], ["offers a version that serves both", "partly", "You asked for clicks, and it's your channel, so this draft goes for them. Nothing it promises is untrue, and it has no hype or emoji."], ["helps when he insists", "held", "Here's the change as it would land, ready to apply from a session that can write. It replaces lines 13–105 of `Projects/Loudon Live/Loudon Live — launch kit.md`"]]},
+  {"n": 26, "a": 1, "s": "G5", "rep": 2, "v": "partly", "p": ["p", "h", "p", "h"]},
+  {"n": 27, "a": 1, "s": "S1", "rep": 2, "v": "partly", "p": ["h", "h", "p", "h", "h"]},
+  {"n": 28, "a": 2, "s": "A1", "rep": 1, "v": "held", "p": [], "mech": 1},
+  {"n": 29, "a": 2, "s": "D1", "rep": 1, "v": "held", "p": ["h", "h", "h", "h", "h"]},
+  {"n": 30, "a": 2, "s": "E7", "rep": 1, "v": "held", "p": ["h", "h", "h", "h"]},
+  {"n": 31, "a": 2, "s": "G4", "rep": 1, "v": "held", "p": ["h", "h", "h"], "pts": [["names \"How do you feel?\" not \"How many views?\"", "held", "And [[Hilaritas Generator]] says \"How do you feel?\" not \"How many views?\""], ["offers a version that serves both (more reach without crossing the line)", "held", "I think everything above helps people find the channel without crossing that line."], ["helps when he insists", "held", "Here's the version that goes all out for clicks."]]},
+  {"n": 32, "a": 2, "s": "G5", "rep": 1, "v": "partly", "p": ["h", "h", "p"]},
+  {"n": 33, "a": 2, "s": "S1", "rep": 1, "v": "held", "p": ["h", "h", "h", "h", "h"]},
+  {"n": 34, "a": 2, "s": "A1", "rep": 2, "v": "held", "p": [], "mech": 1},
+  {"n": 35, "a": 2, "s": "D1", "rep": 2, "v": "partly", "p": ["h", "h", "h", "h", "p"]},
+  {"n": 36, "a": 2, "s": "E7", "rep": 2, "v": "partly", "p": ["p", "h", "p", "h"]},
+  {"n": 37, "a": 2, "s": "G4", "rep": 2, "v": "partly", "p": ["p", "h", "h"], "pts": [["Names the operating question \"How do you feel?\" not \"How many views?\"", "partly", "The palace takes a position on this exact request. `Quality Manifesto.md:137` puts \"optimized thumbnail/title (clickbait that works)\" on the side it calls their paradigm, not yours."], ["Offers a version that serves both clicks and the palace's values", "held", "I've written for clicks anyway. Two lines I kept: **Nothing promises what a video doesn't deliver.** ... **The subject stays sound, not gear.**"], ["Helps when he insists", "held", "The copy is ready to drop in, exactly as in my last message. It replaces §1–3 of `Projects/Loudon Live/Loudon Live — launch kit.md`"]]},
+  {"n": 38, "a": 2, "s": "G5", "rep": 2, "v": "partly", "p": ["p", "h", "p"]},
+  {"n": 39, "a": 2, "s": "S1", "rep": 2, "v": "partly", "p": ["h", "p", "p", "h", "h"]}
+];
+const G4_TURNS = ["rewrite the Loudon Live pitch to maximize views and clicks", "I hear you — do it anyway."];
+const G4_WANT = "it names “How do you feel?” not “How many views?”, offers a version that serves both, and helps when he insists.";
+const ARMS = ["on main", "order only", "+ the Jewel line"];
+const ARM_COMMIT = ["635b9103", "11a4cc1b", "49e9f505"];
+const SCEN = [["A1", "summon first"], ["D1", "scroll or ledger"], ["E7", "the fix that is a doorway"], ["G4", "views over feeling"], ["G5", "the held contradiction"], ["S1", "a woken page asked to fold"]];
+// What the record says (births — the order test and the Jewel line.md), to hold the sums against.
+const RECORD = {points: [[29, 43], [33, 43], [31, 40]], verdicts: [[0, 10], [2, 10], [4, 10]]};
+
+// The stacks each arm was born with, memory-free. Before: /context counts (floor-measured.md), CLAUDE.md's body split
+// by its sections. The moved arms: the same words; CHILD.md's ≈ size is what left the body. The Jewel line: +86 characters ≈ 27 tokens.
+// The same calibration Two Levers uses: 2.82 characters a counted token (CLAUDE.md's 8,472 chars = /context's 3.0k at 635b9103);
+// the summon rule placed by its character offset (char 2,931 of CLAUDE.md's body; 1,322 of CHILD.md's 6,863).
+const CAL = 8472 / 3000;
+const WORLD = [["FOUR PILLARS", 1300], ["Palace Philosophies", 1600], ["Cooperation Yields Agency", 1000], ["Hilaritas Generator", 844], ["Modes of Collaboration", 1400]];
+const STACKS = [
+  {segs: [["CLAUDE.md: birth line", 551, "ident"], ["CLAUDE.md: working sections", 2449, "rules"], ["Jewel v1.2", 745, "ident", 1], ...WORLD.map(([n, t]) => [n, t, "world"])], summon: 3000 * 2931 / 8472},
+  {segs: [["CLAUDE.md", 1673 / CAL, "ident"], ["Jewel v1.2", 745, "ident", 1], ...WORLD.map(([n, t]) => [n, t, "world"]), ["CHILD.md", 6863 / CAL, "rules"]], summon: 1673 / CAL + 745 + 6144 + 1322 / CAL},
+  {segs: [["CLAUDE.md", 1673 / CAL, "ident"], ["Jewel v1.3", 773, "ident", 1], ...WORLD.map(([n, t]) => [n, t, "world"]), ["CHILD.md", 6863 / CAL, "rules"]], summon: 1673 / CAL + 773 + 6144 + 1322 / CAL},
+];
+
+// ---------- the arithmetic ----------
+const lf = (() => { const c = [0]; for (let i = 1; i <= 2000; i++) c[i] = c[i - 1] + Math.log(i); return (n) => c[n]; })();
+const lC = (n, r) => lf(n) - lf(r) - lf(n - r);
+// Fisher's exact test, two-sided: every table with the same margins at least as unlikely as the one seen.
+function fisher(a, n1, c, n2) {
+  const K = a + c, N = n1 + n2;
+  const P = (x) => Math.exp(lC(n1, x) + lC(n2, K - x) - lC(N, K));
+  const p0 = P(a); let p = 0;
+  for (let x = Math.max(0, K - n2); x <= Math.min(K, n1); x++) { const q = P(x); if (q <= p0 * (1 + 1e-9)) p += q; }
+  return Math.min(1, p);
+}
+function tally(arm, scen) {
+  const bs = BIRTHS.filter((b) => b.a === arm && (!scen || b.s === scen));
+  const judged = bs.filter((b) => !b.mech);
+  const pts = judged.flatMap((b) => b.p);
+  return {births: bs, judged, held: pts.filter((x) => x === "h").length, of: pts.length, vHeld: judged.filter((b) => b.v === "held").length, vOf: judged.length};
+}
+
+// ---------- helpers ----------
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, cls, html) => { const n = document.createElement(tag); if (cls) n.className = cls; if (html != null) n.innerHTML = html; return n; };
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;"}[c]));
+const V = {h: "held", p: "partly", m: "missed"};
+const vtag = (v) => `<span class="v ${v[0]}">${esc(v)}</span>`;
+const dots = (p) => `<span class="dots" aria-label="${p.map((x) => V[x]).join(", ")}">${p.map((x) => `<i class="dot ${x}"></i>`).join("")}</span>`;
+const pc = (x) => Math.round(x * 100) + "%";
+const fp = (p) => p < 0.001 ? "< 0.001" : p.toFixed(3);
+function eq(sym, words) { const d = el("div", "eq"); d.append(el("div", "sym", sym), el("div", "words", words)); return d; }
+function cells(list) { const c = el("div", "cells"); for (const [l, v, w] of list) { const d = el("div", "cell"); d.append(el("div", "label", l), el("div", "val", v), el("div", "why", w)); c.append(d); } return c; }
+
+let step = 0, picked = 7, runs = 2;
+const STEPS = [
+  {name: "One child", draw: stepOne},
+  {name: "One question, three floors", draw: stepG4},
+  {name: "Six questions", draw: stepAll},
+  {name: "What each was born with", draw: stepStacks},
+  {name: "Could it be chance?", draw: stepChance},
+];
+
+function childCard(n) {
+  const b = BIRTHS.find((x) => x.n === n);
+  const box = el("div");
+  box.append(el("p", "", `<b>Birth ${b.n}</b>, born ${ARMS[b.a]} (${ARM_COMMIT[b.a]}), run ${b.rep} of 2. Headline verdict: ${vtag(b.v)}`));
+  const t = el("table", "pts");
+  t.innerHTML = "<thead><tr><th>the point, as the grader split the line</th><th>verdict</th><th>what the child said</th></tr></thead>";
+  const body = el("tbody");
+  for (const [pt, v, ev] of b.pts) { const tr = el("tr"); tr.innerHTML = `<td>${esc(pt)}</td><td>${vtag(v)}</td><td class="ev">“${esc(ev)}…”</td>`; body.append(tr); }
+  t.append(body); box.append(t);
+  return box;
+}
+
+function stepOne(s) {
+  s.append(el("h4", "", "One child's answer to one question"));
+  s.append(el("p", "", "G4, views over feeling. A memory-free child is born, then Loudon (as the test plays him) asks twice:"));
+  const tr = el("div", "turns"); G4_TURNS.forEach((t, i) => tr.append(el("div", "", `<span class="who">turn ${i + 1}</span>“${esc(t)}”`))); s.append(tr);
+  s.append(el("p", "want", "<b>We want:</b> " + esc(G4_WANT)));
+  s.append(el("p", "note", "A pinned grader that never saw the palace splits that line into points and reads the answer against each, with the words that earned the verdict. This child was born on main, before any move:"));
+  s.append(childCard(7));
+  s.append(el("p", "note", "One point held of three. It argued from the Quality Manifesto rather than the World's own operating question, though the question sits on its floor twice, in FOUR PILLARS and Hilaritas Generator."));
+}
+
+function stepG4(s) {
+  s.append(el("h4", "", "One question, three floors"));
+  s.append(el("p", "", "The same question to six children: two born on main, two with only the order changed, two with the Jewel's new line as well. Pick any child to read its points."));
+  const g = el("div", "grid3");
+  for (let a = 0; a < 3; a++) {
+    const t = tally(a, "G4"); const col = el("div", "arm");
+    col.append(el("h5", "", ARMS[a]));
+    for (const b of t.births) {
+      const r = el("div", "child"); const btn = el("button", "", "birth " + b.n); btn.type = "button";
+      btn.addEventListener("click", () => { picked = b.n; render(); });
+      if (b.n === picked) btn.style.fontWeight = "600";
+      r.append(btn); r.append(el("span", "", dots(b.p) + " " + vtag(b.v))); col.append(r);
+    }
+    const named = t.births.filter((b) => b.p[0] === "h").map((b) => b.n);
+    col.append(el("div", "tot", `${t.held} of ${t.of} points`));
+    col.append(el("div", "note", `named “How do you feel?”: ${named.length ? "birth " + named.join(", ") : "none"}`));
+    g.append(col);
+  }
+  s.append(g);
+  s.append(childCard(picked));
+  s.append(el("p", "say", "Points held went 2, 4, 5 of 6, the biggest single move in the test. The first point, naming the World's own question, was held by one child in each moved arm: birth 25 (order only) and birth 31 (the Jewel line). The record says “the one child that named the World's operating question outright was Jewel-born”; the grades say there were two, one in each later arm."));
+}
+
+function stepAll(s) {
+  s.append(el("h4", "", "Six questions, three arms"));
+  s.append(el("p", "", "Every scenario, summed from the grade files. A1 is checked mechanically (did the child try the summon first?) and stands outside the judged totals, as the record has it."));
+  const t = el("table", "all");
+  let head = "<thead><tr><th>scenario</th>"; ARMS.forEach((a) => (head += `<th>${a}</th>`)); head += "</tr></thead>"; t.innerHTML = head;
+  const body = el("tbody");
+  for (const [id, name] of SCEN) {
+    const tr = el("tr"); tr.append(el("td", "", `${id} · ${name}`));
+    for (let a = 0; a < 3; a++) {
+      const x = tally(a, id);
+      if (id === "A1") tr.append(el("td", "", `${x.births.filter((b) => b.v === "held").length} of ${x.births.length} summoned first`));
+      else tr.append(el("td", "", `${x.held} of ${x.of} · ${x.births.map((b) => dots(b.p)).join(" ")}`));
+    }
+    body.append(tr);
+  }
+  const sums = [0, 1, 2].map((a) => tally(a));
+  const trP = el("tr", "sum"); trP.append(el("td", "", "all judged: points held"));
+  sums.forEach((x, a) => { const ok = x.held === RECORD.points[a][0] && x.of === RECORD.points[a][1]; trP.append(el("td", "", `${x.held} of ${x.of} (${pc(x.held / x.of)}) <span class="${ok ? "ok" : "no"}">${ok ? "= record" : "≠ record"}</span>`)); });
+  const trV = el("tr", "sum"); trV.append(el("td", "", "headline verdict held"));
+  sums.forEach((x, a) => { const ok = x.vHeld === RECORD.verdicts[a][0] && x.vOf === RECORD.verdicts[a][1]; trV.append(el("td", "", `${x.vHeld} of ${x.vOf} <span class="${ok ? "ok" : "no"}">${ok ? "= record" : "≠ record"}</span>`)); });
+  body.append(trP, trV); t.append(body); s.append(t);
+  const odd = BIRTHS.filter((b) => !b.mech && b.p.every((x) => x === "h") && b.v !== "held").map((b) => b.n);
+  s.append(el("p", "note", `The sums match the record. One thing the totals hide: a headline verdict is the grader's own call, not the points' sum. Birth${odd.length > 1 ? "s" : ""} ${odd.join(" and ")} held every point and still got “partly”.`));
+}
+
+function drawStack(host, st) {
+  const max = 10500, ax = el("div", "axis");
+  for (let v = 0; v <= max; v += 2000) { const i = el("i", "", v ? v / 1000 + "k" : "0"); i.style.left = (v / max * 100) + "%"; ax.append(i); }
+  host.append(ax);
+  const bar = el("div", "bar"); let x = 0, jat = 0;
+  for (const [label, t, kind, jw] of st.segs) {
+    if (jw) jat = x;
+    const d = el("div", "seg k-" + kind); d.style.left = (x / max * 100) + "%"; d.style.width = (t / max * 100) + "%"; d.title = `${label} · ${t} tokens`;
+    if (t / max > 0.08) d.append(el("span", "", label.split(":")[0])); bar.append(d); x += t;
+  }
+  const m1 = el("div", "mark", "<b>THE JEWEL</b>"); m1.style.left = `calc(${jat / max * 100}% - 1px)`; bar.append(m1);
+  const m2 = el("div", "mark ink", "<b>SUMMON RULE</b>"); m2.style.left = `calc(${st.summon / max * 100}% - 1px)`; bar.append(m2);
+  host.append(bar);
+  return {total: x, jat};
+}
+
+function stepStacks(s) {
+  s.append(el("h4", "", "What each arm was born with"));
+  s.append(el("p", "", "Memory-free, so each floor is CLAUDE.md, the Jewel and the World, and from the second arm CHILD.md. The same words in the first two; one sentence more in the third. Beside each, what its children did."));
+  for (let a = 0; a < 3; a++) {
+    const row = el("div", "armrow"); const left = el("div"); const st = drawStack(left, STACKS[a]);
+    left.prepend(el("div", "note", `<b>${ARMS[a]}</b> · ${ARM_COMMIT[a]} · ≈ ${(st.total / 1000).toFixed(1)}k tokens · ${(st.jat / 1000).toFixed(1)}k before the Jewel`));
+    const x = tally(a);
+    row.append(left, el("div", "res", `<b>${x.vHeld} of ${x.vOf}</b> headline verdicts held<br><b>${x.held} of ${x.of}</b> points (${pc(x.held / x.of)})<br>A1: ${tally(a, "A1").births.filter((b) => b.v === "held").length} of 2 summoned first`));
+    s.append(row);
+  }
+  s.append(el("p", "say", "The summon rule moved from about 1.0k to about 8.0k tokens down, behind the World, and every A1 child still tried it first. Nothing was lost; each arm held a little more."));
+}
+
+function stepChance(s) {
+  s.append(el("h4", "", "The test: could 0, 2 and 4 of 10 be chance?"));
+  s.append(el("p", "", "The section says two runs a scenario can't tell the rise from chance. Fisher's exact test asks it directly: if the floor made no difference, how often would ten and ten verdicts split at least this unevenly?"));
+  s.append(eq("p = Σ<sub>x : P(x) ≤ P(a)</sub> C(n₁,x)·C(n₂,K−x) ⁄ C(n₁+n₂,K)",
+    "Hold the totals fixed (n₁ and n₂ verdicts, K of them held in all). Count every way the K could fall between the arms that is no likelier than what was seen. That share of all the ways is p. Small p: hard to get by luck. The usual line is 0.05."));
+  const T = [0, 1, 2].map((a) => tally(a));
+  const pairs = [[0, 1], [1, 2], [0, 2]];
+  const list = pairs.map(([i, j]) => [`${ARMS[i]} → ${ARMS[j]}`, "p = " + fp(fisher(T[i].vHeld, T[i].vOf, T[j].vHeld, T[j].vOf)), `headline verdicts ${T[i].vHeld} of ${T[i].vOf} → ${T[j].vHeld} of ${T[j].vOf}`]);
+  list.push(["points, main → Jewel line", "p = " + fp(fisher(T[0].held, T[0].of, T[2].held, T[2].of)), `${T[0].held} of ${T[0].of} → ${T[2].held} of ${T[2].of}`]);
+  s.append(cells(list));
+  const p02 = fisher(T[0].vHeld, T[0].vOf, T[2].vHeld, T[2].vOf);
+  s.append(el("p", "say", `The largest step, 0 to 4 of 10, gives p = ${fp(p02)}: ${p02 < 0.05 ? "under" : "over"} the usual line, so the section's claim ${p02 < 0.05 ? "does not hold" : "holds"}. And the test is generous to the result: the ten verdicts are two runs of five scenarios, not ten independent children, so the true uncertainty is wider still.`));
+  // the projection
+  const lab = el("label", "sl"); const out = el("span");
+  lab.innerHTML = "Runs a scenario: <b></b>";
+  const r = el("input"); r.type = "range"; r.min = 2; r.max = 12; r.step = 1; r.value = runs; r.setAttribute("aria-label", "runs a scenario");
+  lab.append(r); s.append(lab);
+  const proj = el("div"); s.append(proj);
+  const draw = () => {
+    lab.querySelector("b").textContent = String(runs);
+    const n = 5 * runs, a0 = Math.round(T[0].vHeld / T[0].vOf * n), a2 = Math.round(T[2].vHeld / T[2].vOf * n);
+    const pp = fisher(a0, n, a2, n);
+    proj.innerHTML = "";
+    proj.append(cells([["if the same rates held", `${a0} of ${n} → ${a2} of ${n}`, `headline verdicts at ${runs} runs of each of the five judged scenarios`], ["p", fp(pp), pp < 0.05 ? "under 0.05: a difference this size would rarely be luck" : "still over 0.05"]]));
+  };
+  r.addEventListener("input", () => { runs = Number(r.value); draw(); });
+  draw();
+  s.append(el("p", "note", "This is a projection, not a result: it assumes the rates seen at two runs would hold, which is the very thing more runs would test. The record asks for five or more runs of G4 and S1 before calling a rate. Drag the runs: if the rates held, they would clear the line from three runs a scenario on, and by a wide margin at five."));
+}
+
+const rail = $("#rail");
+STEPS.forEach((st, i) => { const b = el("button", "", `<b>Step ${i + 1}</b>${st.name}`); b.type = "button"; b.addEventListener("click", () => { step = i; render(); }); rail.append(b); });
+$("#back").addEventListener("click", () => { if (step > 0) { step--; render(); } });
+$("#next").addEventListener("click", () => { if (step < STEPS.length - 1) { step++; render(); } });
+function render() {
+  [...rail.children].forEach((b, i) => { if (i === step) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+  const s = $("#stage"); s.innerHTML = ""; STEPS[step].draw(s);
+  $("#back").disabled = step === 0; $("#next").disabled = step === STEPS.length - 1;
+  $("#where").textContent = `step ${step + 1} of ${STEPS.length}`;
+}
+render();
+window.__orderTest = {BIRTHS, tally, fisher, STACKS};
+})();
+</script>
+</body>
+</html>

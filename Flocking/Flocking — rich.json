@@ -1,0 +1,226 @@
+{
+ "title": "Flocking — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Flocking]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "every-made-piece-walks-up"
+  },
+  {
+   "target": "[[Murmuration]]",
+   "type": "connects-to",
+   "label": "the-knee-gathered"
+  }
+ ],
+ "forward_vector": "I am the manifest of Flocking's rich face, its first round, at Sketch tier and still a proposal: two made pieces that put the page's claims to the bundle's own seeded flock (the three rules taken away one at a time; the threshold looked for with no noise and then with some), Murmuration's knee gathered beside the phase-transition sentence it tests, and the three house-dress lenses beside the bullet that names them. I grow when Loudon has seen them; I never hold the entry's words.",
+ "entry": "Flocking",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "The Kuramoto Tie",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Incomplete, not wrong. 'The critical-coupling threshold becomes a critical-density-and-radius regime' drops the main axis, noise. On the bundle's own model with no noise there is no threshold in alignment down to 0.05, only a rate: in the challenger's 12 starts 0.3 reaches R 0.8 in 10–26 s, 0.1 in 30–233 s, 0.05 in 167–499 s; at 0.02 none of 12 in 10 minutes, so below 0.05 a run can't tell a rate from a threshold. Jostle each heading with fresh noise every frame (up to ±η half-turns) and a knee appears, R crossing 0.5 (12 starts) at alignment 0.083, 0.145, 0.393 for η 0.01, 0.02, 0.04; at η 0.04, 0.77, 0.39, 0.136 for 40, 80, 160 birds and 0.66, 0.39, 0.125 for reach 35, 50, 75 px. Density and reach act as one knob, neighbours in reach (160 birds at 50 px ≈ 80 at 75 px). Vicsek's 1995 framing is noise and density, the reach as unit of length. The noise stands where noise stands for identical Kuramoto oscillators, whose threshold is K_c = 2D. Offer: 'becomes a critical regime of noise and density (neighbours in reach) in which coherent flow appears'."
+  },
+  {
+   "section": "The Kuramoto Tie",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "Clarity. 'Kuramoto in two dimensions' can read as a two-dimensional phase. What alignment couples is still an angle on a circle, the heading, and the polarization the lenses compute is Kuramoto's R taken over the headings, the same formula (floor for 80 random headings 0.099 = √(π/4N)). The two dimensions are the space the birds move in, which decides who is coupled to whom and changes as they fly. Offer a clause saying so. (Measured on 200,000 deals by the challenger: mean 0.0992; 1/√N = 0.112 is the root-mean-square, not the mean.)"
+  },
+  {
+   "section": "The Shop's Interest",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Fact. The Plot lens's alignment sweep is called 'a first sketch of the flocking phase diagram' (here, and in Forward Vectors: 'The analytical sweep is a first phase-diagram sketch'). Run longer, its three curves all order: the model has no noise, so the sweep shows how fast order arrives, not where. Its report's 0.58 at weight 0.3 was read at 900 frames (15 s; re-run here, 0.579); the same flock passes R 0.8 at 23 s and sits at 0.92 after four minutes. A phase diagram needs the noise axis (previous offer). Offer: 'a first sketch of how fast order arrives at each weight; a phase diagram needs a noise term'."
+  },
+  {
+   "section": "The Shop's Interest",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "Precision. The page's text says the label flips 'drift → milling → coherent'; the lenses themselves label the middle band 'milling / partial flow' (flocking-d3-interactive-control.html:220, cobalt :147), R cut at 0.35 and 0.75, and nothing measures circling. Offer: make the text match the lens's label, or say it reads bands of R."
+  },
+  {
+   "section": "The Shop's Interest",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "On the model, not the sentence: the page's cohesion line holds against its control (at 50 px the birds alone go 30–46 → 78–80 without cohesion; at 25 px with noise η 0.04, 0–1 → 6–9 and the largest group about 68 → 23). What the face found is in the shared model the three lenses run: separation reaching the whole 50 px, weighted 1.5 against cohesion's 1.0, leaves more birds alone at the defaults (mean 39 of 80) than no rules at all (24), so the lenses' 'coherent flock' at defaults is mostly a scattered parallel gas. Shiffman's Nature of Code flock, whose weights the bundle keeps, gives separation 25 px (processing.org/examples/flocking.html); there 0–3 are alone. Offer: change the shared model's separation reach to 25 px (the lenses' picture would change), or name the 50 px choice where 'The parameters live in the Sketch files'."
+  },
+  {
+   "section": "The Three Rules as Coordination Primitives",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "On the model, not the sentence. Without alignment the bundle's birds coast almost to rest (0.07 px a frame of 3 at 50 px, 0.26–0.30 at 25 px), circling index at most 0.12 against 0.20–0.36 by chance with no rules. The model has no speed floor, as Reynolds' default (1987, p. 27: a minimum speed 'defaults to zero'). With a floor of 1.5 (challenger) they keep moving and wander with no direction, R about 0.2: milling in the everyday sense, so the page's word holds once birds can't stop. Offer: give the shared model a minimum speed, or leave both as they are."
+  },
+  {
+   "section": "The Three Rules as Coordination Primitives",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Emphasis. 'The minimal set that makes coordination without communication work': alignment alone gives R 1.00 and one group of 80 with no noise; jostled (η 0.04, 25 px, three minutes) it keeps the flow (R 0.81–0.94) but loses the body (6–8 alone, largest group about 30 against about 68 with all three). Vicsek's 1995 model has only alignment and noise. Offer: 'alignment is enough for coordinated flow; separation and cohesion make the body it flows in'."
+  }
+ ],
+ "sections": [
+  {
+   "heading": "The Three Rules as Coordination Primitives",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Flocking — rich — three rules.html",
+      "verdict": "remake",
+      "why": "A real test that walks up, but its cohesion mark ('not in this model') ignores its own control: at the bundle's 50 px, no cohesion leaves 76–80 of 80 alone vs 30–50 with all three (12 starts), and at 25 px it scatters once headings are jostled (η 0.04: 3–15 alone, 11–30 groups vs 0–3, 1–6). Add a no-rules row (17–33 alone; circling index 0.16–0.37 by chance) and an η 0/0.04 switch, re-word the cohesion and alignment marks, fix 'covers the field' (~340–560 × 280–590 px)."
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "file": "Flocking — rich — three rules.html",
+     "origin": "made",
+     "by": "the Maker · the bundle's shared model, live",
+     "height": 1380,
+     "title": "Take one rule away · five steps",
+     "caption": "**Take one rule away.** The bundle's one shared Reynolds model, equal to the three lenses' code to the last digit, walked up: separation alone, alignment alone, cohesion alone, the three summed, then the test, now read against a control (no rules at all) and with a noise switch, since a flock nothing jostles can't disperse whatever its rules. Measured, four starts each: take separation away and every bird sits on another, in two or three points (holds). Take alignment away and the flow goes (R 0.04 to 0.18); the birds then coast almost to rest, because the model, like Reynolds' default, has no floor on speed, so 'mills' needs one. Take cohesion away and the flock scatters: at 50 px the birds alone go from 30–46 to 78–80; at 25 px with noise, from 0–1 to 6–9 and the largest group falls from about 68 to 23 (holds). The one surprise is the model's: separation reaching the whole 50 px leaves more birds alone at the defaults than no rules do (39 against 24). Alignment alone keeps the flow but, jostled, loses the body. Silent. Checked by the check beside it; not yet seen by Loudon.",
+     "near": "Changing the weights re-shapes what the flock IS"
+    }
+   ],
+   "made_against": "5611b3e9ff3c",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "The Kuramoto Tie",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Flocking — rich — the threshold.html",
+      "verdict": "remake",
+      "why": "Wording only: every number holds on 12 starts (crossings 0.083/0.145/0.393; 0.77/0.39/0.136; 0.66/0.39/0.125), but 'the flock's spread of natural speeds' is wrong; the twist is fresh noise each frame, the twin of Kuramoto's noisy identical oscillators (K_c = 2D), not a frequency spread. Fix step 4 and the caption."
+     },
+     {
+      "file": "Projects/Murmuration/Murmuration — rich — the knee.html",
+      "verdict": "keep",
+      "why": "Tests the phase-transition sentence with its marks, honestly captioned; and it is the same transition: the bundle's model at alignment 1 crosses R 0.5 at η 0.066 (Murmuration's knee: 0.06–0.07), so the two pieces cut one critical line from two sides."
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "file": "Flocking — rich — the threshold.html",
+     "origin": "made",
+     "by": "the Maker · the bundle's shared model, live",
+     "height": 1100,
+     "title": "Where is the threshold? · four steps",
+     "caption": "**Where is the threshold?** A heading read as a phase, R built from the phases (its floor for 80 random headings is 0.099), then the search. With no noise there is none down to alignment 0.05, only a rate: every weight from 0.1 up orders the flock within four minutes; the Plot sweep's 0.58 at weight 0.3 was read at fifteen seconds, and the same flock passes 0.8 at 23. Jostle every heading with fresh noise each frame, the twin of identical Kuramoto oscillators under noise (K<sub>c</sub> = 2D), and a knee appears: R crosses 0.5 at about alignment 0.08, 0.16 and 0.38 as the noise doubles; at the strongest noise, at about 0.81, 0.38 and 0.14 for 40, 80 and 160 birds, and 0.65, 0.38 and 0.13 for a reach of 35, 50 and 75 px. Density and reach act as one knob, the neighbours in reach. The section's density-and-radius regime holds once there is noise; Vicsek's framing is noise and density. Silent. Checked by the check beside it; not yet seen by Loudon.",
+     "near": "The critical-coupling threshold becomes"
+    },
+    {
+     "file": "Projects/Murmuration/Murmuration — rich — the knee.html",
+     "origin": "gathered",
+     "height": 1180,
+     "title": "the knee · Murmuration's face, gathered",
+     "caption": "**Is it a phase transition?** Murmuration's knee, gathered from that page's face, where it is still a proposal too: a Vicsek-style flock, alignment plus heading noise, measured from 30 to 240 birds. The marks of a real transition hold: the wobble of R peaks at the knee at every size, and the knee sharpens as the flock grows (the peak wobble 1.01 to 2.65; the drop narrows from η 0.097 to 0.066). It turns continuously and steeply at those sizes, with no reliable memory; it doesn't name the transition's order, which the literature puts at first-order for large flocks (Grégoire and Chaté 2004; Chaté, Ginelli, Grégoire and Raynaud 2008). The section's 'non-equilibrium phase transition', tried. It is the same transition the threshold piece finds: the bundle's own model at alignment 1 crosses R 0.5 at η 0.066 (the challenger's sweep), where the knee puts φ halfway at 0.06–0.07. One critical line in the plane of noise and alignment, cut from two sides: the knee along the noise, the threshold piece along alignment. It carries a grain voice; nothing sounds until you press sound.",
+     "near": "The Vicsek model (1995) made the connection explicit"
+    }
+   ],
+   "made_against": "26836997a886",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Artifacts",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "flocking-d3-interactive-cobalt.html",
+      "verdict": "keep",
+      "why": "The artifact the bullet names, rendering in today's dress with tokens loaded (no 4xx). Note: 'with no edit' → 'no edit to its dress' (036f9a27 pinned its CDN tag)."
+     },
+     {
+      "file": "flocking-observable-plot-graphite.html",
+      "verdict": "keep",
+      "why": "The named artifact; its caption's 'how fast order arrives' is confirmed (12/12 starts at alignment 0.3 pass R 0.8 in 10–26 s)."
+     },
+     {
+      "file": "flocking-p5-expressive-strobe.html",
+      "verdict": "keep",
+      "why": "The named artifact, its hue deviation declared as the text says; p5's accelerometer policy messages are harmless."
+     }
+    ]
+   },
+   "pieces": [
+    {
+     "file": "flocking-d3-interactive-cobalt.html",
+     "origin": "gathered",
+     "height": 820,
+     "title": "control lens · D3.js · Cobalt Grid",
+     "caption": "**The control lens in Cobalt Grid.** The same seeded model as the plain D3 lens above, in the house dress, its colours read from the design system's stylesheet at load. That it renders in today's dress, five months on, with no edit to its dress (its CDN tag was pinned on 2026-10-21), is the update-safe claim holding. Its regime label is R cut at 0.35 and 0.75, not a measure of milling.",
+     "contract": {
+      "needs": ""
+     },
+     "near": "Design-system test set"
+    },
+    {
+     "file": "flocking-observable-plot-graphite.html",
+     "origin": "gathered",
+     "height": 900,
+     "title": "analytical lens · Observable Plot · Graphite",
+     "caption": "**The analytical lens in Graphite**, through the palacePlot() wrapper. Its alignment sweep runs with no noise, so its three curves show how fast order arrives, not where it begins (see the threshold piece in The Kuramoto Tie).",
+     "contract": {
+      "needs": ""
+     },
+     "near": "Design-system test set"
+    },
+    {
+     "file": "flocking-p5-expressive-strobe.html",
+     "origin": "gathered",
+     "height": 760,
+     "title": "expressive lens · p5.js · Strobe",
+     "caption": "**The expressive lens in Strobe.** Hue is heading, a declared deviation from the skin: colour is the data here. A flock in step reads as one colour before any number is computed.",
+     "contract": {
+      "needs": ""
+     },
+     "near": "Design-system test set"
+    }
+   ],
+   "made_against": "a9d73daf47e3",
+   "stamped": "2026-11-03"
+  }
+ ]
+}

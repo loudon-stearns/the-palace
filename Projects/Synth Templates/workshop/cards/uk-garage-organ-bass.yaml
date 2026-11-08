@@ -1,0 +1,66 @@
+# Synth Templates — Genre Classics — UK Garage Organ Bass
+# A switch envelope with a glide: the organ's on/off shape, slid between notes, cut off fast so the bass line swings.
+schema: synth-template-card/0.2
+id: uk-garage-organ-bass
+name: UK Garage Organ Bass
+family: Genre Classics
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Switch envelope (organ); percussive organ"
+  - "Glide / portamento time; legato mode as default"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Octave / semitone / fine tuning"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, octave: 0, glide: short, note: "hollow, organ-like; a sine here is a sub, a saw is a reese"}
+    sub:     {kind: oscillator, wave: sine, octave: -1, level: half}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: held, r: instant}, category: organ}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: mono,           why: "a bass line, and the glide needs one voice"}
+  - {block: osc1,    param: wave,      value: square,         why: "odd harmonics only: the hollow organ tone"}
+  - {block: osc1,    param: glide,     value: short,          why: "the portamento: every note bends in from the last, the garage wobble"}
+  - {block: sub,     param: wave,      value: sine,           why: "the floor under the hollow square"}
+  - {block: aenv,    param: attack,    value: instant,        why: "a switch: on at once"}
+  - {block: aenv,    param: sustain,   value: held,           why: "a touch under full, with a short decay: a percussive organ, a little bite at each note"}
+  - {block: aenv,    param: release,   value: instant,        why: "off at once: the gaps between notes are the groove"}
+  - {block: filter1, param: cutoff,    value: mid,            why: "takes the square's top edge so it sits under the vocal"}
+
+taste:
+  - {block: osc1,    param: glide,     range: "short – medium",      default: short}
+  - {block: sub,     param: level,     range: "off – equal to osc1", default: half}
+  - {block: filter1, param: cutoff,    range: "dark – bright",       default: mid}
+  - {block: aenv,    param: decay,     range: "fast – short",        default: short, why: "the bite"}
+  - {block: aenv,    param: sustain,   range: "half – full",         default: held}
+  - {block: aenv,    param: release,   range: "instant – fast",      default: instant}
+
+listening:
+  cue: "An organ played like a bass: notes switch on and off hard, with silence between them, and each one slides up or down from the last. The swing is in the gaps."
+  ab: "Lengthen the release to medium: the gaps fill in, the notes overlap and the groove goes soft. Put it back. Then set the glide to none: the same notes, stepped, and the wobble is gone."
+
+render:
+  tempo: 134
+  note: [F1, F1, Ab1, F1, C2, Bb1, F1, Eb1]
+  velocity: 100
+  pattern: "a two-step line over one bar: short notes off the beat with rests between, each sliding into the next"
+  length_s: 2.5
+
+mappings: {}

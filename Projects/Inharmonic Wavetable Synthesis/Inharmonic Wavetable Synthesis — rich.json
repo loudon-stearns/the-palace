@@ -1,0 +1,427 @@
+{
+  "title": "Inharmonic Wavetable Synthesis — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Inharmonic Wavetable Synthesis]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Three Kinds of Warp]]",
+      "type": "connects-to",
+      "label": "starts-where-its-obstruction-ends"
+    }
+  ],
+  "forward_vector": "I am the manifest of Inharmonic Wavetable Synthesis's rich face: three walks that each test a claim the page makes — the flat line, the settling piano, the unison bundle — and the project's own instruments, renders and measurements laid beside the sections they prove, with the fingerprint of the words each piece was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Inharmonic Wavetable Synthesis",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The Architecture",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Inharmonic Wavetable Synthesis — rich — bend the line.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "place": "band",
+          "height": 1500,
+          "title": "bend the flat line · a walk in five steps",
+          "caption": "**The flat line, measured.** It opens where Three Kinds of Warp ends: a one-cycle table can only put energy on the harmonic lines. The same tone rebuilt as a bank of sines plays the table back to within 2 × 10⁻¹³ of its peak, and the share of energy between the lines stays at zero. Bend one partial and only that one leaves the grid. Then draw any curve; at depth 0 every line goes home. Last, the curves the page names are set beside curves measured from real materials. The piano strings sit on the stiff-string bow to within 0.8 to 5.3 cents rms. The bell sits on neither the bow nor the Bessel positions.",
+          "near": "Any deviation from that flat line introduces inharmonicity"
+        },
+        {
+          "file": "proofs/2026-05-04-bending-spectra-v2.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "bending the line · the May proof",
+          "caption": "36 partials while the stiffness B sweeps from 0 to 0.005 over 12 s, at four moments. The faint grid is the harmonic series; the peaks walk off it to the right, further the higher they go.",
+          "near": "This is the shape of piano string inharmonicity"
+        },
+        {
+          "file": "proofs/2026-05-04-bending-the-line-v2.wav",
+          "origin": "gathered",
+          "title": "bending the line · 12 s",
+          "caption": "The sweep the spectra above were taken from. B reaches 0.005, which the library later measured on a string near F♯6, far above this pitch.",
+          "near": "This is the shape of piano string inharmonicity"
+        },
+        {
+          "file": "rich-face/bent-line-take.wav",
+          "origin": "gathered",
+          "title": "Bent Line, the plugin · 27 s",
+          "caption": "The project's VST3, built 2026-10-28: a measured bell filed by rank, then by nearest slot, with Bend (the depth knob) drawn to 0 under each, then a low piano chord bent from the flat line to twice the real string. Rendered by the steward; nobody had listened to it when it was posted.",
+          "near": "B=0 bypasses Wavetable B entirely"
+        }
+      ],
+      "made_against": "273cf4076552",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Inharmonic Wavetable Synthesis — rich — bend the line.html",
+            "verdict": "keep",
+            "why": "Tests the flat line (table rebuilt to 2e-13, every line home at D = 0) and the material claim, which the bell fails; walks table → one bent partial → any curve → materials. The bell's distance depends on rank filing, but its modes (1, 1.135, 1.451) are off J₀ under any filing."
+          },
+          {
+            "file": "proofs/2026-05-04-bending-spectra-v2.png",
+            "verdict": "keep",
+            "why": "The figure's own title (B 0 → 0.005 over 12 s, four panels) matches the caption; the peaks walk right of the grid."
+          },
+          {
+            "file": "proofs/2026-05-04-bending-the-line-v2.wav",
+            "verdict": "keep",
+            "why": "The sweep behind the spectra; the library's 5.0e-3 at F♯6 matches the caption. Sound unchecked."
+          },
+          {
+            "file": "rich-face/bent-line-take.wav",
+            "verdict": "keep",
+            "why": "Tracked and synthesized; the caption matches the scroll's account, including that nobody had listened to it."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "What This Sounds Like",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Inharmonic Wavetable Synthesis — rich — two ways to settle.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "place": "band",
+          "height": 1300,
+          "title": "two ways to settle · a walk in five steps",
+          "caption": "**The settling piano, beside a real one.** A measured piano A2: its loudness wall alone, then its own bend, then the two pulled apart, then the page's recipe, then both on one chart. The string's stiffness holds within 3 % over 8 s. The bend you hear (power-weighted, so mostly partials 2 and 3) settles twice: in the first 0.09 s partials 2 and 3 move a few cents, which may be the string or the tracker's first frames; after that the line holds and the loudness wall carries the slow fall, 1.83 to 1.34 cents by 2.6 s. The recipe at B = 0.002, set at this string's pitch, starts 8 times higher, with partial 20 509 cents sharp, and relaxes to zero by 0.5 s.",
+          "near": "The settling piano:"
+        },
+        {
+          "file": "dual-wavetable/02-organ-struck-piano-settling.wav",
+          "origin": "gathered",
+          "title": "the recipe, on the organ wall · 8.5 s",
+          "caption": "Three strikes at three organ timbres, each wearing June's designed piano trajectory, whose stiffness eases from attack to rest, at depth 0.3. This is the page's settling gesture, not the measured string. Rendered by the steward, 2026-10-14.",
+          "near": "The settling piano:"
+        },
+        {
+          "file": "dual-wavetable/03-organ-bell-dissolving.wav",
+          "origin": "gathered",
+          "title": "a bell dissolving into harmony · 6 s",
+          "caption": "The Bessel positions eased to the flat line over 4 s under a slowly drifting organ wall: the crystal morph's gesture, played with the Bessel shape, not with a measured bowl.",
+          "near": "Crystal morph:"
+        },
+        {
+          "file": "dual-wavetable/04-two-clocks-chord.wav",
+          "origin": "gathered",
+          "title": "two clocks, a chord · 18 s",
+          "caption": "An A major chord. τ_A creeps across the organ table while τ_B and the depth knob ride two slow LFOs of their own, so the shape and the bend drift out of step. Rendered by the steward, 2026-10-14.",
+          "near": "consonance → roughness → consonance"
+        }
+      ],
+      "made_against": "6948c2569c35",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Inharmonic Wavetable Synthesis — rich — two ways to settle.html",
+            "verdict": "remake",
+            "why": "Words only: step 3 and the caption state as fact that the 0.03–0.09 s drop is partials 2–3 settling, when it may be the tracker's first frames; add that after 0.1 s the line holds and the loudness carries the slow fall (1.83 → 1.34 c by 2.6 s; A1 halves between 3.8 and 5.5 s the same way), and name that the power weighting gives partials 2–3 70 % of the measure at the strike."
+          },
+          {
+            "file": "dual-wavetable/02-organ-struck-piano-settling.wav",
+            "verdict": "keep",
+            "why": "The scroll matches the caption (three strikes, depth 0.3), and the caption honestly calls it the designed gesture, not the string."
+          },
+          {
+            "file": "dual-wavetable/03-organ-bell-dissolving.wav",
+            "verdict": "keep",
+            "why": "The scroll's partial 2 at 252.5 Hz on 110 Hz is the J₀ ratio 2.295, so 'Bessel positions' is right, and so is 'not a measured bowl'."
+          },
+          {
+            "file": "dual-wavetable/04-two-clocks-chord.wav",
+            "verdict": "keep",
+            "why": "The caption matches the cube-walls floor path (18 s). Sound unchecked."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "What This Looks Like",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "bent-line-editor.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "Bent Line's editor, 2026-10-28",
+          "caption": "The plugin's face as built: Bend and A position as the two large knobs, Material and Filing under Wavetable B. The centre screen, where the glowing line is meant to be, is still dark; the steward named it the next step.",
+          "near": "a graph where X is partial number"
+        }
+      ],
+      "made_against": "5e3b47ceb472",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "bent-line-editor.png",
+            "verdict": "keep",
+            "why": "The plugin as built; the caption's 'still dark' matches the scroll's 'centre screen is off'."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Cube Architecture: Higher-Dimensional Framing, Unison, and Spatial Partials",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "dual-wavetable/cube-walls.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "the two walls and the floor",
+          "caption": "Left, the amplitude wall: 142 frames of an organ wavetable, FFT'd. Middle, the inharmonicity wall: the Bessel positions easing to flat along τ_B. Right, the path the two-clocks chord takes across the floor.",
+          "near": "The two cube faces have distinct, legible structure"
+        },
+        {
+          "file": "dual-wavetable/dual-wavetable-instrument.html",
+          "origin": "gathered",
+          "place": "band",
+          "height": 1400,
+          "contract": {
+            "needs": "storage"
+          },
+          "title": "two walls, one line · the steward's study",
+          "caption": "The study the steward built on 2026-10-14, as it was: a real organ wavetable sets the levels, a physical trajectory sets the bends, and τ_A, τ_B and the depth knob move the inner line, which glows where the organ is loud. Not changed here.",
+          "near": "At any given (τ_A, τ_B) position"
+        },
+        {
+          "file": "Inharmonic Wavetable Synthesis — rich — the bundle of lines.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "place": "band",
+          "height": 1250,
+          "title": "the bundle of lines · a walk in five steps",
+          "caption": "**Steep or high?** One voice; two detuned the ordinary way, whose beating already grows as n; two spread along τ_B, where partial 1 stays still and the gap opens to the right; a bundle on the bow, the Bessel positions or a measured string; and last the section's reason put to the test. When the frames relax a shape, voices δ apart differ by δ times its height, so the Bessel bundle is widest at partial 32, where the curve is flattest. The measured string's frames barely change, so its bundle barely fans. The width is δ times the height only because these trajectories relax as a whole, by uniform scaling; in general it follows how fast each partial's place changes along τ_B.",
+          "near": "This is exactly the behavior of a real string ensemble playing unison"
+        }
+      ],
+      "made_against": "10c2bb8b472d",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "dual-wavetable/cube-walls.png",
+            "verdict": "keep",
+            "why": "The panels match the caption. Its middle title says 'bell (zeros of J0)', which offer 5 covers; the caption rightly says Bessel positions."
+          },
+          {
+            "file": "dual-wavetable/dual-wavetable-instrument.html",
+            "verdict": "keep",
+            "why": "The play-silent warning is a checker miss: the first visible button is the ◇ review pin, and clicking A2 starts a running context headless. Leave as built and name it at landing."
+          },
+          {
+            "file": "Inharmonic Wavetable Synthesis — rich — the bundle of lines.html",
+            "verdict": "keep",
+            "why": "Step 5 sets slope beside width and the Bessel shape fails the page's reason; it walks one voice → detune → τ_B → bundle → test. Note: width = δ·S(n) only because its frames relax by uniform scaling, and the measured bundle's 7.69 c peak is tracker noise (partial 15)."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "At the Coupling Edge",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "coupling-edge/coupling-edge-instrument.html",
+          "origin": "gathered",
+          "place": "band",
+          "height": 1600,
+          "contract": {
+            "needs": "midi"
+          },
+          "title": "the coupling edge · the 2026-10-20 study",
+          "caption": "The study this section describes, as built: a stretched tone pulled by voices tuned to the harmonic series, held just under the edge on any note, with coupling as the knob. Seven sections, each with its question and what was measured. A toy model, as the section says: trust the shapes, not the values. It also listens for a MIDI controller; that waits on Loudon's grant, so in the face it plays from the mouse.",
+          "near": "Three findings bear on this instrument"
+        },
+        {
+          "file": "coupling-edge/coupling-edge.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "where the edge sits",
+          "caption": "The edge by partial count, the edge dissolving when coupling follows loudness, and the bar relocking under nearest pairing: the three findings, plotted.",
+          "near": "Three findings bear on this instrument"
+        }
+      ],
+      "made_against": "7e2e19b4a7fd",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "coupling-edge/coupling-edge-instrument.html",
+            "verdict": "keep",
+            "why": "The MIDI grant-missing stands correctly (Loudon's grant alone); with MIDI blocked, ▸ start runs and the only console line is the block, so the caption's 'plays from the mouse' is true."
+          },
+          {
+            "file": "coupling-edge/coupling-edge.png",
+            "verdict": "keep",
+            "why": "Plots the section's three findings."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Physical Trajectory Library",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "trajectory-library/keyboard-stiffness.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "stiffness across the keyboard · measured 2026-10-14",
+          "caption": "Seven Grand Piano notes tracked into Wavetable B. B grows about 3× an octave above A2: 4.7 × 10⁻⁵ at A1, 8.3 × 10⁻⁵ at A2, 2.3 × 10⁻³ at A5. The grey band is this section's guess for Piano (Bass); A1 and A2 sit 12 to 43 times below it. Right, the heard bend in each register stays at a few cents through the note; the panel's title is the steward's reading of why.",
+          "near": "Proposed first library entries"
+        },
+        {
+          "file": "trajectory-library/library-sheet.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "the modal shelf: bell, vibraphone, marimba, bowl",
+          "caption": "Four struck objects, filed by rank (the k-th mode in slot k). None draws the stiff-string bow: the bell and the vibraphone fall far below the flat line, the marimba and the bowl jump above it. Each line barely moves from attack to last frame.",
+          "near": "Proposed first library entries"
+        },
+        {
+          "file": "trajectory-library/01-real-piano-two-walls.wav",
+          "origin": "gathered",
+          "title": "a piano rebuilt from its own two walls",
+          "caption": "The low A rebuilt from its measured levels and its measured bend, nothing else. Rendered by the steward, 2026-10-14.",
+          "near": "Proposed first library entries"
+        },
+        {
+          "file": "trajectory-library/09-bell-choir-measured.wav",
+          "origin": "gathered",
+          "title": "the bell choir, measured",
+          "caption": "An A major chord on the organ wall wearing the measured Brooklyn bell, filed by rank: the page's alien bell choir, built from a measured bell instead of the Bessel positions. Rendered by the steward, 2026-10-14.",
+          "near": "Each entry can be loaded into Wavetable B"
+        }
+      ],
+      "made_against": "a38cb2e2dc66",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "trajectory-library/keyboard-stiffness.png",
+            "verdict": "keep",
+            "why": "Its numbers match the JSONs (4.67e-5, 8.30e-5, 2.3e-3; about 3× an octave above A2). Note: the right panel's title is steward-018's reason, which this challenge finds right for the slow part of the settling."
+          },
+          {
+            "file": "trajectory-library/library-sheet.png",
+            "verdict": "keep",
+            "why": "The panels match the caption: bell and vibraphone below the line, marimba and bowl above, attack and last frames nearly coincident."
+          },
+          {
+            "file": "trajectory-library/01-real-piano-two-walls.wav",
+            "verdict": "keep",
+            "why": "The measured string rebuilt from its own two walls. Sound unchecked."
+          },
+          {
+            "file": "trajectory-library/09-bell-choir-measured.wav",
+            "verdict": "keep",
+            "why": "A measured bell set against the page's Bessel bell choir. Sound unchecked."
+          }
+        ]
+      }
+    }
+  ],
+  "offers": [
+    {
+      "section": "What This Sounds Like",
+      "kind": "claim-change",
+      "what": "The settling piano is a designed gesture, not what a piano does. Measured (trajectory-library/piano-A2.wtb.json; the two-ways-to-settle piece; the challenge record): the A2 string's fitted stiffness moves 8.32 → 8.05 × 10⁻⁵ over 8 s (−3.2 %), and partial 32 sits at 71.1 cents at 0.03 s and 71.0 at 0.59 s. Its heard bend (power-weighted |cents|) settles twice, on two time scales. In the first 0.09 s it falls 4.67 → 1.83 cents, and that is partials 2 and 3 moving from +3.6 and −6.1 cents to within 2 (with levels frozen at the strike, 4.67 → 2.00); whether that is the string or the tracker's first frames is unsettled. After that the line holds and the loudness wall carries the fall, as the steward's proposal of 2026-10-14 (scroll, steward-018) says: at A2, 1.83 → 1.34 cents by 2.6 s with the frozen line near 1.7–2.0; at A1, 2.66 → 1.71 cents between 3.8 and 5.5 s while the frozen line holds at 2.9–3.3. Suggest the paragraph say a real string's bend holds steady while its loudness wall dims, and that a bend relaxing to flat over 500 ms is a designed gesture no string makes. The same holds for § The Architecture's 'exactly as a piano note does', in its paragraph on frames as temporal evolution.",
+      "status": "open"
+    },
+    {
+      "section": "Physical Trajectory Library",
+      "kind": "claim-change",
+      "what": "'Piano (Bass) — strong upward bow, B ≈ 0.001–0.002, settling over ~200ms' is too stiff and does not settle. On the one sampled concert grand in the library (Ableton Core Library), B = 4.67 × 10⁻⁵ at A1 and 8.30 × 10⁻⁵ at A2, 42.8 and 12.0 times below the page's range, about 3× an octave above A2, and 2.3 × 10⁻³ only at A5 (885 Hz) (keyboard-stiffness.png). Published bass values are about 2 × 10⁻⁴ (Hinrichsen, arXiv 1203.5101), so the page's range sits at or above the published top for bass, and this grand sits 2–4× below even that. B moves −3.2 % at A2, +1.7 % at A1, +5.6 % at A4, and +11.5 % at A3: nowhere a settling. The same 0.002 is the settling piano's 'B ≈ 0.002 at partial 20': it puts partial 20 509 cents sharp at any pitch, against 28 cents on the measured A2 string. Suggest the list carry the measured values with the instrument named, the published range beside them, and drop 'settling', and 'Piano (Treble) … faster settling' with it. The steward proposed the bass correction on 2026-10-14 (scroll, steward-018).",
+      "status": "open"
+    },
+    {
+      "section": "The Cube Architecture: Higher-Dimensional Framing, Unison, and Spatial Partials",
+      "kind": "claim-change",
+      "what": "Two things in the unison paragraph don't hold as written. (1) 'Bessel spacings … shallow near partial 1 and steepens toward higher partials' is the reverse of the Bessel shape: in cents off each harmonic it jumps 238.5 between partials 1 and 2, then 76.4, and only 0.44 between 31 and 32, levelling toward 1200·log₂(π / 2.4048) = 462.7 cents. (2) The braid and the fan follow the curve's height, not its slope: when frames relax a shape S toward flat, two voices δ apart along τ_B differ by δ·Sₙ. Measured in the bundle piece with three voices at δ = 0.08, the Bessel bundle is widest at partial 32 (71.9 cents), where the curve is flattest, and already 38.2 cents wide at partial 2. For the stiff-string bow, height and slope rise together, so its braid-then-fan holds (partial 1 0.03 cents, partial 32 23.8 cents, two voices). This holds exactly because the frames relax as a whole; in general the width follows how fast each partial's place changes along τ_B. Suggest 'the curve is nearly flat there' → 'the curve's place barely changes along τ_B there (for a shape that relaxes as a whole, where it is near zero)', and that the Bessel shape braids only at partial 1.",
+      "status": "open"
+    },
+    {
+      "section": "The Cube Architecture: Higher-Dimensional Framing, Unison, and Spatial Partials",
+      "kind": "claim-change",
+      "what": "'This is exactly the behavior of a real string ensemble … The physical accuracy emerges geometrically from the curve's shape.' A plain detune already makes the upper partials beat faster: two voices 4 cents apart beat at 0.254 Hz × n on a flat line at 110 Hz, exactly as n (the piece shows n^1.05 only because its base voice sits on a bow). What spreading along τ_B adds is a still fundamental (0.002 Hz) and a much steeper rise, about n³ on the bow (measured n^2.98). A real ensemble's players differ in pitch, so its fundamentals beat too. And the library's measured trajectories give almost no bundle: the A2 string's frames differ by 0.07 cents at partial 32 at δ = 0.08, against 11.3 cents for a designed relaxing bow at the same B. Suggest the sentence say τ_B spread is a designed shimmer that locks the fundamental, and that a real ensemble's detune beats at every partial.",
+      "status": "open"
+    },
+    {
+      "section": "The Architecture",
+      "kind": "claim-change",
+      "what": "'A step-function pattern locating partials at Bessel function zeros gives bell and cymbal inharmonicity', and the Cross-Domain line on Bessel Functions in Synthesis ('circular membranes — drum, bell, cymbal'), are model claims that don't hold. The zeros of J₀ are the axisymmetric modes of an ideal circular membrane clamped at its rim, a drum head (and only that subset; the full membrane interleaves its m ≥ 1 modes). A bell is a shell and a cymbal a plate; neither follows a J₀ zero series. The measured Brooklyn bell (rank-filed, 24 modes) runs 1, 1.135, 1.451, 2.178 against J₀'s 1, 2.295, 3.598, 1621 cents rms from the J₀ shape; the four piano strings sit 0.8 to 5.3 cents rms from their bow. Suggest naming the J₀ shape a membrane or drum-head shape in those two sentences only. The alien bell choir's 'sounds bell-like in character' is a perceptual metaphor, and stays. The ratios the page quotes (1.0, 2.29, 3.60, 4.90) are right for J₀ (2.2954, 3.5985, 4.9033).",
+      "status": "open"
+    },
+    {
+      "section": "The Architecture",
+      "kind": "no-claim-edit",
+      "what": "'B' names two things. It is the depth knob (§ The B Depth Scalar; fₙ = n · f₀ · 2^(B · Δfₙ / 1200); 'B=0 bypasses Wavetable B'; 'B=1.5' in § What This Sounds Like). It is also the string's stiffness coefficient (§ Wavetable B's 'the B coefficient formula'; 'B ≈ 0.002 at partial 20'; 'B ≈ 0.001–0.002' in § Physical Trajectory Library; f_n = n·f₀·√(1+B·n²) in § Cross-Domain Resonance). The plugin already calls the depth knob Bend, and the pieces here call it D. Suggest renaming the depth scalar wherever it means depth, B Depth → Bend depth, and leaving B for stiffness.",
+      "status": "open"
+    }
+  ]
+}

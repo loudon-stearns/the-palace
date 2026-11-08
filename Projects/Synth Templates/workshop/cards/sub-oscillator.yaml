@@ -1,0 +1,57 @@
+# Synth Templates — card — Sub Oscillator
+# Technique demonstration: an octave under, mixed in by degrees.
+schema: synth-template-card/0.2
+id: sub-oscillator
+name: Sub Oscillator
+family: Technique Demonstrations
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Octave / semitone / fine tuning"
+  - "Harmonic-series tuning table"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, octave: 0}
+    sub:     {kind: oscillator, wave: square, octave: -1, note: "the same wave an octave under"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,   value: square, why: "odd harmonics, a hollow body; the sub fills in under it"}
+  - {block: sub,  param: tuning, value: one octave under, why: "an octave difference adds weight, not a new note: the sub sits on the root's own series"}
+  - {block: sub,  param: wave,   value: square, why: "matched to osc1; a sine sub is the other common choice, weight with no edge"}
+  - {block: mode, param: voices, value: mono,   why: "a bass line; the sub is a bass tool"}
+
+taste:
+  - {block: sub,     param: level,  range: "off – equal to osc1", default: half, why: "the sweep: off is thin, equal is all foundation"}
+  - {block: sub,     param: wave,   range: "square – sine",       default: square}
+  - {block: filter1, param: cutoff, range: "mid – open",          default: bright}
+
+listening:
+  cue: "One note that grows a floor under itself. The pitch you hear does not change; the weight does, as the octave-down voice comes up."
+  ab: "Set the sub level to off: the same square, suddenly thin, as if the bass had been taken out of the room. Bring it back to half and the floor returns."
+
+render:
+  tempo: 100
+  note: C2
+  velocity: 90
+  pattern: "one note held six seconds while the sub level rises from off to equal"
+  length_s: 7.0
+
+mappings: {}

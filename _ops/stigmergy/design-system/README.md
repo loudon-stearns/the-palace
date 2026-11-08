@@ -151,7 +151,16 @@ Full scale, semantic tokens, and CRT-glow utilities live in `colors_and_type.css
 - **Hover on links (handles, trace IDs):** add a `>` prefix or an underline that uses ASCII characters (`───`), not `text-decoration`.
 - **Press state:** brief inversion + one-character left shift (like the button "caught" the click). 60ms, then released.
 - **Focus state:** a blinking underscore appears in front of the element (`_ MAIN MENU`).
+- **Hint:** a `title=` shows in the command bar's `[?]` slot on hover or focus, never as an OS tooltip.
 - **Mouse pointer:** the pointer wears the phosphor too. Five pixel sprites (arrow, hand, text beam, a red no-entry ring for a disabled control, a small hourglass for busy) with a terminal-black rim, so they stay visible on a lit row. They are `--cursor-*` tokens that stand in for the cursor the browser would have picked, so a cursor's meaning never changes, only its look. The bitmaps are drawn in `cursors.py`, which writes the tokens into this stylesheet and the app's `tokens.css`. See `preview/cursors.html`.
+
+### The browser's furniture
+
+What the browser draws on its own when the board says nothing — a scrollbar, a select's chevron and popup, a checkbox, a slider thumb, a textarea's resize grip, a number spinner, the `<details>` triangle, the focus ring — arrives in the operating system's dress and sits on the terminal like a window from another machine. On 2026-11-03 Loudon saw one, the OS scrollbar on a TRICKSTER card's note, and the palace's furniture rule (Drafting Table and Loudon Live, § The browser's furniture in each) came to the board in phosphor.
+
+`colors_and_type.css` § The browser's furniture dresses all of it for the bare elements, so a component gets it for free: **every scroller** wears the block-in-a-slot scrollbar (dim phosphor, lit under the pointer, bright while dragged, square, no arrows; the app's old `.bbs-scroll` class is kept as a name in its mirror, `tokens.css`, and does nothing more); the textarea's grip is two hairlines; a select shows a `v` in dim phosphor and its popup opens dark (`color-scheme: dark`); a native checkbox or radio is a `[ ]`/`[x]` cell, square both, as the `Check` chip types them; a range is a dashed rule with a 1ch block cursor; a `<details>` folds with `[+]` and `[-]`; keyboard focus is a dashed phosphor hairline. No spinner on a number, no tap flash, and the blink stops under reduced motion.
+
+Two rules for a component: paint a select's background with `background-color`, never the `background` shorthand (it would wipe the `v`), and write `title=` as you always have: the board reads it into the command bar as `[?] …` while the pointer or focus is on the element and lifts it off the element for that moment, so the OS tooltip, the one piece of furniture a stylesheet cannot dress, never shows (`app/src/components/useHint.js`). A `data-hint=` does the same without ever being a tooltip. The specimen is `preview/component_furniture.html`.
 
 ### Borders
 - Borders use CSS styled to evoke CP437 weights -- `3px double var(--phosphor-dim)` for primary containers, `1px solid var(--phosphor-dim)` for nested cards and rules. Character-cell rendering (`╔═╗ ║ ╚═╝`) is the deprecated prior approach; do not reintroduce it.

@@ -39,6 +39,11 @@ export function handoffLaunchContext(it = {}) {
   };
 }
 
+// The catcher reads the baton first and stays a child (CHILD.md § Growing up): it
+// was born with CLAUDE.md and JEWEL.md, and grows only on Loudon's word, never on
+// the launch click (Loudon, 2026-11-03; Baton Ceremony tuning item 14).
+const CATCH_ORIENT = 'You were born with CLAUDE.md and JEWEL.md; that is enough to begin. Stay a child — do not read ELDER.md or SCHEMA.md — unless Loudon says "grow up" (CHILD.md § Growing up); _ops/Substrate Skill.md has the operations.';
+
 const ORIENT = 'First, orient yourself: read CLAUDE.md and JEWEL.md (you were born with them), then grow — read ELDER.md, then SCHEMA.md — before you write anything into the palace; _ops/Substrate Skill.md has the operations.';
 
 function handoffPrompt({ sourcePath, entry, from, id, summary, move, invocation, worktree }) {
@@ -84,10 +89,10 @@ function handoffPrompt({ sourcePath, entry, from, id, summary, move, invocation,
     }
   }
 
-  lines.push(step(ORIENT));
   lines.push(step(`Read the baton:  ${path}`));
   if (entry) lines.push(`   ...and its parent entry [[${String(entry).replace(/\.md$/, '')}]].`);
   if (theMove) lines.push(`   The move (handoff ${id || '?'}, from ${from || '?'}): "${theMove}"`);
+  lines.push(step(CATCH_ORIENT));
   lines.push(
     step('Check it is still LIVE before acting. Re-read the entry\'s current state and'),
     '   `git log` it since the baton was written; confirm the "Current state" the baton',
@@ -102,7 +107,7 @@ function handoffPrompt({ sourcePath, entry, from, id, summary, move, invocation,
   if (theInvocation) lines.push('', `First action (the baton's invocation): ${theInvocation}`);
   lines.push(
     '',
-    `(The QUEUE item for handoff ${id || '?'} has been marked picked up.)`,
+    `(Marking the QUEUE item for handoff ${id || '?'} picked up is its own step — the MARK PICKED UP button, or \`node _ops/stigmergy/pickup-handoff.mjs ${id || '<id>'}\` — and the catcher does it on pickup; building this prompt did not.)`,
   );
   return lines.join('\n');
 }

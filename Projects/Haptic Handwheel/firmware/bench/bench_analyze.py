@@ -1,6 +1,7 @@
 """Haptic Handwheel — turn the knob's bench CSV into the motor's real numbers.
 
-    python3 bench_analyze.py capture.csv --disc-mass 0.040 --disc-radius 0.040
+    python3 bench_analyze.py capture.csv --disc-J 3.77e-5          # the disc's inertia, from disc_inertia.py
+    python3 bench_analyze.py capture.csv --disc-mass 0.040 --disc-radius 0.040   # only for a flat, solid disc
     python3 bench_analyze.py capture.csv --mic chirp_mic.wav   # + the contact-mic recording of `bench chirp`
     python3 bench_analyze.py --selftest      # fake a motor with known numbers, recover them
 
@@ -276,8 +277,12 @@ def read_wav(path):
     if y.ndim > 1: y = y[:, 0]
     return y / (np.abs(y).max() + 1e-12), sr
 
+def disc_inertia(a):
+    return a.disc_J if a.disc_J else 0.5 * a.disc_mass * a.disc_radius ** 2
+
 def report(rows_by, a, truth=None, mic=None, header_path=None, plot_path=None):
-    disc_J = 0.5 * a.disc_mass * a.disc_radius ** 2
+    disc_J = disc_inertia(a)
+    print(f"disc inertia used: {disc_J:.4g} kg·m² ({'measured, --disc-J' if a.disc_J else 'flat solid disc, ½·m·r²'})")
     rows = [(k, *r) for k, v in rows_by.items() for r in v if k in ('coast-free', 'coast-brake', 'accel-bare', 'accel-disc')]
     m = analyze(rows, disc_J, a.R).get('motor', {})
     T = truth or {}
@@ -288,7 +293,10 @@ def report(rows_by, a, truth=None, mic=None, header_path=None, plot_path=None):
     print(f"{'number':<26}{'measured':>12} {'':<8}" + (f"{'true':>12}{'error':>9}" if truth else ''))
     for k, v in m.items(): line(k, v, T.get('motor', {}).get(k))
     if m:  # the lines to paste into Max, so the knob stops guessing
-        print(f"  send to the knob: set kt {m['kt']:.4g} · then with the turntable selected: "
+        # the most of the brake a feel may cancel and still be braked if kt reads 5% high
+        # (warm magnets lose about 0.1% of kt per °C; proofs/feel-lab/pendulum_check.mjs)
+        cmax = min(1.0, (1 + m['b_bearings'] / m['b_backemf']) / 1.05) if m.get('b_backemf') else 0.0
+        print(f"  send to the knob: set kt {m['kt']:.4g} · set cancelMax {cmax:.3f} · then with the turntable selected: "
               f"set ffB {m['b_bearings']:.4g} · set ffC {m['coulomb']:.4g}")
     res = dict(motor=m)
     if m and 'cog-fwd' in rows_by and 'cog-rev' in rows_by:
@@ -354,9 +362,11 @@ if __name__ == '__main__':
     ap.add_argument('--plot', help='write a picture of the cog map and the chirp curve here')
     ap.add_argument('--header', default=None, help='where to write cog_map.h (default: ../handwheel/cog_map.h for a real capture)')
     ap.add_argument('--disc-mass', type=float, default=0.040); ap.add_argument('--disc-radius', type=float, default=0.040)
+    ap.add_argument('--disc-J', type=float, help='the disc\'s inertia in kg·m², measured by disc_inertia.py; overrides ½·m·r², '
+                    'which holds only for a flat, solid disc (a skirted cap is ~1.18× it, and every number would read ~15 %% low)')
     ap.add_argument('--R', type=float, default=7.6, help='per-phase ohms, measured with a meter (half of lead-to-lead)')
     a = ap.parse_args()
-    disc_J = 0.5 * a.disc_mass * a.disc_radius ** 2
+    disc_J = disc_inertia(a)
     by, truth, mic = {}, None, None
     if a.selftest:
         rows, tm = fake_motor(disc_J=disc_J, R=a.R)

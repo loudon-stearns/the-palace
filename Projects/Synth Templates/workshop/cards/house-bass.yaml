@@ -1,0 +1,123 @@
+# Synth Templates — card 0.1 — House Bass
+# One card is the single source: the diagram, the sheet and the reference render are generated from it.
+# Range words come from the archetype registry's perceptual regions (Generative Audio Devices); numbers are avoided
+# so the card stays portable across synths. Essentials make the sound that sound; taste is what you move.
+schema: synth-template-card/0.2
+id: house-bass
+name: House Bass
+family: Bass
+tier: 1
+mode: mono            # mono | poly | mono legato | both
+classics: classic Chicago / French house
+status: drafted       # todo | drafted | rendered | verified
+lineage:
+  - "Generative Audio Devices/pdl-renderer/house_bass.pdl (2026-04-20): saw → resonant LPF with filter-env pluck → VCA"
+concepts:             # names from the concept map in catalog.json (Loudon's synthesis notes)
+  - "Subtractive: rich wave then filter"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:             # slot ids are the layout grammar; a slot not listed is drawn ghosted
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: 0}
+    sub:     {kind: oscillator, wave: sine, octave: -1, note: "one octave under osc1"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:              # the signal path, left to right
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:         # dashed on the diagram; essential routes in ink, taste routes in amber
+    - {from: fenv, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: fenv.gate,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+
+essentials:           # pinned: change one and it stops being a house bass
+  - {block: osc1,    param: wave,      value: square,       why: "hollow odd-harmonic body; the filter shapes it without going thin"}
+  - {block: filter1, param: type,      value: lowpass 24 dB, why: "steep enough that the pluck is a clear open-and-close"}
+  - {block: filter1, param: resonance, value: moderate,     why: "the vowel in the 'ooh'"}
+  - {block: fenv,    param: attack,    value: instant}
+  - {block: fenv,    param: decay,     value: short,        why: "the pluck"}
+  - {block: fenv,    param: sustain,   value: zero,         why: "the pluck lives in the filter, not the amp"}
+  - {block: aenv,    param: attack,    value: fast,         why: "tight but not a click"}
+  - {block: aenv,    param: sustain,   value: held,         why: "the note holds under the closed filter; the body stays"}
+  - {block: mode,    param: voices,    value: mono,         why: "one bass line; no note overlaps"}
+
+taste:                # what you move, as a range; default first
+  - {block: filter1, param: cutoff,  range: "dark – mid",          default: dark}
+  - {block: fenv,    param: amount,  range: "moderate – generous", default: generous}
+  - {block: fenv,    param: decay,   range: "short – medium",      default: short}
+  - {block: sub,     param: level,   range: "off – equal to osc1", default: half}
+  - {block: aenv,    param: decay,   range: "medium – long",       default: medium}
+  - {block: aenv,    param: release, range: "short – medium",      default: short, why: "staccato eighths must not smear"}
+  - {block: filter1, param: drive,   range: "none – light",        default: none}
+  - {block: osc1,    param: glide,   range: "none – short",        default: none}
+
+listening:
+  cue: "Every note opens and shuts in the first instant: 'ooh', not 'aah'. The body stays under it as long as the key is held."
+  ab: "Raise the filter envelope's sustain to full: the pluck vanishes and it becomes a plain square bass. Put it back to zero and the 'ooh' returns."
+
+render:               # the reference audio
+  tempo: 124
+  note: C2
+  velocity: 100
+  pattern: "offbeat eighths, one bar: rest C2 rest C2 rest C2 rest C2, each a 16th long"
+  length_s: 2.0
+
+mappings:             # per synth: where each block lives, and what to set it to, in that synth's own units
+  # sure: exact = a number or a switch the synth shows as written · near = a start point, finish by ear against the reference
+  #       look = a frame or shape chosen by eye on the synth's own display · unchecked = from the manual, not yet seen on this Mac
+  # The numbers come from vocabulary.yaml (time on the Moog curve, 95 % point). Synths define a stage's time and curve
+  # differently, so every time is "near": match the pluck to the reference, not the millisecond.
+  vital:
+    name: Vital
+    version: "1.5"
+    rows:
+      - {block: mode,    param: voices,    where: "Voice section, Voices", set: "1 (Legato off)", sure: exact}
+      - {block: osc1,    param: wave,      where: "Oscillator 1, wavetable menu, Basic Shapes; Wave Frame", set: "the square frame", sure: look}
+      - {block: sub,     param: wave,      where: "Oscillator 2, Basic Shapes; Wave Frame; Transpose", set: "the sine frame, Transpose -12", sure: look}
+      - {block: sub,     param: level,     where: "Oscillator 2, Level", set: "half of Oscillator 1 (about -6 dB)", sure: near}
+      - {block: filter1, param: type,      where: "Filter 1, Analog model, Low Pass 24 dB; Oscillator 1 and 2 routed to Filter 1", set: "Low Pass, 24 dB", sure: exact}
+      - {block: filter1, param: cutoff,    where: "Filter 1, Cutoff", set: "300 Hz", sure: exact}
+      - {block: filter1, param: resonance, where: "Filter 1, Resonance", set: "a clear vowel, short of a whistle (start near 40 %)", sure: near}
+      - {block: fenv,    param: amount,    where: "drag Envelope 2 onto Filter 1 Cutoff", set: "so the peak opens about 3.5 octaves up, near 3.4 kHz", sure: near}
+      - {block: fenv,    param: shape,     where: "Envelope 2: Attack, Decay, Sustain, Release", set: "0 ms, 100 ms, 0 %, 180 ms (measured on Vital 1.5.5: the 100 ms decay and 3.5 octaves sit at the bottom of the brightness fit; release nearly doubled to ring like the reference)", sure: near}
+      - {block: aenv,    param: shape,     where: "Envelope 1 (hard-wired to the amp)", set: "15 ms, 575 ms, 70 %, 180 ms (Vital's stage ends at its time; ours is a 95 % point that still rings, so Vital's release runs nearly twice as long, measured 2026-11-05)", sure: near}
+      - {block: osc1,    param: glide,     where: "Voice section, Glide", set: "0", sure: exact}
+    preset: proofs/2026-11-05-on-vital/house-bass.vital   # these rows written out as a real preset by on-vital.py, rendered in the hosted Vital
+  serum:
+    name: Serum
+    version: "1 or 2"
+    rows:
+      - {block: mode,    param: voices,    where: "Voicing, Mono", set: "on (Legato off, Porta 0)", sure: exact}
+      - {block: osc1,    param: wave,      where: "Osc A, wavetable menu, Basic Shapes; WT Pos", set: "the square frame", sure: look}
+      - {block: sub,     param: wave,      where: "Sub, on; shape; Octave", set: "Sine, Octave -1", sure: exact}
+      - {block: sub,     param: level,     where: "Sub, Level", set: "half of Osc A (about -6 dB)", sure: near}
+      - {block: filter1, param: type,      where: "Filter, on; type; Osc A and Sub routed to it", set: "MG Low 24 (or Low 24)", sure: exact}
+      - {block: filter1, param: cutoff,    where: "Filter, Cutoff", set: "300 Hz", sure: exact}
+      - {block: filter1, param: resonance, where: "Filter, Res", set: "a clear vowel, short of a whistle (start near 40 %)", sure: near}
+      - {block: fenv,    param: amount,    where: "drag Env 2 onto Filter Cutoff", set: "so the peak opens about 3.5 octaves up, near 3.4 kHz", sure: near}
+      - {block: fenv,    param: shape,     where: "Env 2: Attack, Hold 0, Decay, Sustain, Release", set: "0 ms, 100 ms, -inf dB, 100 ms", sure: near}
+      - {block: aenv,    param: shape,     where: "Env 1 (hard-wired to the amp)", set: "15 ms, 575 ms, -3 dB (70 %), 100 ms", sure: near}
+  wavetable:
+    name: Ableton Wavetable
+    version: "Live 12"
+    rows:
+      - {block: mode,    param: voices,    where: "Global, Poly / Mono switch; Glide", set: "Mono, Glide 0", sure: unchecked}
+      - {block: osc1,    param: wave,      where: "Osc 1, category Basic Shapes; Position", set: "the square frame", sure: look}
+      - {block: sub,     param: wave,      where: "Sub, on; Tone; Octave", set: "Tone 0 % (a pure sine), Octave -1", sure: unchecked}
+      - {block: sub,     param: level,     where: "Sub, Gain", set: "about -6 dB under Osc 1", sure: near}
+      - {block: filter1, param: type,      where: "Filter 1, on; Lowpass; slope; circuit", set: "Lowpass, 24 dB, circuit MS2 or OSR; Filter 2 off", sure: unchecked}
+      - {block: filter1, param: cutoff,    where: "Filter 1, Freq", set: "300 Hz", sure: exact}
+      - {block: filter1, param: resonance, where: "Filter 1, Res", set: "a clear vowel, short of a whistle (start near 40 %)", sure: near}
+      - {block: fenv,    param: amount,    where: "Matrix, Env 2 row, Filter 1 Freq column", set: "so the peak opens about 3.5 octaves up, near 3.4 kHz", sure: near}
+      - {block: fenv,    param: shape,     where: "Env 2: Attack, Decay, Sustain, Release", set: "0 ms, 100 ms, 0 %, 100 ms", sure: near}
+      - {block: aenv,    param: shape,     where: "Amp envelope", set: "15 ms, 575 ms, 70 %, 100 ms", sure: near}

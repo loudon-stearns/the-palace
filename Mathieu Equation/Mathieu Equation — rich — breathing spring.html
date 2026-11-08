@@ -1,0 +1,423 @@
+<!doctype html>
+<!--
+  title: Mathieu Equation — rich — breathing spring
+  born: 2026-11-03
+  links: [[Mathieu Equation]] (connects-to · rich-face-piece) · listed in [[Mathieu Equation — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "What the equation says" played: a mass on a spring at 220 Hz, then the spring made to breathe, slowly and then fast, until the breathing rate alone decides whether a whisper of noise grows into a tone. My last step measures where it grows, and checks the section's mapping a ∼ (2ω₀/Ω)² against it. I change only when that section does.
+  engine: the canonical Mathieu equation with light damping, integrated per sample (RK4), the same engine block as this face's other two pieces; a physical setting maps onto it as a = (2ω₀/Ω)², q = a·ε, damping 4ζ/(Ω/ω₀). Below a set swing the engine is the linear equation exactly; above it a soft cubic spring and a loss that wakes only there catch a growing tone.
+  checks: Mathieu Equation/workshop/rich-face-checks.mjs runs this file's own engine against the claim.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow"><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Mathieu — the breathing spring</title>
+<meta name="theme-color" content="#0e1f4d">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0e1f4d; --e1:#14275c; --e2:#1c3066; --border:#2a4080; --soft:rgba(232,236,255,.07);
+    --fg1:#e8ecff; --fg2:#c0c6e4; --fg3:#8a92c4; --fg4:#5a6694;
+    --accent:#a8e040; --accent-dim:#6f9626; --accent-soft:rgba(168,224,64,.10); --accent-line:rgba(168,224,64,.5);
+    --grow:#e8b84a; --grow-soft:rgba(232,184,74,.16); --still:#7fa6ff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .kicker svg { flex: none; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; margin: 6px 0 12px; }
+  .controls label.sl { flex: 1 1 220px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .grow { color: var(--grow); } .still { color: var(--still); } .ok { color: var(--accent); }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; max-width: 860px; margin: 6px 0 10px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; border-bottom: 1px solid var(--border); padding: 6px 8px; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 6px 8px; }
+  table.meas td b { color: var(--fg1); font-weight: 500; }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 76ch; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; background: var(--accent-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .busy { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  @media (max-width: 680px) { .grid2 { grid-template-columns: 1fr; } }
+
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · study · a walk in four steps</div>
+  <h2 class="title">The breathing spring</h2>
+  <p class="sub">A mass on a spring, tuned to 220 Hz. Then the spring's stiffness is made to breathe, in and out, and the only question is how fast. Silent until you press a button.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>A mass on a spring</h3>
+    <p class="teach">Pluck it and it rings at its own frequency, ω₀, here 220 Hz, and fades slowly because a little friction is left in. Nothing else happens. This is the oscillator the Mathieu equation starts from.</p>
+    <div class="eqs">
+      <div class="eq"><i>ẍ</i> + ω₀² <i>x</i> = 0</div>
+      <div class="words">(how the mass speeds up) + (the spring's stiffness) × (how far it is stretched) = 0. The stiffness, ω₀², is a fixed number.</div>
+    </div>
+    <div class="controls"><div class="btns"><button class="go" id="s1pluck">▸ pluck</button></div></div>
+    <div class="panel"><div class="plabel"><span>what you hear</span><span id="s1r"></span></div><canvas id="s1cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Let the spring breathe</h3>
+    <p class="teach">Now the stiffness swings up and down four times a second. Pluck it: the pitch wobbles with the breathing, and the ring still fades as it did. A slow breath changes the pitch and nothing else.</p>
+    <div class="eqs">
+      <div class="eq">ω₀²(<i>t</i>) = ω₀² (1 − 2<i>ε</i> cos Ω<i>t</i>)</div>
+      <div class="words">(the stiffness now) = (its resting value) × (one, minus twice the depth ε times a cosine at the breathing rate Ω).</div>
+    </div>
+    <p class="back">Depth at 0 puts you back at step 1.</p>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s2pluck">▸ pluck</button></div>
+      <label class="sl">breathing depth ε = <b id="s2ev"></b><input id="s2e" type="range" min="0" max="0.25" step="0.005" value="0.06"></label>
+    </div>
+    <div class="panel"><div class="plabel"><span>what you hear · breathing at 4 Hz</span><span id="s2r"></span></div><canvas id="s2cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Speed the breathing up</h3>
+    <p class="teach">Nobody plucks it now. All it gets is a whisper of noise, far below hearing. Drag the breathing rate up from 4 Hz. At most rates the whisper stays a whisper. Find the rate where it grows into a tone by itself, then look for a weaker one.</p>
+    <div class="eqs">
+      <div class="eq"><i>a</i> = (2ω₀ / Ω)²&nbsp;&nbsp;&nbsp;<i>q</i> = <i>a</i> · <i>ε</i></div>
+      <div class="words">Write the same system in the Mathieu equation's own time, and the breathing rate turns into <i>a</i>: (twice the natural frequency ÷ the breathing rate), squared. The depth turns into <i>q</i>.</div>
+    </div>
+    <p class="back">A rate of 4 Hz puts you back at step 2, without the pluck.</p>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s3go">▸ listen</button></div>
+      <label class="sl">breathing rate Ω = <b id="s3fv"></b><input id="s3f" type="range" min="0" max="1" step="0.0005" value="0"></label>
+      <label class="sl">depth ε = <b id="s3ev"></b><input id="s3e" type="range" min="0.02" max="0.2" step="0.005" value="0.1"></label>
+    </div>
+    <div class="read"><span>Ω / ω₀ <b id="s3ratio"></b></span><span><i>a</i> <b id="s3a"></b></span><span><i>q</i> <b id="s3q"></b></span><span>growth, after friction <b id="s3g"></b></span><span id="s3state"></span></div>
+    <div class="panel"><div class="plabel"><span>what you hear · from a whisper</span><span>2.5 s</span></div><canvas id="s3cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Where does it grow?</h3>
+    <p class="teach">The section says the breathing rate enters as <i>a</i> = (2ω₀/Ω)², and the diagram says growth lives near <i>a</i> = 1, 4, 9. If both are right, the whisper grows at Ω = 2ω₀, ω₀ and 2ω₀/3 and nowhere else. The curve is measured from the engine you have been hearing, one breath-cycle at a time; above the line it grows, below it fades. Click the curve to hear any rate.</p>
+    <div class="controls">
+      <label class="sl">depth ε = <b id="s4ev"></b><input id="s4e" type="range" min="0.02" max="0.2" step="0.005" value="0.1"></label>
+    </div>
+    <div class="panel"><div class="plabel"><span>growth per second, after friction, against the breathing rate</span><span id="s4hint">click to hear</span></div><canvas id="s4cv" style="cursor:crosshair"></canvas></div>
+    <table class="meas"><thead><tr><th>where the diagram roots a tongue</th><th>predicted Ω / ω₀ = 2 / n</th><th>measured peak</th><th>(2ω₀ / Ω)² there</th><th>growth after friction</th><th></th></tr></thead><tbody id="s4t"></tbody></table>
+    <div class="verdict" id="s4v"></div>
+    <div class="panel"><div class="plabel"><span>what you hear</span><span id="s4r"></span></div><canvas id="s4cv2"></canvas></div>
+    <p class="note">The peaks drift a little from 2/n as the depth grows, because the tongues lean as they widen; set ε small and they close in on 2, 1 and 2/3. The Floquet project's pumped swing shows the first of them with a swing you can watch.</p>
+  </section>
+
+  <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+<script id="engine">
+// Mathieu engine: x'' + g x' + (a - 2q cos 2t) x = 0, pump period PI.
+const PI = Math.PI;
+function deriv(t, x, v, a, q, g) { return -g * v - (a - 2 * q * Math.cos(2 * t)) * x; }
+function rk4(t, x, v, h, a, q, g) {
+  const k1x = v, k1v = deriv(t, x, v, a, q, g);
+  const k2x = v + h/2*k1v, k2v = deriv(t + h/2, x + h/2*k1x, v + h/2*k1v, a, q, g);
+  const k3x = v + h/2*k2v, k3v = deriv(t + h/2, x + h/2*k2x, v + h/2*k2v, a, q, g);
+  const k4x = v + h*k3v,   k4v = deriv(t + h, x + h*k3x, v + h*k3v, a, q, g);
+  return [x + h/6*(k1x + 2*k2x + 2*k3x + k4x), v + h/6*(k1v + 2*k2v + 2*k3v + k4v)];
+}
+// Monodromy over one pump period; returns trace, det and the largest |multiplier|
+function floquet(a, q, g = 0, spp = 0) {
+  const n = spp || Math.max(120, Math.ceil(24 * Math.sqrt(Math.abs(a) + 2 * q + 1)));
+  const h = PI / n;
+  let x1 = 1, v1 = 0, x2 = 0, v2 = 1, t = 0;
+  for (let i = 0; i < n; i++) { [x1, v1] = rk4(t, x1, v1, h, a, q, g); [x2, v2] = rk4(t, x2, v2, h, a, q, g); t += h; }
+  const tr = x1 + v2, det = x1 * v2 - x2 * v1, disc = tr * tr - 4 * det;
+  let rho, sign = 0;
+  if (disc >= 0) { const r1 = (tr + Math.sqrt(disc)) / 2, r2 = (tr - Math.sqrt(disc)) / 2; rho = Math.max(Math.abs(r1), Math.abs(r2)); sign = Math.abs(r1) >= Math.abs(r2) ? Math.sign(r1) : Math.sign(r2); }
+  else rho = Math.sqrt(det);
+  return { tr, det, rho, sign, growth: Math.log(rho) }; // growth: ln|rho| per pump period
+}
+const unstable = (a, q, g = 0) => floquet(a, q, g).growth > 1e-9;
+// Bisection for a boundary between a stable aLo and unstable aHi (or the other way)
+function edge(aS, aU, q, g = 0) { for (let i = 0; i < 50; i++) { const m = (aS + aU) / 2; if (unstable(m, q, g)) aU = m; else aS = m; } return (aS + aU) / 2; }
+// Tongue n at depth q (damping g): its edges, width, centre, and the fastest growth inside it.
+// The search for its peak stays near n^2; the walk to its edges stops at the next tongue's midpoint.
+function tongue(n, q, g = 0, N = 1200) {
+  const n2 = n * n, span = Math.max(0.05, 1.6 * q + q * q);
+  const sLo = n === 1 ? 1 - 0.6 * q : Math.max(n2 - span, ((n - 1) * (n - 1) + n2) / 2);
+  const sHi = Math.min(n2 + span, (n2 + (n + 1) * (n + 1)) / 2);
+  const wLo = n === 1 ? -3 : ((n - 1) * (n - 1) + n2) / 2, wHi = sHi;
+  let best = -Infinity, bestA = n2, sign = 0;
+  for (let i = 0; i <= N; i++) { const a = sLo + (sHi - sLo) * i / N; const f = floquet(a, q, g); if (f.growth > best) { best = f.growth; bestA = a; sign = f.sign; } }
+  let step = (sHi - sLo) / N / 4;
+  if (best <= 1e-9 && n > 1) { // a thin tongue can hide between scan points: look again, finely, where it must be (n² − q²/4 to n² + q²/2)
+    const fLo = n * n - q * q / 4 - 1e-6, fHi = n * n + q * q / 2 + 1e-6;
+    for (let i = 0; i <= N; i++) { const a = fLo + (fHi - fLo) * i / N; const f = floquet(a, q, g); if (f.growth > best) { best = f.growth; bestA = a; sign = f.sign; } }
+    step = (fHi - fLo) / N / 4;
+  }
+  if (best <= 1e-9) return { n, q, g, width: 0, peak: Math.max(best, 0), peakA: bestA, open: false };
+  let lo = bestA; while (unstable(lo - step, q, g) && lo - step > wLo) lo -= step;
+  let hi = bestA; while (unstable(hi + step, q, g) && hi + step < wHi) hi += step;
+  lo = edge(lo - step, lo, q, g); hi = edge(hi + step, hi, q, g);
+  let A = lo, B = hi; const gr = (Math.sqrt(5) - 1) / 2;
+  for (let i = 0; i < 60; i++) { const c = B - gr * (B - A), d = A + gr * (B - A); if (floquet(c, q, g).growth > floquet(d, q, g).growth) B = d; else A = c; }
+  const pa = (A + B) / 2, pf = floquet(pa, q, g);
+  return { n, q, g, lo, hi, width: hi - lo, center: (lo + hi) / 2, peak: pf.growth, peakA: pa, sign: pf.sign, open: true };
+}
+// Lowest depth at which tongue n opens, for damping g
+function threshold(n, g, qMax = 3, iters = 24, N = 500) {
+  if (g <= 0) return 0;
+  let lo = 0, hi = qMax; if (!tongue(n, hi, g, N).open) return Infinity;
+  for (let i = 0; i < iters; i++) { const m = (lo + hi) / 2; if (tongue(n, m, g, N).open) hi = m; else lo = m; }
+  return (lo + hi) / 2;
+}
+// The left edge: the stable band's lower boundary a0(q) (unstable for a < a0)
+function leftEdge(q) { // walk down from the first tongue's lower edge through the stable band until growth starts again
+  if (q <= 0) return 0;
+  const b1 = tongue(1, q, 0, 300).lo; let a = b1 - 1e-4; while (!unstable(a, q) && a > -6) a -= 0.002;
+  return edge(a + 0.002, a, q); }
+// Level of a tone in a buffer (Goertzel), from sample s0 on
+function toneLevel(buf, f, sr, s0 = 0) { const w = 2 * PI * f / sr, c = 2 * Math.cos(w); let p = 0, pp = 0; for (let i = s0; i < buf.length; i++) { const z = buf[i] + c * p - pp; pp = p; p = z; } return Math.sqrt(Math.max(0, p * p + pp * pp - c * p * pp)) * 2 / (buf.length - s0); }
+// RMS in dB over windows of win seconds
+function envelope(buf, sr, win = 0.01) { const n = Math.max(1, Math.floor(sr * win)), out = []; for (let i = 0; i + n <= buf.length; i += n) { let z = 0; for (let j = i; j < i + n; j++) z += buf[j] * buf[j]; out.push(10 * Math.log10(z / n + 1e-14)); } return out; }
+// Seconds until the RMS first reaches lvl dB (Infinity if never)
+function bloomTime(buf, sr, lvl = -30) { const e = envelope(buf, sr, 0.01); for (let i = 0; i < e.length; i++) if (e[i] >= lvl) return i * 0.01; return Infinity; }
+// Audio render: one sample = dτ = 2π fBase / sr. Below the knee the engine is the linear equation exactly, so every
+// threshold and growth rate is the diagram's; above it, a soft cubic spring and an amplitude-dependent loss catch the tone.
+function render({ a, q, g = 0, beta = 0.3, mu = 2, knee = 0.4, fBase = 110, sr = 48000, seconds = 2, x0 = 0, v0 = 0, noise = 1e-5, seed = 7, gain = 0.5 }) {
+  const N = Math.floor(sr * seconds), h = 2 * PI * fBase / sr, out = new Float32Array(N);
+  let x = x0, v = v0, t = 0, s = seed >>> 0 || 1, hp = 0, hpx = Math.tanh(x0);
+  const rnd = () => { s ^= s << 13; s >>>= 0; s ^= s >> 17; s ^= s << 5; s >>>= 0; return s / 4294967296 * 2 - 1; };
+  const k2 = knee * knee, f = (tt, xx, vv) => -g * vv - (a - 2 * q * Math.cos(2 * tt)) * xx - beta * xx * xx * xx - mu * Math.max(0, xx * xx - k2) * vv; // the catch: a soft cubic spring, and a loss that wakes only above the knee
+  for (let i = 0; i < N; i++) {
+    const k1x = v, k1v = f(t, x, v);
+    const k2x = v + h/2*k1v, k2v = f(t + h/2, x + h/2*k1x, v + h/2*k1v);
+    const k3x = v + h/2*k2v, k3v = f(t + h/2, x + h/2*k2x, v + h/2*k2v);
+    const k4x = v + h*k3v,   k4v = f(t + h, x + h*k3x, v + h*k3v);
+    x += h/6*(k1x + 2*k2x + 2*k3x + k4x); v += h/6*(k1v + 2*k2v + 2*k3v + k4v) + noise * rnd();
+    t += h; if (t > 2 * PI * 1e4) t -= 2 * PI * 1e4; // pump period PI: shifting by 2π·1e4 keeps phase
+    if (!isFinite(x)) { x = 0; v = 0; }
+    const y = Math.tanh(x); hp = y - hpx + 0.9985 * hp; hpx = y; // a DC blocker: a fallen spring lies still, and the speaker should not
+    out[i] = gain * hp;
+  }
+  const fade = Math.floor(sr * 0.03); for (let i = 0; i < fade; i++) { out[i] *= i / fade; out[N - 1 - i] *= i / fade; }
+  return out;
+}
+
+</script>
+<script>
+// ───────── shared: the sigil, the walk, the sound, the drawings ─────────
+function sigil(el) { // the Lissajous trace, 3:2, small
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; p.push(((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2)) + ',' + ((11 + 9 * Math.sin(2 * t)).toFixed(2))); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#2a4080" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#a8e040" stroke-width="1"/></svg>';
+}
+const $ = id => document.getElementById(id);
+const fmt = (x, d = 3) => Number.isFinite(x) ? x.toFixed(d) : '—';
+// Sound: nothing exists before a click. One buffer at a time, through a compressor.
+const SND = { ctx: null, out: null, src: null };
+function soundOn() {
+  if (!SND.ctx) {
+    SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = SND.ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    SND.out = SND.ctx.createGain(); SND.out.gain.value = 0.9; SND.out.connect(comp); comp.connect(SND.ctx.destination);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+  return SND.ctx.sampleRate;
+}
+function stopSound() { if (SND.src) { try { SND.src.stop(); } catch (e) {} SND.src = null; } }
+function playBuffer(chs) { // chs: [left, right] Float32Arrays at SND.ctx.sampleRate
+  stopSound(); const c = SND.ctx, b = c.createBuffer(2, chs[0].length, c.sampleRate);
+  b.copyToChannel(chs[0], 0); b.copyToChannel(chs[1] || chs[0], 1);
+  const s = c.createBufferSource(); s.buffer = b; s.connect(SND.out); s.start(); SND.src = s; s.onended = () => { if (SND.src === s) SND.src = null; };
+}
+// The walk: one step showing, Next and Back, the rail stays open, a step change stops the sound
+function walk(steps) {
+  const rail = $('rail'); let cur = 0;
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); rail.appendChild(b); });
+  function go(i) {
+    stopSound(); cur = Math.max(0, Math.min(steps.length - 1, i));
+    document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+    rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length;
+    if (steps[cur].enter) steps[cur].enter();
+    blankCanvases();
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  go(0); return go;
+}
+function blankCanvases(msg) { // a panel that has not sounded yet says how to make it sound, at its working height
+  document.querySelectorAll('.step.on canvas, canvas').forEach(cv => { if (cv.style.height && !cv.dataset.blank) return; const [g, W, H] = fitCanvas(cv, 150); g.fillStyle = '#5a6694'; g.font = '11px JetBrains Mono, monospace'; g.fillText(msg || 'press a ▸ button, or click above, to hear', 12, H / 2); cv.dataset.blank = '1'; });
+}
+function fitCanvas(cv, h) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || cv.parentNode.clientWidth || 600;
+  delete cv.dataset.blank; cv.style.height = h + 'px'; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return [g, w, h];
+}
+// Envelope in dB over the whole render, with the waveform's last 25 ms beside it
+function drawRender(cv, buf, sr, opts = {}) {
+  const [g, W, H] = fitCanvas(cv, opts.h || 150), zw = Math.min(220, W * 0.32), ew = W - zw - 12;
+  g.clearRect(0, 0, W, H); g.font = '10px JetBrains Mono, monospace';
+  const env = envelope(buf, sr, Math.max(0.005, buf.length / sr / 300)), lo = -90, hi = 0;
+  g.strokeStyle = 'rgba(232,236,255,.08)'; g.lineWidth = 1;
+  for (const d of [-80, -60, -40, -20]) { const y = 4 + (H - 20) * (1 - (d - lo) / (hi - lo)); g.beginPath(); g.moveTo(0, y); g.lineTo(ew, y); g.stroke(); g.fillStyle = '#5a6694'; g.fillText(d + ' dB', 2, y - 2); }
+  g.strokeStyle = opts.color || '#a8e040'; g.lineWidth = 1.5; g.beginPath();
+  env.forEach((d, i) => { const x = i / (env.length - 1) * ew, y = 4 + (H - 20) * (1 - (Math.max(lo, d) - lo) / (hi - lo)); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  g.fillStyle = '#8a92c4'; g.fillText('level over ' + (buf.length / sr).toFixed(1) + ' s', 2, H - 4);
+  const n = Math.min(buf.length, Math.floor(sr * 0.025)), s0 = buf.length - n - Math.floor(sr * 0.04); let pk = 1e-9;
+  for (let i = s0; i < s0 + n; i++) pk = Math.max(pk, Math.abs(buf[i]));
+  const x0 = ew + 12; g.strokeStyle = 'rgba(232,236,255,.08)'; g.strokeRect(x0 + .5, 4.5, zw - 1, H - 25);
+  g.strokeStyle = opts.color || '#a8e040'; g.lineWidth = 1.2; g.beginPath();
+  for (let i = 0; i < n; i++) { const x = x0 + i / (n - 1) * zw, y = 4 + (H - 24) / 2 * (1 - buf[s0 + i] / Math.max(pk, 0.02)); i ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke();
+  g.fillStyle = '#8a92c4'; g.fillText('the last 25 ms' + (pk < 0.003 ? ', near silence' : ''), x0, H - 4);
+}
+
+// ───────── this piece ─────────
+sigil($('sigil')); blankCanvases();
+const F0 = 220, ZETA = 0.002, SRV = 48000; // a 220 Hz spring that rings about a second and a half
+// A physical setting on the canonical engine: τ = Ωt/2
+function phys(r, eps) { const a = 4 / (r * r); return { a, q: a * eps, g: 4 * ZETA / r, fBase: r * F0 / 2 }; }
+function netGrowth(r, eps) { const p = phys(r, eps), f = floquet(p.a, p.q, p.g); return f.growth * r * F0; } // nepers per second
+function make(r, eps, sr, opts) { const p = phys(r, eps); return render(Object.assign({ a: p.a, q: p.q, g: p.g, fBase: p.fBase, sr, gain: 0.5 }, opts)); }
+function hear(r, eps, opts, cv, rd) {
+  const sr = soundOn(), buf = make(r, eps, sr, opts); playBuffer([buf]); drawRender($(cv), buf, sr); if (rd) $(rd).textContent = rd2(buf, sr, r);
+}
+function rd2(buf, sr, r) { const e = envelope(buf, sr, 0.05), end = e.slice(-6).reduce((s, v) => s + v, 0) / 6; return 'ends at ' + end.toFixed(0) + ' dB'; }
+function preview(r, eps, opts, cv) { const buf = make(r, eps, SRV, opts); drawRender($(cv), buf, SRV); }
+// step 1
+const s1 = () => preview(2, 0, { x0: 0.3, noise: 0, seconds: 2 }, 's1cv');
+$('s1pluck').onclick = () => hear(2, 0, { x0: 0.3, noise: 0, seconds: 2 }, 's1cv', 's1r');
+// step 2
+const R2 = 4 / F0;
+function s2() { $('s2ev').textContent = (+$('s2e').value).toFixed(3); preview(R2, +$('s2e').value, { x0: 0.3, noise: 0, seconds: 3 }, 's2cv'); }
+$('s2e').oninput = s2; $('s2pluck').onclick = () => hear(R2, +$('s2e').value, { x0: 0.3, noise: 0, seconds: 3 }, 's2cv', 's2r');
+// step 3: rate on a log slider, 4 Hz to 1000 Hz
+const rateOf = v => 4 * Math.pow(250, v) / F0;
+let s3timer = 0, s3live = false;
+function s3(play) {
+  const r = rateOf(+$('s3f').value), eps = +$('s3e').value, p = phys(r, eps), ng = netGrowth(r, eps);
+  $('s3fv').textContent = (r * F0).toFixed(1) + ' Hz'; $('s3ev').textContent = eps.toFixed(3);
+  $('s3ratio').textContent = r.toFixed(3); $('s3a').textContent = p.a < 1000 ? p.a.toFixed(2) : p.a.toExponential(1); $('s3q').textContent = p.q < 1000 ? p.q.toFixed(3) : p.q.toExponential(1);
+  $('s3g').textContent = ng.toFixed(2) + ' /s'; const st = $('s3state');
+  st.className = ng > 0 ? 'grow' : 'still'; st.textContent = ng > 0 ? '● grows' : '○ stays a whisper';
+  clearTimeout(s3timer); s3timer = setTimeout(() => { if (play && s3live) hear(r, eps, { noise: 1e-5, seconds: 2.5 }, 's3cv'); else preview(r, eps, { noise: 1e-5, seconds: 2.5 }, 's3cv'); }, 140);
+}
+$('s3f').oninput = () => s3(true); $('s3e').oninput = () => s3(true);
+$('s3go').onclick = () => { s3live = true; const r = rateOf(+$('s3f').value); hear(r, +$('s3e').value, { noise: 1e-5, seconds: 2.5 }, 's3cv'); };
+// step 4: the test
+const RMIN = 0.58, RMAX = 2.5, NPT = 600;
+let s4data = null, s4pick = 2;
+const ys = v => Math.asinh(v / 2);
+function s4measure() {
+  const eps = +$('s4e').value; $('s4ev').textContent = eps.toFixed(3);
+  const rows = [];
+  for (let i = 0; i <= NPT; i++) { const r = RMIN * Math.pow(RMAX / RMIN, i / NPT), p = phys(r, eps); const und = floquet(p.a, p.q, 0).growth * r * F0, net = floquet(p.a, p.q, p.g).growth * r * F0; rows.push({ r, und, net }); }
+  // each tongue is found in the equation's own coordinates: its centre a* at depth q = a*·ε, by a fixed-point walk
+  const und = r => { const p = phys(r, eps); return floquet(p.a, p.q, 0).growth * r; };
+  const peaks = [];
+  for (const n of [1, 2, 3]) {
+    let a = n * n, t = null; for (let k = 0; k < 6; k++) { t = tongue(n, a * eps, 0, 600); a = t.peakA; }
+    if (!t.open) continue;
+    // then the fastest growth along the breathing rate itself, inside that tongue's edges
+    let A = 2 / Math.sqrt(t.hi), B = 2 / Math.sqrt(t.lo); const gr = (Math.sqrt(5) - 1) / 2;
+    for (let k = 0; k < 60; k++) { const c = B - gr * (B - A), d = A + gr * (B - A); if (und(c) > und(d)) B = d; else A = c; }
+    const r = (A + B) / 2; peaks.push({ n, r, a: 4 / (r * r), net: netGrowth(r, eps) });
+  }
+  // and nowhere else: any growth on the grid outside the three windows
+  const near = a => [1, 2, 3].some(n => a > n * n - 0.45 * (2 * n - 1) && a < n * n + 0.45 * (2 * n + 1));
+  const stray = rows.filter(p => p.und > 1e-3 && !near(4 / (p.r * p.r))).length;
+  s4data = { rows, peaks, eps, stray }; s4draw(); s4table();
+}
+function s4draw() {
+  const [g, W, H] = fitCanvas($('s4cv'), 230), { rows, peaks } = s4data, top = 18, bot = H - 24;
+  const lo = ys(-25), hi = ys(Math.max(80, ...rows.map(r => r.net))), X = r => Math.log(r / RMIN) / Math.log(RMAX / RMIN) * (W - 10) + 5, Y = v => bot - (ys(v) - lo) / (hi - lo) * (bot - top);
+  g.clearRect(0, 0, W, H); g.font = '10px JetBrains Mono, monospace';
+  for (const t of [-10, 0, 10, 100]) { g.strokeStyle = t === 0 ? 'rgba(168,224,64,.55)' : 'rgba(232,236,255,.07)'; g.beginPath(); g.moveTo(0, Y(t)); g.lineTo(W, Y(t)); g.stroke(); g.fillStyle = '#5a6694'; g.fillText((t > 0 ? '+' : '') + t + ' /s', 4, Y(t) - 3); }
+  for (const n of [1, 2, 3]) { const x = X(2 / n); g.strokeStyle = 'rgba(127,166,255,.35)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(x, top); g.lineTo(x, bot); g.stroke(); g.setLineDash([]); g.fillStyle = '#7fa6ff'; g.fillText('2/' + n + ' · a = ' + n * n, x + 4, top + 2); }
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.5; g.beginPath(); rows.forEach((p, i) => { const x = X(p.r), y = Y(p.net); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.lineWidth = 1;
+  for (const p of peaks) { g.fillStyle = p.net > 0 ? '#e8b84a' : '#8a92c4'; g.beginPath(); g.arc(X(p.r), Y(p.net), 3.5, 0, 7); g.fill(); }
+  g.strokeStyle = '#a8e040'; g.beginPath(); g.moveTo(X(s4pick), top); g.lineTo(X(s4pick), bot); g.stroke();
+  g.fillStyle = '#8a92c4'; for (const r of [0.6, 2 / 3, 1, 1.5, 2, 2.5]) g.fillText(r.toFixed(2), X(r) - 12, H - 6);
+  g.fillText('Ω / ω₀', W - 44, top - 6);
+}
+function s4table() {
+  const { peaks, eps, stray } = s4data, tb = $('s4t'); tb.innerHTML = '';
+  for (const n of [1, 2, 3]) {
+    const pred = 2 / n, pk = peaks.find(p => p.n === n);
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>a = ' + n * n + '</td><td>' + pred.toFixed(4) + '</td><td><b>' + (pk ? pk.r.toFixed(4) : '—') + '</b></td><td>' + (pk ? pk.a.toFixed(3) : '—') + '</td><td>' + (pk ? (pk.net > 0 ? '<span class="grow">+' + pk.net.toFixed(2) + ' /s · grows</span>' : '<span class="still">' + pk.net.toFixed(2) + ' /s · friction wins</span>') : '—') + '</td><td><button data-r="' + (pk ? pk.r : pred) + '">▸ hear</button></td>';
+    tb.appendChild(tr);
+  }
+  tb.querySelectorAll('button').forEach(b => b.onclick = () => { s4pick = +b.dataset.r; s4draw(); hear(s4pick, s4data.eps, { noise: 1e-5, seconds: 3 }, 's4cv2', 's4r'); });
+  const found = [1, 2, 3].map(n => peaks.find(p => p.n === n));
+  const ok = found.every(Boolean) && stray === 0;
+  $('s4v').innerHTML = ok
+    ? 'At depth ε = ' + eps.toFixed(2) + ' the growth curve peaks at Ω/ω₀ = <b>' + found.map(p => p.r.toFixed(3)).join('</b>, <b>') + '</b>, where (2ω₀/Ω)² = ' + found.map(p => p.a.toFixed(2)).join(', ') + ': the integer squares the diagram roots its tongues at, nudged by the depth. Between them, nothing grows. The section’s mapping holds. ' +
+      (() => { const up = found.filter(p => p.net > 0), down = found.filter(p => p.net <= 0), list = a => a.map(p => p.r.toFixed(3)).join(' and ');
+        return (up.length ? 'After friction, the whisper grows at ' + list(up) + '.' : 'After friction, nothing grows at this depth.') +
+          (down.length ? ' At ' + list(down) + ' the curve peaks below zero: friction wins, and the whisper only fades most slowly there. Raise ε to hear it grow (the third peak crosses zero near ε = 0.15).' : ''); })()
+    : 'Found ' + peaks.length + ' of the three tongues near 2, 1 and 2/3, and growth at ' + stray + ' rates outside them. The claim expects three, and nothing between.';
+}
+$('s4e').oninput = () => { clearTimeout(s3timer); s3timer = setTimeout(s4measure, 80); $('s4ev').textContent = (+$('s4e').value).toFixed(3); };
+$('s4cv').onclick = e => { const rc = $('s4cv').getBoundingClientRect(), u = (e.clientX - rc.left - 5) / (rc.width - 10); s4pick = RMIN * Math.pow(RMAX / RMIN, Math.max(0, Math.min(1, u))); s4draw(); $('s4hint').textContent = 'Ω/ω₀ = ' + s4pick.toFixed(3); hear(s4pick, s4data.eps, { noise: 1e-5, seconds: 3 }, 's4cv2', 's4r'); };
+walk([{ name: 'spring', enter: s1 }, { name: 'breathing', enter: s2 }, { name: 'faster', enter: () => s3(false) }, { name: 'where it grows', enter: () => { if (!s4data) s4measure(); else s4draw(); } }]);
+window.addEventListener('resize', () => { const on = document.querySelector('.step.on'); if (on && s4data && on.contains($('s4cv'))) s4draw(); });
+</script>
+</body>
+</html>

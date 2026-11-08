@@ -1,0 +1,200 @@
+<!doctype html>
+<!--
+  title: Lettering — rich — the void on a light field
+  born: 2026-11-03
+  links: [[Lettering]] (connects-to · rich-face-piece) · listed in [[Lettering — rich.json]] · plates from [[BLUELINE — Text Layer]]'s proofs
+  forward_vector: I test the gotcha "negative space sings only on a light energy field" on all seven knockouts — measuring how lit the field is right at the void's edge, letting you lift a dark field until its word appears, and asking your eye which words vanish. I change when the gotchas do, or when the knockout learns to light its own field.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="plates/">
+<title>Lettering — the void on a light field</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a; --ok:#7fd1a8;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+  .rail button { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg3); background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; padding: 6px 9px; cursor: pointer; }
+  .rail button.on { color: var(--amber); border-color: var(--amberline); }
+  .rail button.test { border-style: dashed; }
+  button.b { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button.b:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.b.on, button.b.go { color: var(--amber); border-color: var(--amberline); }
+  button.b:disabled { opacity: .35; cursor: default; }
+  .nav { display: flex; gap: 10px; align-items: center; margin-top: 14px; }
+  .nav .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  .step { display: none; } .step.on { display: block; }
+  .step h4 { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .step p { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 12px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  img.plate { display: block; width: 100%; height: auto; aspect-ratio: 1216 / 832; background: #000; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); margin-top: 10px; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .note { font-size: 13px; line-height: 1.55; color: var(--fg3); border-left: 2px solid var(--amberline); padding: 2px 0 2px 10px; margin: 10px 0; max-width: 78ch; }
+  .amber { color: var(--amber); }
+  .seg { display: inline-flex; } .seg button + button { border-left: 0; }
+
+  .big { max-width: 760px; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; max-width: 760px; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); max-width: 760px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 980px; }
+  .seven { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 10px; }
+  .seven .cell { border: 1px solid var(--soft); background: var(--e1); padding: 7px; }
+  .seven .cell img { width: 100%; display: block; aspect-ratio: 1216/832; background: #000; }
+  .seven .wd { font-family: var(--mono); font-size: 11px; color: var(--fg1); margin: 6px 0 2px; display: flex; justify-content: space-between; }
+  .seven .wd span { color: var(--fg3); }
+  .seven .mk { display: flex; gap: 4px; margin-top: 4px; }
+  .seven .mk button { flex: 1; font-family: var(--mono); font-size: 10px; padding: 5px 4px; background: var(--bg); color: var(--fg3); border: 1px solid var(--soft); border-radius: 2px; cursor: pointer; }
+  .seven .mk button.on { color: var(--amber); border-color: var(--amberline); }
+  canvas { display: block; width: 100%; max-width: 760px; }
+  .mine { display: none; } .mine.on { display: block; }
+  @media (max-width: 680px) { .row { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece" id="p">
+  <div class="kicker">made · Lettering · study</div>
+  <h3 class="title">When does the void speak?</h3>
+  <p class="sub">The knockout leaves the font black and lets the ink flow around it. The page warns that this sings only on a light field; on a dark one the black word vanishes. All seven voices got a knockout, so the bench holds the test already.</p>
+  <div class="rail"></div>
+
+  <section class="step" data-name="the void alone">
+    <h4>The void alone</h4>
+    <p>A void is only the absence of ink. On a perfectly lit field it is simply a black word. Here is <i>stay</i>'s knockout mask on white: the font itself, widened by 2 px, exactly as the knockout cuts it.</p>
+    <div class="panel big"><img class="plate" src="plates/whisper-stay-mask.webp" alt="stay as a black word on white"></div>
+  </section>
+
+  <section class="step" data-name="on a light field">
+    <h4>On a light field</h4>
+    <p><i>stay</i>'s ink came out as a cream scratchboard. The void reads at once: every edge of the word has light against it.</p>
+    <div class="panel big"><img class="plate" src="plates/whisper-stay-void.webp" alt="stay as a void in a light field"></div>
+    <div class="read"><span>field at the void's edge <b id="a1">–</b></span><span>edge lit <b id="b1">–</b></span></div>
+  </section>
+
+  <section class="step" data-name="on a dark field">
+    <h4>On a dark field</h4>
+    <p><i>BURNING</i>'s ink came out as white rays on black. The same knockout, pasted into black, has nothing to push against.</p>
+    <div class="panel big"><img class="plate" src="plates/lyric-burning-void.webp" alt="BURNING as a void in a dark field"></div>
+    <div class="read"><span>field at the void's edge <b id="a2">–</b></span><span>edge lit <b id="b2">–</b></span></div>
+  </section>
+
+  <section class="step" data-name="light the field">
+    <h4>Light the field</h4>
+    <p>Multiply every pixel by the gain. Black times anything is still black, so the void stays exactly as it was; only the field around it lifts. Watch the word arrive.</p>
+    <div class="panel big"><img class="plate" id="lift" src="plates/lyric-burning-void.webp" alt="BURNING void, field lifted"></div>
+    <label class="sl">field gain × <b id="g-val">1.0</b><input type="range" id="g" min="1" max="6" step="0.1" value="1"></label>
+    <p class="hint">The void never changed. What made it legible was light on its border.</p>
+  </section>
+
+  <section class="step" data-name="the test · seven voids" data-test="1">
+    <h4>The test: which words vanish?</h4>
+    <p>All seven knockouts, as rendered. Mark each one: does the word read, or does it vanish? Then see where your marks fall against the measure.</p>
+    <div class="seven" id="seven"></div>
+    <div id="plotwrap" style="display:none"><div class="plabel" style="margin-top:16px"><span>field at the void's edge, per voice · your marks</span><span>amber = reads · grey = vanishes</span></div>
+    <canvas id="plot" height="150"></canvas></div>
+    <p class="hint" id="plotwait">The measure appears once all seven are marked.</p>
+    <div class="eq">L<sub>edge</sub> = mean of I over the ring 3–15 px outside the void · lit = share of that ring with I &gt; 0.35</div>
+    <div class="words">(field at the void's edge) = (the average brightness, 0 to 1, of the ink just outside the black word) · (edge lit) = (the share of that border band brighter than about a third of white). The void is pure black, so this is its contrast.</div>
+    <div class="mine" id="mine"><p class="note"><b>The reading, after yours.</b> The three light fields (<i>stay</i>, <i>was it real</i>, <i>ASCENSION</i>: 0.57–0.71 at the void's edge, 69–74% of the border lit) read at once. <i>BURNING</i> (0.13) fades into its field; <i>THOOM</i> (0.18) all but does (a second agent reads it, dimly). The middle is the interesting part: <i>NO</i> sits on a mid-grey field (0.28, only 18% of its border above 0.35) and to my eye reads clearly; <i>too late</i> (0.23) reads in patches. So the gotcha holds, with one adjustment two agents' eyes suggest and yours can check; it is an eye call, not a measured threshold: the line falls somewhere between about 0.18 and 0.28, so a mid-grey field carries the void too, not only a light one. The knockout could measure its own border before it ships, and lift a dark field the way the gain step did.</p></div>
+  </section>
+
+  <div class="nav"><button class="b" data-back>◂ back</button><button class="b go" data-next>next ▸</button><span class="where"></span></div>
+</div>
+<script>
+// the walk: one step at a time, Back and Next, the rail stays open (a path, not a gate)
+function walk(root, onStep) {
+  const steps = [...root.querySelectorAll('.step')], rail = root.querySelector('.rail');
+  const back = root.querySelector('[data-back]'), next = root.querySelector('[data-next]'), where = root.querySelector('.where');
+  let i = 0;
+  steps.forEach((s, k) => { const b = document.createElement('button'); b.textContent = (k + 1) + ' · ' + s.dataset.name;
+    if (s.dataset.test) b.classList.add('test'); b.onclick = () => go(k); rail.appendChild(b); });
+  function go(k) { i = Math.max(0, Math.min(steps.length - 1, k));
+    steps.forEach((s, j) => s.classList.toggle('on', j === i)); [...rail.children].forEach((b, j) => b.classList.toggle('on', j === i));
+    back.disabled = i === 0; next.disabled = i === steps.length - 1; where.textContent = 'step ' + (i + 1) + ' of ' + steps.length;
+    if (onStep) onStep(i, steps[i]); }
+  back.onclick = () => go(i - 1); next.onclick = () => go(i + 1); go(0);
+  return go;
+}
+
+const M = {"voices":{"ascension":{"outline_held":{"photoreal":[0.708,0.232],"ink":[0.439,0.203]},"impact_outline_held":{"photoreal":[0.998,0.256],"ink":[1.0,0.262]},"void_field":[0.705,0.733],"fragment":{"n":1,"font_letter":"K","font":"NewRocker","ink_patch":[500,420,90]}},"shout-no":{"outline_held":{"photoreal":[0.807,0.181],"ink":[0.334,0.16]},"impact_outline_held":{"photoreal":[0.999,0.209],"ink":[0.997,0.227]},"void_field":[0.283,0.177],"fragment":{"n":6,"font_letter":"K","font":"Bangers","ink_patch":[692,442,148]}},"whisper-stay":{"outline_held":{"photoreal":[0.769,0.165],"ink":[0.31,0.171]},"impact_outline_held":{"photoreal":[1.0,0.164],"ink":[0.999,0.151]},"void_field":[0.567,0.686],"fragment":{"n":2,"font_letter":"K","font":"ShadowsIntoLight","ink_patch":[680,404,131]}},"sfx-thoom":{"outline_held":{"photoreal":[0.783,0.189],"ink":[0.354,0.163]},"impact_outline_held":{"photoreal":[0.999,0.228],"ink":[0.988,0.22]},"void_field":[0.178,0.191],"fragment":{"n":5,"font_letter":"K","font":"Frijole","ink_patch":[550,438,118]}},"dying-toolate":{"outline_held":{"photoreal":[0.714,0.178],"ink":[0.3,0.179]},"impact_outline_held":{"photoreal":[0.999,0.218],"ink":[0.971,0.212]},"void_field":[0.233,0.32],"fragment":{"n":3,"font_letter":"K","font":"Nosifer","ink_patch":[816,411,90]}},"lyric-burning":{"outline_held":{"photoreal":[0.768,0.164],"ink":[0.452,0.164]},"impact_outline_held":{"photoreal":[0.989,0.299],"ink":[0.928,0.301]},"void_field":[0.13,0.097],"fragment":{"n":7,"font_letter":"K","font":"MetalMania","ink_patch":[440,421,90]}},"thought-real":{"outline_held":{"photoreal":[0.768,0.182],"ink":[0.369,0.177]},"impact_outline_held":{"photoreal":[1.0,0.218],"ink":[0.985,0.256]},"void_field":[0.587,0.737],"fragment":{"n":4,"font_letter":"K","font":"SpecialElite","ink_patch":[689,562,90]}}}};
+const V = [['ascension', 'ASCENSION'], ['thought-real', 'was it real'], ['whisper-stay', 'stay'], ['shout-no', 'NO'], ['dying-toolate', 'too late'], ['sfx-thoom', 'THOOM'], ['lyric-burning', 'BURNING']];
+const pct = x => Math.round(x * 100) + '%', f2 = x => x.toFixed(2), marks = {};
+const F = id => M.voices[id].void_field;
+document.getElementById('a1').textContent = f2(F('whisper-stay')[0]); document.getElementById('b1').textContent = pct(F('whisper-stay')[1]);
+document.getElementById('a2').textContent = f2(F('lyric-burning')[0]); document.getElementById('b2').textContent = pct(F('lyric-burning')[1]);
+const g = document.getElementById('g'); g.oninput = () => { document.getElementById('lift').style.filter = 'brightness(' + g.value + ')'; document.getElementById('g-val').textContent = (+g.value).toFixed(1); };
+const seven = document.getElementById('seven');
+// shown in a fixed scrambled order, so the grid itself doesn't hint at the measure
+['sfx-thoom', 'whisper-stay', 'lyric-burning', 'ascension', 'dying-toolate', 'thought-real', 'shout-no'].forEach(id => {
+  const word = V.find(v => v[0] === id)[1], c = document.createElement('div'); c.className = 'cell';
+  c.innerHTML = '<img src="plates/' + id + '-void.webp" alt="' + word + ' knocked out">';
+  const wd = document.createElement('div'); wd.className = 'wd'; wd.innerHTML = word + ' <span class="ms"></span>'; c.appendChild(wd);
+  const mk = document.createElement('div'); mk.className = 'mk';
+  [['reads', 'reads'], ['vanishes', 'vanishes']].forEach(([k, t]) => { const b = document.createElement('button'); b.textContent = t;
+    b.onclick = () => { marks[id] = k; [...mk.children].forEach(x => x.classList.toggle('on', x === b)); done(); }; mk.appendChild(b); });
+  c.appendChild(mk); seven.appendChild(c); });
+function done() { const n = Object.keys(marks).length;
+  if (n === 7) { document.getElementById('plotwrap').style.display = ''; document.getElementById('plotwait').style.display = 'none'; draw(); document.getElementById('mine').classList.add('on');
+    seven.querySelectorAll('.cell').forEach((c, i) => { const id = ['sfx-thoom', 'whisper-stay', 'lyric-burning', 'ascension', 'dying-toolate', 'thought-real', 'shout-no'][i];
+      c.querySelector('.ms').textContent = 'field ' + f2(F(id)[0]) + ' · lit ' + pct(F(id)[1]); }); } }
+const cv = document.getElementById('plot');
+function draw() {
+  const dpr = window.devicePixelRatio || 1, W = cv.clientWidth || 700, H = 150; cv.width = W * dpr; cv.height = H * dpr; const x = cv.getContext('2d'); x.scale(dpr, dpr);
+  x.clearRect(0, 0, W, H); const L = 30, R = W - 20, Y = 92, X = v => L + v / 0.8 * (R - L);
+  x.strokeStyle = '#4a4a5e'; x.beginPath(); x.moveTo(L, Y); x.lineTo(R, Y); x.stroke();
+  x.fillStyle = '#8a8aa0'; x.font = '10px JetBrains Mono, monospace'; x.textAlign = 'center';
+  for (let t = 0; t <= 0.801; t += 0.2) { x.fillText(t.toFixed(1), X(t), Y + 18); x.beginPath(); x.moveTo(X(t), Y - 3); x.lineTo(X(t), Y + 3); x.stroke(); }
+  x.fillText('mean brightness of the field 3–15 px outside the void (0 = black, the void itself)', (L + R) / 2, Y + 38);
+  V.forEach(([id, word], i) => { const v = F(id)[0], px = X(v), py = Y - 16 - (i % 3) * 22;
+    x.beginPath(); x.arc(px, Y, 5, 0, 7);
+    if (marks[id] === 'reads') { x.fillStyle = '#e8b84a'; x.fill(); } else if (marks[id] === 'vanishes') { x.fillStyle = '#8a8aa0'; x.fill(); } else { x.strokeStyle = '#c8c8d8'; x.stroke(); }
+    x.strokeStyle = '#22222e'; x.beginPath(); x.moveTo(px, Y - 6); x.lineTo(px, py + 4); x.stroke();
+    x.fillStyle = '#c8c8d8'; x.fillText(word, px, py); });
+}
+window.addEventListener('resize', draw);
+walk(document.getElementById('p'), (i) => { if (i === 4 && Object.keys(marks).length === 7) draw(); });
+</script>
+</body>
+</html>

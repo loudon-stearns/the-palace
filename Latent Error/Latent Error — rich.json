@@ -1,0 +1,118 @@
+{
+  "title": "Latent Error — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Latent Error]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    }
+  ],
+  "forward_vector": "I am the manifest of Latent Error's rich face, its first round at Sketch tier, a proposal: two made walks, each turning the page's own method on the page. Holes that line up asks what the Swiss cheese model takes for granted, that the layers fail on their own, and measures what a shared condition costs; the room that settles short asks what the PID section takes for granted, and finds it ran steady-state error and oscillation together. I grow toward the teaching and tool-design cases the page names, measured the same way. I never hold the entry's words.",
+  "entry": "Latent Error",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Control Theory Translation: The Integral Term",
+      "kind": "claim-change",
+      "what": "The section's real error is the remedy, 'A system with I term will converge'. The room that settles short measured it (10-minute room, 5 °C outside, target 20 °C, window open from minute 60; a 2-minute radiator and a 1-minute thermometer for the lag). 'High P, no I' holds where the page means it: with lag and a high gain, P alone swings across 20, centred short of it, and never settles (Kp 2: 18.23 to 20.67 around 19.37; Kp 1 and 5 likewise). What it takes for granted is the lag: in a room that answers at once, P alone never overshoots at any gain (Kp 0.05 to 5) and settles short by (20 − 5 + 5) ÷ (1 + 30·Kp). Just past the edge (Routh, Kp 0.66) the swing sits wholly below the target (Kp 0.7: 18.24 to 19.91). But I does not cure the swing. Kp 2 with Ki 0.02 still swings 18.30 to 20.73, and with Ki 0.05 it swings 18.35 to 20.80. Kd 1 settles it, which is what the page's own D paragraph says D does. And too much I makes a swing of its own: at Kp 0.2 the loop holds only below Ki ≈ 0.063 (Ki 0.07: 18.28 to 21.54). Suggested, for the P paragraph: 'This alone leaves an offset: P needs some error to keep acting, so the system settles short of the target. In a system with lag, a high P also overshoots and can swing without end, still centred short of the target.' For 'A system with I term will converge': 'A system with an I term removes the offset, but it doesn't calm a swing that lag and high gain make; that is D's work, or less gain's. Too much I overshoots, and with lag it can swing on its own.' Worth holding for the page, not smoothing: if latent-error thinking is the I term, memory pushed too hard overshoots too.",
+      "status": "open"
+    },
+    {
+      "section": "Latent Error",
+      "kind": "claim-change",
+      "what": "'Redesign so failure requires more than one simultaneous mistake' holds only when those mistakes can't share a cause, and the page doesn't say so. Holes that line up measured it. Three slices with 15% holes promise 0.34% through. If one shared condition lines the holes up a quarter of the time (β 0.25), 4.00% gets through, twelve times the promise: the stack acts like 1.70 independent slices. A fourth slice of the same design brings that only to 3.79%. Redesigning one slice so the condition can't reach it brings it to 0.82%. With no shared condition (β 0), the extra slice wins and the redesign changes nothing. All of this is 200,000 counted hazards per run, matching β·p + (1 − β)·pⁿ. Suggested, after the last sentence: '… more than one simultaneous mistake, and so those mistakes can't share a cause: layers that fail for the same reason count as one.' The same count gives Open Question 1 the form of a first answer: how many independent layers a stack really acts like, n_eff = log P ÷ log p, against how many it has. As it stands it needs P, the failure rate the question wants to predict. To predict before an accident, read β from near-misses: how often two layers miss on the same occasion, against p² if they were independent. Those partial failures show up long before a hazard gets all the way through. The model is the beta-factor model of common-cause failure, with equal holes and all-or-nothing alignment.",
+      "status": "open"
+    },
+    {
+      "section": "Latent Error",
+      "kind": "claim-change",
+      "what": "A fact to check, found by reading, not by a piece; confirmed by the challenger. The classic case is landing gear and flaps, not ejection and landing gear. In the B-17, Alphonse Chapanis found identical toggle switches for the two side by side, and fixed it by shape coding: a wheel-shaped knob for the gear, a triangle for the flaps. Neither of us found a documented case of an ejection lever confused with the gear. Suggested: 'identical-looking controls for landing gear and flaps (the B-17 case Alphonse Chapanis studied in the 1940s)'. Say '1940s'; '1943' needs the primary Aero Medical Laboratory report. Source: https://en.wikipedia.org/wiki/Alphonse_Chapanis. The point the example makes, design not attention, is unchanged.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Latent Error",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Latent Error — rich — holes that line up.html",
+            "verdict": "keep",
+            "why": "A real test: at β 0 the page’s redesign advice loses to adding a slice, and the piece says so; every number recomputed by hand (4.00%, 3.79%, 0.82%, n_eff 1.70). Note for a later round: it is the beta-factor common-cause model, with all-or-nothing alignment and a free, fully decoupled redesign — name that."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Latent Error — rich — holes that line up.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas",
+          "title": "Holes that line up · the Swiss cheese model, counted",
+          "caption": "**What does the Swiss cheese model take for granted?** Four steps, no sound. First, one slice with one hole: the share of hazards that get through is the size of the hole. Then a stack whose holes wander on their own: three slices with 15% holes let 0.34% through. Then a condition every slice shares, like two identical-looking levers that fool the eye, the checklist and the habit all the same way. When it is in play, the holes line up. At a quarter of the time, three slices let 4.0% through and act like 1.7 independent ones, and no number of slices of the same design gets under 3.75%. Last, the page's advice measured on 200,000 hazards each way. Adding a fourth slice of the same design gives 3.79%. Redesigning one slice so the condition can't reach it gives 0.82%. With no shared condition, the extra slice wins instead. The sum is the beta-factor model of common-cause failure, from reliability engineering. It takes three things for granted: the shared condition lines the holes up all or nothing, every hole is the same size, and the redesign is free and frees its slice completely. That is the redesign's best case.\n\nP = β·p + (1 − β)·pⁿ   ·   n_eff = log P ÷ log p\n\n(share through) = (the time one condition shapes every slice) × (one hole) + (the rest of the time) × (every hole lining up by chance); (how many independent slices it acts like) = log of the share through ÷ log of one hole",
+          "near": "James Reason's Swiss Cheese Model",
+          "place": "band",
+          "height": 1000
+        }
+      ],
+      "made_against": "a9d568aa9168",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Control Theory Translation: The Integral Term",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Latent Error — rich — the room that settles short.html",
+            "verdict": "remake",
+            "why": "Every number holds under a second integrator, but fits() demands a swing centred on 20, which the sentence’s own first clause rules out, so lagged P at Kp 1–5 (swings across 20, mean 0.5–0.8 short, never settles: what the page says) scores half; step 6’s say and eq2 and the caption are wrong above Kp ≈ 0.75. Fix fits(); add lagged rows Kp 2 Ki 0.02 (still swings 18.30–20.73) and Kp 2 Ki 0.02 Kd 1 (settles 19.94); retext steps 3 and 6 and the caption: the refuted claim is “with I it converges”; update check.mjs."
+          }
+        ]
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Latent Error — rich — the room that settles short.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas and Web Audio",
+          "title": "The room that settles short · P, I and D on a heated room",
+          "caption": "**What does the PID section take for granted, and where does it go wrong?** Six steps on a heated room: 5 °C outside, a target of 20, a window that opens at minute 60. First the room alone, with the heater set by hand. Then P in a room that answers at once: at any gain it settles short of 20 and never overshoots. Then the lag a real radiator and thermometer have, which the page's P paragraph takes for granted. Now a high P overshoots, and past Kp ≈ 0.66 it swings forever. Just past that edge the swing sits wholly below the target. At the page's high gain it crosses 20 on every swing but stays centred short: Kp 2 swings 18.23 to 20.67 around 19.37. That is just what the page says. Then I, whose memory pulls a calm room onto 20 and at rest carries all of the heat. Then D: a little calms the ringing, a lot brings the overshoot back. Last, the page's sentences against ten runs. 'High P, no I' holds where there is lag and a high gain. 'With I it converges' does not: Kp 2 with Ki 0.02 still swings 18.30 to 20.73, and Kd 1 settles it. Memory removes an offset; it doesn't calm a swing, and too much of it makes one. *Hear it* plays the room as a tone beside the target's: an offset is a beat that never stops, an oscillation a beat that never holds still.\n\nu = Kp·e + Ki·∫e dt − Kd·dS/dt   ·   P alone rests short by (20 − 5 + 5) ÷ (1 + 30·Kp)\n\n(the heater's share) = Kp × (the error now) + Ki × (all the error so far) − Kd × (how fast the thermometer is rising); with P alone, the room rests short of the target by 20 degrees of loss ÷ (1 + 30 × Kp)",
+          "near": "A system with high P gain but no I term",
+          "place": "band",
+          "height": 1300
+        }
+      ],
+      "made_against": "c0e347760814",
+      "stamped": "2026-11-03"
+    }
+  ]
+}

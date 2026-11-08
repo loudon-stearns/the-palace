@@ -1,0 +1,59 @@
+# Synth Templates — Genre Classics — Drum & Bass Sub
+# A sine, a little saturation, a glide. The least sound on the sheet, and the one the whole track rests on.
+schema: synth-template-card/0.2
+id: drum-bass-sub
+name: Drum & Bass Sub
+family: Genre Classics
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Glide / portamento time; legato mode as default"
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+  - "Phase, free-running vs retrigger, the click"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: -1, glide: short, retrigger: true}
+    amp:     {kind: amplifier, level: full}
+    fx:      {kind: fx, chain: [saturation]}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: mono,          why: "one sub at a time; two would cancel and beat"}
+  - {block: osc1,    param: wave,      value: sine,          why: "one partial, so the whole energy is the fundamental; no filter is needed because there is nothing to filter"}
+  - {block: osc1,    param: glide,     value: short,         why: "every note slides from the last: the sub moves like a bass player's hand, never jumps"}
+  - {block: osc1,    param: retrigger, value: "on",          why: "each note starts at zero phase, so no click and every note is the same note"}
+  - {block: aenv,    param: attack,    value: fast,          why: "not instant: a sine switched on at full is a click"}
+  - {block: aenv,    param: sustain,   value: held,          why: "it holds as long as the note is written"}
+  - {block: fx,      param: chain,     value: saturation,    why: "a little drive adds the second and third harmonic, so the sub is felt on small speakers that cannot play the fundamental"}
+
+taste:
+  - {block: osc1,    param: glide,     range: "none – medium",     default: short}
+  - {block: aenv,    param: attack,    range: "fast – short",      default: fast}
+  - {block: aenv,    param: release,   range: "short – medium",    default: short}
+  - {block: fx,      param: drive,     range: "none – light",      default: light, why: "heavy and it is a different bass"}
+  - {block: amp,     param: level,     range: "half – full",       default: full}
+
+listening:
+  cue: "Almost nothing on headphones and everything on a system: a pure low note that slides between pitches with no attack of its own. The saturation puts a faint edge on it that is the only thing a phone speaker hears."
+  ab: "Set the glide to none: the notes jump and the line loses its slink. Put it back. Then take the saturation off: on a big system nothing changes; on a laptop the bass disappears."
+
+render:
+  tempo: 174
+  note: [F1, F1, Ab1, F1, Eb1, F1]
+  velocity: 100
+  pattern: "a half-time line over one bar: long notes, each sliding into the next"
+  length_s: 3.0
+
+mappings: {}

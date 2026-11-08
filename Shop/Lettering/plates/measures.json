@@ -1,0 +1,279 @@
+{
+ "made": "2026-11-03",
+ "sources": {
+  "chalkduster_era": "HEAD (28e9adaa)",
+  "impact_era": "4e863210"
+ },
+ "method": {
+  "outline_held": "[score, chance] \u2014 of the skeleton's canny outline, the share where the image has an edge in the same place running the same way (sigma 2 gradients, |cos| > 0.9, at least the image's median edge strength); chance = the outline slid to 8 wrong places",
+  "void_field": "the negspace image's mean luminance (0\u20131) in a ring 3\u201315 px outside the knockout mask, and the share of that ring brighter than 0.35"
+ },
+ "voices": {
+  "ascension": {
+   "canny_px": 7568,
+   "outline_held": {
+    "photoreal": [
+     0.708,
+     0.232
+    ],
+    "ink": [
+     0.439,
+     0.203
+    ]
+   },
+   "impact_outline_held": {
+    "photoreal": [
+     0.998,
+     0.256
+    ],
+    "ink": [
+     1.0,
+     0.262
+    ]
+   },
+   "void_field": [
+    0.705,
+    0.733
+   ],
+   "fragment": {
+    "n": 1,
+    "font_letter": "K",
+    "font": "NewRocker",
+    "ink_patch": [
+     500,
+     420,
+     90
+    ]
+   }
+  },
+  "shout-no": {
+   "canny_px": 4832,
+   "outline_held": {
+    "photoreal": [
+     0.807,
+     0.181
+    ],
+    "ink": [
+     0.334,
+     0.16
+    ]
+   },
+   "impact_outline_held": {
+    "photoreal": [
+     0.999,
+     0.209
+    ],
+    "ink": [
+     0.997,
+     0.227
+    ]
+   },
+   "void_field": [
+    0.283,
+    0.177
+   ],
+   "fragment": {
+    "n": 6,
+    "font_letter": "K",
+    "font": "Bangers",
+    "ink_patch": [
+     692,
+     442,
+     148
+    ]
+   }
+  },
+  "whisper-stay": {
+   "canny_px": 7334,
+   "outline_held": {
+    "photoreal": [
+     0.769,
+     0.165
+    ],
+    "ink": [
+     0.31,
+     0.171
+    ]
+   },
+   "impact_outline_held": {
+    "photoreal": [
+     1.0,
+     0.164
+    ],
+    "ink": [
+     0.999,
+     0.151
+    ]
+   },
+   "void_field": [
+    0.567,
+    0.686
+   ],
+   "fragment": {
+    "n": 2,
+    "font_letter": "K",
+    "font": "ShadowsIntoLight",
+    "ink_patch": [
+     680,
+     404,
+     131
+    ]
+   }
+  },
+  "sfx-thoom": {
+   "canny_px": 9345,
+   "outline_held": {
+    "photoreal": [
+     0.783,
+     0.189
+    ],
+    "ink": [
+     0.354,
+     0.163
+    ]
+   },
+   "impact_outline_held": {
+    "photoreal": [
+     0.999,
+     0.228
+    ],
+    "ink": [
+     0.988,
+     0.22
+    ]
+   },
+   "void_field": [
+    0.178,
+    0.191
+   ],
+   "fragment": {
+    "n": 5,
+    "font_letter": "K",
+    "font": "Frijole",
+    "ink_patch": [
+     550,
+     438,
+     118
+    ]
+   }
+  },
+  "dying-toolate": {
+   "canny_px": 7254,
+   "outline_held": {
+    "photoreal": [
+     0.714,
+     0.178
+    ],
+    "ink": [
+     0.3,
+     0.179
+    ]
+   },
+   "impact_outline_held": {
+    "photoreal": [
+     0.999,
+     0.218
+    ],
+    "ink": [
+     0.971,
+     0.212
+    ]
+   },
+   "void_field": [
+    0.233,
+    0.32
+   ],
+   "fragment": {
+    "n": 3,
+    "font_letter": "K",
+    "font": "Nosifer",
+    "ink_patch": [
+     816,
+     411,
+     90
+    ]
+   }
+  },
+  "lyric-burning": {
+   "canny_px": 8283,
+   "outline_held": {
+    "photoreal": [
+     0.768,
+     0.164
+    ],
+    "ink": [
+     0.452,
+     0.164
+    ]
+   },
+   "impact_outline_held": {
+    "photoreal": [
+     0.989,
+     0.299
+    ],
+    "ink": [
+     0.928,
+     0.301
+    ]
+   },
+   "void_field": [
+    0.13,
+    0.097
+   ],
+   "fragment": {
+    "n": 7,
+    "font_letter": "K",
+    "font": "MetalMania",
+    "ink_patch": [
+     440,
+     421,
+     90
+    ]
+   }
+  },
+  "thought-real": {
+   "canny_px": 8080,
+   "outline_held": {
+    "photoreal": [
+     0.768,
+     0.182
+    ],
+    "ink": [
+     0.369,
+     0.177
+    ]
+   },
+   "impact_outline_held": {
+    "photoreal": [
+     1.0,
+     0.218
+    ],
+    "ink": [
+     0.985,
+     0.256
+    ]
+   },
+   "void_field": [
+    0.587,
+    0.737
+   ],
+   "fragment": {
+    "n": 4,
+    "font_letter": "K",
+    "font": "SpecialElite",
+    "ink_patch": [
+     689,
+     562,
+     90
+    ]
+   }
+  }
+ },
+ "free_thoom": {
+  "what": "out/sfx-thoom_s1111.png, --mode free (no skeleton, no lock), same prompt and seed, against the THOOM skeleton",
+  "outline_held": [
+   0.167,
+   0.157
+  ]
+ }
+}

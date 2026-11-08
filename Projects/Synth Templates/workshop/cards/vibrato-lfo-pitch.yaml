@@ -1,0 +1,61 @@
+# Synth Templates — card — Vibrato (LFO → Pitch)
+# Technique demonstration: one LFO on one sine, so nothing but the pitch wobble is there to hear.
+schema: synth-template-card/0.2
+id: vibrato-lfo-pitch
+name: Vibrato (LFO → Pitch)
+family: Technique Demonstrations
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Vibrato: ~5 Hz, under a semitone; dedicated vibrato LFO"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "LFO attack: envelope → LFO depth"
+  - "CC1 → pitch LFO depth"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0}
+    amp:  {kind: amplifier, level: under unity}
+    lfo1: {kind: lfo, wave: sine, rate: medium, sync: false, note: "the dedicated vibrato LFO: sine or triangle, aimed at oscillator pitch"}
+    menv: {kind: envelope, role: lfo depth, shape: {a: slow, d: instant, s: full, r: short}, category: swell, note: "a ramp, not a contour: the LFO attack"}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: menv, to: lfo1.depth, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: false}
+
+essentials:
+  - {block: osc1, param: wave,   value: sine,   why: "one partial, so the only thing that can move is the pitch"}
+  - {block: lfo1, param: target, value: oscillator pitch, why: "vibrato is pitch; the same LFO on amp is tremolo, on filter is wah"}
+  - {block: lfo1, param: rate,   value: medium, why: "about five times a second: the rate of a human voice or a violin hand"}
+  - {block: lfo1, param: depth,  value: little, why: "well under a semitone; more than that and it is a trill or a siren"}
+  - {block: menv, param: attack, value: slow,   why: "the note lands plain and the vibrato grows in, as a singer does it"}
+  - {block: aenv, param: sustain, value: held,  why: "a held note; vibrato needs a sustain to live on"}
+
+taste:
+  - {block: lfo1, param: rate,   range: "slow – fast",      default: medium}
+  - {block: lfo1, param: depth,  range: "none – some",      default: little}
+  - {block: lfo1, param: wave,   range: "sine – triangle",  default: sine}
+  - {block: menv, param: attack, range: "instant – slow",   default: slow, why: "instant is a synth vibrato; slow is a singer's"}
+
+listening:
+  cue: "A plain tone that begins steady and then starts to waver, five or so times a second, never far enough from the pitch to sound like another note."
+  ab: "Set the LFO depth to none: a flat sine with no life in it. Put it back, then push the depth to full: the wobble turns into a siren and stops being vibrato."
+
+render:
+  tempo: 100
+  note: A3
+  velocity: 90
+  pattern: "one note held three seconds so the vibrato has time to fade in"
+  length_s: 4.0
+
+mappings: {}

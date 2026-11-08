@@ -8,13 +8,16 @@ today's — and keeps the only record a fresh session needs to answer it tomorro
 How the deal works
 
   The deck    Every canon entry, by the same rule the map uses (`_entries` in
-              _ops/swarm/entry-use.py — a .md carrying a canon `type:`, symlinks and tool
-              folders set aside). A lap's deck is the entries born on or before the day the
+              _ops/swarm/entry-use.py — a .md carrying a canon `type:`, symlinks, tool
+              folders and proofs folders set aside). A lap's deck is the entries born on or before the day the
               lap began; pages born later wait for the next lap, so a lap has a finish line.
               Set aside: anything under a `tests`, `fixtures` or `experiments` folder. The
               map's rule counts a few such files as entries (two test fixtures and two
               experiment notes, 2026-10-13); they are not pages, and a morning is not spent
               on them. The map itself is left as it is.
+  Siblings    The brief's siblings come from the ring: the newest map in _ops/maps/, read by
+              palace-map.py's loader, so the dealer and `near` answer from one graph. With no
+              map it falls back to scanning frontmatter, and the brief says which it used.
   The shuffle A random seed is drawn once, when a lap begins, and kept in lap.json. A page's
               place is the hash of seed + title. Nothing is stored per page, so a rename or
               a new page never needs the deck rebuilt.
@@ -217,14 +220,26 @@ def pick(s: dict, today: str):
     return min(left, key=lambda t: (s["dealt_count"].get(t, 0), order[t])), False
 
 
-def brief(root: Path, s: dict, title: str, today: str) -> dict:
-    rel = s["entries"][title]
-    path = root / rel
-    fm = frontmatter(path)
-    text = path.read_text(encoding="utf-8")
-    body = re.sub(r"^---\n[\s\S]*?\n---\n?", "", text)
-    bundle = path.parent / title
-    out_links = typed_links(fm)
+def siblings(root: Path, s: dict, title: str, fm: str):
+    """The page's siblings from the ring — the newest map in root/_ops/maps/, read by
+    palace-map.py's own loader — so the dealer and `near` answer from one graph (The Daily
+    Page § Step 1). Falls back to the frontmatter scan when there is no map, and says so."""
+    tool = root / "_ops" / "swarm" / "palace-map.py"
+    maps = sorted((root / "_ops" / "maps").glob("palace-map-full-*.json"))
+    if tool.exists() and maps:
+        spec = importlib.util.spec_from_file_location("palace_map", tool)
+        pm = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(pm)
+        d = pm.load(str(maps[-1]))
+        if title in d["_nodes"]:
+            out = [{"target": e["target"], "type": e["type"], "label": e.get("label") or ""}
+                   for way, e in d["_adj"].get(title, []) if way == "out"]
+            inn = [{"from": e["source"], "type": e["type"], "label": e.get("label") or ""}
+                   for way, e in d["_adj"].get(title, []) if way == "in"]
+            return out, inn, f"map {d['meta'].get('generated', '?')}"
+        why = f"not a node in map {d['meta'].get('generated', '?')} (born since the build?)"
+    else:
+        why = "no map in _ops/maps/ (run _ops/swarm/build-map.py)"
     inbound = []
     for other, orel in s["entries"].items():
         if other == title:
@@ -232,6 +247,17 @@ def brief(root: Path, s: dict, title: str, today: str) -> dict:
         for l in typed_links(frontmatter(root / orel)):
             if l["target"] == title:
                 inbound.append({"from": other, "type": l["type"], "label": l["label"]})
+    return typed_links(fm), inbound, f"frontmatter — {why}"
+
+
+def brief(root: Path, s: dict, title: str, today: str) -> dict:
+    rel = s["entries"][title]
+    path = root / rel
+    fm = frontmatter(path)
+    text = path.read_text(encoding="utf-8")
+    body = re.sub(r"^---\n[\s\S]*?\n---\n?", "", text)
+    bundle = path.parent / title
+    out_links, inbound, siblings_from = siblings(root, s, title, fm)
     prior = [v for v in s["visits"] if v.get("event") == "sat" and v.get("date", "") < today]
     yesterday = max(prior, key=lambda v: v["date"])["entry"] if prior else None
     return {
@@ -242,16 +268,54 @@ def brief(root: Path, s: dict, title: str, today: str) -> dict:
         "revival_conditions": field(fm, "revival_conditions"),
         "has_agency_profile": bool(re.search(r"^agency_profile:", fm, re.M)),
         "has_rich_face": (bundle / f"{title} — rich.json").exists(),
+        "rich_face_waiting": rich_face_waiting(bundle / f"{title} — rich.json"),
         "has_scroll": (bundle / f"{title} — scroll.md").exists(),
+        "plan": scroll_zone(bundle / f"{title} — scroll.md", "plan"),
+        "standing_orders": scroll_zone(bundle / f"{title} — scroll.md", "orders"),
         "has_context": (path.parent / f"{title} — Context.md").exists()
                        or (bundle / f"{title} — Context.md").exists(),
         "bundle": str(bundle.relative_to(root)) if bundle.is_dir() else None,
         "links_out": [dict(l, path=s["entries"].get(l["target"])) for l in out_links],
         "links_in": [dict(l, path=s["entries"].get(l["from"])) for l in inbound],
+        "siblings_from": siblings_from,
         "times_dealt_before": 1 if title in s["missed"] else 0,
         "yesterday": yesterday,
         "standing": standing(s),
     }
+
+
+def scroll_zone(scroll: Path, zone: str):
+    """The text of one zone of the page's scroll — `plan` or `orders` (SCHEMA — Reference §8, `scroll`):
+    what sits between `<!-- scroll:<zone>:start -->` and its end marker. None when the page has no
+    scroll, the zone is missing, or it holds only its italic placeholder line."""
+    if not scroll.exists():
+        return None
+    text = scroll.read_text(encoding="utf-8")
+    m = re.search(rf"<!--\s*scroll:{zone}:start\s*-->\n?([\s\S]*?)<!--\s*scroll:{zone}:end\s*-->", text)
+    if not m:
+        return None
+    body = m.group(1).strip()
+    lines = [l for l in body.splitlines() if l.strip()]
+    if not lines or all(l.strip().startswith("_") and l.strip().endswith("_") for l in lines):
+        return None
+    return body
+
+
+def rich_face_waiting(manifest: Path):
+    """What the page's rich face still waits on Loudon for: sections at `status: proposal` and
+    open offers (Enrichment § Proposal and approval; the fields are in _ops/rich-face/README.md).
+    None when the page has no face; a section with no status counts as approved."""
+    if not manifest.exists():
+        return None
+    try:
+        m = json.loads(manifest.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {"unreadable": True}
+    sections = [x for x in (m.get("sections") or []) if isinstance(x, dict)]
+    proposal = [x for x in sections if x.get("status") == "proposal"]
+    offers = [o for o in (m.get("offers") or []) if isinstance(o, dict) and (o.get("status") or "open") == "open"]
+    return {"sections": len(sections), "proposal_sections": len(proposal),
+            "proposal_headings": [x.get("heading") for x in proposal], "open_offers": len(offers)}
 
 
 def standing(s: dict) -> dict:
@@ -269,6 +333,13 @@ def print_brief(b: dict):
     if b["times_dealt_before"]:
         print("  dealt on an earlier day and not sat with; this is its second turn")
     print(f"\n  forward vector: {b['forward_vector'] or '(none)'}")
+    for name, key in (("plan", "plan"), ("standing orders", "standing_orders")):
+        if b.get(key):
+            print(f"\n  {name}, from the scroll:")
+            for line in b[key].splitlines():
+                print(f"    {line}")
+        else:
+            print(f"  {name}: (none on the scroll)" if b["has_scroll"] else f"  {name}: (no scroll)")
     if asleep(b["stage"], b.get("type", "")):
         print(f"  this page is asleep ({b['stage']}{', a spore' if b.get('type','').strip(chr(34)+chr(39)) == 'spore' else ''}): the morning's question is whether it should be revived")
         print(f"  revival conditions: {b['revival_conditions'] or '(none written)'}")
@@ -278,8 +349,19 @@ def print_brief(b: dict):
                            ("scroll", "has_scroll"), ("Context", "has_context")) if not b[k]]
     print(f"  has: {', '.join(have) or 'nothing beyond its text'}")
     print(f"  lacks: {', '.join(lack) or 'nothing'}")
+    w = b.get("rich_face_waiting")
+    if w:
+        if w.get("unreadable"):
+            print("  the rich face's manifest could not be read: open it by hand")
+        elif w["proposal_sections"] or w["open_offers"]:
+            print(f"  the rich face waits on Loudon: {w['proposal_sections']} of {w['sections']} section(s) at proposal, "
+                  f"{w['open_offers']} open offer(s) — tell him at the hello and urge him to look "
+                  f"(node _ops/rich-face/proposals.mjs lists them)")
+        else:
+            print("  the rich face is approved; nothing on it waits")
     print(f"  bundle: {b['bundle'] or '(no folder)'}")
-    print(f"\n  siblings it points to ({len(b['links_out'])}):")
+    print(f"\n  siblings, from the {b['siblings_from']}")
+    print(f"  siblings it points to ({len(b['links_out'])}):")
     for l in b["links_out"]:
         where = l["path"] or "(no such entry — a forward ghost)"
         print(f"    {l['type']:<14} [[{l['target']}]]  {l['label']}  — {where}")

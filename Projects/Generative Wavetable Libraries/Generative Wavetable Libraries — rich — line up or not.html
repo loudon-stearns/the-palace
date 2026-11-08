@@ -1,0 +1,418 @@
+<!doctype html>
+<!--
+  title: Generative Wavetable Libraries — rich — line up or not
+  born: 2026-11-03
+  links: [[Generative Wavetable Libraries]] (connects-to · rich-face-piece) · listed in [[Generative Wavetable Libraries — rich.json]] · serves § Capability Assessment, at What Requires Development: phase coherence across frames · answers the page's Open Question (zero-phase reset, or carry phase through?) on its own table · the mechanism alone is [[1D Wavetable Scanning]]'s "switch or scan" and [[2D Torus Wavetable Synthesizer]]'s "the RMS dip"
+  forward_vector: I am the page's phase warning put to the crystal table. Two frames crossfaded; one of them turned; what carrying phase through does to this recipe; the whole table swept three ways, measured with the project's own meters; and last, a blind test with its rules set first, X balanced six and six, both arms scored, the pair matched in length and level. Every sag is shown twice: raw, and as the table plays it, re-normalized. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound. Quieting and the time cap are the kit's.
+  engine: crystal-bravais/generate.py ported line for line, with two phase policies beside its own zero-phase reset: carried (each partial starts where it ended in the system before) and turned (each system's cycle rolled to a different start, as arbitrary source cycles arrive). The player is loop-smoothing/buzz_probe.py's naive_sweep. The meters are akwf-scale-up-fmsynth/scale_up.py's morph_dips_db and loop-smoothing/smooth_tables.py's offnote_db, run in Python by the check.
+  check: Generative Wavetable Libraries — rich — check.py holds this engine to crystal_bravais.wav and recomputes every number the page shows.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Line up or not</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --violet:#8b7cf6; --red:#e2574c;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .grp{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .grp .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-right:2px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:right;font-weight:400;vertical-align:top}
+  table.t th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t tr.on td{color:var(--fg-1)}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .found b{color:var(--fg-1);font-weight:500}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Generative Wavetable Libraries · What Requires Development · five steps</div>
+  <h1>Line up or not</h1>
+  <p class="lead">The page warns that sweeping a wavetable produces audible artifacts if frame phases are not aligned, and its open question asks which policy: reset every frame to zero phase, as shipped, or carry phase through. Here is both, and the case the warning is really about, on the crystal table itself.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="250"></canvas>
+    <div class="rowb">
+      <button class="play" id="play">▸ play</button>
+      <span class="grp" id="g-three"><span class="l">sweep the table, 6 s</span><button class="ghost small" data-arm="zero">▸ zero-phase, as shipped</button><button class="ghost small" data-arm="carry">▸ carried</button><button class="ghost small" data-arm="turned">▸ turned</button></span>
+    </div>
+    <div class="ctl" id="ctl-mix"><label for="mix">crossfade</label><input id="mix" type="range" min="0" max="1" step="0.005" value="0.5"><span class="v" id="mix-v"></span></div>
+    <div class="ctl" id="ctl-turn"><label for="turn">turn B by</label><input id="turn" type="range" min="0" max="1" step="0.0078125" value="0"><span class="v" id="turn-v"></span></div>
+    <div id="abx" class="hide">
+      <div class="rowb"><span class="grp"><span class="l">pair</span><button class="ghost small" data-pair="carry">zero-phase or carried (the open question)</button><button class="ghost small" data-pair="turned">zero-phase or turned (the control)</button></span></div>
+      <div class="rowb"><span class="grp"><span class="l">level matched</span><button class="ghost small" data-lev="win">every 46 ms</button><button class="ghost small" data-lev="whole">over the whole sweep</button></span></div>
+      <div class="rowb"><button class="ghost" id="begin">begin 12 trials</button><span class="grp" id="abx-play"><button class="ghost small" id="pA">▸ A</button><button class="ghost small" id="pB">▸ B</button><button class="ghost small" id="pX">▸ X</button><span class="l" style="margin-left:10px">X is</span><button class="ghost small" id="isA">A</button><button class="ghost small" id="isB">B</button></span></div>
+    </div>
+    <div class="meter" id="meter"></div>
+    <table class="t" id="tab"></table>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Generative Wavetable Libraries · the table is crystal_bravais.wav, rebuilt from crystal-bravais/generate.py, beside two other phase policies · played at A2, 110 Hz, by the project’s own reader</footer>
+</main>
+<script id="engine">
+// ---- engine: the project's own recipes (crystal-bravais/generate.py, shepard-centroid/generate_shepard.py) and its own player (loop-smoothing/buzz_probe.py naive_sweep), line for line ----
+const SPF = 2048, NF = 64, TAU = 2 * Math.PI;
+// name, partials, rolloff, detune (cents), odd bias: generate.py BRAVAIS_SYSTEMS
+const SYSTEMS = [["cubic",3,1.30,0.0,1.0],["hexagonal",6,1.10,4.0,1.0],["tetragonal",9,0.95,9.0,1.15],["rhombohedral",13,0.85,16.0,1.25],["orthorhombic",18,0.78,24.0,1.4],["monoclinic",26,0.70,34.0,1.6],["triclinic",36,0.62,48.0,1.85]];
+// the 'turned' arm: each system's cycle rolled by this many samples (one draw, seed 22, the median of 40 draws by worst dip)
+const TURNS = [0,1579,750,1351,408,1933,181];
+const c2r = (c) => Math.pow(2, c / 1200);
+function normalize(f) { let p = 0; for (const v of f) p = Math.max(p, Math.abs(v)); if (p < 1e-12) return f; for (let i = 0; i < f.length; i++) f[i] /= p; return f; }
+function partialMult(s, k, detuneOn = true) { const [, n, , dt] = s; return k * c2r((detuneOn ? dt : 0) * ((k - 1) / Math.max(1, n - 1))); }
+function partialAmp(s, k) { const [, , ro, , ob] = s; let a = 1 / Math.pow(k, ro); if (k % 2 === 0) a /= ob; return a; }
+// one system's cycle; phases: start phase per partial (default 0, the shipped zero-phase reset)
+function systemFrame(s, opt = {}) {
+  const spf = opt.spf || SPF, f = new Float64Array(spf), ph = opt.phases || {};
+  for (let k = 1; k <= s[1]; k++) { const a = partialAmp(s, k), m = partialMult(s, k, opt.detune !== false), p0 = ph[k] || 0;
+    for (let i = 0; i < spf; i++) f[i] += a * Math.sin(m * (TAU * i / spf) + p0); }
+  return normalize(f);
+}
+// the seven keyframes under a phase policy: 'zero' (shipped), 'carry' (each partial starts where it ended in the last system), 'turned' (cycles rolled by TURNS)
+function keyframes(mode = 'zero', spf = SPF) {
+  const out = [], ph = {};
+  SYSTEMS.forEach((s, j) => {
+    const start = {}; for (let k = 1; k <= s[1]; k++) start[k] = mode === 'carry' ? (ph[k] || 0) : 0;
+    let f = systemFrame(s, { spf, phases: start });
+    for (let k = 1; k <= s[1]; k++) ph[k] = (start[k] + TAU * partialMult(s, k)) % TAU;
+    if (mode === 'turned') { const r = new Float64Array(spf), sh = TURNS[j] * spf / SPF; for (let i = 0; i < spf; i++) r[(i + sh) % spf] = f[i]; f = r; }
+    out.push(f);
+  });
+  return out;
+}
+// generate.py interpolate_table: keyframes pinned at j/6, frames at i/63, each blend re-normalized
+function interpolate(K, n = NF) {
+  const nk = K.length, out = [];
+  for (let i = 0; i < n; i++) {
+    const pos = i / (n - 1); let idx = 0; for (let j = 0; j < nk; j++) if (j / (nk - 1) <= pos) idx = j;
+    idx = Math.min(Math.max(idx, 0), nk - 2); const frac = (pos - idx / (nk - 1)) * (nk - 1);
+    const a = K[idx], b = K[idx + 1], f = new Float64Array(a.length);
+    for (let s = 0; s < a.length; s++) f[s] = (1 - frac) * a[s] + frac * b[s];
+    out.push(normalize(f));
+  }
+  return out;
+}
+// which systems a frame blends, and how much: frame i sits at i/63 on a line with a system every 1/6
+function frameSystems(i, n = NF) { const x = i / (n - 1) * 6, j = Math.min(Math.floor(x), 5), fr = x - j; return fr < 1e-9 ? [[j, 1]] : fr > 1 - 1e-9 ? [[j + 1, 1]] : [[j, 1 - fr], [j + 1, fr]]; }
+// generate_shepard.py: nine octave partials 1..256 under a Gaussian over octave index, centred at mu = 1 + 6p, sigma 1.6
+function shepardFrame(mu, spf = SPF) { const f = new Float64Array(spf); for (let o = 0; o < 9; o++) { const k = 2 ** o, a = Math.exp(-((o - mu) ** 2) / (2 * 1.6 * 1.6)); for (let i = 0; i < spf; i++) f[i] += a * Math.sin(k * (TAU * i / spf)); } return normalize(f); }
+function shepardTable(spf = SPF, n = NF) { const out = []; for (let i = 0; i < n; i++) out.push(shepardFrame(1 + (i / (n - 1)) * 6, spf)); return out; }
+// buzz_probe.py naive_sweep: a held note, Position 0 -> 1 over dur, straight lines in phase and in Position
+function sweep(T, f0, dur, sr) {
+  const n = Math.floor(dur * sr), nf = T.length, fs = T[0].length, x = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    const sp = ((f0 / sr * i) % 1) * fs, s0 = Math.floor(sp) % fs, s1 = (s0 + 1) % fs, fr = sp - Math.floor(sp);
+    const fp = i / (n - 1) * (nf - 1), a0 = Math.floor(fp), a1 = Math.min(a0 + 1, nf - 1), ff = fp - a0;
+    const A = T[a0][s0] * (1 - fr) + T[a0][s1] * fr, B = T[a1][s0] * (1 - fr) + T[a1][s1] * fr;
+    x[i] = A * (1 - ff) + B * ff;
+  }
+  return x;
+}
+// buzz_probe.py finish: 50 ms fades
+function fades(x, sr) { const r = Math.floor(0.05 * sr); for (let i = 0; i < r; i++) { x[i] *= i / (r - 1); x[x.length - 1 - i] *= i / (r - 1); } return x; }
+const dB = (v) => 20 * Math.log10(Math.max(v, 1e-12));
+const rms = (f) => { let s = 0; for (const v of f) s += v * v; return Math.sqrt(s / f.length); };
+// scale_up.py morph_dips_db: level of the 50/50 blend against the mean of its two ends, in dB
+// the same halfway blend as the table plays it: generate.py re-normalizes every frame to full peak
+function playedDips(K) { const out = []; for (let j = 0; j + 1 < K.length; j++) { const a = K[j], b = K[j + 1], m = new Float64Array(a.length); for (let s = 0; s < a.length; s++) m[s] = 0.5 * (a[s] + b[s]); normalize(m); out.push(20 * Math.log10(rms(m) / (0.5 * (rms(a) + rms(b))))); } return out; }
+function morphDips(K) { const out = []; for (let j = 0; j + 1 < K.length; j++) { const a = K[j], b = K[j + 1], m = new Float64Array(a.length); for (let s = 0; s < a.length; s++) m[s] = 0.5 * (a[s] + b[s]); out.push(20 * Math.log10(rms(m) / (0.5 * (rms(a) + rms(b))))); } return out; }
+// radix-2 FFT magnitude
+function fftMag(x) {
+  const n = x.length, re = Float64Array.from(x), im = new Float64Array(n);
+  for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const ang = -TAU / len, wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const a = i + j, b = a + len / 2, tr = re[b] * cr - im[b] * ci, ti = re[b] * ci + im[b] * cr; re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti; const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr; } } }
+  const m = new Float64Array(n / 2 + 1); for (let k = 0; k <= n / 2; k++) m[k] = Math.hypot(re[k], im[k]); return m;
+}
+// generate_shepard.py spectral_centroid_octaves: amplitude-weighted mean bin of one cycle, in octaves above the fundamental
+// p = 1 weights by amplitude, as the generator does; p = 2 by power
+function frameCentroid(f, p = 1) { const A = fftMag(f); A[0] = 0; let s = 0, w = 0; for (let k = 0; k < A.length; k++) { const a = A[k] ** p; s += k * a; w += a; } return Math.log2(Math.max(s / w, 1)); }
+// the same along a sweep: 4096-sample Hann windows every 1024, skipping the 50 ms fades; returns log2 of the centroid in Hz
+function sweepCentroids(x, sr, N = 4096, H = 1024) { const w = new Float64Array(N); for (let i = 0; i < N; i++) w[i] = 0.5 - 0.5 * Math.cos(TAU * i / (N - 1)); const out = [], st = Math.floor(0.06 * sr), seg = new Float64Array(N);
+  for (let s0 = st; s0 < x.length - N - st; s0 += H) { for (let i = 0; i < N; i++) seg[i] = x[s0 + i] * w[i]; const A = fftMag(seg); let s = 0, t = 0; for (let k = 0; k < A.length; k++) { const f = k * sr / N; if (f < 20) continue; s += f * A[k]; t += A[k]; } out.push(Math.log2(s / t)); } return out; }
+function falls(c) { let n = 0, worst = Infinity; for (let i = 1; i < c.length; i++) { const d = c[i] - c[i - 1]; if (d < 0) n++; worst = Math.min(worst, d); } return { n, worst, steps: c.length - 1 }; }
+// ---- this page's measures, pure functions (the check runs them) ----
+function roll(f, frac) { const n = f.length, s = Math.round(frac * n) % n, o = new Float64Array(n); for (let i = 0; i < n; i++) o[(i + s) % n] = f[i]; return o; }
+function blendCurve(a, b, n = 101) { const ra = rms(a), rb = rms(b), out = []; for (let i = 0; i < n; i++) { const f = i / (n - 1), m = new Float64Array(a.length); for (let s = 0; s < a.length; s++) m[s] = (1 - f) * a[s] + f * b[s]; out.push(dB(rms(m) / ((1 - f) * ra + f * rb))); } return out; }
+function envelope(x, H) { const n = Math.floor(x.length / H), e = new Float64Array(n); for (let j = 0; j < n; j++) { let s = 0; for (let i = j * H; i < (j + 1) * H; i++) s += x[i] * x[i]; e[j] = Math.sqrt(s / H) + 1e-9; } return e; }
+function matchLevel(a, b, lev, H = 2048) { const out = Float32Array.from(b);
+  if (lev === 'whole') { const g = rms(a) / rms(b); for (let i = 0; i < out.length; i++) out[i] *= g; return out; }
+  const ea = envelope(a, H), eb = envelope(b, H), n = ea.length;
+  for (let i = 0; i < out.length; i++) { const c = (i - H / 2) / H, j = Math.max(0, Math.min(n - 1, Math.floor(c))), k = Math.min(n - 1, j + 1), f = Math.max(0, Math.min(1, c - j)); out[i] *= (1 - f) * (ea[j] / eb[j]) + f * (ea[k] / eb[k]); }
+  return out; }
+function leak(a, b, H = 2048) { const ea = envelope(a, H), eb = envelope(b, H); let worst = 0; for (let j = 0; j < ea.length; j++) if (ea[j] > 1e-4) worst = Math.max(worst, Math.abs(dB(eb[j] / ea[j]))); let pa = 0, pb = 0; for (const v of a) pa = Math.max(pa, Math.abs(v)); for (const v of b) pb = Math.max(pb, Math.abs(v));
+  return { lenA: a.length, lenB: b.length, whole: dB(rms(b) / rms(a)), worst, peakA: dB(pa), peakB: dB(pb) }; }
+</script>
+<script id="ui">
+// ---- sound: one table voice in a worklet, read the way the project's own player reads (straight lines in phase and in Position) ----
+const PROC = `
+class TableVoice extends AudioWorkletProcessor {
+  constructor() { super(); this.T = null; this.ph = 0; this.pos = 0; this.tgt = 0; this.f0 = 110; this.g = 0; this.gt = 0; this.sw = null; this.n = 0;
+    this.k = 1 - Math.exp(-1 / (0.015 * sampleRate));
+    this.port.onmessage = (e) => { const d = e.data;
+      if (d.table) this.T = d.table;
+      if (d.pos !== undefined) { this.tgt = d.pos; if (d.jump) this.pos = d.pos; }
+      if (d.f0) this.f0 = d.f0;
+      if (d.gain !== undefined) this.gt = d.gain;
+      if (d.sweep) { this.sw = { n: 0, len: Math.floor(d.sweep * sampleRate) }; this.pos = this.tgt = 0; }
+      if (d.still) this.sw = null; }; }
+  process(_, outs) { const o = outs[0], L = o[0], R = o[1] || o[0], T = this.T; if (!T) return true;
+    const nf = T.length, fs = T[0].length, inc = this.f0 / sampleRate;
+    for (let i = 0; i < L.length; i++) {
+      if (this.sw) { this.sw.n++; this.pos = this.tgt = Math.min(1, this.sw.n / this.sw.len); if (this.sw.n >= this.sw.len) { this.sw = null; this.port.postMessage({ pos: 1, done: true }); } }
+      else this.pos += (this.tgt - this.pos) * this.k;
+      this.g += (this.gt - this.g) * 0.002;
+      const sp = this.ph * fs, s0 = Math.floor(sp) % fs, s1 = (s0 + 1) % fs, fr = sp - Math.floor(sp);
+      const fp = this.pos * (nf - 1), a0 = Math.floor(fp), a1 = Math.min(a0 + 1, nf - 1), ff = fp - a0;
+      const A = T[a0][s0] * (1 - fr) + T[a0][s1] * fr, B = T[a1][s0] * (1 - fr) + T[a1][s1] * fr;
+      const v = (A * (1 - ff) + B * ff) * this.g; L[i] = v; if (R !== L) R[i] = v;
+      this.ph += inc; if (this.ph >= 1) this.ph -= 1;
+    }
+    if (this.sw && (this.n++ % 24 === 0)) this.port.postMessage({ pos: this.pos });
+    return true; }
+}
+registerProcessor('table-voice', TableVoice);`;
+let ctx = null, node = null, comp = null, playing = false, onPos = null, bufSrc = null;
+async function ensureAudio() {
+  if (ctx) { if (ctx.state !== 'running') await ctx.resume(); return; }
+  ctx = new AudioContext();
+  const url = URL.createObjectURL(new Blob([PROC], { type: 'application/javascript' }));
+  await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+  node = new AudioWorkletNode(ctx, 'table-voice', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+  comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 4;
+  node.connect(comp).connect(ctx.destination);
+  node.port.onmessage = (e) => { if (onPos) onPos(e.data); };
+  ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) { playing = false; if (typeof syncPlay === 'function') syncPlay(); } };
+}
+const f32 = (T) => T.map((f) => Float32Array.from(f));
+async function voicePlay(table, pos, f0, gain) { await ensureAudio(); stopBuffer(); node.port.postMessage({ table: f32(table), pos, jump: true, f0, gain }); playing = true; }
+function voiceSet(d) { if (node) node.port.postMessage(d); }
+function voiceStop() { if (node) node.port.postMessage({ gain: 0, still: true }); stopBuffer(); playing = false; }
+function stopBuffer() { if (bufSrc) { try { bufSrc.stop(); } catch (e) {} bufSrc = null; } }
+// a rendered buffer, straight to the output at a fixed gain: no compressor, so two buffers matched in level stay matched
+async function playBuffer(x, gain, onend) { await ensureAudio(); voiceSet({ gain: 0, still: true }); stopBuffer();
+  const b = ctx.createBuffer(1, x.length, ctx.sampleRate); b.copyToChannel(x, 0);
+  const s = ctx.createBufferSource(), g = ctx.createGain(); g.gain.value = gain; s.buffer = b; s.connect(g).connect(ctx.destination);
+  s.onended = () => { if (bufSrc === s) { bufSrc = null; if (onend) onend(); } }; bufSrc = s; s.start(); playing = true; }
+// ---- drawing ----
+function prep(cv) { const r = devicePixelRatio || 1, w = cv.clientWidth, h = +cv.getAttribute('height'); cv.width = w * r; cv.height = h * r; cv.style.height = h + 'px'; const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h }; }
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function label(g, txt, x, y, col, align) { g.font = '10px JetBrains Mono, monospace'; g.fillStyle = col || css('--fg-3'); g.textAlign = align || 'left'; g.fillText(txt, x, y); }
+function wave(g, f, x, y, w, h, col, lw) { g.strokeStyle = col; g.lineWidth = lw || 1.4; g.beginPath(); const n = f.length; for (let i = 0; i <= w; i++) { const v = f[Math.min(n - 1, Math.floor(i / w * n))]; const yy = y + h / 2 - v * h * 0.45; i ? g.lineTo(x + i, yy) : g.moveTo(x + i, yy); } g.stroke(); }
+const $ = (id) => document.getElementById(id);
+// ---- the page ----
+const F0 = 110, DUR = 6, ARMS = ['zero', 'carry', 'turned'];
+const KF = { zero: keyframes('zero'), carry: keyframes('carry'), turned: keyframes('turned') };
+const TB = { zero: interpolate(KF.zero), carry: interpolate(KF.carry), turned: interpolate(KF.turned) };
+const DIPS = { zero: morphDips(KF.zero), carry: morphDips(KF.carry), turned: morphDips(KF.turned) };
+const PLAYED = { zero: playedDips(KF.zero), carry: playedDips(KF.carry), turned: playedDips(KF.turned) };
+// frame by frame, each table's level against the shipped one (check.py recomputes): carried −0.02 to +2.82 dB, turned −2.13 to +2.89 dB
+const LEVEL = { zero: [0, 0], carry: [-0.02, 2.82], turned: [-2.13, 2.89] };
+// the project's own meters, run in Python by check.py on these exact tables, 6 s sweep at A2, 44.1 kHz:
+// buzz = smooth_tables.py offnote_db (energy 4-15 Hz either side of every harmonic against the harmonics, band-limited reader); plain = buzz_probe.py nonharmonic_db median (the plain reader)
+const METER = { zero: { buzz: -58.3, plain: -42.7 }, carry: { buzz: -57.2, plain: -42.4 }, turned: { buzz: -39.1, plain: -37.9 } };
+const NAMES = SYSTEMS.map((s) => s[0]);
+const S = { step: 0, mix: 0.5, turn: 0, pair: 'carry', lev: 'win', abx: null };
+function pairNow() { return [KF.zero[0], roll(KF.zero[1], S.step === 0 ? 0 : S.turn)]; }
+const TURNCURVE = (() => { const out = []; for (let i = 0; i <= 64; i++) { const [a] = [KF.zero[0]], b = roll(KF.zero[1], i / 64); out.push(morphDips([a, b])[0]); } return out; })();
+const STEPS = [
+  { t: 'Two frames, crossfaded', say: 'Between two stored frames a wavetable reader plays a straight blend. Here are the table’s first two systems, cubic (A) and hexagonal (B), both built from zero phase, as shipped. Their partials start together, so blending them only trades one shape for the other.',
+    do: 'Play, and move the crossfade.', watch: 'Left: A, B and the blend. Right: the blend’s level across the whole crossfade, against the straight line between the two ends.', hear: 'The level holds the whole way; only the colour changes.' },
+  { t: 'Turn one of them', say: 'Now start B at a different point in its cycle: same sound alone, a different phase. Blend them, and partials that were adding now partly cancel: the middle of the crossfade thins.',
+    do: 'Turn B, then move the crossfade through the middle.', watch: 'The level curve sags in the middle; the small curve is the sag at 50/50 for every turn.', hear: 'At half a cycle, the middle of the crossfade goes thin and hollow.' },
+  { t: 'Carry the phase through', say: 'The open question’s other policy: let each partial start where it ended in the system before. In this recipe the fundamental is never detuned, so it always ends where it began and carries nothing; only the detuned upper partials drift, and they are the quiet ones.',
+    do: 'Read the dots and the table.', watch: 'Each column is a system; each dot a partial’s carried starting phase, bigger for louder partials. The fundamental stays at zero.', hear: 'Nothing yet.' },
+  { t: 'Three sweeps', say: 'The whole 64-frame table swept in 6 seconds at A2, under each policy, by the project’s own reader. Named, not blind. The numbers are the project’s own meters: the sag at each system-to-system blend, raw and as the table plays it, and the buzz meter the steward built for the flutter Loudon heard in October.',
+    do: 'Play each sweep.', watch: 'Solid lines: the halfway blend as the table plays it, re-normalized. Dashed: the raw blend. The table: sag, level and buzz.', hear: 'The turned sweep should flutter and wobble in level; listen whether carried differs from shipped at all.' },
+  { t: 'The test, blind', say: 'Set before the first trial: 12 trials; X is A six times and B six times, in a shuffled order, so guessing gets 6 right on average and always answering A gets exactly 6. Ten or more right passes, which a guesser does about 2 times in 100 (one-sided p = 0.019). Both arms are scored apart, so a habit of always answering A shows. The two sounds are the same length to the sample and matched in level, by default every 46 ms; the leak check under the results says what remains.',
+    do: 'Pick a pair, begin, and play A, B and X as often as you like before each answer.', watch: 'Nothing until the twelfth answer; then the score, by arm, and the leak check.', hear: 'Anything that tells X apart.' },
+];
+function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${s.t}`; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => go(i); r.appendChild(b); }); }
+function go(i) { voiceStop(); syncPlay(); S.step = i; rail(); show(); }
+function syncPlay() { $('play').textContent = playing ? '■ stop' : '▸ play'; }
+function draw() {
+  const { g, w, h } = prep($('pic')), top = 14, ph = h - 40;
+  if (S.step <= 1) { const [a, b] = pairNow(), lw = Math.floor(w * 0.46);
+    const m = new Float64Array(a.length); for (let s = 0; s < a.length; s++) m[s] = (1 - S.mix) * a[s] + S.mix * b[s];
+    wave(g, a, 8, top, lw - 8, ph, 'rgba(74,143,255,.55)', 1); wave(g, b, 8, top, lw - 8, ph, 'rgba(139,124,246,.55)', 1); wave(g, m, 8, top, lw - 8, ph, css('--accent'), 2);
+    label(g, 'A cubic', 8, h - 8, css('--info')); label(g, 'B hexagonal', 70, h - 8, css('--violet')); label(g, 'blend', 160, h - 8, css('--accent'));
+    const bx = lw + 30, bw = w - bx - 12, cur = blendCurve(a, b), Y = (d) => top + ph * Math.min(1, -d / 12);
+    g.strokeStyle = css('--border-soft'); for (const d of [0, -3, -6, -9, -12]) { g.beginPath(); g.moveTo(bx, Y(d)); g.lineTo(bx + bw, Y(d)); g.stroke(); label(g, `${d} dB`, bx - 4, Y(d) + 3, css('--fg-4'), 'right'); }
+    g.strokeStyle = css('--accent'); g.lineWidth = 2; g.beginPath(); cur.forEach((d, i) => { const x = bx + i / 100 * bw; i ? g.lineTo(x, Y(d)) : g.moveTo(x, Y(d)); }); g.stroke();
+    g.fillStyle = css('--fg-1'); const ci = Math.round(S.mix * 100); g.beginPath(); g.arc(bx + S.mix * bw, Y(cur[ci]), 4, 0, TAU); g.fill();
+    label(g, 'A', bx, h - 8); label(g, 'B', bx + bw, h - 8, null, 'right'); label(g, 'level of the blend against the straight line', bx + bw / 2, h - 8, css('--fg-4'), 'center');
+    if (S.step === 1) { const sx = bx + bw - 150, sy = top + ph - 70, sw = 140, sh = 56; g.fillStyle = css('--bg-elev-1'); g.fillRect(sx - 4, sy - 12, sw + 8, sh + 26);
+      g.strokeStyle = css('--red'); g.lineWidth = 1.4; g.beginPath(); TURNCURVE.forEach((d, i) => { const x = sx + i / 64 * sw, y = sy + sh * Math.min(1, -d / 30); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+      g.fillStyle = css('--fg-1'); g.fillRect(sx + S.turn * sw - 1, sy, 2, sh); label(g, 'sag at 50/50 by turn', sx, sy - 2, css('--fg-3')); label(g, '0', sx, sy + sh + 11, css('--fg-4')); label(g, '1 cycle', sx + sw, sy + sh + 11, css('--fg-4'), 'right'); }
+    return; }
+  if (S.step === 2) { const cx = (j) => 50 + j / 6 * (w - 90), Y = (p) => top + ph * (1 - p / TAU);
+    g.strokeStyle = css('--border-soft'); for (const [p, t] of [[0, '0'], [Math.PI, 'π'], [TAU, '2π']]) { g.beginPath(); g.moveTo(40, Y(p)); g.lineTo(w - 20, Y(p)); g.stroke(); label(g, t, 34, Y(p) + 3, css('--fg-4'), 'right'); }
+    const ph0 = {}; SYSTEMS.forEach((s, j) => { const amax = partialAmp(s, 1); for (let k = 1; k <= s[1]; k++) { const p = ph0[k] || 0, r = 1.5 + 5 * Math.sqrt(partialAmp(s, k) / amax); g.fillStyle = k === 1 ? css('--accent') : 'rgba(200,200,216,.55)'; g.beginPath(); g.arc(cx(j) + (k - s[1] / 2) * 0.8, Y(p), r, 0, TAU); g.fill(); }
+      label(g, NAMES[j].slice(0, 6), cx(j), h - 8, css('--fg-3'), 'center'); for (let k = 1; k <= s[1]; k++) ph0[k] = ((ph0[k] || 0) + TAU * partialMult(s, k)) % TAU; });
+    label(g, 'carried start phase of each partial', 40, top - 2, css('--fg-4')); return; }
+  if (S.step === 3) { const X = (j) => 50 + j / 5 * (w - 100), Y = (d) => top + ph * Math.min(1, (3 - d) / 11);
+    g.strokeStyle = css('--border-soft'); for (const d of [2, 0, -2, -4, -6, -8]) { g.beginPath(); g.moveTo(40, Y(d)); g.lineTo(w - 20, Y(d)); g.stroke(); label(g, `${d} dB`, 34, Y(d) + 3, css('--fg-4'), 'right'); }
+    const col = { zero: css('--accent'), carry: css('--info'), turned: css('--red') };
+    ARMS.forEach((a) => { g.strokeStyle = col[a]; g.lineWidth = 1.2; g.setLineDash([4, 4]); g.beginPath(); DIPS[a].forEach((d, j) => { j ? g.lineTo(X(j), Y(d)) : g.moveTo(X(j), Y(d)); }); g.stroke(); g.setLineDash([]); g.lineWidth = 2; g.beginPath(); PLAYED[a].forEach((d, j) => { j ? g.lineTo(X(j), Y(d)) : g.moveTo(X(j), Y(d)); }); g.stroke(); PLAYED[a].forEach((d, j) => { g.fillStyle = col[a]; g.beginPath(); g.arc(X(j), Y(d), 3, 0, TAU); g.fill(); }); });
+    for (let j = 0; j < 6; j++) label(g, `${NAMES[j].slice(0, 4)}→${NAMES[j + 1].slice(0, 4)}`, X(j), h - 8, css('--fg-4'), 'center');
+    label(g, 'zero', w - 20, top + 8, col.zero, 'right'); label(g, 'carried', w - 20, top + 20, col.carry, 'right'); label(g, 'turned', w - 20, top + 32, col.turned, 'right'); return; }
+  // step 5: a quiet bar of trials
+  const A = S.abx; const n = A ? A.done.length : 0; for (let i = 0; i < 12; i++) { g.fillStyle = i < n ? css('--fg-3') : css('--bg-elev-1'); g.fillRect(20 + i * (w - 40) / 12, top + ph / 2 - 10, (w - 40) / 12 - 6, 20); }
+  label(g, A ? (n < 12 ? `trial ${n + 1} of 12` : 'done') : 'not begun', 20, top + ph / 2 - 20, css('--fg-3'));
+}
+// ---- the blind test ----
+function renderArm(arm, sr) { return fades(sweep(TB[arm], F0, DUR, sr), sr); }
+// match b to a: over the whole sweep, or hop by hop (2048 samples) with the gain drawn straight between hop centres
+function prepareAbx(sr) { const a0 = renderArm('zero', sr), b0 = renderArm(S.pair, sr), ga = 0.1 / rms(a0); for (let i = 0; i < a0.length; i++) a0[i] *= ga; const b = matchLevel(a0, b0, S.lev); return { A: a0, B: b, leak: leak(a0, b) }; }
+async function begin() { await ensureAudio(); const P = prepareAbx(ctx.sampleRate), seq = ['A', 'A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B', 'B']; for (let i = 11; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [seq[i], seq[j]] = [seq[j], seq[i]]; } S.abx = { ...P, pair: S.pair, lev: S.lev, seq, x: seq[0], done: [] }; show(); }
+function answer(which) { const A = S.abx; if (!A || A.done.length >= 12) return; stopBuffer(); playing = false; A.done.push({ x: A.x, said: which }); A.x = A.seq[Math.min(A.done.length, 11)]; show(); }
+function binomTail(k, n) { let s = 0; for (let i = k; i <= n; i++) { let c = 1; for (let j = 0; j < i; j++) c = c * (n - j) / (j + 1); s += c; } return s / 2 ** n; }
+function show() {
+  const st = STEPS[S.step]; $('st-title').textContent = `${S.step + 1}. ${st.t}`; $('st-say').textContent = st.say; $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  $('ctl-mix').classList.toggle('hide', S.step > 1); $('ctl-turn').classList.toggle('hide', S.step !== 1); $('play').classList.toggle('hide', S.step > 1); $('g-three').classList.toggle('hide', S.step !== 3); $('abx').classList.toggle('hide', S.step !== 4);
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  $('pic-l').textContent = ['two frames and their blend', 'two frames, B turned', 'phase carried from system to system', 'halfway blend between systems, against its ends', 'the trials'][S.step]; $('pic-r').textContent = ['level across the crossfade', 'level across the crossfade', 'gold: the fundamental', 'solid: as played · dashed: raw', ''][S.step];
+  let m = '', tab = '', found = '', e1 = '', e2 = '';
+  if (S.step <= 1) { const [a, b] = pairNow(), cur = blendCurve(a, b);
+    m = `crossfade <b>${S.mix.toFixed(2)}</b> · level here <b>${cur[Math.round(S.mix * 100)].toFixed(2)} dB</b> against the straight line · at 50/50 <b>${cur[50].toFixed(2)} dB</b>` + (S.step === 1 ? ` · B turned by <b>${S.turn.toFixed(3)}</b> of a cycle` : '');
+    e1 = 'blend = (1 − f)·A + f·B     sag = level(blend at ½) ÷ ( ½·level(A) + ½·level(B) )';
+    e2 = 'The reader’s blend between two frames, f from 0 to 1. The sag is the project’s own measure: the level of the halfway blend against the average of the two ends. 0 dB means it holds; partials that cancel pull it down.';
+    if (S.step === 1) found = `At half a cycle the fundamentals of A and B point opposite ways, and the halfway blend sags <b>${Math.min(...TURNCURVE).toFixed(1)} dB</b>. The general case, any two frames, is worked through on 1D Wavetable Scanning’s “switch or scan” and the 2D Torus project’s “the RMS dip”; here it is the crystal table’s own first two frames, crossfaded raw. The shipped table scales every frame back to full peak, which hides most of this sag as level; step 4 measures it as played.`; }
+  if (S.step === 2) { tab = '<tr><th>halfway blend, raw · as played</th><th>zero-phase (shipped)</th><th>carried</th><th>turned</th></tr>' + DIPS.zero.map((_, j) => `<tr><td>${NAMES[j]} → ${NAMES[j + 1]}</td>${ARMS.map((a) => `<td>${DIPS[a][j].toFixed(2)} · ${PLAYED[a][j] >= 0 ? '+' : ''}${PLAYED[a][j].toFixed(2)} dB</td>`).join('')}</tr>`).join('');
+    found = `Raw, carrying phase through moves the worst sag from ${Math.min(...DIPS.zero).toFixed(2)} dB to ${Math.min(...DIPS.carry).toFixed(2)} dB, at the last blend, where the most detuned partials are. The turned column is the case the page warns about: each system’s cycle starting somewhere else, as cycles gathered from anywhere arrive. Raw, it sags up to ${(-Math.min(...DIPS.turned)).toFixed(1)} dB, what a reader crossfading the seven stored cycles directly would play. As this table plays it, re-normalized, the worst halfway blend is ${Math.min(...PLAYED.turned).toFixed(1)} dB. One draw of the turns is used, the median of 40 by raw sag; across those 40 the raw worst runs from −3.2 to −7.8 dB, and as played from −1.65 to +0.04 dB.`;
+    e1 = 'carried:  φ_k(next system) = φ_k + 2π·m_k  (mod 2π)     m_1 = 1  ⇒  φ_1 stays 0'; e2 = 'Each partial starts the next system where it finished this one. A partial turning a whole number of times per cycle finishes where it started; the fundamental always does.'; }
+  if (S.step === 3) { tab = '<tr><th>policy</th><th>worst sag, raw</th><th>worst sag, as played</th><th>level against shipped, frame by frame</th><th>buzz, band-limited reader</th><th>off the harmonics, plain reader</th></tr>' + ARMS.map((a) => `<tr><td>${{ zero: 'zero-phase, as shipped', carry: 'carried', turned: 'turned' }[a]}</td><td>${Math.min(...DIPS[a]).toFixed(2)} dB</td><td>${Math.min(...PLAYED[a]).toFixed(2)} dB</td><td>${a === 'zero' ? '—' : LEVEL[a][0].toFixed(1) + ' to +' + LEVEL[a][1].toFixed(1) + ' dB'}</td><td>${METER[a].buzz.toFixed(1)} dB</td><td>${METER[a].plain.toFixed(1)} dB</td></tr>`).join('');
+    found = '<b>The warning holds, and the open question barely matters on this table.</b> Turned, the sweep’s buzz rises 19 dB over the shipped table, and its level wobbles from −2.1 to +2.9 dB against shipped, frame by frame. Its sag between systems, as the table plays it, is only about 1 dB: the 6.1 dB raw sag is mostly turned into level by the per-frame peak scaling. Carried, it is within 1.1 dB of the shipped table on buzz and nothing on sag. What carrying does change is level: shifting the upper partials’ phases changes each frame’s peak, so frame by frame the carried table runs up to 2.8 dB above the shipped one. That is why the blind test matches level every 46 ms by default.'; }
+  if (S.step === 4) { const A = S.abx;
+    m = `pair: <b>${S.pair === 'carry' ? 'zero-phase or carried' : 'zero-phase or turned'}</b> · level matched <b>${S.lev === 'win' ? 'every 46 ms' : 'over the whole sweep'}</b> · chance 6 of 12 · pass at 10 or more`;
+    if (A) { const n = A.done.length; if (n < 12) m += ` · <b>trial ${n + 1} of 12</b>`;
+      if (n === 12) { const right = A.done.filter((d) => d.x === d.said).length, xa = A.done.filter((d) => d.x === 'A'), xb = A.done.filter((d) => d.x === 'B');
+        const ra = xa.filter((d) => d.said === 'A').length, rb = xb.filter((d) => d.said === 'B').length, p = binomTail(right, 12), L = A.leak;
+        tab = `<tr><th>score</th><th></th></tr><tr><td>right</td><td><b>${right} of 12</b></td></tr><tr><td>when X was A (zero-phase)</td><td>${ra} of ${xa.length}</td></tr><tr><td>when X was B (${A.pair === 'carry' ? 'carried' : 'turned'})</td><td>${rb} of ${xb.length}</td></tr><tr><td>chance of ${right} or more by guessing</td><td>${p.toFixed(3)}</td></tr>` +
+          `<tr><th>leak check</th><th></th></tr><tr><td>length A · B</td><td>${L.lenA} · ${L.lenB} samples</td></tr><tr><td>level B against A, whole</td><td>${L.whole.toFixed(2)} dB</td></tr><tr><td>level B against A, worst 46 ms</td><td>${L.worst.toFixed(2)} dB</td></tr><tr><td>peak A · B</td><td>${L.peakA.toFixed(1)} · ${L.peakB.toFixed(1)} dBFS</td></tr>`;
+        found = (right >= 10 ? `<b>Pass.</b> You told the two apart, ${right} of 12.` : `<b>Not shown.</b> ${right} of 12 is within what guessing does; that is not proof there is no difference, only that this run did not find one.`) +
+          (A.lev === 'whole' && L.worst > 0.5 ? ` Level was matched only over the whole sweep, and the two still differ by up to ${L.worst.toFixed(1)} dB window to window, so a pass here may be hearing level, not phase.` : '') +
+          (A.pair === 'carry' ? ' Measured, the prediction was that this pair is hard to tell with level matched: on the project’s meters it differs by 1.1 dB of buzz and no sag as played; its 2.8 dB level difference is what matching removes.' : ' Measured, the prediction was that this pair can be told by its buzz, 19 dB above the shipped table; its ±3 dB level wobble is removed by matching every 46 ms, and its sag as played is about 1 dB. If it could not be told, check the listening setup before trusting a “not shown” on the other pair.') +
+          ' An agent made this test and cannot hear it; only a listener’s run answers it.'; } }
+    $('begin').textContent = A ? 'begin again' : 'begin 12 trials';
+    ['pA', 'pB', 'pX', 'isA', 'isB'].forEach((id) => $(id).disabled = !A || A.done.length >= 12);
+    document.querySelectorAll('[data-pair]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.pair === S.pair)); document.querySelectorAll('[data-lev]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.lev === S.lev)); }
+  $('meter').innerHTML = m; $('tab').innerHTML = tab; $('found').innerHTML = found; $('eq1').textContent = e1; $('eq1w').textContent = e2;
+  $('mix-v').textContent = S.mix.toFixed(2); $('turn-v').textContent = S.turn.toFixed(3);
+  draw();
+}
+$('play').onclick = async () => { if (playing) { voiceStop(); syncPlay(); return; } await voicePlay(pairNow(), S.mix, F0, 0.25); syncPlay(); };
+$('mix').oninput = (e) => { S.mix = +e.target.value; voiceSet({ pos: S.mix, still: true }); show(); };
+$('turn').oninput = (e) => { S.turn = +e.target.value; if (playing && node) voiceSet({ table: f32(pairNow()) }); show(); };
+document.querySelectorAll('[data-arm]').forEach((b) => b.onclick = async () => { await ensureAudio(); const x = renderArm(b.dataset.arm, ctx.sampleRate), g = 0.1 / rms(x); for (let i = 0; i < x.length; i++) x[i] *= g; await playBuffer(x, 1, () => { playing = false; }); });
+document.querySelectorAll('[data-pair]').forEach((b) => b.onclick = () => { S.pair = b.dataset.pair; S.abx = null; show(); });
+document.querySelectorAll('[data-lev]').forEach((b) => b.onclick = () => { S.lev = b.dataset.lev; S.abx = null; show(); });
+$('begin').onclick = begin;
+$('pA').onclick = () => playBuffer(S.abx.A, 1); $('pB').onclick = () => playBuffer(S.abx.B, 1); $('pX').onclick = () => playBuffer(S.abx.x === 'A' ? S.abx.A : S.abx.B, 1);
+$('isA').onclick = () => answer('A'); $('isB').onclick = () => answer('B');
+$('back').onclick = () => go(Math.max(0, S.step - 1)); $('next').onclick = () => go(Math.min(STEPS.length - 1, S.step + 1));
+addEventListener('resize', draw);
+go(0);
+</script>
+</body>
+</html>

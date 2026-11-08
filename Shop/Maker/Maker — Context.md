@@ -29,7 +29,7 @@ Not all the length runs the job. The page went from 13 KB to 34 KB in the three 
 The Maker holds the routes, the floors and the order of a job. Everything else has an owner, and the page points rather than copies — "I inherit it, I don't own a second copy," it says of the [[Review Layer]] (Shop/Maker.md:151).
 
 - **A tool's traps, tiers and parameters** go on the Specialist's page. A heuristic may carry a caveat that changes the route — d3-force is a relaxation solver — but not the fix.
-- **Tokens, type and palette** belong to the three dresses: [[Drafting Table Design System]], [[Loudon Live Design System]], [[BBS Design System]]. The Maker owns only the mechanical floor.
+- **Tokens, type and palette** belong to the three dresses: [[Drafting Table Design System]], [[Loudon Live Design System]], [[STIGMERGY#The look|STIGMERGY's look]]. The Maker owns only the mechanical floor.
 - **Membership and status** live in each Specialist's frontmatter, rendered into [[The Shop]] § Roster by `Shop/Maker/build-roster.mjs`.
 - **Which host runs what** lives in `Shop/Maker/host-capability.json` and its check script; the page's tables read it.
 - **The full form of a whole-brief run** goes in the bundle (`coordination-demos/`, `comparisons/`) or the project that ran it. A Recipe here earns its place only when a whole brief taught routing or coordination.

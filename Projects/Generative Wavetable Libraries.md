@@ -34,6 +34,9 @@ links:
   - target: "[[Drift and Consolidation]]"
     type: exemplifies
     label: stewarded-page
+  - target: "[[Synthesis Topologies]]"
+    type: member-of
+    label: makes-the-stored-loop
 forward_vector: "I will become a chat-driven generator of wavetables — Claude conducts the interview, sources partial structures from anywhere (palace synthesis, AI sub-agents, captured audio), and renders deployable wavetables in Serum/CLM, Ableton, Surge XT, and single-cycle formats."
 ---
 

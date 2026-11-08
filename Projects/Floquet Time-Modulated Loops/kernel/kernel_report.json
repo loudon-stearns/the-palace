@@ -1,0 +1,98 @@
+{
+ "fs": 48000,
+ "taps": 512,
+ "passband_spacing_hz": 93.75,
+ "sine_check": {
+  "penrose": {
+   "lines_within_60dB": 5,
+   "worst_error_db": 0.0,
+   "strongest_lines_hz": [
+    130,
+    750,
+    254,
+    626,
+    440
+   ],
+   "strongest_lines_db": [
+    0.0,
+    0.0,
+    -13.1,
+    -13.1,
+    -17.5
+   ],
+   "power_off_the_predicted_grid": 1.0084848272919373e-08
+  },
+  "theta": {
+   "lines_within_60dB": 7,
+   "worst_error_db": 0.0,
+   "strongest_lines_hz": [
+    440,
+    409,
+    471,
+    378,
+    502,
+    347
+   ],
+   "strongest_lines_db": [
+    0.0,
+    -0.5,
+    -0.5,
+    -16.1,
+    -16.1,
+    -42.0
+   ],
+   "power_off_the_predicted_grid": 9.66518120115792e-13
+  },
+  "membrane": {
+   "lines_within_60dB": 8,
+   "worst_error_db": 0.0,
+   "strongest_lines_hz": [
+    409,
+    471,
+    378,
+    502,
+    347,
+    533
+   ],
+   "strongest_lines_db": [
+    0.0,
+    0.0,
+    -3.1,
+    -3.1,
+    -10.9,
+    -10.9
+   ],
+   "power_off_the_predicted_grid": 1.1017080949162088e-11
+  }
+ },
+ "renders": {
+  "kernel_a_penrose_saw_glide.wav": {
+   "surface": "penrose",
+   "input": "saw 110 Hz",
+   "off_harmonic_power_first_s": 0.8162,
+   "off_harmonic_power_last_s": 0.9297,
+   "finite": true
+  },
+  "kernel_b_theta_saw_glide.wav": {
+   "surface": "theta",
+   "input": "saw 110 Hz",
+   "off_harmonic_power_first_s": 0.0291,
+   "off_harmonic_power_last_s": 0.503,
+   "finite": true
+  },
+  "kernel_c_membrane_saw_glide.wav": {
+   "surface": "membrane",
+   "input": "saw 110 Hz",
+   "off_harmonic_power_first_s": 0.0079,
+   "off_harmonic_power_last_s": 0.9813,
+   "finite": true
+  },
+  "kernel_d_penrose_noise_glide.wav": {
+   "surface": "penrose",
+   "input": "white noise",
+   "off_harmonic_power_first_s": null,
+   "off_harmonic_power_last_s": null,
+   "finite": true
+  }
+ }
+}

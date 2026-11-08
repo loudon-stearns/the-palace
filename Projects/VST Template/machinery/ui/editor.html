@@ -10,6 +10,46 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Editor</title>
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" href="../../VST%20Template%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, link, mark. */
+@layer furniture {
+:where(*) { --fx-bg: #0a0a0f; --fx-bg-elev-1: #12121a; --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: #e8e8f0; --fx-fg-2: #c8c8d8; --fx-fg-3: #8a8aa0; --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: #4a4a5e; --fx-border-soft: rgba(255,255,255,0.06); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: #e8b84a; --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
 <style>/*@@FONTS@@*/</style>
 <style>/*@@TOKENS@@*/</style>
 <style>
@@ -66,7 +106,7 @@
   .heroes { flex: 1; min-height: calc(var(--hero) + 64px); display: flex; gap: var(--s-8); align-items: center; justify-content: center; padding: var(--s-2) 0; }
   .heroes .ctl { --knob: var(--hero); }
   /* ── the CRT (screen): a bezel drawn as an elevation around a screen the plugin owns ── */
-  .heroes .screen { flex: 1 1 0; align-self: stretch; min-width: 0; position: relative; }
+  .heroes .screen, .pad-wrap .screen { flex: 1 1 0; align-self: stretch; min-width: 0; position: relative; }
   .screen .casing { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
   .screen .casing * { fill: none; stroke: var(--ink-3, var(--fg-3)); stroke-width: 1; vector-effect: non-scaling-stroke; }
   .screen .casing .outline { stroke: var(--ink-2, var(--fg-2)); }
@@ -142,6 +182,7 @@
 <script>/*@@JUCE@@*/</script>
 <script>/*@@MOCK@@*/</script>
 <script>/*@@REVIEW@@*/</script>
+<script>/*@@VISUALIZER@@*/</script>
 <script>
 "use strict";
 // ── the trace: a 3:2 Lissajous, the channel's mark, drawn rather than embedded ──
@@ -369,8 +410,46 @@ function crt() {
   return SCREEN = { el, glass, draw };
 }
 
-// ── XY pad: two heroes on one surface, x first, y second; an optional backdrop (ui.backdrop) ──
-function pad(px, py, backdrop) {
+// ── the CRT's picture: the plugin's own ui/visualizer.js, which ui.py inlines and names as
+// window.editorVisualizer, an object { mount(el, hooks), frame(probes, params, dt) }. mount gets the
+// glass and hooks { get, set, begin, end } by parameter id (the editor's own relays, so a drag on the
+// picture is the knob moving). frame runs on each "probes" event the plugin sends, about 60 Hz, with
+// the latest probes in kProbes order and every parameter in natural units (a menu's index). It is
+// driven by the plugin's timer, not by animation frames, which WebKit stops in a plugin window it
+// thinks is covered. window.editorProbes holds the whole event: names, p, out (the output's peak),
+// h (every frame, ~480 a second, since the last event) and rate. In a browser, the mock's feed
+// (ui.py mock --feed) stands in, replayed from a harness render. ──
+const PROBES = window.editorProbes = { names: [], p: [], out: 0, h: [], rate: 0 };
+function binding(p) { return p.taper === "choice" ? bindChoice(p) : p.taper === "toggle" ? bindToggle(p) : bindSlider(p); }
+function startScreen(info) {
+  const vis = window.editorVisualizer, ui = info.ui || {};
+  if (!vis || !ui.screen || !SCREEN) return;
+  PROBES.names = info.probes || [];
+  PROBES.p = PROBES.names.map(() => 0);
+  const byId = new Map(info.params.map(p => [p.id, binding(p)]));
+  const call = (id, k, ...a) => { const b = byId.get(id); return b ? b[k](...a) : undefined; };
+  const hooks = { get: id => call(id, "get"), set: (id, v) => call(id, "set", v), begin: id => call(id, "begin"), end: id => call(id, "end") };
+  const values = () => { const v = {}; byId.forEach((b, id) => { v[id] = b.get(); }); return v; };
+  try { vis.mount(SCREEN.glass, hooks); } catch (err) { console.error("visualizer mount:", err); return; }
+  let last = performance.now();
+  const tick = ev => {
+    if (ev) Object.assign(PROBES, ev);
+    const now = performance.now(), dt = Math.min(0.1, (now - last) / 1000); last = now;
+    try { vis.frame(PROBES.p, values(), dt); } catch (err) { console.error("visualizer frame:", err); }
+  };
+  if (window.__IN_PLUGIN__) { window.__JUCE__.backend.addEventListener("probes", tick); tick(); return; }
+  const feed = info.feed, n = PROBES.names.length;   // the mock: a harness render, replayed in a loop
+  let i = 0;
+  setInterval(() => {
+    if (!feed || !feed.frames.length) return tick();
+    const f = feed.frames[i++ % feed.frames.length];
+    tick({ p: f.slice(0, n), out: f[n], h: [f], rate: feed.rate });
+  }, 1000 / 60);
+}
+
+// ── XY pad: two heroes on one surface, x first, y second; an optional backdrop (ui.backdrop), and the
+// CRT beside it when the plugin has a picture (the edge direction's screen sits between pad and readouts) ──
+function pad(px, py, backdrop, screen) {
   const sx = bindSlider(px), sy = bindSlider(py);
   const wrap = document.createElement("div"); wrap.className = "pad-wrap"; wrap.dataset.moment = "heroes";
   const el = document.createElement("div"); el.className = "pad";
@@ -382,7 +461,7 @@ function pad(px, py, backdrop) {
   const side = document.createElement("div"); side.className = "pad-side";
   const ro = (p) => { const r = document.createElement("div"); r.className = "readout"; r.innerHTML = `<div class="label">${p.name}</div><div class="value"></div><div class="range">${rangeText(p)}</div>`; return r; };
   const rx = ro(px), ry = ro(py); side.append(rx, ry);
-  wrap.append(el, side);
+  wrap.append(el, ...(screen ? [screen] : []), side);
   const css = getComputedStyle(document.documentElement);
   const draw = () => {
     const dpr = window.devicePixelRatio || 1, W = el.clientWidth, H = el.clientHeight;
@@ -484,12 +563,16 @@ function build(info) {
   }
   const main = document.getElementById("main"); main.innerHTML = "";
   const params = info.params, heroes = direction === "flow" ? [] : params.filter(p => p.hero);
-  if (heroes.length === 2 && direction === "edge") main.append(pad(heroes[0], heroes[1], ui.backdrop));
+  const wantsScreen = !!(ui.screen && (window.editorVisualizer || ui.screen === "test-card"));
+  if (heroes.length === 2 && direction === "edge") {
+    const screen = crt().el; screen.hidden = !wantsScreen;
+    main.append(pad(heroes[0], heroes[1], ui.backdrop, screen));
+  }
   else if (heroes.length) {
     const h = document.createElement("div"); h.className = "heroes"; h.dataset.moment = "heroes";
     // The CRT sits between the heroes, hidden unless ui.screen is set. Shown, it stretches into the row's
     // spare width, so nothing else moves (design standard § The CRT).
-    const screen = crt().el; screen.hidden = !ui.screen;
+    const screen = crt().el; screen.hidden = !wantsScreen;
     heroes.forEach((p, i) => { if (i === 1) h.append(screen); h.append(control(p, true, direction)); });
     if (heroes.length === 1) h.append(screen);
     main.append(h);
@@ -540,6 +623,7 @@ function fitWindow(info) {
   if (q.get("direction")) info.ui = Object.assign({}, info.ui, { direction: q.get("direction"), skin: q.get("skin") || undefined });
   build(info);
   fitWindow(info);
+  startScreen(info);
   if (window.__onEditorBuilt) window.__onEditorBuilt(info);   // the mock's review surface, if it has one
   document.fonts.ready.then(() => fitWindow(info));   // the faces change every width
   // Fitted again in the resize event itself, not on a later frame: WebKit stops animation frames in a

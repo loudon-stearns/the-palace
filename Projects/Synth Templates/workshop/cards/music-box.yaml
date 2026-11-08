@@ -1,0 +1,68 @@
+# Synth Templates — card 0.2 — Music Box
+# High-register decay: two bright sines two octaves up, and the higher the note, the faster it dies.
+schema: synth-template-card/0.2
+id: music-box
+name: Music Box
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Additive: sines in a harmonic series"
+  - "Keytracking → decay and release time"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 2, note: "the comb's tooth: already high"}
+    osc2: {kind: oscillator, wave: sine, ratio: "6.3:1", level: little, note: "the tooth's second mode, inharmonic; the voice may not tune a mixed partial by ratio"}
+    mix:  {kind: mixer}
+    amp:  {kind: amplifier, level: under unity}
+    fx:   {kind: fx, chain: [reverb], note: "the box"}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked, note: "key → decay runs negative: high notes shorter; the voice does not yet track decay by key"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.decay, amount: some, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,          why: "a steel tooth, pure and tiny"}
+  - {block: osc1, param: octave,  value: +2,            why: "the register is the instrument: played low, the same patch is a kalimba"}
+  - {block: osc2, param: ratio,   value: "6.3:1",       why: "the tooth's second mode, far above and not a harmonic: the glint"}
+  - {block: osc2, param: level,   value: little,        why: "only a glint; at this height more would hurt"}
+  - {block: key,  param: target,  value: amp decay (negative), why: "higher notes decay faster, as they do on any real instrument; here the whole range is high, so the difference is audible note to note"}
+  - {block: aenv, param: attack,  value: instant,       why: "plucked by a pin"}
+  - {block: aenv, param: decay,   value: medium,        why: "short for a bell: a tooth has little metal to ring"}
+  - {block: aenv, param: sustain, value: zero,          why: "the pin has passed; nothing feeds the tooth"}
+  - {block: aenv, param: release, value: same as decay, why: "the pin does not care how long the key is held"}
+  - {block: vel,  param: target,  value: nothing,       why: "a cylinder has no dynamics; every pluck is the same"}
+  - {block: mode, param: voices,  value: poly}
+
+taste:
+  - {block: aenv, param: decay,   range: "short – long",        default: medium}
+  - {block: osc2, param: level,   range: "off – quarter",       default: little}
+  - {block: fx,   param: reverb,  range: "small – large",       default: small, why: "the wooden box, or the room it sits in"}
+  - {block: amp,  param: level,   range: "half – full",         default: under unity}
+
+listening:
+  cue: "Tiny, high and glassy, every note the same loudness. Listen to a low note and a high one in the same phrase: the high one is gone sooner."
+  ab: "Set the key → decay amount to none: every note now rings the same length and the top notes hang unnaturally. Put it back and the high notes shorten again. Then drop the octave to 0: a kalimba."
+
+render:
+  tempo: 90
+  note: [C5, E5, G5, C6, E6, G6, C7, G6]
+  velocity: 90
+  pattern: "eighths, one bar, climbing two octaves, each a 16th long; the last left to ring"
+  length_s: 4.0
+
+mappings: {}

@@ -7,7 +7,53 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" integrity="sha384-tMH8h3BGESGckSAVGZ82T9n90ztNXxvdwvdM6UoR56cYcf+0iGXBliJ29D+wZ/x8" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" integrity="sha384-bm7MnzvK++ykSwVJ2tynSE5TRdN+xL418osEVF2DE/L/gfWHj91J2Sphe582B1Bh" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js" integrity="sha384-aGlMNK3U/x0wl4lEH5jD1PGhJlX9hApuPmIiA5gtiYCOQ1J8ejIdC0btaU/TMoBD" crossorigin="anonymous"></script>
-  <style>
+  <meta name="theme-color" content="#0a0f1e">
+<link rel="icon" href="../Generative%20Audio%20Devices%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, textarea. */
+@layer furniture {
+:where(*) { --fx-bg: #0a0a0f; --fx-bg-elev-1: #12121a; --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: #e8e8f0; --fx-fg-2: #c8c8d8; --fx-fg-3: #8a8aa0; --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: #4a4a5e; --fx-border-soft: rgba(255,255,255,0.06); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: #e8b84a; --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+textarea {resize: vertical; min-height: 3.5em;}
+textarea::-webkit-resizer {background: linear-gradient(135deg, transparent 0 58%, var(--fx-fg-4) 58% 64%, transparent 64% 76%, var(--fx-fg-4) 76% 82%, transparent 82%); background-clip: content-box;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+a {color: var(--fx-accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--fx-accent-line);}
+a:hover {text-decoration-color: currentColor;}
+a:visited {color: var(--fx-accent);}
+mark {background: var(--fx-accent-soft); color: inherit; box-shadow: 0 0 0 1px var(--fx-accent-line); padding: 0 2px;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #0a0f1e; color: #f1f5f9; font-family: monospace; }
   </style>
@@ -22,7 +68,7 @@
   -->
   <script type="application/json" id="vcv-registry">
 {
-  "version": "2.4",
+  "version": "2.7",
   "plugin": "Fundamental",
   "plugin_slug": "Fundamental",
   "vcv_rack_version": "2.x",
@@ -42,6 +88,7 @@
       "slug": "VCO", "plugin": "Fundamental", "name": "VCO", "hp": 12,
       "description": "Voltage-controlled oscillator. Four simultaneous waveform outputs. Hard/soft sync. PWM.",
       "verification": "verified against src/VCO.cpp (2026-04-19)",
+      "poly": "carries voices — VCO.cpp: channels = max(PITCH_INPUT channels, 1); every output setChannels(channels) (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "V/OCT", "default_output": "SAW",
       "inputs": [
         { "name": "V/OCT", "type": "pitch",   "index": 0, "description": "1V/oct pitch CV" },
@@ -69,6 +116,7 @@
       "slug": "VCF", "plugin": "Fundamental", "name": "VCF", "hp": 8,
       "description": "Voltage-controlled filter. Lowpass + highpass simultaneously. Drive input. Self-oscillates at high resonance.",
       "verification": "verified against src/VCF.cpp (2026-04-19)",
+      "poly": "carries voices — VCF.cpp: channels = max(1, IN_INPUT channels); FREQ/RES/DRIVE CV read with getPolyVoltageSimd, so a mono CV reaches every voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN", "default_output": "LPF",
       "inputs": [
         { "name": "FREQ",  "type": "cv",    "index": 0, "description": "Cutoff frequency CV" },
@@ -94,6 +142,7 @@
       "slug": "ADSR", "plugin": "Fundamental", "name": "ADSR EG", "hp": 8,
       "description": "Attack-Decay-Sustain-Release envelope generator. Gate input is at index 4 (after the 4 CV modulation inputs).",
       "verification": "verified against src/ADSR.cpp (2026-04-19)",
+      "poly": "carries voices — ADSR.cpp: channels = max(1, GATE_INPUT channels); one envelope per voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "GATE", "default_output": "ENV",
       "inputs": [
         { "name": "A_CV",   "type": "cv",      "index": 0, "description": "Attack time CV" },
@@ -123,6 +172,7 @@
       "slug": "VCA-1", "plugin": "Fundamental", "name": "VCA", "hp": 3,
       "description": "Single-channel VCA. CV input is index 0, audio input is index 1 (NOT the other way around).",
       "verification": "verified against src/VCA-1.cpp (2026-04-19)",
+      "poly": "carries voices — VCA-1.cpp: channels = max(1, IN channels, CV channels); gain per voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN", "default_output": "OUT",
       "inputs": [
         { "name": "CV", "type": "cv",    "index": 0, "description": "Level CV (0–10V) — THIS IS INDEX 0, not the audio input" },
@@ -141,6 +191,7 @@
       "slug": "LFO", "plugin": "Fundamental", "name": "LFO", "hp": 10,
       "description": "Low-frequency oscillator. Four outputs (no UNI — use OFFSET param for unipolar). Clock-syncable.",
       "verification": "verified against src/LFO.cpp (2026-04-19)",
+      "poly": "carries voices — LFO.cpp: channels follow FM_INPUT; with nothing in FM it stays one voice, and a mono cable broadcasts to every voice it reaches (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_output": "SIN",
       "inputs": [
         { "name": "FM",    "type": "cv",      "index": 0, "description": "FM CV" },
@@ -204,6 +255,7 @@
       "slug": "Mixer", "plugin": "Fundamental", "name": "Mix", "hp": 6,
       "description": "Six-input simple mixer. Single master Level knob — no per-channel control. Use VCMIXER for per-channel.",
       "verification": "verified against src/Mixer.cpp (2026-04-19)",
+      "poly": "carries voices — Mixer.cpp: channels = max over IN inputs; OUT setChannels(channels) (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN1", "default_output": "MIX",
       "inputs": [
         { "name": "IN1", "type": "audio", "index": 0, "description": "Ch1" },
@@ -223,19 +275,20 @@
     },
     "VCMIXER": {
       "slug": "VCMixer", "plugin": "Fundamental", "name": "VCA Mix", "hp": 10,
-      "description": "Four-channel mixer with per-channel level knobs AND CV inputs. Audio inputs start at index 5, not 0.",
-      "verification": "verified against src/VCMixer.cpp (2026-04-19)",
+      "description": "Four-channel mixer with per-channel level knobs AND CV inputs. Audio inputs are 1–4, level CVs 5–8.",
+      "verification": "verified against src/VCMixer.cpp at Fundamental v2.5.1 (tag v2.5.1, 962547d, the version on Loudon's Mac) and at 10dd016, 2026-11-04: InputIds are MIX_CV, CH_INPUTS 1–4, CV_INPUTS 5–8. The 2026-04-19 entry had audio and CV swapped",
+      "poly": "carries voices — VCMixer.cpp: channels = max over CH inputs; MIX and CH outputs carry every voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN1", "default_output": "MIX",
       "inputs": [
         { "name": "MIX_CV", "type": "cv",    "index": 0, "description": "Master mix CV" },
-        { "name": "CV1",    "type": "cv",    "index": 1, "description": "Ch1 level CV" },
-        { "name": "CV2",    "type": "cv",    "index": 2, "description": "Ch2 level CV" },
-        { "name": "CV3",    "type": "cv",    "index": 3, "description": "Ch3 level CV" },
-        { "name": "CV4",    "type": "cv",    "index": 4, "description": "Ch4 level CV" },
-        { "name": "IN1",    "type": "audio", "index": 5, "description": "Ch1 audio (audio inputs start at 5!)" },
-        { "name": "IN2",    "type": "audio", "index": 6, "description": "Ch2 audio" },
-        { "name": "IN3",    "type": "audio", "index": 7, "description": "Ch3 audio" },
-        { "name": "IN4",    "type": "audio", "index": 8, "description": "Ch4 audio" }
+        { "name": "IN1",    "type": "audio", "index": 1, "description": "Ch1 audio" },
+        { "name": "IN2",    "type": "audio", "index": 2, "description": "Ch2 audio" },
+        { "name": "IN3",    "type": "audio", "index": 3, "description": "Ch3 audio" },
+        { "name": "IN4",    "type": "audio", "index": 4, "description": "Ch4 audio" },
+        { "name": "CV1",    "type": "cv",    "index": 5, "description": "Ch1 level CV" },
+        { "name": "CV2",    "type": "cv",    "index": 6, "description": "Ch2 level CV" },
+        { "name": "CV3",    "type": "cv",    "index": 7, "description": "Ch3 level CV" },
+        { "name": "CV4",    "type": "cv",    "index": 8, "description": "Ch4 level CV" }
       ],
       "outputs": [
         { "name": "MIX",  "type": "audio", "index": 0, "description": "Summed mix" },
@@ -255,6 +308,8 @@
     },
     "MIDI_CV": {
       "slug": "MIDIToCVInterface", "plugin": "Core", "name": "MIDI-CV", "hp": 9,
+      "default_data": {"pwRange": 0.0, "smooth": true, "channels": 1, "polyMode": 0, "clockDivision": 24, "lastPw": 0, "lastMod": 0, "filterLambda": 30.0, "midi": {"driver": -11, "deviceName": "QWERTY keyboard (US)", "channel": -1}},
+      "voices": { "data_key": "channels", "min": 1, "max": 16, "verification": "read 2026-10-26 from GitHub VCVRack/Rack v2: include/dsp/midi.hpp toJson writes `channels` (json_integer) and fromJson reads it back; MIDI_CV.cpp process() calls setChannels(midiParser.channels) on PITCH, GATE, VELOCITY, AFTERTOUCH and RETRIGGER, so one cable carries every voice. Its Polyphony channels menu offers 1 (Monophonic) to 16. polyMode 0 = ROTATE_MODE (enum PolyMode in midi.hpp), already in default_data." },
       "description": "MIDI-to-CV interface. No inputs, no params — 12 outputs derived from incoming MIDI. Slug is 'MIDIToCVInterface' (historical), plugin is 'Core'.",
       "verification": "verified against Rack v2/src/core/MIDI_CV.cpp (2026-04-20). NUM_INPUTS=0, NUM_PARAMS=0, 12 configOutput() calls in OutputIds enum order. Slug verified from `createModel<MIDI_CV, MIDI_CVWidget>(\"MIDIToCVInterface\")`.",
       "default_output": "PITCH",
@@ -278,6 +333,8 @@
     },
     "AUDIO_8": {
       "slug": "AudioInterface", "plugin": "Core", "name": "Audio-8", "hp": 10,
+      "default_data": {"audio": {"driver": 5, "deviceName": "MacBook Pro Speakers", "sampleRate": 48000.0, "blockSize": 256, "inputOffset": 0, "outputOffset": 0}, "dcFilter": false},
+      "poly": "sums — Audio.cpp reads each input with getVoltageSum(), so every voice is heard (read 2026-10-26 from GitHub VCVRack/Rack v2)",
       "description": "Audio interface, 8×8. Inputs on the left (signals leaving the rack to the DAW/speakers — 'device output N'). Outputs on the right (signals arriving from the DAW/mic — 'device input N'). For stereo listen, patch to IN1 AND IN2.",
       "verification": "verified against Rack v2/src/core/Audio.cpp (2026-04-20). AUDIO_INPUTS+i / AUDIO_OUTPUTS+i pattern for i∈[0,7], no params. Slug verified from `createModel<Audio<8,8>, AudioWidget<8,8>>(\"AudioInterface\")`.",
       "default_input": "IN1",
@@ -322,8 +379,8 @@
   -->
   <script type="application/json" id="archetypes">
 {
-  "version": "0.2",
-  "notes": "T7c synth archetype library for the VCV/PDL pipeline. An archetype is a param-cloud projection onto EXISTING topology — it never injects modules. v0.2 (2026-05-29), shaped by the first Rack audition of the v0.1 patches: (1) a param-cloud value may be a REGION NAME (string → seed-sampled at a deterministic position, the expressive axis) OR a NUMERIC LITERAL (pinned, clamped to the param's range, the identity axis) — so the seed varies what should vary and leaves identity-critical settings fixed; (2) clouds now set MODULATION DEPTH (attenuverter params like VCF.FREQ_CV, VCO.FM_DEPTH), because v0.1 set destination knobs but left depths at zero, making cabled modulation silent — depth values for pluck/warm_pad are calibrated from Loudon's hand-refinements (FREQ_CV ≈0.38 / ≈0.03); (3) each archetype declares RECOMMENDED_CABLES between roles — the emitter WARNS (T12 'make failure loud') when an identity cable is absent, without injecting it, because topology stays a PDL/T6 decision; (4) base oscillator FREQ is pinned to keyboard-tracking (0) for played voices so a static multi-octave offset can't fight the played pitch — drone keeps a FREQ region as the documented unplayed/sustained exception, and sub_bass pins a -12 octave offset as an intentional register choice. Region names reference perceptual regions in vcv_fundamental_registry.json (v2.3+). Resolver: resolveArchetype in PDL Renderer.html. Emit precedence: explicit PDL `*` line > archetype param > registry default. Project data with its own `version`; not palace ontology.",
+  "version": "0.3",
+  "notes": "T7c synth archetype library for the VCV/PDL pipeline. An archetype is a param-cloud projection onto EXISTING topology — it never injects modules. v0.2 (2026-05-29), shaped by the first Rack audition of the v0.1 patches: (1) a param-cloud value may be a REGION NAME (string → seed-sampled at a deterministic position, the expressive axis) OR a NUMERIC LITERAL (pinned, clamped to the param's range, the identity axis) — so the seed varies what should vary and leaves identity-critical settings fixed; (2) clouds now set MODULATION DEPTH (attenuverter params like VCF.FREQ_CV, VCO.FM_DEPTH), because v0.1 set destination knobs but left depths at zero, making cabled modulation silent — depth values for pluck/warm_pad are calibrated from Loudon's hand-refinements (FREQ_CV ≈0.38 / ≈0.03); (3) each archetype declares RECOMMENDED_CABLES between roles — the emitter WARNS (T12 'make failure loud') when an identity cable is absent, without injecting it, because topology stays a PDL/T6 decision; (4) base oscillator FREQ is pinned to keyboard-tracking (0) for played voices so a static multi-octave offset can't fight the played pitch — drone keeps a FREQ region as the documented unplayed/sustained exception, and sub_bass pins a -12 octave offset as an intentional register choice. Region names reference perceptual regions in vcv_fundamental_registry.json (v2.3+). Resolver: resolveArchetype in PDL Renderer.html. Emit precedence: explicit PDL `*` line > archetype param > registry default. Project data with its own `version`; not palace ontology. v0.3 (2026-10-26, steward cycle 2): an archetype may carry `voices`, how many notes it plays at once; the emitter writes it into the keyboard module unless the PDL says `# voices: N`. warm_pad plays six voices (Loudon, on his warm-pad refinement: should be polyphonic!) and pins its amp LEVEL at 0.5, so a chord of saws summed at the audio out does not clip.",
   "role_conventions": {
     "AMP_ENV": "amp_env",
     "PITCH_ENV": "pitch_env",
@@ -385,8 +442,10 @@
         "vco":     { "FREQ": 0.0 },
         "vcf":     { "FREQ": "open", "RES": "present", "FREQ_CV": 0.03 },
         "amp_env": { "A": "pad", "D": "medium", "S": "held", "R": "long" },
-        "lfo":     { "FREQ": "subtle" }
+        "lfo":     { "FREQ": "subtle" },
+        "amp":     { "LEVEL": 0.5 }
       },
+      "voices": 6,
       "recommended_cables": [
         { "from": "lfo", "to": "vcf", "to_port": "FREQ",
           "label": "LFO breathes the cutoff — the pad's slow evolution; without it FREQ_CV modulates nothing" }
@@ -578,6 +637,7 @@
       const instanceTypes = {}; // instanceId → registry module type key
       const warnings      = []; // { source, lineNumber, content, reason }
       const archetypes    = []; // { name, bindings, seed, lineNumber } (T7b)
+      let   voices        = null; // { n, lineNumber } from `# voices: N` (polyphony, 2026-10-26)
 
       const rawLines = text.split("\n");
       for (let i = 0; i < rawLines.length; i++) {
@@ -595,6 +655,17 @@
         // Archetype pragma (T7b):  # archetype: name {role=INST, ...} #seed=N
         // Collected here, resolved at emit time at lower precedence than `*` lines.
         if (line.startsWith("#")) {
+          // Polyphony pragma:  # voices: N  — how many notes play at once.
+          // Target-neutral: PDL says the count; the registry says where a
+          // target keeps it (VCV: MIDI_CV's `channels`).
+          const vm = line.match(/^#\s*voices\s*:\s*(.*?)\s*$/);
+          if (vm) {
+            const n = Number(vm[1]);
+            if (Number.isInteger(n) && n >= 1) voices = { n, lineNumber };
+            else warnings.push({ source: "parser", lineNumber, content: rawLine,
+              reason: `malformed \`# voices\` pragma (expected a whole number of voices, e.g. \`# voices: 6\`)` });
+            continue;
+          }
           const am = line.match(/^#\s*archetype\s*:\s*([A-Za-z0-9_]+)\s*(\{[^}]*\})?\s*(?:#\s*seed\s*=\s*(-?\d+))?\s*$/);
           if (am) {
             const bindings = {};
@@ -744,7 +815,7 @@
         return { ...c, toPort, fromPort, type };
       });
 
-      return { connections: resolvedConnections, params, modules: [...moduleSet], instanceTypes, archetypes, warnings };
+      return { connections: resolvedConnections, params, modules: [...moduleSet], instanceTypes, archetypes, voices, warnings };
     }
 
     // ─── .vcv Emitter ────────────────────────────────────────────────────────────
@@ -754,10 +825,12 @@
     //   - Only registered instances become VCV modules. Unregistered endpoints
     //     (KEYBOARD, OUT, external controllers) are treated as virtual — cables
     //     that touch them are skipped in the emitter output.
-    //   - Module placement (T7d): two rows — row 0 is the signal path (MIDI
-    //     controller hard-left → audio modules in topological order → audio sink
-    //     rightmost), row 1 is modulators (envelopes/LFOs) below. Matches the
-    //     hand-layout Loudon's audition refinements converged on.
+    //   - Module placement (T7d, revised 2026-10-26): two rows — row 0 is the
+    //     signal path (MIDI controller hard-left → audio modules in topological
+    //     order → audio sink rightmost), row 1 is modulators, each right under
+    //     the module it modulates (Loudon's Standing Orders, 2026-10-24).
+    //   - Device settings: MIDI_CV and AUDIO_8 emit the registry's
+    //     `default_data` (QWERTY keyboard in, MacBook speakers out).
     //   - Parameter values: per-param, prefer the numeric value from the PDL `*`
     //     line for that instance, else the registry `default`. Named perceptual
     //     regions (`CUTOFF = dark`) resolve through the param's `regions` table
@@ -935,76 +1008,18 @@
       return { params: out, warnings };
     }
 
-    function emitVcvJson(pdlText) {
-      const { connections, instanceTypes, params: pdlParams, archetypes: pdlArchetypes, warnings } = parsePDL(pdlText);
-
-      // Only registered instances become VCV modules.
-      const registeredIds = Object.keys(instanceTypes).filter(id => REGISTRY[instanceTypes[id]]);
-
-      // Assign sequential integer IDs starting at 1.
-      const moduleId = {};
-      registeredIds.forEach((id, i) => { moduleId[id] = i + 1; });
-
-      // T7d — layout intelligence (2026-05-29, audition-driven). Two rows that
-      // match the hand-layout Loudon's refinements converged on:
-      //   row 0 = the signal path, left→right in topological order: the MIDI
-      //           controller hard-left, audio modules in signal order, the audio
-      //           sink rightmost.
-      //   row 1 = modulators (envelopes, LFOs, sequencers) BELOW the audio path.
-      // This is layout intelligence, a sibling to parameter intelligence: it
-      // changes how the patch is arranged on the rack, not what it sounds like.
-      // Touches only `positions`; no param/archetype/registry logic.
-      //
-      // A module's row comes from its registry shape, not a hardcoded list:
-      //   controller = zero inputs (MIDI_CV);  audio = has an audio-typed output
-      //   (VCO/VCF/VCA/mixers, and AUDIO_8 the sink);  modulator = everything else
-      //   (ADSR/LFO/SEQ3). Column order is topological depth along registered
-      //   cables (longest path from a source), so VCO→VCF→VCA→OUT falls out
-      //   left-to-right and the controller (depth 0) pins left.
-      const moduleClass = (modType) => {
-        const m = REGISTRY[modType];
-        if (!m) return "audio";
-        if ((m.inputs || []).length === 0) return "controller";
-        if ((m.outputs || []).some(p => p.type === "audio")) return "audio";
-        return "modulator";
-      };
-
-      const depth = {};
-      {
-        const parents = {};
-        for (const id of registeredIds) parents[id] = [];
-        for (const c of connections) {
-          if (instanceTypes[c.from] && instanceTypes[c.to] && c.from !== c.to && parents[c.to]) parents[c.to].push(c.from);
-        }
-        const computing = {};
-        const compute = (id) => {
-          if (depth[id] != null) return depth[id];
-          if (computing[id]) return 0; // cycle guard (e.g. FM feedback)
-          computing[id] = true;
-          let d = 0;
-          for (const p of (parents[id] || [])) d = Math.max(d, compute(p) + 1);
-          computing[id] = false;
-          return (depth[id] = d);
-        };
-        for (const id of registeredIds) compute(id);
-      }
-
-      const orderIndex = Object.fromEntries(registeredIds.map((id, i) => [id, i]));
-      const row0 = [], row1 = [];
-      for (const id of registeredIds) (moduleClass(instanceTypes[id]) === "modulator" ? row1 : row0).push(id);
-      // Row 0: controller hard-left (tiebreak), then by topological depth, then
-      // by declaration order. Row 1: modulators by depth, then declaration order.
-      const ctrlRank = (id) => moduleClass(instanceTypes[id]) === "controller" ? -1 : 0;
-      row0.sort((a, b) => ctrlRank(a) - ctrlRank(b) || depth[a] - depth[b] || orderIndex[a] - orderIndex[b]);
-      row1.sort((a, b) => depth[a] - depth[b] || orderIndex[a] - orderIndex[b]);
-
-      const positions = {};
-      const layRow = (ids, row) => {
-        let x = 0;
-        for (const id of ids) { positions[id] = [x, row]; x += (REGISTRY[instanceTypes[id]].hp || 1); }
-      };
-      layRow(row0, 0);
-      layRow(row1, 1);
+    // ─── Knob resolver (target-neutral, 2026-11-04) ───────────────────────────────
+    // What every knob of every module is set to, and how many voices play, said
+    // in PDL's own terms: instance → { canonical param name → value }. No module
+    // ids, no param indices, no target file format. Every target's emitter reads
+    // this; emitVcvJson maps it onto Rack's param indices, emit_native.js onto
+    // C++ struct fields. Precedence: explicit `*` line > archetype > registry
+    // default, so every registered param has a value.
+    // The knob vocabulary (names, ranges, regions, defaults) is still read from
+    // the VCV vocabulary file, because Rack's units are the PDL's units today.
+    function resolvePatch(pdlText) {
+      const parsed = parsePDL(pdlText);
+      const { connections, instanceTypes, params: pdlParams, archetypes: pdlArchetypes, voices: pdlVoices, warnings } = parsed;
 
       // T7a phase 2 — resolve PDL `*` entries into per-instance
       // { paramName → numeric value } maps. Each entry is `Name = Value`.
@@ -1110,6 +1125,127 @@
         }
       }
 
+      // Every registered param gets a value: resolved, else the registry default.
+      const knobs = {};
+      for (const id of Object.keys(instanceTypes)) {
+        const mod = REGISTRY[instanceTypes[id]];
+        if (!mod) continue;
+        const pvals = resolvedParams[id] || {};
+        knobs[id] = {};
+        for (const p of (mod.params || [])) {
+          knobs[id][p.name] = Object.prototype.hasOwnProperty.call(pvals, p.name) ? pvals[p.name] : (p.default ?? 0);
+        }
+      }
+
+      // Polyphony (archetypes v0.3). Precedence mirrors params:
+      // `# voices: N` in the PDL > the last archetype that names `voices` > none.
+      let voiceCount = null, voiceLine = null;
+      for (const a of (pdlArchetypes || [])) {
+        const v = ARCHETYPES[a.name] && ARCHETYPES[a.name].voices;
+        if (Number.isInteger(v)) { voiceCount = v; voiceLine = a.lineNumber; }
+      }
+      if (pdlVoices) { voiceCount = pdlVoices.n; voiceLine = pdlVoices.lineNumber; }
+      const voices = voiceCount != null ? { n: voiceCount, lineNumber: voiceLine } : null;
+
+      return { ...parsed, knobs, voices, warnings };
+    }
+
+    function emitVcvJson(pdlText) {
+      const { connections, instanceTypes, knobs, voices, warnings } = resolvePatch(pdlText);
+
+      // Only registered instances become VCV modules.
+      const registeredIds = Object.keys(instanceTypes).filter(id => REGISTRY[instanceTypes[id]]);
+
+      // Assign sequential integer IDs starting at 1.
+      const moduleId = {};
+      registeredIds.forEach((id, i) => { moduleId[id] = i + 1; });
+
+      // T7d — layout intelligence (2026-05-29, audition-driven). Two rows that
+      // match the hand-layout Loudon's refinements converged on:
+      //   row 0 = the signal path, left→right in topological order: the MIDI
+      //           controller hard-left, audio modules in signal order, the audio
+      //           sink rightmost.
+      //   row 1 = modulators (envelopes, LFOs, sequencers) BELOW the audio path.
+      // This is layout intelligence, a sibling to parameter intelligence: it
+      // changes how the patch is arranged on the rack, not what it sounds like.
+      // Touches only `positions`; no param/archetype/registry logic.
+      //
+      // A module's row comes from its registry shape, not a hardcoded list:
+      //   controller = zero inputs (MIDI_CV);  audio = has an audio-typed output
+      //   (VCO/VCF/VCA/mixers, and AUDIO_8 the sink);  modulator = everything else
+      //   (ADSR/LFO/SEQ3). Column order is topological depth along registered
+      //   cables (longest path from a source), so VCO→VCF→VCA→OUT falls out
+      //   left-to-right and the controller (depth 0) pins left.
+      const moduleClass = (modType) => {
+        const m = REGISTRY[modType];
+        if (!m) return "audio";
+        if ((m.inputs || []).length === 0) return "controller";
+        if ((m.outputs || []).some(p => p.type === "audio")) return "audio";
+        return "modulator";
+      };
+
+      const depth = {};
+      {
+        const parents = {};
+        for (const id of registeredIds) parents[id] = [];
+        for (const c of connections) {
+          if (instanceTypes[c.from] && instanceTypes[c.to] && c.from !== c.to && parents[c.to]) parents[c.to].push(c.from);
+        }
+        const computing = {};
+        const compute = (id) => {
+          if (depth[id] != null) return depth[id];
+          if (computing[id]) return 0; // cycle guard (e.g. FM feedback)
+          computing[id] = true;
+          let d = 0;
+          for (const p of (parents[id] || [])) d = Math.max(d, compute(p) + 1);
+          computing[id] = false;
+          return (depth[id] = d);
+        };
+        for (const id of registeredIds) compute(id);
+      }
+
+      const orderIndex = Object.fromEntries(registeredIds.map((id, i) => [id, i]));
+      const row0 = [], row1 = [];
+      for (const id of registeredIds) (moduleClass(instanceTypes[id]) === "modulator" ? row1 : row0).push(id);
+      // Row 0: controller hard-left (tiebreak), then by topological depth, then
+      // by declaration order.
+      const ctrlRank = (id) => moduleClass(instanceTypes[id]) === "controller" ? -1 : 0;
+      row0.sort((a, b) => ctrlRank(a) - ctrlRank(b) || depth[a] - depth[b] || orderIndex[a] - orderIndex[b]);
+
+      const positions = {};
+      let x0 = 0;
+      for (const id of row0) { positions[id] = [x0, 0]; x0 += (REGISTRY[instanceTypes[id]].hp || 1); }
+
+      // Row 1 (Standing Orders, 2026-10-24): every modulator sits right under
+      // the main module it modulates. Its target is the first row-0 module its
+      // output is cabled into, in PDL line order; a modulator that only feeds
+      // another modulator (an LFO into an envelope's CV) inherits that one's
+      // target. Modulators are packed left-aligned under their target and pushed
+      // right only as far as needed so none overlap (Rack shoves overlapping
+      // modules on load). A modulator that reaches no row-0 module goes after
+      // the rest, in declaration order.
+      const row0Set = new Set(row0);
+      const targetOf = {};
+      const findTarget = (id, seen) => {
+        if (targetOf[id] !== undefined) return targetOf[id];
+        if (seen.has(id)) return null;
+        seen.add(id);
+        const outs = connections.filter(c => c.from === id && instanceTypes[c.to] && c.to !== id);
+        let t = null;
+        for (const c of outs) if (row0Set.has(c.to)) { t = c.to; break; }
+        if (t == null) for (const c of outs) if (!row0Set.has(c.to)) { t = findTarget(c.to, seen); if (t != null) break; }
+        return (targetOf[id] = t);
+      };
+      for (const id of row1) findTarget(id, new Set());
+      const anchorX = (id) => targetOf[id] != null ? positions[targetOf[id]][0] : Infinity;
+      row1.sort((a, b) => anchorX(a) - anchorX(b) || orderIndex[a] - orderIndex[b]);
+      let x1 = 0;
+      for (const id of row1) {
+        const x = Math.max(x1, Number.isFinite(anchorX(id)) ? anchorX(id) : x1);
+        positions[id] = [x, 1];
+        x1 = x + (REGISTRY[instanceTypes[id]].hp || 1);
+      }
+
       // Build modules array. Each module's plugin comes from its registry
       // entry's `plugin` field (v2.2+); falls back to the top-level PLUGIN_SLUG
       // for legacy entries that predate per-module plugins. Fundamental and Core
@@ -1123,28 +1259,26 @@
       // the .vcv file. Registry-default fallback is strictly more correct
       // than zero (e.g. VCO SYNC_MODE defaults to 1, LFO OFFSET defaults to 1).
       //
-      // T7a phase 2 (2026-05-26) — `pvals` may now have been populated from
-      // a named region (`CUTOFF = dark` → 0.275) rather than a literal. The
-      // downstream emission shape doesn't change; the resolution step above
-      // is where the new behavior lives.
+      // T7a phase 2 (2026-05-26) — a knob may have come from a named region
+      // (`CUTOFF = dark` → 0.275) rather than a literal. Since 2026-11-04 all
+      // of that lives in resolvePatch; this step only maps names to indices.
       const modulesOut = registeredIds.map(id => {
         const modType = instanceTypes[id];
         const mod     = REGISTRY[modType];
-        const pvals   = resolvedParams[id] || {};
+        const kv      = knobs[id];
         return {
           id: moduleId[id],
           plugin: mod.plugin || PLUGIN_SLUG,
           version: REGISTRY_DATA.vcv_rack_version || "2.0.0",
           model: mod.slug,
-          params: (mod.params || []).map(p => ({
-            id: p.index,
-            value: Object.prototype.hasOwnProperty.call(pvals, p.name)
-              ? pvals[p.name]
-              : (p.default ?? 0),
-          })),
+          params: (mod.params || []).map(p => ({ id: p.index, value: kv[p.name] })),
           leftModuleId: -1,
           rightModuleId: -1,
-          data: {},
+          // Device settings (registry v2.5): MIDI_CV and AUDIO_8 carry a
+          // `default_data` blob copied from Rack's own save, so the patch opens
+          // on the QWERTY keyboard and the MacBook speakers. Deep-copied so no
+          // two patches share one object.
+          data: mod.default_data ? JSON.parse(JSON.stringify(mod.default_data)) : {},
           pos: positions[id],
         };
       });
@@ -1184,6 +1318,35 @@
           inputId: toPort.index,
           color: CABLE_COLORS_VCV[c.type] || CABLE_COLORS_VCV.default,
         });
+      }
+
+      // Polyphony (registry v2.6). resolvePatch decided the count; here it
+      // lands in whichever module's registry entry carries a
+      // `voices` field (VCV: MIDI_CV's data.channels), clamped to its range.
+      const voiceCount = voices ? voices.n : null, voiceLine = voices ? voices.lineNumber : null;
+      if (voiceCount != null) {
+        const carriers = modulesOut.filter(m => {
+          const id = registeredIds.find(r => moduleId[r] === m.id);
+          return REGISTRY[instanceTypes[id]] && REGISTRY[instanceTypes[id]].voices;
+        });
+        if (!carriers.length && voiceCount > 1) {
+          warnings.push({ source: "emitter", lineNumber: voiceLine, content: `# voices: ${voiceCount}`,
+            reason: "voices asked for, but no module here can carry them (patch a KEYBOARD in)" });
+        }
+        for (const m of carriers) {
+          const id = registeredIds.find(r => moduleId[r] === m.id);
+          const spec = REGISTRY[instanceTypes[id]].voices;
+          const n = Math.max(spec.min ?? 1, Math.min(spec.max ?? voiceCount, voiceCount));
+          if (n !== voiceCount) warnings.push({ source: "emitter", lineNumber: voiceLine, content: `# voices: ${voiceCount}`,
+            reason: `${instanceTypes[id]} carries ${spec.min ?? 1}–${spec.max} voices; clamped to ${n}` });
+          m.data[spec.data_key] = n;
+        }
+        // A module in the patch that cannot carry voices plays only the first.
+        if (voiceCount > 1) for (const id of registeredIds) {
+          const mod = REGISTRY[instanceTypes[id]];
+          if (!mod.voices && !mod.poly && (mod.inputs || []).length) warnings.push({ source: "emitter", lineNumber: voiceLine,
+            content: `@${id} = ${instanceTypes[id]}`, reason: `${instanceTypes[id]} has no polyphony on record in the registry; it may play only one voice` });
+        }
       }
 
       const patch = {

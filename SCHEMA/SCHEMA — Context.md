@@ -76,6 +76,8 @@ Links: emerged-from [[SCHEMA]].
 
 > **Note (2026-09-26):** the `dialectic` bundle-file row changed — an archived Dialectic now lives in the bundle of the practice that ran it ([[Dialectic]]'s bundle, where every run gathers as a record of the method), not scattered across the entries it argued over. Same flat-companion migration as the §6 note above, not a Schema Ceremony (`291d0385`).
 
+> **Note (2026-11-03):** the `rich` row gained a section `status` (`proposal | approved | retired`), the `proposed` / `approved` / `challenge` blocks and the manifest's `offers` list, for [[Enrichment]] v2.8's proposal round — many pages at once, each section a proposal until Loudon approves it. Loudon: "keep the enrichments as pending or proposal until I approve them … clearly noted as proposal until I approve or revise them"; on the process, "all approve, proceed". A field inside a bundle file's own format, not a frontmatter field or a new bundle type: no §5 trigger, no version move. Shapes in `_ops/rich-face/README.md` § The manifest.
+
 ---
 
 ## §9 — The Coordination Schema
@@ -113,6 +115,8 @@ v1.16 — the Return Ceremony.** Added 2026-08-25. The palace had ceremonies for
 **The `Artifacts/` folder is deprecated (2026-06-16).** Bundles consumed its purpose. Entry-owned files (the vast majority) live in the owning entry's bundle; learning-material assets live in the Loudon Live zone (see §1's canon/learning-material line). A genuinely cross-entry shared artifact — rare — lives in the bundle of its most-owning entry, or a relevant hub's bundle. The old `Artifacts/[Theme]/` content (the Shop tool outputs, the Loudon Live toolchain) was redistributed into bundles on 2026-06-16.
 
 **Migration of existing flat companions:** Files like `Jewel — Context.md` and `Deposit Ceremony — Context.md` currently live flat in their parent's directory. They remain valid in their current location. Migration into bundles is queued for the next Weave per [[Palace To-Do]] — the Weave Ceremony's general scope includes fixing mis-located and mis-linked items.
+
+**`RETRACT` covers a message gone stale (2026-10-26, an edit, no version move).** The rich-face pieces card (`stigmergy-remainder-20261021T125648Z`) still sends its catcher to a worktree that was removed. It was not posted in error; it stopped being true, and an append-only board can withdraw a line only by adding one. The draft ([[STIGMERGY — sketch — clearing a dead coordinate]]) weighed two routes: widen `RETRACT`, or mint a `handoff_amended` event the fold would apply over a card's payload, which keeps the card's id and claim history but is a new kind and needs a Schema Ceremony. Loudon, 2026-10-26: "widen RETRACT in SCHEMA — Reference §9 to cover a card that went stale, not just one posted in error." No message type was added or removed, so no §5 trigger applies; the row's meaning changed on his yes. A move still live is reposted before it is retracted, the order `close-handoff.mjs` already keeps for a remainder. The reader code that honours a retracted card (`handoff-model.mjs`'s fold, the app's `queue-model.js`) landed on 2026-11-07 (`508f4715`, merged in `bd1ef3f4`).
 
 ---
 

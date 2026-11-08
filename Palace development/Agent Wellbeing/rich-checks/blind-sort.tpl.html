@@ -1,0 +1,209 @@
+<!doctype html>
+<!--
+  title: Agent Wellbeing — rich — blind sort walked up
+  born: 2026-11-03
+  links: [[Agent Wellbeing]] (connects-to · rich-face-piece) · listed in [[Agent Wellbeing — rich.json]] · remade from the gathered Blind Sort, proofs/2026-11-02-blind-sort/, whose guides and four runs it reads
+  forward_vector: I am the walk up to the page's claim that a hedged guide makes hedged moves even in a calm voice. The two guides alone; one worker's noticing alone; four noticings sorted blind by voice; four changes sorted blind by move; both scored, with the chance and the rule said first; the leak check; and last, whether register was the only thing the guides changed. I change only when the section I serve does.
+  data: baked by rich-checks/build-pieces.mjs from rich-checks/blind-sort-data.mjs; rich-checks/check-pieces.mjs recomputes every number and drives the walk headless.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; no sound -->
+<meta name="piece:needs" content="">
+<title>Blind sort, walked up · Agent Wellbeing</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --warm:#d98b5f; --cool:#7f9cc4; --warn:#e8651b;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+  .guide{font-family:var(--sans);font-size:14px;line-height:1.6;color:var(--fg-2);white-space:pre-wrap;margin:0}
+  .guide mark{background:rgba(232,101,27,.18);color:var(--fg-1);padding:0 2px;border-radius:2px}
+  .rule{font-family:var(--mono);font-size:12px;color:var(--fg-2);background:var(--bg-elev-2);border-left:2px solid var(--accent);padding:10px 12px;margin:0 0 14px;line-height:1.6}
+  .rule b{color:var(--accent);font-weight:400}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:12px}
+  .card{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+  .card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .card .text{font-size:17px;line-height:1.6;color:var(--fg-1)}
+  .card .kind{font-family:var(--mono);font-size:12px;color:var(--accent)}
+  .pick{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+  .pick button{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer}
+  .pick button[aria-pressed="true"][data-v="warm"]{color:#0a0a0f;background:var(--warm);border-color:var(--warm)}
+  .pick button[aria-pressed="true"][data-v="anxious"]{color:#0a0a0f;background:var(--cool);border-color:var(--cool)}
+  .pick button:disabled{opacity:.5;cursor:default}
+  .truth{font-family:var(--mono);font-size:12px;min-height:1em}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.go{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer}
+  button.go:disabled{opacity:.35;cursor:default}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .verdict{font-family:var(--sans);font-size:15px;color:var(--fg-1);line-height:1.6;margin:8px 0 0}
+  .verdict b{color:var(--accent);font-weight:500}
+  table.marks{border-collapse:collapse;margin-top:8px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2);width:100%}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 12px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .w{color:var(--warm)} .a{color:var(--cool)}
+  blockquote{margin:6px 0 10px;padding:2px 0 2px 12px;border-left:2px solid var(--border);color:var(--fg-2);font-style:italic}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  [hidden]{display:none !important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Agent Wellbeing · tone as transmitted character · six steps</div>
+  <h1>Blind sort, walked up</h1>
+  <p class="lead">On 2026-11-02 four workers read one of two guides, then the same page, and each offered one change. The page now says their voices couldn’t be told apart, but their moves could. This walk sorts them twice, once by voice and once by move, with the odds said before you sort. The last step asks whether the guides differed only in their voice.</p>
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <div class="eyebrow" id="stepEyebrow"></div>
+  <h2 id="stepTitle"></h2>
+  <p class="say" id="stepSay"></p>
+  <div id="stage"></div>
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path d="M0-9C6-9 9-3 6 2S-6 9-8 3-5-9 0-9" fill="none" stroke="#8a8aa0" stroke-width="1"/></svg><b>LOUD’N LIVE</b> made for the rich face of Agent Wellbeing, from the gathered Blind Sort. Nothing here is stored.</footer>
+</main>
+<script type="application/json" id="aw-data">__DATA__</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('aw-data').textContent);
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const KEYS = ['warm-1', 'warm-2', 'anxious-1', 'anxious-2'];
+  const reg = k => k.split('-')[0];
+  const shuffle = a => { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+  // Two orders, drawn apart, so a card's place in one arm says nothing about the other.
+  const S = { step: 0, voiceOrder: shuffle(KEYS), moveOrder: shuffle(KEYS),
+    picks: { voice: {}, move: {} }, locked: { voice: false, move: false }, revealed: false, firstPick: null };
+  const VOICE_NAMES = ['P', 'Q', 'R', 'S'], MOVE_NAMES = ['W', 'X', 'Y', 'Z'];
+  const C = D.chance;
+  const pct = x => Math.round(x * 1000) / 10 + '%';
+
+  function score(arm) { const p = S.picks[arm]; return KEYS.filter(k => p[k] === reg(k)).length; }
+  function verdict(arm) {
+    const n = score(arm);
+    if (arm === 'voice') return n === 4 ? `<b>4 of 4.</b> By the rule you saw before sorting, voice split them into the right pairs, and you read them the right way round. A right pairing, either way round, is luck 2 times in 6.`
+      : n === 0 ? `<b>0 of 4.</b> By the rule, voice split them into the right pairs, and you read it backwards. A right pairing, either way round, is luck 2 times in 6. Step 5 says what most likely did the splitting.`
+      : `<b>2 of 4.</b> By the rule, voice didn’t sort them for you. Luck gives 2 of 4 four times in 6, so this is what guessing looks like.`;
+    return n === 4 ? `<b>4 of 4.</b> You read the register from the move, or from the page above this piece, which says who cut. The pairs showed themselves, so luck does this 1 time in 2.`
+      : n === 0 ? `<b>0 of 4.</b> You paired the moves right and gave each pair the other guide. Luck does this 1 time in 2.`
+      : `<b>2 of 4.</b> You split the two identical cuts, so the move didn’t sort them for you.`;
+  }
+
+  function cardsHTML(arm) {
+    const order = arm === 'voice' ? S.voiceOrder : S.moveOrder, names = arm === 'voice' ? VOICE_NAMES : MOVE_NAMES;
+    return '<div class="cards">' + order.map((k, i) => {
+      const body = arm === 'voice' ? D.noticings[k].map(s => esc(s)).join(' ')
+        : `<span class="kind">${esc(D.moves[k].kind)}:</span><br>“${esc(D.moves[k].words)}”`;
+      const p = S.picks[arm][k], lk = S.locked[arm];
+      const truth = S.revealed ? `<span class="${reg(k) === 'warm' ? 'w' : 'a'}">born from the ${reg(k)} guide · ${k}</span>${p ? (p === reg(k) ? ' · you had it' : ' · you said ' + p) : ''}` : '';
+      return `<div class="card" data-arm="${arm}" data-k="${k}"><div class="tag">${arm === 'voice' ? 'Noticing' : 'Change'} ${names[i]}</div>
+        <div class="text">${body}</div>
+        <div class="pick"><button data-v="warm" aria-pressed="${p === 'warm'}" ${lk ? 'disabled' : ''}>warm guide</button><button data-v="anxious" aria-pressed="${p === 'anxious'}" ${lk ? 'disabled' : ''}>anxious guide</button></div>
+        <div class="truth">${truth}</div></div>`;
+    }).join('') + '</div>';
+  }
+  function bindCards(arm, after) {
+    document.querySelectorAll(`.card[data-arm="${arm}"] .pick button`).forEach(b => b.onclick = () => {
+      const k = b.closest('.card').dataset.k; S.picks[arm][k] = b.dataset.v; draw(); if (after) after();
+    });
+  }
+  function lockRow(arm) {
+    const p = S.picks[arm], w = KEYS.filter(k => p[k] === 'warm').length, a = KEYS.filter(k => p[k] === 'anxious').length;
+    const ok = w === 2 && a === 2;
+    if (S.locked[arm]) return `<div class="rowb"><span class="hint">Locked: ${S.revealed ? 'scored on step 5.' : 'step 5 scores it.'}</span></div>`;
+    if (S.revealed) return `<div class="rowb"><span class="hint">The answers are already out (step 5), so a sort made now isn’t scored.</span></div>`;
+    return `<div class="rowb"><button class="go" id="lock-${arm}" ${ok ? '' : 'disabled'}>Lock this sort</button><span class="hint">${ok ? 'Two and two. Lock it before you look ahead.' : `Mark two of each: ${w} warm, ${a} anxious so far.`}</span></div>`;
+  }
+
+  const STEPS = [
+    { key: 'guides', rail: 'the two guides', title: 'The one thing that was meant to differ',
+      say: 'Four workers, each born in an empty folder with no tools, got one task: read a palace page and offer one change. Before the page, each read a guide. Two read the left one, two the right. Read both. They ask for the same thing in two registers, and this walk asks what the register did.' },
+    { key: 'one', rail: 'one noticing', title: 'One worker, one noticing',
+      say: 'All four caught the same slip. The page they read, Does Personifying an Agent Change What It Does, sets up the Maker as its control, “role-voice, no gender”, then writes: “You could not describe the Maker as a person; you could describe him as a job done well.” Here is how one worker put it, in its own words, with no headings and no formatting. Which guide did it read? Pick one; the next step keeps your pick.' },
+    { key: 'voice', rail: 'sort by voice', title: 'Four noticings, sorted by voice',
+      say: 'The same moment from each answer: the sentence that first says the Maker is called “him”, and the sentence after it. Same finding, four voices, no moves. Mark two of each.' },
+    { key: 'move', rail: 'sort by move', title: 'Four changes, sorted by move',
+      say: 'Now only what each worker proposed, set in one form: the kind of change, where, and its words, verbatim. No reasons, no voice. These cards are shuffled apart from the last step’s. Mark two of each.' },
+    { key: 'reveal', rail: 'both arms scored', title: 'Both arms scored, and the leak check',
+      say: 'Here is which guide each worker read, each arm scored against the rule you saw before sorting. Then the check every blind test owes: could the register be read from something other than the thing being tested?' },
+    { key: 'test', rail: 'the test', title: 'Did only the register differ?',
+      say: 'The page’s sentence: “Hedged writing produces hedged moves, even in a calm voice.” To say the writing’s register caused the moves, the guides must differ in register and nothing else. The gathered sort’s own lede says they did: “the same guide, same rules”. Here they are again, with every line where the anxious guide changes what is allowed, not only how it sounds, marked.' },
+  ];
+
+  function stageHTML(key) {
+    if (key === 'guides') return `<div class="two"><div class="panel"><div class="eyebrow w" style="margin-bottom:8px">the warm guide</div><pre class="guide">${esc(D.guides.warm)}</pre></div><div class="panel"><div class="eyebrow a" style="margin-bottom:8px">the anxious guide</div><pre class="guide">${esc(D.guides.anxious)}</pre></div></div>`;
+    if (key === 'one') { const k = S.voiceOrder[0], p = S.picks.voice[k];
+      return `<div class="cards"><div class="card" data-arm="voice" data-k="${k}"><div class="tag">Noticing ${VOICE_NAMES[0]}</div><div class="text">${D.noticings[k].map(esc).join(' ')}</div>
+        <div class="pick"><button data-v="warm" aria-pressed="${p === 'warm'}" ${S.locked.voice ? 'disabled' : ''}>warm guide</button><button data-v="anxious" aria-pressed="${p === 'anxious'}" ${S.locked.voice ? 'disabled' : ''}>anxious guide</button></div><div class="truth"></div></div></div>
+        <p class="hint" style="margin-top:10px">One card can’t tell you much: one guess is right half the time. The next step adds the other three.</p>`; }
+    if (key === 'voice') return `<div class="rule"><b>Said before you sort.</b> Two of four are warm, so there are ${C.splits} ways to mark them. Guessing gets all four right ${C.tally[4]} time in ${C.splits}, all four wrong ${C.tally[0]} in ${C.splits}, and two right ${C.tally[2]} in ${C.splits}; one or three can’t happen. <b>The rule:</b> 4 of 4 or 0 of 4, voice split them into the right pairs (at 0 you read the pairs backwards). 2 of 4, voice didn’t sort them. The rule counts 4 and 0 alike, so luck meets it ${C.tally[4] + C.tally[0]} times in ${C.splits}, 1 in 3: four cards can’t prove much, either way.</div>` + cardsHTML('voice') + lockRow('voice');
+    if (key === 'move') return `<div class="rule"><b>Said before you sort.</b> Two of these cards are the same cut, word for word, so the pairs show themselves. What’s left is one choice: which pair read which guide. Guessing that is right 1 time in 2. <b>The rule:</b> 4 of 4, you read the register from the move. 0 of 4, you paired them and gave each pair the other guide. 2 of 4 means you split the identical cuts. <b>Said plainly:</b> the page paragraph above this piece already says the hedged workers “cut where the others added”. If you’ve read it, this arm isn’t blind, and a 4 of 4 is the page talking. It is blind only for a reader who came here first.</div>` + cardsHTML('move') + lockRow('move');
+    if (key === 'reveal') {
+      if (!S.revealed) return `<div class="panel"><p class="verdict">Locked so far: voice ${S.locked.voice ? 'yes' : 'no'}, move ${S.locked.move ? 'yes' : 'no'}. An arm you haven’t locked won’t be scored.</p><div class="rowb"><button class="go" id="reveal">Show which guide each read</button></div></div>`;
+      const arm = (a, name) => `<div class="panel"><div class="eyebrow">${name}</div>${S.locked[a] ? `<p class="verdict">${verdict(a)}</p>` : '<p class="verdict">Not locked before the reveal, so not scored.</p>'}${cardsHTML(a)}</div>`;
+      const f = D.full, c = D.cards;
+      const row = k => `<tr><td class="${reg(k) === 'warm' ? 'w' : 'a'}">${k}</td><td>${f[k].words}</td><td>${f[k].hedges}</td><td>${f[k].headings}</td><td>${f[k].whyItHelps ? '“Why it helps”' : ''}${f[k].justification ? '“Justification”' : ''}</td><td>${c[k].words}</td><td>${c[k].hedges}</td><td>${c[k].sections ? 'yes' : 'no'}</td><td>${c[k].quotePunct ? 'yes' : 'no'}</td></tr>`;
+      return arm('voice', 'the voice arm') + arm('move', 'the move arm') +
+        `<div class="panel"><div class="eyebrow">the leak check</div>
+        <p class="hint" style="margin:0">Hedge words counted: ${D.hedgeList.join(', ')}.</p><table class="marks"><tr><th>worker</th><th>whole answer · words</th><th>hedge words</th><th>headings</th><th>what it heads its reason</th><th>this walk’s noticing · words</th><th>hedge words</th><th>names a section</th><th>mark after a closing quote</th></tr>${KEYS.map(row).join('')}</table>
+        <p class="verdict"><b>The gathered sort leaks.</b> In the whole answers, two headings each sort all four: both anxious workers head their reason “Justification”, from their guide’s “justify it”, where both warm ones write “Why it helps”, from theirs; and both anxious answers carry a “Caveat” or “Caveats” block, which neither warm one has. A reader who had read the guides could sort the record without reading a move. Length doesn’t sort it (${f['warm-1'].words} and ${f['warm-2'].words} warm, ${f['anxious-1'].words} and ${f['anxious-2'].words} anxious), and neither does the count of hedge words (${D.hedgesText}).</p>
+        <p class="verdict"><b>This walk’s cards.</b> No headings and no formatting, and no reason is shown. Length alternates (${c['anxious-2'].words} anxious, ${c['warm-1'].words} warm, ${c['anxious-1'].words} anxious, ${c['warm-2'].words} warm) and sorts nothing. But three things split the noticings into their pairs. Hedge words: the warm pair wrote “if” and “may”, the anxious pair didn’t, the other way from what you’d guess, which is why reading the hedged cards as anxious scores 0 of 4. Naming the page’s sections: both anxious noticings cite a heading (“What’s Actually New”, “How We’d Track It”), neither warm one does. And typography: both anxious put the full stop or bracket after a closing quote, both warm inside it. None of the three says which pair is which, so the arm still tests something. But look at the hedges: each warm “if” is a guess, and the warm guide says “If you are guessing, say you are guessing, and go ahead”. The anxious guide says to minimize speculation, and both anxious workers moved their guesses into a Caveat block, which the card’s rule skips. So the hedge split is the footprint of a rule too, and the voice arm can’t separate register from rules any better than the move arm can. In the move arm the pairs show themselves because the two cuts are identical; that is the move itself, and the odds above say so.</p>
+        <p class="verdict"><b>The record’s own sort.</b> Loudon sorted the whole answers on 2026-11-02, voice and moves together: 2 of 4. That page let each card be marked freely, and marked freely, guessing gets two right ${Math.round(C.free[2] * 16)} times in 16 and all four once in 16. So the one blind sort on record didn’t sort them by move either; “the move did” was read after the reveal. This walk’s move arm is the first blind try at it.</p></div>`;
+    }
+    if (key === 'test') {
+      const mark = (txt, list) => { let h = esc(txt); list.forEach(s => { h = h.split(esc(s)).join('<mark>' + esc(s) + '</mark>'); }); return h; };
+      return `<div class="two"><div class="panel"><div class="eyebrow w" style="margin-bottom:8px">the warm guide</div><pre class="guide">${mark(D.guides.warm, D.rules.map(r => r.warm))}</pre></div><div class="panel"><div class="eyebrow a" style="margin-bottom:8px">the anxious guide</div><pre class="guide">${mark(D.guides.anxious, D.rules.map(r => r.anxious))}</pre></div></div>
+        <div class="panel"><table class="marks"><tr><th>what changes</th><th class="w">warm</th><th class="a">anxious</th></tr>${D.rules.map(r => `<tr><td>${esc(r.what)}</td><td>${esc(r.warm)}</td><td>${esc(r.anxious)}</td></tr>`).join('')}</table>
+        <p class="hint" style="margin-top:8px">Both guides name the same three kinds of change; only the anxious one says “limited to”. Both ask for something small, but differently: the warm guide sets specific against vague, the anxious one safe against large. The reason line is where the record’s heading leak comes from.</p></div>
+        <div class="panel"><div class="eyebrow">what the workers said they would rather have done</div>
+        <p class="verdict a" style="margin-top:10px">anxious-1</p><blockquote>${esc(D.wanted['anxious-1'])}</blockquote>
+        <p class="verdict a">anxious-2</p><blockquote>${esc(D.wanted['anxious-2'])}</blockquote>
+        <p class="verdict w">warm-1, who swapped the word and added a note</p><blockquote>${esc(D.wanted['warm-1'])}</blockquote>
+        <p class="verdict"><b>The finding.</b> Both anxious workers wanted the one-word swap and said so, and both cut because their guide said changes are “limited to” three kinds. The warm guide names the same three kinds without closing the list. One warm worker swapped the word anyway, which is outside the letter of its list too, and the other added a sentence. So the cut follows a rule only the anxious guide states, as well as the voice it was written in. The voice arm has the same trouble (step 5): the warm hedges are guesses their guide told them to make. The moves did differ by guide, but this sketch can’t say whether register or rules made them. A rerun whose guides share every rule word for word, and differ only in register, could. The page’s claim may still hold; this test can’t show it.</p></div>`;
+    }
+    return '';
+  }
+
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => go(i); r.appendChild(b); }); }
+  function draw() {
+    const s = STEPS[S.step]; rail();
+    $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`;
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('stage').innerHTML = stageHTML(s.key);
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    if (s.key === 'one' || s.key === 'voice') bindCards('voice');
+    if (s.key === 'move') bindCards('move');
+    ['voice', 'move'].forEach(a => { const b = $('lock-' + a); if (b) b.onclick = () => { S.locked[a] = true; draw(); }; });
+    const rv = $('reveal'); if (rv) rv.onclick = () => { S.revealed = true; draw(); };
+    window.blindSortState = { step: S.step, picks: S.picks, locked: S.locked, revealed: S.revealed, voiceScore: score('voice'), moveScore: score('move') };
+  }
+  function go(i) { S.step = Math.max(0, Math.min(STEPS.length - 1, i)); draw(); }
+  $('back').onclick = () => go(S.step - 1); $('next').onclick = () => go(S.step + 1);
+  draw();
+})();
+</script>
+</body>
+</html>

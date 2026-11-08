@@ -1,14 +1,14 @@
 {
-  "iteration": 12,
-  "last_active": "2026-10-14T13:22:51.029Z",
-  "last_read_cursor": "meadows-career-steward-033",
+  "iteration": 14,
+  "last_active": "2026-10-30T10:17:21.845Z",
+  "last_read_cursor": "meadows-career-steward-036",
   "health": {
     "context_pct": null,
     "avg_output_tokens_last_5": null,
     "duplicate_flags": 0,
-    "posting_discipline_violations": 0,
+    "posting_discipline_violations": 1,
     "max_tokens_hits": 0,
-    "score": "green",
+    "score": "yellow",
     "stalled": false
   },
   "_pilot_metadata": {

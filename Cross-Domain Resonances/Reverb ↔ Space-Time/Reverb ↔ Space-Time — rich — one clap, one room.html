@@ -1,0 +1,502 @@
+<!doctype html>
+<!--
+  title: Reverb ↔ Space-Time — rich — one clap, one room
+  born: 2026-11-03
+  links: [[Reverb ↔ Space-Time]] (connects-to · rich-face-piece) · listed in [[Reverb ↔ Space-Time — rich.json]] · answers Loudon's comment under § The Physics
+  forward_vector: I am the page's clap experiment, built up from one wall: one echo late by its path, then six walls, then every echo of a shoebox room and Sabine's decay beside the box's own, and last the test of what a room's size does and what its shape does. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Reverb ↔ Space-Time — one clap, one room</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 130px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .key { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+  .key span::before { content: ''; display: inline-block; width: 10px; height: 2px; margin-right: 6px; vertical-align: middle; background: currentColor; }
+  canvas { display: block; width: 100%; touch-action: none; }
+  .wide { grid-column: 1 / -1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  .ctl .lab { display: block; margin-bottom: 6px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 180px; flex: 1 1 180px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  table.cmp { width: 100%; border-collapse: collapse; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; color: var(--fg3); }
+  table.cmp th { text-align: left; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; font-size: 10px; padding: 6px 8px; border-bottom: 1px solid var(--soft); }
+  table.cmp td { padding: 6px 8px; border-bottom: 1px solid var(--soft); }
+  table.cmp td b { color: var(--fg1); font-weight: 500; }
+  table.cmp tr.on td { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict p { margin: 0 0 10px; } .verdict p:last-child { margin: 0; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · image sources and Sabine · sketch</span></div>
+  <h3 class="title">How do a room's dimensions and its size work together?</h3>
+  <p class="sub">The page's clap experiment, built up from one wall. Four steps, one idea each: an echo is late by its path, six walls write the room's dimensions in time, every echo together makes the decay, and last the test of what size does and what shape does. Clap with the button; after the first clap, every change claps again.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span id="planLabel">from above</span><span id="planScale"></span></div>
+      <canvas id="plan"></canvas>
+      <div class="key" id="planKey"></div>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span id="echoLabel">what comes back</span><span id="echoUnits">dB · ms</span></div>
+      <canvas id="echo"></canvas>
+      <div class="key" id="echoKey"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ clap</button>
+    <label class="sl" id="dCtl">the wall is <b id="dVal"></b> away<input id="d" type="range" min="0.5" max="40" step="0.1"></label>
+    <label class="sl hidden" id="LCtl">length <b id="LVal"></b><input id="L" type="range" min="2" max="40" step="0.1"></label>
+    <label class="sl hidden" id="WCtl">width <b id="WVal"></b><input id="W" type="range" min="2" max="30" step="0.1"></label>
+    <label class="sl hidden" id="HCtl">height <b id="HVal"></b><input id="H" type="range" min="2.2" max="20" step="0.1"></label>
+  </div>
+  <div class="controls hidden" id="surfCtl">
+    <div class="ctl"><span class="lab">the surfaces · α, the share of sound each bounce soaks up</span><span class="seg" id="surf"></span></div>
+  </div>
+  <div class="controls hidden" id="varCtl">
+    <div class="ctl"><span class="lab">hear and read</span><span class="seg" id="vars"></span></div>
+  </div>
+  <div class="read" id="read"></div>
+  <table class="cmp hidden" id="cmp"></table>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="hint" id="hint"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+
+  <div class="eqs">
+    <div class="eq">t = d ⁄ c,&nbsp;&nbsp; c = 343 m/s</div>
+    <div class="words">(how late a reflection arrives) = (how far it travelled) ÷ (the speed of sound). A wall x metres from you is a path of 2x: the sound goes there and comes back.</div>
+    <div class="eq">RT60 = 0.161 · V ⁄ A,&nbsp;&nbsp; A = Σ Sᵢ · αᵢ</div>
+    <div class="words">(seconds for the sound to fall 60 dB) = 0.161 × (the room's volume, m³) ÷ (its absorption: each surface's area times the share of sound it soaks up, added together). Make every side k times longer and V grows k³ while A grows k², so the decay grows k times.</div>
+  </div>
+  <div class="note" id="note">The room is a shoebox with flat, mirror-like surfaces, one α for every surface and every frequency, and you a point half a metre from your own hands, 1.5 m up (lower when the ceiling is). Every image source is counted out to about 600,000 reflections (Allen and Berkley's method); after that a noise tail carries on the decay the images measured, and the sound is cut at 6 s. The darkening of the tail with time is a sound choice the single α does not contain. Real rooms scatter, so their late sound is nearer the even, diffuse field Sabine assumes than this bare box's.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+const C = 343;
+const SURFACES = [
+  { key: 'tile', name: 'tile and glass', a: 0.03 },
+  { key: 'plaster', name: 'plaster and wood', a: 0.08 },
+  { key: 'furnished', name: 'a furnished room', a: 0.2 },
+  { key: 'soft', name: 'carpet and curtains', a: 0.45 },
+];
+const WALLS = ['near end', 'far end', 'left wall', 'right wall', 'floor', 'ceiling'];
+function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function stats(room, a) {
+  const { L, W, H } = room, V = L * W * H, S = 2 * (L * W + L * H + W * H), A = S * a, sabine = 0.161 * V / A;
+  return { V, S, A, sabine, eyring: 0.161 * V / (-S * Math.log(1 - a)), mfp: 4 * V / S, schroeder: 2000 * Math.sqrt(sabine / V) };
+}
+function wallEcho(d) { return { path: 2 * d, t: 2 * d / C }; }
+function firstOrder(room, p) {
+  const d = [p[0], room.L - p[0], p[1], room.W - p[1], p[2], room.H - p[2]];
+  return d.map((di, i) => ({ wall: WALLS[i], d: di, t: 2 * di / C }));
+}
+// Every image source of a shoebox (Allen & Berkley 1979) out to tMax: visit(t, amp, order).
+// Pressure amplitude: beta^order / r with beta = sqrt(1 - a), so each bounce keeps (1 - a) of the energy.
+function images(room, src, rcv, a, tMax, visit, maxOrder) {
+  const R = C * tMax, beta = Math.sqrt(1 - a), dims = [room.L, room.W, room.H];
+  const range = (k, q, rem) => { const D = dims[k], s = (1 - 2 * q) * src[k] - rcv[k]; return [Math.ceil((-rem - s) / (2 * D)), Math.floor((rem - s) / (2 * D)), s]; };
+  const bp = []; let count = 0;
+  for (let qx = 0; qx < 2; qx++) { const [x0, x1, sx] = range(0, qx, R);
+    for (let mx = x0; mx <= x1; mx++) { const dx = 2 * mx * dims[0] + sx, nx = Math.abs(mx - qx) + Math.abs(mx), rx = R * R - dx * dx; if (rx < 0) continue;
+      for (let qy = 0; qy < 2; qy++) { const [y0, y1, sy] = range(1, qy, Math.sqrt(rx));
+        for (let my = y0; my <= y1; my++) { const dy = 2 * my * dims[1] + sy, ny = Math.abs(my - qy) + Math.abs(my), ry = rx - dy * dy; if (ry < 0) continue;
+          for (let qz = 0; qz < 2; qz++) { const [z0, z1, sz] = range(2, qz, Math.sqrt(ry));
+            for (let mz = z0; mz <= z1; mz++) { const dz = 2 * mz * dims[2] + sz, n = nx + ny + Math.abs(mz - qz) + Math.abs(mz);
+              if (maxOrder != null && n > maxOrder) continue;
+              const r = Math.sqrt(dx * dx + dy * dy + dz * dz); if (r > R) continue;
+              while (bp.length <= n) bp.push(Math.pow(beta, bp.length));
+              visit(r / C, bp[n] / Math.max(r, 0.05), n); count++; } } } } } }
+  return count;
+}
+// How far the image list may run before it costs more than `budget` images.
+function imageHorizon(room, budget) { const V = room.L * room.W * room.H; return Math.cbrt(budget * 3 * V / (4 * Math.PI)) / C; }
+// Fit the decay of the image energy, in dB per second, over [t0, t1], from 10 ms bins.
+function fitDecay(bins, dtBin, t0, t1) {
+  let n = 0, sx = 0, sy = 0, sxx = 0, sxy = 0;
+  for (let i = 0; i < bins.length; i++) { const t = (i + 0.5) * dtBin; if (t < t0 || t > t1 || bins[i] <= 0) continue; const y = 10 * Math.log10(bins[i]); n++; sx += t; sy += y; sxx += t * t; sxy += t * y; }
+  const slope = (n * sxy - sx * sy) / (n * sxx - sx * sx); return { slope, rt60: -60 / slope, n };
+}
+// The room's impulse response at fs: the direct sound and every image out to the horizon, then a noise
+// tail that carries on the decay the images measured. Direct sound normalised to 1.
+function renderRoom(o) {
+  const { room, src, rcv, a, fs } = o, budget = o.budget || 600000, cap = o.cap || 6, maxOrder = o.maxOrder;
+  const st = stats(room, a), dtBin = 0.01;
+  const rDirect = Math.hypot(src[0] - rcv[0], src[1] - rcv[1], src[2] - rcv[2]);
+  let tImg = Math.min(imageHorizon(room, budget), cap, maxOrder != null ? cap : st.sabine * 1.2 + 0.05);
+  if (maxOrder != null) tImg = Math.min(cap, (2 * Math.max(room.L, room.W, room.H) * (maxOrder + 1)) / C);
+  const nImg = Math.ceil(tImg * fs) + 2, bins = new Float64Array(Math.ceil(tImg / dtBin) + 1);
+  const early = []; const ir0 = new Float32Array(nImg);
+  const count = images(room, src, rcv, a, tImg, (t, amp, n) => {
+    const v = amp * rDirect, x = t * fs, i = Math.floor(x), f = x - i;
+    if (i + 1 < nImg) { ir0[i] += v * (1 - f); ir0[i + 1] += v * f; }
+    bins[Math.min(bins.length - 1, Math.floor(t / dtBin))] += v * v;
+    if (n <= 1) early.push({ t, amp: v, n });
+  }, maxOrder);
+  early.sort((p, q) => p.t - q.t);
+  // Every image of a hard-walled box arrives with the same sign, so the sum climbs at 0 Hz, a pressure
+  // build-up no loudspeaker plays. Allen and Berkley high-pass it away; so does this, at 30 Hz.
+  highpass(ir0, fs, 30);
+  if (maxOrder != null) return { ir: ir0, fs, tImg, count, early, bins, stats: st, fit: null, tEnd: tImg };
+  // The box's own decay, read twice: its first 15 dB, and what comes after, since a box that isn't
+  // diffuse decays faster at first and slower late.
+  const t0 = Math.max(0.03, 3 * st.mfp / C), i0 = Math.floor(t0 / dtBin), ref = 10 * Math.log10(bins[i0] || 1e-30);
+  let t15 = null, t35 = null; for (let i = i0; i < bins.length - 1; i++) { const y = 10 * Math.log10(bins[i] || 1e-30); if (t15 == null && y < ref - 15) t15 = i * dtBin; if (t35 == null && y < ref - 35) t35 = i * dtBin; }
+  const tLast = tImg - dtBin, eFit = fitDecay(bins, dtBin, t0, t15 || tLast);
+  const late = t15 != null && (t35 || tLast) - t15 > 0.05 ? fitDecay(bins, dtBin, t15, t35 || tLast) : fitDecay(bins, dtBin, Math.max(t0, tLast / 2), tLast);
+  const fit = { slope: late.slope, rt60: late.rt60, early: eFit.rt60, late: late.rt60, reachedLate: t15 != null };
+  const rt = isFinite(fit.rt60) && fit.rt60 > 0 ? fit.rt60 : st.sabine;
+  const tEnd = Math.min(cap, Math.max(tImg, rt * 1.05 + 0.05));
+  const N = Math.ceil(tEnd * fs), chans = [];
+  for (let c = 0; c < (o.channels || 1); c++) {
+    const ir = new Float32Array(N); ir.set(ir0.subarray(0, Math.min(nImg, N)));
+    if (tEnd > tImg + 0.02) { // the tail: noise at the images' level, falling at their rate, its own noise per ear
+      const w = Math.round(0.02 * fs), j1 = Math.floor(tImg * fs) - 1; let e = 0; for (let j = j1 - w; j < j1; j++) e += ir0[j] * ir0[j];
+      const rms = Math.sqrt(e / w), r = rng((o.seed || 7) + 101 * c), k = Math.pow(10, fit.slope / 20 / fs), fade = Math.round(0.01 * fs);
+      let g = rms; const jS = j1 - fade;
+      for (let j = jS; j < N; j++) { const u = (r() + r() + r() - 1.5) * 2, fi = Math.min(1, (j - jS) / fade); ir[j] = j < j1 ? ir[j] * (1 - fi) + u * g * fi : u * g; if (j >= j1) g *= k; }
+    }
+    chans.push(ir);
+  }
+  return { ir: chans[0], chans, fs, tImg, count, early, bins, stats: st, fit, tEnd, t0, t15 };
+}
+function highpass(x, fs, fc) {
+  const w = 2 * Math.PI * fc / fs, al = Math.sin(w) / Math.SQRT2, cw = Math.cos(w), a0 = 1 + al;
+  const b0 = (1 + cw) / 2 / a0, b1 = -(1 + cw) / a0, b2 = b0, a1 = -2 * cw / a0, a2 = (1 - al) / a0;
+  let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+  for (let i = 0; i < x.length; i++) { const v = x[i], y = b0 * v + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2; x2 = x1; x1 = v; y2 = y1; y1 = y; x[i] = y; }
+  return x;
+}
+// Schroeder backward integration of an impulse response: the decay in dB, and T20 and T30 read off it.
+function schroeder(ir, fs) {
+  const N = ir.length, edc = new Float64Array(N); let s = 0; for (let i = N - 1; i >= 0; i--) { s += ir[i] * ir[i]; edc[i] = s; }
+  const db = (i) => 10 * Math.log10(edc[i] / edc[0]);
+  const cross = (lvl) => { for (let i = 0; i < N; i++) if (db(i) <= lvl) return i / fs; return null; };
+  const t5 = cross(-5), t25 = cross(-25), t35 = cross(-35);
+  return { T20: t5 != null && t25 != null ? 3 * (t25 - t5) : null, T30: t5 != null && t35 != null ? 2 * (t35 - t5) : null, edt: (cross(-10) || NaN) * 6 };
+}
+// Echo density: reflections per second arriving around t (the images' count in a window).
+function echoDensity(room, t) { return 4 * Math.PI * C * C * C * t * t / (room.L * room.W * room.H); }
+
+// A sound choice, not physics the model holds: real surfaces and air soak up highs faster, so the
+// response darkens as it goes. A one-pole lowpass whose corner falls from 14 kHz toward 2 kHz over rt.
+function colour(ir, fs, rt) {
+  const out = new Float32Array(ir.length); let y = 0;
+  for (let i = 0; i < ir.length; i++) { const t = i / fs, fc = 2000 + 12000 * Math.exp(-t / Math.max(0.05, rt / 3)), a = 1 - Math.exp(-2 * Math.PI * fc / fs); y += a * (ir[i] - y); out[i] = y; }
+  return out;
+}
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const S = { key: 'wall', d: 10, room: { L: 12, W: 8, H: 5 }, pos: [0.37, 0.42], a: 0.2, v: 'this', armed: false, R: null, vars: null };
+const STEPS = [
+  { key: 'wall', name: 'one wall', say: 'One idea first: <i>an echo is late by its path</i>. One wall, nothing else. Clap, then drag the wall. The sound walks to the wall and back, so a wall x metres away answers after 2x ⁄ 343 seconds. Bring it close and the echo melts into the clap; push it out and it splits off.' },
+  { key: 'six', name: 'six walls', say: 'Now a box: six surfaces, so six first echoes, each late by twice its distance. Change the length, width and height, or drag where you stand, and the pattern changes. <i>The room\'s dimensions, written in time.</i> Only these six echoes sound here.' },
+  { key: 'room', name: 'every echo', say: 'Let every echo echo. The reflections multiply, more each millisecond, until they crowd into a smooth tail, and each bounce keeps only 1 − α of the energy. How long the tail lasts is <i>size and surfaces together</i>, which is what Sabine\'s RT60 = 0.161 · V ⁄ A says. Dashed: Sabine. Solid: this box\'s own decay.' },
+  { key: 'test', name: 'size or shape', say: 'The test, and the question under the page: <i>do size and dimensions do different jobs?</i> Make every side twice as long. Keep the volume and change the shape. Keep the room and change the surfaces. Clap in each, and read what moved.' },
+];
+const VARS = [
+  { key: 'this', name: 'this room' },
+  { key: 'x2', name: 'every side ×2' },
+  { key: 'flat', name: 'same volume, low and wide' },
+  { key: 'hard', name: 'same room, hard surfaces' },
+];
+// ---- sound ----
+let ctx = null, bus = null, voice = null, clapBuf = null, irBuf = null;
+function ensure() {
+  if (ctx) return false;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 4;
+  bus = ctx.createGain(); bus.gain.value = 0.75; bus.connect(comp).connect(ctx.destination);
+  const fs = ctx.sampleRate, n = Math.round(0.06 * fs), r = rng(3); clapBuf = ctx.createBuffer(1, n, fs); const x = clapBuf.getChannelData(0);
+  // a clap: a sharp burst of noise, centred near 1.5 kHz, falling away in a few milliseconds
+  let b1 = 0, b2 = 0, lp = 0; const w = 2 * Math.PI * 1500 / fs, q = 0.9, al = Math.sin(w) / (2 * q), cw = Math.cos(w);
+  const B0 = al / (1 + al), A1 = -2 * cw / (1 + al), A2 = (1 - al) / (1 + al);
+  let x1 = 0, x2 = 0;
+  for (let i = 0; i < n; i++) { const t = i / fs, env = Math.min(1, t / 0.0006) * Math.exp(-t / 0.007), u = (r() * 2 - 1) * env; const y = B0 * u - B0 * x2 - A1 * b1 - A2 * b2; x2 = x1; x1 = u; b2 = b1; b1 = y; lp += 0.5 * (u - lp); x[i] = 1.6 * y + 0.35 * (u - lp); }
+  return true;
+}
+function setIR(chans, fs, rt) {
+  if (!ctx) return;
+  const n = chans[0].length; irBuf = ctx.createBuffer(2, n, ctx.sampleRate);
+  for (let c = 0; c < 2; c++) irBuf.getChannelData(c).set(rt ? colour(chans[Math.min(c, chans.length - 1)], fs, rt) : chans[Math.min(c, chans.length - 1)]);
+}
+function hush() { if (voice) { const v = voice; voice = null; try { v.g.gain.setTargetAtTime(0, ctx.currentTime, 0.015); setTimeout(() => { try { v.s.stop(); } catch {} v.g.disconnect(); }, 120); } catch {} } }
+async function clap() {
+  const fresh = ensure(); await ctx.resume(); S.armed = true; $('go').textContent = '▸ clap again';
+  if (fresh || !irBuf) build(true);
+  hush();
+  const s = ctx.createBufferSource(); s.buffer = clapBuf; const cv = ctx.createConvolver(); cv.normalize = false; cv.buffer = irBuf; const g = ctx.createGain(); g.gain.value = 0.9;
+  s.connect(cv).connect(g).connect(bus); s.start(); voice = { s, g };
+}
+// ---- the model, per step ----
+const H0 = (room) => Math.min(1.5, room.H / 2);
+const where = (room, pos) => [room.L * pos[0], room.W * pos[1], H0(room)];
+const ears = (p) => [p[0], p[1] + 0.5, p[2]];
+function variant(key) {
+  const r = S.room;
+  if (key === 'x2') return { room: { L: r.L * 2, W: r.W * 2, H: r.H * 2 }, a: S.a };
+  if (key === 'flat') return { room: { L: r.L * Math.SQRT2, W: r.W * Math.SQRT2, H: r.H / 2 }, a: S.a };
+  if (key === 'hard') return { room: { ...r }, a: SURFACES[0].a };
+  return { room: { ...r }, a: S.a };
+}
+function renderVariant(key, fs) { const v = variant(key), p = where(v.room, S.pos); return { ...v, p, R: renderRoom({ room: v.room, src: p, rcv: ears(p), a: v.a, fs, channels: 2 }) }; }
+const firstWall = (room, p) => Math.min(...firstOrder(room, p).filter((e) => e.wall !== 'floor' && e.wall !== 'ceiling').map((e) => e.t));
+function build(quiet) {
+  const fs = ctx ? ctx.sampleRate : 48000;
+  if (S.key === 'wall') {
+    // one wall in an open field: the clap at your ears, and its echo lifted to −6 dB so you can hear it
+    const t = Math.hypot(2 * S.d, 0.5) / C, n = Math.ceil((t + 0.1) * fs), ir = new Float32Array(n); ir[0] = 1; const x = t * fs, i = Math.floor(x), f = x - i; ir[i] += 0.5 * (1 - f); ir[i + 1] += 0.5 * f;
+    S.R = { wall: true, t }; setIR([ir], fs, 0);
+  } else if (S.key === 'six') {
+    const p = where(S.room, S.pos); S.R = renderRoom({ room: S.room, src: p, rcv: ears(p), a: S.a, fs, maxOrder: 1 }); S.R.p = p;
+    const ir = new Float32Array(Math.ceil(fs * (Math.max(...S.R.early.map((e) => e.t)) + 0.15))); ir.set(S.R.ir.subarray(0, ir.length)); setIR([ir], fs, 0);
+  } else if (S.key === 'room') {
+    const p = where(S.room, S.pos); S.R = renderRoom({ room: S.room, src: p, rcv: ears(p), a: S.a, fs, channels: 2 }); S.R.p = p; setIR(S.R.chans, fs, S.R.fit.late);
+  } else {
+    S.vars = {}; for (const v of VARS) S.vars[v.key] = renderVariant(v.key, fs);
+    const cur = S.vars[S.v]; S.R = cur.R; S.R.p = cur.p; setIR(cur.R.chans, fs, cur.R.fit.late);
+  }
+  draw(); readouts();
+  if (!quiet && S.armed) clap();
+}
+// ---- drawing ----
+function fit(c, hgt) {
+  const w = c.clientWidth || 520, d = devicePixelRatio || 1, H = hgt;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+const AMBER = '#e8b84a', INDIGO = '#6366F1', BLUE = '#4a8fff', FG3 = '#8a8aa0', FG4 = '#4a4a5a', RING = '#22222e';
+let planGeom = null;
+function drawPlan() {
+  const c = $('plan');
+  if (S.key === 'wall') {
+    const { g, w, h } = fit(c, 260); g.clearRect(0, 0, w, h);
+    const x0 = 34, sc = (w - x0 - 20) / 41, y = h / 2, xw = x0 + S.d * sc;
+    g.fillStyle = FG4; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+    for (let m = 0; m <= 40; m += 10) { g.fillRect(x0 + m * sc, h - 22, 1, 5); g.fillText(m + ' m', x0 + m * sc, h - 8); }
+    g.strokeStyle = AMBER; g.lineWidth = 3; g.beginPath(); g.moveTo(xw, 30); g.lineTo(xw, h - 40); g.stroke();
+    g.strokeStyle = 'rgba(232,184,74,.35)'; g.lineWidth = 1; g.setLineDash([5, 4]); g.beginPath(); g.moveTo(x0 + 8, y - 6); g.lineTo(xw - 3, y - 6); g.moveTo(xw - 3, y + 6); g.lineTo(x0 + 8, y + 6); g.stroke(); g.setLineDash([]);
+    g.fillStyle = AMBER; g.beginPath(); g.moveTo(xw - 3, y - 6); g.lineTo(xw - 11, y - 10); g.lineTo(xw - 11, y - 2); g.fill(); g.beginPath(); g.moveTo(x0 + 8, y + 6); g.lineTo(x0 + 16, y + 2); g.lineTo(x0 + 16, y + 10); g.fill();
+    g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(x0, y, 6, 0, 7); g.fill();
+    g.fillStyle = FG3; g.textAlign = 'left'; g.fillText('you', x0 - 10, y - 14); g.textAlign = 'center'; g.fillText('drag the wall', xw, 22);
+    planGeom = { wall: true, x0, sc };
+    $('planLabel').textContent = 'from above · open ground, one wall'; $('planScale').textContent = '';
+    $('planKey').innerHTML = '<span style="color:#e8b84a">the wall, and the sound\'s path there and back</span>';
+    return;
+  }
+  const v = S.key === 'test' ? variant(S.v) : { room: S.room }, room = v.room, scRoom = S.key === 'test' ? S.vars && S.vars.x2 ? S.vars.x2.room : room : room;
+  const w = c.clientWidth || 520, pad = 16, gap = 18, sc = Math.min((w - 2 * pad) / scRoom.L, 300 / (scRoom.W + scRoom.H + gap / 8));
+  const h = Math.ceil(pad * 2 + (room.W + room.H) * sc + gap + 14);
+  const { g } = fit(c, Math.max(160, h)); g.clearRect(0, 0, w, Math.max(160, h));
+  const p = where(room, S.pos), ox = pad, oy = pad, sy = oy + room.W * sc + gap;
+  g.strokeStyle = FG3; g.lineWidth = 1.2; g.strokeRect(ox, oy, room.L * sc, room.W * sc); g.strokeRect(ox, sy, room.L * sc, room.H * sc);
+  g.fillStyle = FG4; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left';
+  g.fillText('from above', ox + 4, oy + 12); g.fillText('from the side', ox + 4, sy + 12);
+  const px = ox + p[0] * sc, py = oy + p[1] * sc, pz = sy + (room.H - p[2]) * sc;
+  if (S.key === 'six') { // a ray to each wall and back
+    const E = firstOrder(room, p); g.strokeStyle = 'rgba(232,184,74,.55)'; g.lineWidth = 1; g.setLineDash([4, 3]);
+    g.beginPath(); g.moveTo(px, py); g.lineTo(ox, py); g.moveTo(px, py); g.lineTo(ox + room.L * sc, py); g.moveTo(px, py); g.lineTo(px, oy); g.moveTo(px, py); g.lineTo(px, oy + room.W * sc);
+    g.moveTo(px, pz); g.lineTo(px, sy + room.H * sc); g.moveTo(px, pz); g.lineTo(px, sy); g.stroke(); g.setLineDash([]);
+    g.fillStyle = AMBER; g.textAlign = 'center';
+    const lab = (t, x, y) => g.fillText((1000 * t).toFixed(1) + ' ms', x, y);
+    lab(E[0].t, (ox + px) / 2, py - 5); lab(E[1].t, (px + ox + room.L * sc) / 2, py - 5); lab(E[2].t, px + 30, (oy + py) / 2); lab(E[3].t, px + 30, (py + oy + room.W * sc) / 2); lab(E[4].t, px + 30, (pz + sy + room.H * sc) / 2 + 4); lab(E[5].t, px + 30, (pz + sy) / 2 + 4);
+  }
+  g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(px, py, 5.5, 0, 7); g.fill(); g.beginPath(); g.arc(px, pz, 4, 0, 7); g.fill();
+  planGeom = { wall: false, ox, oy, sc, room };
+  $('planLabel').textContent = S.key === 'test' ? VARS.find((x) => x.key === S.v).name : 'the room';
+  $('planScale').textContent = `${room.L.toFixed(1)} × ${room.W.toFixed(1)} × ${room.H.toFixed(1)} m`;
+  $('planKey').innerHTML = S.key === 'test' ? '<span style="color:#8a8aa0">drawn to one scale, the doubled room\'s</span>' : '<span style="color:#e8e8f0">you · drag to move</span>';
+}
+function drawEcho() {
+  const c = $('echo'), { g, w, h } = fit(c, 260); g.clearRect(0, 0, w, h);
+  const L = 36, R = 10, T = 12, B = 26, top = 0, bot = -60, y = (db) => T + (h - T - B) * (top - Math.max(bot, Math.min(top, db))) / (top - bot);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = FG4; g.textAlign = 'right';
+  for (let db = 0; db >= bot; db -= 20) { g.fillText(db, L - 6, y(db) + 3); g.fillStyle = RING; g.fillRect(L, y(db), w - L - R, 1); g.fillStyle = FG4; }
+  if (S.key === 'wall' || S.key === 'six') {
+    const tMax = S.key === 'wall' ? 0.26 : Math.max(0.04, 1.25 * Math.max(...S.R.early.map((e) => e.t))), x = (t) => L + (w - L - R) * t / tMax;
+    g.textAlign = 'center'; const step = tMax > 0.15 ? 50 : tMax > 0.06 ? 20 : 10;
+    for (let ms = 0; ms <= tMax * 1000; ms += step) { g.fillStyle = FG4; g.fillRect(x(ms / 1000), h - B, 1, 4); g.fillText(ms, x(ms / 1000), h - 8); }
+    const stem = (t, db, col, wd) => { g.strokeStyle = col; g.lineWidth = wd || 2; g.beginPath(); g.moveTo(x(t), y(bot)); g.lineTo(x(t), y(db)); g.stroke(); g.fillStyle = col; g.beginPath(); g.arc(x(t), y(db), 3, 0, 7); g.fill(); };
+    stem(0, 0, '#e8e8f0');
+    if (S.key === 'wall') { const t = S.R.t; stem(t, -6, AMBER); const phys = 20 * Math.log10(0.5 / Math.hypot(2 * S.d, 0.5)); g.setLineDash([3, 3]); g.strokeStyle = FG3; g.beginPath(); g.moveTo(x(t) - 10, y(phys)); g.lineTo(x(t) + 10, y(phys)); g.stroke(); g.setLineDash([]);
+      $('echoKey').innerHTML = '<span style="color:#e8e8f0">your clap</span><span style="color:#e8b84a">the echo, as played</span><span style="color:#8a8aa0">- - its true level</span>'; }
+    else { for (const e of S.R.early) if (e.n === 1) stem(e.t, 20 * Math.log10(e.amp), AMBER, 1.6);
+      $('echoKey').innerHTML = '<span style="color:#e8e8f0">your clap</span><span style="color:#e8b84a">the six first echoes</span>'; }
+    $('echoLabel').textContent = 'what comes back, and when'; $('echoUnits').textContent = 'dB · ms';
+    return;
+  }
+  const RR = S.R, tMax = RR.tEnd, x = (t) => L + (w - L - R) * t / tMax, dt = 0.01;
+  g.textAlign = 'center'; const step = tMax > 3 ? 1 : tMax > 1.2 ? 0.5 : 0.2;
+  for (let s = 0; s <= tMax + 1e-9; s += step) { g.fillStyle = FG4; g.fillRect(x(s), h - B, 1, 4); g.fillText(s.toFixed(1), x(s), h - 8); }
+  // energy in 10 ms windows, relative to the direct sound's window
+  const ir = RR.ir, fs = RR.fs, nb = Math.floor(tMax / dt), e = new Float64Array(nb);
+  for (let i = 0; i < ir.length; i++) { const k = Math.floor(i / fs / dt); if (k < nb) e[k] += ir[i] * ir[i]; }
+  const ref = e[0];
+  g.strokeStyle = 'rgba(200,200,216,.75)'; g.lineWidth = 1.2; g.beginPath(); for (let k = 0; k < nb; k++) { const yy = y(10 * Math.log10(e[k] / ref + 1e-12)); k ? g.lineTo(x((k + 0.5) * dt), yy) : g.moveTo(x((k + 0.5) * dt), yy); } g.stroke();
+  const at = Math.floor(RR.t0 / dt), lvl = 10 * Math.log10(e.slice(Math.max(1, at - 2), at + 3).reduce((p, q) => p + q, 0) / Math.min(5, at + 3 - Math.max(1, at - 2)) / ref + 1e-12), line = (rt, col, dash) => { g.strokeStyle = col; g.lineWidth = 1.6; g.setLineDash(dash); g.beginPath(); g.moveTo(x(RR.t0), y(lvl)); const t1 = Math.min(tMax, RR.t0 + rt * (lvl - bot) / 60); g.lineTo(x(t1), y(lvl - 60 * (t1 - RR.t0) / rt)); g.stroke(); g.setLineDash([]); };
+  line(RR.stats.sabine, AMBER, [6, 4]); line(RR.fit.early, INDIGO, []);
+  if (RR.tImg < tMax - 0.02) { g.fillStyle = FG4; g.fillRect(x(RR.tImg), T, 1, h - T - B); const right = x(RR.tImg) < w - 90; g.textAlign = right ? 'left' : 'right'; g.fillText(right ? 'noise tail →' : '← images · noise tail', x(RR.tImg) + (right ? 4 : -4), T + 10); }
+  $('echoLabel').textContent = 'the decay, 10 ms at a time'; $('echoUnits').textContent = 'dB · s';
+  $('echoKey').innerHTML = '<span style="color:#c8c8d8">the room\'s energy</span><span style="color:#e8b84a">Sabine\'s RT60</span><span style="color:#6366F1">this box, its first 15 dB</span>';
+}
+function draw() { drawPlan(); drawEcho(); }
+// ---- words and numbers ----
+const ms = (t) => (1000 * t).toFixed(1) + ' ms', s2 = (t) => t.toFixed(2) + ' s';
+function readouts() {
+  const R = S.R; let html = '';
+  if (S.key === 'wall') {
+    const phys = 20 * Math.log10(0.5 / Math.hypot(2 * S.d, 0.5));
+    html = `<span>path there and back <b>${(2 * S.d).toFixed(1)} m</b></span><span>echo <b class="hot">${ms(R.t)}</b> after the clap</span><span>played at <b>−6 dB</b>; from a real wall it would be <b>${phys.toFixed(0)} dB</b></span>`;
+  } else if (S.key === 'six') {
+    html = firstOrder(S.room, R.p).map((e) => `<span>${e.wall} <b>${e.d.toFixed(1)} m</b> → <b class="hot">${ms(e.t)}</b></span>`).join('');
+  } else if (S.key === 'room') {
+    const st = R.stats;
+    html = `<span>volume <b>${st.V.toFixed(0)} m³</b></span><span>surface <b>${st.S.toFixed(0)} m²</b></span><span>absorption A <b>${st.A.toFixed(1)} m²</b></span><span>Sabine RT60 <b class="hot">${s2(st.sabine)}</b></span><span>this box: first 15 dB at the rate of <b>${s2(R.fit.early)}</b>, later <b>${s2(R.fit.late)}</b></span><span>reflections counted <b>${R.count.toLocaleString('en')}</b>, out to <b>${s2(R.tImg)}</b></span>${R.stats.sabine > 6 ? '<span>sound cut at <b>6 s</b></span>' : ''}`;
+  }
+  $('read').innerHTML = html;
+  if (S.key === 'test') table();
+}
+function table() {
+  const rows = VARS.map((v) => { const X = S.vars[v.key], st = X.R.stats; return `<tr class="${v.key === S.v ? 'on' : ''}"><td>${v.name}</td><td>${X.room.L.toFixed(1)} × ${X.room.W.toFixed(1)} × ${X.room.H.toFixed(1)}</td><td>${st.V.toFixed(0)}</td><td>${st.S.toFixed(0)}</td><td>${X.a}</td><td><b>${ms(firstWall(X.room, X.p))}</b></td><td><b>${s2(st.sabine)}</b></td><td><b>${s2(X.R.fit.early)}</b> · ${s2(X.R.fit.late)}</td></tr>`; }).join('');
+  $('cmp').innerHTML = `<tr><th></th><th>L × W × H, m</th><th>V, m³</th><th>S, m²</th><th>α</th><th>first wall echo</th><th>Sabine RT60</th><th>this box: first 15 dB · later</th></tr>${rows}`;
+  const A = S.vars.this, B = S.vars.x2, F = S.vars.flat, Hd = S.vars.hard, k = (x, y) => (y / x).toFixed(2);
+  $('verdict').innerHTML =
+    `<p><b>Size sets how long.</b> Every side ×2 took Sabine's decay from ${s2(A.R.stats.sabine)} to ${s2(B.R.stats.sabine)} (×${k(A.R.stats.sabine, B.R.stats.sabine)}) and this box's first 15 dB from ${s2(A.R.fit.early)} to ${s2(B.R.fit.early)} (×${k(A.R.fit.early, B.R.fit.early)}). The first wall echo stretched with it, ${ms(firstWall(A.room, A.p))} to ${ms(firstWall(B.room, B.p))}. Length ×2, time ×2: the room is bigger in seconds as it is in metres.</p>` +
+    (() => { const more = F.R.stats.S > A.R.stats.S;
+      return `<p><b>Shape sets the pattern, and Sabine sees it only as surface area.</b> At the same volume, low and wide has ${more ? 'more' : 'less'} surface (${F.R.stats.S.toFixed(0)} m² against ${A.R.stats.S.toFixed(0)}), so Sabine ${more ? 'shortens' : 'lengthens'} the decay, ${s2(A.R.stats.sabine)} to ${s2(F.R.stats.sabine)}. The box does something else: its first 15 dB go from ${s2(A.R.fit.early)} to ${s2(F.R.fit.early)}, and its later decay from ${s2(A.R.fit.late)} to ${s2(F.R.fit.late)}, because in a bare box sound skimming between far walls rarely meets the floor or ceiling. The arrivals know the shape fully: the first wall echo moved to ${ms(firstWall(F.room, F.p))}.</p>`; })() +
+    `<p><b>Surfaces set how long, and leave the arrivals alone.</b> ${S.a === Hd.a ? 'Your surfaces are already the hardest here, tile and glass, so the last row is this room again.' : `Same room, hard surfaces: Sabine's decay goes from ${s2(A.R.stats.sabine)} to ${s2(Hd.R.stats.sabine)}, and the first wall echo stays at ${ms(firstWall(Hd.room, Hd.p))}.`} A reverb's separate size and decay knobs are these two jobs pulled apart: size moves the arrivals, decay stands in for the surfaces. A real room ties them, since its decay is its size and its surfaces together.</p>` +
+    `<p><b>The page's numbers, checked.</b> A wall 10 m away answers at ${ms(Math.hypot(20, 0.5) / C)}, since the sound goes 20 m. 29 ms is a 10 m path: a wall 5 m away. A bathroom's 5–10 ms is a wall 0.9–1.7 m off and a cathedral's 50–100 ms is 8.6–17 m, as the page says, though in both the floor answers first, at about 9 ms at standing height.</p>` +
+    `<p><b>How far a box stands for a real room.</b> This half of the question is only partly answered here. The box has mirror walls, one α for every surface and frequency, no furniture and nothing to scatter sound, so its two-slope decay (later ${s2(A.R.fit.late)} against a first ${s2(A.R.fit.early)} even in this room) is the bare box's, not what a real low room must do; a furnished room scatters toward the single slope Sabine and Eyring assume. Sabine fits when absorption is light and spread evenly. In the starting room, 12 × 8 × 5 m, it matched the box's first 15 dB to within a few per cent for α up to 0.2, but at α 0.45 the box falls at 0.38 s, between Sabine's 0.44 s and Eyring's 0.33 s. A real room's answer would need its measured response, which this page doesn't have.</p>`;
+}
+// ---- controls ----
+function sl(id, get, set, fmt) { const el = $(id); el.value = get(); $(id + 'Val').textContent = fmt(get()); el.oninput = () => { set(+el.value); $(id + 'Val').textContent = fmt(+el.value); if (S.key === 'wall') { S.R.t = Math.hypot(2 * S.d, 0.5) / C; draw(); readouts(); } else drawPlan(); }; el.onchange = () => build(false); }
+sl('d', () => S.d, (v) => (S.d = v), (v) => v.toFixed(1) + ' m');
+sl('L', () => S.room.L, (v) => (S.room.L = v), (v) => v.toFixed(1) + ' m');
+sl('W', () => S.room.W, (v) => (S.room.W = v), (v) => v.toFixed(1) + ' m');
+sl('H', () => S.room.H, (v) => (S.room.H = v), (v) => v.toFixed(1) + ' m');
+SURFACES.forEach((m) => { const b = document.createElement('button'); b.textContent = `${m.name} · ${m.a}`; b.className = m.a === S.a ? 'on' : ''; b.onclick = () => { S.a = m.a; [...$('surf').children].forEach((z) => z.classList.toggle('on', z === b)); build(false); }; $('surf').appendChild(b); });
+VARS.forEach((v) => { const b = document.createElement('button'); b.textContent = v.name; b.className = v.key === S.v ? 'on' : ''; b.onclick = () => { S.v = v.key; [...$('vars').children].forEach((z) => z.classList.toggle('on', z === b)); const X = S.vars[v.key]; S.R = X.R; S.R.p = X.p; setIR(X.R.chans, X.R.fs, X.R.fit.late); draw(); readouts(); if (S.armed) clap(); }; $('vars').appendChild(b); });
+// drag the wall, or yourself
+let dragging = false;
+function pointer(e) {
+  const r = $('plan').getBoundingClientRect(), mx = e.clientX - r.left, my = e.clientY - r.top, G = planGeom; if (!G) return;
+  if (G.wall) { S.d = Math.max(0.5, Math.min(40, (mx - G.x0) / G.sc)); $('d').value = S.d; $('dVal').textContent = S.d.toFixed(1) + ' m'; S.R.t = Math.hypot(2 * S.d, 0.5) / C; draw(); readouts(); return; }
+  if (S.key === 'test') return;
+  const x = (mx - G.ox) / G.sc / G.room.L, y = (my - G.oy) / G.sc / G.room.W; if (!dragging && (x < -0.05 || x > 1.05 || y < -0.05 || y > 1.05)) return;
+  S.pos = [Math.max(0.03, Math.min(0.97, x)), Math.max(0.05, Math.min(0.95, y))]; drawPlan();
+}
+$('plan').addEventListener('pointerdown', (e) => { dragging = true; $('plan').setPointerCapture(e.pointerId); pointer(e); });
+$('plan').addEventListener('pointermove', (e) => { if (dragging) pointer(e); });
+$('plan').addEventListener('pointerup', () => { if (!dragging) return; dragging = false; build(false); });
+$('go').onclick = () => clap();
+function show(id, on) { $(id).classList.toggle('hidden', !on); }
+function onStep(key) {
+  S.key = key; hush();
+  show('dCtl', key === 'wall'); for (const id of ['LCtl', 'WCtl', 'HCtl']) show(id, key === 'six' || key === 'room' || key === 'test');
+  show('surfCtl', key === 'room' || key === 'test'); show('varCtl', key === 'test'); show('cmp', key === 'test'); show('verdict', key === 'test');
+  $('hint').textContent = {
+    wall: 'Where the one clap becomes two depends on the sound: for a sharp click it can be under 10 ms, for speech nearer 50. Find yours. The echo is lifted to −6 dB here; the dashed tick is how quiet a real one is, half a metre from your hands.',
+    six: 'Each echo is as loud as its distance allows. The floor answers first in every room, at about 7 to 9 ms, because it is always 1.25 to 1.5 m below your hands: the first echo you hear is not the one that tells you the room\'s size.',
+    room: 'Change one thing at a time. A bigger room or harder surfaces lengthen the decay; the early echoes move only with the dimensions. Where the box\'s line leaves Sabine\'s, the box has stopped being the even, diffuse field Sabine assumes; a bare, mirror-walled box does that far more than a furnished room would.',
+    test: 'The table holds all four rooms; the buttons choose which one you hear and see. The room above is drawn to the doubled room\'s scale, so the four can be compared by eye. Change the length, width, height or surfaces, and all four follow.',
+  }[key];
+  build(true);
+}
+function walk(steps, cb) {
+  let at = 0;
+  const go = (i) => { at = Math.max(0, Math.min(steps.length - 1, i)); [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = steps[at].say; $('back').disabled = at === 0; $('next').disabled = at === steps.length - 1; cb(steps[at].key, at); };
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+  $('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+  return { go };
+}
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+window.addEventListener('resize', () => S.R && draw());
+sigil(2, 3);
+walk(STEPS, onStep).go(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+# Synth Templates — card 0.2 — Closed Hi-Hat
+# Metal is noise with structure: six squares detuned far enough apart that they stop being a chord, plus noise, all of it highpassed and over in an instant.
+schema: synth-template-card/0.2
+id: closed-hi-hat
+name: Closed Hi-Hat
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: 808 hat
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Unison / unisono"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, octave: 2, unison: 6, detune: very wide, note: "the 808 tunes its six squares to inharmonic ratios; the voice spreads them in cents, which is the same idea at smaller scale"}
+    noise:   {kind: oscillator, wave: noise, level: half}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: highpass, slope: 24, resonance: none}
+    amp:     {kind: amplifier, level: full}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: square,        why: "odd harmonics only; six of them clashing is the metal"}
+  - {block: osc1,    param: unison,    value: 6 voices,      why: "one square is a tone; six that do not agree are a cymbal"}
+  - {block: osc1,    param: detune,    value: very wide,     why: "far enough apart that it stops being a chord and becomes a shimmer"}
+  - {block: filter1, param: type,      value: highpass 24 dB, why: "nothing below the hiss; the hat lives above everything else in the kit"}
+  - {block: filter1, param: cutoff,    value: bright,        why: "high: only the top of the squares and the noise get through"}
+  - {block: aenv,    param: decay,     value: short,         why: "closed: the cymbals are pressed together and stop the ring"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: aenv,    param: mode,      value: one-shot,      why: "plays out whatever the note length"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "fast – short",     default: short, why: "tighter toward fast"}
+  - {block: noise,   param: level,   range: "off – full",       default: half,  why: "more noise is a cheaper hat; less is more metal"}
+  - {block: filter1, param: cutoff,  range: "mid – open",       default: bright}
+  - {block: osc1,    param: detune,  range: "wide – very wide", default: very wide}
+
+listening:
+  cue: "A tick of metal, not a tick of hiss. Under the noise there is a clang with no clear pitch, gone before you can place it."
+  ab: "Set unison to 1 voice: a square tone with hiss on it, a toy. Back to 6 and the metal returns. Then set the noise to off: the pure 808 hat, all clang."
+
+render:
+  tempo: 120
+  note: C5
+  velocity: 100
+  pattern: "straight eighths, one bar"
+  length_s: 2.0
+
+mappings: {}

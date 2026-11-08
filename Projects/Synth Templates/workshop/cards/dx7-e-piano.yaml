@@ -1,0 +1,78 @@
+# Synth Templates — Genre Classics — DX7 E.Piano
+# Two FM pairs summed: a sine body and a 14:1 tine pair that pings and fades. The algorithm is the sum; the tine is the ratio.
+schema: synth-template-card/0.2
+id: dx7-e-piano
+name: DX7 E.Piano
+family: Genre Classics
+tier: 2
+mode: poly
+classics: DX7
+status: drafted
+lineage:
+  - "cards/fm-electric-piano.yaml: one 1:1 pair; this card adds the body and the tine pair, the way E.PIANO 1 does"
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Additive: sines in a harmonic series"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Velocity → amplitude; velocity → filter cutoff"
+  - "Piano envelope: release 0 as damper"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, level: half, note: "tine carrier"}
+    osc2:    {kind: oscillator, wave: sine, ratio: "14:1", level: little, note: "tine modulator: a high ratio gives the metallic ping"}
+    sub:     {kind: oscillator, wave: sine, octave: 0, level: held, note: "the body: a plain sine at the pitch, not modulated"}
+    mix:     {kind: mixer}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    menv:    {kind: envelope, role: index, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: long, s: zero, r: short}, category: piano}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: menv.amount, amount: generous, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "chords"}
+  - {block: sub,     param: wave,      value: sine,           why: "the body is a bare sine: round, with nothing above it"}
+  - {block: osc2,    param: ratio,     value: "14:1",         why: "a high, nearly inharmonic ratio: the sidebands land where a struck tine rings, not where a chord does"}
+  - {block: osc2,    param: routing,   value: into osc1 fm,   why: "the tine is an FM pair; the body is added to it: two stacks summed, the DX7's algorithm 5 in miniature"}
+  - {block: menv,    param: decay,     value: short,          why: "the ping: the tine's brightness is gone before the body has started to fade"}
+  - {block: menv,    param: sustain,   value: zero,           why: "no ring in the modulator; the body rings instead"}
+  - {block: vel,     param: target,    value: index envelope amount, why: "soft notes have no tine, hard notes bark: the DX7 EP's touch"}
+  - {block: aenv,    param: sustain,   value: zero,           why: "struck"}
+  - {block: aenv,    param: release,   value: short,          why: "a damper: the key up stops the note"}
+
+taste:
+  - {block: osc1,    param: level,     range: "quarter – half",      default: half, why: "how much tine against body"}
+  - {block: osc2,    param: ratio,     range: "7:1 – 14:1",          default: "14:1"}
+  - {block: menv,    param: amount,    range: "moderate – full",     default: generous}
+  - {block: menv,    param: decay,     range: "fast – medium",       default: short}
+  - {block: aenv,    param: decay,     range: "medium – very long",  default: long}
+  - {block: fx,      param: chorus,    range: "off – lush",          default: light}
+
+listening:
+  cue: "A round sine body with a metallic tick on top that is there and gone in an instant. Play soft and it is almost a pure tone; play hard and the tick becomes a bark. Lift the key and it stops."
+  ab: "Set the tine modulator's ratio to 1:1: the ping becomes a warm 'bwah' and it is the other electric piano. Put it back. Then mute the body: just ticks, no instrument."
+
+render:
+  tempo: 84
+  note: [E3, G3, B3, D4]
+  velocity: [50, 50, 50, 50, 115, 115, 115, 115]
+  pattern: "the chord twice, soft then hard, each held a bar; released cleanly"
+  length_s: 6.0
+
+mappings: {}

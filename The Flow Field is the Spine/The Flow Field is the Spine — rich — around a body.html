@@ -1,0 +1,526 @@
+<!doctype html>
+<!--
+  title: The Flow Field is the Spine — rich — around a body
+  born: 2026-11-03
+  links: [[The Flow Field is the Spine]] (connects-to · rich-face-piece) · [[BLUELINE]] (connects-to · the field is Session 4's, rebuilt) · [[Progressive Staging]] (exemplifies · a walk in six steps) · listed in [[The Flow Field is the Spine — rich.json]]
+  forward_vector: I am the Session 4 section as a walk you can play. Wind and a stone, then one pressure
+    solve, then a wake, then a figure you can paint, then the two legs reading the field, and last the test:
+    does the solve as Session 4 wrote it bend the wind around the body, and do the legs need to know the
+    body is there? I play inside the entry's rich face and stand alone opened directly; I change only when
+    the section I serve does.
+  engine: Session 4's field.py, stage for stage (wind, ambient swirl, wake pair placed from the body's
+    centroid, velocity zeroed in the body, the same 5-point pressure matrix, v = v0 - grad p), on its
+    128 x 160 grid in image orientation; its body mask is inlined below from flow-field.json's "solid"
+    array. field.py solves the matrix directly; this piece runs SOR a few sweeps a frame, so the field
+    settles over about half a second after you move something. 'as Session 4 wrote it' is field.py's
+    right-hand side and gradient (central differences, p = 0 inside the body); 'kept on faces' is the same
+    matrix with the divergence and the gradient taken on cell faces. The legs are drawn_speedlines.py
+    (40 x 50 seeds here, 60 x 76 in Session 4) and dust_sim.py (6,000 particles here, 60,000 there, three
+    of its steps per frame). Checked headless by "The Flow Field is the Spine — rich — checks.mjs".
+  dress: Loudon Live house style, Graphite skin. Silent: this piece makes no sound.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The Flow Field is the Spine — around a body</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --body:#2b6cff; --warn:#ff6b6b;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .ffb-piece { padding: 22px 22px 20px; }
+  .ffb-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .ffb-kicker svg { width: 18px; height: 18px; }
+  .ffb-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .ffb-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .ffb-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .ffb-rail button { border-radius: 0; margin-right: -1px; }
+  .ffb-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.ffb-on { color: var(--amber); border-color: var(--amberline); }
+  .ffb-seg { display: inline-flex; } .ffb-seg button { border-radius: 0; } .ffb-seg button + button { border-left: 0; }
+  .ffb-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .ffb-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .ffb-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 80ch; margin: 0 0 12px; }
+  .ffb-says b { color: var(--fg1); font-weight: 500; }
+  .ffb-grid { display: grid; gap: 10px; }
+  .ffb-grid.one { grid-template-columns: minmax(0, 420px); }
+  .ffb-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 720px) { .ffb-grid.three { grid-template-columns: 1fr; } }
+  .ffb-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px 10px; }
+  .ffb-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; touch-action: none; }
+  canvas.ffb-drag { cursor: crosshair; }
+  .ffb-controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-top: 12px; }
+  .ffb-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .ffb-read b { color: var(--fg1); font-weight: 500; }
+  .ffb-read .no { color: var(--warn); } .ffb-read .ok { color: var(--amber); }
+  .ffb-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 80ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .ffb-verdict b { font-weight: 500; color: var(--amber); }
+  .ffb-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .ffb-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .ffb-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .ffb-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .ffb-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .ffb-foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="ffb-piece">
+  <div class="ffb-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · canvas · study · a walk in six steps</span></div>
+  <h3 class="ffb-title">Around a body</h3>
+  <p class="ffb-sub">Session 4 made the field know a figure was standing in it: zero the wind inside the body, then one pressure solve to bend the rest around it. This walk starts with a wind and a stone, adds the solve, the wake and Session 4’s own figure, hangs the speed-lines and the dust off the field, and ends on the test. Nothing here makes a sound.</p>
+
+  <div class="ffb-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="ffb-step">
+    <div class="ffb-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="ffb-says" id="says"></p>
+    <div class="ffb-grid" id="stage"></div>
+    <div class="ffb-controls" id="controls"></div>
+    <div class="ffb-read" id="read"></div>
+    <div class="ffb-verdict" id="verdict" style="display:none"></div>
+    <div class="ffb-eqs" id="eqs"></div>
+    <div class="ffb-back" id="backline"></div>
+    <div class="ffb-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+  <div class="ffb-foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — Session 4's field author (proofs/session-4-figure-flow/field.py), stage for stage, and
+   its two legs (legs/drawn_speedlines.py, legs/dust_sim.py). Image orientation, as Session 4 chose: row 0
+   is the top, y grows downward, vx right, vy down. Shared by the page and the headless check. */
+const S4 = { GW: 128, GH: 160, WIND: 1.0, AMBIENT: [[0.18, 0.25, 0.05, 0.22], [0.62, 0.80, -0.04, 0.20]], WAKE_AMP: 0.13 };
+S4.ASP = S4.GW / S4.GH;
+function s4Unrle(s, n) { const m = new Uint8Array(n); let k = 0, v = 0; for (const r of s.split('.')) { const len = parseInt(r, 36); m.fill(v, k, k + len); k += len; v ^= 1; } return m; }
+// Air the wind can't reach from the inlet or outlet columns becomes body, as field.py's binary_fill_holes
+// does for its mask; a sealed pocket has no pressure to be measured from.
+function s4FillHoles(solid) {
+  const { GW, GH } = S4, seen = new Uint8Array(GW * GH), q = [];
+  for (let j = 0; j < GH; j++) for (const i of [0, GW - 1]) { const n = j * GW + i; if (!solid[n] && !seen[n]) { seen[n] = 1; q.push(n); } }
+  while (q.length) { const n = q.pop(), j = (n / GW) | 0, i = n % GW;
+    for (const [dj, di] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) { const a = j + dj, b = i + di; if (a < 0 || a >= GH || b < 0 || b >= GW) continue; const m = a * GW + b; if (!solid[m] && !seen[m]) { seen[m] = 1; q.push(m); } } }
+  const out = new Uint8Array(GW * GH); for (let n = 0; n < GW * GH; n++) out[n] = solid[n] || !seen[n] ? 1 : 0; return out;
+}
+function s4Circle(cx, cy, r) { const { GW, GH, ASP } = S4, m = new Uint8Array(GW * GH);
+  for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const x = i * ASP / (GW - 1), y = j / (GH - 1); if ((x - cx) ** 2 + (y - cy) ** 2 <= r * r) m[j * GW + i] = 1; } return m; }
+function s4Dx(a) { const { GW, GH } = S4, g = new Float64Array(a.length);
+  for (let j = 0; j < GH; j++) { const r = j * GW; for (let i = 1; i < GW - 1; i++) g[r + i] = 0.5 * (a[r + i + 1] - a[r + i - 1]); g[r] = a[r + 1] - a[r]; g[r + GW - 1] = a[r + GW - 1] - a[r + GW - 2]; } return g; }
+function s4Dy(a) { const { GW, GH } = S4, g = new Float64Array(a.length);
+  for (let i = 0; i < GW; i++) { for (let j = 1; j < GH - 1; j++) g[j * GW + i] = 0.5 * (a[(j + 1) * GW + i] - a[(j - 1) * GW + i]); g[i] = a[GW + i] - a[i]; g[(GH - 1) * GW + i] = a[(GH - 1) * GW + i] - a[(GH - 2) * GW + i]; } return g; }
+function s4Div(ax, ay) { const gx = s4Dx(ax), gy = s4Dy(ay), d = new Float64Array(ax.length); for (let n = 0; n < d.length; n++) d[n] = gx[n] + gy[n]; return d; }
+// Stage 1 to 3: wind + ambient swirl + wake (curl of Gaussian bumps), then the velocity zeroed inside the body.
+// o = { ambient, wake, project, scheme: 'central' (field.py's) | 'faces' }, p0 = a pressure to start from.
+function s4Prepare(solid, o, p0) {
+  const { GW, GH, ASP, WIND } = S4, N = GW * GH, dx = ASP / (GW - 1), dy = 1 / (GH - 1);
+  o = Object.assign({ ambient: true, wake: true, project: true, scheme: 'central' }, o || {});
+  let S = solid || new Uint8Array(N), hasBody = false; for (let n = 0; n < N; n++) if (S[n]) { hasBody = true; break; }
+  const vx = new Float64Array(N).fill(WIND), vy = new Float64Array(N), psi = new Float64Array(N);
+  const blobs = o.ambient ? S4.AMBIENT.slice() : [];
+  let body = null;
+  if (hasBody) {                                   // centroid and extent, where field.py seeds the wake
+    let si = 0, sj = 0, c = 0, imax = 0, jmin = GH, jmax = 0;
+    for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) if (S[j * GW + i]) { si += i; sj += j; c++; if (i > imax) imax = i; if (j < jmin) jmin = j; if (j > jmax) jmax = j; }
+    const cx = Math.round(si / c) * dx, cy = Math.round(sj / c) * dy, right = imax * dx, h = (jmax - jmin) * dy;
+    const wx = Math.min(ASP - 0.06, right + 0.05), ws = Math.max(0.06, 0.16 * h);
+    body = { cx, cy, right, h, wake: [[wx, cy - 0.9 * ws, S4.WAKE_AMP, ws], [wx, cy + 0.9 * ws, -S4.WAKE_AMP, ws]], cells: c };
+    if (o.wake) blobs.push(...body.wake);
+  }
+  for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const x = i * dx, y = j * dy; let p = 0;
+    for (const [cx, cy, a, s] of blobs) p += a * Math.exp(-((x - cx) ** 2 + (y - cy) ** 2) / (2 * s * s)); psi[j * GW + i] = p; }
+  for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const n = j * GW + i;   // np.gradient: central inside, one-sided at the edges
+    const dpy = j === 0 ? (psi[n + GW] - psi[n]) / dy : j === GH - 1 ? (psi[n] - psi[n - GW]) / dy : (psi[n + GW] - psi[n - GW]) / (2 * dy);
+    const dpx = i === 0 ? (psi[n + 1] - psi[n]) / dx : i === GW - 1 ? (psi[n] - psi[n - 1]) / dx : (psi[n + 1] - psi[n - 1]) / (2 * dx);
+    vx[n] += dpy; vy[n] += -dpx; }
+  const ux = new Float64Array(N), uy = new Float64Array(N);
+  for (let n = 0; n < N; n++) { ux[n] = S[n] ? 0 : vx[n]; uy[n] = S[n] ? 0 : vy[n]; }
+  const st = { S, o, ux, uy, body, hasBody, project: o.project && hasBody, p: new Float64Array(N), iters: 0, resid: 0, fxF: null, fyF: null };
+  if (p0 && p0.length === N) for (let n = 0; n < N; n++) st.p[n] = S[n] ? 0 : p0[n];
+  // What the solve is asked to cancel. 'central' is field.py's: the cell divergence by central differences.
+  // 'faces' keeps the same projection on cell faces: a face between two air cells carries the mean of their
+  // velocities, a face against the body or a wall carries nothing, and a cell's divergence is what its four
+  // faces carry out. The matrix is the same in both.
+  if (o.scheme === 'faces') {
+    const fxF = new Float64Array(N), fyF = new Float64Array(N), rhs = new Float64Array(N);   // fxF[n]: face between n and n+1; fyF[n]: between n and n+GW
+    for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const n = j * GW + i;
+      if (i < GW - 1 && !S[n] && !S[n + 1]) fxF[n] = 0.5 * (ux[n] + ux[n + 1]);
+      if (j < GH - 1 && !S[n] && !S[n + GW]) fyF[n] = 0.5 * (uy[n] + uy[n + GW]); }
+    for (let j = 0; j < GH; j++) for (let i = 1; i < GW - 1; i++) { const n = j * GW + i; if (S[n]) continue;
+      rhs[n] = fxF[n] - fxF[n - 1] + (j < GH - 1 ? fyF[n] : 0) - (j > 0 ? fyF[n - GW] : 0); }
+    st.fxF = fxF; st.fyF = fyF; st.rhs = rhs;
+  } else st.rhs = s4Div(ux, uy);
+  return st;
+}
+// Stage 4: the pressure solve. Laplacian over air cells, 5-point, Neumann at the body and the top and bottom
+// walls (the neighbour is dropped), p = 0 at the inlet and outlet columns: field.py's matrix. field.py
+// solves it directly; here it is SOR, run until the largest residual is under tol, or for n sweeps.
+function s4Iterate(st, n, tol) {
+  if (!st.project) return 0;
+  const { GW, GH } = S4, S = st.S, p = st.p, rhs = st.rhs, w = 1.94;
+  for (let it = 0; it < n; it++) {
+    let worst = 0;
+    for (let j = 0; j < GH; j++) for (let i = 1; i < GW - 1; i++) { const k = j * GW + i; if (S[k]) continue;
+      let sum = 0, cnt = 0;
+      if (j > 0 && !S[k - GW]) { sum += p[k - GW]; cnt++; }
+      if (j < GH - 1 && !S[k + GW]) { sum += p[k + GW]; cnt++; }
+      if (!S[k - 1]) { sum += p[k - 1]; cnt++; }
+      if (!S[k + 1]) { sum += p[k + 1]; cnt++; }
+      if (!cnt) continue;
+      const r = sum - cnt * p[k] - rhs[k]; if (Math.abs(r) > worst) worst = Math.abs(r);
+      p[k] += w * r / cnt; }
+    st.iters++; st.resid = worst; if (worst < tol) break;
+  }
+  return st.resid;
+}
+// Stage 5: v = v0 − ∇p, and the field the legs read.
+function s4Finish(st) {
+  const { GW, GH, ASP } = S4, N = GW * GH, S = st.S, p = st.p, fx = new Float64Array(N), fy = new Float64Array(N);
+  if (st.project && st.fxF) {
+    const ax = st.fxF.slice(), ay = st.fyF.slice();
+    for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const n = j * GW + i;
+      if (i < GW - 1 && !S[n] && !S[n + 1]) ax[n] -= p[n + 1] - p[n];
+      if (j < GH - 1 && !S[n] && !S[n + GW]) ay[n] -= p[n + GW] - p[n]; }
+    for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const n = j * GW + i; if (S[n]) continue;
+      fx[n] = i === 0 ? ax[n] : i === GW - 1 ? ax[n - 1] : 0.5 * (ax[n - 1] + ax[n]);
+      fy[n] = 0.5 * ((j > 0 ? ay[n - GW] : 0) + (j < GH - 1 ? ay[n] : 0)); }
+  } else if (st.project) {
+    const gx = s4Dx(p), gy = s4Dy(p);                // field.py: p is 0 inside the body, so the gradient reaches into it
+    for (let n = 0; n < N; n++) if (!S[n]) { fx[n] = st.ux[n] - gx[n]; fy[n] = st.uy[n] - gy[n]; }
+  } else { for (let n = 0; n < N; n++) { fx[n] = st.ux[n]; fy[n] = st.uy[n]; } }
+  let magMax = 0, magSum = 0, c = 0; for (let n = 0; n < N; n++) if (!S[n]) { const m = Math.hypot(fx[n], fy[n]); if (m > magMax) magMax = m; magSum += m; c++; }
+  return { GW, GH, ASP, vx: fx, vy: fy, solid: S, magMax, magMean: magSum / c, body: st.body, iters: st.iters, resid: st.resid, scheme: st.project ? st.o.scheme : 'none' };
+}
+function s4Build(solid, o, tol) { const st = s4Prepare(solid, o); s4Iterate(st, 50000, tol === undefined ? 1e-9 : tol); return s4Finish(st); }
+// The legs' ways in: a bilinear read of the field (flowlib.sample) and a lookup in the mask (flowlib.in_body).
+function s4Sample(F, x, y) {
+  const { GW, GH, ASP } = F; const fx = Math.min(Math.max(x / ASP, 0), 1) * (GW - 1), fy = Math.min(Math.max(y, 0), 1) * (GH - 1);
+  const x0 = Math.floor(fx), y0 = Math.floor(fy), x1 = Math.min(x0 + 1, GW - 1), y1 = Math.min(y0 + 1, GH - 1), tx = fx - x0, ty = fy - y0;
+  const a = y0 * GW + x0, b = y0 * GW + x1, c = y1 * GW + x0, d = y1 * GW + x1;
+  return [F.vx[a] * (1 - tx) * (1 - ty) + F.vx[b] * tx * (1 - ty) + F.vx[c] * (1 - tx) * ty + F.vx[d] * tx * ty,
+          F.vy[a] * (1 - tx) * (1 - ty) + F.vy[b] * tx * (1 - ty) + F.vy[c] * (1 - tx) * ty + F.vy[d] * tx * ty];
+}
+function s4InBody(F, x, y) { const i = (Math.min(Math.max(x / F.ASP, 0), 1) * (F.GW - 1)) | 0, j = (Math.min(Math.max(y, 0), 1) * (F.GH - 1)) | 0; return F.solid[j * F.GW + i] === 1; }
+function s4Rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function s4Gauss(r) { const u = Math.max(r(), 1e-12), v = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+// LEG · drawn (drawn_speedlines.py): RK2 along the unit direction, STEP 0.006, NSTEP 30. With readMask, as
+// Session 4 wrote it: no seed inside the body, and a line stops where its next point would be inside.
+const S4_DRAWN = { STEP: 0.006, NSTEP: 30 };
+function s4DrawnSeeds(nx, ny) { const r = s4Rng(7), s = []; for (let iy = 0; iy < ny; iy++) for (let ix = 0; ix < nx; ix++) s.push([(ix + (r() * 0.8 - 0.4)) / nx * S4.ASP, (iy + (r() * 0.8 - 0.4)) / ny]); return s; }
+function s4Drawn(F, seeds, readMask) {
+  const out = []; let fromAir = 0, crossed = 0; const clamp = Math.min(F.magMax, 4.0);
+  for (const [sx, sy] of seeds) { const seededInBody = s4InBody(F, sx, sy); if (readMask && seededInBody) continue;
+    let x = sx, y = sy; const pts = [x, y];
+    for (let k = 0; k < S4_DRAWN.NSTEP; k++) {
+      const [vx, vy] = s4Sample(F, x, y), m = Math.hypot(vx, vy) + 1e-6;
+      const xm = x + vx / m * S4_DRAWN.STEP * 0.5, ym = y + vy / m * S4_DRAWN.STEP * 0.5;
+      const [wx, wy] = s4Sample(F, xm, ym), m2 = Math.hypot(wx, wy) + 1e-6;
+      const nx = x + wx / m2 * S4_DRAWN.STEP, ny = y + wy / m2 * S4_DRAWN.STEP;
+      if (!(nx >= 0 && nx <= F.ASP && ny >= 0 && ny <= 1)) break;
+      if (readMask && s4InBody(F, nx, ny)) break;
+      x = nx; y = ny; pts.push(x, y);
+    }
+    if (pts.length < 6) continue;
+    if (!seededInBody) { fromAir++; for (let k = 2; k < pts.length; k += 2) if (s4InBody(F, pts[k], pts[k + 1])) { crossed++; break; } }
+    const h = (pts.length / 2) >> 1, [mx, my] = s4Sample(F, pts[2 * h], pts[2 * h + 1]);
+    out.push({ pts, spd: Math.min(1, Math.hypot(mx, my) / clamp) });
+  }
+  return { strokes: out, crossFrac: fromAir ? crossed / fromAir : 0 };   // lines begun in the air that run into the body
+}
+// LEG · dust (dust_sim.py). rule 's4', as written: a step of STEP·(0.35 + 0.9·speed) along the unit direction
+// plus Gaussian jitter; a particle whose next point is in the body stops, is counted as a hit (the pile), and
+// respawns at the inlet band, as does one leaving the frame. rule 'advect': carried by the field only,
+// x += v·k, no jitter, no mask read; it respawns on leaving the frame, and now and then (0.3%) anyway.
+const S4_DUST = { STEP: 0.0016, JITTER: 0.0008, ADV_K: 0.0016 * 0.575 };
+function s4DustSeed(D, i, r, inlet) { D.x[i] = inlet ? r() * 0.05 * S4.ASP : r() * S4.ASP; D.y[i] = r(); }
+function s4DustMake(n, F, r) { const D = { x: new Float64Array(n), y: new Float64Array(n), hitX: [], hitY: [] };
+  for (let i = 0; i < n; i++) { do s4DustSeed(D, i, r, false); while (s4InBody(F, D.x[i], D.y[i])); } return D; }
+function s4DustStep(F, D, rule, r) {
+  const clamp = Math.min(F.magMax, 4.0); let hits = 0; D.hitX.length = 0; D.hitY.length = 0;
+  for (let i = 0; i < D.x.length; i++) { const x = D.x[i], y = D.y[i], [vx, vy] = s4Sample(F, x, y);
+    let nx, ny;
+    if (rule === 's4') { const m = Math.hypot(vx, vy) + 1e-6, spd = Math.min(1, m / clamp), stp = S4_DUST.STEP * (0.35 + 0.9 * spd);
+      nx = x + vx / m * stp + S4_DUST.JITTER * s4Gauss(r); ny = y + vy / m * stp + S4_DUST.JITTER * s4Gauss(r);
+      const out = nx < 0 || nx > F.ASP || ny < 0 || ny > 1;
+      if (!out && s4InBody(F, nx, ny)) { hits++; D.hitX.push(x); D.hitY.push(y); s4DustSeed(D, i, r, true); continue; }
+      if (out) { s4DustSeed(D, i, r, true); continue; }
+    } else { nx = x + vx * S4_DUST.ADV_K; ny = y + vy * S4_DUST.ADV_K;
+      if (nx < 0 || nx > F.ASP || ny < 0 || ny > 1 || r() < 0.003) { s4DustSeed(D, i, r, true); continue; } }
+    D.x[i] = nx; D.y[i] = ny;
+  }
+  return hits;
+}
+/* ENGINE:END */
+/* MEASURE:START — what the readouts and the verdict say, from the same engine. Also run by the headless check. */
+// How the air meets the body: at every air cell beside it, the speed toward it (+ into the body), as a
+// multiple of the wind, averaged by side. Tangent flow reads near 0 on every side.
+function s4Wall(F) {
+  const { GW, GH } = F, S = F.solid, side = { windward: [0, 0], lee: [0, 0], above: [0, 0], below: [0, 0] }; let into = 0, faces = 0;
+  for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const n = j * GW + i; if (S[n]) continue;
+    const add = (k, v) => { side[k][0] += v; side[k][1]++; into += Math.max(0, v); faces++; };
+    if (i + 1 < GW && S[n + 1]) add('windward', F.vx[n]); if (i > 0 && S[n - 1]) add('lee', -F.vx[n]);
+    if (j + 1 < GH && S[n + GW]) add('above', F.vy[n]); if (j > 0 && S[n - GW]) add('below', -F.vy[n]); }
+  const out = {}; for (const k in side) out[k] = side[k][1] ? side[k][0] / side[k][1] / S4.WIND : 0;
+  out.intoMean = faces ? into / faces / S4.WIND : 0; return out;
+}
+// Mean |divergence| over the air by the cells' central differences (field.py's measure).
+function s4DivMean(F) { const d = s4Div(F.vx, F.vy); let s = 0, c = 0; for (let n = 0; n < d.length; n++) if (!F.solid[n]) { s += Math.abs(d[n]); c++; } return s / c; }
+// The dust over a run: hits per 1000 particle-steps (rule 's4'), and the share of particles inside the body
+// at the end (rule 'advect', which never reads the mask).
+function s4DustRun(F, rule, n, steps, seed) { const r = s4Rng(seed || 4242), D = s4DustMake(n, F, r); let hits = 0;
+  for (let k = 0; k < steps; k++) hits += s4DustStep(F, D, rule, r);
+  let inside = 0; for (let i = 0; i < n; i++) if (s4InBody(F, D.x[i], D.y[i])) inside++;
+  return { hitsPer1000: hits / (n * steps) * 1000, insideFrac: inside / n }; }
+/* MEASURE:END */
+</script>
+<script>
+'use strict';
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+// Session 4's body mask: flow-field.json "solid", 128 x 160, row-major, as alternating runs (air first) in base 36.
+const S4_FIGURE = '4n.k.31.i.32.i.32.i.33.i.32.i.32.h.33.h.34.f.36.d.38.b.3a.a.3b.a.3a.b.39.d.37.e.35.g.33.i.31.k.2z.m.2x.o.2w.p.2u.q.2u.q.2u.q.2u.q.2u.r.2t.r.2t.r.2t.r.2t.r.2t.r.2t.r.2t.r.2u.q.2u.r.2t.s.2r.v.2m.y.2l.z.2k.11.2j.11.2j.11.2j.11.2j.12.2i.12.2i.12.2i.o.3.b.2i.c.3.6.7.b.2h.b.h.b.2g.c.h.b.2g.c.h.b.2g.c.i.b.2f.b.j.b.2f.b.j.b.2f.b.j.b.2f.b.k.b.2e.b.k.b.2e.b.k.b.2e.b.k.c.2d.b.l.c.2c.b.l.c.2b.c.l.c.2a.d.l.c.29.e.m.b.27.g.m.b.26.h.n.a.25.i.o.a.24.h.o.f.20.h.m.h.20.g.m.i.21.g.m.h.21.h.l.i.20.h.l.j.1y.i.l.k.1x.i.k.l.1x.i.j.n.1w.i.j.n.1w.i.j.n.1w.i.k.l.1x.i.l.k.1x.i.m.i.1y.i.n.g.1y.k.n.e.1y.m.n.c.1z.n.n.a.1z.o.o.8.20.o.p.6.21.o.q.3.23.o.2x.m.2z.k.31.i.33.g.35.e.37.c.39.a.3b.8.3d.6.3g.2.5wb';
+
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const k in attrs) { if (k === 'on') for (const ev in attrs.on) n.addEventListener(ev, attrs.on[ev]); else if (k === 'html') n.innerHTML = attrs[k]; else n.setAttribute(k, attrs[k]); } kids.forEach(c => n.append(c)); return n; };
+const N = S4.GW * S4.GH, TOL = 1e-4;
+
+// ───────── state ─────────
+const St = { step: 1, circle: [0.30, 0.50], r: 0.10, shape: 'circle', paint: null, brush: 'add', wake: false, scheme: 'faces', readMask: true };
+let mask = null, solver = null, F = null, other = null, otherF = null, fieldVer = 0;
+function currentMask() { if (St.step <= 3 || St.shape === 'circle') return s4Circle(St.circle[0], St.circle[1], St.r); return St.paint; }
+function opts(scheme) { return { ambient: St.step >= 3, wake: St.step >= 3 && St.wake, project: St.step >= 2, scheme: scheme || St.scheme }; }
+function restart() {
+  mask = s4FillHoles(currentMask());
+  solver = s4Prepare(mask, opts(), solver ? solver.p : null);
+  other = St.step === 6 ? s4Prepare(mask, opts(St.scheme === 'faces' ? 'central' : 'faces'), other ? other.p : null) : null; otherF = null;
+  F = s4Finish(solver); fieldVer++; dust = null; drawnFor = -1;
+}
+function settle(budgetMs) {
+  const t0 = performance.now(); let moved = false;
+  while (performance.now() - t0 < budgetMs) {
+    const a = solver.project && solver.resid >= TOL || solver.iters === 0 && solver.project, b = other && other.project && (other.resid >= TOL || other.iters === 0);
+    if (!a && !b) break;
+    if (a) { s4Iterate(solver, 4, TOL); moved = true; }
+    if (b) { s4Iterate(other, 4, TOL); if (other.resid < TOL) otherF = s4Finish(other); }
+  }
+  if (moved) { F = s4Finish(solver); fieldVer++; }
+  return moved;
+}
+const settled = () => !solver.project || (solver.iters > 0 && solver.resid < TOL);
+
+// ───────── panels ─────────
+const panels = {};
+function panel(id, title) {
+  const c = el('canvas', { class: id === 'field' ? 'ffb-drag' : '' }), lab = el('div', { class: 'ffb-plabel', html: '<span>' + title + '</span><span id="pn-' + id + '"></span>' });
+  const box = el('div', { class: 'ffb-panel' }, lab, c); panels[id] = { id, c, box, ctx: c.getContext('2d') };
+  if (id === 'field') hookField(panels[id]); return panels[id];
+}
+function size(p) { const w = p.c.clientWidth || 340, dpr = Math.min(2, window.devicePixelRatio || 1), h = Math.round(w / S4.ASP);
+  if (p.c.width !== Math.round(w * dpr) || p.c.height !== Math.round(h * dpr)) { p.c.width = Math.round(w * dpr); p.c.height = Math.round(h * dpr); p.c.style.height = h + 'px'; }
+  p.w = p.c.width; p.h = p.c.height; p.dpr = dpr; }
+const toPx = (p, x, y) => [x / S4.ASP * p.w, y * p.h];
+const toDom = (p, px, py) => [px / p.w * S4.ASP, py / p.h];
+let drag = false;
+function hookField(p) {
+  const at = e => { const r = p.c.getBoundingClientRect(); return toDom(p, (e.clientX - r.left) * p.dpr, (e.clientY - r.top) * p.dpr); };
+  const act = e => { const [x, y] = at(e);
+    if (St.step <= 3 || St.shape === 'circle') { St.circle = [Math.min(Math.max(x, 0.12), S4.ASP - 0.12), Math.min(Math.max(y, 0.12), 0.88)]; restart(); }
+    else { const i0 = Math.round(x / S4.ASP * (S4.GW - 1)), j0 = Math.round(y * (S4.GH - 1)), R = 3;
+      for (let j = j0 - R; j <= j0 + R; j++) for (let i = i0 - R; i <= i0 + R; i++) if (i > 0 && i < S4.GW - 1 && j >= 0 && j < S4.GH && (i - i0) ** 2 + (j - j0) ** 2 <= R * R) St.paint[j * S4.GW + i] = St.brush === 'add' ? 1 : 0;
+      restart(); } };
+  p.c.addEventListener('pointerdown', e => { if (St.step >= 5 && St.shape !== 'circle') return; drag = true; p.c.setPointerCapture(e.pointerId); act(e); });
+  p.c.addEventListener('pointermove', e => { if (drag) act(e); });
+  const up = () => { drag = false; }; p.c.addEventListener('pointerup', up); p.c.addEventListener('pointercancel', up);
+}
+
+// ───────── drawing ─────────
+function speedCol(t) { const a = [10, 10, 15], b = [62, 52, 128], c = [232, 184, 74]; const m = t < 0.5 ? t / 0.5 : (t - 0.5) / 0.5, A = t < 0.5 ? a : b, B = t < 0.5 ? b : c; return [A[0] + (B[0] - A[0]) * m, A[1] + (B[1] - A[1]) * m, A[2] + (B[2] - A[2]) * m]; }
+let fieldCanvas = null, fieldDrawn = -1;
+function arrow(g, x0, y0, x1, y1, hd) { const a = Math.atan2(y1 - y0, x1 - x0); g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.lineTo(x1 - hd * Math.cos(a - 0.5), y1 - hd * Math.sin(a - 0.5)); g.moveTo(x1, y1); g.lineTo(x1 - hd * Math.cos(a + 0.5), y1 - hd * Math.sin(a + 0.5)); g.stroke(); }
+function drawField(p) {
+  size(p); if (fieldDrawn === fieldVer && p.drawnW === p.w) return; fieldDrawn = fieldVer; p.drawnW = p.w;
+  const g = p.ctx, { GW, GH } = S4, im = new ImageData(GW, GH), div = St.step === 1 ? s4Div(F.vx, F.vy) : null;
+  for (let n = 0; n < N; n++) { const o = 4 * n;
+    if (F.solid[n]) { im.data[o] = 43; im.data[o + 1] = 108; im.data[o + 2] = 255; im.data[o + 3] = 255; continue; }
+    let c = speedCol(Math.min(1, Math.hypot(F.vx[n], F.vy[n]) / 3));
+    if (div && Math.abs(div[n]) > 0.02) { const t = Math.min(1, Math.abs(div[n]) / 0.5); c = div[n] < 0 ? [c[0] + (255 - c[0]) * t, c[1] * (1 - t * 0.6), c[2] * (1 - t * 0.6)] : [c[0] * (1 - t * 0.6), c[1] + (200 - c[1]) * t * 0.6, c[2] + (255 - c[2]) * t]; }
+    im.data[o] = c[0]; im.data[o + 1] = c[1]; im.data[o + 2] = c[2]; im.data[o + 3] = 255; }
+  if (!fieldCanvas) { fieldCanvas = document.createElement('canvas'); fieldCanvas.width = GW; fieldCanvas.height = GH; }
+  fieldCanvas.getContext('2d').putImageData(im, 0, 0); g.imageSmoothingEnabled = false; g.drawImage(fieldCanvas, 0, 0, p.w, p.h);
+  const sp = 15 * p.dpr, L = 11 * p.dpr; g.lineWidth = 1 * p.dpr;
+  for (let py = sp / 2; py < p.h; py += sp) for (let px = sp / 2; px < p.w; px += sp) { const [x, y] = toDom(p, px, py); if (s4InBody(F, x, y)) continue;
+    const [vx, vy] = s4Sample(F, x, y), m = Math.hypot(vx, vy) + 1e-9, s = L * Math.min(1.6, m) / 1.0;
+    g.strokeStyle = m > 1.8 ? 'rgba(255,170,120,.85)' : 'rgba(232,232,240,.6)'; arrow(g, px, py, px + vx / m * Math.min(s, 1.6 * L), py + vy / m * Math.min(s, 1.6 * L), 2.6 * p.dpr); }
+  if (F.body && St.step >= 3 && St.wake) { g.strokeStyle = 'rgba(232,184,74,.75)'; g.setLineDash([3 * p.dpr, 3 * p.dpr]); for (const [cx, cy, , s] of F.body.wake) { const [x, y] = toPx(p, cx, cy); g.beginPath(); g.arc(x, y, s / S4.ASP * p.w * 0.6, 0, 2 * Math.PI); g.stroke(); } g.setLineDash([]); }
+}
+let strokes = null, drawnFor = -1, lastDrawnAt = 0, cross = 0;
+const seeds = s4DrawnSeeds(40, 50);
+function drawDrawn(p, t) {
+  size(p); if (drawnFor === fieldVer && p.drawnW === p.w) return; if (!settled() && t - lastDrawnAt < 200) return;
+  const r = s4Drawn(F, seeds, St.readMask); strokes = r.strokes; cross = r.crossFrac; drawnFor = fieldVer; p.drawnW = p.w; lastDrawnAt = t;
+  const g = p.ctx; g.fillStyle = '#0d0e12'; g.fillRect(0, 0, p.w, p.h);
+  const body = bodyImage(); g.globalAlpha = 0.35; g.imageSmoothingEnabled = false; g.drawImage(body, 0, 0, p.w, p.h); g.globalAlpha = 1;
+  const wmax = 6.0 * p.w / 832;                                                   // drawn_speedlines.py: WMAX = 6 px on an 832 px frame
+  for (const s of strokes) { const pts = s.pts, n = pts.length / 2, W = wmax * (0.5 + 0.9 * s.spd) * 1.6, v = Math.round(150 + 105 * s.spd), L = [], R = [];
+    for (let i = 0; i < n; i++) { const [px, py] = toPx(p, pts[2 * i], pts[2 * i + 1]), a = Math.max(0, i - 1), b = Math.min(n - 1, i + 1);
+      const [ax, ay] = toPx(p, pts[2 * a], pts[2 * a + 1]), [bx, by] = toPx(p, pts[2 * b], pts[2 * b + 1]); let dx = bx - ax, dy = by - ay; const l = Math.hypot(dx, dy) + 1e-6; dx /= l; dy /= l;
+      const w = W * Math.pow(i / (n - 1), 0.7) / 2; L.push([px - dy * w, py + dx * w]); R.push([px + dy * w, py - dx * w]); }
+    g.fillStyle = 'rgba(' + v + ',' + v + ',' + Math.min(255, Math.round(v * 0.96 + 12)) + ',' + ((120 + 120 * s.spd) / 255).toFixed(3) + ')';
+    g.beginPath(); g.moveTo(L[0][0], L[0][1]); for (let i = 1; i < n; i++) g.lineTo(L[i][0], L[i][1]); for (let i = n - 1; i >= 0; i--) g.lineTo(R[i][0], R[i][1]); g.closePath(); g.fill(); }
+}
+let bodyCanvas = null, bodyFor = -1;
+function bodyImage() { if (bodyFor === fieldVer && bodyCanvas) return bodyCanvas; bodyCanvas = bodyCanvas || document.createElement('canvas'); bodyCanvas.width = S4.GW; bodyCanvas.height = S4.GH;
+  const im = new ImageData(S4.GW, S4.GH); for (let n = 0; n < N; n++) if (F.solid[n]) { im.data[4 * n] = 43; im.data[4 * n + 1] = 108; im.data[4 * n + 2] = 255; im.data[4 * n + 3] = 255; }
+  bodyCanvas.getContext('2d').putImageData(im, 0, 0); bodyFor = fieldVer; return bodyCanvas; }
+// dust: a long exposure that fades, the pile in its own brighter layer
+const DW = 128, DH = 160, NDUST = 6000; let dust = null, dens = new Float32Array(DW * DH), pile = new Float32Array(DW * DH), dustR = s4Rng(4242), hitEma = 0, dustCanvas = null;
+function drawDust(p) {
+  size(p); if (!dust) { dust = s4DustMake(NDUST, F, dustR); dens.fill(0); pile.fill(0); hitEma = 0; }
+  const rule = St.readMask ? 's4' : 'advect'; let hits = 0;
+  for (let k = 0; k < 3; k++) { hits += s4DustStep(F, dust, rule, dustR);
+    for (let i = 0; i < NDUST; i++) { const ix = Math.min(DW - 1, (dust.x[i] / S4.ASP * DW) | 0), iy = Math.min(DH - 1, (dust.y[i] * DH) | 0); dens[iy * DW + ix] += 0.35; }
+    for (let h = 0; h < dust.hitX.length; h++) { const ix = Math.min(DW - 1, (dust.hitX[h] / S4.ASP * DW) | 0), iy = Math.min(DH - 1, (dust.hitY[h] * DH) | 0); pile[iy * DW + ix] += 1.4; } }
+  hitEma = hitEma * 0.97 + 0.03 * (hits / (3 * NDUST) * 1000);
+  if (!dustCanvas) { dustCanvas = document.createElement('canvas'); dustCanvas.width = DW; dustCanvas.height = DH; }
+  const im = new ImageData(DW, DH);
+  for (let n = 0; n < DW * DH; n++) { dens[n] *= 0.985; pile[n] *= 0.993; const d = Math.min(1, dens[n] / 50), q = Math.min(1, pile[n] / 20);
+    const j = (n / DW) | 0, i = n % DW, si = Math.min(S4.GW - 1, Math.round(i * (S4.GW - 1) / (DW - 1))), sj = Math.min(S4.GH - 1, Math.round(j * (S4.GH - 1) / (DH - 1))), b = F.solid[sj * S4.GW + si];
+    const base = b ? [20, 34, 70] : [15, 15, 20];
+    im.data[4 * n] = Math.min(255, base[0] + 230 * d + 255 * q); im.data[4 * n + 1] = Math.min(255, base[1] + 222 * d + 240 * q); im.data[4 * n + 2] = Math.min(255, base[2] + 196 * d + 200 * q); im.data[4 * n + 3] = 255; }
+  dustCanvas.getContext('2d').putImageData(im, 0, 0); p.ctx.imageSmoothingEnabled = true; p.ctx.drawImage(dustCanvas, 0, 0, p.w, p.h);
+  let inside = 0; for (let i = 0; i < NDUST; i += 3) if (s4InBody(F, dust.x[i], dust.y[i])) inside++; dustInside = inside / Math.ceil(NDUST / 3);
+}
+let dustInside = 0;
+
+// ───────── steps ─────────
+const STEPS = [
+  { n: 1, name: 'wind and a stone', panels: ['field'],
+    says: 'A wind blows left to right at 1, and a stone sits in it. Drag to move the stone. The first thing Session 4 does is <b>zero the wind inside the body</b>. That tells the air nothing: the arrows still run straight at the stone, and its edge is where air vanishes (red, windward) and appears from nowhere (blue, lee). The readout is how fast the air meets the stone’s windward side.',
+    eqs: [['v = 0 inside the body', '(the wind inside the stone) = nothing. Outside, it is still the plain wind, so it runs into the stone and stops at its edge.']],
+    back: 'Nothing yet but the wind and a hole in it.' },
+  { n: 2, name: 'one pressure solve', panels: ['field'],
+    says: 'Now the one solve. Find the pressure whose push cancels every place the air would pile up or vanish, and take its push off the wind. The air <b>parts around the stone</b>: it slows on the windward face, squeezes and speeds up past the top and bottom, and closes behind. Drag the stone; the field settles over half a second. This step keeps the solve on the cells’ faces, so no air crosses the stone’s edge (the readout reads the air half a cell out, so it never quite reaches zero); Session 4’s own way of writing it comes back at the end.',
+    eqs: [['∇²p = ∇·v<sub>0</sub>', '(how the pressure curves) = (how much the zeroed wind piles up or drains away at each place), with no flow through the stone or the top and bottom walls'],
+          ['v = v<sub>0</sub> − ∇p', '(the wind that knows the stone) = (the zeroed wind) minus (the pressure’s push)']],
+    back: 'Back a step: the wind with only a hole in it.' },
+  { n: 3, name: 'a wake behind it', panels: ['field'],
+    says: 'Session 4 adds a gentle ambient swirl and then a <b>wake</b>: two vortices turning opposite ways, placed by hand just behind the body’s lee edge, before the solve, so they too respect the stone. Switch it on and off. Session 4’s report names this its honest limit: the wake is placed by hand, not shed. The page itself says “shed”.',
+    eqs: [['ψ<sub>wake</sub> = a·e<sup>−r₁²⁄2σ²</sup> − a·e<sup>−r₂²⁄2σ²</sup>', '(the wake’s potential) = (one bump above the body’s centre line) minus (one below it), a little behind the lee edge; σ grows with the body’s height']],
+    back: 'Back a step: the stone with no wake.' },
+  { n: 4, name: 'a character', panels: ['field'],
+    says: 'Session 4’s figure: the crouching mannequin, the same 2,534 cells of its <b>flow-field.json</b>. Or paint your own: pick the brush and drag on the field. The three stages are the same whatever the shape: <b>mask, solve, wake</b>, all in the field’s author, before any leg looks at it.',
+    eqs: [['mask → ∇²p = ∇·v<sub>0</sub> → v = v<sub>0</sub> − ∇p', '(the body’s cells) then (one solve) then (the corrected wind): the stage Session 4 added to the field’s author']],
+    back: 'Back a step: a stone instead of a figure.' },
+  { n: 5, name: 'the legs read it', panels: ['field', 'drawn', 'dust'],
+    says: 'The two legs Session 4 drew: <b>speed-lines</b> and <b>dust</b>, each reading the one field. As Session 4 wrote them, each also reads the body mask: a line never starts inside the body and stops where it would enter it, and a dust grain that would land in the body stops there, adds to a bright <b>pile</b>, and starts again at the left. Switch the mask off and the legs read only the arrows.',
+    eqs: [['p<sub>k+1</sub> = p<sub>k</sub> + s·v⁄|v| + jitter', '(a dust grain’s next place) = (its place) + (a step) × (the field’s direction), plus a little noise; in Session 4, a grain whose next place is in the body is stopped there and counted toward the pile']],
+    back: 'Back a step: the field alone.' },
+  { n: 6, name: 'the test', panels: ['field', 'drawn', 'dust'],
+    says: 'The page says the solve bends the field <b>tangent to the body</b>, and that the coupling adds a stage to the field’s author, <b>not to each leg</b>. Switch the solve to the way Session 4’s field.py wrote it, and read where the wind meets the body. Then switch the legs’ mask off and see what they do on each field.',
+    eqs: [['as written: v = v<sub>0</sub> − (central differences of p, with p = 0 inside the body)', 'field.py takes the pressure’s push by central differences, with the pressure inside the body set to zero, while its solve assumed no push across the body’s edge. Kept on faces, the push across every face touching the body is zero, as the solve assumed.']],
+    back: 'Back a step: the legs on the field kept on faces.' },
+];
+
+function stage() {
+  const s = STEPS[St.step - 1], g = $('stage'); g.innerHTML = ''; g.className = 'ffb-grid ' + (s.panels.length === 1 ? 'one' : 'three');
+  const titles = { field: 'the field · body in blue', drawn: 'drawn · speed-lines', dust: 'sim · dust' };
+  for (const id of s.panels) g.append(panel(id, titles[id]).box);
+  fieldDrawn = -1;
+}
+function seg(pairs, get, set) { const box = el('div', { class: 'ffb-seg' }); for (const [v, label] of pairs) { const b = el('button', { class: get() === v ? 'ffb-on' : '', on: { click: () => { set(v); build(true); } } }, label); box.append(b); } return box; }
+function build(keep) {
+  const s = STEPS[St.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === St.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says;
+  if (!keep) { for (const k in panels) delete panels[k]; stage(); }
+  const c = $('controls'); c.innerHTML = '';
+  if (St.step === 3) c.append(seg([[false, 'no wake'], [true, 'wake pair']], () => St.wake, v => { St.wake = v; }));
+  if (St.step >= 4) { c.append(seg([['figure', 'session 4’s figure'], ['circle', 'a stone']], () => St.shape, v => { St.shape = v; }));
+    if (St.step === 4) { c.append(seg([['add', 'brush: paint body'], ['erase', 'brush: erase']], () => St.brush, v => { St.brush = v; if (St.shape === 'circle') { St.paint = s4Circle(St.circle[0], St.circle[1], St.r); St.shape = 'figure'; } }));
+      c.append(el('button', { on: { click: () => { St.paint = new Uint8Array(N); St.shape = 'figure'; build(true); } } }, 'clear'), el('button', { on: { click: () => { St.paint = s4Unrle(S4_FIGURE, N); St.shape = 'figure'; build(true); } } }, 'put the figure back')); }
+    c.append(seg([[false, 'no wake'], [true, 'wake pair']], () => St.wake, v => { St.wake = v; })); }
+  if (St.step >= 5) c.append(seg([[true, 'legs read the mask (as written)'], [false, 'legs read the arrows only']], () => St.readMask, v => { St.readMask = v; }));
+  if (St.step === 6) c.append(seg([['faces', 'solve kept on faces'], ['central', 'solve as session 4 wrote it']], () => St.scheme, v => { St.scheme = v; solver = null; other = null; }));
+  $('eqs').innerHTML = ''; s.eqs.forEach(([sym, words]) => { $('eqs').append(el('div', { class: 'ffb-eq', html: sym }), el('div', { class: 'ffb-words', html: words })); });
+  $('backline').textContent = s.back;
+  $('verdict').style.display = St.step === 6 ? '' : 'none';
+  $('prev').disabled = St.step === 1; $('next').disabled = St.step === STEPS.length;
+  restart();
+}
+function goTo(n) { if (n === St.step) return; St.step = n;
+  St.shape = n <= 3 ? 'circle' : 'figure'; if (n >= 4 && !St.paint) St.paint = s4Unrle(S4_FIGURE, N);
+  St.wake = n >= 3; if (n < 6) St.scheme = 'faces'; if (n < 5) St.readMask = true;
+  solver = null; other = null; build(); }
+
+function wallLine(W) { const f = v => (v >= 0 ? '+' : '') + v.toFixed(2) + '×';
+  return 'into the body · windward <b>' + f(W.windward) + '</b> · lee <b>' + f(W.lee) + '</b> · above <b>' + f(W.above) + '</b> · below <b>' + f(W.below) + '</b> <span style="color:#4a4a5a">(+ = into, × the wind)</span>'; }
+let lastRead = 0;
+function readout() {
+  const parts = [], W = s4Wall(F);
+  if (St.step >= 2) parts.push(settled() ? 'solve <b>settled</b>' : 'solve <b>settling</b> · residual ' + solver.resid.toExponential(1));
+  if (St.step === 1) parts.push('air meets the windward side at <b>' + W.windward.toFixed(2) + '×</b> the wind', 'mean |divergence| in the air <b>' + s4DivMean(F).toFixed(4) + '</b>');
+  else { parts.push(wallLine(W), 'fastest <b>' + F.magMax.toFixed(2) + '×</b> the wind'); }
+  if (St.step >= 5) parts.push(St.readMask ? 'dust hits on the body <b>' + hitEma.toFixed(2) + '</b> per 1,000 grain-steps (the pile)' : 'dust inside the body <b>' + (dustInside * 100).toFixed(1) + '%</b>',
+    St.readMask ? 'lines stopped at the body’s edge' : 'lines from the air that run into the body <b>' + (cross * 100).toFixed(1) + '%</b>');
+  $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('');
+  if (St.step === 6) verdict();
+}
+function verdict() {
+  const fc = St.scheme === 'central' ? F : otherF, ff = St.scheme === 'faces' ? F : otherF;
+  if (!fc || !ff || !settled()) { $('verdict').innerHTML = 'Solving both ways for this body…'; return; }
+  const a = s4Wall(fc), b = s4Wall(ff);
+  $('verdict').innerHTML = '<b>As Session 4 wrote it</b>, the solve does not bend this wind around the body. The air meets the windward side at <b>' + a.windward.toFixed(1) + '×</b> the wind and leaves the lee side at <b>' + (-a.lee).toFixed(1) + '×</b>; merely zeroing the inside gave about 0.9×, so the push made it stronger. The solve assumed no push across the body’s edge, and the push it then takes reaches into the body, where the pressure was set to zero. <b>Kept on faces</b>, the same matrix gives <b>' + b.windward.toFixed(2) + '×</b> and <b>' + (-b.lee).toFixed(2) + '×</b>: the air parts. ' +
+    'In Session 4’s pictures the lines part because <b>the legs read the mask</b>: a speed-line stops at the edge, and a dust grain that lands in the body is stopped and painted into the pile, so the bright windward edge is the dust leg’s rule meeting air that runs into the body. On the field kept on faces, legs that read only the arrows leave about 0.03% of the dust inside the body against 17% on the field as written (measured on Session 4’s figure, beside this piece). So the coupling can be a stage in the field’s author alone, as the page says, once the solve keeps its own assumption.';
+}
+
+// ───────── loop ─────────
+let lastT = performance.now();
+function frame(t) {
+  lastT = t;
+  if (solver) settle(9);
+  const s = STEPS[St.step - 1];
+  for (const id of s.panels) { const p = panels[id]; if (!p) continue;
+    if (id === 'field') drawField(p); if (id === 'drawn') drawDrawn(p, t); if (id === 'dust') drawDust(p); }
+  if (t - lastRead > 200) { readout(); lastRead = t; }
+  requestAnimationFrame(frame);
+}
+$('prev').addEventListener('click', () => goTo(Math.max(1, St.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, St.step + 1)));
+window.addEventListener('resize', () => { fieldDrawn = -1; drawnFor = -1; });
+build();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

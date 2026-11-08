@@ -61,6 +61,11 @@ describe('buildQuoteMandate', () => {
     expect(built.full).toContain('look at the threshold');
     expect(built.full).not.toContain('## Report — do not write');
     expect(built.full.indexOf("Loudon's extra note")).toBeLessThan(built.full.indexOf('# You are Palace Quotes'));
+    // the lens's own Begin does not ride along with the note: the quoter's method is this glass's Begin
+    expect(built.full).not.toContain('# Begin');
+    // Quotes keeps the careful read: no voice licence, no doorway
+    expect(built.full).not.toContain('## Your voice');
+    expect(built.full).not.toContain('**doorway**');
   });
 
   it('reports a missing subject the way the Lens does', () => {

@@ -1,0 +1,421 @@
+<!doctype html>
+<!--
+  title: Volterra Kernels and the Torus — rich — the diagonal and off it
+  born: 2026-11-03
+  links: [[Volterra Kernels and the Torus]] (connects-to · rich-face-piece) · listed in [[Volterra Kernels and the Torus — rich.json]]
+  forward_vector: I am the section's load-bearing sentence, played: a static curve, then a bare product of two signals, then a sample times its own past, then two tones read by the second-order kernel on its diagonal and off it, with a readout that says which products each slice keeps. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Volterra — the diagonal and off it</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --indigo2:#8b8ef5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 150px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 82ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); }
+  .stage { display: grid; grid-template-columns: minmax(200px, 300px) 1fr; gap: 16px; align-items: start; }
+  .stage.one { grid-template-columns: 1fr; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 220px; flex: 1 1 220px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  table.lines { border-collapse: collapse; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; color: var(--fg3); width: 100%; max-width: 760px; }
+  table.lines th { text-align: left; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; font-size: 10px; color: var(--fg4); padding: 4px 10px 4px 0; border-bottom: 1px solid var(--soft); }
+  table.lines td { padding: 5px 10px 5px 0; border-bottom: 1px solid var(--soft); }
+  table.lines td b { color: var(--fg1); font-weight: 500; }
+  .k-harm { color: var(--amber); } .k-im { color: var(--indigo2); } .k-lin { color: var(--fg2); } .k-dc { color: var(--fg4); }
+  .verdict { font-family: var(--mono); font-size: 12px; letter-spacing: .03em; color: var(--amber); margin-top: 12px; min-height: 1.4em; max-width: 100ch; line-height: 1.6; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 100ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  @media (max-width: 720px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Web Audio Worklet · sketch</span></div>
+  <h3 class="title">What does the diagonal throw away?</h3>
+  <p class="sub">The section says the diagonal of a Volterra kernel is a Hammerstein structure, a static curve then a filter, and that it keeps harmonic generation but discards intermodulation. Four steps, one idea each. The last one puts two tones into the second-order kernel, reads them on the diagonal and off it, and counts what comes out.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage" id="stage">
+    <div class="panel" id="lagPanel">
+      <div class="plabel"><span>the lag plane · where h₂ is read</span><span id="lagLabel"></span></div>
+      <canvas id="lag"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>what comes out</span><span>○ predicted · ┃ measured</span></div>
+      <canvas id="spec"></canvas>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <label class="sl" id="cCtl">how much curve · c = <b id="cVal"></b><input id="c" type="range" min="0" max="1" step="0.01" value="0.5"></label>
+    <label class="sl hidden" id="dCtl">lag · D = <b id="dVal"></b><input id="d" type="range" min="0" max="480" step="1" value="0"></label>
+    <label class="sl hidden" id="gCtl">glide both tones up · <b id="gVal"></b><input id="g" type="range" min="0" max="150" step="1" value="0"></label>
+  </div>
+  <div class="controls hidden" id="testBtns">
+    <div class="seg" id="slices">
+      <button id="diag">on the diagonal · D = 0</button>
+      <button id="off">off it · D = 1 ⁄ (2Δf)</button>
+    </div>
+    <button id="notch" title="a notch filter after the curve, tuned to where the sum product landed at no glide">filter after the curve: notch at 750 Hz</button>
+  </div>
+
+  <table class="lines" id="lines"></table>
+  <div class="verdict" id="verdict"></div>
+  <div class="hint" id="hint"></div>
+  <div class="nav"><button id="back">← back</button><button id="next">next →</button></div>
+
+  <div class="eqs">
+    <div class="eq">y(t) = ∫∫ h₂(τ₁, τ₂) · x(t − τ₁) · x(t − τ₂) dτ₁ dτ₂</div>
+    <div class="words">(the second-order output) = add up, over every pair of past moments τ₁ and τ₂, (the kernel's weight for that pair) × (the input at the first moment) × (the input at the second). The lag plane above is the floor h₂ stands on; this piece reads it at one point at a time.</div>
+    <div class="eq">on the diagonal, τ₁ = τ₂: &nbsp; y = g ∗ x² &nbsp;·&nbsp; H₂(f₁, f₂) = G(f₁ + f₂)</div>
+    <div class="words">(on the diagonal) both moments are the same moment, so the input is squared and then filtered: a static curve and a filter, the Hammerstein shape. Its weight for any product depends only on the frequency the product lands on, f₁ + f₂, not on which two frequencies made it.</div>
+    <div class="eq">off it, h₂ = δ(τ₁) · δ(τ₂ − D): &nbsp; y = x(t) · x(t − D)</div>
+    <div class="words">(one point off the diagonal) the input now times the input D seconds ago.</div>
+    <div class="eq">two tones A·cos 2πf₁t + A·cos 2πf₂t: &nbsp; each harmonic A²⁄2 · &nbsp; sum A²·|cos π(f₂ − f₁)D| · &nbsp; difference A²·|cos π(f₁ + f₂)D|</div>
+    <div class="words">(what comes out) each octave, 2f₁ and 2f₂, at half the squared amplitude, whatever D is; the sum product at the squared amplitude times a cosine of the tones' spacing times the lag; the difference product the same with their total. At D = 0 both cosines are 1: intermodulation at full strength, 6 dB above the harmonics.</div>
+  </div>
+</div>
+
+<script>
+const WORKLET = `
+class Slice extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.mode = 'curve'; this.f1 = 300; this.f2 = 450; this.glide = 0; this.c = 0.5; this.D = 0;
+    this.notch = false; this.nf = 750; this.nq = 6; this.gain = 0; this.g = 0;
+    this.a = 0; this.b = 0; this.buf = new Float64Array(4096); this.w = 0;
+    this.refs = []; this.z = []; this.tick = 0;
+    this.al = 1 - Math.exp(-1 / (0.12 * sampleRate));
+    this.nx1 = 0; this.nx2 = 0; this.ny1 = 0; this.ny2 = 0; this.coef();
+    this.port.onmessage = (e) => this.set(e.data);
+  }
+  set(d) {
+    for (const k of ['mode', 'f1', 'f2', 'glide', 'c', 'D', 'notch', 'gain']) if (d[k] !== undefined) this[k] = d[k];
+    if (d.refs) { this.refs = d.refs; this.z = d.refs.map(() => [0, 0, 0, 0]); }
+    if (d.reset) { this.a = 0; this.b = 0; this.buf.fill(0); this.nx1 = this.nx2 = this.ny1 = this.ny2 = 0; this.z = this.refs.map(() => [0, 0, 0, 0]); }
+  }
+  coef() {
+    const w0 = 2 * Math.PI * this.nf / sampleRate, al = Math.sin(w0) / (2 * this.nq), a0 = 1 + al;
+    this.nb0 = 1 / a0; this.nb1 = -2 * Math.cos(w0) / a0; this.nb2 = 1 / a0; this.na1 = -2 * Math.cos(w0) / a0; this.na2 = (1 - al) / a0;
+  }
+  // one sample of the kernel's output, before any filter
+  sample() {
+    const TAU = 2 * Math.PI, ca = Math.cos(TAU * this.a), cb = Math.cos(TAU * this.b);
+    let x, y;
+    if (this.mode === 'curve') { x = 0.8 * ca; y = x + this.c * x * x; }
+    else if (this.mode === 'ring') { y = (0.9 * ca) * (0.9 * cb); x = 0.9 * ca; }
+    else if (this.mode === 'self') { x = 0.9 * ca; }
+    else { x = 0.45 * (ca + cb); }
+    const M = this.buf.length - 1;
+    this.buf[this.w & M] = x;
+    if (this.mode === 'self' || this.mode === 'test') y = x * this.buf[(this.w - this.D) & M];
+    this.w++;
+    if (this.mode === 'test' && this.notch) {
+      const o = this.nb0 * y + this.nb1 * this.nx1 + this.nb2 * this.nx2 - this.na1 * this.ny1 - this.na2 * this.ny2;
+      this.nx2 = this.nx1; this.nx1 = y; this.ny2 = this.ny1; this.ny1 = o; y = o;
+    }
+    return y;
+  }
+  process(_in, outs) {
+    const L = outs[0][0], R = outs[0][1] || L, n = L.length, TAU = 2 * Math.PI;
+    const fa = this.f1 + this.glide, fb = this.f2 + this.glide;
+    for (let i = 0; i < n; i++) {
+      const y = this.sample();
+      for (let k = 0; k < this.refs.length; k++) {
+        const [ma, mb] = this.refs[k], ph = TAU * (ma * this.a + mb * this.b), z = this.z[k];
+        z[0] += this.al * (y * Math.cos(ph) - z[0]); z[1] += this.al * (-y * Math.sin(ph) - z[1]);
+        z[2] += this.al * (z[0] - z[2]); z[3] += this.al * (z[1] - z[3]);
+      }
+      this.a += fa / sampleRate; this.a -= Math.floor(this.a);
+      this.b += fb / sampleRate; this.b -= Math.floor(this.b);
+      this.g += 0.002 * (this.gain - this.g);
+      L[i] = R[i] = 0.8 * this.g * y;
+    }
+    if (++this.tick % 12 === 0) {
+      const amps = this.refs.map(([ma, mb], k) => { const z = this.z[k], m = Math.hypot(z[2], z[3]); return ma === 0 && mb === 0 ? m : 2 * m; });
+      this.port.postMessage({ amps });
+    }
+    return true;
+  }
+}
+registerProcessor('volterra-slice', Slice);
+`;
+
+const F1 = 300, F2 = 450, DF = F2 - F1, A = 0.45, NOTCH_F = 750, NOTCH_Q = 6;
+const STEPS = [
+  { key: 'curve', name: 'a static curve',
+    say: 'One sine through a curve, <i>y = x + c·x²</i>. The curve has no memory: each output sample depends only on the input at the same instant, so the kernel is read at one point on the diagonal, (0, 0). What the curve adds is harmonics: the octave 2f, and an offset at 0 Hz. Raise <i>c</i> and listen for the octave.' },
+  { key: 'ring', name: 'two signals, one product',
+    say: 'Two different sines multiplied, <i>x·y</i>. Neither input frequency comes out, and neither octave: only their sum and their difference. That is intermodulation on its own. A product of two different signals is ring modulation, the page\'s bilinear slice.' },
+  { key: 'self', name: 'a sample times its past',
+    say: 'One sine times its own delayed copy, <i>x(t)·x(t − D)</i>. The point on the lag plane leaves the diagonal for (0, D). With one sine there is nothing to intermodulate with, so it still makes only the octave, at the same level whatever D is, and an offset that swings with D. Memory alone, on one tone, changes almost nothing you can hear.' },
+  { key: 'test', name: 'two tones, on and off',
+    say: 'The test. Two tones go in, 300 and 450 Hz, and the second-order kernel reads them at the point you choose. Start on the diagonal and read the table: does the diagonal discard intermodulation? Then step off it, glide both tones, and set beside it the best a filter after the curve can do.' },
+];
+
+const S = { step: 0, c: 0.5, D: 0, glide: 0, notch: false };
+let ctx = null, node = null, analyser = null, playing = false, amps = null, specBuf = null;
+const $ = (id) => document.getElementById(id);
+const SR = () => (ctx ? ctx.sampleRate : 48000);
+const db = (a) => (a > 1e-9 ? 20 * Math.log10(a) : -180);
+const fmtDb = (a) => { const d = db(a); return d < -90 ? '< −90 dB' : (d >= 0 ? '+' : '−') + Math.abs(d).toFixed(1) + ' dB'; };
+
+// The products each step predicts: frequency, amplitude, kind, and the phase multipliers the worklet locks onto.
+function lines() {
+  const k = STEPS[S.step].key, Dsec = S.D / SR(), fa = F1 + S.glide, fb = F2 + S.glide;
+  if (k === 'curve') return [
+    { name: 'f', f: F1, amp: 0.8, kind: 'lin', ref: [1, 0] },
+    { name: '2f', f: 2 * F1, amp: S.c * 0.32, kind: 'harm', ref: [2, 0] },
+    { name: '0 Hz', f: 0, amp: S.c * 0.32, kind: 'dc', ref: [0, 0] }];
+  if (k === 'ring') return [
+    { name: 'f₂ − f₁', f: DF, amp: 0.405, kind: 'im', ref: [-1, 1] },
+    { name: 'f₁ + f₂', f: F1 + F2, amp: 0.405, kind: 'im', ref: [1, 1] },
+    { name: 'f₁', f: F1, amp: 0, kind: 'lin', ref: [1, 0] },
+    { name: '2f₁', f: 2 * F1, amp: 0, kind: 'harm', ref: [2, 0] }];
+  if (k === 'self') return [
+    { name: '2f', f: 2 * F1, amp: 0.405, kind: 'harm', ref: [2, 0] },
+    { name: '0 Hz', f: 0, amp: Math.abs(0.405 * Math.cos(2 * Math.PI * F1 * Dsec)), kind: 'dc', ref: [0, 0] }];
+  const nh = (f) => (S.notch ? notchMag(f) : 1);
+  return [
+    { name: '2f₁', f: 2 * fa, amp: (A * A / 2) * nh(2 * fa), kind: 'harm', ref: [2, 0] },
+    { name: '2f₂', f: 2 * fb, amp: (A * A / 2) * nh(2 * fb), kind: 'harm', ref: [0, 2] },
+    { name: 'f₁ + f₂', f: fa + fb, amp: A * A * Math.abs(Math.cos(Math.PI * DF * Dsec)) * nh(fa + fb), kind: 'im', ref: [1, 1] },
+    { name: 'f₂ − f₁', f: DF, amp: A * A * Math.abs(Math.cos(Math.PI * (fa + fb) * Dsec)) * nh(DF), kind: 'im', ref: [-1, 1] },
+    { name: '0 Hz', f: 0, amp: Math.abs(A * A * (Math.cos(2 * Math.PI * fa * Dsec) + Math.cos(2 * Math.PI * fb * Dsec)) / 2) * nh(0), kind: 'dc', ref: [0, 0] }];
+}
+function notchMag(f) {
+  const sr = SR(), w0 = 2 * Math.PI * NOTCH_F / sr, al = Math.sin(w0) / (2 * NOTCH_Q), w = 2 * Math.PI * f / sr;
+  const b = [1, -2 * Math.cos(w0), 1], a = [1 + al, -2 * Math.cos(w0), 1 - al];
+  const ev = (c) => { const re = c[0] + c[1] * Math.cos(w) + c[2] * Math.cos(2 * w), im = -(c[1] * Math.sin(w) + c[2] * Math.sin(2 * w)); return Math.hypot(re, im); };
+  return ev(b) / ev(a);
+}
+
+// ---------- sound ----------
+async function start() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'volterra-slice', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    analyser = ctx.createAnalyser(); analyser.fftSize = 16384; analyser.smoothingTimeConstant = 0.6;
+    specBuf = new Float32Array(analyser.frequencyBinCount);
+    const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 25; hp.Q.value = 0.7;
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 4;
+    node.connect(analyser); node.connect(hp).connect(comp).connect(ctx.destination);
+    node.port.onmessage = (e) => { amps = e.data.amps; };
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) { playing = false; paintGo(); } };
+    S.D = Math.round(S.D * ctx.sampleRate / 48000); // the lag was set at 48 kHz before the context existed
+    syncControls(); push(true);
+  }
+  await ctx.resume();
+  node.port.postMessage({ gain: 1 });
+  playing = true; paintGo();
+}
+function stop() {
+  if (!ctx || !playing) return;
+  node.port.postMessage({ gain: 0 });
+  playing = false; paintGo();
+  setTimeout(() => { if (!playing && ctx) ctx.suspend(); }, 200);
+}
+function paintGo() { $('go').textContent = playing ? '❚❚ stop' : '▸ play'; }
+function push(reset) {
+  if (reset) amps = null;
+  if (!node) return;
+  const msg = { mode: STEPS[S.step].key, c: S.c, D: S.D, glide: S.glide, notch: S.notch };
+  if (reset) { msg.refs = lines().map((l) => l.ref); msg.reset = true; }
+  node.port.postMessage(msg);
+}
+
+// ---------- drawing ----------
+function fit(c, h) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1, H = h || w;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+const MAXLAG = 10; // ms
+function drawLag() {
+  const { g, w } = fit($('lag')), pad = 34, s = w - pad - 10, k = STEPS[S.step].key;
+  const X = (ms) => pad + (ms / MAXLAG) * s, Y = (ms) => 10 + s - (ms / MAXLAG) * s;
+  g.clearRect(0, 0, w, w);
+  g.strokeStyle = '#22222e'; g.lineWidth = 1; g.strokeRect(pad, 10, s, s);
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  for (let m = 0; m <= MAXLAG; m += 2) { g.fillText(m, X(m), 10 + s + 13); g.textAlign = 'right'; g.fillText(m, pad - 5, Y(m) + 3); g.textAlign = 'center'; }
+  g.fillText('τ₁ (ms)', pad + s / 2, 10 + s + 26 > w ? w - 2 : 10 + s + 26);
+  g.save(); g.translate(9, 10 + s / 2); g.rotate(-Math.PI / 2); g.fillText('τ₂ (ms)', 0, 0); g.restore();
+  g.setLineDash([4, 4]); g.strokeStyle = 'rgba(232,184,74,.45)'; g.beginPath(); g.moveTo(X(0), Y(0)); g.lineTo(X(MAXLAG), Y(MAXLAG)); g.stroke(); g.setLineDash([]);
+  g.save(); g.translate(X(MAXLAG * 0.62), Y(MAXLAG * 0.62)); g.rotate(-Math.PI / 4); g.fillStyle = 'rgba(232,184,74,.7)'; g.fillText('diagonal · Hammerstein', 0, -6); g.restore();
+  const Dms = (S.D / SR()) * 1000, on = k === 'curve' || Dms === 0;
+  const dot = (x, y, col) => { g.fillStyle = col; g.beginPath(); g.arc(X(x), Y(y), 5.5, 0, 7); g.fill(); };
+  if (on) dot(0, 0, '#e8b84a'); else { dot(0, Dms, '#8b8ef5'); dot(Dms, 0, 'rgba(139,142,245,.45)'); }
+  $('lagLabel').textContent = on ? '(0, 0)' : `(0, ${Dms.toFixed(2)} ms)`;
+}
+function drawSpec() {
+  const { g, w, h } = fit($('spec'), 260), k = STEPS[S.step].key, L = lines();
+  const fmax = k === 'test' ? 1300 : 1000, x = (f) => 34 + (f / fmax) * (w - 46), top = 10, bot = h - 34;
+  const y = (d) => top + ((0 - Math.max(-100, Math.min(0, d))) / 100) * (bot - top);
+  g.clearRect(0, 0, w, h);
+  g.strokeStyle = '#22222e'; g.lineWidth = 1; g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace';
+  for (let d = 0; d >= -100; d -= 20) { g.beginPath(); g.moveTo(34, y(d)); g.lineTo(w - 12, y(d)); g.stroke(); g.textAlign = 'right'; g.fillText(d, 30, y(d) + 3); }
+  g.textAlign = 'center'; for (let f = 0; f <= fmax; f += 200) g.fillText(f, x(f), h - 20);
+  g.fillText('Hz · dB re full scale', w / 2, h - 6);
+  if (playing && analyser) {
+    analyser.getFloatFrequencyData(specBuf);
+    const bin = ctx.sampleRate / analyser.fftSize;
+    g.strokeStyle = 'rgba(200,200,216,.22)'; g.beginPath();
+    for (let i = 1; i < specBuf.length && i * bin <= fmax; i++) { const px = x(i * bin), py = y(specBuf[i] + 6); i === 1 ? g.moveTo(px, py) : g.lineTo(px, py); }
+    g.stroke();
+  }
+  if (S.notch && k === 'test') { g.strokeStyle = 'rgba(255,155,74,.5)'; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(x(NOTCH_F), top); g.lineTo(x(NOTCH_F), bot); g.stroke(); g.setLineDash([]); }
+  const col = { harm: '#e8b84a', im: '#8b8ef5', lin: '#c8c8d8', dc: '#6a6a7a' };
+  L.forEach((l, i) => {
+    const px = x(l.f) + (l.f === 0 ? 4 : 0);
+    if (amps && amps[i] !== undefined) { g.strokeStyle = col[l.kind]; g.lineWidth = 3; g.beginPath(); g.moveTo(px, bot); g.lineTo(px, y(db(amps[i]))); g.stroke(); }
+    g.strokeStyle = col[l.kind]; g.lineWidth = 1.3; g.beginPath(); g.arc(px, y(db(l.amp)), 4.5, 0, 7); g.stroke();
+    const ly = Math.min(y(db(l.amp)), amps && amps[i] !== undefined ? y(db(amps[i])) : bot) - 9;
+    g.fillStyle = col[l.kind]; g.textAlign = 'center'; g.fillText(l.name, px + (l.f === 0 ? 8 : 0), Math.max(top + 8, ly));
+  });
+}
+function table() {
+  const L = lines(), kindName = { harm: 'harmonic', im: 'intermodulation', lin: 'the input', dc: 'offset' };
+  let html = '<tr><th>product</th><th>where</th><th>kind</th><th>predicted</th><th>measured</th></tr>';
+  L.forEach((l, i) => {
+    const m = amps && amps[i] !== undefined ? fmtDb(amps[i]) : (playing ? '…' : 'play to measure');
+    html += `<tr><td class="k-${l.kind}"><b>${l.name}</b></td><td>${l.f.toFixed(0)} Hz</td><td class="k-${l.kind}">${kindName[l.kind]}</td><td>${fmtDb(l.amp)}</td><td><b>${m}</b></td></tr>`;
+  });
+  $('lines').innerHTML = html;
+  verdict(L);
+}
+function verdict(L) {
+  const k = STEPS[S.step].key, v = $('verdict');
+  if (k !== 'test') { v.textContent = ''; return; }
+  const src = amps || null, val = (i) => (src ? src[i] : L[i].amp), tag = src ? 'measured' : 'predicted';
+  const harm = Math.max(val(0), val(1)), sum = val(2), dif = val(3);
+  const rel = (a) => { const d = db(a) - db(harm); return d < -60 ? 'gone (more than 60 dB under the harmonics)' : (d >= 0 ? '+' : '−') + Math.abs(d).toFixed(1) + ' dB re the harmonics'; };
+  const where = S.D === 0 ? 'on the diagonal' : `off it, D = ${(S.D / SR() * 1000).toFixed(2)} ms`;
+  v.textContent = `${tag}, ${where}${S.notch ? ', notch on' : ''}${S.glide ? `, glide +${S.glide} Hz` : ''} · sum product ${rel(sum)} · difference product ${rel(dif)} · harmonics ${db(val(0)).toFixed(1)} and ${db(val(1)).toFixed(1)} dB`;
+}
+
+// ---------- steps ----------
+function hintFor(k) {
+  if (k === 'curve') return 'The circle on each line is what the arithmetic predicts; the bar is what the running sound measures, once you press play. At c = 0 the curve is a straight line and the octave goes away.';
+  if (k === 'ring') return 'The two inputs here are two different signals, so this is not yet one input read by a kernel; it is the product the kernel will make inside one input, once that input holds two tones.';
+  if (k === 'self') return `Slide D. The octave holds at ${fmtDb(0.405)}; only the offset moves, as cos 2πfD. The faint point on the lag plane is the same kernel mirrored: h₂ is symmetric, so (0, D) and (D, 0) are one reading.`;
+  return 'In order. On the diagonal both intermodulation products come out at −13.9 dB, 6 dB above each harmonic: the diagonal keeps intermodulation, at full strength. Press "off it": the lag becomes 1 ⁄ (2 × 150 Hz) = 3.33 ms, and both products drop below −90 dB while the harmonics stay at −19.9 (the difference goes too only because 750 Hz × 3.33 ms is 2.5 cycles). Glide both tones up: the difference comes and goes (it nulls again at +150 Hz, 1050 Hz × 3.33 ms = 3.5 cycles), the sum stays gone, because its null is half a period of the 150 Hz spacing and the glide keeps the spacing. Now return to the diagonal, turn the notch on, and glide again: a filter after the curve weights a product only by where it lands, so at +75 Hz it lets the sum product through and takes the 2f₁ harmonic instead.';
+}
+function setStep(i) {
+  stop();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i));
+  const k = STEPS[S.step].key;
+  [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === S.step));
+  $('say').innerHTML = STEPS[S.step].say;
+  $('cCtl').classList.toggle('hidden', k !== 'curve');
+  $('dCtl').classList.toggle('hidden', !(k === 'self' || k === 'test'));
+  $('gCtl').classList.toggle('hidden', k !== 'test');
+  $('testBtns').classList.toggle('hidden', k !== 'test');
+  $('lagPanel').classList.toggle('hidden', k === 'ring');
+  $('stage').classList.toggle('one', k === 'ring');
+  if (k === 'self' && S.D === 0) S.D = Math.round(SR() * 0.0012);
+  if (k === 'test') { S.D = 0; S.glide = 0; S.notch = false; }
+  if (k === 'curve' || k === 'ring') S.D = 0;
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  $('hint').textContent = hintFor(k);
+  syncControls(); push(true);
+}
+function syncControls() {
+  $('c').value = S.c; $('cVal').textContent = S.c.toFixed(2);
+  $('d').max = Math.round(SR() * MAXLAG / 1000); $('d').value = S.D;
+  $('dVal').textContent = `${(S.D / SR() * 1000).toFixed(2)} ms · ${S.D} samples`;
+  $('g').value = S.glide; $('gVal').textContent = `+${S.glide} Hz · tones at ${F1 + S.glide} and ${F2 + S.glide} Hz`;
+  $('diag').classList.toggle('on', S.D === 0);
+  $('off').classList.toggle('on', S.D === Math.round(SR() / (2 * DF)));
+  $('notch').classList.toggle('on', S.notch);
+}
+
+function frame() {
+  requestAnimationFrame(frame);
+  drawLag(); drawSpec(); table();
+}
+
+// sigil: a 3:2 Lissajous, the house mark
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('go').onclick = () => (playing ? stop() : start());
+$('c').oninput = () => { S.c = +$('c').value; syncControls(); push(); };
+$('d').oninput = () => { S.D = +$('d').value; syncControls(); push(); };
+$('g').oninput = () => { S.glide = +$('g').value; syncControls(); push(); };
+$('diag').onclick = () => { S.D = 0; syncControls(); push(); };
+$('off').onclick = () => { S.D = Math.round(SR() / (2 * DF)); syncControls(); push(); };
+$('notch').onclick = () => { S.notch = !S.notch; syncControls(); push(); };
+setStep(0); frame();
+</script>
+</body>
+</html>

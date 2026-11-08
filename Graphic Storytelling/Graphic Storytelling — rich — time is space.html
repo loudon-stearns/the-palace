@@ -1,0 +1,520 @@
+<!doctype html>
+<!--
+  title: Graphic Storytelling — rich — time is space
+  born: 2026-11-03
+  links: [[Graphic Storytelling]] (connects-to · rich-face-piece) · listed in [[Graphic Storytelling — rich.json]]
+  forward_vector: I am McCloud's "time is rendered as space" put to a reader's hands. I open on two panels and the gap the reader fills, let the layout move while the drawing stays still, teach a stopwatch you hold, and end on fifteen blind strips: three small stories, each in five layouts, where a wider panel, a wider gutter, a narrow panel and a tall control are timed by how long you hold, not by what you say. I can come out against the page, and I say so when I do. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="storage">
+<title>Graphic Storytelling — time is space</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range, textarea. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, var(--paper, #0a0a0f)); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, var(--ink, #e8e8f0)); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+textarea {resize: vertical; min-height: 3.5em;}
+textarea::-webkit-resizer {background: linear-gradient(135deg, transparent 0 58%, var(--fx-fg-4) 58% 64%, transparent 64% 76%, var(--fx-fg-4) 76% 82%, transparent 82%); background-clip: content-box;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --paper:#ece5d3; --ink:#0e0d0c;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 140px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 16px; margin-bottom: 12px; overflow: hidden; min-height: 120px; }
+  .stage svg { display: block; max-width: 100%; height: auto; touch-action: none; }
+  .stage .lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin: 0 0 10px; }
+  .stage .lab + svg { margin-bottom: 4px; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); }
+  button.hold { min-width: 220px; padding: 16px 18px; font-size: 12px; user-select: none; -webkit-user-select: none; touch-action: none; }
+  button.hold.down { background: var(--amber); color: var(--bg); box-shadow: none; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 200px; flex: 1 1 200px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .q { font-family: var(--serif); font-size: 21px; color: var(--fg1); margin: 2px 0 12px; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  table.res { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 4px; width: 100%; }
+  table.res th { color: var(--fg3); font-weight: 400; padding: 6px 10px 6px 0; text-align: left; letter-spacing: .06em; border-bottom: 1px solid var(--soft); }
+  table.res td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--soft); vertical-align: middle; color: var(--fg2); }
+  table.res td b { color: var(--fg1); font-weight: 500; }
+  table.res td.ok { color: var(--amber); }
+  table.res td:first-child { white-space: nowrap; }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict p { margin: 0 0 8px; } .verdict p:last-child { margin: 0; }
+  textarea { width: 100%; height: 130px; margin-top: 10px; background: var(--bg); color: var(--fg2); border: 1px solid var(--border); border-radius: 2px; font-family: var(--mono); font-size: 10.5px; padding: 8px; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · SVG strips, timed by hand · study</span></div>
+  <h3 class="title">Does a wider panel last longer?</h3>
+  <p class="sub">The page’s line, after McCloud: time is drawn as space, so a wider panel can read as a longer moment, and the page guesses a wider gutter does too. This walks up to that claim from the gap between two panels, and ends on a test your hands take, blind. Nothing here makes a sound.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <!-- step 1 · the gap -->
+  <div id="s1" class="hidden">
+    <div class="stage"><div class="lab">two panels · one gap</div><div id="gapStrip"></div>
+      <div id="hiddenRow" class="hidden"><div class="lab" style="margin-top:14px">what the gap held · what you drew without being shown</div><div id="betweenStrip"></div></div>
+    </div>
+    <div class="controls"><button class="go" id="showGap">show what the gap hid</button></div>
+  </div>
+
+  <!-- step 2 · the layout moves, the drawing stays -->
+  <div id="s2" class="hidden">
+    <div class="stage"><div class="lab">drag an edge · the amber marks are handles</div><div id="dragStrip"></div></div>
+    <div class="controls">
+      <label class="sl">middle panel width <b id="w2v"></b><input id="w2" type="range" min="85" max="408" step="1"></label>
+      <label class="sl">gutter before the last <b id="g2v"></b><input id="g2" type="range" min="6" max="200" step="1"></label>
+      <label class="sl">middle panel height <b id="h2v"></b><input id="h2" type="range" min="170" max="306" step="1"></label>
+      <button id="dragReset">reset</button>
+    </div>
+  </div>
+
+  <!-- step 3 · the stopwatch -->
+  <div id="s3" class="hidden">
+    <div class="stage"><div class="lab">the stopwatch · nothing to read yet</div>
+      <p class="q" id="pq">Hold for about one second.</p>
+      <div class="controls"><button class="hold go" id="pHold">press and hold</button><button id="pAgain">again</button></div>
+      <div class="read" id="pRead"></div>
+    </div>
+  </div>
+
+  <!-- step 4 · the blind test -->
+  <div id="s4" class="hidden">
+    <div id="testRun">
+      <div class="stage"><div class="lab" id="tLab"></div><div id="testStrip"></div></div>
+      <p class="q" id="tq"></p>
+      <div class="controls"><button class="hold go" id="tHold">press and hold</button><button id="tUndo">redo the last one</button></div>
+      <div class="read" id="tRead"></div>
+    </div>
+    <div id="testDone" class="hidden">
+      <div class="stage"><div class="lab">what your hands said · every hold, by layout · hollow rings are the same story, plain</div><div id="dots"></div></div>
+      <table class="res" id="resTable"></table>
+      <div class="verdict" id="verdict"></div>
+      <textarea id="sheet" readonly spellcheck="false"></textarea>
+      <div class="controls" style="margin-top:10px"><button id="restart">start a new run</button><button id="dUndo">redo the last hold</button></div>
+    </div>
+  </div>
+
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">r = h(layout, story) ⁄ h(plain, story)</div>
+    <div class="words">(how long you held for one story in one layout) ÷ (how long you held for the same story, plain). Above 1, that layout lasted longer for you. Dividing by the same story's plain hold takes out how long each story's wait is to begin with.</div>
+    <div class="eq">P(all three r ≥ 1.1 | the layout does nothing) ≤ (½)³ = 1 ⁄ 8</div>
+    <div class="words">"Longer" here means longer by a tenth or more in all three stories (shorter: by the same, the other way). If the layout made no difference, each story would land there at most half the time, so all three would by chance at most one run in eight. So "longer in all three" is a reading worth noticing, not a proof. The chance that either half, panel or gutter, shows "longer" by chance is at most 1 in 4; the two are called split only when the wide panel's hold beats the wide gutter's by a tenth in all three stories, or loses by as much (again at most 1 in 8).</div>
+  </div>
+  <div class="note">Three small stories (a door, a kettle, a bus), each drawn once; only the layout changes. The wide panel and the wide gutter each add the same length along the reading line, 102 px at full size; the tall panel adds the same area as the wide one, but across the line, so it asks whether your hands answer size or the line. Each strip is drawn at a slightly different scale (0.9 to 1.1) so absolute size gives nothing away. Checked offline on this piece's own engine (the script marked engine): the five layouts' geometry, the shuffle (every story in every layout once, no story or layout twice running), and the verdict on made-up hands. Blind only in part: you see every layout, and the page above states the claim. What stays unsaid is which comparisons count, and the answer is a hold, not a choice. The tall control tells size from the line; nothing here can rule out that you held longer because you know what the page says. No reader has taken the test yet: what it shows is yours.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- engine: layouts, the blind schedule, the analysis. Pure functions, no page. ----
+const P = 170;               // a plain panel, wide and tall (px at scale 1)
+const G = 14;                // a plain gutter
+const EXTRA = 0.6 * P;       // 102: what the wide panel and the wide gutter each add along the line
+const LAYOUTS = [
+  { key: 'plain',  label: 'plain',        w2: P,          h2: P,       g2: G,         predict: 'base' },
+  { key: 'wide',   label: 'wide panel',   w2: P + EXTRA,  h2: P,       g2: G,         predict: 'longer' },
+  { key: 'gutter', label: 'wide gutter',  w2: P,          h2: P,       g2: G + EXTRA, predict: 'longer' },
+  { key: 'narrow', label: 'narrow panel', w2: 0.65 * P,   h2: P,       g2: G,         predict: 'shorter' },
+  { key: 'tall',   label: 'tall panel',   w2: P,          h2: 1.6 * P, g2: G,         predict: 'same' }
+];
+const STORIES = [
+  { key: 'door',   label: 'door',   q: 'How long did he wait at the door?' },
+  { key: 'kettle', label: 'kettle', q: 'How long did the kettle take to boil?' },
+  { key: 'bus',    label: 'bus',    q: 'How long did he wait for the bus?' }
+];
+const layoutOf = (k) => LAYOUTS.find((l) => l.key === k);
+
+// three panels in a row on one ground line; the middle one may be wider, narrower or taller (taller grows upward: more sky, the same ground)
+function geometry(w2, h2, g2) {
+  const p1 = { x: 0, y: 0, w: P, h: P };
+  const p2 = { x: P + G, y: P - h2, w: w2, h: h2 };
+  const p3 = { x: P + G + w2 + g2, y: 0, w: P, h: P };
+  return { panels: [p1, p2, p3], width: p3.x + P, top: Math.min(0, p2.y), bottom: Math.max(P, p2.y + h2) };
+}
+const geoOf = (k) => { const l = layoutOf(k); return geometry(l.w2, l.h2, l.g2); };
+
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function shuffled(xs, r) { const a = xs.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+// every story in every layout once; no story twice running, no layout twice running; each strip at its own scale
+function schedule(r) {
+  const all = []; for (const s of STORIES) for (const l of LAYOUTS) all.push({ story: s.key, layout: l.key });
+  // a random walk with backtracking: each next strip drawn from what's left that shares neither story nor layout with the last
+  const out = [], used = new Array(all.length).fill(false);
+  const place = () => {
+    if (out.length === all.length) return true;
+    const prev = out[out.length - 1];
+    for (const i of shuffled(all.map((_, k) => k), r)) {
+      if (used[i] || (prev && (all[i].story === prev.story || all[i].layout === prev.layout))) continue;
+      used[i] = true; out.push(all[i]);
+      if (place()) return true;
+      used[i] = false; out.pop();
+    }
+    return false;
+  };
+  place();
+  return out.map((t) => ({ ...t, scale: +(0.9 + 0.2 * r()).toFixed(3) }));
+}
+
+// trials: [{story, layout, hold}] with hold in seconds. Per story, each layout's hold over that story's plain hold.
+// a tenth either way is the least that counts: a hand repeating one hold drifts by about that much
+const BAND = 1.1;
+function outcomeOf(ratios) { return ratios.every((x) => x >= BAND) ? 'longer' : ratios.every((x) => x <= 1 / BAND) ? 'shorter' : 'mixed'; }
+function analyse(trials) {
+  const h = {}; for (const t of trials) h[t.story + '|' + t.layout] = t.hold;
+  const rows = LAYOUTS.filter((l) => l.key !== 'plain').map((l) => {
+    const ratios = STORIES.map((s) => h[s.key + '|' + l.key] / h[s.key + '|plain']);
+    const gm = Math.exp(ratios.reduce((a, x) => a + Math.log(x), 0) / ratios.length);
+    const out = outcomeOf(ratios);
+    const asPredicted = l.predict === 'same' ? out === 'mixed' : out === l.predict;
+    return { layout: l.key, label: l.label, predict: l.predict, ratios, gm, out, asPredicted };
+  });
+  const by = Object.fromEntries(rows.map((r) => [r.layout, r]));
+  // the two halves compared directly, per story: the wide panel's hold over the wide gutter's
+  const panelOverGutter = STORIES.map((s) => h[s.key + '|wide'] / h[s.key + '|gutter']);
+  const split = outcomeOf(panelOverGutter);
+  return { rows, by, panelOverGutter, split, verdict: verdictOf(by, split) };
+}
+const outWords = { longer: 'longer in all three stories', shorter: 'shorter in all three stories', mixed: 'not clearly longer or shorter across the three stories' };
+function verdictOf(by, split) {
+  const W = by.wide.out, Gt = by.gutter.out, N = by.narrow.out, T = by.tall.out, lines = [];
+  const lineHeld = W === 'longer' || Gt === 'longer';
+  if (W === 'longer' && Gt === 'longer') lines.push('Both halves of the sentence held for your hands: the wider panel and the wider gutter each lasted longer, in all three stories.');
+  else if (W === 'longer' || Gt === 'longer') {
+    const [one, other, otherOut, wins] = W === 'longer' ? ['panel', 'gutter', Gt, 'longer'] : ['gutter', 'panel', W, 'shorter'];
+    if (split === wins) lines.push(`The wider ${one} lasted longer in all three stories, and longer than the wider ${other} by a tenth in all three too. The page puts the two in one sentence; your holds split them.`);
+    else lines.push(`The wider ${one} lasted longer in all three stories; the wider ${other} came out ${outWords[otherOut]}. Side by side, the two were not a tenth apart in all three stories, so one run can’t tell them apart.`);
+  } else lines.push(`Neither the wider panel nor the wider gutter cleared the band in all three stories (the panel came out ${outWords[W]}, the gutter ${outWords[Gt]}). One run can’t tell a small effect from none.`);
+  if (N === 'shorter') lines.push('The narrow panel went the other way, shorter in all three, as the claim would have it.');
+  else lines.push(`The narrow panel did not come out shorter in all three: it was ${outWords[N]}.`);
+  if (T === 'longer') lines.push('But the tall panel lasted longer in all three too, and it adds its paper across the line, not along it. So what your hands answered may be size, not space along the reading line, and the page’s claim is about the line.');
+  else if (lineHeld) lines.push(`The tall panel, the same extra panel area turned across the line, came out ${outWords[T]}. So what moved your hands looks like the line, not size alone.`);
+  else lines.push(`The tall panel, the control, came out ${outWords[T]}.`);
+  lines.push('One reader, fifteen holds: a reading, not a law.');
+  return lines;
+}
+</script>
+
+<script>
+// ---- drawing: ink on paper, one drawing per story-panel, laid into whatever width the layout gives ----
+const INK = '#0e0d0c', PAPER = '#ece5d3', GROUND = 140, M = 16;
+const $ = (id) => document.getElementById(id);
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+sigil(3, 2);
+
+function man(x, pose) {
+  let s = `<g fill="${INK}">`;
+  s += `<rect x="${x - 11}" y="57" width="22" height="3"/><rect x="${x - 7}" y="48" width="14" height="10"/>`; // hat
+  s += `<circle cx="${x}" cy="66" r="8"/>`;
+  s += `<path d="M${x - 10},76 L${x + 10},76 L${x + 13},118 L${x - 13},118 Z"/>`;
+  if (pose === 'walk') s += `<path d="M${x - 8},116 L${x},116 L${x - 12},140 L${x - 20},140 Z"/><path d="M${x},116 L${x + 8},116 L${x + 18},140 L${x + 10},140 Z"/>`;
+  else s += `<path d="M${x - 10},116 L${x - 2},116 L${x - 3},140 L${x - 11},140 Z"/><path d="M${x + 2},116 L${x + 10},116 L${x + 11},140 L${x + 3},140 Z"/>`;
+  s += '</g>';
+  if (pose === 'knock') s += `<line x1="${x + 7}" y1="82" x2="${x + 22}" y2="72" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><circle cx="${x + 23}" cy="71" r="4" fill="${INK}"/>`;
+  return s;
+}
+// a door at dx, opening by f (0 shut, 1 open, swinging into a dark room); who stands inside shows once it is open
+function door(dx, f) {
+  const c = Math.cos(f * 1.42), sh = 6 * Math.sin(f * 1.42);
+  let s = `<rect x="${dx - 4}" y="42" width="50" height="98" fill="none" stroke="${INK}" stroke-width="3"/>`;
+  s += `<rect x="${dx}" y="46" width="42" height="94" fill="${INK}"/>`;
+  if (f > 0.65) s += `<circle cx="${dx + 29}" cy="72" r="7" fill="${PAPER}"/><path d="M${dx + 20},140 L${dx + 21},86 Q${dx + 29},80 ${dx + 37},86 L${dx + 38},140 Z" fill="${PAPER}" opacity=".85"/>`;
+  const fx = dx + 42 * c;
+  s += `<path d="M${dx},46 L${fx},${46 + sh} L${fx},${140 - sh} L${dx},140 Z" fill="${PAPER}" stroke="${INK}" stroke-width="2.5"/>`;
+  if (f < 0.5) s += `<rect x="${dx + 7 * c}" y="56" width="${28 * c}" height="30" fill="none" stroke="${INK}" stroke-width="1.6"/><rect x="${dx + 7 * c}" y="94" width="${28 * c}" height="36" fill="none" stroke="${INK}" stroke-width="1.6"/><circle cx="${dx + 36 * c}" cy="92" r="2.6" fill="${INK}"/>`;
+  return s;
+}
+function kettle(x, steam) {
+  let s = `<rect x="${x - 42}" y="110" width="84" height="30" fill="${INK}"/>`;
+  s += `<path d="M${x - 16},110 l4,-6 l3,6 l4,-7 l3,7 l4,-6 l3,6 l4,-7 l3,7 l4,-6 l3,6 Z" fill="${INK}"/>`;
+  s += `<path d="M${x - 20},104 Q${x - 25},80 ${x - 12},78 L${x + 12},78 Q${x + 25},80 ${x + 20},104 Z" fill="${PAPER}" stroke="${INK}" stroke-width="2.5"/>`;
+  s += `<path d="M${x - 12},78 Q${x},58 ${x + 12},78" fill="none" stroke="${INK}" stroke-width="3"/><circle cx="${x}" cy="76" r="3" fill="${INK}"/>`;
+  s += `<path d="M${x + 19},94 L${x + 33},81" stroke="${INK}" stroke-width="5" stroke-linecap="round"/>`;
+  if (steam) s += `<path d="M${x + 36},76 q-6,-8 0,-14 q6,-6 0,-14 q-6,-8 0,-14" fill="none" stroke="${INK}" stroke-width="2.2"/><path d="M${x + 46},80 q-5,-7 0,-12 q5,-6 0,-12" fill="none" stroke="${INK}" stroke-width="1.8"/>`;
+  return s;
+}
+function stop(x) { return `<line x1="${x}" y1="44" x2="${x}" y2="140" stroke="${INK}" stroke-width="3"/><rect x="${x - 13}" y="32" width="26" height="16" fill="${INK}"/><text x="${x}" y="44" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="700" font-size="10" fill="${PAPER}">BUS</text>`; }
+function sfx(x, y, word, size, rot) { return `<text x="${x}" y="${y}" text-anchor="middle" font-family="Anton, Impact, sans-serif" font-size="${size}" fill="${INK}" transform="rotate(${rot} ${x} ${y})" letter-spacing="1">${word}</text>`; }
+function balloon(bx, by, tx, ty, word) {
+  // the tail ends at about 55 % of the way from the balloon's edge to the head (Blambot's 50–60 %)
+  const ex = bx + (tx - bx) * 0.3, ey = by + 11, kx = ex + (tx - ex) * 0.55, ky = ey + (ty - ey) * 0.55;
+  return `<path d="M${ex - 5},${ey - 2} L${kx},${ky} L${ex + 5},${ey - 2} Z" fill="${PAPER}" stroke="${INK}" stroke-width="1.6"/>`
+    + `<ellipse cx="${bx}" cy="${by}" rx="20" ry="12" fill="${PAPER}" stroke="${INK}" stroke-width="1.6"/>`
+    + `<text x="${bx}" y="${by + 4}" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="700" font-size="10.5" fill="${INK}">${word}</text>`;
+}
+// story · panel index → the drawing, centred on cx in the panel's own width; the ground runs edge to edge
+function content(story, i, w, f) {
+  const cx = w / 2;
+  if (story === 'door') {
+    if (i === 0) return man(cx - 24, 'knock') + door(cx + 2, 0) + sfx(cx + 22, 30, 'KNOCK KNOCK', 15, -6);
+    if (i === 1) return man(cx - 26, 'stand') + door(cx + 2, 0);
+    if (i === 2) return man(cx - 46, 'stand') + door(cx + 6, 1) + balloon(cx - 6, 24, cx + 35, 68, 'Yes?');
+    return man(cx - 26, 'stand') + door(cx + 2, f);           // an in-between frame
+  }
+  if (story === 'kettle') {
+    if (i === 0) return kettle(cx + 8, false) + `<line x1="${cx - 46}" y1="-6" x2="${cx + 6}" y2="58" stroke="${INK}" stroke-width="9" stroke-linecap="round"/><circle cx="${cx + 8}" cy="61" r="7" fill="${INK}"/>`;
+    if (i === 1) return kettle(cx, false);
+    return kettle(cx - 10, true) + sfx(cx + 30, 34, 'WHEEEE', 20, -8);
+  }
+  if (i === 0) return man(cx - 30, 'walk') + stop(cx + 26);
+  if (i === 1) return man(cx - 10, 'stand') + stop(cx + 26);
+  return man(cx - 52, 'stand') + `<rect x="${cx - 18}" y="50" width="130" height="80" fill="${PAPER}" stroke="${INK}" stroke-width="3"/><rect x="${cx - 10}" y="58" width="50" height="30" fill="${INK}"/><rect x="${cx + 48}" y="58" width="40" height="30" fill="${INK}"/><circle cx="${cx - 6}" cy="112" r="5" fill="none" stroke="${INK}" stroke-width="2"/><circle cx="${cx + 8}" cy="132" r="11" fill="${INK}"/>` + sfx(cx + 30, 36, 'HSSS', 14, -4);
+}
+let uid = 0;
+// panels: [{x,y,w,h,story,i,f}] · returns svg markup at the given px scale, on a paper sheet with margin M
+function stripSVG(panels, scale, handles) {
+  const tag = 'k' + (uid++);
+  const minX = Math.min(...panels.map((p) => p.x)), maxX = Math.max(...panels.map((p) => p.x + p.w));
+  const top = Math.min(...panels.map((p) => p.y)), bot = Math.max(...panels.map((p) => p.y + p.h));
+  const vx = minX - M, vy = top - M, vw = maxX - minX + 2 * M, vh = bot - top + 2 * M;
+  let s = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vx} ${vy} ${vw} ${vh}" width="${(vw * scale).toFixed(1)}" height="${(vh * scale).toFixed(1)}">`;
+  s += `<defs><filter id="ink${tag}"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="1.8"/></filter></defs>`;
+  s += `<rect x="${vx}" y="${vy}" width="${vw}" height="${vh}" fill="${PAPER}"/>`;
+  panels.forEach((p, n) => {
+    s += `<clipPath id="c${tag}${n}"><rect x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}"/></clipPath>`;
+    s += `<g clip-path="url(#c${tag}${n})"><rect x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" fill="${PAPER}"/>`;
+    s += `<rect x="${p.x}" y="${GROUND}" width="${p.w}" height="${Math.max(0, p.y + p.h - GROUND)}" fill="${INK}"/>`;
+    s += `<g transform="translate(${p.x},0)" filter="url(#ink${tag})">${content(p.story, p.i, p.w, p.f)}</g></g>`;
+    s += `<rect x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" fill="none" stroke="${INK}" stroke-width="3"/>`;
+  });
+  if (handles) s += handles;
+  return s + '</svg>';
+}
+const rowOf = (story, geo) => geo.panels.map((p, i) => ({ ...p, story, i }));
+
+// ---- the walk ----
+const STEPS = [
+  { name: 'the gap', say: 'Two panels and the gap between them. Nothing is drawn in the gap, and still the door opened: <i>you</i> opened it. McCloud calls that closure. The gutter is where the reader does the moving.',
+    hint: 'One thing here: the motion you supplied. Show what the gap hid, and notice you didn’t need it.' },
+  { name: 'drag the line', say: 'Three panels: the knock, the wait, the door. Now the layout moves and the drawing doesn’t. Drag the middle panel’s right edge, the last panel’s left edge, or the middle panel’s top; then read the strip again from the left. <i>Notice what the wait does.</i>',
+    hint: 'The figures and the door never change size; they stay centred on the same ground. Only the paper around them, and the gap, change.' },
+  { name: 'the stopwatch', say: 'The test asks with your hand, not with words. Press and hold for as long as something lasted, then let go. Try it: hold for about one second, then for about four.',
+    hint: 'No clock shows while you hold, on purpose: counting would turn a feeling into a sum. Space works too, when the button has focus.' },
+  { name: 'the blind test', say: 'Fifteen strips, one at a time: three small stories, each in five layouts, shuffled, each at a slightly different size. Read each one, then hold for as long as the wait felt. There is no right answer, and what the test compares stays unsaid until the last hold.',
+    hint: 'A slip of the finger? Redo the last one. Your holds are kept in this browser until you start a new run.' }
+];
+let step = 0;
+function renderRail() {
+  $('rail').innerHTML = STEPS.map((s, i) => `<button class="${i === step ? 'on' : ''}" data-i="${i}">step ${i + 1}<b>${s.name}</b></button>`).join('');
+}
+$('rail').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) go(+b.dataset.i); });
+function go(i) {
+  endHold(null, true);
+  step = Math.max(0, Math.min(STEPS.length - 1, i));
+  renderRail();
+  $('say').innerHTML = STEPS[step].say; $('hint').textContent = STEPS[step].hint;
+  for (let k = 0; k < 4; k++) $('s' + (k + 1)).classList.toggle('hidden', k !== step);
+  $('back').disabled = step === 0; $('next').disabled = step === STEPS.length - 1;
+  [drawGap, drawDrag, drawPractice, drawTest][step]();
+}
+$('back').onclick = () => go(step - 1);
+$('next').onclick = () => go(step + 1);
+
+// fit: one scale for the session, from the widest strip at its largest jitter
+function fit() {
+  const widest = Math.max(...LAYOUTS.map((l) => geoOf(l.key).width)) + 2 * M;
+  const avail = Math.max(260, (document.querySelector('.piece').clientWidth || 760) - 44 - 34);
+  return Math.min(1.2, avail / (widest * 1.1));
+}
+
+// step 1
+let gapShown = false;
+function drawGap() {
+  const s = fit();
+  const two = [{ x: 0, y: 0, w: P, h: P, story: 'door', i: 0 }, { x: P + G, y: 0, w: P, h: P, story: 'door', i: 2 }];
+  $('gapStrip').innerHTML = stripSVG(two, s * 1.15);
+  const bw = 0.62 * P, fr = [0.22, 0.5, 0.8];
+  const row = fr.map((f, k) => ({ x: k * (bw + 8), y: 0, w: bw, h: P, story: 'door', i: 3, f }));
+  $('betweenStrip').innerHTML = stripSVG(row, s * 0.95);
+  $('hiddenRow').classList.toggle('hidden', !gapShown);
+  $('showGap').textContent = gapShown ? 'hide it again' : 'show what the gap hid';
+}
+$('showGap').onclick = () => { gapShown = !gapShown; drawGap(); };
+
+// step 2
+const drag = { w2: P, g2: G, h2: P };
+function drawDrag() {
+  const s = fit(), geo = geometry(drag.w2, drag.h2, drag.g2), [, p2, p3] = geo.panels;
+  const hs = 'fill="#e8b84a" opacity=".85"';
+  const handles = `<rect data-h="w2" x="${p2.x + p2.w - 3}" y="${p2.y + p2.h / 2 - 22}" width="6" height="44" ${hs} style="cursor:col-resize"/>`
+    + `<rect data-h="g2" x="${p3.x - 3}" y="${P / 2 - 22}" width="6" height="44" ${hs} style="cursor:col-resize"/>`
+    + `<rect data-h="h2" x="${p2.x + p2.w / 2 - 22}" y="${p2.y - 3}" width="44" height="6" ${hs} style="cursor:row-resize"/>`;
+  $('dragStrip').innerHTML = stripSVG(rowOf('door', geo), s, handles);
+  for (const k of ['w2', 'g2', 'h2']) { $(k).value = Math.round(drag[k]); $(k + 'v').textContent = Math.round(drag[k]) + ' px' + (k === 'g2' ? '' : ` · ${(drag[k] / P).toFixed(2)}×`); }
+}
+['w2', 'g2', 'h2'].forEach((k) => $(k).addEventListener('input', () => { drag[k] = +$(k).value; drawDrag(); }));
+$('dragReset').onclick = () => { Object.assign(drag, { w2: P, g2: G, h2: P }); drawDrag(); };
+let dragging = null;
+$('dragStrip').addEventListener('pointerdown', (e) => {
+  const h = e.target.closest('[data-h]'); if (!h) return;
+  const svg = $('dragStrip').querySelector('svg'), m = svg.getScreenCTM().inverse();
+  const pt = (ev) => { const p = svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY; return p.matrixTransform(m); };
+  dragging = { key: h.dataset.h, start: pt(e), from: drag[h.dataset.h], pt };
+  $('dragStrip').setPointerCapture(e.pointerId); e.preventDefault();
+});
+$('dragStrip').addEventListener('pointermove', (e) => {
+  if (!dragging) return;
+  const p = dragging.pt(e), lim = { w2: [85, 408], g2: [6, 200], h2: [170, 306] }[dragging.key];
+  const d = dragging.key === 'h2' ? dragging.start.y - p.y : p.x - dragging.start.x;
+  drag[dragging.key] = Math.max(lim[0], Math.min(lim[1], dragging.from + d));
+  drawDrag();
+});
+const dragEnd = () => { dragging = null; };
+$('dragStrip').addEventListener('pointerup', dragEnd); $('dragStrip').addEventListener('pointercancel', dragEnd);
+
+// the hold: a button you press and hold; pointer or space. One hold at a time, capped at 20 s.
+const CAP = 20, MIN = 0.15;
+let holding = null;
+function bindHold(btn, onDone) {
+  const start = () => { if (holding) return; holding = { btn, t0: performance.now(), onDone, cap: setTimeout(() => endHold(btn), CAP * 1000) }; btn.classList.add('down'); btn.textContent = 'holding'; };
+  btn.addEventListener('pointerdown', (e) => { e.preventDefault(); try { btn.setPointerCapture(e.pointerId); } catch {} start(); });
+  btn.addEventListener('pointerup', () => endHold(btn));
+  btn.addEventListener('pointercancel', () => endHold(btn, true));
+  btn.addEventListener('keydown', (e) => { if (e.code === 'Space' || e.key === ' ') { e.preventDefault(); if (!e.repeat) start(); } });
+  btn.addEventListener('keyup', (e) => { if (e.code === 'Space' || e.key === ' ') { e.preventDefault(); endHold(btn); } });
+  btn.addEventListener('click', (e) => e.preventDefault());
+}
+function endHold(btn, cancel) {
+  if (!holding || (btn && holding.btn !== btn)) return;
+  const h = holding; holding = null; clearTimeout(h.cap);
+  h.btn.classList.remove('down'); h.btn.textContent = 'press and hold';
+  if (cancel) return;
+  const secs = Math.min(CAP, (performance.now() - h.t0) / 1000);
+  h.onDone(secs);
+}
+
+// step 3
+const practice = [];
+function drawPractice() {
+  $('pq').textContent = practice.length === 0 ? 'Hold for about one second.' : practice.length === 1 ? 'Now hold for about four seconds.' : 'That is the whole instrument.';
+  $('pHold').disabled = practice.length >= 2;
+  $('pRead').innerHTML = practice.length ? `<span>about one second: <b>${practice[0].toFixed(2)} s</b></span>` + (practice[1] != null ? `<span>about four: <b>${practice[1].toFixed(2)} s</b></span><span>your long over your short: <b>${(practice[1] / practice[0]).toFixed(1)}×</b></span>` : '') : '<span>nothing held yet</span>';
+}
+bindHold($('pHold'), (s) => { if (s < MIN) { $('pRead').innerHTML = '<span>too quick to count: press and hold</span>'; return; } practice.push(s); drawPractice(); });
+$('pAgain').onclick = () => { practice.length = 0; drawPractice(); };
+
+// step 4
+const KEY = 'graphic-storytelling-time-is-space-v1';
+let run = null;
+function save() { try { localStorage.setItem(KEY, JSON.stringify(run)); } catch {} }
+function load() { try { const r = JSON.parse(localStorage.getItem(KEY) || 'null'); if (r && Array.isArray(r.order) && r.order.length === 15 && Array.isArray(r.holds)) return r; } catch {} return null; }
+function newRun() { run = { started: new Date().toISOString(), order: schedule(Math.random), holds: [] }; save(); }
+function drawTest() {
+  if (!run) run = load(); if (!run) newRun();
+  const done = run.holds.length >= run.order.length;
+  $('testRun').classList.toggle('hidden', done); $('testDone').classList.toggle('hidden', !done);
+  if (done) return reveal();
+  const n = run.holds.length, t = run.order[n];
+  $('tLab').textContent = `strip ${n + 1} of ${run.order.length}`;
+  $('testStrip').innerHTML = stripSVG(rowOf(t.story, geoOf(t.layout)), fit() * t.scale);
+  $('tq').textContent = STORIES.find((s) => s.key === t.story).q;
+  $('tUndo').disabled = n === 0;
+  $('tRead').innerHTML = n ? `<span>${n} held · the layouts stay hidden until the last</span>` : '<span>read the strip first, then hold for as long as the wait felt</span>';
+}
+bindHold($('tHold'), (s) => {
+  if (s < MIN) { $('tRead').innerHTML = '<span>too quick to count: press and hold</span>'; return; }
+  run.holds.push(+s.toFixed(3)); save(); drawTest();
+});
+$('tUndo').onclick = $('dUndo').onclick = () => { if (run && run.holds.length) { run.holds.pop(); save(); drawTest(); } };
+$('restart').onclick = () => { newRun(); drawTest(); };
+
+function trials() { return run.order.map((t, i) => ({ ...t, hold: run.holds[i] })); }
+function thumb(k) {
+  const g = geoOf(k), sc = 0.11, W = g.width * sc + 4, H = (g.bottom - g.top) * sc + 4;
+  return `<svg width="${W.toFixed(0)}" height="${H.toFixed(0)}" viewBox="${-2 / sc} ${g.top - 2 / sc} ${W / sc} ${H / sc}" style="vertical-align:middle">` + g.panels.map((p) => `<rect x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" fill="none" stroke="#c8c8d8" stroke-width="${1.2 / sc}"/>`).join('') + '</svg>';
+}
+function reveal() {
+  const T = trials(), A = analyse(T);
+  window.richResults = { piece: 'Graphic Storytelling — time is space', trials: T, rows: A.rows, verdict: A.verdict };
+  // dot plot: one row per layout, seconds across, each story its own mark; hollow rings = that story, plain
+  const maxS = Math.max(2, ...T.map((t) => t.hold)) * 1.08, W = 640, rowH = 34, left = 120, H = LAYOUTS.length * rowH + 30;
+  const X = (s) => left + (W - left - 10) * (s / maxS), mark = { door: 'd', kettle: 'k', bus: 'b' };
+  const plain = Object.fromEntries(T.filter((t) => t.layout === 'plain').map((t) => [t.story, t.hold]));
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:${W}px">`;
+  for (let s = 0; s <= maxS; s += maxS > 12 ? 4 : maxS > 6 ? 2 : 1) svg += `<line x1="${X(s)}" y1="6" x2="${X(s)}" y2="${H - 22}" stroke="rgba(255,255,255,.06)"/><text x="${X(s)}" y="${H - 6}" fill="#8a8aa0" font-family="JetBrains Mono, monospace" font-size="10" text-anchor="middle">${s} s</text>`;
+  LAYOUTS.forEach((l, r) => {
+    const y = 18 + r * rowH;
+    svg += `<text x="0" y="${y + 4}" fill="#c8c8d8" font-family="JetBrains Mono, monospace" font-size="11">${l.label}</text>`;
+    STORIES.forEach((s, k) => {
+      const t = T.find((u) => u.story === s.key && u.layout === l.key), yy = y + (k - 1) * 7;
+      if (l.key !== 'plain') svg += `<circle cx="${X(plain[s.key])}" cy="${yy}" r="4" fill="none" stroke="#4a4a5e"/>`;
+      svg += `<circle cx="${X(t.hold)}" cy="${yy}" r="4" fill="${l.key === 'plain' ? '#8a8aa0' : '#e8b84a'}"/><text x="${X(t.hold) + 7}" y="${yy + 3}" fill="#8a8aa0" font-family="JetBrains Mono, monospace" font-size="9">${mark[s.key]}</text>`;
+    });
+  });
+  $('dots').innerHTML = svg + '</svg><div class="read"><span>d door · k kettle · b bus</span></div>';
+  const pw = { longer: 'longer', shorter: 'shorter', same: 'no change: it grows across the line, not along it' };
+  $('resTable').innerHTML = '<tr><th>layout</th><th>the claim predicts</th><th>door · kettle · bus, over plain</th><th>on average</th><th>your hands</th></tr>'
+    + A.rows.map((r) => `<tr><td>${thumb(r.layout)} <b>${r.label}</b></td><td>${pw[r.predict]}</td><td>${r.ratios.map((x) => '×' + x.toFixed(2)).join(' · ')}</td><td>×${r.gm.toFixed(2)}</td><td class="${r.asPredicted ? 'ok' : ''}">${outWords[r.out]}${r.asPredicted ? ' · as predicted' : ''}</td></tr>`).join('');
+  $('verdict').innerHTML = A.verdict.map((l) => `<p>${l}</p>`).join('');
+  $('sheet').value = ['Graphic Storytelling · time is space · run of ' + run.started.slice(0, 10), 'strip,story,layout,scale,hold_s']
+    .concat(T.map((t, i) => [i + 1, t.story, t.layout, t.scale, t.hold].join(',')))
+    .concat(['', 'layout,predict,door_r,kettle_r,bus_r,mean_r,outcome'])
+    .concat(A.rows.map((r) => [r.layout, r.predict, ...r.ratios.map((x) => x.toFixed(3)), r.gm.toFixed(3), r.out].join(',')))
+    .concat(['', ...A.verdict]).join('\n');
+}
+
+let lastW = 0;
+new ResizeObserver(() => { const w = document.querySelector('.piece').clientWidth; if (Math.abs(w - lastW) > 24) { lastW = w; if (!dragging && !holding) [drawGap, drawDrag, drawPractice, drawTest][step](); } }).observe(document.querySelector('.piece'));
+go(0);
+</script>
+</body>
+</html>

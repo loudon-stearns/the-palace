@@ -1,0 +1,72 @@
+# Synth Templates — card — Moog Bass
+# Two oscillators an octave apart into a ladder filter with a little drive. The zipper, the slope, the distortion.
+schema: synth-template-card/0.2
+id: moog-bass
+name: Moog Bass
+family: Bass
+tier: 1
+mode: mono
+classics: Minimoog
+status: drafted
+concepts:
+  - "Combining waveforms: square + saw octave up (zipper)"
+  - "Filter models and their distortion (sine test)"
+  - "Subtractive: rich wave then filter"
+  - "Filter slope: 12 vs 24 dB/oct, poles"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, note: "the even partials of the pair"}
+    osc2:    {kind: oscillator, wave: square, octave: -1, note: "the odd partials; the two interlock like a zipper"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little, drive: light, note: "ladder model, if the synth offers one"}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: low, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,            why: "all harmonics; the saw an octave up supplies the even ones"}
+  - {block: osc2,    param: wave,      value: square,         why: "odd harmonics only, so the two waves never play the same partial"}
+  - {block: osc2,    param: octave,    value: -1,             why: "the square sits an octave under the saw: a complete series between them"}
+  - {block: filter1, param: type,      value: lowpass 24 dB,  why: "four poles: the cut is steep and deep right above the cutoff"}
+  - {block: filter1, param: model,     value: ladder,         why: "the Moog filter adds its own harmonics; a sine through it comes out richer"}
+  - {block: filter1, param: cutoff,    value: dark,           why: "lowish at rest; the round Moog body is the closed filter"}
+  - {block: filter1, param: drive,     value: light,          why: "a little distortion in the filter: warmth, and it tames the resonance"}
+  - {block: fenv,    param: decay,     value: short,          why: "a little bite at the front of every note"}
+  - {block: fenv,    param: sustain,   value: low,            why: "the filter settles slightly open, not shut"}
+  - {block: mode,    param: voices,    value: mono,           why: "a Minimoog plays one note"}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – mid",          default: dark}
+  - {block: filter1, param: resonance, range: "none – moderate",     default: little}
+  - {block: filter1, param: drive,     range: "light – heavy",       default: light}
+  - {block: fenv,    param: amount,    range: "some – generous",     default: moderate}
+  - {block: osc2,    param: level,     range: "half – equal to osc1", default: equal to osc1}
+  - {block: aenv,    param: release,   range: "short – medium",      default: short}
+  - {block: osc1,    param: glide,     range: "none – short",        default: none}
+
+listening:
+  cue: "Round and full, with a soft bite at the front of each note. Under the saw buzz there is a hollow square an octave down, and the two together sound like one fat wave."
+  ab: "Turn osc2 off: the bottom octave and the hollowness go, and it is a thin saw bass. Back on, then change the square to a saw: the two now double each other's partials and the fatness turns to buzz."
+
+render:
+  tempo: 110
+  note: [C2, C2, G1, Bb1]
+  velocity: 100
+  pattern: "one bar: quarter, quarter, eighth, eighth with a rest between; each note slightly short"
+  length_s: 2.5
+
+mappings: {}

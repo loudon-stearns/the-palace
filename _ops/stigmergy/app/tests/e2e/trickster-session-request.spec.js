@@ -20,6 +20,9 @@ const ORDINARY = '[data-testid="trickster-card"][data-request-id="kuramoto-stewa
 async function gotoTrickster(page) {
   await page.goto('/?demo=only&deck=TRICKSTER');
   await expect(page.getByTestId('trickster-deck')).toBeVisible({ timeout: 15_000 });
+  // The deck is entered collapsed (2026-11-04); these specs read the full card.
+  await page.getByTestId('trickster-compact-toggle').click();
+  await expect(page.getByTestId('trickster-compact-toggle')).toHaveAttribute('data-compact', 'false');
   await expect(page.locator(SESSION)).toBeVisible({ timeout: 15_000 });
 }
 

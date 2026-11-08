@@ -1,0 +1,66 @@
+# Synth Templates — card 0.2 — Low-Res Notch on Bass
+# Filter Routings, tier 1. The secret weapon from Loudon's notes: a wide notch scoops the mids out of a big bass and leaves the sub and the bite.
+schema: synth-template-card/0.2
+id: low-res-notch-on-bass
+name: Low-Res Notch on Bass
+family: Filter Routings
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Low-resonance notch on big bass"
+  - "Low-pass, high-pass, band-pass, notch"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: narrow}
+    sub:     {kind: oscillator, wave: sine, octave: -1, note: "the deep end the notch never touches"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: notch, slope: 24, resonance: little, note: "on a notch, resonance is width: low resonance is a wide scoop"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [saturation]}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,          why: "the brightness that cuts through; the notch leaves the top alone"}
+  - {block: sub,     param: wave,      value: sine,         why: "the weight, an octave down, below the notch"}
+  - {block: sub,     param: level,     value: half}
+  - {block: filter1, param: type,      value: notch,        why: "a cut in the middle, not at the top or the bottom"}
+  - {block: filter1, param: cutoff,    value: mid,          why: "the mids, where every other instrument lives"}
+  - {block: filter1, param: resonance, value: little,       why: "low resonance on a notch is a wide one: it takes out a whole region, not a line"}
+  - {block: mode,    param: voices,    value: mono,         why: "a bass line"}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – bright",      default: mid,    why: "where the hole sits; move it to clear whatever the mix needs cleared"}
+  - {block: filter1, param: resonance, range: "none – moderate",    default: little, why: "wider is a bigger hole; higher is a narrow slit you barely hear"}
+  - {block: sub,     param: level,     range: "quarter – equal to osc1", default: half}
+  - {block: osc1,    param: detune,    range: "none – wide",        default: narrow}
+  - {block: fx,      param: drive,     range: "none – light",       default: light}
+  - {block: aenv,    param: release,   range: "short – medium",     default: short}
+
+listening:
+  cue: "Deep and bright at once with a hollow in between. Alone it sounds like something is missing; in a mix the kick, the vocal and the chords have somewhere to sit."
+  ab: "Bypass the notch: the bass gets fatter in the mids and immediately crowds everything else. Put it back and the room reappears. Then raise the notch resonance to high: the hole shrinks to a slit and the mids come back."
+
+render:
+  tempo: 100
+  note: [C2, C2, Eb2, F2]
+  velocity: 100
+  pattern: "eighths, one bar: C2 C2 C2 C2 Eb2 Eb2 F2 F2, each held most of its length"
+  length_s: 3.0
+
+mappings: {}

@@ -11,7 +11,7 @@ links:
   - target: "[[The Shop]]"
     type: member-of
     label: roster-member
-  - target: "[[BLUELINE — Production Plan]]"
+  - target: "[[BLUELINE]]"
     type: connects-to
     label: track-II-trainer
   - target: "[[Capability-first prototyping]]"
@@ -47,7 +47,7 @@ The reason this entry exists as operational anatomy and not a paragraph: the fir
 
 ## The Recipe (runs first-try)
 
-1. **Spin a pod** via RunPod REST `POST /v1/pods` with a `gpuTypeIds` *priority list* (A6000/A40/L40/4090) — single types stock out; SSH via `PUBLIC_KEY`, port `22/tcp`, container disk ≥90GB. Concrete: `Projects/BLUELINE/render-backend/` + the BLUELINE Track-II scripts.
+1. **Spin a pod** through the Shop's pod provider ([[RunPod GPU Backend — runbook]] § Renting a pod) with a *priority list* of 48GB types (A6000/A40/L40/4090) — single types stock out; SSH via `PUBLIC_KEY`, port `22/tcp`, container disk ≥90GB. Concrete: `Projects/BLUELINE/render-backend/` + the BLUELINE Track-II scripts.
 2. **Install order that survives:** `pip install -r requirements.txt` **then force** `torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url …/cu124`. (The forced torch bump is load-bearing — see Gotcha 2/3.)
 3. **Train** (`run_flux*.sh` / `run_sdxl*.sh` in `Projects/BLUELINE/proofs/track-II-lora/`), `nohup` + poll a log; touch a `DONE`/`FAILED` flag.
 4. **Reap promptly:** a background watcher waits for the flag, `scp`s the weight back, and **terminates the pod** — an idle pod keeps billing.
@@ -76,7 +76,7 @@ Render the subject across **new contexts × different seeds** (where seed-lockin
 
 ## Resource Footprint
 
-A 48GB secure card, a few hours of pod time per LoRA end to end. Terminate on completion; an idle pod keeps billing. The key lives in `Shop/RunPod GPU Backend/studio/config.json` (gitignored).
+A 48GB secure card, a few hours of pod time per LoRA end to end. Terminate on completion; an idle pod keeps billing. The key, and everything else Runpod: [[RunPod GPU Backend — runbook]].
 
 ## Self-Check
 
@@ -85,5 +85,5 @@ Before declaring a LoRA done: (1) it loaded in the renderer without a key-format
 ## Forward Vectors
 
 - **Grow a dataset-shaping front half** — the lesson is that inputs, not steps, decide the outcome. A `r4ng3r` rebuild (visible faces, varied conditions) is the first test of whether the pipeline delivers once the dataset is right.
-- **Answer the SDXL→FLUX base-swap question** ([[BLUELINE — Production Plan]] Track II #5) — it died unanswered because both LoRAs failed on the *same* bad dataset; re-run it on a good one.
+- **Answer the SDXL→FLUX base-swap question** (BLUELINE's Track II, item 5, in the archived [[BLUELINE — Production Plan]]) — it died unanswered because both LoRAs failed on the *same* bad dataset; re-run it on a good one.
 - **Earn or shed the second tool.** If the Study tier (kohya/SDXL) never beats the Piece tier (FLUX) on a fair dataset, collapse to one tool and retire the comparison.

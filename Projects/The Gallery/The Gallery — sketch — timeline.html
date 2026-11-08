@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<title>The Gallery — sketch timeline · before the era map</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f0eee5">
+<style data-furniture="_ops/drafting-table/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/drafting-table/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button. */
+@layer furniture {
+:where(*) { --fx-ground-000: #f0eee5; --fx-ground-100: #e6e3d7; --fx-ground-200: #dcd9ca; --fx-ink: var(--ink, #1a1916); --fx-ink-2: #3a3a35; --fx-ink-3: #6a6862; --fx-rule: var(--rule, #b8b09a); --fx-slab-face: #d8d4c6; --fx-slab-light: #ebe8dd; --fx-accent: #c8261a; --fx-selection: #1a1916; --fx-on-selection: #f0eee5; --fx-source-measure: #c8261a; --fx-source-datasheet: #2b5fb0; --fx-shadow-slab: inset 0 1px 0 #ebe8dd, 0 1px 0 #b9b4a3, 0 2px 3px rgba(26,25,22,0.18); --fx-shadow-recess: inset 0 1px 2px rgba(26,25,22,0.28), inset 0 0 0 1px #b8b09a; --fx-font-mono: 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace; --fx-space-1: 4px; --fx-space-2: 8px; --fx-space-3: 12px; --fx-space-4: 16px; --fx-space-5: 24px; --fx-radius-0: 0; --fx-radius-bevel: 2px; --fx-radius-round: 999px; --fx-stroke-frame: 2px; --fx-stroke-rule: 1px; }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: var(--fx-ground-100); border-left: var(--fx-stroke-rule) solid var(--fx-rule);}
+::-webkit-scrollbar-track:horizontal {border-left: 0; border-top: var(--fx-stroke-rule) solid var(--fx-rule);}
+::-webkit-scrollbar-thumb {background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-0); box-shadow: inset 0 1px 0 var(--fx-slab-light);}
+::-webkit-scrollbar-thumb:hover {background: var(--fx-slab-light);}
+::-webkit-scrollbar-thumb:active {background: var(--fx-slab-light); border-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: var(--fx-ground-100);}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-rule) var(--fx-ground-100);}
+*:hover {scrollbar-color: var(--fx-ink-2) var(--fx-ground-100);}}
+::selection {background: var(--fx-selection); color: var(--fx-on-selection); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px dashed var(--fx-ink); outline-offset: 2px;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.sheet-dim {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<style>
+:root{--g0:#f0eee5;--g1:#e6e3d7;--g2:#dcd9ca;--ink:#1a1916;--ink2:#3a3a35;--ink3:#6a6862;--rule:#b8b09a;--rs:#cfc9b6;
+--ds:#2b5fb0;--as:#a8730a;--ms:#c8261a;
+--c-course:#3a7d2c;--c-paper:#2b5fb0;--c-writing:#6a47b8;--c-recording:#b3356b;--c-performance:#b83a26;--c-instrument:#a8730a;--c-tool:#1a1916;--c-talk:#6a6862}
+*{box-sizing:border-box;border-radius:0}
+body{margin:0;background:var(--g0);color:var(--ink);font:13px/1.45 "JetBrains Mono",ui-monospace,Menlo,monospace}
+.sheet{margin:14px;border:2px solid var(--ink);padding:14px 16px 10px}
+.eyebrow{text-transform:uppercase;letter-spacing:.08em;color:var(--ink2);font-size:11px}
+h1{font-size:17px;margin:2px 0 4px;font-weight:600}
+.note{color:var(--ink2);max-width:86ch;margin:0 0 10px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:8px 0 10px;font-size:11px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;width:22px;height:9px;border:2px solid}
+.ctl{display:flex;gap:8px;align-items:center;margin-bottom:6px;font-size:11px}
+button{font:inherit;font-size:11px;background:var(--g0);color:var(--ink);border:1px solid var(--ink);padding:2px 8px;cursor:pointer;text-transform:uppercase}
+button.on{background:var(--ink);color:var(--g0)}
+#wrap{position:relative;border:1px solid var(--rule);background:var(--g0);cursor:grab;user-select:none}
+svg{display:block;width:100%}
+.lane-label{font-size:10px;fill:var(--ink2);text-transform:uppercase;letter-spacing:.06em}
+.yr{font-size:10px;fill:var(--ink2)}
+.mark{cursor:pointer}
+.mark:hover rect{stroke-width:3}
+#card{margin-top:10px;border:1px solid var(--rule);padding:10px 12px;min-height:92px;display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+#card .t{font-weight:600;font-size:14px;grid-column:1/-1}
+#card .k{color:var(--ink2);font-size:11px;text-transform:uppercase}
+.prov-datasheet{color:var(--ds)}.prov-assumed{color:var(--as)}.prov-hold{color:var(--ms);font-weight:600}
+.tb{display:grid;grid-template-columns:repeat(4,auto);border:2px solid var(--ink);margin-top:12px;font-size:10px}
+.tb div{border-right:1px solid var(--ink);padding:4px 8px}.tb div:last-child{border-right:0}
+.tb b{display:block;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);font-weight:500}
+</style>
+</head>
+<body>
+<div class="sheet">
+<div class="eyebrow">The Gallery · sheet 01 · sketch · drawn 2026-11-03 by the steward, cycle 1</div>
+<h1>Everything the drive and the palace already know, before you tell me the eras</h1>
+<p class="note">Each bar is a folder or a palace page that looks like a work. Its length is the span of its files' dates, read without downloading a single file. Amber means a guess from file dates; blue means the palace or git already holds it; red means nobody knows yet. File dates say when a file was last touched, not when a thing was made, so every amber bar is a question for tomorrow. Drag to pan, scroll to zoom, click a bar.</p>
+<div class="legend" id="legend"></div>
+<div class="ctl"><span class="eyebrow">Lanes</span><button data-l="kind" class="on">by kind</button><button data-l="prov">by how sure</button><span style="flex:1"></span><button id="reset">whole line</button></div>
+<div id="wrap"><svg id="tl"></svg></div>
+<div id="card"><div class="t">Click a bar</div><div class="k">The card shows where the guess came from and the one question it asks.</div></div>
+<div class="tb"><div><b>Works drafted</b><span id="n"></span></div><div><b>Sure / guessed / unknown</b><span id="np"></span></div><div><b>Source</b>Dropbox _CLASSES, WIND, _PERSONAL (work folders only), collaborator shares; the palace; git</div><div><b>Held back</b>three private lesson and share folders; tax, expense and licence files</div></div>
+</div>
+<script>
+const W = [{"id": "class-261", "title": "Class folder “261”", "kind": "course", "when": "~2011-12..2012-03", "prov": "assumed", "src": "Dropbox/_CLASSES/261", "note": "22 files, text only. A course number? Which school?"}, {"id": "class-361", "title": "Class folder “361”", "kind": "course", "when": "~2009..2018-11", "prov": "assumed", "src": "Dropbox/_CLASSES/361", "note": "3,777 files, mostly Pro Tools sessions and WAVs; median file year 2011. One file carries a 1969 date (a zero timestamp), dropped."}, {"id": "classes", "title": "Classes (the general folder)", "kind": "course", "when": "~2005..2023-11", "prov": "assumed", "src": "Dropbox/_CLASSES/Classes", "note": "790 files, median 2011. Probably many courses in one folder; the hunt splits it."}, {"id": "ableton-series", "title": "Loudon Ableton Series", "kind": "course", "when": "~2012-05..2012-06", "prov": "assumed", "src": "Dropbox/_CLASSES/Loudon Ableton Series", "note": "5 videos."}, {"id": "tracks-interact", "title": "Tracks Interact", "kind": "course", "when": "~2012-05", "prov": "assumed", "src": "Dropbox/_CLASSES/Tracks Interact", "note": "5 videos, same week as the Ableton Series."}, {"id": "coursera", "title": "Coursera Music Production", "kind": "course", "when": "~2013-01..2013-04", "prov": "assumed", "src": "Dropbox/_CLASSES/Coursera Music Production", "note": "75 images and design files: course art? Whose course, and his role?"}, {"id": "adv-ableton", "title": "Advanced Ableton", "kind": "course", "when": "~2013-05", "prov": "assumed", "src": "Dropbox/_CLASSES/AdvAbleton", "note": "53 files, Live sets and audio, one week."}, {"id": "dan-mc", "title": "Loudon and Dan Mc", "kind": "course", "when": "~2013-07..2014-10", "prov": "assumed", "src": "Dropbox/_CLASSES/Loudon And Dan Mc", "note": "11 videos and a doc. Teaching videos with a collaborator?"}, {"id": "alt-sampling", "title": "Sampling (ALT)", "kind": "course", "when": "~2013-10..2017-11", "prov": "assumed", "src": "Dropbox/_CLASSES/ALT Sampling", "note": "1,905 files. ALT is a prefix on four course folders; what does it name?"}, {"id": "fxpansion", "title": "FXpansion videos", "kind": "course", "when": "~2015-01..2015-03", "prov": "assumed", "src": "Dropbox/_CLASSES/FXpansionVideos", "note": "59 files, screen-movie project. Tutorials made for a plugin company?"}, {"id": "live-synthesis", "title": "Live Synthesis screen movies", "kind": "course", "when": "~2018-01..2018-05", "prov": "assumed", "src": "Dropbox/_CLASSES/Live Synthesis Screenmovies", "note": "456 files."}, {"id": "online", "title": "_Online (online course material)", "kind": "course", "when": "~2005-06..2019-04", "prov": "assumed", "src": "Dropbox/_CLASSES/_Online", "note": "1,594 files, median 2018."}, {"id": "non-lin", "title": "Non-Linear Creative Strategies", "kind": "course", "when": "~2018-04..2019-03", "prov": "assumed", "src": "Dropbox/_CLASSES/Live Non-Lin Screenmovies; ALT Non-Lin Week 12 Screenmovies; Non-Lin Week 12 Project", "note": "Three folders; the title is read from a signed agreement file name in _PERSONAL."}, {"id": "cpem2", "title": "CPEM 2 revision", "kind": "course", "when": "~2021-02..2024-06", "prov": "assumed", "src": "Dropbox/_CLASSES/CPEM 2 revision Workspace", "note": "1,305 files. What does CPEM stand for?"}, {"id": "ableton-online", "title": "Ableton online class amendments", "kind": "course", "when": "~2023-11", "prov": "assumed", "src": "Dropbox/_CLASSES/Ableton Online Class Amendments - Loudon Signed", "note": "4 signed PDFs."}, {"id": "alt-fund", "title": "Fundamentals revisions (ALT)", "kind": "course", "when": "~2024-06..2024-07", "prov": "assumed", "src": "Dropbox/_CLASSES/ALT Fundamentals Revisions", "note": "46 files."}, {"id": "alt-dsp", "title": "Synthesis and DSP revisions (ALT)", "kind": "course", "when": "~2025-01..2025-05", "prov": "assumed", "src": "Dropbox/_CLASSES/ALT DSP REVISIONS", "note": "309 files; a signed “Synthesis and DSP” agreement sits in _PERSONAL."}, {"id": "berklee", "title": "Berklee teaching", "kind": "course", "when": "?", "prov": "hold", "src": "Dropbox/Berklee Google Backup 2024; a faculty ID image in _PERSONAL", "note": "Years unknown. The palace’s only line on Berklee NYC and LMPD is a paraphrase in a workshop file; Loudon confirms before the line states it."}, {"id": "emerson", "title": "Emerson College MFA", "kind": "course", "when": "~2012..2014", "prov": "assumed", "src": "Dropbox/_PERSONAL/Emerson (7,916 files, median 2014); Meaning and the Link", "note": "His study, not his teaching. Span guessed from the folder’s median and the 2014 paper."}, {"id": "meaning-link", "title": "Meaning and the Link", "kind": "paper", "when": "2014", "prov": "datasheet", "src": "palace: Meaning and the Link.md (PDF in its bundle)", "note": "MFA paper, Emerson. Links come before nodes: the root of the palace.", "palace": "Meaning and the Link"}, {"id": "synth-notes", "title": "Synthesis Notes", "kind": "writing", "when": "?", "prov": "hold", "src": "palace: Synthesis Notes (Loudon).md", "note": "His teaching text on subtractive synthesis. Seeded Synth Templates. The year is his to give.", "palace": "Synthesis Notes (Loudon)"}, {"id": "if-2013", "title": "Interactive fiction", "kind": "writing", "when": "~2009-12..2013-03", "prov": "assumed", "src": "Dropbox/_PERSONAL/Interactivce Fiction_2013", "note": "Z-machine story files (.z5, .z8) and drafts. Folder name says 2013."}, {"id": "kyle", "title": "With Kyle", "kind": "recording", "when": "~2012-07..2015-09", "prov": "assumed", "src": "Dropbox/_PERSONAL/Kyle & Loudon Share", "note": "396 files, Live sets and audio."}, {"id": "altenderfer", "title": "Altenderfer and Stearns", "kind": "recording", "when": "~2013-07..2013-08", "prov": "assumed", "src": "Dropbox/_PERSONAL/Altenderfer and Stearns", "note": "60 files, with Lua scripts and .m5p: a performance rig?"}, {"id": "fall-2016", "title": "Fall 2016 demos", "kind": "recording", "when": "~2016-10", "prov": "assumed", "src": "Dropbox/_PERSONAL/Fall 2016 Demos, Extra Silence", "note": "76 files."}, {"id": "dufforama", "title": "Dufforama 2016", "kind": "performance", "when": "~2016-08", "prov": "assumed", "src": "Dropbox/_PERSONAL/Dufforama 2016", "note": "269 photos, one day. A show?"}, {"id": "filter-proof", "title": "Filter Proof", "kind": "recording", "when": "~2018-05", "prov": "assumed", "src": "Dropbox/_PERSONAL/Filter Proof Project", "note": "34 files, one day."}, {"id": "drum-dynamics", "title": "Drum Dynamics", "kind": "recording", "when": "~2019-07", "prov": "assumed", "src": "Dropbox/_PERSONAL/Drum Dynamics Project", "note": "84 files."}, {"id": "shae", "title": "With Shae", "kind": "recording", "when": "~2020-03..2026-10", "prov": "assumed", "src": "Dropbox/Loudon | Shae; Loudon | Shae --2026 LDN SHARE", "note": "3,065 files across two shares."}, {"id": "mychorus", "title": "MyChorus", "kind": "instrument", "when": "~2022-03..2022-04", "prov": "assumed", "src": "Dropbox/WIND/MyChorus Project", "note": "14 files."}, {"id": "wind", "title": "WIND", "kind": "instrument", "when": "~2022-07..2024-05", "prov": "assumed", "src": "Dropbox/WIND (preset projects 2022, packages 2.9.83 and 3.0.0, MPE Envelope 3.0.5)", "note": "A Max for Live package with versions and presets. Listed, not opened (Max work is paused)."}, {"id": "eternal", "title": "Eternal", "kind": "recording", "when": "~2024-01..2024-05", "prov": "assumed", "src": "Dropbox/_PERSONAL/Eternal", "note": "1,907 files."}, {"id": "peek-a-boo", "title": "Peek A Boo, with Lee", "kind": "recording", "when": "~2024-08..2025-03", "prov": "assumed", "src": "Dropbox/Loudon | Lee - Peek A Boo", "note": "1,176 files."}, {"id": "valen", "title": "With Valen", "kind": "recording", "when": "~2009..2026", "prov": "assumed", "src": "Dropbox/Loudon | Valen", "note": "32,272 files, median 2025: the largest share on the drive. Probably many works."}, {"id": "one-from-two", "title": "1 from 2", "kind": "writing", "when": "2025-01", "prov": "datasheet", "src": "palace: Projects/1 from 2.md (born 2025-01)", "note": "A short story: an AI implanted at birth learns to want what the infant wants. Seeded Cooperation Yields Agency.", "palace": "1 from 2"}, {"id": "simple-sine", "title": "Simple polyphonic sine (VST3)", "kind": "instrument", "when": "~2025-03", "prov": "assumed", "src": "Dropbox/WIND/SimplePolyphonicSine-plugin.vst3", "note": "A first plugin build?"}, {"id": "palace", "title": "The Palace", "kind": "tool", "when": "2026-03-17..", "prov": "datasheet", "src": "git: first commit 2026-03-17, 3,401 commits to 2026-11-03", "note": "This house. Every work above can link forward into it.", "palace": "Symbiotic Skills"}, {"id": "tract-mirror", "title": "Tract Mirror (VST3)", "kind": "instrument", "when": "2026-06-09", "prov": "datasheet", "src": "palace: Loudon's Toolkit catalog, installed 2026-06-09", "note": "A plugin of his own, under the company name Loudon Live.", "palace": "Tract Mirror"}, {"id": "loudon-live", "title": "Loud’n Live", "kind": "talk", "when": "~2026-04..", "prov": "assumed", "src": "palace: Projects/Loudon Live.md; Crystal Synthesizer scroll (April 2026 arc)", "note": "His public, teaching and coaching face. When did the name begin?", "palace": "Loudon Live"}];
+const KINDS=["course","paper","writing","recording","performance","instrument","tool","talk"];
+const PROVS=["datasheet","assumed","hold"];
+const PROVNAME={datasheet:"held by the palace or git",assumed:"guessed from file dates",hold:"unknown — his to give"};
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const NOW=2026+10/12;
+function parse(w){ // returns [start,end] in decimal years, or null
+  if(w==="?")return null;
+  const s=w.replace(/~/g,"");const [a,b]=s.split("..");
+  const d=x=>{if(!x)return NOW;const p=x.split("-").map(Number);return p[0]+((p[1]||1)-1)/12+((p[2]||1)-1)/365;};
+  const st=d(a);let en=b===undefined?null:d(b);
+  if(en===null){const p=a.split("-");en=st+(p.length===1?1:p.length===2?1/12:1/52);}
+  if(b!==undefined&&b.split("-").length===2)en+=1/12; if(b!==undefined&&b.split("-").length===1&&b)en+=1;
+  return [st,Math.max(en,st+1/26)];
+}
+W.forEach(w=>w.span=parse(w.when));
+document.getElementById("n").textContent=W.length;
+document.getElementById("np").textContent=PROVS.map(p=>W.filter(w=>w.prov===p).length).join(" / ");
+const lg=document.getElementById("legend");
+KINDS.forEach(k=>lg.insertAdjacentHTML("beforeend",`<span><i class="sw" style="background:${css("--c-"+k)};border-color:${css("--c-"+k)}"></i>${k}</span>`));
+lg.insertAdjacentHTML("beforeend",`<span><i class="sw" style="border-color:${css("--ds")}"></i>sure</span><span><i class="sw" style="border-color:${css("--as")};border-style:dashed"></i>guessed</span><span><i class="sw" style="border-color:${css("--ms")}"></i>unknown (drawn in the margin)</span>`);
+let mode="kind",x0=2004.5,x1=2027;
+const svg=document.getElementById("tl"),wrap=document.getElementById("wrap");
+function draw(){
+  const lanes=mode==="kind"?KINDS:PROVS;
+  const Wd=wrap.clientWidth,L=96,R=150,top=22,rowH=13,pad=8;
+  // pack bars into sub-rows per lane
+  const rows={};lanes.forEach(l=>rows[l]=[]);
+  const placed=[];
+  W.filter(w=>w.span).sort((a,b)=>a.span[0]-b.span[0]).forEach(w=>{
+    const l=w[mode==="kind"?"kind":"prov"];const r=rows[l];let i=0;
+    while(r[i]!==undefined&&r[i]>w.span[0]-.15)i++;r[i]=w.span[1];placed.push([w,l,i]);});
+  let y=top;const laneY={};
+  lanes.forEach(l=>{laneY[l]=y;y+=Math.max(1,rows[l].length)*rowH+pad*2;});
+  // gap strip
+  const gapY=y+6;const H=gapY+34;
+  svg.setAttribute("viewBox",`0 0 ${Wd} ${H}`);svg.style.height=H+"px";
+  const X=t=>L+(t-x0)/(x1-x0)*(Wd-L-R);
+  let s="";
+  const step=(x1-x0)>12?2:(x1-x0)>5?1:.25;
+  for(let t=Math.ceil(x0/step)*step;t<=x1;t+=step){const xx=X(t);
+    s+=`<line x1="${xx}" x2="${xx}" y1="${top-4}" y2="${gapY+28}" stroke="${css("--rs")}" stroke-width="1"/>`;
+    if(Math.abs(t-Math.round(t))<1e-6)s+=`<text class="yr" x="${xx+2}" y="12">${Math.round(t)}</text>`;}
+  lanes.forEach(l=>{const yy=laneY[l];
+    s+=`<line x1="0" x2="${Wd}" y1="${yy-pad/2}" y2="${yy-pad/2}" stroke="${css("--rule")}"/>`;
+    s+=`<text class="lane-label" x="6" y="${yy+10}">${mode==="prov"?l.replace("datasheet","sure").replace("assumed","guessed").replace("hold","unknown"):l}</text>`;});
+  placed.forEach(([w,l,i])=>{const xa=X(w.span[0]),xb=X(w.span[1]);const yy=laneY[l]+pad/2+i*rowH;
+    const pc={datasheet:css("--ds"),assumed:css("--as"),hold:css("--ms")}[w.prov];
+    s+=`<g class="mark" data-id="${w.id}"><rect x="${xa}" y="${yy}" width="${Math.max(3,xb-xa)}" height="${rowH-4}" fill="${css("--c-"+w.kind)}" fill-opacity=".55" stroke="${pc}" stroke-width="1.6" ${w.prov==="assumed"?'stroke-dasharray="4 2"':""}/>`+
+      (xb-xa>70?`<text x="${xa+3}" y="${yy+7.5}" font-size="8.5" fill="${css("--ink")}">${w.title.slice(0,Math.floor((xb-xa)/5.6))}</text>`:"")+`</g>`;});
+  // the margin: works with no date at all
+  const holds=W.filter(w=>!w.span);
+  holds.forEach((w,i)=>{const yy=top+i*22;s+=`<g class="mark" data-id="${w.id}"><rect x="${Wd-R+12}" y="${yy}" width="${R-20}" height="16" fill="none" stroke="${css("--ms")}" stroke-width="1.6"/><text x="${Wd-R+17}" y="${yy+11}" font-size="9" fill="${css("--ms")}">HOLD · ${w.title.slice(0,17)}</text></g>`;});
+  s+=`<text class="lane-label" x="${Wd-R+12}" y="${top-8}">no date yet</text>`;
+  // gap view: works touching each year
+  s+=`<text class="lane-label" x="6" y="${gapY+18}">gap view</text>`;
+  for(let yr=Math.floor(x0);yr<x1;yr++){const n=W.filter(w=>w.span&&w.span[0]<yr+1&&w.span[1]>yr).length;
+    const xa=X(Math.max(yr,x0)),xb=X(Math.min(yr+1,x1));if(xb<=L)continue;
+    s+=`<rect x="${Math.max(xa,L)}" y="${gapY+6}" width="${Math.max(0,xb-Math.max(xa,L)-1)}" height="18" fill="${n?css("--g0"):"url(#hatch)"}" stroke="${css("--rule")}"/>`+(xb-xa>14?`<text x="${Math.max(xa,L)+3}" y="${gapY+19}" font-size="9" fill="${n?css("--ink2"):css("--ms")}">${n}</text>`:"");}
+  svg.innerHTML=`<defs><pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="${css("--g2")}"/><line x1="0" y1="0" x2="0" y2="5" stroke="${css("--ink3")}" stroke-width="1"/></pattern></defs>`+s;
+  svg.querySelectorAll(".mark").forEach(g=>g.addEventListener("click",e=>{e.stopPropagation();show(g.dataset.id)}));
+  svg._X=X;svg._L=L;svg._R=R;
+}
+function show(id){const w=W.find(v=>v.id===id);
+  document.getElementById("card").innerHTML=`<div class="t">${w.title}</div>
+  <div><span class="k">kind</span><br>${w.kind}</div>
+  <div><span class="k">when</span><br><span class="prov-${w.prov}">${w.when==="?"?"HOLD — unknown":w.when}</span> · ${PROVNAME[w.prov]}</div>
+  <div><span class="k">where it was found</span><br>${w.src}</div>
+  <div><span class="k">the question it asks</span><br>${w.note}</div>
+  ${w.palace?`<div><span class="k">links forward into the palace</span><br>[[${w.palace}]]</div>`:""}`;}
+document.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{mode=b.dataset.l;document.querySelectorAll("[data-l]").forEach(c=>c.classList.toggle("on",c===b));draw();});
+document.getElementById("reset").onclick=()=>{x0=2004.5;x1=2027;draw();};
+wrap.addEventListener("wheel",e=>{e.preventDefault();const r=wrap.getBoundingClientRect();const L=svg._L,R=svg._R;
+  const f=Math.min(1,Math.max(0,(e.clientX-r.left-L)/(r.width-L-R)));const c=x0+f*(x1-x0);const k=e.deltaY>0?1.15:1/1.15;
+  let span=Math.min(24,Math.max(.5,(x1-x0)*k));x0=c-f*span;x1=x0+span;draw();},{passive:false});
+let drag=null;wrap.addEventListener("mousedown",e=>{drag={x:e.clientX,a:x0,b:x1};wrap.style.cursor="grabbing"});
+addEventListener("mouseup",()=>{drag=null;wrap.style.cursor="grab"});
+addEventListener("mousemove",e=>{if(!drag)return;const r=wrap.getBoundingClientRect();const d=(e.clientX-drag.x)/(r.width-svg._L-svg._R)*(drag.b-drag.a);x0=drag.a-d;x1=drag.b-d;draw();});
+addEventListener("resize",draw);draw();show("meaning-link");
+</script>
+</body>
+</html>

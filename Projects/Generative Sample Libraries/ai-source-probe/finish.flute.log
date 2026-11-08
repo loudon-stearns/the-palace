@@ -1,0 +1,29 @@
+{
+ "instrument": "MusicGen Flute",
+ "from": "instruments/in_range/flute_looped",
+ "samples": 21,
+ "loop_level_spread_db": {
+  "before": 8.4,
+  "after": 0.0
+ },
+ "worst_neighbour_jump_db": {
+  "before": 6.4,
+  "after": 0.0
+ },
+ "worst_swell_db": {
+  "before": 11.57,
+  "after": 5.33
+ },
+ "seams_clean": 20,
+ "held_12s_on_target": 21,
+ "worst_click_db": 4.75,
+ "worst_level_step_db": 3.43,
+ "shared_trim_db": -1.6,
+ "velocity": {
+  "amp_veltrack": 80,
+  "cutoff": 3000,
+  "fil_veltrack": 2400
+ }
+}
+{"preset": "MusicGen Flute.dspreset", "map_matches_sfz": true, "keys_played": 38, "on_target": 38, "worst_abs_cents_on_target": 4.28, "samples_missing_from_library": [], "library_bytes": 6203161}
+flute: tonic C5, 55 notes, 9 of 21 samples heard, 40.5 s -> phrase.wav

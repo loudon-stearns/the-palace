@@ -153,10 +153,11 @@
     Press <b>turntable</b> and let it spin. It should read about 33.3 rpm over half a second, but with a wobble of about ±14%: the motor's bumps go by 47 times a second, and you will feel them as a buzz under the finger. That is expected until the bench maps them; once they are cancelled the wobble falls to about ±1%. To feel it now with less buzz, set <code>kv</code> to 0.1 and <code>speedTf</code> to 0.001 (the menu under the readings): in the model that cuts the wobble to a few percent (±3–6%), but it fights a finger harder and adds encoder fizz once the bumps are cancelled, so put them back to 0.01 and 0.005 after the bench. Judge the turntable's feel only after the bench.</li>
   <li><label class="tick"><input type="checkbox"> done</label><h3>Let the bench measure the real motor</h3>
     Close the console's connection (Disconnect). In a terminal, from <code>firmware/bench</code>:<br>
-    <code>/usr/local/bin/python3 run_bench.py --R 7.6</code> (your meter's half-reading in place of 7.6)<br>
-    It runs the five tests in order and stops twice to ask: once to fit the 40 g disc, once to start recording the contact mic in your DAW (save it as <code>chirp_mic.wav</code> beside the script). About three minutes. That Python is the one on this laptop with numpy and scipy. Rehearse it any time with <code>--fake</code>.</li>
+    First, if you haven't, hang the disc from two threads and time twenty twists: <code>python3 disc_inertia.py --mass … --spacing … --length … --seconds …</code> prints its inertia (BENCH.md says how; ten minutes). Then:<br>
+    <code>/usr/local/bin/python3 run_bench.py --R 7.6 --disc-J 3.8e-5</code> (your meter's half-reading in place of 7.6, the hung disc's number in place of 3.8e-5)<br>
+    It runs the five tests in order and stops twice to ask: once to fit that disc, once to start recording the contact mic in your DAW (save it as <code>chirp_mic.wav</code> beside the script). About three minutes. That Python is the one on this laptop with numpy and scipy. Rehearse it any time with <code>--fake</code>.</li>
   <li><label class="tick"><input type="checkbox"> done</label><h3>Hand the numbers back</h3>
-    The run ends by printing the motor's numbers, the <code>set</code> lines to paste into the console, a picture, and a new <code>handwheel/cog_map.h</code>. Upload the firmware once more so it cancels the bumps. Then tell the page; the next cycle retunes the feel lab to the real motor and the touch tests begin.</li>
+    The run ends by printing the motor's numbers, the <code>set</code> lines to paste into the console (send <code>set kt</code> and <code>set cancelMax</code> before any feel: until then the knob cancels none of its own brake, so the struck spring and the pendulum barely ring), a picture, and a new <code>handwheel/cog_map.h</code>. Upload the firmware once more so it cancels the bumps. Then tell the page; the next cycle retunes the feel lab to the real motor and the touch tests begin.</li>
 </ol>
 
 <h2>The console</h2>
@@ -453,7 +454,7 @@ document.querySelectorAll('ol.steps input').forEach((c) => c.onchange = () => c.
 const FEEL_NAMES = ['centre', 'frets', 'string', 'struck', 'pendulum', 'follow', 'turntable', 'free'];
 const PARAMS = { centre: ['k', 'kick', 'kickW', 'rest'], frets: ['peak', 'kick', 'semisPerTurn'], string: ['k3'], struck: ['k', 'damp', 'rest'],
   pendulum: ['k', 'damp', 'rest'], follow: ['k', 'damp'], turntable: ['rpm', 'kv', 'speedTf', 'cap', 'ki', 'gate', 'trim', 'ffB', 'ffC'], free: [] };
-const COMMON = ['cancelBrake', 'tauMax', 'cogGain'];
+const COMMON = ['cancelBrake', 'cancelMax', 'tauMax', 'cogGain'];
 const st = { th: 0, om: 0, tau: 0, feel: '—', brake: null, trace: [], hist: [], link: null };
 const $ = (id) => document.getElementById(id);
 function log(s) { const L = $('log'); L.textContent += s + '\n'; if (L.textContent.length > 6000) L.textContent = L.textContent.slice(-4000); L.scrollTop = L.scrollHeight; }
@@ -526,7 +527,9 @@ function startPretend() {
   };
   const bank = {}; for (const n of FEEL_NAMES) { const [f, cb] = make[n](); bank[n] = { f, cb }; }
   let cur = 'centre', pending = ['hello handwheel pretend knob', 'ready'];
-  const select = (n) => { cur = n; const b = bank[n]; eng.setFeel(b.f); eng.P.bMotor = b.cb ? off : mid; pending.push(`f ${n} brake ${b.cb.toFixed(2)}`); };
+  let cmax = 0;   // as the firmware: no brake is cancelled until the bench sends cancelMax
+  const brake = (b) => { eng.P.bMotor = Math.min(b.cb, cmax) ? off : mid; };
+  const select = (n) => { cur = n; const b = bank[n]; eng.setFeel(b.f); brake(b); pending.push(`f ${n} brake ${Math.min(b.cb, cmax).toFixed(2)}`); };
   select('centre');
   let alive = true;
   st.link = {
@@ -537,7 +540,8 @@ function startPretend() {
       else if (p[0] === 'play') eng.s.extTorque = +p[1] || 0;
       else if (p[0] === 'set') {
         const k = p[1], v = +p[2], b = bank[cur];
-        if (k === 'cancelBrake') { b.cb = v; eng.P.bMotor = v ? off : mid; }
+        if (k === 'cancelBrake') { b.cb = v; brake(b); }
+        else if (k === 'cancelMax') { cmax = v; brake(b); }
         else if (k === 'tauMax') eng.P.tauMax = v;
         else if (k === 'cogGain') eng.P.cogLeft = 1 - Math.max(0, Math.min(1, v)) * 0.92;
         else if (k === 'semisPerTurn') eng.P.semisPerTurn = v;

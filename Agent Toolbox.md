@@ -40,7 +40,7 @@ This list is the truth. The harness (Claude Code) reads agent definitions from `
 
 ## The roster
 
-Edit the block below to add or change a profile, then run `node _ops/agent-toolbox/generate.mjs`. Tool names are Claude Code's built-ins; **omitting a tool omits its schema** (that is the whole point — unlisted MCP toolsets never load). The escalation is monotonic: reader ⊂ writer ⊂ orchestrator.
+Edit the block below to add or change a profile, then run `node _ops/agent-toolbox/generate.mjs`. Tool names are Claude Code's built-ins; **omitting a tool omits its schema** (that is the whole point — unlisted MCP toolsets never load). The escalation is monotonic for the three workers: reader ⊂ writer ⊂ orchestrator. The keeper stands beside them, not on the ladder: Read and Bash only, no web and no search, because its job is to see the graph whole and count it by script ([[Palace Map]] § Seeing and Counting). Its charter, not its tool list, holds that it writes nothing.
 
 ```yaml
 profiles:
@@ -53,9 +53,12 @@ profiles:
   palace-orchestrator:
     for: "Dispatches other palace agents — songlines, stewardship cycles, fan-out. Adds agent spawning and inter-agent messaging."
     tools: [Read, Grep, Glob, Edit, Write, Bash, WebSearch, WebFetch, Task, SendMessage]
+  palace-map-keeper:
+    for: "Holds the Palace Map whole and checks every intuition with the script — rhymes, routes, constellations, casts; every edge a cited triple. Read for the map and pages, Bash for the map scripts; writes nothing, by charter."
+    tools: [Read, Bash]
 ```
 
-**Default to the smallest that fits.** Most Concierge addresses are reads → `palace-reader`. Reach for `palace-writer` only when the job actually mutates canon, and `palace-orchestrator` only when it dispatches other agents. A job that could run as a reader but is dispatched as an orchestrator is wasting both safety and ~30K of context.
+**Default to the smallest that fits.** Most Concierge addresses are reads → `palace-reader`. Reach for `palace-writer` only when the job actually mutates canon, and `palace-orchestrator` only when it dispatches other agents. A job that could run as a reader but is dispatched as an orchestrator is wasting both safety and ~30K of context. A question about the map's shape — what rhymes, what route, what holds together — goes to the keeper, which is lighter than a reader and holds what no reader does.
 
 ## The shared charter
 

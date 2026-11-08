@@ -1,0 +1,64 @@
+# Synth Templates — card 0.2 — Serial: Notch then Low-Pass
+# Filter Routings, tier 2. The notch clears a region of the mids; the low-pass after it decides how much top is left for presence.
+schema: synth-template-card/0.2
+id: serial-notch-then-low-pass
+name: "Serial: Notch then Low-Pass"
+family: Filter Routings
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Serial routing"
+  - "Serial: notch then low-pass"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Filter slope: 12 vs 24 dB/oct, poles"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: notch,   slope: 24, resonance: little, note: "low resonance: a wide scoop out of the mids"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: none,   note: "gentle; it only decides how much top survives"}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: held, r: medium}, category: sustaining}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter2.cutoff, amount: little, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,           why: "mids to remove and highs to keep"}
+  - {block: filter1, param: type,      value: notch,         why: "takes a slice out of the middle and leaves the top for presence"}
+  - {block: filter1, param: cutoff,    value: mid,           why: "the slice sits in the mids"}
+  - {block: filter1, param: resonance, value: little,        why: "wide: how much of the mids goes is the notch's resonance"}
+  - {block: filter2, param: type,      value: lowpass 12 dB, why: "a soft ceiling after the notch; 12 dB keeps the presence the notch spared"}
+  - {block: filter2, param: cutoff,    value: bright,        why: "open enough that the highs stay; lower it to tame them"}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – bright",      default: mid,    why: "where the slice is"}
+  - {block: filter1, param: resonance, range: "none – moderate",    default: little, why: "lower is a bigger slice"}
+  - {block: filter2, param: cutoff,    range: "mid – open",         default: bright, why: "how much top is left"}
+  - {block: fenv,    param: amount,    range: "none – moderate",    default: little, why: "a touch of brightness on the attack"}
+  - {block: aenv,    param: release,   range: "short – medium",     default: short}
+
+listening:
+  cue: "A saw that is hollow in the middle but still has its edge on top. The body thins, the presence stays. Lower the low-pass and the edge goes too; raise the notch resonance and the body comes back."
+  ab: "Set the notch resonance to high: the scoop narrows to a line and the mids return; it is a full saw with a faint whistle missing. Back to little and the hollow reopens. Then drop the low-pass to dark: the presence the notch spared is gone, and it is just a dull tone."
+
+render:
+  tempo: 110
+  note: [E2, E2, G2, A2]
+  velocity: 100
+  pattern: "quarter notes, one bar, each held most of its beat"
+  length_s: 3.0
+
+mappings: {}

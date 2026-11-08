@@ -1,0 +1,71 @@
+# Synth Templates — card 0.2 — Brass Pad
+# The filter attack of a horn section, polyphonic: a burst of brightness at the front, then the chord settles under it.
+schema: synth-template-card/0.2
+id: brass-pad
+name: Brass Pad
+family: Pads
+tier: 1
+mode: poly
+classics: Jupiter-8
+status: drafted
+concepts:
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Velocity → amplitude; velocity → filter cutoff"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, detune: slight}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    fenv:    {kind: envelope, role: filter, shape: {a: short, d: medium, s: low, r: medium}, category: sustaining}
+    aenv:    {kind: envelope, role: amp,    shape: {a: short, d: medium, s: held, r: medium}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,            why: "a section, not a solo horn"}
+  - {block: osc1,    param: wave,      value: saw,             why: "brass is the brightest acoustic timbre; the saw has the harmonics for it"}
+  - {block: filter1, param: cutoff,    value: mid,             why: "half open at rest; the envelope adds the blare"}
+  - {block: fenv,    param: attack,    value: short,           why: "about a hundred milliseconds: the brightness swells in just behind the note, the lips finding the pitch"}
+  - {block: fenv,    param: sustain,   value: low,             why: "the horn's first burst of air is stronger than what it settles to; the brightness falls back"}
+  - {block: aenv,    param: attack,    value: short,           why: "the level comes up with the filter, not before it"}
+  - {block: aenv,    param: sustain,   value: held,            why: "sustaining: blown as long as the key is down"}
+  - {block: aenv,    param: release,   value: medium,          why: "a breath, not a reverb; chords must stay distinct"}
+
+taste:
+  - {block: osc2,    param: level,     range: "half – equal",          default: equal}
+  - {block: filter1, param: cutoff,    range: "dark – bright",         default: mid}
+  - {block: fenv,    param: amount,    range: "some – generous",       default: moderate}
+  - {block: fenv,    param: decay,     range: "short – long",          default: medium}
+  - {block: aenv,    param: release,   range: "short – long",          default: medium}
+  - {block: fx,      param: chorus,    range: "off – lush",            default: light}
+
+listening:
+  cue: "Each chord opens with a blare that settles in a moment to a rounder tone: 'bwah', not 'ooh'. Harder notes blare more."
+  ab: "Set the filter envelope attack to instant: the blare becomes a click and the swell is gone. Then set it to slow: the same patch turns into a string pad. Back to short and the horns return."
+
+render:
+  tempo: 110
+  note: [Bb2, D3, F3, Bb3]
+  velocity: 100
+  pattern: "the chord as four quarter-note stabs, then held a bar, released"
+  length_s: 6.0
+
+mappings: {}

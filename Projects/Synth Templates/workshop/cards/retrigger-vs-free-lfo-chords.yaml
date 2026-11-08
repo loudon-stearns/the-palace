@@ -1,0 +1,59 @@
+# Synth Templates — card 0.2 — Retrigger vs Free LFO (Chords)
+# One slow filter LFO under a chord played note by note. Free: one LFO moves every voice together. Retrigger: each voice carries its own.
+schema: synth-template-card/0.2
+id: retrigger-vs-free-lfo-chords
+name: Retrigger vs Free LFO (Chords)
+family: LFO Behaviours
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Retrigger vs free; chords with staggered attacks"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Poly vs mono; max voices"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: medium, s: held, r: medium}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false, retrigger: false, note: "free: keeps running between notes. Switch to retrigger for the second half of the lesson"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode, param: voices,    value: poly,     why: "the lesson needs several voices under one LFO, or one LFO each"}
+  - {block: lfo1, param: retrigger, value: "off",    why: "free: one LFO runs on through every note, so a chord played one note at a time still sweeps as one; each note also starts wherever the LFO happens to be"}
+  - {block: lfo1, param: rate,      value: slow,     why: "slow enough that you can hear whether the voices are at the same point of the cycle"}
+  - {block: lfo1, param: target,    value: filter cutoff, why: "a brightness sweep is easy to follow per voice; on pitch the chord would just detune"}
+  - {block: lfo1, param: depth,     value: moderate, why: "wide enough that where each voice is in the sweep is plain"}
+  - {block: aenv, param: sustain,   value: held,     why: "the chord must sit still while the LFO moves"}
+
+taste:
+  - {block: lfo1,    param: rate,      range: "very slow – medium", default: slow}
+  - {block: lfo1,    param: depth,     range: "some – generous",    default: moderate}
+  - {block: filter1, param: cutoff,    range: "dark – mid",         default: mid}
+  - {block: filter1, param: resonance, range: "none – little",      default: little}
+  - {block: aenv,    param: release,   range: "medium – long",      default: medium}
+
+listening:
+  cue: "Three notes enter one after another and the whole chord breathes brighter and darker as one body. Play it again and it starts somewhere else in the breath, because the LFO never stopped."
+  ab: "Turn retrigger on and play the same staggered chord: each note now carries its own sweep, offset by when it was struck, and the chord shimmers instead of breathing. Every note also starts from the same point, so the patch is consistent again. Turn it off and they fall back into one."
+
+render:
+  tempo: 90
+  note: [C3, E3, G3]
+  velocity: 90
+  pattern: "C3, then E3 a beat later, then G3 a beat after that; all three held to the end of bar two, then released"
+  length_s: 7.0
+
+mappings: {}

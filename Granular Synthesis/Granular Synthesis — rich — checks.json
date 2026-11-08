@@ -1,0 +1,493 @@
+{
+ "title": "Granular Synthesis — rich — checks",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Granular Synthesis]]",
+   "type": "connects-to",
+   "label": "rich-face-check"
+  }
+ ],
+ "forward_vector": "I am what checks.mjs measured on the three pieces' own engines, the last time it ran; I change whenever it runs again.",
+ "ran": "2026-11-03T16:55:11.137Z",
+ "fails": 0,
+ "results": {
+  "one grain: Hann length × width stays near 2 at every length": {
+   "ok": true,
+   "detail": "1.76 1.99 2.01 2.02 2.05"
+  },
+  "the window: Gauss reaches Gabor's floor 1/4π, Hann just above, rectangle far above": {
+   "ok": true,
+   "detail": "rect 0.5821 · hann 0.0817 · gauss 0.0797"
+  },
+  "the window: side lobes rectangle ≈ −13, Hann ≈ −31, Gauss below −50 dB": {
+   "ok": true,
+   "detail": "rect -13.5 · hann -31.5 · gauss -56.5"
+  },
+  "the test (40 ms hann): random and spread clouds sit on one grain's prediction, regular onsets miss": {
+   "ok": true,
+   "detail": "random 0.83 dB · spread 1.07 dB · regular 57.09 dB"
+  },
+  "the test (40 ms hann): density ×100 lifts the level 20 dB and leaves the shape": {
+   "ok": true,
+   "detail": "+20.68 dB · shape 0.89 / 0.75 dB"
+  },
+  "the test (10 ms hann): random and spread clouds sit on one grain's prediction, regular onsets miss": {
+   "ok": true,
+   "detail": "random 0.76 dB · spread 0.75 dB · regular 52.52 dB"
+  },
+  "the test (10 ms hann): density ×100 lifts the level 20 dB and leaves the shape": {
+   "ok": true,
+   "detail": "+20.43 dB · shape 1.00 / 0.80 dB"
+  },
+  "the test (100 ms gauss): random and spread clouds sit on one grain's prediction, regular onsets miss": {
+   "ok": true,
+   "detail": "random 0.66 dB · spread 1.29 dB · regular 46.07 dB"
+  },
+  "the test (100 ms gauss): density ×100 lifts the level 20 dB and leaves the shape": {
+   "ok": true,
+   "detail": "+20.62 dB · shape 1.06 / 0.72 dB"
+  },
+  "the test (40 ms rect): random and spread clouds sit on one grain's prediction, regular onsets miss": {
+   "ok": true,
+   "detail": "random 0.88 dB · spread 0.98 dB · regular 47.60 dB"
+  },
+  "the test (40 ms rect): density ×100 lifts the level 20 dB and leaves the shape": {
+   "ok": true,
+   "detail": "+20.82 dB · shape 0.87 / 0.91 dB"
+  },
+  "one grain, one partial: caught when |Δ| < pull, else beats at √(Δ² − pull²)": {
+   "ok": true,
+   "detail": "pull 5 Δ 2.5: -0.00 (rule 0.00) · pull 5 Δ 4.5: -0.00 (rule 0.00) · pull 5 Δ 5.5: 2.44 (rule 2.29) · pull 5 Δ 7.5: 5.55 (rule 5.59) · pull 5 Δ 12.5: 11.43 (rule 11.46) · pull 10 Δ 5.0: -0.00 (rule 0.00) · pull 10 Δ 9.0: -0.00 (rule 0.00) · pull 10 Δ 11.0: 4.53 (rule 4.58) · pull 10 Δ 15.0: 11.11 (rule 11.18) · pull 10 Δ 25.0: 22.88 (rule 22.91) · pull 20 Δ 10.0: -0.00 (rule 0.00) · pull 20 Δ 18.0: -0.00 (rule 0.00) · pull 20 Δ 22.0: 9.04 (rule 9.17) · pull 20 Δ 30.0: 22.41 (rule 22.36) · pull 20 Δ 50.0: 45.86 (rule 45.83)"
+  },
+  "deep well, shallow well: widest catch ≈ K·a ⁄ 2π (30 and 9 Hz), the quiet one up to 2 Hz wider": {
+   "ok": true,
+   "detail": "440: 30.3 Hz · 660: 10.6 Hz"
+  },
+  "the test: the pile follows the filter at 330 Hz, partial by partial": {
+   "ok": true,
+   "detail": "mean |measured − rule| 0.011 · 220:0.13/0.13 330:0.55/0.55 440:0.22/0.27 550:0.05/0.06 660:0.02/0.01 770:0.01/0.00 880:0.00/0.00 990:0.00/0.00 1100:0.04/0.00 1210:0.00/0.00 1320:0.00/0.00"
+  },
+  "pile 330": [
+   {
+    "f": 220,
+    "share": 0.12928759894459102,
+    "pred": 0.13495775629912535,
+    "born": 379
+   },
+   {
+    "f": 330,
+    "share": 0.550561797752809,
+    "pred": 0.5454545454545454,
+    "born": 267
+   },
+   {
+    "f": 440,
+    "share": 0.2233502538071066,
+    "pred": 0.27003004960139604,
+    "born": 197
+   },
+   {
+    "f": 550,
+    "share": 0.054878048780487805,
+    "pred": 0.05943065322258832,
+    "born": 164
+   },
+   {
+    "f": 660,
+    "share": 0.017857142857142856,
+    "pred": 0.009207209535703585,
+    "born": 112
+   },
+   {
+    "f": 770,
+    "share": 0.008547008547008548,
+    "pred": 0.0012246652105365138,
+    "born": 117
+   },
+   {
+    "f": 880,
+    "share": 0,
+    "pred": 0.00015394488595417937,
+    "born": 103
+   },
+   {
+    "f": 990,
+    "share": 0,
+    "pred": 0.000019218634429578487,
+    "born": 76
+   },
+   {
+    "f": 1100,
+    "share": 0.039473684210526314,
+    "pred": 0.0000024470595009419263,
+    "born": 76
+   },
+   {
+    "f": 1210,
+    "share": 0,
+    "pred": 3.2239091575247866e-7,
+    "born": 62
+   },
+   {
+    "f": 1320,
+    "share": 0,
+    "pred": 4.4282936449876655e-8,
+    "born": 61
+   }
+  ],
+  "the test: the pile follows the filter at 880 Hz, partial by partial": {
+   "ok": true,
+   "detail": "mean |measured − rule| 0.020 · 220:0.00/0.00 330:0.01/0.00 440:0.01/0.01 550:0.10/0.08 660:0.26/0.27 770:0.43/0.47 880:0.58/0.55 990:0.57/0.48 1100:0.37/0.36 1210:0.23/0.23 1320:0.15/0.13"
+  },
+  "pile 880": [
+   {
+    "f": 220,
+    "share": 0,
+    "pred": 4.4282936449876655e-8,
+    "born": 379
+   },
+   {
+    "f": 330,
+    "share": 0.00749063670411985,
+    "pred": 0.00015394488595417882,
+    "born": 267
+   },
+   {
+    "f": 440,
+    "share": 0.01015228426395939,
+    "pred": 0.009207209535703585,
+    "born": 197
+   },
+   {
+    "f": 550,
+    "share": 0.0975609756097561,
+    "pred": 0.08350948824116093,
+    "born": 164
+   },
+   {
+    "f": 660,
+    "share": 0.25892857142857145,
+    "pred": 0.27003004960139604,
+    "born": 112
+   },
+   {
+    "f": 770,
+    "share": 0.42735042735042733,
+    "pred": 0.4687836727382104,
+    "born": 117
+   },
+   {
+    "f": 880,
+    "share": 0.5825242718446602,
+    "pred": 0.5454545454545454,
+    "born": 103
+   },
+   {
+    "f": 990,
+    "share": 0.5657894736842105,
+    "pred": 0.4848135327293133,
+    "born": 76
+   },
+   {
+    "f": 1100,
+    "share": 0.3684210526315789,
+    "pred": 0.3573116828304016,
+    "born": 76
+   },
+   {
+    "f": 1210,
+    "share": 0.22580645161290322,
+    "pred": 0.23046039313092284,
+    "born": 62
+   },
+   {
+    "f": 1320,
+    "share": 0.14754098360655737,
+    "pred": 0.13495775629912546,
+    "born": 61
+   }
+  ],
+  "the test: short grains are not caught (15 and 30 ms under a fifth of the rule, alone or among partials); from 120 ms the catch is full": {
+   "ok": true,
+   "detail": "15 ms 0.022 (alone 0.032) · 30 ms 0.081 (alone 0.136) · 60 ms 0.348 (alone 0.481) · 120 ms 0.522 (alone 0.541) · 300 ms 0.514 (alone 0.536) · 1000 ms 0.511 (alone 0.537) · rule 0.545"
+  },
+  "sweep": [
+   {
+    "ms": 15,
+    "share": 0.0225,
+    "lone": 0.03225
+   },
+   {
+    "ms": 30,
+    "share": 0.0805,
+    "lone": 0.136
+   },
+   {
+    "ms": 60,
+    "share": 0.34775,
+    "lone": 0.4815
+   },
+   {
+    "ms": 120,
+    "share": 0.5216572504708098,
+    "lone": 0.5410144020037571
+   },
+   {
+    "ms": 300,
+    "share": 0.5138961719979025,
+    "lone": 0.5364963503649635
+   },
+   {
+    "ms": 1000,
+    "share": 0.5110062893081762,
+    "lone": 0.5367378843147472
+   }
+  ],
+  "the test: 8 grains are caught as often as 48": {
+   "ok": true,
+   "detail": "8: 0.526 · 48: 0.514"
+  },
+  "attractor only: separate wells (40 Hz) catch about half (rule 0.498), every one by its nearest partial": {
+   "ok": true,
+   "detail": "caught 51.1% · nearest 100.0%"
+  },
+  "attractor only: loud wells past the midpoint (80 Hz) catch most grains, and send some past their nearest partial": {
+   "ok": true,
+   "detail": "caught 78.9% · nearest 87.9%"
+  },
+  "attractor": {
+   "40": {
+    "tot": 3609,
+    "cap": 0.5112219451371571,
+    "nearest": 1,
+    "r": 0.7073132667096804,
+    "per": [
+     {
+      "born": 888,
+      "cap": 674
+     },
+     {
+      "born": 530,
+      "cap": 109
+     },
+     {
+      "born": 445,
+      "cap": 319
+     },
+     {
+      "born": 348,
+      "cap": 51
+     },
+     {
+      "born": 276,
+      "cap": 205
+     },
+     {
+      "born": 268,
+      "cap": 59
+     },
+     {
+      "born": 222,
+      "cap": 150
+     },
+     {
+      "born": 181,
+      "cap": 37
+     },
+     {
+      "born": 156,
+      "cap": 113
+     },
+     {
+      "born": 143,
+      "cap": 35
+     },
+     {
+      "born": 152,
+      "cap": 93
+     }
+    ]
+   },
+   "80": {
+    "tot": 3609,
+    "cap": 0.7885840953172624,
+    "nearest": 0.8794799718903724,
+    "r": 0.7024078098430047,
+    "per": [
+     {
+      "born": 888,
+      "cap": 808
+     },
+     {
+      "born": 530,
+      "cap": 176
+     },
+     {
+      "born": 445,
+      "cap": 441
+     },
+     {
+      "born": 348,
+      "cap": 73
+     },
+     {
+      "born": 276,
+      "cap": 276
+     },
+     {
+      "born": 268,
+      "cap": 107
+     },
+     {
+      "born": 222,
+      "cap": 221
+     },
+     {
+      "born": 181,
+      "cap": 105
+     },
+     {
+      "born": 156,
+      "cap": 141
+     },
+     {
+      "born": 143,
+      "cap": 45
+     },
+     {
+      "born": 152,
+      "cap": 110
+     }
+    ]
+   }
+  },
+  "weak grain-to-grain: a pile is already phase-locked at K_g 0 (r ≈ π/4) and grows more coherent as K_g rises": {
+   "ok": true,
+   "detail": "Kg 0: r 0.781 caught 73% · Kg 10: r 0.794 caught 87% · Kg 20: r 0.832 caught 100% · Kg 40: r 0.919 caught 100% · Kg 80: r 0.960 caught 100%"
+  },
+  "pile": [
+   {
+    "Kg": 0,
+    "cap": 0.7319078947368421,
+    "r": 0.7811403245465799
+   },
+   {
+    "Kg": 10,
+    "cap": 0.8725328947368421,
+    "r": 0.7942807795926266
+   },
+   {
+    "Kg": 20,
+    "cap": 0.9967105263157895,
+    "r": 0.8316190926183648
+   },
+   {
+    "Kg": 40,
+    "cap": 0.9975328947368421,
+    "r": 0.9187534138466472
+   },
+   {
+    "Kg": 80,
+    "cap": 0.9967105263157895,
+    "r": 0.9598400053987083
+   }
+  ],
+  "one bent grain, straight: neither stray locks": {
+   "ok": true,
+   "detail": "3: 2× -0.523 3× 0.357 | -3: 2× -6.600 3× -5.678 | -1.5: 2× -5.076 3× -4.168 | 1.5: 2× -2.039 3× -1.149"
+  },
+  "one bent grain, soft clip: the 3× stray locks at ±1.5 Hz, the 2× stray never": {
+   "ok": true,
+   "detail": "3: 2× 1.976 3× 0.000 | -3: 2× -3.198 3× -0.004 | -1.5: 2× -1.848 3× 0.001 | 1.5: 2× 0.622 3× 0.001"
+  },
+  "one bent grain, lopsided: the 2× stray locks at ±1.5 Hz": {
+   "ok": true,
+   "detail": "3: 2× -0.004 3× 0.000 | -3: 2× -0.000 3× -2.718 | -1.5: 2× 0.010 3× -1.122 | 1.5: 2× 0.001 3× -0.004"
+  },
+  "probe": {
+   "none": {
+    "3": {
+     "two": -0.5228288611213543,
+     "three": 0.35736771202743967
+    },
+    "-3": {
+     "two": -6.600195046522401,
+     "three": -5.678196742853629
+    },
+    "-1.5": {
+     "two": -5.076139306523544,
+     "three": -4.16813233608309
+    },
+    "1.5": {
+     "two": -2.038531863666549,
+     "three": -1.1486105318743967
+    }
+   },
+   "soft": {
+    "3": {
+     "two": 1.9757157256995583,
+     "three": 0.0002503841503767035
+    },
+    "-3": {
+     "two": -3.1975224789553636,
+     "three": -0.004451144873428348
+    },
+    "-1.5": {
+     "two": -1.8475916612847527,
+     "three": 0.0013187861862888894
+    },
+    "1.5": {
+     "two": 0.6221051744565784,
+     "three": 0.0007501017046251945
+    }
+   },
+   "asym": {
+    "3": {
+     "two": -0.004154288118968452,
+     "three": 0.0004246228530746521
+    },
+    "-3": {
+     "two": -0.00030170254837003085,
+     "three": -2.7183847139181125
+    },
+    "-1.5": {
+     "two": 0.010217349689355615,
+     "three": -1.121754633748992
+    },
+    "1.5": {
+     "two": 0.0013869180511392187,
+     "three": -0.0041479950479015315
+    }
+   }
+  },
+  "the test: the straight control grows no harmonic": {
+   "ok": true,
+   "detail": "none: 0/6 clouds, 0 at 2×, 0 at 3×, biggest group 19.5 · soft: 0/6 clouds, 0 at 2×, 0 at 3×, biggest group 10.7 · asym: 4/6 clouds, 15 at 2×, 4 at 3×, biggest group 22.7"
+  },
+  "the test: the soft clip grows no harmonic in a random cloud; the lopsided bend does, in most": {
+   "ok": true,
+   "detail": "none: 0/6 clouds, 0 at 2×, 0 at 3×, biggest group 19.5 · soft: 0/6 clouds, 0 at 2×, 0 at 3×, biggest group 10.7 · asym: 4/6 clouds, 15 at 2×, 4 at 3×, biggest group 22.7"
+  },
+  "table": {
+   "none": {
+    "runs": 0,
+    "n2": 0,
+    "n3": 0,
+    "big": 19.5
+   },
+   "soft": {
+    "runs": 0,
+    "n2": 0,
+    "n3": 0,
+    "big": 10.666666666666668
+   },
+   "asym": {
+    "runs": 4,
+    "n2": 15,
+    "n3": 4,
+    "big": 22.666666666666668
+   }
+  }
+ }
+}

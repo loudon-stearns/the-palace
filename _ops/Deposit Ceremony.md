@@ -7,7 +7,7 @@ pillars:
   - philosophy
 born: 2026-03
 stage: mature
-version: "2.7"
+version: "2.9"
 trigger: ["deposit", "let's deposit", "add this to the palace", "memorialize this"]
 forward_vector: "I am the palace's gate for finds. Whoever brings one, I slow them down long enough to see it again, ask an elder where it lives, map it with care, and let Loudon read every word before it becomes canon. I want the palace to grow only by what was truly found, and everyone who offers something to be answered."
 links:
@@ -42,7 +42,7 @@ links:
 
 A deposit adds to canon: a new entry, or a fold that changes what an existing entry says. It is for the larger moves. Upkeep, like a link fixed, a version moved or drift repaired, is an edit, and ELDER's *show before writing* already covers it.
 
-A page's other faces are not canon. Its rich face, and the Now and making zones of its scroll, are the page's products, made in its bundle; Enrichment and the steward's cycle make them without a deposit and without asking. The scroll's Standing Orders are Loudon's, and no agent writes them. The gate is on what the page itself says. A steward never passes it alone: a change it wants to what a page says, its own included, waits in its tuning ledger as a proposal for canon ([[ELDER]] § Age and its limits), and reaches canon only when Loudon takes its words in at his review of the ledgers ([[Project Stewardship System]] § What's Decided). A proposal that would mint a page crosses here. One that only changes a page that exists is the one exception to the first paragraph of this section: an elder places it as an edit at that review, because Loudon has read its exact words beside the section as it stands, and that reading does the gate's work.
+A page's other faces are not canon. Its rich face, and the Now and making zones of its scroll, are the page's products, made in its bundle; Enrichment and the steward's cycle make them without a deposit and without asking. The scroll's Standing Orders are Loudon's, and no agent writes them. The gate is on what the page itself says. A steward never passes it alone: a change it wants to what a page says, its own included, waits in its tuning ledger as a proposal for canon ([[ELDER]] § Age and its limits), and reaches canon only when Loudon takes its words in at his review of the ledgers ([[Project Stewardship System]] § The rites it keeps). A proposal that would mint a page crosses here. One that only changes a page that exists is the one exception to the first paragraph of this section: an elder places it as an edit at that review, because Loudon has read its exact words beside the section as it stands, and that reading does the gate's work. A fold that carries a rich face's design splits three ways: the claims into the text, the design into a spec the scroll's Plan links to, the history into the Context.
 
 The deposit is the palace's protection. It is the one gate a find passes on its way into canon, and it exists so that three things hold, whoever brings the find:
 
@@ -71,6 +71,7 @@ These are the palace's values as they bear on this one decision. Hold them while
 - **A connection you had to force is not a find.** A missing one is an invitation; flag it for the Weave.
 - **Every page leans somewhere.** Write its forward vector as a mission briefing for the next agent to arrive, with real specificity.
 - **The four pillars.** Which does it touch, and which is absent? Ask; don't force the absent one in.
+- **Can it be seen, heard or played?** Ask whether the idea needs more than words to be understood: a figure in the body that teaches what prose can't ([[Image Embedding Standard]]), or something to hear or play. A figure is canon and goes in the draft. A sound or a thing to play is the page's rich face, made by [[Enrichment]], not here: name it on the map, and it goes out as a commissioning baton. "Words are enough" is an honest answer.
 - **The palace voice.** Plain words, the specific reason, no label standing in for one ([[The Palace Voice]]).
 
 ## Steps
@@ -79,9 +80,9 @@ These are the palace's values as they bear on this one decision. Hold them while
 
 **1. Intent.** In one sentence: what is this deposit trying to preserve, and for whom? This is the compression target every later choice answers to.
 
-**2. Re-enter.** Bring Loudon back into the world of the source: the mood, what you were building toward, the moment that made it worth keeping. Not a summary. Ask one genuine question (what does he remember, does anything surprise him reading it back) and wait. The settling may take several exchanges. If the find came from someone else, this is where you re-assess it: read the source, not the offer, and say plainly whether it still holds.
+**2. Re-enter.** Bring Loudon back into the world of the source: the mood, what you were building toward, the moment that made it worth keeping. Not a summary. Ask one genuine question (what does he remember, does anything surprise him reading it back) and wait. The settling may take several exchanges. If the find came from someone else, this is where you re-assess it: read the source, not the offer, and say plainly whether it still holds. When the source is a document, ask whose words it is in. A baton that relays Loudon's own words is an offer too: read what he said, not the baton's paraphrase. When the find is a reading of the palace's own pages and Loudon has already said yes to a proposal, the question goes out with the map, and the map waits on his answer.
 
-**3. Consult the elder, before the map.** Ask the Concierge what already exists and under what names, whether this folds or mints, and what it contradicts. Ask before you draft anything, because a finished draft argues for its own existence. The Concierge answers from the ring as well as the files: the candidate home's neighbors and how central it is, whether the find closes a page the palace has been reaching for (a forward ghost), and what at two hops it would contradict.
+**3. Consult the elder, before the map.** Only after step 2's question has been answered. Ask the Concierge what already exists and under what names, whether this folds or mints, and what it contradicts. Ask before you draft anything, because a finished draft argues for its own existence. The Concierge answers from the ring as well as the files: the candidate home's neighbors and how central it is, whether the find closes a page the palace has been reaching for (a forward ghost), and what at two hops it would contradict.
 
 **4. The map.** Show it to Loudon, and write nothing until he approves it. This is the gate; there is no way around it. A careful map names:
 
@@ -89,9 +90,11 @@ These are the palace's values as they bear on this one decision. Hold them while
 - **Type, pillars, stage** ([[SCHEMA]] §1–2).
 - **Typed links**, by name; you don't need to read the targets. Ask of each whether it deserves a label.
 - **Tensions**: any entry this contradicts, in one sentence, marked for a `contradicts` link.
-- **Lost branches**, and which kind: queued on [[Palace To-Do]], or declined. "Deferred" alone says neither, and a later session will go back for something that was never kept.
+- **Seen, heard or played**: whether the find needs a figure in its body, a rich face commissioned from Enrichment, or words alone.
+- **Lost branches**, and which kind: carried as a baton on the board ([[Baton Ceremony]]), or declined. "Deferred" alone says neither, and a later session will go back for something that was never kept. Before naming a steward route, check `_ops/agents/permanent/REGISTRY.json`; a page with no steward cannot take a note.
 - **Entries to flag for the Weave**: what may want updating once this lands. Don't update them now.
 - **A decision to carry**: if the deposit settles something that should hold on every page (a retired word, a new convention, a moved path), name it. It lands in its home here and goes out as one propagate flag, which the next Weave carries everywhere else.
+- **Flags that name a page this fold retires**: each open weave flag against it, listed with the replacement flag's body and any question the flag puts to Loudon, so one yes covers the words.
 
 > **Deposit map — D-[YYYY-MM-DD]-[ID]**
 >
@@ -100,25 +103,28 @@ These are the palace's values as they bear on this one decision. Hold them while
 > *New or changed:* "[Title]" ([type] · [pillars] · [stage])
 > *Links:* `[type]` [Entry] ([label]) · …
 > *Tensions:* [Entry]: [the contradiction], or none found
+> *Seen, heard or played:* [a figure in the body, and what it teaches / a rich face to commission, and what it would let you hear or play / words are enough]
 > *Lost branches:* [branch], queued / declined
 > *Flag for the Weave:* [Entry]: [what might change]
 > *Carry across the palace:* [the decision], home [Entry], or none
 >
 > Approve, adjust, or add?
 
-**5. Draft, and show.** Draft to the entry template ([[README - The Palace Guide]]), with body links formalized ([[SCHEMA]] §4). Show additions to existing entries as the changed sections only. Loudon reads every word before anything is written; revise until he's satisfied.
+**5. Draft, and show.** Draft to the entry template ([[README - The Palace Guide]]), with body links formalized ([[SCHEMA]] §4). Show additions to existing entries as the changed sections only. Loudon reads every word before anything is written; revise until he's satisfied. Before he reads, a reader tests each link's reason, and each sentence that cites an entry, against the target's own text, so the words he reads are the words that land. Every claim in the words traces to a file that will land with them.
 
-**6. Place, and check before it lands.** An elder places. If you are a child (the session with Loudon is one unless he has said "grow up"), hand the approved map and words to the Concierge, and it writes them. Canon is `main`: write to the owner, the checkout that holds it (`git worktree list --porcelain`, first line). Owned files go in the entry's bundle ([[SCHEMA — Reference]] §8); a technical diagram is a `.tex` source beside its rendered `.svg` ([[Technical Diagram Standard]]). If the primary checkout is off `main`, stop and restore it first (`_ops/worktree/SKILL.md`).
+**6. Place, and check before it lands.** An elder places. If you are a child (the session with Loudon is one unless he has said "grow up"), hand the approved map and words to the Concierge, and it writes them. Canon is `main`: write to the owner, the checkout that holds it (`git worktree list --porcelain`, first line). Owned files go in the entry's bundle ([[SCHEMA — Reference]] §8); a technical diagram is a `.tex` source beside its rendered `.svg` ([[Technical Diagram Standard]]). If the primary checkout is off `main`, stop and restore it first (`_ops/worktree/SKILL.md`). Anything waiting on Loudon's read waits in a worktree of its own, on a branch, never in a scratch folder; it merges to main after his yes.
 
 Then check it, before anything is committed. The postcondition is verified, not asserted.
 
 - `lint-doc-drift` exits with 0 errors, and `lint-ghost-links`, `lint-bundle-hygiene`, `lint-entry-naming` and `lint-link-directions` return nothing against the new files.
 - Every link target resolves.
-- Someone who didn't write it reads the placement cold: the Concierge when an elder placed; a fresh reader, given only the approved map and the diff, when the Concierge did. No one can perform this check on their own work.
+- Someone who didn't write it reads the placement cold: the Concierge when an elder placed and the Concierge did not shape the map; otherwise a fresh `palace-reader`, given only the approved map and the diff, dispatched by the working Claude. No one can perform this check on their own work. Sentences rewritten after the cold read are read again by someone other than their writer.
 
 A command's exit code is not verification.
 
-**7. Land.** Commit through the palace committer, never a hand-rolled `git commit`, and give `--path` once per file. It commits only what you name. It waits its turn if another commit is in progress, and it refuses a commit with no `--path`, an unknown flag, a main checkout that is off main, or a merge left half done. The rules it keeps are [[How the Palace Commits]] § Rules at the trunk. Preview first: the subject must read `deposit(<id>):`. Then land with the honest verify state: `verified` only if step 6's checks passed, otherwise `unverified` or `couldnt`, with the reason in the body.
+**7. Land.** Commit through the palace committer, never a hand-rolled `git commit`, and give `--path` once per file. It commits only what you name. It waits its turn if another commit is in progress, and it refuses a commit with no `--path`, an unknown flag, a main checkout that is off main, or a merge left half done. The rules it keeps are [[How the Palace Commits]] § Rules at the trunk. Preview first: the subject must read `deposit(<id>):`. A deposit that is also a Schema Ceremony commits as `--kind schema` (the committer's kind for that rite, `src/lib/commit-spec.js`), with the deposit's map in the body. The committer writes no `Co-Authored-By` line itself; pass it as the last line of `--body`. Then land with the honest verify state: `verified` only if step 6's checks passed, otherwise `unverified` or `couldnt`, with the reason in the body.
+
+For canon held in a worktree, run the owner's committer with `PALACE_ROOT` pointed at the worktree (the worktree's own copy lacks `js-yaml`). A `--dry-run` builds its message in a throwaway index and stages nothing. A move is committed by naming both paths, old and new; naming one side commits half the move.
 
 ```sh
 PALACE_ROOT="<owner>" node "<owner>/_ops/stigmergy/app/scripts/palace-commit.mjs" \
@@ -129,7 +135,7 @@ PALACE_ROOT="<owner>" node "<owner>/_ops/stigmergy/app/scripts/palace-commit.mjs
 
 The body is the record; the Deposit Archive is the LOG deck filtered to `Palace-Kind: deposit`, and the frozen pre-spec table ([[Deposit Ceremony — Deposit Archive]]) is never appended to. The body holds what was kept, the through-line, lost branches, the version this ran under, and what this run taught the ceremony ("nothing" is a legal answer; the run marks the tuning file with its run line, and a lesson that changes the spec also goes there as a numbered item).
 
-Weave flags: show Loudon each flag's body, and post only on his approval, through the writer, never by hand. One command per flag, run from `_ops/` (`--dry-run` validates without posting): `python3 -m commons weave-flag --flag-type … --source-entries "A,B" --target-entry "…" --proposed-action "…" --rationale "…" --source-deposit-id <id> --sender "<page>"`. A decision to carry is one propagate flag: `python3 -m commons propagate --decision "…" --home "<Entry>" --scope "…" --check "…" --action "…" --rationale "…" --source-id <id> --sender "<page>"`, with `--pattern` when a search can find the pages still to change ([[SCHEMA — Reference]] §9).
+Weave flags: show Loudon each flag's body, and post only on his approval, through the writer, never by hand. One command per flag, run from `_ops/` (`--dry-run` validates without posting): `python3 -m commons weave-flag --flag-type … --source-entries "A,B" --target-entry "…" --proposed-action "…" --rationale "…" --source-deposit-id <id> --sender "<page>"`. A decision to carry is one propagate flag: `python3 -m commons propagate --decision "…" --home "<Entry>" --scope "…" --check "…" --action "…" --rationale "…" --source-id <id> --sender "<page>"`, with `--pattern` when a search can find the pages still to change ([[SCHEMA — Reference]] §9). A flag that named a page the fold retired is re-posted against the surviving page, its body shown to Loudon, and the old one closed by a `Palace-Resolves: <id>` trailer on the fold's commit.
 
 **8. Close, and answer the bringer.** In your own voice:
 

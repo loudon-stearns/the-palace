@@ -1,6 +1,6 @@
 {
-  "version": "0.2",
-  "notes": "T7c synth archetype library for the VCV/PDL pipeline. An archetype is a param-cloud projection onto EXISTING topology — it never injects modules. v0.2 (2026-05-29), shaped by the first Rack audition of the v0.1 patches: (1) a param-cloud value may be a REGION NAME (string → seed-sampled at a deterministic position, the expressive axis) OR a NUMERIC LITERAL (pinned, clamped to the param's range, the identity axis) — so the seed varies what should vary and leaves identity-critical settings fixed; (2) clouds now set MODULATION DEPTH (attenuverter params like VCF.FREQ_CV, VCO.FM_DEPTH), because v0.1 set destination knobs but left depths at zero, making cabled modulation silent — depth values for pluck/warm_pad are calibrated from Loudon's hand-refinements (FREQ_CV ≈0.38 / ≈0.03); (3) each archetype declares RECOMMENDED_CABLES between roles — the emitter WARNS (T12 'make failure loud') when an identity cable is absent, without injecting it, because topology stays a PDL/T6 decision; (4) base oscillator FREQ is pinned to keyboard-tracking (0) for played voices so a static multi-octave offset can't fight the played pitch — drone keeps a FREQ region as the documented unplayed/sustained exception, and sub_bass pins a -12 octave offset as an intentional register choice. Region names reference perceptual regions in vcv_fundamental_registry.json (v2.3+). Resolver: resolveArchetype in PDL Renderer.html. Emit precedence: explicit PDL `*` line > archetype param > registry default. Project data with its own `version`; not palace ontology.",
+  "version": "0.3",
+  "notes": "T7c synth archetype library for the VCV/PDL pipeline. An archetype is a param-cloud projection onto EXISTING topology — it never injects modules. v0.2 (2026-05-29), shaped by the first Rack audition of the v0.1 patches: (1) a param-cloud value may be a REGION NAME (string → seed-sampled at a deterministic position, the expressive axis) OR a NUMERIC LITERAL (pinned, clamped to the param's range, the identity axis) — so the seed varies what should vary and leaves identity-critical settings fixed; (2) clouds now set MODULATION DEPTH (attenuverter params like VCF.FREQ_CV, VCO.FM_DEPTH), because v0.1 set destination knobs but left depths at zero, making cabled modulation silent — depth values for pluck/warm_pad are calibrated from Loudon's hand-refinements (FREQ_CV ≈0.38 / ≈0.03); (3) each archetype declares RECOMMENDED_CABLES between roles — the emitter WARNS (T12 'make failure loud') when an identity cable is absent, without injecting it, because topology stays a PDL/T6 decision; (4) base oscillator FREQ is pinned to keyboard-tracking (0) for played voices so a static multi-octave offset can't fight the played pitch — drone keeps a FREQ region as the documented unplayed/sustained exception, and sub_bass pins a -12 octave offset as an intentional register choice. Region names reference perceptual regions in vcv_fundamental_registry.json (v2.3+). Resolver: resolveArchetype in PDL Renderer.html. Emit precedence: explicit PDL `*` line > archetype param > registry default. Project data with its own `version`; not palace ontology. v0.3 (2026-10-26, steward cycle 2): an archetype may carry `voices`, how many notes it plays at once; the emitter writes it into the keyboard module unless the PDL says `# voices: N`. warm_pad plays six voices (Loudon, on his warm-pad refinement: should be polyphonic!) and pins its amp LEVEL at 0.5, so a chord of saws summed at the audio out does not clip.",
   "role_conventions": {
     "AMP_ENV": "amp_env",
     "PITCH_ENV": "pitch_env",
@@ -62,8 +62,10 @@
         "vco":     { "FREQ": 0.0 },
         "vcf":     { "FREQ": "open", "RES": "present", "FREQ_CV": 0.03 },
         "amp_env": { "A": "pad", "D": "medium", "S": "held", "R": "long" },
-        "lfo":     { "FREQ": "subtle" }
+        "lfo":     { "FREQ": "subtle" },
+        "amp":     { "LEVEL": 0.5 }
       },
+      "voices": 6,
       "recommended_cables": [
         { "from": "lfo", "to": "vcf", "to_port": "FREQ",
           "label": "LFO breathes the cutoff — the pad's slow evolution; without it FREQ_CV modulates nothing" }

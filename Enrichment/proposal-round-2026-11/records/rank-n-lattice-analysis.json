@@ -1,0 +1,25 @@
+{
+ "entry": "Rank-N Lattice Analysis",
+ "path": "Rank-N Lattice Analysis.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ Rank as a measured property: \"the rank N itself is a measured quantity\" — a harmonic tone fits rank 1, a stiff string or bell needs N >= 2; § The synth as its own oscilloscope: watch the lattice fit converge, then play the synth with that lattice.",
+ "pieces": [
+  {
+   "section": "Rank as a measured property",
+   "what": "Feed it a harmonic tone, then a stretched piano partial set, then a bell; the fitter finds the fewest generators and shows the rank settle, with residual energy per rank",
+   "kind": "interactive",
+   "walks_up_from": "one sine, rank 1 with no residual"
+  },
+  {
+   "section": "The synth as its own oscilloscope",
+   "what": "Round trip: analyse a recorded note, show the fitted generators on a torus, and play the resynthesis beside the original",
+   "kind": "audio",
+   "walks_up_from": "a two-partial harmonic tone"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "slice": 5
+}

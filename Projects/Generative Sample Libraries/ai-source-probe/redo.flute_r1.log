@@ -1,0 +1,130 @@
+$ probe.py render --adapter musicgen_melody --instrument flute --grid 67:67:1 --takes 6 --first-seed 4 --as flute_r1_G4
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  9.59it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 15.79it/s]
+[musicgen_melody]   1/6 flute    G4 s4  ok  25.4s
+[musicgen_melody]   2/6 flute    G4 s5  ok  10.6s
+[musicgen_melody]   3/6 flute    G4 s6  ok  14.0s
+[musicgen_melody]   4/6 flute    G4 s7  ok  12.2s
+[musicgen_melody]   5/6 flute    G4 s8  ok  12.3s
+[musicgen_melody]   6/6 flute    G4 s9  ok  12.7s
+[musicgen_melody] rendered 6/6 → renders.flute_r1_G4.jsonl
+$ probe.py verify --adapter musicgen_melody --as flute_r1_G4
+[musicgen_melody] flute    G4 s4  retunable cents=1204.87  octave +1
+[musicgen_melody] flute    G4 s5  on_target cents=-13.57  clean
+[musicgen_melody] flute    G4 s6  on_target cents=0.13  clean
+[musicgen_melody] flute    G4 s7  texture   cents=0.0  spread 1200c > 30c; only 62% of frames near one pitch
+[musicgen_melody] flute    G4 s8  texture   cents=-1200.0  spread 1190c > 30c; only 69% of frames near one pitch
+[musicgen_melody] flute    G4 s9  retunable cents=1201.4  octave +1
+$ probe.py render --adapter musicgen_melody --instrument flute --grid 61:61:1 --takes 6 --first-seed 4 --as flute_r1_Cs4
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  9.69it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 14.57it/s]
+[musicgen_melody]   1/6 flute    C#4 s4  ok  28.0s
+[musicgen_melody]   2/6 flute    C#4 s5  ok  11.0s
+[musicgen_melody]   3/6 flute    C#4 s6  ok  11.4s
+[musicgen_melody]   4/6 flute    C#4 s7  ok  11.9s
+[musicgen_melody]   5/6 flute    C#4 s8  ok  12.2s
+[musicgen_melody]   6/6 flute    C#4 s9  ok  13.6s
+[musicgen_melody] rendered 6/6 → renders.flute_r1_Cs4.jsonl
+$ probe.py verify --adapter musicgen_melody --as flute_r1_Cs4
+[musicgen_melody] flute    C#4 s4  retunable cents=1208.53  octave +1
+[musicgen_melody] flute    C#4 s5  texture   cents=1210.0  spread 1200c > 30c; only 69% of frames near one pitch
+[musicgen_melody] flute    C#4 s6  retunable cents=1186.81  octave +1
+[musicgen_melody] flute    C#4 s7  on_target cents=3.88  clean
+[musicgen_melody] flute    C#4 s8  on_target cents=-13.05  clean
+[musicgen_melody] flute    C#4 s9  retunable cents=1203.28  octave +1
+$ probe.py render --adapter musicgen_melody --instrument flute --grid 73:73:1 --takes 6 --first-seed 4 --as flute_r1_Cs5
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  8.65it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 15.06it/s]
+[musicgen_melody]   1/6 flute    C#5 s4  ok  29.2s
+[musicgen_melody]   2/6 flute    C#5 s5  ok  12.7s
+[musicgen_melody]   3/6 flute    C#5 s6  ok  13.6s
+[musicgen_melody]   4/6 flute    C#5 s7  ok  16.9s
+[musicgen_melody]   5/6 flute    C#5 s8  ok  12.4s
+[musicgen_melody]   6/6 flute    C#5 s9  ok  11.9s
+[musicgen_melody] rendered 6/6 → renders.flute_r1_Cs5.jsonl
+$ probe.py verify --adapter musicgen_melody --as flute_r1_Cs5
+[musicgen_melody] flute    C#5 s4  retunable cents=1200.16  octave +1
+[musicgen_melody] flute    C#5 s5  on_target cents=7.32  clean
+[musicgen_melody] flute    C#5 s6  on_target cents=16.96  clean
+[musicgen_melody] flute    C#5 s7  texture   cents=-2390.0  spread 1200c > 30c; only 61% of frames near one pitch
+[musicgen_melody] flute    C#5 s8  retunable cents=-1184.98  octave -1
+[musicgen_melody] flute    C#5 s9  on_target cents=-0.4  clean
+$ build_sfz.py range+flute_names56_bo3+flute_names57_bo3+flute_r1_G4+flute_r1_Cs4+flute_r1_Cs5 --instrument flute --by-played --trim --audition --range C4:D7 --redo /Users/loudonstearns/Documents/The Palace/Projects/Generative Sample Libraries/ai-source-probe/instruments/redo/flute.json --out instruments/redo/r1
+[range+flute_names56_bo3+flute_names57_bo3+flute_r1_G4+flute_r1_Cs4+flute_r1_Cs5] flute    TEXTURE ONLY built range+flute_names56_bo3+flute_names57_bo3+flute_r1_G4+flute_r1_Cs4+flute_r1_Cs5_flute.sfz  C4–C#7  21 samples  trimmed from 38/38  keycheck 38/38 on target, worst 4.66c
+$ shape_attacks.py --mode bow instruments/redo/r1/flute
+instruments/redo/r1/flute_shaped: 38/38 keys on target, worst 4.26c
+  flute_names57_bo3__flute_C4_s3.wav cut in at 0.292 s (model opened at -10.1 dB, sustain -6.8 dB)
+  flute_r1_Cs4__flute_C#4_s8.wav cut in at 0.202 s (model opened at -12.4 dB, sustain -7.4 dB)
+  flute_names56_bo3__flute_D5_s2.wav cut in at 0.151 s (model opened at -12.2 dB, sustain -5.0 dB)
+  flute_names57_bo3__flute_D#4_s2.wav cut in at 0.15 s (model opened at -7.1 dB, sustain -5.0 dB)
+  range__flute_E4_s1.wav   cut in at 0.151 s (model opened at -0.8 dB, sustain -5.5 dB)
+  flute_names56_bo3__flute_F5_s3.wav cut in at 0.161 s (model opened at -3.7 dB, sustain -4.1 dB)
+  flute_r1_G4__flute_G4_s5.wav cut in at 1.12 s (model opened at -22.2 dB, sustain -8.5 dB)
+  flute_names56_bo3__flute_G#3_s1.wav cut in at 0.21 s (model opened at -6.3 dB, sustain -2.7 dB)
+  flute_names57_bo3__flute_A3_s2.wav cut in at 0.15 s (model opened at -4.3 dB, sustain -4.1 dB)
+  flute_names56_bo3__flute_B4_s3.wav cut in at 0.151 s (model opened at -5.7 dB, sustain -4.2 dB)
+  flute_names57_bo3__flute_C4_s1.wav cut in at 0.411 s (model opened at -16.5 dB, sustain -8.1 dB)
+  flute_r1_Cs5__flute_C#5_s9.wav cut in at 0.15 s (model opened at -7.7 dB, sustain -2.6 dB)
+  flute_names56_bo3__flute_D4_s3.wav cut in at 0.29 s (model opened at -13.0 dB, sustain -2.4 dB)
+  range__flute_E7_s2.wav   cut in at 0.18 s (model opened at -8.2 dB, sustain -4.2 dB)
+  flute_names56_bo3__flute_F5_s1.wav cut in at 0.15 s (model opened at -4.2 dB, sustain -2.8 dB)
+  flute_names57_bo3__flute_F#4_s1.wav cut in at 0.15 s (model opened at -3.9 dB, sustain -3.7 dB)
+  range__flute_G6_s2.wav   cut in at 0.15 s (model opened at -6.2 dB, sustain -2.7 dB)
+  flute_names56_bo3__flute_G#4_s3.wav cut in at 0.161 s (model opened at -8.6 dB, sustain -5.3 dB)
+  range__flute_A#6_s1.wav  cut in at 0.15 s (model opened at -1.6 dB, sustain -3.1 dB)
+  flute_names57_bo3__flute_C5_s2.wav cut in at 0.15 s (model opened at -12.8 dB, sustain -9.2 dB)
+  range__flute_C#7_s1.wav  cut in at 0.15 s (model opened at -5.0 dB, sustain -5.2 dB)
+$ loop_sustain.py instruments/redo/r1/flute_shaped
+{"instrument": "flute_looped", "samples": 21, "seams_clean": 21, "held_12s_on_target": 21, "worst_click_db": 4.45, "worst_level_step_db": 0.58, "loop_sec_range": [0.352, 1.599], "limits": {"click_db": 6.0, "level_step_db": 1.5, "hold_sec": 12.0}}
+$ finish_instrument.py instruments/redo/r1/flute_looped --name MusicGen Flute --out instruments/finished/flute_r1
+{
+ "instrument": "MusicGen Flute",
+ "from": "instruments/redo/r1/flute_looped",
+ "samples": 21,
+ "loop_level_spread_db": {
+  "before": 8.0,
+  "after": 0.0
+ },
+ "worst_neighbour_jump_db": {
+  "before": 6.0,
+  "after": 0.0
+ },
+ "worst_swell_db": {
+  "before": 9.59,
+  "after": 3.46
+ },
+ "seams_clean": 21,
+ "held_12s_on_target": 21,
+ "worst_click_db": 4.45,
+ "worst_level_step_db": 0.93,
+ "shared_trim_db": -1.57,
+ "velocity": {
+  "amp_veltrack": 80,
+  "cutoff": 3000,
+  "fil_veltrack": 2400
+ }
+}
+$ to_decentsampler.py instruments/finished/flute_r1
+{"preset": "MusicGen Flute.dspreset", "map_matches_sfz": true, "keys_played": 38, "on_target": 38, "worst_abs_cents_on_target": 4.28, "samples_missing_from_library": [], "library_bytes": 6138745}
+$ phrase.py instruments/finished/flute_r1 --mode bow
+flute_r1: tonic C5, 55 notes, 9 of 21 samples heard, 40.5 s -> phrase.wav
+[
+ {
+  "key": "G4",
+  "before": "range__flute_G5_s2.wav",
+  "before_own_sample": true,
+  "after": "flute_r1_G4__flute_G4_s5.wav",
+  "came_from": "fresh take (flute_r1_G4 seed 5)"
+ },
+ {
+  "key": "C#4",
+  "before": "range__flute_C#5_s2.wav",
+  "before_own_sample": true,
+  "after": "flute_r1_Cs4__flute_C#4_s8.wav",
+  "came_from": "fresh take (flute_r1_Cs4 seed 8)"
+ },
+ {
+  "key": "C#5",
+  "before": "range__flute_C#6_s1.wav",
+  "before_own_sample": true,
+  "after": "flute_r1_Cs5__flute_C#5_s9.wav",
+  "came_from": "fresh take (flute_r1_Cs5 seed 9)"
+ }
+]

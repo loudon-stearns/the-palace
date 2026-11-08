@@ -1,0 +1,193 @@
+# Original video narration — Cycle 5 Explorer (Illustrator build)
+
+Auto-transcribed (Whisper small.en) from `Cycle5Exploreroverview.mov` (13:12). Source video: https://www.dropbox.com/scl/fi/21njll6ni2szal5duezo1/Cycle5Exploreroverview.mov?rlkey=74m3ptcnv4yysdenou8vyp8tz&dl=0
+
+Transcription errors are left as-is (e.g. "Nionium" = Ionian, "end harmonics" = enharmonics).
+
+- [0:01] Alrighty, we have the big Cycle 5 Explorer.
+- [0:08] This thing, it's pretty straightforward, but it's also kind of complex, and I'm just going
+- [0:13] to give you a rundown of how it's going to work, and I'm up for suggestions.
+- [0:18] I think I've supplied everything you'll need to build this thing.
+- [0:22] It's one gigantic Illustrator document, and this took me like three days to make, so
+- [0:26] I'm done.
+- [0:27] I can't do any more work on this thing.
+- [0:29] So here's how it goes.
+- [0:31] The main section and the hardest part is going to be this dial, which is the Cycle 5 Explorer.
+- [0:38] Think of it like a big decoder ring for harmony and modes.
+- [0:44] So if you look in the Layer Palette in Illustrator, you'll see that I have a Cycle 5 labels that's
+- [0:54] going to stay consistent, modes will stay still, quality stays still, and the Rotate Degrees
+- [1:03] is the most important thing here.
+- [1:06] So let's try that out.
+- [1:07] I grab it, grab it, you might want to turn on Guides because it makes it easier to see
+- [1:13] how it's rotating, and then enter Rotate Mode and click in the very middle so it rotates.
+- [1:21] Right now it's at Nionium, Ionian is selected.
+- [1:24] If I dial it over here, we have Mixolydian selected.
+- [1:29] Notice what happens when I go to Mixolydian, we see that it's G Mixolydian, it includes
+- [1:34] 1, 2, 3, 4, 5, 6, and flat 7.
+- [1:40] We also see that F is the flat 7, major 7, sharp 11 chord in Mixolydian.
+- [1:47] C is the 4, major 7 chord in Mixolydian.
+- [1:51] A is the 2, minor 7, flat, minor 7, 9, flat 13, the Aeolian chord in G Mixolydian.
+- [1:58] So we see all the relationships between the notes.
+- [2:02] Now the problem with this is of course that everything that's rotating is getting skewed.
+- [2:08] These should remain upright in your version, which I couldn't do here in Illustrator.
+- [2:14] We can continue on with this, if I was to move it down to Aeolian, kind of the relative minor,
+- [2:21] we see that A, minor 7, 9, flat 13 is the 1 chord, we see that here, and F is the flat
+- [2:30] 6, major 7, sharp 11 chord.
+- [2:33] So we get all the information.
+- [2:35] One big problem we see here, if I go over to Locrian, everything's fine.
+- [2:41] We have 1, minor 7, flat 5, and the degree is 1, and flat 5, major 7, sharp 11 is the
+- [2:52] F chord.
+- [2:53] Not a problem, everything works out.
+- [2:54] But if I go over to Lydian, we have 1, major 7, sharp 11, but over here in B it says flat
+- [3:04] 5.
+- [3:05] This really should say sharp 4, right?
+- [3:08] So the degrees, the numbers of the degrees really go from sharp 4 to flat 5, which I've
+- [3:14] shown here.
+- [3:15] If you look down, I made these jigs.
+- [3:17] These really don't have to be part of the diagram.
+- [3:19] They can be.
+- [3:20] If you can make them move and make them look cool, that'd be awesome.
+- [3:22] I'd like to see them in motion, but really they're designed just to be a jig, so you
+- [3:26] can see what's happening.
+- [3:27] You see they go from flat 5 to sharp 4, so that the numbers around the dial really
+- [3:32] go from sharp 4 to flat 5, but you see kind of the issue there, right?
+- [3:38] It's one more.
+- [3:39] It's one too many.
+- [3:40] So it's the same note over here.
+- [3:43] We should see that this says flat 5.
+- [3:45] If you follow that flat 5 around to the F, by the time it gets here, it should be sharp
+- [3:51] 4.
+- [3:52] We're going to see the same thing happen even to a more extent with the notes.
+- [3:56] So that's the 1 degree of freedom.
+- [3:58] Now that also gets extended over into these blocks, right?
+- [4:03] If I move to Mixolydian here, these have all the same data, just viewed a different way.
+- [4:10] Once I have it in Mixolydian, what's going to happen is these will then shift down.
+- [4:14] So all that has to happen is these I call them function bars, and they're in the
+- [4:17] function bars layer.
+- [4:19] As you turn this dial, those move up and down, right?
+- [4:22] If I was to rotate this dial to be Aeolian, then the function bars themselves should shift
+- [4:32] down to Aeolian.
+- [4:37] And really, we're just seeing the same information, right?
+- [4:40] A Aeolian has a flat 6, major 7 sharp 11 chord.
+- [4:45] Boom.
+- [4:46] Flat 6, major 7 sharp 11 chord is F. But I haven't changed the, yeah, F. Got myself
+- [4:59] confused there.
+- [5:00] F, major 7 chord.
+- [5:01] I'm an Aeolian, and the F chord is a major 7 chord.
+- [5:06] So that's the deal with those.
+- [5:09] Now the other range of motion we're going to see here is the notes.
+- [5:15] The notes can dial as well.
+- [5:18] And this is going to become a little more complicated because the sharps and flats
+- [5:21] issue.
+- [5:22] What I have down here in this jig is the entire range of sharps and flats that I would
+- [5:27] like.
+- [5:29] We can go from C flat to C sharp in any mode using this.
+- [5:33] And then the additional ones are there just for the rest of the notes in the mode.
+- [5:37] So let's see how that works.
+- [5:38] If I just go back to Aeolian, I'll just bring these back up, and now we're in C
+- [5:44] Aeolian.
+- [5:45] C Aeolian, everything agrees, everything agrees over here.
+- [5:48] Instead of dialing the mode selector, I can dial the note selector.
+- [5:54] And the same way, just rotate it.
+- [5:56] And let's go to B flat Aeolian.
+- [6:01] So I shift this to B flat.
+- [6:03] All right, now B flat Aeolian, B flat's the 1 chord, E flat, Lydian.
+- [6:08] Now to do that over here, but it works fine here.
+- [6:11] Same issue.
+- [6:12] We'd have to have the notes rotate so they stay vertical instead of
+- [6:15] skewing over like they do here.
+- [6:18] I could do a rotate each, I guess, in Illustrator to do that.
+- [6:24] Which is fine.
+- [6:25] That works okay.
+- [6:26] All right, we have B flat, E flat.
+- [6:27] All that would happen is these would have to shift down or shift up to change notes.
+- [6:31] And I've included a vertical version of the jig that will give you the idea, right?
+- [6:40] On this side here, B flat now is, let's see, so it would be here.
+- [6:51] So B flat would have to be right there, right?
+- [6:56] If I was to rotate this to E flat, we would see that this thing has to go to E flat.
+- [7:09] Also across the top, notice that in the scale tones is the same thing repeated.
+- [7:13] So this would have to go from A flat to D, A flat to D.
+- [7:17] And I have it here, A flat to D. And again, A flat to D.
+- [7:22] The top of the chord function, chord tones, also A flat to D, A flat to D.
+- [7:27] And along the sides, A flat to D, A flat to D.
+- [7:30] So I've included the jigs so that you can see the kind of order of all the notes.
+- [7:35] Really, it's just cycle five.
+- [7:36] But you might be able to just use those to kind of build your components and things.
+- [7:42] Now the problems are going to come when we get to the more extreme areas and the most
+- [7:47] obvious is just when we get to sharps.
+- [7:49] So if I rotate this thing this way, well, I'm in the key of G now, right?
+- [7:56] This is saying G flat, which is the correct note, but it's the wrong and harmonic.
+- [8:00] It should really be F sharp, right?
+- [8:05] We see F sharp here and G. If I go further, oops.
+- [8:17] If I go further, put it in the key of say, A, we're getting all these flats.
+- [8:27] Really, they should be sharps.
+- [8:31] And you can see that over here.
+- [8:32] So to make this a little simpler, what you can do, again, this is just my little jig
+- [8:37] thing.
+- [8:38] I'm going to move this to, oops, if I just take the notes here and move them to A, you
+- [8:52] see that the scale goes from D to G sharp.
+- [8:56] So it's just that these end harmonics have to be changed.
+- [8:59] Now I visualize it kind of like a spiral, this note thing.
+- [9:04] And also the degree is also as well for a smaller instance.
+- [9:08] But the notes are kind of like a spiral in that when they're coming this way, the
+- [9:14] flats are showing up.
+- [9:16] And that actually has to go all the way down to the double flats.
+- [9:22] So it should go all the way to here to where you're seeing completely, that's D flat
+- [9:28] all the way to G double flat.
+- [9:30] And then as you scroll this way, you're going up in the spiral now.
+- [9:34] We should see sharps.
+- [9:36] And then when I get all the way over here, we should see B to F double sharp, right?
+- [9:42] So it's like this big spiral that has to go up and down to show us the correct notes.
+- [9:47] Hopefully the jigs give you enough information on how to set it up.
+- [9:53] So hopefully this all makes sense.
+- [9:57] One thing to watch out for, I've given you these tan and kind of greenish vertical things
+- [10:06] here for this jig.
+- [10:07] Those are completely unnecessary.
+- [10:09] It's all just, I used to build the stuff inside these, which never move.
+- [10:14] The only thing on the scale tones, chord function corners, all that moves over here are the
+- [10:18] notes will shift around.
+- [10:19] Remember these, this block is the same as this block.
+- [10:22] That's what I've kind of indicated here.
+- [10:26] So the notes move and then the function bars shift up and down as we change mode.
+- [10:32] Now moving these jigs, you know, I have these mainly to help you out.
+- [10:36] Well, let me show you how they move because it's a little bit confusing, which is why they're
+- [10:40] not really necessary to show in the diagram, though if you want to, that's great.
+- [10:44] When we shift notes, we would shift these here.
+- [10:48] So this is the note shifting back and forth.
+- [10:51] The absolute max you can go is C flat is where the one can be or up to C sharp, which is
+- [10:58] where the one can be, which is why I have this bracket here to show.
+- [11:02] That's kind of the maximum.
+- [11:03] We'll put this back at C.
+- [11:05] The other thing that can move.
+- [11:08] That's doing the same thing.
+- [11:11] But if I was to move, this is how we change mode, right?
+- [11:16] That's going to be C Locrian, which includes C all the way to G flat.
+- [11:21] And this is C Lydian, which is why I needed the extra notes in the sides.
+- [11:26] If I put this in C Lydian, we get all the way up to F double sharp here.
+- [11:36] As I change the mode, let's say to, so this one would be C major.
+- [11:44] That's the next one we can just go look, we can look around.
+- [11:46] Oh, that will be mixo.
+- [11:49] If I do this, Dorian, if I change the key over to C sharp, we'll go C sharp Lydian.
+- [12:02] We rock this over like that, and that's C sharp Lydian.
+- [12:06] This jig here is showing us the same things as we see in the dial and the chord functions here.
+- [12:11] Again, just another way to show the same information.
+- [12:14] I think this really isn't incredibly useful for the students to see.
+- [12:17] I think this is kind of confusing, but it might help you as you're building the application
+- [12:25] like it helped me while I was building this Illustrator document.
+- [12:28] So we can leave those out.
+- [12:30] Honestly, I think the scale tones and chord function, chord tones, diagrams are a little small.
+- [12:35] I like them to be bigger on the whole thing.
+- [12:37] So we could just shift things out and scale those up a little bit.
+- [12:40] So they're closer to the size of this.
+- [12:42] The colors are all important.
+- [12:44] You see the modes are all this kind of reddish color.
+- [12:46] The qualities are all kind of a darker green.
+- [12:50] The functions are all lighter green and the degrees are all the tan color.
+- [12:54] I'm okay with, and the notes are all obviously all white.
+- [12:56] I'm okay with those colors changing if they have to,
+- [13:00] but I want them to represent what they represent.
+- [13:02] So keep things nice and consistent across the application.
+- [13:07] All right.
+- [13:08] Thank you.
+- [13:08] And that's the Cycle 5 Explore.
+- [13:11] Exciting.

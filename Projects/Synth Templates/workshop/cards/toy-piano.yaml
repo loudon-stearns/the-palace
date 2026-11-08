@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — Toy Piano
+# Detune as cheapness: a square that beats against itself, a metal partial on top, and a decay too short to be a piano.
+schema: synth-template-card/0.2
+id: toy-piano
+name: Toy Piano
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Unison / unisono"
+  - "Octave / semitone / fine tuning"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Waveforms: saw, square, triangle, sine, noise"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, octave: 1, unison: 2, detune: wide, note: "two squares, badly in tune with each other"}
+    osc2:    {kind: oscillator, wave: sine, ratio: "4.2:1", level: little, note: "the rod's metal partial, nearly but not quite the fourth harmonic; the voice may not tune a mixed partial by ratio"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: struck}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: square,        why: "hollow and a little harsh: a metal rod on a plastic hammer, not a string on felt"}
+  - {block: osc1,    param: unison,  value: 2 voices,      why: "two of them so they can disagree"}
+  - {block: osc1,    param: detune,  value: wide,          why: "wide is past chorus into out-of-tune: a slight detune would sound expensive, this one sounds like a toy"}
+  - {block: osc2,    param: ratio,   value: "4.2:1",       why: "a rod rings a partial just off the fourth harmonic; off is the point"}
+  - {block: filter1, param: cutoff,  value: mid,           why: "takes the square's top edge off: a small box, not a bright one"}
+  - {block: aenv,    param: attack,  value: instant,       why: "struck"}
+  - {block: aenv,    param: decay,   value: medium,        why: "a rod stops far sooner than a piano string; the short decay is half of what says 'toy'"}
+  - {block: aenv,    param: sustain, value: zero}
+  - {block: aenv,    param: release, value: same as decay, why: "no damper in a toy"}
+  - {block: mode,    param: voices,  value: poly}
+
+taste:
+  - {block: osc1,    param: detune,  range: "narrow – very wide",     default: wide, why: "narrow is a chorus; very wide is broken"}
+  - {block: osc2,    param: level,   range: "off – half",             default: little}
+  - {block: filter1, param: cutoff,  range: "dark – bright",          default: mid}
+  - {block: aenv,    param: decay,   range: "short – long",           default: medium}
+
+listening:
+  cue: "A small, slightly sour clink. The note wobbles against itself because the two squares are out of tune, and a thin metal ping sits on top of each one."
+  ab: "Set the detune to slight: the wobble becomes a soft chorus and the toy suddenly sounds like a respectable celesta. Back to wide and it is cheap again. Then set the decay to long: a piano-length toy, which is wrong in a different way."
+
+render:
+  tempo: 116
+  note: [C4, E4, G4, C5, G4, E4, C4, E4]
+  velocity: [100, 85, 85, 100, 85, 85, 100, 85]
+  pattern: "eighths, one bar, a nursery arpeggio, each a 16th long"
+  length_s: 3.0
+
+mappings: {}

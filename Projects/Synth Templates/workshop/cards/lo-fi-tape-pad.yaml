@@ -1,0 +1,74 @@
+# Synth Templates — card 0.2 — Lo-Fi Tape Pad
+# A warm pad with its pitch made unsteady on purpose: slow random wobble, a little hiss, a dull top. The flaws are the warmth.
+schema: synth-template-card/0.2
+id: lo-fi-tape-pad
+name: Lo-Fi Tape Pad
+family: Pads
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Noise for softness and high end"
+  - "Retrigger vs free; chords with staggered attacks"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    osc2:    {kind: oscillator, wave: triangle, octave: 0, detune: slight, note: "a softer second voice a few cents off"}
+    noise:   {kind: oscillator, wave: noise, color: pink, level: little, note: "the hiss; it builds with every note, so keep it low"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [saturation, chorus]}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+    lfo1:    {kind: lfo, wave: random, rate: slow, sync: false, retrigger: false, note: "wow and flutter: smooth random, not a sine; a sine is vibrato, which is a different thing"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: lfo1, to: osc2.pitch, amount: little, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: lfo1,    param: wave,      value: random,          why: "tape does not wobble on a sine; the pitch wanders and never repeats"}
+  - {block: lfo1,    param: rate,      value: slow,            why: "wow: under a hertz; flutter would be faster and finer"}
+  - {block: lfo1,    param: amount,    value: little,          why: "a few cents: felt as warmth, not heard as out of tune; the pad goes seasick past that"}
+  - {block: lfo1,    param: target,    value: both oscillators, why: "the whole machine wobbles together, as one tape would; if only one moved it would be detune, not wow"}
+  - {block: noise,   param: level,     value: little,          why: "hiss under the chord: the room tone of the medium"}
+  - {block: filter1, param: cutoff,    value: mid,             why: "tape loses the top; a dull pad reads as old"}
+  - {block: filter1, param: type,      value: lowpass 12 dB,   why: "a gentle roll-off, not a wall"}
+  - {block: fx,      param: chain,     value: saturation then chorus, why: "light saturation is the tape; the chorus smears the wobble into width"}
+  - {block: aenv,    param: attack,    value: slow,            why: "a pad"}
+  - {block: mode,    param: voices,    value: poly,            why: "chords; the free-running wobble puts each one somewhere else"}
+
+taste:
+  - {block: noise,   param: level,     range: "off – quarter",          default: little}
+  - {block: filter1, param: cutoff,    range: "dark – mid",             default: mid}
+  - {block: lfo1,    param: rate,      range: "very slow – medium",     default: slow}
+  - {block: lfo1,    param: depth,     range: "none – some",            default: little}
+  - {block: aenv,    param: release,   range: "medium – very long",     default: long}
+  - {block: fx,      param: drive,     range: "none – heavy",           default: light}
+
+listening:
+  cue: "A soft, slightly dull chord with a faint hiss under it, and the pitch is not quite still: it leans and rights itself like a record on a warped turntable. Nothing is broken; it only sounds old."
+  ab: "Set the LFO depth to none: a clean, correct pad, and suddenly it is a synth again. Put it back. Then swap the LFO's random wave for a sine: the wobble turns into a vibrato, regular and musical, which is the wrong kind of wrong."
+
+render:
+  tempo: 80
+  note: [Eb3, G3, Bb3, D4]
+  velocity: 80
+  pattern: "one chord held three bars, released, tail to silence"
+  length_s: 10.0
+
+mappings: {}

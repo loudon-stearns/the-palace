@@ -1,0 +1,34 @@
+{
+ "entry": "Remnants in Depth",
+ "path": "Remnants in Depth.md",
+ "type": "practice",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "§ The trick: a metaball \"seen off-axis looks like a ball\", while a camera-facing card keeps the mark flat and gives it parallax — \"flatness and parallax at once. That choice is the whole idea.\" A claim about motion the text can only describe.",
+ "pieces": [
+  {
+   "section": "The trick: billboards, not geometry",
+   "what": "Orbit a single ink mark made two ways, as a metaball and as a camera-facing card, so the reader sees which stays ink",
+   "kind": "interactive",
+   "walks_up_from": "one ink blob on a card"
+  },
+  {
+   "section": "The three steps",
+   "what": "The gathered blobspace render: a field of billboards parallaxing past linework",
+   "kind": "video",
+   "walks_up_from": "one mark at one depth"
+  },
+  {
+   "section": "The clean composite (the hard-won part)",
+   "what": "Before and after of the white-square artifact over a line, with the two fixes (separate view layers, DITHERED clip) toggled one at a time, testing 'neither fix alone is enough'",
+   "kind": "image",
+   "walks_up_from": "one billboard over one line"
+  }
+ ],
+ "gathered": [
+  "Projects/BLUELINE/proofs/blender-handdrawn/blobspace.mp4",
+  "Projects/BLUELINE/proofs/blender-handdrawn/blob-library/ (blob PNGs and blob-character.json)"
+ ],
+ "tier": "sketch",
+ "slice": 5
+}

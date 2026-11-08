@@ -21,7 +21,7 @@ links:
   - target: "[[Synthesis ↔ Emergence]]"
     type: connects-to
     label: flock-origin
-  - target: "[[BBS Design System]]"
+  - target: "[[STIGMERGY]]"
     type: connects-to
     label: terminal-aesthetic
   - target: "[[BBS Blackboard]]"

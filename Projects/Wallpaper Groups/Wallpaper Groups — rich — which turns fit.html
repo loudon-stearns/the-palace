@@ -1,0 +1,536 @@
+<!doctype html>
+<!--
+  title: Wallpaper Groups — rich — which turns fit
+  born: 2026-11-03
+  links: [[Wallpaper Groups]] (connects-to · rich-face-piece) · listed in [[Wallpaper Groups — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am The Seventeen Symmetries put to the test. I turn a lattice until its points land, try every turn, show what a fifth-turn does to a lattice, prove which turns can fit, and last count the seventeen that are left against the section's own list. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; it is byte for byte the engine in "Wallpaper Groups — rich — one tile.html", and Projects/Wallpaper Groups/workshop/rich-checks.mjs re-runs the claims on it.
+  dress: Loudon Live house style, Graphite skin. Silent: no sound.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Which turns can a repeating pattern hold?</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7f9cff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 76ch; margin: 0 0 14px; min-height: 4.8em; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .legend i { display: inline-block; width: 12px; height: 8px; vertical-align: middle; margin-right: 6px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 220px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seglabel { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 14px; line-height: 1.55; color: var(--amber); max-width: 80ch; min-height: 1.6em; }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 90ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 86ch; }
+  .grid17 { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .cellbox { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 6px 6px 4px; }
+  .cellbox canvas { aspect-ratio: 1 / 1; }
+  .cellname { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; color: var(--fg3); margin-top: 4px; }
+  .cellname b { color: var(--fg1); font-weight: 500; }
+  .bin { margin-bottom: 14px; }
+  .binhead { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin: 0 0 6px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .binhead b { color: var(--fg1); font-weight: 500; }
+  .binhead .text { color: var(--amber); }
+  .sigil { position: absolute; top: 18px; right: 20px; opacity: .55; }
+  .piece { position: relative; }
+  @media (max-width: 680px) { .ctl { min-width: 100%; } }
+  #pair { display: grid; gap: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <svg class="sigil" id="sigil" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"></svg>
+  <div class="kicker">made · canvas · sketch · a walk in five steps</div>
+  <h3 class="title">Which turns can a repeating pattern hold?</h3>
+  <p class="sub">The crystallographic restriction, played: turn a lattice and count the points that land, try the fifth-turn, find the one condition every turn must meet, then count what is left. Silent; nothing here makes sound.</p>
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+  <div id="single">
+    <div id="pair">
+      <div class="panel"><div class="plabel"><span id="plabel"></span><span id="key"></span></div><canvas id="cv"></canvas></div>
+      <div class="panel" id="second"><div class="plabel"><span id="plabel2"></span><span>points within 2.6</span></div><canvas id="cv2" style="aspect-ratio:1/1"></canvas></div>
+    </div>
+  </div>
+  <div id="binwrap" style="display:none"><div id="bins"></div></div>
+  <div class="controls" id="controls"></div>
+  <div class="read" id="read"></div>
+  <div class="verdict" id="verdict"></div>
+  <div class="eqs" id="eqs" style="display:none">
+    <div class="eq">v<sub>+</sub> + v<sub>−</sub> = 2 · cos(360° ⁄ n) · v &nbsp;⇒&nbsp; 2 · cos(360° ⁄ n) ∈ {−2, −1, 0, 1, 2} &nbsp;⇒&nbsp; n ∈ {1, 2, 3, 4, 6}</div>
+    <div class="words">(the shortest step turned one way) + (the same step turned the other way) = (a whole lattice step lying along the shortest one, 2·cos of the turn times as long); a whole step along the shortest step is a whole number of them, and that number lies between −2 and 2; so the turn is a full turn, a half, a third, a quarter or a sixth.</div>
+  </div>
+  <div class="nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="hint">Points are counted within 3.2 cell widths of the centre. The seventeen in the last step are drawn by the same engine as the piece in the Prism Machine section, from one tile. Counting by the section's kinds reads a glide as a reflection; read any other way, its four bins can't hold all seventeen.</div>
+</div>
+<script>
+/*ENGINE-START*/
+// The seventeen, as International Tables write them: each group is its general-position
+// operations in lattice (fractional) coordinates, x' = a·x + b·y + t. The same block sits in
+// "Wallpaper Groups — rich — one tile.html" and "… — which turns fit.html", byte for byte;
+// Projects/Wallpaper Groups/workshop/rich-checks.mjs runs it in Node.
+const R3 = Math.sqrt(3);
+const LATTICES = {
+  oblique: [[1, 0], [0.3, 0.88]],
+  rect: [[1, 0], [0, 0.72]],
+  square: [[1, 0], [0, 1]],
+  hex: [[1, 0], [-0.5, R3 / 2]],
+};
+const P2 = ['x,y', '-x,-y'];
+const PMM = [...P2, '-x,y', 'x,-y'];
+const P4 = [...P2, '-y,x', 'y,-x'];
+const P3 = ['x,y', '-y,x-y', '-x+y,-x'];
+const P6 = [...P3, '-x,-y', 'y,-x+y', 'x-y,x'];
+const GROUPS = [
+  { id: 'p1', orb: 'o', lattice: 'oblique', ops: ['x,y'], words: 'slides only' },
+  { id: 'p2', orb: '2222', lattice: 'oblique', ops: P2, words: 'half-turns' },
+  { id: 'pm', orb: '**', lattice: 'rect', ops: ['x,y', '-x,y'], words: 'parallel mirrors' },
+  { id: 'pg', orb: '××', lattice: 'rect', ops: ['x,y', '-x,y+1/2'], words: 'parallel glides' },
+  { id: 'cm', orb: '*×', lattice: 'rect', ops: ['x,y', '-x,y'], centred: true, words: 'mirrors with glides between' },
+  { id: 'pmm', orb: '*2222', lattice: 'rect', ops: PMM, words: 'mirrors both ways' },
+  { id: 'pmg', orb: '22*', lattice: 'rect', ops: [...P2, '-x+1/2,y', 'x+1/2,-y'], words: 'mirrors one way, glides the other' },
+  { id: 'pgg', orb: '22×', lattice: 'rect', ops: [...P2, '-x+1/2,y+1/2', 'x+1/2,-y+1/2'], words: 'glides both ways' },
+  { id: 'cmm', orb: '2*22', lattice: 'rect', ops: PMM, centred: true, words: 'mirrors both ways, centred' },
+  { id: 'p4', orb: '442', lattice: 'square', ops: P4, words: 'quarter-turns' },
+  { id: 'p4m', orb: '*442', lattice: 'square', ops: [...P4, '-x,y', 'x,-y', 'y,x', '-y,-x'], words: 'quarter-turns on mirrors' },
+  { id: 'p4g', orb: '4*2', lattice: 'square', ops: [...P4, '-x+1/2,y+1/2', 'x+1/2,-y+1/2', 'y+1/2,x+1/2', '-y+1/2,-x+1/2'], words: 'quarter-turns off the mirrors' },
+  { id: 'p3', orb: '333', lattice: 'hex', ops: P3, words: 'third-turns' },
+  { id: 'p3m1', orb: '*333', lattice: 'hex', ops: [...P3, '-y,-x', '-x+y,y', 'x,x-y'], words: 'third-turns, all on mirrors' },
+  { id: 'p31m', orb: '3*3', lattice: 'hex', ops: [...P3, 'y,x', 'x-y,-y', '-x,-x+y'], words: 'third-turns, some off the mirrors' },
+  { id: 'p6', orb: '632', lattice: 'hex', ops: P6, words: 'sixth-turns' },
+  { id: 'p6m', orb: '*632', lattice: 'hex', ops: [...P6, '-y,-x', '-x+y,y', 'x,x-y', 'y,x', 'x-y,-y', '-x,-x+y'], words: 'sixth-turns on mirrors' },
+];
+function parseOp(s) {
+  const rows = s.split(',').map((part) => {
+    let a = 0, b = 0, t = 0;
+    for (const tok of part.match(/[+-]?[^+-]+/g)) {
+      const sg = tok[0] === '-' ? -1 : 1, body = tok.replace(/^[+-]/, '');
+      if (body === 'x') a += sg; else if (body === 'y') b += sg;
+      else { const [p, q] = body.split('/'); t += sg * Number(p) / (q ? Number(q) : 1); }
+    }
+    return [a, b, t];
+  });
+  return { m: [[rows[0][0], rows[0][1]], [rows[1][0], rows[1][1]]], t: [rows[0][2], rows[1][2]] };
+}
+function fracOps(g) {
+  const base = g.ops.map(parseOp);
+  if (!g.centred) return base;
+  return [...base, ...base.map((o) => ({ m: o.m, t: [o.t[0] + 0.5, o.t[1] + 0.5] }))];
+}
+const mul = (A, B) => [[A[0][0] * B[0][0] + A[0][1] * B[1][0], A[0][0] * B[0][1] + A[0][1] * B[1][1]], [A[1][0] * B[0][0] + A[1][1] * B[1][0], A[1][0] * B[0][1] + A[1][1] * B[1][1]]];
+const app = (M, v) => [M[0][0] * v[0] + M[0][1] * v[1], M[1][0] * v[0] + M[1][1] * v[1]];
+const det = (M) => M[0][0] * M[1][1] - M[0][1] * M[1][0];
+const inv = (M) => { const d = det(M); return [[M[1][1] / d, -M[0][1] / d], [-M[1][0] / d, M[0][0] / d]]; };
+const basis = (g) => { const [a, b] = LATTICES[g.lattice]; return [[a[0], b[0]], [a[1], b[1]]]; };
+// Cartesian isometries: M = B·Mf·B⁻¹, t = B·tf.
+function cartOps(g) {
+  const B = basis(g), Bi = inv(B);
+  return fracOps(g).map((o) => ({ M: mul(mul(B, o.m), Bi), t: app(B, o.t) }));
+}
+const toCart = (g, f) => app(basis(g), f);
+// The point of the cell farthest from all its own images: the tile sits there, in general position.
+function generalPoint(g) {
+  const ops = fracOps(g), B = basis(g);
+  let best = null;
+  for (let i = 1; i < 24; i++) for (let j = 1; j < 24; j++) {
+    const p = [i / 24 + 0.013, j / 24 + 0.007];
+    let dmin = Infinity;
+    for (const o of ops) {
+      const q = [o.m[0][0] * p[0] + o.m[0][1] * p[1] + o.t[0], o.m[1][0] * p[0] + o.m[1][1] * p[1] + o.t[1]];
+      for (let u = -2; u <= 2; u++) for (let v = -2; v <= 2; v++) {
+        const d = app(B, [q[0] + u - p[0], q[1] + v - p[1]]);
+        const r = Math.hypot(d[0], d[1]);
+        if (r > 1e-9 && r < dmin) dmin = r;
+      }
+    }
+    if (!best || dmin > best.d) best = { p, d: dmin };
+  }
+  return best;
+}
+// Every copy of the tile in a window: centre, linear part (the tile turned by theta first), handedness.
+function copies(g, theta, reach) {
+  const B = basis(g), ops = cartOps(g), gp = generalPoint(g), p0 = toCart(g, gp.p);
+  const c = Math.cos(theta), s = Math.sin(theta), Rt = [[c, -s], [s, c]];
+  const out = [];
+  for (let i = -reach; i <= reach; i++) for (let j = -reach; j <= reach; j++) {
+    const L = app(B, [i, j]);
+    for (const o of ops) {
+      const q = app(o.M, p0);
+      out.push({ c: [q[0] + o.t[0] + L[0], q[1] + o.t[1] + L[1]], M: mul(o.M, Rt), flip: det(o.M) < 0 });
+    }
+  }
+  return { list: out, size: gp.d, perCell: ops.length };
+}
+// What each operation is: a turn of some order, or a reflection that is a mirror or only a glide.
+function kind(g, o) {
+  if (det(o.M) > 0) {
+    const ang = Math.atan2(o.M[1][0], o.M[0][0]);
+    return Math.abs(ang) < 1e-9 ? { type: 'slide', order: 1 } : { type: 'turn', order: Math.round(2 * Math.PI / Math.abs(ang)) };
+  }
+  // fixed direction u of the reflection; its glide part is (t + lattice)·u, least over the lattice
+  const ang = Math.atan2(o.M[1][0], o.M[0][0]) / 2, u = [Math.cos(ang), Math.sin(ang)], B = basis(g);
+  let gmin = Infinity;
+  for (let i = -3; i <= 3; i++) for (let j = -3; j <= 3; j++) { const L = app(B, [i, j]); gmin = Math.min(gmin, Math.abs((o.t[0] + L[0]) * u[0] + (o.t[1] + L[1]) * u[1])); }
+  return { type: gmin < 1e-9 ? 'mirror' : 'glide', dir: u };
+}
+function profile(g) {
+  const ks = cartOps(g).map((o) => kind(g, o));
+  const turn = Math.max(1, ...ks.filter((k) => k.type === 'turn').map((k) => k.order));
+  const mirrors = ks.filter((k) => k.type === 'mirror').length, glides = ks.filter((k) => k.type === 'glide').length;
+  const [a, b] = LATTICES[g.lattice], short = Math.min(Math.hypot(...a), Math.hypot(...b), Math.hypot(a[0] + b[0], a[1] + b[1]), Math.hypot(a[0] - b[0], a[1] - b[1]));
+  const shortVecs = [a, b, [a[0] + b[0], a[1] + b[1]], [a[0] - b[0], a[1] - b[1]]].filter((v) => Math.abs(Math.hypot(...v) - short) < 1e-9);
+  const mirrorAlongShort = ks.some((k) => k.type === 'mirror' && shortVecs.some((v) => Math.abs(v[0] * k.dir[1] - v[1] * k.dir[0]) < 1e-9));
+  return { turn, mirrors, glides, reflects: mirrors + glides > 0, mirrorAlongShort, perCell: ks.length };
+}
+// The section's four bins, read the only way they can all be filled: a glide counts as a reflection.
+function textBin(p) {
+  if (p.turn === 1 && !p.reflects) return 'translation only';
+  if (p.turn === 1) return 'translation and reflection';
+  if (!p.reflects) return 'translation and rotation';
+  return 'rotation with reflection or glide';
+}
+// The crystallographic restriction: a turn by 360°/n fits a lattice only if 2·cos(360°/n) is whole.
+const twoCos = (n) => 2 * Math.cos(2 * Math.PI / n);
+const turnFits = (n) => Math.abs(twoCos(n) - Math.round(twoCos(n))) < 1e-9;
+// Points of a lattice within radius r turned by 360°/n about a lattice point: how many land on points.
+function landing(lat, n, r) {
+  const [a, b] = LATTICES[lat], B = [[a[0], b[0]], [a[1], b[1]]], Bi = inv(B), th = 2 * Math.PI / n, c = Math.cos(th), s = Math.sin(th);
+  let all = 0, hit = 0; const pts = [];
+  const R = Math.ceil(r / 0.8) + 1;
+  for (let i = -R; i <= R; i++) for (let j = -R; j <= R; j++) {
+    const p = app(B, [i, j]); if (Math.hypot(...p) > r + 1e-9) continue;
+    const q = [c * p[0] - s * p[1], s * p[0] + c * p[1]], f = app(Bi, q);
+    const on = Math.hypot(f[0] - Math.round(f[0]), f[1] - Math.round(f[1])) < 1e-6;
+    all++; if (on) hit++; pts.push({ p, q, on });
+  }
+  return { all, hit, pts };
+}
+// Close a lattice under a fifth-turn: every sum of the five fifth-turn unit steps with whole
+// coefficients up to m in size. Its shortest step keeps shrinking: no lattice has that.
+function fiveFold(m) {
+  const e = [0, 1, 2, 3].map((k) => [Math.cos(2 * Math.PI * k / 5), Math.sin(2 * Math.PI * k / 5)]);
+  const pts = []; let dmin = Infinity;
+  for (let a = -m; a <= m; a++) for (let b = -m; b <= m; b++) for (let c = -m; c <= m; c++) for (let d = -m; d <= m; d++) {
+    const x = a * e[0][0] + b * e[1][0] + c * e[2][0] + d * e[3][0], y = a * e[0][1] + b * e[1][1] + c * e[2][1] + d * e[3][1];
+    const r = Math.hypot(x, y); if (r > 1e-9 && r < dmin) dmin = r;
+    if (r < 2.6) pts.push([x, y]);
+  }
+  return { dmin, pts };
+}
+const pentagonsAround = (k) => 360 - 108 * k; // > 0 a gap, < 0 an overlap, in degrees
+/*ENGINE-END*/
+
+// Drawing (not part of the engine): one group's pattern from the one tile, with its mirrors,
+// glides and turn centres if asked. World y is up; the canvas's is down.
+const TILE = [[-0.55, -0.95], [-0.25, -0.95], [-0.25, 0.05], [0.78, 0.45], [-0.25, 0.95], [-0.55, 0.95]];
+const COL = { direct: 'rgba(232,184,74,.86)', flipped: 'rgba(127,156,255,.82)', cell: 'rgba(255,255,255,.07)', cell0: 'rgba(255,255,255,.2)', mirror: 'rgba(200,200,216,.55)', glide: 'rgba(200,200,216,.4)', centre: '#e8e8f0' };
+const DECO = new Map();
+function decorations(g, reach) {
+  const key = g.id + ':' + reach; if (DECO.has(key)) return DECO.get(key);
+  const B = basis(g), lines = new Map(), centres = new Map();
+  for (const o of cartOps(g)) {
+    const d = det(o.M);
+    for (let i = -reach; i <= reach; i++) for (let j = -reach; j <= reach; j++) {
+      const L = app(B, [i, j]), t = [o.t[0] + L[0], o.t[1] + L[1]];
+      if (d > 0) {
+        const ang = Math.atan2(o.M[1][0], o.M[0][0]); if (Math.abs(ang) < 1e-9) continue;
+        const k = Math.round(2 * Math.PI / Math.abs(ang)), A = [[1 - o.M[0][0], -o.M[0][1]], [-o.M[1][0], 1 - o.M[1][1]]], p = app(inv(A), t);
+        const ck = p[0].toFixed(5) + ',' + p[1].toFixed(5); if (!centres.has(ck) || centres.get(ck).k < k) centres.set(ck, { p, k });
+      } else {
+        let a = Math.atan2(o.M[1][0], o.M[0][0]) / 2; a = ((a % Math.PI) + Math.PI) % Math.PI;
+        const u = [Math.cos(a), Math.sin(a)], n = [-u[1], u[0]], c = (t[0] * n[0] + t[1] * n[1]) / 2, gl = Math.abs(t[0] * u[0] + t[1] * u[1]);
+        const lk = a.toFixed(5) + ':' + c.toFixed(5), prev = lines.get(lk);
+        if (!prev || gl < prev.gl) lines.set(lk, { u, n, c, gl });
+      }
+    }
+  }
+  const out = { lines: [...lines.values()].map((l) => ({ ...l, mirror: l.gl < 1e-6 })), centres: [...centres.values()] };
+  DECO.set(key, out); return out;
+}
+function drawPattern(ctx, w, h, g, theta, opt = {}) {
+  const across = opt.across || 3.4, B = basis(g), a = LATTICES[g.lattice][0];
+  const s = w / (across * Math.hypot(a[0], a[1])), mid = app(B, [0.5, 0.5]);
+  const X = (p) => w / 2 + s * (p[0] - mid[0]), Y = (p) => h / 2 - s * (p[1] - mid[1]);
+  const reach = Math.ceil(across * 0.9) + 2;
+  ctx.clearRect(0, 0, w, h);
+  ctx.lineWidth = 1;
+  for (let i = -reach; i <= reach; i++) for (let j = -reach; j <= reach; j++) {
+    const q = [app(B, [i, j]), app(B, [i + 1, j]), app(B, [i + 1, j + 1]), app(B, [i, j + 1])];
+    ctx.beginPath(); q.forEach((p, k) => (k ? ctx.lineTo(X(p), Y(p)) : ctx.moveTo(X(p), Y(p)))); ctx.closePath();
+    ctx.strokeStyle = i === 0 && j === 0 ? COL.cell0 : COL.cell; ctx.stroke();
+  }
+  const C = copies(g, theta, reach), r = 0.4 * C.size * s;
+  const id0 = (k) => k === 0;
+  C.list.forEach((cp, k) => {
+    const cx = X(cp.c), cy = Y(cp.c); if (cx < -r * 2 || cx > w + r * 2 || cy < -r * 2 || cy > h + r * 2) return;
+    ctx.beginPath();
+    TILE.forEach((p, m) => { const v = app(cp.M, p); const x = cx + r * v[0], y = cy - r * v[1]; m ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+    ctx.closePath(); ctx.fillStyle = cp.flip ? COL.flipped : COL.direct; ctx.fill();
+  });
+  // the tile itself, the one drawn by hand: the identity at the origin cell
+  const per = C.perCell, home = C.list[(reach * (2 * reach + 1) + reach) * per];
+  if (home && opt.markHome !== false) {
+    ctx.beginPath(); TILE.forEach((p, m) => { const v = app(home.M, p); const x = X(home.c) + r * v[0], y = Y(home.c) - r * v[1]; m ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+    ctx.closePath(); ctx.strokeStyle = '#e8e8f0'; ctx.lineWidth = 1.5; ctx.stroke(); ctx.lineWidth = 1;
+  }
+  if (opt.deco) {
+    const D = decorations(g, reach), big = 4 * across;
+    for (const l of D.lines) {
+      const p0 = [l.c * l.n[0] - big * l.u[0], l.c * l.n[1] - big * l.u[1]], p1 = [l.c * l.n[0] + big * l.u[0], l.c * l.n[1] + big * l.u[1]];
+      ctx.setLineDash(l.mirror ? [] : [5, 5]); ctx.strokeStyle = l.mirror ? COL.mirror : COL.glide; ctx.lineWidth = l.mirror ? 1.25 : 1;
+      ctx.beginPath(); ctx.moveTo(X(p0), Y(p0)); ctx.lineTo(X(p1), Y(p1)); ctx.stroke();
+    }
+    ctx.setLineDash([]); ctx.lineWidth = 1;
+    for (const c of D.centres) {
+      const x = X(c.p), y = Y(c.p); if (x < -10 || x > w + 10 || y < -10 || y > h + 10) continue;
+      ctx.fillStyle = COL.centre; ctx.beginPath();
+      if (c.k === 2) ctx.ellipse(x, y, 5, 2.6, Math.PI / 4, 0, 2 * Math.PI);
+      else for (let m = 0; m < c.k; m++) { const an = Math.PI / 2 + 2 * Math.PI * m / c.k, rr = c.k === 6 ? 5 : 5.5; m ? ctx.lineTo(x + rr * Math.cos(an), y - rr * Math.sin(an)) : ctx.moveTo(x + rr * Math.cos(an), y - rr * Math.sin(an)); }
+      ctx.closePath(); ctx.fill();
+    }
+  }
+  return C;
+}
+function sizeCanvas(cv) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { ctx, w, h };
+}
+
+const $ = (id) => document.getElementById(id);
+const STEPS = [
+  { n: 1, name: 'one quarter-turn', says: 'A square lattice: the points a repeating pattern comes back to. Turn the whole lattice about one of its points and watch where the points go. At a quarter-turn every point lands on a point, so a pattern on this lattice can have a quarter-turn centre.' },
+  { n: 2, name: 'any turn', says: 'Now pick the turn: a half, a third, a quarter, a fifth, a sixth and on. The square lattice holds the half and the quarter. The hexagonal one holds the half, the third and the sixth. Every other turn lands only the centre.' },
+  { n: 3, name: 'the fifth-turn', says: 'The section says a fifth-turn leaves gaps or makes overlaps. Pentagons show it at one corner: three leave a 36° gap, four overlap by 72°. The deeper trouble is the lattice. Ask for points that a fifth-turn carries onto each other and keep closing the set: the shortest step keeps shrinking, and a lattice has a shortest step.' },
+  { n: 4, name: 'the test · which turns fit', says: 'Why only these? Take a shortest step v of a lattice. Turn it by 360°/n one way and the other: both are lattice steps, so their sum is too. The sum lies along v and is 2·cos(360°/n) times as long, and a lattice step along a shortest step is a whole number of them. So 2·cos(360°/n) must be a whole number.' },
+  { n: 5, name: 'what is left · seventeen', says: 'With the turns fixed at 1, 2, 3, 4 and 6, the seventeen groups fall out. Sort them by their highest turn, then by the four kinds the section names, and compare the counts with the section’s list.' },
+];
+const S = { step: 1, ang: 30, lat: 'square', n: 4, pent: 3, m: 1, tn: 5, sort: 'turn' };
+function seg(label, items, get, set) {
+  const wrap = document.createElement('div'); wrap.className = 'ctl';
+  wrap.innerHTML = `<span class="seglabel">${label}</span>`;
+  const row = document.createElement('div'); row.className = 'seg';
+  for (const [txt, val] of items) {
+    const b = document.createElement('button'); b.textContent = txt; if (get() === val) b.classList.add('on');
+    b.onclick = () => { set(val); [...row.children].forEach((c) => c.classList.toggle('on', c === b)); draw(); };
+    row.append(b);
+  }
+  wrap.append(row); return wrap;
+}
+function slider(label, id, min, max, step, get, set) {
+  const d = document.createElement('div'); d.className = 'ctl';
+  d.innerHTML = `<label class="sl">${label} · <b id="${id}-val"></b><input id="${id}" type="range" min="${min}" max="${max}" step="${step}"></label>`;
+  const i = d.querySelector('input'); i.value = get(); i.oninput = () => { set(Number(i.value)); draw(); }; return d;
+}
+function controls() {
+  const c = $('controls'); c.innerHTML = '';
+  if (S.step === 1) c.append(slider('turn the lattice', 'ang', 0, 360, 1, () => S.ang, (v) => (S.ang = v)));
+  if (S.step === 2) {
+    c.append(seg('the lattice', [['square', 'square'], ['hexagonal', 'hex']], () => S.lat, (v) => (S.lat = v)));
+    c.append(seg('turn by 360° ÷', [2, 3, 4, 5, 6, 7, 8].map((k) => [String(k), k]), () => S.n, (v) => (S.n = v)));
+  }
+  if (S.step === 3) {
+    c.append(seg('pentagons at one corner', [['three', 3], ['four', 4]], () => S.pent, (v) => (S.pent = v)));
+    c.append(seg('close the fifth-turn set, whole steps up to', [['1', 1], ['2', 2], ['3', 3]], () => S.m, (v) => (S.m = v)));
+  }
+  if (S.step === 4) c.append(slider('turn by 360° ÷ n, n', 'tn', 1, 12, 1, () => S.tn, (v) => (S.tn = v)));
+  if (S.step === 5) c.append(seg('sort by', [['highest turn', 'turn'], ['the section’s four kinds', 'text']], () => S.sort, (v) => (S.sort = v)));
+}
+function W(cv) { return sizeCanvas(cv); }
+function drawTurn(cv, lat, deg) {
+  const { ctx, w, h } = W(cv); ctx.clearRect(0, 0, w, h);
+  const r = 3.2, sc = Math.min(w, h) / (2 * r + 0.9), X = (p) => w / 2 + sc * p[0], Y = (p) => h / 2 - sc * p[1];
+  const [a, b] = LATTICES[lat], B = [[a[0], b[0]], [a[1], b[1]]], Bi = inv(B), th = deg * Math.PI / 180, c = Math.cos(th), s = Math.sin(th);
+  ctx.strokeStyle = 'rgba(255,255,255,.07)'; ctx.beginPath(); ctx.arc(w / 2, h / 2, sc * r, 0, 2 * Math.PI); ctx.stroke();
+  let all = 0, hit = 0; const R = 6;
+  for (let i = -R; i <= R; i++) for (let j = -R; j <= R; j++) {
+    const p = app(B, [i, j]); if (Math.hypot(...p) > r + 1e-9) continue;
+    ctx.fillStyle = '#4a4a5a'; ctx.beginPath(); ctx.arc(X(p), Y(p), 3.2, 0, 2 * Math.PI); ctx.fill();
+  }
+  for (let i = -R; i <= R; i++) for (let j = -R; j <= R; j++) {
+    const p = app(B, [i, j]); if (Math.hypot(...p) > r + 1e-9) continue;
+    const q = [c * p[0] - s * p[1], s * p[0] + c * p[1]], f = app(Bi, q), on = Math.hypot(f[0] - Math.round(f[0]), f[1] - Math.round(f[1])) < 1e-6;
+    all++; if (on) hit++;
+    ctx.beginPath(); ctx.arc(X(q), Y(q), on ? 6 : 4, 0, 2 * Math.PI);
+    if (on) { ctx.strokeStyle = '#e8b84a'; ctx.lineWidth = 1.5; ctx.stroke(); ctx.lineWidth = 1; } else { ctx.fillStyle = 'rgba(127,156,255,.75)'; ctx.fill(); }
+  }
+  ctx.fillStyle = '#e8e8f0'; ctx.beginPath(); ctx.arc(w / 2, h / 2, 2.5, 0, 2 * Math.PI); ctx.fill();
+  return { all, hit };
+}
+function drawPentagons(cv) {
+  const { ctx, w, h } = W(cv); ctx.clearRect(0, 0, w, h);
+  const cx = w / 2, cy = h / 2, side = Math.min(w, h) * 0.24;
+  for (let k = 0; k < S.pent; k++) {
+    const base = (k * 108 - 90) * Math.PI / 180; // one corner at the centre, interior angle 108°
+    const pts = [[cx, cy]]; let x = cx, y = cy, dir = base;
+    for (let e = 0; e < 4; e++) { x += side * Math.cos(dir); y -= side * Math.sin(dir); pts.push([x, y]); dir += 72 * Math.PI / 180; }
+    ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(...p) : ctx.moveTo(...p))); ctx.closePath();
+    ctx.fillStyle = k === 3 ? 'rgba(127,156,255,.45)' : 'rgba(232,184,74,.45)'; ctx.fill(); ctx.strokeStyle = k === 3 ? '#7f9cff' : '#e8b84a'; ctx.stroke();
+  }
+  const left = pentagonsAround(S.pent);
+  ctx.font = '12px JetBrains Mono, monospace'; ctx.fillStyle = left > 0 ? '#e8e8f0' : '#7f9cff';
+  ctx.fillText(left > 0 ? `${left}° gap` : `${-left}° overlap`, 12, 22);
+  return left;
+}
+function drawFive(cv) {
+  const { ctx, w, h } = W(cv); ctx.clearRect(0, 0, w, h);
+  const F = fiveFold(S.m), sc = Math.min(w, h) / 5.6, X = (p) => w / 2 + sc * p[0], Y = (p) => h / 2 - sc * p[1];
+  ctx.fillStyle = 'rgba(232,184,74,.8)';
+  for (const p of F.pts) { ctx.beginPath(); ctx.arc(X(p), Y(p), 1.6, 0, 2 * Math.PI); ctx.fill(); }
+  ctx.strokeStyle = 'rgba(255,255,255,.12)'; for (let k = 0; k < 5; k++) { const a = 2 * Math.PI * k / 5; ctx.beginPath(); ctx.moveTo(w / 2, h / 2); ctx.lineTo(X([Math.cos(a), Math.sin(a)]), Y([Math.cos(a), Math.sin(a)])); ctx.stroke(); }
+  return F;
+}
+function drawLine(cv) {
+  const { ctx, w, h } = W(cv); ctx.clearRect(0, 0, w, h);
+  const x0 = 40, x1 = w - 40, X = (v) => x0 + (v + 2) / 4 * (x1 - x0), y = h * 0.42;
+  ctx.strokeStyle = '#4a4a5e'; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke();
+  ctx.font = '12px JetBrains Mono, monospace'; ctx.textAlign = 'center';
+  for (let k = -2; k <= 2; k++) { ctx.strokeStyle = '#8a8aa0'; ctx.beginPath(); ctx.moveTo(X(k), y - 10); ctx.lineTo(X(k), y + 10); ctx.stroke(); ctx.fillStyle = '#8a8aa0'; ctx.fillText(String(k), X(k), y + 26); }
+  for (let n = 1; n <= 12; n++) {
+    const v = twoCos(n), fits = turnFits(n), here = n === S.tn, row = n % 2 ? -1 : 1;
+    ctx.beginPath(); ctx.arc(X(v), y, here ? 6.5 : 4, 0, 2 * Math.PI); ctx.fillStyle = fits ? '#e8b84a' : '#7f9cff'; ctx.fill();
+    if (here) { ctx.strokeStyle = '#e8e8f0'; ctx.stroke(); }
+    ctx.fillStyle = here ? '#e8e8f0' : fits ? '#e8b84a' : '#8a8aa0'; ctx.fillText(String(n), X(v), y + row * (here ? 46 : 40) + (row > 0 ? 8 : 0));
+  }
+  ctx.textAlign = 'left';
+}
+let THUMBS = null;
+function drawBins() {
+  const box = $('bins'); box.innerHTML = ''; THUMBS = [];
+  const prof = GROUPS.map((g) => ({ g, p: profile(g) }));
+  const TEXT = { 'translation only': 4, 'translation and reflection': 5, 'translation and rotation': 3, 'rotation with reflection or glide': 5 };
+  const bins = S.sort === 'turn'
+    ? [1, 2, 3, 4, 6].map((k) => ({ head: k === 1 ? 'no turn' : `highest turn 1/${k}`, items: prof.filter((x) => x.p.turn === k) }))
+    : Object.keys(TEXT).map((k) => ({ head: k, text: TEXT[k], items: prof.filter((x) => textBin(x.p) === k) }));
+  for (const b of bins) {
+    const d = document.createElement('div'); d.className = 'bin';
+    d.innerHTML = `<div class="binhead"><span>${b.head}</span><b>${b.items.length} counted</b>${b.text !== undefined ? `<span class="text">the section says ${b.text}</span>` : ''}</div>`;
+    const grid = document.createElement('div'); grid.className = 'grid17';
+    for (const { g } of b.items) {
+      const cb = document.createElement('div'); cb.className = 'cellbox'; const cv = document.createElement('canvas'); cb.append(cv);
+      const nm = document.createElement('div'); nm.className = 'cellname'; nm.innerHTML = `<b>${g.id}</b><span>${g.orb}</span>`; cb.append(nm); grid.append(cb); THUMBS.push({ g, cv });
+    }
+    d.append(grid); box.append(d);
+  }
+  for (const { g, cv } of THUMBS) { const { ctx, w, h } = sizeCanvas(cv); drawPattern(ctx, w, h, g, 0.35, { across: 2.3 }); }
+  const counts = bins.map((b) => b.items.length);
+  if (S.sort === 'turn') $('read').innerHTML = `<span>groups <b>${prof.length}</b></span><span>by highest turn, none · ½ · ⅓ · ¼ · ⅙ <b>${counts.join(' · ')}</b></span>`;
+  else $('read').innerHTML = `<span>groups <b>${prof.length}</b></span><span>by the section's kinds, counted <b>${counts.join(' · ')}</b></span><span>the section's list <b>4 · 5 · 3 · 5</b></span>`;
+  const turnCounts = [1, 2, 3, 4, 6].map((k) => prof.filter((x) => x.p.turn === k).length);
+  const kindCounts = Object.keys(TEXT).map((k) => prof.filter((x) => textBin(x.p) === k).length);
+  $('verdict').textContent = `Seventeen holds. The section's split does not: counted by its own four kinds the groups go ${kindCounts.join(', ')}, not 4, 5, 3, 5. Only p1 has translation alone; reflection without rotation is pm, pg and cm; rotation alone is p2, p3, p4 and p6. The section's numbers are the split by highest turn, ${turnCounts.join(', ')}, with two bins merged under other names: quarter and sixth (${turnCounts[3]} + ${turnCounts[4]}), or third and sixth, the hexagonal family (${turnCounts[2]} + ${turnCounts[4]}). The count alone can't tell which.`;
+}
+function draw() {
+  for (const id of ['ang', 'tn']) { const v = $(id + '-val'); if (v) v.textContent = id === 'ang' ? `${S.ang}°` : `${S.tn} (${(360 / S.tn).toFixed(S.tn === 7 || S.tn === 11 ? 1 : 0)}°)`; }
+  $('verdict').textContent = '';
+  if (S.step === 1) {
+    const r = drawTurn($('cv'), 'square', S.ang);
+    $('plabel').textContent = 'a square lattice, turned';
+    $('read').innerHTML = `<span>turned by <b>${S.ang}°</b></span><span>points landing on points <b>${r.hit} of ${r.all}</b></span>`;
+    if (r.hit === r.all && S.ang % 360) $('verdict').textContent = `At ${S.ang}° every point lands on a point.`;
+  } else if (S.step === 2) {
+    const r = drawTurn($('cv'), S.lat, 360 / S.n);
+    $('plabel').textContent = `a ${S.lat === 'hex' ? 'hexagonal' : 'square'} lattice, turned by 360° ÷ ${S.n}`;
+    $('read').innerHTML = `<span>turn <b>360° ÷ ${S.n} = ${(360 / S.n).toFixed(S.n === 7 ? 1 : 0)}°</b></span><span>points landing on points <b>${r.hit} of ${r.all}</b></span>`;
+    $('verdict').textContent = r.hit === r.all ? `This lattice holds a ${S.n}-fold turn.` : `Only the centre lands. No pattern on this lattice has a ${S.n}-fold turn.`;
+  } else if (S.step === 3) {
+    const left = drawPentagons($('cv'));
+    const F = drawFive($('cv2'));
+    $('plabel').textContent = 'regular pentagons about one corner'; $('plabel2').textContent = 'the fifth-turn set, closed';
+    const seq = [1, 2, 3].map((m) => fiveFold(m).dmin.toFixed(3));
+    $('read').innerHTML = `<span>${S.pent} pentagons · <b>${left > 0 ? left + '° gap' : -left + '° overlap'}</b></span><span>shortest step, whole steps up to ${S.m} <b>${F.dmin.toFixed(3)}</b></span><span>up to 1 · 2 · 3 <b>${seq.join(' · ')}</b></span>`;
+    $('verdict').textContent = 'Each closing shrinks the shortest step by the golden ratio, 1.618: no step is ever the smallest, so the points never form a lattice.';
+  } else if (S.step === 4) {
+    drawLine($('cv'));
+    const v = twoCos(S.tn), fits = turnFits(S.tn);
+    $('plabel').textContent = '2 · cos(360° ÷ n) for n = 1 to 12';
+    $('read').innerHTML = `<span>n <b>${S.tn}</b></span><span>2 · cos(360° ÷ ${S.tn}) <b>${(Math.abs(v) < 1e-12 ? 0 : v).toFixed(3)}</b></span><span>whole <b>${fits ? 'yes' : 'no'}</b></span><span>the turns that fit <b>${[...Array(12)].map((_, i) => i + 1).filter(turnFits).join(', ')}</b></span>`;
+    $('verdict').textContent = `Only 1, 2, 3, 4 and 6 land on whole numbers. Five, seven and every turn finer than a sixth are out, as the section says.`;
+  } else drawBins();
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n)); S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`; $('says').textContent = s.says;
+  $('single').style.display = n === 5 ? 'none' : ''; $('binwrap').style.display = n === 5 ? '' : 'none';
+  $('second').style.display = n === 3 ? '' : 'none'; $('eqs').style.display = n === 4 ? '' : 'none';
+  $('cv').style.aspectRatio = n === 4 ? '16 / 5' : n === 3 ? '1 / 1' : '16 / 9';
+  $('key').textContent = n <= 2 ? 'grey = before · ring = lands · blue = misses' : n === 3 ? 'amber = three · blue = the fourth' : 'amber = whole · blue = not';
+  $('pair').style.gridTemplateColumns = n === 3 ? '1fr 1fr' : '1fr';
+  $('back').disabled = n === 1; $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →'; $('next').disabled = n === STEPS.length;
+  const r = $('rail'); r.innerHTML = '';
+  for (const t of STEPS) { const b = document.createElement('button'); b.textContent = `${t.n} · ${t.name.split(' · ')[0]}`; if (t.n === n) b.classList.add('here'); else if (t.n > n) b.classList.add('ahead'); b.onclick = () => goStep(t.n); r.append(b); }
+  controls(); draw();
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+window.addEventListener('resize', () => draw());
+goStep(1);
+
+// the Lissajous sigil, 3 : 2, small
+(() => { const s = document.getElementById('sigil'); if (!s) return; let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI, x = 14 + 12 * Math.sin(3 * t + Math.PI / 2), y = 14 + 12 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } s.innerHTML = `<path d="${d}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; })();
+
+</script>
+</body>
+</html>

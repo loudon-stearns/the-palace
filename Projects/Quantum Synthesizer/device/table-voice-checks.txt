@@ -1,0 +1,38 @@
+== check 1: the tables hold the instrument's modes (instrument.html build() as reference) ==
+  string                      16 partials above -80 dB · table voice   16
+  box (a line)                 9 partials above -80 dB · table voice    9
+  square drum                167 partials above -80 dB · table voice  167
+  square box                  56 partials above -80 dB · table voice   56
+  round drum                 148 partials above -80 dB · table voice  148
+  round box                   55 partials above -80 dB · table voice   55
+  round drum, dead centre     13 partials above -80 dB · table voice   13
+  47 strikes (7 presets + 40 random points, mallets 0.05-0.6): partial count mismatch 0, pitch diff 3e-13, loudness diff 6e-13 of the loudest   PASS
+== check 2: the disk's radial lookup, linear interpolation on 257 points ==
+  16 disk strikes: worst partial off by 1.9e-03 of the loudest (-54 dB)   PASS
+== check 3: the voice budget: strike error vs the full set, keeping only the N loudest partials ==
+                               N=16    N=32    N=48    N=64    N=96   N=128   (dB, rendered strike, theta 0.03°, first 1.5 s)
+  string                       -100   exact   exact   exact   exact   exact   of 18
+  box (a line)                exact   exact   exact   exact   exact   exact   of 9
+  square drum                   -13     -21     -29     -36     -54     -67   of 200
+  square box                    -16     -26     -42   exact   exact   exact   of 56
+  round drum                    -15     -24     -35     -42     -60     -74   of 179
+  round box                     -19     -29     -61   exact   exact   exact   of 57
+  round drum, dead centre     exact   exact   exact   exact   exact   exact   of 14
+  smallest budget that keeps every preset within -40 dB of the full set: 96 oscillators (64 leaves the square drum at -36 dB)   PASS
+== check 4: a fixed output gain: scale by 1 / sqrt(sum a^2) and see where the presets' peaks land ==
+  string                    peak  +2.3 dB over sqrt(sum a^2) ·  -4.7 dB over sum |a|
+  box (a line)              peak  +2.7 dB over sqrt(sum a^2) ·  -4.2 dB over sum |a|
+  square drum               peak  +6.8 dB over sqrt(sum a^2) ·  -7.9 dB over sum |a|
+  square box                peak  +7.3 dB over sqrt(sum a^2) ·  -6.8 dB over sum |a|
+  round drum                peak  +6.2 dB over sqrt(sum a^2) ·  -7.5 dB over sum |a|
+  round box                 peak  +6.1 dB over sqrt(sum a^2) ·  -7.1 dB over sum |a|
+  round drum, dead centre   peak  +4.8 dB over sqrt(sum a^2) ·  -2.3 dB over sum |a|
+  spread across presets: 4.9 dB with sqrt(sum a^2), 5.6 dB with sum |a|; sum |a| never clips (it bounds the peak), sqrt(sum a^2) keeps loudness closer
+== check 5: rendered strikes, table voice vs instrument.html render() ==
+  square drum               theta 0.3°, first 0.25 s: worst sample off by 2e-05 of the peak
+  square box                theta 0.3°, first 0.25 s: worst sample off by 3e-05 of the peak
+  round drum                theta 0.3°, first 0.25 s: worst sample off by 2e-04 of the peak
+  round box                 theta 0.3°, first 0.25 s: worst sample off by 2e-04 of the peak
+  (the browser stops each partial at -80 dB; the voice runs it on)   PASS
+== cost: re-reading the square's 482 rows for one new strike point: 0.6 ms in Python ==
+  ALL PASS

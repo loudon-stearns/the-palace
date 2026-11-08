@@ -17,6 +17,9 @@ links:
   - target: "[[Bessel Functions in Synthesis]]"
     type: connects-to
     label: doorway
+  - target: "[[FM Synthesis]]"
+    type: connects-to
+    label: doorway
   - target: "[[Loudon Live]]"
     type: connects-to
     label: introductory-tool
@@ -46,13 +49,13 @@ This is what makes it a [[Boundary-Crossing Instruments]] concept before there w
 
 > 🎓 *The demo that makes this a body-experience.* See [[proofs/2026-05-05-vibrato-becomes-melody|the moment vibrato becomes melody]] — a 5-minute lesson script that walks a learner from 5 Hz vibrato down to 0.5 Hz alternating melody, the crossing of the ~20 Hz boundary in real time. The script ends on a thesis: *the whole right side of the synthesizer is the left side, with a different clock.*
 
-> 🎚 *The rough Loudon played, 2026-10-13.* [[proofs/2026-10-13-the-flip-three-axes.html|The flip, three axes]] — one log axis from 0.5 Hz to 2 kHz, three modes (click train, sine through a wobbled delay, two drum voices), with the threshold marked as a zone on each axis. It is the seed of this page's rich face, kept beside the two 2026-05-04 sketches.
-
 ## The Flip
 
 Speed up a click train. At 60, 120, 240 beats a minute it is a rhythm you could tap. Somewhere around 1200, twenty clicks a second, the clicks stop arriving one at a time and fuse into a low buzz; push further and the buzz is a pitch. The signal hasn't changed, and neither has the speaker. The ear has changed how it reads them. A click train was a harmonic series all along: the tone you hear is the click rate and its whole-number multiples.
 
 The crossing is a zone, not a line. Asked on 2026-10-13 to mark the one rate where rhythm became pitch, Loudon pushed back on the question itself: "we are requiring a listener to mark an exact point inside a zone that we have identified as a 'zone' there is a rudeness here, I am asked something impossible." He asked to mark the bottom and the top instead, and said in the same breath that "the top of the zone should be lower in almost all cases" than the rough had drawn it, at 40 Hz. Where one listener's zone sits, and whether it sits in the same place on every axis, is still open.
+
+Curtis Roads draws the crossing as a zone too. Figure 1.1 of *Microsound* (MIT Press, 2001), in its chapter "Time Scales of Music" (p. 5), lays the whole time domain out in four bands, periods, time-delay effects, frequency, and perception and action, from the age of the universe down to the infinitesimal. On it he hatches a transition band at 10 to 20 Hz, and puts the onset of tone perception at about 50 ms, which is 20 Hz. His band ends at 20 Hz, below the rough's 40. The figure is not drawn to scale, so the band is his reading of the field, not a listener's measurement.
 
 ## Polyrhythms Become Intervals
 
@@ -98,12 +101,14 @@ The duality is recursive across dimensions: the same ~20 Hz perceptual threshold
 
 This is why the walk keeps meeting the threshold: on the rate of the signal (The Flip), on a polyrhythm, and here, on the rate of a modulation. Whether the zones sit in the same place is one of the open questions below. That they all exist is what makes the duality more than a conversion table.
 
+> 🎚 *The rough Loudon played, 2026-10-13.* [[proofs/2026-10-13-the-flip-three-axes.html|The flip, three axes]] — one log axis from 0.5 Hz to 2 kHz, three modes (click train, sine through a wobbled delay, two drum voices), with the threshold marked as a zone on each axis. It is the seed of this page's rich face, kept beside the two 2026-05-04 sketches.
+
 ## Three Doorways
 
 Walk the whole axis and three fields open, each through something the walk already put in your hands.
 
 - **Waveguides and physical modelling.** The Bridge made a string out of a delay line and a low-pass. Tune that filter and the string has a material; branch a resonator off it and it has a body. Flute, drum and bowed cello are next. See [[Waveguide Synthesizer]].
-- **FM synthesis.** The sidebands that appear when the modulation crosses the threshold are a two-operator FM patch. The DX7 had six operators wired in 32 algorithms, each a different routing of carriers and modulators. That's the territory. See [[Bessel Functions in Synthesis]] for the maths of the sidebands.
+- **FM synthesis.** The sidebands that appear when the modulation crosses the threshold are a two-operator FM patch. The DX7 had six operators wired in 32 algorithms, each a different routing of carriers and modulators. That's the territory. See [[FM Synthesis]] for the instrument and [[Bessel Functions in Synthesis]] for the maths of the sidebands.
 - **Wavetables.** Close the delay line into a loop. A loop N samples long, read one sample per tick at sample rate fs, sounds at fs ÷ N, the same reciprocal that ran through the whole walk. A wavetable oscillator keeps the loop and changes how fast it reads it. See [[Wavetable Oscillator]], and past it [[DSP in Looping Dimensions]], where the loop goes up a dimension.
 
 `f = fs ÷ N`
@@ -133,13 +138,10 @@ In April 2026 the idea was designed a second time, as the Frequency-Time Explore
   - Progressed, thinly (2026-10-24): [[Meadows and Music — Leverage Points]] § 4 Swing as Resolution records how much timing nuance sounds musical at 70 BPM against 180 — an observation, not a measurement of the zones.
 - Does the recursion observation imply the duality wants its own concept entry for **the 20 Hz threshold itself** as a perceptual constant? It currently lives scattered across body text in this entry and in Microsound.
 - Lets bring Curtis Roads into this conversation, the best analysis of time scales in music I have found was in Curtis Roads book, microsound.
+  - Progressed (2026-10-25): The Flip now cites his Figure 1.1 and its transition band. The figure's time-delay band runs close to The Echo Walk, in the same order: repetition, discrete and tape-head echoes, doubling and spatial image shifting near 50 ms, comb filters (phasing and flanging), then the classic filters under 1 ms. Its perception-and-action band puts tremolo and vibrato at 5 to 8 Hz, and the fastest repetitive human gesture at about 12 Hz, inside the transition band. On his chart the hand gives out about where the ear starts to fuse: a coincidence of the drawing, or the same limit in the body and the ear? His nine time-scale names are still a later round for the rich face.
 - Loudon puts daily cognition beside music and sound design as a place this boundary reaches: "how it impacts so much of what we do with music and sound design and daily cognition." What does the crossing look like there, where a run of separate moments stops being a sequence and is lived as one?
+  - Progressed (2026-10-25): In the same figure Roads marks conscious time, the present, at about 600 ms, after Winckel (1967): a candidate for where a run of separate moments is lived as one.
 
 ---
 
 *Why the page walks and what it left out: [[Frequency-Time Duality — Context]]. The design of its rich face: [[Frequency-Time Duality — spec — rich face]].*
-
-## Active Baton
-
-[[Frequency-Time Duality — baton]] — re-batoned 2026-10-21 to the remainder after the deposit (`41f41dbd`): the first rich face, Enrichment's run; card `frequency-time-duality-remainder-20261021T135522Z`
-[[Frequency-Time Duality — baton — fm-page]] — drafted 2026-10-25

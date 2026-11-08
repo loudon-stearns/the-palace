@@ -86,6 +86,18 @@ describe('buildEphemeralPrompt — wakes a page as itself', () => {
     expect(r.full).toContain('wake and let us voice the dispersion filter');
   });
 
+  test('a dispatcher\'s task rides in its own slot, not as Loudon\'s note; begin can be replaced', () => {
+    makePalace();
+    const r = buildEphemeralPrompt({ palaceRoot: root, title: 'Foo', task: '# Read the river\n\nTASK-MARKER', begin: 'Read first, then speak.' });
+    expect(r.full).toContain('TASK-MARKER');
+    expect(r.full).not.toMatch(/Loudon's note for this session/);
+    expect(r.full).toMatch(/# Begin\n\nRead first, then speak\./);
+    expect(r.full).not.toMatch(/propose the first move/);
+    // the task sits before Loudon's own note when both are given
+    const both = buildEphemeralPrompt({ palaceRoot: root, title: 'Foo', task: 'TASK-MARKER', extraMandate: 'NOTE-MARKER' });
+    expect(both.full.indexOf('TASK-MARKER')).toBeLessThan(both.full.indexOf("Loudon's note for this session"));
+  });
+
   test('a page with no forward vector wakes with a listen-for-it fallback, not a blank', () => {
     makePalace({ vector: '', withFrontmatter: true });
     // write a page that genuinely lacks the field

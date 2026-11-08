@@ -1,0 +1,44 @@
+{
+ "entry": "Crystal Sonification Reference",
+ "path": "Projects/Crystal Synthesizer/Crystal Sonification Reference.md",
+ "type": "none (bundle doc)",
+ "stage": "none",
+ "weight": 7,
+ "claim": "Creative Mapping Parameters, 3: 'as you sweep α, you hear the crystal's structure deform toward and away from its natural shape' — and The Universal Transposition System: only ratios matter, the THz-to-Hz scale cancels.",
+ "pieces": [
+  {
+   "section": "3. Mapping Function — The spectral stretch parameter",
+   "what": "Ruby's seven partials with an α slider (0.3 to 3) and span selector, curve drawn beside the spectrum; the reader hears α = 1 as the physics and the rest as lenses.",
+   "kind": "interactive",
+   "walks_up_from": "ruby's ratios at α = 1, span 2 octaves"
+  },
+  {
+   "section": "The Crystals",
+   "what": "Each crystal's chart beside its strike, eight in a row, the predicted-sound paragraph next to what is heard.",
+   "kind": "audio",
+   "walks_up_from": "diamond's chart and strike"
+  },
+  {
+   "section": "Obsidian",
+   "what": "Crystal to glass: quartz partials crossfading into VDOS-shaped noise, the doc's own audio prompt.",
+   "kind": "audio",
+   "walks_up_from": "quartz partials sustained"
+  }
+ ],
+ "gathered": [
+  "charts/diamond_spectrum.png",
+  "charts/ruby_spectrum.png",
+  "charts/amethyst_spectrum.png",
+  "charts/fluorite_spectrum.png",
+  "charts/emerald_spectrum.png",
+  "charts/topaz_spectrum.png",
+  "charts/labradorite_spectrum.png",
+  "charts/comparative_all_crystals.png",
+  "charts/mapping_function_alpha_curves.png",
+  "charts/obsidian_vdos_comparison.png",
+  "palette-strikes/palette_tour.wav",
+  "palette-strikes/ruby_strike.wav"
+ ],
+ "tier": "study",
+ "slice": 3
+}

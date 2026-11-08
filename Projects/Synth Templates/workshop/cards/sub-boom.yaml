@@ -1,0 +1,65 @@
+# Synth Templates — card 0.2 — Sub Boom
+# A film kick: the 808 slowed down. The pitch falls over a long moment instead of an instant, and the body lasts seconds.
+schema: synth-template-card/0.2
+id: sub-boom
+name: Sub Boom
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: -1, retrigger: true}
+    amp:     {kind: amplifier, level: full}
+    fx:      {kind: fx, chain: [saturation]}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: medium, s: zero, r: medium}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: slow, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,          why: "sub: one partial, felt more than heard"}
+  - {block: osc1,    param: pitch,     value: F1,            why: "below the kick; this is the floor of the mix"}
+  - {block: menv,    param: decay,     value: medium,        why: "the fall is slow enough to hear as a slide, not a punch: that is the cinematic part"}
+  - {block: menv,    param: sustain,   value: zero,          why: "lands on the sub note"}
+  - {block: aenv,    param: decay,     value: slow,          why: "two seconds: the boom fills the bar"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: aenv,    param: release,   value: same as decay, why: "a short note must still ring out"}
+  - {block: aenv,    param: mode,      value: one-shot}
+  - {block: fx,      param: chain,     value: saturation,    why: "a little harmonic content so the sub reads on speakers that cannot play it"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "slow – very long",      default: slow}
+  - {block: menv,    param: decay,   range: "short – slow",          default: medium, why: "longer is a dive bomb"}
+  - {block: menv,    param: amount,  range: "a fifth – two octaves", default: about an octave}
+  - {block: fx,      param: drive,   range: "none – light",          default: light}
+  - {block: osc1,    param: pitch,   range: "C1 – A1",               default: F1}
+
+listening:
+  cue: "A low slide that settles into a hum you feel in the floor. Nothing happens fast; the whole thing is one slow fall and one slow fade."
+  ab: "Set the pitch envelope decay to fast: an 808 kick an octave down. Put it back to medium and the slide returns. Then set the amp decay to short: a dull thud, no boom."
+
+render:
+  tempo: 90
+  note: F1
+  velocity: 120
+  pattern: "one hit on the downbeat, left to ring"
+  length_s: 4.0
+
+mappings: {}

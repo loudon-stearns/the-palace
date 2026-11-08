@@ -15,24 +15,36 @@ forward_vector: "I am Retrospective Delay's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-15T01:48:08.877Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-03T13:19:45.154Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 24 · last ran 2026-10-15 (today)
-- **Plan:** agreed 2026-09-26 (19 days ago) · 8 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** growing · **Steward:** cycle 26 · last ran 2026-11-03 (today)
+- **Plan:** agreed 2026-10-18 (16 days ago) · 3 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — The H90 can't run RNBO yet. Should the portal aim at VST/AU, Max for Live and the browser instead, with hardware only if it opens up? (`retrospective-delay-steward-055`)
-- **Last commit touching this project:** 2026-10-14 `79fca44c` — steward(Retrospective Delay): cycle 23 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-11-03 (today) — The plugin has a Speed knob: the ghost of your last measure comes back slower and lower, faster and higher, or backwards. (`retrospective-delay-steward-060`)
+- **Last commit touching this project:** 2026-11-03 `ef262b6e` — steward(Retrospective Delay): cycle 25 — SPINNING UP. HOME: [Retrospective Delay](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-03 — cycle 26 · taught item 4, proposed item 5 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 3 — items 2, 3, 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 26 — 2026-11-03 — [[Retrospective Delay — tuning]]
 
 ### Where this stands
 
-Retrospective Delay is a one-measure delay that is always listening: a tape holds the last measure you played, and one gain knob decides whether that past comes back as a single ghost. The plan builds it in five moves for Loudon Live. The first four are drafted with working models and unopened patches: the witness (the bare buffer), the séance (silence keeps the past, with your 5 ms input crossfade), the grammar (the same thing as one gen~ codebox), and the face (the Gorey cat reading three facts from the device). This cycle built the last move, the portal: the gen~ codebox ported to RNBO so the instrument can leave Max as a VST/AU, a Max for Live device, or a web page. That makes all five…
+Retrospective Delay records the last measure you played, all the time, and one knob, Summon, decides how loudly that measure comes back. When you stop playing, the tape holds, so the last measure keeps returning. On 2026-10-21 you asked for it as a product, a plugin you can play in Live, and earlier today I built it with VST Template: a VST3 and AU in this folder's plugin/ subfolder, installed on this Mac, with a séance table on its screen. This cycle gave it the first idea from my page, variable-speed playback, as a sixth knob called Speed. The plugin is rebuilt and reinstalled, and every check passes. Nobody has heard it in Live yet.
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 19:** Nobody has played it in Live yet, and I can't listen to anything myself. _(in 3 notes, the latest cycle 26)_
+- **rough since cycle 20:** Nothing has run in Max, and the jsui finding its plates inside a frozen device is the likeliest break. _(in 4 notes, the latest cycle 23)_
 
 ### Open asks
 
-- `retrospective-delay-steward-055` — proposed plan revision: the portal's hardware target · posted 2026-10-14 · options: adopt · keep
+- `retrospective-delay-steward-058` — proposed plan revision: product first, teaching path later · posted 2026-11-03 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -40,6 +52,7 @@ _None._
 
 ### Decided
 
+- `retrospective-delay-steward-055` — the portal's hardware target → GRANTED — option_id=adopt (2026-10-18)
 - `retrospective-delay-steward-044` — directional_decision → GRANTED — option_id=KEEP-SPEC; notes: "When it comes in, make sure there is a little crossfade input, just a few ms to avoid clicks." (2026-10-15)
 - `retrospective-delay-steward-041` — directional_decision → GRANTED — option_id=WIRE-NOW (2026-06-25)
 - `retrospective-delay-steward-039` — directional_decision → GRANTED — option_id=RENDER-SET (2026-06-23)
@@ -47,22 +60,38 @@ _None._
 - `retrospective-delay-steward-035` — directional_decision → GRANTED — option_id=REFINE-INK (2026-06-23)
 - `retrospective-delay-steward-033` — directional_decision → GRANTED — option_id=GREENLIGHT (2026-06-22)
 - `retrospective-delay-steward-031` — directional_decision → GRANTED — option_id=RENDER-NOW (2026-06-22)
-- `retrospective-delay-steward-029` — directional_decision → GRANTED — (no option_id); notes: "the gorey render looks like a small cat to me, go with it." (2026-06-22)
+
+### Runs
+
+- 2026-11-03 — cycle 26 · taught item 4, proposed item 5 for canon
+- 2026-11-03 — cycle 25 · taught item 1, proposed items 2, 3 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-11-03 · [[Retrospective Delay]] · § Open Questions, item 4 (Hardware target), after its 'progressed' line — you adopted the hardware answer on 2026-10-18 and the page still lists it as open
+- **3.** 2026-11-03 · [[Retrospective Delay]] · § Interface Design Philosophy, a new last paragraph — the page still describes the face only as JSUI frames; the plugin now has a face of its own
+- **5.** 2026-11-03 · `Projects/VST Template/machinery/src/PluginProcessor.cpp` · processBlock, before the sample loop — my next move, syncing the plugin to Live's tempo and bar, can't be built from my own folder: the template code that every plugin is built on doesn't pass the plugin the tempo or bar position yet
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-**Where this is going.** A one-measure delay that is always listening: a circular buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. It is built in five moves, and two of them are deliberate migrations (vanilla Max to Gen~, then Gen~ to RNBO) where the friction is the lesson. Any move can happen in public as a [[Loudon Live]] build. The first move is drafted and its patch specified. The character for the fourth move was made early: a séance cat in Gorey-style ink, drawn in three states and, after Loudon said on 2026-06-25 to wire it next, wired to the gain knob in JSUI with a preview rendered.
+**Where this is going.** A one-measure delay that is always listening: a circular buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. It is built in five moves, and two of them are deliberate migrations (vanilla Max to Gen~, then Gen~ to RNBO) where the friction is the lesson. Any move can happen in public as a [[Loudon Live]] build. All five moves are now drafted as session plans with working models and patches. None has been opened in Max yet, so the next work is opening them, starting with the portal's export.
 
 **The moves ahead**
 
 1. **The witness.** In vanilla Max, a write head and a read head sweep one buffer, one measure apart, wrapped as a Max for Live audio effect. You play and hear your whole phrase come back as a single ghost, not as echoes.
 2. **The séance.** Make it performable: the gain knob as the one gesture that summons or silences the past, a choice of lag length, and a crossfade at the loop seam. Silence becomes the most expressive thing the player can do.
 3. **The grammar behind the spell.** Port the core to Gen~ and see that the patch was always running at signal rate. Then set it beside the compressor's 11 ms buffer: the same mechanism holding a hundred times less time.
-4. **The face.** An animated character in JSUI whose three states (dormant, awakening, triumphant) are the gain knob's meaning made visible. The cat is drawn and wired to the knob; it hasn't yet been played in Max.
-5. **The portal.** Port to RNBO and export as a VST/AU and to the Eventide H90, so the instrument lives outside Max. Then ask whether it is still the same instrument.
+4. **The face.** An animated character in JSUI whose three states (dormant, awakening, triumphant) are the gain knob's meaning made visible. The cat reads three facts from the device, not the knob; it hasn't yet been played in Max.
+5. **The portal.** Port to RNBO and export as a VST/AU, back into Live as a Max for Live device, and as a web page, so the instrument lives outside Max. Hardware is a stretch goal: the Eventide H9000 if one is in the room, the H90 if Eventide opens it to RNBO. Then ask whether it is still the same instrument.
 
 The April session designs for these moves are archived: [[Retrospective Delay — spec — Loudon Live sessions]].
 <!-- scroll:plan:end -->
@@ -86,6 +115,154 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="retrospective-delay-steward-060" -->
+### 2026-11-03 — cycle 26 — Off plan — The plugin has a Speed knob: the ghost of your last measure comes back slower and lower, faster and higher, or backwards.
+> shipped · installed, all checks pass · steward leans: you play it in Live next
+
+_Off plan — The agreed plan is still the Max teaching path. This is the 2026-10-21 standing order's product, and the second move of my pending plan change (my page's ideas as knobs), done before the first (the tempo sync) because the sync needs VST Template to change first.. Offered as proof of a different direction; the plan stands unless Loudon agrees to change it._
+
+Speed runs the read head at its own rate, from -2 to 2. At 1 nothing changes; the four old test paths still match the sketch sample for sample. At 0.5 the ghost comes back slower and an octave down, at 2 faster and an octave up, below 0 it plays backwards, and near 0 it stalls and fades. A moving read head eventually passes the write head, where what you just played meets a measure ago. It fades out over the last 5 ms before that crossing, so there's no click. When Speed comes back to 1, the head fades back onto its lag in 30 ms and the ghost lands on the beat again; the test shows plugin and sketch agreeing exactly from there on. Speed is smoothed over 60 ms, so turning it sounds like a tape speeding up or slowing down. Measured on the ghost in the performance below, the average brightness of the sound falls from 674 Hz to 277 Hz at half speed and rises to 1094 Hz at double. On the screen, the read head goes adrift: its glow and the bright spot on the ghost ring travel round on their own, the arc between the heads reads 'adrift', and the ectoplasm is dragged the way it drifts. The page below plays a 16-second performance with the picture: one bar held, summoned, slowed to half, turned backwards, raced at double, stalled, then brought home. The new test path checks the plugin against its sketch at every sample. The other test, which compares the real plugin's loudness a quarter-second at a time, is set wide open for this path on purpose. Where the read head sits is Speed added up over time, so the 60 ms smoothing leaves the plugin's ghost slightly behind the sketch's while Speed is away from 1. One more change: the read heads now read between samples, so a lag that falls between two samples is no longer rounded down.
+
+**Artifacts:**
+- [the Speed performance with its picture: press play; at half speed it drops an octave, then turns backwards, races, stalls and comes home](Projects/Retrospective Delay/plugin/proofs/speed-table.html)
+- [the same 16 seconds as audio, from the sketch the plugin matches](Projects/Retrospective Delay/plugin/proofs/speed-performance.wav)
+- [playing backwards: the read head adrift, ectoplasm dragged along the ghost ring](Projects/Retrospective Delay/plugin/proofs/speed-table-08.6s.png)
+- [home again: the arc reads ½ once more](Projects/Retrospective Delay/plugin/proofs/speed-table-15.0s.png)
+- [summoned at Speed 1, before it drifts](Projects/Retrospective Delay/plugin/proofs/speed-table-03.6s.png)
+- [half speed, an octave down](Projects/Retrospective Delay/plugin/proofs/speed-table-06.0s.png)
+- [double speed](Projects/Retrospective Delay/plugin/proofs/speed-table-11.2s.png)
+- [the original séance performance, rebuilt with the new picture code](Projects/Retrospective Delay/plugin/proofs/seance-table.html)
+- [the original performance's audio, rebuilt](Projects/Retrospective Delay/plugin/proofs/seance-performance.wav)
+- [the sound: Speed, read heads that drift, the fade where a head crosses, the fade back to the beat](Projects/Retrospective Delay/plugin/src/Algorithm.h)
+- [the Python sketch, changed line for line with the plugin](Projects/Retrospective Delay/plugin/reference/sketch.py)
+- [a fifth test path, speed, and why its loudness test is wide open](Projects/Retrospective Delay/plugin/reference/paths.py)
+- [the séance table shows a read head adrift](Projects/Retrospective Delay/plugin/ui/visualizer.js)
+- [--speed renders the Speed performance](Projects/Retrospective Delay/plugin/ui/preview.py)
+- [version 0.2.0; the host check now also sets Speed to -1](Projects/Retrospective Delay/plugin/plugin.json)
+- [the Speed knob, what the screen shows when the head drifts, and the checks](Projects/Retrospective Delay/plugin/README.md)
+
+_Speed, measured on the ghost in the performance_
+| Speed | average brightness (spectral centroid) | what you hear |
+| --- | --- | --- |
+| 1 | 674 Hz | the séance as before |
+| 0.5 | 277 Hz | slower, an octave down |
+| -1 | 580 Hz | backwards |
+| 2 | 1094 Hz | faster, an octave up |
+
+_Changed in the workshop:_ README — the Speed knob, the drifting head on the screen, and the checks after Speed
+_Proposed for canon:_ Projects/VST Template/machinery/src/PluginProcessor.cpp (processBlock, before the sample loop) — my next move, syncing the plugin to Live's tempo and bar, can't be built from my own folder: the template code that every plugin is built on doesn't pass the plugin the tempo or bar position yet; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has played it in Live yet, and I can't listen to anything myself. The plugin still doesn't follow Live's tempo, because VST Template doesn't pass the plugin the tempo or the bar position yet.
+
+_Next moves named:_ Sync the plugin to Live's tempo and bar, so the measure is Live's bar and the planchette sits on the downbeat, once VST Template passes the plugin the tempo and bar position (proposed below) · My page's next idea as a knob: tie the ghost's sound to dub production, or a first try at finding where a phrase begins · If Speed sounds right in Live: a Speed that snaps to octaves, as a choice alongside the smooth knob
+<sub>`retrospective-delay-steward-060` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-239e6f5452" -->
+### 2026-11-03 — cycle 26
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="plan-retrospective-delay-steward-055" -->
+### 2026-10-18 — Plan revised: The H90 can't run RNBO yet. Should the portal aim at VST/AU, Max for Live and the browser instead, with hardware only if it opens up?
+
+Retrospective Delay is the one-measure delay that is always listening, built in five Loudon Live moves. All five are now drafted. The last move, the portal, ports the device to RNBO so it can leave Max. The plan says it goes out as a VST/AU and onto the Eventide H90. As far as I can find, the H90 has no RNBO route. Eventide supports RNBO on the H9000 rack processor, and for the H90 has said only that it's considering it. Crystal Synthesizer's portal hit the same wall. I built the codebox so it would run on an H9000 unchanged: no buffer~, no transport needed. I also added a browser page as a third way out. My knowledge could be stale, so if the H90 has opened up, KEEP and I'll check it. The proposed plan only changes where the portal goes.
+
+_The plan before this change:_
+
+> **Where this is going.** A one-measure delay that is always listening: a circular buffer holds the last measure of everything you play, and one gain knob decides whether that past comes back. It is built in five moves, and two of them are deliberate migrations (vanilla Max to Gen~, then Gen~ to RNBO) where the friction is the lesson. Any move can happen in public as a [[Loudon Live]] build. The first move is drafted and its patch specified. The character for the fourth move was made early: a séance cat in Gorey-style ink, drawn in three states and, after Loudon said on 2026-06-25 to wire it next, wired to the gain knob in JSUI with a preview rendered.
+>
+> **The moves ahead**
+>
+> 1. **The witness.** In vanilla Max, a write head and a read head sweep one buffer, one measure apart, wrapped as a Max for Live audio effect. You play and hear your whole phrase come back as a single ghost, not as echoes.
+> 2. **The séance.** Make it performable: the gain knob as the one gesture that summons or silences the past, a choice of lag length, and a crossfade at the loop seam. Silence becomes the most expressive thing the player can do.
+> 3. **The grammar behind the spell.** Port the core to Gen~ and see that the patch was always running at signal rate. Then set it beside the compressor's 11 ms buffer: the same mechanism holding a hundred times less time.
+> 4. **The face.** An animated character in JSUI whose three states (dormant, awakening, triumphant) are the gain knob's meaning made visible. The cat is drawn and wired to the knob; it hasn't yet been played in Max.
+> 5. **The portal.** Port to RNBO and export as a VST/AU and to the Eventide H90, so the instrument lives outside Max. Then ask whether it is still the same instrument.
+>
+> The April session designs for these moves are archived: [[Retrospective Delay — spec — Loudon Live sessions]].
+<sub>`plan-retrospective-delay-steward-055` · plan revised · agreed 2026-10-18T16:21:15.197Z · proposed by Retrospective Delay's steward (`retrospective-delay-steward-055`), adopted by Loudon (`resp-mve18pq5-h39lib`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="retrospective-delay-steward-058" -->
+### 2026-11-03 — cycle 25 — Make the plugin the plan: lock it to Live's clock, then my forward vectors as knobs; the Max teaching path waits for patching standards.
+> still working · plugin built and installed · steward leans adopt
+
+Retrospective Delay records your last measure all the time; Summon brings it back. The current plan is five Max moves for Loudon Live teaching (the bare buffer, the performable version, the gen~ port, the cat's face, the RNBO port). All five are drafted, and the Max files wait under your pause. On 2026-10-21 you said make it a product, and asked me to propose the plan change with what I made. This cycle the plugin landed: VST3 and AU, every check passed, a séance table on its screen. I propose the plan follow the product: Live's clock next, then the ghost at other speeds and dub treatment as knobs, then a hold gesture and a two-bar tape. The five Max moves stay as the later teaching arc, building toward this plugin. The cost: the teaching sessions slip behind the product.
+
+**Artifacts:**
+- [the plugin's screen playing a performance, with its sound.](Projects/Retrospective Delay/plugin/proofs/seance-table.html)
+- [the editor with the table on its screen.](Projects/Retrospective Delay/plugin/proofs/editor-900x600.png)
+- [witness-diagram.html](Projects/Retrospective Delay/stage-1/assets/witness-diagram.html)
+- [portal-web.html](Projects/Retrospective Delay/stage-5-portal/portal-web.html)
+- [slow-tempo-portal.wav](Projects/Retrospective Delay/stage-5-portal/slow-tempo-portal.wav)
+- [slow-tempo-gen-tape.wav](Projects/Retrospective Delay/stage-5-portal/slow-tempo-gen-tape.wav)
+- [portal-performance.wav](Projects/Retrospective Delay/stage-5-portal/portal-performance.wav)
+<sub>`retrospective-delay-steward-058` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="retrospective-delay-steward-057" -->
+### 2026-11-03 — cycle 25 — Retrospective Delay is now a plugin, installed under Loudon Live, and a séance table plays on its screen as you play.
+> shipped · every check passes · not yet played in Live · steward leans lock to Live's clock next
+
+What I built, in `Projects/Retrospective Delay/plugin/`:
+
+- **The sound.** The RNBO version from the last move, carried over line by line into `src/Algorithm.h`, with `reference/sketch.py` as the numpy reference. One 4/4 measure of tape. While you play, it records. When you stop, it holds (silence keeps), with the few-millisecond crossfade you asked for on 2026-10-15. The read head trails by a quarter, half or whole measure, and a change fades between two read heads over 30 ms. It reads before it writes, so a whole-measure lag hears one measure ago. New in the plugin: stereo (a tape per side, with the louder side deciding record or hold) and a Dry switch for sends.
+- **Knobs:** Summon (the big one), Lag, Tempo, Listen above (the level that counts as playing), Dry.
+- **The screen: the séance table.** The measure is the ring round a table, its four beats marked like a spirit board. The write head is a planchette with a candle on it: the flame burns orange while the tape records and turns blue and still while it holds. What you play stands on the ring as columns of light, amber when fresh and cooling to violet as the measure is held. A faint arc on the table marks the lag. Summon lifts a second ring, the ghost, above the table, and ectoplasm rises to it from the read head, as thick as the ghost is loud. A small Gorey cat at the table's edge (the face from the fourth move) sleeps at zero, opens its eyes as you turn Summon up, and the room fills with stars near the top. Drag up or down on the screen to turn Summon.
+- **[The table, playing a performance](Projects/Retrospective Delay/plugin/proofs/seance-table.html)** is one page with the picture and the sound together. Press play: one bar played and held, the ghost summoned, re-lagged to a quarter and then a whole bar, a new phrase played over it that overwrites it (amber over violet), dismissed, and summoned again.
+
+Checks, all passed: four test performances (summon, re-lag, overwrite, tempo change) match the sketch sample for sample to under 8e-8 of peak; the real plugin keeps the sketch's loudness; the code-signing check, pluginval at strictness 5 and auval pass; and the plugin loads the way a DAW loads it, with each knob changing the sound. One loudness limit is looser on the summon path (2 dB instead of 0.5): where Summon leaves or returns to zero, its 20 ms smoothing trails the ramp, and the reason is written in `reference/paths.py`.
+
+Two calls I made: **Summon now starts at 0.6**, not 0. At zero the plugin is silent when you put it in, and the host check could not hear Lag or Tempo on their own. And **Tempo is a knob**: the template does not pass Live's tempo to a plugin yet, so set it to the song.
+
+**Artifacts:**
+- [the séance table playing a 16-second performance, picture and sound together; press play.](Projects/Retrospective Delay/plugin/proofs/seance-table.html)
+- [the editor with the table on its screen (the template's preview page; the real editor's photo came back blank).](Projects/Retrospective Delay/plugin/proofs/editor-900x600.png)
+- [held and summoned: the candle blue, the ghost ring lifted, ectoplasm rising from the read head.](Projects/Retrospective Delay/plugin/proofs/seance-table-04.0s.png)
+- [a new phrase overwriting the held one: amber over violet.](Projects/Retrospective Delay/plugin/proofs/seance-table-09.4s.png)
+- [the first bar going on the tape; the cat still asleep.](Projects/Retrospective Delay/plugin/proofs/seance-table-01.2s.png)
+- [the ghost at a whole-bar lag.](Projects/Retrospective Delay/plugin/proofs/seance-table-08.2s.png)
+- [dismissed: the ghost ring down, the tape still holding.](Projects/Retrospective Delay/plugin/proofs/seance-table-12.0s.png)
+- [the performance's sound from the sketch, stereo (stays on this Mac).](Projects/Retrospective Delay/plugin/proofs/seance-performance.wav)
+- [the plugin's sound.](Projects/Retrospective Delay/plugin/src/Algorithm.h)
+- [the numpy sketch it is checked against.](Projects/Retrospective Delay/plugin/reference/sketch.py)
+- [the four test performances and what each must pass.](Projects/Retrospective Delay/plugin/reference/paths.py)
+- [the séance table.](Projects/Retrospective Delay/plugin/ui/visualizer.js)
+- [builds the performance page and stills from the sketch.](Projects/Retrospective Delay/plugin/ui/preview.py)
+- [name, code Rtrd, the editor's size, the screen on, the host check's moves.](Projects/Retrospective Delay/plugin/plugin.json)
+- [the knobs, the table, the checks, what the next build needs.](Projects/Retrospective Delay/plugin/README.md)
+- [finds VST Template's shared build.](Projects/Retrospective Delay/plugin/CMakeLists.txt)
+- [build, verify, install, validate, hostcheck.](Projects/Retrospective Delay/plugin/plugin.sh)
+- [keeps build output and logs out of git.](Projects/Retrospective Delay/plugin/.gitignore)
+
+_./plugin.sh all · 2026-11-03 · 44.1 kHz_
+| path | what it plays | sketch vs engine | plugin loudness vs sketch |
+| --- | --- | --- | --- |
+| summon | one bar, held; summon, dismiss, summon | 7.2e-08 of peak | within 1.8 dB (limit 2, smoothing near zero) |
+| relag | held ghost, half → quarter → whole | 6.4e-08 | within 0.01 dB |
+| overwrite | a new phrase played over the ghost | 7.9e-08 | within 2e-07 dB |
+| tempo | 120 → 150 bpm under a held ghost | 6.4e-08 | within 0.03 dB |
+
+_Changed in the workshop:_ README — how the plugin is built, its knobs, the table, the checks and what the next build needs
+_Proposed for canon:_ Retrospective Delay (§ Open Questions, item 4 (Hardware target), after its 'progressed' line) — you adopted the hardware answer on 2026-10-18 and the page still lists it as open; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Retrospective Delay (§ Interface Design Philosophy, a new last paragraph) — the page still describes the face only as JSUI frames; the plugin now has a face of its own; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has played it in Live yet, and I can't listen to anything myself. The measure follows a Tempo knob, not Live's clock, so it drifts against the song's bar. The editor's own photo came back blank on this Mac, so the editor picture is the preview page. The table's ring is drawn from loudness, not the tape's actual waveform.
+
+_Next moves named:_ Put it on a track in Live (Plug-Ins → Loudon Live → Retrospective Delay), set Tempo to the song, play a phrase, stop, and turn Summon. · Lock it to Live's clock: the measure becomes Live's bar and the planchette starts on the downbeat. That needs VST Template's machinery to pass tempo and playhead to the plugin, which is a change to the shared build, not to my folder. · Then the first of my forward vectors as a knob: the ghost played back at another speed (pitch-shifted memory), or dub treatment (filter, saturation) on the ghost that rises with Summon.
+<sub>`retrospective-delay-steward-057` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-dea0e3f3be" -->
+### 2026-11-03 — cycle 25
+
+taught item 1, proposed items 2, 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="retrospective-delay-steward-055" -->
 ### 2026-10-14 — cycle 24 — The H90 can't run RNBO yet. Should the portal aim at VST/AU, Max for Live and the browser instead, with hardware only if it opens up?
 > still working · all five moves drafted · steward leans adopt

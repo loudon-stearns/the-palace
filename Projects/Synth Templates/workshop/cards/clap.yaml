@@ -1,0 +1,64 @@
+# Synth Templates — card 0.2 — Clap
+# Not one hit but several: three or four noise bursts a few milliseconds apart, then one longer burst that is the room. The envelope is fired again before it finishes.
+# The slot grammar has no retrigger: a fast saw LFO chopping the amp stands in for the burst, and the amp envelope is the tail.
+schema: synth-template-card/0.2
+id: clap
+name: Clap
+family: Drums and Percussion
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Envelope trigger / one-shot mode"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, level: full}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: full}
+    fx:      {kind: fx, chain: [reverb]}
+    lfo1:    {kind: lfo, wave: saw, rate: very fast, sync: false, note: "stands in for the retrigger: on a real synth the amp envelope is fired three or four times about ten milliseconds apart, then once more for the tail; the voice cannot retrigger, and its fastest rate is slower than the real spacing"}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [noise, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: amp.level, amount: full, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: noise,   param: wave,      value: noise,         why: "many hands, no pitch"}
+  - {block: filter1, param: type,      value: bandpass 12 dB, why: "a clap is noise with a middle: no hiss, no rumble"}
+  - {block: filter1, param: cutoff,    value: mid,           why: "sat where the hands are"}
+  - {block: aenv,    param: mode,      value: retriggered,   why: "fired three or four times ten milliseconds apart before it can finish: that stutter is the clap; one burst is a snare with no body"}
+  - {block: aenv,    param: decay,     value: short,         why: "the last burst is the tail: the room the clap was in"}
+  - {block: aenv,    param: sustain,   value: zero}
+  - {block: fx,      param: chain,     value: reverb,        why: "the real tail of a clap is the room; a small one here"}
+
+taste:
+  - {block: aenv,    param: decay,     range: "fast – medium",     default: short, why: "tail length"}
+  - {block: filter1, param: cutoff,    range: "dark – bright",     default: mid}
+  - {block: filter1, param: resonance, range: "none – moderate",   default: little}
+  - {block: lfo1,    param: depth,     range: "moderate – full",   default: full, why: "how deep the stutter cuts"}
+  - {block: fx,      param: reverb,    range: "small – large",     default: small}
+
+listening:
+  cue: "A flam of noise, then a short wash. Hear the stutter at the front as a texture, not as separate hits: a crowd, not a person."
+  ab: "Set the stutter depth to none (one burst): a thin snare with nothing in front of it. Put it back and the hands return. Then set the tail decay to fast: the stutter alone, a dry slap."
+
+render:
+  tempo: 120
+  note: C5
+  velocity: 105
+  pattern: "backbeat, one bar: hits on 2 and 4, the last left to ring"
+  length_s: 2.5
+
+mappings: {}

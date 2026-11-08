@@ -90,13 +90,17 @@ function pointsAt(m, readyId) {
   return m.re === readyId || (m.payload && m.payload.handoff_id === readyId);
 }
 
-// Fold the log into { open, claimed, closed } — each a list of cards. A card is
-// { m, p, state, claim, close }: the ready message, its payload, its state, and
-// the claim/close events that set that state (null when absent).
+// Fold the log into { open, claimed, closed, retracted } — each a list of cards.
+// A card is { m, p, state, claim, close }: the ready message, its payload, its
+// state, and the claim/close events that set that state (null when absent).
+// A RETRACT whose `re` names a ready withdraws it (SCHEMA — Reference §9): the
+// card is shown nowhere and resolves like a closed one, its `close` the RETRACT,
+// which names its replacement in payload.superseded_by when there is one.
 export function foldHandoffs(lines) {
   const readies = lines.filter((m) => (m.payload || {}).kind === 'handoff_ready');
   const pickups = lines.filter((m) => (m.payload || {}).kind === 'handoff_picked_up');
   const closes = lines.filter((m) => (m.payload || {}).kind === 'handoff_closed');
+  const retracts = lines.filter((m) => m.type === 'RETRACT' && typeof m.re === 'string');
 
   const cards = readies.map((m) => {
     const close = closes.find((c) => pointsAt(c, m.id)) || null;
@@ -105,8 +109,11 @@ export function foldHandoffs(lines) {
     const legacyPickup = relatedPickups.find((pk) => (pk.payload || {}).lifecycle !== 'claim') || null;
     const claim = relatedPickups.find((pk) => (pk.payload || {}).lifecycle === 'claim') || null;
 
+    const retract = retracts.find((r) => r.re === m.id) || null;
+
     let state, closedBy = null;
-    if (close) { state = 'closed'; closedBy = close; }
+    if (retract) { state = 'retracted'; closedBy = retract; }
+    else if (close) { state = 'closed'; closedBy = close; }
     else if (legacyPickup) { state = 'closed'; closedBy = legacyPickup; }
     else if (claim) { state = 'claimed'; }
     else { state = 'open'; }
@@ -118,6 +125,7 @@ export function foldHandoffs(lines) {
     open: cards.filter((c) => c.state === 'open'),
     claimed: cards.filter((c) => c.state === 'claimed'),
     closed: cards.filter((c) => c.state === 'closed'),
+    retracted: cards.filter((c) => c.state === 'retracted'),
     all: cards,
   };
 }
@@ -138,7 +146,7 @@ export function resolveCard(fold, selector) {
     }
   }
   if (card) return { card };
-  const closed = fold.closed.find((c) => c.m.id === selector);
+  const closed = [...fold.closed, ...(fold.retracted || [])].find((c) => c.m.id === selector);
   if (closed) return { closed };
   return { error: `no active handoff matches "${selector}". Run list-handoffs.mjs to see open ids.` };
 }

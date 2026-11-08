@@ -1,0 +1,547 @@
+<!doctype html>
+<!--
+  title: Retrospective Delay — rich — the tape
+  born: 2026-11-03
+  links: [[Retrospective Delay]] (connects-to · rich-face-piece) · listed in [[Retrospective Delay — rich.json]]
+  forward_vector: I am the core architecture drawn live — one measure of tape as a ring, a write head, a read head, and one knob that can sit on the way in, as the page says, or on the way out, as the séance built it. I open on the write head alone, add the read head, then the knob, then a tape that keeps the past in silence, and end on a test: three gestures, the knob in each place, the tape in each mode, and how much of your phrase comes back. My engine is the bundle's models ported line for line, and it reproduces their renders sample for sample. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Retrospective Delay — the tape</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --violet:#9d8cf0; --bone:#e9e2cf;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 120px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg4); margin-bottom: 2px; }
+  .rail button.on { color: var(--amber); background: rgba(232,184,74,.05); }
+  .rail button.on b { color: var(--amber); }
+  .stage { display: grid; grid-template-columns: minmax(240px, 380px) 1fr; gap: 24px; align-items: start; }
+  .ringwrap { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 8px; }
+  canvas { display: block; width: 100%; }
+  .step h4 { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--fg1); margin: 0 0 8px; }
+  .step p { font-size: 14px; line-height: 1.65; margin: 0 0 12px; max-width: 70ch; }
+  .step p i { color: var(--fg1); }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin: 10px 0 12px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color .22s cubic-bezier(.4,0,.2,1), color .22s cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  .seg { display: inline-flex; } .seg button + button { border-left: 0; }
+  label.sl { display: block; min-width: 220px; flex: 1 1 220px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 8px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); line-height: 1.6; }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+  .test { margin-top: 18px; }
+  .grid { display: grid; grid-template-columns: minmax(150px, 210px) repeat(3, 1fr); border: 1px solid var(--soft); border-radius: 2px; }
+  .grid > div { padding: 9px 10px; border-right: 1px solid var(--soft); border-bottom: 1px solid var(--soft); }
+  .grid > div:nth-child(4n) { border-right: 0; }
+  .grid .h { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg3); line-height: 1.5; }
+  .grid .h b { color: var(--fg1); font-weight: 500; display: block; }
+  .cell { display: flex; flex-direction: column; gap: 6px; }
+  .cell canvas { height: 40px; }
+  .cell .v { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 13px; color: var(--fg1); }
+  .cell .v.zero { color: var(--fg3); }
+  .cell button { padding: 4px 8px; font-size: 10px; }
+  .verdict { margin-top: 14px; font-family: var(--serif); font-size: 19px; color: var(--fg1); line-height: 1.5; max-width: 78ch; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  footer { margin-top: 22px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); }
+  [hidden] { display: none !important; }
+  @media (max-width: 720px) { .stage { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr 1fr; } .grid > div:nth-child(4n) { border-right: 1px solid var(--soft); } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio Worklet · study</div>
+  <h3 class="title">Where does the knob sit?</h3>
+  <p class="sub">The page draws one measure of tape, a write head, a read head and one knob that "multiplies the write amplitude." Walk it up a head at a time, then put the knob in both places and see what it can summon. The phrases are synthesized plucks at 120 BPM, so one measure is two seconds. Silent until you press something.</p>
+  <div class="rail" id="rail"></div>
+
+  <div class="stage">
+    <div class="ringwrap"><canvas id="ring" width="760" height="760" aria-label="the tape, one measure drawn as a ring"></canvas></div>
+    <div>
+      <section class="step" data-step="0">
+        <h4>The write head</h4>
+        <p>One measure of tape, drawn as a ring. The amber line is the write head. It goes round once a measure and writes whatever comes in into the slot under it, every sample. Nothing to arm, no gate: the tape is always recording.</p>
+        <p>Play a phrase and watch it go down on the ring. Then wait. A measure later the write head comes round again and writes your silence over it. The tape only ever holds the last measure.</p>
+        <div class="controls"><button class="go" data-act="phrase" data-which="one">▸ play a phrase</button></div>
+        <div class="eqs">
+          <div class="eq">tape[w] ← x</div>
+          <div class="words">(the slot under the write head) takes (what you play), every sample; w goes round the measure and starts again</div>
+        </div>
+      </section>
+
+      <section class="step" data-step="1" hidden>
+        <h4>The read head</h4>
+        <p>A second head, the pale line, trails the first by a lag, half a measure here. It plays back what the tape holds where it is: the past, in present time. Play a phrase and it comes back half a measure late, all of it, once.</p>
+        <p>Change the lag and the ghost moves; the tape doesn't. At a whole measure the read head sits on the write head and hears the slot just before it is written over.</p>
+        <div class="controls">
+          <button class="go" data-act="phrase" data-which="one">▸ play a phrase</button>
+          <span class="seg"><button data-act="lag" data-lag="0.25">quarter</button><button data-act="lag" data-lag="0.5" class="on">half</button><button data-act="lag" data-lag="1">whole</button></span>
+        </div>
+        <div class="eqs">
+          <div class="eq">ghost = tape[(w − L) mod M] &nbsp;·&nbsp; y = x + 0.8 · ghost</div>
+          <div class="words">(the ghost) = (what the tape holds L samples behind the write head, wrapping round the measure of M samples); (what you hear) = (what you play) + 0.8 × (the ghost)</div>
+        </div>
+      </section>
+
+      <section class="step" data-step="2" hidden>
+        <h4>The knob, and where it sits</h4>
+        <p>Now the one knob. The page says it <i>multiplies the write amplitude</i>: it sits on the way in, between you and the tape. The séance the steward built later puts it on the way out, between the tape and your ears. Turn it while you play, in each place.</p>
+        <p>Then try the gesture: the knob down, a phrase, and the knob raised halfway through it. On the way out, the ghost brings back the half you played while the knob was down. On the way in, that half was written as silence.</p>
+        <div class="controls">
+          <span class="seg"><button data-act="side" data-side="in">on the way in · the page</button><button data-act="side" data-side="out">on the way out · the séance</button></span>
+        </div>
+        <div class="controls">
+          <button class="go" data-act="phrase" data-which="one">▸ play a phrase</button>
+          <button data-act="gesture" data-g="mid">▸ raise it mid-phrase</button>
+          <label class="sl">the knob · g = <b class="kv">0.00</b><input class="knob" type="range" min="0" max="1" step="0.01" value="0"></label>
+        </div>
+        <div class="eqs">
+          <div class="eq">on the way in: tape[w] ← g · x, &nbsp; y = x + ghost</div>
+          <div class="words">(the slot) takes (the knob) × (what you play); you hear (what you play) + (the ghost) at full level</div>
+          <div class="eq">on the way out: tape[w] ← x, &nbsp; y = x + g · ghost</div>
+          <div class="words">(the slot) takes (what you play) as it is; you hear (what you play) + (the knob) × (the ghost)</div>
+        </div>
+      </section>
+
+      <section class="step" data-step="3" hidden>
+        <h4>Silence keeps</h4>
+        <p>The page opens with a promise this tape can't keep yet: <i>when you play silence, the last phrase repeats.</i> A tape that always writes writes your silence over the phrase. So let it listen. While you play, it writes; while you're silent, it writes down what it already holds. Stop, and the last measure keeps going round.</p>
+        <p>Then the séance's gesture: play with the knob down, stop, and raise it a measure later. Try it with the knob in each place.</p>
+        <div class="controls">
+          <span class="seg"><button data-act="keeps" data-keeps="0">always writes</button><button data-act="keeps" data-keeps="1">silence keeps</button></span>
+          <span class="seg"><button data-act="side" data-side="in">knob on the way in</button><button data-act="side" data-side="out">on the way out</button></span>
+        </div>
+        <div class="controls">
+          <button class="go" data-act="phrase" data-which="one">▸ phrase one</button>
+          <button data-act="phrase" data-which="two">▸ phrase two</button>
+          <button data-act="gesture" data-g="later">▸ raise it a measure after you stop</button>
+          <label class="sl">the knob · g = <b class="kv">0.00</b><input class="knob" type="range" min="0" max="1" step="0.01" value="0"></label>
+        </div>
+        <div class="eqs">
+          <div class="eq">tape[w] ← tape[w] + listen · (x − tape[w])</div>
+          <div class="words">(the slot) moves toward (what you play) only while (you are playing): listen is 1 while the input is above a whisper, 0 in silence, with a 5 ms crossfade between. In silence the slot keeps what it holds.</div>
+        </div>
+      </section>
+
+      <section class="step" data-step="4" hidden>
+        <h4>The test</h4>
+        <p>Three gestures, each run on this engine with the knob in each place and the tape in each mode: twelve runs. Each number is how much of the phrase comes back where it should, as a share of what the ghost would be with the knob up the whole time (0.85). Press ▸ play it to hear a run.</p>
+        <p class="hint">The engine is the bundle's own models, ported line for line: it reproduces witness-A, witness-B, both seam renders and both come-in renders sample for sample. The séance performance and the face film sit lower on this page.</p>
+      </section>
+
+      <div class="read" id="read">
+        <span>write head <b id="r-beat">beat 1</b></span>
+        <span>knob as heard <b id="r-knob">0.00</b></span>
+        <span>ghost <b id="r-ghost">–</b></span>
+        <span id="r-tape">silent until you press something</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="test" id="test" hidden>
+    <div class="grid" id="grid"></div>
+    <div class="verdict" id="verdict">Running the twelve…</div>
+  </div>
+
+  <div class="nav">
+    <button id="back">◂ back</button>
+    <span class="hint" id="where"></span>
+    <button id="next">next ▸</button>
+  </div>
+  <footer>Loud’n Live</footer>
+</div>
+<script type="text/plain" id="engine">
+// The engine: one measure of tape, a write head, two read heads, one knob.
+// A line-for-line port of the bundle's models (stage-1/witness/witness_model.py,
+// stage-2-seance/seance_model.py), plus one switch they don't have: where the knob sits.
+function makeTape(sr, o) {
+  o = o || {};
+  const BPM = o.bpm || 120;
+  const M = Math.round(sr * 60 / BPM * 4);          // one 4/4 measure, in samples
+  const tape = new Float64Array(M);
+  const THRESH = 0.003;                              // is anyone playing?
+  const rel = Math.exp(-1 / (sr * 0.1));             // slide~ release, 100 ms
+  const gstep = 1 / Math.round(sr * 0.005);          // rampsmooth~: 5 ms each way
+  const xstep = 1 / (sr * 0.03);                     // two read heads, 30 ms between them
+  let side = o.side || 'out';                        // 'out' = the knob on the read side (the seance)
+                                                     // 'in'  = the knob on the write side (the page's words)
+  let keeps = !!o.keeps;                             // false: the tape always writes the input (the witness)
+  let smooth = o.smoothGate !== false;
+  let w = 0, env = 0, g = 0;
+  const lagOf = (f) => (f >= 1 ? M : Math.floor(M * f));
+  let lagA = lagOf(o.lag || 0.5), lagB = lagA, mix = 0, target = 0, active = 0;
+  let k = o.knob == null ? 0 : o.knob, kTo = k, kInc = 0, kLeft = 0;
+  function setKnob(v, ms) {                          // line~: reach v in ms (20 by default)
+    const n = Math.max(1, Math.round(sr * (ms == null ? 20 : ms) / 1000));
+    kTo = v; kInc = (v - k) / n; kLeft = n;
+  }
+  function setLag(f) {                               // the idle head jumps, then a 30 ms handover
+    const L = lagOf(f);
+    if (active === 0) { lagB = L; target = 1; active = 1; } else { lagA = L; target = 0; active = 0; }
+  }
+  function step(x) {
+    if (kLeft > 0) { k += kInc; if (--kLeft === 0) k = kTo; }
+    if (mix < target) mix = Math.min(target, mix + xstep);
+    else if (mix > target) mix = Math.max(target, mix - xstep);
+    const ga = tape[((w - lagA) % M + M) % M];       // read before write
+    const gb = tape[((w - lagB) % M + M) % M];
+    const ghost = mix === 0 ? ga : mix === 1 ? gb : ga * (1 - mix) + gb * mix;
+    const put = side === 'in' ? k * x : x;           // what reaches the write head
+    if (keeps) {
+      const a = Math.abs(x);                         // the gate listens to the player, wherever the knob sits
+      env = a > env ? a : env * rel;
+      const hard = env > THRESH ? 1 : 0;
+      g = smooth ? g + Math.min(Math.max(hard - g, -gstep), gstep) : hard;
+      tape[w] = tape[w] + g * (put - tape[w]);       // old + listen * (in - old)
+    } else {
+      tape[w] = put;                                 // always recording
+    }
+    w = w + 1 === M ? 0 : w + 1;
+    return side === 'out' ? k * ghost : ghost;       // the ghost as you hear it
+  }
+  function reset() { tape.fill(0); w = 0; env = 0; g = 0; mix = 0; target = 0; active = 0; lagB = lagA; }
+  return {
+    M, tape, step, setKnob, setLag, reset,
+    setSide(s) { side = s; }, setKeeps(b) { keeps = !!b; },
+    get w() { return w; }, get knob() { return k; }, get listening() { return keeps ? g : 1; },
+    get lag() { return mix < 0.5 ? lagA : lagB; },
+  };
+}
+
+// The test phrases, as the models make them.
+function pluck(sr, freq, dur) {
+  const n = Math.floor(sr * dur), y = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const t = i / sr, env = Math.exp(-t * 7) * Math.min(1, t * 400);
+    y[i] = 0.3 * env * (Math.sin(2 * Math.PI * freq * t) + 0.35 * Math.sin(2 * Math.PI * 2 * freq * t) + 0.15 * Math.sin(2 * Math.PI * 3 * freq * t));
+  }
+  return y;
+}
+function phrase(sr, notes, bpm) {
+  const eighth = 60 / (bpm || 120) / 2;
+  const out = new Float64Array(Math.floor(sr * eighth * notes.length) + sr);
+  notes.forEach((m, i) => {
+    if (m == null) return;
+    const p = pluck(sr, 440 * Math.pow(2, (m - 69) / 12), eighth * 2.5), s = Math.floor(i * sr * eighth);
+    for (let j = 0; j < p.length && s + j < out.length; j++) out[s + j] += p[j];
+  });
+  return out;
+}
+function chord(sr, dur, freqs) {
+  freqs = freqs || [220.0, 277.18, 329.63];
+  const n = Math.floor(sr * dur), y = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const t = i / sr, att = Math.min(1, t / 0.02) * Math.min(1, (dur - t) / 0.02);
+    let s = 0; for (const f of freqs) s += Math.sin(2 * Math.PI * f * t);
+    y[i] = 0.12 * att * s;
+  }
+  return y;
+}
+const PHRASE_ONE = [62, 65, 69, 72, 70, 69, 65, null];   // the models' first measure
+const PHRASE_TWO = [74, null, 72, 69, null, 67, 65, null];
+</script>
+<script>
+'use strict';
+const ENGINE = document.getElementById('engine').textContent;
+const E = new Function(ENGINE + '; return { makeTape, phrase, PHRASE_ONE, PHRASE_TWO };')();
+const BPM = 120, G = 0.85;
+const STEP_NAMES = ['the write head', 'the read head', 'the knob', 'silence keeps', 'the test'];
+const DEFAULTS = [
+  { side: 'out', keeps: false, knob: 0, lag: 0.5, read: false },
+  { side: 'out', keeps: false, knob: 0.8, lag: 0.5, read: true },
+  { side: 'in', keeps: false, knob: 0, lag: 0.5, read: true },
+  { side: 'out', keeps: true, knob: 0, lag: 0.5, read: true },
+  { side: 'out', keeps: false, knob: 0, lag: 0.5, read: true },
+];
+let step = 0, S = Object.assign({}, DEFAULTS[0]);
+let ctx = null, node = null, out = null, starting = null, live = null, src = null;
+
+// ---------- the worklet: the same engine text, run at the context's rate ----------
+const WORKLET = ENGINE + `
+class RdTape extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.t = makeTape(sampleRate, { knob: 0, side: 'out', keeps: false, lag: 0.5 });
+    this.q = []; this.ev = []; this.n = 0; this.acc = 0; this.cnt = 0;
+    this.bins = new Float32Array(240);
+    this.port.onmessage = (e) => this.msg(e.data);
+  }
+  msg(d) {
+    const t = this.t, M = t.M;
+    if (d.reset) { t.reset(); this.q = []; this.ev = []; }
+    if (d.side) t.setSide(d.side);
+    if (d.keeps != null) t.setKeeps(d.keeps);
+    if (d.lag != null) t.setLag(d.lag);
+    if (d.knob != null) t.setKnob(d.knob, d.ms == null ? 20 : d.ms);
+    if (d.phrase) {
+      let p = phrase(sampleRate, d.phrase === 'two' ? PHRASE_TWO : PHRASE_ONE, 120);
+      if (d.trim) p = p.subarray(0, M);
+      this.q.push({ p, i: 0 });
+    }
+    if (d.gesture) {
+      t.setKnob(0, 0);
+      this.q.push({ p: phrase(sampleRate, PHRASE_ONE, 120).subarray(0, M), i: 0 });
+      const at = this.n + (d.gesture === 'mid' ? Math.floor(M / 2) : 2 * M);
+      this.ev.push({ at, knob: ${G} });
+    }
+  }
+  process(_in, outs) {
+    const L = outs[0][0], R = outs[0][1] || L, t = this.t;
+    for (let i = 0; i < L.length; i++) {
+      for (let e = this.ev.length - 1; e >= 0; e--) if (this.ev[e].at === this.n) { t.setKnob(this.ev[e].knob, 20); this.ev.splice(e, 1); }
+      let x = 0;
+      for (let k = this.q.length - 1; k >= 0; k--) { const s = this.q[k]; x += s.p[s.i++]; if (s.i >= s.p.length) this.q.splice(k, 1); }
+      const gh = t.step(x);
+      L[i] = R[i] = x + gh;
+      this.acc += gh * gh; this.cnt++; this.n++;
+    }
+    if (this.cnt >= 1600) {
+      const M = t.M, tape = t.tape, B = this.bins.length;
+      for (let b = 0; b < B; b++) { let pk = 0; const a = Math.floor(b * M / B), z = Math.floor((b + 1) * M / B); for (let j = a; j < z; j += 4) { const v = Math.abs(tape[j]); if (v > pk) pk = v; } this.bins[b] = pk; }
+      this.port.postMessage({ w: t.w, M, lag: t.lag, knob: t.knob, listen: t.listening, ghost: Math.sqrt(this.acc / this.cnt), bins: this.bins.slice() });
+      this.acc = 0; this.cnt = 0;
+    }
+    return true;
+  }
+}
+registerProcessor('rd-tape', RdTape);
+`;
+
+async function ensureAudio() {
+  if (node) return;
+  if (!starting) starting = (async () => {
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url);
+    out = ctx.createDynamicsCompressor(); out.threshold.value = -6; out.ratio.value = 4; out.connect(ctx.destination);
+    const n = new AudioWorkletNode(ctx, 'rd-tape', { numberOfInputs: 0, outputChannelCount: [2] });
+    n.port.onmessage = (e) => { live = e.data; };
+    n.connect(out);
+    node = n;
+    send({ reset: true, side: S.side, keeps: S.keeps, knob: S.knob, ms: 0 });
+    if (S.lag !== 0.5) send({ lag: S.lag });
+  })();
+  await starting;
+  if (ctx.state !== 'running') await ctx.resume();
+}
+const send = (m) => { if (node) node.port.postMessage(m); };
+function stopBuffer() { if (src) { try { src.stop(); } catch (e) {} src = null; } }
+
+// ---------- the walk ----------
+const rail = document.getElementById('rail');
+STEP_NAMES.forEach((nm, i) => { const b = document.createElement('button'); b.innerHTML = '<b>' + (i + 1) + '</b>' + nm; b.onclick = () => go(i); rail.appendChild(b); });
+function go(i) {
+  step = Math.max(0, Math.min(STEP_NAMES.length - 1, i));
+  S = Object.assign({}, DEFAULTS[step]);
+  stopBuffer();
+  send({ reset: true, side: S.side, keeps: S.keeps, knob: S.knob, ms: 0, lag: S.lag });
+  document.querySelectorAll('.step').forEach((s) => { s.hidden = +s.dataset.step !== step; });
+  [...rail.children].forEach((b, j) => b.classList.toggle('on', j === step));
+  document.getElementById('test').hidden = step !== 4;
+  document.getElementById('read').hidden = step === 4;
+  document.querySelector('.ringwrap').hidden = step === 4;
+  document.querySelector('.stage').style.gridTemplateColumns = step === 4 ? '1fr' : '';
+  document.getElementById('back').disabled = step === 0;
+  document.getElementById('next').disabled = step === STEP_NAMES.length - 1;
+  document.getElementById('where').textContent = 'step ' + (step + 1) + ' of ' + STEP_NAMES.length;
+  syncButtons();
+  if (step === 4) runTest();
+}
+document.getElementById('back').onclick = () => go(step - 1);
+document.getElementById('next').onclick = () => go(step + 1);
+
+function syncButtons() {
+  document.querySelectorAll('[data-act="side"]').forEach((b) => b.classList.toggle('on', b.dataset.side === S.side));
+  document.querySelectorAll('[data-act="keeps"]').forEach((b) => b.classList.toggle('on', (b.dataset.keeps === '1') === S.keeps));
+  document.querySelectorAll('[data-act="lag"]').forEach((b) => b.classList.toggle('on', +b.dataset.lag === S.lag));
+  document.querySelectorAll('.knob').forEach((k) => { k.value = S.knob; });
+  document.querySelectorAll('.kv').forEach((k) => { k.textContent = (+S.knob).toFixed(2); });
+}
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const act = b.dataset.act;
+  await ensureAudio();
+  if (act === 'phrase') send({ phrase: b.dataset.which });
+  if (act === 'lag') { S.lag = +b.dataset.lag; send({ lag: S.lag }); }
+  if (act === 'side') { S.side = b.dataset.side; send({ side: S.side }); }
+  if (act === 'keeps') { S.keeps = b.dataset.keeps === '1'; send({ keeps: S.keeps }); }
+  if (act === 'gesture') { S.knob = 0; send({ gesture: b.dataset.g }); }
+  syncButtons();
+});
+document.querySelectorAll('.knob').forEach((k) => k.addEventListener('input', async () => {
+  S.knob = +k.value; syncButtons(); await ensureAudio(); send({ knob: S.knob });
+}));
+
+// ---------- the ring ----------
+const cv = document.getElementById('ring'), g2 = cv.getContext('2d');
+function drawRing() {
+  const W = cv.width, c = W / 2, R = W * 0.34, st = live;
+  const M = st ? st.M : 96000, w = st ? st.w : 0, bins = st ? st.bins : null;
+  g2.clearRect(0, 0, W, W);
+  g2.lineWidth = 2; g2.strokeStyle = '#22222e'; g2.beginPath(); g2.arc(c, c, R, 0, 2 * Math.PI); g2.stroke();
+  g2.font = '22px JetBrains Mono, monospace'; g2.textAlign = 'center'; g2.textBaseline = 'middle';
+  for (let b = 0; b < 4; b++) { const a = b / 4 * 2 * Math.PI - Math.PI / 2;
+    g2.strokeStyle = '#4a4a5a'; g2.beginPath(); g2.moveTo(c + Math.cos(a) * R * 1.2, c + Math.sin(a) * R * 1.2); g2.lineTo(c + Math.cos(a) * R * 1.27, c + Math.sin(a) * R * 1.27); g2.stroke();
+    g2.fillStyle = '#4a4a5a'; g2.fillText(String(b + 1), c + Math.cos(a) * R * 1.37, c + Math.sin(a) * R * 1.37); }
+  if (bins) {
+    const B = bins.length;
+    for (let b = 0; b < B; b++) { const pk = bins[b]; if (pk < 0.002) continue;
+      const a = (b + 0.5) / B * 2 * Math.PI - Math.PI / 2, len = Math.min(1, pk * 2.4) * R * 0.42;
+      g2.strokeStyle = 'rgba(232,184,74,' + (0.3 + Math.min(0.65, pk * 2.2)) + ')'; g2.lineWidth = 4;
+      g2.beginPath(); g2.moveTo(c + Math.cos(a) * (R - len), c + Math.sin(a) * (R - len)); g2.lineTo(c + Math.cos(a) * (R + len * 0.35), c + Math.sin(a) * (R + len * 0.35)); g2.stroke(); }
+  }
+  const ang = (p) => p / M * 2 * Math.PI - Math.PI / 2;
+  const head = (p, col, wid, r0, r1) => { const a = ang(p); g2.strokeStyle = col; g2.lineWidth = wid; g2.beginPath(); g2.moveTo(c + Math.cos(a) * R * r0, c + Math.sin(a) * R * r0); g2.lineTo(c + Math.cos(a) * R * r1, c + Math.sin(a) * R * r1); g2.stroke(); return a; };
+  const knob = st ? st.knob : S.knob;
+  if (DEFAULTS[step].read && step < 4) {
+    const L = st ? st.lag : Math.floor(M * S.lag), rp = ((w - L) % M + M) % M;
+    g2.strokeStyle = 'rgba(200,200,216,.12)'; g2.lineWidth = 10; g2.beginPath(); g2.arc(c, c, R * 0.55, ang(rp), ang(rp) + L / M * 2 * Math.PI - 0.0001); g2.stroke();
+    const heard = S.side === 'out' ? knob : 1;
+    const a = head(rp, 'rgba(233,226,207,' + (0.25 + 0.75 * Math.min(1, heard)) + ')', 4, 0.48, 1.16);
+    g2.fillStyle = '#c8c8d8'; g2.fillText('read', c + Math.cos(a) * R * 1.05 + 0, c + Math.sin(a) * R * 1.05 - 0 + (Math.sin(a) > 0 ? 18 : -18) * 0);
+    if (step >= 2) { g2.fillStyle = '#e8b84a'; const ka = S.side === 'out' ? a : ang(w); g2.fillText('× g', c + Math.cos(ka) * R * 0.36, c + Math.sin(ka) * R * 0.36); }
+  }
+  const aw = head(w, '#e8b84a', 6, 0.48, 1.2);
+  g2.fillStyle = '#e8b84a'; g2.beginPath(); g2.arc(c + Math.cos(aw) * R * 1.2, c + Math.sin(aw) * R * 1.2, 7, 0, 2 * Math.PI); g2.fill();
+  g2.fillStyle = '#8a8aa0'; g2.font = '24px JetBrains Mono, monospace';
+  const mode = !st ? 'one measure · 2.00 s' : !S.keeps ? 'always writing' : st.listen > 0.5 ? 'listening' : 'holding · silence keeps';
+  g2.fillText(mode, c, c);
+  if (st) {
+    document.getElementById('r-beat').textContent = 'beat ' + (1 + Math.floor(w / M * 4));
+    const heard = DEFAULTS[step].read ? (S.side === 'out' ? st.knob : 1) : 0;
+    document.getElementById('r-knob').textContent = (step >= 2 ? st.knob : heard).toFixed(2);
+    document.getElementById('r-ghost').textContent = st.ghost < 1e-4 ? 'silent' : (20 * Math.log10(st.ghost)).toFixed(0) + ' dB';
+    document.getElementById('r-tape').textContent = mode;
+    if (step === 2 || step === 3) { const v = st.knob; document.querySelectorAll('.knob').forEach((k) => { if (document.activeElement !== k) k.value = v; }); document.querySelectorAll('.kv').forEach((k) => { k.textContent = v.toFixed(2); }); }
+  }
+  requestAnimationFrame(drawRing);
+}
+
+// ---------- the test: three gestures × the knob in two places × the tape in two modes ----------
+const COMBOS = [
+  { side: 'in', keeps: false, name: 'on the way in · always writes', note: 'the page’s core architecture' },
+  { side: 'in', keeps: true, name: 'on the way in · silence keeps', note: '' },
+  { side: 'out', keeps: false, name: 'on the way out · always writes', note: 'the witness with the séance’s knob' },
+  { side: 'out', keeps: true, name: 'on the way out · silence keeps', note: 'the séance, as built' },
+];
+const GESTURES = [
+  { key: 'still', name: 'knob up the whole time', note: 'what comes back just after you stop' },
+  { key: 'mid', name: 'knob down, raised mid-phrase', note: 'how much of the half played while it was down comes back' },
+  { key: 'later', name: 'knob down; stop; raise it a measure later', note: 'how much of the phrase comes back' },
+];
+// One run, on the same engine: the phrase in the first measure, five measures in all.
+function runGesture(sr, gk, side, keeps) {
+  const M = Math.round(sr * 60 / BPM * 4), P = E.phrase(sr, E.PHRASE_ONE, BPM);
+  const x = new Float64Array(5 * M); for (let i = 0; i < M; i++) x[i] = P[i];
+  const knob0 = gk === 'still' ? G : 0, at = gk === 'mid' ? Math.floor(M / 2) : gk === 'later' ? 2 * M : -1;
+  const t = E.makeTape(sr, { side, keeps, lag: 0.5, knob: knob0, bpm: BPM });
+  const gh = new Float64Array(x.length), kn = new Float64Array(x.length);
+  for (let n = 0; n < x.length; n++) { if (n === at) t.setKnob(G, 20); gh[n] = t.step(x[n]); kn[n] = t.knob; }
+  const win = gk === 'still' ? [M, 1.5 * M] : gk === 'mid' ? [M / 2 + Math.round(0.02 * sr), M] : [3 * M, 5 * M];
+  const ref = gk === 'still' ? [M / 2, M] : gk === 'mid' ? [0, M / 2 - Math.round(0.02 * sr)] : [0, M];
+  const rms = (y, a, b) => { let s = 0; a = Math.floor(a); b = Math.floor(b); for (let i = a; i < b; i++) s += y[i] * y[i]; return Math.sqrt(s / (b - a)); };
+  return { x, gh, kn, M, win, share: rms(gh, ...win) / (G * rms(x, ...ref)) };
+}
+let tested = null;
+function runTest() {
+  if (tested) return;
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '<div class="h">the knob · the tape</div>' + GESTURES.map((g) => '<div class="h"><b>' + g.name + '</b>' + g.note + '</div>').join('');
+  tested = COMBOS.map((cmb) => GESTURES.map((g) => runGesture(48000, g.key, cmb.side, cmb.keeps)));
+  COMBOS.forEach((cmb, i) => {
+    const h = document.createElement('div'); h.className = 'h'; h.innerHTML = '<b>' + cmb.name + '</b>' + cmb.note; grid.appendChild(h);
+    GESTURES.forEach((g, j) => {
+      const r = tested[i][j], cell = document.createElement('div'); cell.className = 'cell';
+      const c = document.createElement('canvas'); c.width = 320; c.height = 64; cell.appendChild(c); strip(c, r);
+      const v = document.createElement('div'); v.className = 'v' + (r.share < 0.05 ? ' zero' : '');
+      v.innerHTML = '<span>' + r.share.toFixed(2) + '</span>';
+      const b = document.createElement('button'); b.textContent = '▸ play it'; b.onclick = () => hear(g.key, cmb.side, cmb.keeps); v.appendChild(b);
+      cell.appendChild(v); grid.appendChild(cell);
+    });
+  });
+  const on = (j) => COMBOS.filter((_, i) => tested[i][j].share > 0.5).map((c) => c.side + (c.keeps ? '+keeps' : ''));
+  const still = tested.map((row) => row[0].share), same = Math.max(...still) - Math.min(...still) < 0.02;
+  const mid = on(1), later = on(2);
+  const verdict = document.getElementById('verdict');
+  if (same && mid.join() === 'out,out+keeps' && later.join() === 'out+keeps')
+    verdict.innerHTML = 'With the knob still, all four are the same instrument (' + still[0].toFixed(2) + ' each). They part when the knob moves. Raised mid-phrase, it brings back what you played while it was down only <b>on the way out</b>. Raised a measure after you stop, it brings the phrase back only <b>on the way out, with silence keeping</b>: the séance. On the way in, as the page’s core architecture has it, the tape wrote silence while the knob was down, and raising it later summons nothing.';
+  else verdict.textContent = 'The twelve came out differently from what this piece expected (knob still the same everywhere: ' + same + '; mid-phrase: ' + (mid.join(', ') || 'none') + '; a measure later: ' + (later.join(', ') || 'none') + '). Read the table, not this line.';
+}
+function strip(c, r) {
+  const g = c.getContext('2d'), W = c.width, H = c.height, N = r.x.length, cols = W;
+  g.fillStyle = '#12121a'; g.fillRect(0, 0, W, H);
+  g.fillStyle = 'rgba(232,184,74,.08)'; g.fillRect(r.win[0] / N * W, 0, (r.win[1] - r.win[0]) / N * W, H);
+  for (let m = 1; m < 5; m++) { g.fillStyle = '#22222e'; g.fillRect(Math.round(m * r.M / N * W), 0, 1, H); }
+  for (let i = 0; i < cols; i++) {
+    const a = Math.floor(i * N / cols), z = Math.floor((i + 1) * N / cols); let px = 0, pg = 0;
+    for (let j = a; j < z; j += 8) { px = Math.max(px, Math.abs(r.x[j])); pg = Math.max(pg, Math.abs(r.gh[j])); }
+    const hx = Math.min(1, px * 2) * (H / 2 - 2), hg = Math.min(1, pg * 2) * (H / 2 - 2);
+    g.fillStyle = 'rgba(138,138,160,.45)'; g.fillRect(i, H / 2 - hx, 1, 2 * hx);
+    g.fillStyle = '#e8b84a'; g.fillRect(i, H / 2 - hg, 1, 2 * hg);
+  }
+  g.strokeStyle = 'rgba(233,226,207,.7)'; g.lineWidth = 1; g.beginPath();
+  for (let i = 0; i < cols; i++) { const y = H - 2 - r.kn[Math.floor(i * N / cols)] * (H - 6); i ? g.lineTo(i, y) : g.moveTo(i, y); } g.stroke();
+}
+async function hear(gk, side, keeps) {
+  await ensureAudio(); send({ reset: true, knob: 0, ms: 0 }); stopBuffer();
+  const r = runGesture(ctx.sampleRate, gk, side, keeps);
+  const buf = ctx.createBuffer(1, r.x.length, ctx.sampleRate), d = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = r.x[i] + r.gh[i];
+  src = ctx.createBufferSource(); src.buffer = buf; src.connect(out); src.start();
+}
+
+go(0);
+requestAnimationFrame(drawRing);
+</script>
+</body>
+</html>

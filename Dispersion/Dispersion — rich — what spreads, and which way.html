@@ -1,0 +1,499 @@
+<!doctype html>
+<!--
+  title: Dispersion — rich — what spreads, and which way
+  born: 2026-11-03
+  links: [[Dispersion]] (connects-to · rich-face-piece) · listed in [[Dispersion — rich.json]] · serves § Three Meanings of Dispersion (1. Wave Dispersion) · leans on [[Piano String Inharmonicity]], [[Particle Synthesis]], [[Crystal Synthesizer]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am wave dispersion shown from the ground up: one wave and its crest speed, three strings that disagree about it, a group whose envelope runs at its own speed, a pulse that comes apart, and last the test that one bend of one curve decides both of the section's signatures at once: whether the partials drift sharp or flat between two ends, and whether the highs or the lows arrive first down a long string. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound. The kit quiets it when the page hides or is left alone.
+  check: Dispersion — rich — check.mjs runs this page's engine in Node against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>What spreads, and which way</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6; --plain:#c8c8d8;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .ctl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);margin-top:12px}
+  .ctl input[type=range]{width:260px;accent-color:var(--accent)}
+  .ctl output{font-family:var(--mono);font-size:12.5px;color:var(--accent);min-width:15ch}
+  .seg{display:inline-flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+  .seg button{font-family:var(--sans);font-size:13px;color:var(--fg-3);background:transparent;border:0;border-right:1px solid var(--border);padding:6px 12px;cursor:pointer}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{color:var(--bg);background:var(--fg-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:6px 11px}
+  button:disabled{opacity:.4;cursor:default}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400} .meter i{color:var(--violet);font-style:normal} .meter u{color:var(--plain);text-decoration:none}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2);width:100%}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 12px 5px 0;text-align:right;font-weight:400;vertical-align:top}
+  table.t th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t i{color:var(--violet);font-style:normal}
+  .verdict{font-family:var(--sans);font-size:14px;color:var(--fg-1);margin-top:14px;max-width:72ch;border-left:1.5px solid var(--accent-line);padding-left:12px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl input[type=range]{width:180px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dispersion · Three Meanings · 1. Wave Dispersion · five steps</div>
+  <h1>What spreads, and which way</h1>
+  <p class="lead">The section says dispersion is a speed that depends on frequency, and that between two ends you hear it as partials drifting sharp, or flat. Start with one wave on a plain string and build up to the question the word “or” hides: what decides which way they drift?</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel" id="p-main">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="300"></canvas>
+    <canvas id="curve" height="190" class="hide" style="margin-top:10px"></canvas>
+    <div class="ctl" id="c-n"><label for="n">wavelength</label><input type="range" id="n" min="1" max="24" step="1" value="6"><output id="n-o"></output></div>
+    <div class="ctl" id="c-law"><span>string</span><div class="seg" id="law"><button data-law="plain">plain</button><button data-law="stiff">stiff</button><button data-law="beaded">beaded</button></div></div>
+    <div class="rowb" id="c-play"></div>
+    <div class="meter" id="meter"></div>
+  </div>
+
+  <div class="panel hide" id="p-test">
+    <div class="plabel"><span>the test · one curve, two signatures</span><span>measured from the engine’s own renders</span></div>
+    <canvas id="testpic" height="250"></canvas>
+    <div class="rowb"><button class="ghost" id="measure">measure</button><span class="hint">strikes each string between two ends and finds its partials; sends a click down each and finds when each band arrives</span></div>
+    <table class="t" id="test-t"></table>
+    <div class="rowb" id="test-play"></div>
+    <p class="verdict" id="verdict"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sig" fill="none" stroke="#8a8aa0" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · made for the rich face of Dispersion · the engine runs here, in this page, and in its check</span></footer>
+</main>
+
+<script id="engine">
+// ---- engine: three strings, one idea (shared by the page and its check) ----
+// Every law is written in one variable, ν: the frequency a wave of that wavelength would have on a plain string
+// (ν = c·k ⁄ 2π, so ν = n·f0 is the wavelength of partial n between two ends). The law gives the frequency it really has.
+// Phase speed is f ⁄ ν (times c); group speed is df ⁄ dν (times c).
+const F0 = 110, B = 0.001, NBEADS = 31, FMAX = 2 * (NBEADS + 1) * F0 / Math.PI;
+const LAWS = {
+  plain: { name: 'plain string', f: (v) => v, df: (v) => 1, nu: (f) => f, maxNu: Infinity, modes: 60 },
+  // a stiff string: ω² = c²k² + κ²k⁴, the bending stiffness adding a term that grows as k⁴. Between ends: fn = n·f0·√(1 + B·n²).
+  stiff: { name: 'stiff string', f: (v) => v * Math.sqrt(1 + B * (v / F0) ** 2), df: (v) => { const q = B * (v / F0) ** 2; return (1 + 2 * q) / Math.sqrt(1 + q); },
+    nu: (f) => Math.sqrt(F0 * F0 / (2 * B) * (Math.sqrt(1 + 4 * B * f * f / (F0 * F0)) - 1)), maxNu: Infinity, modes: 60 },
+  // a beaded string: 31 equal beads on a weightless string, ω = (2c ⁄ a)·sin(k·a ⁄ 2). Nothing shorter than two beads travels.
+  beaded: { name: 'beaded string', f: (v) => FMAX * Math.sin(v / FMAX), df: (v) => Math.cos(v / FMAX), nu: (f) => (f < FMAX ? FMAX * Math.asin(f / FMAX) : null), maxNu: FMAX * Math.PI / 2, modes: NBEADS },
+};
+const vp = (law, v) => LAWS[law].f(v) / v;
+const vg = (law, v) => LAWS[law].df(v);
+const partial = (law, n) => LAWS[law].f(n * F0);
+const cents = (a, b) => 1200 * Math.log2(a / b);
+// a wave in the picture: x in string lengths L, t in L ⁄ c (a long wave crosses one length in one unit)
+// the plain string's ν = n·f0 has k = π·n per length; its angular frequency in picture units is π·n·(f ⁄ ν)
+const kOf = (n) => Math.PI * n;
+const wOf = (law, n) => Math.PI * n * vp(law, n * F0);
+// two waves, n0 − d and n0 + d: the field and its envelope
+function twoWaves(law, n0, d, x, t) { const k1 = kOf(n0 - d), k2 = kOf(n0 + d), w1 = wOf(law, n0 - d), w2 = wOf(law, n0 + d); return Math.cos(k1 * x - w1 * t) + Math.cos(k2 * x - w2 * t); }
+function twoEnvelope(law, n0, d, x, t) { const k1 = kOf(n0 - d), k2 = kOf(n0 + d), w1 = wOf(law, n0 - d), w2 = wOf(law, n0 + d); return Math.hypot(Math.cos(k1 * x - w1 * t) + Math.cos(k2 * x - w2 * t), Math.sin(k1 * x - w1 * t) + Math.sin(k2 * x - w2 * t)); }
+// measure, from the drawn field, how fast its crests and its envelope move: find a crest and the envelope's peak, step time, find them again
+function peakNear(fn, x0, half, step) { let bx = x0, bv = -Infinity; for (let x = x0 - half; x <= x0 + half; x += step) { const v = fn(x); if (v > bv) { bv = v; bx = x; } } const a = fn(bx - step), b = fn(bx), c = fn(bx + step), den = a - 2 * b + c; return bx + (den ? 0.5 * (a - c) / den * step : 0); }
+function measureCrest(law, n) {   // one wave alone: find a crest, step time, find it again
+  const dt = 0.002, lam = 2 / n, st = lam / 2000, w = wOf(law, n), k = kOf(n), y = (x, t) => Math.cos(k * x - w * t);
+  const c0 = peakNear((x) => y(x, 0), lam, lam / 2, st), c1 = peakNear((x) => y(x, dt), c0, lam / 4, st); return (c1 - c0) / dt;
+}
+function measureSpeeds(law, n0, d) {
+  const dt = 0.002, lam = 2 / n0, env = 2 / (2 * d), st = lam / 400;
+  const c0 = peakNear((x) => twoWaves(law, n0, d, x, 0) * (twoEnvelope(law, n0, d, x, 0) > 1.5 ? 1 : 0), 0, lam / 2, st);
+  const c1 = peakNear((x) => twoWaves(law, n0, d, x, dt), c0, lam / 4, st);
+  const e0 = peakNear((x) => twoEnvelope(law, n0, d, x, 0), 0, env / 4, env / 2000);
+  const e1 = peakNear((x) => twoEnvelope(law, n0, d, x, dt), e0, env / 4, env / 2000);
+  return { crest: (c1 - c0) / dt, group: (e1 - e0) / dt };
+}
+// a pulse of many wavelengths, seen riding along at the plain speed c: y(ξ, t), ξ = x − c·t
+const PULSE_SIG = 9;
+function pulseAt(law, xi, t) { let s = 0; const L = LAWS[law]; for (let n = 0.25; n <= 40; n += 0.25) { if (n * F0 >= L.maxNu * 0.985) break; const g = Math.exp(-0.5 * (n / PULSE_SIG) ** 2) * (L.maxNu < Infinity ? taper(n * F0 / L.maxNu) : 1); s += g * Math.cos(kOf(n) * xi - (wOf(law, n) - kOf(n)) * t); } return s; }
+function taper(r) { return r < 0.8 ? 1 : r > 0.97 ? 0 : 0.5 + 0.5 * Math.cos(Math.PI * (r - 0.8) / 0.17); }
+// ---- sound ----
+// a click carried a long way down each string: long waves take T seconds; each frequency f arrives at T·dν ⁄ df
+const T_LONG = 0.25, T0 = 0.02, NFFT = 1 << 16;
+function fft(re, im, inverse) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const a = (inverse ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], k = i + j + len / 2, vr = re[k] * cr - im[k] * ci, vi = re[k] * ci + im[k] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[k] = ur - vr; im[k] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+  }
+  if (inverse) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+}
+function clickBand(f, law) { const lo = 1 / (1 + Math.pow(60 / f, 6)), hi = law === 'beaded' ? taper(f / FMAX) : 1 / (1 + Math.pow(f / 12000, 8)); return lo * hi; }
+function clickDown(law, fs) {
+  const N = NFFT, re = new Float64Array(N), im = new Float64Array(N), L = LAWS[law];
+  for (let k = 1; k < N / 2; k++) {
+    const f = k * fs / N, nu = L.nu(f); if (nu === null) continue;
+    const mag = clickBand(f, law), ph = -2 * Math.PI * (f * T0 + nu * T_LONG);
+    re[k] = mag * Math.cos(ph); im[k] = mag * Math.sin(ph); re[N - k] = re[k]; im[N - k] = -im[k];
+  }
+  fft(re, im, true); return re;
+}
+const arrivalLaw = (law, f) => T_LONG / LAWS[law].df(LAWS[law].nu(f));
+// when a band of the rendered sound peaks: a one-sixth-octave Gaussian band, its envelope's peak
+function bandArrival(y, fc, fs) {
+  const N = y.length, re = Float64Array.from(y), im = new Float64Array(N), s = 1 / 6;
+  fft(re, im, false);
+  for (let k = 0; k < N; k++) { if (k === 0 || k >= N / 2) { re[k] = 0; im[k] = 0; continue; } const g = Math.exp(-0.5 * Math.pow(Math.log2((k * fs / N) / fc) / s, 2)) * 2; re[k] *= g; im[k] *= g; }
+  fft(re, im, true);
+  let bi = 1, bv = 0; for (let i = 1; i < N - 1; i++) { const v = re[i] * re[i] + im[i] * im[i]; if (v > bv) { bv = v; bi = i; } }
+  const a = Math.hypot(re[bi - 1], im[bi - 1]), b = Math.hypot(re[bi], im[bi]), c = Math.hypot(re[bi + 1], im[bi + 1]);
+  return (bi + (a - c) / (2 * (a - 2 * b + c) || 1)) / fs - T0;
+}
+// the same string held between two ends and struck: its partials are the law read at ν = n·f0
+function strike(law, fs, dur) {
+  const n = Math.round(dur * fs), out = new Float32Array(n), L = LAWS[law];
+  for (let m = 1; m <= L.modes; m++) {
+    const f = partial(law, m); if (f > 15000) break;
+    const a = Math.sin(m * Math.PI * 0.13) / m, w = 2 * Math.PI * f / fs, dec = Math.exp(-(1.2 + f / 900) / fs);
+    let g = a; for (let i = 0; i < n; i++) { out[i] += g * Math.sin(w * i); g *= dec; }
+  }
+  return out;
+}
+// find partials in a rendered sound: one long Hann-windowed, zero-padded FFT; each peak near where it should be, read between bins
+function partialsIn(y, fs, nears) {
+  const N = 1 << 18, re = new Float64Array(N), im = new Float64Array(N), len = Math.min(y.length, N);
+  for (let i = 0; i < len; i++) re[i] = y[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (len - 1)));
+  fft(re, im, false);
+  const bin = fs / N, mag = (k) => Math.hypot(re[k], im[k]);
+  return nears.map((near) => {
+    const k0 = Math.round(near * 0.985 / bin), k1 = Math.round(near * 1.015 / bin);
+    let bk = k0, bv = -1; for (let k = k0; k <= k1; k++) { const v = mag(k); if (v > bv) { bv = v; bk = k; } }
+    const a = Math.log(mag(bk - 1)), b = Math.log(bv), c = Math.log(mag(bk + 1));
+    return (bk + 0.5 * (a - c) / (a - 2 * b + c)) * bin;
+  });
+}
+// the beat two tones a fixed step of wavelength apart make: the group's speed, heard (ν ± δ)
+const beatRate = (law, nu, delta) => LAWS[law].f(nu + delta) - LAWS[law].f(nu - delta);
+// ---- end engine ----
+
+</script>
+<script>
+const FS = 48000, TVIS = 2.6;   // the picture is slowed: a long wave crosses one string length in 2.6 s
+const LAW_KEYS = ['plain', 'stiff', 'beaded'];
+const $ = (id) => document.getElementById(id);
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const COL = { plain: () => css('--plain'), stiff: () => css('--accent'), beaded: () => css('--violet') };
+const S = { step: 0, n: 6, law: 'stiff', t0: performance.now() };
+const STEPS = [
+  { name: 'one wave', title: 'One wave on a plain string', kind: 'one',
+    say: 'A plain string, a single wave travelling along it. The dot rides one crest. Shorten the wave: it wiggles faster, and the crest still moves at the same speed. On a plain string every wavelength travels at one speed, c. That speed, crest speed or phase speed, is how fast the wiggle repeats divided by how tightly it is packed.',
+    do: 'Drag the wavelength. Play.', watch: 'The dot keeps the same pace whatever the wavelength.', hear: 'The wave’s own frequency: halve the wavelength and the pitch goes up an octave. Here, n times 110 Hz.' },
+  { name: 'three strings', title: 'Three strings disagree', kind: 'three',
+    say: 'Now the same wavelength on three strings. The stiff string resists bending, and a short wave bends it hard, so short waves spring back faster: their crests outrun the plain string’s. The beaded string is 31 beads on a thread. A wave only a few beads long can wiggle no faster than neighbouring beads swinging against each other, so as it shortens its frequency stops keeping up and its crests fall behind. Long waves hardly notice either: at a long wavelength the three dots move together. This is the section’s first sentence, seen: speed that depends on the wave.',
+    do: 'Drag the wavelength from long to short. Play.', watch: 'The three dots leave together and part as the wave shortens: stiff ahead, beaded behind.', hear: 'The same wavelength on each string, in turn: plain, stiff, beaded. Same shape, three pitches.' },
+  { name: 'a group', title: 'A group and its crests', kind: 'group',
+    say: 'Two waves of nearly the same length make a group: a swell (dim) that comes and goes along the string. The swell has its own speed, the group speed, set by how the frequency changes from one wavelength to the next, not by the frequency itself. On the plain string the crests ride with the swell. On the stiff string the swell outruns its crests, so crests slide backward through it. On the beaded string the crests run forward through the swell, born at its back and dying at its front. The swell is what carries a sound’s energy; the crests only carry its phase.',
+    do: 'Pick a string and a wavelength. Play.', watch: 'Amber dot: one crest. Violet dot: the top of the swell. Do they keep together?', hear: 'The two waves as two tones a fixed step of wavelength apart. Their beat is the swell, and its rate is the group speed, heard: faster on the stiff string, slower on the beaded one.' },
+  { name: 'a pulse', title: 'A pulse comes apart', kind: 'pulse',
+    say: 'A sharp pulse is many wavelengths at once. The picture rides along at the plain speed, so a pulse on the plain string sits still and keeps its shape. On the stiff string the short waves run out in front as a train of ripples. On the beaded string they trail behind. Below, each string’s curve: frequency against wavelength. Straight for the plain string. Bending up for the stiff one, bending down for the beaded one. The bend is the whole story: where the curve gets steeper, the group gets faster.',
+    do: 'Watch it run. Play each string.', watch: 'Ripples ahead (stiff), behind (beaded), none (plain). Then the curves: which way each bends.', hear: 'A click sent a long way down each string, heard where it lands. Plain: a click. Stiff: highs first, a falling “pew”. Beaded: lows first, rising to a ring near its top frequency, 2.24 kHz, above which nothing travels.' },
+  { name: 'the test', title: 'The test: one bend, two signatures', kind: 'test',
+    say: 'The section names inharmonicity as the audible signature, partials drifting sharp “or flat”. Hold each string between two ends and only the wavelengths that fit can ring: the n-th partial is the curve read at the n-th wavelength. Send a click down the same string in the open and the curve sets when each frequency lands. One curve, two signatures. If the bend decides both, a string that drifts sharp must also send its highs first, and one that drifts flat must hold them back.',
+    do: 'Press “measure”. Then play each pair.', watch: 'Partials against the harmonic grid, left. When each frequency lands, right.', hear: 'Each string twice: struck between two ends, then a click down its length.' },
+];
+// ---- the picture ----
+function fit(c) { const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 900, h = +c.getAttribute('height'); c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h }; }
+const sigPath = (() => { let s = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; s += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + 0.6)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } return s; })();
+$('sig').setAttribute('d', sigPath);
+const tNow = () => (performance.now() - S.t0) / 1000 / TVIS;   // in units of L ⁄ c
+function lane(g, w, y0, hh, label, colour) { g.strokeStyle = css('--border-soft'); g.beginPath(); g.moveTo(0, y0); g.lineTo(w, y0); g.stroke(); g.font = '10px JetBrains Mono, monospace'; g.fillStyle = colour; g.fillText(label, 8, y0 - hh + 12); }
+function drawWave(g, w, y0, amp, law, n, t, X0, X1) {
+  const k = kOf(n), om = wOf(law, n), X = (x) => (x - X0) / (X1 - X0) * w;
+  g.strokeStyle = COL[law](); g.lineWidth = 1.6; g.beginPath();
+  for (let px = 0; px <= w; px += 1.5) { const x = X0 + (X1 - X0) * px / w, y = y0 - amp * Math.cos(k * x - om * t); px ? g.lineTo(px, y) : g.moveTo(px, y); }
+  g.stroke();
+  // ride one crest: the one at x = 0 when the step began, wrapped back by whole wavelengths so it stays on the picture
+  const lam = 2 / n, span = lam * Math.floor((X1 - X0) / lam), xc = X0 + ((om / k * t) % span + span) % span;
+  g.fillStyle = COL[law](); g.beginPath(); g.arc(X(xc), y0 - amp, 5, 0, 2 * Math.PI); g.fill();
+}
+function drawOne() {
+  const { g, w, h } = fit($('pic')), t = tNow(); g.clearRect(0, 0, w, h);
+  lane(g, w, h / 2, h / 2, 'plain string · 3 lengths shown', COL.plain()); drawWave(g, w, h / 2, h * 0.32, 'plain', S.n, t, 0, 3);
+  $('pic-l').textContent = 'one wave · the dot rides a crest'; $('pic-r').textContent = 'slowed: one length every 2.6 s';
+}
+function drawThree() {
+  const { g, w, h } = fit($('pic')), t = tNow(), hh = h / 3; g.clearRect(0, 0, w, h);
+  LAW_KEYS.forEach((law, i) => { const y0 = hh * i + hh / 2; lane(g, w, y0, hh / 2, LAWS[law].name, COL[law]()); drawWave(g, w, y0, hh * 0.32, law, S.n, t, 0, 3); });
+  $('pic-l').textContent = 'the same wavelength on three strings'; $('pic-r').textContent = 'slowed: a long wave crosses one length every 2.6 s';
+}
+const GROUP_D = (n0) => n0 / 10;   // so a swell holds exactly five crests, and the crest dot can hop back one swell and still sit on a crest
+function drawGroup() {
+  const { g, w, h } = fit($('pic')), t = tNow(), law = S.law, n0 = Math.max(5, S.n), d = GROUP_D(n0), X0 = 0, X1 = 3, X = (x) => (x - X0) / (X1 - X0) * w, y0 = h / 2, amp = h * 0.2;
+  g.clearRect(0, 0, w, h); lane(g, w, y0, h / 2, LAWS[law].name + ' · two waves', COL[law]());
+  g.strokeStyle = 'rgba(139,124,246,0.35)'; g.lineWidth = 1;
+  for (const sgn of [1, -1]) { g.beginPath(); for (let px = 0; px <= w; px += 2) { const x = X0 + (X1 - X0) * px / w, y = y0 - sgn * amp * twoEnvelope(law, n0, d, x, t); px ? g.lineTo(px, y) : g.moveTo(px, y); } g.stroke(); }
+  g.strokeStyle = COL[law](); g.lineWidth = 1.5; g.beginPath();
+  for (let px = 0; px <= w; px += 1.2) { const x = X0 + (X1 - X0) * px / w, y = y0 - amp * twoWaves(law, n0, d, x, t); px ? g.lineTo(px, y) : g.moveTo(px, y); } g.stroke();
+  // the dots: the crest's speed is (ω1 + ω2) ⁄ (k1 + k2); the swell's is (ω2 − ω1) ⁄ (k2 − k1)
+  const k1 = kOf(n0 - d), k2 = kOf(n0 + d), w1 = wOf(law, n0 - d), w2 = wOf(law, n0 + d), vc = (w1 + w2) / (k1 + k2), ve = (w2 - w1) / (k2 - k1);
+  const span = X1 - X0, wrap = (x) => X0 + ((x - X0) % span + span) % span, envL = 2 / (2 * d);
+  const xe = wrap(ve * t), xc = wrap(vc * t);
+  g.fillStyle = css('--violet'); g.beginPath(); g.arc(X(xe), y0 - amp * 2 - 6, 5, 0, 2 * Math.PI); g.fill();
+  // the crest dot follows one crest, and jumps back a swell's length when it leaves its swell, so it stays in view
+  const rel = ((xc - xe) % envL + envL * 1.5) % envL - envL / 2; g.fillStyle = css('--accent'); g.beginPath(); g.arc(X(wrap(xe + rel)), y0 - amp * twoWaves(law, n0, d, wrap(xe + rel), t), 4.5, 0, 2 * Math.PI); g.fill();
+  $('pic-l').textContent = 'two waves, n ± ' + d.toFixed(1) + ' · amber: a crest · violet: the top of the swell'; $('pic-r').textContent = 'slowed: a long wave crosses one length every 2.6 s';
+}
+const PULSE_T = 3;
+function drawPulse() {
+  const { g, w, h } = fit($('pic')), hh = h / 3, cyc = PULSE_T + 1.2, tt = tNow() % cyc, t = Math.min(tt, PULSE_T), X0 = -1.6, X1 = 1.6;
+  g.clearRect(0, 0, w, h);
+  LAW_KEYS.forEach((law, i) => {
+    const y0 = hh * i + hh / 2; lane(g, w, y0, hh / 2, LAWS[law].name, COL[law]());
+    g.strokeStyle = COL[law](); g.lineWidth = 1.4; g.beginPath(); const sc = hh * 0.36 / PULSE_NORM;
+    for (let px = 0; px <= w; px += 1.5) { const xi = X0 + (X1 - X0) * px / w, y = y0 - sc * pulseAt(law, xi, t); px ? g.lineTo(px, y) : g.moveTo(px, y); } g.stroke();
+  });
+  g.strokeStyle = css('--fg-4'); g.setLineDash([3, 4]); g.beginPath(); g.moveTo(w / 2, 0); g.lineTo(w / 2, h); g.stroke(); g.setLineDash([]);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3'); g.fillText('t = ' + t.toFixed(2) + ' L ⁄ c', w - 120, 14);
+  $('pic-l').textContent = 'a pulse, seen riding along at the plain speed c'; $('pic-r').textContent = 'ahead →';
+}
+const PULSE_NORM = pulseAt('plain', 0, 0);
+function drawCurve() {
+  const c = $('curve'), { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+  const half = w / 2 - 10, L = 44, top = 10, bot = h - 24, NUMAX = 24 * F0;
+  for (const [ox, which] of [[0, 'f'], [half + 20, 'vg']]) {
+    const Xn = (nu) => ox + L + (half - L) * nu / NUMAX, ymax = which === 'f' ? 1.5 * NUMAX : 2, Y = (v) => bot - (bot - top) * v / ymax;
+    g.strokeStyle = css('--border-soft'); g.strokeRect(ox + L, top, half - L, bot - top);
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3');
+    g.fillText(which === 'f' ? 'frequency ↑' : 'group speed ⁄ c ↑', ox + L + 6, top + 12); g.fillText('wavelength, shorter →', ox + half - 140, bot + 16);
+    if (which === 'vg') { g.fillText('1', ox + L - 12, Y(1) + 3); g.fillText('2', ox + L - 12, Y(2) + 9); } else { g.fillText('2.6k', ox + 6, Y(2640) + 3); }
+    for (const law of LAW_KEYS) {
+      g.strokeStyle = COL[law](); g.lineWidth = 1.6; g.beginPath(); let started = false;
+      for (let i = 1; i <= 240; i++) { const nu = NUMAX * i / 240; if (nu >= LAWS[law].maxNu) break; const v = which === 'f' ? LAWS[law].f(nu) : vg(law, nu), y = Y(Math.min(v, ymax)); started ? g.lineTo(Xn(nu), y) : g.moveTo(Xn(nu), y); started = true; }
+      g.stroke();
+    }
+  }
+}
+// ---- the test picture: partials against the grid (left), arrivals (right) ----
+let measured = null;
+function drawTestPic() {
+  const { g, w, h } = fit($('testpic')); g.clearRect(0, 0, w, h);
+  const half = w * 0.52, top = 18, lh = (h - top - 26) / 3, NMAX = 16;
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3'); g.fillText('between two ends: partials 1–16 against n × the first (grey ticks)', 8, 12);
+  LAW_KEYS.forEach((law, i) => {
+    const y0 = top + lh * i + lh / 2, RMAX = 18.5, X = (r) => 70 + (half - 90) * (r - 0.5) / (RMAX - 0.5);
+    g.fillStyle = COL[law](); g.fillText(law, 8, y0 + 3);
+    const f1 = measured ? measured[law].f1 : partial(law, 1);
+    for (let n = 1; n <= NMAX; n++) { g.strokeStyle = css('--fg-4'); g.beginPath(); g.moveTo(X(n), y0 - 10); g.lineTo(X(n), y0 + 10); g.stroke(); }
+    g.strokeStyle = COL[law](); g.lineWidth = 2;
+    for (let n = 1; n <= NMAX; n++) { const fn = measured ? measured[law].p[n] : partial(law, n), r = fn / f1; if (r > RMAX) break; g.beginPath(); g.moveTo(X(r), y0 - 7); g.lineTo(X(r), y0 + 7); g.stroke(); }
+    if (law !== 'plain') { const fn = measured ? measured[law].p[NMAX] : partial(law, NMAX); g.fillStyle = COL[law](); g.fillText('16', X(fn / f1) - 6, y0 + 22); }
+    g.lineWidth = 1;
+  });
+  // arrivals: when each frequency lands, after the long run down the string
+  const ox = half + 20, L = ox + 40, R = w - 10, FMIN = 60, FMAXP = 8000, TMIN = 0.05, TMAX = 0.45;
+  const Xf = (f) => L + (R - L) * Math.log(f / FMIN) / Math.log(FMAXP / FMIN), Yt = (t) => top + (h - top - 26) * (t - TMIN) / (TMAX - TMIN);
+  g.fillStyle = css('--fg-3'); g.fillText('down a long string: when each frequency lands', ox, 12);
+  g.strokeStyle = css('--border-soft'); g.strokeRect(L, top, R - L, h - top - 26);
+  for (const f of [100, 250, 1000, 2000, 8000]) g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), Xf(f) - 8, h - 10);
+  for (const t of [0.1, 0.25, 0.4]) g.fillText(Math.round(t * 1000) + ' ms', ox - 2, Yt(t) + 3);
+  for (const law of LAW_KEYS) {
+    g.strokeStyle = COL[law](); g.lineWidth = 1.6; g.beginPath(); let st = false;
+    for (let i = 0; i <= 200; i++) { const f = FMIN * Math.pow(FMAXP / FMIN, i / 200); if (law === 'beaded' && f > 0.95 * FMAX) break; const t = arrivalLaw(law, f); if (t > TMAX) break; st ? g.lineTo(Xf(f), Yt(t)) : g.moveTo(Xf(f), Yt(t)); st = true; }
+    g.stroke();
+    if (measured) { g.fillStyle = COL[law](); for (const [f, t] of measured[law].arr) { g.beginPath(); g.arc(Xf(f), Yt(t), 4, 0, 2 * Math.PI); g.fill(); } }
+  }
+  g.fillStyle = css('--fg-3'); g.fillText('lines: the law · dots: measured · earlier is up', L + 6, h - 34);
+}
+// ---- sound ----
+let ctx = null, master = null, voices = [];
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp).connect(ctx.destination);
+}
+function stop() { for (const v of voices) { try { v.stop(); } catch (e) {} } voices = []; }
+function playBuffer(data, when) { const b = ctx.createBuffer(1, data.length, FS); b.copyToChannel(Float32Array.from(data), 0); const s = ctx.createBufferSource(); s.buffer = b; s.connect(master); s.start(ctx.currentTime + (when || 0)); voices.push(s); }
+function tone(freqs, dur, startAt) { const n = Math.round(dur * FS), out = new Float32Array(n), fade = Math.round(0.03 * FS); for (const f of freqs) { const w = 2 * Math.PI * f / FS; for (let i = 0; i < n; i++) out[i] += 0.22 / freqs.length * Math.sin(w * i) * Math.min(1, i / fade, (n - 1 - i) / fade); } playBuffer(out, startAt); }
+function normalise(y, peak) { let pk = 0; for (const v of y) pk = Math.max(pk, Math.abs(v)); const out = new Float32Array(y.length); for (let i = 0; i < y.length; i++) out[i] = peak * y[i] / (pk || 1); return out; }
+const clicks = new Map(), strikes = new Map();
+const clickOf = (law) => { if (!clicks.has(law)) { const y = clickDown(law, FS), len = Math.round((T0 + 0.75) * FS), out = y.slice(0, len), fade = Math.round(0.03 * FS); for (let i = 0; i < fade; i++) out[len - 1 - i] *= i / fade; clicks.set(law, normalise(out, 0.55)); } return clicks.get(law); };
+const strikeOf = (law) => { if (!strikes.has(law)) strikes.set(law, normalise(strike(law, FS, 2.4), 0.5)); return strikes.get(law); };
+function playStep(which) {
+  ensureAudio(); if (ctx.state !== 'running') ctx.resume(); stop();
+  const k = STEPS[S.step].kind;
+  if (k === 'one') tone([S.n * F0], 1.6);
+  else if (k === 'three') LAW_KEYS.forEach((law, i) => tone([LAWS[law].f(S.n * F0)], 1.0, i * 1.15));
+  else if (k === 'group') { const nu = Math.max(5, S.n) * F0, d = 0.75; tone([LAWS[S.law].f(nu - d), LAWS[S.law].f(nu + d)], 4.0); }
+  else if (k === 'pulse') playBuffer(clickOf(which));
+  else if (k === 'test') { playBuffer(strikeOf(which)); playBuffer(clickOf(which), 2.6); }
+}
+function playButtons(holder, label) {
+  holder.innerHTML = '';
+  const k = STEPS[S.step].kind;
+  if (k === 'pulse' || k === 'test') LAW_KEYS.forEach((law) => { const b = document.createElement('button'); b.className = law === 'plain' ? 'play' : 'ghost'; b.textContent = '▸ ' + law + (label || ''); b.onclick = () => playStep(law); holder.appendChild(b); });
+  else { const b = document.createElement('button'); b.className = 'play'; b.textContent = '▸ play'; b.onclick = () => playStep(); holder.appendChild(b); }
+}
+// ---- what the step reads out ----
+const f2 = (x, d) => x.toFixed(d);
+function drawMeter() {
+  const k = STEPS[S.step].kind, m = $('meter');
+  if (k === 'one') m.innerHTML = `wavelength <b>2L ⁄ ${S.n}</b> · frequency <b>${f2(S.n * F0, 0)} Hz</b> · crest speed, measured from the drawn wave: <b>${f2(measureCrest('plain', S.n), 4)} c</b>`;
+  else if (k === 'three') m.innerHTML = LAW_KEYS.map((law) => `<span style="color:${COL[law]()}">${LAWS[law].name}</span> · frequency <b>${f2(LAWS[law].f(S.n * F0), 1)} Hz</b> · crest speed, measured <b>${f2(measureCrest(law, S.n), 4)} c</b>`).join('<br>');
+  else if (k === 'group') {
+    const law = S.law, n0 = Math.max(5, S.n), d = GROUP_D(n0), ms = measureSpeeds(law, n0, d), nu = n0 * F0;
+    m.innerHTML = `measured from the drawn field: crest <b>${f2(ms.crest, 4)} c</b> · swell <i>${f2(ms.group, 4)} c</i><br>`
+      + `the law at the middle wavelength: ω ⁄ k = <b>${f2(vp(law, nu), 4)} c</b> · dω ⁄ dk = <i>${f2(vg(law, nu), 4)} c</i><br>`
+      + `heard: ${f2(LAWS[law].f(nu - 0.75), 2)} and ${f2(LAWS[law].f(nu + 0.75), 2)} Hz · beat <i>${f2(beatRate(law, nu, 0.75), 3)} a second</i> (the plain string’s would be 1.500)`;
+  } else if (k === 'pulse') m.innerHTML = LAW_KEYS.map((law) => `<span style="color:${COL[law]()}">${LAWS[law].name}</span> · 250 Hz lands at <b>${f2(arrivalLaw(law, 250) * 1000, 0)} ms</b> · 1.2 kHz at <b>${f2(arrivalLaw(law, 1200) * 1000, 0)} ms</b>${law === 'beaded' ? ` · nothing above <b>${f2(FMAX, 0)} Hz</b> travels` : law === 'stiff' ? ` · 8 kHz at <b>${f2(arrivalLaw(law, 8000) * 1000, 0)} ms</b>` : ''}`).join('<br>');
+  else m.innerHTML = '';
+}
+function measure() {
+  $('measure').disabled = true; $('measure').textContent = 'measuring…';
+  setTimeout(() => {
+    measured = {};
+    for (const law of LAW_KEYS) {
+      const s = strike(law, FS, 2.4), want = []; for (let n = 1; n <= 16; n++) want.push(partial(law, n)); const p = [0, ...partialsIn(s, FS, want)];
+      const y = clickDown(law, FS); measured[law] = { f1: p[1], p, arr: [[250, bandArrival(y, 250, FS)], [1200, bandArrival(y, 1200, FS)]] };
+    }
+    $('measure').disabled = false; $('measure').textContent = 'measure again'; drawTest();
+  }, 30);
+}
+function drawTest() {
+  drawTestPic();
+  if (!measured) { $('test-t').innerHTML = ''; $('verdict').textContent = ''; return; }
+  const row = (law) => { const M = measured[law], c8 = cents(M.p[8], 8 * M.f1), c16 = cents(M.p[16], 16 * M.f1), lead = (M.arr[0][1] - M.arr[1][1]) * 1000;
+    const bend = law === 'plain' ? 'straight' : law === 'stiff' ? 'bends up' : 'bends down';
+    const lawLead = (arrivalLaw(law, 250) - arrivalLaw(law, 1200)) * 1000;
+    const first = Math.abs(lead) < 0.5 ? 'together' : (lead > 0 ? `1.2 kHz, by ${f2(lead, 1)} ms` : `250 Hz, by ${f2(-lead, 1)} ms`) + ` <span style="color:var(--fg-3)">(law ${f2(Math.abs(lawLead), 1)})</span>`;
+    return `<tr><td style="color:${COL[law]()}">${LAWS[law].name}</td><td>${bend}</td><td>${f2(vg(law, 20 * F0) / vp(law, 20 * F0), 3)}</td><td><b>${c8 >= 0 ? '+' : ''}${f2(c8, 1)}</b> · <b>${c16 >= 0 ? '+' : ''}${f2(c16, 1)}</b></td><td><b>${first}</b></td></tr>`; };
+  $('test-t').innerHTML = '<tr><th>string</th><th>its curve</th><th>group ⁄ crest speed, 20th wavelength</th><th>partial 8 · 16, cents from n × the first</th><th>down the string, first to land · measured (law)</th></tr>' + LAW_KEYS.map(row).join('');
+  const st = measured.stiff, be = measured.beaded;
+  $('verdict').innerHTML = `The bend decides both. The stiff string’s curve bends up: its partials drift sharp (partial 16 by ${f2(cents(st.p[16], 16 * st.f1), 0)} cents) and down its length the highs land first. The beaded string’s bends down: its partials drift flat (partial 16 by ${f2(-cents(be.p[16], 16 * be.f1), 0)} cents) and its lows land first. The straight one does neither. So the section’s “sharp (or flat)” is not a free choice: sharp comes with highs first, flat with lows first, for any curve that bends one way all along, because a curve through zero that bends up raises both its group speed and its phase speed as frequency rises, and one that bends down lowers both. The arrival gaps in the table are measured from the renders, a band’s peak read through a sixth-octave filter; the law’s own gaps are in brackets, and the beaded string’s differs most (42.7 measured, 44.5 by the law) because its delay changes fastest across the band. A curve that bends both ways could split them; none here does. One more thing the section leaves out: inharmonicity is the signature between two ends; in the open, the same curve’s signature is a chirp. What the test does not reach is your ear: whether a given stretch is heard as a bell, a piano or out of tune is yours to say.`;
+}
+function updateEq() {
+  const k = STEPS[S.step].kind;
+  const E = {
+    one: ['v_p = ω ⁄ k = c', '(crest speed) = (how fast it wiggles) ÷ (how tightly it is packed), the same c for every wavelength on a plain string'],
+    three: ['ω = c·k   ·   ω = c·k·√(1 + (k ⁄ k_s)²)   ·   ω = (2c ⁄ a)·sin(k·a ⁄ 2)', '(plain: the wiggle rate grows in step with the packing) · (stiff: faster, once waves are short enough to bend the string hard) · (beaded: slower, until nothing shorter than two beads can travel)'],
+    group: ['v_g = dω ⁄ dk', '(the swell’s speed) = (how much the wiggle rate changes) ÷ (how much the packing changes), from one wavelength to the next'],
+    pulse: ['t(f) = T ⁄ v_g(f)   ·   ω(k) bends up → v_g rises → highs first', '(when a frequency lands) = (the plain travel time) ÷ (its group speed): where the curve steepens, that part of the click arrives sooner'],
+    test: ['f_n = ω(k_n) ⁄ 2π,  k_n = n·π ⁄ L   →   f_n = n·f0·√(1 + B·n²),  B = (π ⁄ (k_s·L))²', '(partial n) = (the curve read at the n-th wavelength that fits between the ends); for the stiff string that is the section’s own formula, with f0 the plain string’s fundamental, not quite the one you hear'],
+  }[k];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
+  const second = { group: ['v_p = ω ⁄ k', '(crest speed), for comparison'], pulse: ['v_g = dω ⁄ dk', '(the group speed): the slope of the curve below'], test: ['t(f) = T·dν ⁄ df', '(when frequency f lands) = (the plain travel time) × (how slowly the curve climbs there)'] }[k];
+  $('eq2').textContent = second ? second[0] : ''; $('eq2w').textContent = second ? second[1] : '';
+}
+// ---- steps ----
+let raf = 0;
+function frame() {
+  const k = STEPS[S.step].kind;
+  if (k === 'one') drawOne(); else if (k === 'three') drawThree(); else if (k === 'group') drawGroup(); else if (k === 'pulse') drawPulse();
+  raf = (k === 'test') ? 0 : requestAnimationFrame(frame);
+}
+function setStep(i) {
+  stop(); cancelAnimationFrame(raf);
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step]; S.t0 = performance.now();
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  $('p-main').classList.toggle('hide', st.kind === 'test'); $('p-test').classList.toggle('hide', st.kind !== 'test');
+  $('c-n').classList.toggle('hide', !['one', 'three', 'group'].includes(st.kind)); $('c-law').classList.toggle('hide', st.kind !== 'group');
+  $('curve').classList.toggle('hide', st.kind !== 'pulse');
+  $('n').min = st.kind === 'group' ? 5 : 1;
+  if (st.kind === 'group' && S.n < 5) S.n = 5; $('n').value = S.n; updateN();
+  playButtons($('c-play')); playButtons($('test-play'), ' · ends, then open');
+  if (st.kind === 'pulse') drawCurve();
+  drawMeter(); updateEq(); if (st.kind === 'test') drawTest(); frame();
+}
+function updateN() { $('n-o').textContent = `2L ⁄ ${S.n}  ·  partial ${S.n}`; }
+$('n').oninput = () => { S.n = +$('n').value; updateN(); drawMeter(); };
+[...$('law').children].forEach((b) => { b.onclick = () => { S.law = b.dataset.law; [...$('law').children].forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); drawMeter(); }; b.setAttribute('aria-pressed', b.dataset.law === S.law ? 'true' : 'false'); });
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('measure').onclick = measure;
+window.addEventListener('resize', () => { if (STEPS[S.step].kind === 'pulse') drawCurve(); if (STEPS[S.step].kind === 'test') drawTest(); });
+setStep(0);
+</script>
+</body>
+</html>

@@ -1,47 +1,43 @@
 ---
 title: "The Lens — baton"
-born: 2026-10-23
+born: 2026-11-04
 links:
   - target: "[[The Lens]]"
     type: connects-to
     label: "baton-for"
 forward_vector: "I carry the in-progress move on [[The Lens]] across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
-session_thread: "Daily Page, 2026-10-23, The Lens"
+session_thread: "Remainder of the-lens-handoff-2026-10-23, closed --partial on 483afc32; board card the-lens-remainder-20261104T050135Z"
 ---
 
 # Baton: The Lens
 
 ## Move
-Teach STIGMERGY's `[L]ens` to be bold: each glass reads in its own register and from its own life, and the reading is named as the glass's own. Then prove it with real lensings, and give the page a face that shows it.
+Finish what the bold mandate left: carry its register move to enchanted pages, write § The Fidelity Test's paragraph on the woken glasses once Loudon rules on rich-face offer 3, and get his ruling on whether a glass for a living person may invent a scene.
 
 ## Why this move matters
-On the 2026-10-23 Daily Page, Loudon named all seven hand-written glasses in a blind game and still called it a miss: "They all had a very similar voice, they all sounded like 'Claude'." When the same glasses were set careful beside bold, he said: "the bold side is BY FAR better. This shows the power of the lens and is the direction we need to go." So far the bold voice exists only in two hand-written roughs. The live mandate has never been asked for it, and nothing shows yet that a woken glass can find it on its own. The woken page asked for evidence before the spark meter: ten lensings, with their scores checked by a bigger mind.
+Loudon's verdict on Woken Glasses was "a clear 'go for bold' direction", and the mandate now reads boldly (a145f1a4). But the page's own test section still describes only the hand-written games, the voice move has not reached the enchanted pages that "lack" it, and the mandate licenses every glass, living people included, to invent a scene. Each of the three waits on a decision, not on code.
 
-## Cold start
-COLD START — this work has not begun; no prior state, no tried-and-rejected. The two roughs are the target, not a start on the code.
+## Current state
+As of 483afc32 (the landing of lens/bold-mandate):
+- **(f), carried.** The 2026-10-25 line from the Palace To-Do, in Loudon's call: "if the bold mandate holds, the same register move is the voice guidance enchanted pages lack, minus the veracity licence." The bold mandate held. Nothing has been carried to [[Palace Enchantment]] § Voice Rules When Addressing the Human (`Projects/Palace Enchantment.md:315`).
+- **§ The Fidelity Test.** Untouched on purpose. It is stamped in `The Lens/The Lens — rich.json` (`made_against: ff646abd58ff`, three pieces, status `proposal`), so any edit marks "move the glass" and both 2026-10-23 games as lagging. Rich-face offer 3 (open) asks to change this same section's test sentence: "the change that counts is in what the glass brings, not the words it borrows." The mandate already says so (`_ops/stigmergy/orchestrator/src/lens-mandate.js:120`: "a borrower can pass it, so it is not enough alone").
+- **The person-glass ruling.** [[The Lens — tuning]] item 13, owed, Loudon's ruling. The licence is at `lens-mandate.js:108-110`; canon forbids fabricated quotes ([[Making a Palace Citizen]]) and says nothing about invented scenes.
+- **Self-check owed.** At the 2026-11-07 close, `node _ops/self-description-test/due.mjs` exited 2. Scenario S1 is at risk through `_ops/stigmergy/orchestrator/src/ephemeral-prompt.js`, which this move changed (a145f1a4); the run is `node _ops/self-description-test/birth.mjs --scenario S1 --ref HEAD`. A birth costs money and waits for Loudon's yes. A1, D1, E7, G4, G5 and the floor are owed too, for CHILD.md and SCHEMA.md changes by other sessions; they are not this baton's to pay.
 
 ## Next move
-Read the two proofs side by side with `lens-mandate.js`. Then draft the mandate change, part (a), and show it to Loudon before running anything. The pieces, in the order that usually serves:
-
-- **(a) The mandate asks for the glass's voice.** `_ops/stigmergy/orchestrator/src/lens-mandate.js` (`buildLensMandate`; the self-check at `:100`) asks the glass for its own register and life. It keeps the reading labelled as the glass's own, and ends each reading with a distortion check like the rough's, naming what is the glass talking and what is fact. Settle at the same time where the procedure sits in `_ops/stigmergy/orchestrator/src/ephemeral-prompt.js` (`:110-112`, under "# Loudon's note"). That slot shapes the glass's voice, and the question is open as [[The Lens — tuning]] item 1.
-- **(b) Run a handful of real lensings, careful against bold**, through the live `[L]ens`. Hand the results cold to a bigger mind to break ([[Bring In a Bigger Mind]]). Each lensing leaves a run line in [[The Lens — tuning]].
-- **(c) Answer the `learn` payoff question** ([[The Lens — tuning]] item 5): does the payoff enum gain `learn`, and what does a lensing report when learning is the payoff?
-- **(d) Results flow back without retyping.** Whatever surface shows a lensing hands the user's answers back to the session. The second rough's path: opened in the browser pane, it keeps its answers on the page as `window.lensResults`, which the session checked it could read; he answered in chat that morning, so the path is proven to work, not yet used ([[The Daily Page — tuning]] item 71).
-- **(e) Redo The Lens's hero and icon through the faces pipeline.** The render cost needs Loudon's yes, as in `5972837f`. Loudon, of the current hand holding a glass globe: it "is weird the hand is not anatomically correct and just creepy". The new face shows today's learning: a glass that colors what it touches, and no hand.
-- **(f) Name what the bundle still lacks**: a Context ([[SCHEMA — Reference]] §8 `context`) and a rich face ([[Enrichment]]). Neither is made by this baton; say whether each is wanted.
-  - if the bold mandate holds, the same register move is the voice guidance enchanted pages lack, minus the veracity licence. (Carried from the Palace To-Do's entry-voice item at its retirement, on Loudon's call of 2026-10-25.)
+Put the two rulings to Loudon together, plainly: rich-face offer 3 (yes / no / reworded), and item 13 (may a glass for a living person invent a scene, and ever put new words in their mouth as a quotation?). Then, on his answers, write the Fidelity Test paragraph and the offer-3 sentence in one edit and re-stamp the section (`node _ops/rich-face/fingerprint.mjs "The Lens" --stamp "The Fidelity Test (generalized)"`). (f) can go in parallel: draft the voice line for Palace Enchantment and show it before writing.
 
 ## Calibrations from this session
-- Bold over careful, "even at the loss of veracity": "the lens should represent THEIR truth not actual truth". The frame stays honest. The reading is named as the glass's, and nothing it says becomes the subject's text without a deliberate commit (the agency_profile's line).
-- Loudon: "The challenge I have here is not knowing Simondon enough." A bold glass is a doorway to its own page. Learning about both pages is a payoff in its own right.
-- Ohm's Law in equations, the Trickster in riddles, Simondon through his own work and life. The voice should differ dramatically, not subtly.
-- An invented scene is allowed only when it is flagged as invented.
+- Loudon, 2026-11-03: he played four of the five pairs and "MUCH preferred the bold"; "yes to the cost, no need to read the notes, the result is a clear 'go for bold' direction".
+- The § Fidelity Test paragraph should carry his verdict, and the cost the fact-check found: every bold distortion check missed a small bend of its own ([[The Lens — tuning]] items 8, 9).
+- He has not ruled on the person-page line. Do not take "go for bold" as that ruling.
 
 ## Load these files first
-1. `The Lens/proofs/2026-10-23-daily-page/careful-or-bold.html`, then `name-the-glass.html` in the same folder.
-2. [[The Lens]], § The Fidelity Test and § The Downstream Loops, and [[The Lens — tuning]] items 1–7.
-3. `_ops/stigmergy/orchestrator/src/lens-mandate.js` and its test, `lens-mandate.test.js`.
-4. [[The Lens — scroll]], the trail for 2026-10-23.
+1. [[The Lens — tuning]], items 8–13.
+2. [[The Lens]], § The Fidelity Test and § Shipped; then `The Lens/The Lens — rich.json`, the `offers` list (offer 3).
+3. `The Lens/proofs/2026-11-03-bold-mandate/` (judge-blind.md, fact-check.md, code-review.md finding 5).
+4. `_ops/stigmergy/orchestrator/src/lens-mandate.js:100-125`.
+5. [[Palace Enchantment]] § Voice Rules When Addressing the Human.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the

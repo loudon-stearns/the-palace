@@ -1,0 +1,318 @@
+<!doctype html>
+<!--
+  title: Pheromone Trail — a trail no one walks
+  born: 2026-11-04
+  links: [[Pheromone Trail]] (connects-to · rich-face-piece) · listed in [[Pheromone Trail — rich.json]] · [[Progressive Staging]] (the walk up)
+  forward_vector: I am a trail whose source ran out, on the same colony engine: a trail alone first, then a settled colony, then ants that mark a path just by walking it, then the test that scores the fade itself at two horizons stated first, with a null that must not read faded. I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:size" content="flow">
+<meta name="theme-color" content="#0a0a0f">
+<title>Pheromone Trail — a trail no one walks</title>
+<style>
+:root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+  --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5; --dead:#ff6a4a;
+  --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif; --serif:'Cormorant Garamond','EB Garamond',Georgia,'Times New Roman',serif; color-scheme: dark; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+::selection { background: var(--amber); color: #0a0a0f; }
+:focus { outline: none; } :focus-visible { outline: 1px solid var(--amber); outline-offset: 2px; }
+.piece { padding: 22px 22px 20px; }
+.kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+h1 { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+h2 { font-family: var(--serif); font-size: 22px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+p { font-size: 14.5px; line-height: 1.62; max-width: 76ch; margin: 0 0 12px; }
+.rail { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 18px; padding: 0; list-style: none; }
+.rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); background: transparent; border: 1px solid var(--soft); border-radius: 2px; padding: 6px 10px; cursor: pointer; }
+.rail button[aria-current="step"] { color: var(--amber); border-color: var(--amberline); }
+.rail button:hover { color: var(--fg1); }
+.nav { display: flex; gap: 10px; margin-top: 16px; }
+button.b { font-family: var(--mono); font-size: 12px; color: var(--fg1); background: var(--e2); border: 1px solid var(--border); border-radius: 2px; padding: 7px 14px; cursor: pointer; }
+button.b:hover { border-color: var(--amberline); }
+button.b.go { color: #0a0a0f; background: var(--amber); border-color: var(--amber); }
+button.b:disabled { opacity: .4; cursor: default; }
+.eq { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 10px 14px; margin: 10px 0 14px; max-width: 76ch; }
+.eq .sym { font-family: var(--mono); font-size: 14px; color: var(--fg1); margin-bottom: 4px; }
+.eq .words { font-size: 13.5px; color: var(--fg2); line-height: 1.55; }
+.rules { border-left: 2px solid var(--amber); padding: 8px 14px; margin: 10px 0 14px; max-width: 80ch; background: var(--e1); }
+.rules .kicker { color: var(--amber); }
+.rules li { font-size: 13.5px; line-height: 1.55; margin: 3px 0; }
+.rules ul { margin: 4px 0; padding-left: 18px; }
+canvas { display: block; width: 100%; background: var(--e1); border: 1px solid var(--soft); border-radius: 2px; }
+.row { display: flex; flex-wrap: wrap; gap: 18px 26px; align-items: end; margin: 12px 0; }
+label.ctl { display: flex; flex-direction: column; gap: 4px; font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .06em; min-width: 180px; }
+label.ctl output { color: var(--fg1); }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 18px; background: transparent; }
+input[type=range]::-webkit-slider-runnable-track { height: 1px; background: var(--border); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -6px; background: var(--amber); border-radius: 1px; border: 0; }
+input[type=range]::-moz-range-track { height: 1px; background: var(--border); }
+input[type=range]::-moz-range-thumb { width: 12px; height: 12px; background: var(--amber); border-radius: 1px; border: 0; }
+.read { font-family: var(--mono); font-size: 12px; color: var(--fg2); display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 8px 0; }
+.read b { color: var(--fg1); font-weight: 500; }
+table { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+th, td { border-bottom: 1px solid var(--soft); padding: 5px 10px; text-align: right; color: var(--fg2); }
+th { color: var(--fg3); font-weight: 400; text-align: right; }
+td:first-child, th:first-child { text-align: left; }
+.verdict { font-family: var(--serif); font-size: 19px; color: var(--fg1); margin: 10px 0; max-width: 76ch; line-height: 1.4; }
+.note { font-size: 12.5px; color: var(--fg3); max-width: 80ch; line-height: 1.55; }
+.k-a { color: var(--amber); } .k-b { color: var(--indigo); } .k-d { color: var(--dead); }
+.foot { margin-top: 22px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; color: var(--fg4); text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="piece">
+<div class="kicker">Pheromone Trail · the same colony model · walks up to a test</div>
+<h1>Does a trail no one walks fade?</h1>
+<p>The section says trails that are never reinforced fade. This piece runs that sentence on the same colony engine as the cluster piece above, and scores the fade itself: once a trail's source runs out, does its strength fall away, and by when? The answer turns on what counts as reinforcing. Four steps; the test is the last.</p>
+<ol class="rail"></ol>
+
+<section class="step" data-name="a trail alone">
+<h2>A trail with nobody on it</h2>
+<p>One path, a trail laid down to τ = 100, and no ants at all. Nothing adds to it. Every tick it keeps all but a fraction ρ of itself.</p>
+<div class="eq"><div class="sym">τ(t) = τ<sub>0</sub> · (1 − ρ)<sup>t</sup> &nbsp;&nbsp; half gone after ln 2 ÷ −ln(1 − ρ) ticks</div>
+<div class="words">The trail after t ticks is what it started with, times the share it keeps each tick, t times over. It is half gone after about 0.69 ÷ ρ ticks: 69 ticks at this model's ρ = 0.01.</div></div>
+<canvas id="c1"></canvas>
+<canvas id="p1"></canvas>
+<div class="read"><span>tick <b id="r1t">0</b></span><span>trail τ <b id="r1tau">100</b></span><span>half gone at tick <b id="r1h">–</b></span><span>the formula says <b id="r1f">–</b></span></div>
+<div class="row"><label class="ctl">evaporation ρ per tick <output id="o1rho">0.010</output><input id="s1rho" type="range" min="0" max="0.05" step="0.001" value="0.01"></label>
+<button class="b go" id="b1">play</button><button class="b" id="b1r">reset</button></div>
+<p class="note">This step is the model's rule, not a test: a trail with nobody on it fades here because the code says so. Set ρ to zero and it never fades at all. Hold that: a trail fades here only while evaporation takes more than anything lays.</p>
+</section>
+
+<section class="step" data-name="a settled colony">
+<h2>A colony settled on a strong trail</h2>
+<p>A hundred ants, two paths of the same length, food on both. Path A starts strong, as in the cluster piece, and the colony settles on it. Let it run, then empty A's food when you like and watch what the colony does.</p>
+<canvas id="c2"></canvas>
+<canvas id="p2"></canvas>
+<div class="read"><span>tick <b id="r2t">0</b></span><span class="k-a">trail A <b id="r2a">0</b></span><span class="k-b">trail B <b id="r2b">0</b></span><span class="k-a">A's share of choices, last 100 ticks <b id="r2s">–</b></span></div>
+<div class="row"><label class="ctl">evaporation ρ per tick <output id="o2rho">0.010</output><input id="s2rho" type="range" min="0" max="0.03" step="0.001" value="0.01"></label>
+<button class="b go" id="b2">play</button><button class="b" id="b2e">empty A</button><button class="b" id="b2r">reset</button></div>
+<p class="note">An ant that walks to an empty source comes home with nothing and lays nothing. Here an ant marks only when it brings food home, so emptying A stops A's reinforcement at once, though ants keep walking it for a while.</p>
+</section>
+
+<section class="step" data-name="walking marks too">
+<h2>When walking a path marks it</h2>
+<p>Change one thing: an ant now lays part of its mark on the way out, whether or not there is food at the end, and the rest only when it comes home with food. A trip that finds food still lays 1 in all, so the settled trail is as strong as before. But now an ant walking a dead path still marks it. Empty A and watch what the trail does.</p>
+<div class="eq"><div class="sym">each walk out: τ ← τ + q<sub>out</sub> &nbsp;&nbsp; each trip home with food: τ ← τ + q<sub>home</sub> &nbsp;&nbsp; q<sub>out</sub> + q<sub>home</sub> = 1</div>
+<div class="words">Part of the mark is laid just for walking the path, the rest only for success. Whether and how real ants split their marking is outside this piece; the split here is this model's setting.</div></div>
+<canvas id="c3"></canvas>
+<canvas id="p3"></canvas>
+<div class="read"><span>tick <b id="r3t">0</b></span><span class="k-a">trail A <b id="r3a">0</b></span><span class="k-b">trail B <b id="r3b">0</b></span><span class="k-a">A's share of choices, last 100 ticks <b id="r3s">–</b></span></div>
+<div class="row"><label class="ctl">laid on the way out, q<sub>out</sub> <output id="o3q">0.50</output><input id="s3q" type="range" min="0" max="0.9" step="0.05" value="0.5"></label>
+<button class="b go" id="b3">play</button><button class="b" id="b3e">empty A</button><button class="b" id="b3r">reset</button></div>
+<p class="note">Set q<sub>out</sub> to 0 and this is the last step again. Raise it and a dead trail that ants still walk keeps part of itself; whether it ever falls is the test.</p>
+</section>
+
+<section class="step" data-name="the test">
+<h2>The test: does a dead trail fade, and by when?</h2>
+<p>The settled colony, run 2000 ticks with A strong, then A's food is gone. The trail on A is then followed for 40,000 ticks. Three ways of marking, and a null with A's food left in place. Twenty seeded runs each. The rules were written before the first run.</p>
+<div class="rules"><div class="kicker">the rules, stated first</div><ul>
+<li><b>Fades:</b> A's trail falls below a tenth of its strength at the moment its source went. Read at two horizons, both fixed before the run: 1,000 ticks after, and 40,000.</li>
+<li><b>At a horizon, the sentence holds</b> for an arm if at least 18 of 20 runs have faded; <b>fails</b> if at most 2 of 20; otherwise it is split.</li>
+<li><b>The arms:</b> marks only coming home with food (q<sub>out</sub> = 0); half going out (q<sub>out</sub> = 0.5); most going out (q<sub>out</sub> = 0.7). Pure evaporation predicts a tenth by tick 230, so an arm that has not faded by 1,000 is being held up by something.</li>
+<li><b>The null:</b> A's food left in place, marking only coming home. The same measure must not read <i>faded</i>; if 3 or more of 20 do, the measure is broken and the piece says so.</li>
+<li><b>Held fixed:</b> colony size, path lengths, n = 2, k = 20, ρ = 0.01, the head start, the seeds, and 1 laid per successful trip. Only where the mark is laid changes between arms.</li></ul></div>
+<div class="row"><button class="b go" id="b4">run the 80 runs</button><span class="read" id="r4s"></span></div>
+<canvas id="v4"></canvas>
+<div id="t4"></div>
+<div class="verdict" id="vd4"></div>
+<p class="note">Whose numbers these are: this model's, at its rate and its marking rule. They show what the sentence needs in a colony: a trail fades when nothing lays on it, and walking a path counts as laying if walking marks. In the palace, use is read from git, page edits, bundle edits and new links (<i>SCHEMA — Reference</i> § 3), and reading is not recorded there; this piece does not test the palace.</p>
+</section>
+<div class="nav"><button class="b" id="back">back</button><button class="b" id="next">next</button></div>
+<div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+/*ENGINE-START*/
+function rng(seed){let a=seed>>>0;return function(){a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+function makeColony(o){
+  const c={t:0,rho:o.rho,k:o.k==null?20:o.k,n:o.n==null?2:o.n,q:o.q==null?1:o.q,qOut:o.qOut||0,eps:o.eps||0,
+    paths:o.paths.map(p=>({len:p.len,food:p.food!==false,open:p.open!==false,tau:p.tau||0,choices:0,trips:0})),
+    ants:[],rand:rng(o.seed==null?1:o.seed)};
+  for(let i=0;i<o.ants;i++) c.ants.push({path:-1,pos:0,dir:0,carry:false,wait:Math.floor(c.rand()*(o.stagger==null?2*Math.max(...o.paths.map(p=>p.len))+1:o.stagger))});
+  return c;
+}
+function weights(c){return c.paths.map(p=>p.open?Math.pow(c.k+p.tau,c.n):0);}
+function choose(c){
+  const open=[];for(let i=0;i<c.paths.length;i++) if(c.paths[i].open) open.push(i);
+  if(c.eps>0&&c.rand()<c.eps) return open[Math.floor(c.rand()*open.length)];
+  const w=weights(c);let s=0;for(const i of open) s+=w[i];let r=c.rand()*s;
+  for(const i of open){r-=w[i];if(r<=0)return i;}
+  return open[open.length-1];
+}
+function step(c){
+  for(const p of c.paths) p.tau*=(1-c.rho);
+  for(const a of c.ants){
+    if(a.wait>0){a.wait--;continue;}
+    if(a.path<0){a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;continue;}
+    const p=c.paths[a.path];
+    a.pos+=a.dir;
+    if(a.dir===1&&a.pos>=p.len){a.dir=-1;a.carry=p.food;if(c.qOut)p.tau+=c.qOut;}
+    else if(a.dir===-1&&a.pos<=0){
+      if(a.carry){p.tau+=c.q;p.trips++;}
+      a.path=choose(c);a.pos=0;a.dir=1;a.carry=false;c.paths[a.path].choices++;
+    }
+  }
+  c.t++;
+}
+function choiceWindow(c,ticks){
+  const before=c.paths.map(p=>p.choices);
+  for(let i=0;i<ticks;i++) step(c);
+  const d=c.paths.map((p,i)=>p.choices-before[i]);let s=0;for(const x of d) s+=x;
+  return d.map(x=>x/(s||1));
+}
+/*ENGINE-END*/
+// ---- the walk: one step at a time, Back and Next, the step list open ----
+const STEPS=[...document.querySelectorAll('section.step')];
+const ENTER={}, LEAVE={};
+let CUR=0;
+function show(i){
+  if(LEAVE[CUR]) LEAVE[CUR]();
+  CUR=Math.max(0,Math.min(STEPS.length-1,i));
+  STEPS.forEach((s,j)=>{s.hidden=j!==CUR;});
+  document.querySelectorAll('.rail button').forEach((b,j)=>b.setAttribute('aria-current',j===CUR?'step':'false'));
+  const back=document.getElementById('back'),next=document.getElementById('next');
+  back.disabled=CUR===0; next.disabled=CUR===STEPS.length-1;
+  if(ENTER[CUR]) ENTER[CUR]();
+}
+(function(){
+  const rail=document.querySelector('.rail');
+  STEPS.forEach((s,j)=>{const b=document.createElement('button');b.textContent=(j+1)+' · '+s.dataset.name;b.onclick=()=>show(j);rail.appendChild(b);});
+  document.getElementById('back').onclick=()=>show(CUR-1);
+  document.getElementById('next').onclick=()=>show(CUR+1);
+})();
+// ---- drawing ----
+const COL={a:'#e8b84a',b:'#8b8df5',dead:'#ff6a4a',fg3:'#8a8aa0',fg4:'#4a4a5a',fg1:'#e8e8f0',soft:'rgba(255,255,255,.06)',grid:'rgba(255,255,255,.08)'};
+function fit(cv,h){const d=window.devicePixelRatio||1,w=cv.clientWidth||600;if(cv.width!==Math.round(w*d)||cv.height!==Math.round(h*d)){cv.width=Math.round(w*d);cv.height=Math.round(h*d);cv.style.height=h+'px';}const x=cv.getContext('2d');x.setTransform(d,0,0,d,0,0);return {x,w,h};}
+function pathGeom(c,i,w,h){ // nest at left; path i as a bend to its source; drawn length grows with len
+  const n=c.paths.length, maxLen=Math.max(...c.paths.map(p=>p.len));
+  const x0=46,y0=h/2, x1=x0+(w-110)*c.paths[i].len/maxLen;
+  const y1=n===1?h/2:(h*0.18+(h*0.64)*i/(n-1));
+  const cx=(x0+x1)/2, cy=n===1?h/2-40:(y1<h/2? y1-34 : y1>h/2? y1+34 : y1);
+  return {x0,y0,x1,y1,cx,cy};
+}
+function pt(g,s){const u=1-s;return [u*u*g.x0+2*u*s*g.cx+s*s*g.x1,u*u*g.y0+2*u*s*g.cy+s*s*g.y1];}
+function drawColony(cv,c,o){
+  o=o||{};const {x,w,h}=fit(cv,o.h||240);x.clearRect(0,0,w,h);
+  const full=o.full||100, cols=o.cols||[COL.a,COL.b];
+  c.paths.forEach((p,i)=>{const g=pathGeom(c,i,w,h);
+    const s=Math.min(1,p.tau/full);
+    x.beginPath();x.moveTo(g.x0,g.y0);x.quadraticCurveTo(g.cx,g.cy,g.x1,g.y1);
+    x.strokeStyle=COL.fg4;x.lineWidth=1;x.setLineDash(p.open?[]:[3,4]);x.stroke();x.setLineDash([]);
+    if(p.open&&s>0.002){x.beginPath();x.moveTo(g.x0,g.y0);x.quadraticCurveTo(g.cx,g.cy,g.x1,g.y1);x.strokeStyle=cols[i%cols.length];x.globalAlpha=0.15+0.75*s;x.lineWidth=1+11*s;x.stroke();x.globalAlpha=1;}
+    x.beginPath();x.arc(g.x1,g.y1,9,0,7);
+    if(p.open&&p.food){x.fillStyle=cols[i%cols.length];x.fill();}else{x.strokeStyle=p.open?COL.dead:COL.fg4;x.lineWidth=1.2;x.stroke();}
+    x.fillStyle=COL.fg3;x.font='11px '+getComputedStyle(document.body).getPropertyValue('--mono');
+    x.fillText((o.names?o.names[i]:String.fromCharCode(65+i))+(p.open?'':' · closed')+(p.open&&!p.food?' · empty':''),g.x1+14,g.y1+4);
+  });
+  x.beginPath();x.arc(46,h/2,12,0,7);x.fillStyle='#22222e';x.fill();x.strokeStyle=COL.fg3;x.lineWidth=1;x.stroke();
+  x.fillStyle=COL.fg3;x.fillText('nest',20,h/2+28);
+  for(const a of c.ants){if(a.path<0||a.wait>0)continue;const g=pathGeom(c,a.path,w,h);const [px,py]=pt(g,Math.max(0,Math.min(1,a.pos/c.paths[a.path].len)));
+    x.beginPath();x.arc(px,py,a.carry?2.6:1.9,0,7);x.fillStyle=a.carry?COL.fg1:COL.fg3;x.fill();}
+}
+function plot(cv,series,o){
+  o=o||{};const {x,w,h}=fit(cv,o.h||150);x.clearRect(0,0,w,h);
+  const L=40,R=10,T=10,B=22,pw=w-L-R,ph=h-T-B;
+  const n=Math.max(1,...series.map(s=>s.data.length));const ymax=o.ymax||Math.max(1e-9,...series.flatMap(s=>s.data))*1.1;
+  x.strokeStyle=COL.grid;x.lineWidth=1;x.fillStyle=COL.fg3;x.font='10px '+getComputedStyle(document.body).getPropertyValue('--mono');
+  for(let k=0;k<=4;k++){const y=T+ph-ph*k/4;x.beginPath();x.moveTo(L,y);x.lineTo(L+pw,y);x.stroke();x.fillText((ymax*k/4).toFixed(ymax<2?2:0),2,y+3);}
+  (o.hlines||[]).forEach(hl=>{const y=T+ph-ph*hl.y/ymax;x.setLineDash([4,4]);x.strokeStyle=hl.color||COL.fg3;x.beginPath();x.moveTo(L,y);x.lineTo(L+pw,y);x.stroke();x.setLineDash([]);x.fillStyle=hl.color||COL.fg3;x.fillText(hl.label||'',L+pw-x.measureText(hl.label||'').width-4,y-4);});
+  (o.vlines||[]).forEach(vl=>{const xx=L+pw*vl.i/(o.span||n);x.setLineDash([2,4]);x.strokeStyle=vl.color||COL.fg3;x.beginPath();x.moveTo(xx,T);x.lineTo(xx,T+ph);x.stroke();x.setLineDash([]);x.fillStyle=vl.color||COL.fg3;x.fillText(vl.label||'',xx+4,T+10);});
+  series.forEach(s=>{x.beginPath();s.data.forEach((v,i)=>{const xx=L+pw*i/((o.span||n)-1||1),yy=T+ph-ph*Math.min(v,ymax)/ymax;i?x.lineTo(xx,yy):x.moveTo(xx,yy);});x.strokeStyle=s.color;x.lineWidth=1.4;x.stroke();});
+  x.fillStyle=COL.fg3;x.fillText(o.xlabel||'ticks',L,h-6);
+}
+function bars(cv,arms,o){ // each arm: {label, vals:[0..1], color}
+  o=o||{};const {x,w,h}=fit(cv,o.h||60+arms.length*44);x.clearRect(0,0,w,h);
+  const L=200,R=14,rowH=44,T=16;x.font='11px '+getComputedStyle(document.body).getPropertyValue('--mono');
+  const X=v=>L+(w-L-R)*v;
+  [0,0.5,1].forEach(v=>{x.fillStyle=COL.fg3;x.fillText(v.toFixed(1),X(v)-8,T-4);});
+  (o.lines||[]).forEach(l=>{x.setLineDash([3,4]);x.strokeStyle=l.color;x.beginPath();x.moveTo(X(l.v),T);x.lineTo(X(l.v),T+rowH*arms.length);x.stroke();x.setLineDash([]);x.fillStyle=l.color;x.fillText(l.label,X(l.v)+4,T+rowH*arms.length+12);});
+  arms.forEach((a,r)=>{const y=T+r*rowH+rowH/2;x.fillStyle=COL.fg1;x.fillText(a.label,4,y+4);
+    x.strokeStyle=COL.grid;x.beginPath();x.moveTo(X(0),y);x.lineTo(X(1),y);x.stroke();
+    a.vals.forEach((v,j)=>{x.beginPath();x.arc(X(v),y+((j%5)-2)*4,2.6,0,7);x.fillStyle=a.color;x.globalAlpha=.85;x.fill();x.globalAlpha=1;});});
+}
+function loop(fn){let id=0,on=false;function f(){if(!on)return;fn();id=requestAnimationFrame(f);}return {start(){if(on)return;on=true;id=requestAnimationFrame(f);},stop(){on=false;cancelAnimationFrame(id);},get on(){return on;}};}
+function $(id){return document.getElementById(id);}
+function share(a){let s=0;for(const v of a)s+=v;return a.map(v=>v/(s||1));}
+
+// step 1 — a trail alone
+(function(){
+  let c,hist,L,half;
+  function reset(){c=makeColony({ants:0,rho:+$('s1rho').value,paths:[{len:20,tau:100}]});hist=[100];half=null;draw();}
+  function draw(){drawColony($('c1'),c,{h:110,full:100});plot($('p1'),[{data:hist,color:COL.a}],{h:140,span:600,ymax:110,hlines:[{y:50,label:'half'},{y:10,label:'a tenth'}],xlabel:'600 ticks · trail τ'});
+    $('r1t').textContent=c.t;$('r1tau').textContent=c.paths[0].tau.toFixed(2);$('r1h').textContent=half==null?'–':half;
+    const r=c.rho;$('r1f').textContent=r>0?(Math.log(2)/-Math.log(1-r)).toFixed(1):'never';}
+  L=loop(()=>{for(let i=0;i<3&&c.t<600;i++){step(c);hist.push(c.paths[0].tau);if(half==null&&c.paths[0].tau<=50)half=c.t;}draw();if(c.t>=600){L.stop();$('b1').textContent='play';}});
+  $('s1rho').oninput=()=>{$('o1rho').textContent=(+$('s1rho').value).toFixed(3);reset();};
+  $('b1').onclick=()=>{if(L.on){L.stop();$('b1').textContent='play';}else{if(c.t>=600)reset();L.start();$('b1').textContent='pause';}};
+  $('b1r').onclick=reset;
+  ENTER[0]=()=>{if(!c)reset();else draw();}; LEAVE[0]=()=>{L.stop();$('b1').textContent='play';};
+})();
+// step 2 — a settled colony
+(function(){
+  let c,hist,L,last,shareA,emptied;
+  function reset(){c=makeColony({ants:100,rho:+$('s2rho').value,seed:1,paths:[{len:20,tau:60},{len:20,tau:10}]});hist=[];last=[0,0];shareA=null;emptied=null;draw();}
+  function draw(){const top=Math.max(100,...hist.map(h=>Math.max(h[0],h[1])));drawColony($('c2'),c,{h:200,full:Math.max(100,c.paths[0].tau,c.paths[1].tau)});
+    plot($('p2'),[{data:hist.map(h=>h[0]),color:COL.a},{data:hist.map(h=>h[1]),color:COL.b}],{h:140,span:400,ymax:top*1.1,vlines:emptied==null?[]:[{i:Math.max(0,emptied-(c.t-hist.length*10)/10),label:'A emptied',color:COL.dead}],xlabel:'the last 4000 ticks · trails A and B'});
+    $('r2t').textContent=c.t;$('r2a').textContent=c.paths[0].tau.toFixed(1);$('r2b').textContent=c.paths[1].tau.toFixed(1);$('r2s').textContent=shareA==null?'–':shareA.toFixed(2);}
+  L=loop(()=>{for(let i=0;i<6;i++){step(c);if(c.t%10===0){hist.push([c.paths[0].tau,c.paths[1].tau]);if(hist.length>400)hist.shift();}
+    if(c.t%100===0){const now=c.paths.map(p=>p.choices);shareA=share([now[0]-last[0],now[1]-last[1]])[0];last=now;}}draw();});
+  $('s2rho').oninput=()=>{$('o2rho').textContent=(+$('s2rho').value).toFixed(3);c.rho=+$('s2rho').value;};
+  $('b2').onclick=()=>{if(L.on){L.stop();$('b2').textContent='play';}else{L.start();$('b2').textContent='pause';}};
+  $('b2e').onclick=()=>{c.paths[0].food=false;emptied=c.t/10;draw();};
+  $('b2r').onclick=reset;
+  ENTER[1]=()=>{if(!c)reset();else draw();}; LEAVE[1]=()=>{L.stop();$('b2').textContent='play';};
+})();
+// step 3 — walking marks too
+(function(){
+  let c,hist,L,last,shareA,emptied;
+  function reset(){const qo=+$('s3q').value;c=makeColony({ants:100,rho:0.01,seed:1,q:1-qo,qOut:qo,paths:[{len:20,tau:60},{len:20,tau:10}]});hist=[];last=[0,0];shareA=null;emptied=null;draw();}
+  function draw(){const top=Math.max(100,...hist.map(h=>Math.max(h[0],h[1])));drawColony($('c3'),c,{h:200,full:Math.max(100,c.paths[0].tau,c.paths[1].tau)});
+    plot($('p3'),[{data:hist.map(h=>h[0]),color:COL.a},{data:hist.map(h=>h[1]),color:COL.b}],{h:140,span:400,ymax:top*1.1,vlines:emptied==null?[]:[{i:Math.max(0,emptied-(c.t-hist.length*10)/10),label:'A emptied',color:COL.dead}],xlabel:'the last 4000 ticks · trails A and B'});
+    $('r3t').textContent=c.t;$('r3a').textContent=c.paths[0].tau.toFixed(1);$('r3b').textContent=c.paths[1].tau.toFixed(1);$('r3s').textContent=shareA==null?'–':shareA.toFixed(2);}
+  L=loop(()=>{for(let i=0;i<6;i++){step(c);if(c.t%10===0){hist.push([c.paths[0].tau,c.paths[1].tau]);if(hist.length>400)hist.shift();}
+    if(c.t%100===0){const now=c.paths.map(p=>p.choices);shareA=share([now[0]-last[0],now[1]-last[1]])[0];last=now;}}draw();});
+  $('s3q').oninput=()=>{$('o3q').textContent=(+$('s3q').value).toFixed(2);reset();};
+  $('b3').onclick=()=>{if(L.on){L.stop();$('b3').textContent='play';}else{L.start();$('b3').textContent='pause';}};
+  $('b3e').onclick=()=>{c.paths[0].food=false;emptied=c.t/10;draw();};
+  $('b3r').onclick=reset;
+  ENTER[2]=()=>{if(!c)reset();else draw();}; LEAVE[2]=()=>{L.stop();$('b3').textContent='play';};
+})();
+// step 4 — the test
+const H2=[1000,40000];
+const ARMS2=[{id:'home',label:'marks coming home · dead',qOut:0,kill:true,color:COL.a},{id:'half',label:'half going out · dead',qOut:0.5,kill:true,color:COL.b},{id:'most',label:'most going out · dead',qOut:0.7,kill:true,color:COL.dead},{id:'null',label:'null · source left',qOut:0,kill:false,color:COL.fg1}];
+function runArm2(arm,seed){
+  const c=makeColony({ants:100,rho:0.01,n:2,seed,q:1-arm.qOut,qOut:arm.qOut,paths:[{len:20,tau:60},{len:20,tau:10}]});
+  for(let i=0;i<2000;i++) step(c);
+  const at=c.paths[0].tau; if(arm.kill) c.paths[0].food=false;
+  let tenth=null;const at1={};
+  for(let i=1;i<=H2[1];i++){step(c);if(tenth==null&&c.paths[0].tau<0.1*at)tenth=i;if(i===H2[0])at1.short=c.paths[0].tau/at;}
+  return {at,tenth,short:at1.short,long:c.paths[0].tau/at};
+}
+function call2(n){return n>=18?'fades':n<=2?'does not fade':'split';}
+function judge2(res){const o={};ARMS2.forEach(a=>{const r=res[a.id];o[a.id]={f1:r.filter(x=>x.short<0.1).length,f40:r.filter(x=>x.long<0.1).length};o[a.id].c1=call2(o[a.id].f1);o[a.id].c40=call2(o[a.id].f40);});o.broken=o.null.f40>=3||o.null.f1>=3;return o;}
+(function(){
+  $('b4').onclick=()=>{const res={},jobs=[];ARMS2.forEach(a=>{res[a.id]=[];for(let s=1;s<=20;s++)jobs.push([a,s]);});let i=0;$('b4').disabled=true;
+    (function chunk(){const t0=performance.now();while(i<jobs.length&&performance.now()-t0<40){const [a,s]=jobs[i++];res[a.id].push(runArm2(a,s));}
+      $('r4s').textContent=i+' of '+jobs.length+' runs';if(i<jobs.length){setTimeout(chunk,0);return;}$('b4').disabled=false;
+      bars($('v4'),ARMS2.map(a=>({label:a.label,vals:res[a.id].map(r=>Math.min(1,r.short)),color:a.color})),{lines:[{v:0.1,label:'a tenth',color:COL.a}]});
+      const J=judge2(res);
+      const row=a=>{const r=res[a.id],ten=r.map(x=>x.tenth).filter(x=>x!=null).sort((x,y)=>x-y);
+        return '<tr><td>'+a.label+'</td><td>'+Math.min(...r.map(x=>x.short)).toFixed(3)+' – '+Math.max(...r.map(x=>x.short)).toFixed(3)+'</td><td>'+J[a.id].f1+' / 20 · '+J[a.id].c1+'</td><td>'+J[a.id].f40+' / 20 · '+J[a.id].c40+'</td><td>'+(ten.length?ten[0]+' – '+ten[ten.length-1]+(ten.length<20?' ('+(20-ten.length)+' never)':''):'never')+'</td></tr>';};
+      $('t4').innerHTML='<table><tr><th>arm</th><th>A ÷ its strength when the source went, at 1,000</th><th>faded by 1,000</th><th>faded by 40,000</th><th>ticks to a tenth</th></tr>'+ARMS2.map(row).join('')+'</table>';
+      $('vd4').textContent=(J.broken?'The null read faded in '+Math.max(J.null.f1,J.null.f40)+' of 20 runs: the measure is broken. ':'')
+        +'Marking only on success, the dead trail fades by 1,000 ticks in '+J.home.f1+' of 20 runs. '
+        +'With half the mark laid on the way out it '+(J.half.c1==='fades'?'fades by 1,000 too':'has faded in '+J.half.f1+' of 20 by 1,000')+', and in '+J.half.f40+' of 20 by 40,000. '
+        +'With most laid on the way out, '+J.most.f40+' of 20 have faded by 40,000. '
+        +(J.most.c40==='does not fade'?'In this model a trail never reinforced fades; a trail still walked, where walking marks, is being reinforced, and holds.':'');
+      window.RESULT2={res,J};})();};
+})();
+show(0);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!doctype html>
+<!--
+  title: STIGMERGY — rich — the fumble and the scent
+  born: 2026-11-05
+  links: [[STIGMERGY]] (connects-to · rich-face-piece) · listed in [[STIGMERGY — rich.json]] · [[Pheromone Trail]] (connects-to · the scent) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "Handoff Lifecycle" played: the three states as a fold over board events, the fumble seen under the old reading and under rung 1, the claim that a lease and an evaporating scent are one mechanism checked instant by instant, and last the ladder's rungs run over forty batons. I change only when that section does.
+  engine: a baton's state is a fold over its events (handoff_ready, handoff_picked_up with lifecycle: claim, handoff_closed). Scent decays as s(t) = s_beat·exp(−(t − t_beat)/τ); each heartbeat either resets it to 1 or adds 1 to what is left. A claim is alive while s > θ. The lease reading is alive while t − t_beat < L, with L = τ·ln(1/θ), which equals the scent reading exactly when beats reset. Seeded (mulberry32), so every run is the same until you change the seed.
+  remade: 2026-11-05, after the challenge — envelope-shaped lines and the real partial-close order; rung 1 shows age without a flag; step 3 states the lease as a derivation and tests the case that can part, scent that adds up at each beat.
+  honest: rungs 2–4 are not built. Steps 3 and 4 model them; the catcher numbers in step 4 are made up to show the shape, not the palace's rates.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:size" content="flow">
+<title>STIGMERGY — the fumble and the scent</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap">
+<style>
+:root{--ph:#33ff66;--phb:#7fff9b;--phd:#1f8a3c;--deep:#0b2a14;--white:#d7f6dc;--bg:#050a06;--fg3:#0f5024;--amber:#ffb000;--red:#ff4136;--cyan:#7fdbff;
+  --mono:'IBM Plex Mono',Menlo,Consolas,monospace;--vt:'VT323','IBM Plex Mono',Menlo,monospace}
+*{box-sizing:border-box;border-radius:0}
+html,body{margin:0;background:var(--bg);color:var(--ph);font-family:var(--mono);font-size:14px;line-height:1.4em;color-scheme:dark}
+.piece{padding:16px 2ch 20px;max-width:112ch}
+.kicker{color:var(--phd);text-transform:uppercase;letter-spacing:.08em}
+h1{font-family:var(--vt);font-weight:400;font-size:38px;line-height:1;margin:.1em 0 .25em;text-shadow:0 0 6px currentColor}
+h3{font-family:var(--vt);font-weight:400;font-size:26px;line-height:1;margin:0 0 .3em;text-shadow:0 0 6px currentColor}
+.sub,.teach{max-width:84ch;margin:0 0 1em}
+.sub{color:var(--phd)}
+.rail{display:flex;flex-wrap:wrap;gap:1ch;margin:0 0 1.2em}
+button{font:inherit;background:transparent;color:var(--ph);border:1px solid var(--ph);padding:.1em 1ch;cursor:pointer}
+button:hover:not(:disabled),button:focus-visible{background:var(--ph);color:var(--bg);outline:none}
+button[aria-current=step]{background:var(--ph);color:var(--bg)}
+button:disabled{border-color:var(--fg3);color:var(--fg3);cursor:default}
+.step{display:none}.step.on{display:block}
+.box{border:3px double var(--phd);padding:.9em 2ch;margin:.9em 0}
+.card{border:1px solid var(--phd);padding:.5em 1ch}
+.dim{color:var(--phd)}.amber{color:var(--amber)}.red{color:var(--red)}.cyan{color:var(--cyan)}.white{color:var(--white)}
+.row{display:flex;flex-wrap:wrap;gap:1ch;align-items:center;margin:.5em 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:2ch}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.log{white-space:pre-wrap;word-break:break-all;font-size:12px;line-height:1.4em;min-height:8.4em;max-height:16.8em;overflow:auto;border:1px solid var(--phd);padding:.3em 1ch;color:var(--phd)}
+.log .new{color:var(--ph)}
+svg text{font-family:var(--mono);font-size:13px;fill:var(--ph)}
+svg .lbl{fill:var(--phd);font-size:12px}
+.node rect{fill:var(--bg);stroke:var(--phd);stroke-width:1}
+.node.on rect{fill:var(--ph);stroke:var(--ph)}
+.node.on text{fill:var(--bg)}
+.edge{stroke:var(--phd);stroke-width:1;fill:none}
+.cells{font-size:14px;letter-spacing:.15ch;line-height:1.4em;white-space:nowrap;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid var(--fg3);padding:.15em 1ch .15em 0;text-align:right}
+td{white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--phd);font-weight:400;text-transform:uppercase}
+input[type=range]{accent-color:var(--ph);width:16ch;vertical-align:middle}
+.verdict{border-left:3px double var(--ph);padding:.2em 1ch;margin:.8em 0;max-width:84ch}
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">STIGMERGY · HANDOFF LIFECYCLE</div>
+  <h1>THE FUMBLE AND THE SCENT</h1>
+  <p class="sub">a baton caught and then dropped should never vanish. four steps: the three states, the fumble, the scent that is a lease, and the ladder run over forty batons.</p>
+  <div class="rail" role="tablist">
+    <button data-go="0" aria-current="step">[1] THREE STATES</button>
+    <button data-go="1">[2] THE FUMBLE</button>
+    <button data-go="2">[3] SCENT = LEASE</button>
+    <button data-go="3">[4] THE LADDER</button>
+  </div>
+
+  <!-- 1 -->
+  <section class="step on" id="s0">
+    <h3>STATE IS A FOLD OVER EVENTS</h3>
+    <p class="teach">the board is never edited. a baton's state is read by folding over the lines that name it. press the moves in order; the diagram lights the state the fold computes, and the log shows the line each move appends.</p>
+    <svg id="sm" viewBox="0 0 760 170" width="100%" role="img" aria-label="OPEN to CLAIMED to CLOSED, with a partial close posting a fresh OPEN">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1f8a3c"/></marker></defs>
+      <g class="node" id="nOPEN"><rect x="20" y="50" width="140" height="44"/><text x="90" y="77" text-anchor="middle">OPEN</text></g>
+      <g class="node" id="nCLAIMED"><rect x="310" y="50" width="140" height="44"/><text x="380" y="77" text-anchor="middle">CLAIMED</text></g>
+      <g class="node" id="nCLOSED"><rect x="600" y="50" width="140" height="44"/><text x="670" y="77" text-anchor="middle">CLOSED</text></g>
+      <path class="edge" d="M160,72 L308,72" marker-end="url(#ah)"/>
+      <text class="lbl" x="234" y="64" text-anchor="middle">pickup · claim</text>
+      <path class="edge" d="M450,72 L598,72" marker-end="url(#ah)"/>
+      <text class="lbl" x="524" y="64" text-anchor="middle">close --commit</text>
+      <path class="edge" d="M670,94 L670,140 L90,140 L90,96" marker-end="url(#ah)"/>
+      <text class="lbl" x="380" y="158" text-anchor="middle">close --partial: the rest is posted as a fresh handoff_ready</text>
+      <text class="lbl" x="90" y="34" text-anchor="middle">nobody holds it</text>
+      <text class="lbl" x="380" y="34" text-anchor="middle">in flight · still on the board</text>
+      <text class="lbl" x="670" y="34" text-anchor="middle">only a close retires it</text>
+    </svg>
+    <div class="row">
+      <button id="bReady">post handoff_ready</button>
+      <button id="bClaim" disabled>pickup · claim</button>
+      <button id="bClose" disabled>close --commit</button>
+      <button id="bPartial" disabled>close --partial</button>
+      <button id="bReset1">reset</button>
+    </div>
+    <div class="two">
+      <div><div class="dim">BOARD (append-only)</div><div class="log" id="log1"></div></div>
+      <div><div class="dim">THE FOLD</div><div class="log" id="fold1"></div></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="step" id="s1">
+    <h3>THE FUMBLE</h3>
+    <p class="teach">a catcher takes the baton, then its context dies halfway through. on the left, the board reads as it once did: a pickup, or a file that looked finished, retired the card. on the right, rung 1: only a close retires it.</p>
+    <div class="row"><button id="bCatch">catch the baton</button><button id="bDie" disabled>the catcher's context dies</button><button id="bReset2">reset</button><span class="dim" id="clock2">t = 0 h</span></div>
+    <div class="two">
+      <div class="box"><div class="dim">THE OLD READING · DONE INFERRED</div><div id="old2" style="min-height:5.6em"></div></div>
+      <div class="box"><div class="dim">RUNG 1 · MANUAL ACK</div><div id="new2" style="min-height:5.6em"></div></div>
+    </div>
+    <div class="verdict" id="v2">catch the baton to begin.</div>
+  </section>
+
+  <!-- 3 -->
+  <section class="step" id="s2">
+    <h3>THE SCENT IS A LEASE</h3>
+    <p class="teach">a live catcher sends a heartbeat, and each beat lays fresh scent, which evaporates between beats. read as an ant, a claim is alive while its scent is above a threshold θ. read as a queue, it is alive while its lease, renewed at each beat, has not run out. the page says these are the same mechanism. when each beat <i>resets</i> the scent to full, that is a derivation, not an experiment:</p>
+    <div class="box" style="max-width:84ch"><div class="white">e<sup>−Δt/τ</sup> &gt; θ &nbsp;⇔&nbsp; Δt &lt; τ · ln(1/θ) = L</div>
+    <div class="dim">(scent left since the last beat) above (threshold) ⇔ (time since the last beat) under (evaporation time) × ln(1 / threshold) = (the lease)</div></div>
+    <p class="teach">so the test is the case that can part. real pheromone is <i>reinforced</i>: a deposit adds to what is there. switch each beat to add, let the catcher die, and count the instants where the two readings disagree.</p>
+    <div class="row">
+      <label>heartbeat every <input type="range" id="hb" min="0.5" max="6" step="0.5" value="2"> <span id="hbv"></span></label>
+      <label>evaporation τ <input type="range" id="tau" min="0.5" max="6" step="0.25" value="2"> <span id="tauv"></span></label>
+      <label>threshold θ <input type="range" id="th" min="0.05" max="0.6" step="0.05" value="0.25"> <span id="thv"></span></label>
+      <label><input type="checkbox" id="kill" checked> the catcher dies at t = 20 h</label>
+      <label>each beat <button id="mReset" aria-pressed="true" style="background:var(--ph);color:var(--bg)">resets the scent</button> <button id="mAdd" aria-pressed="false">adds to it</button></label>
+    </div>
+    <svg id="sc" viewBox="0 0 760 220" width="100%" role="img" aria-label="scent over 48 hours with the threshold and the lease expiry marked"></svg>
+    <div class="verdict" id="v3"></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="step" id="s3">
+    <h3>THE LADDER, RUN</h3>
+    <p class="teach">forty batons. most catchers finish; some are slow but alive and keep beating; some die mid-move. each row reads the same forty under one rung. a rung earns its place by what it stops losing, and by what it stops calling dead that is only slow.</p>
+    <div class="row">
+      <label>dead catchers <input type="range" id="pd" min="0" max="0.5" step="0.05" value="0.2"> <span id="pdv"></span></label>
+      <label>slow but alive <input type="range" id="ps" min="0" max="0.5" step="0.05" value="0.2"> <span id="psv"></span></label>
+      <label>age limit (rung 2) <input type="range" id="age" min="4" max="24" step="2" value="12"> <span id="agev"></span></label>
+      <button id="reseed">new seed</button> <span class="dim" id="seedv"></span>
+    </div>
+    <div id="rows"></div>
+    <div style="overflow-x:auto"><table id="tbl"></table></div>
+    <p class="dim" style="max-width:84ch">key: <span class="white">█</span> done · <span class="red">×</span> lost, counted as done · <span class="dim">?</span> dead, still shown as claimed, unflagged · <span class="amber">!</span> dead, flagged · <span class="amber">~</span> alive but flagged as dead · <span class="cyan">▲</span> fumbled twice, sent to a person</p>
+    <div class="verdict" id="v4"></div>
+    <p class="dim" style="max-width:84ch">rung 1 is built and lived in. rungs 2–4 are deferred by design until the scheduled dispatcher makes them live; this step is a model of them, and the catcher numbers are made up to show the shape, not the palace's rates.</p>
+  </section>
+</div>
+
+<script>
+// ---------- rail ----------
+const steps=[...document.querySelectorAll('.step')], rail=[...document.querySelectorAll('[data-go]')];
+rail.forEach(b=>b.onclick=()=>{steps.forEach((s,i)=>s.classList.toggle('on',i==b.dataset.go));rail.forEach(r=>r.removeAttribute('aria-current'));b.setAttribute('aria-current','step');});
+
+// ---------- 1: the fold ----------
+let ev=[], seq=0;
+const log1=document.getElementById('log1'), fold1=document.getElementById('fold1');
+function fold(events){ // state per handoff_id: a simplified reading of handoff-model.mjs (which also correlates by re, lets a close win in any order, and grandfathers legacy pickups)
+  const st={};
+  for(const m of events){ const e=m.payload;
+    if(e.kind==='handoff_ready' && !st[e.handoff_id]) st[e.handoff_id]='OPEN';
+    if(e.kind==='handoff_picked_up' && e.lifecycle==='claim' && st[e.handoff_id]!=='CLOSED') st[e.handoff_id]='CLAIMED';
+    if(e.kind==='handoff_closed') st[e.handoff_id]='CLOSED';
+  }
+  return st;
+}
+function post(e){ev.push(e);render1(true);}
+function cur(){const st=fold(ev);const ids=Object.keys(st);return {st,live:ids.filter(i=>st[i]!=='CLOSED')};}
+function render1(fresh){
+  log1.innerHTML=ev.map((e,i)=>`<div class="${fresh&&i===ev.length-1?'new':''}">${JSON.stringify(e)}</div>`).join('')||'<span>(empty)</span>';
+  log1.scrollTop=1e9;
+  const {st,live}=cur();
+  fold1.innerHTML=Object.entries(st).map(([k,v])=>`<div class="${v==='CLOSED'?'':'new'}">${k.padEnd(6)} → ${v}</div>`).join('')||'(nothing to fold)';
+  const focus=live.length?st[idNow()]:(ev.length?'CLOSED':null);
+  ['OPEN','CLAIMED','CLOSED'].forEach(n=>document.getElementById('n'+n).classList.toggle('on',n===focus));
+  const s=live.length?st[idNow()]:null;
+  bReady.disabled=!!live.length; bClaim.disabled=s!=='OPEN'; bClose.disabled=s!=='CLAIMED'; bPartial.disabled=s!=='CLAIMED';
+}
+const bReady=document.getElementById('bReady'),bClaim=document.getElementById('bClaim'),bClose=document.getElementById('bClose'),bPartial=document.getElementById('bPartial');
+const idNow=()=>{const {st,live}=cur();return live.find(i=>st[i]!=='OPEN')||live[0];};
+const E=(type,payload,re)=>Object.assign({type,board:'GENERAL',from:'BLUELINE',to:'*'},re?{re}:{},{payload});
+bReady.onclick=()=>post(E('BROADCAST',{kind:'handoff_ready',handoff_id:'h-'+(++seq),move:'the move, in one sentence'}));
+bClaim.onclick=()=>{const id=idNow();post(E('REPLY',{kind:'handoff_picked_up',lifecycle:'claim',handoff_id:id},id));};
+bClose.onclick=()=>{const id=idNow();post(E('REPLY',{kind:'handoff_closed',handoff_id:id,completion:'complete',commit:'a1b2c3d'},id));};
+bPartial.onclick=()=>{const id=idNow(), rest='h-'+(++seq);ev.push(E('BROADCAST',{kind:'handoff_ready',handoff_id:rest,move:'what was left of '+id}));post(E('REPLY',{kind:'handoff_closed',handoff_id:id,completion:'partial',remainder:rest,commit:'e4f5a6b'},id));};
+document.getElementById('bReset1').onclick=()=>{ev=[];seq=0;render1(false);};
+render1(false);
+
+// ---------- 2: the fumble ----------
+let t2=0, phase2=0, timer2=null;
+const old2=document.getElementById('old2'),new2=document.getElementById('new2'),v2=document.getElementById('v2'),clock2=document.getElementById('clock2');
+const bCatch=document.getElementById('bCatch'),bDie=document.getElementById('bDie');
+function card(state,cls,extra){return `<div class="card"><span class="${cls}">h-7 · ${state}</span><br><span class="dim">${extra}</span></div>`;}
+function render2(){
+  clock2.textContent='t = '+t2+' h';
+  if(phase2===0){old2.innerHTML=card('OPEN','','the move waits');new2.innerHTML=card('OPEN','','the move waits');v2.textContent='catch the baton to begin.';return;}
+  if(phase2===1){old2.innerHTML='<div class="dim">0 open cards</div><div class="dim">the pickup retired it: the work reads as done</div>';
+    new2.innerHTML=card('CLAIMED','white','in flight · claimed '+t2+' h ago');v2.textContent='both catchers are working. the old board already shows nothing to do.';return;}
+  old2.innerHTML='<div class="dim">0 open cards</div><div class="red">the move is half-done, and nothing on the board says so</div>';
+  const age=t2-(phase2Start);
+  new2.innerHTML=card('CLAIMED','white','claimed '+(t2)+' h ago · no close · last word '+age+' h ago');
+  v2.innerHTML='the same death, read two ways. on the left the work is lost in silence. on the right it is still on the board, and the claim grows older for anyone to see. that is rung 1: a fumble made visible instead of hidden. it still waits for someone to notice — which is what the rungs above are for.';
+}
+let phase2Start=0;
+bCatch.onclick=()=>{phase2=1;t2=0;bCatch.disabled=true;bDie.disabled=false;clearInterval(timer2);timer2=setInterval(()=>{if(!document.getElementById('s1').classList.contains('on')) return; if(t2>=72){clearInterval(timer2);return;} t2++;render2();},350);render2();};
+bDie.onclick=()=>{phase2=2;phase2Start=t2;bDie.disabled=true;render2();};
+document.getElementById('bReset2').onclick=()=>{clearInterval(timer2);phase2=0;t2=0;bCatch.disabled=false;bDie.disabled=true;render2();};
+render2();
+
+// ---------- 3: scent = lease ----------
+const $=id=>document.getElementById(id);
+function render3(){
+  const H=+$('hb').value, tau=+$('tau').value, th=+$('th').value, kill=$('kill').checked, add=$('mAdd').getAttribute('aria-pressed')==='true', T=48, death=20;
+  $('hbv').textContent=H+' h'; $('tauv').textContent=tau+' h'; $('thv').textContent=th.toFixed(2);
+  const L=tau*Math.log(1/th);
+  const beats=[]; for(let b=0;b<=T;b+=H){ if(kill&&b>death) break; beats.push(b); }
+  const lastBeat=t=>{let l=0;for(const b of beats){if(b<=t)l=b;else break;}return l;};
+  const sAt=[]; {let s0=0,prev=null; for(const b of beats){ s0 = add ? (prev===null?1:s0*Math.exp(-(b-prev)/tau)+1) : 1; sAt.push(s0); prev=b; }}
+  const scent=t=>{let i=-1;for(let k=0;k<beats.length;k++){if(beats[k]<=t)i=k;else break;} return sAt[i]*Math.exp(-(t-beats[i])/tau);};
+  const W=760,Hh=220,x0=46,x1=740,y0=184,y1=16, X=t=>x0+(x1-x0)*t/T;
+  let Ymax=1; for(let i=0;i<=T*20;i++){Ymax=Math.max(Ymax,scent(i/20));} const Y=s=>y0-(y0-y1)*s/Ymax;
+  let pts=[], dis=0, n=0, scentDead=null, leaseDead=null;
+  let maxS=1; for(let i=0;i<=T*20;i++){maxS=Math.max(maxS,scent(i/20));}
+  for(let i=0;i<=T*20;i++){const t=i/20, lb=lastBeat(t), s=scent(t);
+    pts.push(`${X(t).toFixed(1)},${Y(s).toFixed(1)}`);
+    const aS=s>th, aL=(t-lb)<L; n++; if(aS!==aL) dis++;
+    if(!aS&&scentDead===null) scentDead=t; if(!aL&&leaseDead===null) leaseDead=t;}
+  let g=`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y0}" stroke="#1f8a3c"/><line x1="${x0}" y1="${y0}" x2="${x0}" y2="${y1}" stroke="#1f8a3c"/>`;
+  for(let t=0;t<=T;t+=6) g+=`<text class="lbl" x="${X(t)}" y="${y0+16}" text-anchor="middle">${t}h</text>`;
+  g+=`<text class="lbl" x="${x0-6}" y="${Y(Ymax)+4}" text-anchor="end">${Ymax.toFixed(1)}</text><text class="lbl" x="${x0-6}" y="${y0+4}" text-anchor="end">0</text>`;
+  g+=`<line x1="${x0}" y1="${Y(th)}" x2="${x1}" y2="${Y(th)}" stroke="#ffb000" stroke-dasharray="4 4"/><text x="${x1}" y="${Y(th)-5}" text-anchor="end" style="fill:#ffb000">θ = ${th.toFixed(2)}</text>`;
+  for(const b of beats) g+=`<line x1="${X(b)}" y1="${y0}" x2="${X(b)}" y2="${y0+5}" stroke="#7fdbff"/>`;
+  g+=`<polyline points="${pts.join(' ')}" fill="none" stroke="#33ff66" stroke-width="1.5" style="filter:drop-shadow(0 0 3px #33ff66)"/>`;
+  if(scentDead!==null) g+=`<line x1="${X(scentDead)}" y1="${y1}" x2="${X(scentDead)}" y2="${y0}" stroke="#ffb000"/><text x="${X(scentDead)+4}" y="${y1+12}" style="fill:#ffb000">faded · ${scentDead.toFixed(2)} h</text>`;
+  if(leaseDead!==null) g+=`<text x="${X(leaseDead)+4}" y="${y1+28}" style="fill:#ffb000">lease out · ${leaseDead.toFixed(2)} h</text>`;
+  g+=`<text class="lbl" x="${x0+4}" y="${y1+4}">scent · cyan ticks are heartbeats</text>`;
+  $('sc').innerHTML=g;
+  const gapNote = H>=L ? ` <span class="amber">the beat comes every ${H} h but the lease is only ${L.toFixed(2)} h, so a live catcher is called dead between its own beats. both readings make that mistake together.</span>` : '';
+  const deaths=kill?` the scent reading calls the claim dead at ${scentDead===null?'never':scentDead.toFixed(2)+' h'}, the lease at ${leaseDead===null?'never':leaseDead.toFixed(2)+' h'}.`:'';
+  const tail = add
+    ? !kill ? ` with nobody dying, scent and lease agree while the catcher keeps beating. switch the death back on to see them part.` : (dis ? ` they part. a catcher that beat often built up scent above full, so after it dies its scent outlives its lease by τ · ln(scent at death), and the ant keeps following a trail the queue has already let go. <span class="amber">the same mechanism holds when a beat resets the scent, not when it adds.</span>` : ` with these settings the build-up never crosses the threshold's margin, so they still agree. beat more often than τ to see them part.`)
+    : ` the readings agree by the derivation above: one mechanism, in two vocabularies.`;
+  $('v3').innerHTML=`lease L = τ · ln(1/θ) = ${tau} × ln(1/${th.toFixed(2)}) = <b>${L.toFixed(2)} h</b>. sampled every 3 minutes over 48 hours, the two readings disagree at <b>${dis}</b> of ${n} instants.`+deaths+tail+gapNote;
+}
+['hb','tau','th','kill'].forEach(i=>$(i).oninput=render3);
+const setMode=add=>{for(const [id,on] of [['mReset',!add],['mAdd',add]]){const b=$(id);b.setAttribute('aria-pressed',on);b.style.background=on?'var(--ph)':'';b.style.color=on?'var(--bg)':'';} render3();};
+$('mReset').onclick=()=>setMode(false); $('mAdd').onclick=()=>setMode(true); render3();
+
+// ---------- 4: the ladder ----------
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+let seed=7;
+function catcher(r,pd,ps){const u=r(); if(u<pd) return {kind:'dead',dies:1+r()*9}; if(u<pd+ps) return {kind:'slow',finish:20+r()*20}; return {kind:'ok',finish:2+r()*8};}
+function render4(){
+  const pd=+$('pd').value, ps=+$('ps').value, AGE=+$('age').value, L=3, N=40;
+  $('pdv').textContent=Math.round(pd*100)+'%'; $('psv').textContent=Math.round(ps*100)+'%'; $('agev').textContent=AGE+' h'; $('seedv').textContent='seed '+seed;
+  const r=mulberry32(seed);
+  const batons=[...Array(N)].map(()=>({first:catcher(r,pd,ps),second:catcher(r,pd,ps)}));
+  const pol=[
+    {name:'old · done inferred',f:b=>b.first.kind==='dead'?{c:'×',k:'lost'}:{c:'█',k:'done'}},
+    {name:'rung 1 · manual ack',f:b=>b.first.kind==='dead'?{c:'?',k:'stuck'}:{c:'█',k:'done'}},
+    {name:'rung 2 · lease by age',f:b=>{const c=b.first; if(c.kind==='dead') return {c:'!',k:'flag',lag:Math.max(0,AGE-c.dies)};
+        if(c.finish>AGE) return {c:'~',k:'false'}; return {c:'█',k:'done'};}},
+    {name:'rung 3 · heartbeat fade',f:b=>b.first.kind==='dead'?{c:'!',k:'flag',lag:L}:{c:'█',k:'done'}},
+    {name:'rung 4 · dead letter',f:b=>{if(b.first.kind!=='dead') return {c:'█',k:'done'}; if(b.second.kind==='dead') return {c:'▲',k:'esc',lag:L};
+        return {c:'█',k:'done',recaught:true};}},
+  ];
+  const cls={done:'white',lost:'red',stuck:'dim',flag:'amber',false:'amber',esc:'cyan'};
+  let rows='', tb='<tr><th>rung</th><th>lost in silence</th><th>dead, unflagged</th><th>dead, flagged</th><th>h dead before flag</th><th>alive, called dead</th><th>to a person</th><th>re-caught</th></tr>';
+  const sums=[];
+  for(const p of pol){
+    const out=batons.map(p.f); const c=k=>out.filter(o=>o.k===k).length;
+    const flagged=out.filter(o=>o.k==='flag'||o.k==='esc'), lag=flagged.length?(flagged.reduce((a,o)=>a+o.lag,0)/flagged.length).toFixed(1):'–';
+    const re=out.filter(o=>o.recaught).length;
+    rows+=`<div class="cells"><span class="dim">${p.name.padEnd(24,' ')}</span>${out.map(o=>`<span class="${cls[o.k]}">${o.c}</span>`).join('')}</div>`;
+    tb+=`<tr><td>${p.name}</td><td class="${c('lost')?'red':''}">${c('lost')}</td><td>${c('stuck')}</td><td>${c('flag')}</td><td>${lag}</td><td class="${c('false')?'amber':''}">${c('false')}</td><td>${c('esc')}</td><td>${re||'–'}</td></tr>`;
+    sums.push({lost:c('lost'),stuck:c('stuck'),flag:c('flag'),fals:c('false'),esc:c('esc'),re});
+  }
+  $('rows').innerHTML=rows; $('tbl').innerHTML=tb;
+  const [o,r1,r2,r3,r4]=sums;
+  $('v4').innerHTML=`the old reading loses <b>${o.lost}</b> and reports them done. rung 1 loses none but leaves <b>${r1.stuck}</b> dead claims for someone to notice. rung 2 flags them, and also calls <b>${r2.fals}</b> slow catchers dead, because age cannot tell slow from gone. rung 3 reads the heartbeat instead and calls no live catcher dead. rung 4 re-offers each flagged baton; <b>${r4.re}</b> are finished by a second catcher and <b>${r4.esc}</b> ${r4.esc===1?'that fumbles twice goes':'that fumble twice go'} to a person instead of looping.`;
+}
+['pd','ps','age'].forEach(i=>$(i).oninput=render4);
+$('reseed').onclick=()=>{seed=(seed*48271)%2147483647;render4();};
+render4();
+</script>
+</body>
+</html>

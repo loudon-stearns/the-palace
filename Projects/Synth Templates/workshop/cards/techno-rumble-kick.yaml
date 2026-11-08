@@ -1,0 +1,70 @@
+# Synth Templates — Genre Classics — Techno Rumble Kick
+# An 808 kick fed into a long reverb, the reverb low-passed into a rumble, the rumble ducked by the kick itself. A layer, not a sound.
+schema: synth-template-card/0.2
+id: techno-rumble-kick
+name: Techno Rumble Kick
+family: Genre Classics
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+lineage:
+  - "cards/808-kick.yaml: the kick this one is built on"
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Envelope trigger / one-shot mode"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Cutoff frequency"
+  - "Pluck / strike: release = decay; gong vs marimba"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, retrigger: true}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none, note: "in the real chain this sits after the reverb, on the return only, and makes the rumble; the slots draw it before"}
+    amp:     {kind: amplifier, level: full}
+    fx:      {kind: fx, chain: [saturation, reverb], note: "the reverb return is sidechained to the dry kick, so the rumble breathes between hits; the voice cannot duck yet"}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: short, s: zero, r: short}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: zero, r: medium}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,           why: "the kick is a pitch drop and nothing else; what the reverb smears is this"}
+  - {block: menv,    param: decay,     value: short,          why: "the punch: an octave down in the first instant"}
+  - {block: menv,    param: mode,      value: one-shot,       why: "the hit plays out whatever the note length"}
+  - {block: aenv,    param: decay,     value: medium,         why: "shorter than an 808: the rumble supplies the tail, so the kick itself must get out of its way"}
+  - {block: aenv,    param: sustain,   value: zero}
+  - {block: fx,      param: chain,     value: saturation then reverb, why: "the drive gives the reverb harmonics to smear; the reverb, long and dark, is the rumble"}
+  - {block: filter1, param: cutoff,    value: dark,           why: "the rumble is low only: everything above the kick's body is cut from the return, so it is a floor, not a wash"}
+  - {block: fx,      param: sidechain, value: reverb ducked by the kick, why: "the rumble drops on every hit and swells back between: the pump is the groove"}
+
+taste:
+  - {block: aenv,    param: decay,     range: "short – long",        default: medium}
+  - {block: menv,    param: amount,    range: "a fifth – two octaves", default: about an octave}
+  - {block: filter1, param: cutoff,    range: "dark – mid",          default: dark, why: "how much of the rumble's top is kept"}
+  - {block: fx,      param: reverb,    range: "large – huge",        default: huge}
+  - {block: fx,      param: drive,     range: "light – heavy",       default: heavy}
+  - {block: osc1,    param: pitch,     range: "F1 – C2",             default: G1}
+
+listening:
+  cue: "A kick with a low, dark cloud behind it that never quite goes away: the cloud ducks under each hit and swells back in the gap. The room is the bass line."
+  ab: "Open the filter on the reverb: the rumble becomes a bright wash and the floor turns to mud. Put it back. Then remove the sidechain: the cloud stops breathing, the kick disappears into it, and the groove is gone."
+
+render:
+  tempo: 132
+  note: G1
+  velocity: 115
+  pattern: "four on the floor, two bars; the rumble left to ring after the last hit"
+  length_s: 6.0
+
+mappings: {}

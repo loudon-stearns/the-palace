@@ -1,0 +1,257 @@
+{
+  "title": "Resonance and Damping — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Resonance and Damping]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Waveguide Synthesizer]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "every-made-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Resonance and Damping's rich face, its first round at Study tier and still a proposal: three made pieces that measure the page's claims off runs of its own equations (the three faces of Q, Galileo's ringer against Young's push, a waveguide string's loss per trip), the page's own staged walk and proof gathered beside the paragraph that names them, and the Waveguide's soundboard sheet and bridge sweep gathered where the body and the energy are. I grow when Loudon has heard them; I never hold the entry's words.",
+  "entry": "Resonance and Damping",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "One number, three faces",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Resonance and Damping — rich — three rulers.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, offline-rendered",
+          "height": 1220,
+          "title": "Three rulers, one Q · four steps",
+          "caption": "**Is it one number?** One swing, the page's own equation run sample by sample, measured three ways: a strike timed to −60 dB, a push at its own rate measured for height, a push at every rate measured for the width of its peak. Each ruler turns its reading back into a Q. It walks up one face at a time, and the last step lays the three side by side and re-measures the page's table at 1 kHz. Measured here: all three rulers agree with the Q set to within 0.3%, from Q 1 to 200 and 220 Hz to 1 kHz; the width times the time to fall to 1/e comes to 0.3183, 1 ÷ π; the swing's own band runs 8.1% wide of f ÷ Q at Q 2 and 0.25% at Q 10, and at Q 1 it has no lower edge, as the section's \"closely once Q is above a few\" allows. The sound is held level to keep ears safe, so the sheets carry the heights.",
+          "near": "The width and the ring time trade against each other exactly"
+        }
+      ],
+      "made_against": "23b636834a32",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Resonance and Damping — rich — three rulers.html",
+            "verdict": "keep",
+            "why": "A real test: three independent rulers each give back a Q and could disagree; walks up one face a step. Fix the wording 'within 60 dB of its height' (line 119, canvas line 526) to 'within a thousandth of its full height', which is what line 253 measures."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Pushing it",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Resonance and Damping — rich — who keeps time.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, offline-rendered",
+          "height": 1210,
+          "title": "Who keeps the time · four steps",
+          "caption": "**Galileo's ringer and Young's push on one weight.** A ringer who tugs whenever the bell comes back past the middle, against a pusher who keeps his own clock. Measured: the ringer's tugs come at the bell's own rate whatever that rate is (0.9995 of it, at Q 20), and tugging anywhere but the middle nudges the rate and shrinks the swing; Young's push settles the swing at the push's rate to four decimals. Then the section's three bullets, each read off a run: at its own rate the swing is Q times as far and 90.00° behind, and 0.0000% of each cycle's energy comes back; off it, energy comes back each cycle, 50% of what went in at 0.8 f and 92% at f ÷ 4; in and out balance to 1.0000 at every rate; the peak sits at 0.935 f at Q 2 and is gone below Q 0.707. The picture runs 300 times slower than the sound.",
+          "near": "Every push goes in and none comes back"
+        }
+      ],
+      "made_against": "ea710651c4b3",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Resonance and Damping — rich — who keeps time.html",
+            "verdict": "keep",
+            "why": "Steps 3–4 test all three bullets on runs (Q×, 90.000°, 0.0000% back, balance 1.0000, peak at √(1−1/2Q²), gone below 0.707; energy back 50%/92% confirmed in closed form); the ringer steps show why the page's 'both are true' holds. Minor: the idle rAF loop redraws every frame."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Where the builds point",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Resonance and Damping — rich — loss per trip.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, offline-rendered",
+          "height": 1160,
+          "title": "Loss per trip · four steps",
+          "caption": "**Brightness and sustain, one curve.** A Karplus–Strong string with the loop gain and the loop filter on separate sliders, and every partial's ring time read back off the sound. It walks up from one partial keeping a fraction g each trip, through a loop with gain alone (every partial alike, the note never darkens), to the filter (the top dies first), to the test: each partial's loss a trip against g·|H|. Measured: the page's numbers hold (0.995 loses 0.0435 dB a trip, 1,378 trips, 6.26 s at 220 Hz); the gain adds the same decibels a trip to every partial; the filter adds 0.0004 dB a trip at partial 1 and 0.063 dB at partial 12 going from b 0.1 to 0.3. The string is the page's loop, so this checks the page's arithmetic and its reading of the loop, not a real string.",
+          "near": "The loop filter makes that loss depend on frequency"
+        },
+        {
+          "file": "/Projects/Waveguide Synthesizer/offline-v1.8/body-links-sheet.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "the bridge and the board · Waveguide Synthesizer study v1.8",
+          "caption": "The Waveguide's soundboard in four states: a rigid bridge keeping 100% each bounce (the board gets nothing), a soft one keeping 90% (the board gets 19% of the energy, 1 − 0.9²), and a small and a big board at the default bridge. Gathered from the Waveguide project's v1.8 round as it was.",
+          "near": "the energy the string loses at the bridge is exactly the energy the board gets"
+        }
+      ],
+      "made_against": "cb694da95737",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Resonance and Damping — rich — loss per trip.html",
+            "verdict": "keep",
+            "why": "Step 4 tests the one-curve reading on a real KS loop read by Goertzel (gain adds 0.0438 dB at every partial; filter bends the top); page's 0.044 dB / 1,380 trips / 6.3 s hold. Step 1's 'read off the sound' reads a sine built from the formula, so it checks the reader, not the claim."
+          },
+          {
+            "file": "/Projects/Waveguide Synthesizer/offline-v1.8/body-links-sheet.png",
+            "verdict": "keep",
+            "why": "An honest record whose caption matches the image (rigid: nothing; soft 90%: 19.0%), but it pictures the bridge's energy split, not a bank of modes: re-anchor near 'the energy the string loses at the bridge is exactly the energy the board gets'."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Damping is where the sound goes",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/Waveguide Synthesizer/offline-v1.8/bridge-feeds-body.wav",
+          "origin": "gathered",
+          "title": "six plucks, bridge rigid to soft · Waveguide Synthesizer v1.8",
+          "caption": "**The trade, heard.** Six G3 plucks from the Waveguide's own engine, run headless, the bridge going from rigid to soft (keeps 1.000, 0.995, 0.985, 0.960, 0.930, 0.900 each bounce). As the board takes more, the note gets louder and shorter: peaks −14.7, −12.5, −10.3, −7.3, −5.5, −4.4 dBFS; rings (to −40 dB) 2.98, 1.90, 1.04, 0.48, 0.30, 0.20 s. One honest gap: the model's pickup hears the string itself, so even the rigid bridge sounds here; the section's string that would never be heard is a real string's, not this one's.",
+          "near": "Sustain and loudness are drawn from the same store"
+        }
+      ],
+      "made_against": "21ab3ad0dc60",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Waveguide Synthesizer/offline-v1.8/bridge-feeds-body.wav",
+            "verdict": "keep",
+            "why": "A second engine on the section's trade (softer bridge, louder and shorter); every caption number matches body-levels.json and the −40 dB ring matches body_render.mjs:22; the pickup gap is named. Tracked, resolves, plays."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Building one",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Resonance and Damping — sketch — q-step-by-step.html",
+          "origin": "gathered",
+          "height": 1360,
+          "title": "Q, step by step · the five steps up",
+          "caption": "**The way up, gathered as it was.** Five steps, each a whole thing to play: it rings at its own rate, it forgets, pushed it moves at your rate, near its own rate the push piles up, and the swing falls a quarter cycle behind. The sixth step opens the proof below. Finished 2026-10-29 and checked headless; still owed, by the page's own forward vector, hearing on speakers and a learner taking it by hand. It wears the Drafting Table's paper, the work's own dress, not the face's.",
+          "near": "is this resonator in a page"
+        },
+        {
+          "file": "Resonance and Damping — sketch — q-you-can-hear.html",
+          "origin": "gathered",
+          "height": 830,
+          "contract": {
+            "needs": "",
+            "files": "",
+            "net": ""
+          },
+          "title": "Q you can hear · the proof",
+          "caption": "**The proof, gathered as it was.** The page's digital resonator, y[n] = x[n] + 2r·cos θ·y[n−1] − r²·y[n−2]: strike it, feed it noise, or sweep a sine push through its peak, with the peak, the ring and the lag drawn from the same two numbers. Its own check measures ring time, half-power width and the 90° lag at f within 1 to 5% of the page's rules. It holds the peak at one height to keep ears safe; the three rulers above measure the height it leaves out. Still a rough by its forward vector: it wants Loudon's ears. It needs nothing of its host: no device, no storage, no palace file, no host beyond its fonts; its link to the steps is a link, not a load.",
+          "near": "is this resonator in a page"
+        }
+      ],
+      "made_against": "35974b9264f6",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Resonance and Damping — sketch — q-step-by-step.html",
+            "verdict": "keep",
+            "why": "The page's own staged walk, linked by its text; six steps with the proof last, as captioned; conform clean."
+          },
+          {
+            "file": "Resonance and Damping — sketch — q-you-can-hear.html",
+            "verdict": "keep",
+            "why": "The page's own proof; its check re-run ALL PASS (ring 0.02498 s, width 87.5/88 Hz, lag 87.1°–89.7°), so 'within 1 to 5%' is honest. The empty contract {} is reported by conform as owed."
+          }
+        ]
+      }
+    }
+  ],
+  "offers": [
+    {
+      "section": "Two numbers",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "\"the fraction is 2π ÷ Q\" holds only for a high Q; the sentence's own Q 100 example stands. Measured on the three-rulers swing: energy lost each cycle is 6.09% at Q 100 (2π ÷ Q = 6.28%, a sixteenth = 6.25%), 46.7% at Q 10 (2π ÷ Q says 62.8%), 96.1% at Q 2 (it says 314%). Suggest \"about 2π ÷ Q, for a high Q\"."
+    },
+    {
+      "section": "One number, three faces",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "\"closely once Q is above a few\" can carry its numbers. Measured, and confirmed in closed form by the challenger: the swing's own half-power band runs wider than f ÷ Q by 8.12% at Q 2, 3.08% at Q 3, 1.04% at Q 5, 0.252% at Q 10; its lower edge first appears at Q = √(1 + 1/√2) ≈ 1.31, so at Q 1 there is none. The band-pass width is exactly f ÷ Q (measured within 0.12%, Q 1 to 1000)."
+    },
+    {
+      "section": "One number, three faces",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Not a fourth face: the third seen from the note's start. A push at its own rate starts the swing's own free ring along with the steady swing, and that ring dies at the same rate as a strike's, so the gap to full height closes in the ring time: within a thousandth of full height in 49.7 ms against a 50.0 ms ring at Q 10, 440 Hz (short by 0.5% at Q 10, 0.08% at Q 200, 7.4% at Q 2, where the transient beats against the push). Suggest a clause on the ring-time bullet: \"and a push at its own rate takes the same time to build\". It adds a claim, so through the Deposit map."
+    },
+    {
+      "section": "Pushing it",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page is right; this is a second, sharper description to add beside \"Struck, a thing rings at its own rate. Driven, it moves at yours\", not to replace it. Galileo's ringer was driving too, every swing, but he timed each tug by the bell, so the axis that separates his case from Young's is who keeps the time: pushed in time with itself, it keeps its own rate; pushed by a clock of its own, it takes the clock's. Measured: tugs timed by the swing come at 0.9995 of its own rate at own rates 0.7, 1 and 1.5 (Q 20); Young's push settles the swing at the push's rate to four decimals; tugs off the middle nudge the rate (0.966 at 60° late, 0.919 at 90°). A sentence beside the struck/driven pair, through the Deposit map."
+    }
+  ]
+}

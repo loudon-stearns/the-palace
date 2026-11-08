@@ -1,0 +1,159 @@
+{
+ "sigma": 1.0,
+ "sweep_seconds": 24.0,
+ "tables": {
+  "akwf_fmsynth_family_chain": {
+   "frames": 122,
+   "blur_dial": [
+    {
+     "sigma": 0,
+     "offnote_db": -26.1,
+     "worst_morph_dip_db": -2.9,
+     "changed_db": null
+    },
+    {
+     "sigma": 0.5,
+     "offnote_db": -28.7,
+     "worst_morph_dip_db": -2.1,
+     "changed_db": -21.7
+    },
+    {
+     "sigma": 0.75,
+     "offnote_db": -33.3,
+     "worst_morph_dip_db": -1.2,
+     "changed_db": -14.3
+    },
+    {
+     "sigma": 1.0,
+     "offnote_db": -36.6,
+     "worst_morph_dip_db": -0.7,
+     "changed_db": -12.2
+    },
+    {
+     "sigma": 1.5,
+     "offnote_db": -41.5,
+     "worst_morph_dip_db": -0.3,
+     "changed_db": -10.1
+    },
+    {
+     "sigma": 2.0,
+     "offnote_db": -44.8,
+     "worst_morph_dip_db": -0.2,
+     "changed_db": -9.3
+    }
+   ],
+   "spline_only": {
+    "frames": 256,
+    "offnote_db": -29.2
+   },
+   "files": [
+    "akwf_fmsynth_family_chain_smooth.wav",
+    "akwf_fmsynth_family_chain_smooth_ableton.wav",
+    "akwf_fmsynth_family_chain_smooth_audition_sweep.wav",
+    "akwf_fmsynth_family_chain_AB_shipped_then_smooth.wav"
+   ]
+  },
+  "akwf_eorgan_family_chain": {
+   "frames": 142,
+   "blur_dial": [
+    {
+     "sigma": 0,
+     "offnote_db": -25.4,
+     "worst_morph_dip_db": -2.7,
+     "changed_db": null
+    },
+    {
+     "sigma": 0.5,
+     "offnote_db": -28.7,
+     "worst_morph_dip_db": -1.9,
+     "changed_db": -23.8
+    },
+    {
+     "sigma": 0.75,
+     "offnote_db": -34.7,
+     "worst_morph_dip_db": -1.1,
+     "changed_db": -16.7
+    },
+    {
+     "sigma": 1.0,
+     "offnote_db": -38.9,
+     "worst_morph_dip_db": -0.7,
+     "changed_db": -14.4
+    },
+    {
+     "sigma": 1.5,
+     "offnote_db": -44.5,
+     "worst_morph_dip_db": -0.4,
+     "changed_db": -12.1
+    },
+    {
+     "sigma": 2.0,
+     "offnote_db": -47.7,
+     "worst_morph_dip_db": -0.3,
+     "changed_db": -11.0
+    }
+   ],
+   "spline_only": {
+    "frames": 256,
+    "offnote_db": -27.8
+   },
+   "files": [
+    "akwf_eorgan_family_chain_smooth.wav",
+    "akwf_eorgan_family_chain_smooth_ableton.wav",
+    "akwf_eorgan_family_chain_smooth_audition_sweep.wav",
+    "akwf_eorgan_family_chain_AB_shipped_then_smooth.wav"
+   ]
+  },
+  "ai_cycles_family_chain": {
+   "frames": 256,
+   "blur_dial": [
+    {
+     "sigma": 0,
+     "offnote_db": -16.9,
+     "worst_morph_dip_db": -2.5,
+     "changed_db": null
+    },
+    {
+     "sigma": 0.5,
+     "offnote_db": -20.6,
+     "worst_morph_dip_db": -1.8,
+     "changed_db": -25.8
+    },
+    {
+     "sigma": 0.75,
+     "offnote_db": -28.2,
+     "worst_morph_dip_db": -1.1,
+     "changed_db": -19.4
+    },
+    {
+     "sigma": 1.0,
+     "offnote_db": -34.9,
+     "worst_morph_dip_db": -0.8,
+     "changed_db": -17.1
+    },
+    {
+     "sigma": 1.5,
+     "offnote_db": -42.7,
+     "worst_morph_dip_db": -0.5,
+     "changed_db": -15.3
+    },
+    {
+     "sigma": 2.0,
+     "offnote_db": -45.1,
+     "worst_morph_dip_db": -0.3,
+     "changed_db": -14.3
+    }
+   ],
+   "spline_only": {
+    "frames": 256,
+    "offnote_db": -16.9
+   },
+   "files": [
+    "ai_cycles_family_chain_smooth.wav",
+    "ai_cycles_family_chain_smooth_ableton.wav",
+    "ai_cycles_family_chain_smooth_audition_sweep.wav",
+    "ai_cycles_family_chain_AB_shipped_then_smooth.wav"
+   ]
+  }
+ }
+}

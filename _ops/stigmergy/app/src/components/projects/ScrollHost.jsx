@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { fetchProjects, enchantProject } from '../../adapters/projects.js';
 import { advanceSteward } from '../../adapters/stewards.js';
 import { advanceFeedback, enchantFeedback } from './steward-feedback.js';
+import { rowEnded } from '../../lib/scroll-view.js';
 import ScrollView from './ScrollView.jsx';
 
 // ScrollHost — one page's scroll, opened from any deck (`?scroll=<home>`).
@@ -35,9 +36,11 @@ export default function ScrollHost({ home, messages = [], onConfirmed, onBack, b
   const row = byHome(data?.projects) || byHome(data?.services) || ledgerRow;
   const worker = data?.worker ?? {};
 
-  async function doAdvance() {
+  // `count` is the scroll's cycle count (RunCount): the run's cap for this
+  // advance, sent as max_cycles; the manifest on disk is never touched.
+  async function doAdvance(count) {
     setBusy(true); setFeedback(null);
-    setFeedback(advanceFeedback(home, await advanceSteward(home)));
+    setFeedback(advanceFeedback(home, await advanceSteward(home, { maxCycles: count })));
     setBusy(false); refresh();
   }
 
@@ -59,8 +62,8 @@ export default function ScrollHost({ home, messages = [], onConfirmed, onBack, b
         backLabel={backLabel}
         onAdvance={ledgerRow ? undefined : doAdvance}
         canAdvance={!ledgerRow && !!row && row.stewarded && !row.running && !row.queued && !busy}
-        onEnchant={ledgerRow ? undefined : doEnchant}
-        canEnchant={!ledgerRow && !!row && !row.stewarded && !busy}
+        onEnchant={ledgerRow || rowEnded(row) ? undefined : doEnchant}
+        canEnchant={!ledgerRow && !!row && !row.stewarded && !rowEnded(row) && !busy}
         feedback={feedback}
       />
     </div>

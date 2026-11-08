@@ -1,0 +1,90 @@
+2026-11-01 22:48:20,068 semantic-delay-daemon INFO prompt registry: scanned 0 entries from /private/var/folders/00/cptnslpd44z_1bq0w53rdx2h0000gn/T/sd-plugin-fvcukk5d/prompts
+2026-11-01 22:48:20,075 semantic-delay-daemon INFO inference worker: loading SoulX-Singer-SVC (~17 s on the M1 Max)
+2026-11-01 22:48:20,246 semantic-delay-daemon INFO listening on /private/var/folders/00/cptnslpd44z_1bq0w53rdx2h0000gn/T/sd-plugin-fvcukk5d/daemon.sock
+2026-11-01 22:48:20,455 semantic-delay-daemon INFO [4781751184] connection opened
+2026-11-01 22:48:20,456 semantic-delay-daemon INFO [4781751184] client closed
+2026-11-01 22:48:20,969 semantic-delay-daemon INFO [5249637968] connection opened
+2026-11-01 22:48:20,970 semantic-delay-daemon INFO [5249637968] client closed
+/Users/loudonstearns/miniconda3/envs/soulx/lib/python3.11/site-packages/pyworld/__init__.py:13: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+2026-11-01 22:48:21,515 semantic-delay-daemon INFO [5307536528] connection opened
+2026-11-01 22:48:21,515 semantic-delay-daemon INFO [5307536528] client closed
+2026-11-01 22:48:22,091 semantic-delay-daemon INFO [13104731984] connection opened
+2026-11-01 22:48:22,091 semantic-delay-daemon INFO [13104731984] client closed
+2026-11-01 22:48:22,636 semantic-delay-daemon INFO [13105690384] connection opened
+2026-11-01 22:48:22,641 semantic-delay-daemon INFO [13105690384] client closed
+2026-11-01 22:48:23,214 semantic-delay-daemon INFO [13105746576] connection opened
+2026-11-01 22:48:23,215 semantic-delay-daemon INFO [13105746576] client closed
+2026-11-01 22:48:23,758 semantic-delay-daemon INFO [13110293392] connection opened
+2026-11-01 22:48:23,758 semantic-delay-daemon INFO [13110293392] client closed
+2026-11-01 22:48:24,272 semantic-delay-daemon INFO [13152126480] connection opened
+2026-11-01 22:48:24,273 semantic-delay-daemon INFO [13152126480] client closed
+2026-11-01 22:48:24,848 semantic-delay-daemon INFO [13151958928] connection opened
+2026-11-01 22:48:24,849 semantic-delay-daemon INFO [13151958928] client closed
+2026-11-01 22:48:25,406 semantic-delay-daemon INFO [13151959696] connection opened
+2026-11-01 22:48:25,407 semantic-delay-daemon INFO [13151959696] client closed
+2026-11-01 22:48:25,982 semantic-delay-daemon INFO [13151958928] connection opened
+2026-11-01 22:48:25,982 semantic-delay-daemon INFO [13151958928] client closed
+2026-11-01 22:48:26,535 semantic-delay-daemon INFO [13151959696] connection opened
+2026-11-01 22:48:26,535 semantic-delay-daemon INFO [13151959696] client closed
+2026-11-01 22:48:27,092 semantic-delay-daemon INFO [13151958928] connection opened
+2026-11-01 22:48:27,092 semantic-delay-daemon INFO [13151958928] client closed
+2026-11-01 22:48:27,617 semantic-delay-daemon INFO [13151959696] connection opened
+2026-11-01 22:48:27,617 semantic-delay-daemon INFO [13151959696] client closed
+2026-11-01 22:48:28,120 semantic-delay-daemon INFO [13151958928] connection opened
+2026-11-01 22:48:28,120 semantic-delay-daemon INFO [13151958928] client closed
+2026-11-01 22:48:28,696 semantic-delay-daemon INFO [13152131024] connection opened
+2026-11-01 22:48:28,696 semantic-delay-daemon INFO [13152131024] client closed
+2026-11-01 22:48:29,225 semantic-delay-daemon INFO [13152602448] connection opened
+2026-11-01 22:48:29,225 semantic-delay-daemon INFO [13152602448] client closed
+2026-11-01 22:48:29,734 semantic-delay-daemon INFO [13152609680] connection opened
+2026-11-01 22:48:29,735 semantic-delay-daemon INFO [13152609680] client closed
+2026-11-01 22:48:30,316 semantic-delay-daemon INFO [13152610448] connection opened
+2026-11-01 22:48:30,316 semantic-delay-daemon INFO [13152610448] client closed
+2026-11-01 22:48:30,892 semantic-delay-daemon INFO [13152610704] connection opened
+2026-11-01 22:48:30,892 semantic-delay-daemon INFO [13152610704] client closed
+2026-11-01 22:48:31,441 semantic-delay-daemon INFO [13152129808] connection opened
+2026-11-01 22:48:31,441 semantic-delay-daemon INFO [13152129808] client closed
+2026-11-01 22:48:31,950 semantic-delay-daemon INFO [13152831184] connection opened
+2026-11-01 22:48:31,950 semantic-delay-daemon INFO [13152831184] client closed
+/Users/loudonstearns/miniconda3/envs/soulx/lib/python3.11/site-packages/torch/functional.py:660: UserWarning: The operator 'aten::_fft_r2c' is not currently supported on the MPS backend and will fall back to run on the CPU. This may have performance implications. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/mps/MPSFallback.mm:13.)
+  return _VF.stft(input, n_fft, hop_length, win_length, window,  # type: ignore[attr-defined]
+2026-11-01 22:48:32,526 semantic-delay-daemon INFO [13118471824] connection opened
+2026-11-01 22:48:32,527 semantic-delay-daemon INFO [13118471824] client closed
+2026-11-01 22:48:33,047 semantic-delay-daemon INFO [13118469456] connection opened
+2026-11-01 22:48:33,047 semantic-delay-daemon INFO [13118469456] client closed
+2026-11-01 22:48:33,571 semantic-delay-daemon INFO [13118355024] connection opened
+2026-11-01 22:48:33,571 semantic-delay-daemon INFO [13118355024] client closed
+2026-11-01 22:48:34,072 semantic-delay-daemon INFO [13118349776] connection opened
+2026-11-01 22:48:34,072 semantic-delay-daemon INFO [13118349776] client closed
+2026-11-01 22:48:34,572 semantic-delay-daemon INFO [13118352144] connection opened
+2026-11-01 22:48:34,573 semantic-delay-daemon INFO [13118352144] client closed
+2026-11-01 22:48:35,132 semantic-delay-daemon INFO [13118464912] connection opened
+2026-11-01 22:48:35,132 semantic-delay-daemon INFO [13118464912] client closed
+2026-11-01 22:48:35,644 semantic-delay-daemon INFO [13118342928] connection opened
+2026-11-01 22:48:35,644 semantic-delay-daemon INFO [13118342928] client closed
+2026-11-01 22:48:36,177 semantic-delay-daemon INFO [13118353296] connection opened
+2026-11-01 22:48:36,177 semantic-delay-daemon INFO [13118353296] client closed
+2026-11-01 22:48:36,750 semantic-delay-daemon INFO [13118355984] connection opened
+2026-11-01 22:48:36,751 semantic-delay-daemon INFO [13118355984] client closed
+2026-11-01 22:48:37,281 semantic-delay-daemon INFO [13118346832] connection opened
+2026-11-01 22:48:37,281 semantic-delay-daemon INFO [13118346832] client closed
+2026-11-01 22:48:37,539 semantic-delay-daemon INFO inference worker: model loaded on mps in 11.8 s, warmed up in 5.2 s; ready for jobs
+2026-11-01 22:48:37,848 semantic-delay-daemon INFO [13118348368] connection opened
+2026-11-01 22:48:37,849 semantic-delay-daemon INFO [13118348368] client closed
+2026-11-01 22:48:38,897 semantic-delay-daemon INFO [13118344720] connection opened
+2026-11-01 22:48:39,674 semantic-delay-daemon INFO [13118344720] client closed
+2026-11-01 22:48:46,914 semantic-delay-daemon INFO [13118356240] connection opened
+2026-11-01 22:48:53,753 semantic-delay-daemon INFO convert spirit.huehuecoyotl.v1: 6.70 s in, rtf=1.02, shift=+2 st
+2026-11-01 22:48:59,521 semantic-delay-daemon INFO convert spirit.huehuecoyotl.v1: 4.79 s in, rtf=1.20, shift=+0 st
+2026-11-01 22:49:06,265 semantic-delay-daemon INFO convert spirit.huehuecoyotl.v1: 6.70 s in, rtf=1.01, shift=+2 st
+2026-11-01 22:49:11,751 semantic-delay-daemon INFO convert spirit.huehuecoyotl.v1: 4.79 s in, rtf=1.14, shift=+1 st
+2026-11-01 22:49:22,212 semantic-delay-daemon INFO [13118356240] client closed
+2026-11-01 22:49:22,259 semantic-delay-daemon INFO [13118352144] connection opened
+2026-11-01 22:49:22,259 semantic-delay-daemon INFO shutdown requested (shutdown method)
+2026-11-01 22:49:22,261 semantic-delay-daemon INFO teardown: closing server
+2026-11-01 22:49:22,262 semantic-delay-daemon INFO teardown: complete
+2026-11-01 22:49:22,263 semantic-delay-daemon INFO [13118352144] client closed
+Model initialized.
+Model parameters: 698.317314 M
+Model checkpoint loaded.

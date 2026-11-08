@@ -1,0 +1,26 @@
+{
+ "entry": "Latent Error",
+ "path": "Latent Error.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "§ Control Theory Translation: 'Latent error thinking is the I term' — P alone leaves steady-state error, I removes accumulated bias.",
+ "pieces": [
+  {
+   "section": "Control Theory Translation: The Integral Term",
+   "what": "A PID loop on a simple plant with P, I and D sliders and a constant disturbance; the reader watches P alone settle off-target and I pull it home. Also shows that P alone on a first-order plant settles with an offset rather than oscillating, which the text runs together.",
+   "kind": "interactive",
+   "walks_up_from": "a heater with no controller"
+  },
+  {
+   "section": "Latent Error (opening)",
+   "what": "Swiss cheese: stack layers, slide the holes, and count how often a failure gets through; redesign one layer and watch the rate fall.",
+   "kind": "interactive",
+   "walks_up_from": "one slice with one hole"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "The first piece would test the section and likely catch its own latent error: 'P alone creates oscillation' and 'oscillate around the target, never settling' hold only for some plants. Carry home through the Deposit map if confirmed.",
+ "slice": 1
+}

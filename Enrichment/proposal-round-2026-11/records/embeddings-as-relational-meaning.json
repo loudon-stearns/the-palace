@@ -1,0 +1,26 @@
+{
+ "entry": "Embeddings as Relational Meaning",
+ "path": "Embeddings as Relational Meaning.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 6,
+ "claim": "Opening: a word's meaning is a position in a high-dimensional space determined entirely by its associations; 'directions and distances in that space encode semantic relationships (king − man + woman ≈ queen), syntactic roles, conceptual neighborhoods.' § The Geometry of Meaning: categories are regions in a continuous space whose boundaries 'are not walls; they are gradients'; context-dependent embeddings put 'bank' near 'river' and 'bank' near 'loan' at different positions.",
+ "pieces": [
+  {
+   "section": "Embeddings as Relational Meaning",
+   "what": "A small REAL embedding set baked into the piece (a few hundred to a few thousand words from a licence-clean trained model, with the source and licence named in the piece; the cloud's shelf: the MIT-licensed wink-embeddings-sg-100d package from npm, extracted to the words the piece needs, plus the word2vec analogy test set from the public word2vec repository). The reader does king − man + woman and reads the nearest neighbours. The test comes last and is stated first: chance level (nearest of N), verdict rule, how many of a fixed set of analogy quads resolve to the expected word at top-1 and top-5 with the three input words excluded (say so — including them is the standard leak), and both arms scored: the real vectors against the same vectors with their components shuffled per word. Tests that direction encodes relation.",
+   "kind": "interactive",
+   "walks_up_from": "two words and one distance"
+  },
+  {
+   "section": "The Geometry of Meaning",
+   "what": "Regions with gradients: a 2-D projection (PCA computed in the piece from the same baked vectors) of three category sets the page names — animals, emotions, musical intervals. The reader walks a straight line through the space from one category to another and watches the nearest-centroid label change. Tests 'gradients, not walls': does the margin (cosine to each centroid) cross smoothly or jump? Also tests the limit the page states: a static embedding gives 'bank' one point, so the two senses cannot be separated by these vectors — the piece shows that honestly rather than claiming a contextual model it cannot run.",
+   "kind": "interactive",
+   "walks_up_from": "one axis, two words"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "note": "Study tier because the test needs real data: nothing licensed, nothing from a CDN (the cloud's browser cannot reach jsdelivr, cdnjs or unpkg, and huggingface.co is closed to it; registry.npmjs.org and raw.githubusercontent.com are open). The tarball and the analogy set are pre-fetched to the maker's scratchpad path given in the task; the maker extracts only what the piece needs and inlines it, under 25 MB, with the licence line in the piece's head comment. A finding about the untyped-vs-typed question (Open Questions) is an offer, not a piece. No board notes; no baton on the page.",
+ "slice": "cloud-1"
+}

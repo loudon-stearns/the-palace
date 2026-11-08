@@ -1,0 +1,69 @@
+# Synth Templates — card — Organ Bass
+# Three sines in the harmonic series, a switch for an envelope, no filter. Three drawbars pulled out.
+schema: synth-template-card/0.2
+id: organ-bass
+name: Organ Bass
+family: Bass
+tier: 2
+mode: mono
+classics: Hammond pedals
+status: drafted
+concepts:
+  - "Additive: sines in a harmonic series"
+  - "Harmonic-series tuning table"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Switch envelope (organ); percussive organ"
+
+graph:
+  blocks:
+    sub:  {kind: oscillator, wave: sine, octave: -1, note: "the first drawbar: the fundamental, 16 feet"}
+    osc1: {kind: oscillator, wave: sine, octave: 0,  note: "the second drawbar: one octave up, the 2nd harmonic"}
+    osc2: {kind: oscillator, wave: sine, octave: 0, semitones: 7, note: "the third drawbar: an octave and a fifth above the fundamental, the 3rd harmonic. The voice has no semitone field yet"}
+    mix:  {kind: mixer}
+    amp:  {kind: amplifier, level: full}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: instant, s: full, r: instant}, category: organ}
+  audio:
+    - [sub, mix]
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: sub,  param: wave,      value: sine,     why: "additive: each oscillator is one partial, and the timbre is which partials are in"}
+  - {block: osc1, param: wave,      value: sine}
+  - {block: osc2, param: wave,      value: sine}
+  - {block: sub,  param: octave,    value: -1,       why: "the fundamental, under the written note: a pedal tone"}
+  - {block: osc1, param: octave,    value: 0,        why: "the 2nd harmonic: an octave up adds weight without changing the note"}
+  - {block: osc2, param: semitones, value: 7,        why: "an octave and a fifth up is the 3rd harmonic: tune it to the series, not to the scale"}
+  - {block: amp,  param: filter,    value: none,     why: "sines have nothing to filter; the drawbar levels are the tone control"}
+  - {block: aenv, param: attack,    value: instant,  why: "a switch: the tonewheel is already spinning"}
+  - {block: aenv, param: sustain,   value: full}
+  - {block: aenv, param: release,   value: instant,  why: "off at the key: nothing rings"}
+  - {block: mode, param: voices,    value: mono,     why: "pedals: one foot"}
+
+taste:
+  - {block: osc1, param: level,   range: "little – equal",   default: half, why: "the second drawbar: how much octave"}
+  - {block: osc2, param: level,   range: "off – half",       default: quarter, why: "the third drawbar: a little fifth makes it an organ; a lot makes it a chord"}
+  - {block: sub,  param: level,   range: "half – full",      default: full}
+  - {block: aenv, param: decay,   range: "instant – short",  default: instant, why: "with sustain pulled down to held, a short decay is the percussive organ's click"}
+  - {block: aenv, param: sustain, range: "held – full",      default: full}
+
+listening:
+  cue: "A pedal tone, round and churchy, with a faint fifth glowing inside it. It switches on and off with no bloom and no tail. Pull the third drawbar up and the fifth starts to sound like a second note."
+  ab: "Set osc2 (the fifth) to off: it collapses to a plain sub with an octave. Back to a quarter and the organ hue returns. Then set the fifth to equal: it is no longer one tone but a power chord."
+
+render:
+  tempo: 90
+  note: [C2, G1, Ab1, Bb1]
+  velocity: 100
+  pattern: "one bar: a half note, then three eighths with a rest; each note cut dead at its end"
+  length_s: 3.0
+
+mappings: {}

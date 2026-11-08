@@ -6,7 +6,7 @@ pillars:
   - practice
 born: 2026-03
 stage: growing
-version: "2.6"
+version: "2.7"
 trigger: ["map build", "build the map"]
 links:
   - target: "[[Swarm Weave]]"

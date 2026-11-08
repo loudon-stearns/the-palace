@@ -1,0 +1,82 @@
+# Synth Templates — card — Sitar
+# Plucked Strings, tier 3. Comb resonators: the played string is a saw with a bright decaying filter; what makes it a sitar is the
+# set of sympathetic strings behind it, drawn here as a keytracked comb (a short delay) that rings at the harmonic series of the note,
+# and a drone oscillator held on the tonic. The voice draws the comb but does not yet play it.
+schema: synth-template-card/0.2
+id: sitar
+name: Sitar
+family: Plucked Strings
+tier: 3
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Comb filter: a short delay is a filter"
+  - "Serial: source and resonator (keytracked vs fixed)"
+  - "Filter thunk (resonance = delay feedback)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, note: "the played string: buzzing against the flat bridge, so every harmonic"}
+    osc2:    {kind: oscillator, wave: saw, octave: -1, level: little, note: "the drone: tuned to the tonic and not keytracked, so it stays put while the melody moves"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: comb, resonance: moderate, note: "the sympathetic strings: a short delay tuned to the played note; its peaks sit on the note's harmonic series and ring on after the pluck. Voice: drawn only"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low, r: medium}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: long, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: key,  to: filter1.cutoff, amount: full, essential: true, note: "the resonator follows the note: a fixed comb would be a room, a keytracked one is a set of strings"}
+    - {from: fenv, to: filter2.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,              why: "the bridge buzz: a sitar string is the brightest plucked string there is"}
+  - {block: filter1, param: type,      value: comb,             why: "a short delay with feedback is a row of peaks on a harmonic series: strings that ring in sympathy"}
+  - {block: filter1, param: cutoff,    value: keytracked,       why: "the comb is tuned to the played note, so its peaks land on that note's harmonics and the right strings answer"}
+  - {block: filter1, param: resonance, value: moderate,         why: "feedback is how long the sympathetic strings ring; too high and they never stop"}
+  - {block: filter2, param: type,      value: lowpass 12 dB,    why: "gentle; the brightness is the point, the filter only lets it fade"}
+  - {block: fenv,    param: decay,     value: medium,           why: "the buzz is brightest at the pluck and dulls as the string settles"}
+  - {block: fenv,    param: sustain,   value: low,              why: "some brightness stays: the bridge keeps buzzing as long as the string moves"}
+  - {block: osc2,    param: pitch,     value: fixed on the tonic, why: "a drone does not follow the melody; leave it off the key"}
+  - {block: aenv,    param: decay,     value: long,             why: "a long string over a gourd; it rings"}
+  - {block: aenv,    param: sustain,   value: zero,             why: "non-sustaining"}
+  - {block: aenv,    param: release,   value: same as decay,    why: "the string and the sympathetics ring after the key"}
+  - {block: mode,    param: voices,    value: poly,             why: "the sympathetics of one note sound under the next"}
+
+taste:
+  - {block: filter1, param: resonance, range: "little – high",        default: moderate, why: "how long the sympathetic strings sing"}
+  - {block: osc2,    param: level,     range: "off – low",            default: little}
+  - {block: filter2, param: cutoff,    range: "mid – open",           default: bright}
+  - {block: fenv,    param: decay,     range: "short – slow",         default: medium}
+  - {block: fenv,    param: sustain,   range: "zero – half",          default: low}
+  - {block: aenv,    param: decay,     range: "slow – very long",     default: long}
+  - {block: fx,      param: reverb,    range: "small – large",        default: small}
+
+listening:
+  cue: "A buzzing bright pluck with a halo: after each note a shimmer of overtones keeps ringing that is not quite the note, and under everything a low drone that never moves."
+  ab: "Set the comb's resonance to none: the halo is gone and it is a bright saw pluck over a drone. Put it back to moderate. Then untrack the comb from the key: the shimmer stays on one chord of overtones whatever you play, a room instead of strings."
+
+render:
+  tempo: 72
+  note: [D4, E4, F4, G4, A4, Bb4, A4, G4, F4, E4, D4]
+  velocity: 100
+  pattern: "a slow scale up and back down in eighths, each key held its own eighth; drone on D under it; the last note rings"
+  length_s: 7.0
+
+mappings: {}

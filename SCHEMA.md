@@ -98,7 +98,7 @@ Read the table top to bottom and take the first row that fits; `concept` is the 
 
 **`meta` should stay few and high-quality.** These entries maintain the organism; inflation here is how a type system starts describing itself instead of the work.
 
-**A ceremony is a page that carries `trigger:`** — the words Loudon says to begin it — whatever its type; most are `practice`, a few are `meta`. It carries its own `version`, which moves only when its spec changes, never on a run ([[SCHEMA — Reference]] §6). A ledger does not make a page a ceremony: any page may keep one (§8). One ceremony is two pages — [[Closing Well Ceremony]], the card the agent who hears the trigger reads, and [[Closing Well]], the practice the fresh moderator runs, which carries the field.
+**A ceremony is a page that carries `trigger:`** — the words Loudon says to begin it — whatever its type; most are `practice`, a few are `meta` or `hub`. It carries its own `version`, which moves only when its spec changes, never on a run ([[SCHEMA — Reference]] §6). A ledger does not make a page a ceremony: any page may keep one (§8). One ceremony is two pages — [[Closing Well Ceremony]], the card the agent who hears the trigger reads, and [[Closing Well]], the practice the fresh moderator runs, which carries the field.
 
 *(`breakthrough` was retired in v1.17 — see [[SCHEMA — Context]] §1.)*
 

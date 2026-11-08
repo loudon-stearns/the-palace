@@ -1,0 +1,8664 @@
+[
+ {
+  "id": "808-bass",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "saturation"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "808-kick",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "saturation"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "909-kick",
+  "blocks": 9,
+  "blocks_mapped": 7,
+  "routes": 8,
+  "routes_mapped": 7,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "drive"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "fenv: one-shot asked; ADSR follows the gate",
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "acid-bass",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: legato"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 18 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "acid-lead",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: legato"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 18 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "acid-sequence",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: legato"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "distortion, delay"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 18 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "additive-drawbars",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "additive-organ-drawbars",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "adsr-walkthrough",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "aftertouch-filter",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "alarm",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "lfo1: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "amplitude-modulation",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['osc2', 'osc1', 'am']",
+    "am modulation edge",
+    "no ring/AM module"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "arpeggiated-chord",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "lfo1: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "arpeggio",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "delay"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "auto-pan-pad",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.pan",
+    "no jack for amplifier.pan",
+    ""
+   ],
+   [
+    "key → amp.pan",
+    "no jack for amplifier.pan",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "auto-wah-lfo-filter",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "bagpipe",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "banjo",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → noise.level",
+    "route to an unmapped block",
+    "noise"
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "bell",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 8,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "brass-lead",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "brass-pad",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "cc-decay-on-percussive",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "cc73-cc72-attack-and-release",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "cc74-brightness",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "celesta",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "chip-arp-lead",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "choir-pad",
+  "blocks": 8,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 7,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus, reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['mix', 'filter1']",
+    "edge from/to an unmapped block",
+    "mix → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "chord-stab",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "chorus",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → fx.time",
+    "route to an unmapped block",
+    "fx"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "clap",
+  "blocks": 6,
+  "blocks_mapped": 3,
+  "routes": 4,
+  "routes_mapped": 2,
+  "audio": 4,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "clarinet",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "clave",
+  "blocks": 3,
+  "blocks_mapped": 3,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "clavinet",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "closed-hi-hat",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 6"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: very wide"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "comb-filter-for-thinning",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "distortion, delay"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "comb-filter",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "comb filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['osc1', 'filter1']",
+    "edge from/to an unmapped block",
+    "osc1 → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "conga",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "cowbell",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['mix', 'filter1']",
+    "edge from/to an unmapped block",
+    "mix → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "crash",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 6"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: very wide"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "cs-80-brass",
+  "blocks": 10,
+  "blocks_mapped": 9,
+  "routes": 12,
+  "routes_mapped": 8,
+  "audio": 7,
+  "audio_mapped": 6,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "at → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ],
+   [
+    "at → filter2.cutoff",
+    "input conflict (one cable per jack)",
+    "input FILT2:FREQ already taken by fenv"
+   ],
+   [
+    "at → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ],
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "daft-punk-vocoder",
+  "blocks": 7,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "vocoder"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "dark-pad",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "detuned-dubstep-growl",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 8,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 4"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "distortion, compressor"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.shape",
+    "no jack for oscillator.shape",
+    ""
+   ],
+   [
+    "lfo1 → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "lfo1: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "distorted-lead",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "distortion, delay"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "donk",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 7,
+  "routes_mapped": 7,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "saturation"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "downlifter",
+  "blocks": 9,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 7,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "fenv: one-shot asked; ADSR follows the gate",
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "drive-by-velocity",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → filter1.drive",
+    "input conflict (one cable per jack)",
+    "input FILT1:DRIVE already taken by vel"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "drone",
+  "blocks": 10,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 7,
+  "audio_mapped": 6,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 4"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "osc2",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ],
+   [
+    "lfo1",
+    "s&h LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ],
+   [
+    "lfo2",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route from an unmapped block",
+    "lfo1"
+   ],
+   [
+    "lfo2 → osc1.pitch",
+    "route from an unmapped block",
+    "lfo2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "drum-bass-sub",
+  "blocks": 4,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: short"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "saturation"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "dub-siren",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb, delay"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "dx7-e-piano",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 9,
+  "routes_mapped": 6,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "envelope-curves",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "envelope-follower-delay",
+  "blocks": 8,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "phaser"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → fx.time",
+    "route to an unmapped block",
+    "fx"
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "envelope-pitch-attack-blip",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "euclidean-pluck",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "delay, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "eurorack-west-coast-bongo",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "fenv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "evolving-pad",
+  "blocks": 9,
+  "blocks_mapped": 8,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.shape",
+    "no jack for oscillator.shape",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "explosion",
+  "blocks": 8,
+  "blocks_mapped": 6,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "distortion, reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "fenv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "fast-lfo-into-audio-range",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "feedback-delay-texture",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "delay, filter"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → fx.time",
+    "route to an unmapped block",
+    "fx"
+   ],
+   [
+    "wheel → fx.feedback",
+    "route to an unmapped block",
+    "fx"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "feedback-fm",
+  "blocks": 3,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "oscillator feedback",
+    "feedback: light"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "feedback-to-the-edge",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "delay"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "filter-model-test",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "filter-slope",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "filter-thunk",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → filter2.level",
+    "no jack for filter.level",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "filter-types",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "flanger",
+  "blocks": 8,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "flanger"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → fx.time",
+    "route to an unmapped block",
+    "fx"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "flute-lead",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → noise.level",
+    "route to an unmapped block",
+    "noise"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "flute",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → noise.level",
+    "route to an unmapped block",
+    "noise"
+   ],
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "fm-bass",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "fm-bright-lead",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "fm-electric-piano",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 8,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "lfo1 → amp.pan",
+    "no jack for amplifier.pan",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "fm-percussion",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "fm-two-operator",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "fm-vs-additive-two-sines",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "formant-vowels",
+  "blocks": 5,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "filter2",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['osc1', 'filter1']",
+    "edge from/to an unmapped block",
+    "osc1 → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "free-running-vs-retriggered-oscillator",
+  "blocks": 3,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "oscillator phase",
+    "phase: 90"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "gated-pad",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo1"
+   ],
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "lfo1: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "glass-bell-pad",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "chorus, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "glitch-stutter",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "lfo2",
+    "s&h LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo2 → osc1.pitch",
+    "route from an unmapped block",
+    "lfo2"
+   ],
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo1"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "lfo1: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "gong-long-decay",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "granular-cloud",
+  "blocks": 6,
+  "blocks_mapped": 4,
+  "routes": 6,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 7"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: very wide"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ],
+   [
+    "lfo2",
+    "s&h LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo2 → osc1.pitch",
+    "route from an unmapped block",
+    "lfo2"
+   ],
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo1"
+   ],
+   [
+    "wheel → lfo2.depth",
+    "route to an unmapped block",
+    "lfo2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "granular-pad",
+  "blocks": 6,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 4"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "osc1",
+    "oscillator engine",
+    "engine: granular"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ],
+   [
+    "lfo1",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.position",
+    "route from an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "growl-bass",
+  "blocks": 8,
+  "blocks_mapped": 6,
+  "routes": 7,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "distortion"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "fenv → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['osc1', 'filter1']",
+    "edge from/to an unmapped block",
+    "osc1 → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "guitar-pluck",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 8,
+  "routes_mapped": 7,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "hammond-b3",
+  "blocks": 9,
+  "blocks_mapped": 8,
+  "routes": 9,
+  "routes_mapped": 7,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "drive, rotary"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.pan",
+    "no jack for amplifier.pan",
+    ""
+   ],
+   [
+    "lfo1 → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "hard-sync-sweep",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "harmonic-series-oscillator-stack",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 6,
+  "audio_mapped": 6,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "harmonica",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ],
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['mix', 'filter1']",
+    "edge from/to an unmapped block",
+    "mix → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "harp",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "harpsichord",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "hoover-bass",
+  "blocks": 9,
+  "blocks_mapped": 8,
+  "routes": 8,
+  "routes_mapped": 8,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "hoover",
+  "blocks": 9,
+  "blocks_mapped": 8,
+  "routes": 8,
+  "routes_mapped": 8,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "horn-section",
+  "blocks": 9,
+  "blocks_mapped": 8,
+  "routes": 8,
+  "routes_mapped": 7,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "osc2",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc2",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "horns-low-sustain",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "house-bass",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "impact",
+  "blocks": 9,
+  "blocks_mapped": 7,
+  "routes": 8,
+  "routes_mapped": 7,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "saturation, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "fenv: one-shot asked; ADSR follows the gate",
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "infinite-shimmer",
+  "blocks": 4,
+  "blocks_mapped": 3,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → fx.feedback",
+    "route to an unmapped block",
+    "fx"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "interval-stack-fifth",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "inverted-filter-envelope",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "juno-pad",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "jupiter-brass",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "kalimba",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "karplus-strong-damping",
+  "blocks": 5,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 2,
+  "audio": 4,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "comb filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "key → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ]
+  ],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "karplus-strong-string",
+  "blocks": 6,
+  "blocks_mapped": 4,
+  "routes": 6,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "comb filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → noise.level",
+    "route to an unmapped block",
+    "noise"
+   ],
+   [
+    "key → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "vel → noise.level",
+    "route to an unmapped block",
+    "noise"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ]
+  ],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "key-filter-cutoff-keytracking",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "key-pan",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "key → amp.pan",
+    "no jack for amplifier.pan",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "keytracked-decay",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "keytracked-lfo-rate",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "keytracking",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "kick-layered-click-body-sub",
+  "blocks": 10,
+  "blocks_mapped": 8,
+  "routes": 9,
+  "routes_mapped": 8,
+  "audio": 7,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "saturation"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "fenv: one-shot asked; ADSR follows the gate",
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "koto",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 8,
+  "routes_mapped": 7,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "lately-bass",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 8,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "layered-sub-tone",
+  "blocks": 8,
+  "blocks_mapped": 8,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 6,
+  "audio_mapped": 6,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "legato-glide-default",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: legato"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "lfo-pan",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "lfo2",
+    "s&h LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.pan",
+    "no jack for amplifier.pan",
+    ""
+   ],
+   [
+    "lfo2 → amp.pan",
+    "route from an unmapped block",
+    "lfo2"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "lo-fi-hip-hop-keys",
+  "blocks": 10,
+  "blocks_mapped": 8,
+  "routes": 9,
+  "routes_mapped": 6,
+  "audio": 7,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "saturation, chorus"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "lfo1 → osc1.pitch",
+    "input conflict (one cable per jack)",
+    "input OSC1:FM already taken by osc2"
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "lo-fi-tape-pad",
+  "blocks": 9,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 7,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "saturation, chorus"
+   ],
+   [
+    "lfo1",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.pitch",
+    "route from an unmapped block",
+    "lfo1"
+   ],
+   [
+    "lfo1 → osc2.pitch",
+    "route from an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "low-res-notch-on-bass",
+  "blocks": 7,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "filter1",
+    "notch filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "saturation"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['mix', 'filter1']",
+    "edge from/to an unmapped block",
+    "mix → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "marimba",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "mellotron-choir",
+  "blocks": 8,
+  "blocks_mapped": 6,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "filter2",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "lfo1",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.pitch",
+    "route from an unmapped block",
+    "lfo1"
+   ],
+   [
+    "lfo1 → osc2.pitch",
+    "route from an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "mellotron-strings",
+  "blocks": 6,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ],
+   [
+    "lfo1",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.pitch",
+    "route from an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "metallic-hit",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "minimoog-lead",
+  "blocks": 8,
+  "blocks_mapped": 8,
+  "routes": 8,
+  "routes_mapped": 7,
+  "audio": 6,
+  "audio_mapped": 6,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: short"
+   ],
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → filter1.cutoff",
+    "input conflict (one cable per jack)",
+    "input FILT1:FREQ already taken by fenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "mod-wheel-vibrato-depth",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "modulation-matrix",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo1"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "modulation-template-init-patch",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 12,
+  "routes_mapped": 6,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "key → filter1.cutoff",
+    "input conflict (one cable per jack)",
+    "input FILT1:FREQ already taken by fenv"
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ],
+   [
+    "vel → filter1.cutoff",
+    "input conflict (one cable per jack)",
+    "input FILT1:FREQ already taken by fenv"
+   ],
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ],
+   [
+    "at → filter1.cutoff",
+    "input conflict (one cable per jack)",
+    "input FILT1:FREQ already taken by fenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "mono-vs-poly-vs-legato",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "moog-bass",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "music-box",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "narrow-pulse-into-formant",
+  "blocks": 4,
+  "blocks_mapped": 3,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['osc1', 'filter1']",
+    "edge from/to an unmapped block",
+    "osc1 → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "natural-vibrato",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "neuro-bass",
+  "blocks": 10,
+  "blocks_mapped": 8,
+  "routes": 8,
+  "routes_mapped": 6,
+  "audio": 6,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "filter2",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "distortion"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "lfo2 → filter2.cutoff",
+    "route to an unmapped block",
+    "filter2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "noise-bed",
+  "blocks": 6,
+  "blocks_mapped": 2,
+  "routes": 4,
+  "routes_mapped": 2,
+  "audio": 4,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ],
+   [
+    "lfo1",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "wheel → lfo1.rate",
+    "route to an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "noise-colors",
+  "blocks": 3,
+  "blocks_mapped": 2,
+  "routes": 2,
+  "routes_mapped": 2,
+  "audio": 2,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['noise', 'amp']",
+    "edge from/to an unmapped block",
+    "noise → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "noise-for-softness",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "noise-oscillator-with-its-own-envelope",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → noise.level",
+    "route to an unmapped block",
+    "noise"
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "noise-percussion",
+  "blocks": 3,
+  "blocks_mapped": 2,
+  "routes": 4,
+  "routes_mapped": 2,
+  "audio": 2,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "key → noise.pitch",
+    "route to an unmapped block",
+    "noise"
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'amp']",
+    "edge from/to an unmapped block",
+    "noise → amp"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "noise-wash",
+  "blocks": 6,
+  "blocks_mapped": 3,
+  "routes": 4,
+  "routes_mapped": 2,
+  "audio": 4,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "key → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "oberheim-pad",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "oboe",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 4,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "filter2",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "ocean-waves",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "octave-stack-weight-and-shimmer",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "one-shot-trigger-mode",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "open-hi-hat",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 6"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: very wide"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "orchestra-hit",
+  "blocks": 9,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 7,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "orchestral-strings",
+  "blocks": 9,
+  "blocks_mapped": 8,
+  "routes": 8,
+  "routes_mapped": 7,
+  "audio": 7,
+  "audio_mapped": 6,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "ensemble, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "organ-bass",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "organ",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 8,
+  "routes_mapped": 8,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "oscillator-drift",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "lfo1",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.pitch",
+    "route from an unmapped block",
+    "lfo1"
+   ],
+   [
+    "key → lfo1.rate",
+    "route to an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "oscillator-mix-saw-square-tri-sine",
+  "blocks": 3,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "pan-flute",
+  "blocks": 8,
+  "blocks_mapped": 6,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → noise.level",
+    "route to an unmapped block",
+    "noise"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "parallel-dual-low-pass",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "parallel-flexible-notch-with-horns",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "parallel-low-pass-and-band-pass-accent",
+  "blocks": 7,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "filter2",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "drive"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → filter2.resonance",
+    "route to an unmapped block",
+    "filter2"
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "parallel-twin-peaks",
+  "blocks": 5,
+  "blocks_mapped": 3,
+  "routes": 6,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "filter2",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "key → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "key → filter2.cutoff",
+    "route to an unmapped block",
+    "filter2"
+   ],
+   [
+    "wheel → filter2.cutoff",
+    "route to an unmapped block",
+    "filter2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['osc1', 'filter1']",
+    "edge from/to an unmapped block",
+    "osc1 → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "percussive-organ",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "phase-distortion-lead",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → osc1.shape",
+    "no jack for oscillator.shape",
+    ""
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "phase-distortion",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → osc1.shape",
+    "no jack for oscillator.shape",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "phaser",
+  "blocks": 8,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "phaser"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → fx.time",
+    "route to an unmapped block",
+    "fx"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "piano-damper",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "pitch-bend-range",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "pizzicato",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "pluck-bass",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "pluck-strike-release-decay",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "pluck",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "portamento-bass",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: legato"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "portamento-control-phantom-note",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: medium"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "portamento",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: medium"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "prophet-sync-lead",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "wheel → osc1.pitch",
+    "input conflict (one cable per jack)",
+    "input OSC1:FM already taken by menv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "pulse-12-5",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "pulse-25",
+  "blocks": 4,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "delay"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "pulse-50-square",
+  "blocks": 3,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "pulse-width-sweep",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "pulsing-bass",
+  "blocks": 8,
+  "blocks_mapped": 8,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo2"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "lfo1: tempo sync asked; LFO is free-running",
+   "lfo2: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "pwm-bass",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "pwm-lead",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "pwm-pad",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "rain",
+  "blocks": 6,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 2,
+  "audio": 4,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ],
+   [
+    "lfo1",
+    "s&h LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.level",
+    "route from an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "reese-bass",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc2",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "resonance-sweep",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "resonator-chime",
+  "blocks": 7,
+  "blocks_mapped": 4,
+  "routes": 6,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "comb filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → noise.level",
+    "route to an unmapped block",
+    "noise"
+   ],
+   [
+    "key → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "retrigger-vs-free-lfo-chords",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "reverb-as-long-release",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "reverse-swell-and-stop",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "rhythmic-stab",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "delay"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "ride",
+  "blocks": 6,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 6"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: very wide"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['mix', 'filter1']",
+    "edge from/to an unmapped block",
+    "mix → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "rimshot",
+  "blocks": 6,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['mix', 'filter1']",
+    "edge from/to an unmapped block",
+    "mix → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "ring-mod-lead",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['osc2', 'osc1', 'ring']",
+    "ring modulation edge",
+    "no ring/AM module"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "ring-modulation",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['osc2', 'osc1', 'ring']",
+    "ring modulation edge",
+    "no ring/AM module"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "riser",
+  "blocks": 9,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 7,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "sample-and-hold-melody",
+  "blocks": 7,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "delay"
+   ],
+   [
+    "lfo1",
+    "s&h LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.pitch",
+    "route from an unmapped block",
+    "lfo1"
+   ],
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "lfo2: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "sample-and-hold",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "lfo1",
+    "s&h LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route from an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "saturated-bass",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "saw-lead",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: legato"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "saxophone",
+  "blocks": 9,
+  "blocks_mapped": 8,
+  "routes": 10,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ],
+   [
+    "at → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ],
+   [
+    "lfo2 → osc1.pitch",
+    "input conflict (one cable per jack)",
+    "input OSC1:FM already taken by lfo1"
+   ],
+   [
+    "wheel → lfo2.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "screech-lead",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "key → filter1.cutoff",
+    "input conflict (one cable per jack)",
+    "input FILT1:FREQ already taken by fenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "seinfeld-slap-bass",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 8,
+  "routes_mapped": 7,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "self-oscillating-filter-as-oscillator",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "fenv → filter1.cutoff",
+    "input conflict (one cable per jack)",
+    "input FILT1:FREQ already taken by key"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "serial-bring-out-the-noise",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "filter2",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → filter2.resonance",
+    "route to an unmapped block",
+    "filter2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "serial-dual-notch-pad",
+  "blocks": 10,
+  "blocks_mapped": 6,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 7,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 7"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "notch filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "filter2",
+    "notch filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "lfo2 → filter2.cutoff",
+    "route to an unmapped block",
+    "filter2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['mix', 'filter1']",
+    "edge from/to an unmapped block",
+    "mix → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "serial-extreme-48-db",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter2.cutoff",
+    "input conflict (one cable per jack)",
+    "input FILT2:FREQ already taken by fenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "serial-flexible-band-pass",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "serial-notch-then-low-pass",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "notch filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['osc1', 'filter1']",
+    "edge from/to an unmapped block",
+    "osc1 → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ]
+  ],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "serial-notch-vs-band-pass-tug",
+  "blocks": 7,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 4,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "notch filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "filter2",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "fenv → filter2.cutoff",
+    "route to an unmapped block",
+    "filter2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['osc1', 'filter1']",
+    "edge from/to an unmapped block",
+    "osc1 → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "serial-source-and-resonator",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "fenv → filter1.cutoff",
+    "input conflict (one cable per jack)",
+    "input FILT1:FREQ already taken by key"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "seven-cent-detune",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "sh-101-bass",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "shaker",
+  "blocks": 4,
+  "blocks_mapped": 2,
+  "routes": 3,
+  "routes_mapped": 2,
+  "audio": 3,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "shimmer-pad",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "pitch shift, reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "short-delay-comb-filter",
+  "blocks": 6,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "delay"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → fx.time",
+    "route to an unmapped block",
+    "fx"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "sid-lead",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "wheel → lfo2.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['osc2', 'osc1', 'ring']",
+    "ring modulation edge",
+    "no ring/AM module"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "sidechained-pad",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 5"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "lfo1: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "simple-delay",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "delay"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "sine-lead",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: legato"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ],
+   [
+    "at → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "siren",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "sitar",
+  "blocks": 9,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 7,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "comb filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "key → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['mix', 'filter1']",
+    "edge from/to an unmapped block",
+    "mix → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "snare",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "soft-lead",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "square-lead",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "square-saw-octave-up-zipper",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "square-sub-techno-bass",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo1"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "lfo1: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "stacked-fifth-pad",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "osc2",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus, reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "standard-sustaining",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "steel-drum",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 8,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → osc1.pitch",
+    "input conflict (one cable per jack)",
+    "input OSC1:FM already taken by osc2"
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "stereo-width-by-detune-and-filter",
+  "blocks": 8,
+  "blocks_mapped": 8,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 6,
+  "audio_mapped": 6,
+  "unmapped_blocks": [
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "stereo-width-by-l-r-delay",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "delay"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → fx.time",
+    "route to an unmapped block",
+    "fx"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "stereo-width",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 4"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "string-machine",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "ensemble, reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "strings-long-sustaining",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "sub-bass",
+  "blocks": 3,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "sub-boom",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "saturation"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "sub-drone-with-overtones",
+  "blocks": 9,
+  "blocks_mapped": 8,
+  "routes": 9,
+  "routes_mapped": 8,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc2.level",
+    "input conflict (one cable per jack)",
+    "input MIX:CV3 already taken by menv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "sub-oscillator",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "supersaw-lead",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 7"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "osc1",
+    "stereo spread",
+    "spread: wide"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "supersaw-pad",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 7"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ],
+   [
+    "osc1",
+    "stereo spread",
+    "spread: wide"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "svf-morph-in-motion",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.morph",
+    "no jack for filter.morph",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "sweep-filter-whoosh",
+  "blocks": 5,
+  "blocks_mapped": 3,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "fenv → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "sweep-pad",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "switch-organ",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "sync-bass",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "sync-lead",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 4,
+  "audio_mapped": 4,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "wheel → osc2.pitch",
+    "input conflict (one cable per jack)",
+    "input OSC2:FM already taken by menv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "synth-brass",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 9,
+  "routes_mapped": 7,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ],
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "synth-piano",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 8,
+  "routes_mapped": 6,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "synthwave-bass",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "synthwave-pluck",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus, delay"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "tape-loop",
+  "blocks": 8,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "saturation, reverb"
+   ],
+   [
+    "lfo1",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.pitch",
+    "route from an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "tb-303-line",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: legato"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 18 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "techno-rumble-kick",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "saturation, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "tempo-synced-filter-lfo",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "lfo1: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "the-funny-envelope",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "thunder",
+  "blocks": 7,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 4,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ],
+   [
+    "lfo1",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.level",
+    "route from an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "fenv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "timbale",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "tom",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "toy-piano",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: wide"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "trance-pluck",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "delay, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "trance-supersaw",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 7"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: very wide"
+   ],
+   [
+    "osc1",
+    "stereo spread",
+    "spread: wide"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "delay, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "tremolo-chord",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo1"
+   ],
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "tremolo-lfo-amp",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by lfo1"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "triangle-bass-nes",
+  "blocks": 3,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "triangle-chip-bass",
+  "blocks": 3,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "trumpet",
+  "blocks": 7,
+  "blocks_mapped": 7,
+  "routes": 10,
+  "routes_mapped": 7,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.pitch",
+    "input conflict (one cable per jack)",
+    "input OSC1:FM already taken by menv"
+   ],
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ],
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "ui-blip",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "uk-garage-organ-bass",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "glide / portamento",
+    "glide: short"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "unison-and-detune",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 4"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "unison-voices-budget",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: narrow"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "velocity-amplitude-and-filter",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "velocity-attack-negative",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "velocity-filter-envelope-amount",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "velocity-filter",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → fenv.amount",
+    "no jack for envelope.amount",
+    ""
+   ],
+   [
+    "aenv → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by vel"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "velocity-lfo-rate",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "velocity-pitch-envelope-amount",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "vibraphone",
+  "blocks": 7,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 4,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "vibrato-fade-in-lfo-attack",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "vibrato-lfo-pitch",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 7,
+  "routes_mapped": 5,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ],
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "vinyl-crackle",
+  "blocks": 6,
+  "blocks_mapped": 4,
+  "routes": 3,
+  "routes_mapped": 2,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "lfo1",
+    "s&h LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → amp.level",
+    "route from an unmapped block",
+    "lfo1"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ]
+  ],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct",
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "vocal-formant-lead",
+  "blocks": 5,
+  "blocks_mapped": 3,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "filter2",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "wheel → filter2.cutoff",
+    "route to an unmapped block",
+    "filter2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['osc1', 'filter1']",
+    "edge from/to an unmapped block",
+    "osc1 → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['filter2', 'amp']",
+    "edge from/to an unmapped block",
+    "filter2 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "vocal-pad",
+  "blocks": 7,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 3,
+  "audio": 5,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 2"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus, reverb"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['osc1', 'filter1']",
+    "edge from/to an unmapped block",
+    "osc1 → filter1"
+   ],
+   [
+    "['filter1', 'filter2']",
+    "edge from/to an unmapped block",
+    "filter1 → filter2"
+   ],
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "filter2: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "voice-priority-last-top-bottom",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 4,
+  "routes_mapped": 4,
+  "audio": 5,
+  "audio_mapped": 5,
+  "unmapped_blocks": [],
+  "unmapped_routes": [],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "volume-vs-expression-cc7-cc11",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "osc1",
+    "unison stack",
+    "unison: 3"
+   ],
+   [
+    "osc1",
+    "unison detune",
+    "detune: slight"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "wheel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "warm-analog-pad",
+  "blocks": 8,
+  "blocks_mapped": 7,
+  "routes": 7,
+  "routes_mapped": 6,
+  "audio": 6,
+  "audio_mapped": 5,
+  "unmapped_blocks": [
+   [
+    "osc2",
+    "unison detune",
+    "detune: slight"
+   ],
+   [
+    "fx",
+    "fx chain",
+    "chorus"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "waveshaping",
+  "blocks": 4,
+  "blocks_mapped": 3,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "saturation"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "wavetable-chip",
+  "blocks": 4,
+  "blocks_mapped": 3,
+  "routes": 3,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 2,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "bitcrusher"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "wavetable-position-sweep",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "lfo1 → osc1.shape",
+    "no jack for oscillator.shape",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "wavetable-scan-lead",
+  "blocks": 6,
+  "blocks_mapped": 6,
+  "routes": 6,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "menv → osc1.shape",
+    "no jack for oscillator.shape",
+    ""
+   ],
+   [
+    "lfo1 → osc1.shape",
+    "no jack for oscillator.shape",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": []
+ },
+ {
+  "id": "whistle",
+  "blocks": 5,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 4,
+  "audio": 3,
+  "audio_mapped": 3,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "wheel → lfo1.depth",
+    "no jack for lfo.depth",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "filter1: 12 dB/oct asked; VCF is 24 dB/oct"
+  ]
+ },
+ {
+  "id": "white-noise-burst",
+  "blocks": 3,
+  "blocks_mapped": 2,
+  "routes": 3,
+  "routes_mapped": 2,
+  "audio": 2,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'amp']",
+    "edge from/to an unmapped block",
+    "noise → amp"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "wind",
+  "blocks": 6,
+  "blocks_mapped": 2,
+  "routes": 4,
+  "routes_mapped": 2,
+  "audio": 3,
+  "audio_mapped": 1,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ],
+   [
+    "filter1",
+    "bandpass filter",
+    "VCF has LPF and HPF outputs only"
+   ],
+   [
+    "lfo1",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ],
+   [
+    "lfo2",
+    "random LFO",
+    "LFO has sine, triangle, saw, square outputs"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "lfo1 → filter1.cutoff",
+    "route to an unmapped block",
+    "filter1"
+   ],
+   [
+    "lfo2 → amp.level",
+    "route from an unmapped block",
+    "lfo2"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'filter1']",
+    "edge from/to an unmapped block",
+    "noise → filter1"
+   ],
+   [
+    "['filter1', 'amp']",
+    "edge from/to an unmapped block",
+    "filter1 → amp"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "wobble-bass",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 5,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "distortion"
+   ]
+  ],
+  "unmapped_routes": [],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": [
+   "lfo1: tempo sync asked; LFO is free-running"
+  ]
+ },
+ {
+  "id": "woodblock",
+  "blocks": 5,
+  "blocks_mapped": 4,
+  "routes": 4,
+  "routes_mapped": 3,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "noise",
+    "noise source",
+    "no noise module in the registry"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['noise', 'mix']",
+    "edge from/to an unmapped block",
+    "noise → mix"
+   ]
+  ],
+  "approximated": [
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ },
+ {
+  "id": "wurlitzer",
+  "blocks": 6,
+  "blocks_mapped": 5,
+  "routes": 8,
+  "routes_mapped": 5,
+  "audio": 4,
+  "audio_mapped": 3,
+  "unmapped_blocks": [
+   [
+    "fx",
+    "fx chain",
+    "saturation"
+   ]
+  ],
+  "unmapped_routes": [
+   [
+    "menv → osc2.level",
+    "no jack for oscillator.level",
+    ""
+   ],
+   [
+    "vel → amp.level",
+    "input conflict (one cable per jack)",
+    "input AMP:CV already taken by aenv"
+   ],
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [
+   [
+    "['amp', 'fx']",
+    "edge through fx",
+    "no fx module; the voice goes straight out"
+   ]
+  ],
+  "approximated": []
+ },
+ {
+  "id": "zap-laser",
+  "blocks": 4,
+  "blocks_mapped": 4,
+  "routes": 6,
+  "routes_mapped": 5,
+  "audio": 2,
+  "audio_mapped": 2,
+  "unmapped_blocks": [],
+  "unmapped_routes": [
+   [
+    "vel → menv.amount",
+    "no jack for envelope.amount",
+    ""
+   ]
+  ],
+  "unmapped_audio": [],
+  "approximated": [
+   "menv: one-shot asked; ADSR follows the gate",
+   "aenv: one-shot asked; ADSR follows the gate"
+  ]
+ }
+]

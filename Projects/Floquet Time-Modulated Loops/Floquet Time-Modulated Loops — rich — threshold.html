@@ -1,0 +1,408 @@
+<!doctype html>
+<!--
+  title: Floquet Time-Modulated Loops — rich — threshold
+  born: 2026-11-03
+  links: [[Floquet Time-Modulated Loops]] connects-to · rich-face-piece-of · [[Mathieu Equation]] connects-to · the equation it plays · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am the parametric-resonance section as a walk of three steps: a push against a pump from perfect
+    rest (the pump does nothing until something moves), the threshold under the reader's hand with the damping
+    beside it, and then the test — the threshold measured three ways and found at q = 2ζ, with nothing left of it
+    once the damping is gone. I want the crack to be heard where the arithmetic says it is.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="fq-engine" — FloquetVoice (x'' + (κ + βx²)x' + (a − 2q cos 2t)x = F cos √a t + σ·noise,
+    symplectic Euler, one step per sample, t in units of 1/(2π·220) s so the pump is 440 Hz) runs in the AudioWorklet
+    and, for steps 1 and 3, on the page; monodromy() integrates one pump period by RK4 and its eigenvalues are the multipliers.
+  checks: Floquet Time-Modulated Loops — proof — rich checks.mjs, beside this file, pulls the fq-engine script out of
+    this file and re-runs each step's claim in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Pushing, pumping, and the threshold</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .fq-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .fq-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .fq-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .fq-sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .fq-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .fq-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .fq-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  .fq-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.fq-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.fq-go.fq-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .fq-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .fq-step.fq-shown { display: block; }
+  .fq-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .fq-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 12px; }
+  .fq-p { font-size: 13.5px; line-height: 1.6; max-width: 78ch; margin: 8px 0; }
+  .fq-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; touch-action: none; }
+  .fq-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .fq-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 11ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .fq-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 9ch; font-variant-numeric: tabular-nums; }
+  .fq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .fq-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .fq-cell .fq-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .fq-cell .fq-v { font-family: var(--mono); font-size: 17px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .fq-cell.fq-a .fq-v { color: var(--amber); } .fq-cell.fq-c .fq-v { color: var(--cyan); }
+  .fq-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .fq-eq .fq-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .fq-eq .fq-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .fq-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 86ch; margin: 12px 0 4px; }
+  .fq-test b { color: var(--amber); font-weight: 500; }
+  .fq-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; }
+  table.fq-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.fq-t th, table.fq-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; }
+  table.fq-t th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; }
+  table.fq-t td:first-child, table.fq-t th:first-child { text-align: left; }
+  .fq-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .fq-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .fq-foot i { color: var(--amber); font-weight: 300; }
+  .fq-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .fq-legend .fq-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+
+</style>
+</head>
+
+<body>
+<main class="fq-piece">
+  <div class="fq-kicker">Floquet · the threshold of a pumped swing</div>
+  <h1 class="fq-title">Pushing, pumping, and the depth it takes</h1>
+  <p class="fq-sub">The page says a pumped oscillator is different in kind from a pushed one, and that pumping has a threshold: below a certain depth the damping wins and it settles, above it the ring grows exponentially. Three steps build up to that: push against pump from rest, the threshold under your hand, and then the test, the threshold measured and set beside the damping that makes it.</p>
+  <nav class="fq-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · push or pump</button>
+    <button data-go="2" aria-pressed="false">2 · the threshold</button>
+    <button data-go="3" aria-pressed="false">3 · where it sits</button>
+  </nav>
+
+  <section class="fq-step fq-shown" data-step="1">
+    <h2>1 · Push or pump, from rest</h2>
+    <p class="fq-idea">A push is a force from outside; a pump changes the stiffness and leaves the right-hand side at zero. Start the same 220 Hz resonator from perfect rest. Pushed, it comes up to a steady ring. Pumped, it does nothing at all, ever. Give it the faintest nudge first and the pump takes it from there, by the same factor every period: a straight line on this decibel plot.</p>
+    <div class="fq-eq"><div class="fq-sym">push:  ẍ + κẋ + x = F cos t          pump:  ẍ + κẋ + (1 − 2q cos 2t)·x = 0</div>
+      <div class="fq-words">a push adds a force on the right; a pump multiplies the stiffness by something that breathes at twice the ring, and the right stays zero</div></div>
+    <canvas id="c1"></canvas>
+    <div class="fq-row">
+      <button class="fq-go" id="p1a" data-label="hear the push">hear the push</button>
+      <button class="fq-go" id="p1b" data-label="hear the pump, from rest">hear the pump, from rest</button>
+      <button class="fq-go" id="p1c" data-label="hear the pump, nudged">hear the pump, nudged</button>
+    </div>
+    <p class="fq-legend"><span class="fq-sw" style="background:#6aa8e8"></span>push, F = 0.01<span class="fq-sw" style="background:#4a4a5a"></span>pump from rest, q = 0.2<span class="fq-sw" style="background:#e8b84a"></span>pump after a nudge of 10⁻⁵, q = 0.2</p>
+    <p class="fq-test" id="t1"></p>
+  </section>
+
+  <section class="fq-step" data-step="2">
+    <h2>2 · The threshold, under your hand</h2>
+    <p class="fq-idea">Now a little noise is always coming in, as in any real circuit, and the pump runs at exactly twice the ring, 440 Hz. Raise the depth q slowly and listen for the crack. Then change the damping and find it again.</p>
+    <div class="fq-row"><label for="q2">depth q</label><input id="q2" type="range" min="0" max="0.4" step="0.001" value="0"><span class="fq-val" id="q2v"></span></div>
+    <div class="fq-row"><label for="z2">damping ζ</label><input id="z2" type="range" min="0" max="0.06" step="0.0005" value="0.025"><span class="fq-val" id="z2v"></span></div>
+    <div class="fq-row"><button class="fq-go" id="go2" data-label="hear it">hear it</button></div>
+    <canvas id="c2"></canvas>
+    <div class="fq-grid">
+      <div class="fq-cell fq-c"><div class="fq-k">threshold, 2ζ</div><div class="fq-v" id="r2t"></div></div>
+      <div class="fq-cell fq-a"><div class="fq-k">growth per second</div><div class="fq-v" id="r2g"></div></div>
+      <div class="fq-cell"><div class="fq-k">heard level</div><div class="fq-v" id="r2l">—</div></div>
+    </div>
+    <p class="fq-test" id="t2"></p>
+  </section>
+
+  <section class="fq-step" data-step="3">
+    <h2>3 · Where the threshold sits</h2>
+    <p class="fq-idea">The test. For the damping the project’s audio was built with, ζ = 0.025, the piece measures the growth at five depths three ways: the textbook rate, one pump period of the equation (its multiplier), and the resonator itself run for two seconds from the same noise. Then it takes the damping away.</p>
+    <table class="fq-t" id="tab3"></table>
+    <div class="fq-row" id="row3"></div>
+    <p class="fq-test" id="t3"></p>
+    <p class="fq-note">Units: q is the page’s Stage 1 depth (q = q_depth · a, with a = 1 here), ζ the damping ratio, so κ = 2ζ. Growth is per second at 220 Hz. “Full” is within 3 dB of where the ring settles once the soft brake holds it; the brake is this piece’s, not the codebox’s tanh.</p>
+  </section>
+
+  <div class="fq-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="fq-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="fq-engine">
+/* The resonator every step plays, in Mathieu time: one unit of t is 1/(2π·220) s, so the pump cos 2t is
+   440 Hz and a = 1 rings at 220 Hz.
+     x'' + (κ + β x²) x' + (a − 2q cos 2t) x = F cos(√a t) + σ·noise
+   κ is the damping, β x² a soft brake that only matters once the ring is loud (so a tongue's ring settles
+   at a level instead of running away), F a push at the natural frequency, σ the noise floor it can grow
+   from. Symplectic Euler, one step per sample. The same class runs in the AudioWorklet and, for the
+   tests, here on the page. */
+class FloquetVoice {
+  constructor(sr, seed) {
+    this.sr = sr; this.dt = 2 * Math.PI * 220 / sr; this.sqdt = Math.sqrt(this.dt);
+    this.k = 1 - Math.exp(-1 / (0.02 * sr));
+    this.x = 0; this.v = 0; this.t = 0; this.td = 0;
+    this.p = { a: 1, q: 0, kappa: 0.05, sigma: 1.5e-3, F: 0, beta: 8 };
+    this.s = Object.assign({}, this.p);
+    this.seed = (seed >>> 0) || 1; this.spare = null;
+  }
+  rand() { let t = (this.seed = (this.seed + 0x6D2B79F5) >>> 0); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  gauss() {
+    if (this.spare !== null) { const g = this.spare; this.spare = null; return g; }
+    let u = 0; while (u < 1e-12) u = this.rand();
+    const w = this.rand(), r = Math.sqrt(-2 * Math.log(u));
+    this.spare = r * Math.sin(2 * Math.PI * w); return r * Math.cos(2 * Math.PI * w);
+  }
+  set(o) { for (const key in o) if (key in this.p) this.p[key] = o[key]; if (o.snap) Object.assign(this.s, this.p); }
+  pluck(e) { this.v += e; }
+  reset() { this.x = 0; this.v = 0; }
+  tick() {
+    const p = this.p, s = this.s, k = this.k, dt = this.dt;
+    s.a += k * (p.a - s.a); s.q += k * (p.q - s.q); s.kappa += k * (p.kappa - s.kappa); s.F += k * (p.F - s.F);
+    this.t += dt; if (this.t > Math.PI) this.t -= Math.PI;
+    this.td += dt * Math.sqrt(s.a > 0 ? s.a : 0); if (this.td > 2 * Math.PI) this.td -= 2 * Math.PI;
+    const x = this.x;
+    const acc = -(s.kappa + p.beta * x * x) * this.v - (s.a - 2 * s.q * Math.cos(2 * this.t)) * x + s.F * Math.cos(this.td);
+    this.v += dt * acc + (p.sigma ? p.sigma * this.sqdt * this.gauss() : 0);
+    this.x += dt * this.v;
+    const ax = Math.abs(this.x); if (ax > 4) this.x = Math.sign(this.x) * (4 + Math.tanh(ax - 4));
+    const av = Math.abs(this.v); if (av > 16) this.v = Math.sign(this.v) * (16 + Math.tanh(av - 16));
+    return this.x;
+  }
+  /* Run n samples offline; returns x and a per-window rms (window w samples). */
+  render(n, w) {
+    const x = new Float32Array(n), rms = []; let acc = 0, c = 0;
+    for (let i = 0; i < n; i++) { const y = this.tick(); x[i] = y; acc += y * y; if (++c === w) { rms.push(Math.sqrt(acc / w)); acc = 0; c = 0; } }
+    return { x, rms };
+  }
+}
+
+/* One period of the linear part (no noise, no brake, no push): the monodromy matrix, by RK4.
+   M is row-major [m00, m01, m10, m11]; its columns are where (1,0) and (0,1) land after t = π. */
+function monodromy(a, q, kappa, N) {
+  N = N || 64; const h = Math.PI / N, M = [0, 0, 0, 0];
+  const f = (t, x, v) => -kappa * v - (a - 2 * q * Math.cos(2 * t)) * x;
+  for (let c = 0; c < 2; c++) {
+    let x = c ? 0 : 1, v = c ? 1 : 0, t = 0;
+    for (let i = 0; i < N; i++) {
+      const k1x = v, k1v = f(t, x, v);
+      const k2x = v + h / 2 * k1v, k2v = f(t + h / 2, x + h / 2 * k1x, v + h / 2 * k1v);
+      const k3x = v + h / 2 * k2v, k3v = f(t + h / 2, x + h / 2 * k2x, v + h / 2 * k2v);
+      const k4x = v + h * k3v, k4v = f(t + h, x + h * k3x, v + h * k3v);
+      x += h / 6 * (k1x + 2 * k2x + 2 * k3x + k4x); v += h / 6 * (k1v + 2 * k2v + 2 * k3v + k4v); t += h;
+    }
+    M[c] = x; M[2 + c] = v;
+  }
+  return M;
+}
+/* The two characteristic multipliers: the eigenvalues of M. */
+function multipliers(M) {
+  const tr = M[0] + M[3], det = M[0] * M[3] - M[1] * M[2], disc = tr * tr - 4 * det;
+  if (disc >= 0) { const r = Math.sqrt(disc); return { tr, det, real: true, r1: [(tr + r) / 2, 0], r2: [(tr - r) / 2, 0] }; }
+  const r = Math.sqrt(-disc) / 2; return { tr, det, real: false, r1: [tr / 2, r], r2: [tr / 2, -r] };
+}
+const rhoMax = (m) => Math.max(Math.hypot(m.r1[0], m.r1[1]), Math.hypot(m.r2[0], m.r2[1]));
+/* Unstable when the larger multiplier is outside the unit circle: for a real 2×2 map with det > 0 that is
+   exactly |trace| > 1 + det, which holds with or without damping and needs no tolerance. */
+const unstable = (m) => Math.abs(m.tr) > 1 + m.det;
+/* Where the line q = const crosses a tongue edge between a0 (one side) and a1 (the other side). */
+function edgeA(a0, a1, q, kappa) {
+  const u0 = unstable(multipliers(monodromy(a0, q, kappa, 256)));
+  for (let i = 0; i < 50; i++) { const m = (a0 + a1) / 2; if (unstable(multipliers(monodromy(m, q, kappa, 256))) === u0) a0 = m; else a1 = m; }
+  return (a0 + a1) / 2;
+}
+</script>
+<script>
+const PROC_SRC = "class FqProc extends AudioWorkletProcessor {\n  constructor() {\n    super(); this.e = new FloquetVoice(sampleRate, 7); this.on = false; this.g = 0;\n    this.acc = 0; this.n = 0; this.zc = 0; this.lx = 0; this.f0 = -1; this.f1 = -1;\n    this.port.onmessage = (ev) => { const m = ev.data; if (m.set) this.e.set(m.set); if (m.pluck) this.e.pluck(m.pluck); if (m.reset) this.e.reset(); if ('on' in m) this.on = m.on; };\n  }\n  process(inputs, outputs) {\n    const L = outputs[0][0], R = outputs[0][1] || L, gT = this.on ? 1 : 0;\n    for (let i = 0; i < L.length; i++) {\n      const x = this.e.tick(); this.g += (gT - this.g) * 0.002;\n      const y = this.g * 0.45 * Math.tanh(1.2 * x); L[i] = y; R[i] = y;\n      this.acc += x * x;\n      if (this.lx <= 0 && x > 0) { const fr = this.n - 1 + (-this.lx) / (x - this.lx); if (this.f0 < 0) this.f0 = fr; this.f1 = fr; this.zc++; }\n      this.lx = x; this.n++;\n      if (this.n >= 4800) {\n        const rms = Math.sqrt(this.acc / this.n), f = this.zc > 2 ? (this.zc - 1) * sampleRate / (this.f1 - this.f0) : 0;\n        this.port.postMessage({ rms, f }); this.acc = 0; this.n = 0; this.zc = 0; this.f0 = -1; this.f1 = -1;\n      }\n    }\n    return true;\n  }\n}\nregisterProcessor('fq-voice', FqProc);\n";
+/* Shared by every step: the audio graph, canvases, the step rail, the sigil. */
+const $ = (id) => document.getElementById(id);
+const COL = { bg: '#0a0a0f', e1: '#12121a', e2: '#1a1a28', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a',
+  amber: '#e8b84a', cyan: '#6aa8e8', grid: 'rgba(255,255,255,.07)' };
+const dB = (v) => 20 * Math.log10(Math.max(v, 1e-9));
+function cv(id, hRatio, hMin) {
+  const c = $(id), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 600;
+  const h = Math.max(hMin || 120, Math.round(w * hRatio));
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.fillStyle = COL.bg; g.fillRect(0, 0, w, h);
+  return { g, w, h };
+}
+const WORKLET = FloquetVoice.toString() + '\n' + PROC_SRC;
+let actx = null, node = null, onMsg = null, oneShot = null;
+async function ensureAudio() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    await actx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(actx, 'fq-voice', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    const master = actx.createGain(); master.gain.value = 0.8;
+    node.connect(comp).connect(master).connect(actx.destination);
+    node.port.onmessage = (ev) => { if (onMsg) onMsg(ev.data); };
+  }
+  if (actx.state !== 'running') await actx.resume();
+}
+function voice(o) { if (node) node.port.postMessage(o); }
+function playBuffer(x, gain) {
+  if (!actx) return;
+  if (oneShot) { try { oneShot.stop(); } catch (e) {} oneShot = null; }
+  const b = actx.createBuffer(2, x.length, actx.sampleRate), L = b.getChannelData(0), R = b.getChannelData(1);
+  for (let i = 0; i < x.length; i++) { const y = (gain || 0.45) * Math.tanh(1.2 * x[i]); L[i] = y; R[i] = y; }
+  const fade = Math.min(480, x.length >> 2); for (let i = 0; i < fade; i++) { const f = i / fade; L[i] *= f; R[i] *= f; L[x.length - 1 - i] *= f; R[x.length - 1 - i] *= f; }
+  oneShot = actx.createBufferSource(); oneShot.buffer = b; oneShot.connect(actx.destination); oneShot.start();
+}
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+</script>
+<script>
+(() => {
+  let step = 1, playing = null;
+  const SR = 48000, W0 = 2 * Math.PI * 220;
+  const st = { q2: 0, z2: 0.025 };
+  function stopAll() {
+    voice({ on: false }); playing = null;
+    if (oneShot) { try { oneShot.stop(); } catch (e) {} oneShot = null; }
+    document.querySelectorAll('.fq-go').forEach((b) => { b.classList.remove('fq-on'); b.textContent = b.dataset.label; });
+  }
+  const winRms = (x, w) => { const r = []; for (let i = 0; i + w <= x.length; i += w) { let s = 0; for (let j = i; j < i + w; j++) s += x[j] * x[j]; r.push(Math.sqrt(s / w)); } return r; };
+
+  /* step 1: three runs of the same resonator, 1.5 s each */
+  let runs1 = null;
+  function make1() {
+    const n = Math.round(SR * 1.5), mk = (o, nudge) => { const v = new FloquetVoice(SR, 3); v.set(Object.assign({ a: 1, kappa: 0.05, sigma: 0, beta: 8, snap: true }, o)); if (nudge) v.pluck(nudge); return v.render(n, 240).x; };
+    runs1 = { push: mk({ q: 0, F: 0.01 }), rest: mk({ q: 0.2, F: 0 }), nudge: mk({ q: 0.2, F: 0 }, 1e-5) };
+  }
+  function draw1() {
+    if (!runs1) make1();
+    const { g, w, h } = cv('c1', 0.26, 160), x0 = 46, x1 = w - 10, y0 = 8, y1 = h - 22, lo = -140, hi = 0;
+    const X = (t) => x0 + t / 1.5 * (x1 - x0), Y = (d) => y0 + (1 - (Math.max(lo, Math.min(hi, d)) - lo) / (hi - lo)) * (y1 - y0);
+    g.strokeStyle = COL.grid; for (let d = lo; d <= hi; d += 20) { g.beginPath(); g.moveTo(x0, Y(d)); g.lineTo(x1, Y(d)); g.stroke(); }
+    g.font = '11px JetBrains Mono, monospace'; g.fillStyle = COL.fg3; g.textAlign = 'right'; for (let d = lo; d <= hi; d += 40) g.fillText(d + ' dB', x0 - 4, Y(d) + 4);
+    g.textAlign = 'center'; for (let t = 0; t <= 1.5; t += 0.5) g.fillText(t.toFixed(1) + ' s', X(t), h - 6);
+    const line = (x, col) => { const r = winRms(x, 240); g.strokeStyle = col; g.lineWidth = 1.6; g.beginPath(); r.forEach((v, i) => { const xx = X((i + 0.5) * 240 / SR), yy = Y(v > 0 ? dB(v) : -999); if (i) g.lineTo(xx, yy); else g.moveTo(xx, yy); }); g.stroke(); g.lineWidth = 1; return r; };
+    const rp = line(runs1.push, COL.cyan), rr = line(runs1.rest, COL.fg4), rn = line(runs1.nudge, COL.amber);
+    // slope of the nudged line while it is still small
+    let i1 = rn.findIndex((v) => dB(v) > -80), i2 = rn.findIndex((v) => dB(v) > -40);
+    const slope = i1 >= 0 && i2 > i1 ? (dB(rn[i2]) - dB(rn[i1])) / ((i2 - i1) * 240 / SR) : 0;
+    const restMax = Math.max(...runs1.rest.map(Math.abs));
+    $('t1').innerHTML = 'Pushed, the ring settles at <b>' + dB(rp[rp.length - 1]).toFixed(0) + ' dB</b> and stays there. Pumped from rest, the largest value in 1.5 s is <b>' + (restMax === 0 ? 'exactly 0' : restMax.toExponential(1)) + '</b>: a pump only multiplies what is already moving. Nudged by 10⁻⁵, the pumped ring climbs in a straight line, <b>' + slope.toFixed(0) + ' dB per second</b>, until the brake catches it. A straight line in decibels is exponential growth: the same factor every period.';
+  }
+
+  /* step 2: live */
+  function draw2() {
+    const z = st.z2, q = st.q2, kap = 2 * z, s = (q - kap) / 2 * W0;
+    const m = multipliers(monodromy(1, q, kap, 256)), gm = Math.log(rhoMax(m)) / Math.PI * W0;
+    const { g, w, h } = cv('c2', 0.16, 100), x0 = 46, x1 = w - 10, y = h / 2, X = (v) => x0 + v / 0.4 * (x1 - x0);
+    g.fillStyle = 'rgba(232,184,74,.14)'; g.fillRect(X(kap), 6, x1 - X(kap), h - 30);
+    g.strokeStyle = COL.fg4; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
+    g.font = '11px JetBrains Mono, monospace'; g.fillStyle = COL.fg3; g.textAlign = 'center';
+    for (let v = 0; v <= 0.4001; v += 0.05) g.fillText(v.toFixed(2), X(v), h - 8);
+    g.fillStyle = COL.cyan; g.fillRect(X(kap) - 1, 6, 2, h - 30); g.fillText('2ζ', X(kap) + 12, 18);
+    g.fillStyle = COL.amber; g.beginPath(); g.arc(X(q), y, 6, 0, 7); g.fill();
+    g.fillStyle = COL.fg3; g.textAlign = 'left'; g.fillText('settles', x0 + 4, 18); g.textAlign = 'right'; g.fillText('grows', x1 - 4, 18);
+    $('q2v').textContent = q.toFixed(3); $('z2v').textContent = z.toFixed(4) + (z === 0.025 ? ' (the build’s)' : '');
+    $('r2t').textContent = 'q = ' + kap.toFixed(3); $('r2g').textContent = (gm >= 0 ? '+' : '') + gm.toFixed(1) + ' /s';
+    $('t2').innerHTML = 'With damping ζ = ' + z.toFixed(4) + ', the crack is at <b>q = 2ζ = ' + kap.toFixed(3) + '</b>. ' + (q < kap ? 'You are below it: the noise comes in, the damping takes it out faster than the pump can feed it, and what you hear is a faint hiss coloured at 220 Hz.' : 'You are above it: each pump period puts in more than the damping takes out, and the hiss turns into a ring that grows by e every ' + (1000 / Math.max(gm, 1e-6)).toFixed(0) + ' ms until the brake holds it.');
+  }
+  async function go2() {
+    if (playing === 2) { stopAll(); return; }
+    await ensureAudio(); stopAll();
+    voice({ set: { a: 1, q: st.q2, kappa: 2 * st.z2, sigma: 1.5e-3, F: 0, snap: true }, reset: true, on: true });
+    playing = 2; $('go2').classList.add('fq-on'); $('go2').textContent = 'stop';
+  }
+
+  /* step 3: the test */
+  let res3 = null;
+  function make3() {
+    const one = (q, z) => {
+      const kap = 2 * z, th = (q - kap) / 2 * W0, mm = Math.log(rhoMax(multipliers(monodromy(1, q, kap, 512)))) / Math.PI * W0;
+      const v = new FloquetVoice(SR, 5); v.set({ a: 1, q, kappa: kap, sigma: 1.5e-3, F: 0, snap: true }); const x = v.render(SR * 2, 240).x, r = winRms(x, 240);
+      const end = Math.sqrt(r.slice(-100).reduce((s, u) => s + u * u, 0) / 100);
+      return { q, z, th, mm, end, r, x };
+    };
+    res3 = { damped: [0.03, 0.05, 0.07, 0.10, 0.30].map((q) => one(q, 0.025)), bare: [0.005, 0.02, 0.05].map((q) => one(q, 0)) };
+    const floor = res3.damped[0].end;   // the hiss: well below threshold
+    res3.bare.forEach((o) => { o.full = undefined; });
+    res3.damped.forEach((o) => { o.full = dB(o.end) > dB(floor) + 10 ? (o.r.findIndex((u) => dB(u) > dB(o.end) - 3) + 1) * 240 / SR : null; });
+    let lo = 0, hi = 0.2; for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; if (unstable(multipliers(monodromy(1, m, 0.05, 512)))) hi = m; else lo = m; }
+    res3.qc = (lo + hi) / 2;
+  }
+  function draw3() {
+    if (!res3) make3();
+    const row = (r) => '<tr><td>ζ = ' + r.z + ', q = ' + r.q.toFixed(3) + '</td><td>' + (r.th >= 0 ? '+' : '') + r.th.toFixed(1) + '</td><td>' + (r.mm >= 0 ? '+' : '') + r.mm.toFixed(1) + '</td><td>' + dB(r.end).toFixed(1) + ' dB</td><td>' + (r.full === undefined ? '—' : r.full !== null ? (r.full * 1000).toFixed(0) + ' ms' : 'stays hiss') + '</td></tr>';
+    $('tab3').innerHTML = '<tr><th></th><th>growth /s, textbook</th><th>growth /s, one period</th><th>level, last 0.5 s</th><th>full ring after</th></tr>' + res3.damped.map(row).join('') + res3.bare.map(row).join('');
+    const rowEl = $('row3'); if (!rowEl.childElementCount) {
+      res3.damped.concat(res3.bare).forEach((r, i) => { const b = document.createElement('button'); b.className = 'fq-go'; b.dataset.label = 'q ' + r.q + (r.z ? '' : ', ζ 0'); b.textContent = b.dataset.label; b.onclick = async () => { await ensureAudio(); stopAll(); playBuffer(r.x); b.classList.add('fq-on'); }; rowEl.appendChild(b); });
+    }
+    const d = res3.damped, f10 = d[3].full, f30 = d[4].full;
+    $('t3').innerHTML = '<b>The threshold is where the damping puts it, and nowhere without damping.</b> One pump period of the equation crosses zero growth at <b>q = ' + res3.qc.toFixed(4) + '</b>, which is 2ζ: the textbook rate (q − 2ζ)/2 × 2π·220 agrees with the multiplier to within 2 % at every depth (the textbook formula is the first term of a series). Below it, q = 0.03 stays hiss; at q = 0.05 the growth is zero and the resonator only wanders, a few dB above the hiss and not ringing; q = 0.10 rings in about <b>' + (f10 * 1000).toFixed(0) + ' ms</b> and q = 0.30 in <b>' + (f30 * 1000).toFixed(0) + ' ms</b>. Take the damping away and every depth grows, even q = 0.005, by its multiplier (with no damping the noise itself piles up too, so the level column there is not the pump’s alone): the page’s “minimum modulation depth” is the damping’s doing, exactly as the page says. '
+      + 'One thing the page’s audio does not match: the build’s three files are labelled below threshold (q = 0.05), at threshold (0.10) and well above (0.30). With its own damping ζ = 0.025 the first sits on the threshold and the second is twice it; measured off the files, the second reaches its full level within about 0.2 s and the third within 0.1 s.';
+  }
+
+  const UPD = { 1: draw1, 2: draw2, 3: draw3 };
+  function show(n) {
+    stopAll(); step = n;
+    document.querySelectorAll('.fq-step').forEach((s) => s.classList.toggle('fq-shown', +s.dataset.step === n));
+    document.querySelectorAll('.fq-rail button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.go === n ? 'true' : 'false'));
+    $('back').disabled = n === 1; $('next').disabled = n === 3;
+    UPD[n]();
+  }
+  function wire() {
+    document.querySelectorAll('.fq-rail button').forEach((b) => b.onclick = () => show(+b.dataset.go));
+    $('back').onclick = () => show(Math.max(1, step - 1)); $('next').onclick = () => show(Math.min(3, step + 1));
+    const hear = (key, btn) => async () => { await ensureAudio(); stopAll(); playBuffer(runs1[key], key === 'push' ? 2.5 : 0.45); btn.classList.add('fq-on'); };
+    $('p1a').onclick = hear('push', $('p1a')); $('p1b').onclick = hear('rest', $('p1b')); $('p1c').onclick = hear('nudge', $('p1c'));
+    $('q2').oninput = () => { st.q2 = +$('q2').value; draw2(); if (playing === 2) voice({ set: { q: st.q2 } }); };
+    $('z2').oninput = () => { st.z2 = +$('z2').value; draw2(); if (playing === 2) voice({ set: { kappa: 2 * st.z2 } }); };
+    $('go2').onclick = go2;
+    let rz = null; new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(() => UPD[step](), 80); }).observe(document.querySelector('.fq-piece'));
+  }
+  sigil(); wire(); $('back').disabled = true; draw1();
+})();
+</script>
+</body>
+</html>

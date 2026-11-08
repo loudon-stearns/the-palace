@@ -26,7 +26,7 @@ beat produced.
 | | Path A — resume the resident | Path B — dispatch cold |
 |---|---|---|
 | when | a resident companion was summoned this session and you hold its `agentId` | no resident, or its ID is lost to a compaction/rewind, or the dial says it is spent |
-| how | `SendMessage` to the held ID | Agent tool, **Sonnet**, one call per pass |
+| how | `SendMessage` to the held ID | Agent tool, one call per pass: `palace-reader` for the passes, `palace-writer` for the executor; Sonnet by default, Opus when the dial or the task asks |
 | cost | each beat re-bills only what's new | each beat re-reads the whole close cold |
 
 **Choosing.** Run the dial twice — it takes one objective token count and reads it differently
@@ -72,11 +72,27 @@ brief as prose. A lesson with no tool change yet (tuning item 29).
 
 ---
 
+## A steward session
+
+The arc's header says when the session was a steward cycle: `- **steward session:** driven live
+as [[Page]]` (transcript-reader.mjs reads it from the launch brief, so it holds even when Loudon
+has forgotten). Then the close carries two more things, whichever path it takes:
+
+- **Square the books.** A live cycle has no orchestrator after it, so the steward's state,
+  history, scroll Now and tuning run line stay where the last headless cycle left them. Run
+  `node _ops/stigmergy/orchestrator/src/finalize-live.js --home "<Page>" --dry-run`, then without
+  `--dry-run`; it counts what the session posted as the cycle and commits. A run line written by
+  hand is left alone. A headless cycle needs none of this — processCycle already did it.
+- **Read the Plan and Standing Orders against the day.** The moderator reads the page's scroll
+  and ledger tail (closing-well-agent.md § What a good moderator holds) and brings anything the
+  session outdated to the panel as a question. Loudon's answer is written on his yes.
+
 ## Path A — resume the resident (preferred)
 
 The resident already holds the charter, including its § At a close section, so it knows it is
 taking the wheel. It has *not* read `Closing Well.md` — that is not in its boot set — so pass 1
-still points it there.
+still points it there. Every resident hand-back names a file path beside its text, so a reply
+lost to a bare notification is recovered from the file.
 
 **What disappears on this path, and why it is the whole point.** On Path B, `{{HOMEWORK}}` and
 `{{BACKSTAGE_CHECKLIST}}` travel between passes *through the working Claude's context*, verbatim
@@ -105,6 +121,7 @@ Read the arc COLD — as the transcript, not as your memory of the session. Wher
 recollection and the arc disagree, the arc is the record and the disagreement is worth naming.
 For a CLAUDE (narration) beat the arc is the record of what Loudon read, not of what the room
 wrote; if you remember it saying more, say so — that gap is expected.
+The arc spans a gap of: <N days, between <date> and <date> — or "none">.
 Return exactly the two parts it specifies (Part A homework, Part B coaching); nothing else.
 ```
 
@@ -172,7 +189,7 @@ node _ops/closing-well/transcript-reader.mjs --resolve --session <main-session-i
 node _ops/closing-well/transcript-reader.mjs --distill --session <main-session-id> --out <scratch>/session-arc.md
 ```
 
-Then dispatch (Agent tool, **Sonnet**, one call). The whole task:
+Then dispatch (Agent tool, `palace-reader`, one call). The whole task:
 
 ```
 You are Closing Well, run as an agent — the moderator of this session's close.
@@ -180,6 +197,7 @@ Read _ops/closing-well/prompts/closing-well-agent.md and follow its "Task" secti
 your instructions, with these slot values:
   {{CLOSING_WELL_PATH}} = <abs path to Closing Well.md>
   {{ARC_PATH}}          = <abs path to the distilled arc from above>
+The arc spans a gap of: <N days, between <date> and <date> — or "none">.
 Return exactly the two parts it specifies (Part A homework, Part B coaching); nothing else.
 ```
 
@@ -190,7 +208,7 @@ for pass 2.
 
 After the panel, distil Loudon's judgment and the working Claude's witness to a few lines
 each (or use the `UNFILLED` sentinel if no panel happened — never fabricate the human
-channel). Dispatch (Agent tool, **Sonnet**, one call):
+channel). Dispatch (Agent tool, `palace-reader`, one call):
 
 ```
 You are Closing Well, the moderator of this session's close.
@@ -209,8 +227,8 @@ or as a file, as on Path A. He assents or names revisions.
 ### On assent — Pass 3, the backstage execution (a subagent, not the main loop)
 
 The mechanism is the moderator's alone — so execution is a **third dispatch**, not work the
-spent working instance does. Dispatch the backstage moderator (Agent tool, **Sonnet**, one
-call); it reads `executor.md`, places each assented `candidate` row through its ceremony, and
+spent working instance does. Dispatch the backstage moderator (Agent tool, `palace-writer`, one
+call); it reads `executor.md`, places each assented `candidate` row through its ceremony, commits each `prepared` row on a worktree branch and never lands it, and
 returns a placement report:
 
 ```
@@ -230,7 +248,7 @@ Return only the placement report; place what was assented, re-decide nothing.
 The executors it runs (deposit → owner committer; baton → `baton-executor.mjs`; artifact →
 bundle + index) and the two routing rules live in `executor.md`. `landed` / `provisional` /
 `none` rows execute nothing. The working instance's whole job by now is to relay the report —
-and, for a row the executor *prepared* rather than landed, to show Loudon in plain words what
+and, for a `prepared` row — assented, words not yet read — to show Loudon in plain words what
 changed, naming every rule those words write down (the new words themselves where a row rewrites
 prose), last in the turn as at the gate, and land the branch on his yes (`executor.md` § keep →
 deposit).

@@ -1,0 +1,66 @@
+# Synth Templates — card — Brass Lead
+# The filter envelope's attack is the instrument: the note starts, then the filter opens a moment later, and that lag is the blat.
+schema: synth-template-card/0.2
+id: brass-lead
+name: Brass Lead
+family: Leads
+tier: 1
+mode: mono
+classics: Prophet / Oberheim
+status: drafted
+concepts:
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Small detune (≤7 cents) = chorus"
+  - "Velocity → filter envelope amount; → pitch envelope amount"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: slight, note: "two saws a few cents apart"}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: short, d: medium, s: low, r: short}, category: sustaining}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,     value: saw,       why: "a brass tone is all harmonics, like a saw with a mute"}
+  - {block: osc1,    param: detune,   value: slight,    why: "a few cents between two saws: a chorus, not a beat; the section, not the soloist"}
+  - {block: filter1, param: cutoff,   value: mid,       why: "half closed at rest, so the envelope has somewhere to open to"}
+  - {block: fenv,    param: attack,   value: short,     why: "the blat: the amp is already up when the filter starts opening, and that lag reads as a lip buzzing into tone"}
+  - {block: fenv,    param: sustain,  value: low,       why: "a horn settles darker than it starts; the push of the first breath fades"}
+  - {block: fenv,    param: amount,   value: moderate,  why: "far enough to hear the opening, not a wah"}
+  - {block: aenv,    param: attack,   value: fast,      why: "faster than the filter's attack; the order of the two is the whole trick"}
+  - {block: aenv,    param: sustain,  value: held,      why: "sustaining: blown, so the note holds"}
+  - {block: mode,    param: voices,   value: mono,      why: "one horn line; stacks are the brass pad's job"}
+
+taste:
+  - {block: fenv,    param: attack,   range: "fast – medium",      default: short, why: "longer and the blat becomes a slow wah"}
+  - {block: fenv,    param: amount,   range: "some – generous",    default: moderate}
+  - {block: filter1, param: cutoff,   range: "dark – bright",      default: mid}
+  - {block: osc1,    param: detune,   range: "none – narrow",      default: slight}
+  - {block: aenv,    param: release,  range: "short – medium",     default: short}
+  - {block: osc1,    param: glide,    range: "none – short",       default: none}
+
+listening:
+  cue: "Each note starts dull and opens a moment later, a short 'bwah' at the front. Hit harder and it opens further. The body under it is a slightly chorused saw."
+  ab: "Set the filter envelope's attack to instant: the opening happens before you can hear it and it is a plain filtered saw. Put it back to short and the blat returns. Then set the amount to none: no envelope, no brass."
+
+render:
+  tempo: 100
+  note: [C4, C4, G4, G4]
+  velocity: [90, 90, 120, 120]
+  pattern: "quarter notes, detached, one bar; the second pair accented so the filter opens further"
+  length_s: 3.0
+
+mappings: {}

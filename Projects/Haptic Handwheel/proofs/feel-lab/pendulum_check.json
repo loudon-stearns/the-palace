@@ -1,0 +1,222 @@
+{
+  "k": 0.085,
+  "f0_hz": 5.893,
+  "rows": [
+    {
+      "pull_rad": 0.1,
+      "pull_deg": 5.7,
+      "swing_rad": 0.1007,
+      "engine_hz": 5.8892,
+      "exact_hz": 5.8892,
+      "err_pct": 0,
+      "worst_err_pct": 0,
+      "swings": 6,
+      "flipped": false
+    },
+    {
+      "pull_rad": 0.3,
+      "pull_deg": 17.2,
+      "swing_rad": 0.3021,
+      "engine_hz": 5.8594,
+      "exact_hz": 5.8594,
+      "err_pct": 0.001,
+      "worst_err_pct": 0.001,
+      "swings": 6,
+      "flipped": false
+    },
+    {
+      "pull_rad": 0.5,
+      "pull_deg": 28.6,
+      "swing_rad": 0.5035,
+      "engine_hz": 5.7999,
+      "exact_hz": 5.7997,
+      "err_pct": 0.004,
+      "worst_err_pct": 0.004,
+      "swings": 6,
+      "flipped": false
+    },
+    {
+      "pull_rad": 1,
+      "pull_deg": 57.3,
+      "swing_rad": 1.0069,
+      "engine_hz": 5.5221,
+      "exact_hz": 5.5213,
+      "err_pct": 0.015,
+      "worst_err_pct": 0.016,
+      "swings": 5,
+      "flipped": false
+    },
+    {
+      "pull_rad": 1.5,
+      "pull_deg": 85.9,
+      "swing_rad": 1.5105,
+      "engine_hz": 5.062,
+      "exact_hz": 5.0601,
+      "err_pct": 0.038,
+      "worst_err_pct": 0.04,
+      "swings": 5,
+      "flipped": false
+    },
+    {
+      "pull_rad": 2,
+      "pull_deg": 114.6,
+      "swing_rad": 2.0147,
+      "engine_hz": 4.4164,
+      "exact_hz": 4.4128,
+      "err_pct": 0.082,
+      "worst_err_pct": 0.086,
+      "swings": 4,
+      "flipped": false
+    },
+    {
+      "pull_rad": 2.3,
+      "pull_deg": 131.8,
+      "swing_rad": 2.3186,
+      "engine_hz": 3.929,
+      "exact_hz": 3.9235,
+      "err_pct": 0.139,
+      "worst_err_pct": 0.146,
+      "swings": 3,
+      "flipped": false
+    },
+    {
+      "pull_rad": 2.6,
+      "pull_deg": 149,
+      "swing_rad": 2.6262,
+      "engine_hz": 3.3358,
+      "exact_hz": 3.3263,
+      "err_pct": 0.287,
+      "worst_err_pct": 0.322,
+      "swings": 3,
+      "flipped": false
+    },
+    {
+      "pull_rad": 3,
+      "pull_deg": 171.9,
+      "flipped": 0.733
+    }
+  ],
+  "spring_hz": [
+    5.893,
+    5.893,
+    5.893,
+    5.893,
+    5.893,
+    5.893,
+    5.893
+  ],
+  "worst_err_pct": 0.322,
+  "loop_growth_pct_10s": 30.31,
+  "brake_miss": [
+    {
+      "eps": 0,
+      "guess": "mid",
+      "b": 0.0001,
+      "spring": "still at 1.44 s",
+      "pendulum": "still at 1.40 s"
+    },
+    {
+      "eps": 0.01,
+      "guess": "low",
+      "b": 0.0000777,
+      "spring": "still at 1.61 s",
+      "pendulum": "still at 1.46 s"
+    },
+    {
+      "eps": 0.01,
+      "guess": "mid",
+      "b": 0.0000289,
+      "spring": "still at 2.20 s",
+      "pendulum": "still at 1.85 s"
+    },
+    {
+      "eps": 0.01,
+      "guess": "high",
+      "b": -0.000132,
+      "spring": "runs away at 0.43 s",
+      "pendulum": "over the top at 0.29 s"
+    },
+    {
+      "eps": 0.02,
+      "guess": "low",
+      "b": 0.0000554,
+      "spring": "still at 1.86 s",
+      "pendulum": "still at 1.69 s"
+    },
+    {
+      "eps": 0.02,
+      "guess": "mid",
+      "b": -0.0000422,
+      "spring": "still swinging 2.96 rad after 6 s, hitting the torque cap",
+      "pendulum": "still at 4.41 s"
+    },
+    {
+      "eps": 0.02,
+      "guess": "high",
+      "b": -0.000364,
+      "spring": "runs away at 0.16 s",
+      "pendulum": "over the top at 0.11 s"
+    },
+    {
+      "eps": 0.05,
+      "guess": "low",
+      "b": -0.0000115,
+      "spring": "still at 3.41 s",
+      "pendulum": "still at 2.63 s"
+    },
+    {
+      "eps": 0.05,
+      "guess": "mid",
+      "b": -0.000256,
+      "spring": "runs away at 0.17 s",
+      "pendulum": "over the top at 0.12 s"
+    },
+    {
+      "eps": 0.05,
+      "guess": "high",
+      "b": -0.00106,
+      "spring": "runs away at 0.06 s",
+      "pendulum": "over the top at 0.08 s"
+    }
+  ],
+  "cancel_rule": [
+    {
+      "guess": "low",
+      "cancelMax": 0.995,
+      "exact": [
+        "still at 1.44 s",
+        "still at 1.28 s"
+      ],
+      "high5": [
+        "still at 2.88 s",
+        "still at 2.34 s"
+      ]
+    },
+    {
+      "guess": "mid",
+      "cancelMax": 0.966,
+      "exact": [
+        "still at 0.76 s",
+        "still at 0.73 s"
+      ],
+      "high5": [
+        "still at 2.88 s",
+        "still at 2.34 s"
+      ]
+    },
+    {
+      "guess": "high",
+      "cancelMax": 0.956,
+      "exact": [
+        "still at 0.35 s",
+        "still at 0.38 s"
+      ],
+      "high5": [
+        "still at 2.88 s",
+        "still at 2.34 s"
+      ]
+    }
+  ],
+  "loop_late_us": 38.6,
+  "checked": "2026-11-07"
+}

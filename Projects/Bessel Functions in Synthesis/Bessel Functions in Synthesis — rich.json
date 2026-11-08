@@ -1,0 +1,208 @@
+{
+ "title": "Bessel Functions in Synthesis — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Bessel Functions in Synthesis]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "every-piece-walks-up"
+  },
+  {
+   "target": "[[FM Synthesis]]",
+   "type": "connects-to",
+   "label": "the-fold-is-drawn-there"
+  }
+ ],
+ "forward_vector": "I am the manifest of Bessel Functions in Synthesis's rich face, its first round, a Sketch made in the proposal round of 2026-11: the two proofs of 2026-05-04 gathered beside the sections they drew, and three made walks, each opening on one idea and ending on its section's claim, tested: the carrier null at the first zero of J0 with the sideband ladder against a printed table, a string against a round drum head struck anywhere, and the Bessel function played as the sound with its order as a knob. I hold the fingerprint of the words each was laid against, and the offers the making found for the text. I grow when Loudon has heard the null and answered the offers; I never hold the entry's words.",
+ "entry": "Bessel Functions in Synthesis",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "The FM-Bessel Isomorphism",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "The 1:1 sentence: \"Why does FM with ratio 1:1 sound like a buzzy sawtooth? Because the sideband amplitudes follow J₀(β), J₁(β), J₂(β)…\" At 1:1 every partial does land on a harmonic, as a sawtooth's do. But the lower sidebands fold past 0 Hz onto the upper ones, so the k-th harmonic is Jₖ₋₁(β) + (−1)ᵏ Jₖ₊₁(β), not one Bessel value; synthesis matches that formula to 2 × 10⁻¹⁵. At 1:1 and β 2.4048 the 220 Hz partial is J₀ − J₂ = −0.432 (−7.3 dB), not silent. How far from a sawtooth depends on the ruler. The worst single harmonic of the first ten never comes within 15 dB of 1/k at any index from 0.2 to 8 (closest 15.1 dB at β 6.78). On the ruler the FM Synthesis face uses, rms dB over harmonics 2 to 10, plain 1:1 comes no closer than 7.6 dB (β 6.83), while feedback at 7 comes within 1.0 dB. The two faces agree that the near-sawtooth is feedback's. Suggested: \"At 1:1 the sidebands fall on every harmonic, as a sawtooth's do, but each harmonic is two Bessel values, the upper sideband's and a lower one folded back, so the slope is not a sawtooth's. Its harmonics 2 to 10 never come within 7.6 dB rms of one; feedback at 7 comes within 1 ([[FM Synthesis]] § Feedback).\" See the next offer, so the two pages answer this once."
+  },
+  {
+   "section": "→ FM Synthesis",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "For the FM Synthesis page, raised here so the two pages answer one question once. FM Synthesis.md line 60 (§ Ratios) says \"At 1:1 every harmonic is there, and the sound sits near a sawtooth.\" Its ratios piece says 1:1 near index 3.5 is \"within about 4 dB\" of a sawtooth over harmonics 2 to 6 (3.7 dB measured at β 3.54). The Bessel face's carrier piece and the challenger's recomputation find that harmonics 2 to 6 sit within 7 dB of 1/k at β 3.5, but harmonics 7 to 10 fall away, −14 to −48 dB, and over harmonics 2 to 10 plain 1:1 comes no closer than 7.6 dB rms (β 6.83). Feedback at 7 comes within 1.0 dB. So \"near a sawtooth\" holds for the lower harmonics at a middle index, and the close sawtooth is feedback's. Loudon to choose one wording for both pages: either \"near a sawtooth in its lower harmonics\" here, or the Bessel page's 1:1 sentence softened to match."
+  },
+  {
+   "section": "The FM-Bessel Isomorphism",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "\"This is not an approximation\" holds, and the piece shows it at its sharpest. At β 2.4048 the carrier, measured from the engine's own samples, is 241 dB down. Every sideband from −7 to +7 sits on |Jₙ(β)| to under 0.001 dB across β 0 to 6. The ladder above the carrier matches a printed table at β 1, 2 and 5 to ten places. The clause it lacks is where the exactness lives. Suggested, after \"exact solution\": \"for a sine modulator, sideband by sideband. A partial you hear is a single Jₙ only when no other sideband lands on it; at low ratios, sidebands below 0 Hz fold back and add.\""
+  },
+  {
+   "section": "Synthesis Applications from Direct Bessel Waveforms",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "\"The peak of Jₙ occurs approximately at t=n\": the order does set the peak, later for every higher n, as the section says. But the peak comes after n, not at it, and the gap grows. The first peaks are at 1.841, 3.054, 4.201, 5.318, 6.416, 7.501, 8.578 and 9.647 for n = 1 to 8, which is 0.84 to 1.65 later, following n + 0.81·n^⅓ to within 0.04. What happens near t = n is the waking: Jₙ is nearly silent before it and already about 70 % of its peak at it. Suggested: \"Jₙ stays near silent until about t = n, then peaks a little after, near n + 0.81·n^⅓ (1.84, 3.05, 4.20 for n = 1, 2, 3).\" It moves a number the page states, by 0.84 to 1.65, so it is filed as a claim-change, small as it is."
+  },
+  {
+   "section": "Synthesis Applications from Direct Bessel Waveforms",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "\"Non-uniform zero-crossing spacing\", and in the LFO paragraph \"the irregular oscillation rate (slowing as amplitude decays)\". J₀'s zeros, found by the piece, are 2.405, 5.520, 8.654, 11.792, so the gaps are 2.405, 3.115, 3.134, 3.138, 3.139. Only the first is uneven. After it every gap is within 1 % of π and closer each time, so the slowing is real but under 1 %. Past x = 5, J₀ differs from a plain cosine an eighth of a turn late, fading as 1 ⁄ √x, by at most 0.0077. What sets J₀ apart from a sine is that fade, and its start at full height, not the spacing of its zeros. Suggested: \"zero-crossings that start uneven and settle quickly to an even spacing of π, under an amplitude that fades as one over the square root of time.\" An exaggeration rather than an error: the gaps are 0.84 %, 0.25 %, 0.12 % under π and growing each time, so \"slowing\" is true and tiny, and \"irregular\" is the overreach. The first stretch, 0 to 2.405, is not a zero-to-zero gap at all, since J₀ starts at its peak."
+  },
+  {
+   "section": "Bessel Functions as Direct Waveforms",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "The same finding, in this section's words: \"The zero-crossings are irregularly spaced (roots at approximately 2.4, 5.5, 8.65...), creating a unique temporal signature that no simple sinusoid can produce.\" The roots are right. The irregularity is only the first gap (2.405, then 3.115, 3.134, 3.138 → π), and a sine an eighth of a turn late, fading as 1 ⁄ √t, follows J₀ to within 0.0077 past x = 5. The order piece in the next section plays the two side by side. Suggested: \"(roots at about 2.4, 5.5, 8.65 …, spaced ever closer to π): a ring that starts at full height and fades as one over the square root of time, close to a decaying sine but for its first moments.\" An exaggeration rather than an error: the gaps are 0.84 %, 0.25 %, 0.12 % under π and growing each time, so \"slowing\" is true and tiny, and \"irregular\" is the overreach. The first stretch, 0 to 2.405, is not a zero-to-zero gap at all, since J₀ starts at its peak."
+  },
+  {
+   "section": "The State-Variable Filter as Physics",
+   "kind": "claim-change",
+   "status": "open",
+   "what": "Not tested by a piece; the drum head piece tests only the membrane, and these numbers were computed in scratch with SciPy. \"The first few modes of a struck gong or tam-tam are not at simple integer ratios—they follow the Bessel zero spacing\" holds for a membrane, a drum head, and not for a gong or tam-tam, which is a plate. A plate's modes are built from Jₘ and the modified Iₘ together, and its frequencies go as the square of a different root. A clamped round plate runs 1 : 2.08 : 3.41 : 3.89 (roots 3.196, 4.611, 5.906, 6.306), against the membrane's 1 : 1.59 : 2.14 : 2.30. A free-edged plate, nearer a gong, follows another series again (Fletcher and Rossing, The Physics of Musical Instruments, ch. 3). A church bell is a shell, and founders choose its partials, hum, prime, tierce, quint and nominal, near 0.5 : 1 : 1.2 : 1.5 : 2. So the membrane sentence holds, and the gong, tam-tam and bell sentences want \"plate\" or \"shell\", where the modes are still circular, Bessel-built and inharmonic, but not at the Bessel-zero spacing. Pedagogical Revelation's \"You cannot make a circular bell that rings like a harmonic sine wave\" stands; what the profile gives founders is the choice of the ratios. The minor-third tierce is chosen, and it is what makes a bell a bell."
+  }
+ ],
+ "sections": [
+  {
+   "heading": "The FM-Bessel Isomorphism",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-05-04-bessel-fm-correlation.png",
+     "origin": "gathered",
+     "by": "matplotlib · the proof of 2026-05-04",
+     "title": "J₀ to J₆ against β, and the FM spectrum at β 2, 4 and 6",
+     "caption": "The curves above, and below the stems Jₙ draws at 1000 and 200 Hz. A record of the maths, drawn from Jₙ itself, not measured from a sound; the piece beneath measures. Each stem is one sideband's Jₙ, not the partial you hear. The sidebands below 0 Hz are left off the axis, and they fold back, the very thing the carrier piece corrects. So at β 6 the 200 Hz partial is J₄ − J₆ = 0.11, not the 0.36 drawn, and the 400 Hz one nearly vanishes, 0.015 against 0.11. The J₅ stem it draws at 0 Hz is silent: a sine at 0 Hz is nothing.",
+     "near": "with amplitudes given by"
+    },
+    {
+     "file": "Bessel Functions in Synthesis — rich — carrier null.html",
+     "origin": "made",
+     "by": "Web Audio Worklet",
+     "title": "The carrier null · is it exactly Jₙ?",
+     "caption": "**One FM pair at 11 : 1, the index walked from 0 to the first zero of J₀.** It opens on the carrier alone, adds the first pair, then the whole family of Jₙ curves, then a narrow window that lets you hear the carrier by itself, and ends on the section's claim at its sharpest point. It holds: at β 2.4048 the carrier, measured from the engine's own samples, is at the floating-point floor, below −240 dB: gone. Through the window the sound drops 54.6 dB, and all of what is left is leakage from the sidebands either side (the window's gains times Jₙ predict −54.594 dB). Every sideband from −7 to +7 sits on |Jₙ(β)| to under 0.001 dB from β 0 to 6, and the ladder above the carrier matches a printed table at β 1, 2 and 5 to its ten places. The last control tries 1 : 1, the ratio the section names for the sawtooth, and there the carrier does not vanish: J₂'s lower sideband folds onto it, and what you hear is J₀ − J₂ = −0.432.",
+     "near": "This is not an approximation",
+     "place": "band",
+     "height": 1550
+    }
+   ],
+   "made_against": "e9618f36aedb",
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-05-04-bessel-fm-correlation.png",
+      "verdict": "remake",
+      "why": "Caption only. Its lower panels leave the sidebands below 0 Hz off the axis, and they fold back: at 5 : 1 and β 6 the 200 Hz partial is J₄ − J₆ = 0.11, drawn as 0.36, and 400 Hz is 0.015, drawn as 0.11. Add one sentence saying each stem is one sideband's Jₙ, not the partial heard."
+     },
+     {
+      "file": "Bessel Functions in Synthesis — rich — carrier null.html",
+      "verdict": "remake",
+      "why": "A real test that walks up and stops where 'exact' stops. One word wrong: step 4 says 'At β 0 you hear a plain 880 Hz sine'; the carrier is 1100 Hz (also the stale 880 in the checks file's comment). Note: '241 dB down' is the floating-point floor; say so."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Eigenfunction Principle: Geometry Determines Resonance",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-05-04-six-modes.png",
+     "origin": "gathered",
+     "by": "matplotlib · the proof of 2026-05-04",
+     "title": "the first six modes of a round drum head",
+     "caption": "Each mode's shape, Jₘ(j r) cos(mθ), with its zero: (0,1) at 2.40, (1,1) 3.83, (2,1) 5.14, (0,2) 5.52, (3,1) 6.38, (1,2) 7.02. Red and blue move opposite ways; the white lines between are still.",
+     "near": "Circular membrane"
+    },
+    {
+     "file": "Bessel Functions in Synthesis — rich — drum head.html",
+     "origin": "made",
+     "by": "Web Audio · modal synthesis",
+     "title": "A string and a drum head · who decides the partials?",
+     "caption": "**A string and an ideal round drum head at the same 140 Hz, struck.** It opens on the string, whose partials sit on whole numbers wherever you strike it; then the drum head, whose partials fall at Bessel zeros the piece finds for itself (they match the printed table to four places); then the two side by side; and ends on the section's claim where it would break: strike the drum anywhere. The strike chooses which modes sound, the centre leaving only the rings at 1, 2.295, 3.598, 4.903. That it never moves them is built into the model, which fixes each mode's frequency before any strike, so it can't fail. The real test is the share: four modes do sit within 20 cents of a whole number, and a strike that favoured them would raise it, but of 99 strike radii the best puts only 8.54 % of the overtone power there. The string puts all of it there. An ideal membrane, with no air: a real kettle drum's air pulls its modes toward a pitch.",
+     "near": "In each case, the boundary conditions",
+     "place": "band",
+     "height": 1260
+    }
+   ],
+   "made_against": "006828c4ed74",
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-05-04-six-modes.png",
+      "verdict": "keep",
+      "why": "An honest illustration of the shapes the section names; the six zeros in its caption match A&S Table 9.5."
+     },
+     {
+      "file": "Bessel Functions in Synthesis — rich — drum head.html",
+      "verdict": "keep",
+      "why": "Walks up from a string to strike-anywhere; the centre strike is m = 0 only by symmetry, and the best of 99 radii is 8.5 % on whole numbers (recomputed 8.54 % at r 0.98). That modes don't move is by construction; the share is the real measurement. Fix two roundings: 1.594 is 1.593, 2.918 is 2.917."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Synthesis Applications from Direct Bessel Waveforms",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "Bessel Functions in Synthesis — rich — order as a knob.html",
+     "origin": "made",
+     "by": "Web Audio",
+     "title": "The order as a knob · when does Jₙ arrive?",
+     "caption": "**The Bessel function played as the sound itself, then slowed to a swell so its timing is heard.** It opens on J₀ alone, holds it against its shadow (a cosine an eighth of a turn late, fading as 1 ⁄ √t), wakes J₁, turns the order smoothly from 0 to 8, and ends on this paragraph's claim about the peak. The section's numbers hold for J₀'s zeros (2.405, 5.520, 8.654) and J₁'s peak (1.841). The zero spacing is uneven only at the start: after the first gap, every gap is within 1 % of π. And the peak of Jₙ is not at t = n but later, 0.84 at n = 1 and 1.65 at n = 8, following n + 0.81 · n^⅓; near t = n it is waking, already about 70 % of the way up.",
+     "near": "Higher-order Jₙ progressively delay",
+     "place": "band",
+     "height": 1340
+    }
+   ],
+   "made_against": "c75d02ed04d2",
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Bessel Functions in Synthesis — rich — order as a knob.html",
+      "verdict": "keep",
+      "why": "Walks J₀ to the order as a knob and measures the peak against the text's 'at t = n': peaks recomputed 1.841 to 9.647, n + 0.81·n^⅓ to within 0.036. The 'orders 0 to 8 in turn' button plays 0, 2, 4, 6, 8; say so or play all nine."
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+# Synth Templates — card — Square-Sub Techno Bass
+# A dark square that ducks on every beat. The sidechain is just an envelope the kick triggers; here an LFO in sync draws it.
+schema: synth-template-card/0.2
+id: square-sub-techno-bass
+name: Square-Sub Techno Bass
+family: Bass
+tier: 2
+mode: mono
+classics: techno
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Tempo sync; triplets"
+  - "Sustaining vs non-sustaining sounds"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: -1}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    lfo1:    {kind: lfo, wave: saw, rate: medium, sync: true, note: "the sidechain: a synced ramp, one per beat, dropping the level at each kick and recovering by the next. In the mix this is a compressor keyed from the kick; the LFO stands in for it. The rate word stands in for the division"}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: low, r: short}, category: percussive}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: square,        why: "hollow and heavy: the sub register with a little edge"}
+  - {block: osc1,    param: octave,  value: -1,            why: "it lives under the kick's tone"}
+  - {block: filter1, param: cutoff,  value: dark,          why: "nearly closed: a square so dark it is almost a sub"}
+  - {block: aenv,    param: decay,   value: short,         why: "a short hit, then a low tail: the note is the thump plus what the duck leaves"}
+  - {block: aenv,    param: sustain, value: low,           why: "something must be held for the sidechain to carve"}
+  - {block: lfo1,    param: target,  value: amp level,     why: "the duck is an envelope on the amplifier, retriggered by the kick: the sound is the hole it leaves"}
+  - {block: lfo1,    param: sync,    value: "on",          why: "one duck per beat, in time: the pumping is the groove"}
+  - {block: lfo1,    param: wave,    value: saw,           why: "a ramp: drop at the kick, recover toward the next beat"}
+  - {block: mode,    param: voices,  value: mono}
+
+taste:
+  - {block: lfo1,    param: depth,   range: "moderate – full",   default: generous, why: "how deep the hole is"}
+  - {block: aenv,    param: decay,   range: "short – medium",    default: short}
+  - {block: aenv,    param: sustain, range: "low – held",        default: low}
+  - {block: filter1, param: cutoff,  range: "dark – mid",        default: dark}
+  - {block: aenv,    param: release, range: "short – medium",    default: short}
+
+listening:
+  cue: "A low square that breathes in time: silent at every beat, swelling back between them. You hear the kick's shape in the bass even when there is no kick."
+  ab: "Set the sidechain depth to none: a flat, held, dark square with no pulse, and the groove is gone. Put it back and the room starts pumping again."
+
+render:
+  tempo: 130
+  note: [C1, C1]
+  velocity: 100
+  pattern: "two bars: a whole note, a whole note; the duck at quarters"
+  length_s: 4.0
+
+mappings: {}

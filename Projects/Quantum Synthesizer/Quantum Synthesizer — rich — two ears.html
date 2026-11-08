@@ -1,0 +1,716 @@
+<!doctype html>
+<!--
+  title: Quantum Synthesizer — rich — two ears
+  born: 2026-11-03
+  links: [[Quantum Synthesizer]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · a walk up to its test · [[Piano String Inharmonicity]] connects-to · the bar the clock rides on
+  forward_vector: I am the Energy Eigenvalues claim of Quantum Synthesizer as a walk of five steps: one rung alone,
+    the ladder, two rungs, a swinging packet, and then the test, where the Schrödinger equation is solved on a grid
+    and both ways of hearing it are measured by FFT. The clock hears the phase turning, Re ψ at one point; the
+    detector hears |ψ|², what a measurement could register. I want the page's two sentences, the oscillator's
+    harmonic series and the box's squares, to say which ear each one is true for.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="qs-engine" is pure functions. A finite-difference Hamiltonian, -1/2 d2/dx2 + V(x),
+    tridiagonal; eigenvalues by Sturm bisection, shapes by inverse iteration. The oscillator is V = x²/2 on 3,999
+    points over [-10, 10]; the box is V = 0 on 1,199 points over (0, π), walls at both ends, so its lowest level
+    is 1/2, the oscillator's. Energy is played at 220 Hz per ħω, as ladder.py does, so both lowest levels sound
+    at 110 Hz. The probe sits at x = 1.0 in the oscillator (ladder.py's) and 1.1 in the box.
+  checks: Quantum Synthesizer — proof — two ears checks.mjs, beside this file, pulls the qs-engine script and
+    the WORKLET string out of this file and re-runs every step's claim in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Quantum Synthesizer — two ears on one ladder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .qs-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .qs-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .qs-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .qs-sub { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 16px; }
+  .qs-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .qs-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .qs-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  button.qs-cy[aria-pressed="true"] { color: var(--cyan); border-color: var(--cyanline); background: rgba(106,168,232,.08); }
+  .qs-rail button[aria-pressed="true"] { border-right: 1px solid var(--border); }
+  button.qs-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.qs-go.qs-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:disabled { opacity: .4; cursor: default; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .qs-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .qs-step.qs-shown { display: block; }
+  .qs-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .qs-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 80ch; margin: 0 0 12px; }
+  .qs-p { font-size: 13.5px; line-height: 1.6; max-width: 80ch; margin: 8px 0; }
+  .qs-quote { font-family: var(--serif); font-style: italic; font-size: 17px; line-height: 1.5; color: var(--fg1); border-left: 2px solid var(--fg4); padding: 2px 12px; margin: 8px 0; max-width: 80ch; }
+  .qs-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .qs-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .qs-row .qs-lab { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 7ch; }
+  .qs-seg { display: inline-flex; flex-wrap: wrap; }
+  .qs-seg button + button { border-left: 0; }
+  .qs-seg button { border-radius: 0; padding: 8px 10px; min-width: 34px; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .qs-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 9ch; font-variant-numeric: tabular-nums; }
+  .qs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; margin: 10px 0; }
+  .qs-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .qs-cell .qs-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .qs-cell .qs-v { font-family: var(--mono); font-size: 16px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .qs-cell.qs-a .qs-v { color: var(--amber); } .qs-cell.qs-c .qs-v { color: var(--cyan); }
+  .qs-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .qs-eq .qs-sym { font-family: var(--mono); font-size: 14.5px; color: var(--fg1); }
+  .qs-eq .qs-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .qs-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 88ch; margin: 12px 0 4px; }
+  .qs-test b { color: var(--amber); font-weight: 500; }
+  .qs-test i.qs-cyt { color: var(--cyan); font-style: normal; }
+  .qs-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; max-width: 100ch; }
+  table.qs-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; width: 100%; }
+  table.qs-t th, table.qs-t td { border: 1px solid var(--soft); padding: 5px 8px; text-align: left; font-variant-numeric: tabular-nums; vertical-align: middle; }
+  table.qs-t th { color: var(--fg3); font-weight: 400; letter-spacing: .08em; font-size: 10.5px; text-transform: uppercase; }
+  table.qs-t td.qs-yes { color: var(--cyan); } table.qs-t td.qs-no { color: var(--fg3); }
+  table.qs-t button { padding: 5px 8px; min-width: 0; }
+  .qs-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .qs-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .qs-foot i { color: var(--amber); font-weight: 300; }
+  .qs-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .qs-legend .qs-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .qs-wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<main class="qs-piece">
+  <div class="qs-kicker">Quantum Synthesizer · two ears on one ladder</div>
+  <h1 class="qs-title">Where is the harmonic series?</h1>
+  <p class="qs-sub">The page says the oscillator's energy levels are the harmonic series. But a level can be heard two ways. The <b style="color:var(--amber);font-weight:500">clock</b> hears its phase turning: the real part of ψ at one point. The <b style="color:var(--cyan);font-weight:500">detector</b> hears what a measurement could register: |ψ|², the chance of finding the particle there. Five steps: one rung alone, the ladder, two rungs, a swinging packet, and then the test, which solves the equation and measures both ears. Each step plays. You can jump to any of them.</p>
+
+  <nav class="qs-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · one rung</button>
+    <button data-go="2" aria-pressed="false">2 · the ladder</button>
+    <button data-go="3" aria-pressed="false">3 · two rungs</button>
+    <button data-go="4" aria-pressed="false">4 · a swinging packet</button>
+    <button data-go="5" aria-pressed="false">5 · the test</button>
+  </nav>
+
+  <!-- the stage: moved into whichever step is shown -->
+  <div id="stage">
+    <div class="qs-label"><span id="wellLab">the well · its rungs · where the particle can be found</span><span class="qs-legend"><span class="qs-sw" style="background:var(--amber)"></span>a rung's shape<span class="qs-sw" style="background:var(--cyan)"></span>|ψ|², moving slowed down</span></div>
+    <canvas id="cw" height="250"></canvas>
+    <div class="qs-label"><span>what each ear hears · in units of 110 Hz · grey ticks are whole numbers</span><span id="earLab"></span></div>
+    <canvas id="ce" height="150"></canvas>
+    <div class="qs-row" id="earRow">
+      <span class="qs-lab">listen with</span>
+      <span class="qs-seg">
+        <button data-ear="clock" aria-pressed="true">the clock · Re ψ(x₀, t)</button>
+        <button class="qs-cy" data-ear="detector" aria-pressed="false">the detector · |ψ(x₀, t)|²</button>
+      </span>
+      <button class="qs-go" id="play">play</button>
+      <span class="qs-val" id="playNote"></span>
+    </div>
+  </div>
+
+  <!-- ───────────── STEP 1 ───────────── -->
+  <section class="qs-step qs-shown" data-step="1">
+    <h2>1 · One rung</h2>
+    <p class="qs-idea">Start with the oscillator's lowest level, alone. Its shape φ₀ never changes. Only its phase turns, at a rate set by its energy. Listen with the clock, then with the detector.</p>
+    <div class="qs-slot"></div>
+    <div class="qs-grid">
+      <div class="qs-cell qs-a"><div class="qs-k">the clock's pitch</div><div class="qs-v" id="r1c"></div></div>
+      <div class="qs-cell qs-c"><div class="qs-k">how far |ψ(x₀)|² moves</div><div class="qs-v" id="r1d"></div></div>
+    </div>
+    <div class="qs-eq"><div class="qs-sym">ψ₀(x, t) = φ₀(x) · e^(−iE₀t/ħ)</div>
+      <div class="qs-words">(the state) = (a shape that never changes) × (a phase that turns at a rate set by its energy)</div></div>
+    <div class="qs-eq"><div class="qs-sym">|ψ₀(x, t)|² = φ₀(x)²</div>
+      <div class="qs-words">(the chance of finding it here) = (the shape, squared): the turning cancels out</div></div>
+    <p class="qs-test" id="t1"></p>
+  </section>
+
+  <!-- ───────────── STEP 2 ───────────── -->
+  <section class="qs-step" data-step="2">
+    <h2>2 · The ladder</h2>
+    <p class="qs-idea">Climb. Each rung is still alone, so the detector stays silent, but the clock's pitch moves with the energy. Nothing here is typed in from a formula: the levels come from solving the Schrödinger equation on a grid, and the formula is what the solver finds.</p>
+    <div class="qs-row"><span class="qs-lab">rung n</span><span class="qs-seg" id="rungRow"></span></div>
+    <div class="qs-slot"></div>
+    <div class="qs-grid">
+      <div class="qs-cell"><div class="qs-k">Eₙ from the solver · ħω</div><div class="qs-v" id="r2e"></div></div>
+      <div class="qs-cell"><div class="qs-k">n + ½</div><div class="qs-v" id="r2x"></div></div>
+      <div class="qs-cell qs-a"><div class="qs-k">the clock's pitch</div><div class="qs-v" id="r2c"></div></div>
+      <div class="qs-cell qs-a"><div class="qs-k">over the lowest rung's</div><div class="qs-v" id="r2r"></div></div>
+    </div>
+    <div class="qs-eq"><div class="qs-sym">Eₙ = ħω (n + ½)</div>
+      <div class="qs-words">(the energy of rung n) = (one quantum) × (n and a half)</div></div>
+    <div class="qs-eq"><div class="qs-sym">f_clock = 220 Hz × Eₙ ⁄ ħω</div>
+      <div class="qs-words">(the clock's pitch) = (one quantum played at 220 Hz) × (how many quanta the rung holds)</div></div>
+    <p class="qs-test" id="t2"></p>
+  </section>
+
+  <!-- ───────────── STEP 3 ───────────── -->
+  <section class="qs-step" data-step="3">
+    <h2>3 · Two rungs</h2>
+    <p class="qs-idea">Put the particle on two rungs at once. Now something moves: the two phases turn at different rates, and where they line up the particle piles up, then drains away. The clock hears both rungs. The detector, at last, hears something.</p>
+    <div class="qs-row"><span class="qs-lab">rung m</span><span class="qs-seg" id="mRow"></span></div>
+    <div class="qs-row"><span class="qs-lab">rung n</span><span class="qs-seg" id="nRow"></span></div>
+    <div class="qs-slot"></div>
+    <div class="qs-grid">
+      <div class="qs-cell qs-a"><div class="qs-k">the clock hears</div><div class="qs-v" id="r3c"></div></div>
+      <div class="qs-cell qs-c"><div class="qs-k">the detector hears</div><div class="qs-v" id="r3d"></div></div>
+      <div class="qs-cell"><div class="qs-k">the gap, Eₙ − Eₘ</div><div class="qs-v" id="r3g"></div></div>
+    </div>
+    <div class="qs-eq"><div class="qs-sym">|ψ(x₀, t)|² = ½φₘ² + ½φₙ² + φₘφₙ · cos((Eₙ − Eₘ) t ⁄ ħ)</div>
+      <div class="qs-words">(what the detector reads) = (two parts that stand still) + (one part that swings at the gap between the rungs)</div></div>
+    <p class="qs-test" id="t3"></p>
+  </section>
+
+  <!-- ───────────── STEP 4 ───────────── -->
+  <section class="qs-step" data-step="4">
+    <h2>4 · A swinging packet</h2>
+    <p class="qs-idea">Let go of a lump of probability away from the middle. In the oscillator it swings from side to side without spreading, like a pendulum: many rungs at once, in a fixed blend. Switch to the box from <i>One equation, two spacings</i>, the same equation with a flat floor and hard walls, and the same kind of lump bounces between the walls and smears.</p>
+    <div class="qs-row"><span class="qs-lab">the well</span><span class="qs-seg"><button data-well="osc" aria-pressed="true">oscillator · V = x²⁄2</button><button data-well="box" aria-pressed="false">box · hard walls</button></span></div>
+    <div class="qs-row"><label class="qs-lab" for="pull">let go</label><input id="pull" type="range" min="0.2" max="1" step="any" value="0.7778174593052023"><span class="qs-val" id="pullv"></span></div>
+    <div class="qs-slot"></div>
+    <div class="qs-grid">
+      <div class="qs-cell"><div class="qs-k">rungs in the blend</div><div class="qs-v" id="r4n"></div></div>
+      <div class="qs-cell qs-a"><div class="qs-k">clock · × 110 Hz</div><div class="qs-v" id="r4c"></div></div>
+      <div class="qs-cell qs-c"><div class="qs-k">detector · × 110 Hz</div><div class="qs-v" id="r4d"></div></div>
+    </div>
+    <div class="qs-eq"><div class="qs-sym">Re ψ(x₀, t) = Σₙ cₙ φₙ(x₀) cos(Eₙ t ⁄ ħ)</div>
+      <div class="qs-words">(the clock) = every rung at its own pitch, as loud as the packet sits on it and the rung reaches the probe</div></div>
+    <div class="qs-eq"><div class="qs-sym">|ψ(x₀, t)|² = Σₘ Σₙ cₘ cₙ φₘ(x₀) φₙ(x₀) cos((Eₙ − Eₘ) t ⁄ ħ)</div>
+      <div class="qs-words">(the detector) = every gap between two rungs, as loud as both rungs together</div></div>
+    <p class="qs-test" id="t4"></p>
+  </section>
+
+  <!-- ───────────── STEP 5 ───────────── -->
+  <section class="qs-step" data-step="5">
+    <h2>5 · The test</h2>
+    <p class="qs-idea">The page, on the oscillator:</p>
+    <p class="qs-quote">“These are quantized energy levels, equally spaced in frequency. They are identical to the harmonic series: fundamental frequency f₀, second harmonic 2f₀, third harmonic 3f₀, and so on.”</p>
+    <p class="qs-idea">And the next section, on the box: <span class="qs-quote" style="display:inline;border:0;padding:0">“Schrödinger's particle in a box … sounds 1 · 4 · 9 · 16.”</span> Measure both, with both ears, and with the rule the page's own proofs use: each level played at its gap from the lowest. Each row computes ψ(x₀, t) in time from the solver's levels and shapes, 65,536 samples at 44.1 kHz, and reads its partials off an FFT: every peak within 40 dB of the tallest.</p>
+    <div class="qs-row"><button class="qs-go" id="measure">measure all six</button><span class="qs-val" id="mnote"></span></div>
+    <div class="qs-wrap"><table class="qs-t" id="tab">
+      <thead><tr><th>well · ear</th><th>partials · × 110 Hz</th><th>over the lowest</th><th>1 : 2 : 3 : 4 ?</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <div class="qs-slot"></div>
+    <p class="qs-test" id="t5">Press measure.</p>
+    <p class="qs-note">The packet is the one from step 4 at its starting place: in the oscillator a coherent state, α = 2.2, the ladder proof's; in the box a bump of width 0.35 let go at x = 0.72. The probe is x₀ = 1.0 in the oscillator and 1.1 in the box. The window is Blackman-Harris, so a peak's own sidelobes sit 92 dB down and can't pass for partials. The clock is not something a microphone can hear: a phase shared by the whole state is not physical. Its pitches assume energy counted from the well's floor. Raise the floor and every clock pitch moves, while the detector's stay put: raised by half a quantum, the oscillator's clock reads 0 · 2 · 4 · 6 × 110 Hz, its lowest level silent and the rest 1 · 2 · 3 on 220 Hz. It is the reading the page uses for the box, and in a stiff bar it is real, since Re ψ there moves the way a bar moves (One equation, two spacings). The steward's ladder proof, a frame further down this page, plays the same two ears move by move.</p>
+  </section>
+
+  <div class="qs-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="qs-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="qs-engine">
+/* The engine: pure functions, no page. The checks beside this piece pull this block out and run it in Node. */
+(function (root) {
+  const QS = {};
+  QS.S = 220;          /* Hz per unit of energy: hbar*omega <-> 220 Hz, as ladder.py */
+  QS.FS = 44100;
+
+  /* ── the solver: H = -1/2 d2/dx2 + V(x), finite differences, walls at the ends of the grid ── */
+  function sturm(d, e2, lam) {           /* how many eigenvalues lie below lam */
+    let c = 0, q = d[0] - lam; if (q < 0) c++;
+    for (let i = 1; i < d.length; i++) {
+      if (q === 0) q = 1e-300;
+      q = d[i] - lam - e2 / q; if (q < 0) c++;
+    }
+    return c;
+  }
+  function eigvec(d, off, lam) {         /* inverse iteration, Thomas algorithm */
+    const n = d.length, s = lam + 1e-10 * (1 + Math.abs(lam));
+    let v = new Float64Array(n); for (let i = 0; i < n; i++) v[i] = 1 + 0.37 * Math.sin(1.7 * i + 0.3);
+    const cp = new Float64Array(n), dp = new Float64Array(n);
+    for (let it = 0; it < 3; it++) {
+      let b = d[0] - s; cp[0] = off / b; dp[0] = v[0] / b;
+      for (let i = 1; i < n; i++) { b = d[i] - s - off * cp[i - 1]; if (b === 0) b = 1e-300; cp[i] = off / b; dp[i] = (v[i] - off * dp[i - 1]) / b; }
+      const y = new Float64Array(n); y[n - 1] = dp[n - 1];
+      for (let i = n - 2; i >= 0; i--) y[i] = dp[i] - cp[i] * y[i + 1];
+      let m = 0; for (let i = 0; i < n; i++) m = Math.max(m, Math.abs(y[i]));
+      for (let i = 0; i < n; i++) y[i] /= m; v = y;
+    }
+    return v;
+  }
+  QS.solve = (V, a, b, n, K) => {        /* n interior points on (a, b), the K lowest levels */
+    const h = (b - a) / (n + 1), x = new Float64Array(n), d = new Float64Array(n);
+    for (let i = 0; i < n; i++) { x[i] = a + (i + 1) * h; d[i] = 1 / (h * h) + V(x[i]); }
+    const off = -0.5 / (h * h), e2 = off * off;
+    let lo = Infinity, hi = -Infinity; for (let i = 0; i < n; i++) { lo = Math.min(lo, d[i] - 2 * Math.abs(off)); hi = Math.max(hi, d[i] + 2 * Math.abs(off)); }
+    const E = [], phi = [];
+    for (let k = 0; k < K; k++) {
+      let l = lo, u = hi;
+      for (let it = 0; it < 200 && u - l > 1e-13 * Math.max(1, Math.abs(u)); it++) { const m = 0.5 * (l + u); if (sturm(d, e2, m) > k) u = m; else l = m; }
+      const lam = 0.5 * (l + u); E.push(lam);
+      const v = eigvec(d, off, lam); let s2 = 0; for (let i = 0; i < n; i++) s2 += v[i] * v[i] * h;
+      const nrm = 1 / Math.sqrt(s2); let mx = 0, sg = 1;
+      for (let i = 0; i < n; i++) { v[i] *= nrm; mx = Math.max(mx, Math.abs(v[i])); }
+      for (let i = 0; i < n; i++) if (Math.abs(v[i]) > 1e-3 * mx) { sg = v[i] > 0 ? 1 : -1; break; }
+      if (sg < 0) for (let i = 0; i < n; i++) v[i] = -v[i];
+      phi.push(v);
+    }
+    return { x, h, V, E, phi, a, b };
+  };
+
+  /* ── the two wells ── */
+  QS.WELLS = {
+    osc: { name: 'oscillator', V: (x) => 0.5 * x * x, a: -10, b: 10, n: 3999, K: 26, x0: 1.0, view: [-5.2, 5.2] },
+    box: { name: 'box', V: () => 0, a: 0, b: Math.PI, n: 1199, K: 18, x0: 1.1, view: [-0.25, Math.PI + 0.25] }
+  };
+  const solved = {};
+  QS.well = (key) => {
+    if (!solved[key]) { const w = QS.WELLS[key]; solved[key] = Object.assign(QS.solve(w.V, w.a, w.b, w.n, w.K), { key, x0: w.x0, view: w.view, name: w.name }); }
+    return solved[key];
+  };
+  QS.at = (W, f, x) => {                 /* a grid function read at x, linear in between, zero at the walls */
+    const t = (x - W.a) / W.h - 1, i = Math.floor(t);
+    const g = (j) => (j < 0 || j >= f.length ? 0 : f[j]);
+    return g(i) + (t - i) * (g(i + 1) - g(i));
+  };
+  QS.probe = (W) => W.phi.map((p) => QS.at(W, p, W.x0));
+
+  /* ── states: amplitudes c_n on the levels ── */
+  QS.rung = (W, n) => W.E.map((_, k) => (k === n ? 1 : 0));
+  QS.pair = (W, m, n) => W.E.map((_, k) => (k === m || k === n ? Math.SQRT1_2 : 0));
+  QS.project = (W, f) => {                /* c_n = <phi_n | f>, f normalised first */
+    let s2 = 0; for (let i = 0; i < W.x.length; i++) s2 += f(W.x[i]) ** 2 * W.h;
+    const nf = 1 / Math.sqrt(s2);
+    return W.phi.map((p) => { let s = 0; for (let i = 0; i < p.length; i++) s += p[i] * f(W.x[i]) * nf * W.h; return s; });
+  };
+  /* a packet let go from rest: the oscillator's ground-state shape moved off centre (a coherent state, alpha = shift / sqrt 2),
+     or in the box a bump of width 0.35 placed off centre */
+  QS.packet = (W, pull) => W.key === 'osc'
+    ? QS.project(W, (x) => Math.exp(-0.5 * (x - 4 * pull) ** 2))
+    : QS.project(W, (x) => Math.exp(-0.5 * ((x - Math.PI / 2 * (1 - 0.7 * pull)) / 0.35) ** 2));
+  QS.PULL0 = 2.2 * Math.SQRT2 / 4;      /* where the test lets go: in the oscillator, alpha = 2.2 exactly (ladder.py's) */
+  QS.kept = (c) => c.reduce((s, v) => s + v * v, 0);
+
+  /* ── the two ears, as partials: what Re psi(x0,t) and |psi(x0,t)|^2 contain ── */
+  QS.clockPartials = (W, c) => {
+    const p = QS.probe(W), out = [];
+    for (let n = 0; n < c.length; n++) { const a = c[n] * p[n]; if (Math.abs(a) > 1e-9) out.push({ f: QS.S * W.E[n], a, n }); }
+    return out;
+  };
+  QS.detectorPartials = (W, c) => {
+    const p = QS.probe(W), raw = [];
+    for (let m = 0; m < c.length; m++) for (let n = m + 1; n < c.length; n++) {
+      const a = 2 * c[m] * c[n] * p[m] * p[n]; if (Math.abs(a) > 1e-9) raw.push({ f: QS.S * (W.E[n] - W.E[m]), a, m, n });
+    }
+    raw.sort((u, v) => u.f - v.f);
+    const out = [];
+    for (const r of raw) { const last = out[out.length - 1]; if (last && Math.abs(last.f - r.f) < 0.5) { last.f = (last.f * Math.abs(last.a) + r.f * Math.abs(r.a)) / (Math.abs(last.a) + Math.abs(r.a) || 1); last.a += r.a; } else out.push({ f: r.f, a: r.a }); }
+    return out.filter((q) => Math.abs(q.a) > 1e-9);
+  };
+
+  /* the page's own proofs' rule: each level above the lowest played at its gap from the lowest, E_n - E_0
+     (schrodinger_ab_synth.py, well_morph.py, pendulum.py). The lowest level itself sits at 0 Hz and is not played. */
+  QS.lowestPartials = (W, c) => {
+    const p = QS.probe(W), out = [];
+    for (let n = 1; n < c.length; n++) { const a = c[n] * p[n]; if (Math.abs(a) > 1e-9) out.push({ f: QS.S * (W.E[n] - W.E[0]), a, n }); }
+    return out;
+  };
+  /* what the audio plays: the strongest partials of one ear, at most 48, none quieter than 60 dB under the loudest */
+  QS.bank = (W, c, ear) => {
+    const all = ear === 'clock' ? QS.clockPartials(W, c) : ear === 'lowest' ? QS.lowestPartials(W, c) : QS.detectorPartials(W, c);
+    const mx = all.reduce((m, q) => Math.max(m, Math.abs(q.a)), 0);
+    return all.filter((q) => Math.abs(q.a) > 1e-3 * mx).sort((u, v) => Math.abs(v.a) - Math.abs(u.a)).slice(0, 48).sort((u, v) => u.f - v.f);
+  };
+
+  /* ── the measurement: the ear's signal computed in time from psi itself, then an FFT ── */
+  QS.signal = (W, c, ear, fs, N) => {
+    const p = QS.probe(W), idx = [], e0 = ear === 'lowest' ? W.E[0] : 0;
+    for (let n = ear === 'lowest' ? 1 : 0; n < c.length; n++) if (Math.abs(c[n] * p[n]) > 1e-12) idx.push(n);
+    const out = new Float64Array(N);
+    for (let i = 0; i < N; i++) {
+      const t = i / fs; let re = 0, im = 0;
+      for (const n of idx) { const th = 2 * Math.PI * QS.S * (W.E[n] - e0) * t, a = c[n] * p[n]; re += a * Math.cos(th); im -= a * Math.sin(th); }
+      out[i] = ear === 'clock' || ear === 'lowest' ? re : re * re + im * im;
+    }
+    if (ear !== 'clock' && ear !== 'lowest') { let m = 0; for (let i = 0; i < N; i++) m += out[i]; m /= N; for (let i = 0; i < N; i++) out[i] -= m; }
+    return out;
+  };
+  QS.fft = (re, im) => {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const ang = -2 * Math.PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+        for (let k = 0; k < len / 2; k++) {
+          const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr;
+          re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi;
+          const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+    }
+  };
+  QS.peaks = (sig, fs, floorDb) => {      /* Blackman-Harris window (sidelobes -92 dB), local maxima above floorDb of the tallest */
+    const N = sig.length, re = new Float64Array(N), im = new Float64Array(N);
+    for (let i = 0; i < N; i++) { const t = 2 * Math.PI * i / (N - 1); re[i] = sig[i] * (0.35875 - 0.48829 * Math.cos(t) + 0.14128 * Math.cos(2 * t) - 0.01168 * Math.cos(3 * t)); }
+    QS.fft(re, im);
+    const M = N / 2, mag = new Float64Array(M); let mx = 0;
+    for (let k = 0; k < M; k++) { mag[k] = Math.hypot(re[k], im[k]); mx = Math.max(mx, mag[k]); }
+    if (mx < 1e-12) return { peaks: [], silent: true, max: mx };
+    const thr = mx * Math.pow(10, (floorDb == null ? -40 : floorDb) / 20), out = [];
+    for (let k = 2; k < M - 1; k++) {
+      if (mag[k] > thr && mag[k] >= mag[k - 1] && mag[k] > mag[k + 1] && k * fs / N > 20) {
+        const a = Math.log(mag[k - 1]), b = Math.log(mag[k]), g = Math.log(mag[k + 1]), d = 0.5 * (a - g) / (a - 2 * b + g);
+        out.push({ f: (k + d) * fs / N, db: 20 * Math.log10(mag[k] / mx) });
+      }
+    }
+    return { peaks: out, silent: false, max: mx };
+  };
+  QS.measure = (W, c, ear, N) => QS.peaks(QS.signal(W, c, ear, QS.FS, N || 65536), QS.FS, -40);
+  /* a single rung, heard by the detector: how much |psi(x0,t)|^2 moves over one turn of its phase, relative to its size */
+  QS.wobble = (W, n) => {
+    const s = QS.signal(W, QS.rung(W, n), 'raw', QS.FS, 2048), p = QS.probe(W)[n] ** 2;
+    let mx = 0; for (let i = 0; i < s.length; i++) mx = Math.max(mx, Math.abs(s[i])); return mx / p;
+  };
+  QS.ratios = (fs) => fs.map((f) => f / fs[0]);
+
+  root.QS = QS;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script id="qs-worklet">
+/* The voice: a bank of cosines, one per partial, all starting in phase at t = 0, as Re ψ and |ψ|² do.
+   Normalised by the sum of |a|, so it never clips (the steward's cycle-20 rule). A new set fades the old one out first. */
+const WORKLET = `
+class QsBank extends AudioWorkletProcessor {
+  constructor() {
+    super(); this.p = []; this.next = null; this.g = 0; this.on = false;
+    this.port.onmessage = (e) => { const m = e.data; if ('on' in m) this.on = m.on; if (m.partials) this.next = m.partials; };
+  }
+  process(inputs, outputs) {
+    const L = outputs[0][0], R = outputs[0][1] || L, k = 1 - Math.exp(-1 / (0.008 * sampleRate));
+    for (let i = 0; i < L.length; i++) {
+      if (this.next && this.g < 1e-3) {
+        let s = 0; for (const q of this.next) s += Math.abs(q.a);
+        this.p = this.next.map((q) => ({ w: 2 * Math.PI * q.f / sampleRate, a: s > 0 ? q.a / s : 0, ph: 0 }));
+        this.next = null;
+      }
+      const target = this.on && !this.next ? 1 : 0;
+      this.g += (target - this.g) * k;
+      let y = 0;
+      if (this.g > 1e-6) for (const q of this.p) { y += q.a * Math.cos(q.ph); q.ph += q.w; if (q.ph > 6.283185307179586) q.ph -= 6.283185307179586; }
+      L[i] = R[i] = 0.6 * this.g * y;
+    }
+    return true;
+  }
+}
+registerProcessor('qs-bank', QsBank);`;
+</script>
+<script>
+(function () {
+  const QS = window.QS, $ = (id) => document.getElementById(id);
+  const COL = { amber: '#e8b84a', cyan: '#6aa8e8', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', soft: 'rgba(255,255,255,.08)', cyanFill: 'rgba(106,168,232,.22)', amberDim: 'rgba(232,184,74,.35)' };
+  const MONO = '10px "JetBrains Mono", ui-monospace, monospace';
+  const ST = { step: 1, ear: 'clock', rung: 0, m: 0, n: 1, well: 'osc', pull: QS.PULL0, cell: 0 };
+  const CELLS = [ { well: 'osc', ear: 'clock' }, { well: 'osc', ear: 'detector' }, { well: 'osc', ear: 'lowest' }, { well: 'box', ear: 'clock' }, { well: 'box', ear: 'detector' }, { well: 'box', ear: 'lowest' } ];
+  const EARNAME = { clock: 'clock', detector: 'detector', lowest: 'from the lowest' };
+  const PULL0 = QS.PULL0;
+  let measured = null;
+  const sup = { '-': '⁻', '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹' };
+  const sci = (v) => { if (v === 0) return '0'; const [m, e] = v.toExponential(0).split('e'); return m + ' × 10' + String(+e).split('').map((c) => sup[c]).join(''); };
+  const x110 = (f, d) => (f / 110).toFixed(d == null ? 2 : d);
+  const list = (a, d, n) => a.slice(0, n || 6).map((v) => v.toFixed(d)).join(' · ');
+
+  /* ── what is sounding: the state the shown step asks for ── */
+  function current() {
+    const s = ST.step;
+    if (s === 1) { const W = QS.well('osc'); return { W, c: QS.rung(W, 0), ear: ST.ear }; }
+    if (s === 2) { const W = QS.well('osc'); return { W, c: QS.rung(W, ST.rung), ear: ST.ear }; }
+    if (s === 3) { const W = QS.well('osc'); return { W, c: ST.m === ST.n ? QS.rung(W, ST.m) : QS.pair(W, ST.m, ST.n), ear: ST.ear }; }
+    if (s === 4) { const W = QS.well(ST.well); return { W, c: QS.packet(W, ST.pull), ear: ST.ear }; }
+    const cell = CELLS[ST.cell], W = QS.well(cell.well); return { W, c: QS.packet(W, PULL0), ear: cell.ear };
+  }
+
+  /* ── audio ── */
+  let ctx = null, node = null, playing = false;
+  async function ensureAudio() {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      node = new AudioWorkletNode(ctx, 'qs-bank', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+      const master = ctx.createGain(); master.gain.value = 0.7;
+      node.connect(comp).connect(master).connect(ctx.destination);
+      ctx.onstatechange = () => { if (ctx.state !== 'running') stopAll(); };
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  function send() {
+    if (!node) return;
+    const st = current(), b = QS.bank(st.W, st.c, st.ear);
+    node.port.postMessage({ partials: b.map((q) => ({ f: q.f, a: q.a })) });
+    $('playNote').textContent = b.length ? '' : 'silence: nothing here moves';
+  }
+  function stopAll() {
+    if (node) node.port.postMessage({ on: false });
+    playing = false;
+    document.querySelectorAll('.qs-go[data-label]').forEach((b) => { b.classList.remove('qs-on'); b.textContent = b.dataset.label; });
+    $('playNote').textContent = '';
+  }
+  async function play(btn) {
+    if (playing && btn.classList.contains('qs-on')) { stopAll(); return; }
+    await ensureAudio(); stopAll();
+    send(); node.port.postMessage({ on: true }); playing = true;
+    btn.classList.add('qs-on'); btn.textContent = 'stop';
+  }
+  function retune() { if (playing) send(); }
+
+  /* ── drawing ── */
+  function cv(id) {
+    const c = $(id), dpr = window.devicePixelRatio || 1, w = c.clientWidth || 600, h = +c.getAttribute('height');
+    c.style.height = h + 'px';
+    if (c.width !== Math.round(w * dpr) || c._h !== h) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c._h = h; }
+    const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h);
+    return { g, w, h };
+  }
+  let tvis = 0, lastT = 0, shapeCache = null;
+  function shapes(W) {                 /* the levels resampled onto the drawing's x points */
+    if (shapeCache && shapeCache.W === W) return shapeCache;
+    const P = 360, xs = [], ph = [];
+    for (let i = 0; i < P; i++) xs.push(W.view[0] + (W.view[1] - W.view[0]) * i / (P - 1));
+    for (const p of W.phi) ph.push(xs.map((x) => (x <= W.a || x >= W.b ? 0 : QS.at(W, p, x))));
+    shapeCache = { W, xs, ph }; return shapeCache;
+  }
+  function drawWell() {
+    const { g, w, h } = cv('cw'), st = current(), W = st.W, c = st.c, sh = shapes(W);
+    const box = W.key === 'box', emax = box ? 14 : 9.2, top = 14, bot = h - 18;
+    const X = (x) => 8 + (x - W.view[0]) / (W.view[1] - W.view[0]) * (w - 150);
+    const Y = (e) => bot - e / emax * (bot - top);
+    /* the well */
+    g.strokeStyle = COL.fg3; g.lineWidth = 1.2; g.beginPath();
+    if (box) { g.moveTo(X(0), top); g.lineTo(X(0), bot); g.lineTo(X(Math.PI), bot); g.lineTo(X(Math.PI), top); }
+    else for (let i = 0; i <= 200; i++) { const x = W.view[0] + (W.view[1] - W.view[0]) * i / 200, e = Math.min(emax, 0.5 * x * x); if (i) g.lineTo(X(x), Y(e)); else g.moveTo(X(x), Y(e)); }
+    g.stroke();
+    /* the rungs */
+    g.font = MONO; g.textAlign = 'left';
+    for (let n = 0; n < W.E.length; n++) {
+      const e = W.E[n]; if (e > emax) break;
+      const half = box ? null : Math.sqrt(2 * e), on = Math.abs(c[n]) > 1e-3;
+      g.strokeStyle = on ? COL.amberDim : COL.soft; g.lineWidth = 1; g.beginPath();
+      g.moveTo(X(box ? 0 : -half), Y(e)); g.lineTo(X(box ? Math.PI : half), Y(e)); g.stroke();
+      g.fillStyle = on ? COL.amber : COL.fg4; g.fillText((box ? 'n = ' + (n + 1) : 'n = ' + n), X(W.view[1]) - 40, Y(e) + 3);
+    }
+    /* each sounding rung's shape, on its rung (steps 1 to 3) */
+    const few = c.filter((v) => Math.abs(v) > 1e-3).length <= 2;
+    if (few) for (let n = 0; n < c.length; n++) if (Math.abs(c[n]) > 1e-3) {
+      g.strokeStyle = COL.amber; g.lineWidth = 1.4; g.beginPath();
+      sh.xs.forEach((x, i) => { const y = Y(W.E[n]) - sh.ph[n][i] * (box ? 0.55 : 0.75) * (bot - top) / emax * 1.6; if (i) g.lineTo(X(x), y); else g.moveTo(X(x), y); }); g.stroke();
+    }
+    /* |psi(x,t)|^2, slowed down: one unit of energy turns once every 4 s */
+    const th = sh.ph.map((_, n) => -2 * Math.PI * 0.25 * W.E[n] * tvis);
+    const idx = []; for (let n = 0; n < c.length; n++) if (Math.abs(c[n]) > 1e-4) idx.push(n);
+    const dens = sh.xs.map((_, i) => { let re = 0, im = 0; for (const n of idx) { re += c[n] * sh.ph[n][i] * Math.cos(th[n]); im += c[n] * sh.ph[n][i] * Math.sin(th[n]); } return re * re + im * im; });
+    const dsc = (bot - top) * 0.42 / (box ? 1.4 : 0.6);
+    g.fillStyle = COL.cyanFill; g.strokeStyle = COL.cyan; g.lineWidth = 1.2; g.beginPath(); g.moveTo(X(sh.xs[0]), bot);
+    sh.xs.forEach((x, i) => g.lineTo(X(x), bot - Math.min(bot - top, dens[i] * dsc))); g.lineTo(X(sh.xs[sh.xs.length - 1]), bot); g.closePath(); g.fill();
+    g.beginPath(); sh.xs.forEach((x, i) => { const y = bot - Math.min(bot - top, dens[i] * dsc); if (i) g.lineTo(X(x), y); else g.moveTo(X(x), y); }); g.stroke();
+    /* the probe */
+    const px = X(W.x0); g.strokeStyle = COL.fg2; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(px, top); g.lineTo(px, bot); g.stroke(); g.setLineDash([]);
+    g.fillStyle = COL.fg2; g.textAlign = 'center'; g.fillText('x₀', px, bot + 13);
+    /* the two ears, read at the probe */
+    const p = QS.probe(W); let re = 0, im = 0, amp = 0;
+    for (const n of idx) { re += c[n] * p[n] * Math.cos(th[n]); im += c[n] * p[n] * Math.sin(th[n]); amp += Math.abs(c[n] * p[n]); }
+    const cx = w - 92, cy = top + 46, r = 34, k = amp > 0 ? r / amp : 0;
+    g.strokeStyle = COL.fg4; g.lineWidth = 1; g.beginPath(); g.arc(cx, cy, r, 0, 7); g.stroke();
+    g.strokeStyle = COL.amber; g.lineWidth = 1.6; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + re * k, cy - im * k); g.stroke();
+    g.fillStyle = COL.amber; g.beginPath(); g.arc(cx + re * k, cy, 3, 0, 7); g.fill();
+    g.strokeStyle = COL.amberDim; g.beginPath(); g.moveTo(cx - r, cy); g.lineTo(cx + r, cy); g.stroke();
+    g.fillStyle = COL.fg3; g.textAlign = 'center'; g.fillText('clock · Re ψ', cx, cy + r + 14);
+    const d = re * re + im * im, dmax = amp * amp, mx = cx + 62, my0 = top + 10, my1 = top + 82;
+    g.strokeStyle = COL.fg4; g.strokeRect(mx - 5, my0, 10, my1 - my0);
+    g.fillStyle = COL.cyan; const yy = my1 - (dmax > 0 ? d / dmax : 0) * (my1 - my0); g.fillRect(mx - 5, yy, 10, my1 - yy);
+    g.fillStyle = COL.fg3; g.fillText('|ψ|²', mx, my1 + 14);
+    g.textAlign = 'left'; g.fillStyle = COL.fg3; g.fillText(box ? 'the box · V = 0, hard walls at 0 and π' : 'the oscillator · V = x²⁄2', 10, top);
+  }
+  function drawEars() {
+    const { g, w, h } = cv('ce'), st = current();
+    const cl = QS.bank(st.W, st.c, 'clock'), de = QS.bank(st.W, st.c, 'detector'), lw = ST.step === 5 ? QS.bank(st.W, st.c, 'lowest') : [];
+    let fmax = 0; for (const q of cl.concat(de, lw)) fmax = Math.max(fmax, q.f / 110);
+    const U = Math.max(8, Math.min(52, Math.ceil(fmax + 1)));
+    const L = 92, X = (u) => L + u / U * (w - L - 12);
+    const rows = ST.step === 5
+      ? [ { name: 'clock', b: cl, col: COL.amber, y0: 8, y1: 48 }, { name: 'detector', b: de, col: COL.cyan, y0: 58, y1: 98 }, { name: 'lowest', label: 'from lowest', b: lw, col: COL.fg1, y0: 108, y1: h - 18 } ]
+      : [ { name: 'clock', b: cl, col: COL.amber, y0: 10, y1: h / 2 - 8 }, { name: 'detector', b: de, col: COL.cyan, y0: h / 2 + 6, y1: h - 18 } ];
+    g.font = MONO;
+    for (let u = 1; u <= U; u++) { g.strokeStyle = u % 5 === 0 ? 'rgba(255,255,255,.12)' : COL.soft; g.beginPath(); g.moveTo(X(u), 6); g.lineTo(X(u), h - 16); g.stroke(); }
+    g.fillStyle = COL.fg4; g.textAlign = 'center';
+    const lstep = U > 30 ? 10 : U > 14 ? 5 : 1;
+    for (let u = lstep; u <= U; u += lstep) g.fillText(String(u), X(u), h - 4);
+    for (const r of rows) {
+      const sel = st.ear === r.name;
+      g.textAlign = 'left'; g.fillStyle = sel ? r.col : COL.fg3; g.fillText(r.label || r.name, 8, (r.y0 + r.y1) / 2 + 3);
+      g.strokeStyle = COL.fg4; g.beginPath(); g.moveTo(L, r.y1); g.lineTo(w - 12, r.y1); g.stroke();
+      if (!r.b.length) { g.fillStyle = COL.fg3; g.fillText('silent · nothing at the probe moves', L + 8, (r.y0 + r.y1) / 2 + 3); continue; }
+      const mx = r.b.reduce((m, q) => Math.max(m, Math.abs(q.a)), 0);
+      g.strokeStyle = r.col; g.globalAlpha = sel ? 1 : 0.55; g.lineWidth = 2;
+      for (const q of r.b) { const db = Math.max(-50, 20 * Math.log10(Math.abs(q.a) / mx)), y = r.y1 - (1 + db / 50) * (r.y1 - r.y0); if (q.f / 110 <= U) { g.beginPath(); g.moveTo(X(q.f / 110), r.y1); g.lineTo(X(q.f / 110), y); g.stroke(); } }
+      g.globalAlpha = 1; g.lineWidth = 1;
+    }
+    $('earLab').textContent = 'stick height · dB, each ear to its own loudest';
+  }
+  function frame(ts) {
+    const dt = lastT ? Math.min(0.1, (ts - lastT) / 1000) : 0; lastT = ts; tvis += dt;
+    if (!document.hidden) drawWell();
+    requestAnimationFrame(frame);
+  }
+
+  /* ── the steps' readouts ── */
+  function update1() {
+    const W = QS.well('osc');
+    $('r1c').textContent = (QS.S * W.E[0]).toFixed(2) + ' Hz';
+    $('r1d').textContent = sci(QS.wobble(W, 0)) + ' of itself';
+    $('t1').innerHTML = 'The clock sings <b>' + (QS.S * W.E[0]).toFixed(1) + ' Hz</b>, half of 220, because the lowest level holds half a quantum. The detector reads a chance that moves by ' + sci(QS.wobble(W, 0)) + ' of itself over a full turn, which is the computer\'s rounding: <i class="qs-cyt">a single rung, to anything that can measure it, stands still.</i>';
+  }
+  function update2() {
+    const W = QS.well('osc'), n = ST.rung, e = W.E[n];
+    $('r2e').textContent = e.toFixed(5); $('r2x').textContent = (n + 0.5).toFixed(1);
+    $('r2c').textContent = (QS.S * e).toFixed(1) + ' Hz'; $('r2r').textContent = '× ' + (e / W.E[0]).toFixed(3);
+    $('t2').innerHTML = 'Rung ' + n + ': the solver finds ' + e.toFixed(5) + ' quanta, the formula says ' + (n + 0.5).toFixed(1) + ', a gap of ' + sci(Math.abs(e - n - 0.5)) + '. The clock plays it at <b>' + (QS.S * e).toFixed(1) + ' Hz</b>, ' + (e / W.E[0]).toFixed(3) + ' times the lowest rung. The detector, on one rung, is silent at every height.';
+  }
+  function update3() {
+    const W = QS.well('osc');
+    if (ST.m === ST.n) { $('r3c').textContent = (QS.S * W.E[ST.m]).toFixed(1) + ' Hz'; $('r3d').textContent = 'silent'; $('r3g').textContent = '0'; $('t3').innerHTML = 'That is one rung twice, which is still one rung: pick two different ones.'; return; }
+    const lo = Math.min(ST.m, ST.n), hi = Math.max(ST.m, ST.n), gap = W.E[hi] - W.E[lo];
+    $('r3c').textContent = (QS.S * W.E[lo]).toFixed(1) + ' + ' + (QS.S * W.E[hi]).toFixed(1) + ' Hz';
+    $('r3d').textContent = (QS.S * gap).toFixed(1) + ' Hz'; $('r3g').textContent = gap.toFixed(5) + ' ħω';
+    const p = QS.probe(W), note = Math.abs(p[lo] * p[hi]) < 1e-3 ? ' (Here one of the two shapes is near zero at the probe, so the detector is very quiet.)' : '';
+    $('t3').innerHTML = 'The clock hears the two rungs, <b>' + (QS.S * W.E[lo]).toFixed(1) + '</b> and <b>' + (QS.S * W.E[hi]).toFixed(1) + ' Hz</b>. The detector hears neither of them. It hears <i class="qs-cyt">' + (QS.S * gap).toFixed(1) + ' Hz, the gap</i>, ' + (hi - lo) + ' × 220 Hz.' + note;
+  }
+  function update4() {
+    const W = QS.well(ST.well), c = QS.packet(W, ST.pull);
+    $('pullv').textContent = W.key === 'osc' ? 'from x = ' + (4 * ST.pull).toFixed(2) + ' · α = ' + (4 * ST.pull / Math.SQRT2).toFixed(2) : 'from x = ' + (Math.PI / 2 * (1 - 0.7 * ST.pull)).toFixed(2);
+    $('r4n').textContent = c.filter((v) => v * v > 1e-4).length + ' (holding ' + (100 * QS.kept(c)).toFixed(2) + '%)';
+    const cl = QS.bank(W, c, 'clock'), de = QS.bank(W, c, 'detector');
+    const loud = (b) => { const mx = b.reduce((m, q) => Math.max(m, Math.abs(q.a)), 0); return b.filter((q) => Math.abs(q.a) > 0.01 * mx).map((q) => q.f / 110); };
+    $('r4c').textContent = list(loud(cl), 2, 5); $('r4d').textContent = list(loud(de), 2, 5);
+    $('t4').innerHTML = W.key === 'osc'
+      ? 'Drag the release point. The blend of rungs changes; the ladders do not. The clock\'s partials stay on <b>odd</b> multiples of 110 Hz and the detector\'s on <i class="qs-cyt">whole multiples of 220</i>. The first five within 40 dB of each ear\'s loudest are above.'
+      : 'Same equation, a flat floor and hard walls. The clock\'s partials climb as the <b>squares</b>, times 110 Hz. The detector\'s are the gaps between squares, and they are not squares. The first five within 40 dB of each ear\'s loudest are above.';
+  }
+  function verdict(M) {
+    const r = (i) => QS.ratios(M[i].map((p) => p.f));
+    const harm = (i) => r(i).slice(0, 4).every((v, k) => Math.abs(v - (k + 1)) < 0.005);
+    const tx = (i, n) => M[i].slice(0, n || 5).map((p) => x110(p.f, 2)).join(' · ');
+    const O = QS.well('osc');
+    return 'Read as pitches, the clock\'s way, with energy counted from the well\'s floor, the oscillator\'s rungs come out at <b>' + tx(0) + '</b> × 110 Hz: over the lowest, ' + list(r(0), 3, 4) + ', odd multiples only, the series of a pipe closed at one end. That is ' + (harm(0) ? '' : 'not ') + 'f₀, 2f₀, 3f₀. '
+      + 'The harmonic series is here, but in the other ear: the detector hears <i class="qs-cyt">' + tx(1) + ' × 110 Hz</i>, which over its lowest is ' + list(r(1), 3, 4) + ' on 220 Hz: ' + (harm(1) ? 'the harmonic series, made of the gaps between rungs.' : 'not the harmonic series either.') + ' '
+      + 'The box, same solver, same ears: the clock hears <b>' + tx(3) + '</b> × 110 Hz, the squares the next section names, and the detector hears ' + tx(4, 6) + ' × 110 Hz, the gaps between squares, which are not squares. '
+      + 'The page\'s own proofs use a third rule: each level played at its gap from the lowest (the A/B proof, well-morph, the pendulum). There the oscillator gives <i class="qs-cyt">' + tx(2) + ' × 110 Hz</i>, ' + list(r(2), 3, 4) + ' on 220 Hz, the harmonic series, and the box gives ' + tx(5, 4) + ' × 110 Hz, not squares. '
+      + 'So the oscillator\'s harmonic series holds for the detector and for gaps from the lowest, and the box\'s squares hold for the clock alone. Under any one of the three rules, the two sentences can\'t both stand. Under the gap rules, the page\'s sentence is right in substance and wrong in its subject: the gaps between the levels are the harmonic series, not the levels themselves. '
+      + 'And the half quantum of zero-point energy: on the clock, counted from the floor, it is what makes the series odd; to the detector the lowest rung alone moves by ' + sci(QS.wobble(O, 0)) + ' of itself, so it is silent, not full of sound.';
+  }
+  function measureAll() {
+    $('mnote').textContent = 'measuring…';
+    setTimeout(() => {
+      const t0 = performance.now();
+      measured = CELLS.map((cl) => { const W = QS.well(cl.well); return QS.measure(W, QS.packet(W, PULL0), cl.ear).peaks; });
+      $('mnote').textContent = (performance.now() - t0).toFixed(0) + ' ms · 6 × 65,536 samples';
+      renderTable(); $('t5').innerHTML = verdict(measured);
+    }, 20);
+  }
+  function renderTable() {
+    const tb = $('tab').querySelector('tbody'); tb.innerHTML = '';
+    CELLS.forEach((cl, i) => {
+      const tr = document.createElement('tr'), M = measured ? measured[i] : null;
+      const rr = M ? QS.ratios(M.map((p) => p.f)) : null, ok = rr && rr.slice(0, 4).every((v, k) => Math.abs(v - (k + 1)) < 0.005);
+      tr.innerHTML = '<td>' + (cl.well === 'osc' ? 'oscillator' : 'box') + ' · ' + EARNAME[cl.ear] + '</td>'
+        + '<td>' + (M ? M.slice(0, 8).map((p) => x110(p.f, 2)).join(' · ') + (M.length > 8 ? ' …' : '') : '—') + '</td>'
+        + '<td>' + (rr ? list(rr, 3, 5) : '—') + '</td>'
+        + '<td class="' + (rr ? (ok ? 'qs-yes' : 'qs-no') : '') + '">' + (rr ? (ok ? 'yes' : 'no') : '—') + '</td>'
+        + '<td><button class="qs-go" data-cell="' + i + '">play</button></td>';
+      tb.appendChild(tr);
+    });
+    tb.querySelectorAll('button[data-cell]').forEach((b) => { b.dataset.label = 'play'; b.onclick = () => { ST.cell = +b.dataset.cell; shapeCache = null; drawEars(); play(b); }; });
+  }
+
+  /* ── steps ── */
+  const UPD = { 1: update1, 2: update2, 3: update3, 4: update4, 5: () => { renderTable(); } };
+  function show(n) {
+    stopAll(); ST.step = n; shapeCache = null;
+    document.querySelectorAll('.qs-step').forEach((s) => s.classList.toggle('qs-shown', +s.dataset.step === n));
+    document.querySelectorAll('.qs-rail button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.go === n ? 'true' : 'false'));
+    const slot = document.querySelector('.qs-step[data-step="' + n + '"] .qs-slot'); slot.appendChild($('stage'));
+    $('earRow').style.display = n === 5 ? 'none' : '';
+    $('back').disabled = n === 1; $('next').disabled = n === 5;
+    $('ce').setAttribute('height', n === 5 ? 170 : 150);
+    UPD[n](); drawEars(); drawWell();
+  }
+  function seg(id, get, set, max) {
+    const row = $(id); row.innerHTML = '';
+    for (let k = 0; k <= max; k++) { const b = document.createElement('button'); b.textContent = k; b.setAttribute('aria-pressed', get() === k ? 'true' : 'false');
+      b.onclick = () => { set(k); row.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); shapeCache = null; UPD[ST.step](); drawEars(); retune(); }; row.appendChild(b); }
+  }
+  function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+
+  function wire() {
+    document.querySelectorAll('.qs-rail button').forEach((b) => b.onclick = () => show(+b.dataset.go));
+    $('back').onclick = () => show(Math.max(1, ST.step - 1)); $('next').onclick = () => show(Math.min(5, ST.step + 1));
+    document.querySelectorAll('[data-ear]').forEach((b) => b.onclick = () => { ST.ear = b.dataset.ear; document.querySelectorAll('[data-ear]').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); drawEars(); retune(); });
+    $('play').dataset.label = 'play'; $('play').onclick = () => play($('play'));
+    seg('rungRow', () => ST.rung, (k) => { ST.rung = k; }, 7);
+    seg('mRow', () => ST.m, (k) => { ST.m = k; }, 5);
+    seg('nRow', () => ST.n, (k) => { ST.n = k; }, 5);
+    document.querySelectorAll('[data-well]').forEach((b) => b.onclick = () => { ST.well = b.dataset.well; shapeCache = null; document.querySelectorAll('[data-well]').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); update4(); drawEars(); retune(); });
+    $('pull').oninput = () => { ST.pull = +$('pull').value; update4(); drawEars(); };
+    $('pull').onchange = retune;
+    $('measure').onclick = measureAll;
+    let rz = null; new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(() => { drawEars(); drawWell(); }, 80); }).observe(document.querySelector('.qs-piece'));
+  }
+
+  sigil(); wire(); show(1); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

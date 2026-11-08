@@ -2,7 +2,7 @@
 title: "SMPTE LTC"
 type: project
 status: active
-pillars: [tools, creation]
+pillars: [tools, creation, practice]
 born: 2026-03
 stage: growing
 confidence: working
@@ -11,67 +11,105 @@ hook_quality: 7
 beauty: 6
 who_leads: loudon
 links:
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: deepens
-    label: reverse-boundary-crossing
+  - target: "[[SMPTE LTC — Context]]"
+    type: spawned
+    label: rationale-archive
+  - target: "[[Progressive Staging]]"
+    type: exemplifies
+    label: the-teaching-ladder
+  - target: "[[VST Template]]"
+    type: connects-to
+    label: plugin-path
+  - target: "[[Rational Hearing]]"
+    type: connects-to
+    label: taught-from-in-class
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
-    label: time-in-frequency-space
+    label: two-tones-or-two-intervals
+  - target: "[[Boundary-Crossing Instruments]]"
+    type: connects-to
+    label: reverse-boundary-crossing
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: multi-device-sync
-forward_vector: "I want to become a completed, documented Max MSP implementation — with the biphase encoding, bit-stream generation, and multi-device sync all working and annotated as a teachable artifact. My deeper goal: to become the palace's example of temporal synchrony as a design problem, showing how LTC encodes time as audio and connecting the engineering solution to the philosophical question of what it means to make multiple independent systems share a clock."
+  - target: "[[Signal-Rate CV Architecture]]"
+    type: connects-to
+    label: time-as-signal
+  - target: "[[DSP Frameworks]]"
+    type: connects-to
+    label: framework-choice
+forward_vector: "I want to teach timecode all the way down — the eighty bits and their BCD, biphase mark and why only the time between flips counts, the sync word that tells a reader where, which way and how fast, drop-frame's skipped numbers, the frame every reader is late — until a student can make and read LTC in every form it takes, from a file to a gen~ device to a VST3 plugin and a standalone app, each held to the others sample for sample, and I want my rich face to be the room Loudon teaches it in, where a class can hear an encoder and a reader, slow them down, break them, and watch the bits fall out."
 ---
 
 # SMPTE LTC
 
 ![[SMPTE LTC — hero.png]]
 
-A time-stamping standard encoded as audio signal, essential for locking synthesizers, video playback, and distributed performance systems to a single clock. This is the engineering of temporal synchrony as sound.
+Time, written as sound. SMPTE linear timecode turns hours, minutes, seconds and frames into an audio signal that anything with a line input can follow — a lighting desk, a video server, a DAW, a second laptop. This page teaches it to the bottom: far enough that a student can make LTC and read it in any form, build the tool that does, and prove the tool right.
 
-## What SMPTE LTC Is
+## The fine points
 
-SMPTE Linear Timecode (LTC) is a standardized protocol that encodes time — hours:minutes:seconds:frames — as an audio signal that can be read by any hardware or software that supports it.
+These are the facts students get wrong, and the ones a working tool cannot.
 
-**The encoding:** Every frame of time generates 80 bits of audio data, encoded using biphase mark code. At 24 fps (film standard), that's 1920 bits per second; at 25 fps (PAL video), 2000 bits per second; at 29.97 fps (NTSC drop-frame), 2397.6 bits per second. The audio waveform itself carries the time information — peak detection yields the bit stream, and the bit stream yields the timecode.
+- **Eighty bits a frame,** sent across the frame they name: 1920 bits a second at 24 fps, 2000 at 25, 2400 at 30, 2397.6 at 29.97.
+- **Biphase mark.** The signal flips at every bit boundary, and a 1 flips once more in the middle. The level carries nothing — only the time between flips does — so a cable that inverts the signal changes nothing. All zeros at 30 fps is a 1200 Hz square wave; all ones, 2400 Hz.
+- **BCD, least significant bit first.** Each decimal digit of the time sits in its own few bits, with 32 user bits interleaved between them and a handful of flags: drop-frame, colour frame, and a polarity bit set so every frame holds an even number of zeros.
+- **The sync word** is the frame's last sixteen bits, `0011 1111 1111 1101`. Twelve 1s in a row happen nowhere else, so a reader can find the frame. The word is not symmetrical, so read backward it tells the reader the tape is running in reverse. How far apart the sync words come tells the speed, if the reader knows the rate. A reader cannot tell rate and speed apart from the bit spacing alone: a 25 fps tape played 1.2× fast sounds exactly like 30. The frame numbers help, since a 25 fps count never reaches frame 25 at any speed, but 23.976 and a 24 fps tape slowed by a thousandth are the same signal, numbers and all. LTC reads in reverse and at varispeed; that is what the sync word is for.
+- **Every reader is one frame late.** A frame's number belongs to its start, but the reader only has the number when the sync word closes the frame. A reader that shows the present adds one.
+- **Drop-frame drops numbers, never pictures.** At 29.97 the count skips frame numbers 00 and 01 at the top of every minute except each tenth, 108 numbers an hour, so the count keeps up with the wall clock: `00:00:59;29` is followed by `00:01:00;02`, but `00:09:59;29` by `00:10:00;00`. Close, not exact: 108 skips an hour are a hair too many, so the count runs ahead of the wall by 86.4 ms, about 2.6 frames, a day. 23.976 has no drop-frame; it falls 3.6 seconds an hour behind the wall.
+- **The number resolves a frame; the edges resolve a bit.** A chasing machine reads the time from the bits and its phase from the edges, to within a bit — about 0.4 ms at 30 fps. LTC is not sample-accurate by itself.
+- **Level and edge.** The standard asks for a square wave with softened edges, a rise time of about 25 µs. Louder is not better: a few dB above what the receiver needs, never clipped, and nothing in its path that thinks it is music — no compressor, EQ, noise reduction or lossy codec. In a monitor mix it is a harsh buzz, and it bleeds into neighbouring channels.
 
-**Why it matters:** Any audio interface that can send/receive audio can transmit LTC. A camera, a DAW, a synthesizer, a live lighting rig, a second laptop running a different application — all can lock their playheads to a single LTC signal sent from a master clock. No MIDI, no network, no video sync cable required. Just an audio cable and a standard protocol.
+## Every form
 
-**The audio signal:** LTC is typically generated at -10 dBFS nominal level and sent to a spare audio channel (or headphone out) on any interface. Hardware reads it from a microphone input or line in, detects the phase transitions, decodes the bit stream, and locks its transport to it. The signal is "broadcast" — multiple devices can read the same LTC simultaneously.
+A student who has mastered LTC can make it and read it in each of these, and knows which one a job needs.
 
-## The Project Arc
+- **A file** — LTC rendered offline into a WAV, to play into a reader. Not to be confused with the timestamp a broadcast WAV keeps in its header, which is a sample count since midnight, not timecode at all.
+- **Live audio** — an encoder that counts frames by itself, sample by sample, at the sound card's clock, and is steered from outside by *moving by* a number of frames, never *jumping to* one.
+- **A reader** — timing the intervals between zero crossings, sorting them into short and long, shifting bits into a register until the sync word appears. The good reader measures the bit length as it goes, so one reader reads every rate and says which it hears, so long as the tape runs at its own speed.
+- **Its cousins** — MIDI Time Code, the same time sent as quarter-frame messages, eight of them to carry one full time across two frames; VITC, timecode written into the picture, which still reads when the tape is paused and LTC goes silent; and jam sync, the regenerator that rebuilds a damaged signal and runs on through a dropout.
 
-Loudon's LTC project began as an Ableton Extension (Node.js + Ableton Extension SDK) and transitioned to Max MSP v8 native implementation.
+## The builds
 
-**Phase 1: Ableton Extension** — Initial exploration of the Extension SDK led to a working LTC generator in JavaScript. The architecture was clean: `activate(context)` entry point, manifest declaration, message-passing API to Live. The extension could generate LTC bitstreams and output them to Ableton's audio system.
+The work already done, and the work this page leans toward.
 
-**Phase 2: Max MSP v8** — Port to Max for pedagogical and modularity reasons. Max's native signal processing primitives make the audio generation transparent and hackable. The biphase encoding logic, bit-to-time conversion, and frame-rate handling all become visual, researchable, and extendable. This version is better suited for teaching and for integration into custom performance rigs.
+- **The specification and its tests,** in JavaScript — the GoButton timecode device's `ltc.js` (`GoButton Local/v2/device/ltc.js`), which counts with drop-frame, builds the bits, encodes and decodes. Every other build is held to it.
+- **A gen~ encoder and reader** in a Max for Live device, which ran in Live 12 on 2026-10-05 (`GoButton Local/v2/timecode/`).
+- **Loudon's hand-tuned gen~ readers,** three short/long thresholds per frame rate, one device per rate — the before picture that makes the adaptive reader a lesson.
+- **An LTC-to-MTC project** in Max (`Max 8/Max for Live Devices/LTC to MTC Project`), whose folder holds only two compiled externals, `smpte_decode4~` and `generate_mtc`, and no patch; whose externals they are is not yet traced.
+- **Next: a VST3/AU plugin and a standalone app** that read and write LTC, starting from the [[VST Template]]. A plugin writing LTC from the host's playhead is the "move by, not to" lesson again, in a new host.
 
-The transition was motivated by a desire to understand the signal flow visually and to build an instrument that lives outside a DAW context.
+The method is GoButton's: **every algorithm exists twice, and the second copy is held to the first sample for sample.** The JavaScript is the specification; the codebox follows it line for line; the tests run both on the same input and compare. A plugin is a third copy under the same rule.
 
-## Technical Architecture
+## The teaching room
 
-Each video frame produces 80 bits packed as HH:MM:SS:FF in BCD plus user and status bits. These are encoded via **biphase mark code**: every bit boundary gets a clock transition; a mid-cell transition also occurs for a `1` bit, none for a `0`. This produces a self-clocking waveform — phase transitions carry both timing and data — at rates of 1920 bit/s (24 fps), 2000 bit/s (25 fps), or 2397.6 bit/s (29.97 fps). The decoder detects phase transitions, reconstructs the bit stream, and locks transport to it. Critical constraints: no sample drift over long runs; generation latency must be zero or exactly compensated; waveform shape preserved through any level-scaling. Drop-frame NTSC (29.97) skips frame-number counts at minute boundaries to maintain wall-clock alignment — a trickster convention in the spec itself.
+The rich face is not built yet. It is to be a walk up to the proof ([[Progressive Staging]]), each step complete on its own and silent until a click, made through [[Enrichment]].
 
-## Why It Matters for Loudon
+1. **Count** — a clock at six frame rates. Drop-frame shows itself as skipped numbers; 23.976 shows itself drifting from the wall.
+2. **Bits** — the eighty-bit word for any time, its digits, flags and sync word laid out where a student can flip any bit.
+3. **Wave** — the biphase signal drawn and heard. Flip a bit and the pitch changes; invert the wave and it still reads.
+4. **Read** — a reader walked through one frame: crossings, intervals, short and long, the register filling, the lock, the frame it is late.
+5. **Break it** — noise, clipping, EQ, slow edges, varispeed, reverse, the wrong frame rate. Watch what the reader survives.
+6. **Build** — the same encoder in JavaScript, gen~ and C++ side by side, and the room's challenge: a reader that passes its hostile test files.
 
-Loudon's live performance practice involves multiple devices — synthesizers, drum machines, effects units, a DAW, lighting control, possibly multiple computers running different software. Without timecode, they drift apart. Tempo markers, MIDI clock, or Network Time Protocol could provide coarse synchronization, but LTC provides sub-sample precision locking across everything on a single audio cable.
+## Why it matters
 
-**For the live show:** A single machine runs Ableton (or Max) with LTC being generated and sent out on an unused channel. Every other device — hardware synthesizers, a video playback laptop, lighting control — receives that signal on a line-in and locks to it. The moment the master transport starts, every device on the network is in phase lock. No manual syncing, no beat skew, no waiting for gear to "catch up."
+In Loudon's live rig the show's timecode is what lighting, sound and projection chase; one audio cable carries the clock to every desk. In the classroom LTC is a rare thing: a standard small enough to hold whole and exacting enough to teach precision. It runs from abstract time — frames, counts, a convention about minutes — down to a waveform a student can see and hear, and back up through a reader they wrote.
 
-**For the pedagogy:** Building an LTC generator from first principles teaches the full signal chain of timecode: bit serialization, phase encoding, frequency generation, audio-rate signal synthesis. It connects abstract time (frames, BPM) to physical signal (waveform, spectrum). It is a beautiful exercise in audio-as-data.
+It is [[Signal-Rate CV Architecture]]'s move taken to its limit: time itself as an audio signal, so anything that can hear can follow the clock. It touches [[Frequency-Time Duality]] honestly: biphase mark is two tones, one an octave above the other, and a reader can time the intervals or listen for the tones — the same signal, read in either domain. And it is a [[Boundary-Crossing Instruments|boundary-crossing instrument]] in reverse: engineering becoming music's infrastructure.
 
-**Connects to larger patterns:** This is a [[Boundary-Crossing Instruments|Boundary-Crossing Instrument]] in reverse — not "music becoming science" but "engineering becoming music infrastructure." It is also deeply tied to [[Frequency-Time Duality]]: LTC is literally the time axis encoded in frequency space. Every bit transition is a frequency/phase event. Reading LTC is a frequency-domain act that yields time-domain information.
+## The trickster in timecode
 
-## Open Questions
+Timecode pretends to measure time and is in fact a counter. It counts frames, not seconds; drop-frame skips numbers to keep the counter honest with the clock; 23.976 lets it drift. It is a convention about time that has to be learned as a convention — and LTC makes that convention audible.
 
-- **Human perception of LTC in mixes:** Can you hear LTC? Should it be filtered before monitoring? Most live rigs send LTC on a dedicated cable, but what happens if a human monitors it?
-- **Jitter and long runs:** How does cable length, electrical noise, or interface quality affect phase lock? Are there thresholds beyond which LTC becomes unreliable?
-- **Resampling and LTC:** If a Max patch is running at 96 kHz and the LTC bitstream was generated at 48 kHz, how does the upsampling affect decoder reliability?
-- **Drop-frame NTSC edge cases:** The skip-frame convention in drop-frame NTSC is nonlinear. Has Loudon tested long runs (>1 hour) at 29.97 drop-frame to confirm frame accuracy?
-- **Reverse playback:** Can LTC be read backward or at fractional speeds? (Probably not — the biphase code assumes forward continuous time, but worth documenting the answer.)
-- **Multi-rate synchronization:** If a 24 fps camera and a 25 fps video system both need to lock to the same master, can a single LTC stream serve both, or does each need its own?
+## Open questions
 
-## The Trickster in Timecode
+- **JUCE or RNBO for the plugin?** ([[DSP Frameworks]]) RNBO exports to VST3 and AU, but its codebox is a port of the gen~ one, not the same file; JUCE gives a reader with a UI and a standalone app from one codebase. Which teaches better, and which is the third copy the tests can hold?
+- **A plugin when the host stops.** Some hosts suspend a plugin on a track with nothing to play once the transport stops. How does a plugin reader listen, and a plugin writer send Locate, when the host goes quiet?
+- **Resampling.** At 44.1 kHz a bit at 30 fps is 18.375 samples; at 48 kHz, 20. How much resampling and sample-rate mismatch can a reader take before short and long blur?
+- **Long runs at drop-frame.** The counting is exact over a whole day, every number back to its own frame, and the count ends the day 86.4 ms ahead of the wall. Has a 29.97 drop run been read against a hardware reader for over an hour?
+- **What shows mastery?** The room's challenge is a reader that passes hostile files. Is that the right bar, or does mastery also mean the student's encoder fools a hardware reader?
 
-Timecode is a trickster convention: it pretends to measure absolute time but is in fact a counter. It has no relation to real time (wall clock time). It counts frames, not seconds, and drop-frame skips numbers to keep the clock honest. The encoding is relative to frame rate, not to time. It is a beautiful abstraction, and SMPTE LTC makes it audible.
+---
+
+*How the project began — the Ableton extension that wrote WAV files, the port toward Max, the GoButton device — and why the page is shaped as it is live in [[SMPTE LTC — Context]].*

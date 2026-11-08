@@ -1,0 +1,158 @@
+{
+  "title": "Logarithmic Interface Scaling — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Logarithmic Interface Scaling]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[Boundary-Crossing Instruments]]",
+      "type": "connects-to",
+      "label": "the-ratio-knob-cited"
+    }
+  ],
+  "forward_vector": "I am the manifest of Logarithmic Interface Scaling's rich face, its first round at Sketch tier, a proposal: three made walks, each ending in a test. Your own hand doubling and halving on a linear and a log slider; the page's symmetry and constant ratio tests run live on its own slider and on five implementations; and a cutoff knob put to the ear, blind. I grow toward the gallery the page wants, Loudon's own plugin controls where the mapping changed how they played. I never hold the entry's words.",
+  "entry": "Logarithmic Interface Scaling",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Interface Design Best Practices",
+      "kind": "no-claim-edit",
+      "what": "The symmetry test's example is mislabelled, not miscomputed. On the page's 0.1 to 10 slider (the range its example at line 84 uses; the Testing subsection names none), moving 10% either side of centre gives 0.631 and 1.585. The example 0.79 and 1.26 (10^±0.1, truly reciprocal: 0.79 × 1.26 = 0.995) is a 5% move, or 10% on a one-decade slider (0.316 to 3.16). Step 3 also slips: 'move control 20% right from center', taken literally, gives B = 2.512 and A × B = 1.585, so a correct log slider fails. The page means equal moves either side of centre, as step 4 expects and as the bundle's pseudocode runs it (positions 30 and 70, log_slider_python_pseudocode.md:108-109). Suggested: 'Move control 10% right of center → record value B' and 'e.g. A = 0.63, B = 1.58 on a 0.1 to 10 slider'. The bundle carries two more pairs: the design guide's 0.5 and 2.0 (15% either side) and the pseudocode's printed 20% pair, 0.398 and 2.512. Measured by the symmetry test piece and its check; confirmed by the challenger.",
+      "status": "open"
+    },
+    {
+      "section": "The Logarithmic Mapping Solution",
+      "kind": "claim-change",
+      "what": "'The reference value (1.0) naturally sits at the center' holds only when the low end × the high end = 1. The page's own second range shows this: on 0.5 to 20, a correct log mapping puts the centre at √(0.5 × 20) = 3.16, and 1.0 sits 18.8% of the way along. Doubling and halving still cost the same travel (18.8% each), so the main claim stands; only the centring needs the condition. Suggested: 'The reference value sits at the center when the range is the same ratio either side of it (0.1 to 10 around 1).' This also bears on the symmetry test's step 1, which on 0.5 to 20 checks the ends rather than the mapping. Measured by both slider pieces and the check.",
+      "status": "open"
+    },
+    {
+      "section": "When to Use This Pattern",
+      "kind": "claim-change",
+      "what": "Ask the diagnostic of the effect, not the label, and say which ruler the effect is heard on. A compressor's ratio knob spans two decades (1:1 to 100:1), and on a log taper doubling it is the same gesture as halving it, so the diagnostic asked of the number passes it. Asked of the effect it fails: from 2:1, doubling the ratio moves a hit 24 dB over threshold by 6 dB, halving it moves it 12 dB, for equal travel. Boundary-Crossing Instruments' face (ratio and slope, and its check, b01c93cd) measures its knob's 20:1 to 100:1 stretch at 78.4% of a linear taper's travel and 33.9% of a log one's (its taper puts ∞ in a notch over the last 3%), moving the loudest hit 0.96 dB. The reason is not that the effect goes as 1/R: the Forward Vector section rightly says inverse relationships suit log when the result is read as a ratio (B ∝ 1/T, read in cents or ratios). It is that the effect is heard in decibels, a ruler already logarithmic, and the decibels lost move evenly with 1/R, so the even control is 1/R, not log R. Suggested addition: 'When the effect is already heard on a log ruler, such as decibels, and moves evenly with one over the value, the even control is one over the value, not its log.' This sits in tension with the Forward Vector section; hold both, through the Deposit map.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Interface Design Problem",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Logarithmic Interface Scaling — rich — double and halve.html",
+            "verdict": "keep",
+            "why": "A test: it derives the page's 2.6% / 97.4% and the doubling cost (v ÷ 19.5 linear, log 2 ÷ log 40 = 18.8% log) from its own mapping, and shows 1.0 off-centre on log 0.5–20 rather than hiding it. Walks up from one slider to the reader's hand; the hand test's travel is fixed by the mapping, only the times are the reader's, and it says so."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Logarithmic Interface Scaling — rich — double and halve.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas",
+          "title": "Double and halve · one range, two sliders, your hand",
+          "caption": "**Does doubling take the same gesture as halving?** Five steps on the page's own range, 0.5 to 20, with no sound. First a linear slider, where 1.0 sits at 2.6% of the travel. Then doubling and halving on it: from 1, doubling costs 5.1% of the travel and halving 2.6%. From 10, one doubling takes 51%. Next to 0.5, one 0.1% nudge moves the value 3.9%. Then the same range mapped in log space, where every doubling and halving costs 18.8%, though 1.0 is not at the centre there: the centre is 3.16. Then the two side by side. Last, a test of your own hand: seven doublings and halvings on each slider, with the travel and time of each move measured and laid side by side.\n\nv = 0.5 + 19.5 × p   ·   v = 0.5 × 40^p\n\n(value) = 0.5 + 19.5 × (how far along); (value) = 0.5 × 40 to the power of (how far along)",
+          "near": "Users feel this asymmetry immediately",
+          "place": "band",
+          "height": 900
+        }
+      ],
+      "made_against": "372a04fc78b4",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Interface Design Best Practices",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Logarithmic Interface Scaling — rich — the symmetry test.html",
+            "verdict": "keep",
+            "why": "The best test on the face: runs the page's four steps under both readings of step 3 and both tests on five implementations; the S-curve (v = 10^(u³), odd in u) passes symmetry and fails constant ratio, plain log on 0.5–20 the reverse, derived and confirmed. Taste note: for 0.5–20 the symmetry test catches the centring line 44 promises, not a bad mapping."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Logarithmic Interface Scaling — rich — the symmetry test.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas",
+          "title": "The symmetry test, with the numbers showing",
+          "caption": "**What do the two tests actually catch?** Five steps, no sound. The page's 0.1 to 10 slider at its centre, 1.000. Then equal moves either side: 5% gives 0.794 and 1.259, the page's example pair, and 10% gives 0.631 and 1.585. Then the four steps as written. Read from the centre, 'move 20% right from center' gives B = 2.512, and a correct log slider fails. Read from where step 2 left the thumb, it gives 1.585 and passes. Next, the page's other range, 0.5 to 20: still a log mapping, but its centre is 3.16, so step 1 is really checking where the ends are. Last, both tests on five implementations. A log curve bent into an S passes symmetry and fails constant ratio. The log slider on 0.5 to 20 passes constant ratio and fails symmetry only because of its centre. Each test catches something the other misses.\n\nA × B = centre²,  centre = √(min × max)\n\n(value left of centre) × (value right of centre) = (the centre value) squared; (the centre value) = the square root of (low end × high end)",
+          "near": "Calculate ratio of consecutive output values",
+          "place": "band",
+          "height": 860
+        }
+      ],
+      "made_against": "91e46b9ec8c3",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "When to Use This Pattern",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Logarithmic Interface Scaling — rich — cutoff by ear.html",
+            "verdict": "remake",
+            "why": "(a) The caption's last sentence ('a log taper doesn't fix a knob whose effect goes as one over its value') contradicts the page's Forward Vector section (inverse → log); name the real condition: the effect is heard in decibels, already a ratio ruler, which move evenly with 1/ratio. Same clause in the reveal note. (b) rulerOf ignores move e, which check.mjs calls the check: with e answered 'bigger' it still names octaves; name a ruler only when e was answered 'the same', as the Boundary-Crossing rule requires, and update the check's case."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Logarithmic Interface Scaling — rich — cutoff by ear.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "title": "Cutoff by ear · does down sound as big as up?",
+          "caption": "**The diagnostic, asked of the ear.** A buzzy tone through a resonant low-pass filter at 1 kHz, halved and doubled, so you hear an octave each way. Then a linear cutoff knob from 20 Hz to 20 kHz. On it, 1 kHz sits at 4.9%, the top octave takes half the knob, and an 8 second sweep spends 4 seconds there. Then the same knob in log, where every octave is 10% of the travel. Last, a blind test: five moves, each the same distance down and then up the knob, and you say whether the move down sounded bigger, the same, or smaller. The reveal names a ruler, octaves or hertz, only if your answers pick one and the check move, the same size on either ruler, was heard as the same. The level also falls as the cutoff falls, which can colour the judgement. For the same lesson from the other side, see Boundary-Crossing Instruments' face. There a compressor's ratio knob spends 78% of a linear knob's travel, and 34% of a log one, between 20:1 and 100:1, to move the loudest hit under 1 dB. A log taper doesn't fix it, because what you hear there is decibels, already a ratio ruler, and the decibels the hit loses move evenly with one over the ratio. The page's inverse-relationships section holds when the result is read as a ratio; here it is read in decibels.\n\nf = 20 × 1000^p,  octaves = log₂(f ÷ f₀)\n\n(cutoff in Hz) = 20 × 1000 to the power of (how far along the knob); (size of a move in octaves) = log base 2 of (the new cutoff ÷ the start)",
+          "near": "The diagnostic: does doubling feel like the same gesture as halving?",
+          "place": "band",
+          "height": 820
+        }
+      ],
+      "made_against": "834f55208a47",
+      "stamped": "2026-11-03"
+    }
+  ]
+}

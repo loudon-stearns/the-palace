@@ -1,0 +1,62 @@
+[
+ {
+  "folder": "AKWF_fmsynth",
+  "frames": 122,
+  "same_position": 113,
+  "adjacent_swaps": 4,
+  "median_frame_diff_db": -44.12810516357422,
+  "worst_frame_diff_db": -43.14973449707031,
+  "worst_centroid_diff_hz": 11.232023303420704,
+  "js_ms": 53
+ },
+ {
+  "folder": "AKWF_eorgan",
+  "frames": 154,
+  "same_position": 136,
+  "adjacent_swaps": 8,
+  "median_frame_diff_db": -48.64488983154297,
+  "worst_frame_diff_db": -32.93578338623047,
+  "worst_centroid_diff_hz": 13.195708466580527,
+  "js_ms": 63
+ },
+ {
+  "folder": "AKWF_bw_saw",
+  "frames": 50,
+  "same_position": 46,
+  "adjacent_swaps": 2,
+  "median_frame_diff_db": -44.2059326171875,
+  "worst_frame_diff_db": -27.57126235961914,
+  "worst_centroid_diff_hz": 29.079166370449457,
+  "js_ms": 26
+ },
+ {
+  "folder": "AKWF_cello",
+  "frames": 19,
+  "same_position": 17,
+  "adjacent_swaps": 1,
+  "median_frame_diff_db": -69.9996109008789,
+  "worst_frame_diff_db": -69.21102905273438,
+  "worst_centroid_diff_hz": 8.493446166466953,
+  "js_ms": 16
+ },
+ {
+  "folder": "AKWF_bitreduced",
+  "frames": 68,
+  "same_position": 68,
+  "adjacent_swaps": 0,
+  "median_frame_diff_db": -40.442955017089844,
+  "worst_frame_diff_db": -13.96647834777832,
+  "worst_centroid_diff_hz": 39.80922593210107,
+  "js_ms": 34
+ },
+ {
+  "folder": "AKWF_0001",
+  "frames": 100,
+  "same_position": 96,
+  "adjacent_swaps": 2,
+  "median_frame_diff_db": -40.97168731689453,
+  "worst_frame_diff_db": -33.0998649597168,
+  "worst_centroid_diff_hz": 16.253108721141416,
+  "js_ms": 44
+ }
+]

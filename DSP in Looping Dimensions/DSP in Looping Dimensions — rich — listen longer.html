@@ -1,0 +1,283 @@
+<!doctype html>
+<!--
+  title: DSP in Looping Dimensions — rich — listen longer
+  born: 2026-11-03
+  links: [[DSP in Looping Dimensions]] (connects-to · rich-face-piece) · listed in [[DSP in Looping Dimensions — rich.json]] · rhymes with [[Frequency-Time Duality]]
+  forward_vector: I am the Honest Limit put to its own test: one loop's lines, then loops added one by one until the spectrum fills, then noise beside it, and last the measurement that tells them apart, which is how long you listen. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>DSP in Looping Dimensions — listen longer</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 130px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .key { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+  .key span::before { content: ''; display: inline-block; width: 10px; height: 2px; margin-right: 6px; vertical-align: middle; background: currentColor; }
+  canvas { display: block; width: 100%; }
+  .wide { grid-column: 1 / -1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  .ctl .lab { display: block; margin-bottom: 6px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 220px; flex: 1 1 220px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · a scan on T^N, and noise · sketch</span></div>
+  <h3 class="title">Does it ever become noise?</h3>
+  <p class="sub">The Honest Limit says that however many loops you add at irrational ratios, the spectrum stays a set of separate lines, and a continuous spectrum like noise stays out of reach. Four steps, one idea each. The last one measures what tells the two apart.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel wide" id="specPanel">
+      <div class="plabel"><span id="specLabel">the spectrum, one window</span><span>dB · Hz</span></div>
+      <canvas id="spec"></canvas>
+    </div>
+    <div class="panel wide hidden" id="noisePanel">
+      <div class="plabel"><span>noise, the same window</span><span>dB · Hz</span></div>
+      <canvas id="nspec"></canvas>
+    </div>
+    <div class="panel wide hidden" id="chartPanel">
+      <div class="plabel"><span>share of the band's energy in its loudest tenth of bins, as the window grows · amber · the tone at this many loops · faint · the other loop counts · grey · noise</span><span>window</span></div>
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ play</button>
+    <div class="ctl hidden" id="loopCtl"><span class="lab">loops</span><span class="seg" id="loops"></span></div>
+    <div class="ctl hidden" id="hearCtl"><span class="lab">hear</span><span class="seg"><button data-h="tone" class="on">the tone</button><button data-h="noise">noise</button></span></div>
+    <label class="sl" id="winCtl">window = <b id="winVal"></b><input id="win" type="range" min="0" max="8" step="1" value="0"></label>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">y(t) = Σₖ cos( k·θ(t) + φₖ ) ⁄ √k ,   θ(t) = 2π·f₁·t + β · Σᵢ₌₂ sin(2π·fᵢ·t) ,   k = 1 … 5 ,  β = 2</div>
+    <div class="words">(the tone) = a small table of five harmonics, each a little quieter, read by loop 1, while (every other loop) pushes the reading point back and forth, each by up to β radians. Taken as a function of all N phases it is one surface on the N-torus, W = g(θ₁ + β·Σ sin θᵢ), and its lines fall on k·f₁ + Σ mᵢ·fᵢ: every one a single frequency. Its envelope stays level, so more loops make it denser, not clickier.</div>
+    <div class="eq">fᵢ = 220 Hz × ( 1 , φ , plastic , silver ⁄ 2 , √3 , π ⁄ 2 )</div>
+    <div class="words">each loop's rate, added in this order: no two related by a ratio of whole numbers.</div>
+    <div class="eq">share = (energy in the loudest 10 % of bins) ÷ (all the energy from 100 to 4000 Hz)</div>
+    <div class="words">how concentrated the sound is. Noise spreads its power over every bin at random, and its loudest tenth holds about a third, (1 + ln 10) ⁄ 10 ≈ 0.33, at any window length. Lines put their power in a few bins, and once the window is long enough to part them, the share climbs.</div>
+  </div>
+  <div class="note">Checked offline on this page's own engine (the script marked engine), windows of 21 ms to 5.5 s averaged over six seconds of sound: noise stays between 34.5 and 36.2 %; one loop is past 99 % by 43 ms; two loops reach 99.9 % by 0.68 s; six loops start at 40.7 % at 21 ms, a few points off noise, and climb, unevenly, to 51.2 % at 5.5 s. With six loops, 136,862 lines within 36 dB of the loudest (about 4.1 million within 60 dB) fall between 100 and 4000 Hz, against 21,299 bins in a 5.5 s window, so no listen this long can part them all. Not heard by an agent.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- engine: a tone scanned on N looping dimensions, and noise beside it. Pure functions, no page. ----
+const PHI = (1 + Math.sqrt(5)) / 2, PLASTIC = 1.324717957244746, SILVER = 1 + Math.SQRT2;
+// the loops' rates, as multiples of the first: each new one irrational against the rest
+const RATES = [1, PHI, PLASTIC, SILVER / 2, Math.sqrt(3), Math.PI / 2];
+const RATE_NAMES = ['1', 'φ, golden', 'plastic', 'silver ⁄ 2', '√3', 'π ⁄ 2'];
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// one loop's table: five harmonics, each a little quieter, at fixed phases
+const G_PH = [0.0, 0.4, 1.1, 2.3, 0.7];
+const BETA = 2; // how hard the other loops push the first loop's reading point
+// the tone: loop 1 reads the table; every other loop pushes its reading point back and forth.
+// As a function of all N phases this is one surface on the N-torus, W(θ₁ … θ_N) = g(θ₁ + β·Σ sin θᵢ),
+// and its lines fall on k·f₁ + Σ mᵢ·fᵢ. Its envelope stays level, so it never turns into clicks.
+function tone(nLoops, f0, dur, fs) { const len = Math.round(dur * fs), out = new Float32Array(len), ph = new Float64Array(nLoops), r = rng(11);
+  for (let i = 0; i < nLoops; i++) ph[i] = r() * 2 * Math.PI;
+  let peak = 0; for (let n = 0; n < len; n++) { const t = n / fs; let th = ph[0] + 2 * Math.PI * f0 * t; for (let i = 1; i < nLoops; i++) th += BETA * Math.sin(ph[i] + 2 * Math.PI * f0 * RATES[i] * t);
+    let y = 0; for (let k = 1; k <= 5; k++) y += Math.cos(k * th + G_PH[k - 1]) / Math.sqrt(k); out[n] = y; peak = Math.max(peak, Math.abs(y)); }
+  for (let n = 0; n < len; n++) out[n] /= peak; return out; }
+// noise with the same broad tilt: white noise through a gentle one-pole low-pass
+function noise(dur, fs, seed) { const len = Math.round(dur * fs), out = new Float32Array(len), r = rng(seed || 5); let y = 0, peak = 0;
+  for (let n = 0; n < len; n++) { const u = r() + r() + r() - 1.5; y = 0.7 * y + 0.3 * u; out[n] = y; peak = Math.max(peak, Math.abs(y)); } for (let n = 0; n < len; n++) out[n] /= peak; return out; }
+function fft(re, im) { const n = re.length; for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr; re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } } }
+function power(x, start, n) { const re = new Float64Array(n), im = new Float64Array(n); for (let i = 0; i < n; i++) re[i] = (x[start + i] || 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / n)); fft(re, im); const p = new Float64Array(n / 2); for (let i = 0; i < n / 2; i++) p[i] = re[i] * re[i] + im[i] * im[i]; return p; }
+// how much of a band's energy its loudest tenth of bins holds. Noise: about a third, at any length. Lines: climbs toward all of it as the window grows
+function topTenth(p, fs, n, fmin, fmax) { const a = Array.from(p.subarray(Math.ceil(fmin * n / fs), Math.floor(fmax * n / fs))).sort((x, y) => y - x); let all = 0, top = 0; const k = Math.max(1, Math.round(a.length / 10)); for (let i = 0; i < a.length; i++) { all += a[i]; if (i < k) top += a[i]; } return top / all; }
+function topAt(x, fs, n, fmin, fmax) { let s = 0, k = 0; for (let st = 0; st + n <= x.length; st += n) { s += topTenth(power(x, st, n), fs, n, fmin, fmax); k++; } return s / k; }
+</script>
+<script>
+// ---- the page's shared parts: sound from a rendered buffer, canvases, the walk ----
+const $ = (id) => document.getElementById(id);
+let ctx = null, comp = null, src = null, playing = false;
+// silent until a click: no context exists before the first play
+async function playBuffer(x, fs, onEnd) {
+  stopSound();
+  if (!ctx) { ctx = new AudioContext({ sampleRate: fs }); comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4; const g = ctx.createGain(); g.gain.value = 0.8; comp.connect(g).connect(ctx.destination); }
+  await ctx.resume();
+  let pk = 0; for (let i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(x[i]));
+  const b = ctx.createBuffer(2, x.length, ctx.sampleRate), sc = pk ? 0.85 / pk : 0, L = b.getChannelData(0), R = b.getChannelData(1);
+  const fade = Math.min(x.length, Math.round(0.03 * ctx.sampleRate));
+  for (let i = 0; i < x.length; i++) { const e = i > x.length - fade ? (x.length - i) / fade : 1; L[i] = R[i] = x[i] * sc * e; }
+  src = ctx.createBufferSource(); src.buffer = b; src.connect(comp); const me = src;
+  src.onended = () => { if (src === me) { src = null; playing = false; if (onEnd) onEnd(); } };
+  src.start(); playing = true;
+}
+function stopSound() { if (src) { const s = src; src = null; try { s.stop(); } catch {} } playing = false; }
+function fit(c, hgt) {
+  const w = c.clientWidth || 600, d = devicePixelRatio || 1, H = hgt;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+const dB = (p, ref) => 10 * Math.log10(p / ref + 1e-12);
+// the house mark: a small Lissajous
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+// the walk: one step at a time, Next and Back, every step open from the rail; changing step stops the sound
+function walk(steps, onStep) {
+  let at = 0;
+  const go = (i) => { stopSound(); at = Math.max(0, Math.min(steps.length - 1, i)); [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = steps[at].say; $('back').disabled = at === 0; $('next').disabled = at === steps.length - 1; onStep(steps[at].key, at); };
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+  $('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+  return { go, get at() { return at; } };
+}
+const later = () => new Promise((r) => setTimeout(r, 0));
+const FS = 48000, F0 = 220, DUR = 6, LO = 100, HI = 4000, WINS = [1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144];
+const S = { key: 'one', loops: 1, hear: 'tone', win: 0, tones: {}, nz: null, curves: null };
+const STEPS = [
+  { key: 'one', name: 'one loop\'s lines', say: 'One loop read at 220 Hz: a harmonic series, a few lines. The slider sets how much of the sound the spectrum looks at. At a fiftieth of a second the lines are smeared; give it longer and they sharpen to <i>points</i>.' },
+  { key: 'more', name: 'loops added', say: 'Add loops one at a time, each at a rate no whole-number ratio ties to the others, each pushing where loop 1 reads its table. Every loop multiplies the lines: their sums and differences fill in. At a short window, six loops look like a haze.' },
+  { key: 'noise', name: 'noise beside it', say: 'Noise beside the tone, looked at through the same window. At a short window they are hard to tell apart, by eye and maybe by ear. Slide the window longer and watch which one changes.' },
+  { key: 'test', name: 'the test: longer windows', say: 'Measured: how much of each sound\'s energy sits in its loudest tenth of bins, at every window from a fiftieth of a second to five and a half seconds. Noise is a continuous spread and should not move. Lines should climb, however many there are.' },
+];
+const toneOf = (n) => S.tones[n] || (S.tones[n] = tone(n, F0, DUR, FS));
+// ---- drawing ----
+function drawSpectrum(cv, x, label) {
+  const n = WINS[S.win], st = Math.round(0.25 * FS), p = power(x, st, n), { g, w, h } = fit(cv, 210), X = (f) => 40 + (f / HI) * (w - 50), top = 12, base = h - 20, lo = -80;
+  g.clearRect(0, 0, w, h); g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(40, base); g.lineTo(w - 10, base); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center'; for (let f = 0; f <= HI; f += 500) g.fillText(f, X(f), h - 5);
+  g.textAlign = 'right'; g.fillText('0', 36, top + 4); g.fillText(lo, 36, base);
+  let ref = 0; for (let i = 1; i < p.length; i++) ref = Math.max(ref, p[i]);
+  const bins = Math.floor(HI * n / FS), step = Math.max(1, Math.floor(bins / (w * 1.5))), Y = (d) => base - Math.max(0, (d - lo) / -lo) * (base - top);
+  g.strokeStyle = label === 'noise' ? '#8a8aa0' : '#e8b84a'; g.lineWidth = 1; g.beginPath();
+  for (let i = 1; i < bins; i += step) { let m = 0; for (let j = i; j < i + step && j < bins; j++) m = Math.max(m, p[j]); const xx = X(i * FS / n); i === 1 ? g.moveTo(xx, Y(dB(m, ref))) : g.lineTo(xx, Y(dB(m, ref))); }
+  g.stroke();
+  return topTenth(p, FS, n, LO, HI);
+}
+const ms = (n) => (n / FS < 1 ? Math.round((1000 * n) / FS) + ' ms' : (n / FS).toFixed(1) + ' s');
+function draw() {
+  $('winVal').textContent = ms(WINS[S.win]);
+  const t = toneOf(S.key === 'one' ? 1 : S.loops), share = drawSpectrum($('spec'), t, 'tone');
+  $('specLabel').textContent = `the tone, ${S.key === 'one' ? 1 : S.loops} loop${(S.key === 'one' ? 1 : S.loops) > 1 ? 's' : ''} · a ${ms(WINS[S.win])} window`;
+  const out = [`loudest tenth of bins holds <b class="hot">${(100 * share).toFixed(1)} %</b> of the tone's energy`];
+  if (S.key === 'noise') { const ns = drawSpectrum($('nspec'), S.nz || (S.nz = noise(DUR, FS, 5)), 'noise'); out.push(`noise's: <b>${(100 * ns).toFixed(1)} %</b>`); }
+  if (S.key !== 'test') $('read').innerHTML = out.join(' · ');
+}
+async function curves() {
+  if (S.curves) return S.curves;
+  $('read').innerHTML = 'measuring…'; await later();
+  const c = { noise: WINS.map((n) => topAt(S.nz || (S.nz = noise(DUR, FS, 5)), FS, n, LO, HI)) };
+  for (let L = 1; L <= 6; L++) { c[L] = WINS.map((n) => topAt(toneOf(L), FS, n, LO, HI)); $('read').innerHTML = `measuring… ${L} ⁄ 6`; await later(); }
+  return (S.curves = c);
+}
+function drawChart(C) {
+  const { g, w, h } = fit($('chart'), 240), left = 40, base = h - 22, top = 10, X = (i) => left + (i / (WINS.length - 1)) * (w - left - 16), Y = (v) => base - ((v - 0.2) / 0.8) * (base - top);
+  g.clearRect(0, 0, w, h); g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(left, base); g.lineTo(w - 16, base); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center'; WINS.forEach((n, i) => g.fillText(ms(n), X(i), h - 6));
+  g.textAlign = 'right'; [0.2, 0.33, 0.5, 0.75, 1].forEach((v) => g.fillText(Math.round(v * 100) + '%', left - 4, Y(v) + 3));
+  const line = (arr, col, wd) => { g.strokeStyle = col; g.lineWidth = wd; g.beginPath(); arr.forEach((v, i) => (i ? g.lineTo(X(i), Y(v)) : g.moveTo(X(i), Y(v)))); g.stroke(); g.lineWidth = 1; };
+  for (let L = 1; L <= 6; L++) if (L !== S.loops) line(C[L], 'rgba(232,184,74,.18)', 1);
+  line(C.noise, '#8a8aa0', 1.4); line(C[S.loops], '#e8b84a', 1.8);
+  g.strokeStyle = 'rgba(232,232,240,.4)'; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(X(S.win), top); g.lineTo(X(S.win), base); g.stroke(); g.setLineDash([]);
+}
+function verdict(C) {
+  const a = C[S.loops], nz = C.noise, nmin = Math.min(...nz), nmax = Math.max(...nz), pass = a.findIndex((v) => v > nmax + 0.02);
+  const first = a[0], last = a[a.length - 1];
+  $('verdict').innerHTML = `<b>${last > nmax + 0.02 ? 'Lines, if you listen long enough.' : 'Not yet told apart.'}</b> Noise stays between ${(100 * nmin).toFixed(1)} and ${(100 * nmax).toFixed(1)} % at every window: a continuous spread does not sharpen. The tone with ${S.loops} loop${S.loops > 1 ? 's' : ''} starts at ${(100 * first).toFixed(1)} % at ${ms(WINS[0])}${first <= nmax ? ', no more concentrated than noise,' : ''} and reaches ${(100 * last).toFixed(1)} % at ${ms(WINS[WINS.length - 1])}${pass > 0 ? `, clearly past noise from ${ms(WINS[pass])}` : pass === 0 ? ', past noise at every window' : ''}. The limit holds: the lines never turn into noise. But how long you listen decides when it shows: the more loops, the longer the listen before the lines come apart. ${S.loops === 6 ? ' With six loops, 136,862 lines within 36 dB of the loudest (about 4.1 million within 60 dB) fall in this band, against 21,299 bins in a 5.5 s window: five seconds cannot part them all.' : ''}`;
+  $('read').innerHTML = `window <b>${ms(WINS[S.win])}</b> · tone <b class="hot">${(100 * a[S.win]).toFixed(1)} %</b> · noise <b>${(100 * nz[S.win]).toFixed(1)} %</b>`;
+}
+// ---- the walk ----
+function show(id, on) { $(id).classList.toggle('hidden', !on); }
+async function onStep(key) {
+  S.key = key; if (key === 'more' && S.loops === 1) setLoops(2); if ((key === 'noise' || key === 'test') && S.loops < 6 && !S.chose) setLoops(6);
+  show('loopCtl', key !== 'one'); show('hearCtl', key === 'noise' || key === 'test'); show('noisePanel', key === 'noise'); show('chartPanel', key === 'test'); show('specPanel', key !== 'test'); show('verdict', key === 'test');
+  $('go').textContent = '▸ play';
+  $('hint').textContent = { one: 'Six seconds of tone; the spectrum looks at one window of it, a quarter second in. Each step of the slider doubles the window.', more: 'Rates, in order: 220 Hz × 1, φ, plastic, silver ⁄ 2, √3, π ⁄ 2. Loop 1 reads the table; each loop added pushes where it reads, and every line splits into a family k·f₁ + Σ mᵢ·fᵢ.', noise: 'The noise is white noise through a gentle low-pass, so it leans the way the tone does. Try six loops at 21 ms, then at 5.5 s.', test: 'Each point averages every whole window in six seconds of sound. The slider marks a window on the chart.' }[key];
+  if (key === 'test') { const C = await curves(); if (S.key === 'test') { drawChart(C); verdict(C); } } else draw();
+}
+function setLoops(n) { S.loops = n; document.querySelectorAll('[data-l]').forEach((z) => z.classList.toggle('on', +z.dataset.l === n)); }
+for (let L = 1; L <= 6; L++) { const b = document.createElement('button'); b.dataset.l = L; b.textContent = L; b.title = RATE_NAMES.slice(0, L).join(', '); b.onclick = () => { S.chose = S.key !== 'more' || S.chose; setLoops(L); stopSound(); $('go').textContent = '▸ play'; if (S.key === 'test' && S.curves) { drawChart(S.curves); verdict(S.curves); } else draw(); }; $('loops').appendChild(b); }
+const W = walk(STEPS, onStep);
+$('go').onclick = () => { if (playing) { stopSound(); $('go').textContent = '▸ play'; return; } const x = S.hear === 'noise' && (S.key === 'noise' || S.key === 'test') ? S.nz || (S.nz = noise(DUR, FS, 5)) : toneOf(S.key === 'one' ? 1 : S.loops); playBuffer(x, FS, () => ($('go').textContent = '▸ play')); $('go').textContent = '❚❚ stop'; };
+$('win').oninput = () => { S.win = +$('win').value; if (S.key === 'test' && S.curves) { drawChart(S.curves); verdict(S.curves); $('winVal').textContent = ms(WINS[S.win]); } else draw(); };
+document.querySelectorAll('[data-h]').forEach((b) => (b.onclick = () => { S.hear = b.dataset.h; document.querySelectorAll('[data-h]').forEach((z) => z.classList.toggle('on', z === b)); stopSound(); $('go').textContent = '▸ play'; }));
+window.addEventListener('resize', () => { if (S.key === 'test' && S.curves) drawChart(S.curves); else draw(); });
+sigil(5, 4);
+W.go(0);
+</script>
+</body>
+</html>

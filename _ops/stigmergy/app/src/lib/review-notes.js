@@ -33,7 +33,9 @@ export function openReviewNotes(palaceRoot, { title, path } = {}) {
   const stem = typeof path === 'string' ? path.split('/').pop().replace(/\.md$/i, '') : null;
   const names = new Set([title, stem].filter((s) => typeof s === 'string' && s).map((s) => s.toLowerCase()));
   return buildQueue(messages)
-    .filter((it) => it.kind === 'human_eval' && typeof it.entry === 'string' && names.has(it.entry.toLowerCase()))
+    // Only the dock's notes: the companion's block calls these notes on its rich face. Answers
+    // from a rough (via 'page') are left out rather than mislabelled.
+    .filter((it) => it.kind === 'human_eval' && it.via === 'rich-face' && typeof it.entry === 'string' && names.has(it.entry.toLowerCase()))
     .sort((a, b) => (a.round ?? 0) - (b.round ?? 0))
     .map((it) => ({ id: it.id, ts: it.ts, round: it.round, notes: it.notes }));
 }

@@ -1,0 +1,649 @@
+{
+ "ran": "2026-10-30T10:06:30.921Z",
+ "stills": [
+  "still-emotion-dorian.jpg",
+  "still-cycle.jpg",
+  "still-borrow-in-D.jpg"
+ ],
+ "beats": [
+  {
+   "beat": "open",
+   "step": "page as it opens",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "notes",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "emotion",
+   "step": "↓ 0",
+   "tonic": "C",
+   "mode": "Lydian",
+   "feel": "dreamy, floating, luminous",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F♯ ♯4  G 5  A 6  B 7",
+    "Compared to major": "♯4",
+    "Key signature": "1♯, the notes of G major",
+    "One step brighter": "none, Lydian is the brightest",
+    "One step darker": "♯4 → 4 (Ionian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "emotion",
+   "step": "↓ 1",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "emotion",
+   "step": "↓ 2",
+   "tonic": "C",
+   "mode": "Mixolydian",
+   "feel": "bright with a bluesy, rock pull",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B♭ ♭7",
+    "Compared to major": "♭7",
+    "Key signature": "1♭, the notes of F major",
+    "One step brighter": "♭7 → 7 (Ionian)",
+    "One step darker": "3 → ♭3 (Dorian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "emotion",
+   "step": "↓ 3",
+   "tonic": "C",
+   "mode": "Dorian",
+   "feel": "cool, hopeful minor",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E♭ ♭3  F 4  G 5  A 6  B♭ ♭7",
+    "Compared to major": "♭3  ♭7",
+    "Key signature": "2♭, the notes of B♭ major",
+    "One step brighter": "♭3 → 3 (Mixolydian)",
+    "One step darker": "6 → ♭6 (Aeolian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "emotion",
+   "step": "↓ 4",
+   "tonic": "C",
+   "mode": "Aeolian",
+   "feel": "sad, serious (natural minor)",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E♭ ♭3  F 4  G 5  A♭ ♭6  B♭ ♭7",
+    "Compared to major": "♭3  ♭6  ♭7",
+    "Key signature": "3♭, the notes of E♭ major",
+    "One step brighter": "♭6 → 6 (Dorian)",
+    "One step darker": "2 → ♭2 (Phrygian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "emotion",
+   "step": "↓ 5",
+   "tonic": "C",
+   "mode": "Phrygian",
+   "feel": "dark, tense, Spanish or metal",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D♭ ♭2  E♭ ♭3  F 4  G 5  A♭ ♭6  B♭ ♭7",
+    "Compared to major": "♭2  ♭3  ♭6  ♭7",
+    "Key signature": "4♭, the notes of A♭ major",
+    "One step brighter": "♭2 → 2 (Aeolian)",
+    "One step darker": "5 → ♭5 (Locrian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "emotion",
+   "step": "↓ 6",
+   "tonic": "C",
+   "mode": "Locrian",
+   "feel": "unstable, never quite home",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D♭ ♭2  E♭ ♭3  F 4  G♭ ♭5  A♭ ♭6  B♭ ♭7",
+    "Compared to major": "♭2  ♭3  ♭5  ♭6  ♭7",
+    "Key signature": "5♭, the notes of D♭ major",
+    "One step brighter": "♭5 → 5 (Phrygian)",
+    "One step darker": "none, Locrian is the darkest"
+   },
+   "lane": []
+  },
+  {
+   "beat": "window",
+   "step": "↓ 0",
+   "tonic": "F",
+   "mode": "Lydian",
+   "feel": "dreamy, floating, luminous",
+   "keep": "notes",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "F 1  G 2  A 3  B ♯4  C 5  D 6  E 7",
+    "Compared to major": "♯4",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "none, Lydian is the brightest",
+    "One step darker": "♯4 → 4 (Ionian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "window",
+   "step": "↓ 1",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "notes",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "window",
+   "step": "↓ 2",
+   "tonic": "G",
+   "mode": "Mixolydian",
+   "feel": "bright with a bluesy, rock pull",
+   "keep": "notes",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "G 1  A 2  B 3  C 4  D 5  E 6  F ♭7",
+    "Compared to major": "♭7",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "♭7 → 7 (Ionian)",
+    "One step darker": "3 → ♭3 (Dorian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "window",
+   "step": "↓ 3",
+   "tonic": "D",
+   "mode": "Dorian",
+   "feel": "cool, hopeful minor",
+   "keep": "notes",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "D 1  E 2  F ♭3  G 4  A 5  B 6  C ♭7",
+    "Compared to major": "♭3  ♭7",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "♭3 → 3 (Mixolydian)",
+    "One step darker": "6 → ♭6 (Aeolian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "window",
+   "step": "↓ 4",
+   "tonic": "A",
+   "mode": "Aeolian",
+   "feel": "sad, serious (natural minor)",
+   "keep": "notes",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "A 1  B 2  C ♭3  D 4  E 5  F ♭6  G ♭7",
+    "Compared to major": "♭3  ♭6  ♭7",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "♭6 → 6 (Dorian)",
+    "One step darker": "2 → ♭2 (Phrygian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "window",
+   "step": "↓ 5",
+   "tonic": "E",
+   "mode": "Phrygian",
+   "feel": "dark, tense, Spanish or metal",
+   "keep": "notes",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "E 1  F ♭2  G ♭3  A 4  B 5  C ♭6  D ♭7",
+    "Compared to major": "♭2  ♭3  ♭6  ♭7",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "♭2 → 2 (Aeolian)",
+    "One step darker": "5 → ♭5 (Locrian)"
+   },
+   "lane": []
+  },
+  {
+   "beat": "window",
+   "step": "↓ 6",
+   "tonic": "B",
+   "mode": "Locrian",
+   "feel": "unstable, never quite home",
+   "keep": "notes",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "B 1  C ♭2  D ♭3  E 4  F ♭5  G ♭6  A ♭7",
+    "Compared to major": "♭2  ♭3  ♭5  ♭6  ♭7",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "♭5 → 5 (Phrygian)",
+    "One step darker": "none, Locrian is the darkest"
+   },
+   "lane": []
+  },
+  {
+   "beat": "cycle",
+   "step": "dialect 0",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "notes",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": [
+    {
+     "r": "Imaj7",
+     "n": "Cmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IVmaj7",
+     "n": "Fmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "VII–7(♭5)",
+     "n": "B–7(♭5)",
+     "s": "diatonic"
+    },
+    {
+     "r": "III–7",
+     "n": "E–7",
+     "s": "diatonic"
+    },
+    {
+     "r": "VI–7",
+     "n": "A–7",
+     "s": "diatonic"
+    },
+    {
+     "r": "II–7",
+     "n": "D–7",
+     "s": "diatonic"
+    },
+    {
+     "r": "V7",
+     "n": "G7",
+     "s": "diatonic"
+    },
+    {
+     "r": "Imaj7",
+     "n": "Cmaj7",
+     "s": "diatonic"
+    }
+   ]
+  },
+  {
+   "beat": "cycle",
+   "step": "dialect 1",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "notes",
+   "dialect": "jazz",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": [
+    {
+     "r": "IΔ7",
+     "n": "CΔ7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IVΔ7",
+     "n": "FΔ7",
+     "s": "diatonic"
+    },
+    {
+     "r": "VIIø7",
+     "n": "Bø7",
+     "s": "diatonic"
+    },
+    {
+     "r": "III–7",
+     "n": "E–7",
+     "s": "diatonic"
+    },
+    {
+     "r": "VI–7",
+     "n": "A–7",
+     "s": "diatonic"
+    },
+    {
+     "r": "II–7",
+     "n": "D–7",
+     "s": "diatonic"
+    },
+    {
+     "r": "V7",
+     "n": "G7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IΔ7",
+     "n": "CΔ7",
+     "s": "diatonic"
+    }
+   ]
+  },
+  {
+   "beat": "cycle",
+   "step": "dialect 2",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "notes",
+   "dialect": "lead",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": [
+    {
+     "r": "Imaj7",
+     "n": "Cmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IVmaj7",
+     "n": "Fmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "VIIm7♭5",
+     "n": "Bm7♭5",
+     "s": "diatonic"
+    },
+    {
+     "r": "IIIm7",
+     "n": "Em7",
+     "s": "diatonic"
+    },
+    {
+     "r": "VIm7",
+     "n": "Am7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IIm7",
+     "n": "Dm7",
+     "s": "diatonic"
+    },
+    {
+     "r": "V7",
+     "n": "G7",
+     "s": "diatonic"
+    },
+    {
+     "r": "Imaj7",
+     "n": "Cmaj7",
+     "s": "diatonic"
+    }
+   ]
+  },
+  {
+   "beat": "cycle",
+   "step": "dialect 3",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "notes",
+   "dialect": "classical",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": [
+    {
+     "r": "IM7",
+     "n": "CM7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IVM7",
+     "n": "FM7",
+     "s": "diatonic"
+    },
+    {
+     "r": "viiø7",
+     "n": "Bø7",
+     "s": "diatonic"
+    },
+    {
+     "r": "iii7",
+     "n": "Em7",
+     "s": "diatonic"
+    },
+    {
+     "r": "vi7",
+     "n": "Am7",
+     "s": "diatonic"
+    },
+    {
+     "r": "ii7",
+     "n": "Dm7",
+     "s": "diatonic"
+    },
+    {
+     "r": "V7",
+     "n": "G7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IM7",
+     "n": "CM7",
+     "s": "diatonic"
+    }
+   ]
+  },
+  {
+   "beat": "borrow",
+   "step": "preset IV to minor IV",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": [
+    {
+     "r": "Imaj7",
+     "n": "Cmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IVmaj7",
+     "n": "Fmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IV–7",
+     "n": "F–7",
+     "s": "from Aeolian"
+    },
+    {
+     "r": "Imaj7",
+     "n": "Cmaj7",
+     "s": "diatonic"
+    }
+   ]
+  },
+  {
+   "beat": "borrow",
+   "step": "built I VI IV V by keys 1 6 4 5",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": [
+    {
+     "r": "Imaj7",
+     "n": "Cmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "VI–7",
+     "n": "A–7",
+     "s": "diatonic"
+    },
+    {
+     "r": "IVmaj7",
+     "n": "Fmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "V7",
+     "n": "G7",
+     "s": "diatonic"
+    }
+   ]
+  },
+  {
+   "beat": "borrow",
+   "step": "built I ♭VI IV V: key 1, the ♭VI cell in the Aeolian row (found: true), keys 4 5",
+   "tonic": "C",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "C 1  D 2  E 3  F 4  G 5  A 6  B 7",
+    "Compared to major": "identical",
+    "Key signature": "no sharps or flats, the notes of C major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": [
+    {
+     "r": "Imaj7",
+     "n": "Cmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "♭VImaj7",
+     "n": "A♭maj7",
+     "s": "from Aeolian"
+    },
+    {
+     "r": "IVmaj7",
+     "n": "Fmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "V7",
+     "n": "G7",
+     "s": "diatonic"
+    }
+   ]
+  },
+  {
+   "beat": "borrow",
+   "step": "→ → two fifths up",
+   "tonic": "D",
+   "mode": "Ionian",
+   "feel": "bright, settled, resolved (major)",
+   "keep": "tonic",
+   "dialect": "berklee",
+   "facts": {
+    "Scale": "D 1  E 2  F♯ 3  G 4  A 5  B 6  C♯ 7",
+    "Compared to major": "identical",
+    "Key signature": "2♯, the notes of D major",
+    "One step brighter": "4 → ♯4 (Lydian)",
+    "One step darker": "7 → ♭7 (Mixolydian)"
+   },
+   "lane": [
+    {
+     "r": "Imaj7",
+     "n": "Dmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "♭VImaj7",
+     "n": "B♭maj7",
+     "s": "from Aeolian"
+    },
+    {
+     "r": "IVmaj7",
+     "n": "Gmaj7",
+     "s": "diatonic"
+    },
+    {
+     "r": "V7",
+     "n": "A7",
+     "s": "diatonic"
+    }
+   ]
+  }
+ ]
+}

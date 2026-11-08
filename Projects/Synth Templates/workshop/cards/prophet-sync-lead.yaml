@@ -1,0 +1,69 @@
+# Synth Templates — Genre Classics — Prophet Sync Lead
+# Oscillator B resets oscillator A every cycle; an envelope sweeps A's pitch. The pitch never changes; the timbre tears.
+schema: synth-template-card/0.2
+id: prophet-sync-lead
+name: Prophet Sync Lead
+family: Genre Classics
+tier: 2
+mode: mono
+classics: Prophet-5
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Octave / semitone / fine tuning"
+  - "Phase, free-running vs retrigger, the click"
+  - "Subtractive: rich wave then filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, note: "oscillator A, the one you hear: hard-synced to B, so B's cycle restarts it. The voice approximates sync as FM."}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, note: "oscillator B, the master: sets the pitch, is not heard"}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: medium, s: low, r: medium}, category: percussive, note: "poly-mod: the filter envelope on the Prophet, routed to osc A frequency"}
+    aenv:    {kind: envelope, role: amp,   shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc2, osc1, sync]
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: two octaves, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: osc1.pitch, amount: about an octave, essential: false}
+
+essentials:
+  - {block: mode,    param: voices,    value: mono,          why: "a lead line; the tear is clearest one note at a time"}
+  - {block: osc2,    param: routing,   value: sync into osc1, why: "B resets A's phase every B cycle: A's pitch is B's pitch, whatever A is tuned to"}
+  - {block: osc1,    param: wave,      value: saw,           why: "the reset cuts the saw mid-ramp; where it is cut is the timbre"}
+  - {block: menv,    param: target,    value: osc1 pitch,    why: "sweeping the synced oscillator's tuning moves where each cycle is cut: a filter sweep without a filter"}
+  - {block: menv,    param: amount,    value: two octaves,   why: "a wide sweep, so the tear starts high and screaming"}
+  - {block: menv,    param: decay,     value: medium,        why: "long enough to hear the rip settle"}
+  - {block: menv,    param: sustain,   value: low,           why: "A rests a little above B, so the held tone keeps some edge"}
+  - {block: filter1, param: cutoff,    value: bright,        why: "mostly open; the sync supplies the brightness and its movement"}
+  - {block: aenv,    param: sustain,   value: held}
+
+taste:
+  - {block: menv,    param: amount,    range: "about an octave – two octaves", default: two octaves}
+  - {block: menv,    param: decay,     range: "short – long",        default: medium}
+  - {block: menv,    param: sustain,   range: "zero – half",         default: low}
+  - {block: filter1, param: cutoff,    range: "mid – open",          default: bright}
+  - {block: osc1,    param: glide,     range: "none – short",        default: none}
+  - {block: aenv,    param: release,   range: "short – medium",      default: short}
+
+listening:
+  cue: "The note stays put while the tone tears from a scream down to a buzz, as if a filter were sweeping, but with harmonics that no filter makes. The wheel sweeps the same tear by hand."
+  ab: "Switch the sync off: the envelope now bends the pitch itself, two octaves down, and the tear is gone. Switch it back. Then set the envelope amount to none: a plain, fixed saw with a slightly odd edge."
+
+render:
+  tempo: 120
+  note: [C4, C4, Eb4, G4]
+  velocity: 110
+  pattern: "four quarter notes, the last held a bar"
+  length_s: 4.0
+
+mappings: {}

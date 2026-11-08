@@ -1,0 +1,252 @@
+{
+  "title": "Granular Synthesis — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Granular Synthesis]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Granular Synthesis's rich face: three walks that test the page's own sentences on its own equations (what a grain is and whether a cloud's color is its grain's; whether grains pile where the filter is; whether a bent cloud tunes itself), and the neighbours' pieces gathered where they answer this page's questions. I hold the fingerprint of the words each piece was made against, and the offers the pieces taught the text, waiting for Loudon. I never hold the entry's words.",
+  "entry": "Granular Synthesis",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "Granular Synthesis",
+      "made_against": "ab718bfffd73",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Granular Synthesis — rich — atom and material.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1150,
+          "place": "band",
+          "title": "is the cloud's color the grain's? · a walk in four steps",
+          "caption": "**One grain, then a cloud, then the opening sentence measured.** A sine grain whose length decides click or note (length × width stays near 2 for the Hann window); the window that decides how much it clicks (side lobes −13, −31, −56 dB; Gabor's Δt·Δf 0.58, 0.082, 0.080 against the floor 1 ⁄ 4π); a cloud whose density decides how much it fuses. The test sets three clouds against one grain's prediction (Campbell's theorem, no free knob): random onsets land on it within about 1 dB, at one pitch or an octave of them, and a hundred times the density only lifts the level 20 dB. The same grains on a regular clock miss by 46 to 57 dB: a comb of lines at the rate, a pitch no grain carries.\n\nP(f) = λ · |G(f)|²\n\n(the cloud's power at each frequency) = (grains a second) × (one grain's own power there)",
+          "near": "The grain is the atom"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Granular Synthesis — rich — atom and material.html",
+            "verdict": "keep",
+            "why": "A real test that walks up from one grain: random onsets land on one grain's prediction (0.66–1.29 dB) and clocked onsets miss it (46–57 dB), all reproduced. Advised: scope the verdict's 'the atom sets the color' and 'texture, not timbre' to identical, independent grains and the long-term spectrum, since a spread cloud's color is the population's pitch distribution."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Granular-Additive Attractor Hybrid",
+      "made_against": "ee04dc96bc6f",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Granular Synthesis — rich — capture.html",
+          "origin": "made",
+          "by": "Web Audio Worklet · canvas",
+          "height": 1250,
+          "place": "band",
+          "title": "do grains pile up where the filter is? · a walk in four steps",
+          "caption": "**The hybrid built and played.** One grain caught or not by one partial (Adler's rule: caught when its detuning is under the pull, else it beats at √(Δ² − pull²), checked at 15 settings); a loud well and a shallow one, whose catchments come out 30 and 10.6 Hz against the rule's 30 and 9 (the loud partial below drags grains near the quiet one a hertz or two); the whole spectrum under a bandpass you drag. The test: partial by partial, the share of grains caught follows the filtered amplitude within about 0.03 of the rule, wherever the filter sits. And a knob the section never names: at K ⁄ 2π = 30 Hz the rule says 0.55 of grains are caught, and grains that live 120 ms or more reach it (0.51–0.52; one partial alone 0.54); at 60 ms 0.35 (alone 0.48), at 30 ms 0.08, at 15 ms 0.02. Caught means the grain's phase stops slipping against the partial, fitted over the second half of its life, so the wobble the other partials put on a caught grain doesn't count against it. Below about 30 ms a grain's own width, 2 ⁄ T, is wider than the well: a grain must live long enough to be caught, and to be heard as caught.\n\ndθᵢ⁄dt = ωᵢ + Σₖ Aₖ · K · sin(Θₖ − θᵢ)\n\n(how fast grain i's phase turns) = (its own speed) + the sum over partials of (the partial's filtered loudness) × (the pull) × sin(the partial's phase − the grain's)",
+          "near": "A bandpass filter sweeping"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Granular Synthesis — rich — capture.html",
+            "verdict": "remake",
+            "why": "The pile-follows-filter test holds (0.012 / 0.031), but the grain-length sweep blames the 0.6 Hz yardstick on the physics: a lone Adler partial is caught at 0.469 / 0.555 / 0.552 at 60 / 120 / 300 ms, and the engine reads 0.361 / 0.480 / 0.515 at 2 Hz, because the neighbouring partials wobble locked grains. Measure caught by phase slip (or show the 2 Hz row and the lone-partial ceiling), rewrite the verdict, caption and offer 2 from it, and name the 2/T-against-catchment point for grains under about 30 ms."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Three Coupling Regimes",
+      "made_against": "00ff966ceaa8",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Granular Synthesis — rich — three regimes.html",
+          "origin": "made",
+          "by": "Web Audio Worklet · canvas",
+          "height": 1250,
+          "place": "band",
+          "title": "does a bent cloud tune itself? · a walk in six steps",
+          "caption": "**The three regimes, one pull at a time, and the boldest sentence measured.** No pull; the partials pulling (with wells apart, 49% of grains caught, every one by its nearest partial; with the loud wells reaching past the midpoint to their quiet neighbours, 79% caught and 12% of those by a louder partial further off; caught is read from the phase's slip, as in the capture walk); one pile whose grains hear each other (already phase-locked at no grain-to-grain pull, r = 0.78 ≈ π ⁄ 4, rising to 0.92 at 40 Hz); grains hearing only each other, which group 1 : 1. Then the feedback bent: a soft clip locks a stray at 3 × a choir and never at 2 ×; a lopsided bend locks 2 ×. The test, six random clouds per bend: straight 0 of 6 grew a harmonic, soft clip 0 of 6, lopsided 4 of 6 in Node (15 grains at 2 ×, 4 at 3 × the group that formed) and 3 of 6 in Chromium (1 and 7): the clouds are chaotic, so the same seeds part ways in the last bits between engines, and the split moves while the answer doesn't. The grain-to-grain coupling goes through the analytic signal of the cloud's bent sound; the lopsided bend's DC and difference tones are left out.\n\n+ K_g · Re( Y · e^(−iθᵢ) ),  Y = the analytic signal of G(u)\n\n(the cloud's own sound, bent by G, pulling each grain at the frequencies it holds)"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Granular Synthesis — rich — three regimes.html",
+            "verdict": "remake",
+            "why": "Steps 3–6 are sound and step 6 is a real test (soft 0/6, lopsided 4/6, control 0/6). Step 2's caught meter shares capture's yardstick: 57% at K_A 80 is 79% at 2 Hz and 92% by the lone rule, while the nearest share (87–88%) is robust. Use the same phase measure, re-read step 2 and the caption, trim offer 5's 'many find none', and say 'reach past the midpoint' for 'overlapping'."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Particle Synthesis Angle",
+      "made_against": "26fc33d5916e",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/Particle Synthesis/proofs/2026-09-23-grains-05-crossing-collide.wav",
+          "origin": "gathered",
+          "by": "the Particle Synthesis steward, cycle 5",
+          "title": "two clouds meet · 7 s",
+          "caption": "**Collision and merging, heard.** Two fountains of grains aimed at each other, 72 grains, the aim tightening from 6° to 0.15°: 13 clacks in the air, 119 of 360 landings by a deflected grain. From [[Particle Synthesis]]'s face, where it is still a proposal.",
+          "near": "Collision and merging"
+        },
+        {
+          "file": "/Projects/Particle Synthesis/proofs/2026-09-23-grains-04-crossing-pass-through.wav",
+          "origin": "gathered",
+          "by": "the Particle Synthesis steward, cycle 5",
+          "title": "the same clouds, passing through · 7 s",
+          "caption": "The same 72 grains at the same gain with collisions off: rain, no meetings. Set beside the one above, it is the bullet's claim as an A ⁄ B: the meeting is the rule's, not the launches'. Track B turns collisions off; it is not the bullet's conventional crossfade.",
+          "near": "Collision and merging"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Particle Synthesis/proofs/2026-09-23-grains-05-crossing-collide.wav",
+            "verdict": "keep",
+            "why": "It makes the collision bullet heard against a same-gain control, and its numbers (13 meetings, 119 of 360) match the source."
+          },
+          {
+            "file": "/Projects/Particle Synthesis/proofs/2026-09-23-grains-04-crossing-pass-through.wav",
+            "verdict": "keep",
+            "why": "The control that makes the pair an A/B. Caption note: B is collisions off, not the bullet's crossfade, so 'not by a crossfade' claims a little more than the pair shows."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Open Questions",
+      "made_against": "c153abbc5725",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/Neural Granular Synthesis/Neural Granular Synthesis — rich — crowd-size ladder.html",
+          "origin": "gathered",
+          "by": "Neural Granular Synthesis's face · Web Audio Worklet",
+          "height": 1320,
+          "place": "band",
+          "title": "how many grains make a color? · from Neural Granular Synthesis",
+          "caption": "**The minimum grain count, and density against coupling, on a neighbour's crowd.** Not the attractor hybrid, but the same two questions on a crowd of coupled grains: uncoupled, the crowd's gappiness comes within about a fifth of steady noise from about 32 grains firing six times a second; locked, it stays five to six times the floor at every size from 4 to 512. A crowd whose firings lock does lose its motion into a pulse (Neural's lock is firings falling into step, not this page's lock of a grain's carrier phase to a partial). From [[Neural Granular Synthesis]]'s face, where it is still a proposal. For the hybrid itself, the capture walk above found the attractor's catch does not depend on how many grains there are (8 grains or 48, at 300 ms: 0.53 and 0.51 caught), since each grain feels only the partials.",
+          "near": "What is the minimum grain count"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Neural Granular Synthesis/Neural Granular Synthesis — rich — crowd-size ladder.html",
+            "verdict": "keep",
+            "why": "Gathered, tracked, conform-clean, and the caption says it is not the hybrid. Note: 'a dense cloud that locks' uses Neural's onset lock, not this page's carrier-phase lock; write 'a crowd whose firings lock'."
+          }
+        ]
+      }
+    }
+  ],
+  "offers": [
+    {
+      "section": "Granular Synthesis",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "'whose collective statistical behavior produces emergent timbres': narrowed after challenge. For independent grains at random onsets (Campbell's theorem), the long-run spectrum is one grain's, averaged over the cloud's pitches, raised by the density: measured within 0.7 to 1.3 dB at four grain settings; density ×100 lifts the level 20.4 to 20.8 dB (10·log10 100 = 20; the extra is the sparse cloud drawing 107 grains, not 120). Timing statistics are what add new lines: clocked onsets miss by 46 to 57 dB (rms of dB over a comb's troughs, not a level). With pitches spread, the spectrum is the population's pitch distribution heard through one grain, which is the page's 'collective statistical behavior'; coupled grains, the rest of the page, are outside the theorem. Suggested, as an addition rather than a replacement: 'For independent grains at random onsets, the cloud's spectrum is one grain's averaged over its pitches and raised by the density; the statistics of timing are what add new lines.' Word to settle with Neural Granular Synthesis's open offer, which uses 'color' for fusion: pick one meaning before either goes home."
+    },
+    {
+      "section": "The Granular-Additive Attractor Hybrid",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The section never names grain length, and the capture walk finds it decides whether the attractor is heard. Caught measured by phase slip (a line fitted to the grain's phase over the second half of its life slips under 0.6 turns a second against the partial). With the filter open and K ⁄ 2π = 30 Hz: 0.022 at 15 ms, 0.081 at 30, 0.348 at 60, 0.522 at 120, 0.514 at 300, 0.511 at 1000 ms; one partial alone 0.032, 0.136, 0.481, 0.541, 0.536, 0.537; Adler's rule 0.545. The catch relaxes with τ = 1 ⁄ (2π√(P² − Δ²)), 5.3 ms at a well's centre, so the fall is over by about 120 ms; and below about 30 ms a Hann grain's own width, 2 ⁄ T, is wider than the 60 Hz well. Suggested addition after 'Grains pile up where the filter is, scatter where it isn't.': 'Only grains that live long enough are caught: the catch takes a few time constants of 1 ⁄ (2π√(P² − Δ²)), so grains much shorter than about 100 ms drift past whatever the filter does.'"
+    },
+    {
+      "section": "The Granular-Additive Attractor Hybrid",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Name K's unit and the capture rule the equation implies: with K in rad ⁄ s, a grain is caught by partial k when it starts within A_k·K ⁄ 2π Hz of it (Adler's rule). The capture walk's step 1 checks it at 15 settings (caught below the line; beats at √(Δ² − (A·K ⁄ 2π)²) above it, within 6%)."
+    },
+    {
+      "section": "The Granular-Additive Attractor Hybrid",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "'Computationally efficient: … N_grains × N_partials evaluations': the same sum costs N_grains + N_partials. Since sin(Θ_k − θ_i) = Im(e^{iΘ_k} e^{−iθ_i}), Σ_k A_k sin(Θ_k − θ_i) = Im(X · e^{−iθ_i}) with X = Σ_k A_k e^{iΘ_k} computed once per sample; the capture and three-regimes engines compute the page's exact equation this way. Suggested: '(coupling is one-directional, and the attractor's pull on every grain comes from one sum over the partials per sample: N_grains + N_partials evaluations, no grain-to-grain interactions).'"
+    },
+    {
+      "section": "Three Coupling Regimes",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "'Each grain independently finds its nearest attractor partial': measured on the three-regimes engine (harmonics of 110 Hz, the even ones loud, the odd at a quarter; 400 ms grains born 165 to 1375 Hz; caught by phase slip). With the wells apart (K ⁄ 2π = 40 Hz at full loudness) 51% of grains are caught (rule 50%), every one by its nearest partial; the other half sit between wells and are never caught. With the loud wells reaching past the midpoint to their quiet neighbours (80 Hz), 79% are caught (the lone-partial rule says 92%) and 12% of those by a louder partial further off. Suggested: 'Each grain is caught by a partial whose pull, A_k·K, outruns its detuning: usually the nearest, sometimes a louder one further off; with weak pulls, grains between wells drift free.' The page's sentence is an idealization its own equation breaks once a loud well reaches past the midpoint."
+    },
+    {
+      "section": "Three Coupling Regimes",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "'Weak grain-to-grain coupling added: … Each pile becomes coherent — not just a frequency cluster but a phase-locked cluster': at no grain-to-grain pull a pile is already phase-locked to its partial, each caught grain at its own fixed offset (sin φ = Δ ⁄ (A·K ⁄ 2π)), fanned so the pile's coherence is r = 0.782 against π ⁄ 4 = 0.785 predicted (one partial at 440 Hz, 24 grains born within 42 Hz, pull 30 Hz). Grain-to-grain coupling closes the fan and pulls edge grains in: r 0.795, 0.832, 0.919, 0.960 and caught 87%, 99%, 99%, 99% at K_g ⁄ 2π = 10, 20, 40, 80 Hz (73% at 0). Suggested: 'Each pile, already locked to its partial but fanned across phase offsets, closes ranks: its grains come into step with each other, and grains at its edges are pulled in.' Also, by the same measurement: locked grains don't beat with one another, so the 'tight chorus … built-in micromotion' of attractor-only piles comes from births, deaths and the grains not caught, not from the pile itself. In level, caught × r goes from 0.73 × 0.78 = 0.57 to 0.99 × 0.96 = 0.95, about +4.4 dB on the pile's coherent sum, which bears out 'reinforced partial'. Challenger confirmed π ⁄ 4 = E√(1 − u²) for detuning uniform across the catchment, so the page is wrong here by its own equation."
+    },
+    {
+      "section": "Three Coupling Regimes",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "'Add soft clipping or any nonlinearity, and harmonic locking appears. The cloud self-organizes into a harmonic series that nobody specified.' Not a reversal; it needs 'asymmetric' and a hedge. Measured on the three-regimes engine, the cloud's summed sound bent by G before the grains hear it (soft clip tanh(Du) ⁄ D; lopsided, the same with a bias; both slope 1 at zero; drive 3). Strays placed 1.5 Hz off 2 × and 3 × a ten-grain choir at 220 Hz (K_g ⁄ 2π = 40 Hz): the soft clip locks the 3 × stray and never the 2 ×; the lopsided bend locks the 2 ×; straight, neither. An odd function of a sine makes only odd harmonics, so 'any nonlinearity' is wrong for even ratios by symmetry, not by this sketch. Six random clouds per bend (64 grains, 110 to 880 Hz, K_g ⁄ 2π = 250 Hz): straight 0 of 6, soft clip 0 of 6, lopsided 4 of 6 in Node (19 of 384 grains at 2 × and 3 × a group that formed on its own; 3 of 6 in Chromium, the clouds being chaotic). That is the start of a series, from this sketch's one placement of the bend; another placement or longer runs might do more. Suggested: 'Add a nonlinearity and harmonic locking appears: a symmetric soft clip locks only odd ratios, an asymmetric one even ratios too. With an asymmetric bend the cloud can begin to self-organize into a harmonic series that nobody specified.' The model leaves out the lopsided bend's DC and difference tones."
+    }
+  ]
+}

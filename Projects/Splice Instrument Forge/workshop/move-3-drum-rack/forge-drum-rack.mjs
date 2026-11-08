@@ -7,8 +7,9 @@
 // Every XML element is cloned from a file Live saved (Splice Instrument Forge, format study 2026-10-24):
 //   the rack and a pad preset from Live 12's Core Library/Defaults/Slicing/Default.adg,
 //   a pad's Simpler from Core Library/Defaults/Instruments/Simpler.adv,
-//   a zone from the Ableton Session Writer's sample-part.xml, the Set, track, clip and Limiter from its templates,
-//   and the in-Set branch shell from a Set Live 12.4.6 saved on 2026-10-24 (the first Spoiler Kit Set, saved back from Live).
+//   a zone from the Ableton Session Writer's sample-part.xml, the Set and Limiter from its templates,
+//   and the MIDI track, MIDI clip and in-Set pad branch from the forge's own shells, taken from Live 12.4.6's factory
+//   files (move seven, 2026-10-26; the track once came in at -12 dB and armed, the branch from a Set Loudon saved back).
 // The XML craft (element, renumber, the pointee regex) is the Session Writer's, copied so this stays one file.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -19,6 +20,7 @@ const HERE = path.dirname(fileURLToPath(import.meta.url));
 const PALACE = '/Users/loudonstearns/Documents/The Palace';
 const WRITER = path.join(PALACE, 'Shop/Shopkeeper/probes/2026-10-20-ableton-session/templates');
 const STUDY = path.join(HERE, '..', 'format-study', 'xml');
+const SHELLS = path.join(HERE, '..', 'move-7-shells', 'shells');   // the forge's own shells, harvested from Live 12.4.6's factory files (move-7-shells/harvest.mjs)
 const LIVE = '/Applications/Ableton Live 12 Suite.app/Contents/App-Resources/Core Library/Defaults';
 const HEADER = '<Ableton MajorVersion="5" MinorVersion="12.0_12402" SchemaChangeCount="5" Creator="Ableton Live 12.4.6" Revision="0de5c8fa9a692293676cb7700a15afb2046ee1f7">';
 const FIRST_TRACK_ID = 20;
@@ -140,7 +142,7 @@ function buildAls(kit, pads, setDir) {
   rack = rack.replace(/<LastPresetRef>[\s\S]*?<\/LastPresetRef>/, '<LastPresetRef>\n<Value />\n</LastPresetRef>');
   rack = bareMacros(rack);
   rack = rack.replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(kit.name) + '" />').replace(/<Annotation Value="[^"]*" \/>/, '<Annotation Value="" />');
-  const branchShell = fs.readFileSync(path.join(STUDY, 'Live12 DrumBranch shell.xml'), 'utf8').trim();
+  const branchShell = fs.readFileSync(path.join(SHELLS, 'DrumBranch.xml'), 'utf8').trim();
   const branches = pads.map((pad, i) => {
     let b = branchShell.replace(/^<DrumBranch Id="\d+"/, '<DrumBranch Id="' + i + '"');
     b = b.replace(/<EffectiveName Value="[^"]*" \/>/, '<EffectiveName Value="' + esc(pad.name) + '" />').replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(pad.name) + '" />');
@@ -164,7 +166,7 @@ function buildAls(kit, pads, setDir) {
     }
   } else pads.forEach((pad, i) => notes.push({ time: i, duration: 0.5, pitch: pad.note, velocity: 100 }));
   const length = bars * beatsPerBar;
-  let c = fs.readFileSync(path.join(WRITER, 'midi-clip.xml'), 'utf8').trim();
+  let c = fs.readFileSync(path.join(SHELLS, 'MidiClip.xml'), 'utf8').trim();
   c = c.replace(/^<MidiClip Id="\d+" Time="[^"]+">/, '<MidiClip Id="0" Time="0">');
   c = setValue(c, 'CurrentStart', 0).replace(/<CurrentEnd Value="[^"]*" \/>/, '<CurrentEnd Value="' + fmt(length) + '" />');
   c = replaceEl(c, element(c, 'Loop'), '<Loop>\n<LoopStart Value="0" />\n<LoopEnd Value="' + fmt(length) + '" />\n<StartRelative Value="0" />\n<LoopOn Value="false" />\n<OutMarker Value="' + fmt(length) + '" />\n<HiddenLoopStart Value="0" />\n<HiddenLoopEnd Value="' + fmt(length) + '" />\n</Loop>');
@@ -176,7 +178,7 @@ function buildAls(kit, pads, setDir) {
   c = c.replace(/<KeyTracks \/>/, '<KeyTracks>\n' + keyTracks + '\n</KeyTracks>').replace(/<NoteIdGenerator>[\s\S]*?<\/NoteIdGenerator>/, '<NoteIdGenerator>\n<NextId Value="' + noteId + '" />\n</NoteIdGenerator>');
 
   // the track
-  let t = fs.readFileSync(path.join(WRITER, 'midi-track.xml'), 'utf8').trim();
+  let t = fs.readFileSync(path.join(SHELLS, 'MidiTrack.xml'), 'utf8').trim();
   t = t.replace(/^<MidiTrack Id="\d+"/, '<MidiTrack Id="' + (ids.track++) + '"');
   t = renumber(t, ids);
   const nameEl = element(t, 'Name');

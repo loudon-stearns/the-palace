@@ -1,0 +1,271 @@
+/* ────────────────────────────────────────────────────────────────────────
+   Loudon Live · controls.css · the browser's furniture, re-dressed
+   ────────────────────────────────────────────────────────────────────────
+   Load after colors_and_type.css, before the artifact's own styles.
+
+   Nothing here is a component. It is what the browser draws on its own when
+   a page says nothing: scrollbars, the select chevron, checkboxes and radios,
+   range sliders, the textarea grip, number spinners, the <details> marker,
+   the focus ring, the selection colour, the file button. Left alone, each one
+   arrives in the OS's dress and sits in the artifact like a borrowed chair.
+   This sheet puts them in the house style, in tokens, so they follow the
+   skin and cannot stray.
+
+   Rules, in one breath: square or 2px; a hairline is the control; the thumb
+   is a mark, not a bar; accent only where the hand is (dragging, checked,
+   keyboard focus); every value is also written as text somewhere nearby.
+
+   Element selectors only, so any class an artifact writes wins by order.
+   Chrome and Safari draw the scrollbar from the ::-webkit-scrollbar rules;
+   Firefox, which has none, gets the standard properties under @supports.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* ── 1 · tell the browser which side of the light we are on ───────────
+   Without this a dark skin gets a white scrollbar track, a white select
+   popup, a white date picker. The skin classes set it on the root. */
+:root { color-scheme: dark; }
+.skin-amber-lab, .skin-drafting { color-scheme: light; }
+
+/* ── 2 · scrollbars · a fader in the gutter ───────────────────────────
+   Square-ended, no capsule: a 1px slot runs the length of the gutter and a
+   6px cap rides it. The cap rests in fg-4, wakes to fg-3 under the pointer,
+   and goes accent only while dragged. No arrows.
+   Chrome and Safari read the ::-webkit-scrollbar rules below. Chrome drops
+   them the moment scrollbar-width is set, and draws its own rounded thumb
+   instead, so the standard properties are scoped to the browsers that have
+   no ::-webkit-scrollbar (Firefox), where thin + colour is all we can ask. */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track {
+  background: linear-gradient(to right, transparent calc(50% - .5px), var(--border-soft) calc(50% - .5px), var(--border-soft) calc(50% + .5px), transparent calc(50% + .5px));
+}
+::-webkit-scrollbar-track:horizontal {
+  background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--border-soft) calc(50% - .5px), var(--border-soft) calc(50% + .5px), transparent calc(50% + .5px));
+}
+::-webkit-scrollbar-thumb {
+  background: var(--fg-4);
+  border: 0 solid transparent; border-width: 0 2.5px;   /* a 6px cap in an 11px gutter */
+  background-clip: padding-box;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:horizontal { border-width: 2.5px 0; }
+::-webkit-scrollbar-thumb:hover  { background-color: var(--fg-3); }
+::-webkit-scrollbar-thumb:active { background-color: var(--accent); }
+::-webkit-scrollbar-corner { background: transparent; }
+::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--fg-4) transparent; }
+  *:hover { scrollbar-color: var(--fg-3) transparent; }
+}
+
+/* ── 3 · selection · the accent, with the page colour on it ─────────── */
+::selection { background: var(--accent); color: var(--fg-on-accent); text-shadow: none; }
+
+/* ── 4 · keyboard focus · one hairline, offset, accent ────────────────
+   Pointer focus shows nothing (the control already answered the hand);
+   keyboard focus shows a 1px accent line 2px outside the control. No glow:
+   the house allows one accent glow per view and it is the call to action. */
+:focus { outline: none; }
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; border-radius: var(--r-xs); }
+
+/* ── 5 · the fields · text, textarea, select, number, date ───────────── */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]),
+textarea,
+select {
+  appearance: none; -webkit-appearance: none;
+  font: inherit; color: var(--fg-1);
+  background: var(--bg-elev-1);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: var(--s-2) var(--s-3);
+  line-height: var(--lh-normal);
+  transition: border-color var(--t-fast) var(--ease);
+}
+input:hover, textarea:hover, select:hover { border-color: var(--border-hover); }
+input:focus, textarea:focus, select:focus { border-color: var(--accent); outline: none; }
+input:disabled, textarea:disabled, select:disabled, button:disabled { opacity: .5; cursor: default; }
+::placeholder { color: var(--fg-3); opacity: 1; }
+
+/* textarea · grows down only, and the grip is two hairlines, not the OS's dots */
+textarea { resize: vertical; min-height: 3.5em; }
+textarea::-webkit-resizer {
+  background:
+    linear-gradient(135deg, transparent 0 58%, var(--fg-4) 58% 64%, transparent 64% 76%, var(--fg-4) 76% 82%, transparent 82%);
+  background-clip: content-box;
+}
+
+/* select · the chevron is two hairlines drawn in fg-3, no icon, no hex */
+select {
+  padding-right: calc(var(--s-3) + 18px);
+  background-image:
+    linear-gradient(45deg,  transparent 50%, var(--fg-3) 50%),
+    linear-gradient(135deg, var(--fg-3) 50%, transparent 50%);
+  background-position: calc(100% - 15px) calc(50% - 2px), calc(100% - 10px) calc(50% - 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+select:focus { background-image:
+    linear-gradient(45deg,  transparent 50%, var(--accent) 50%),
+    linear-gradient(135deg, var(--accent) 50%, transparent 50%); }
+select[multiple], select[size] { background-image: none; padding-right: var(--s-3); }
+select option { background: var(--bg-elev-2); color: var(--fg-1); }
+
+/* number · the spinner goes; arrow keys and the wheel still step the value */
+input[type="number"] { -moz-appearance: textfield; }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* search · no OS cancel button; date · the picker icon takes the text colour */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator { opacity: .55; cursor: pointer; }
+
+/* ── 6 · checkbox and radio · the ● ○ glyphs, as controls ─────────────
+   A 14px hairline box (square; a radio is round because the shape means
+   "one of"). Checked: accent fill with the page colour ringed inside, so it
+   reads as the house's ● on, not a tick mark. */
+input[type="checkbox"], input[type="radio"] {
+  appearance: none; -webkit-appearance: none;
+  width: 14px; height: 14px; margin: 0 var(--s-2) 0 0;
+  vertical-align: -2px; flex: none;
+  border: 1px solid var(--border);
+  border-radius: var(--r-xs);
+  background: var(--bg-elev-1);
+  cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+input[type="radio"] { border-radius: var(--r-pill); }
+input[type="checkbox"]:hover, input[type="radio"]:hover { border-color: var(--border-hover); }
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: inset 0 0 0 3px var(--bg-elev-1);
+}
+input[type="checkbox"]:indeterminate {
+  border-color: var(--accent);
+  background: linear-gradient(var(--accent), var(--accent)) center / 8px 2px no-repeat var(--bg-elev-1);
+}
+
+/* ── 7 · range · a hairline track and a square thumb ──────────────────
+   The track is 2px of border; the thumb is a 12px square in fg-1 that goes
+   accent under the hand. The slider never shows its number: the artifact
+   writes the value beside it (say it twice). Firefox gets the filled run. */
+input[type="range"] {
+  appearance: none; -webkit-appearance: none;
+  width: 100%; height: 14px; margin: 0; padding: 0;
+  background: transparent; border: 0; border-radius: 0;
+  cursor: ew-resize;
+}
+input[type="range"]:focus { outline: none; }
+input[type="range"]::-webkit-slider-runnable-track { height: 2px; background: var(--border); border-radius: 0; }
+input[type="range"]::-moz-range-track { height: 2px; background: var(--border); border-radius: 0; }
+input[type="range"]::-moz-range-progress { height: 2px; background: var(--fg-2); }
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px; margin-top: -5px;
+  background: var(--fg-1); border: 1px solid var(--bg);
+  border-radius: var(--r-xs);
+  transition: background-color var(--t-fast) var(--ease);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 10px; height: 10px;
+  background: var(--fg-1); border: 1px solid var(--bg);
+  border-radius: var(--r-xs);
+}
+input[type="range"]:hover::-webkit-slider-thumb,
+input[type="range"]:active::-webkit-slider-thumb,
+input[type="range"]:focus-visible::-webkit-slider-thumb { background: var(--accent); }
+input[type="range"]:hover::-moz-range-thumb,
+input[type="range"]:active::-moz-range-thumb { background: var(--accent); }
+input[type="range"][orient="vertical"] { writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize; }
+
+/* ── 8 · buttons · the bare element, in case a page writes one with no class */
+button, input[type="submit"], input[type="button"], input[type="reset"], ::file-selector-button {
+  appearance: none; -webkit-appearance: none;
+  font: inherit; font-family: var(--mono); font-size: var(--t-eyebrow);
+  letter-spacing: var(--tr-eyebrow); text-transform: uppercase;
+  color: var(--fg-1); background: var(--bg-elev-1);
+  border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: var(--s-2) var(--s-4);
+  cursor: pointer;
+  transition: border-color var(--t-fast) var(--ease), background-color var(--t-fast) var(--ease);
+}
+button:hover, ::file-selector-button:hover { border-color: var(--border-hover); }
+button:active { background: var(--bg-elev-2); }
+input[type="file"] { font: inherit; font-size: var(--t-caption); color: var(--fg-3); }
+::file-selector-button { margin-right: var(--s-3); }
+
+/* ── 9 · details · the house's ▸ ▾, not the OS triangle ─────────────── */
+summary { list-style: none; cursor: pointer; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▸"; display: inline-block; width: 1.1em; color: var(--accent); }
+details[open] > summary::before { content: "▾"; }
+
+/* ── 10 · dialog and progress · when one arrives, it wears the house ── */
+dialog { color: var(--fg-1); background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-3); padding: var(--s-6); }
+dialog::backdrop { background: rgba(0,0,0,.6); }
+progress, meter { appearance: none; -webkit-appearance: none; width: 100%; height: 4px; border: 0; background: var(--bg-elev-2); border-radius: 0; }
+progress::-webkit-progress-bar { background: var(--bg-elev-2); }
+progress::-webkit-progress-value, meter::-webkit-meter-optimum-value, meter::-webkit-meter-bar { background: var(--accent); border-radius: 0; }
+progress::-moz-progress-bar { background: var(--accent); }
+
+/* ── 11 · the native tooltip has no dress · write the caption on the page ──
+   `title=` pops the OS tooltip. Prefer a visible caption, a `◇` aside, or a
+   `data-tip` the page draws itself. Nothing here can style it. */
+
+/* ── 12 · the rest of the furniture · what else the browser draws alone ──── */
+
+/* links · the OS's blue and purple go; a link is the accent with a hairline under it */
+a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--accent-line); }
+a:hover { text-decoration-color: currentColor; }
+a:visited { color: var(--accent); }
+
+/* hr · a hairline, not the 3D groove */
+hr { border: 0; border-top: 1px solid var(--border); margin: var(--s-6) 0; }
+
+/* mark and kbd · the yellow highlighter and the grey key cap go */
+mark { background: var(--accent-soft); color: inherit; box-shadow: 0 0 0 1px var(--accent-line); padding: 0 2px; }
+kbd { font-family: var(--mono); font-size: .85em; padding: 1px 5px; border: 1px solid var(--border); border-bottom-width: 2px; border-radius: var(--r-xs); background: var(--bg-elev-1); }
+
+/* code · the browser's Courier goes */
+code, pre, samp { font-family: var(--mono); }
+
+/* numbers line up · readouts, tables, timestamps */
+.num, td, th, time, output { font-variant-numeric: tabular-nums; }
+
+/* autofill · Chrome paints a yellow or blue field; paint it back in the skin */
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--fg-1);
+  -webkit-box-shadow: 0 0 0 1000px var(--bg-elev-1) inset;
+  caret-color: var(--fg-1);
+}
+
+/* a field the user has filled wrong · danger hairline, no OS bubble (add novalidate and write the message) */
+input:user-invalid, textarea:user-invalid, select:user-invalid { border-color: var(--danger); }
+
+/* in-window scrollers · the panel keeps its scroll to itself and holds its width */
+[style*="overflow"], .scroll, .scroller, textarea, select[multiple], pre { overscroll-behavior: contain; scrollbar-gutter: stable; }
+
+/* touch · no grey flash on tap, no accidental selection on a control */
+* { -webkit-tap-highlight-color: transparent; }
+button, summary, label, input[type="range"], input[type="checkbox"], input[type="radio"] { user-select: none; -webkit-user-select: none; }
+
+/* motion · the house's ambient motions stop for a reader who asked for stillness */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* select popup · where the browser lets the page draw it (Chrome 135+), it wears the skin;
+   elsewhere color-scheme keeps it on the right side of the light */
+@supports selector(::picker(select)) {
+  select, ::picker(select) { appearance: base-select; }
+  ::picker(select) { background: var(--bg-elev-2); color: var(--fg-1); border: 1px solid var(--border); border-radius: var(--r-sm); padding: var(--s-1) 0; box-shadow: var(--shadow-2); }
+  select option { padding: var(--s-2) var(--s-3); }
+  select option:checked { color: var(--accent); }
+  select option:hover, select option:focus-visible { background: var(--bg-elev-3); outline: none; }
+  select::picker-icon { display: none; }
+}
+
+/* audio · `controls` is the OS's player and nothing here can dress it. transport.js, loaded after the page's
+   audio, replaces every <audio controls> with the house's player (transport.css). <video controls> still shows the OS's. */

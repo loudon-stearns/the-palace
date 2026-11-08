@@ -1,0 +1,55 @@
+# Synth Templates — card — Unison × Voices Budget
+# Voices, Tuning and Retrigger family. Unison multiplies voices: two per note on a four-voice limit, and the third note steals.
+schema: synth-template-card/0.2
+id: unison-voices-budget
+name: Unison × Voices Budget
+family: Voices, Tuning and Retrigger
+tier: 1
+mode: poly
+classics:
+status: drafted
+concepts:
+  - "Poly vs mono; max voices"
+  - "Unison / unisono"
+  - "Voice priority: last / top / bottom; voice stealing"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 2, detune: narrow, note: "two voices per note: a chorus, and twice the voice count"}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: long}, category: sustaining, note: "the voice does not yet model a voice limit; the stealing is heard on a synth with max voices set"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+
+essentials:
+  - {block: mode, param: voices,     value: poly,  why: "chords: the whole lesson is what happens when the chord outgrows the budget"}
+  - {block: mode, param: max voices, value: 4,     why: "the budget; set low on purpose so it runs out in one hand"}
+  - {block: osc1, param: unison,     value: 2 voices, why: "each note now costs two voices: four voices is two notes, not four"}
+  - {block: mode, param: priority,   value: last,  why: "the newest note wins and the oldest is stolen; the usual setting, and the one that makes the theft easy to hear"}
+  - {block: aenv, param: release,    value: long,  why: "released notes still hold a voice until the release ends; a long release runs the budget out sooner"}
+
+taste:
+  - {block: osc1, param: unison,  range: "1 – 4 voices",      default: 2 voices, why: "1 restores four notes; 4 leaves you one"}
+  - {block: osc1, param: detune,  range: "slight – wide",     default: narrow}
+  - {block: aenv, param: release, range: "short – very long", default: long, why: "the hidden half of the budget"}
+  - {block: filter1, param: cutoff, range: "mid – open",      default: bright}
+
+listening:
+  cue: "Three notes played one after another and held. The first two sit as a chorused pair; as the third lands, the first one vanishes under it. Nobody let go of it: the synth took its voices back."
+  ab: "Set unison to 1 voice: all three notes hold, thinner, and nothing is stolen. Back to 2 and the third note steals the first again. Then set max voices to 8: three notes hold again, with the chorus intact; the budget was the whole problem."
+
+render:
+  tempo: 90
+  note: [C3, E3, G3]
+  velocity: 100
+  pattern: "C3 at beat one, E3 at beat two, G3 at beat three, all held to bar three; the C3 is cut off as the G3 lands"
+  length_s: 7.0
+
+mappings: {}

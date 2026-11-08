@@ -69,11 +69,12 @@ on the present. Four zones, delimited by HTML-comment markers so machinery can t
   line. Re-materializing never duplicates or deletes; a human may add sections by hand.
   In STIGMERGY every artifact on the trail plays in place, a web page included. To put one
   there, list it in a board message's `artifacts`, or link it by its palace path in a section
-  written by hand (`[caption](Dissolutions/proofs/x.html)`). A web page runs sandboxed, so make it
-  one self-contained file; the palace sizes it and quiets it for you.
+  written by hand (`[caption](Dissolutions/proofs/x.html)`). A web page runs sandboxed on the piece
+  origin and gets only what it declares in its own `<head>` (`piece:needs`, `piece:files`, `piece:net`,
+  `piece:size`); the palace sizes it and quiets it for you (`_ops/rich-face/README.md` § What the page lets run).
 
 The source is **markdown** — a steward's output lands as one appended section, git diffs it
-cleanly, and STIGMERGY renders it natively in the phosphor register (the [[BBS Design System]]
+cleanly, and STIGMERGY renders it natively in the phosphor register (the [[STIGMERGY#The look|STIGMERGY look]]
 carve-out). A standalone HTML export in the [[Loudon Live Design System|Loud'n Live]] style is
 the reading surface for anyone outside the terminal; the live-polling HTML variant below remains
 the right tool for media made in a loop. The file carries the minimal bundle frontmatter of

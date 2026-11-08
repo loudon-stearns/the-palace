@@ -74,10 +74,12 @@ export function buildQueue(messages) {
   //   OPEN    — neither. Available to catch.
   // A lifecycle message names its handoff two ways, both honored: payload
   // handoff_id and the top-level `re`. Done is NEVER inferred from git — only an
-  // explicit close (or the migration grandfather) retires a card.
+  // explicit close (or the migration grandfather) retires a card. A RETRACT
+  // whose `re` names a handoff_ready withdraws it too (SCHEMA — Reference §9).
   const closedHandoffs = new Set();
   const claimByHandoff = new Map();            // handoff_ready id -> its claim message
   for (const m of messages) {
+    if (m?.type === 'RETRACT' && typeof m.re === 'string' && m.re) { closedHandoffs.add(m.re); continue; }
     const p = m?.payload;
     if (!p || (p.kind !== 'handoff_closed' && p.kind !== 'handoff_picked_up')) continue;
     const refs = [];
@@ -396,7 +398,15 @@ function buildReviewCards(messages, responded) {
     const newest = open[open.length - 1];
     const { m } = newest;
     const { entry, round } = newest.review;
-    const ask = `act on ${notes.length} review note${notes.length === 1 ? '' : 's'} on the rich face of [[${entry}]]`
+    // A note from the rich face's review dock is a note on the page's rich face. Anything else
+    // that names a page — Loudon's answers to a rough, sent through the answers server
+    // (_ops/loudon-eval/) — is a note on the page itself, and says which page it was sent from.
+    const viaRichFace = newest.review.via === 'rich-face';
+    const sentFrom = [...new Set(open.map((s) => s.review.url).filter(Boolean).map((u) => u.split('/').pop()))];
+    const where = viaRichFace ? `on the rich face of [[${entry}]]` : `on [[${entry}]]`;
+    const from = viaRichFace || sentFrom.length === 0 ? ''
+      : `, sent from ${sentFrom.at(-1)}${sentFrom.length > 1 ? ` and ${sentFrom.length - 1} other page${sentFrom.length > 2 ? 's' : ''}` : ''}`;
+    const ask = `act on ${notes.length} review note${notes.length === 1 ? '' : 's'} ${where}${from}`
       + (round ? ` (round ${round})` : '');
     cards.push({
       id: m.id,
@@ -415,6 +425,8 @@ function buildReviewCards(messages, responded) {
       entries: [entry],
       round,
       notes,
+      // 'rich-face' (the review dock) or 'page' (any other poster that names the page).
+      via: viaRichFace ? 'rich-face' : 'page',
       ask,
       summary: ask,
       // The notes themselves, one to a line, for the card's [+] show context.
@@ -438,11 +450,14 @@ export function rankQueue(items) {
   });
 }
 
-// Read a human_eval payload as a review of one page: { entry, round, notes, key },
+// Read a human_eval payload as a review of one page: { entry, round, notes, key, via, url },
 // or null when it names no page or holds no words. The page is payload.entry when
 // a poster names it outright, else the rich face's task, `rich-face:<page>:round-<n>`
 // (rich.html collectNotes) — greedy, so a title with a colon stays whole. Notes are
 // the page note first (section null), then each section's, in the order sent.
+// `via` is 'rich-face' exactly when the task is the dock's, the one shape only the
+// dock sends; anything else is 'page'. `url` is the page it was sent from, when the
+// poster says (the answers server's payload.url), else null.
 const RICH_FACE_TASK = /^rich-face:(.+):round-(\d+)$/;
 export function readReview(p) {
   if (!p || typeof p !== 'object') return null;
@@ -455,7 +470,11 @@ export function readReview(p) {
   const round = Number.isInteger(n) && n > 0 ? n : null;
   const notes = [];
   const pageNote = str(overall.note);
-  if (pageNote) notes.push({ section: null, note: pageNote });
+  // A dock note's page note is on the whole page (section null), and the newest send wins it.
+  // Another poster's page note stands under its task (the answers server: which ask on the
+  // page), so answers from two roughs on one page both stay on the card, and a re-send of the
+  // same rough replaces its own.
+  if (pageNote) notes.push({ section: task ? null : (str(p.task) || null), note: pageNote });
   if (p.groups && typeof p.groups === 'object' && !Array.isArray(p.groups)) {
     for (const [section, g] of Object.entries(p.groups)) {
       const note = g && typeof g === 'object' ? str(g.note) : str(g);
@@ -463,7 +482,9 @@ export function readReview(p) {
     }
   }
   if (notes.length === 0) return null;
-  return { entry, round, notes, key: `${entry.toLowerCase()}\u0000${round ?? ''}` };
+  const via = task ? 'rich-face' : 'page';
+  const url = !task ? str(p.url) : null;
+  return { entry, round, notes, via, url, key: `${entry.toLowerCase()}\u0000${round ?? ''}\u0000${via}` };
 }
 
 // ── Git reconciliation: close items whose stale_if git-condition is met ───────

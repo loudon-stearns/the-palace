@@ -1,0 +1,56 @@
+# Synth Templates — card — Key → Filter Cutoff (Keytracking)
+# The cutoff follows the key. At none the top of the keyboard goes dull; at full every note has the same colour.
+schema: synth-template-card/0.2
+id: key-filter-cutoff-keytracking
+name: Key → Filter Cutoff (Keytracking)
+family: Performance Controls
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Key → filter cutoff"
+  - "Key → pitch (keytracking)"
+  - "Cutoff frequency"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little, note: "the voice fixes keytracking at half; the diagram draws the route"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: filter1.cutoff, amount: half, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,   value: saw,   why: "the same harmonics at every pitch, so only the filter decides the colour"}
+  - {block: filter1, param: cutoff, value: mid,   why: "set at middle C; the keytracking says where it sits everywhere else"}
+  - {block: key,     param: target, value: filter cutoff, why: "the cutoff climbs with the key, so the top of the keyboard is not dull and the bottom is not harsh"}
+  - {block: aenv,    param: sustain, value: held, why: "plain and still; nothing but the key moves the tone"}
+  - {block: mode,    param: voices, value: poly}
+
+taste:
+  - {block: filter1, param: keytrack, range: "none – full", default: half, why: "the three stops to try: none, half, full. At none high notes lose their harmonics under a fixed cutoff; at full the cutoff follows the pitch and every note is the same colour; half is where most patches live"}
+  - {block: filter1, param: cutoff, range: "dark – bright", default: mid}
+  - {block: filter1, param: resonance, range: "none – moderate", default: little}
+  - {block: aenv,    param: release, range: "short – medium", default: short}
+
+listening:
+  cue: "Play the same figure three octaves apart. With tracking the low notes keep their growl and the high notes keep their shine; the instrument sounds like one instrument across the whole keyboard."
+  ab: "Set keytracking to none: the top octave goes dull and thin, the bottom one turns buzzy. Set it to full and listen to the colour match octave to octave. Then settle at half."
+
+render:
+  tempo: 110
+  note: [C2, E2, G2, C4, E4, G4, C6, E6, G6]
+  velocity: 100
+  pattern: "the same broken triad in three octaves, eighths, low to high"
+  length_s: 4.0
+
+mappings: {}

@@ -219,3 +219,62 @@ describe('reconcileQueue — human_eval', () => {
     expect(out[0].resolved.done).toBe(false);
   });
 });
+
+// Loudon's answers to a rough, sent through the answers server (_ops/loudon-eval/), name a page
+// but did not come from its rich face. Built here by the real poster (buildAnswersMessage).
+import { buildAnswersMessage } from '../../../../loudon-eval/eval-server.mjs';
+
+describe('buildQueue — answers from a rough (the answers server)', () => {
+  const answers = (over = {}, body = {}) => ({
+    ...buildAnswersMessage({ page: 'The Lens', task: 'woken-glasses', answers: { Trickster: { subject: 'two' } },
+      summary: 'Woken Glasses — my answers\n- Trickster: subject → bold',
+      url: '/The Lens/proofs/2026-11-03-bold-mandate/woken-glasses.html', ...body }).message,
+    id: 'human-eval-answers-The-Lens-1', ts: POSTED, ...over,
+  });
+
+  it('is a note on the page itself, naming the page it was sent from, never the rich face', () => {
+    const [card] = buildQueue([answers()]);
+    expect(card).toMatchObject({ kind: 'human_eval', entry: 'The Lens', via: 'page' });
+    expect(card.ask).toBe('act on 1 review note on [[The Lens]], sent from woken-glasses.html');
+    expect(card.ask).not.toMatch(/rich face/);
+    expect(card.notes).toEqual([{ section: 'woken-glasses', note: 'Woken Glasses — my answers\n- Trickster: subject → bold' }]);
+  });
+
+  it('a re-send of the same rough replaces its own answers on the card', () => {
+    const q = buildQueue([answers({ id: 'r1', ts: '2026-11-07T10:00:00Z' }, { summary: 'first try' }),
+      answers({ id: 'r2', ts: '2026-11-07T11:00:00Z' }, { summary: 'second thoughts' })]);
+    expect(q).toHaveLength(1);
+    expect(q[0].notes).toEqual([{ section: 'woken-glasses', note: 'second thoughts' }]);
+  });
+
+  it('the answers Loudon actually sent on 2026-11-07 (no source field, url decoded) read the same way', () => {
+    const live = { schema_version: '1.0', id: 'human-eval-answers-The-Lens-1794059071889', ts: '2026-11-07T13:44:31.889Z',
+      session_id: 'trickster', from: 'TRICKSTER', to: '*', type: 'BROADCAST', board: 'GENERAL',
+      health: { context_pct: 0, stop_reason: 'human_eval', iteration: 1, tokens_this_call: 0, model: 'loudon-trickster', score: 'green' },
+      payload: { kind: 'human_eval', entry: 'The Lens', task: 'woken-glasses', answers: {}, summary: 'go bold',
+        overall: { note: 'go bold' }, groups: {}, url: '/The Lens/proofs/2026-11-03-bold-mandate/woken-glasses.html' } };
+    expect(buildQueue([live])[0].ask).toBe('act on 1 review note on [[The Lens]], sent from woken-glasses.html');
+  });
+
+  it('with no url it is still a note on the page, with nothing invented about where from', () => {
+    const [card] = buildQueue([answers({}, { url: undefined })]);
+    expect(card.ask).toBe('act on 1 review note on [[The Lens]]');
+  });
+
+  it('sends from two roughs gather on one card that names the newest and counts the other', () => {
+    const a = answers({ id: 'a1', ts: '2026-11-07T10:00:00Z' });
+    const b = answers({ id: 'a2', ts: '2026-11-07T11:00:00Z' }, { task: 'careful-or-bold', summary: 'a second rough', url: '/The Lens/proofs/x/careful-or-bold.html' });
+    const q = buildQueue([a, b]);
+    expect(q).toHaveLength(1);
+    expect(q[0].ask).toBe('act on 2 review notes on [[The Lens]], sent from careful-or-bold.html and 1 other page');
+  });
+
+  it('a dock note keeps the rich-face wording, and never gathers with answers on the same page', () => {
+    const dock = { ...buildReviewMessage(dockBody('The Lens', 1, { Glass: { note: 'the glass is too faint' } }, '')), id: 'dock-1', ts: POSTED };
+    const q = buildQueue([dock, answers()]);
+    expect(q).toHaveLength(2);
+    const byVia = Object.fromEntries(q.map((c) => [c.via, c.ask]));
+    expect(byVia['rich-face']).toBe('act on 1 review note on the rich face of [[The Lens]] (round 1)');
+    expect(byVia.page).toBe('act on 1 review note on [[The Lens]], sent from woken-glasses.html');
+  });
+});

@@ -1,0 +1,45 @@
+{
+ "entry": "Wavetable Space as Torus",
+ "path": "Wavetable Space as Torus.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "§ Torus Knots on T² + Open Questions: a rational ratio of phase and frame rates closes the path into a (p,q) torus knot, an irrational one fills the torus; and the Berry-phase claim that two paths with the same winding at different speeds accumulate the same spectral change.",
+ "pieces": [
+  {
+   "section": "Torus Knots on T²",
+   "what": "A torus with a ratio control: the scan path closes into a trefoil at 2:3, fills the surface at an irrational ratio, and you hear the knot repeat or the drift shimmer.",
+   "kind": "interactive",
+   "walks_up_from": "one circle, phase read at fixed frame"
+  },
+  {
+   "section": "Open Questions",
+   "what": "The listening experiment the page proposes: the same (2,3,1) winding at three overall rates, to hear whether timbre per cycle is speed-independent.",
+   "kind": "audio",
+   "walks_up_from": "one (2,3) loop at one speed"
+  },
+  {
+   "section": "Monodromy and the Fiber Bundle",
+   "what": "Turn B and watch the fibre twist once around the base circle; orbits close at rational monodromy, fill at irrational.",
+   "kind": "interactive",
+   "walks_up_from": "the trivial bundle at B = 0"
+  },
+  {
+   "section": "The Hopf Fibration",
+   "what": "The existing Hopf control surface and its tours laid beside the section.",
+   "kind": "interactive",
+   "walks_up_from": "a single Clifford torus"
+  }
+ ],
+ "gathered": [
+  "Projects/2D Torus Wavetable Synthesizer/Hopf/hopf-control-surface.html",
+  "Projects/2D Torus Wavetable Synthesizer/Hopf/hopf_tour_knot_shadow.wav",
+  "Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_knot_shadow.png",
+  "Projects/2D Torus Wavetable Synthesizer/Hopf/hands_tour_knot_shadow.wav",
+  "Projects/2D Torus Wavetable Synthesizer/Wavetables/14_knot_shadow.wav",
+  "Projects/2D Torus Wavetable Synthesizer/Wavetables/14_knot_shadow.png",
+  "Projects/2D Torus Wavetable Synthesizer/Warp Bank/warp_bank_tour_knot_shadow.wav"
+ ],
+ "tier": "study",
+ "slice": 7
+}

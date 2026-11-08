@@ -1,0 +1,486 @@
+<!doctype html>
+<!--
+  title: Synthesis Topologies — rich — vibrato into sidebands
+  born: 2026-11-03
+  links: [[Synthesis Topologies]] (connects-to · rich-face-piece) · listed in [[Synthesis Topologies — rich.json]] · serves § FM — the wiring, at audio rate · leans on [[Frequency-Time Duality]], [[Bessel Functions in Synthesis]] and [[FM Synthesis]]
+  forward_vector: I am a vibrato pushed past the place where it stops being heard as motion, seen two ways at once: a short look that follows the pitch as it moves, and a long look that sees still lines. I walk from one sine to the section's test, where the lines sit at the carrier plus and minus whole multiples of the modulator, as loud as the Bessel functions say, measured from the very audio graph you hear. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Synthesis Topologies — rich — check.mjs runs this page's engine in Node, and measures its audio graph in headless Chromium, against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Vibrato into sidebands</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:6px 11px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t i{color:var(--violet);font-style:normal}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  .links{font-family:var(--sans);font-size:13.5px;color:var(--fg-2);margin-top:12px;max-width:70ch}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Synthesis Topologies · FM, the wiring at audio rate · five steps</div>
+  <h1>Vibrato into sidebands</h1>
+  <p class="lead">The page says that past about 20 Hz a vibrato stops being heard as motion and turns into new partials either side of the note, at the carrier plus and minus whole multiples of the modulator. Watch it two ways at once: a short look that follows the pitch, and a long look that sees still lines.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l">left · the short look, over time · right · the long look</span><span id="pic-r"></span></div>
+    <canvas id="pic" height="320"></canvas>
+    <div class="ctl" id="c-depth"><label for="depth">vibrato depth</label><input id="depth" type="range" min="0" max="60" step="1" value="30"><span class="v" id="depth-v"></span></div>
+    <div class="ctl" id="c-rate"><label for="rate">vibrato rate</label><input id="rate" type="range" min="0" max="1000" step="1" value="0"><span class="v" id="rate-v"></span></div>
+    <div class="ctl" id="c-beta"><label for="beta">index β</label><input id="beta" type="range" min="0" max="5" step="0.005" value="1.5"><span class="v" id="beta-v"></span></div>
+    <div class="ctl" id="c-look"><label for="look">the short look</label><input id="look" type="range" min="20" max="250" step="5" value="50"><span class="v" id="look-v"></span></div>
+    <div class="rowb" id="c-hold">
+      <span class="eyebrow">as the rate moves, hold</span>
+      <button class="ghost small" id="hold-depth" aria-pressed="true">the depth (a singer’s vibrato)</button>
+      <button class="ghost small" id="hold-index" aria-pressed="false">the index (FM’s knob)</button>
+    </div>
+    <div class="rowb">
+      <button class="play" id="play" aria-label="play the sound">▸ play</button>
+      <button class="ghost small" id="walk" aria-pressed="false">walk the rate, 2 → 200 Hz</button>
+      <button class="ghost small" id="zero">set β = 2.405</button>
+    </div>
+    <div class="meter" id="meter"></div>
+  </div>
+
+  <div class="panel" id="p-test">
+    <div class="plabel"><span>the test · where each line sits, and how loud</span><span>dB under the plain carrier</span></div>
+    <div class="rowb"><button class="ghost" id="measure">measure the sound itself</button><span class="hint" id="measure-h">renders the audio graph you hear, offline, and measures it</span></div>
+    <table class="t" id="test-t"></table>
+    <p class="links">The Bessel functions’ own story, and why the lines rise and fall as the index climbs, is on <em>Bessel Functions in Synthesis</em>. The whole instrument, ratio and index and the DX7’s wirings, is walked on <em>FM Synthesis</em>, and the climb through every rate from 0.1 Hz to 10 kHz on <em>Frequency-Time Duality</em>.</p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sig" fill="none" stroke="#8a8aa0" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · made for the rich face of Synthesis Topologies · the engine runs here, in this page, and in its check</span></footer>
+</main>
+
+<script id="engine">
+// ---- engine: a sine whose pitch is swung by another (shared by the page and its headless check) ----
+// y(t) = sin(2π·fc·t + β·sin(2π·fm·t)),  β = Δf ⁄ fm
+function fmRender(fc, fm, beta, fs, len, t0) {
+  const y = new Float64Array(len), a = 2 * Math.PI * fc / fs, b = 2 * Math.PI * fm / fs, s = Math.round((t0 || 0) * fs);
+  for (let n = 0; n < len; n++) y[n] = Math.sin(a * (n + s) + beta * Math.sin(b * (n + s)));
+  return y;
+}
+// the same sound made the way an oscillator makes it: its frequency fc + Δf·sin(2π·fm·t), summed into a phase one sample at a time
+function fmRenderByFrequency(fc, fm, beta, fs, len) {
+  const y = new Float64Array(len), df = beta * fm; let ph = 0;
+  for (let n = 0; n < len; n++) { y[n] = Math.sin(ph); ph += 2 * Math.PI * (fc + df * Math.sin(2 * Math.PI * fm * n / fs)) / fs; }
+  return y;
+}
+// Bessel function of the first kind: J_k(x) = (1 ⁄ π) ∫₀^π cos(kτ − x·sin τ) dτ, by the trapezoid rule (exact to rounding for a smooth periodic integrand)
+function besselJ(k, x) {
+  const M = 256; let s = 0;
+  for (let i = 0; i <= M; i++) { const t = Math.PI * i / M, w = (i === 0 || i === M) ? 0.5 : 1; s += w * Math.cos(k * t - x * Math.sin(t)); }
+  return s / M;
+}
+const HANN = new Map();
+function hann(w) { let h = HANN.get(w); if (!h) { h = new Float64Array(w); let s = 0; for (let i = 0; i < w; i++) { h[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (w - 1)); s += h[i]; } h.sum = s; HANN.set(w, h); } return h; }
+// the windowed DTFT of y[s .. s+w) at f (Hz): an amplitude
+function dtftAmp(y, s, w, f, fs) {
+  const h = hann(w), om = 2 * Math.PI * f / fs, cr = Math.cos(om), ci = Math.sin(om);
+  let pr = 1, pi = 0, re = 0, im = 0;
+  for (let i = 0; i < w; i++) { const v = y[s + i] * h[i]; re += v * pr; im -= v * pi; const t = pr * cr - pi * ci; pi = pr * ci + pi * cr; pr = t; }
+  return 2 * Math.hypot(re, im) / h.sum;
+}
+// the lines: the carrier always, and every other k with a share above 1e-4; where each lands, and whether a line from below 0 Hz lands on it too
+function fmLines(fc, fm, beta) {
+  const out = [], K = Math.ceil(beta + 12);
+  const folded = []; for (let k = -K; k <= K; k++) { const f = fc + k * fm; if (f < 0 && Math.abs(besselJ(k, beta)) >= 1e-6) folded.push(-f); }
+  for (let k = -K; k <= K; k++) {
+    const f = fc + k * fm, J = besselJ(k, beta);
+    if (f <= 0 || (k !== 0 && Math.abs(J) < 1e-4)) continue;
+    out.push({ k, f, J, clash: folded.some((g) => Math.abs(g - f) < 2.5) });
+  }
+  return out;
+}
+// measure each line's amplitude from a sound y, over a long Hann look
+function measureLines(y, fs, lines, start) {
+  const s = start || 0, w = y.length - s;
+  return lines.map((L) => ({ ...L, meas: dtftAmp(y, s, w, L.f, fs) }));
+}
+// a radix-2 FFT, in place
+function fft(re, im) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], k = i + j + len / 2, vr = re[k] * cr - im[k] * ci, vi = re[k] * ci + im[k] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[k] = ur - vr; im[k] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+  }
+}
+// one look at the sound: a Hann window `look` seconds long, centred on t, zero-padded to nfft; amplitude per bin
+function lookAt(fc, fm, beta, fs, t, look, nfft) {
+  const w = Math.round(look * fs), y = fmRender(fc, fm, beta, fs, w, t - look / 2), h = hann(w);
+  const re = new Float64Array(nfft), im = new Float64Array(nfft);
+  for (let i = 0; i < w; i++) re[i] = y[i] * h[i];
+  fft(re, im);
+  const out = new Float64Array(nfft / 2); for (let i = 0; i < nfft / 2; i++) out[i] = 2 * Math.hypot(re[i], im[i]) / h.sum;
+  return out;
+}
+// from what rate does a look this long tell the carrier from its first upper line? A dip of 3 dB between them,
+// in the look's power averaged over one swing of the vibrato. Returns the lowest such rate in [2, 200] Hz, or NaN.
+function separatesFrom(look, beta, fc) {
+  const fs = 4000, w = Math.round(look * fs), L = 12;
+  for (let fm = 2; fm <= 200; fm += 1) {
+    let pc = 0, ps = 0, pm = 0;
+    for (let j = 0; j < L; j++) { const y = fmRender(fc, fm, beta, fs, w, 0.1 + j / (L * fm)); pc += dtftAmp(y, 0, w, fc, fs) ** 2; ps += dtftAmp(y, 0, w, fc + fm, fs) ** 2; pm += dtftAmp(y, 0, w, fc + fm / 2, fs) ** 2; }
+    if (10 * Math.log10(Math.min(pc, ps) / pm) >= 3) return fm;
+  }
+  return NaN;
+}
+// ---- end engine ----
+</script>
+
+<script>
+const FC = 440, VFS = 4000;   // the pictures sample the sound at 4 kHz: the lines here all sit far below 2 kHz
+const $ = (id) => document.getElementById(id);
+const S = { step: 0, depth: 30, rate: 5, beta: 1.5, look: 0.05, hold: 'depth', walking: false };
+const STEPS = [
+  { name: 'one sine', title: 'One sine',
+    say: 'A sine at 440 Hz, nothing moving it. Two pictures of it. Left, a short look taken again and again as time runs: a spectrogram, time across, pitch up. Right, one long look at four seconds of it.',
+    do: 'Play.', watch: 'One straight line on the left; one line on the right, at the same height.', hear: 'A plain tone.',
+    show: { depth: false, rate: false, beta: false, look: false, hold: false, long: true, walk: false, zero: false, test: false }, set: { depth: 0, rate: 5 } },
+  { name: 'a slow vibrato', title: 'A slow vibrato',
+    say: 'Now a second sine, too slow to hear as a tone, pushes the first one’s pitch up and down: five times a second, by the depth on the slider. That is a vibrato, and the short look follows it.',
+    do: 'Play. Move the depth.', watch: 'Left: the line swinging up and down five times a second, as far as the depth.', hear: 'One note, wobbling.',
+    show: { depth: true, rate: false, beta: false, look: false, hold: false, long: false, walk: false, zero: false, test: false }, set: { rate: 5 } },
+  { name: 'the long look', title: 'The long look sees lines',
+    say: 'Same sound. Now look at four seconds of it at once. The long look cannot follow anything that moves; what it finds instead is a row of still lines, five hertz apart, either side of the note. They were there all along. A vibrato and a set of sidebands are one sound, seen at two lengths of look.',
+    do: 'Play. Move the depth and watch the row widen.', watch: 'Right: a comb of lines 5 Hz apart, spreading as far as the swing goes. Left: still the moving line.', hear: 'Still a wobble. The ear is taking the short look.',
+    show: { depth: true, rate: false, beta: false, look: false, hold: false, long: true, walk: false, zero: false, test: false }, set: { rate: 5 } },
+  { name: 'push the rate', title: 'Push the rate',
+    say: 'Speed the vibrato up. The lines move apart, because they are always the rate apart. When they are far enough apart for the short look to tell them from each other, the short look stops seeing motion and starts seeing lines too. How far is far enough depends on the look: a longer look tells closer lines apart, and follows motion worse. That turn is a fact about the looking, not about the sound.',
+    do: 'Play, then walk the rate, or drag it. Lengthen and shorten the short look.', watch: 'Left: the swinging line blurring, then splitting into still, parallel lines. The meter says from what rate this look tells the lines apart.', hear: 'Wobble, then a buzz, then a new tone colour: the page puts that turn near 20 Hz.',
+    show: { depth: true, rate: true, beta: false, look: true, hold: true, long: true, walk: true, zero: false, test: false }, set: {} },
+  { name: 'the test', title: 'The test: where the lines sit, and how loud',
+    say: 'The page says the sidebands sit at the carrier plus and minus whole multiples of the modulator, weighted by Bessel functions of the index β, the depth over the rate. Hold the index here and set the rate anywhere from 20 to 200 Hz. Every line is measured from the sound and set beside its prediction: |Jₖ(β)|. Near β = 2.405 the first zero of J₀ arrives (exactly, 2.40483), and the carrier itself goes silent: its row stays in the table, reading about −81 dB at 2.405.',
+    do: 'Set β and the rate. Press “measure the sound itself”. Then set β = 2.405.', watch: 'Right: the measured lines, with a violet tick where each prediction says it lands. The table: prediction, the engine, and the audio graph you are hearing.', hear: 'At 2.405 the note’s own pitch drops out, and the tone is made of sidebands alone.',
+    show: { depth: false, rate: true, beta: true, look: false, hold: false, long: true, walk: false, zero: true, test: true }, set: { hold: 'index' } },
+];
+
+const sigPath = (() => { let s = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; s += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + 0.6)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } return s; })();
+$('sig').setAttribute('d', sigPath);
+
+// rate slider: log, 2 → 200 Hz (20 → 200 in the test)
+function rateRange() { return S.step === 4 ? [20, 200] : [2, 200]; }
+function sliderToRate(v) { const [a, b] = rateRange(); return a * Math.pow(b / a, v / 1000); }
+function rateToSlider(r) { const [a, b] = rateRange(); return Math.round(1000 * Math.log(r / a) / Math.log(b / a)); }
+function beta() { const st = STEPS[S.step]; if (st.name === 'one sine') return 0; if (S.hold === 'index' && (S.step === 3 || S.step === 4)) return S.beta; return S.depth / S.rate; }
+function depthHz() { return beta() * S.rate; }
+
+// ---- sound ----
+let ctx = null, car = null, mod = null, modG = null, outG = null, master = null, playing = false;
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp).connect(ctx.destination);
+}
+function play() {
+  if (playing) { stop(); return; }
+  ensureAudio(); if (ctx.state !== 'running') ctx.resume();
+  car = ctx.createOscillator(); car.frequency.value = FC;
+  mod = ctx.createOscillator(); mod.frequency.value = S.rate;
+  modG = ctx.createGain(); modG.gain.value = depthHz();
+  outG = ctx.createGain(); outG.gain.value = 0; outG.gain.setTargetAtTime(0.35, ctx.currentTime, 0.02);
+  mod.connect(modG).connect(car.frequency); car.connect(outG).connect(master);
+  car.start(); mod.start(); playing = true; $('play').textContent = '■ stop';
+}
+function stop() {
+  if (!playing) return; playing = false; $('play').textContent = '▸ play';
+  const c = car, m = mod, g = outG; g.gain.setTargetAtTime(0, ctx.currentTime, 0.02);
+  setTimeout(() => { try { c.stop(); m.stop(); } catch (e) {} g.disconnect(); }, 150);
+  S.walking = false; $('walk').setAttribute('aria-pressed', 'false');
+}
+function pushParams() {
+  if (!playing) return; const t = ctx.currentTime;
+  mod.frequency.setTargetAtTime(S.rate, t, 0.015); modG.gain.setTargetAtTime(depthHz(), t, 0.015);
+}
+
+// ---- pictures ----
+function fit(c) {
+  const dpr = devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height');
+  if (c.width !== Math.round(w * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h };
+}
+function fRange() { return S.step === 4 ? [0, 1500] : [190, 690]; }
+const T0 = performance.now(); const clock = () => playing ? ctx.currentTime : (performance.now() - T0) / 1000;
+const HIST = 2.0, HOP = 0.01;
+const SEP = new Map();
+let strip = null, lastCol = -1, longSpec = null, longKey = '', sepKey = '', sepHz = NaN;
+function shortColumn(t) {
+  const nfft = 1 << Math.ceil(Math.log2(Math.max(2048, 4 * S.look * VFS)));
+  return { t, spec: lookAt(FC, S.rate, beta(), VFS, t, S.look, nfft), nfft };
+}
+function longLook() {
+  const key = [S.step, S.rate.toFixed(3), beta().toFixed(4)].join('|'); if (key === longKey) return; longKey = key;
+  const n = 1 << 14, y = fmRender(FC, S.rate, beta(), VFS, n, 0), h = hann(n), re = new Float64Array(n), im = new Float64Array(n);
+  for (let i = 0; i < n; i++) re[i] = y[i] * h[i];
+  fft(re, im); longSpec = new Float64Array(n / 2); for (let i = 0; i < n / 2; i++) longSpec[i] = 2 * Math.hypot(re[i], im[i]) / h.sum;
+  longSpec.nfft = n;
+}
+function draw() {
+  const st = STEPS[S.step], { g, w, h } = fit($('pic')), [f0, f1] = fRange();
+  const L = 46, split = st.show.long ? Math.round(w * 0.66) : w - 10, gap = 14, T = 8, B = 22;
+  const Y = (f) => T + (h - T - B) * (f1 - f) / (f1 - f0);
+  g.clearRect(0, 0, w, h);
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'right';
+  const stepHz = S.step === 4 ? 250 : 50;
+  for (let f = Math.ceil(f0 / stepHz) * stepHz; f <= f1; f += stepHz) { g.fillText(f + '', L - 6, Y(f) + 3); g.strokeStyle = '#1e1e2a'; g.beginPath(); g.moveTo(L, Y(f)); g.lineTo(w, Y(f)); g.stroke(); }
+  g.save(); g.translate(10, h / 2); g.rotate(-Math.PI / 2); g.textAlign = 'center'; g.fillText('Hz', 0, 0); g.restore();
+  // the short look: an offscreen strip that scrolls, one column every 10 ms of the clock
+  const now = clock(), sw = Math.max(10, Math.round(split - L)), sh = Math.round(h - T - B);
+  const skey = [sw, sh, S.step, S.look].join('|');
+  if (!strip || strip.key !== skey || now < lastCol || now - lastCol > HIST) {
+    strip = document.createElement('canvas'); strip.width = sw; strip.height = sh; strip.key = skey; lastCol = now - HIST;
+  }
+  const sg = strip.getContext('2d'), cw = sw / (HIST / HOP);
+  let n = 0; while (lastCol + HOP <= now && n < 40) { lastCol += HOP; n++; }
+  if (lastCol + HOP <= now) lastCol = now;
+  if (n) {
+    const shift = n * cw; sg.globalCompositeOperation = 'copy'; sg.drawImage(strip, -shift, 0); sg.globalCompositeOperation = 'source-over';
+    for (let j = 0; j < n; j++) {
+      const c = shortColumn(lastCol - (n - 1 - j) * HOP), bin = VFS / c.nfft, x = sw - shift + j * cw;
+      sg.clearRect(x, 0, cw + 1, sh);
+      for (let py = 0; py < sh; py += 2) {
+        const fa = f1 - py / sh * (f1 - f0), fb = f1 - (py + 2) / sh * (f1 - f0);
+        let m = 0; for (let k = Math.max(0, Math.floor(fb / bin)); k <= Math.ceil(fa / bin) && k < c.spec.length; k++) m = Math.max(m, c.spec[k]);
+        const a = Math.max(0, Math.min(1, (20 * Math.log10(m + 1e-9) + 60) / 60));
+        if (a > 0.02) { sg.fillStyle = `rgba(232,184,74,${a.toFixed(3)})`; sg.fillRect(x, py, cw + 0.6, 2); }
+      }
+    }
+  }
+  g.drawImage(strip, L, T, sw, sh);
+  g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText(`the short look · ${Math.round(S.look * 1000)} ms · the last ${HIST} s`, L, h - 6);
+  // the long look
+  if (st.show.long) {
+    longLook();
+    const x0 = split + gap, x1 = w - 6, bin = VFS / longSpec.nfft;
+    g.strokeStyle = '#2a2a38'; g.beginPath(); g.moveTo(x0, T); g.lineTo(x0, h - B); g.stroke();
+    for (let py = T; py < h - B; py += 1) {
+      const fa = f1 - (py - T) / (h - T - B) * (f1 - f0), fb = f1 - (py + 1 - T) / (h - T - B) * (f1 - f0);
+      let m = 0; for (let k = Math.max(0, Math.floor(fb / bin)); k <= Math.ceil(fa / bin) && k < longSpec.length; k++) m = Math.max(m, longSpec[k]);
+      const db = 20 * Math.log10(m + 1e-9), len = Math.max(0, (db + 70) / 70) * (x1 - x0);
+      if (len > 0.5) { g.fillStyle = '#e8b84a'; g.fillRect(x0, py, len, 1); }
+    }
+    if (st.show.test) {
+      g.fillStyle = '#8b7cf6';
+      for (const Ln of fmLines(FC, S.rate, beta())) { if (Ln.f > f1) continue; const db = 20 * Math.log10(Math.abs(Ln.J)), x = x0 + Math.max(0, (db + 70) / 70) * (x1 - x0); g.fillRect(x - 1, Y(Ln.f) - 3, 2, 6); }
+    }
+    g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText('the long look · 4 s · level →', x0, h - 6);
+  }
+  $('pic-r').textContent = playing ? 'sounding' : 'silent until you play · the pictures run anyway';
+}
+function meter() {
+  const st = STEPS[S.step], b = beta(), d = depthHz();
+  if (st.name === 'one sine') { $('meter').innerHTML = `carrier <b>${FC} Hz</b> · nothing moving it`; return; }
+  let s = `carrier <b>${FC} Hz</b> · rate <b>${S.rate.toFixed(S.rate < 10 ? 2 : 1)} Hz</b> · depth <b>± ${d.toFixed(1)} Hz</b> · index β = depth ⁄ rate = <b>${b.toFixed(3)}</b> · the lines stand <b>${S.rate.toFixed(S.rate < 10 ? 2 : 1)} Hz</b> apart`;
+  if (st.show.look) {
+    const bq = Math.round(b * 4) / 4, key = S.look + '|' + bq;
+    if (key !== sepKey) { sepKey = key; sepHz = SEP.has(key) ? SEP.get(key) : (bq > 0.05 ? separatesFrom(S.look, bq, FC) : NaN); SEP.set(key, sepHz); }
+    s += `<br>a ${Math.round(S.look * 1000)} ms look tells the carrier from its first sideband from a rate of <b>${isNaN(sepHz) ? '—' : sepHz + ' Hz'}</b> (at β near ${(Math.round(b * 4) / 4).toFixed(2)}): below that it sees one moving line, above it still ones`;
+  }
+  $('meter').innerHTML = s;
+}
+let measured = null;
+function testTable() {
+  if (!STEPS[S.step].show.test) return;
+  const b = beta(), lines = fmLines(FC, S.rate, b).filter((L) => Math.abs(L.k) <= 6);
+  const eng = measureLines(fmRender(FC, S.rate, b, 48000, 1 << 17, 0), 48000, lines, 0);
+  const db = (v) => v < 1e-7 ? 'under −140' : (20 * Math.log10(v)).toFixed(2);
+  let html = '<tr><th>k</th><th>sits at, Hz</th><th>|Jₖ(β)|, dB</th><th>the engine, dB</th><th>the audio graph, dB</th></tr>';
+  for (const r of eng) {
+    const m = measured && measured.key === `${S.rate}|${b}` ? measured.rows.find((x) => x.k === r.k) : null;
+    html += `<tr><td>${r.k > 0 ? '+' : ''}${r.k}</td><td>${r.f.toFixed(1)}</td><td><i>${db(Math.abs(r.J))}</i></td><td><b>${r.clash ? 'a line from below 0 Hz lands here' : db(r.meas)}</b></td><td><b>${m ? (r.clash ? '—' : db(m.meas)) : '—'}</b></td></tr>`;
+  }
+  $('test-t').innerHTML = html;
+}
+async function measureGraph(fm, b) {
+  const fs = 48000, n = 1 << 17, pre = 2048, oc = new OfflineAudioContext(1, n + pre, fs);
+  const c = oc.createOscillator(), m = oc.createOscillator(), g = oc.createGain();
+  c.frequency.value = FC; m.frequency.value = fm; g.gain.value = b * fm;
+  m.connect(g).connect(c.frequency); c.connect(oc.destination); c.start(0); m.start(0);
+  const buf = await oc.startRendering(), y = Float64Array.from(buf.getChannelData(0));
+  const lines = fmLines(FC, fm, b).filter((L) => Math.abs(L.k) <= 6);
+  return measureLines(y, fs, lines, pre);
+}
+window.__measureGraph = measureGraph;   // the headless check calls this
+
+// ---- the walk ----
+function show() {
+  const st = STEPS[S.step];
+  $('c-depth').classList.toggle('hide', !st.show.depth || (S.hold === 'index' && S.step === 3));
+  $('c-rate').classList.toggle('hide', !st.show.rate);
+  $('c-beta').classList.toggle('hide', !(st.show.beta || (S.hold === 'index' && S.step === 3)));
+  $('c-look').classList.toggle('hide', !st.show.look);
+  $('c-hold').classList.toggle('hide', !st.show.hold);
+  $('walk').classList.toggle('hide', !st.show.walk); $('zero').classList.toggle('hide', !st.show.zero);
+  $('p-test').classList.toggle('hide', !st.show.test);
+}
+function setStep(i) {
+  stop(); measured = null;
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  if (st.set.rate) S.rate = st.set.rate;
+  if (S.step === 0) S.depth = 30;
+  if (S.step === 4) { S.hold = 'index'; if (S.rate < 20) S.rate = 130; }
+  else if (S.step < 3) S.hold = 'depth';
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  $('rate').value = rateToSlider(S.rate); syncLabels(); show(); eqs(); meter(); testTable(); strip = null; lastCol = -1; longKey = '';
+}
+function syncLabels() {
+  $('depth-v').textContent = `± ${S.depth} Hz`; $('rate-v').textContent = `${S.rate.toFixed(S.rate < 10 ? 2 : 1)} Hz`;
+  $('beta-v').textContent = S.beta.toFixed(3); $('look-v').textContent = `${Math.round(S.look * 1000)} ms`;
+  $('hold-depth').setAttribute('aria-pressed', S.hold === 'depth' ? 'true' : 'false'); $('hold-index').setAttribute('aria-pressed', S.hold === 'index' ? 'true' : 'false');
+}
+function eqs() {
+  const n = STEPS[S.step].name;
+  const E = {
+    'one sine': ['y(t) = sin(2π · fc · t)', '(the sound) = (a sine at the carrier frequency, 440 Hz)'],
+    'a slow vibrato': ['f(t) = fc + Δf · sin(2π · fm · t)', '(the pitch now) = (the carrier) + (the depth) × (a sine at the vibrato rate)'],
+    'the long look': ['y(t) = Σₖ Jₖ(β) · sin(2π · (fc + k · fm) · t)      β = Δf ⁄ fm', '(the same sound) = (a sum of still sines, one at the carrier plus every whole multiple of the rate, each as loud as Jₖ of the index); (the index) = (the depth) ÷ (the rate)'],
+    'push the rate': ['spacing = fm      a look T long tells lines apart once fm ≳ 2.4 ⁄ T', '(how far apart the lines stand) = (the rate); (a look T seconds long) sees them as separate lines once they stand roughly 2.4 ÷ T hertz apart, and as one moving line below that'],
+    'the test': ['line k at fc + k · fm, with amplitude |Jₖ(β)|', '(line number k) sits at (the carrier) + k × (the rate), as loud as (the Bessel function of order k, at the index)'],
+  }[n];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
+  $('eq2').textContent = n === 'the test' ? 'J₀(2.405) = 0' : ''; $('eq2w').textContent = n === 'the test' ? '(the carrier’s own share) is zero at an index of about 2.405, the first zero of J₀' : '';
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('play').onclick = play;
+const changed = () => { syncLabels(); pushParams(); meter(); testTable(); longKey = ''; };
+$('depth').oninput = () => { S.depth = +$('depth').value; changed(); };
+$('rate').oninput = () => { S.rate = sliderToRate(+$('rate').value); S.walking = false; $('walk').setAttribute('aria-pressed', 'false'); changed(); };
+$('beta').oninput = () => { S.beta = +$('beta').value; changed(); };
+$('look').oninput = () => { S.look = +$('look').value / 1000; changed(); strip = null; lastCol = -1; };
+$('hold-depth').onclick = () => { if (S.hold === 'index') { S.depth = Math.min(60, Math.round(S.beta * S.rate)); $('depth').value = S.depth; } S.hold = 'depth'; show(); changed(); };
+$('hold-index').onclick = () => { if (S.hold === 'depth') { S.beta = Math.min(5, S.depth / S.rate); $('beta').value = S.beta; } S.hold = 'index'; show(); changed(); };
+$('zero').onclick = () => { S.beta = 2.405; $('beta').value = 2.405; changed(); };
+$('walk').onclick = () => {
+  S.walking = !S.walking; $('walk').setAttribute('aria-pressed', S.walking ? 'true' : 'false');
+  if (S.walking) { if (!playing) play(); S.rate = 2; S.walkT = performance.now(); }
+};
+$('measure').onclick = async () => {
+  $('measure-h').textContent = 'rendering…';
+  const b = beta(), rows = await measureGraph(S.rate, b); measured = { key: `${S.rate}|${b}`, rows };
+  $('measure-h').textContent = `measured: ${(1 << 17)} samples of the graph at 48 kHz, after the first 2048`; testTable();
+};
+function frame() {
+  requestAnimationFrame(frame);
+  if (S.walking) {
+    const u = (performance.now() - S.walkT) / 20000; // twenty seconds, 2 → 200 Hz, evenly in octaves
+    if (u >= 1) { S.walking = false; $('walk').setAttribute('aria-pressed', 'false'); }
+    S.rate = 2 * Math.pow(100, Math.min(1, u)); $('rate').value = rateToSlider(S.rate); syncLabels(); pushParams(); meter(); longKey = '';
+  }
+  draw();
+}
+$('depth').value = S.depth; $('beta').value = S.beta; $('look').value = S.look * 1000;
+setStep(0); frame();
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+# Synth Templates — card 0.2 — Serial: Bring Out the Noise
+# Filter Routings, tier 3. What the first filter cuts is gone; or is it? A high-Q band-pass after a steep low-pass lifts a couple of buried partials back up,
+# coloured by everything they went through: on analog, the noise floor comes up with them; on digital, the filter model is exposed.
+schema: synth-template-card/0.2
+id: serial-bring-out-the-noise
+name: "Serial: Bring Out the Noise"
+family: Filter Routings
+tier: 3
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Serial: bring out the noise (LP then high-Q BP)"
+  - "Serial routing"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Filter models and their distortion (sine test)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass,  slope: 24, resonance: none, note: "set low: only the first couple of partials come through"}
+    filter2: {kind: filter, type: bandpass, slope: 24, resonance: high, note: "set high, in the region the low-pass killed; its resonance is a narrow lift that digs those partials back out"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: filter2.resonance, amount: full, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,            why: "partials all the way up, so there is something buried to recover"}
+  - {block: filter1, param: type,      value: lowpass 24 dB,  why: "steep: the cut has to be drastic for the recovery to be surprising"}
+  - {block: filter1, param: cutoff,    value: dark,           why: "quite low; a dull tone of two or three partials"}
+  - {block: filter2, param: type,      value: bandpass 24 dB}
+  - {block: filter2, param: cutoff,    value: bright,         why: "high, where the low-pass left almost nothing; at low resonance you hear no difference at all"}
+  - {block: filter2, param: resonance, value: high,           why: "on a band-pass resonance is width: this narrow, it lifts a couple of partials and nothing else, and they come up coloured by the whole chain"}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: filter2, param: resonance, range: "none – self-oscillating", default: high, why: "the lesson: from nothing, through recovery, to the filter singing on its own"}
+  - {block: filter2, param: cutoff,    range: "mid – open",         default: bright, why: "which buried partials come back"}
+  - {block: filter1, param: cutoff,    range: "dark – mid",         default: dark,   why: "how much is buried first"}
+  - {block: filter1, param: model,     range: "clean – ladder",     default: clean,  why: "the recovered partials are the filter model under a magnifying glass; try each"}
+  - {block: aenv,    param: release,   range: "short – medium",     default: short}
+
+listening:
+  cue: "A dull, dark tone, and then, as the band-pass resonance rises, a thin high whistle of one or two partials climbs back out of it, oddly coloured: grainy on an analog synth, glassy or harsh on a digital one, different with every filter model."
+  ab: "Set the band-pass resonance to none: the whistle sinks back into the dark tone and the second filter might as well be off. Raise it again and the partials return. Then open the low-pass to bright: the partials were never buried, and the band-pass is now an ordinary resonant peak."
+
+render:
+  tempo: 60
+  note: C2
+  velocity: 100
+  pattern: "one note held four seconds; the mod wheel raises the band-pass resonance from none to high over the first two"
+  length_s: 5.0
+
+mappings: {}

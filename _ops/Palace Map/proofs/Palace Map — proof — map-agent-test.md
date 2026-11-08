@@ -34,6 +34,8 @@ forward_vector: "I am the evidence for how an agent should hold the map — whol
 | Mirror route | right | right | right, after its first guess was refuted |
 | Tokens | 160K | 101K (ran `near` on all 324 pages) | 179K |
 
+The keeper built from this test passed both sets on 2026-11-03: 63/63 edges real, all facts exact, every count and route from the script, nothing written; the run sits in `2026-11-03-keeper-first-run/` (`RESULTS.md`, `answer.md`).
+
 **What held.**
 - No run invented a page or an edge. Required citation plus a checker is the guard.
 - Both runs holding the whole map got the counts wrong; every run using the script counted exactly.

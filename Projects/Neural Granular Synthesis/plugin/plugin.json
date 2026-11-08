@@ -1,0 +1,30 @@
+{
+  "name": "Neural Granular",
+  "target": "NeuralGranular",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.NeuralGranular",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Ngrn",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": [
+    "tight=2",
+    "life=0.5",
+    "spread=0.3",
+    "width=2"
+  ],
+  "ui": {
+    "width": 1100,
+    "height": 700,
+    "min": [
+      980,
+      640
+    ],
+    "max": [
+      1800,
+      1100
+    ],
+    "direction": "bench",
+    "screen": true
+  }
+}

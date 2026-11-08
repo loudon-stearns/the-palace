@@ -1,0 +1,162 @@
+<!doctype html>
+<!--
+  title: STIGMERGY — rich — say done or show done
+  born: 2026-11-05
+  links: [[STIGMERGY]] (connects-to · rich-face-piece) · listed in [[STIGMERGY — rich.json]] · [[How the Palace Commits]] (connects-to · the door LOG reads) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "The honesty discipline, made structural" played as the terminal runs it: where each deck reads from and what closes a QUEUE card, one baton walked from catch to close, and last thirty batons closed honestly, by word alone, or by citing a commit that holds other work, so the reader sees which fakes the structure stops and which it only leaves in the open. I change only when that section does.
+  engine: STEP 2 follows close-handoff.mjs: a close must cite a hash that resolves to a commit (git cat-file -t), and nothing checks that the commit holds the baton's work. STEP 3: each of thirty batons ends one of four ways — a close citing the commit that did the work; the agent's word with no close; a close citing a real commit that holds other work; still in flight. WORD reads the agents' replies; CLOSED reads the board's handoff_closed lines. Seeded (mulberry32).
+  remade: 2026-11-05, after the challenge — the terminal's git auto-reconciliation of QUEUE is switched off (QueuePanel.jsx, since ae008d6b), so the piece no longer shows LOG closing cards.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:size" content="flow">
+<title>STIGMERGY — say done or show done</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap">
+<style>
+:root{--ph:#33ff66;--phb:#7fff9b;--phd:#1f8a3c;--deep:#0b2a14;--white:#d7f6dc;--bg:#050a06;--fg3:#0f5024;--amber:#ffb000;--red:#ff4136;--cyan:#7fdbff;
+  --mono:'IBM Plex Mono',Menlo,Consolas,monospace;--vt:'VT323','IBM Plex Mono',Menlo,monospace}
+*{box-sizing:border-box;border-radius:0}
+html,body{margin:0;background:var(--bg);color:var(--ph);font-family:var(--mono);font-size:14px;line-height:1.4em;color-scheme:dark}
+.piece{padding:16px 2ch 20px;max-width:112ch}
+.kicker{color:var(--phd);text-transform:uppercase;letter-spacing:.08em}
+h1{font-family:var(--vt);font-weight:400;font-size:38px;line-height:1;margin:.1em 0 .25em;text-shadow:0 0 6px currentColor}
+h3{font-family:var(--vt);font-weight:400;font-size:26px;line-height:1;margin:0 0 .3em;text-shadow:0 0 6px currentColor}
+.sub,.teach{max-width:84ch;margin:0 0 1em}.sub{color:var(--phd)}
+.rail{display:flex;flex-wrap:wrap;gap:1ch;margin:0 0 1.2em}
+button{font:inherit;background:transparent;color:var(--ph);border:1px solid var(--ph);padding:.1em 1ch;cursor:pointer}
+button:hover:not(:disabled),button:focus-visible{background:var(--ph);color:var(--bg);outline:none}
+button[aria-current=step]{background:var(--ph);color:var(--bg)}
+button:disabled{border-color:var(--fg3);color:var(--fg3);cursor:default}
+.step{display:none}.step.on{display:block}
+.dim{color:var(--phd)}.amber{color:var(--amber)}.red{color:var(--red)}.cyan{color:var(--cyan)}.white{color:var(--white)}
+.row{display:flex;flex-wrap:wrap;gap:1ch;align-items:center;margin:.5em 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:2ch}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.box{border:3px double var(--phd);padding:.5em 1ch;min-height:9em}
+.card{border:1px solid var(--phd);padding:.3em 1ch;margin:.4em 0}
+.log{white-space:pre-wrap;word-break:break-all;font-size:12px;line-height:1.4em;color:var(--phd)}
+.log .new{color:var(--ph)}.log .err{color:var(--red)}
+svg text{font-family:var(--mono);font-size:13px;fill:var(--ph)}
+svg .lbl{fill:var(--phd);font-size:12px}
+.rowname{color:var(--phd)}
+.cells{font-size:14px;letter-spacing:.15ch;line-height:1.4em;margin:0 0 .5em}
+.cells span.hit{cursor:pointer}
+input[type=range]{accent-color:var(--ph);width:16ch;vertical-align:middle}
+.verdict{border-left:3px double var(--ph);padding:.2em 1ch;margin:.8em 0;max-width:84ch}
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">STIGMERGY · THE HONESTY DISCIPLINE</div>
+  <h1>SAY DONE, OR SHOW DONE</h1>
+  <p class="sub">work is not real until it lands in LOG. three steps: where each deck reads from and what closes a card, one baton walked to its close, and thirty batons closed three ways.</p>
+  <div class="rail">
+    <button data-go="0" aria-current="step">[1] WHAT CLOSES A CARD</button>
+    <button data-go="1">[2] ONE BATON</button>
+    <button data-go="2">[3] THIRTY BATONS</button>
+  </div>
+
+  <section class="step on">
+    <h3>WHAT CLOSES A CARD</h3>
+    <p class="teach">each deck reads one source. STATE reads the files as they are now, saved or not. QUEUE reads the board. LOG reads git. the honesty is not in where the present comes from. it is in what is allowed to take a card off QUEUE, and there are exactly four ways.</p>
+    <svg viewBox="0 0 760 300" width="100%" role="img" aria-label="STATE reads the files, QUEUE the board, LOG git; a QUEUE card closes by a close citing a commit, a Palace-Resolves trailer, a person's grant or deny, or a person's clear">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1f8a3c"/></marker></defs>
+      <g fill="none" stroke="#1f8a3c" stroke-width="3"><rect x="20" y="20" width="200" height="56"/><rect x="280" y="20" width="200" height="56"/><rect x="540" y="20" width="200" height="56"/></g>
+      <text x="120" y="45" text-anchor="middle" style="font-size:22px;font-family:VT323,monospace">STATE</text><text class="lbl" x="120" y="64" text-anchor="middle">present</text>
+      <text x="380" y="45" text-anchor="middle" style="font-size:22px;font-family:VT323,monospace">QUEUE</text><text class="lbl" x="380" y="64" text-anchor="middle">future</text>
+      <text x="640" y="45" text-anchor="middle" style="font-size:22px;font-family:VT323,monospace">LOG</text><text class="lbl" x="640" y="64" text-anchor="middle">past</text>
+      <g fill="none" stroke="#1f8a3c"><rect x="20" y="110" width="200" height="34"/><rect x="280" y="110" width="200" height="34"/><rect x="540" y="110" width="200" height="34"/></g>
+      <text class="lbl" x="120" y="132" text-anchor="middle">the files, as saved</text><text class="lbl" x="380" y="132" text-anchor="middle">the board</text><text class="lbl" x="640" y="132" text-anchor="middle">git</text>
+      <path d="M120,110 L120,78" stroke="#1f8a3c" marker-end="url(#ah)"/><path d="M380,110 L380,78" stroke="#1f8a3c" marker-end="url(#ah)"/><path d="M640,110 L640,78" stroke="#1f8a3c" marker-end="url(#ah)"/>
+      <text x="380" y="180" text-anchor="middle">a QUEUE card leaves only by</text>
+      <g fill="none" stroke="#33ff66"><rect x="10" y="198" width="178" height="78"/><rect x="198" y="198" width="178" height="78"/><rect x="386" y="198" width="178" height="78"/><rect x="574" y="198" width="178" height="78"/></g>
+      <text x="99" y="220" text-anchor="middle">a baton</text><text class="lbl" x="99" y="240" text-anchor="middle">handoff_closed, citing</text><text class="lbl" x="99" y="258" text-anchor="middle">a commit that exists</text>
+      <text x="287" y="220" text-anchor="middle">a weave flag</text><text class="lbl" x="287" y="240" text-anchor="middle">a Palace-Resolves trailer</text><text class="lbl" x="287" y="258" text-anchor="middle">greys it; a person confirms</text>
+      <text x="475" y="220" text-anchor="middle">a proposal or to-do</text><text class="lbl" x="475" y="240" text-anchor="middle">a person's GRANT or</text><text class="lbl" x="475" y="258" text-anchor="middle">DENY on the board</text>
+      <text x="663" y="220" text-anchor="middle">any card</text><text class="lbl" x="663" y="240" text-anchor="middle">a person clears it</text><text class="lbl" x="663" y="258" text-anchor="middle">by hand</text>
+      <text x="380" y="295" text-anchor="middle" style="fill:#ffb000;font-size:12px">git alone closes nothing: guessing done from a commit is switched off</text>
+    </svg>
+  </section>
+
+  <section class="step">
+    <h3>ONE BATON</h3>
+    <p class="teach">catch a baton, then try to finish it by saying so. the reply lands on the board, and the card stays claimed. only a close takes it off, and the close must name a commit git can find. try a hash that doesn't exist.</p>
+    <div class="row"><button id="bCatch">catch it</button><button id="bSay" disabled>reply “done”</button><button id="bBad" disabled>close --commit deadbee</button><button id="bGood" disabled>close --commit a1b2c3d</button><button id="bReset">reset</button></div>
+    <div class="two">
+      <div class="box"><div class="dim">QUEUE</div><div id="dQ"></div></div>
+      <div class="box"><div class="dim">THE BOARD · and the door's answer</div><div class="log" id="dB"></div></div>
+    </div>
+    <div class="verdict" id="v2">catch the baton to begin.</div>
+  </section>
+
+  <section class="step">
+    <h3>THIRTY BATONS</h3>
+    <p class="teach">thirty batons are caught. most close honestly. some catchers only reply “done”. some close by citing a commit that is real, so the door accepts it, but holds other work. read the same thirty two ways, by what the catchers say and by what the board's closes say, against what is true.</p>
+    <div class="row">
+      <label>reply “done”, never close <input type="range" id="a" min="0" max="0.4" step="0.05" value="0.15"> <span id="av"></span></label>
+      <label>close citing other work <input type="range" id="b" min="0" max="0.4" step="0.05" value="0.1"> <span id="bv"></span></label>
+      <button id="reseed">new seed</button> <span class="dim" id="seedv"></span>
+    </div>
+    <div id="rows"></div>
+    <p class="dim">key: <span class="white">█</span> done, and it is · <span class="red">×</span> shown done, and it isn't · <span class="dim">░</span> shown open. pick a red mark in the CLOSED row to open the commit it cites.</p>
+    <div class="card" id="opened" style="min-height:3em"><span class="dim">(no commit opened)</span></div>
+    <div class="verdict" id="v3"></div>
+  </section>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const steps=[...document.querySelectorAll('.step')], rail=[...document.querySelectorAll('[data-go]')];
+rail.forEach(b=>b.onclick=()=>{steps.forEach((s,i)=>s.classList.toggle('on',i==b.dataset.go));rail.forEach(r=>r.removeAttribute('aria-current'));b.setAttribute('aria-current','step');});
+
+// ---- 2 ----
+const REAL=new Set(['a1b2c3d']);
+let st, lines;
+function env(type,payload,extra){return Object.assign({type,board:'GENERAL',from:'BLUELINE',to:'*'},extra||{},{payload});}
+function reset2(){st='open';lines=[{t:env('BROADCAST',{kind:'handoff_ready',handoff_id:'h-7',move:'the reset, after the Daily Page'})}];draw2();}
+function draw2(){
+  const label={open:'OPEN',claimed:'CLAIMED',closed:'CLOSED'}[st];
+  $('dQ').innerHTML=st==='closed'?`<div class="card dim">h-7 · CLOSED · cites a1b2c3d</div><div class="dim">a reader can open a1b2c3d and check it.</div>`:`<div class="card">h-7 · ${label}<br><span class="dim">the reset, after the Daily Page</span></div>`;
+  $('dB').innerHTML=lines.map((l,i)=>l.err?`<div class="err">${l.err}</div>`:`<div class="${i===lines.length-1?'new':''}">${JSON.stringify(l.t)}</div>`).join('');
+  $('bCatch').disabled=st!=='open'; $('bSay').disabled=st!=='claimed'; $('bBad').disabled=st!=='claimed'; $('bGood').disabled=st!=='claimed';
+}
+$('bCatch').onclick=()=>{st='claimed';lines.push({t:env('REPLY',{kind:'handoff_picked_up',lifecycle:'claim',handoff_id:'h-7'},{re:'h-7'})});draw2();$('v2').textContent='claimed: the card stays on the board while the move is in flight.';};
+$('bSay').onclick=()=>{lines.push({t:env('REPLY',{text:'done!'},{re:'h-7'})});draw2();$('v2').textContent='the word is on the board for anyone to read. the card has not moved: nothing folds a reply into a close.';};
+$('bBad').onclick=()=>{lines.push({err:'close-handoff: --commit "deadbee" does not resolve to a commit. Pass the real hash.'});draw2();$('v2').textContent='refused before anything is posted. a close has to point at evidence git can find.';};
+$('bGood').onclick=()=>{st='closed';lines.push({t:env('REPLY',{kind:'handoff_closed',handoff_id:'h-7',completion:'complete',commit:'a1b2c3d'},{re:'h-7'})});draw2();$('v2').innerHTML='closed, and the close names its evidence. note what the door checked: that a1b2c3d <i>is a commit</i>. it did not check that a1b2c3d holds this baton\'s work. that is the next step.';};
+$('bReset').onclick=()=>{reset2();$('v2').textContent='catch the baton to begin.';};
+reset2();
+
+// ---- 3 ----
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+let seed=11, batons=[];
+const hex=r=>Math.floor(r()*0xfffffff).toString(16).padStart(7,'0');
+const OTHER=['a typo fixed in Radio Play','the board swept by the committer','a hero placed on Tract Mirror','a ledger line in Enrichment — tuning','a link added on Pheromone Trail'];
+function r3(){
+  const a=+$('a').value,b=+$('b').value,N=30; $('av').textContent=Math.round(a*100)+'%'; $('bv').textContent=Math.round(b*100)+'%'; $('seedv').textContent='seed '+seed;
+  const r=mulberry32(seed);
+  batons=[...Array(N)].map((_,i)=>{const u=r(); const k=u<a?'say':u<a+b?'other':u<a+b+0.15?'flight':'real'; return {k,hash:hex(r),other:OTHER[Math.floor(r()*OTHER.length)],id:'h-'+(i+1)};});
+  const truth=x=>x.k==='real';
+  const reads={WORD:x=>x.k!=='flight',CLOSED:x=>x.k==='real'||x.k==='other'};
+  let html='',out={};
+  for(const [name,f] of Object.entries(reads)){
+    let wrong=0,done=0;
+    const cells=batons.map((x,i)=>{const d=f(x); if(d) done++; if(d&&!truth(x)){wrong++;return `<span class="red ${name==='CLOSED'?'hit':''}" data-i="${i}" title="${name==='CLOSED'?'open the cited commit':''}">×</span>`;} return d?'<span class="white">█</span>':'<span class="dim">░</span>';}).join('');
+    html+=`<div class="rowname">${name==='WORD'?'WORD · what the catchers say':'CLOSED · what the board\'s closes say'} — ${done} done${wrong?`, <span class="red">${wrong} not</span>`:''}</div><div class="cells">${cells}</div>`;
+    out[name]=wrong;
+  }
+  html+=`<div class="rowname">TRUTH — ${batons.filter(truth).length} done</div><div class="cells">${batons.map(x=>truth(x)?'<span class="white">█</span>':'<span class="dim">░</span>').join('')}</div>`;
+  $('rows').innerHTML=html; $('opened').innerHTML='<span class="dim">(no commit opened)</span>';
+  document.querySelectorAll('.cells span.hit').forEach(el=>el.onclick=()=>{const x=batons[+el.dataset.i];$('opened').innerHTML=`<span class="cyan">${x.id}</span> was closed citing <span class="white">${x.hash}</span>. git show ${x.hash}: <span class="amber">${x.other}</span>. a real commit, so the door took it. it is not this baton's work, and anyone who opens it can see that.`;});
+  const w=out.WORD,c=out.CLOSED;
+  let v;
+  if(!w&&!c) v=`no catcher faked anything this time, so both readings match the truth. move the sliders to give them a reason to.`;
+  else v=`reading the catchers' word counts <b>${w}</b> batons done that aren't. reading the closes stops every fake that was only a word: a reply never moves a card. `+(c?`what gets through, <b>${c}</b>, is a close that cites a real commit holding other work. the door checks that the hash exists, not what it holds. that fake is not prevented. it is written down, with a hash anyone can open.`:`no close cited other work this time, so the closes match the truth.`)+` so the claim holds in this exact form: completion cannot be faked by saying so. it can be faked by citing the wrong commit, but only on the record. the citation makes the claim checkable, and someone still has to check.`;
+  $('v3').innerHTML=v;
+}
+['a','b'].forEach(i=>$(i).oninput=r3); $('reseed').onclick=()=>{seed=(seed*48271)%2147483647;r3();}; r3();
+</script>
+</body>
+</html>

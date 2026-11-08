@@ -1,0 +1,485 @@
+<!doctype html>
+<!--
+  title: Chebyshev is Fourier — rich — the drive
+  born: 2026-11-03
+  links: [[Chebyshev is Fourier]] (connects-to · rich-face-piece) · listed in [[Chebyshev is Fourier — rich.json]]
+  forward_vector: I am the walk up to the waveshaper the section promises. A cosine through a straight table, then through T2 for one octave, then any Tn, then a table that is a sum of them, its harmonics read off the browser's own waveshaper. Last, the drive pushed past 1, where the browser's table holds its ends and the polynomial and the lookup table part company. I change only when the section I serve does.
+  sound: nothing plays until a Play button is clicked; the AudioContext is made on that click. Changing step stops the sound. No audio context of any kind, offline included, exists before the first click on the piece.
+  check: Chebyshev is Fourier/Chebyshev is Fourier — rich — check.mjs runs this page's core in Node, and the browser's WaveShaperNode against it in headless Chromium.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The drive · a waveshaper built from Chebyshev tables</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas#stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  canvas#bars{width:100%;height:110px;display:block;background:var(--bg-elev-2);border-radius:4px;margin-top:6px;cursor:ns-resize;touch-action:none}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:120px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:9ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter .src{color:var(--fg-3);font-size:11px;letter-spacing:.08em}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .barsHead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  [hidden]{display:none !important}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:90px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Chebyshev is Fourier · harmonic design by lookup table · five steps</div>
+  <h1>The drive</h1>
+  <p class="lead">A waveshaper is a table: a sound goes in as a place on the table, and comes out as the height it finds there. Here the sound going in is one cosine, and the tables are Chebyshev's. Five steps, one thing to hear in each. The last pushes the cosine past the ends of the table. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint" style="font-family:var(--sans);font-size:13px;color:var(--fg-3)"></span><button class="play" id="play">Play</button></div>
+    <canvas id="stage"></canvas>
+    <div class="legend">
+      <div><b>Left · the table</b>Gold: the table's curve, from −1 to 1. The blue dot is where the cosine reads it, slowed for the eye; the blue band is as far as the cosine swings.</div>
+      <div><b>Right · what comes out</b>One cycle. Gold: what the table gives back. Blue, dashed: the cosines the drawbars ask for, added up by hand.</div>
+    </div>
+
+    <div id="nRow" class="ctl" hidden><label for="n">which table, n</label><input id="n" type="range" min="1" max="8" step="1" value="3"><span class="v" id="nv"></span></div>
+    <div id="pairRow" class="rowb" hidden><span class="eyebrow">table</span>
+      <button class="ghost small" data-pair="1" aria-pressed="false">T₁ · straight</button>
+      <button class="ghost small" data-pair="2" aria-pressed="true">T₂ · bent once</button>
+    </div>
+
+    <div class="barsHead"><span class="eyebrow" id="barsLabel">Harmonics 1–16 · gold measured, outline asked for</span>
+      <span id="presets" hidden><button class="ghost small" data-preset="third">Third alone</button> <button class="ghost small" data-preset="saw">Saw</button> <button class="ghost small" data-preset="square">Square</button> <button class="ghost small" data-preset="organ">Organ</button></span></div>
+    <canvas id="bars"></canvas>
+    <div class="eyebrow" id="barsHint" style="margin-top:4px"></div>
+
+    <div id="driveRow" class="ctl" hidden><label for="drive">drive, a</label><input id="drive" type="range" min="1" max="1.30" step="0.01" value="1"><span class="v" id="drivev"></span></div>
+
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · Chebyshev is Fourier · the drive · Sketch, 2026-11-03</footer>
+</main>
+
+<!-- The core: plain functions shared by the picture, the meter and the headless check. -->
+<script id="drive-core">
+var DRIVE = { F0: 110, H: 16, TOP: 8, CURVE_LEN: 4097, MEASURE_SR: 44000 };
+// T_n(x) by the recurrence T_{n+1} = 2x T_n - T_{n-1}: the polynomial, never a cosine
+function cheb(n, x){
+  if (n === 0) return 1;
+  var t0 = 1, t1 = x;
+  for (var k = 1; k < n; k++){ var t2 = 2 * x * t1 - t0; t0 = t1; t1 = t2; }
+  return t1;
+}
+// the table's height at x: drawbar n weights T_n
+function shapeAt(c, x){ var s = 0; for (var n = 1; n <= c.length; n++) s += c[n - 1] * cheb(n, x); return s; }
+// the table a WaveShaperNode is given: L points evenly from x = -1 to x = 1
+function makeCurve(c, L){
+  L = L || DRIVE.CURVE_LEN; var cu = new Float32Array(L);
+  for (var i = 0; i < L; i++) cu[i] = shapeAt(c, 2 * i / (L - 1) - 1);
+  return cu;
+}
+// how the Web Audio spec says a WaveShaperNode reads its table: linear between points, held at the ends
+function lookup(cu, x){
+  var N = cu.length, v = (N - 1) / 2 * (x + 1);
+  if (v <= 0) return cu[0];
+  if (v >= N - 1) return cu[N - 1];
+  var k = Math.floor(v), f = v - k;
+  return (1 - f) * cu[k] + f * cu[k + 1];
+}
+// one cycle of a cosine of amplitude a, read through the table, M samples
+function readCycle(cu, a, M){ var y = new Float64Array(M); for (var k = 0; k < M; k++) y[k] = lookup(cu, a * Math.cos(2 * Math.PI * k / M)); return y; }
+// the same cycle read off the polynomial itself, no table and no ends: what the drawbars' curve does past 1
+function readPolyCycle(c, a, M){ var y = new Float64Array(M); for (var k = 0; k < M; k++) y[k] = shapeAt(c, a * Math.cos(2 * Math.PI * k / M)); return y; }
+// the cosines the drawbars ask for, added up by hand
+function stackAt(c, th){ var s = 0; for (var n = 1; n <= c.length; n++) s += c[n - 1] * Math.cos(n * th); return s; }
+// signed cosine amplitude of harmonics 1..H in a whole number of cycles (the input is a cosine and the table has no memory,
+// so the output is a cosine series and its sign means something)
+function harmonicsOf(y, H, cycles){
+  var M = y.length, out = []; cycles = cycles || 1;
+  for (var h = 1; h <= H; h++){ var re = 0; for (var k = 0; k < M; k++) re += y[k] * Math.cos(2 * Math.PI * h * cycles * k / M); out.push(2 * re / M); }
+  return out;
+}
+// what the meter reports against the drawbars
+function compare(c, spec){
+  var big = 0; for (var i = 0; i < c.length; i++) big = Math.max(big, Math.abs(c[i]));
+  big = big || 1;
+  var miss = 0, at = 1;
+  for (i = 0; i < c.length; i++){ var d = Math.abs(Math.abs(spec[i]) - Math.abs(c[i])); if (d > miss){ miss = d; at = i + 1; } }
+  var tot = 0, above = 0;
+  for (i = 0; i < spec.length; i++){ tot += spec[i] * spec[i]; if (i >= DRIVE.TOP) above += spec[i] * spec[i]; }
+  return { miss: miss / big, missAt: at, aboveDb: tot > 0 && above > 0 ? 10 * Math.log10(above / tot) : -Infinity };
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var H = DRIVE.H;
+
+  var PRESETS = {
+    third: [0, 0, 1, 0, 0, 0, 0, 0],
+    saw: [1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8],
+    square: [1, 0, 1/3, 0, 1/5, 0, 1/7, 0],
+    organ: [0.8, 1, 0, 0.6, 0, 0.3, 0, 0.5]
+  };
+  function one(n){ var c = [0, 0, 0, 0, 0, 0, 0, 0]; c[n - 1] = 1; return c; }
+
+  var STEPS = [
+    { short: 'A cosine', title: 'A cosine, read through a straight table',
+      say: 'Start with the plainest table there is: a straight line, T₁(x) = x, so whatever goes in comes out. The sound going in is one cosine at 110 Hz with amplitude 1, which swings the reader the whole width of the table, from −1 to 1. What comes out is the cosine, unchanged: one harmonic, the first.',
+      hint: 'one cosine, 110 Hz, through a straight table',
+      tryText: 'Play it. One pure tone. Watch the blue dot sweep the whole table, end to end, and the gold bar sit at harmonic 1 inside its outline.',
+      eq1: ['T₁(x) = x,   T₁(cos θ) = cos θ', '(the straight table) = (its input),   (the straight table, read by a cosine) = (the same cosine)'],
+      eq2: ['x = a · cos θ,   a = 1', '(where the table is read) = (amplitude) × (the cosine of the angle),   with the amplitude at full'] },
+    { short: 'T₂ · the octave', title: 'Bend it once, and the tone goes up an octave',
+      say: 'Now bend the table into T₂(x) = 2x² − 1, a bowl. The same cosine reads it. Each time the reader swings out to an end it climbs the bowl, and each time it passes the middle it drops, so the height goes up and down twice for every once the cosine goes round. Out comes 220 Hz: the second harmonic, alone.',
+      hint: 'the same cosine, through T₂',
+      tryText: 'Play and switch between T₁ and T₂. The note jumps an octave, and nothing else changes: the gold bar moves from harmonic 1 to harmonic 2 and nothing else lights.',
+      eq1: ['T₂(x) = 2x² − 1,   T₂(cos θ) = cos 2θ', '(the bowl) = 2 × (place)² − 1,   (the bowl, read by a cosine) = (the cosine of twice the angle)'],
+      eq2: ['2cos²θ − 1 = cos 2θ', '(twice the cosine squared, less one) = (the double-angle cosine), the school identity that T₂ is'] },
+    { short: 'Any n', title: 'T_n gives back the nth harmonic',
+      say: 'Every Chebyshev table does the same trick at its own number. T₃ = 4x³ − 3x wiggles so that the reader’s height goes round three times per cycle, T₄ four, up to T₈. Each one is a polynomial, built here by the recurrence T₍ₙ₊₁₎ = 2x·Tₙ − T₍ₙ₋₁₎, never by a cosine, and each one, read by a full-width cosine, gives back exactly one harmonic.',
+      hint: 'the same cosine, through Tₙ',
+      tryText: 'Play, then walk n up one notch at a time. Each notch climbs one rung of the harmonic series, 110 Hz higher than the last, while the cosine going in never changes; only the table under it does. One gold bar moves right a place each time and never has company.',
+      eq1: ['Tₙ(cos θ) = cos(nθ)', '(the nth Chebyshev table, read by a cosine) = (the nth harmonic)'],
+      eq2: ['T₍ₙ₊₁₎(x) = 2x · Tₙ(x) − T₍ₙ₋₁₎(x)', '(the next table) = 2 × (place) × (this table) − (the one before)'] },
+    { short: 'A sum of tables', title: 'Add the tables, and the drawbars are the spectrum',
+      say: 'Weight each table by a drawbar and add them into one table. A waveshaper holds only one table, so this is the one the browser gets: 4097 points from −1 to 1, handed to its own WaveShaperNode. Read by the full-width cosine, it gives back every drawbar as a harmonic at its own level. The gold bars are measured from what the browser’s waveshaper actually puts out.',
+      hint: 'one cosine, through one table built from eight drawbars',
+      tryText: 'Drag the drawbars up and down, or press a preset. Each gold bar fills its outline, and the gold trace lies on the blue. That is the section’s sentence: harmonic design by lookup table.',
+      eq1: ['y = Σ cₙ · Tₙ(cos θ) = Σ cₙ · cos(nθ)', '(what comes out) = Σ (drawbar n) × (table n, read by the cosine) = Σ (drawbar n) × (harmonic n)'],
+      eq2: ['table[i] = Σ cₙ · Tₙ(−1 + 2i / 4096),   i = 0 … 4096', '(the browser’s table, point i) = the drawbars’ curve, sampled at 4097 even places from −1 to 1'] },
+    { short: 'The test · past the ends', test: true, title: 'Push the drive past the ends of the table',
+      say: 'Every step so far fed the table a cosine of amplitude exactly 1, so the reader touched both ends and never went further. The section’s promise is about a lookup table, and a table has ends. Here the drive is the amplitude of the cosine going in, from 1 upward. Past 1 the reader runs off the table, and the browser’s waveshaper holds the last value there. The drawbars’ polynomial has degree 8, so on its own it can make no harmonic above the 8th at any drive. The table can. Watch the right of the dashed line.',
+      hint: 'one cosine, driven by a, through the drawbars’ table',
+      tryText: 'Start on Saw at 1.00: every bar fills its outline and nothing lights right of the dashed line. Push to 1.05, 1.10, 1.25 and bars rise past harmonic 8, where no drawbar exists; the meter puts them beside what the polynomial itself would give there. Try Square and Organ too.',
+      eq1: ['table(x) = table(1) for x > 1,   table(x) = table(−1) for x < −1', '(the browser’s table, read past its ends) = (the value at the nearest end): it holds, it does not go on'],
+      eq2: ['Σ cₙ · Tₙ(x), n ≤ 8, has degree 8: no harmonic above the 8th, at any drive', '(the drawbars’ polynomial, run past the ends) = (a curve of degree 8), and a curve of degree 8 read by a cosine stops at harmonic 8'] }
+  ];
+
+  var step = 0, playing = false, drive = 1, pairN = 2, nSel = 3;
+  var bars = PRESETS.saw.slice();
+  function current(){
+    if (step === 0) return one(1);
+    if (step === 1) return one(pairN);
+    if (step === 2) return one(nSel);
+    return bars;
+  }
+  function curDrive(){ return step === 4 ? drive : 1; }
+
+  // ---------- the measurement: the browser's own WaveShaperNode once the piece has been touched ----------
+  var touched = false, spec = new Array(H).fill(0), measuredBy = 'table', measureSeq = 0, curveCache = null, curveKey = '';
+  function tableFor(c){ var key = c.join(','); if (key !== curveKey){ curveKey = key; curveCache = makeCurve(c); } return curveCache; }
+  function computeSpec(c, a){
+    var y = readCycle(tableFor(c), a, 1024);
+    return harmonicsOf(y, H, 1);
+  }
+  function measureBrowser(c, a){
+    var OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+    if (!OAC) return Promise.reject(new Error('no OfflineAudioContext'));
+    var sr = DRIVE.MEASURE_SR, per = sr / DRIVE.F0, len = per * 11;   // 400 samples a cycle, 11 cycles
+    var oc = new OAC(1, len, sr);
+    var buf = oc.createBuffer(1, len, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) d[i] = Math.cos(2 * Math.PI * i / per);
+    var src = oc.createBufferSource(); src.buffer = buf;
+    var g = oc.createGain(); g.gain.value = a;
+    var ws = oc.createWaveShaper(); ws.curve = tableFor(c); ws.oversample = 'none';
+    src.connect(g); g.connect(ws); ws.connect(oc.destination); src.start(0);
+    return oc.startRendering().then(function(out){
+      var y = out.getChannelData(0).slice(per * 7, per * 11);           // the last four whole cycles
+      return harmonicsOf(Array.prototype.slice.call(y), H, 4);
+    });
+  }
+  function measure(){
+    var c = current().slice(), a = curDrive(), seq = ++measureSeq;
+    spec = computeSpec(c, a); measuredBy = 'table';
+    showMeter(); drawBars();
+    if (!touched) return;
+    measureBrowser(c, a).then(function(s){
+      if (seq !== measureSeq) return;
+      spec = s; measuredBy = 'browser'; showMeter(); drawBars();
+    }, function(){ /* keep the computed reading */ });
+  }
+  var pendM = 0;
+  function measureSoon(){ clearTimeout(pendM); pendM = setTimeout(measure, 60); }
+
+  function fmt(v){ return Math.abs(v) < 1e-9 ? '0' : (Math.abs(v) >= 0.0995 ? v.toFixed(3) : v.toPrecision(2)); }
+  function dB(v){ return v > 0 ? (20 * Math.log10(v)).toFixed(1) + ' dB' : '−∞ dB'; }
+  function showMeter(){
+    var c = current(), a = curDrive(), r = compare(c, spec), lines = [];
+    var src = measuredBy === 'browser' ? 'measured from the browser’s own WaveShaperNode' : 'computed from the table as the Web Audio spec reads it · the browser measures after your first click';
+    var nz = []; for (var i = 0; i < c.length; i++) if (c[i]) nz.push(i + 1);
+    if (step < 3){
+      var n = nz[0], others = 0; for (i = 0; i < H; i++) if (i !== n - 1) others = Math.max(others, Math.abs(spec[i]));
+      lines.push('harmonic ' + n + ': <b>' + fmt(spec[n - 1]) + '</b> · largest other harmonic: <b>' + fmt(others) + '</b>');
+    } else {
+      lines.push('largest miss against the drawbars: <b>' + (r.miss < 1e-6 ? r.miss.toExponential(1) : r.miss.toFixed(3)) + '</b> of the loudest drawbar, at harmonic ' + r.missAt + ' · ' + (r.miss > 0 ? dB(r.miss) : '') );
+      if (step === 4){
+        var poly = compare(c, harmonicsOf(readPolyCycle(c, a, 1024), H, 1));
+        var dbt = function(v){ return v === -Infinity ? 'none' : v < -120 ? 'below −120 dB' : v.toFixed(1) + ' dB'; };
+        lines.push('power above harmonic ' + DRIVE.TOP + ', where no drawbar is · the table: <b>' + dbt(r.aboveDb) + '</b> of the whole · the polynomial itself: ' + dbt(poly.aboveDb));
+      }
+    }
+    $('meter').innerHTML = lines.join('<br>') + '<br><span class="src">' + src + '</span>';
+  }
+
+  // ---------- audio: one cosine looped, a gain for the drive, the browser's waveshaper, then out ----------
+  var ctx = null, master = null, chain = null;
+  function ensure(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 8;
+    master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp); comp.connect(ctx.destination);
+  }
+  function peakOf(cu){ var m = 0; for (var i = 0; i < cu.length; i++) m = Math.max(m, Math.abs(cu[i])); return m || 1; }
+  function start(){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    var sr = ctx.sampleRate, N = Math.round(sr), buf = ctx.createBuffer(1, N, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < N; i++) d[i] = Math.cos(2 * Math.PI * DRIVE.F0 * i / N);   // a whole number of cycles a second: the loop has no seam
+    var src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
+    var g = ctx.createGain(); g.gain.value = curDrive();
+    var ws = ctx.createWaveShaper(); ws.oversample = 'none';
+    var cu = tableFor(current()); ws.curve = cu;
+    var out = ctx.createGain(); out.gain.value = 0;
+    src.connect(g); g.connect(ws); ws.connect(out); out.connect(master);
+    src.start(); out.gain.setTargetAtTime(0.8 / peakOf(cu), ctx.currentTime, 0.03);
+    chain = { src: src, g: g, ws: ws, out: out };
+    playing = true; $('play').textContent = 'Stop';
+  }
+  function stop(){
+    if (chain){ var o = chain; o.out.gain.setTargetAtTime(0, ctx.currentTime, 0.02); setTimeout(function(){ try { o.src.stop(); } catch (e) {} o.out.disconnect(); }, 200); chain = null; }
+    playing = false; $('play').textContent = 'Play';
+  }
+  function refreshAudio(){
+    if (!chain) return;
+    var cu = tableFor(current()), t = ctx.currentTime;
+    chain.ws.curve = cu;
+    chain.g.gain.setTargetAtTime(curDrive(), t, 0.01);
+    chain.out.gain.setTargetAtTime(0.8 / peakOf(cu), t, 0.02);
+  }
+  $('play').addEventListener('click', function(){ if (playing) stop(); else start(); });
+  document.addEventListener('pointerdown', function(){ if (!touched){ touched = true; measureSoon(); } }, true);
+
+  function changed(){ measureSoon(); refreshAudio(); drawBars(); }
+
+  // ---------- controls ----------
+  $('n').addEventListener('input', function(){ nSel = parseInt($('n').value, 10); $('nv').textContent = 'T' + nSel + ' · ' + (DRIVE.F0 * nSel) + ' Hz'; changed(); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-pair]'), function(b){
+    b.addEventListener('click', function(){ pairN = parseInt(b.getAttribute('data-pair'), 10); syncPair(); changed(); });
+  });
+  function syncPair(){ Array.prototype.forEach.call(document.querySelectorAll('[data-pair]'), function(b){ b.setAttribute('aria-pressed', String(parseInt(b.getAttribute('data-pair'), 10) === pairN)); }); }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-preset]'), function(b){
+    b.addEventListener('click', function(){ bars = PRESETS[b.getAttribute('data-preset')].slice(); changed(); });
+  });
+  $('drive').addEventListener('input', function(){ drive = parseFloat($('drive').value); $('drivev').textContent = drive.toFixed(2); changed(); });
+
+  // ---------- harmonics: measured bars inside drawbar outlines; the first eight are editable from step 4 ----------
+  var bc = $('bars'), dragging = false;
+  var ACC, FG2, FG3, FG4, INFO;
+  function drawBars(){
+    var r = bc.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var w = Math.round(r.width * d), h = Math.round(r.height * d);
+    if (!w || !h) return;
+    if (bc.width !== w || bc.height !== h){ bc.width = w; bc.height = h; }
+    var g = bc.getContext('2d'); g.clearRect(0, 0, w, h);
+    var c = current(), bw = w / H, top = 8 * d, base = h - 16 * d, mx = 1;
+    for (var i = 0; i < H; i++) mx = Math.max(mx, Math.abs(spec[i] || 0));
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.textAlign = 'center';
+    for (i = 0; i < H; i++){
+      var x = i * bw, hm = Math.min(1, Math.abs(spec[i] || 0) / mx) * (base - top);
+      g.fillStyle = 'rgba(255,255,255,0.03)'; g.fillRect(x + bw * 0.18, top, bw * 0.64, base - top);
+      g.fillStyle = ACC; g.globalAlpha = 0.85; g.fillRect(x + bw * 0.22, base - hm, bw * 0.56, hm); g.globalAlpha = 1;
+      if (i < c.length && c[i]){ var hr = Math.abs(c[i]) / mx * (base - top); g.strokeStyle = FG2; g.lineWidth = d; g.strokeRect(x + bw * 0.14, base - hr, bw * 0.72, hr); }
+      g.fillStyle = i < DRIVE.TOP ? FG3 : FG4; g.fillText(String(i + 1), x + bw / 2, h - 4 * d);
+    }
+    g.strokeStyle = FG4; g.setLineDash([3 * d, 3 * d]); g.beginPath(); g.moveTo(DRIVE.TOP * bw, top); g.lineTo(DRIVE.TOP * bw, base); g.stroke(); g.setLineDash([]);
+  }
+  function setFrom(e){
+    if (step < 3) return;
+    var r = bc.getBoundingClientRect(), i = Math.floor((e.clientX - r.left) / r.width * H);
+    if (i < 0 || i >= DRIVE.TOP) return;
+    var top = 8, base = r.height - 16, mx = 1;
+    for (var k = 0; k < H; k++) mx = Math.max(mx, Math.abs(spec[k] || 0));
+    var v = (1 - (e.clientY - r.top - top) / (base - top)) * mx;
+    bars[i] = Math.max(0, Math.min(1, Math.round(v * 100) / 100)); changed();
+  }
+  bc.addEventListener('pointerdown', function(e){ if (step < 3) return; dragging = true; try { bc.setPointerCapture(e.pointerId); } catch (x) {} setFrom(e); });
+  bc.addEventListener('pointermove', function(e){ if (dragging) setFrom(e); });
+  bc.addEventListener('pointerup', function(){ dragging = false; });
+  bc.addEventListener('pointercancel', function(){ dragging = false; });
+
+  // ---------- step walking ----------
+  var rail = $('rail');
+  STEPS.forEach(function(s, i){
+    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short;
+    b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
+  });
+  function go(i){
+    if (playing) stop();
+    step = i; var s = STEPS[i];
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hint;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1];
+    $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    $('pairRow').hidden = i !== 1; $('nRow').hidden = i !== 2;
+    $('presets').hidden = i < 3; $('driveRow').hidden = i !== 4;
+    $('barsHint').textContent = i >= 3 ? 'drag harmonics 1–8 up and down to set the drawbars · right of the dashed line no drawbar exists' : '';
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    measure();
+  }
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+
+  // ---------- the picture ----------
+  var cv = $('stage'), css = getComputedStyle(document.documentElement);
+  ACC = css.getPropertyValue('--accent').trim() || '#e8b84a'; FG2 = css.getPropertyValue('--fg-2').trim() || '#c8c8d8';
+  FG3 = css.getPropertyValue('--fg-3').trim() || '#8a8aa0'; FG4 = css.getPropertyValue('--fg-4').trim() || '#4a4a5a'; INFO = css.getPropertyValue('--info').trim() || '#4a8fff';
+  var ph = 0.1, lastT = 0;
+  function draw(now){
+    var dt = lastT ? Math.min(0.25, (now - lastT) / 1000) : 0; lastT = now;
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var cssH = Math.round(Math.max(200, Math.min(320, r.width * 0.36)));
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var W = Math.round(r.width * d), Hh = Math.round(cssH * d);
+    if (!W || !Hh){ requestAnimationFrame(draw); return; }
+    if (cv.width !== W || cv.height !== Hh){ cv.width = W; cv.height = Hh; }
+    var g = cv.getContext('2d'), p = 14 * d, gap = 14 * d, S = Math.min(Hh - 2 * p, W * 0.36);
+    var sx = p, sy = (Hh - S) / 2, ox = sx + S + gap, ow = W - p - ox;
+    g.clearRect(0, 0, W, Hh);
+    var c = current(), a = curDrive(), cu = tableFor(c), pk = peakOf(cu);
+    g.strokeStyle = 'rgba(255,255,255,0.06)'; g.lineWidth = d; g.strokeRect(sx, sy, S, S); g.strokeRect(ox, sy, ow, S);
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = FG4; g.textAlign = 'left';
+    g.fillText('THE TABLE', sx + 6 * d, sy + 14 * d);
+    g.fillText('WHAT COMES OUT · ONE CYCLE', ox + 6 * d, sy + 14 * d);
+    function X(x){ return sx + 10 * d + (x + 1) / 2 * (S - 20 * d); }
+    function Y(v){ return sy + S / 2 + 6 * d - v / pk * (S / 2 - 26 * d); }
+    g.setLineDash([4 * d, 4 * d]); g.strokeStyle = FG4; g.beginPath(); g.moveTo(sx, Y(0)); g.lineTo(sx + S, Y(0)); g.stroke(); g.setLineDash([]);
+    var reach = Math.min(1, a);
+    g.fillStyle = INFO; g.globalAlpha = 0.10; g.fillRect(X(-reach), sy + 20 * d, X(reach) - X(-reach), S - 26 * d); g.globalAlpha = 1;
+    g.strokeStyle = ACC; g.lineWidth = 2.4 * d; g.beginPath();
+    for (var i = 0; i <= 240; i++){ var xx = -1 + 2 * i / 240, yv = Y(shapeAt(c, xx)); if (i) g.lineTo(X(xx), yv); else g.moveTo(X(xx), yv); }
+    g.stroke();
+    if (a > 1){ g.fillStyle = FG3; g.fillText('held past the ends', sx + 6 * d, sy + S - 8 * d); }
+    // the reader, slowed for the eye: one swing in two seconds
+    ph = (ph + dt / 2) % 1;
+    var th = 2 * Math.PI * ph, xin = a * Math.cos(th), xr = Math.max(-1, Math.min(1, xin)), yr = lookup(cu, xin);
+    g.setLineDash([3 * d, 3 * d]); g.strokeStyle = FG3; g.lineWidth = d;
+    g.beginPath(); g.moveTo(X(xr), sy + S - 4 * d); g.lineTo(X(xr), Y(yr)); g.stroke(); g.setLineDash([]);
+    g.fillStyle = INFO; g.beginPath(); g.arc(X(xr), sy + S - 6 * d, 4.5 * d, 0, 7); g.fill();
+    g.fillStyle = ACC; g.beginPath(); g.arc(X(xr), Y(yr), 5 * d, 0, 7); g.fill();
+    // one cycle out: the table read (gold) and the stack by hand (blue dashed)
+    var ox0 = ox + 8 * d, ow0 = ow - 16 * d;
+    g.strokeStyle = INFO; g.setLineDash([5 * d, 4 * d]); g.lineWidth = 1.6 * d; g.beginPath();
+    for (i = 0; i <= 300; i++){ var t = 2 * Math.PI * i / 300, q = ox0 + i / 300 * ow0, v = Y(stackAt(c, t)); if (i) g.lineTo(q, v); else g.moveTo(q, v); }
+    g.stroke(); g.setLineDash([]);
+    g.strokeStyle = ACC; g.lineWidth = 2 * d; g.beginPath();
+    for (i = 0; i <= 300; i++){ t = 2 * Math.PI * i / 300; q = ox0 + i / 300 * ow0; v = Y(lookup(cu, a * Math.cos(t))); if (i) g.lineTo(q, v); else g.moveTo(q, v); }
+    g.stroke();
+    var qx = ox0 + th / (2 * Math.PI) * ow0;
+    g.fillStyle = ACC; g.beginPath(); g.arc(qx, Y(yr), 4 * d, 0, 7); g.fill();
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', drawBars);
+  $('nv').textContent = 'T' + nSel + ' · ' + (DRIVE.F0 * nSel) + ' Hz'; $('drivev').textContent = drive.toFixed(2);
+  syncPair(); go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

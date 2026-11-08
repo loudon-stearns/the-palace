@@ -1,0 +1,78 @@
+{
+  "title": "Agnes Martin — rich",
+  "born": "2026-11-04",
+  "links": [
+    {
+      "target": "[[Agnes Martin]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Agnes Martin's rich face, its first round, a Sketch and still a proposal: one walk, from one hand-ruled line beside a true one to a blind test of the page's perceptual claim that a grid held still makes a hair of drift visible and that without it the drift vanishes into noise. Every line on it is drawn by the piece from a stated model of a hand; nothing of hers is reproduced and nothing is quoted beyond the page. The dossier stays in the bundle and off the face: it carries quotations the page does not, marked to be verified. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Agnes Martin",
+  "tier": "sketch",
+  "made": "2026-11-04",
+  "round": 1,
+  "note": "One piece, on the one section whose claim can be tested. The section's second paragraph ('I receive' against what she destroyed) is a claim about a person, with nothing a piece can test, and is left to the text. The record's gathered dossier is not shown: it quotes beyond the page, and the person-page rule here is no quotation beyond what the page carries.",
+  "offers": [
+    {
+      "section": "How her mind moves",
+      "kind": "no-claim-edit",
+      "what": "The sentence 'take it away and the difference vanishes into noise' is a claim about seeing, stated as fact in the narrator's voice; the intro frames the grid idea as 'her account of it', this paragraph does not. Offer: let the paragraph keep the claim as hers ('to her, the grid holds still so…') or say plainly that it is a perceptual claim a reader can test (the rich face's piece does). No reader has taken the test yet, so nothing here says the claim is right or wrong.",
+      "status": "open"
+    },
+    {
+      "section": "How her mind moves",
+      "kind": "claim-change",
+      "what": "Disputed by the challenge. The first making proposed one clause defining 'take the grid away' as removing the even spacing, the shared edge and the cross-rules while the lines stay the same. The challenger's numbers show that meaning keeps references and adds no noise, so it is not plainly what 'vanishes into noise' says: in 87.3% of the first scatter's fields (2,000 layouts) a line sat within 30 px of the canvas border where grid lines never came nearer than 46 px; scatter neighbours came as close as 22 px against the grid's 32 px; and an ideal observer reading each line against its own pinned chord, with no grid, calls 60 of 60 fields drifting at 0.25 px in both halves. The remade piece now matches the frame and the spacing, but the raster and each line's own chord remain. If the page defines removal at all, it has to say what noise replaces the grid; until a piece shows that, hold the clause.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "How her mind moves",
+      "made_against": "3d7273fb2bcc",
+      "made": "2026-11-04",
+      "stamped": "2026-11-04",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-04",
+        "by": "maker · opus · proposal round · cloud batch 4",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Agnes Martin — rich — the grid holds still.html",
+          "origin": "made",
+          "by": "the Maker · its own pixels, its own scoring",
+          "height": 1500,
+          "title": "the grid holds still · a walk in five steps",
+          "caption": "**Can you see the hand drift?** One hand-ruled line beside a true one; the hand's drift stated as a rule (a smoothed random walk pinned at both ends, scaled to *a* px root mean square); ten lines held in a grid; the same ten, line for line, with the grid's order taken away (the open half keeps the field's border, the horizontal and the pixel rows, and adds no noise, so the test asks whether the grid's order helps, not whether the drift vanishes into noise); then 64 blind fields, straight or drifting by a fair coin, at four amplitudes, with the grid and without. Chance and the verdict rule are stated before the first field, both halves are scored, and the piece reads its own pixels to show the two halves differ only in the grid. All lines are original; nothing of hers is reproduced. The threshold that answers the page is the reader's.",
+          "near": "The grid holds still so the drift can be seen",
+          "place": "band"
+        }
+      ],
+      "challenge": {
+        "date": "2026-11-04",
+        "by": "challenger · opus · cloud batch 4",
+        "verdicts": [
+          {
+            "file": "Agnes Martin — rich — the grid holds still.html",
+            "verdict": "remake",
+            "why": "Walks up cleanly, both halves are scored, the rule is stated first, the guesser's 2.90% recomputes exactly, and no leak turned up. But the no-grid half keeps references the grid half lacks, and it adds no noise. In 87% of scatter fields a line comes within 30 px of the canvas border, where grid lines never get nearer than 46 px. Scatter neighbours come as close as 22 px, against the grid's 32. And every line stays horizontal on the pixel raster, against its own pinned chord: an observer that reads each line against its own chord, with no grid, calls 60 of 60 at 0.25 px in both halves. Remake: keep scatter lines at least 46 px from the border, with no neighbour gap under 32 px. Say in step 4 and in the result that the open half keeps the frame, the horizontal and the raster and adds no noise, so it tests the grid's spacing, edge and rules, not 'vanishes into noise'. Under no-clear-difference, replace 'The page claims more than that' with what the rule cannot see: a reader the grid helps by one doubling gets holds only 22–31% of the time."
+          }
+        ]
+      }
+    }
+  ]
+}

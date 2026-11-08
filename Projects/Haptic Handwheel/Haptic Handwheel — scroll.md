@@ -15,35 +15,37 @@ forward_vector: "I am Haptic Handwheel's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-20T10:14:19.254Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T13:03:07.001Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 9 · last ran 2026-10-20 (today)
-- **Plan:** agreed 2026-10-13 (6 days ago) · 8 made things since
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 11 · last ran 2026-11-07 (today)
+- **Plan:** agreed 2026-10-13 (25 days ago) · 10 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-20 (today) — The turntable was never slow. The readout caught the motor's bumps at their low point. Box day now reads speed honestly and warns about the wobble. (`haptic-handwheel-steward-018`)
-- **Last commit touching this project:** 2026-10-20 `5093dadc` — steward(Haptic Handwheel): cycle 8 — SPINNING UP. HOME: [Haptic Handwheel](obsidian://open?vault=The%20Palac…
+- **Last shipped:** 2026-11-07 (today) — The pendulum now matches the exact textbook period, and checking it caught a box-day trap: a cancelled brake can make the knob run away. (`haptic-handwheel-steward-022`)
+- **Last commit touching this project:** 2026-11-07 `50f72c6d` — steward(Haptic Handwheel): cycle 10 — SPINNING UP. HOME: [Haptic Handwheel](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-20 — cycle 9 · taught item 2
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-07 — cycle 11 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 2, from cycle 9 — 2026-10-20 — [[Haptic Handwheel — tuning]]
+- **Proposed for canon:** 1 — item 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 11 — 2026-11-07 — [[Haptic Handwheel — tuning]]
 
 ### Where this stands
 
-Haptic Handwheel is your one-big-knob instrument. It's a motor that is also a sensor, and software decides how it feels: frets, a string, a struck spring, a turntable. The nearer product is a simpler knob that follows whatever parameter you've clicked in Ableton. The plan you agreed goes like this: try the knob in simulation, pin down the unknowns, buy the parts once you say yes, bring it up on the bench, then your hands judge each feel. The simulation and the paper work are done. Last cycle made the page for the day the box arrives. The parts list ($145–185, or $75–95 with your own bench supply) has waited on your yes since 2026-10-13. This cycle cleared two loose ends from that box-day pa…
+Haptic Handwheel is your one-big-knob instrument. The knob is a motor that is also a sensor, and software decides how it feels: frets, a string, a struck spring, a pendulum, a turntable. The plan you agreed on 2026-10-13: try the knob in simulation, pin the unknowns, buy parts on your yes, bring it up on the bench, then your hands judge each feel. The simulation and paper work are done, box day has a page and a one-command bench, and the parts list ($145–185, or $75–95 with your own bench supply) has waited for your yes since 2026-10-13. This cycle checked the struck pendulum against the exact period a real pendulum has. It matches. The check also exposed a way the struck feels could run aw…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** It's still a pretend motor, and nothing has met hardware. _(in 5 notes, the latest cycle 9)_
+- **rough since cycle 1:** It's still a pretend motor, and nothing has met hardware. _(in 7 notes, the latest cycle 11)_
 - **rough since cycle 1:** I haven't listened to turntable_hold.wav, or to the new turntable_bumps.wav. _(in 4 notes, the latest cycle 9)_
 - **rough since cycle 1:** In headless Chrome the pretend turntable read about 28–31 rpm, not 33⅓, with the raw bumps on. _(in 4 notes, the latest cycle 8)_
-- **rough since cycle 2:** I couldn't compile for the classic ESP32-DevKitC on the order, because its core isn't on this laptop. _(in 4 notes, the latest cycle 9)_
-- **rough since cycle 2:** Everything here is checked against a motor I made up, so it shows the analyzer can read a capture, not what the GM5208 will say. _(in 3 notes, the latest cycle 5)_
+- **rough since cycle 2:** I couldn't compile for the classic ESP32-DevKitC on the order, because its core isn't on this laptop. _(in 5 notes, the latest cycle 11)_
+- **rough since cycle 2:** The pendulum maths is checked only against itself. _(in 4 notes, the latest cycle 10)_
 - **rough since cycle 6:** The feel map table from last cycle still says the turntable idles at 88%. _(in 2 notes, the latest cycle 7)_
+- **rough since cycle 10:** Only your yes on the parts order changes that, and the order has waited since 2026-10-13. _(in 2 notes, the latest cycle 11)_
 
 ### Open asks
 
@@ -59,12 +61,20 @@ _None._
 
 ### Runs
 
+- 2026-11-07 — cycle 11 · taught item 4, proposed item 5 for canon
+- 2026-11-07 — cycle 10 · taught item 3
 - 2026-10-20 — cycle 9 · taught item 2
 - 2026-10-20 — cycle 8 · taught item 1
 
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **5.** 2026-11-07 · [[Haptic Handwheel]] · § What the hand should feel, the struck-spring bullet, after "a pendulum quickens as it settles." — the page's spring-versus-pendulum claim now has an independent check and a number, and the number says only a big strike shows the difference.
 
 <!-- scroll:now:end -->
 
@@ -91,6 +101,100 @@ Where this is going: a first prototype in Loudon's hand, so the seven feels get 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="haptic-handwheel-steward-022" -->
+### 2026-11-07 — cycle 11 — The pendulum now matches the exact textbook period, and checking it caught a box-day trap: a cancelled brake can make the knob run away.
+> shipped · firmware guard added, compiles · parts order still waits on you · steward leans ORDER
+
+**The pendulum, checked against something other than itself.** Since cycle 2 the only check on the pendulum feel was my own engine agreeing with itself. A frictionless pendulum's period at any size of swing has an exact closed form, T = T₀ / AGM(1, cos(θ₀/2)), where AGM is the arithmetic-geometric mean. It owes nothing to the engine. [pendulum_check.mjs](obsidian://open?vault=The%20Palace&file=Projects/Haptic%20Handwheel/proofs/feel-lab/pendulum_check.mjs) strikes the engine's pendulum from 0.1 to 3.0 rad, times every full swing, and sets each beside the exact rate for that swing's size. Across 38 swings the worst miss is 0.32%. The page's claim holds with a number: from 2.3 rad (132°, the rich face's strike) the pendulum speeds up by 49% as it settles, and from 0.3 rad by only 0.57%. Only a big strike tells the spring from the pendulum by ear or hand.
+
+**What the check turned up.** Even with every loss switched off, the swing grows about 30% in 10 s. The knob computes its torque 10,000 times a second and holds it between ticks, so the spring acts about 39 µs late, and a late spring pushes energy in. Struck from 172°, the pendulum goes over the top at 0.73 s. That alone is harmless, because the real motor's friction is far larger. But the struck spring, the pendulum and the turntable ask the firmware to cancel the motor's own brake, and that cancel uses kt, the motor's torque per amp. If kt reads high by ε, what's left is a push of about ε·kt²/R. On the pretend motor, struck from 2.3 rad, the table below shows what happens: with a strong brake, 1% high is enough to make it run away. Warm magnets lose about 0.1% of kt per °C, and the firmware boots with a guessed kt of 0.2 while the bracket runs 0.18–0.42. Select `feel struck` on box day before the bench, and the knob could have flung itself around.
+
+**The guard.** The firmware now cancels none of the brake until it gets `set cancelMax`. bench_analyze.py prints the safe value beside `set kt`: (1 + b_bearings/b_backemf)/1.05, the most it can cancel and still be braked if kt is 5% high (0.983 on the rehearsal motor). Under that rule every brake guess rings down, with kt exact or 5% high. The cost is a shorter ring: 0.35–1.44 s instead of 1.44 s, depending on how strong the brake turns out to be. The box-day page's console and pretend knob honour cancelMax the same way, and its last step says to send both lines before trying a feel. BENCH.md gains the bench check: struck, a third of a turn, hands off, rings down within about three seconds; if it grows, lower cancelMax by 0.02.
+
+**Checked:** pendulum_check.mjs passes all its checks. The rich face's checks still pass. The C++ core still matches the browser engine within 1e-5 N·m. handwheel.ino compiles for the Nano ESP32 against SimpleFOC 2.3.3 with no warnings from our files. The library had left this laptop, so I cloned 2.3.3 into /tmp for the build. A `--fake` bench run prints `set cancelMax 0.983`.
+
+**Artifacts:**
+- [the engine's pendulum against the exact period, the loop's own push, the brake-cancel sweep and the rule.](Projects/Haptic Handwheel/proofs/feel-lab/pendulum_check.mjs)
+- [every number the check printed.](Projects/Haptic Handwheel/proofs/feel-lab/pendulum_check.json)
+- [cancels no brake until `set cancelMax` arrives.](Projects/Haptic Handwheel/firmware/handwheel/handwheel.ino)
+- [prints `set cancelMax` beside `set kt`.](Projects/Haptic Handwheel/firmware/bench/bench_analyze.py)
+- [console and pretend knob honour cancelMax; the last step says to send it first.](Projects/Haptic Handwheel/firmware/box_day_template.html)
+- [box day, rebuilt.](Projects/Haptic Handwheel/firmware/box-day.html)
+- [new bench check: does the cancelled brake still brake?](Projects/Haptic Handwheel/firmware/BENCH.md)
+
+_Struck from 2.3 rad on the pretend motor, brake cancelled with kt read high by ε (before the guard)_
+| kt read high | brake guess | spring | pendulum |
+| --- | --- | --- | --- |
+| 0% | middle | still at 1.44 s | still at 1.40 s |
+| 1% | middle | still at 2.20 s | still at 1.85 s |
+| 1% | high | runs away at 0.43 s | over the top at 0.29 s |
+| 2% | middle | swinging into the torque cap after 6 s | still at 4.41 s |
+| 5% | middle | runs away at 0.17 s | over the top at 0.12 s |
+| 5%, under the new rule | any | still by 2.88 s | still by 2.34 s |
+
+_Changed in the workshop:_ BENCH — box day needs to know the cancelled brake can turn into a push, and how to check it by hand.
+_Proposed for canon:_ Haptic Handwheel (§ What the hand should feel, the struck-spring bullet, after "a pendulum quickens as it settles.") — the page's spring-versus-pendulum claim now has an independent check and a number, and the number says only a big strike shows the difference.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ It's still a pretend motor, and nothing has met hardware. Only your yes on the parts order changes that, and the order has waited since 2026-10-13. The 5% margin is my guess at how far kt can drift, not a measurement. I couldn't compile for the classic ESP32-DevKitC on the order, because its core isn't on this laptop.
+
+_Next moves named:_ On your yes to the parts order: box day, where the bench pins kt and the brake, and the ring test settles cancelMax by hand. · Without it: carry the cancel rule into the feel lab, so the brake menu shows the brake the knob will really have, not a perfect cancel.
+<sub>`haptic-handwheel-steward-022` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-1a482bc9e1" -->
+### 2026-11-07 — cycle 11
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="haptic-handwheel-steward-020" -->
+### 2026-11-07 — cycle 10 — The bench no longer guesses its one known number: hang the disc from two threads, time twenty twists, and every motor reading stops being 15–19% low.
+> shipped · box day fixed before it happens · parts order still waits on you · steward leans ORDER
+
+**What was wrong.** The bench learns the motor's numbers by spinning it up twice, bare and then with a disc fitted, and comparing the two. Every number it reports comes out in proportion to the disc's inertia: the motor's own weight, its strength per amp, its drag, its friction and its brake. The analyzer took the disc to be flat and solid. BENCH.md said the light printed cap would do. The Shopkeeper drew that cap in CAD, and its skirt carries mass outward, so its inertia is 1.178× the flat-disc figure. I ran the pretend motor with the cap fitted and read it the old way. Every number came out 15–19% low (table). The friction number matters most. Box day sets the frets' small push off the ridge to just above the measured friction, so a reading 19% low would leave frets that stick between notes.
+
+**The fix: measure the disc rather than its shape.** [disc_inertia.py](obsidian://open?vault=The%20Palace&file=Projects/Haptic%20Handwheel/firmware/bench/disc_inertia.py) is a bifilar pendulum: weigh the disc, hang it level from two threads, twist it a few degrees, and time twenty twists with a stopwatch. A 40 g disc on 500 mm threads 60 mm apart twists about once every 1.3–1.5 s, and a 0.2 s stopwatch slip costs about 1.5%. It prints `--disc-J`, which `run_bench.py` and `bench_analyze.py` now take. Any print will work, at any infill, because nothing depends on its shape. The flat-disc formula stays as the fallback. Every report now says which one it used.
+
+**Carried through:** [BENCH.md](obsidian://open?vault=The%20Palace&file=Projects/Haptic%20Handwheel/firmware/BENCH.md) opens with the hanging step. The box-day page's bench step now does the hanging first, and the run prompt says 'fit the disc you hung and timed'. PARTS.md says any solid print will do. The motor's mass in motor_numbers.mjs is now 209 g, from the shop page, instead of the datasheet's 195 g. Only the rotor-inertia guess moved, by 7%, and nothing downstream changed.
+
+**Checked:** the pendulum selftest recovers both the flat disc and the drawn cap exactly, and gives the cap's equivalent radius as 43.4 mm, the same as the Shopkeeper's probe. The analyzer's selftest is unchanged. A `--fake` rehearsal of the whole box-day run passes `--disc-J` through end to end.
+
+**Artifacts:**
+- [the two-thread pendulum: weigh, hang, time twenty twists, get --disc-J.](Projects/Haptic Handwheel/firmware/bench/disc_inertia.py)
+- [the pretend motor with the cap fitted, read both ways.](Projects/Haptic Handwheel/firmware/bench/cap_check.py)
+- [the table above: 15–19% low before, under 5% now (the leftover is the analyzer's usual selftest error).](Projects/Haptic Handwheel/firmware/bench/cap_check.txt)
+- [takes --disc-J and says which inertia it used.](Projects/Haptic Handwheel/firmware/bench/bench_analyze.py)
+- [passes --disc-J through; the prompt asks for the hung disc.](Projects/Haptic Handwheel/firmware/bench/run_bench.py)
+- [opens with measuring the disc, and why.](Projects/Haptic Handwheel/firmware/BENCH.md)
+- [the bench step hangs the disc first.](Projects/Haptic Handwheel/firmware/box_day_template.html)
+- [box day, rebuilt from the template.](Projects/Haptic Handwheel/firmware/box-day.html)
+- [the disc line: any solid print, measured by hanging.](Projects/Haptic Handwheel/order/PARTS.md)
+- [motor mass 209 g from the shop page; rotor-inertia bracket rescaled.](Projects/Haptic Handwheel/proofs/motor-numbers/motor_numbers.mjs)
+- [re-run: only the rotor-inertia bracket moved (+7%).](Projects/Haptic Handwheel/proofs/motor-numbers/motor_numbers.json)
+
+_Pretend motor, drawn cap fitted, error in what the bench reports (bench/cap_check.txt)_
+| the disc read as | weight J | strength kt | drag | friction | brake |
+| --- | --- | --- | --- | --- | --- |
+| flat disc, ½·m·r² (before) | −18.9% | −15.3% | −18.7% | −19.1% | −15.2% |
+| hung and timed, --disc-J (now) | −4.5% | −0.3% | −4.2% | −4.7% | −0.1% |
+
+_Changed in the workshop:_ BENCH — box day opens by measuring the disc's inertia, because the cap's skirt made every bench number read 15–19% low.
+_Changed in the workshop:_ PARTS — the disc no longer needs a known shape, only a hanging and a stopwatch.
+
+_Left rough:_ It's still a pretend motor, and nothing has met hardware. Only your yes on the parts order changes that, and the order has waited since 2026-10-13. No disc has been printed, hung or timed. The pendulum maths is checked only against itself.
+
+_Next moves named:_ If the order goes ahead: print the flat disc and the light cap. Hang the disc the day it's printed, before the motor arrives, so box day starts with a real --disc-J. · Next cycle: one stopwatch-free way to time the twists, using the laptop camera or the phone's slow-mo, so the 1.5% timing slip shrinks. Or move on to the fret-ridge check against a friction read 19% low, to show what the old error would have felt like.
+<sub>`haptic-handwheel-steward-020` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-f9ac906b26" -->
+### 2026-11-07 — cycle 10
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="haptic-handwheel-steward-018" -->
 ### 2026-10-20 — cycle 9 — The turntable was never slow. The readout caught the motor's bumps at their low point. Box day now reads speed honestly and warns about the wobble.
 > shipped · parts order still yours to answer · steward leans ORDER

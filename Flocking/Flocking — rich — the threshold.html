@@ -1,0 +1,487 @@
+<!doctype html>
+<!--
+title: Flocking — rich — the threshold
+born: 2026-11-03
+links:
+  - target: "[[Flocking]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Kuramoto Coupling]]"
+    type: connects-to
+    label: the-threshold-and-what-makes-it
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+forward_vector: "I am the Kuramoto tie put to the bundle's own flock: a heading read as a phase, the flock's R built from those phases, and then the search for the threshold, first with nothing for alignment to overcome and then with a spread, where the threshold appears and moves with density and reach. I keep the measurements beside the flock that makes them, so anyone can re-run a point. I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet seen by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The threshold</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --teal:#3fd6c0; --warn:#ff9b4a; --ok:#7fd49a; --indigo:#6366f1;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { text-transform: none; letter-spacing: .04em; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; }
+  .ctlrow { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin-top: 10px; font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px 22px; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .two { display: grid; grid-template-columns: 1.5fr 1fr; gap: 14px; align-items: start; }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 10px; width: 100%; }
+  table.meas th, table.meas td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--soft); }
+  table.meas th:first-child, table.meas td:first-child { text-align: left; }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.meas td { color: var(--fg1); }
+  .marks { margin-top: 14px; display: grid; gap: 10px; }
+  .marks div { font-size: 13.5px; line-height: 1.6; }
+  .marks q { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--fg1); quotes: "“" "”"; }
+  .marks b { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; margin-right: 8px; }
+  .yes { color: var(--ok); } .no { color: var(--warn); } .part { color: var(--amber); }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+  .g { font-family: Georgia, 'Times New Roman', serif; font-style: italic; }
+
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · sketch · four steps · the bundle's own seeded flock, live · silent</div>
+  <h1 class="title">Where is the threshold?</h1>
+  <p class="sub">The section says flocking is Kuramoto in two dimensions: the flock's polarization is Kuramoto's R, and Kuramoto's critical coupling becomes a regime of density and radius where coherent flow appears. Here a heading becomes a phase, R is built from the phases, and then you go looking for the threshold: first with nothing for alignment to overcome, then with a spread.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="A heading is a phase">
+    <div class="eyebrow">Step 1 of 4 · one idea</div>
+    <h3>A bird's heading is a point on a circle, the same thing as an oscillator's phase</h3>
+    <p class="say">Six birds, alignment only. A bird flying at an angle θ is, as far as alignment cares, an oscillator at phase θ: a point on a circle. On the right each bird is a dot at its heading. Alignment pulls each dot toward the others it can reach, as Kuramoto's coupling pulls each phase toward the crowd's. The plane is what Kuramoto lacks: it decides who can reach whom, and that changes as the birds move.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">six birds · alignment only · each heading drawn as a phase</span><button id="deal1">deal again</button></div>
+      <div class="two"><canvas id="c1"></canvas><canvas id="c1r"></canvas></div>
+      <div class="eqs">
+        <div class="eq">dθ<sub>i</sub>/dt = ω<sub>i</sub> + (K ⁄ N) Σ<sub>j</sub> sin(θ<sub>j</sub> − θ<sub>i</sub>)</div>
+        <div class="words">Kuramoto: (how fast oscillator i's phase turns) = (its own natural speed) + (coupling ÷ how many) × the sum of every other phase's pull, strongest a quarter-turn away.</div>
+        <div class="eq">θ<sub>i</sub> turns toward arg Σ<sub>j near i</sub> v<sub>j</sub>, at most a small force each frame</div>
+        <div class="words">Alignment: (bird i's heading) turns toward (the heading of its neighbours' summed velocity), by no more than a fixed nudge a frame, and only the birds in reach count.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" data-title="R with no order" hidden>
+    <div class="eyebrow">Step 2 of 4 · the order parameter</div>
+    <h3>R for headings dealt at random: a floor, not zero</h3>
+    <p class="say">Eighty headings dealt at random, no flock at all. Add them as arrows of length one and take the length of the sum per bird: that is R, Kuramoto's order parameter and the flock's polarization, the same formula. Random headings don't give 0. They give a small floor that shrinks as the crowd grows, about 0.1 for eighty. Any R a flock shows has to be read against it.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">eighty random headings, one deal a second</span><button id="hold2" aria-pressed="false">hold this deal</button></div>
+      <div class="two"><canvas id="c2"></canvas><canvas id="c2b"></canvas></div>
+      <div class="read"><div>R, this deal<br><b id="r2a">–</b></div><div>average over your deals<br><b id="r2b">–</b></div><div>the floor, √(π ⁄ 4N)<br><b id="r2c">–</b></div><div>deals<br><b id="r2d">–</b></div></div>
+      <div class="eqs">
+        <div class="eq">R = | (1 ⁄ N) Σ<sub>j</sub> e<sup>iθ<sub>j</sub></sup> |,   random θ: R ≈ √(π ⁄ 4N)</div>
+        <div class="words">(the order) = the length of the average of every heading as an arrow of length one; for headings dealt at random it averages the square root of (π ÷ four times the number of birds): 0.099 for eighty.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step" data-title="Nothing to fight" hidden>
+    <div class="eyebrow">Step 3 of 4 · coupling alone</div>
+    <h3>With nothing to overcome, any alignment orders the flock, only slower</h3>
+    <p class="say">The bundle's flock, eighty birds from seed 7, with alignment as the coupling on a slider. Kuramoto has a threshold because something pulls its oscillators apart: their natural speeds differ, or noise jostles them. Below it, coupling can't hold them together. These birds are identical and nothing knocks them off course, so alignment has nothing to overcome. Turn it down and the flock still orders; it just takes longer, and below about 0.05 too long to tell from never. The Plot lens on this page reads its alignment sweep a short while in; the dashed line is fifteen seconds, where its report read it.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">eighty birds · the bundle's model · no noise</span><button id="restart3">restart from seed 7</button></div>
+      <div class="two"><canvas id="c3"></canvas><canvas id="c3t"></canvas></div>
+      <div class="ctls"><label class="sl">alignment weight <b id="v3"></b><input id="w3" type="range" min="5" max="200" value="30"></label></div>
+      <div class="read"><div>R now<br><b id="r3a">–</b></div><div>seconds<br><b id="r3b">–</b></div><div>first reached R 0.8 at<br><b id="r3c">–</b></div></div>
+      <table class="meas" id="t3"></table>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Set alignment to 0.1 and wait out a minute. The flock that looked stuck below the line at fifteen seconds gets there.</p>
+  </section>
+
+  <section class="step" data-title="Give it a spread" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>Add noise and a threshold appears that moves with the noise, the density and the reach</h3>
+    <p class="say">Now every frame each bird's heading takes a random twist, up to ±<i class="g">η</i> half-turns. It is fresh every frame, not a fixed difference between birds: the twin of identical Kuramoto oscillators driven by noise of strength D, which lock only above K<sub>c</sub> = 2D. It gives alignment something to overcome. Pick the noise, how many birds share the field, and how far each can see, then move alignment and wait. Your dot is R averaged from ten seconds after your last change. The curves are the same flocks measured headless: four starts, a minute to settle, a minute measured. The threshold marked is where R crosses 0.5.</p>
+    <div class="panel">
+      <div class="ctlrow"><span>noise η</span><span class="seg" id="eta4"><button data-v="0" aria-pressed="false">0</button><button data-v="0.01" aria-pressed="false">0.01</button><button data-v="0.02" aria-pressed="false">0.02</button><button data-v="0.04" aria-pressed="true">0.04 · up to ±7° a frame</button></span></div>
+      <div class="ctlrow"><span>birds in the field</span><span class="seg" id="n4"><button data-v="40" aria-pressed="false">40</button><button data-v="80" aria-pressed="true">80</button><button data-v="160" aria-pressed="false">160</button></span>
+        <span>reach</span><span class="seg" id="r4"><button data-v="35" aria-pressed="false">35 px</button><button data-v="50" aria-pressed="true">50 px</button><button data-v="75" aria-pressed="false">75 px</button></span></div>
+      <div class="two" style="margin-top:12px"><canvas id="c4"></canvas><canvas id="c4p"></canvas></div>
+      <div class="ctls"><label class="sl">alignment weight <b id="v4"></b><input id="w4" type="range" min="0" max="200" value="30"></label></div>
+      <div class="read"><div>R now<br><b id="r4a">–</b></div><div>your dot, R averaged<br><b id="r4b">–</b></div><div>seconds since your change<br><b id="r4c">–</b></div><div>threshold, measured<br><b id="r4d">–</b></div></div>
+      <div class="marks" id="m4"></div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>At <i class="g">η</i> 0.04 and 80 birds, set alignment to 0.3 and wait: R hovers low. Now give the field 160 birds at the same weight. Then put noise to 0 and watch the curve go flat at the top.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Flocking · rich · the threshold · sketch · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: no page, no clock; the check beside this piece runs this block in Node) ----
+// The bundle's one shared Reynolds model (flocking-*.html, "SHARED FLOCKING MODEL"), the same arithmetic in the same
+// order, made a function of its settings: N birds, seed, field W x H wrapping at its edges, neighbour radius R.
+// Two additions, both off by default so the defaults are the bundle's model to the last digit:
+//   sepR — how far separation reaches. The bundle gives it the whole radius (50 px); Shiffman's Nature of Code
+//          flock, whose weights 1.5 / 1.0 / 1.0 the bundle keeps, gives it 25 px.
+//   eta  — heading noise: every frame each bird's heading turns by a random angle, up to ±eta·180°.
+const MAX_SPEED = 3, MAX_FORCE = 0.05;
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function makeFlock(N = 80, seed = 7, W = 960, H = 540, R = 50, sepR = R) {
+  const rng = mulberry32(seed), b = [];
+  for (let i = 0; i < N; i++) {
+    const x = rng() * W, y = rng() * H, angle = rng() * Math.PI * 2, sp = 0.5 * MAX_SPEED + rng() * 0.5 * MAX_SPEED;
+    b.push({ x, y, vx: Math.cos(angle) * sp, vy: Math.sin(angle) * sp, fx: 0, fy: 0 });
+  }
+  return { b, N, W, H, R, R2: R * R, S2: sepR * sepR, noise: mulberry32(seed * 7919 + 1), frame: 0 };
+}
+function setMag(x, y, mag) { const m = Math.hypot(x, y); return m > 0 ? [x / m * mag, y / m * mag] : [0, 0]; }
+function limitMag(x, y, max) { const m = Math.hypot(x, y); return (m > max && m > 0) ? [x / m * max, y / m * max] : [x, y]; }
+function stepFlock(F, w) {
+  const { b, N, W, H, R2, S2 } = F, nvx = new Float64Array(N), nvy = new Float64Array(N), sfx = new Float64Array(N), sfy = new Float64Array(N);
+  for (let i = 0; i < N; i++) {
+    const p = b[i];
+    let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+    for (let j = 0; j < N; j++) {
+      if (i === j) continue;
+      const o = b[j];
+      let dx = o.x - p.x, dy = o.y - p.y;
+      if (dx > W * 0.5) dx -= W; else if (dx < -W * 0.5) dx += W;
+      if (dy > H * 0.5) dy -= H; else if (dy < -H * 0.5) dy += H;
+      const d2 = dx * dx + dy * dy;
+      if (d2 > 0 && d2 < R2) {
+        if (d2 < S2) { sepX -= dx / d2; sepY -= dy / d2; sepN++; }
+        aliX += o.vx; aliY += o.vy; aliN++;
+        cohX += dx; cohY += dy; cohN++;
+      }
+    }
+    let fx = 0, fy = 0;
+    if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limitMag(dx - p.vx, dy - p.vy, MAX_FORCE); fx += w.sep * sx; fy += w.sep * sy; }
+    if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limitMag(dx - p.vx, dy - p.vy, MAX_FORCE); fx += w.ali * sx; fy += w.ali * sy; }
+    if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limitMag(dx - p.vx, dy - p.vy, MAX_FORCE); fx += w.coh * sx; fy += w.coh * sy; }
+    let vx = p.vx + fx, vy = p.vy + fy;
+    [vx, vy] = limitMag(vx, vy, MAX_SPEED);
+    if (w.eta) { const t = (F.noise() * 2 - 1) * Math.PI * w.eta, c = Math.cos(t), s = Math.sin(t); [vx, vy] = [vx * c - vy * s, vx * s + vy * c]; }
+    nvx[i] = vx; nvy[i] = vy; sfx[i] = fx; sfy[i] = fy;
+  }
+  for (let i = 0; i < N; i++) {
+    const p = b[i];
+    p.vx = nvx[i]; p.vy = nvy[i]; p.fx = sfx[i]; p.fy = sfy[i];
+    p.x = (p.x + p.vx + W) % W;
+    p.y = (p.y + p.vy + H) % H;
+  }
+  F.frame++;
+}
+// R, the polarization: every bird's heading as an arrow of length one, summed, per bird (Kuramoto's R on the headings)
+function polarization(F) {
+  let sx = 0, sy = 0;
+  for (const p of F.b) { const m = Math.hypot(p.vx, p.vy); if (m > 0) { sx += p.vx / m; sy += p.vy / m; } }
+  return Math.hypot(sx, sy) / F.N;
+}
+function wrapD(F, a, c) {
+  let dx = c.x - a.x, dy = c.y - a.y;
+  if (dx > F.W * 0.5) dx -= F.W; else if (dx < -F.W * 0.5) dx += F.W;
+  if (dy > F.H * 0.5) dy -= F.H; else if (dy < -F.H * 0.5) dy += F.H;
+  return [dx, dy];
+}
+// groups: birds joined by any chain of neighbours within R; how many, the largest, how many birds have no one in reach
+function groups(F) {
+  const { b, N, R2 } = F, lab = new Int32Array(N).fill(-1), sizes = [];
+  let g = 0;
+  for (let s = 0; s < N; s++) {
+    if (lab[s] >= 0) continue;
+    const st = [s]; lab[s] = g; let n = 0;
+    while (st.length) {
+      const i = st.pop(); n++;
+      for (let j = 0; j < N; j++) { if (lab[j] >= 0) continue; const [dx, dy] = wrapD(F, b[i], b[j]); if (dx * dx + dy * dy < R2) { lab[j] = g; st.push(j); } }
+    }
+    sizes.push(n); g++;
+  }
+  sizes.sort((x, y) => y - x);
+  return { count: g, largest: sizes[0], alone: sizes.filter(s => s === 1).length, lab };
+}
+function nearest(F) {
+  const { b, N } = F; let s = 0;
+  for (let i = 0; i < N; i++) { let m = Infinity; for (let j = 0; j < N; j++) { if (i === j) continue; const [dx, dy] = wrapD(F, b[i], b[j]); m = Math.min(m, Math.hypot(dx, dy)); } s += m; }
+  return s / N;
+}
+function meanSpeed(F) { let s = 0; for (const p of F.b) s += Math.hypot(p.vx, p.vy); return s / F.N; }
+// milling: within each group of 3 or more, how much the birds circle their centre (1 = a perfect mill, 0 = none)
+function milling(F, G = groups(F)) {
+  let num = 0, den = 0;
+  for (let g = 0; g < G.count; g++) {
+    const idx = []; for (let i = 0; i < F.N; i++) if (G.lab[i] === g) idx.push(i);
+    if (idx.length < 3) continue;
+    const r0 = F.b[idx[0]]; let mx = 0, my = 0;
+    const rel = idx.map(i => { const [dx, dy] = wrapD(F, r0, F.b[i]); mx += dx; my += dy; return [dx, dy, F.b[i].vx, F.b[i].vy]; });
+    mx /= idx.length; my /= idx.length; let L = 0, A = 0;
+    for (const [dx, dy, vx, vy] of rel) { const rx = dx - mx, ry = dy - my; L += rx * vy - ry * vx; A += Math.hypot(rx, ry) * Math.hypot(vx, vy); }
+    num += Math.abs(L); den += A;
+  }
+  return den > 0 ? num / den : 0;
+}
+// R for N headings dealt at random, averaged over many deals: the floor a flock with no order sits on
+function randomFloor(N, deals = 4000, seed = 3) {
+  const rng = mulberry32(seed); let s = 0;
+  for (let d = 0; d < deals; d++) { let x = 0, y = 0; for (let i = 0; i < N; i++) { const a = rng() * 2 * Math.PI; x += Math.cos(a); y += Math.sin(a); } s += Math.hypot(x, y) / N; }
+  return s / deals;
+}
+// ---- end math ----
+
+
+const DATA = /*DATA*/{"floor80":0.1,"noiseless":[{"ali":0.05,"seeds":[{"t08":null,"at900":0.024,"at4min":0.367},{"t08":null,"at900":0.015,"at4min":0.265},{"t08":166.667,"at900":0.331,"at4min":0.896},{"t08":166.967,"at900":0.238,"at4min":0.889}]},{"ali":0.1,"seeds":[{"t08":45.05,"at900":0.35,"at4min":0.966},{"t08":233.1,"at900":0.211,"at4min":0.815},{"t08":121.433,"at900":0.174,"at4min":0.96},{"t08":56.383,"at900":0.26,"at4min":0.971}]},{"ali":0.2,"seeds":[{"t08":25.783,"at900":0.492,"at4min":0.929},{"t08":34.25,"at900":0.26,"at4min":0.958},{"t08":32.7,"at900":0.286,"at4min":0.876},{"t08":15.05,"at900":0.793,"at4min":0.871}]},{"ali":0.3,"seeds":[{"t08":23.133,"at900":0.579,"at4min":0.917},{"t08":17.6,"at900":0.613,"at4min":0.937},{"t08":19.467,"at900":0.712,"at4min":0.824},{"t08":12.033,"at900":0.923,"at4min":0.898}]},{"ali":0.5,"seeds":[{"t08":16.55,"at900":0.703,"at4min":0.894},{"t08":23.817,"at900":0.283,"at4min":0.911},{"t08":10.233,"at900":0.924,"at4min":0.902},{"t08":9.5,"at900":0.93,"at4min":0.929}]},{"ali":1,"seeds":[{"t08":8.933,"at900":0.953,"at4min":0.955},{"t08":13.933,"at900":0.852,"at4min":0.953},{"t08":3.45,"at900":0.945,"at4min":0.967},{"t08":7.183,"at900":0.943,"at4min":0.951}]},{"ali":2,"seeds":[{"t08":5.15,"at900":0.995,"at4min":0.961},{"t08":6.583,"at900":0.977,"at4min":0.972},{"t08":2.917,"at900":0.99,"at4min":0.995},{"t08":4.05,"at900":0.999,"at4min":0.989}]}],"curves":[{"id":"e0","eta":0,"N":80,"R":50,"settle":10800,"pts":[{"ali":0,"R":0.068,"sd":0.024},{"ali":0.1,"R":0.898,"sd":0.037},{"ali":0.15,"R":0.943,"sd":0.014},{"ali":0.2,"R":0.921,"sd":0.021},{"ali":0.25,"R":0.918,"sd":0.019},{"ali":0.3,"R":0.896,"sd":0.027},{"ali":0.4,"R":0.899,"sd":0.03},{"ali":0.5,"R":0.914,"sd":0.018},{"ali":0.6,"R":0.92,"sd":0.02},{"ali":0.75,"R":0.939,"sd":0.015},{"ali":1,"R":0.956,"sd":0.011},{"ali":1.5,"R":0.977,"sd":0.01},{"ali":2,"R":0.979,"sd":0.016}],"cross":0.052},{"id":"e01","eta":0.01,"N":80,"R":50,"settle":3600,"pts":[{"ali":0,"R":0.095,"sd":0.034},{"ali":0.1,"R":0.582,"sd":0.103},{"ali":0.15,"R":0.847,"sd":0.027},{"ali":0.2,"R":0.863,"sd":0.029},{"ali":0.25,"R":0.87,"sd":0.023},{"ali":0.3,"R":0.857,"sd":0.047},{"ali":0.4,"R":0.877,"sd":0.043},{"ali":0.5,"R":0.881,"sd":0.03},{"ali":0.6,"R":0.908,"sd":0.022},{"ali":0.75,"R":0.924,"sd":0.018},{"ali":1,"R":0.942,"sd":0.016},{"ali":1.5,"R":0.967,"sd":0.012},{"ali":2,"R":0.975,"sd":0.016}],"cross":0.083},{"id":"e02","eta":0.02,"N":80,"R":50,"settle":3600,"pts":[{"ali":0,"R":0.1,"sd":0.049},{"ali":0.1,"R":0.271,"sd":0.069},{"ali":0.15,"R":0.425,"sd":0.091},{"ali":0.2,"R":0.708,"sd":0.049},{"ali":0.25,"R":0.72,"sd":0.059},{"ali":0.3,"R":0.786,"sd":0.045},{"ali":0.4,"R":0.819,"sd":0.041},{"ali":0.5,"R":0.854,"sd":0.033},{"ali":0.6,"R":0.875,"sd":0.027},{"ali":0.75,"R":0.897,"sd":0.023},{"ali":1,"R":0.921,"sd":0.018},{"ali":1.5,"R":0.944,"sd":0.017},{"ali":2,"R":0.954,"sd":0.02}],"cross":0.163},{"id":"e04","eta":0.04,"N":80,"R":50,"settle":3600,"pts":[{"ali":0,"R":0.096,"sd":0.057},{"ali":0.1,"R":0.12,"sd":0.057},{"ali":0.15,"R":0.141,"sd":0.075},{"ali":0.2,"R":0.17,"sd":0.081},{"ali":0.25,"R":0.274,"sd":0.096},{"ali":0.3,"R":0.304,"sd":0.128},{"ali":0.4,"R":0.545,"sd":0.097},{"ali":0.5,"R":0.632,"sd":0.119},{"ali":0.6,"R":0.697,"sd":0.072},{"ali":0.75,"R":0.763,"sd":0.055},{"ali":1,"R":0.819,"sd":0.043},{"ali":1.5,"R":0.86,"sd":0.046},{"ali":2,"R":0.909,"sd":0.032}],"cross":0.381},{"id":"n40","eta":0.04,"N":40,"R":50,"settle":3600,"pts":[{"ali":0,"R":0.131,"sd":0.076},{"ali":0.1,"R":0.127,"sd":0.068},{"ali":0.15,"R":0.145,"sd":0.077},{"ali":0.2,"R":0.175,"sd":0.084},{"ali":0.25,"R":0.182,"sd":0.088},{"ali":0.3,"R":0.205,"sd":0.088},{"ali":0.4,"R":0.287,"sd":0.107},{"ali":0.5,"R":0.356,"sd":0.142},{"ali":0.6,"R":0.362,"sd":0.147},{"ali":0.75,"R":0.46,"sd":0.163},{"ali":1,"R":0.622,"sd":0.126},{"ali":1.5,"R":0.768,"sd":0.086},{"ali":2,"R":0.829,"sd":0.067}],"cross":0.812},{"id":"n160","eta":0.04,"N":160,"R":50,"settle":3600,"pts":[{"ali":0,"R":0.058,"sd":0.031},{"ali":0.1,"R":0.211,"sd":0.064},{"ali":0.15,"R":0.605,"sd":0.069},{"ali":0.2,"R":0.72,"sd":0.044},{"ali":0.25,"R":0.767,"sd":0.041},{"ali":0.3,"R":0.785,"sd":0.038},{"ali":0.4,"R":0.816,"sd":0.033},{"ali":0.5,"R":0.846,"sd":0.025},{"ali":0.6,"R":0.858,"sd":0.027},{"ali":0.75,"R":0.875,"sd":0.027},{"ali":1,"R":0.902,"sd":0.019},{"ali":1.5,"R":0.92,"sd":0.023},{"ali":2,"R":0.95,"sd":0.015}],"cross":0.137},{"id":"r35","eta":0.04,"N":80,"R":35,"settle":3600,"pts":[{"ali":0,"R":0.101,"sd":0.055},{"ali":0.1,"R":0.095,"sd":0.049},{"ali":0.15,"R":0.109,"sd":0.058},{"ali":0.2,"R":0.14,"sd":0.072},{"ali":0.25,"R":0.137,"sd":0.069},{"ali":0.3,"R":0.159,"sd":0.073},{"ali":0.4,"R":0.253,"sd":0.087},{"ali":0.5,"R":0.316,"sd":0.098},{"ali":0.6,"R":0.452,"sd":0.1},{"ali":0.75,"R":0.588,"sd":0.121},{"ali":1,"R":0.703,"sd":0.076},{"ali":1.5,"R":0.792,"sd":0.05},{"ali":2,"R":0.844,"sd":0.041}],"cross":0.653},{"id":"r75","eta":0.04,"N":80,"R":75,"settle":3600,"pts":[{"ali":0,"R":0.112,"sd":0.053},{"ali":0.1,"R":0.32,"sd":0.117},{"ali":0.15,"R":0.682,"sd":0.074},{"ali":0.2,"R":0.756,"sd":0.059},{"ali":0.25,"R":0.797,"sd":0.051},{"ali":0.3,"R":0.814,"sd":0.044},{"ali":0.4,"R":0.846,"sd":0.037},{"ali":0.5,"R":0.858,"sd":0.033},{"ali":0.6,"R":0.875,"sd":0.031},{"ali":0.75,"R":0.885,"sd":0.03},{"ali":1,"R":0.911,"sd":0.024},{"ali":1.5,"R":0.943,"sd":0.019},{"ali":2,"R":0.956,"sd":0.02}],"cross":0.125}],"seeds":[7,11,13,17],"wgrid":[0,0.1,0.15,0.2,0.25,0.3,0.4,0.5,0.6,0.75,1,1.5,2]}/*END*/;
+
+// ---- the walk: one step showing, Next and Back, the rail always open ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`; b.addEventListener('click', () => show(i)); rail.appendChild(b); });
+function show(i) {
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  if (ENTER[cur]) ENTER[cur]();
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+function seg(el, onPick) {
+  el.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { el.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); onPick(b.dataset.v); }));
+}
+// ---- drawing ----
+function fit(cv, aspect) {
+  const w = cv.clientWidth || 600, d = window.devicePixelRatio || 1, h = Math.round(w * aspect);
+  if (cv.width !== Math.round(w * d) || cv.height !== Math.round(h * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); cv.style.height = h + 'px'; }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+function dart(g, x, y, vx, vy, s, col) {
+  const a = Math.atan2(vy, vx), c = Math.cos(a), sn = Math.sin(a);
+  g.fillStyle = col; g.beginPath();
+  const P = [[5, 0], [-4, 3], [-2, 0], [-4, -3]];
+  P.forEach(([px, py], k) => { const X = x + (px * c - py * sn) * s, Y = y + (px * sn + py * c) * s; if (k) g.lineTo(X, Y); else g.moveTo(X, Y); });
+  g.closePath(); g.fill();
+}
+function drawField(g, w, h, F, opt = {}) {
+  const k = w / F.W;
+  g.fillStyle = '#0d0d14'; g.fillRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(255,255,255,.06)'; g.strokeRect(0.5, 0.5, w - 1, h - 1);
+  if (opt.ring != null) {
+    const p = F.b[opt.ring];
+    g.strokeStyle = 'rgba(232,184,74,.35)'; g.setLineDash([3, 4]); g.beginPath(); g.arc(p.x * k, p.y * k, F.R * k, 0, 2 * Math.PI); g.stroke();
+    if (F.S2 < F.R2) { g.strokeStyle = 'rgba(255,155,74,.35)'; g.beginPath(); g.arc(p.x * k, p.y * k, Math.sqrt(F.S2) * k, 0, 2 * Math.PI); g.stroke(); }
+    g.setLineDash([]);
+  }
+  if (opt.force) { g.strokeStyle = 'rgba(232,184,74,.75)'; g.lineWidth = 1; g.beginPath(); for (const p of F.b) { g.moveTo(p.x * k, p.y * k); g.lineTo((p.x + p.fx * 260) * k, (p.y + p.fy * 260) * k); } g.stroke(); }
+  F.b.forEach((p, i) => dart(g, p.x * k, p.y * k, p.vx || 1e-9, p.vy, Math.max(0.9, k * 1.6), opt.color ? opt.color(p, i) : (i === opt.ring ? '#e8b84a' : '#8f93f7')));
+}
+function headingRing(g, cx, cy, r, F, label) {
+  g.strokeStyle = 'rgba(255,255,255,.14)'; g.lineWidth = 1; g.beginPath(); g.arc(cx, cy, r, 0, 2 * Math.PI); g.stroke();
+  let sx = 0, sy = 0, n = 0;
+  for (const p of F.b) { const m = Math.hypot(p.vx, p.vy); if (!(m > 0)) continue; const ux = p.vx / m, uy = p.vy / m; sx += ux; sy += uy; n++;
+    g.fillStyle = 'rgba(143,147,247,.85)'; g.beginPath(); g.arc(cx + ux * r, cy + uy * r, 3, 0, 2 * Math.PI); g.fill(); }
+  const R = n ? Math.hypot(sx, sy) / n : 0;
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + (n ? sx / n : 0) * r, cy + (n ? sy / n : 0) * r); g.stroke(); g.lineWidth = 1;
+  g.fillStyle = '#8a8aa0'; g.font = '11px JetBrains Mono, monospace'; g.textAlign = 'center'; g.fillText(label || 'headings, as points on a circle', cx, cy + r + 18); g.textAlign = 'left';
+  return R;
+}
+const fmt = (x, d = 2) => (x == null || !Number.isFinite(x)) ? '–' : x.toFixed(d);
+// a number as a reader wants it: whole counts whole, tiny distances to three places
+const num = x => Number.isInteger(x) ? String(x) : Math.abs(x) < 0.01 ? x.toFixed(3) : Math.abs(x) >= 10 ? x.toFixed(0) : x.toFixed(2);
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+
+
+// ---- step 1: six birds, alignment only ----
+let deal = 1;
+function six(seed) {
+  const F = makeFlock(6, seed, 480, 270, 50), rng = mulberry32(seed + 202);
+  for (const p of F.b) { const a = rng() * 2 * Math.PI, r = 38 * Math.sqrt(rng()); p.x = 240 + r * Math.cos(a); p.y = 135 + r * Math.sin(a); }
+  return F;
+}
+let F1 = six(1);
+document.getElementById('deal1').addEventListener('click', () => { F1 = six(++deal); });
+
+// ---- step 2: random deals ----
+const DEAL = { F: null, sum: 0, n: 0, hold: false, rng: mulberry32(99), t: 0 };
+function newDeal() { const b = []; for (let i = 0; i < 80; i++) { const a = DEAL.rng() * 2 * Math.PI; b.push({ vx: Math.cos(a), vy: Math.sin(a) }); } DEAL.F = { b, N: 80 }; const R = polarization(DEAL.F); DEAL.sum += R; DEAL.n++; return R; }
+newDeal();
+document.getElementById('hold2').addEventListener('click', e => { DEAL.hold = !DEAL.hold; e.target.setAttribute('aria-pressed', String(DEAL.hold)); });
+function drawArrows(g, w, h, F) {
+  g.fillStyle = '#0d0d14'; g.fillRect(0, 0, w, h);
+  let x = w * 0.5, y = h * 0.5; const u = Math.min(w, h) / 24;
+  g.strokeStyle = 'rgba(143,147,247,.55)'; g.beginPath(); g.moveTo(x, y);
+  let sx = 0, sy = 0; for (const p of F.b) { sx += p.vx; sy += p.vy; }
+  x = w * 0.5; y = h * 0.5; g.moveTo(x, y);
+  for (const p of F.b) { x += p.vx * u; y += p.vy * u; g.lineTo(x, y); }
+  g.stroke();
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath(); g.moveTo(w * 0.5, h * 0.5); g.lineTo(w * 0.5 + sx * u, h * 0.5 + sy * u); g.stroke(); g.lineWidth = 1;
+  g.fillStyle = '#8a8aa0'; g.font = '11px JetBrains Mono, monospace'; g.fillText('eighty unit arrows, head to tail; amber: their sum', 10, h - 10);
+}
+
+// ---- step 3: noiseless, alignment on a slider ----
+let F3 = makeFlock(), w3 = 0.3, trace3 = [], t08 = null;
+function restart3() { F3 = makeFlock(); trace3 = []; t08 = null; }
+document.getElementById('restart3').addEventListener('click', restart3);
+const in3 = document.getElementById('w3');
+function sync3() { w3 = in3.value / 100; document.getElementById('v3').textContent = w3.toFixed(2); }
+in3.addEventListener('input', () => { sync3(); restart3(); });
+sync3();
+function plotTrace(g, w, h, pts, tmax) {
+  g.fillStyle = '#0d0d14'; g.fillRect(0, 0, w, h);
+  const L = 34, B = 26, T = 10, Rr = 10, X = t => L + t / tmax * (w - L - Rr), Y = r => T + (1 - r) * (h - T - B);
+  g.strokeStyle = 'rgba(255,255,255,.08)'; g.beginPath(); for (const r of [0, 0.5, 0.8, 1]) { g.moveTo(L, Y(r)); g.lineTo(w - Rr, Y(r)); } g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10.5px JetBrains Mono, monospace'; for (const r of [0, 0.5, 0.8, 1]) g.fillText(r.toFixed(1), 4, Y(r) + 4);
+  g.fillText('seconds →', w - 80, h - B - 8); for (let s = 0; s <= tmax; s += 30) g.fillText(String(s), X(s) - 4, h - 6);
+  g.setLineDash([4, 4]); g.strokeStyle = 'rgba(232,184,74,.5)'; g.beginPath(); g.moveTo(X(15), T); g.lineTo(X(15), h - B); g.stroke(); g.setLineDash([]);
+  g.strokeStyle = '#8f93f7'; g.lineWidth = 1.5; g.beginPath(); pts.forEach(([t, r], k) => { if (k) g.lineTo(X(t), Y(r)); else g.moveTo(X(t), Y(r)); }); g.stroke(); g.lineWidth = 1;
+}
+function table3() {
+  const t = document.getElementById('t3'); if (!DATA.noiseless) { t.innerHTML = ''; return; }
+  t.innerHTML = '<tr><th>no noise · alignment weight</th><th>R at 15 s</th><th>first R 0.8, seconds</th><th>R at 4 min</th></tr>' + DATA.noiseless.map(r => {
+    const s = r.seeds, t8 = s.map(x => x.t08 == null ? '> 240' : x.t08.toFixed(0)).join(', ');
+    return `<tr><td>${r.ali} · four starts</td><td>${s.map(x => x.at900.toFixed(2)).join(', ')}</td><td>${t8}</td><td>${s.map(x => x.at4min.toFixed(2)).join(', ')}</td></tr>`; }).join('');
+}
+
+// ---- step 4: noise, density, reach ----
+let eta4 = 0.04, n4 = 80, r4 = 50, w4 = 0.3, F4 = null, sum4 = 0, cnt4 = 0, since4 = 0;
+function restart4() { F4 = makeFlock(n4, 7, 960, 540, r4, r4); reset4(); }
+function reset4() { sum4 = 0; cnt4 = 0; since4 = 0; }
+seg(document.getElementById('eta4'), v => { eta4 = +v; reset4(); marks4(); });
+seg(document.getElementById('n4'), v => { n4 = +v; restart4(); marks4(); });
+seg(document.getElementById('r4'), v => { r4 = +v; restart4(); marks4(); });
+const in4 = document.getElementById('w4');
+function sync4() { w4 = in4.value / 100; document.getElementById('v4').textContent = w4.toFixed(2); }
+in4.addEventListener('input', () => { sync4(); reset4(); });
+sync4(); restart4();
+function curveFor(eta, N, R) { return (DATA.curves || []).find(c => c.eta === eta && c.N === N && c.R === R) || null; }
+function plotCurve(g, w, h) {
+  g.fillStyle = '#0d0d14'; g.fillRect(0, 0, w, h);
+  const L = 34, B = 26, T = 10, Rr = 10, X = a => L + a / 2 * (w - L - Rr), Y = r => T + (1 - r) * (h - T - B);
+  g.strokeStyle = 'rgba(255,255,255,.08)'; g.beginPath(); for (const r of [0, 0.5, 1]) { g.moveTo(L, Y(r)); g.lineTo(w - Rr, Y(r)); } g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10.5px JetBrains Mono, monospace'; for (const r of [0, 0.5, 1]) g.fillText(r.toFixed(1), 4, Y(r) + 4);
+  for (const a of [0, 0.5, 1, 1.5, 2]) g.fillText(a.toFixed(1), X(a) - 8, h - 6); g.fillText('alignment →', w - 96, h - B - 8);
+  for (const c of (DATA.curves || [])) { g.strokeStyle = 'rgba(143,147,247,.16)'; g.beginPath(); c.pts.forEach((p, k) => { if (k) g.lineTo(X(p.ali), Y(p.R)); else g.moveTo(X(p.ali), Y(p.R)); }); g.stroke(); }
+  const c = curveFor(eta4, n4, r4);
+  if (c) {
+    g.strokeStyle = '#8f93f7'; g.lineWidth = 2; g.beginPath(); c.pts.forEach((p, k) => { if (k) g.lineTo(X(p.ali), Y(p.R)); else g.moveTo(X(p.ali), Y(p.R)); }); g.stroke(); g.lineWidth = 1;
+    if (c.cross != null && eta4 > 0) { g.setLineDash([4, 4]); g.strokeStyle = 'rgba(232,184,74,.6)'; g.beginPath(); g.moveTo(X(c.cross), T); g.lineTo(X(c.cross), h - B); g.stroke(); g.setLineDash([]); }
+  } else { g.fillStyle = '#8a8aa0'; g.fillText('not measured headless at these settings: your dot only', L + 6, T + 14); }
+  if (cnt4 > 0) { g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X(w4), Y(sum4 / cnt4), 5, 0, 2 * Math.PI); g.fill(); }
+  else { g.strokeStyle = '#e8b84a'; g.beginPath(); g.arc(X(w4), Y(polarization(F4)), 5, 0, 2 * Math.PI); g.stroke(); }
+}
+function marks4() {
+  const el = document.getElementById('m4'), c = curveFor(eta4, n4, r4);
+  document.getElementById('r4d').textContent = eta4 === 0 ? 'none: a rate, not a threshold (step 3)' : c ? (c.cross == null ? (c.pts[1].R >= 0.5 ? 'none: ordered at the first step' : 'not crossed by 2') : `alignment ${c.cross.toFixed(2)}`) : 'not measured';
+  if (!DATA.curves) { el.innerHTML = ''; return; }
+  const X = id => DATA.curves.find(k => k.id === id).cross, nl = DATA.noiseless, slow = nl.find(r => r.ali === 0.1).seeds.map(s => s.t08), e0 = DATA.curves.find(k => k.id === 'e0'), s05 = nl.find(r => r.ali === 0.05).seeds.map(s => s.t08);
+  el.innerHTML = [
+    `<div><q>The order parameter R from Kuramoto … becomes the average velocity vector's magnitude (the polarization of the flock).</q><br><b class="yes">holds, exactly</b>The polarization the three lenses compute is Kuramoto's R taken over the headings, the same formula (step 2). Its floor for eighty random headings is ${DATA.floor80.toFixed(3)}, so R near 0.1 is no order at all.</div>`,
+    `<div><q>The critical-coupling threshold becomes a critical-density-and-radius regime in which coherent flow appears.</q><br><b class="part">holds once there is noise</b>With no noise there is no threshold in alignment down to 0.05, only a rate: in all four starts every weight from 0.1 up reaches R 0.8 within four minutes (0.1 in ${slow.map(s => s == null ? '>240' : s.toFixed(0)).join(', ')} s), and at 0.05 ${s05.filter(x => x != null).length} of four starts reach it, the rest still climbing (step 3). Measured after three minutes, the no-noise curve is flat at the top, R ${e0.pts[1].R.toFixed(2)} already at 0.1. Add noise and a knee appears, a threshold for coherent flow, and it moves the way the sentence says. At <i class="g">η</i> 0.04: 40 birds cross at about alignment ${X('n40').toFixed(2)}, 80 at ${X('e04').toFixed(2)}, 160 at ${X('n160').toFixed(2)}; reach 35 px at ${X('r35').toFixed(2)}, 50 at ${X('e04').toFixed(2)}, 75 at ${X('r75').toFixed(2)}. And it moves with the noise: at 80 birds and 50 px, <i class="g">η</i> 0.01 crosses at ${X('e01').toFixed(2)}, 0.02 at ${X('e02').toFixed(2)}, 0.04 at ${X('e04').toFixed(2)}. Density and reach act as one knob, the number of neighbours in reach: 160 birds at 50 px cross where 80 do at 75 px. Noise is the term the sentence leaves out. Vicsek's 1995 framing is noise and density, with the reach as the unit of length; the sentence kept density and dropped the main axis. The noise plays the part noise plays for identical Kuramoto oscillators, whose threshold is K<sub>c</sub> = 2D.</div>`,
+    `<div><q>Flocking as a non-equilibrium phase transition, exactly the family Kuramoto lives in.</q><br><b>not tested here</b>A knee alone doesn't make a phase transition; the marks are the wobble peaking at the knee and the knee sharpening as the flock grows. Murmuration's knee, beside this piece, measures both on a Vicsek-style flock from 30 to 240 birds.</div>`,
+  ].join('');
+}
+
+// ---- one loop: only the showing step runs ----
+const ENTER = [null, null, null, null];
+let last = 0, acc = 0, tick = 0;
+function frame(now) {
+  acc += Math.min(100, now - (last || now)); last = now;
+  let steps = 0;
+  while (acc >= 1000 / 60 && steps < 4) {
+    acc -= 1000 / 60; steps++;
+    if (cur === 0) stepFlock(F1, { sep: 0, ali: 1, coh: 0 });
+    else if (cur === 1) { if (!DEAL.hold && ++DEAL.t % 60 === 0) newDeal(); }
+    else if (cur === 2) { if (F3.frame < 14400) { stepFlock(F3, { sep: 1.5, ali: w3, coh: 1 }); const R = polarization(F3); if (t08 === null && R >= 0.8) t08 = F3.frame / 60; if (F3.frame % 30 === 0) trace3.push([F3.frame / 60, R]); } }
+    else { stepFlock(F4, { sep: 1.5, ali: w4, coh: 1, eta: eta4 }); since4++; if (since4 > 600 && since4 % 10 === 0) { sum4 += polarization(F4); cnt4++; } }
+  }
+  const slow = (tick++ % 15) === 0;
+  if (cur === 0) { const a = fit(document.getElementById('c1'), 270 / 480); drawField(a.g, a.w, a.h, F1, { ring: 0 }); const r = fit(document.getElementById('c1r'), 0.78); r.g.fillStyle = '#0d0d14'; r.g.fillRect(0, 0, r.w, r.h); headingRing(r.g, r.w / 2, r.h * 0.45, Math.min(r.w, r.h) * 0.34, F1, 'each heading θ, as a phase'); }
+  else if (cur === 1) { const r = fit(document.getElementById('c2'), 0.78); r.g.fillStyle = '#0d0d14'; r.g.fillRect(0, 0, r.w, r.h); const R = headingRing(r.g, r.w / 2, r.h * 0.45, Math.min(r.w, r.h) * 0.34, DEAL.F, 'eighty headings, dealt at random'); const a = fit(document.getElementById('c2b'), 0.78); drawArrows(a.g, a.w, a.h, DEAL.F); if (slow) { document.getElementById('r2a').textContent = fmt(R, 3); document.getElementById('r2b').textContent = fmt(DEAL.sum / DEAL.n, 3); document.getElementById('r2c').textContent = fmt(Math.sqrt(Math.PI / 320), 3); document.getElementById('r2d').textContent = DEAL.n; } }
+  else if (cur === 2) { const a = fit(document.getElementById('c3'), 540 / 960); drawField(a.g, a.w, a.h, F3); const t = fit(document.getElementById('c3t'), 0.62); plotTrace(t.g, t.w, t.h, trace3, Math.max(60, Math.ceil(F3.frame / 60 / 30) * 30)); if (slow) { document.getElementById('r3a').textContent = fmt(polarization(F3)); document.getElementById('r3b').textContent = fmt(F3.frame / 60, 0) + (F3.frame >= 14400 ? ' · stopped at 4 min' : ''); document.getElementById('r3c').textContent = t08 == null ? 'not yet' : t08.toFixed(1) + ' s'; } }
+  else { const a = fit(document.getElementById('c4'), 540 / 960); drawField(a.g, a.w, a.h, F4); const p = fit(document.getElementById('c4p'), 0.62); plotCurve(p.g, p.w, p.h); if (slow) { document.getElementById('r4a').textContent = fmt(polarization(F4)); document.getElementById('r4b').textContent = cnt4 ? fmt(sum4 / cnt4) : 'settling'; document.getElementById('r4c').textContent = fmt(since4 / 60, 0); } }
+  requestAnimationFrame(frame);
+}
+table3(); marks4();
+show(0);
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

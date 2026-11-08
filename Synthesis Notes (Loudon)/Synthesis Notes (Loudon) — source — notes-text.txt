@@ -1,0 +1,963 @@
+
+
+=====PAGE=====
+                         
+Oscillators are the sound creation portion of a synthesizer. Typically they generate a 
+variety of waveforms such as saw, sine, square, triangle, and noise. In subtractive 
+synthesis a oscillator with a wide spectral content like sawtooth starts the signal then a 
+ﬁlter is used to carve out any unwanted portions. Think of the oscillator like marble and 
+the ﬁlter a sculptorʼs chisel. In additive synthesis many simple waveforms(usually sine 
+waves) are added together to create a complex spectrum; they are usually conﬁgured in 
+multiples of a common frequency to create a harmonic spectrum. An organ with draw 
+bars is a good example of an additive synth, as you bring in the bars, upper harmonics 
+are added to the overall timbre. 
+Frequency modulation synthesis also starts with simple waveforms, but this time they 
+are used to modulate(vary) the frequency of each other.  When both waves are in the 
+audio range(20hz-20,000 Hz) the results are surprising and tough to predict(at ﬁrst). 
+Study and experimentation has resulted in some very useful oscillator combinations
+(algorithms). The end result is the ability to create complex timbres from simple 
+waveforms without the use of ﬁlters. It is kind of an advanced additive synthesis, 
+because the beginnings are still simple waveforms and they are being used to create 
+complex timbres. But with FM even two sine wave oscillators can create a wide spectral 
+content, not so with pure additive synthesis. It should be mentioned that FM 
+synthesizers are often very good additive synthesizers as well, because they have 
+many oscillators and the ability to simply add them together. 
+Register/Octave Semi and Detune:  The oscillator section of a synth includes a way to 
+tune the oscillator to the desired pitch.  Often there will be 3 knobs, one to choose the 
+octave, one to choose semitones, and a third to ﬁne tune the tuning. These have the 
+most impact when combining oscillators.  A small detuning between the oscillators, 
+2
+
+=====PAGE=====
+around 7 cents or less(a cent is 100th of a semitone), will result in a swirling and 
+chorusy sound. An octave difference is useful for adding weight or shimmer to a patch
+(think of it like creating a complex timbre with an orchestra). Semitone differences 
+create chords and intervals between the oscillators(good for special effects). A good 
+approach is to set the oscillators to components of the harmonic series; 
+HarmonicNote Oscillator setting
+1 root Unison
+2 octave 1 oct 
+3 octave + ﬁfth 1oct  and 7semi
+4 2 octaves 2oct, 
+5 2 octaves + maj 3rd 2oct and 4semi(-13 cents)
+6 2 octaves + perfect 5th 2oct and 7semi 
+7 2 octaves + ﬂat seven(almost) 2oct 10semi (-30 cents)
+8 3 octaves 3oct
+9 3 octaves plus major 2nd(almost)3oct 2semi(+4cents)
+Tune the cent variations by ear.
+Waveforms:
+The most common synth waveforms are saw, sine, square, triangle, and noise. Saw is 
+the standard starting point for synth sounds. It has a rich buzzy timbre that includes all 
+harmonics and responds well to drastic ﬁltering. Square is another rich waveform, this 
+one isnʼt as complex as the sawtooth because it only includes the odd harmonics giving 
+it a hollow timbre. Often with Square waves the synth will give you the option of pulse 
+width modulation. Think of a square wave as a switch going up and down, a typical 
+square wave spends equal amounts of time up and down, but it doesnʼt need to. Pulse 
+width lets you vary the proportion of the switch being up and down, at 50% they are 
+equal, at 1% it only spends a tiny amount of time up and most of the time down.  Pulse 
+width has a dramatic impact on the timbre and it can be modulated with an LFO to 
+create rich undulating textures, but it is also very useful as a static parameter. A square 
+wave with a low pulse width is the best starting point for nasal and vocal sounds(then try 
+pairing it with a formant ﬁlter). Triangle wave sounds like a heavily ﬁltered square wave. 
+Like the square it only contains odd harmonics, but it is much less harsh(the upper 
+harmonics are quieter). Triangle is a great choice when you donʼt have an extra ﬁlter but 
+want something more interesting then a sine wave. Sine, the simplest of all waveforms, 
+it is energy at a single frequency. The more complex waveforms can be though of as 
+3
+
+=====PAGE=====
+collections of hundreds(even thousands) of individual sine waves. A single Sine doesnʼt 
+respond to ﬁltering at all, because there are no upper harmonics to remove. They do 
+however form the basic building blocks for additive and FM synthesis. Noise comes in a 
+variety of ﬂavors usually denoted by colors, white noise is scientiﬁcally useful as it has 
+equal amplitude across all frequencies, but sounds harsh to our ears.  Pink noise 
+however, is white noise that has been ﬁltered to the natural characteristics of our ears 
+and is much smoother and generally pleasing.  Noise can add a softness to a patch, 
+provide additional high end and make modulated delays like ﬂangers and phasers stand 
+out nicely. Noise is also very useful at the attack portion of the note. In most instruments 
+there is a wide range of inharmonic noise right at the attack, before the instruments 
+settles into the steady state note. Percussion synthesis also relies heavily on noise 
+oscillators. Many synths will include a separate oscillator just for noises, and if you are 
+lucky it will have its own envelope.
+Combining Waveforms
+When combining waves consider the harmonic series of both waves; a spectrum or 
+FFT analyzer really helps to see what you are creating. One nice combination is to have 
+a square wave combined with a sawtooth that is an octave up. The result is a complete 
+harmonic series, with the two oscillators interlocking like a zipper, they never play the 
+same harmonic! You can then ﬁlter and modulate the odd partials(square wave) 
+separately from the even partials(+1oct sawtooth).
+Phase and Retrigger
+The word phase takes on many meanings depending on context, but in this case phase 
+is a measurement of a point within a single cycle of a repeating waveform. The very 
+beginning of the waveform would be 0% or 0 degrees, half way through the cycle  is 
+50% or 180 degrees, and all the way through the cycle is 100% or 360 %. In analog 
+synths the oscillator is always running, churning out the waveform. This type of 
+oscillator is called free running, when a note is hit it could be at any point in its cycle(any 
+phase), even far away from the zero point. A separate device, the voltage controlled 
+ampliﬁer, acts like a gate turning on and off the sound after it has been created. 
+Because the voltage controlled ampliﬁer takes some time to open up, clicks from 
+starting away from zero are avoided. In modern digital synths we have the ability to 
+restart the waveform at every note, so that the waveform can start precisely where we 
+want it to. Also, modern digital envelopes can be essentially instant, so that click can be 
+dreadfully obvious. There may be phase or retrigger options on your oscillator section, 
+the speciﬁcs vary widely, but for percussive/aggressive sounds retriggering the oscillator 
+at a point away from zero adds a nice punch/click to the beginning of the note.  On other 
+sounds the click can be distracting and ugly, so use it wisely!
+Voices
+The word voice takes on a very speciﬁc meaning in synth land. If a 4 note chord is held 
+down, that would be 4 voices as far as the synth is concerned. The voices section will 
+limit the number of simultaneous notes; this is done to limit the CPU load and for 
+4
+
+=====PAGE=====
+creative purposes.  There is an overall division between poly(many notes at once) and 
+mono(one note at a time).  In mono mode there are additional legato/portamento 
+controls that control how the pitch glides from one note to the next. Voices is not always 
+the same as the number of notes held though.  Often synths will have a unison/unisono 
+feature designed to create thick ensemble sounds by playing multiple voices with 
+slightly different qualities(pitch, timbre, onset delay). These typically multiply the number 
+of used voices so if your Unsion is set to 2 and max voices is set to 4, you can only play 
+2 notes at once before the synth starts “stealing” or stops playing notes.
+Standard voices parameters:
+Voices, poly, max voices: This sets the maximum number of voices to be played at a 
+single time. 1 often puts the synth into monophonic mode, but you will sometimes see 
+an additional Mono button. 
+Unison/Unisono: This enables multiple, slightly varied, voices to be used for each 
+played note. The voices are slightly out of tune to create a chorus or celeste sound, the 
+amount of detune is often user conﬁgurable.
+Glide(portamento): On a mono synth(and some poly synths for a very cool sound) the 
+pitch of a note can be made to glide from note to note, like a trombone or violin player 
+can. The amount of time it takes to get from note to note is the glide time(portamento 
+time). Usually glide will need to be enabled and the glide time set. On many synths 
+there will be a legato/glide option near the portamento time control. In legato mode only 
+overlapping notes glide; this modes gives you more control over the gliding and the 
+sound of some notes gliding and some notes jumping is very common in modern 
+electronic music. Set legato mode as your default and get used to playing monosynths 
+that way, you wonʼt be disappointed.
+Priority: This choses which notes are kept active once the maximum voices are 
+reached. The most common setting is Last, which keeps the most recently played note 
+active and starts turning off the oldest notes. Top is also common and can work really 
+well when you are layering a mono and poly synth to highlight the highest note in the 
+voicing; bottom can be used in a similar manner to bring out the bass. On sampled 
+instruments the cutting off of notes above the max polyphony is often referred to as 
+voice stealing. 
+Important CCs:
+There are some standard Control Changes that are important here. Most hardware 
+synths will respond to these, but you may have to program them yourself on a soft 
+synth.
+CC5 Portamento time
+CC65 Portamento on/off(switch or pedal)
+CC68 Legato on/off(switch or pedal)
+CC84 Portamento control
+5
+
+=====PAGE=====
+Portamento time, portamento on/off, and legato on/off are the same as we have been 
+describing here, but portamento control is special.  It doesnʼt work on all synths, but 
+when it does, it allows you to start a note with a glide without having a note before it; 
+send a value on CC84, the synth treats the value as the pitch of a “phantom” note, the 
+next note played will glide from that phantom note!
+6
+
+=====PAGE=====
+           
+Filters are the sound shaping portion of the synthesizer. Usually the oscillator produces 
+a very strong, spectrally intense, sound. To remove the harshness and make it sit well in 
+the mix that brightness needs to be tamed, and that is the role of the ﬁlter. A ﬁlter is a 
+frequency speciﬁc volume control. Every ﬁlter description will include both amplitude 
+and frequency information as in “cut the highs.” “Cut” is amplitude reduction, and “the 
+highs” is the frequency description. In this example you would choose a Low Pass ﬁlter, 
+the most common synth ﬁlter type. Filters are often described by what they let through, 
+the lows are allowed to pass through, the highs are cut. “Cut the lows” is similar, but this 
+time the ﬁlter to use would be High pass, the highs are allowed to pass through, the 
+lows are cut.  Again, the most common synth ﬁlter is low pass, because it removes the 
+excessive high end present in the geometric waveforms created by the oscillator 
+section.  The next two ﬁlters generally found on synths are Bandpass and Notch.  A 
+bandpass ﬁlter boosts a speciﬁc range of frequencies while cutting above and below 
+that range(band). A notch removes a range of frequencies(band of frequencies). An 
+interesting type of ﬁlter found on more endowed synthesizers is comb which adds an 
+evenly spaced series of deep notches. Comb ﬁltering is created with a short delay, and 
+offers the ﬁrst hint of the peculiar relationship between delays and ﬁlters. This type of 
+ﬁlter is great at thinning out a complex waveform without loosing the high end grit or 
+bottom end oomph, and it isnʼt as obvious as a single notch. Put a comb ﬁlter in motion 
+and you are left with a variety of wonderful swirly textures, leave it in place to simulate 
+the complex interactions of a small resonant cavity(the body of a guitar perhaps).
+7
+
+=====PAGE=====
+Cutoff Frequency
+Cutoff frequency is the most important parameter on any ﬁlter, it deﬁnes at which 
+frequency the cut or boost is starting. “Cut the highs” is a good start with ﬁlter 
+terminology but  you will need to get more speciﬁc to really craft a quality synth sound. 
+At what frequency does the cut start? That is the cutoff frequency.  Say you have a 
+sawtooth wave playing at 261 Hz(roughly middle C), it is creating harmonics all the way 
+up to the top of human hearing(20,000 Hz) and beyond. The sound is buzzy and 
+annoying. The answer is to cut the highs, so add a low pass ﬁlter. With the cutoff freq all 
+the way up there will be little if any difference in the sound, it is only cutting frequencies 
+that you canʼt perceive(they are too high). As the cutoff frequency is reduced 
+progressively more of the high end is cut, and there is a duller sound. If the ﬁlter gets 
+very low the synth will get completely quiet, as all the sound is well above the cutoff 
+frequency.
+Resonance
+Resonance is one of the most important concepts in all of music, and something that 
+you should study in depth, but like many words it takes on different meanings 
+depending on context.  When talking about low and high pass ﬁlters, resonance is a 
+boost at the cutoff frequency. A high resonance will dramatically boost harmonics that 
+are right at the cutoff frequency, and then moving the cutoff frequency around will bring 
+harmonics up and down in a beautiful cascading series. The higher the resonance the 
+more pronounced the effect, up to a point, eventually the ﬁlter will start to oscillate. 
+When this happens the ﬁlter acts like an additional sine wave oscillator(a very loud one). 
+In digital systems self oscillation often sounds horrible, and sometimes sounds good.  In 
+analog systems it can be a beautiful thing, you be the judge. On notch and band pass 
+ﬁlters resonance acts a little differently, it becomes a width control.  The higher the 
+resonance(sometimes known as Q) the narrower the band of frequencies boosted
+(bandpass) or cut(Notch). A Low resonance notch ﬁlter is a secret weapon of synthesist, 
+particularly on big bass sounds; it removes a large amount of midrange energy, leaving 
+room for the other instruments, but still retains the brightness to cut through the mix and 
+the deepness to move the club woofers.
+Filter Diagrams
+Filter diagrams are also known as frequency response charts. They show frequency on 
+the X axis and amplitude on the Y axis. A reduction in the cutoff frequency is 
+represented by the ﬁlter shape moving  to the left. 
+Filter Slope
+The slope(steepness) of a low pass ﬁlter is described by how much amplitude is 
+reduced for every octave above the cutoff frequency(decibels per octave).  The 
+standard two slopes are 12dB per octave(2 pole) and 24dB per octave(4 pole). The 
+term “pole” comes from the mathematical representation of ﬁlters; the important thing to 
+know is that every pole represents 6 dB per octave and as poles are added so are the 
+the number of dBper octave; a 2 pole ﬁlter is 12dB per octave 3 poles is 18 dB per 
+8
+
+=====PAGE=====
+octave and so on. The more poles or the more dB per octave the steeper the ﬁlter and 
+the deeper the cut close to the cutoff frequency. 
+Important CCs:
+CC74 Brightness typically controls cutoff frequency of a low pass ﬁlter.
+Filter models
+An ideal low pass ﬁlter removes all frequencies above the cutoff, but that is impossible 
+in the real world. Designing a ﬁlter is an exercise in tradeoffs; designing a steep ﬁlter 
+can result in distortion near the cutoff frequency or be heavily processor intensive. 
+There are many circuit designs and many digital algorithms to achieve ﬁltering, each 
+with its own balance of steepness, distortion, cost and features. These tradeoffs and 
+design choices are one of the reasons why some synths sound different/better then 
+others. Modern digital synths offer multiple models for each ﬁlter type, the differences 
+are entirely a matter of taste, so experiment and see what you think.  The variation 
+between ﬁlter models becomes more obvious with high resonance settings, and it can 
+be quite dramatic. The obvious difference between ﬁlter models is the amount of 
+distortion added by the ﬁlter. To really test this, start with a sine wave and put it through 
+the ﬁlter, some models will add additional harmonics to the sine, that is the distortion 
+added by the ﬁlter(check it with a spectrum analyzer if you can). Distortion isnʼt always a 
+bad thing, it can add richness to a simple waveform and really helps to tame extreme 
+resonance, creating a more analog sound(try a ladder ﬁlter model for a Moog sounding 
+ﬁlter). In some synths there will be a Drive section in the ﬁlter which gives direct control 
+of the amount of distortion added by the ﬁlter, try controlling that with velocity to give 
+accents a very different character. Or modulate it with an envelope to add bite to the 
+attack of the note. When using high drive settings, it can become necessary to further 
+ﬁlter the sound, so put the ﬁlters in a serial conﬁguration and add the drive to the ﬁrst 
+ﬁlter, or add an EQ after the synth itself. 
+Distortion/Drive:
+Distortion is non-linear, which in this case means itʼs effect on the sound is dependent 
+on volume---the louder the input the more distorted the output. Usually, drive will be 
+mostly harmonic distortion--- the frequencies present at the output are all harmonics 
+of frequencies present in the input. A sine wave input can result in a complex output(the 
+louder the input the more complex the output), but every frequency present in the output 
+will be a harmonic of that sine wave input. Putting a highly dynamic signal into a 
+distortion will make the loud moments brighter(as upper harmonics are added), and the 
+quiet notes will remain unaffected; distortion turns volume variations into timbre 
+variations. You will also notice that the overall dynamic range of the signal is reduced 
+--- distortion compresses the overall dynamic range. This dynamic range 
+compression is very useful with highly resonant ﬁlters.  A resonant ﬁlter will cause an 
+incredible amount of volume at a single frequency, often overloading the software/
+circuitry and becoming the only frequency that is audible. By adding in software that 
+9
+
+=====PAGE=====
+distorts the signal above a speciﬁc frequency, or using circuitry to do the same, 
+resonant ﬁlters become much more usable.
+SVF ﬁlters
+State Variable Filters are very ﬂexible ﬁlters with the ability to produce multiple types of 
+ﬁltering simultaneously, and sometimes the ability to morph between them with a single 
+knob. The ﬁlter morphing, if your synth offers it, acts like many ﬁlters working in parallel, 
+virtually increasing the number of ﬁlters available in your synth. Remember that ﬁlter 
+design is an exercise in tradeoffs, so with the added ability to morph between ﬁlter types 
+you can expect to loose out other ways, CPU usage will go up, and the ﬁlter may not 
+have that smooth analog sound that you want, but try it out and see if it meets your 
+needs. The interesting part of the SVF ﬁlter is putting that morph control in motion. 
+Modulating morph is very touchy with regard to range and value, start with small 
+amounts of modulation, changing from a low pass to high pass ﬁlter is a very drastic 
+change, so small amounts of modulation can add a signiﬁcant amount of life to the 
+patch. No then, if subtlety is not what you are after  
+Filter Routing
+The typical synth has  two ﬁlters that can be in a variety of modes(BP,LP,HP,Notch). 
+How the sound moves from the oscillator to the ﬁlters, and from ﬁlter to ﬁlter varies 
+greatly. Now we will examine some common ﬁltering schemes and strategies:
+Serial ﬁlters. In this organization the outputs of the oscillators are mixed together then 
+sent to the ﬁrst ﬁlter, the output of that ﬁlter goes to the second ﬁlter. This is a serial
+(series) connection. A series connection is like bucket brigade, the output of one object 
+is handed to the next object, processed, and handed to the next object and so on down 
+the line. This is probably the simplest conﬁguration to understand, and it is very useful. 
+Notch and Low Pass
+Try setting ﬁlter one to notch and ﬁlter two to low pass; the notch removes a 
+portion of the mids, but leaves the highs for presence in the mix, and the low 
+pass can be adjusted to control the amount of highs. 12dB per oct on the second 
+ﬁlter is good, and play with resonance on the notch to adjust how much of the 
+mids need to be removed.
+Source and resonator
+Set the ﬁrst ﬁlter keytracking, so it controls the basic timbre of the oscillator up 
+and down the keyboard, but the second ﬁlter with no keytracking, it is acting like 
+the body of an instrument(resonator) which doesnʼt change. This allows you to 
+create formant regions in the instrument, and control the volume of the high 
+notes; as the notes get up into the range of the low pass ﬁlter they will naturally 
+get quieter.
+10
+
+=====PAGE=====
+Flexible Band Pass
+Set the ﬁrst ﬁlter to high pass with a low cutoff frequency, and the second ﬁlter to 
+low pass with a high cutoff frequency. This creates a very ﬂexible band pass ﬁlter. 
+By adjusting the cutoff frequencies of the two ﬁlters you have great control of the 
+width of the ﬁlter. Higher resonance settings gives you “horns” or boosts at both 
+cutoff frequencies which can lead to some very interesting results particularly 
+when they are in motion.
+Extreme Filter
+Conﬁgure the two ﬁlters exactly the same. If both ﬁlters are 24 dBper octave you 
+end up with a 48 dB per octave cutoff! Some synths even include a slave feature 
+on the two ﬁlters to make this setup even easier by making the controls of ﬁlter 
+two relative to those on ﬁlter one, and sometimes all modulation on ﬁlter 1 is 
+automatically applied to ﬁlter 2, very handy if it is an optio. It can be interesting to 
+begin with the ﬁlters exactly the same, then give them slightly different 
+modulation.
+Dual Notch
+If the synth has ﬁlters with notch mode, put them in motion. Slow moving notch 
+ﬁlters sound great on soft pads. Try using 2 LFOʼs, one per ﬁlter, and move them 
+slow and wide. Set the frequencies of the LFOʼs different so that the texture 
+doesnʼt loop predictably. Add in a little bit of noise going to both ﬁlters and unison 
+mode with as much polyphony as you can manage and you have a great pad on 
+your hands. Just use a little noise though, remember that it builds up with every 
+note, so what sounds like a nice amount of analog warmth on a single note 
+becomes an annoying hiss as the notes are stacked up.
+Bring out the noise
+The tough part about the serial conﬁguration is when something is cut with the 
+ﬁrst ﬁlter, it is gone and canʼt be brought up with the second ﬁlter; or can it? Try 
+using a 24 dBper oct low pass ﬁlter, set quite low, so only the ﬁrst couple partials 
+come through well. Follow that with a band pass ﬁlter with a high cutoff 
+frequency. At ﬁrst you wonʼt hear a difference, the harmonic content up there has 
+been dramatically cut by the low pass ﬁlter.  As you raise the resonance of the 
+band pass ﬁlter you can bring some of those harmonics back up. The resonance 
+will have to be quite high to make this work, leading to a very narrow bandwidth, 
+only a couple harmonics will jump up.  And, since these harmonics have ﬁrst 
+been ﬁltered heavily then brought back up, they will be very colored by the synth.  
+On an analog synth you will be bringing up noise along with the signal which is 
+not always a bad thing(sometimes noise equals character).  On a digital synth, 
+where noise is not nearly an issue, you will be exposing the quality of the digital 
+ﬁlters. So, this would be a great time to try out those different ﬁlter models to see 
+how they vary. 
+Notch and Band Pass
+11
+
+=====PAGE=====
+A similar approach can be taken with a notch ﬁlter and a band pass ﬁlter at the 
+same cutoff frequency. The two ﬁght each other in a constant tug of war, the 
+notch pulling down while the band pass pulls up. One would think that the two 
+would cancel out, but ﬁlters also introduce phase variations which adds richness 
+to the sound. Try modulating the two ﬁlters differently, and experiment with 
+different resonance settings.  A low resonance on the notch and high on the BP is 
+particularly cool; the result is a general cut of the mids with a spike of resonance 
+that you can place wherever you need it in the mix by adjusting the BP cutoff 
+frequency.
+Parallel ﬁlters. In this organization the output of the oscillators is mixed, then split and 
+sent to the individual ﬁlters, then the output of the ﬁlters is combined. The ﬁlter outputs 
+are summed(mixed) before the ampliﬁer, thus a single envelope controls the overall 
+amplitude.  Some synths will have a separate amplitude envelope for the ﬁlter outputs, a 
+nice feature indeed.
+Dual Low Pass
+There is a smoothness with parallel ﬁlters that isnʼt there with serial ﬁlters. Set 
+both ﬁlters to low pass mode(24 dBper oct). Set the cutoff frequencies for both 
+around 300Hz, then modulate one of them slowly.  The beauty of the parallel 
+conﬁguration is the output of the second ﬁlter only ever adds to the output of the 
+ﬁrst. In serial conﬁguration the second ﬁlter cuts the output of the ﬁrst resulting in 
+very steep slopes and some drastic ﬁltering.  The parallel conﬁguration is softer 
+and smoother, when the second ﬁlter opens up it adds to the texture, and if the 
+second ﬁlter goes all the way down to 0Hz, the ﬁrst ﬁlter output is still strong. This 
+smoothness makes the parallel conﬁguration great for undulating pads. 
+Flexible Notch with horns
+One High Pass ﬁlter and one Low Pass ﬁlter. Set the cutoff frequency of the high 
+pass well above the low pass creating a deep notch in the midrange. With a 
+strong low end, and a strong high end this conﬁguration can make for an 
+aggressive patch. A powerful bass sound can be made this way, but because of 
+the high pass ﬁlter it can be a harsh conﬁguration; following the synth with a high 
+shelving EQ or low pass ﬁlter helps with the harshness. Another option to control 
+the harshness is to bring the volume down on the input to the high pass ﬁlter. 
+Some synths offer a ﬂexible crossfade that controls how much signal to send to 
+the two ﬁlters, by setting it to send 90% to the low pass and only 10% to the high 
+pass the volume of the high end is greatly reduced.
+The width of the notch is controlled by the individual cutoff frequencies, raise the 
+high pass or lower the low pass to widen the notch.  The slope of the ﬁlters 
+controls the depth of the notch; 12dB per oct ﬁlters will create a gentle midrange 
+dip, where 24dB per oct will create a deep midrange cut (this interacts with the 
+12
+
+=====PAGE=====
+cutoff frequencies also, an FFT analyzer really helps to see as well as hear what 
+is going on). By modulating the high pass ﬁlter the sound can take on high end 
+complexity while leaving the lower partials strong and consistent (particularly 
+good for bass sounds). 
+With the high pass ﬁlter, try inverting the envelope(or putting the modulation in 
+the negative direction). The envelope will shoot the ﬁlter down then raise back up  
+during the decay phase(set sustain to 0). The result is an attack with a strong 
+midrange component, and the notch widens as the note is held, and unusual but 
+musically interesting sound. Try routing a little noise to the high pass ﬁlter to add 
+some warmth to the high end and bring attention to any ﬁlter movement.  A bit of 
+noise makes ﬁlter movement more obvious without getting the obvious jumping 
+of individual harmonics, particularly with higher resonance settings. 
+Twin(or more) Peaks 
+Both ﬁlters are set to Band Pass mode.  While there are many ways to use this 
+ﬂexible conﬁguration, start with one of the ﬁlters centered around the 
+fundamental. Modulate cutoff frequency with key position to keep the timbre 
+consistent across the keyboard. Set the second band pass ﬁlter with a higher 
+cutoff frequency and resonance and set it to keytrack as well, but not exactly with 
+key position. Experiment with the amount of keytracking on the second ﬁlter. 
+Every acoustic instrument changes quality across its range, some quite 
+dramatically.  By altering keytracking amount the patch will have areas of the 
+keyboard that sound different then others, this is particularly true with higher 
+resonance settings, where certain notes will really jump out(when the cutoff 
+frequency is centered over a harmonic). Each note takes on a unique but 
+consistent character. The resonance of the ﬁrst ﬁlter will control how many low 
+harmonics get through(a high resonance results in the fundamental dominating). 
+The resonance and cutoff of the second ﬁlter will control the upper harmonics. A 
+good start is a low resonance on the second ﬁlter to get a broad upper harmonic 
+content, but that is not the only approach. High resonance settings and careful 
+cutoff frequency settings for both ﬁlters can create strong vocal formants, a third 
+parallel band pass ﬁlter can take the vocal formant ﬁlter concept even further. For 
+interesting talk-box and wah effects add CC control of cutoff frequency with 
+different amounts and possibly direction for the two ﬁlters.
+Lowpass and Band Pass
+Set the Lowpass ﬁlter keytracking near the fundamental to create the basic 
+timbre of the sound. Very little to no keytracking on the bandpass ﬁlter.  Set this 
+ﬁlterʼs frequency and resonance with the whole mix going as a way to ﬁll in a hole 
+in the mix you will be sure it can really cut through when necessary. Upper mid 
+range right above the vocalist is a good place to start. If possible modulate the 
+band pass ﬁlter resonance with an envelope, then set velocity to modulate 
+envelope amount. Set the envelope with no attack, sustain, or release, then 
+adjust decay so you get a bit of bite at the beginning of each note. This envelop 
+will cause added emphasis at the beginning of each note, and the velocity control 
+13
+
+=====PAGE=====
+will be great for accents.  Because the ﬁlter is not keytracking the accented 
+frequencies will be stationary in the mix and easy to control. A hint of overdrive or 
+amp simulation after the synth will bring out the accents even more. Like the 
+Flexible Notch be careful with the volume of the higher ﬁlter.  If you can, send 
+more signal to the lower ﬁlter and less to the higher one, otherwise use an EQ 
+after the synth to control the harshness.
+Filter Thunk
+Many instruments exhibit a low frequency thunk right at the attack of the note, piano and 
+guitar are notable examples. A resonant ﬁlter with a low cutoff frequency (100Hz or 
+lower) will vibrate sympathetically with the oscillator creating a low thunk with every 
+note.  The amount and quality of the thunk is very different from synth to synth, so try it 
+out on a couple and see what you think.  As strange as it may seem, the amount of 
+resonance will control the duration of the low freq thunk(another hint at the relationship 
+between ﬁlters and delays: ﬁlter resonance = delay feedback). Give the ﬁlter a little bit of 
+keytracking so it changes across the keyboard, but not too much. Then give it quite a bit 
+of velocity modulation, so hard notes include quite a bit of the thunk, and light hits very 
+little. Then use less overall, this should be a subtle effect, donʼt push it too hard or the 
+element could easily muddy up the bottom end of your mix. In fact,  you may want to 
+add a low cut EQ after the synth to remove some of the thunk.
+"
+14
+
+=====PAGE=====
+                    
+The ﬁnal stage(before the delay effects) is an ampliﬁer(volume control).  This is almost 
+always modulated with an envelope and creates the volume contour of the individual 
+notes. To really understand the Ampliﬁer you must ﬁrst learn about an envelope.  
+Envelopes are general purpose modulators, and can be sent to a variety of destinations, 
+but the most important one is the Ampliﬁer envelope. The typical envelope is divided 
+into 4 stages. 
+Attack, Decay, Sustain, Release---ADSR for short
+Attack, Decay, and Release are all amounts of time(milliseconds usually), Sustain is 
+different, it is a level.
+15
+
+=====PAGE=====
+The envelope starts at zero with a MIDI note on event and proceeds to full level over the 
+attack time; then it continues to the sustain level over the decay time; it stays at the 
+sustain level until a MIDI note off event is received, at which time the envelope returns 
+to zero over the release time.
+Again, an envelope can be routed to a variety of parameters in a synthesizer, but for 
+now we will be considering the amplitude envelope, the most important envelope.
+Sustaining and Nonsustaining sounds:
+All instrumental sounds can be placed in one of two categories, sustaining, or non-
+sustaining.  If energy is being added to the instrument over the course of a note
+(blowing, bowing, mechanically vibrating) then it is a sustaining instrument.  If the 
+instrument gets an initial burst of energy then is left to resonate and decay(striking or 
+plucking) then it is a non-sustaining instrument.
+To emulate sustaining instrumental sounds, the sustain portion of your amplitude 
+envelope is non-zero.
+To emulate non-sustaining instruments, the sustain portion of the amplitude envelope 
+is zero.
+Some common settings for the amp envelope:
+ 
+Attack 0,  Decay N/A, Sustain 100%, Release 0.
+Switches are on or off with nearly instant movement. So, it takes no time to go from zero 
+to full volume, attack is 0. Sustain is at 100%, so decay does nothing, there isnʼt a 
+different level to go down too. On Note off the sound should stop instantly, so Release is 
+set to 0. Organs can be emulated with this envelope. To add a little bite to the beginning 
+of the note reduce sustain to 80% and set decay very short. That is good for percussive 
+organs.
+16
+
+=====PAGE=====
+Attack 0-10%(almost 0),  Decay 0-10%, Sustain 50-90%, Release 0-10%.
+These percentages are rough guides and will vary from synth to synth.  But the idea is 
+when the player starts to blow or bow there is an initial strong burst of energy, and then 
+the note settles into a steady sustaining level.  That initial energy causes the envelope 
+to jump from 0 to full volume quickly(the low attack time setting) then quickly down to 
+the sustain level(the low decay time setting). The note holds at the sustain level---any 
+variations in level during the sustain are added with LFOʼs--- until the note off, where the 
+instrument vibrates for a moment, trailing off after the player has stopped blowing or 
+bowing.
+Increasing attack time and decay time will soften the initial transient. Increasing sustain 
+level will give more power to the note and bring it to the forefront of your mix. Increasing 
+release time sounds a bit like adding reverb and can help to smooth out the lines when 
+moving from note to note.
+This envelope is the standard sustaining envelope and is adjusted according to the 
+actual instrument.  For strings the attack decay and release would be longer---but this 
+varies according to articulation.  For horns the sustain level would be lower as the initial 
+burst of air is quite strong when compared with the sustaining level ---again this varies 
+according to playing style.
+ Attack 0,  Decay 10-80%, Sustain 0, Release same as decay.
+This is a non-sustaining envelope that plays out regardless of how long you hit the note 
+for; perfect for emulating struck or plucked instruments. When an instrument is struck or 
+plucked it goes to full volume nearly instantly, then decays based on the decay time.  
+17
+
+=====PAGE=====
+Release is set similar to decay so that if the player releases the MIDI note the envelope 
+will continue to play out naturally. The Decay(and release) parameters are adjusted 
+based on the instrument.  A Gong would have a very long Decay, while a marimba note 
+would be very short. 
+Envelope trigger mode:
+Some synthesizers give a variety of modes for envelope playback, one possible mode is 
+Trigger or One-Shot. in this mode the envelope plays out completely, ignoring the note 
+off, and is particularly useful for percussion sounds.
+Keytracking and envelope time:
+Often higher notes decay faster then lower notes in real instruments, to make that 
+happen on your synthesizer you would need to route keytracking to decay and release 
+time(negatively, because high notes need to cause short values)--this is a common 
+parameter on synthesizers. Some synthesizers have a general purpose time control for 
+the envelope, routing keytracking to control this parameter has a similar result.
+ Attack 0,  Decay 10-80%, Sustain 0, Release 0
+This is very similar to the pluck or strike, but because release time is zero when the 
+envelope receives a note off it goes to zero, stopping the sound.  This is representative 
+of a piano, when the key is pressed a felt hammer strikes a string, and when the key is 
+released a damper raises up and stops the note.  A similar envelope would be used to 
+emulate electric guitar and bass.
+ Attack 80-100%,  Decay 0-20%, Sustain 0, Release 0
+18
+
+=====PAGE=====
+This envelope emulated a reversed percussion sound, it swells in and then suddenly 
+stops.  It is great for transitions to build energy, but there really isnʼt a real instrument 
+with this type of envelope.
+Attack 0,  Decay 10-30%, Sustain 0, Release 50-100%
+This is a funny envelope, not really that useful, but interesting to try.  With these settings 
+if you hold a note down for a long time the envelope goes through its short decay phase 
+and you end up with a short percussive note, like a pluck.  But if you play a really short 
+MIDI note, one where the note off happens within the decay time, then the release 
+phase kicks in and you get a long audible result. Long MIDI notes end up with short 
+results, and short MIDI notes end up with long results!
+Important CCs:
+CC7 Volume
+CC11 Expression
+CC72 Release Time
+CC73 Attack Time
+CC7 and 11 both control volume, the standard usage is 11 for performance dynamic 
+variations, and CC7 for mixing.
+Panning and Keytracking:
+The ampliﬁer section in a synthesizer often includes panning. This common mixing tool 
+can be put to creative use as a modulation destination. Routing keytracking to panning 
+is useful for creating piano-like panning, where the high notes are on the right and low 
+notes on the left.
+Panning and per-note random:
+Another common usage of panning is slight on note randomization. Giving each note a 
+little bit of random panning increases the width of the instrument without adding a 
+swirling or chorus-like movement.
+19
+
+=====PAGE=====
+                     
+A Low Frequency Oscillator, LFO for short, adds steady cyclic motion to a synth 
+parameter. While it is a general purpose modulator that can control a variety of 
+parameters, creating a vibrato effect is its most common usage---vibrato is a steady 
+variation in pitch(use a semitone for depth and 5Hz for rate as a good starting point for 
+natural human vibrato). To create vibrato the LFOʼs destination must be set to the 
+frequency of the oscillator. This particular modulation is so important many synthesizers 
+have a dedicated LFO speciﬁcally for vibrato with and internally set to a sine or triangle 
+shape and  a destination of oscillator frequency. The LFO shares many of its important 
+parameters with the oscillator: shape, rate(frequency).  Notice the range of the rate 
+parameter; an oscillator runs at audible frequencies(20Hz to 20,000 Hz), where an LFO 
+runs at much lower frequencies(0Hz to 20Hz--- though many synthesizerʼs LFOʼs can 
+run faster for interesting effects). 
+Sync:
+Most LFOs can be set to synchronize with the global song tempo. When in sync mode 
+the Rate parameter will be set in metric subdivisions(eighth note, quarter note, etc...). 
+This is great for making rhythmically accurate pulses and timbre variations. Use triplet 
+values to keep a sense of sync but loose the rigid quality of eighth and sixteenth note 
+rates.
+Retrigger or Free:
+An LFO in retrigger mode will start from the beginning of its shape at the MIDI note on. 
+This is perfect for keeping consistency between notes. With retrigger off(free mode), the 
+LFO keeps running even when no notes are playing, so each note starts at a different 
+point in the LFO cycle. This will add note to note variations and an unpredictability to 
+your patch.
+An important consideration of retrigger off or free is in playing chords. With retrigger off, 
+all notes that are played will have perfectly in sync LFO movements---it is like there is a 
+single LFO controlling all the voices in perfect unison(perfect for synced LFOs as they 
+will always be right in time with the global meter). 
+With retrigger on, the LFO restarts with each note, so a chord played with staggered 
+attacks would also have staggered LFO movements--- it is like there is an LFO 
+20
+
+=====PAGE=====
+individual to each voice and it starts over at the note on. The vibrato in a group of 
+players is never in perfect sync, so it makes sense to have individual LFOs to emulate 
+their vibrato.
+If the LFO is in sync mode the rate will follow the global tempo, but the LFO will restart 
+with each note, so depending when the note is hit the LFO could be consistently ahead 
+or behind the beat.
+Keytracking and LFO rate:
+The vibrato example can be taken a bit further by adding a secondary modulation to 
+LFO rate. Even with retrigger on, if all notes of a chord are played simultaneously the 
+vibrato of the individual notes will be in sync. To avoid that, route keytracking to LFO 
+rate, every note on the keyboard will then have a different vibrato rate, and there is no 
+way for the LFOs to sync up perfectly. Sending velocity to LFO rate has a similar effect. 
+For pad and choir sounds this really helps thicken up the patch and individualize the 
+voices.
+LFO attack:
+Back to the vibrato example; often vibrato is absent during the attack of a note then gets 
+more dramatic as the note sustains---this is emulated in synthesizers by controlling LFO 
+depth with an envelope.  Instead of adding an entire ADSR envelope it is a simple ramp 
+up to full level. The time it takes for the LFO depth to reach maximum is set with the 
+LFO attack parameter.
+21
+
+=====PAGE=====
+Delay:
+Most modern synths include an effect section after the ampliﬁer, while it may contain 
+spectral effects like ﬁlters and EQʼs, and dynamic effects like compression and limiting, 
+the most useful(and common) addition is a ﬂexible delay section. Usually it will be a 
+stereo delay with a wide range of delay times and syncing capability.
+It is hard to overstate the importance of Delay in synthesis.  A simple delay can turn a 
+boring synth part into a thick and captivating soundscape. The surprising part about 
+delays is the huge variety of effects it is capable of creating.  Comb ﬁltering,  stereo 
+width enhancement, doubling, acoustic simulation, and impossible echos are all delay 
+effects.  In fact, many of the plug-ins under a variety of names are all delay effects with 
+slight variations(phaser, ﬂanger, delay, echo, reverb, chorus).
+Delays will always have 3 main controls: Delay time, Feedback, and Dry/Wet(mix). 
+Delay time is measured in Milliseconds or seconds and is the time between the original 
+sound and the ﬁrst echo caused by the device. 
+Feedback controls how many times the delay happens, or more speciﬁcally how much 
+of the delayed signal is routed back into the input of the device(feed back to the input). 
+At 0% feedback a single echo is heard, at 100% feedback a single impulse at the input 
+goes on forever, constantly recycling through the device(above 100% causes the 
+volume to increase with every repeat which can lead to uncontrollably loud signals very 
+fast, watch out!). With the short delays, feedback will increase the impact of the effect 
+from subtle to extreme(often metallic and harsh, and sometimes introducing extra 
+pitches into the signal that are dependent on the delay time).
+Dry/Wet(Mix) is a blending between the original signal and the delayed signal, at 0% 
+only the original is heard at 100% only the delayed signal is heard.
+Delay time LFO modulation is the most common addition to delay effects.  By varying 
+delay time with an LFO the delay comes to life.  On short delay effects like Chorus, 
+Flanger, and Phaser, the LFO is essential to the swirly/spacey character of the effect.  
+There will be the usual LFO controls, Depth, Rate, and Shape. For most situations 
+subtlety is rewarded, so keep the depth low. To get more extreme with the LFO consider 
+a high depth with a very low rate to introduce slow sweeping sonic changes(particularly 
+useful with a phaser or ﬂanger), or use a low depth with a high rate(this adds a nice 
+roughness without being overpowering). 
+Delay time envelope follower modulation an envelope follower listens to the 
+incoming signal, calculates the average amplitude and uses that as a control signal to 
+change another parameter, delay time in this case. With a phaser the results can seem 
+like an auto-wah guitar effect, with each amplitude jump in the incoming signal the delay 
+22
+
+=====PAGE=====
+time changes and shifts the comb ﬁlter around. On ﬂangers the shimmery ﬂanged 
+quality shifts with each hit, very effective in bringing hat parts to live.  When using 
+envelope followers many parameters must be set correctly to get an appropriate sound
+(initial delay time, envelope threshold and rate, and envelope depth). So, tweak 
+carefully and slowly, and consider the depth and direction of the envelopeʼs motion.
+Comb Filter:
+This is where the curious relationship between ﬁlter and delay really starts to show 
+itself. By mixing a signal with a delayed copy of itself some frequencies cancel out and 
+others reinforce, and the frequencies of reinforcement are always in an harmonic series.   
+When viewed on a spectrum analyzer these evenly spaced notches resemble the teeth 
+of a comb, hence the name comb ﬁlter. A short delay is a complex ﬁlter! 
+The sound of comb ﬁltering is all around us, everywhere you hear the same sound 
+reﬂected off of two surfaces, there is comb ﬁltering. We are unconsciously aware of the 
+effect and use it every day to understand our surroundings; every room has a particular 
+sound caused by the relative distance of all the walls to you and to each other, every 
+room has its own set of comb ﬁlters. 
+Comb ﬁltering is particularly evident with broadband noise(which has energy at all 
+frequencies) and when the delay time is changing(the sound source is in movement, but 
+the reﬂective surface is stationary). Experiment for yourself, create a wind noise with 
+your mouth and move your self forward and back from a wall, listen carefully. As you 
+move closer to the wall, between 2 feet and 2 inches, the tonality of the noise changes.  
+The direct sound of your mouth is mixing with the reﬂected sound from the wall, but 
+because sound takes time to move through the air there is a delay between the two. 
+The direct sound from your mouth reaches your ear a tiny bit earlier then the reﬂected 
+sound from the wall. As you move, that delay changes and the comb ﬁlter shifts causing 
+an observable swooshing quality to the noise(ﬂanging).
+When the combined sound reaches your ear there are speciﬁc frequencies where direct 
+and reﬂected sound are “out of phase” and cancel each other out. The direct sound is in 
+the compression phase(positive pressure or amplitude) while the reﬂected sound is in 
+the rarefaction phase(negative pressure or amplitude).  There are also frequencies 
+where the combined sounds are in phase and reinforce each other.  The areas of 
+reinforcement are located in a harmonic series. 
+Delay time and frequency are both measurements of time, actually reciprocals of each 
+other. Delay time is “seconds per event”, and frequency is “events per second”. A delay 
+time of 1 millisecond is equivalent to  a frequency of 1 kilohertz(pretty close to a “C” two 
+octaves above middle C). So if the delay in sound is 1 millisecond(a thousandth of a 
+second) then the resultant comb ﬁlter will have peaks in a harmonic series based on 1 
+kilohertz. As the delay time goes down the fundamental frequency of the comb ﬁlter 
+goes up. 
+23
+
+=====PAGE=====
+Problems with Comb Filtering when Recording:
+Comb ﬁltering is a constant consideration when recording. A comb ﬁlter is the sound of 
+the space and possibly the sound of the recording equipment(small delays happen all 
+over the place!). For most recordings the goal is to recreate the actual sound of the 
+instrument, to make the gear used and recording situation invisible. But when there are 
+two mics recording, there will be comb ﬁltering. When there is a music stand or monitor 
+or podium in front of a vocalist, there will be comb ﬁltering. When recording both a direct 
+signal and a micʼd cabined, there will be comb ﬁltering. In all these cases the comb 
+ﬁltering weakens the sound and pushes it into the background of a mix which can be 
+artistically useful, but in most cases it is something to avoid.
+Depending on the situation there are a variety of ways to correct it, but the most 
+important thing is that you HEAR it. The earlier comb ﬁltering is recognized the easier it 
+is to correct. Listen carefully while preparing for any recording. As mentioned earlier 
+walls, podiums, music stands, any ﬂat surface really, can cause comb ﬁltering. If you 
+recognize the issue before recording, make adjustments before recording. Move the mic 
+further away from the wall. Put the music stand off to the side. Get rid of the podium. 
+Change the height of the mic. Anything to get rid of the phasing(another term for a comb 
+ﬁlter). If there is a phase issue in a single microphone it is pretty much impossible to ﬁx 
+later, EQ can help, but really those frequencies are lost for good.
+If the phase issue is caused by using two microphones at different distances, that can 
+be ﬁxed in the DAW later. On the mic that was closer to the source nudge the audio 
+later till it lines up perfectly with the other recording.  Zooming way in on the waveform 
+view in your DAW makes this very easy. This will need to be done with every recording 
+and can become tedious, so there is another solution.
+Add a delay to the closer mic channel. Many DAWʼs include a sample delay, a plug in 
+designed to create a very short delay in the signal ﬂow, and it is a very useful device. 
+Plug it in to a track and change delay time till the combined sound is best, you will feel it 
+lock into place if you listen closely.  A correlation meter can help, to use it pan the two 
+recording hard right and left and adjust your delay till the correlation meter reads highest 
+for the longest amount of time. Trust your ears more then your eyes. Once you have the 
+delay set, donʼt move the mic. Move the mic even a little bit and you will need to 
+readjust the delay. 
+Comb ﬁltering is particularly problematic on the bottom end. When recording a direct 
+bass and a micʼd cabinet the comb ﬁltering can simply destroy the bass tone. Line up 
+the two tracks by nudging or adding delay and wow, the result is amazingly tight solid 
+bottom end.
+All that is well and good for simple sources like a vocal or bass where the sound comes 
+from a single location, but what about a complex sound source like a drum kit or piano 
+where the sound is coming from a variety of places?  These are the toughest to record, 
+there will be phase issues, no matter what you do. Placing mics on a complex source is 
+24
+
+=====PAGE=====
+a balancing act, a trade-off. Let your ears be your guide, and remember that phase 
+problems are much more noticeable in the low frequencies, so pay careful attention 
+there. 
+Creative uses of comb ﬁltering:
+The undesirable effect of “thinning” caused by comb ﬁltering can be just what is needed 
+to ﬁt  a spectrally rich element into a mix. Often an element is too big, it dominates and 
+is hard to place in a busy mix. Distorted guitars are a prime example because their 
+unnaturally strong mid and upper frequencies compete with everything else in the mix. 
+Comb ﬁltering can be a perfect solution as its many evenly spaced cuts thin out a 
+spectrally rich signal without dulling the high end. Using this on distorted guitars is an 
+excellent way to ﬁt them into your mix, but keep them bright and powerful. Powerful 
+synth sounds can also beneﬁt from a similar treatment.
+Flanger, a comb ﬁlter in motion:
+A Flanger is an extension of the comb ﬁlter. It has an internal short delay to cause a 
+comb ﬁlter, this delay also includes a variable feedback, which when set high makes the 
+sound ringing, metallic, and gives the effect a particular note(because of the harmonic 
+series relationship of the peaks in a comb ﬁlter). The ﬁnal important feature of a ﬂanger 
+is an LFO controlling the delay time.  As the LFO raises and lowers the delay time, the 
+comb ﬁlter moves down and up. Like all delay effects there is a dry/wet(mix) control to 
+balance the effect and the unprocessed portion of the sound. 
+Flanger will be most obvious on noisy, distorted, and spectrally rich content.  For the 
+ﬂanger to work well there needs to be sound there to ﬁlter! Distorted guitars, high hats, 
+bright/unﬁltered synth patches, and synth patches with a strong noise component.
+The LFO in a ﬂanger can be used to add motion to static parts.  A simple hat loop can 
+get boring after multiple times looping, but a ﬂanger with a slow LFO will cause the 
+ﬁltering to be different with each loop and add life to the static part.
+The LFO can also be used to add stereo width to a mono element.  A stereo ﬂanger will 
+process the right and left channels separately, pushing the sound out to the sides and 
+leaving the center of the mix empty to place another element(melody maybe!).
+The downside of the ﬂanger is how identiﬁable it is; not a subtle effect. The distinct 
+tonality of the effect limits its effectiveness on tonal material(the note of the ﬂanger can 
+conﬂict with the note in the source audio). Because of this, the ﬂanger is largely used for 
+special effects and in short bursts.  If a less obvious effect is needed for “thinning” and 
+complex ﬁltering, a phaser is often a better tool for the job.
+Phaser, a ﬂanger without the harmonic series:
+25
+
+=====PAGE=====
+A phaser is much like a Flanger in that you have a complex ﬁlter in motion(controlled by 
+an LFO). Unlike the Flanger thought he dips and peaks in the ﬁlter are not set in a 
+harmonic series. Phaser designs vary widely, but it is always a complex ﬁlter with an 
+LFO. The cuts in a phaser are not set into a harmonic series, and on a better equipt 
+phaser the number and organization of the cuts can be varied opening up a wide range 
+of sonic possibilities.  Because the ﬁlters are not in a harmonic series, the obvious 
+tonality of the ﬂanger is eliminated.
+Phasers, like ﬂangers, are best used on spectrally rich and noisy material.  There needs 
+to be sound there for the phaserʼs cuts to be heard. Put a phaser on white noise and the 
+effect is very obvious as each cut can be heard as it moves through the noise. Put the 
+phaser on a simple(dull) synth patch and the effect will only be recognized when it 
+happens to be aligned with one of the harmonics of the patch. So, to use it effectively 
+will require the user to ﬁne tune the frequency of the cuts to line up with the sound it is 
+ﬁltering.
+Again like a ﬂanger, the LFO on a phaser can be used to give static sounds motion and 
+mono sounds stereo presence. For generally useful, subtle effects, set the LFO slow 
+and deep(low rate, high amount) or fast and shallow(high rate, low amount). 
+Chorus: Create a thick choir-like sound(celeste). By mixing a signal with an out of tune 
+version of itself the impression of an ensemble is created. Modulating the delay time of 
+the delayed version creates pitch variations meant to emulate a multitude of performers. 
+How chorus is implemented varies greatly between manufacturers, but most use 
+multiple delay lines and separate LFOʼs on each  to create the shifting and shimmering 
+texture. This is usually a stereo effect, and can be used to widen a mono signal in a 
+stereo ﬁeld. A typical application of chorus has feedback set to 0.
+Stereo width and delays:
+Stereo width is created by treating the left and right channels differently(a mono signal 
+has no width, it is exactly the same in the left and right channel). Some common 
+approaches are detuning the left and right oscillators, ﬁltering differently in the left and 
+right ﬁlters, and modulating differently in the left and right channels. But, the most 
+common way to control stereo width is by using short delays differently in the left and 
+right channels. Any of the delay effects(comb ﬁlter, phaser, ﬂanger, chorus, and longer 
+delays) can be set differently in the left and right channel, contributing to the perceived 
+width of the synth. 
+The important parameter here is delay time. A slight difference in delay time between 
+the left and right speaker (below 50ms) will have a panning effect, shifting the perceived 
+location of the sound toward the side with the lower delay time. This psychoacoustic 
+phenomena is useful on its own for stereo localization, but by modulating the delay 
+times the signal can be made to move around in the stereo ﬁeld, creating a sense of 
+26
+
+=====PAGE=====
+width. This was mentioned earlier as a typical feature in chorus ﬂanger and phaser 
+effects. 
+Modulation Strategies:
+Modulation is the time dimension of synthesis. The standard Modulators are Direct 
+control(key, velocity, CC, pitchbend, and pressure), Low Frequency Oscillators, and 
+Envelopes.  The most common destinations are frequency, ﬁlter cutoff, and amplitude. 
+This scheme is extended by adding secondary(modulation of the modulators). So, 
+LFOʼs get two modulation inputs, rate and amplitude, and envelopes can have each 
+stage(ADSR) modulated. 
+Here is a list of the standard primary and secondary modulations.
+Primary Modulations:Primary Modulations:Primary Modulations:
+Modulator Parameter Comment
+Key Pitch Also called keytracking, this is on by 
+default in most samplers.
+Key Sample Select Only on samplers with multi sampling. 
+Creates realistic instruments.
+Key Filter Cutoff Control brightness across keyboard.
+Key Pan Emulate natural piano panning.
+Velocity Sample Select Only on samplers with multi sampling. 
+Creates realistic dynamics.
+Velocity Amplitude Accented notes are louder.
+Velocity Filter Cutoff Accented notes are brighter.
+Velocity Sample Start Only on samplers, negative 
+modulation, higher velocity starts the 
+sample earlier, bringing in the natural 
+attack of the sample.
+Envelope Amplitude Gives the sound its basic shape.
+Envelope Filter Cutoff Usually used to add bite to the attack 
+of every note. Longer attacks can 
+create auto-wah type effects.
+27
+
+=====PAGE=====
+Envelope Filter Resonance Usually used to add bite to attack, can 
+be more natural then moving cutoff 
+freq, or can be used in combination 
+with it for complex ﬁlter movement.
+Envelope Pitch Use this to add pitch movement to the 
+attack. Usually starts high and settles 
+quickly down into the pitch. 
+LFO Pitch Vibrato, usually between 2 and 8 HZ 
+and a depth of less then a semitone.
+LFO Amplitude Tremolo
+LFO Pan Autopan
+LFO Filter Cutoff Adds motion and interest to sustained 
+notes.
+CC74(Brightness) Filter Cutoff Allows for manual control of brigtness.
+CC10(Pan) Pan Standard mixing pan control.
+CC7(Volume) Amplitude Standard mixing volume control.
+CC 11(Expression)Amplitude Acts as a percentage of CC7.
+Aftertouch Filter Cutoff Used to add modtion and interest to 
+sustained notes.
+Pitchbend Pitch Adjustable range. Whole step, minor 
+3rd, and octave are common.
+Secondary Modulations:Secondary Modulations:Secondary Modulations:
+Modulator Parameter Comment
+CC1(modulation) Pitch LFO Depth Manual control of vibrato amount. 
+When using modulation you can set 
+the Pitch LFO depth very high, that 
+way you can add short bursts of 
+extreme vibrato when needed.
+28
+
+=====PAGE=====
+CC73(attack) Amp envelope 
+Attack
+Manual control of attack time.  This is 
+a great control for switching between 
+legato and staccato passages with one 
+sound.
+CC72(release) Amp envelope 
+Release
+Manual control of release time. This is 
+a useful control adjusting the density 
+of a part, release often acts similarly to 
+reverb, reducing it leaves space 
+between notes.
+CC Amp envelope 
+Decay
+Manual control of decay time.  This is 
+most useful on percussive sounds with 
+no sustain.  It will control the length of 
+the sound.
+Velocity Amp envelope 
+Attack
+Negative modulation, higher velocity 
+have shorter attack phase.
+Velocity Filter envelope 
+Amount
+Higher velocities have greater ﬁlter 
+movement, usually makes attack 
+brigher while leaving sustain 
+consistent.
+Velocity Pitch Evelope 
+Amount
+Accented notes have larger pitch 
+change.
+Envelope Pitch LFO Depth Usually used to fade in vibrato with a 
+slow attack.  Often a simple envelope 
+is built into the LFO itself as an attack 
+parameter.
+Key Amp envelope 
+Decay
+Negative modulation, control the 
+length of percussive notes across the 
+keyboard, higher notes are shorter 
+then low ones.
+Often it is the modulation that deﬁnes a sound, and it is modulation that makes a sound 
+expressive and dynamic. When creating and exploring synthesizers, the conﬁguration of 
+modulation is the most complicated aspect, and the par that requires the most 
+forethought. Once the modulation is conﬁgured the performing and knob tweaking can 
+start. This is particularly true with modular and semi modular synths. With those type of 
+devices conﬁguring a patch with your standard modulations and saving it as a template 
+for future patches is a great practice.
+29

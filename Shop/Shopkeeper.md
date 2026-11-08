@@ -38,6 +38,9 @@ links:
   - target: "[[Ableton Session Writer]]"
     type: spawned
     label: drafted-in-the-workshop
+  - target: "[[LightOnOCR-3]]"
+    type: spawned
+    label: drafted-from-a-probe
 ---
 
 # Shopkeeper

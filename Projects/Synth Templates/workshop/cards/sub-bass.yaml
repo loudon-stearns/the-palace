@@ -1,0 +1,56 @@
+# Synth Templates — card — Sub Bass
+# The simplest bass: one sine an octave down, no filter. The lesson is why there is nothing to filter.
+schema: synth-template-card/0.2
+id: sub-bass
+name: Sub Bass
+family: Bass
+tier: 1
+mode: mono
+classics: any 808 sub
+status: drafted
+concepts:
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Sustaining vs non-sustaining sounds"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: -1, note: "no filter follows: a sine has nothing above the fundamental to cut"}
+    amp:  {kind: amplifier, level: full}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,    why: "energy at one frequency: the fundamental and nothing else, so it only moves the woofer"}
+  - {block: osc1, param: octave,  value: -1,      why: "one octave under the written note; the sub sits under everything"}
+  - {block: osc1, param: filter,  value: none,    why: "a sine does not respond to a filter: there are no upper harmonics to remove"}
+  - {block: aenv, param: attack,  value: instant, why: "a sine has no click to hide; it can start at once"}
+  - {block: aenv, param: sustain, value: held,    why: "sustaining: the note is there as long as the key is"}
+  - {block: aenv, param: release, value: short,   why: "the notes must not pile up under each other"}
+  - {block: mode, param: voices,  value: mono,    why: "two subs at once is mud"}
+
+taste:
+  - {block: osc1, param: wave,    range: "sine – triangle",  default: sine, why: "triangle adds a little odd-harmonic edge so it reads on small speakers"}
+  - {block: aenv, param: attack,  range: "instant – fast",   default: instant}
+  - {block: aenv, param: release, range: "short – medium",   default: short}
+  - {block: amp,  param: level,   range: "half – full",      default: full}
+  - {block: osc1, param: glide,   range: "none – short",     default: none}
+
+listening:
+  cue: "Felt more than heard: a pure low tone with no edge, no attack, no change over the note. On small speakers it nearly disappears; that absence is the lesson."
+  ab: "Switch the wave to saw: a buzz appears on top and the note is suddenly a bass line, not a foundation. Back to sine and the buzz is gone, and so is anything a filter could work on."
+
+render:
+  tempo: 120
+  note: [C1, C1, Eb1, F1]
+  velocity: 100
+  pattern: "one bar: two quarter notes, then two eighths, each held full length"
+  length_s: 2.5
+
+mappings: {}

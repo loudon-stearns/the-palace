@@ -1,0 +1,58 @@
+# Synth Templates — card 0.2 — Standard Sustaining
+# Envelope Shapes family. The shape of every blown or bowed instrument: a quick burst of energy, a settle to a steady
+# level that holds while the player keeps adding energy, and a short trail when they stop.
+schema: synth-template-card/0.2
+id: standard-sustaining
+name: Standard Sustaining
+family: Envelope Shapes
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Sustaining vs non-sustaining sounds"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "open; the family's fixed chain"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv, param: attack,  value: fast,  why: "almost nothing: the first push of breath or bow gets the note up quickly"}
+  - {block: aenv, param: decay,   value: short, why: "the burst settles quickly to the level the player can keep up"}
+  - {block: aenv, param: sustain, value: held,  why: "non-zero: energy keeps coming in while the key is down, so the note holds. This is what makes it a sustaining sound"}
+  - {block: aenv, param: release, value: short, why: "the instrument vibrates a moment after the player stops"}
+  - {block: filter1, param: cutoff, value: open, why: "the filter stays out of the way"}
+  - {block: mode, param: voices,  value: poly,  why: "a section, not a soloist"}
+
+taste:
+  - {block: aenv,    param: attack,  range: "instant – short",   default: fast,  why: "longer softens the transient"}
+  - {block: aenv,    param: decay,   range: "fast – medium",     default: short}
+  - {block: aenv,    param: sustain, range: "half – under unity", default: held, why: "higher brings the note forward in a mix"}
+  - {block: aenv,    param: release, range: "fast – medium",     default: short, why: "longer acts a little like reverb and smooths a line"}
+  - {block: filter1, param: cutoff,  range: "mid – open",        default: open}
+
+listening:
+  cue: "Each note starts with a small bump, then holds flat for as long as the key is down and trails off briefly after. Hold a note for a long time: it does not get quieter. That steadiness is the sustain."
+  ab: "Set the sustain to zero: now every note dies away after its short decay however long you hold it, and the sound has become a pluck. Back to held and it sustains again."
+
+render:
+  tempo: 90
+  note: [C3, E3, G3]
+  velocity: 100
+  pattern: "the chord held two bars, released; then three quarter notes"
+  length_s: 7.0
+
+mappings: {}

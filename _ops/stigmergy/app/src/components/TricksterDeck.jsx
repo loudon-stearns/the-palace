@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Banner } from './primitives.jsx';
 import { buildInbox } from '../lib/inbox.js';
 import { buildLeanGrants, buildCardGrant } from '../lib/trickster-grants.js';
 import { resolveKey, toggleSelection, selectionFor } from '../lib/trickster-keys.js';
+import { filterRequests, showCounts, projectsOf, isFiltering, SHOW_KINDS } from '../lib/trickster-filter.js';
+import { LEAVE_EVENT, stashInHistory, stashedInHistory } from '../lib/url-nav.js';
 import { postMessage } from '../adapters/blackboard.js';
 import { t } from '../lib/lexicon.js';
 import TricksterCard from './trickster/TricksterCard.jsx';
@@ -42,6 +44,9 @@ export function formatRun(result, name) {
 }
 
 const RUN_COLOR = { ok: 'var(--phosphor)', warn: 'var(--warn)', err: 'var(--error)' };
+
+// The history-state key the deck keeps its view under (see `restored`).
+const VIEW_KEY = 'trickster';
 
 // The receipt for a filed decision — what the card held the moment it vanished
 // (2026-10-13; Loudon: "the window just disappears, it would feel good to have
@@ -85,9 +90,34 @@ export default function TricksterDeck({
   loadError = null,
   onReload,
 }) {
-  const { pending_requests } = buildInbox(messages);
+  // The view Back returns to (2026-11-04, Loudon: "when a card is open and I
+  // click on its entry then I come back ... still have the card open and the
+  // page scrolled"). On leave, the deck writes its view onto its own history
+  // entry; a Back onto that entry finds it there and starts from it. Entering
+  // by tab or `t` pushes a fresh entry with no view, so that stays collapsed.
+  const [restored] = useState(() => stashedInHistory(VIEW_KEY));
+  const { pending_requests: all_requests } = buildInbox(messages);
+  const total = all_requests.length;
+  const countLabel = total === 1 ? t('trickster.deck.count.one') : t('trickster.deck.count.many');
+
+  // Search + filter (2026-11-04). `pending_requests` below is the FILTERED
+  // list: the cards, the keyboard layer and FILE ALL all read it, so what you
+  // see is what f files — a hidden card is never filed. Not persisted: a
+  // forgotten filter must never hide an ask on the next visit. A project whose
+  // last card was filed drops out of the picker, and its filter with it.
+  const [query, setQuery] = useState(() => (restored && restored.query) || '');
+  const [show, setShow] = useState(() => (restored && restored.show) || 'all');
+  const [projectPick, setProjectPick] = useState(() => (restored && restored.project) || '');
+  const projects = projectsOf(all_requests);
+  const project = projects.some((p) => p.name === projectPick) ? projectPick : '';
+  const filters = { query, show, project };
+  const filtering = isFiltering(filters);
+  const counts = showCounts(all_requests, filters);
+  const clearFilters = () => { setQuery(''); setShow('all'); setProjectPick(''); };
+  const searchRef = useRef(null);
+
+  const pending_requests = filterRequests(all_requests, filters);
   const n = pending_requests.length;
-  const countLabel = n === 1 ? t('trickster.deck.count.one') : t('trickster.deck.count.many');
 
   // The leaned subset (cards with a detected recommended option) and the
   // remainder FILE ALL deliberately won't touch.
@@ -115,6 +145,29 @@ export default function TricksterDeck({
   const [selections, setSelections] = useState({});
   const selectOption = (requestId, optionId) =>
     setSelections((prev) => toggleSelection(prev, requestId, optionId));
+
+  // Collapsed view (2026-11-04, Loudon): every card folds to who · state · the
+  // ask, so a long deck scrolls to the one ask he wants. Clicking a folded card
+  // opens just that one; `opened` holds those request_ids and is cleared when
+  // the whole deck flips, so EXPAND → COLLAPSE always lands fully folded.
+  //
+  // Collapsed is how the deck is entered, every time (2026-11-04, Loudon: "so
+  // it loads fast by default"). A folded card mounts none of its pieces, audio
+  // or images — measured on 26 cards: 0 frames and ~5 MB folded against 29
+  // live frames, 78 players and ~28 MB expanded. EXPAND holds for this visit
+  // only; remembering it would make the next entry the slow one again.
+  const [compact, setCompact] = useState(() => (restored ? restored.compact !== false : true));
+  const [opened, setOpened] = useState(() => (restored && restored.opened) || {});
+  const toggleCompact = () => {
+    setCompact((was) => !was);
+    setOpened({});
+  };
+  const setCardOpen = (requestId, open) =>
+    setOpened((prev) => {
+      const next = { ...prev };
+      if (open) next[requestId] = true; else delete next[requestId];
+      return next;
+    });
 
   // The card whose "open interactive" modal is open. A trickster launch drives
   // the ASKING steward (item.from) to RESOLVE this specific decision in a
@@ -215,12 +268,54 @@ export default function TricksterDeck({
     }
   }
 
+  // Save the view onto this deck's history entry the moment a jump or deck
+  // switch is about to push. The anchor is the card last clicked (the one
+  // whose page you opened) or, failing that, the top card on screen, kept
+  // with its distance from the top of the window.
+  const rootRef = useRef(null);
+  const lastClickedRef = useRef(null);
+  const viewRef = useRef({});
+  viewRef.current = { query, show, project, compact, opened };
+  useEffect(() => {
+    function onLeave() {
+      const root = rootRef.current;
+      if (!root) return;
+      const cards = [...root.querySelectorAll('[data-testid="trickster-card"]')];
+      const clicked = cards.find((c) => c.dataset.requestId === lastClickedRef.current);
+      const onScreen = (c) => { const r = c.getBoundingClientRect(); return r.bottom > 0 && r.top < window.innerHeight; };
+      const el = clicked && onScreen(clicked) ? clicked : cards.find(onScreen);
+      const anchor = el ? { id: el.dataset.requestId, top: Math.round(el.getBoundingClientRect().top) } : null;
+      stashInHistory(VIEW_KEY, { ...viewRef.current, anchor, scrollY: Math.round(window.scrollY) });
+    }
+    window.addEventListener(LEAVE_EVENT, onLeave);
+    return () => window.removeEventListener(LEAVE_EVENT, onLeave);
+  }, []);
+
+  // Back onto a saved view: once its anchor card is on the page, put it back
+  // where it sat, and focus it. Runs before paint, and again on the next frame
+  // in case the browser's own scroll restore lands after us. Done once.
+  const restoredScroll = useRef(false);
+  useLayoutEffect(() => {
+    if (restoredScroll.current || !restored || n === 0) return;
+    restoredScroll.current = true;
+    const place = () => {
+      const el = restored.anchor && rootRef.current
+        && rootRef.current.querySelector(`[data-testid="trickster-card"][data-request-id="${CSS.escape(restored.anchor.id)}"]`);
+      if (el) window.scrollBy(0, el.getBoundingClientRect().top - restored.anchor.top);
+      else if (typeof restored.scrollY === 'number') window.scrollTo(0, restored.scrollY);
+    };
+    place();
+    requestAnimationFrame(place);
+    const idx = restored.anchor ? pending_requests.findIndex((p) => p.request_id === restored.anchor.id) : -1;
+    if (idx >= 0) setFocusedIndex(idx);
+  });
+
   // Keyboard layer. A ref carries the latest list/focus/selection so the
   // listener stays stable (one add/remove for the deck's lifetime) without
   // going stale. resolveKey() is the pure key→action map (unit-tested); this
   // handler only owns the side effects.
   const kbRef = useRef({});
-  kbRef.current = { pending_requests, focused, filingAll, selections, fileItems, fileSelected, selectOption };
+  kbRef.current = { pending_requests, focused, filingAll, selections, fileItems, fileSelected, selectOption, toggleCompact, setCardOpen };
   useEffect(() => {
     function onKey(e) {
       // Don't hijack typing in the freeform note field.
@@ -239,7 +334,10 @@ export default function TricksterDeck({
         case 'focus-prev': setFocusedIndex((i) => Math.max(i - 1, 0)); break;
         case 'file-lean': st.fileItems([action.item]); break;
         case 'file-all': st.fileItems(st.pending_requests); break;
-        case 'select': st.selectOption(action.requestId, action.optionId); break;
+        // A pick on a folded card opens it, so the chosen option is never hidden.
+        case 'select': st.selectOption(action.requestId, action.optionId); st.setCardOpen(action.requestId, true); break;
+        case 'toggle-compact': st.toggleCompact(); break;
+        case 'focus-search': searchRef.current?.focus(); break;
         case 'file-pick': st.fileSelected(action.item); break;
       }
     }
@@ -248,9 +346,20 @@ export default function TricksterDeck({
   }, []);
 
   return (
-    <div data-testid="trickster-deck">
+    <div
+      data-testid="trickster-deck"
+      ref={rootRef}
+      onClickCapture={(e) => {
+        const card = e.target && e.target.closest && e.target.closest('[data-testid="trickster-card"]');
+        if (card) lastClickedRef.current = card.dataset.requestId || null;
+      }}
+    >
       <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', marginBottom: 10 }}>
-        {loadState === 'ok' ? <>{n} {countLabel}</> : null}
+        {loadState === 'ok' ? (
+          <span data-testid="trickster-count">
+            {filtering ? <>{n} {t('trickster.filter.of')} </> : null}{total} {countLabel}
+          </span>
+        ) : null}
         {onReload ? (
           <span
             data-testid="trickster-reload"
@@ -262,7 +371,35 @@ export default function TricksterDeck({
             }}
           >[R] RELOAD</span>
         ) : null}
+        {total > 0 ? (
+          <span
+            data-testid="trickster-compact-toggle"
+            data-compact={compact ? 'true' : 'false'}
+            role="button" tabIndex={0}
+            onClick={toggleCompact}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); toggleCompact(); } }}
+            title={compact ? 'show every card in full' : 'fold every card to who · state · the ask'}
+            style={{
+              marginLeft: 12, cursor: 'pointer',
+              color: compact ? 'var(--bg)' : 'var(--phosphor)',
+              background: compact ? 'var(--phosphor)' : 'transparent',
+              textShadow: compact ? 'none' : 'var(--glow)',
+              border: '1px solid var(--phosphor-dim)', padding: '0 6px', fontSize: 11,
+            }}
+          >{compact ? t('trickster.deck.expand') : t('trickster.deck.collapse')}</span>
+        ) : null}
       </div>
+
+      {/* Search + filter — at the top, above everything a card list carries. */}
+      {total > 0 ? (
+        <FilterBar
+          inputRef={searchRef}
+          query={query} onQuery={setQuery}
+          show={show} onShow={setShow} counts={counts}
+          projects={projects} project={project} onProject={setProjectPick}
+          filtering={filtering} onClear={clearFilters}
+        />
+      ) : null}
 
       {/* The receipt — what was just filed, in full, since the card is gone. */}
       {receipt ? (
@@ -306,11 +443,22 @@ export default function TricksterDeck({
         <div data-testid="trickster-loading" style={{
           color: 'var(--phosphor-dim)', textShadow: 'none',
         }}>{t('trickster.deck.loading')}</div>
-      ) : n === 0 ? (
+      ) : total === 0 ? (
         <div data-testid="trickster-empty" style={{
           color: 'var(--phosphor-dim)', textShadow: 'none',
           padding: '8px 0', fontSize: 14,
         }}>{t('trickster.inbox.empty')}</div>
+      ) : n === 0 ? (
+        <div data-testid="trickster-no-match" style={{
+          color: 'var(--phosphor-dim)', textShadow: 'none',
+          padding: '8px 0', fontSize: 14,
+        }}>
+          {t('trickster.filter.none')} --{' '}
+          <span role="button" tabIndex={0} onClick={clearFilters}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); clearFilters(); } }}
+            style={{ cursor: 'pointer', color: 'var(--phosphor)', textShadow: 'var(--glow)', textDecoration: 'underline' }}
+          >{t('trickster.filter.clear')}</span>
+        </div>
       ) : (
         <>
           <QuickBar
@@ -344,6 +492,8 @@ export default function TricksterDeck({
               selectedId={selections[p.request_id] ?? null}
               onSelectOption={(optId) => selectOption(p.request_id, optId)}
               onLaunch={openLaunch}
+              compact={compact && !opened[p.request_id]}
+              onToggleOpen={compact ? (open) => setCardOpen(p.request_id, open) : undefined}
             />
           ))}
         </>
@@ -367,6 +517,92 @@ export default function TricksterDeck({
       {launchContext ? (
         <LaunchModal context={launchContext} onClose={() => setLaunchContext(null)} />
       ) : null}
+    </div>
+  );
+}
+
+// The search + filter bar. A dashed-underline search (the STATE deck's PULSE
+// filter is the precedent: Esc clears, a second Esc lets go so the deck keys
+// answer again), the "show" chips with what each would leave, and a project
+// picker. Chips invert when on, like the [C] toggle.
+function FilterBar({ inputRef, query, onQuery, show, onShow, counts, projects, project, onProject, filtering, onClear }) {
+  const dim = { color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11 };
+  return (
+    <div data-testid="trickster-filter" style={{
+      display: 'flex', flexDirection: 'column', gap: 6,
+      border: '1px solid var(--phosphor-dim)', padding: '6px 10px', marginBottom: 10,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ ...dim, fontSize: 12 }}>/</span>
+        <input
+          ref={inputRef}
+          data-testid="trickster-search"
+          type="text"
+          value={query}
+          onChange={(e) => onQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              e.preventDefault();
+              if (query) onQuery('');
+              else e.currentTarget.blur();
+            }
+          }}
+          placeholder={t('trickster.filter.placeholder')}
+          style={{
+            flex: 1, minWidth: '12ch',
+            background: 'transparent', border: 'none',
+            borderBottom: '1px dashed var(--phosphor-dim)',
+            color: 'var(--phosphor)', textShadow: 'var(--glow)',
+            fontFamily: 'var(--font-mono)', fontSize: 13,
+            outline: 'none', padding: '2px 0', borderRadius: 0,
+            caretColor: 'var(--phosphor-white)',
+          }}
+        />
+        {filtering ? (
+          <span data-testid="trickster-filter-clear" role="button" tabIndex={0} onClick={onClear}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); onClear(); } }}
+            title="clear the search and every filter"
+            style={{ ...dim, cursor: 'pointer', textDecoration: 'underline' }}
+          >{t('trickster.filter.clear')}</span>
+        ) : null}
+      </div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+        {SHOW_KINDS.map((k) => {
+          const on = show === k.id;
+          const empty = counts[k.id] === 0 && !on;
+          return (
+            <span
+              key={k.id}
+              data-testid={`trickster-show-${k.id}`}
+              data-on={on ? 'true' : 'false'}
+              role="button" tabIndex={0}
+              onClick={() => onShow(k.id)}
+              onKeyDown={(e) => { if (e.key === 'Enter') { e.stopPropagation(); onShow(k.id); } }}
+              style={{
+                cursor: 'pointer', fontFamily: 'var(--font-mono)', fontSize: 11,
+                padding: '0 6px', border: '1px solid var(--phosphor-dim)',
+                color: on ? 'var(--bg)' : empty ? 'var(--fg3)' : 'var(--phosphor)',
+                background: on ? 'var(--phosphor)' : 'transparent',
+                textShadow: on || empty ? 'none' : 'var(--glow)',
+              }}
+            >{t(`trickster.filter.show.${k.id}`)} {counts[k.id]}</span>
+          );
+        })}
+        <select
+          data-testid="trickster-project"
+          value={project}
+          onChange={(e) => onProject(e.target.value)}
+          style={{
+            marginLeft: 'auto',
+            backgroundColor: 'var(--bg)', color: 'var(--phosphor)', textShadow: 'var(--glow)',
+            border: '1px solid var(--phosphor-dim)', fontFamily: 'var(--font-mono)', fontSize: 11,
+            padding: '1px 6px', borderRadius: 0, outline: 'none', maxWidth: '100%',
+          }}
+        >
+          <option value="">{t('trickster.filter.project.any')} ({projects.reduce((s, p) => s + p.n, 0)})</option>
+          {projects.map((p) => <option key={p.name} value={p.name}>{p.name} ({p.n})</option>)}
+        </select>
+      </div>
     </div>
   );
 }

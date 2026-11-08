@@ -54,6 +54,8 @@ export function optionIdForKey(item, key) {
 //   { type: 'focus-prev' }                          k / ArrowUp
 //   { type: 'file-lean', item }                     space — file the lean
 //   { type: 'file-all' }                            f — file every leaned card
+//   { type: 'toggle-compact' }                      c — collapse / expand the deck
+//   { type: 'focus-search' }                        / — jump to the search box
 //   { type: 'select', requestId, optionId }         1-N — pick the Nth option
 //   { type: 'file-pick', item }                     Enter — file the current pick
 //   null                                            anything else / nothing to do
@@ -74,6 +76,8 @@ export function resolveKey(key, state) {
     return item && item.recommended_option ? { type: 'file-lean', item } : null;
   }
   if (key === 'f' || key === 'F') return { type: 'file-all' };
+  if (key === 'c' || key === 'C') return { type: 'toggle-compact' };
+  if (key === '/') return { type: 'focus-search' };
   if (/^[1-9]$/.test(key)) {
     const optionId = optionIdForKey(item, key);
     return optionId ? { type: 'select', requestId: item.request_id, optionId } : null;

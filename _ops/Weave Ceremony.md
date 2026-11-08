@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "2.0"
+version: "2.2"
 trigger: ["weave", "let's weave"]
 links:
   - target: "[[Walk Ceremony]]"
@@ -59,9 +59,9 @@ The Weave now runs as a **Multi-Lens Swarm Weave** — the map cut by several le
 
 The Protocol below is the swarm's steps.
 
-**Who reads, who judges, who writes.** Workers are `palace-reader` children: born with the real Jewel and the World, handed the SCHEMA card and their room, proposing and writing nothing. Nothing a worker proposes is batched until a **skeptic** — a second, stronger reader (Opus) given the proposals and the pages, told to refute — has passed it, and the [[Concierge]] has read the decision surface cold before Loudon does. No first reader catches its own errors ([[No Mind Checks Itself]]; tuning item 28). Writes are the coordinator's and its write-agents', one per disjoint file set, through the palace's committer.
+**Who reads, who judges, who writes.** Workers are `palace-reader` children: born with the real Jewel and the World, handed the SCHEMA card and their room, proposing and writing nothing. Nothing a worker proposes is batched until a **skeptic** — a second, stronger reader (Opus) given the proposals and the pages, told to refute — has passed it, and the [[Concierge]] has read the decision surface cold before Loudon does. No first reader catches its own errors ([[No Mind Checks Itself]]; tuning item 28). Writes are the coordinator's and its write-agents', one per disjoint file set, through the palace's committer. A folder room keeps its coherence mandate and proposes no typed links beyond a retype it can quote on both pages; link work stays with the rooms built around links.
 
-**Standard opening steps:** Before dispatching workers, do two things in order. **First, load the foundation** (Protocol Step 0) — the Weave writes typed links and may promote or create entries, all of which [[SCHEMA]] governs; a Weave run without §4 in context is operating blind to the rules it is about to apply. **Second, build the map** — `python3 _ops/swarm/build-map.py` — for a fresh `palace-map-full-[date].json` (a build, not a ceremony run: [[Map Build Ceremony]] § Cadence). Workers use this map for neighbor resolution; the coordinator uses it for topology reporting. Then read what changed since the last Weave's map: `python3 _ops/swarm/palace-map.py diff <last weave's map date> <today>`. That diff is the shortest account of what the palace has been thinking since the last Weave, and Step 2 opens with it. Then write the open's health row: `python3 _ops/swarm/weave-health.py --append --label "open"` (Step 6.6 writes the close's beside it).
+**Standard opening steps:** Before dispatching workers, do three things in order. **First, load the foundation** (Protocol Step 0) — the Weave writes typed links and may promote or create entries, all of which [[SCHEMA]] governs; a Weave run without §4 in context is operating blind to the rules it is about to apply. **Second, build the map** — `python3 _ops/swarm/build-map.py` — for a fresh `palace-map-full-[date].json` (a build, not a ceremony run: [[Map Build Ceremony]] § Cadence). Workers use this map for neighbor resolution; the coordinator uses it for topology reporting. Then read what changed since the last Weave's map: `python3 _ops/swarm/palace-map.py diff <last weave's map date> <today>`. That diff is the shortest account of what the palace has been thinking since the last Weave, and Step 2 opens with it. Then write the open's health row: `python3 _ops/swarm/weave-health.py --append --label "open"` (Step 6.6 writes the close's beside it). **Third, run the mechanical fold** — the W0, W1 and W2 cases of Step 3d, from `lint-link-pairs.py`, written and committed before any worker is dispatched, so every room reads the pairs as they will stand.
 
 ## Ceremony Contract
 
@@ -178,13 +178,13 @@ Report on:
 - **Dormant entries** — `stage: dormant`. Have conditions changed? Any ready for revival? If a quarter has passed since the Spore Check's last run line, or its ledger has none, offer one.
 - **Stale metadata** — entries whose stage seems wrong given their content.
 - **Composting candidates** — entries at `stage: composting` from a prior Weave. Confirm deletion or revive.
-- **Proposals for canon** — `node _ops/stigmergy/list-proposals.mjs` names the pages whose stewards have proposals owed to Loudon's ledger review, under the one line the Return says too (`--line`). The Weave names them and settles none ([[Project Stewardship System]] § What's Decided).
+- **Proposals for canon** — `node _ops/stigmergy/list-proposals.mjs` names the pages whose stewards have proposals owed to Loudon's ledger review, under the one line the Return says too (`--line`). The Weave names them and settles none ([[Project Stewardship System]] § The rites it keeps).
 - **Bundle-frontmatter health** — files carrying canon frontmatter (`type`/`pillars`/`stage`) that live *inside a bundle folder* (a folder with a twin `.md`, per [[SCHEMA]] §8), or carrying a `type:` not in §1. These are demotion candidates — probably entry-owned working substrate that should wear minimal §8 bundle frontmatter. Flag them; the mind rules substrate-vs-nested-canon (nested canon always exists — Shop specialists, catalogue sub-entries). Demote confirmed substrate; leave real entries; promotion (bundle → canon) is deferred to Loudon. Canon frontmatter inside an *organizational* folder (`Projects/`, `Shop/`, `_ops/`) is normal — the twin-`.md` test is what separates the two.
 - **Ghost wikilinks** — body `[[wikilinks]]` whose target resolves to no file. Flag every one; the mind decides invitation (a deliberate forward-reference — the Jewel's "a missing connection is an invitation", [[JEWEL]]) vs. typo or stale link (fix or cut). Detection is mechanical and can later be scripted; the disposition is judgment.
 
 **Step 2.5: Substrate sweep**
 
-Before proposing changes to the graph, audit the substrate that records them. A 30-second pre-flight scan, six commands, one report block. The sixth, `trunk-state.mjs`, adds what git alone cannot say: who wrote each unsaved file, what went around the door, and which worktrees and branches are merged and can go:
+Before proposing changes to the graph, audit the substrate that records them. A 30-second pre-flight scan, seven commands, one report block. The sixth, `trunk-state.mjs`, adds what git alone cannot say: who wrote each unsaved file, what went around the door, and which worktrees and branches are merged and can go. The seventh, `drift-check.mjs`, asks whether [[STIGMERGY]]'s page still describes the terminal it names — its decks, lanes and message types against the code, the kit against the app's tokens, the app README's map, dead coordinates and old claims on the board, and app commits its ledger hasn't recorded:
 
 ```bash
 git status --porcelain                            # uncommitted edits
@@ -193,6 +193,7 @@ git fsck --no-reflogs --unreachable --lost-found  # dangling commits / blobs
 git branch -a --no-merged main                    # unmerged branches
 git reflog --date=iso | grep -E 'reset|amend'     # recent rewrites
 node _ops/stigmergy/app/scripts/trunk-state.mjs   # unsent, the ear, unsaved with writers, leftover worktrees
+node _ops/stigmergy/drift-check.mjs                # STIGMERGY's page against its code, board and ledger
 ```
 
 Present every finding as one row in a table with a proposed disposition. Loudon confirms one of three:
@@ -237,7 +238,7 @@ Present label proposals to Loudon in one sampled batch (tuning item 34). Write c
 
 A pair of entries carries one typed link. `lint-link-pairs.py` lists every pair carrying more than one: a symmetric link stated on both sides is kept once — mechanically when one side has a label and the other none, or both carry the same; when the two labels differ, the worker who read both pages says which holds, and that is a judgment; a `connects-to` beside a specific link is folded into it, its label carried if the specific link had none; two specific links on one pair are a judgment, and the worker who read both pages says which relation it is. The exception is a direct lineage reciprocal — `spawned` ↔ `emerged-from`, `enables` ↔ its ground — where the lineage is direct; a diffuse origin does not earn a `spawned` back. Beyond pairs, a link with no reason anywhere — bare, unsaid, and no worker can say why — is cut.
 
-The mechanical folds go to Loudon as one sampled batch; the judgments go in Pile B. Write confirmed changes to frontmatter.
+The mechanical folds go to Loudon as one sampled batch; the judgments go in Pile B. The mechanical folds run at the open, before the fan-out; only the judgments remain here. Write confirmed changes to frontmatter.
 
 **Step 3e: Unsaid links**
 
@@ -428,3 +429,7 @@ The commit body lists every substrate disposition (one line each), a `Palace-Res
 
 **The lean:** [where the palace is heading; quiet pages revived or put to sleep]
 ```
+
+## Active Baton
+
+[[Weave Ceremony — baton — deck-greys-answered-flags]] — drafted 2026-11-04

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rough 3 · the drafting hand</title>
+<meta name="theme-color" content="#111114">
+<link rel="icon" href="../Loudon%20Live%20Design%20System%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: motion. */
+@layer furniture {
+:where(*) { --fx-bg: var(--page, #0a0a0f); --fx-bg-elev-1: #12121a; --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--ink, #e8e8f0); --fx-fg-2: #c8c8d8; --fx-fg-3: var(--ink-dim, #8a8aa0); --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: #4a4a5e; --fx-border-soft: rgba(255,255,255,0.06); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: #e8b84a; --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Cormorant+Garamond:wght@300&family=Manrope:wght@300;500&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { --page: #111114; --ink: #d8d8e0; --ink-dim: #8a8aa0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 24px 64px; background: var(--page); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; }
+  header.sheet, figure { max-width: 1280px; margin: 0 auto; }
+  header.sheet { margin-bottom: 24px; }
+  header.sheet h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 30px; margin: 0 0 6px; }
+  header.sheet p { margin: 0; color: var(--ink-dim); font-size: 14px; max-width: 78ch; line-height: 1.55; }
+  figcaption { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-dim); max-width: 92ch; }
+  figcaption b { color: var(--ink); font-weight: 500; }
+  svg.sheet { display: block; width: 100%; height: auto; }
+
+  .hand { font-family: 'Architects Daughter', cursive; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .draw { stroke-dasharray: var(--len); stroke-dashoffset: var(--len); animation: draw 3.4s cubic-bezier(.4,0,.2,1) .4s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .pulse { animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .4; } }
+  @media (prefers-reduced-motion: reduce) { .draw { animation: none; stroke-dashoffset: 0; } .pulse { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="sheet">
+  <h1>Rough 3 · the drafting hand</h1>
+  <p>F again, drawn by a person this time. The sheet is a blueprint print that has been worked on: folded, handled, marked up in red pencil, with a cup set down on it. The printed form (frame, title block headings) stays in mono. Everything the drafter added is lettered by hand between pencil guidelines. The revision story is true: the old <span class="mono">LOUDON / LIVE</span> is erased under the current wordmark, an earlier 3 : 4 sigil shows faintly behind the 3 : 5, and the revision table records both. The sigil draws itself once when the page loads.</p>
+</header>
+
+<figure>
+<svg class="sheet" viewBox="0 0 1600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Loud'n Live stream card as a hand-drafted blueprint">
+  <defs>
+    <!-- a hand's wobble: low-frequency displacement on every drawn line -->
+    <filter id="wob" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- pencil: grain eats into the stroke, then the wobble -->
+    <filter id="pencil" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="1" seed="9" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -0.55" result="ga"/>
+      <feComposite in="SourceGraphic" in2="ga" operator="in" result="grain"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="2" result="n"/>
+      <feDisplacementMap in="grain" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="erased" x="-10%" y="-20%" width="120%" height="140%">
+      <feGaussianBlur stdDeviation="2.4"/>
+    </filter>
+    <!-- the paper: fine tooth, and big uneven exposure blotches -->
+    <filter id="tooth" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="1"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.85  0 0 0 0 0.9  0 0 0 0 1  0.32 0 0 0 -0.12"/>
+    </filter>
+    <filter id="blotch" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.0028" numOctaves="3" seed="12"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.7  0 0 0 0 1  0.34 0 0 0 -0.11"/>
+    </filter>
+    <filter id="stain" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="21" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="14" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feGaussianBlur in="d" stdDeviation="1.2"/>
+    </filter>
+    <radialGradient id="exposure" cx="38%" cy="42%" r="80%">
+      <stop offset="0" stop-color="#14284b"/>
+      <stop offset=".65" stop-color="#0e1d38"/>
+      <stop offset="1" stop-color="#08111f"/>
+    </radialGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="rgba(214,228,250,.07)" stroke-width="1"/>
+    </pattern>
+    <pattern id="gridMajor" width="200" height="200" patternUnits="userSpaceOnUse">
+      <path d="M200 0H0V200" fill="none" stroke="rgba(214,228,250,.11)" stroke-width="1.2"/>
+    </pattern>
+  </defs>
+
+  <!-- ── the print ───────────────────────────────────────────── -->
+  <rect width="1600" height="900" fill="url(#exposure)"/>
+  <rect width="1600" height="900" filter="url(#blotch)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <rect width="1600" height="900" fill="url(#gridMajor)"/>
+  <rect width="1600" height="900" filter="url(#tooth)"/>
+
+  <!-- folds: it lived in a drawer folded in four -->
+  <g>
+    <line x1="801" y1="0" x2="799" y2="900" stroke="rgba(0,0,0,.32)" stroke-width="4"/>
+    <line x1="798" y1="0" x2="796" y2="900" stroke="rgba(220,235,255,.07)" stroke-width="2"/>
+    <line x1="0" y1="452" x2="1600" y2="448" stroke="rgba(0,0,0,.28)" stroke-width="4"/>
+    <line x1="0" y1="449" x2="1600" y2="445" stroke="rgba(220,235,255,.06)" stroke-width="2"/>
+  </g>
+
+  <!-- the cup, set down twice -->
+  <g filter="url(#stain)" opacity=".9">
+    <circle cx="318" cy="742" r="92" fill="rgba(150,104,52,.07)" stroke="rgba(168,118,60,.30)" stroke-width="5"/>
+    <path d="M 214 790 A 96 96 0 0 1 300 640" fill="none" stroke="rgba(168,118,60,.16)" stroke-width="4"/>
+  </g>
+
+  <!-- an eraser's ghosts -->
+  <ellipse cx="370" cy="300" rx="260" ry="46" fill="rgba(200,215,240,.035)" filter="url(#erased)"/>
+  <ellipse cx="1210" cy="330" rx="210" ry="200" fill="rgba(200,215,240,.022)" filter="url(#erased)"/>
+
+  <!-- ── the printed form: frame, zones, title block grid ────── -->
+  <g filter="url(#wob)" stroke="#e8eff9" fill="none" stroke-linecap="round">
+    <!-- frame lines run past the corners, the way a drafter overshoots -->
+    <line x1="30" y1="40" x2="1572" y2="40" stroke-width="2.6"/>
+    <line x1="28" y1="860" x2="1570" y2="860" stroke-width="2.6"/>
+    <line x1="40" y1="28" x2="40" y2="872" stroke-width="2.6"/>
+    <line x1="1560" y1="30" x2="1560" y2="870" stroke-width="2.6"/>
+  </g>
+  <g class="mono" fill="rgba(214,228,250,.45)" font-size="15">
+    <text x="400" y="30" text-anchor="middle">1</text><text x="800" y="30" text-anchor="middle">2</text><text x="1200" y="30" text-anchor="middle">3</text>
+    <text x="20" y="250">A</text><text x="20" y="660">B</text>
+  </g>
+
+  <!-- ── left column: the lettering ──────────────────────────── -->
+  <text class="mono" x="96" y="108" font-size="17" letter-spacing="3.5" fill="rgba(214,228,250,.62)">SHEET 01 / 01 · SESSION 01</text>
+
+  <!-- the old name, erased but not gone -->
+  <text class="mono" x="100" y="318" font-size="58" font-weight="700" fill="rgba(214,228,250,.09)" filter="url(#erased)">LOUDON / LIVE</text>
+
+  <!-- pencil guidelines for the hand lettering -->
+  <g stroke="rgba(214,228,250,.14)" stroke-width="1">
+    <line x1="84" y1="336" x2="870" y2="337"/><line x1="84" y1="430" x2="870" y2="431"/>
+    <line x1="84" y1="474" x2="870" y2="474"/><line x1="84" y1="512" x2="870" y2="512"/>
+  </g>
+  <g filter="url(#wob)">
+    <text class="hand" x="96" y="428" font-size="118" fill="#eef3fa" letter-spacing="2">LOUD’N <tspan fill="#ffb000">LIVE</tspan></text>
+    <text class="hand" x="98" y="508" font-size="36" fill="#eef3fa">Live build · scanning a wavetable by hand</text>
+  </g>
+
+  <!-- redline: the rename -->
+  <g filter="url(#pencil)" stroke="#ff5a4e" fill="none" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 580 236 C 640 236, 684 262, 682 318"/>
+    <path d="M 670 304 L 682 320 L 692 302"/>
+    <polygon points="526,226 544,196 562,226"/>
+  </g>
+  <g filter="url(#pencil)" fill="#ff5a4e">
+    <text class="hand" x="544" y="221" font-size="17" text-anchor="middle">B</text>
+    <text class="hand" x="574" y="222" font-size="22">renamed 07.26 · one apostrophe</text>
+  </g>
+
+  <!-- on air -->
+  <circle class="pulse" cx="106" cy="566" r="8" fill="#ff2a2a"/>
+  <text class="mono" x="126" y="572" font-size="17" letter-spacing="3.5" fill="rgba(214,228,250,.75)"><tspan fill="#ff5a4e">ON AIR</tspan> · STARTING SOON</text>
+
+  <!-- notes -->
+  <g class="hand" font-size="23" fill="#dfe8f6" filter="url(#wob)">
+    <text x="96" y="640">NOTES</text>
+    <text x="110" y="680">1.  All words are text.</text>
+    <text x="110" y="716">2.  Trace at 3 : 5 from the logo file.</text>
+    <text x="110" y="752">3.  HOLD — audio not yet patched.</text>
+  </g>
+  <line x1="96" y1="648" x2="168" y2="648" stroke="#dfe8f6" stroke-width="1.6" filter="url(#wob)"/>
+  <!-- the checker's red pencil -->
+  <g filter="url(#pencil)" stroke="#ff5a4e" fill="none" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 70 672 l 8 10 l 18 -24"/>
+    <path d="M 70 708 l 8 10 l 18 -24"/>
+    <ellipse cx="296" cy="744" rx="214" ry="26" transform="rotate(-1.5 296 744)"/>
+  </g>
+  <text class="hand" x="520" y="790" font-size="20" fill="#ff5a4e" filter="url(#pencil)">— patch before the stream. C.</text>
+
+  <!-- ── right: the sigil, drafted ───────────────────────────── -->
+  <g id="sigil" fill="none" stroke-linecap="round"></g>
+
+  <!-- legend, with a proposed row clouded in red -->
+  <g class="mono" font-size="14" fill="#dfe8f6">
+    <g filter="url(#wob)" stroke="#dfe8f6" stroke-width="1.4"><line x1="1424" y1="56" x2="1424" y2="226"/><line x1="1424" y1="226" x2="1560" y2="226"/></g>
+    <line x1="1438" y1="78" x2="1466" y2="78" stroke="#eef3fa" stroke-width="3"/><text x="1476" y="83">DESIGN</text>
+    <line x1="1438" y1="104" x2="1466" y2="104" stroke="#8fb8ff" stroke-width="3"/><text x="1476" y="109">DATASHEET</text>
+    <line x1="1438" y1="130" x2="1466" y2="130" stroke="#ffb000" stroke-width="3"/><text x="1476" y="135">ASSUMED</text>
+    <line x1="1438" y1="156" x2="1466" y2="156" stroke="#ff5a4e" stroke-width="3"/><text x="1476" y="161">MEASURE</text>
+    <line x1="1438" y1="192" x2="1466" y2="192" stroke="#7fdbff" stroke-width="3" filter="url(#pencil)"/><text x="1476" y="197" fill="#7fdbff" class="hand" font-size="17">LINK?</text>
+  </g>
+  <g id="cloud" filter="url(#pencil)" stroke="#ff5a4e" fill="none" stroke-width="2.8"></g>
+  <text class="hand" x="1436" y="254" font-size="17" fill="#ff5a4e" filter="url(#pencil)"><tspan x="1436">cyan here</tspan><tspan x="1436" dy="21">too? — L.S.</tspan></text>
+
+  <!-- ── title block: printed headings, hand-filled ──────────── -->
+  <g filter="url(#wob)" stroke="#e8eff9" fill="none">
+    <rect x="964" y="628" width="596" height="232" stroke-width="2.4" fill="rgba(10,20,38,.55)"/>
+    <line x1="964" y1="690" x2="1560" y2="690" stroke-width="1.2"/>
+    <line x1="964" y1="734" x2="1560" y2="734" stroke-width="1.2"/>
+    <line x1="964" y1="812" x2="1560" y2="812" stroke-width="1.2"/>
+    <line x1="1420" y1="628" x2="1420" y2="690" stroke-width="1.2"/>
+    <line x1="1162" y1="812" x2="1162" y2="860" stroke-width="1.2"/>
+    <line x1="1340" y1="812" x2="1340" y2="860" stroke-width="1.2"/>
+    <!-- revision table rules -->
+    <line x1="964" y1="756" x2="1560" y2="756" stroke-width=".8" stroke-opacity=".6"/>
+    <line x1="964" y1="784" x2="1560" y2="784" stroke-width=".8" stroke-opacity=".6"/>
+    <line x1="1010" y1="734" x2="1010" y2="812" stroke-width=".8" stroke-opacity=".6"/>
+    <line x1="1110" y1="734" x2="1110" y2="812" stroke-width=".8" stroke-opacity=".6"/>
+    <line x1="1490" y1="734" x2="1490" y2="812" stroke-width=".8" stroke-opacity=".6"/>
+  </g>
+  <g class="mono" font-size="11" letter-spacing="2" fill="rgba(214,228,250,.5)">
+    <text x="976" y="646">TITLE</text><text x="1432" y="646">NO.</text>
+    <text x="976" y="706">SUBJECT</text>
+    <text x="974" y="750">REV</text><text x="1020" y="750">DATE</text><text x="1120" y="750">DESCRIPTION</text><text x="1500" y="750">BY</text>
+    <text x="976" y="828">STATUS</text><text x="1174" y="828">SCALE</text><text x="1352" y="828">DRAWN · CHECKED</text>
+  </g>
+  <g class="hand" fill="#eef3fa" filter="url(#wob)">
+    <text x="976" y="678" font-size="30">LOUD’N LIVE</text>
+    <text x="1432" y="678" font-size="22">LL-001</text>
+    <text x="976" y="726" font-size="20">Scanning a wavetable by hand</text>
+    <text x="980" y="777" font-size="18">A</text><text x="1020" y="777" font-size="17">14.10.26</text><text x="1120" y="777" font-size="17">first sketch, 3 : 4</text><text x="1500" y="777" font-size="17">L.S.</text>
+    <text x="980" y="805" font-size="18">B</text><text x="1020" y="805" font-size="17">25.10.26</text><text x="1120" y="805" font-size="17">louder · 3 : 5 · cyan in</text><text x="1500" y="805" font-size="17">L.S.</text>
+    <text x="1174" y="852" font-size="20" fill="#8fb8ff">3 : 5</text>
+    <text x="1352" y="852" font-size="20">L.S. · C.</text>
+  </g>
+  <text class="hand" x="976" y="852" font-size="21" fill="#ff5a4e" filter="url(#pencil)">SKETCH</text>
+</svg>
+<figcaption><b>F, by hand.</b> What changed from rough 2: the paper has tooth, uneven exposure, and fold creases where it was folded in four. Lines wobble and run past the corners. The lettering is hand-set between faint pencil guidelines. A checker has gone over it in red pencil: two ticks, the HOLD circled with a note, the rename marked with a revision triangle, and a clouded question beside the legend asking whether cyan joins here too. The title block carries a revision table, A and B, drawn by L.S. and checked by C. There's a coffee ring, set down twice. <i>Live</i> takes E's amber, so the two cards share a colour.</figcaption>
+</figure>
+
+<script>
+// The sigil, drafted: construction circle and box, centre lines, an erased
+// first try at 3:4, the 3:5 figure drawn in, and hand-ticked dimensions.
+const NS = 'http://www.w3.org/2000/svg';
+const g = document.getElementById('sigil');
+const cx = 1176, cy = 330, R = 186;
+function el(tag, attrs, parent = g) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+function liss(a, b, phase, n = 900, ox = 0, oy = 0) {
+  let d = '';
+  for (let i = 0; i <= n; i++) { const s = i / n * Math.PI * 2; d += (i ? 'L' : 'M') + (cx + ox + R * Math.sin(a * s + phase)).toFixed(1) + ' ' + (cy + oy + R * Math.sin(b * s)).toFixed(1); }
+  return d;
+}
+const wob = el('g', { filter: 'url(#wob)' });
+// construction, light and long
+const cons = el('g', { stroke: 'rgba(214,228,250,.22)', 'stroke-width': 1 }, wob);
+el('circle', { cx, cy, r: R + 26, fill: 'none', 'stroke-dasharray': '3 7' }, cons);
+el('line', { x1: cx - R - 50, y1: cy - R, x2: cx + R + 50, y2: cy - R }, cons);
+el('line', { x1: cx - R - 50, y1: cy + R, x2: cx + R + 50, y2: cy + R }, cons);
+el('line', { x1: cx - R, y1: cy - R - 50, x2: cx - R, y2: cy + R + 70 }, cons);
+el('line', { x1: cx + R, y1: cy - R - 50, x2: cx + R, y2: cy + R + 70 }, cons);
+// centre lines, dash-dot
+const cl = el('g', { stroke: 'rgba(214,228,250,.4)', 'stroke-width': 1.2, 'stroke-dasharray': '22 6 3 6' }, wob);
+el('line', { x1: cx - R - 40, y1: cy, x2: cx + R + 40, y2: cy }, cl);
+el('line', { x1: cx, y1: cy - R - 40, x2: cx, y2: cy + R + 40 }, cl);
+// the first try, rubbed out
+el('path', { d: liss(3, 4, .3, 700, 10, 6), stroke: 'rgba(214,228,250,.16)', 'stroke-width': 2.2, filter: 'url(#erased)' });
+// the figure, inked in
+const fig = el('path', { d: liss(3, 5, .55, 1400), stroke: '#eef3fa', 'stroke-width': 2.4, 'stroke-linejoin': 'round', class: 'draw' }, wob);
+fig.style.setProperty('--len', Math.ceil(fig.getTotalLength()));
+// dimensions with architect's ticks
+function tick(x, y) { el('line', { x1: x - 9, y1: y + 9, x2: x + 9, y2: y - 9, stroke: '#eef3fa', 'stroke-width': 2.6 }, wob); }
+const yD = cy + R + 50;
+el('line', { x1: cx - R - 14, y1: yD, x2: cx + R + 14, y2: yD, stroke: '#8fb8ff', 'stroke-width': 1.4 }, wob);
+tick(cx - R, yD); tick(cx + R, yD);
+el('text', { x: cx, y: yD - 10, 'text-anchor': 'middle', class: 'hand', 'font-size': 22, fill: '#8fb8ff' }, wob).textContent = '3 lobes : 5 lobes';
+const xD = cx - R - 46;
+el('line', { x1: xD, y1: cy - R - 14, x2: xD, y2: cy + R + 14, stroke: '#eef3fa', 'stroke-width': 1.4 }, wob);
+tick(xD, cy - R); tick(xD, cy + R);
+const vt = el('text', { x: xD - 12, y: cy, 'text-anchor': 'middle', class: 'hand', 'font-size': 22, fill: '#eef3fa', transform: `rotate(-90 ${xD - 12} ${cy})` }, wob);
+vt.textContent = '2R ± 0.01';
+el('text', { x: cx - R - 50, y: cy - R - 66, class: 'mono', 'font-size': 14, 'letter-spacing': 2.5, fill: 'rgba(214,228,250,.6)' }, g).textContent = 'VIEW A · THE SIGIL, FRONT';
+// revision triangle on the ratio
+const red = el('g', { filter: 'url(#pencil)' });
+el('polygon', { points: `${cx + 128},${yD + 34} ${cx + 146},${yD + 4} ${cx + 164},${yD + 34}`, fill: 'none', stroke: '#ff5a4e', 'stroke-width': 3 }, red);
+el('text', { x: cx + 146, y: yD + 29, 'text-anchor': 'middle', class: 'hand', 'font-size': 16, fill: '#ff5a4e' }, red).textContent = 'B';
+
+// a revision cloud around the proposed legend row
+function cloud(x, y, w, h, r) {
+  const pts = [];
+  const step = r * 1.6;
+  for (let t = x; t < x + w; t += step) pts.push([t, y]);
+  for (let t = y; t < y + h; t += step) pts.push([x + w, t]);
+  for (let t = x + w; t > x; t -= step) pts.push([t, y + h]);
+  for (let t = y + h; t > y; t -= step) pts.push([x, t]);
+  let d = `M${pts[0][0]} ${pts[0][1]}`;
+  for (let i = 1; i <= pts.length; i++) { const p = pts[i % pts.length]; d += ` A${r} ${r} 0 0 1 ${p[0]} ${p[1]}`; }
+  return d + 'Z';
+}
+el('path', { d: cloud(1430, 176, 116, 32, 9) }, document.getElementById('cloud'));
+</script>
+</body>
+</html>

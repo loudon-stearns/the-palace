@@ -1,0 +1,51 @@
+{
+ "entry": "Neural Granular Synthesis",
+ "path": "Projects/Neural Granular Synthesis.md",
+ "type": "project",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "The Core Insight §: 'a single grain is a snippet … with no discernible pitch … stack thousands … and suddenly you have color' — stability lives in the population; and Population-Level Parameters §: 'an evenly spread crowd locks like a switch; a lumpy one … arrives softly'.",
+ "pieces": [
+  {
+   "section": "The Core Insight",
+   "what": "crowd-size ladder: 1, 10, 100, 1000 neurons, heard in turn with the stability measure plotted; tests where the timbre becomes stable (also answers the open question on minimum population)",
+   "kind": "audio",
+   "walks_up_from": "one neuron's spike train"
+  },
+  {
+   "section": "The Raster Plot as Pedagogical Tool",
+   "what": "raster explorer: turn K and watch scatter become vertical stripes while hearing it; tests the stripes/scatter reading",
+   "kind": "interactive",
+   "walks_up_from": "one row, one neuron firing"
+  },
+  {
+   "section": "Population-Level Parameters",
+   "what": "lumpiness attack: switch-like vs soft arrival at the lock, heard and traced",
+   "kind": "audio",
+   "walks_up_from": "an evenly spread crowd at the lock edge"
+  },
+  {
+   "section": "Open Questions",
+   "what": "pacemaker ladder and surge-before-lock; tests 'just under the lock, pacemakers make the crowd surge'",
+   "kind": "audio",
+   "walks_up_from": "a crowd with no pacemakers"
+  }
+ ],
+ "gathered": [
+  "Projects/Neural Granular Synthesis/crowd-instrument.html",
+  "Projects/Neural Granular Synthesis/raster-plot-explorer.html",
+  "Projects/Neural Granular Synthesis/synchrony-sonifier.html",
+  "Projects/Neural Granular Synthesis/crowd-size-ladder.wav",
+  "Projects/Neural Granular Synthesis/crowd-size-stability.png",
+  "Projects/Neural Granular Synthesis/lumpiness-attack.wav",
+  "Projects/Neural Granular Synthesis/lumpiness.png",
+  "Projects/Neural Granular Synthesis/pacemaker-ladder.wav",
+  "Projects/Neural Granular Synthesis/surge-before-lock.wav",
+  "Projects/Neural Granular Synthesis/raster-four-regimes.png",
+  "Projects/Neural Granular Synthesis/four-regimes.wav",
+  "Projects/Neural Granular Synthesis/timbre-map.png",
+  "Projects/Neural Granular Synthesis/synchrony-sweep.wav"
+ ],
+ "tier": "study",
+ "slice": 4
+}

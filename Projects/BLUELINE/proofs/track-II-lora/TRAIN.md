@@ -10,6 +10,8 @@ trainer needs an **SSH-enabled** pod. This is the one-time procedure.
 a trainer through it. Training needs a real shell, which means a pod created **with a `PUBLIC_KEY`** so
 you can SSH in.
 
+> Renting the pod, and every Runpod trap: [[RunPod GPU Backend — runbook]] (`startSsh` on a v2 create injects your registered keys as `PUBLIC_KEY`).
+
 ## FLUX path (ai-toolkit — matches the Piece tier)
 
 ```bash

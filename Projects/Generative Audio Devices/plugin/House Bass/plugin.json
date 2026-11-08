@@ -1,0 +1,27 @@
+{
+  "name": "GAD House Bass",
+  "target": "GadHouseBass",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.GadHouseBass",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Ghbs",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": [
+    "filt_freq=0.9",
+    "level=-12"
+  ],
+  "ui": {
+    "width": 1180,
+    "height": 680,
+    "min": [
+      1120,
+      660
+    ],
+    "max": [
+      1800,
+      1100
+    ],
+    "direction": "bench"
+  }
+}

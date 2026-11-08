@@ -1,0 +1,240 @@
+{
+  "title": "Floquet Theory — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Floquet Theory]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Floquet Time-Modulated Loops]]",
+      "type": "connects-to",
+      "label": "gathers-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of Floquet Theory's rich face: the theory page's own tests, laid beside the sections they test — the unit circle (gathered from the Floquet project's face), the three ways a multiplier leaves it and what each one makes, the Bloch and Floquet sides computed by methods that share nothing, and the Kapitza pendulum's rule held against its multipliers. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Floquet Theory",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The monodromy matrix",
+      "made_against": "e20265e7152b",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/Floquet Time-Modulated Loops — rich — multipliers.html",
+            "verdict": "keep",
+            "why": "Tests the page's |ρ| list against det M = 1 and finds the undamped stable pair on the circle (recomputed: 941 of 941 at q = 0.3, worst 2e-13). Walks up from circle-to-ellipse to the test; the caption is honest that its 'page' is the project's."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "/Projects/Floquet Time-Modulated Loops/Floquet Time-Modulated Loops — rich — multipliers.html",
+          "origin": "gathered",
+          "height": 1250,
+          "title": "one period, two multipliers · from the Floquet project's face",
+          "caption": "**The unit circle, tested.** Made for [[Floquet Time-Modulated Loops]] on the same equation, and gathered here because it tests this list: one pump period carries a circle of starting states onto an ellipse of the same area (det M = 1); the two multipliers ride the unit circle until they meet at −1 or +1 and split; and the test, with and without damping. With no damping the stable pair sits on |ρ| = 1, not inside it, so “|ρ| < 1: stable” is the damped case. Its text says “the page”, meaning the Floquet project's; the claim is the same.",
+          "near": "The unit circle in the complex plane is the dividing line"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Stability boundaries and bifurcations",
+      "made_against": "2f90e131891e",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Floquet Theory — rich — three ways out.html",
+            "verdict": "remake",
+            "why": "A real test that walks up, and the pitchfork finding is right (my run: 16 starts, all hold one point, both signs occur), but the step-5 line 'in general a crossing at +1 is a fold, and transcritical and pitchfork are its special cases' frames the wrong case: the pumped rest state persists, so it cannot fold, and the linear equation alone grows no branch. Replace only that sentence with the one in the challenge record."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/audio/04a_below_threshold.wav",
+            "verdict": "keep",
+            "why": "Tests the period-doubling signature (one pump period on, correlation −0.998); the caption honestly relabels it as sitting on q_c = 2ζ, as the sibling faces do. Level −48 to −25 dB recomputed."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/audio/04b_at_threshold.wav",
+            "verdict": "keep",
+            "why": "Recomputed: 220.00 Hz, −10.0 dB, 440 Hz 93 dB down, 660 Hz at −30.8 dB: odd harmonics only, the period doubled, as captioned."
+          },
+          {
+            "file": "/Projects/Floquet Time-Modulated Loops/audio/04c_above_threshold.wav",
+            "verdict": "keep",
+            "why": "Recomputed: 220.00 Hz, −5.1 dB, 660 Hz at −19.5 dB, as captioned."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Floquet Theory — rich — three ways out.html",
+          "origin": "made",
+          "by": "monodromy · offline render",
+          "height": 1500,
+          "title": "three ways out of the circle",
+          "caption": "**What each crossing makes, heard and measured.** One damped ring at 220 Hz and its two multipliers; the pump at 440 Hz pushing one out at −1 (below, at and above q = 0.0050); the ring at 440 Hz and the pump pushing one out at +1 (q = 0.200); a pair that the pump can turn but never move, until the damping goes negative; and the test, 24 runs read on a stroboscope. Every growth matches its multiplier to 4 × 10⁻⁵ a period. At −1: a tone at 220.00 Hz that flips side every look, the period doubled. Off the axis: its own pitch, 340.3 Hz, and a closed curve of looks, a torus. At +1: one point per run, on + in 4 runs of 8 and on − in 4, two mirror rings born together: a pitchfork here, not the transcritical the text names. Every run is rendered in the page and played as drawn.",
+          "near": "Neimark-Sacker"
+        },
+        {
+          "file": "/Projects/Floquet Time-Modulated Loops/audio/04a_below_threshold.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "Stage 1 · q = 0.05, labelled below threshold",
+          "caption": "With the build's damping (ζ = 0.025) the threshold is q = 2ζ = 0.05, so this one sits on it: a hiss wandering between about −47 and −25 dB. Even here, one pump period on the signal is its own negative (correlation −0.998).",
+          "near": "Each of these has a characteristic audible signature"
+        },
+        {
+          "file": "/Projects/Floquet Time-Modulated Loops/audio/04b_at_threshold.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "Stage 1 · q = 0.10, labelled at threshold",
+          "caption": "Twice the threshold: full within 0.2 s, steady at −10 dB. The tone is 220.00 Hz, half the 440 Hz pump; the pump's own rate stands 93 dB down and the harmonics are odd only (660 Hz at −31 dB), because the wave flips sign every pump period (correlation −1.000). This is the period doubling the sentence promises.",
+          "near": "Each of these has a characteristic audible signature"
+        },
+        {
+          "file": "/Projects/Floquet Time-Modulated Loops/audio/04c_above_threshold.wav",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "Stage 1 · q = 0.30, well above",
+          "caption": "Full within 0.1 s, steady at −5 dB, still 220.00 Hz with odd harmonics only (660 Hz at −20 dB). The three files share one gain, so their levels compare.",
+          "near": "Each of these has a characteristic audible signature"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Floquet ↔ Bloch — the duality",
+      "made_against": "68e121d8d5ad",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Floquet Theory — rich — same equation twice.html",
+            "verdict": "keep",
+            "why": "Pins the page's dictionary (k ↔ Im μ, E ↔ a) by two methods that share no code; recomputed against scipy's Mathieu values to 2e-13 and DOP853 edges to 9e-9. Note: the caption's 2e-7 is its RK4's bound, not the duality's."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Floquet Theory — rich — same equation twice.html",
+          "origin": "made",
+          "by": "plane waves · monodromy",
+          "height": 1250,
+          "title": "same equation, read twice",
+          "caption": "**The duality, checked by two methods that share no code.** A wave in a cosine lattice; the same numbers relabelled as a pumped spring, where one look per cell or per period turns by one angle, k for Bloch and the quasi-frequency for Floquet; the bands from plane waves beside the growth from integration; and the test. Gap edges from the plane-wave matrix and tongue edges from the integrator agree within 2 × 10⁻⁷, the limit of the piece's RK4 (the challenger's plane-wave edges match scipy's Mathieu tables to 2 × 10⁻¹³), and inside the bands tr M / 2 = cos kπ within 4 × 10⁻¹². Odd gaps open at the zone edge with a negative multiplier (the period-doubling tongues), even ones at the centre with a positive one. It also pins the dictionary: k stands for Im μ, not μ, and the energy for a.",
+          "near": "Time has replaced space"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Floquet engineering",
+      "made_against": "6ba826209b30",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Floquet Theory — rich — standing on a shake.html",
+            "verdict": "keep",
+            "why": "Holds 'fast enough' against the multipliers and finds the long-stroke top; recomputed 15.798 vs 15.764 Hz, h/L 0.45402, 3.304–6.714 Hz at L/2. Note: the on-screen fall time is integrator-sensitive (3.2–8.6 s at 12 Hz), the fall itself robust."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Floquet Theory — rich — standing on a shake.html",
+          "origin": "made",
+          "by": "RK4 swing · monodromy",
+          "height": 1250,
+          "title": "standing on a shake",
+          "caption": "**Kapitza's pendulum, and how fast is enough.** A 20 cm rod balanced upside down falls (×1.150 every fiftieth of a second); shaken 2 cm at 5 Hz it still falls; at 50 Hz it stands and wobbles, its multipliers on the unit circle; and the test, every stroke and rate decided by one shake period's multipliers, with Kapitza's rule (hΩ)² > 2gL drawn over. For a short stroke the rule is the whole story (onset 15.80 Hz against 15.76 at h = L/10). Past a stroke of 0.454 L the standing band has a top: at h = L/2 it stands only from 3.30 to 6.71 Hz, and the full swing agrees (stands at 6 Hz, falls at 12). No friction anywhere. The fall time on screen depends on the integrator (3.2 to 8.6 s at 12 Hz across methods); the fall itself happens in every one.",
+          "near": "Kapitza stabilization"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The monodromy matrix",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "“|ρ| < 1: stable” describes no state of the undamped Mathieu equation the page names. There det M = 1, so both multipliers can never sit inside the circle; a stable state has both on |ρ| = 1. Measured: 941 of 941 stable a on q = 0.3 at |ρ| = 1 (within 6 × 10⁻⁹ here, 2.2 × 10⁻¹³ by the challenger's DOP853), and the standing Kapitza pendulum the same. The page's own Hamiltonian paragraph says as much. With damping the stable pair sits inside, at e^(−κπ/2) (0.854636 at κ = 0.1). Suggest naming both cases: with damping, all inside means it decays; with none, all on the circle and apart means it stays bounded, and the boundary is where the pair meets at ±1 and splits. The Philosophical Lens's “Re(μ) < 0: stable” is the same damped reading; whether to touch a quoted voice is a taste call."
+    },
+    {
+      "section": "Stability boundaries and bifurcations",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "“ρ → +1: transcritical bifurcation. Two equilibria collide and exchange stability.” For this resonator it is a pitchfork. The equation, brake included, is odd in x, so −x(t) is a solution whenever x(t) is, and x = 0 is a solution at every q; a state that persists, plus that symmetry, forces a pitchfork. Measured, q = 0.35: every run holds one stroboscope point, 4 of 8 on + and 4 on − (the challenger: 4 and 12 of 16). “Transcritical” is loose rather than wrong: it is the generic name for a state that survives the crossing with no symmetry. And the list is the nonlinear theory of periodic orbits; for the linear equation a +1 crossing is only a change of stability. Suggested line (the challenger's): “ρ → +1: the state goes unstable with a pattern that repeats every T. In the linear equation that is all; once a nonlinearity caps the growth, a lone orbit folds, a state that persists across the crossing is transcritical, and with the symmetry x → −x, as in a pumped resonator, it is a pitchfork.”"
+    },
+    {
+      "section": "Stability boundaries and bifurcations",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Neimark–Sacker is the right name, but the page is silent on the fact that a single resonator, Stage 1's system, can't reach that crossing by pumping. With a 2 × 2 monodromy, ρ₁ρ₂ = det M = e^(−κπ), and a pair off the axis shares one size, so the pump turns it but never moves it out: measured, |ρ| = e^(−κπ/2) to 1.4 × 10⁻¹⁰ for q from 0 to 0.3 at κ = ±0.005 (the challenger: 5.8 × 10⁻¹⁴). Even pumping the damping itself changes nothing, since only the mean damping counts (κ(t) = 0.005 + 0.3 cos 2t still gives det M = e^(−κ̄π)). Only a negative mean damping, a Hopf of the rest state at every q, or two or more degrees of freedom (a Krein collision, the combination resonance; not measured here) gets there. Suggest one clause saying so beside the promise that later stages will make it audible."
+    },
+    {
+      "section": "Floquet ↔ Bloch — the duality",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The real slip is “the quasi-energy spectrum β(μ) where μ = α + iβ”: β is Im μ, so β(μ) is not a band structure. The band structure on the time side is a against β at fixed q, exactly as E against k. “The Floquet exponent μ has replaced Bloch's crystal momentum k” is shorthand for μ = ik, which the page's own Brillouin-zone line already uses; loose, not wrong. Measured: at the plane-wave energies for k = 0.25, 0.5, 0.75, tr M / 2 = cos kπ within 4 × 10⁻¹²; gap edges equal tongue edges within 2 × 10⁻⁷ (the RK4's limit; the challenger matches scipy's Mathieu tables to 2 × 10⁻¹³). Two things the page could add: for the Mathieu equation the duality is an identity, since it is the wave equation in a cosine lattice word for word; and odd gaps open at the zone edge with negative ρ, so Bragg reflection at the zone edge is the period-doubling tongue."
+    },
+    {
+      "section": "Floquet engineering",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "“Stable when its pivot is vertically oscillated fast enough” is the textbook short-stroke phrasing, not wrong, but incomplete for a long stroke. Kapitza's rule, top speed hΩ above √(2gL), matches the multipliers within 0.22 % at a stroke of L/10 (15.798 Hz against 15.764). Past a stroke of 0.45402 L, where the first Mathieu tongue crosses a = 0 at q = 0.90805, the standing band has a top: at h = L/2 the pendulum stands only from 3.304 to 6.714 Hz, and the full nonlinear swing agrees (stands at 6 Hz, falls at 12 Hz). Suggest “fast enough, its top speed above √(2gL), with a stroke small beside the rod”."
+    },
+    {
+      "section": "Floquet ↔ Bloch — the duality",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "For the Floquet project, not this page: static/11_bloch_floquet_duality.png, which the nomination listed for this section, was left off the face. Its band panel draws the bands as straight crossing lines with no gap opened (the one yellow “gap” is a line at E ≈ 0.16); its gain panel shades about eight narrow “tongues” between ω ≈ 0.27 and 0.75 where the gain is only ripple around zero; and its footer maps k ↔ μ and E ↔ ω, where the measured dictionary is k ↔ Im μ and E ↔ a = ω². Read from the image, not re-rendered. The made piece stands in for it. Confirmed by the challenger from the image; the Floquet Loops face's own offer lists the same fault."
+    }
+  ]
+}

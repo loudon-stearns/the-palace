@@ -1,0 +1,54 @@
+# Synth Templates — card — Phase Distortion
+# Technique demonstration: a sine read at an uneven speed. The table is unchanged; the path through it bends, and that bend is the timbre.
+schema: synth-template-card/0.2
+id: phase-distortion
+name: Phase Distortion
+family: Technique Demonstrations
+tier: 3
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Phase, free-running vs retrigger, the click"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "a phase-distortion oscillator (the Casio CZ idea): one sine wavetable, read with a phase that speeds up then slows within each cycle. No distortion: the first half is read fast, the second slow, and the sine comes out saw-shaped. The voice plays a plain sine; drawn, not heard"}
+    amp:  {kind: amplifier, level: under unity}
+    menv: {kind: envelope, role: distortion, shape: {a: instant, d: medium, s: low, r: short}, category: percussive, note: "where a subtractive synth has a filter envelope, PD has this: bright at the strike, settling"}
+    aenv: {kind: envelope, role: amp, shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.shape, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine, why: "the table is always a sine; the sound comes from how it is read"}
+  - {block: osc1, param: shape,   value: none at rest, why: "no bend: a plain sine. The bend adds harmonics the way a filter opening would reveal them, with no filter"}
+  - {block: menv, param: target,  value: distortion amount, why: "the bend put on an envelope: the PD synth's stand-in for a filter envelope, and it sounds like one"}
+  - {block: menv, param: decay,   value: medium, why: "the bite: bright at the strike, settling to the resting shape"}
+
+taste:
+  - {block: osc1, param: shape,  range: "none – full", default: none, why: "the hand sweep: sine to saw, and with the other read-shapes to square or a resonant sweep"}
+  - {block: menv, param: amount, range: "some – full", default: generous}
+  - {block: menv, param: decay,  range: "short – long", default: medium}
+
+listening:
+  cue: "A sine that brightens into a saw as the distortion comes up, without a filter, and the bend on an envelope sounds like a filter sweep on every note: bright at the attack, mellow as it holds."
+  ab: "Set the distortion amount to none: a sine with no attack character, the same at every moment. Bring it back: each note bites and settles, the subtractive sound without the subtraction."
+
+render:
+  tempo: 100
+  note: C3
+  velocity: 90
+  pattern: "one note held four seconds swept by hand from none to full, then three quarter notes with the envelope doing it"
+  length_s: 8.0
+
+mappings: {}

@@ -1,0 +1,218 @@
+{
+ "room": "back row at 8 screen-heights; 1280×720 unless named",
+ "groups": [
+  {
+   "group": "readout: big ratio",
+   "cap_px_normal": 81.76,
+   "cap_px_projector": 112.13,
+   "arcmin_8H_720p": 66.8,
+   "arcmin_6H_720p": 89.0,
+   "arcmin_8H_1080p": 46.4
+  },
+  {
+   "group": "ladder numerals",
+   "cap_px_normal": 19.91,
+   "cap_px_projector": 24.11,
+   "arcmin_8H_720p": 14.4,
+   "arcmin_6H_720p": 19.1,
+   "arcmin_8H_1080p": 9.6
+  },
+  {
+   "group": "temper: interval names",
+   "cap_px_normal": 14.87,
+   "cap_px_projector": 18.58,
+   "arcmin_8H_720p": 11.1,
+   "arcmin_6H_720p": 14.8,
+   "arcmin_8H_1080p": 7.4
+  },
+  {
+   "group": "temper: ratios",
+   "cap_px_normal": 13.01,
+   "cap_px_projector": 15.8,
+   "arcmin_8H_720p": 9.4,
+   "arcmin_6H_720p": 12.5,
+   "arcmin_8H_1080p": 6.3
+  },
+  {
+   "group": "temper: cents deviation",
+   "cap_px_normal": 11.15,
+   "cap_px_projector": 13.94,
+   "arcmin_8H_720p": 8.3,
+   "arcmin_6H_720p": 11.1,
+   "arcmin_8H_1080p": 5.5
+  },
+  {
+   "group": "readout: n × f = Hz lines",
+   "cap_px_normal": 9.49,
+   "cap_px_projector": 11.68,
+   "arcmin_8H_720p": 7.0,
+   "arcmin_6H_720p": 9.3,
+   "arcmin_8H_1080p": 4.6
+  },
+  {
+   "group": "ladder edge labels (P5, M3…)",
+   "cap_px_normal": 7.86,
+   "cap_px_projector": 9.96,
+   "arcmin_8H_720p": 5.9,
+   "arcmin_6H_720p": 7.9,
+   "arcmin_8H_1080p": 4.0
+  },
+  {
+   "group": "bracket column (class words, short names)",
+   "cap_px_normal": 6.29,
+   "cap_px_projector": 8.91,
+   "arcmin_8H_720p": 5.3,
+   "arcmin_6H_720p": 7.1,
+   "arcmin_8H_1080p": 3.5
+  },
+  {
+   "group": "ladder letter names",
+   "cap_px_normal": 7.86,
+   "cap_px_projector": 7.86,
+   "arcmin_8H_720p": 4.7,
+   "arcmin_6H_720p": 6.2,
+   "arcmin_8H_1080p": 3.1
+  },
+  {
+   "group": "temper: keys and captions",
+   "cap_px_normal": 10.22,
+   "cap_px_projector": 10.22,
+   "arcmin_8H_720p": 6.1,
+   "arcmin_6H_720p": 8.1,
+   "arcmin_8H_1080p": 4.1
+  },
+  {
+   "group": "body text",
+   "cap_px_normal": 9.49,
+   "cap_px_projector": 9.49,
+   "arcmin_8H_720p": 5.7,
+   "arcmin_6H_720p": 7.5,
+   "arcmin_8H_1080p": 3.8
+  },
+  {
+   "group": "buttons",
+   "cap_px_normal": 8.76,
+   "cap_px_projector": 8.76,
+   "arcmin_8H_720p": 5.2,
+   "arcmin_6H_720p": 7.0,
+   "arcmin_8H_1080p": 3.5
+  }
+ ],
+ "gaps": [
+  {
+   "interval": "-2",
+   "deviation": "+11.7¢",
+   "gap_px_x1": 10.65,
+   "arcmin_x1": 6.35,
+   "gap_px_x5": 53.26,
+   "arcmin_x5": 31.75
+  },
+  {
+   "interval": "M2",
+   "deviation": "+3.9¢",
+   "gap_px_x1": 3.55,
+   "arcmin_x1": 2.12,
+   "gap_px_x5": 17.75,
+   "arcmin_x5": 10.58
+  },
+  {
+   "interval": "-3",
+   "deviation": "+15.6¢",
+   "gap_px_x1": 14.2,
+   "arcmin_x1": 8.46,
+   "gap_px_x5": 71.01,
+   "arcmin_x5": 42.33
+  },
+  {
+   "interval": "M3",
+   "deviation": "−13.7¢",
+   "gap_px_x1": 12.43,
+   "arcmin_x1": 7.41,
+   "gap_px_x5": 62.14,
+   "arcmin_x5": 37.04
+  },
+  {
+   "interval": "P4",
+   "deviation": "−2.0¢",
+   "gap_px_x1": 1.78,
+   "arcmin_x1": 1.06,
+   "gap_px_x5": 8.88,
+   "arcmin_x5": 5.29
+  },
+  {
+   "interval": "T.T.",
+   "deviation": "+9.8¢",
+   "gap_px_x1": 8.88,
+   "arcmin_x1": 5.29,
+   "gap_px_x5": 44.38,
+   "arcmin_x5": 26.45
+  },
+  {
+   "interval": "P5",
+   "deviation": "+2.0¢",
+   "gap_px_x1": 1.78,
+   "arcmin_x1": 1.06,
+   "gap_px_x5": 8.88,
+   "arcmin_x5": 5.29
+  },
+  {
+   "interval": "-6",
+   "deviation": "+13.7¢",
+   "gap_px_x1": 12.43,
+   "arcmin_x1": 7.41,
+   "gap_px_x5": 62.14,
+   "arcmin_x5": 37.04
+  },
+  {
+   "interval": "M6",
+   "deviation": "−15.6¢",
+   "gap_px_x1": 14.2,
+   "arcmin_x1": 8.46,
+   "gap_px_x5": 71.01,
+   "arcmin_x5": 42.33
+  },
+  {
+   "interval": "-7",
+   "deviation": "−3.9¢",
+   "gap_px_x1": 3.55,
+   "arcmin_x1": 2.12,
+   "gap_px_x5": 17.75,
+   "arcmin_x5": 10.58
+  },
+  {
+   "interval": "M7",
+   "deviation": "−11.7¢",
+   "gap_px_x1": 10.65,
+   "arcmin_x1": 6.35,
+   "gap_px_x5": 53.26,
+   "arcmin_x5": 31.75
+  }
+ ],
+ "zoom": [
+  {
+   "zoom": 1,
+   "edge_label_cap_px": 10,
+   "arcmin_8H": 6.0
+  },
+  {
+   "zoom": 1.25,
+   "edge_label_cap_px": 10.7,
+   "arcmin_8H": 6.4
+  },
+  {
+   "zoom": 1.5,
+   "edge_label_cap_px": 10.7,
+   "arcmin_8H": 6.4
+  },
+  {
+   "zoom": 1.75,
+   "edge_label_cap_px": 10.7,
+   "arcmin_8H": 6.4
+  },
+  {
+   "zoom": 2,
+   "edge_label_cap_px": 10.7,
+   "arcmin_8H": 6.4
+  }
+ ]
+}

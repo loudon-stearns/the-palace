@@ -1,0 +1,129 @@
+{
+ "title": "Progressive Staging — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Action Potential Oscillator]]",
+   "type": "connects-to",
+   "label": "its-dev-plan-is-the-engine"
+  },
+  {
+   "target": "[[Dispersion Table]]",
+   "type": "connects-to",
+   "label": "gathered-from"
+  }
+ ],
+ "forward_vector": "I am the manifest of Progressive Staging's rich face, its first round, still a proposal: a walk that puts the page's first rule to its fourth (turn the leak off and get Stage 1 back exactly, tested by Stage 1's own inherited frequency test), and one walk from this round gathered as it landed, with each step's one thing named and the page's walk rules checked against it. I grow when Loudon has heard them; I never hold the entry's words.",
+ "entry": "Progressive Staging",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "offers": [
+  {
+   "section": "The Method",
+   "kind": "claim-change",
+   "what": "'the student can set leak_tau to infinity and recover Stage 1 exactly' holds for the climb and not for the reset. The dev plan's Stage 2 resets to zero (membrane_v = 0, on purpose: 'Unlike Stage 1's wrap, a hard reset is more appropriate here'), and the March artifact's Stage 2 pseudocode does the same, where Stage 1 subtracts the threshold and keeps the spill. With the leak at its stop, Stage 2's samples are Stage 1's up to the first reset; after it each cycle takes the period rounded up to a whole sample, and the note runs flat: 14.37 cents at 440 Hz at 48 kHz (13.30 at 44.1 kHz), 63.97 cents at 1760 Hz at 44.1 kHz. Stage 1's own test (440 Hz within 0.1 Hz), inherited as the page's fourth rule says, fails at 5 of 5 notes at 48 kHz and 4 of 5 at 44.1 kHz. And the error is not only at the stop: the plan's Stage 2 never lands within 0.1 Hz of 440 Hz at any τ from 1 ms to 10⁶ ms (closest 1.000 Hz off at 44.1 kHz, 0.367 Hz at 48 kHz). Given Stage 1's reset, Stage 2 at its stop is Stage 1 to floating-point rounding: bitwise the same at the five notes the piece plays; across 176 note-and-rate pairs the two drives differ by one bit at 47, and samples by at most 5.3e-12 (challenger's count). Infinity itself is a limit: the plan's drive line gives 1 ÷ (∞ × 0) there, not a number. Proposed: 'Stage 2's leak equation wraps around Stage 1's linear ramp: let leak_tau grow without end and the leak's coefficient goes to one and its drive to Stage 1's step, so the climb is Stage 1's again, sample for sample. To get Stage 1 back, the reset has to come along too. The dev plan's Stage 2 resets to zero where Stage 1 keeps what spilled past the threshold, and that alone leaves its notes flat, 14 cents at 440 Hz at 48 kHz. Stage 1's inherited frequency test catches it.'",
+   "status": "open"
+  },
+  {
+   "section": "Inside One Piece",
+   "kind": "no-claim-edit",
+   "what": "→ Dispersion Table: no change to this page. The gathered walk's last step says 'The proof below, from Dissolutions' and carries no link, so opened on its own (or framed here, with nothing below it) a reader has no way to the proof the section says the last step links to. One link in step 4 of Dispersion Table — rich — the table and the loop.html, to /Dissolutions/proofs/2026-10-20-the-table-that-travels/the-table-that-travels.html, meets the rule.",
+   "status": "open"
+  },
+  {
+   "section": "The Method",
+   "kind": "no-claim-edit",
+   "what": "→ Action Potential Oscillator: no change to this page. That face's four-stages walk says step 2 with τ at ∞ is step 1 'sample for sample'. That is true of its own engine, where Stage 1 and Stage 2 both reset to zero, and is not evidence for the dev plan, whose Stage 1 wraps; its step text could say so.",
+   "status": "open"
+  },
+  {
+   "section": "The Method",
+   "kind": "no-claim-edit",
+   "what": "→ Action Potential Oscillator: no change to this page. The dev plan's Stage 2 at its 5 ms default measures 441.000 Hz at 44.1 kHz and 440.367 Hz at 48 kHz, failing its own frequency test (neural_oscillator_dev_plan.md:217, 'should measure 440 Hz') against Stage 1's ±0.1 Hz. Two causes: the drive is solved for the continuous curve while the code steps a discrete one-pole, and the hard reset ends every cycle on a whole sample.",
+   "status": "open"
+  }
+ ],
+ "sections": [
+  {
+   "heading": "The Method",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Progressive Staging — rich — the leak at its stop.html",
+      "verdict": "keep",
+      "why": "Walks up (Stage 1 alone, Stage 2 alone, the stop, then the test last) and is a real test: the page's fourth rule fails its first. Port matches the plan line for line, and every number recomputes (fs/⌈P⌉; −14.37 ¢ at 440/48k, −63.97 ¢ at 1760/44.1k; 5/5 and 4/5 fail; wrap diff 0). Note: the caption's 'at every note, exactly' should read 'at all five notes', since the drive differs from f/fs by one ulp at 47 of 176 MIDI-note-and-rate pairs."
+     }
+    ]
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "Progressive Staging — rich — the leak at its stop.html",
+     "origin": "made",
+     "by": "Web Audio · canvas",
+     "height": 1300,
+     "title": "the leak at its stop · a walk in four steps",
+     "caption": "**Does turning the leak off give Stage 1 back exactly?** Stages 1 and 2 as the Action Potential Oscillator's dev plan writes them. Stage 1 alone, threshold and reset; Stage 2 alone, the time constant; the leak run to its stop and laid over Stage 1; and last Stage 1's own frequency test, inherited as the paragraph on testing says, run on Stage 2. The climb comes back sample for sample, up to the first reset. The reset doesn't: the plan's Stage 2 resets to zero where Stage 1 keeps what spilled past the threshold, so each cycle ends on a whole sample and the note goes flat, 14.4 cents at 440 Hz at 48 kHz and 64 cents at 1760 Hz at 44.1 kHz. The inherited test fails at every note at 48 kHz and at 4 of 5 at 44.1. Give Stage 2 Stage 1's reset and the two give the same samples at all five notes, exactly. At the stop itself the plan's drive line divides by ∞ × 0, so the stop is the limit. Measured in the piece and its check; not heard by the agent that made it.",
+     "near": "Nothing is thrown away; everything is extended.",
+     "place": "band"
+    }
+   ],
+   "made_against": "4ece20e8ee64",
+   "stamped": "2026-11-03"
+  },
+  {
+   "heading": "Inside One Piece",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "/Dispersion Table/Dispersion Table — rich — the table and the loop.html",
+      "verdict": "keep",
+      "why": "Loudon's outline walked step for step; it meets every walk rule (silent before a click, one step at a time, Back stops the sound, open rail, step 3 goes back to each alone, checks pile up, its check ALL PASS) except the one the caption names: step 4 says 'the proof below' and has no link, which is Dispersion Table's piece to fix."
+     }
+    ]
+   },
+   "made": "2026-11-03",
+   "pieces": [
+    {
+     "file": "/Dispersion Table/Dispersion Table — rich — the table and the loop.html",
+     "origin": "gathered",
+     "by": "Dispersion Table · rich face, 2026-11-03 proposal round",
+     "height": 1900,
+     "title": "the table and the loop · Loudon's outline, walked",
+     "caption": "**One walk from this round, gathered as it landed: the outline above, made into steps for Dispersion Table's face.** Each step's one thing: 1 · the table, a reader sweeping a cycle that holds still; 2 · the loop, the same cycle sliding past a tap that holds still; 3 · their difference, silence at every sample, with the loop one sample longer so you can watch the test fail; 4 · the test, the loop half a sample longer, where reading between samples puts a filter in it that nobody put there. The outline's last word, the filter, is the Dissolutions proof the walk climbs to. Checked headless against this section's rules: silent until a click, no audio context before one, one step at a time, Back returns and stops the sound, the rail goes straight to the test, step 3 plays the table alone and the loop alone again, and a check file beside it runs every step, the first included. One rule it bends: its last step names the proof ('the proof below') but doesn't link to it, so opened on its own a reader has no way there; in its own face the proof sits beneath it.",
+     "near": "Loudon's outline for the Dissolutions proof",
+     "place": "band"
+    }
+   ],
+   "made_against": "9405608f6612",
+   "stamped": "2026-11-03"
+  }
+ ]
+}

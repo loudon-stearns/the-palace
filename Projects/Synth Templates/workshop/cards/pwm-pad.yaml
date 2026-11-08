@@ -1,0 +1,71 @@
+# Synth Templates — card 0.2 — PWM Pad
+# A pulse whose width an LFO moves slowly: the harmonic balance tilts back and forth and the pad undulates from one oscillator.
+schema: synth-template-card/0.2
+id: pwm-pad
+name: PWM Pad
+family: Pads
+tier: 2
+mode: poly
+classics: Juno
+status: drafted
+concepts:
+  - "Pulse width, static and modulated"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.5, octave: 0}
+    sub:     {kind: oscillator, wave: square, octave: -1, note: "the Juno sub: a plain square an octave down, no modulation on it"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false, retrigger: false}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: osc1.pw, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: pulse,          why: "the only wave with a width to move: a switch that spends part of its time up, part down"}
+  - {block: osc1,    param: pw,        value: "0.5",          why: "the resting width is square; the LFO swings it to either side"}
+  - {block: lfo1,    param: target,    value: pulse width,    why: "as the width moves, which harmonics are present moves with it: the timbre undulates with no filter touched"}
+  - {block: lfo1,    param: rate,      value: slow,           why: "a slow wander; fast and it turns into a buzz"}
+  - {block: lfo1,    param: amount,    value: generous,       why: "wide enough to travel from square toward narrow, but not to the edge, where the wave collapses to silence"}
+  - {block: filter1, param: cutoff,    value: mid,            why: "half open, still, so the motion you hear is the width and nothing else"}
+  - {block: aenv,    param: attack,    value: slow,           why: "a pad"}
+  - {block: fx,      param: chain,     value: chorus,         why: "the Juno pair: PWM inside the oscillator, chorus after the filter; together they are the sound"}
+  - {block: mode,    param: voices,    value: poly,           why: "chords"}
+
+taste:
+  - {block: sub,     param: level,     range: "off – half",           default: quarter}
+  - {block: filter1, param: cutoff,    range: "dark – bright",        default: mid}
+  - {block: lfo1,    param: rate,      range: "very slow – medium",   default: slow}
+  - {block: lfo1,    param: depth,     range: "some – generous",      default: generous}
+  - {block: aenv,    param: attack,    range: "medium – very slow",   default: slow}
+  - {block: aenv,    param: release,   range: "medium – very long",   default: long}
+  - {block: fx,      param: chorus,    range: "light – lush",         default: lush}
+
+listening:
+  cue: "A hollow chord that slowly fattens and thins, fattens and thins, as if someone were breathing through it; at the thin end it turns slightly nasal. The filter is not moving."
+  ab: "Set the LFO depth to none: a square-wave pad, hollow and fixed, the breathing gone. Put it back. Then set the depth to full: at the narrow extreme the wave vanishes for a moment each cycle and the chord stutters."
+
+render:
+  tempo: 100
+  note: [G3, B3, D4, F#4]
+  velocity: 90
+  pattern: "one chord held three bars, released, tail to silence"
+  length_s: 10.0
+
+mappings: {}

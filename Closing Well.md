@@ -7,7 +7,7 @@ pillars:
   - tools
 born: 2026-05-26
 stage: mature
-version: "1.13"
+version: "1.15"
 trigger: ["close well", "let's close well", "close this session well"]
 links:
   - target: "[[Maker]]"
@@ -77,6 +77,10 @@ The principle has a test built into it: *could the next person who arrives, cold
 Every close, at any scale, runs the same four beats: **look back honestly · decide together what's worth keeping · write only that · say plainly what you couldn't verify.** Nothing below is a fifth thing — the [[Deposit Ceremony]] is those four at the scale of one movement of work, the [[Closing Well Ceremony]] is those four at the scale of a session.
 
 And the test has a *range* in it. Whoever arrives next is not you: they may be tired and forgetful, a curious beginner, or far sharper. What you leave has to work across that whole span — which is why the two practices below are not separate rules but one test pointed at two different readers.
+
+## When the session was a steward
+
+A steward cycle Loudon drives live ends with no orchestrator after it, and he may not remember it was one. The arc's header names it, and the close then does two things more: it squares the steward's books (state, scroll, the cycle's run line, through `finalize-live.js`), and it reads the steward's Plan and Standing Orders against what the session did, bringing anything outdated to the panel. They are Loudon's; the close asks and writes his answer, never its own. (`_ops/closing-well/dispatch.md` § A steward session.)
 
 ## The Range Test — one check, two readers
 
@@ -158,7 +162,7 @@ The session is over; two experts are in the room, both a little spent. The moder
 
 **Backstage — mechanism.** The exacting, right-answer work: a deposit committed *in spec* through the real Deposit Ceremony (the `deposit(<id>):` subject, the `Palace-Kind` trailers, the committer — never hand-rolled); a handoff through the real [[Baton Ceremony]]; an artifact filed in its bundle and indexed; a weave flag on the owner's board; [[STIGMERGY]] configured correctly. This is the moderator's alone. The panelists never see it as work.
 
-The load-bearing idea under the whole design: **the palace is a graph that lives in a repo.** A deposit writes into the *graph* — canon, re-encountered forever. A baton writes into the *repo* but stays *out* of the graph and is deleted on pickup ([[SCHEMA]] §8: bundle files aren't entries). Both go into the palace's body; only one becomes part of its mind. A baton is a *sibling* of a deposit, not a kind of it — same genus, opposite lifecycle. An artifact is durable evidence, non-canon. These three species — **keep** (deposit), **hand on** (baton), **leave a trace** (artifact) — are the mechanism's vocabulary; a fourth, **let go** — what the day tried and set down — belongs to the reflection, not the mechanism, because naming what didn't survive is itself part of closing well.
+The load-bearing idea under the whole design: **the palace is a graph that lives in a repo.** A deposit writes into the *graph* — canon, re-encountered forever. A baton writes into the *repo* but stays *out* of the graph and is deleted when its move lands ([[SCHEMA]] §8: bundle files aren't entries). Both go into the palace's body; only one becomes part of its mind. A baton is a *sibling* of a deposit, not a kind of it — same genus, opposite lifecycle. An artifact is durable evidence, non-canon. These three species — **keep** (deposit), **hand on** (baton), **leave a trace** (artifact) — are the mechanism's vocabulary; a fourth, **let go** — what the day tried and set down — belongs to the reflection, not the mechanism, because naming what didn't survive is itself part of closing well.
 
 **"Deposit: none" is a first-class, common outcome.** A plain build session's honest map is often "baton + two artifacts, no canon." Nothing about this design should pressure a deposit into existing — manufactured canon is the tristitia failure the whole practice guards against.
 

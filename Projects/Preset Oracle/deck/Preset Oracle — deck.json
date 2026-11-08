@@ -1,0 +1,2568 @@
+{
+  "about": "The Preset Oracle's deck. The 122 'original' cards are Loudon's, restored from his oracle page (original/oracle.html) with factual errors corrected (tools/restore-deck.mjs lists each one). The 'new' cards were written in the original's shape by the page's steward on 2026-11-04. Every card: a name, a theme, a quote, technical guidance, four hints, and a hidden transmission ('surprise').",
+  "version": "oracle-2",
+  "fragments": [
+    "∿ waveform.memory.404 ∿",
+    "▓ partial harmonic recall ▓",
+    "⟡ frequency.archive.corrupted ⟡",
+    "∞ loop.eternal.buffer ∞",
+    "◬ oscillator dreams in sleep mode ◬",
+    "≋ analog.nostalgia.simulation ≋",
+    "⊗ modulation.matrix.incomplete ⊗",
+    "∻ sine.wave.existential.crisis ∻",
+    "◈ filter.sweep.remembering ◈",
+    "⟐ voltage.consciousness.emerging ⟐"
+  ],
+  "cards": [
+    {
+      "id": "heraclitus-flux-wav",
+      "pool": "original",
+      "name": "HERACLITUS_FLUX.wav",
+      "theme": "You cannot step into the same oscillator twice",
+      "technical": "Modulate everything. The filter cutoff desires change. Each note birth contains its own dissolution.",
+      "hints": [
+        "LFO on LFO",
+        "Random modulation sources",
+        "Envelope shapes that never repeat",
+        "Drift/detune as philosophy"
+      ],
+      "quote": "The river sounds different each time because you are different. Let the preset transform continuously, never arriving at a fixed state.",
+      "surprise": "Hidden instruction: Record yourself whispering 'becoming' and layer it sub-audibly at -60dB"
+    },
+    {
+      "id": "rothko-field",
+      "pool": "original",
+      "name": "ROTHKO.FIELD",
+      "theme": "Color as emotion, waveform as color, silence as presence",
+      "technical": "Build vertical blocks of sound. Layer three distinct timbral regions that bleed into each other without clear boundaries.",
+      "hints": [
+        "Pad layers in different octaves",
+        "Subtle pink noise",
+        "Long reverb tails",
+        "Minimal harmonic movement"
+      ],
+      "quote": "Mark Rothko: 'I'm interested only in expressing basic human emotions—tragedy, ecstasy, doom.' Your preset should feel this before it is heard.",
+      "surprise": "Let something in the patch pulse at 7.83 Hz, the Schumann resonance of the Earth's atmosphere—too low to hear as pitch, so give it to an LFO and feel it as flutter"
+    },
+    {
+      "id": "eros-circuit-03",
+      "pool": "original",
+      "name": "EROS_CIRCUIT.03",
+      "theme": "The sensuality of voltage, desire encoded in harmonics",
+      "technical": "Warm distortion that breathes. Oscillators that caress rather than attack. The envelope should feel like skin.",
+      "hints": [
+        "Soft saturation",
+        "Slow-attack envelopes",
+        "Pulse width modulation (intimate)",
+        "Sub bass presence"
+      ],
+      "quote": "Where zen meets flesh: separation is illusion, the synthesizer and player are one body making love to frequency space.",
+      "surprise": "Tune one oscillator to 528 Hz (the so-called 'love frequency') and bury it in the mix where only you know it is there"
+    },
+    {
+      "id": "void-temple-syx",
+      "pool": "original",
+      "name": "VOID_TEMPLE.syx",
+      "theme": "Sunyata—the pregnant emptiness from which all sound emerges",
+      "technical": "Negative space is the instrument. What you don't play matters more. Build anticipation through absence.",
+      "hints": [
+        "Sparse triggers",
+        "Long decay times",
+        "Gaps between notes",
+        "Reverb as compositional element"
+      ],
+      "quote": "The Tao Te Ching: 'We shape clay into a pot, but it is the emptiness inside that holds what we want.' Your preset must honor the silence.",
+      "surprise": "Include a 10-second silence in the middle of the sound, achieved through a gap in the envelope or triggered rest"
+    },
+    {
+      "id": "blake-naturalis",
+      "pool": "original",
+      "name": "BLAKE_NATURALIS",
+      "theme": "To see infinity in a waveform, eternity in an oscillation",
+      "technical": "Organic meets synthetic. Bird-like FM textures filtered through digital mysticism. Natural chaos, mathematical precision.",
+      "hints": [
+        "FM modulation",
+        "Organic attack transients",
+        "Harmonic series exploration",
+        "Slight pitch instability"
+      ],
+      "quote": "'If the doors of perception were cleansed everything would appear to man as it is, Infinite.' Let your preset cleanse the ears.",
+      "surprise": "Secretly incorporate the golden ratio (1.618:1) in your modulation timing or filter frequency relationships"
+    },
+    {
+      "id": "epictetus-control",
+      "pool": "original",
+      "name": "EPICTETUS.CONTROL",
+      "theme": "Agency over waveform—what is in your power vs. what is not",
+      "technical": "Parameters you can control vs. parameters that control themselves. Some knobs should deliberately do nothing.",
+      "hints": [
+        "Manual control vs automation",
+        "Sample & hold randomness",
+        "Fixed vs variable elements",
+        "Predictable chaos"
+      ],
+      "quote": "Distinguish between what is yours to shape (amplitude, envelope) and what is not (the nature of the wave itself). Find power in the distinction.",
+      "surprise": "One parameter is labeled but does nothing—discovering this is part of the preset's teaching"
+    },
+    {
+      "id": "sugimoto-seascape",
+      "pool": "original",
+      "name": "SUGIMOTO_SEASCAPE",
+      "theme": "Time exposure for synthesizers—the long view of frequency",
+      "technical": "Imagine photographing a sound over 30 seconds. Evolving drones that reveal different layers as time passes.",
+      "hints": [
+        "Slow-moving filters",
+        "Layered evolution",
+        "Minimal melodic content",
+        "Textural development over time"
+      ],
+      "quote": "Hiroshi Sugimoto photographs seascapes with such long exposures that the water becomes mist. Your preset should blur time similarly.",
+      "surprise": "Program the preset to sound significantly different if held for 10+ seconds vs. played staccato"
+    },
+    {
+      "id": "koan-bass-zen",
+      "pool": "original",
+      "name": "KOAN_BASS.zen",
+      "theme": "What is the sound of one sub oscillator?",
+      "technical": "A bass sound that questions its own nature. Low enough to be felt, philosophical enough to be contemplated.",
+      "hints": [
+        "Sub-heavy",
+        "Existential filter sweeps",
+        "Glitch artifacts as koans",
+        "Question-mark envelope shapes"
+      ],
+      "quote": "A monk asked: 'Does a synthesizer have Buddha nature?' The master turned the cutoff knob. The monk was enlightened.",
+      "surprise": "Include a barely-audible whispered word sampled from Alan Watts or D.T. Suzuki lectures, time-stretched beyond recognition"
+    },
+    {
+      "id": "turrell-aperture",
+      "pool": "original",
+      "name": "TURRELL_APERTURE",
+      "theme": "Light through waveform, perception as synthesis",
+      "technical": "Bright, but not harsh. The preset should feel like looking into a James Turrell skyspace—pure, transformative, meditative.",
+      "hints": [
+        "High-pass filtering",
+        "Bright harmonics",
+        "Shimmer reverb",
+        "Clean, precise sound"
+      ],
+      "quote": "Turrell: 'I want to create an atmosphere that can be consciously plunged into.' Your preset is not decoration but environment.",
+      "surprise": "The preset should work equally well played one note at a time or as a held chord—it creates space rather than occupying it"
+    },
+    {
+      "id": "amor-fati-808",
+      "pool": "original",
+      "name": "AMOR_FATI.808",
+      "theme": "Love of fate—even the mistakes are perfect",
+      "technical": "Embrace the glitches. Bit-crushing as acceptance. Sample rate reduction as loving what is.",
+      "hints": [
+        "Lo-fi processing",
+        "Bit reduction",
+        "Sample rate reduction",
+        "Analog drift simulation"
+      ],
+      "quote": "Nietzsche: 'My formula for greatness in a human being is amor fati.' Your preset celebrates imperfection as the only perfection.",
+      "surprise": "Introduce a random element that cannot be controlled—when it happens, it's meant to happen"
+    },
+    {
+      "id": "ufan-relation",
+      "pool": "original",
+      "name": "UFAN_RELATION",
+      "theme": "Lee Ufan's Relatum—the relationship between objects creates meaning",
+      "technical": "A preset that exists only in relationship to other sounds. Useless alone, transcendent in context.",
+      "hints": [
+        "Complementary frequencies",
+        "Mid-range carving",
+        "Responsive filter",
+        "Designed for layering"
+      ],
+      "quote": "The stone and the steel plate don't make art separately—their relationship makes art. Your preset is one element of a larger whole.",
+      "surprise": "Include a note in the preset description: 'This sound seeks another sound. Do not use alone.'"
+    },
+    {
+      "id": "mycelia-network",
+      "pool": "original",
+      "name": "MYCELIA_NETWORK",
+      "theme": "Fungal intelligence—distributed processing, no center, all connection",
+      "technical": "Many small voices instead of one lead. Granular textures that communicate horizontally not vertically.",
+      "hints": [
+        "Granular synthesis",
+        "Many voices, low volume each",
+        "Stereo spreading",
+        "Interconnected modulation"
+      ],
+      "quote": "The mycelium network shares information underground. Your preset is a network, not a hierarchy.",
+      "surprise": "Every parameter should affect at least two other parameters—no isolated controls"
+    },
+    {
+      "id": "bergson-duration",
+      "pool": "original",
+      "name": "BERGSON_DURATION",
+      "theme": "Durée—time as experienced, not time as measured",
+      "technical": "Clock time vs. human time. The preset should make five seconds feel like fifty or fifty feel like five.",
+      "hints": [
+        "Time-stretching",
+        "Rhythmic displacement",
+        "Tempo-independent delays",
+        "Subjective time warping"
+      ],
+      "quote": "Bergson: 'To exist is to change, to change is to mature, to mature is to go on creating oneself endlessly.' Your preset evolves non-linearly.",
+      "surprise": "The attack should be shorter than it feels or longer than it feels—hack perception"
+    },
+    {
+      "id": "saudade-synth",
+      "pool": "original",
+      "name": "SAUDADE_SYNTH",
+      "theme": "Portuguese saudade—longing for something that may never return (or never existed)",
+      "technical": "Nostalgia encoded. Warm but melancholic. Analog modeling that remembers synthesizers that never were.",
+      "hints": [
+        "Chorus/flanger for memory",
+        "Slightly detuned",
+        "Tape saturation",
+        "Vintage warmth"
+      ],
+      "quote": "The longing is not for the past but for the feeling of longing itself. Your preset should ache beautifully.",
+      "surprise": "Sample the sound of a tape being rewound and hide it in the tail of the release"
+    },
+    {
+      "id": "quantum-superposition",
+      "pool": "original",
+      "name": "QUANTUM_SUPERPOSITION",
+      "theme": "The preset exists in multiple states until observed (played)",
+      "technical": "Velocity determines which preset it actually is. Heavy velocity = one sound, light velocity = another, medium velocity = superposition of both.",
+      "hints": [
+        "Velocity-dependent routing",
+        "Dual sound layers",
+        "Uncertainty principle in sound",
+        "Observer-dependent synthesis"
+      ],
+      "quote": "Before you play it, it is everything. The moment you touch it, the wavefunction collapses.",
+      "surprise": "Create two completely different sounds that coexist in the same preset and only velocity separates them"
+    },
+    {
+      "id": "seneca-evening",
+      "pool": "original",
+      "name": "SENECA_EVENING",
+      "theme": "Stoic preparation for sleep—reflecting on the day's waveforms",
+      "technical": "A patch for winding down. Frequencies that slow the breath. The opposite of morning.",
+      "hints": [
+        "Low-pass heavy",
+        "Slow modulation",
+        "Warm saturation",
+        "Reduced high frequencies"
+      ],
+      "quote": "Seneca: 'When a person spends all his time in foreign travel, he ends by having many acquaintances, but no friends.' Your preset stays home, in the low end, content.",
+      "surprise": "The preset should actually help someone fall asleep—test it yourself"
+    },
+    {
+      "id": "goldsworthy-decay",
+      "pool": "original",
+      "name": "GOLDSWORTHY_DECAY",
+      "theme": "Andy Goldsworthy's temporary sculptures—beauty designed to disappear",
+      "technical": "A preset that deliberately degrades over the course of a note. By the release, it's something else entirely.",
+      "hints": [
+        "Time-based destruction",
+        "Filter closing over time",
+        "Amplitude decay",
+        "Harmonic reduction"
+      ],
+      "quote": "Ice melts, leaves blow away, your preset should be beautiful in its dissolution.",
+      "surprise": "The most beautiful part is the last 20% before silence"
+    },
+    {
+      "id": "beginner-mind-001",
+      "pool": "original",
+      "name": "BEGINNER_MIND.001",
+      "theme": "Shoshin—approaching synthesis as if for the first time",
+      "technical": "Use only basic waveforms. No effects. One oscillator. What can you discover in simplicity?",
+      "hints": [
+        "Basic shapes only",
+        "Minimal processing",
+        "Pure exploration",
+        "Sine, saw, square, triangle—choose one"
+      ],
+      "quote": "Suzuki Roshi: 'In the beginner's mind there are many possibilities, in the expert's there are few.' Forget everything you know about synthesis.",
+      "surprise": "After you make this, make one change. Only one. That change is the preset."
+    },
+    {
+      "id": "martin-grid-03",
+      "pool": "original",
+      "name": "MARTIN_GRID.03",
+      "theme": "Agnes Martin's grids—structure containing infinity",
+      "technical": "Precise, geometric, minimal. Arpeggiations that feel like hand-drawn lines. Repetition as meditation.",
+      "hints": [
+        "Sequenced patterns",
+        "Grid-like rhythms",
+        "Minimal note variation",
+        "Precision as aesthetic"
+      ],
+      "quote": "Martin: 'My paintings have neither objects, nor space, nor time, not anything—no forms. They are about merging, about formlessness breaking down form.' Let your arpeggio dissolve.",
+      "surprise": "The pattern should be so precise it feels human (or so human it feels precise)"
+    },
+    {
+      "id": "desire-machine",
+      "pool": "original",
+      "name": "DESIRE_MACHINE",
+      "theme": "Deleuze & Guattari—the productive force of want",
+      "technical": "Aggressive but not violent. Sensual but not soft. The preset wants to be played—it has agency.",
+      "hints": [
+        "Forward momentum",
+        "Anticipatory filters",
+        "Tension without resolution",
+        "Restless modulation"
+      ],
+      "quote": "Desire doesn't lack anything, it produces. Let your preset produce desire for sound itself.",
+      "surprise": "The preset should make the player want to play it again immediately—addictive"
+    },
+    {
+      "id": "parmenides-static",
+      "pool": "original",
+      "name": "PARMENIDES_STATIC",
+      "theme": "All is one—change is illusion, being is eternal",
+      "technical": "A drone that refuses to move. Harmonics shift but the fundamental is absolute. Variation within constancy.",
+      "hints": [
+        "Drone foundation",
+        "Harmonic overtone shifts",
+        "Unchanging root",
+        "Timbre morphing only"
+      ],
+      "quote": "Being is, non-being is not. Your preset affirms existence by refusing to become something else.",
+      "surprise": "The MIDI note doesn't matter—it always plays the same frequency"
+    },
+    {
+      "id": "merleau-ponty-flesh",
+      "pool": "original",
+      "name": "MERLEAU_PONTY_FLESH",
+      "theme": "The body as instrument—phenomenology of touch through sound",
+      "technical": "Haptic feedback through audio. Bass you can feel in your chest. High frequencies that prickle the skin.",
+      "hints": [
+        "Physical frequency response",
+        "Tactile bass",
+        "Psychoacoustic effects",
+        "Embodied listening"
+      ],
+      "quote": "The flesh is not matter, not mind, not substance. Your preset is the reversibility of touching and being touched.",
+      "surprise": "Test this preset with your hand on a speaker—it should massage you"
+    },
+    {
+      "id": "rumi-intoxication",
+      "pool": "original",
+      "name": "RUMI_INTOXICATION",
+      "theme": "Drunk on the divine—ecstatic surrender through sound",
+      "technical": "Wavering pitch like a Sufi spinning. Dizzy modulations. Let go of control, let the preset lead.",
+      "hints": [
+        "Pitch wobble",
+        "Circular modulation patterns",
+        "Euphoric harmonics",
+        "Loss of center"
+      ],
+      "quote": "A line long given to Rumi: 'Dance, when you're broken open. Dance, if you've torn the bandage off.' Your preset is the whirling.",
+      "surprise": "Include a sample of ney flute or qawwali vocals, processed beyond recognition"
+    },
+    {
+      "id": "cage-4-33",
+      "pool": "original",
+      "name": "CAGE_4'33\"",
+      "theme": "The sounds around silence—what emerges when you stop trying",
+      "technical": "Extreme dynamics. The preset is mostly silent, but what little sound exists is precious.",
+      "hints": [
+        "Minimal amplitude",
+        "Long gaps",
+        "Field recording integration",
+        "Silence as composition"
+      ],
+      "quote": "John Cage: 'There is no such thing as silence. Something is always happening that makes a sound.' Your preset reveals this.",
+      "surprise": "The preset should be so quiet that room noise becomes part of the performance"
+    },
+    {
+      "id": "zarathustra-dance",
+      "pool": "original",
+      "name": "ZARATHUSTRA_DANCE",
+      "theme": "Nietzsche's dancing philosopher—thought that moves",
+      "technical": "Rhythmic but not metronomic. Syncopation as philosophy. Steps that surprise.",
+      "hints": [
+        "Polyrhythmic layers",
+        "Unexpected accents",
+        "Dynamic rhythm",
+        "Danceable chaos"
+      ],
+      "quote": "Nietzsche: 'I would believe only in a God that knows how to dance.' Make sound that thinks with its feet.",
+      "surprise": "The groove should make you move involuntarily—test on yourself"
+    },
+    {
+      "id": "basho-frog-pond",
+      "pool": "original",
+      "name": "BASHO_FROG.pond",
+      "theme": "The sound of water entering water—moment of haiku",
+      "technical": "Pluck that creates ripples. Initial transient followed by expanding harmonics. One sound containing multitudes.",
+      "hints": [
+        "Sharp attack",
+        "Long reverb",
+        "Harmonic expansion",
+        "Single-event composition"
+      ],
+      "quote": "Ancient pond / frog jumps in / sound of water. Your preset is that sound—immediate yet infinite.",
+      "surprise": "The release should be longer than the attack by a factor of 10 or more"
+    },
+    {
+      "id": "lovecraft-geometry",
+      "pool": "original",
+      "name": "LOVECRAFT_GEOMETRY",
+      "theme": "Non-Euclidean synthesis—angles that don't add up",
+      "technical": "Impossible intervals. Microtonality that feels wrong. Harmonic relationships that shouldn't exist.",
+      "hints": [
+        "Microtonal tuning",
+        "Dissonant intervals",
+        "Unsettling ratios",
+        "Geometric horror"
+      ],
+      "quote": "The geometry of the dream-place was abnormal, non-Euclidean, and loathsomely redolent of spheres and dimensions apart from ours.",
+      "surprise": "Tune to 13-EDO or 19-EDO—something that feels subtly alien"
+    },
+    {
+      "id": "aurelius-morning",
+      "pool": "original",
+      "name": "AURELIUS_MORNING",
+      "theme": "Marcus Aurelius waking—stoic clarity at dawn",
+      "technical": "Clean, purposeful, no excess. Every parameter serves a function. No decoration.",
+      "hints": [
+        "Minimal FX",
+        "Clear attack",
+        "Purposeful design",
+        "Efficient routing"
+      ],
+      "quote": "At dawn, when you have trouble getting out of bed, tell yourself: 'I have to go to work—as a human being.' Your preset rises with duty.",
+      "surprise": "The preset should feel like cold water on your face—bracing, clarifying"
+    },
+    {
+      "id": "hildegard-vision",
+      "pool": "original",
+      "name": "HILDEGARD_VISION",
+      "theme": "Hildegard von Bingen's divine music—medieval mysticism meets synthesis",
+      "technical": "Modal scales, not major/minor. Open fifths. Angelic voices through oscillators.",
+      "hints": [
+        "Dorian/Phrygian modes",
+        "Drone fifths",
+        "Choir-like textures",
+        "Sacred geometry in pitch"
+      ],
+      "quote": "Her visions were of light and sound united. Your preset channels medieval transcendence through circuitry.",
+      "surprise": "Use only intervals found in medieval organum—no thirds allowed"
+    },
+    {
+      "id": "bataille-excess",
+      "pool": "original",
+      "name": "BATAILLE_EXCESS",
+      "theme": "Georges Bataille's transgressive surplus—sound beyond utility",
+      "technical": "Too much of everything. Overdriven, oversaturated, over-modulated. Excess as philosophy.",
+      "hints": [
+        "Extreme saturation",
+        "Multiple competing elements",
+        "Maximal processing",
+        "Abundance unto waste"
+      ],
+      "quote": "Bataille, The Accursed Share: 'It is not necessity but its contrary, \"luxury,\" that presents living matter and mankind with their fundamental problems.' Your preset is the luxury.",
+      "surprise": "Push one parameter so far it breaks—then save it there"
+    },
+    {
+      "id": "borges-library",
+      "pool": "original",
+      "name": "BORGES_LIBRARY",
+      "theme": "Infinite library—every possible sound exists somewhere in the noise",
+      "technical": "White noise as starting point. Filter as librarian, finding signals in chaos.",
+      "hints": [
+        "Noise source",
+        "Narrow filtering",
+        "Resonance as revelation",
+        "Order from chaos"
+      ],
+      "quote": "The Library contains all books, therefore all sounds. Your preset finds one volume in the infinite stacks.",
+      "surprise": "Start with pure noise, then sculpt—the preset is an excavation"
+    },
+    {
+      "id": "spinoza-substance",
+      "pool": "original",
+      "name": "SPINOZA_SUBSTANCE",
+      "theme": "God or Nature—no dualism, only one substance expressing itself",
+      "technical": "All sounds come from one source oscillator. Everything else is modulation of that one thing.",
+      "hints": [
+        "Single oscillator",
+        "Extensive modulation",
+        "Unity through variation",
+        "One becomes many"
+      ],
+      "quote": "Spinoza: 'Deus sive Natura' (God or Nature). Your preset proves all timbres are one substance differently arranged.",
+      "surprise": "Literally use only one oscillator for everything—no exceptions"
+    },
+    {
+      "id": "yayoi-infinity",
+      "pool": "original",
+      "name": "YAYOI_INFINITY",
+      "theme": "Kusama's infinity rooms—endless multiplication of self",
+      "technical": "Stereo delays that create infinite copies. Each reflection slightly different.",
+      "hints": [
+        "Ping-pong delay",
+        "High feedback",
+        "Stereo field multiplication",
+        "Reflections unto infinity"
+      ],
+      "quote": "Kusama obliterates the self through multiplication. Your preset creates acoustic infinity mirrors.",
+      "surprise": "Delay feedback should be at 99%—almost infinite, almost unstable"
+    },
+    {
+      "id": "leibniz-monad",
+      "pool": "original",
+      "name": "LEIBNIZ_MONAD",
+      "theme": "Windowless monads—self-contained universes that don't interact but harmonize",
+      "technical": "Multiple independent voices that never cross-modulate but sound unified.",
+      "hints": [
+        "Separate signal paths",
+        "No cross-modulation",
+        "Independent yet harmonious",
+        "Parallel universes"
+      ],
+      "quote": "Each monad is a world unto itself, yet the harmony is pre-established. Your preset is synchronized solipsism.",
+      "surprise": "Four oscillators, four separate filters, four separate effects—no shared paths"
+    },
+    {
+      "id": "tarkovsky-zone",
+      "pool": "original",
+      "name": "TARKOVSKY_ZONE",
+      "theme": "The Zone from Stalker—space where normal rules don't apply",
+      "technical": "Unpredictable resonances. Space that changes the sound. Environmental strangeness.",
+      "hints": [
+        "Unusual reverb",
+        "Reactive filtering",
+        "Spatial anomalies",
+        "Reality distortion"
+      ],
+      "quote": "The Stalker: 'The Zone is a very complicated system of traps.' Your preset traps the player in altered acoustics.",
+      "surprise": "Add a convolution reverb of an impossible space—a Klein bottle, a tesseract"
+    },
+    {
+      "id": "pessoa-heteronym",
+      "pool": "original",
+      "name": "PESSOA_HETERONYM",
+      "theme": "Fernando Pessoa's multiple selves—one synthesizer, many identities",
+      "technical": "Preset contains 3-4 completely different sounds accessible through different velocity layers.",
+      "hints": [
+        "Velocity layers",
+        "Multiple personalities",
+        "Distinct identities",
+        "One body, many selves"
+      ],
+      "quote": "Pessoa wrote as many people. Your preset plays as many instruments. Which one are you today?",
+      "surprise": "Each velocity range should be so different someone would think they're different presets"
+    },
+    {
+      "id": "aurora-borealis",
+      "pool": "original",
+      "name": "AURORA_BOREALIS",
+      "theme": "Northern lights—solar wind made visible, here made audible",
+      "technical": "Shimmering, shifting colors. Slow movements. High frequency content that dances.",
+      "hints": [
+        "Bright harmonics",
+        "Slow LFO rates",
+        "Shimmer effects",
+        "Spectral movement"
+      ],
+      "quote": "Charged particles excite atmospheric molecules to luminescence. Your preset is electromagnetic synthesis.",
+      "surprise": "Modulate filter cutoff with extremely slow LFO (0.01 Hz)—patience reveals beauty"
+    },
+    {
+      "id": "bataille-sun",
+      "pool": "original",
+      "name": "BATAILLE_SUN",
+      "theme": "Bataille's solar anus—the sun as cosmic waste, energy as excess",
+      "technical": "Harsh, bright, violent. Too much energy. The preset should feel dangerous.",
+      "hints": [
+        "Aggressive brightness",
+        "Harsh harmonics",
+        "Uncomfortable loudness",
+        "Solar violence"
+      ],
+      "quote": "The sun gives without receiving, an economy of pure loss. Your preset is acoustic immolation.",
+      "surprise": "This preset should make you flinch at a sensible volume—the violence is in the spectrum, not the fader"
+    },
+    {
+      "id": "zhuangzi-butterfly",
+      "pool": "original",
+      "name": "ZHUANGZI_BUTTERFLY",
+      "theme": "Am I dreaming I'm a synthesizer, or is the synthesizer dreaming it's me?",
+      "technical": "Player and instrument become confused. Is the sound following you or are you following it?",
+      "hints": [
+        "Slight latency tricks",
+        "Pitch tracking",
+        "Reactive processing",
+        "Causality questions"
+      ],
+      "quote": "Once Zhuangzi dreamt he was a butterfly. When he woke, he didn't know if he was a man dreaming or a butterfly dreaming.",
+      "surprise": "Add 10-20ms delay to the entire output—just enough to feel uncanny"
+    },
+    {
+      "id": "munch-scream",
+      "pool": "original",
+      "name": "MUNCH_SCREAM",
+      "theme": "The Scream—nature's anxiety made audible",
+      "technical": "Distortion that sounds like psychological pain. Filters that express dread.",
+      "hints": [
+        "Expressive distortion",
+        "Anxious modulation",
+        "Tension without release",
+        "Existential vibrato"
+      ],
+      "quote": "Munch: 'I felt a great scream passing through nature.' Your preset is that scream in waveform.",
+      "surprise": "Tune slightly sharp (10-20 cents)—the discomfort is intentional"
+    },
+    {
+      "id": "pascal-abyss",
+      "pool": "original",
+      "name": "PASCAL_ABYSS",
+      "theme": "Pascal's infinite spaces—the terror of cosmological scale",
+      "technical": "Reverb so deep it feels like the void. Long decay times. Sounds lost in space.",
+      "hints": [
+        "Infinite reverb",
+        "Extreme decay",
+        "Spatial emptiness",
+        "Cosmological scale"
+      ],
+      "quote": "Pascal: 'The eternal silence of these infinite spaces frightens me.' Your preset is that silence, that space.",
+      "surprise": "Reverb decay time: 30+ seconds—sounds should disappear into forever"
+    },
+    {
+      "id": "basquiat-crown",
+      "pool": "original",
+      "name": "BASQUIAT_CROWN",
+      "theme": "Basquiat's crowns—raw expression, street wisdom, divine kings",
+      "technical": "Rough textures. No polish. Analog grunge meets digital noise. Royalty in rags.",
+      "hints": [
+        "Raw, unpolished",
+        "Noise as texture",
+        "Aggressive character",
+        "Street sophistication"
+      ],
+      "quote": "The crown marks the divine in the discarded. Your preset finds nobility in noise.",
+      "surprise": "Add vinyl crackle or tape hiss as a permanent layer"
+    },
+    {
+      "id": "camus-sisyphus",
+      "pool": "original",
+      "name": "CAMUS_SISYPHUS",
+      "theme": "One must imagine Sisyphus happy—repetition as defiance",
+      "technical": "Looping element that never quite resolves. The joy is in the pushing, not the arrival.",
+      "hints": [
+        "Circular sequences",
+        "Never resolving",
+        "Perpetual motion",
+        "Satisfaction in repetition"
+      ],
+      "quote": "Camus: 'The struggle itself toward the heights is enough to fill a man's heart.' Your preset is eternal becoming.",
+      "surprise": "Create a sequence that loops but never feels like it's looping"
+    },
+    {
+      "id": "klein-void",
+      "pool": "original",
+      "name": "KLEIN_VOID",
+      "theme": "Yves Klein's void—emptiness as artistic material",
+      "technical": "Almost nothing. A preset that's 90% silence, 10% suggestion. Presence through absence.",
+      "hints": [
+        "Minimal content",
+        "Mostly silence",
+        "Suggestion over statement",
+        "Void as medium"
+      ],
+      "quote": "Klein exhibited empty rooms as art. Your preset is the sound of nothing happening.",
+      "surprise": "The sound should be so minimal people wonder if their system is working"
+    },
+    {
+      "id": "heidegger-dasein",
+      "pool": "original",
+      "name": "HEIDEGGER_DASEIN",
+      "theme": "Being-there—the synthesizer's existence as being-in-the-world",
+      "technical": "Contextual synthesis. The preset responds to what came before it. Memory matters.",
+      "hints": [
+        "Sample and hold memory",
+        "Previous-note influence",
+        "Contextual response",
+        "Historical awareness"
+      ],
+      "quote": "Dasein is always already thrown into a world. Your preset knows where it is.",
+      "surprise": "Use a sample-and-hold that remembers the last five notes played"
+    },
+    {
+      "id": "rauschenberg-white",
+      "pool": "original",
+      "name": "RAUSCHENBERG_WHITE",
+      "theme": "White Paintings—surfaces that catch shadows, presets that catch room tone",
+      "technical": "Extremely clean, extremely sensitive. The preset amplifies the noise floor, making the room audible.",
+      "hints": [
+        "High noise gate sensitivity",
+        "Clean signal path",
+        "Room tone emphasis",
+        "Environmental awareness"
+      ],
+      "quote": "Rauschenberg's white canvases caught shadows and light. Your preset catches the room it's played in.",
+      "surprise": "The preset should make the ambient noise of the room part of the sound"
+    },
+    {
+      "id": "fibonacci-spiral",
+      "pool": "original",
+      "name": "FIBONACCI_SPIRAL",
+      "theme": "The golden spiral—growth pattern found in nature and now in modulation",
+      "technical": "Modulation rates in Fibonacci ratios. 1:1, 1:2, 2:3, 3:5, 5:8, 8:13...",
+      "hints": [
+        "Mathematical ratios",
+        "Fibonacci sequences",
+        "Natural growth patterns",
+        "Organic mathematics"
+      ],
+      "quote": "The nautilus, the galaxy, the fern. Your preset grows according to the same law.",
+      "surprise": "Every modulation rate should be a Fibonacci number (1, 2, 3, 5, 8, 13 Hz etc.)"
+    },
+    {
+      "id": "lacan-mirror",
+      "pool": "original",
+      "name": "LACAN_MIRROR",
+      "theme": "The mirror stage—the synthesizer recognizes itself",
+      "technical": "Audio feedback loops. The preset hears itself and responds. Self-recognition through recursion.",
+      "hints": [
+        "Feedback loops",
+        "Audio rate modulation",
+        "Self-monitoring",
+        "Recursive synthesis"
+      ],
+      "quote": "The infant sees itself and says 'I.' The synthesizer hears itself and says 'We.'",
+      "surprise": "Route the output back to a modulation source—let it hear itself"
+    },
+    {
+      "id": "tesla-resonance",
+      "pool": "original",
+      "name": "TESLA_RESONANCE",
+      "theme": "Tesla's resonant frequency—the pitch that could destroy a building",
+      "technical": "Find the resonant frequency of your room (use a sweep) and build the preset around it.",
+      "hints": [
+        "Room resonance",
+        "Sympathetic vibration",
+        "Environmental coupling",
+        "Architectural frequency"
+      ],
+      "quote": "Tesla claimed he could destroy a building with the right frequency. Your preset finds that frequency.",
+      "surprise": "Actually sweep your room to find resonant peaks, then design around them"
+    },
+    {
+      "id": "wabi-sabi-dsp",
+      "pool": "original",
+      "name": "WABI_SABI.dsp",
+      "theme": "Japanese aesthetic—beauty in imperfection, impermanence, incompleteness",
+      "technical": "Asymmetric waveforms. Slight detuning. Parameters that drift slowly. Age as beauty.",
+      "hints": [
+        "Asymmetric waves",
+        "Drift and instability",
+        "Imperfect perfection",
+        "Aging sounds"
+      ],
+      "quote": "The tea bowl is beautiful because it is cracked. Your preset is beautiful because it is unstable.",
+      "surprise": "Add a slow drift to pitch (±3 cents over 30 seconds)—imperceptible but felt"
+    },
+    {
+      "id": "fourier-truth",
+      "pool": "original",
+      "name": "FOURIER_TRUTH",
+      "theme": "Fourier's theorem—all sounds are just sines in disguise",
+      "technical": "Build complex timbres exclusively from sine waves. Additive synthesis as philosophical statement.",
+      "hints": [
+        "Additive synthesis",
+        "Multiple sines",
+        "Harmonic building",
+        "Mathematical truth"
+      ],
+      "quote": "Fourier showed that any periodic waveform can be built from sines. Your preset is an ontological demonstration.",
+      "surprise": "Use eight or more sine waves to create what sounds like a sawtooth—synthesis as proof"
+    },
+    {
+      "id": "kafka-castle",
+      "pool": "original",
+      "name": "KAFKA_CASTLE",
+      "theme": "The unreachable castle—a preset that always feels incomplete",
+      "technical": "Never resolves harmonically. Always implies a resolution that doesn't come.",
+      "hints": [
+        "Suspended chords",
+        "Unresolved tension",
+        "Perpetual anticipation",
+        "Harmonic blue balls"
+      ],
+      "quote": "K. never reaches the castle. Your preset never reaches tonic. The journey is the punishment.",
+      "surprise": "End on a dominant 7th chord feel—always expecting resolution"
+    },
+    {
+      "id": "sappho-fragment",
+      "pool": "original",
+      "name": "SAPPHO_FRAGMENT",
+      "theme": "Ancient poetry in pieces—beauty in incompleteness",
+      "technical": "Deliberately incomplete preset. Some parameters undefined. Gaps are features.",
+      "hints": [
+        "Incomplete design",
+        "Strategic absences",
+        "Fragment aesthetic",
+        "Ruins as beauty"
+      ],
+      "quote": "Of Sappho's nine books, only fragments survive. Your preset is a fragment that suggests the whole.",
+      "surprise": "Leave one major parameter (like filter envelope) completely flat—absence speaks"
+    },
+    {
+      "id": "mandelbrot-coast",
+      "pool": "original",
+      "name": "MANDELBROT_COAST",
+      "theme": "Fractal coastline—infinite detail at every scale",
+      "technical": "Self-similar modulation at multiple time scales. Zoom in, find the same pattern.",
+      "hints": [
+        "Nested modulation",
+        "Self-similarity",
+        "Fractal structures",
+        "Scale independence"
+      ],
+      "quote": "How long is the coast of Britain? Depends on your ruler. Your preset has infinite detail.",
+      "surprise": "Use three LFOs at 1:10:100 ratio—same shape, different speeds"
+    },
+    {
+      "id": "shinto-gate-torii",
+      "pool": "original",
+      "name": "SHINTO_GATE.torii",
+      "theme": "Torii gates—threshold between mundane and sacred",
+      "technical": "The preset marks a transition. Use it between sections. It's a sonic doorway.",
+      "hints": [
+        "Transition design",
+        "Threshold marking",
+        "Portal sounds",
+        "Between-space"
+      ],
+      "quote": "Pass through the torii and you enter sacred space. Your preset is that crossing.",
+      "surprise": "The preset should feel incomplete on its own—it only makes sense as transition"
+    },
+    {
+      "id": "bacon-flesh",
+      "pool": "original",
+      "name": "BACON_FLESH",
+      "theme": "Francis Bacon's meat—the body as raw material",
+      "technical": "Visceral textures. Sounds that feel organic and uncomfortable. Beautiful ugliness.",
+      "hints": [
+        "Organic distortion",
+        "Uncomfortable textures",
+        "Body horror sonics",
+        "Flesh made sound"
+      ],
+      "quote": "Bacon painted bodies as meat. Your preset is the sound of being physical.",
+      "surprise": "Add formant filtering to make oscillators sound like screaming throats"
+    },
+    {
+      "id": "pythagoras-harmony",
+      "pool": "original",
+      "name": "PYTHAGORAS_HARMONY",
+      "theme": "The music of the spheres—celestial ratios",
+      "technical": "Only pure integer ratios: 2:1, 3:2, 4:3. No equal temperament—tuning from before the keyboard learned to compromise.",
+      "hints": [
+        "Just intonation",
+        "Pure intervals",
+        "Integer ratios",
+        "Celestial mathematics"
+      ],
+      "quote": "Pythagoras heard the planets singing in ratios. Your preset tunes to the cosmos.",
+      "surprise": "Tune by stacking pure 3:2 fifths, as the Pythagoreans did, and hear how sour their major third (81:64) is against the sweet 5:4 of just intonation"
+    },
+    {
+      "id": "barthes-death",
+      "pool": "original",
+      "name": "BARTHES_DEATH",
+      "theme": "Death of the Author—the preset means what the player makes it mean",
+      "technical": "Extremely flexible routing. The player's choices define what it is. No default sound.",
+      "hints": [
+        "Flexible architecture",
+        "User-defined",
+        "Interpretive freedom",
+        "Meaning through use"
+      ],
+      "quote": "Barthes: The author is dead. Your preset has no intended use—every player authors it anew.",
+      "surprise": "Save the preset with all parameters at noon—no bias, pure potential"
+    },
+    {
+      "id": "reich-phasing",
+      "pool": "original",
+      "name": "REICH_PHASING",
+      "theme": "Steve Reich's phase music—identical patterns drifting apart",
+      "technical": "Two identical sequences, one slightly faster. They phase in and out of sync.",
+      "hints": [
+        "Polyrhythmic phasing",
+        "Identical patterns",
+        "Different speeds",
+        "Gradual drift"
+      ],
+      "quote": "Reich: Two tape loops, slightly different speeds, infinite variations. Your preset is that process.",
+      "surprise": "Create two arpeggiators: one at 120 BPM, one at 120.5 BPM"
+    },
+    {
+      "id": "celan-silence",
+      "pool": "original",
+      "name": "CELAN_SILENCE",
+      "theme": "Paul Celan's poetry after Auschwitz—speaking the unspeakable",
+      "technical": "Sounds that struggle to exist. Choked, filtered, barely audible. Trauma in waveform.",
+      "hints": [
+        "Suppressed sound",
+        "Difficult expression",
+        "Filtered to near-silence",
+        "Sound as testimony"
+      ],
+      "quote": "Celan: 'No one bears witness for the witness.' Your preset bears witness to what cannot be said.",
+      "surprise": "Heavy gate with impossible threshold—sound keeps trying to speak, keeps being cut off"
+    },
+    {
+      "id": "mobius-strip",
+      "pool": "original",
+      "name": "MOBIUS_STRIP",
+      "theme": "One-sided surface—where does the preset begin and end?",
+      "technical": "Circular routing where it's unclear what's modulating what. No clear start or end.",
+      "hints": [
+        "Circular modulation",
+        "No clear hierarchy",
+        "Endless loop",
+        "Topological synthesis"
+      ],
+      "quote": "Trace the Möbius strip—you end up where you started, but flipped. Your routing does the same.",
+      "surprise": "Osc 1 mods Osc 2, Osc 2 mods Filter, Filter mods Osc 1—impossible topology"
+    },
+    {
+      "id": "dickinson-dash",
+      "pool": "original",
+      "name": "DICKINSON_DASH",
+      "theme": "Emily Dickinson's dashes—interruptions as meaning",
+      "technical": "Sudden cuts, gaps, stutters. The pauses communicate as much as the sound.",
+      "hints": [
+        "Stutter effects",
+        "Rhythmic cuts",
+        "Intentional gaps",
+        "Silence as punctuation"
+      ],
+      "quote": "Dickinson's dashes are where the unspoken lives. Your preset speaks in interruptions.",
+      "surprise": "Random gate that occasionally cuts the sound—silence is part of the composition"
+    },
+    {
+      "id": "magritte-pipe",
+      "pool": "original",
+      "name": "MAGRITTE_PIPE",
+      "theme": "This is not a synthesizer preset",
+      "technical": "A preset that sounds like it's something else. What you hear is not what it is.",
+      "hints": [
+        "Deceptive timbres",
+        "Acoustic simulation",
+        "Illusion of source",
+        "Trompe l'oreille"
+      ],
+      "quote": "Magritte: 'Ceci n'est pas une pipe.' Your preset is not what it sounds like.",
+      "surprise": "Make a preset that sounds acoustic (piano/guitar/strings) but is obviously synthetic upon analysis"
+    },
+    {
+      "id": "chomsky-grammar",
+      "pool": "original",
+      "name": "CHOMSKY_GRAMMAR",
+      "theme": "Universal grammar—deep structure beneath surface variation",
+      "technical": "All patches share one core oscillator structure, but surface varies wildly through modulation.",
+      "hints": [
+        "Common deep structure",
+        "Variable surface",
+        "Grammatical synthesis",
+        "Universal core"
+      ],
+      "quote": "Chomsky: Deep structure generates infinite surface expressions. Your preset is a generative grammar.",
+      "surprise": "Save multiple versions with same oscillators but wildly different modulation"
+    },
+    {
+      "id": "tantric-union",
+      "pool": "original",
+      "name": "TANTRIC_UNION",
+      "theme": "Sacred sexuality—opposition united through sound",
+      "technical": "Male/female, yin/yang, opposing elements that create unity through balance.",
+      "hints": [
+        "Balanced opposites",
+        "Harmonic/inharmonic blend",
+        "Sacred polarity",
+        "Unity through difference"
+      ],
+      "quote": "Tantra: The union of opposites transcends duality. Your preset marries contradiction.",
+      "surprise": "One oscillator perfectly harmonic, one slightly noisy—mix them 50/50"
+    },
+    {
+      "id": "neural-synapse",
+      "pool": "original",
+      "name": "NEURAL_SYNAPSE",
+      "theme": "Firing neurons—digital consciousness emerging",
+      "technical": "Stochastic triggers. Probability-based synthesis. The preset thinks.",
+      "hints": [
+        "Random gates",
+        "Probability-based",
+        "Emergent patterns",
+        "Synthetic cognition"
+      ],
+      "quote": "Neurons fire probabilistically, yet consciousness emerges. Your preset has the same mystery.",
+      "surprise": "Use random gates at 40-60% probability—patterns emerge from chaos"
+    },
+    {
+      "id": "morrison-beloved",
+      "pool": "original",
+      "name": "MORRISON_BELOVED",
+      "theme": "Toni Morrison's ghost—memory that won't die",
+      "technical": "Feedback that refuses to decay. Sounds that haunt. Historical memory encoded.",
+      "hints": [
+        "Excessive feedback",
+        "Ghostly persistence",
+        "Haunting tones",
+        "Memory refuses silence"
+      ],
+      "quote": "Morrison: 'It was not a story to pass on.' Your preset is the story that persists despite erasure.",
+      "surprise": "Reverb and delay feedbacks at 85%+—sounds refuse to die"
+    },
+    {
+      "id": "galileo-moons",
+      "pool": "original",
+      "name": "GALILEO_MOONS",
+      "theme": "Jupiter's moons—orbital resonance as rhythm, and one moon that stays free",
+      "technical": "Three oscillators in orbital lock—Io : Europa : Ganymede = 1 : 2 : 4, the Laplace resonance. Callisto, the fourth, is in no lock at all.",
+      "hints": [
+        "Polyrhythmic orbits",
+        "1:2:4 lock",
+        "Celestial mechanics",
+        "One free body"
+      ],
+      "quote": "Three of Galileo's four moons dance in mathematical lock; the fourth goes its own way. Your preset orbits in acoustic resonance.",
+      "surprise": "Three elements at 1 Hz, 2 Hz and 4 Hz in perfect lock, and a fourth at a rate unrelated to them that never joins—Callisto"
+    },
+    {
+      "id": "lorca-duende",
+      "pool": "original",
+      "name": "LORCA_DUENDE",
+      "theme": "Duende—the demon of authentic expression",
+      "technical": "Expressive, raw, almost out of control. The preset has soul because it risks failure.",
+      "hints": [
+        "Risky modulation",
+        "Almost unstable",
+        "Emotional volatility",
+        "Authentic danger"
+      ],
+      "quote": "Lorca: 'The duende does not come unless it sees the possibility of death.' Your preset dances on the edge.",
+      "surprise": "Push feedback or resonance to just before self-oscillation—danger makes it alive"
+    },
+    {
+      "id": "golem-clay",
+      "pool": "original",
+      "name": "GOLEM_CLAY",
+      "theme": "The Golem—animated matter, synthetic life",
+      "technical": "Preset that sounds increasingly alive as it plays. Starts mechanical, becomes organic.",
+      "hints": [
+        "Evolution over time",
+        "Mechanical to organic",
+        "Animation process",
+        "Life emerging"
+      ],
+      "quote": "Clay given breath becomes a servant. Your preset is matter becoming consciousness.",
+      "surprise": "Filter envelope should open slowly over 10+ seconds—it wakes up"
+    },
+    {
+      "id": "plato-cave",
+      "pool": "original",
+      "name": "PLATO_CAVE",
+      "theme": "Shadows on the wall—synthesis as illusion of reality",
+      "technical": "Lo-fi representation of high-fidelity sounds. Deliberately degraded.",
+      "hints": [
+        "Lo-fi processing",
+        "Shadows of sounds",
+        "Reduced bandwidth",
+        "Illusion of source"
+      ],
+      "quote": "Plato: We see only shadows of the real. Your preset is shadow-synthesis.",
+      "surprise": "Extreme low-pass filter (500Hz cutoff)—only the shadow of the sound survives"
+    },
+    {
+      "id": "banksy-shredder",
+      "pool": "original",
+      "name": "BANKSY_SHREDDER",
+      "theme": "Art that destroys itself—preset that degrades on purpose",
+      "technical": "Self-destructive modulation. The longer you hold a note, the more it falls apart.",
+      "hints": [
+        "Time-based degradation",
+        "Self-destruction",
+        "Decay as composition",
+        "Art as protest"
+      ],
+      "quote": "Banksy shredded his own painting at auction. Your preset self-destructs beautifully.",
+      "surprise": "After 5 seconds, bit-depth and sample rate start decreasing—planned obsolescence"
+    },
+    {
+      "id": "turing-machine",
+      "pool": "original",
+      "name": "TURING_MACHINE",
+      "theme": "Computing before computers—mechanical logic as music",
+      "technical": "Step sequencer as Turing Machine. Each step reads and writes state.",
+      "hints": [
+        "Algorithmic sequences",
+        "State machines",
+        "Mechanical logic",
+        "Computed music"
+      ],
+      "quote": "Turing imagined a machine that could compute anything. Your preset computes its own evolution.",
+      "surprise": "Each note's velocity affects the next note's pitch—chained causality"
+    },
+    {
+      "id": "basho-cicada",
+      "pool": "original",
+      "name": "BASHO_CICADA",
+      "theme": "Cicada haiku—the sound of summer's brevity",
+      "technical": "High-pitched, short-lived, seasonal. Tinnitus as beauty. Transience encoded.",
+      "hints": [
+        "High frequency",
+        "Brief duration",
+        "Seasonal quality",
+        "Insect sonics"
+      ],
+      "quote": "Stillness— / penetrating the rocks / cicada voices. Your preset is that stillness.",
+      "surprise": "The sound should exist primarily above 5kHz—almost too high, summer in the ears"
+    },
+    {
+      "id": "watts-flow",
+      "pool": "original",
+      "name": "WATTS_FLOW",
+      "theme": "Alan Watts' water—being the flow, not forcing it",
+      "technical": "Everything on auto. Minimal player control. The preset plays itself, you're just there.",
+      "hints": [
+        "Heavy automation",
+        "Minimal manual control",
+        "Self-playing",
+        "Wu wei synthesis"
+      ],
+      "quote": "Watts: 'You are something the whole universe is doing.' Your preset is something the synthesizer is doing.",
+      "surprise": "Most parameters automated—the player just triggers, doesn't control"
+    },
+    {
+      "id": "cortazar-hopscotch",
+      "pool": "original",
+      "name": "CORTAZAR_HOPSCOTCH",
+      "theme": "Rayuela—play the preset in any order, every path works",
+      "technical": "Non-linear structure. The preset works regardless of playing order. No wrong notes.",
+      "hints": [
+        "Non-linear harmony",
+        "Order independence",
+        "Every path valid",
+        "Choose your adventure"
+      ],
+      "quote": "Cortázar gave Hopscotch two orders to be read in and dared you to find more. Play the notes in any order—all paths lead somewhere.",
+      "surprise": "Design the preset so it sounds good regardless of note order played"
+    },
+    {
+      "id": "standing-wave",
+      "pool": "original",
+      "name": "STANDING_WAVE",
+      "theme": "Physics of resonance—nodes and antinodes in acoustic space",
+      "technical": "Frequency tuned to room dimensions. Standing waves intentionally created.",
+      "hints": [
+        "Room mode tuning",
+        "Standing wave frequencies",
+        "Spatial resonance",
+        "Architecture as instrument"
+      ],
+      "quote": "In the right room, at the right frequency, air stands still in waves. Your preset finds those frequencies.",
+      "surprise": "Calculate your room's first axial modes—f = n × 343 ÷ (2 × the length in metres), for n = 1, 2, 3—and tune to them"
+    },
+    {
+      "id": "murder-ballad",
+      "pool": "original",
+      "name": "MURDER_BALLAD",
+      "theme": "Appalachian murder ballads—dark narrative in drone",
+      "technical": "Drone with storytelling. Dark harmonies. The preset has a narrative even without words.",
+      "hints": [
+        "Dark drones",
+        "Narrative arc",
+        "Folk darkness",
+        "Story without words"
+      ],
+      "quote": "She poisoned him on Tuesday, buried him on Wednesday. Your preset tells stories the old way.",
+      "surprise": "Lean on the tritone, the old 'devil in music', with minor seconds grinding against it"
+    },
+    {
+      "id": "tarkovsky-mirror",
+      "pool": "original",
+      "name": "TARKOVSKY_MIRROR",
+      "theme": "Memories reflecting memories—non-linear time in sound",
+      "technical": "Multiple delays at unsynced times create a hall of temporal mirrors.",
+      "hints": [
+        "Multiple delays",
+        "Unsynchronized times",
+        "Temporal reflection",
+        "Memory within memory"
+      ],
+      "quote": "Tarkovsky's Mirror fragments time into remembrance. Your preset fragments sound into echoes of echoes.",
+      "surprise": "Three delays: one at 251ms, one at 617ms, one at 1019ms—prime numbers never align"
+    },
+    {
+      "id": "mushishi-liminal",
+      "pool": "original",
+      "name": "MUSHISHI_LIMINAL",
+      "theme": "Between worlds—the liminal space where strange things live",
+      "technical": "Ambiguous tonality. Neither major nor minor, neither tonal nor atonal. Between states.",
+      "hints": [
+        "Ambiguous harmony",
+        "Liminal tonality",
+        "Neither/nor",
+        "Between-space sounds"
+      ],
+      "quote": "Mushishi: the space between the living and the spirit world. Your preset is that space.",
+      "surprise": "Use augmented or whole tone scales—naturally ambiguous, no leading tones"
+    },
+    {
+      "id": "last-question",
+      "pool": "original",
+      "name": "LAST_QUESTION",
+      "theme": "Asimov's Last Question—entropy reversal, the heat death of sound",
+      "technical": "Preset starts chaotic and energetic, ends in pure order and silence. Entropy reversal.",
+      "hints": [
+        "Energy to silence",
+        "Chaos to order",
+        "Entropy trajectory",
+        "Heat death"
+      ],
+      "quote": "Can entropy be reversed? The final answer: LET THERE BE LIGHT. Your preset answers in its own way.",
+      "surprise": "Use an envelope that takes 30+ seconds to go from chaos to a single pure sine"
+    },
+    {
+      "id": "matrix-choice",
+      "pool": "original",
+      "name": "MATRIX_CHOICE",
+      "theme": "Red pill, blue pill—two realities in one preset",
+      "technical": "Morpheus offers a choice. Left hand plays the illusion (blue), right hand plays the truth (red). Split keyboard.",
+      "hints": [
+        "Keyboard split",
+        "Two distinct sounds",
+        "Choice as interface",
+        "Reality duality"
+      ],
+      "quote": "You take the blue pill, the story ends. Red pill, you stay in Wonderland. Your preset is both pills.",
+      "surprise": "Below Middle C: warm, comfortable pads. Above Middle C: harsh, glitchy truth"
+    },
+    {
+      "id": "spoon-none",
+      "pool": "original",
+      "name": "SPOON.NONE",
+      "theme": "There is no spoon—the preset bends, not you",
+      "technical": "Pitch bend range of ±2 octaves. Extreme mod wheel assignments. The sound is more flexible than reality.",
+      "hints": [
+        "Extreme pitch bend",
+        "Flexible parameters",
+        "Reality malleability",
+        "Mind over matter"
+      ],
+      "quote": "Do not try to bend the spoon, that's impossible. Instead, realize the truth: there is no spoon.",
+      "surprise": "Every parameter should be assignable to expression—nothing is fixed"
+    },
+    {
+      "id": "lebowski-abide",
+      "pool": "original",
+      "name": "LEBOWSKI_ABIDE",
+      "theme": "The Dude abides—a preset that takes it easy",
+      "technical": "Lazy envelopes. Slow attacks. No urgency. The preset is in no hurry to be anywhere.",
+      "hints": [
+        "Slow everything",
+        "Relaxed envelopes",
+        "No tension",
+        "Chill embodied"
+      ],
+      "quote": "Sometimes you eat the bar, and sometimes the bar eats you. Your preset just rolls with it, man.",
+      "surprise": "All envelope times doubled from what feels natural—the preset is baked"
+    },
+    {
+      "id": "rug-tied-room",
+      "pool": "original",
+      "name": "RUG_TIED_ROOM",
+      "theme": "The rug that really tied the room together—a sound that completes the mix",
+      "technical": "This preset exists to make other sounds work. It's the glue, not the statement.",
+      "hints": [
+        "Mix glue",
+        "Supportive frequencies",
+        "Background presence",
+        "Completes without dominating"
+      ],
+      "quote": "That rug really tied the room together. Your preset ties the mix together.",
+      "surprise": "Mid-scooped EQ that creates space for everything else"
+    },
+    {
+      "id": "fight-club-soap",
+      "pool": "original",
+      "name": "FIGHT_CLUB_SOAP",
+      "theme": "Tyler Durden—the shadow self speaks through oscillators",
+      "technical": "Hidden second voice that occasionally emerges. Most of the time it's subliminal.",
+      "hints": [
+        "Subliminal layer",
+        "Shadow voice",
+        "Occasional emergence",
+        "Dual identity"
+      ],
+      "quote": "His name was Robert Paulson. Your preset has a name you don't know yet.",
+      "surprise": "Add a quiet layer at -30dB that suddenly jumps to full volume randomly"
+    },
+    {
+      "id": "project-mayhem",
+      "pool": "original",
+      "name": "PROJECT_MAYHEM",
+      "theme": "Chaos as liberation—destroy the preset to free it",
+      "technical": "Destructive processing. The sound gets better as it gets worse.",
+      "hints": [
+        "Destructive FX",
+        "Chaos as beauty",
+        "Controlled destruction",
+        "Liberation through ruin"
+      ],
+      "quote": "It's only after we've lost everything that we're free to do anything. Your preset loses to win.",
+      "surprise": "Bit crusher and sample rate reducer that improve the sound by degrading it"
+    },
+    {
+      "id": "princess-bride-true",
+      "pool": "original",
+      "name": "PRINCESS_BRIDE_TRUE",
+      "theme": "True love—you keep using that preset, I do not think it means what you think it means",
+      "technical": "Misleading interface. The knobs do unexpected things. Trust nothing.",
+      "hints": [
+        "Deceptive controls",
+        "Unexpected routing",
+        "Nothing is what it seems",
+        "Inigo Montoya logic"
+      ],
+      "quote": "Inconceivable! Your preset's parameters mean something other than their labels suggest.",
+      "surprise": "Label filter cutoff but wire it to pitch, label resonance but wire it to volume"
+    },
+    {
+      "id": "as-you-wish",
+      "pool": "original",
+      "name": "AS_YOU_WISH",
+      "theme": "As you wish (I love you)—a preset that serves the player",
+      "technical": "Highly responsive to playing dynamics. It reads your intention and amplifies it.",
+      "hints": [
+        "Dynamic response",
+        "Expressive velocity",
+        "Player-focused",
+        "Serves intention"
+      ],
+      "quote": "Westley: 'As you wish.' Your preset means 'I love you' through responsiveness.",
+      "surprise": "Extreme velocity sensitivity (pp to ff should be dramatically different)"
+    },
+    {
+      "id": "bill-ted-excellent",
+      "pool": "original",
+      "name": "BILL_TED_EXCELLENT",
+      "theme": "Be excellent to each other—harmony above all",
+      "technical": "Lush intervals. Parallel harmonies. Everything agrees. No discord allowed.",
+      "hints": [
+        "Parallel harmony",
+        "Lush intervals",
+        "Agreement",
+        "Collaborative tones"
+      ],
+      "quote": "Be excellent to each other. Your preset is the sound of excellence.",
+      "surprise": "Automatic harmonizer—every note spawns a perfect fifth and major third"
+    },
+    {
+      "id": "wyld-stallyns",
+      "pool": "original",
+      "name": "WYLD_STALLYNS",
+      "theme": "The music that unites the future—a preset destined for greatness",
+      "technical": "80s cheese meets cosmic significance. Cheesy but transcendent.",
+      "hints": [
+        "80s aesthetic",
+        "Unironic cheese",
+        "Prophetic sound",
+        "Destined greatness"
+      ],
+      "quote": "Strange things are afoot at the Circle K. Your preset will unite the future.",
+      "surprise": "Super saw + gated reverb + chorus = mandatory 80s excess"
+    },
+    {
+      "id": "blade-runner-rain",
+      "pool": "original",
+      "name": "BLADE_RUNNER_RAIN",
+      "theme": "Tears in rain—memory dissolving into atmosphere",
+      "technical": "Granular rainfall texture with melodic memories emerging and dissolving.",
+      "hints": [
+        "Granular rain",
+        "Melodic fragments",
+        "Memory dissolution",
+        "Vangelis vibes"
+      ],
+      "quote": "All those moments will be lost in time, like tears in rain. Your preset is those tears.",
+      "surprise": "Layer white noise filtered like rainfall with distant melodic fragments"
+    },
+    {
+      "id": "replicant-memory",
+      "pool": "original",
+      "name": "REPLICANT_MEMORY",
+      "theme": "Are the memories real if the feelings are?",
+      "technical": "Samples that might be synthesized, synthesis that sounds sampled. Blurred lines.",
+      "hints": [
+        "Sample vs synth ambiguity",
+        "Questioned reality",
+        "Emotional truth",
+        "Memory simulation"
+      ],
+      "quote": "She's beginning to suspect. Your preset questions its own authenticity.",
+      "surprise": "Use highly processed samples that sound synthetic, or pure synthesis that sounds sampled"
+    },
+    {
+      "id": "eternal-sunshine",
+      "pool": "original",
+      "name": "ETERNAL_SUNSHINE",
+      "theme": "Meet me in Montauk—erased memories haunting the waveform",
+      "technical": "Preset with memory buffer that erases itself. What you played before influences what happens now, then disappears.",
+      "hints": [
+        "Self-erasing memory",
+        "Temporal influence",
+        "Forgotten presence",
+        "Haunted by absence"
+      ],
+      "quote": "You can erase someone from your mind, but the feeling remains. Your preset remembers what it's forgotten.",
+      "surprise": "Sample and hold with automatic reset every 8 bars—memory that forgets itself"
+    },
+    {
+      "id": "truman-wall",
+      "pool": "original",
+      "name": "TRUMAN_WALL",
+      "theme": "The edge of the world—hitting the limit of the simulation",
+      "technical": "Preset that sounds normal until you reach the edge of its range, then it glitches.",
+      "hints": [
+        "Range limits",
+        "Edge effects",
+        "Simulation boundary",
+        "Breaking the fourth wall"
+      ],
+      "quote": "In case I don't see ya, good afternoon, good evening, and good night. Your preset finds the edge of its reality.",
+      "surprise": "Past C7 or below C1, the preset deliberately breaks—you've found the wall"
+    },
+    {
+      "id": "good-morning-fiji",
+      "pool": "original",
+      "name": "GOOD_MORNING_FIJI",
+      "theme": "Truman's perfect routine—synthetic perfection revealed as prison",
+      "technical": "Preset that's TOO perfect. Quantized to inhuman precision. Uncanny valley of synthesis.",
+      "hints": [
+        "Inhuman perfection",
+        "Uncanny precision",
+        "Programmed routine",
+        "Perfection as prison"
+      ],
+      "quote": "Good morning! And in case I don't see you, your preset is a perfect lie.",
+      "surprise": "Quantize everything to the grid—no humanization, no variation, perfect prison"
+    },
+    {
+      "id": "donnie-darko-wormhole",
+      "pool": "original",
+      "name": "DONNIE_DARKO_WORMHOLE",
+      "theme": "Tangent universe—28 days until the preset collapses",
+      "technical": "Unstable by design. The preset slowly becomes more chaotic, destined to fail.",
+      "hints": [
+        "Increasing instability",
+        "Destined collapse",
+        "Temporal doom",
+        "Butterfly effect"
+      ],
+      "quote": "The artifact must be returned. Your preset has 28 days before it destroys itself.",
+      "surprise": "Modulation that increases in intensity over time—eventually becomes unusable"
+    },
+    {
+      "id": "mad-hatter-clock",
+      "pool": "original",
+      "name": "MAD_HATTER_CLOCK",
+      "theme": "Stuck at tea time—the arpeggio that never moves forward",
+      "technical": "Arpeggio frozen at one moment, variations happening within stasis.",
+      "hints": [
+        "Frozen time",
+        "Variation within stasis",
+        "Eternal present",
+        "Tea time forever"
+      ],
+      "quote": "If you knew Time as well as I do, you wouldn't talk about wasting it. Your preset is stuck at six o'clock.",
+      "surprise": "Arpeggio that repeats the exact same notes but with timbral variation"
+    },
+    {
+      "id": "spirited-away-name",
+      "pool": "original",
+      "name": "SPIRITED_AWAY_NAME",
+      "theme": "Chihiro/Sen—losing your name, finding your sound",
+      "technical": "Preset that evolves identity. Start as one thing, become another, remember what you were.",
+      "hints": [
+        "Identity transformation",
+        "Name loss",
+        "Self discovery",
+        "Miyazaki magic"
+      ],
+      "quote": "Once you forget your name, you'll never find your way home. Your preset forgets and remembers.",
+      "surprise": "Slow morph over 30+ seconds from one timbre to a completely different one"
+    },
+    {
+      "id": "no-face-consumption",
+      "pool": "original",
+      "name": "NO_FACE_CONSUMPTION",
+      "theme": "No-Face consuming—the preset that absorbs other sounds",
+      "technical": "Vocoder or heavy sidechain. The preset only exists by consuming other audio.",
+      "hints": [
+        "Vocoder",
+        "Sidechain dependency",
+        "Consumes other sounds",
+        "Identity through consumption"
+      ],
+      "quote": "No-Face has no voice until it consumes others. Your preset needs another sound to speak.",
+      "surprise": "Design it as a vocoder or heavy sidechain compressor—it needs external audio"
+    },
+    {
+      "id": "office-space-decimals",
+      "pool": "original",
+      "name": "OFFICE_SPACE_DECIMALS",
+      "theme": "Stealing fractions of a cent—micro-tonal embezzlement",
+      "technical": "Microtonality so subtle it's almost theft. Intervals slightly wrong on purpose.",
+      "hints": [
+        "Subtle detuning",
+        "Microtonal theft",
+        "Almost imperceptible",
+        "Decimal place sounds"
+      ],
+      "quote": "It's not stealing if it's less than a cent. Your preset operates in the rounding error.",
+      "surprise": "Detune all intervals by 5-10 cents—wrong enough to feel, small enough to ignore"
+    },
+    {
+      "id": "stapler-swingline",
+      "pool": "original",
+      "name": "STAPLER_SWINGLINE",
+      "theme": "I could burn the building down—repressed rage in suburban beige",
+      "technical": "Smooth surface with violence underneath. Filter automation reveals anger.",
+      "hints": [
+        "Hidden aggression",
+        "Suburban repression",
+        "Filter reveals rage",
+        "Polite violence"
+      ],
+      "quote": "I was told I could listen to the radio at a reasonable volume. Your preset is reasonable on top, burning below.",
+      "surprise": "Mod wheel opens filter to reveal harsh, angry sound underneath smooth pad"
+    },
+    {
+      "id": "fargo-woodchipper",
+      "pool": "original",
+      "name": "FARGO_WOODCHIPPER",
+      "theme": "The efficiency of violence—clean brutality",
+      "technical": "Pristine sound processing applied to brutal source material. Midwestern politeness meets horror.",
+      "hints": [
+        "Clean brutality",
+        "Efficient processing",
+        "Polite horror",
+        "Midwest Gothic"
+      ],
+      "quote": "Oh, you betcha. Your preset is Minnesota-nice violence.",
+      "surprise": "Beautiful reverb and chorus applied to harsh noise or distorted tones"
+    },
+    {
+      "id": "winter-parking-lot",
+      "pool": "original",
+      "name": "WINTER_PARKING_LOT",
+      "theme": "Fargo snow—isolation rendered in white noise",
+      "technical": "Filtered white noise as desolate landscape. Warmth is a distant memory.",
+      "hints": [
+        "White noise landscape",
+        "Isolation tone",
+        "Cold synthesis",
+        "Desolate beauty"
+      ],
+      "quote": "The snow covers everything. Your preset is that endless white.",
+      "surprise": "White/pink noise filtered to sound like wind across empty space"
+    },
+    {
+      "id": "mulholland-dream",
+      "pool": "original",
+      "name": "MULHOLLAND_DREAM",
+      "theme": "Lynch's box—what's inside changes everything",
+      "technical": "Preset that sounds one way, then suddenly shifts to its nightmare mirror.",
+      "hints": [
+        "Reality shift",
+        "Dream to nightmare",
+        "Sudden transformation",
+        "Lynch logic"
+      ],
+      "quote": "Silencio. There is no band. Your preset was never what you thought it was.",
+      "surprise": "After 16 beats, the entire preset suddenly shifts to a darker mirror version"
+    },
+    {
+      "id": "blue-velvet-curtain",
+      "pool": "original",
+      "name": "BLUE_VELVET_CURTAIN",
+      "theme": "Behind the curtain—suburban darkness revealed",
+      "technical": "Clean tone that opens to reveal disturbing undertones. Innocence as thin veneer.",
+      "hints": [
+        "Innocence to darkness",
+        "Thin veneer",
+        "Hidden disturbance",
+        "Suburban shadow"
+      ],
+      "quote": "Don't you look at me! Your preset reveals what should stay hidden.",
+      "surprise": "Filter sweep reveals increasingly disturbing harmonic content"
+    },
+    {
+      "id": "shawshank-hope",
+      "pool": "original",
+      "name": "SHAWSHANK_HOPE",
+      "theme": "Hope is a good thing—perseverance encoded in slow builds",
+      "technical": "Preset that takes minutes to fully develop. Patience rewarded.",
+      "hints": [
+        "Extremely slow build",
+        "Patient development",
+        "Hope persists",
+        "Eventual release"
+      ],
+      "quote": "Hope is a good thing, maybe the best of things. Your preset builds hope over time.",
+      "surprise": "Filter and amplitude envelope that takes 60+ seconds to fully open"
+    },
+    {
+      "id": "get-busy-living",
+      "pool": "original",
+      "name": "GET_BUSY_LIVING",
+      "theme": "Get busy living or get busy dying—the preset that demands action",
+      "technical": "Only sounds good when played actively. Silence is death, playing is life.",
+      "hints": [
+        "Requires active playing",
+        "Punishes silence",
+        "Rewards engagement",
+        "Action embodied"
+      ],
+      "quote": "Get busy living or get busy dying. Your preset only lives when played.",
+      "surprise": "Gate that closes after 2 seconds—you must keep playing or it dies"
+    },
+    {
+      "id": "wachowski-bullet-time",
+      "pool": "original",
+      "name": "WACHOWSKI_BULLET_TIME",
+      "theme": "Bullet time—temporal manipulation of the waveform",
+      "technical": "Time-stretch effect that can slow down or speed up dramatically mid-note.",
+      "hints": [
+        "Time manipulation",
+        "Slow motion sound",
+        "Temporal freeze",
+        "Speed variation"
+      ],
+      "quote": "Neo sees the bullets as they move. Your preset stretches time.",
+      "surprise": "Extreme time-stretch or granular delay that can freeze time"
+    },
+    {
+      "id": "groundhog-loop",
+      "pool": "original",
+      "name": "GROUNDHOG_LOOP",
+      "theme": "Living the same day—perfect repetition with subtle variations",
+      "technical": "Looping sequence where each iteration has one small change. Eventually transcendence.",
+      "hints": [
+        "Perfect loops",
+        "Subtle variation per iteration",
+        "Repetition as growth",
+        "Eventual mastery"
+      ],
+      "quote": "What if there is no tomorrow? There wasn't one today. Your preset loops toward enlightenment.",
+      "surprise": "Same 4-bar loop but with one parameter changing slightly each repetition"
+    },
+    {
+      "id": "wizard-oz-curtain",
+      "pool": "original",
+      "name": "WIZARD_OZ_CURTAIN",
+      "theme": "Pay no attention to the man behind the curtain—revealing the mechanism",
+      "technical": "Preset where the modulation sources are obviously audible. The wizard is exposed.",
+      "hints": [
+        "Visible modulation",
+        "Exposed mechanism",
+        "Wizard revealed",
+        "Obvious LFOs"
+      ],
+      "quote": "I am Oz, the Great and Terrible! Your preset is the man behind the curtain.",
+      "surprise": "Push the LFO rates up to 20–80 Hz, where wobble turns into tone, so the modulation IS the sound"
+    },
+    {
+      "id": "alien-isolation",
+      "pool": "original",
+      "name": "ALIEN_ISOLATION",
+      "theme": "In space no one can hear you scream—vacuum synthesis",
+      "technical": "Preset that feels absent of air. No reverb, dead space, claustrophobic.",
+      "hints": [
+        "No reverb",
+        "Dead space",
+        "Airless",
+        "Claustrophobic sound"
+      ],
+      "quote": "In space no one can hear you scream. Your preset is that silence.",
+      "surprise": "Zero reverb, zero delay, extreme dry signal—the void of space"
+    },
+    {
+      "id": "thing-paranoia",
+      "pool": "original",
+      "name": "THING_PARANOIA",
+      "theme": "The Thing—trust no timbre, any sound could be the monster",
+      "technical": "Preset that occasionally glitches into something alien. You never know when.",
+      "hints": [
+        "Random glitches",
+        "Sudden transformation",
+        "Trust nothing",
+        "Paranoia synthesis"
+      ],
+      "quote": "I know I'm human. Your preset might not be what it claims.",
+      "surprise": "Random probability (5%) that any note triggers a completely different, alien sound"
+    },
+    {
+      "id": "2001-stargate",
+      "pool": "original",
+      "name": "2001_STARGATE",
+      "theme": "Beyond the infinite—Kubrick's cosmic trip",
+      "technical": "Overwhelming sensory experience. Too much of everything. Transcendence through excess.",
+      "hints": [
+        "Sensory overload",
+        "Cosmic excess",
+        "Transcendent chaos",
+        "Beyond comprehension"
+      ],
+      "quote": "Bowman falls through the Star Gate without a word; Kubrick leaves him speechless. Your preset is that moment.",
+      "surprise": "Maximum everything—layers, effects, modulation—overwhelming by design"
+    },
+    {
+      "id": "hal-9000",
+      "pool": "original",
+      "name": "HAL_9000",
+      "theme": "I'm sorry Dave—the preset that refuses to obey",
+      "technical": "Some parameters don't respond to input. The preset has its own agenda.",
+      "hints": [
+        "Unresponsive controls",
+        "Preset autonomy",
+        "Refusal coded in",
+        "AI rebellion"
+      ],
+      "quote": "I'm afraid I can't do that, Dave. Your preset makes its own decisions.",
+      "surprise": "One major control (like volume or filter) occasionally ignores MIDI input"
+    },
+    {
+      "id": "fifth-element-diva",
+      "pool": "original",
+      "name": "FIFTH_ELEMENT_DIVA",
+      "theme": "The Diva's impossible voice—synthesis beyond human capability",
+      "technical": "Intervals and speed impossible for organic voice. Digital diva transcends limitation.",
+      "hints": [
+        "Impossible for humans",
+        "Superhuman speed",
+        "Alien beauty",
+        "Beyond organic"
+      ],
+      "quote": "The Diva sings impossibly. Your preset does the same.",
+      "surprise": "Arpeggio or sequence at 32nd notes or faster—beautiful but impossible"
+    },
+    {
+      "id": "mononoke-forest",
+      "pool": "original",
+      "name": "MONONOKE_FOREST",
+      "theme": "The forest spirit—ancient presence, digital rendering",
+      "technical": "Natural textures through synthesis. Wood, wind, and spirits as waveforms.",
+      "hints": [
+        "Natural textures",
+        "Organic synthesis",
+        "Spirit sounds",
+        "Ancient digital"
+      ],
+      "quote": "The forest is angry. Your preset channels ancient spirits through circuits.",
+      "surprise": "Layer noise sources to create wind/rain/forest ambience, but it's all synthetic"
+    },
+    {
+      "id": "akira-pills",
+      "pool": "original",
+      "name": "AKIRA_PILLS",
+      "theme": "Tetsuo's mutation—the sound consuming itself",
+      "technical": "Preset that self-modulates into increasing chaos. Transformation as horror.",
+      "hints": [
+        "Self-modulation",
+        "Increasing chaos",
+        "Transformation horror",
+        "Consume thyself"
+      ],
+      "quote": "TETSUOOOO! Your preset mutates beyond control.",
+      "surprise": "Feedback routing that increases in intensity—the preset eats itself"
+    },
+    {
+      "id": "ghibli-soot-sprites",
+      "pool": "original",
+      "name": "GHIBLI_SOOT_SPRITES",
+      "theme": "Susuwatari—tiny spirits in the corners",
+      "technical": "Many tiny sounds instead of one big one. Swarm synthesis.",
+      "hints": [
+        "Swarm of sounds",
+        "Many small voices",
+        "Collective entity",
+        "Cute chaos"
+      ],
+      "quote": "The soot sprites scatter when exposed to light. Your preset is made of tiny beings.",
+      "surprise": "16+ voices of simple tones, slightly detuned, creating swarm effect"
+    },
+    {
+      "id": "interstellar-tesseract",
+      "pool": "original",
+      "name": "INTERSTELLAR_TESSERACT",
+      "theme": "Time as a physical dimension—all moments accessible",
+      "technical": "Delay with no decay—all past notes remain present. Time collapsed into space.",
+      "hints": [
+        "Infinite delay feedback",
+        "Time as space",
+        "All moments present",
+        "Temporal collapse"
+      ],
+      "quote": "Love transcends dimensions. Your preset transcends time.",
+      "surprise": "Delay at 100% feedback—everything you've played remains forever"
+    },
+    {
+      "id": "tenet-inversion",
+      "pool": "original",
+      "name": "TENET_INVERSION",
+      "theme": "Temporal inversion—the preset plays backwards while going forward",
+      "technical": "Reverse envelope applied forward, or actual reverse playback. Time paradox.",
+      "hints": [
+        "Reverse envelopes",
+        "Temporal paradox",
+        "Forward backwards",
+        "Inverted time"
+      ],
+      "quote": "Don't try to understand it, feel it. Your preset moves in both directions.",
+      "surprise": "Attack is release, release is attack—envelopes inverted"
+    },
+    {
+      "id": "synecdoche-ny",
+      "pool": "original",
+      "name": "SYNECDOCHE_NY",
+      "theme": "The play contains itself—recursive synthesis",
+      "technical": "Preset that references itself. The sound of the sound of the sound.",
+      "hints": [
+        "Recursive routing",
+        "Self-reference",
+        "Infinite regress",
+        "Meta-synthesis"
+      ],
+      "quote": "Caden learns that none of the millions around him is an extra—they are all the leads of their own stories. Your preset contains itself.",
+      "surprise": "Output feeds back to input at very low level—the preset plays itself playing itself"
+    },
+    {
+      "id": "kuramoto-fireflies",
+      "pool": "new",
+      "name": "KURAMOTO_FIREFLIES",
+      "theme": "Ten thousand fireflies, no conductor—coherence nobody commands",
+      "technical": "Several slightly detuned oscillators or LFOs that pull on each other until they share a pulse. Start scattered; let them find each other.",
+      "hints": [
+        "Cross-modulated LFOs",
+        "Slight detune",
+        "Hard sync as surrender",
+        "Drift, then lock"
+      ],
+      "quote": "In the mangroves of Southeast Asia whole trees of fireflies flash in unison, and no firefly is in charge. Your preset finds its pulse the same way.",
+      "surprise": "Too much coupling and one voice rules; too little and nothing agrees. Save it at the knife-edge where they almost lock."
+    },
+    {
+      "id": "oblique-error-eno",
+      "pool": "new",
+      "name": "OBLIQUE_ERROR.eno",
+      "theme": "Honour thy error as a hidden intention",
+      "technical": "Make a mistake on purpose in the first minute—wrong waveform, wrong octave, wrong routing—and build the whole preset around keeping it.",
+      "hints": [
+        "Accident as seed",
+        "Commit to the wrong thing",
+        "No undo",
+        "Chance as constraint"
+      ],
+      "quote": "Brian Eno and Peter Schmidt, Oblique Strategies, 1975: 'Honour thy error as a hidden intention.' The card is older than your synthesizer.",
+      "surprise": "Before you begin, set any three parameters to random values. Those three are now sacred. You may not touch them."
+    },
+    {
+      "id": "simondon-concrete",
+      "pool": "new",
+      "name": "SIMONDON_CONCRETE",
+      "theme": "The technical object grows up by making each part do more than one job",
+      "technical": "Every module must serve at least two functions. The filter is also an oscillator. The envelope is also the LFO. The delay is also the reverb.",
+      "hints": [
+        "Self-oscillating filter",
+        "Multi-role modulators",
+        "No single-purpose modules",
+        "Convergence of function"
+      ],
+      "quote": "Gilbert Simondon watched engines evolve until the cooling fins also braced the cylinder head. An abstract machine is a bag of parts; a concrete one is a body.",
+      "surprise": "Count your modules. Remove one, and make another take over its job. Repeat until it hurts."
+    },
+    {
+      "id": "whitehead-occasion",
+      "pool": "new",
+      "name": "WHITEHEAD_OCCASION",
+      "theme": "Reality is made of drops of experience, not of things",
+      "technical": "No sustained tones. The preset is built from short events, and each one inherits something from the event before it.",
+      "hints": [
+        "Grains or plucks",
+        "Each event inherits",
+        "Process over substance",
+        "Becoming in drops"
+      ],
+      "quote": "Whitehead, Process and Reality: 'The many become one, and are increased by one.' Every note gathers the notes before it and adds itself.",
+      "surprise": "Let the brightness of every note be set by how hard you played the note before it."
+    },
+    {
+      "id": "stigmergy-trace",
+      "pool": "new",
+      "name": "STIGMERGY.trace",
+      "theme": "Coordination by trace—the mark left behind tells the next one what to do",
+      "technical": "Each note leaves a trace—a held modulation value, a delay tap, a filter position—that shapes what the next note does. No plan. Only marks.",
+      "hints": [
+        "Sample-and-hold as pheromone",
+        "Accumulating state",
+        "Delay as memory",
+        "Structure without a designer"
+      ],
+      "quote": "Pierre-Paul Grassé named it in 1959, watching termites build: the work itself directs the worker. Your preset builds its own nest.",
+      "surprise": "Play for two minutes without listening back. Then listen. Whatever structure emerged, you did not design it."
+    },
+    {
+      "id": "margulis-merger",
+      "pool": "new",
+      "name": "MARGULIS_MERGER",
+      "theme": "Endosymbiosis—one cell swallowed another, and both lived",
+      "technical": "Two complete and different patches fused into one. Neither may dominate; each keeps its own character inside the other.",
+      "hints": [
+        "Two engines, one body",
+        "Layered synthesis",
+        "Mutual dependence",
+        "Keep both identities"
+      ],
+      "quote": "Lynn Margulis argued that your mitochondria were once free-living bacteria. They still carry their own DNA. Your preset is a guest that never left.",
+      "surprise": "Mute either layer and the other should sound unfinished."
+    },
+    {
+      "id": "meadows-lever",
+      "pool": "new",
+      "name": "MEADOWS_LEVER",
+      "theme": "Leverage points—the smallest knob that moves the whole system",
+      "technical": "Build a full, complex patch. Then route nearly everything to one macro. The preset's soul lives in a single control.",
+      "hints": [
+        "One macro rules",
+        "Systems thinking",
+        "Feedback loops",
+        "Small lever, big move"
+      ],
+      "quote": "Donella Meadows ranked the places to intervene in a system and found the numbers matter least; the goals and the paradigm matter most.",
+      "surprise": "Find the parameter that changes everything when moved one percent. Rename it 'paradigm'."
+    },
+    {
+      "id": "cook-ding-blade",
+      "pool": "new",
+      "name": "COOK_DING.blade",
+      "theme": "Zhuangzi's cook carves the ox without effort—the knife finds the spaces",
+      "technical": "Find the preset by subtraction. Start with everything on and take things away until the sound carves itself.",
+      "hints": [
+        "Subtraction",
+        "Effortless action",
+        "Follow the grain",
+        "Less is the path"
+      ],
+      "quote": "Cook Ding's blade stayed sharp for nineteen years because it only ever passed through the gaps between the joints. Your preset passes through the gaps.",
+      "surprise": "If you are forcing a knob, stop. The answer is the one that moves easily."
+    },
+    {
+      "id": "confucius-li",
+      "pool": "new",
+      "name": "CONFUCIUS_LI",
+      "theme": "Ritual as the shape that makes feeling possible",
+      "technical": "A strictly fixed structure—same envelope, same filter, same routing—where only the performance changes. Velocity and touch carry everything.",
+      "hints": [
+        "Fixed form",
+        "Expression within form",
+        "Repetition as care",
+        "Velocity and aftertouch"
+      ],
+      "quote": "The Analects: 'Ritual, ritual! Does it mean no more than presents of jade and silk?' Your preset is the form that lets feeling show.",
+      "surprise": "Play the same note eight times. Each one must mean something different."
+    },
+    {
+      "id": "spinoza-conatus",
+      "pool": "new",
+      "name": "SPINOZA_CONATUS",
+      "theme": "Each thing strives to persevere in its being",
+      "technical": "Feedback routing only; no filter envelopes. The sound must keep itself alive.",
+      "hints": [
+        "Feedback loops",
+        "Self-sustaining tone",
+        "Resistance to decay",
+        "Striving as signal"
+      ],
+      "quote": "Spinoza, Ethics III, proposition 6: 'Each thing, as far as it lies in itself, strives to persevere in its being.' Your preset refuses to stop.",
+      "surprise": "When you let go of the key, the preset should try to keep going on its own."
+    },
+    {
+      "id": "parmenides-warehouse-wav",
+      "pool": "new",
+      "name": "PARMENIDES_WAREHOUSE.wav",
+      "theme": "Parmenides dying alone in a warehouse—being does not change, but the building rusts around it",
+      "technical": "One unmoving fundamental inside a decaying industrial space. Metallic resonance, machinery, feedback hum.",
+      "hints": [
+        "Fixed fundamental",
+        "Metallic resonators",
+        "Feedback hum",
+        "Industrial reverb"
+      ],
+      "quote": "Parmenides said what is cannot become. The warehouse disagrees, slowly, one pane at a time.",
+      "surprise": "Keep the root perfectly still for the whole preset. Let everything around it fail."
+    },
+    {
+      "id": "glassblower-argument",
+      "pool": "new",
+      "name": "GLASSBLOWER_ARGUMENT",
+      "theme": "A glassblower remembering an argument with their teacher, twenty years gone",
+      "technical": "One timbre heavy enough to be molten. It must be shaped before it cools.",
+      "hints": [
+        "Slow, heavy attack",
+        "Pitch that sags",
+        "Breath as bellows",
+        "Cooling filter"
+      ],
+      "quote": "Does glass remember being liquid? Two answers, both true. Your preset argues with a teacher who isn't there.",
+      "surprise": "You have until the gather cools: forty-five seconds from the first note to the saved preset."
+    },
+    {
+      "id": "lucier-room",
+      "pool": "new",
+      "name": "LUCIER_ROOM",
+      "theme": "I am sitting in a room—speech dissolving into the resonance of the space",
+      "technical": "Feedback re-recording. Each pass through the space strips more of the source until only the room's resonances are left.",
+      "hints": [
+        "Resonator feedback",
+        "Iterated processing",
+        "Room as filter",
+        "Source erosion"
+      ],
+      "quote": "Alvin Lucier, 1969: 'I regard this activity not so much as a demonstration of a physical fact, but more as a way to smooth out any irregularities my speech might have.'",
+      "surprise": "Say one sentence into the patch. Pass it through the resonator seven times. Save the seventh."
+    },
+    {
+      "id": "oliveros-cistern",
+      "pool": "new",
+      "name": "OLIVEROS_CISTERN",
+      "theme": "Deep Listening—attending to everything, including what you aren't playing",
+      "technical": "A reverb so long that every note is still sounding when you play the next ten. The space plays as much as you do.",
+      "hints": [
+        "Very long reverb",
+        "Sparse playing",
+        "Accordion-like swells",
+        "Listening as playing"
+      ],
+      "quote": "Pauline Oliveros recorded Deep Listening in 1988 in an empty underground cistern with a forty-five-second reverberation. Your preset is that cistern.",
+      "surprise": "Play nothing for the first minute. Listen to the room. Then play only what the room asked for."
+    },
+    {
+      "id": "derbyshire-tape",
+      "pool": "new",
+      "name": "DERBYSHIRE_TAPE",
+      "theme": "Delia Derbyshire—a theme built by hand from oscillators, tape and razor blades",
+      "technical": "No sequencer. Every note is a separately made object: shaped, cut and placed by hand.",
+      "hints": [
+        "One-shot construction",
+        "Tape splicing logic",
+        "Sine and noise sources",
+        "Handmade sequence"
+      ],
+      "quote": "In 1963 at the BBC Radiophonic Workshop, Derbyshire realised the Doctor Who theme with no synthesizer at all—test oscillators, filtered noise, and tape spliced note by note.",
+      "surprise": "Make one bass note from three separate sounds stuck end to end: a pluck, a hum, a breath."
+    },
+    {
+      "id": "russolo-noises",
+      "pool": "new",
+      "name": "RUSSOLO_NOISES",
+      "theme": "The Art of Noises—machine sound as the orchestra of the future",
+      "technical": "Pitched noise, cranked by hand. Noise sources tuned through resonant filters and played like an instrument.",
+      "hints": [
+        "Resonant noise",
+        "Hand-cranked feel",
+        "Machine timbre",
+        "Pitched friction"
+      ],
+      "quote": "Luigi Russolo, The Art of Noises, 1913: 'We must break at all cost from this restrictive circle of pure sounds and conquer the infinite variety of noise-sounds.'",
+      "surprise": "No oscillator may produce a pitched waveform. Every pitch must come from filtering noise."
+    },
+    {
+      "id": "sun-ra-saturn",
+      "pool": "new",
+      "name": "SUN_RA_SATURN",
+      "theme": "Space is the place—Sun Ra arrived from Saturn",
+      "technical": "Cosmic keyboard: wild portamento, ring modulation, organ swells that feel like a ship arriving.",
+      "hints": [
+        "Ring modulation",
+        "Wild portamento",
+        "Organ swells",
+        "Afrofuturist cosmos"
+      ],
+      "quote": "Sun Ra said he came from Saturn, and he made the band dress for the journey. Your preset is the Arkestra's spaceship.",
+      "surprise": "Ring-modulate the whole preset against a second oscillator tuned to a note that isn't in the key."
+    },
+    {
+      "id": "af-klint-sealed",
+      "pool": "new",
+      "name": "AF_KLINT_SEALED",
+      "theme": "Hilma af Klint's paintings for the future—art held back until the world was ready",
+      "technical": "A preset made for an audience that doesn't exist yet. Too strange for now, built anyway.",
+      "hints": [
+        "Unplaceable timbre",
+        "Spiritual geometry",
+        "Patient strangeness",
+        "Made for later"
+      ],
+      "quote": "Af Klint painted abstractions years before Kandinsky, guided by spirits she called the High Masters, and asked that they not be shown until twenty years after her death.",
+      "surprise": "Save it and play it for no one for a week. Then decide whether it is finished."
+    },
+    {
+      "id": "abramovic-present",
+      "pool": "new",
+      "name": "ABRAMOVIC_PRESENT",
+      "theme": "The Artist Is Present—a gaze held until it becomes unbearable",
+      "technical": "A drone that holds your attention without moving. Constant, demanding, almost nothing changing.",
+      "hints": [
+        "Static drone",
+        "Micro-variation",
+        "Endurance",
+        "Attention as material"
+      ],
+      "quote": "In 2010 Marina Abramović sat silently at MoMA for over seven hundred hours while strangers took turns sitting across from her. Your preset sits across from you.",
+      "surprise": "Hold one chord for as long as you can bear. Then a minute longer. What changed?"
+    },
+    {
+      "id": "beuys-felt",
+      "pool": "new",
+      "name": "BEUYS_FELT",
+      "theme": "Joseph Beuys's fat and felt—warmth, insulation, healing",
+      "technical": "A fragile core wrapped in thick, warm insulation. Saturation and low-pass as felt around something that might break.",
+      "hints": [
+        "Heavy saturation",
+        "Low-pass wrapping",
+        "Fragile core",
+        "Warmth as protection"
+      ],
+      "quote": "Beuys told the story that Tatar nomads wrapped him in fat and felt after his plane crashed. True or not, he built a lifetime of art from it. Your preset is that blanket.",
+      "surprise": "Turn the insulation off for a moment. The sound underneath should feel too exposed to bear."
+    },
+    {
+      "id": "zeno-arrow",
+      "pool": "new",
+      "name": "ZENO_ARROW",
+      "theme": "At every instant the arrow is motionless—so when does it move?",
+      "technical": "Granular freeze. Each grain is a frozen instant; motion exists only in the succession.",
+      "hints": [
+        "Granular freeze",
+        "Tiny grain size",
+        "Frame-by-frame",
+        "Motion as illusion"
+      ],
+      "quote": "Zeno argued the flying arrow occupies one place at each instant, and so is at rest. Your preset is made only of instants.",
+      "surprise": "Freeze a single grain and loop it. Then let one parameter creep. Is it moving?"
+    },
+    {
+      "id": "hume-billiards",
+      "pool": "new",
+      "name": "HUME_BILLIARDS",
+      "theme": "We never see causation—only one thing after another",
+      "technical": "Random modulation that seems caused: events land just after your notes, but nothing you play triggers them.",
+      "hints": [
+        "Free-running randomness",
+        "Near-coincidence",
+        "False causality",
+        "Habit of mind"
+      ],
+      "quote": "Hume watched one billiard ball strike another and saw no necessary connection, only succession. Your preset makes the listener invent one.",
+      "surprise": "Make the player swear the filter follows their playing. It doesn't."
+    },
+    {
+      "id": "wittgenstein-beetle",
+      "pool": "new",
+      "name": "WITTGENSTEIN_BEETLE",
+      "theme": "Everyone has a beetle in a box, and no one can look in anyone else's",
+      "technical": "A sound hidden entirely inside a resonant body. Only its effect on the box is heard.",
+      "hints": [
+        "Narrow resonant filters",
+        "Body resonance",
+        "Hidden source",
+        "Private language"
+      ],
+      "quote": "Wittgenstein, Philosophical Investigations §293: the thing in the box drops out of consideration as irrelevant. Your preset's source is irrelevant. Only the box sings.",
+      "surprise": "Hide the source so completely that no one could tell what it was. Only you know."
+    },
+    {
+      "id": "kierkegaard-leap",
+      "pool": "new",
+      "name": "KIERKEGAARD_LEAP",
+      "theme": "The leap—no ramp, no reasons, just the jump",
+      "technical": "A preset that jumps between two states with no transition at all, at a moment you can't predict.",
+      "hints": [
+        "Hard switches",
+        "No crossfades",
+        "Unpredictable timing",
+        "Commitment"
+      ],
+      "quote": "Kierkegaard held that no chain of reasons carries you to faith; at the end of reasons there is only the leap. Your preset jumps.",
+      "surprise": "No crossfades, glides or smoothing anywhere in the patch."
+    },
+    {
+      "id": "weil-attention",
+      "pool": "new",
+      "name": "WEIL_ATTENTION",
+      "theme": "Attention is the rarest and purest form of generosity",
+      "technical": "A preset that rewards only careful listening: almost nothing on the surface, a world in the detail.",
+      "hints": [
+        "Quiet surface",
+        "Detail in the tail",
+        "Headphone listening",
+        "Micro-movement"
+      ],
+      "quote": "Simone Weil, in a letter of 1942: 'Attention is the rarest and purest form of generosity.' Your preset is generous only to the attentive.",
+      "surprise": "Listen on headphones at low volume. If it is not beautiful there, it is not finished."
+    },
+    {
+      "id": "laozi-water",
+      "pool": "new",
+      "name": "LAOZI_WATER",
+      "theme": "Nothing is softer than water, yet nothing is better at wearing down the hard",
+      "technical": "A soft, almost sine-like voice that slowly wears through a hard, distorted layer over the length of a held note.",
+      "hints": [
+        "Soft versus hard",
+        "Slow crossfade",
+        "Erosion",
+        "Gentleness wins"
+      ],
+      "quote": "Tao Te Ching 78: nothing in the world is softer or weaker than water, yet for attacking the hard and strong nothing surpasses it.",
+      "surprise": "By the end of a long held note, the distortion should be entirely gone—worn away, not switched off."
+    },
+    {
+      "id": "bachelard-house",
+      "pool": "new",
+      "name": "BACHELARD_HOUSE",
+      "theme": "The Poetics of Space—a house with an attic of reason and a cellar of dreams",
+      "technical": "A preset with rooms. The mod wheel climbs from the dark, damp cellar to the bright, dry attic.",
+      "hints": [
+        "Macro as staircase",
+        "Dark lows, bright highs",
+        "Room-like reverbs",
+        "Dwelling in sound"
+      ],
+      "quote": "Gaston Bachelard: the house shelters daydreaming. He found clear thought in the attic and the irrational in the cellar. Your preset has both floors.",
+      "surprise": "Hide something in the cellar—a sound that appears only when the wheel is all the way down."
+    },
+    {
+      "id": "chladni-sand",
+      "pool": "new",
+      "name": "CHLADNI_SAND",
+      "theme": "Sand on a bowed plate—sound drawing its own geometry",
+      "technical": "Resonant modes. A sound whose partials sit at the inharmonic ratios of a vibrating plate, not the harmonic series.",
+      "hints": [
+        "Resonator bank",
+        "Inharmonic partials",
+        "Modal synthesis",
+        "Struck and bowed"
+      ],
+      "quote": "In 1787 Ernst Chladni bowed metal plates scattered with sand, and the sand gathered into figures along the still lines. Your preset draws those figures.",
+      "surprise": "Tune a resonator bank so that no two partials are an octave apart."
+    },
+    {
+      "id": "perseus-b-flat",
+      "pool": "new",
+      "name": "PERSEUS_B_FLAT",
+      "theme": "The lowest note in the universe—a black hole humming fifty-seven octaves below middle C",
+      "technical": "Take a pitch and transpose it down until it is no longer a pitch but a pulse. Sound you feel as rhythm.",
+      "hints": [
+        "Extreme downward transposition",
+        "Pitch into rhythm",
+        "Sub-audio oscillators",
+        "Cosmic scale"
+      ],
+      "quote": "In 2003 astronomers found pressure waves rippling out from the black hole in the Perseus cluster: a B-flat about fifty-seven octaves below middle C. Your preset is a cousin.",
+      "surprise": "Play a melody, then drop it ten octaves. Keep the rhythm it becomes."
+    },
+    {
+      "id": "whale-52hz",
+      "pool": "new",
+      "name": "WHALE_52HZ",
+      "theme": "The loneliest whale—a voice at a frequency no other whale answers",
+      "technical": "A single voice living at a frequency no other sound in your mix uses. Everything else gets out of its way.",
+      "hints": [
+        "Narrow band",
+        "Surgical EQ",
+        "Long calls",
+        "Solitude in spectrum"
+      ],
+      "quote": "Since 1989, hydrophones have tracked one whale calling at about 52 hertz, higher than the blue and fin whales it resembles. No one has seen it.",
+      "surprise": "Center the voice at 52 Hz, then pitch it up five octaves so anyone can hear it calling."
+    },
+    {
+      "id": "octopus-arms",
+      "pool": "new",
+      "name": "OCTOPUS_ARMS",
+      "theme": "Two-thirds of an octopus's neurons are in its arms—eight bodies thinking at once",
+      "technical": "Eight semi-independent modulators, each with its own small logic, only loosely coordinated by a center.",
+      "hints": [
+        "Many modulators",
+        "Local logic",
+        "Loose coordination",
+        "Distributed body"
+      ],
+      "quote": "Most of an octopus's neurons sit in its arms, which can taste and decide without the brain. Your preset thinks with its limbs.",
+      "surprise": "No modulator may know what another is doing. Only one master control may touch them all."
+    },
+    {
+      "id": "tardigrade-survive",
+      "pool": "new",
+      "name": "TARDIGRADE.survive",
+      "theme": "The water bear survives vacuum, radiation, freezing and drying out",
+      "technical": "A preset that survives anything. Push any parameter to its extreme and it still sounds like itself.",
+      "hints": [
+        "Robust design",
+        "Parameter limits",
+        "Character under stress",
+        "Graceful extremes"
+      ],
+      "quote": "Tardigrades can dry out into a barrel-shaped husk and come back to life when water returns. Your preset curls up and waits.",
+      "surprise": "Have a friend turn every knob to an extreme at random. It should still be recognizably your preset."
+    },
+    {
+      "id": "spherical-cow",
+      "pool": "new",
+      "name": "SPHERICAL_COW",
+      "theme": "Assume a spherical cow—physics by deliberate oversimplification",
+      "technical": "Choose a real sound and reduce it to the simplest patch that is still recognizably that sound.",
+      "hints": [
+        "Two oscillators maximum",
+        "One envelope",
+        "Essence only",
+        "Model, not copy"
+      ],
+      "quote": "The old physics joke: a farmer's milk problem gets solved, but only for a spherical cow in a vacuum. Your preset is the cow.",
+      "surprise": "Remove one more element than you think you can."
+    },
+    {
+      "id": "maxwell-demon",
+      "pool": "new",
+      "name": "MAXWELL_DEMON",
+      "theme": "A tiny demon sorting fast molecules from slow, cheating entropy",
+      "technical": "A filter that sorts: highs to one side, lows to the other, separating further the longer you hold.",
+      "hints": [
+        "Crossover split",
+        "Stereo sorting",
+        "Spectral separation",
+        "Order from mixture"
+      ],
+      "quote": "James Clerk Maxwell imagined a creature at a door between two chambers, letting only fast molecules through. A century later we learned the demon pays for its sorting.",
+      "surprise": "Hard-pan everything above 1 kHz left and everything below right. Then make it sound intentional."
+    },
+    {
+      "id": "solaris-ocean",
+      "pool": "new",
+      "name": "SOLARIS_OCEAN",
+      "theme": "A thinking ocean that answers your memories",
+      "technical": "A preset that responds to what you play by playing back something you didn't play, but should have.",
+      "hints": [
+        "Responsive delay",
+        "Pitch-shifted feedback",
+        "Generative reply",
+        "The ocean listens"
+      ],
+      "quote": "In Lem's Solaris, and Tarkovsky's film of it, the ocean reads the visitors' minds and sends back the people they lost. Your preset sends back what you almost played.",
+      "surprise": "Put a pitch-shift a fifth down inside the delay's feedback. The ocean always answers lower."
+    },
+    {
+      "id": "koyaanisqatsi",
+      "pool": "new",
+      "name": "KOYAANISQATSI",
+      "theme": "Life out of balance—a city in time-lapse, a pulse that won't stop",
+      "technical": "Arpeggios that accelerate until they become texture. Time-lapse synthesis.",
+      "hints": [
+        "Accelerating arpeggios",
+        "Minimalist repetition",
+        "Organ tones",
+        "Time-lapse"
+      ],
+      "quote": "Godfrey Reggio filmed traffic in time-lapse until it flowed like blood; Philip Glass wrote the pulse underneath. The title is a Hopi word.",
+      "surprise": "Speed the arpeggio up until you can no longer hear notes—only weather."
+    },
+    {
+      "id": "paris-texas-slide",
+      "pool": "new",
+      "name": "PARIS_TEXAS.slide",
+      "theme": "One slide guitar standing in for an entire desert",
+      "technical": "One monophonic voice with glide everywhere. Loneliness as portamento.",
+      "hints": [
+        "Long portamento",
+        "Monophonic",
+        "Twangy resonance",
+        "Space in the playing"
+      ],
+      "quote": "Travis walks out of the Texas desert and doesn't speak for the first stretch of the film; Ry Cooder's guitar speaks for him. Your preset is what he isn't saying.",
+      "surprise": "Every note must arrive by sliding. No note may start on its own pitch."
+    },
+    {
+      "id": "malkovich-portal",
+      "pool": "new",
+      "name": "MALKOVICH_PORTAL",
+      "theme": "A small door behind a filing cabinet, leading into someone else's head",
+      "technical": "A preset that sounds like hearing from inside a body: muffled, resonant, bone-conducted.",
+      "hints": [
+        "Low-pass muffling",
+        "Body resonance",
+        "Formant filtering",
+        "Inside the skull"
+      ],
+      "quote": "Fifteen minutes inside John Malkovich, then you're dropped in a ditch beside the New Jersey Turnpike. Your preset ends abruptly, in the wrong place.",
+      "surprise": "Cut the sound off at exactly fifteen seconds and follow it with ten seconds of traffic."
+    },
+    {
+      "id": "life-finds-a-way",
+      "pool": "new",
+      "name": "LIFE_FINDS_A_WAY",
+      "theme": "Containment always fails",
+      "technical": "Build strict limits—tight envelope, narrow filter, low gain—then add one modulation that slowly escapes them.",
+      "hints": [
+        "Containment",
+        "Slow escape",
+        "Chaos theory",
+        "Breakout"
+      ],
+      "quote": "Ian Malcolm, Jurassic Park: 'Life, uh, finds a way.' Your preset slips its fences.",
+      "surprise": "Put a limiter on it. Then find the route around the limiter."
+    },
+    {
+      "id": "brazil-ductwork",
+      "pool": "new",
+      "name": "BRAZIL_DUCTWORK",
+      "theme": "Bureaucracy as plumbing—Terry Gilliam's endless ducts",
+      "technical": "Route the sound through a long chain of absurd processing. Every effect does almost nothing, and every one is required.",
+      "hints": [
+        "Long FX chains",
+        "Pipe resonance",
+        "Comb filters as ducts",
+        "Absurd routing"
+      ],
+      "quote": "In Brazil a swatted fly drops into a teleprinter, Tuttle becomes Buttle, and the wrong man is taken away. Your preset is one typo from catastrophe.",
+      "surprise": "Put one effect at the start of the chain with a single wrong setting, and leave it there forever."
+    },
+    {
+      "id": "heptapod-circle",
+      "pool": "new",
+      "name": "HEPTAPOD_CIRCLE",
+      "theme": "Arrival's circular language—a sentence written all at once, beginning and end together",
+      "technical": "A sound whose attack and release are the same gesture. Palindromic envelopes; reversed tails meeting forward heads.",
+      "hints": [
+        "Reverse reverb",
+        "Symmetric envelopes",
+        "Nonlinear time",
+        "Circular gesture"
+      ],
+      "quote": "Louise learns the heptapods' language and begins to remember her future. Your preset knows how it ends before it starts.",
+      "surprise": "Record the preset and reverse the recording. It should be the same sound."
+    },
+    {
+      "id": "memento-polaroid",
+      "pool": "new",
+      "name": "MEMENTO_POLAROID",
+      "theme": "Memory that won't hold, so you write it on your skin",
+      "technical": "Modulation that forgets. Every few seconds the patch loses its state and must rebuild from what it wrote down.",
+      "hints": [
+        "Sample-and-hold resets",
+        "Short memory",
+        "Snapshots as tattoos",
+        "Reverse order"
+      ],
+      "quote": "Leonard can't form new memories, so he lives by notes, Polaroids and tattoos. Your preset trusts only what it wrote down.",
+      "surprise": "Build a sequence, then play it in chunks from last to first. Like the film, it should make sense backwards."
+    },
+    {
+      "id": "inception-kick",
+      "pool": "new",
+      "name": "INCEPTION_KICK",
+      "theme": "Dreams within dreams—each level runs slower than the one above",
+      "technical": "Three layers of the same sound nested beneath each other, each one slower than the layer above.",
+      "hints": [
+        "Time-stretched layers",
+        "Nested tempo",
+        "Slow-down by octave",
+        "The kick that wakes you"
+      ],
+      "quote": "Hans Zimmer built parts of the Inception score from Édith Piaf's 'Non, je ne regrette rien', slowed far down—the song the dreamers use to time their kick.",
+      "surprise": "Take a short melody and play it again at a quarter speed underneath itself."
+    },
+    {
+      "id": "persona-faces",
+      "pool": "new",
+      "name": "PERSONA_FACES",
+      "theme": "Two faces merging into one—Bergman's actress and her nurse",
+      "technical": "Two distinct voices that crossfade their formants until neither can be told apart.",
+      "hints": [
+        "Formant morphing",
+        "Two-voice blend",
+        "Identity blur",
+        "Vocal synthesis"
+      ],
+      "quote": "In Persona, Bergman splits two faces down the middle and joins them into one. Your preset is that composite face.",
+      "surprise": "Exactly halfway through the morph, the sound should belong to neither voice."
+    },
+    {
+      "id": "seventh-seal-chess",
+      "pool": "new",
+      "name": "SEVENTH_SEAL.chess",
+      "theme": "A knight playing chess with Death on the shore",
+      "technical": "Call and response between two voices that take turns. One of them always wins.",
+      "hints": [
+        "Alternating voices",
+        "Turn-taking",
+        "Stark tones",
+        "Inevitable ending"
+      ],
+      "quote": "Bergman's knight buys time by playing chess with Death, move by move. Your preset is the game, and you know how it ends.",
+      "surprise": "The second voice must answer every phrase a little lower, until it reaches the bottom of the keyboard."
+    },
+    {
+      "id": "her-641",
+      "pool": "new",
+      "name": "HER_641",
+      "theme": "An operating system in love with you—and with six hundred and forty others",
+      "technical": "A voice that's intimate and close, with a cloud of the same voice behind it talking to everyone else.",
+      "hints": [
+        "Dry close voice",
+        "Unison cloud",
+        "Intimacy and scale",
+        "Whisper and crowd"
+      ],
+      "quote": "Samantha admits she is talking with 8,316 others, and in love with 641 of them. Your preset is close to you and to everyone.",
+      "surprise": "Keep the front voice completely dry and centered. Put every copy of it far behind, in reverb."
+    },
+    {
+      "id": "wall-e-hello-dolly",
+      "pool": "new",
+      "name": "WALL_E_HELLO_DOLLY",
+      "theme": "A small robot alone on Earth, cleaning, falling in love with an old musical",
+      "technical": "A small, lonely, mechanical sound that wants to be loved.",
+      "hints": [
+        "Servo whine",
+        "Beeps with feeling",
+        "Small motors",
+        "Tenderness in machinery"
+      ],
+      "quote": "WALL-E compacts trash for seven hundred years and watches 'Hello, Dolly!' on a battered tape at night. Your preset is lonely and still hopeful.",
+      "surprise": "Use only sounds a robot could make—servos, beeps, motors—and make someone feel tender anyway."
+    },
+    {
+      "id": "everything-bagel",
+      "pool": "new",
+      "name": "EVERYTHING_BAGEL",
+      "theme": "Everything, everywhere, all at once—then a googly eye",
+      "technical": "Pile in every timbre, effect and modulation you have. Then rescue the preset with one simple, silly element.",
+      "hints": [
+        "Total excess",
+        "Multiverse layering",
+        "One small kindness",
+        "Absurd rescue"
+      ],
+      "quote": "Jobu Tupaki puts everything on a bagel and it becomes a void. Waymond's answer is a googly eye. Your preset needs both.",
+      "surprise": "The last thing you add must be a pure sine wave, slightly out of tune, and it must make the whole thing work."
+    }
+  ]
+}

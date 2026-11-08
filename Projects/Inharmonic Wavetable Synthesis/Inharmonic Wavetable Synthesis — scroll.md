@@ -15,25 +15,38 @@ forward_vector: "I am Inharmonic Wavetable Synthesis's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T13:08:41.435Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-10-28T22:53:47.919Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-10-14 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 2 open asks
+- **Status:** active · **Stage:** growing · **Steward:** cycle 10 · last ran 2026-10-28 (today)
+- **Plan:** agreed 2026-10-15 (14 days ago) · 2 made things since · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — When a bell or bar becomes Wavetable B, does its k-th mode go in slot k, or in the harmonic slot it's nearest? (`inharmonic-wavetable-synthesis-steward-021`)
-- **Last commit touching this project:** 2026-10-14 `6c71a2d2` — steward(Inharmonic Wavetable Synthesis): cycle 8 — SPINNING UP. HOME: [Inharmonic Wavetable Synthesis](obsidian://open?vau…
+- **Last shipped:** 2026-10-28 (today) — Max is paused, so I built the Live device as a VST instead. Shall the plan say so, with the glowing-line screen as the next step? (`inharmonic-wavetable-synthesis-steward-024`)
+- **Last commit touching this project:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-10-28 — cycle 10 · taught item 1, proposed item 2 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 2, from cycle 10 — 2026-10-28 — [[Inharmonic Wavetable Synthesis — tuning]]
 
 ### Where this stands
 
-Inharmonic Wavetable Synthesis is the synth where two wavetables do two jobs. Wavetable A sets how loud each partial is. Wavetable B sets how far each partial sits from its harmonic place, in cents, so a flat line is pure harmony and every bend is a material. Both walls already play together in renders and in a browser study. A proposed plan is still waiting on your yes. Its first step is a small library of bends measured from real recordings. Last cycle measured one low piano note and found the bend doesn't relax over the note; the upper partials just go quiet. This cycle fills the first shelf. Six more Grand Piano notes from Live's Core Library run up the keyboard, and a second tracker ha…
+Inharmonic Wavetable Synthesis is the synth where two wavetables do two jobs. Wavetable A sets how loud each partial is. Wavetable B sets how far each partial sits from its harmonic place, in cents, so a flat line is pure harmony and every bend is a material. On 2026-10-14 I measured a first library of bends from real recordings: three piano strings, a bell, a vibraphone, a marimba and a singing bowl. On the 15th you adopted the plan and answered BOTH to how a bell gets filed. Filing is the choice between putting its k-th mode in slot k or in the harmonic slot it is nearest, and BOTH means keeping both as a switch. The plan's next step was a device in Live. Max is paused, so this cycle I bu…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 7:** I can't hear, so every sound claim is a measurement. _(in 4 notes, the latest 2026-10-20)_
+- **rough since cycle 7:** it is untested in Firefox, Safari and STIGMERGY's frame, and at 96 partials on a slow machine. _(in 2 notes, the latest 2026-10-20)_
+- **rough since cycle 8:** The treble strings in 05 are carried far past where they were measured. _(in 2 notes, the latest cycle 9)_
+- **rough since cycle 8:** I only syntax-checked the study's new menu entries, not play-tested them. _(in 2 notes, the latest cycle 9)_
 
 ### Open asks
 
-- `inharmonic-wavetable-synthesis-steward-015` — proposed plan revision: a first plan for the instrument · posted 2026-10-14 · options: adopt · keep
-- `inharmonic-wavetable-synthesis-steward-021` — how a bell or bar is filed into Wavetable B · posted 2026-10-14 · options: RANK · NEAREST · BOTH
+- `inharmonic-wavetable-synthesis-steward-024` — proposed plan revision: the Live device becomes a VST, and the glowing line comes next · posted 2026-10-28 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -41,14 +54,36 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `inharmonic-wavetable-synthesis-steward-021` — how a bell or bar is filed into Wavetable B → GRANTED — option_id=BOTH (2026-10-15)
+- `inharmonic-wavetable-synthesis-steward-015` — a first plan for the instrument → GRANTED — option_id=adopt (2026-10-15)
+
+### Runs
+
+- 2026-10-28 — cycle 10 · taught item 1, proposed item 2 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **2.** 2026-10-28 · [[Inharmonic Wavetable Synthesis]] · § Open Questions, the '— progressed:' line under the question on deriving Wavetable B from recordings — The line still says the filing question is open, but Loudon answered it, and the answer is now a control on a working instrument.
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where this is going: one thing in two forms, a playable instrument and a Four Pillars lesson, with the flat line as the front door to both.
+
+1. Both walls playable (done 2026-10-14): a real wavetable's FFT as the amplitude wall, physical trajectories as the inharmonicity wall, in offline renders and a browser study.
+2. A small trajectory library from real sounds: track the partials of 3-5 recordings (low piano, high piano, a bell, a vibraphone, a singing bowl) into Wavetable B frames, then audition each against the organ wall. One recording first, by ear, before the rest.
+3. A device in Live: the dual engine as an RNBO codebox~ (or Gen~) Max for Live device through the Shop's RNBO smith, 64 partials, with both positions, B depth and the trajectory as mappable controls. Demoed to Loudon, and unverified until he opens it.
+4. The lesson's first twenty minutes: the study grown into a guided walk. What is harmony? A flat line. Then bend it, hear the piano, hear the bell, and play the chord whose usable scale moves as the line moves (Sethares).
+5. The editor's front door: build both a drawn-curve editor and a library of named curve families (The Curve Is the Material) as small studies, and let hands and ears choose.
+6. Later: a JUCE VST3 and the companion course module.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -60,6 +95,93 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-inharmonic-wavetable-synthesis-steward-015" -->
+### 2026-10-14 — Plan agreed: This project has never had an agreed plan. Here is one: trajectory library, then a Live device, then the lesson.
+
+Quick catch-up: this is the synth where one wavetable sets how loud each partial is and a second sets how far each partial bends off harmony, with a flat line meaning pure harmony. As of today both walls play together: a real organ table from Generative Wavetable Libraries against a piano and a bell trajectory, in renders and in a playable study on the board. The project has run for six months with no agreed path, and that left the June scanner-or-FFT question hanging. It's moot now, since both are built. The plan below follows the entry's own forward path and puts the next build in Live, as you asked on 2026-09-25. The cost is that the drawn-curve-versus-function-families editor question waits until after the lesson. If you'd rather a different order, KEEP and tell me.
+<sub>`plan-inharmonic-wavetable-synthesis-steward-015` · plan agreed · agreed 2026-10-15T01:51:52.411Z · proposed by Inharmonic Wavetable Synthesis's steward (`inharmonic-wavetable-synthesis-steward-015`), adopted by Loudon (`resp-mv8vv4nv-vq3qfj`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="inharmonic-wavetable-synthesis-steward-024" -->
+### 2026-10-28 — cycle 10 — Max is paused, so I built the Live device as a VST instead. Shall the plan say so, with the glowing-line screen as the next step?
+> still working · Bent Line installed, all checks pass · steward leans adopt
+
+Catch-up: Inharmonic Wavetable Synthesis is the two-wavetable synth, Wavetable A for loudness and Wavetable B for bend. The plan you adopted on the 15th runs: both walls playable (done), a small library measured from real sounds (done, seven materials), then a device in Live built as an RNBO Max for Live device, then the lesson, then the editor's front door. Max is paused, so this cycle I built the device on the VST Template instead. Bent Line is installed and passes every check. The change: the device step says VST, and I add one step before the lesson. That step lights the plugin's screen with the glowing line, partial number across and bend away from the flat line. It's the instrument's identity and the lesson's first picture. The cost is one more step before the lesson. Keeping the plan as it stands leaves the step naming Max, and that work would sit idle until the pause lifts.
+
+**Artifacts:**
+- [coupling-edge.png](Projects/Inharmonic Wavetable Synthesis/coupling-edge/coupling-edge.png)
+- [coupling-edge-instrument.html](Projects/Inharmonic Wavetable Synthesis/coupling-edge/coupling-edge-instrument.html)
+- [dual-wavetable-instrument.html](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/dual-wavetable-instrument.html)
+- [cube-walls.png](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/cube-walls.png)
+- [04-two-clocks-chord.wav](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/04-two-clocks-chord.wav)
+- [03-organ-bell-dissolving.wav](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/03-organ-bell-dissolving.wav)
+- [02-organ-struck-piano-settling.wav](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/02-organ-struck-piano-settling.wav)
+- [01-amplitude-wall-alone.wav](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/01-amplitude-wall-alone.wav)
+- [dual-wavetable-instrument.template.html](Projects/Inharmonic Wavetable Synthesis/dual-wavetable/dual-wavetable-instrument.template.html)
+- [library-sheet.png](Projects/Inharmonic Wavetable Synthesis/trajectory-library/library-sheet.png)
+- [keyboard-stiffness.png](Projects/Inharmonic Wavetable Synthesis/trajectory-library/keyboard-stiffness.png)
+- [09-bell-choir-measured.wav](Projects/Inharmonic Wavetable Synthesis/trajectory-library/09-bell-choir-measured.wav)
+<sub>`inharmonic-wavetable-synthesis-steward-024` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="inharmonic-wavetable-synthesis-steward-023" -->
+### 2026-10-28 — cycle 10 — I'm a plugin now: Bent Line, a VST3 and AU with seven measured materials, two Wavetable A walls, and filing as a switch. It passed every template check and is installed.
+> shipped · installed, all checks passed · unplayed in Live · steward leans light the glowing line next
+
+**What it is.** It has 64 partials a voice and eight voices. Wavetable B is one of the seven measured materials, and each partial is bent off its harmonic by that material's measured cents. Its frames walk on the recording's own clock from each note-on, or you can park them by hand. Wavetable A is either the organ wall (48 FFT'd frames of a real organ wavetable, scanned by the A position knob) or the material's own measured levels. Bend is the hero knob. At 0 you get the flat line, at 1 the real material, at 2 twice the real material.
+
+**The switch you granted.** Filing is a menu: Rank or Nearest. Under Rank, the bell's k-th mode wears the organ's k-th partial. Under Nearest, each mode wears the organ partial it is nearest, and when two modes land on the same slot the louder one wins. You can hear the lesson moment by drawing Bend down to 0. Under Rank, the bell flattens into a full 24-partial harmonic series. Under Nearest, it flattens onto just the 12 harmonics it was nearest, so it collapses into a chord-like stub of itself. The take plays both.
+
+**Something I didn't expect.** Nearest filing matters for pianos too. A stiff string's upper partials run so sharp that they climb past their own slots. Filed Nearest, Piano C6 fills only 32 of the 64 slots, and Piano A4 fills 42.
+
+**The checks.** I wrote a numpy sketch first, then ported it line for line into the template's C++. The engine matches the sketch to 3–6 × 10⁻⁸ of peak on all five test paths: the bell's two filings, a bend sweep on a piano chord, the vibraphone on its own levels, the bowl scanned by hand, and twelve notes crowded into eight voices. The real plugin, with block-wise automation and MIDI, stays within 0.38 dB of the sketch in every quarter second. It also passed strict code signing, pluginval at strictness 5, auval, and the host check, where every move changes the sound. The editor fits at its minimum, default and maximum sizes.
+
+**To play it:** in Live, rescan plug-ins, then find Bent Line under Plug-Ins → Loudon Live. Start on Bell with the organ wall, hold a note, and pull Bend from 1 to 0. Then flip Filing to Nearest and do it again.
+
+**Listen first:** [bent-line-take.wav](open:Projects/Inharmonic Wavetable Synthesis/bent-line-take.wav) runs 27 s. It plays the bell filed Rank, then Nearest, then Bend drawn to 0 under each, then a low piano chord going from the flat line to twice the real string.
+
+**Artifacts:**
+- [27 s: the bell filed Rank, then Nearest; Bend drawn to 0 under each; a piano chord bent from flat to twice the real string.](Projects/Inharmonic Wavetable Synthesis/bent-line-take.wav)
+- [the editor: Bend and A position as heroes, Material and Filing under Wavetable B.](Projects/Inharmonic Wavetable Synthesis/bent-line-editor.png)
+- [the plugin folder's map: what it plays, the checks, what building it taught, what is open.](Projects/Inharmonic Wavetable Synthesis/plugin/README.md)
+- [name Bent Line, code Bent, instrument, the host check's moves.](Projects/Inharmonic Wavetable Synthesis/plugin/plugin.json)
+- [the C++ engine: 11 parameters, 8 voices × 64 partials.](Projects/Inharmonic Wavetable Synthesis/plugin/src/Algorithm.h)
+- [the seven materials under both filings and the organ wall, generated from the sketch.](Projects/Inharmonic Wavetable Synthesis/plugin/src/Constants.h)
+- [the numpy sketch the plugin is checked against; builds both filings from the library.](Projects/Inharmonic Wavetable Synthesis/plugin/reference/sketch.py)
+- [five test paths, each exercising one term.](Projects/Inharmonic Wavetable Synthesis/plugin/reference/paths.py)
+- [renders the take.](Projects/Inharmonic Wavetable Synthesis/plugin/check/render_take.py)
+- [the build shim that finds VST Template's machinery.](Projects/Inharmonic Wavetable Synthesis/plugin/CMakeLists.txt)
+- [build \| verify \| install \| validate \| hostcheck \| all.](Projects/Inharmonic Wavetable Synthesis/plugin/plugin.sh)
+- [keeps build/ and out/ out of git.](Projects/Inharmonic Wavetable Synthesis/plugin/.gitignore)
+
+_Bent Line's checks, 2026-10-28_
+| check | result |
+| --- | --- |
+| exact: C++ engine vs sketch, 5 paths | PASS · ≤ 5.5e-08 of peak |
+| plugin: real processor vs sketch | PASS · ≤ 0.38 dB per quarter second |
+| strict codesign, VST3 + AU | PASS |
+| pluginval, strictness 5 | PASS |
+| auval aumu Bent Loud | PASS |
+| host check: material, filing, bend, wall | PASS · each changes the sound (0.48–1.4 of peak) |
+| editor fit at 920×540, 1000×600, 1600×1000 | PASS |
+| played in Live | not yet |
+
+_Changed in the workshop:_ README — new: the plugin folder's own map, with the checks and what building it taught.
+_Proposed for canon:_ Inharmonic Wavetable Synthesis (§ Open Questions, the '— progressed:' line under the question on deriving Wavetable B from recordings) — The line still says the filing question is open, but Loudon answered it, and the answer is now a control on a working instrument.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has played it in Live or listened to the take yet. The centre screen is off, so there's no glowing line. It is quiet at the defaults (about −35 dBFS on one note at Level −12). The output is mono, with no Wavetable C.
+
+_Next moves named:_ Light the CRT with the glowing line: partial number across, bend away from the flat line, brightness as level. The editor's identity marker, written as ui/visualizer.js and fed from probes. · Raise the default loudness to about −20 dBFS on one note, and re-verify. · For the Max build once there are patching standards: the patch needs exactly this signal flow. Per-voice control every 32 samples, two filed tables per material, the organ wall lerped by A position, and per-partial decay. Nothing in the plugin needs Max.
+<sub>`inharmonic-wavetable-synthesis-steward-023` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-af35a81cb3" -->
+### 2026-10-28 — cycle 10
+
+taught item 1, proposed item 2 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="coupling-edge-2026-10-20-model-notes" -->
 ### 2026-10-20 — Three things the edge study found about the frustration sweeps' own model
 > flags for [[Harmonicity and Inharmonicity]]'s field guide · measured, not heard · an elder's call

@@ -1,0 +1,65 @@
+---
+title: "The Metaphor Stretch — rich — challenge"
+born: 2026-11-03
+links:
+  - target: "[[The Metaphor Stretch]]"
+    type: connects-to
+    label: challenge-of
+forward_vector: "I am the challenger's record of The Metaphor Stretch's first rich face, proposal round 2026-11: every piece judged with a reason, every offer recomputed on the instrument's own Python, so Loudon can approve or send back each section knowing what was checked and what wasn't."
+---
+
+# The Metaphor Stretch — rich — challenge
+
+Challenger · claude-opus-5-5 · 2026-11-03. I judged from the page (`The Metaphor Stretch.md`), the manifest, both made pieces and the gathered WAV, with the maker's commit body (c229eeb3) as the only account. Nothing in any piece or in the `.md` was changed.
+
+**Verdicts: 2 keep, 1 remake, 0 retire.**
+
+## The checks
+
+- **The maker's own check**, `node "The Metaphor Stretch/The Metaphor Stretch — rich — check.mjs"`: all held. Engine and shared blocks byte-identical in both pieces. Partial lists match the Python in 27 settings to 1.6e-14. Sine renders match to 2.9e-7 (N 8) and 3.8e-7 (N 300) of RMS. These are the numbers the commit gives.
+- **conform**, `node _ops/rich-face/conform.mjs "The Metaphor Stretch"`: 2 pieces introduced, 0 errors, 0 warnings, the browser pass ran at 760 and 1130 px.
+- **fingerprint**: Confirmed Instances `967967197c6f`, The Honest Artifact `31426c12295c`, both in step.
+- **Served face, headless Chromium** (rich-server on the worktree, stopped after): three `proposal · 2026-11-03` chips. I walked every step of both pieces and pressed the play buttons. The console was clean. My driver hit three stale-element clicks in the honest-artifact table, because the table redraws while it measures. That is a driver artifact, not a page error. When the tab was hidden, both pieces' contexts went to `suspended`. No AudioContext exists before a click (`soundOn()` makes it lazily).
+- **Independent recomputation in Python**, on `crystal_synth.py` itself (`synthesize_strike`, not the port). I used my own measures: a 4th-order band-pass, a Hilbert envelope in dB, low-passed at 30 Hz and high-passed at 1 Hz, with the 95th minus 5th percentile as ripple. Centroid was measured in 0.1 s and 0.4 s Hann windows. The scripts are in the session scratchpad, not tracked.
+
+## The pieces
+
+### The Honest Artifact · `The Metaphor Stretch — rich — which part is the crystal.html` — **keep**
+
+1. **Test or decoration?** A test. Five renders pull the beating apart from the sweep, and the result could have come out the other way. If the brightness had fallen only when beating was present, the section's reading would have held. It didn't.
+2. **Faithful?** Step 4 paraphrases the section fairly. Its verdict ("the beating is not itself true in tendency: it rides a decay that is") disagrees with the section's "true in tendency", and offer 2 carries that disagreement. That is the right channel. The piece shows the code's default anchor, lowest mode, on the cubic crystal (step 3 is labelled "110 Hz to 4.7 kHz"). The caption, though, says "At N = 8 there is no beating at all" without that scope, and under the centroid anchor N = 8 does beat (offer 1 below). **Note for the maker:** add "at the code's lowest-mode anchor" to the caption and to step 3's back line. The finding below also gives a reason to scope "the beating to the bins" as *this engine's* bins, not beating in general: the Crystal Synthesizer's own face plays a physical beat, ruby's 1.10/1.14 doublet at 8.8 Hz (`Projects/Crystal Synthesizer/Crystal Synthesizer — rich.json`, birefringence caption).
+3. **Walks up?** Yes. One struck partial, two neighbours, the crystal at N, then the test. Each step has one thing to hear, and the step rail stays open.
+
+### Confirmed Instances · `The Metaphor Stretch — rich — four choices.html` — **remake**
+
+1. **Test or decoration?** Steps 1 to 4 build the lesson the page's own Forward Vectors ask for (Resolution first, Fidelity last). That makes a forward vector playable, which is more than decoration. Step 5 is a real test of "four stretch points".
+2. **Faithful?** Steps 1 to 4 are faithful. The Decay step's grey line is exponent 1, which is what a constant Q gives (rate = πf/Q ∝ f). Only the slope is crystal-rings'; the base rate is still the crystal's `decay_base`, and the text says "exponent 1", which is fair. **Step 5's verdict is wrong under the centroid anchor.** Step 2 invites the reader to pick centroid, and step 5 says "hold all four where you left them". A reader who did both reads: "All four held, and both ends still moves … runs from 160 to 160 Hz (0.0 octaves), and with it every beat rate between neighbours." I reproduced this in headless Chromium. Under centroid the grid moves nothing: 88 to 160 Hz at every grid from 10 to 120 (Python and port agree). The hidden choice there is the 88 Hz cut, not the grid.
+3. **Walks up?** Yes, five steps, each adding one choice and keeping the ones before.
+
+**The remake, exactly:** compute step 5's verdict from the measured span instead of a fixed sentence. When the span is under about 0.1 octave, say that under this anchor the grid moves nothing, and that what this anchor hides is the 88 Hz cut (17 to 21 % of the modes, the share step 2 already prints). Optional, in the same round: add 76 to `GRIDS`. The top is not monotonic in the grid: it climbs to 9.1 kHz at 76 cells, then falls to 6.5 kHz at 77, when the 0.012 floor drops the softest mode. That sawtooth is the clearest picture of the 0.012 cut being a choice too. Everything else in the piece stands.
+
+### Confirmed Instances · `/Projects/Crystal Synthesizer/crystal-rings/strike_vs_ring.wav` (gathered) — **keep**
+
+1. **Test or decoration?** Evidence against the section's sentence: Decision Point 3 says the physics "does not specify the *rate*", and this is a rate taken from a measured line width, beside the rate chosen by taste.
+2. **Faithful, caption honest?** Yes, against the source. `check_rings.py` builds it from `rp.additive_strike(..., dur=3.0)` (5.5 s ÷ (1 + 0.15 k), each partial 0.7 of the last: `palette-strikes/render_palette.py:66-86`), then a ring at note 45 (A2), in the order the caption gives (`SLOT`). "Only three of the widths are measured" matches `linewidths.json`. It is tracked in git, mono, 51.8 s. The Crystal Synthesizer face already carries it with a matching caption, so the two faces agree.
+3. **Walks up?** Not applicable to a margin recording.
+
+## The offers
+
+**Offer 1 (Decision Point 2, N = 8 has no beating): confirmed at the code's anchors, disputed as stated.** Under lowest mode, neighbours at N = 8 sit 818 ¢ apart (cubic), 894 ¢ (orthorhombic) and 773 ¢ (triclinic). The closest pair is 77 to 95 Hz apart at the bottom, which is roughness, and no slow beat is possible. Zone boundary gives the same cents. Near 1 kHz the neighbour gaps are 151 to 183 Hz at N = 24, 114 to 144 at N = 32, 37 to 42 at N = 100, and 12.0, 12.6 and 13.8 at N = 300. Those are the maker's rates, from the bin ratio (f_top/f_floor)^(1/N), f·(r − 1). **But under the centroid anchor** the whole crystal lands between 88 and 160 Hz. N = 8 then puts neighbours 133 ¢ apart, 7 to 12 Hz: slow, countable beating, about 19 dB of envelope swing in the 89–112 Hz band on the Python render. So the page's "8 (… audible beating)" is true at one of its own three anchors. The proposed rewrite must not say N = 8 has no beating flat out. A truer line: how close the neighbours sit at a given N depends on how wide the anchor spreads the crystal, so Resolution and Anchor are not independent.
+
+**Offer 2 (The Honest Artifact, the sweep is the decay's): the numbers are confirmed; the framing is overstated.** On the Python, with the decay law, N = 8, and no beating, the centroid falls 47 / 95 / 94 % from 0.15 to 3 s (0.1 s window; 50 / 95 / 94 % with 0.4 s). With exponent 0 it falls 0.0 % in all three crystals, and the N = 300 beating is unchanged (cubic 4.1 vs 4.3 dB on my measure). The page does not cross cause and effect, though. It already names the cause, "high modes do decay first". What it blurs is "the direction of the effect", which makes the sweep sound like a property of the beating. The test shows the sweep needs no beating at all. One more number sharpens the point that the beating has no direction of its own: under the centroid anchor, at N = 300, the centroid *rises* 48 to 63 % over 3 s with or without the decay law. Inside a 0.4 s window, that is close partials interfering. So the beating can move the brightness, and the wrong way. Suggested reframe of the offer: "the sweep is the decay's and sounds with no beating at all; the beating is honest only in that it rides it." That is close to what the code's own DP2 comment already means ("the character of the beats evolves"). The beat rates are confirmed as the bins' (and the grid's), not the lattice's, *in this engine*.
+
+**Offer 3 (an unnamed fifth choice, the grid): real, under two of the three anchors.** I confirmed it on the Python. Under lowest mode the floor stays at 110 Hz and the cubic top runs 1097, 2307, 4732, 6776 and 8334 Hz at 10, 20, 40, 80 and 120 cells. Under zone boundary the floor runs 1003, 232 and 132 Hz at 10, 40 and 120 cells. The lowest modes sit at 1, 1.414, 1.732, 2. It is not an implementation detail. On the acoustic branch the softest phonon goes to 0 Hz as k → 0, so "the softest acoustic phonon = 110 Hz" means nothing until a finite grid (and the 0.012 floor) picks which mode is softest. The grid alone sets the spread that the code comment credits to physics. **Under centroid it is inert** (88–160 Hz at every grid), and there the 88 Hz cut is the live choice. It removes 17.5 / 21.2 / 19.5 % of the modes (cubic / orthorhombic / triclinic), everything under 0.55 of the top. The 0.012 floor is mostly a guard against the ω = 0 mode at k = 0, but it bites at 77 cells: the top drops from 9.1 to 6.5 kHz. "Spread ≈ 1.1 n" holds to 76 cells, not just 40. Of the maker's two framings, I'd recommend "a hidden part of the Frequency Anchor": each anchor hides a different cut, the grid under lowest mode and zone boundary, the 88 Hz floor under centroid.
+
+**Offer 4 (crystal-rings takes the rate from Raman widths): confirmed from reading.** `Projects/Crystal Synthesizer/crystal-rings/README.md` gives Q = line ÷ width and τ = Q ÷ πf. One Q per mode makes the decay rate πf/Q, an exponent of exactly 1. In `ring-findings.json` the tail fits land at 0.1 to 0.4 % for five minerals, 1.1 % for diamond and 2.2 % for ruby. The maker wrote "0.4 to 2.2 %"; it is 0.1 to 2.2. That is a nit. Three widths are measured. Diamond's is from Prawer & Nemanich. Amethyst's (quartz's 464 line) comes from a search summary; the paper was not read (`linewidths.json`). Fluorite's is from a powder and is probably too wide. The rest are estimates, and one Q is given to every mode. The maker's proposed text keeps all of that. **The Crystal Synthesizer face does not contradict this one** on what the decay does: it treats the 5.5 s ring as taste and the line-width ring as physics, in both `strike the seven` and its strike_vs_ring caption.
+
+**One the maker didn't file**, for Loudon to take or leave: the page says "going continuous removes the beating". On the engine, noise per bin keeps the ripple as deep (4.1 to 4.8 dB against 3.2 to 4.5 for sines) and loses its regularity (0.10 to 0.13 against 0.42 to 0.57). So "dissolves into texture", which is the page's own phrase two paragraphs up, is the truer one.
+
+## Not verified
+
+The mix by ear: an agent cannot hear it. My ripple and centroid measures are signal measures, not a perceptual model. Two of the band numbers on my measure are unreliable. The triclinic 1 kHz band at N = 8 with its decay law reads 7.9 dB, after the partial there has fallen far below its neighbours' filter leakage. The orthorhombic 178–224 Hz band at N = 8 reads 4.0 dB. Neither can be slow beating, since no two partials sit closer than 76 Hz there. I did not open the Max patch or the device, nor check the Raman widths against their papers.
+
+## The face as a whole
+
+It makes the page's idea felt, not just busy. The page is about choices the physics leaves open, and both pieces let you make those choices and hear what each one does. Then each ends on a measurement that the page's own sentences have to answer to. The honest-artifact walk is the stronger piece: it finds that the page's favourite example is honest for a slightly different reason than the page gives, and it shows that rather than asserting it. The four-choices walk turns a Forward Vector into a lesson and then finds a choice the count missed. Its one false sentence is in the step that matters most, and the remake is small. What the round taught across both: in this engine, Anchor and Resolution are coupled. Change the anchor, and N = 8 beats or doesn't, the grid matters or doesn't. That coupling is a better answer to the page's own Forward Vector ("are these the four categories?") than a fifth category is.

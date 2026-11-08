@@ -12,7 +12,7 @@ resources ([[assume multi-agent]]).
 
 Ownership is expressed one of three ways depending on what the service's API
 allows, all derived from the slug:
-  - name suffix   "<base>-<slug>"     (RunPod pods: the only handle the API gives)
+  - name suffix   "<base>--<slug>"    (RunPod pods: the only handle the API gives)
   - metadata tag  "owner=<slug>"      (AWS/Modal/etc.: real resource tags)
   - key prefix    "owner=<slug>/..."  (object storage)
 

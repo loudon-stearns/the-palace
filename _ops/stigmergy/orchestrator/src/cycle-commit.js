@@ -32,6 +32,11 @@
 // the steward's tuning ledger as an item owed until Loudon's review
 // (ledger.js, recordRun). A manifest field no longer widens any of this.
 //
+// A file in the bundle that no message declared does not ride, even in a
+// barren cycle whose spawn wrote for half an hour before dying: it is named in
+// the body, in history and on the scroll instead (workshop-leftovers.js), and
+// waits for Loudon's eyes.
+//
 // The Shop roster refresh (shop-roster.js) is left in place: it reruns when a
 // cycle's vetted edits touch a page directly under Shop/, which no vetted edit
 // can now do, so it does not fire.
@@ -45,6 +50,7 @@ import { parse as parseYaml } from 'yaml';
 import { payloadPathArtifacts } from './scroll-file.js';
 import { declaredPathsOf } from './artifact-backstop.js';
 import { findEntryFile } from './entry-paths.js';
+import { leftoverLines } from './workshop-leftovers.js';
 
 export const MAX_COMMIT_BYTES = 10 * 1024 * 1024;
 
@@ -401,13 +407,13 @@ export function urgentProposalAsk({ proposal, home, sessionId, ts, requestId }) 
     from: home, to: 'TRICKSTER', type: 'RESOURCE_REQUEST', board: 'TRICKSTER',
     payload: {
       resource: 'directional_decision', kind: 'choice', urgent_proposal: true,
-      headline: one(`Urgent, for canon: ${name}${proposal.why ? ` — ${proposal.why}` : ''}. Land it now, or leave it for the ledger review?`, 220),
+      headline: one(`Urgent, for canon: ${name}${proposal.why ? ` — ${proposal.why}` : ''}. Place it now, or leave it for the ledger review?`, 220),
       ground: 'not blocking · filed in my tuning ledger · marked urgent',
       rationale: `I proposed this change to ${name} and marked it urgent, because it should not wait for the ledger review: ${proposal.why || 'no reason given'}. It is filed in my tuning ledger like every proposal, and I keep working as if it holds. The words:\n\n${quoted}`,
       proposal: { page: proposal.page, path: proposal.path, place: proposal.place, why: proposal.why },
       blocking: false,
       options: [
-        { id: 'LAND-NOW', label: 'LAND-NOW — an elder writes it into canon now, as proposed, and the ledger item is paid with that commit.' },
+        { id: 'PLACE-NOW', label: 'PLACE-NOW — an elder places it in the page now, as proposed, and the ledger item is paid with that commit.' },
         { id: 'REVIEW', label: 'REVIEW — not urgent after all; it waits in the ledger for the review with the rest.' },
         { id: 'DECLINE', label: 'DECLINE — not this change; a line of why, and I read it on my next run.' },
       ],
@@ -422,7 +428,9 @@ export function proposalName(p) {
 }
 
 // A cycle commit's body, from what rode and what was left out and why.
-export function cycleBody({ shipped = [], pageEdits = [], refusedEdits = [], proposals = [], roster = null, oversize = [], entries = [], outside = [], ignored = [], maxBytes = MAX_COMMIT_BYTES }) {
+// `leftovers` are the bundle's uncommitted files no message declared
+// (workshop-leftovers.js): named, never swept in.
+export function cycleBody({ shipped = [], pageEdits = [], refusedEdits = [], proposals = [], roster = null, oversize = [], entries = [], outside = [], ignored = [], leftovers = [], maxBytes = MAX_COMMIT_BYTES }) {
   const lines = [];
   if (pageEdits.length) lines.push(`Changed in the workshop:\n${pageEdits.map((e) => `- ${e.path}${e.why ? ` — ${e.why}` : ''}`).join('\n')}`);
   if (refusedEdits.length) lines.push(`Page edits NOT committed:\n${refusedEdits.map((e) => `- ${e.path} — ${e.reason}`).join('\n')}`);
@@ -433,6 +441,7 @@ export function cycleBody({ shipped = [], pageEdits = [], refusedEdits = [], pro
   if (entries.length) lines.push(`Not committed — an entry changes only through Loudon's review:\n${entries.map((p) => `- ${p}`).join('\n')}`);
   if (outside.length) lines.push(`Not committed — outside the steward's bundle:\n${outside.map((p) => `- ${p}`).join('\n')}`);
   if (ignored.length) lines.push(ignoredNote(ignored));
+  if (leftovers.length) lines.push(`Left uncommitted in the bundle — no message of this cycle declared them, so they wait for Loudon's eyes:\n${leftoverLines(leftovers).join('\n')}`);
   lines.push(COMMITTED_BY);
   return lines.join('\n\n');
 }
@@ -559,7 +568,7 @@ export function commitPathsAsync({ palaceRoot, paths, kind = 'steward', scope, s
  * `roster` is what refreshShopRoster did this cycle (shop-roster.js): a
  * regenerated The Shop.md rides as machinery, named as such in the body.
  */
-export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], proposals = [], roster = null, maxBytes = MAX_COMMIT_BYTES }) {
+export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], proposals = [], roster = null, leftovers = [], maxBytes = MAX_COMMIT_BYTES }) {
   const pick = selectCommitPaths({ palaceRoot, bundleDir, paths: shippedPaths(messages), maxBytes });
   const root = resolve(palaceRoot);
   // Page edits arrive already vetted (vetPageEdits); a path the steward also
@@ -578,13 +587,17 @@ export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages,
   const edits = pageEdits.filter((e) => !ignored.includes(e.path));
   const entries = pick.entries.filter((p) => !rides(p));
   const outside = pick.outside.filter((p) => !rides(p));
-  const parts = { shipped, pageEdits: edits, refusedEdits, proposals, roster: rosterRiding(roster, all), oversize: pick.oversize, entries, outside, ignored, maxBytes };
+  // A leftover the commit carries after all (the caller's list is read before
+  // the plan) is not left over; neither is one the body already names.
+  const named = new Set([...all, ...pick.oversize.map((o) => o.path), ...entries, ...ignored]);
+  const left = leftovers.filter((l) => !named.has(l.path));
+  const parts = { shipped, pageEdits: edits, refusedEdits, proposals, roster: rosterRiding(roster, all), oversize: pick.oversize, entries, outside, ignored, leftovers: left, maxBytes };
   return {
     palaceRoot, paths: all, kind: 'steward', scope: home,
     summary: `cycle ${cycleN} — ${headlineOf(messages)}`,
     body: cycleBody(parts), parts,
     verify: 'unverified', author: 'claude',
-    shipped, pageEdits: edits, refusedEdits, proposals, roster: parts.roster, oversize: pick.oversize, entries, outside, missing: pick.missing, ignored,
+    shipped, pageEdits: edits, refusedEdits, proposals, roster: parts.roster, oversize: pick.oversize, entries, outside, missing: pick.missing, ignored, leftovers: left,
   };
 }
 
@@ -592,13 +605,13 @@ export function planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages,
  * The whole step for one cycle: pick what may ride, then commit it with the
  * cycle's machinery, scroll and the board.
  */
-export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], proposals = [], roster = null, maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
-  const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, pageEdits, refusedEdits, proposals, roster, maxBytes });
+export function commitCycle({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths = [], pageEdits = [], refusedEdits = [], proposals = [], roster = null, leftovers = [], maxBytes = MAX_COMMIT_BYTES, committer, exec }) {
+  const plan = planCycleCommit({ palaceRoot, home, cycleN, bundleDir, messages, extraPaths, pageEdits, refusedEdits, proposals, roster, leftovers, maxBytes });
   const res = commitPaths({
     palaceRoot, paths: plan.paths, kind: plan.kind, scope: plan.scope,
     summary: plan.summary, body: plan.body, parts: plan.parts, committer, exec,
   });
   const late = res.ignored || [];
   const paths = plan.paths.filter((p) => !late.includes(p));
-  return { ...res, paths, shipped: plan.shipped.filter((p) => !late.includes(p)), pageEdits: plan.pageEdits.filter((e) => !late.includes(e.path)), refusedEdits: plan.refusedEdits, proposals: plan.proposals, roster: rosterRiding(plan.roster, paths), oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...late] };
+  return { ...res, paths, shipped: plan.shipped.filter((p) => !late.includes(p)), pageEdits: plan.pageEdits.filter((e) => !late.includes(e.path)), refusedEdits: plan.refusedEdits, proposals: plan.proposals, roster: rosterRiding(plan.roster, paths), oversize: plan.oversize, entries: plan.entries, outside: plan.outside, missing: plan.missing, ignored: [...plan.ignored, ...late], leftovers: plan.leftovers };
 }

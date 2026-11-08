@@ -1,0 +1,73 @@
+# Synth Templates — card 0.2 — Resonator Chime
+# Textures and Ambient, tier 3: the note is not in the oscillator. A burst of noise strikes a comb filter tuned to the key, and the comb rings.
+schema: synth-template-card/0.2
+id: resonator-chime
+name: Resonator Chime
+family: Textures and Ambient
+tier: 3
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Comb filter: a short delay is a filter"
+  - "Comb filter: delay time and frequency are reciprocals"
+  - "Serial: source and resonator (keytracked vs fixed)"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Key → filter cutoff"
+  - "Filter thunk (resonance = delay feedback)"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, level: full, note: "the exciter: a burst, not a tone; it has no pitch of its own"}
+    filter1: {kind: filter, type: comb, resonance: self-oscillating, note: "the resonator: a short delay fed back on itself, tuned by the key; the voice draws the comb and plays a high-resonance band-pass in its place"}
+    filter2: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "the body: fixed, not keytracked; high notes come out softer and darker"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    menv:    {kind: envelope, role: exciter, shape: {a: instant, d: fast, s: zero, r: same as decay}, category: struck, note: "the noise's own envelope: a click, over before the ring begins"}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: very long, s: zero, r: same as decay}, category: struck}
+  audio:
+    - [noise, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: noise.level, amount: full, essential: true}
+    - {from: key,  to: filter1.cutoff, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: menv.amount, amount: some, essential: false}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: wave,      value: noise,           why: "the strike has energy at every frequency, so the comb finds its own series in it"}
+  - {block: menv,    param: target,    value: noise level,     why: "the exciter gets its own envelope: the noise must stop before the ring is heard, or it is a hiss with a tone in it"}
+  - {block: menv,    param: decay,     value: fast,            why: "a click; longer is a bow"}
+  - {block: filter1, param: type,      value: comb,            why: "a short delay is a filter: the delay and the pitch are reciprocals, so the comb's peaks sit in a harmonic series on the key"}
+  - {block: filter1, param: tuning,    value: keytracked fully, why: "the key sets the delay time, and the delay time is the note; without this the chime is one pitch however you play it"}
+  - {block: filter1, param: resonance, value: self-oscillating, why: "feedback in the delay, which is resonance in the filter: it sets how long the ring lasts after the click is gone"}
+  - {block: filter2, param: tracking,  value: fixed,           why: "the body does not move with the key: it is the instrument's size, not its tuning"}
+  - {block: aenv,    param: sustain,   value: zero,            why: "struck: the ring decays whether or not you hold the key"}
+  - {block: aenv,    param: decay,     value: very long,       why: "the amp only has to stay open long enough for the comb to finish ringing"}
+  - {block: mode,    param: voices,    value: poly,            why: "chimes overlap; each key is its own resonator"}
+
+taste:
+  - {block: filter1, param: resonance, range: "high – self-oscillating", default: self-oscillating, why: "the length of the ring: high is a wood block, self-oscillating is a bell"}
+  - {block: filter2, param: cutoff,    range: "mid – open",             default: bright, why: "how much of the comb's upper series is let through"}
+  - {block: menv,    param: decay,     range: "instant – short",        default: fast,   why: "instant is a tick, short is a brush"}
+  - {block: menv,    param: amount,    range: "moderate – full",        default: full}
+  - {block: aenv,    param: decay,     range: "long – very long",       default: very long}
+  - {block: fx,      param: reverb,    range: "small – huge",           default: large}
+
+listening:
+  cue: "A tick, then a ring that was not in the tick: a glassy pitched tone that hangs and slowly dies, with a thin series of overtones above it like a struck tube. Play higher and the ring is higher, but thinner."
+  ab: "Drop the comb's resonance to none: a short burst of filtered noise, no note, no ring. Put it back to self-oscillating and the chime returns. Then take the key off the comb's tuning: every key gives the same pitch, and the keyboard only sets when the strike happens."
+
+render:
+  tempo: 80
+  note: [E4, B4, E5, G4]
+  velocity: [100, 80, 90, 70]
+  pattern: "four strikes, one per beat, each a sixteenth long; the rings overlap and fade"
+  length_s: 8.0
+
+mappings: {}

@@ -1,0 +1,67 @@
+# Synth Templates — card 0.2 — Kalimba
+# Click and body: the thumb's click comes from the oscillator restarting away from zero, the body is a sine with a short inharmonic partial.
+schema: synth-template-card/0.2
+id: kalimba
+name: Kalimba
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Phase, free-running vs retrigger, the click"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, retrigger: true, note: "restarts off zero each note: that edge is the thumb's click"}
+    osc2: {kind: oscillator, wave: sine, ratio: "6.3:1", level: little, note: "the tine's second mode, not a harmonic; the voice may not tune a mixed partial by ratio"}
+    mix:  {kind: mixer}
+    amp:  {kind: amplifier, level: under unity}
+    menv: {kind: envelope, role: partial, shape: {a: instant, d: short, s: zero, r: short}, category: percussive, note: "the partial's own envelope; the voice knows menv → osc2.level only as an FM index"}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,      value: sine,          why: "a metal tine is nearly pure once the click is over"}
+  - {block: osc1, param: retrigger, value: "on",          why: "the wave starts at the same point off zero every note, and with an instant attack that step is a click: the thumbnail on the tine"}
+  - {block: aenv, param: attack,    value: instant,       why: "the click only exists if the amp is already open when the wave jumps"}
+  - {block: osc2, param: ratio,     value: "6.3:1",       why: "a bar clamped at one end has its second mode near 6.3 times the first: not a harmonic, so it reads as metal"}
+  - {block: menv, param: target,    value: partial level, why: "the high mode dies long before the fundamental"}
+  - {block: menv, param: decay,     value: short,         why: "a flash of metal at the start, then the body alone"}
+  - {block: aenv, param: decay,     value: medium,        why: "a small tine: short side of the strike scale"}
+  - {block: aenv, param: sustain,   value: zero,          why: "plucked"}
+  - {block: aenv, param: release,   value: same as decay, why: "rings out however short the note"}
+  - {block: mode, param: voices,    value: poly,          why: "two thumbs; notes overlap"}
+
+taste:
+  - {block: osc2, param: level,   range: "off – half",       default: little, why: "off is a soft thumb; half is a hard nail"}
+  - {block: menv, param: decay,   range: "fast – medium",    default: short}
+  - {block: aenv, param: decay,   range: "short – long",     default: medium}
+  - {block: amp,  param: level,   range: "half – full",      default: under unity}
+
+listening:
+  cue: "A tick, then a warm round note that fades. The tick is tiny and comes before the tone; the metallic flash under it is gone in an instant and only the body is left."
+  ab: "Turn retrigger off: the tick goes and every note starts soft, like a flute pluck; the same note played twice no longer sounds the same twice. Turn it on and the thumb returns. Then set the partial level to off: still a kalimba shape, but a plastic one."
+
+render:
+  tempo: 96
+  note: [G4, B4, D5, G5, D5, B4, G4, D4]
+  velocity: [100, 85, 85, 100, 85, 85, 100, 85]
+  pattern: "eighths, one bar, up and down the tines, each a 16th long"
+  length_s: 3.0
+
+mappings: {}

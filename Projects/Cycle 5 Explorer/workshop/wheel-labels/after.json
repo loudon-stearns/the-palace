@@ -1,0 +1,69 @@
+{
+ "tag": "after",
+ "runs": [
+  {
+   "screen": "1280x720",
+   "room": false,
+   "states": 16,
+   "overlaps": 0,
+   "distinct": 0,
+   "sizes_arcmin_8H": {
+    "t-deg": 7.7,
+    "t-func": 7.3,
+    "t-qual": 4.7,
+    "t-mode": 6.5,
+    "t-from": 4.3,
+    "t-note": 9.5
+   },
+   "examples": []
+  },
+  {
+   "screen": "1280x720",
+   "room": true,
+   "states": 16,
+   "overlaps": 0,
+   "distinct": 0,
+   "sizes_arcmin_8H": {
+    "t-deg": 8.7,
+    "t-func": 8.4,
+    "t-qual": 5.6,
+    "t-mode": 6.4,
+    "t-from": 5,
+    "t-note": 10.7
+   },
+   "examples": []
+  },
+  {
+   "screen": "1920x1080",
+   "room": false,
+   "states": 16,
+   "overlaps": 0,
+   "distinct": 0,
+   "sizes_arcmin_8H": {
+    "t-deg": 5.2,
+    "t-func": 4.9,
+    "t-qual": 3.2,
+    "t-mode": 4.3,
+    "t-from": 2.9,
+    "t-note": 6.3
+   },
+   "examples": []
+  },
+  {
+   "screen": "1920x1080",
+   "room": true,
+   "states": 16,
+   "overlaps": 0,
+   "distinct": 0,
+   "sizes_arcmin_8H": {
+    "t-deg": 9.3,
+    "t-func": 8.9,
+    "t-qual": 6,
+    "t-mode": 6.8,
+    "t-from": 5.3,
+    "t-note": 11.4
+   },
+   "examples": []
+  }
+ ]
+}

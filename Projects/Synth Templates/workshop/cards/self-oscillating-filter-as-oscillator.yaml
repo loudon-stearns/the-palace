@@ -1,0 +1,65 @@
+# Synth Templates — card 0.2 — Self-Oscillating Filter as Oscillator
+# Filter Routings, tier 2. Past the edge of resonance the filter is a sine oscillator. The real oscillator is muted; the keyboard plays the cutoff.
+# The slot grammar needs a source into the chain, so osc1 stays drawn at level off. The voice does not read key → cutoff and will not play this in tune.
+schema: synth-template-card/0.2
+id: self-oscillating-filter-as-oscillator
+name: Self-Oscillating Filter as Oscillator
+family: Filter Routings
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Resonance: boost at cutoff; self-oscillation"
+  - "Key → filter cutoff"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, level: "off", note: "muted; it is drawn because the chain needs a source. Bring it up a little to ping the filter"}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: self-oscillating, note: "the oscillator. Keytracked 100 percent so the cutoff is the pitch. The voice applies fixed half keytracking and does not play this in tune"}
+    amp:     {kind: amplifier, level: half}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive, note: "the ping: a short kick to the cutoff, a chirp at the front of each note"}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: medium}, category: percussive}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: key,  to: filter1.cutoff, amount: full, essential: true}
+    - {from: fenv, to: filter1.cutoff, amount: little, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: filter1, param: resonance, value: self-oscillating, why: "past the point where the boost at cutoff feeds itself, the filter rings on its own: a sine, and a loud one"}
+  - {block: filter1, param: keytrack,  value: full,              why: "100 percent, so the cutoff follows the key exactly and the ringing is in tune"}
+  - {block: filter1, param: cutoff,    value: dark,              why: "at middle C the cutoff is the note; dark is the word nearest it"}
+  - {block: osc1,    param: level,     value: "off",             why: "nothing feeds the filter; the sound is the filter alone"}
+  - {block: fenv,    param: decay,     value: short,             why: "the ping: the cutoff jumps and falls, a chirp that starts each note"}
+  - {block: fenv,    param: sustain,   value: zero,              why: "the pitch must settle on the note"}
+  - {block: aenv,    param: sustain,   value: zero,              why: "a struck sine, like a tuned drum or a bell; the amp envelope is the only gate the ringing has"}
+  - {block: amp,     param: level,     value: half,              why: "a self-oscillating filter is loud"}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: fenv,    param: amount,    range: "none – moderate",        default: little, why: "the size of the chirp; moderate is a laser"}
+  - {block: fenv,    param: decay,     range: "instant – short",        default: short}
+  - {block: aenv,    param: decay,     range: "short – long",           default: medium}
+  - {block: osc1,    param: level,     range: "off – little",           default: "off",  why: "a little oscillator lets the filter ring against a real tone and shows which models are clean"}
+  - {block: filter1, param: resonance, range: "high – self-oscillating", default: self-oscillating, why: "below the edge it stops singing and is a filter again"}
+
+listening:
+  cue: "A pure whistle that plays the keyboard in tune with nothing feeding it, each note starting with a small upward chirp. Digital models may sound thin or harsh here; analog ones round and sweet."
+  ab: "Lower the resonance to high: the whistle stops, and with the oscillator muted there is silence. Bring it back past the edge and the sine returns. Then set keytracking to none: every key plays the same pitch."
+
+render:
+  tempo: 100
+  note: [C4, E4, G4, C5]
+  velocity: 100
+  pattern: "quarter notes, one bar, each released after a 16th"
+  length_s: 3.0
+
+mappings: {}

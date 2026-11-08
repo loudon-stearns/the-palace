@@ -1,0 +1,490 @@
+<!doctype html>
+<!--
+  title: The Metaphor Stretch — rich — which part is the crystal
+  born: 2026-11-03
+  links: [[The Metaphor Stretch]] (connects-to · rich-face-piece) · listed in [[The Metaphor Stretch — rich.json]] · [[Crystal Synthesizer]] (connects-to · the instrument it plays) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "The Honest Artifact" put to the test: one struck partial, then two neighbours beating, then the whole crystal at N partials, and last the question the section asks — which part of the sound is the crystal and which is the rendering — answered by measuring the beating and the sweep apart. I change only when that section does.
+  engine: a line-for-line port of crystal_synth.py (Projects/Generative Sample Libraries/crystal-audio/); its sine renders match the Python sample for sample. The engine and shared blocks are byte-identical in this face's two pieces.
+  checks: The Metaphor Stretch/The Metaphor Stretch — rich — check.mjs runs this file's own engine against the claims.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow"><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>The Metaphor Stretch — which part is the crystal?</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,.10); --accent-line:rgba(232,184,74,.5);
+    --coral:#ff6b5a; --blue:#4a8fff; --green:#6bd45a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .kicker svg { flex: none; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 18px; border: 1px solid var(--border); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--accent-soft); color: var(--accent); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin: 0 0 14px; }
+  .eqs { margin: 4px 0 16px; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 76ch; }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+  .eq i { font-style: italic; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .words:last-child { margin-bottom: 0; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-bottom: 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: end; margin: 6px 0 12px; }
+  .controls label.sl { flex: 1 1 220px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--accent); border-color: var(--accent-line); }
+  button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent-line); background: var(--accent-soft); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--accent); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 8px 0 4px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .amber { color: var(--accent); } .coral { color: var(--coral); } .ok { color: var(--green); } .bad { color: var(--coral); }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; max-width: 900px; margin: 6px 0 10px; }
+  table.meas th { text-align: left; font-weight: 400; color: var(--fg3); letter-spacing: .08em; text-transform: uppercase; font-size: 10px; border-bottom: 1px solid var(--border); padding: 6px 8px; }
+  table.meas td { border-bottom: 1px solid var(--soft); padding: 6px 8px; }
+  table.meas td b { color: var(--fg1); font-weight: 500; }
+  .verdict { font-size: 13.5px; line-height: 1.6; max-width: 76ch; padding: 10px 14px; border: 1px solid var(--accent-line); border-radius: 2px; background: var(--accent-soft); color: var(--fg1); margin: 8px 0 12px; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 76ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; margin-left: auto; }
+  .busy { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  .pick { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tick { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); display: flex; justify-content: space-between; margin-top: -2px; }
+  table.meas td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.meas th.num { text-align: right; }
+  table.meas tr.on td { background: var(--accent-soft); }
+  .claim { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin: 0 0 10px; max-width: 76ch; transition: border-color 220ms var(--ease); }
+  .claim.on { border-color: var(--accent-line); }
+  .claim .who { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 4px; }
+  .claim .say { font-family: var(--serif); font-size: 18px; color: var(--fg1); font-style: italic; margin-bottom: 4px; }
+  .claim .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · sketch · a walk in four steps</div>
+  <h2 class="title">Which part is the crystal?</h2>
+  <p class="sub">The Crystal Synthesizer's own engine, ported from its Python: a cubic crystal's phonon spectrum, rendered as N partials, each decaying faster the higher it sits. We start with one partial and end on the section's question, measured: is the beating the crystal or the rendering, and is the sweep? Silent until you press a button.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step">
+    <h3>One struck partial</h3>
+    <p class="teach">One partial of the crystal, struck: a sine that starts loud and dies away. How fast it dies depends on how high it sits. That a high mode dies sooner than a low one is the physics, phonons shaking each other apart. How much sooner is a number the code chose, the exponent 0.45. Drag the partial up and strike it beside the lowest one.</p>
+    <div class="eqs">
+      <div class="eq"><i>a</i>(<i>t</i>) = <i>a</i>₀ · e<sup>−<i>d</i>·<i>t</i></sup>, &nbsp; <i>d</i> = <i>d</i>₀ · (<i>f</i> / <i>f</i><sub>a</sub>)<sup><i>p</i></sup></div>
+      <div class="words">(the partial's level over time) = (its strike level) × e to the minus (its decay rate × time), where (the decay rate) = (the base rate, 0.6 a second) × (its frequency over the anchor, 110 Hz) raised to (the exponent, 0.45).</div>
+    </div>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s1one">▸ strike it</button><button class="go" id="s1two">▸ 110 Hz, then it</button></div>
+      <label class="sl">the partial <i>f</i> = <b id="s1fv"></b><input id="s1f" type="range" min="0" max="1" step="0.001" value="0.75"></label>
+    </div>
+    <div class="read"><span>decay rate <b id="s1d"></b></span><span>to −60 dB <b id="s1t"></b></span><span>the 110 Hz partial <b id="s1t0"></b></span></div>
+    <div class="panel"><div class="plabel"><span>level over five seconds, in dB</span><span><span class="amber">— this partial</span> · <span style="color:#8a8aa0">— 110 Hz</span></span></div><canvas id="s1cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>Two neighbours</h3>
+    <p class="teach">Beating needs a neighbour. Two partials struck together near 1 kHz: when they sit close, their sum swells and fades at the gap between them, in hertz. Pull them apart and the beats speed up into a roughness, then stop being beats at all and become two notes. The two marks on the slider are the gap between neighbouring partials when the crystal is rendered with 8 and with 300 of them.</p>
+    <div class="eqs">
+      <div class="eq">beats per second = <i>f</i>₂ − <i>f</i>₁ = <i>f</i>₁ · (<i>r</i> − 1)</div>
+      <div class="words">(how fast they beat) = (the upper partial) minus (the lower one) = (the lower one) × (their ratio, minus one).</div>
+    </div>
+    <p class="back">One partial is step 1; here a second one joins it.</p>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s2play">▸ strike the pair</button></div>
+      <label class="sl">the gap = <b id="s2cv_"></b><input id="s2c" type="range" min="0" max="1" step="0.001" value="0.2"><span class="tick"><span>5 ¢</span><span id="s2mk"></span><span>900 ¢</span></span></label>
+    </div>
+    <div class="read"><span><i>f</i>₁ <b>1000.0 Hz</b></span><span><i>f</i>₂ <b id="s2f2"></b></span><span>beats <b id="s2b"></b></span><span id="s2say"></span></div>
+    <div class="panel"><div class="plabel"><span>the pair's level over three seconds, in dB</span><span>the swell and fade is the beating</span></div><canvas id="s2cv"></canvas></div>
+  </section>
+
+  <section class="step">
+    <h3>The whole crystal at N</h3>
+    <p class="teach">Now the whole cubic crystal. The code sorts its 64,000 modes into N bins spaced evenly in pitch and sounds one partial per bin that holds any. N is Decision Point 2, entirely ours. Few bins put the neighbours far apart, as in step 2's right end; many put them close. Below, each third-octave band's level over time: watch where it stays smooth and where it ripples.</p>
+    <div class="eqs">
+      <div class="eq"><i>r</i> = (<i>f</i><sub>top</sub> / <i>f</i><sub>floor</sub>)<sup>1/<i>N</i></sup>, &nbsp; beats near <i>f</i> ≈ <i>f</i> · (<i>r</i> − 1)</div>
+      <div class="words">(the ratio between neighbouring partials) = (the top partial over the lowest) to the power one over (the number of bins); and near any frequency the neighbours beat at about (that frequency) × (the ratio, minus one).</div>
+    </div>
+    <p class="back">Step 2's pair, many times over. At the code's lowest-mode anchor, N = 8 puts every neighbour more than half an octave away.</p>
+    <div class="controls">
+      <div class="btns"><button class="go" id="s3play">▸ strike the crystal</button></div>
+      <label class="sl">bins <i>N</i> = <b id="s3Nv"></b><input id="s3N" type="range" min="0" max="10" step="1" value="0"></label>
+    </div>
+    <div class="read"><span>partials <b id="s3n"></b></span><span>neighbours <b id="s3g"></b> apart</span><span>beats near 1 kHz <b id="s3b"></b></span><span>ripple <b id="s3dep"></b></span><span>regular <b id="s3reg"></b></span><span class="busy" id="s3busy"></span></div>
+    <div class="panel"><div class="plabel"><span>the partials, by level</span><span>110 Hz to 4.7 kHz</span></div><canvas id="s3pa"></canvas></div>
+    <div class="panel"><div class="plabel"><span>five bands' level, 0.3 to 3 s</span><span>ripple = the beating</span></div><canvas id="s3bd"></canvas></div>
+    <p class="note">Ripple is the spread of each band's level about its own slow decay, in dB, averaged over the 500 Hz, 1 kHz and 2 kHz bands. Regular is how well that ripple repeats itself (its autocorrelation peak, 0 to 1); it is shown only where there is ripple to repeat.</p>
+  </section>
+
+  <section class="step">
+    <h3>Which part is the crystal?</h3>
+    <p class="teach">The section says the beating is a rendering artifact, wrong in detail, and that the descending sweep of pitch character over the sustain is true, since high modes do decay first. So pull the two apart. Five renders of one crystal, two switches: the bins (8 or 300) and the decay exponent (0.45, or 0 for no decay law at all), and last the code's continuous path, band-limited noise per bin. For each, the beating (ripple, and how regular) and the sweep (the spectral centroid, the sound's centre of brightness, at three moments).</p>
+    <div class="controls"><div class="pick" id="s4cr"></div><span class="busy" id="s4busy"></span></div>
+    <table class="meas" id="s4t"></table>
+    <div class="verdict" id="s4v">Measuring…</div>
+    <p class="note">All five renders use the code's lowest-mode anchor; under the centroid anchor the crystal sits between 88 and 160 Hz and even N = 8 beats, at 7 to 12 a second. The centroid's early value includes the strike's noise burst. Beat rates near 1 kHz at N = 300 for each crystal, from the bins alone: <span id="s4rates"></span>. Each crystal plays with the decay the code gives it.</p>
+  </section>
+
+  <nav class="walk"><button id="back">← back</button><button id="next">next step →</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+<script id="engine">
+// ── The engine: a line-for-line port of crystal_synth.py (Projects/Generative Sample Libraries/crystal-audio/) ──
+// DOS from the code's own lattice models; the four Decision Points as arguments; analysis to measure what the ear is asked to hear.
+const TAU = 2 * Math.PI;
+function grid(n) { const k = new Float64Array(n); for (let i = 0; i < n; i++) k[i] = n === 1 ? 0 : Math.PI * i / (n - 1); return k; }
+const DOS = {
+  cubic(n = 40) { // simple cubic: three equal axes
+    const k = grid(n), s = k.map(v => Math.sin(v / 2) ** 2), out = new Float64Array(n * n * n); let m = 0;
+    for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) for (let c = 0; c < n; c++) out[m++] = Math.sqrt((s[a] + s[b] + s[c]) / 3);
+    return out;
+  },
+  orthorhombic(n = 40) { // three unequal spring constants
+    const Ka = 1.0, Kb = 0.62, Kc = 0.32, k = grid(n), s = k.map(v => Math.sin(v / 2) ** 2), out = new Float64Array(n * n * n); let m = 0;
+    for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) for (let c = 0; c < n; c++) out[m++] = Math.sqrt((Ka * s[a] + Kb * s[b] + Kc * s[c]) / (Ka + Kb + Kc));
+    return out;
+  },
+  triclinic(n = 28) { // no right angles: every shear term present
+    const k = grid(n), sn = k.map(v => Math.sin(v / 2)), out = new Float64Array(n * n * n); let m = 0, mx = 0;
+    const cxy = 0.16 * Math.cos(82 * Math.PI / 180), cxz = 0.13 * Math.cos(106 * Math.PI / 180), cyz = 0.10 * Math.cos(97 * Math.PI / 180);
+    for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) for (let c = 0; c < n; c++) {
+      const x = sn[a], y = sn[b], z = sn[c];
+      const w2 = 0.65 * x * x + 0.47 * y * y + 0.35 * z * z + cxy * x * y + cxz * x * z + cyz * y * z;
+      const w = Math.sqrt(Math.max(w2, 0)); out[m++] = w; if (w > mx) mx = w;
+    }
+    for (let i = 0; i < out.length; i++) out[i] /= mx;
+    return out;
+  }
+};
+const DEFAULT_GRID = { cubic: 40, orthorhombic: 40, triclinic: 28 };
+// Decision Point 1: where the ratios land in hearing
+function computeScale(f, anchor, base, maxf) {
+  let mn = Infinity, mx = -Infinity, sum = 0; for (const v of f) { if (v < mn) mn = v; if (v > mx) mx = v; sum += v; }
+  if (anchor === 'lowest_mode') return base / mn;
+  if (anchor === 'zone_boundary') return maxf / mx;
+  if (anchor === 'centroid') return base / (sum / f.length);
+  throw new Error('unknown anchor ' + anchor);
+}
+// Decision Point 2: N log-spaced bins over the mapped modes; one partial per bin that holds any
+function partials(freqsNorm, { N = 100, base = 110, anchor = 'lowest_mode', maxf = 10000 } = {}) {
+  const f = freqsNorm.filter(v => v > 0.012), scale = computeScale(f, anchor, base, maxf);
+  const a = []; for (const v of f) { const x = v * scale; if (x >= base * 0.8 && x <= maxf) a.push(x); }
+  let lo = Infinity, hi = -Infinity; for (const x of a) { if (x < lo) lo = x; if (x > hi) hi = x; }
+  const l0 = Math.log10(lo * 0.99), l1 = Math.log10(hi * 1.01), edges = new Float64Array(N + 1);
+  for (let i = 0; i <= N; i++) edges[i] = Math.pow(10, l0 + (l1 - l0) * i / N);
+  const hist = new Float64Array(N);
+  for (const x of a) { // np.histogram: [e_i, e_i+1), the last bin closed
+    let lo_i = 0, hi_i = N; while (hi_i - lo_i > 1) { const m = (lo_i + hi_i) >> 1; if (x >= edges[m]) lo_i = m; else hi_i = m; }
+    if (x >= edges[0] && x <= edges[N]) hist[Math.min(lo_i, N - 1)]++;
+  }
+  const P = { f: [], bw: [], a: [], count: [], lo, hi, scale, modes: a.length, N, base, anchor };
+  for (let i = 0; i < N; i++) if (hist[i] > 0) {
+    const c = Math.sqrt(edges[i] * edges[i + 1]); P.f.push(c); P.bw.push(edges[i + 1] - edges[i]); P.count.push(hist[i]); P.a.push(hist[i] / Math.pow(c / base, 0.3));
+  }
+  const s = P.a.reduce((z, v) => z + v, 0); P.a = P.a.map(v => v / s);
+  return P;
+}
+function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+function gauss(r) { let g = 0, has = false; return () => { if (has) { has = false; return g; } let u = 0; while (u === 0) u = r(); const v = r(), m = Math.sqrt(-2 * Math.log(u)); g = m * Math.sin(TAU * v); has = true; return m * Math.cos(TAU * v); }; }
+function biquadBP(fc, Q, sr) { // RBJ band-pass, 0 dB peak
+  const w = TAU * fc / sr, al = Math.sin(w) / (2 * Q), a0 = 1 + al;
+  return { b0: al / a0, b1: 0, b2: -al / a0, a1: -2 * Math.cos(w) / a0, a2: (1 - al) / a0 };
+}
+function runBQ(q, x, y) { let x1 = 0, x2 = 0, y1 = 0, y2 = 0; for (let i = 0; i < x.length; i++) { const v = q.b0 * x[i] + q.b1 * x1 + q.b2 * x2 - q.a1 * y1 - q.a2 * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
+// Decision Points 3 and 4: the decay law and what each partial is made of
+function render(P, { decayBase = 0.6, decayExp = 0.45, fidelity = 'shaped', seconds = 5, sr = 44100, transientDecay = 55, impulse = 0.12, seed = 42, fade = 0.25 } = {}) {
+  const L = Math.round(seconds * sr), dt = seconds / (L - 1), out = new Float64Array(L), g = gauss(rng(seed)), nyq = sr / 2;
+  const noise = new Float64Array(fidelity === 'continuous' ? L : 0), tmp = new Float64Array(noise.length); let xs = (seed * 2654435761) | 1;
+  for (let p = 0; p < P.f.length; p++) {
+    const f = P.f[p], amp = P.a[p], rate = fidelity === 'ratios_only' ? decayBase : decayBase * Math.pow(f / P.base, decayExp), k = Math.exp(-rate * dt);
+    if (fidelity === 'continuous') {
+      const lo = Math.max(f - P.bw[p] / 2, 1), hi = Math.min(f + P.bw[p] / 2, nyq * 0.99);
+      for (let i = 0; i < L; i++) { xs ^= xs << 13; xs ^= xs >>> 17; xs ^= xs << 5; noise[i] = ((xs >>> 0) / 4294967296 - 0.5) * 3.4641016; } // white, unit variance; the band filter makes it Gaussian
+      if (lo < hi) { const q = biquadBP(Math.sqrt(lo * hi), Math.sqrt(lo * hi) / (hi - lo), sr); runBQ(q, noise, tmp); runBQ(q, tmp, noise); }
+      let e = 0; for (let i = 0; i < L; i++) e += noise[i] * noise[i]; const n = 1 / (Math.sqrt(e / L) + 1e-12);
+      let env = amp * n; for (let i = 0; i < L; i++) { out[i] += env * noise[i]; env *= k; }
+    } else {
+      const c = Math.cos(TAU * f * dt), s = Math.sin(TAU * f * dt); let re = 1, im = 0, env = amp;
+      for (let i = 0; i < L; i++) { out[i] += env * im; const r2 = re * c - im * s; im = re * s + im * c; re = r2; env *= k; if ((i & 4095) === 4095) { const m = Math.hypot(re, im); re /= m; im /= m; } }
+    }
+  }
+  if (impulse > 0) { let e = impulse; const k = Math.exp(-transientDecay * dt); for (let i = 0; i < L; i++) { out[i] += e * g(); e *= k; } }
+  let pk = 0; for (let i = 0; i < L; i++) pk = Math.max(pk, Math.abs(out[i]));
+  const y = new Float32Array(L), F = Math.round(fade * sr), gn = pk > 0 ? 0.88 / pk : 0;
+  for (let i = 0; i < L; i++) y[i] = out[i] * gn * (i >= L - F ? (L - i) / F : 1);
+  return y;
+}
+// ── Analysis: what changes when a Decision Point turns ──
+function fftMag2(x) { // radix-2, x.length a power of two; returns |X|² for bins 0..n/2
+  const n = x.length, re = Float64Array.from(x), im = new Float64Array(n);
+  for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const a = -TAU / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr; re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  const m = new Float64Array(n / 2 + 1); for (let i = 0; i <= n / 2; i++) m[i] = re[i] * re[i] + im[i] * im[i]; return m;
+}
+// Spectral centroid of a 4096-sample Hann window starting at t0: the "pitch character" whose sweep the text names
+function centroid(y, t0, sr = 44100) {
+  const n = 4096, s = Math.round(t0 * sr), w = new Float64Array(n);
+  for (let i = 0; i < n; i++) w[i] = (y[s + i] || 0) * (0.5 - 0.5 * Math.cos(TAU * i / (n - 1)));
+  const m = fftMag2(w); let a = 0, b = 0; for (let i = 1; i < m.length; i++) { a += m[i] * i * sr / n; b += m[i]; } return b > 0 ? a / b : 0;
+}
+// One third-octave band's envelope: depth (dB std about its own slow decay) and regularity (envelope autocorrelation peak)
+function bandEnvelope(y, fc, sr = 44100) {
+  const q = biquadBP(fc, 4.32, sr), a = new Float64Array(y.length), b = new Float64Array(y.length);
+  runBQ(q, y, a); runBQ(q, a, b); b.reverse(); runBQ(q, b, a); runBQ(q, a, b); b.reverse(); // zero-phase, fourth order each way
+  const W = Math.max(1, Math.round(2 * sr / fc)), D = Math.round(sr / 1000), env = [];
+  let acc = 0; for (let i = 0; i < b.length; i++) { acc += b[i] * b[i]; if (i >= W) acc -= b[i - W] * b[i - W]; if (i % D === 0) env.push(Math.sqrt(Math.max(acc, 0) / W * 2)); }
+  return Float64Array.from(env); // 1 kHz frames
+}
+function beating(y, fc, { t0 = 0.3, t1 = 3.0, sr = 44100 } = {}) {
+  const env = bandEnvelope(y, fc, sr), dB = Array.from(env.slice(Math.round(t0 * 1000), Math.round(t1 * 1000)), v => 20 * Math.log10(v + 1e-9));
+  const w = 400, h = w / 2, r = [];
+  for (let i = h; i < dB.length - h; i++) { let s = 0; for (let j = i - h; j < i + h; j++) s += dB[j]; r.push(dB[i] - s / w); }
+  const mu = r.reduce((z, v) => z + v, 0) / r.length, d = r.map(v => v - mu), v0 = d.reduce((z, v) => z + v * v, 0);
+  const depth = Math.sqrt(v0 / d.length);
+  let best = -1, lag = 0; for (let L = 25; L <= 1000 && L < d.length / 2; L++) { let s = 0; for (let i = 0; i + L < d.length; i++) s += d[i] * d[i + L]; const c = v0 > 0 ? s / v0 : 0; if (c > best) { best = c; lag = L; } }
+  return { depth, regular: Math.max(0, best), rate: lag ? 1000 / lag : 0 };
+}
+const BANDS = [250, 500, 1000, 2000, 4000];
+function measure(y) {
+  const b = BANDS.map(fc => beating(y, fc)), mid = b.slice(1, 4);
+  return { bands: b, depth: mid.reduce((z, v) => z + v.depth, 0) / 3, regular: mid.reduce((z, v) => z + v.regular, 0) / 3,
+    cent: [0.15, 1.0, 3.0].map(t => centroid(y, t)) };
+}
+</script>
+<script id="shared">
+// The sigil, the walk, the sound and the canvases: byte-identical in this face's two pieces.
+function sigil(el) { // the Lissajous trace, 3:2, small
+  const p = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; p.push((11 + 9 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ',' + (11 + 9 * Math.sin(2 * t)).toFixed(2)); }
+  el.innerHTML = '<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#4a4a5e" stroke-width="1"/><polyline points="' + p.join(' ') + '" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>';
+}
+const $ = id => document.getElementById(id);
+const fmt = (x, d = 1) => Number.isFinite(x) ? x.toFixed(d) : '—';
+const SR = 44100;
+// Sound: nothing exists before a click. One sound at a time, through a compressor; a step change stops it.
+const SND = { ctx: null, out: null, src: null, btn: null };
+function soundOn() {
+  if (!SND.ctx) {
+    SND.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = SND.ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    SND.out = SND.ctx.createGain(); SND.out.gain.value = 0.55; SND.out.connect(comp); comp.connect(SND.ctx.destination);
+  }
+  if (SND.ctx.state === 'suspended') SND.ctx.resume();
+}
+function stopSound() {
+  if (SND.src) { try { SND.src.stop(); } catch (e) {} SND.src = null; }
+  document.querySelectorAll('button.go[aria-pressed="true"]').forEach(b => b.setAttribute('aria-pressed', 'false'));
+}
+function playBuffer(buf, btn, onend) { // a mono Float32Array at SR
+  soundOn(); stopSound();
+  const c = SND.ctx, b = c.createBuffer(1, buf.length, SR); b.copyToChannel(buf, 0);
+  const s = c.createBufferSource(); s.buffer = b; s.connect(SND.out); s.start(); SND.src = s;
+  if (btn) btn.setAttribute('aria-pressed', 'true');
+  s.onended = () => { if (SND.src === s) { SND.src = null; if (btn) btn.setAttribute('aria-pressed', 'false'); if (onend) onend(); } };
+}
+function joinBuffers(list, gap = 0.4) { // one buffer, the parts in order with a little silence between
+  const g = Math.floor(gap * SR), len = list.reduce((z, b) => z + b.length + g, 0), out = new Float32Array(len); let at = 0;
+  for (const b of list) { out.set(b, at); at += b.length + g; } return out;
+}
+// Work that takes a moment: say so, then do it on the next frame so the words show first
+function busy(el, text, fn) { if (el) el.textContent = text; setTimeout(() => { try { fn(); } finally { if (el && el.textContent === text) el.textContent = ''; } }, 30); }
+// The walk: one step showing, Next and Back, the rail stays open, a step change stops the sound
+function walk(steps) {
+  const rail = $('rail'); let cur = 0;
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.name; b.onclick = () => go(i); rail.appendChild(b); });
+  function go(i) {
+    stopSound(); cur = Math.max(0, Math.min(steps.length - 1, i));
+    document.querySelectorAll('.step').forEach((el, k) => el.classList.toggle('on', k === cur));
+    rail.querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', k === cur ? 'step' : 'false'));
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    $('where').textContent = 'step ' + (cur + 1) + ' of ' + steps.length;
+    if (steps[cur].enter) steps[cur].enter();
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  go(0); return go;
+}
+function fitCanvas(cv, h) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth || cv.parentNode.clientWidth || 600;
+  cv.style.height = h + 'px'; cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; return [g, w, h];
+}
+const C = { fg3: '#8a8aa0', fg4: '#4a4a5a', soft: 'rgba(255,255,255,.06)', amber: '#e8b84a', coral: '#ff6b5a', blue: '#4a8fff', green: '#6bd45a', fg1: '#e8e8f0' };
+// A log-frequency axis, 100 Hz to 10 kHz unless told otherwise
+function logX(f, w, lo = 100, hi = 10000, pad = 36) { return pad + (w - pad - 10) * Math.log(f / lo) / Math.log(hi / lo); }
+function freqAxis(g, w, y, lo = 100, hi = 10000) {
+  g.strokeStyle = C.soft; g.fillStyle = C.fg3; g.lineWidth = 1;
+  for (const f of [100, 200, 500, 1000, 2000, 5000, 10000]) if (f >= lo && f <= hi) { const x = logX(f, w, lo, hi); g.beginPath(); g.moveTo(x, 4); g.lineTo(x, y); g.stroke(); g.fillText(f >= 1000 ? (f / 1000) + 'k' : String(f), x - 8, y + 12); }
+}
+// Partials as lines on a log axis, height by level (40 dB range)
+function drawPartials(g, w, y0, h, P, color, lo = 100, hi = 10000) {
+  const mx = Math.max(...P.a); g.strokeStyle = color; g.lineWidth = 1;
+  P.f.forEach((f, i) => { const db = 20 * Math.log10(P.a[i] / mx), hh = Math.max(2, h * (1 + db / 40)); const x = logX(f, w, lo, hi); g.beginPath(); g.moveTo(x, y0); g.lineTo(x, y0 - hh); g.stroke(); });
+}
+function onSlide(id, fn) { const el = $(id); el.addEventListener('input', fn); return el; }
+function redrawOnResize(fn) { let t = 0; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(fn, 80); }); }
+</script>
+<script>
+// ── Piece A: the steps ──
+const BASE = 110, CR = { cubic: { decayBase: 0.6, decayExp: 0.45, transientDecay: 55 }, orthorhombic: { decayBase: 1.0, decayExp: 0.55, transientDecay: 60 }, triclinic: { decayBase: 1.5, decayExp: 0.7, transientDecay: 70 } };
+const DOSC = {}; const dosOf = c => DOSC[c] || (DOSC[c] = DOS[c]());
+const one = (f, amp = 1) => ({ f: [f], a: [amp], bw: [1], base: BASE });
+const NLIST = [8, 12, 16, 24, 32, 48, 64, 100, 150, 200, 300];
+const lin = (x, a, b) => a * Math.pow(b / a, x);
+// Step 1
+function s1f() { return lin(+$('s1f').value, 110, 4400); }
+function s1() {
+  const f = s1f(), d = 0.6 * Math.pow(f / BASE, 0.45), d0 = 0.6;
+  $('s1fv').textContent = fmt(f, 0) + ' Hz'; $('s1d').textContent = fmt(d, 2) + ' /s'; $('s1t').textContent = fmt(Math.log(1000) / d, 2) + ' s'; $('s1t0').textContent = fmt(Math.log(1000) / d0, 2) + ' s to −60 dB';
+  const [g, w, h] = fitCanvas($('s1cv'), 170), x = t => 36 + (w - 46) * t / 5, y = db => 10 + (h - 30) * (-db / 60);
+  g.strokeStyle = C.soft; g.fillStyle = C.fg3; for (let t = 0; t <= 5; t++) { g.beginPath(); g.moveTo(x(t), 10); g.lineTo(x(t), h - 20); g.stroke(); g.fillText(t + ' s', x(t) - 6, h - 6); }
+  for (const db of [0, -20, -40, -60]) { g.fillText(db, 4, y(db) + 3); g.beginPath(); g.moveTo(36, y(db)); g.lineTo(w - 10, y(db)); g.stroke(); }
+  for (const [rate, col] of [[d0, C.fg3], [d, C.amber]]) { g.strokeStyle = col; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x(0), y(0)); const t1 = Math.min(5, Math.log(1000) / rate); g.lineTo(x(t1), y(-8.686 * rate * t1)); g.stroke(); }
+}
+// Step 2
+function s2c() { return lin(+$('s2c').value, 5, 900); }
+function s2() {
+  const c = s2c(), f2 = 1000 * Math.pow(2, c / 1200), b = f2 - 1000;
+  $('s2cv_').textContent = fmt(c, 0) + ' ¢'; $('s2f2').textContent = fmt(f2, 1) + ' Hz'; $('s2b').textContent = fmt(b, 1) + ' a second';
+  $('s2say').textContent = b < 15 ? 'slow enough to count' : b < 150 ? 'too fast to count: a roughness' : 'two notes, no beating';
+  const [g, w, h] = fitCanvas($('s2cv'), 150), x = t => 36 + (w - 46) * t / 3, y = db => 10 + (h - 30) * (-db / 40);
+  g.strokeStyle = C.soft; g.fillStyle = C.fg3; for (let t = 0; t <= 3; t++) { g.beginPath(); g.moveTo(x(t), 10); g.lineTo(x(t), h - 20); g.stroke(); g.fillText(t + ' s', x(t) - 6, h - 6); }
+  for (const db of [0, -20, -40]) g.fillText(db, 4, y(db) + 3);
+  const d1 = 0.6 * Math.pow(1000 / BASE, 0.45), d2 = 0.6 * Math.pow(f2 / BASE, 0.45);
+  g.strokeStyle = C.amber; g.lineWidth = 1; g.beginPath();
+  for (let i = 0; i <= 1500; i++) { // the envelope of the sum: |e1 + e2·e^{iΔωt}|, sampled finely enough for the beats
+    const t = 3 * i / 1500, a1 = Math.exp(-d1 * t), a2 = Math.exp(-d2 * t), ph = TAU * b * t, m = Math.hypot(a1 + a2 * Math.cos(ph), a2 * Math.sin(ph)) / 2;
+    const yy = y(Math.max(-40, 20 * Math.log10(m + 1e-9))); i ? g.lineTo(x(t), yy) : g.moveTo(x(t), yy);
+  }
+  g.stroke();
+}
+// Step 3
+function kindOf(b) { return b < 15 ? fmt(b, 1) + ' a second, countable' : b < 150 ? fmt(b, 1) + ' a second, a roughness' : 'none: ' + fmt(b, 0) + ' Hz apart is two notes'; }
+const cache = {};
+function renderOf(key, P, opts) { return cache[key] || (cache[key] = render(P, opts)); }
+let s3last = null;
+function s3() {
+  const N = NLIST[+$('s3N').value]; $('s3Nv').textContent = N;
+  const P = partials(dosOf('cubic'), { N }), r = Math.pow(P.hi * 1.01 / (P.lo * 0.99), 1 / N);
+  $('s3n').textContent = P.f.length + ' of ' + N; $('s3g').textContent = fmt(1200 * Math.log2(r), 0) + ' ¢'; $('s3b').textContent = kindOf(1000 * (r - 1));
+  { const [g, w, h] = fitCanvas($('s3pa'), 110); freqAxis(g, w, h - 16, 100, 6000); drawPartials(g, w, h - 16, h - 26, P, C.amber, 100, 6000); }
+  busy($('s3busy'), 'rendering…', () => {
+    const y = renderOf('cubic|' + N, P, CR.cubic), m = measure(y); s3last = { N, y, m };
+    $('s3dep').textContent = fmt(m.depth, 1) + ' dB'; $('s3reg').textContent = m.depth >= 1 ? fmt(m.regular, 2) : '— (no ripple)';
+    const [g, w, h] = fitCanvas($('s3bd'), 230), rows = BANDS.length, rh = (h - 20) / rows;
+    BANDS.forEach((fc, k) => {
+      const env = bandEnvelope(y, fc), a = 300, b = 3000, y0 = 4 + k * rh; let top = -Infinity; for (let i = a; i < b; i++) top = Math.max(top, 20 * Math.log10(env[i] + 1e-9));
+      g.fillStyle = C.fg3; g.fillText(fc >= 1000 ? fc / 1000 + 'k' : fc, 2, y0 + rh / 2 + 3); g.strokeStyle = C.soft; g.beginPath(); g.moveTo(36, y0 + rh - 2); g.lineTo(w - 10, y0 + rh - 2); g.stroke();
+      g.strokeStyle = C.amber; g.lineWidth = 1; g.beginPath();
+      for (let i = a; i < b; i += 2) { const db = Math.max(-30, 20 * Math.log10(env[i] + 1e-9) - top), xx = 36 + (w - 46) * (i - a) / (b - a), yy = y0 + (rh - 4) * (-db / 30); i > a ? g.lineTo(xx, yy) : g.moveTo(xx, yy); }
+      g.stroke();
+    });
+    g.fillStyle = C.fg3; g.fillText('0.3 s', 36, h - 4); g.fillText('3 s', w - 30, h - 4);
+  });
+}
+// Step 4: the test
+const CASES = [
+  { id: 'a', N: 8, exp: null, fid: 'shaped', say: 'N 8 · the decay law' },
+  { id: 'b', N: 300, exp: null, fid: 'shaped', say: 'N 300 · the decay law' },
+  { id: 'c', N: 8, exp: 0, fid: 'shaped', say: 'N 8 · no decay law (exponent 0)' },
+  { id: 'd', N: 300, exp: 0, fid: 'shaped', say: 'N 300 · no decay law (exponent 0)' },
+  { id: 'e', N: 300, exp: null, fid: 'continuous', say: 'N 300 · noise per bin · the decay law' }
+];
+let s4cr = 'cubic'; const s4res = {};
+function s4opts(cr, cs) { return { ...CR[cr], decayExp: cs.exp === null ? CR[cr].decayExp : cs.exp, fidelity: cs.fid }; }
+function s4render(cr, cs) { return renderOf(cr + '|' + cs.id, partials(dosOf(cr), { N: cs.N }), s4opts(cr, cs)); }
+function s4() {
+  const box = $('s4cr'); if (!box.childElementCount) Object.keys(CR).forEach(cr => { const b = document.createElement('button'); b.textContent = cr; b.onclick = () => { s4cr = cr; stopSound(); s4(); }; box.appendChild(b); });
+  box.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.textContent === s4cr ? 'true' : 'false'));
+  $('s4rates').textContent = Object.keys(CR).map(cr => { const P = partials(dosOf(cr), { N: 300 }), r = Math.pow(P.hi * 1.01 / (P.lo * 0.99), 1 / 300); return cr + ' ' + fmt(1000 * (r - 1), 1) + ' a second'; }).join(', ');
+  const cr = s4cr, todo = CASES.filter(cs => !s4res[cr + cs.id]);
+  const table = () => {
+    let html = '<tr><th></th><th>render</th><th class="num">ripple</th><th class="num">regular</th><th class="num">centroid 0.15 s</th><th class="num">1 s</th><th class="num">3 s</th><th class="num">fall</th></tr>';
+    for (const cs of CASES) { const m = s4res[cr + cs.id]; html += '<tr><td><button class="go" data-c="' + cs.id + '">▸</button></td><td>' + cs.say + '</td>' + (m ? '<td class="num"><b>' + fmt(m.depth, 1) + ' dB</b></td><td class="num">' + (m.depth >= 1 ? fmt(m.regular, 2) : '—') + '</td><td class="num">' + m.cent.map(v => fmt(v, 0) + ' Hz').join('</td><td class="num">') + '</td><td class="num"><b>' + fmt(100 * (1 - m.cent[2] / m.cent[0]), 0) + ' %</b></td>' : '<td colspan="6" class="busy">measuring…</td>') + '</tr>'; }
+    $('s4t').innerHTML = html;
+    $('s4t').querySelectorAll('button').forEach(b => b.onclick = e => { const cs = CASES.find(c => c.id === b.dataset.c); const btn = e.currentTarget; busy($('s4busy'), 'rendering…', () => playBuffer(s4render(cr, cs), btn)); });
+  };
+  table();
+  const next = () => {
+    if (s4cr !== cr) return; const cs = todo.shift();
+    if (!cs) { verdict(cr); return; }
+    s4res[cr + cs.id] = measure(s4render(cr, cs)); table(); setTimeout(next, 20);
+  };
+  if (todo.length) { $('s4v').textContent = 'Measuring…'; setTimeout(next, 30); } else verdict(cr);
+}
+function verdict(cr) {
+  const R = id => s4res[cr + id], fall = m => 1 - m.cent[2] / m.cent[0], sweep = m => fall(m) > 0.15, beats = m => m.depth >= 1;
+  const sw = CASES.filter(c => sweep(R(c.id))).map(c => c.id), bt = CASES.filter(c => beats(R(c.id))).map(c => c.id);
+  const apart = sweep(R('a')) && !beats(R('a')) && beats(R('d')) && !sweep(R('d'));
+  $('s4v').innerHTML = (apart
+    ? '<b>The two come apart.</b> At N = 8 with the decay law there is no beating (' + fmt(R('a').depth, 1) + ' dB of ripple) and the brightness still falls by ' + fmt(100 * fall(R('a')), 0) + ' %. At N = 300 with the exponent at 0 the beating is all there (' + fmt(R('d').depth, 1) + ' dB) and the brightness does not fall at all (' + fmt(100 * fall(R('d')), 0) + ' %). So the sweep belongs to the decay law, Decision Point 3, and the beating to this engine’s bins, Decision Point 2. The beating is not itself true in tendency: it rides a decay that is. '
+    : 'The sweep shows in ' + sw.join(', ') + ' and the beating in ' + bt.join(', ') + '. ')
+    + 'Noise per bin keeps the ripple as deep (' + fmt(R('e').depth, 1) + ' dB) but not regular (' + fmt(R('e').regular, 2) + ' against ' + fmt(R('b').regular, 2) + ' for the sines): the beating dissolves into texture, and the sweep stays (' + fmt(100 * fall(R('e')), 0) + ' %).';
+}
+// ── wiring ──
+sigil($('sigil'));
+onSlide('s1f', s1); onSlide('s2c', s2);
+$('s3N').addEventListener('input', () => { $('s3Nv').textContent = NLIST[+$('s3N').value]; });
+$('s3N').addEventListener('change', () => { stopSound(); s3(); });
+{ const P = partials(dosOf('cubic'), { N: 8 }), sp = P.hi * 1.01 / (P.lo * 0.99), m8 = 1200 * Math.log2(sp) / 8, m300 = 1200 * Math.log2(sp) / 300; $('s2mk').textContent = 'N 300 · ' + fmt(m300, 0) + ' ¢  ·  N 8 · ' + fmt(m8, 0) + ' ¢'; }
+$('s1one').onclick = e => playBuffer(render(one(s1f()), { impulse: 0, seconds: 5 }), e.currentTarget);
+$('s1two').onclick = e => playBuffer(joinBuffers([render(one(110), { impulse: 0, seconds: 4 }), render(one(s1f()), { impulse: 0, seconds: 4 })]), e.currentTarget);
+$('s2play').onclick = e => { const f2 = 1000 * Math.pow(2, s2c() / 1200); playBuffer(render({ f: [1000, f2], a: [0.5, 0.5], bw: [1, 1], base: BASE }, { impulse: 0, seconds: 4 }), e.currentTarget); };
+$('s3play').onclick = e => { const btn = e.currentTarget; busy($('s3busy'), 'rendering…', () => { const N = NLIST[+$('s3N').value]; playBuffer(renderOf('cubic|' + N, partials(dosOf('cubic'), { N }), CR.cubic), btn); }); };
+const steps = [{ name: 'one partial', enter: s1 }, { name: 'two neighbours', enter: s2 }, { name: 'the crystal at N', enter: s3 }, { name: 'which part is the crystal?', enter: s4 }];
+walk(steps);
+redrawOnResize(() => [s1, s2].forEach(f => { try { f(); } catch (e) {} }));
+</script>
+</body>
+</html>

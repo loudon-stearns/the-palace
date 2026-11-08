@@ -1,0 +1,72 @@
+# Synth Templates — card 0.2 — Wurlitzer
+# The FM electric piano with the amp turned up: the same pair of sines, a shorter decay, and saturation that barks when you hit it.
+schema: synth-template-card/0.2
+id: wurlitzer
+name: Wurlitzer
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Distortion: nonlinear, harmonic, compresses dynamics, tames resonance"
+  - "Drive: by velocity, by envelope; serial filter after"
+  - "Velocity → amplitude; velocity → filter cutoff"
+  - "Piano envelope: release 0 as damper"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "carrier: the reed"}
+    osc2: {kind: oscillator, wave: sine, ratio: "1:1", level: half, note: "modulator; its level is the index"}
+    amp:  {kind: amplifier, level: full}
+    fx:   {kind: fx, chain: [saturation], note: "the tube amp; louder in means more grit out"}
+    menv: {kind: envelope, role: index, shape: {a: instant, d: short,  s: low,  r: short}, category: percussive}
+    aenv: {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: zero, r: short}, category: piano}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: amp.level, amount: full, essential: true}
+    - {from: vel,  to: menv.amount, amount: moderate, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,            why: "a reed, not a tine: rounder than the FM electric piano"}
+  - {block: osc2, param: ratio,   value: "1:1",           why: "harmonic sidebands: the note stays a pitch"}
+  - {block: osc2, param: routing, value: into osc1 fm}
+  - {block: fx,   param: chain,   value: saturation,      why: "the amp is part of the instrument; the reed alone is dull"}
+  - {block: amp,  param: level,   value: full,            why: "hot into the saturation, so a hard note clips and a soft one does not"}
+  - {block: vel,  param: target,  value: amp level,       why: "the bark: velocity pushes the level into the saturation, so hard notes get distortion as well as volume; that is 'drive by velocity'"}
+  - {block: menv, param: decay,   value: short,           why: "the brightness of the strike goes quickly; a Wurlitzer is less glassy than a Rhodes"}
+  - {block: aenv, param: decay,   value: medium,          why: "shorter than the FM electric piano: a reed loses energy faster than a tine"}
+  - {block: aenv, param: sustain, value: zero,            why: "struck and left"}
+  - {block: aenv, param: release, value: short,           why: "a damper"}
+  - {block: mode, param: voices,  value: poly}
+
+taste:
+  - {block: fx,   param: drive,   range: "light – heavy",        default: light, why: "the amp's gain; heavy is the dirty record"}
+  - {block: amp,  param: level,   range: "half – full",          default: full, why: "how hard a soft note hits the saturation"}
+  - {block: osc2, param: level,   range: "little – half",        default: half}
+  - {block: menv, param: amount,  range: "little – generous",    default: moderate}
+  - {block: aenv, param: decay,   range: "short – long",         default: medium}
+
+listening:
+  cue: "Soft notes are round and clean; hard notes bark, with a grit that the soft ones never show. The brightness is in the first instant and the body is darker than a Rhodes."
+  ab: "Remove the saturation: hard notes are only louder, not rougher, and it is a plain FM piano. Put it back and the bark returns. Then set velocity → amp level to none: every note hits the saturation the same, and the grit is constant instead of played."
+
+render:
+  tempo: 92
+  note: [A2, E3, A3, C4]
+  velocity: [55, 55, 55, 55, 120, 120, 120, 120]
+  pattern: "the chord twice: soft, then hard; each held a bar"
+  length_s: 5.5
+
+mappings: {}

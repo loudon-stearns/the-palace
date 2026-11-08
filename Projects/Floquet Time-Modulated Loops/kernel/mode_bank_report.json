@@ -1,0 +1,620 @@
+{
+ "fs": 48000,
+ "taps": 512,
+ "input": "saw 110 Hz, scan glides 0.25 \u2192 80 Hz over 4 s",
+ "full_kernel_mults_per_sample": 1024,
+ "surfaces": {
+  "membrane": {
+   "energy_captured": {
+    "4": 0.6175,
+    "8": 0.8368,
+    "16": 0.968,
+    "32": 1.0,
+    "64": 1.0
+   },
+   "snr_db_vs_full_kernel": {
+    "4": 5.6,
+    "8": 10.3,
+    "16": 17.5,
+    "32": 98.4,
+    "64": 98.4
+   },
+   "bins_needed": {
+    "4": 2,
+    "8": 2,
+    "16": 3,
+    "32": 6,
+    "64": 22
+   },
+   "modes_for_99pct_energy": 22,
+   "modes_for_999pct_energy": 26,
+   "strongest_8": [
+    {
+     "shift_rung_n": -1,
+     "band_hz": 93.75,
+     "share": 0.237
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 93.75,
+     "share": 0.237
+    },
+    {
+     "shift_rung_n": -1,
+     "band_hz": 187.5,
+     "share": 0.072
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 187.5,
+     "share": 0.072
+    },
+    {
+     "shift_rung_n": -2,
+     "band_hz": 93.75,
+     "share": 0.072
+    },
+    {
+     "shift_rung_n": 2,
+     "band_hz": 93.75,
+     "share": 0.072
+    },
+    {
+     "shift_rung_n": 2,
+     "band_hz": 187.5,
+     "share": 0.038
+    },
+    {
+     "shift_rung_n": -2,
+     "band_hz": 187.5,
+     "share": 0.038
+    }
+   ],
+   "hann_vs_plain_32_modes_difference_db": -4.9
+  },
+  "chladni_ghost": {
+   "energy_captured": {
+    "4": 0.935,
+    "8": 0.9435,
+    "16": 0.9589,
+    "32": 0.9729,
+    "64": 0.9856
+   },
+   "snr_db_vs_full_kernel": {
+    "4": 10.3,
+    "8": 10.8,
+    "16": 13.6,
+    "32": 16.2,
+    "64": 20.0
+   },
+   "bins_needed": {
+    "4": 2,
+    "8": 3,
+    "16": 5,
+    "32": 8,
+    "64": 10
+   },
+   "modes_for_99pct_energy": 85,
+   "modes_for_999pct_energy": 1005,
+   "strongest_8": [
+    {
+     "shift_rung_n": 3,
+     "band_hz": 468.75,
+     "share": 0.234
+    },
+    {
+     "shift_rung_n": -3,
+     "band_hz": 468.75,
+     "share": 0.234
+    },
+    {
+     "shift_rung_n": -5,
+     "band_hz": 281.25,
+     "share": 0.234
+    },
+    {
+     "shift_rung_n": 5,
+     "band_hz": 281.25,
+     "share": 0.234
+    },
+    {
+     "shift_rung_n": 11,
+     "band_hz": 281.25,
+     "share": 0.002
+    },
+    {
+     "shift_rung_n": -11,
+     "band_hz": 281.25,
+     "share": 0.002
+    },
+    {
+     "shift_rung_n": 3,
+     "band_hz": 1031.25,
+     "share": 0.002
+    },
+    {
+     "shift_rung_n": -3,
+     "band_hz": 1031.25,
+     "share": 0.002
+    }
+   ],
+   "hann_vs_plain_32_modes_difference_db": -4.3
+  },
+  "theta": {
+   "energy_captured": {
+    "4": 0.9668,
+    "8": 0.9935,
+    "16": 1.0,
+    "32": 1.0,
+    "64": 1.0
+   },
+   "snr_db_vs_full_kernel": {
+    "4": 17.7,
+    "8": 21.1,
+    "16": 57.4,
+    "32": 107.7,
+    "64": 110.9
+   },
+   "bins_needed": {
+    "4": 2,
+    "8": 3,
+    "16": 4,
+    "32": 5,
+    "64": 9
+   },
+   "modes_for_99pct_energy": 7,
+   "modes_for_999pct_energy": 10,
+   "strongest_8": [
+    {
+     "shift_rung_n": 1,
+     "band_hz": 0.0,
+     "share": 0.371
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 93.75,
+     "share": 0.371
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 93.75,
+     "share": 0.112
+    },
+    {
+     "shift_rung_n": -1,
+     "band_hz": 93.75,
+     "share": 0.112
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 187.5,
+     "share": 0.01
+    },
+    {
+     "shift_rung_n": 2,
+     "band_hz": 0.0,
+     "share": 0.01
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 187.5,
+     "share": 0.003
+    },
+    {
+     "shift_rung_n": -1,
+     "band_hz": 187.5,
+     "share": 0.003
+    }
+   ],
+   "hann_vs_plain_32_modes_difference_db": -2.0
+  },
+  "stiff_string": {
+   "energy_captured": {
+    "4": 0.9034,
+    "8": 0.9473,
+    "16": 0.964,
+    "32": 0.973,
+    "64": 0.9813
+   },
+   "snr_db_vs_full_kernel": {
+    "4": 14.1,
+    "8": 18.0,
+    "16": 21.6,
+    "32": 23.8,
+    "64": 24.2
+   },
+   "bins_needed": {
+    "4": 4,
+    "8": 8,
+    "16": 14,
+    "32": 20,
+    "64": 25
+   },
+   "modes_for_99pct_energy": 158,
+   "modes_for_999pct_energy": 723,
+   "strongest_8": [
+    {
+     "shift_rung_n": 0,
+     "band_hz": 93.75,
+     "share": 0.682
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 187.5,
+     "share": 0.146
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 281.25,
+     "share": 0.049
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 375.0,
+     "share": 0.027
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 468.75,
+     "share": 0.022
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 656.25,
+     "share": 0.009
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 562.5,
+     "share": 0.008
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 750.0,
+     "share": 0.005
+    }
+   ],
+   "hann_vs_plain_32_modes_difference_db": -6.4
+  },
+  "knot_shadow": {
+   "energy_captured": {
+    "4": 1.0,
+    "8": 1.0,
+    "16": 1.0,
+    "32": 1.0,
+    "64": 1.0
+   },
+   "snr_db_vs_full_kernel": {
+    "4": 85.6,
+    "8": 85.6,
+    "16": 85.6,
+    "32": 85.6,
+    "64": 85.6
+   },
+   "bins_needed": {
+    "4": 4,
+    "8": 8,
+    "16": 16,
+    "32": 30,
+    "64": 55
+   },
+   "modes_for_99pct_energy": 4,
+   "modes_for_999pct_energy": 4,
+   "strongest_8": [
+    {
+     "shift_rung_n": -3,
+     "band_hz": 187.5,
+     "share": 0.777
+    },
+    {
+     "shift_rung_n": -6,
+     "band_hz": 375.0,
+     "share": 0.157
+    },
+    {
+     "shift_rung_n": -9,
+     "band_hz": 562.5,
+     "share": 0.049
+    },
+    {
+     "shift_rung_n": 2,
+     "band_hz": 281.25,
+     "share": 0.017
+    },
+    {
+     "shift_rung_n": 205,
+     "band_hz": 17156.25,
+     "share": 0.0
+    },
+    {
+     "shift_rung_n": 225,
+     "band_hz": 19968.75,
+     "share": 0.0
+    },
+    {
+     "shift_rung_n": 26,
+     "band_hz": 7968.75,
+     "share": 0.0
+    },
+    {
+     "shift_rung_n": -226,
+     "band_hz": 20531.25,
+     "share": 0.0
+    }
+   ],
+   "hann_vs_plain_32_modes_difference_db": -5.6
+  },
+  "penrose": {
+   "energy_captured": {
+    "4": 0.8,
+    "8": 1.0,
+    "16": 1.0,
+    "32": 1.0,
+    "64": 1.0
+   },
+   "snr_db_vs_full_kernel": {
+    "4": 14.2,
+    "8": 69.9,
+    "16": 69.9,
+    "32": 69.9,
+    "64": 69.9
+   },
+   "bins_needed": {
+    "4": 2,
+    "8": 5,
+    "16": 9,
+    "32": 15,
+    "64": 27
+   },
+   "modes_for_99pct_energy": 5,
+   "modes_for_999pct_energy": 5,
+   "strongest_8": [
+    {
+     "shift_rung_n": -10,
+     "band_hz": 281.25,
+     "share": 0.2
+    },
+    {
+     "shift_rung_n": 10,
+     "band_hz": 281.25,
+     "share": 0.2
+    },
+    {
+     "shift_rung_n": 6,
+     "band_hz": 843.75,
+     "share": 0.2
+    },
+    {
+     "shift_rung_n": -6,
+     "band_hz": 843.75,
+     "share": 0.2
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 1031.25,
+     "share": 0.2
+    },
+    {
+     "shift_rung_n": 350,
+     "band_hz": 2156.25,
+     "share": 0.0
+    },
+    {
+     "shift_rung_n": -350,
+     "band_hz": 2156.25,
+     "share": 0.0
+    },
+    {
+     "shift_rung_n": 456,
+     "band_hz": 5343.75,
+     "share": 0.0
+    }
+   ],
+   "hann_vs_plain_32_modes_difference_db": -7.3
+  },
+  "kuramoto_bloom": {
+   "energy_captured": {
+    "4": 0.5048,
+    "8": 0.7917,
+    "16": 0.9373,
+    "32": 0.9978,
+    "64": 1.0
+   },
+   "snr_db_vs_full_kernel": {
+    "4": 3.0,
+    "8": 6.7,
+    "16": 12.0,
+    "32": 28.4,
+    "64": 83.8
+   },
+   "bins_needed": {
+    "4": 3,
+    "8": 5,
+    "16": 5,
+    "32": 7,
+    "64": 10
+   },
+   "modes_for_99pct_energy": 26,
+   "modes_for_999pct_energy": 36,
+   "strongest_8": [
+    {
+     "shift_rung_n": 0,
+     "band_hz": 187.5,
+     "share": 0.135
+    },
+    {
+     "shift_rung_n": 2,
+     "band_hz": 0.0,
+     "share": 0.135
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 187.5,
+     "share": 0.132
+    },
+    {
+     "shift_rung_n": -1,
+     "band_hz": 93.75,
+     "share": 0.104
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 93.75,
+     "share": 0.086
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 281.25,
+     "share": 0.086
+    },
+    {
+     "shift_rung_n": 2,
+     "band_hz": 281.25,
+     "share": 0.07
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 375.0,
+     "share": 0.045
+    }
+   ],
+   "hann_vs_plain_32_modes_difference_db": -2.8
+  },
+  "matern": {
+   "energy_captured": {
+    "4": 0.9584,
+    "8": 0.989,
+    "16": 0.9966,
+    "32": 0.9989,
+    "64": 0.9996
+   },
+   "snr_db_vs_full_kernel": {
+    "4": 11.9,
+    "8": 18.1,
+    "16": 26.8,
+    "32": 31.1,
+    "64": 38.7
+   },
+   "bins_needed": {
+    "4": 2,
+    "8": 3,
+    "16": 3,
+    "32": 6,
+    "64": 8
+   },
+   "modes_for_99pct_energy": 9,
+   "modes_for_999pct_energy": 36,
+   "strongest_8": [
+    {
+     "shift_rung_n": 0,
+     "band_hz": 0.0,
+     "share": 0.809
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 93.75,
+     "share": 0.071
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 93.75,
+     "share": 0.058
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 0.0,
+     "share": 0.02
+    },
+    {
+     "shift_rung_n": -1,
+     "band_hz": 93.75,
+     "share": 0.017
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 187.5,
+     "share": 0.007
+    },
+    {
+     "shift_rung_n": 2,
+     "band_hz": 0.0,
+     "share": 0.004
+    },
+    {
+     "shift_rung_n": -1,
+     "band_hz": 187.5,
+     "share": 0.002
+    }
+   ],
+   "hann_vs_plain_32_modes_difference_db": 0.7
+  },
+  "fisher_ridge": {
+   "energy_captured": {
+    "4": 0.9744,
+    "8": 0.9944,
+    "16": 0.9995,
+    "32": 1.0,
+    "64": 1.0
+   },
+   "snr_db_vs_full_kernel": {
+    "4": 8.0,
+    "8": 16.9,
+    "16": 27.0,
+    "32": 42.4,
+    "64": 57.6
+   },
+   "bins_needed": {
+    "4": 2,
+    "8": 3,
+    "16": 4,
+    "32": 5,
+    "64": 7
+   },
+   "modes_for_99pct_energy": 7,
+   "modes_for_999pct_energy": 14,
+   "strongest_8": [
+    {
+     "shift_rung_n": 0,
+     "band_hz": 0.0,
+     "share": 0.95
+    },
+    {
+     "shift_rung_n": 1,
+     "band_hz": 0.0,
+     "share": 0.009
+    },
+    {
+     "shift_rung_n": -1,
+     "band_hz": 93.75,
+     "share": 0.008
+    },
+    {
+     "shift_rung_n": 2,
+     "band_hz": 0.0,
+     "share": 0.008
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 93.75,
+     "share": 0.007
+    },
+    {
+     "shift_rung_n": 0,
+     "band_hz": 187.5,
+     "share": 0.006
+    },
+    {
+     "shift_rung_n": -2,
+     "band_hz": 93.75,
+     "share": 0.004
+    },
+    {
+     "shift_rung_n": 2,
+     "band_hz": 93.75,
+     "share": 0.003
+    }
+   ],
+   "hann_vs_plain_32_modes_difference_db": 3.9
+  }
+ }
+}

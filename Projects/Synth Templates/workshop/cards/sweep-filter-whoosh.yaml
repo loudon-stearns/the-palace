@@ -1,0 +1,63 @@
+# Synth Templates — card 0.2 — Sweep (Filter Whoosh)
+# Sound Effects, tier 1. Noise through a band-pass; the envelope moves the band's center and that movement is the whole sound.
+schema: synth-template-card/0.2
+id: sweep-filter-whoosh
+name: Sweep (Filter Whoosh)
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Noise colors: white vs pink"
+
+graph:
+  blocks:
+    noise:   {kind: oscillator, wave: noise, color: white}
+    filter1: {kind: filter, type: bandpass, slope: 24, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: slow, d: slow, s: zero, r: same as decay}, category: swell}
+    aenv:    {kind: envelope, role: amp,    shape: {a: medium, d: medium, s: held, r: slow}, category: swell}
+  audio:
+    - [noise, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: noise,   param: wave,      value: noise,        why: "a band-pass needs something at every frequency to find; noise is that"}
+  - {block: filter1, param: type,      value: bandpass 24 dB, why: "a window, not a ceiling: what you hear is only where the center is"}
+  - {block: filter1, param: resonance, value: moderate,     why: "on a band-pass, resonance is width; moderate is a band narrow enough to be a place"}
+  - {block: filter1, param: cutoff,    value: dark,         why: "the band starts low; the envelope carries it up and brings it back"}
+  - {block: fenv,    param: attack,    value: slow,         why: "the center climbs over a second: the 'whoo'"}
+  - {block: fenv,    param: decay,     value: slow,         why: "and comes back down at the same pace: the 'osh'"}
+  - {block: fenv,    param: sustain,   value: zero,         why: "it returns to where it started; a held note is not a higher note"}
+  - {block: aenv,    param: attack,    value: medium,       why: "the loudness swells with the sweep rather than announcing it"}
+
+taste:
+  - {block: fenv,    param: attack,    range: "medium – very long", default: slow}
+  - {block: fenv,    param: decay,     range: "medium – very long", default: slow}
+  - {block: fenv,    param: amount,    range: "moderate – full",    default: full, why: "how far the band travels"}
+  - {block: filter1, param: resonance, range: "little – high",      default: moderate, why: "wider is a breath; narrower is a whistle"}
+  - {block: filter1, param: cutoff,    range: "dark – mid",         default: dark}
+  - {block: aenv,    param: release,   range: "medium – long",      default: slow}
+
+listening:
+  cue: "A breath that rises in pitch and falls back, though nothing is pitched: the sweep is the band of noise moving up and down. Nothing else changes."
+  ab: "Switch the filter to lowpass: the same envelope opens and closes a ceiling and the sound brightens rather than travels. Back to bandpass and the whoosh has a place again."
+
+render:
+  tempo: 120
+  note: C3
+  velocity: 100
+  pattern: "one note held two bars, released; the sweep rises and falls inside it"
+  length_s: 5.0
+
+mappings: {}

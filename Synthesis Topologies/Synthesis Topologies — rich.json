@@ -1,0 +1,107 @@
+{
+ "title": "Synthesis Topologies — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Synthesis Topologies]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  }
+ ],
+ "forward_vector": "I am the manifest of Synthesis Topologies' rich face: two made walks that test what the page says the family shares, the loop that holds a wavetable and a string together and the vibrato that turns into sidebands, with the fingerprint of the words each was made against. I grow when the entry is enriched again, and next toward the crowd; I never hold the entry's words.",
+ "entry": "Synthesis Topologies",
+ "tier": "sketch",
+ "made": "2026-11-03",
+ "round": 1,
+ "sections": [
+  {
+   "heading": "The Family",
+   "made_against": "f0a54d5f30be",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "Synthesis Topologies — rich — vibrato into sidebands.html",
+     "origin": "made",
+     "by": "Web Audio · canvas",
+     "height": 2050,
+     "title": "Vibrato into sidebands · five steps",
+     "caption": "**One vibrato, seen by a short look and a long one.** A sine; a slow vibrato the short look follows; the long look, which finds still lines either side of the note even at 5 Hz; the rate pushed until the short look sees lines too; then the test. The lines sit at the carrier plus and minus whole multiples of the rate, as loud as |Jₖ(β)|: the engine within 0.001 dB, and the Web Audio graph you hear, rendered offline, within 0.004 dB. Near β = 2.405 the carrier drops out; its row stays in the table, about −81 dB at 2.405 and nothing at the exact zero, 2.40483. Where motion turns into lines depends on the look: with a Hann window, 50 ms tells lines apart from about 49 Hz and 120 ms from about 21 Hz. The ear's own number is the page's; nothing here measures it.\n\nline k at fc + k · fm, amplitude |Jₖ(β)|, β = Δf ⁄ fm\n\n(line number k) sits at (the carrier) + k × (the rate), as loud as (the Bessel function of order k at the index); (the index) = (the depth) ÷ (the rate)",
+     "near": "Past about 20 Hz a vibrato stops being heard as motion",
+     "place": "band"
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Synthesis Topologies — rich — vibrato into sidebands.html",
+      "verdict": "keep",
+      "why": "A real test: sidebands at fc ± k·fm as loud as |Jk(β)|, from the phase-summing oscillator (0.006 dB) and the Web Audio graph offline (0.004 dB), and it walks up from one sine. Notes: keep the k = 0 row at β = 2.405 (it is hidden under the 1e-4 cutoff), and the check's −80.7 dB 'carrier' at fm = 110 is the k = −8 line folded through 0 Hz (J8 = 9.2e-5); at 137 Hz the carrier reads −181 dB."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "What the Family Shares",
+   "made_against": "27a8469a8895",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "Synthesis Topologies — rich — one loop, two instruments.html",
+     "origin": "made",
+     "by": "Web Audio · canvas",
+     "height": 2400,
+     "title": "One loop, two instruments · five steps",
+     "caption": "**The loop that holds a wavetable and a string together, one idea at a time.** A cycle read from a table; the same cycle going round a delay loop; then the page's test, their difference. It is nothing at every whole length from 40 to 400 samples: the table's floating-point counter leaves a residue 200 dB down, and a counter that lands exactly nulls to zero. Half a sample longer they part, −14.5 dB at 0.05 s to −3.2 dB at 3 s (N = 100), because the loop has to read between the samples of its own last trip and its highs fade, at the rate the loop predicts (within 0.15 dB a second). Last, an identity shown rather than tested: a straight-line read halfway is the average of two neighbours, so that loop is Karplus-Strong's average at ρ = 1, term for term, and their difference is zero by algebra. (The Waveguide Synthesizer page's string adds ρ = 0.996.)\n\ny[n] = (1 − d) · y[n − N] + d · y[n − N − 1]; at d = ½, y[n] = ½ · (y[n − N] + y[n − N − 1])\n\n(the loop's next sample) = a straight-line read d of the way between two samples one trip ago; halfway, that is (the average of the two), which is Karplus-Strong's loop",
+     "near": "A cycle read from a table and the same cycle going round a delay loop",
+     "place": "band"
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Synthesis Topologies — rich — one loop, two instruments.html",
+      "verdict": "remake",
+      "why": "Steps 3–4 test the page's sentence (whole length nulls, N + ½ parts), and the walk-up is the model one. But step 5's 'test' is algebra: a linear read at ½ is the average, so the null is 0 by construction; retitle it as an identity shown, lead the step-5 table with the whole-vs-half rows, drop 'at every shape and length tried', and say ρ = 1 where it names the Waveguide page's string (that page uses ρ = 0.996)."
+     }
+    ]
+   }
+  }
+ ],
+ "offers": [
+  {
+   "section": "What the Family Shares",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "An identity, not a finding, and a modest addition that names the seam between the stored loop and the loop that loses: a loop half a sample longer, read halfway by a straight line, computes (1 − ½)·a + ½·b, which is Karplus-Strong's average ½·(a + b) at ρ = 1, term for term. The qualifier matters: an allpass in the same slot also makes the loop half a sample longer and loses nothing. The page's own sentence holds as written, and the piece tests it: the table and the loop null at every whole length (−200 dB with a floating counter, 0 with an exact one) and part at N + ½ (−14.5 dB at 0.05 s to −3.2 dB at 3 s, N = 100). Possible sentence after the match: \"Between whole samples the loop has to read between its own last trip, and a loop half a sample longer, read halfway by a straight line, is Karplus-Strong's string.\""
+  },
+  {
+   "section": "The Family",
+   "kind": "no-claim-edit",
+   "status": "open",
+   "what": "The page is not wrong. Its clause in § FM is about hearing, but \"turns into new partials\" can read as if the partials appear at 20 Hz. They are there at every rate: a 5 Hz, ± 30 Hz vibrato (β = 6) has 17 lines 5 Hz apart with |Jₖ| > 0.05 (23 above 1e-3, 27 above 1e-4), each within 0.001 dB of |Jₖ(6)|. Whether they show as lines depends on the look: with a Hann window and a 3 dB dip, 50 ms resolves from 49 Hz (2.45 ⁄ T) and 120 ms from 21 Hz (2.52 ⁄ T); a plain rectangular window of the same lengths resolves from 28 and 12 Hz. Neither is the ear. Possible wording: \"Past about 20 Hz a vibrato stops being heard as motion and is heard instead as the partials it always made, either side of the note.\" From the literature, not checked here: near 20 Hz the ear hears roughness first, and sidebands are heard as their own pitches only once they stand about a critical band apart, so \"tone colour\" or \"sidebands\" may keep that middle stage better than \"partials\"."
+  }
+ ]
+}

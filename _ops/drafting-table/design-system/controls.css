@@ -1,0 +1,200 @@
+/* Drafting Table — controls.css: the browser's furniture, re-dressed.
+   Load after colors_and_type.css (and fonts.css), before bundle.css and the page's own styles.
+
+   bundle.css dresses the twelve components. This sheet dresses what the browser draws when a
+   page says nothing: scrollbars, the select chevron, checkboxes and radios, range sliders, the
+   textarea grip, number spinners, the <details> marker, the focus ring, selection, the file
+   button. Left alone each arrives in the OS's dress and sits on the sheet like a part from
+   another drawing. Here they obey the grammar: square, a hairline is the control, anything the
+   hand holds is a slab, the pointer's attention is accent, and every value is also written.
+
+   The scrollbar is carried over from STIGMERGY's board (`.bbs-scroll` in the app's tokens.css),
+   as the one thing of the terminal's that the sheet keeps: radius 0, a thumb in `rule`, no OS
+   chrome. The board's pixel cursors still stay with the board.
+
+   Element selectors only, so any class a page writes wins by order. Chrome and Safari draw the scrollbar from
+   the ::-webkit-scrollbar rules; Firefox, which has none, gets the standard properties under @supports. */
+
+/* 1 · which side of the light. Paper is light, Phosphor is dark; the popups and pickers follow. */
+:root, [data-theme="paper"] { color-scheme: light; }
+[data-theme="phosphor"] { color-scheme: dark; }
+
+/* 2 · scrollbars: a fader slot in the gutter. The track is a recess (ground-100 with a hairline in rule on
+   its outer edge); the thumb is a cap, a slab outlined in ink, square-ended, radius 0, that goes slab-light
+   while dragged. Chrome and Safari draw this from the ::-webkit-scrollbar rules; Chrome drops them the moment
+   scrollbar-width is set and draws its own rounded thumb, so the standard properties are scoped to the
+   browsers that have no ::-webkit-scrollbar (Firefox), where thin + colour is all that can be asked. */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--ground-100); border-left: var(--stroke-rule) solid var(--rule); }
+::-webkit-scrollbar-track:horizontal { border-left: 0; border-top: var(--stroke-rule) solid var(--rule); }
+::-webkit-scrollbar-thumb { background: var(--slab-face); border: var(--stroke-rule) solid var(--ink); border-radius: var(--radius-0); box-shadow: inset 0 1px 0 var(--slab-light); }
+::-webkit-scrollbar-thumb:hover  { background: var(--slab-light); }
+::-webkit-scrollbar-thumb:active { background: var(--slab-light); border-color: var(--accent); }
+::-webkit-scrollbar-corner { background: var(--ground-100); }
+::-webkit-scrollbar-button { display: none; width: 0; height: 0; }
+@supports not selector(::-webkit-scrollbar) {
+  * { scrollbar-width: thin; scrollbar-color: var(--rule) var(--ground-100); }
+  *:hover { scrollbar-color: var(--ink-2) var(--ground-100); }
+}
+
+/* 3 · selection: ink on ground inverted, as the terminal has it. (bundle.css scopes it to .dt; this is the page.) */
+::selection { background: var(--selection); color: var(--on-selection); text-shadow: none; }
+
+/* 4 · keyboard focus: the dashed ink hairline the components already wear. Pointer focus shows nothing. */
+:focus { outline: none; }
+:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+
+/* 5 · the fields: a hairline cell in ground-000, ink text, a recess on focus. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]),
+textarea,
+select {
+  appearance: none; -webkit-appearance: none;
+  font: inherit; font-family: var(--font-mono); font-size: 13px; line-height: 18px;
+  color: var(--ink); background: var(--ground-000);
+  border: var(--stroke-rule) solid var(--rule); border-radius: var(--radius-0);
+  padding: var(--space-2) var(--space-3);
+}
+input:hover, textarea:hover, select:hover { border-color: var(--ink-2); }
+input:focus, textarea:focus, select:focus { border-color: var(--ink); box-shadow: var(--shadow-recess); outline: none; }
+input:disabled, textarea:disabled, select:disabled, button:disabled { opacity: .5; cursor: default; }
+::placeholder { color: var(--ink-3); opacity: 1; }
+[data-theme="phosphor"] ::placeholder { color: var(--ink-2); }
+
+/* textarea: grows down only; the grip is two 45° hairlines in `rule`, the hatch of a cut face. */
+textarea { resize: vertical; min-height: 3.5em; }
+textarea::-webkit-resizer {
+  background: linear-gradient(135deg, transparent 0 58%, var(--rule) 58% 64%, transparent 64% 76%, var(--rule) 76% 82%, transparent 82%);
+  background-clip: content-box;
+}
+
+/* select: the chevron is two hairlines in ink-2, no icon, no hex. The popup takes color-scheme. */
+select {
+  padding-right: calc(var(--space-3) + 18px);
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink-2) 50%), linear-gradient(135deg, var(--ink-2) 50%, transparent 50%);
+  background-position: calc(100% - 15px) calc(50% - 2px), calc(100% - 10px) calc(50% - 2px);
+  background-size: 5px 5px, 5px 5px; background-repeat: no-repeat;
+  cursor: pointer;
+}
+select:focus { background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); }
+select[multiple], select[size] { background-image: none; padding-right: var(--space-3); }
+select option { background: var(--ground-100); color: var(--ink); }
+
+/* number: no spinner; arrows and the wheel step the value, as every control here does. */
+input[type="number"] { -moz-appearance: textfield; }
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator { opacity: .55; cursor: pointer; }
+
+/* 6 · checkbox and radio: a 14px ink-outlined cell; a radio is round because it is a turned part.
+   Checked: ink fill with the ground ringed inside, the terminal's ● on. Accent would say "lit", and a
+   checkbox is not the one lit thing in a view. */
+input[type="checkbox"], input[type="radio"] {
+  appearance: none; -webkit-appearance: none;
+  width: 14px; height: 14px; margin: 0 var(--space-2) 0 0; vertical-align: -2px; flex: none;
+  border: var(--stroke-rule) solid var(--ink-2); border-radius: var(--radius-0);
+  background: var(--ground-000); cursor: pointer;
+}
+input[type="radio"] { border-radius: var(--radius-round); }
+input[type="checkbox"]:hover, input[type="radio"]:hover { border-color: var(--ink); }
+input[type="checkbox"]:checked, input[type="radio"]:checked { border-color: var(--ink); background: var(--ink); box-shadow: inset 0 0 0 3px var(--ground-000); }
+input[type="checkbox"]:indeterminate { border-color: var(--ink); background: linear-gradient(var(--ink), var(--ink)) center / 8px 2px no-repeat var(--ground-000); }
+
+/* 7 · range: a fader. The track is a hairline in `rule`; the thumb is a cap, a slab outlined in ink,
+   taller than wide, lifted by shadow-slab, and it never shows its number: the page writes the value beside it. */
+input[type="range"] { appearance: none; -webkit-appearance: none; width: 100%; height: 18px; margin: 0; padding: 0; background: transparent; border: 0; cursor: ew-resize; }
+input[type="range"]:focus { outline: none; }
+input[type="range"]::-webkit-slider-runnable-track { height: 2px; background: var(--rule); }
+input[type="range"]::-moz-range-track { height: 2px; background: var(--rule); }
+input[type="range"]::-moz-range-progress { height: 2px; background: var(--ink-2); }
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 10px; height: 16px; margin-top: -7px;
+  background: var(--slab-face); border: var(--stroke-rule) solid var(--ink); border-radius: var(--radius-bevel);
+  box-shadow: var(--shadow-slab);
+}
+input[type="range"]::-moz-range-thumb { width: 8px; height: 14px; background: var(--slab-face); border: var(--stroke-rule) solid var(--ink); border-radius: var(--radius-bevel); box-shadow: var(--shadow-slab); }
+input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb { background: var(--slab-light); border-color: var(--accent); }
+input[type="range"]:active::-moz-range-thumb { background: var(--slab-light); border-color: var(--accent); }
+input[type="range"][orient="vertical"] { writing-mode: vertical-lr; direction: rtl; width: 18px; height: 100%; cursor: ns-resize; }
+
+/* 8 · the bare <button>: a quiet slab, so a page that writes one with no class still gets a part, not OS chrome. */
+button, input[type="submit"], input[type="button"], input[type="reset"], ::file-selector-button {
+  appearance: none; -webkit-appearance: none;
+  font: inherit; font-family: var(--font-mono); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink); background: var(--slab-face);
+  border: var(--stroke-rule) solid var(--ink); border-radius: var(--radius-bevel);
+  padding: var(--space-2) var(--space-4); cursor: pointer;
+}
+button:hover, ::file-selector-button:hover { background: var(--slab-light); }
+button:active { background: var(--ground-100); box-shadow: var(--shadow-recess); }
+input[type="file"] { font: inherit; font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); }
+::file-selector-button { margin-right: var(--space-3); }
+
+/* 9 · details: the sheet's ▸ ▾ in ink, not the OS triangle. */
+summary { list-style: none; cursor: pointer; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▸"; display: inline-block; width: 1.1em; color: var(--ink); }
+details[open] > summary::before { content: "▾"; }
+
+/* 10 · dialog, progress, meter: when one arrives it wears the sheet. A meter's fill is hatching (rule 6). */
+dialog { color: var(--ink); background: var(--ground-000); border: var(--stroke-frame) solid var(--ink); border-radius: var(--radius-0); padding: var(--space-5); box-shadow: var(--shadow-slab); }
+dialog::backdrop { background: rgba(0,0,0,.5); }
+progress, meter { appearance: none; -webkit-appearance: none; width: 100%; height: 8px; border: var(--stroke-rule) solid var(--rule); background: var(--ground-200); border-radius: 0; }
+progress::-webkit-progress-bar { background: var(--ground-200); }
+progress::-webkit-progress-value, meter::-webkit-meter-optimum-value, meter::-webkit-meter-bar, progress::-moz-progress-bar {
+  background: repeating-linear-gradient(45deg, var(--ink-3) 0 1px, transparent 1px 4px); border-radius: 0;
+}
+
+/* 11 · the native tooltip has no dress. `title=` pops the OS tooltip; write the note on the sheet instead
+   (a numbered note, a caption in sheet-note). Nothing here can style it. */
+
+/* 12 · the rest of the furniture: what else the browser draws alone. */
+
+/* links: ink with a hairline under, the datasheet blue when it leaves the sheet */
+a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--rule); }
+a:hover { text-decoration-color: currentColor; }
+a[href^="http"] { color: var(--source-datasheet); }
+a:visited { color: inherit; }
+
+/* hr: a hairline, not the 3D groove */
+hr { border: 0; border-top: var(--stroke-rule) solid var(--rule); margin: var(--space-5) 0; }
+
+/* mark and kbd: the yellow highlighter and the grey key cap go. A mark is hatched, a key is a slab. */
+mark { background: repeating-linear-gradient(45deg, var(--ground-200) 0 1px, transparent 1px 4px); color: inherit; box-shadow: 0 0 0 1px var(--rule); padding: 0 2px; }
+kbd { font-family: var(--font-mono); font-size: .85em; padding: 1px 5px; color: var(--ink); background: var(--slab-face); border: var(--stroke-rule) solid var(--ink); border-radius: var(--radius-bevel); box-shadow: var(--shadow-slab); }
+
+/* code: the browser's Courier goes */
+code, pre, samp { font-family: var(--font-mono); }
+
+/* numbers line up: readouts, dimensions, tables */
+.num, td, th, time, output, .sheet-dim { font-variant-numeric: tabular-nums; }
+
+/* autofill: Chrome paints a yellow or blue field; paint it back in the ground */
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus { -webkit-text-fill-color: var(--ink); -webkit-box-shadow: 0 0 0 1000px var(--ground-000) inset; caret-color: var(--ink); }
+
+/* a field filled wrong: a HOLD, in source-measure, no OS bubble (add novalidate and write the message) */
+input:user-invalid, textarea:user-invalid, select:user-invalid { border-color: var(--source-measure); }
+
+/* in-window scrollers keep their scroll to themselves and hold their width */
+[style*="overflow"], .scroll, .scroller, textarea, select[multiple], pre { overscroll-behavior: contain; scrollbar-gutter: stable; }
+
+/* touch: no grey flash on tap, no accidental selection on a control */
+* { -webkit-tap-highlight-color: transparent; }
+button, summary, label, input[type="range"], input[type="checkbox"], input[type="radio"] { user-select: none; -webkit-user-select: none; }
+
+/* motion: discrete or short already; for a reader who asked for stillness, none */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* select popup: where the browser lets the page draw it (Chrome 135+) it is a hairline cell; elsewhere color-scheme keeps it on the right ground */
+@supports selector(::picker(select)) {
+  select, ::picker(select) { appearance: base-select; }
+  ::picker(select) { background: var(--ground-000); color: var(--ink); border: var(--stroke-rule) solid var(--ink); border-radius: 0; padding: 0; box-shadow: var(--shadow-slab); }
+  select option { padding: var(--space-1) var(--space-3); }
+  select option:checked { background: var(--ink); color: var(--ground-000); }
+  select option:hover, select option:focus-visible { background: var(--ground-200); outline: none; }
+  select::picker-icon { display: none; }
+}
+
+/* audio: `controls` is the OS's player and nothing here can dress it. transport.js, loaded after the page's audio, replaces every
+   <audio controls> with the Transport (bundle.css § Transport, the thirteenth component). <video controls> still shows the OS player. */

@@ -1,0 +1,49 @@
+{
+ "entry": "Hand-Drawn 3D Look",
+ "path": "Hand-Drawn 3D Look.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "§ What Blender draws for free + The seam is a redraw: 'Same scene, opposite feeling, one config away' (SKETCHY vs PLAIN), and low denoise hands the render back while ~0.95 with loose Canny redraws the medium.",
+ "pieces": [
+  {
+   "section": "The seam is a redraw, not a filter",
+   "what": "The denoise ladder: one plate at 0.7, 0.88, 0.9, 0.95, scrubbed, so the reader sees where the render becomes a drawing.",
+   "kind": "image",
+   "walks_up_from": "the Blender plate alone"
+  },
+  {
+   "section": "What Blender draws for free",
+   "what": "Tentative against confident ink on the same scene.",
+   "kind": "image",
+   "walks_up_from": "the toon pass with no line"
+  },
+  {
+   "section": "Ink that lives in 3D",
+   "what": "The blob field parallaxing with the camera, baked against comp layer.",
+   "kind": "video",
+   "walks_up_from": "one blob as a billboard"
+  },
+  {
+   "section": "Motion is atmosphere",
+   "what": "Smoke and clouds boiling on twos.",
+   "kind": "video",
+   "walks_up_from": "one still frame"
+  }
+ ],
+ "gathered": [
+  "/Projects/BLUELINE/proofs/blender-handdrawn/atlas/atlas_denoise_lesson.png",
+  "/Projects/BLUELINE/proofs/blender-handdrawn/atlas/atlas_seam.png",
+  "/Projects/BLUELINE/proofs/blender-handdrawn/atlas/atlas_stills.png",
+  "/Projects/BLUELINE/proofs/blender-handdrawn/atlas/atlas_blobspace_parallax.png",
+  "/Projects/BLUELINE/proofs/blender-handdrawn/blobspace.mp4",
+  "/Projects/BLUELINE/proofs/blender-handdrawn/motion/smoke.mp4",
+  "/Projects/BLUELINE/proofs/blender-handdrawn/motion/clouds.mp4",
+  "/Projects/BLUELINE/proofs/blender-handdrawn/stylized/city_push_d95_cn40.png",
+  "/Projects/BLUELINE/proofs/blender-handdrawn/blender/city_ink.png",
+  "/Projects/BLUELINE/proofs/blender-handdrawn/catalog/atlas_seam_variation.png"
+ ],
+ "tier": "sketch",
+ "note": "All gathering from BLUELINE proofs; check which of the videos git tracks before relying on them.",
+ "slice": 1
+}

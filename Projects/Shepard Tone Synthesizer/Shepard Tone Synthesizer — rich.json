@@ -1,0 +1,384 @@
+{
+ "title": "Shepard Tone Synthesizer — rich",
+ "born": "2026-11-03",
+ "links": [
+  {
+   "target": "[[Shepard Tone Synthesizer]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Progressive Staging]]",
+   "type": "connects-to",
+   "label": "the-walks-follow-it"
+  }
+ ],
+ "forward_vector": "I am the manifest of Shepard Tone Synthesizer's rich face, its first round, a Study offered as a proposal: two walks made for the stages that had no test a reader could play (the still drone, and the free seam done blind), and beside every other stage the renders and instruments its steward already made, laid in the order that walks up to each one's test. I grow when the instrument grows a stage; I never hold the entry's words.",
+ "entry": "Shepard Tone Synthesizer",
+ "tier": "study",
+ "made": "2026-11-03",
+ "round": 1,
+ "sections": [
+  {
+   "heading": "How Shepard Tones Work",
+   "made_against": "189480882cd4",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-05-04-shepard-explanation.png",
+     "origin": "gathered",
+     "title": "how the Shepard tone works · the May chart",
+     "caption": "Ten voices (the chart says partials) rising in lockstep through one fixed Gaussian window, drawn in log frequency. Each line enters at the bottom, near silent, and leaves at the top, near silent. Its window sits near 300 Hz on A, not on C4 as the example below has it.",
+     "near": "The Shepard tone is a psychoacoustic illusion",
+     "place": "band"
+    },
+    {
+     "file": "proofs/2026-05-04-endless-ascent-v2.wav",
+     "origin": "gathered",
+     "title": "the endless ascent · May render, second take",
+     "caption": "Twelve seconds of climb, the mechanism above as sound. This is the second take: in the first, Loudon heard clicks, and the fix was to wrap each voice on its own, at the moment its level is near zero. Keep ascending; arrive nowhere.",
+     "near": "Keep ascending forever; arrive nowhere"
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-05-04-shepard-explanation.png",
+      "verdict": "keep",
+      "why": "Illustrates rather than tests, but the caption says honestly where it disagrees with the text (window near 300 Hz on A, not C4), which sets up offer 2. Note: 'near silent' at entry is about −16 dB on the chart's own curve."
+     },
+     {
+      "file": "proofs/2026-05-04-endless-ascent-v2.wav",
+      "verdict": "keep",
+      "why": "The mechanism as sound; the caption's history (clicks from every octave snapping back, fixed by a per-voice wrap near zero) matches the 2026-05-04 Proof Showcase v2."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "The Synthesizer Architecture",
+   "made_against": "41681087d6f3",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "session-1-interactive.html",
+     "origin": "gathered",
+     "contract": {},
+     "height": 2400,
+     "title": "the April session page · Stage 1, Ableton",
+     "caption": "**The rack, built.** The April Loud’n Live session for this design: nine Pitch devices in a MIDI Effect Rack, one AutoFilter on the sum as the Shepard window, and a picture of the stack cycling through it. Gathered as it was. One step has aged: it offers a saw as well as a sine, and Stage 4 measured that a filter on the sum lets a saw’s wrapping voice in as a thump (the correction under Global Shepard Filter). Keep the voices sines for this rack.",
+     "near": "In Ableton, this is easy"
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "session-1-interactive.html",
+      "verdict": "keep",
+      "why": "A real thing to make rather than a test; the caption flags its one aged step (line 530 offers a saw) against Stage 4's measurement."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Portamento in a Polyphonic Shepard",
+   "made_against": "a5a0e0a3021b",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "proofs/2026-09-15-stage3-broken-async-450ms.wav",
+     "origin": "gathered",
+     "title": "every octave gliding on its own · September",
+     "caption": "**The challenge, heard.** The stack with each voice gliding separately: the octaves arrive at different times and the one note smears apart.",
+     "near": "The challenge"
+    },
+    {
+     "file": "proofs/2026-09-15-stage3-glide-450ms.wav",
+     "origin": "gathered",
+     "title": "one glide for the whole stack · 450 ms · September",
+     "caption": "**The solution, heard.** The same glide time, one glide for every octave: a single voice sliding, the way the paragraph above describes.",
+     "near": "Practical effect"
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "proofs/2026-09-15-stage3-broken-async-450ms.wav",
+      "verdict": "keep",
+      "why": "Half of an A/B pair that could go against the text by ear, placed at 'The challenge'."
+     },
+     {
+      "file": "proofs/2026-09-15-stage3-glide-450ms.wav",
+      "verdict": "keep",
+      "why": "The other half of the A/B pair, placed at 'Practical effect'."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Theory — Octave Equivalence",
+   "made_against": "af68b2fb6ca1",
+   "made": "2026-11-03",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-03",
+    "by": "maker · claude-opus-5-5 · proposal round",
+    "round": "proposal-round-2026-11"
+   },
+   "pieces": [
+    {
+     "file": "Shepard Tone Synthesizer — rich — the still drone.html",
+     "origin": "made",
+     "by": "Web Audio · the Maker",
+     "height": 900,
+     "caption": "**Stage 1, walked up to its test.** One sine at C4; its octaves added one at a time; the window, set three ways against the page’s sentence about a bandpass in Hz (the page’s Gaussian in log2(Hz), a real 2-pole bandpass, a bell drawn on a linear Hz axis), with the energy either side of C4 for each; then the test: pull one voice off its octave, or stretch them all, and hear when seven sines stop being one note. The page says the still stack fuses. It doesn’t say how far a voice can stray before it is two, so that number is yours. The engine is shepard_synth.py’s: C1 to C7, σ 1 octave on C4.",
+     "near": "This is the claim the static drone makes",
+     "remade": "2026-11-03, after the challenge: the real bandpass added, the Hz bell named for what it is, step 3 asks instead of answering"
+    },
+    {
+     "file": "proofs/2026-05-04-endless-ascent.wav",
+     "origin": "gathered",
+     "title": "the endless ascent · May render, first take",
+     "caption": "**A seam that was not free.** The first May render, where every voice snapped back at once at the loop point. Loudon heard clicks: “I am hearing clicks at a few moments.” The second take, in How Shepard Tones Work, wraps each voice alone while it is quiet, and the clicks went.",
+     "near": "The lesson Stage 2 teaches that the still drone could not"
+    },
+    {
+     "file": "Shepard Tone Synthesizer — rich — the free seam.html",
+     "origin": "made",
+     "by": "Web Audio · the Maker",
+     "height": 1000,
+     "caption": "**Stage 2, tested blind.** The still drone, one semitone step, twelve steps that come home, the seam lit red with its level as it leaves and lands. Then the test, on headphones: twelve steps with the picture and the readout covered, and you press when you hear the join. Two comparisons read the two things this section says hide the seam: session 2’s window against a wide one (the window’s share), and the wide window landing on its octave against a semitone off (octave equivalence’s share). The window is session 2’s, 600 Hz and σ 1.6 octaves; the page gives no numbers. Measured, not heard: in it the wrapping voice leaves 34.8 dB and lands 33.2 dB under the loudest voice.",
+     "near": "This is the precise sense in which the Shepard illusion",
+     "remade": "2026-11-03, after the challenge: session 2’s window named as such, the two comparisons named, headphones asked for"
+    },
+    {
+     "file": "session-2-interactive.html",
+     "origin": "gathered",
+     "contract": {},
+     "height": 1500,
+     "title": "the Stage 2 instrument · June",
+     "caption": "The existing proof the walk above ends at, as it was built in June: arrow keys step, the space bar climbs, the wrap flashes red. The walk uses its numbers.",
+     "near": "This is the precise sense in which the Shepard illusion"
+    },
+    {
+     "file": "rich-face/2026-10-18-stage3-A-lockstep.wav",
+     "origin": "gathered",
+     "title": "A · one shared glide on pitch · 0.0 ¢",
+     "caption": "The climbing phrase C E G C′ E′ G′ C″ with one glide for the whole stack. Start here: one note sliding.",
+     "near": "So the glide is computed once"
+    },
+    {
+     "file": "rich-face/2026-10-18-stage3-C-drift-040.wav",
+     "origin": "gathered",
+     "title": "C · a glide per voice, ±40 % · up to 93 ¢",
+     "caption": "The same phrase, each voice with its own glide time. Listen at the note changes.",
+     "near": "So the glide is computed once"
+    },
+    {
+     "file": "rich-face/2026-10-18-stage3-E-hz-slew.wav",
+     "origin": "gathered",
+     "title": "E · every oscillator ramping at 150 Hz/s · up to 1006 ¢",
+     "caption": "The common patching mistake: the low voices land almost at once, the high ones crawl.",
+     "near": "So the glide is computed once"
+    },
+    {
+     "file": "proofs/2026-10-18-stage3-glide-fusion.png",
+     "origin": "gathered",
+     "title": "how far the audible octaves disagree, six ways to glide",
+     "caption": "The three clips beside this, and three more, measured sample by sample.",
+     "near": "So the glide is computed once"
+    },
+    {
+     "file": "session-3-interactive.html",
+     "origin": "gathered",
+     "contract": {
+      "needs": "storage"
+     },
+     "height": 1700,
+     "title": "the glide, playable · October",
+     "caption": "**The test: drift on an endless climb.** Press *start sound*, then *endless up*, and raise *drift between octaves*: the spoke fans out and the readout gives the split in cents. The section predicts about 16 ¢ at 2 semitones a second with ±30 % drift, held for as long as the climb lasts. Switch the glide to *Hz slew, per voice* for the patching mistake.",
+     "near": "At 2 semitones a second"
+    },
+    {
+     "file": "rich-face/2026-10-18-stage4-A-ratio4.wav",
+     "origin": "gathered",
+     "title": "A · sawtooth voices, filter ×4 on each, window on each",
+     "caption": "The build that works: 92 % of the energy on the note, 7 % on its fifth, heard as colour.",
+     "near": "The first answer is that the fifth is color"
+    },
+    {
+     "file": "rich-face/2026-10-18-stage4-D-tracks-note.wav",
+     "origin": "gathered",
+     "title": "D · the filter follows the played note",
+     "caption": "Pitch seamless; the brightness drops about 0.2 octave once an octave. Play it against A.",
+     "near": "The second answer is that"
+    },
+    {
+     "file": "rich-face/2026-10-18-stage4-E-sum-window-11.wav",
+     "origin": "gathered",
+     "title": "E · the window on the sum · −30 dB at each wrap",
+     "caption": "The architecture as first drawn: the wrapping voice gets in through its overtones, and the lowest voices flutter. Measured from numbers; nobody has listened for the thump yet.",
+     "near": "The third answer corrects the architecture"
+    },
+    {
+     "file": "proofs/2026-10-18-stage4-timbre.png",
+     "origin": "gathered",
+     "title": "every overtone of the six climbs",
+     "caption": "The tone seam in D and the wrap thumps in E show as vertical edges.",
+     "near": "The third answer corrects the architecture"
+    },
+    {
+     "file": "session-4-interactive.html",
+     "origin": "gathered",
+     "contract": {},
+     "height": 1700,
+     "title": "the timbre, playable · October",
+     "caption": "**The test: switch the wiring while it climbs.** Press *start sound* and *endless up*, then move *what the tone filter follows* to *the played note*, or *where the bright window sits* to *on the summed audio*, and listen for the two seams this section measured.",
+     "near": "The third answer corrects the architecture"
+    }
+   ],
+   "stamped": "2026-11-03",
+   "challenge": {
+    "date": "2026-11-03",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Shepard Tone Synthesizer — rich — the still drone.html",
+      "verdict": "remake",
+      "why": "Step 3 stands a Gaussian drawn on a linear Hz axis in for the page's 'literal bandpass', so it confirms the sentence by construction; a real 2-pole bandpass at C4 is symmetric in octaves (C3 = C5 = −3.0 dB, 28.7 % below and above). Add that bandpass as a fourth window with the low/high energy readout, rename the Hz bell for what it is, and let step 3 ask rather than answer; engine, walk and step 4 stand."
+     },
+     {
+      "file": "proofs/2026-05-04-endless-ascent.wav",
+      "verdict": "keep",
+      "why": "The counter-case beside 'the seam is free': a wrap that clicked because every voice snapped at once; the quote is sourced in the May showcase."
+     },
+     {
+      "file": "Shepard Tone Synthesizer — rich — the free seam.html",
+      "verdict": "remake",
+      "why": "A real blind test with right chance figures and one wrap per trial, but it calls session-2's window (600 Hz, σ 1.6) 'the page's', and in that window the semitone-off wrap lands 33.2 dB down and peaks at −19.8 dB, so page/wrong will likely score near chance and read as 'octave equivalence does nothing'. Relabel the window, name the two comparisons (page/octave vs wide/octave; wide/octave vs wide/wrong), say page/wrong is expected near chance, and ask for headphones (27 Hz and 14 kHz ends); tally and engine stand."
+     },
+     {
+      "file": "session-2-interactive.html",
+      "verdict": "keep",
+      "why": "The proof the free-seam walk ends at, gathered as built."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage3-A-lockstep.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 3 render manifest: 0.0 ¢."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage3-C-drift-040.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 3 render manifest: 92.8 ¢ worst."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage3-E-hz-slew.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 3 render manifest: 1005.9 ¢ at 150 Hz/s."
+     },
+     {
+      "file": "proofs/2026-10-18-stage3-glide-fusion.png",
+      "verdict": "keep",
+      "why": "The measurement behind the three clips beside it."
+     },
+     {
+      "file": "session-3-interactive.html",
+      "verdict": "keep",
+      "why": "The section's test, playable; the controls the caption names exist, and its review-layer storage warning is the gathered record's own."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage4-A-ratio4.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 4 render manifest: purity 0.924, fifth 0.065."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage4-D-tracks-note.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 4 render manifest: a 0.195-octave brightness jump."
+     },
+     {
+      "file": "rich-face/2026-10-18-stage4-E-sum-window-11.wav",
+      "verdict": "keep",
+      "why": "Caption matches the Stage 4 render manifest (seam −29.5 dB) and says honestly nobody has listened for the thump."
+     },
+     {
+      "file": "proofs/2026-10-18-stage4-timbre.png",
+      "verdict": "keep",
+      "why": "The measurement behind the Stage 4 clips."
+     },
+     {
+      "file": "session-4-interactive.html",
+      "verdict": "keep",
+      "why": "The section's test, playable; the controls the caption names exist."
+     }
+    ]
+   }
+  }
+ ],
+ "offers": [
+  {
+   "section": "Theory — Octave Equivalence",
+   "kind": "claim-change",
+   "what": "Stage 2: the free-seam piece measured where the forgiving happens, in session 2's window (600 Hz, σ 1.6 oct; the page states no window). The wrapping voice leaves 34.82 dB and lands 33.22 dB under the loudest voice, and the summed level moves 0.0002 dB across the swap, so the window alone keeps the join quiet; octave equivalence decides what the landed voice becomes as it climbs (a wrong-landing wrap stays under −19.8 dB for the rest of a 12-step climb). 'In a world without octave equivalence that drop would be a catastrophe' may want to say that the window has already put the voice ~35 dB down at both ends. Not heard; the blind trial is for Loudon's ear. Confirmed by the challenger.",
+   "status": "open"
+  },
+  {
+   "section": "How Shepard Tones Work",
+   "kind": "no-claim-edit",
+   "what": "The worked example centres the window on C4 but puts C2 and C3 in the sweet spot and has C5 and C6 fading. Under any window symmetric in octaves on C4, C3 and C5 match (−4.34 dB at σ 1 oct) and C2 and C6 match (−17.37 dB); C1 and C7 sit at −39.09 dB. Suggest: C3, C4 and C5 in the sweet spot; C2 and C6 fading; C1 and C7 almost gone. The example's stack also lists C1 to C5, then has C6 fading. Confirmed by the challenger.",
+   "status": "open"
+  },
+  {
+   "section": "The Synthesizer Architecture",
+   "kind": "no-claim-edit",
+   "what": "'A 2-octave window is typical (about 1.4 × center frequency)': a band from fc/2 to 2fc is 1.5 × fc wide, Q = 2/3 ≈ 0.667 (1.4 × fc would be a 1.88-octave band). Arithmetic, not a piece. 'All 128 MIDI octaves' (here and in Design Challenge 5) reads as 128 MIDI notes, which span 10.58 octaves. Confirmed by the challenger.",
+   "status": "open"
+  },
+  {
+   "section": "Theory — Octave Equivalence",
+   "kind": "no-claim-edit",
+   "what": "'Pair with Stage N above' (Stages 1 to 4) points at Stage headings the page doesn't have above Theory; the only Stage headings are Theory's own ### subsections. Suggest 'Pair with the Stage 1 build (…)' or drop 'above'. Confirmed by the challenger.",
+   "status": "open"
+  },
+  {
+   "section": "Theory — Octave Equivalence",
+   "kind": "claim-change",
+   "by": "challenger · claude-opus-5-5",
+   "what": "Stage 1, line 179: 'A literal bandpass in Hz would over-emphasize the lower octaves … and break the symmetry' does not hold for a real bandpass filter. A 2-pole bandpass is geometrically symmetric about its centre (|H(f)| = |H(fc²/f)|), so on the Stage 1 stack at C4 with a 2-octave band (Q 0.667) C3 = C5 = −3.0 dB, C2 = C6 = −8.6 dB, C1 = C7 = −14.6 dB, with 28.7 % of the energy below C4 and 28.7 % above; two in series give C3 = C5 = −6.0 dB. What over-weights the lows is a window drawn symmetric on a linear Hz axis (57.0 % below C4 against 21.8 % for the log Gaussian). The live difference between a bandpass and the log Gaussian is the skirt (C1 and C7 at −14.6 dB vs −39 dB), which bears on Design Challenge 1's 'too wide … muddy'. The remade still-drone piece's step 3 now sets the three side by side.",
+   "status": "open"
+  }
+ ]
+}

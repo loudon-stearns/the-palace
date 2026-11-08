@@ -1,0 +1,363 @@
+<!doctype html>
+<!--
+  title: Hand-Drawn 3D Look — rich — the boil, measured
+  born: 2026-11-03
+  links: [[Hand-Drawn 3D Look]] connects-to · rich-face-piece-of · [[BLUELINE]] re-runs · 03_motion.py's smoke · [[Shop/Blender]] connects-to · freestyle-noise · [[Progressive Staging]] exemplifies · a walk up to its test
+  forward_vector: I am "Motion is atmosphere" as a walk of five steps on BLUELINE's own smoke plume: one frame,
+    twelve frames, the boil the page names (the Perlin seed stepped on twos), the boil nobody set (Freestyle's
+    Spatial Noise drawing again on every render), and last the test of "every frame is a pure function of the
+    playhead". I want the reader to see where the waver really comes from, and what to turn off to make a frame
+    land the same every time.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="hd-engine". changed(a, b) = share of pixels whose grey differs by more than 32 of
+    255, on 512 × 512 sheets cut from 768 × 768 renders.
+  checks: Hand-Drawn 3D Look — proof — rich checks.mjs pulls hd-engine out of this file and checks it against the
+    numbers in sheets/sheets.json (and that file records the same comparisons at full resolution, on the RGBA renders).
+  files: sheets/sheets.json and sheets/boil/ (41 renders by "Hand-Drawn 3D Look — rich — render plates.py",
+    BLUELINE's 03_motion.py unchanged except the switches it names, Blender 5.1.2, each job a fresh Blender).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:files" content="sheets/sheets.json sheets/boil/">
+<title>The boil, measured</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --violet:#cc8cf2;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .hd-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .hd-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .hd-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .hd-sub { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 16px; }
+  .hd-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .hd-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .hd-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .hd-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .hd-step.hd-shown { display: block; }
+  .hd-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .hd-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 80ch; margin: 0 0 12px; }
+  .hd-p { font-size: 13.5px; line-height: 1.6; max-width: 80ch; margin: 8px 0; }
+  .hd-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin: 0 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .hd-views { display: grid; grid-template-columns: minmax(240px, 440px) minmax(220px, 1fr); gap: 16px; align-items: start; }
+  @media (max-width: 720px) { .hd-views { grid-template-columns: 1fr; } }
+  canvas { display: block; width: 100%; height: auto; background: #fff; border: 1px solid var(--soft); border-radius: 2px; }
+  canvas.hd-bars { background: var(--bg); height: 120px; }
+  .hd-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .hd-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; min-width: 8ch; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 140px; max-width: 360px; }
+  .hd-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 8ch; font-variant-numeric: tabular-nums; }
+  .hd-seg { display: inline-flex; flex-wrap: wrap; } .hd-seg button + button { border-left: 0; }
+  .hd-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin: 0 0 10px; }
+  .hd-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .hd-k { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); }
+  .hd-v { font-family: var(--mono); font-size: 16px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .hd-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .hd-sym { font-family: var(--mono); font-size: 14px; color: var(--fg1); }
+  .hd-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .hd-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 88ch; margin: 12px 0 4px; }
+  .hd-test b { color: var(--amber); font-weight: 500; }
+  .hd-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; max-width: 100ch; }
+  .hd-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .hd-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .hd-foot i { color: var(--amber); font-weight: 300; }
+  .hd-wait { font-family: var(--mono); font-size: 12px; color: var(--fg3); padding: 18px 0; }
+</style>
+</head>
+<body>
+<main class="hd-piece">
+  <div class="hd-kicker">Hand-drawn 3D look · motion is atmosphere</div>
+  <h1 class="hd-title">The boil, measured</h1>
+  <p class="hd-sub">BLUELINE's smoke plume from 03_motion.py: displaced spheres through a toon ramp, sketchy Freestyle ink, and a handler that re-seeds the line's Perlin noise "on twos". Rendered again here, each job in a fresh Blender 5.1.2. Five steps: one frame, twelve frames, the boil the page names, the boil nobody set, and last whether a frame is a function of the playhead.</p>
+  <nav class="hd-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · one frame</button>
+    <button data-go="2" aria-pressed="false">2 · twelve frames</button>
+    <button data-go="3" aria-pressed="false">3 · on twos</button>
+    <button data-go="4" aria-pressed="false">4 · on ones</button>
+    <button data-go="5" aria-pressed="false">5 · the playhead</button>
+  </nav>
+  <p class="hd-wait" id="wait">loading the frames…</p>
+
+  <section class="hd-step hd-shown" data-step="1">
+    <h2>1 · One frame</h2>
+    <p class="hd-idea">An ink plume: six churning blobs, two tones of value, a sketchy line around them. No fluid simulation and no bake, so the scene itself is the same every time you ask for frame one.</p>
+    <div class="hd-views">
+      <div><div class="hd-label"><span>smoke · frame 1 of 12</span></div><canvas id="c1" width="512" height="512"></canvas></div>
+      <div><p class="hd-p">This is the element the page means: atmosphere, staged behind the figures. The line here is Freestyle's SKETCHY chaining with two noises on it, spatial noise (amplitude 3.5) and Perlin noise (2.5). Keep the second in mind; the boil the page names lives there.</p></div>
+    </div>
+  </section>
+
+  <section class="hd-step" data-step="2">
+    <h2>2 · Twelve frames</h2>
+    <p class="hd-idea">The plume rises and sways at 12 frames a second, and the ink wavers as it goes, which is the hand-drawn feel. Now turn off the page's boil (the handler that re-seeds the Perlin noise) and play it again.</p>
+    <div class="hd-views">
+      <div><div class="hd-label"><span id="l2"></span></div><canvas id="c2" width="512" height="512"></canvas>
+        <div class="hd-row"><button id="play2" aria-pressed="false">play</button><label for="f2">frame</label><input id="f2" type="range" min="1" max="12" step="1" value="1"><span class="hd-val" id="f2v"></span></div>
+        <div class="hd-row"><span class="hd-seg"><button data-b2="on" aria-pressed="true">the boil on</button><button data-b2="off" aria-pressed="false">the boil off</button></span><button id="d2" aria-pressed="false">show the change</button></div></div>
+      <div>
+        <div class="hd-grid">
+          <div class="hd-cell"><div class="hd-k">changed since the last frame</div><div class="hd-v" id="m2a"></div></div>
+          <div class="hd-cell"><div class="hd-k">boil on against boil off</div><div class="hd-v" id="m2b"></div></div>
+        </div>
+        <canvas class="hd-bars" id="b2" width="440" height="120"></canvas>
+        <p class="hd-note">bars: change from the frame before, per frame · amber = boil on, grey = boil off</p>
+        <p class="hd-p" id="p2"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="hd-step" data-step="3">
+    <h2>3 · The boil the page names: on twos</h2>
+    <p class="hd-idea">Hold the plume still at frame one and do only what the handler does: set the Perlin seed to frame ÷ 2, rounded down, plus one. Frames 2 and 3 share a seed, 4 and 5 share the next. That is "on twos": the line redrawn every other frame.</p>
+    <div class="hd-eq"><div class="hd-sym">seed(f) = ⌊f ⁄ 2⌋ + 1</div><div class="hd-words">The Perlin noise's seed for frame f: the frame number halved and rounded down, plus one, so it changes on every even frame and holds on every odd one.</div></div>
+    <div class="hd-views">
+      <div><div class="hd-label"><span id="l3"></span></div><canvas id="c3" width="512" height="512"></canvas>
+        <div class="hd-row"><button id="play3" aria-pressed="false">play</button><label for="f3">frame</label><input id="f3" type="range" min="1" max="9" step="1" value="1"><span class="hd-val" id="f3v"></span><button id="d3" aria-pressed="false">show the change</button></div></div>
+      <div>
+        <div class="hd-grid"><div class="hd-cell"><div class="hd-k">changed since the last frame</div><div class="hd-v" id="m3"></div></div></div>
+        <canvas class="hd-bars" id="b3" width="440" height="120"></canvas>
+        <p class="hd-note">bars: change from the frame before · same scale as step 2</p>
+        <p class="hd-p" id="p3"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="hd-step" data-step="4">
+    <h2>4 · The boil nobody set: on ones</h2>
+    <p class="hd-idea">Hold the plume still again, and this time change nothing at all: same frame, same seeds, the same scene rendered five times in a row in one Blender. If the line were a function of the scene, all five would match.</p>
+    <div class="hd-views">
+      <div><div class="hd-label"><span id="l4"></span></div><canvas id="c4" width="512" height="512"></canvas>
+        <div class="hd-row"><button id="play4" aria-pressed="false">play</button><label for="f4">render</label><input id="f4" type="range" min="1" max="5" step="1" value="1"><span class="hd-val" id="f4v"></span><button id="d4" aria-pressed="false">show the change</button></div></div>
+      <div>
+        <div class="hd-grid"><div class="hd-cell"><div class="hd-k">changed since the last render</div><div class="hd-v" id="m4"></div></div></div>
+        <canvas class="hd-bars" id="b4" width="440" height="120"></canvas>
+        <p class="hd-note">bars: change from the render before · same scale as step 2</p>
+        <p class="hd-p" id="p4"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="hd-step" data-step="5">
+    <h2>5 · Is a frame a function of the playhead?</h2>
+    <p class="hd-idea">The page says these elements "sync to the song" because "every frame is a pure function of the playhead". The test: render frame 5 inside the twelve-frame run, then render frame 5 alone in a fresh Blender. Amber marks where they differ.</p>
+    <div class="hd-views">
+      <div><div class="hd-label"><span id="l5"></span></div><canvas id="c5" width="512" height="512"></canvas>
+        <div class="hd-row"><span class="hd-seg"><button data-s5="1" aria-pressed="true">as the proof has it</button><button data-s5="0" aria-pressed="false">spatial noise off</button></span></div>
+        <div class="hd-row"><span class="hd-seg"><button data-v5="seq" aria-pressed="false">frame 5 in the run</button><button data-v5="alone" aria-pressed="false">frame 5 alone</button><button data-v5="diff" aria-pressed="true">where they differ</button></span></div></div>
+      <div>
+        <div class="hd-grid"><div class="hd-cell"><div class="hd-k">frame 5, run against alone</div><div class="hd-v" id="m5"></div></div></div>
+        <div class="hd-eq"><div class="hd-sym">changed(a, b) = |{ p : |a(p) − b(p)| &gt; 32 }| ⁄ |p|</div><div class="hd-words">The share of pixels whose grey differs by more than an eighth of the way from black to white.</div></div>
+        <p class="hd-test" id="t5"></p>
+      </div>
+    </div>
+    <p class="hd-note" id="n5"></p>
+  </section>
+
+  <div class="hd-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="hd-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="hd-engine">
+/* Two grey frames (0..255), the share of pixels that moved more than t. */
+const HD = (() => {
+  function changed(a, b, t = 32) { let n = 0; for (let i = 0; i < a.length; i++) if (Math.abs(a[i] - b[i]) > t) n++; return n / a.length; }
+  function series(frames, t = 32) { const out = []; for (let i = 1; i < frames.length; i++) out.push(changed(frames[i - 1], frames[i], t)); return out; }
+  function inkShare(a) { let n = 0; for (let i = 0; i < a.length; i++) if (a[i] < 128) n++; return n / a.length; }   // dark ink: grey below 128
+  return { changed, series, inkShare };
+})();
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const BASE = 'sheets/';
+let meta = null, W = 512, F = {}, step = 1, f2 = 1, boil2 = 'on', diff2 = false, f3 = 1, diff3 = false, f4 = 1, diff4 = false, sn5 = 1, v5 = 'diff';
+let timer = 0, playing = 0;
+const pct = (v) => (100 * v).toFixed(2) + ' %';
+const pad = (n) => String(n).padStart(2, '0');
+const ON = [], OFF = [], TWOS = [], ONES = [];
+const TWOS_SEQ = [1, 2, 2, 3, 3, 4, 4, 5, 5];   // seed(f) for frames 1..9, the plume held at frame 1
+let S = {};
+
+function loadImg(src) {
+  return new Promise((res, rej) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => rej(new Error('could not load ' + src)); im.src = src; });
+}
+function greyOf(im) {
+  const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight;
+  const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(im, 0, 0);
+  const d = g.getImageData(0, 0, c.width, c.height).data, a = new Uint8Array(c.width * c.height);
+  for (let i = 0; i < a.length; i++) a[i] = d[4 * i];
+  return a;
+}
+async function boot() {
+  meta = await (await fetch(BASE + 'sheets.json')).json();
+  W = meta.boil.size[0];
+  const keys = [];
+  for (let i = 1; i <= 12; i++) keys.push('on_' + pad(i), 'off_' + pad(i));
+  for (let s = 1; s <= 5; s++) keys.push('twos_' + s, 'ones_' + s);
+  keys.push('single5', 'single5_sn0', 'seq5_sn0');
+  const ims = await Promise.all(keys.map((k) => loadImg(BASE + 'boil/' + k + '.png')));
+  keys.forEach((k, i) => { F[k] = greyOf(ims[i]); });
+  for (let i = 1; i <= 12; i++) { ON.push(F['on_' + pad(i)]); OFF.push(F['off_' + pad(i)]); }
+  for (let s = 1; s <= 5; s++) ONES.push(F['ones_' + s]);
+  TWOS_SEQ.forEach((s) => TWOS.push(F['twos_' + s]));
+  S = {
+    clip_on: HD.series(ON), clip_off: HD.series(OFF), on_vs_off: ON.map((a, i) => HD.changed(a, OFF[i])),
+    twos: HD.series(TWOS), ones: HD.series(ONES),
+    single5_vs_seq5: HD.changed(F.single5, F.on_05), single5_vs_seq5_sn0: HD.changed(F.single5_sn0, F.seq5_sn0),
+  };
+  window.__hdBoil = S;
+  $('wait').remove();
+  show(1);
+}
+function paint(canvas, a, prev) {
+  const g = canvas.getContext('2d'), img = g.createImageData(W, W), o = img.data;
+  for (let i = 0; i < W * W; i++) {
+    let r = a[i], gg = a[i], b = a[i];
+    if (prev) { r = gg = b = 255 - Math.round((255 - a[i]) * 0.3); if (Math.abs(a[i] - prev[i]) > 32) { r = 232; gg = 184; b = 74; } }
+    o[4 * i] = r; o[4 * i + 1] = gg; o[4 * i + 2] = b; o[4 * i + 3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+}
+const SCALE = 0.05;   // bars run 0 .. 5 % on every step, so the steps compare by eye
+function bars(canvas, series, hi, ghost) {
+  const g = canvas.getContext('2d'), w = canvas.width, h = canvas.height, n = series.length, bw = (w - 30) / n;
+  g.clearRect(0, 0, w, h); g.fillStyle = '#0a0a0f'; g.fillRect(0, 0, w, h);
+  g.strokeStyle = '#4a4a5e'; g.lineWidth = 1; g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#8a8aa0';
+  [0, 0.025, 0.05].forEach((v) => { const y = h - 14 - v / SCALE * (h - 24); g.beginPath(); g.moveTo(28, y + 0.5); g.lineTo(w, y + 0.5); g.stroke(); g.fillText((100 * v).toFixed(1), 0, y + 3); });
+  for (let i = 0; i < n; i++) {
+    const x = 30 + i * bw;
+    if (ghost) { const gh = ghost[i] / SCALE * (h - 24); g.fillStyle = '#4a4a5e'; g.fillRect(x + bw * 0.5, h - 14 - gh, bw * 0.35, gh); }
+    const bh = series[i] / SCALE * (h - 24); g.fillStyle = i === hi ? '#e8b84a' : 'rgba(232,184,74,.55)'; g.fillRect(x + bw * 0.12, h - 14 - bh, bw * (ghost ? 0.35 : 0.7), Math.max(bh, series[i] > 0 ? 1 : 0));
+  }
+}
+function stop() { clearInterval(timer); timer = 0; playing = 0; ['play2', 'play3', 'play4'].forEach((id) => { $(id).setAttribute('aria-pressed', 'false'); $(id).textContent = 'play'; }); }
+function play(which) {
+  if (playing === which) { stop(); return; }
+  stop(); playing = which; $('play' + which).setAttribute('aria-pressed', 'true'); $('play' + which).textContent = 'pause';
+  timer = setInterval(() => {
+    if (which === 2) { f2 = f2 % 12 + 1; draw2(); } else if (which === 3) { f3 = f3 % 9 + 1; draw3(); } else { f4 = f4 % 5 + 1; draw4(); }
+  }, 1000 / 12 * (which === 4 ? 3 : 1));
+}
+
+function draw1() { paint($('c1'), ON[0]); }
+function draw2() {
+  document.querySelectorAll('[data-b2]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.b2 === boil2)));
+  $('d2').setAttribute('aria-pressed', String(diff2)); $('f2').value = f2; $('f2v').textContent = f2 + ' / 12';
+  const fr = boil2 === 'on' ? ON : OFF, ser = boil2 === 'on' ? S.clip_on : S.clip_off;
+  paint($('c2'), fr[f2 - 1], diff2 && f2 > 1 ? fr[f2 - 2] : null);
+  $('l2').textContent = 'smoke · frame ' + f2 + ' · the boil ' + boil2 + (diff2 ? ' · amber = changed since frame ' + (f2 - 1) : '');
+  $('m2a').textContent = f2 > 1 ? pct(ser[f2 - 2]) : '·';
+  $('m2b').textContent = pct(S.on_vs_off[f2 - 1]);
+  bars($('b2'), S.clip_on, f2 - 2, S.clip_off);
+  const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+  $('p2').innerHTML = 'From one frame to the next, ' + pct(mean(S.clip_on)) + ' of the pixels change with the boil on and ' + pct(mean(S.clip_off)) + ' with it off: the bars stand side by side, nearly equal. With the boil on, a frame differs from the same frame with it off by only ' + pct(mean(S.on_vs_off.slice(1))) + '. And the bars do not alternate, as a boil on twos would make them. Most of the waver is coming from somewhere else.';
+}
+function draw3() {
+  $('d3').setAttribute('aria-pressed', String(diff3)); $('f3').value = f3; $('f3v').textContent = f3 + ' · seed ' + TWOS_SEQ[f3 - 1];
+  paint($('c3'), TWOS[f3 - 1], diff3 && f3 > 1 ? TWOS[f3 - 2] : null);
+  $('l3').textContent = 'the plume held at frame 1 · Perlin seed ' + TWOS_SEQ[f3 - 1];
+  $('m3').textContent = f3 > 1 ? pct(S.twos[f3 - 2]) : '·';
+  bars($('b3'), S.twos, f3 - 2);
+  const inkShare = HD.inkShare(TWOS[0]);
+  const steps = S.twos.filter((v) => v > 0), mean = steps.reduce((x, y) => x + y, 0) / steps.length;
+  $('p3').innerHTML = 'Each still here was rendered in its own fresh Blender, so the seed is the only thing that moves. On twos, and exactly: the frames that share a seed match pixel for pixel (' + S.twos.filter((v) => v === 0).length + ' zero bars), and each new seed moves ' + pct(mean) + ' of the frame. The ink is only ' + pct(inkShare) + ' of the frame, so that is ' + Math.round(100 * Math.min(...steps) / inkShare) + '–' + Math.round(100 * Math.max(...steps) / inkShare) + ' % of the ink\'s area: about a quarter to a third of the line redrawn, and you can see it. That is the boil the page names, real and exact. In step 2\'s clip it is swamped: the boil on ones in the next step already redraws the line every frame.';
+}
+function draw4() {
+  $('d4').setAttribute('aria-pressed', String(diff4)); $('f4').value = f4; $('f4v').textContent = f4 + ' / 5';
+  paint($('c4'), ONES[f4 - 1], diff4 && f4 > 1 ? ONES[f4 - 2] : null);
+  $('l4').textContent = 'the plume held at frame 1 · nothing changed · render ' + f4 + ' of 5';
+  $('m4').textContent = f4 > 1 ? pct(S.ones[f4 - 2]) : '·';
+  bars($('b4'), S.ones, f4 - 2);
+  const mean = S.ones.reduce((x, y) => x + y, 0) / S.ones.length, tw = S.twos.filter((v) => v > 0), mt = tw.reduce((x, y) => x + y, 0) / tw.length;
+  $('p4').innerHTML = 'Nothing changed, and every render moves ' + pct(mean) + ' of the pixels, ' + (mean / mt).toFixed(1) + ' times the boil on twos, on every frame. The source is Freestyle\'s Spatial Noise modifier: it draws fresh noise on each render inside one Blender session (set its amplitude to 0 and five renders match exactly, tried while making this). So the plume has had a boil on ones all along, nobody set it, and it is most of the hand-drawn waver in the clip.';
+}
+function draw5() {
+  document.querySelectorAll('[data-s5]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.s5 === sn5)));
+  document.querySelectorAll('[data-v5]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v5 === v5)));
+  const seq = sn5 ? F.on_05 : F.seq5_sn0, alone = sn5 ? F.single5 : F.single5_sn0, v = sn5 ? S.single5_vs_seq5 : S.single5_vs_seq5_sn0;
+  paint($('c5'), v5 === 'alone' ? alone : seq, v5 === 'diff' ? alone : null);
+  $('l5').textContent = (sn5 ? 'as the proof has it' : 'spatial noise 0, the Perlin boil kept') + ' · ' + (v5 === 'diff' ? 'amber = differs' : v5 === 'alone' ? 'frame 5 alone' : 'frame 5 in the run');
+  $('m5').textContent = pct(v);
+  const fr = meta.boil.full_res, twins = fr.on_vs_on2.filter((x) => x[1]).length;
+  $('t5').innerHTML = sn5
+    ? '<b>Not as the proof has it.</b> Frame 5 rendered alone differs from frame 5 in the run on ' + pct(v) + ' of its pixels: the line depends on how many renders came before it, not only on the playhead. The geometry and the value are a function of the frame; the ink is not. A whole run started fresh does repeat: two twelve-frame runs here match ' + twins + ' of 12 frames, byte for byte. Turn spatial noise off and test again.'
+    : '<b>With spatial noise off, yes.</b> Frame 5 alone and frame 5 in the run differ on ' + pct(v) + ' of their pixels (at full size: ' + (fr.single5_vs_seq5_sn0[1] ? 'identical' : 'not identical') + '), and the Perlin boil on twos still runs, because its seed is set from the frame. That is the fix: let the boil come only from noise whose seed is a function of the frame.';
+  $('n5').textContent = 'At full size, on the RGBA renders: frame 5 alone against the run ' + (100 * fr.single5_vs_seq5[0]).toFixed(2) + ' %; with spatial noise off ' + (100 * fr.single5_vs_seq5_sn0[0]).toFixed(2) + ' %. The June frames in BLUELINE\'s proof were rendered third in a session, after water and clouds, so today\'s fresh renders do not match them either.';
+}
+
+function show(n) {
+  stop();
+  step = Math.max(1, Math.min(5, n));
+  document.querySelectorAll('.hd-step').forEach((s) => s.classList.toggle('hd-shown', +s.dataset.step === step));
+  document.querySelectorAll('.hd-rail button').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.go === step)));
+  $('back').disabled = step === 1; $('next').disabled = step === 5;
+  [draw1, draw2, draw3, draw4, draw5][step - 1]();
+}
+document.querySelectorAll('.hd-rail button').forEach((b) => b.addEventListener('click', () => show(+b.dataset.go)));
+$('back').addEventListener('click', () => show(step - 1)); $('next').addEventListener('click', () => show(step + 1));
+$('play2').addEventListener('click', () => play(2)); $('play3').addEventListener('click', () => play(3)); $('play4').addEventListener('click', () => play(4));
+$('f2').addEventListener('input', (e) => { stop(); f2 = +e.target.value; draw2(); });
+$('f3').addEventListener('input', (e) => { stop(); f3 = +e.target.value; draw3(); });
+$('f4').addEventListener('input', (e) => { stop(); f4 = +e.target.value; draw4(); });
+document.querySelectorAll('[data-b2]').forEach((b) => b.addEventListener('click', () => { boil2 = b.dataset.b2; draw2(); }));
+$('d2').addEventListener('click', () => { diff2 = !diff2; draw2(); });
+$('d3').addEventListener('click', () => { diff3 = !diff3; draw3(); });
+$('d4').addEventListener('click', () => { diff4 = !diff4; draw4(); });
+document.querySelectorAll('[data-s5]').forEach((b) => b.addEventListener('click', () => { sn5 = +b.dataset.s5; draw5(); }));
+document.querySelectorAll('[data-v5]').forEach((b) => b.addEventListener('click', () => { v5 = b.dataset.v5; draw5(); }));
+document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
+function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+sigil();
+boot().catch((err) => { $('wait').textContent = 'The frames did not load: ' + err.message; throw err; });
+</script>
+</body>
+</html>

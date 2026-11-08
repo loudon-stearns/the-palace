@@ -1,0 +1,34 @@
+{
+ "entry": "Bessel Functions in Synthesis",
+ "path": "Projects/Bessel Functions in Synthesis.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "The FM-Bessel Isomorphism: the sideband amplitudes are exactly Jₙ(β) — 'not an approximation' — and the forward vector names the test: walk the ear through the zero at 2.405 where the carrier vanishes.",
+ "pieces": [
+  {
+   "section": "The FM-Bessel Isomorphism",
+   "what": "A β slider on one FM pair with the Jₙ curves drawn beside the live spectrum; at β = 2.405 the carrier drops out and the reader hears it go. Tests the exactness claim at its sharpest point.",
+   "kind": "interactive",
+   "walks_up_from": "a carrier alone, β = 0"
+  },
+  {
+   "section": "Eigenfunction Principle: Geometry Determines Resonance",
+   "what": "A struck circular membrane: its first modes at the Bessel-zero ratios against a string's integer ratios, struck at centre and near the rim.",
+   "kind": "audio",
+   "walks_up_from": "one string, struck"
+  },
+  {
+   "section": "Bessel Functions as Direct Waveforms",
+   "what": "J₀, J₁, J₃ played as waveforms, with the order n as a morph knob, so the delayed peak near t = n is heard.",
+   "kind": "interactive",
+   "walks_up_from": "J₀ alone"
+  }
+ ],
+ "gathered": [
+  "proofs/2026-05-04-bessel-fm-correlation.png",
+  "proofs/2026-05-04-six-modes.png"
+ ],
+ "tier": "sketch",
+ "slice": 3
+}

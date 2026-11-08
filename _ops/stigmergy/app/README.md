@@ -256,24 +256,24 @@ checkout are still two holders. Before a port is handed out, a probe connects on
 
 ## What this is, and is not
 
-**v0.2 is** an operational board. Read path (render), write path (POST
-with strict §2.2 validation), live tail (SSE), and click-to-respond UI
-(Trickster inbox response buttons + confirm modal) are all present.
+**It is** STIGMERGY, the palace's operating terminal: five decks (STATE, QUEUE, LOG, TRICKSTER,
+PROJECTS), the scroll and the rich face, the lanes that run work (Companion, steward, regen,
+schedule), and the scripts that are the palace's one door to git (`scripts/palace-commit.mjs`,
+`palace-land.mjs`, `palace-push.mjs`). What each part does is the page's job:
+[STIGMERGY.md](../../../STIGMERGY.md) § The decks and § The lanes. The wire it speaks is
+`@stigmergy/core` (`../core/`), the strict validator and the append-only board reader.
 
-**v0.2 is not** a daemonized service, an authentication system, the
-Palace Orchestrator engine, or a Trickster broadcast surface for
-non-RESOURCE_REQUEST types. Those are v0.3+.
+**It is not** an authentication system or a daemon: it runs on localhost, for one operator, under
+Vite. It does not infer done from git: QUEUE cards close by a board event, a trailer or a person
+(STIGMERGY.md § The honesty discipline).
 
-## How Claude Code uses this directory
+## Changing the app
 
-This dir is a build target driven by the contract in
-[Palace development/BBS Production Plan v0.2.md](../../../Palace%20development/BBS%20Production%20Plan%20v0.2.md).
-A Claude Code session reads that plan, builds the app phase by phase,
-runs `node scripts/check-phase.js N` at each gate, dispatches a
-vision-capable subagent against the matching `tests/checklists/phase-N.md`,
-iterates on failures up to ten attempts per check, and stops on either
-success (`V0.2-COMPLETE.md` written) or a stop condition
-(`STOP-REPORT.md` written). See the plan for the full protocol.
+Work in a worktree of your own (`node _ops/worktree/new-worktree.mjs --name <branch> --profile
+stigmergy`). Run vitest and the e2e specs for the surface you touched (the gotchas below say why
+not the whole e2e suite). Write a run line in [STIGMERGY — tuning](../../../STIGMERGY/STIGMERGY%20—%20tuning.md)
+in the same commit, as its `writes:` asks. Land between steward cycles when the change is in
+Vite's import graph (§ gotchas, "An edit in the Vite config's import graph").
 
 ## Testing, worktree & topology gotchas
 
@@ -294,7 +294,10 @@ Hard-won cautions for anyone building or testing this app:
 - **Reuse the styled media components.** Surfacing audio → `src/components/PhosphorAudio.jsx`; image / iframe / file → `src/components/ArtifactSlot.jsx` (+ `src/lib/artifact.js`). Never drop a raw native `<audio controls>` / player — it breaks the phosphor language. Grep for the existing component before building a new media display.
 - **The TOPOLOGY lens reads your files live; the dated map is the Weave's.** `/api/topology` and `/api/lens/suggest` build the typed-link graph from the entries' own frontmatter on every request (`src/lib/topology-live.js`, ~90 ms on the real palace) — compost, rename, demote or link a page and it shows. The lens still fetches once on mount, so **reload the page** to see a change. The dated `_ops/maps/palace-map-full-*.json` that `_ops/swarm/build-map-*.py` writes is no longer what the lens draws, in the app or on the public site: it stays the fixed picture the Weave, the linters and the partitioner argue from. The public read view reads the same graph once, at publish time (`scripts/build-public.mjs`, cut to the public set — published pages, and links with both ends published), so it is as new as the last push and its header says the day. Two builders now draw one graph, and they must not drift: every node and edge rule in `topology-live.js` restates the Python builder's, and `tests/integration/topology-parity.test.js` runs the real builder over the real tree and fails on any difference (it needs `python3` + PyYAML, and skips loudly without them). **Change a rule in one, change it in the other.** *(Until 2026-10-06 the lens drew the snapshot, and a page composted after the last build kept its node — and a 404 behind it — until the next one.)*
 - **The map builder must skip `@import` symlinks or it mints phantom duplicate nodes.** The five `_`-underscore files at the palace root (`Cooperation_Yields_Agency.md`, `FOUR_PILLARS.md`, `Hilaritas_Generator.md`, `Modes_of_Collaboration.md`, `Palace_Philosophies.md`) are symlinks to their spaced originals, existing only so CLAUDE.md's `@import` floor resolves (the spaces bug). Python's `rglob("*.md")` yields them and `parse_fm` follows the link, so without an `if p.is_symlink(): continue` guard the builder emits duplicate underscore-id nodes (`Cooperation_Yields_Agency`) that have **no bundle folder** — hence no avatar and an ugly underscore label in the graph. `listEntries` (the JS walker) already skips them — a symlink Dirent reports `isFile()===false` — so only the Python builder needed the guard. Fixed in `build-map-2026-07-04.py`; keep the guard in any successor builder. *(2026-07-05)*
-- **An edit in the Vite config's import graph while a steward runs blinds the deck.** The steward lane is built inside `vite.config.js` → `server/middleware.js`. Saving a file that graph imports (`server/`, `orchestrator/src/`, `core/`, much of `src/lib/`) makes Vite re-import the config in the same process and build a fresh, empty lane, while the old one finishes its run unseen. `src/components/*` and tests are outside it. Land such a change between cycles: check `curl localhost:5173/api/stewards` for `worker.running`. The fix (lane state on disk, a fresh lane adopting a live worker) is not built. *(2026-10-13)*
+- **An edit in the Vite config's import graph while a steward runs blinds the deck.** The steward lane is built inside `vite.config.js` → `server/middleware.js`. Saving a file that graph imports (`server/`, `orchestrator/src/`, `core/`, much of `src/lib/`) makes Vite re-import the config in the same process and build a fresh, empty lane, while the old one finishes its run unseen. `src/components/*` and tests are outside it. Land such a change between cycles: check `curl localhost:5173/api/stewards` for `worker.running`. If it happens anyway, let the old lane finish its live run (it still reaps, and still fires the next queued steward); then kill the worker it fired and the `npm run dev` process, `rm _ops/stigmergy/.actuator-steward/.worker.pid`, restart the dev server, and re-queue the hidden queue with advance-all, as the next gotcha says, rebuilding it from the `queued …` / `dequeued …` / `run ends` lines of `.worker.log`. The fix (lane state on disk, a fresh lane adopting a live worker) is not built. *(2026-10-13)*
+- **The server posts a finished cycle, so a server that dies or wedges loses it, and its queue.** The worker only runs the model. Posting to the board, the state and scroll update and the commit are the lane's reap (`server/steward-lane.js`, `reap` → `processCycle`), which runs inside Vite when the worker exits. If Vite is restarted, or is too busy to reach the reap, the cycle's work sits on disk unposted, uncommitted, with the iteration not advanced, and the stewards queued behind it are gone with the old lane's memory. You can tell by the transcript under `_ops/stigmergy/.actuator-steward/transcripts/` ending on a `result` with `stop_reason: end_turn`, while `.worker.log` has no `worker exit` or `run:` line for that fire. Recover it without rerunning the cycle. With the lane idle, and only if the steward's `state.json` iteration is still the one before (otherwise it posts twice), run
+  `node _ops/stigmergy/orchestrator/src/process-cycle.js --root "<palace>" --transcript "<that transcript>" --agent-dir "<palace>/_ops/agents/permanent/<slug>" --cycle-n <N> --iteration <N> --ts-now <fire time> --dispatched-by bbs-actuator`
+  where N is `state.iteration + 1` and the fire time is the transcript's name (`<slug>-cycle-<N>-<time>.jsonl`, the time's `:` and `.` written as `-`). It posts, updates state and scroll, and commits through the door, as the reap would. Then re-queue the dropped stewards in the order the log's `queued …` lines after the last fire give: `POST /api/stewards/advance-all` with `Content-Type: application/json` and `{"names": [...]}`. Seen 2026-11-03: `/api/projects` walked the whole palace on every poll and pegged Vite, the restart lost Wavetable Scanner's cycle 4 and four queued stewards, and this recovered them (`c819e58f`; the poll fixed in `097128b6`). *(2026-11-03)*
 - **The Browser pane refuses sandboxed frames.** In the app's Browser pane a frame with `sandbox="allow-scripts"` comes back `ERR_BLOCKED_BY_CLIENT`, while a plain frame of the deck's own page loads, so the pane cannot show a piece playing. Prove pieces in headless Chromium instead: `tests/integration/rich-kit.test.js`, or a Playwright walk against a stub-worker scratch server on its own port (`scripts/scratch-vite.mjs`). *(2026-10-18)*
 
 ## Directory map
@@ -304,19 +307,26 @@ _ops/stigmergy/app/
 ├── package.json
 ├── vite.config.js · vitest.config.js · playwright.config.js
 ├── index.html · src/
-│   ├── main.jsx · App.jsx · styles/tokens.css
-│   ├── components/  (Shell, LoginScreen, BoardIndex, …, primitives.jsx)
-│   ├── adapters/    (fetch helpers; populated in Phase 2)
-│   └── lib/         (parser, schema, inbox, roster; populated phase-by-phase)
-├── server/middleware.js   (Vite plugin: GET /api/persistent etc.)
-├── public/fonts/          (woff2 copies of VT323 + IBM Plex Mono)
+│   ├── main.jsx · App.jsx · PublicApp.jsx (the read view) · styles/tokens.css
+│   ├── components/  (Shell, DeckTabs, CommandBar, FaceSwitch, CompanionHost, …, primitives.jsx)
+│   │   ├── state/ queue/ log/ trickster/ projects/   (one folder per deck)
+│   │   ├── stewards/ (the schedule strip) · public/ (the read view's welcome)
+│   ├── adapters/    (fetch helpers for /api/*)
+│   └── lib/         (the models the decks render: queue-model, pulse, entry-edit, decks, …)
+├── server/
+│   ├── middleware.js · router.js · api/   (the /api/* handlers)
+│   ├── actuator.js and the lanes: companion-lane, steward-lane, regen-lane, scheduler
+│   ├── door.js · landing.js · commit.js   (the one door to git)
+│   └── weave-generate.js · weave-apply.js · weave-emit.js
+├── scripts/       (palace-commit, palace-land, palace-push, trunk-state, build-public, scratch-vite, …)
+├── public/fonts/  (woff2 copies of VT323 + IBM Plex Mono)
 ├── tests/
 │   ├── unit/  integration/  e2e/  fixtures/
 │   ├── helpers/  setup/    (loopback.js: listen on 127.0.0.1 · loopback-only.js: refuses a wildcard listen)
-│   └── checklists/         (visual-validator inputs)
-├── screenshots/            (Playwright outputs; reviewed by visual-validator)
-├── scripts/check-phase.js
-└── build-log.jsonl         (append-only log of every check + every fix)
+│   └── checklists/
+├── screenshots/   (Playwright outputs)
+├── Archive/       (the v0.2 build's plan-era files)
+└── build-log.jsonl (append-only log of the v0.2 build's checks and fixes)
 ```
 
 ## Visual non-negotiables (cribbed from the design system)

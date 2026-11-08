@@ -1,0 +1,602 @@
+<!doctype html>
+<!--
+  title: Harmonicity and Inharmonicity — rich — frustration
+  born: 2026-11-03
+  links: [[Harmonicity and Inharmonicity]] (connects-to · rich-face-piece) · listed in [[Harmonicity and Inharmonicity — rich.json]] · walks up from the model in Harmonicity and Inharmonicity/proofs/2026-10-17-frustration-sweeps/edgemap.py
+  forward_vector: I am the walk up to frustration. One tone whose six partials hang off one phase; then one outside voice pulling it; then six voices that agree because the partials are whole numbers; then a little stretch, where they disagree and the tone bargains by sagging; then the edge, which you find by ear before I tell you where the map put it. I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Harmonicity and Inharmonicity/Harmonicity and Inharmonicity — rich — check.mjs runs this page's core and worklet in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Frustration · one tone, six voices, one edge</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --indigo:#6366F1;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.mark{font-family:var(--sans);font-weight:500;font-size:15px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:10px 18px;cursor:pointer}
+  button.mark:disabled{opacity:.35;cursor:default}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .cap{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);margin:12px 0 6px;display:flex;justify-content:space-between;gap:10px}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .blind{padding:28px 18px;text-align:center;font-family:var(--sans);font-size:14px;color:var(--fg-3);background:var(--bg-elev-2);border-radius:4px}
+  .reveal{font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.65;margin-top:12px}
+  .reveal b{font-family:var(--mono);font-weight:400;color:var(--accent)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Harmonicity and Inharmonicity · frustrated coupling · five steps</div>
+  <h1>One phase, pulled six ways</h1>
+  <p class="lead">One tone of six partials, all hung off a single phase, and six outside voices that pull on them. This is the toy model the 2026-10-17 sweeps ran, here running live. Five steps, one thing to hear in each, and the last asks you to find the edge by ear. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+
+    <div id="seeing">
+      <div class="cap"><span>the tone, three turns of its phase, redrawn live</span><span id="scopeNote"></span></div>
+      <canvas id="scope"></canvas>
+      <div class="cap"><span id="barsCap"></span><span id="barsNote"></span></div>
+      <canvas id="bars"></canvas>
+    </div>
+    <div class="blind" id="blind" hidden>Listening only. The pictures and numbers come back after your mark.</div>
+
+    <div class="ctl" id="ctlOff1" hidden>
+      <label for="off1">voice 1 sits</label><input id="off1" type="range" min="0" max="20" step="0.1" value="3"><span class="v" id="off1v"></span>
+    </div>
+    <div class="ctl" id="ctlB" hidden>
+      <label for="B" id="BLabel">stretch B</label><input id="B" type="range" min="0" max="1" step="0.001" value="0.5"><span class="v" id="Bv"></span>
+    </div>
+    <div class="rowb" id="detRow" hidden>
+      <span class="eyebrow">voices</span>
+      <button class="ghost" data-det="0" aria-pressed="true">Exactly on the harmonics</button>
+      <button class="ghost" data-det="1" aria-pressed="false">A hair off, as in the sweeps</button>
+    </div>
+    <div class="rowb" id="pushRow" hidden>
+      <button class="ghost" id="push">Push the tone sharp</button>
+      <span class="hint">For a third of a second its own pitch jumps 4 Hz. Watch which way each voice pulls.</span>
+    </div>
+    <div class="rowb" id="testRow" hidden>
+      <span class="eyebrow">listen to</span>
+      <button class="ghost" data-listen="alone" aria-pressed="true">The tone alone</button>
+      <button class="ghost" data-listen="both" aria-pressed="false">Tone and voices</button>
+      <button class="mark" id="markBtn" disabled>It tore here</button>
+    </div>
+    <div class="reveal" id="reveal" hidden></div>
+    <div id="traceWrap" hidden>
+      <div class="cap"><span>your search: the tone's pulse (white) and the stretch (amber, log scale)</span><span>gold line: your mark</span></div>
+      <canvas id="trace"></canvas>
+      <div class="rowb"><button class="ghost" id="again">Search again</button></div>
+    </div>
+
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · Harmonicity and Inharmonicity · frustration · Study, 2026-11-03</span></footer>
+</main>
+
+<!-- The model's core. Plain functions, shared by the page, the worklet and the headless check. -->
+<script id="frust-core">
+// The model the 2026-10-17 proofs ran (edgemap.py, ride_warm.py), ported line for line. Phases are in cycles.
+var FRUST = (function () {
+  var F0 = 110;
+  // each outside voice sits a hair off n × 110: numpy default_rng(7).uniform(−0.004, 0.004), the proofs' own draw
+  var DET = [0.001000764,0.003177710,0.002205486,-0.002198342,-0.001598670,0.002988428,-0.003957878,0.002569827,0.002376555,-0.000256520,-0.001575741,-0.001772595,-0.001961043,-0.000439390,0.000036386,0.000427979,0.003964002,0.002341295,0.000977434,0.003911681,-0.002277530,-0.002718304,0.000900317,-0.003648464,-0.003714558,0.000119111,-0.000270352,0.003337342,0.001033810,0.000112941,-0.000025013,-0.002019881,-0.003905648,-0.002460783,0.001536257,-0.002395146,-0.001043710,-0.003970126,0.002640382,-0.002764311];
+  var TAB = 4096, SIN = new Float64Array(TAB + 1);
+  for (var i = 0; i <= TAB; i++) SIN[i] = Math.sin(2 * Math.PI * i / TAB);
+  // x in cycles. A tiny negative x floors to 1 − ε, which rounds to exactly 1: wrap that index back to 0
+  function sin1(x) { x -= Math.floor(x); var f = x * TAB, k = f | 0; if (k >= TAB) { k = 0; f = 0; } return SIN[k] + (f - k) * (SIN[k + 1] - SIN[k]); }
+  function rand(seed) { var s = seed >>> 0; return function () { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; }
+  // one tone of N partials (N ≤ 40) and N outside voices, one per partial
+  function tone(N, seed) {
+    var t = { N: N, B: 0, K: 6, I: 1, pinned: false, f0: F0, F: F0, th: 0, back: 0,
+      r: new Float64Array(N), w: new Float64Array(N), p: new Float64Array(N), ph: new Float64Array(N),
+      amp: new Float64Array(N), offs: new Float64Array(N), mask: new Float64Array(N).fill(1),
+      s: new Float64Array(N), gate: new Float64Array(N).fill(1), sAcc: new Float64Array(N), dd: new Float64Array(N) };
+    var R = rand(seed || 7), sum = 0;
+    for (var n = 1; n <= N; n++) {
+      t.ph[n - 1] = R(); t.offs[n - 1] = R();
+      t.amp[n - 1] = (1 / n) * Math.min(1, 4 / n);      // the warm source: rolled off steeply above the fourth
+      sum += n;
+    }
+    t.back = 21 / sum;                                   // back-pull scaled to the six-partial run (1 + 2 + … + 6 = 21)
+    tune(t, 1, 0); setStretch(t, 0);
+    return t;
+  }
+  // where the voices sit: n × 110 × (1 + det × the proofs' detune), and voice 1 moved by off1 Hz
+  function tune(t, det, off1) { for (var n = 1; n <= t.N; n++) t.w[n - 1] = n * F0 * (1 + det * DET[n - 1]); t.w[0] += off1 || 0; }
+  // the stiff-string stretch: partial n sits at r_n = n·√(1 + B n²) times the one phase (pinned holds partial 1 at 1)
+  function setStretch(t, B) {
+    t.B = B; var pin = t.pinned ? 1 + B : 1;
+    for (var n = 1; n <= t.N; n++) t.r[n - 1] = n * Math.sqrt((1 + B * n * n) / pin);
+  }
+  // far pulls fade: a voice more than 3–4 kHz from its partial loses its grip (the map's and the rides' choice)
+  function setGate(t) {
+    for (var i = 0; i < t.N; i++) { var g = (4000 - Math.abs(t.r[i] * t.F - t.w[i])) / 1000; t.gate[i] = g < 0 ? 0 : g > 1 ? 1 : g; }
+  }
+  // one step of dt seconds; returns the pulse, dθ/dt in Hz
+  //   dθ/dt  = f0 + back · (K / I) · Σ r_n · sin 2π(φ_n − p_n)      p_n = partial n's phase, moving at r_n · dθ/dt
+  //   dφ_n/dt = ω_n − K · sin 2π(φ_n − p_n)
+  function step(t, dt) {
+    var N = t.N, tug = 0, i;
+    for (i = 0; i < N; i++) { var s = t.mask[i] * t.gate[i] * sin1(t.ph[i] - t.p[i]); t.s[i] = s; t.sAcc[i] += s; tug += t.r[i] * s; }
+    var dth = t.f0 + t.back * t.K * tug / t.I;
+    for (i = 0; i < N; i++) {
+      var dp = t.r[i] * dth * dt, dv = (t.w[i] - t.K * t.s[i]) * dt;
+      t.p[i] += dp; t.ph[i] += dv; t.dd[i] += dv - dp;
+    }
+    t.th += dth * dt; t.F = dth;
+    return dth;
+  }
+  function wrap(t) { t.th -= Math.floor(t.th); for (var i = 0; i < t.N; i++) { t.p[i] -= Math.floor(t.p[i]); t.ph[i] -= Math.floor(t.ph[i]); } }
+  // the map's test: hold B for 4 s, read the pulse in 10 ms averages over the last 2 s; torn when they wobble past 0.5 Hz
+  function hold(N, B, K, opt) {
+    opt = opt || {};
+    var CR = opt.rate || 11025, secs = opt.secs || 4, t = tone(N, opt.seed);
+    t.K = K; t.I = opt.inertia || 1; t.pinned = !!opt.pinned; if (opt.det !== undefined) tune(t, opt.det, 0); setStretch(t, B);
+    var steps = Math.round(secs * CR), dt = 1 / CR, hop = Math.round(CR / 100), acc = 0, k = 0, means = [];
+    for (var i = 0; i < steps; i++) {
+      if (i % 64 === 0) setGate(t);
+      var f = step(t, dt);
+      if (i % 4096 === 0) wrap(t);
+      if (i >= steps / 2) { acc += f; if (++k === hop) { means.push(acc / hop); acc = 0; k = 0; } }
+    }
+    var m = 0, v = 0, a;
+    for (a = 0; a < means.length; a++) m += means[a]; m /= means.length;
+    for (a = 0; a < means.length; a++) v += (means[a] - m) * (means[a] - m);
+    return { mean: m, wobble: Math.sqrt(v / means.length) };
+  }
+  // where a tone first tears: up from 1e-7 a quarter decade at a time, then halve the gap five times (on a log scale)
+  function edge(N, K, opt) {
+    var lo = 0, hi = 0, e;
+    for (e = -7; e <= 0.001; e += 0.25) { var B = Math.pow(10, e); if (hold(N, B, K, opt).wobble > 0.5) { hi = B; break; } lo = B; }
+    if (!hi) return null; if (!lo) return { edge: hi, lo: 0, hi: hi };
+    for (var j = 0; j < 5; j++) { var mid = Math.sqrt(lo * hi); if (hold(N, mid, K, opt).wobble > 0.5) hi = mid; else lo = mid; }
+    return { edge: Math.sqrt(lo * hi), lo: lo, hi: hi };
+  }
+  return { F0: F0, DET: DET, sin1: sin1, tone: tone, tune: tune, setStretch: setStretch, setGate: setGate, step: step, wrap: wrap, hold: hold, edge: edge };
+})();
+</script>
+
+<!-- The worklet, read as text and loaded from a Blob with the core above it. -->
+<script type="text/plain" id="frust-worklet">
+// One tone and its voices, run sample by sample with the core above. Reports every 10 ms: the pulse, each voice's tug and slip.
+class FrustProcessor extends AudioWorkletProcessor {
+  constructor(options) {
+    super();
+    var o = (options && options.processorOptions) || {};
+    this.det = o.det === undefined ? 1 : o.det; this.off1 = o.off1 || 0;
+    this.Bt = o.B || 0; this.B = this.Bt; this.Kt = o.K === undefined ? 6 : o.K;
+    this.lvTone = o.tone === undefined ? 1 : o.tone; this.lvVox = o.vox === undefined ? 1 : o.vox; this.push = 0;
+    this.build(o.N || 6, o.mask);
+    this.hop = Math.round(sampleRate / 100); this.cnt = 0; this.acc = 0; this.blocks = 0;
+    var self = this; this.port.onmessage = function (e) { self.msg(e.data || {}); };
+  }
+  build(N, mask) {
+    var t = FRUST.tone(N, 7); FRUST.tune(t, this.det, this.off1); t.K = this.Kt;
+    if (mask) for (var i = 0; i < N; i++) t.mask[i] = mask[i] || 0;
+    this.t = t; this.top = new Float64Array(N).fill(1);
+    var s = 0; for (var j = 0; j < N; j++) s += t.amp[j]; this.norm = 1 / s;
+    FRUST.setStretch(t, this.B);
+  }
+  msg(m) {
+    if (m.N && m.N !== this.t.N) this.build(m.N, m.mask);
+    var t = this.t, i;
+    if (m.mask) for (i = 0; i < t.N; i++) t.mask[i] = m.mask[i] || 0;
+    if (typeof m.B === 'number') { this.Bt = m.B; if (m.jump) this.B = m.B; }
+    if (typeof m.K === 'number') { this.Kt = m.K; t.K = m.K; }
+    if (typeof m.I === 'number') t.I = m.I;
+    if (typeof m.det === 'number') this.det = m.det;
+    if (typeof m.off1 === 'number') this.off1 = m.off1;
+    if (typeof m.det === 'number' || typeof m.off1 === 'number') FRUST.tune(t, this.det, this.off1);
+    if (typeof m.tone === 'number') this.lvTone = m.tone;
+    if (typeof m.vox === 'number') this.lvVox = m.vox;
+    if (m.push) this.push = Math.round(0.35 * sampleRate);
+  }
+  process(inputs, outputs) {
+    var out = outputs[0], L = out[0], R = out[1] || out[0], t = this.t, N = t.N, dt = 1 / sampleRate, i, j;
+    // the stretch glides to its target over about 40 ms, so a slider never clicks
+    this.B += (this.Bt - this.B) * 0.06; if (Math.abs(this.Bt - this.B) <= 1e-9 * this.Bt) this.B = this.Bt;
+    FRUST.setStretch(t, this.B); FRUST.setGate(t);
+    for (j = 0; j < N; j++) { var g = (19000 - t.r[j] * t.F) / 3000; this.top[j] = g < 0 ? 0 : g > 1 ? 1 : g; }
+    var gT = 0.6 * this.lvTone * this.norm, gV = 0.35 * this.lvVox * this.norm;
+    for (i = 0; i < L.length; i++) {
+      t.f0 = this.push > 0 ? FRUST.F0 + 4 : FRUST.F0; if (this.push > 0) this.push--;
+      var f = FRUST.step(t, dt), y = 0, v = 0;
+      for (j = 0; j < N; j++) { y += t.amp[j] * this.top[j] * FRUST.sin1(t.p[j] + t.offs[j]); if (t.mask[j]) v += t.amp[j] * FRUST.sin1(t.ph[j]); }
+      var o = gT * y + gV * v; L[i] = o; if (R !== L) R[i] = o;
+      this.acc += f;
+      if (++this.cnt >= this.hop) this.report();
+    }
+    FRUST.wrap(t);
+    return true;
+  }
+  report() {
+    var t = this.t, N = t.N, c = this.cnt, tug = new Float32Array(N), slip = new Float32Array(N);
+    for (var j = 0; j < N; j++) { tug[j] = t.back * t.K * t.r[j] * t.sAcc[j] / c / t.I; slip[j] = t.dd[j]; t.sAcc[j] = 0; t.dd[j] = 0; }
+    var m = { f: this.acc / c, B: this.B, tug: tug, slip: slip, dt: c / sampleRate };
+    if (++this.blocks % 3 === 0) { m.p = Float32Array.from(t.p); m.th = t.th; m.r = Float32Array.from(t.r); }
+    this.port.postMessage(m); this.acc = 0; this.cnt = 0;
+  }
+}
+registerProcessor('frustration', FrustProcessor);
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var N = 6, ALL = [1,1,1,1,1,1], NONE = [0,0,0,0,0,0], ONE = [1,0,0,0,0,0];
+
+  // ---------- the five steps ----------
+  var STEPS = [
+    { title: 'One phase, six partials', short: 'One phase', mask: NONE, det: 1, B: 0, bars: 'ladder',
+      say: 'Start with the tone alone. It has six partials, but it is not six sine waves. One number, its phase θ, turns at 110 turns a second, and partial n is simply n times θ. Because every partial is a whole-number multiple of the one phase, the waveform comes round to exactly the same shape on every turn. The trace above is redrawn from the live phase many times a second, and it does not move.',
+      hint: 'the tone alone, six partials, no voices',
+      eq1: ['partial n’s phase = rₙ · θ      rₙ = n · √(1 + B · n²)      here B = 0, so rₙ = n', '(where partial n is in its cycle) = (its ratio to the fundamental) × (the tone’s one phase), and the ratio is a whole number while there is no stretch'],
+      eq2: ['dθ/dt = f₀ = 110 Hz', '(how fast the one phase turns) = (the tone’s own pitch)'],
+      tryText: 'Watch the trace and listen for anything changing. Nothing does: six partials, one degree of freedom. Everything after this is about what happens to that one number when outside voices start pulling on it.' },
+    { title: 'One voice pulls', short: 'One voice', mask: ONE, det: 0, off1: 3, B: 0, bars: 'tug', ctl: ['off1'],
+      say: 'Now one outside voice, pulling on partial 1 only. It has a pitch of its own, a few hertz above the tone. Each pulls the other, Kuramoto’s way: the closer they are to in step, the less they pull. Within reach they meet in between and the beat between them stops. The tone is light here (inertia 1), so it gives as much ground as the voice does. The bar shows how far the voice is pulling the tone’s pitch, in hertz.',
+      hint: 'the tone and one voice',
+      eq1: ['dθ/dt = f₀ + K · sin 2π(φ₁ − θ)', '(how fast the tone’s phase turns) = (its own pitch) + (coupling) × sin(how far the voice is ahead of partial 1)'],
+      eq2: ['dφ₁/dt = ω₁ − K · sin 2π(φ₁ − θ)      K = 6 Hz', '(how fast the voice turns) = (its own pitch) − (coupling) × sin(that same gap): each gives ground to the other'],
+      tryText: 'Slide the voice away slowly. While the state reads held, the beat is gone and the two share one pitch. Somewhere past 10 Hz they can no longer meet, and the beat comes back. With both sides giving ground, the reach is twice the coupling: 12 Hz.' },
+    { title: 'Six voices, whole numbers', short: 'Six voices', mask: ALL, det: 0, B: 0, bars: 'tug', push: true, detToggle: true,
+      say: 'Now six voices, one on each harmonic: 110, 220, 330 Hz and up. Each pulls its own partial. Because the partials sit at whole numbers, all six agree about where θ should be: they are commensurate. At rest no voice needs to pull at all, and every bar sits at zero. Push the tone sharp and all six pull it back the same way, together.',
+      hint: 'the tone and six voices, whole-number partials',
+      eq1: ['dθ/dt = f₀ + K · Σₙ rₙ · sin 2π(φₙ − rₙθ)', '(how fast the tone’s phase turns) = (its own pitch) + (coupling) × the sum over the six voices of (partial n’s ratio) × sin(how far voice n is ahead of partial n)'],
+      eq2: ['dφₙ/dt = ωₙ − K · sin 2π(φₙ − rₙθ)      ωₙ = n · 110 Hz', '(how fast voice n turns) = (its own pitch, n × 110 Hz) − (coupling) × sin(that same gap)'],
+      tryText: 'Press Push a few times. Every bar swings down together and the tone settles back to 110 Hz. That agreement is the harmonic case: every pull reinforces every other. Then switch the voices to the sweeps’ tuning, each a hair off its harmonic (up to 0.4%). Now the bars sit apart at rest, up to 9 Hz each way, and cancel: even the whole-number tone is a little frustrated when its voices are not quite whole.' },
+    { title: 'Stretch it a little', short: 'A little stretch', mask: ALL, det: 0, B: 4e-4, bars: 'tug', push: true, detToggle: true, ctl: ['B'], range: [1e-5, 1.2e-3],
+      say: 'Now stretch the partials a little, the way a stiff string does: partial n moves to n·√(1 + B·n²), so the top partials move most. The voices have not moved, so they now disagree. The low voices pull the tone up; the top voice pulls it down, hard. The tone does not fight: it settles a touch flat, where the pulls cancel, and holds its pitch. Watch the trace. The waveform no longer comes round the same, so the colour turns over while the pitch stands still. That is frustration as a strain, not a failure.',
+      hint: 'the tone and six voices, stretched',
+      eq1: ['rₙ = n · √(1 + B · n²)      B = 0.0004 is piano-ish', '(partial n’s ratio) = n × √(1 + (stretch) × n²): partial 6 moves over 200 times further than partial 1'],
+      eq2: ['Σₙ (pull of voice n) = (the tone’s pitch) − 110 Hz', 'the bars add up to how far the tone has sagged; they point both ways and cancel most of each other'],
+      tryText: 'Slide between the bottom and the top of this range. The bars spread apart and the tone sinks a little, but the readout stays held. Push it: it still comes back. The five scenes heard this as scene 2, about 0.5 Hz flat and more alive than the harmonic scene.' },
+    { title: 'Find the edge', short: 'The test', mask: ALL, det: 0, B: 1.5e-4, test: true, ctl: ['B'], range: [1e-4, 1e-2],
+      say: 'The test. Somewhere along this slider the tone stops holding: its pitch starts to jitter and slip. The pictures and numbers are hidden now, so all you have is your ear. Start on the tone alone; the voices still pull, but you won’t hear them, and they mask the moment. Slide up slowly, and press the mark when you hear it tear. Then the piece shows you what you did, and where the page’s map put the edge.',
+      hint: 'blind: the slider has no numbers',
+      eq1: ['partial n strays from n by about B · n³ ⁄ 2', '(how far partial n has moved from whole) ≈ (stretch) × n³ ÷ 2, so the top partial sets the pace'],
+      eq2: ['torn when the pulse, in 10 ms averages over 2 s, wobbles by more than 0.5 Hz', 'the map’s own rule for the edge, which the reveal uses'],
+      tryText: 'Go slowly near where you think it is, and go back down: a tear heals when you come back under. Mark again if you change your mind; each mark is kept.' }
+  ];
+
+  var step = 0, playing = false, listen = 'alone';
+  var ctx = null, node = null, comp = null, master = null, loading = null;
+  var Bnow = 0, off1 = 3, sliderPos = 0.5;
+  var tmpl = FRUST.tone(N, 7);                    // amplitudes and starting offsets, as the worklet has them
+  var live = { f: [], tug: new Float32Array(N), slip: new Float32Array(N), slipRate: new Float32Array(N), p: null, th: 0, r: null, B: 0, t: 0 };
+  var testLog = [], marks = [], testT0 = 0;
+
+  // ---------- audio ----------
+  function workletURL(){
+    var src = $('frust-core').textContent + '\n' + $('frust-worklet').textContent;
+    return URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+  }
+  function ensure(){
+    if (ctx) return loading;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.5;
+    comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.knee.value = 6; comp.ratio.value = 8; comp.attack.value = 0.003; comp.release.value = 0.15;
+    master.connect(comp); comp.connect(ctx.destination);
+    loading = ctx.audioWorklet.addModule(workletURL());
+    return loading;
+  }
+  function levels(){ var s = STEPS[step]; if (s.test) return { tone: 1, vox: listen === 'alone' ? 0 : 1 }; return { tone: 1, vox: 1 }; }
+  function start(){
+    ensure().then(function(){
+      if (!playing) return;
+      stopNode();
+      var s = STEPS[step], lv = levels();
+      resetLive();
+      node = new AudioWorkletNode(ctx, 'frustration', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2],
+        processorOptions: { N: N, mask: s.mask, det: det, off1: s.off1 ? off1 : 0, B: Bnow, K: 6, tone: lv.tone, vox: lv.vox } });
+      node.port.onmessage = onReport;
+      node.connect(master);
+      if (s.test) { testLog = []; testT0 = ctx.currentTime; }
+      syncTest();
+    });
+  }
+  function stopNode(){ if (node){ try { node.disconnect(); } catch(e){} node.port.onmessage = null; node = null; } }
+  function stop(){ playing = false; stopNode(); $('play').textContent = 'Play'; syncTest(); }
+  $('play').addEventListener('click', function(){
+    ensure(); if (ctx.state === 'suspended') ctx.resume();
+    if (playing){ stop(); return; }
+    playing = true; $('play').textContent = 'Stop'; start();
+  });
+  function send(m){ if (node) node.port.postMessage(m); }
+
+  // ---------- what the engine reports ----------
+  function resetLive(){ live.f = []; live.slipRate = new Float32Array(N); live.p = null; live.t = 0; }
+  function onReport(e){
+    var m = e.data; live.t += m.dt;
+    live.f.push(m.f); if (live.f.length > 200) live.f.shift();
+    live.tug = m.tug; live.B = m.B;
+    for (var j = 0; j < N; j++) live.slipRate[j] += (m.slip[j] / m.dt - live.slipRate[j]) * (m.dt / 1.0);
+    if (m.p){ live.p = m.p; live.th = m.th; live.r = m.r; }
+    if (STEPS[step].test && playing){ testLog.push([live.t, m.f, m.B]); if (testLog.length > 12000) testLog.shift(); }
+  }
+  function pulse(win){ var a = live.f, n = Math.min(a.length, win || 100), s = 0; for (var i = a.length - n; i < a.length; i++) s += a[i]; return n ? s / n : 110; }
+  function wobble(){ var a = live.f; if (a.length < 50) return 0; var m = 0, v = 0, i; for (i = 0; i < a.length; i++) m += a[i]; m /= a.length; for (i = 0; i < a.length; i++) v += (a[i] - m) * (a[i] - m); return Math.sqrt(v / a.length); }
+
+  // ---------- controls ----------
+  function range(){ return STEPS[step].range || [1e-5, 1e-3]; }
+  function BFromSlider(v){ var g = range(); return g[0] * Math.pow(g[1] / g[0], v); }
+  function sliderFromB(B){ var g = range(); return Math.log(B / g[0]) / Math.log(g[1] / g[0]); }
+  function fmtB(B){ if (B === 0) return '0'; var e = Math.floor(Math.log10(B)), m = B / Math.pow(10, e); return m.toFixed(m < 9.95 ? 1 : 0) + 'e' + e; }
+  $('B').addEventListener('input', function(){
+    sliderPos = parseFloat($('B').value); Bnow = BFromSlider(sliderPos);
+    $('Bv').textContent = STEPS[step].test ? '' : fmtB(Bnow);
+    send({ B: Bnow });
+  });
+  $('off1').addEventListener('input', function(){ off1 = parseFloat($('off1').value); $('off1v').textContent = '+' + off1.toFixed(1) + ' Hz'; send({ off1: off1 }); });
+  $('push').addEventListener('click', function(){ send({ push: true }); });
+  var det = 0;
+  function showDet(){ Array.prototype.forEach.call(document.querySelectorAll('[data-det]'), function(x){ x.setAttribute('aria-pressed', String(+x.getAttribute('data-det') === det)); }); }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-det]'), function(b){
+    b.addEventListener('click', function(){ det = +b.getAttribute('data-det'); showDet(); send({ det: det }); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-listen]'), function(b){
+    b.addEventListener('click', function(){
+      listen = b.getAttribute('data-listen');
+      Array.prototype.forEach.call(document.querySelectorAll('[data-listen]'), function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      send({ vox: listen === 'alone' ? 0 : 1 });
+    });
+  });
+
+  // ---------- the test ----------
+  function syncTest(){
+    var s = STEPS[step], t = !!s.test, revealed = t && marks.length > 0;
+    $('testRow').hidden = !t;
+    $('markBtn').disabled = !(t && playing);
+    $('blind').hidden = !t || revealed;
+    $('seeing').hidden = t && !revealed;
+    $('meter').hidden = t && !revealed;
+    $('reveal').hidden = !revealed;
+    $('traceWrap').hidden = !revealed;
+  }
+  $('markBtn').addEventListener('click', function(){
+    if (!playing) return;
+    marks.push({ B: Bnow, t: live.t, listen: listen });
+    renderReveal(); syncTest();
+  });
+  $('again').addEventListener('click', function(){ marks = []; testLog = []; live.t = 0; syncTest(); });
+  function renderReveal(){
+    var h = [];
+    marks.forEach(function(m, i){ h.push('Mark ' + (i + 1) + ' (' + (m.listen === 'alone' ? 'tone alone' : 'tone and voices') + '): <b>B = ' + fmtB(m.B) + '</b>'); });
+    // the first moment in this search where the pulse wobbled past 0.5 Hz over the 2 s before it
+    var first = null, i, j;
+    for (i = 200; i < testLog.length && !first; i++){
+      var m = 0, v = 0; for (j = i - 200; j < i; j++) m += testLog[j][1]; m /= 200;
+      for (j = i - 200; j < i; j++) v += (testLog[j][1] - m) * (testLog[j][1] - m);
+      if (Math.sqrt(v / 200) > 0.5) first = testLog[i];
+    }
+    h.push(first ? 'In your search the pulse first wobbled past 0.5 Hz at <b>B = ' + fmtB(first[2]) + '</b> (2 s window, so a quick drag reads late).' : 'In your search the pulse never wobbled past 0.5 Hz over 2 s: you may have marked a change in colour, or moved faster than a tear can show.');
+    h.push('Held still for 4 s at each stretch, this tone first tears between <b>B = 1.72e-3</b> and <b>1.75e-3</b> (this engine, checked headless). The sweeps set each voice a hair off its harmonic; with those voices the same test gives 2.13e-3 to 2.17e-3, the map’s grid put the edge between 1.8e-3 (holds) and 3.2e-3 (torn), and the slow sweep broke at 2.2e-3, 40.75 s in. Same place, give or take the voices’ tuning.');
+    var mk = marks[marks.length - 1].B, ratio = mk / 1.73e-3;
+    h.push(ratio > 0.7 && ratio < 1.45 ? 'Your last mark sits within a factor of 1.5 of the edge. The ear found it.' : ratio <= 0.7 ? 'Your last mark sits below the edge, by a factor of ' + (1 / ratio).toFixed(1) + '. The colour turning over in the alive zone can sound like a break; listen for the pitch itself jittering.' : 'Your last mark sits above the edge, by a factor of ' + ratio.toFixed(1) + '. A light tear can hide under the colour; try the tone alone, and go slowly just under 2e-3.');
+    $('reveal').innerHTML = h.join('<br>');
+  }
+
+  // ---------- step changes ----------
+  function buildRail(){
+    var r = $('rail'); r.innerHTML = '';
+    STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); r.appendChild(b); });
+  }
+  function go(i){
+    if (playing) stop();
+    step = Math.max(0, Math.min(STEPS.length - 1, i));
+    var s = STEPS[step];
+    Array.prototype.forEach.call($('rail').children, function(b, k){ if (k === step) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (step + 1) + ' of ' + STEPS.length;
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hint;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    $('ctlOff1').hidden = !(s.ctl && s.ctl.indexOf('off1') >= 0);
+    $('ctlB').hidden = !(s.ctl && s.ctl.indexOf('B') >= 0);
+    $('pushRow').hidden = !s.push;
+    $('detRow').hidden = !s.detToggle; det = s.det; showDet();
+    Bnow = s.B; if (s.ctl && s.ctl.indexOf('B') >= 0){ sliderPos = sliderFromB(s.B); $('B').value = String(sliderPos); $('Bv').textContent = s.test ? '' : fmtB(Bnow); }
+    $('BLabel').textContent = s.test ? 'stretch, unmarked' : 'stretch B';
+    $('off1').value = String(off1); $('off1v').textContent = '+' + off1.toFixed(1) + ' Hz';
+    $('barsCap').textContent = s.bars === 'ladder' ? 'where each partial sits, against the whole numbers' : 'how hard each voice pulls the tone’s pitch, Hz (up = sharper)';
+    $('back').disabled = step === 0; $('next').disabled = step === STEPS.length - 1;
+    marks = []; testLog = []; resetLive(); syncTest();
+  }
+  $('back').addEventListener('click', function(){ go(step - 1); });
+  $('next').addEventListener('click', function(){ go(step + 1); });
+
+  // ---------- pictures ----------
+  function fit(c, H){
+    var w = c.clientWidth || 600, d = window.devicePixelRatio || 1;
+    if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)){ c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+    var g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g: g, w: w, h: H };
+  }
+  function drawScope(){
+    var o = fit($('scope'), 130), g = o.g, w = o.w, h = o.h, s = STEPS[step];
+    g.clearRect(0, 0, w, h);
+    g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+    for (var k = 1; k < 3; k++){ g.beginPath(); g.moveTo(w * k / 3, 6); g.lineTo(w * k / 3, h - 6); g.stroke(); }
+    // phases at the last whole turn of θ: p_n − r_n · frac(θ). Before Play, the still tone as it would start.
+    var r = live.r || rOf(Bnow), base = new Float64Array(N), i, n;
+    for (n = 0; n < N; n++) base[n] = (live.p ? live.p[n] - r[n] * live.th : 0) + tmpl.offs[n];
+    var amp = tmpl.amp, ys = [], max = 1e-9;
+    for (i = 0; i <= 360; i++){ var x = 3 * i / 360, y = 0; for (n = 0; n < N; n++) y += amp[n] * FRUST.sin1(base[n] + r[n] * x); ys.push(y); max = Math.max(max, Math.abs(y)); }
+    g.strokeStyle = playing ? '#e8e8f0' : '#8a8aa0'; g.lineWidth = 1.4; g.beginPath();
+    for (i = 0; i <= 360; i++){ var X = w * i / 360, Y = h / 2 - (h / 2 - 10) * ys[i] / 2.0; if (i) g.lineTo(X, Y); else g.moveTo(X, Y); }
+    g.stroke();
+    $('scopeNote').textContent = (live.B || Bnow) > 0 ? 'stretched: it changes from turn to turn' : 'whole numbers: the same every turn';
+  }
+  function rOf(B){ var r = new Float64Array(N); for (var n = 1; n <= N; n++) r[n - 1] = n * Math.sqrt(1 + B * n * n); return r; }
+  function drawBars(){
+    var o = fit($('bars'), 200), g = o.g, w = o.w, h = o.h, s = STEPS[step];
+    g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+    if (s.bars === 'ladder'){
+      var r = rOf(Bnow), x0 = 30, x1 = w - 20, X = function(v){ return x0 + (v - 0.5) / 6.5 * (x1 - x0); };
+      g.strokeStyle = '#4a4a5e'; g.beginPath(); g.moveTo(x0, h / 2); g.lineTo(x1, h / 2); g.stroke();
+      for (var k = 1; k <= 6; k++){ g.fillStyle = '#4a4a5a'; g.fillRect(X(k) - 0.5, h / 2 - 14, 1, 28); g.fillText(String(k), X(k), h / 2 + 30); }
+      for (var n = 0; n < N; n++){ g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X(r[n]), h / 2, 6, 0, 7); g.fill(); }
+      g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText('partial n sits at n × 110 Hz: every one on a whole number', x0, 18);
+      $('barsNote').textContent = 'ratio to the fundamental';
+      return;
+    }
+    var tug = live.tug, max = 1, j, sum = 0;
+    for (j = 0; j < N; j++){ max = Math.max(max, Math.abs(tug[j])); sum += tug[j]; }
+    max = Math.max(max, Math.abs(sum));
+    var cols = N + 2, cw = (w - 40) / cols, mid = h / 2 - 8, sc = (h / 2 - 40) / max;
+    g.strokeStyle = '#4a4a5e'; g.beginPath(); g.moveTo(20, mid); g.lineTo(w - 20, mid); g.stroke();
+    for (j = 0; j < N; j++){
+      if (!STEPS[step].mask[j]){ g.fillStyle = '#4a4a5a'; g.fillText('·', 20 + cw * (j + 0.5), mid - 4); g.fillText('v' + (j + 1), 20 + cw * (j + 0.5), h - 6); continue; }
+      var v = tug[j], held = Math.abs(live.slipRate[j]) < 0.5;
+      g.fillStyle = held ? (v >= 0 ? '#e8b84a' : '#6366F1') : '#4a4a5a';
+      var bh = v * sc; g.fillRect(20 + cw * (j + 0.2), bh >= 0 ? mid - bh : mid, cw * 0.6, Math.abs(bh));
+      g.fillStyle = '#8a8aa0'; g.fillText('v' + (j + 1), 20 + cw * (j + 0.5), h - 6);
+      g.fillText((v >= 0 ? '+' : '') + v.toFixed(2), 20 + cw * (j + 0.5), v >= 0 ? mid - bh - 5 : mid - bh + 13);
+    }
+    var xs = 20 + cw * (N + 1.5);
+    g.fillStyle = '#e8e8f0'; var sh = sum * sc; g.fillRect(xs - cw * 0.3, sh >= 0 ? mid - sh : mid, cw * 0.6, Math.abs(sh));
+    g.fillStyle = '#c8c8d8'; g.fillText('sum', xs, h - 6); g.fillText((sum >= 0 ? '+' : '') + sum.toFixed(2), xs, sum >= 0 ? mid - sh - 5 : mid - sh + 13);
+    $('barsNote').textContent = 'amber pulls up · indigo pulls down · grey has slipped';
+  }
+  function drawTrace(){
+    if ($('traceWrap').hidden || !testLog.length) return;
+    var o = fit($('trace'), 180), g = o.g, w = o.w, h = o.h, t1 = testLog[testLog.length - 1][0], t0 = testLog[0][0], span = Math.max(5, t1 - t0);
+    g.clearRect(0, 0, w, h);
+    var fmin = 1e9, fmax = -1e9; testLog.forEach(function(e){ fmin = Math.min(fmin, e[1]); fmax = Math.max(fmax, e[1]); });
+    fmin = Math.min(fmin, 105); fmax = Math.max(fmax, 111);
+    var X = function(t){ return 10 + (t - t0) / span * (w - 20); }, Yf = function(f){ return h - 12 - (f - fmin) / (fmax - fmin) * (h - 24); };
+    var g0 = range(), Yb = function(B){ return h - 12 - Math.log(B / g0[0]) / Math.log(g0[1] / g0[0]) * (h - 24); };
+    g.strokeStyle = 'rgba(232,184,74,.7)'; g.beginPath(); testLog.forEach(function(e, i){ var x = X(e[0]), y = Yb(Math.max(g0[0], e[2])); if (i) g.lineTo(x, y); else g.moveTo(x, y); }); g.stroke();
+    g.strokeStyle = '#e8e8f0'; g.lineWidth = 1; g.beginPath(); testLog.forEach(function(e, i){ var x = X(e[0]), y = Yf(e[1]); if (i) g.lineTo(x, y); else g.moveTo(x, y); }); g.stroke();
+    g.setLineDash([3, 4]); g.strokeStyle = 'rgba(232,184,74,.5)'; var ye = Yb(1.73e-3); g.beginPath(); g.moveTo(10, ye); g.lineTo(w - 10, ye); g.stroke(); g.setLineDash([]);
+    g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillText('the edge, 1.73e-3 (dashed)', 14, ye - 4);
+    g.strokeStyle = '#e8b84a'; marks.forEach(function(m){ var x = X(m.t); g.beginPath(); g.moveTo(x, 6); g.lineTo(x, h - 6); g.stroke(); });
+    g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText(fmax.toFixed(0) + ' Hz', w - 12, 14); g.fillText(fmin.toFixed(0) + ' Hz', w - 12, h - 14);
+  }
+  function drawMeter(){
+    var s = STEPS[step], h = [];
+    if (!playing){ $('meter').innerHTML = 'silent · press Play'; return; }
+    var f = pulse(100), wb = wobble();
+    h.push('the tone’s pitch: <b>' + f.toFixed(2) + ' Hz</b>' + (s.bars === 'tug' ? ' · wobble over 2 s: <b>' + wb.toFixed(2) + ' Hz</b>' : ''));
+    if (step === 1){
+      var held = Math.abs(live.slipRate[0]) < 0.5;
+      h.push(held ? 'state: <b>held</b>, the voice and partial 1 share one pitch' : 'state: <b>slipping</b>, about ' + Math.abs(live.slipRate[0]).toFixed(1) + ' beats a second');
+    } else if (s.bars === 'tug'){
+      var slipped = 0; for (var j = 0; j < N; j++) if (Math.abs(live.slipRate[j]) >= 0.5) slipped++;
+      h.push('state: <b>' + (wb > 0.5 ? 'torn' : 'held') + '</b>' + (slipped ? ' · ' + slipped + ' of 6 voices slipping' : ' · all six voices holding'));
+    }
+    $('meter').innerHTML = h.join('<br>');
+  }
+  function frame(){
+    requestAnimationFrame(frame);
+    if (!$('seeing').hidden){ drawScope(); drawBars(); }
+    if (!$('meter').hidden) drawMeter();
+    drawTrace();
+  }
+  // the sigil: a 3:2 Lissajous
+  (function(){ var d = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+
+  buildRail(); go(0); frame();
+})();
+</script>
+</body>
+</html>

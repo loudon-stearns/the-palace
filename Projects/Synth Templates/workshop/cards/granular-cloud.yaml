@@ -1,0 +1,69 @@
+# Synth Templates — card 0.2 — Granular Cloud
+# Textures and Ambient, tier 3: a sound made of thousands of tiny pieces. The subtractive slots cannot hold a grain engine, so the card draws
+# the cloud's two mechanisms as what they are: a fast gate on the amp (the grain window) and a stepped random on pitch (the spread).
+schema: synth-template-card/0.2
+id: granular-cloud
+name: Granular Cloud
+family: Textures and Ambient
+tier: 3
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Unison / unisono"
+  - "LFO rate range vs oscillator; LFO into audio rate"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Per-note random pan for width"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: triangle, octave: 0, unison: 7, detune: very wide, note: "in a granular engine this is the source sample; here a tone, seven voices wide so the cloud has bodies"}
+    amp:  {kind: amplifier, level: half}
+    fx:   {kind: fx, chain: [reverb]}
+    aenv: {kind: envelope, role: amp, shape: {a: very slow, d: medium, s: held, r: very long}, category: pad}
+    lfo1: {kind: lfo, wave: square, rate: very fast, sync: false, note: "the grain clock: each pulse is one grain window; a real engine runs this into the tens or hundreds per second with a soft window, past what the voice can gate"}
+    lfo2: {kind: lfo, wave: s&h, rate: very fast, sync: false, note: "the pitch spread: a new random pitch for every grain; the voice plays a stepped random LFO on pitch"}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: amp.level, amount: full, essential: true}
+    - {from: lfo2, to: osc1.pitch, amount: a fifth, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: wheel, to: lfo2.depth, amount: full, essential: false}
+
+essentials:
+  - {block: lfo1, param: target,   value: amp level,        why: "a grain is a tiny amplitude window: the cloud is made of them, not of notes"}
+  - {block: lfo1, param: rate,     value: very fast,        why: "grains too fast to count: at this rate the gate stops being rhythm and becomes texture"}
+  - {block: lfo1, param: retrigger, value: free,            why: "every voice's grains land at different times, so the stack smears instead of chopping as one"}
+  - {block: lfo2, param: wave,     value: sample and hold,  why: "a stepped random: each grain takes a new pitch and holds it; a smooth random would be a wobble, not a spread"}
+  - {block: lfo2, param: target,   value: pitch,            why: "the spread is in pitch: grains land above and below the note, and the note is only their centre"}
+  - {block: osc1, param: unison,   value: 7 voices,         why: "many grains at once; one voice gated is a stutter"}
+  - {block: osc1, param: detune,   value: very wide,        why: "the voices already disagree before the random spread pulls them further"}
+  - {block: aenv, param: attack,   value: very slow,        why: "a cloud gathers; it does not start"}
+  - {block: fx,   param: chain,    value: reverb,           why: "the room smooths the thousands of edges into a surface"}
+  - {block: mode, param: voices,   value: poly,             why: "clouds on top of clouds; the grains of each chord note mix freely"}
+
+taste:
+  - {block: lfo2, param: amount,   range: "none – two octaves",   default: a fifth, why: "none is a tremolo pad; two octaves is weather"}
+  - {block: lfo1, param: rate,     range: "fast – very fast",     default: very fast, why: "slower and the grains become a stutter you can count"}
+  - {block: lfo2, param: rate,     range: "medium – very fast",   default: very fast, why: "how often the pitch jumps; slower is a melody of accidents"}
+  - {block: osc1, param: detune,   range: "wide – very wide",     default: very wide}
+  - {block: aenv, param: attack,   range: "slow – very slow",     default: very slow}
+  - {block: fx,   param: reverb,   range: "large – huge",         default: huge}
+
+listening:
+  cue: "Not a chord but a mist around one: a hiss of tiny notes above and below the key, none long enough to be a note, all of them together making a soft, grainy surface. Hold it and nothing repeats."
+  ab: "Set the pitch spread to none: a pad with a fast tremolo, every grain on the same note, and the mist becomes a flutter. Put the spread back and the cloud returns. Then slow the grain clock to medium: now you can hear every grain as a separate stutter, and the surface falls apart into rhythm."
+
+render:
+  tempo: 60
+  note: [D3, A3, D4]
+  velocity: 80
+  pattern: "one chord held the whole length, released near the end"
+  length_s: 12.0
+
+mappings: {}

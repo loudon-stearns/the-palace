@@ -1,0 +1,83 @@
+# Synth Templates — Genre Classics — Lo-Fi Hip-Hop Keys
+# An FM electric piano worn down: a slow pitch wobble, a dark filter, a bed of noise. The chain after the keys is the lesson.
+schema: synth-template-card/0.2
+id: lo-fi-hip-hop-keys
+name: Lo-Fi Hip-Hop Keys
+family: Genre Classics
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+lineage:
+  - "cards/fm-electric-piano.yaml: the clean EP this one is built on"
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Noise for softness and high end"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Cutoff frequency"
+  - "Pluck / strike: release = decay; gong vs marimba"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, note: "carrier"}
+    osc2:    {kind: oscillator, wave: sine, ratio: "1:1", level: little, note: "modulator; quieter than the clean EP"}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "vinyl bed; the voice plays plain noise, not crackle"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [saturation, chorus]}
+    menv:    {kind: envelope, role: index, shape: {a: instant, d: medium, s: low, r: medium}, category: percussive}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: long, s: zero, r: medium}, category: piano}
+    lfo1:    {kind: lfo, wave: sine, rate: slow, sync: false, note: "the tape wobble"}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: true}
+    - {from: lfo1, to: osc2.pitch, amount: little, essential: true}
+    - {from: vel,  to: menv.amount, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,           why: "chords, played lazily"}
+  - {block: osc1,    param: wave,      value: sine,           why: "the EP carrier"}
+  - {block: osc2,    param: routing,   value: into osc1 fm,   why: "the EP's bite comes from FM, then everything after it wears the bite down"}
+  - {block: osc2,    param: level,     value: little,         why: "a low index: the keys were never bright to begin with"}
+  - {block: lfo1,    param: target,    value: both pitches,           why: "tape wobble: the whole chord drifts together, slowly, a little"}
+  - {block: lfo1,    param: rate,      value: slow,           why: "a wow, not a vibrato; faster and it is a Leslie"}
+  - {block: filter1, param: cutoff,    value: dark,           why: "the top is gone, as if through a cassette"}
+  - {block: noise,   param: level,     value: little,         why: "the bed under the notes: softness and a little air, never a hiss"}
+  - {block: fx,      param: chain,     value: saturation then chorus, why: "the tape's warmth and its smear, in that order"}
+  - {block: aenv,    param: sustain,   value: zero,           why: "struck: the note decays while held"}
+
+taste:
+  - {block: osc2,    param: level,     range: "little – half",       default: little}
+  - {block: noise,   param: level,     range: "off – quarter",       default: little}
+  - {block: filter1, param: cutoff,    range: "dark – mid",          default: dark}
+  - {block: lfo1,    param: depth,     range: "none – some",         default: little}
+  - {block: lfo1,    param: rate,      range: "very slow – medium",  default: slow}
+  - {block: aenv,    param: decay,     range: "medium – long",       default: long}
+  - {block: fx,      param: drive,     range: "light – heavy",       default: light}
+
+listening:
+  cue: "A soft, dark electric piano that is never quite in tune: the chord sways as if the tape were slipping. Under it, a faint bed of hiss that is there on every note and never draws attention to itself."
+  ab: "Set the LFO depth to none and the filter to open: it is a clean, steady EP again. Put them back. Then turn the noise off: cleaner, and strangely colder; the bed was doing more than it seemed."
+
+render:
+  tempo: 78
+  note: [D3, F3, A3, C4]
+  velocity: 70
+  pattern: "the chord twice, lazily behind the beat, each held a bar"
+  length_s: 7.0
+
+mappings: {}

@@ -1,0 +1,657 @@
+<!doctype html>
+<!--
+title: Phase Reduction — rich — two clocks on one beam
+born: 2026-11-03
+links:
+  - target: "[[Phase Reduction]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+forward_vector: "I am Huygens's two clocks on one beam, heard as two tick-tocks: one clock settling to its own swing, two on a stone wall sliding past each other for ever, two on a beam settling together. I walk up to the test of what sets the gap they settle at: the shadow built from one clock's phase response and the push the beam carries, against the clocks themselves, under three beams and one escapement. I change only when the section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Two clocks on one beam</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blue:#4a8fff; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--amber); border-bottom-color: var(--amber); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--amber); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button[aria-pressed=true] { color: var(--amber); border-color: var(--amberline); }
+  button:disabled { opacity: .4; cursor: default; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { text-transform: none; letter-spacing: .06em; white-space: nowrap; }
+  .ctls .full { grid-column: 1 / -1; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; align-items: end; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .yes { color: var(--ok); } .read .no { color: var(--warn); }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--amber); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--amber); }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--amber); font-weight: 300; }
+  @media (max-width: 680px) { .ctls { grid-template-columns: 1fr; } .read { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · study · four steps · two pendulum clocks, heard</div>
+  <h1 class="title">Two clocks on one beam</h1>
+  <p class="sub">In 1665 Huygens, ill in bed, watched two of his pendulum clocks on a shared support keep returning to the same pattern however they were started or disturbed, an "odd kind of sympathy"; the pattern was the two swinging opposite ways. The page reads this as the smallest case of its bridge: two loops, coupled through the beam, falling into a phase-locked shadow. Here are two clocks you can hear, tick on the way right and a lower tock on the way left, one clock in each ear. Nothing plays until you press a sound button.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="One clock">
+    <div class="eyebrow">Step 1 of 4 · one clock, its own swing</div>
+    <h3>A clock is a loop it falls back onto</h3>
+    <p class="say">A pendulum alone would swing ever smaller. The escapement feeds it a little each swing, more when the swing is small and less when it is wide, so the clock settles to a swing of its own whatever you start it at. That settled swing is its loop. Each tick is louder the faster the bob passes the middle, so you can hear it settle.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the clock · right: its swing, each swing's widest point over twenty seconds</span><button class="go" data-sound="one">▶ start the clock</button><button data-stop>stop</button></div>
+      <canvas id="c1"></canvas>
+      <div class="ctls">
+        <label class="sl">start it swinging <b id="a0val"></b><input id="a0" type="range" min="10" max="300" step="1"></label>
+        <label class="sl">how hard the escapement works, e <b data-eval></b><input data-e type="range" min="0" max="1000" step="1"></label>
+      </div>
+      <div class="read">
+        <div>it settles to a swing of<br><b id="r1a"></b></div>
+        <div>within 1% of it after<br><b id="r1b"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">θ'' = −ω²·θ − e·((θ ÷ θ₀)² − 1)·θ'</div>
+        <div class="words">(how the swing speeds up) = (gravity, pulling back to the middle) − (the escapement, which pushes while the swing is narrower than θ₀ and brakes it when wider, harder the bigger e). A smooth stand-in for the real ratchet.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Start it small and hear the ticks grow; start it wide and hear them shrink to the same level. Turn e down and the settling takes longer; the swing it settles to stays the same.</p>
+  </section>
+
+  <section class="step" data-title="A stone wall" hidden>
+    <div class="eyebrow">Step 2 of 4 · two clocks, nothing between them</div>
+    <h3>On a stone wall, they slide past each other for ever</h3>
+    <p class="say">Two clocks, the right one a fraction fast, on a wall that does not move. Each keeps its own time. Started together, their ticks drift apart, the left tick and the right tock meet, and they drift on until they are together again. The gap between them slides one whole cycle every 1 ÷ δ swings and never stops.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the two clocks · right: the gap at each tick, time running down</span><button class="go" data-sound="wall">▶ hear the two</button><button data-stop>stop</button></div>
+      <canvas id="c2"></canvas>
+      <div class="ctls"><label class="sl">the right clock runs fast by δ <b id="d2val"></b><input id="d2" type="range" min="1" max="400" step="1"></label></div>
+      <div class="read">
+        <div>the gap slides, measured<br><b id="r2a"></b></div>
+        <div>a whole cycle every<br><b id="r2b"></b></div>
+        <div class="state" data-state></div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>At 1% the ticks pass through each other about every fifty seconds; at 2%, twice as often. Listen for the moment tick lands on tock, halfway round.</p>
+  </section>
+
+  <section class="step" data-title="One beam" hidden>
+    <div class="eyebrow">Step 3 of 4 · Huygens's beam</div>
+    <h3>On a beam that can sway, they settle together</h3>
+    <p class="say">Hang the same two clocks, the right one 0.3% fast, from a beam that can sway a little and damps its own swaying. Every swing of each bob shoves the beam, and the beam's sway shoves both bobs back. Started nearly together, the clocks slide apart and then hold, nearly opposite: the left tick lands with the right tock. Swinging nearly opposite, their shoves on the beam mostly cancel, and the beam's sway falls to about a tenth.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">left: the clocks on the beam · right: the gap at each tick, time running down, and the beam's sway</span><button class="go" data-sound="beam">▶ hear them settle</button><button data-stop>stop</button></div>
+      <canvas id="c3"></canvas>
+      <div class="read">
+        <div>they settle at<br><b id="r3a"></b></div>
+        <div>holding from<br><b id="r3b"></b></div>
+        <div>the beam's sway, last ten seconds against the first ten<br><b id="r3c"></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">θᵢ'' = fᵢ − x'',   x'' = −c·x' − k·x − r·(f₁ + f₂)</div>
+        <div class="words">(each bob's swing) = (its own clock) − (the beam's shove) · (the beam's shove) = −(its damping) − (its spring) − (the bobs' mass over the beam's) × (the two bobs' own pulls, added). Here a bob is a twentieth of the beam, so the clocks settle within seconds; the time scale is chosen for listening, not taken from Huygens.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Listen through the first twenty seconds: the flam between the two ears widens, then stops widening. That stop is the lock.</p>
+  </section>
+
+  <section class="step" data-title="What sets the gap" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>The shadow, and what sets the gap it locks at</h3>
+    <p class="say">The page says the two clocks phase-reduce to a two-body Kuramoto system that locks antiphase, and that the PRC of the clock's escapement sets the locked gap. Build the shadow: the clock's phase response (gold, from Floquet, one clock alone on a wall), times the push the beam carries from one clock to the other (blue), averaged round a cycle, gives the pull; where the part of the pull that draws them falls through zero, the shadow settles. Then hang the real clocks, from four different starting gaps, and see where they settle. The escapement is the same under all three beams.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint" id="h4">solving…</span><button class="go" data-sound="test">▶ hear the first start</button><button data-stop>stop</button></div>
+      <canvas id="c4"></canvas>
+      <div class="ctls">
+        <div class="full"><span class="hint">the beam</span><br><span class="seg" id="beams"></span></div>
+        <label class="sl">escapement e <b data-eval></b><input data-e type="range" min="0" max="1000" step="1"></label>
+        <label class="sl">the beam's damping c <b id="cval"></b><input id="cc" type="range" min="0" max="1000" step="1"></label>
+        <label class="sl">the beam's spring, as its own rate ÷ the clocks' <b id="kval"></b><input id="kk" type="range" min="0" max="300" step="1"></label>
+      </div>
+      <div class="read" id="r4"></div>
+      <div class="hint state" data-state style="margin-top:8px"></div>
+      <div class="eqs">
+        <div class="eq">Γ(ψ) = ⟨ Z(θ) · p(θ + ψ) ⟩,   p = r · H(s) · f,   H(s) = s² ÷ (s² + c·s + k)</div>
+        <div class="words">(the pull at gap ψ) = the average over a cycle of (one clock's phase response) × (the push from the other, ψ ahead) · (the push) = (mass ratio) × (how the beam turns the other bob's pull into a shove, at each harmonic of the swing) × (that pull).</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Step through the three beams with the escapement untouched: antiphase, in phase, and a gap of about 140° that neither the page nor Huygens names. Then keep the board that rolls freely and turn the escapement down to 0.6: the shadow swings back to antiphase, and the clocks themselves go two ways, one start holding in phase where the shadow says it cannot.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Phase Reduction · rich · two clocks on one beam · study · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- math (pure: the check runs this block in node and calls selfTest) ----
+// Two pendulum clocks, small swings, each kept going by a smooth escapement (a van der Pol push: it feeds the
+// swing while it is small and brakes it when it is wide, so every clock settles to a swing of its own), hung from
+// one beam. The beam is a mass on a spring with damping, and it is moved only by the clocks' swinging.
+//   clock i:  θᵢ'' = fᵢ − a,   fᵢ = −ωᵢ²·θᵢ − e·((θᵢ ÷ θ₀)² − 1)·θᵢ'
+//   the beam: a = x'' = −c·x' − k·x − r·(f₁ + f₂)        (r: one bob's mass over the beam's, lengths in pendulum lengths)
+// With the beam held still (a = 0) the clocks are two clocks on a stone wall.
+const TWO_PI = 2 * Math.PI;
+function rk4(f, s, h) {
+  const n = s.length, k1 = f(s), t = new Array(n);
+  for (let i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k1[i]; const k2 = f(t);
+  for (let i = 0; i < n; i++) t[i] = s[i] + 0.5 * h * k2[i]; const k3 = f(t);
+  for (let i = 0; i < n; i++) t[i] = s[i] + h * k3[i]; const k4 = f(t);
+  const o = new Array(n); for (let i = 0; i < n; i++) o[i] = s[i] + h / 6 * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]);
+  return o;
+}
+function own(w, e, th0, th, v) { return -w * w * th - e * ((th / th0) * (th / th0) - 1) * v; }
+// one clock alone: its swing, sampled, and when it ticks (passing the middle going right) and tocks (going left)
+function oneClock(P) {
+  const { w, e, th0, amp0, secs } = P, h = TWO_PI / w / 400, n = Math.round(secs / h), every = 8;
+  let s = [amp0, 0], t = 0; const ticks = [], tocks = [], speeds = [[], []], th = [], tt = [];
+  const f = (u) => [u[1], own(w, e, th0, u[0], u[1])];
+  for (let i = 0; i < n; i++) {
+    const nx = rk4(f, s, h);
+    if (s[0] < 0 && nx[0] >= 0) { ticks.push(t + h * -s[0] / (nx[0] - s[0])); speeds[0].push(Math.abs(s[1])); }
+    if (s[0] > 0 && nx[0] <= 0) { tocks.push(t + h * s[0] / (s[0] - nx[0])); speeds[1].push(Math.abs(s[1])); }
+    if (i % every === 0) { th.push(s[0]); tt.push(t); }
+    s = nx; t += h;
+  }
+  return { ticks, tocks, speeds, th, tt, dt: h * every };
+}
+// the swing a clock settles to (its loop's size), read off a long run
+function settledSwing(w, e, th0) { const r = oneClock({ w, e, th0, amp0: th0, secs: 120 * TWO_PI / w + 60 }); let m = 0; for (let i = Math.floor(r.th.length * 0.8); i < r.th.length; i++) m = Math.max(m, Math.abs(r.th[i])); return m; }
+// two clocks. P: w (clock A's rate, rad/s), det (clock B runs this fraction faster), e, th0, r, c, k, beam (false: a stone wall),
+// gap0 (B's start, as a phase ahead of A), secs. Returns each clock's ticks and tocks, the gap at each of B's ticks, a
+// decimated trace for drawing, and whether the gap settled.
+function twoClocks(P) {
+  const { w, det, e, th0, r, c, k, beam, gap0, secs } = P, w2 = w * (1 + det), A = P.amp || settledSwing(w, e, th0);
+  const h = TWO_PI / w / 400, n = Math.round(secs / h), every = 8;
+  const f = (u) => {
+    const f1 = own(w, e, th0, u[0], u[1]), f2 = own(w2, e, th0, u[2], u[3]);
+    const a = beam ? -c * u[5] - k * u[4] - r * (f1 + f2) : 0;
+    return [u[1], f1 - a, u[3], f2 - a, u[5], a];
+  };
+  // both start on their own swing: A at phase 0 (the middle, going right), B gap0 ahead of it
+  let s = [0, A * w, A * Math.sin(gap0), A * w2 * Math.cos(gap0), 0, 0], t = 0;
+  const ticks = [[], []], tocks = [[], []], trace = [];
+  for (let i = 0; i < n; i++) {
+    const nx = rk4(f, s, h);
+    for (let j = 0; j < 2; j++) {
+      const a = s[2 * j], b = nx[2 * j];
+      if (a < 0 && b >= 0) ticks[j].push(t + h * -a / (b - a));
+      if (a > 0 && b <= 0) tocks[j].push(t + h * a / (a - b));
+    }
+    if (i % every === 0) trace.push([t, s[0], s[2], s[4]]);
+    s = nx; t += h;
+  }
+  const gaps = gapsOf(ticks[0], ticks[1]);
+  return { ticks, tocks, gaps, trace, secs, dt: h * every, ...settle(gaps, secs) };
+}
+// the beam's sway between times a and b: half its swing from lowest to highest (the beam has no spring, so its
+// resting place creeps, and only the swing is sway)
+function beamSway(r, a, b) { let lo = Infinity, hi = -Infinity; r.trace.forEach((p) => { if (p[0] >= a && p[0] < b) { lo = Math.min(lo, p[3]); hi = Math.max(hi, p[3]); } }); return (hi - lo) / 2; }
+// how far B is ahead of A, at each of B's ticks: the fraction of A's own period since A's last tick, turned round
+function gapsOf(a, b) {
+  const out = [];
+  for (let q = 0, j = 0; q < b.length; q++) {
+    while (j + 1 < a.length && a[j + 1] <= b[q]) j++;
+    if (j + 1 >= a.length || a[j] > b[q]) continue;
+    const g = TWO_PI * (a[j + 1] - b[q]) / (a[j + 1] - a[j]);
+    out.push([b[q], Math.atan2(Math.sin(g), Math.cos(g))]);
+  }
+  return out;
+}
+// settled: over the last quarter of the run the gap holds still (how tightly, and where)
+function settle(gaps, secs) {
+  const tail = gaps.filter((g) => g[0] > secs * 0.75);
+  if (tail.length < 6) return { locked: false, at: NaN, R: 0 };
+  let cx = 0, sx = 0; tail.forEach((g) => { cx += Math.cos(g[1]); sx += Math.sin(g[1]); });
+  let u = tail[0][1], lo = u, hi = u;
+  for (let i = 1; i < tail.length; i++) { let d = tail[i][1] - tail[i - 1][1]; d = Math.atan2(Math.sin(d), Math.cos(d)); u += d; lo = Math.min(lo, u); hi = Math.max(hi, u); }
+  const R = Math.hypot(cx, sx) / tail.length;
+  return { locked: R > 0.998 && hi - lo < 0.08, at: Math.atan2(sx, cx), R };
+}
+// ---- the shadow: one clock's loop, its phase response, and the beam's push ----
+// the loop, Ns points from the moment it passes the middle going right (phase 0), with its own acceleration at each
+function clockLoop(w, e, th0, Ns) {
+  const f = (u) => [u[1], own(w, e, th0, u[0], u[1])];
+  const A = settledSwing(w, e, th0), h0 = TWO_PI / w / 2000;
+  let s = [A, 0], t = 0;
+  for (let i = 0; i < 40 * 2000; i++) { s = rk4(f, s, h0); t += h0; }
+  const cr = []; let prev = s;
+  while (cr.length < 3) { const nx = rk4(f, prev, h0); if (prev[0] < 0 && nx[0] >= 0) { const q = -prev[0] / (nx[0] - prev[0]); cr.push({ t: t + q * h0, v: prev[1] + q * (nx[1] - prev[1]) }); } prev = nx; t += h0; }
+  const T = (cr[2].t - cr[0].t) / 2, h = T / Ns, th = new Float64Array(Ns), v = new Float64Array(Ns), acc = new Float64Array(Ns);
+  s = [0, cr[2].v];
+  for (let i = 0; i < Ns; i++) { th[i] = s[0]; v[i] = s[1]; acc[i] = own(w, e, th0, s[0], s[1]); s = rk4(f, s, h); }
+  return { w, e, th0, T, W: TWO_PI / T, th, v, acc, Ns, swing: A };
+}
+// the phase response to a push on the swing's speed, from Floquet: the left eigenvector of one trip round the loop
+// at multiplier 1, scaled so the loop's own motion counts as the phase speed. K phases, filled in between.
+function clockPRC(L, K) {
+  const { w, e, th0, T } = L, Z = new Float64Array(L.Ns), pts = [];
+  for (let j = 0; j < K; j++) {
+    const i0 = Math.round(j * L.Ns / K) % L.Ns, steps = 800, h = T / steps;
+    const g = (u) => {
+      const x = u[0], v = u[1], j21 = -w * w - 2 * e * x * v / (th0 * th0), j22 = -e * ((x / th0) * (x / th0) - 1);
+      return [v, own(w, e, th0, x, v), u[4], u[5], j21 * u[2] + j22 * u[4], j21 * u[3] + j22 * u[5]];
+    };
+    let u = [L.th[i0], L.v[i0], 1, 0, 0, 1];
+    for (let i = 0; i < steps; i++) u = rk4(g, u, h);
+    const a = u[2], b = u[3], c = u[4], d = u[5], tr = a + d, det = a * d - b * c, disc = Math.sqrt(Math.max(0, tr * tr / 4 - det));
+    const l1 = tr / 2 + disc, l2 = tr / 2 - disc, lam = Math.abs(l1 - 1) < Math.abs(l2 - 1) ? l1 : l2;
+    const left = Math.abs(c) + Math.abs(a - lam) > Math.abs(b) + Math.abs(d - lam) ? [c, -(a - lam)] : [d - lam, -b];
+    const sc = L.W / (left[0] * L.v[i0] + left[1] * L.acc[i0]);
+    pts.push([i0, left[1] * sc, lam]);
+  }
+  for (let i = 0; i < L.Ns; i++) { const u = i / L.Ns * K, k0 = Math.floor(u) % K, k1 = (k0 + 1) % K, q = u - Math.floor(u); Z[i] = pts[k0][1] * (1 - q) + pts[k1][1] * q; }
+  return { Z, one: Math.max(...pts.map((p) => Math.abs(p[2] - 1))) };
+}
+// the push the beam carries from clock B to clock A, as B goes round its loop: B's swing drives the beam, and the beam's
+// acceleration, felt by A, is p = r · H · f_B with H(s) = s² ÷ (s² + c·s + k), at each harmonic of the swing
+function beamPush(L, r, c, k, harmonics) {
+  const N = L.Ns, M = harmonics || 24, p = new Float64Array(N);
+  for (let n = 1; n <= M; n++) {
+    let re = 0, im = 0;
+    for (let i = 0; i < N; i++) { const ph = TWO_PI * n * i / N; re += L.acc[i] * Math.cos(ph); im -= L.acc[i] * Math.sin(ph); }
+    re /= N; im /= N;
+    const om = n * L.W, hr = -om * om, dr = k - om * om, di = c * om, den = dr * dr + di * di, Hr = hr * dr / den, Hi = -hr * di / den;
+    const cr = re * Hr - im * Hi, ci = re * Hi + im * Hr;
+    for (let i = 0; i < N; i++) { const ph = TWO_PI * n * i / N; p[i] += 2 * r * (cr * Math.cos(ph) - ci * Math.sin(ph)); }
+  }
+  return p;
+}
+// Γ(ψ) = the average over A's loop of (A's phase response) × (the push from B, ψ ahead): the pull at that gap
+function gammaOf(Z, p, P) {
+  const N = Z.length, G = new Float64Array(P);
+  for (let q = 0; q < P; q++) { const sh = Math.round(q / P * N); let s = 0; for (let i = 0; i < N; i++) s += Z[i] * p[(i + sh) % N]; G[q] = s / N; }
+  return G;
+}
+function gammaAt(G, psi) { const P = G.length, u = ((psi / TWO_PI) % 1 + 1) % 1 * P, i = Math.floor(u), q = u - i; return G[i % P] * (1 - q) + G[(i + 1) % P] * q; }
+// the gap moves at ψ' = Δω + Γ(−ψ) − Γ(ψ); it settles where that falls through zero
+function gapSpeed(G, dw, psi) { return dw + gammaAt(G, -psi) - gammaAt(G, psi); }
+function shadowGaps(G, dw) {
+  const out = [], n = 720;
+  for (let q = 0; q < n; q++) {
+    const a = -Math.PI + TWO_PI * q / n, b = a + TWO_PI / n, ra = gapSpeed(G, dw, a), rb = gapSpeed(G, dw, b);
+    if (ra > 0 && rb <= 0) out.push(a + (b - a) * ra / (ra - rb));
+  }
+  return out;
+}
+const angDist = (a, b) => Math.abs(Math.atan2(Math.sin(a - b), Math.cos(a - b)));
+// the four starting gaps the test runs the full clocks from
+const STARTS = [0.5, 1.6, 2.6, -1.6];
+// one setting, both ways: the shadow's settled gaps, and where the full clocks settle from each start
+function bothWays(S) {
+  const L = clockLoop(S.w, S.e, S.th0, 1024), Z = clockPRC(L, 96).Z, G = gammaOf(Z, beamPush(L, S.r, S.c, S.k), 256);
+  const sh = shadowGaps(G, S.w * S.det);
+  const runs = STARTS.map((g0) => twoClocks({ ...S, beam: true, gap0: g0, secs: S.secs || 240, amp: L.swing }));
+  const match = runs.every((u) => u.locked && sh.some((z) => angDist(z, u.at) < 0.12));
+  return { L, Z, G, sh, runs, match };
+}
+const W0 = TWO_PI * 2;                         // a clock that swings twice a second: a tick and a tock each half second
+// three beams under the same pair of clocks, each with a hard escapement (e 8) and the same mass ratio: only the beam's
+// damping and spring differ
+const BEAMS = {
+  huygens: { label: 'a beam that damps its sway', w: W0, det: 0, e: 8, th0: 0.05, r: 0.05, c: 20, k: 0 },
+  board:   { label: 'a board that rolls freely', w: W0, det: 0, e: 8, th0: 0.05, r: 0.05, c: 0.5, k: 0 },
+  shelf:   { label: 'a springy shelf', w: W0, det: 0, e: 8, th0: 0.05, r: 0.05, c: 0.5, k: 4 * W0 * W0 }
+};
+function selfTest() {
+  const lines = [], ok = (name, pass, detail) => lines.push(`${pass ? 'PASS' : 'FAIL'}  ${name}${detail ? ` (${detail})` : ''}`);
+  const deg = (x) => { const v = x * 180 / Math.PI; return (Math.abs(v) < 0.05 ? 0 : v).toFixed(1) + '°'; };
+  // step 1: one clock settles to its own swing from a small start and from a wide one
+  const sw = [0.2, 3].map((m) => { const r = oneClock({ w: W0, e: 0.6, th0: 0.05, amp0: 0.05 * m, secs: 60 }); let a = 0; for (let i = Math.floor(r.th.length * 0.85); i < r.th.length; i++) a = Math.max(a, Math.abs(r.th[i])); return a; });
+  ok('step 1 · one clock settles to the same swing from a small start and a wide one', Math.abs(sw[0] / sw[1] - 1) < 0.01, `${sw[0].toFixed(4)} and ${sw[1].toFixed(4)} rad`);
+  // step 2: on a stone wall the gap slides at the rate difference and never settles
+  const wall = twoClocks({ w: W0, det: 0.01, e: 0.6, th0: 0.05, r: 0.02, c: 20, k: 0, beam: false, gap0: 1.6, secs: 60 });
+  let un = 0; for (let i = 1; i < wall.gaps.length; i++) { let d = wall.gaps[i][1] - wall.gaps[i - 1][1]; un += Math.atan2(Math.sin(d), Math.cos(d)); }
+  const rate = un / (wall.gaps[wall.gaps.length - 1][0] - wall.gaps[0][0]);
+  ok('step 2 · on a stone wall, B pulls ahead at 1% of A\'s rate, and never settles', !wall.locked && Math.abs(rate / (0.01 * W0) - 1) < 0.02, `${(rate / W0 * 100).toFixed(3)}% of A's rate`);
+  // step 3: on Huygens's beam, slightly mistuned clocks started together slide apart, then settle near antiphase
+  const hb = twoClocks({ ...BEAMS.huygens, det: 0.003, beam: true, gap0: 0.2, secs: 60 });
+  ok('step 3 · on a damped beam, clocks 0.3% apart, started together, settle near antiphase within a minute', hb.locked && angDist(hb.at, Math.PI) < 0.35, `settles at ${deg(hb.at)}`);
+  { const s0 = beamSway(hb, 0, 10), s1 = beamSway(hb, 50, 60);
+    ok('step 3 · settled nearly opposite, the beam sways about a tenth as much as at the start', s1 / s0 < 0.15, `${(100 * s1 / s0).toFixed(1)}% of the first ten seconds' sway`); }
+  { const S3 = { ...BEAMS.huygens, det: 0.003 }, L3 = clockLoop(W0, S3.e, S3.th0, 1024), sh3 = shadowGaps(gammaOf(clockPRC(L3, 96).Z, beamPush(L3, S3.r, S3.c, S3.k), 256), W0 * 0.003);
+    ok('step 3 · and the shadow, mistuned the same way, settles within 3° of them', sh3.length === 1 && angDist(sh3[0], hb.at) < 3 * Math.PI / 180, `shadow ${sh3.map(deg).join(', ')}, clocks ${deg(hb.at)}`); }
+  // step 4: the shadow against the clocks, for each beam
+  const want = { huygens: [Math.PI], board: [0], shelf: [-2.44, 0, 2.44] };
+  for (const key of Object.keys(BEAMS)) {
+    const b = bothWays(BEAMS[key]);
+    ok(`step 4 · ${BEAMS[key].label}: every start settles where the shadow says`, b.match, `shadow ${b.sh.map(deg).join(', ')} · clocks ${b.runs.map((u) => (u.locked ? deg(u.at) : 'unsettled')).join(', ')}`);
+    ok(`step 4 · ${BEAMS[key].label}: the shadow's settled gaps`, want[key].length === b.sh.length && want[key].every((z) => b.sh.some((s) => angDist(s, z) < 0.12)), b.sh.map(deg).join(', '));
+  }
+  // the page's claim, split: hold the beam, change the escapement; hold the escapement, change the beam
+  // the page's claim, split: the same escapement under three beams (above) settles at 180°, 0° and ±140°; and the same
+  // free board under a soft escapement and a hard one, in the shadow
+  const shadowOnly = (e, c) => { const L = clockLoop(W0, e, 0.05, 1024); return shadowGaps(gammaOf(clockPRC(L, 96).Z, beamPush(L, 0.05, c, 0), 256), 0); };
+  const soft = shadowOnly(0.6, 0.5), hard = shadowOnly(8, 0.5);
+  ok('the free board held, the escapement changed: the shadow\'s gap moves from antiphase to in phase', soft.length === 1 && angDist(soft[0], Math.PI) < 0.1 && hard.length === 1 && angDist(hard[0], 0) < 0.1, `escapement 0.6: ${soft.map(deg).join(', ')} · escapement 8: ${hard.map(deg).join(', ')}`);
+  const softRuns = STARTS.map((g0) => twoClocks({ ...BEAMS.board, e: 0.6, beam: true, gap0: g0, secs: 240 }));
+  lines.push(`INFO  the free board, soft escapement, the clocks themselves: ${softRuns.map((u) => (u.locked ? deg(u.at) : 'unsettled')).join(', ')} from starts ${STARTS.map((g) => deg(g)).join(', ')}`);
+  return lines;
+}
+// ---- end math ----
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`;
+  b.addEventListener('click', () => show(i));
+  rail.appendChild(b);
+});
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  redraw();
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+// ---- sound: nothing exists before a click; one buffer plays at a time. The kit quiets the page's context itself
+// (a hush from the page around it, a hidden tab, a minute untouched); the piece only keeps its words in step. Never name
+// the page's hush message in this script: the kit reads a script that names it as one that answers it. ----
+let actx = null, src = null, outGain = null, playStart = 0, playing = null;
+function audio() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 8;
+    outGain = actx.createGain(); outGain.gain.value = 0.7;
+    outGain.connect(comp).connect(actx.destination);
+    actx.onstatechange = () => { if (actx.state !== 'running') setPlaying(null); };
+  }
+  return actx;
+}
+function setPlaying(label) {
+  document.querySelectorAll('[data-state]').forEach((el) => { el.textContent = label ? 'playing · ' + label : 'silent until you press a sound button'; });
+}
+function playStereo(ch, rate, label, run) {
+  stopSound();
+  const ctx = audio(), n = ch[0].length, buf = ctx.createBuffer(2, n, rate);
+  let pk = 1e-12; for (const c of ch) for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(c[i]));
+  const g = 0.5 / pk;
+  ch.forEach((c, k) => { const d = buf.getChannelData(k); for (let i = 0; i < n; i++) d[i] = c[i] * g; });
+  const s = ctx.createBufferSource(); s.buffer = buf; s.connect(outGain);
+  s.onended = () => { if (src === s) { src = null; playing = null; setPlaying(null); } };
+  const go = () => { s.start(); src = s; playStart = ctx.currentTime; playing = run || null; setPlaying(label); animate(); };
+  if (ctx.state !== 'running') ctx.resume().then(go); else go();
+}
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src = null; } playing = null; setPlaying(null); }
+document.addEventListener('visibilitychange', () => { if (document.hidden) stopSound(); });
+// a tick: a short knock with a ring at f, louder by `amp`, into a stereo buffer at time t, `pan` −1 left to +1 right
+function knock(ch, sr, t, f, amp, pan) {
+  const i0 = Math.round(t * sr), n = Math.round(0.06 * sr), gl = Math.cos((pan + 1) * Math.PI / 4), gr = Math.sin((pan + 1) * Math.PI / 4);
+  let seed = (i0 * 2654435761) >>> 0;
+  for (let i = 0; i < n && i0 + i < ch[0].length; i++) {
+    seed = (seed * 1664525 + 1013904223) >>> 0;
+    const tt = i / sr, v = amp * (Math.exp(-tt / 0.018) * Math.sin(TWO_PI * f * tt) + (i < sr * 0.002 ? 0.6 * (seed / 4294967296 * 2 - 1) : 0));
+    ch[0][i0 + i] += gl * v; ch[1][i0 + i] += gr * v;
+  }
+}
+function tickTrack(secs, sr, clocks) {
+  const ch = [new Float32Array(Math.round(secs * sr)), new Float32Array(Math.round(secs * sr))];
+  clocks.forEach((c) => {
+    c.ticks.forEach((t, i) => { if (t < secs - 0.07) knock(ch, sr, t, c.tickHz, c.amp ? c.amp[0][i] : 1, c.pan); });
+    c.tocks.forEach((t, i) => { if (t < secs - 0.07) knock(ch, sr, t, c.tockHz, c.amp ? c.amp[1][i] : 1, c.pan); });
+  });
+  return ch;
+}
+// ---- drawing helpers ----
+function fit(c, aspect, minH, maxH) {
+  const w = c.clientWidth || 600, d = window.devicePixelRatio || 1, h = Math.round(Math.max(minH || 200, Math.min(maxH || 460, w * aspect)));
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h };
+}
+const COL = { dim: '#4a4a5a', grid: '#22222e', amber: '#e8b84a', blue: '#4a8fff', warn: '#ff9b4a', ok: '#7fd49a', fg1: '#e8e8f0', fg2: '#c8c8d8', fg3: '#8a8aa0', runs: ['#e8b84a', '#4a8fff', '#7fd49a', '#ff7aa8'] };
+function label(g, text, x, y, color, align) { g.fillStyle = color || COL.fg3; g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = align || 'left'; g.fillText(text, x, y); }
+function box(g, x, y, w, h) { g.strokeStyle = 'rgba(255,255,255,.06)'; g.lineWidth = 1; g.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1); }
+const deg = (r) => r * 180 / Math.PI;
+const fdeg = (r) => { const v = deg(r); return (Math.abs(v) < 0.05 ? 0 : v).toFixed(1) + '°'; };
+const wrap = (a) => Math.atan2(Math.sin(a), Math.cos(a));
+// the clocks on their beam, the swing drawn four times wider than it is so it can be seen
+function drawClocks(g, x, y, w, h, thetas, beamX, onBeam) {
+  const L = h * 0.62, top = y + 26, bw = w * 0.86, bx = x + (w - bw) / 2 + (beamX || 0) * L * 4;
+  g.fillStyle = onBeam ? '#2a2a38' : '#1c1c26'; g.fillRect(bx, top - 10, bw, 10);
+  g.strokeStyle = onBeam ? COL.fg3 : COL.dim; g.lineWidth = 1; g.strokeRect(bx + 0.5, top - 9.5, bw - 1, 9);
+  if (!onBeam) { for (let i = 0; i < 12; i++) { g.strokeStyle = COL.dim; g.beginPath(); g.moveTo(x + (w - bw) / 2 + i * bw / 12, top - 10); g.lineTo(x + (w - bw) / 2 + i * bw / 12 + 8, top - 18); g.stroke(); } }
+  thetas.forEach((th, i) => {
+    const px = bx + bw * (thetas.length === 1 ? 0.5 : i ? 0.72 : 0.28), a = th * 4, ex = px + L * Math.sin(a), ey = top + L * Math.cos(a);
+    g.strokeStyle = COL.fg2; g.lineWidth = 1.3; g.beginPath(); g.moveTo(px, top); g.lineTo(ex, ey); g.stroke();
+    g.fillStyle = thetas.length === 1 ? COL.amber : i ? COL.fg1 : COL.blue; g.beginPath(); g.arc(ex, ey, 7, 0, 7); g.fill();
+    if (thetas.length > 1) label(g, i ? 'right' : 'left', px, top + L + 26, COL.fg3, 'center');
+  });
+  label(g, onBeam ? 'swing drawn 4× wide, sway 4× wide' : 'swing drawn 4× wide', x + 8, y + h - 4, COL.fg3);
+}
+function gapPlot(g, x, y, w, h, tEnd) {
+  const X = (psi) => x + (wrap(psi) + Math.PI) / TWO_PI * w, Y = (t) => y + t / tEnd * h;
+  g.save(); g.setLineDash([2, 3]); g.strokeStyle = COL.dim; [0, -Math.PI / 2, Math.PI / 2].forEach((p) => { g.beginPath(); g.moveTo(X(p), y); g.lineTo(X(p), y + h); g.stroke(); }); g.restore();
+  label(g, '−180°', x, y - 6); label(g, '+180°', x + w, y - 6, COL.fg3, 'right'); label(g, '0, together', X(0), y - 6, COL.fg3, 'center');
+  return { X, Y };
+}
+
+// ---- the piece ----
+const $ = (id) => document.getElementById(id);
+const SR = 48000, TICK = 2600, TOCK = 1750;
+const S = { e: 8, amp0: 0.15, det2: 0.01, beam: 'huygens', c: 20, k: 0 };
+const eFrom = (v) => +(0.3 * Math.pow(40, v / 1000)).toPrecision(2), eTo = (e) => Math.round(1000 * Math.log(e / 0.3) / Math.log(40));
+const cFrom = (v) => +(0.1 * Math.pow(400, v / 1000)).toPrecision(2), cTo = (c) => Math.round(1000 * Math.log(c / 0.1) / Math.log(400));
+document.querySelectorAll('[data-e]').forEach((el) => el.addEventListener('input', () => { S.e = eFrom(+el.value); S.beam = null; stopSound(); redraw(); }));
+$('a0').addEventListener('input', () => { S.amp0 = +$('a0').value / 100 * 0.05; stopSound(); redraw(); });
+$('d2').addEventListener('input', () => { S.det2 = +$('d2').value / 20000; stopSound(); redraw(); });
+$('cc').addEventListener('input', () => { S.c = cFrom(+$('cc').value); S.beam = null; stopSound(); redraw(); });
+$('kk').addEventListener('input', () => { S.k = +$('kk').value / 100; S.beam = null; stopSound(); redraw(); });
+Object.keys(BEAMS).forEach((key) => { const b = document.createElement('button'); b.textContent = BEAMS[key].label; b.dataset.beam = key; b.addEventListener('click', () => { S.beam = key; S.e = BEAMS[key].e; S.c = BEAMS[key].c; S.k = Math.sqrt(BEAMS[key].k) / W0; stopSound(); redraw(); }); $('beams').appendChild(b); });
+function sync() {
+  document.querySelectorAll('[data-e]').forEach((el) => { el.value = eTo(S.e); });
+  document.querySelectorAll('[data-eval]').forEach((el) => { el.textContent = String(S.e); });
+  $('a0').value = Math.round(S.amp0 / 0.05 * 100); $('a0val').textContent = deg(S.amp0).toFixed(1) + '°';
+  $('d2').value = Math.round(S.det2 * 20000); $('d2val').textContent = (S.det2 * 100).toFixed(2) + '%';
+  $('cc').value = cTo(S.c); $('cval').textContent = String(S.c);
+  $('kk').value = Math.round(S.k * 100); $('kval').textContent = S.k === 0 ? 'none, free to roll' : S.k.toFixed(2);
+  document.querySelectorAll('[data-beam]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.beam === S.beam)));
+}
+let pend = 0;
+function redraw() { sync(); clearTimeout(pend); pend = setTimeout(() => [draw1, draw2, draw3, draw4][cur](), 30); }
+document.querySelectorAll('[data-stop]').forEach((b) => b.addEventListener('click', stopSound));
+const memo = {};
+function one() { const k = ['one', S.e, S.amp0].join(':'); return memo[k] || (memo[k] = oneClock({ w: W0, e: S.e, th0: 0.05, amp0: S.amp0, secs: 20 })); }
+function wall() { const k = ['wall', S.det2].join(':'); return memo[k] || (memo[k] = twoClocks({ w: W0, det: S.det2, e: 8, th0: 0.05, r: 0.05, c: 20, k: 0, beam: false, gap0: 0, secs: 60 })); }
+function beamRun() { return memo.beam || (memo.beam = twoClocks({ ...BEAMS.huygens, det: 0.003, beam: true, gap0: 0.2, secs: 60 })); }
+document.querySelectorAll('[data-sound]').forEach((b) => b.addEventListener('click', () => {
+  const kind = b.dataset.sound;
+  if (kind === 'one') {
+    const r = one(), vs = Math.max(...r.speeds[0].slice(-4), 1e-9), amp = r.speeds.map((a) => a.map((v) => Math.min(1.6, v / vs)));
+    playStereo(tickTrack(20, SR, [{ ticks: r.ticks, tocks: r.tocks, tickHz: TICK, tockHz: TOCK, pan: 0, amp }]), SR, 'one clock, started at ' + deg(S.amp0).toFixed(1) + '°', { kind: 'one', r });
+    return;
+  }
+  const r = kind === 'wall' ? wall() : kind === 'beam' ? beamRun() : test.runs && test.runs[0];
+  if (!r) return;
+  const secs = Math.min(kind === 'test' ? 40 : 45, r.secs);
+  playStereo(tickTrack(secs, SR, [{ ticks: r.ticks[0], tocks: r.tocks[0], tickHz: TICK, tockHz: TOCK, pan: -0.85 }, { ticks: r.ticks[1], tocks: r.tocks[1], tickHz: TICK * 1.06, tockHz: TOCK * 1.06, pan: 0.85 }]), SR,
+    kind === 'wall' ? 'two clocks on a stone wall, δ ' + (S.det2 * 100).toFixed(2) + '%' : kind === 'beam' ? "two clocks on Huygens's beam, δ 0.3%" : 'the first start, ' + deg(STARTS[0]).toFixed(0) + '° apart', { kind, r });
+}));
+// while a run plays, the clocks on the left swing with it
+function animate() {
+  const tick = () => {
+    if (!src || !playing) return;
+    const t = actx.currentTime - playStart, r = playing.r, i = Math.min(r.trace ? r.trace.length - 1 : r.th.length - 1, Math.floor(t / r.dt));
+    const c = $(['c1', 'c2', 'c3', 'c4'][cur]), d = window.devicePixelRatio || 1, g = c.getContext('2d'), w = c.width / d, h = c.height / d, bw = playing.kind === 'test' ? 0 : Math.min(w * 0.36, h);
+    if (bw > 0) {
+      g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, bw + 2, h); box(g, 4, 4, bw - 4, h - 8);
+      if (playing.kind === 'one') drawClocks(g, 4, 4, bw - 4, h - 8, [r.th[i]], 0, false);
+      else { const q = r.trace[i]; drawClocks(g, 4, 4, bw - 4, h - 8, [q[1], q[2]], playing.kind === 'beam' ? q[3] : 0, playing.kind === 'beam'); label(g, t.toFixed(1) + ' s', bw - 10, 18, COL.fg3, 'right'); }
+    }
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+// ---- step 1 ----
+function draw1() {
+  const r = one(), { g, w, h } = fit($('c1'), 0.34, 230, 360), bw = Math.min(w * 0.36, h);
+  box(g, 4, 4, bw - 4, h - 8); drawClocks(g, 4, 4, bw - 4, h - 8, [r.th[0]], 0, false);
+  const x0 = bw + 50, pw = w - x0 - 14, peaks = []; for (let i = 1; i < r.th.length - 1; i++) if (Math.abs(r.th[i]) >= Math.abs(r.th[i - 1]) && Math.abs(r.th[i]) > Math.abs(r.th[i + 1])) peaks.push([r.tt[i], Math.abs(r.th[i])]);
+  const settled = settledSwing(W0, S.e, 0.05), ym = Math.max(settled, S.amp0, ...peaks.map((p) => p[1])) * 1.15, X = (t) => x0 + t / 20 * pw, Y = (v) => h - 30 - v / ym * (h - 56);
+  box(g, bw + 8, 4, w - bw - 12, h - 8);
+  g.save(); g.setLineDash([4, 4]); g.strokeStyle = COL.dim; g.beginPath(); g.moveTo(x0, Y(settled)); g.lineTo(x0 + pw, Y(settled)); g.stroke(); g.restore();
+  g.fillStyle = COL.amber; peaks.forEach((p) => { g.beginPath(); g.arc(X(p[0]), Y(p[1]), 2, 0, 7); g.fill(); });
+  label(g, "EACH SWING'S WIDEST POINT", x0, 18); label(g, deg(settled).toFixed(1) + '°', x0 - 6, Y(settled) + 4, COL.fg3, 'right'); label(g, '0 s', x0, h - 12); label(g, '20 s', x0 + pw, h - 12, COL.fg3, 'right');
+  let tIn = NaN; for (let i = peaks.length - 1; i >= 0; i--) if (Math.abs(peaks[i][1] / settled - 1) > 0.01) { tIn = i + 1 < peaks.length ? peaks[i + 1][0] : NaN; break; } else if (i === 0) tIn = peaks[0][0];
+  $('r1a').textContent = deg(settled).toFixed(2) + '° either side, from a start of ' + deg(S.amp0).toFixed(1) + '°';
+  $('r1b').textContent = isFinite(tIn) ? tIn.toFixed(1) + ' s' : 'not within twenty seconds';
+}
+// ---- step 2 ----
+function draw2() {
+  const r = wall(), { g, w, h } = fit($('c2'), 0.38, 250, 400), bw = Math.min(w * 0.36, h);
+  box(g, 4, 4, bw - 4, h - 8); const q = r.trace[r.trace.length - 1]; drawClocks(g, 4, 4, bw - 4, h - 8, [q[1], q[2]], 0, false);
+  box(g, bw + 8, 4, w - bw - 12, h - 8);
+  const P = gapPlot(g, bw + 24, 46, w - bw - 44, h - 62, r.secs);
+  g.fillStyle = COL.amber; r.gaps.forEach((p) => { g.beginPath(); g.arc(P.X(p[1]), P.Y(p[0]), 1.8, 0, 7); g.fill(); });
+  label(g, 'THE GAP, 60 SECONDS, TIME ↓', bw + 24, 16);
+  let un = 0; for (let i = 1; i < r.gaps.length; i++) un += wrap(r.gaps[i][1] - r.gaps[i - 1][1]);
+  const rate = un / (r.gaps[r.gaps.length - 1][0] - r.gaps[0][0]);
+  $('r2a').textContent = (rate / W0 * 100).toFixed(3) + '% of the clocks\' rate · δ says ' + (S.det2 * 100).toFixed(3) + '%';
+  $('r2b').textContent = (1 / S.det2).toFixed(0) + ' swings, ' + (1 / S.det2 / 2).toFixed(0) + ' s';
+}
+// ---- step 3 ----
+function draw3() {
+  const r = beamRun(), { g, w, h } = fit($('c3'), 0.4, 260, 420), bw = Math.min(w * 0.36, h);
+  box(g, 4, 4, bw - 4, h - 8); const q = r.trace[0]; drawClocks(g, 4, 4, bw - 4, h - 8, [q[1], q[2]], q[3], true);
+  box(g, bw + 8, 4, w - bw - 12, h - 8);
+  const sw = (bw + 24), gw = (w - bw - 44) * 0.72, P = gapPlot(g, sw, 46, gw, h - 62, r.secs);
+  g.fillStyle = COL.amber; r.gaps.forEach((p) => { g.beginPath(); g.arc(P.X(p[1]), P.Y(p[0]), 1.8, 0, 7); g.fill(); });
+  label(g, 'THE GAP, 60 SECONDS, TIME ↓', sw, 16);
+  // the beam's sway, time down
+  // the beam has no spring, so it also creeps; the sway is drawn about its mean over the last swing
+  const bx0 = sw + gw + 16, bww = w - bx0 - 14, per = Math.round(0.5 / r.dt), sway = r.trace.map((p, i) => { let m = 0, n = 0; for (let j = Math.max(0, i - per); j <= i; j++) { m += r.trace[j][3]; n++; } return p[3] - m / n; });
+  let xm = 1e-12; sway.forEach((v) => { xm = Math.max(xm, Math.abs(v)); });
+  g.strokeStyle = COL.fg3; g.lineWidth = 1; g.beginPath(); r.trace.forEach((p, i) => { const X = bx0 + bww / 2 + sway[i] / xm * bww / 2, Y = P.Y(p[0]); i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); g.stroke();
+  label(g, 'THE BEAM', bx0 + bww / 2, 16, COL.fg3, 'center');
+  const g0 = r.gaps; let tl = NaN; for (let i = g0.length - 1; i > 0; i--) if (Math.abs(wrap(g0[i][1] - r.at)) > 0.1) { tl = g0[i][0]; break; }
+  const s0 = beamSway(r, 0, 10), s1 = beamSway(r, 50, 60);
+  $('r3a').textContent = (r.locked ? '' : 'not yet: ') + deg(r.at).toFixed(1) + '° apart, opposite is 180°';
+  $('r3b').textContent = isFinite(tl) ? 'about ' + tl.toFixed(0) + ' s, within 6° after' : '—';
+  $('r3c').textContent = (s1 / s0 * 100).toFixed(0) + '% of what it was';
+}
+// ---- step 4: the test ----
+let test = {}, testJob = 0;
+function setting() { return { w: W0, det: 0, e: S.e, th0: 0.05, r: 0.05, c: S.c, k: S.k * S.k * W0 * W0 }; }
+function draw4() {
+  const me = ++testJob, St = setting(), key = JSON.stringify(St);
+  if (test.key !== key) {
+    const L0 = clockLoop(St.w, St.e, St.th0, 1024), Z = clockPRC(L0, 96).Z, p = beamPush(L0, St.r, St.c, St.k), G = gammaOf(Z, p, 256);
+    test = { key, L: L0, Z, p, G, sh: shadowGaps(G, 0), runs: [] };
+    $('h4').textContent = 'solving the clocks from four starts…';
+    const go = (i) => { if (me !== testJob) return; if (i >= STARTS.length) { paint4(); return; } test.runs[i] = twoClocks({ ...St, beam: true, gap0: STARTS[i], secs: 240, amp: L0.swing }); paint4(); setTimeout(() => go(i + 1), 0); };
+    paint4(); setTimeout(() => go(0), 10);
+  } else paint4();
+}
+function paint4() {
+  const { g, w, h } = fit($('c4'), 0.5, 320, 500), lw = w * 0.42, t = test;
+  if (!t.Z) return;
+  box(g, 4, 4, lw, h - 8);
+  const N = t.Z.length, band = (h - 30) / 3, x0 = 14, x1 = lw - 8, X = (j) => x0 + (x1 - x0) * j / N;
+  const lane = (k, arr, color, name) => { const mx = Math.max(...Array.from(arr, Math.abs), 1e-12) * 1.15, yc = 16 + band * k + band / 2, Y = (v) => yc - v / mx * (band / 2 - 10); g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x0, yc); g.lineTo(x1, yc); g.stroke(); g.strokeStyle = color; g.lineWidth = 1.8; g.beginPath(); for (let j = 0; j < arr.length; j++) { const xx = x0 + (x1 - x0) * j / arr.length; j ? g.lineTo(xx, Y(arr[j])) : g.moveTo(xx, Y(arr[j])); } g.stroke(); label(g, name, x0, yc - band / 2 + 12, color); return Y; };
+  lane(0, t.Z, COL.amber, "ONE CLOCK'S PHASE RESPONSE, OVER A SWING");
+  lane(1, t.p, COL.blue, 'THE PUSH THE BEAM CARRIES FROM THE OTHER');
+  const dr = new Float64Array(181); for (let q = 0; q <= 180; q++) { const ps = -Math.PI + TWO_PI * q / 180; dr[q] = gapSpeed(t.G, 0, ps); }
+  const Yd = lane(2, dr, COL.ok, 'THE PART THAT MOVES THE GAP, −180° TO +180°');
+  t.sh.forEach((z) => { const xx = x0 + (x1 - x0) * (z + Math.PI) / TWO_PI; g.strokeStyle = COL.fg1; g.lineWidth = 1.5; g.beginPath(); g.arc(xx, Yd(0), 5, 0, 7); g.stroke(); });
+  // right: the clocks from four starts
+  box(g, lw + 10, 4, w - lw - 14, h - 8);
+  const P = gapPlot(g, lw + 26, 46, w - lw - 46, h - 62, 240);
+  g.save(); g.setLineDash([6, 4]); g.strokeStyle = COL.fg1; g.lineWidth = 1.2; t.sh.forEach((z) => { g.beginPath(); g.moveTo(P.X(z), 46); g.lineTo(P.X(z), h - 16); g.stroke(); }); g.restore();
+  t.runs.forEach((r, i) => { if (!r) return; g.fillStyle = COL.runs[i]; r.gaps.forEach((p, j) => { if (j % 2) return; g.beginPath(); g.arc(P.X(p[1]), P.Y(p[0]), 1.5, 0, 7); g.fill(); }); });
+  label(g, 'FOUR STARTS, 240 S, TIME ↓ · DASHED: THE SHADOW', lw + 26, 16);
+  const done = t.runs.length === STARTS.length && t.runs.every(Boolean);
+  const match = done && t.runs.every((u) => u.locked && t.sh.some((z) => angDist(z, u.at) < 0.12));
+  $('h4').textContent = done ? 'solved: the shadow from one clock alone and the beam; the clocks in full, four starts, 240 s each' : 'solving the clocks from four starts… ' + t.runs.filter(Boolean).length + ' of 4';
+  const yes = (c, s) => `<span class="${c ? 'yes' : 'no'}">${s}</span>`;
+  const fmt = (u) => (u.locked ? fdeg(u.at) : 'still moving');
+  $('r4').innerHTML = `<div>the shadow settles at<br><b>${t.sh.length ? t.sh.map(fdeg).join(', ') : 'nowhere'}</b></div>` +
+    `<div>the clocks settle at<br><b>${done ? t.runs.map(fmt).join(', ') : '…'}</b></div>` +
+    `<div>every start where the shadow says<br>${done ? yes(match, match ? 'yes' : 'no: the shadow misses here') : '…'}</div>` +
+    `<div>the page: locks antiphase; the escapement's PRC sets the gap<br><b>${S.beam === 'huygens' ? 'antiphase, on this beam' : S.beam ? 'not antiphase: the escapement is the same as under the damped beam; only the beam changed' : 'your own setting'}</b></div>`;
+}
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+window.addEventListener('resize', () => redraw());
+setPlaying(null);
+show(0);
+</script>
+</body>
+</html>

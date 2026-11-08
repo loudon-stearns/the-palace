@@ -201,7 +201,11 @@ def seam_check(y: np.ndarray, sr: int, reg: dict, acc: dict) -> dict:
     env = 10 * np.log10((c2[idx + win] - c2[idx]) / win + 1e-12)
     span = int(0.1 * sr) // hop
     spread = lambda j: float(np.ptp(env[max(0, j - span):j + span]))
-    far = [j for j in range(int(1.0 * sr) // hop, len(env) - span, span)
+    # the yardstick is the loop's own wobble: only blocks once the loop is
+    # playing. Counting the pre-loop opening (cycle 40) let a take's sagging
+    # attack inflate it, so flute G4 passed when looped and "failed" once the
+    # finishing pass smoothed that opening, with its wraps unchanged.
+    far = [j for j in range(max(int(1.0 * sr), reg["loop_start"]) // hop, len(env) - span, span)
            if all(abs(j * hop - i) > 0.15 * sr for i in wraps)]
     base = float(np.percentile([spread(j) for j in far], 90)) if far else 0.0
     steps = [spread(i // hop) - base for i in wraps]
@@ -209,10 +213,19 @@ def seam_check(y: np.ndarray, sr: int, reg: dict, acc: dict) -> dict:
     f0, _ = track(out[a:b], sr, key_hz(key))
     g = grade(np.asarray(f0, dtype=float), key_hz(key), acc,
               refine=lambda hz, seg=out[a:b]: refine_hz(seg, sr, hz))
+    # the seam itself, gain-independent: 50 ms level either side of a wrap,
+    # against the same jump between neighbouring 50 ms inside the loop body
+    w = int(0.05 * sr)
+    db50 = lambda x: 10 * np.log10(float(np.mean(x * x)) + 1e-12)
+    jumps = [abs(db50(out[i - w:i]) - db50(out[i:i + w])) for i in wraps if w < i < len(out) - w]
+    body = y[reg["loop_start"]:reg["loop_end"] + 1]
+    inner = [abs(db50(body[j - w:j]) - db50(body[j:j + w])) for j in range(2 * w, len(body) - 2 * w, w // 2)]
+    jump_excess = max(jumps, default=0.0) - (float(np.percentile(inner, 90)) if inner else 0.0)
     click = max(clicks, default=0.0)
     step = max(steps, default=0.0)
     return {"wraps_in_hold": len(wraps), "worst_click_db": round(click, 2),
-            "worst_level_step_db": round(step, 2), "hold_grade": g["grade"],
+            "worst_level_step_db": round(step, 2), "seam_jump_excess_db": round(jump_excess, 2),
+            "hold_grade": g["grade"],
             "hold_cents_err": g["cents_err"],
             "seam_ok": click < CLICK_LIMIT_DB and step < STEP_LIMIT_DB}
 

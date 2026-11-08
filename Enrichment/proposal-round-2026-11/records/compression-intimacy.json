@@ -1,0 +1,31 @@
+{
+ "entry": "Compression ↔ Intimacy",
+ "path": "Cross-Domain Resonances/Compression ↔ Intimacy.md",
+ "type": "concept",
+ "stage": "mature",
+ "weight": 7,
+ "claim": "§ The Technical Side: 'Our ears interpret small dynamic range as proximity' — compression alone moves the singer from 'over there' to 'right here', until over-compression sounds fake.",
+ "pieces": [
+  {
+   "section": "Teaching the Resonance",
+   "what": "One dry vocal through uncompressed / 4:1 / 20:1 with matched loudness; listener answers 'where is the singer?' — and a fourth version with proximity bass and no compression, testing whether dynamic range alone carries closeness",
+   "kind": "interactive",
+   "walks_up_from": "a whisper and a shout in the same phrase"
+  },
+  {
+   "section": "The Vulnerability Parallel",
+   "what": "Threshold/ratio/attack/release on the same vocal with a gain-reduction meter, so each parameter's mapping is heard before it is read",
+   "kind": "interactive",
+   "walks_up_from": "the 4:1 version above"
+  },
+  {
+   "section": "Advanced Applications",
+   "what": "Parallel compression blend knob, dry to crushed",
+   "kind": "audio",
+   "walks_up_from": "the 20:1 version"
+  }
+ ],
+ "gathered": [],
+ "tier": "study",
+ "slice": 0
+}

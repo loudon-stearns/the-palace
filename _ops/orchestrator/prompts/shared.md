@@ -602,9 +602,11 @@ via `artifacts[]`:
 }
 ```
 
-HTML runs in a sandboxed iframe (sims, players, decks), so it must stand alone:
-one file, everything inline, no fetch of a file beside it, no storage. The
-palace sizes it and quiets it for you. **Prefer this over
+HTML runs sandboxed on the piece origin (sims, players, decks) and gets only
+what it declares in its own `<head>`: `piece:needs` (a device or storage),
+`piece:files` (files beside it it may fetch), `piece:net` (hosts), `piece:size`.
+Declare nothing and it still runs, with no storage, files or devices. The palace sizes it and quiets it for
+you (`_ops/rich-face/README.md` § What the page lets run). **Prefer this over
 `open:` when you want Loudon to experience the thing right there in the board;**
 reserve `open:` for handing a file to a native app (a WAV into his DAW).
 

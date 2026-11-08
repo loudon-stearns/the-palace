@@ -1,0 +1,33 @@
+{
+ "entry": "Dispersion Table",
+ "path": "Dispersion Table.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "§ From one curve to a table: a single warp knob selects which phase-response curve the loop enforces — pure (harmonic) → piano (stretch) → bell/gong — via 2πfτ + θ(f) = 2πk.",
+ "pieces": [
+  {
+   "section": "The identity it rests on",
+   "what": "A wavetable scan and a lossless delay loop playing the same cycle, sample-identical; then a fractional loop length shows the filter that's already there",
+   "kind": "interactive",
+   "walks_up_from": "a stored single cycle, looped"
+  },
+  {
+   "section": "The round-trip phase condition",
+   "what": "Phase accumulation per partial plotted against the 2πk grid; add θ(f) and watch the resonances slide off the integers",
+   "kind": "interactive",
+   "walks_up_from": "the harmonic grid with θ = 0"
+  },
+  {
+   "section": "Cross-Domain Resonance",
+   "what": "An allpass cascade in a Karplus loop with a warp (pole-radius) knob: pure → piano → bell, heard with partial markers — the page's 'teaching ladder' realized",
+   "kind": "interactive",
+   "walks_up_from": "the lossless loop above"
+  }
+ ],
+ "gathered": [
+  "Dissolutions/proofs/2026-10-20-the-table-that-travels/the-table-that-travels.html (Loudon asked it be staged: table alone, loop alone, combined, then filter)"
+ ],
+ "tier": "study",
+ "slice": 0
+}

@@ -27,9 +27,10 @@ routing rules that keep a close from stranding work.
    global rendezvous) and name its worktree coordinate. A baton continuing *canon* work
    lives on the owner, like the deposit.
 
-The `status` column decides what runs: `candidate` executes; `landed` / `provisional` /
-`none` execute nothing (`landed` already happened mid-session; `provisional` waits on
-Loudon; `none` is a first-class outcome).
+The `status` column decides what runs: `candidate` executes; `prepared` — assented, words
+not yet read — is committed on a worktree branch by Pass 3 and never landed; `landed` /
+`provisional` / `none` execute nothing (`landed` already happened mid-session; `provisional`
+waits on Loudon; `none` is a first-class outcome).
 
 ## The executors, by species
 
@@ -42,7 +43,8 @@ its words.** A keep row without both is `provisional`, not `candidate`: execute 
 name it in the punchlist so the room can offer it back to him as a *hand on*.
 
 **One path between the two.** When the room has assented to a keep row but Loudon has not yet
-read its words — a ceremony's rule text, say — the executor may *prepare* it: make the edit in its
+read its words — a ceremony's rule text, say — the row's status is `prepared`, and the executor
+*prepares* it: make the edit in its
 own worktree (`new-worktree.mjs --profile docs`), commit it on that branch, **never merge it**, and
 return the full diff in the placement report. The working instance shows him the words; on his
 yes it rebases and lands the branch on the owner's `main` and tears the worktree down. Nothing

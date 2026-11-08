@@ -1,0 +1,23 @@
+{
+  "title": "STIGMERGY",
+  "idiom": "linocut print in phosphor-green ink on black paper \u2014 hand-carved, the board's own palette",
+  "hero_prompt": "Linocut print, hand-carved, bright phosphor green ink on black paper, visible carving marks and ink texture. Seen from above, a wide flat ground divided into a grid of small square cells. Many tiny ants walk across it, each leaving a thin dotted trail; the trails converge from both edges and braid into one thick bright path running across the middle of the wide banner. Flat and graphic, two colours only, green and black, not a photograph, not a 3D render, no glow, no depth-of-field.",
+  "icon_prompt": "Flat single-colour silhouette of one ant seen from directly above, bold phosphor green on pure black, centered inside a thick double-line square border, high contrast, no shading or gradients.",
+  "seeds": {
+    "icon": 176729,
+    "hero": 838048
+  },
+  "rendered_at": "2026-11-07T12:24:46Z",
+  "history": [
+    {
+      "idiom": "1-bit ordered-dither halftone print, phosphor green ink on black \u2014 the board's own imagery rule, brightened to survive the veil",
+      "hero_prompt": "Ordered-dither 1-bit halftone print in glowing phosphor green ink on deep black paper. Seen from straight above, a vast grid of small empty square cells like a bulletin board. Dozens of tiny ants wander across the grid, each leaving a faint dotted green trail; where the trails overlap they thicken and braid together into one bright glowing path that runs from left to right across the whole wide banner. Strong contrast, bright green covering much of the image, hand-made print texture, flat and graphic, not a photograph, not a 3D render, no depth-of-field.",
+      "icon_prompt": "Flat single-colour silhouette of one ant seen from directly above, bold phosphor green on pure black, centered inside a thick double-line square border, high contrast, no shading or gradients.",
+      "seeds": {
+        "hero": 997476,
+        "icon": 176729
+      },
+      "rendered_at": "2026-11-07T12:22:28Z"
+    }
+  ]
+}

@@ -1,0 +1,393 @@
+<!doctype html>
+<!--
+  title: Phoneme Choir — rich — same word, four voices
+  born: 2026-11-03
+  links: [[Phoneme Choir]] (connects-to · rich-face-piece) · listed in [[Phoneme Choir — rich.json]] · serves § Per-file onset detection equalizes responsiveness across voices · plays the build's own samples and the four knock files its audition.sfz loaded
+  forward_vector: I am the keyboard's lag, made playable. One knock and the breath before it; the build's onset rule finding where the word starts; the four voices of knock with no trim and then with it; and last, the test, twelve keys in all four voices, with how soon each gets loud after the key measured with the trim off and on, by a ruler you can move. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a play button or a pad is clicked; the AudioContext is made on that click. Changing step stops the sound. Quieting a hidden page and the one-minute cap are the kit's.
+  samples: the build's own WAVs, read where git keeps them (_ops/sample-libraries/phoneme-choir/samples/), and its offsets.json; nothing copied.
+  check: Phoneme Choir — rich — check.mjs runs this page's engine in Node over all 352 samples and holds it to offsets.json and to every number the page states.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- the build's offsets and the 48 samples the pad plays, read where git keeps them; no device, no storage, no host -->
+<meta name="piece:files" content="/_ops/sample-libraries/phoneme-choir/offsets.json /_ops/sample-libraries/phoneme-choir/samples/phon_001_pop_af_nova.wav /_ops/sample-libraries/phoneme-choir/samples/phon_001_pop_af_heart.wav /_ops/sample-libraries/phoneme-choir/samples/phon_001_pop_bf_emma.wav /_ops/sample-libraries/phoneme-choir/samples/phon_001_pop_am_michael.wav /_ops/sample-libraries/phoneme-choir/samples/phon_002_tap_af_sky.wav /_ops/sample-libraries/phoneme-choir/samples/phon_002_tap_af_bella.wav /_ops/sample-libraries/phoneme-choir/samples/phon_002_tap_bm_george.wav /_ops/sample-libraries/phoneme-choir/samples/phon_002_tap_am_adam.wav /_ops/sample-libraries/phoneme-choir/samples/phon_013_snap_af_nova.wav /_ops/sample-libraries/phoneme-choir/samples/phon_013_snap_af_heart.wav /_ops/sample-libraries/phoneme-choir/samples/phon_013_snap_bf_emma.wav /_ops/sample-libraries/phoneme-choir/samples/phon_013_snap_am_michael.wav /_ops/sample-libraries/phoneme-choir/samples/phon_015_slap_bf_isabella.wav /_ops/sample-libraries/phoneme-choir/samples/phon_015_slap_bm_lewis.wav /_ops/sample-libraries/phoneme-choir/samples/phon_015_slap_am_puck.wav /_ops/sample-libraries/phoneme-choir/samples/phon_015_slap_am_fenrir.wav /_ops/sample-libraries/phoneme-choir/samples/phon_036_knock_bf_isabella.wav /_ops/sample-libraries/phoneme-choir/samples/phon_036_knock_bm_lewis.wav /_ops/sample-libraries/phoneme-choir/samples/phon_036_knock_am_puck.wav /_ops/sample-libraries/phoneme-choir/samples/phon_036_knock_am_fenrir.wav /_ops/sample-libraries/phoneme-choir/samples/phon_040_tick_af_nova.wav /_ops/sample-libraries/phoneme-choir/samples/phon_040_tick_af_heart.wav /_ops/sample-libraries/phoneme-choir/samples/phon_040_tick_bf_emma.wav /_ops/sample-libraries/phoneme-choir/samples/phon_040_tick_am_michael.wav /_ops/sample-libraries/phoneme-choir/samples/phon_052_boom_af_nova.wav /_ops/sample-libraries/phoneme-choir/samples/phon_052_boom_af_heart.wav /_ops/sample-libraries/phoneme-choir/samples/phon_052_boom_bf_emma.wav /_ops/sample-libraries/phoneme-choir/samples/phon_052_boom_am_michael.wav /_ops/sample-libraries/phoneme-choir/samples/phon_060_zoom_bf_isabella.wav /_ops/sample-libraries/phoneme-choir/samples/phon_060_zoom_bm_lewis.wav /_ops/sample-libraries/phoneme-choir/samples/phon_060_zoom_am_puck.wav /_ops/sample-libraries/phoneme-choir/samples/phon_060_zoom_am_fenrir.wav /_ops/sample-libraries/phoneme-choir/samples/phon_071_arf_af_sky.wav /_ops/sample-libraries/phoneme-choir/samples/phon_071_arf_af_bella.wav /_ops/sample-libraries/phoneme-choir/samples/phon_071_arf_bm_george.wav /_ops/sample-libraries/phoneme-choir/samples/phon_071_arf_am_adam.wav /_ops/sample-libraries/phoneme-choir/samples/phon_074_bark_af_sky.wav /_ops/sample-libraries/phoneme-choir/samples/phon_074_bark_af_bella.wav /_ops/sample-libraries/phoneme-choir/samples/phon_074_bark_bm_george.wav /_ops/sample-libraries/phoneme-choir/samples/phon_074_bark_am_adam.wav /_ops/sample-libraries/phoneme-choir/samples/phon_079_ha_af_nova.wav /_ops/sample-libraries/phoneme-choir/samples/phon_079_ha_af_heart.wav /_ops/sample-libraries/phoneme-choir/samples/phon_079_ha_bf_emma.wav /_ops/sample-libraries/phoneme-choir/samples/phon_079_ha_am_michael.wav /_ops/sample-libraries/phoneme-choir/samples/phon_085_ouch_af_nova.wav /_ops/sample-libraries/phoneme-choir/samples/phon_085_ouch_af_heart.wav /_ops/sample-libraries/phoneme-choir/samples/phon_085_ouch_bf_emma.wav /_ops/sample-libraries/phoneme-choir/samples/phon_085_ouch_am_michael.wav">
+<title>Same word, four voices</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+code, pre, samp {font-family: var(--fx-mono);}
+[style*="overflow"], .scroll, .scroller, pre {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .grp{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .grp .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-right:2px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  .ctl{display:grid;grid-template-columns:200px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .pads{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:12px}
+  .pad{font-family:var(--mono);font-size:12px;color:var(--fg-2);background:var(--bg);border:1px solid var(--border);border-radius:2px;padding:10px 2px 8px;cursor:pointer;text-align:center;line-height:1.35;user-select:none}
+  .pad small{display:block;font-size:9.5px;color:var(--fg-4);letter-spacing:.06em}
+  .pad.hit{border-color:var(--accent);color:var(--fg-1);background:var(--bg-elev-2)}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:640px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:120px 1fr auto}.pads{grid-template-columns:repeat(6,1fr)}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Phoneme Choir · the lag before the word · five steps</div>
+  <h1>Same word, four voices</h1>
+  <p class="lead">Every key of the bank is a word spoken by Kokoro, and every voice takes its own time to start speaking. Hear one breath, find where the word starts, then trim the breath off and test what the trim lines up across the keyboard.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="300"></canvas>
+    <div class="rowb">
+      <button class="play" id="play">▸ play</button>
+      <span class="grp" id="g-from"><span class="l">play from</span><button class="ghost small" data-from="start">the file's start</button><button class="ghost small" data-from="trim">the trim</button></span>
+      <span class="grp" id="g-trim"><span class="l">trim</span><button class="ghost small" data-trim="0">off</button><button class="ghost small" data-trim="1">on</button></span>
+      <span class="grp" id="g-layer"><span class="l">layer</span><button class="ghost small" data-layer="-1">each hit the next</button><button class="ghost small" data-layer="0">gentle</button><button class="ghost small" data-layer="1">warm</button><button class="ghost small" data-layer="2">characterful</button><button class="ghost small" data-layer="3">bold</button></span>
+    </div>
+    <div class="pads" id="pads"></div>
+    <div class="ctl" id="ctl-db">
+      <label for="db">the loud part: within</label><input id="db" type="range" min="6" max="30" step="1" value="10"><span class="v" id="db-v"></span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Phoneme Choir · the samples are the build's own Kokoro renders, read where git keeps them · the onset rule runs here and in its check, and agrees with the build's offsets.json</footer>
+</main>
+
+<script id="bank">
+// the twelve keys the pad plays, low to high, each with its four velocity layers (gentle, warm, characterful, bold) as phoneme_choir.sfz maps them
+const PAD = [
+  { w: 'pop',   key: 21,  files: ['phon_001_pop_af_nova.wav', 'phon_001_pop_af_heart.wav', 'phon_001_pop_bf_emma.wav', 'phon_001_pop_am_michael.wav'] },
+  { w: 'tap',   key: 22,  files: ['phon_002_tap_af_sky.wav', 'phon_002_tap_af_bella.wav', 'phon_002_tap_bm_george.wav', 'phon_002_tap_am_adam.wav'] },
+  { w: 'snap',  key: 33,  files: ['phon_013_snap_af_nova.wav', 'phon_013_snap_af_heart.wav', 'phon_013_snap_bf_emma.wav', 'phon_013_snap_am_michael.wav'] },
+  { w: 'slap',  key: 35,  files: ['phon_015_slap_bf_isabella.wav', 'phon_015_slap_bm_lewis.wav', 'phon_015_slap_am_puck.wav', 'phon_015_slap_am_fenrir.wav'] },
+  { w: 'knock', key: 56,  files: ['phon_036_knock_bf_isabella.wav', 'phon_036_knock_bm_lewis.wav', 'phon_036_knock_am_puck.wav', 'phon_036_knock_am_fenrir.wav'] },
+  { w: 'tick',  key: 60,  files: ['phon_040_tick_af_nova.wav', 'phon_040_tick_af_heart.wav', 'phon_040_tick_bf_emma.wav', 'phon_040_tick_am_michael.wav'] },
+  { w: 'boom',  key: 72,  files: ['phon_052_boom_af_nova.wav', 'phon_052_boom_af_heart.wav', 'phon_052_boom_bf_emma.wav', 'phon_052_boom_am_michael.wav'] },
+  { w: 'zoom',  key: 80,  files: ['phon_060_zoom_bf_isabella.wav', 'phon_060_zoom_bm_lewis.wav', 'phon_060_zoom_am_puck.wav', 'phon_060_zoom_am_fenrir.wav'] },
+  { w: 'arf',   key: 91,  files: ['phon_071_arf_af_sky.wav', 'phon_071_arf_af_bella.wav', 'phon_071_arf_bm_george.wav', 'phon_071_arf_am_adam.wav'] },
+  { w: 'bark',  key: 94,  files: ['phon_074_bark_af_sky.wav', 'phon_074_bark_af_bella.wav', 'phon_074_bark_bm_george.wav', 'phon_074_bark_am_adam.wav'] },
+  { w: 'ha',    key: 99,  files: ['phon_079_ha_af_nova.wav', 'phon_079_ha_af_heart.wav', 'phon_079_ha_bf_emma.wav', 'phon_079_ha_am_michael.wav'] },
+  { w: 'ouch',  key: 105, files: ['phon_085_ouch_af_nova.wav', 'phon_085_ouch_af_heart.wav', 'phon_085_ouch_bf_emma.wav', 'phon_085_ouch_am_michael.wav'] },
+];
+const LAYERS = ['gentle', 'warm', 'characterful', 'bold'];
+// what the check measured over all 88 words (Phoneme Choir — rich — check.mjs holds these to the samples)
+const ALL88 = { at10: { off: 99.8, on: 59.9 }, at20: { off: 79.7, on: 5.7 }, tight10: 5 };
+</script>
+
+<script id="engine">
+// ---- engine: the build's onset rule (generate.py), in the page ----
+function parseWav(buf) {
+  const dv = new DataView(buf); let p = 12, sr = 24000, ch = 1, bits = 16, data = null;
+  while (p + 8 <= dv.byteLength) {
+    const id = String.fromCharCode(dv.getUint8(p), dv.getUint8(p + 1), dv.getUint8(p + 2), dv.getUint8(p + 3)), n = dv.getUint32(p + 4, true);
+    if (id === 'fmt ') { ch = dv.getUint16(p + 10, true); sr = dv.getUint32(p + 12, true); bits = dv.getUint16(p + 22, true); }
+    if (id === 'data') { data = [p + 8, Math.min(n, dv.byteLength - p - 8)]; break; }
+    p += 8 + n + (n & 1);
+  }
+  if (!data || bits !== 16) throw new Error('not a 16-bit PCM wav');
+  const len = data[1] / 2 / ch, x = new Float32Array(len);
+  for (let i = 0; i < len; i++) x[i] = dv.getInt16(data[0] + i * 2 * ch, true) / 32768;
+  return { x, sr };
+}
+// the 5 ms level, one value per sample: rms[n] is the window that starts at sample n, as generate.py computes it
+function rms5(x, sr) {
+  const w = Math.max(1, Math.floor(sr * 5 / 1000)), c = new Float64Array(x.length + 1);
+  for (let i = 0; i < x.length; i++) c[i + 1] = c[i] + x[i] * x[i];
+  const r = new Float64Array(Math.max(0, x.length - w + 1)); for (let i = 0; i < r.length; i++) r[i] = Math.sqrt((c[i + w] - c[i]) / w);
+  return r;
+}
+const THRESH_DB = -30, CUSHION_MS = -1, FADE_S = 0.003;
+// the onset: the first 5 ms window whose level passes -30 dBFS
+function onsetSample(r) { const t = Math.pow(10, THRESH_DB / 20); for (let i = 0; i < r.length; i++) if (r[i] > t) return i; return 0; }
+// the SFZ offset: the cushion is negative, so the key starts one millisecond on into the sound
+function offsetSample(onset, sr) { return Math.max(0, onset - Math.trunc(sr * CUSHION_MS / 1000)); }
+// the loud part: the first 5 ms window within `under` dB of the file's own loudest window
+function loudSample(r, under) { let top = 0; for (const v of r) if (v > top) top = v; const t = top * Math.pow(10, -under / 20); for (let i = 0; i < r.length; i++) if (r[i] >= t) return i; return 0; }
+// one sample, measured
+function measure(x, sr) { const r = rms5(x, sr), onset = onsetSample(r); return { x, sr, r, onset, offset: offsetSample(onset, sr) }; }
+// how soon after the key the loud part comes: from the file's start with no trim, from the offset with it
+function lagMs(m, under, trim) { return (loudSample(m.r, under) - (trim ? m.offset : 0)) * 1000 / m.sr; }
+function spread(a) { return Math.max(...a) - Math.min(...a); }
+function median(a) { const s = [...a].sort((p, q) => p - q), n = s.length; return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; }
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const BASE = '../../_ops/sample-libraries/phoneme-choir/';
+const KNOCK = PAD.find((p) => p.w === 'knock');
+const S = { step: 0, from: 'start', trim: 0, layer: -1, under: 10, next: {} };
+const cache = new Map(); let OFFSETS = null;
+async function load(name) {
+  if (!cache.has(name)) cache.set(name, fetch(BASE + 'samples/' + name).then((r) => { if (!r.ok) throw new Error(name + ': ' + r.status); return r.arrayBuffer(); }).then((b) => { const w = parseWav(b); return { name, ...measure(w.x, w.sr) }; }));
+  return cache.get(name);
+}
+async function loadOffsets() { if (!OFFSETS) OFFSETS = await fetch(BASE + 'offsets.json').then((r) => r.json()).catch(() => ({})); return OFFSETS; }
+const voiceOf = (f) => f.replace(/^phon_\d+_[a-z]+_/, '').replace(/\.wav$/, '');
+const noteName = (m) => ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'][m % 12] + (Math.floor(m / 12) - 1);
+const ms = (v) => `${v.toFixed(0)} ms`;
+
+// ---- sound: made on the first click; sources are kept so a step change can stop them ----
+let ctx = null, out = null, live = [], timers = [], playing = false;
+async function audio() {
+  if (!ctx) {
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    out = ctx.createGain(); out.gain.value = 0.9; out.connect(comp); comp.connect(ctx.destination);
+  }
+  if (ctx.state !== 'running') await ctx.resume();
+  return ctx;
+}
+const bufs = new Map();
+function bufferOf(m) { if (!bufs.has(m.name)) { const b = ctx.createBuffer(1, m.x.length, m.sr); b.copyToChannel(m.x, 0); bufs.set(m.name, b); } return bufs.get(m.name); }
+function hit(m, when, trim) {
+  const src = ctx.createBufferSource(), g = ctx.createGain(); src.buffer = bufferOf(m);
+  if (trim) { g.gain.setValueAtTime(0, when); g.gain.linearRampToValueAtTime(1, when + FADE_S); src.start(when, m.offset / m.sr); }
+  else src.start(when);
+  src.connect(g); g.connect(out); live.push(src); src.onended = () => { live = live.filter((s) => s !== src); };
+}
+function tick(when, strong) {
+  const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = strong ? 1760 : 1320;
+  g.gain.setValueAtTime(0.0001, when); g.gain.exponentialRampToValueAtTime(0.12, when + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, when + 0.03);
+  o.connect(g); g.connect(out); o.start(when); o.stop(when + 0.04); live.push(o);
+}
+function stopSound() { for (const s of live) { try { s.stop(); } catch {} } live = []; timers.forEach(clearTimeout); timers = []; playing = false; syncPlay(); }
+function syncPlay() { $('play').textContent = playing ? '■ stop' : STEPS[S.step].playLabel || '▸ play'; }
+
+// ---- drawing ----
+function canvasFit(h) { const c = $('pic'), d = window.devicePixelRatio || 1, w = c.clientWidth || 900; c.width = w * d; c.height = h * d; c.style.height = h + 'px'; const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h }; }
+const COL = { fg2: '#c8c8d8', fg3: '#8a8aa0', fg4: '#4a4a5a', acc: '#e8b84a', accSoft: 'rgba(232,184,74,0.16)', info: '#4a8fff', grid: 'rgba(255,255,255,0.06)', lead: 'rgba(74,143,255,0.13)' };
+function wave(g, m, x0, y0, w, h, t0, t1, color) {
+  const a = Math.floor(t0 * m.sr), b = Math.min(m.x.length, Math.floor(t1 * m.sr)), per = (b - a) / w; g.strokeStyle = color; g.beginPath();
+  for (let px = 0; px < w; px++) { let lo = 0, hi = 0; const s = a + Math.floor(px * per), e = Math.min(b, a + Math.floor((px + 1) * per) + 1); for (let i = s; i < e; i++) { const v = m.x[i] || 0; if (v < lo) lo = v; if (v > hi) hi = v; } const cl = (y) => Math.max(y0, Math.min(y0 + h, y)); g.moveTo(x0 + px + 0.5, cl(y0 + h / 2 - hi * h * 1.6)); g.lineTo(x0 + px + 0.5, cl(y0 + h / 2 - lo * h * 1.6) + 0.5); }
+  g.stroke();
+}
+function label(g, t, x, y, color, align) { g.fillStyle = color || COL.fg3; g.font = '11px JetBrains Mono, monospace'; g.textAlign = align || 'left'; g.fillText(t, x, y); }
+function timeAxis(g, x0, y, w, t0, t1, every) { g.strokeStyle = COL.grid; for (let t = Math.ceil(t0 / every) * every; t <= t1 + 1e-9; t += every) { const x = x0 + (t - t0) / (t1 - t0) * w; g.beginPath(); g.moveTo(x, 8); g.lineTo(x, y); g.stroke(); label(g, `${Math.round(t * 1000)} ms`, x, y + 13, COL.fg4, 'center'); } }
+
+// ---- the five steps ----
+const STEPS = [
+  { name: 'one breath', title: 'One key, and the breath before it',
+    say: 'This is <b>knock</b> at G♯3 in the gentle layer, voiced by bf_isabella, and it is the whole file: every sample the key would play if nothing were trimmed. The shaded part comes before the word. kokoro-onnx already cut away what sat more than 60 dB under the loudest part; what is left is breath and the start of the voice.',
+    do: 'Play it. Play it again and tap along with the word, not the click of the button.', watch: 'The shaded lead, then the word.', hear: 'A short wait you did not ask for, then the word.',
+    controls: [], async draw() { const m = await load(KNOCK.files[0]); const { g, w, h } = canvasFit(240); const t1 = m.x.length / m.sr, X = (t) => 10 + t / t1 * (w - 20);
+      g.fillStyle = COL.lead; g.fillRect(X(0), 10, X(m.onset / m.sr) - X(0), h - 40); timeAxis(g, 10, h - 26, w - 20, 0, t1, 0.1); wave(g, m, 10, 10, w - 20, h - 40, 0, t1, COL.fg2);
+      label(g, `${ms(m.onset * 1000 / m.sr)} before the word`, X(m.onset / m.sr) + 6, 26, COL.info);
+      $('pic-l').textContent = 'phon_036_knock_bf_isabella.wav · the whole file'; $('pic-r').textContent = `${ms(t1 * 1000)} long`;
+      $('meter').innerHTML = `lead before the word: <b>${ms(m.onset * 1000 / m.sr)}</b> · the page says 138 ms`; },
+    async play() { const m = await load(KNOCK.files[0]); await audio(); hit(m, ctx.currentTime + 0.05, false); playing = true; syncPlay(); timers.push(setTimeout(() => { playing = false; syncPlay(); }, m.x.length / m.sr * 1000 + 100)); } },
+
+  { name: 'where it starts', title: 'Where the word starts',
+    say: 'The build finds the start with one rule. Slide a 5 ms window along the file and take its level; the first window louder than −30 dBFS is the onset. The key then starts one millisecond <i>after</i> it, stepping into the sound rather than backing off, and fades in over 3 ms so the cut does not click.',
+    do: 'Play from the file’s start, then from the trim.', watch: 'The level line crossing −30 dBFS, and the start marker one millisecond on.', hear: 'The same word, with the wait gone.',
+    controls: ['g-from'], playLabel: '▸ play', async draw() { const m = await load(KNOCK.files[0]); const o = await loadOffsets(); const { g, w, h } = canvasFit(280); const t1 = 0.32, X = (t) => 10 + t / t1 * (w - 20), Y = (db) => 12 + (-db) / 70 * (h - 50);
+      timeAxis(g, 10, h - 26, w - 20, 0, t1, 0.05); g.globalAlpha = 0.35; wave(g, m, 10, 12, w - 20, h - 50, 0, t1, COL.fg3); g.globalAlpha = 1;
+      g.strokeStyle = COL.fg4; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(X(0), Y(-30)); g.lineTo(X(t1), Y(-30)); g.stroke(); g.setLineDash([]); label(g, '−30 dBFS', X(t1) - 4, Y(-30) - 6, COL.fg3, 'right');
+      g.strokeStyle = COL.acc; g.beginPath(); for (let i = 0; i < Math.min(m.r.length, t1 * m.sr); i += 12) { const db = Math.max(-70, 20 * Math.log10(m.r[i] + 1e-9)); const x = X(i / m.sr), y = Y(db); i ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke();
+      const xo = X(m.onset / m.sr), xf = X(m.offset / m.sr); g.strokeStyle = COL.info; g.beginPath(); g.moveTo(xo, 12); g.lineTo(xo, h - 38); g.stroke(); g.strokeStyle = COL.fg2; g.beginPath(); g.moveTo(xf, 12); g.lineTo(xf, h - 38); g.stroke();
+      label(g, 'onset', xo - 4, 24, COL.info, 'right'); label(g, 'the key starts here', xf + 4, 24, COL.fg2);
+      const b = o[m.name] || {}; $('pic-l').textContent = 'the 5 ms level (amber) over the first 320 ms'; $('pic-r').textContent = 'bf_isabella · knock';
+      $('meter').innerHTML = `this page finds the onset at sample <b>${m.onset}</b> (${ms(m.onset * 1000 / m.sr)}) and starts the key at <b>${m.offset}</b> · the build’s offsets.json says <b>${b.onset_sample ?? '—'}</b> and <b>${b.offset_sample ?? '—'}</b>, and its SFZ plays from offset=${b.offset_sample ?? '—'}`; },
+    async play() { const m = await load(KNOCK.files[0]); await audio(); hit(m, ctx.currentTime + 0.05, S.from === 'trim'); playing = true; syncPlay(); timers.push(setTimeout(() => { playing = false; syncPlay(); }, 900)); },
+    eq: ['onset = min { n : √( (1/W) Σ<sub>k=n</sub><sup>n+W−1</sup> x[k]² ) > 10<sup>−30/20</sup> },  W = 120 samples (5 ms at 24 kHz) ·  offset = onset + 24', 'The first 5 ms stretch loud enough to pass −30 dBFS marks where the word starts. The key starts 24 samples, one millisecond, after that, and fades in over 3 ms.'] },
+
+  { name: 'four voices', title: 'Four voices, one key, no trim',
+    say: 'Velocity picks the voice, so one key is four speakers. These are the four files the build’s own <code>audition.sfz</code> loaded on G♯3: gentle bf_isabella, warm bm_lewis, characterful am_puck, bold am_fenrir, each drawn from the moment the key goes down. Played on a beat, each hit is the next layer, as if you were playing harder each time.',
+    do: 'Play the beat: a click, then knock in each voice on the click, twice round.', watch: 'Where each word starts against the key-down line on the left.', hear: 'Whether the gentle hit drags behind the click while the others sit on it.',
+    controls: [], playLabel: '▸ play on the beat', async draw() { await drawFour(false); },
+    async play() { await playFour(false); } },
+
+  { name: 'trim on', title: 'The trim, on and off',
+    say: 'Now each voice starts at its own trim. To say how much the trim fixed, the page needs a ruler for where the word gets loud: the first 5 ms within some number of decibels of that file’s loudest 5 ms. Move the ruler and watch the dots; the numbers below are measured, not drawn by hand.',
+    do: 'Play the beat with the trim off, then on. Move the ruler.', watch: 'The four dots (where each voice gets loud) closing up when the trim goes on.', hear: 'Whether the gentle voice now lands with the others.',
+    controls: ['g-trim', 'ctl-db'], playLabel: '▸ play on the beat', async draw() { await drawFour(true); },
+    async play() { await playFour(true); },
+    eq: ['loud(n) : the first n with √( (1/W) Σ<sub>k=n</sub><sup>n+W−1</sup> x[k]² ) ≥ max<sub>m</sub> rms<sub>m</sub> · 10<sup>−D/20</sup> ·  lag = loud − offset (trim on), loud − 0 (trim off)', 'Where the word gets loud is the first 5 ms within D decibels of that file’s loudest 5 ms. The lag is how long after the key goes down that comes, counted from the trim when the trim is on.'] },
+
+  { name: 'the test', title: 'The test: twelve keys, four voices each',
+    say: 'Twelve keys from across the bank, low to high, each in its four layers. The page measures, for every one of the 48 files, how long after the key the word gets loud, with the trim off (hollow) and on (amber). The section’s claim is that with the trim every key fires into the sound at once, whatever the voice. Play the keys, by click or with the number row, 1 to =, and listen for it.',
+    do: 'Play the pattern: every key in all four layers on a click. Then play the pads yourself, trim off and on. Move the ruler.', watch: 'Each row’s four amber dots: close together means the voices agree.', hear: 'Whether the keys you feel as late are the ones whose amber dots sit right.',
+    controls: ['g-trim', 'g-layer', 'pads', 'ctl-db'], playLabel: '▸ play the pattern', async draw() { await drawPad(); },
+    async play() { await playPattern(); } },
+];
+
+async function drawFour(withRuler) {
+  const ms4 = await Promise.all(KNOCK.files.map(load)); const { g, w, h } = canvasFit(320); const t1 = 0.36, X = (t) => 120 + t / t1 * (w - 130), lane = (h - 40) / 4;
+  timeAxis(g, 120, h - 26, w - 130, 0, t1, 0.05);
+  const trim = withRuler ? S.trim : 0;
+  ms4.forEach((m, i) => { const y0 = 6 + i * lane, start = trim ? m.offset / m.sr : 0;
+    if (!trim) { g.fillStyle = COL.lead; g.fillRect(X(0), y0 + 2, X(m.onset / m.sr) - X(0), lane - 6); }
+    wave(g, m, X(0), y0, w - 130, lane - 4, start, start + t1, COL.fg2);
+    label(g, LAYERS[i], 6, y0 + lane / 2 - 2, COL.fg2); label(g, voiceOf(m.name), 6, y0 + lane / 2 + 12, COL.fg4);
+    if (withRuler) { const lag = lagMs(m, S.under, trim) / 1000; g.fillStyle = COL.acc; g.beginPath(); g.arc(X(lag), y0 + lane / 2, 4.5, 0, 7); g.fill(); }
+  });
+  g.strokeStyle = COL.acc; g.beginPath(); g.moveTo(X(0), 4); g.lineTo(X(0), h - 30); g.stroke(); label(g, 'key down', X(0) + 4, h - 32, COL.acc);
+  $('pic-l').textContent = withRuler ? `knock · ${trim ? 'trimmed' : 'untrimmed'} · dot = within ${S.under} dB of the file’s loudest` : 'knock · the four layers, from key-down, untrimmed';
+  $('pic-r').textContent = 'G♯3';
+  const leads = ms4.map((m) => m.onset * 1000 / m.sr);
+  if (!withRuler) { $('meter').innerHTML = `lead before the word: ${ms4.map((m, i) => `${LAYERS[i]} <b>${ms(leads[i])}</b>`).join(' · ')} · the page says 138 ms in bf_isabella and 31 ms in am_puck`; return; }
+  const off = ms4.map((m) => lagMs(m, S.under, false)), on = ms4.map((m) => lagMs(m, S.under, true));
+  $('meter').innerHTML = `key to loud part, trim off: ${off.map(ms).join(' / ')} — spread <b>${ms(spread(off))}</b><br>key to loud part, trim on: ${on.map(ms).join(' / ')} — spread <b>${ms(spread(on))}</b>`;
+}
+async function playFour(withRuler) {
+  const ms4 = await Promise.all(KNOCK.files.map(load)); await audio(); const t0 = ctx.currentTime + 0.1, beat = 0.6, trim = withRuler ? S.trim : 0;
+  for (let k = 0; k < 8; k++) { tick(t0 + k * beat, k % 4 === 0); hit(ms4[k % 4], t0 + k * beat, trim); }
+  playing = true; syncPlay(); timers.push(setTimeout(() => { playing = false; syncPlay(); }, (8 * beat + 1) * 1000));
+}
+async function padData() { return Promise.all(PAD.map(async (p) => ({ ...p, m: await Promise.all(p.files.map(load)) }))); }
+async function drawPad() {
+  const D = await padData(); const { g, w, h } = canvasFit(372); const tMax = 0.3, X0 = 92, X = (t) => X0 + Math.min(t, tMax) / tMax * (w - X0 - 130), row = (h - 36) / D.length;
+  timeAxis(g, X0, h - 24, w - X0 - 130, 0, tMax, 0.05);
+  const offS = [], onS = [];
+  D.forEach((p, i) => { const y = 8 + i * row + row / 2, off = p.m.map((m) => lagMs(m, S.under, false)), on = p.m.map((m) => lagMs(m, S.under, true));
+    offS.push(spread(off)); onS.push(spread(on));
+    label(g, `${p.w}`, 6, y + 4, COL.fg2); label(g, noteName(p.key), 52, y + 4, COL.fg4);
+    g.strokeStyle = COL.fg4; g.beginPath(); g.moveTo(X(Math.min(...off) / 1000), y - 4); g.lineTo(X(Math.max(...off) / 1000), y - 4); g.stroke();
+    off.forEach((v) => { g.strokeStyle = COL.fg3; g.beginPath(); g.arc(X(v / 1000), y - 4, 3.5, 0, 7); g.stroke(); });
+    g.strokeStyle = COL.accSoft; g.lineWidth = 6; g.beginPath(); g.moveTo(X(Math.min(...on) / 1000), y + 4); g.lineTo(X(Math.max(...on) / 1000) + 0.1, y + 4); g.stroke(); g.lineWidth = 1;
+    on.forEach((v) => { g.fillStyle = COL.acc; g.beginPath(); g.arc(X(v / 1000), y + 4, 3.5, 0, 7); g.fill(); });
+    label(g, `${ms(spread(off))} → ${ms(spread(on))}`, w - 8, y + 4, spread(on) <= 10 ? COL.acc : COL.fg2, 'right');
+  });
+  $('pic-l').textContent = `key to loud part (within ${S.under} dB of each file’s loudest) · hollow = trim off · amber = trim on`; $('pic-r').textContent = 'spread across the four voices, off → on';
+  const mOff = median(offS), mOn = median(onS), tight = onS.filter((v) => v <= 10).length;
+  $('meter').innerHTML = `these twelve keys, median spread across a key’s four voices: trim off <b>${ms(mOff)}</b>, trim on <b>${ms(mOn)}</b> · keys whose four voices land within 10 ms with the trim: <b>${tight} of 12</b>`;
+  $('found').innerHTML = `<b>What the test found.</b> The trim does what it says at the start of the sound: every voice begins at once. Where the word gets <i>loud</i> is another matter, and it depends on the ruler. Counted at 20 dB under each file’s loudest, the check finds a word’s four voices a median ${ALL88.at20.on} ms apart with the trim across all 88 keys (${ALL88.at20.off} ms without); counted at 10 dB under, they are still ${ALL88.at10.on} ms apart (${ALL88.at10.off} without). At 10 dB, knock, the page’s example, is one of ${ALL88.tight10} keys of 88 whose four voices land within 10 ms of each other. Words that open on a hiss or a breathy stop (slap, zoom, tap) start on time, but get loud up to 100 ms later in one voice than in another. Which ruler matches the felt beat is a question for the ear, not this page.`;
+}
+let padTimer = null;
+async function strike(i, layer, when) {
+  const p = PAD[i], m = await load(p.files[layer]); await audio(); hit(m, when ?? ctx.currentTime + 0.01, S.trim);
+  const el = $('pads').children[i]; el.classList.add('hit'); setTimeout(() => el.classList.remove('hit'), 160);
+}
+async function playPattern() {
+  await padData(); await audio(); const t0 = ctx.currentTime + 0.15, step = 0.3; let k = 0;
+  for (let i = 0; i < PAD.length; i++) for (let l = 0; l < 4; l++, k++) { const when = t0 + k * step; if (k % 2 === 0) tick(when, k % 8 === 0); hit(await load(PAD[i].files[l]), when, S.trim); const idx = i; timers.push(setTimeout(() => { const el = $('pads').children[idx]; el.classList.add('hit'); setTimeout(() => el.classList.remove('hit'), 160); }, (when - ctx.currentTime) * 1000)); }
+  playing = true; syncPlay(); timers.push(setTimeout(() => { playing = false; syncPlay(); }, (k * step + 1) * 1000));
+}
+
+// ---- controls ----
+function buildPads() {
+  const keys = '1234567890-=';
+  PAD.forEach((p, i) => { const b = document.createElement('div'); b.className = 'pad'; b.innerHTML = `${p.w}<small>${noteName(p.key)} · ${keys[i]}</small>`;
+    b.addEventListener('pointerdown', () => { const layer = S.layer >= 0 ? S.layer : (S.next[i] = ((S.next[i] ?? -1) + 1) % 4); strike(i, layer); }); $('pads').appendChild(b); });
+  window.addEventListener('keydown', (e) => { if (S.step !== 4 || e.repeat || e.metaKey || e.ctrlKey) return; const i = keys.indexOf(e.key); if (i < 0) return; const layer = S.layer >= 0 ? S.layer : (S.next[i] = ((S.next[i] ?? -1) + 1) % 4); strike(i, layer); });
+}
+function sync() {
+  document.querySelectorAll('[data-from]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.from === S.from)));
+  document.querySelectorAll('[data-trim]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.trim === S.trim)));
+  document.querySelectorAll('[data-layer]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.layer === S.layer)));
+  $('db-v').textContent = `${S.under} dB`;
+}
+let drawing = 0;
+async function redraw() { const n = ++drawing; try { await STEPS[S.step].draw(); } catch (e) { if (n === drawing) { $('meter').textContent = 'The samples did not load: ' + e.message; } } }
+function show() {
+  stopSound(); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').innerHTML = st.say; $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  for (const id of ['g-from', 'g-trim', 'g-layer', 'pads', 'ctl-db']) $(id).classList.toggle('hide', !st.controls.includes(id));
+  $('found').innerHTML = ''; $('eq1').innerHTML = st.eq ? st.eq[0] : ''; $('eq1w').textContent = st.eq ? st.eq[1] : '';
+  [...$('rail').children].forEach((bt, j) => bt.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1; sync(); syncPlay(); redraw();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.addEventListener('click', () => { S.step = i; show(); }); $('rail').appendChild(b); });
+$('back').addEventListener('click', () => { if (S.step > 0) { S.step--; show(); } });
+$('next').addEventListener('click', () => { if (S.step < STEPS.length - 1) { S.step++; show(); } });
+$('play').addEventListener('click', async () => { if (playing) { stopSound(); return; } try { await STEPS[S.step].play(); } catch (e) { $('meter').textContent = 'Could not play: ' + e.message; } });
+document.querySelectorAll('[data-from]').forEach((b) => b.addEventListener('click', () => { S.from = b.dataset.from; sync(); }));
+document.querySelectorAll('[data-trim]').forEach((b) => b.addEventListener('click', () => { S.trim = +b.dataset.trim; sync(); redraw(); }));
+document.querySelectorAll('[data-layer]').forEach((b) => b.addEventListener('click', () => { S.layer = +b.dataset.layer; sync(); }));
+$('db').addEventListener('input', (e) => { S.under = +e.target.value; sync(); redraw(); });
+window.addEventListener('resize', () => redraw());
+buildPads(); show();
+</script>
+</body>
+</html>

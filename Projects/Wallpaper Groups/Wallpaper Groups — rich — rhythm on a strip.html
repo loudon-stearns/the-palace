@@ -1,0 +1,383 @@
+<!doctype html>
+<!--
+  title: Wallpaper Groups — rich — rhythm on a strip
+  born: 2026-11-03
+  links: [[Wallpaper Groups]] (connects-to · rich-face-piece) · listed in [[Wallpaper Groups — rich.json]] · [[Metric Modulation]] (connects-to · temporal tiling) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the musical section's rhythm put on a strip and played. I start on one looped cell, play it backwards, add a second voice so the strip can turn and glide, wrap the loop into a clock, and last put the rhythmic impossibility sentence to a five-fold loop. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does. The five recipes in the bundle can be tried on me: write the half, choose the fill.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; Projects/Wallpaper Groups/workshop/rich-checks.mjs re-runs the claims on it. Sound is two synthesized drums (a falling sine, a band of noise) through a compressor, scheduled ahead; no samples.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Rhythm on a strip</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7f9cff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 76ch; margin: 0 0 14px; min-height: 4.8em; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .legend i { display: inline-block; width: 12px; height: 8px; vertical-align: middle; margin-right: 6px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 220px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seglabel { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 14px; line-height: 1.55; color: var(--amber); max-width: 80ch; min-height: 1.6em; }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 90ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 86ch; }
+  .grid17 { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .cellbox { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 6px 6px 4px; }
+  .cellbox canvas { aspect-ratio: 1 / 1; }
+  .cellname { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; color: var(--fg3); margin-top: 4px; }
+  .cellname b { color: var(--fg1); font-weight: 500; }
+  .bin { margin-bottom: 14px; }
+  .binhead { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin: 0 0 6px; display: flex; gap: 14px; flex-wrap: wrap; }
+  .binhead b { color: var(--fg1); font-weight: 500; }
+  .binhead .text { color: var(--amber); }
+  .sigil { position: absolute; top: 18px; right: 20px; opacity: .55; }
+  .piece { position: relative; }
+  @media (max-width: 680px) { .ctl { min-width: 100%; } }
+  .gridrow { display: flex; gap: 3px; align-items: center; margin-bottom: 4px; }
+  .rowlab { flex: 0 0 44px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg3); }
+  .stepcell { flex: 1 1 0; min-width: 14px; max-width: 40px; height: 34px; padding: 0; border-radius: 2px; background: var(--e1); border: 1px solid var(--ring); }
+  .stepcell:disabled { cursor: default; }
+  .stepcell.lowon { background: var(--amber); border-color: var(--amber); }
+  .stepcell.highon { background: var(--cool); border-color: var(--cool); }
+  .stepcell.derived { opacity: .5; }
+  .stepcell.cellstart { margin-left: 7px; }
+  .stepcell.head { outline: 1.5px solid var(--fg1); outline-offset: 1px; }
+  #clock { aspect-ratio: 16 / 10; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <svg class="sigil" id="sigil" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"></svg>
+  <div class="kicker">made · Web Audio · sketch · a walk in five steps</div>
+  <h3 class="title">Rhythm on a strip</h3>
+  <p class="sub">A loop that repeats forever is a strip: time runs along it, the voices stack across it. Build one up, one operation at a time, and last try the five-fold loop the section says can't be made. Sound starts only when you press play, and changing step stops it.</p>
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+  <div class="panel">
+    <div class="plabel"><span>the loop · click a bright step to change it</span><span>dim = made from the cell</span></div>
+    <div id="grid"></div>
+  </div>
+  <div class="panel" id="clockwrap" style="display:none;margin-top:14px">
+    <div class="plabel"><span>the loop as a clock</span><span>dots = hits · rings = where a 1/k turn sends them · dashes = the turn</span></div>
+    <canvas id="clock"></canvas>
+  </div>
+  <div class="controls" id="controls"></div>
+  <div class="read" id="read"></div>
+  <div class="verdict" id="verdict"></div>
+  <div class="eqs" id="eqs" style="display:none">
+    <div class="eq">a turn by 1 ⁄ k of an n-step loop = a slide by n ⁄ k steps; it lands on steps ⇔ n mod k = 0</div>
+    <div class="words">(turning the loop's clock face by one k-th of a lap) is the same as (sliding the rhythm along by the loop's length divided by k); that slide lands on whole steps only when k divides the loop's length, and for any k there are loops it divides: 15 and 20 for five.</div>
+  </div>
+  <div class="nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="hint">104 BPM, sixteenth-note steps. The low drum is a falling sine, the high one a band of noise. The seven frieze groups are named as the International Tables name them, with Conway's names beside: hop, step, sidle, spinning hop, spinning sidle, jump, spinning jump.</div>
+</div>
+<script>
+/*ENGINE-START*/
+// A loop is two rows (low drum, high drum) of n steps, each row an array of 0/1. The loop repeats
+// forever, so it is a strip: time runs along it, the two voices across it. Pure, so
+// Projects/Wallpaper Groups/workshop/rich-checks.mjs runs it in Node.
+const mod = (a, n) => ((a % n) + n) % n;
+const shift = (P, s) => P.map((row) => row.map((_, i) => row[mod(i - s, row.length)]));
+const reverse = (P, c) => P.map((row) => row.map((_, i) => row[mod(c - i, row.length)]));
+const flip = (P) => (P.length === 2 ? [P[1].slice(), P[0].slice()] : P.map((r) => r.slice()));
+const same = (A, B) => A.every((row, r) => row.every((v, i) => v === B[r][i]));
+const anyShift = (P, Q, from) => { for (let s = from; s < P[0].length; s++) if (same(shift(Q, s), P)) return s; return -1; };
+const anyReverse = (P, Q) => { for (let c = 0; c < P[0].length; c++) if (same(reverse(Q, c), P)) return c; return -1; };
+// The seven ways a strip can repeat (frieze groups), with Conway's names for them.
+const FRIEZE = {
+  p1: 'hop · slides only', p11g: 'step · a glide', p1m1: 'sidle · mirrors in time', p2: 'spinning hop · half-turns',
+  p2mg: 'spinning sidle · mirrors in time and a glide', p11m: 'jump · a mirror between the voices', p2mm: 'spinning jump · mirrors both ways',
+};
+function symmetries(P) {
+  const two = P.length === 2;
+  const H = two && same(flip(P), P);                       // swap the voices, nothing moves
+  const V = anyReverse(P, P) >= 0;                         // play it backwards about some step
+  const R = two ? anyReverse(P, flip(P)) >= 0 : V;         // half-turn: backwards and swap the voices
+  const G = two && !H && anyShift(P, flip(P), 1) >= 0;     // slide part-way and swap the voices
+  return { H, V, R, G };
+}
+function frieze(P) {
+  const { H, V, G, R } = symmetries(P);
+  const id = H ? (V ? 'p2mm' : 'p11m') : V ? (G ? 'p2mg' : 'p1m1') : G ? 'p11g' : R ? 'p2' : 'p1';
+  return { id, name: FRIEZE[id], H, V, G, R };
+}
+// Fill the second half of a loop from its first, by one operation.
+function fillHalf(P, how) {
+  const n = P[0].length, h = n / 2, first = P.map((row) => row.map((v, i) => (i < h ? v : 0)));
+  const src = how === 'backwards' ? reverse(first, n - 1) : how === 'half-turn' ? reverse(flip(first), n - 1)
+    : how === 'glide' ? shift(flip(first), h) : shift(first, h);
+  return first.map((row, r) => row.map((v, i) => (i < h ? v : src[r][i])));
+}
+// A loop turned like a clock face by 1/k of a lap: a shift by n/k steps. It lands on steps only if k divides n.
+const turnLands = (n, k) => n % k === 0;
+function kfold(P, k) { const n = P[0].length; return turnLands(n, k) && same(shift(P, n / k), P); }
+// Lay k copies of the loop's opening cell (len steps) around a loop of n steps. Copies that run
+// past the end wrap round onto the start: the steps covered twice are the overlap, the steps
+// no copy reaches are the gap.
+function layCells(P, k, len) {
+  const n = P[0].length, out = P.map(() => new Array(n).fill(0)), cover = new Array(n).fill(0); let clash = 0;
+  for (let c = 0; c < k; c++) for (let i = 0; i < len; i++) {
+    const at = (c * len + i) % n; cover[at]++;
+    P.forEach((row, r) => { if (row[i]) { if (out[r][at]) clash++; out[r][at] = 1; } });
+  }
+  return { P: out, gap: cover.filter((v) => v === 0).length, overlap: cover.filter((v) => v > 1).length, clash };
+}
+/*ENGINE-END*/
+
+function sizeCanvas(cv) {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return { ctx, w, h };
+}
+
+const $ = (id) => document.getElementById(id);
+const STEPS = [
+  { n: 1, name: 'one cell, looped', says: 'Four steps of one drum, looped. Click a step to set or clear it, then play. Every time round is the same four steps slid along by four: a slide in time is the one symmetry every loop has.' },
+  { n: 2, name: 'backwards', says: 'Sixteen steps. Write the first eight; the second eight are made from them. Repeat slides them along; backwards plays them in reverse, a mirror in time; half-turn spins them about the middle. On one line, backwards and half-turn make the same loop every time: a line has no second direction to turn through.' },
+  { n: 3, name: 'two voices', says: 'Add a second voice, a high drum above the low one, and the strip gets a second direction. Now a half-turn swaps the voices as it reverses, and a glide slides and swaps. A strip like this can repeat in exactly seven ways, the frieze groups: the line’s version of the seventeen. Try kick-snare-kick-snare.' },
+  { n: 4, name: 'the loop as a clock', says: 'Wrap the loop into a circle and a turn of the circle is a slide in time: a quarter-turn of a 16-step loop is a slide of 4 steps. Pick a turn; the loop is laid from copies of its opening cell, and it is k-fold when turning it by 1/k lands every hit on a hit.' },
+  { n: 5, name: 'the test · five-fold', says: 'The section says a drum pattern can’t both tile the timeline without a gap and have 5-fold rotational symmetry. Try it on a 16-step grid, then on a loop of 15 or 20 steps.' },
+];
+const S = { step: 1, fill2: 'backwards', fill3: 'half-turn', n4: 16, k4: 4, n5: 16, len5: 3 };
+const row = (n, hits) => Array.from({ length: n }, (_, i) => (hits.includes(i) ? 1 : 0));
+const CELLS = {
+  1: [row(4, [0, 3])],
+  2: [row(16, [0, 1, 4, 6])],
+  3: [row(16, [0, 3]), row(16, [2, 6, 7])],
+  4: [row(20, [0, 3]), row(20, [2])],
+  5: [row(20, [0, 1]), row(20, [2])],
+};
+// the loop each step plays, built from its editable cell
+function cellLen() { if (S.step === 1) return 4; if (S.step <= 3) return 8; if (S.step === 4) return S.n4 / S.k4; return turnLands(S.n5, 5) ? S.n5 / 5 : S.len5; }
+function loopN() { return S.step === 1 ? 4 : S.step <= 3 ? 16 : S.step === 4 ? S.n4 : S.n5; }
+function cellOf() { const L = cellLen(); return CELLS[S.step].map((r) => r.slice(0, L).concat(new Array(Math.max(0, 20 - L)).fill(0))); }
+function build() {
+  const n = loopN();
+  if (S.step === 1) return { P: CELLS[1].map((r) => r.slice()) };
+  if (S.step <= 3) { const P0 = CELLS[S.step].map((r) => r.slice(0, 16)); return { P: fillHalf(P0, S.step === 2 ? S.fill2 : S.fill3) }; }
+  const k = S.step === 4 ? S.k4 : 5, c = cellOf().map((r) => r.slice(0, n));
+  const L = layCells(c, k, cellLen()); return { P: L.P, lay: L, k };
+}
+// ── sound: made only after a click ──
+let AC = null, OUT = null, NOISE = null, timer = null, nextT = 0, pos = 0, playing = false, LOOP = null;
+const STEP_S = 60 / 104 / 4;
+function audio() {
+  if (AC) return;
+  AC = new AudioContext(); const comp = AC.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  OUT = AC.createGain(); OUT.gain.value = 0.7; OUT.connect(comp); comp.connect(AC.destination);
+  NOISE = AC.createBuffer(2, Math.round(AC.sampleRate * 0.2), AC.sampleRate);
+  for (let ch = 0; ch < 2; ch++) { const d = NOISE.getChannelData(ch); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+}
+function low(t) {
+  const o = AC.createOscillator(), g = AC.createGain(); o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(48, t + 0.12);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.9, t + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.3);
+  o.connect(g); g.connect(OUT); o.start(t); o.stop(t + 0.32);
+}
+function high(t) {
+  const s = AC.createBufferSource(), f = AC.createBiquadFilter(), g = AC.createGain(); s.buffer = NOISE; f.type = 'bandpass'; f.frequency.value = 3200; f.Q.value = 1.1;
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.55, t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
+  s.connect(f); f.connect(g); g.connect(OUT); s.start(t); s.stop(t + 0.08);
+}
+const QUEUE = [];
+function schedule() {
+  if (!playing || !AC) return;
+  while (nextT < AC.currentTime + 0.12) {
+    const P = LOOP, n = P[0].length, i = pos % n;
+    if (P[0][i]) low(nextT); if (P[1] && P[1][i]) high(nextT);
+    QUEUE.push({ t: nextT, i }); nextT += STEP_S; pos++;
+  }
+}
+function play() {
+  audio(); if (AC.state !== 'running') AC.resume();
+  LOOP = build().P; playing = true; pos = 0; nextT = AC.currentTime + 0.06; QUEUE.length = 0;
+  clearInterval(timer); timer = setInterval(schedule, 25); schedule(); $('go').textContent = '■ stop'; requestAnimationFrame(head);
+}
+function stop() { playing = false; clearInterval(timer); timer = null; QUEUE.length = 0; const g = $('go'); if (g) g.textContent = '▸ play'; markHead(-1); }
+function head() {
+  if (!playing) return;
+  let cur = -1; while (QUEUE.length && QUEUE[0].t <= AC.currentTime) cur = QUEUE.shift().i;
+  if (cur >= 0) { markHead(cur); if (S.step >= 4) drawClock(cur); }
+  requestAnimationFrame(head);
+}
+function markHead(i) { document.querySelectorAll('.stepcell').forEach((b) => b.classList.toggle('head', Number(b.dataset.i) === i)); }
+// ── the grid ──
+function grid() {
+  const g = $('grid'); g.innerHTML = ''; const B = build(), P = B.P, n = P[0].length, L = cellLen(), names = P.length === 2 ? ['high', 'low'] : ['drum'];
+  const rows = P.length === 2 ? [1, 0] : [0];
+  rows.forEach((r, ri) => {
+    const line = document.createElement('div'); line.className = 'gridrow';
+    const lab = document.createElement('span'); lab.className = 'rowlab'; lab.textContent = names[ri]; line.append(lab);
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement('button'); b.className = 'stepcell'; b.dataset.i = i;
+      const edit = S.step === 1 ? true : S.step <= 3 ? i < 8 : i < L;
+      if (P[r][i]) b.classList.add(r === 0 ? 'lowon' : 'highon');
+      if (!edit) b.classList.add('derived');
+      if (S.step >= 4 && B.k && i % L === 0 && i < B.k * L) b.classList.add('cellstart');
+      if (S.step <= 3 && S.step > 1 && i === 8) b.classList.add('cellstart');
+      b.setAttribute('aria-label', `${names[ri]} step ${i + 1}${edit ? '' : ' (made from the cell)'}`);
+      if (edit) b.onclick = () => { CELLS[S.step][r][i] = CELLS[S.step][r][i] ? 0 : 1; refresh(); };
+      else b.disabled = true;
+      line.append(b);
+    }
+    g.append(line);
+  });
+}
+function drawClock(cur = -1) {
+  const cv = $('clock'); if (!cv || S.step < 4) return; const { ctx, w, h } = sizeCanvas(cv); ctx.clearRect(0, 0, w, h);
+  const B = build(), P = B.P, n = P[0].length, k = B.k, cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.38;
+  const at = (i, rr) => { const a = -Math.PI / 2 + 2 * Math.PI * i / n; return [cx + rr * Math.cos(a), cy + rr * Math.sin(a)]; };
+  ctx.strokeStyle = 'rgba(255,255,255,.08)'; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 2 * Math.PI); ctx.stroke(); ctx.beginPath(); ctx.arc(cx, cy, R * 0.72, 0, 2 * Math.PI); ctx.stroke();
+  // the k spokes of a 1/k turn: on a step, or between steps
+  ctx.setLineDash([4, 5]);
+  for (let j = 0; j < k; j++) { const pos = j * n / k, on = Math.abs(pos - Math.round(pos)) < 1e-9; const [x, y] = at(pos, R * 1.14); ctx.strokeStyle = on ? 'rgba(232,184,74,.55)' : 'rgba(127,156,255,.8)'; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(x, y); ctx.stroke(); }
+  ctx.setLineDash([]);
+  for (let i = 0; i < n; i++) {
+    const [x, y] = at(i, R * 1.0), [x2, y2] = at(i, R * 0.72);
+    ctx.fillStyle = '#2a2a38'; ctx.beginPath(); ctx.arc(x, y, 5, 0, 2 * Math.PI); ctx.fill(); ctx.beginPath(); ctx.arc(x2, y2, 4, 0, 2 * Math.PI); ctx.fill();
+    if (P[0][i]) { ctx.fillStyle = '#e8b84a'; ctx.beginPath(); ctx.arc(x, y, 7, 0, 2 * Math.PI); ctx.fill(); }
+    if (P[1][i]) { ctx.fillStyle = '#7f9cff'; ctx.beginPath(); ctx.arc(x2, y2, 6, 0, 2 * Math.PI); ctx.fill(); }
+    if (i === cur) { ctx.strokeStyle = '#e8e8f0'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, y, 10, 0, 2 * Math.PI); ctx.stroke(); ctx.lineWidth = 1; }
+  }
+  // the loop turned by 1/k: rings where its hits would land
+  const sft = n / k;
+  for (let i = 0; i < n; i++) for (let r = 0; r < 2; r++) if (P[r][i]) {
+    const [x, y] = at(i + sft, r === 0 ? R : R * 0.72); ctx.strokeStyle = r === 0 ? 'rgba(232,184,74,.5)' : 'rgba(127,156,255,.5)'; ctx.beginPath(); ctx.arc(x, y, r === 0 ? 11 : 9.5, 0, 2 * Math.PI); ctx.stroke();
+  }
+  ctx.fillStyle = '#8a8aa0'; ctx.font = '11px JetBrains Mono, monospace'; ctx.textAlign = 'center'; ctx.fillText(`${n} steps · turn 1/${k} = ${Number.isInteger(sft) ? sft : sft.toFixed(1)} steps`, cx, cy + 4); ctx.textAlign = 'left';
+}
+function readout() {
+  const B = build(), P = B.P, n = P[0].length; let html = '', verdict = '';
+  if (S.step === 1) html = `<span>loop <b>4 steps</b></span><span>hits <b>${P[0].filter(Boolean).length}</b></span><span>symmetry <b>a slide of 4 steps, forever</b></span>`;
+  if (S.step === 2) {
+    const P0 = CELLS[2].map((r) => r.slice(0, 16)), a = fillHalf(P0, 'backwards'), b = fillHalf(P0, 'half-turn');
+    html = `<span>made by <b>${S.fill2}</b></span><span>backwards and half-turn give the same loop <b>${same(a, b) ? 'yes' : 'no'}</b></span><span>mirror in time somewhere <b>${symmetries(P).V ? 'yes' : 'no'}</b></span>`;
+  }
+  if (S.step === 3) {
+    const f = frieze(P), y = (v) => (v ? 'yes' : 'no');
+    html = `<span>frieze group <b>${f.id}</b> · ${f.name}</span><span>backwards <b>${y(f.V)}</b></span><span>swap voices <b>${y(f.H)}</b></span><span>half-turn <b>${y(f.R)}</b></span><span>glide <b>${y(f.G)}</b></span>`;
+    const P0 = CELLS[3].map((r) => r.slice(0, 16)), a = fillHalf(P0, 'backwards'), b = fillHalf(P0, 'half-turn');
+    verdict = same(a, b) ? '' : 'With two voices, backwards and half-turn now make different loops.';
+  }
+  if (S.step >= 4) {
+    const k = B.k, lands = turnLands(n, k), kf = kfold(P, k), L = B.lay;
+    html = `<span>loop <b>${n} steps</b></span><span>turn <b>1/${k}</b> = <b>${lands ? n / k : (n / k).toFixed(1)}</b> steps</span><span>cell <b>${cellLen()} steps × ${k}</b></span><span>gap <b>${L.gap}</b></span><span>overlap <b>${L.overlap}</b></span><span>${k}-fold <b>${kf ? 'yes' : 'no'}</b></span>`;
+    if (S.step === 4) verdict = lands ? `A 1/${k} turn is a slide of ${n / k} steps, so ${k} copies of the opening cell fill the loop and every hit lands on a hit.` : `A 1/${k} turn of ${n} steps falls between steps.`;
+    if (S.step === 5) verdict = lands
+      ? `Five copies of a ${n / 5}-step cell fill the ${n}-step loop with no gap, and a fifth of a turn lands every hit on a hit: five-fold, gapless, and it plays. In time the limit is arithmetic, not geometry: a k-fold turn fits any loop whose length k divides, so every k fits some loop.`
+      : (() => { const c = cellOf().map((r) => r.slice(0, 16)), g = layCells(c, 5, 3).gap, o = layCells(c, 5, 4).overlap; return `In 16 steps a fifth of the loop is 3.2 steps, between two steps. Cells of 3 leave a ${g}-step gap; cells of 4 overlap by ${o}. On a 16-step grid the section is right; off the grid, five quintuplets in a 4/4 bar are five-fold too. Now try 15 or 20.`; })();
+  }
+  $('read').innerHTML = html; $('verdict').textContent = verdict;
+}
+function seg(label, items, get, set) {
+  const wrap = document.createElement('div'); wrap.className = 'ctl'; wrap.innerHTML = `<span class="seglabel">${label}</span>`;
+  const r = document.createElement('div'); r.className = 'seg';
+  for (const [txt, val] of items) { const b = document.createElement('button'); b.textContent = txt; if (get() === val) b.classList.add('on'); b.onclick = () => { set(val); [...r.children].forEach((c) => c.classList.toggle('on', c === b)); refresh(true); }; r.append(b); }
+  wrap.append(r); return wrap;
+}
+function controls() {
+  const c = $('controls'); c.innerHTML = '';
+  const g = document.createElement('div'); g.className = 'ctl'; g.style.flex = '0 0 auto'; g.style.minWidth = '0';
+  const go = document.createElement('button'); go.id = 'go'; go.className = 'go'; go.textContent = playing ? '■ stop' : '▸ play'; go.onclick = () => (playing ? stop() : play()); g.append(go); c.append(g);
+  if (S.step === 2) c.append(seg('make the second half by', [['repeat', 'repeat'], ['backwards', 'backwards'], ['half-turn', 'half-turn']], () => S.fill2, (v) => (S.fill2 = v)));
+  if (S.step === 3) {
+    c.append(seg('make the second half by', [['repeat', 'repeat'], ['backwards', 'backwards'], ['half-turn', 'half-turn'], ['glide', 'glide']], () => S.fill3, (v) => (S.fill3 = v)));
+    const p = document.createElement('div'); p.className = 'ctl'; p.style.flex = '0 0 auto'; p.style.minWidth = '0'; p.innerHTML = '<span class="seglabel">a preset</span>';
+    const b = document.createElement('button'); b.textContent = 'kick-snare-kick-snare'; b.onclick = () => { CELLS[3] = [row(16, [0]), row(16, [4])]; S.fill3 = 'repeat'; controls(); refresh(true); }; p.append(b); c.append(p);
+  }
+  if (S.step === 4) {
+    c.append(seg('loop length', [['12', 12], ['16', 16]], () => S.n4, (v) => { S.n4 = v; if (!turnLands(v, S.k4)) S.k4 = 4; controls(); }));
+    c.append(seg('turn by 1 /', [2, 3, 4, 6].filter((k) => turnLands(S.n4, k)).map((k) => [String(k), k]), () => S.k4, (v) => (S.k4 = v)));
+  }
+  if (S.step === 5) {
+    c.append(seg('loop length', [['15', 15], ['16', 16], ['20', 20]], () => S.n5, (v) => { S.n5 = v; controls(); }));
+    if (S.n5 === 16) c.append(seg('cells of', [['3 steps', 3], ['4 steps', 4]], () => S.len5, (v) => (S.len5 = v)));
+  }
+}
+function refresh(restart) {
+  grid(); readout(); drawClock();
+  if (playing) { LOOP = build().P; if (restart) pos = 0; }
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n)); if (n !== S.step) stop(); S.step = n; const s = STEPS[n - 1];
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`; $('says').textContent = s.says;
+  $('clockwrap').style.display = n >= 4 ? '' : 'none'; $('eqs').style.display = n === 5 ? '' : 'none';
+  $('back').disabled = n === 1; $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →'; $('next').disabled = n === STEPS.length;
+  const r = $('rail'); r.innerHTML = '';
+  for (const t of STEPS) { const b = document.createElement('button'); b.textContent = `${t.n} · ${t.name.split(' · ')[0]}`; if (t.n === n) b.classList.add('here'); else if (t.n > n) b.classList.add('ahead'); b.onclick = () => goStep(t.n); r.append(b); }
+  controls(); refresh(true);
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+window.addEventListener('resize', () => drawClock());
+S.step = 0; goStep(1);
+
+// the Lissajous sigil, 3 : 2, small
+(() => { const s = document.getElementById('sigil'); if (!s) return; let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI, x = 14 + 12 * Math.sin(3 * t + Math.PI / 2), y = 14 + 12 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } s.innerHTML = `<path d="${d}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; })();
+
+</script>
+</body>
+</html>

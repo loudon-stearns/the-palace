@@ -418,7 +418,7 @@ export default function QueuePanel({ messages, onJumpEntry }) {
             onChange={(e) => setAuditKindSel(e.target.value)}
             disabled={auditBusy}
             style={{
-              background: 'var(--phosphor-deep)', color: 'var(--phosphor)',
+              backgroundColor: 'var(--phosphor-deep)', color: 'var(--phosphor)',
               border: '1px solid var(--phosphor-dim)', fontFamily: 'var(--font-mono)',
               fontSize: 11, padding: '1px 4px', textShadow: 'var(--glow)',
             }}

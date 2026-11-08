@@ -1,0 +1,72 @@
+# Synth Templates — card 0.2 — Clavinet
+# A narrow pulse with the low end cut away, then a wah that velocity opens: the keyboard played like a funk guitar.
+schema: synth-template-card/0.2
+id: clavinet
+name: Clavinet
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: Hohner Clav
+status: drafted
+concepts:
+  - "Pulse width, static and modulated"
+  - "Narrow pulse → nasal / vocal, with formant filter"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Serial routing"
+  - "Velocity → filter envelope amount; → pitch envelope amount"
+  - "Piano envelope: release 0 as damper"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.1, octave: 0}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: none, note: "takes the body out: a clav has no low end"}
+    filter2: {kind: filter, type: lowpass, slope: 24, resonance: moderate, note: "the wah"}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low,  r: short},   category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: long,   s: zero, r: instant}, category: piano}
+  audio:
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter2.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: fenv.amount, amount: moderate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: pulse,          why: "a string struck near its end: thin and nasal, with the harmonics a narrow pulse has"}
+  - {block: osc1,    param: pw,      value: 0.1,            why: "narrow: wider and it is a square, hollow instead of nasal"}
+  - {block: filter1, param: type,    value: highpass 12 dB, why: "the pickup hears the string, not a body; cut the lows and the clav sits on top of a bass instead of fighting it"}
+  - {block: filter2, param: type,    value: lowpass 24 dB,  why: "in series after the highpass: a band the wah can move"}
+  - {block: filter2, param: resonance, value: moderate,     why: "the wah needs a peak to move"}
+  - {block: vel,     param: target,  value: filter envelope amount, why: "hit harder and the wah opens further: the player's hand is the pedal"}
+  - {block: aenv,    param: attack,  value: instant,        why: "a hammer on a string"}
+  - {block: aenv,    param: sustain, value: zero,           why: "the string decays while the key is held"}
+  - {block: aenv,    param: release, value: instant,        why: "the damper: let go and the note stops dead; the chop is the funk"}
+  - {block: mode,    param: voices,  value: poly}
+
+taste:
+  - {block: osc1,    param: pw,      range: "0.05 – 0.25",          default: 0.1}
+  - {block: filter1, param: cutoff,  range: "dark – mid",            default: dark, why: "how much body to leave"}
+  - {block: filter2, param: cutoff,  range: "mid – bright",          default: mid}
+  - {block: fenv,    param: amount,  range: "little – generous",     default: moderate}
+  - {block: fenv,    param: decay,   range: "short – slow",          default: medium, why: "slow is the auto-wah"}
+  - {block: aenv,    param: decay,   range: "medium – long",         default: long}
+
+listening:
+  cue: "Thin, nasal and snappy, with no low end at all. Each hard note opens with a 'wah'; soft notes stay closed. Let go of the key and the note is cut dead, so short notes chop."
+  ab: "Set the amp release to long: the chop is gone, every note smears into the next and the funk leaves. Back to instant and it returns. Then set pulse width to 0.5: a hollow square, the nasal bite gone."
+
+render:
+  tempo: 108
+  note: [E2, E2, G2, A2, E2, E2, D3, E2]
+  velocity: [115, 70, 100, 115, 70, 70, 115, 90]
+  pattern: "sixteenths with rests, one bar, every note a 16th long and chopped"
+  length_s: 2.5
+
+mappings: {}

@@ -1,0 +1,24 @@
+{
+ "page_errors": [],
+ "opens_on": "table\nPacked in-browser — AKWF_cello, dull → bright\nframe\nAKWF_cello_0019 (1/19) · blend 0.00\norder\ndull → bright (centroid sort): back ridges are brighter · this frame 189 Hz\nnote\nA3 · 220.0 Hz · +0¢\naudio\ncontext locked · click Engage",
+ "audio": {
+  "state": "running",
+  "worklet": true
+ },
+ "pack_ms_wall": 278,
+ "after_pack": {
+  "file": "122 files — 122 cycles packed · 3 families: warm-full 62, bright-full 44, glassy-full 16",
+  "table": "7. Packed — 122 files, family chain  (122f)"
+ },
+ "hud_chain_pos_0": "table\nPacked — 122 files, family chain\nframe\nAKWF_fmsynth_0070 (1/122) · blend 0.00\norder\nfamily chain: warm-full (family 1 of 3, darkest first) · this frame 74 Hz\nnote\nA3 · 220.0 Hz · +0¢\naudio\ndrone · sounding",
+ "hud_chain_pos_0.62": "table\nPacked — 122 files, family chain\nframe\nAKWF_fmsynth_0094 (76/122) · blend 0.02\norder\nfamily chain: bright-full (family 2 of 3, darkest first) · this frame 267 Hz\nnote\nA3 · 220.0 Hz · +0¢\naudio\ndrone · sounding",
+ "hud_chain_pos_1": "table\nPacked — 122 files, family chain\nframe\nAKWF_fmsynth_0026 (122/122) · blend 0.00\norder\nfamily chain: glassy-full (family 3 of 3, darkest first) · this frame 2526 Hz\nnote\nA3 · 220.0 Hz · +0¢\naudio\ndrone · sounding",
+ "after_smooth": {
+  "smooth": "each frame blended into its neighbours, sigma 1",
+  "table": "7. Packed — 122 files, family chain, blurred 1  (122f)"
+ },
+ "download_name": "F_fmsynth_0078_AK__122frames_smooth1.wav",
+ "hud_centroid": "table\nPacked — 122 files, dull → bright\nframe\nAKWF_fmsynth_0026 (122/122) · blend 0.00\norder\ndull → bright (centroid sort): back ridges are brighter · this frame 2526 Hz\nnote\nA3 · 220.0 Hz · +0¢\naudio\ndrone · sounding",
+ "hud_file_order": "table\nPacked — 122 files, file order\nframe\nAKWF_fmsynth_0122 (122/122) · blend 0.00\norder\nfile order: depth means nothing · this frame 189 Hz\nnote\nA3 · 220.0 Hz · +0¢\naudio\ndrone · sounding",
+ "table_count_after_toggles": 7
+}

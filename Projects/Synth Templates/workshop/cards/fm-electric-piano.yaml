@@ -1,0 +1,75 @@
+# Synth Templates — card 0.2 — FM Electric Piano
+# Fifth card: one oscillator modulates another. Tests the schema with an oscillator used as a modulator and an
+# envelope on the modulator's level (the FM index).
+schema: synth-template-card/0.2
+id: fm-electric-piano
+name: FM Electric Piano
+family: Keys and Mallets
+tier: 2
+mode: poly
+classics: DX7 E.PIANO 1
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Velocity → amplitude; velocity → filter cutoff"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Sine: no response to filtering; FM/additive building block"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "carrier: the tone you hear"}
+    osc2: {kind: oscillator, wave: sine, ratio: "1:1", level: half, note: "modulator: its level is the FM index"}
+    amp:  {kind: amplifier, level: under unity}
+    fx:   {kind: fx, chain: [chorus]}
+    menv: {kind: envelope, role: index, shape: {a: instant, d: medium, s: low, r: medium}, category: percussive}
+    aenv: {kind: envelope, role: amp,   shape: {a: instant, d: long,   s: zero, r: medium}, category: piano}
+    lfo1: {kind: lfo, wave: sine, rate: medium, sync: false}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: menv.amount, amount: generous, essential: true}
+    - {from: lfo1, to: amp.pan, amount: little, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,         why: "the carrier starts with one partial; FM supplies the rest"}
+  - {block: osc2, param: wave,    value: sine,         why: "a sine modulator gives the clean Bessel sidebands"}
+  - {block: osc2, param: ratio,   value: "1:1",        why: "harmonic sidebands: the tone stays a pitch, not a bell (14:1 adds the tine)"}
+  - {block: osc2, param: routing, value: into osc1 fm, why: "modulator → carrier frequency; this is FM, not a mix"}
+  - {block: menv, param: target,  value: modulator level, why: "the index envelope: bright at the strike, mellow as it rings"}
+  - {block: menv, param: decay,   value: medium,       why: "the brightness fades faster than the note"}
+  - {block: vel,  param: target,  value: index envelope amount, why: "hit harder, more sidebands: velocity → brightness, the EP's signature"}
+  - {block: aenv, param: sustain, value: zero,         why: "struck: the note decays while held"}
+  - {block: aenv, param: release, value: medium,       why: "a damper, but a soft one"}
+  - {block: mode, param: voices,  value: poly,         why: "chords"}
+
+taste:
+  - {block: osc2, param: ratio,   range: "1:1 – 14:1",          default: "1:1", why: "higher ratios add the tine ping"}
+  - {block: osc2, param: level,   range: "little – half",       default: half,  why: "the resting index: how bright a soft note is"}
+  - {block: menv, param: amount,  range: "moderate – generous", default: generous}
+  - {block: aenv, param: decay,   range: "medium – long",       default: long}
+  - {block: lfo1, param: depth,   range: "none – moderate",     default: little, why: "the stereo tremolo"}
+  - {block: lfo1, param: rate,    range: "slow – medium",       default: medium}
+  - {block: fx,   param: chorus,  range: "off – lush",          default: light}
+
+listening:
+  cue: "A bell-like strike that mellows into a round tone. Soft notes are dark and simple; hard notes ring with glassy overtones. The whole thing rocks gently left and right."
+  ab: "Set the modulator level to zero: a plain sine, no attack character at all. Bring it back and set the index envelope decay to zero: the brightness never fades and it turns into an organ."
+
+render:
+  tempo: 90
+  note: [C3, E3, G3, B3]
+  velocity: [60, 60, 60, 60, 115, 115, 115, 115]
+  pattern: "the chord twice: soft, then hard; each held a bar"
+  length_s: 6.0
+
+mappings: {}

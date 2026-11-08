@@ -1,0 +1,63 @@
+# Synth Templates — card 0.2 — Arpeggiated Chord
+# Chiptune: one channel pretending to be three. A square whose pitch steps root, third, fifth faster than the ear can follow.
+# The arpeggio is drawn as LFO 1 on the oscillator's pitch: a three-step stair, retriggered on every note. The voice cannot step a pitch yet.
+schema: synth-template-card/0.2
+id: arpeggiated-chord
+name: Arpeggiated Chord
+family: Chiptune
+tier: 1
+mode: mono
+classics: C64 / NES
+status: drafted
+concepts:
+  - "Poly vs mono; max voices"
+  - "Tempo sync; triplets"
+  - "Retrigger vs free; chords with staggered attacks"
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Waveforms: saw, square, triangle, sine, noise"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: square, pw: 0.5, octave: 0, retrigger: true}
+    amp:  {kind: amplifier, level: full}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: medium, s: held, r: instant}, category: sustaining}
+    lfo1: {kind: lfo, wave: saw, rate: very fast, sync: true, note: "the arpeggio: not a wave but a three-step stair, root, +4 semitones, +7 semitones, one step per 1/64 at the song tempo, restarting on the root at every note; the voice plays a smooth saw LFO instead and cannot step"}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: a fifth, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: key,  to: lfo1.reset, essential: true}
+
+essentials:
+  - {block: mode, param: voices,  value: mono,         why: "the whole point: there is one channel, and the chord has to be faked on it"}
+  - {block: osc1, param: wave,    value: square,       why: "the brightest clean voice the chip has; the stepping shows on every harmonic"}
+  - {block: lfo1, param: target,  value: osc1 pitch,   why: "the arpeggio is pitch modulation, nothing else moves"}
+  - {block: lfo1, param: shape,   value: 3-step stair, why: "root, third, fifth, then back to root: a major triad cut into time"}
+  - {block: lfo1, param: rate,    value: very fast,    why: "a 64th at the tempo: fast enough that the ear hears a chord with a flutter, not a run of notes"}
+  - {block: lfo1, param: reset,   value: "on",         why: "every note begins on the root, so the chord lands on the beat"}
+  - {block: aenv, param: attack,  value: instant,      why: "on at once"}
+  - {block: aenv, param: sustain, value: held,         why: "a chord that holds, with one tick down at the start"}
+
+taste:
+  - {block: lfo1, param: rate,    range: "fast – very fast", default: very fast, why: "slower and it falls apart into three notes; that is a different, slower arp"}
+  - {block: lfo1, param: amount,  range: "a fifth – about an octave", default: a fifth, why: "the top step; an octave adds a fourth step to the stair"}
+  - {block: osc1, param: pw,      range: "0.25 – 0.5",       default: "0.5"}
+  - {block: aenv, param: decay,   range: "short – medium",   default: medium}
+  - {block: aenv, param: release, range: "instant – short",  default: instant}
+
+listening:
+  cue: "A chord that shimmers, with a fast flutter running through it like a trill played too quickly to count. Listen closely and the flutter is the three notes taking turns."
+  ab: "Slow the arpeggio rate to medium: the chord comes apart into three separate notes, a plain broken chord. Back to very fast and it fuses into one shimmering chord again. Then set the depth to none: one note, no chord at all."
+
+render:
+  tempo: 150
+  note: [C4, F4, G4, C4]
+  velocity: 100
+  pattern: "one major chord per beat, four beats: C, F, G, C, each held a full beat"
+  length_s: 2.0
+
+mappings: {}

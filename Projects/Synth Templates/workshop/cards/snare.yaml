@@ -1,0 +1,69 @@
+# Synth Templates — card 0.2 — Snare
+# Two things at once: a tuned sine body and a noise rattle, each with its own length. The noise outlives the tone.
+# The slot grammar has one amp envelope, so it carries the noise (the longer part) and the modulation envelope shortens the tone.
+schema: synth-template-card/0.2
+id: snare
+name: Snare
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, retrigger: true, note: "the body, tuned near F3"}
+    noise:   {kind: oscillator, wave: noise, level: full, note: "the rattle"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: none, note: "in a real synth this sits on the noise alone; here it is tuned just above the sine so the body loses only a little weight"}
+    amp:     {kind: amplifier, level: full}
+    menv:    {kind: envelope, role: tone, shape: {a: instant, d: short, s: zero, r: same as decay}, category: percussive, one_shot: true, note: "the sine's own envelope: shorter than the noise; the voice does not yet play an envelope on a plain oscillator's level"}
+    aenv:    {kind: envelope, role: amp,  shape: {a: instant, d: medium, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,          why: "the drum's shell note: one partial, pitched"}
+  - {block: noise,   param: level,     value: full,          why: "the snares are noise; take it away and it is a tom"}
+  - {block: filter1, param: type,      value: highpass 12 dB, why: "takes the rumble out of the noise so the rattle sits above the body"}
+  - {block: filter1, param: cutoff,    value: dark,          why: "just above the sine; higher and the body thins"}
+  - {block: menv,    param: decay,     value: short,         why: "the tone stops first"}
+  - {block: aenv,    param: decay,     value: medium,        why: "the noise rings on after the tone: that gap is what says snare"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: aenv,    param: mode,      value: one-shot,      why: "plays out whatever the note length"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "short – medium",   default: medium, why: "tight or roomy"}
+  - {block: menv,    param: decay,   range: "fast – short",     default: short,  why: "body length"}
+  - {block: noise,   param: level,   range: "half – full",      default: full}
+  - {block: filter1, param: cutoff,  range: "dark – mid",       default: dark}
+  - {block: osc1,    param: pitch,   range: "D3 – A3",          default: F3}
+
+listening:
+  cue: "A short pitched knock inside a burst of noise. Listen for the moment the knock is gone and only the rattle is left."
+  ab: "Set the noise level to off: a tom. Put it back and set the tone envelope's decay to match the amp decay: body and noise end together, and it reads as a clap-ish thump, not a snare."
+
+render:
+  tempo: 100
+  note: F3
+  velocity: 110
+  pattern: "backbeat, one bar: hits on 2 and 4, the last left to ring"
+  length_s: 2.5
+
+mappings: {}

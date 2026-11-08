@@ -1,0 +1,749 @@
+<!doctype html>
+<!--
+  title: Bayesian Granular Synthesizer — rich — prior to belief
+  born: 2026-11-03
+  links: [[Bayesian Granular Synthesizer]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · a walk up to its test · [[Frequency-Time Duality]] connects-to · grain length sets how sharp a pitch can sound
+  forward_vector: I am the page's mechanism as a walk of five steps: the prior alone, one note of evidence, the
+    evidence over time, grain length following belief, and then the test, where the same grains are rendered three
+    ways (length coupled to belief, every grain short, every grain long) and measured. I want a reader to hear
+    why the coupling is the move that makes the cloud musical: without it the belief sharpens and the sound does not.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: bayes_engine.js's ENGINE block, verbatim (script id="bgs-engine"). The lab (script id="bgs-lab") adds
+    only switches: every grain one length, every grain one amplitude. The live sound runs the same engine in a worklet.
+  checks: Bayesian Granular Synthesizer — proof — rich checks.mjs re-runs every number this piece prints.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Bayesian Granular Synthesizer — from the prior to belief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .bgs-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .bgs-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .bgs-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .bgs-sub { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 16px; }
+  .bgs-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .bgs-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .bgs-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  button.bgs-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.bgs-go.bgs-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .bgs-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .bgs-step.bgs-shown { display: block; }
+  .bgs-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .bgs-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 80ch; margin: 0 0 12px; }
+  .bgs-p { font-size: 13.5px; line-height: 1.6; max-width: 80ch; margin: 8px 0; }
+  .bgs-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 12px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .bgs-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .bgs-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .bgs-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 9ch; font-variant-numeric: tabular-nums; }
+  .bgs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .bgs-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .bgs-cell .bgs-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .bgs-cell .bgs-v { font-family: var(--mono); font-size: 17px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .bgs-cell.bgs-a .bgs-v { color: var(--amber); } .bgs-cell.bgs-c .bgs-v { color: var(--cyan); }
+  .bgs-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .bgs-eq .bgs-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .bgs-eq .bgs-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .bgs-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 88ch; margin: 12px 0 4px; }
+  .bgs-test b { color: var(--amber); font-weight: 500; }
+  .bgs-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; max-width: 110ch; }
+  table.bgs-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.bgs-t th, table.bgs-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; }
+  table.bgs-t th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.bgs-t td:first-child, table.bgs-t th:first-child { text-align: left; }
+  .bgs-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .bgs-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .bgs-foot i { color: var(--amber); font-weight: 300; }
+  .bgs-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .bgs-legend .bgs-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .bgs-keys { display: flex; gap: 2px; flex-wrap: wrap; }
+  .bgs-keys button { padding: 8px 0; width: 38px; letter-spacing: 0; text-transform: none; }
+  .bgs-keys button.bgs-black { background: #050508; color: var(--fg3); }
+  .bgs-keys button[aria-pressed="true"] { color: var(--amber); background: rgba(232,184,74,.12); }
+  .bgs-busy { font-family: var(--mono); font-size: 12px; color: var(--fg3); }
+
+</style>
+</head>
+<body>
+<main class="bgs-piece">
+  <div class="bgs-kicker">Bayesian Granular Synthesizer · from the prior to belief</div>
+  <h1 class="bgs-title">A chord the cloud comes to believe</h1>
+  <p class="bgs-sub">The page says held notes are evidence: the cloud's belief about pitch sharpens around them, and grains near a believed note grow long, so the clicks condense into tone. Five steps build that up, one idea each, and the last one tests it. Every step plays. You can jump to any of them.</p>
+
+  <nav class="bgs-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · the prior alone</button>
+    <button data-go="2" aria-pressed="false">2 · one note of evidence</button>
+    <button data-go="3" aria-pressed="false">3 · belief takes time</button>
+    <button data-go="4" aria-pressed="false">4 · length follows belief</button>
+    <button data-go="5" aria-pressed="false">5 · the test</button>
+  </nav>
+
+  <section class="bgs-step bgs-shown" data-step="1">
+    <h2>1 · The prior alone</h2>
+    <p class="bgs-idea">Nothing is held. Every grain picks its pitch from the prior, which is flat: any pitch from A1 to C7 is as likely as any other. Every grain is four cycles of its own pitch, with a one-cycle fade at each end: about 23 ms at middle C, 3 ms at C7. Nothing is believed yet, so nothing sustains. This is the raw, clicky cloud.</p>
+    <div class="bgs-eq"><div class="bgs-sym">p(pitch) = 1 ⁄ 63 semitones, from A1 to C7 · N = 4 cycles</div>
+      <div class="bgs-words">(how likely each pitch is) = the same everywhere in the range · (every grain's length) = four cycles of its own pitch</div></div>
+  </section>
+
+  <section class="bgs-step" data-step="2">
+    <h2>2 · One note of evidence</h2>
+    <p class="bgs-idea">Hold a note. It adds a Gaussian bump to the belief, centred on its pitch in log-frequency. Now each grain first chooses where to come from: the prior, in proportion to <i>doubt</i>, or the note, in proportion to its weight. With one note at full weight and doubt at 0.25, one grain in five still comes from the prior. Lengths stay short in this step on purpose, so you hear only where the grains land.</p>
+    <div class="bgs-eq"><div class="bgs-sym">posterior = (doubt · prior + Σ wᵢ · 𝒩(mᵢ, σᵢ)) ⁄ (doubt + Σ wᵢ)</div>
+      <div class="bgs-words">(the belief grains draw from) = (the prior, weighted by doubt, plus a bump at every held note, weighted by how strongly it is held), divided by the total weight</div></div>
+    <div class="bgs-row"><label for="doubt">doubt</label><input id="doubt" type="range" min="-1.7" max="0.6" step="0.01" value="-0.602"><span class="bgs-val" id="doubtv"></span></div>
+  </section>
+
+  <section class="bgs-step" data-step="3">
+    <h2>3 · Belief takes time</h2>
+    <p class="bgs-idea">A held note is not believed at once. Its weight rises fast (80 ms), and its bump narrows slowly, from 120 cents wide toward a 5-cent floor, with a 1.6 s time constant in log-cents. Let go and the weight falls over 1.4 s while the bump blurs back out. The trace below follows the last note you touched. Lengths are still short.</p>
+    <div class="bgs-label"><span>the last note's weight w (amber, 0 to 1) and width σ (cyan, 120 down to 5 cents, log)</span><span id="envlab"></span></div>
+    <canvas id="env" height="150"></canvas>
+    <div class="bgs-grid">
+      <div class="bgs-cell bgs-a"><div class="bgs-k">weight w</div><div class="bgs-v" id="r3w">—</div></div>
+      <div class="bgs-cell bgs-c"><div class="bgs-k">width σ</div><div class="bgs-v" id="r3s">—</div></div>
+      <div class="bgs-cell"><div class="bgs-k">conviction</div><div class="bgs-v" id="r3c">—</div></div>
+    </div>
+    <div class="bgs-eq"><div class="bgs-sym">w → 1 with τ = 80 ms · ln σ → ln 5¢ with τ = 1.6 s · conviction = (ln 120 − ln σ) ⁄ (ln 120 − ln 5)</div>
+      <div class="bgs-words">(how strongly the note is held) rises quickly to full · (how wide its bump is) shrinks toward five cents, the same fraction of the way in each equal stretch of time · (how sure the cloud is) runs from 0 at 120 cents to 1 at 5 cents</div></div>
+    <p class="bgs-note">From 120 cents, σ comes within a cent of the 5-cent floor after about 4.6 s of holding. The floor is approached, never reached.</p>
+  </section>
+
+  <section class="bgs-step" data-step="4">
+    <h2>4 · Length follows belief</h2>
+    <p class="bgs-idea">Now switch on the page's design move. A grain's length depends on how close it lands to a held note and how surely that note is believed. Near a believed note it grows toward 128 cycles, long and pure; far from every note it stays at 4, a click. The gate is the same evidence envelope as step 3, so the coupling fades in as belief grows instead of jumping at the press.</p>
+    <div class="bgs-row"><button id="couple" aria-pressed="true">length follows belief: on</button></div>
+    <div class="bgs-label"><span>grains of the last 2 s · across: cents from the nearest held note · up: length in cycles, 4 to 128</span><span id="scatlab"></span></div>
+    <canvas id="scat" height="200"></canvas>
+    <div class="bgs-eq"><div class="bgs-sym">N = 4 · 32^(closeness · gate) · closeness = e^(−½ (d ⁄ 35¢)²) · gate = w · conviction</div>
+      <div class="bgs-words">(a grain's length in cycles) = 4, raised toward 128 by how near it lands (d, its distance from the note, against 35 cents) times how much that note is believed</div></div>
+    <p class="bgs-note" id="n4"></p>
+  </section>
+
+  <section class="bgs-step" data-step="5">
+    <h2>5 · The test: does the cloud resolve in character?</h2>
+    <p class="bgs-idea">The page claims the coupling makes the cloud resolve in character, not just pull toward the pitches. So render the same ten seconds three ways: two seconds of the prior alone, then C E G held for eight. The same seed draws the same grains at the same pitches every time. Only their lengths differ: coupled to belief, every grain short, every grain long.</p>
+    <div class="bgs-row">
+      <button class="bgs-go" data-play="coupled">play coupled</button>
+      <button class="bgs-go" data-play="short">play all short</button>
+      <button class="bgs-go" data-play="long">play all long</button>
+      <span class="bgs-busy" id="busy5"></span>
+    </div>
+    <div class="bgs-label"><span>the same grains, three lengths · pitch up, time across, 0 to 10 s · C E G pressed at 2 s</span><span class="bgs-legend"><span class="bgs-sw" style="background:var(--cyan)"></span>short<span class="bgs-sw" style="background:var(--amber)"></span>long</span></div>
+    <canvas id="rast5" height="300"></canvas>
+    <div class="bgs-label"><span>what reaches the ear, 6 to 10 s · power by frequency, 230 to 430 Hz</span><span class="bgs-legend"><span class="bgs-sw" style="background:var(--amber)"></span>coupled<span class="bgs-sw" style="background:var(--cyan)"></span>all short<span class="bgs-sw" style="background:#8a8aa0"></span>all long</span></div>
+    <canvas id="spec5" height="190"></canvas>
+    <table class="bgs-t" id="tab5"></table>
+    <p class="bgs-test" id="t5">Rendering the three takes…</p>
+    <p class="bgs-note">Measured on the left channel's and right channel's power, averaged over Hann windows of 1.37 s, 6 to 10 s. "Near" is within 25 cents of C4, E4 or G4. The doubt's grains are those landing more than a semitone from every held note. All three takes are played at one shared gain, so their levels are their own. The engine is bayes_engine.js, unchanged; the lab only forces the lengths.</p>
+  </section>
+
+  <div id="live">
+    <div class="bgs-label"><span>the cloud, live · left: the belief over pitch (log scale) · right: every grain, drawn as long as it sounds, last 6 s</span><span class="bgs-legend"><span class="bgs-sw" style="background:var(--cyan)"></span>4 cycles<span class="bgs-sw" style="background:var(--amber)"></span>128 cycles</span></div>
+    <canvas id="cloud" height="320"></canvas>
+    <div class="bgs-row" id="keysrow">
+      <div class="bgs-keys" id="keys"></div>
+    </div>
+    <div class="bgs-row">
+      <button class="bgs-go" id="play">sound on</button>
+      <span id="chords"><button data-chord="60,64,67">hold C E G</button> <button data-chord="57,60,64">hold A minor</button> <button data-chord="57">hold A3</button> <button id="letgo">let go</button></span>
+    </div>
+    <div class="bgs-grid">
+      <div class="bgs-cell"><div class="bgs-k">grains from the prior</div><div class="bgs-v" id="rd">—</div></div>
+      <div class="bgs-cell bgs-a"><div class="bgs-k">mean length, last second</div><div class="bgs-v" id="rn">—</div></div>
+      <div class="bgs-cell"><div class="bgs-k">grains sounding at once</div><div class="bgs-v" id="rv">—</div></div>
+      <div class="bgs-cell bgs-c"><div class="bgs-k">held</div><div class="bgs-v" id="rh">—</div></div>
+    </div>
+  </div>
+
+  <div class="bgs-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="bgs-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="bgs-engine">
+/*ENGINE-START*/
+// The Bayesian grain cloud, rebuilt from the entry's spec (the V8 code was
+// never pulled out of the 2026-05-08 chat, so this is a reconstruction, not
+// the original). One engine runs both the offline render and the playable page.
+//
+//   prior      a paintable curve over pitch (10-cent bins, A1..C7). Default flat.
+//   evidence   each held note is a Gaussian bump in log-frequency. Its weight w
+//              rises fast on press and falls slowly on release; its width sigma
+//              narrows from ~120 cents toward a 5-cent floor while held (exponential
+//              in log-cents) and blurs back out after release.
+//   posterior  doubt * prior + sum of the bumps, normalized. Every grain draws
+//              its pitch from it: first pick prior or a note in proportion to
+//              mass, then draw inside that component.
+//   length     grains near a believed note grow long and pure, far ones stay
+//              short and clicky: cycles = nMin * (nMax/nMin)^(closeness * gate),
+//              where gate = the nearest note's weight * its conviction, so the
+//              coupling fades in with the evidence (the chord-press click fix).
+//   envelope   1-cycle Hann in, N sustain cycles, 1-cycle Hann out.
+//   level      amplitude ∝ sqrt(f / cycles): every grain carries equal energy,
+//              so long low grains do not swamp the mix.
+//   timing     onsets are a Poisson process at `rate` grains per second.
+//   prior tone (added 2026-10-14, cycle 3) the prior's own peaks may also
+//              lengthen grains, so a painted resting belief can sound tonal
+//              before any note is held. tone(bin) = ((p - mean)/(max - mean))^toneCurve,
+//              clamped to 0..1, zero for a flat prior; the length exponent
+//              becomes max(evidence gate, priorTone * tone(bin)). priorTone = 0
+//              is the instrument exactly as before.
+class BeliefCloud {
+  constructor(sr) {
+    this.sr = sr;
+    this.lo = 33; this.hi = 96; this.binC = 10;                 // MIDI A1..C7, 10-cent bins
+    this.B = Math.round((this.hi - this.lo) * 100 / this.binC);
+    this.prior = new Float64Array(this.B).fill(1); this.cdf = new Float64Array(this.B);
+    this.tone = new Float64Array(this.B); this.priorTone = 0; this.toneCurve = 1;
+    this.priorDirty = true;
+    this.doubt = 0.25;        // prior mass against each fully believed note's 1.0
+    this.tauOn = 0.08;        // s, weight attack
+    this.tauOff = 1.4;        // s, weight release
+    this.tauFocus = 1.6;      // s, sigma narrowing while held
+    this.tauBlur = 0.7;       // s, sigma widening after release
+    this.sigWide = 120; this.sigFloor = 5;                      // cents
+    this.near = 35;           // cents, how close counts as "near a note" for length
+    this.nMin = 4; this.nMax = 128;
+    this.rate = 160;          // grains per second
+    this.spread = 0.7;        // stereo
+    this.vol = 0.8;
+    this.notes = new Map();   // midi -> {w, sig, held}
+    this.s = 12345;
+    // voices
+    this.MAXV = 640; const M = this.MAXV;
+    this.vPh = new Float64Array(M); this.vInc = new Float64Array(M); this.vPos = new Int32Array(M);
+    this.vLen = new Int32Array(M); this.vFade = new Int32Array(M); this.vAmp = new Float64Array(M);
+    this.vL = new Float64Array(M); this.vR = new Float64Array(M); this.nv = 0;
+    this.next = 0; this.ctl = 0; this.CTL = 64;
+    this.dropped = 0;
+    // sine table
+    this.TN = 4096; this.tab = new Float64Array(this.TN + 1);
+    for (let i = 0; i <= this.TN; i++) this.tab[i] = Math.sin(2 * Math.PI * i / this.TN);
+    // recent grains for drawing: [midi, cycles, age]
+    this.GR = 256; this.gM = new Float32Array(this.GR); this.gN = new Float32Array(this.GR); this.gT = new Float64Array(this.GR); this.gw = 0;
+    this.clock = 0; this.meanCycles = this.nMin;
+  }
+  rand() { let t = (this.s += 0x6D2B79F5); t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  gauss() { let u = 0; while (u === 0) u = this.rand(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * this.rand()); }
+
+  // ---- belief
+  noteOn(m) { const n = this.notes.get(m); if (n) n.held = true; else this.notes.set(m, { w: 0, sig: this.sigWide, held: true }); }
+  noteOff(m) { const n = this.notes.get(m); if (n) n.held = false; }
+  allOff() { for (const n of this.notes.values()) n.held = false; }
+  setPrior(arr) { for (let i = 0; i < this.B; i++) this.prior[i] = Math.max(0, arr[i]); this.priorDirty = true; }
+  binMidi(i) { return this.lo + (i + 0.5) * this.binC / 100; }
+  buildCdf() { let a = 0, mx = 0; for (let i = 0; i < this.B; i++) { a += this.prior[i]; this.cdf[i] = a; if (this.prior[i] > mx) mx = this.prior[i]; } this.priorSum = a; this.priorDirty = false;
+    const mean = a / this.B;
+    for (let i = 0; i < this.B; i++) { let t = 0; if (mx > mean * 1.05) { t = Math.pow(Math.max(0, Math.min(1, (this.prior[i] - mean) / (mx - mean))), this.toneCurve); } this.tone[i] = t; } }
+  // the painter's rule, shared with RNBO/paint-in.codebox: one weight per semitone
+  // (MIDI 33..96), each a Gaussian hill `width` cents wide, cut off at 3 semitones,
+  // on a small floor.
+  static paintedPrior(semis, B = 630, width = 20, floor = 0.02) {
+    const out = new Float64Array(B);
+    for (let i = 0; i < B; i++) {
+      const m = 33 + (i + 0.5) / 10; let v = floor;
+      for (let k = Math.max(0, Math.floor(m - 33) - 3); k <= Math.min(63, Math.floor(m - 33) + 3); k++) {
+        const d = (m - (33 + k)) * 100 / width; if (Math.abs(m - (33 + k)) < 3) v += semis[k] * Math.exp(-0.5 * d * d);
+      }
+      out[i] = v;
+    }
+    return out;
+  }
+  evolve(dt) {
+    const kOn = 1 - Math.exp(-dt / this.tauOn), dOff = Math.exp(-dt / this.tauOff);
+    const kF = 1 - Math.exp(-dt / this.tauFocus), kB = 1 - Math.exp(-dt / this.tauBlur);
+    const lw = Math.log(this.sigWide), lf = Math.log(this.sigFloor);
+    for (const [m, n] of this.notes) {
+      let ls = Math.log(n.sig);
+      if (n.held) { n.w += (1 - n.w) * kOn; ls += (lf - ls) * kF; }
+      else { n.w *= dOff; ls += (lw - ls) * kB; if (n.w < 1e-3) { this.notes.delete(m); continue; } }
+      n.sig = Math.exp(ls);
+    }
+  }
+  conviction(n) { return Math.max(0, Math.min(1, (Math.log(this.sigWide) - Math.log(n.sig)) / (Math.log(this.sigWide) - Math.log(this.sigFloor)))); }
+  // posterior density per bin (sums to 1 over bins) into out[B]
+  posterior(out) {
+    if (this.priorDirty) this.buildCdf();
+    let Z = this.doubt; for (const n of this.notes.values()) Z += n.w;
+    const pm = this.priorSum > 0 ? this.doubt / Z / this.priorSum : 0;
+    for (let i = 0; i < this.B; i++) out[i] = this.prior[i] * pm;
+    for (const [m, n] of this.notes) {
+      const sm = n.sig / 100, a = (n.w / Z) * (this.binC / 100) / (sm * Math.sqrt(2 * Math.PI));
+      const i0 = Math.max(0, Math.floor((m - 5 * sm - this.lo) * 100 / this.binC)), i1 = Math.min(this.B - 1, Math.ceil((m + 5 * sm - this.lo) * 100 / this.binC));
+      for (let i = i0; i <= i1; i++) { const d = (this.binMidi(i) - m) / sm; out[i] += a * Math.exp(-0.5 * d * d); }
+    }
+    return out;
+  }
+  // ---- one grain
+  draw() {
+    if (this.priorDirty) this.buildCdf();
+    let Z = this.doubt; for (const n of this.notes.values()) Z += n.w;
+    let u = this.rand() * Z, midi;
+    if (u < this.doubt || this.notes.size === 0) {
+      if (this.priorSum <= 0) return null;
+      const t = this.rand() * this.priorSum; let a = 0, b = this.B - 1;
+      while (a < b) { const c = (a + b) >> 1; if (this.cdf[c] < t) a = c + 1; else b = c; }
+      midi = this.lo + (a + this.rand()) * this.binC / 100;
+    } else {
+      u -= this.doubt; let pick = null;
+      for (const [m, n] of this.notes) { pick = [m, n]; if (u < n.w) break; u -= n.w; }
+      midi = pick[0] + this.gauss() * pick[1].sig / 100;
+    }
+    // nearest believed note → length
+    let best = 0;
+    for (const [m, n] of this.notes) {
+      const d = (midi - m) * 100 / this.near, close = Math.exp(-0.5 * d * d);
+      const g = close * n.w * this.conviction(n); if (g > best) best = g;
+    }
+    const bi = Math.floor((midi - this.lo) * 100 / this.binC);
+    if (bi >= 0 && bi < this.B) { const tt = this.priorTone * this.tone[bi]; if (tt > best) best = tt; }
+    const cycles = this.nMin * Math.pow(this.nMax / this.nMin, best);
+    return { midi, cycles };
+  }
+  spawn() {
+    const g = this.draw(); if (!g) return;
+    if (this.nv >= this.MAXV) { this.dropped++; return; }
+    const f = 440 * Math.pow(2, (g.midi - 69) / 12), sr = this.sr;
+    if (f > sr * 0.45) return;
+    const cyc = sr / f, v = this.nv++;
+    this.vPh[v] = this.rand(); this.vInc[v] = f / sr; this.vPos[v] = 0;
+    this.vFade[v] = Math.max(2, Math.round(cyc)); this.vLen[v] = Math.round(cyc * (g.cycles + 2));
+    // equal energy: A^2 * duration constant  →  A ∝ sqrt(f / cycles)
+    this.vAmp[v] = Math.sqrt(0.06 / this.rate) * Math.sqrt(f / (g.cycles + 1));
+    const p = 0.5 + this.spread * (this.rand() - 0.5);
+    this.vL[v] = Math.cos(p * Math.PI / 2); this.vR[v] = Math.sin(p * Math.PI / 2);
+    const k = this.gw++ % this.GR; this.gM[k] = g.midi; this.gN[k] = g.cycles; this.gT[k] = this.clock;
+    this.meanCycles += 0.02 * (g.cycles - this.meanCycles);
+  }
+  // ---- audio
+  process(L, R, n) {
+    const tab = this.tab, TN = this.TN, sr = this.sr;
+    for (let i = 0; i < n; i++) { L[i] = 0; R[i] = 0; }
+    let i = 0;
+    while (i < n) {
+      if (this.ctl <= 0) { this.evolve(this.CTL / sr); this.ctl = this.CTL; }
+      // next event: grain onset or control tick
+      const run = Math.min(n - i, this.ctl, Math.max(1, Math.ceil(this.next)));
+      for (let v = 0; v < this.nv; v++) {
+        let ph = this.vPh[v], pos = this.vPos[v]; const inc = this.vInc[v], len = this.vLen[v], fd = this.vFade[v];
+        const a = this.vAmp[v], gl = a * this.vL[v], gr = a * this.vR[v];
+        const m = Math.min(run, len - pos);
+        for (let k = 0; k < m; k++, pos++) {
+          let e = 1;
+          if (pos < fd) e = 0.5 - 0.5 * Math.cos(Math.PI * pos / fd);
+          else if (pos > len - fd) e = 0.5 - 0.5 * Math.cos(Math.PI * (len - pos) / fd);
+          const x = ph * TN, j = x | 0, s = tab[j] + (tab[j + 1] - tab[j]) * (x - j);
+          ph += inc; if (ph >= 1) ph -= 1;
+          L[i + k] += s * e * gl; R[i + k] += s * e * gr;
+        }
+        this.vPh[v] = ph; this.vPos[v] = pos;
+      }
+      // retire finished voices
+      for (let v = 0; v < this.nv; v++) if (this.vPos[v] >= this.vLen[v]) {
+        const w = --this.nv;
+        this.vPh[v] = this.vPh[w]; this.vInc[v] = this.vInc[w]; this.vPos[v] = this.vPos[w]; this.vLen[v] = this.vLen[w];
+        this.vFade[v] = this.vFade[w]; this.vAmp[v] = this.vAmp[w]; this.vL[v] = this.vL[w]; this.vR[v] = this.vR[w]; v--;
+      }
+      i += run; this.ctl -= run; this.next -= run; this.clock += run / sr;
+      while (this.next <= 0) { this.spawn(); let u = this.rand(); if (u < 1e-12) u = 1e-12; this.next += -Math.log(u) / this.rate * sr; }
+    }
+    const vol = this.vol;
+    for (let k = 0; k < n; k++) { L[k] = Math.tanh(L[k] * vol); R[k] = Math.tanh(R[k] * vol); }
+  }
+}
+/*ENGINE-END*/
+</script>
+<script id="bgs-lab">
+/* The lab: the piece's measurements, pure functions, no page. The checks beside this piece pull this block
+   and the engine block out of the file and re-run every number in Node. */
+(function (root) {
+  const LAB = {};
+  LAB.SR = 48000;
+  LAB.hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+  /* The engine as bayes_engine.js ships it, with three switches for the A/Bs, all off by default:
+     len      every grain this many cycles, whatever the belief (the coupling switched off)
+     flatAmp  every grain this amplitude, whatever its pitch and length (equal energy switched off)
+     log      keep [time, midi, cycles] for every grain spawned
+     rate     grains per second, in place of the engine's 160
+     draw() is the engine's own; a switch only changes what it returns, so the same seed draws the same pitches
+     in every variant. spawn() is the engine's line for line except the amplitude line. */
+  class Variant extends BeliefCloud {
+    constructor(sr, o) { super(sr); this.o = o || {}; this.log = this.o.log ? [] : null; if (this.o.rate) this.rate = this.o.rate; }
+    draw() { const g = super.draw(); if (g && this.o.len) g.cycles = this.o.len; return g; }
+    spawn() {
+      const g = this.draw(); if (!g) return;
+      if (this.nv >= this.MAXV) { this.dropped++; return; }
+      const f = 440 * Math.pow(2, (g.midi - 69) / 12), sr = this.sr;
+      if (f > sr * 0.45) return;
+      const cyc = sr / f, v = this.nv++;
+      this.vPh[v] = this.rand(); this.vInc[v] = f / sr; this.vPos[v] = 0;
+      this.vFade[v] = Math.max(2, Math.round(cyc)); this.vLen[v] = Math.round(cyc * (g.cycles + 2));
+      this.vAmp[v] = Math.sqrt(0.06 / this.rate) * (this.o.flatAmp ? this.o.flatAmp : Math.sqrt(f / (g.cycles + 1)));
+      const p = 0.5 + this.spread * (this.rand() - 0.5);
+      this.vL[v] = Math.cos(p * Math.PI / 2); this.vR[v] = Math.sin(p * Math.PI / 2);
+      const k = this.gw++ % this.GR; this.gM[k] = g.midi; this.gN[k] = g.cycles; this.gT[k] = this.clock;
+      this.meanCycles += 0.02 * (g.cycles - this.meanCycles);
+      if (this.log) this.log.push([this.clock, g.midi, g.cycles]);
+    }
+  }
+  LAB.Variant = Variant;
+  /* Render offline. events: [[seconds, 'on'|'off', midi]]. The output's tanh is bypassed (volume 1e-3, then
+     divided back out), so the numbers are the cloud's own, not the soft clip's. */
+  LAB.render = (o, events, dur, seed) => {
+    const sr = LAB.SR, c = new Variant(sr, o); if (seed != null) c.s = seed; c.vol = 1e-3;
+    const N = Math.round(dur * sr), L = new Float32Array(N), R = new Float32Array(N), B = 480; let ev = 0, voices = 0, vn = 0;
+    const vt = [];
+    for (let s = 0; s < N; s += B) {
+      const t = s / sr;
+      while (ev < events.length && events[ev][0] <= t + 1e-9) { const e = events[ev++]; if (e[1] === 'on') c.noteOn(e[2]); else c.noteOff(e[2]); }
+      const n = Math.min(B, N - s); c.process(L.subarray(s, s + n), R.subarray(s, s + n), n); vt.push(c.nv);
+    }
+    for (let i = 0; i < N; i++) { L[i] *= 1000; R[i] *= 1000; }
+    return { L, R, log: c.log, voices: vt, hop: B / sr, cloud: c };
+  };
+  LAB.fft = (re, im) => {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a), h = len >> 1;
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+        for (let k = 0; k < h; k++) { const p = i + k, q = p + h, vr = re[q] * cr - im[q] * ci, vi = re[q] * ci + im[q] * cr;
+          re[q] = re[p] - vr; im[q] = im[p] - vi; re[p] += vr; im[p] += vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+    }
+  };
+  /* Welch: Hann windows of n samples, half overlapping, both channels, summed power. */
+  LAB.welch = (L, R, a, b, n) => {
+    const P = new Float64Array(n / 2), re = new Float64Array(n), im = new Float64Array(n);
+    for (let s = a; s + n <= b; s += n / 2) for (const x of [L, R]) {
+      for (let i = 0; i < n; i++) { re[i] = x[s + i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / n)); im[i] = 0; }
+      LAB.fft(re, im); for (let i = 0; i < n / 2; i++) P[i] += re[i] * re[i] + im[i] * im[i];
+    }
+    return P;
+  };
+  /* share of the spectrum's power within ±cents of any of the notes */
+  LAB.shareNear = (P, n, notes, cents) => {
+    let tot = 0, on = 0;
+    for (let i = 1; i < P.length; i++) { const m = 69 + 12 * Math.log2(i * LAB.SR / n / 440); tot += P[i];
+      for (const q of notes) if (Math.abs(m - q) * 100 <= cents) { on += P[i]; break; } }
+    return on / tot;
+  };
+  LAB.shareBelow = (P, n, hz) => { let tot = 0, lo = 0; for (let i = 1; i < P.length; i++) { tot += P[i]; if (i * LAB.SR / n < hz) lo += P[i]; } return lo / tot; };
+  LAB.rms = (x, a, b) => { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / (b - a)); };
+  LAB.dB = (r) => 20 * Math.log10(r);
+  LAB.kurtosis = (x, a, b) => { let m = 0; for (let i = a; i < b; i++) m += x[i]; m /= (b - a); let s2 = 0, s4 = 0;
+    for (let i = a; i < b; i++) { const d = x[i] - m, d2 = d * d; s2 += d2; s4 += d2 * d2; } s2 /= (b - a); s4 /= (b - a); return s4 / (s2 * s2); };
+  LAB.median = (a) => { if (!a.length) return NaN; const s = a.slice().sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
+  /* one grain exactly as the engine's spawn() and process() build it: a one-cycle Hann fade in, N cycles, a one-cycle
+     fade out, amplitude A (exact sine in place of the engine's 4096-point table) */
+  LAB.grainWave = (f, N, A, sr) => {
+    const cyc = sr / f, len = Math.round(cyc * (N + 2)), fd = Math.max(2, Math.round(cyc)), x = new Float64Array(len);
+    for (let p = 0; p < len; p++) { let e = 1; if (p < fd) e = 0.5 - 0.5 * Math.cos(Math.PI * p / fd); else if (p > len - fd) e = 0.5 - 0.5 * Math.cos(Math.PI * (len - p) / fd); x[p] = A * e * Math.sin(2 * Math.PI * f * p / sr); }
+    return x;
+  };
+  LAB.energy = (x, sr) => { let s = 0; for (let i = 0; i < x.length; i++) s += x[i] * x[i]; return s / sr; };
+  /* how wide one grain's own spectrum is: half the span, in cents, where its power is at least half its peak */
+  LAB.grainHalfWidth = (f, N) => {
+    const sr = LAB.SR, x = LAB.grainWave(f, N, 1, sr), span = N < 16 ? 600 : 60, st = N < 16 ? 2 : 0.25; let pk = 0; const P = [];
+    for (let c = -span; c <= span; c += st) { const w = 2 * Math.PI * f * Math.pow(2, c / 1200) / sr; let a = 0, b = 0; for (let i = 0; i < x.length; i++) { a += x[i] * Math.cos(w * i); b += x[i] * Math.sin(w * i); } const v = a * a + b * b; P.push([c, v]); if (v > pk) pk = v; }
+    const hp = P.filter((q) => q[1] >= pk / 2).map((q) => q[0]); return (Math.max(...hp) - Math.min(...hp)) / 2;
+  };
+  root.LAB = LAB;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script>
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const COL = { amber: '#e8b84a', cyan: '#6aa8e8', fg3: '#8a8aa0', fg4: '#4a4a5a', soft: 'rgba(255,255,255,.06)', grid: 'rgba(255,255,255,.05)' };
+  const LO = 33, HI = 96, NOTE = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+  const nm = (m) => NOTE[((Math.round(m) % 12) + 12) % 12] + (Math.floor(Math.round(m) / 12) - 1);
+  let step = 1;
+
+  /* ── the mirror: the same engine on the page, drawing grains for the pictures (the worklet draws its own for the sound) ── */
+  const mir = new LAB.Variant(48000, {});
+  const vis = []; let vt = 0, gap = 0, lastNote = null; const envT = [];
+  const post = new Float64Array(mir.B);
+  function setLen() { const v = (step === 2 || step === 3) ? 4 : (step === 4 && !coupled ? 4 : 0); mir.o.len = v; voice({ len: v }); }
+  let coupled = true;
+  function tick(dt) {
+    dt = Math.min(dt, 0.1); vt += dt; mir.evolve(dt);
+    let left = dt;
+    while (left > 0) { if (gap <= 0) { let u = mir.rand(); if (u < 1e-12) u = 1e-12; gap = -Math.log(u) / mir.rate; }
+      const s = Math.min(left, gap); left -= s; gap -= s;
+      if (gap <= 1e-12) { const g = mir.draw(); if (g) { const f = LAB.hz(g.midi); vis.push([vt - left, g.midi, g.cycles, (g.cycles + 2) / f]); } gap = 0; } }
+    while (vis.length && vis[0][0] < vt - 6.5) vis.shift();
+    if (lastNote != null) { const n = mir.notes.get(lastNote); envT.push([vt, n ? n.w : 0, n ? n.sig : mir.sigWide]); }
+    while (envT.length && envT[0][0] < vt - 10) envT.shift();
+  }
+
+  /* ── audio: the engine in a worklet, started only by a click ── */
+  let ctx = null, node = null, playing = null, buf = null;
+  async function ensureAudio() {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const src = $('bgs-engine').textContent + `
+        class Walk extends BeliefCloud { constructor(sr) { super(sr); this.len = 0; }
+          draw() { const g = super.draw(); if (g && this.len) g.cycles = this.len; return g; } }
+        class P extends AudioWorkletProcessor {
+          constructor() { super(); this.c = new Walk(sampleRate); this.run = false;
+            this.port.onmessage = (e) => { const d = e.data, c = this.c;
+              if (d.reset) { c.notes.clear(); c.nv = 0; }
+              if (d.notes) { for (const m of [...c.notes.keys()]) if (!d.notes.includes(m)) c.noteOff(m); for (const m of d.notes) c.noteOn(m); }
+              if (d.len != null) c.len = d.len; if (d.doubt != null) c.doubt = d.doubt; if (d.run != null) this.run = d.run; }; }
+          process(i, o) { const L = o[0][0], R = o[0][1]; if (!this.run) { L.fill(0); R.fill(0); return true; } this.c.process(L, R, L.length); return true; } }
+        registerProcessor('bgs-walk', P);`;
+      const url = URL.createObjectURL(new Blob([src], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      node = new AudioWorkletNode(ctx, 'bgs-walk', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+      const master = ctx.createGain(); master.gain.value = 0.8;
+      node.connect(comp).connect(master).connect(ctx.destination);
+      ctx.onstatechange = () => { if (ctx.state !== 'running') stopAll(); };
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  function voice(m) { if (node) node.port.postMessage(m); }
+  const held = new Set();
+  function syncNotes() {
+    for (const m of [...mir.notes.keys()]) if (!held.has(m)) mir.noteOff(m);
+    for (const m of held) mir.noteOn(m);
+    voice({ notes: [...held] });
+    document.querySelectorAll('#keys button').forEach((b) => b.setAttribute('aria-pressed', held.has(+b.dataset.m) ? 'true' : 'false'));
+    $('rh').textContent = held.size ? [...held].sort((a, b) => a - b).map(nm).join(' ') : 'nothing';
+  }
+  function stopAll() {
+    voice({ run: false });
+    if (buf) { try { buf.stop(); } catch (e) {} buf = null; }
+    playing = null;
+    document.querySelectorAll('.bgs-go').forEach((b) => { b.classList.remove('bgs-on'); b.textContent = b.dataset.label; });
+  }
+  async function toggleLive() {
+    if (playing === 'live') { stopAll(); return; }
+    stopAll(); await ensureAudio();
+    voice({ reset: true, doubt: mir.doubt, len: mir.o.len || 0 }); voice({ notes: [...held] }); voice({ run: true });
+    playing = 'live'; $('play').classList.add('bgs-on'); $('play').textContent = 'sound off';
+  }
+
+  /* ── drawing ── */
+  function fit(c) { if (!c.dataset.h) c.dataset.h = c.getAttribute('height'); c.style.height = c.dataset.h + 'px'; const d = window.devicePixelRatio || 1, w = c.clientWidth, h = +c.dataset.h; if (c.width !== Math.round(w * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); } const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return [g, w, h]; }
+  const lenCol = (N) => { const t = Math.max(0, Math.min(1, Math.log(N / 4) / Math.log(32))); const a = [106, 168, 232], b = [232, 184, 74]; return 'rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(',') + ')'; };
+  function pitchAxis(g, x0, x1, h, y) { g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'right';
+    for (let m = 36; m <= 96; m += 12) { const yy = y(m); g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(x0, yy); g.lineTo(x1, yy); g.stroke(); g.fillStyle = COL.fg3; g.fillText('C' + (m / 12 - 1), x0 - 4, yy + 3); } }
+  function drawCloud() {
+    const [g, w, h] = fit($('cloud')); g.clearRect(0, 0, w, h);
+    const pw = 120, ax = 30, top = 8, bot = h - 8, y = (m) => bot - (m - LO) / (HI - LO) * (bot - top);
+    pitchAxis(g, ax, w, h, y);
+    // belief: log density, from 1e-5 to 1
+    mir.posterior(post); const lg = (p) => Math.max(0, Math.min(1, (Math.log10(Math.max(p, 1e-6)) + 5) / 5));
+    g.strokeStyle = COL.amber; g.lineWidth = 1.3; g.beginPath();
+    for (let i = 0; i < mir.B; i++) { const xx = ax + 2 + lg(post[i]) * (pw - 6), yy = y(mir.binMidi(i)); if (i) g.lineTo(xx, yy); else g.moveTo(xx, yy); }
+    g.stroke(); g.strokeStyle = COL.soft; g.beginPath(); g.moveTo(ax + pw, top); g.lineTo(ax + pw, bot); g.stroke();
+    // grains, as long as they sound
+    const x0 = ax + pw + 6, span = 6, px = (w - x0 - 4) / span;
+    for (const [t, m, N, d] of vis) { const xa = x0 + (t - (vt - span)) * px; if (xa < x0 - d * px) continue;
+      const xb = Math.min(w - 2, xa + Math.max(1.5, d * px)), yy = y(m);
+      g.strokeStyle = lenCol(N); g.globalAlpha = N > 12 ? 0.9 : 0.75; g.lineWidth = N > 12 ? 1.6 : 2; g.beginPath(); g.moveTo(Math.max(x0, xa), yy); g.lineTo(xb, yy); g.stroke(); }
+    g.globalAlpha = 1;
+    for (const m of held) { g.fillStyle = COL.amber; g.fillRect(w - 4, y(m) - 1, 4, 2); }
+    // readouts
+    let Z = mir.doubt; for (const n of mir.notes.values()) Z += n.w;
+    $('rd').textContent = Math.round(100 * mir.doubt / Z) + '%';
+    const rec = vis.filter((v) => v[0] > vt - 1); $('rn').textContent = rec.length ? (rec.reduce((a, v) => a + v[2], 0) / rec.length).toFixed(1) + ' cyc' : '—';
+    $('rv').textContent = vis.filter((v) => v[0] + v[3] > vt && v[0] <= vt).length;
+  }
+  function drawEnv() {
+    const [g, w, h] = fit($('env')); g.clearRect(0, 0, w, h);
+    const top = 8, bot = h - 16, x = (t) => 4 + (t - (vt - 10)) / 10 * (w - 8);
+    g.fillStyle = COL.fg3; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left';
+    g.fillText('10 s ago', 6, h - 3); g.textAlign = 'right'; g.fillText('now', w - 6, h - 3);
+    const ys = (s) => bot - (Math.log(mir.sigWide / s) / Math.log(mir.sigWide / mir.sigFloor)) * (bot - top);
+    g.strokeStyle = COL.grid; for (const s of [120, 40, 15, 5]) { g.beginPath(); g.moveTo(0, ys(s)); g.lineTo(w, ys(s)); g.stroke(); g.fillStyle = COL.fg4; g.textAlign = 'left'; g.fillText(s + '¢', 6, ys(s) - 2); }
+    for (const [key, col, f] of [[1, COL.amber, (v) => bot - v * (bot - top)], [2, COL.cyan, ys]]) {
+      g.strokeStyle = col; g.lineWidth = 1.5; g.beginPath(); envT.forEach((e, i) => { const xx = x(e[0]), yy = f(e[key]); if (i) g.lineTo(xx, yy); else g.moveTo(xx, yy); }); g.stroke(); }
+    const n = lastNote != null ? mir.notes.get(lastNote) : null;
+    $('envlab').textContent = lastNote != null ? nm(lastNote) + (held.has(lastNote) ? ' · held' : ' · let go') : 'touch a note';
+    $('r3w').textContent = n ? n.w.toFixed(3) : '—'; $('r3s').textContent = n ? n.sig.toFixed(1) + '¢' : '—'; $('r3c').textContent = n ? mir.conviction(n).toFixed(2) : '—';
+  }
+  function drawScat() {
+    const [g, w, h] = fit($('scat')); g.clearRect(0, 0, w, h);
+    const l = 34, r = w - 6, top = 6, bot = h - 18, cx = (c) => l + (c + 300) / 600 * (r - l), cy = (N) => bot - Math.log(N / 4) / Math.log(32) * (bot - top);
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = COL.fg3; g.textAlign = 'center';
+    for (const c of [-300, -200, -100, -35, 0, 35, 100, 200, 300]) { g.strokeStyle = c === 0 ? 'rgba(232,184,74,.25)' : COL.grid; g.beginPath(); g.moveTo(cx(c), top); g.lineTo(cx(c), bot); g.stroke(); if (Math.abs(c) !== 35) g.fillText((c > 0 ? '+' : '') + c + '¢', cx(c), h - 4); }
+    g.textAlign = 'right'; for (const N of [4, 16, 64, 128]) { g.fillStyle = COL.fg3; g.fillText(N, l - 4, cy(N) + 3); }
+    if (!mir.notes.size) { $('scatlab').textContent = 'hold a note'; return; }
+    let shown = 0;
+    for (const [t, m, N] of vis) { if (t < vt - 2) continue; let best = 1e9; for (const q of mir.notes.keys()) { const d = (m - q) * 100; if (Math.abs(d) < Math.abs(best)) best = d; }
+      if (Math.abs(best) > 300) continue; shown++; g.fillStyle = lenCol(N); g.globalAlpha = 0.35 + 0.65 * (1 - (vt - t) / 2); g.beginPath(); g.arc(cx(best), cy(N), 2.2, 0, 7); g.fill(); }
+    g.globalAlpha = 1;
+    let gate = 0; for (const n of mir.notes.values()) gate = Math.max(gate, n.w * mir.conviction(n));
+    $('scatlab').textContent = 'gate ' + gate.toFixed(2) + ' · ' + shown + ' grains within 300¢';
+  }
+
+  /* ── step 5: the test ── */
+  const T5 = { ev: [[2, 'on', 60], [2, 'on', 64], [2, 'on', 67]], dur: 10, chord: [60, 64, 67] };
+  let R5 = null;
+  function runTest() {
+    const SR = LAB.SR, out = {};
+    for (const [k, o] of [['coupled', { log: 1 }], ['short', { len: 4, log: 1 }], ['long', { len: 128, log: 1 }]]) {
+      const r = LAB.render(o, T5.ev, T5.dur), n = 1 << 16, P = LAB.welch(r.L, r.R, 6 * SR, 10 * SR, n);
+      const late = r.log.filter((x) => x[0] >= 6), far = late.filter((x) => T5.chord.every((q) => Math.abs(x[1] - q) > 1)), pre = r.log.filter((x) => x[0] < 2);
+      out[k] = { r, P, n, sound: LAB.shareNear(P, n, T5.chord, 25),
+        grains: late.filter((x) => T5.chord.some((q) => Math.abs(x[1] - q) * 100 <= 25)).length / late.length,
+        farShare: far.length / late.length, farLen: LAB.median(far.map((x) => x[2])), preLen: LAB.median(pre.map((x) => x[2])) };
+    }
+    let pk = 0; for (const k in out) for (const x of [out[k].r.L, out[k].r.R]) for (let i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(x[i]));
+    out.gain = 0.89 / pk; return out;
+  }
+  function show5() {
+    const o = R5, f = (v) => (100 * v).toFixed(1) + '%';
+    $('tab5').innerHTML = '<tr><th></th><th>grains near the chord</th><th>sound near the chord</th><th>doubt’s grains, median length</th><th>nothing held, median length</th></tr>' +
+      [['coupled', 'length follows belief'], ['short', 'every grain 4 cycles'], ['long', 'every grain 128 cycles']].map(([k, lab]) =>
+        `<tr><td>${lab}</td><td>${f(o[k].grains)}</td><td>${f(o[k].sound)}</td><td>${o[k].farLen.toFixed(0)} cyc</td><td>${o[k].preLen.toFixed(0)} cyc</td></tr>`).join('');
+    const c = o.coupled, s = o.short, l = o.long;
+    const holds = c.sound > 0.8 && s.sound < 0.3 && c.farLen <= 8 && c.preLen <= 8 && l.farLen > 64;
+    $('t5').innerHTML = (holds ? '<b>The claim holds, and the test shows why it needs both halves.</b> ' : '<b>The claim does not hold as rendered.</b> ') +
+      `The belief alone, every grain short, puts ${f(s.grains)} of the grains within 25 cents of C, E or G and only ${f(s.sound)} of the sound there: a 4-cycle grain is a burst about ±150 cents wide, so a sharp belief cannot be heard through it. ` +
+      `Length alone, every grain long, puts ${f(l.sound)} of the sound on the chord, but the doubt's ${f(l.farShare)} of grains ring for ${l.farLen.toFixed(0)} cycles as wrong notes, and the cloud hums before anything is held. ` +
+      `Coupled, ${f(c.sound)} of the sound is on the chord, the doubt's grains stay ${c.farLen.toFixed(0)}-cycle clicks, and the empty cloud stays a scatter: clicks condensing into tone.`;
+    drawRast5(); drawSpec5();
+  }
+  function drawRast5() {
+    if (!R5) return; const [g, w, h] = fit($('rast5')); g.clearRect(0, 0, w, h);
+    const rows = [['coupled', 'coupled'], ['short', 'all short'], ['long', 'all long']], rh = h / 3, l = 70, px = (w - l - 4) / 10;
+    rows.forEach(([k, lab], i) => {
+      const top = i * rh + 6, bot = (i + 1) * rh - 6, y = (m) => bot - (m - 40) / (84 - 40) * (bot - top);
+      g.fillStyle = COL.fg3; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillText(lab, 4, top + 12);
+      g.strokeStyle = COL.soft; g.strokeRect(l, top, w - l - 4, bot - top);
+      g.strokeStyle = 'rgba(232,184,74,.35)'; g.beginPath(); g.moveTo(l + 2 * px, top); g.lineTo(l + 2 * px, bot); g.stroke();
+      for (const [t, m, N] of R5[k].r.log) { if (m < 40 || m > 84) continue; const d = (N + 2) / LAB.hz(m), xa = l + t * px, xb = Math.min(w - 4, xa + Math.max(1.2, d * px));
+        g.strokeStyle = lenCol(N); g.globalAlpha = N > 12 ? 0.55 : 0.8; g.lineWidth = 1.2; g.beginPath(); g.moveTo(xa, y(m)); g.lineTo(xb, y(m)); g.stroke(); }
+      g.globalAlpha = 1;
+    });
+  }
+  function drawSpec5() {
+    if (!R5) return; const [g, w, h] = fit($('spec5')); g.clearRect(0, 0, w, h);
+    const f0 = 230, f1 = 430, l = 6, r = w - 6, top = 8, bot = h - 18, x = (f) => l + Math.log(f / f0) / Math.log(f1 / f0) * (r - l);
+    let mx = 0; for (const k of ['coupled', 'short', 'long']) { const P = R5[k].P; for (let i = 1; i < P.length; i++) mx = Math.max(mx, P[i]); }
+    g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+    for (const m of T5.chord) { const xx = x(LAB.hz(m)); g.strokeStyle = 'rgba(232,184,74,.25)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(xx, top); g.lineTo(xx, bot); g.stroke(); g.setLineDash([]); g.fillStyle = COL.fg3; g.fillText(nm(m), xx, h - 4); }
+    for (const [k, col] of [['long', '#8a8aa0'], ['short', COL.cyan], ['coupled', COL.amber]]) {
+      const P = R5[k].P, n = R5[k].n; g.strokeStyle = col; g.lineWidth = 1.3; g.beginPath(); let first = true;
+      for (let i = 1; i < P.length; i++) { const f = i * LAB.SR / n; if (f < f0 || f > f1) continue; const db = 10 * Math.log10(P[i] / mx + 1e-12), yy = top + Math.min(1, -db / 60) * (bot - top); if (first) { g.moveTo(x(f), yy); first = false; } else g.lineTo(x(f), yy); }
+      g.stroke(); }
+    g.fillStyle = COL.fg4; g.textAlign = 'left'; g.fillText('0 dB', l + 2, top + 10); g.fillText('−60 dB', l + 2, bot - 2);
+  }
+  async function play5(k, btn) {
+    if (playing === k) { stopAll(); return; }
+    stopAll(); await ensureAudio(); if (!R5) return;
+    const r = R5[k].r, b = ctx.createBuffer(2, r.L.length, LAB.SR), G = R5.gain;
+    const L = b.getChannelData(0), R = b.getChannelData(1); for (let i = 0; i < r.L.length; i++) { L[i] = r.L[i] * G; R[i] = r.R[i] * G; }
+    buf = ctx.createBufferSource(); buf.buffer = b; buf.connect(ctx.destination); buf.onended = () => { if (playing === k) stopAll(); };
+    buf.start(); playing = k; btn.classList.add('bgs-on'); btn.textContent = 'stop';
+  }
+
+  /* ── step 4's note: where the two widths meet ── */
+  let n4done = false;
+  function note4() { if (n4done) return; n4done = true; const f = LAB.hz(60), a = LAB.grainHalfWidth(f, 4), b = LAB.grainHalfWidth(f, 128);
+    $('n4').textContent = `How sharp a grain can sound depends on its length. At middle C a 4-cycle grain spreads ±${a.toFixed(0)} cents (half power); a 128-cycle grain, ±${b.toFixed(1)}. So at full belief the two widths meet: the belief's 5-cent floor and the long grain's own ±${b.toFixed(1)} cents. That is the Frequency-Time Duality at work inside the cloud.`; }
+
+  /* ── steps ── */
+  function show(n) {
+    stopAll(); step = n;
+    document.querySelectorAll('.bgs-step').forEach((s) => s.classList.toggle('bgs-shown', +s.dataset.step === n));
+    document.querySelectorAll('.bgs-rail button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.go === n ? 'true' : 'false'));
+    $('back').disabled = n === 1; $('next').disabled = n === 5;
+    $('live').hidden = n === 5;
+    $('keysrow').hidden = n === 1; $('chords').hidden = n === 1;
+    if (n === 1) { held.clear(); syncNotes(); }
+    if (n === 4) { setTimeout(note4, 30); }
+    setLen();
+    if (n === 5 && !R5) { $('busy5').textContent = 'rendering three takes…'; setTimeout(() => { R5 = runTest(); $('busy5').textContent = ''; show5(); }, 40); }
+    else if (n === 5) show5();
+  }
+  function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+
+  function wire() {
+    document.querySelectorAll('.bgs-go').forEach((b) => { b.dataset.label = b.textContent; });
+    document.querySelectorAll('.bgs-rail button').forEach((b) => b.onclick = () => show(+b.dataset.go));
+    $('back').onclick = () => show(Math.max(1, step - 1)); $('next').onclick = () => show(Math.min(5, step + 1));
+    const keys = $('keys');
+    for (let m = 48; m <= 72; m++) { const b = document.createElement('button'); b.dataset.m = m; b.textContent = nm(m).replace(/\d/, '') + (m % 12 === 0 ? (m / 12 - 1) : '');
+      if ([1, 3, 6, 8, 10].includes(m % 12)) b.className = 'bgs-black'; b.setAttribute('aria-pressed', 'false');
+      b.onclick = () => { if (held.has(m)) held.delete(m); else { if (step === 2) held.clear(); held.add(m); lastNote = m; } syncNotes(); }; keys.appendChild(b); }
+    document.querySelectorAll('[data-chord]').forEach((b) => b.onclick = () => { held.clear(); const ms = b.dataset.chord.split(',').map(Number); ms.forEach((m) => held.add(m)); lastNote = ms[ms.length - 1]; syncNotes(); });
+    $('letgo').onclick = () => { held.clear(); syncNotes(); };
+    $('play').onclick = toggleLive;
+    const dv = () => { const d = Math.pow(10, +$('doubt').value); mir.doubt = d; voice({ doubt: d }); $('doubtv').textContent = d.toFixed(2) + ' · one note held fully: ' + Math.round(100 * d / (d + 1)) + '% from the prior'; };
+    $('doubt').oninput = dv; dv();
+    $('couple').onclick = () => { coupled = !coupled; $('couple').setAttribute('aria-pressed', coupled ? 'true' : 'false'); $('couple').textContent = 'length follows belief: ' + (coupled ? 'on' : 'off'); setLen(); };
+    document.querySelectorAll('[data-play]').forEach((b) => b.onclick = () => play5(b.dataset.play, b));
+    let rz = null; new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(() => { if (step === 5) { drawRast5(); drawSpec5(); } }, 80); }).observe(document.querySelector('.bgs-piece'));
+  }
+  let last = performance.now();
+  function frame(now) { const dt = (now - last) / 1000; last = now; tick(dt);
+    if (step !== 5) { drawCloud(); if (step === 3) drawEnv(); if (step === 4) drawScat(); }
+    requestAnimationFrame(frame); }
+  sigil(); wire(); show(1); syncNotes(); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

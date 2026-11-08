@@ -1,0 +1,1025 @@
+[
+ {
+  "shell": "Set",
+  "usedBy": "all three builders",
+  "from": "Session Writer blank-set.als",
+  "refFrom": "Builtin/Templates/DefaultLiveSet.als",
+  "departures": [],
+  "ownShellDepartures": null
+ },
+ {
+  "shell": "AudioTrack",
+  "usedBy": "stack builder",
+  "from": "study: AudioTrack from the 12.1 DefaultLiveSet",
+  "refFrom": "Core Library/Defaults/Creating Tracks/Audio Track/Default Audio Track.als",
+  "departures": [
+   {
+    "path": "AudioTrack/Name/EffectiveName",
+    "ours": "Value=\"3-Audio\"",
+    "ableton": "Value=\"1-Audio\""
+   },
+   {
+    "path": "AudioTrack/Color",
+    "ours": "Value=\"20\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioTrack/NeedArrangerRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/LastSelectedTimeableIndex",
+    "ours": "Value=\"2\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/LastSelectedClipEnvelopeIndex",
+    "ours": "Value=\"2\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder/Send/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder/Send/Manual",
+    "ours": "Value=\"0.0003162277571\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder/Send/MidiControllerRange/Min",
+    "ours": "Value=\"0.0003162277571\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder/Send/MidiControllerRange/Max",
+    "ours": "Value=\"1\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder/Send/AutomationTarget/LockEnvelope",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder/Send/ModulationTarget/LockEnvelope",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder/EnabledByUser",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder[1]/Send/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder[1]/Send/Manual",
+    "ours": "Value=\"0.0003162277571\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder[1]/Send/MidiControllerRange/Min",
+    "ours": "Value=\"0.0003162277571\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder[1]/Send/MidiControllerRange/Max",
+    "ours": "Value=\"1\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder[1]/Send/AutomationTarget/LockEnvelope",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder[1]/Send/ModulationTarget/LockEnvelope",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/Sends/TrackSendHolder[1]/EnabledByUser",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[1]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[1]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[1]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[2]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[2]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[2]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[3]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[3]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[3]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[4]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[4]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[4]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[5]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[5]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[5]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[6]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[6]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[6]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[7]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[7]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/ClipSlotList/ClipSlot[7]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[1]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[1]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[1]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[2]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[2]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[2]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[3]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[3]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[3]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[4]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[4]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[4]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[5]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[5]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[5]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[6]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[6]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[6]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[7]/LomId",
+    "ours": "Value=\"0\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[7]/HasStop",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/ClipSlotList/ClipSlot[7]/NeedRefreeze",
+    "ours": "Value=\"true\"",
+    "ableton": "(absent)"
+   },
+   {
+    "path": "AudioTrack/DeviceChain/AudioInputRouting/MpePitchBendUsesTuning",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MidiInputRouting/MpePitchBendUsesTuning",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/AudioOutputRouting/MpePitchBendUsesTuning",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MidiOutputRouting/MpePitchBendUsesTuning",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/MpePitchBendUsesTuning",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/CrossFadeState/MidiControllerRange/Min",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/Mixer/CrossFadeState/MidiControllerRange/Max",
+    "ours": "(absent)",
+    "ableton": "Value=\"2\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/MainSequencer/MpePitchBendUsesTuning",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioTrack/DeviceChain/FreezeSequencer/MpePitchBendUsesTuning",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioTrack/IsTuned",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   }
+  ],
+  "ownShellDepartures": [
+   {
+    "path": "AudioTrack/Name/EffectiveName",
+    "ours": "Value=\"\"",
+    "ableton": "Value=\"1-Audio\""
+   }
+  ]
+ },
+ {
+  "shell": "MidiTrack",
+  "usedBy": "kit and Sampler builders",
+  "from": "Session Writer midi-track.xml",
+  "refFrom": "Core Library/Defaults/Creating Tracks/MIDI Track/Default MIDI Track.als",
+  "departures": [
+   {
+    "path": "MidiTrack/Name/EffectiveName",
+    "ours": "Value=\"\"",
+    "ableton": "Value=\"1-MIDI\""
+   },
+   {
+    "path": "MidiTrack/Color",
+    "ours": "Value=\"9\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "MidiTrack/DeviceChain/AudioOutputRouting/UpperDisplayString",
+    "ours": "Value=\"Main\"",
+    "ableton": "Value=\"Master\""
+   },
+   {
+    "path": "MidiTrack/DeviceChain/Mixer/LastSelectedTimeableIndex",
+    "ours": "Value=\"2\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "MidiTrack/DeviceChain/Mixer/LastSelectedClipEnvelopeIndex",
+    "ours": "Value=\"2\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "MidiTrack/DeviceChain/Mixer/Volume/Manual",
+    "ours": "Value=\"0.251188606\"",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "MidiTrack/DeviceChain/MainSequencer/ShouldShowPresetName",
+    "ours": "Value=\"true\"",
+    "ableton": "Value=\"false\""
+   },
+   {
+    "path": "MidiTrack/DeviceChain/MainSequencer/Recorder/IsArmed",
+    "ours": "Value=\"true\"",
+    "ableton": "Value=\"false\""
+   },
+   {
+    "path": "MidiTrack/DeviceChain/FreezeSequencer/ShouldShowPresetName",
+    "ours": "Value=\"true\"",
+    "ableton": "Value=\"false\""
+   }
+  ],
+  "ownShellDepartures": [
+   {
+    "path": "MidiTrack/Name/EffectiveName",
+    "ours": "Value=\"\"",
+    "ableton": "Value=\"1-MIDI\""
+   }
+  ]
+ },
+ {
+  "shell": "AudioClip",
+  "usedBy": "stack builder",
+  "from": "study: a clip from Loudon's \"Impact Granular.als\"",
+  "refFrom": "Core Library/Ableton Folder Info/Sample Reference.als",
+  "departures": [
+   {
+    "path": "AudioClip",
+    "ours": "Time=\"128\"",
+    "ableton": "Time=\"0\""
+   },
+   {
+    "path": "AudioClip/CurrentStart",
+    "ours": "Value=\"128\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioClip/CurrentEnd",
+    "ours": "Value=\"129.48483573717948\"",
+    "ableton": "Value=\"8\""
+   },
+   {
+    "path": "AudioClip/Loop/LoopEnd",
+    "ours": "Value=\"0.593934294871792168\"",
+    "ableton": "Value=\"8\""
+   },
+   {
+    "path": "AudioClip/Loop/LoopOn",
+    "ours": "Value=\"false\"",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioClip/Loop/OutMarker",
+    "ours": "Value=\"16\"",
+    "ableton": "Value=\"8\""
+   },
+   {
+    "path": "AudioClip/Loop/HiddenLoopEnd",
+    "ours": "Value=\"7.2719998359680167\"",
+    "ableton": "Value=\"8\""
+   },
+   {
+    "path": "AudioClip/IsWarped",
+    "ours": "Value=\"false\"",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioClip/TakeId",
+    "ours": "Value=\"1\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioClip/IsInKey",
+    "ours": "Value=\"true\"",
+    "ableton": "Value=\"false\""
+   },
+   {
+    "path": "AudioClip/WarpMode",
+    "ours": "Value=\"4\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioClip/Fade",
+    "ours": "Value=\"false\"",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioClip/Fades/FadeOutLength",
+    "ours": "Value=\"0.436505941974692002\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioClip/Fades/FadeOutCurveSkew",
+    "ours": "Value=\"0.1495803297\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioClip/Fades/FadeOutCurveSlope",
+    "ours": "Value=\"0.8999999762\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioClip/Fades/IsDefaultFadeIn",
+    "ours": "Value=\"false\"",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioClip/Fades/IsDefaultFadeOut",
+    "ours": "Value=\"false\"",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "AudioClip/SampleVolume",
+    "ours": "Value=\"1.42307925\"",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "AudioClip/MarkersGenerated",
+    "ours": "Value=\"true\"",
+    "ableton": "Value=\"false\""
+   }
+  ],
+  "ownShellDepartures": [
+   {
+    "path": "AudioClip/Color",
+    "ours": "Value=\"-1\"",
+    "ableton": "Value=\"20\""
+   },
+   {
+    "path": "AudioClip/SampleRef/FileRef/Type",
+    "ours": "(absent)",
+    "ableton": "Value=\"2\""
+   },
+   {
+    "path": "AudioClip/SampleRef/SampleUsageHint",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "AudioClip/SampleRef/SamplesToAutoWarp",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   }
+  ]
+ },
+ {
+  "shell": "MidiClip",
+  "usedBy": "kit and Sampler builders",
+  "from": "Session Writer midi-clip.xml",
+  "refFrom": "Core Library/Templates/Quick Start Beat.als",
+  "departures": [
+   {
+    "path": "MidiClip/CurrentStart",
+    "ours": "Value=\"4\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "MidiClip/CurrentEnd",
+    "ours": "Value=\"388\"",
+    "ableton": "Value=\"16\""
+   },
+   {
+    "path": "MidiClip/Loop/OutMarker",
+    "ours": "Value=\"16\"",
+    "ableton": "Value=\"8\""
+   },
+   {
+    "path": "MidiClip/Color",
+    "ours": "Value=\"64\"",
+    "ableton": "Value=\"19\""
+   },
+   {
+    "path": "MidiClip/FollowAction/JumpIndexA",
+    "ours": "Value=\"1\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "MidiClip/FollowAction/JumpIndexB",
+    "ours": "Value=\"1\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "MidiClip/TakeId",
+    "ours": "Value=\"1\"",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "MidiClip/NoteEditorFoldOutZoom",
+    "ours": "Value=\"2639\"",
+    "ableton": "Value=\"1408\""
+   },
+   {
+    "path": "MidiClip/NoteEditorFoldOutScroll",
+    "ours": "Value=\"-1134\"",
+    "ableton": "Value=\"-8\""
+   }
+  ],
+  "ownShellDepartures": [
+   {
+    "path": "MidiClip/Color",
+    "ours": "Value=\"-1\"",
+    "ableton": "Value=\"19\""
+   }
+  ]
+ },
+ {
+  "shell": "DrumBranch",
+  "usedBy": "kit builder (the rack inside the Set)",
+  "from": "study: a pad from the Spoiler Kit Set Loudon saved back",
+  "refFrom": "Core Library/Templates/Quick Start Beat.als",
+  "departures": [
+   {
+    "path": "DrumBranch/Color",
+    "ours": "Value=\"17\"",
+    "ableton": "Value=\"19\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/ShouldShowPresetName",
+    "ours": "Value=\"false\"",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/RoutingHelper/Routable/Target",
+    "ours": "Value=\"AudioOut/None\"",
+    "ableton": "Value=\"AudioOut/Track.15/DeviceIn.10.R0,ChainIn\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/RoutingHelper/Routable/UpperDisplayString",
+    "ours": "Value=\"No Output\"",
+    "ableton": "Value=\"1 Drums\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/RoutingHelper/Routable/LowerDisplayString",
+    "ours": "Value=\"\"",
+    "ableton": "Value=\"Oracle Cohiba Kit | a Drum Buss | Comp | EQ | Chain In\""
+   },
+   {
+    "path": "DrumBranch/BranchInfo/ReceivingNote",
+    "ours": "Value=\"36\"",
+    "ableton": "Value=\"92\""
+   },
+   {
+    "path": "DrumBranch/SourceContext/Value/BranchSourceContext/BranchDeviceId",
+    "ours": "(absent)",
+    "ableton": "Value=\"\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/LastPresetRef/Value/AbletonDefaultPresetRef/FileRef/Type",
+    "ours": "(absent)",
+    "ableton": "Value=\"2\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/LastPresetRef/Value/AbletonDefaultPresetRef/DeviceId",
+    "ours": "(absent)",
+    "ableton": "Name=\"\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/LomId",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/Manual",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/MidiControllerRange/Min",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/MidiControllerRange/Max",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/AutomationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/ModulationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/EnabledByUser",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Index",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/LomId",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/Manual",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/MidiControllerRange/Min",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/MidiControllerRange/Max",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/AutomationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/ModulationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/EnabledByUser",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Index",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/LomId",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/Manual",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/MidiControllerRange/Min",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/MidiControllerRange/Max",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/AutomationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/ModulationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/EnabledByUser",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Index",
+    "ours": "(absent)",
+    "ableton": "Value=\"2\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/LomId",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/Manual",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/MidiControllerRange/Min",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/MidiControllerRange/Max",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/AutomationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/ModulationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/EnabledByUser",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Index",
+    "ours": "(absent)",
+    "ableton": "Value=\"3\""
+   }
+  ],
+  "ownShellDepartures": [
+   {
+    "path": "DrumBranch/MixerDevice/RoutingHelper/Routable/Target",
+    "ours": "Value=\"AudioOut/None\"",
+    "ableton": "Value=\"AudioOut/Track.15/DeviceIn.10.R0,ChainIn\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/RoutingHelper/Routable/UpperDisplayString",
+    "ours": "Value=\"No Output\"",
+    "ableton": "Value=\"1 Drums\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/RoutingHelper/Routable/LowerDisplayString",
+    "ours": "Value=\"\"",
+    "ableton": "Value=\"Oracle Cohiba Kit | a Drum Buss | Comp | EQ | Chain In\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/LomId",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/Manual",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/MidiControllerRange/Min",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/MidiControllerRange/Max",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/AutomationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Send/ModulationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/EnabledByUser",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo/Index",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/LomId",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/Manual",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/MidiControllerRange/Min",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/MidiControllerRange/Max",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/AutomationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Send/ModulationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/EnabledByUser",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[1]/Index",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/LomId",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/Manual",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/MidiControllerRange/Min",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/MidiControllerRange/Max",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/AutomationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Send/ModulationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/EnabledByUser",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[2]/Index",
+    "ours": "(absent)",
+    "ableton": "Value=\"2\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/LomId",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/Manual",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/MidiControllerRange/Min",
+    "ours": "(absent)",
+    "ableton": "Value=\"0.0003162277571\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/MidiControllerRange/Max",
+    "ours": "(absent)",
+    "ableton": "Value=\"1\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/AutomationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Send/ModulationTarget/LockEnvelope",
+    "ours": "(absent)",
+    "ableton": "Value=\"0\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/EnabledByUser",
+    "ours": "(absent)",
+    "ableton": "Value=\"true\""
+   },
+   {
+    "path": "DrumBranch/MixerDevice/SendInfos/AudioBranchSendInfo[3]/Index",
+    "ours": "(absent)",
+    "ableton": "Value=\"3\""
+   }
+  ]
+ }
+]

@@ -1,0 +1,76 @@
+# Synth Templates — Genre Classics — Minimoog Lead
+# Three oscillators into the ladder. The third is a square an octave down; the glide is between notes.
+schema: synth-template-card/0.2
+id: minimoog-lead
+name: Minimoog Lead
+family: Genre Classics
+tier: 1
+mode: mono
+classics: Minimoog
+status: drafted
+concepts:
+  - "Octave / semitone / fine tuning"
+  - "Small detune (≤7 cents) = chorus"
+  - "Glide / portamento time; legato mode as default"
+  - "Filter models and their distortion (sine test)"
+  - "Filter slope: 12 vs 24 dB/oct, poles"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, glide: short, note: "glide is the voice's; drawn here"}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, detune: slight}
+    sub:     {kind: oscillator, wave: square, octave: -1, note: "oscillator 3: a square an octave under"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate, drive: light, note: "the ladder: four poles, and it distorts a little when pushed"}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: fast, d: medium, s: low, r: short}, category: sustaining}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: short, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: fenv.gate,  essential: true}
+    - {from: key,  to: aenv.gate,  essential: true}
+    - {from: wheel, to: filter1.cutoff, amount: some, essential: false}
+
+essentials:
+  - {block: mode,    param: voices,    value: mono,           why: "one line; the glide only means something between single notes"}
+  - {block: osc1,    param: wave,      value: saw}
+  - {block: osc2,    param: wave,      value: saw,            why: "two saws a few cents apart: the fat"}
+  - {block: osc2,    param: detune,    value: slight,         why: "under seven cents: a slow chorus, not a beat"}
+  - {block: sub,     param: wave,      value: square,         why: "a third oscillator an octave down adds weight; a square stays hollow so the saws keep the top"}
+  - {block: filter1, param: type,      value: lowpass 24 dB,  why: "the four-pole ladder; a 12 dB filter here sounds like another synth"}
+  - {block: filter1, param: drive,     value: light,          why: "the ladder adds harmonics of its own when driven; that colour is the Moog"}
+  - {block: osc1,    param: glide,     value: short,          why: "every note slides from the last; not legato, always"}
+  - {block: aenv,    param: sustain,   value: held,           why: "a lead sustains while the key is down"}
+
+taste:
+  - {block: osc1,    param: glide,     range: "none – medium",       default: short}
+  - {block: sub,     param: level,     range: "off – equal to osc1", default: half}
+  - {block: filter1, param: cutoff,    range: "dark – bright",       default: mid}
+  - {block: filter1, param: resonance, range: "little – high",       default: moderate, why: "high, and the ladder's low end thins: its famous trade"}
+  - {block: filter1, param: drive,     range: "none – heavy",        default: light}
+  - {block: fenv,    param: amount,    range: "some – generous",     default: moderate}
+  - {block: aenv,    param: release,   range: "short – medium",      default: short}
+
+listening:
+  cue: "A fat, slightly chorusing saw with a square underneath, every note sliding into the next. Push the resonance and the bass thins while a whistle appears: that is the ladder."
+  ab: "Mute the third oscillator: the line loses its floor and sounds like a two-oscillator synth. Put it back. Then set the filter slope to 12 dB: the same notes, and the Moog is gone."
+
+render:
+  tempo: 96
+  note: [C3, Eb3, G3, Bb3, C4]
+  velocity: 100
+  pattern: "five eighth notes rising, the last held a bar; each glides from the one before"
+  length_s: 4.0
+
+mappings: {}

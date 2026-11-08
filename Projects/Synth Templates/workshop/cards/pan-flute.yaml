@@ -1,0 +1,72 @@
+# Synth Templates — card — Pan Flute
+# The chiff lesson: the first thing you hear from a blown pipe is air, not tone. A noise burst in front of a sine.
+schema: synth-template-card/0.2
+id: pan-flute
+name: Pan Flute
+family: Brass and Winds
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Noise for softness and high end"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, note: "the tone: a single partial, a pipe with no reed"}
+    noise:   {kind: oscillator, wave: noise, level: low, note: "the breath, a lot of it; the chiff envelope below"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp,   shape: {a: short, d: medium, s: held, r: medium}, category: sustaining}
+    menv:    {kind: envelope, role: chiff, shape: {a: instant, d: short, s: low, r: short}, category: percussive, note: "the noise burst: full at the attack, then down to the steady breath"}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: menv, to: noise.level, amount: generous, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+
+essentials:
+  - {block: osc1,  param: wave,    value: sine,            why: "one partial; a filter can do nothing to it, so the character must come from the noise"}
+  - {block: noise, param: level,   value: low,             why: "more breath than the flute: the pipe is wide and the air goes across it, not into it"}
+  - {block: menv,  param: target,  value: noise level,     why: "the chiff: the noise has its own envelope and is loudest before the tone settles"}
+  - {block: menv,  param: attack,  value: instant,         why: "the air hits the edge first"}
+  - {block: menv,  param: decay,   value: short,           why: "the chiff is a burst; longer and it is wind"}
+  - {block: menv,  param: sustain, value: low,             why: "a lot of breath stays under the held note"}
+  - {block: aenv,  param: attack,  value: short,           why: "the tone comes up behind the chiff, not with it"}
+  - {block: aenv,  param: release, value: medium,          why: "the pipe rings a moment after the breath stops"}
+  - {block: fx,    param: chain,   value: reverb,          why: "the sine is dry and small; a room gives it a body"}
+  - {block: mode,  param: voices,  value: mono}
+
+taste:
+  - {block: noise,   param: level,   range: "little – half",      default: low,      why: "how breathy the held note is"}
+  - {block: menv,    param: amount,  range: "moderate – full",    default: generous, why: "how hard the chiff"}
+  - {block: menv,    param: decay,   range: "fast – short",       default: short}
+  - {block: filter1, param: cutoff,  range: "mid – open",         default: bright,   why: "only shapes the noise; the sine ignores it"}
+  - {block: aenv,    param: attack,  range: "fast – medium",      default: short}
+  - {block: fx,      param: reverb,  range: "small – huge",       default: large}
+
+listening:
+  cue: "Every note begins with a 'tsh' of air, and the tone rises up out of it. Held, it is a soft hoot with breath on top; the room hangs after it."
+  ab: "Turn the chiff envelope amount to none: the note is a sine with a steady hiss, and it has no beginning. Put it back and each note starts with breath again. Then raise the chiff decay to medium: the burst becomes wind."
+
+render:
+  tempo: 80
+  note: [E5, D5, B4, A4]
+  velocity: 90
+  pattern: "four notes falling, one per beat, the last held a bar and released into the room"
+  length_s: 6.0
+
+mappings: {}

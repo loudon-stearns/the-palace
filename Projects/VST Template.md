@@ -29,7 +29,3 @@ The palace already has one native plugin, [[Tract Mirror]] (JUCE 8, VST3 + AU, v
 A plugin's editor wears the [[Drafting Table Design System]] by default, inlined from `_ops/drafting-table/design-system/` at every build, so a change to the system reaches each plugin at its next build.
 
 **Where it stands.** One `Algorithm.h` and a numpy sketch become a JUCE 8 VST3/AU, with a harness, a host check against a control render, and `new-plugin.py`. Two plugins came out of it, Frustration and Simple Synth, and both pass pluginval at strictness 5, auval and the host check. Sign the VST3 after JUCE writes its `moduleinfo.json`, or Live will refuse it; the [[Ableton Session Writer]]'s probe found this.
-
-## Active Baton
-
-[[VST Template — baton]] — drafted 2026-10-21

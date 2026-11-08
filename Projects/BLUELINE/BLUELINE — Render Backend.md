@@ -24,7 +24,7 @@ links:
 
 ![[BLUELINE — Render Backend — hero.png]]
 
-> Source material: the **AnimaticPlanProposal** (Loudon, 2026-06-14), now living at `Projects/BLUELINE/render-backend/` (`PLAN.md`, `runner.py`, `graph_spec.md`, `models_manifest.md`, `board_template.txt`). This doc records how it folds into BLUELINE and the **three changes** the palace's existing RunPod work forces.
+> Source material: the **AnimaticPlanProposal** (Loudon, 2026-06-14), now living at `Projects/BLUELINE/render-backend/` (`README.md`, once `PLAN.md`; `runner.py`, `graph_spec.md`, `models_manifest.md`, `board_template.txt`). This doc records how it folds into BLUELINE and the **three changes** the palace's existing RunPod work forces.
 
 ## The thesis (and why it's already ours)
 
@@ -75,8 +75,8 @@ their multi-agent safety (do they namespace their pod + reap their own slug?):
 | `new-story/{pod_backend,balloon_pod_render}.py` | no (transport/render helper) | n/a — driven by a safe orchestrator |
 | `cloud-i2v/svd_orchestrator.py` (+ `svd_render.py`) | pod | ✅ slug + reap (retrofit 2026-07-03 — RunpodPodProvider + `reap --self`) |
 
-Rule (from [[Shop/RunPod GPU Backend]]'s hard-won playbook + [[The Commons]]): any pod-creating script
-must name its pod `blueline-…-<slug>` (`agent_ns.py`), recover-by-name on a flaky create, and
+Rule (from [[RunPod GPU Backend — runbook]] + [[The Commons]]): any pod-creating script
+must name its pod `<base>--<slug>` (the Shop's pod provider does it), recover-by-name on a flaky create, and
 `commons reap --self` after every run — success or failure. Serverless-endpoint tools are inherently
 multi-agent-safe (shared managed infra, not a single-tenant pod).
 

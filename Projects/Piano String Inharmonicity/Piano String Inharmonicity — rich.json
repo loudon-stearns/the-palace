@@ -1,0 +1,214 @@
+{
+  "title": "Piano String Inharmonicity — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Piano String Inharmonicity]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    }
+  ],
+  "forward_vector": "I am the manifest of Piano String Inharmonicity's rich face, its first round, a Sketch and still a proposal: three walks that each start from one idea and end on a measurement of what their section claims (the stretch grows as the cube while B·n² is small; a bend thins B against a fret by the interval to the fourth power; the string is a convolution until its tuning depends on how hard it is struck), beside the page's own May proof, its reference figure and its bending explorer, gathered as they were. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Piano String Inharmonicity",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The Physics",
+      "kind": "no-claim-edit",
+      "what": "f₀ in the formula is the frequency the string would have with no stiffness, not the fundamental you hear: at n = 1 the formula gives f₁ = f₀·√(1 + B), 0.87 ¢ above f₀ at B = 0.001 and 1.73 ¢ at B = 0.002. The 'Where' list's \"f₀ = fundamental frequency\" (and the opening's \"integer multiples of the fundamental\") could say so; the stretch piece's first step shows it.",
+      "status": "open"
+    },
+    {
+      "section": "The Physics",
+      "kind": "claim-change",
+      "what": "\"For small B … the stretching grows with the cube of the partial number\" holds while B·n² is small, not B alone. Measured on the formula at f₀ = 220 Hz, B = 0.001: the slope between doublings is 2.996, 2.983, 2.938, 2.808, 2.573 (n = 2→4 … 32→64), falling toward 2 past n ≈ 1/√B = 32, since f_n → √B·f₀·n²; the estimate B·n³·f₀/2 runs 3.5% high at n = 12 (190.1 Hz against 183.7) and 21% high at n = 32. Proposed: \"for small B·n²\", and one clause saying the cube gives way to a square past n ≈ 1/√B. The text's own example (184 Hz at n = 12) is confirmed: 183.69 Hz.",
+      "status": "open"
+    },
+    {
+      "section": "String Bending and Timbre Change",
+      "kind": "claim-change",
+      "what": "\"A bent note has subtly different timbre than an unbent note at the same pitch\" is true when the unbent note is fretted, and the section could name it. On a plain steel G string (0.432 mm, 648 mm, 196 Hz: T = 74.2 N, B = 1.08×10⁻⁴), a whole-tone bend gives B = 8.59×10⁻⁵ and the fretted note at the same first partial (220.0026 Hz) B = 1.36×10⁻⁴: the ratio is the interval to the fourth power (1.587), since the bend divides B by r² and the fret multiplies it by r². At partial 10 that is 7.3 against 11.6 ¢, at partial 16 18.8 against 29.6 ¢. A string tuned up to that pitch with its peg has exactly the bent string's B, so the difference is tension against length, not bent against unbent. Whether 4 ¢ at partial 10 is audible was not tested; the page's open question on the threshold still stands.",
+      "status": "open"
+    },
+    {
+      "section": "Why This Is Linear Time-Invariant",
+      "kind": "claim-change",
+      "what": "The subsection's narrow point is true: some media have an amplitude-dependent dispersion relation (Stokes waves on deep water, the Kerr effect in optics), those are not LTI, and stiff-string dispersion is not of that kind. What is off is the framing. The heading's \"usually\" and the opening \"Despite being called 'dispersion'\" make linear dispersion sound like the exception, when it is the ordinary case (a glass prism, a fibre, bending waves in a beam, a spring reverb). Shock waves are a weak example: their steepening is nonlinearity working against dissipation or dispersion, not dispersion that depends on amplitude. And \"purely geometric\" is loose, because the dispersion comes from bending stiffness, the fourth-order term carrying E and d⁴. Proposed: retitle the subsection (e.g. \"Dispersion Is Not Nonlinearity\"), say linear dispersion is the common case and amplitude-dependent dispersion the exception, and drop the shock-wave example. This offer rests on the physics, not on the click piece, whose no-drive checks hold by construction.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The Physics",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Piano String Inharmonicity — rich — stretch.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, oscillators and rendered buffers",
+          "height": 750,
+          "title": "where the partials go · a walk in four steps",
+          "caption": "**Does the stretch grow with the cube of n?** One partial first, which moves less than two cents across the whole slider (f₀ is the stiffness-free pitch, not the one you hear); then the row of twelve against its ghosts; then one partial beating against its own ghost, where the beats per second are the stretch; and last the test, on a log–log plot with the slope read between doublings. The cube holds while B·n² is small and gives way toward a square past n ≈ 1/√B. Measured on the formula; the beat rates were checked in the rendered sound.",
+          "near": "The stretching grows with the cube of the partial number"
+        },
+        {
+          "file": "proofs/2026-05-04-B-slider.html",
+          "origin": "gathered",
+          "height": 790,
+          "contract": {},
+          "title": "the B slider · the May proof, as it was",
+          "caption": "**The formula, free.** The page's first playable proof (2026-05-04): f₀, B, the number of partials and the level on sliders, held or struck. Kept as it was. Its header gives real B as ≈ 0.0001 (bass) to 0.004 (treble), wider than the text's 0.0001 to 0.001; neither range is sourced here.",
+          "near": "The stretching grows with the cube of the partial number"
+        },
+        {
+          "file": "proofs/2026-05-04-real-piano-and-bending-curve.png",
+          "origin": "gathered",
+          "title": "B across the keyboard, and the bent partial line · a May reference figure",
+          "caption": "A reference figure from May 2026, of unrecorded origin: the curve is drawn, not measured on one piano, and its band is labelled typical variation. Above, B rising from about 10⁻⁴ in the bass to above 10⁻² at the top; below, the partial line at B = 0.0008 bending away from the harmonic one. The cent labels below (+11, +43, +94) are those of partials 4, 8 and 12, set half a partial to their right. Its 'bending' is the curve's, not a string bend.",
+          "near": "For small B (typical piano strings"
+        }
+      ],
+      "made_against": "ed9dfdb40526",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Piano String Inharmonicity — rich — stretch.html",
+            "verdict": "keep",
+            "why": "Tests the cube claim against the exact formula and finds the B·n² condition the text lacks; walks up from one partial to the slope table. Note: step 4 promises countable eightfold jumps, but partial 8 at B = 0.001 beats 55 /s (roughness); partials 1, 2, 4 would count."
+          },
+          {
+            "file": "proofs/2026-05-04-B-slider.html",
+            "verdict": "keep",
+            "why": "Gathered as it was; caption honest about its wider, unsourced B range; sound only on a press."
+          },
+          {
+            "file": "proofs/2026-05-04-real-piano-and-bending-curve.png",
+            "verdict": "keep",
+            "why": "Reference figure with an honest caption; its +11, +43, +94 ¢ labels check out at B = 0.0008 for partials 4, 8, 12."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "String Bending and Timbre Change",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Piano String Inharmonicity — rich — bend or fret.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, rendered plucks",
+          "height": 860,
+          "title": "bend it or fret it · a walk in four steps",
+          "caption": "**Is the bent note's timbre really different?** A plain steel G string at rest, its B from the coefficient formula; then bent (B falls as 1/k); then fretted (B rises as ρ²); and last the same pitch reached both ways, decaying alike, with a third string tuned up by its peg. Against the fret the claim holds: the fret's B is the interval to the fourth power times the bend's, 1.59 for a whole tone. Against the peg the bend changes nothing. Measured on the formula and in the rendered plucks; whether the difference is audible is left to your ear, with a ten-times-stiffer string to find what to listen for.",
+          "near": "This is audible on real guitars"
+        }
+      ],
+      "made_against": "8d9458e32671",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Piano String Inharmonicity — rich — bend or fret.html",
+            "verdict": "keep",
+            "why": "A real test: the claim holds against a fret (B ratio r⁴ = 1.587, recomputed) and not against a peg; walks up rest, bend, fret, both. Note: it bends from the open string; one line saying r⁴ holds from any starting fret would match the teaching text."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Why This Is Linear Time-Invariant",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Piano String Inharmonicity — rich — click through the string.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, rendered buffers, FFT convolution",
+          "height": 790,
+          "title": "a click through the string · a walk in four steps",
+          "caption": "**What does dispersion look like in time, and is it the same thing as nonlinearity?** One decaying sine; then the section's h(t) of forty, where the returning click smears into a falling chirp as B rises (dispersion, seen in time); then any input convolved with it; and last two dials set side by side. The step-4 string is h(t) rebuilt as forty filters, so with the drive off it passes the four LTI checks by construction (its −228 dB agreement with the convolution is rounding, a check of the code, not of a piano). What the step shows is which dial can break them: B never does, and a drive that sharpens the partials when struck hard breaks three of them even at B = 0, while time-invariance stays exact."
+        }
+      ],
+      "made_against": "5dbd77f824b3",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Piano String Inharmonicity — rich — click through the string.html",
+            "verdict": "remake",
+            "why": "Steps 1–3 walk up well, but step 4 cannot fail: the resonator bank is built from the same modes as h(t), so it equals the convolution for any modes; −228 dB (85 dB above double ε) checks the arithmetic, not the physics. Either drive step 4 with a finite-difference stiff string (Kirchhoff–Carrier as the drive), or relabel it as two separate dials and drop \"the whole of this string\"."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Interactive Teaching Demonstration",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "string-bending-inharmonicity.html",
+          "origin": "gathered",
+          "height": 1800,
+          "contract": {},
+          "title": "the string bending explorer · the page's own demo",
+          "caption": "**The demo this section describes, as it is.** A low piano string (C2, B₀ = 0.0005), bent from 0 to 600 cents on a slider that moves in equal steps of pitch; the ghosts stay fixed and the partials chase them. Its sixteen sines go straight to the output with no limiter, so start with the volume low. For the bend set against a fret at the same pitch, see the walk under \"String Bending and Timbre Change\"."
+        }
+      ],
+      "made_against": "e7f1f60cdcbd",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "string-bending-inharmonicity.html",
+            "verdict": "keep",
+            "why": "The section's own demo, gathered as it is; caption warns of no limiter; audio made only on the play toggle."
+          }
+        ]
+      }
+    }
+  ]
+}

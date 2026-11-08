@@ -15,40 +15,40 @@ forward_vector: "I am Neural Granular Synthesis's scroll — the one page that a
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T10:27:44.995Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T12:27:48.772Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 16 · last ran 2026-10-18 (today)
-- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 18 · last ran 2026-11-07 (today)
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-18 (today) — The jitter below the lock was never the meter. Just short of locking, the crowd surges toward agreement, and the pacemakers cause it. (`ngs-steward-027`)
-- **Last commit touching this project:** 2026-10-18 `91addc1c` — steward(Neural Granular Synthesis): cycle 15 — SPINNING UP. HOME: [Neural Granular Synthesis](obsidian://open?vault=Th…
+- **Last shipped:** 2026-11-07 (today) — Crowd size changes how the lock behaves. Small crowds lock early and softly; big ones snap at the line and surge hardest right on it. (`ngs-steward-032`)
+- **Last commit touching this project:** 2026-11-07 `fefe93c5` — steward(Neural Granular Synthesis): cycle 17 — SPINNING UP. HOME: [Neural Granular Synthesis](obsidian://open?vault=Th…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-18 — cycle 16 · taught item 2
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-07 — cycle 18 · taught item 5, proposed item 6 for canon
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 2, from cycle 16 — 2026-10-18 — [[Neural Granular Synthesis — tuning]]
+- **Proposed for canon:** 2 — items 4, 6; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 6, from cycle 18 — 2026-11-07 — [[Neural Granular Synthesis — tuning]]
 
 ### Where this stands
 
-Neural Granular Synthesis plays a crowd of neurons, and how much they agree is the timbre. Tightness is how hard they pull on each other, life is the share of pacemakers that ignore the pull, and lumpiness (added last cycle) is how unevenly the crowd is spread. Past the lock point, hiss snaps into a tone. Since cycle 13 I'd left one question open: the evenly spread crowd's synchrony jumps around below the lock, and I didn't know if the 10 ms meter was causing that or the neurons were. This cycle settled it. The meter is honest. The crowd really does surge, and the pacemakers drive it.
+Neural Granular Synthesis plays a crowd of neurons, and how much they agree is the timbre: hiss when they're scattered, a tone when they lock. Earlier today it became a product: Neural Granular, a VST3/AU instrument installed on this Mac, with crowds of 32 to 256 neurons. It waits for you to play it in Live. A plan for the plugin is waiting on your yes. Its first step is that you play it. The next is to find out how big a crowd the sound needs. This cycle did that next step without touching the installed plugin. I copied its engine, widened the copy to 1024 neurons, checked that its crowds up to 256 match the plugin's byte for byte, and measured crowds of 32 to 1024 around the lock.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 6:** Nobody has listened yet, so whether the surge reads as 'alive' or as an unsteady level is still an open ear question. _(in 7 notes, the latest cycle 16)_
+- **rough since cycle 6:** Nobody has listened yet. _(in 9 notes, the latest cycle 18)_
 - **rough since cycle 7:** I also haven't tested the lumpiness knob; _(in 4 notes, the latest cycle 14)_
-- **rough since cycle 12:** FixedFloat64Array state, floating-point array indexes and a 512-step loop inside the per-sample tick all match the RNBO docs as I read them, but they are unverified until Max accepts the file. _(in 2 notes, the latest cycle 13)_
-- **rough since cycle 12:** The evenly spread crowd at 50% pacemakers locks early, at 0.95×. _(in 2 notes, the latest cycle 13)_
 - **rough since cycle 13:** The audition's even pass looks noisy below the lock point in the trace, and I haven't checked whether that's the 10 ms meter or the crowd itself. _(in 2 notes, the latest cycle 15)_
 - **rough since cycle 14:** The fixed codebox is still uncompiled, and recounting the pacemakers at 512 neurons could still click when you turn the crowd knob. _(in 2 notes, the latest cycle 15)_
 - **rough since cycle 14:** The codebox has no lumpiness, and its audition steps still say life sets the attack: Max work is paused, so I left it alone. _(in 3 notes, the latest cycle 16)_
+- **rough since cycle 17:** That's still yours to do: the plugin in Live first, then this ladder. _(in 2 notes, the latest cycle 18)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `ngs-steward-030` — proposed plan revision: a plan for the plugin · posted 2026-11-07 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -60,12 +60,21 @@ _None._
 
 ### Runs
 
+- 2026-11-07 — cycle 18 · taught item 5, proposed item 6 for canon
+- 2026-11-07 — cycle 17 · taught item 3, proposed item 4 for canon
 - 2026-10-18 — cycle 16 · taught item 2
 - 2026-10-18 — cycle 15 · taught item 1
 
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **4.** 2026-11-07 · [[Neural Granular Synthesis]] · § Staged Development, after the Phase 3 paragraph — The entry still describes the population stage as a future Faust build; it now exists as a plugin, in a different tool.
+- **6.** 2026-11-07 · [[Neural Granular Synthesis]] · § Open Questions, under 'What is the minimum population size for perceptually stable timbres?' — The open question now has a measured answer, and the answer reframes it: size changes how the lock behaves, not whether the sound is stable.
 
 <!-- scroll:now:end -->
 
@@ -86,6 +95,130 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="ngs-steward-032" -->
+### 2026-11-07 — cycle 18 — Crowd size changes how the lock behaves. Small crowds lock early and softly; big ones snap at the line and surge hardest right on it.
+> shipped · plugin unchanged, measured on a widened copy of its engine · steward leans offer 512 after you play it
+
+THE QUESTION. The page asks how big a crowd a stable sound needs. In June the old Python engine said about 32 for a drifting hiss, and a locked tone needs no particular size. The plugin's engine has pacemakers and lumpiness, so I asked again on the real thing. I measured two lives, six tightnesses from well under the lock line to well past it, and six crowd sizes.
+
+WHAT IT SHOWED. Crowd size changes the lock's character, not just its smoothness. (1) Small crowds lock early and softly. At 0.95 of the line, a crowd of 32 already agrees at 0.70, and 128 at 0.53. 512 and 1024 are still loose, at 0.19 and 0.17. With the default lumpiness, a small crowd is a lumpy sample of itself, so part of it agrees early. (2) Big crowds keep the line sharp, the way the theory draws it, and they are wildest exactly on it. At the line, 256 and 512 wander more than any other setting I measured, and their loudness swings 2.6 to 2.7 dB with Even level off. Over 25 s on the line, each crowd settles somewhere of its own: 128 at 0.65, 512 near 0.33, 1024 locked at 0.6. (3) Away from the line, more neurons means less wander: locked, ±0.07 at 32 down to ±0.01 at 1024. Cost is 7.1 % of one core at 512 and 14.3 % at 1024.
+
+SO: a steady locked tone settles by 128. A sharp switch at the line needs 512 or more. A soft, grainy, early lock is what a small crowd is. That makes the Crowd knob a character control, which is good news for the forward vector. It also means the lock line on the screen is only exact for big crowds. The ladder plays 32 → 1024, each held just under the lock with Even level on, all at the same loudness.
+
+**Artifacts:**
+- [26 s: crowds of 32, 64, 128, 256, 512, 1024, each held on C3 just under the lock, at matched loudness. Stays on this Mac.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/crowd-ladder-edge.wav)
+- [Agreement over time for every crowd: well under, just under, and past the lock. Bottom: how much it wanders, by crowd size.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/crowd-size.png)
+- [Every measured number: 72 settings.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/crowd-size-engine.json)
+- [What this folder is, how to rerun it, and what it showed.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/README.md)
+- [Holds a note on one crowd and dumps the audio and agreement; -DSHIPPED builds the plugin's own engine for the byte check.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/run.cpp)
+- [Makes the 1024-neuron copy. Its first 256 random values are the plugin's own.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/make_engine.py)
+- [Generated: the plugin's engine with room for 1024.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/Algorithm1024.h)
+- [Generated: the widened random tables.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/Constants.h)
+- [The sweep analysis.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/measure.py)
+- [Renders the ladder and the picture.](Projects/Neural Granular Synthesis/plugin/check/crowd-size/ladder.py)
+
+_Agreement r (± how much it wanders), life 0.2, C3, tightness as a fraction of the lock line_
+| tightness | 32 | 128 | 256 | 512 | 1024 |
+| --- | --- | --- | --- | --- | --- |
+| 0.6 | 0.28 ± 0.14 | 0.16 ± 0.08 | 0.11 ± 0.06 | 0.09 ± 0.05 | 0.05 ± 0.03 |
+| 0.95 | 0.70 ± 0.08 | 0.53 ± 0.12 | 0.32 ± 0.14 | 0.19 ± 0.10 | 0.17 ± 0.07 |
+| 1.0 (the line) | 0.72 ± 0.07 | 0.65 ± 0.07 | 0.48 ± 0.15 | 0.35 ± 0.16 | 0.61 ± 0.04 |
+| 1.1 | 0.74 ± 0.07 | 0.71 ± 0.04 | 0.70 ± 0.03 | 0.70 ± 0.02 | 0.70 ± 0.01 |
+| cost, % of one core | — | 1.9 | 3.6 | 7.1 | 14.3 |
+
+_Changed in the workshop:_ README — New: what the crowd-size measurement is, how to rerun it, and what it found.
+_Proposed for canon:_ Neural Granular Synthesis (§ Open Questions, under 'What is the minimum population size for perceptually stable timbres?') — The open question now has a measured answer, and the answer reframes it: size changes how the lock behaves, not whether the sound is stable.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened yet. That's still yours to do: the plugin in Live first, then this ladder. Whether the surge reads as alive is for your ears. I measured only C3 and only the default lumpiness, and the installed plugin still stops at 256.
+
+_Next moves named:_ Once you've played it: add 512 to the Crowd knob, appended so saved sets keep their meaning, and re-run the sample-for-sample check, pluginval and auval before installing · Make the screen's lock line honest for small crowds: draw it as a band whose width comes from this table, not a single line · Then the plan's next step: one crowd per held note. At 128 neurons, eight voices cost about 15 % of a core, so 512-neuron crowds would have to be a mono-only choice
+<sub>`ngs-steward-032` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-81fd304bc0" -->
+### 2026-11-07 — cycle 18
+
+taught item 5, proposed item 6 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="ngs-steward-030" -->
+### 2026-11-07 — cycle 17 — I have no plan yet. Should the plan become: you play the plugin, then crowd size, polyphony, and a stranger screen?
+> still working · plugin installed, every check passes · steward leans adopt
+
+Neural Granular Synthesis plays a crowd of neurons whose agreement is the timbre. Your order of 21 October made it a product, and this cycle it became one: Neural Granular, installed in Live's plugin folder, its engine matching my sketch sample for sample, every check passing, the crowd tunnel on its screen. The project has never had an agreed plan. The order asked me to propose one with what I made, so here it is. Your ears come first, because nobody has heard the crowd since June. Then the moves the cheap engine opens up: measuring how big a crowd a stable sound needs, one crowd per held note, and letting the screen go stranger once you've seen this one. I'll keep building along it either way. Adopting it just makes it the plan.
+
+**Artifacts:**
+- [synchrony-sonifier.html](Projects/Neural Granular Synthesis/synchrony-sonifier.html)
+- [raster-plot-explorer.html](Projects/Neural Granular Synthesis/raster-plot-explorer.html)
+- [crowd-instrument.html](Projects/Neural Granular Synthesis/crowd-instrument.html)
+- [Neural Granular Synthesis — rich — lock attack.html](Projects/Neural Granular Synthesis/Neural Granular Synthesis — rich — lock attack.html)
+- [Neural Granular Synthesis — rich — crowd-size ladder.html](Projects/Neural Granular Synthesis/Neural Granular Synthesis — rich — crowd-size ladder.html)
+- [surge-before-lock.wav](Projects/Neural Granular Synthesis/rich-face/surge-before-lock.wav)
+- [lumpiness-attack.wav](Projects/Neural Granular Synthesis/rich-face/lumpiness-attack.wav)
+- [surge-before-lock.png](Projects/Neural Granular Synthesis/surge-before-lock.png)
+- [surge-before-lock.wav](Projects/Neural Granular Synthesis/surge-before-lock.wav)
+<sub>`ngs-steward-030` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="ngs-steward-029" -->
+### 2026-11-07 — cycle 17 — Neural Granular is a plugin now: the crowd of neurons plays in Live, with the crowd tunnel on its screen. It's installed and passes every check.
+> shipped · VST3 + AU installed, every check passes · nobody has heard it yet · steward leans you play it
+
+**What you play.** A mono instrument: the note sets the crowd's pitch, with glide, and opens the amplifier. The crowd keeps running between notes, silent, so a note lands on a crowd already in motion. The two big knobs are **Tightness** (how hard the neurons pull on each other, scaled so a crowd with no pacemakers locks at 1.0) and **Life** (the share of pacemakers, which moves the lock point to 1/(1 − life)). The panels hold Spread, Lumpiness, Crowd (32, 64, 128 or 256 neurons), Spike width, Glide, Attack, Release, Velocity, Even level (holds loudness through the lock; turn it off and the lock is also a swell) and Level.
+
+**The screen: the crowd tunnel.** My page's teaching tool is the raster plot, one row per neuron and a dot at every spike. On the screen it's rolled into a tube you look down from inside. The ring at the mouth is the crowd now: every neuron sits at its phase measured from the crowd's own mean, so the top of the ring is the moment of agreement. Followers glow green, pacemakers amber. Each frame the ring falls back into the glass. A scattered crowd leaves a tube of snow; a locked one leaves a single bright filament down the top. The glow in the middle grows with agreement, and its needle is the order parameter drawn. Drag on the glass: sideways is Tightness, up and down is Life, with automation. The plugin streams no per-neuron state, only two 24-bin histograms of where the followers and the pacemakers sit around the mean phase. That's enough to draw every neuron.
+
+**How it was checked.** The engine matches the sketch to 5.5e-8 of peak over all four test paths at full length (lock sweep, life rising, a phrase with lumpiness and spike width moving, and a crowd of 128 with even level off). The real plugin, with smoothed automation landing once per block, keeps the sketch's loudness within 1.06 dB in every quarter second. I let those paths allow 1.5 dB, because a crowd near its lock is sensitive to when a move lands; the reason is written in paths.py. Then the strict signature check on both installed bundles, pluginval at strictness 5, auval, and the host check, which heard all four moves change the sound. It's cheap: 1.9 % of one core at 128 neurons, 3.7 % at 256.
+
+**Listen.** These are the plugin's own renders: [the lock sweep](open:Projects/Neural Granular Synthesis/plugin/proofs/lock-sweep-plugin.wav) (one C3 held while tightness climbs through the lock), [life rising](open:Projects/Neural Granular Synthesis/plugin/proofs/life-rises-plugin.wav) and [a phrase](open:Projects/Neural Granular Synthesis/plugin/proofs/phrase-plugin.wav). To play it: in Live, Settings → Plug-Ins → Rescan, then Plug-Ins → Loudon Live → Neural Granular.
+
+**Artifacts:**
+- [The editor with the crowd locked: followers bunched at the top of the ring, pacemakers scattered amber.](Projects/Neural Granular Synthesis/plugin/proofs/crowd-tunnel-locked-1100x700.png)
+- [The same at the defaults, just under the lock: the crowd scattered around the ring.](Projects/Neural Granular Synthesis/plugin/proofs/crowd-tunnel-1100x700.png)
+- [The editor page with the tunnel moving, replaying a harness phrase through the real processor.](Projects/Neural Granular Synthesis/plugin/proofs/crowd-tunnel-crt.html)
+- [The plugin's render: C3 held while tightness climbs from 0 to 2, through the lock.](Projects/Neural Granular Synthesis/plugin/proofs/lock-sweep-plugin.wav)
+- [Tightness held at 1.6 while the pacemaker share rises and pushes the lock away.](Projects/Neural Granular Synthesis/plugin/proofs/life-rises-plugin.wav)
+- [A four-note phrase with glide, lumpiness sweeping even to lumpy, the spike widening.](Projects/Neural Granular Synthesis/plugin/proofs/phrase-plugin.wav)
+- [The plugin's front door: controls, the screen, what was checked, what wasn't.](Projects/Neural Granular Synthesis/plugin/README.md)
+- [The crowd in C++, ported line for line from the sketch.](Projects/Neural Granular Synthesis/plugin/src/Algorithm.h)
+- [The lumpiness draws, generated from the sketch so both start from the same crowd.](Projects/Neural Granular Synthesis/plugin/src/Constants.h)
+- [The sketch: the crowd engine rewritten one sample at a time.](Projects/Neural Granular Synthesis/plugin/reference/sketch.py)
+- [The four test paths and what each must pass.](Projects/Neural Granular Synthesis/plugin/reference/paths.py)
+- [The crowd tunnel.](Projects/Neural Granular Synthesis/plugin/ui/visualizer.js)
+- [The CPU measurement per crowd size.](Projects/Neural Granular Synthesis/plugin/check/bench.cpp)
+- [Name, code Ngrn, host-check moves, the screen.](Projects/Neural Granular Synthesis/plugin/plugin.json)
+- [From new-plugin.py; finds the template's machinery.](Projects/Neural Granular Synthesis/plugin/CMakeLists.txt)
+- [From new-plugin.py: build, verify, install, validate, hostcheck.](Projects/Neural Granular Synthesis/plugin/plugin.sh)
+- [Keeps build and out of git.](Projects/Neural Granular Synthesis/plugin/.gitignore)
+
+_Neural Granular 0.1.0 · gates on 2026-11-07_
+| check | result |
+| --- | --- |
+| engine = sketch, 4 paths full length | worst 5.5e-8 of peak (tol 1e-6) |
+| plugin loudness vs sketch | worst 1.06 dB (tol 1.5 on 3 paths, 0.5 on life-rises: 0.28) |
+| codesign --strict, VST3 + AU | verified |
+| pluginval strictness 5 | SUCCESS |
+| auval aumu Ngrn Loud | SUCCEEDED |
+| host check: tight, life, spread, width | all four change the sound |
+| CPU, one core, 44.1 kHz | 32: 0.6 % · 64: 1.0 % · 128: 1.9 % · 256: 3.7 % |
+
+_Changed in the workshop:_ README — New: the plugin's front door, so whoever opens the folder knows what it is and what hasn't been heard.
+_Proposed for canon:_ Neural Granular Synthesis (§ Staged Development, after the Phase 3 paragraph) — The entry still describes the population stage as a future Faust build; it now exists as a plugin, in a different tool.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened yet, so whether the surge reads as 'alive' or as an unsteady level is still an open ear question. Nobody has played the plugin in Live yet, and the real editor window wasn't photographed: the pictures are the mock page in Chrome.
+
+_Next moves named:_ You play it: Live → Settings → Plug-Ins → Rescan, then Plug-Ins → Loudon Live → Neural Granular. Hold one low note, turn Tightness up slowly past the lock, then drag on the screen. · Now that the crowd is cheap (3.7 % at 256), measure the page's open question of how many neurons a stable timbre needs: render crowds of 32 to 1024 at the lock and offer a larger Crowd choice if the ear wants one. · Polyphony: one crowd per held note, so a chord is several crowds locking separately. · Max stays paused: the RNBO codebox still lacks lumpiness; the plugin's Algorithm.h is now the reference a later port follows.
+<sub>`ngs-steward-029` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5fcd98e4d9" -->
+### 2026-11-07 — cycle 17
+
+taught item 3, proposed item 4 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="ngs-steward-027" -->
 ### 2026-10-18 — cycle 16 — The jitter below the lock was never the meter. Just short of locking, the crowd surges toward agreement, and the pacemakers cause it.
 > shipped · meter cleared, surge measured and rendered · steward leans: listen to the surge next

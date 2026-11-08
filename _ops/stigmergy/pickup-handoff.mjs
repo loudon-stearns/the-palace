@@ -14,6 +14,11 @@
 // landed ([[Baton Ceremony]] § On pickup: "this may already be done; check
 // before continuing"). Read that list before you commit to the work.
 //
+// Beside it, Loudon's open review notes on the entry: the REVIEW NOTE cards the QUEUE
+// holds for it, from a rich face's dock or as answers from a rough ([[Review Layer]]),
+// read through the QUEUE's own fold (read-answers.mjs openReviews). Read-only: the
+// pickup never answers a card. Work on a page begins by reading them.
+//
 // Usage:
 //   node _ops/stigmergy/pickup-handoff.mjs <handoff-id | entry-name>
 //   node _ops/stigmergy/pickup-handoff.mjs BLUELINE --note "caught on feature/x; move confirmed still needed"
@@ -56,6 +61,11 @@ const board = boardPath(flags.board);
 const fold = foldHandoffs(loadBoard(board));
 const res = resolveCard(fold, selector);
 
+if (res.closed && res.closed.state === 'retracted') {
+  const by = (res.closed.close.payload || {}).superseded_by;
+  console.log(`${C.G}✓ retracted${C.R} — ${C.B}${res.closed.p.entry}${C.R} (${res.closed.m.id}) was withdrawn${by ? `; see ${by}` : ''}. Nothing to claim.`);
+  process.exit(0);
+}
 if (res.closed) {
   console.log(`${C.G}✓ already closed${C.R} — ${C.B}${res.closed.p.entry}${C.R} (${res.closed.m.id}) is retired. Nothing to claim.`);
   process.exit(0);
@@ -90,6 +100,25 @@ if (p.entry) {
     console.log(`  ${C.D}→ confirm the move still needs doing before you continue (Baton Ceremony § On pickup).${C.R}`);
   } else {
     console.log(`${C.D}no commits have touched "${p.entry}" since the baton was posted — likely still fresh.${C.R}`);
+  }
+  console.log('');
+}
+
+// --- Loudon's open review notes on the entry (read-only) ----------------------
+if (p.entry) {
+  try {
+    const { readFileSync } = await import('node:fs');
+    const { openReviews, reviewMessages, showOpen } = await import('../loudon-eval/read-answers.mjs');
+    const open = openReviews(reviewMessages(readFileSync(board, 'utf8')), { page: p.entry });
+    if (open.length) {
+      console.log(`${C.Y}◇ Loudon has open review notes on "${p.entry}" — read them before the move:${C.R}`);
+      for (const r of open) console.log(showOpen(r, { width: 160 }).split('\n').map((l) => `  ${l}`).join('\n'));
+      console.log(`  ${C.D}→ whole: node _ops/loudon-eval/read-answers.mjs --page "${p.entry}" --open · the commit that takes one up says so${C.R}`);
+    } else {
+      console.log(`${C.D}no open review notes from Loudon on "${p.entry}".${C.R}`);
+    }
+  } catch (e) {
+    console.log(`${C.D}open review notes: unavailable — ${e.message}${C.R}`);
   }
   console.log('');
 }

@@ -1,0 +1,204 @@
+{
+  "title": "Lettering — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Lettering]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "each-piece-walks-up"
+    },
+    {
+      "target": "[[BLUELINE — Text Layer]]",
+      "type": "connects-to",
+      "label": "proofs-gathered"
+    }
+  ],
+  "forward_vector": "I am the manifest of Lettering's rich face, its first round, a Study and still a proposal. Four walks test the page against its own bench: one word through the four stages, measured for what each keeps of the font; the seven voices blind, one letter each, so a reader learns whether the state survives without the word; the mechanical font against the hand, from the bench's own two eras; and the void on light and dark fields. Every plate is cut from BLUELINE's committed proofs, and plates/make-plates.py remakes them and their measures. I grow when the page is enriched again; I never hold the entry's words.",
+  "entry": "Lettering",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The pipeline (its working wisdom)",
+      "kind": "claim-change",
+      "what": "Step 1 names per-voice fonts (Nosifer bleeds 'too late', Bangers shouts 'NO'), but all seven proofs in the seven-voice suite were rendered on Chalkduster skeletons: skel/ at 28e9adaa is Chalkduster for every voice, and the per-voice fonts, added that afternoon in 146d47ee, exist in the suite only as skeleton previews (skel-preview/). Outside the suite, Nosifer has been through diffusion once, in the living-balloon sweep (c48868bd, balloons-genai/sweep/, canny 0.35 and 0.5); the challenger confirmed it. A possible line: 'Nosifer is picked to bleed too late, Bangers to shout NO (picks not yet rendered in the seven-voice suite, which stands on Chalkduster; Nosifer once, in a balloon).' The blind piece's font round tests the picks on their own.",
+      "status": "open"
+    },
+    {
+      "section": "The pipeline (its working wisdom)",
+      "kind": "no-claim-edit",
+      "what": "Step 1 says 'the dying woman's *too late*' (Lettering.md:57), but the bench gives the line to the hero: text-prompts.json has *too late* as 'the hero, hollowed → the self' and *stay* as the dying woman's, to the hero. The phrase 'Nosifer bleeds \"too late\"' comes from 146d47ee, which names no speaker. A possible fix: 'Nosifer **bleeds** the hollowed hero's *too late*'. Found by the challenger.",
+      "status": "open"
+    },
+    {
+      "section": "The pipeline (its working wisdom)",
+      "kind": "claim-change",
+      "what": "Steps 2 and 3 say diffusion 'cannot spell them away' and that canny holds the letters 'on every pass'. Measured on the seven proofs (outline held: the share of the skeleton's outline where the image has an edge in the same place, running the same way): the photoreal keeps 71–81% (chance 16–23%), and the ink pass keeps 30–45% (chance 16–20%). By an agent's eye, five of seven ink words slip a letter (ASGENSION, a 3 for the B in BURNING, 'too lote', the first word of 'was it real' blurred, NO's O curling toward G), and in 'too late' the photoreal itself invented two rows of letters above and below the word. This pulls against the second gotcha (a loose canny on purpose), and both are true. A possible line for step 3: 'canny on every pass, firm on the photoreal, loose on the ink, where the grey init is the legibility floor and a letter can slip; the lock holds the letters it is given, not the empty field around them.' The challenger re-ran the measure on the real Canny node's outline (kornia, from the ComfyUI venv): the numbers drop a few points, photoreal 64–75% and ink 28–43% (Impact-era ink 95–100%). On its own position-only measure (outline within 3 px of an image edge, chance from 40 shifts), stay's ink sits at chance (68.5% against 68.1%). The ordering holds under every definition tried.",
+      "status": "open"
+    },
+    {
+      "section": "The pipeline (its working wisdom)",
+      "kind": "no-claim-edit",
+      "what": "'img2img ~0.85' is right for the proofs: every stylize render's own metadata says denoise 0.85 (canny 0.5, released at 0.45; the photoreal at 0.8, released at 0.85). No edit here. The script's default (--denoise 0.78, 'reaches ink, keeps form') and BLUELINE — Text Layer's '~0.8' disagree with it; the reconciliation belongs to that page or the script.",
+      "status": "open"
+    },
+    {
+      "section": "Gotchas (hard-won)",
+      "kind": "claim-change",
+      "what": "'Negative-space sings only on a light energy field' holds on all seven knockouts, with one adjustment. Measured as the mean brightness of the field 3–15 px outside the void (the void is pure black, so this is its contrast): stay 0.57, was it real 0.59, ASCENSION 0.71 read at once; BURNING 0.13 and THOOM 0.18 fade into their fields; NO, on a mid-grey field at 0.28, reads clearly to an agent's eye, and too late at 0.23 reads in patches; the challenger reads THOOM dimly at 0.18. The line is an eye call, not a measured threshold, somewhere between about 0.18 and 0.28, so a mid-grey field carries the void too. A possible line: 'Negative space sings on a light or mid-grey field; on a dark one the black word vanishes.' The void piece lets a reader check the eye-reading.",
+      "status": "open"
+    },
+    {
+      "section": "Forward Vectors",
+      "kind": "claim-change",
+      "what": "On 'a visual legibility judge': Apple's Vision OCR (accurate, no language correction; plates/ocr.swift), run on every stage, misreads even bare Chalkduster skeletons ('NO' as 'ON', 'was it real' as 'was il … real') and of the seven ink words reads only THOOM right (two come back empty), so an off-the-shelf OCR is not the judge as it stands. Two cheap measures the bench can run now, both in Shop/Lettering/plates/make-plates.py: outline held (how much of the font a stage still traces) and void edge lit (the share of a knockout's border brighter than 0.35, which splits the seven at 69–74% against 10–32%). A possible clause: 'A trace measure and a void-edge measure already run on the bench; OCR does not yet read hand lettering.'",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Charter",
+      "made_against": "6c0c256ee8d1",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lettering — rich — blind test of the seven voices.html",
+            "verdict": "remake",
+            "why": "A real test with correct binomials (P(≥4)=0.0102, P(≥3)=0.065), but the letter itself leaks the word: E and R are unique and O/a narrow to 2 and 3, so a reader who knows the seven words passes 4 of 7 about 58–67% of the time, and the font round shows the same letters right after the reveal pairs them with their words. Run the font round first or hold both reveals, set one shared uppercase letter in all seven fonts, hide letter identity in the ink cuts or say it in the rule, and open on a render whose cream striped field does not prime the stay trial."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Lettering — rich — blind test of the seven voices.html",
+          "origin": "made",
+          "by": "the Maker · Lettering plates",
+          "title": "the seven voices, blind · a walk in six steps",
+          "caption": "**Can you read who is speaking from the form alone?** One word with its caption, from outside the seven-voice suite; then why the word, and even the letter, gives the state away; then the rule, set before the first trial: chance 1 in 7, four or more right of seven to say the form carried it. Round 1 shows a patch of stroke from each voice's ink, too small to hold a whole letter. Round 2 shows one letter, K, in each voice's bare font. Every answer is held until both rounds are done. One reader, seven trials a round: a verdict for you, not for everyone.",
+          "near": "Legible by construction",
+          "place": "band",
+          "height": 780
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The pipeline (its working wisdom)",
+      "made_against": "b1edacd98492",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lettering — rich — one word through the pipeline.html",
+            "verdict": "remake",
+            "why": "A clean walk and a real test of \"cannot spell them away\" with settings that match the renders’ metadata, but the step-1 note says no per-voice font has been through diffusion, and Nosifer was, in the living-balloon sweep (c48868bd, balloons-genai/sweep/). Change that one note to \"none of the seven-voice proofs; Nosifer once, in a balloon\"."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Lettering — rich — one word through the pipeline.html",
+          "origin": "made",
+          "by": "the Maker · Lettering plates",
+          "title": "one word through the pipeline · a walk in seven steps",
+          "caption": "**Which stage adds the feeling, which keeps the spelling?** *stay*, one stage at a time: the font, the edges the lock sees, the photoreal under the lock, the grey, the ink under a loose lock, the void. Settings are read from each render's metadata. Last, all seven voices, with how much of the font's outline each stage still draws and your own eye on whether the ink still spells the word.",
+          "near": "Negative-space knockout",
+          "place": "band",
+          "height": 1060
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Gotchas (hard-won)",
+      "made_against": "75025e2a490f",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Lettering — rich — mechanical font or hand.html",
+            "verdict": "keep",
+            "why": "Tests \"mechanical fonts dominate\" from the bench’s own two eras (93–100% vs 30–45%, reproduced) and names its confounds correctly, NO and too late at denoise 0.78 included. Note: the photoreal lock also changed (0.85 to 100% vs 0.8 to 85%), which the confound line could add."
+          },
+          {
+            "file": "Lettering — rich — the void on a light field.html",
+            "verdict": "remake",
+            "why": "The test plots all seven words at their measured field brightness on entering the step, before any mark (checked headless), which undoes its own mine-after-yours. Draw the plot only after all seven are marked; and step 1 says \"widened by 2 px\" over the unwidened skeleton plate, so show the dilated mask or drop the phrase."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/text-layer/out/sfx-thoom_s1111.png",
+            "verdict": "keep",
+            "why": "Free-hand THOOM keeps the outline at chance under three measures (17% vs 16% maker’s; 16% vs 16% on kornia’s outline; 37% vs 41% position-only). Note: same positive prompt and seed, but an earlier, shorter negative prompt."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Lettering — rich — mechanical font or hand.html",
+          "origin": "made",
+          "by": "the Maker · Lettering plates",
+          "title": "mechanical font or hand · the bench's two eras",
+          "caption": "**Does a mechanical font dominate the ink?** The bench ran this by accident of its history: the seven voices inked on Impact with a firm lock (4e863210), then on Chalkduster with a loose one (28e9adaa). Two fonts, then each era, then a wipe between them for all seven: the Impact ink keeps 93–100% of its font's outline, the Chalkduster ink 30–45%. Both font and lock changed at once, so this tests the gotcha's whole remedy.",
+          "near": "Mechanical fonts dominate",
+          "place": "band",
+          "height": 750
+        },
+        {
+          "file": "Lettering — rich — the void on a light field.html",
+          "origin": "made",
+          "by": "the Maker · Lettering plates",
+          "title": "the void on a light field · a walk in five steps",
+          "caption": "**When does the void speak?** The void alone, then on *stay*'s light field and *BURNING*'s dark one, then a gain that lifts a dark field while the void stays black, then all seven knockouts to mark by eye against how bright the field is right at each void's edge.",
+          "near": "Negative-space sings only",
+          "place": "band",
+          "height": 890
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/text-layer/out/sfx-thoom_s1111.png",
+          "origin": "gathered",
+          "title": "THOOM, free-hand · SDXL, no lock",
+          "caption": "The same THOOM prompt and seed (an earlier, shorter negative prompt) with no skeleton and no lock (`--mode free`). Diffusion made an impact and forgot the word. Measured against the THOOM skeleton it keeps 17% of the outline, chance being 16%; under the lock the same prompt keeps 78%.",
+          "near": "SDXL can't spell free-hand",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ]
+}

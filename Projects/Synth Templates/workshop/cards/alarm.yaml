@@ -1,0 +1,62 @@
+# Synth Templates — card 0.2 — Alarm
+# Sound Effects, tier 1. A square LFO on pitch: two notes, no glide between them, a few times a second.
+schema: synth-template-card/0.2
+id: alarm
+name: Alarm
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "Tempo sync; triplets"
+  - "Switch envelope (organ); percussive organ"
+  - "Waveforms: saw, square, triangle, sine, noise"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: short, s: full, r: instant}, category: organ}
+    lfo1:    {kind: lfo, wave: square, rate: medium, sync: true}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: a fifth, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: square,          why: "the loudest plain wave for its level; it is meant to be heard over everything"}
+  - {block: lfo1,    param: wave,    value: square,          why: "two values and nothing between: the pitch jumps, it does not slide (the siren's triangle slides)"}
+  - {block: lfo1,    param: target,  value: oscillator pitch, why: "the jump is in pitch: two notes"}
+  - {block: lfo1,    param: amount,  value: a fifth,         why: "the interval between the two notes; a fifth is the classic two-tone"}
+  - {block: lfo1,    param: rate,    value: medium,          why: "a few alternations a second: urgent, still countable"}
+  - {block: lfo1,    param: sync,    value: "on",            why: "the alternation locks to the beat so the alarm sits in the grid"}
+  - {block: aenv,    param: sustain, value: full,            why: "a switch: on while the key is down, off the instant it is up"}
+  - {block: aenv,    param: release, value: instant,         why: "an alarm does not fade"}
+
+taste:
+  - {block: lfo1,    param: rate,    range: "slow – fast",              default: medium, why: "slow is a bell buoy, fast is a klaxon"}
+  - {block: lfo1,    param: amount,  range: "a fifth – about an octave", default: a fifth}
+  - {block: filter1, param: cutoff,  range: "mid – open",               default: bright}
+  - {block: osc1,    param: pw,      range: "0.5 – 0.25",               default: 0.5, why: "narrower is more nasal"}
+  - {block: amp,     param: level,   range: "half – full",              default: under unity}
+
+listening:
+  cue: "Two notes a fifth apart, trading places several times a second with no slide between them. It is a square wave on a square LFO: steps on steps."
+  ab: "Change the LFO wave to triangle: the two notes become a siren that swoops between them. Back to square and the steps return."
+
+render:
+  tempo: 120
+  note: A4
+  velocity: 110
+  pattern: "one note held two bars, cut off"
+  length_s: 4.0
+
+mappings: {}

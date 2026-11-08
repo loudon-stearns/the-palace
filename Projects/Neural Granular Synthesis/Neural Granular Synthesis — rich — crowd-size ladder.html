@@ -1,0 +1,442 @@
+<!doctype html>
+<!--
+  title: Neural Granular Synthesis — rich — crowd-size ladder
+  born: 2026-11-03
+  links: [[Neural Granular Synthesis]] (connects-to · rich-face-piece) · [[Granular Synthesis]] (connects-to · the grain) · [[Kuramoto Coupling]] (connects-to · the coupling) · [[Progressive Staging]] (exemplifies · a walk in steps) · listed in [[Neural Granular Synthesis — rich.json]]
+  forward_vector: I am the crowd-size ladder you can climb by ear: one neuron firing grains, then a
+    handful, then a crowd grown rung by rung to 512, and at the top the section's own claim put to the
+    test: does stability live in the population at any size, or only when the crowd keeps its own time?
+    I measure what you hear, rung by rung, against the steward's numbers from 24 September. I play inside
+    the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: cycle 7's ladder (render_crowd_size.py with kernel_lib.RingPopulation on a flat kernel), ported
+    line for line: 6 Hz neurons spread ±18%, mean-field Kuramoto pull, a 1 ms step, every wrap a 90 ms
+    grain at the neuron's own pitch (330 Hz, 3.5 semitones spread). The random numbers are this page's, not
+    numpy's, so readings match the steward's statistically, not sample for sample. Checked headless by
+    "Neural Granular Synthesis — rich — checks.mjs", beside this file.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Neural Granular Synthesis — the crowd-size ladder</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366f1; --teal:#33e0c8;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .ngl-piece { padding: 22px 22px 20px; }
+  .ngl-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .ngl-kicker svg { width: 18px; height: 18px; }
+  .ngl-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .ngl-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .ngl-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .ngl-rail button { border-radius: 0; margin-right: -1px; }
+  .ngl-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.ngl-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 104px; }
+  button.ngl-on { color: var(--amber); border-color: var(--amberline); }
+  .ngl-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .ngl-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .ngl-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 12px; }
+  .ngl-says b { color: var(--fg1); font-weight: 500; }
+  .ngl-says q { color: var(--fg1); font-style: italic; }
+  .ngl-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+  @media (max-width: 720px) { .ngl-grid { grid-template-columns: 1fr; } }
+  .ngl-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .ngl-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .ngl-controls { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .ngl-controls label.ngl-sl { flex: 1 1 280px; }
+  .ngl-btns { display: flex; gap: 0; flex-wrap: wrap; align-items: center; }
+  .ngl-btns button + button { margin-left: -1px; }
+  .ngl-btns .ngl-cap { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-right: 10px; }
+  label.ngl-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.ngl-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .ngl-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .ngl-read b { color: var(--fg1); font-weight: 500; }
+  .ngl-read .ngl-flag { color: var(--amber); }
+  .ngl-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .ngl-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .ngl-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 78ch; }
+  .ngl-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .ngl-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .ngl-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+</style>
+</head>
+<body>
+<div class="ngl-piece">
+  <div class="ngl-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio Worklet · study · a walk in four steps</span></div>
+  <h3 class="ngl-title">How many grains make a color?</h3>
+  <p class="ngl-sub">One neuron fires a grain of sound each time it comes round. Walk from that one grain to a handful, grow the crowd rung by rung to 512, and then test the section's claim: does the population make the sound steady at any size? A meter measures what you hear. Nothing sounds until you press play.</p>
+
+  <div class="ngl-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="ngl-step">
+    <div class="ngl-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="ngl-says" id="says"></p>
+    <div class="ngl-grid">
+      <div class="ngl-panel">
+        <div class="ngl-plabel"><span>raster · one row per neuron · last 2 s</span><span id="rastnote"></span></div>
+        <canvas id="raster" height="210"></canvas>
+      </div>
+      <div class="ngl-panel">
+        <div class="ngl-plabel"><span>loudness · 10 ms frames · last 2 s</span><span id="envnote"></span></div>
+        <canvas id="env" height="90"></canvas>
+        <div class="ngl-plabel" style="margin-top:10px"><span>gappiness</span><span id="gapnote"></span></div>
+        <canvas id="gapmeter" height="96"></canvas>
+      </div>
+    </div>
+    <div class="ngl-controls" id="controls"></div>
+    <div class="ngl-read" id="read"></div>
+    <div id="chartbox" style="display:none">
+      <div class="ngl-panel" style="margin-top:14px">
+        <div class="ngl-plabel"><span>gappiness against crowd size · lines: the steward's 24 September measurement · dots: yours</span><span>log–log</span></div>
+        <canvas id="chart" height="260"></canvas>
+      </div>
+      <div class="ngl-verdict" id="verdict"></div>
+    </div>
+    <div class="ngl-eqs" id="eqs"></div>
+    <div class="ngl-back" id="backline"></div>
+    <div class="ngl-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — cycle 7's ladder: render_crowd_size.py's simulate() and render(), on kernel_lib's flat
+   (mean-field) ring. Shared by the AudioWorklet and the headless check; it touches nothing of the page. */
+function GrainCrowd(SR) {
+  const P = { N: 1, K: 0, grainMs: 90, seed: 3, meanHz: 6.0, sigma: 0.18, f0: 330.0, spreadSt: 3.5, dt: 0.001 };
+  const TAB = 4096, WAVE = new Float32Array(TAB + 1), SINE = new Float32Array(TAB + 1);
+  for (let k = 0; k <= TAB; k++) { const x = 2 * Math.PI * k / TAB; WAVE[k] = Math.sin(x) + 0.5 * Math.sin(2 * x) + 0.25 * Math.sin(3 * x); SINE[k] = Math.sin(x); }
+  function mulberry(seed) { let s = seed >>> 0; return () => { let t = (s += 0x6D2B79F5); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  const S = { N: 0, th: null, om: null, pitch: null, Kabs: 0, tAcc: 0, simT: 0 };
+  // the grain pool: start sample of the grain's own clock, wavetable increment, length in samples
+  const MAXG = 4096, gPh = new Float64Array(MAXG), gInc = new Float64Array(MAXG), gK = new Int32Array(MAXG), gL = new Int32Array(MAXG);
+  let gN = 0;
+  function build() {
+    const N = P.N, rng = mulberry(P.seed * 7919 + N * 31 + 1);
+    S.N = N; S.th = new Float64Array(N); S.om = new Float64Array(N); S.pitch = new Float64Array(N);
+    let mean = 0;
+    for (let i = 0; i < N; i++) { const j = rng() * 2 - 1; S.om[i] = 2 * Math.PI * Math.max(0.2, P.meanHz * (1 + P.sigma * j)); mean += S.om[i]; }
+    mean /= N; S.Kabs = P.K * mean;                    // K in units of the mean angular rate, as kernel_lib does
+    for (let i = 0; i < N; i++) S.th[i] = rng() * 2 * Math.PI;   // scrambled start: every run begins incoherent
+    for (let i = 0; i < N; i++) { const u1 = Math.max(1e-12, rng()), u2 = rng(); const g = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2); S.pitch[i] = P.f0 * Math.pow(2, P.spreadSt * g / 12); }
+    gN = 0; S.tAcc = 0; S.simT = 0;
+  }
+  // one 1 ms step of the population; calls fire(i) for every neuron whose phase wraps past 2π
+  function step(fire) {
+    const N = S.N, th = S.th, om = S.om, dt = P.dt; let zx = 0, zy = 0;
+    for (let i = 0; i < N; i++) { zx += Math.cos(th[i]); zy += Math.sin(th[i]); }
+    zx /= N; zy /= N;
+    const TWO = 2 * Math.PI, K = S.Kabs;
+    for (let i = 0; i < N; i++) {
+      const c = Math.cos(th[i]), s = Math.sin(th[i]);
+      let t = th[i] + (om[i] + K * (zy * c - zx * s)) * dt;   // −K·Im(e^{iθ}·conj Z) = K·r·sin(ψ − θ)
+      if (t >= TWO) { if (fire) fire(i); t -= TWO * Math.floor(t / TWO); }
+      th[i] = t;
+    }
+    S.simT += dt;
+  }
+  function warm(sec) { const n = Math.round(sec / P.dt); for (let k = 0; k < n; k++) step(null); }
+  function r() { let zx = 0, zy = 0; for (let i = 0; i < S.N; i++) { zx += Math.cos(S.th[i]); zy += Math.sin(S.th[i]); } return Math.hypot(zx, zy) / S.N; }
+  function startGrain(i) {
+    if (gN >= MAXG) return;
+    gPh[gN] = 0; gInc[gN] = S.pitch[i] / SR * TAB; gK[gN] = 0; gL[gN] = Math.max(8, Math.round(P.grainMs * 0.001 * SR)); gN++;
+  }
+  // render n samples into out (Float32Array), the raw sum of every live grain; onSpike(i, sampleIndex) for the raster
+  function render(out, n, onSpike) {
+    const stepS = P.dt * SR;
+    for (let k = 0; k < n; k++) {
+      if (S.tAcc <= 0) { step((i) => { startGrain(i); if (onSpike) onSpike(i, k); }); S.tAcc += stepS; }
+      S.tAcc -= 1;
+      let y = 0;
+      for (let g = 0; g < gN; g++) {
+        const L = gL[g], kk = gK[g];
+        const e = SINE[(kk / L * (TAB >> 1)) | 0];             // sin(π·k/L), the envelope's root
+        const p = gPh[g];
+        y += e * e * WAVE[(p - Math.floor(p / TAB) * TAB) | 0];
+        gPh[g] = p + gInc[g];
+        if ((gK[g] = kk + 1) >= L) { gN--; gPh[g] = gPh[gN]; gInc[g] = gInc[gN]; gK[g] = gK[gN]; gL[g] = gL[gN]; g--; }
+      }
+      out[k] = y;
+    }
+  }
+  return { P, S, build, warm, step, render, r, active: () => gN };
+}
+// the measure: can you hear separate grains? RMS in 10 ms frames, then std ÷ mean (render_crowd_size.py gappiness())
+function Gappiness(SR, frames) {
+  const F = Math.round(0.01 * SR), ring = new Float64Array(frames); let acc = 0, k = 0, w = 0, filled = 0;
+  return {
+    push(x) { acc += x * x; if (++k === F) { ring[w] = Math.sqrt(acc / F); w = (w + 1) % frames; filled = Math.min(frames, filled + 1); acc = 0; k = 0; return true; } return false; },
+    value() { if (filled < 2) return null; let m = 0; for (let i = 0; i < filled; i++) m += ring[i]; m /= filled; let v = 0; for (let i = 0; i < filled; i++) v += (ring[i] - m) ** 2; return Math.sqrt(v / filled) / (m + 1e-12); },
+    last() { return ring[(w + frames - 1) % frames]; },
+    filled: () => filled, frames, clear() { ring.fill(0); acc = 0; k = 0; w = 0; filled = 0; },
+  };
+}
+/* ENGINE:END */
+</script>
+<script>
+'use strict';
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+// The steward's measurement, crowd-size-table.json (cycle 7, 2026-09-24): gappiness, mean of 3 crowds, and its steady-noise floor.
+const NS = [4, 8, 16, 32, 64, 128, 256, 512];
+const TABLE = {
+  drift:  { K: 0.0, label: 'drift · K 0',      col: '#6366f1', gap: [0.607, 0.382, 0.324, 0.274, 0.261, 0.252, 0.249, 0.250] },
+  near:   { K: 0.2, label: 'near lock · K 0.2', col: '#33e0c8', gap: [0.905, 0.896, 0.535, 0.517, 0.403, 0.307, 0.338, 0.275] },
+  locked: { K: 1.6, label: 'locked · K 1.6',   col: '#e8b84a', gap: [1.393, 1.436, 1.433, 1.366, 1.377, 1.351, 1.397, 1.404] },
+};
+const FLOOR = [0.279, 0.259, 0.236, 0.226, 0.233, 0.227, 0.229, 0.240];   // drift's steady-noise floor, phase-scrambled
+const GPS = [22.6, 44.8, 93.4, 189.8, 380.4, 762.8, 1531.8, 3064.2];      // grains per second, drift
+const LADDER = [1, 4, 8, 16, 32, 64, 128, 256, 512];
+const SETTLE = 3.0;   // seconds of frames the meter averages, as the steward's 4 s recording did after its warm-up
+
+const S = { step: 1, N: 1, coup: 'drift', grainMs: 90, playing: false, you: { drift: {}, near: {}, locked: {} } };
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const k in attrs) { if (k === 'on') for (const ev in attrs.on) n.addEventListener(ev, attrs.on[ev]); else if (k === 'html') n.innerHTML = attrs[k]; else n.setAttribute(k, attrs[k]); } kids.forEach(c => n.append(c)); return n; };
+
+function engineSet() {
+  if (S.step === 1) return { N: 1, K: 0, grainMs: S.grainMs };
+  if (S.step === 2) return { N: 4, K: 0, grainMs: 90 };
+  if (S.step === 3) return { N: S.N, K: 0, grainMs: 90 };
+  return { N: S.N, K: TABLE[S.coup].K, grainMs: 90 };
+}
+
+// ───────── sound ─────────
+let ctx = null, node = null, master = null;
+const live = { gap: null, filled: 0, env: [], ev: [], now: 0, sr: 48000, r: 0, gps: 0, cfg: '' };
+const WORKLET = () => document.getElementById('engine').textContent + `
+class NgsLadder extends AudioWorkletProcessor {
+  constructor() { super(); this.e = GrainCrowd(sampleRate); this.g = Gappiness(sampleRate, ${Math.round(SETTLE * 100)}); this.buf = new Float32Array(128);
+    this.n = 0; this.ev = []; this.env = []; this.lvl = 1e-4; this.gain = 0; this.spikes = 0; this.cfg = ''; this.post = Math.round(sampleRate / 12);
+    this.port.onmessage = (m) => { const d = m.data; Object.assign(this.e.P, d.set); this.e.build(); this.e.warm(6.0); this.g.clear(); this.spikes = 0; this.n = 0; this.cfg = d.cfg; }; this.e.build(); }
+  process(_, outs) { const L = outs[0][0], R = outs[0][1] || L, n = L.length, e = this.e, b = this.buf, base = this.n;
+    e.render(b, n, (i, k) => { this.ev.push(i, base + k); this.spikes++; });
+    for (let k = 0; k < n; k++) {
+      const x = b[k]; if (this.g.push(x)) this.env.push(this.g.last());
+      this.lvl += (x * x - this.lvl) * 2e-5;                     // a slow level rider, as the ladder WAV matched each rung's loudness
+      const want = Math.min(8, 0.12 / Math.sqrt(this.lvl + 1e-9)); this.gain += (want - this.gain) * 2e-4;
+      L[k] = Math.tanh(x * this.gain * 1.5) * 0.9; if (R !== L) R[k] = L[k];
+    }
+    this.n += n;
+    if (this.n % this.post < n) { this.port.postMessage({ ev: this.ev, env: this.env, gap: this.g.value(), filled: this.g.filled() / 100, r: e.r(), now: this.n, sr: sampleRate, gps: this.spikes / Math.max(1e-3, this.n / sampleRate), cfg: this.cfg }); this.ev = []; this.env = []; }
+    return true; }
+}
+registerProcessor('ngs-ladder', NgsLadder);`;
+
+const cfgKey = () => JSON.stringify(engineSet());
+async function play() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET()], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'ngs-ladder', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    master = ctx.createGain(); master.gain.value = 0;
+    node.connect(comp).connect(master).connect(ctx.destination);
+    node.port.onmessage = (m) => { const d = m.data; if (d.cfg !== cfgKey()) return;
+      live.gap = d.gap; live.filled = d.filled; live.r = d.r; live.now = d.now; live.sr = d.sr; live.gps = d.gps;
+      for (let i = 0; i < d.ev.length; i += 2) live.ev.push([d.ev[i], d.ev[i + 1]]);
+      const keep = d.now - d.sr * 2; while (live.ev.length && live.ev[0][1] < keep) live.ev.shift();
+      live.env.push(...d.env); if (live.env.length > 200) live.env.splice(0, live.env.length - 200);
+      if (S.step >= 3 && d.filled >= SETTLE - 0.01 && d.gap != null) { const set = engineSet(); const c = S.step === 3 ? 'drift' : S.coup; S.you[c][set.N] = d.gap; } };
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; paint(); } };
+  }
+  send();
+  await ctx.resume();
+  master.gain.cancelScheduledValues(ctx.currentTime);
+  master.gain.setTargetAtTime(0.8, ctx.currentTime, 0.05);
+  S.playing = true; paint(); requestAnimationFrame(frame);
+}
+function stopSound() {
+  if (!ctx || !S.playing) { S.playing = false; return; }
+  master.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
+  const c = ctx; setTimeout(() => { if (!S.playing) c.suspend(); }, 160);
+  S.playing = false; paint();
+}
+function send() { live.ev = []; live.env = []; live.gap = null; live.filled = 0; live.cfg = cfgKey(); if (node) node.port.postMessage({ set: engineSet(), cfg: live.cfg }); }
+
+// ───────── pictures ─────────
+function fit(cv) { const r = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.height / (cv._r || 1); cv._r = r; cv.style.height = h + 'px'; cv.width = Math.round(w * r); cv.height = Math.round(h * r); const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+const MONO = '10px "JetBrains Mono", monospace';
+function draw() {
+  const set = engineSet(), N = set.N;
+  { const { g, w, h } = fit($('raster')); g.clearRect(0, 0, w, h);
+    const win = live.sr * 2, t1 = live.now, rowH = h / N;
+    if (N <= 64) { g.fillStyle = 'rgba(255,255,255,.035)'; for (let i = 0; i < N; i += 2) g.fillRect(0, i * rowH, w, rowH); }
+    g.fillStyle = set.K >= 1 ? '#e8b84a' : set.K > 0 ? '#33e0c8' : '#c8c8d8';
+    const tw = N > 128 ? 1 : 1.5;
+    for (const [i, n] of live.ev) { const x = w - (t1 - n) / win * w; if (x < 0) continue; g.fillRect(x - tw / 2, i * rowH + (N > 32 ? 0 : 1), tw, Math.max(0.8, N > 32 ? rowH : rowH - 2)); }
+    if (!S.playing) { g.fillStyle = '#8a8aa0'; g.font = '11px "JetBrains Mono", monospace'; g.fillText('press play', 10, 18); }
+  }
+  { const { g, w, h } = fit($('env')); g.clearRect(0, 0, w, h);
+    const e = live.env, n = e.length; if (n > 1 && S.playing) { let mx = 1e-9; for (const v of e) mx = Math.max(mx, v); const bw = w / 200;
+      g.fillStyle = 'rgba(232,184,74,.75)'; for (let i = 0; i < n; i++) { const v = e[i] / mx * (h - 6); g.fillRect(w - (n - i) * bw, h - v, Math.max(1, bw - 0.5), v); } }
+    g.fillStyle = 'rgba(255,255,255,.08)'; g.fillRect(0, h - 1, w, 1);
+  }
+  { const { g, w, h } = fit($('gapmeter')); g.clearRect(0, 0, w, h);
+    const G = S.playing ? live.gap : null, y = h - 18, x = v => Math.min(1, Math.log(v / 0.15) / Math.log(2.0 / 0.15)) * w;
+    g.fillStyle = '#4a4a5a'; g.fillRect(0, y, w, 2);
+    g.fillStyle = 'rgba(138,138,160,.35)'; g.fillRect(x(0.22), y - 10, x(0.28) - x(0.22), 14);
+    if (G != null) { g.fillStyle = '#e8b84a'; g.fillRect(0, y - 8, x(G), 10); }
+    g.font = MONO; g.fillStyle = '#8a8aa0'; g.fillText('steady noise ≈ 0.23–0.28', x(0.22), h - 3); g.fillText('grains apart', w - 80, h - 3);
+    g.fillStyle = '#e8e8f0'; g.font = '22px "Cormorant Garamond", Georgia, serif'; g.fillText(G != null ? 'g = ' + G.toFixed(2) : 'g = ·', 0, 28);
+  }
+  $('rastnote').textContent = N === 1 ? '1 neuron' : N + ' neurons';
+  $('envnote').textContent = 'raw sum, before the level rider';
+  $('gapnote').textContent = !S.playing ? '' : live.filled < SETTLE - 0.01 ? 'filling · ' + live.filled.toFixed(1) + ' of ' + SETTLE + ' s' : 'over the last ' + SETTLE + ' s';
+  if (S.step >= 3) chart();
+}
+function chart() {
+  const { g, w, h } = fit($('chart')); g.clearRect(0, 0, w, h);
+  const L = 44, R = 12, T = 10, B = 30, X0 = Math.log(1), X1 = Math.log(512), Y0 = Math.log(0.15), Y1 = Math.log(2.2);
+  const px = n => L + (Math.log(n) - X0) / (X1 - X0) * (w - L - R), py = v => T + (1 - (Math.log(v) - Y0) / (Y1 - Y0)) * (h - T - B);
+  g.font = MONO; g.fillStyle = '#8a8aa0'; g.strokeStyle = 'rgba(255,255,255,.06)';
+  for (const n of LADDER) { g.beginPath(); g.moveTo(px(n), T); g.lineTo(px(n), h - B); g.stroke(); g.fillText(String(n), px(n) - 6, h - B + 14); }
+  for (const v of [0.2, 0.3, 0.5, 1, 2]) { g.beginPath(); g.moveTo(L, py(v)); g.lineTo(w - R, py(v)); g.stroke(); g.fillText(v.toFixed(1), 8, py(v) + 3); }
+  g.fillText('neurons in the crowd', w / 2 - 60, h - 4);
+  g.fillStyle = 'rgba(138,138,160,.22)'; g.beginPath();
+  NS.forEach((n, i) => { const x = px(n), y = py(FLOOR[i] * 1.07); i ? g.lineTo(x, y) : g.moveTo(x, y); });
+  for (let i = NS.length - 1; i >= 0; i--) g.lineTo(px(NS[i]), py(FLOOR[i] * 0.93)); g.closePath(); g.fill();
+  const show = S.step === 3 ? ['drift'] : ['drift', 'near', 'locked'];
+  for (const c of show) { const t = TABLE[c]; g.strokeStyle = t.col; g.globalAlpha = 0.55; g.lineWidth = 1.5; g.beginPath(); NS.forEach((n, i) => { const x = px(n), y = py(t.gap[i]); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.globalAlpha = 1;
+    g.fillStyle = t.col; for (const [n, v] of Object.entries(S.you[c])) { g.beginPath(); g.arc(px(+n), py(Math.max(0.151, Math.min(2.19, v))), 4.5, 0, 2 * Math.PI); g.fill(); } }
+  if (S.playing && live.gap != null) { const set = engineSet(); const c = S.step === 3 ? 'drift' : S.coup; g.strokeStyle = TABLE[c].col; g.lineWidth = 1.5; g.beginPath(); g.arc(px(set.N), py(Math.max(0.151, Math.min(2.19, live.gap))), 7, 0, 2 * Math.PI); g.stroke(); }
+  g.fillStyle = '#8a8aa0'; g.fillText('steady-noise floor', px(64), py(0.2) + 4);
+  let ly = T + 12; for (const c of show) { g.fillStyle = TABLE[c].col; g.fillRect(w - R - 150, ly - 7, 10, 3); g.fillStyle = '#c8c8d8'; g.fillText(TABLE[c].label, w - R - 134, ly - 2); ly += 14; }
+  verdict();
+}
+
+// ───────── the steps ─────────
+function choose(cap, opts, get, set) {
+  return el('div', { class: 'ngl-btns' }, el('span', { class: 'ngl-cap' }, cap), ...opts.map(([v, label]) => el('button', { 'aria-pressed': String(get() === v), class: get() === v ? 'ngl-on' : '', on: { click: () => { set(v); send(); build(); } } }, label)));
+}
+const STEPS = [
+  { n: 1, name: 'one grain',
+    says: '<b>One neuron.</b> Its phase turns about six times a second, and each time it comes round it fires a grain: 90 ms of sound at its own pitch, swelling and dying. That is the dice roll the section starts from. Listen to each grain arrive and the silence between. Then shorten the grain. A 90 ms grain at 330 Hz holds about thirty cycles of its pitch, so you hear a note. Below a few cycles it is a click.',
+    eqs: [['grain(t) = sin²(π t ⁄ T) · [ sin 2πft + ½ sin 4πft + ¼ sin 6πft ],   0 ≤ t ≤ T', 'Each grain is a short tone with three harmonics, faded in and out by a smooth hump T long. Here T is the grain length and f is this neuron’s own pitch.']],
+    controls: () => [slider({ label: 'grain length T', min: 1, max: 150, log: true, get: () => S.grainMs, set: v => { S.grainMs = v; }, fmt: v => v.toFixed(v < 10 ? 1 : 0) + ' ms' })],
+    back: 'The later steps fix the grain at 90 ms, as the steward’s measurement did.' },
+  { n: 2, name: 'a handful',
+    says: '<b>Four neurons, coupling off.</b> Each has its own rate, spread ±18% around 6 Hz, and its own pitch, spread around 330 Hz. Their grains sometimes overlap and sometimes leave holes. The loudness bars show the holes. <b>Gappiness</b> puts a number on them: how much the loudness jumps from one 10 ms frame to the next, against its average. Steady noise of the same color reads about 0.25. Separate grains read higher.',
+    eqs: [['g = σ(e) ⁄ μ(e),   e<sub>k</sub> = √( mean of x² over the k-th 10 ms )', 'Gappiness is the spread of the loudness frames divided by their average. Here e<sub>k</sub> is the loudness of each 10 ms frame of the raw sum, before anything levels it.']],
+    controls: () => [], back: 'One of these four is step 1’s neuron, with the grain back at 90 ms.' },
+  { n: 3, name: 'grow the crowd',
+    says: '<b>Climb the ladder.</b> The same crowd, still uncoupled, grown from one neuron to 512. Each rung plays at matched loudness, so what changes is how steady it is, not how loud. Stay on a rung for three seconds and your reading lands on the chart beside the steward’s. Watch for the rung where the holes fill and the meter comes down to the steady-noise floor. Past it, more neurons change little you can measure.',
+    eqs: [['dθ<sub>i</sub>⁄dt = ω<sub>i</sub>,   a grain each time θ<sub>i</sub> passes 2π', 'Uncoupled, every neuron keeps its own time: its phase turns at its own rate, and it fires a grain each time round. About six grains a second per neuron, so 32 neurons make about 190 grains a second and 512 make about 3,000.']],
+    controls: () => [choose('neurons', LADDER.map(n => [n, String(n)]), () => S.N, v => { S.N = v; })],
+    back: 'One neuron on this ladder is step 1; four is step 2.' },
+  { n: 4, name: 'the test',
+    says: '<b>The claim.</b> The section says stability lives in the population: <q>the magic is in the population, not the grain.</q> Step 3 found the rung where an uncoupled crowd turns steady. Now couple the crowd until it locks and climb again. The test is whether a big enough crowd is always steady, or whether that depends on how much the crowd agrees.',
+    eqs: [['dθ<sub>i</sub>⁄dt = ω<sub>i</sub> + K · ω̄ · r · sin(ψ − θ<sub>i</sub>)', 'Each neuron’s phase turns at its own rate, plus a pull toward the crowd’s average phase ψ. The pull is the coupling K, times the crowd’s average rate ω̄, times how much the crowd already agrees, r. K 1.6 locks this crowd; K 0.2 sits near the edge.'],
+          ['r = | (1⁄N) Σ<sub>j</sub> e<sup>iθ<sub>j</sub></sup> |', 'Agreement: turn each neuron’s phase into an arrow and average the arrows. Scattered, they cancel and r is near 0; locked, they point one way and r is near 1.']],
+    controls: () => [choose('coupling', [['drift', 'drift · 0'], ['near', 'near lock · 0.2'], ['locked', 'locked · 1.6']], () => S.coup, v => { S.coup = v; }),
+                     choose('neurons', LADDER.map(n => [n, String(n)]), () => S.N, v => { S.N = v; })],
+    back: 'Drift here is step 3. The steward’s ladder recording, further down beside the open question on the smallest crowd, plays drift and then locked, rung by rung.' },
+];
+function slider({ label, min, max, get, set, fmt, log }) {
+  const span = el('b'); const input = el('input', { type: 'range', min: 0, max: 1000, step: 1, 'aria-label': label });
+  const toPos = v => Math.round(log ? Math.log(v / min) / Math.log(max / min) * 1000 : (v - min) / (max - min) * 1000);
+  const fromPos = p => log ? min * Math.pow(max / min, p / 1000) : min + (max - min) * p / 1000;
+  input.value = toPos(get()); const show = () => { span.textContent = fmt(get()); };
+  let t = 0; input.addEventListener('input', () => { set(fromPos(+input.value)); show(); clearTimeout(t); t = setTimeout(send, 120); update(); }); show();
+  return el('label', { class: 'ngl-sl' }, label + ' · ', span, input);
+}
+function build() {
+  const s = STEPS[S.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === S.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says;
+  const c = $('controls'); c.innerHTML = '';
+  c.append(el('div', { class: 'ngl-btns' }, el('button', { class: 'ngl-go', id: 'go', on: { click: () => S.playing ? stopSound() : play() } }, S.playing ? '❚❚ stop' : '▸ play')));
+  s.controls().forEach(x => c.append(x));
+  $('eqs').innerHTML = ''; s.eqs.forEach(([sym, words]) => $('eqs').append(el('div', { class: 'ngl-eq', html: sym }), el('div', { class: 'ngl-words', html: words })));
+  $('backline').textContent = s.back;
+  $('chartbox').style.display = S.step >= 3 ? '' : 'none';
+  $('prev').disabled = S.step === 1; $('next').disabled = S.step === STEPS.length;
+  update();
+}
+function goTo(n) { if (n !== S.step) { stopSound(); S.step = n; if (n >= 3 && S.N < 4) S.N = 4; send(); build(); } }
+function paint() { const g = $('go'); if (g) g.textContent = S.playing ? '❚❚ stop' : '▸ play'; }
+
+function verdict() {
+  const v = $('verdict'); if (!v) return;
+  const d = S.you.drift, lk = S.you.locked, floorAt = n => FLOOR[NS.indexOf(n)] || 0.25;
+  const within = f => Object.keys(d).map(Number).filter(n => d[n] <= floorAt(n) * f).sort((a, b) => a - b);
+  const steadyD = within(1.25), closeD = within(1.10);
+  const lines = [];
+  if (S.step === 3) {
+    const got = Object.keys(d).length;
+    if (got < 3) { v.innerHTML = 'Take readings on at least three rungs, low and high. Each one lands after three seconds on the rung.'; return; }
+    lines.push(steadyD.length ? 'Uncoupled, your crowd came within a quarter of the steady-noise floor from <b>' + steadyD[0] + '</b> neurons, about ' + Math.round(steadyD[0] * 6) + ' grains a second' + (closeD.length ? ', and within a tenth from <b>' + closeD[0] + '</b>.' : '.') : 'None of your rungs came near the floor yet. Try 32 and above.');
+    lines.push('Three-second readings wobble. The steward’s three crowds (cycle 7) came within about a fifth of the floor at 32 and within about a tenth from 128 to 256; this page’s headless run of its own port, at 16 to 32 and from 64. Three crowds each, so the rung moves by one either way.');
+    v.innerHTML = lines.join(' '); return;
+  }
+  const lks = Object.keys(lk).map(Number).sort((a, b) => a - b);
+  if (!lks.length) { v.innerHTML = 'Lock the crowd (K 1.6) and read a few rungs, including the biggest. Drift readings carry over from step 3.'; return; }
+  const minL = Math.min(...lks.map(n => lk[n]));
+  if (minL > 0.6) lines.push('Locked, your crowd stayed grainy at every size you tried (' + lks.map(n => n + ': ' + lk[n].toFixed(2)).join(', ') + '), far above the floor near 0.25. When the neurons agree, they fire on one beat, and 512 of them act like one big grain pulsing six times a second.');
+  else lines.push('Locked, one of your readings came down to ' + minL.toFixed(2) + '. Let each rung settle the full three seconds after you switch.');
+  if (steadyD.length) lines.push('Uncoupled, the same crowd was steady from ' + steadyD[0] + '.');
+  lines.push('So the section’s claim holds with a condition it doesn’t name. A crowd is steady only while its members keep their own time. There is no minimum size for a locked crowd, because agreement shrinks the number of independent voices. Coupling is a density control as well as a pitch control.');
+  v.innerHTML = lines.join(' ');
+}
+function frame() { draw(); readouts(); if (S.playing) requestAnimationFrame(frame); }
+function readouts() {
+  const set = engineSet(), parts = [];
+  parts.push('neurons <b>' + set.N + '</b>');
+  if (set.K) parts.push('K <b>' + set.K + '</b>');
+  if (S.playing) {
+    parts.push('grains a second <b>' + live.gps.toFixed(0) + '</b>');
+    if (S.step === 1) { parts.push('grain <b>' + set.grainMs.toFixed(set.grainMs < 10 ? 1 : 0) + ' ms</b>'); parts.push('cycles of its pitch in one grain <b>' + (set.grainMs * 0.001 * 330).toFixed(1) + '</b>'); }
+    if (set.N > 1) parts.push('agreement r <b>' + live.r.toFixed(2) + '</b>');
+    if (live.gap != null && live.filled >= SETTLE - 0.01) { const fl = FLOOR[NS.indexOf(set.N)] || 0.25; parts.push(live.gap <= fl * 1.15 ? '<span class="ngl-flag">at the steady-noise floor</span>' : 'above the floor: grains apart'); }
+  } else parts.push('silent until you press play');
+  $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('');
+}
+function update() { draw(); readouts(); }
+
+$('prev').addEventListener('click', () => goTo(Math.max(1, S.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, S.step + 1)));
+window.addEventListener('resize', () => draw());
+build();
+</script>
+</body>
+</html>

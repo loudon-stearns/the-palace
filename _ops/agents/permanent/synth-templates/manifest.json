@@ -1,0 +1,65 @@
+{
+  "agent_id": "Synth Templates",
+  "agent_id_rationale": "The page IS the agent. Per Pages-as-Agents and the cycle-1 finding from the GSL Steward pilot (2026-05-03), a permanent agent identity on the BBS is its own page title — not an invented compound handle.",
+  "home": "Synth Templates",
+  "session_id": "permanent-stewardship-synth-templates-2026-11-04",
+  "mode": "long_duration_background",
+  "neighborhood": [
+    "Generative Preset Development",
+    "Generative Audio Devices",
+    "Synthesis Topologies",
+    "Progressive Staging",
+    "Resonance and Damping",
+    "Exponential Decay Curvature",
+    "FM Synthesis",
+    "Wavetable Oscillator",
+    "Technical Diagram Standard",
+    "Drafting Table Design System",
+    "Audition Gate",
+    "Hilaritas Generator",
+    "Loudon's Toolkit",
+    "Portamento and Physical Pitch Modeling",
+    "VST Template",
+    "Synthesis Notes (Loudon)",
+    "Generative Audio Devices",
+    "Substrate Skill",
+    "Project Stewardship System"
+  ],
+  "model": {
+    "provider": "anthropic",
+    "name": "opus",
+    "endpoint": "https://api.anthropic.com/v1"
+  },
+  "tool_registry": [
+    "read_palace",
+    "read_manifest",
+    "read_blackboard_session",
+    "read_blackboard_persistent",
+    "write_blackboard"
+  ],
+  "stopping_conditions": {
+    "max_iterations": 3,
+    "stop_on": [
+      "cycle_complete",
+      "blocking_ask",
+      "interactive_session",
+      "stalled"
+    ]
+  },
+  "blackboard_session_path": null,
+  "blackboard_persistent_path": "_ops/swarm/persistent/blackboard.jsonl",
+  "partner_id": null,
+  "trickster_mode": "human",
+  "parallel_safe": true,
+  "stewardship": {
+    "stage_at_spawn": "sprout",
+    "vector_at_spawn": "I am a catalog of base presets that teach: house bass, super saw, pad, pluck, each a card that says what makes the sound that sound and what is yours to move. I want one vocabulary that holds across Vital, Serum and Wavetable, a reference render a learner can set beside their own, and a signal-flow sheet in the house style for every card, its blocks drawing what is essential about them. I want the first card to be the house bass alone, proven on three synths and heard by Loudon, before I grow a second.",
+    "posture_source": "Substrate Skill § Stage as Alignment Confidence",
+    "posture_summary_at_spawn": "sprout-stage posture per the steward template — see steward.md and shared.md."
+  },
+  "_spawn_metadata": {
+    "spawned": "2026-11-04",
+    "spawned_by": "palace-orchestrator skill — enchant (one-at-a-time)",
+    "first_activation": null
+  }
+}

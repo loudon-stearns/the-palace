@@ -1,0 +1,131 @@
+{
+  "title": "Rational Hearing — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Rational Hearing]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "every-piece-walks-up"
+    },
+    {
+      "target": "[[FM Synthesis]]",
+      "type": "connects-to",
+      "label": "the-ratios-walk-left-the-ear-open"
+    }
+  ],
+  "forward_vector": "I am the manifest of Rational Hearing's rich face, its first round, a Sketch made in the proposal round of 2026-11: the playable handout itself laid as a band, the steward's back-row strip beside the magnifier it measured, and one made walk that ends on a blind test of the ear, the side of the line the page could only draw. I hold the fingerprint of the words each was laid against. I grow when Loudon, or a student, has taken the test and said what the ear did; I never hold the entry's words.",
+  "entry": "Rational Hearing",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "The idea in one breath",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "\"Lets you hear it\" is not wrong. It holds unevenly, weakest at the fifth and fourth. Measured on the page's own A/B (seven harmonics at 1/i, about 1.4 s, root C4): the page keeps the root, so the top note steps by the whole miss, 9.8–15.6 ¢ on most columns and 3.9 ¢ on M2 and -7, and that step is heard as pitch, without any beat. The thirds and the major sixth also beat fast (M3 10.4, -3 14.1, M6 11.9 Hz). The fifth and fourth have only a 2.0 ¢ step and a slow beat, 0.89 and 1.18 Hz, about 1.2 and 1.7 swells in the dyad (from A3, P5 is 0.74 Hz). The other six columns share no partial inside seven harmonics; their closest pairs sit 15.6–45.7 Hz apart at C4. No rewording is needed. The better fix is in the page, at the steward's plan move 4 (the A/B decision): a longer hold, so the fifth's and fourth's slow beat has time to show."
+    },
+    {
+      "section": "→ rational-hearing.html",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "hush-loud, found by conform and confirmed by hand in headless Chromium: the page answers rich:hush itself (line 418), so the kit leaves it alone, and its answer is setSound(false), which only sets the master gain to 0 (line 409). The context stays running with sixteen oscillators at zero gain, and an A/B already sounding plays on, because playCompare routes its dyads to the compressor directly, past the master (lines 659–661): 0.5 s after a hush its oscillators were still scheduled to stop 0.7 and 2.3 s later, so up to about 3 s of sound after the face asked for quiet, e.g. over a piece the reader just started. Suggested for the steward: on rich:hush, stop the A/B's oscillators (keep them in a list) and clear compareTimer, then suspend A.ctx once the master's fade (a 0.04 s time constant) has settled, about 200 ms; setSound(true) already resumes it. A side finding from the same code: the A/B's oscillators all start at sine phase 0, so the just dyad plays about 0.5 dB louder than the tempered one (recomputed 0.504 dB for the fifth), a small level cue the blind piece removes with random phases."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "The idea in one breath",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Rational Hearing — rich — the miss, blind.html",
+          "origin": "made",
+          "by": "Web Audio",
+          "title": "The miss, blind · can you hear what the page draws?",
+          "caption": "**Two notes at exactly 3 : 2, walked up to a blind test of your own ear.** It opens on the still fifth. Then it pulls G a few cents off until it beats, takes the partials away to show where the beat lives, and sets five just intervals against the piano's. It ends on a blind staircase. Each trial plays two dyads, one at the whole-number ratio and one off the way the piano is off, each on its own roved note and level. Where you settle is your threshold, drawn against the piano's miss. The engine holds. Two cents off at middle C, the sound swells 0.91 times a second, as |2·f_G − 3·f_C| says. As plain sines, the loudness hardly moves (0.01 % against 10.7 %). The piano's fifth beats 0.89 times a second, so the page's 1.4-second A/B holds about one swell. Against simulated listeners the staircase's median lands within 8 % of their threshold, though a single run can stray by up to 40 %. Two limits, named in the piece. It tests the five intervals whose partials meet inside seven harmonics. And it roves the root, which takes away the top note's step (2 to 16 ¢) that the page's own A/B gives: it asks whether the ratio sounds off, a stricter question than whether the page's two dyads differ. Whether a real ear hears the miss is the test's to say, and no one has taken it yet.",
+          "near": "lets you hear it",
+          "place": "band",
+          "height": 1186
+        }
+      ],
+      "made_against": "c00b23328389",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Rational Hearing — rich — the miss, blind.html",
+            "verdict": "keep",
+            "why": "A real test: it walks 3:2 still → beating → sines → the piano's five → a blind 2-down-1-up staircase whose answer can land on either side of the miss, and every number it shows recomputes (0.907 Hz rule, 10.75 % vs 0.015 % swing, the five ET misses and beat rates). Notes: say in step 5 that the root rove takes away the top-note step the page's own A/B gives (2–16 ¢), so the test measures hearing the ratio, not hearing the page's A/B; say in step 4 why only five intervals; 'stray by a third' is nearer 'up to 40 %'."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The page",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "rational-hearing.html",
+          "origin": "gathered",
+          "by": "the project's own page, build 0.2.0 (2026-10-29)",
+          "title": "The handout, playable · the page itself",
+          "caption": "**The page this section describes, laid in whole.** It has the ladder with its prime columns and bracket legend, the string and tube, and the just-against-equal strip with its A/B. Loudon heard it on 2026-10-29 and said the sound works. Gathered as it stands, not the steward's projector draft, which still waits on his answer. Turn the sound on at the top before tapping.",
+          "near": "Tapping a column plays the just dyad",
+          "place": "band",
+          "height": 2446
+        },
+        {
+          "file": "back-row/backrow-temper-x5-strip.png",
+          "origin": "gathered",
+          "by": "the steward, cycle 1 (2026-10-30) · Playwright and a resample",
+          "title": "The just-against-equal strip at ×5, from the front row, the back row at 20/20, and at 20/40",
+          "caption": "The steward's measure of the magnifier this paragraph names. At ×1 the fifth's and fourth's 2-cent gap is 1.4 px, hidden under the 10 px bar from any seat. At ×5 it comes to about 5 arcminutes from 8 screen-heights back, just visible. The eye needs the gap drawn five times over to see the fifth's miss; the piece above asks what the ear needs. A prediction from headless Chromium, not a walk to the back of a real room.",
+          "near": "Magnify ×5 for the back of the room",
+          "place": "band"
+        }
+      ],
+      "made_against": "47336ff35513",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rational-hearing.html",
+            "verdict": "keep",
+            "why": "The section is about this page, so laying it whole is the section's substance, not decoration; it loads clean and reports its height. Its three conform errors are the steward's to fix, not this round's: two Google Fonts grants (Loudon's call), and hush-loud, which is real and is held as an offer to → rational-hearing.html."
+          },
+          {
+            "file": "back-row/backrow-temper-x5-strip.png",
+            "verdict": "keep",
+            "why": "A measurement that could have failed: it tests 'Magnify ×5 for the back of the room' and finds ×5 just enough for the fifth's 2 ¢ gap (about 5 arcmin at 8 screen-heights), and the caption matches the steward's report and says it is headless. Note: the report's own table gives 1.8 px at ×1 at 720p where its prose and this caption say 1.4 px; harmless, both hide under the 10 px bar."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -30,4 +30,4 @@ What each walk taught the ceremony, and the lessons that reached it from elsewhe
 
 ## From the versioning read — 2026-09-25
 
-2. **The protocol still asks for what the postcondition stopped requiring.** "How to Walk" says to keep walking "until something genuinely surprising appears" (`Walk Ceremony.md:66`). [[ROSETTA]] still gives the postcondition as "surprise named" (`ROSETTA.md:214`). Spec change owed: the protocol line and the ROSETTA mirror catch up with postcondition 2.
+2. **The protocol still asks for what the postcondition stopped requiring.** "How to Walk" says to keep walking "until something genuinely surprising appears" (`Walk Ceremony.md:66`). [[ROSETTA]] still gives the postcondition as "surprise named" (`ROSETTA.md:214`). Paid in v1.4 (0f522a86) on 2026-11-03, in the ledger review: the protocol line and the ROSETTA mirror catch up with postcondition 2.

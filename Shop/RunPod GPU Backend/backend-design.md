@@ -8,6 +8,8 @@ forward_vector: "I am the design draft for the Shop's owned-GPU `runpod` host cl
 
 # RunPod Backend — Palace Shop GPU Compute
 
+> The June 2026 design record for the `runpod` host class. How we work with Runpod today, and what Runpod's API is now, live in [[RunPod GPU Backend — runbook]].
+
 A draft backend that gives the Shop a GPU it owns the worker on. RunPod sits as a
 new **`runpod` host class** between `cloud` (managed HF Inference / anonymous
 Spaces — free but quota-capped and reachability-spotty) and `mac` (full control

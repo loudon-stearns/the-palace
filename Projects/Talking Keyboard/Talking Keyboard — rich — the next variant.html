@@ -1,0 +1,279 @@
+<!doctype html>
+<!--
+  title: Talking Keyboard — rich — the next variant
+  born: 2026-11-03
+  links: [[Talking Keyboard]] (connects-to · rich-face-piece) · listed in [[Talking Keyboard — rich.json]] · serves § Future Variants · plays renders made by "Talking Keyboard — rich — render.py" into rich-face/, and the shipped C samples from _ops/sample-libraries/talking-keyboard/samples/
+  forward_vector: I am the variants the page lists, rendered before anyone builds them: solfège through the same front end that turned A into "uh", the page's Italian and French examples through their own, and last the pitch-class variant, where the test is whether you can still tell one C from another. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until a key or a button is clicked; the AudioContext is made on that click. Changing step stops the sound. Quieting a hidden page and the one-minute cap are the kit's.
+  renders: Kokoro (kokoro-onnx 0.5.0, kokoro-v1.0.onnx), speed 1.0, 2026-11-03: af_heart in en-us, if_sara in it, ff_siwis in fr-fr; rich-face/renders.json records the phonemes each front end made.
+  check: Talking Keyboard — rich — check.mjs holds this page's syllable verdicts to renders.json and runs its pitch meter in Node over the shipped Cs.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- the renders and their record beside the piece in rich-face/, and the shipped Cs in af_heart; no device, no storage, no host -->
+<meta name="piece:files" content="rich-face/renders.json rich-face/variant-solfege-0-af_heart.wav rich-face/variant-solfege-1-af_heart.wav rich-face/variant-solfege-2-af_heart.wav rich-face/variant-solfege-3-af_heart.wav rich-face/variant-solfege-4-af_heart.wav rich-face/variant-solfege-5-af_heart.wav rich-face/variant-solfege-6-af_heart.wav rich-face/variant-respelt-0-af_heart.wav rich-face/variant-respelt-1-af_heart.wav rich-face/variant-respelt-2-af_heart.wav rich-face/variant-respelt-3-af_heart.wav rich-face/variant-respelt-4-af_heart.wav rich-face/variant-respelt-5-af_heart.wav rich-face/variant-respelt-6-af_heart.wav rich-face/variant-italian-0-if_sara.wav rich-face/variant-italian-1-if_sara.wav rich-face/variant-italian-2-if_sara.wav rich-face/variant-italian-3-if_sara.wav rich-face/variant-italian-4-if_sara.wav rich-face/variant-italian-5-if_sara.wav rich-face/variant-italian-6-if_sara.wav rich-face/variant-french-0-ff_siwis.wav rich-face/variant-french-1-ff_siwis.wav rich-face/variant-french-2-ff_siwis.wav rich-face/variant-french-3-ff_siwis.wav rich-face/variant-french-4-ff_siwis.wav rich-face/variant-french-5-ff_siwis.wav rich-face/variant-french-6-ff_siwis.wav rich-face/variant-pitchclass-C-af_heart.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C1_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C2_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C3_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C5_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C6_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_C7_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_D4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_E4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_F4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_G4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_A4_v2.wav /_ops/sample-libraries/talking-keyboard/samples/kokoro_B4_v2.wav">
+<title>The next variant</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+code, pre, samp {font-family: var(--fx-mono);}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller, pre {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .keys{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .keys.two{grid-template-columns:repeat(2,minmax(0,160px))}
+  .wk{background:#e8e4da;color:#2a2a36;border:1px solid #2a2a36;border-radius:0 0 2px 2px;height:150px;cursor:pointer;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:8px 4px;font-family:var(--mono);font-size:12px;text-align:center;line-height:1.35;user-select:none}
+  .wk .syl{font-family:var(--display);font-size:22px;color:#0a0a0f;letter-spacing:.02em;margin-bottom:10px}
+  .wk.on{background:var(--accent)}
+  .wk.bad .syl{text-decoration:underline wavy #c8261a;text-underline-offset:3px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .grp{display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .grp .l{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);margin-right:2px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button:disabled{opacity:.4;cursor:default}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2);width:100%}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:6px 14px 6px 0;text-align:left;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td.no{color:var(--accent)}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .found{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--fg-2);max-width:72ch;line-height:1.6}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:640px){h1{font-size:32px}h2{font-size:23px}.wk .syl{font-size:17px}.wk{font-size:10px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Talking Keyboard · future variants, rendered first · four steps</div>
+  <h1>The next variant</h1>
+  <p class="lead">The page lists variants nobody has built. Rendering one octave of each costs a few seconds, and it shows that the first of them would meet the same wall as the spoken A, and that the plainest of them would take away the one thing the keyboard tells you.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <div class="keys" id="keys"></div>
+    <div class="rowb">
+      <span class="grp" id="g-fix"><span class="l">variant</span><button class="ghost small" data-fix="respelt">respelt · English</button><button class="ghost small" data-fix="italian">“do quattro” · Italian</button><button class="ghost small" data-fix="french">“do quatre” · French</button></span>
+      <span class="grp" id="g-mode"><span class="l">the Cs</span><button class="ghost small" data-mode="shipped">as shipped</button><button class="ghost small" data-mode="pc">pitch class only</button><button class="ghost small" data-mode="tuned">pitch class, retuned</button></span>
+      <span class="grp" id="g-myst"><button class="play" id="myst">▸ play a C, any octave</button></span>
+    </div>
+    <div class="rowb hide" id="g-oct"><span class="l" style="font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)">which C was it</span></div>
+    <table class="t" id="tab"></table>
+    <div class="meter" id="meter"></div>
+    <p class="found" id="found"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><b>LOUD’N LIVE</b> · made for the rich face of Talking Keyboard · Kokoro renders made for this page, 2026-11-03 · the shipped Cs as committed</footer>
+</main>
+
+<script id="engine">
+// ---- engine: is the syllable the one meant, and what pitch does the voice speak at ----
+function parseWav(buf) {
+  const dv = new DataView(buf); let p = 12, sr = 24000, ch = 1, bits = 16, data = null;
+  while (p + 8 <= dv.byteLength) { const id = String.fromCharCode(dv.getUint8(p), dv.getUint8(p + 1), dv.getUint8(p + 2), dv.getUint8(p + 3)), n = dv.getUint32(p + 4, true);
+    if (id === 'fmt ') { ch = dv.getUint16(p + 10, true); sr = dv.getUint32(p + 12, true); bits = dv.getUint16(p + 22, true); }
+    if (id === 'data') { data = [p + 8, Math.min(n, dv.byteLength - p - 8)]; break; } p += 8 + n + (n & 1); }
+  if (!data || bits !== 16) throw new Error('not a 16-bit PCM wav');
+  const len = data[1] / 2 / ch, x = new Float32Array(len); for (let i = 0; i < len; i++) x[i] = dv.getInt16(data[0] + i * 2 * ch, true) / 32768; return { x, sr };
+}
+// the syllables meant, in phonemes: English tonic sol-fa (doh, ray, me, fah, soh or sol, lah, te), then Italian and French solfège
+const MEANT = {
+  en: [['doʊ'], ['ɹeɪ'], ['mi'], ['fɑ'], ['soʊl', 'soʊ'], ['lɑ'], ['ti']],
+  it: [['do'], ['rɛ', 're'], ['mi'], ['fa'], ['sɔl', 'sol'], ['la'], ['si']],
+  fr: [['do'], ['ʁe'], ['mi'], ['fa'], ['sɔl'], ['la'], ['si']],
+};
+// compare the first word the model was handed, stress and length marks aside; in Italian and French a short unstressed ɪ counts as i.
+// Anything else the front end left in, a language flag like (en), counts against it: the model is handed it too.
+function fold(ipa, lang) { let s = ipa.split(' ')[0].replace(/[ˈˌː]/g, ''); if (lang !== 'en') s = s.replace(/ɪ/g, 'i'); return s; }
+const meantOk = (ipa, lang, i) => MEANT[lang][i].includes(fold(ipa, lang));
+// the voice's pitch: autocorrelation over 40 ms frames every 10 ms, 70 to 400 Hz, on frames within 15 dB of the loudest
+// that repeat clearly (normalised correlation over 0.6); the median of those, in Hz
+function voicePitch(x, sr) {
+  const w = Math.round(sr * 0.04), h = Math.round(sr * 0.01), lo = Math.floor(sr / 400), hi = Math.ceil(sr / 70), fr = [], lev = []; let top = -Infinity;
+  for (let s = 0; s + w + hi <= x.length; s += h) { let e = 0; for (let i = s; i < s + w; i++) e += x[i] * x[i]; const db = 10 * Math.log10(e / w + 1e-12); lev.push([s, db, e]); top = Math.max(top, db); }
+  for (const [s, db, e0] of lev) {
+    if (db < top - 15) continue; let best = 0, bl = 0;
+    for (let L = lo; L <= hi; L++) { let c = 0, e1 = 0; for (let i = s; i < s + w; i++) { c += x[i] * x[i + L]; e1 += x[i + L] * x[i + L]; } const r = c / Math.sqrt(e0 * e1 + 1e-12); if (r > best) { best = r; bl = L; } }
+    if (best > 0.6) fr.push(sr / bl);
+  }
+  fr.sort((a, b) => a - b); return fr.length ? Math.round(fr[Math.floor(fr.length / 2)]) : null;
+}
+const keyHz = (m) => 440 * 2 ** ((m - 69) / 12);
+// a sample centred on C4 played on key m, as an SFZ region with pitch_keycenter=60 would: its speed and pitch scale together
+const retune = (m) => 2 ** ((m - 60) / 12);
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const SHIPPED = '../../_ops/sample-libraries/talking-keyboard/samples/'; // the build's own files, each named in piece:files
+const WHITE = ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4'];
+const LANG = { solfege: 'en', respelt: 'en', italian: 'it', french: 'fr' };
+const S = { step: 0, fix: 'respelt', mode: 'shipped', myst: null, score: { shipped: [0, 0], pc: [0, 0], tuned: [0, 0] }, answered: true };
+let REC = null; const cache = new Map();
+async function rec() { if (!REC) REC = await fetch('rich-face/renders.json').then((r) => { if (!r.ok) throw new Error('renders.json: ' + r.status); return r.json(); }); return REC; }
+async function load(url) { if (!cache.has(url)) cache.set(url, fetch(url).then((r) => { if (!r.ok) throw new Error(url.split('/').pop() + ': ' + r.status); return r.arrayBuffer(); }).then((b) => ({ url, ...parseWav(b) }))); return cache.get(url); }
+const variantUrl = (vk, i) => 'rich-face/' + REC.variants[vk].keys[i].file;
+
+// ---- sound ----
+let ctx = null, out = null, live = [];
+async function audio() {
+  if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4; out = ctx.createGain(); out.gain.value = 0.9; out.connect(comp); comp.connect(ctx.destination); }
+  if (ctx.state !== 'running') await ctx.resume(); return ctx;
+}
+function stopSound() { for (const s of live) { try { s.stop(); } catch {} } live = []; }
+async function playUrl(url, rate) { const m = await load(url); await audio(); stopSound(); const b = ctx.createBuffer(1, m.x.length, m.sr); b.copyToChannel(m.x, 0); const s = ctx.createBufferSource(); s.buffer = b; s.playbackRate.value = rate || 1; s.connect(out); s.start(); live.push(s); return m; }
+
+// ---- keys ----
+function keys(list) { // list: [{ top, sub, url, bad }]
+  const k = $('keys'); k.className = 'keys' + (list.length === 2 ? ' two' : ''); k.innerHTML = '';
+  list.forEach((it) => { const d = document.createElement('div'); d.className = 'wk' + (it.bad ? ' bad' : ''); d.innerHTML = `<span class="syl">${it.top}</span><span>${it.sub}</span>`;
+    d.addEventListener('pointerdown', async () => { document.querySelectorAll('.wk.on').forEach((e) => e.classList.remove('on')); d.classList.add('on'); try { await playUrl(it.url); } catch (e) { $('meter').textContent = 'Could not play: ' + e.message; } setTimeout(() => d.classList.remove('on'), 300); });
+    k.appendChild(d); });
+}
+const len = async (url) => { const m = await load(url); return Math.round(m.x.length / m.sr * 1000); };
+
+// ---- the four steps ----
+const STEPS = [
+  { name: 'one key', title: 'C4, two names',
+    say: 'The first variant on the page’s list: solfège, “Do, Re, Mi” instead of letter names. On middle C that is “do four” where the keyboard says “C four”. Both strings go through the same front end that turned the spoken A into “uh”, and it reads <b>do</b> as the English verb.',
+    do: 'Press both keys.', watch: 'The phonemes under each key.', hear: '“C four”, then “doo four”, not “doh four”.',
+    controls: [], async draw() { const R = await rec(), d = R.variants.solfege.keys[0];
+      keys([{ top: 'C four', sub: R.probe['C four'] + '<br>as shipped', url: SHIPPED + 'kokoro_C4_v2.wav' }, { top: 'do four', sub: d.ipa + '<br>solfège, as written', url: variantUrl('solfege', 0), bad: !meantOk(d.ipa, 'en', 0) }]);
+      $('pic-l').textContent = 'C4 · af_heart · en-us'; $('meter').innerHTML = `the solfège do is /doʊ/ in English; the front end wrote <b>${d.ipa.split(' ')[0]}</b>`; } },
+  { name: 'one octave', title: 'One octave, as the page writes it',
+    say: 'C4 to B4 on the white keys, each syllable written the way the page writes it and handed to the build’s front end in the build’s settings. The table sets what the front end made beside what English tonic sol-fa means by each: doh, ray, me, fah, soh, lah, te. A wavy line marks a key that says something else.',
+    do: 'Play up the octave.', watch: 'The wavy lines, and the column that says whether the syllable is the one meant.', hear: '“Doo, ree, my, fah, sahl, la as in lad, tie.”',
+    controls: [], async draw() { const R = await rec(), ks = R.variants.solfege.keys;
+      keys(ks.map((k, i) => ({ top: k.syllable, sub: k.ipa.split(' ')[0], url: variantUrl('solfege', i), bad: !meantOk(k.ipa, 'en', i) })));
+      const ok = ks.filter((k, i) => meantOk(k.ipa, 'en', i)).length;
+      $('tab').innerHTML = '<tr><th>key</th><th>written</th><th>meant</th><th>front end made</th><th>the one meant?</th></tr>' + ks.map((k, i) => { const y = meantOk(k.ipa, 'en', i); return `<tr><td>${WHITE[i]}</td><td>${k.syllable}</td><td>${MEANT.en[i].join(' or ')}</td><td>${k.ipa.split(' ')[0]}</td><td class="${y ? '' : 'no'}">${y ? 'yes' : 'no'}</td></tr>`; }).join('');
+      $('pic-l').textContent = 'C4 to B4 · af_heart · en-us'; $('meter').innerHTML = `the syllable meant: <b>${ok} of 7</b>`; } },
+  { name: 'three fixes', title: 'Three ways around it',
+    say: 'Two ways out. Respell, the move that fixed A: doe, ray, mee, fah, soh, lah, tee. Or hand the syllables to the language they come from, which is the page’s next variant anyway: “Do quattro” in Italian and “Do quatre” in French, each through its own front end and voice. Italian reads all seven. French reads six, and on the seventh it decides “do” is English and says so in the phonemes, language flags and all, and kokoro-onnx hands the flags to the model as if they were sounds.',
+    do: 'Pick a variant and play the octave.', watch: 'The table: the syllable meant, and the length of each render.', hear: 'In French, whether C sounds longer and stranger than the six after it.',
+    controls: ['g-fix'], async draw() { const R = await rec(), v = R.variants[S.fix], lang = LANG[S.fix];
+      const lens = await Promise.all(v.keys.map((k, i) => len(variantUrl(S.fix, i))));
+      keys(v.keys.map((k, i) => ({ top: k.syllable, sub: k.ipa.split(' ')[0], url: variantUrl(S.fix, i), bad: !meantOk(k.ipa, lang, i) })));
+      const ok = v.keys.filter((k, i) => meantOk(k.ipa, lang, i)).length;
+      $('tab').innerHTML = '<tr><th>key</th><th>string</th><th>meant</th><th>front end made</th><th>the one meant?</th><th>length</th></tr>' + v.keys.map((k, i) => { const y = meantOk(k.ipa, lang, i); return `<tr><td>${WHITE[i]}</td><td>${k.text}</td><td>${MEANT[lang][i].join(' or ')}</td><td>${k.ipa}</td><td class="${y ? '' : 'no'}">${y ? 'yes' : 'no'}</td><td>${lens[i]} ms</td></tr>`; }).join('');
+      $('pic-l').textContent = `C4 to B4 · ${v.voice} · ${v.lang}`;
+      const rest = lens.slice(1), note = S.fix === 'french' ? ` · C runs <b>${lens[0]} ms</b>, the other six ${Math.min(...rest)} to ${Math.max(...rest)} ms` : '';
+      $('meter').innerHTML = `the syllable meant: <b>${ok} of 7</b>${note}${lang !== 'en' ? ' · in this language a short unstressed ɪ counts as i' : ''}`; } },
+  { name: 'the test', title: 'The test: which C?',
+    say: 'The page’s plainest variant drops the octave: “notes only, no octave (more compact, but loses positional verification)”. Here are seven Cs, C1 to C7, three ways. As shipped, each says its octave. As the pitch-class variant would make them, “C” on every key: Kokoro renders the same string the same way every time, so those seven are one sound and that arm is a demonstration, chance by construction. The third arm can lose: the same “C” retuned to its key, as a region with <code>pitch_keycenter=60</code> would play it (rate 2^((m − 60)/12)), so pitch, not the word, would have to carry the octave. A C plays; say which octave it was.',
+    do: 'Pick an arm. Play a C, name its octave, and go again, five times or more in each.', watch: 'The score for each, and the table: what pitch each key is, and what pitch the voice speaks at.', hear: 'Whether anything but the word tells you where you are.',
+    controls: ['g-mode', 'g-myst'], async draw() { const pcs = [];
+      for (let o = 1; o <= 7; o++) { const m = await load(`${SHIPPED}kokoro_C${o}_v2.wav`); pcs.push({ o, key: keyHz(12 * (o + 1)), voice: voicePitch(m.x, m.sr) }); }
+      keys([]); $('keys').className = 'keys hide';
+      $('tab').innerHTML = '<tr><th>key</th><th>the key’s pitch</th><th>the voice speaks at</th></tr>' + pcs.map((p) => `<tr><td>C${p.o}</td><td>${p.key.toFixed(1)} Hz</td><td>${p.voice} Hz</td></tr>`).join('');
+      $('pic-l').textContent = 'C1 to C7 · af_heart · mp layer'; score(); } },
+];
+function score() {
+  const [a, n] = S.score.shipped, [b, m] = S.score.pc, [c, t] = S.score.tuned;
+  $('meter').innerHTML = `as shipped: <b>${a} of ${n}</b> · pitch class only: <b>${b} of ${m}</b> · retuned: <b>${c} of ${t}</b> · chance is 1 in 7, ${(100 / 7).toFixed(0)} %`;
+  if (n >= 5 && m >= 5) $('found').innerHTML = `<b>What this shows.</b> As shipped, the word carries the octave and you can name it (${a} of ${n}). Without the octave word, every C is the same sound, so naming the octave is a guess (${b} of ${m}; chance is ${(100 / 7).toFixed(0)} %): that arm cannot come out any other way, it only lets you hear why. What goes is the octave, all of it; the letter still checks, so a semitone slip or a swap between keys with different letters would still be heard. The octave goes entirely for a reason the page doesn’t say: no Talking Keyboard sample is pitched to its key. Each SFZ region sets <code>pitch_keycenter</code> to its own key, so nothing is retuned, and the voice speaks near the same pitch on C1 as on C7 (the table), while the keys are six octaves apart.${t >= 5 ? ` Retuned, pitch has to carry the octave on its own, and you named it ${c} of ${t}: ${c / t > 0.5 ? 'pitch can carry it' : 'pitch alone did not carry it for you'}, at the cost of the word, which at C1 crawls eight times slow and at C7 runs eight times fast. That cost is the tuning across the keyboard the page says this build skipped.` : ' Try the retuned arm five times to hear whether pitch could carry what the word dropped.'}`;
+}
+function octButtons() { const g = $('g-oct'); g.querySelectorAll('button').forEach((b) => b.remove()); for (let o = 1; o <= 7; o++) { const b = document.createElement('button'); b.className = 'ghost small'; b.textContent = 'C' + o; b.disabled = S.answered; b.addEventListener('click', () => { if (S.answered) return; S.answered = true; const sc = S.score[S.myst.mode]; sc[1]++; if (o === S.myst.o) sc[0]++; $('found').innerHTML = ''; score(); $('meter').innerHTML += ` · that was <b>C${S.myst.o}</b>, you said C${o}`; octButtons(); }); g.appendChild(b); } }
+$('myst').addEventListener('click', async () => { const o = 1 + Math.floor(Math.random() * 7); S.myst = { o, mode: S.mode }; S.answered = false; octButtons();
+  try { await playUrl(S.mode === 'shipped' ? `${SHIPPED}kokoro_C${o}_v2.wav` : 'rich-face/' + REC.variants['pitch-class'].file, S.mode === 'tuned' ? retune(12 * (o + 1)) : 1); } catch (e) { $('meter').textContent = 'Could not play: ' + e.message; } });
+
+// ---- controls ----
+function sync() { document.querySelectorAll('[data-fix]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.fix === S.fix))); document.querySelectorAll('[data-mode]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.mode === S.mode))); }
+let drawing = 0;
+async function redraw() { const n = ++drawing; try { await STEPS[S.step].draw(); } catch (e) { if (n === drawing) $('meter').textContent = 'The renders did not load: ' + e.message; } }
+function show() {
+  stopSound(); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').innerHTML = st.say; $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  for (const id of ['g-fix', 'g-mode', 'g-myst']) $(id).classList.toggle('hide', !st.controls.includes(id));
+  $('g-oct').classList.toggle('hide', S.step !== 3); S.answered = true; octButtons();
+  $('found').innerHTML = ''; $('tab').innerHTML = ''; $('meter').innerHTML = ''; $('pic-r').textContent = 'renders.json';
+  $('eq1').textContent = S.step === 3 ? 'f(key) = 440 · 2^((m − 69)/12) Hz ·  C1 = 32.7 Hz … C7 = 2093 Hz ·  P(right | pitch class only) = 1/7 ·  retuned: rate = 2^((m − 60)/12)' : '';
+  $('eq1w').textContent = S.step === 3 ? 'A key’s own pitch doubles every octave, sixty-four times over from C1 to C7. The voice does not follow it. With the octave word gone, seven keys make one sound, and a guess is right one time in seven. Retuned, the one sound plays at the key’s pitch, an eighth as fast at C1 and eight times as fast at C7.' : '';
+  [...$('rail').children].forEach((bt, j) => bt.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1; sync(); redraw();
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.addEventListener('click', () => { S.step = i; show(); }); $('rail').appendChild(b); });
+$('back').addEventListener('click', () => { if (S.step > 0) { S.step--; show(); } });
+$('next').addEventListener('click', () => { if (S.step < STEPS.length - 1) { S.step++; show(); } });
+document.querySelectorAll('[data-fix]').forEach((b) => b.addEventListener('click', () => { S.fix = b.dataset.fix; stopSound(); sync(); redraw(); }));
+document.querySelectorAll('[data-mode]').forEach((b) => b.addEventListener('click', () => { S.mode = b.dataset.mode; sync(); }));
+show();
+</script>
+</body>
+</html>

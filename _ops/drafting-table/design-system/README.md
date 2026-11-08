@@ -12,7 +12,7 @@ Three sources, each read exactly.
 |---|---|
 | **STIGMERGY** · `_ops/stigmergy/design-system/` | The phosphor scale (`#33ff66` `#1f8a3c` `#0b2a14` `#d7f6dc` on `#050a06`), amber and red status, the text-first rule, hairlines-not-shadows, `border-radius: 0`, `steps()` motion, VT323 for banners, IBM Plex Mono for the terminal, the inverted hover. |
 | **Loudon Live · Drafting skin** · `_ops/loudon-live/design-system/colors_and_type.css` | The paper (`#f0eee5`), ink (`#1a1916` `#3a3a35` `#6a6862`), the fill `#dcd9ca`, engineering red `#c8261a`, the six categorical hues, the 4px spacing scale, the inset-top-highlight elevation idea. The other five skins and the Anton / Cormorant / Manrope stack stay with Loudon Live; they are the public channel's dress, not the workshop's. |
-| **The CAD Drafter's sheets** · `Shop/Shopkeeper/probes/2026-10-20-cad/` | The look Loudon asked for: an A4 sheet with a frame, projected views, ISO 45° hatching on a cut face, dimension lines with arrows outside narrow spans, a title block of cells, numbered notes, and a legend where the colour of a number is its provenance: **DATASHEET** blue, **DESIGN** ink, **MEASURE** red. See `assets/Reference/` for the light cap sheet. |
+| **The CAD Drafter's sheets** · `Shop/Shopkeeper/probes/2026-10-20-cad/` | The look Loudon asked for: an A4 sheet with a frame, projected views, ISO 45° hatching on a cut face, dimension lines with arrows outside narrow spans, a title block of cells, numbered notes, and a legend where the colour of a number is its provenance: **DATASHEET** blue, **DESIGN** ink, **MEASURE** red. See `reference/` for the light cap sheet. |
 
 Nothing here is a screenshot. Every colour above is the value in the file it came from; the few values new to this system are named as new in their usage notes (`ground-200` on Phosphor, the three `slab-*` tokens, `rule-soft`).
 
@@ -56,7 +56,7 @@ Casing: uppercase for sheet eyebrows, view captions, title-block names and hotke
 - `source-datasheet` on `ground-000`: 6.0:1 Paper, 6.2:1 Phosphor. `source-measure`: 5.4:1 Paper, 5.1:1 Phosphor. `source-assumed`: 4.6:1 Paper, 11.1:1 Phosphor. All pass for text at `sheet-dim` size.
 - `accent` on Paper is the same red as `source-measure`. That is the Drafting skin's choice and it is kept: on the sheet, the thing that is lit and the thing that is unmeasured are both the thing you look at next. If a face has to show both at once, make the accent an arc and the hold a word.
 - Categorical `cat-1` … `cat-6` are for an unordered series in a chart, up to six. Ordered data uses one hue stepped through `ink-3` → `ink-2` → `ink`.
-- Never cyan. Never a purple-to-blue gradient. Never a colour that only means a state used as decoration.
+- Never a purple-to-blue gradient. Never a colour that only means a state used as decoration.
 
 ## Solid surfaces, and 3D
 
@@ -74,9 +74,25 @@ No glass, no chrome, no bloom on Paper. On Phosphor, the only lit material is th
 
 Typographic, as both parents have it. State glyphs: `●` on, `○` off, `▸` play, `■` stop, `◐` half, `◇` aside, `*` unread, `>` reply. Drafting symbols: `Ø` diameter, `±` tolerance, `°` degrees, `×` times, `√`. Box drawing is allowed inside a `<pre>` on Phosphor only. No emoji, no CDN icon set; if a pictogram is truly needed, draw it as a hairline SVG in `ink` and say so in a comment.
 
+## The browser's furniture
+
+A browser supplies what a page does not: a scrollbar, a select's chevron and popup, the checkbox and the radio, a range slider's thumb, a textarea's resize grip, a number field's spinner, the `<details>` triangle, the focus ring, the selection colour, the autofill tint, the tab icon. Each arrives in the operating system's dress and sits on the sheet like a part from another drawing. A Graphite textarea in a daily-page rough on 2026-11-03 was the one Loudon saw: a white scrollbar and a dotted grip on a dark panel.
+
+`controls.css`, loaded after the tokens and before `bundle.css`, re-dresses all of it for the bare elements, so a page gets it for free and a class of its own still wins by order. The rules it follows are the grammar's: square; a hairline is the control; what the hand holds is a slab (the range thumb is a fader cap); the pointer's attention is `accent`; every value is also written as text beside the control. Three choices worth knowing:
+
+- **The scrollbar is a fader.** The track is a recess (`ground-100` with a hairline in `rule` on its outer edge) and the thumb is a cap: a slab outlined in `ink`, square-ended, radius 0, `slab-light` while dragged. It grew from STIGMERGY's `.bbs-scroll` (square, no OS chrome) and became a part with mass, as the grammar asks. The board's pixel cursors still stay with the board. Chrome and Safari draw it from the `::-webkit-scrollbar` rules; Chrome drops those the moment `scrollbar-width` is set and draws its own rounded thumb instead, so the standard properties are scoped to Firefox, where thin and coloured is all that can be asked. Loudon, 2026-11-03: *"they still have that capsule look ... in stigmergy we gave them a square top and bottom and it feels much more custom."*
+- **`color-scheme` follows the ground.** Paper is light, Phosphor is dark, and the select popup, the date picker and the body scrollbar follow; without it a dark page gets white furniture.
+- **Checked is ink, not accent.** A checkbox is not the one lit thing in a view; it fills in `ink` with the ground ringed inside, the terminal's `●` on. A radio is round because it is a turned part.
+
+It also sets what the browser draws when nothing is asked: links (ink with a hairline under; `source-datasheet` blue when the link leaves the sheet), `hr`, `mark` (hatched), `kbd` (a slab), `code` in `mono`, tabular numerals in cells and readouts, the autofill tint painted back, an invalid field as a HOLD in `source-measure` with no OS bubble, `overscroll-behavior: contain` on in-window scrollers, no tap flash, and nothing moving under `prefers-reduced-motion`. Where Chrome lets a page draw the select popup (`appearance: base-select`, 135+), it is a hairline cell; elsewhere `color-scheme` keeps it on the right ground.
+
+`<audio controls>` it hands to the Transport: `transport.js`, loaded after the page's audio, replaces every OS audio player with the house's (§ Components). What it still cannot dress: `<video controls>` (the OS player stays) and the `title=` tooltip (write the note on the sheet).
+
+**The tab icon.** Every canon entry wears an avatar and a hero ([[Hero and Avatar Maker]]). A page in an entry's bundle takes the avatar beside it as its tab icon, `<link rel="icon" href="<Entry> — icon.png">`, and may pin the hero behind its header where that fits. A piece shown in a frame declares no icon and carries none. A framed piece never owns a browser tab, and declaring any file in `piece:files` turns its opaque sandbox into `allow-same-origin` and makes its storage persist (`_ops/rich-face/contract.mjs`, `sameOrigin`; `_ops/rich-face/README.md` § What the page lets run), a cost the palace will not pay for an icon nobody sees. The page that frames it (the rich face, a scroll's trail, a TRICKSTER card) wears the entry's avatar as its tab icon. A piece opened on its own from disk goes without: a known gap. A page that belongs to no entry takes `favicon.svg` beside this file: the entry's knob avatar at 32px, the system's tab mark. `<meta name="theme-color">` carries `ground-000`. The specimens are `preview/controls.html` and, for the scrollbar at 3×, `preview/scrollbar-3x.html`.
+
 ## Components
 
-Twelve, built for a VST plugin face and reusable anywhere a value is set or shown. The props of the controls mirror `tpl::ParamSpec` from the VST Template (`Projects/VST Template/machinery/src/ParamSpec.h`): `id`, `name`, `unit`, `min`, `max`, `def`, `taper` (`Linear` | `Log` | `Choice` | `Toggle`), `choices`. A plugin's parameter table can be handed to the face as data.
+Thirteen: twelve built for a VST plugin face and reusable anywhere a value is set or shown, and a Transport for the page a proof plays from. The props of the controls mirror `tpl::ParamSpec` from the VST Template (`Projects/VST Template/machinery/src/ParamSpec.h`): `id`, `name`, `unit`, `min`, `max`, `def`, `taper` (`Linear` | `Log` | `Choice` | `Toggle`), `choices`. A plugin's parameter table can be handed to the face as data.
 
 | Group | Component | What it is |
 |---|---|---|
@@ -92,8 +108,9 @@ Twelve, built for a VST plugin face and reusable anywhere a value is set or show
 | Displays | `Readout` | A value in a hairline cell with its unit, coloured by source. |
 | Displays | `Meter` | A level meter whose fill is hatching, with a red peak line. |
 | Displays | `Scope` | The lit window: a trace on the terminal ground with a graticule. |
+| Displays | `Transport` | A play/stop button with a scrub track and the time said twice, drawn beside an `<audio>` so a proof never shows the OS player (2026-11-03). A slab button that inverts while playing, a recess whose played run is hatching, a cap outlined in ink; a file that will not load writes HOLD. |
 
-The bundle is one classic script, `components/bundle.js`, assigning `window.DraftingTable`; it reads `window.React` and `window.ReactDOM` 18. `components/bundle.css` holds the styles, all in tokens. The consumer provides React, the fonts, state and the `onChange` wiring to the host (JUCE `WebBrowserComponent` relays, or a Web Audio node for a web proof). The components hold no audio and no parameter state of their own.
+The bundle is one classic script, `components/bundle.js`, assigning `window.DraftingTable`; it reads `window.React` and `window.ReactDOM` 18. `components/bundle.css` holds the styles, all in tokens. The consumer provides React, the fonts, state and the `onChange` wiring to the host (JUCE `WebBrowserComponent` relays, or a Web Audio node for a web proof). The components hold no audio and no parameter state of their own. The Transport is the exception in form only: it is not in the React bundle but a plain script, `transport.js`, that mounts on an `<audio>` (every `<audio controls>` on load, or `DT.transport(audio)` by hand); a React page mounts it in an effect. It plays what the element plays and nothing more.
 
 ## For a plugin editor
 
@@ -111,7 +128,7 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 
 **Fonts offline.** JetBrains Mono is not a file here yet; IBM Plex Mono and VT323 are. A plugin inlines `@font-face` from `fonts/` and loads nothing from the network. Until JetBrains Mono ships as a file, `terminal` (IBM Plex Mono) is the offline face and is already second in the `mono` stack.
 
-**Mark.** None. A plugin header carries the name in `sheet-title` and nothing else. If a mark arrives it will be a hairline SVG in `ink`, 24–32px, transparent, and it will be a palace decision, not this file's.
+**Mark.** The tab icon only. A plugin header carries the name in `sheet-title` and nothing else; the system's one mark, `favicon.svg` (the knob avatar at 32px, a hairline SVG in `ink` on `ground-000`), is the tab icon of a page with no entry, never a header mark. Landed on Loudon's word of 2026-11-03.
 
 **Tier and version.** The title block's `status` line carries the tier as the sheets do: `SKETCH · HOLD: …`, `STUDY`, `PIECE`. Its `version` cell carries the build (`0.1.0`). So a plugin reads `SKETCH` in red on its status line and `version 0.1.0` in its numbers row, never `v1`. Provisional; the form is Loudon's to set.
 
@@ -125,11 +142,12 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 
 ## Not in this system yet
 
-- **No mark.** Drafting Table has no logo; the name is set in `mono` and that is the mark. Stigmergy's ASCII logo and Loudon Live's Lissajous stay theirs.
+- **A tab mark, not a logo.** Drafting Table has a tab mark since 2026-11-03, the entry's knob avatar at 32px (`favicon.svg`), on Loudon's word: "Yes, land the knob." A plugin header still carries the name in `mono` and nothing else. Stigmergy's ASCII logo and Loudon Live's Lissajous stay theirs.
 - **Stigmergy's pixel cursors** (`cursors.py`) were not carried over; they belong to the board.
 - **JetBrains Mono** is hosted, not a file.
 - **No assembly views, no GD&T symbols**, mirroring what the CAD Drafter has not yet drawn.
 - **Built, not synced.** The components were hand-written from the sources above, not bundled from a repository; there is no React library in the palace to sync from. Change them here.
+- **No video transport.** `<video controls>` still shows the OS player; the Transport plays audio.
 
 ---
 
@@ -148,5 +166,11 @@ Answers to what the VST Template's WebView editor asked of the system (2026-10-2
 | `fonts/` | VT323 and IBM Plex Mono 400 / 600 as woff2. JetBrains Mono is not shipped. |
 | `plugin-face.md` | How the components compose into one VST editor. |
 | `reference/` | The CAD sheet the look was read from. |
+| `controls.css` | The browser's furniture re-dressed for the bare elements: scrollbars, selects, checkboxes, ranges, the textarea grip, spinners, `<details>`, focus, selection, autofill, links. Load after the tokens. |
+| `preview/controls.html` | The specimen: every control bare, on both grounds. |
+| `preview/scrollbar-3x.html` | The scrollbar at 3×, Paper and Phosphor: the cap in its recess, square-ended. |
+| `transport.js` | The Transport, a plain script: replaces every `<audio controls>` with the house's player; `DT.transport` and `DT.transportAll` when `dt-controls.js` is loaded first. Styles in `bundle.css` § Transport. |
+| `preview/transport.html` | The specimen: four players on both grounds, sounds made in the page. |
+| `favicon.svg` | The tab icon for a page with no entry of its own: the knob avatar at 32px, Paper values written in by hand. |
 
 The living copy with live previews is the Design System artifact: https://claude.ai/artifact/5B7KLXdyRVpavzgpEgcRVH (private). This folder is its export; when one changes, the other is brought level by hand.

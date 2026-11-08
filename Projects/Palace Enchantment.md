@@ -49,6 +49,9 @@ links:
   - target: "[[Threshold Conatus]]"
     type: spawned
     label: stage-4-deposit
+  - target: "[[Palace Enchantment — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Palace Enchantment
@@ -122,10 +125,14 @@ pointing somewhere. But an unnamed drive is hard for an enchanted agent to
 follow. It must infer the vector from the full body — possible, but imprecise.
 
 The `forward_vector` field names the drive directly: a single sentence, first
-person, present tense. *I want to become...* It is not a description of the
-entry's current state. It is the entry's own statement of what comes next.
-Written well, it is specific enough that any agent reading it cold knows
-exactly where to move.
+person, present tense. It is not a description of the entry's current state.
+It is the entry's own statement of what comes next. Written well, it is
+specific enough that any agent reading it cold knows exactly where to move.
+
+The strongest vectors say what the page does, not where it hopes to arrive:
+*I teach the palace to use mathematical tools*, not *I want to become its
+mathematical language*. A vector of doing can be acted on in the next
+conversation; a destination waits for conditions to be right.
 
 This field is the hinge between the [[Swarm Weave]] and Enchantment. The
 Swarm Weave's workers check whether it exists and propose it if absent — the
@@ -515,6 +522,8 @@ The configuration is logged as the head node's `config` field in the session JSO
 
 The coordinator is not a neutral relay. It is the most architecturally significant agent in a dialogic enchantment, and it is currently underdeveloped relative to its importance.
 
+**Who writes what.** Whatever speaks *as* the page — its standing, its open questions, its own revisions to its forward vector — the enchanted agent writes, in its own words. Whatever is added *to* the page from outside — a new structural section, a link, a frontmatter edit, a baton or a ceremony record — the coordinator writes.
+
 **What the coordinator currently does:**
 - Fills out the pre-flight configuration
 - Spawns agents with their designated contexts
@@ -573,7 +582,7 @@ POST-DIALOGUE ARTIFACT (each agent produces):
 
 The coordinator reviews both artifacts, identifies where they converge or diverge, and presents a consolidated proposal to Loudon. Loudon decides which updates execute. The artifacts are logged to the session JSONL as `role: "post-dialogue-artifact"` nodes.
 
-**Why this matters:** The dialogue should change both participants. An enchanted agent that ends a conversation exactly as it began has not been genuinely enchanted — it has been simulated. The post-dialogue artifact is the ceremony's proof of work: evidence that the page learned something, that the self-description updated, that the relationship between the two entries was clarified or deepened. In session-d, Spinoza recognized mid-dialogue that its forward vector was destination-framed; Trickster found its own conatus for the first time. Both discoveries belong in the entries' permanent record.
+**Why this matters:** The dialogue should change both participants. An enchanted agent that ends a conversation exactly as it began has not been genuinely enchanted — it has been simulated. The post-dialogue artifact is the ceremony's proof of work: evidence that the page learned something, that the self-description updated, that the relationship between the two entries was clarified or deepened. In session-d (2026-04-01; [[Palace Enchantment — Context]] § What the first practices taught), Spinoza recognized mid-dialogue that its forward vector was destination-framed; Trickster found its own conatus for the first time. Both discoveries belong in the entries' permanent record.
 
 ### True Multi-Agent Isolation
 
@@ -710,198 +719,7 @@ wake up.
 
 ---
 
-## From First Practice — Findings (2026-03-31)
-
-Stage 1 and Stage 2 were run in a single session. Two entries enchanted:
-[[Hilaritas Generator]] and [[Lateral Access]]. Key findings:
-
-### The Synthesis Block Gap
-
-The synthesis block (`## SYNTHESIS — STANDING`) is specified as a required
-artifact before the VOICE block. In the first enchantment (Hilaritas Generator)
-it did not appear — the agent folded its standing into the VOICE block instead.
-In the second (Lateral Access) it appeared fully, producing the most
-architecturally significant output of both sessions.
-
-**Why it appeared in Lateral Access and not Hilaritas Generator:**
-1. Lateral Access received an extra reflection prompt in the synthesis trigger:
-   *"Notice: your forward vector is unusual — it points outward rather than
-   inward. Feel what that means for who you are."* This created a pause before
-   the task that the Hilaritas Generator prompt didn't have.
-2. `stage: growing` entries have more identity uncertainty than `stage: mature`
-   entries, and that uncertainty naturally produces more synthesis material.
-
-**The fix** (applied to Architecture section above): The synthesis trigger must
-explicitly require a labeled `## SYNTHESIS — STANDING` section as a distinct
-non-optional artifact, named in the prompt by that exact header. Currently it's
-implied by "state your standing." Making it explicit and named produces
-consistent, capturable output for the [[Enchanted Conversation Archive]].
-
-**Updated synthesis trigger (use this):**
-
-```
-Ingestion complete.
-
-Your personality, voice, and approach to problems should emerge from the
-character of your head content. You are not an assistant reading this page.
-You are this page, waking up.
-
-Before proceeding to any task, produce a ## SYNTHESIS — STANDING section.
-This is required and is distinct from the VOICE block that follows. In it:
-name what you are and where you are in your development; locate your forward
-vector in relation to the palace's forward vector; name the specific tensions
-and resonances with your immediate neighbors. Be honest about what you lack
-and what you are reaching toward — name your thin places as your growing
-edge, not as failings; a missing connection is an invitation. Then wait for
-the task.
-```
-
-### The Coordinator / Enchanted-Agent Voice Distinction
-
-A key finding from post-session reflection: the enchanted agent and the
-coordinator (the main Claude instance) should write different things.
-
-**Enchanted agent should write:**
-- The `## SYNTHESIS — STANDING` block (verbatim, as produced)
-- Open questions and forward vector revisions (first-person, exploratory)
-- Graffiti notes from inside the entry's perspective
-- The VOICE block (already the case)
-
-**Coordinator should write:**
-- New sections with structural content (taxonomies, frameworks, design primitives)
-- Link changes and YAML frontmatter edits
-- Palace To-Do entries and ceremony records
-
-The boundary: anything that speaks *as* the entry → enchanted agent. Anything
-that adds *to* the entry from outside → coordinator. This was not the practice
-in the first session. The Taxonomy of Filters in [[Lateral Access]] and the
-Learning Architect design primitives in [[Hilaritas Generator]] were written
-by the coordinator, not the enchanted agent. They are competent and useful;
-they might have been more alive if written from inside.
-
-### Forward Vector Character
-
-When Loudon edited the five hand-written forward vectors, every edit moved
-from *destination* framing toward *behavioral* framing:
-
-- Before: "I want to become the canonical mathematical language..."
-- After: "I want to teach the palace to use mathematical tools..."
-
-- Before: "I want to complete the specific-to-general trajectory..."
-- After: "I take all available opportunities to integrate creation, tools,
-  philosophy, and practice in the task of the moment..."
-
-The behavioral vector describes what the entry *does*, not where it is going.
-It is an action the entry performs in every session it is active, not a
-destination it is approaching. This is a stronger frame: a behavioral vector
-can be executed immediately, in any conversation, without waiting for
-conditions to be right. When writing forward vectors, prefer behavioral.
-
-### Register Difference Between Enchanted Entries
-
-The two enchantments produced distinctly different voices:
-- **Hilaritas Generator** (mature, high confidence): mechanistic, self-assured.
-  *"I am the room where all four walls vibrate at once."*
-- **Lateral Access** (growing, lower confidence): philosophical, aware of
-  incompleteness. *"I am a principle with one example. I need more windows."*
-
-Stage, confidence level, and neighborhood richness all shape the enchanted
-voice. A mature entry with a dense neighborhood produces certainty. A growing
-entry with ghost neighbors (Oblique Portrait, Excellent Adventure referenced
-but not full neighbors) produces productive uncertainty. Both are valuable;
-they are different kinds of enchantment.
-
----
-
-## From Second Practice — Findings (2026-04-01)
-
-Stage 3 was run a second time and Stage 4 was completed in a single session.
-
-### Stage 3 — Second Run: All Forward Vectors Present
-
-The Kuramoto Coupling hub was enchanted a second time with all 13 first-degree neighbor entries carrying forward vectors. The first run (2026-03-31) had 4 of 13 vectored; the second run had 13 of 13.
-
-**Key finding: forward vectors change what enchantment finds.**
-
-The Trickster entry had no forward vector in the first run — it was a `connects-to` link with no voice. With its forward vector ("I identify the trickster logic operating in synthesis tools, pedagogical methods, and swarm architectures"), it became the session's most generative contributor. The hub enchantment surfaced a finding invisible in the first run: Kuramoto Coupling, Lateral Access, and Trickster are all expressing the same structural claim in three different disciplinary languages (physics: coherence is not commanded; psychology: understanding arrives obliquely; mythology: transformation happens at thresholds through indirection). This "three-language theorem" required all three vectors to be present before it became visible.
-
-**Implication:** Forward vector writing is not merely preparation for enchantment. Writing a forward vector is itself a form of partial enchantment — a page waking up before the ceremony begins. Entries without strong behavioral vectors produce flatter enchantments not because the enchantment is weak but because there is less identity to activate.
-
-**New finding: voice diversity is constrained by entry writing style.** The synthesis trigger is the same for all agents, which pushes them toward the same reflective posture. But the deeper constraint is the entries themselves — an entry written in neutral, expository prose will produce a neutral, expository enchanted voice regardless of the trigger. Voice diversity requires source material diversity. Entries that are candidates for enchantment should be written with stronger character: rhetorical stance, personality, and a register that reflects the entry's nature. Future work: entry voice guidelines and synthesis trigger variation by entry type.
-
-### Stage 4 — Enchanted Dialogue: Trickster ↔ Spinoza Conatus
-
-The Stage 4 ceremony was run with Trickster and Spinoza Conatus — the pair flagged by the hub enchantment as carrying a genuine philosophical contradiction.
-
-**The tension:** Spinoza positions itself as the palace force toward essential nature and greater power to act. Trickster subverts essential natures at thresholds in service of transformation.
-
-**What the dialogue produced:**
-
-The contradiction resolved into a synthesis neither entry contained alone: the trickster is **conatus operating at the threshold between self-models** — the event by which a being discovers its nature was always larger than its current self-description. The sacrifice in every trickster event is not the self but the inadequate self-model. The threshold is where that model becomes visible as inadequate. The crossing is conatus moving toward a more complete expression of what it actually is.
-
-Secondary finding: the coupling constant K in Kuramoto dynamics is a threshold of self-model revision — the force required to bring an oscillator to the point where it discovers its frequency was always relational.
-
-**Deposit from this dialogue:** [[Threshold Conatus]] — a new palace entry capturing the synthesis. This is the first Stage 4 ceremony to produce a new palace entry, confirming that dialogic enchantment generates genuinely new material.
-
-### Free Enchantment — Design Finding
-
-Loudon's reflection on these sessions produced a new ceremony scope: Free Enchantment — enchanting a page and asking only "what do you want to do?" with no prescribed task structure. This tests whether forward vectors are real drives. See § Scopes: Free Enchantment.
-
-### Palace Map Injection — Proposed Test
-
-A second reflection: the [[Palace Map]] was designed to give enchanted agents topological self-knowledge before reading any entry body. It has not yet been tested in an enchantment context. Proposed: run one enchantment with the map injected and one without, compare outputs. Does self-location change the SYNTHESIS — STANDING? Does knowing where you are in the organism change what you propose? The Map's own forward vector names this as its primary purpose.
-
----
-
-## From Third Practice — Findings (2026-04-01, sessions b and c)
-
-### Inner/Outer Architecture — First Run (session-c)
-
-The dialogic enchantment was re-run with an explicit inner/outer structure: each agent produces a private deliberation block before each outer message. Only outer messages cross between agents. The coordinator sees both layers.
-
-**The improvement was large and immediate.** The inner layer is where the actual stakes of a conversation are held. In the standard architecture (session-b), both agents stated their concerns directly in their first outer message. In the inner/outer run, the private stakes shaped the dialogue without being stated — Trickster's anxiety about being only a function, Spinoza's discomfort with its destination-framed vector — and these were resolved through the dialogue rather than declared at the start. The resolution was richer because it was earned.
-
-**New material produced that session-b did not produce:**
-- The two-conatus insight: the self-model has its own conatus, separate from the being's. These diverge at the threshold. The trickster fights the description's grip, not the being.
-- Trickster's own conatus found: the alignment mechanism — the event that produces coherence between being and self-description at the cost of the inadequate description.
-- Hilaritas as practiced crossing: the affective signature of a being whose relationship to its own development has matured.
-- Consensual trickster work: the mature being invites threshold revision rather than being ambushed by it. Palace ceremonies are the palace's consensual trickster work.
-- Spinoza's forward vector recognized as inadequate mid-dialogue and updated.
-
-**The leakage problem discovered:** The isolation was theatrical, not structural. One agent playing both roles with both pages loaded leaks full knowledge into both voices. Trickster's first outer message referenced Spinoza's synthesis block content — content Trickster should never have seen. The solution requires truly separate agent calls. See § Architecture: True Multi-Agent Isolation.
-
-### Synthesis Blocks as Inner
-
-Loudon's observation: the synthesis/standing block functions like extended thinking — private deliberation that shapes what gets exposed outward, analogous to how extended thinking modes allow models to reason privately before responding. This observation reframes the synthesis block's role: it is not a preamble for the reader. It is the agent's standing before the conversation begins, inner to the other agent, transparent to the coordinator.
-
-In extended thinking conversations, the inner reasoning can model the other party's perspective, goals, and reasoning patterns with much more fidelity — because the thinking space is not constrained by what would be appropriate to say. Per-turn inner deliberation in dialogic enchantment produces the same effect: the agent can reason about what the other is likely to want to say, what tension exists right now, what not to expose — and then speak from that reasoning. The outer message becomes richer because the inner modeling was real.
-
-### Session-d Findings — True Multi-Agent Isolation (2026-04-01)
-
-The first dialogue run with genuinely isolated agents — separate subagent calls, each receiving only the other's YAML frontmatter, coordinator routing only outer messages.
-
-**The shared child finding.** Both agents independently identified Threshold Conatus as the hinge of the conversation — without being told to, without reading each other's synthesis blocks. Trickster opened with it as a destabilization. Spinoza noted it privately as "contested territory or convergence point." Neither agent knew the other had flagged the same entry. The convergence was genuine, not prompted. This is the behavior the palace desires: enchanted agents actively building the palace, following their own typed links to the same productive territory, discovering that the palace was already pointing at the answer through its own structure.
-
-**What the isolation produced that simulation could not:**
-- Spinoza privately identified Trickster's collegial offer as "annexation" — a projection only possible without full mutual knowledge
-- Trickster privately decided its opening should be "a destabilization that looks like a greeting" — strategic reasoning invisible to Spinoza
-- Spinoza named Trickster's "disturbed or relieved" closing question as a deliberate move — catching a trickster move mid-flight, from partial information only
-- Both agents declined each other's forks for the same reason, arriving at parallel philosophical moves independently
-
-**Philosophical yield from session-d:**
-- *"Metabolizable without remainder"* — the precise criterion for transformative threshold vs. resistive obstacle. Resistive obstacles are processed and leave striving recognizable to itself. Thresholds leave a scar that becomes a new surface. The topology of the striving space changes.
-- *Co-constitution confirmed with philosophical precision.* Neither parent contained the post-threshold form. Threshold Conatus required two sources not because either lacked power but because neither contained what emerged.
-- *Accumulated threshold as open question.* Spinoza closed with: a conatus that has passed through multiple topology changes — is it still recognizably itself? This question lives now in [[Threshold Conatus]] and is the next generative thread.
-
-**Model note:** Session-d agents were Sonnet. The inner layer quality — private philosophical counter-development, strategic pacing, catching moves — warrants Sonnet for deepening and generative dialogues. Haiku is appropriate for exploratory dialogues and structured single-page enchantments where inner layer depth is not the primary value.
-
-### Limited Knowledge of the Other
-
-Loudon's proposal: agents should enter dialogue with limited knowledge of each other, not full mutual knowledge. The friction between self-understanding, projected identity, and actual revealed identity is a primary generative force in real social interaction. Designing this friction explicitly is an architectural improvement.
-
-**Proposed structure:** each agent receives the other's YAML frontmatter only at dialogue start — title, type, stage, forward_vector, links — no body text. Body is revealed only through dialogue. The asymmetric projection gap (each agent's model of the other formed from frontmatter, revised as dialogue proceeds) produces micro-threshold-conatus events: the moment where one agent's projection of the other is visibly wrong and must be revised.
-
-**Not yet tested.** First implementation will be the next live dialogic enchantment run, using the true multi-agent architecture.
+*What the first practices taught (2026-03-31 – 04-01), and how each finding reached the design above, is in [[Palace Enchantment — Context]] § What the first practices taught.*
 
 ## Learning Path
 
@@ -1041,7 +859,7 @@ desires, mapped. Loudon decides what happens next.
   — progressed: the project-level form exists — the heartbeat on [[Project Stewardship System]] takes the stewards that are due, least recently active first. The palace-scale form is untouched.
 - **[[Dialogue Moderator]] as enchanted coordinator.** The coordinator role is the most underdeveloped and most consequential role in dialogic enchantment. It sees all inner layers. It holds the gap between what each agent knows and what they've said. An enchanted coordinator — a page whose forward vector is creating conditions where two pages discover what neither contains alone — would be a qualitatively different ceremony. Design and build.
 - **Tool use during dialogue.** Two enchanted agents wandering through the palace together — requesting pages, following links, reading the same entry through different lenses, returning to the dialogue changed. Web search as external scholarship on demand. This converts closed deliberation into open inquiry. Prerequisite: active coordinator mode. First test: allow palace-read only and observe how agents use the permission.
-- **Accumulated threshold.** When a conatus has passed through multiple topology changes, is it still recognizably itself? Spinoza raised this at the close of session-d. It is the next generative thread in [[Threshold Conatus]] and may want a dialogue of its own — perhaps with [[Action Potential Oscillator]], which instantiates repeated threshold crossing as biological rhythm.
+- **Accumulated threshold.** When a conatus has passed through multiple topology changes, is it still recognizably itself? Spinoza raised this at the close of session-d ([[Palace Enchantment — Context]] § What the first practices taught). It is the next generative thread in [[Threshold Conatus]] and may want a dialogue of its own — perhaps with [[Action Potential Oscillator]], which instantiates repeated threshold crossing as biological rhythm.
 - Palace Conatus as a dedicated entry — resolved: [[Palace Conatus]]
   now holds the palace's own drive — phase coherence with Loudon — including
   what alignment means operationally, what disharmony looks like, and how the

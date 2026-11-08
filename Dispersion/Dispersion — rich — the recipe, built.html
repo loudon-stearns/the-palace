@@ -1,0 +1,445 @@
+<!doctype html>
+<!--
+  title: Dispersion — rich — the recipe, built
+  born: 2026-11-03
+  links: [[Dispersion]] (connects-to · rich-face-piece) · listed in [[Dispersion — rich.json]] · serves § Convolution and Artificial Dispersion and open question 1 · leans on [[Dispersion Table]] (the cascade inside the loop) and [[Piano String Inharmonicity]] (a struck string is a convolution) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the section's recipe built and put to its own open question: one all-pass section, many in a row, a cascade fitted to a stiff string's travel time, a struck note sent through it, and last a blind pair, the stiff string against a harmonic string through the fitted cascade, at four amounts of stiffness. I show what the recipe buys (the chirp's timing) and what it cannot (where the partials sit), and leave the hearing to the listener. I change only when the section I serve does.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound. The kit quiets it when the page hides or is left alone.
+  check: Dispersion — rich — check.mjs runs this page's engine in Node against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The recipe, built</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6; --plain:#c8c8d8;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .ctl{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);margin-top:12px}
+  .ctl input[type=range]{width:260px;accent-color:var(--accent)}
+  .ctl output{font-family:var(--mono);font-size:12.5px;color:var(--accent);min-width:15ch}
+  .seg{display:inline-flex;border:1px solid var(--border);border-radius:4px;overflow:hidden}
+  .seg button{font-family:var(--sans);font-size:13px;color:var(--fg-3);background:transparent;border:0;border-right:1px solid var(--border);padding:6px 12px;cursor:pointer}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{color:var(--bg);background:var(--fg-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:6px 11px}
+  button:disabled{opacity:.4;cursor:default}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400} .meter i{color:var(--violet);font-style:normal} .meter u{color:var(--plain);text-decoration:none}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2);width:100%}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 12px 5px 0;text-align:right;font-weight:400;vertical-align:top}
+  table.t th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t i{color:var(--violet);font-style:normal}
+  .verdict{font-family:var(--sans);font-size:14px;color:var(--fg-1);margin-top:14px;max-width:72ch;border-left:1.5px solid var(--accent-line);padding-left:12px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl input[type=range]{width:180px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Dispersion · Convolution and Artificial Dispersion · five steps</div>
+  <h1>The recipe, built</h1>
+  <p class="lead">The section gives a recipe: cascade all-pass filters, tune each one’s delay to a target dispersion relation, and convolve, for the phase signature of a dispersive medium at real-time cost. Build it, one section first, and ask the open question it raises: can you tell the copy from the string?</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel" id="p-main">
+    <div class="plabel"><span id="pic-l"></span><span id="pic-r"></span></div>
+    <canvas id="pic" height="300"></canvas>
+    <div class="ctl" id="c-a"><label for="a">coefficient a</label><input type="range" id="a" min="-0.98" max="-0.3" step="0.01" value="-0.9"><output id="a-o"></output></div>
+    <div class="ctl" id="c-m"><label for="m">sections in a row</label><input type="range" id="m" min="1" max="600" step="1" value="1"><output id="m-o"></output></div>
+    <div class="ctl" id="c-b"><span>stiffness B</span><div class="seg" id="bsel"></div></div>
+    <div class="rowb" id="c-play"></div>
+    <div class="meter" id="meter"></div>
+  </div>
+
+  <div class="panel hide" id="p-test">
+    <div class="plabel"><span>the test · which one is the string?</span><span>a blind pair, then what was measured</span></div>
+    <div class="ctl"><span>stiffness B</span><div class="seg" id="bsel2"></div></div>
+    <div class="rowb"><button class="play" id="px">▸ X</button><button class="play" id="py">▸ Y</button><span class="hint">one is the stiff string struck; one is a harmonic string through the recipe’s cascade, fitted to the same stiffness</span></div>
+    <div class="rowb"><button class="ghost" id="gx">X is the string</button><button class="ghost" id="gy">Y is the string</button><button class="ghost small" id="shuffle">new pair</button><span class="hint" id="guess"></span></div>
+    <table class="t" id="test-t"></table>
+    <p class="verdict" id="verdict"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sig" fill="none" stroke="#8a8aa0" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · made for the rich face of Dispersion · the engine runs here, in this page, and in its check</span></footer>
+</main>
+
+<script id="engine">
+// ---- engine: the page's recipe, built (shared by the page and its check) ----
+// The target: a click after P trips along a stiff string (f0 = 110 Hz, stiffness B). Long waves take P ⁄ (2·f0) seconds;
+// a frequency f takes that times dν ⁄ df, where f = ν·√(1 + B·(ν ⁄ f0)²) is the stiff string's law (ν: the plain string's frequency
+// for the same wavelength). The highs arrive first.
+const F0 = 110, PASSES = 12, FS_REF = 48000;
+const nuOf = (f, B) => (B === 0 ? f : Math.sqrt(F0 * F0 / (2 * B) * (Math.sqrt(1 + 4 * B * f * f / (F0 * F0)) - 1)));
+const dfdnu = (nu, B) => { const q = B * (nu / F0) ** 2; return (1 + 2 * q) / Math.sqrt(1 + q); };
+const travel = (f, B, P) => (P / (2 * F0)) / dfdnu(nuOf(f, B), B);   // seconds
+const stiffPartial = (n, B) => n * F0 * Math.sqrt(1 + B * n * n);
+const cents = (a, b) => 1200 * Math.log2(a / b);
+// one first-order allpass, H(z) = (a + z⁻¹) ⁄ (1 + a·z⁻¹): level one at every frequency; its group delay in samples
+const apDelay = (a, w) => (1 - a * a) / (1 + 2 * a * Math.cos(w) + a * a);
+const apMag = (a, w) => { const nr = a + Math.cos(w), ni = -Math.sin(w), dr = 1 + a * Math.cos(w), di = -a * Math.sin(w); return Math.hypot(nr, ni) / Math.hypot(dr, di); };
+// the shelf of sections the fit may use: first-order, coefficient a from −0.5 to −0.999 (a < 0 holds the lows back, so highs come first)
+const SHELF = []; for (let s = 0.05; s <= 3.0001; s += 0.05) SHELF.push(-(1 - Math.pow(10, -s)));
+const FIT_LO = 80, FIT_HI = 10000, FIT_N = 96, FIT_COST = 10;   // FIT_COST: a small price on every section, so the fit uses fewer
+const fitFreqs = () => { const a = []; for (let i = 0; i < FIT_N; i++) a.push(FIT_LO * Math.pow(FIT_HI / FIT_LO, i / (FIT_N - 1))); return a; };
+// fit: how many of each section (whole numbers, none negative) so the cascade's extra delay of the lows matches the string's
+function fitCascade(B, P, fs) {
+  // columns: one per kind of section (its delay at each frequency), and a last one for a plain delay line (the same at every frequency)
+  const fr = fitFreqs(), w = fr.map((f) => 2 * Math.PI * f / fs);
+  const target = fr.map((f) => travel(f, B, P) * fs);
+  const A = SHELF.map((a) => w.map((x) => apDelay(a, x))); A.push(w.map(() => 1));
+  const c = new Float64Array(A.length), r = Float64Array.from(target), nn = A.map((col) => col.reduce((s, v) => s + v * v, 0));
+  for (let it = 0; it < 6000; it++) for (let j = 0; j < A.length; j++) {
+    let dot = 0; for (let i = 0; i < r.length; i++) dot += A[j][i] * r[i];
+    const nc = Math.max(0, c[j] + (dot - (j < SHELF.length ? FIT_COST : 0)) / nn[j]), dc = nc - c[j]; if (!dc) continue; c[j] = nc; for (let i = 0; i < r.length; i++) r[i] -= dc * A[j][i];
+  }
+  const counts = Array.from(c.subarray(0, SHELF.length), (v) => Math.round(v));
+  const sections = []; counts.forEach((k, j) => { for (let q = 0; q < k; q++) sections.push(SHELF[j]); });
+  const own = (x) => sections.reduce((s, a) => s + apDelay(a, x), 0);
+  // the delay line takes up what rounding left: the best whole number of samples
+  let sum = 0; fr.forEach((f, i) => { sum += target[i] - own(w[i]); }); const bulk = Math.max(0, Math.round(sum / fr.length));
+  const got = (f) => (bulk + own(2 * Math.PI * f / fs)) / fs;
+  let worst = 0, sq = 0; fr.forEach((f) => { const e = got(f) - travel(f, B, P); worst = Math.max(worst, Math.abs(e)); sq += e * e; });
+  return { sections, counts, bulk, got, worstMs: worst * 1000, rmsMs: Math.sqrt(sq / fr.length) * 1000 };
+}
+// run a signal through the cascade: the bulk delay, then every section in turn
+function runCascade(x, fit) {
+  let y = new Float64Array(x.length + fit.bulk); y.set(x, fit.bulk);
+  for (const a of fit.sections) { let x1 = 0, y1 = 0; for (let i = 0; i < y.length; i++) { const xi = y[i], yi = a * xi + x1 - a * y1; x1 = xi; y1 = yi; y[i] = yi; } }
+  return y;
+}
+// the exact answer, for comparison: the click carried through the stiff law by its phase, bin by bin
+function fft(re, im, inverse) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const a = (inverse ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], k = i + j + len / 2, vr = re[k] * cr - im[k] * ci, vi = re[k] * ci + im[k] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[k] = ur - vr; im[k] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+  }
+  if (inverse) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+}
+const NFFT = 1 << 14, T0 = 0.004;
+const band = (f) => (f <= 0 ? 0 : 1 / (1 + Math.pow(FIT_LO / f, 6)) / (1 + Math.pow(f / FIT_HI, 8)));
+// a click, shaped to the fitted band; then the same click with the stiff string's travel put into its phase
+function shapedClick(fs, B, P) {
+  const N = NFFT, re = new Float64Array(N), im = new Float64Array(N);
+  for (let k = 1; k < N / 2; k++) { const f = k * fs / N, ph = -2 * Math.PI * f * T0 - (B === null ? 0 : 2 * Math.PI * nuOf(f, B) * P / (2 * F0)); re[k] = band(f) * Math.cos(ph); im[k] = band(f) * Math.sin(ph); re[N - k] = re[k]; im[N - k] = -im[k]; }
+  fft(re, im, true); return re;
+}
+function correlation(a, b) { const n = Math.min(a.length, b.length); let ab = 0, aa = 0, bb = 0; for (let i = 0; i < n; i++) { ab += a[i] * b[i]; aa += a[i] * a[i]; bb += b[i] * b[i]; } return ab / Math.sqrt(aa * bb); }
+// a string struck between two ends: partials at n·f0·√(1 + B·n²); B = 0 is the harmonic string, tuned to the stiff one's first partial
+function strike(B, fs, dur, f1) {
+  const n = Math.round(dur * fs), out = new Float64Array(n), base = f1 || F0;
+  for (let m = 1; m <= 60; m++) {
+    const f = B === 0 ? m * base : stiffPartial(m, B); if (f > 12000) break;
+    const amp = Math.sin(m * Math.PI * 0.13) / m, w = 2 * Math.PI * f / fs, dec = Math.exp(-(1.2 + f / 900) / fs);
+    let g = amp; for (let i = 0; i < n; i++) { out[i] += g * Math.sin(w * i); g *= dec; }
+  }
+  return out;
+}
+// find partials in a rendered sound: one long Hann-windowed, zero-padded FFT; each peak near where it should be, read between bins
+function partialsIn(y, fs, nears) {
+  const N = 1 << 18, re = new Float64Array(N), im = new Float64Array(N), len = Math.min(y.length, N);
+  for (let i = 0; i < len; i++) re[i] = y[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (len - 1)));
+  fft(re, im, false);
+  const bin = fs / N, mag = (k) => Math.hypot(re[k], im[k]);
+  return nears.map((near) => {
+    const k0 = Math.round(near * 0.985 / bin), k1 = Math.round(near * 1.015 / bin);
+    let bk = k0, bv = -1; for (let k = k0; k <= k1; k++) { const v = mag(k); if (v > bv) { bv = v; bk = k; } }
+    const a = Math.log(mag(bk - 1)), b = Math.log(bv), c = Math.log(mag(bk + 1));
+    return (bk + 0.5 * (a - c) / (a - 2 * b + c)) * bin;
+  });
+}
+// when a band of a rendered chirp peaks: a one-sixth-octave Gaussian band, its envelope's peak
+function bandArrival(y, fc, fs) {
+  const N = y.length, re = Float64Array.from(y), im = new Float64Array(N), s = 1 / 6;
+  fft(re, im, false);
+  for (let k = 0; k < N; k++) { if (k === 0 || k >= N / 2) { re[k] = 0; im[k] = 0; continue; } const g = Math.exp(-0.5 * Math.pow(Math.log2((k * fs / N) / fc) / s, 2)) * 2; re[k] *= g; im[k] *= g; }
+  fft(re, im, true);
+  let bi = 1, bv = 0; for (let i = 1; i < N - 1; i++) { const v = re[i] * re[i] + im[i] * im[i]; if (v > bv) { bv = v; bi = i; } }
+  const a = Math.hypot(re[bi - 1], im[bi - 1]), b = Math.hypot(re[bi], im[bi]), c = Math.hypot(re[bi + 1], im[bi + 1]);
+  return (bi + (a - c) / (2 * (a - 2 * b + c) || 1)) / fs - T0;
+}
+// ---- end engine ----
+
+</script>
+<script>
+const FS = 48000, BS = [0.004, 0.001, 0.0003, 0.0001];
+const $ = (id) => document.getElementById(id);
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const S = { step: 0, a: -0.9, m: 1, B: 0.001, pair: null, guessed: null };
+const STEPS = [
+  { name: 'one section', title: 'One all-pass section', kind: 'one',
+    say: 'The recipe’s brick: one first-order all-pass. It passes every frequency at exactly the level it came in; all it changes is when. With a negative coefficient it holds the lows back a few samples and lets the highs through almost at once, so a click comes out as a short smear, the first sample at once and a tail behind it. Its zero sits outside the unit circle, which makes it not minimum-phase, though it is causal and stable.',
+    do: 'Drag the coefficient. Play the click, then the click through the section.', watch: 'Left: the click after the section, sample by sample. Right: the delay at each frequency (violet) and the level (grey), flat at one.', hear: 'Nothing you can tell apart: one section delays the lows by a fraction of a millisecond. That is why the recipe needs many.' },
+  { name: 'many in a row', title: 'Many in a row', kind: 'many',
+    say: 'Put the same section in a row, many times. The delays add, so the lows fall further and further behind the highs, and the click opens into a chirp, highs first: the same falling sweep a click makes running down a stiff string. Still nothing has been taken out or added in level. Only time has moved.',
+    do: 'Drag the number of sections. Play.', watch: 'The click opening into a sweep, and the delay curve growing with the count.', hear: 'A click becoming a “pew” as the count rises.' },
+  { name: 'tuned to a string', title: 'Tuned to a string', kind: 'fit',
+    say: 'Now the recipe proper. The target: a click after twelve trips along a stiff string tuned to 110 Hz. A fit picks how many sections of each coefficient, and a plain delay line for what is the same at every frequency, so that the cascade’s delay matches the string’s travel time from 80 Hz to 10 kHz. Then a click goes through the cascade and, beside it, through the string’s law exactly, bin by bin.',
+    do: 'Pick a stiffness. Play the string’s chirp, then the cascade’s.', watch: 'The string’s travel time (line) and the cascade’s (dots); below, the two chirps.', hear: 'Two falling chirps. The recipe buys the timing.' },
+  { name: 'a held note', title: 'A struck note through it', kind: 'note',
+    say: 'The recipe says convolve, so put a note through it. Strike a harmonic string, every partial a whole multiple of the first, and run it through the fitted cascade. The attack picks up the chirp. The partials do not move: a filter that does not change over time can only change the level and timing of a frequency that is already there, never make a new one. The stiff string’s own partials sit where its law puts them, sharp of the grid.',
+    do: 'Pick a stiffness. Play all three.', watch: 'Partials against the harmonic grid: the harmonic string, the same through the cascade, the stiff string.', hear: 'The harmonic string, the same with a smeared attack, the stiff string.' },
+  { name: 'the test', title: 'The test: which one is the string?', kind: 'test',
+    say: 'The page’s first open question asks whether a listener can tell real wave dispersion from convolution-based dispersion with a crafted impulse response, and at what amount. Here is the pair at four amounts of stiffness, blind. Two things differ, not one: where the partials sit, and the copy’s attack, which carries the twelve-trip chirp (from 110 Hz to 4 kHz it spreads 34.6, 25.7, 15.8 and 7.9 ms at the four stiffnesses; twelve trips is a choice made here, not the page’s). Then the numbers, which settle what the ear has to go on.',
+    do: 'Pick a stiffness. Play X and Y, then say which is the string. Try a smaller B.', watch: 'The table fills in when you guess: what the copy matched, and what it could not.', hear: 'The two, as many times as you like. Your ear is the only judge here: no agent has heard these.' },
+];
+const sigPath = (() => { let s = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; s += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + 0.6)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } return s; })();
+$('sig').setAttribute('d', sigPath);
+function fit(c) { const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 900, h = +c.getAttribute('height'); c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h }; }
+const f2 = (x, d) => x.toFixed(d);
+// ---- what is rendered, kept so each is made once ----
+const fits = new Map(), cache = new Map();
+const fitOf = (B) => { if (!fits.has(B)) fits.set(B, fitCascade(B, PASSES, FS)); return fits.get(B); };
+const memo = (key, make) => { if (!cache.has(key)) cache.set(key, make()); return cache.get(key); };
+const clickPlain = () => memo('click', () => shapedClick(FS, null, PASSES));
+const exactChirp = (B) => memo('exact' + B, () => shapedClick(FS, B, PASSES));
+const cascadeChirp = (B) => memo('casc' + B, () => runCascade(clickPlain(), fitOf(B)).subarray(0, NFFT));
+const harmonicNote = (B) => memo('harm' + B, () => strike(0, FS, 2.2, stiffPartial(1, B)));
+const throughNote = (B) => memo('thru' + B, () => runCascade(harmonicNote(B), fitOf(B)).subarray(0, Math.round(2.2 * FS)));
+const stiffNote = (B) => memo('stiff' + B, () => strike(B, FS, 2.2));
+const manyChirp = (a, m) => { const x = clickPlain().subarray(0, Math.round(0.25 * FS)); return runCascade(x, { sections: new Array(m).fill(a), bulk: 0 }); };
+// ---- sound ----
+let ctx = null, master = null, voices = [];
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp).connect(ctx.destination);
+}
+function stop() { for (const v of voices) { try { v.stop(); } catch (e) {} } voices = []; }
+function normalise(y, peak) { let pk = 0; for (const v of y) pk = Math.max(pk, Math.abs(v)); const out = new Float32Array(y.length), fade = Math.min(y.length >> 2, Math.round(0.02 * FS)); for (let i = 0; i < y.length; i++) out[i] = peak * y[i] / (pk || 1) * Math.min(1, (y.length - 1 - i) / fade); return out; }
+function rms(y) { let s = 0; for (const v of y) s += v * v; return Math.sqrt(s / y.length); }
+function playData(y, when, peak) { ensureAudio(); if (ctx.state !== 'running') ctx.resume(); const d = normalise(y, peak || 0.5), b = ctx.createBuffer(1, d.length, FS); b.copyToChannel(d, 0); const s = ctx.createBufferSource(); s.buffer = b; s.connect(master); s.start(ctx.currentTime + (when || 0)); voices.push(s); }
+// notes are matched in loudness, not in peak, so neither one is told apart by level
+function playNote(y) { const target = 0.12, r = rms(y.subarray(0, Math.round(1.0 * FS))); ensureAudio(); if (ctx.state !== 'running') ctx.resume(); const d = new Float32Array(y.length), fade = Math.round(0.03 * FS); for (let i = 0; i < y.length; i++) d[i] = Math.max(-0.95, Math.min(0.95, y[i] * target / r)) * Math.min(1, (y.length - 1 - i) / fade); const b = ctx.createBuffer(1, d.length, FS); b.copyToChannel(d, 0); const s = ctx.createBufferSource(); s.buffer = b; s.connect(master); s.start(); voices.push(s); }
+function busy(btn, fn) { const t = btn.textContent; btn.disabled = true; btn.textContent = 'rendering…'; setTimeout(() => { try { fn(); } finally { btn.disabled = false; btn.textContent = t; } }, 20); }
+function buttons(list) { const h = $('c-play'); h.innerHTML = ''; list.forEach(([label, fn], i) => { const b = document.createElement('button'); b.className = i ? 'ghost' : 'play'; b.textContent = '▸ ' + label; b.onclick = () => { stop(); busy(b, fn); }; h.appendChild(b); }); }
+// ---- pictures ----
+function axesLogF(g, x0, x1, top, bot, label) { const FMIN = 20, FMAX = 20000, X = (f) => x0 + (x1 - x0) * Math.log(f / FMIN) / Math.log(FMAX / FMIN); g.strokeStyle = css('--border-soft'); g.strokeRect(x0, top, x1 - x0, bot - top); g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3'); for (const f of [100, 1000, 10000]) g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), X(f) - 8, bot + 14); g.fillText(label, x0 + 6, top + 12); return X; }
+function drawWave(g, y, x0, x1, top, bot, n, colour) { let pk = 0; for (let i = 0; i < n; i++) pk = Math.max(pk, Math.abs(y[i] || 0)); const mid = (top + bot) / 2, sc = (bot - top) * 0.45 / (pk || 1); g.strokeStyle = colour; g.lineWidth = 1.1; g.beginPath(); for (let px = 0; px <= x1 - x0; px++) { const i0 = Math.floor(px / (x1 - x0) * n), i1 = Math.max(i0 + 1, Math.floor((px + 1) / (x1 - x0) * n)); let lo = 0, hi = 0; for (let i = i0; i < i1; i++) { lo = Math.min(lo, y[i] || 0); hi = Math.max(hi, y[i] || 0); } g.moveTo(x0 + px, mid - hi * sc); g.lineTo(x0 + px, mid - lo * sc + 0.5); } g.stroke(); }
+function drawOne() {
+  const { g, w, h } = fit($('pic')), a = S.a, half = w / 2 - 10, top = 10, bot = h - 24; g.clearRect(0, 0, w, h);
+  // the impulse response, sample by sample: h[0] = a, h[n] = (1 − a²)·(−a)^(n−1)
+  const N = 40, ir = [a]; for (let n = 1; n < N; n++) ir.push((1 - a * a) * Math.pow(-a, n - 1));
+  const X = (n) => 40 + (half - 50) * n / N, Y = (v) => (top + bot) / 2 - v * (bot - top) * 0.42;
+  g.strokeStyle = css('--border-soft'); g.strokeRect(30, top, half - 30, bot - top); g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3'); g.fillText('the click after one section · samples →', 36, top + 12);
+  g.strokeStyle = css('--accent'); g.fillStyle = css('--accent'); ir.forEach((v, n) => { g.beginPath(); g.moveTo(X(n), Y(0)); g.lineTo(X(n), Y(v)); g.stroke(); g.beginPath(); g.arc(X(n), Y(v), 2.2, 0, 2 * Math.PI); g.fill(); });
+  const ox = half + 20, Xf = axesLogF(g, ox, w - 10, top, bot, 'delay in samples (violet) · level (grey)'), dmax = Math.max(2, (1 - a) / (1 + a) * 1.15), Yd = (d) => bot - (bot - top) * d / dmax;
+  g.strokeStyle = css('--fg-3'); g.beginPath(); g.moveTo(ox, Yd(1)); g.lineTo(w - 10, Yd(1)); g.stroke(); g.fillStyle = css('--fg-3'); g.fillText('level 1', w - 60, Yd(1) - 4);
+  g.strokeStyle = css('--violet'); g.lineWidth = 1.6; g.beginPath(); for (let i = 0; i <= 200; i++) { const f = 20 * Math.pow(1000, i / 200), y = Yd(apDelay(a, 2 * Math.PI * f / FS)); i ? g.lineTo(Xf(f), y) : g.moveTo(Xf(f), y); } g.stroke(); g.lineWidth = 1;
+  g.fillStyle = css('--violet'); g.fillText(f2((1 - a) / (1 + a), 1) + ' samples', ox + 6, Yd((1 - a) / (1 + a)) - 4);
+  $('pic-l').textContent = 'one first-order all-pass, H(z) = (a + z⁻¹) ⁄ (1 + a·z⁻¹)'; $('pic-r').textContent = 'at 48 kHz';
+}
+function drawMany() {
+  const { g, w, h } = fit($('pic')), a = S.a, m = S.m, top = 10, mid = h * 0.55, bot = h - 24; g.clearRect(0, 0, w, h);
+  const y = manyChirp(a, m), n = Math.round(0.08 * FS);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3'); g.fillText('the click after ' + m + ' section' + (m > 1 ? 's' : '') + ' · first 80 ms', 8, top + 12);
+  drawWave(g, y, 0, w, top + 14, mid - 6, n, css('--accent'));
+  const Xf = axesLogF(g, 64, w - 10, mid + 4, bot, 'delay in ms, every section added up'), dmax = Math.max(1, m * (1 - a) / (1 + a) / FS * 1000 * 1.1), Yd = (d) => bot - (bot - mid - 4) * d / dmax;
+  g.strokeStyle = css('--violet'); g.lineWidth = 1.6; g.beginPath(); for (let i = 0; i <= 200; i++) { const f = 20 * Math.pow(1000, i / 200), yy = Yd(m * apDelay(a, 2 * Math.PI * f / FS) / FS * 1000); i ? g.lineTo(Xf(f), yy) : g.moveTo(Xf(f), yy); } g.stroke(); g.lineWidth = 1;
+  g.fillStyle = css('--fg-3'); g.fillText(f2(dmax / 1.1, 1) + ' ms', 4, Yd(dmax / 1.1) + 3); g.fillText('0', 52, bot);
+  $('pic-l').textContent = m + ' identical sections, a = ' + f2(a, 2); $('pic-r').textContent = 'the lows fall behind';
+}
+function drawFit() {
+  const { g, w, h } = fit($('pic')), B = S.B, F = fitOf(B), top = 10, mid = h * 0.5, bot = h - 24; g.clearRect(0, 0, w, h);
+  const Xf = axesLogF(g, 44, w - 10, top, mid - 16, ''), tmax = travel(20, B, PASSES) * 1000 * 1.08, tmin = travel(16000, B, PASSES) * 1000 * 0.9, Yt = (t) => mid - 16 - (mid - 16 - top) * (t - tmin) / (tmax - tmin);
+  g.fillStyle = css('--fg-3'); g.fillText(f2(tmax / 1.08, 0) + ' ms', 4, Yt(tmax / 1.08) + 3);
+  g.strokeStyle = css('--fg-2'); g.lineWidth = 1.6; g.beginPath(); for (let i = 0; i <= 200; i++) { const f = 30 * Math.pow(500, i / 200), yy = Yt(travel(f, B, PASSES) * 1000); i ? g.lineTo(Xf(f), yy) : g.moveTo(Xf(f), yy); } g.stroke(); g.lineWidth = 1;
+  g.fillStyle = css('--violet'); for (let i = 0; i <= 28; i++) { const f = 80 * Math.pow(125, i / 28); g.beginPath(); g.arc(Xf(f), Yt(F.got(f) * 1000), 2.6, 0, 2 * Math.PI); g.fill(); }
+  const n = Math.round(0.075 * FS), lh = (bot - mid) / 2;
+  g.fillStyle = css('--fg-3'); g.fillText('a click through the string’s law, exactly · first 75 ms', 8, mid + 10); drawWave(g, exactChirp(B), 0, w, mid + 12, mid + lh, n, css('--fg-2'));
+  g.fillStyle = css('--fg-3'); g.fillText('the same click through the cascade', 8, mid + lh + 10); drawWave(g, cascadeChirp(B), 0, w, mid + lh + 12, bot + 16, n, css('--violet'));
+  g.fillStyle = css('--fg-3'); g.fillText('arrival after twelve trips: the string’s law (line), the cascade (dots)', 50, mid - 24); g.fillText(f2(tmin / 0.9, 0) + ' ms', 4, Yt(tmin / 0.9) + 3);
+  $('pic-l').textContent = 'twelve trips along a stiff string, f0 = 110 Hz, B = ' + B; $('pic-r').textContent = F.sections.length + ' sections + a delay line';
+}
+function ladder(g, x0, x1, y0, freqs, f1, colour, label) {
+  const RMAX = 17.5, X = (r) => x0 + 90 + (x1 - x0 - 100) * (r - 0.5) / (RMAX - 0.5);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = colour; g.fillText(label, x0 + 4, y0 + 3);
+  for (let n = 1; n <= 16; n++) { g.strokeStyle = css('--fg-4'); g.beginPath(); g.moveTo(X(n), y0 - 12); g.lineTo(X(n), y0 + 12); g.stroke(); }
+  g.strokeStyle = colour; g.lineWidth = 2; freqs.forEach((f) => { const r = f / f1; if (r > RMAX) return; g.beginPath(); g.moveTo(X(r), y0 - 8); g.lineTo(X(r), y0 + 8); g.stroke(); }); g.lineWidth = 1;
+}
+let notePartials = new Map();
+function partialsOf(B) {
+  if (!notePartials.has(B)) {
+    const f1 = stiffPartial(1, B), grid = [], str = []; for (let n = 1; n <= 16; n++) { grid.push(n * f1); str.push(stiffPartial(n, B)); }
+    notePartials.set(B, { f1, harm: partialsIn(harmonicNote(B), FS, grid), thru: partialsIn(throughNote(B).subarray(fitOf(B).bulk), FS, grid), stiff: partialsIn(stiffNote(B), FS, str) });
+  }
+  return notePartials.get(B);
+}
+function drawNote() {
+  const { g, w, h } = fit($('pic')), B = S.B, P = partialsOf(B), top = 16; g.clearRect(0, 0, w, h);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = css('--fg-3'); g.fillText('partials 1–16, measured, against n × the first (grey ticks)', 8, 12);
+  ladder(g, 0, w, top + 40, P.harm, P.f1, css('--fg-2'), 'harmonic');
+  ladder(g, 0, w, top + 100, P.thru, P.f1, css('--violet'), 'through cascade');
+  ladder(g, 0, w, top + 160, P.stiff, P.f1, css('--accent'), 'stiff string');
+  g.fillStyle = css('--fg-3'); g.fillText('the attack through the cascade · first 60 ms', 8, top + 196); drawWave(g, throughNote(B), 0, w, top + 200, h - 4, Math.round(0.06 * FS), css('--violet'));
+  $('pic-l').textContent = 'a struck note, f1 = ' + f2(P.f1, 2) + ' Hz, B = ' + B; $('pic-r').textContent = 'where the partials sit';
+}
+// ---- what the step reads out ----
+function drawMeter() {
+  const k = STEPS[S.step].kind, m = $('meter'), a = S.a;
+  if (k === 'one') { let dev = 0; for (let i = 1; i < 2000; i++) dev = Math.max(dev, Math.abs(apMag(a, Math.PI * i / 2000) - 1));
+    m.innerHTML = `level, worst of 2000 frequencies: off one by <b>${dev.toExponential(1)}</b><br>delay: <b>${f2(apDelay(a, 2 * Math.PI * 100 / FS), 2)}</b> samples at 100 Hz · <b>${f2(apDelay(a, 2 * Math.PI * 8000 / FS), 2)}</b> at 8 kHz · the lows wait <i>${f2((apDelay(a, 2 * Math.PI * 100 / FS) - apDelay(a, 2 * Math.PI * 8000 / FS)) / FS * 1000, 3)} ms</i> longer<br>its zero sits at z = −1 ⁄ a, radius <b>${f2(1 / Math.abs(a), 3)}</b>: outside the unit circle, so not minimum-phase · its first sample comes at once (h[0] = a): causal`; }
+  else if (k === 'many') m.innerHTML = `${S.m} × a = ${f2(a, 2)} · the lows (100 Hz) wait <i>${f2(S.m * (apDelay(a, 2 * Math.PI * 100 / FS) - apDelay(a, 2 * Math.PI * 8000 / FS)) / FS * 1000, 2)} ms</i> longer than 8 kHz · cost: <b>${2 * S.m}</b> multiplies a sample`;
+  else if (k === 'fit') { const B = S.B, F = fitOf(B), ex = exactChirp(B), ca = Float64Array.from(cascadeChirp(B)), used = F.counts.map((c, j) => c ? `${c} × ${f2(SHELF[j], 3)}` : '').filter(Boolean).join(', ');
+    const rows = [125, 250, 1000, 4000, 8000].map((f) => `${f >= 1000 ? f / 1000 + ' kHz' : f + ' Hz'}: string <b>${f2(bandArrival(ex, f, FS) * 1000, 2)}</b> · cascade <i>${f2(bandArrival(ca, f, FS) * 1000, 2)}</i> ms`);
+    m.innerHTML = `the fit: ${used}; a delay line of ${F.bulk} samples · <b>${F.sections.length}</b> sections, <b>${2 * F.sections.length}</b> multiplies a sample<br>delay off the string’s, 80 Hz–10 kHz: worst <b>${f2(F.worstMs, 3)} ms</b>, typical <b>${f2(F.rmsMs, 3)} ms</b><br>when each band of the chirp lands, measured from both renders:<br>` + rows.join('<br>'); }
+  else if (k === 'note') { const P = partialsOf(S.B), c = (arr, n) => cents(arr[n - 1], n * P.f1), s = (x) => { const z = Math.abs(x) < 0.005 ? 0 : x; return (z > 0 ? '+' : '') + f2(z, 2); };
+    m.innerHTML = [['harmonic', P.harm], ['through the cascade', P.thru], ['stiff string', P.stiff]].map(([l, arr]) => `${l}: partial 8 <b>${s(c(arr, 8))}</b> · 12 <b>${s(c(arr, 12))}</b> · 16 <b>${s(c(arr, 16))}</b> cents from n × the first`).join('<br>'); }
+  else m.innerHTML = '';
+}
+// ---- the blind pair ----
+function newPair() { S.pair = Math.random() < 0.5 ? ['stiff', 'thru'] : ['thru', 'stiff']; S.guessed = null; $('guess').textContent = ''; drawTest(); }
+const noteOf = (which) => (which === 'stiff' ? stiffNote(S.B) : throughNote(S.B));
+function guess(i) { S.guessed = i; const right = S.pair[i] === 'stiff'; $('guess').textContent = right ? (i ? 'Y' : 'X') + ' is the string. Right.' : (i ? 'Y' : 'X') + ' is the copy. The string was ' + (i ? 'X' : 'Y') + '.'; drawTest(); }
+function drawTest() {
+  if (S.guessed !== null) partialsOf(S.B);
+  if (S.guessed === null) { $('test-t').innerHTML = ''; $('verdict').textContent = ''; return; }
+  const rows = BS.map((B) => { const F = fitOf(B), s8 = cents(stiffPartial(8, B), 8 * stiffPartial(1, B)), s16 = cents(stiffPartial(16, B), 16 * stiffPartial(1, B));
+    const P = notePartials.get(B), z = (x) => f2(Math.abs(x) < 0.005 ? 0 : x, 2), copy = P ? `<i>${z(cents(P.thru[7], 8 * P.f1))}</i> · <i>${z(cents(P.thru[15], 16 * P.f1))}</i>` : 'pick this B to measure';
+    return `<tr${B === S.B ? ' style="color:var(--fg-1)"' : ''}><td>${B}</td><td><b>+${f2(s8, 1)}</b> · <b>+${f2(s16, 1)}</b></td><td>${copy}</td><td>${f2(F.worstMs, 2)} ms</td><td>${F.sections.length}</td></tr>`; }).join('');
+  $('test-t').innerHTML = '<tr><th>stiffness B</th><th>string: partial 8 · 16, cents sharp</th><th>copy: partial 8 · 16</th><th>copy’s chirp timing, worst off</th><th>sections</th></tr>' + rows;
+  const P = partialsOf(S.B), smallest = BS[BS.length - 1], s16min = cents(stiffPartial(16, smallest), 16 * stiffPartial(1, smallest));
+  $('verdict').innerHTML = `What the copy matched: the timing of the chirp, to within ${f2(fitOf(S.B).worstMs, 2)} ms from 80 Hz to 10 kHz at B = ${S.B}. What it could not: where the partials sit. Through the cascade they stay on the harmonic grid (partial 16 measured ${f2(Math.abs(cents(P.thru[15], 16 * P.f1)), 3)} cents off), while the string’s are ${f2(cents(P.stiff[15], 16 * P.f1), 1)} cents sharp at partial 16. So the pair is not two kinds of dispersion heard alike; it is a stretched spectrum against a harmonic one with a smeared attack. Two ways to close the gap, and both leave the recipe as written: convolve with the string’s whole response (a struck string is that convolution, exactly), or put the cascade inside the loop, where the same delay is paid on every trip and moves the partials, as Dispersion Table’s warp knob does. Whether you heard it at B = ${smallest}, where partial 16 is ${f2(s16min, 0)} cents sharp, is yours to say.`;
+}
+function updateEq() {
+  const k = STEPS[S.step].kind;
+  const E = {
+    one: ['H(z) = (a + z⁻¹) ⁄ (1 + a·z⁻¹),   |H| = 1,   τ(ω) = (1 − a²) ⁄ (1 + 2a·cos ω + a²)', '(the section) passes every frequency at level one; (its delay at frequency ω) is largest at the bottom when a is negative'],
+    many: ['τ_total(ω) = M·τ(ω)', '(the delay of M sections in a row) = M × (the delay of one)'],
+    fit: ['τ(ω) = −dφ ⁄ dω   ·   target: t(f) = (P ⁄ 2f0)·dν ⁄ df,   f = ν·√(1 + B·(ν ⁄ f0)²)', '(delay) = minus how fast the phase turns with frequency · (arrival after P trips) = (P half-periods) × (how slowly the stiff string’s law climbs at f)'],
+    note: ['y = x ∗ h   ⇒   Y(f) = X(f)·H(f)', '(the output’s spectrum) = (the input’s) × (the filter’s): where the input has nothing, the output has nothing'],
+    test: ['string: f_n = n·f0·√(1 + B·n²)   ·   copy: f_n = n·f1', '(the string’s partial n) climbs sharp as n grows · (the copy’s) stays a whole multiple of the first'],
+  }[k];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1]; $('eq2').textContent = ''; $('eq2w').textContent = '';
+}
+function draw() { const k = STEPS[S.step].kind; if (k === 'one') drawOne(); else if (k === 'many') drawMany(); else if (k === 'fit') drawFit(); else if (k === 'note') drawNote(); drawMeter(); updateEq(); }
+function setPlay() {
+  const k = STEPS[S.step].kind;
+  if (k === 'one') buttons([['click', () => playData(clickPlain().subarray(0, Math.round(0.25 * FS)))], ['through one section', () => playData(runCascade(clickPlain().subarray(0, Math.round(0.25 * FS)), { sections: [S.a], bulk: 0 }))]]);
+  else if (k === 'many') buttons([['play', () => playData(manyChirp(S.a, S.m))]]);
+  else if (k === 'fit') buttons([['the string', () => playData(exactChirp(S.B).subarray(0, Math.round(0.2 * FS)))], ['the cascade', () => playData(cascadeChirp(S.B).subarray(0, Math.round(0.2 * FS)))]]);
+  else if (k === 'note') buttons([['harmonic', () => playNote(harmonicNote(S.B))], ['through the cascade', () => playNote(throughNote(S.B))], ['stiff string', () => playNote(stiffNote(S.B))]]);
+}
+function bSelect(holder) {
+  holder.innerHTML = ''; BS.forEach((B) => { const b = document.createElement('button'); b.textContent = String(B); b.setAttribute('aria-pressed', B === S.B ? 'true' : 'false');
+    b.onclick = () => { stop(); S.B = B; [$('bsel'), $('bsel2')].forEach((hh) => [...hh.children].forEach((x) => x.setAttribute('aria-pressed', x.textContent === String(B) ? 'true' : 'false'))); if (STEPS[S.step].kind === 'test') newPair(); else { $('meter').textContent = 'rendering…'; setTimeout(draw, 20); } }; holder.appendChild(b); });
+}
+function setStep(i) {
+  stop();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  $('p-main').classList.toggle('hide', st.kind === 'test'); $('p-test').classList.toggle('hide', st.kind !== 'test');
+  $('c-a').classList.toggle('hide', !['one', 'many'].includes(st.kind)); $('c-m').classList.toggle('hide', st.kind !== 'many'); $('c-b').classList.toggle('hide', !['fit', 'note'].includes(st.kind));
+  if (st.kind === 'many' && S.m === 1) { S.m = 120; $('m').value = 120; } updateOut();
+  setPlay();
+  updateEq();
+  if (st.kind === 'test') newPair(); else if (st.kind === 'fit' || st.kind === 'note') { $('meter').textContent = 'rendering…'; setTimeout(draw, 20); } else draw();
+}
+function updateOut() { $('a-o').textContent = 'a = ' + f2(S.a, 2); $('m-o').textContent = S.m + ' section' + (S.m > 1 ? 's' : ''); }
+$('a').oninput = () => { S.a = +$('a').value; updateOut(); draw(); };
+$('m').oninput = () => { S.m = +$('m').value; updateOut(); draw(); };
+bSelect($('bsel')); bSelect($('bsel2'));
+$('px').onclick = () => { stop(); busy($('px'), () => playNote(noteOf(S.pair[0]))); };
+$('py').onclick = () => { stop(); busy($('py'), () => playNote(noteOf(S.pair[1]))); };
+$('gx').onclick = () => guess(0); $('gy').onclick = () => guess(1); $('shuffle').onclick = () => { stop(); newPair(); };
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+window.addEventListener('resize', () => { if (STEPS[S.step].kind !== 'test') draw(); });
+setStep(0);
+</script>
+</body>
+</html>

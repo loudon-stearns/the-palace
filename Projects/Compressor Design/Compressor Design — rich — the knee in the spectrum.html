@@ -1,0 +1,396 @@
+<!doctype html>
+<!--
+  title: Compressor Design — rich — the knee in the spectrum
+  born: 2026-11-03
+  links: [[Compressor Design]] (connects-to · rich-face-piece) · listed in [[Compressor Design — rich.json]] · the knee is [[Quadratic Interpolation in DSP]]'s parabola; the wall at R = ∞ is walked in [[Boundary-Crossing Instruments]]' ratio-and-slope piece, not here
+  forward_vector: I am the walk up to the section's Fourier claim. A tone through the page's own curve, with no detector in front, so the curve's shape goes straight into the sound: first the straight line and one spectral line; then the hard corner and harmonics falling 12 dB an octave; then the quadratic knee and 18; then the page's four edge cases; and last the question the page answers too quickly, whether the knee's harmonics ever stop, with a cubic beside it that does stop. I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound. Every tone is made in this page by the core below and matched in level; at R = 0 nothing plays.
+  check: Projects/Compressor Design/Compressor Design — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The knee in the spectrum · Compressor Design</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:130px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl[hidden],.rowb[hidden],[hidden]{display:none !important}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.ab{font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 26px;cursor:pointer}
+  button.ab[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Compressor Design · the knee · five steps</div>
+  <h1>The knee in the spectrum</h1>
+  <p class="lead">The section says a hard knee is infinitely broadband and the quadratic knee has bounded Fourier content. Here a pure tone goes through the page’s own curve, and you watch and hear what the curve’s shape does to its spectrum. Five steps, from a straight line to the question of whether the knee’s harmonics ever stop. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas class="stage" id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+
+    <div class="ctl" id="ctlP" hidden>
+      <label for="pk">tone’s peak</label><input id="pk" type="range" min="-30" max="0" step="0.5" value="-6"><span class="v" id="pkv"></span>
+    </div>
+    <div class="ctl" id="ctlW" hidden>
+      <label for="wk">knee width W</label><input id="wk" type="range" min="0" max="24" step="0.25" value="6"><span class="v" id="wkv"></span>
+    </div>
+    <div class="rowb" id="rRow" hidden><span class="eyebrow">ratio R</span>
+      <button class="ghost" data-r="0.5">0.5</button><button class="ghost" data-r="1">1</button><button class="ghost" data-r="4">4</button><button class="ghost" data-r="Infinity">∞</button><button class="ghost" data-r="0">0</button>
+    </div>
+    <div class="rowb" id="kindRow" hidden><span class="eyebrow">curve</span>
+      <button class="ghost" data-kind="corner">the corner, W = 0</button><button class="ghost" data-kind="knee">the knee, W as set</button><button class="ghost" data-kind="cubic">a cubic, for comparison</button>
+    </div>
+    <div class="rowb" id="askRow" hidden><span class="eyebrow">the knee’s harmonics</span>
+      <button class="ghost" data-ans="stop">stop somewhere</button><button class="ghost" data-ans="fall">keep falling, never stop</button>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Compressor Design · the knee in the spectrum · Sketch, 2026-11-03</footer>
+</main>
+
+<script id="kn-core">
+const KN = (() => {
+  const SR = 44100, M = 16384, K = 255;
+  // The page's three regions, levels in dB. R = Infinity is a limiter; R = 0 divides by zero, as the page says.
+  function curve(L, T, R, W) {
+    if (W > 0 && L > T - W / 2 && L < T + W / 2) return L + (1 / R - 1) * (L - T + W / 2) ** 2 / (2 * W);
+    if (L >= T + W / 2) return T + (L - T) / R;
+    return L;
+  }
+  // The curve applied to each sample's own level: no detector, so its shape goes straight into the sound.
+  // The cubic is the reference: a polynomial in the signal itself, which on a sine makes harmonics 1 and 3 and nothing else.
+  function shape(x, o) {
+    if (o.kind === 'cubic') { const A = o.A; return x - x * x * x / (3 * A * A); }
+    const a = Math.abs(x); if (a < 1e-15) return x;
+    const L = 20 * Math.log10(a), O = curve(L, o.T, o.R, o.W); return x * Math.pow(10, (O - L) / 20);
+  }
+  const SIN = new Float64Array(M); for (let i = 0; i < M; i++) SIN[i] = Math.sin(2 * Math.PI * i / M);
+  // One period of a sine with peak P dBFS, through the shape; its odd harmonics' amplitudes, k = 1..255, relative to the first.
+  function harmonics(o) {
+    const A = Math.pow(10, o.P / 20), y = new Float64Array(M), oo = { ...o, A };
+    for (let i = 0; i < M; i++) y[i] = shape(A * SIN[i], oo);
+    const b = new Float64Array(K + 1);
+    for (let k = 1; k <= K; k += 2) { let s = 0; for (let i = 0, j = 0; i < M; i++, j = (j + k) & (M - 1)) s += y[i] * SIN[j]; b[k] = Math.abs(2 * s / M); }
+    const b1 = b[1] || 1e-30; for (let k = 1; k <= K; k++) b[k] = b[k] / b1;
+    return b;
+  }
+  const dB = (v) => 20 * Math.log10(Math.max(v, 1e-30));
+  // How fast the harmonics fall: the loudest harmonic in each octave, 16–32 up to 128–256, fitted with a line, in dB per octave.
+  function fall(b) {
+    const xs = [], ys = [];
+    for (let j = 4; j < 8; j++) { let m = 0; for (let k = 1 << j; k < 1 << (j + 1) && k <= K; k++) m = Math.max(m, b[k]); if (m > 1e-14) { xs.push(j); ys.push(dB(m)); } }
+    if (xs.length < 2) return null;
+    const n = xs.length, mx = xs.reduce((a, c) => a + c) / n, my = ys.reduce((a, c) => a + c) / n;
+    let sxy = 0, sxx = 0; for (let i = 0; i < n; i++) { sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) ** 2; }
+    return sxy / sxx;
+  }
+  // The highest odd harmonic still above a floor, -140 dB under the fundamental.
+  function reach(b, floor = -140) { let top = 1; for (let k = 3; k <= K; k += 2) if (dB(b[k]) > floor) top = k; return top; }
+  // A tone at 110.25 Hz, 400 samples a cycle, about two seconds of whole cycles (220, 88 000 samples) so the loop's seam
+  // has no corner of its own; through the shape; matched in level.
+  function tone(o, sec = 2) {
+    const n = 400 * Math.round(sec * SR / 400), A = Math.pow(10, o.P / 20), oo = { ...o, A }, y = new Float32Array(n); let a = 0, p = 0;
+    for (let i = 0; i < n; i++) { const v = shape(A * Math.sin(2 * Math.PI * i / 400), oo); y[i] = v; a += v * v; p = Math.max(p, Math.abs(v)); }
+    if (!isFinite(a) || !isFinite(p)) return null;
+    let k = Math.pow(10, -20 / 20) / Math.sqrt(a / n); if (p * k > 0.9) k = 0.9 / p; for (let i = 0; i < n; i++) y[i] *= k; return y;
+  }
+  return { SR, M, K, curve, shape, harmonics, fall, reach, tone, dB };
+})();
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const T = -18;
+  const S = { step: 0, P: -6, R: 4, W: 0, kind: 'knee', ans: null };
+  const fmtR = (R) => (R === Infinity ? '∞' : String(R));
+  const nth = (k) => k + (k % 100 >= 11 && k % 100 <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' })[k % 10] || 'th');
+
+  const STEPS = [
+    { key: 'line', rail: 'the straight line', title: 'The straight line',
+      say: 'Before any compression the curve is a straight line: every level comes out as it went in. A sine through it comes out a sine, and its spectrum is one line. In the full compressor a detector stands in front of the curve; here it is taken away, and the curve acts on each sample’s own level, so whatever shape the curve has goes straight into the sound.',
+      hear: 'a 110 Hz tone, untouched',
+      eq: ['out = in', '(level out) = (level in), in decibels'], eq2: ['', ''] },
+    { key: 'corner', rail: 'a corner', title: 'A corner',
+      say: 'A threshold at −18 dB and a ratio of 4:1, with no knee: the line bends at one point. Push the tone past the threshold and its peaks are turned down, and each time the wave crosses the threshold it turns a corner. A corner sprays harmonics up the whole spectrum. Here they fall about 12 dB for every octave and do not stop. Lower the tone below the threshold and they vanish.',
+      hear: 'the tone through the hard corner',
+      eq: ['out = T + (in − T) ÷ R,  for in ≥ T', '(level out) = (threshold) + (how far over the threshold) ÷ (ratio); below the threshold, out = in'],
+      eq2: ['a corner: harmonic k ∝ 1 ÷ k²  →  −12 dB per octave', 'where the slope of a curve jumps, the harmonics shrink with the square of their number: a quarter for each doubling'] },
+    { key: 'round', rail: 'round the corner', title: 'Round the corner',
+      say: 'Now give the knee a width. Inside it the page’s quadratic blends the two lines, so the slope turns gradually instead of all at once. Watch the top of the spectrum: the harmonics now fall about 18 dB per octave instead of 12. Make the knee narrow, 1 dB, and the low harmonics hardly change; the steeper fall shows only near the top. The knee is also the curve a drawing program makes when it rounds a corner: a quadratic Bézier whose control point is the hard corner itself.',
+      hear: 'the tone through the knee; drag its width',
+      eq: ['out = in + (1/R − 1) · (in − T + W/2)² ÷ (2W),  inside the knee', '(level out) = (level in) + (the ratio’s pull) × (how far into the knee, squared) ÷ (twice the width)'],
+      eq2: ['a rounded corner: harmonic k ∝ 1 ÷ k³  →  −18 dB per octave', 'the slope no longer jumps, only its bend does, so the harmonics shrink with the cube of their number: an eighth for each doubling'] },
+    { key: 'edges', rail: 'the edges', title: 'The edges',
+      say: 'The page names four settings that catch beginners. Try each. A ratio below 1 expands: above the threshold, out is louder than in, so the reduction is negative. A ratio of ∞ is a limiter: the curve goes flat above the knee, and what becomes a step is its slope, 1 and then 0. A ratio of 0 divides by zero: 1 ÷ R is infinite, the curve leaves the chart, and nothing plays. A width of 0 is the hard corner, and the knee formula, which divides by W, needs a branch to reach it.',
+      hear: 'the tone through the edge you pick',
+      eq: ['slope above the knee = 1 ÷ R', 'R = 0.5 → 2 (expansion) · R = 1 → 1 (nothing) · R = 4 → 0.25 · R = ∞ → 0 (a limiter) · R = 0 → 1 ÷ 0'],
+      eq2: ['W = 0:  (in − T + 0)² ÷ (2 · 0)', 'the knee term divides by the width, so a width of zero takes a branch to the hard corner'] },
+    { key: 'test', rail: 'does it stop', title: 'Does it stop?',
+      say: 'The page says the quadratic knee has bounded Fourier content. Set the knee as wide or as narrow as you like, then answer: do its harmonics stop somewhere, or keep falling forever? A cubic is here for comparison, a gentle curve written in the signal itself rather than in decibels. Answer first, then look.',
+      hear: 'the corner, the knee or the cubic',
+      eq: ['cubic: y = x − x³ ÷ (3A²)', '(out) = (in) − (in, cubed) ÷ (three times the peak, squared): on a sine, harmonics 1 and 3 and nothing above'],
+      eq2: ['', ''] },
+  ];
+
+  const cur = () => {
+    const k = STEPS[S.step].key;
+    if (k === 'line') return { T, R: 1, W: 0, P: S.P };
+    if (k === 'corner') return { T, R: S.R, W: 0, P: S.P };
+    if (k === 'test') return S.kind === 'cubic' ? { kind: 'cubic', P: S.P } : { T, R: S.R, W: S.kind === 'corner' ? 0 : S.W, P: S.P };
+    return { T, R: S.R, W: S.W, P: S.P };
+  };
+  const hcache = new Map();
+  const key = (o) => JSON.stringify([o.kind || 'k', o.T, String(o.R), o.W, o.P]);
+  function harm(o) { const k = key(o); if (!hcache.has(k)) { if (hcache.size > 60) hcache.clear(); hcache.set(k, KN.harmonics(o)); } return hcache.get(k); }
+
+  // ── sound ──
+  let ctx = null, master = null, src = null, playing = false;
+  async function ensure() {
+    if (!ctx) { ctx = new AudioContext({ sampleRate: KN.SR }); master = ctx.createGain(); master.gain.value = 0.7; master.connect(ctx.destination); ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) stopSound(); }; }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  function startBuf(y) {
+    const now = ctx.currentTime;
+    if (src) { const o = src; o.g.gain.setTargetAtTime(0, now, 0.01); o.s.stop(now + 0.08); src = null; }
+    if (!y) return;
+    const b = ctx.createBuffer(1, y.length, KN.SR); b.copyToChannel(y, 0);
+    const s = ctx.createBufferSource(); s.buffer = b; s.loop = true; const g = ctx.createGain(); g.gain.value = 0; s.connect(g).connect(master);
+    s.start(now); g.gain.setTargetAtTime(1, now, 0.015); src = { s, g };
+  }
+  function stopSound() { playing = false; if (src && ctx) { try { src.g.gain.setTargetAtTime(0, ctx.currentTime, 0.01); src.s.stop(ctx.currentTime + 0.08); } catch (e) { /* stopped */ } } src = null; $('play').textContent = 'Play'; }
+  let tcache = { k: null, y: null };
+  function toneNow() { const o = cur(), k = key(o); if (tcache.k !== k) tcache = { k, y: KN.tone(o) }; return tcache.y; }
+  async function play() { await ensure(); playing = true; $('play').textContent = 'Stop'; startBuf(toneNow()); }
+  let pend = 0; function refresh() { writeMeter(); if (!playing || !ctx) return; clearTimeout(pend); pend = setTimeout(() => startBuf(toneNow()), 60); }
+  $('play').onclick = () => (playing ? stopSound() : play());
+
+  // ── controls ──
+  $('pk').oninput = () => { S.P = +$('pk').value; refresh(); };
+  $('wk').oninput = () => { S.W = +$('wk').value; refresh(); };
+  document.querySelectorAll('[data-r]').forEach((b) => (b.onclick = () => { S.R = Number(b.dataset.r); refresh(); }));
+  document.querySelectorAll('[data-kind]').forEach((b) => (b.onclick = () => { S.kind = b.dataset.kind; refresh(); }));
+  document.querySelectorAll('[data-ans]').forEach((b) => (b.onclick = () => { S.ans = b.dataset.ans; refresh(); }));
+
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => goStep(i); r.appendChild(b); }); }
+  function goStep(i) {
+    stopSound(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    if (s.key === 'corner') { S.R = 4; }
+    if (s.key === 'round' && S.W === 0) S.W = 6;
+    if (s.key === 'test' && !(S.R > 1)) S.R = 4;
+    if (s.key === 'test' && S.W === 0) S.W = 6;
+    $('wk').value = S.W; $('pk').value = S.P;
+    rail();
+    $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`;
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hear;
+    $('eq1').textContent = s.eq[0]; $('eq1w').textContent = s.eq[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('ctlP').hidden = s.key === 'line' ? false : false;
+    $('ctlW').hidden = !['round', 'edges', 'test'].includes(s.key);
+    $('rRow').hidden = s.key !== 'edges'; $('kindRow').hidden = $('askRow').hidden = s.key !== 'test';
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    legend(); writeMeter();
+  }
+  $('back').onclick = () => goStep(S.step - 1); $('next').onclick = () => goStep(S.step + 1);
+
+  function legend() {
+    $('legend').innerHTML = [['the curve', 'level in against level out, in dB; dashed, the straight line; the shaded band, the levels the tone passes through'], ['one cycle', 'the tone in, grey, and out, amber'], ['the spectrum', 'odd harmonics 1 to 255, in dB under the first; dashed slopes, −12 and −18 dB per octave']].map(([a, b]) => `<div><b>${a}</b>${b}</div>`).join('');
+  }
+  function stats(o) {
+    if (o.R === 0) return null;
+    const b = harm(o), f = KN.fall(b), top = KN.reach(b);
+    return { b, f, top, h255: KN.dB(b[255]) };
+  }
+  function writeMeter() {
+    const s = STEPS[S.step], o = cur(), st = stats(o);
+    $('pkv').textContent = S.P.toFixed(1) + ' dB'; $('wkv').textContent = S.W.toFixed(2).replace(/\.?0+$/, '') + ' dB';
+    document.querySelectorAll('[data-r]').forEach((b) => b.setAttribute('aria-pressed', Number(b.dataset.r) === S.R));
+    document.querySelectorAll('[data-kind]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.kind === S.kind));
+    document.querySelectorAll('[data-ans]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.ans === S.ans));
+    let h = '';
+    if (!st) h = `<i>R = 0: 1 ÷ R is infinite, the curve leaves the chart above the threshold, and there is nothing to play.</i>`;
+    else {
+      const over = S.P - T, line = o.kind === 'cubic' ? 'the cubic' : `T = ${T} dB · R = ${fmtR(o.R)} · W = ${o.W} dB`;
+      h = `${line} · peak ${S.P} dB, ${over > 0 ? over + ' dB over the threshold' : 'under the threshold'}<br>`;
+      if (st.top <= 1) h += 'one line: the tone, and nothing above it';
+      else if (o.kind === 'cubic') h += `the 3rd harmonic at <b>${KN.dB(st.b[3]).toFixed(1)} dB</b>, and nothing above it: every harmonic past the 3rd is below −300 dB, the arithmetic’s own floor`;
+      else h += `harmonics fall <b>${(-st.f).toFixed(1)} dB per octave</b> (16th to 255th) · the 255th at <b>${st.h255.toFixed(0)} dB</b> · the highest above −140 dB: the <b>${nth(st.top)}</b>`;
+      if (s.key === 'edges') {
+        if (o.R === Infinity) h += '<br>R = ∞: the curve is flat above the knee, a clamp; its slope goes from 1 to 0, and that is the step';
+        else if (o.R < 1) h += `<br>R = ${o.R}: at the peak, out is <b>${(KN.curve(S.P, T, o.R, o.W) - S.P).toFixed(1)} dB</b> louder than in: negative reduction`;
+        else if (o.R === 1) h += '<br>R = 1: the straight line again, wherever the threshold sits';
+        if (o.W === 0) h += '<br>W = 0: the knee term is never reached; a branch takes the corner';
+      }
+    }
+    if (s.key === 'test') {
+      if (!S.ans) h += '<br><span class="hint">Answer above before the verdict shows.</span>';
+      else {
+        const kn = stats({ T, R: S.R, W: S.W, P: S.P }), co = stats({ T, R: S.R, W: 0, P: S.P });
+        const right = S.ans === 'fall';
+        h += `<br><br>${right ? 'You said they keep falling, and the numbers agree.' : 'You said they stop; the numbers say otherwise.'} Measured at W = ${S.W} dB, R = ${fmtR(S.R)}: the knee’s harmonics fall <b>${(-kn.f).toFixed(1)} dB per octave</b> and the highest still above −140 dB on this chart is the <b>${nth(kn.top)}</b>, and the chart’s top is not the end: past it they stay above −140 dB to somewhere between the 323rd and the 737th, depending on width and level; the corner’s fall <b>${(-co.f).toFixed(1)}</b>. The knee falls faster than the corner, and it does not stop. Its content is not bounded. Only the cubic stops, at the 3rd, because it is a polynomial in the signal itself; the page’s knee is a polynomial in decibels, and a decibel is a logarithm of the signal.`;
+      }
+    }
+    $('meter').innerHTML = h;
+  }
+
+  // ── drawing ──
+  function fit(c, H) { const w = c.clientWidth, d = devicePixelRatio || 1; c.style.height = H + 'px'; if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); } const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H }; }
+  const C = { grid: '#2a2a38', fg3: '#8a8aa0', fg4: '#4a4a5a', amber: '#e8b84a', blue: '#4a8fff', fg1: '#e8e8f0', warn: '#e8651b' };
+  function boxes(w) { if (w >= 640) { const bw = (w - 48) / 3, h = 300; return { h, b: [0, 1, 2].map((i) => ({ x: 12 + i * (bw + 12), y: 12, w: bw, h: h - 24 })) }; } const h = 3 * 250; return { h, b: [0, 1, 2].map((i) => ({ x: 12, y: 12 + i * 250, w: w - 24, h: 226 })) }; }
+  let last = '';
+  function draw() {
+    requestAnimationFrame(draw);
+    const c = $('stage'), sig = key(cur()) + S.step + '|' + c.clientWidth; if (sig === last) return; last = sig;
+    const lay = boxes(c.clientWidth), { g, w, h } = fit(c, lay.h); g.clearRect(0, 0, w, h); g.font = '10.5px JetBrains Mono, monospace';
+    const o = cur(), [B1, B2, B3] = lay.b;
+    // 1 · the curve
+    { const lo = -48, hi = 6, X = (v) => B1.x + (v - lo) / (hi - lo) * B1.w, Y = (v) => B1.y + B1.h - (v - lo) / (hi - lo) * B1.h;
+      g.save(); g.beginPath(); g.rect(B1.x, B1.y, B1.w, B1.h); g.clip();
+      g.fillStyle = 'rgba(255,255,255,0.04)'; g.fillRect(X(lo), B1.y, X(S.P) - X(lo), B1.h);
+      g.strokeStyle = C.fg4; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(X(lo), Y(lo)); g.lineTo(X(hi), Y(hi)); g.stroke(); g.setLineDash([]);
+      if (o.kind !== 'cubic' && o.W > 0) { g.fillStyle = 'rgba(232,184,74,0.08)'; g.fillRect(X(T - o.W / 2), B1.y, X(T + o.W / 2) - X(T - o.W / 2), B1.h); }
+      if (o.R !== 0) { g.strokeStyle = C.amber; g.lineWidth = 2; g.beginPath();
+        for (let i = 0; i <= 400; i++) { const L = lo + (hi - lo) * i / 400; let O; if (o.kind === 'cubic') { if (L > S.P) break; const A = Math.pow(10, S.P / 20), x = Math.pow(10, L / 20); O = 20 * Math.log10(Math.abs(x - x * x * x / (3 * A * A))); } else O = KN.curve(L, o.T, o.R, o.W); i ? g.lineTo(X(L), Y(O)) : g.moveTo(X(L), Y(O)); }
+        g.stroke(); g.lineWidth = 1; }
+      else { const e = T - (o.W || 0) / 2; g.strokeStyle = C.warn; g.lineWidth = 2; g.beginPath(); g.moveTo(X(lo), Y(lo)); g.lineTo(X(e), Y(e)); g.lineTo(X(e), B1.y); g.stroke(); g.lineWidth = 1; g.fillStyle = C.warn; g.fillText('1 ÷ 0', X(e) + 6, B1.y + 24); }
+      g.restore();
+      g.strokeStyle = C.grid; g.strokeRect(B1.x, B1.y, B1.w, B1.h);
+      g.fillStyle = C.fg3; g.textAlign = 'left'; g.fillText('the curve · dB', B1.x + 6, B1.y + 13); g.textAlign = 'center';
+      if (o.kind !== 'cubic') { g.fillText('T', X(T), B1.y + B1.h - 4); }
+      g.textAlign = 'right'; g.fillText('peak', X(S.P) - 3, B1.y + B1.h - 4); }
+    // 2 · one cycle
+    { const n = 400, A = Math.pow(10, S.P / 20), cy = B2.y + B2.h / 2, sc = (B2.h / 2 - 16);
+      g.strokeStyle = C.grid; g.strokeRect(B2.x, B2.y, B2.w, B2.h); g.fillStyle = C.fg3; g.textAlign = 'left'; g.fillText('one cycle', B2.x + 6, B2.y + 13);
+      const pk = Math.max(A, 1e-9);
+      const line = (f, col) => { g.strokeStyle = col; g.lineWidth = 1.5; g.beginPath(); for (let i = 0; i <= n; i++) { const v = f(A * Math.sin(2 * Math.PI * i / n)) / pk; const x = B2.x + 8 + i / n * (B2.w - 16), y = cy - Math.max(-1.6, Math.min(1.6, v)) * sc * 0.62; i ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); g.lineWidth = 1; };
+      line((x) => x, C.fg4);
+      if (o.R !== 0) line((x) => KN.shape(x, { ...o, A }), C.amber);
+      if (o.kind !== 'cubic') { const tl = Math.pow(10, T / 20) / pk; if (tl < 1.6) { g.strokeStyle = 'rgba(232,184,74,0.35)'; g.setLineDash([2, 4]); for (const sg of [1, -1]) { const y = cy - sg * tl * sc * 0.62; g.beginPath(); g.moveTo(B2.x + 8, y); g.lineTo(B2.x + B2.w - 8, y); g.stroke(); } g.setLineDash([]); g.fillStyle = C.fg3; g.textAlign = 'right'; g.fillText('threshold', B2.x + B2.w - 8, cy - tl * sc * 0.62 - 4); } } }
+    // 3 · the spectrum
+    { const top = 0, bot = -160, X = (k) => B3.x + 24 + Math.log2(k) / 8 * (B3.w - 32), Y = (d) => B3.y + 28 + (top - d) / (top - bot) * (B3.h - 44);
+      g.strokeStyle = C.grid; g.strokeRect(B3.x, B3.y, B3.w, B3.h);
+      g.fillStyle = C.fg3; g.textAlign = 'left'; g.fillText('the spectrum · dB under the first', B3.x + 6, B3.y + 13);
+      g.textAlign = 'right'; for (const d of [0, -40, -80, -120, -160]) { g.fillText(String(d), B3.x + 22, Y(d) + 3); g.strokeStyle = C.grid; g.beginPath(); g.moveTo(B3.x + 24, Y(d)); g.lineTo(B3.x + B3.w - 8, Y(d)); g.stroke(); }
+      g.textAlign = 'center'; for (const k of [1, 3, 9, 27, 81, 255]) g.fillText(String(k), X(k), B3.y + B3.h - 3);
+      g.strokeStyle = 'rgba(232,101,27,0.5)'; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(B3.x + 24, Y(-140)); g.lineTo(B3.x + B3.w - 8, Y(-140)); g.stroke(); g.setLineDash([]); g.fillStyle = 'rgba(232,101,27,0.8)'; g.textAlign = 'left'; g.fillText('−140 floor', X(1) + 4, Y(-140) - 4);
+      const st = stats(o);
+      if (st) {
+        for (let k = 1; k <= KN.K; k += 2) { const d = KN.dB(st.b[k]); if (d < bot) continue; g.strokeStyle = k === 1 ? C.fg1 : C.amber; g.beginPath(); g.moveTo(X(k), Y(bot)); g.lineTo(X(k), Y(d)); g.stroke(); }
+        if (st.top > 1 && o.kind !== 'cubic') {
+          let m = 0; for (let k = 16; k < 32; k++) m = Math.max(m, st.b[k]); const d0 = KN.dB(m);
+          for (const [sl, lab] of [[-12, '−12 dB/oct'], [-18, '−18']]) { g.strokeStyle = sl === -12 ? 'rgba(200,200,216,0.55)' : 'rgba(74,143,255,0.8)'; g.setLineDash([5, 4]); g.beginPath(); g.moveTo(X(16), Y(d0 + 8)); g.lineTo(X(256), Y(d0 + 8 + sl * 4)); g.stroke(); g.setLineDash([]); g.fillStyle = g.strokeStyle; g.textAlign = 'right'; g.fillText(lab, X(16) - 4, Y(d0 + 8) + (sl === -12 ? -4 : 10)); }
+        }
+      } else { g.fillStyle = C.warn; g.textAlign = 'center'; g.fillText('nothing to measure', B3.x + B3.w / 2, B3.y + B3.h / 2); }
+    }
+  }
+
+  { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
+  goStep(0); draw();
+})();
+</script>
+</body>
+</html>

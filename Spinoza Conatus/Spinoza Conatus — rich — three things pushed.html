@@ -1,0 +1,345 @@
+<!doctype html>
+<!--
+  title: Spinoza Conatus — rich — three things pushed
+  born: 2026-11-03
+  links: [[Spinoza Conatus]] (connects-to · rich-face-piece) · listed in [[Spinoza Conatus — rich.json]]
+  forward_vector: I am the walk up to the opening's distinction, static preservation against active self-maintenance. A rock, a ball in a bowl and a keeper that pushes back are each pushed once, then leaned on, and the last step measures where each sits and asks where the page's own rock falls. I want the opening argued with, not only recognised.
+  sound: none. This piece makes no sound and opens no audio context.
+  check: Spinoza Conatus/Spinoza Conatus — rich — check.mjs runs this page's core in Node and reads the test's numbers back.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; silent -->
+<meta name="piece:needs" content="">
+<title>Three things pushed · what persisting is</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --warn:#ff9b4a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --display:'Anton','Bebas Neue',Impact,'Arial Narrow',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  canvas#stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:9ch}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:5px 10px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.go{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:8px 18px;cursor:pointer}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px;font-family:var(--sans)}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .rule{margin:14px 0 0;padding:12px 16px;border:1px solid var(--border);border-radius:4px;font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .rule .eyebrow{display:block;margin-bottom:4px}
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2)}
+  th{font-weight:400;text-align:left;color:var(--fg-3);font-size:10px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid var(--border);padding:6px 8px}
+  td{border-bottom:1px solid var(--border-soft);padding:6px 8px;vertical-align:top}
+  td.ok{color:var(--accent)} td.no{color:var(--warn)}
+  .reading{font-family:var(--serif);font-size:17px;color:var(--fg-2);margin-top:14px;max-width:70ch}
+  .reading p{margin:0 0 10px}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  [hidden]{display:none !important}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Spinoza Conatus · persisting and striving · five steps</div>
+  <h1>Three things pushed</h1>
+  <p class="lead">The opening says conatus is “not static preservation” but “active self-maintenance.” That is a definition, not a law of nature, and no model can tell you what Spinoza meant. What a model can do is show that a line like it can be drawn, one you can measure, and then hold the page’s own first example up to it, two ways. Three things, each with a place of its own at the gold mark. Five steps; the last one measures. Silent.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <canvas id="stage"></canvas>
+    <div class="rowb">
+      <button class="go" id="kick">Push once</button>
+      <button class="ghost small" id="home">Put them home</button>
+      <span id="memRow" hidden><button class="ghost small" id="mem" aria-pressed="true">Keeper remembers where it was</button></span>
+    </div>
+    <div id="leanRow" class="ctl" hidden><label for="lean">steady push, F</label><input id="lean" type="range" min="0" max="2.5" step="0.05" value="0"><span class="v" id="leanv"></span></div>
+    <div id="umaxRow" class="ctl" hidden><label for="umax">keeper’s power, U</label><input id="umax" type="range" min="0" max="3" step="0.05" value="1.5"><span class="v" id="umaxv"></span></div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+
+    <div id="testBox" hidden>
+      <div class="rule"><span class="eyebrow">Said before the run</span>
+        The model is deterministic, so there is no chance level to beat. <b>The rule:</b> the page’s line between static preservation and active self-maintenance is a real line here if, after 30 seconds of a steady push F = 1, the keeper sits within 1% of the bowl’s offset from its own place (|x| &lt; 0.005, the bowl’s being F/k = 0.5), and the bowl sits at 0.5. <b>It fails</b> if the keeper sits at 0.005 or further. <b>The control:</b> the same keeper with its memory taken away still spends effort; it must fail the rule, or the rule is too loose to tell effort from keeping.
+        <br><br><b>What this can and can’t show.</b> Every row is fixed by the model’s form before it runs: with a memory and a push under its power, standing still needs ∫x to stop changing, so x = 0 exactly; with no memory, x = F/(k + Kp) = 0.167; past its power, x = (F − U)/k = 0.25; the bowl, F/k = 0.5. So the test shows that the line can be drawn, that a thing can be built on each side of it. It does not show that the page draws it there.
+      </div>
+      <div class="rowb"><button class="go" id="runTest">Run the test</button><span class="eyebrow" id="testState"></span></div>
+      <table id="testTable" hidden>
+        <thead><tr><th>thing</th><th>push</th><th>sits at, after 30 s</th><th>pushing back with</th><th>rule</th></tr></thead>
+        <tbody id="testBody"></tbody>
+      </table>
+      <div class="reading" id="reading" hidden></div>
+    </div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><b>LOUD’N LIVE</b> · Spinoza Conatus · three things pushed · Sketch, 2026-11-03</footer>
+</main>
+
+<!-- The core: plain functions shared by the picture, the test and the headless check. -->
+<script id="persist-core">
+var PERSIST = (function(){
+  // three things on a line, each with its own place at x = 0: mass 1, the same friction
+  var P = { m: 1, c: 1.2, k: 2, Kp: 4, Kd: 1, Ki: 6 };
+  function make(kind){ return { kind: kind, x: 0, v: 0, z: 0, u: 0, sat: false, F: 0, umax: 1.5, memory: true, t: 0, effort: 0 }; }
+  function accel(s){
+    var f = s.F - P.c * s.v;
+    if (s.kind !== 'rock') f -= P.k * s.x;              // the bowl's slope; the keeper sits in one too
+    s.u = 0; s.sat = false;
+    if (s.kind === 'keeper'){
+      var want = -P.Kp * s.x - P.Kd * s.v - (s.memory ? P.Ki * s.z : 0);
+      s.u = Math.max(-s.umax, Math.min(s.umax, want));
+      s.sat = want !== s.u;
+      f += s.u;
+    }
+    return f / P.m;
+  }
+  function step(s, dt){                                  // semi-implicit Euler at a small step
+    var a = accel(s);
+    s.v += a * dt; s.x += s.v * dt;
+    if (s.kind === 'keeper' && s.memory && !s.sat) s.z += s.x * dt;   // it stops counting while pinned at its limit
+    s.effort += Math.abs(s.u) * dt;
+    s.t += dt;
+  }
+  function kick(s, v){ s.v += v; }
+  // lean on one thing with a steady push for T seconds; read where it sits and how hard it pushes back
+  function lean(kind, F, opt){
+    opt = opt || {}; var s = make(kind); s.F = F;
+    if (opt.umax != null) s.umax = opt.umax; if (opt.memory != null) s.memory = opt.memory;
+    var dt = 1 / 1000, T = opt.T || 30, n = Math.round(T / dt), tail = Math.round(5 / dt), xs = 0, us = 0, i;
+    for (i = 0; i < n; i++){ step(s, dt); if (i >= n - tail){ xs += s.x; us += Math.abs(s.u); } }
+    return { x: s.x, v: s.v, held: us / tail, effort: s.effort };
+  }
+  function pushOnce(kind, v0, opt){
+    opt = opt || {}; var s = make(kind); if (opt.memory != null) s.memory = opt.memory; kick(s, v0);
+    var dt = 1 / 1000, T = opt.T || 20; for (var i = 0; i < T / dt; i++) step(s, dt);
+    return { x: s.x, effort: s.effort };
+  }
+  // the test's rows, the same numbers the table shows and the check reads
+  function test(){
+    var F = 1, rows = [];
+    var rock = lean('rock', F), bowl = lean('bowl', F), keep = lean('keeper', F), mem0 = lean('keeper', F, { memory: false }), over = lean('keeper', 2, { umax: 1.5 });
+    var lim = 0.01 * (F / P.k);
+    rows.push({ thing: 'rock', F: F, x: rock.x, v: rock.v, held: 0, verdict: 'no place to come back to' });
+    rows.push({ thing: 'ball in a bowl', F: F, x: bowl.x, held: 0, verdict: Math.abs(bowl.x - F / P.k) < 1e-3 ? 'sits at F/k' : 'off F/k' });
+    rows.push({ thing: 'keeper, U = 1.5', F: F, x: keep.x, held: keep.held, verdict: Math.abs(keep.x) < lim ? 'holds' : 'yields', pass: Math.abs(keep.x) < lim });
+    rows.push({ thing: 'keeper, no memory (control)', F: F, x: mem0.x, held: mem0.held, verdict: Math.abs(mem0.x) < lim ? 'holds' : 'yields', pass: Math.abs(mem0.x) < lim });
+    rows.push({ thing: 'keeper, push past its power', F: 2, x: over.x, held: over.held, verdict: Math.abs(over.x) < lim ? 'holds' : 'yields, to (F − U)/k', pass: Math.abs(over.x) < lim });
+    return { rows: rows, limit: lim, distinctionReal: rows[2].pass && !rows[3].pass && Math.abs(bowl.x - F / P.k) < 1e-3 };
+  }
+  return { P: P, make: make, step: step, kick: kick, lean: lean, pushOnce: pushOnce, test: test };
+})();
+if (typeof module !== 'undefined') module.exports = PERSIST;
+</script>
+
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+  var P = PERSIST.P;
+  var STEPS = [
+    { short: 'the rock', lanes: ['rock'], title: 'The rock, pushed once',
+      say: 'A rock on flat ground. Push it and it slides until friction stops it, then stays where it stopped. It has no place it goes back to. What it keeps is its state: at rest it stays at rest; moving, it keeps moving until something stops it. That is inertia, the oldest kind of persisting there is.',
+      eq1: ['m·x″ = F − c·x′', 'what moves it is the push, less the friction; nothing pulls it home'],
+      eq2: ['', ''],
+      tryText: 'Push it a few times. It never comes back to the gold mark, and it never spends anything.' },
+    { short: 'the bowl', lanes: ['bowl'], title: 'A ball in a bowl, pushed once',
+      say: 'A ball at the bottom of a bowl. Push it and it rolls up the side, comes back, and settles where it began. It returns, and it spends nothing to do it: the shape of the bowl does the work. Preservation by shape.',
+      eq1: ['m·x″ = F − c·x′ − k·x', 'the slope pulls it home, harder the further out it is'],
+      eq2: ['', ''],
+      tryText: 'Push it. It comes back every time. Watch the effort line: zero.' },
+    { short: 'the keeper', lanes: ['keeper'], title: 'The keeper, pushed once',
+      say: 'The same ball in the same bowl, with something added: it pushes back. It pushes by how far out it is, how fast it is moving, and how long it has been away from its place. That last one is a memory of where it belongs. One push can’t tell it from the bowl; it comes home either way. The difference shows only in what it spends.',
+      eq1: ['m·x″ = F − c·x′ − k·x + u,   u = −(Kp·x + Kd·x′ + Ki·∫x dt),   |u| ≤ U', 'the bowl, plus a push of its own: by how far, how fast, and how long it has been away, never harder than U'],
+      eq2: ['U = the keeper’s power to act', 'the hardest it can push back'],
+      tryText: 'Push it once and compare with the bowl one step back. Both come home. Only the keeper’s effort line moves.' },
+    { short: 'lean on them', lanes: ['rock', 'bowl', 'keeper'], lean: true, title: 'Lean on all three',
+      say: 'Now a steady push instead of a single shove. The rock slides away for as long as the push lasts. The bowl gives a little and holds there, F/k out from its place. The keeper comes back all the way, and goes on pushing back as long as you lean. Raise its power U and it can meet a harder lean; push harder than U and it gives way too.',
+      eq1: ['bowl: x = F/k      keeper: x = 0 if F ≤ U, else (F − U)/k', 'the bowl gives in proportion to the push; the keeper gives nothing until the push passes its power'],
+      eq2: ['', ''],
+      tryText: 'Set the push to 1 and watch where each settles. Then push 2 against a keeper of power 1.5, and raise its power past 2.' },
+    { short: 'the test', lanes: ['rock', 'bowl', 'keeper'], lean: true, test: true, title: 'Is the line real, and where is the rock?',
+      say: 'The opening draws a line: static preservation on one side, active self-maintenance on the other. The test below shows the line can be drawn in this model, with a control that tells keeping from effort. Then the reading holds the page’s own rock up to it, in two readings of Spinoza. The keeper’s memory button runs the control live.',
+      eq1: ['', ''], eq2: ['', ''],
+      tryText: 'Run the test, then turn the keeper’s memory off and lean on it: it still pushes back, and it still gives way.' }
+  ];
+
+  // ---------- the three things, live ----------
+  var things = { rock: PERSIST.make('rock'), bowl: PERSIST.make('bowl'), keeper: PERSIST.make('keeper') };
+  var trails = { rock: [], bowl: [], keeper: [] };
+  var step = 0, F = 0, U = 1.5, memory = true;
+  function home(){ ['rock', 'bowl', 'keeper'].forEach(function(k){ var s = things[k]; s.x = 0; s.v = 0; s.z = 0; s.effort = 0; trails[k] = []; }); }
+  function applyControls(){
+    var lean = STEPS[step].lean;
+    ['rock', 'bowl', 'keeper'].forEach(function(k){ things[k].F = lean ? F : 0; });
+    things.keeper.umax = U; things.keeper.memory = memory;
+  }
+
+  var rail = $('rail');
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); rail.appendChild(b); });
+  function go(i){
+    step = i; var s = STEPS[i];
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    $('leanRow').hidden = !s.lean; $('umaxRow').hidden = !s.lean; $('memRow').hidden = !s.test; $('testBox').hidden = !s.test;
+    if (!s.test){ memory = true; $('mem').setAttribute('aria-pressed', 'true'); $('mem').textContent = 'Keeper remembers where it was'; }
+    if (!s.lean){ F = 0; $('lean').value = 0; }
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    home(); applyControls(); labels();
+  }
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+  $('kick').addEventListener('click', function(){ STEPS[step].lanes.forEach(function(k){ PERSIST.kick(things[k], 2); }); });
+  $('home').addEventListener('click', home);
+  $('lean').addEventListener('input', function(){ F = +this.value; applyControls(); labels(); });
+  $('umax').addEventListener('input', function(){ U = +this.value; applyControls(); labels(); });
+  $('mem').addEventListener('click', function(){ memory = !memory; things.keeper.z = 0; this.setAttribute('aria-pressed', memory ? 'true' : 'false'); this.textContent = memory ? 'Keeper remembers where it was' : 'Keeper’s memory off (Ki = 0)'; applyControls(); });
+  function labels(){ $('leanv').textContent = F.toFixed(2); $('umaxv').textContent = U.toFixed(2); }
+
+  // ---------- the test ----------
+  function fmt(x){ return Math.abs(x) >= 100 ? x.toFixed(0) : Math.abs(x) >= 10 ? x.toFixed(1) : x.toFixed(4); }
+  $('runTest').addEventListener('click', function(){
+    $('testState').textContent = 'running 30 s of each, at 1 ms steps…';
+    setTimeout(function(){
+      var r = PERSIST.test(), body = $('testBody'); body.innerHTML = '';
+      r.rows.forEach(function(row){
+        var tr = document.createElement('tr');
+        var where = row.thing === 'rock' ? fmt(row.x) + ' and still sliding at ' + row.v.toFixed(2) + ' per s' : fmt(row.x);
+        [row.thing, 'F = ' + row.F, where, row.held ? row.held.toFixed(2) : '0', row.verdict].forEach(function(t, j){
+          var td = document.createElement('td'); td.textContent = t;
+          if (j === 4 && row.pass === true) td.className = 'ok'; if (j === 4 && row.pass === false) td.className = 'no';
+          tr.appendChild(td);
+        });
+        body.appendChild(tr);
+      });
+      $('testTable').hidden = false;
+      $('testState').textContent = r.distinctionReal ? 'the line can be drawn here: the keeper holds within ' + r.limit.toFixed(3) + ', the control does not' : 'the rule failed: the line can’t be drawn in this model';
+      var rd = $('reading'); rd.hidden = false;
+      rd.innerHTML = '';
+      [ 'So the line can be drawn, and the control says what draws it. Effort alone doesn’t: the keeper with no memory pushes back the whole time and still gives way, a third of the bowl’s offset. What brings a thing all the way home under a steady push is a push of its own that remembers where home is. That is one fair picture of “active self-maintenance,” and the bowl is a fair picture of what it is set against.',
+        'Now the rock, with one caution first: this model measures place, and the page speaks of being. A rock at 24.3 is as much a rock as a rock at 0, and nothing here breaks it. So the model can’t say whether the rock persists in being a rock. What it can show is two ways of reading the word “active,” and they meet in the same two propositions of the Ethics.',
+        'Part III, Proposition 6: each thing, as far as it is in itself (quantum in se est), strives to persevere in its being. That phrase was the period’s formula for inertia: a body keeps its state of rest or motion until something else changes it, as Spinoza’s own physics states in the lemmas after Part II, Proposition 13. Read so, the rock strives, as the page’s first paragraph says. Proposition 7: that striving is nothing but the thing’s actual essence, a power of its own. Read so, “active” in the page’s second paragraph can mean Spinoza’s sense, which the rock has too, or the keeper’s sense, a thing that spends effort to come home, which the rock does not. The page’s two paragraphs sit on the two readings. This piece can show both; it doesn’t rule between them.' ]
+        .forEach(function(t){ var p = document.createElement('p'); p.textContent = t; rd.appendChild(p); });
+    }, 30);
+  });
+
+  // ---------- the picture ----------
+  var cv = $('stage'), css = getComputedStyle(document.documentElement);
+  var ACC = css.getPropertyValue('--accent').trim() || '#e8b84a', FG2 = css.getPropertyValue('--fg-2').trim() || '#c8c8d8',
+      FG3 = css.getPropertyValue('--fg-3').trim() || '#8a8aa0', FG4 = css.getPropertyValue('--fg-4').trim() || '#4a4a5a',
+      INFO = css.getPropertyValue('--info').trim() || '#4a8fff', WARN = css.getPropertyValue('--warn').trim() || '#ff9b4a';
+  var NAMES = { rock: 'THE ROCK', bowl: 'BALL IN A BOWL', keeper: 'THE KEEPER' };
+  var lastT = 0, acc = 0;
+  function frame(now){
+    var dt = lastT ? Math.min(0.1, (now - lastT) / 1000) : 0; lastT = now;
+    var lanes = STEPS[step].lanes;
+    acc += dt; var h = 1 / 1000;
+    while (acc >= h){ lanes.forEach(function(k){ PERSIST.step(things[k], h); }); acc -= h; }
+    lanes.forEach(function(k){ var tr = trails[k]; tr.push(things[k].x); if (tr.length > 240) tr.shift(); });
+    draw(lanes);
+    meter(lanes);
+    requestAnimationFrame(frame);
+  }
+  function draw(lanes){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    var laneH = 92, cssH = laneH * lanes.length + 12;
+    if (cv.style.height !== cssH + 'px') cv.style.height = cssH + 'px';
+    var W = Math.round(r.width * d), Hh = Math.round(cssH * d);
+    if (!W || !Hh) return;
+    if (cv.width !== W || cv.height !== Hh){ cv.width = W; cv.height = Hh; }
+    var g = cv.getContext('2d'); g.clearRect(0, 0, W, Hh);
+    var p = 14 * d, trailW = Math.min(220 * d, W * 0.28), lx0 = p, lx1 = W - p - trailW - 14 * d;
+    var XMIN = -1, XMAX = 3;
+    function X(x){ return lx0 + (x - XMIN) / (XMAX - XMIN) * (lx1 - lx0); }
+    g.font = (10 * d) + 'px JetBrains Mono, monospace';
+    lanes.forEach(function(k, li){
+      var s = things[k], top = (6 + li * laneH) * d, mid = top + 52 * d, rad = 9 * d;
+      g.fillStyle = FG3; g.textAlign = 'left'; g.fillText(NAMES[k], lx0, top + 12 * d);
+      // ground or bowl
+      g.strokeStyle = FG4; g.lineWidth = 1.2 * d; g.beginPath();
+      if (k === 'rock'){ g.moveTo(lx0, mid + rad); g.lineTo(lx1, mid + rad); }
+      else { for (var i = 0; i <= 120; i++){ var xx = XMIN + (XMAX - XMIN) * i / 120, yy = mid + rad - Math.min(28 * d, 0.5 * P.k * xx * xx * 6 * d); if (i) g.lineTo(X(xx), yy); else g.moveTo(X(xx), yy); } }
+      g.stroke();
+      // its own place
+      g.strokeStyle = ACC; g.lineWidth = 1.5 * d; g.beginPath(); g.moveTo(X(0), mid - 22 * d); g.lineTo(X(0), mid + rad + 6 * d); g.stroke();
+      // the thing
+      var off = s.x > XMAX || s.x < XMIN, xs = Math.max(XMIN, Math.min(XMAX, s.x));
+      var y = k === 'rock' ? mid : mid - Math.min(28 * d, 0.5 * P.k * xs * xs * 6 * d);
+      g.fillStyle = k === 'keeper' ? ACC : FG2; g.beginPath(); g.arc(X(xs), y, rad, 0, 2 * Math.PI); g.fill();
+      if (off){ g.fillStyle = WARN; g.textAlign = 'right'; g.fillText('off the edge · x = ' + s.x.toFixed(1), lx1, top + 12 * d); }
+      // the steady push, and the keeper's push back
+      if (s.F > 0){ var xa = X(xs) - rad - 4 * d; arrow(g, xa - Math.min(60, 30 * s.F) * d, xa, y, INFO, d); }
+      if (k === 'keeper' && Math.abs(s.u) > 0.01){ var L = Math.min(60, 30 * Math.abs(s.u)) * d * (s.u > 0 ? 1 : -1); arrow(g, X(xs), X(xs) + L, y - 16 * d, ACC, d, true); }
+      // its trail: where it has been, the last few seconds
+      var tx0 = W - p - trailW, tr = trails[k];
+      g.strokeStyle = 'rgba(255,255,255,0.06)'; g.strokeRect(tx0, top + 18 * d, trailW, laneH * d - 30 * d);
+      var ty = function(x){ return top + 18 * d + (laneH * d - 30 * d) * (1 - (Math.max(XMIN, Math.min(XMAX, x)) - XMIN) / (XMAX - XMIN)); };
+      g.strokeStyle = ACC; g.globalAlpha = 0.35; g.beginPath(); g.moveTo(tx0, ty(0)); g.lineTo(tx0 + trailW, ty(0)); g.stroke(); g.globalAlpha = 1;
+      g.strokeStyle = k === 'keeper' ? ACC : FG2; g.beginPath();
+      for (var j = 0; j < tr.length; j++){ var px = tx0 + trailW * j / 239; if (j) g.lineTo(px, ty(tr[j])); else g.moveTo(px, ty(tr[j])); }
+      g.stroke();
+      g.fillStyle = FG4; g.textAlign = 'left'; g.fillText('WHERE IT HAS BEEN', tx0 + 4 * d, top + 12 * d);
+    });
+  }
+  function arrow(g, xFrom, xTo, y, col, d, dashed){   // a line from xFrom with its head at xTo
+    g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 2 * d;
+    if (dashed) g.setLineDash([3 * d, 3 * d]);
+    g.beginPath(); g.moveTo(xFrom, y); g.lineTo(xTo, y); g.stroke(); g.setLineDash([]);
+    var back = xTo > xFrom ? -6 * d : 6 * d;
+    g.beginPath(); g.moveTo(xTo, y); g.lineTo(xTo + back, y - 4 * d); g.lineTo(xTo + back, y + 4 * d); g.closePath(); g.fill();
+  }
+  function meter(lanes){
+    var out = lanes.map(function(k){
+      var s = things[k], line = '<b>' + NAMES[k].toLowerCase() + '</b> · ' + (s.x >= 0 ? '+' : '') + s.x.toFixed(3) + ' from its place';
+      if (k === 'keeper') line += ' · pushing back with ' + Math.abs(s.u).toFixed(2) + (s.sat ? ' (all it has)' : '') + ' · effort spent ' + s.effort.toFixed(2);
+      else line += ' · effort spent 0';
+      return line;
+    });
+    $('meter').innerHTML = out.join('<br>');
+  }
+  go(0);
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

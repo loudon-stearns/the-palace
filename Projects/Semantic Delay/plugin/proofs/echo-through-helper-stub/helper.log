@@ -1,0 +1,15 @@
+2026-11-01 22:45:56,583 semantic-delay-daemon INFO prompt registry: scanned 0 entries from /private/var/folders/00/cptnslpd44z_1bq0w53rdx2h0000gn/T/sd-plugin-bguxv60z/prompts
+2026-11-01 22:45:56,583 semantic-delay-daemon INFO inference worker: starting model load (stubbed)
+2026-11-01 22:45:56,584 semantic-delay-daemon INFO listening on /private/var/folders/00/cptnslpd44z_1bq0w53rdx2h0000gn/T/sd-plugin-bguxv60z/daemon.sock
+2026-11-01 22:45:56,690 semantic-delay-daemon INFO inference worker: model loaded (skeleton); ready for jobs
+2026-11-01 22:45:57,103 semantic-delay-daemon INFO [4381047120] connection opened
+2026-11-01 22:45:57,113 semantic-delay-daemon INFO [4381047120] client closed
+2026-11-01 22:45:58,445 semantic-delay-daemon INFO [4381047248] connection opened
+2026-11-01 22:45:58,453 semantic-delay-daemon INFO [4381047248] client closed
+2026-11-01 22:46:05,683 semantic-delay-daemon INFO [4381048080] connection opened
+2026-11-01 22:46:41,015 semantic-delay-daemon INFO [4381048080] client closed
+2026-11-01 22:46:41,050 semantic-delay-daemon INFO [4381048720] connection opened
+2026-11-01 22:46:41,050 semantic-delay-daemon INFO shutdown requested (shutdown method)
+2026-11-01 22:46:41,050 semantic-delay-daemon INFO teardown: closing server
+2026-11-01 22:46:41,051 semantic-delay-daemon INFO teardown: complete
+2026-11-01 22:46:41,051 semantic-delay-daemon INFO [4381048720] client closed

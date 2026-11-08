@@ -1,0 +1,408 @@
+<!doctype html>
+<!--
+  title: FM Synthesis — rich — algorithms
+  born: 2026-11-03
+  links: [[FM Synthesis]] connects-to · rich-face-piece · listed in [[FM Synthesis — rich.json]] under "Six operators, 32 algorithms"
+  forward_vector: I am the six-operator section as a walk over the DX7's own wiring table: one pair,
+    a stack of three, algorithm 1, algorithm 5, algorithm 32, each drawn from the table and counted, and
+    last the section's claim that a stack is where it gets dense, a stack set against a pair pushed as
+    hard as you like. I change only when the section does.
+  engine: the routing rows of algorithms 1, 5 and 32 are Dexed's (asb2m10/dexed, source/msfa/fm_core.cc),
+    read as the same six-step bus machine the staged patch uses, operator 6 first. Levels here are fixed
+    (no envelopes): a modulator's level is its index in radians, a carrier's its volume. The count
+    renders the patch offline at 48 kHz and counts spectral peaks within 60 dB of the loudest, under
+    5 kHz. The checks beside this file run ENGINE_SRC in Node.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>FM algorithms — where it gets dense</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --soft:rgba(255,255,255,.06); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 18px; height: 18px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .tabs { display: flex; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button { border-radius: 0; margin: 0 -1px -1px 0; }
+  .tabs button.ahead { color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 92px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .step { border: 1px solid var(--soft); background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .stephead b { color: var(--fg1); font-weight: 500; }
+  .teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 8px; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 6px 0 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); min-width: 220px; flex: 1; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; height: 170px; }
+  .pair { display: grid; grid-template-columns: minmax(220px, 1fr) 1.6fr; gap: 12px; }
+  @media (max-width: 640px) { .pair { grid-template-columns: 1fr; } }
+  svg.alg { display: block; width: 100%; height: 230px; }
+  .count { font-family: var(--mono); font-size: 26px; color: var(--fg1); }
+  .count small { font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+  .walk { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 15px; color: var(--fg1); min-height: 1.5em; }
+  .verdict .fam { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-right: 8px; }
+  .eqs { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .key i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg>made · Web Audio Worklet · sketch</div>
+  <h3 class="title">Six operators — wirings of one pair</h3>
+  <p class="sub">The DX7's six operators, wired by its own table. Carriers sit on the bottom row and are heard; everything above them pushes. A dashed box is an operator turned down to nothing. Under the diagram, the count: how many partials the patch makes that are within 60 dB of its loudest, below 5 kHz. Walk from one pair to three of the 32 wirings; the last step sets a stack against a pair.</p>
+
+  <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="step" id="step" aria-live="polite">
+    <div class="stephead"><b id="stepname"></b><span id="stepcount"></span></div>
+    <p class="teach" id="teach"></p>
+    <div id="controls"></div>
+    <p class="back" id="backline"></p>
+  </div>
+
+  <div class="walk">
+    <button id="back">◂ back</button>
+    <button id="go" class="go">▸ play</button>
+    <button id="next">next ▸</button>
+    <span class="hint" id="state">silent until you press play</span>
+  </div>
+
+  <div class="pair">
+    <div class="panel"><div class="plabel"><span id="alglabel">algorithm</span><span>bold: carrier · bent line: the loop</span></div><svg class="alg" id="alg" viewBox="0 0 300 240" role="img" aria-label="the wiring"></svg></div>
+    <div class="panel">
+      <div class="plabel"><span>the spectrum, 0 – 5 kHz · dB, −60 to 0</span></div>
+      <canvas id="spec"></canvas>
+      <div class="vs" id="counts"></div>
+    </div>
+  </div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="eqs">
+    <div class="eq">y<sub>3</sub> = sin( ω<sub>3</sub>t + I<sub>4</sub> · sin( ω<sub>4</sub>t + I<sub>5</sub> · sin ω<sub>5</sub>t ) )</div>
+    <div class="words">(the carrier) = sine of ( its own phase + (operator 4's index) × (operator 4, which is itself a sine pushed by operator 5) ). A pair has one comb of partials, the carrier plus whole numbers of one modulator; a stack has the carrier plus whole numbers of each modulator, every combination of the two.</div>
+  </div>
+  <div class="hint">Counts are spectral peaks found on a 16384-point Blackman window at 48 kHz, so partials closer than about 12 Hz count as one: a floor, not an exact tally. Ratios, levels and indices are this piece's, not Yamaha's factory data.</div>
+  <div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+(() => {
+// ───────────── the engine: six operators on Dexed's bus machine, three of the 32 rows ─────────────
+const ENGINE_SRC = String.raw`
+// One row per algorithm, operator 6 first (Dexed, source/msfa/fm_core.cc).
+// bits: 0-1 output bus (0 = out), 2 add to the bus, 4-5 input bus, 6 feedback in, 7 feedback out.
+const ROWS = {
+  1:  [0xc1, 0x11, 0x11, 0x14, 0x01, 0x14],
+  5:  [0xc1, 0x14, 0x01, 0x14, 0x01, 0x14],
+  32: [0xc4, 0x04, 0x04, 0x04, 0x04, 0x04],
+};
+// Who is heard, who pushes whom, and where the loop runs, read off a row.
+function roles(alg) {
+  const f = ROWS[alg], bus = [[], [], []], R = [];
+  for (let n = 1; n <= 6; n++) R[n - 1] = { carrier: false, targets: [], mods: [] };
+  let fbIn = null, fbOut = null;
+  for (let k = 0; k < 6; k++) {
+    const n = 6 - k, fl = f[k], inb = (fl >> 4) & 3, ob = fl & 3;
+    if (inb) for (const m of bus[inb]) { R[n - 1].mods.push(m); R[m - 1].targets.push(n); }
+    if (fl & 0x40) fbIn = n; if (fl & 0x80) fbOut = n;
+    if (ob === 0) R[n - 1].carrier = true; else bus[ob] = (fl & 4) ? bus[ob].concat([n]) : [n];
+  }
+  return { R, fbIn, fbOut };
+}
+class Six {
+  constructor(sr) { this.sr = sr; this.ph = new Float64Array(6); this.lv = new Float64Array(6); this.fb1 = 0; this.fb2 = 0; this.patch = null; this.gate = 0; this.g = 0; this.fc = 220;
+    this.sm = 1 - Math.exp(-1 / (0.01 * sr)); this.gm = 1 - Math.exp(-1 / (0.006 * sr)); }
+  set(d) { if (d.patch) { this.patch = d.patch; if (d.snap) for (let k = 0; k < 6; k++) this.lv[k] = d.patch.ops[5 - k].level; } if (d.gate !== undefined) this.gate = d.gate; if (d.fc) this.fc = d.fc; }
+  render(L, R, n) {
+    const p = this.patch; if (!p) { L.fill(0); R.fill(0); return; }
+    const f = ROWS[p.alg], TP = 2 * Math.PI, sr = this.sr, beta = p.fb > 0 ? Math.PI * Math.pow(2, p.fb - 7) : 0;
+    let cars = 0; for (let k = 0; k < 6; k++) if ((f[k] & 3) === 0 && p.ops[5 - k].level > 0) cars++;
+    const norm = 0.3 / Math.max(1, Math.sqrt(cars));
+    for (let i = 0; i < n; i++) {
+      this.g += (this.gate - this.g) * this.gm;
+      let out = 0, b1 = 0, b2 = 0, fbOut = 0;
+      for (let k = 0; k < 6; k++) {
+        const fl = f[k], o = p.ops[5 - k];
+        this.lv[k] += (o.level - this.lv[k]) * this.sm;
+        const inb = (fl >> 4) & 3;
+        let mod = inb === 1 ? b1 : inb === 2 ? b2 : 0;
+        if (fl & 0x40) mod += beta * 0.5 * (this.fb1 + this.fb2);
+        const ob = fl & 3, s = Math.sin(TP * this.ph[k] + mod);
+        this.ph[k] += this.fc * o.ratio / sr; this.ph[k] -= Math.floor(this.ph[k]);
+        // a carrier's level is its volume; a modulator's is its index, in radians
+        const y = this.lv[k] * s;
+        if (fl & 0x80) fbOut = s;
+        if (ob === 0) out += y;
+        else if (ob === 1) b1 = (fl & 4) ? b1 + y : y;
+        else b2 = (fl & 4) ? b2 + y : y;
+      }
+      this.fb2 = this.fb1; this.fb1 = fbOut;
+      L[i] = norm * this.g * out; R[i] = L[i];
+    }
+  }
+}
+// Render a patch offline and count its partials: spectral peaks within 60 dB of the loudest, under 5 kHz.
+function fft(re, im) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+  for (let len = 2; len <= n; len <<= 1) {
+    const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) {
+      const p = i + j, q = p + len / 2, vr = re[q] * cr - im[q] * ci, vi = re[q] * ci + im[q] * cr;
+      re[q] = re[p] - vr; im[q] = im[p] - vi; re[p] += vr; im[p] += vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+  }
+}
+function analyse(patch, fc = 220) {
+  const SR = 48000, N = 16384, e = new Six(SR);
+  e.set({ patch, snap: true, gate: 1, fc }); e.g = 1;
+  const L = new Float32Array(N + 2400), Rr = new Float32Array(N + 2400); e.render(L, Rr, N + 2400);
+  const re = new Float64Array(N), im = new Float64Array(N);
+  for (let i = 0; i < N; i++) re[i] = L[i + 2400] * (0.42 - 0.5 * Math.cos(2 * Math.PI * i / N) + 0.08 * Math.cos(4 * Math.PI * i / N));
+  fft(re, im);
+  const K = Math.floor(5000 * N / SR), db = new Float64Array(K + 3);
+  let top = 1e-30; for (let k = 0; k < K + 3; k++) { db[k] = Math.hypot(re[k], im[k]); top = Math.max(top, db[k]); }
+  for (let k = 0; k < K + 3; k++) db[k] = 20 * Math.log10(db[k] / top + 1e-15);
+  let count = 0;
+  for (let k = 3; k < K; k++) if (db[k] > -60 && db[k] > db[k - 1] && db[k] >= db[k + 1] && db[k] > db[k - 2] && db[k] >= db[k + 2]) count++;
+  return { count, db: Array.from(db.subarray(0, K)), hz: SR / N };
+}
+`;
+const PROC_SRC = ENGINE_SRC + `
+class SixProc extends AudioWorkletProcessor {
+  constructor() { super(); this.e = new Six(sampleRate); this.port.onmessage = ({ data }) => this.e.set(data); }
+  process(_, outs) { const o = outs[0]; this.e.render(o[0], o[1] || o[0], o[0].length); return true; }
+}
+registerProcessor('fm-six', SixProc);`;
+const { Six, roles, analyse } = new Function(ENGINE_SRC + '; return { Six, roles, analyse };')();
+
+// ───────────── the walk ─────────────
+const op = (ratio, level) => ({ ratio, level });
+const off = () => op(1, 0);
+const WHOLE = { r2: 1, r3: 1, name: 'whole numbers, 1 and 1' }, APART = { r2: 1.414, r3: 1.732, name: 'not whole, 1.414 and 1.732' };
+const S = { step: 0, reached: 0, playing: false, patch: null, side: 'stack', pairIndex: 2, set: WHOLE };
+function pairPatch(set, I) { return { alg: 1, fb: 0, ops: [op(1, 1), op(set.r2, I), off(), off(), off(), off()] }; }
+function stackPatch(set) { return { alg: 1, fb: 0, ops: [off(), off(), op(1, 1), op(set.r2, 2), op(set.r3, 2), off()] }; }
+const STEPS = [
+  { name: 'one pair', patch: () => pairPatch(WHOLE, 2),
+    teach: 'Two of the six, wired as algorithm 1 wires them: operator 2 pushes operator 1, and only 1 is heard. Ratio 1 : 1, index 2. The rest are turned down to nothing. Count the partials: this is the unit everything else is built from.' },
+  { name: 'a stack of three', patch: () => stackPatch(WHOLE),
+    teach: 'The other side of the same algorithm: operator 5 pushes 4, and 4 pushes 3. Same ratio, same index on each, one more operator. Operator 4 reaches the carrier already a rich tone, and the carrier carries all of it. Count again.',
+    back: 'Step 1 was the pair on the left of this same diagram.' },
+  { name: 'algorithm 1', patch: () => ({ alg: 1, fb: 3, ops: [op(1, 0.7), op(1, 1.5), op(1, 0.7), op(1, 1.2), op(2, 1), op(3, 0.8)] }),
+    teach: 'Both at once, which is what algorithm 1 is: a two-operator pair beside a four-operator stack, with the one feedback loop on operator 6 at the top of the stack. Two sounds side by side, one simple and one dense, mixed at the bottom row.',
+    back: 'Turn operators 1, 2 and 6 down and it is step 2.' },
+  { name: 'algorithm 5', patch: () => ({ alg: 5, fb: 0, ops: [op(1, 0.8), op(1, 1.2), op(1, 0.35), op(14, 0.9), op(1.003, 0.5), op(1, 1)] }),
+    teach: 'Three pairs side by side: 2 on 1, 4 on 3, 6 on 5. Here one pair is the body at 1 : 1, one a quiet strike with its modulator at 14 times the note, and one a hair off 1 for width. Alone, the three pairs count 6, 3 and 5; together, 7. Layered pairs add their partials, and where two land on the same harmonic they merge. None multiplies another\'s.',
+    back: 'One pair of the three is step 1.' },
+  { name: 'algorithm 32', patch: () => ({ alg: 32, fb: 0, ops: [1, 2, 3, 4, 5, 6].map(k => op(k, 1 / k)) }),
+    teach: 'Six carriers side by side and nothing pushing anything: an additive organ, six sines at harmonics 1 to 6, like drawbars. The one loop sits on operator 6 here too; at 0, as here, all six are plain sines.',
+    back: 'Wire them into three pairs and it is algorithm 5.' },
+  { name: 'stack against pair · the test', patch: null,
+    teach: 'The section\'s claim: a stack gives far more partials than a pair can. The stack here is step 2\'s, index 2 on each modulator. The pair is step 1\'s, but its index is yours: push it as hard as you like. Try it with whole-number ratios, then with ratios that are not whole.' },
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const c of kids) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+let syncers = [];
+function testControls() {
+  syncers = [];
+  const val = el('b'), input = el('input', { type: 'range', min: 0, max: 20, step: 0.1, 'aria-label': 'the pair\'s index' });
+  syncers.push(() => { input.value = S.pairIndex; val.textContent = S.pairIndex.toFixed(1); });
+  input.addEventListener('input', () => { S.pairIndex = +input.value; update(); });
+  const tog = (v, t) => { const x = el('button', { 'aria-pressed': 'false', onclick: () => { S.set = v; update(); } }, t); syncers.push(() => x.setAttribute('aria-pressed', String(S.set === v))); return x; };
+  const side = (v, t) => { const x = el('button', { 'aria-pressed': 'false', onclick: () => { S.side = v; update(); if (!S.playing) play(); } }, t); syncers.push(() => x.setAttribute('aria-pressed', String(S.side === v))); return x; };
+  return [el('div', { class: 'row' }, el('label', { class: 'sl' }, 'the pair\'s index ', val, input)),
+    el('div', { class: 'row' }, el('span', { class: 'hint' }, 'ratios'), tog(WHOLE, WHOLE.name), tog(APART, APART.name)),
+    el('div', { class: 'row' }, el('span', { class: 'hint' }, 'hear'), side('stack', 'the stack'), side('pair', 'the pair'))];
+}
+function go(i) {
+  if (i !== S.step) stop();                          // changing step stops the sound
+  S.step = i; S.reached = Math.max(S.reached, i);
+  const s = STEPS[i];
+  if (s.patch) S.patch = s.patch(); else { S.pairIndex = 2; S.set = WHOLE; S.side = 'stack'; }
+  $('stepname').textContent = (i + 1) + ' · ' + s.name;
+  $('stepcount').textContent = 'step ' + (i + 1) + ' of ' + STEPS.length;
+  $('teach').textContent = s.teach;
+  $('backline').textContent = s.back || ''; $('backline').hidden = !s.back;
+  const host = $('controls'); host.textContent = ''; syncers = [];
+  if (!s.patch) host.append(...testControls());
+  $('back').hidden = i === 0; $('next').hidden = i === STEPS.length - 1;
+  const tabs = $('tabs'); tabs.textContent = '';
+  STEPS.forEach((t, j) => tabs.append(el('button', { 'aria-pressed': String(j === i), class: j > S.reached ? 'ahead' : '', onclick: () => go(j) }, (j + 1) + ' · ' + t.name.split(' · ')[0])));
+  update(true);
+}
+$('back').addEventListener('click', () => go(Math.max(0, S.step - 1)));
+$('next').addEventListener('click', () => go(Math.min(STEPS.length - 1, S.step + 1)));
+
+// ───────────── audio: nothing exists before the first click ─────────────
+let ctx = null, port = null, booting = null;
+function boot() {
+  if (booting) return booting;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  comp.connect(ctx.destination);
+  // the kit may quiet the context (a hush, a hidden tab, a minute untouched): the button follows it
+  ctx.addEventListener('statechange', () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; send(true); paint(); } });
+  booting = (async () => {
+    try {
+      const url = URL.createObjectURL(new Blob([PROC_SRC], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      const node = new AudioWorkletNode(ctx, 'fm-six', { numberOfInputs: 0, outputChannelCount: [2] });
+      node.connect(comp); port = node.port;
+    } catch (e) {                                    // a page opened from a file: the same engine on the main thread
+      const eng = new Six(ctx.sampleRate), sp = ctx.createScriptProcessor(1024, 0, 2);
+      sp.onaudioprocess = ev => eng.render(ev.outputBuffer.getChannelData(0), ev.outputBuffer.getChannelData(1), 1024);
+      sp.connect(comp); port = { postMessage: d => eng.set(d) };
+    }
+    send(true);
+  })();
+  return booting;
+}
+function heardPatch() { return STEPS[S.step].patch ? S.patch : S.side === 'pair' ? pairPatch(S.set, S.pairIndex) : stackPatch(S.set); }
+function send(snap) { if (port) port.postMessage({ patch: heardPatch(), gate: S.playing ? 1 : 0, fc: 220, snap: !!snap }); }
+async function play() {
+  await boot();
+  if (ctx.state !== 'running') await ctx.resume();
+  S.playing = true; send(false); paint();
+}
+function stop() { if (!S.playing) return; S.playing = false; send(false); paint(); }
+$('go').addEventListener('click', () => (S.playing ? stop() : play()));
+function paint() {
+  $('go').textContent = S.playing ? '❚❚ stop' : '▸ play';
+  $('state').textContent = S.playing ? 'playing' + (STEPS[S.step].patch ? '' : ' · the ' + S.side) : 'silent until you press play';
+}
+
+// ───────────── counts, diagram, spectrum ─────────────
+let A = null, cache = new Map();
+const analysed = p => { const k = JSON.stringify(p); if (!cache.has(k)) cache.set(k, analyse(p)); return cache.get(k); };
+function update(snap) {
+  for (const f of syncers) f();
+  const s = STEPS[S.step], counts = $('counts'); counts.textContent = '';
+  const v = $('verdict'); v.textContent = '';
+  if (s.patch) {
+    A = analysed(S.patch);
+    counts.append(el('div', {}, el('div', { class: 'count' }, String(A.count), ' ', el('small', {}, 'partials'))));
+    drawAlg(S.patch);
+  } else {
+    const st = analysed(stackPatch(S.set)), pr = analysed(pairPatch(S.set, S.pairIndex));
+    A = S.side === 'pair' ? pr : st;
+    counts.append(el('div', {}, el('div', { class: 'count' }, String(st.count), ' ', el('small', {}, 'the stack · index 2, 2'))),
+      el('div', {}, el('div', { class: 'count' }, String(pr.count), ' ', el('small', {}, 'the pair · index ' + S.pairIndex.toFixed(1)))));
+    const more = st.count / Math.max(1, pr.count);
+    v.append(el('span', { class: 'fam' }, more >= 2 ? 'far more' : more > 1.15 ? 'more' : 'level'),
+      more >= 2 ? 'The stack makes ' + more.toFixed(1) + ' times the pair\'s partials.' + (S.set === WHOLE ? ' Push the pair harder and see whether it catches up.' : ' Push the pair as hard as you like: its partials stay on one comb, the carrier plus whole numbers of one modulator, and it tops out near 32 here.')
+        : more > 1.15 ? 'The stack still has more, but the pair is closing in.'
+        : 'Level: with whole-number ratios both fill the same harmonic grid, and a pair pushed this hard fills as much of it as the stack does at index 2. The stack got there with far less push.');
+    drawAlg(heardPatch());
+  }
+  send(!!snap); paint(); drawSpec();
+}
+function drawAlg(p) {
+  const NS = 'http://www.w3.org/2000/svg', svg = $('alg'); svg.textContent = '';
+  const { R, fbIn, fbOut } = roles(p.alg);
+  $('alglabel').textContent = 'algorithm ' + p.alg + ' · Dexed\'s row';
+  const depth = [], x = [];
+  const dep = n => R[n - 1].carrier ? 0 : 1 + Math.max(...R[n - 1].targets.map(dep));
+  for (let n = 1; n <= 6; n++) depth[n] = dep(n);
+  const cars = [1, 2, 3, 4, 5, 6].filter(n => R[n - 1].carrier);
+  cars.forEach((n, i) => x[n] = (i + 0.5) / cars.length * 300);
+  const maxD = Math.max(...depth.slice(1));
+  for (let d = 1; d <= maxD; d++) for (const n of [1, 2, 3, 4, 5, 6].filter(n => depth[n] === d)) { const t = R[n - 1].targets; x[n] = t.reduce((a, m) => a + x[m], 0) / t.length; }
+  const y = n => 200 - depth[n] * Math.min(50, 160 / Math.max(maxD, 1));
+  const add = (tag, attrs, text) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); if (text != null) e.textContent = text; svg.append(e); return e; };
+  const live = n => p.ops[n - 1].level > 1e-3;
+  for (let n = 1; n <= 6; n++) for (const t of R[n - 1].targets) add('line', { x1: x[n], y1: y(n) + 13, x2: x[t], y2: y(t) - 13, stroke: live(n) ? '#c8c8d8' : '#4a4a5a', 'stroke-width': 1.2, 'stroke-dasharray': live(n) ? '' : '3 3' });
+  add('line', { x1: Math.min(...cars.map(n => x[n])), y1: 228, x2: Math.max(...cars.map(n => x[n])) + 0.01, y2: 228, stroke: '#c8c8d8', 'stroke-width': 1.2 });
+  for (const n of cars) add('line', { x1: x[n], y1: y(n) + 13, x2: x[n], y2: 228, stroke: live(n) ? '#c8c8d8' : '#4a4a5a', 'stroke-width': 1.2 });
+  add('text', { x: 4, y: 236, 'font-size': 9, fill: '#8a8aa0', 'font-family': 'JetBrains Mono, monospace' }, 'OUT');
+  const fx = x[fbOut], fy = y(fbOut), tx = x[fbIn], ty = y(fbIn);
+  add('path', { d: `M ${fx + 13} ${fy} h 12 V ${ty - 22} H ${tx} V ${ty - 13}`, fill: 'none', stroke: p.fb > 0 ? '#e8b84a' : '#5a5a6e', 'stroke-width': 1.2 });
+  for (let n = 1; n <= 6; n++) {
+    add('rect', { x: x[n] - 13, y: y(n) - 13, width: 26, height: 26, fill: live(n) ? '#12121a' : '#0a0a0f', stroke: live(n) ? (R[n - 1].carrier ? '#e8b84a' : '#c8c8d8') : '#4a4a5a', 'stroke-width': R[n - 1].carrier ? 2 : 1, 'stroke-dasharray': live(n) ? '' : '3 2' });
+    add('text', { x: x[n], y: y(n) + 4.5, 'text-anchor': 'middle', 'font-size': 13, fill: live(n) ? '#e8e8f0' : '#4a4a5a', 'font-family': 'JetBrains Mono, monospace' }, String(n));
+    if (live(n)) add('text', { x: x[n] - 16, y: y(n) - 8, 'text-anchor': 'end', 'font-size': 8.5, fill: '#8a8aa0', 'font-family': 'JetBrains Mono, monospace' }, '×' + (+p.ops[n - 1].ratio.toFixed(3)));
+  }
+}
+const cv = $('spec');
+function drawSpec() {
+  if (!A) return;
+  const d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+  if (!w) return;
+  if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h);
+  const X = i => 6 + i / A.db.length * (w - 12), Y = db => 8 + (Math.max(-60, db) / -60) * (h - 24);
+  g.strokeStyle = 'rgba(255,255,255,.08)'; g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = '#4a4a5a';
+  for (const f of [1000, 2000, 3000, 4000]) { const x = X(f / A.hz); g.beginPath(); g.moveTo(x, 8); g.lineTo(x, h - 16); g.stroke(); g.fillText(f / 1000 + ' k', x - 8, h - 3); }
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1; g.beginPath();
+  A.db.forEach((v, i) => { const x = X(i), y = Y(v); i ? g.lineTo(x, y) : g.moveTo(x, y); });
+  g.stroke();
+}
+addEventListener('resize', drawSpec);
+
+// the sigil: the house's Lissajous, 3 : 2
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('sigil').setAttribute('d', d); })();
+
+go(0);
+})();
+</script>
+</body>
+</html>

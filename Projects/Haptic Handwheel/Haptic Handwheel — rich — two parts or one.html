@@ -1,0 +1,647 @@
+<!doctype html>
+<!--
+  title: Haptic Handwheel — rich — two parts or one
+  born: 2026-11-03
+  links: [[Haptic Handwheel]] (connects-to · rich-face-piece) · [[Simondon]] (exemplifies · one part doing several jobs) · [[Progressive Staging]] (exemplifies · a walk in four steps) · listed in [[Haptic Handwheel — rich.json]]
+  forward_vector: I am the section's Simondon claim as a test you can play. A knob that only turns, then a
+    light beside it, then one motor that senses and pushes, and last the test: land a named note four ways,
+    a snap-to-note knob among them as the control, and score finding the note apart from landing in tune,
+    so what's left is where the news had to come from. A screen can't push back, so I say what I can test (where the
+    news lives) and what I can't (whether a hand feels it). I play inside the entry's rich face and stand
+    alone opened directly; I change only when the section I serve does.
+  engine: the steward's feel engine (Projects/Haptic Handwheel/proofs/feel-lab/feel_engine.js), inlined
+    unchanged between ENGINE:START and ENGINE:END, the same text the feel lab and the offline renders run.
+    The frets are its own: 24 a turn, 0.03 N·m pull, a 0.006 N·m push off the ridge, sticking friction and
+    the motor's bumps cancelled to 8% (the firmware's settings after the bench). The plain knob is the same
+    cap and friction with no motor. Checked headless by "Haptic Handwheel — rich — checks.mjs".
+  dress: Loudon Live house style, Graphite skin. Sound only after a click; the kit hushes it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Haptic Handwheel — two parts or one</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --warn:#ff6b6b;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .hhw-piece { padding: 22px 22px 20px; }
+  .hhw-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .hhw-kicker svg { width: 18px; height: 18px; }
+  .hhw-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .hhw-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 80ch; margin: 0 0 16px; }
+  .hhw-rail { display: flex; flex-wrap: wrap; margin: 0 0 14px; }
+  .hhw-rail button { border-radius: 0; margin-right: -1px; }
+  .hhw-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.hhw-on { color: var(--amber); border-color: var(--amberline); }
+  .hhw-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .hhw-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .hhw-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 80ch; margin: 0 0 12px; }
+  .hhw-says b { color: var(--fg1); font-weight: 500; }
+  .hhw-stage { display: grid; grid-template-columns: minmax(260px, 380px) 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 700px) { .hhw-stage { grid-template-columns: 1fr; } }
+  .hhw-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px 10px; }
+  .hhw-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .hhw-plabel b { color: var(--fg1); font-weight: 500; }
+  canvas { display: block; width: 100%; touch-action: none; }
+  #wheel { cursor: grab; }
+  .hhw-side { display: flex; flex-direction: column; gap: 12px; }
+  .hhw-lamp { display: grid; grid-template-columns: 70px 1fr; gap: 12px; align-items: center; }
+  .hhw-note { font-family: var(--serif); font-size: 46px; color: var(--fg1); line-height: 1; text-align: center; }
+  .hhw-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--fg4); display: inline-block; vertical-align: middle; margin-right: 8px; transition: background 120ms linear, box-shadow 120ms linear; }
+  .hhw-dot.lit { background: var(--amber); box-shadow: 0 0 14px rgba(232,184,74,.6); }
+  .hhw-covered { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg4); padding: 22px 6px; text-align: center; border: 1px dashed var(--fg4); }
+  .hhw-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .hhw-read b { color: var(--fg1); font-weight: 500; }
+  .hhw-controls { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; margin-top: 12px; }
+  .hhw-trial { font-size: 15px; line-height: 1.55; color: var(--fg1); }
+  .hhw-trial b { color: var(--amber); font-weight: 500; }
+  .hhw-last { font-family: var(--mono); font-size: 11.5px; color: var(--fg3); margin-top: 6px; min-height: 18px; }
+  table { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; width: 100%; }
+  td, th { padding: 5px 6px; border-bottom: 1px solid var(--soft); text-align: left; vertical-align: top; }
+  th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  td b { color: var(--fg1); font-weight: 500; }
+  .hhw-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 80ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+  .hhw-verdict b { font-weight: 500; color: var(--amber); }
+  .hhw-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .hhw-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .hhw-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 80ch; }
+  .hhw-honest { font-size: 13px; line-height: 1.55; color: var(--fg3); margin-top: 12px; max-width: 80ch; }
+  .hhw-honest b { color: var(--fg2); font-weight: 500; }
+  .hhw-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .hhw-foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="hhw-piece">
+  <div class="hhw-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · canvas + web audio · sketch · a walk in four steps</span></div>
+  <h3 class="hhw-title">Two parts or one</h3>
+  <p class="hhw-sub">A knob with a light beside it is two parts: one to move, one to read. The handwheel's motor is one part that does both, and pushes back besides. This walk builds the two-part knob first, then the one-part knob, and ends on a test: land a named note four ways, one of them a control that lands in tune without a motor. It runs the steward's feel engine, the same code as the feel lab. Drag the knob around its centre. Sound starts only when you press <b>sound</b>.</p>
+
+  <div class="hhw-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="hhw-step">
+    <div class="hhw-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="hhw-says" id="says"></p>
+    <div class="hhw-stage">
+      <div class="hhw-panel">
+        <div class="hhw-plabel"><span id="wheellabel">the knob</span><span id="wheelstate"></span></div>
+        <canvas id="wheel"></canvas>
+      </div>
+      <div class="hhw-side" id="side"></div>
+    </div>
+    <div class="hhw-controls" id="controls"></div>
+    <div class="hhw-read" id="read"></div>
+    <div class="hhw-verdict" id="verdict" style="display:none"></div>
+    <div class="hhw-eqs" id="eqs"></div>
+    <div class="hhw-honest" id="honest"></div>
+    <div class="hhw-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+  <div class="hhw-foot">Loud’n Live</div>
+</div>
+
+<script>
+/* ENGINE:START — the steward's feel engine, inlined unchanged from proofs/feel-lab/feel_engine.js */
+// Haptic Handwheel — feel engine.
+// One knob: a motor that senses and pushes, a cap, a hand. Plain script, no
+// imports, so the same text runs inlined in feel-lab.html and in node
+// (render_feel_lab.mjs loads it with new Function). Nothing here has met
+// hardware. Every number marked ASSUMED is a guess waiting for a bench.
+
+function makeEngine(opts) {
+  const P = Object.assign({
+    fs: 48000,          // physics steps per second
+    loopHz: 10000,      // how often the feel is computed (device loop)
+    delayMs: 0,         // extra transport delay between sensing and pushing
+    capMass: 0.040,     // kg; light 80 mm printed cap (Loudon leans light)
+    capR: 0.040,        // m; cap radius
+    Jrotor: 3e-5,       // kg·m²; ASSUMED rotor inertia, GM5208 figure not found
+    bMotor: 1e-4,       // N·m·s/rad; ASSUMED viscous loss of motor + bearings
+    tauC: 0.003,        // N·m; ASSUMED dry friction + cogging floor
+    tauMax: 0.2,        // N·m; firmware clamp (motor rated 0.18–0.25)
+    handK: 0.48,        // N·m/rad; ASSUMED fingertip grip (~300 N/m at the rim)
+    handB: 0.0032,      // N·m·s/rad; ASSUMED fingertip damping (~2 N·s/m at the rim)
+    quantize: true,     // 14-bit encoder, AS5048A
+    semisPerTurn: 24,   // pitch range of one full turn
+    basePitch: 45,      // MIDI note at angle 0 (A2)
+    // sketch 2: the motor's own bumps. 12 slots, 14 magnets → 84 a turn. Same
+    // pretend shape the bench analyzer is checked against (bench_analyze.py
+    // fake_cog). cog = 0 off, 1 on; cogLeft = what is left after the firmware
+    // cancels them (1 = raw, 0.08 ≈ the analyzer's selftest residue).
+    cog: 0, cogLeft: 1,
+    stick: false,       // true Coulomb stick at rest instead of the smooth tanh
+  }, opts || {});
+
+  const J = P.Jrotor + 0.5 * P.capMass * P.capR * P.capR;
+  const dt = 1 / P.fs;
+  const q = (2 * Math.PI) / 16384;
+  const s = {
+    th: 0, om: 0, t: 0,
+    hand: false, handTarget: 0, brake: 0, // brake = finger friction, N·m·s/rad
+    extTorque: 0,                         // scripted extra push (a flick)
+    tauHeld: 0, tauFeel: 0, tauHand: 0,
+    sensedTh: 0, sensedOm: 0, lastSensedTh: 0,
+    nextTick: 0, queue: [],
+  };
+  const eng = { P, J, s, feel: null };
+
+  eng.setFeel = (f) => { eng.feel = f; if (f && f.reset) f.reset(eng); };
+  eng.pitch = () => P.basePitch + (s.th / (2 * Math.PI)) * P.semisPerTurn;
+
+  eng.step = () => {
+    // the device loop: sense, compute the feel, send it down the (maybe slow) wire
+    if (s.t >= s.nextTick) {
+      const Tl = 1 / P.loopHz;
+      const th = P.quantize ? Math.round(s.th / q) * q : s.th;
+      const omRaw = (th - s.lastSensedTh) / Tl;
+      s.sensedOm += 0.25 * (omRaw - s.sensedOm); // light smoothing of a noisy difference
+      s.lastSensedTh = th; s.sensedTh = th;
+      let tau = eng.feel ? eng.feel.torque(eng, Tl) : 0;
+      tau = Math.max(-P.tauMax, Math.min(P.tauMax, tau));
+      s.tauFeel = tau;
+      s.queue.push([s.t + P.delayMs / 1000, tau]);
+      s.nextTick += Tl;
+    }
+    while (s.queue.length && s.queue[0][0] <= s.t) s.tauHeld = s.queue.shift()[1];
+
+    s.tauHand = (s.hand ? P.handK * (s.handTarget - s.th) - P.handB * s.om : 0) - s.brake * s.om;
+    const tauCog = P.cog ? P.cog * P.cogLeft * cogTorque(s.th) : 0;
+    let drive = s.tauHeld + s.tauHand + s.extTorque + tauCog - P.bMotor * s.om;
+    if (P.stick && Math.abs(s.om) < 2e-3 && Math.abs(drive) <= P.tauC) { s.om = 0; s.t += dt; return; }
+    const tauLoss = P.stick ? -P.tauC * Math.sign(s.om || drive) : -P.tauC * Math.tanh(s.om / 0.05);
+    s.om += ((drive + tauLoss) / J) * dt;
+    s.th += s.om * dt;
+    s.t += dt;
+  };
+  return eng;
+}
+
+// The motor's bumps (N·m) at angle th: 84 a turn, their second harmonic, and a
+// once-a-turn wobble from a rotor slightly off centre. ASSUMED shape and size.
+function cogTorque(th) {
+  return 0.006 * Math.sin(84 * th) + 0.002 * Math.sin(168 * th + 0.7) + 0.0015 * Math.sin(th + 1.1);
+}
+
+// The motor's own brake, from proofs/motor-numbers: driven by voltage, the
+// back-EMF damps the knob for free. The firmware can cancel it (cancelBrake 1).
+const BRAKES = [
+  { id: 'cancelled', label: 'brake cancelled', b: 1e-4 },
+  { id: 'low',  label: 'brake on · low guess',  b: 0.00223 },
+  { id: 'mid',  label: 'brake on · middle guess', b: 0.00711 },
+  { id: 'high', label: 'brake on · high guess', b: 0.0232 },
+];
+
+// ── The feels. Each returns torque from what the device senses; some keep
+// their own state (a melody, a platter, an LFO). Sound comes from voice().
+
+const TAU = 2 * Math.PI;
+
+const FEELS = {
+  // Pitch you can lean on: a pull toward the nearest in-tune semitone.
+  frets: (o) => Object.assign({
+    name: 'frets', peak: 0.03, damp: 0.0,
+    // kick (sketch 2): a push off the ridge between two notes, so friction can't
+    // leave the knob balanced there. Zero at each note, full on the ridge.
+    kick: 0,
+    torque(e) {
+      const sp = e.P.semisPerTurn / TAU; // semitones per radian
+      const a = TAU * sp * e.s.sensedTh, sn = Math.sin(a);
+      return -this.peak * sn - this.kick * Math.sign(sn) * 0.5 * (1 - Math.cos(a)) - this.damp * e.s.sensedOm;
+    },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+
+  // A string that stiffens as it bends; pitch rises with tension.
+  string: (o) => Object.assign({
+    name: 'string', k1: 0.04, k3: 0.25,
+    torque(e) { const x = e.s.sensedTh; return -(this.k1 * x + this.k3 * x * x * x); },
+    // tension ~ k1 x + k3 x³; pitch ~ √tension: two semitones at a full ~1 rad bend
+    voice(e) {
+      const x = Math.abs(e.s.th);
+      const tens = 1 + (this.k1 * x + this.k3 * x * x * x) / 0.12;
+      return { midi: 52 + 6 * Math.log2(tens), amp: 0.5 };
+    },
+  }, o),
+
+  // The modulation, played into the hand: an LFO pushes, a soft spring centres.
+  lfo: (o) => Object.assign({
+    name: 'lfo', rate: 3, amp: 0.02, k: 0.08,
+    torque(e) { return this.amp * Math.sin(TAU * this.rate * e.s.t) - this.k * e.s.sensedTh; },
+    voice(e) { return { midi: 57 + 0.5 * Math.sin(TAU * this.rate * e.s.t), amp: 0.5 }; },
+  }, o),
+
+  // The pitch itself: the note the synth plays, pushed into the cap as torque.
+  pitch: (o) => Object.assign({
+    name: 'pitch', midi: 55, amp: 0.005, k: 0.03,
+    hz() { return 440 * Math.pow(2, (this.midi - 69) / 12); },
+    torque(e) { return this.amp * Math.sin(TAU * this.hz() * e.s.t) - this.k * e.s.sensedTh; },
+    voice(e) { return { midi: this.midi, amp: 0.5 }; },
+  }, o),
+
+  // The lock: the knob sets an LFO's rate; beat clicks are pushed into the hand.
+  // Near a synced rate the rate is pulled in (a magnet in log-rate) and the LFO's
+  // phase is pulled toward the beat (Kuramoto, one oscillator pulled by a clock).
+  lock: (o) => Object.assign({
+    name: 'lock', bpm: 100, lfoAmp: 0.015, clickAmp: 0.05, clickMs: 6,
+    magnet: 0.02, couple: 1.5, phi: 0, clicks: [],
+    reset() { this.phi = 0; this.clicks = []; this.lastBeat = -1; },
+    beatHz() { return this.bpm / 60; },
+    // 1 turn = 4 octaves of rate, centred on the beat rate
+    rate(th) { return this.beatHz() * Math.pow(2, (th / TAU) * 4); },
+    torque(e, Tl) {
+      const th = e.s.sensedTh, oct = (th / TAU) * 4;
+      // magnet toward whole octaves of the beat rate (×¼ … ×4)
+      const magnet = -this.magnet * Math.sin(TAU * oct);
+      let r = this.rate(th);
+      const beatPh = e.s.t * this.beatHz();
+      const ratio = Math.round(r / this.beatHz() * 4) / 4 || 0.25; // nearest synced multiple
+      const target = beatPh * ratio;
+      this.phi += Tl * (r + this.couple * Math.sin(TAU * (target - this.phi)));
+      let tau = this.lfoAmp * Math.sin(TAU * this.phi) + magnet;
+      const b = Math.floor(beatPh);
+      if (b !== this.lastBeat) { this.lastBeat = b; this.clicks.push(this.phi % 1); if (this.clicks.length > 24) this.clicks.shift(); }
+      if (beatPh - b < (this.clickMs / 1000) * this.beatHz()) tau += this.clickAmp * Math.sin(Math.PI * (beatPh - b) / ((this.clickMs / 1000) * this.beatHz()));
+      return tau;
+    },
+    voice(e) {
+      const beatPh = e.s.t * this.beatHz(), fr = beatPh - Math.floor(beatPh);
+      return { midi: 57, amp: 0.35 * (0.55 + 0.45 * Math.sin(TAU * this.phi)), click: fr < 0.02 ? 1 - fr / 0.02 : 0 };
+    },
+  }, o),
+
+  // Haptic filtering: the knob turns itself to each note of a melody; the hand
+  // can brake it (slower glide) or wiggle it (vibrato). Sound follows the knob.
+  follow: (o) => Object.assign({
+    name: 'follow', k: 0.25, damp: 0.004, notes: [0, 3, 7, 5, 3, 10, 7, 12], secPerNote: 0.6,
+    target(e) {
+      const i = Math.floor(e.s.t / this.secPerNote) % this.notes.length;
+      return (this.notes[i] / e.P.semisPerTurn) * TAU;
+    },
+    torque(e) { return this.k * (this.target(e) - e.s.sensedTh) - this.damp * e.s.sensedOm; },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+
+  // The struck spring: strike it, let it wobble down into pitch, damp with a finger.
+  // 'spring' rings at one rate all the way down; 'pendulum' (sin law) starts slow
+  // at a big swing and quickens as it settles.
+  // The pitch-wheel return (sketch 4, box day): a soft spring to centre plus a
+  // small push toward it. Alone, k = 0.03 stops up to 18° short against the
+  // motor's raw bumps and friction (6° with no bumps at all). The push, faded in
+  // over kickW rad, lands it within about 1° raw and 0.3° with bumps cancelled.
+  centre: (o) => Object.assign({
+    name: 'centre', k: 0.03, kick: 0.01, kickW: 0.02, rest: 0,
+    torque(e) { const x = e.s.sensedTh - this.rest; return -this.k * x - this.kick * Math.tanh(x / this.kickW); },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+  struck: (o) => Object.assign({
+    name: 'struck', law: 'spring', k: 0.085, damp: 0, rest: 0,
+    torque(e) {
+      const x = e.s.sensedTh - this.rest;
+      const f = this.law === 'pendulum' ? Math.sin(x) : x;
+      return -this.k * f - this.damp * e.s.sensedOm;
+    },
+    voice: (e) => ({ midi: e.pitch(), amp: 0.5 }),
+  }, o),
+
+  // The turntable: the motor holds 33⅓ rpm with a capped torque; the hand brakes.
+  // sketch 3: a push-only speed loop always idles short (friction ÷ gain).
+  // Two fixes, used together. `ffB`/`ffC` push the known cost of spinning
+  // (the brake and the friction `bench coast` measures) before any error
+  // appears; null means use the engine's own motor numbers. Then a small slow
+  // correction (ki, at most `trim`) mops up what the bench got wrong. It
+  // learns only within `gate` of speed, so a hand holding the platter back
+  // can't teach it to shove, and it doesn't surge when let go.
+  // At 33 rpm the 14-bit encoder moves less than one count per 10 kHz tick,
+  // so the loop steers by its own speed reading smoothed over `speedTf`
+  // seconds (SimpleFOC smooths over 5 ms by default).
+  turntable: (o) => Object.assign({
+    name: 'turntable', rpm: 100 / 3, kv: 0.01, cap: 0.06,
+    ffB: null, ffC: null, ki: 0.1, gate: 0.2, trim: 0.02, speedTf: 0.005, integ: 0, om: 0,
+    reset() { this.integ = 0; this.om = 0; },
+    omega() { return (this.rpm / 60) * TAU; },
+    torque(e, Tl) {
+      const dt = Tl || 0, a = this.speedTf > 0 ? dt / (this.speedTf + dt) : 1;
+      this.om += a * (e.s.sensedOm - this.om);
+      const w = this.omega(), err = w - this.om;
+      const fb = this.ffB === null ? e.P.bMotor : this.ffB, fc = this.ffC === null ? e.P.tauC : this.ffC;
+      if (Math.abs(err) < this.gate * w) this.integ = Math.max(-this.trim, Math.min(this.trim, this.integ + this.ki * err * dt));
+      return Math.max(-this.cap, Math.min(this.cap, this.kv * err + fb * w + fc * Math.sign(w) + this.integ));
+    },
+    voice(e) { return { rate: e.s.om / this.omega(), amp: 0.5 }; },
+  }, o),
+};
+/* ENGINE:END */
+
+/* SETUP:START — what this piece builds from the engine. Shared with the headless check. */
+const HHW = { basePitch: 57, semisPerTurn: 24 };   // A3 at the start; the feel lab's 24 semitones a turn
+// The plain knob: the same cap, bearings and friction, no motor at all.
+function plainKnob() { return makeEngine({ basePitch: HHW.basePitch, semisPerTurn: HHW.semisPerTurn, stick: true, cog: 0 }); }
+// The motor knob: senses its angle (the 14-bit encoder) and pushes frets. Bumps cancelled to 8%, the
+// push off the ridge on: the settings the feel map found land within a few cents (feel_map_results.json).
+function motorKnob() {
+  const e = makeEngine({ basePitch: HHW.basePitch, semisPerTurn: HHW.semisPerTurn, stick: true, cog: 1, cogLeft: 0.08 });
+  e.setFeel(FEELS.frets({ kick: 0.006 })); return e;
+}
+// The snap knob, the control: the same plain knob, but the synth rounds its pitch to the nearest note
+// once you let go. In tune by a quantizer, with no motor, no push and nothing to feel on the way.
+const snapPitch = (e) => Math.round(e.pitch());
+// cents from a target pitch (MIDI number)
+const centsOff = (e, target) => (e.pitch() - target) * 100;
+// has the knob come to rest? (hand off, slow for a while)
+function settle(e, maxSec) { const n = Math.round(maxSec * e.P.fs); let still = 0;
+  for (let i = 0; i < n; i++) { e.step(); still = Math.abs(e.s.om) < 0.01 ? still + 1 : 0; if (still > 0.15 * e.P.fs) return true; } return false; }
+/* SETUP:END */
+
+const $ = (id) => document.getElementById(id);
+const TAU_ = 2 * Math.PI;
+const NAMES = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
+const noteName = (m) => NAMES[((Math.round(m) % 12) + 12) % 12];
+const INTERVALS = { 2: 'a tone', 3: 'a minor third', 4: 'a major third', 5: 'a fourth', 7: 'a fifth', 9: 'a sixth', 10: 'a minor seventh', 12: 'an octave' };
+
+(function sigil() { const s = $('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = TAU_ * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+function el(tag, attrs, ...kids) { const n = document.createElement(tag); for (const [k, v] of Object.entries(attrs || {})) { if (k === 'on') for (const [ev, fn] of Object.entries(v)) n.addEventListener(ev, fn); else if (k === 'class') n.className = v; else if (k === 'html') n.innerHTML = v; else n.setAttribute(k, v); } for (const c of kids) n.append(c); return n; }
+
+// ── state ──
+const St = { step: 1, mode: 'plain', eng: plainKnob(), drag: null, light: false, touchT: 0, released: 0, sound: false, test: null };
+// 'snap' is the plain knob; only its played pitch differs
+function setMode(mode) { const th = St.eng.s.th; St.mode = mode; St.eng = mode === 'motor' ? motorKnob() : plainKnob(); St.eng.s.th = th; St.eng.s.lastSensedTh = th; St.eng.s.sensedTh = th; }
+
+// ── sound: one voice that follows the knob's pitch, gated by touch and motion ──
+const Snd = { ac: null, osc: null, g: null, out: null, level: 0 };
+function soundOn() {
+  if (!Snd.ac) {
+    Snd.ac = new (window.AudioContext || window.webkitAudioContext)();
+    const real = new Float32Array(8), imag = new Float32Array(8); for (let h = 1; h < 8; h++) imag[h] = 1 / h; // the renders' six-harmonic voice, one more
+    Snd.osc = Snd.ac.createOscillator(); Snd.osc.setPeriodicWave(Snd.ac.createPeriodicWave(real, imag));
+    Snd.g = Snd.ac.createGain(); Snd.g.gain.value = 0;
+    const lp = Snd.ac.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400;
+    const comp = Snd.ac.createDynamicsCompressor();
+    Snd.out = Snd.ac.createGain(); Snd.out.gain.value = 0.22;
+    Snd.osc.connect(lp); lp.connect(Snd.g); Snd.g.connect(comp); comp.connect(Snd.out); Snd.out.connect(Snd.ac.destination);
+    Snd.osc.start();
+  }
+  if (Snd.ac.state === 'suspended') Snd.ac.resume();
+  St.sound = true;
+}
+function soundOff() { St.sound = false; if (Snd.g) Snd.g.gain.setTargetAtTime(0, Snd.ac.currentTime, 0.03); }
+function midiHz(m) { return 440 * Math.pow(2, (m - 69) / 12); }
+function voice(midi, on) {
+  if (!Snd.ac || !St.sound) return;
+  const t = Snd.ac.currentTime;
+  Snd.osc.frequency.setTargetAtTime(midiHz(midi), t, 0.006);
+  Snd.g.gain.setTargetAtTime(on ? 1 : 0, t, on ? 0.02 : 0.25);
+}
+// the target note, alone, for a moment (the test's reference)
+function playTarget(midi) {
+  soundOn(); const ac = Snd.ac, t = ac.currentTime;
+  const o = ac.createOscillator(), g = ac.createGain(), real = new Float32Array(8), imag = new Float32Array(8);
+  for (let h = 1; h < 8; h++) imag[h] = 1 / h;
+  o.setPeriodicWave(ac.createPeriodicWave(real, imag)); o.frequency.value = midiHz(midi);
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(0.9, t + 0.02); g.gain.setTargetAtTime(0, t + 0.8, 0.08);
+  o.connect(g); g.connect(Snd.out); o.start(t); o.stop(t + 1.4);
+}
+
+// ── the knob on screen ──
+const cv = $('wheel'), cx = cv.getContext('2d');
+let W = 340, H = 340;
+function size() { const r = cv.getBoundingClientRect(); W = Math.max(240, r.width || 340); H = W; const d = window.devicePixelRatio || 1; cv.width = Math.round(W * d); cv.height = Math.round(H * d); cv.style.height = H + 'px'; cx.setTransform(d, 0, 0, d, 0, 0); }
+function ptrAngle(ev) { const r = cv.getBoundingClientRect(); const x = ev.clientX - r.left - W / 2, y = ev.clientY - r.top - H / 2; return Math.atan2(x, -y); }
+cv.addEventListener('pointerdown', (ev) => {
+  cv.setPointerCapture(ev.pointerId); const a = ptrAngle(ev);
+  St.drag = { last: a, target: St.eng.s.th }; St.eng.s.hand = true; St.eng.s.handTarget = St.eng.s.th; St.touchT = performance.now();
+  if (St.test) testGrab();
+});
+cv.addEventListener('pointermove', (ev) => {
+  if (!St.drag) return; const a = ptrAngle(ev); let d = a - St.drag.last; if (d > Math.PI) d -= TAU_; if (d < -Math.PI) d += TAU_;
+  St.drag.last = a; St.drag.target += d; St.eng.s.handTarget = St.drag.target; St.touchT = performance.now();
+});
+function letGo() { if (!St.drag) return; St.drag = null; St.eng.s.hand = false; St.released = performance.now(); if (St.test) testRelease(); }
+cv.addEventListener('pointerup', letGo); cv.addEventListener('pointercancel', letGo);
+
+function drawWheel() {
+  const e = St.eng, R = W * 0.42, ox = W / 2, oy = H / 2, th = e.s.th;
+  cx.clearRect(0, 0, W, H);
+  // cap
+  cx.fillStyle = '#16161f'; cx.beginPath(); cx.arc(ox, oy, R, 0, TAU_); cx.fill();
+  cx.strokeStyle = '#4a4a5e'; cx.lineWidth = 1.5; cx.beginPath(); cx.arc(ox, oy, R, 0, TAU_); cx.stroke();
+  // knurl: it turns with the cap, it is not a scale
+  cx.strokeStyle = 'rgba(200,200,216,.22)'; cx.lineWidth = 1;
+  for (let i = 0; i < 60; i++) { const a = th + i * TAU_ / 60; cx.beginPath(); cx.moveTo(ox + Math.sin(a) * (R - 9), oy - Math.cos(a) * (R - 9)); cx.lineTo(ox + Math.sin(a) * (R - 2), oy - Math.cos(a) * (R - 2)); cx.stroke(); }
+  // the finger's dimple
+  const rd = R * 0.72, gx = ox + Math.sin(th) * rd, gy = oy - Math.cos(th) * rd;
+  cx.fillStyle = '#0a0a0f'; cx.beginPath(); cx.arc(gx, gy, 13, 0, TAU_); cx.fill();
+  cx.strokeStyle = '#8a8aa0'; cx.lineWidth = 1; cx.beginPath(); cx.arc(gx, gy, 13, 0, TAU_); cx.stroke();
+  // the hand: where the pointer holds, and the stretch between them (the push the fingertip would feel)
+  if (St.drag) {
+    const ht = th + 4 * (e.s.handTarget - th), hx = ox + Math.sin(ht) * rd, hy = oy - Math.cos(ht) * rd;   // the stretch, drawn four times longer than it is
+    const push = Math.abs(e.s.tauHand);
+    cx.strokeStyle = '#e8b84a'; cx.lineWidth = 1.5 + Math.min(6, push * 220);
+    cx.beginPath(); const a0 = th, a1 = ht; const n = 24; for (let i = 0; i <= n; i++) { const a = a0 + (a1 - a0) * i / n; const x = ox + Math.sin(a) * rd, y = oy - Math.cos(a) * rd; i ? cx.lineTo(x, y) : cx.moveTo(x, y); } cx.stroke();
+    cx.strokeStyle = 'rgba(232,184,74,.8)'; cx.lineWidth = 1; cx.beginPath(); cx.arc(hx, hy, 7, 0, TAU_); cx.stroke();
+  }
+  // centre: a motor or not
+  cx.fillStyle = St.mode === 'motor' ? '#e8b84a' : '#2a2a36'; cx.beginPath(); cx.arc(ox, oy, 5, 0, TAU_); cx.fill();
+}
+
+// ── the light ──
+function lampHTML() {
+  return '<div class="hhw-panel"><div class="hhw-plabel"><span>the light beside it</span><span>a second part</span></div>' +
+    '<div class="hhw-lamp"><div class="hhw-note" id="lampnote">A</div><div><canvas id="needle" height="56"></canvas>' +
+    '<div class="hhw-read" style="margin-top:4px"><span><i class="hhw-dot" id="lampdot"></i><b id="lampcents">0</b> cents</span></div></div></div></div>';
+}
+function coveredHTML(why) { return '<div class="hhw-panel"><div class="hhw-plabel"><span>the light</span><span>covered</span></div><div class="hhw-covered">' + why + '</div></div>'; }
+function drawLamp() {
+  const n = $('needle'); if (!n) return; const e = St.eng, p = e.pitch(), m = Math.round(p), c = (p - m) * 100;
+  $('lampnote').textContent = noteName(m); $('lampcents').textContent = (c >= 0 ? '+' : '') + c.toFixed(0); $('lampdot').className = 'hhw-dot' + (Math.abs(c) <= 5 ? ' lit' : '');
+  const w = n.getBoundingClientRect().width || 200, d = window.devicePixelRatio || 1; if (n.width !== Math.round(w * d)) { n.width = Math.round(w * d); n.height = Math.round(56 * d); }
+  const g = n.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, 56);
+  g.strokeStyle = '#4a4a5a'; g.lineWidth = 1; for (let k = -50; k <= 50; k += 10) { const x = w / 2 + k / 50 * (w / 2 - 6); g.beginPath(); g.moveTo(x, k % 50 === 0 || k === 0 ? 14 : 22); g.lineTo(x, 34); g.stroke(); }
+  g.fillStyle = 'rgba(232,184,74,.12)'; g.fillRect(w / 2 - 5 / 50 * (w / 2 - 6), 10, 10 / 50 * (w / 2 - 6), 28);
+  const x = w / 2 + Math.max(-50, Math.min(50, c)) / 50 * (w / 2 - 6); g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath(); g.moveTo(x, 8); g.lineTo(x, 40); g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; g.fillText('−50', 2, 52); g.fillText('+50', w - 24, 52); g.fillText('0', w / 2 - 3, 52);
+}
+
+// ── the test ──
+const WAYS = [
+  { id: 'plain', name: 'the knob alone', mode: 'plain', light: false, eyes: 'on the knob, ears on the pitch', parts: 'one part, no news but the sound' },
+  { id: 'light', name: 'the knob and its light', mode: 'plain', light: true, eyes: 'on the light', parts: 'two parts: one moves, one tells' },
+  { id: 'snap', name: 'the snap knob, light covered', mode: 'snap', light: false, eyes: 'on the knob', parts: 'the control: in tune by a quantizer, no motor, nothing on the way' },
+  { id: 'motor', name: 'the motor, light covered', mode: 'motor', light: false, eyes: 'on the knob', parts: 'one part: it moves, senses and tells' },
+];
+// the pitch the synth plays: the snap knob rounds it once the hand lets go
+const played = () => (St.mode === 'snap' && !St.drag) ? snapPitch(St.eng) : St.eng.pitch();
+const PER_WAY = 3;
+function newTest() {
+  const plan = []; const pool = [2, 3, 4, 5, 7, 9, 10, 12];
+  for (const w of WAYS) { const picks = pool.slice().sort(() => Math.random() - 0.5).slice(0, PER_WAY); for (const iv of picks) plan.push({ way: w.id, iv }); }
+  return { plan, i: 0, results: [], phase: 'ready', grabT: 0, relT: 0, still: 0, lastMsg: '' };
+}
+function trial() { return St.test.plan[St.test.i]; }
+function wayOf(id) { return WAYS.find(w => w.id === id); }
+function startTrial() {
+  const tr = trial(); const w = wayOf(tr.way);
+  setMode(w.mode); St.eng.s.th = 0; St.eng.s.om = 0; St.eng.s.lastSensedTh = 0; St.eng.s.sensedTh = 0; St.eng.s.hand = false;
+  St.drag = null; St.test.phase = 'ready'; St.test.grabT = 0; St.test.still = 0;
+  St.light = w.light; renderSide(); renderTrial();
+}
+function testGrab() { const T = St.test; if (T.phase === 'done' || T.phase === 'scored') return; if (!T.grabT) T.grabT = performance.now(); T.phase = 'turning'; }
+function testRelease() { const T = St.test; if (T.phase !== 'turning') return; T.phase = 'settling'; T.relT = performance.now(); T.still = 0; }
+function testTick(dtSec) {
+  const T = St.test; if (!T || T.phase !== 'settling') return;
+  T.still = Math.abs(St.eng.s.om) < 0.01 ? T.still + dtSec : 0;
+  if (T.still > 0.25 || performance.now() - T.relT > 2500) {
+    const tr = trial(), target = HHW.basePitch + tr.iv, p = played(), near = Math.round(p), c = (p - near) * 100, right = near === target;
+    T.results.push({ way: tr.way, iv: tr.iv, right, cents: c, secs: (T.relT - T.grabT) / 1000 });
+    const cc = Math.abs(c).toFixed(0), off = Math.abs(c) < 0.5 ? 'right in tune' : cc + (cc === '1' ? ' cent ' : ' cents ') + (c > 0 ? 'sharp' : 'flat');
+    T.lastMsg = (right ? 'the right note, ' : `the wrong note (${noteName(near)}, ${Math.abs(near - target)} ${near > target ? 'above' : 'below'}), `) + off + ` · ${((T.relT - T.grabT) / 1000).toFixed(1)} s`;
+    T.phase = 'scored'; T.i++;
+    if (T.i >= T.plan.length) { T.phase = 'done'; renderTrial(); renderResults(); return; }
+    setTimeout(() => { if (St.test === T && St.step === 4) startTrial(); }, 900);
+    renderTrial();
+  }
+}
+function median(a) { if (!a.length) return NaN; const s = a.slice().sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
+function summary(results) {
+  return WAYS.map(w => { const r = results.filter(x => x.way === w.id); return { w, n: r.length, right: r.filter(x => x.right).length, med: median(r.map(x => Math.abs(x.cents))), secs: median(r.map(x => x.secs)) }; });
+}
+function renderTrial() {
+  const T = St.test, box = $('trialbox'); if (!box) return;
+  if (T.phase === 'done') { box.innerHTML = '<div class="hhw-trial">All twelve landed. The table below is yours.</div><div class="hhw-last">' + T.lastMsg + '</div>'; return; }
+  const tr = trial(), w = wayOf(tr.way), k = T.plan.filter((p, j) => j < T.i && p.way === tr.way).length + 1, target = HHW.basePitch + tr.iv;
+  box.innerHTML = `<div class="hhw-trial">${w.name} · try ${k} of ${PER_WAY}<br>Start on A. Land on <b>${noteName(target)}</b>, up ${INTERVALS[tr.iv]} (${tr.iv} semitones), then let go.</div><div class="hhw-last">${T.lastMsg || '&nbsp;'}</div>`;
+}
+function renderResults() {
+  const S = summary(St.test.results), done = St.test.phase === 'done';
+  const rows = S.map(s => `<tr><td><b>${s.w.name}</b><br>${s.w.parts}</td><td>${s.n ? s.right + ' of ' + s.n : '—'}</td><td>${s.n ? s.med.toFixed(0) + ' ¢' : '—'}</td><td>${s.n ? s.secs.toFixed(1) + ' s' : '—'}</td><td>${s.w.eyes}</td></tr>`).join('');
+  $('results').innerHTML = `<table><tr><th>way</th><th>found the right note</th><th>cents off the note it landed on</th><th>median time</th><th>your eyes were</th></tr>${rows}</table>`;
+  const v = $('verdict');
+  if (!done) { v.style.display = 'none'; return; }
+  const [a, b, sn, m] = S;
+  let say = `<b>Read the first column.</b> The second is mostly not yours: the motor lands in tune by its detent and the snap knob by its quantizer, wherever you let go, so their cents say little about where the news came from. `;
+  if (m.right > sn.right) say += `With the light covered, you found the right note ${m.right} of ${m.n} times with the motor and ${sn.right} of ${sn.n} with the snap knob (the light: ${b.right} of ${b.n}; the knob alone: ${a.right} of ${a.n}). Both land in tune once the note is right; what differs is finding it. The motor’s knob held at each note as you turned, so you could count them where your hand already was. That is the news coming back through the part already moving, as far as a screen can show it.`;
+  else if (m.right === sn.right) say += `With the light covered, the motor and the snap knob found the right note equally often (${m.right} of ${m.n}; the light: ${b.right} of ${b.n}; the knob alone: ${a.right} of ${a.n}). Here the notches added nothing a quantizer didn’t: whatever told you the note came from the sound or the angle, not the motor. Try again counting the notches as they pass.`;
+  else say += `The snap knob found the right note more often than the motor (${sn.right} of ${sn.n} against ${m.right} of ${m.n}; the light: ${b.right} of ${b.n}). The motor’s notches didn’t help you count this time; a miss there is a wrong count, not a sour landing.`;
+  v.innerHTML = say; v.style.display = '';
+}
+
+// ── the steps ──
+const STEPS = [
+  { n: 1, name: 'a knob that only turns', mode: 'plain', light: false,
+    says: 'A plain knob: a 40 g cap on bearings, with a little friction and no motor. Its angle is the pitch, 24 semitones a turn, starting on A. Turn it and let go: it stays where you left it, and nothing in it says how far you are from a note. <b>One part, one job: it moves.</b> Press <b>sound</b> to hear where it is.',
+    honest: '' },
+  { n: 2, name: 'a light beside it', mode: 'plain', light: true,
+    says: 'Now the usual fix: a light beside the knob, reading the nearest note and how many cents off you are. The lamp glows inside 5 cents. Try to land on a note. Notice where your eyes went: to the light, away from the knob. <b>Two parts: one to move, one to read.</b> Simondon calls a design like this a bag of separate parts.',
+    honest: '' },
+  { n: 3, name: 'one part that senses and pushes', mode: 'motor', light: false,
+    says: 'Cover the light and give the knob its motor. The motor reads the knob’s angle (the encoder behind it) and pushes it toward the nearest in-tune note: the feel lab’s frets, 24 a turn. Drag slowly and the knob holds at each note, then jumps to the next. The amber band from the knob’s dimple is the stretch between your fingertip and the knob (drawn four times longer than it is): the push your fingertip would feel. It thickens with the force. Let go anywhere: it lands in tune by itself. <b>One part, three jobs: it moves, it senses, it tells.</b>',
+    honest: '' },
+  { n: 4, name: 'the test: land the note', mode: 'plain', light: false,
+    says: 'Twelve tries, three each way, in order: the knob alone, the knob with its light, the snap knob, the motor. The last two have the light covered. The <b>snap knob</b> is the control: the same plain knob, but the synth rounds its pitch to the nearest note when you let go, so it always lands in tune, with no motor and nothing to feel on the way. Each try starts on A and names a note. <b>hear it</b> plays the target if you want it. The table scores two things apart: whether you found the right note, and how far off that note it landed.',
+    honest: '<b>What this can test, and what it can’t.</b> A screen can’t push back. Here the motor’s push reaches you through your eyes and ears: the knob holding at each note, the band stretching, the pitch. So the snap knob is here to take the landing out of the test: both it and the motor land in tune by correction. What’s left is finding the note, by a light, by ear, or by notches in the knob itself. That is where the news lives, and it’s all a screen can show of it. It can’t test whether a hand feels 30 mN·m through a light cap, or whether the notches can be counted by touch without looking. That is the touch gate, and only a hand on the built knob can pass it.' },
+];
+function renderSide() {
+  const side = $('side'); side.innerHTML = '';
+  if (St.light) side.innerHTML = lampHTML();
+  else if (St.step === 1) side.innerHTML = coveredHTML('no light yet: nothing tells you where the notes are');
+  else side.innerHTML = coveredHTML(St.mode === 'motor' ? 'the light is covered: the knob itself tells you' : 'the light is covered');
+  if (St.step === 4) {
+    side.append(el('div', { class: 'hhw-panel' }, el('div', { class: 'hhw-plabel', html: '<span>this try</span><span></span>' }), el('div', { id: 'trialbox' })));
+    side.append(el('div', { class: 'hhw-panel' }, el('div', { class: 'hhw-plabel', html: '<span>so far</span><span>yours</span>' }), el('div', { id: 'results' })));
+  }
+  $('wheellabel').textContent = St.mode === 'motor' ? 'the knob, with its motor' : St.mode === 'snap' ? 'the snap knob, no motor' : 'the knob, no motor';
+}
+function build() {
+  const s = STEPS[St.step - 1];
+  soundOff();
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === St.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says; $('honest').innerHTML = s.honest;
+  St.test = null; $('verdict').style.display = 'none';
+  setMode(s.mode); St.eng.s.th = 0; St.eng.s.om = 0; St.eng.s.lastSensedTh = 0; St.eng.s.sensedTh = 0; St.light = s.light;
+  const c = $('controls'); c.innerHTML = '';
+  const sb = el('button', { id: 'soundbtn', on: { click: () => { if (St.sound) soundOff(); else soundOn(); sb.classList.toggle('hhw-on', St.sound); sb.textContent = St.sound ? '■ sound' : '▸ sound'; } } }, '▸ sound');
+  c.append(sb);
+  c.append(el('button', { on: { click: () => { St.eng.s.th = 0; St.eng.s.om = 0; } } }, 'back to A'));
+  if (St.step === 4) {
+    St.test = newTest();
+    c.append(el('button', { on: { click: () => { const tr = St.test && St.test.phase !== 'done' ? trial() : null; if (tr) playTarget(HHW.basePitch + tr.iv); } } }, 'hear it'));
+    c.append(el('button', { on: { click: () => { St.test = newTest(); startTrial(); renderResults(); } } }, 'start over'));
+  }
+  renderSide();
+  if (St.step === 4) { startTrial(); renderResults(); }
+  const eq = $('eqs');
+  eq.innerHTML = St.step >= 3 ? '<div class="hhw-eq">τ = −0.03 · sin 24θ − 0.006 · sgn(sin 24θ) · ½(1 − cos 24θ)</div><div class="hhw-words">The frets in symbols, torque τ in N·m at knob angle θ in radians: 24θ runs once round the circle per semitone, so the first term pulls toward the nearest in-tune note, zero on the note, strongest 25 cents off it, and zero again on the ridge 50 cents off, where two notes meet; the second is a small push off that ridge, so friction can’t leave the knob balanced there.</div><div class="hhw-words">In words: the knob pushes you toward a note with up to 30 mN·m, and lets go once you’re on it.</div>' : '';
+  $('prev').disabled = St.step === 1; $('next').disabled = St.step === STEPS.length;
+}
+function goTo(n) { if (n !== St.step) { St.step = n; build(); } }
+$('prev').addEventListener('click', () => goTo(Math.max(1, St.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, St.step + 1)));
+
+// ── run ──
+let lastT = performance.now();
+function frame(now) {
+  const dt = Math.min(0.1, (now - lastT) / 1000); lastT = now;
+  const e = St.eng, n = Math.round(dt * e.P.fs);
+  for (let i = 0; i < n; i++) e.step();
+  testTick(dt);
+  const moving = !!St.drag || Math.abs(e.s.om) > 0.05 || now - St.released < 900;
+  voice(played(), moving);
+  drawWheel(); if (St.light) drawLamp();
+  const push = Math.abs(St.drag ? e.s.tauHand : 0) * 1000;
+  $('wheelstate').textContent = St.drag ? 'held' : (Math.abs(e.s.om) > 0.01 ? 'turning' : 'at rest');
+  $('read').innerHTML = St.step === 4 ? '' : St.step === 3 ? `<span>push on your fingertip <b>${push.toFixed(0)} mN·m</b></span><span>no readout of the pitch: listen, or watch the knob hold</span>` : St.step === 1 ? '<span>no readout of the pitch: listen</span>' : '';
+  requestAnimationFrame(frame);
+}
+size(); window.addEventListener('resize', size);
+build();
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

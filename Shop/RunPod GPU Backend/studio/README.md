@@ -5,6 +5,10 @@ every result (with its prompt) on disk. Your prompts go to the GPU **verbatim**.
 
 ## Run
 
+Double-click **`Palace Studio.command`**: it starts the app, scales the endpoint up, opens Chrome,
+and on quit stops the app and releases the endpoint (`Stop Palace Studio.command` does the release
+if the window closed uncleanly). Or run it bare:
+
 ```bash
 cd "The Palace/Shop/RunPod GPU Backend/studio"
 export RUNPOD_API_KEY=your_key
@@ -25,9 +29,11 @@ Instead of env vars you can drop a `config.json` next to the script:
 (Keep that file private — it holds your key. Don't commit it.)
 
 ## Notes
-- **The endpoint must be enabled.** It's currently parked at 0 workers to avoid
-  charges. Re-enable it in the RunPod console (Serverless → palace-flux → set
-  Max Workers to 1+), or ask Claude to flip it back on.
+- **The launchers scale the endpoint for you**, through the Shop's shared
+  `EndpointWorkers`: it parks to 0 only once no one else is rendering, so quitting
+  never strands an agent's job. Run bare, `palace_studio.py` scales nothing — the
+  endpoint must already have workers.
+- **Everything Runpod** — keys, the API, cold starts, traps: [[RunPod GPU Backend — runbook]].
 - First generation after the endpoint sits idle is a **cold start** (a few
   minutes while the worker boots); after that, ~30s per image.
 - Stdlib only — no `pip install`. The API key stays server-side (never sent to

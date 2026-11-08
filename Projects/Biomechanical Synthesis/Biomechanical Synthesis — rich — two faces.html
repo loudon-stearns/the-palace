@@ -1,0 +1,481 @@
+<!doctype html>
+<!--
+  title: Biomechanical Synthesis — rich — two faces
+  born: 2026-11-04
+  links: [[Biomechanical Synthesis]] (connects-to · rich-face-piece) · listed in [[Biomechanical Synthesis — rich.json]] · checked by "Biomechanical Synthesis — rich — check.mjs"
+  forward_vector: I am one compressor with two faces, a plain meter and a body, coded as one compressor and checked by a null, and a three-try test of whether the face changes what a hand sets. I do not test the page’s memory claim and say so. I play inside the entry’s rich face and stand alone opened directly; I change only when Visceral Pedagogy or item 4 of Eight Synthesizer Concepts does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biomechanical Synthesis — two faces</title>
+<meta name="theme-color" content="#0a0a0f">
+<meta name="piece:needs" content="">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blood:#c2324a; --bloodd:#5a1220; --vein:#7a5af0; --ok:#7fd4a0;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; --serif:Georgia,'Times New Roman',serif; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 400; }
+  .piece { padding: 22px 22px 24px; max-width: 1100px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  h1 { font-family: var(--serif); font-size: 27px; font-weight: 400; color: var(--fg1); margin: 0 0 8px; }
+  h2 { font-family: var(--serif); font-size: 21px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  p { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 12px; }
+  .lead { color: var(--fg2); }
+  .rail { display: flex; flex-wrap: wrap; gap: 0; margin: 14px 0 16px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button[aria-current] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.go { color: var(--amber); border-color: var(--amberline); }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; margin: 10px 0; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; align-items: stretch; }
+  .row > * { flex: 1 1 260px; }
+  .ctl { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px 24px; margin-top: 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .eq { font-family: var(--serif); font-size: 18px; color: var(--fg1); margin: 8px 0 2px; }
+  .words { font-size: 13px; color: var(--fg2); margin: 0 0 8px; }
+  .walk { display: flex; gap: 10px; margin-top: 16px; }
+  .rule { border-left: 2px solid var(--amberline); padding: 8px 12px; background: rgba(232,184,74,.05); font-size: 13.5px; line-height: 1.6; margin: 10px 0; }
+  .rule ol, .rule ul { margin: 6px 0; padding-left: 20px; }
+  .num { font-family: var(--mono); color: var(--fg1); }
+  .pass { color: var(--ok); } .fail { color: #ff7a7a; }
+  table { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 8px 0; }
+  td, th { border: 1px solid var(--soft); padding: 4px 8px; text-align: right; color: var(--fg2); font-weight: 400; }
+  th { color: var(--fg3); }
+  textarea { width: 100%; background: var(--bg); color: var(--fg1); border: 1px solid var(--border); font-family: var(--mono); font-size: 11px; padding: 6px; }
+  .hide { display: none !important; }
+  .sig { float: right; opacity: .7; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="eyebrow">Biomechanical Synthesis · visceral pedagogy · one compressor, two faces <svg class="sig" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigp" fill="none" stroke="#e8b84a" stroke-width=".8"/></svg></div>
+  <h1>Does the body change what your hand sets?</h1>
+  <p class="lead">The page says you will never forget how a compressor works after pumping blood through arteries. That is a claim about memory, over weeks, in students; no sitting with a web page can test it, and this one doesn't try. What a page <i>can</i> test is smaller: build one compressor, give it two faces, a plain meter and a body, prove they are the same arithmetic, and then ask whether the face changes what a hand sets on the same task. Five steps, one thing in each. Nothing plays until you press Play.</p>
+  <div class="rail" id="rail"></div>
+
+  <div class="eyebrow" id="sEye"></div>
+  <h2 id="sTitle"></h2>
+  <p id="sSay"></p>
+
+  <!-- step 1: one tone, one line -->
+  <div id="v1" class="panel">
+    <div class="plabel"><span>in → out, a steady tone at −12 dBFS</span><span id="v1r"></span></div>
+    <div class="row"><div><canvas id="curve" height="260"></canvas></div>
+      <div>
+        <div class="eq">g = −(L − T)(1 − 1/R) when L &gt; T, else 0</div>
+        <div class="words">The squeeze, in dB, is how far the level L is over the threshold T, times one minus one over the ratio R. Under the line, nothing happens.</div>
+        <div class="read" id="v1read"></div>
+      </div></div>
+  </div>
+
+  <!-- steps 2..5: the loop, a face -->
+  <div id="vLoop" class="panel">
+    <div class="plabel"><span id="faceLabel">the plain face · gain reduction over two bars of the loop</span><span id="faceSwitch"><button id="fPlain">plain meter</button> <button id="fBody">the body</button></span></div>
+    <div class="row">
+      <div style="flex: 3 1 420px"><canvas id="trace" height="210"></canvas></div>
+      <div style="flex: 1 1 170px; max-width: 220px"><canvas id="live" height="210"></canvas></div>
+    </div>
+    <div class="read" id="loopRead"></div>
+  </div>
+
+  <div class="panel" id="ctlPanel">
+    <div class="ctl" id="ctl"></div>
+    <div class="walk" style="margin-top:12px"><button class="go" id="play">Play</button><span class="read" id="playNote" style="margin:0 0 0 6px; align-self:center"></span></div>
+  </div>
+
+  <!-- step 3: the null -->
+  <div id="vNull" class="panel">
+    <div class="plabel"><span>the null · plain output minus body output, on the current settings · a check of the code</span></div>
+    <div class="rule">The body face is written in its own variables, pressure in mmHg and a lumen in millimetres, not by calling the plain one. This checks the code, not the world: the body face is the same smoother rescaled into mmHg and millimetres, so if it was coded as the same compressor, subtracting one output from the other leaves nothing: the residual must be below <b>−120 dB</b> against the signal. Anything above that would mean the faces are two compressors. The control is a body whose wall moves in millimetres instead of in ratios of its width, the way a vessel drawn on screen most naturally moves; the null must <i>fail</i> it (above −60 dB on an engaged setting), or the null could not tell two compressors apart.</div>
+    <button id="runNull">Run the null</button>
+    <div class="read" id="nullRead"></div>
+  </div>
+
+  <!-- step 4: item 4's pulse -->
+  <div id="vPulse" class="panel">
+    <div class="plabel"><span>the pulse in the loop, and the pulse item 4 asks for</span></div>
+    <div class="read" id="pulseRead"></div>
+  </div>
+
+  <!-- step 5: the test -->
+  <div id="vTest" class="panel">
+    <div class="plabel"><span>the test · three tries, one task</span><span id="testState"></span></div>
+    <div class="rule" id="taskBox">
+      <b>The task, the same each time:</b> bring the kicks down so their deepest squeeze sits in the band (4 to 8 dB; a light says when it does), without the hiss between hits swelling and sinking. Set it so it sounds right to you, then press Done. Three tries; every try starts from the same settings, and the numbers stay hidden until the end. What is being compared is shown after the third try, not before, so that knowing it can’t steer your hand.
+    </div>
+    <div class="rule hide" id="ruleBox">
+      <b>The rule, fixed in this piece’s code before anyone’s first try, shown now that you are done.</b>
+      <ol>
+        <li>A coin you were not shown picked the order: plain, body, plain, or body, plain, body. Both faces had the same ranges, order, slider travel and start; only the words and the picture differ, and the sound is one compressor on one loop.</li>
+        <li><b>Within you.</b> Your three settings become points (threshold straight; ratio, attack and release on a log scale; each range 0..1). If your two tries on the same face are the closest pair, the face moved your settings on this run. If the face changes nothing, any pair is equally likely to be closest: <b>chance 1 in 3</b>. Pooled, the face moves what readers set if the count reaches 4 of 5, 7 of 10, 11 of 20 or 19 of 40 runs (each p ≤ 0.05 against 1 in 3), with the runs whose repeated face was plain and those whose was the body counted apart, each held to the same table. This half can be gamed by a reader who knows the rule before trying, which is why it was hidden.</li>
+        <li><b>Between readers, first tries only.</b> On try 1 nobody has seen the other face. Readers whose coin gave the body first are compared with readers whose coin gave the plain face first, on log attack and log release: difference of the two groups’ means, two-sided permutation p over 9999 shuffles. The face moved first tries if either p is under 0.025 (two measures, so 5% overall by chance). It needs 5 readers in each arm; both arms’ counts and medians are always shown. It is a small net: simulated, with 10 readers an arm it finds a body face that quadruples attack and release about half the time, with 20 an arm most of the time.</li>
+        <li>What this cannot rule on: memory, which is the page’s claim, and disgust, which this face doesn’t try for. Learning across tries pulls try 1 and try 3 apart, which works against the face in the first half; the second half uses first tries only.</li>
+      </ol>
+    </div>
+    <button class="go" id="begin">begin the three tries</button>
+    <button id="done" class="hide">Done</button>
+    <div class="read" id="testRead"></div>
+    <div id="result" class="hide">
+      <table id="resTable"></table>
+      <p id="resLine"></p>
+      <p class="words">Your line for a pool (copy it to whoever is counting):</p>
+      <textarea id="poolLine" rows="3" readonly></textarea>
+    </div>
+    <div class="panel" style="margin-top:12px">
+      <div class="plabel"><span>score a pool · paste readers’ lines, one per line</span></div>
+      <textarea id="poolIn" rows="4" placeholder="{&quot;piece&quot;:&quot;Biomechanical Synthesis — two faces&quot;, …}"></textarea>
+      <button id="poolGo" style="margin-top:8px">score it</button>
+      <div class="read" id="poolOut"></div>
+    </div>
+  </div>
+
+  <div class="walk"><button id="back">Back</button><button id="next">Next</button></div>
+</div>
+<script id="bms-comp">
+// COMP core: one compressor, two faces. Pure functions; the page and the check both run this text.
+var COMP = (function () {
+  function rng(seed) { var s = seed >>> 0 || 1; return function () { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296; }; }
+  var BPM = 120, BARS = 2;
+  // A drum loop made from sine and noise: kick on 1, the and of 2, 3; snare on 2 and 4; hats on eighths; a hiss bed under it all.
+  function loop(sr) {
+    var beat = 60 / BPM, n = Math.round(sr * beat * 4 * BARS), x = new Float64Array(n), r = rng(20261104), i, t;
+    function kick(at) { var s0 = Math.round(at * sr); for (i = 0; i < sr * 0.35 && s0 + i < n; i++) { t = i / sr; var f = 48 + 90 * Math.exp(-t / 0.03); var ph = 2 * Math.PI * (48 * t + 90 * 0.03 * (1 - Math.exp(-t / 0.03))); x[s0 + i] += 0.70 * Math.exp(-t / 0.12) * Math.sin(ph); } }
+    function snare(at) { var s0 = Math.round(at * sr); for (i = 0; i < sr * 0.25 && s0 + i < n; i++) { t = i / sr; x[s0 + i] += 0.30 * Math.exp(-t / 0.05) * (r() * 2 - 1) + 0.22 * Math.exp(-t / 0.04) * Math.sin(2 * Math.PI * 185 * t); } }
+    var hp = 0, prev = 0;
+    function hat(at) { var s0 = Math.round(at * sr); for (i = 0; i < sr * 0.05 && s0 + i < n; i++) { t = i / sr; var w = r() * 2 - 1; var h = w - prev; prev = w; x[s0 + i] += 0.07 * Math.exp(-t / 0.012) * h; } }
+    for (var b = 0; b < BARS; b++) {
+      var o = b * 4 * beat;
+      kick(o); kick(o + 1.5 * beat); kick(o + 2 * beat);
+      snare(o + beat); snare(o + 3 * beat);
+      for (var e = 0; e < 8; e++) hat(o + e * beat / 2);
+    }
+    for (i = 0; i < n; i++) x[i] += 0.012 * (r() * 2 - 1); // the bed: you hear pumping here
+    return x;
+  }
+  function tone(sr, secs, hz, amp) { var n = Math.round(sr * secs), x = new Float64Array(n); for (var i = 0; i < n; i++) x[i] = amp * Math.sin(2 * Math.PI * hz * i / sr); return x; }
+  var RANGE = { threshold: [-40, 0], ratio: [1, 20], attack: [1, 200], release: [10, 1000] }; // dB, :1, ms, ms
+  var START = { threshold: -6, ratio: 2, attack: 50, release: 200 };
+  function coef(ms, sr) { return Math.exp(-1 / (ms * 0.001 * sr)); }
+  // Face 1, plain: level in dB, a hard-knee static curve, gain reduction smoothed in dB (attack when squeezing more, release when letting go).
+  function plain(x, s, sr) {
+    var n = x.length, y = new Float64Array(n), gr = new Float64Array(n), aA = coef(s.attack, sr), aR = coef(s.release, sr), g = 0;
+    for (var i = 0; i < n; i++) {
+      var L = 20 * Math.log10(Math.abs(x[i]) + 1e-12);
+      var over = L - s.threshold, target = over > 0 ? -over * (1 - 1 / s.ratio) : 0;
+      var a = target < g ? aA : aR;
+      g = a * g + (1 - a) * target;
+      gr[i] = g; y[i] = x[i] * Math.pow(10, g / 20);
+    }
+    return { y: y, gr: gr };
+  }
+  // Face 2, the body: written in its own variables. Pressure in mmHg (120 mmHg at -18 dBFS, 2 mmHg per dB),
+  // a systolic line in mmHg, wall stiffness, a lumen diameter in mm (6 mm at rest). The wall moves in ratios of its diameter
+  // (log-diameter), quickly when constricting (reflex speed), slowly when relaxing (smooth muscle).
+  var P0 = 120, L0 = -18, K = 2, D0 = 6;
+  function toBody(s) { return { line: P0 + K * (s.threshold - L0), stiffness: s.ratio, reflex: s.attack, relax: s.release }; }
+  function fromBody(b) { return { threshold: L0 + (b.line - P0) / K, ratio: b.stiffness, attack: b.reflex, release: b.relax }; }
+  function body(x, b, sr, linearWall) {
+    var n = x.length, y = new Float64Array(n), P = new Float64Array(n), D = new Float64Array(n), aA = coef(b.reflex, sr), aR = coef(b.relax, sr);
+    var ld = 0, d = D0;
+    for (var i = 0; i < n; i++) {
+      var p = P0 + K * (20 * Math.log10(Math.abs(x[i]) + 1e-12) - L0);
+      var push = p - b.line;
+      var squeeze = push > 0 ? push * (1 - 1 / b.stiffness) : 0;       // mmHg of squeeze the wall answers with
+      var ldT = -(squeeze / K) * Math.LN10 / 20;                          // the diameter it heads for, as a log ratio of rest
+      if (!linearWall) { var a = ldT < ld ? aA : aR; ld = a * ld + (1 - a) * ldT; d = D0 * Math.exp(ld); }
+      else { var dT = D0 * Math.exp(ldT), a2 = dT < d ? aA : aR; d = a2 * d + (1 - a2) * dT; }   // the control: the wall moves in millimetres
+      P[i] = p; D[i] = d; y[i] = x[i] * (d / D0);
+    }
+    return { y: y, P: P, D: D };
+  }
+  function nullDb(a, b) { var e = 0, s = 0; for (var i = 0; i < a.length; i++) { var d = a[i] - b[i]; e += d * d; s += a[i] * a[i]; } return 10 * Math.log10((e + 1e-300) / s); }
+  // What a setting does to the loop: the deepest squeeze on each kick (dB), and pumping: how far the gain swings (dB)
+  // across the hiss-only stretch before each kick (the last 120 ms before it), averaged.
+  function kicksAt(sr) { var beat = 60 / BPM, out = []; for (var b = 0; b < BARS; b++) { var o = b * 4 * beat; out.push(o, o + 1.5 * beat, o + 2 * beat); } return out.map(function (t) { return Math.round(t * sr); }); }
+  function measure(gr, sr) {
+    var ks = kicksAt(sr), deep = 0, swing = 0, w = Math.round(0.12 * sr), back = 0;
+    for (var k = 0; k < ks.length; k++) {
+      var s0 = ks[k], m = 0; for (var i = s0; i < s0 + Math.round(0.08 * sr) && i < gr.length; i++) m = Math.min(m, gr[i]); deep += m;
+      var e0 = (ks[k] - w + gr.length) % gr.length, lo = 0, hi = -999;
+      for (i = 0; i < w; i++) { var g = gr[(e0 + i) % gr.length]; lo = Math.min(lo, g); hi = Math.max(hi, g); }
+      swing += hi - lo; back += gr[(ks[k] - 1 + gr.length) % gr.length];
+    }
+    return { deepest: deep / ks.length, swing: swing / ks.length, before: back / ks.length };
+  }
+  // The test's arithmetic. A setting as a point in [0,1]^4: threshold linear, ratio/attack/release on a log scale.
+  function norm(s) { var o = []; for (var k in RANGE) { var r = RANGE[k], v = s[k]; o.push(k === 'threshold' ? (v - r[0]) / (r[1] - r[0]) : Math.log(v / r[0]) / Math.log(r[1] / r[0])); } return o; }
+  function dist(a, b) { var A = norm(a), B = norm(b), s = 0; for (var i = 0; i < 4; i++) s += (A[i] - B[i]) * (A[i] - B[i]); return Math.sqrt(s); }
+  // order 'ABA' or 'BAB'; tries[0..2] in the order taken. The face moved the settings if the two tries on the same face are the closest pair.
+  function verdict(order, tries) {
+    var d13 = dist(tries[0], tries[2]), d12 = dist(tries[0], tries[1]), d23 = dist(tries[1], tries[2]);
+    return { same: d13, cross: [d12, d23], faceMoved: d13 < Math.min(d12, d23), samePair: order === 'ABA' ? 'plain' : 'body' };
+  }
+  // THE RULE, fixed here before any reader's first try (2026-11-04) and shown to the reader only after the third:
+  //  (1) within a reader: the face moved your settings if your two same-face tries are the closest pair (chance 1 in 3).
+  //      Pooled: the face moves what readers set if that count reaches poolNeed(n) (binomial against 1/3, p <= 0.05);
+  //      the runs whose repeated face was plain and those whose was the body are counted and held to it apart.
+  //  (2) between readers, first tries only: a coin the reader is not shown picks the first face. On try 1, compare
+  //      log attack and log release, body-first against plain-first: difference of group means, two-sided permutation p
+  //      (9999 shuffles, seeded). The face moved first tries if either p < 0.025 (two measures; 5% overall by chance).
+  //      Needs 5 readers in each arm; fewer is "too few". Both arms' n and medians are always reported.
+  //  A reader who has not seen the rule cannot steer a first try toward it; (1) can be gamed once the rule is known.
+  function poolWithin(lines) {
+    var out = { n: lines.length, moved: 0, plain: { n: 0, moved: 0 }, body: { n: 0, moved: 0 } };
+    lines.forEach(function (l) { var arm = out[l.samePair]; arm.n++; if (l.faceMoved) { arm.moved++; out.moved++; } });
+    [out, out.plain, out.body].forEach(function (a) { a.need = poolNeed(a.n); a.verdict = a.n < 5 ? 'too few' : a.moved >= a.need ? 'the face moved settings' : 'not shown'; });
+    return out;
+  }
+  function median(a) { var b = a.slice().sort(function (x, y) { return x - y; }), m = b.length >> 1; return b.length ? (b.length % 2 ? b[m] : (b[m - 1] + b[m]) / 2) : NaN; }
+  function poolFirst(lines, shuffles, seed) {
+    shuffles = shuffles || 9999; var r = rng(seed || 20261104), A = { plain: [], body: [] };
+    lines.forEach(function (l) { var t = l.tries[0]; A[l.first].push([Math.log(t.attack), Math.log(t.release)]); });
+    var res = { plain: { n: A.plain.length, attack: median(A.plain.map(function (v) { return Math.exp(v[0]); })), release: median(A.plain.map(function (v) { return Math.exp(v[1]); })) },
+                body: { n: A.body.length, attack: median(A.body.map(function (v) { return Math.exp(v[0]); })), release: median(A.body.map(function (v) { return Math.exp(v[1]); })) } };
+    if (A.plain.length < 5 || A.body.length < 5) { res.verdict = 'too few'; return res; }
+    var all = A.body.concat(A.plain), nb = A.body.length, p = [];
+    for (var m = 0; m < 2; m++) {
+      var mean = function (arr, lo, hi) { var s = 0; for (var i = lo; i < hi; i++) s += arr[i][m]; return s / (hi - lo); };
+      var obs = Math.abs(mean(all, 0, nb) - mean(all, nb, all.length)), hit = 0, w = all.slice();
+      for (var k = 0; k < shuffles; k++) { for (var i = w.length - 1; i > 0; i--) { var j = Math.floor(r() * (i + 1)), x = w[i]; w[i] = w[j]; w[j] = x; } if (Math.abs(mean(w, 0, nb) - mean(w, nb, w.length)) >= obs - 1e-12) hit++; }
+      p.push((hit + 1) / (shuffles + 1));
+    }
+    res.pAttack = p[0]; res.pRelease = p[1]; res.verdict = (p[0] < 0.025 || p[1] < 0.025) ? 'the face moved first tries' : 'not shown';
+    return res;
+  }
+  function binomTail(k, n, p) { var t = 0; for (var i = k; i <= n; i++) { var c = 1; for (var j = 0; j < i; j++) c = c * (n - j) / (j + 1); t += c * Math.pow(p, i) * Math.pow(1 - p, n - i); } return t; }
+  function poolNeed(n) { for (var k = 0; k <= n; k++) if (binomTail(k, n, 1 / 3) <= 0.05) return k; return null; }
+  // Pressure beats the vessel feels: the line crossed from below after 30 ms under it. Counted on the input, before the wall: attack cannot move it, by construction.
+  function pulses(P, line, sr) { var n = 0, above = false, quiet = 0, gap = Math.round(0.03 * sr); for (var i = 0; i < P.length; i++) { if (P[i] > line) { if (!above && quiet > gap) n++; above = true; quiet = 0; } else { above = false; quiet++; } } return n; }
+  // Step 1 takes time out: attack 1 ms, release 1 s, a steady tone at −12 dBFS; the deepest squeeze over its last 20 ms.
+  var STILL = { attack: 1, release: 1000 };
+  function settle(s, sr) { var x = tone(sr, 2, 220, Math.pow(10, -12 / 20)), gr = plain(x, { threshold: s.threshold, ratio: s.ratio, attack: STILL.attack, release: STILL.release }, sr).gr, m = 0;
+    for (var i = gr.length - Math.round(0.02 * sr); i < gr.length; i++) m = Math.min(m, gr[i]); return m; }
+  return { poolWithin: poolWithin, poolFirst: poolFirst, median: median, settle: settle, STILL: STILL, pulses: pulses, rng: rng, BPM: BPM, BARS: BARS, loop: loop, tone: tone, RANGE: RANGE, START: START, plain: plain, body: body, toBody: toBody, fromBody: fromBody,
+           nullDb: nullDb, measure: measure, kicksAt: kicksAt, norm: norm, dist: dist, verdict: verdict, binomTail: binomTail, poolNeed: poolNeed, P0: P0, L0: L0, K: K, D0: D0 };
+})();
+</script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  (function sig() { var d = ''; for (var i = 0; i <= 200; i++) { var t = i / 200 * Math.PI * 2; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + .5)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } $('sigp').setAttribute('d', d); })();
+  var C = COMP, SR = 48000, ctx = null, src = null, gainNode = null, t0 = 0, playing = false, raf = 0;
+  var DEMO = { threshold: -24, ratio: 4, attack: 10, release: 150 }, s = Object.assign({}, DEMO), face = 'plain', step = 0, sigLoop = null, sigTone = null, R = null;
+  var test = { on: false, order: null, seq: null, i: 0, tries: [] };
+  var BAND = [-8, -4];
+  var CTL = [
+    { k: 'threshold', plain: 'threshold', body: 'systolic line', unitP: function (v) { return v.toFixed(1) + ' dB'; }, unitB: function (v) { return (C.P0 + C.K * (v - C.L0)).toFixed(0) + ' mmHg'; } },
+    { k: 'ratio', plain: 'ratio', body: 'wall stiffness', unitP: function (v) { return v.toFixed(1) + ' : 1'; }, unitB: function (v) { return v.toFixed(1) + ' × stiffer'; } },
+    { k: 'attack', plain: 'attack', body: 'reflex speed · how fast the wall closes', unitP: function (v) { return v.toFixed(0) + ' ms'; }, unitB: function (v) { return v.toFixed(0) + ' ms to close'; } },
+    { k: 'release', plain: 'release', body: 'the muscle letting go', unitP: function (v) { return v.toFixed(0) + ' ms'; }, unitB: function (v) { return v.toFixed(0) + ' ms to open'; } }
+  ];
+  function toPos(k, v) { var r = C.RANGE[k]; return k === 'threshold' ? (v - r[0]) / (r[1] - r[0]) : Math.log(v / r[0]) / Math.log(r[1] / r[0]); }
+  function fromPos(k, p) { var r = C.RANGE[k]; return k === 'threshold' ? r[0] + p * (r[1] - r[0]) : r[0] * Math.pow(r[1] / r[0], p); }
+  // controls
+  CTL.forEach(function (c) {
+    var w = document.createElement('div'); w.id = 'w_' + c.k;
+    w.innerHTML = '<label class="sl" for="c_' + c.k + '"><span id="n_' + c.k + '"></span> <b id="v_' + c.k + '"></b></label><input id="c_' + c.k + '" type="range" min="0" max="1000" step="1">';
+    $('ctl').appendChild(w);
+    $('c_' + c.k).addEventListener('input', function () { s[c.k] = fromPos(c.k, this.value / 1000); schedule(); });
+  });
+  var pend = 0;
+  function schedule() { if (pend) return; pend = requestAnimationFrame(function () { pend = 0; compute(); draw(); if (step === 3) drawPulse(); if (playing) swap(); }); }
+  function signal() { if (step === 0) { if (!sigTone || sigTone.sr !== SR) { sigTone = C.tone(SR, 2, 220, Math.pow(10, -12 / 20)); sigTone.sr = SR; } return sigTone; }
+    if (!sigLoop || sigLoop.sr !== SR) { sigLoop = C.loop(SR); sigLoop.sr = SR; } return sigLoop; }
+  function compute() {
+    var x = signal(), ss = step === 0 ? Object.assign({}, s, C.STILL) : s, p = C.plain(x, ss, SR), b = C.body(x, C.toBody(ss), SR, false);
+    R = { x: x, p: p, b: b, m: step === 0 ? null : C.measure(p.gr, SR) };
+  }
+  function hidden() { return test.on; }
+  function syncCtl() {
+    CTL.forEach(function (c) {
+      $('c_' + c.k).value = Math.round(toPos(c.k, s[c.k]) * 1000);
+      $('n_' + c.k).textContent = face === 'body' ? c.body : c.plain;
+      $('v_' + c.k).textContent = hidden() ? '' : (face === 'body' ? c.unitB(s[c.k]) : c.unitP(s[c.k]));
+      $('w_' + c.k).classList.toggle('hide', step === 0 && (c.k === 'attack' || c.k === 'release'));
+    });
+  }
+  function fit(cv) { var d = window.devicePixelRatio || 1, w = cv.clientWidth || 600, h = +cv.getAttribute('height'); if (cv.width !== Math.round(w * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); } var g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g: g, w: w, h: h }; }
+  function inBand(m) { return m && m.deepest <= BAND[1] && m.deepest >= BAND[0]; }
+  function pos() { if (!playing || !R) return 0; var dur = R.x.length / SR; return ((ctx.currentTime - t0) % dur + dur) % dur / dur; }
+  // ── drawing ──
+  function drawCurve() {
+    var F = fit($('curve')), g = F.g, w = F.w, h = F.h, lo = -48, pad = 28;
+    g.clearRect(0, 0, w, h); var X = function (db) { return pad + (db - lo) / -lo * (w - pad - 8); }, Y = function (db) { return h - pad - (db - lo) / -lo * (h - pad - 8); };
+    g.strokeStyle = 'rgba(255,255,255,.08)'; g.lineWidth = 1; for (var d = lo; d <= 0; d += 12) { g.beginPath(); g.moveTo(X(d), Y(lo)); g.lineTo(X(d), Y(0)); g.moveTo(X(lo), Y(d)); g.lineTo(X(0), Y(d)); g.stroke(); }
+    g.fillStyle = '#8a8aa0'; g.font = '10px ' + getComputedStyle(document.body).getPropertyValue('--mono'); g.fillText('in, dB →', X(-20), h - 8); g.fillText('out ↑', 2, Y(-2));
+    g.strokeStyle = '#4a4a5a'; g.setLineDash([4, 4]); g.beginPath(); g.moveTo(X(lo), Y(lo)); g.lineTo(X(0), Y(0)); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = '#e8b84a'; g.lineWidth = 2; g.beginPath();
+    for (var L = lo; L <= 0; L += .25) { var o = L > s.threshold ? s.threshold + (L - s.threshold) / s.ratio : L; L === lo ? g.moveTo(X(L), Y(o)) : g.lineTo(X(L), Y(o)); } g.stroke();
+    var Li = -12, Oi = Li > s.threshold ? s.threshold + (Li - s.threshold) / s.ratio : Li;
+    g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(X(Li), Y(Oi), 4, 0, 7); g.fill();
+    var gr = C.settle(s, SR);
+    $('v1read').innerHTML = 'level <b>−12.0 dB</b> · over the line <b>' + Math.max(0, -12 - s.threshold).toFixed(1) + ' dB</b> · squeeze by the equation <b>' + (Li > s.threshold ? (-(Li - s.threshold) * (1 - 1 / s.ratio)).toFixed(2) : '0.00') + ' dB</b> · the engine’s deepest squeeze once settled, time taken out (attack 1 ms, release 1 s) <b>' + gr.toFixed(2) + ' dB</b>';
+  }
+  function drawTrace() {
+    var F = fit($('trace')), g = F.g, w = F.w, h = F.h, n = R.x.length;
+    g.clearRect(0, 0, w, h);
+    var ks = C.kicksAt(SR);
+    if (face === 'plain') {
+      var top = 14, bot = h - 18, Y = function (db) { return top + (-db / 20) * (bot - top); };
+      g.fillStyle = 'rgba(232,184,74,.08)'; g.fillRect(0, Y(BAND[1]), w, Y(BAND[0]) - Y(BAND[1]));
+      g.strokeStyle = 'rgba(255,255,255,.08)'; g.lineWidth = 1; for (var d = 0; d >= -20; d -= 4) { g.beginPath(); g.moveTo(0, Y(d)); g.lineTo(w, Y(d)); g.stroke(); }
+      g.fillStyle = '#8a8aa0'; g.font = '10px ui-monospace,Menlo,monospace';
+      if (!hidden()) { for (d = 0; d >= -20; d -= 8) g.fillText(d + ' dB', 4, Y(d) - 2); }
+      g.fillText('band', w - 34, Y(-6) + 3);
+      ks.forEach(function (k) { g.fillStyle = 'rgba(255,255,255,.18)'; g.fillRect(k / n * w, bot + 4, 2, 8); });
+      g.strokeStyle = '#e8b84a'; g.lineWidth = 1.5; g.beginPath();
+      for (var px = 0; px < w; px++) { var a = Math.floor(px / w * n), b = Math.floor((px + 1) / w * n), m = 0; for (var i = a; i < b; i++) m = Math.min(m, R.p.gr[i]); px ? g.lineTo(px, Y(Math.max(-20, m))) : g.moveTo(px, Y(Math.max(-20, m))); }
+      g.stroke();
+    } else {
+      var mid = h / 2, half = (h - 30) / 2, Dy = function (D) { return D / C.D0 * half; };
+      g.fillStyle = '#2a0a12'; g.fillRect(0, mid - half - 8, w, 2 * half + 16);
+      g.beginPath();
+      for (px = 0; px < w; px++) { a = Math.floor(px / w * n); b = Math.floor((px + 1) / w * n); var mn = C.D0; for (i = a; i < b; i++) mn = Math.min(mn, R.b.D[i]); var y = mid - Dy(mn); px ? g.lineTo(px, y) : g.moveTo(px, y); }
+      for (px = w - 1; px >= 0; px--) { a = Math.floor(px / w * n); b = Math.floor((px + 1) / w * n); mn = C.D0; for (i = a; i < b; i++) mn = Math.min(mn, R.b.D[i]); g.lineTo(px, mid + Dy(mn)); }
+      g.closePath(); g.fillStyle = '#c2324a'; g.fill();
+      g.strokeStyle = '#ff8fa0'; g.lineWidth = 1; g.stroke();
+      [BAND[0], BAND[1]].forEach(function (db) { var D = C.D0 * Math.pow(10, db / 20); g.strokeStyle = 'rgba(232,184,74,.55)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(0, mid - Dy(D)); g.lineTo(w, mid - Dy(D)); g.moveTo(0, mid + Dy(D)); g.lineTo(w, mid + Dy(D)); g.stroke(); g.setLineDash([]); });
+      g.fillStyle = '#e8b84a'; g.font = '10px ui-monospace,Menlo,monospace'; g.fillText('band', w - 34, mid + 3);
+      ks.forEach(function (k) { g.fillStyle = 'rgba(255,255,255,.25)'; g.fillRect(k / n * w, h - 8, 2, 6); });
+    }
+    var ph = pos(); if (playing) { g.strokeStyle = '#e8e8f0'; g.lineWidth = 1; g.beginPath(); g.moveTo(ph * w, 0); g.lineTo(ph * w, h); g.stroke(); }
+  }
+  function drawLive() {
+    var F = fit($('live')), g = F.g, w = F.w, h = F.h, n = R.x.length, i = Math.floor(pos() * n) % n, t = performance.now() / 1000;
+    g.clearRect(0, 0, w, h);
+    if (face === 'plain') {
+      var gr = playing ? R.p.gr[i] : 0, top = 14, bot = h - 18, Y = function (db) { return top + (-db / 20) * (bot - top); }, x0 = w / 2 - 14;
+      g.fillStyle = '#12121a'; g.fillRect(x0, top, 28, bot - top);
+      g.fillStyle = 'rgba(232,184,74,.15)'; g.fillRect(x0, Y(BAND[1]), 28, Y(BAND[0]) - Y(BAND[1]));
+      g.fillStyle = '#e8b84a'; g.fillRect(x0 + 4, top, 20, Y(Math.max(-20, gr)) - top);
+      g.fillStyle = '#8a8aa0'; g.font = '10px ui-monospace,Menlo,monospace'; g.fillText('gain reduction', x0 - 26, h - 4);
+    } else {
+      var D = playing ? R.b.D[i] : C.D0, P = playing ? R.b.P[i] : 0, line = C.toBody(s).line, cx = w / 2, cy = h * 0.42, rr = Math.min(w, h) * 0.3;
+      g.fillStyle = '#5a1220'; g.beginPath(); g.arc(cx, cy, rr * 1.25, 0, 7); g.fill();
+      g.fillStyle = '#c2324a'; g.beginPath(); g.arc(cx, cy, rr * (D / C.D0), 0, 7); g.fill();
+      for (var k = 0; k < 7; k++) { var an = k / 7 * Math.PI * 2 + t * .7, r2 = rr * (D / C.D0) * .6; g.fillStyle = 'rgba(255,190,200,.55)'; g.beginPath(); g.arc(cx + Math.cos(an) * r2, cy + Math.sin(an) * r2, 2.2, 0, 7); g.fill(); }
+      var gy = h - 26, gx0 = 10, gx1 = w - 10, GX = function (p) { return gx0 + Math.max(0, Math.min(1, (p - 40) / 140)) * (gx1 - gx0); };
+      g.fillStyle = '#12121a'; g.fillRect(gx0, gy, gx1 - gx0, 8);
+      g.fillStyle = P > line ? '#ff8fa0' : '#7a5af0'; g.fillRect(gx0, gy, GX(P) - gx0, 8);
+      g.fillStyle = '#e8b84a'; g.fillRect(GX(line) - 1, gy - 4, 2, 16);
+      g.fillStyle = '#8a8aa0'; g.font = '10px ui-monospace,Menlo,monospace'; g.fillText('pressure · systolic line', gx0, h - 4);
+    }
+  }
+  function drawLoopRead() {
+    if (!R.m) return;
+    var lit = inBand(R.m), word = face === 'body' ? 'the vessel’s narrowest on a kick' : 'the kick’s deepest squeeze';
+    var html = '<span class="' + (lit ? 'pass' : '') + '">' + word + ': ' + (lit ? 'in the band' : 'outside the band') + '</span>';
+    if (!hidden()) {
+      if (face === 'body') { var dmin = C.D0 * Math.pow(10, R.m.deepest / 20); html += ' · narrowest <b>' + dmin.toFixed(2) + ' mm</b> of 6 · wall still closed before the next kick <b>' + (C.D0 * Math.pow(10, R.m.before / 20)).toFixed(2) + ' mm</b> · the wall’s wander in the hiss <b>' + (C.D0 * (1 - Math.pow(10, -R.m.swing / 20))).toFixed(2) + ' mm</b>'; }
+      else html += ' · deepest <b>' + R.m.deepest.toFixed(1) + ' dB</b> · still squeezed before the next kick <b>' + R.m.before.toFixed(1) + ' dB</b> · gain swing in the hiss <b>' + R.m.swing.toFixed(2) + ' dB</b>';
+    }
+    $('loopRead').innerHTML = html;
+  }
+  function draw() { syncCtl(); if (step === 0) drawCurve(); else { drawTrace(); drawLive(); drawLoopRead(); } }
+  function tick() { if (!playing) return; drawTrace(); drawLive(); raf = requestAnimationFrame(tick); }
+  // ── sound ──
+  function out() { return face === 'body' ? R.b.y : R.p.y; }
+  function startAt(off) {
+    var y = out(), buf = ctx.createBuffer(2, y.length, SR), L = buf.getChannelData(0), Rr = buf.getChannelData(1);
+    for (var i = 0; i < y.length; i++) L[i] = Rr[i] = y[i];
+    src = ctx.createBufferSource(); src.buffer = buf; src.loop = true; src.connect(gainNode); src.start(0, off); t0 = ctx.currentTime - off;
+  }
+  function swap() { var dur = R.x.length / SR, off = ((ctx.currentTime - t0) % dur + dur) % dur; try { src.stop(); } catch (e) {} startAt(off); }
+  function stop() { if (src) { try { src.stop(); } catch (e) {} src = null; } playing = false; $('play').textContent = 'Play'; cancelAnimationFrame(raf); if (R) draw(); }
+  $('play').addEventListener('click', function () {
+    if (playing) { stop(); return; }
+    if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); SR = ctx.sampleRate; gainNode = ctx.createGain(); gainNode.gain.value = 0.8; var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -1; comp.ratio.value = 20; gainNode.connect(comp); comp.connect(ctx.destination); compute(); }
+    if (ctx.state === 'suspended') ctx.resume();
+    startAt(0); playing = true; $('play').textContent = 'Stop'; tick();
+  });
+  // ── faces ──
+  function setFace(f) { var was = playing; face = f; $('fPlain').classList.toggle('go', f === 'plain'); $('fBody').classList.toggle('go', f === 'body');
+    $('faceLabel').textContent = f === 'body' ? 'the body · the vessel over two bars of the loop, its width the gain' : 'the plain face · gain reduction over two bars of the loop';
+    draw(); if (was) swap(); }
+  $('fPlain').addEventListener('click', function () { setFace('plain'); });
+  $('fBody').addEventListener('click', function () { setFace('body'); });
+  // ── step 3: the null ──
+  $('runNull').addEventListener('click', function () {
+    var x = signal(), a = C.plain(x, s, SR).y, b = C.body(x, C.toBody(s), SR, false).y, cs = { threshold: -20, ratio: 4, attack: 5, release: 80 };
+    var n1 = C.nullDb(a, b), n2 = C.nullDb(C.plain(x, cs, SR).y, C.body(x, C.toBody(cs), SR, true).y), n3 = C.nullDb(a, C.body(x, C.toBody(s), SR, true).y);
+    $('nullRead').innerHTML = 'on your settings, plain − body: <b class="' + (n1 < -120 ? 'pass' : 'fail') + '">' + n1.toFixed(1) + ' dB</b> (' + (n1 < -120 ? 'same arithmetic' : 'two compressors') + ')' +
+      ' · the millimetre wall on your settings: <b>' + n3.toFixed(1) + ' dB</b> · the millimetre wall on an engaged setting (−20 dB, 4:1, 5 ms, 80 ms): <b class="' + (n2 > -60 ? 'pass' : 'fail') + '">' + n2.toFixed(1) + ' dB</b> (' + (n2 > -60 ? 'the null catches it' : 'the null missed it') + ')' +
+      '<br>The check run headless on 2026-11-04 got −282 to −320 dB on six settings. This checks the code: the body face is coded as the same compressor in other units. The millimetre wall, a different algebra, comes out −19 to −31 dB, so the subtraction would see a coding slip; it is not evidence about vessels.';
+  });
+  // ── step 4: the pulse ──
+  function drawPulse() {
+    $('pulseRead').innerHTML = 'In this engine, as in Blood Compressor, the pulse is the signal: the pressure is read from the loop coming in, before the wall, so attack cannot move it. That is <b>by construction</b>, not a finding; nothing here can show item 4 wrong. Item 4 makes a different design choice: pulse rate = attack time. Read as one beat per attack time, your attack of <b>' + s.attack.toFixed(0) + ' ms</b> would be <b>' + (60000 / s.attack).toFixed(0) + ' bpm</b>; the knob’s range, 1 to 200 ms, would be 60000 to 300 bpm. The instrument item 4 spawned chose otherwise: Blood Compressor’s Mapping makes the heartbeat the signal and attack the baroreceptor reflex delay, and its rich face (the attack floor) walks that knob down to its 5 ms floor. This face follows Blood Compressor.';
+  }
+  // ── step 5: the test ──
+  function showTestState() { $('testState').textContent = test.on ? ('try ' + (test.i + 1) + ' of 3') : ''; }
+  $('begin').addEventListener('click', function () {
+    test = { on: true, order: Math.random() < 0.5 ? 'ABA' : 'BAB', i: 0, tries: [] }; test.seq = test.order === 'ABA' ? ['plain', 'body', 'plain'] : ['body', 'plain', 'body'];
+    $('begin').classList.add('hide'); $('done').classList.remove('hide'); $('result').classList.add('hide');
+    s = Object.assign({}, C.START); face = test.seq[0]; $('testRead').textContent = 'Numbers and the rule come back when you finish.'; $('ruleBox').classList.add('hide'); $('taskBox').classList.remove('hide'); showTestState(); compute(); setFace(face);
+  });
+  $('done').addEventListener('click', function () {
+    test.tries.push({ face: face, threshold: +s.threshold.toFixed(2), ratio: +s.ratio.toFixed(3), attack: +s.attack.toFixed(2), release: +s.release.toFixed(1), inBand: !!inBand(R.m) });
+    test.i++;
+    if (test.i < 3) { s = Object.assign({}, C.START); compute(); setFace(test.seq[test.i]); showTestState(); return; }
+    test.on = false; stop(); $('done').classList.add('hide'); $('begin').classList.remove('hide'); $('begin').textContent = 'take it again'; showTestState();
+    var v = C.verdict(test.order, test.tries);
+    var hd = '<tr><th></th><th>face</th><th>threshold</th><th>ratio</th><th>attack</th><th>release</th><th>band</th></tr>';
+    $('resTable').innerHTML = hd + test.tries.map(function (t, k) { return '<tr><td>try ' + (k + 1) + '</td><td>' + t.face + '</td><td>' + t.threshold.toFixed(1) + ' dB · ' + (C.P0 + C.K * (t.threshold - C.L0)).toFixed(0) + ' mmHg</td><td>' + t.ratio.toFixed(1) + '</td><td>' + t.attack.toFixed(0) + ' ms</td><td>' + t.release.toFixed(0) + ' ms</td><td>' + (t.inBand ? 'in' : 'out') + '</td></tr>'; }).join('');
+    $('resLine').innerHTML = 'Distance between the two ' + v.samePair + ' tries: <b class="num">' + v.same.toFixed(3) + '</b>; across faces: <b class="num">' + v.cross[0].toFixed(3) + '</b> and <b class="num">' + v.cross[1].toFixed(3) + '</b>. ' +
+      (v.faceMoved ? 'The same-face pair was the closest: on this run, the face moved your settings.' : 'The same-face pair was not the closest: on this run, the face did not move your settings more than trying again did.') +
+      ' Chance of the first answer when the face changes nothing: 1 in 3. One run is one line for the pool, not a verdict.';
+    $('ruleBox').classList.remove('hide'); $('testRead').textContent = 'The coin’s order: ' + test.seq.join(', ') + '.';
+    $('poolLine').value = JSON.stringify({ piece: 'Biomechanical Synthesis — two faces', v: 2, date: new Date().toISOString().slice(0, 10), order: test.order, first: test.seq[0], samePair: v.samePair, faceMoved: v.faceMoved, same: +v.same.toFixed(4), cross: v.cross.map(function (d) { return +d.toFixed(4); }), tries: test.tries });
+    $('result').classList.remove('hide'); setFace('plain');
+  });
+  $('poolGo').addEventListener('click', function () {
+    var lines = $('poolIn').value.split(/\n+/).map(function (l) { try { return JSON.parse(l); } catch (e) { return null; } }).filter(function (l) { return l && l.tries && l.tries.length === 3 && l.first; });
+    var W = C.poolWithin(lines), F = C.poolFirst(lines);
+    var arm = function (a) { return a.moved + ' of ' + a.n + (a.need != null ? ' (needs ' + a.need + ')' : '') + ' · ' + a.verdict; };
+    $('poolOut').innerHTML = lines.length + ' lines read<br>within readers, all: <b>' + arm(W) + '</b> · repeated face plain: <b>' + arm(W.plain) + '</b> · repeated face body: <b>' + arm(W.body) + '</b>' +
+      '<br>first tries: plain-first n <b>' + F.plain.n + '</b>, median attack ' + (isNaN(F.plain.attack) ? '–' : F.plain.attack.toFixed(0) + ' ms') + ', release ' + (isNaN(F.plain.release) ? '–' : F.plain.release.toFixed(0) + ' ms') +
+      ' · body-first n <b>' + F.body.n + '</b>, median attack ' + (isNaN(F.body.attack) ? '–' : F.body.attack.toFixed(0) + ' ms') + ', release ' + (isNaN(F.body.release) ? '–' : F.body.release.toFixed(0) + ' ms') +
+      (F.pAttack != null ? ' · p attack <b>' + F.pAttack.toFixed(4) + '</b>, p release <b>' + F.pRelease.toFixed(4) + '</b>' : '') + ' · <b>' + F.verdict + '</b>';
+  });
+  // ── steps ──
+  var STEPS = [
+    { eye: 'step 1 of 5 · one tone, one line', title: 'A compressor is a line and a slope', say: 'One steady tone at −12 dBFS and a plain meter. Move the threshold under −12 and the tone is over the line; the ratio says how much of the overshoot is let through. Two numbers, no time yet.', v: ['v1'] },
+    { eye: 'step 2 of 5 · time', title: 'The loop, and the two knobs about time', say: 'A drum loop made from sine and noise: kicks, snares, hats, and a quiet hiss underneath. Attack is how fast the squeeze arrives; release is how fast it lets go. Watch the hiss: a release that lets go in the gaps between kicks makes it swell and sink, which is pumping.', v: ['vLoop'] },
+    { eye: 'step 3 of 5 · the same compressor, as a body', title: 'Pressure is level, the vessel’s width is the gain', say: 'Switch the face. The loop is now blood pressure in mmHg (120 at −18 dBFS), the threshold is a systolic line, the ratio is how stiffly the wall answers, and the gain is the vessel’s width (6 mm at rest). The page’s own mapping, item 4 of Eight Synthesizer Concepts. Then check the code: subtract one face’s output from the other.', v: ['vLoop', 'vNull'], sw: true },
+    { eye: 'step 4 of 5 · the pulse', title: 'Item 4 says pulse rate is attack time', say: 'Here the two pages make different choices. In this engine, as in Blood Compressor, the pulse is what comes in and attack is how fast the wall answers it.', v: ['vLoop', 'vPulse'], sw: true },
+    { eye: 'step 5 of 5 · the test', title: 'Does the face change what you set?', say: 'The same task, three times, on the face a coin gives you. What is compared is fixed in the code and shown after your third try.', v: ['vLoop', 'vTest'], test: true }
+  ];
+  STEPS.forEach(function (st, k) { var b = document.createElement('button'); b.textContent = (k + 1) + ' ' + st.eye.split('· ')[1]; b.addEventListener('click', function () { go(k); }); $('rail').appendChild(b); });
+  function go(k) {
+    stop(); if (test.on) { test.on = false; $('done').classList.add('hide'); $('begin').classList.remove('hide'); showTestState(); }
+    step = Math.max(0, Math.min(STEPS.length - 1, k)); var st = STEPS[step];
+    $('rail').querySelectorAll('button').forEach(function (b, i) { if (i === step) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('sEye').textContent = st.eye; $('sTitle').textContent = st.title; $('sSay').textContent = st.say;
+    ['v1', 'vLoop', 'vNull', 'vPulse', 'vTest'].forEach(function (id) { $(id).classList.toggle('hide', st.v.indexOf(id) < 0); });
+    $('faceSwitch').classList.toggle('hide', !st.sw);
+    $('back').disabled = step === 0; $('next').disabled = step === STEPS.length - 1;
+    if (step === 0 || step === 1) face = 'plain'; if (step === 3) face = 'body';
+    $('nullRead').textContent = '';
+    compute(); setFace(face); if (step === 3) drawPulse();
+  }
+  $('back').addEventListener('click', function () { go(step - 1); });
+  $('next').addEventListener('click', function () { go(step + 1); });
+  window.addEventListener('resize', function () { if (R) draw(); });
+  go(0);
+})();
+</script>
+</body>
+</html>

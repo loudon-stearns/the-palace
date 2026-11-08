@@ -1,0 +1,65 @@
+# Synth Templates — card 0.2 — Crash
+# The hat's metal and noise let ring: the same six squares and the same hiss, a long decay, and a highpass so the wash never muddies the low end.
+schema: synth-template-card/0.2
+id: crash
+name: Crash
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Unison / unisono"
+  - "Noise for softness and high end"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, octave: 1, unison: 6, detune: very wide, level: half}
+    noise:   {kind: oscillator, wave: noise, level: full}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: none}
+    amp:     {kind: amplifier, level: full}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: long, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: noise,   param: level,     value: full,          why: "a crash is mostly wash; the noise carries it"}
+  - {block: osc1,    param: unison,    value: 6 voices,      why: "the metal under the wash: six squares that do not agree"}
+  - {block: osc1,    param: detune,    value: very wide,     why: "the clang"}
+  - {block: filter1, param: type,      value: highpass 12 dB, why: "a gentle slope: keep the shimmer, lose the rumble under it"}
+  - {block: filter1, param: cutoff,    value: mid,           why: "lower than the hat's: a crash is bigger metal"}
+  - {block: aenv,    param: decay,     value: long,          why: "the gong end of gong-to-marimba: the cymbal rings until it is done"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: aenv,    param: release,   value: same as decay, why: "a short note must still ring out"}
+  - {block: aenv,    param: mode,      value: one-shot}
+
+taste:
+  - {block: aenv,    param: decay,   range: "slow – very long",  default: long}
+  - {block: osc1,    param: level,   range: "little – full",     default: half, why: "more is a china cymbal"}
+  - {block: filter1, param: cutoff,  range: "dark – bright",     default: mid}
+  - {block: noise,   param: level,   range: "half – full",       default: full}
+
+listening:
+  cue: "A splash of noise with metal under it that goes on and on. The first instant is the loudest thing in the room; everything after is a slow fall."
+  ab: "Set the decay to short: a loud hat. Put it back to long. Then set the oscillator level to off: the metal is gone and it is a long noise sweep, a fake crash."
+
+render:
+  tempo: 120
+  note: C5
+  velocity: 115
+  pattern: "one hit on the downbeat, left to ring"
+  length_s: 5.0
+
+mappings: {}

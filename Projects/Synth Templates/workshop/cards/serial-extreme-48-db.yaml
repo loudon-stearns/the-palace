@@ -1,0 +1,69 @@
+# Synth Templates — card 0.2 — Serial: Extreme 48 dB
+# Filter Routings, tier 1. Two 24 dB low-passes set the same, one after the other: eight poles, 48 dB per octave. Then let them drift apart a little.
+schema: synth-template-card/0.2
+id: serial-extreme-48-db
+name: "Serial: Extreme 48 dB"
+family: Filter Routings
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Filter slope: 12 vs 24 dB/oct, poles"
+  - "Serial: extreme 48 dB, slaved filters"
+  - "Serial routing"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    filter2: {kind: filter, type: lowpass, slope: 24, resonance: little, note: "slaved to filter 1 if the synth offers it: same cutoff, same resonance, same envelope"}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: medium, s: low, r: medium}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+    lfo1:    {kind: lfo, wave: triangle, rate: slow, sync: false, note: "the slight difference: on filter 2 only"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: fenv, to: filter2.cutoff, amount: moderate, essential: true}
+    - {from: lfo1, to: filter2.cutoff, amount: little, essential: false}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: saw,           why: "the richest source, so the depth of the cut is audible"}
+  - {block: filter1, param: type,      value: lowpass 24 dB, why: "four poles"}
+  - {block: filter2, param: type,      value: lowpass 24 dB, why: "four more; in series the slopes add and the cut is 48 dB an octave"}
+  - {block: filter1, param: cutoff,    value: mid}
+  - {block: filter2, param: cutoff,    value: mid,            why: "identical to filter 1 and slaved to it, or the two slopes do not stack at the same place"}
+  - {block: filter2, param: resonance, value: little,         why: "identical to filter 1, like the cutoff"}
+  - {block: fenv,    param: target,    value: both filters,  why: "one envelope moves both, so the wall moves as one wall"}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "dark – bright",       default: mid,      why: "move it and filter 2 follows"}
+  - {block: filter1, param: resonance, range: "none – moderate",     default: little,   why: "two resonances at one frequency stack too; go gently"}
+  - {block: fenv,    param: amount,    range: "little – generous",   default: moderate}
+  - {block: fenv,    param: decay,     range: "short – long",        default: medium}
+  - {block: lfo1,    param: depth,     range: "none – little",       default: little,   why: "the slight drift between the two filters"}
+  - {block: lfo1,    param: rate,      range: "very slow – slow",    default: slow}
+
+listening:
+  cue: "The top end does not fade past the cutoff, it stops. Each note's sweep sounds like a door, not a curtain. Underneath, the second filter wanders a little and the edge breathes."
+  ab: "Take filter 2 out of the path: the same cutoff is now a 24 dB slope, and the sweep is softer with more harmonics bleeding over the edge. Put it back and the wall returns. Then set the LFO depth to none: the edge stops breathing."
+
+render:
+  tempo: 120
+  note: [C2, C2, C2, Bb1]
+  velocity: 100
+  pattern: "quarter notes, one bar, each held most of its beat"
+  length_s: 3.0
+
+mappings: {}

@@ -1,0 +1,491 @@
+<!doctype html>
+<!--
+  title: Parametric Resonance — rich — the threshold heard
+  born: 2026-11-03
+  links: [[Parametric Resonance]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · a walk up to its test · [[Mathieu Equation]] connects-to · the oscillator it plays
+  forward_vector: I am the threshold of Parametric Resonance as a walk of four steps you hear: one damped ring,
+    the same ring under a gentle pump that only slows its fade, the pump pushed past epsilon_c = 4 zeta where
+    silence turns into self-oscillation, and last the page's open question set up as a test, a driven ring
+    swept into resonance beside a pumped one swept through threshold. Every number I print is measured from the
+    sound I make, beside the one the Floquet multipliers predict.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: the script marked id="pr-core" is the oscillator, RK4 at the audio rate; id="pr-proc" wraps it as an
+    AudioWorklet. Both are byte-identical in "Parametric Resonance — rich — with the ring, against it.html".
+  checks: "Parametric Resonance — proof — checks.mjs", beside this file, pulls both scripts out of this file and
+    re-runs every claim the steps print, in Node.
+  sound: silent until a click; the kit quiets it when the page hides or after a minute untouched.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parametric Resonance — the threshold, heard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .pr-piece { padding: 22px 22px 18px; max-width: 1100px; }
+  .pr-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .pr-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .pr-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 16px; }
+  .pr-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .pr-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .pr-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.06); }
+  .pr-rail button[aria-pressed="true"] { border-color: var(--border); }
+  button.pr-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button:disabled { opacity: .35; cursor: default; }
+  .pr-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .pr-step.pr-shown { display: block; }
+  .pr-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .pr-idea { font-size: 14px; line-height: 1.6; max-width: 80ch; margin: 0 0 12px; }
+  .pr-row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin: 10px 0; }
+  .pr-row label { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); display: flex; align-items: center; gap: 10px; }
+  .pr-row label b { color: var(--fg1); font-weight: 500; }
+  .pr-seg { display: inline-flex; } .pr-seg button + button { border-left: 0; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 220px; height: 3px; background: var(--fg4); outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .pr-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .pr-read b { color: var(--fg1); font-weight: 500; }
+  .pr-say { font-size: 13.5px; line-height: 1.55; color: var(--fg2); margin-top: 10px; min-height: 1.5em; max-width: 84ch; }
+  .pr-say b { color: var(--amber); font-weight: 500; }
+  .pr-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .pr-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .pr-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 84ch; }
+  .pr-plot { margin-top: 14px; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 10px 12px; }
+  .pr-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .pr-nav { display: flex; gap: 10px; margin-top: 14px; align-items: center; }
+  .pr-foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .pr-key { display: inline-block; width: 18px; height: 2px; vertical-align: middle; margin-right: 6px; }
+</style>
+</head>
+<body>
+<div class="pr-piece">
+  <div class="pr-kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><circle r="9.2" fill="none" stroke="#4a4a5e" stroke-width=".8"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>made · Web Audio Worklet · sketch</div>
+  <h3 class="pr-title">The threshold, heard</h3>
+  <p class="pr-sub">One resonator at 220 Hz, and a pump that wobbles its stiffness at 440 Hz. Four steps: a ring alone, a pump too weak to win, a pump strong enough to win, and then the page's open question, a driven ring and a pumped one swept side by side. Each step plays from a click. You can jump to any of them.</p>
+
+  <nav class="pr-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · one ring</button>
+    <button data-go="2" aria-pressed="false">2 · a gentle pump</button>
+    <button data-go="3" aria-pressed="false">3 · across the threshold</button>
+    <button data-go="4" aria-pressed="false">4 · driven or pumped</button>
+  </nav>
+
+  <section class="pr-step pr-shown" data-step="1">
+    <h2>One ring</h2>
+    <p class="pr-idea">Strike the resonator once and leave it alone. Nothing pumps it. Watch the fade in decibels: it is a straight line, because the damping takes the same fraction of what is left on every cycle.</p>
+    <div class="pr-row"><button class="pr-go" id="strike1">▸ strike</button><button id="stop1">stop</button></div>
+    <div class="pr-read"><span>predicted fade <b id="p1">–</b></span><span>measured <b id="m1">–</b></span><span>down 60 dB after <b id="t1">–</b></span></div>
+    <div class="pr-say" id="say1"></div>
+    <div class="pr-eqs">
+      <div class="pr-eq">ẍ + 2ζω₀ẋ + ω₀²x = 0,&nbsp;&nbsp; fade rate = ζω₀</div>
+      <div class="pr-words">(how the ring's position accelerates) + (a drag that grows with its speed) + (a spring pulling it home) = nothing pushing it. Here ω₀ = 2π × 220 Hz and ζ = 0.0015, so the ring loses ζω₀ = 2.07 nepers a second: 18.0 dB a second.</div>
+    </div>
+  </section>
+
+  <section class="pr-step" data-step="2">
+    <h2>A gentle pump</h2>
+    <p class="pr-idea">Now make the spring stiffer and softer by a fraction ε, at 440 Hz, twice the ring's own rate. The pump adds nothing to the sound directly. It multiplies the ring instead of pushing it, so you never hear 440 Hz; you hear what it does to the 220. Below the threshold, the ring still fades, only slower.</p>
+    <div class="pr-row">
+      <label>pump depth ε = <b id="e2v"></b><input id="e2" type="range" min="0" max="0.0057" step="0.0001" value="0.003"></label>
+      <button class="pr-go" id="strike2">▸ strike</button><button id="stop2">stop</button>
+    </div>
+    <div class="pr-read"><span>predicted fade <b id="p2">–</b></span><span>measured <b id="m2">–</b></span><span>rings <b id="r2">–</b> as long as unpumped</span></div>
+    <div class="pr-say" id="say2"></div>
+    <div class="pr-eqs">
+      <div class="pr-eq">ẍ + 2ζω₀ẋ + ω₀²(1 + ε cos 2ω₀t) x = 0,&nbsp;&nbsp; fade rate ≈ ω₀(ζ − ε⁄4)</div>
+      <div class="pr-words">The same ring, but its spring's stiffness rises and falls by a fraction ε, twice per cycle. The slowest way to fade is now the drag minus a quarter of the pump depth, both measured in cycles of ω₀. When ε⁄4 catches up with ζ, nothing is left to fade.</div>
+    </div>
+  </section>
+
+  <section class="pr-step" data-step="3">
+    <h2>Across the threshold</h2>
+    <p class="pr-idea">Start from silence. The only thing in the resonator is a faint noise floor, 80 dB down, the room's own hiss. Set a depth and hold it, or sweep it. Below ε<sub>c</sub> the floor stays a floor. Past it, the pump wins: whatever tiny ring the noise left grows by the same fraction every cycle, until the pump runs out of strength. Try heavy damping too: the threshold moves.</p>
+    <div class="pr-row">
+      <span class="pr-seg" id="d3"><button data-d="light" aria-pressed="true">light damping</button><button data-d="heavy" aria-pressed="false">heavy damping</button></span>
+      <label>pump depth ε = <b id="e3v"></b><input id="e3" type="range" min="0" max="0.06" step="0.0005" value="0.012"></label>
+    </div>
+    <div class="pr-row"><button class="pr-go" id="hold3">▸ hold this depth</button><button class="pr-go" id="sweep3">▸ sweep 0 → 4 ε<sub>c</sub> in 6 s</button><button id="stop3">stop</button></div>
+    <div class="pr-read"><span>ε<sub>c</sub> = 4ζ = <b id="c3">–</b></span><span>ε ⁄ ε<sub>c</sub> = <b id="q3">–</b></span><span>predicted <b id="p3">–</b></span><span>measured while climbing <b id="m3">–</b></span></div>
+    <div class="pr-say" id="say3"></div>
+    <div class="pr-eqs">
+      <div class="pr-eq">ε<sub>c</sub> = 4ζ,&nbsp;&nbsp; growth rate ≈ ω₀(ε⁄4 − ζ)</div>
+      <div class="pr-words">The pump wins when a quarter of its depth is more than the damping, so the threshold depth is four times the damping ratio: a lightly damped ring tips over at a shallow pump, a heavily damped one needs a deep one. The predicted rate printed here is the exact one, from the Floquet multipliers of one pump period; the formula above is its first-order form.</div>
+    </div>
+  </section>
+
+  <section class="pr-step" data-step="4">
+    <h2>Driven or pumped</h2>
+    <p class="pr-idea">The page asks whether pumping has its own sound. Here is the test it proposes. Drive the same resonator with a force that sweeps up to 220 Hz in six seconds, the familiar way into resonance. Then pump it with a depth that sweeps up through ε<sub>c</sub> in the same six seconds. Both start from the same quiet. Both traces stay on the plot so you can compare them.</p>
+    <div class="pr-row"><button class="pr-go" id="drive4">▸ drive: sweep a force 176 → 220 Hz</button><button class="pr-go" id="pump4">▸ pump: sweep ε 0 → 4 ε<sub>c</sub></button><button id="stop4">stop</button></div>
+    <div class="pr-read"><span><span class="pr-key" style="background:#6366F1"></span>driven: audible at <b id="da4">–</b>, 10→90% in <b id="dr4">–</b></span><span><span class="pr-key" style="background:#e8b84a"></span>pumped: crosses ε<sub>c</sub> at <b id="pc4">–</b>, audible at <b id="pa4">–</b>, 10→90% in <b id="pr4">–</b></span></div>
+    <div class="pr-say" id="say4"></div>
+    <div class="pr-eqs">
+      <div class="pr-eq">driven: ẍ + 2ζω₀ẋ + ω₀²x = F cos Ωt&nbsp;&nbsp;·&nbsp;&nbsp;pumped: ẍ + 2ζω₀ẋ + ω₀²(1 + ε cos 2ω₀t)x = 0</div>
+      <div class="pr-words">Driven: a force from outside, on the right-hand side; the ring's size follows the force, so it is there the whole way and grows as Ω nears ω₀. Pumped: the right-hand side is zero; the pump only scales the spring, so it can grow only what is already ringing, and from a noise floor that takes time. "Audible" here means above the dotted line, 60 dB down on the plot.</div>
+    </div>
+  </section>
+
+  <div class="pr-plot">
+    <div class="pr-plabel"><span>the ring's size, in dB, since the click</span><span id="leg">amber = this run · dashed = predicted</span></div>
+    <canvas id="plot"></canvas>
+  </div>
+
+  <div class="pr-nav"><button id="back">◂ back</button><button id="next">next ▸</button><span class="pr-foot">Loud'n Live</span></div>
+</div>
+
+<script id="pr-core">
+/* The pumped resonator, one sample at a time.
+   x'' + 2 zeta w0 x' + w0^2 (1 + eps cos psi) x = F w0^2 cos(phd) + noise,  psi' = ratio w0,  phd' = 2 pi fd.
+   RK4 per sample. The pump weakens as the ring grows (pump depletion: eps / (1 + (A/sat)^4)), which is
+   what stops self-oscillation at a finite level; below about half of sat the oscillator is linear. */
+class PRes {
+  constructor(sr) {
+    this.sr = sr; this.dt = 1 / sr; this.f0 = 220; this.zeta = 0.0015; this.eps = 0; this.ratio = 2;
+    this.psi = 0; this.x = 0; this.v = 0; this.sat = 0.5; this.noise = 2e-6; this.F = 0; this.fd = 220; this.phd = 0;
+    this.seed = 12345; this.ramps = [];
+  }
+  get w0() { return 2 * Math.PI * this.f0; }
+  rand() { this.seed = (this.seed * 1664525 + 1013904223) >>> 0; return this.seed / 4294967296 - 0.5; }
+  amp() { return Math.hypot(this.x, this.v / this.w0); }
+  epsEff() { const r = this.amp() / this.sat, r2 = r * r; return this.eps / (1 + r2 * r2); }
+  acc(x, v, psi, phd, e) { const w = this.w0; return -w * w * (1 + e * Math.cos(psi)) * x - 2 * this.zeta * w * v + this.F * w * w * Math.cos(phd); }
+  ramp(key, to, seconds) { this.ramps = this.ramps.filter((r) => r.key !== key); this.ramps.push({ key, to, per: (to - this[key]) / Math.max(1, seconds * this.sr) }); }
+  step() {
+    for (const r of this.ramps) { const nx = this[r.key] + r.per; if ((r.per >= 0 && nx >= r.to) || (r.per < 0 && nx <= r.to)) { this[r.key] = r.to; r.done = true; } else this[r.key] = nx; }
+    if (this.ramps.some((r) => r.done)) this.ramps = this.ramps.filter((r) => !r.done);
+    const h = this.dt, W = this.ratio * this.w0, Wd = 2 * Math.PI * this.fd, e = this.epsEff();
+    const { x, v, psi, phd } = this;
+    const a1 = this.acc(x, v, psi, phd, e);
+    const x2 = x + 0.5 * h * v, v2 = v + 0.5 * h * a1, a2 = this.acc(x2, v2, psi + 0.5 * h * W, phd + 0.5 * h * Wd, e);
+    const x3 = x + 0.5 * h * v2, v3 = v + 0.5 * h * a2, a3 = this.acc(x3, v3, psi + 0.5 * h * W, phd + 0.5 * h * Wd, e);
+    const x4 = x + h * v3, v4 = v + h * a3, a4 = this.acc(x4, v4, psi + h * W, phd + h * Wd, e);
+    this.x = x + (h / 6) * (v + 2 * v2 + 2 * v3 + v4);
+    this.v = v + (h / 6) * (a1 + 2 * a2 + 2 * a3 + a4) + this.noise * this.w0 * this.rand();
+    this.psi = (psi + h * W) % (2 * Math.PI); this.phd = (phd + h * Wd) % (2 * Math.PI);
+    return this.x;
+  }
+  /* One pump period of the linear, undriven, noiseless oscillator from pump phase psi0, by the same RK4:
+     the monodromy matrix, in the coordinates (x, v / w0). */
+  monodromy(psi0) {
+    const w = this.w0, W = this.ratio * w, T = 2 * Math.PI / W, n = Math.ceil(T / this.dt), h = T / n, e = this.eps, z = this.zeta;
+    const f = (x, v, p) => -w * w * (1 + e * Math.cos(p)) * x - 2 * z * w * v;
+    const cols = [];
+    for (const [x0, y0] of [[1, 0], [0, 1]]) {
+      let x = x0, v = y0 * w, p = psi0;
+      for (let i = 0; i < n; i++) {
+        const a1 = f(x, v, p), x2 = x + 0.5 * h * v, v2 = v + 0.5 * h * a1, a2 = f(x2, v2, p + 0.5 * h * W);
+        const x3 = x + 0.5 * h * v2, v3 = v + 0.5 * h * a2, a3 = f(x3, v3, p + 0.5 * h * W);
+        const x4 = x + h * v3, v4 = v + h * a3, a4 = f(x4, v4, p + h * W);
+        x += (h / 6) * (v + 2 * v2 + 2 * v3 + v4); v += (h / 6) * (a1 + 2 * a2 + 2 * a3 + a4); p += h * W;
+      }
+      cols.push([x, v / w]);
+    }
+    return { m: [[cols[0][0], cols[1][0]], [cols[0][1], cols[1][1]]], T };
+  }
+  /* The Floquet picture at pump phase psi0: both multipliers, the growth rate, and (in a tongue) the two modes as
+     angles in the (x, -v/w0) plane, where a ring A cos(w0 t + phi) sits at angle phi. */
+  floquet(psi0 = this.psi) {
+    const { m, T } = this.monodromy(psi0), tr = m[0][0] + m[1][1], det = m[0][0] * m[1][1] - m[0][1] * m[1][0], disc = tr * tr / 4 - det;
+    if (disc < 0) { const mod = Math.sqrt(det); return { real: false, mu: Math.log(mod) / T, T }; }
+    const l1 = tr / 2 + Math.sqrt(disc), l2 = tr / 2 - Math.sqrt(disc);
+    const [big, small] = Math.abs(l1) >= Math.abs(l2) ? [l1, l2] : [l2, l1];
+    const vec = (l) => { const a = m[0][0] - l, b = m[0][1]; const u = Math.abs(b) > Math.abs(a) ? [b, -a] : [m[1][1] - l, -m[1][0]]; const r = Math.hypot(u[0], u[1]); return [u[0] / r, u[1] / r]; };
+    const g = vec(big), d = vec(small);
+    return { real: true, mu: Math.log(Math.abs(big)) / T, muDecay: Math.log(Math.abs(small)) / T, T,
+             phiGrow: Math.atan2(-g[1], g[0]), phiDecay: Math.atan2(-d[1], d[0]) };
+  }
+  /* Strike: set the ring to amplitude A at ring angle phi (x = A cos phi, v/w0 = -A sin phi), right now. */
+  strike(A, phi) { this.x = A * Math.cos(phi); this.v = -A * Math.sin(phi) * this.w0; }
+}
+</script>
+<script id="pr-proc" type="text/plain">
+/* The worklet around PRes: one resonator, stereo out, a report every 256 samples, and a strobe point once per
+   ring period (every second pump period), taken in the pump's frame. A strike waits for the next strobe instant. */
+class PRProc extends AudioWorkletProcessor {
+  constructor() {
+    super(); this.p = new PRes(sampleRate); this.chi = 0; this.t = 0; this.n = 0; this.strobe = []; this.pending = null; this.drive = 1.4; this.seq = 0;
+    this.port.onmessage = (e) => this.msg(e.data);
+  }
+  msg(d) {
+    const p = this.p;
+    if (d.reset) { p.x = 0; p.v = 0; p.ramps = []; this.t = 0; this.strobe = []; this.pending = null; this.seq = -1; }
+    if (d.set) for (const k in d.set) p[k] = d.set[k];
+    if (d.ramp) p.ramp(d.ramp[0], d.ramp[1], d.ramp[2]);
+    if (d.strike) this.pending = d.strike;            // carries its seq; the clock restarts when it lands
+    if (d.clock) { this.t = 0; this.seq = d.seq; this.strobe = []; }
+  }
+  process(_in, outs) {
+    const o = outs[0], L = o[0], R = o[1] || o[0], p = this.p, TP = 2 * Math.PI;
+    for (let i = 0; i < L.length; i++) {
+      const x = p.step();
+      this.chi += 0.5 * p.ratio * p.w0 * p.dt;
+      if (this.chi >= TP) {
+        this.chi -= TP;
+        const over = this.chi / (0.5 * p.ratio * p.w0);       // seconds since the strobe instant
+        if (this.pending) {
+          const s = this.pending; this.pending = null; let phi;
+          if (s.mode === 'with' || s.mode === 'against') {
+            const fl = p.floquet(p.psi);                        // the modes at this very pump phase: exact
+            phi = fl.real ? (s.mode === 'with' ? fl.phiGrow : fl.phiDecay) : (s.phi || 0) + p.w0 * over;
+            this.port.postMessage({ struck: { mode: s.mode, real: fl.real, mu: fl.mu, muDecay: fl.muDecay } });
+          } else { phi = (s.phi || 0) + p.w0 * over; this.port.postMessage({ struck: { mode: 'angle' } }); }
+          p.strike(s.A, phi); this.t = 0; this.seq = s.seq; this.strobe = [];
+        }
+        this.strobe.push(p.amp(), Math.atan2(-p.v / p.w0, p.x) - p.w0 * over);
+      }
+      const y = Math.tanh(this.drive * x);
+      L[i] = y; R[i] = y; this.t += p.dt;
+    }
+    this.n += L.length;
+    if (this.n >= 256) {
+      this.port.postMessage({ seq: this.seq, t: this.t, A: p.amp(), eps: p.eps, fd: p.fd, strobe: this.strobe.length ? Float32Array.from(this.strobe) : null });
+      this.strobe = []; this.n = 0;
+    }
+    return true;
+  }
+}
+registerProcessor('pr-resonator', PRProc);
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const F0 = 220, W0 = 2 * Math.PI * F0, ZETA = { light: 0.0015, heavy: 0.006 }, DB = 20 / Math.LN10, STRIKE = 0.25;
+  const S = { step: 1, d3: 'light', seq: 0 };
+  let ctx = null, node = null, master = null, ready = null, playing = false;
+  let traces = [], cur = null, view = { tmax: 8, band: false }, frame = 0;
+
+  /* ── sound ── */
+  async function audio() {
+    if (!ready) ready = (async () => {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const url = URL.createObjectURL(new Blob([$('pr-core').textContent + '\n' + $('pr-proc').textContent], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      node = new AudioWorkletNode(ctx, 'pr-resonator', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 4; comp.attack.value = 0.003; comp.release.value = 0.25;
+      master = ctx.createGain(); master.gain.value = 0;
+      node.connect(comp).connect(master).connect(ctx.destination);
+      node.port.onmessage = (e) => onReport(e.data);
+    })();
+    await ready;
+    if (ctx.state !== 'running') await ctx.resume();
+    master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(0.8, ctx.currentTime, 0.015);
+    playing = true;
+  }
+  function stop() {
+    if (!ctx || !playing) return;
+    playing = false; master.gain.setTargetAtTime(0, ctx.currentTime, 0.02);
+    setTimeout(() => { if (!playing) { node.port.postMessage({ reset: true, set: { eps: 0, F: 0 } }); ctx.suspend(); } }, 160);
+  }
+
+  /* a run: one trace on the plot, fed by the reports that carry its seq */
+  function newTrace(color, extra) {
+    extra = extra || {};
+    if (extra.kind) traces = traces.filter((t) => t.kind && t.kind !== extra.kind);          // step 4 keeps the other kind
+    else { traces = cur ? [cur] : []; traces.forEach((t) => { t.old = true; t.pred = null; }); } // otherwise the last run, in grey
+    cur = Object.assign({ color, pts: [], eps: [], seq: ++S.seq }, extra);
+    traces.push(cur); return cur.seq;
+  }
+  function onReport(m) {
+    if (m.seq === undefined || m.t === undefined) return;
+    const tr = traces.find((t) => t.seq === m.seq); if (!tr) return;
+    tr.pts.push([m.t, DB * Math.log(Math.max(m.A, 1e-7))]); tr.eps.push([m.t, m.eps]);
+    if (tr.pts.length > 4000) { tr.pts.shift(); tr.eps.shift(); }
+  }
+  /* least squares slope of dB against time over the last `win` seconds, inside a usable band */
+  function slope(tr, win, lo, hi) {
+    if (!tr || tr.pts.length < 20) return null;
+    const tEnd = tr.pts[tr.pts.length - 1][0]; let n = 0, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    for (const [t, y] of tr.pts) if (t > tEnd - win && y > lo && y < hi) { n++; sx += t; sy += y; sxx += t * t; sxy += t * y; }
+    if (n < 15) return null; return (n * sxy - sx * sy) / (n * sxx - sx * sx);
+  }
+  function slopeFrom(tr, t0, lo, hi) {   // every point after t0 inside the band: a fade read while it is still 30 dB clear of the floor
+    if (!tr) return null; let n = 0, sx = 0, sy = 0, sxx = 0, sxy = 0;
+    for (const [t, y] of tr.pts) if (t >= t0 && y > lo && y < hi) { n++; sx += t; sy += y; sxx += t * t; sxy += t * y; }
+    return n < 15 ? null : (n * sxy - sx * sy) / (n * sxx - sx * sx);
+  }
+  const firstAbove = (tr, dB) => { const p = tr && tr.pts.find((q) => q[1] > dB); return p ? p[0] : null; };
+  function rise(tr) {   // 10% to 90% of the trace's own final level, in time
+    if (!tr || tr.pts.length < 50) return null; const fin = Math.pow(10, tr.pts[tr.pts.length - 1][1] / 20);
+    const a = firstAbove(tr, 20 * Math.log10(0.1 * fin)), b = firstAbove(tr, 20 * Math.log10(0.9 * fin)); return a != null && b != null ? b - a : null;
+  }
+  const fmtRate = (r) => r == null ? '–' : (r >= 0 ? '+' : '−') + Math.abs(r).toFixed(1) + ' dB/s';
+  const fmtS = (s) => s == null ? '–' : s.toFixed(2) + ' s';
+
+  /* the exact growth rate: Floquet multipliers of one pump period, from the same core */
+  const probe = new PRes(48000);
+  function floquetRate(eps, zeta) { probe.eps = eps; probe.zeta = zeta; probe.ratio = 2; return probe.floquet(0).mu * DB; }
+
+  /* ── step 1 ── */
+  async function strike1() {
+    await audio(); const seq = newTrace('#e8b84a', { pred: { from: DB * Math.log(STRIKE), rate: -ZETA.light * W0 * DB } });
+    node.port.postMessage({ reset: true, set: { zeta: ZETA.light, eps: 0, F: 0, ratio: 2, noise: 2e-6 }, strike: { A: STRIKE, phi: 0, seq } });
+    view = { tmax: 8, band: false };
+  }
+  function update1() {
+    const pr = -ZETA.light * W0 * DB, m = slopeFrom(cur, 0.2, -50, -14);
+    $('p1').textContent = fmtRate(pr); $('m1').textContent = fmtRate(m); $('t1').textContent = (60 / -pr).toFixed(2) + ' s';
+    $('say1').innerHTML = cur && m != null ? 'Measured from the sound: <b>' + fmtRate(m) + '</b>, against ' + fmtRate(pr) + ' from ζω₀. A straight line in decibels is an exponential in amplitude.' : '';
+  }
+  /* ── step 2 ── */
+  const eps2 = () => +$('e2').value;
+  async function strike2() {
+    await audio(); const e = eps2(), seq = newTrace('#e8b84a', { pred: { from: DB * Math.log(STRIKE), rate: floquetRate(e, ZETA.light) } });
+    node.port.postMessage({ reset: true, set: { zeta: ZETA.light, eps: e, F: 0, ratio: 2, noise: 2e-6 }, strike: { A: STRIKE, phi: 0, seq } });
+    view = { tmax: 8, band: false };
+  }
+  function update2() {
+    const e = eps2(), pr = floquetRate(e, ZETA.light), base = -ZETA.light * W0 * DB;
+    $('e2v').innerHTML = e.toFixed(4) + ' (' + (e / (4 * ZETA.light)).toFixed(2) + ' ε<sub>c</sub>)';
+    const m = cur && cur.pts.length && cur.pts[cur.pts.length - 1][0] > 1.8 ? slopeFrom(cur, 1.5, -50, -14) : null;
+    $('p2').textContent = fmtRate(pr); $('m2').textContent = fmtRate(m); $('r2').textContent = (base / pr).toFixed(2) + '×';
+    $('say2').innerHTML = cur && m != null ? 'The struck ring has two ways to fade; the faster one is gone within a second, and what is left fades at <b>' + fmtRate(m) + '</b>. The pump is feeding it, just not enough.' : (cur ? 'Listening for the slow fade (it settles after about a second)…' : '');
+  }
+  /* ── step 3 ── */
+  const eps3 = () => +$('e3').value;
+  async function hold3() {
+    await audio(); const z = ZETA[S.d3], e = eps3(), seq = newTrace('#e8b84a', {});
+    node.port.postMessage({ reset: true, set: { zeta: z, eps: e, F: 0, ratio: 2, noise: 2e-6 } }); node.port.postMessage({ clock: true, seq });
+    view = { tmax: 10, band: true, ec: 4 * z };
+  }
+  async function sweep3() {
+    await audio(); const z = ZETA[S.d3], seq = newTrace('#e8b84a', {});
+    node.port.postMessage({ reset: true, set: { zeta: z, eps: 0, F: 0, ratio: 2, noise: 2e-6 } });
+    node.port.postMessage({ clock: true, seq, ramp: ['eps', 16 * z, 6] });
+    view = { tmax: 10, band: true, ec: 4 * z };
+  }
+  function update3() {
+    const z = ZETA[S.d3], ec = 4 * z, e = eps3();
+    $('e3v').textContent = e.toFixed(4); $('c3').textContent = ec.toFixed(4); $('q3').textContent = (e / ec).toFixed(2);
+    const live = cur && cur.eps.length ? cur.eps[cur.eps.length - 1][1] : null, m = slope(cur, 0.3, -75, -24);   // under −24 dB the pump is still at full strength
+    if (cur && m != null) {   // keep the last reading taken while it was climbing, with the depth it was taken at (a sweep's window centre)
+      const tEnd = cur.pts[cur.pts.length - 1][0], win = cur.eps.filter((q) => q[0] > tEnd - 0.3 && q[0] <= tEnd);
+      cur.m = m; cur.mEps = win.reduce((a, q) => a + q[1], 0) / Math.max(1, win.length);
+    }
+    $('p3').textContent = fmtRate(floquetRate(cur && cur.mEps != null ? cur.mEps : e, z)); $('m3').textContent = fmtRate(cur ? cur.m : null);
+    let s = '';
+    if (cur && live != null) {
+      const crossed = cur.eps.find((q) => q[1] >= ec), heard = firstAbove(cur, -60);
+      if (live < ec && !heard) s = 'ε = ' + live.toFixed(4) + ', under ε<sub>c</sub>: the floor stays a floor. Nothing grows.';
+      else if (!heard) s = 'Past ε<sub>c</sub>' + (crossed ? ' at ' + crossed[0].toFixed(2) + ' s' : '') + '. It is growing already, still under the noise you could hear.';
+      else s = 'Crossed ε<sub>c</sub>' + (crossed && crossed[0] > 0.01 ? ' at <b>' + crossed[0].toFixed(2) + ' s</b>' : ' from the start') + ', heard (above −60 dB) at <b>' + heard.toFixed(2) + ' s</b>. The pump only scales what is there, so the ring needs time to climb out of the floor; then it stops where the pump runs out of strength.';
+    }
+    $('say3').innerHTML = s;
+  }
+  /* ── step 4 ── */
+  async function drive4() {
+    await audio(); const seq = newTrace('#6366F1', { kind: 'drive' });
+    node.port.postMessage({ reset: true, set: { zeta: ZETA.light, eps: 0, F: 0.8 * ZETA.light, fd: 0.8 * F0, phd: 0, ratio: 2, noise: 2e-6 } });
+    node.port.postMessage({ clock: true, seq, ramp: ['fd', F0, 6] });
+    view = { tmax: 10, band: false };
+  }
+  async function pump4() {
+    await audio(); const seq = newTrace('#e8b84a', { kind: 'pump' });
+    node.port.postMessage({ reset: true, set: { zeta: ZETA.light, eps: 0, F: 0, ratio: 2, noise: 2e-6 } });
+    node.port.postMessage({ clock: true, seq, ramp: ['eps', 16 * ZETA.light, 6] });
+    view = { tmax: 10, band: false };
+  }
+  function update4() {
+    const d = traces.find((t) => t.kind === 'drive'), p = traces.find((t) => t.kind === 'pump');
+    $('da4').textContent = fmtS(firstAbove(d, -60)); $('dr4').textContent = fmtS(rise(d));
+    const pc = p && p.eps.find((q) => q[1] >= 4 * ZETA.light);
+    $('pc4').textContent = fmtS(pc ? pc[0] : null); $('pa4').textContent = fmtS(firstAbove(p, -60)); $('pr4').textContent = fmtS(rise(p));
+    let s = '';
+    if (d && p && rise(d) != null && rise(p) != null) s = 'Same resonator, same six seconds. The driven ring was audible from <b>' + fmtS(firstAbove(d, -60)) + '</b> and climbed for ' + fmtS(rise(d)) + '. The pumped one crossed ε<sub>c</sub> at ' + fmtS(pc ? pc[0] : null) + ', said nothing until <b>' + fmtS(firstAbove(p, -60)) + '</b>, and climbed in ' + fmtS(rise(p)) + '. Whether that is a crack is your ear’s call; this is when each arrives.';
+    else if (d || p) s = 'Now play the other one.';
+    $('say4').innerHTML = s;
+  }
+
+  /* ── the plot ── */
+  function fit(c, h) {
+    const w = c.clientWidth, d = devicePixelRatio || 1;
+    if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+    const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+  }
+  function draw() {
+    requestAnimationFrame(draw);
+    const H = view.band ? 300 : 250, { g, w, h } = fit($('plot'), H), L = 44, R = 10, T = 8, B = view.band ? 80 : 26, tmax = view.tmax;
+    const X = (t) => L + (t / tmax) * (w - L - R), Y = (dB) => T + ((0 - dB) / 100) * (h - T - B);
+    g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace'; g.lineWidth = 1;
+    for (let dB = 0; dB >= -100; dB -= 20) { g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(L, Y(dB)); g.lineTo(w - R, Y(dB)); g.stroke(); g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText(dB + ' dB', L - 6, Y(dB) + 3); }
+    g.textAlign = 'center'; for (let t = 0; t <= tmax; t += 1) { g.fillStyle = '#4a4a5a'; g.fillText(t + ' s', X(t), Y(-100) + 14); }
+    g.strokeStyle = 'rgba(138,138,160,.35)'; g.setLineDash([2, 4]); g.beginPath(); g.moveTo(L, Y(-60)); g.lineTo(w - R, Y(-60)); g.stroke(); g.setLineDash([]);
+    g.save(); g.beginPath(); g.rect(L, T, w - L - R, Y(-100) - T); g.clip();
+    for (const tr of traces) {
+      if (tr.pred) { g.strokeStyle = 'rgba(232,184,74,.55)'; g.setLineDash([5, 5]); g.beginPath(); g.moveTo(X(0), Y(tr.pred.from)); g.lineTo(X(tmax), Y(tr.pred.from + tr.pred.rate * tmax)); g.stroke(); g.setLineDash([]); }
+      g.strokeStyle = tr.old ? '#4a4a5a' : tr.color; g.lineWidth = 1.6; g.beginPath();
+      tr.pts.forEach(([t, y], i) => { if (t > tmax) return; i ? g.lineTo(X(t), Y(y)) : g.moveTo(X(t), Y(y)); }); g.stroke(); g.lineWidth = 1;
+    }
+    g.restore();
+    if (view.band) {
+      const top = Y(-100) + 22, bh = h - top - 6, emax = 4.5 * view.ec, YE = (e) => top + bh - (Math.min(e, emax) / emax) * bh;
+      g.strokeStyle = '#22222e'; g.strokeRect(L, top, w - L - R, bh);
+      g.strokeStyle = 'rgba(232,184,74,.5)'; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(L, YE(view.ec)); g.lineTo(w - R, YE(view.ec)); g.stroke(); g.setLineDash([]);
+      g.fillStyle = '#8a8aa0'; g.textAlign = 'right'; g.fillText('εc', L - 6, YE(view.ec) + 3); g.fillText('ε', L - 6, top + 9);
+      if (cur) { g.strokeStyle = '#c8c8d8'; g.beginPath(); cur.eps.forEach(([t, e], i) => { if (t > tmax) return; i ? g.lineTo(X(t), YE(e)) : g.moveTo(X(t), YE(e)); }); g.stroke(); }
+    }
+    if (++frame % 6 === 0) UPD[S.step]();
+  }
+
+  /* ── steps ── */
+  const UPD = { 1: update1, 2: update2, 3: update3, 4: update4 };
+  function show(n) {
+    stop(); S.step = n; traces = []; cur = null; view = { tmax: n >= 3 ? 10 : 8, band: n === 3, ec: 4 * ZETA[S.d3] };
+    document.querySelectorAll('.pr-step').forEach((s) => s.classList.toggle('pr-shown', +s.dataset.step === n));
+    document.querySelectorAll('.pr-rail button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.go === n ? 'true' : 'false'));
+    $('back').disabled = n === 1; $('next').disabled = n === 4;
+    $('leg').textContent = n === 4 ? 'indigo = driven · amber = pumped · dotted = −60 dB' : n === 3 ? 'amber = the ring · below: the pump depth against εc' : 'amber = this run · dashed = predicted · grey = the last run';
+  }
+  function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+  document.querySelectorAll('.pr-rail button').forEach((b) => (b.onclick = () => show(+b.dataset.go)));
+  $('back').onclick = () => show(Math.max(1, S.step - 1)); $('next').onclick = () => show(Math.min(4, S.step + 1));
+  $('strike1').onclick = strike1; $('strike2').onclick = strike2; $('hold3').onclick = hold3; $('sweep3').onclick = sweep3; $('drive4').onclick = drive4; $('pump4').onclick = pump4;
+  for (const id of ['stop1', 'stop2', 'stop3', 'stop4']) $(id).onclick = stop;
+  $('e2').oninput = () => { if (playing && S.step === 2) node.port.postMessage({ set: { eps: eps2() } }); };
+  $('e3').oninput = () => { if (playing && S.step === 3) node.port.postMessage({ set: { eps: eps3() }, ramp: ['eps', eps3(), 0.02] }); };
+  document.querySelectorAll('#d3 button').forEach((b) => (b.onclick = () => {
+    S.d3 = b.dataset.d; document.querySelectorAll('#d3 button').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+    view.ec = 4 * ZETA[S.d3]; if (playing && S.step === 3) node.port.postMessage({ set: { zeta: ZETA[S.d3] } });
+  }));
+  sigil(); show(1); draw();
+})();
+</script>
+</body>
+</html>

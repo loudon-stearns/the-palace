@@ -1,0 +1,368 @@
+<!doctype html>
+<!--
+  title: FM Synthesis — rich — feedback
+  born: 2026-11-03
+  links: [[FM Synthesis]] connects-to · rich-face-piece · listed in [[FM Synthesis — rich.json]] under "Feedback"
+  forward_vector: I am the Feedback section as a walk: one operator, its output fed back into its own
+    phase, the loop raised a step at a time. I open on a sine alone, lean it towards a sawtooth, hold
+    it against a true sawtooth at 7, cross the edge past 7, show the average Yamaha's loop takes for
+    granted, and end on the section's claim tested across the whole range, with two meters: how near a
+    sawtooth, and how much of the sound still repeats with the note. I change only when the section does.
+  engine: Dexed's model of the DX7 loop (asb2m10/dexed, source/msfa/fm_op_kernel.cc, compute_fb): the
+    operator's last two outputs averaged, pushed into its phase at pi x 2^(fb-7) radians at full level.
+    The meters render this engine offline at 48 kHz on a 200 Hz note, the checks beside this file
+    run the same string in Node.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>FM feedback — sine, sawtooth, noise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --soft:rgba(255,255,255,.06); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#8b8df5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 18px; height: 18px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .tabs { display: flex; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button { border-radius: 0; margin: 0 -1px -1px 0; }
+  .tabs button.ahead { color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 92px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .step { border: 1px solid var(--soft); background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .stephead b { color: var(--fg1); font-weight: 500; }
+  .teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 8px; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 6px 0 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); min-width: 220px; flex: 1; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; height: 200px; }
+  .pair { display: grid; grid-template-columns: 1fr 1.6fr; gap: 12px; }
+  @media (max-width: 640px) { .pair { grid-template-columns: 1fr; } }
+  .meter { font-family: var(--mono); font-size: 12px; color: var(--fg2); margin-top: 6px; }
+  .meter b { color: var(--fg1); font-weight: 500; }
+  .walk { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 15px; color: var(--fg1); min-height: 1.5em; }
+  .verdict .fam { color: var(--amber); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-right: 8px; }
+  .eqs { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .key i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg>made · Web Audio Worklet · sketch</div>
+  <h3 class="title">Feedback — one operator, listening to itself</h3>
+  <p class="sub">One sine at 200 Hz whose own output is fed back into its phase. No partner, no second oscillator. The left panel is two cycles of the wave; the right is its first sixteen harmonics, each against the first, with a sawtooth's levels marked as ticks. Walk the loop up a step at a time; the last step tests the section's claim across the whole range.</p>
+
+  <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="step" id="step" aria-live="polite">
+    <div class="stephead"><b id="stepname"></b><span id="stepcount"></span></div>
+    <p class="teach" id="teach"></p>
+    <div id="controls"></div>
+    <p class="back" id="backline"></p>
+  </div>
+
+  <div class="walk">
+    <button id="back">◂ back</button>
+    <button id="go" class="go">▸ play</button>
+    <button id="next">next ▸</button>
+    <span class="hint" id="state">silent until you press play</span>
+  </div>
+
+  <div class="pair">
+    <div class="panel"><div class="plabel"><span>the wave · two cycles</span></div><canvas id="wave"></canvas></div>
+    <div class="panel"><div class="plabel"><span>harmonics 1 – 16 · dB against the first</span><span class="key"><i style="background:#e8b84a"></i>the operator<i style="background:#8b8df5"></i>a sawtooth</span></div><canvas id="harm"></canvas></div>
+  </div>
+  <div class="read">
+    <span>feedback <b id="r-fb"></b></span>
+    <span>the push, β <b id="r-beta"></b></span>
+    <span>loop <b id="r-avg"></b></span>
+  </div>
+  <div class="meter">near a sawtooth: <b id="m-saw"></b></div>
+  <div class="meter">repeats with the note: <b id="m-per"></b></div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="eqs">
+    <div class="eq">y[n] = sin( 2π · f · n ⁄ f<sub>s</sub> + β · ( y[n−1] + y[n−2] ) ⁄ 2 )</div>
+    <div class="words">(the operator's output now) = sine of ( (its own phase, turning at the note) + (how hard the loop pushes) × (the average of its last two outputs) )</div>
+    <div class="eq">β = π · 2<sup>( fb − 7 )</sup></div>
+    <div class="words">(how hard the loop pushes, in radians) = π × 2 to the power of (the feedback setting − 7): each step up doubles it, and the DX7's top, 7, pushes by π. This is at the operator's full level; on the DX7 the loop shrinks with the operator's own volume.</div>
+  </div>
+  <div class="hint">Meters: this page's own engine rendered offline at 48 kHz on the 200 Hz note, 80 whole cycles after a settling tenth of a second. "Near a sawtooth" is the root-mean-square gap, in dB, between harmonics 2 to 10 and a sawtooth's 1 ⁄ k. "Repeats with the note" is the share of the sound's energy that is the same in every cycle. What you hear plays at your device's own sample rate.</div>
+  <div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+(() => {
+// ───────────── the engine: one operator in a loop, as Dexed models the DX7's (runs in the worklet) ─────────────
+const ENGINE_SRC = String.raw`
+const betaOf = fb => fb > 0 ? Math.PI * Math.pow(2, fb - 7) : 0;
+class LoopOp {
+  constructor(sr) {
+    this.sr = sr; this.ph = 0; this.y1 = 0; this.y2 = 0; this.ps = 0;
+    this.f = 200; this.fb = 0; this.avg = true; this.voice = 'op'; this.gate = 0;
+    this.g = 0; this.b = 0; this.K = Math.max(1, Math.floor(0.45 * sr / 200));
+    this.sm = 1 - Math.exp(-1 / (0.02 * sr)); this.gm = 1 - Math.exp(-1 / (0.006 * sr));
+  }
+  set(d) {
+    for (const k of ['f', 'fb', 'avg', 'voice', 'gate']) if (d[k] !== undefined) this[k] = d[k];
+    this.K = Math.max(1, Math.floor(0.45 * this.sr / this.f));
+    if (d.snap) { this.b = betaOf(this.fb); this.y1 = this.y2 = 0; }
+  }
+  render(L, R, n) {
+    const TP = 2 * Math.PI, sr = this.sr, target = betaOf(this.fb);
+    for (let i = 0; i < n; i++) {
+      this.b += (target - this.b) * this.sm;
+      this.g += (this.gate - this.g) * this.gm;
+      const m = this.avg ? this.b * 0.5 * (this.y1 + this.y2) : this.b * this.y1;
+      const y = Math.sin(TP * this.ph + m);
+      this.y2 = this.y1; this.y1 = y;
+      let out = y;
+      if (this.voice === 'saw') { out = 0; for (let k = 1; k <= this.K; k++) out += Math.sin(TP * k * this.ps) / k; out *= 0.55; }
+      this.ph += this.f / sr; this.ph -= Math.floor(this.ph);
+      this.ps += this.f / sr; this.ps -= Math.floor(this.ps);
+      L[i] = 0.28 * this.g * out; R[i] = L[i];
+    }
+  }
+}
+// The meters. Render fb offline at 48 kHz on a 200 Hz note (240 samples a cycle, exactly), let it settle for
+// a tenth of a second, then read 80 whole cycles: each harmonic by its own sum (exact on whole cycles), and the
+// share of the energy that is the same in every cycle.
+function measure(fb, avg) {
+  const SR = 48000, F = 200, P = 240, C = 80, skip = 4800;
+  const e = new LoopOp(SR); e.set({ f: F, fb, avg, gate: 1, snap: true }); e.g = 1;
+  const N = skip + P * C, L = new Float32Array(N), R = new Float32Array(N);
+  e.render(L, R, N);
+  const x = L.subarray(skip);
+  const h = [];
+  for (let k = 1; k <= 16; k++) {
+    let re = 0, im = 0;
+    for (let i = 0; i < x.length; i++) { const a = 2 * Math.PI * k * i / P; re += x[i] * Math.cos(a); im -= x[i] * Math.sin(a); }
+    h.push(Math.hypot(re, im) * 2 / x.length);
+  }
+  const db = h.map(v => 20 * Math.log10(v / h[0] + 1e-12));
+  let err = 0; for (let k = 2; k <= 10; k++) err += (db[k - 1] + 20 * Math.log10(k)) ** 2;
+  const saw = Math.sqrt(err / 9);
+  const mean = new Float64Array(P);
+  for (let c = 0; c < C; c++) for (let i = 0; i < P; i++) mean[i] += x[c * P + i] / C;
+  let tot = 0, per = 0;
+  for (let c = 0; c < C; c++) for (let i = 0; i < P; i++) { tot += x[c * P + i] ** 2; per += mean[i] ** 2; }
+  return { db, saw, periodic: per / tot, wave: Array.from(x.subarray(x.length - 2 * P)) };
+}
+`;
+const PROC_SRC = ENGINE_SRC + `
+class LoopProc extends AudioWorkletProcessor {
+  constructor() { super(); this.e = new LoopOp(sampleRate); this.port.onmessage = ({ data }) => this.e.set(data); }
+  process(_, outs) { const o = outs[0]; this.e.render(o[0], o[1] || o[0], o[0].length); return true; }
+}
+registerProcessor('fm-loop', LoopProc);`;
+const { LoopOp, measure, betaOf } = new Function(ENGINE_SRC + '; return { LoopOp, measure, betaOf };')();
+
+// ───────────── the walk ─────────────
+const S = { step: 0, reached: 0, fb: 0, avg: true, voice: 'op', playing: false };
+const STEPS = [
+  { name: 'a sine alone', fb: 0, ctl: [],
+    teach: 'One operator with its loop open: a sine at 200 Hz, nothing else. One harmonic on the right, a smooth wave on the left. Press play.' },
+  { name: 'a little feedback', fb: 3, ctl: [['fb', 0, 6]],
+    teach: 'Close the loop. The operator\'s last output nudges its own phase, so each cycle comes out a little leaning. Raise it from 0 to 6: the wave tips forward and the harmonics climb towards the sawtooth\'s ticks, one step at a time, each step doubling the push.',
+    back: 'Feedback 0 is step 1 again.' },
+  { name: '7 · the DX7\'s top', fb: 7, ctl: [['fb', 0, 7], 'ab'],
+    teach: 'At 7 the push is π, the most Yamaha allowed. The first ten harmonics now sit within about a decibel of a sawtooth\'s, on average: every harmonic, from one oscillator with no partner. Hold it against a true sawtooth at the same pitch.',
+    back: 'Below 7 it is step 2\'s lean.' },
+  { name: 'past 7 · the edge', fb: 7, ctl: [['fb', 6.5, 10]],
+    teach: 'Go further than the DX7 let you. Up to about 7.3 nothing changes much: still a sawtooth, still repeating exactly with the note. Then, within a few hundredths of a step, the loop stops repeating. The tone frays, and a little further most of it is noise with the pitch still inside it (near 8 the loop half-settles again for a moment), and by 9.5 hardly any pitch is left. Watch the second meter.',
+    back: 'At 7 it is step 3\'s sawtooth.' },
+  { name: 'the average under it', fb: 7, ctl: [['fb', 0, 10], 'avg'],
+    teach: 'What the section takes for granted: the DX7\'s loop does not feed back the last output, it feeds back the average of the last two. Turn the average off at 7. A plain one-sample loop pushed by the same π is already fraying, and its harmonics leave the sawtooth\'s. The average is what keeps Yamaha\'s top setting clean.',
+    back: 'With the average on, this is step 4.' },
+  { name: '0 to 10 · the test', fb: 0, ctl: [['fb', 0, 10], 'avg', 'snaps'],
+    teach: 'The section\'s claim: a little feedback leans the sine towards a sawtooth; at 7 it is close to one; push further and the tone frays, then tips into noise. Sweep the whole range with both meters and see whether each part holds.' },
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const c of kids) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+let syncers = [];
+function controls(list) {
+  syncers = [];
+  const out = [];
+  for (const c of list) {
+    if (Array.isArray(c) && c[0] === 'fb') {
+      const [, lo, hi] = c, val = el('b'), input = el('input', { type: 'range', min: lo, max: hi, step: 0.01, 'aria-label': 'feedback' });
+      syncers.push(() => { input.value = S.fb; val.textContent = S.fb.toFixed(2) + (S.fb > 7 ? ' · past the DX7' : ''); });
+      input.addEventListener('input', () => { S.fb = +input.value; update(); });
+      out.push(el('div', { class: 'row' }, el('label', { class: 'sl' }, 'feedback ', val, input)));
+    }
+    if (c === 'ab') {
+      const b = (v, t) => { const x = el('button', { 'aria-pressed': 'false', onclick: () => { S.voice = v; update(); if (!S.playing) play(); } }, t); syncers.push(() => x.setAttribute('aria-pressed', String(S.voice === v))); return x; };
+      out.push(el('div', { class: 'row' }, b('op', 'the operator'), b('saw', 'a true sawtooth')));
+    }
+    if (c === 'avg') {
+      const x = el('button', { 'aria-pressed': 'true', onclick: () => { S.avg = !S.avg; update(); } }, 'Yamaha\'s average of the last two');
+      syncers.push(() => x.setAttribute('aria-pressed', String(S.avg)));
+      out.push(el('div', { class: 'row' }, x));
+    }
+    if (c === 'snaps') out.push(el('div', { class: 'row' }, ...[0, 3, 5, 6, 7, 7.3, 7.4, 8, 9, 10].map(v => el('button', { onclick: () => { S.fb = v; update(); } }, String(v)))));
+  }
+  return out;
+}
+
+function go(i) {
+  if (i !== S.step) stop();                          // changing step stops the sound
+  S.step = i; S.reached = Math.max(S.reached, i);
+  const s = STEPS[i];
+  S.fb = s.fb; S.avg = true; S.voice = 'op';
+  $('stepname').textContent = (i + 1) + ' · ' + s.name;
+  $('stepcount').textContent = 'step ' + (i + 1) + ' of ' + STEPS.length;
+  $('teach').textContent = s.teach;
+  $('backline').textContent = s.back || ''; $('backline').hidden = !s.back;
+  const host = $('controls'); host.textContent = ''; host.append(...controls(s.ctl));
+  $('back').hidden = i === 0; $('next').hidden = i === STEPS.length - 1;
+  const tabs = $('tabs'); tabs.textContent = '';
+  STEPS.forEach((t, j) => tabs.append(el('button', { 'aria-pressed': String(j === i), class: j > S.reached ? 'ahead' : '', onclick: () => go(j) }, (j + 1) + ' · ' + t.name)));
+  update(); send(true);
+}
+$('back').addEventListener('click', () => go(Math.max(0, S.step - 1)));
+$('next').addEventListener('click', () => go(Math.min(STEPS.length - 1, S.step + 1)));
+
+// ───────────── audio: nothing exists before the first click ─────────────
+let ctx = null, port = null, booting = null;
+function boot() {
+  if (booting) return booting;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  comp.connect(ctx.destination);
+  // the kit may quiet the context (a hush, a hidden tab, a minute untouched): the button follows it
+  ctx.addEventListener('statechange', () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; send(true); paint(); } });
+  booting = (async () => {
+    try {
+      const url = URL.createObjectURL(new Blob([PROC_SRC], { type: 'application/javascript' }));
+      await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+      const node = new AudioWorkletNode(ctx, 'fm-loop', { numberOfInputs: 0, outputChannelCount: [2] });
+      node.connect(comp); port = node.port;
+    } catch (e) {                                    // a page opened from a file: the same engine on the main thread
+      const eng = new LoopOp(ctx.sampleRate), sp = ctx.createScriptProcessor(1024, 0, 2);
+      sp.onaudioprocess = ev => eng.render(ev.outputBuffer.getChannelData(0), ev.outputBuffer.getChannelData(1), 1024);
+      sp.connect(comp); port = { postMessage: d => eng.set(d) };
+    }
+    send(true);
+  })();
+  return booting;
+}
+function send(snap) { if (port) port.postMessage({ f: 200, fb: S.fb, avg: S.avg, voice: S.voice, gate: S.playing ? 1 : 0, snap: !!snap }); }
+async function play() {
+  await boot();
+  if (ctx.state !== 'running') await ctx.resume();
+  S.playing = true; send(false); paint();
+}
+function stop() { if (!S.playing) return; S.playing = false; send(false); paint(); }
+$('go').addEventListener('click', () => (S.playing ? stop() : play()));
+function paint() {
+  $('go').textContent = S.playing ? '❚❚ stop' : '▸ play';
+  $('state').textContent = S.playing ? (S.voice === 'saw' ? 'a true sawtooth at 200 Hz' : 'the operator, playing') : 'silent until you press play';
+}
+
+// ───────────── meters and drawing ─────────────
+let M = null;
+function update() {
+  for (const f of syncers) f();
+  M = measure(S.fb, S.avg);
+  $('r-fb').textContent = S.fb.toFixed(2);
+  $('r-beta').textContent = (betaOf(S.fb) / Math.PI).toFixed(3) + ' π';
+  $('r-avg').textContent = S.avg ? 'average of the last two (the DX7)' : 'the last output only';
+  $('m-saw').textContent = S.fb === 0 ? 'a sine: no harmonics to compare' : M.saw.toFixed(1) + ' dB from a sawtooth, harmonics 2 – 10';
+  $('m-per').textContent = (M.periodic * 100).toFixed(M.periodic > 0.999 ? 2 : 1) + ' % of the energy';
+  let fam, says;
+  if (S.fb === 0) { fam = 'sine'; says = 'The loop is open: a sine.'; }
+  else if (M.periodic > 0.99 && M.saw <= 2) { fam = 'sawtooth'; says = 'Close to a sawtooth, and repeating exactly with the note.'; }
+  else if (M.periodic > 0.99) { fam = 'leaning'; says = 'Repeating exactly with the note, and leaning towards a sawtooth.'; }
+  else if (M.periodic > 0.5) { fam = 'fraying'; says = 'Most of it still repeats with the note, but not all: the tone is fraying.'; }
+  else if (M.periodic > 0.03) { fam = 'noise'; says = 'Mostly noise now, with a trace of the pitch left in it.'; }
+  else { fam = 'noise'; says = 'Noise: almost nothing repeats with the note.'; }
+  const v = $('verdict'); v.textContent = ''; v.append(el('span', { class: 'fam' }, fam), says);
+  send(false); paint(); drawAll();
+}
+function fit(c) { const d = devicePixelRatio || 1, w = c.clientWidth, h = c.clientHeight; if (c.width !== Math.round(w * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); } const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h }; }
+function drawAll() {
+  if (!M) return;
+  { const { g, w, h } = fit($('wave'));
+    g.strokeStyle = 'rgba(255,255,255,.10)'; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+    g.strokeStyle = '#e8b84a'; g.lineWidth = 1.6; g.beginPath();
+    M.wave.forEach((v, i) => { const x = 6 + i / (M.wave.length - 1) * (w - 12), y = h / 2 - v * (h / 2 - 12); i ? g.lineTo(x, y) : g.moveTo(x, y); });
+    g.stroke(); }
+  { const { g, w, h } = fit($('harm'));
+    const DB = -50, Y = db => 10 + (1 - (Math.max(DB, db) - DB) / -DB) * (h - 30), bw = (w - 16) / 16;
+    g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = '#4a4a5a';
+    g.strokeStyle = 'rgba(255,255,255,.08)';
+    for (const d of [0, -10, -20, -30, -40]) { g.beginPath(); g.moveTo(8, Y(d)); g.lineTo(w - 8, Y(d)); g.stroke(); }
+    for (let k = 1; k <= 16; k++) {
+      const x = 8 + (k - 0.5) * bw;
+      g.fillStyle = '#e8b84a'; const y = Y(M.db[k - 1]); g.fillRect(x - bw * 0.28, y, bw * 0.56, Y(DB) - y);
+      g.strokeStyle = '#8b8df5'; g.lineWidth = 2; const ys = Y(-20 * Math.log10(k)); g.beginPath(); g.moveTo(x - bw * 0.42, ys); g.lineTo(x + bw * 0.42, ys); g.stroke();
+      if (k === 1 || k % 5 === 0) { g.fillStyle = '#4a4a5a'; g.fillText(String(k), x - 3, h - 6); }
+    } }
+}
+addEventListener('resize', drawAll);
+
+// the sigil: the house's Lissajous, 3 : 2
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('sigil').setAttribute('d', d); })();
+
+go(0);
+})();
+</script>
+</body>
+</html>

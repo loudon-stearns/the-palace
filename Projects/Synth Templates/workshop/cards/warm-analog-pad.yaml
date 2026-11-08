@@ -1,0 +1,74 @@
+# Synth Templates — card 0.2 — Warm Analog Pad
+# The pad the Juno made ordinary: two saws a few cents apart, a half-open filter that opens slowly, chorus on the way out.
+schema: synth-template-card/0.2
+id: warm-analog-pad
+name: Warm Analog Pad
+family: Pads
+tier: 1
+mode: poly
+classics: Juno-106
+status: drafted
+concepts:
+  - "Small detune (≤7 cents) = chorus"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Standard sustaining envelope; strings and horns variants"
+  - "Chorus: multiple delays, own LFOs, no feedback"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, detune: slight, note: "a few cents against osc1: the swirl"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [chorus]}
+    fenv:    {kind: envelope, role: filter, shape: {a: slow, d: long, s: half, r: long}, category: pad}
+    aenv:    {kind: envelope, role: amp,    shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: some, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: little, essential: false}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,          why: "a chord instrument"}
+  - {block: osc1,    param: wave,      value: saw,           why: "every harmonic present, so the filter has something to open onto"}
+  - {block: osc2,    param: detune,    value: slight,        why: "under seven cents: a slow swirl, not a beat; wider and it turns into a supersaw"}
+  - {block: filter1, param: cutoff,    value: mid,           why: "half open at rest, about a kilohertz: warm, not dull"}
+  - {block: fenv,    param: attack,    value: slow,          why: "the filter opens after the note arrives: the brightness blooms, it does not strike"}
+  - {block: fenv,    param: amount,    value: some,          why: "an octave or so; the bloom is felt, not a sweep"}
+  - {block: aenv,    param: attack,    value: slow,          why: "the chord fades in"}
+  - {block: aenv,    param: release,   value: long,          why: "chords overlap on the way out"}
+  - {block: fx,      param: chain,     value: chorus,        why: "the Juno chorus is half the sound: several delays, each with its own LFO, no feedback"}
+
+taste:
+  - {block: osc2,    param: level,     range: "half – equal",         default: equal}
+  - {block: filter1, param: cutoff,    range: "dark – bright",        default: mid}
+  - {block: fenv,    param: amount,    range: "little – moderate",    default: some}
+  - {block: fenv,    param: attack,    range: "slow – very slow",     default: slow}
+  - {block: aenv,    param: attack,    range: "medium – slow",        default: slow}
+  - {block: aenv,    param: release,   range: "medium – very long",   default: long}
+  - {block: fx,      param: chorus,    range: "light – lush",         default: lush}
+
+listening:
+  cue: "A chord that fades in and then brightens a moment later, as if a cloth were being lifted off it. Under that, a slow swirl from the two saws drifting against each other."
+  ab: "Set the filter envelope amount to none: the chord still fades in, but it arrives already finished and sits still. Put it back and the bloom returns. Then switch the chorus off: the same chord, narrower and a little lonely."
+
+render:
+  tempo: 100
+  note: [F3, A3, C4, E4]
+  velocity: 85
+  pattern: "one major-seventh chord held two bars, released, tail to silence"
+  length_s: 8.0
+
+mappings: {}

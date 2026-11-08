@@ -39,10 +39,13 @@ function LiveIndicator({ liveState = 'offline' }) {
 // - onCommand: (key) => void
 // - activeBoard: string (the current active board name, e.g. 'FLAGS')
 // - liveState: SSE connection state, shown flush-right as the LIVE indicator.
+// - hint: the `title=` under the pointer or focus, shown as `[?] …` beside
+//   LIVE, the way a BBS puts a hint in its status line; the OS tooltip never
+//   shows (useHint.js).
 //
 // Numeric-key commands (1..6) get an inverted active state when their board
 // matches activeBoard — same inversion treatment as the top ChannelTabs.
-export default function CommandBar({ commands = [], onCommand, activeBoard, liveState = 'offline' }) {
+export default function CommandBar({ commands = [], onCommand, activeBoard, liveState = 'offline', hint = '' }) {
   // The read view has no commands, but still says what it is: a snapshot.
   const snapshot = typeof liveState === 'string' && liveState.startsWith('snapshot');
   if (commands.length === 0 && !snapshot) return null;
@@ -90,7 +93,20 @@ export default function CommandBar({ commands = [], onCommand, activeBoard, live
           </span>
         );
       })}
-      <LiveIndicator liveState={liveState} />
+      <span style={{ marginLeft: 'auto', display: 'flex', gap: 20, minWidth: 0, maxWidth: '70%' }}>
+        {hint ? (
+          <span
+            data-testid="command-hint"
+            style={{
+              color: 'var(--phosphor-dim)', textShadow: 'none',
+              overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0,
+            }}
+          >
+            [<b style={{ color: 'var(--phosphor)' }}>?</b>]&nbsp;{hint}
+          </span>
+        ) : null}
+        <LiveIndicator liveState={liveState} />
+      </span>
     </div>
   );
 }

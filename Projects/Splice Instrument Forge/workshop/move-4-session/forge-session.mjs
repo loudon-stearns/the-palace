@@ -6,8 +6,9 @@
 //
 // stack.json: { name, tempo, layers: [{ role, file, bpm }], scenes: [{ name, play: [role, …] }] }
 // Every element is one Live saved (Splice Instrument Forge, move four, 2026-10-24): the Set, scene and Limiter from
-// the Ableton Session Writer's templates (Live 12.1's DefaultLiveSet with a 12.4.6 header), the audio track from that
-// same default Set, the audio clip from a Set Live 12.4.6 saved (Loudon's "Impact Granular.als"); the slot shape is
+// the Ableton Session Writer's templates (Live 12.1's DefaultLiveSet with a 12.4.6 header); the audio track and audio
+// clip are the forge's own shells, taken from Live 12.4.6's factory files (move seven, 2026-10-26: the clip once came
+// from Loudon's "Impact Granular.als" and carried its +3.1 dB gain and a hidden fade-out into every Set); the slot shape is
 // GoButton's (ltc-generator.js). The XML craft is the Session Writer's, copied so this stays one file.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,6 +18,7 @@ import { fileURLToPath } from 'node:url';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const WRITER = '/Users/loudonstearns/Documents/The Palace/Shop/Shopkeeper/probes/2026-10-20-ableton-session/templates';
 const STUDY = path.join(HERE, '..', 'format-study', 'xml');
+const SHELLS = path.join(HERE, '..', 'move-7-shells', 'shells');   // the forge's own shells, harvested from Live 12.4.6's factory files (move-7-shells/harvest.mjs)
 const HEADER = '<Ableton MajorVersion="5" MinorVersion="12.0_12402" SchemaChangeCount="5" Creator="Ableton Live 12.4.6" Revision="0de5c8fa9a692293676cb7700a15afb2046ee1f7">';
 const FIRST_TRACK_ID = 20;
 const COLOURS = [12, 2, 8, 17, 24, 36, 50, 60];
@@ -86,7 +88,7 @@ function audioClip({ name, colour, abs, rel, bpm, transpose = 0, setTempo, isDru
   const w = wavFacts(abs);
   const seconds = w.frames / w.rate;
   const beats = Math.max(1, Math.round(seconds * bpm / 60));       // the loop's own length in beats at its native tempo
-  let c = fs.readFileSync(path.join(STUDY, 'Live12 arrangement AudioClip.xml'), 'utf8').trim();
+  let c = fs.readFileSync(path.join(SHELLS, 'AudioClip.xml'), 'utf8').trim();
   c = c.replace(/^<AudioClip Id="\d+" Time="[^"]+">/, '<AudioClip Id="' + id + '" Time="0">');
   c = setValue(c, 'CurrentStart', 0).replace(/<CurrentEnd Value="[^"]*" \/>/, '<CurrentEnd Value="' + beats + '" />');
   c = replaceEl(c, element(c, 'Loop'), '<Loop>\n<LoopStart Value="0" />\n<LoopEnd Value="' + beats + '" />\n<StartRelative Value="0" />\n<LoopOn Value="true" />\n<OutMarker Value="' + beats + '" />\n<HiddenLoopStart Value="0" />\n<HiddenLoopEnd Value="' + beats + '" />\n</Loop>');
@@ -132,7 +134,7 @@ function build(stack, layers, outDir) {
   // one audio track per layer, its session slots filled where the layer plays
   const keyed = layers.map((l) => ({ l, k: parseKey(l.key) })).filter((x) => x.k);
   const target = parseKey(stack.key) || (keyed.find((x) => /bass/i.test(x.l.role)) || keyed[0] || {}).k || null;
-  const trackShell = fs.readFileSync(path.join(STUDY, 'Live12 AudioTrack shell (from DefaultLiveSet).xml'), 'utf8').trim();
+  const trackShell = fs.readFileSync(path.join(SHELLS, 'AudioTrack.xml'), 'utf8').trim();
   const report = []; let bent = 0;
   const tracks = layers.map((layer, li) => {
     let t = trackShell.replace(/^<AudioTrack Id="\d+"/, '<AudioTrack Id="' + (ids.track++) + '"');
@@ -143,13 +145,16 @@ function build(stack, layers, outDir) {
     t = t.replace(/<Color Value="\d+" \/>/, '<Color Value="' + colour + '" />');
     t = t.replace(/<Sends>[\s\S]*?<\/Sends>/g, '<Sends />');
     t = t.replace(/<AutomationEnvelopes>[\s\S]*?<\/AutomationEnvelopes>/, '<AutomationEnvelopes>\n<Envelopes />\n</AutomationEnvelopes>');
-    const k = parseKey(layer.key); const transpose = (k && target) ? semitonesTo(k, target) : 0;
+    // never move a vocal (Loudon's standing order, 2026-10-24): a vocal off the Set's key stays put and is named in the report
+    const isVocal = /voc|vox/i.test(layer.role);
+    const k = parseKey(layer.key); const transpose = (k && target && !isVocal) ? semitonesTo(k, target) : 0;
+    if (isVocal && k && target && semitonesTo(k, target)) report.push('  ' + layer.role + ': ' + k.name + ' left where it is (never move a vocal); its key differs from ' + target.name);
     const ground = layer.ground || groundFor(layer.role); const db = layer.db != null ? layer.db : GROUNDS[ground];
     const mixer = element(t, 'Mixer'); const vol = element(mixer.text, 'Volume');
     t = replaceEl(t, mixer, replaceEl(mixer.text, vol, vol.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="' + fmt(dbToAmp(db)) + '" />')));
     const isDrums = /drum|kick|beat|groove|perc/i.test(layer.role);
     const clip = audioClip({ name: layer.role, colour, abs: layer.abs, rel: path.relative(outDir, layer.abs).split(path.sep).join('/'), bpm: layer.bpm || tempo, transpose, setTempo: tempo, isDrums }, 0);
-    const bend = (clip.stretched ? 'stretched ' + (layer.bpm || tempo) + '->' + tempo : 'native tempo') + ', ' + (k ? (transpose ? 'transposed ' + k.name + ' -> ' + target.name + ' (' + (transpose > 0 ? '+' : '') + transpose + ' st)' : k.name + ' in key') : 'unkeyed') + ', ' + (clip.warpMode === 0 ? 'Beats' : 'Complex');
+    const bend = (clip.stretched ? 'stretched ' + (layer.bpm || tempo) + '->' + tempo : 'native tempo') + ', ' + (k ? (transpose ? 'transposed ' + k.name + ' -> ' + target.name + ' (' + (transpose > 0 ? '+' : '') + transpose + ' st)' : (isVocal && target && semitonesTo(k, target) ? k.name + ' vocal left off-key (' + target.name + ' Set)' : k.name + ' in key')) : 'unkeyed') + ', ' + (clip.warpMode === 0 ? 'Beats' : 'Complex');
     report.push(layer.role.padEnd(10) + clip.beats + ' beats; ' + bend + '; ' + ground + ' ' + db + ' dB');
     bent += (clip.bent ? 1 : 0) + (transpose ? 1 : 0);
     // the arrangement: the same clip laid along the timeline once per section the layer plays in, looping to fill it
@@ -171,7 +176,7 @@ function build(stack, layers, outDir) {
     if (alts.length) {
       const laneShell = fs.readFileSync(path.join(STUDY, 'Live12 TakeLane shell.xml'), 'utf8').trim();
       const lanes = alts.map((alt, ai) => {
-        const ak = parseKey(alt.key); const atr = (ak && target) ? semitonesTo(ak, target) : 0;
+        const ak = parseKey(alt.key); const atr = (ak && target && !isVocal) ? semitonesTo(ak, target) : 0;
         const aclip = audioClip({ name: layer.role + ' alt ' + (ai + 1), colour, abs: alt.abs, rel: path.relative(outDir, alt.abs).split(path.sep).join('/'), bpm: alt.bpm || tempo, transpose: atr, setTempo: tempo, isDrums }, 0);
         let pos = 0, id = 0; const clips = [];
         for (const sc of stack.scenes) { const len = (sc.bars || 8) * 4; if (sc.play.includes(layer.role)) { let a = aclip.xml.replace(/^<AudioClip Id="\d+" Time="[^"]+">/, '<AudioClip Id="' + (id++) + '" Time="' + fmt(pos) + '">'); a = setValue(a, 'CurrentStart', fmt(pos)).replace(/<CurrentEnd Value="[^"]*" \/>/, '<CurrentEnd Value="' + fmt(pos + len) + '" />'); clips.push(a); } pos += len; }
@@ -246,7 +251,7 @@ function check(file) {
     const pitch = (mainSeq.match(/<PitchCoarse Value="(-?\d+)" \/>/) || [, '0'])[1]; const mode = (mainSeq.match(/<WarpMode Value="(\d+)" \/>/) || [, '?'])[1];
     const wm = mainSeq.match(/<WarpMarker Id="1" SecTime="([^"]+)" BeatTime="([^"]+)"/); const tempoHere = Number(element(element(xml, 'MainTrack').text, 'Tempo').text.match(/<Manual Value="([^"]*)" \/>/)[1]);
     const native = wm ? Number(wm[2]) / Number(wm[1]) * 60 : null; const stretched = native != null && Math.abs(native - tempoHere) > 0.5; const amp = Number((element(element(tr, 'Mixer').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
-    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' slots, ' + arrEvents + ' arranged, ' + laneCount + ' takes (' + laneClips + ' clips), ' + warped + ' warped, ' + (stretched ? 'stretched from ' + Math.round(native) : 'native') + ', ' + (pitch === '0' ? 'in key' : (Number(pitch) > 0 ? '+' : '') + pitch + ' st') + ', ' + ({ '0': 'Beats', '4': 'Complex', '6': 'Complex Pro' }[mode] || 'mode ' + mode) + ', ' + (20 * Math.log10(amp)).toFixed(1) + ' dB' + (missing.length ? ', sample MISSING' : ''));
+    grid.push('  ' + name.padEnd(10) + sceneNames.map((_, i) => slots.includes(i) ? '[x]' : '[ ]').join(' ') + '  ' + clips + ' slots, ' + arrEvents + ' arranged, ' + laneCount + ' takes (' + laneClips + ' clips), ' + warped + ' warped, ' + (stretched ? 'stretched from ' + Math.round(native) : 'native') + ', ' + (pitch === '0' ? 'untransposed' : (Number(pitch) > 0 ? '+' : '') + pitch + ' st') + ', ' + ({ '0': 'Beats', '4': 'Complex', '6': 'Complex Pro' }[mode] || 'mode ' + mode) + ', ' + (20 * Math.log10(amp)).toFixed(1) + ' dB' + (missing.length ? ', sample MISSING' : ''));
     if (warped !== clips) problems.push(name + ': ' + (clips - warped) + ' clip(s) not warped');
     if (arrEvents !== clips) problems.push(name + ': ' + clips + ' slots but ' + arrEvents + ' arrangement clips');
   }

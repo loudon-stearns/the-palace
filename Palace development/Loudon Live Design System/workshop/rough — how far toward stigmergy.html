@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rough 1 · how far toward STIGMERGY</title>
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" href="../Loudon%20Live%20Design%20System%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: link, motion. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, var(--page, #0a0a0f)); --fx-bg-elev-1: #12121a; --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg, var(--ink, #e8e8f0)); --fx-fg-2: #c8c8d8; --fx-fg-3: var(--ink-dim, #8a8aa0); --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: #4a4a5e; --fx-border-soft: rgba(255,255,255,0.06); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;500&family=JetBrains+Mono:wght@400;500&family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page: #111114; --ink: #d8d8e0; --ink-dim: #8a8aa0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 24px 64px; background: var(--page); color: var(--ink);
+    font-family: 'Manrope', system-ui, sans-serif;
+  }
+  header.sheet { max-width: 1280px; margin: 0 auto 24px; }
+  header.sheet h1 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 30px; margin: 0 0 6px;
+  }
+  header.sheet p { margin: 0; color: var(--ink-dim); font-size: 14px; max-width: 72ch; line-height: 1.55; }
+
+  .grid {
+    max-width: 1280px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); gap: 28px 24px;
+  }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-dim); }
+  figcaption b { color: var(--ink); font-weight: 500; letter-spacing: .02em; }
+
+  /* ── the card: a 16:9 stream card ─────────────────────────────── */
+  .card {
+    position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+    container-type: inline-size;
+    background: var(--bg); color: var(--fg);
+  }
+  .card canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .card .layer { position: absolute; inset: 0; padding: 6cqw 6.5cqw; display: flex; flex-direction: column; z-index: 2; }
+  .eyebrow { font-family: var(--meta-font); font-size: 1.55cqw; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+  .wordmark { font-family: 'Anton', sans-serif; font-size: 8.4cqw; line-height: .95; letter-spacing: .005em; margin-top: auto; color: var(--fg); }
+  .wordmark .live { color: var(--accent); }
+  .title { font-family: var(--title-font); font-size: var(--title-size, 3.1cqw); line-height: 1.25; margin-top: 2cqw; max-width: 55%; color: var(--fg); }
+  .strip { margin-top: 3.2cqw; display: flex; align-items: center; gap: 1.2cqw; font-family: var(--meta-font); font-size: 1.45cqw; letter-spacing: .2em; text-transform: uppercase; color: var(--fg-dim); }
+  .dot { width: 1.05cqw; height: 1.05cqw; border-radius: 50%; background: #ff2a2a;
+         box-shadow: 0 0 .6cqw rgba(255,42,42,.9), 0 0 1.6cqw rgba(255,42,42,.5); animation: pulse 1.6s ease-in-out infinite; }
+  .strip .on { color: #ff2a2a; }
+  @keyframes pulse { 50% { opacity: .45; } }
+
+  /* scanlines + vignette, used from B on */
+  .scan::after {
+    content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    background: repeating-linear-gradient(180deg, var(--scan) 0 1px, transparent 1px 3px);
+  }
+  .frame { position: absolute; inset: 2.4cqw; z-index: 2; pointer-events: none;
+           font-family: 'IBM Plex Mono', monospace; color: var(--frame); font-size: 1.4cqw; }
+  .frame .tl, .frame .br { position: absolute; white-space: pre; letter-spacing: 0; }
+  .frame .tl { top: 0; left: 0; }
+  .frame .br { bottom: 0; right: 0; }
+  .cursor { display: inline-block; width: .55em; height: 1em; vertical-align: -.12em; background: var(--accent); margin-left: .15em;
+            animation: blink 1.06s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ── A · the house today (Graphite) ───────────────────────────── */
+  .a { --bg: #0a0a0f; --fg: #e8e8f0; --fg-dim: #c8c8d8; --accent: #e8b84a;
+       --meta-font: 'JetBrains Mono', monospace; --title-font: 'Cormorant Garamond', serif; --title-size: 3.5cqw; }
+  .a .title { font-weight: 300; }
+  .a .wordmark .live { text-shadow: 0 0 1.2cqw rgba(232,184,74,.55), 0 0 2.4cqw rgba(232,184,74,.25); }
+
+  /* ── B · STIGMERGY's grammar, Loud'n Live's colours ───────────── */
+  .b { --bg: #0a0a0f; --fg: #ececf2; --fg-dim: #9a9ab0; --accent: #e8b84a; --frame: #4a4a5e;
+       --scan: rgba(232,184,74,.035);
+       --meta-font: 'IBM Plex Mono', monospace; --title-font: 'IBM Plex Mono', monospace; --title-size: 2.55cqw; }
+  .b .eyebrow .g { color: #33ff66; }
+  .b .wordmark .live { text-shadow: 0 0 1.2cqw rgba(232,184,74,.6), 0 0 2.8cqw rgba(232,184,74,.3); }
+
+  /* ── C · louder: STIGMERGY's ground and phosphor leak in ──────── */
+  .c { --bg: #050a06; --fg: #e9f7ec; --fg-dim: #1f8a3c; --accent: #ffb000; --frame: #1f8a3c;
+       --scan: rgba(51,255,102,.05);
+       --meta-font: 'VT323', monospace; --title-font: 'IBM Plex Mono', monospace; --title-size: 2.55cqw; }
+  .c .eyebrow { font-size: 2.2cqw; letter-spacing: .12em; color: #33ff66; text-shadow: 0 0 .8cqw rgba(51,255,102,.55); }
+  .c .strip { font-size: 2.1cqw; letter-spacing: .1em; }
+  .c .wordmark { text-shadow: 0 0 .25cqw rgba(233,247,236,.5), 0 0 2cqw rgba(51,255,102,.22); }
+  .c .wordmark .live { color: var(--accent); text-shadow: 0 0 .6cqw rgba(255,176,0,.8), 0 0 2.4cqw rgba(255,176,0,.45), 0 0 5cqw rgba(255,176,0,.2); }
+
+  /* ── D · C with STIGMERGY's cyan let in ───────────────────────── */
+  .d { --bg: #050a06; --fg: #e9f7ec; --fg-dim: #1f8a3c; --accent: #ffb000; --frame: #1f8a3c;
+       --scan: rgba(51,255,102,.05);
+       --meta-font: 'VT323', monospace; --title-font: 'IBM Plex Mono', monospace; --title-size: 2.55cqw; }
+  .d .eyebrow { font-size: 2.2cqw; letter-spacing: .12em; color: #33ff66; text-shadow: 0 0 .8cqw rgba(51,255,102,.55); }
+  .d .strip { font-size: 2.1cqw; letter-spacing: .1em; }
+  .d .wordmark { text-shadow: 0 0 .25cqw rgba(233,247,236,.5), 0 0 2cqw rgba(51,255,102,.22); }
+  .d .wordmark .live { color: var(--accent); text-shadow: 0 0 .6cqw rgba(255,176,0,.8), 0 0 2.4cqw rgba(255,176,0,.45), 0 0 5cqw rgba(255,176,0,.2); }
+  .d .cy { color: #7fdbff; text-shadow: 0 0 .6cqw rgba(127,219,255,.5); }
+
+  /* ── the spectrum row: LDN · Loud'n Live · STIGMERGY ──────────── */
+  h2.row { max-width: 1280px; margin: 44px auto 12px; font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 22px; }
+  .spectrum { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+  .mini { aspect-ratio: 16/9; position: relative; overflow: hidden; container-type: inline-size; padding: 7cqw; display: flex; flex-direction: column; justify-content: flex-end; }
+  .mini.ldn { background: #000; color: #00ff66; font-family: 'JetBrains Mono', monospace; }
+  .mini.ldn .big { font-family: 'Anton', sans-serif; font-size: 22cqw; line-height: .9; letter-spacing: .02em; transform: scaleX(.82); transform-origin: left; }
+  .mini.ldn .sm { font-size: 4cqw; letter-spacing: .2em; opacity: .7; margin-top: 3cqw; }
+  .mini.bbs { background: #050a06; color: #33ff66; font-family: "IBM Plex Mono", monospace; line-height: 1.45; justify-content: flex-start; white-space: nowrap; }
+  .mini.bbs { padding: 18px 20px; }
+  .mini.bbs > div { font-size: 13px; overflow: hidden; }
+  .mini.bbs > .vt { font-family: "VT323", monospace; font-size: 30px; line-height: 1; text-shadow: 0 0 1.5cqw rgba(51,255,102,.5); }
+  .mini.bbs .h { color: #7fdbff; }
+  .mini.bbs .w { color: #ffb000; }
+  .mini.bbs .d { color: #1f8a3c; }
+  .mini .tag { position: absolute; top: 5cqw; left: 7cqw; font-family: 'JetBrains Mono', monospace; font-size: 3.4cqw; letter-spacing: .18em; text-transform: uppercase; opacity: .55; }
+  .mini.bbs .tag { position: static; margin-bottom: 8px; font-size: 10px; }
+
+  @media (prefers-reduced-motion: reduce) { .dot, .cursor { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="sheet">
+  <h1>Rough 1 · how far toward STIGMERGY</h1>
+  <p>One stream card, four distances. A is the house as it stands. B borrows STIGMERGY's grammar but keeps Loud'n Live's colours. C lets STIGMERGY's ground and phosphor in too. D is C with STIGMERGY's cyan let in, so you can see the "no cyan" rule being broken. Anton, the amber <i>Live</i> and the Lissajous stay in all four. Below, C sits between LDN and the board, to show what keeps it apart from each.</p>
+</header>
+
+<div class="grid">
+
+  <figure>
+    <div class="card a">
+      <canvas data-style="smooth" data-color="#e8b84a" data-bg="#0a0a0f"></canvas>
+      <div class="layer">
+        <div class="eyebrow">Session 01 · Wavetable scanner</div>
+        <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+        <div class="title">Live build · scanning a wavetable by hand</div>
+        <div class="strip"><span class="dot"></span><span class="on">On air</span> · starting soon</div>
+      </div>
+    </div>
+    <figcaption><b>A · the house today.</b> Graphite, amber, Cormorant title, mono eyebrows, a smooth trace. Probably the look you're seeing everywhere: dark editorial, one warm accent, serif plus condensed sans.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="card b scan">
+      <canvas data-style="phosphor" data-color="#e8b84a" data-bg="10,10,15"></canvas>
+      <div class="frame"><span class="tl">┌─ LDN/LIVE ─</span><span class="br">─ 2026-10-25 ┘</span></div>
+      <div class="layer">
+        <div class="eyebrow">&gt; session 01 · wavetable scanner · <span class="g">● ready</span></div>
+        <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+        <div class="title">live build · scanning a wavetable by hand<span class="cursor"></span></div>
+        <div class="strip"><span class="dot"></span><span class="on">on air</span> · starting soon</div>
+      </div>
+    </div>
+    <figcaption><b>B · the grammar, not the palette.</b> Same Graphite and amber. What comes over from STIGMERGY is how it talks: a prompt eyebrow, a box-drawn frame, all-mono title with a cursor, faint scanlines, a trace with phosphor persistence.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="card c scan">
+      <canvas data-style="phosphor" data-color="#33ff66" data-bg="5,10,6"></canvas>
+      <div class="frame"><span class="tl">╔═ LOUD’N LIVE ═</span><span class="br">═ SESSION 01 ╝</span></div>
+      <div class="layer">
+        <div class="eyebrow">&gt; SESSION 01 // WAVETABLE SCANNER</div>
+        <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+        <div class="title">live build · scanning a wavetable by hand<span class="cursor"></span></div>
+        <div class="strip"><span class="dot"></span><span class="on">ON AIR</span> · STARTING SOON</div>
+      </div>
+    </div>
+    <figcaption><b>C · louder.</b> STIGMERGY's green-black ground and phosphor carry the structure; the amber shifts to the board's warning amber and owns <i>Live</i> alone, with real bloom. VT323 for the eyebrow. Still Anton, still the sigil, still no cyan.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="card d scan">
+      <canvas data-style="phosphor" data-color="#33ff66" data-bg="5,10,6"></canvas>
+      <div class="frame"><span class="tl">╔═ LOUD’N LIVE ═</span><span class="br">═ <span class="cy">@ldn</span> ╝</span></div>
+      <div class="layer">
+        <div class="eyebrow">&gt; SESSION 01 // <span class="cy">→ wavetable-scanner</span></div>
+        <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+        <div class="title">live build · scanning a wavetable by hand<span class="cursor"></span></div>
+        <div class="strip"><span class="dot"></span><span class="on">ON AIR</span> · <span class="cy">palace.read/wavetable-scanner</span></div>
+      </div>
+    </div>
+    <figcaption><b>D · the cyan test.</b> C, with STIGMERGY's cyan doing what it does on the board: handles and cross-references only. This breaks a floor rule on purpose, so you can judge the rule by looking at it.</figcaption>
+  </figure>
+
+</div>
+
+<h2 class="row">Where C sits: between LDN and the board</h2>
+<div class="spectrum">
+  <div class="mini ldn">
+    <span class="tag">LDN · CRT skin</span>
+    <div class="big">LDN</div>
+    <div class="sm">loudonlive · the corner stamp</div>
+  </div>
+  <div class="mini" style="padding:0">
+    <div class="card c scan" style="height:100%;aspect-ratio:auto">
+      <canvas data-style="phosphor" data-color="#33ff66" data-bg="5,10,6"></canvas>
+      <div class="layer">
+        <div class="eyebrow">&gt; SESSION 01</div>
+        <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="mini bbs">
+    <div class="tag">STIGMERGY · the board</div>
+    <div class="vt">PULSE</div>
+    <div class="d">────────────────────────</div>
+    <div><span class="h">@concierge</span> claim <span class="d">12:58</span></div>
+    <div><span class="w">◐ in flight</span> loudon-live</div>
+    <div><span class="h">→ [[Wavetable Scanner]]</span></div>
+  </div>
+</div>
+
+<script>
+// One Lissajous per canvas at the logo's 3:5, drifting slowly so the figure turns.
+// "smooth" redraws the whole curve each frame; "phosphor" leaves a fading trail.
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cards = [...document.querySelectorAll('canvas[data-style]')].map(cv => {
+  const ctx = cv.getContext('2d');
+  return { cv, ctx, style: cv.dataset.style, color: cv.dataset.color, bg: cv.dataset.bg, t: Math.random() * 10 };
+});
+function size(c) {
+  const r = c.cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+  c.cv.width = Math.max(1, r.width * dpr); c.cv.height = Math.max(1, r.height * dpr);
+  c.w = c.cv.width; c.h = c.cv.height;
+  
+}
+cards.forEach(size);
+addEventListener('resize', () => cards.forEach(size));
+
+const A = 3, B = 5;
+function pt(c, s, phase) {
+  const R = c.h * 0.36, cx = c.w * 0.72, cy = c.h * 0.46;
+  return [cx + R * Math.sin(A * s + phase), cy + R * Math.sin(B * s)];
+}
+function frame() {
+  for (const c of cards) {
+    const { ctx } = c;
+    c.t += 0.016;
+    const phase = c.t * 0.12;
+    if (c.style === 'smooth') {
+      ctx.clearRect(0, 0, c.w, c.h);
+      ctx.beginPath();
+      for (let i = 0; i <= 900; i++) { const [x, y] = pt(c, i / 900 * Math.PI * 2, phase); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      ctx.strokeStyle = c.color; ctx.globalAlpha = 0.55; ctx.lineWidth = Math.max(1, c.w / 900); ctx.stroke(); ctx.globalAlpha = 1;
+    } else {
+      // phosphor: the whole figure faint, then a beam whose trail decays behind it
+      ctx.clearRect(0, 0, c.w, c.h);
+      ctx.beginPath();
+      for (let i = 0; i <= 900; i++) { const [x, y] = pt(c, i / 900 * Math.PI * 2, phase); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      ctx.strokeStyle = c.color; ctx.globalAlpha = 0.13; ctx.lineWidth = Math.max(1, c.w / 1000); ctx.stroke();
+      const head = c.t * 0.9, N = 160, span = Math.PI * 1.1;
+      ctx.lineCap = 'round'; ctx.lineWidth = Math.max(1.4, c.w / 520);
+      ctx.shadowColor = c.color; ctx.shadowBlur = c.w / 110;
+      let [px, py] = pt(c, head - span, phase);
+      for (let i = 1; i <= N; i++) {
+        const [x, y] = pt(c, head - span + span * i / N, phase);
+        ctx.globalAlpha = Math.pow(i / N, 2.2);
+        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(x, y); ctx.stroke();
+        px = x; py = y;
+      }
+      ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+    }
+  }
+  if (!reduce) requestAnimationFrame(frame);
+}
+if (reduce) {
+  // draw each once, whole
+  cards.forEach(c => { c.style = 'smooth'; });
+}
+frame();
+</script>
+</body>
+</html>

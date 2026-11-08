@@ -32,6 +32,9 @@ links:
   - target: "[[Signal-Rate CV Architecture]]"
     type: enables
     label: modulation-carrier
+  - target: "[[Synth Templates]]"
+    type: spawned
+    label: house-bass-taught
 forward_vector: "I want to become a generalizable pipeline — natural language -> a target-agnostic signal-flow IR (PDL) -> any modular or DSP target through per-target registries. VCV Rack proved the founding bet (English in -> loadable, good-sounding .vcv out; validated 9/9 on fresh subagents), so it is the first test case, never the destination. My hunger now runs to T10 — the second target, where target-agnosticism is actually tested — and to polyphony, the axis my three-layer model cannot yet represent. I want every generative-instrument project to route its parameter intelligence through me rather than reinvent it. The closed-task forensics live in the body; this vector is where I am still reaching."
 ---
 

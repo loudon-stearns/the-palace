@@ -1,0 +1,261 @@
+{
+  "title": "Waveguide Synthesizer — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Waveguide Synthesizer]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Waveguide Synthesizer's rich face: two made walks that test what the page says about delay lines, and the project's own renders and recordings gathered beside the sections they serve, with the fingerprint of the words each was made against. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Waveguide Synthesizer",
+  "tier": "study",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "Why This Project Exists",
+      "made_against": "7edeb6e23bc9",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Waveguide Synthesizer — rich — two travelling waves.html",
+            "verdict": "keep",
+            "why": "A test, walked up in five steps: the strobe step finds the qualifier the page lacks, and the pluck-position rule holds (recomputed in float64: missing harmonics about -335 dB, the rest within 0.064 dB). The play-silent warning stands by design: steps 1 and 2 are for the eye, and a pluck from step 3 posts rich:play (seen in headless Chromium)."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Waveguide Synthesizer — rich — two travelling waves.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1500,
+          "title": "two travelling waves · a walk in five steps",
+          "caption": "**The string is two delay lines, and their sum.** A pluck shared between a line running toward the bridge and one running back; the ends turning each half over; then the string at full speed, where a screen at sixty frames a second catches it only every three round trips or so, and a strobe that still draws the true state, once per period. The last step tests what “you pluck where you click” implies: plucked at a fraction p of the way along, every harmonic k with k·p a whole number is missing, and the rest follow |sin(kπp)| ⁄ k². Its check (`Waveguide Synthesizer — rich — check.mjs`) finds the missing ones below the floor of its 32-bit render, about −170 dB; in 64-bit they come out near −335 dB, so they are zero, and −170 is a floor, not a measurement. The rest fall within 0.07 dB. Steps 1 and 2 are silent by design, slowed to one sample a frame for the eye. That sits against [[Progressive Staging]]'s one thing to hear in every step. Drawn flat, in 2D.",
+          "near": "A digital waveguide is a pair of delay lines",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The DSP: Digital Waveguide",
+      "made_against": "445a2bd92b83",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Waveguide Synthesizer — rich — karplus-strong walked up.html",
+            "verdict": "keep",
+            "why": "The best test on the face: it could have agreed with the page and it does not. Recomputed independently: the average has a constant half-sample delay, the pitch is fs/(N+½) within 0.016 cents, fs/N reads 8.6 cents high at N = 100 and 42.7 at N = 20, and each harmonic dies at ρ|cos(πf/fs)| per trip within 0.01 dB/s. Walks up loop, average, decay, test."
+          },
+          {
+            "file": "offline-v1/spacetime-strike-stiffness-0-vs-1.png",
+            "verdict": "keep",
+            "why": "A record from the engine itself, beside the paragraph it evidences: the sign flip at each end, and the dispersion fan at stiffness 1. Caption matches scroll cycle 8."
+          },
+          {
+            "file": "offline-v1.10/ladder-sheet.png",
+            "verdict": "remake",
+            "why": "Caption only: it says every bar was checked within 0.26 cents, but the steward checked every bar loud enough to measure (scroll cycle 17), and the +1195 it quotes for overtone 16 at full stiffness is the ladder's number; the sound puts it at +1187.8 (ladder-vs-sound.json). Restore the qualifier."
+          },
+          {
+            "file": "offline-v1.10/stiffness-tour.wav",
+            "verdict": "keep",
+            "why": "Makes the dispersion claim heard, harmonic to piano to bar, from the engine the ladder measures. Caption matches stiffness-tour.json (steps are 2.25 s, not 2; close enough)."
+          },
+          {
+            "file": "offline-v1.8/bridge-feeds-body.wav",
+            "verdict": "keep",
+            "why": "Numbers confirmed in body-levels.json (rigid 2.98 s, bridge 0.90 0.2 s), and its caption honestly says the board is modal, not a branching waveguide, which is the page's own word it sits beside."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Waveguide Synthesizer — rich — karplus-strong walked up.html",
+          "origin": "made",
+          "by": "Web Audio · canvas",
+          "height": 1450,
+          "title": "Karplus-Strong, walked up · four steps",
+          "caption": "**The seed case, one idea at a time, and its pitch formula tested.** A loop that only remembers; the one average that makes it a string; each harmonic measured as it dies, the high ones fastest, at the rate the loop predicts (within 0.1 dB a second in its check); then the test. The bare loop sits exactly at fs ⁄ N. With the average in, it sits at fs ⁄ (N + ½), measured within 0.02 cents: 8.6 cents under fs ⁄ N at N = 100, 42.8 cents under at N = 20. Hold it against either pitch and listen for the beating.",
+          "near": "Karplus-Strong (the seed case)",
+          "place": "band"
+        },
+        {
+          "file": "offline-v1/spacetime-strike-stiffness-0-vs-1.png",
+          "origin": "gathered",
+          "title": "the string over three round trips · cycle 8",
+          "caption": "The string itself, recorded every two samples for three round trips: time runs down, nut at left, bridge at right, orange up and violet down. Left, stiffness 0: two pulses cross and come back from each end turned over. Right, stiffness 1: after its first pass through the bridge the pulse fans out, the high ripples running ahead. Rendered from Study v1.1's own audio code.",
+          "near": "The full bidirectional waveguide",
+          "place": "margin"
+        },
+        {
+          "file": "offline-v1.10/ladder-sheet.png",
+          "origin": "gathered",
+          "title": "the overtone ladder at four stiffnesses · Study v1.10",
+          "caption": "**The allpass's stretch, measured.** Dashed rungs are where a perfectly flexible string puts each overtone; amber bars are where this string puts it. G3 at stiffness 0, 0.4, 0.7 and 1.0, then C5 at 0.7, the same lean two octaves up. On the ladder, overtone 16 runs +1.6, +35, +245 and +1195 cents sharp. Every bar loud enough to measure was checked against the sound's own peaks, and each was within 0.26 cents (`offline-v1.10/ladder-vs-sound.json`). Overtone 16 at stiffness 1.0 was too quiet to check: the ladder says +1195, and the sound reads about +1188. At 1.0 the filter overshoots the stiff-string rule: overtone 8 at +476 cents against the rule's +420.",
+          "near": "An allpass filter in the loop",
+          "place": "band"
+        },
+        {
+          "file": "offline-v1.10/stiffness-tour.wav",
+          "origin": "gathered",
+          "title": "stiffness tour · Study v1.10's engine",
+          "caption": "G3 plucked at stiffness 0, 0.4, 0.7 and 1.0, two seconds each, then C3, G3, C4, G4 and C5 at 0.7. From harmonic, to piano-like, to a struck bar.",
+          "near": "An allpass filter in the loop",
+          "place": "margin"
+        },
+        {
+          "file": "offline-v1.8/bridge-feeds-body.wav",
+          "origin": "gathered",
+          "title": "the bridge feeds the body · Study v1.8's engine",
+          "caption": "Six G3 plucks, the bridge going from rigid to soft. What the string loses at the bridge is exactly what the soundboard gets: rigid, a long thin ring (about 3 s); soft, short and woody (about 0.2 s). The board is a modal plate fed from the bridge, not a branching waveguide.",
+          "near": "branching waveguides (a body resonator)",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The Interface: 3D Waveguide, Visible",
+      "made_against": "3385794e719e",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "study-v1.13-the-hair-holds-at-half/index.html",
+            "verdict": "remake",
+            "why": "Caption only: it says the study loads Three.js from unpkg, 'which is not on the rich face's library shelf'. Both unpkg scripts (three@0.128.0 build and OrbitControls) are on the shelf with matching SRI since fca09879; the study ran framed with a clean console. Replace the clause with that."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "study-v1.13-the-hair-holds-at-half/index.html",
+          "origin": "gathered",
+          "height": 720,
+          "contract": {
+            "needs": "",
+            "size": "fill 16/9"
+          },
+          "title": "Study v1.13 · the instrument as it stands",
+          "caption": "**The study itself, as built.** Click to start the sound, then click the string to pluck it, hold B to bow, press L for the seven-stop lesson or W to walk the links. Raw Three.js r128 with OrbitControls, the engine in an AudioWorklet. Gathered as it was; its two Three.js scripts load from unpkg, and both are pinned on the rich face's library shelf.",
+          "near": "The teaching claim the project is built to prove",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Forward Vector",
+      "made_against": "809803df182c",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "rich-face/lesson-run.mp4",
+            "verdict": "keep",
+            "why": "The only way a reader without the study sees the seven-stop lesson the section names; tracked under rich-face/, 4.4 MB. Note: it runs 116.4 s, not about 112."
+          },
+          {
+            "file": "offline-v1.12/lesson-sheet.png",
+            "verdict": "keep",
+            "why": "Every stop on one sheet, beside the phrase it serves. Note: 'after the hand' is the scroll's shorthand; 'each stop after a hand has done it' would read plainer."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "rich-face/lesson-run.mp4",
+          "origin": "gathered",
+          "title": "the seven-stop lesson, taken by a mouse · Study v1.12",
+          "caption": "**The lesson, for a reader who can't run the study.** Pluck, reflection, loss, pitch, stiffness, bow, body: each stop lights one control and says what to do, watch and hear. Recorded in Chrome with a real mouse driving it and the engine's own sound, 116 s; every stop ticked from the hand. The sound went through a stand-in speaker clock, and nobody has yet taken the lesson by ear.",
+          "near": "a seven-stop lesson",
+          "place": "band"
+        },
+        {
+          "file": "offline-v1.12/lesson-sheet.png",
+          "origin": "gathered",
+          "title": "all seven stops on one sheet · Study v1.12",
+          "caption": "Every stop after the hand, plus the pluck stop before it.",
+          "near": "a seven-stop lesson",
+          "place": "margin"
+        }
+      ],
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The DSP: Digital Waveguide",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Item 1 says 'Frequency = sample_rate / delay_length'. The Karplus-Strong piece measured that this holds only for the bare loop (within 0.001 cents, N = 20 to 400, at 44.1 and 48 kHz). With the two-point average in the loop the pitch is sample_rate / (delay_length + ½), measured within 0.02 cents, so the page's formula runs sharp by 2.2 cents at N = 400, 8.6 at N = 100 and 42.8 at N = 20. The project's cycle 8 named the same hidden filter delay in Study v1, though its +12.1 cents at 330 Hz came mostly from rounding the loop down to a whole even number of samples, so it is not the same finding (the challenger's correction). The challenger confirmed these figures with its own Karplus-Strong in numpy: 8.635 cents at N = 100 and 42.749 at N = 20, landing within 0.016 cents of fs/(N+½). Suggested: 'Frequency = sample_rate / (delay_length + the delay inside the loop filter), half a sample for the classic average.'"
+    },
+    {
+      "section": "The DSP: Digital Waveguide",
+      "kind": "no-claim-edit",
+      "status": "open",
+      "what": "Item 1 names the loop filter 'a one-pole lowpass'. Karplus-Strong's own filter, the one the piece runs, is the two-point average, a one-zero lowpass; the project's Sketch runs the average and then a one-pole as a brightness control (sketch-karplus-strong/index.html, the line commented 'average + LP + feedback'). Suggested: 'a two-point average (a gentle lowpass)'."
+    },
+    {
+      "section": "The DSP: Digital Waveguide",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Item 3 says 'Tubes, bowed excitation, and branching waveguides (a body resonator) are later extensions.' Two are built: the bow since Study v1.4 and a body since v1.8 (scroll, cycles 11 and 15), though the body is a modal soundboard fed from the bridge, not a branching waveguide. Tubes and branching are not built. Found by reading the scroll, not by a piece."
+    },
+    {
+      "section": "Why This Project Exists",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "The page says the drawn string is the delay-line state and that you see the wave travel and reflect. The two-travelling-waves piece shows the qualifier this needs. At 200 Hz the wave goes round about 3.3 times between two frames at 60 frames a second, so the true state drawn every frame cannot show travel. The study shows travel only through its strobe (v1.2) or a slowed replay. Both still draw real delay-line state, picked once per period. And with stiffness up, part of the loop lives inside the allpass filters, not on the drawn string: up to about 70 samples at full stiffness (scroll, cycle 8). Suggested addition: 'At pitch the picture is a strobe: the true state, drawn once per period and a little later each time; with stiffness up, part of the loop lives in the filters, off the string.'"
+    },
+    {
+      "section": "The Interface: 3D Waveguide, Visible",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Found by reading the study, not by a piece. The page names R3F and drei as the default and, in § The Audio Engine, Tone.js as host of the audio graph. Study v1.13 loads raw Three.js r128 with OrbitControls from unpkg, no React and no Tone.js. Its controls are plain HTML sliders, and it uses no SharedArrayBuffer. Suggested: say the Study was built in raw r128 with its own Web Audio graph, and keep R3F and Tone.js as options."
+    }
+  ]
+}

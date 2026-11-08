@@ -149,7 +149,7 @@ So a keeper of the map has two hands. It holds the whole edge list to see with �
 
 Size sets the model. Haiku holding the map sits at 179K tokens, full before the conversation starts; it can take a one-verb question through the script and no more, which is what [[Substrate Skill]] already says of it. Sonnet holds the map and has room to think.
 
-The keeper is not built yet; the scroll's Plan builds it. Until it grows a charter of its own, it is this page woken with a job ([[Skills Are Enchantable Pages]]). It sits inside a tension the palace already holds — [[The Palace Speaks]] against [[Palace as Context Injection System]], mediation against directness. The ring is the map loaded; the keeper is the map addressed. Both stay.
+The keeper has a charter now, `_ops/palace-map-keeper/charter.md`, and a profile in [[Agent Toolbox]]: Sonnet, the edge list whole at boot, Read and Bash and nothing written, every edge a checked triple with its log. It is not yet an organ of its own: it has no postures and no ledger, and the first runs will say whether it needs them (§ Forward Vectors). It sits inside a tension the palace already holds — [[The Palace Speaks]] against [[Palace as Context Injection System]], mediation against directness. The ring is the map loaded; the keeper is the map addressed. Both stay.
 
 ## Bounded Survey: Neighborhood Maps (grown toward)
 
@@ -277,6 +277,7 @@ The graph also has an undated view: [[STIGMERGY]]'s TOPOLOGY lens draws the same
   — answered (2026-10-24): `palace-map.py diff` compares two builds, and both the [[Weave Ceremony]] (Step 2, "Since the last map") and the [[Self-Model Update Ceremony]] (Step 2) run it. What remains is narrower: should the diff feed the Weave's health row?
 - Which creative moves earn a verb of their own in the script? The test asked first for three: a path that keeps to one relation type, rhymes with the hubs set aside, and a check that a constellation holds together.
 - When does the keeper stop being this page woken and mint as an organ of its own, the way the [[Concierge]] did? The test is whether it grows a charter, postures and a ledger about how it serves rather than what the map is.
+  — progressed (2026-11-03): the charter exists; postures and a ledger wait on the first runs (the scroll's Move 3).
 - Should the citation rule — every edge claimed from the map quoted as a triple and checked against the named build — reach past this page, to the readers that cite map edges: the Concierge's postures, the Deposit's elder consult, the Weave's link proposals?
   — progressed: the Weave's workers already quote a sentence from each end of a weak-link verdict ([[Multi-Lens Worker Prompt Template]]); the Deposit's elder consult and the Concierge's postures do not yet.
 - Should a page woken for a Walk, a Dialectic or a Daily Page carry the chosen sky's card, and are these sixteen the list? On three pages the card showed each where it stands without bending what it looked for ([[Palace Map — proof — constellation-test]]); the list has been drawn once.

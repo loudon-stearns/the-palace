@@ -1,0 +1,62 @@
+# Synth Templates — card — Dub Siren
+# An LFO on pitch, fast and deep enough that it stops being vibrato and becomes the sound, into a spring and a long echo.
+schema: synth-template-card/0.2
+id: dub-siren
+name: Dub Siren
+family: Leads
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "LFO → pitch / amplitude / pan / filter"
+  - "LFO rate range vs oscillator; LFO into audio rate"
+  - "Delay: time, feedback, mix"
+  - "Switch envelope (organ); percussive organ"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: square, pw: 0.5, octave: 0}
+    amp:  {kind: amplifier, level: under unity}
+    fx:   {kind: fx, chain: [reverb, delay], note: "a spring reverb, then a long feedback echo"}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: instant, s: full, r: short}, category: gate}
+    lfo1: {kind: lfo, wave: triangle, rate: fast, sync: false, note: "a pitch LFO deep and quick enough to be the timbre"}
+  audio:
+    - [osc1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: osc1.pitch, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: square,          why: "hollow and loud; the pitch movement is what you hear, not the harmonics"}
+  - {block: lfo1, param: target,  value: pitch,           why: "the LFO is the siren: a sweep up and down, not a wobble on a note"}
+  - {block: lfo1, param: rate,    value: fast,            why: "near the top of the LFO range, where a vibrato stops being heard as pitch and starts being heard as a buzz"}
+  - {block: lfo1, param: depth,   value: full,            why: "wide: the pitch travels far enough that no single note is heard"}
+  - {block: aenv, param: shape,   value: gate,            why: "a button, not a key: on while held, off when let go, no shaping"}
+  - {block: fx,   param: chain,   value: spring then echo, why: "the echo repeats the siren after the button is up; the spring makes it a dub siren rather than a test tone"}
+  - {block: mode, param: voices,  value: mono,            why: "one siren"}
+
+taste:
+  - {block: lfo1, param: rate,     range: "medium – very fast",  default: fast, why: "slower is a police siren, faster is a buzz"}
+  - {block: lfo1, param: depth,    range: "moderate – full",     default: full}
+  - {block: lfo1, param: wave,     range: "triangle – square",   default: triangle, why: "triangle sweeps, square alternates two notes"}
+  - {block: fx,   param: feedback, range: "some – generous",     default: generous, why: "how many times the siren comes back"}
+  - {block: fx,   param: reverb,   range: "small – large",       default: small}
+  - {block: osc1, param: wave,     range: "square – saw",        default: square}
+
+listening:
+  cue: "Not a note: a pitch that sweeps up and down many times a second, a wail. Let go and the echo keeps bringing it back, each repeat darker and smaller."
+  ab: "Slow the LFO to very slow: the same depth becomes a slow police siren, and you can hear the pitch travel. Back to fast and it fuses into a wail. Then set depth to none: a plain square note with echo."
+
+render:
+  tempo: 80
+  note: C4
+  velocity: 110
+  pattern: "one note held a beat and a half, then released; the rest is echoes"
+  length_s: 5.0
+
+mappings: {}

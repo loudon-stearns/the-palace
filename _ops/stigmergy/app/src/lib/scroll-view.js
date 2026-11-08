@@ -3,7 +3,7 @@
 // from GET /api/projects/scroll; these split the making trail into sections
 // and lift each section's artifacts so ArtifactSlot can render them inline.
 
-import { SKIP_STAGES } from '../../../orchestrator/src/batch-due.js';
+import { SKIP_STAGES, pageEnded } from '../../../orchestrator/src/batch-due.js';
 
 const ENTRY_RE = /<!--\s*scroll:entry id="([^"]+)"\s*-->([\s\S]*?)<!--\s*\/scroll:entry\s*-->/g;
 const MEDIA_EXT = /\.(png|jpe?g|gif|webp|svg|wav|mp3|ogg|m4a|flac|mp4|webm|mov|m4v|html?|pdf)$/i;
@@ -110,15 +110,52 @@ export function rowSignal(row) {
   if (row.answered_unconsumed > 0) return { text: `${row.answered_unconsumed} ready`, tone: 'ok' };
   if (row.stalled) return { text: 'stalled', tone: 'err' };
   if (row.barren_streak > 0) return { text: 'barren once', tone: 'warn' };
+  if (rowEnded(row)) return { text: endedWord(rowEnded(row)), tone: 'dim' };
   if (!row.stewarded) return { text: 'no steward', tone: 'dim' };
   return { text: 'steady', tone: 'dim' };
 }
 
-/** Group rows for the table: needs you · ready · stuck · tended · untended. */
+/**
+ * A page that has ended (2026-11-04, Loudon: "nothing in the project page
+ * tells me the project is finished"). The very pageEnded() rule that refuses
+ * it a steward (orchestrator batch-due.js, through enchant.js), run on the
+ * row's own status and stage — imported, not copied, so the deck and the
+ * refusal never disagree. null for a page still going.
+ */
+export function rowEnded(row) {
+  return row ? pageEnded({ stage: row.stage, status: row.status }) : null;
+}
+
+// The deck's one word for an ended page, and the band its scroll shows.
+export function endedWord(ended) {
+  if (!ended) return null;
+  if (ended.how === 'archived') return 'archived';
+  if (ended.how === 'composting') return 'composting';
+  return 'finished';
+}
+
+export function endedBand(ended) {
+  if (!ended) return null;
+  const word = endedWord(ended);
+  const field = ended.how === 'composting' ? 'stage: composting' : `status: ${ended.how}`;
+  const what = word === 'finished' ? 'A finished project' : word === 'archived' ? 'An archived page' : 'A composting page';
+  return {
+    word,
+    field,
+    text: `${what} takes no steward and is not advanced. Its plan, orders and trail stay here to read.`,
+  };
+}
+
+/**
+ * Group rows for the table: needs you · ready · stuck · tended · untended ·
+ * finished. A finished page sits in its own group at the foot, not among the
+ * projects that only lack a steward; an open ask on one still outranks that.
+ */
 export function groupProjects(rows) {
-  const g = { needs_you: [], ready: [], stuck: [], tended: [], untended: [] };
+  const g = { needs_you: [], ready: [], stuck: [], tended: [], untended: [], finished: [] };
   for (const r of rows || []) {
     if (r.running || r.open_asks > 0 || r.proposed_owed > 0) g.needs_you.push(r);
+    else if (rowEnded(r)) g.finished.push(r);
     else if (r.answered_unconsumed > 0) g.ready.push(r);
     else if (r.stalled) g.stuck.push(r);
     else if (r.stewarded) g.tended.push(r);

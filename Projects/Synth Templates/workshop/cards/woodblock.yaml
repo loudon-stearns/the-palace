@@ -1,0 +1,61 @@
+# Synth Templates — card 0.2 — Woodblock
+# A clave with a body: a sine near 800 Hz, a click from the restarted wave and a grain of noise, forty milliseconds and gone.
+schema: synth-template-card/0.2
+id: woodblock
+name: Woodblock
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Phase, free-running vs retrigger, the click"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, retrigger: true, note: "about 800 Hz: the block's resonance"}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "the stick"}
+    mix:     {kind: mixer}
+    amp:     {kind: amplifier, level: full}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: fast, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: false}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,          why: "the block rings at one frequency: its resonance, and nothing above it"}
+  - {block: osc1,    param: pitch,     value: G5,            why: "the size of the block"}
+  - {block: osc1,    param: retrigger, value: "on",          why: "the wave restarts away from zero each hit: that edge is the click of the stick"}
+  - {block: noise,   param: level,     value: little,        why: "a grain of noise under the click; more and it is a rimshot"}
+  - {block: aenv,    param: decay,     value: fast,          why: "forty milliseconds: longer than a clave, shorter than a cowbell"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: aenv,    param: mode,      value: one-shot}
+
+taste:
+  - {block: aenv,    param: decay,   range: "instant – short",  default: fast}
+  - {block: noise,   param: level,   range: "off – low",        default: little}
+  - {block: osc1,    param: pitch,   range: "C5 – C6",          default: G5}
+  - {block: amp,     param: level,   range: "half – full",      default: full}
+
+listening:
+  cue: "A knock with a note in it: 'tok'. The click is the stick, the note is the block, and both are gone at once."
+  ab: "Turn retrigger off: the click comes and goes from hit to hit, and some hits are soft 'bup's. Back on and every hit knocks the same."
+
+render:
+  tempo: 120
+  note: [G5, G5, C5]
+  velocity: [100, 100, 110]
+  pattern: "two high and one low, quarters; a bar"
+  length_s: 2.0
+
+mappings: {}

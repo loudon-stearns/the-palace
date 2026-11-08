@@ -4,7 +4,7 @@
 // case-sensitively. STATE's body renderer (EntryBody) calls resolveWikilink
 // to turn a [[name]] match into a click target. Bundle files are reachable
 // the same way: [[Foo — handoff]] → Foo/Foo — handoff.md if that file
-// exists (CLAUDE.md says agents must search recursively).
+// exists (Substrate Skill says agents must search recursively, _ops/Substrate Skill.md).
 //
 // Pure function over an entry index (built once on /api/entries hit).
 // The index shape is { name → relPath } where name is the basename minus .md.

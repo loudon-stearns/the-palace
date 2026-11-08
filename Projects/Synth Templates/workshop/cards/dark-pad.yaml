@@ -1,0 +1,66 @@
+# Synth Templates — card 0.2 — Dark Pad
+# The hollow one. A square under a low filter, nothing moving; the lesson is what odd harmonics alone sound like.
+schema: synth-template-card/0.2
+id: dark-pad
+name: Dark Pad
+family: Pads
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Waveforms: saw, square, triangle, sine, noise"
+  - "Cutoff frequency"
+  - "Standard sustaining envelope; strings and horns variants"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: 0}
+    sub:     {kind: oscillator, wave: triangle, octave: -1, note: "a soft floor under the square"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: none, note: "no envelope: the filter rests where it is"}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: slow, d: medium, s: held, r: long}, category: pad}
+  audio:
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: poly,          why: "low chords"}
+  - {block: osc1,    param: wave,      value: square,        why: "odd harmonics only: the hollow timbre; a saw here would be a warm pad, not a dark one"}
+  - {block: osc1,    param: pw,        value: "0.5",         why: "an even square; narrower and it turns nasal"}
+  - {block: filter1, param: cutoff,    value: dark,          why: "closed low; a few harmonics survive, the rest is fundamental"}
+  - {block: filter1, param: envelope,  value: none,          why: "nothing opens; the note is the same at the end as at the start"}
+  - {block: aenv,    param: attack,    value: slow,          why: "it rises out of the floor"}
+  - {block: aenv,    param: release,   value: long,          why: "it sinks back"}
+
+taste:
+  - {block: sub,     param: level,     range: "off – half",           default: quarter}
+  - {block: filter1, param: cutoff,    range: "dark – mid",           default: dark}
+  - {block: filter1, param: resonance, range: "none – little",        default: none}
+  - {block: aenv,    param: attack,    range: "slow – very slow",     default: slow}
+  - {block: aenv,    param: release,   range: "long – very long",     default: long}
+  - {block: fx,      param: reverb,    range: "small – huge",         default: large}
+
+listening:
+  cue: "A low, hollow hum, like blowing across a bottle, that rises and does not change. There is no top to it; the chord is felt more than heard."
+  ab: "Swap the square for a saw: the same filter, the same chord, and it is suddenly fuller and warmer; the hollowness was the missing even harmonics. Swap back. Then open the cutoff to bright: a square organ, and not dark at all."
+
+render:
+  tempo: 70
+  note: [C2, G2, Eb3]
+  velocity: 80
+  pattern: "one low chord held three bars, released, tail to silence"
+  length_s: 10.0
+
+mappings: {}

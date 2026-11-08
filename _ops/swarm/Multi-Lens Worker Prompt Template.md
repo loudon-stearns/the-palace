@@ -41,7 +41,7 @@ forward_vector: "I am the prompt scaffold for a Multi-Lens Weave worker — a mi
 4. **Lighter prose** — where a page explains itself at length, analyses its own method, or carries history its git log already holds, propose the simpler statement or the deletion, quoting the passage. "Lighter" means simpler statements of fact and taste, not less content (Loudon, 2026-09-24; tuning item 39). Propose only.
 
 **Pool 2 — segmentation-specific (graft only the block for this pass):**
-- **folder** → *coherence audit*: shared tier vocabulary, roster/recipe gaps, house-standard drift, naming consistency — things visible only when you hold the whole family. **+ open-questions + merge + compost** (below).
+- **folder** → *coherence audit*: shared tier vocabulary, roster/recipe gaps, house-standard drift, naming consistency — things visible only when you hold the whole family. Proposes no typed links beyond a retype it can quote on both pages; link work stays with the rooms built around links. **+ open-questions + merge + compost** (below).
 - **community** → the core relation task *is* the connection pass; **+ open-questions + merge + compost** (below).
 - **mirror** → *gem articulation*: name the structural identity of the rhyme, propose a resonant label, hunt missing members of the rhyme-family. **Do NOT propose merges or compost** — mirror members are *meant* to be cross-domain; folding them destroys the gem.
 
@@ -84,7 +84,7 @@ Read the frontmatter of every member. Read the bodies of the load-bearing ones, 
 ## YOUR TASKS
 ### Core (Pool 1) — do all of these:
 0. Settle each weak link above: the label (quote the sentence that carries it on each page), the retype, or the cut with the reason none was found.
-1. Propose typed relations among your members (new links, missing `contradicts`, wrong-type re-types). Consider an inbound link to each new-cycle entry above. SCHEMA §4 governs types and direction: connects-to, mirrors, enables, deepens, spawned, emerged-from, contradicts, couples-with, exemplifies, member-of.
+1. Propose typed relations among your members (new links, missing `contradicts`, wrong-type re-types) — a **folder** room proposes only re-types it can quote on both pages. Consider an inbound link to each new-cycle entry above. SCHEMA §4 governs types and direction: connects-to, mirrors, enables, deepens, spawned, emerged-from, contradicts, couples-with, exemplifies, member-of.
 2. Catch unsung paths — body prose asserting a connection with no typed link.
 3. Flag entry-health drift — stage that no longer fits; generic/stasis-verbed forward vectors (flag, do not rewrite); live graffiti worth acting on.
 4. Lighter prose — propose the simpler statement or the deletion where a page over-explains or carries history git already holds; quote the passage.

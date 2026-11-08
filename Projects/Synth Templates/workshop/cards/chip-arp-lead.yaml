@@ -1,0 +1,58 @@
+# Synth Templates — card — Chip Arp Lead
+# One narrow pulse, no filter, and a chord played one note at a time so fast it reads as a chord: the SID's way of being polyphonic.
+schema: synth-template-card/0.2
+id: chip-arp-lead
+name: Chip Arp Lead
+family: Leads
+tier: 1
+mode: mono
+classics: C64 SID
+status: drafted
+concepts:
+  - "Pulse width, static and modulated"
+  - "Switch envelope (organ); percussive organ"
+  - "Poly vs mono; max voices"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: pulse, pw: 0.25, octave: 0, note: "no filter; the pulse width is the only timbre control. Arpeggiator at 1/32 across the held chord: the voice does not arpeggiate yet"}
+    amp:  {kind: amplifier, level: under unity}
+    aenv: {kind: envelope, role: amp, shape: {a: instant, d: fast, s: held, r: instant}, category: gate}
+    lfo1: {kind: lfo, wave: triangle, rate: fast, sync: false}
+  audio:
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: lfo1, to: osc1.pitch, amount: little, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,        value: pulse,                 why: "the chip's wave; square-family, so odd harmonics, and the width is the tone"}
+  - {block: osc1, param: pw,          value: 0.25,                  why: "a quarter-width pulse is brighter and more nasal than a square; the classic chip voice"}
+  - {block: osc1, param: filter,      value: none,                  why: "the chip has no filter worth the name here; the width does the filter's job"}
+  - {block: mode, param: arpeggiator, value: 1/32 up across the held chord, why: "one voice pretending to be three: the notes alternate faster than the ear separates them"}
+  - {block: aenv, param: attack,      value: instant,               why: "a switch: every 1/32 step must start clean"}
+  - {block: aenv, param: release,     value: instant,               why: "and stop clean, or the steps smear into each other"}
+  - {block: mode, param: voices,      value: mono,                  why: "the chord is played by the arpeggiator, not by voices"}
+
+taste:
+  - {block: osc1, param: pw,        range: "0.125 – 0.5",       default: 0.25, why: "narrower is thinner and more nasal"}
+  - {block: mode, param: arp rate,  range: "1/16 – 1/32",       default: 1/32, why: "slower and the chord becomes a run of notes"}
+  - {block: mode, param: arp range, range: "1 – 2 octaves",     default: 1 octave}
+  - {block: aenv, param: decay,     range: "fast – short",      default: fast}
+  - {block: lfo1, param: depth,     range: "none – little",     default: none, why: "a touch of chip vibrato"}
+
+listening:
+  cue: "A buzzing chord that flickers: three notes taking turns so fast they blur into one chord with a ripple in it. Thin, bright, and nothing moving but the notes."
+  ab: "Slow the arpeggiator to 1/8: the chord falls apart into an audible run of single notes. Back to 1/32 and it fuses. Then set the pulse width to 0.5: the same run goes hollow and dull."
+
+render:
+  tempo: 140
+  note: [C4, E4, G4]
+  velocity: 100
+  pattern: "the three notes arpeggiated upward at 1/32 for two bars, as one held chord would be"
+  length_s: 3.5
+
+mappings: {}

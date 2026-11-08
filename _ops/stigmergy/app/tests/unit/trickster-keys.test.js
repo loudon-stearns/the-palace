@@ -154,3 +154,16 @@ describe('resolveKey — Enter files the pick (new override path)', () => {
     expect(resolveKey('Enter', { list: LIST, focused: 0, selections: { 'req-B': 'A' } })).toBe(null);
   });
 });
+
+describe('resolveKey — c collapses the deck', () => {
+  it('c / C toggles the collapsed view', () => {
+    expect(resolveKey('c', { list: LIST, focused: 0, selections: {} })).toEqual({ type: 'toggle-compact' });
+    expect(resolveKey('C', { list: LIST, focused: 1, selections: {} })).toEqual({ type: 'toggle-compact' });
+  });
+});
+
+describe('resolveKey — / jumps to the search', () => {
+  it('/ focuses the search box', () => {
+    expect(resolveKey('/', { list: LIST, focused: 0, selections: {} })).toEqual({ type: 'focus-search' });
+  });
+});

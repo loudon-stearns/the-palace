@@ -41,9 +41,9 @@ links:
   - target: "[[The Multilinear Self]]"
     type: exemplifies
     label: visual-expression
-  - target: "[[BBS Design System]]"
-    type: mirrors
-    label: sibling-system-different-register
+  - target: "[[STIGMERGY]]"
+    type: connects-to
+    label: sibling-dress-different-register
   - target: "[[Palace Philosophies]]"
     type: deepens
     label: studio-register
@@ -77,6 +77,9 @@ links:
   - target: "[[CHILD]]"
     type: connects-to
     label: dress-rule-at-birth
+  - target: "[[Hero and Avatar Maker]]"
+    type: connects-to
+    label: tab-icon-source
 ---
 
 # Loudon Live Design System
@@ -101,7 +104,7 @@ Loudon is not a rigid brand and not a *loose* one either — he is a **multiline
 
 ## The Status Rule
 
-The system is named **Loudon Live** because it was built to express the channel's brand, and its house style — Lissajous-in-sphere, Anton display, six skins, studio register — is the dress for anything the public channel shows: a stream card, a session artifact, a slide deck, a poster, Loud'n Live's pages. It is one of three. The work itself — a plugin or AU face, an instrument panel, a part drawing, a tool's UI — wears [[Drafting Table Design System]]; STIGMERGY wears [[BBS Design System]]. Which to wear is [[Drafting Table Design System]] § Which dress.
+The system is named **Loudon Live** because it was built to express the channel's brand, and its house style — Lissajous-in-sphere, Anton display, six skins, studio register — is the dress for anything the public channel shows: a stream card, a session artifact, a slide deck, a poster, Loud'n Live's pages. It is one of three. The work itself — a plugin or AU face, an instrument panel, a part drawing, a tool's UI — wears [[Drafting Table Design System]]; STIGMERGY wears its own look ([[STIGMERGY#The look|§ The look]]). Which to wear is [[Drafting Table Design System]] § Which dress.
 
 ## The house style (the default projection)
 
@@ -117,6 +120,7 @@ This is the **default dress** for public work — the reliable go-to for everyth
 - **Spacing scale** — 4 / 8 / 12 / 16 / 20 / 24 / 32 / 40 / 48 / 64 / 80 / 120.
 - **Motion** — `cubic-bezier(.4, 0, .2, 1)` at 220 ms ordinary, `.2 .9 .2 1` at 550 ms emphasised. Two ambient motions allowed: the Lissajous rotation, the on-air red-dot pulse. No bounces, no springs.
 - **Iconography** — typographic glyphs (`● ▸ · ◐ ◇`) + the Lissajous trace + the LL monogram. **No emoji, no CDN icon library.**
+- **Furniture** — the browser draws nothing of its own. Scrollbars, selects, checkboxes, range thumbs, the textarea grip, spinners, the `<details>` triangle, focus, selection and autofill are drawn in the skin's tokens by `controls.css` or do not appear; the scrollbar is a square-ended cap on a slot, never a capsule; `color-scheme` follows the skin. A page wears its entry's avatar as its tab icon ([[Hero and Avatar Maker]]); a page with no entry wears the Lissajous. Loudon, 2026-11-03: *"scroll bars look ugly and ordinary."*
 - **Footer** — `Loud'n Live` on every shipped artifact: the wordmark alone. *(The `· Autodidact Polymaths` tagline was retired from the universal footer 2026-07 — see [§ Naming the audience](#naming-the-audience-state-it-dont-stamp-it). Forward-only: already-shipped artifacts keep their old footer.)*
 
 **Per-stream skin** (rotates by setting one class on `<html>`):
@@ -136,9 +140,13 @@ This is the **default dress** for public work — the reliable go-to for everyth
 
 A **look** is a complete dress for one projection. Palette, type, texture and motion travel together and are worn whole, where a skin swaps only the palette over a fixed grammar. Loud'n Live wears looks, and there will be a few. Loudon, 2026-10-25: *"lets commit the approved one as one complete look for Loud'N Live, with the recognition that there will be a few."*
 
-**Worn Broadcast** (2026-10-25) is the first: `looks/worn-broadcast.html` in the system's folder. A signal wearing out on old hardware. STIGMERGY's phosphor and grammar ([[BBS Design System]]) are carried most of the way; Anton, the amber LIVE and the Lissajous sigil keep it Loud'n Live and not the board. An old circuit board sits behind, the sigil glows on a round tube face, and every few seconds one glitch comes (a tear or a scramble, never constant). Cyan carries handles and links. On first sight Loudon said: *"E is the perfect hit, record that as a clear win."* The file's header comment is the look's spec (palette, type, texture, motion), and the file fills itself from its URL, so it drops into OBS as a browser source.
+**Worn Broadcast** (2026-10-25) is the first: `looks/worn-broadcast.html` in the system's folder. A signal wearing out on old hardware. STIGMERGY's phosphor and grammar ([[STIGMERGY#The look|§ The look]]) are carried most of the way; Anton, the amber LIVE and the Lissajous sigil keep it Loud'n Live and not the board. An old circuit board sits behind, the sigil glows on a round tube face, and every few seconds one glitch comes (a tear or a scramble, never constant). Cyan carries handles and links. On first sight Loudon said: *"E is the perfect hit, record that as a clear win."* The file's header comment is the look's spec (palette, type, texture, motion), and the file fills itself from its URL, so it drops into OBS as a browser source.
 
-**Cyanotype** (2026-10-25) is the second: `looks/cyanotype.html`. A blueprint print a careful hand has worked on. It borrows the [[Drafting Table Design System]]'s grammar, turns it onto a dark cyanotype ground, and revises it. The hand is in the process, never in the geometry: every line is ruled, and the care shows in guidelines left in, an erased old name, a rubbed-out first sigil, a revision table, a checker's red pencil. The lettering is Josefin Sans, and the wordmark is drawn in a thin-pen outline with its construction lines left in. Loudon, on plate 6: *"use plate 6, perfect. lets have this be the second look for Loud'N Live."* It is a Loud'n Live look, not a change to Drafting Table, whose own "Never cyan" stands as it is. The paper is a generated plate: local SDXL, img2img from the blank paper of a reference print Loudon shared, used only as a tone map, so nothing generated carries a mark.
+**Cyanotype** (2026-10-25) is the second: `looks/cyanotype.html`. A blueprint print a careful hand has worked on. It borrows the [[Drafting Table Design System]]'s grammar, turns it onto a dark cyanotype ground, and revises it. The hand is in the process, never in the geometry: every line is ruled, and the care shows in guidelines left in, an erased old name, a rubbed-out first sigil, a revision table, a checker's red pencil. The lettering is Josefin Sans, and the wordmark is drawn in a thin-pen outline with its construction lines left in. Loudon, on plate 6: *"use plate 6, perfect. lets have this be the second look for Loud'N Live."* It is a Loud'n Live look, not a change to Drafting Table. Drafting Table retired its own "Never cyan" the same day, on Loudon's word: *"Retire Drafting Table's "Never cyan" too; Cyanotype already wears its grammar on cyan."* The paper was generated with GenAI: Stable Diffusion XL, image to image at denoise 0.55, from an init image cut from the blank paper of Drawing Matter's photograph of Jean-Charles Moreux's *Front Elevation, Design for a block of flats, Rue Gazan, Paris* (c.1927, cyanotype on paper, Drawing Matter Collection DMC 2272.2, [photograph](https://drawingmatter.org/a-blueprint-is-blue/)), then tinted as a tone map. Every line and word on the sheet is drawn on top of it. The recipe, seeds and checksums are in `Palace development/Loudon Live Design System/workshop/plates/PROVENANCE.md`.
+
+**Night Signal** (2026-10-25) is the third: `looks/night-signal.html`. Cyberpunk and electronic music, layered and dirty: Worn Broadcast's bones pushed into a city at night and onto a dance floor. A neon wordmark with one tube failing, a 303 synth panel with its knobs over two octaves of keys, a filter sweeping, the sigil as a stereo vectorscope, rain on the glass, and everything that moves on one tempo, with a drop every eight bars. It got there in three steps of Loudon's: *"all are a little safe and clean, get even dirtier, layer the concepts, more glow stronger rain more texture,"* then *"YES, this is the kind of layered look,"* then *"get some neon synth knobs above the keyboard and we are there."* Its night plate was generated with GenAI (Stable Diffusion XL, text to image, no reference image), and PROVENANCE.md holds its recipe too. The file fills from its URL, tempo included.
+
+The set is complete for now. Loudon: *"that is all the looks we need."*
 
 The six-skin house style stays the public channel's default dress for everything else.
 
@@ -155,7 +163,7 @@ The six-skin house style stays the public channel's default dress for everything
 
 *(New 2026-07. Replaces the old universal `· Autodidact Polymaths` footer stamp.)*
 
-The audience is [[Autodidact Polymaths]] — self-taught generalists who learn across many fields at once. It used to be stamped on every footer. That over-said it, and the term itself carries an academic tilt that fights the everyday voice. So: **name the idea in specific moments — prose, intros — stated quickly and never leaned on.**
+The audience is electronic musicians, to start; [[Autodidact Polymaths]] — self-taught generalists who learn across many fields at once — stays in the background (2026-10-14, [[Loudon Live]]). It used to be stamped on every footer. That over-said it, and the term itself carries an academic tilt that fights the everyday voice. So: **name the idea in specific moments — prose, intros — stated quickly and never leaned on.**
 
 Two rules:
 
@@ -182,11 +190,13 @@ _ops/loudon-live/design-system/
 ├── SKILL.md              ← agent skill manifest (invoke for brand guidance)
 ├── README.md             ← full design rationale (read this first)
 ├── colors_and_type.css   ← canonical source of every token
+├── controls.css          ← the browser's furniture, re-dressed per skin
+├── transport.js · transport.css ← the player the house draws, for every <audio>
 ├── index.html            ← system overview / cover page
-├── looks/                ← Loud'n Live's complete looks (worn-broadcast.html, cyanotype.html)
-├── assets/               ← Lissajous logos, wordmark, monogram, watermark, avatar
+├── looks/                ← Loud'n Live's complete looks (worn-broadcast.html, cyanotype.html, night-signal.html)
+├── assets/               ← Lissajous logos, wordmark, monogram, watermark, avatar, favicon.svg
 │   └── generators/       ← six per-stream generative SVGs
-├── preview/              ← specimen cards (type / colors / spacing / components)
+├── preview/              ← specimen cards (type / colors / spacing / components / controls.html / transport.html)
 ├── slides/               ← OBS scene templates (1920×1080)
 └── ui_kits/
     ├── session-artifact/ ← long-form session HTML + JSX components
@@ -204,7 +214,7 @@ Encoded in four places so it cannot be missed:
 3. **[[Drafting Table Design System]] § Which dress** — the one table that says which dress a thing wears.
 4. **This entry** — the canonical source-of-truth for *what* this system is and *when not* to use it.
 
-The other two dresses: the work itself wears [[Drafting Table Design System]], and STIGMERGY wears [[BBS Design System]] — the swarm coordination terminal aesthetic with VT323/IBM Plex Mono, CP437 borders, phosphor green on terminal black. A new context with a dress of its own requires a deliberate decision documented in the artifact's parent entry.
+The other two dresses: the work itself wears [[Drafting Table Design System]], and STIGMERGY wears [[STIGMERGY#The look|its own look]] — the swarm coordination terminal aesthetic with VT323/IBM Plex Mono, CP437 borders, phosphor green on terminal black. A new context with a dress of its own requires a deliberate decision documented in the artifact's parent entry.
 
 ## Collaboration with The Shop
 
@@ -233,9 +243,9 @@ The wiring is gotcha-shaped, not architecture-shaped. Each addition gets a date 
 
 ## The Stigmergy Comparison
 
-This system and BBS sit in productive contrast.
+This system and STIGMERGY's look sit in productive contrast.
 
-| | Loudon Live Design System | [[BBS Design System]] |
+| | Loudon Live Design System | [[STIGMERGY#The look]] |
 |---|---|---|
 | **Scope** | What the public channel shows | STIGMERGY only |
 | **Register** | Studio / editorial / teaching | Terminal / coordination / swarm |
@@ -243,7 +253,7 @@ This system and BBS sit in productive contrast.
 | **Layout** | Editorial spread, left-aligned | 80ch character-cell grid |
 | **Color** | Six skins, accent reserved | Phosphor green, amber for flags |
 | **Motion** | Cubic-bezier, restrained | `steps()` only, discrete |
-| **Borders** | 1 – 1.5 px CSS | CP437 box-drawing characters |
+| **Borders** | 1 – 1.5 px CSS | CSS borders evoking CP437, never rounded |
 
 They are **sibling systems**, both born from palace work, addressing different surfaces. Loudon Live is what the palace shows the world. STIGMERGY is what the palace looks like when it's working on itself. A third sibling, [[Drafting Table Design System]], is STIGMERGY's grammar moved onto the drafting sheet, and dresses the work itself: plugin faces, panels, part drawings, tool UIs.
 
@@ -252,7 +262,7 @@ They are **sibling systems**, both born from palace work, addressing different s
 For a new artifact the public channel shows:
 
 1. **Invoke the SKILL.md** at `_ops/loudon-live/design-system/SKILL.md` — it carries the rules in agent-readable form.
-2. **Include `colors_and_type.css`** as the token source. Set one of `skin-graphite | skin-amber-lab | skin-crt | skin-strobe | skin-cobalt-grid | skin-drafting` on `<html>`. Graphite is the default.
+2. **Include `colors_and_type.css`** as the token source. Set one of `skin-graphite | skin-amber-lab | skin-crt | skin-strobe | skin-cobalt-grid | skin-drafting` on `<html>`. Graphite is the default. Load `controls.css` after it.
 3. **For session pages / long-form artifacts:** copy `ui_kits/session-artifact/` and rewrite `App.jsx`. The reference layout is header → escher-split (theory opener) → mechanism (h2 + diagram) → build steps → tuning grid → footer signature.
 4. **For OBS scene cards:** copy from `slides/`. Swap palette by changing the skin class; swap generator by changing `src` on `.gen img`.
 5. **For throwaway sketches / proofs:** Graphite skin, Cormorant body at 17/1.75, *Sketch / Study / Piece* tier vocabulary.
@@ -280,11 +290,11 @@ Two lists, deliberately separated. The floor survives *every* projection, skin, 
 
 ## Origin
 
-Arrived May 2026 as a Claude Design handoff bundle, Loudon's second design-system deposit after [[BBS Design System]] (April 2026), drawn from the [[Loudon Live]] charter, its [[Loudon Live — asset plan|asset plan]] and [[Loudon Live — launch kit|launch kit]], and the palace's pages on pedagogy, voice and taste.
+Arrived May 2026 as a Claude Design handoff bundle, Loudon's second design-system deposit after the BBS kit that became [[STIGMERGY#The look|STIGMERGY's look]] (April 2026), drawn from the [[Loudon Live]] charter, its [[Loudon Live — asset plan|asset plan]] and [[Loudon Live — launch kit|launch kit]], and the palace's pages on pedagogy, voice and taste.
 
 ## What Comes Next
 
-The rethink the [[Loudon Live Design System — baton|baton]] of 2026-10-14 asked for has its answer: Loud'n Live wears looks of its own, two have landed (Worn Broadcast and Cyanotype), and "no cyan" is retired ([§ Looks](#looks)). Two things are still open. A third look, cyberpunk EDM, is in the bundle's workshop. And the system's text still has to catch up with the 2026-10-14 portrait of Loud'n Live, here and in `SKILL.md` and `README.md`.
+The rethink the baton of 2026-10-14 asked for has its answer: Loud'n Live wears looks of its own, three have landed (Worn Broadcast, Cyanotype and Night Signal) and the set is complete for now, and "no cyan" is retired ([§ Looks](#looks)). The system's text has caught up with the 2026-10-14 portrait of Loud'n Live, and Drafting Table has retired its own "Never cyan". Nothing from the rethink is left open; the next look starts from [[Loudon Live Design System — tuning]].
 
 ## Cross-Domain Resonances
 
@@ -292,7 +302,7 @@ The rethink the [[Loudon Live Design System — baton|baton]] of 2026-10-14 aske
 - **[[Progressive Staging]]** — locked grammar / fresh skin mirrors stage-by-stage release: the constant teaches recognition, the variant teaches recombination.
 - **[[Quality Manifesto]]** — the system's restraint (no emoji, radii ≤ 4 px, one accent glow per view) is what taste-as-policy looks like in CSS.
 - **[[Playful Interface Design]]** — the italic-light *Live* trick, the typographic glyphs, the studio register: play through restraint, not through flourish.
-- **[[BBS Design System]]** — sibling system. Reading them side-by-side teaches the difference between editorial register and terminal register.
+- **[[STIGMERGY#The look|STIGMERGY's look]]** — sibling system. Reading them side-by-side teaches the difference between editorial register and terminal register.
 - **[[The Shop]]** — the maker register (Sketch / Study / Piece, never MVP / v1 / final) is shop vocabulary.
 
 ## Open Questions
@@ -300,7 +310,3 @@ The rethink the [[Loudon Live Design System — baton|baton]] of 2026-10-14 aske
 - **Skin-selection rubric.** When a new palace artifact is being made, which skin should it default to? Graphite is the channel default, but a math poster wants Cobalt Grid, a Confucian philosophy entry wants Amber Lab, a DSP first-principles piece wants CRT. A small decision card per artifact type would help future Claude pick correctly without bikeshedding.
 - **Token-level inheritance.** Should palace artifacts pull `colors_and_type.css` from a single canonical URL, or copy it per artifact? Copying is honest (artifact stays self-contained); pulling is DRY (one update cascades). Currently: copy per artifact.
 - **Stigmergy contact surface.** When a palace artifact wants to *show* swarm coordination output (a session page summarising a Weave run), which system applies? Probably this one, with STIGMERGY excerpts treated as embedded code-block content. Test case will decide.
-
-## Active Baton
-
-[[Loudon Live Design System — baton]] — drafted 2026-10-14

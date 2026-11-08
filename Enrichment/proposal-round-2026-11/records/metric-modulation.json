@@ -1,0 +1,34 @@
+{
+ "entry": "Metric Modulation",
+ "path": "Projects/Metric Modulation.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 8,
+ "claim": "What Metric Modulation Is § and The 3/4 Symmetry §: the listener hears a smooth transition 'because the underlying rhythmic grid doesn't stop; it reinterprets', and the drop and the snap-back are mirror images. Felt time vs clock time is the whole claim, and it is only audible.",
+ "pieces": [
+  {
+   "section": "What Metric Modulation Is",
+   "what": "a pulse with a dotted-quarter accent; at the pivot the accent becomes the beat (120 → 80); tap along and see whether your taps re-lock without a gap; tests the 'grid reinterprets' claim on the reader's own entrainment",
+   "kind": "interactive",
+   "walks_up_from": "a steady 120 BPM pulse with one accent pattern"
+  },
+  {
+   "section": "The 3/4 Symmetry — Mirror-Image Transitions",
+   "what": "the round trip 120 → 90 → 120 rendered, with the shared anchor hit marked; tests whether the return 'hits with recognition'",
+   "kind": "audio",
+   "walks_up_from": "the drop alone"
+  },
+  {
+   "section": "Step 3: Rhythm-Anchor the Transition",
+   "what": "anchored vs unanchored modulation A/B; tests that the anchor is what makes it smooth",
+   "kind": "audio",
+   "walks_up_from": "one kick on the dotted quarter"
+  }
+ ],
+ "gathered": [
+  "Projects/Metric Modulation/proofs/2026-05-04-120-to-180.wav",
+  "Projects/Metric Modulation/proofs/2026-05-04-pivot-via-bell-v2.wav"
+ ],
+ "tier": "sketch",
+ "slice": 4
+}

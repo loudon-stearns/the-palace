@@ -1,0 +1,31 @@
+{
+ "entry": "Photonic Time Crystals",
+ "path": "Photonic Time Crystals.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 7,
+ "claim": "The basic structure: a temporal bandgap is the reversal of a spatial one — the bandgap frequency grows exponentially in time instead of decaying in space; the audio Mathieu resonator above threshold is 'not a metaphor, the same operator'.",
+ "pieces": [
+  {
+   "section": "The basic structure",
+   "what": "An audio resonator whose stiffness is modulated at twice its frequency; depth and rate sliders walk it into the tongue, where noise at the bandgap frequency swells from nothing. Tests 'grows in time' by ear.",
+   "kind": "interactive",
+   "walks_up_from": "one resonator ringing with fixed stiffness"
+  },
+  {
+   "section": "The basic structure",
+   "what": "Space and time side by side: a wave into a periodic stack decaying with depth, and the same mode in a pumped medium growing with time, on mirrored axes.",
+   "kind": "image",
+   "walks_up_from": "one sine wave"
+  },
+  {
+   "section": "Open Questions",
+   "what": "Time-reflection vs a reverse buffer: the same phrase through each, to hear whether the open question's distinction is audible.",
+   "kind": "audio",
+   "walks_up_from": "a phrase played forward"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "slice": 3
+}

@@ -1,0 +1,383 @@
+{
+ "card": "house-bass",
+ "schedule": [
+  [
+   0.29193548387096774,
+   0.4129032258064516
+  ],
+  [
+   0.7758064516129033,
+   0.8967741935483872
+  ],
+  [
+   1.2596774193548388,
+   1.3806451612903228
+  ],
+  [
+   1.7435483870967743,
+   1.8645161290322583
+  ]
+ ],
+ "velocity": 100,
+ "as_mapped": {
+  "chose": {
+   "cutoff_hz": 300.0,
+   "fenv_decay_s": 0.0986,
+   "fenv_depth_oct": 3.5,
+   "resonance": 0.4,
+   "aenv_s": [
+    0.0154,
+    0.575,
+    0.7,
+    0.0986
+   ]
+  },
+  "err": [
+   0.38365575175877314,
+   10.985701560974121
+  ]
+ },
+ "fitted": {
+  "chose": {
+   "cutoff_hz": 300.0,
+   "fenv_decay_s": 0.0986,
+   "fenv_depth_oct": 3.5,
+   "resonance": 0.4,
+   "aenv_s": [
+    0.0154,
+    0.575,
+    0.7,
+    0.18
+   ]
+  },
+  "err": [
+   0.39816411394602863,
+   4.166254997253418
+  ],
+  "pluck_grid": [
+   {
+    "fenv_decay_s": 0.04,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.489
+   },
+   {
+    "fenv_decay_s": 0.04,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.483
+   },
+   {
+    "fenv_decay_s": 0.04,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.478
+   },
+   {
+    "fenv_decay_s": 0.04,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.474
+   },
+   {
+    "fenv_decay_s": 0.04,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.472
+   },
+   {
+    "fenv_decay_s": 0.04,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.471
+   },
+   {
+    "fenv_decay_s": 0.04,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.47
+   },
+   {
+    "fenv_decay_s": 0.06,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.46
+   },
+   {
+    "fenv_decay_s": 0.06,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.449
+   },
+   {
+    "fenv_decay_s": 0.06,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.44
+   },
+   {
+    "fenv_decay_s": 0.06,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.434
+   },
+   {
+    "fenv_decay_s": 0.06,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.43
+   },
+   {
+    "fenv_decay_s": 0.06,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.428
+   },
+   {
+    "fenv_decay_s": 0.06,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.428
+   },
+   {
+    "fenv_decay_s": 0.08,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.437
+   },
+   {
+    "fenv_decay_s": 0.08,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.422
+   },
+   {
+    "fenv_decay_s": 0.08,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.411
+   },
+   {
+    "fenv_decay_s": 0.08,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.404
+   },
+   {
+    "fenv_decay_s": 0.08,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.399
+   },
+   {
+    "fenv_decay_s": 0.08,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.397
+   },
+   {
+    "fenv_decay_s": 0.08,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.397
+   },
+   {
+    "fenv_decay_s": 0.1,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.419
+   },
+   {
+    "fenv_decay_s": 0.1,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.403
+   },
+   {
+    "fenv_decay_s": 0.1,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.39
+   },
+   {
+    "fenv_decay_s": 0.1,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.383
+   },
+   {
+    "fenv_decay_s": 0.1,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.379
+   },
+   {
+    "fenv_decay_s": 0.1,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.378
+   },
+   {
+    "fenv_decay_s": 0.1,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.38
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.411
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.397
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.388
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.385
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.387
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.393
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.402
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.416
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.408
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.406
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.41
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.42
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.433
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.45
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.428
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.426
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.433
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.446
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.463
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.485
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.509
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.442
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.449
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.463
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.484
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.51
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.538
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.568
+   }
+  ],
+  "release_grid": [
+   {
+    "release_s": 0.0986,
+    "loudness_db": 10.99
+   },
+   {
+    "release_s": 0.12,
+    "loudness_db": 8.85
+   },
+   {
+    "release_s": 0.15,
+    "loudness_db": 6.15
+   },
+   {
+    "release_s": 0.18,
+    "loudness_db": 4.17
+   },
+   {
+    "release_s": 0.22,
+    "loudness_db": 4.67
+   },
+   {
+    "release_s": 0.27,
+    "loudness_db": 8.04
+   },
+   {
+    "release_s": 0.33,
+    "loudness_db": 11.35
+   }
+  ]
+ },
+ "features": {
+  "reference": {
+   "peak_dbfs": -3.62,
+   "rms_dbfs": -15.14,
+   "centroid_hz": 105.4
+  },
+  "vital": {
+   "peak_dbfs": -10.61,
+   "rms_dbfs": -19.02,
+   "centroid_hz": 104.1
+  }
+ },
+ "err_units": "brightness: RMS octaves between the two centroid lines; loudness: RMS dB between the two level lines (each against its own peak)"
+}

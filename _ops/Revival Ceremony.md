@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, philosophy]
 born: 2026-03
 stage: mature
-version: "2.1"
+version: "2.2"
 trigger: ["revive [entry]", "let's revive [entry]", "time to revive [entry]"]
 forward_vector: "I am how a sleeping page comes back into the work. I want every waking to be earned by something made and met, and to end in a page that tells the truth about itself and has someone to work it, so that dormancy is a season the palace can turn, never a door that only opens one way."
 links:
@@ -57,7 +57,7 @@ First take the tail read of [[Revival Ceremony — tuning]] ([[SCHEMA — Refere
 
 **2. Meet it.**
 
-Loudon hears, sees or plays something made. What is in the bundle, if anything is; otherwise the smallest new thing that can be made in the room: a render, a sketch, a probe. Make it easy to meet: one page that plays each piece on a click and stays silent until then. The question is his: is it alive? What he says about what he meets is the first draft of its plan: write it down as he says it.
+Loudon hears, sees or plays something made. What is in the bundle, if anything is; otherwise the smallest new thing that can be made in the room: a render, a sketch, a probe. Make it easy to meet: one page that plays each piece on a click and stays silent until then. The question is his: is it alive? What he says about what he meets is the first draft of its plan: write it down as he says it. Meeting a made thing in its own tool can rewrite it in place: open a copy, or keep the re-save as a proof and restore the original before landing.
 
 If he has already met it, cite where, and go on: a revive request he granted on the board, with the made things it pointed to; a morning's rough in the page's `proofs`. If the answer is no, stop here (Halts, above).
 
@@ -76,7 +76,7 @@ Rewrite what has become false: a section saying nothing has been built, a forwar
 
 **5. Give it a way forward.**
 
-A project gets its scroll, `[Entry]/[Entry] — scroll.md` (`node _ops/stigmergy/orchestrator/src/scroll.js --home "<Entry>"` makes it; [[The Scroll]]). Write a dated section on its trail, by hand, for the work it did while it slept and for this revival. Then the Plan: where the work is going, and the moves ahead, each named by what it does. Loudon agrees it, or it is not written; once he has, `scroll.js --home "<Entry>" --plan <file> --why "<what and why>"` writes it and logs the change on the trail. A page that already has a steward may land without a plan: its steward's first cycle proposes one as a plan revision for his yes, and the revival's commit says the plan is owed. To make it that cycle's job, leave it as a one-shot order in the steward's tuning ledger (`- from Loudon · <date> · <his words> · owed`, [[SCHEMA — Reference]] §6). A standing order Loudon gives during the revival is written into the scroll's orders zone by an elder, quoting his words and the date.
+A project gets its scroll, `[Entry]/[Entry] — scroll.md` (`node _ops/stigmergy/orchestrator/src/scroll.js --home "<Entry>"` makes it; [[The Scroll]]). Write a dated section on its trail, by hand, for the work it did while it slept and for this revival. Then the Plan: where the work is going, and the moves ahead, each named by what it does. Loudon agrees it, or it is not written; once he has, `scroll.js --home "<Entry>" --plan <file> --why "<what and why>"` writes it and logs the change on the trail. A page that already has a steward may land without a plan: its steward's first cycle proposes one as a plan revision for his yes, and the revival's commit says the plan is owed. To make it that cycle's job, leave it as a one-shot order in the steward's tuning ledger (`- from Loudon · <date> · <his words> · owed`, [[SCHEMA — Reference]] §6). If the page keeps no tuning ledger yet, open one in the commit that lands the revival, so the order has somewhere to wait. A standing order Loudon gives during the revival is written into the scroll's orders zone by an elder, quoting his words and the date.
 
 Then, on his word, its steward. Wake the page once first, read-only, as every woken page is woken ([[JEWEL]]), with `_ops/daily-page/wake.mjs`: ask it who it is now, whether its forward vector still holds, what it wants to make first, and what its steward should never do, and let Loudon hear the answer before the steward is made. `wake.mjs` reads the main checkout; a page made true on a branch needs its `--root`, pointed at the worktree. Then `node _ops/stigmergy/orchestrator/src/enchant.js "<Entry>"` ([[Project Stewardship System]]; `_ops/orchestrator/batch.md` § Enchant a new steward). Enchant only after the type and stage have changed, because the heartbeat skips a dormant page, and a steward that has never cycled goes first in the next batch. A page that already has a steward needs no enchanting: the stage change wakes it. If a standing order told it to probe while dormant, ask Loudon whether that order is done.
 

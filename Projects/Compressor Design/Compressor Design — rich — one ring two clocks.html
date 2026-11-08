@@ -1,0 +1,319 @@
+<!doctype html>
+<!--
+  title: Compressor Design — rich — one ring two clocks
+  born: 2026-11-03
+  links: [[Compressor Design]] (connects-to · rich-face-piece) · listed in [[Compressor Design — rich.json]] · couples with [[Retrospective Delay]], whose buffer is this ring stretched to a second
+  forward_vector: I am the walk up to the section's last paragraph, one primitive at two time scales. One ring read two ways at once, the sum of what it holds as a level and the slot that leaves it as a delay: first the detector's 500 slots, where what leaves is heard as a colour, a comb; then the ring stretched to a second, where it repeats a phrase and the level follows the phrase; and last a test with the numbers hidden, where your ear marks where the ring turns into time. I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click, at 44.1 kHz. Changing step stops the sound. Every render is made in this page by the core below and matched in level.
+  check: Projects/Compressor Design/Compressor Design — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>One ring, two clocks · Compressor Design</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --warn:#e8651b;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;margin-left:auto;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  canvas.stage{width:100%;display:block;background:var(--bg-elev-2);border-radius:4px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 18px;margin-top:12px;font-family:var(--sans);font-size:13px;color:var(--fg-3);line-height:1.5}
+  .legend b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);display:block}
+  .ctl{display:grid;grid-template-columns:130px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl[hidden],.rowb[hidden],[hidden]{display:none !important}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.ab{font-family:var(--display);font-size:22px;letter-spacing:.06em;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 26px;cursor:pointer}
+  button.ab[aria-pressed="true"]{color:#0a0a0f;background:var(--accent);border-color:var(--accent)}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks b{color:var(--accent);font-weight:400}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  footer svg{flex:none}
+  @media (max-width:520px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Compressor Design · one primitive, two time scales · three steps</div>
+  <h1>One ring, two clocks</h1>
+  <p class="lead">The detector’s ring and Retrospective Delay’s buffer are the same thing: slots that fill in order, the oldest leaving as the newest enters. The section says that at 11 ms the ring sits below perception, and stretched to a second it holds a phrase you hear. One ring here, read two ways at once: the sum of what it holds is a level, and what leaves it is a delay. Three steps, and the last asks your ear where the ring turns into time. Nothing plays until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><span class="eyebrow">Hear</span><span class="hint" id="hearHint"></span><button class="play" id="play">Play</button></div>
+    <canvas class="stage" id="stage"></canvas>
+    <div class="legend" id="legend"></div>
+
+    <div class="rowb" id="wetRow" hidden><span class="eyebrow">hear</span>
+      <button class="ghost" data-wet="0">the phrase alone</button><button class="ghost" data-wet="1">with what leaves the ring</button>
+    </div>
+    <div class="ctl" id="ctlN" hidden>
+      <label for="nk" id="nkl">ring length</label><input id="nk" type="range" min="0" max="1" step="0.001" value="0"><span class="v" id="nkv"></span>
+    </div>
+    <div class="rowb" id="markRow" hidden>
+      <button class="ghost" id="mark">Mark: here it became a repeat</button><button class="ghost" id="again">Clear the mark</button><span class="hint" id="markHint">Drag up from the bottom, slowly.</span>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Compressor Design · one ring, two clocks · Sketch, 2026-11-03</footer>
+</main>
+
+<script id="rb-core">
+const RB = (() => {
+  const SR = 44100;
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  // A four-second phrase made from sine and noise: a snare, four plucked notes and a hat in the first second, then rest, so a repeat has room to be heard.
+  function makePhrase() {
+    const n = 4 * SR, x = new Float64Array(n), r = rng(5);
+    const hit = (t0, len, f) => { const a = Math.round(t0 * SR); for (let i = 0; i < len * SR && a + i < n; i++) x[a + i] += f(i / SR); };
+    for (const t0 of [0, 0.5]) { let hp = 0, prev = 0; hit(t0, 0.25, (t) => { const w = r() * 2 - 1; hp = 0.85 * (hp + w - prev); prev = w; return (0.4 * hp + 0.2 * Math.sin(2 * Math.PI * 185 * t)) * Math.exp(-t * 18) * Math.min(1, t / 0.0008); }); }
+    [[0, 440], [0.25, 523.25], [0.5, 659.26], [0.875, 587.33]].forEach(([t0, f]) => hit(t0, 0.9, (t) => 0.32 * (Math.sin(2 * Math.PI * f * t) + 0.3 * Math.sin(4 * Math.PI * f * t) + 0.12 * Math.sin(6 * Math.PI * f * t)) * Math.exp(-t * 5) * Math.min(1, t / 0.002)));
+    for (const t0 of [0.25, 0.75]) { let prev = 0; hit(t0, 0.05, (t) => { const w = r() * 2 - 1, d = w - prev; prev = w; return 0.14 * d * Math.exp(-t * 80); }); }
+    return x;
+  }
+  // One ring of N samples. What leaves it, x[n − N], is a delay's output; the sum of the squares it holds is the detector's.
+  // The sample that leaves the ring is the very one whose square the running sum subtracts. Looped: the ring is primed with the phrase's own tail.
+  function ring(x, N) {
+    const n = x.length, buf = new Float64Array(N), exit = new Float64Array(n), lev = new Float64Array(n); let w = 0, S = 0;
+    for (let pass = 0; pass < 2; pass++) for (let i = 0; i < n; i++) {
+      const v = x[i], old = buf[w]; S += v * v - old * old; buf[w] = v; if (++w === N) w = 0; if (S < 0) S = 0;
+      if (pass) { exit[i] = old; lev[i] = Math.sqrt(S / N); }
+    }
+    return { exit, lev };
+  }
+  // The phrase with what leaves the ring, half and half, matched in level to -24 dB RMS (the phrase is mostly rest, so its peaks sit 22 dB over that).
+  function mix(x, exit, wet = 1) {
+    const n = x.length, y = new Float32Array(n); let a = 0, p = 0;
+    for (let i = 0; i < n; i++) { const v = 0.5 * x[i] + 0.5 * wet * exit[i]; y[i] = v; a += v * v; p = Math.max(p, Math.abs(v)); }
+    let k = Math.pow(10, -24 / 20) / Math.sqrt(a / n); if (p * k > 0.9) k = 0.9 / p; for (let i = 0; i < n; i++) y[i] *= k; return y;
+  }
+  // Mixed half and half, the ring is a comb: its gain at f is |cos(π f N / SR)|, zero at odd multiples of SR / 2N.
+  const combGain = (f, N) => Math.abs(Math.cos(Math.PI * f * N / SR));
+  const firstNotch = (N) => SR / (2 * N), notchStep = (N) => SR / N;
+  return { SR, rng, makePhrase, ring, mix, combGain, firstNotch, notchStep };
+})();
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const SR = RB.SR, X = RB.makePhrase(), DUR = X.length / SR;
+  const ms = (N) => { const t = N / SR * 1000; return (t < 100 ? t.toFixed(1) : Math.round(t)) + ' ms'; };
+  const NMIN = 64, NMAX = 44100, uToN = (u) => Math.round(NMIN * Math.pow(NMAX / NMIN, u)), nToU = (N) => Math.log(N / NMIN) / Math.log(NMAX / NMIN);
+  const S = { step: 0, wet: 1, N: 500, markN: null };
+
+  const STEPS = [
+    { key: 'exit', rail: 'what leaves the ring', title: 'What leaves the ring',
+      say: 'A ring of 500 slots, the detector’s own length, 11.3 ms. The sample that leaves it each moment is the one the running sum subtracts; play it back beside the phrase and the ring is a delay. At 500 slots you don’t hear a repeat. You hear a colour: the two copies cancel at 44 Hz, 132 Hz and every 88 Hz above, and the snare goes hollow. Switch between the phrase alone and the phrase with what leaves the ring.',
+      hear: 'the phrase, and what leaves a 500-slot ring',
+      eq: ['exit[n] = x[n − N]', '(what leaves the ring now) = (the sample that went in N samples ago): the oldest slot, the one the sum subtracts'],
+      eq2: ['notches at (2m + 1) × 44 100 ÷ (2N) Hz  →  44.1, 132.3, 220.5 … for N = 500', 'half the phrase plus half of what leaves cancels wherever the two copies are half a cycle apart'] },
+    { key: 'stretch', rail: 'stretch the ring', title: 'Stretch the ring',
+      say: 'Now stretch it, from 64 slots to 44 100, one second. Two things change together, because they are one ring. What leaves it stops colouring the phrase and starts repeating it, and at a second it plays back the notes you heard a second ago: the Retrospective Delay’s ghost. And the level the ring reports stops following each note and starts following the phrase, rising over the notes and holding a second after them. Below perception at one end, a phrase at the other.',
+      hear: 'the phrase, with what leaves the ring',
+      eq: ['level[n] = √( (x[n]² + … + x[n−N+1]²) ÷ N )   ·   exit[n] = x[n − N]', '(the level) reads everything the ring holds; (the delay) reads only the slot that is leaving: one ring, two readings'],
+      eq2: ['44 100 slots = 1 s = a half note at 120 bpm', 'the lag Retrospective Delay’s read head typically trails its write head by'] },
+    { key: 'test', rail: 'where it becomes time', title: 'Where it becomes time',
+      say: 'The numbers are hidden now. Start the phrase with what leaves the ring, drag the length up from the bottom, slowly, and mark the first place you hear what leaves the ring as a separate repeat, not a colour or a thicker hit. Then the numbers come back. The page puts the detector’s 500 slots below that line, and a second well above it.',
+      hear: 'the phrase, with what leaves a ring of hidden length',
+      eq: ['', ''], eq2: ['', ''] },
+  ];
+
+  const cache = new Map();
+  function rendered(N, wet) {
+    const k = N + '|' + wet; if (cache.has(k)) return cache.get(k);
+    const r = RB.ring(X, N), y = RB.mix(X, r.exit, wet), o = { ...r, y };
+    if (cache.size > 12) cache.clear(); cache.set(k, o); return o;
+  }
+
+  let ctx = null, master = null, cur = null, playing = false;
+  async function ensure() {
+    if (!ctx) { ctx = new AudioContext({ sampleRate: SR }); master = ctx.createGain(); master.gain.value = 0.8; master.connect(ctx.destination); ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) stopSound(); }; }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  function pos() { if (!cur || !ctx) return null; return (((ctx.currentTime - cur.t0 + cur.off) % DUR) + DUR) % DUR; }
+  function startBuf(f32) {
+    const b = ctx.createBuffer(1, f32.length, SR); b.copyToChannel(f32, 0);
+    const s = ctx.createBufferSource(); s.buffer = b; s.loop = true; const g = ctx.createGain(); g.gain.value = 0; s.connect(g).connect(master);
+    const now = ctx.currentTime; let off = 0; if (cur) { off = pos() || 0; const o = cur; o.g.gain.setTargetAtTime(0, now, 0.012); o.s.stop(now + 0.1); }
+    s.start(now, off); g.gain.setTargetAtTime(1, now, 0.012); cur = { s, g, t0: now, off };
+  }
+  function stopSound() { playing = false; if (cur && ctx) { const c = cur; try { c.g.gain.setTargetAtTime(0, ctx.currentTime, 0.01); c.s.stop(ctx.currentTime + 0.08); } catch (e) { /* stopped */ } } cur = null; $('play').textContent = 'Play'; }
+  const nowN = () => (STEPS[S.step].key === 'exit' ? 500 : S.N);
+  const nowWet = () => (STEPS[S.step].key === 'exit' ? S.wet : 1);
+  async function play() { await ensure(); startBuf(rendered(nowN(), nowWet()).y); playing = true; $('play').textContent = 'Stop'; }
+  let pend = 0; function refresh() { writeMeter(); if (!playing || !ctx) return; clearTimeout(pend); pend = setTimeout(() => startBuf(rendered(nowN(), nowWet()).y), 80); }
+  $('play').onclick = () => (playing ? stopSound() : play());
+
+  document.querySelectorAll('[data-wet]').forEach((b) => (b.onclick = () => { S.wet = +b.dataset.wet; refresh(); }));
+  $('nk').oninput = () => { S.N = uToN(+$('nk').value); refresh(); };
+  $('mark').onclick = () => { S.markN = S.N; writeMeter(); };
+  $('again').onclick = () => { S.markN = null; S.N = NMIN; $('nk').value = 0; refresh(); };
+
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => goStep(i); r.appendChild(b); }); }
+  function goStep(i) {
+    stopSound(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    if (s.key === 'test') { S.N = NMIN; S.markN = null; } if (s.key === 'stretch') S.N = 500;
+    $('nk').value = nToU(S.N); rail();
+    $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`;
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('hearHint').textContent = s.hear;
+    $('eq1').textContent = s.eq[0]; $('eq1w').textContent = s.eq[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('wetRow').hidden = s.key !== 'exit'; $('ctlN').hidden = s.key === 'exit'; $('markRow').hidden = s.key !== 'test';
+    $('nkl').textContent = s.key === 'test' ? 'ring length, hidden' : 'ring length';
+    $('stage').style.height = (s.key === 'exit' ? 220 : 300) + 'px';
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    legend(); writeMeter();
+  }
+  $('back').onclick = () => goStep(S.step - 1); $('next').onclick = () => goStep(S.step + 1);
+
+  function legend() {
+    const k = STEPS[S.step].key;
+    const L = k === 'test' ? [['grey', 'the phrase going in'], ['', 'nothing drawn gives the length away']] : k === 'exit' ? [['the comb', 'how loud each frequency comes out when the phrase and what leaves the ring are mixed, 0 to 2 kHz'], ['notches', 'where the two copies cancel']]
+      : [['grey', 'the phrase going in'], ['amber', 'what leaves the ring: the delay'], ['blue', 'the level the same ring reports: the detector']];
+    $('legend').innerHTML = L.map(([a, b]) => `<div><b>${a}</b>${b}</div>`).join('');
+  }
+  function writeMeter() {
+    const k = STEPS[S.step].key; let h = '';
+    document.querySelectorAll('[data-wet]').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.wet === S.wet));
+    if (k === 'exit') h = `ring <b>500</b> slots · <b>${ms(500)}</b> · first notch <b>${RB.firstNotch(500).toFixed(1)} Hz</b>, then every <b>${RB.notchStep(500).toFixed(1)} Hz</b>`;
+    else if (k === 'stretch') { $('nkv').textContent = S.N + ' · ' + ms(S.N); h = `ring <b>${S.N}</b> slots · <b>${ms(S.N)}</b> · first notch <b>${RB.firstNotch(S.N) >= 1 ? RB.firstNotch(S.N).toFixed(1) + ' Hz' : RB.firstNotch(S.N).toFixed(2) + ' Hz'}</b>`; }
+    else {
+      $('nkv').textContent = S.markN ? S.N + ' · ' + ms(S.N) : '· · ·';
+      if (!S.markN) h = 'No mark yet.';
+      else {
+        const m = S.markN, f = m / 500;
+        h = `You marked <b>${m}</b> slots, <b>${ms(m)}</b>. The detector’s ring is 500 slots, 11.3 ms; the page’s “~20 ms” is 882 slots; Retrospective Delay’s ring is about 44 100, one second. Your mark is an echo threshold, where a delayed copy stops fusing with the original: one reading of the page’s 20 ms, not the whole of it.<br>`;
+        h += m > 882 ? `Your mark sits ${(m / 882).toFixed(1)} times past 20 ms. ` : `Your mark sits at or under 20 ms. `;
+        h += m > 500 ? `For your ear on this phrase, the detector’s window sits below the line where a ring turns into time: the line is ${f.toFixed(1)} times longer than the window. The page’s “below perception here” holds for you.`
+          : `You heard a repeat at or under the detector’s own length. On this phrase, for your ear, the page’s “below perception here” does not hold; the window is time you can hear as time.`;
+        h += m < 44100 ? ` And a second is ${(44100 / m).toFixed(1)} times past your mark: “fully perceptual there” holds.` : '';
+      }
+    }
+    $('meter').innerHTML = h;
+  }
+
+  function fit(c) { const w = c.clientWidth, H = c.clientHeight, d = devicePixelRatio || 1; if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); } const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H }; }
+  const C = { grid: '#2a2a38', fg3: '#8a8aa0', fg4: '#4a4a5a', amber: '#e8b84a', blue: '#4a8fff', fg1: '#e8e8f0' };
+  const envs = new Map();
+  function env(arr, W, key) { const kk = key + '|' + W; if (envs.has(kk)) return envs.get(kk); const lo = new Float32Array(W), hi = new Float32Array(W), n = arr.length; for (let x = 0; x < W; x++) { let a = Infinity, b = -Infinity; for (let i = Math.floor(x * n / W); i < Math.floor((x + 1) * n / W); i++) { if (arr[i] < a) a = arr[i]; if (arr[i] > b) b = arr[i]; } lo[x] = a; hi[x] = b; } if (envs.size > 30) envs.clear(); const r = { lo, hi }; envs.set(kk, r); return r; }
+  function draw() {
+    requestAnimationFrame(draw);
+    const { g, w, h } = fit($('stage')); g.clearRect(0, 0, w, h); g.font = '10.5px JetBrains Mono, monospace';
+    const k = STEPS[S.step].key;
+    if (k === 'exit') {
+      const x0 = 40, ww = w - 56, top = 16, hh = h - 44, F = 2000;
+      g.strokeStyle = C.grid; g.beginPath(); g.moveTo(x0, top); g.lineTo(x0 + ww, top); g.moveTo(x0, top + hh); g.lineTo(x0 + ww, top + hh); g.stroke();
+      g.strokeStyle = S.wet ? C.amber : C.fg4; g.lineWidth = 1.5; g.beginPath();
+      for (let i = 0; i <= ww; i++) { const f = i / ww * F, v = S.wet ? RB.combGain(f, 500) : 1, y = top + hh - v * hh; i ? g.lineTo(x0 + i, y) : g.moveTo(x0 + i, y); } g.stroke(); g.lineWidth = 1;
+      g.fillStyle = C.fg3; for (const f of [0, 500, 1000, 1500, 2000]) { g.textAlign = f === 2000 ? 'right' : 'center'; g.fillText(f + ' Hz', x0 + f / F * ww, h - 8); }
+      g.textAlign = 'right'; g.fillText('1', x0 - 6, top + 4); g.fillText('0', x0 - 6, top + hh + 4);
+      if (S.wet) { g.textAlign = 'left'; g.fillStyle = C.amber; g.fillText('44.1 Hz, then every 88.2 Hz', x0 + 6, top + hh - 6); }
+      return;
+    }
+    const x0 = 12, ww = Math.floor(w - 24), N = S.N, r = rendered(N, 1), mid = h * 0.42, hh = h * 0.36;
+    const a = env(X, ww, 'x'), b = env(r.exit, ww, 'e' + N), L = env(r.lev, ww, 'l' + N);
+    const sc = hh / 0.9;
+    g.fillStyle = C.fg4; for (let i = 0; i < ww; i++) { const y1 = mid - a.hi[i] * sc, y2 = mid - a.lo[i] * sc; g.fillRect(x0 + i, y1, 1, Math.max(1, y2 - y1)); }
+    if (k === 'test') { const p = pos(); if (p != null) { const xx = x0 + p / DUR * ww; g.strokeStyle = 'rgba(232,232,240,0.6)'; g.beginPath(); g.moveTo(xx, 4); g.lineTo(xx, h - 4); g.stroke(); } g.fillStyle = C.fg3; g.textAlign = 'left'; g.fillText('only the phrase going in is drawn: the ring’s length is for your ear', x0 + 2, h - 10); return; }
+    g.fillStyle = 'rgba(232,184,74,0.75)'; for (let i = 0; i < ww; i++) { const y1 = mid - b.hi[i] * sc * 0.999, y2 = mid - b.lo[i] * sc; g.fillRect(x0 + i, y1, 1, Math.max(1, y2 - y1)); }
+    const ly = h - 14, lh = h * 0.18; g.strokeStyle = C.blue; g.lineWidth = 1.5; g.beginPath(); for (let i = 0; i < ww; i++) { const y = ly - Math.min(1, L.hi[i] / 0.35) * lh; i ? g.lineTo(x0 + i, y) : g.moveTo(x0 + i, y); } g.stroke(); g.lineWidth = 1;
+    g.fillStyle = C.fg3; g.textAlign = 'left'; g.fillText('level', x0 + 2, ly - lh - 4);
+    if (k !== 'test') { const bw = N / X.length * ww; g.strokeStyle = C.amber; g.beginPath(); g.moveTo(x0, 8); g.lineTo(x0, 14); g.lineTo(x0 + bw, 14); g.lineTo(x0 + bw, 8); g.stroke(); g.fillStyle = C.amber; g.fillText('the ring: ' + ms(N), x0 + Math.max(bw, 0) + 6, 16); }
+    const p = pos(); if (p != null) { const xx = x0 + p / DUR * ww; g.strokeStyle = 'rgba(232,232,240,0.6)'; g.beginPath(); g.moveTo(xx, 4); g.lineTo(xx, h - 4); g.stroke(); }
+  }
+
+  { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#e8b84a" stroke-width="1"/>`; }
+  goStep(0); draw();
+})();
+</script>
+</body>
+</html>

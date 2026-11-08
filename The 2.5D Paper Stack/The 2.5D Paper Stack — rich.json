@@ -1,0 +1,236 @@
+{
+  "title": "The 2.5D Paper Stack — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[The 2.5D Paper Stack]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[BLUELINE]]",
+      "type": "connects-to",
+      "label": "gathers-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of The 2.5D Paper Stack's rich face: BLUELINE track VI's own sky plate, cut into sheets with track VI's own cutter, laid beside the sections it tests — where the knife sits and what a feather carries, the stack revealed and then broken, a balloon given its place — with the two routes' boards and the infill board gathered from track VI where the text cites them. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "The 2.5D Paper Stack",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "Why high contrast makes it work",
+      "kind": "claim-change",
+      "what": "The page puts the knife 'inside the ink (black meets black)'. Measured on the whole ridge edge (2299 px), a hard cut 2 px inside the ink is the plate exactly at rest (0.00/255) but leaves 1.93 px of the line on the back sheet (4 px in: 3.91 px), and that part slides away with the sky. The cut that stays hidden in motion runs along the ink's outer edge, so the front sheet takes the whole line (0 carried, 0 left). Proposed wording: 'the right cut runs along the outer edge of the ink, so the front sheet takes the whole line; black meets black only while nothing moves.' Track VI's cutter leans the same way but not all the way: its density contour sits inside the ink (1.94 px left), and its 2 px dilation (lib/layers.py: 'so the front fully covers the back under the edge') brings it to within about a pixel, still leaving 1.13 px of line and carrying 0.80 px of sky. The challenger confirmed the numbers independently (1.932, 3.906) and reads the page's 'inside the ink' as wrong once the sheets move, not merely unstated. The ink line's antialiased ring suggests the best knife sits a hair outside it.",
+      "status": "open"
+    },
+    {
+      "section": "The stacking order means something",
+      "kind": "no-claim-edit",
+      "what": "A clarity edit, not a correction. Depth sets the drift and order sets the cover: on a 40 px camera move a balloon at its speaker's depth drifts 0 px, and the drift grows 0.4 px per 0.01 of depth between them; at his depth but drawn behind him, he covers about half of the tail's last 30 px. The page's own Forward Vectors already put a bubble's depth at the speaker's mouth (read from the depth pass), so a line such as 'at its speaker's depth, drawn in front of him, behind the panel border' agrees with the page rather than changing it.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Why high contrast makes it work",
+      "made_against": "2e0f1d5aea22",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "The 2.5D Paper Stack — rich — the cut.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1250,
+          "title": "the cut rides the black line · a walk in five steps",
+          "caption": "**One plate, cut two ways, slid apart.** Track VI's sky plate: the ridge's edge as drawn, one hard cut along it, the sky sliding behind, a feather beside it, and the test of where the knife sits, measured on the whole ridge's edge. A 6 px feather is visibly off the plate before anything moves on three of every four edge pixels, a rim about 7 px wide, and carries a band of sky (the halo); the hard cut at the ink's edge carries nothing and stacks back to the plate exactly. A knife *inside* the ink is invisible at rest but leaves part of the line on the back sheet, which slides away with the sky.",
+          "near": "The cut is the hard part of any layer pipeline"
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/sky_separate.gif",
+          "origin": "gathered",
+          "place": "margin",
+          "title": "Route A in motion · track VI",
+          "caption": "Track VI's own run of it: the ridge cut sharp along its silhouette, the sky warping behind it, the ridge locked. This is the case where the earlier feathered band mask had bled cloud drift into the ridge.",
+          "near": "The soft, smeary masks we started with"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The 2.5D Paper Stack — rich — the cut.html",
+            "verdict": "remake",
+            "why": "A real test on the real plate; recomputed independently with scipy, every row matches. One sentence misstates a number: step 5 says the 6 px feather is off on '9.2 % of the edge', but 9.2 % is of the 40-px zone; of the 2299 edge pixels 75.4 % are visibly off (a rim about 6.7 px wide). Fix #t5 and name the denominator in #n5."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/previews/sky_separate.gif",
+            "verdict": "keep",
+            "why": "Track VI's own Route A run beside the paragraph on soft masks; the caption's band-mask claim is the bench's (report.md:115)."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The catalogue (separate · manipulate · composite)",
+      "made_against": "886302f2a06a",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/infill_compare.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "infill behind the extracted foreground · track VI, Route A v2",
+          "caption": "**Infill is ground-dependent, shown.** The water plate, its trees lifted out. White-paper infill punches a hole on a structured ground; SDXL inpaint continues the water and the far shore in ink.",
+          "near": "Separate-and-infill"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/infill_compare.png",
+            "verdict": "keep",
+            "why": "The page's 'infill is ground-dependent' in the bench's evidence; the caption matches report.md:153-155."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The A/B duals — choose by what you hold",
+      "made_against": "e3de0827f897",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/routes_compare.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "two routes to the same stack · track VI",
+          "caption": "**The table, in its own evidence.** Top, Route A (separate): one coherent drawing for free, and the cut is the work (the mattes: content-aware extract, then infill). Bottom, Route B (generate, two independent SDXL passes): clean alpha for free, and the two drawings fight. In the motion frames, red and cyan are two moments of the loop laid over each other: the clouds move, the ridge holds.",
+          "near": "Separate and generate are duals"
+        },
+        {
+          "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/routeB_v2_compare.png",
+          "origin": "gathered",
+          "place": "band",
+          "title": "Route B under shared conditioning · track VI",
+          "caption": "**Generate, made coherent.** The same authored depth map and seed for both passes, and the sheets register as one scene: the hill lands at 38–39 % of the frame in every pass (Route A's cut: 38.4 %). The re-ink still reads as wash rather than pen line; track VI shelved the sharpening pass when GPU capacity ran out.",
+          "near": "Have the finished frame"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/routes_compare.png",
+            "verdict": "keep",
+            "why": "The duals table in its own evidence; the caption describes the board as it is."
+          },
+          {
+            "file": "/Projects/BLUELINE/proofs/track-VI-elemental-motion/report-assets/routeB_v2_compare.png",
+            "verdict": "keep",
+            "why": "Shared conditioning, shown; 38–39 % against 38.4 % is report.md:178, the shelved sharpening is report.md:7."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The stacking order means something",
+      "made_against": "9fc591d46db4",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "The 2.5D Paper Stack — rich — the balloon.html",
+          "origin": "made",
+          "by": "the Maker · canvas",
+          "height": 1150,
+          "title": "a balloon has a place in the stack · a walk in five steps",
+          "caption": "**A citizen of the stack, not a sticker.** The walker on the ridge says one line. One balloon, a depth for it, a camera move, the outline breathing while the letters hold, and every placement measured on the same 40-pixel sweep. Depth sets the drift: only at the speaker's depth does the tail stay with him; a sticker moves like nothing in the frame and covers like the nearest. Order sets the cover: at his depth but behind him, his sheet hides about half of the tail's last 30 px. The narration stands outside the panel and never moves.",
+          "near": "Depth order is not just"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The 2.5D Paper Stack — rich — the balloon.html",
+            "verdict": "remake",
+            "why": "Drift numbers are right (40·|p − 0.55|: 0 / 10 / 6 / 22), but the cover half doesn't show: behind him the walker covers 6.2 % of the tail's last 30 px, about two CSS pixels. Route the tail so he visibly covers it (or add an inset), and fix step 1's 'doesn't matter on a still frame' and the sticker's 'like the farthest thing'."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The two contraries — the flat stack and the break",
+      "made_against": "c6339181e2b1",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "The 2.5D Paper Stack — rich — reveal and break.html",
+          "origin": "made",
+          "by": "the Maker · CSS 3D",
+          "height": 1000,
+          "title": "reveal the stack, then break it · a walk in four steps",
+          "caption": "**Both contraries, felt.** The plate as three sheets: two with air between, the stack revealed with its paper showing, flat again under a moving camera (the multiplane move), and the break tried three ways: out of the flat stack, out of a revealed but still stack, and out of one that turns. By the piece's own measure (turn seen before the break, with its ±14° sway and 38° break as its choices), the reveal alone spends none of the break; only a reveal that turns does, leaving the break 1.2 to 2.4 times the turn seen from the click. The page holds the two as contraries, both true, and so does this. A sheet turning is as far as a sheet can go; a real break hands the walker to a 3D model.",
+          "near": "You hold both"
+        }
+      ],
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "The 2.5D Paper Stack — rich — reveal and break.html",
+            "verdict": "remake",
+            "why": "2.05× to 5.40× is right from its own 14° sway and 38° break, but the turning run starts with an uncounted snap (3.8° to 13.7° in one frame, plus air and paper), not a stack 'turning all along'. And the page never says a reveal spends the break: recast step 4 and the caption as the piece's reading (an offer), or break out of a revealed stack that doesn't turn."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,486 @@
+<!doctype html>
+<!--
+  title: Volterra Kernels and the Torus — rich — one field, two readers
+  born: 2026-11-03
+  links: [[Volterra Kernels and the Torus]] (connects-to · rich-face-piece) · listed in [[Volterra Kernels and the Torus — rich.json]] · mirrors [[2D Torus Wavetable Synthesizer]]
+  forward_vector: I am the one-field-two-modes surface the page asks for: one stored table, read by a point, by two phasors, by a signal and its own past, switched by a button, and last the test of where the two readers are really one reader — a full-scale sine into the effect against the synth at 1 : 1, and their difference. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Volterra — one field, two readers</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --indigo2:#8b8ef5;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 130px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 82ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); }
+  .stage { display: grid; grid-template-columns: minmax(240px, 380px) 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  #field { cursor: crosshair; touch-action: none; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 14px; }
+  .group { display: flex; flex-direction: column; gap: 6px; }
+  .glabel { font-family: var(--mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 200px; flex: 1 1 200px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .meter { font-family: var(--mono); font-size: 13px; color: var(--amber); margin-top: 12px; min-height: 1.4em; line-height: 1.6; max-width: 100ch; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 100ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Web Audio Worklet · sketch</span></div>
+  <h3 class="title">One table: an oscillator, or an effect?</h3>
+  <p class="sub">The page asks for one control surface that toggles a single stored field between a synth that scans it and an effect that reads it with its input. Here it is, in five steps. The field never changes; only the reader does. The last step tests where the two readers are really the same reader, and where they are not.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span>the stored field · u across, v up</span><span id="fieldLabel"></span></div>
+      <canvas id="field"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>what comes out</span><span id="specLabel">log Hz · dB</span></div>
+      <canvas id="spec"></canvas>
+      <div class="read" id="read"></div>
+      <div class="meter" id="meter"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="group"><span class="glabel">field</span><div class="seg" id="fields"></div></div>
+    <button class="go" id="go">▸ play</button>
+  </div>
+  <div class="controls">
+    <div class="group hidden" id="readerG"><span class="glabel">reader</span><div class="seg" id="readers"></div></div>
+    <div class="group hidden" id="ratioG"><span class="glabel">phasor ratio f₁ : f₂ · f₂ = 110 Hz</span><div class="seg" id="ratios"></div></div>
+    <div class="group hidden" id="srcG"><span class="glabel">input</span><div class="seg" id="srcs"></div></div>
+    <div class="group hidden" id="listenG"><span class="glabel">listen to</span><div class="seg" id="listens"></div></div>
+    <button class="hidden" id="dry" title="hear the input as it goes in">hear the input dry</button>
+  </div>
+  <div class="controls">
+    <label class="sl hidden" id="driveCtl">input level · <b id="driveVal"></b><input id="drive" type="range" min="0.1" max="1" step="0.01" value="1"></label>
+    <label class="sl hidden" id="dCtl">lag of the second reader · D = <b id="dVal"></b><input id="d" type="range" min="0" max="480" step="1" value="96"></label>
+  </div>
+
+  <div class="hint" id="hint"></div>
+  <div class="nav"><button id="back">← back</button><button id="next">next →</button></div>
+
+  <div class="eqs">
+    <div class="eq">scan-read: &nbsp; y(t) = F( f₁·t, f₂·t )</div>
+    <div class="words">(the synth's output) = the stored field F, read at the place two phasors point to, each turning once around the circle per cycle of its frequency. The table wraps both ways, so the place lives on a torus.</div>
+    <div class="eq">input-read: &nbsp; y(t) = F( arccos x(t) ⁄ 2π, &nbsp;arccos x(t − D) ⁄ 2π )</div>
+    <div class="words">(the effect's output) = the same field, read at the place the input's value now and its value D seconds ago point to. An amplitude has to be turned into a place on a circle; this piece uses the inverse cosine, which sends −1…+1 to the half-circle from ½ back to 0. An amplitude says how far round, never which way, so the effect only ever reads a quarter of the torus, and goes there and back without winding.</div>
+    <div class="eq">x(t) = cos 2πft &nbsp;⇒&nbsp; effect = F( fold(ft), fold(ft − fD) ) &nbsp;=&nbsp; synth at 1 : 1, lag fD, &nbsp;when F(u, v) = F(−u, v) = F(u, −v)</div>
+    <div class="words">(where they meet) a full-scale sine names its own phase, folded into the half-circle. So the effect fed that sine is the synth at ratio 1 : 1 with its second phasor lagging by f·D of a turn, exactly, whenever the field looks the same mirrored across each axis. Any other field is heard folded.</div>
+    <div class="eq">F(u, v) = Σ c<sub>jk</sub> · cos 2πju · cos 2πkv &nbsp;=&nbsp; Σ c<sub>jk</sub> · T<sub>j</sub>(a) · T<sub>k</sub>(b)</div>
+    <div class="words">(the mirrored fields) a field built only from products of cosines is a polynomial in the two amplitudes a and b (the Chebyshev polynomials T). The one grid of numbers c<sub>jk</sub> is the synth's partial at j·f₁ ± k·f₂ and the effect's weight on T<sub>j</sub>(x(t))·T<sub>k</sub>(x(t − D)), a Volterra term of order up to j + k at the lags 0 and D.</div>
+  </div>
+</div>
+
+<script>
+const WORKLET = `
+class FieldReader extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.N = 0; this.T = null; this.reader = 'point';
+    this.pu = 0.3; this.pv = 0.6; this.su = 0.3; this.sv = 0.6;
+    this.f1 = 165; this.f2 = 110; this.p1 = 0; this.p2 = 0;
+    this.src = 'riff'; this.drive = 1; this.D = 96; this.fin = 220; this.pin = 0;
+    this.listen = 'effect'; this.dry = false; this.gain = 0; this.g = 0;
+    this.buf = new Float64Array(8192); this.w = 0;
+    this.ks = new Float64Array(4096); this.ksLen = 400; this.ksI = 0;
+    this.seq = [45, 52, 57, 55, 52, 50, 48, 50, 45, 52, 57, 60, 59, 55, 52, 47];
+    this.note = 0; this.next = 0; this.n = 0; this.seed = 1234567;
+    this.P = 700; this.pts = new Float32Array(2 * this.P); this.pts2 = new Float32Array(2 * this.P); this.pi = 0;
+    this.sd = 0; this.ss = 0; this.pk = 0; this.tick = 0; this.dc = 0; this.hold = 0;
+    this.kpt = 1 - Math.exp(-1 / (0.003 * sampleRate)); this.ken = 1 - Math.exp(-1 / (0.25 * sampleRate));
+    this.port.onmessage = (e) => this.set(e.data);
+  }
+  set(d) {
+    if (d.table) { this.T = d.table; this.N = d.N; }
+    for (const k of ['reader', 'pu', 'pv', 'f1', 'f2', 'src', 'drive', 'D', 'fin', 'listen', 'dry', 'gain']) if (d[k] !== undefined) this[k] = d[k];
+    // the meter starts again after anything that changes what it compares, once the delay line holds only the new signal
+    if (d.table || d.reset || d.D !== undefined || d.drive !== undefined || d.fin !== undefined || d.reader !== undefined) { this.sd = this.ss = 0; this.hold = this.D + 256; }
+    if (d.reset) { this.p1 = this.p2 = this.pin = 0; this.buf.fill(0); this.sd = this.ss = 0; this.note = 0; this.next = 0; this.ks.fill(0); this.seed = 1234567; }
+  }
+  rnd() { let t = (this.seed += 0x6D2B79F5); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  read(u, v) {
+    const N = this.N, T = this.T;
+    u -= Math.floor(u); v -= Math.floor(v);
+    const x = u * N, y = v * N, i0 = Math.floor(x) % N, j0 = Math.floor(y) % N, fx = x - Math.floor(x), fy = y - Math.floor(y);
+    const i1 = (i0 + 1) % N, j1 = (j0 + 1) % N;
+    const a = T[j0 * N + i0] + (T[j0 * N + i1] - T[j0 * N + i0]) * fx, b = T[j1 * N + i0] + (T[j1 * N + i1] - T[j1 * N + i0]) * fx;
+    return a + (b - a) * fy;
+  }
+  place(x) { return Math.acos(Math.max(-1, Math.min(1, x))) / (2 * Math.PI); }
+  riff() {
+    if (this.n >= this.next) {
+      const midi = this.seq[this.note++ % this.seq.length], f = 440 * Math.pow(2, (midi - 69) / 12);
+      this.ksLen = Math.max(2, Math.round(sampleRate / f)); this.ksI = 0;
+      let prev = 0; for (let i = 0; i < this.ksLen; i++) { const r = 2 * this.rnd() - 1; prev = 0.5 * (r + prev); this.ks[i] = 1.6 * prev; }
+      this.next = this.n + Math.round(0.24 * sampleRate);
+    }
+    this.n++;
+    const L = this.ksLen, i = this.ksI, out = this.ks[i], nx = this.ks[(i + 1) % L];
+    this.ks[i] = 0.4985 * (out + nx); this.ksI = (i + 1) % L;
+    return Math.max(-1, Math.min(1, out));
+  }
+  input() {
+    if (this.src === 'riff') return this.drive * this.riff();
+    if (this.src === 'sine') { const x = this.drive * Math.cos(2 * Math.PI * this.pin); this.pin += this.fin / sampleRate; this.pin -= Math.floor(this.pin); return x; }
+    return 0;
+  }
+  process(_in, outs) {
+    const L = outs[0][0], R = outs[0][1] || L, n = L.length, M = this.buf.length - 1;
+    if (!this.T) { L.fill(0); if (R !== L) R.fill(0); return true; }
+    for (let s = 0; s < n; s++) {
+      let y = 0, u = 0, v = 0, u2 = -1, v2 = -1;
+      const r = this.reader;
+      if (r === 'point') {
+        this.su += this.kpt * (this.pu - this.su); this.sv += this.kpt * (this.pv - this.sv);
+        u = this.su; v = this.sv; y = this.read(u, v);
+      } else if (r === 'scan') {
+        u = this.p1; v = this.p2; y = this.read(u, v);
+        this.p1 += this.f1 / sampleRate; this.p1 -= Math.floor(this.p1); this.p2 += this.f2 / sampleRate; this.p2 -= Math.floor(this.p2);
+      } else if (r === 'input' || r === 'half') {
+        const x = this.input(); this.buf[this.w & M] = x;
+        u = this.place(x);
+        if (r === 'input') v = this.place(this.buf[(this.w - this.D) & M]);
+        else { v = this.p2; this.p2 += this.f2 / sampleRate; this.p2 -= Math.floor(this.p2); }
+        this.w++;
+        y = this.dry ? x : this.read(u, v);
+        this.pk = Math.max(this.pk * 0.9999, Math.abs(x));
+      } else if (r === 'test') {
+        const ph = this.pin, x = this.drive * Math.cos(2 * Math.PI * ph);
+        this.buf[this.w & M] = x;
+        const xd = this.buf[(this.w - this.D) & M]; this.w++;
+        u = this.place(x); v = this.place(xd);
+        const e = this.read(u, v);
+        u2 = ph; v2 = ph - this.fin * this.D / sampleRate; v2 -= Math.floor(v2);
+        const sy = this.read(u2, v2), d = e - sy;
+        if (this.hold > 0) this.hold--; else { this.sd += this.ken * (d * d - this.sd); this.ss += this.ken * (sy * sy - this.ss); }
+        y = this.listen === 'synth' ? sy : this.listen === 'difference' ? d : e;
+        this.pin += this.fin / sampleRate; this.pin -= Math.floor(this.pin);
+        this.pk = Math.max(this.pk * 0.9999, Math.abs(x));
+      }
+      if (++this.dc >= (r === 'scan' ? 2 : r === 'point' ? 32 : 3)) {
+        this.dc = 0;
+        const k = this.pi % this.P; this.pts[2 * k] = u; this.pts[2 * k + 1] = v; this.pts2[2 * k] = u2; this.pts2[2 * k + 1] = v2; this.pi++;
+      }
+      this.g += 0.002 * (this.gain - this.g);
+      L[s] = R[s] = 0.7 * this.g * y;
+    }
+    if (++this.tick % 6 === 0) {
+      const ratio = this.ss > 1e-12 ? 10 * Math.log10(Math.max(this.sd, 1e-30) / this.ss) : null;
+      this.port.postMessage({ pts: this.pts.slice(), pts2: this.pts2.slice(), nullDb: ratio, peak: this.pk });
+    }
+    return true;
+  }
+}
+registerProcessor('field-reader', FieldReader);
+`;
+
+// ---------- the fields: one table each, N × N, u across and v up, wrapping both ways ----------
+const N = 256, TAU = 2 * Math.PI;
+const CHEB = [[1, 0, 0.5], [0, 1, 0.35], [2, 1, 0.3], [1, 2, 0.25], [3, 0, 0.15], [2, 2, 0.12], [0, 3, 0.1]];
+const FIELDS = [
+  { id: 'bilinear', name: 'a·b', mirrored: true, about: 'the bilinear field, cos 2πu · cos 2πv: the product of the two amplitudes',
+    f: (u, v) => Math.cos(TAU * u) * Math.cos(TAU * v) },
+  { id: 'clip', name: 'tanh(a + 0.6b)', mirrored: true, about: 'a soft clip of the amplitude now plus 0.6 of the one before',
+    f: (u, v) => Math.tanh(1.8 * (Math.cos(TAU * u) + 0.6 * Math.cos(TAU * v))) },
+  { id: 'cheb', name: 'Σ c·T(a)·T(b)', mirrored: true, about: 'seven products of cosines, a Chebyshev field: c₁₀ ½, c₀₁ .35, c₂₁ .3, c₁₂ .25, c₃₀ .15, c₂₂ .12, c₀₃ .1',
+    f: (u, v) => CHEB.reduce((s, [j, k, c]) => s + c * Math.cos(TAU * j * u) * Math.cos(TAU * k * v), 0) },
+  { id: 'ridge', name: 'ridge (3,2)', mirrored: false, about: 'a ridge along the (3,2) direction, cos 2π(3u + 2v), with a little cos 2πu: not the same mirrored',
+    f: (u, v) => 0.7 * Math.cos(TAU * (3 * u + 2 * v)) + 0.3 * Math.cos(TAU * u) },
+];
+function buildTable(F) {
+  const T = new Float32Array(N * N); let pk = 1e-9;
+  for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { const z = F.f(i / N, j / N); T[j * N + i] = z; pk = Math.max(pk, Math.abs(z)); }
+  for (let k = 0; k < T.length; k++) T[k] *= 0.9 / pk;
+  return T;
+}
+const tables = FIELDS.map(buildTable);
+function readT(T, u, v) {
+  u -= Math.floor(u); v -= Math.floor(v);
+  const x = u * N, y = v * N, i0 = Math.floor(x) % N, j0 = Math.floor(y) % N, fx = x - Math.floor(x), fy = y - Math.floor(y), i1 = (i0 + 1) % N, j1 = (j0 + 1) % N;
+  const a = T[j0 * N + i0] + (T[j0 * N + i1] - T[j0 * N + i0]) * fx, b = T[j1 * N + i0] + (T[j1 * N + i1] - T[j1 * N + i0]) * fx;
+  return a + (b - a) * fy;
+}
+
+const RATIOS = [['1 : 1', 1], ['3 : 2', 1.5], ['2 : 1', 2], ['φ : 1', (1 + Math.sqrt(5)) / 2]];
+const SRCS = [['a plucked riff', 'riff'], ['a sine, 220 Hz', 'sine'], ['nothing', 'silence']];
+const READERS = [['scan · two phasors', 'scan'], ['half · input and one phasor', 'half'], ['input · now and D ago', 'input']];
+const LISTENS = [['the effect', 'effect'], ['the synth', 'synth'], ['effect − synth', 'difference']];
+
+const STEPS = [
+  { key: 'point', name: 'a field, one place',
+    say: 'This is the stored field: a table of numbers that wraps at both edges, so its right edge meets its left and its top meets its bottom, a torus laid flat. Drag on it. A reader at one place gets one number. Press play: you hear nothing while you hold still, because a number is not a sound. The only sound is your hand moving the reader.' },
+  { key: 'scan', name: 'read by two phasors',
+    say: 'Now two phasors move the reader: u turns at f₁, v at f₂ = 110 Hz. The field read along that path is an oscillator, the reading the 2D Torus Wavetable Synthesizer is built on. A simple ratio closes the path into a loop; φ never closes it.' },
+  { key: 'input', name: 'read by a signal',
+    say: 'Now the input moves the reader: u from the input\'s value now, v from its value D milliseconds ago. Nothing turns at a pitch of its own; the field is read wherever the signal puts it, so it sounds when the input sounds and stops when it stops. Watch where the reader goes: one corner of the torus, there and back, never around.' },
+  { key: 'toggle', name: 'one button',
+    say: 'The page\'s surface: one field, one button. <i>Scan</i> is the synth, <i>input</i> is the effect. In between is <i>half</i>: the input reads u and a phasor reads v. On the a·b field that half reading is a ring modulator, the input times a 110 Hz carrier. Change the field and every reading changes with it; change the reader and the instrument changes kind.' },
+  { key: 'test', name: 'a sine in',
+    say: 'The test. A full-scale sine at 220 Hz goes into the effect. Beside it the synth scans the same field at 1 : 1, its second phasor lagging by f·D of a turn. If the two readers are one reader here, their difference is silence. Listen to each and to the difference, and read the meter. Then try the ridge, and turn the input level down.' },
+];
+
+const S = { step: 0, field: 0, ratio: 1, src: 'riff', drive: 1, D: 96, reader: 'scan', listen: 'effect', dry: false, pu: 0.3, pv: 0.62 };
+let ctx = null, node = null, analyser = null, playing = false, specBuf = null, live = null;
+const $ = (id) => document.getElementById(id);
+const SR = () => (ctx ? ctx.sampleRate : 48000);
+const key = () => STEPS[S.step].key;
+function readerNow() { const k = key(); return k === 'point' ? 'point' : k === 'scan' ? 'scan' : k === 'input' ? 'input' : k === 'test' ? 'test' : S.reader; }
+
+// ---------- sound ----------
+async function start() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'field-reader', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    analyser = ctx.createAnalyser(); analyser.fftSize = 8192; analyser.smoothingTimeConstant = 0.7;
+    specBuf = new Float32Array(analyser.frequencyBinCount);
+    const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 22; hp.Q.value = 0.7;
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+    node.connect(hp); hp.connect(analyser); hp.connect(comp).connect(ctx.destination);
+    node.port.onmessage = (e) => { live = e.data; };
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) { playing = false; paintGo(); } };
+    S.D = Math.round(S.D * ctx.sampleRate / 48000); // the lag was set at 48 kHz before the context existed
+    sendTable(); push(true); syncControls();
+  }
+  await ctx.resume();
+  node.port.postMessage({ gain: 1 });
+  playing = true; paintGo();
+}
+function stop() {
+  if (!ctx || !playing) return;
+  node.port.postMessage({ gain: 0 });
+  playing = false; paintGo();
+  setTimeout(() => { if (!playing && ctx) ctx.suspend(); }, 200);
+}
+function paintGo() { $('go').textContent = playing ? '❚❚ stop' : '▸ play'; }
+function sendTable() { if (node) node.port.postMessage({ table: tables[S.field].slice(), N }); }
+function push(reset) {
+  if (!node) return;
+  const k = key();
+  node.port.postMessage({ reader: readerNow(), pu: S.pu, pv: S.pv, f1: 110 * S.ratio, f2: 110, src: k === 'test' ? 'sine' : S.src,
+    drive: S.drive, D: S.D, fin: 220, listen: S.listen, dry: S.dry && (readerNow() === 'input' || readerNow() === 'half'), reset: !!reset });
+  if (reset) live = null;
+}
+
+// ---------- drawing ----------
+function fit(c, h) {
+  const w = c.clientWidth || 300, d = devicePixelRatio || 1, H = h || w;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+const heat = new Map();
+function heatImage(i) {
+  if (heat.has(i)) return heat.get(i);
+  const M = 128, T = tables[i], cv = document.createElement('canvas'); cv.width = M; cv.height = M;
+  const g = cv.getContext('2d'), img = g.createImageData(M, M);
+  for (let j = 0; j < M; j++) for (let k = 0; k < M; k++) {
+    const v = T[Math.floor(j * N / M) * N + Math.floor(k * N / M)] / 0.9, o = ((M - 1 - j) * M + k) * 4, a = Math.min(1, Math.abs(v));
+    if (v >= 0) { img.data[o] = 10 + 222 * a; img.data[o + 1] = 10 + 174 * a; img.data[o + 2] = 15 + 59 * a; }
+    else { img.data[o] = 10 + 89 * a; img.data[o + 1] = 10 + 92 * a; img.data[o + 2] = 15 + 226 * a; }
+    img.data[o + 3] = 255;
+  }
+  g.putImageData(img, 0, 0); heat.set(i, cv); return cv;
+}
+function drawField(now) {
+  const { g, w } = fit($('field')), k = key(), r = readerNow();
+  g.imageSmoothingEnabled = true; g.globalAlpha = 0.78; g.drawImage(heatImage(S.field), 0, 0, w, w); g.globalAlpha = 1;
+  const X = (u) => (u - Math.floor(u)) * w, Y = (v) => w - (v - Math.floor(v)) * w;
+  if (r === 'input' || r === 'half' || r === 'test') {
+    g.strokeStyle = 'rgba(232,232,240,.35)'; g.setLineDash([3, 4]); g.lineWidth = 1;
+    if (r === 'half') g.strokeRect(0, 0, w / 2, w); else g.strokeRect(0, w / 2, w / 2, w / 2);
+    g.setLineDash([]); g.fillStyle = 'rgba(232,232,240,.6)'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left';
+    g.fillText(r === 'half' ? 'where an amplitude can put u' : 'where an amplitude can reach', 6, r === 'half' ? 14 : w / 2 + 14);
+  }
+  const dots = (arr, col, size) => { g.fillStyle = col; for (let i = 0; i < arr.length; i += 2) { if (arr[i] < 0) continue; g.fillRect(X(arr[i]) - size / 2, Y(arr[i + 1]) - size / 2, size, size); } };
+  if (r === 'point') {
+    g.strokeStyle = '#e8e8f0'; g.lineWidth = 1.2; const px = X(S.pu), py = Y(S.pv);
+    g.beginPath(); g.moveTo(px - 10, py); g.lineTo(px + 10, py); g.moveTo(px, py - 10); g.lineTo(px, py + 10); g.stroke();
+    g.beginPath(); g.arc(px, py, 4, 0, 7); g.stroke();
+  } else if (live && playing) {
+    if (r === 'test') dots(live.pts2, 'rgba(232,232,240,.55)', 1.6);
+    dots(live.pts, r === 'scan' ? 'rgba(232,232,240,.75)' : 'rgba(232,184,74,.9)', 1.8);
+  } else if (r === 'scan' || r === 'test') {
+    // the path drawn ahead of the sound, from the same arithmetic the worklet runs
+    const fr = r === 'test' ? 1 : S.ratio, lag = r === 'test' ? 220 * S.D / SR() : 0, pts = [];
+    for (let i = 0; i < 1400; i++) { const t = i / 1400 * 12; pts.push(fr * t, t - lag); }
+    dots(pts, 'rgba(232,232,240,.5)', 1.4);
+  }
+  $('fieldLabel').textContent = FIELDS[S.field].mirrored ? 'mirrored across both axes' : 'not mirrored';
+}
+function drawSpec() {
+  const { g, w, h } = fit($('spec'), 220), top = 8, bot = h - 30, lo = Math.log10(40), hi = Math.log10(8000);
+  const x = (f) => 34 + ((Math.log10(f) - lo) / (hi - lo)) * (w - 44), y = (d) => top + ((-10 - Math.max(-110, Math.min(-10, d))) / 100) * (bot - top);
+  g.clearRect(0, 0, w, h);
+  g.strokeStyle = '#22222e'; g.lineWidth = 1; g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace';
+  for (let d = -10; d >= -110; d -= 20) { g.beginPath(); g.moveTo(34, y(d)); g.lineTo(w - 10, y(d)); g.stroke(); g.textAlign = 'right'; g.fillText(d, 30, y(d) + 3); }
+  g.textAlign = 'center'; for (const f of [55, 110, 220, 440, 880, 1760, 3520, 7040]) { g.fillText(f, x(f), h - 16); g.fillRect(x(f), bot, 1, 3); }
+  if (!(playing && analyser)) { g.fillStyle = '#6a6a7a'; g.textAlign = 'left'; g.fillText(key() === 'point' ? 'press play, then drag the reader' : 'press play', 40, top + 16); return; }
+  analyser.getFloatFrequencyData(specBuf);
+  const bin = ctx.sampleRate / analyser.fftSize;
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.2; g.beginPath(); let first = true;
+  for (let i = 2; i < specBuf.length; i++) { const f = i * bin; if (f < 40) continue; if (f > 8000) break; const px = x(f), py = y(specBuf[i]); if (first) { g.moveTo(px, py); first = false; } else g.lineTo(px, py); }
+  g.stroke();
+}
+function readouts() {
+  const k = key(), r = readerNow(), items = [];
+  if (r === 'point') items.push(['u', S.pu.toFixed(3)], ['v', S.pv.toFixed(3)], ['F(u, v)', readT(tables[S.field], S.pu, S.pv).toFixed(3)]);
+  if (r === 'scan' || r === 'half') items.push(['f₁', r === 'half' ? 'the input' : (110 * S.ratio).toFixed(1) + ' Hz'], ['f₂', '110 Hz']);
+  if (r === 'scan') { const q = { 1: 1, 1.5: 2, 2: 1 }[S.ratio]; items.push(['path', q ? `closes after ${q} turn${q > 1 ? 's' : ''} of v` : 'never closes']); }
+  if (r === 'input' || r === 'half' || r === 'test') items.push(['input peak', live && playing ? live.peak.toFixed(2) : '–']);
+  if (r === 'input' || r === 'test') items.push(['D', `${(S.D / SR() * 1000).toFixed(2)} ms`]);
+  $('read').innerHTML = items.map(([a, b]) => `<span>${a} <b>${b}</b></span>`).join('');
+  const m = $('meter');
+  if (k !== 'test') { m.textContent = ''; return; }
+  if (!(live && playing && live.nullDb != null)) { m.textContent = 'effect − synth: play to measure'; return; }
+  const d = live.nullDb;
+  m.textContent = d < -100 ? `effect − synth: ${d < -150 ? 'below −150' : d.toFixed(0)} dB re the synth · the same signal, sample for sample`
+    : `effect − synth: ${d.toFixed(1)} dB re the synth · two different signals`;
+}
+
+// ---------- steps ----------
+function hintFor(k) {
+  if (k === 'point') return 'Amber is above zero, blue below. Try a slow drag, then a fast scribble: speed is what turns a place into a sound. Every step after this one is a different hand on the same table.';
+  if (k === 'scan') return 'Switch fields while it plays: the path stays the same and the timbre changes, because the field is what the path reads. The path is drawn slowed down; the sound runs it 110 times a second.';
+  if (k === 'input') return 'Try "nothing": the reader parks at the centre of the quarter and the sound stops. Try the sine and slide D: at D = 0 both coordinates read the same sample and the reader rides the quarter\'s diagonal, the Hammerstein slice of The precedent and the diagonal. "Hear the input dry" plays what goes in.';
+  if (k === 'toggle') return 'Flip between scan and input on the plucked riff, with the a·b field, then with tanh. The scan keeps sounding when the input is "nothing"; the effect goes quiet. On a·b, half is ring modulation: the input times a 110 Hz cosine, sum and difference of every partial against 110 Hz.';
+  return 'On a·b, tanh and the Chebyshev field the meter reads below −100 dB: the effect fed a full-scale sine is the synth at 1 : 1, sample for sample. On the ridge, which is not the same mirrored, the two come apart. Turn the input level below 1 on any field and they come apart too: a smaller sine draws a smaller path that no pair of phasors draws.';
+}
+function setStep(i) {
+  stop();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i));
+  const k = key();
+  [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === S.step));
+  $('say').innerHTML = STEPS[S.step].say;
+  if (k === 'test') { S.drive = 1; S.listen = 'effect'; }
+  if (k === 'input' || k === 'toggle') S.drive = 1;
+  S.dry = false;
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  $('hint').textContent = hintFor(k);
+  syncControls(); push(true);
+}
+function syncControls() {
+  const k = key(), r = readerNow();
+  $('readerG').classList.toggle('hidden', k !== 'toggle');
+  $('ratioG').classList.toggle('hidden', !(k === 'scan' || (k === 'toggle' && r === 'scan')));
+  $('srcG').classList.toggle('hidden', !(k === 'input' || (k === 'toggle' && r !== 'scan')));
+  $('listenG').classList.toggle('hidden', k !== 'test');
+  $('dry').classList.toggle('hidden', !(k === 'input' || (k === 'toggle' && r !== 'scan')));
+  $('driveCtl').classList.toggle('hidden', !(k === 'input' || k === 'test' || (k === 'toggle' && r !== 'scan')));
+  $('dCtl').classList.toggle('hidden', !(k === 'input' || k === 'test' || (k === 'toggle' && r === 'input')));
+  const mark = (id, list, val) => [...$(id).children].forEach((b, j) => b.classList.toggle('on', list[j][1] === val));
+  [...$('fields').children].forEach((b, j) => b.classList.toggle('on', j === S.field));
+  mark('ratios', RATIOS, S.ratio); mark('srcs', SRCS, S.src); mark('readers', READERS, S.reader); mark('listens', LISTENS, S.listen);
+  $('dry').classList.toggle('on', S.dry);
+  $('drive').value = S.drive; $('driveVal').textContent = S.drive.toFixed(2) + (S.drive === 1 ? ' · full scale' : '');
+  $('d').max = Math.round(SR() * 0.01); $('d').value = S.D;
+  $('dVal').textContent = `${(S.D / SR() * 1000).toFixed(2)} ms · ${S.D} samples`;
+}
+function seg(id, list, onPick) {
+  list.forEach(([label, val]) => { const b = document.createElement('button'); b.textContent = label; b.onclick = () => { onPick(val); syncControls(); push(); }; $(id).appendChild(b); });
+}
+
+function frame(now) { requestAnimationFrame(frame); drawField(now); drawSpec(); readouts(); }
+
+// the field takes the hand in the first step
+function pointAt(e) {
+  if (key() !== 'point') return;
+  const r = $('field').getBoundingClientRect();
+  S.pu = Math.min(0.999, Math.max(0, (e.clientX - r.left) / r.width)); S.pv = Math.min(0.999, Math.max(0, 1 - (e.clientY - r.top) / r.height));
+  if (node) node.port.postMessage({ pu: S.pu, pv: S.pv });
+}
+let dragging = false;
+$('field').addEventListener('pointerdown', (e) => { dragging = true; $('field').setPointerCapture(e.pointerId); pointAt(e); });
+$('field').addEventListener('pointermove', (e) => { if (dragging) pointAt(e); });
+$('field').addEventListener('pointerup', () => { dragging = false; });
+
+// sigil: a 3:2 Lissajous, the house mark
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+FIELDS.forEach((F, i) => { const b = document.createElement('button'); b.textContent = F.name; b.title = F.about; b.onclick = () => { S.field = i; sendTable(); syncControls(); }; $('fields').appendChild(b); });
+seg('ratios', RATIOS, (v) => { S.ratio = v; });
+seg('srcs', SRCS, (v) => { S.src = v; });
+seg('readers', READERS, (v) => { S.reader = v; });
+seg('listens', LISTENS, (v) => { S.listen = v; });
+$('dry').onclick = () => { S.dry = !S.dry; syncControls(); push(); };
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('go').onclick = () => (playing ? stop() : start());
+$('drive').oninput = () => { S.drive = +$('drive').value; syncControls(); push(); };
+$('d').oninput = () => { S.D = +$('d').value; syncControls(); push(); };
+setStep(0); requestAnimationFrame(frame);
+</script>
+</body>
+</html>

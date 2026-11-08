@@ -1,0 +1,483 @@
+<!doctype html>
+<!--
+  title: Synthesis Topologies — rich — one loop, two instruments
+  born: 2026-11-03
+  links: [[Synthesis Topologies]] (connects-to · rich-face-piece) · listed in [[Synthesis Topologies — rich.json]] · serves § What the Family Shares · leans on [[Wavetable Oscillator]] § The same object as a loop and [[Waveguide Synthesizer]]
+  forward_vector: I am the loop that holds wavetable and waveguide together, taken one idea at a time. A cycle read from a table; the same cycle going round a delay loop; their difference, which is nothing at every whole length and is the page's test; then the loop half a sample longer, which has to read between its own samples, parts from the table and loses its highs doing it. Last I show an identity rather than test one: a straight-line read halfway is Karplus-Strong's average at ρ = 1, term for term. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step, shape or length stops the sound.
+  check: Synthesis Topologies — rich — check.mjs runs this page's engine in Node against every number the page shows.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>One loop, two instruments</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --violet:#8b7cf6;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost.small{font-size:13px;padding:6px 11px}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:11ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--violet);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--fg-2)}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:right;font-weight:400;vertical-align:top}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t b{color:var(--accent);font-weight:400}
+  table.t i{color:var(--violet);font-style:normal}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  .hide{display:none!important}
+  .links{font-family:var(--sans);font-size:13.5px;color:var(--fg-2);margin-top:12px;max-width:70ch}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;align-items:center;gap:10px}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Synthesis Topologies · what the family shares · five steps</div>
+  <h1>One loop, two instruments</h1>
+  <p class="lead">The page says a cycle read from a table and the same cycle going round a delay loop match sample for sample when the period is a whole number of samples. Take the two apart, put them back together through their difference, then move the loop half a sample and see what it turns into.</p>
+
+  <nav class="rail" id="rail" aria-label="steps"></nav>
+  <h2 id="st-title"></h2>
+  <p class="say" id="st-say"></p>
+  <div class="dwh"><div><b>do</b><span id="st-do"></span></div><div><b>watch</b><span id="st-watch"></span></div><div><b>hear</b><span id="st-hear"></span></div></div>
+
+  <div class="panel">
+    <div class="plabel"><span id="pic-label">left · the stored cycle and its reader</span><span id="pic-read"></span></div>
+    <canvas id="pic" height="250"></canvas>
+    <div class="rowb">
+      <span class="eyebrow">the stored cycle</span>
+      <button class="ghost small" data-shape="saw" aria-pressed="true">saw-like</button>
+      <button class="ghost small" data-shape="hollow" aria-pressed="false">hollow</button>
+      <button class="ghost small" data-shape="soft" aria-pressed="false">soft</button>
+      <button class="ghost small" data-shape="burst" aria-pressed="false">a burst of noise</button>
+    </div>
+    <div class="ctl">
+      <label for="n">whole length N</label><input id="n" type="range" min="40" max="400" step="1" value="100"><span class="v" id="n-v"></span>
+    </div>
+    <div class="ctl" id="ctl-d">
+      <label for="d">between samples d</label><input id="d" type="range" min="0" max="1" step="0.05" value="0.5"><span class="v" id="d-v"></span>
+    </div>
+    <div class="rowb">
+      <span class="eyebrow">hear</span>
+      <span id="hear-btns"></span>
+      <button class="play" id="play" aria-label="play the chosen sound">▸ play</button>
+    </div>
+    <div class="hint" id="hear-hint" style="margin-top:8px"></div>
+  </div>
+
+  <div class="panel" id="p-res">
+    <div class="plabel"><span id="res-label">their difference, as a level under the sound · each point is one 10 ms look</span><span>dB, over seconds</span></div>
+    <canvas id="res" height="210"></canvas>
+    <div class="meter" id="res-m"></div>
+    <div class="rowb" id="sweep-row"><button class="ghost" id="sweep">check every whole length, 40 to 400</button><span class="hint" id="sweep-m"></span></div>
+  </div>
+
+  <div class="panel" id="p-decay">
+    <div class="plabel"><span>what reading between costs · each harmonic, per trip and per second</span><span>measured from the loop’s own output</span></div>
+    <table class="t" id="decay-t"></table>
+  </div>
+
+  <div class="panel" id="p-test">
+    <div class="plabel"><span>the page’s test, then an identity shown · measured from the renders you hear</span><span>4 s each</span></div>
+    <table class="t" id="test-t"></table>
+    <p class="links" id="test-links"></p>
+  </div>
+
+  <div class="eq" id="eq1"></div>
+  <div class="eq words" id="eq1w"></div>
+  <div class="eq" id="eq2"></div>
+  <div class="eq words" id="eq2w"></div>
+
+  <div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sig" fill="none" stroke="#8a8aa0" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · made for the rich face of Synthesis Topologies · the engine runs here, in this page, and in its check</span></footer>
+</main>
+
+<script id="engine">
+// ---- engine: one stored cycle, a table that reads it, a loop that carries it (shared by the page and its headless check) ----
+const P_TABLE = 2048;
+// the stored cycle: one period, P_TABLE samples, peak 0.8
+function makeCycle(shape, P) {
+  P = P || P_TABLE;
+  const c = new Float64Array(P);
+  let seed = 12345; const rnd = () => { seed ^= seed << 13; seed >>>= 0; seed ^= seed >>> 17; seed ^= seed << 5; seed >>>= 0; return seed / 4294967296; };
+  const parts = [];
+  if (shape === 'saw') for (let k = 1; k <= 16; k++) parts.push([k, 1 / k, 0]);
+  else if (shape === 'hollow') for (let k = 1; k <= 15; k += 2) parts.push([k, 1 / k, 0]);
+  else if (shape === 'soft') for (let k = 1; k <= 6; k++) parts.push([k, 1 / (k * k), 0]);
+  else for (let k = 1; k <= 18; k++) parts.push([k, 1, 2 * Math.PI * rnd()]);   // a burst: every harmonic equal, phases scattered
+  for (let i = 0; i < P; i++) { let v = 0; for (const [k, a, ph] of parts) v += a * Math.sin(2 * Math.PI * k * i / P + ph); c[i] = v; }
+  let pk = 0; for (let i = 0; i < P; i++) pk = Math.max(pk, Math.abs(c[i]));
+  for (let i = 0; i < P; i++) c[i] *= 0.8 / pk;
+  return c;
+}
+// the table: a phase counter goes round once every T samples (T may sit between whole samples),
+// and the value under it is read from the stored cycle, between its points by a straight line
+// y[n] = cycle(φ[n]),  φ[n+1] = φ[n] + 1/T, wrapped to [0, 1)
+function tableRead(cycle, T, len) {
+  const P = cycle.length, out = new Float64Array(len), inc = 1 / T;
+  let ph = 0;
+  for (let n = 0; n < len; n++) {
+    const x = ph * P, i0 = Math.floor(x), f = x - i0, a = cycle[i0 % P], b = cycle[(i0 + 1) % P];
+    out[n] = a + (b - a) * f;
+    ph += inc; if (ph >= 1) ph -= 1;
+  }
+  return out;
+}
+// the loop: a delay T samples long, its output fed straight back to its input.
+// T = N + d. A whole T copies; between whole samples the loop reads between its own last trip, by the same straight line:
+// y[n] = (1 − d) · y[n − N] + d · y[n − N − 1]
+// Its first trip is filled from 'first' (the table's own first trip).
+function loopRead(first, T, len) {
+  const N = Math.floor(T + 1e-9), d = T - N, y = new Float64Array(len), fill = d > 1e-9 ? N + 1 : N;
+  for (let n = 0; n < len; n++) {
+    if (n < fill) y[n] = first[n];
+    else y[n] = d > 1e-9 ? (1 - d) * y[n - N] + d * y[n - N - 1] : y[n - N];
+  }
+  return y;
+}
+// Karplus-Strong's average, at ρ = 1: a loop of N with the average of two neighbours in it (the Waveguide Synthesizer page's string puts ρ = 0.996 in front)
+// y[n] = ½ · (y[n − N] + y[n − N − 1]), its first N + 1 samples from 'first'
+function ksString(first, N, len) {
+  const y = new Float64Array(len);
+  for (let n = 0; n < len; n++) y[n] = n < N + 1 ? first[n] : 0.5 * (y[n - N] + y[n - N - 1]);
+  return y;
+}
+function maxAbsDiff(a, b) { let m = 0; for (let i = 0; i < a.length; i++) { const v = Math.abs(a[i] - b[i]); if (v > m) m = v; } return m; }
+// how loud the difference is, under the sound, in 10 ms looks: 20·log10(rms(a − b) ⁄ rms(a)); −Infinity when it is exactly zero
+function residueTrack(a, b, fs, look) {
+  const w = Math.round((look || 0.01) * fs), pts = [];
+  for (let s = 0; s + w <= a.length; s += w) {
+    let e = 0, q = 0; for (let i = s; i < s + w; i++) { const v = a[i] - b[i]; e += v * v; q += a[i] * a[i]; }
+    pts.push([(s + w / 2) / fs, e === 0 ? -Infinity : 10 * Math.log10(e / q)]);
+  }
+  return pts;
+}
+const HANN = new Map();
+function hann(w) { let h = HANN.get(w); if (!h) { h = new Float64Array(w); let s = 0; for (let i = 0; i < w; i++) { h[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (w - 1)); s += h[i]; } h.sum = s; HANN.set(w, h); } return h; }
+// the windowed DTFT of y[s .. s+w) at f (Hz): an amplitude
+function dtftAmp(y, s, w, f, fs) {
+  const h = hann(w), om = 2 * Math.PI * f / fs, cr = Math.cos(om), ci = Math.sin(om);
+  let pr = 1, pi = 0, re = 0, im = 0;
+  for (let i = 0; i < w; i++) { const v = y[s + i] * h[i]; re += v * pr; im -= v * pi; const t = pr * cr - pi * ci; pi = pr * ci + pi * cr; pr = t; }
+  return 2 * Math.hypot(re, im) / h.sum;
+}
+// harmonic k's fall, in dB a second: windows six periods long, every two periods, then a least-squares slope while it stands 60 dB above nothing
+function measureDecay(y, fs, T, k, t1) {
+  const f = k * fs / T, w = Math.round(6 * T), hop = Math.max(1, Math.round(2 * T)), pts = [];
+  for (let s = 0; s + w < Math.min(y.length, t1 * fs); s += hop) pts.push([(s + w / 2) / fs, 20 * Math.log10(Math.max(dtftAmp(y, s, w, f, fs), 1e-12))]);
+  if (pts.length < 4) return NaN;
+  const top = pts[0][1], use = []; for (const p of pts) { if (p[1] < top - 60) break; use.push(p); }
+  const n = use.length; if (n < 4) return NaN;
+  let sx = 0, sy = 0, sxx = 0, sxy = 0; for (const [x, v] of use) { sx += x; sy += v; sxx += x * x; sxy += x * v; }
+  return (n * sxy - sx * sy) / (n * sxx - sx * sx);
+}
+// what one trip keeps of a harmonic at f Hz, when the loop reads d of the way between two samples: |(1 − d) + d·e^(−iω)|
+function keptPerTrip(f, fs, d) { const w = 2 * Math.PI * f / fs; return Math.sqrt((1 - d) * (1 - d) + d * d + 2 * d * (1 - d) * Math.cos(w)); }
+// and per second: fs ⁄ T trips
+function predictDecay(fs, T, k, d) { return (fs / T) * 20 * Math.log10(keptPerTrip(k * fs / T, fs, d)); }
+// ---- end engine ----
+</script>
+
+<script>
+const SECONDS = 4;
+const $ = (id) => document.getElementById(id);
+const S = { step: 0, N: 100, d: 0.5, shape: 'saw', hear: 'table' };
+const HEAR = {
+  table: 'the table', loop: 'the loop', diff: 'their difference',
+  ks: 'Karplus-Strong’s average (ρ = 1)', ksdiff: 'in-between loop − Karplus-Strong',
+};
+const STEPS = [
+  { name: 'the table', title: 'One cycle, read from a table',
+    say: 'A wavetable keeps one cycle and reads it round and round. A phase counter steps forward once a sample and wraps when it reaches the end; the value under it is the output. Here the counter goes round once every N samples, so the pitch is the sample rate divided by N.',
+    do: 'Play. Change the shape, and move N.', watch: 'Left: the stored cycle, gold, and the reader sweeping it. The picture runs at half a cycle a second; the sound runs at hundreds.', hear: 'A steady tone. Shorter N, higher pitch; the shape sets the colour.',
+    hears: ['table'], loopPic: false, res: false, decay: false, test: false, frac: false },
+  { name: 'the loop', title: 'The same cycle, round a loop',
+    say: 'Now fill a delay line N samples long with the table’s first trip, and feed its output straight back into its input. Nothing is added and nothing is lost: each sample comes out N samples after it went in, and goes back in. The cycle no longer sits still while a reader moves; it travels, and the reader holds still.',
+    do: 'Play the loop, then the table, and back.', watch: 'Right: the loop as a ring of N samples sliding past a fixed tap at the top. Blue is what the loop holds now.', hear: 'The same tone. Nothing to tell them apart.',
+    hears: ['table', 'loop'], loopPic: true, res: false, decay: false, test: false, frac: false },
+  { name: 'the difference', title: 'Their difference',
+    say: 'Turn one of them upside down and add it to the other. What is left is everything they do not share. If the two are one object, nothing is left.',
+    do: 'Play their difference. Move N anywhere, then check every whole length at once.', watch: 'The difference, as a level under the sound, every 10 ms for four seconds.', hear: 'Nothing. It stays nothing at every whole length.',
+    hears: ['table', 'loop', 'diff'], loopPic: true, res: true, decay: false, test: false, frac: false },
+  { name: 'between samples', title: 'Half a sample longer',
+    say: 'A period that is not a whole number of samples is the ordinary case: most notes. The table does not care; its counter reads between two stored points, fresh from the stored cycle, every trip. The loop has no stored cycle to go back to. It has to read between the samples of its own last trip, every trip, and reading halfway between two samples is taking their average. Do that a few hundred times a second and the highs wear away.',
+    do: 'Play the loop, then their difference. Move d from 0 to ½ and back.', watch: 'The ring rounds off trip by trip while the gold cycle stays sharp. The difference climbs from nothing toward the level of the sound.', hear: 'The loop darkens and fades like a string; the table does not. At d = 0 the null comes back.',
+    hears: ['table', 'loop', 'diff'], loopPic: true, res: true, decay: true, test: false, frac: true },
+  { name: 'an identity', title: 'An identity, shown: halfway is the average',
+    say: 'The test was the last two steps: at a whole length the table and the loop are one sound, and half a sample longer they part. This step shows, rather than tests, why the loop that parts sounds like a string. At d = ½ the loop reads exactly halfway, (1 − ½)·a + ½·b, and that is the average of the two neighbours, ½·(a + b): the whole of Karplus-Strong’s loop, here with nothing else in front of it (ρ = 1; the Waveguide Synthesizer page’s string adds ρ = 0.996). The two are the same sum, so their difference is zero by algebra; the violet line could not have come out any other way. A straight-line read is one choice: a filter that only delays, an allpass, also makes the loop half a sample longer and loses nothing.',
+    do: 'Play Karplus-Strong’s average, then the in-between loop. Choose the burst of noise to hear it as a pluck.', watch: 'The page’s test first in the table: nothing at a whole length, parting at N + ½. Then the identity, violet, on the floor.', hear: 'The in-between loop and Karplus-Strong’s average are the same sound; the table against either is not.',
+    hears: ['table', 'loop', 'ks', 'diff', 'ksdiff'], loopPic: true, res: true, decay: true, test: true, frac: true, dFix: 0.5 },
+];
+
+let ctx = null, master = null, src = null, srcGain = null, t0 = 0, sr = 48000, playing = null;
+let R = null;   // the current renders
+const sigPath = (() => { let s = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; s += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + 0.6)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } return s; })();
+$('sig').setAttribute('d', sigPath);
+
+function Tnow() { const st = STEPS[S.step]; if (!st.frac) return S.N; return S.N + (st.dFix != null ? st.dFix : S.d); }
+function render() {
+  const st = STEPS[S.step], T = Tnow(), len = Math.round(SECONDS * sr), cyc = makeCycle(S.shape);
+  const table = tableRead(cyc, T, len), loop = loopRead(table, T, len);
+  R = { T, cyc, table, loop, fs: sr, res: residueTrack(table, loop, sr) };
+  if (st.test) { R.ks = ksString(table, S.N, len); R.ksMax = maxAbsDiff(loop, R.ks); R.ksRes = residueTrack(loop, R.ks, sr); }
+  R.max = maxAbsDiff(table, loop);
+  const KS_ = { hollow: [1, 3, 5, 7], soft: [1, 2, 4, 6] }[S.shape] || [1, 2, 4, 8];
+  if (st.decay) R.decay = KS_.map((k) => ({ k, keep: keptPerTrip(k * sr / T, sr, T - Math.floor(T + 1e-9)), pred: predictDecay(sr, T, k, T - Math.floor(T + 1e-9)), meas: measureDecay(loop, sr, T, k, 3) }));
+  if (st.test) {
+    // the whole-length null too, at this N, for the table
+    const tw = tableRead(cyc, S.N, len), lw = loopRead(tw, S.N, len);
+    R.wholeMax = maxAbsDiff(tw, lw);
+    const r = residueTrack(table, loop, sr); R.half = [0.05, 1, 3].map((t) => r[Math.min(r.length - 1, Math.floor(t / 0.01))][1]);
+  }
+}
+function signalFor(which) {
+  const n = R.table.length, out = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    let v;
+    if (which === 'table') v = R.table[i]; else if (which === 'loop') v = R.loop[i]; else if (which === 'diff') v = R.table[i] - R.loop[i];
+    else if (which === 'ks') v = R.ks[i]; else v = R.loop[i] - R.ks[i];
+    out[i] = v * Math.min(1, i / 480, (n - i) / 2400);
+  }
+  return out;
+}
+function ensureAudio() {
+  if (ctx) return;
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const fresh = ctx.sampleRate !== sr; sr = ctx.sampleRate;
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 4;
+  master = ctx.createGain(); master.gain.value = 0.5; master.connect(comp).connect(ctx.destination);
+  if (fresh) { render(); paintAll(); }
+}
+function stopSound() { if (src) { try { src.stop(); } catch (e) {} src = null; } playing = null; $('play').textContent = '▸ play'; }
+function play() {
+  if (playing) { stopSound(); return; }
+  ensureAudio(); if (ctx.state !== 'running') ctx.resume();
+  const data = signalFor(S.hear), buf = ctx.createBuffer(1, data.length, sr); buf.copyToChannel(data, 0);
+  src = ctx.createBufferSource(); src.buffer = buf; src.connect(master);
+  t0 = ctx.currentTime + 0.03; src.start(t0); playing = S.hear;
+  src.onended = () => { if (playing) stopSound(); };
+  $('play').textContent = '■ stop';
+  // tell the face a sound started (a buffer source's start is not one the kit hears on its own)
+  if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) {} }
+}
+
+// ---- the pictures ----
+function fit(c) {
+  const dpr = devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height');
+  if (c.width !== Math.round(w * dpr)) { c.width = Math.round(w * dpr); c.height = Math.round(h * dpr); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h };
+}
+const start = performance.now();
+function audioSample() { if (!ctx || !playing) return 0; return Math.max(0, Math.floor((ctx.currentTime - t0) * sr)); }
+function drawPic() {
+  const st = STEPS[S.step], { g, w, h } = fit($('pic')), T = R.T, N = S.N;
+  g.clearRect(0, 0, w, h);
+  const half = st.loopPic ? w * 0.52 : w, ph = ((performance.now() - start) / 1000 * 0.5) % 1;
+  // left: the stored cycle, and the reader
+  const L = 14, Rr = half - 14, mid = h / 2, sc = h * 0.42;
+  g.strokeStyle = '#22222e'; g.lineWidth = 1; g.beginPath(); g.moveTo(L, mid); g.lineTo(Rr, mid); g.stroke();
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.6; g.beginPath();
+  for (let i = 0; i <= 400; i++) { const x = L + (Rr - L) * i / 400, v = R.cyc[Math.floor(i / 400 * (R.cyc.length - 1))]; i ? g.lineTo(x, mid - v * sc) : g.moveTo(x, mid - v * sc); }
+  g.stroke();
+  const rx = L + (Rr - L) * ph, rv = R.cyc[Math.floor(ph * (R.cyc.length - 1))];
+  g.strokeStyle = 'rgba(232,232,240,0.5)'; g.beginPath(); g.moveTo(rx, 10); g.lineTo(rx, h - 22); g.stroke();
+  g.fillStyle = '#e8e8f0'; g.beginPath(); g.arc(rx, mid - rv * sc, 4, 0, 7); g.fill();
+  g.fillStyle = '#8a8aa0'; g.font = '10.5px JetBrains Mono, monospace'; g.textAlign = 'left';
+  g.fillText('the table holds still · its reader moves', L, h - 8);
+  if (!st.loopPic) { $('pic-read').textContent = `one trip = ${T} samples · ${(sr / T).toFixed(2)} Hz at ${sr} Hz`; return; }
+  // right: the loop as a ring sliding past a fixed tap at the top
+  const cx = half + (w - half) / 2, cy = h / 2 - 6, r0 = Math.min((w - half) / 2 - 16, h / 2 - 34), amp = r0 * 0.32;
+  const n = audioSample(), Nn = Math.floor(T + 1e-9);
+  // which trip to draw: while it plays, the one sounding now; otherwise the first
+  const trip = Math.max(0, Math.floor(Math.min(n, R.loop.length - 2 * Nn - 2) / T));
+  const s0 = Math.round(trip * T);
+  g.strokeStyle = '#22222e'; g.beginPath(); g.arc(cx, cy, r0, 0, 7); g.stroke();
+  // the ghost: the stored cycle, where a lossless loop would still be
+  const ring = (val, col, lw) => { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); for (let i = 0; i <= Nn; i++) { const a = -Math.PI / 2 + 2 * Math.PI * (i / Nn - ph), v = val(i % Nn), rr = r0 + v * amp; const x = cx + rr * Math.cos(a), y = cy + rr * Math.sin(a); i ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); };
+  // as the loop fades it is drawn larger, so its shape stays readable; the label says by how much
+  let pk = 0; for (let i = 0; i < Nn; i++) pk = Math.max(pk, Math.abs(R.loop[s0 + i]));
+  const zoom = pk > 0 ? Math.min(16, Math.max(1, 0.8 / pk)) : 1;
+  ring((i) => R.table[i], 'rgba(232,184,74,0.35)', 1);
+  ring((i) => R.loop[s0 + i] * zoom, '#8b7cf6', 1.6);
+  g.fillStyle = '#e8e8f0'; g.beginPath(); g.moveTo(cx, cy - r0 - amp - 12); g.lineTo(cx - 5, cy - r0 - amp - 20); g.lineTo(cx + 5, cy - r0 - amp - 20); g.fill();
+  g.fillStyle = '#8a8aa0'; g.textAlign = 'center'; g.fillText('tap', cx, cy - r0 - amp - 24 < 10 ? 10 : cy - r0 - amp - 24);
+  g.fillText('the loop’s samples move · its tap holds still', cx, h - 8);
+  $('pic-read').textContent = `one trip = ${T % 1 ? T.toFixed(2) : T} samples · ${(sr / T).toFixed(2)} Hz · ring drawn at trip ${trip}${zoom > 1.05 ? ` · ×${zoom.toFixed(1)}` : ''}`;
+}
+function drawRes() {
+  const st = STEPS[S.step]; if (!st.res) return;
+  const { g, w, h } = fit($('res')), L = 52, Rm = 12, Tp = 10, B = 26, tMax = SECONDS, top = 0, bot = R.T % 1 === 0 ? -240 : -60, gridStep = bot === -240 ? 40 : 10;
+  g.clearRect(0, 0, w, h);
+  const X = (t) => L + (w - L - Rm) * t / tMax, Y = (db) => Tp + (h - Tp - B) * (top - Math.max(bot, db)) / (top - bot);
+  g.strokeStyle = '#22222e'; g.lineWidth = 1; g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace';
+  for (let db = 0; db >= bot; db -= gridStep) { g.beginPath(); g.moveTo(L, Y(db)); g.lineTo(w - Rm, Y(db)); g.stroke(); g.textAlign = 'right'; g.fillText(db + '', L - 6, Y(db) + 3); }
+  g.textAlign = 'right'; g.fillText('zero', L - 6, h - B + 12);
+  for (let t = 0; t <= tMax; t += 1) { g.textAlign = 'center'; g.fillText(t + ' s', X(t), h - 2); }
+  const trace = (pts, col) => { g.strokeStyle = col; g.lineWidth = 1.6; g.beginPath(); pts.forEach(([t, db], i) => { const y = db === -Infinity ? h - B + 10 : Y(db); i ? g.lineTo(X(t), y) : g.moveTo(X(t), y); }); g.stroke(); };
+  g.setLineDash([2, 4]); g.strokeStyle = '#4a4a5a'; g.beginPath(); g.moveTo(L, h - B + 10); g.lineTo(w - Rm, h - B + 10); g.stroke(); g.setLineDash([]);
+  trace(R.res, '#e8b84a');
+  if (st.test && R.ksRes) trace(R.ksRes, '#8b7cf6');
+  const now = audioSample() / sr; if (playing && now < tMax) { g.strokeStyle = 'rgba(232,232,240,0.35)'; g.beginPath(); g.moveTo(X(now), Tp); g.lineTo(X(now), h - B); g.stroke(); }
+}
+const fmtDb = (v) => v === -Infinity ? 'exactly zero' : `${v.toFixed(1)} dB`;
+const fmtMax = (m) => m === 0 ? '<b>0</b>, exactly' : `<b>${m.toExponential(1)}</b> (${(20 * Math.log10(m / 0.8)).toFixed(0)} dB under the peak)`;
+function meters() {
+  const st = STEPS[S.step];
+  if (st.res) {
+    const worst = R.res.reduce((a, p) => Math.max(a, p[1]), -Infinity);
+    const whole = R.T % 1 === 0;
+    let s = whole ? `largest |table − loop| over four seconds: ${fmtMax(R.max)} · loudest 10 ms of the difference: <b>${fmtDb(worst)}</b>`
+      : `the difference after 0.05 s: <b>${fmtDb(R.res[5][1])}</b> · after 1 s: <b>${fmtDb(R.res[100][1])}</b> · after 3 s: <b>${fmtDb(R.res[300][1])}</b> under the sound`;
+    if (whole) s += '<br><span class="hint">Not quite zero: the counter adds 1 ⁄ N in floating point, and after N steps it lands a hair off 1. That is the arithmetic’s rounding, more than 200 dB down and creeping slowly. The loop copies exactly; the table’s counter is what wanders.</span>';
+    $('res-m').innerHTML = s;
+  }
+  if (st.decay && R.decay) {
+    const d = R.T - Math.floor(R.T + 1e-9);
+    let html = `<tr><th>harmonic</th><th>Hz</th><th>kept per trip</th><th>predicted dB ⁄ s</th><th>measured dB ⁄ s</th></tr>`;
+    for (const r of R.decay) html += `<tr><td>k = ${r.k}</td><td>${(r.k * sr / R.T).toFixed(0)}</td><td>${r.keep.toFixed(5)}</td><td>${r.pred.toFixed(2)}</td><td><b>${isNaN(r.meas) ? '—' : r.meas.toFixed(2)}</b></td></tr>`;
+    html += `<tr><td colspan="5" class="hint" style="text-align:left">d = ${d.toFixed(2)}. ${d === 0 ? 'A whole length keeps every harmonic whole: nothing is lost.' : 'The loss is worst at d = ½ and gone at 0 and 1; high harmonics pay most.'}</td></tr>`;
+    $('decay-t').innerHTML = html;
+  }
+  if (st.test) {
+    $('test-t').innerHTML = `<tr><th>what is set against what</th><th>length</th><th>result</th></tr>
+      <tr><td>the table against the bare loop</td><td>N = ${S.N}</td><td>max difference ${fmtMax(R.wholeMax)}</td></tr>
+      <tr><td>the table against the in-between loop</td><td>N + ½</td><td><b>${fmtDb(R.half[0])}</b> at 0.05 s · <b>${fmtDb(R.half[1])}</b> at 1 s · <b>${fmtDb(R.half[2])}</b> at 3 s</td></tr>
+      <tr><td>shown, not tested: the in-between loop against Karplus-Strong’s average (ρ = 1)</td><td>N + ½ · N with the average</td><td><i>max difference ${R.ksMax === 0 ? '0, by algebra' : R.ksMax.toExponential(2)}</i></td></tr>`;
+    $('test-links').innerHTML = 'The string’s pitch is the loop’s length, N + ½, not N: the Waveguide Synthesizer page’s <em>Karplus-Strong, walked up</em> measures that to 0.02 cents. Put a filter that only delays, and loses nothing, in the same slot and the partials leave the harmonic grid instead of fading: Dissolutions’ proof <em>the table that travels</em> walks that branch.';
+  }
+}
+function paintAll() { drawPic(); drawRes(); meters(); }
+function loop() { requestAnimationFrame(loop); drawPic(); if (playing) drawRes(); }
+
+// ---- the walk ----
+function hearButtons() {
+  const st = STEPS[S.step]; if (!st.hears.includes(S.hear)) S.hear = st.hears[st.hears.length > 1 ? 1 : 0];
+  if (S.step === 0) S.hear = 'table';
+  $('hear-btns').innerHTML = '';
+  for (const k of st.hears) { const b = document.createElement('button'); b.className = 'ghost small'; b.textContent = HEAR[k]; b.setAttribute('aria-pressed', k === S.hear ? 'true' : 'false'); b.onclick = () => { S.hear = k; stopSound(); hearButtons(); }; $('hear-btns').appendChild(b); $('hear-btns').appendChild(document.createTextNode(' ')); }
+  const hint = { table: '', loop: '', diff: 'The difference plays at the level it has: if it is silent, it is silent.', ks: '', ksdiff: 'Silent by algebra: the two are the same sum, so this cannot sound.' }[S.hear];
+  $('hear-hint').textContent = hint;
+}
+function setStep(i) {
+  stopSound();
+  S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const st = STEPS[S.step];
+  $('st-title').textContent = `${S.step + 1} · ${st.title}`; $('st-say').textContent = st.say;
+  $('st-do').textContent = st.do; $('st-watch').textContent = st.watch; $('st-hear').textContent = st.hear;
+  [...$('rail').children].forEach((b, j) => b.setAttribute('aria-current', j === S.step ? 'step' : 'false'));
+  $('ctl-d').classList.toggle('hide', !st.frac || st.dFix != null);
+  $('p-res').classList.toggle('hide', !st.res); $('sweep-row').classList.toggle('hide', S.step !== 2);
+  $('p-decay').classList.toggle('hide', !st.decay); $('p-test').classList.toggle('hide', !st.test);
+  $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+  $('sweep-m').textContent = '';
+  hearButtons(); eqs(); render(); paintAll();
+}
+function eqs() {
+  const E = {
+    'the table': ['y[n] = cycle(φ[n])      φ[n + 1] = φ[n] + 1 ⁄ N, wrapped      f = fs ⁄ N', '(the output now) = (the stored cycle, read where the counter points); (the counter) steps one Nth of the cycle each sample; (the pitch) = (the sample rate) ÷ (the samples in one trip)'],
+    'the loop': ['y[n] = y[n − N]', '(the output now) = (the output exactly N samples ago): whatever went in comes round again, once per trip'],
+    'the difference': ['table[n] − loop[n] = 0, for every n, when N is whole', '(what the table plays) minus (what the loop plays) = nothing, at every sample, when one trip is a whole number of samples'],
+    'between samples': ['y[n] = (1 − d) · y[n − N] + d · y[n − N − 1]      kept per trip = |(1 − d) + d · e^(−iω)|', '(the output now) = a straight-line read d of the way between two samples one trip ago; (what one trip keeps of a harmonic) = 1 at the bottom, less for every harmonic above, least at d = ½'],
+    'an identity': ['d = ½:  (1 − ½) · a + ½ · b = ½ · (a + b)', '(a straight-line read halfway between two samples) = (the average of the two): Karplus-Strong’s loop at ρ = 1, term for term'],
+  }[STEPS[S.step].name];
+  $('eq1').textContent = E[0]; $('eq1w').textContent = E[1];
+  const t = STEPS[S.step].name === 'an identity';
+  $('eq2').textContent = t ? 'f = fs ⁄ (N + ½)' : ''; $('eq2w').textContent = t ? '(the pitch of both) = (the sample rate) ÷ (the whole length plus the half sample read between)' : '';
+}
+STEPS.forEach((st, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${st.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(S.step - 1); $('next').onclick = () => setStep(S.step + 1);
+$('play').onclick = play;
+document.querySelectorAll('[data-shape]').forEach((b) => b.onclick = () => { S.shape = b.dataset.shape; document.querySelectorAll('[data-shape]').forEach((x) => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); stopSound(); render(); paintAll(); });
+$('n').oninput = () => { S.N = +$('n').value; $('n-v').textContent = `${S.N} samples`; stopSound(); render(); paintAll(); };
+$('d').oninput = () => { S.d = +$('d').value; $('d-v').textContent = `N + ${S.d.toFixed(2)}`; stopSound(); render(); paintAll(); };
+$('sweep').onclick = () => {
+  const cyc = makeCycle(S.shape), len = sr; let worst = 0, exact = 0;
+  for (let N = 40; N <= 400; N++) { const t = tableRead(cyc, N, len), m = maxAbsDiff(t, loopRead(t, N, len)); worst = Math.max(worst, m); if (m === 0) exact++; }
+  $('sweep-m').innerHTML = `361 lengths, one second each: the largest difference anywhere is ${worst.toExponential(1)}, ${(20 * Math.log10(worst / 0.8)).toFixed(0)} dB under the peak; ${exact} of them exactly zero.`;
+};
+$('n-v').textContent = `${S.N} samples`; $('d-v').textContent = `N + ${S.d.toFixed(2)}`;
+setStep(0); loop();
+</script>
+</body>
+</html>

@@ -69,11 +69,16 @@ def read(path):
 
 
 def footer_of(text):
-    """The checklist as it appears in a file: the heading through end-of-block."""
-    at = text.find(HEADING)
-    if at < 0:
+    """The checklist as it appears in a file: the heading through end-of-block.
+
+    The heading must open a line. Since Baton Ceremony v1.6 (50d30607) the
+    fragment's own HTML comment names the heading mid-line, and a bare find()
+    took the footer from there, so every baton read as stale.
+    """
+    m = re.search(r"^" + re.escape(HEADING), text, re.M)
+    if not m:
         return None
-    return text[at:].strip()
+    return text[m.start():].strip()
 
 
 def main():

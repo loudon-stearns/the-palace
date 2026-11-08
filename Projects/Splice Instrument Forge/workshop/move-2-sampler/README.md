@@ -33,4 +33,5 @@ Then `live-set.mjs check "Astromode Analog.als"` and open the Set in a second Li
 
 - Splice's one-shot families are uneven: this one has three analog notes and a different timbre for the rest. A fuller multisample wants a search per note or a loop-free stack layer per pitch.
 - Stereo 24-bit WAVs went straight in; the writer only proved mono 16-bit before today. Live's Sampler takes both, and `check` reads every file's frames.
-- The `.adv` has not been loaded in Live by dragging it onto a track; the Set has (see the scroll). Loading the preset directly is the next proof.
+- The `.adv` has not been dragged onto a track. On 2026-10-26 it was handed to a running Live 12 with `open -a`: Live logged no error and wrote Sampler zone actions (add, delete, add `MultiSamplePart`) into its undo history at that moment. That is evidence it loaded, not proof: the screen was locked and nobody saw the device.
+- `forge.mjs build` now ends by moving the Sampler onto the forge's own MIDI track (`../forge/rehouse.mjs`), so the Set no longer comes in armed. The samples are fetched by `manifest.json`, which keeps each Splice id.

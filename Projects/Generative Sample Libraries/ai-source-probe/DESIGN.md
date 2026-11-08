@@ -612,3 +612,68 @@ but now the instrument's worst; the shipped build's worst was 2.4 c).
 What it taught: asking for C4 gets C5 more often than C4, as the range
 sweep predicted, and the loop is better for letting any fresh take fill any
 flagged key. The C5 sample came from the C4 request.
+
+## The flute, finished and re-asked (cycle 39)
+
+Loudon heard the redone violin and called it good enough, one violin, the first finished AI
+instrument (`gsl-steward-077` GOOD-ENOUGH), and asked for the same pass on the flute. Both steps
+ran unchanged; nothing in the tools was violin-only.
+
+    $PY finish_instrument.py instruments/in_range/flute_looped --name "MusicGen Flute" --out instruments/finished/flute
+    $PY to_decentsampler.py instruments/finished/flute
+    $PY redo_keys.py flute G4 C#4 C#5 --takes 6 --tag r1 --name "MusicGen Flute"   # 18 renders, 6.5 min
+
+| | flute_looped | finished | finished + redo r1 |
+|---|---|---|---|
+| loop level spread across keys | 8.4 dB | 0.0 dB | 0.0 dB |
+| worst swell into the loop | 11.6 dB | 5.3 dB (G4) | 3.5 dB (G4) |
+| seams clean / held 12 s on pitch | 21 / 21 | **20** / 21 | 21 / 21 |
+| worst level step at a wrap | 0.6 dB | 3.4 dB (G4) | 0.9 dB |
+| DecentSampler keys on pitch | 38/38 | 38/38, worst 4.3 c | 38/38, worst 4.3 c |
+
+The finishing pass broke one seam: it lifted G4's sagging opening by its full 8 dB, and that lift
+reached the stretch the loop wraps through, so the held note pumped 3.4 dB. The finishing pass
+measures seams after it works, but only reports them; a failed seam does not stop the build.
+
+| key | fresh takes on the key (of 6) | new sample | swell after finishing | wrap step |
+|---|---|---|---|---|
+| G4 | 2 on target (2 an octave up, 2 wandering between octaves) | fresh, G4 s5 | 5.3 → 3.5 dB | 3.4 → −0.8 dB |
+| C#4 | 2 on target (3 an octave up, 1 wandering) | fresh, C#4 s8 | 2.2 → 2.9 dB | −9.1 → −2.9 dB |
+| C#5 | 3 on target (1 an octave up, 1 down, 1 wandering) | fresh, C#5 s9 | −2.6 → 2.1 dB | −0.7 → −0.9 dB |
+
+Exactly those three keys changed. Seven of eighteen takes held the asked key, six landed an octave
+up and one an octave down, and four wandered between octaves; the same upward lean as the
+violin's C4.
+
+## The seam that wasn't broken by finishing (cycle 40)
+
+Cycle 39 said the finishing pass broke flute G4's seam. It didn't. The finishing pass never touches
+the loop, only scales it, and the level spread across G4's wraps measured 13.32 dB both before and
+after finishing (`seam_probe.py`). What moved was the yardstick: `seam_check` scored a wrap as its
+spread *less the take's own wobble*, and it measured that wobble from 1.0 s on, which for 18 of the
+flute's 21 keys included the opening before the loop. G4 sags before its loop, so its wobble read
+12.91 dB and hid the seam (score 0.41, pass); the finishing pass lifted the sag, the wobble fell to
+9.90 dB, and the same seam scored 3.42 (fail).
+
+The fix, in `loop_sustain.py`: the wobble is measured only once the loop is playing, and every
+check now also reports the seam's own level jump (50 ms either side of each wrap, less the loop
+body's own 50 ms jumps, 90th percentile), which no gain can move. `seam_recheck.py` re-ran the
+fixed check over every built instrument:
+
+| build | seams clean, as recorded | seams clean, fixed check | worst seam jump beyond the loop's own |
+|---|---|---|---|
+| flute_looped | 21 / 21 | 20 / 21 (G4) | 2.36 dB (G4) |
+| flute finished | 20 / 21 (G4) | 20 / 21 (G4) | 2.36 dB (G4) |
+| **flute finished + redo r1** | 21 / 21 | **21 / 21** | 0.81 dB (G5) |
+| violin_looped, finished, **finished + redo r1** | 24 / 24 | 24 / 24 | 0.49 dB (A3) |
+
+Only G4's verdict changed, and only on the looped build: its loop was weak from the moment
+`loop_sustain.py` chose it, graded a pass by the inflated yardstick. The two builds Loudon would play
+(`finished/violin_r1`, `finished/flute_r1`) are clean on every key by both measures; the redo
+replaced G4 with a fresh take whose seam jump is −0.16 dB.
+
+What it means for the tools: the finishing pass is safe to run without re-checking for seams it
+broke; a failed seam after finishing is a weak loop, found late. With the fixed yardstick,
+`loop_sustain.py` should now reject a loop like G4's and try its next candidate, catching a weak
+seam where it can still be fixed without asking the model again (not yet re-run to show it). `seam_table.py` is the
+per-key detail of both measures.

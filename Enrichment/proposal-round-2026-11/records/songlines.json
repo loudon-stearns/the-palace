@@ -1,0 +1,20 @@
+{
+ "entry": "Songlines",
+ "path": "Songlines.md",
+ "type": "concept",
+ "stage": "fruiting",
+ "weight": 6,
+ "claim": "§ Cross-Domain Resonance, The Palace Itself: 'The palace has songlines: well-worn paths of traversal that make adjacent entries invisible by never visiting them … An entry activated many times has a well-worn track running to it. Dormant entries may be geographically present but ontologically unreachable — not because they're wrong or thin, but because no recent session has sung through them.'",
+ "pieces": [
+  {
+   "section": "Cross-Domain Resonance",
+   "what": "The claim tested on the palace's own tracked link graph: every [[wikilink]] in every tracked .md, read by a committed extract script in the bundle and inlined into the piece as data, with the commit the graph was read at and its counts (entries, links) named on screen. Two walkers from the same doors: one that follows well-worn paths (the next link chosen in proportion to how worn its target already is — in-degree, or recent git use if the maker reads it from entry-use.py — the rule stated first) and one that picks any link evenly. The walk: one hop from one page; then a hundred hops; then thousands of walks from many doors. The test: the set of entries each walker never reaches, and whether the never-reached are the low-degree 'geographically present' ones (linked, so reachable in principle) rather than the disconnected. Chance level is the even walker; the verdict rule (how much larger the worn walker's unreached set must be) is stated before the run. Whose numbers: this clone's tracked graph at the named commit, not any session's real traversal — the piece says that the page's claim is about sessions and this is a proxy.",
+   "kind": "interactive",
+   "walks_up_from": "one page and the links out of it"
+  }
+ ],
+ "gathered": [],
+ "tier": "sketch",
+ "note": "Weight-6 board line of the 2026-11-03 round. Prior art before building: _ops/maps/palace-map-full-2026-11-03.json is the Palace Map's build (frontmatter typed links only, not body wikilinks) and _ops/swarm/palace-map.py reads it; _ops/swarm/entry-use.py computes use from git (page, bundle, linked days) — the page's 'activated many times' is closest to that. The task asks for the body wikilink graph read by a committed script; name which build the piece uses and why. A disconnected entry is not 'geographically present': exclude or label it. The Personal Register section is Loudon's own words about his past; no piece there. No baton on the page; no board notes.",
+ "slice": "cloud-3"
+}

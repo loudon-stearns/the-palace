@@ -1,0 +1,60 @@
+# Synth Templates — card 0.2 — Keytracked Decay
+# Envelope Shapes family. The strike shape with the keyboard wired to its times: key position modulates decay and
+# release negatively, so high notes die faster than low ones, as they do on most real struck instruments.
+schema: synth-template-card/0.2
+id: keytracked-decay
+name: Keytracked Decay
+family: Envelope Shapes
+tier: 1
+mode: poly
+classics: ""
+status: drafted
+concepts:
+  - "Keytracking → decay and release time"
+  - "Key → amp decay (negative)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope → amplitude"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: none, note: "open; the family's fixed chain"}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: long, s: zero, r: same as decay}, category: struck, note: "key → decay and release is negative: the voice does not yet play envelope-time modulation; the diagram draws it"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: aenv.decay,   amount: moderate, polarity: negative, essential: true}
+    - {from: key,  to: aenv.release, amount: moderate, polarity: negative, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv, param: attack,  value: instant,       why: "a strike"}
+  - {block: aenv, param: sustain, value: zero,          why: "struck: the note only decays"}
+  - {block: aenv, param: decay,   value: long,          why: "the decay of the lowest notes; keytracking shortens it from here as you go up"}
+  - {block: aenv, param: release, value: same as decay, why: "release follows decay, and is keytracked with it so a let-go note falls at the same rate as a held one"}
+  - {block: key,  param: target,  value: "envelope decay and release, negative", why: "higher notes get shorter times. Negative, because high keys must produce small values; a synth with one envelope time control gets the same route there"}
+  - {block: mode, param: voices,  value: poly,          why: "play a spread chord and hear each note end in its own time"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "medium – very long", default: long, why: "the bottom of the keyboard"}
+  - {block: aenv,    param: amount,  range: "little – generous",  default: moderate, why: "the keytracking depth: how much shorter the top is than the bottom"}
+  - {block: osc1,    param: wave,    range: "saw – triangle",     default: saw}
+  - {block: filter1, param: cutoff,  range: "mid – open",         default: open}
+
+listening:
+  cue: "Low notes ring for a long time; high notes are over quickly. Play the same chord shape in the bass and in the treble and the bass version is still ringing after the treble has gone."
+  ab: "Set the keytracking to decay and release to none: every note across the keyboard now rings for exactly the same time, and the top of the keyboard sounds too long and oddly even. Put it back and the instrument's size returns."
+
+render:
+  tempo: 80
+  note: [C2, G2, C4, G4]
+  velocity: 100
+  pattern: "the four notes struck together, held a 16th, left to ring"
+  length_s: 6.0
+
+mappings: {}

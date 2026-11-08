@@ -1,0 +1,38 @@
+{
+ "entry": "Cycle 5 Explorer",
+ "path": "Projects/Cycle 5 Explorer.md",
+ "type": "project",
+ "stage": "sprout",
+ "weight": 8,
+ "claim": "The one idea underneath: every key is a seven-note window sliding along the line of fifths — and 'each step darker lowers exactly one note.'",
+ "pieces": [
+  {
+   "section": "The one idea underneath",
+   "what": "A walk up to the decoder ring: the line of fifths alone, then a seven-note window on it, then the tonic moved inside the window one step darker at a time, the single lowered note sounded each time. Tests 'exactly one note' by ear before the reader meets the full ring.",
+   "kind": "interactive",
+   "walks_up_from": "the line of fifths as a strip of named notes"
+  },
+  {
+   "section": "What is on the page",
+   "what": "The explorer itself, gathered, opened on the guided moment for modal interchange.",
+   "kind": "interactive",
+   "walks_up_from": "C Ionian"
+  },
+  {
+   "section": "Opening",
+   "what": "Loudon's original Illustrator board beside the rebuild, the limits he named marked on the old one.",
+   "kind": "image",
+   "walks_up_from": "the original board"
+  }
+ ],
+ "gathered": [
+  "cycle5-explorer.html",
+  "original-full-board.png",
+  "review/page-sound.wav",
+  "class/class-run-sheet.html",
+  "proofs/2026-10-28-paper.png",
+  "proofs/2026-10-28-phosphor.png"
+ ],
+ "tier": "study",
+ "slice": 3
+}

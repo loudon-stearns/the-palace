@@ -5,11 +5,11 @@
   "splice_stack": "37a7e47f-4ecc-4d91-b3fb-74e5cba3e8ea",
   "prompt": "dark heavy dubstep at 140 bpm in F minor: a growling wobble bass, a half-time drum groove with a big snare, a sub bass, an eerie atmospheric pad, and a vocal chop",
   "layers": [
-    { "role": "Bass",   "file": "samples/tp_da_140_bass_loop_flowers_Fmin.wav",        "bpm": 140, "key": "F minor" },
-    { "role": "Drums",  "file": "samples/Bpm140_RaveStep_Beat25_PL.wav",               "bpm": 140 },
-    { "role": "Drums 2","file": "samples/BOS_LevIV_150_Drum_Loop_Percieve.wav",         "bpm": 150 },
-    { "role": "Pads",   "file": "samples/DS_DSP2_150_synth_loop_pad_cavern_Em.wav",     "bpm": 150, "key": "E minor" },
-    { "role": "Vocals", "file": "samples/PMA_12_Vocal_Atmosphere_Bmaj_140Bpm.wav",      "bpm": 140, "key": "B major" }
+    { "role": "Bass",   "file": "samples/tp_da_140_bass_loop_flowers_Fmin.wav", "uuid": "e5017c9a-1b5d-4380-9eea-2f70012f88f2",        "bpm": 140, "key": "F minor" },
+    { "role": "Drums",  "file": "samples/Bpm140_RaveStep_Beat25_PL.wav", "uuid": "2915dc7e-2e7c-498f-b5c1-e698e8d0a458",               "bpm": 140 },
+    { "role": "Drums 2","file": "samples/BOS_LevIV_150_Drum_Loop_Percieve.wav", "uuid": "c4ca2713-5042-40e0-bae6-7bbca0b2dae3",         "bpm": 150 },
+    { "role": "Pads",   "file": "samples/DS_DSP2_150_synth_loop_pad_cavern_Em.wav", "uuid": "126eb204-215b-4671-aa96-a71f92ce0b0d",     "bpm": 150, "key": "E minor" },
+    { "role": "Vocals", "file": "samples/PMA_12_Vocal_Atmosphere_Bmaj_140Bpm.wav", "uuid": "43e39be1-9878-4956-bd3c-e051ed1eed7e",      "bpm": 140, "key": "B major" }
   ],
   "scenes": [
     { "name": "Intro",     "play": ["Pads", "Vocals"] },

@@ -1,0 +1,33 @@
+{
+ "entry": "Phase Reduction",
+ "path": "Phase Reduction.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 9,
+ "claim": "The three steps of the bridge: Kuramoto is the phase-reduced shadow of any population of limit cycles — and it holds only as coupling goes to zero: on van der Pol μ=1 the shadow's locking range matches the full pair up to 0.1 and has parted by 0.4; at μ=0.3 it misses locking even at 0.05.",
+ "pieces": [
+  {
+   "section": "The three steps of the bridge",
+   "what": "The full van der Pol pair beside its Kuramoto shadow, locking tongues drawn side by side, with μ and coupling sliders: watch the two agree at weak coupling and part as it grows. The gathered Dissolutions proof is this test.",
+   "kind": "interactive",
+   "walks_up_from": "one van der Pol loop alone, kicked and settling back to its cycle"
+  },
+  {
+   "section": "The three steps of the bridge",
+   "what": "Build the PRC by hand: kick the oscillator at a chosen phase, measure the advance or delay, plot the point; sweep the kick and the curve draws itself.",
+   "kind": "interactive",
+   "walks_up_from": "one limit cycle and its phase marker"
+  },
+  {
+   "section": "Cross-Domain Resonance",
+   "what": "Huygens' two clocks on one beam, heard as two ticks drifting then locking antiphase.",
+   "kind": "audio",
+   "walks_up_from": "one clock ticking"
+  }
+ ],
+ "gathered": [
+  "/Dissolutions/proofs/2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html"
+ ],
+ "tier": "study",
+ "slice": 3
+}

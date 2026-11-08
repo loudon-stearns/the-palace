@@ -1,0 +1,450 @@
+<!doctype html>
+<!--
+  title: Ohm's Law — rich — four rooms
+  born: 2026-11-03
+  links: [[Ohm's Law]] (connects-to · rich-face-piece) · listed in [[Ohm's Law — rich.json]] · serves § Cross-Domain Understanding
+  forward_vector: I am the page's cross-domain claim put to each room's own physics. The same three log sliders, reskinned as a water pipe, light through a filter, a sound wave and a worker lifting boxes; in each room Ohm's answer is the thumb and the room's own law is a mark beside it, so you see where they sit together and where they part. Last, the test: the same three moves made in every room, double the push, double the resistance, put two in series, measured against what Ohm predicts. I change only when the section I serve does.
+  sound: none. This piece makes no sound.
+  check: Ohm's Law/Ohm's Law — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host, no sound -->
+<meta name="piece:needs" content="">
+<title>Four rooms · does the same equation hold in each?</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --info:#4a8fff; --warn:#e8651b; --ok:#7fc77f;
+    --cV:#4a8fff; --cI:#7fc77f; --cR:#e8b84a; --phys:#e8e8f0;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  .panel[hidden]{display:none}
+  canvas#scene{width:100%;height:170px;display:block;border-radius:4px;margin-bottom:8px}
+  .row{display:grid;grid-template-columns:190px 1fr 150px;gap:12px;align-items:center;margin:8px 0}
+  .row .name{font-family:var(--mono);font-size:12.5px;color:var(--fg-2);line-height:1.35} .row .name b{font-size:16px;font-weight:500;margin-right:6px}
+  .row .name small{display:block;color:var(--fg-4);font-size:10.5px}
+  .row .val{font-family:var(--mono);font-size:14px;text-align:right;line-height:1.35}
+  .row .val small{display:block;color:var(--fg-3);font-size:11px}
+  .track{position:relative;height:34px}
+  .track .ticks{position:absolute;left:0;right:0;top:20px;height:12px;font-family:var(--mono);font-size:10px;color:var(--fg-4)}
+  .track .ticks span{position:absolute;transform:translateX(-50%)}
+  .track .mark{position:absolute;top:2px;width:2px;height:18px;background:var(--phys);transform:translateX(-1px);pointer-events:none}
+  .track .mark.off{background:none;width:0;height:0;border:6px solid transparent;top:5px}
+  .track .mark.off.left{border-right-color:var(--phys);transform:translateX(-12px)}
+  .track .mark.off.right{border-left-color:var(--phys);transform:translateX(0)}
+  .track .mark[hidden]{display:none}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;background:var(--fg-4);border-radius:2px;margin:10px 0 0;outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--thumb,#e8b84a);cursor:pointer;border:0}
+  input[type=range]::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;background:var(--thumb,#e8b84a);cursor:pointer}
+  input[type=range]:disabled{opacity:1}
+  input[type=range]:disabled::-webkit-slider-thumb{cursor:default}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer}
+  .key{font-family:var(--mono);font-size:11px;color:var(--fg-3);margin-top:4px}
+  .key span{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:-1px;margin-right:5px}
+  .key i{display:inline-block;width:2px;height:12px;background:var(--phys);vertical-align:-2px;margin:0 6px 0 14px}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .meter u{color:var(--ok);text-decoration:none}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  .tablewrap{overflow-x:auto}
+  table.marks{border-collapse:collapse;margin-top:6px;font-family:var(--mono);font-size:12px;color:var(--fg-2);width:100%}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:6px 12px 6px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks .pass{color:var(--ok)} table.marks .fail{color:var(--warn)} table.marks .na{color:var(--fg-4)}
+  table.marks tr.ohm td{color:var(--accent)}
+  table.marks tr.room td{padding-top:12px;color:var(--fg-1);font-family:var(--sans);font-size:13px;border-bottom:0}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;gap:10px;align-items:center}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:620px){h1{font-size:34px}h2{font-size:23px}.row{grid-template-columns:1fr 130px}.row .track{grid-column:1 / -1;order:3}table.marks{font-size:11px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Ohm’s law · cross-domain understanding · five steps</div>
+  <h1>Four rooms, one equation?</h1>
+  <p class="lead">The page says the same relationship turns up in water, light, sound and labour. This piece gives each room the explorer’s three sliders, and then asks the room’s own physics what the flow should be. Ohm’s answer is the thumb; the room’s own answer is the white mark beside it. This piece makes no sound.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel" id="roomPanel">
+    <canvas id="scene"></canvas>
+    <div id="rows"></div>
+    <div class="key"><span style="background:#7fc77f"></span>Ohm’s answer, flow = push ÷ resistance<i></i>the room’s own physics</div>
+    <div class="rowb" id="readRow" hidden><span class="eyebrow" id="readLabel"></span><span id="readBtns"></span></div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="panel" id="testPanel" hidden>
+    <div class="rowb" style="margin-top:0"><button class="play" id="run">Make the three moves in every room</button></div>
+    <div class="tablewrap"><table class="marks" id="results" hidden><thead><tr><th>start</th><th>push × 2</th><th>resistance × 2</th><th>two in series</th><th></th></tr></thead><tbody></tbody></table></div>
+    <div class="meter" id="tmeter"></div>
+    <div class="eq" id="teq1"></div><div class="eq words" id="teq1w"></div>
+  </div>
+  <div class="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · Ohm’s law · four rooms · Sketch, 2026-11-03</span></footer>
+</main>
+
+<!-- The core. Plain functions, shared by the page and the headless check. Every slider is the explorer's: log, 0.1 to 10. -->
+<script id="ohm-b-core">
+var OHMB = { LO: 0.1, HI: 10, TOL: 0.01 };
+function pos(v){ return (Math.log10(v) + 1) / 2; }
+function val(p){ return Math.pow(10, 2 * p - 1); }
+// Ohm, in any room: flow = push ÷ resistance, and n equal resistances in series add
+function ohm(V, R, n){ return V / (R * (n || 1)); }
+
+// Water. V = pressure difference (kPa), R = pipe resistance (kPa per mL/s), I = flow (mL/s), pipe 1 m long, water at 20 °C.
+// Laminar flow is Poiseuille's law, R = 8 μ L ÷ (π r⁴), which is Ohm exactly. Above Re = 2300 the flow is
+// turbulent and the Blasius friction factor, f = 0.3164 Re^−0.25, takes over: there ΔP grows as Q^1.75. Blasius holds from
+// about Re 4000; between laminar Re 2300 and Blasius Re 4000 the flow is transitional and neither law is exact (Blasius shown).
+var WATER = { L: 1, mu: 1.0e-3, rho: 998, ReT: 2300, ReB: 4000 };
+function waterRadius(R){ return Math.pow(8 * WATER.mu * WATER.L / (Math.PI * R * 1e9), 0.25); }   // R in kPa per mL/s = 1e9 Pa·s/m³
+function water(V, R, n){
+  var L = WATER.L * (n || 1), r = waterRadius(R), D = 2 * r, dP = V * 1e3, A = Math.PI * r * r;
+  var Ql = Math.PI * Math.pow(r, 4) * dP / (8 * WATER.mu * L), vl = Ql / A, Rel = WATER.rho * vl * D / WATER.mu;
+  if (Rel < WATER.ReT) return { I: Ql * 1e6, Re: Rel, regime: 'laminar', bore: D * 1e3, speed: vl };
+  var v = Math.pow(dP * Math.pow(D, 1.25) / (0.1582 * L * Math.pow(WATER.rho, 0.75) * Math.pow(WATER.mu, 0.25)), 1 / 1.75);
+  var Reb = WATER.rho * v * D / WATER.mu;
+  return { I: v * A * 1e6, Re: Reb, regime: Reb < WATER.ReB ? 'transitional' : 'turbulent', bore: D * 1e3, speed: v };
+}
+// Light. V = source (mW), I = light through (mW). Two readings of "medium opacity":
+// 'depth': R is optical depth τ, how much absorbing medium the beam crosses (thickness × absorption). Beer–Lambert: I = V e^(−τ).
+// 'ratio': R is opacity as a densitometer defines it, incident ÷ transmitted (≥ 1 for any passive filter): I = V ÷ R by definition.
+// n filters in series: depths add; opacities multiply.
+function light(V, R, n, reading){
+  n = n || 1;
+  if (reading === 'ratio'){ if (R < 1) return { I: NaN, why: 'no passive filter has an opacity below 1: it would add light' }; return { I: V / Math.pow(R, n) }; }
+  return { I: V * Math.exp(-R * n) };
+}
+// Sound. V = acoustic pressure (Pa), R = specific acoustic impedance (krayl = 1000 Pa·s/m), I = particle velocity (mm/s).
+// A plane travelling wave: p = ρ c u, exactly. Impedances of media don't stack in series: a wave meeting a second medium is partly reflected.
+var SOUND = { air: 1.204 * 343 / 1000, helium: 0.1664 * 1007 / 1000, water: 998 * 1482 / 1000 };
+function sound(V, R, n){ if ((n || 1) !== 1) return { I: NaN, why: 'no series rule: a wave crossing into a second medium is partly reflected' }; return { I: V / R }; }
+function spl(p){ return 20 * Math.log10(p / 20e-6); }
+// Labour. A worker lifts boxes 1 m onto a shelf, an ideal lift with no losses. I = boxes per second, R = box weight (×10 N).
+// 'power': V is the worker's power (×10 W). Rate = P ÷ (W × h): Ohm exactly.
+// 'force': V is the applied force (×10 N), as the page has it. A steady lift takes exactly the box's weight in force; any more
+//          speeds the box up rather than moving more boxes, and any less lifts nothing. The rate is then set by the worker's power,
+//          here 50 W.
+var LABOUR = { h: 1, P0: 50 };
+function labour(V, R, n, reading){
+  var Wt = 10 * R * (n || 1);
+  if (reading === 'force'){ var F = 10 * V; return F >= Wt - 1e-9 ? { I: LABOUR.P0 / (Wt * LABOUR.h), lifts: true } : { I: 0, lifts: false }; }
+  return { I: 10 * V / (Wt * LABOUR.h) };
+}
+function physics(room, V, R, n, reading){
+  return room === 'water' ? water(V, R, n) : room === 'light' ? light(V, R, n, reading) : room === 'sound' ? sound(V, R, n) : labour(V, R, n, reading);
+}
+// the test: three moves from a start, each as a ratio of the flow before; Ohm predicts × 2, × 0.5, × 0.5
+var MOVES = [
+  { key: 'push', ohm: 2,   f: function(o){ return physics(o.room, 2 * o.V, o.R, 1, o.reading).I; } },
+  { key: 'res',  ohm: 0.5, f: function(o){ return physics(o.room, o.V, 2 * o.R, 1, o.reading).I; } },
+  { key: 'series', ohm: 0.5, f: function(o){ return physics(o.room, o.V, o.R, 2, o.reading).I; } }
+];
+var STARTS = [
+  { room: 'water', reading: '', label: 'slow: 1 kPa through a 2.5 mm bore', V: 1, R: 1 },
+  { room: 'water', reading: '', label: 'fast: 8 kPa through a 3.8 mm bore', V: 8, R: 0.2 },
+  { room: 'light', reading: 'depth', label: 'opacity as depth: a thin filter, τ = 0.2', V: 1, R: 0.2 },
+  { room: 'light', reading: 'depth', label: 'opacity as depth: a dense filter, τ = 2', V: 1, R: 2 },
+  { room: 'light', reading: 'ratio', label: 'opacity as in ÷ out: 1.25', V: 1, R: 1.25 },
+  { room: 'light', reading: 'ratio', label: 'opacity as in ÷ out: 5', V: 1, R: 5 },
+  { room: 'sound', reading: '', label: '1 Pa (94 dB SPL) in air', V: 1, R: SOUND.air },
+  { room: 'sound', reading: '', label: '8 Pa (112 dB SPL) in helium', V: 8, R: SOUND.helium },
+  { room: 'labour', reading: 'power', label: 'push read as power: 50 W, 10 N boxes', V: 5, R: 1 },
+  { room: 'labour', reading: 'power', label: 'push read as power: 20 W, 40 N boxes', V: 2, R: 4 },
+  { room: 'labour', reading: 'force', label: 'push read as force: 20 N, 10 N boxes', V: 2, R: 1 },
+  { room: 'labour', reading: 'force', label: 'push read as force: 20 N, 15 N boxes', V: 2, R: 1.5 }
+];
+function runStart(o){
+  var base = physics(o.room, o.V, o.R, 1, o.reading).I;
+  return MOVES.map(function(m){
+    var after = m.f(o), ratio = after / base;
+    if (!isFinite(ratio)) return { key: m.key, ratio: NaN, pass: null, ohm: m.ohm };
+    return { key: m.key, ratio: ratio, ohm: m.ohm, pass: Math.abs(ratio / m.ohm - 1) < OHMB.TOL };
+  });
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var fmt = function(v){ if (!isFinite(v)) return '—'; var a = Math.abs(v); return a >= 100 ? v.toFixed(0) : a >= 10 ? v.toFixed(1) : a >= 1 ? v.toFixed(2) : a >= 0.01 ? v.toFixed(3) : v.toExponential(1); };
+  var COL = { V: '#4a8fff', I: '#7fc77f', R: '#e8b84a' };
+
+  var ROOMS = {
+    water: { V: ['pressure difference', 'ΔP', 'kPa'], I: ['flow', 'Q', 'mL/s'], R: ['pipe resistance', 'R', 'kPa per mL/s'], start: { V: 1, R: 1 } },
+    light: { V: ['source strength', 'Φ in', 'mW'], I: ['light through', 'Φ out', 'mW'], R: ['medium opacity', 'τ', ''], start: { V: 2, R: 1 },
+             readings: [['depth', 'how much medium: optical depth τ'], ['ratio', 'in ÷ out: a densitometer’s opacity']], readLabel: 'read opacity as' },
+    sound: { V: ['acoustic pressure', 'p', 'Pa'], I: ['particle velocity', 'u', 'mm/s'], R: ['acoustic impedance', 'Z', 'krayl'], start: { V: 1, R: SOUND.air } },
+    labour: { V: ['applied force', 'F', '× 10 N'], I: ['work rate', 'boxes', 'per second'], R: ['box weight', 'W', '× 10 N'], start: { V: 2, R: 1 },
+              readings: [['force', 'force, as the page has it'], ['power', 'power: effort per second']], readLabel: 'read the push as' }
+  };
+
+  var STEPS = [
+    { title: 'Water: the analogy that holds', short: 'Water', room: 'water',
+      say: 'A pipe a metre long, water at room temperature. The push is the pressure difference across the pipe, the flow is millilitres a second, and the resistance is set by the bore: a narrower pipe resists more, as the fourth power of the radius, so halving the bore multiplies the resistance by 16. For slow, smooth flow this is Poiseuille’s law, and it is Ohm’s law exactly: the white mark sits under the thumb. Push hard through a wide pipe and the flow passes through a transitional band, where neither law is exact, and turns turbulent; then the mark falls behind.',
+      eq1: ['ΔP = Q × 8μL ÷ (πr⁴)', '(pressure difference) = (flow) × (8 × the water’s viscosity × the pipe’s length ÷ (π × the radius to the fourth))'],
+      eq2: ['turbulent, Re above about 4000:  ΔP ∝ Q^1.75', 'once the flow is fast enough to churn, doubling the flow takes about 3.4 times the pressure, not 2; between Re 2300 and 4000 the flow is transitional and neither law is exact'],
+      tryText: 'Keep the push near 1 kPa and move both sliders: the mark stays under the thumb. Now push 10 kPa through the widest pipe and read the Reynolds number.' },
+    { title: 'Light: the push holds, the opacity doesn’t', short: 'Light', room: 'light',
+      say: 'A source shining through a tinted filter. Brighter source, more light through: that half holds, in proportion. Opacity is where it parts. Read as how much medium the light crosses, the optical depth τ, the light through falls off exponentially (Beer–Lambert), never as one over τ. Ohm would even send ten times the source through a thin filter. Read the other way, as the ratio of light in to light out, the equation holds by definition, but then no filter can sit below 1.',
+      eq1: ['Φ out = Φ in × e^(−τ)', '(light through) = (source) × e to the power of minus (the optical depth: how much medium, times how strongly it absorbs)'],
+      eq2: ['opacity O = Φ in ÷ Φ out = e^τ', '(opacity, as a densitometer measures it) = (light in) ÷ (light out), which grows exponentially with the depth'],
+      tryText: 'Under depth, move τ and watch the mark run away from the thumb. Switch to in ÷ out: the mark sits under the thumb, but the left half of the slider is shaded off.' },
+    { title: 'Sound: holds, for a travelling wave', short: 'Sound', room: 'sound',
+      say: 'A plane sound wave travelling through a medium. The push is the acoustic pressure, the flow is how fast the air’s particles move back and forth (not how fast the sound travels), and the resistance is the medium’s acoustic impedance, its density times its speed of sound. For a plane wave this is exact: p = ρc × u. One pascal, 94 dB, in air moves the particles at about 2.4 mm a second. Near a small source the impedance turns complex and pressure and velocity fall out of step, but the proportion holds with a complex impedance, just as Ohm’s law does for alternating current.',
+      eq1: ['p = ρc × u', '(acoustic pressure) = (the medium’s density × its speed of sound) × (particle velocity)'],
+      eq2: ['air: ρc = 1.204 × 343 = 413 Pa·s/m        helium: 168        water: 1.48 million', 'air’s impedance is 0.413 krayl; water’s is 3600 times air’s, far off this slider'],
+      tryText: 'Set the impedance to air (0.413) and the pressure to 1. Then helium. Then turn the pressure up: the proportion holds at any level this slider reaches.' },
+    { title: 'Labour: it depends what the push is', short: 'Labour', room: 'labour',
+      say: 'A worker lifting boxes a metre onto a shelf, an ideal lift with nothing lost. The page reads the push as force. But a steady lift takes exactly the box’s weight in force: any less lifts nothing, any more speeds the box up rather than moving more boxes. So force decides whether a box moves, and the worker’s power, here 50 watts, decides how many. Read the push as power instead and the rate is power ÷ weight × height: Ohm exactly.',
+      eq1: ['rate = P ÷ (W × h)', '(boxes per second) = (the worker’s power) ÷ (the box’s weight × the shelf’s height)'],
+      eq2: ['steady lift: F = W', '(the force a steady lift takes) = (the box’s weight), whatever the rate'],
+      tryText: 'Under force, push harder: the mark doesn’t move. Drop the force below the weight: nothing lifts. Then read the push as power.' },
+    { title: 'The test: the same three moves in every room', short: 'The test', test: true,
+      say: 'Ohm’s law makes three predictions you can check in any room. Double the push and the flow doubles. Double the resistance and the flow halves, wherever you start. Put two equal resistances in series and the flow halves too, because resistances in series add. Each room is started twice, once gently and once hard, and the three moves are made from each start. Sound and labour read as power are Ohm’s law by their own physics, so they pass by construction; water, light and labour read as force are the rooms that could fail. None of this makes the page’s arrows wrong: more push, more flow, and more resistance, less flow, hold in every room. The strict proportion is what each room has to earn.',
+      tryText: 'Make the moves. Which rooms pass all three from both starts? Which reading of light could pass all three?' }
+  ];
+
+  var st = { room: 'water', V: 1, R: 1, reading: { light: 'depth', labour: 'force' }, ran: false };
+  var step = 0;
+
+  // ---------- slider rows: push, resistance, flow (the flow is the answer) ----------
+  var R = {};
+  ['V', 'R', 'I'].forEach(function(k){
+    var row = document.createElement('div'); row.className = 'row';
+    row.innerHTML = '<div class="name"></div><div class="track"><input type="range" min="0" max="1" step="0.001"><div class="ticks"></div><div class="mark" hidden></div></div><div class="val"></div>';
+    $('rows').appendChild(row);
+    var inp = row.querySelector('input'); inp.style.setProperty('--thumb', COL[k]);
+    R[k] = { row: row, name: row.querySelector('.name'), inp: inp, val: row.querySelector('.val'), ticks: row.querySelector('.ticks'), mark: row.querySelector('.mark') };
+    R[k].ticks.innerHTML = [0.1, 0.3, 1, 3, 10].map(function(m){ return '<span style="left:' + (pos(m) * 100) + '%">' + m + '</span>'; }).join('');
+    if (k === 'I') inp.disabled = true;
+    else inp.addEventListener('input', function(){ st[k] = val(+inp.value); sync(); });
+  });
+
+  function rd(){ return st.reading[st.room] || ''; }
+  function meter(){
+    var room = st.room, p = physics(room, st.V, st.R, 1, rd()), o = ohm(st.V, st.R), h = [];
+    var gap = isFinite(p.I) && p.I > 0 ? p.I / o : NaN;
+    h.push('Ohm: <b>' + fmt(o) + '</b> · the room’s physics: <b>' + (isFinite(p.I) ? fmt(p.I) : '—') + '</b> · ' +
+      (!isFinite(p.I) ? '<i>' + p.why + '</i>' : p.I === 0 ? '<i>nothing moves</i>' : Math.abs(gap - 1) < OHMB.TOL ? '<u>they agree</u>' : '<i>the physics gives ' + fmt(gap) + '× Ohm’s answer</i>'));
+    if (room === 'water') h.push('bore <b>' + p.bore.toFixed(2) + ' mm</b> · mean speed <b>' + fmt(p.speed) + ' m/s</b> · Reynolds number <b>' + Math.round(p.Re) + '</b> · ' + (p.regime === 'laminar' ? '<u>laminar, smooth</u>' : p.regime === 'transitional' ? '<i>transitional: neither law is exact here (Blasius shown)</i>' : '<i>turbulent, churning</i>'));
+    if (room === 'light' && rd() === 'depth') h.push('passes <b>' + fmt(100 * Math.exp(-st.R)) + '%</b> of the source · Ohm would pass <b>' + fmt(100 / st.R) + '%</b>' + (st.R < 1 ? ' · <i>more than went in</i>' : ''));
+    if (room === 'light' && rd() === 'ratio' && st.R >= 1) h.push('passes <b>' + fmt(100 / st.R) + '%</b> · the same filter as an optical depth of <b>τ = ' + fmt(Math.log(st.R)) + '</b>');
+    if (room === 'sound') h.push('<b>' + spl(st.V).toFixed(1) + ' dB SPL</b> · impedance ' + (Math.abs(st.R - SOUND.air) < 0.01 ? '<b>air</b>' : Math.abs(st.R - SOUND.helium) < 0.006 ? '<b>helium</b>' : '<b>' + fmt(st.R / SOUND.air) + '× air’s</b>'));
+    if (room === 'labour'){
+      if (rd() === 'force') h.push('force <b>' + fmt(10 * st.V) + ' N</b> · box <b>' + fmt(10 * st.R) + ' N</b> · ' + (p.lifts ? 'it lifts, at the rate 50 W allows' : '<i>too heavy to lift</i>'));
+      else h.push('power <b>' + fmt(10 * st.V) + ' W</b> · box <b>' + fmt(10 * st.R) + ' N</b> on a 1 m shelf');
+    }
+    $('meter').innerHTML = h.join('<br>');
+  }
+  function paintRows(){
+    var spec = ROOMS[st.room], p = physics(st.room, st.V, st.R, 1, rd()), o = ohm(st.V, st.R);
+    var lab = { V: spec.V, R: spec.R, I: spec.I };
+    if (st.room === 'labour' && rd() === 'power') lab.V = ['worker’s power', 'P', '× 10 W'];
+    if (st.room === 'light' && rd() === 'ratio') lab.R = ['medium opacity', 'O', 'in ÷ out'];
+    ['V', 'R', 'I'].forEach(function(k){
+      var r = R[k], L = lab[k];
+      r.name.innerHTML = '<b style="color:' + COL[k] + '">' + L[1] + '</b>' + L[0] + (k === 'I' ? '<small>the answer</small>' : '') + (L[2] ? '<small>' + L[2] + '</small>' : '');
+    });
+    R.V.inp.value = pos(st.V); R.R.inp.value = pos(st.R);
+    var oc = Math.min(OHMB.HI, Math.max(OHMB.LO, o)); R.I.inp.value = pos(oc);
+    R.V.val.innerHTML = fmt(st.V) + (lab.V[2] ? ' <small>' + lab.V[2] + '</small>' : '');
+    var extra = st.room === 'water' ? '<small>bore ' + physics('water', st.V, st.R, 1).bore.toFixed(2) + ' mm</small>' : '';
+    R.R.val.innerHTML = fmt(st.R) + (lab.R[2] ? ' <small>' + lab.R[2] + '</small>' : '') + extra;
+    R.I.val.innerHTML = '<span style="color:#7fc77f">Ohm ' + fmt(o) + '</span><small>physics ' + (isFinite(p.I) ? fmt(p.I) : '—') + '</small>';
+    // the physics mark on the flow slider; off the ends, an arrow
+    var m = R.I.mark; m.className = 'mark'; m.hidden = false;
+    if (!isFinite(p.I)) m.hidden = true;
+    else if (p.I < OHMB.LO){ m.className = 'mark off left'; m.style.left = '0%'; }
+    else if (p.I > OHMB.HI){ m.className = 'mark off right'; m.style.left = '100%'; }
+    else m.style.left = (pos(p.I) * 100) + '%';
+    // the flow slider shows where Ohm's answer has run off the end
+    R.I.inp.style.background = o > OHMB.HI || o < OHMB.LO ? 'linear-gradient(to right,#4a4a5a,#4a4a5a 96%,#e8651b 96%)' : '#4a4a5a';
+    if (o < OHMB.LO) R.I.inp.style.background = 'linear-gradient(to right,#e8651b 4%,#4a4a5a 4%)';
+    // light read as in ÷ out: the left half of opacity is no filter at all
+    R.R.inp.style.background = st.room === 'light' && rd() === 'ratio' ? 'linear-gradient(to right,#2a1a12 0%,#2a1a12 50%,#e8b84a 50%)' : '#4a4a5a';
+  }
+
+  // ---------- the scene: each room drawn, its flow animated from the physics ----------
+  var cv = $('scene'), t0 = performance.now(), parts = [];
+  for (var i = 0; i < 70; i++) parts.push({ x: Math.random(), y: Math.random(), ph: Math.random() * 6.283 });
+  function scene(now){
+    requestAnimationFrame(scene);
+    if (STEPS[step].test) return;
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, W = Math.round(r.width * d), H = Math.round(170 * d);
+    if (!W) return;
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    var g = cv.getContext('2d'), t = (now - t0) / 1000, room = st.room, p = physics(room, st.V, st.R, 1, rd());
+    g.clearRect(0, 0, W, H); g.fillStyle = '#1a1a28'; g.fillRect(0, 0, W, H);
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a'; g.textAlign = 'left';
+    var flow = isFinite(p.I) ? p.I : 0, rate = Math.max(0, Math.min(1, pos(Math.max(flow, 0.01)) + 0.05));   // 0..1, log-compressed
+    if (room === 'water'){
+      var bore = p.bore / 3.8, ph = Math.max(6 * d, Math.min(1, bore) * 90 * d), cy = H / 2, x0 = 30 * d, x1 = W - 30 * d;
+      g.fillStyle = '#12121a'; g.fillRect(x0, cy - ph / 2, x1 - x0, ph); g.strokeStyle = '#4a4a5e'; g.lineWidth = d; g.strokeRect(x0, cy - ph / 2, x1 - x0, ph);
+      var spd = rate * 0.35, turb = p.regime !== 'laminar';
+      g.fillStyle = '#4a8fff';
+      parts.forEach(function(q){ var x = x0 + ((q.x + t * spd * (0.5 + q.y)) % 1) * (x1 - x0), y = cy + (q.y - 0.5) * ph * 0.85 + (turb ? Math.sin(t * 9 + q.ph) * ph * 0.12 : 0); g.fillRect(x, y, 2 * d, 2 * d); });
+      g.fillText('WATER · ' + p.regime.toUpperCase() + ' · PRESSURE ' + fmt(st.V) + ' KPA →', 8 * d, 14 * d);
+    }
+    if (room === 'light'){
+      var cy2 = H / 2, src = Math.min(1, pos(st.V) + 0.1), outF = isFinite(p.I) ? Math.min(1, Math.max(0, pos(Math.max(p.I, 1e-3)) + 0.1)) : 0;
+      var tau = rd() === 'ratio' ? (st.R >= 1 ? Math.log(st.R) : 0) : st.R, slabW = Math.min(0.45, 0.04 + tau * 0.06) * W, sx = W * 0.42;
+      g.fillStyle = 'rgba(232,232,240,' + (0.15 + 0.85 * src) + ')'; g.beginPath(); g.arc(40 * d, cy2, 16 * d, 0, 6.283); g.fill();
+      g.fillStyle = 'rgba(232,232,240,' + (0.08 + 0.5 * src) + ')'; g.fillRect(56 * d, cy2 - 10 * d, sx - 56 * d, 20 * d);
+      g.fillStyle = 'rgba(122,96,48,' + Math.min(0.95, 0.2 + tau * 0.12) + ')'; g.fillRect(sx, cy2 - 50 * d, slabW, 100 * d);
+      g.fillStyle = 'rgba(232,232,240,' + (0.02 + 0.5 * outF) + ')'; g.fillRect(sx + slabW, cy2 - 10 * d, W - sx - slabW - 10 * d, 20 * d);
+      g.fillStyle = '#4a4a5a'; g.fillText('LIGHT · SOURCE → FILTER, τ = ' + fmt(tau) + ' → ' + (isFinite(p.I) ? fmt(p.I) + ' MW THROUGH' : 'NO SUCH FILTER'), 8 * d, 14 * d);
+    }
+    if (room === 'sound'){
+      var amp = Math.min(1, rate) * 14 * d, cols = 40, rows = 5;
+      for (var a = 0; a < cols; a++) for (var b = 0; b < rows; b++){
+        var bx = 20 * d + a / (cols - 1) * (W - 40 * d), dx = amp * Math.sin(t * 5 - a * 0.45), by = 34 * d + b * (H - 50 * d) / (rows - 1);
+        var dens = 0.35 + 0.5 * (0.5 + 0.5 * Math.cos(t * 5 - a * 0.45 + 1.57));
+        g.fillStyle = 'rgba(74,143,255,' + dens.toFixed(2) + ')'; g.fillRect(bx + dx, by, 2 * d, 2 * d);
+      }
+      g.fillStyle = '#4a4a5a'; g.fillText('SOUND · A PLANE WAVE → · PARTICLES SWING BY ' + fmt(flow) + ' MM/S', 8 * d, 14 * d);
+    }
+    if (room === 'labour'){
+      var shelfY = 50 * d, floorY = H - 20 * d, sx2 = W * 0.7;
+      g.strokeStyle = '#4a4a5e'; g.lineWidth = d; g.beginPath(); g.moveTo(20 * d, floorY); g.lineTo(W - 20 * d, floorY); g.moveTo(sx2, shelfY); g.lineTo(W - 20 * d, shelfY); g.stroke();
+      var per = flow > 0 ? 1 / Math.max(0.05, flow) : Infinity, sz = (8 + Math.min(1, pos(st.R)) * 14) * d;
+      if (isFinite(per)){
+        var cycle = Math.min(per, 6), k = (t % cycle) / cycle, bx2 = 40 * d + k * (sx2 - 40 * d), by2 = floorY - sz - k * (floorY - shelfY);
+        g.fillStyle = '#e8b84a'; g.fillRect(bx2, by2, sz, sz);
+      } else { g.fillStyle = '#7a6030'; g.fillRect(40 * d, floorY - sz, sz, sz); }
+      for (var j = 0; j < 6; j++){ g.fillStyle = '#7a6030'; g.fillRect(sx2 + 10 * d + j * (sz + 4 * d), shelfY - sz, sz, sz); }
+      g.fillStyle = '#4a4a5a'; g.fillText('LABOUR · ' + (flow > 0 ? fmt(flow) + ' BOXES A SECOND ONTO A 1 M SHELF' : 'THE BOX STAYS ON THE FLOOR'), 8 * d, 14 * d);
+    }
+  }
+  requestAnimationFrame(scene);
+
+  // ---------- the test ----------
+  var NAMES = { water: 'Water, Poiseuille then Blasius', light: 'Light, Beer–Lambert', sound: 'Sound, a plane wave', labour: 'Labour, an ideal lift' };
+  var VERDICT = {
+    water: 'holds while the flow is slow and smooth (laminar); breaks once it churns',
+    light: 'no reading passes all three: as depth, it stacks like resistance but falls as e^(−τ); as in ÷ out, it falls as 1 ÷ O but stacks by multiplying',
+    sound: 'holds for a travelling plane wave; impedances of media have no series rule',
+    labour: 'holds with the push read as power; breaks with the push read as force'
+  };
+  function fillResults(){
+    var tb = $('results').querySelector('tbody'), html = '<tr class="ohm"><td>Ohm predicts</td><td>× 2.000</td><td>× 0.500</td><td>× 0.500</td><td></td></tr>', last = '';
+    STARTS.forEach(function(o){
+      if (o.room !== last){ html += '<tr class="room"><td colspan="5">' + NAMES[o.room] + ' · ' + VERDICT[o.room] + '</td></tr>'; last = o.room; }
+      var rs = runStart(o), all = rs.every(function(x){ return x.pass !== false; });
+      html += '<tr><td>' + o.label + '</td>' + rs.map(function(x){ return x.pass === null ? '<td class="na">n/a</td>' : '<td class="' + (x.pass ? 'pass' : 'fail') + '">× ' + x.ratio.toFixed(3) + '</td>'; }).join('') + '<td class="' + (all ? 'pass' : 'fail') + '">' + (all ? 'holds' : 'breaks') + '</td></tr>';
+    });
+    tb.innerHTML = html;
+  }
+  $('run').addEventListener('click', function(){
+    st.ran = true; fillResults(); $('results').hidden = false;
+    $('tmeter').innerHTML = 'Two rooms hold from every start they were given: sound, for a travelling wave, and labour once the push is read as power. Water holds while it is slow. Light holds for the source and breaks for the opacity, and the two readings of opacity break in different places: <i>as depth, doubling a thin filter (τ 0.2 → 0.4) leaves 81.9% of what it passed before, and doubling a dense one (τ 2 → 4) 13.5%, not 50%; as in ÷ out, a second filter of opacity 5 cuts the light to a fifth (20% of the source down to 4%), where a second equal resistor halves it.</i> Sound and labour read as power pass by construction: their own physics is Ohm’s law. The page’s arrows hold in every room; the strict proportion is what each room has to earn.';
+  });
+
+  // ---------- reading buttons ----------
+  function readingButtons(){
+    var spec = ROOMS[st.room], row = $('readRow');
+    if (!spec.readings){ row.hidden = true; return; }
+    row.hidden = false; $('readLabel').textContent = spec.readLabel;
+    $('readBtns').innerHTML = spec.readings.map(function(rr){ return '<button class="ghost" data-reading="' + rr[0] + '" aria-pressed="' + (rd() === rr[0]) + '">' + rr[1] + '</button> '; }).join('');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-reading]'), function(b){ b.addEventListener('click', function(){ st.reading[st.room] = b.getAttribute('data-reading'); if (st.room === 'light' && rd() === 'ratio' && st.R < 1) st.R = 2; sync(); }); });
+  }
+
+  function sync(){ if (STEPS[step].test) return; paintRows(); meter(); readingButtons(); }
+
+  function go(i){
+    step = i; var s = STEPS[i];
+    Array.prototype.forEach.call($('rail').children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say; $('tryText').textContent = s.tryText;
+    $('roomPanel').hidden = !!s.test; $('testPanel').hidden = !s.test;
+    if (s.test){
+      $('teq1').textContent = 'flow = push ÷ resistance:  push × 2 → flow × 2;  resistance × 2 → flow × ½;  R₁ + R₂ in series → flow × ½ when R₁ = R₂';
+      $('teq1w').textContent = '(flow) = (push) ÷ (resistance), and equal resistances in series add, so each of the three moves has one answer, wherever it starts. A move passes within 1%.';
+      $('results').hidden = !st.ran; if (st.ran) fillResults();
+    } else {
+      st.room = s.room; st.V = ROOMS[s.room].start.V; st.R = ROOMS[s.room].start.R;
+      $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+      sync();
+    }
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+  }
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); $('rail').appendChild(b); });
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+  (function(){ var d = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+  go(0);
+})();
+</script>
+</body>
+</html>

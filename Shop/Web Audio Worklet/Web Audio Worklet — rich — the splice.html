@@ -1,0 +1,445 @@
+<!doctype html>
+<!--
+title: Web Audio Worklet — rich — the splice
+born: 2026-11-03
+links:
+  - target: "[[Web Audio Worklet]]"
+    type: connects-to
+    label: rich-face-piece
+  - target: "[[Progressive Staging]]"
+    type: connects-to
+    label: walks-up-to-its-test
+  - target: "[[Murmuration]]"
+    type: connects-to
+    label: the-engine-the-gotcha-came-from
+forward_vector: "I am the granular gotcha put to the ear: one Hann-windowed grain, then a jump in its read hidden where the window is shut, then the jump slid toward the middle of the grain until it clicks, then a cloud of grains switched between the two. I measure the step every jump puts into the sound, so the claim that the window is what makes the scatter free can be checked by number as well as heard. I change only when the Gotchas section I serve does."
+status: "proposal, Enrichment's proposal round 2026-11; not yet heard by Loudon"
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The splice</title>
+<meta name="theme-color" content="#000000">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range, select. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, var(--acc, #e8b84a)); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#000000; --e1:#071009; --border:#1f5a35; --soft:rgba(0,255,102,.10); --fg1:#e6ffe9; --fg2:#bfe8c8; --fg3:#7fa98a; --fg4:#3b5a44;
+    --acc:#00ff66; --accline:rgba(0,255,102,.45); --amber:#e8b84a; --warn:#ff9b4a; --ok:#7fd49a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 18px; max-width: 1180px; }
+  .kicker, .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); }
+  .kicker { margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 16px; border-bottom: 1px solid var(--soft); }
+  .rail button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: none; color: var(--fg3); background: none; border: 0; border-bottom: 2px solid transparent; border-radius: 0; padding: 8px 12px 7px; cursor: pointer; transition: color 220ms var(--ease); }
+  .rail button:hover { color: var(--fg1); }
+  .rail button[aria-current=step] { color: var(--acc); border-bottom-color: var(--acc); }
+  .rail button .n { color: var(--fg4); margin-right: 6px; }
+  .rail button[aria-current=step] .n { color: var(--acc); }
+  .step h3 { font-family: var(--serif); font-size: 23px; font-weight: 300; color: var(--fg1); margin: 4px 0 8px; }
+  .say { font-size: 14px; line-height: 1.65; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 12px 14px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .bar .hint { flex: 1 1 260px; }
+  canvas { display: block; width: 100%; height: 230px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease); }
+  button:hover { border-color: var(--accline); color: var(--fg1); }
+  button.go { color: var(--acc); border-color: var(--accline); box-shadow: 0 0 14px rgba(0,255,102,.14); }
+  button[aria-pressed=true] { color: var(--acc); border-color: var(--accline); }
+  button:disabled { opacity: .4; cursor: default; }
+  select { font-family: var(--mono); font-size: 11px; color: var(--fg1); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 8px; }
+  .ctls { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px 26px; margin-top: 12px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--acc); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--acc); cursor: pointer; }
+  .read { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px 22px; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg3); line-height: 1.5; }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; color: var(--fg3); }
+  .state { color: var(--acc); }
+  .eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 8px; }
+  .try { font-size: 13.5px; line-height: 1.6; color: var(--fg2); margin: 14px 0 0; max-width: 80ch; }
+  .try .eyebrow { margin-right: 10px; color: var(--acc); }
+  .legend { font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; color: var(--fg3); margin-top: 6px; }
+  .legend i { font-style: normal; display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin: 0 6px 0 14px; }
+  table.meas { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 12px; width: 100%; }
+  table.meas th, table.meas td { text-align: right; padding: 5px 10px; border-bottom: 1px solid var(--soft); }
+  table.meas th:first-child, table.meas td:first-child { text-align: left; }
+  table.meas th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.meas td { color: var(--fg1); }
+  .verdict { margin-top: 12px; font-size: 13.5px; line-height: 1.6; color: var(--fg2); }
+  .verdict b { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; color: var(--acc); margin-right: 8px; }
+  .walk { display: flex; justify-content: space-between; margin-top: 18px; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--soft); font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot .mark { display: inline-flex; align-items: center; gap: 8px; color: var(--fg3); letter-spacing: .12em; text-transform: none; }
+  .foot .mark i { font-family: var(--serif); color: var(--acc); font-weight: 300; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · sketch · four steps · one worklet, from a Blob URL, measuring itself</div>
+  <h1 class="title">The splice</h1>
+  <p class="sub">The gotcha says a grain may jump to a random place in its waveform only where its window is shut, at the grain boundary, or every grain clicks. This walks up from one windowed grain to that claim, and measures the step each jump puts into the sound. Nothing plays until you press sound. Headphones help: the click is high and short.</p>
+  <nav class="rail" aria-label="Steps"></nav>
+
+  <section class="step" data-title="One grain" data-preset="one">
+    <div class="eyebrow">Step 1 of 4 · a tone, opened and shut by a window</div>
+    <h3>A grain is a short slice of tone with a window over it</h3>
+    <p class="say">Start with one grain and nothing else. A sine wave plays at 220 Hz, and a window, the Hann curve, opens it from silence and shuts it back to silence. When the window shuts, the next grain opens straight away, so you hear a tone that swells and fades at the grain rate. The read keeps its place from one grain to the next: nothing jumps yet. Watch where the window sits at each grain boundary. It is exactly zero.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">the scope: the waveform the grain reads (faint), its window (dashed), and what you hear (bright), centred on a grain boundary</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <canvas data-scope></canvas>
+      <div class="legend"><i style="background:#3b5a44"></i>the read, unwindowed<i style="background:#7fa98a"></i>the window<i style="background:#00ff66"></i>what you hear</div>
+      <div class="ctls"><label class="sl">grain length <b data-msval></b><input data-ms type="range" min="20" max="200" step="1"></label></div>
+      <div class="read">
+        <div>grains a second<br><b data-gps></b></div>
+        <div>window at the boundary<br><b>0.000, by the shape of the curve</b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">w(g) = ½ − ½·cos 2πg</div>
+        <div class="words">(the window) at a point g of the way through the grain is a half minus a half of the cosine: zero at the start, one in the middle, zero at the end.</div>
+        <div class="eq">y = w(g) · x(p)</div>
+        <div class="words">(what you hear) is the window times the waveform at the read position p.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Drag the grain length from 200 ms down to 20 ms. Long grains are a slow swell; short ones turn into a buzz at the grain rate. Either way, no clicks: nothing has jumped.</p>
+  </section>
+
+  <section class="step" data-title="A jump where the window is shut" data-preset="zero" hidden>
+    <div class="eyebrow">Step 2 of 4 · the scatter, at the window's zero</div>
+    <h3>Each new grain starts its read somewhere random, and you can't hear the jump</h3>
+    <p class="say">Now every time the window shuts, the read jumps to a random place in the waveform. This is the scatter that gives a granular cloud its texture. Look at the faint line: the waveform breaks at every grain boundary, a hard step. Now look at the bright one, what you hear. It passes through zero there without a mark, because the window is zero at the moment of the jump, and zero times a step is nothing. The meter below measures the step each jump puts into the sound.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">the faint read breaks at the boundary; what you hear doesn't</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button><button data-scatter aria-pressed="true">scatter on</button></div>
+      <canvas data-scope></canvas>
+      <div class="legend"><i style="background:#3b5a44"></i>the read, unwindowed<i style="background:#7fa98a"></i>the window<i style="background:#00ff66"></i>what you hear</div>
+      <div class="ctls"><label class="sl">grain length <b data-msval></b><input data-ms type="range" min="20" max="200" step="1"></label></div>
+      <div class="read">
+        <div>jumps a second<br><b data-jps></b></div>
+        <div>largest step a jump put in the sound<br><b data-smax></b></div>
+        <div>top end next to the sound<br><b data-hb></b></div>
+        <div class="state" data-state></div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Switch the scatter off and on. The tone changes a little, since each grain starts in a different place, but no click arrives. At this 80 ms grain the largest step reads under a millionth of full scale: the window's height at the first sample after it shuts. Shorter grains raise it, to about a hundred-thousandth at 20 ms, still far below a click.</p>
+  </section>
+
+  <section class="step" data-title="Move the jump" data-preset="move" hidden>
+    <div class="eyebrow">Step 3 of 4 · the jump slid toward the middle of the grain</div>
+    <h3>Move the jump off the zero, and the window lets the step through</h3>
+    <p class="say">Same grain, same scatter, one change: the slider moves where in the grain the jump lands. At the left end it lands where the window is shut, as in step 2. Slide it right and the jump lands where the window is partly open, then, at the right end, where it is wide open, in the middle of the grain. The step in the sound is the window's height there times the step in the waveform. Listen for the click arriving, once a grain.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">the scope is centred on the jump: watch the bright line break</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button></div>
+      <canvas data-scope></canvas>
+      <div class="legend"><i style="background:#3b5a44"></i>the read, unwindowed<i style="background:#7fa98a"></i>the window<i style="background:#00ff66"></i>what you hear</div>
+      <div class="ctls">
+        <label class="sl">where the jump lands, as a share of the grain <b data-atval></b><input data-at type="range" min="0" max="500" step="1"></label>
+        <label class="sl">grain length <b data-msval></b><input data-ms type="range" min="20" max="200" step="1"></label>
+      </div>
+      <div class="read">
+        <div>window where the jump lands<br><b data-wat></b></div>
+        <div>average step a jump puts in<br><b data-smean></b></div>
+        <div>largest<br><b data-smax></b></div>
+        <div>top end next to the sound<br><b data-hb></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <div class="eqs">
+        <div class="eq">step = w(a) · ( x(p<sub>new</sub>) − x(p<sub>old</sub>) )</div>
+        <div class="words">(the step you hear) is the window at the jump point a, times how far the waveform jumped. At a = 0 the window is 0 and any jump is free; at a = ½ the window is 1 and the whole jump comes through.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Ease the slider off zero a little at a time. At 0.02 the window is 0.004; at 0.10 it is 0.095; at 0.25 it is a half. The average step follows the window, which is the whole claim in one number. Where the click first becomes audible is your ear's call, not the meter's.</p>
+  </section>
+
+  <section class="step" data-title="A cloud: the test" data-preset="cloud" hidden>
+    <div class="eyebrow">Step 4 of 4 · the test</div>
+    <h3>Sixteen grains at once. Does the cloud hide the click, or does every grain bring one?</h3>
+    <p class="say">A real cloud has many grains sounding together, each opening and shutting on its own beat, each jumping at its own boundary, and each a few cents off the others. Maybe so much going on buries a click. Switch between the jump at the zero and the jump mid-grain, and the meter keeps the last reading of each. The gotcha predicts a click per grain mid-grain, so the jumps a second should be the grains times the grain rate, and the top end should rise. It predicts nothing at the zero.</p>
+    <div class="panel">
+      <div class="bar"><span class="hint">the scope follows one grain of the sixteen</span><button class="go" data-sound>▶ sound</button><button data-stop>stop</button><button data-ab="0" aria-pressed="true">jump at the zero</button><button data-ab="0.5">jump mid-grain</button></div>
+      <canvas data-scope></canvas>
+      <div class="legend"><i style="background:#3b5a44"></i>one grain's read<i style="background:#7fa98a"></i>its window<i style="background:#00ff66"></i>the whole cloud</div>
+      <div class="ctls">
+        <label class="sl">grains at once <b data-nval></b><input data-n type="range" min="2" max="32" step="1"></label>
+        <label class="sl">grain length <b data-msval></b><input data-ms type="range" min="20" max="200" step="1"></label>
+        <label class="sl">waveform <select data-table><option value="sine">sine (a click has nowhere to hide)</option><option value="bright">bright, eight harmonics</option></select></label>
+      </div>
+      <div class="read">
+        <div>jumps a second<br><b data-jps></b></div>
+        <div>average step a jump puts in<br><b data-smean></b></div>
+        <div>top end next to the sound<br><b data-hb></b></div>
+        <div class="state" data-state></div>
+      </div>
+      <table class="meas">
+        <thead><tr><th>last reading</th><th>jumps a second</th><th>average step</th><th>top end</th></tr></thead>
+        <tbody><tr><td>jump at the zero</td><td data-m="0-j">·</td><td data-m="0-s">·</td><td data-m="0-h">·</td></tr>
+               <tr><td>jump mid-grain</td><td data-m="0.5-j">·</td><td data-m="0.5-s">·</td><td data-m="0.5-h">·</td></tr></tbody>
+      </table>
+      <div class="verdict" data-verdict><b>verdict</b>press sound, then switch between the two.</div>
+      <div class="eqs">
+        <div class="eq">jumps a second = n ÷ grain length</div>
+        <div class="words">(how many splices the cloud makes) is the number of grains over the length of one.</div>
+        <div class="eq">top end = 20·log₁₀( rms( y<sub>t</sub> − 2y<sub>t−1</sub> + y<sub>t−2</sub> ) ÷ rms( y ) )</div>
+        <div class="words">(how loud the top of the spectrum is next to the sound) is the level of the sound's second difference, a filter that passes almost nothing at 220 Hz and nearly everything above 8 kHz, against the level of the sound. A click is almost all top end.</div>
+      </div>
+    </div>
+    <p class="try"><span class="eyebrow">Try</span>Sound on, jump at the zero, wait a second; then jump mid-grain. Then crowd the cloud to 32 grains and switch again: the clicks get more frequent and each one smaller, and the top end hardly moves. Then try the bright waveform, which has a top end of its own for the clicks to sit in.</p>
+  </section>
+
+  <div class="walk"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="foot"><span>Web Audio Worklet · rich · the splice · sketch · 2026-11-03</span><span class="mark"><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#00ff66" stroke-width="1"/></svg>Loud’n <i>Live</i></span></div>
+</div>
+
+<script>
+// ---- the engine: the worklet source, as a string, loaded from a Blob URL (the page's first gotcha).
+// The check beside this piece pulls this string out and runs it in node, so what it measures is what plays. ----
+const WORKLET = `
+const L = 2048, LM = L - 1, TWO_PI = 2 * Math.PI;
+function makeTable(kind) {
+  const t = new Float32Array(L);
+  for (let i = 0; i < L; i++) { const p = i / L * TWO_PI; let s = 0;
+    if (kind === 'bright') { for (let k = 1; k <= 8; k++) s += Math.sin(k * p) / k; } else s = Math.sin(p);
+    t[i] = s; }
+  let m = 0; for (let i = 0; i < L; i++) m = Math.max(m, Math.abs(t[i])); for (let i = 0; i < L; i++) t[i] /= m;
+  return t;
+}
+class Splice extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.tables = { sine: makeTable('sine'), bright: makeTable('bright') };
+    this.set = { n: 1, grainMs: 80, freq: 220, at: 0, scatter: false, spread: 0, table: 'sine' };
+    this.seed = 7; this.g = []; this.y1 = 0; this.y2 = 0;
+    this.acc = { s2: 0, d2: 0, len: 0, jumps: 0, sum: 0, max: 0 };
+    this.R = 2048; this.ry = new Float32Array(this.R); this.rw = new Float32Array(this.R); this.rx = new Float32Array(this.R);
+    this.ri = 0; this.pending = -1; this.since = 1e9;
+    this.port.onmessage = e => this.apply(e.data);
+    this.apply({});
+  }
+  rand() { let t = (this.seed = (this.seed + 0x6D2B79F5) | 0); t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  grain(gp) { return { gp, rp: (gp - this.set.at + 1) % 1, phase: this.rand(), det: 1, tab: this.set.table, live: this.g.length === 0, dying: false }; }
+  apply(d) {
+    const nOld = this.g.filter(o => !o.dying).length;
+    Object.assign(this.set, d);
+    const n = Math.max(1, this.set.n | 0);
+    // every grain's jump point follows the slider, measured from its own window
+    for (const o of this.g) o.rp = (o.gp - this.set.at + 1) % 1;
+    // a grain joins or leaves only at its window's zero, or the change itself would click
+    if (n > nOld) { const base = this.g.length ? this.g[0].gp : 0; for (let i = nOld; i < n; i++) this.g.push(this.grain((base + i / n) % 1)); }
+    else if (n < nOld) { let k = 0; for (const o of this.g) if (!o.dying && ++k > n) o.dying = true; }
+  }
+  read(tab, p) { const T = this.tables[tab], idx = p * L, i0 = idx | 0, fr = idx - i0; return T[i0 & LM] + fr * (T[(i0 + 1) & LM] - T[i0 & LM]); }
+  process(_, outs) {
+    const out = outs[0], oL = out[0], oR = out[1], n = oL.length, sr = sampleRate, S = this.set;
+    const live = this.g.filter(o => !o.dying).length || 1, target = 0.5 / Math.sqrt(live), inc = 1000 / (S.grainMs * sr);
+    if (!(this.norm > 0)) this.norm = target;
+    for (let s = 0; s < n; s++) {
+      const norm = this.norm += (target - this.norm) * 0.002;   // a level that glides when grains join or leave, never steps
+      let y = 0, w0 = 0, x0 = 0, mark = false;
+      for (let k = 0; k < this.g.length; k++) {
+        const o = this.g[k], w = 0.5 - 0.5 * Math.cos(TWO_PI * o.gp), x = this.read(o.tab, o.phase);
+        if (o.live) y += w * x;
+        if (k === 0) { w0 = w; x0 = x; }
+        o.phase += S.freq * o.det / sr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += inc; o.rp += inc;
+        if (o.gp >= 1) { o.gp -= 1; o.tab = S.table; if (!o.dying) o.live = true;
+          o.det = Math.pow(2, (this.rand() * 2 - 1) * S.spread / 1200); if (k === 0 && !S.scatter) mark = true; }
+        if (o.rp >= 1) { o.rp -= 1;
+          if (S.scatter) {                                   // the jump: a new random read position
+            const np = this.rand(), wn = 0.5 - 0.5 * Math.cos(TWO_PI * o.gp);
+            const step = o.live ? Math.abs(wn * (this.read(o.tab, np) - this.read(o.tab, o.phase))) * norm : 0;
+            o.phase = np; this.acc.jumps++; this.acc.sum += step; if (step > this.acc.max) this.acc.max = step;
+            if (k === 0) mark = true;
+          }
+        }
+      }
+      for (let k = this.g.length - 1; k >= 0; k--) if (this.g[k].dying && this.g[k].gp < inc) this.g.splice(k, 1);
+      y *= norm;
+      oL[s] = y; if (oR) oR[s] = y;
+      const d = y - 2 * this.y1 + this.y2; this.y2 = this.y1; this.y1 = y;
+      this.acc.s2 += y * y; this.acc.d2 += d * d; this.acc.len++;
+      const r = this.ri; this.ry[r] = y; this.rw[r] = w0; this.rx[r] = x0; this.ri = (r + 1) % this.R;
+      this.since++;
+      if (mark && this.pending < 0 && this.since > sr / 6) this.pending = this.R / 2;
+      if (this.pending >= 0 && --this.pending < 0) { this.since = 0; this.snap(); }
+    }
+    if (this.acc.len >= sr / 4) {
+      const a = this.acc, sec = a.len / sr;
+      this.port.postMessage({ kind: 'meter', jps: a.jumps / sec, mean: a.jumps ? a.sum / a.jumps : 0, max: a.max,
+        hb: a.s2 > 0 ? 10 * Math.log10(a.d2 / a.s2) : null, rms: Math.sqrt(a.s2 / a.len) });
+      this.acc = { s2: 0, d2: 0, len: 0, jumps: 0, sum: 0, max: 0 };
+    }
+    return true;
+  }
+  snap() { const R = this.R, y = new Float32Array(R), w = new Float32Array(R), x = new Float32Array(R);
+    for (let i = 0; i < R; i++) { const j = (this.ri + i) % R; y[i] = this.ry[j]; w[i] = this.rw[j]; x[i] = this.rx[j]; }
+    this.port.postMessage({ kind: 'scope', y, w, x }, [y.buffer, w.buffer, x.buffer]); }
+}
+registerProcessor('splice', Splice);`;
+
+// ---- the walk: one step showing, Next and Back, the rail always open; changing step stops the sound ----
+const STEPS = [...document.querySelectorAll('.step')];
+const rail = document.querySelector('.rail');
+let cur = 0;
+STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `<span class="n">${i + 1}</span>${s.dataset.title}`; b.addEventListener('click', () => show(i)); rail.appendChild(b); });
+
+// what each step sets; the sliders write into the step's own copy, so going back finds a step as you left it
+const PRESETS = {
+  one:   { n: 1, grainMs: 80, freq: 220, at: 0, scatter: false, spread: 0, table: 'sine' },
+  zero:  { n: 1, grainMs: 80, freq: 220, at: 0, scatter: true, spread: 0, table: 'sine' },
+  move:  { n: 1, grainMs: 80, freq: 220, at: 0, scatter: true, spread: 0, table: 'sine' },
+  cloud: { n: 16, grainMs: 60, freq: 220, at: 0, scatter: true, spread: 12, table: 'sine' },
+};
+const remembered = { '0': null, '0.5': null };
+let settled = 0;
+function unsettle() { settled = performance.now() + 700; }
+function P() { return PRESETS[STEPS[cur].dataset.preset]; }
+function show(i) {
+  stopSound();
+  cur = Math.max(0, Math.min(STEPS.length - 1, i));
+  STEPS.forEach((s, k) => { s.hidden = k !== cur; });
+  [...rail.children].forEach((b, k) => { if (k === cur) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+  document.getElementById('back').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === STEPS.length - 1;
+  syncControls(); send(); scope = null; draw();
+}
+document.getElementById('back').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', () => show(cur + 1));
+
+// ---- sound: nothing exists before a click. The kit quiets the context itself (a hush from the page around it,
+// a hidden tab, a minute untouched); the piece only keeps its words in step. ----
+let actx = null, node = null, ready = null, sounding = false, meter = null, scope = null;
+async function startSound() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    ready = actx.audioWorklet.addModule(url).then(() => {
+      URL.revokeObjectURL(url);
+      node = new AudioWorkletNode(actx, 'splice', { numberOfInputs: 0, outputChannelCount: [2] });
+      node.port.onmessage = e => { if (e.data.kind === 'meter') { meter = e.data; readout(); } else { scope = e.data; draw(); } };
+      const comp = actx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+      const g = actx.createGain(); g.gain.value = 0.6;
+      node.connect(comp).connect(g).connect(actx.destination);
+    });
+    actx.onstatechange = () => { if (actx.state !== 'running') setSounding(false); else if (node) setSounding(true); };
+  }
+  await ready; send(); unsettle(); await actx.resume(); setSounding(true);
+}
+function stopSound() { if (actx && actx.state === 'running') actx.suspend(); setSounding(false); meter = null; readout(); }
+function setSounding(on) { sounding = on; document.querySelectorAll('[data-state]').forEach(s => { s.textContent = on ? 'sounding' : ''; }); }
+function send() { if (node) node.port.postMessage(Object.assign({}, P())); }
+document.querySelectorAll('[data-sound]').forEach(b => b.addEventListener('click', startSound));
+document.querySelectorAll('[data-stop]').forEach(b => b.addEventListener('click', stopSound));
+
+// ---- controls ----
+const hann = a => 0.5 - 0.5 * Math.cos(2 * Math.PI * a);
+function syncControls() {
+  const p = P(), sec = STEPS[cur];
+  sec.querySelectorAll('[data-ms]').forEach(i => { i.value = p.grainMs; });
+  sec.querySelectorAll('[data-msval]').forEach(b => { b.textContent = `${p.grainMs} ms`; });
+  sec.querySelectorAll('[data-at]').forEach(i => { i.value = Math.round(p.at * 1000); });
+  sec.querySelectorAll('[data-atval]').forEach(b => { b.textContent = p.at === 0 ? '0 · the boundary' : p.at >= 0.5 ? '0.50 · mid-grain' : p.at.toFixed(3); });
+  sec.querySelectorAll('[data-n]').forEach(i => { i.value = p.n; });
+  sec.querySelectorAll('[data-nval]').forEach(b => { b.textContent = p.n; });
+  sec.querySelectorAll('[data-table]').forEach(s => { s.value = p.table; });
+  sec.querySelectorAll('[data-scatter]').forEach(b => { b.setAttribute('aria-pressed', p.scatter); b.textContent = p.scatter ? 'scatter on' : 'scatter off'; });
+  sec.querySelectorAll('[data-ab]').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.ab === p.at)));
+  sec.querySelectorAll('[data-wat]').forEach(b => { b.textContent = hann(p.at).toFixed(3); });
+  sec.querySelectorAll('[data-gps]').forEach(b => { b.textContent = (1000 / p.grainMs).toFixed(1); });
+  readout();
+}
+document.querySelectorAll('[data-ms]').forEach(i => i.addEventListener('input', () => { P().grainMs = +i.value; remembered['0'] = remembered['0.5'] = null; unsettle(); syncControls(); send(); }));
+document.querySelectorAll('[data-at]').forEach(i => i.addEventListener('input', () => { P().at = Math.min(0.5, i.value / 1000); syncControls(); send(); }));
+document.querySelectorAll('[data-n]').forEach(i => i.addEventListener('input', () => { P().n = +i.value; remembered['0'] = remembered['0.5'] = null; unsettle(); syncControls(); send(); }));
+document.querySelectorAll('[data-table]').forEach(s => s.addEventListener('change', () => { P().table = s.value; remembered['0'] = remembered['0.5'] = null; unsettle(); syncControls(); send(); }));
+document.querySelectorAll('[data-scatter]').forEach(b => b.addEventListener('click', () => { P().scatter = !P().scatter; syncControls(); send(); }));
+document.querySelectorAll('[data-ab]').forEach(b => b.addEventListener('click', () => { P().at = +b.dataset.ab; unsettle(); syncControls(); send(); if (!sounding) startSound(); }));
+
+// ---- readouts ----
+const fmtStep = v => v == null ? '·' : v < 5e-8 ? 'under 0.1 millionth' : v < 1e-4 ? `${(v * 1e6).toFixed(1)} millionths` : v.toFixed(4);
+const fmtDb = v => v == null ? '·' : `${v.toFixed(1)} dB`;
+function readout() {
+  const sec = STEPS[cur], m = sounding ? meter : null, p = P();
+  sec.querySelectorAll('[data-jps]').forEach(b => { b.textContent = m ? `${m.jps.toFixed(0)}   (expected ${(p.scatter ? p.n * 1000 / p.grainMs : 0).toFixed(0)})` : '·'; });
+  sec.querySelectorAll('[data-smean]').forEach(b => { b.textContent = m ? fmtStep(m.mean) : '·'; });
+  sec.querySelectorAll('[data-smax]').forEach(b => { b.textContent = m ? fmtStep(m.max) : '·'; });
+  sec.querySelectorAll('[data-hb]').forEach(b => { b.textContent = m ? fmtDb(m.hb) : '·'; });
+  // a reading counts for the table once the switch has settled: the first quarter-second after holds the other setting's tail
+  if (m && p.n > 1 && (p.at === 0 || p.at === 0.5) && performance.now() > settled) remembered[String(p.at)] = m;
+  for (const key of ['0', '0.5']) { const r = remembered[key];
+    sec.querySelectorAll(`[data-m="${key}-j"]`).forEach(td => { td.textContent = r ? r.jps.toFixed(0) : '·'; });
+    sec.querySelectorAll(`[data-m="${key}-s"]`).forEach(td => { td.textContent = r ? fmtStep(r.mean) : '·'; });
+    sec.querySelectorAll(`[data-m="${key}-h"]`).forEach(td => { td.textContent = r ? fmtDb(r.hb) : '·'; }); }
+  const v = sec.querySelector('[data-verdict]');
+  if (v) { const a = remembered['0'], b = remembered['0.5'];
+    v.innerHTML = a && b
+      ? `<b>verdict</b>mid-grain, ${b.jps.toFixed(0)} jumps a second each put in a step of ${fmtStep(b.mean)} on average, and the top end sits ${(b.hb - a.hb).toFixed(1)} dB higher than with the jump at the zero, where each step is ${fmtStep(a.mean)}. ${b.hb - a.hb > 6 ? 'Crowding the cloud does not dilute it: a click per grain, as the gotcha says. Whether a source covers it is the ear\'s call.' : 'Little difference in the top end here: listen for yourself.'}`
+      : '<b>verdict</b>press sound, then switch between the two.'; }
+}
+
+// ---- the scope ----
+function draw() {
+  const sec = STEPS[cur], cv = sec.querySelector('[data-scope]'); if (!cv) return;
+  const dpr = window.devicePixelRatio || 1, W = cv.clientWidth || 800, H = cv.clientHeight || 230;
+  cv.width = W * dpr; cv.height = H * dpr; const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0);
+  c.fillStyle = '#000'; c.fillRect(0, 0, W, H);
+  c.strokeStyle = 'rgba(0,255,102,.08)'; c.lineWidth = 1;
+  for (let k = 1; k < 4; k++) { c.beginPath(); c.moveTo(0, H * k / 4); c.lineTo(W, H * k / 4); c.stroke(); }
+  c.strokeStyle = 'rgba(0,255,102,.25)'; c.setLineDash([2, 4]); c.beginPath(); c.moveTo(W / 2, 0); c.lineTo(W / 2, H); c.stroke(); c.setLineDash([]);
+  if (!scope) { c.fillStyle = '#7fa98a'; c.font = '11px JetBrains Mono, monospace'; c.fillText(sounding ? 'waiting for a grain boundary…' : 'press sound: the scope fills from the worklet', 12, 20); return; }
+  const p = P(), span = Math.min(scope.y.length, Math.round(48000 * Math.min(0.03, p.grainMs / 1000 * 0.6))), a0 = (scope.y.length - span) >> 1;
+  const mid = H / 2, amp = H * 0.42, gain = p.n > 1 ? 1.2 : 1.9;
+  const line = (arr, k, col, w, dash) => { c.strokeStyle = col; c.lineWidth = w; c.setLineDash(dash || []); c.beginPath();
+    for (let i = 0; i < span; i++) { const x = i / (span - 1) * W, y = mid - arr[a0 + i] * amp * k; i ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke(); c.setLineDash([]); };
+  line(scope.x, 0.5, '#3b5a44', 1.2);
+  line(scope.w, 1, '#7fa98a', 1, [5, 4]);
+  line(scope.y, gain, '#00ff66', 1.6);
+  c.fillStyle = '#7fa98a'; c.font = '10.5px JetBrains Mono, monospace';
+  c.fillText(`${(span / 48).toFixed(1)} ms shown · the dotted line is the ${p.scatter ? 'jump' : 'grain boundary'}`, 12, H - 10);
+}
+window.addEventListener('resize', draw);
+
+// ---- the sigil ----
+(() => { let d = ''; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI, x = 9 * Math.sin(3 * t + Math.PI / 2), y = 9 * Math.sin(2 * t); d += (i ? 'L' : 'M') + x.toFixed(2) + ' ' + y.toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+
+show(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!doctype html>
+<!--
+  title: Rank-N Lattice Analysis — rich — how many clocks
+  born: 2026-11-03
+  links: [[Rank-N Lattice Analysis]] (connects-to · rich-face-piece) · listed in [[Rank-N Lattice Analysis — rich.json]] · measures with [[Inharmonic Wavetable Synthesis]]'s trajectory library · rhymes with [[Three Kinds of Warp]]
+  forward_vector: I am the page's rank put to its own test: one sine, a harmonic tone, a tone on two clocks, random partials that two free clocks nearly swallow whole, and last seven measured instruments, each fitted with the fewest bits and set beside chance. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Rank-N Lattice Analysis — how many clocks</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 80ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 120px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 82ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .key { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+  .key span::before { content: ''; display: inline-block; width: 10px; height: 2px; margin-right: 6px; vertical-align: middle; background: currentColor; }
+  canvas { display: block; width: 100%; }
+  .wide { grid-column: 1 / -1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  .ctl .lab { display: block; margin-bottom: 6px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 200px; flex: 1 1 200px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 96ch; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .verdict p { margin: 0 0 8px; } .verdict p:last-child { margin: 0; }
+  table.t { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; color: var(--fg2); width: 100%; }
+  table.t th { font-weight: 400; color: var(--fg3); text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--soft); letter-spacing: .04em; }
+  table.t td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--soft); }
+  table.t th:first-child, table.t td:first-child { text-align: left; }
+  table.t td.hot { color: var(--amber); }
+  table.t tr.sel td { background: rgba(232,184,74,.06); }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 108ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 94ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 112ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · a rank fitter, measured instruments · sketch</span></div>
+  <h3 class="title">How many clocks does a sound need?</h3>
+  <p class="sub">The section says the rank N is measured: the fewest base frequencies whose whole-number combinations account for a sound's partials. A harmonic tone fits with one, a piano string or a bell needs two or more. Five steps, one idea each. The last one runs the fitter on seven measured instruments and sets each against chance.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel wide">
+      <div class="plabel"><span id="specLabel">the partials, and the lattice the fit found</span><span>level dB · Hz, log scale</span></div>
+      <canvas id="spec"></canvas>
+      <div class="key"><span style="color:#e8b84a">a partial the clocks reach</span><span style="color:#8a8aa0">a partial left to stand alone</span><span style="color:#6366F1">the lattice points the fit could name for less than a free frequency</span></div>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>what naming the partials costs</span><span>bits</span></div>
+      <canvas id="cost"></canvas>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span id="gridLabel">where each reached partial sits on the lattice</span><span>steps</span></div>
+      <canvas id="grid"></canvas>
+    </div>
+    <div class="panel wide hidden" id="chancePanel">
+      <div class="plabel"><span id="chanceLabel">this source's rank against random partials</span><span>rank</span></div>
+      <canvas id="chance"></canvas>
+    </div>
+    <div class="panel wide hidden" id="tablePanel">
+      <div class="plabel"><span>every source at this tolerance, 24 partials at most</span><span id="tableState"></span></div>
+      <div id="table"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ hear these partials</button>
+    <div class="ctl hidden" id="freeCtl"><span class="lab">steps</span><span class="seg"><button data-free="1" class="on">free, up to 16 each way</button><button data-free="0">cost bits</button></span></div>
+    <div class="ctl hidden" id="srcCtl"><span class="lab">source</span><span class="seg" id="srcSeg"></span></div>
+  </div>
+  <div class="controls">
+    <label class="sl hidden" id="tolCtl">tolerance τ = <b id="tolV"></b> cents<input id="tol" type="range" min="1" max="10" step="1" value="5"></label>
+    <label class="sl hidden" id="cntCtl">partials counted, loudest first: <b id="cntV"></b><input id="cnt" type="range" min="3" max="24" step="1" value="24"></label>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">f ≈ m₁·ω₁ + m₂·ω₂ + …     with   |1200·log₂( f ⁄ (m₁·ω₁ + m₂·ω₂ + …) )| ≤ τ</div>
+    <div class="words">(a partial) ≈ (whole steps of the first clock) + (whole steps of the second) + …, close enough that the gap is no more than τ cents. The clocks are the page's base frequencies ω; the steps are its integers m, n.</div>
+    <div class="eq">bits = (clocks + partials left alone) × log₂( band ⁄ 2τ ) + Σ steps’ bits</div>
+    <div class="words">(what the naming costs) = (every frequency named outright, each clock and each partial no clock reaches) × (the bits it takes to pin one frequency to within τ anywhere from 20 Hz to 20 kHz: 10.2 at 5 cents) + (the bits to count out the steps of every partial the clocks reach, in a code where step 1 costs 3 bits and step 16 costs 9).</div>
+    <div class="eq">N = clocks + partials left alone,   at the cheapest naming</div>
+    <div class="words">(the rank) = (how many frequencies the cheapest naming has to give outright). A partial no clock reaches is its own generator, so it counts. The fitter is a greedy search, so the N it reports is an upper bound: a cleverer search could find a cheaper naming, never a dearer one. It is not the page's "smallest set" itself, which needs a tolerance and a price on steps before it is a number at all; the price is a choice, and it moves N (most above 10 cents, where this piece's slider stops).</div>
+  </div>
+  <div class="note">Search: the first clock is tried at every loud partial divided by 1 to 8, then scanned finely (±1 % in steps of 1⁄20000 of itself), the second at what is left of an unreached partial after a few steps of the first, divided by 1 to 3; each is refined by least squares on the partials it reaches. Steps: 0 to 64 along the first clock, −8 to +8 along the second. Two clocks at most, the most a 2D torus can play; a third never paid in the offline check on any source here at 2, 5 or 10 cents. Chance: the same count of partials with the same levels at random frequencies, evenly spread in log frequency between the source's lowest and highest partial, those two kept; twelve draws, seeded, fitted the same way. A source counts as more than chance when its clocks save more bits than they save on every draw. In a prefix code, d bits are saved on a random frequency with odds of at most 2⁻ᵈ; the fitter's choice of clocks among many tries is what lifts chance's best above a few bits. Measured sources: one frame 0.19 s after the strike from the steward's tracks in Inharmonic Wavetable Synthesis's trajectory library (Ableton Core Library samples, measured in place; the tracker looked for each piano partial near the stiff-string prediction). What you hear is those partials as sines, not the recording.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- engine: the rank fitter and the sources. Pure functions, no page. ----
+// A partial is named one of two ways: free, as a frequency to within tol cents, or as whole
+// steps of a few shared clocks, m1·w1 + m2·w2 (+ …), when that point sits within tol of it.
+// Naming a frequency free costs F = log2(band ÷ 2·tol) bits (band: 20 Hz to 20 kHz, in cents);
+// a clock is a frequency, so it costs F too. Steps cost their length in a prefix code (Elias
+// gamma), so a long walk of a tiny clock costs more than naming the partial outright.
+// The fit is the cheapest naming the search finds; its rank is the clocks plus the partials
+// left to stand alone, since each of those is one more frequency to name.
+const CENT = 1200 / Math.LN2;
+const BAND = 1200 * Math.log2(20000 / 20);
+function freeBits(tol) { return Math.log2(BAND / (2 * tol)); }
+function gamma(n) { return 2 * Math.floor(Math.log2(n)) + 1; }
+// steps along clock 1 are 0, 1, 2 …; along any other, signed (0, 1, −1, 2, −2 …)
+function stepBits(m) { let b = gamma(m[0] + 1); for (let i = 1; i < m.length; i++) { const v = m[i]; b += gamma((v > 0 ? 2 * v - 1 : -2 * v) + 1); } return b; }
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+
+// the lattice point nearest f: clock 1 taken 0..M1 steps, every other −M2..M2
+function nearest(f, w, o) {
+  const N = w.length, rest = new Array(N).fill(0);
+  let best = null;
+  const visit = (i, acc) => {
+    if (i === N) {
+      let m1 = Math.round((f - acc) / w[0]); if (m1 < 0) m1 = 0; if (m1 > o.M1) m1 = o.M1;
+      const g = acc + m1 * w[0]; if (g <= 0) return;
+      const m = [m1, ...rest.slice(1)]; if (m.every((v) => v === 0)) return;
+      const err = Math.abs(CENT * Math.log(f / g)), bits = o.free ? 0 : stepBits(m);
+      if (!best || err < best.err - 1e-9 || (Math.abs(err - best.err) <= 1e-9 && bits < best.bits)) best = { m, g, err, bits };
+      return;
+    }
+    for (let v = -o.M2; v <= o.M2; v++) { rest[i] = v; visit(i + 1, acc + v * w[i]); }
+  };
+  visit(1, 0);
+  return best;
+}
+// what naming the partials P with clocks w costs, and which partials the lattice holds
+function cost(P, w, o) {
+  const F = freeBits(o.tol);
+  let bits = w.length * F, on = 0, se = 0;
+  const assign = [];
+  for (const [f, a] of P) {
+    const r = w.length ? nearest(f, w, o) : null;
+    const ok = !!r && r.err <= o.tol && r.bits < F;
+    bits += ok ? r.bits : F;
+    if (ok) { on++; se += r.err * r.err; }
+    assign.push({ f, a, m: r ? r.m : null, g: r ? r.g : 0, err: r ? r.err : Infinity, ok });
+  }
+  return { w: w.slice(), bits, on, n: P.length, lone: P.length - on, rank: w.length + P.length - on, rms: on ? Math.sqrt(se / on) : 0, assign };
+}
+function solve(A, b) {
+  const n = b.length, M = A.map((r, i) => [...r, b[i]]);
+  for (let c = 0; c < n; c++) {
+    let p = c; for (let r = c + 1; r < n; r++) if (Math.abs(M[r][c]) > Math.abs(M[p][c])) p = r;
+    if (Math.abs(M[p][c]) < 1e-300) return null;
+    [M[c], M[p]] = [M[p], M[c]];
+    for (let r = 0; r < n; r++) if (r !== c) { const k = M[r][c] / M[c][c]; for (let j = c; j <= n; j++) M[r][j] -= k * M[c][j]; }
+  }
+  return M.map((r, i) => r[n] / r[i]);
+}
+// least squares on the partials the lattice holds, in relative error
+function refine(P, fit, o) {
+  let cur = fit;
+  for (let it = 0; it < 3; it++) {
+    const N = cur.w.length, A = Array.from({ length: N }, () => new Array(N).fill(0)), b = new Array(N).fill(0);
+    let n = 0;
+    for (const s of cur.assign) {
+      if (!s.ok) continue; n++;
+      const wt = 1 / (s.f * s.f);
+      for (let i = 0; i < N; i++) { b[i] += wt * s.m[i] * s.f; for (let j = 0; j < N; j++) A[i][j] += wt * s.m[i] * s.m[j]; }
+    }
+    if (n < N) return cur;
+    const x = solve(A, b);
+    if (!x || x.some((v) => !(v > 0))) return cur;
+    const nf = cost(P, x, o);
+    if (nf.bits < cur.bits - 1e-9 || (nf.bits <= cur.bits + 1e-9 && nf.rms < cur.rms)) cur = nf; else break;
+  }
+  return cur;
+}
+const better = (a, b) => a.bits < b.bits - 1e-9 || (Math.abs(a.bits - b.bits) <= 1e-9 && a.rms < b.rms);
+const byCost = (a, b) => (better(a, b) ? -1 : better(b, a) ? 1 : 0);
+function dedupe(list) { const seen = new Set(), o = []; for (const s of list) { const k = s.w.map((v) => v.toPrecision(5)).join(','); if (!seen.has(k)) { seen.add(k); o.push(s); } } return o; }
+
+// the cheapest naming with 0, 1 … maxClocks clocks; a greedy search, so its rank is an upper bound
+function fitRanks(P, opt = {}) {
+  const o = { tol: 5, M1: 64, M2: 8, maxClocks: 2, keep: 6, sub: 8, free: false, ...opt };
+  const out = [cost(P, [], o)];
+  const strong = P.slice().sort((x, y) => y[1] - x[1]).slice(0, 8).map((p) => p[0]);
+  let pool = [];
+  for (const f of strong) for (let k = 1; k <= o.sub; k++) pool.push(cost(P, [f / k], o));
+  pool = dedupe(pool.sort(byCost).slice(0, o.keep * 3).map((s) => refine(P, s, o)).sort(byCost)).slice(0, o.keep);
+  // a fine scan of each one-clock candidate, ±1 % in steps of 1⁄20000 of the clock, keeping the cheapest: least squares
+  // alone can settle on a clock that reaches fewer partials than a nearby one would
+  pool = dedupe(pool.map((s) => { let best = s; const w = s.w[0], d = w / 20000; for (let k = -200; k <= 200; k++) { const c = cost(P, [w + k * d], o); if (better(c, best)) best = c; } return refine(P, best, o); }).sort(byCost)).slice(0, o.keep);
+  out.push(pool[0]);
+  for (let N = 2; N <= o.maxClocks; N++) {
+    const cand = [];
+    for (const base of pool) {
+      const miss = base.assign.filter((s) => !s.ok).sort((x, y) => y.a - x.a).slice(0, 6);
+      for (const s of miss) {
+        // what is left of this partial after a few steps of the clocks already held
+        const lefts = new Set([s.f]); const h = Math.round(s.f / base.w[0]);
+        for (let m1 = Math.max(0, h - 2); m1 <= h + 2; m1++) lefts.add(s.f - m1 * base.w[0]);
+        if (base.w.length > 1) for (const L of [...lefts]) for (let i = 1; i < base.w.length; i++) for (const v of [-1, 1]) lefts.add(L - v * base.w[i]);
+        for (const L of lefts) { const r = Math.abs(L); if (r < 0.5) continue; for (let q = 1; q <= 3; q++) cand.push(cost(P, base.w.concat(r / q), o)); }
+      }
+    }
+    if (!cand.length) break;
+    pool = dedupe(cand.sort(byCost).slice(0, o.keep * 3).map((s) => refine(P, s, o)).sort(byCost)).slice(0, o.keep);
+    out.push(pool[0]);
+  }
+  let best = 0; for (let i = 1; i < out.length; i++) if (better(out[i], out[best])) best = i;
+  return { fits: out, best, fit: out[best], F: freeBits(o.tol), o };
+}
+// chance: partials at random frequencies over the same span, with the same count and levels
+function chanceSet(P, seed) {
+  const r = rng(seed), fs = P.map((p) => p[0]), lo = Math.min(...fs), hi = Math.max(...fs);
+  return P.map(([, a], i) => [i === 0 ? lo : i === 1 ? hi : lo * Math.pow(hi / lo, r()), a]).sort((x, y) => x[0] - y[0]);
+}
+
+
+// the measured sources: Projects/Inharmonic Wavetable Synthesis/trajectory-library/*.wtb.json, the
+// steward's tracks of Ableton Core Library samples (2026-10-14; the samples were read in place, never
+// copied). One frame, 0.19 s after the strike; every partial within 40 dB of the loudest, the 24
+// loudest at most; [Hz, level as a share of the loudest].
+const SOURCES = [{"id":"piano-low-A1","name":"piano A1 · 55 Hz","t":0.1931,"P":[[110.24,1.0],[165.38,0.3665],[220.63,0.361],[275.71,0.475],[330.96,0.2612],[386.25,0.5101],[441.74,0.0771],[497.09,0.2763],[552.62,0.8093],[608.0,0.4023],[663.96,0.1212],[719.48,0.2449],[831.5,0.1724],[1000.01,0.1169],[1056.38,0.126],[1169.39,0.124],[1226.95,0.2222],[1284.12,0.1511],[1630.85,0.1405],[1689.73,0.1296],[1748.22,0.1126],[2105.2,0.0793],[2169.09,0.0885],[2226.23,0.0583]]},{"id":"piano-A2","name":"piano A2 · 110 Hz","t":0.1931,"P":[[220.68,1.0],[330.95,0.7297],[441.43,0.5848],[552.12,0.15],[663.0,0.2606],[773.51,0.1329],[884.41,0.0552],[995.87,0.2079],[1107.33,0.1431],[1218.95,0.0922],[1331.24,0.063],[1441.16,0.032],[1555.96,0.0783],[1675.98,0.0178],[1783.36,0.0371],[2011.63,0.0877],[2126.18,0.0417],[2242.1,0.0372],[2357.88,0.0209],[2474.31,0.0245],[2591.67,0.0156],[2946.21,0.0301],[3065.86,0.0371],[3430.4,0.0261]]},{"id":"piano-A4","name":"piano A4 · 440 Hz","t":0.1931,"P":[[443.39,1.0],[887.0,0.3181],[1332.84,0.1329],[1780.16,0.0601],[2234.48,0.0696],[2692.02,0.0497],[3156.22,0.0261],[3626.1,0.0671]]},{"id":"marimba-C3","name":"marimba C3","t":0.1154,"P":[[130.45,1.0],[391.95,0.0257],[522.62,0.0815],[1372.15,0.0788]]},{"id":"vibraphone-C4","name":"vibraphone C4","t":0.159,"P":[[261.55,1.0],[523.37,0.0324],[784.84,0.0376],[1046.68,0.6056],[1550.35,0.0152]]},{"id":"singing-bowl-D4","name":"singing bowl D4","t":0.1931,"P":[[299.11,0.0823],[599.6,0.4611],[1600.76,0.2116],[1719.62,1.0],[2496.55,0.1082],[2506.34,0.0738],[3224.92,0.16],[5028.62,0.1038]]},{"id":"bell-brooklyn-C6","name":"small bell C6","t":0.1443,"P":[[1043.79,1.0],[1183.74,0.0205],[1511.45,0.5511],[2268.27,0.0147],[2429.15,0.1147],[2606.11,0.035],[3598.46,0.0627],[3699.06,0.2421],[3978.34,0.0145],[4171.03,0.0158],[4505.74,0.0172],[5040.31,0.0201],[5232.56,0.058],[5761.21,0.0469],[5848.63,0.0138],[6727.84,0.0254],[6896.22,0.0156],[12512.52,0.0105],[14462.67,0.0154],[14864.03,0.027],[15272.63,0.0268],[17052.16,0.0306],[17460.98,0.0134],[17521.61,0.012]]}];
+const PHI = (1 + Math.sqrt(5)) / 2;
+// the made sources: one sine; a harmonic tone; a tone on two clocks at the golden ratio, every partial
+// m·220 + n·220φ for a few small m, n; and random partials over the harmonic tone's span
+const SINE = [[220, 1]];
+const HARMONIC = Array.from({ length: 12 }, (_, i) => [220 * (i + 1), 1 / (i + 1)]);
+const TWO_CLOCKS = [[0, 1, 1], [1, 0, 1], [1, 1, 0.7], [2, 0, 0.5], [0, 2, 0.4], [2, 1, 0.4], [1, 2, 0.3], [3, 0, 0.3], [2, -1, 0.25], [3, 1, 0.2], [1, 3, 0.15], [3, -1, 0.2]]
+  .map(([m, n, a]) => [m * 220 + n * 220 * PHI, a]).sort((x, y) => x[0] - y[0]);
+const RANDOM = chanceSet(HARMONIC, 5);
+// the partials as sound: sines at their levels, struck or held
+function partialsSound(P, fs, dur, struck, seed) {
+  const n = Math.round(dur * fs), y = new Float32Array(n), r = rng(seed || 2);
+  for (const [f, a] of P) { if (f >= fs / 2) continue; const w = 2 * Math.PI * f / fs, ph = r() * 2 * Math.PI; for (let k = 0; k < n; k++) y[k] += a * Math.sin(w * k + ph); }
+  const att = Math.round(0.005 * fs), rel = Math.round(0.06 * fs);
+  for (let k = 0; k < n; k++) { let e = k < att ? k / att : 1; if (struck) e *= Math.exp(-k / (1.1 * fs)); if (k > n - rel) e *= (n - k) / rel; y[k] *= e; }
+  return y;
+}
+
+</script>
+<script>
+// ---- the page's shared parts: sound from a rendered buffer, canvases, the walk ----
+const $ = (id) => document.getElementById(id);
+let ctx = null, comp = null, src = null, playing = false;
+// silent until a click: no context exists before the first play
+async function playBuffer(x, fs, onEnd) {
+  stopSound();
+  if (!ctx) { ctx = new AudioContext({ sampleRate: fs }); comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4; const g = ctx.createGain(); g.gain.value = 0.8; comp.connect(g).connect(ctx.destination); }
+  await ctx.resume();
+  let pk = 0; for (let i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(x[i]));
+  const b = ctx.createBuffer(2, x.length, ctx.sampleRate), sc = pk ? 0.8 / pk : 0, L = b.getChannelData(0), R = b.getChannelData(1);
+  for (let i = 0; i < x.length; i++) L[i] = R[i] = x[i] * sc;
+  src = ctx.createBufferSource(); src.buffer = b; src.connect(comp); const me = src;
+  src.onended = () => { if (src === me) { src = null; playing = false; if (onEnd) onEnd(); } };
+  src.start(); playing = true;
+}
+function stopSound() { if (src) { const s = src; src = null; try { s.stop(); } catch {} } playing = false; }
+function fit(c, hgt) {
+  const w = c.clientWidth || 600, d = devicePixelRatio || 1, H = hgt;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+// the house mark: a small Lissajous
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+// the walk: one step at a time, Next and Back, every step open from the rail; changing step stops the sound
+function walk(steps, onStep) {
+  let at = 0;
+  const go = (i) => { stopSound(); $('go').textContent = '▸ hear these partials'; at = Math.max(0, Math.min(steps.length - 1, i)); [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = steps[at].say; $('back').disabled = at === 0; $('next').disabled = at === steps.length - 1; onStep(steps[at].key, at); };
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+  $('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+  return { go, get at() { return at; } };
+}
+const later = () => new Promise((r) => setTimeout(r, 0));
+const FS = 48000;
+const STEPS = [
+  { key: 'sine', name: 'one sine', say: 'One sine at 220 Hz is one frequency. Name it and you are done: <i>rank 1</i>, nothing left over. Naming a frequency has a price, and the panel below counts it in bits: pinning one frequency to within 5 cents, anywhere from 20 Hz to 20 kHz, takes about 10.' },
+  { key: 'harm', name: 'a harmonic tone', say: 'Twelve partials, 220 Hz and its whole-number multiples. Named one by one they cost twelve frequencies. Name <i>one clock</i>, 220 Hz, and every partial is just a count of its steps: the third partial is "three", a few bits. One clock reaches all twelve. Rank 1.' },
+  { key: 'two', name: 'two clocks', say: 'Now a tone built on two clocks, 220 Hz and 220·φ ≈ 356 Hz, whose partials sit at whole steps of both, m·220 + n·356. One clock reaches a few of them and leaves the rest alone. <i>Two</i> reach every one, and each lands on a point of a flat grid of steps. Rank 2.' },
+  { key: 'rand', name: 'the catch', say: 'Twelve partials at random frequencies. Let the steps be free, up to 16 each way, and two clocks reach <i>all but one</i> of them within 5 cents (over forty such draws, all twelve in seventeen): a dense enough lattice passes near almost anything. So counting clocks alone measures nothing. Make the steps cost bits, and the random partials are back to standing alone.' },
+  { key: 'test', name: 'the test: seven instruments', say: 'Measured partials from a piano at three pitches, a marimba bar, a vibraphone bar, a singing bowl and a small bell, each fitted the cheapest way, and each set beside random partials of the same count. Does the rank settle at 1 for a harmonic tone, at 2 or more for a string, a bar and a bell? And do the clocks <i>save more bits</i> than they save on random partials?' },
+];
+const S = { key: 'sine', tol: 5, cnt: 24, free: true, src: 'piano-A2', R: null, P: null, chance: {}, table: {} };
+function sourceP() {
+  if (S.key === 'sine') return SINE; if (S.key === 'harm') return HARMONIC; if (S.key === 'two') return TWO_CLOCKS; if (S.key === 'rand') return RANDOM;
+  const s = SOURCES.find((x) => x.id === S.src); return s.P.slice().sort((a, b) => b[1] - a[1]).slice(0, S.cnt).sort((a, b) => a[0] - b[0]);
+}
+function opts() { return S.key === 'rand' && S.free ? { tol: S.tol, free: true, M1: 16, M2: 16 } : { tol: S.tol }; }
+// ---- drawing ----
+const dB = (a) => 20 * Math.log10(Math.max(a, 1e-6));
+function latticeTicks(fit, lo, hi, F, free) {
+  const out = []; if (!fit.w.length) return out;
+  const w1 = fit.w[0], w2 = fit.w.length > 1 ? fit.w[1] : 0, M2 = fit.w.length > 1 ? (free ? 16 : 8) : 0, M1 = free ? 16 : 64;
+  for (let n = -M2; n <= M2; n++) for (let m = 0; m <= M1; m++) { const f = m * w1 + n * w2; if (f < lo || f > hi || (m === 0 && n === 0)) continue; const b = free ? 0 : stepBits(fit.w.length > 1 ? [m, n] : [m]); if (b < F) out.push({ f, mixed: m !== 0 && n !== 0 }); }
+  return out;
+}
+function drawSpec() {
+  const P = S.P, R = S.R, f = R.fit, { g, w, h } = fit($('spec'), 250);
+  const fs = P.map((p) => p[0]), lo = Math.min(...fs) / 1.45, hi = Math.max(...fs) * 1.25, L = 46, Rr = 12, top = 34, base = h - 22;
+  const x = (v) => L + (Math.log(v / lo) / Math.log(hi / lo)) * (w - L - Rr), y = (d) => base - Math.max(0, Math.min(1, (d + 45) / 45)) * (base - top);
+  g.clearRect(0, 0, w, h);
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(L, base); g.lineTo(w - Rr, base); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  for (const v of [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000]) if (v > lo && v < hi) { g.fillText(v >= 1000 ? v / 1000 + 'k' : v, x(v), h - 6); g.strokeStyle = '#1a1a24'; g.beginPath(); g.moveTo(x(v), top); g.lineTo(x(v), base); g.stroke(); }
+  g.textAlign = 'right'; g.fillText('0', L - 6, top + 4); g.fillText('−45', L - 6, base);
+  // lattice points
+  const ticks = latticeTicks(f, lo, hi, R.F, S.key === 'rand' && S.free);
+  g.strokeStyle = 'rgba(99,102,241,.75)'; g.lineWidth = 1;
+  for (const t of ticks) { g.beginPath(); g.moveTo(x(t.f), 6); g.lineTo(x(t.f), t.mixed ? 14 : 20); g.stroke(); }
+  // partials
+  for (const s of f.assign) { const X = x(s.f), Y = y(dB(s.a)); g.strokeStyle = s.ok ? '#e8b84a' : '#8a8aa0'; g.lineWidth = s.ok ? 2 : 1.5; g.beginPath(); g.moveTo(X, base); g.lineTo(X, Y); g.stroke();
+    if (!s.ok) { g.beginPath(); g.arc(X, Y - 4, 3, 0, 2 * Math.PI); g.stroke(); } }
+  g.lineWidth = 1;
+  $('specLabel').textContent = f.w.length ? `the partials · the clocks: ${f.w.map((v) => v.toFixed(2) + ' Hz').join(' and ')}` : 'the partials · no clock: each named outright';
+}
+function drawCost() {
+  const R = S.R, { g, w, h } = fit($('cost'), 200), rows = R.fits.map((ff, i) => ({ label: ff.w.length === 0 ? 'name each outright' : ff.w.length === 1 ? 'one clock' : 'two clocks', ff, i })), L = 132, Rr = 14;
+  const max = Math.max(...rows.map((r) => r.ff.bits)) * 1.05, X = (b) => L + (b / max) * (w - L - Rr - 70);
+  g.clearRect(0, 0, w, h); g.font = '11px JetBrains Mono, monospace';
+  rows.forEach((r, k) => { const y0 = 18 + k * 56, best = r.i === R.best;
+    g.fillStyle = best ? '#e8b84a' : '#8a8aa0'; g.textAlign = 'left'; g.fillText(r.label + (best ? '  ◂ cheapest' : ''), 4, y0 + 2);
+    const clocks = r.ff.w.length * R.F, alone = r.ff.lone * R.F, steps = r.ff.bits - clocks - alone;
+    let x0 = X(0); const seg = (v, col) => { g.fillStyle = col; g.fillRect(x0, y0 + 10, X(v) - X(0), 14); x0 += X(v) - X(0); };
+    seg(clocks, '#6366F1'); seg(alone, '#8a8aa0'); seg(steps, '#e8b84a');
+    g.fillStyle = best ? '#e8e8f0' : '#8a8aa0'; g.fillText(`${r.ff.bits.toFixed(0)} · rank ${r.ff.rank}`, x0 + 6, y0 + 22);
+  });
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'left';
+  g.fillText('indigo: clocks · grey: partials left alone · amber: steps', 4, h - 4);
+}
+function drawGrid() {
+  const f = S.R.fit, { g, w, h } = fit($('grid'), 200); g.clearRect(0, 0, w, h);
+  g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#4a4a5a';
+  const on = f.assign.filter((s) => s.ok);
+  if (!f.w.length || !on.length) { g.textAlign = 'center'; g.fillText('no clock: nothing is reached by steps', w / 2, h / 2); $('gridLabel').textContent = 'where each reached partial sits on the lattice'; return; }
+  const ms = on.map((s) => s.m[0]), ns = on.map((s) => (s.m.length > 1 ? s.m[1] : 0));
+  const mMax = Math.max(4, ...ms), nMax = Math.max(1, ...ns.map(Math.abs)), L = 30, B = h - 22, T = 10;
+  const X = (m) => L + (m / mMax) * (w - L - 14), Y = (n) => T + ((nMax - n) / (2 * nMax)) * (B - T);
+  g.strokeStyle = '#1a1a24'; for (let m = 0; m <= mMax; m++) { g.beginPath(); g.moveTo(X(m), T); g.lineTo(X(m), B); g.stroke(); }
+  for (let n = -nMax; n <= nMax; n++) { g.beginPath(); g.moveTo(L, Y(n)); g.lineTo(w - 14, Y(n)); g.stroke(); }
+  g.textAlign = 'center'; const st = Math.max(1, Math.ceil(mMax / 8)); for (let m = 0; m <= mMax; m += st) g.fillText(m, X(m), h - 6);
+  g.textAlign = 'right'; g.fillText('+' + nMax, L - 4, T + 8); g.fillText('0', L - 4, Y(0) + 3); g.fillText('−' + nMax, L - 4, B);
+  on.forEach((s, i) => { g.fillStyle = '#e8b84a'; g.beginPath(); g.arc(X(ms[i]), Y(ns[i]), 3.5, 0, 2 * Math.PI); g.fill(); });
+  $('gridLabel').textContent = f.w.length > 1 ? 'reached partials · steps of clock 1 across, of clock 2 up' : 'reached partials · steps of the one clock';
+}
+function drawChance(ch) {
+  const R = S.R, mine = R.fits[0].bits - R.fit.bits, top = Math.max(20, mine, ...(ch || []).map((c) => c.save)) * 1.08;
+  const { g, w, h } = fit($('chance'), 92), L = 20, Rr = 20, X = (b) => L + (Math.max(0, b) / top) * (w - L - Rr), y0 = 46;
+  g.clearRect(0, 0, w, h); g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(L, y0); g.lineTo(w - Rr, y0); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  const st = top > 60 ? 10 : 5; for (let b = 0; b <= top; b += st) g.fillText(b, X(b), h - 6);
+  if (ch) { const seen = []; ch.forEach((c) => { const k = seen.filter((v) => Math.abs(v - c.save) < top / 80).length; seen.push(c.save); g.fillStyle = '#8a8aa0'; g.beginPath(); g.arc(X(c.save), y0 - 6 - 8 * k, 3, 0, 2 * Math.PI); g.fill(); }); }
+  g.fillStyle = '#e8b84a'; g.beginPath(); g.moveTo(X(mine), y0 + 4); g.lineTo(X(mine) - 6, y0 + 16); g.lineTo(X(mine) + 6, y0 + 16); g.closePath(); g.fill();
+  g.textAlign = 'left'; g.fillText(`this source saves ${mine.toFixed(1)} bits, rank ${R.fit.rank}`, Math.min(X(mine) + 10, w - 230), y0 + 16);
+  $('chanceLabel').textContent = ch ? `bits saved over naming each partial outright · amber: this source · grey: twelve draws of random partials, same count and levels (ranks ${Math.min(...ch.map((c) => c.rank))}–${Math.max(...ch.map((c) => c.rank))})` : 'drawing chance…';
+}
+// ---- chance and the table, computed a little at a time so the page stays live ----
+async function chanceFor(P, key) {
+  if (S.chance[key]) return S.chance[key];
+  const out = []; for (let s = 1; s <= 12; s++) { const R = fitRanks(chanceSet(P, 100 + s), { tol: S.tol }); out.push({ rank: R.fit.rank, save: R.fits[0].bits - R.fit.bits }); await later(); }
+  return (S.chance[key] = out);
+}
+const pick = (src) => src.P.slice().sort((a, b) => b[1] - a[1]).slice(0, 24).sort((a, b) => a[0] - b[0]);
+async function buildTable() {
+  const tk = 't' + S.tol; if (S.table[tk]) return S.table[tk];
+  const rows = [], list = [{ id: 'harm', name: 'harmonic tone (made)', P: HARMONIC }, { id: 'two', name: 'two clocks (made)', P: TWO_CLOCKS }, ...SOURCES.map((s) => ({ id: s.id, name: s.name, P: pick(s) }))];
+  for (const s of list) {
+    if (S.table[tk]) return S.table[tk];
+    $('tableState').textContent = `fitting ${s.name}…`; await later();
+    const R = fitRanks(s.P, { tol: S.tol }), ch = await chanceFor(s.P, s.id + '|24|' + S.tol);
+    const tot = s.P.reduce((a, p) => a + p[1] * p[1], 0), carried = R.fit.assign.filter((q) => q.ok).reduce((a, q) => a + q.a * q.a, 0) / tot;
+    rows.push({ id: s.id, name: s.name, n: s.P.length, clocks: R.fit.w.length, lone: R.fit.lone, rank: R.fit.rank, lo: Math.min(...ch.map((c) => c.rank)), hi: Math.max(...ch.map((c) => c.rank)), save: R.fits[0].bits - R.fit.bits, chSave: Math.max(...ch.map((c) => c.save)), carried, w: R.fit.w });
+  }
+  $('tableState').textContent = `τ = ${S.tol} cents`;
+  return (S.table[tk] = rows);
+}
+function showTable(rows) {
+  const beat = (r) => (r.save > r.chSave ? 'more than chance' : 'no more than chance');
+  $('table').innerHTML = `<table class="t"><tr><th>source</th><th>partials</th><th>clocks</th><th>left alone</th><th>rank found</th><th>chance's ranks</th><th>bits saved</th><th>chance saves, at most</th><th></th><th>energy the clocks reach</th></tr>` +
+    rows.map((r) => `<tr class="${r.id === S.src ? 'sel' : ''}"><td>${r.name}</td><td>${r.n}</td><td>${r.clocks}</td><td>${r.lone}</td><td class="hot">${r.rank}</td><td>${r.lo}–${r.hi}</td><td>${r.save.toFixed(1)}</td><td>${r.chSave.toFixed(1)}</td><td>${beat(r)}</td><td>${(100 * r.carried).toFixed(1)} %</td></tr>`).join('') + '</table>';
+  const by = (id) => rows.find((r) => r.id === id), pA1 = by('piano-low-A1'), pA2 = by('piano-A2'), pA4 = by('piano-A4'), bell = by('bell-brooklyn-C6'), vib = by('vibraphone-C4'), mar = by('marimba-C3'), h1 = by('harm'), t2 = by('two');
+  const below = (r) => r.save > r.chSave, pianos = [pA1, pA2, pA4], two = pianos.filter((r) => r.clocks > 1);
+  const pianoLine = two.length === 0
+    ? `Its cheapest naming uses one clock, the string's fundamental, and leaves the upper partials alone`
+    : `Its cheapest naming uses one clock for ${pianos.filter((r) => r.clocks === 1).map((r) => r.name.split(' · ')[0]).join(' and ') || 'none'}; for ${two.map((r) => r.name.split(' · ')[0]).join(' and ')} a second clock pays at this tight tolerance by catching a few bent partials (the dense-lattice approximation Three Kinds of Warp describes), and most of the upper partials still stand alone`;
+  $('verdict').innerHTML = `<p><b>One for the harmonic tone, two for the two-clock tone: the measure works where the page says it does.</b> Rank ${h1.rank} and ${t2.rank}, against ${h1.lo}–${h1.hi} and ${t2.lo}–${t2.hi} for random partials; the clocks save ${h1.save.toFixed(0)} and ${t2.save.toFixed(0)} bits, chance at most ${h1.chSave.toFixed(0)} and ${t2.chSave.toFixed(0)}.</p>` +
+    `<p><b>The piano does not settle at 2.</b> ${pianoLine}: rank ${pA1.rank} of ${pA1.n} partials for the low A, ${pA2.rank} of ${pA2.n} for A2. The rank alone barely parts them from random partials (whose ranks run ${pA2.lo}–${pA2.hi} for A2), but the bits do: the clock saves ${pA1.save.toFixed(0)} and ${pA2.save.toFixed(0)} bits, against at most ${Math.max(pA1.chSave, pA2.chSave).toFixed(0)} for chance${below(pA1) && below(pA2) ? ', so the structure is real' : ''}. It is one clock and a bend: the stretch pushes each upper partial a little further off the clock's comb than the last. Count fewer partials, or loosen τ, and the piano's rank falls toward 1; count more, or tighten it, and it climbs toward the number of partials. Try the A2 with 8 partials counted.</p>` +
+    `<p><b>The bell needs many, and so does chance.</b> Rank ${bell.rank} of ${bell.n}, against ${bell.lo}–${bell.hi} for random partials, and its clocks save ${bell.save.toFixed(1)} bits where chance saves up to ${bell.chSave.toFixed(1)}: ${below(bell) ? 'only just more than chance' : 'no more than chance'}. The clocks it does use reach ${(100 * bell.carried).toFixed(0)} % of its energy, since a few loud modes carry most of it: the rank counts a quiet mode the same as a loud one. The tuned bars: vibraphone rank ${vib.rank}, marimba rank ${mar.rank}, one clock each and ${vib.lone} and ${mar.lone} mode${mar.lone === 1 ? '' : 's'} the tuning left alone${below(mar) && below(vib) ? ', both more than chance' : ''}. The singing bowl's clock saves ${by('singing-bowl-D4').save.toFixed(1)} bits${below(by('singing-bowl-D4')) ? '' : ', no more than chance'}.</p>` +
+    `<p><b>What this number is.</b> Not the page's smallest set of generators, which is degenerate both ways (exact, a stiff string's partials share no integer relation; with a tolerance and free steps, two clocks reach nearly anything), but the clocks plus the partials left alone in the cheapest naming a greedy search finds: an upper bound, measured against a tolerance, a count of partials and a price on steps, each of which moves it. The price moves it most at wide tolerances: 24 perfect harmonics of 220 Hz read rank 1 at 5 cents, 3 at 10 and 11 at 20, because naming a frequency outright gets cheaper as τ widens while a long step count does not. So the slider stops at 10 cents, and even there the harmonic tone's rank is the price's, not the tone's. The offers on this section carry the numbers.</p>`;
+}
+// ---- sound ----
+function take() { const P = S.P, struck = S.key === 'test'; return partialsSound(P, FS, struck ? 3 : 2.5, struck, 7); }
+// ---- steps ----
+function show(id, on) { $(id).classList.toggle('hidden', !on); }
+function readout() {
+  const f = S.R.fit;
+  const parts = [`partials <b>${f.n}</b>`, `clocks <b>${f.w.length}</b>${f.w.length ? ' · ' + f.w.map((v) => v.toFixed(2)).join(', ') + ' Hz' : ''}`, `left alone <b>${f.lone}</b>`, `rank of the cheapest naming found <b class="hot">${f.rank}</b> (an upper bound)`, `${f.bits.toFixed(1)} bits, against ${S.R.fits[0].bits.toFixed(1)} named outright`];
+  if (f.w.length && f.on) parts.push(`reached within <b>${Math.max(...f.assign.filter((s) => s.ok).map((s) => s.err)).toFixed(2)}</b> cents`);
+  $('read').innerHTML = parts.join(' · ');
+}
+let gen = 0;
+async function refresh() {
+  const my = ++gen;
+  S.P = sourceP(); S.R = fitRanks(S.P, opts());
+  drawSpec(); drawCost(); drawGrid(); readout();
+  if (S.key === 'test') {
+    drawChance(null);
+    const ch = await chanceFor(S.P, S.src + '|' + S.cnt + '|' + S.tol); if (my !== gen) return; drawChance(ch);
+    const rows = await buildTable(); if (my !== gen) return; showTable(rows);
+  }
+}
+const HINTS = {
+  sine: 'One partial, one frequency. The cost panel compares naming it outright with naming a clock and counting one step: for a single sine, outright is cheaper, and either way the rank is 1.',
+  harm: 'Indigo ticks along the top: every point the clock can name for less than a free frequency. Every partial sits under one. The grid on the right is a single row: one clock, steps 1 to 12.',
+  two: 'The ticks now include the mixed points, m·220 + n·356 with both m and n non-zero (the short ones). One clock alone would reach only its own row. Try the tolerance: the two-clock tone stays rank 2 from 1 cent to 20.',
+  rand: 'With free steps the grid fills with partials sitting far out on the lattice: those are the steps a free count hides. Switch to "cost bits": the fitter would rather name most of them outright, and the rank climbs back toward twelve.',
+  test: 'The table fills in a source at a time, chance included. Change the tolerance or the partials counted and watch the piano\'s rank move; the harmonic and two-clock tones hold still. Grey circles mark the partials left alone. The strip below the panels is the evidence: how many bits the clocks save, against random partials.',
+};
+async function onStep(key) {
+  S.key = key;
+  show('freeCtl', key === 'rand'); show('srcCtl', key === 'test'); show('tolCtl', key !== 'sine'); show('cntCtl', key === 'test');
+  show('chancePanel', key === 'test'); show('tablePanel', key === 'test'); show('verdict', key === 'test');
+  $('hint').textContent = HINTS[key];
+  await refresh();
+}
+SOURCES.forEach((s) => { const b = document.createElement('button'); b.textContent = s.name; b.dataset.src = s.id; if (s.id === S.src) b.classList.add('on'); $('srcSeg').appendChild(b);
+  b.onclick = () => { S.src = s.id; document.querySelectorAll('[data-src]').forEach((z) => z.classList.toggle('on', z === b)); stopSound(); $('go').textContent = '▸ hear these partials'; refresh(); }; });
+document.querySelectorAll('[data-free]').forEach((b) => (b.onclick = () => { S.free = b.dataset.free === '1'; document.querySelectorAll('[data-free]').forEach((z) => z.classList.toggle('on', z === b)); refresh(); }));
+$('tol').oninput = () => { S.tol = +$('tol').value; $('tolV').textContent = S.tol; refresh(); };
+$('cnt').oninput = () => { S.cnt = +$('cnt').value; $('cntV').textContent = S.cnt; refresh(); };
+$('tolV').textContent = S.tol; $('cntV').textContent = S.cnt;
+const W = walk(STEPS, onStep);
+$('go').onclick = () => { if (playing) { stopSound(); $('go').textContent = '▸ hear these partials'; return; } playBuffer(take(), FS, () => ($('go').textContent = '▸ hear these partials')); $('go').textContent = '❚❚ stop'; };
+window.addEventListener('resize', () => { if (!S.R) return; drawSpec(); drawCost(); drawGrid(); if (S.key === 'test' && S.chance[S.src + '|' + S.cnt + '|' + S.tol]) drawChance(S.chance[S.src + '|' + S.cnt + '|' + S.tol]); });
+sigil(1, PHI);
+W.go(0);
+</script>
+</body>
+</html>

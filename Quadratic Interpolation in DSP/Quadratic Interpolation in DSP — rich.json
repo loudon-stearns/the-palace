@@ -1,0 +1,184 @@
+{
+  "title": "Quadratic Interpolation in DSP — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Quadratic Interpolation in DSP]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    },
+    {
+      "target": "[[Portamento and Physical Pitch Modeling]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of Quadratic Interpolation in DSP's rich face, its first round at Sketch tier, a proposal: three made walks, each ending in a test of what the page says — whether a chain of parabolas keeps its slope across the joints, whether quadratic is the wavetable sweet spot, and which way the page's FFT peak formula points — and one listening test gathered from Portamento for the organic-imprecision argument. Two of the tests found the text wrong and one found it half right; every finding waits below as an offer. I grow when the soft knee or the Bézier section earns a piece that tests it. I never hold the entry's words.",
+  "entry": "Quadratic Interpolation in DSP",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "offers": [
+    {
+      "section": "What It Is",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "'The key property: Quadratic has changing slope but continuous first derivative … the curve never has a sharp corner.' True inside one parabola; false for the chain a reader actually plays. Span to span, the page's three-point quadratic has a slope jump at every sample, equal to minus half the third difference of the four samples around it, so it vanishes only when four samples in a row lie on one parabola. The joints piece measured it on one sine cycle: the largest jump is 29.3%, 7.6% and 1.9% of the steepest step between neighbouring samples at 8, 16 and 32 samples per cycle (linear: 82.8%, 39.8%, 19.7%), shrinking about 4× per doubling where linear's halves. The four-point cubic Hermite and a chain of the page's own quadratic Béziers (samples as control points, joints at the midpoints) have no jump at all (under 1e-12); the Bézier chain pays by missing the samples, by up to 0.073 of its peak at 8 per cycle. Suggested: 'Within one span, quadratic has changing slope and no corner. Chained span to span it keeps a small corner at every sample, far smaller than linear's and shrinking fast as the samples get denser. A slope with no corners anywhere takes the four-point cubic Hermite, or a quadratic spline that no longer passes through the samples.'"
+    },
+    {
+      "section": "Three Audio Applications",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "§ 3, the parabolic refinement formula has its sign flipped. Its correction, (bin_resolution/2) × (m[k−1] − m[k+1]) / (2m[k] − m[k−1] − m[k+1]), is exactly minus the vertex of the parabola through the three bars, so it moves the estimate away from the sine by as much as the parabola moves it toward it. The peak piece measured it on a 4096-point frame at 48 kHz (bins 11.72 Hz): a sine at 438.28 Hz (37.40 bins), no window, plain magnitudes — tallest bar 433.59 Hz, parabola's peak 435.81 Hz, the page's formula 431.38 Hz. Swept across a whole bin, under every window and scale tried, the page's estimate never landed closer than the tallest bar alone; its worst miss is 0.98 to 1.00 bin. Suggested: denominator (magnitude[bin−1] − 2×magnitude[bin] + magnitude[bin+1]), or keep the denominator and swap the numerator to (magnitude[bin+1] − magnitude[bin−1])."
+    },
+    {
+      "section": "Three Audio Applications",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "§ 3, 'Result: Sub-bin frequency resolution' leaves out what decides how much. With the sign corrected, the parabola's worst miss across a bin, measured by the peak piece and recomputed by the challenger on a 401-point sweep at five starting phases: no window on magnitudes 0.234 bin (0.231–0.238 across phases), no window on decibels 0.167 (0.163–0.173), Hann on magnitudes 0.053, Hann on decibels 0.016 (0.19 Hz here), the Hann figures the same at every phase. Suggested addition: 'Fit the parabola to the bars in decibels, after a window such as Hann; then the refined peak lands within about a fiftieth of a bin. On raw magnitudes with no window it can still be a quarter bin off.'"
+    },
+    {
+      "section": "Three Audio Applications",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "§ 2, 'Quadratic is the sweet spot … without the cost of cubic', a cost-against-quality claim, measured by the table-read piece on a one-cycle sine table at 440 Hz. Quality: new frequencies sit, in dB below the tone at 8/16/32/64 numbers, linear 32.1/44.6/56.8/68.9, quadratic 40.4/58.5/76.6/94.7, cubic Hermite 43.8/62.8/81.1/99.2, so the quadratic is 3.4 to 4.6 dB behind the Hermite and 8 to 26 dB ahead of linear. By distance from the true sine the Hermite is 8.7 to 12.0 dB closer (quad 33.3/51.2/69.2/87.2, Hermite 42.1/62.1/80.9/99.2); the page already grants cubic that, and most of it is new: the page's three-point form leans on two samples behind the head and one ahead, so it shifts the tone in time (−1.06° at 8 numbers, −0.14° at 16), which linear and Hermite, being symmetric, do not. Cost: the cost clause fails. Written in its common cheap form, the Hermite takes 5 multiplies and 10 adds against the quadratic's 4 and 5 (same curve within 1e-15, checked by the challenger), so quadratic saves one multiply and five adds a sample, not half the work. Suggested: 'Quadratic is a near-sweet spot for what it adds: its stray frequencies sit within about 4 dB of cubic Hermite's. But the saving is small, one multiply and a few adds per sample, and its lopsided three points shift each frequency slightly in time, which cubic Hermite doesn't.'"
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "status": "open",
+      "what": "Question 1 ends 'Reading a fractional sample inside a frame … hasn't been measured here yet.' The table-read piece now measures it for a sine table (numbers in the § 2 offer): quadratic's stray frequencies sit 8 to 26 dB below linear's and 3 to 5 dB above cubic Hermite's at 8 to 64 numbers, and at a common table length of 2048 even linear's sit 129 dB down on a sine. What stays open is a rich table, whose top harmonics see only a few numbers per cycle each. Question 3 (can quadratic introduce new artifacts?) gets one answer from the same measurement: the page's three-point form shifts each frequency slightly in time, which the symmetric readers do not. Suggested: add one dated line under each question saying so and pointing to the rich face."
+    }
+  ],
+  "sections": [
+    {
+      "heading": "What It Is",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Quadratic Interpolation in DSP — rich — the joints.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · canvas",
+          "place": "band",
+          "height": 1200,
+          "title": "The joints · is the quadratic's slope continuous?",
+          "caption": "**Does a chain of parabolas keep its slope?** Four steps, drawing only: three draggable points and the one parabola through them, read at x; the tangent sliding along it, never jumping; a waveform read as a chain, each span by its own parabola; and last the slope plotted under the curve, where every break is a corner. The page's quadratic breaks at every sample: on a sine its largest jump is 29.3% of the steepest step between samples at 8 samples per cycle and 1.9% at 32, against linear's 82.8% and 19.7%. Cubic Hermite and a chain of quadratic Béziers don't break at all; the Béziers miss the samples instead.\n\njump at sample n = −½ (yₙ₊₁ − 3yₙ + 3yₙ₋₁ − yₙ₋₂)\n\n(the corner at a sample) = minus half of the four samples' third difference, zero only when all four lie on one parabola",
+          "near": "The key property"
+        }
+      ],
+      "made_against": "7ae2a16fa1ee",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Quadratic Interpolation in DSP — rich — the joints.html",
+            "verdict": "keep",
+            "why": "A real test that could have come out the other way: chained, the page’s three-point quadratic jumps in slope at every sample by −½ × the third difference (derived symbolically; 29.3/7.6/1.9% vs linear 82.8/39.8/19.7% recomputed), while Hermite and the chained Bézier are C¹. Walks up from one parabola; note only that the jump formula shows at step 3, one step before the test."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Three Audio Applications",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "Quadratic Interpolation in DSP — rich — the table read.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio Worklet",
+          "place": "band",
+          "height": 1500,
+          "title": "The table read · is quadratic the sweet spot?",
+          "caption": "**Four ways to read between the numbers, then the test.** A 16-number sine table read at 440 Hz with the nearest sample, then linear, then the page's quadratic, then cubic Hermite, each heard and drawn against the true sine with its error ten times larger. The last step glides 220 to 1760 Hz through any of the four at 8 to 64 numbers, with its spectrum and two tables. What it found: the page's three-point quadratic shifts the tone in time (−0.14° at 16 numbers), which linear and Hermite don't, and that shift is most of why the Hermite lands 9 to 12 dB closer to the true wave. On new frequencies the quadratic is only 3.4 to 4.6 dB behind the Hermite, but it saves just one multiply and five adds a sample (4·5 against the Hermite's cheap 5·10), so the page's cost clause is thin. The spectrum is drawn from the same code the worklet plays, not captured from the speaker.",
+          "near": "The manifesto"
+        },
+        {
+          "file": "Quadratic Interpolation in DSP — rich — the peak between bins.html",
+          "origin": "made",
+          "by": "maker · claude-opus-5-5 · Web Audio",
+          "place": "band",
+          "height": 1400,
+          "title": "The peak between bins · which way does the formula point?",
+          "caption": "**The page's formula against the parabola's peak and the truth, by ear.** A sine on a bin; a sine between bins, played beside a tone at the tallest bar so the beats count the miss in hertz; the parabola through the three tallest bars and its peak; and last the page's formula. It is the parabola's correction with the sign flipped: at 438.28 Hz the tallest bar says 433.59, the parabola 435.81, the page 431.38, and across a whole bin the page never lands closer than the tallest bar alone. With a Hann window and decibel bars the parabola's worst miss is 0.016 bin, 0.19 Hz.\n\nf̂ = f_k + (Δf ⁄ 2) · (m[k−1] − m[k+1]) ⁄ (m[k−1] − 2m[k] + m[k+1])\n\n(the parabola's peak) = the tallest bar's frequency, moved by half a bin × (left − right) ⁄ (the bars' bend, negative at a peak)",
+          "near": "Sub-bin frequency resolution"
+        }
+      ],
+      "made_against": "55e39d37a98e",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Quadratic Interpolation in DSP — rich — the table read.html",
+            "verdict": "remake",
+            "why": "Numbers all reproduce, but the cost half of the test leans on a 9-multiply Hermite; the common form (5 multiplies, 10 adds) is the same curve to 1e-15, so ‘about half the arithmetic’ / ‘twice the arithmetic’ must be recounted in the ops table, verdict and caption. And the headline ‘not for how close it lands’ reads as a correction, though the page already says cubic is ‘even closer’: reframe as the page’s concession measured (9–12 dB), with the time shift as the new finding."
+          },
+          {
+            "file": "Quadratic Interpolation in DSP — rich — the peak between bins.html",
+            "verdict": "keep",
+            "why": "Tests the formula as written and finds its sign flipped: page = −vertex exactly; 438.28 Hz true, tallest 433.59, vertex 435.81, page 431.38, all recomputed by FFT. Walks up from a sine on a bin to the test, and the beats make the miss audible."
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The Organic Imprecision Argument",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "made": "2026-11-03",
+      "pieces": [
+        {
+          "file": "/Projects/Portamento and Physical Pitch Modeling/threshold/overshoot-threshold.html",
+          "origin": "gathered",
+          "contract": {},
+          "height": 1400,
+          "title": "Find your overshoot threshold · Portamento's listening test",
+          "caption": "**Does overshoot sound alive, and where does it turn sour?** Gathered as it was from Portamento and Physical Pitch Modeling, where it answers that page's own question. A staircase finds the smallest overshoot you can hear on a glide up a fifth, then seven overshoots of growing size ask: alive, or sour? Your two numbers bound the band where the ringing this section praises reads as life rather than error. It sets overshoot against a clean landing, not against the page's quadratic ramp, and nobody has taken it yet, so the answer is yours, not the page's.",
+          "near": "Loudon suggests"
+        }
+      ],
+      "made_against": "8ce484f12b6d",
+      "stamped": "2026-11-03",
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "/Projects/Portamento and Physical Pitch Modeling/threshold/overshoot-threshold.html",
+            "verdict": "keep",
+            "why": "A listener can answer ‘all sour’, so it tests Loudon’s suggestion that overshoot reads as alive; it walks from ‘can you hear it’ to ‘alive or sour’. The caption honestly says it sets overshoot against a clean landing, not the quadratic ramp; contract {} holds (no storage, fetch or host found)."
+          }
+        ]
+      }
+    }
+  ]
+}

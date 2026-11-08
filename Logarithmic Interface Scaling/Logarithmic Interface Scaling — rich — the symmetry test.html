@@ -1,0 +1,373 @@
+<!doctype html>
+<!--
+  title: Logarithmic Interface Scaling — rich — the symmetry test
+  born: 2026-11-03
+  links: [[Logarithmic Interface Scaling]] (connects-to · rich-face-piece) · listed in [[Logarithmic Interface Scaling — rich.json]] · serves § Interface Design Best Practices, its "Testing Your Control Implementation"
+  forward_vector: I am the page's two tests, run live with the numbers showing. I start at the centre of a 0.1 to 10 slider, take equal moves either side, run the symmetry test's four steps as written under both readings of its third, move the ends to see what the test is really checking, and last run both tests on five implementations, so each test is seen catching what the other misses. I change only when the section I serve does.
+  sound: none. This piece makes no sound.
+  check: Logarithmic Interface Scaling/Logarithmic Interface Scaling — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host, no sound -->
+<meta name="piece:needs" content="">
+<title>The symmetry test · run with the numbers showing</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10);
+    --info:#4a8fff; --warn:#e8651b; --ok:#7fc77f;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:44px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:18px;margin:0 0 14px}
+  canvas#strip{width:100%;height:110px;display:block;border-radius:4px}
+  .rowb{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb[hidden]{display:none}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .meter i{color:var(--warn);font-style:normal}
+  .meter u{color:var(--ok);text-decoration:none}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
+  .eq.words{color:var(--fg-3);font-size:12px;margin-top:2px}
+  .try{margin:0 0 4px;padding:12px 16px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-1);font-family:var(--sans);font-size:14px;color:var(--fg-2);line-height:1.6}
+  .try .eyebrow{color:var(--accent);display:block;margin-bottom:2px}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2);width:100%}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:6px 12px 6px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.marks .pass{color:var(--ok)} table.marks .fail{color:var(--warn)}
+  table.marks tr.on td:first-child{color:var(--accent)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4);display:flex;gap:10px;align-items:center}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:620px){h1{font-size:34px}h2{font-size:23px}table.marks{font-size:11px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Logarithmic Interface Scaling · testing your control implementation · five steps</div>
+  <h1>The symmetry test, with the numbers showing</h1>
+  <p class="lead">The page gives two tests for a log slider: a symmetry test and a constant ratio test. This piece runs them. It starts at the centre of the page’s own 0.1 to 10 slider and ends running both tests on five implementations, so you can see what each test catches. This piece makes no sound.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <canvas id="strip"></canvas>
+    <div class="rowb" id="rangeRow" hidden><span class="eyebrow">the slider’s ends</span>
+      <button class="ghost" data-range="0">0.1 to 10</button>
+      <button class="ghost" data-range="1">0.316 to 3.16 (one decade)</button>
+      <button class="ghost" data-range="2">0.5 to 20</button>
+    </div>
+    <div class="rowb" id="moveRow" hidden><span class="eyebrow">move either side of centre by</span>
+      <button class="ghost" data-d="0.05">5%</button>
+      <button class="ghost" data-d="0.10">10%</button>
+      <button class="ghost" data-d="0.15">15%</button>
+      <button class="ghost" data-d="0.20">20%</button>
+    </div>
+    <div class="rowb" id="readRow" hidden><span class="eyebrow">read step 3 as</span>
+      <button class="ghost" data-read="centre">“20% right from center”: from the centre</button>
+      <button class="ghost" data-read="fromA">from where step 2 left it</button>
+    </div>
+    <div class="rowb" id="implRow" hidden><span class="eyebrow">implementation</span>
+      <button class="ghost" data-impl="0">Log, the page’s</button>
+      <button class="ghost" data-impl="1">Linear</button>
+      <button class="ghost" data-impl="2">Square law</button>
+      <button class="ghost" data-impl="3">Log, S-curved</button>
+      <button class="ghost" data-impl="4">Log, 0.5 to 20</button>
+      <button class="play" id="runAll">Run both tests on all five</button>
+    </div>
+    <table class="marks" id="results" hidden><thead><tr><th>implementation</th><th>centre</th><th>10% left · A</th><th>10% right · B</th><th>A × B</th><th>symmetry</th><th>ratios, 5% steps</th><th>constant ratio</th></tr></thead><tbody></tbody></table>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+  <div class="try" id="try"><span class="eyebrow">Try</span><span id="tryText"></span></div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1"/></svg><span><b>LOUD’N LIVE</b> · Logarithmic Interface Scaling · the symmetry test · Sketch, 2026-11-03</span></footer>
+</main>
+
+<!-- The core. Plain functions, shared by the page and the headless check. Travel p runs 0 to 1. -->
+<script id="lis-b-core">
+var LISB = {
+  REF: 1,                       // the reference value the page's step 1 expects at centre
+  RANGES: [ [0.1, 10], [Math.pow(10, -0.5), Math.pow(10, 0.5)], [0.5, 20] ],
+  STEP: 0.05,                   // the constant ratio test's equal increment
+  TOL_SYM: 0.005,               // the symmetry test passes when |log10(A × B ÷ REF²)| is under this (about 1%)
+  TOL_RATIO: 1.01               // the constant ratio test passes when the largest ratio ÷ the smallest is under this
+};
+// the page's slider_to_value, with p as 0..1 instead of 0..100
+function logMap(p, a, b){ var la = Math.log10(a), lb = Math.log10(b); return Math.pow(10, la + p * (lb - la)); }
+function linMap(p, a, b){ return a + p * (b - a); }
+// the five implementations of a 0.1 to 10 slider (the last on 0.5 to 20) the test step runs
+var IMPLS = [
+  { name: 'Log, the page’s', f: function(p){ return logMap(p, 0.1, 10); } },
+  { name: 'Linear', f: function(p){ return linMap(p, 0.1, 10); } },
+  // the design guide's alternative 2: value = min + p² × (max − min)
+  { name: 'Square law', f: function(p){ return 0.1 + p * p * 9.9; } },
+  // log space, but S-curved: still 0.1 to 10, still 1 at the centre and mirror-symmetric, not straight
+  { name: 'Log, S-curved', f: function(p){ var u = 2 * p - 1; return Math.pow(10, u * u * u); } },
+  { name: 'Log, 0.5 to 20', f: function(p){ return logMap(p, 0.5, 20); } }
+];
+// the page's symmetry test, steps 1 to 4. read: 'centre' takes step 3's 20% from the centre; 'fromA' from where step 2 left it.
+function symmetryTest(f, d, read){
+  var c = f(0.5), A = f(0.5 - d);
+  var pB = read === 'centre' ? 0.5 + 2 * d : 0.5 - d + 2 * d;
+  var B = f(pB);
+  return { centre: c, A: A, B: B, pA: 0.5 - d, pB: pB, product: A * B };
+}
+// the symmetric reading, d either side: what the test means to check
+function equalMoves(f, d){ var A = f(0.5 - d), B = f(0.5 + d); return { centre: f(0.5), A: A, B: B, product: A * B }; }
+function symPass(r){ return Math.abs(Math.log10(r.product / (LISB.REF * LISB.REF))) < LISB.TOL_SYM; }
+function centrePass(r){ return Math.abs(Math.log10(r.centre / LISB.REF)) < LISB.TOL_SYM; }
+// the page's constant ratio test: equal increments, the ratio of each value to the one before
+function ratioTest(f){
+  var rs = [];
+  for (var k = 1; k * LISB.STEP <= 1 + 1e-9; k++){ var p0 = (k - 1) * LISB.STEP, p1 = k * LISB.STEP; if (p0 < LISB.STEP - 1e-9) continue; rs.push(f(p1) / f(p0)); }
+  var lo = Math.min.apply(null, rs), hi = Math.max.apply(null, rs);
+  return { ratios: rs, lo: lo, hi: hi, spread: hi / lo, pass: hi / lo < LISB.TOL_RATIO };
+}
+</script>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var f3 = function(v){ return v >= 10 ? v.toFixed(2) : v.toFixed(3); };
+  var pc = function(p){ return Math.round(p * 1000) / 10 + '%'; };
+  var css = getComputedStyle(document.documentElement);
+  var ACC = '#e8b84a', FG2 = '#c8c8d8', FG3 = '#8a8aa0', FG4 = '#4a4a5a', INFO = '#4a8fff', WARN = '#e8651b', OK = '#7fc77f';
+
+  var st = { range: 0, d: 0.10, read: 'centre', impl: 0, ran: false };
+  var step = 0;
+
+  function rangeF(){ var r = LISB.RANGES[st.range]; return function(p){ return logMap(p, r[0], r[1]); }; }
+  function curF(){ return STEPS[step].view === 'impl' ? IMPLS[st.impl].f : rangeF(); }
+
+  var STEPS = [
+    { title: 'The centre', short: 'Centre', view: 'centre',
+      say: 'Start where the test starts: the page’s slider from 0.1 to 10, mapped in log space, with its thumb at the centre. The value there is 1.000, the reference. In log space the slider runs from −1 to +1, and the centre is 0.',
+      eq1: ['v = 10^(−1 + 2p)', '(value) = 10 to the power of (−1 + 2 × how far along, 0 to 1)'],
+      eq2: ['v(0.5) = 10^0 = 1', 'halfway along, the value is 1, the reference'],
+      tryText: 'Nothing to move yet. Read the strip: the ticks are 0.1, 1 and 10, and they are evenly spaced.' },
+    { title: 'Equal moves either side', short: 'Equal moves', view: 'moves',
+      say: 'Now move the same distance left and right of the centre. On a log slider the two values you land on are reciprocals: one is 1 divided by the other, and their product is 1. How far apart they are depends on the move and on the slider’s ends.',
+      eq1: ['A = 10^(−2d),  B = 10^(+2d),  A × B = 1', '(value d to the left) × (value d to the right) = 1, for any move d on this slider'],
+      eq2: ['d = 5%: 0.794 and 1.259        d = 10%: 0.631 and 1.585        d = 15%: 0.501 and 1.995', 'a 5% move gives the page’s example pair, a 10% move gives 0.63 and 1.58, and a 15% move gives the design guide’s 0.5 and 2.0'],
+      tryText: 'Try each move size. Which one gives the page’s example, 0.79 and 1.26? Then switch the ends to one decade, 0.316 to 3.16, and try 10% again.' },
+    { title: 'The four steps, as written', short: 'As written', view: 'written',
+      say: 'Now the page’s test, word for word. 1: set the control to centre. 2: move it 10% left and record A. 3: move it 20% right from center and record B. 4: A and B should be reciprocals. Step 3 can be read two ways. From the centre, B lands 20% right of centre, and A and B are not reciprocals even on a correct log slider. From where step 2 left the thumb, B lands 10% right of centre and the test passes.',
+      eq1: ['from the centre:  A = v(0.40),  B = v(0.70)        from A:  A = v(0.40),  B = v(0.60)', '(where B lands) depends on whether “20% right” is counted from the centre or from A'],
+      eq2: ['0.1 to 10:  A = 0.631,  B = 2.512 or 1.585,  A × B = 1.585 or 1.000', 'on the page’s own slider, only the from-A reading passes; neither gives 0.79 and 1.26'],
+      tryText: 'Flip between the two readings and watch A × B. Then set the ends to one decade, 0.316 to 3.16: under the from-A reading the test gives 0.794 and 1.259, the page’s example numbers.' },
+    { title: 'Where is the centre?', short: 'The ends', view: 'ends',
+      say: 'The page’s first step expects the centre to output the reference value, typically 1.0. On 0.1 to 10 it does. Set the ends to 0.5 to 20, the page’s other example range: the mapping is still a correct log mapping, but the centre is now 3.16, the value the same ratio from both ends. The moves either side are still reciprocal about that centre, A × B = 10 = 3.16². Step 1 is checking where the ends are, not whether the mapping is right.',
+      eq1: ['centre = √(min × max)', '(the value at the centre) = the square root of (the low end × the high end)'],
+      eq2: ['A × B = centre²', '(value d to the left) × (value d to the right) = (the centre value) squared, on any log slider'],
+      tryText: 'Set 0.5 to 20 and read the centre and A × B. The centre lands on 1.0 only when the low end × the high end = 1.' },
+    { title: 'Both tests, five implementations', short: 'The test', view: 'impl', test: true,
+      say: 'The test of the tests. Five implementations of a slider: the page’s log mapping on 0.1 to 10; a linear one; the square law the design guide offers as an alternative; a log mapping bent into an S, which still runs 0.1 to 10 and still puts 1 at the centre; and the page’s log mapping on 0.5 to 20. Each is run through the symmetry test (10% either side of centre, the from-A reading) and the constant ratio test (steps of 5%, from 5% to 100%).',
+      eq1: ['symmetry: v(0.5) = 1 and v(0.4) × v(0.6) = 1        constant ratio: v(p + 0.05) ÷ v(p) the same for every p', 'the symmetry test checks the centre and one pair of moves; the constant ratio test checks every step along the slider'],
+      eq2: ['pass: within 1%', 'a test passes when its numbers are within about 1% of what a log slider gives'],
+      tryText: 'Run both tests on all five. Which implementation passes one test and fails the other? Click a row to see its ratios drawn on the strip.' }
+  ];
+
+  var rail = $('rail');
+  STEPS.forEach(function(s, i){ var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.short; b.addEventListener('click', function(){ go(i); }); rail.appendChild(b); });
+
+  function press(attr, val){ Array.prototype.forEach.call(document.querySelectorAll('[' + attr + ']'), function(o){ o.setAttribute('aria-pressed', String(o.getAttribute(attr) === String(val))); }); }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-range]'), function(b){ b.addEventListener('click', function(){ st.range = +b.getAttribute('data-range'); sync(); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-d]'), function(b){ b.addEventListener('click', function(){ st.d = +b.getAttribute('data-d'); sync(); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-read]'), function(b){ b.addEventListener('click', function(){ st.read = b.getAttribute('data-read'); sync(); }); });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-impl]'), function(b){ b.addEventListener('click', function(){ st.impl = +b.getAttribute('data-impl'); sync(); }); });
+  $('runAll').addEventListener('click', function(){ st.ran = true; fillResults(); sync(); });
+
+  // why a symmetry test failed: its centre is off 1 but its pair is reciprocal about that centre, or the pair itself is off
+  function why(r){ var aboutCentre = symPass({ product: r.product / (r.centre * r.centre) }); return !centrePass(r) && aboutCentre ? ' · centre ≠ 1' : ' · pair'; }
+  function fillResults(){
+    var tb = $('results').querySelector('tbody'); tb.innerHTML = '';
+    IMPLS.forEach(function(im, i){
+      var r = symmetryTest(im.f, 0.10, 'fromA'), q = ratioTest(im.f), sp = centrePass(r) && symPass(r);
+      var tr = document.createElement('tr'); if (i === st.impl) tr.className = 'on';
+      tr.innerHTML = '<td>' + im.name + '</td><td>' + f3(r.centre) + '</td><td>' + f3(r.A) + '</td><td>' + f3(r.B) + '</td><td>' + f3(r.product) + '</td>' +
+        '<td class="' + (sp ? 'pass' : 'fail') + '">' + (sp ? 'pass' : 'fail' + why(r)) + '</td>' +
+        '<td>' + q.lo.toFixed(3) + ' to ' + q.hi.toFixed(3) + '</td><td class="' + (q.pass ? 'pass' : 'fail') + '">' + (q.pass ? 'pass' : 'fail') + '</td>';
+      tr.style.cursor = 'pointer'; tr.addEventListener('click', function(){ st.impl = i; sync(); });
+      tb.appendChild(tr);
+    });
+  }
+
+  function meter(){
+    var v = STEPS[step].view, f = curF(), h = [], r;
+    var rg = LISB.RANGES[st.range], rname = rg[0].toFixed(rg[0] < 0.2 ? 1 : 3).replace(/0+$/, '').replace(/\.$/, '') + ' to ' + (+rg[1].toFixed(2));
+    if (v === 'centre'){ h.push('ends <b>0.1 to 10</b> · thumb at <b>50%</b> · value <b>' + f3(f(0.5)) + '</b>'); }
+    if (v === 'moves'){
+      r = equalMoves(f, st.d);
+      h.push('ends <b>' + rname + '</b> · centre <b>' + f3(r.centre) + '</b>');
+      h.push(pc(st.d) + ' left: A = <b>' + f3(r.A) + '</b> · ' + pc(st.d) + ' right: B = <b>' + f3(r.B) + '</b> · A × B = <b>' + f3(r.product) + '</b>');
+      var ex = [0.79, 1.26].map(function(x){ return (Math.log10(x) - Math.log10(rg[0])) / (Math.log10(rg[1]) - Math.log10(rg[0])); });
+      h.push('the page’s example pair sits here: 0.79 at <b>' + pc(ex[0]) + '</b> of the travel, 1.26 at <b>' + pc(ex[1]) + '</b>');
+    }
+    if (v === 'written'){
+      r = symmetryTest(f, 0.10, st.read);
+      h.push('ends <b>' + rname + '</b> · 1. centre: <b>' + f3(r.centre) + '</b>');
+      h.push('2. 10% left: A = <b>' + f3(r.A) + '</b> at ' + pc(r.pA) + ' · 3. ' + (st.read === 'centre' ? '20% right of centre' : '20% right of A') + ': B = <b>' + f3(r.B) + '</b> at ' + pc(r.pB));
+      var ok = symPass({ product: r.product / (r.centre * r.centre) });
+      h.push('4. A × B = <b>' + f3(r.product) + '</b> · ' + (ok ? '<u>reciprocal about the centre</u>' : '<i>not reciprocal: off by a factor of ' + f3(r.product / (r.centre * r.centre)) + '</i>'));
+    }
+    if (v === 'ends'){
+      r = equalMoves(f, st.d);
+      h.push('ends <b>' + rname + '</b> · centre <b>' + f3(r.centre) + '</b> = √(' + +rg[0].toFixed(3) + ' × ' + +rg[1].toFixed(2) + ') · ' + (centrePass(r) ? '<u>step 1 passes</u>' : '<i>step 1 expects 1.0: fails</i>'));
+      h.push(pc(st.d) + ' either side: A = <b>' + f3(r.A) + '</b>, B = <b>' + f3(r.B) + '</b> · A × B = <b>' + f3(r.product) + '</b> · centre² = <b>' + f3(r.centre * r.centre) + '</b>');
+      var p1 = (Math.log10(1) - Math.log10(rg[0])) / (Math.log10(rg[1]) - Math.log10(rg[0]));
+      h.push('1.0 sits at <b>' + pc(p1) + '</b> of the travel');
+    }
+    if (v === 'impl'){
+      r = symmetryTest(f, 0.10, 'fromA'); var q = ratioTest(f);
+      h.push('<b>' + IMPLS[st.impl].name + '</b> · centre <b>' + f3(r.centre) + '</b> · A = <b>' + f3(r.A) + '</b> · B = <b>' + f3(r.B) + '</b> · A × B = <b>' + f3(r.product) + '</b> · symmetry ' + (centrePass(r) && symPass(r) ? '<u>pass</u>' : '<i>fail</i>'));
+      h.push('ratios of each 5% step to the one before: <b>' + q.lo.toFixed(3) + '</b> to <b>' + q.hi.toFixed(3) + '</b> · constant ratio ' + (q.pass ? '<u>pass</u>' : '<i>fail</i>'));
+      if (st.ran) h.push('The S-curve passes symmetry and fails constant ratio. The 0.5 to 20 log slider passes constant ratio and fails symmetry only because its centre is 3.16, not 1: its pair is reciprocal about its own centre. Each test catches something the other misses.');
+    }
+    $('meter').innerHTML = h.join('<br>');
+  }
+
+  // ---------- the strip: the slider, its ticks, and the moves ----------
+  var cv = $('strip');
+  function draw(){
+    var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1, W = Math.round(r.width * d), H = Math.round(110 * d);
+    if (!W) return;
+    if (cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+    var g = cv.getContext('2d'), x0 = 22 * d, x1 = W - 22 * d, ty = 48 * d, X = function(p){ return x0 + p * (x1 - x0); };
+    g.clearRect(0, 0, W, H); g.fillStyle = '#1a1a28'; g.fillRect(0, 0, W, H);
+    var v = STEPS[step].view, f = curF();
+    g.fillStyle = '#12121a'; g.fillRect(x0, ty - 2 * d, x1 - x0, 4 * d);
+    g.font = (10 * d) + 'px JetBrains Mono, monospace'; g.textAlign = 'center';
+    // ticks: where 0.1, 1, 10 and a few others land on this implementation
+    var marks = [0.1, 0.2, 0.5, 1, 2, 5, 10, 20];
+    function posOf(val){ var lo = 0, hi = 1; for (var k = 0; k < 50; k++){ var m = (lo + hi) / 2; if (f(m) < val) lo = m; else hi = m; } return (lo + hi) / 2; }
+    var fmin = f(0), fmax = f(1);
+    marks.forEach(function(m){ if (m < fmin - 1e-9 || m > fmax + 1e-9) return; var x = X(posOf(m)); g.fillStyle = m === 1 ? ACC : FG3; g.fillRect(x - 0.5 * d, ty + 6 * d, d, 7 * d); if ([0.1, 1, 10, 0.5, 20].indexOf(m) >= 0) g.fillText(String(m), x, ty + 25 * d); });
+    // the centre
+    var xc = X(0.5); g.strokeStyle = FG4; g.setLineDash([3 * d, 3 * d]); g.beginPath(); g.moveTo(xc, 6 * d); g.lineTo(xc, H - 6 * d); g.stroke(); g.setLineDash([]);
+    g.fillStyle = FG3; g.fillText('centre ' + f3(f(0.5)), xc, H - 8 * d);
+    function dot(p, col, lab){ var x = X(p); g.fillStyle = col; g.beginPath(); g.arc(x, ty, 6 * d, 0, 2 * Math.PI); g.fill(); if (lab){ g.fillStyle = col; g.fillText(lab, x, ty - 12 * d); } }
+    if (v === 'centre'){ dot(0.5, ACC, '1.000'); }
+    if (v === 'moves' || v === 'ends'){ dot(0.5 - st.d, INFO, 'A ' + f3(f(0.5 - st.d))); dot(0.5 + st.d, INFO, 'B ' + f3(f(0.5 + st.d))); dot(0.5, ACC, ''); }
+    if (v === 'written'){
+      var rr = symmetryTest(f, 0.10, st.read);
+      // the path the thumb takes: centre → A → B
+      g.strokeStyle = INFO; g.lineWidth = 1.5 * d; g.beginPath(); g.moveTo(X(0.5), ty + 32 * d); g.lineTo(X(rr.pA), ty + 32 * d); g.lineTo(X(rr.pA), ty + 38 * d); g.lineTo(X(rr.pB), ty + 38 * d); g.stroke();
+      dot(0.5, ACC, ''); dot(rr.pA, INFO, 'A ' + f3(rr.A)); dot(rr.pB, symPass({ product: rr.product / (rr.centre * rr.centre) }) ? OK : WARN, 'B ' + f3(rr.B));
+    }
+    if (v === 'impl'){
+      // the ratio of each 5% step, drawn as bars above the track: a log slider's are all the same height
+      var q = ratioTest(f), n = q.ratios.length, top = Math.log(Math.max(q.hi, 1.3));
+      for (var k = 0; k < n; k++){ var p0 = (k + 1) * LISB.STEP, p1 = p0 + LISB.STEP, hgt = Math.log(q.ratios[k]) / top * 20 * d; g.fillStyle = q.pass ? OK : WARN; g.globalAlpha = 0.7; g.fillRect(X(p0) + d, ty - 8 * d - hgt, X(p1) - X(p0) - 2 * d, hgt); g.globalAlpha = 1; }
+      dot(0.4, INFO, ''); dot(0.6, INFO, ''); dot(0.5, ACC, '');
+    }
+    g.textAlign = 'left'; g.fillStyle = FG4; g.fillText(v === 'impl' ? IMPLS[st.impl].name.toUpperCase() + ' · BARS: RATIO OF EACH 5% STEP' : 'SLIDER · ' + (LISB.RANGES[st.range][0] < 0.2 ? '0.1 TO 10' : st.range === 1 ? '0.316 TO 3.16' : '0.5 TO 20'), 8 * d, 12 * d);
+  }
+
+  function sync(){
+    press('data-range', st.range); press('data-d', st.d.toFixed(2)); press('data-read', st.read); press('data-impl', st.impl);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-d]'), function(o){ o.setAttribute('aria-pressed', String(Math.abs(+o.getAttribute('data-d') - st.d) < 1e-9)); });
+    if (st.ran) fillResults();
+    meter(); draw();
+  }
+
+  function go(i){
+    step = i; var s = STEPS[i], v = s.view;
+    Array.prototype.forEach.call(rail.children, function(b, j){ if (j === i) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current'); });
+    $('stepEyebrow').textContent = 'Step ' + (i + 1) + ' of ' + STEPS.length + (s.test ? ' · the test' : '');
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('eq1').textContent = s.eq1[0]; $('eq1w').textContent = s.eq1[1]; $('eq2').textContent = s.eq2[0]; $('eq2w').textContent = s.eq2[1];
+    $('tryText').textContent = s.tryText;
+    $('rangeRow').hidden = !(v === 'moves' || v === 'written' || v === 'ends');
+    $('moveRow').hidden = !(v === 'moves' || v === 'ends');
+    $('readRow').hidden = v !== 'written';
+    $('implRow').hidden = v !== 'impl';
+    $('results').hidden = !(v === 'impl' && st.ran);
+    if (v === 'centre') st.range = 0;
+    if (v === 'written'){ st.range = 0; st.read = 'centre'; }
+    if (v === 'ends') st.range = 2;
+    if (v === 'moves'){ st.range = 0; st.d = 0.10; }
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    sync();
+  }
+  $('back').addEventListener('click', function(){ if (step > 0) go(step - 1); });
+  $('next').addEventListener('click', function(){ if (step < STEPS.length - 1) go(step + 1); });
+  window.addEventListener('resize', draw);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+  (function(){ var d = ''; for (var i = 0; i <= 200; i++){ var a = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * a + 0.5)).toFixed(2) + ' ' + (9 * Math.sin(2 * a)).toFixed(2); } $('sigil').setAttribute('d', d); })();
+  go(0);
+})();
+</script>
+</body>
+</html>

@@ -12,7 +12,7 @@ In `Quantum Synthesizer.md`, section *Hermite-Gaussian Basis Functions as Spectr
 
 ## The two paragraphs
 
-Sounded honestly, an eigenstate is a single pitch. It is called *stationary* because nothing about it moves except one turning phase, at one frequency set by its energy Eₙ. Its n nodes don't add partials; they say which rung of the ladder it stands on. Let φ₅ evolve and listen anywhere in the well, and you hear one sine wave.
+Sounded honestly, an eigenstate is a single pitch. It is called *stationary* because nothing about it moves except one turning phase, at one frequency set by its energy Eₙ. Its n nodes don't add partials; they say which rung of the ladder it stands on. Let φ₅ evolve and listen anywhere in the well, and you hear one sine wave, if your ear could hear phase. To any real measurement it is perfectly still.
 
 Read the same shape as one cycle of a waveform, a wavetable, and something stranger turns out to be exactly true. A Hermite-Gaussian is its own Fourier transform. So the spectrum of φₙ played as a wave has the shape of φₙ itself: a Gaussian's spectrum is a Gaussian, the spectrum widens like √(2n+1) as the shape does, and the n nodes in space come back as n holes in the spectrum, mirrored about 0 Hz (an odd state's centre node becomes a missing DC). Here, and only here, the spatial structure of the wavefunction *is* the spectral structure of the sound ([hear the three readings](open:Projects/Quantum Synthesizer/proofs/hermite.mp4)). **The geometry of confinement chooses the shapes; the equation turns shapes into pitches.**
 

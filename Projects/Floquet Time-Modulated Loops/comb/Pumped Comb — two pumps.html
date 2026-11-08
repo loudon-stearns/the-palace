@@ -1,0 +1,274 @@
+<!doctype html>
+<!--
+  Pumped Comb — two pumps (workshop playground, 2026-11-03, cycle 3)
+  The plan's second instrument, carried in the browser while Max work is paused: a Karplus-Strong string
+  whose loop gain and loop length are each pumped at their own rate, rendered here and shown as a
+  spectrogram and a final-second spectrum, with the string's harmonics and the length pump's ladder ruled over them.
+  engine: the script marked id="fq-engine". fcRender mirrors comb_render.py run() (checked to 1.5e-8 against it by
+  comb_two_pumps_check.mjs, which pulls this script out of this file). Measurements in comb_two_pumps.json.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Two pumps on one string</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .fq-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .fq-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .fq-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .fq-sub { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 14px; }
+  .fq-rail { display: flex; flex-wrap: wrap; margin-bottom: 12px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .fq-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .fq-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  button.fq-go { color: var(--amber); border-color: var(--amberline); min-width: 150px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .fq-box { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px; margin-bottom: 12px; }
+  .fq-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 80ch; margin: 0 0 8px; min-height: 3.2em; }
+  .fq-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 28px; }
+  @media (max-width: 760px) { .fq-cols { grid-template-columns: 1fr; } }
+  .fq-h { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; margin: 6px 0 2px; }
+  .fq-h.a { color: var(--amber); } .fq-h.c { color: var(--cyan); }
+  .fq-row { display: flex; gap: 8px; align-items: center; margin: 6px 0; }
+  .fq-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .06em; min-width: 12ch; }
+  .fq-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 10ch; font-variant-numeric: tabular-nums; }
+  .fq-chk { font-family: var(--mono); font-size: 11px; color: var(--fg3); display: inline-flex; gap: 6px; align-items: center; margin-right: 14px; }
+  .fq-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 10px 0 6px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .fq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .fq-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .fq-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .fq-v { font-family: var(--mono); font-size: 17px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .fq-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 10px 0; }
+  .fq-sym { font-family: var(--mono); font-size: 14px; color: var(--fg1); }
+  .fq-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .fq-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .fq-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+  table.fq-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 8px 0; }
+  table.fq-t th, table.fq-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; }
+  table.fq-t th { color: var(--fg3); font-weight: 400; } table.fq-t td:first-child, table.fq-t th:first-child { text-align: left; }
+  .fq-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; }
+</style>
+</head>
+<body>
+<div class="fq-piece">
+  <div class="fq-kicker">Floquet Time-Modulated Loops · the pumped comb · two pumps</div>
+  <h1 class="fq-title">Two pumps on one string</h1>
+  <p class="fq-sub">A plucked-string loop that dies on its own. One pump breathes its <b style="color:var(--amber);font-weight:400">loudness</b> once per pass and can bring it back to life; the other breathes its <b style="color:var(--cyan);font-weight:400">length</b> and draws new partials between its harmonics. Pick a preset, press render, and watch the spectrum while you listen.</p>
+
+  <div class="fq-rail" id="presets"></div>
+  <div class="fq-box">
+    <p class="fq-idea" id="idea"></p>
+    <div class="fq-eq">
+      <div class="fq-sym">y[n] = tanh( g[n] · ½(y[n−d[n]] + y[n−d[n]−1]) + noise ) &nbsp;·&nbsp; g[n] = g₀(1 + ε cos 2π r_g f₀ t) &nbsp;·&nbsp; d[n] = L + D sin 2π r_L f₀ t</div>
+      <div class="fq-words">out = tanh( loudness_now · average_of_two(out, one_trip_ago) + noise ) · loudness_now = base_gain·(1 + gain_depth · cos(gain_rate)) · trip_length = L + length_depth · sin(length_rate)</div>
+    </div>
+    <div class="fq-cols">
+      <div>
+        <div class="fq-h a">loudness pump</div>
+        <div class="fq-row"><label for="eps">depth ε</label><input type="range" id="eps" min="0" max="0.4" step="0.005"><span class="fq-val" id="eps_v"></span></div>
+        <div class="fq-row"><label for="gR">rate × f₀</label><input type="range" id="gR" min="0.5" max="4" step="0.5"><span class="fq-val" id="gR_v"></span></div>
+        <div class="fq-row"><label for="gC">fine, cents</label><input type="range" id="gC" min="-20" max="20" step="0.5"><span class="fq-val" id="gC_v"></span></div>
+        <label class="fq-chk"><input type="checkbox" id="epsRamp"> rise from zero</label>
+      </div>
+      <div>
+        <div class="fq-h c">length pump</div>
+        <div class="fq-row"><label for="D">depth, samples</label><input type="range" id="D" min="0" max="32" step="0.25"><span class="fq-val" id="D_v"></span></div>
+        <div class="fq-row"><label for="rL">rate × f₀</label><input type="range" id="rL" min="0.25" max="4" step="0.0001"><span class="fq-val" id="rL_v"></span></div>
+        <div class="fq-row"><label for="seed">noise seed</label><input type="range" id="seed" min="1" max="8" step="1"><span class="fq-val" id="seed_v"></span></div>
+        <label class="fq-chk"><input type="checkbox" id="lenRamp"> rise from zero</label>
+        <label class="fq-chk"><input type="checkbox" id="pluck"> pluck it</label>
+      </div>
+    </div>
+    <div class="fq-row" style="margin-top:12px"><button class="fq-go" id="go">Render · play</button><button id="stop">Stop</button><span class="fq-note" id="status"></span></div>
+  </div>
+
+  <div class="fq-label"><span>spectrogram · 0–2400 Hz · 4 seconds</span><span class="fq-legend"><span class="fq-sw" style="background:var(--amber)"></span>string harmonics k·f₀<span class="fq-sw" style="background:var(--cyan)"></span>length ladder k·f₀ ± r_L f₀</span></div>
+  <canvas id="sg" height="300"></canvas>
+  <div class="fq-label"><span>the last second · dB</span></div>
+  <canvas id="sp" height="200"></canvas>
+  <div class="fq-grid">
+    <div class="fq-cell"><div class="fq-k">string f₀</div><div class="fq-v" id="r_f0"></div></div>
+    <div class="fq-cell"><div class="fq-k">loudness pump</div><div class="fq-v" id="r_g" style="color:var(--amber)"></div></div>
+    <div class="fq-cell"><div class="fq-k">length pump</div><div class="fq-v" id="r_l" style="color:var(--cyan)"></div></div>
+    <div class="fq-cell"><div class="fq-k">level, last second</div><div class="fq-v" id="r_lvl"></div></div>
+    <div class="fq-cell"><div class="fq-k">between harmonics</div><div class="fq-v" id="r_off"></div></div>
+  </div>
+
+  <div class="fq-box">
+    <div class="fq-h">what the measurements say</div>
+    <p class="fq-idea" style="min-height:0">Hold the string alive with the loudness pump at 1× (ε 0.1), then wobble its length. At a whole-number length rate the ring never broke, all the way to ±32 samples (±15 % of the loop). At a stray rate it breaks: the pulse riding the loudness peak arrives early or late on each pass, slips out of the window, and the string dies back to noise.</p>
+    <table class="fq-t"><thead><tr><th>length rate × f₀</th><th>breaks at, samples</th></tr></thead><tbody id="killtab"></tbody></table>
+    <p class="fq-note">One seed, 6 s runs, a break counted when the last 2 s fall below −33 dB (held level ≈ −13 dB). Halfway rates mostly hold too (0.5 and 1.5 never broke; 2.5 broke at 32). Among stray rates I found no simple rule: √2 lasted to 24, 2.1213 died at 6.</p>
+  </div>
+</div>
+
+<script id="fq-engine">
+// Pumped comb engine: Karplus-Strong loop, tanh in the loop, gain and length each pumped at their own rate.
+// Mirrors comb/comb_render.py run() line for line, with a seeded uniform noise source of its own.
+const FC = { SR: 48000, L: 218 };
+FC.F0 = FC.SR / (FC.L + 0.5);
+function fcRand(seed) { let s = (seed >>> 0) || 1; return () => { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 4294967296 * 2 - 1; }; }
+// p: { dur, g0, eps(t)|number, gRatio, gCents, lenDepth, lenRatio, seed, noise, pluck, epsRamp }
+function fcRender(p, nzIn) {
+  const SR = FC.SR, L = FC.L, F0 = FC.F0, N = Math.round(p.dur * SR), off = L + Math.ceil(p.lenDepth || 0) + 4;
+  const buf = new Float64Array(N + off), out = new Float32Array(N), env = [];
+  const rnd = fcRand(p.seed);
+  if (p.pluck) for (let i = off - L - 2; i < off; i++) buf[i] = rnd();
+  const gR = p.gRatio * Math.pow(2, (p.gCents || 0) / 1200);
+  let phG = 0, phL = 0; const dG = 2 * Math.PI * gR * F0 / SR, dL = 2 * Math.PI * p.lenRatio * F0 / SR;
+  for (let n = 0; n < N; n++) {
+    phG += dG;
+    const eps = p.epsRamp ? p.eps * n / N : p.eps;
+    const g = p.g0 * (1 + eps * Math.cos(phG));
+    const d = L + (p.lenRamp ? p.lenDepth * n / N : p.lenDepth) * Math.sin(phL);
+    const i = Math.floor(d), fr = d - i, k = off + n;
+    const a = buf[k - i] * (1 - fr) + buf[k - i - 1] * fr;
+    const b = buf[k - i - 1] * (1 - fr) + buf[k - i - 2] * fr;
+    const nz = nzIn ? nzIn[n] : p.noise * rnd();
+    const y = Math.tanh(g * 0.5 * (a + b) + nz);
+    buf[k] = y; out[n] = y;
+    phL += dL;
+  }
+  return out;
+}
+function fcFFT(re, im) { const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+    for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) {
+      const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr;
+      re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi;
+      const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } } }
+// power spectrum of x[a .. a+n) with a Hann window, DC removed
+function fcPower(x, a, n) { let m = 0; for (let i = 0; i < n; i++) m += x[a + i]; m /= n;
+  const re = new Float64Array(n), im = new Float64Array(n);
+  for (let i = 0; i < n; i++) re[i] = (x[a + i] - m) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / n));
+  fcFFT(re, im); const P = new Float64Array(n / 2 + 1); for (let i = 0; i <= n / 2; i++) P[i] = re[i] * re[i] + im[i] * im[i]; return P; }
+// level (dB) and share of power more than 6 Hz from any string harmonic, 30 Hz–8 kHz, over the last second
+function fcMeasure(x) { const SR = FC.SR, n = 32768, a = x.length - n, P = fcPower(x, a, n);
+  let s = 0, m = 0; for (let i = a; i < x.length; i++) m += x[i]; m /= n; for (let i = a; i < x.length; i++) s += (x[i] - m) ** 2;
+  let tot = 0, off = 0; for (let i = 0; i < P.length; i++) { const f = i * SR / n; if (f < 30 || f > 8000) continue;
+    tot += P[i]; if (Math.abs(f - Math.round(f / FC.F0) * FC.F0) >= 6) off += P[i]; }
+  return { levelDb: 10 * Math.log10(s / n + 1e-30), offShare: off / (tot + 1e-30), P, n }; }
+</script>
+
+<script>
+const KILL = {"0.5000":null,"1.0000":null,"1.5000":null,"2.0000":null,"2.5000":32,"3.0000":null,"1.3333":12,"1.2500":12,"1.2000":8,"1.7000":12,"1.4142":24,"2.1213":6,"1.5708":32};
+const PRESETS = [
+  { id: 'crack', name: '1× crack', p: { eps: 0.10, epsRamp: true, gRatio: 1, gCents: 0, lenDepth: 0, lenRatio: 1.5, lenRamp: false, seed: 3, pluck: false },
+    idea: 'The loudness pump alone, rising from zero, at exactly the string\'s own rate. The string sits silent in noise, then cracks into a held buzz once the pump\'s peak lifts the loop above unity. Every line in the spectrogram lands on an amber harmonic.' },
+  { id: 'hollow', name: '2× hollow', p: { eps: 0.10, epsRamp: true, gRatio: 2, gCents: 0, lenDepth: 0, lenRatio: 1.5, lenRamp: false, seed: 3, pluck: false },
+    idea: 'The same rise at twice the string\'s rate: two pulse slots per pass. This seed fills them equal and opposite, and the even harmonics vanish, a hollow, clarinet-like buzz at the same pitch. Try other seeds: the noise picks the timbre.' },
+  { id: 'detune', name: '1× off by 20 cents', p: { eps: 0.20, epsRamp: false, gRatio: 1, gCents: 20, lenDepth: 0, lenRatio: 1.5, lenRamp: false, seed: 3, pluck: false },
+    idea: 'A deep loudness pump, 20 cents sharp of the string. Nothing grows: the tongue is narrow. Drag the fine knob toward zero and render again. Between about 2 and 8 cents the string still holds a tone, but it does not follow the pump; it stays within a cent or so of its own pitch. Past 12 cents it fades, and by 16 it is gone.' },
+  { id: 'half', name: 'held + 1.5× length', p: { eps: 0.10, epsRamp: false, gRatio: 1, gCents: 0, lenDepth: 16, lenRatio: 1.5, lenRamp: true, seed: 3, pluck: false },
+    idea: 'Both pumps. The loudness pump holds the buzz alive; the length pump, at 1.5× and rising to ±16 samples, draws cyan partials halfway between the harmonics. The lock holds, because the wobble repeats every two passes, so the pulse keeps meeting the loudness peak. A sustained tone with new partials, which neither pump makes alone.' },
+  { id: 'stray', name: 'held + stray length', p: { eps: 0.10, epsRamp: false, gRatio: 1, gCents: 0, lenDepth: 12, lenRatio: 2.1213, lenRamp: true, seed: 3, pluck: false },
+    idea: 'Same, but the length pump runs at a stray rate (2.1213×). As its depth rises the pulse arrives a little early or late each pass, slips out of the loudness window, and the held tone smears and dies back to noise around ±6 samples.' },
+  { id: 'pluck', name: 'length-pumped pluck', p: { eps: 0, epsRamp: false, gRatio: 1, gCents: 0, lenDepth: 0.6, lenRatio: 1.5, lenRamp: false, seed: 3, pluck: true },
+    idea: 'No loudness pump: a plain pluck that dies, with its length wobbling ±0.6 samples at 1.5×. The ladder appears halfway between the harmonics, but nothing holds it up, so it fades with the string.' },
+];
+const $ = id => document.getElementById(id);
+const DUR = 4; let cur = null, actx = null, src = null, last = null;
+const ctl = ['eps', 'gR', 'gC', 'D', 'rL', 'seed'];
+function readP() { return { dur: DUR, g0: 0.98, noise: 1e-4, eps: +$('eps').value, epsRamp: $('epsRamp').checked, gRatio: +$('gR').value, gCents: +$('gC').value,
+  lenDepth: +$('D').value, lenRatio: +$('rL').value, lenRamp: $('lenRamp').checked, seed: +$('seed').value, pluck: $('pluck').checked }; }
+function showVals() { $('eps_v').textContent = (+$('eps').value).toFixed(3); $('gR_v').textContent = (+$('gR').value).toFixed(1) + '×';
+  $('gC_v').textContent = (+$('gC').value >= 0 ? '+' : '') + (+$('gC').value).toFixed(1); $('D_v').textContent = '±' + (+$('D').value).toFixed(2);
+  $('rL_v').textContent = (+$('rL').value).toFixed(4) + '×'; $('seed_v').textContent = $('seed').value; }
+function setPreset(pr) { cur = pr.id; const p = pr.p; $('eps').value = p.eps; $('epsRamp').checked = p.epsRamp; $('gR').value = p.gRatio; $('gC').value = p.gCents;
+  $('D').value = p.lenDepth; $('rL').value = p.lenRatio; $('lenRamp').checked = p.lenRamp; $('seed').value = p.seed; $('pluck').checked = p.pluck;
+  $('idea').textContent = pr.idea; document.querySelectorAll('#presets button').forEach(b => b.setAttribute('aria-pressed', b.dataset.id === pr.id)); showVals(); }
+function sizeCanvas(c) { const r = window.devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height'); c.width = w * r; c.height = h * r; const g = c.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return [g, w, h]; }
+const FMAX = 2400;
+function rulers(g, w, h, p, vertical) { // harmonics amber, length ladder cyan
+  const X = f => f / FMAX * (vertical ? h : w);
+  for (let k = 1; k * FC.F0 < FMAX; k++) { const f = k * FC.F0; g.strokeStyle = 'rgba(232,184,74,.55)'; g.setLineDash([2, 4]); g.beginPath();
+    if (vertical) { g.moveTo(w - 14, h - X(f)); g.lineTo(w, h - X(f)); } else { g.moveTo(X(f), 0); g.lineTo(X(f), h); } g.stroke(); }
+  if (p.lenDepth > 0) for (let k = 0; k * FC.F0 < FMAX + 4 * FC.F0; k++) for (const s of [-1, 1]) { const f = k * FC.F0 + s * p.lenRatio * FC.F0; if (f <= 0 || f >= FMAX) continue;
+    g.strokeStyle = 'rgba(106,168,232,.55)'; g.setLineDash([1, 3]); g.beginPath();
+    if (vertical) { g.moveTo(w - 28, h - X(f)); g.lineTo(w - 15, h - X(f)); } else { g.moveTo(X(f), 0); g.lineTo(X(f), h); } g.stroke(); }
+  g.setLineDash([]); }
+function drawSpectrogram(x, p) { const [g, w, h] = sizeCanvas($('sg')); g.fillStyle = '#0a0a0f'; g.fillRect(0, 0, w, h);
+  const n = 4096, hop = 1024, frames = Math.floor((x.length - n) / hop), bins = Math.ceil(FMAX / (FC.SR / n));
+  const img = g.createImageData(frames, bins);
+  for (let fr = 0; fr < frames; fr++) { const P = fcPower(x, fr * hop, n);
+    for (let b = 0; b < bins; b++) { const db = 10 * Math.log10(P[b] + 1e-20), v = Math.max(0, Math.min(1, (db + 40) / 90)), o = ((bins - 1 - b) * frames + fr) * 4;
+      img.data[o] = 255 * v * v * 0.95; img.data[o + 1] = 255 * v * v * v * 0.78; img.data[o + 2] = 40 * v + 70 * v * v * v; img.data[o + 3] = 255; } }
+  const off = document.createElement('canvas'); off.width = frames; off.height = bins; off.getContext('2d').putImageData(img, 0, 0);
+  g.imageSmoothingEnabled = true; g.drawImage(off, 0, 0, w - 30, h); rulers(g, w, h, p, true);
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; for (const f of [500, 1000, 1500, 2000]) g.fillText(f + '', 4, h - f / FMAX * h - 2); }
+function drawSpectrum(M, p) { const [g, w, h] = sizeCanvas($('sp')); g.fillStyle = '#0a0a0f'; g.fillRect(0, 0, w, h); rulers(g, w, h, p, false);
+  const lo = -110, hi = 10, Y = db => h - (db - lo) / (hi - lo) * h; g.strokeStyle = '#e8e8f0'; g.lineWidth = 1; g.beginPath();
+  const norm = 10 * Math.log10((M.n * 0.5 / 2) ** 2);
+  for (let i = 1; i * FC.SR / M.n < FMAX; i++) { const px = i * FC.SR / M.n / FMAX * w, db = 10 * Math.log10(M.P[i] + 1e-30) - norm; i === 1 ? g.moveTo(px, Y(db)) : g.lineTo(px, Y(db)); } g.stroke();
+  g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace'; for (const d of [-100, -60, -20]) g.fillText(d + ' dB', 4, Y(d) - 2); }
+async function play(x) { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); if (actx.state !== 'running') await actx.resume(); stop();
+  let pk = 1e-9; for (const v of x) pk = Math.max(pk, Math.abs(v)); const b = actx.createBuffer(1, x.length, FC.SR), d = b.getChannelData(0), gn = 0.5 / pk, fade = 240;
+  for (let i = 0; i < x.length; i++) d[i] = x[i] * gn * Math.min(1, i / fade, (x.length - 1 - i) / fade);
+  src = actx.createBufferSource(); src.buffer = b; src.connect(actx.destination); src.start(); }
+function stop() { if (src) { try { src.stop(); } catch (e) {} src = null; } }
+function render(andPlay) { const p = readP(); $('status').textContent = 'rendering…';
+  setTimeout(() => { const t0 = performance.now(), x = fcRender(p), M = fcMeasure(x); last = { x, p, M };
+    drawSpectrogram(x, p); drawSpectrum(M, p);
+    $('r_f0').textContent = FC.F0.toFixed(1) + ' Hz'; $('r_g').textContent = p.eps > 0 ? (p.gRatio * Math.pow(2, p.gCents / 1200) * FC.F0).toFixed(1) + ' Hz' : 'off';
+    $('r_l').textContent = p.lenDepth > 0 ? (p.lenRatio * FC.F0).toFixed(1) + ' Hz' : 'off'; $('r_lvl').textContent = M.levelDb.toFixed(1) + ' dB';
+    $('r_off').textContent = (100 * M.offShare).toFixed(1) + ' %';
+    $('status').textContent = 'rendered 4 s in ' + Math.round(performance.now() - t0) + ' ms' + (andPlay ? ' · playing' : '');
+    if (andPlay) play(x).catch(() => { $('status').textContent += ' · press again to hear it'; }); }, 20); }
+PRESETS.forEach(pr => { const b = document.createElement('button'); b.textContent = pr.name; b.dataset.id = pr.id; b.onclick = () => { setPreset(pr); render(false); }; $('presets').appendChild(b); });
+ctl.forEach(id => $(id).addEventListener('input', () => { showVals(); cur = null; document.querySelectorAll('#presets button').forEach(b => b.setAttribute('aria-pressed', false)); }));
+$('go').onclick = () => render(true); $('stop').onclick = stop;
+$('killtab').innerHTML = Object.entries(KILL).sort((a, b) => +a[0] - +b[0]).map(([r, k]) => `<tr><td>${(+r).toFixed(4)}</td><td>${k === null ? '<span style="color:var(--amber)">never, to ±32</span>' : '±' + k}</td></tr>`).join('');
+setPreset(PRESETS[3]); render(false);
+window.addEventListener('resize', () => { if (last) { drawSpectrogram(last.x, last.p); drawSpectrum(last.M, last.p); } });
+</script>
+</body>
+</html>

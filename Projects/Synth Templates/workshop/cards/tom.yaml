@@ -1,0 +1,66 @@
+# Synth Templates — card 0.2 — Tom
+# A kick that keeps its note: a sine with a smaller pitch fall, a medium decay, and a little noise for the stick.
+schema: synth-template-card/0.2
+id: tom
+name: Tom
+family: Drums and Percussion
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → pitch (attack blip)"
+  - "Noise at the attack; noise oscillator with its own envelope"
+  - "Key → pitch (keytracking)"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, retrigger: true}
+    noise:   {kind: oscillator, wave: noise, level: little, note: "the stick on the head"}
+    mix:     {kind: mixer}
+    amp:     {kind: amplifier, level: full}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: short, s: zero, r: short}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: a fifth, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+
+essentials:
+  - {block: osc1,    param: wave,      value: sine,          why: "the head's one note"}
+  - {block: menv,    param: amount,    value: a fifth,       why: "a smaller fall than a kick: the note stays audible, and the fall is the skin tightening and relaxing"}
+  - {block: menv,    param: decay,     value: short}
+  - {block: key,     param: pitch,     value: keytracking on, why: "a tom is tuned: play the rack up the keyboard"}
+  - {block: noise,   param: level,     value: little,        why: "just the stick; more and it is a snare with no snares"}
+  - {block: aenv,    param: decay,     value: medium,        why: "longer than a snare, shorter than a kick"}
+  - {block: aenv,    param: sustain,   value: zero,          why: "struck, then left to decay"}
+  - {block: aenv,    param: mode,      value: one-shot,      why: "plays out whatever the note length"}
+
+taste:
+  - {block: aenv,    param: decay,   range: "short – slow",         default: medium, why: "floor toms longer"}
+  - {block: menv,    param: amount,  range: "a fifth – about an octave", default: a fifth}
+  - {block: menv,    param: decay,   range: "fast – medium",        default: short}
+  - {block: noise,   param: level,   range: "off – low",            default: little}
+  - {block: osc1,    param: pitch,   range: "G1 – G3",              default: G2}
+
+listening:
+  cue: "A note you could sing, bending down slightly as it starts, then ringing clean. Up the keyboard it stays a tom; the pitch is the drum size."
+  ab: "Set the pitch envelope amount to none: a plain sine ping, no skin. Put it back and set the amp decay to long: it becomes an 808 kick an octave up."
+
+render:
+  tempo: 110
+  note: [G2, E2, C2]
+  velocity: 105
+  pattern: "a fill: high, mid, low, each a quarter; the low tom left to ring"
+  length_s: 3.0
+
+mappings: {}

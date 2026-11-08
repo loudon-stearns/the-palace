@@ -1,0 +1,225 @@
+<!doctype html>
+<!--
+  title: GenAI Camera — rich — depth auto-range
+  born: 2026-11-03
+  links: [[GenAI Camera]] (connects-to · rich-face-piece) · listed in [[GenAI Camera — rich.json]] · serves § How it runs (proven 2026-07-09) · gathers the depth plates of renders 005 and 008
+  forward_vector: I am the page's depth gotcha, walked up from one depth pass you can probe, then the same figure before the near/far fix, then both stretched to show the shape each one carries, and last the measure of how much of the 0 to 255 gradient the body uses before and after. I run no model; I read the bundle's own depth plates, and I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:files" content="renders/render_005_depth.png renders/render_008_depth.png rich-face/autorange-stretched.png">
+<title>GenAI Camera — depth auto-range</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+code, pre, samp {font-family: var(--fx-mono);}
+pre {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 140px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; height: auto; background: #000; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  .ctl .lab { display: block; margin-bottom: 6px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 220px; flex: 1 1 220px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict p { margin: 0 0 10px; } .verdict p:last-child { margin: 0; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg3); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+  canvas.probe { cursor: crosshair; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>gathered depth plates · measured · sketch</span></div>
+  <h3 class="title">Depth auto-range: how much of the gradient the body gets</h3>
+  <p class="sub">The section’s depth gotcha: with near and far set wider than the subject, the depth pass reads as a flat silhouette; bracket the subject every render and it carries volume. Four steps: one depth pass, the same figure before the fix, both stretched to show what each one holds, and last the measure of how much of 0 to 255 the body uses, before and after. The plates are the bundle’s own: render 005 (fixed range) and render 008 (the first auto-ranged render), same figure, same camera.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel"><div class="plabel"><span id="aLabel"></span><span id="aUnits"></span></div><canvas id="a" class="probe"></canvas></div>
+    <div class="panel"><div class="plabel"><span id="bLabel"></span><span id="bUnits"></span></div><canvas id="b" class="probe"></canvas></div>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="hint" id="hint"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+
+  <div class="eqs">
+    <div class="eq">v = 1 − (z − near) ÷ (far − near), clamped to 0…1</div>
+    <div class="words">(the pixel’s value) = one minus (how far the surface is past the near plane) ÷ (the distance from near to far). Near is bright, far is dark. A body 0.4 deep inside a range 1.2 deep can use at most a third of the scale; bracketing it with <code>cam_z_range()</code> lets it use more.</div>
+  </div>
+  <div class="note" id="src"></div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="baked" type="application/json">{"dial":{"sorceress":{"body_px":15435,"steps":[{"depth":0.0,"bg":60.0,"outside":1.549,"cloth":1.3274},{"depth":0.15,"bg":40.0,"outside":1.117,"cloth":0.9252},{"depth":0.3,"bg":20.0,"outside":0.681,"cloth":0.4317},{"depth":0.45,"bg":20.0,"outside":0.488,"cloth":0.2375},{"depth":0.6,"bg":29.0,"outside":0.388,"cloth":0.144},{"depth":0.8,"bg":38.0,"outside":0.101,"cloth":0.0162}]},"barbarian":{"body_px":15426,"steps":[{"depth":0.0,"bg":24.0,"outside":0.23,"cloth":0.1647},{"depth":0.15,"bg":19.0,"outside":0.163,"cloth":0.1053},{"depth":0.3,"bg":14.0,"outside":0.092,"cloth":0.0354},{"depth":0.45,"bg":16.0,"outside":0.064,"cloth":0.02},{"depth":0.6,"bg":22.0,"outside":0.001,"cloth":0.0006},{"depth":0.8,"bg":27.0,"outside":0.0,"cloth":0.0}]}},"plates":{"thin":21952,"thick":34987,"ratio":1.59},"autorange":{"before":{"hist":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,17,172,1202,2335,1822,1641,1374,1508,2106,2967,4150,4959,4826,840,166,93,64,32,15,3,5,11,23,50,56,12,24,9,6,8,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"interior_px":30497,"min":191,"max":221,"p5":194,"p95":203,"span_frac":0.118,"p5_95_frac":0.035},"after":{"hist":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,9,13,32,74,101,113,294,518,858,765,538,483,526,532,490,475,462,477,479,387,360,375,418,409,454,489,566,652,722,746,926,946,1114,1393,1478,1338,1400,1494,1772,2224,1824,717,201,100,95,65,41,45,34,20,33,19,32,8,19,11,7,7,3,0,2,2,1,1,2,2,2,5,7,6,16,10,20,29,23,16,7,6,4,7,10,7,6,2,1,5,5,3,3,1,0,0,0,0,0,0,0,0,0,0,0],"interior_px":30401,"min":154,"max":244,"p5":163,"p95":196,"span_frac":0.353,"p5_95_frac":0.129}},"shootout":{"segment":{"changed_frac":0.454,"inside_region":0.232},"inpaint":{"changed_frac":0.109,"inside_region":0.986},"falloff":{"inside":91.7,"rings":[73.2,34.3,8.7,3.5,2.5]},"region_frac":0.112}}</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const BAKED = JSON.parse($('baked').textContent);
+const loadImg = (src) => new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = () => no(new Error('could not load ' + src)); im.src = src; });
+// pixels of a crop, or null where the frame may not read them (a sandboxed public frame)
+function pixels(img, sx, sy, sw, sh) {
+  try { const c = document.createElement('canvas'); c.width = sw; c.height = sh; const x = c.getContext('2d', { willReadFrequently: true });
+    x.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh); return x.getImageData(0, 0, sw, sh).data; } catch (e) { return null; }
+}
+// PIL's own luma, so the page and checks.py count the same pixels
+const luma = (d) => { const n = d.length >> 2, L = new Int16Array(n); for (let i = 0; i < n; i++) L[i] = (d[4 * i] * 19595 + d[4 * i + 1] * 38470 + d[4 * i + 2] * 7471 + 0x8000) >> 16; return L; };
+// a square max (dilate) or min (erode) filter of half-width r on a 0/1 mask, separable
+function morph(m, w, h, r, isMax) {
+  const t = new Uint8Array(m.length), o = new Uint8Array(m.length), hit = isMax ? 1 : 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { let v = 1 - hit; for (let k = Math.max(0, x - r); k <= Math.min(w - 1, x + r); k++) if (m[y * w + k] === hit) { v = hit; break; } t[y * w + x] = v; }
+  for (let x = 0; x < w; x++) for (let y = 0; y < h; y++) { let v = 1 - hit; for (let k = Math.max(0, y - r); k <= Math.min(h - 1, y + r); k++) if (t[k * w + x] === hit) { v = hit; break; } o[y * w + x] = v; }
+  return o;
+}
+const median = (a) => { const s = Float64Array.from(a).sort(), n = s.length; return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; };
+const pctLower = (sorted, q) => sorted[Math.floor(q * (sorted.length - 1))];
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+function railWalk(STEPS, go) {
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `step ${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); rail.appendChild(b); });
+  $('back').onclick = () => go(Math.max(0, cur - 1)); $('next').onclick = () => go(Math.min(STEPS.length - 1, cur + 1));
+}
+let cur = 0;
+function markRail(i, n) { cur = i; [...$('rail').children].forEach((b, k) => b.classList.toggle('on', k === i)); $('back').disabled = i === 0; $('next').disabled = i === n - 1; }
+function fit(cv, w, h) { if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; } return cv.getContext('2d'); }
+const BOX = [198, 302, 372, 558]; // the figure's box in the 768×1024 plates: x, y, w, h (the body's bounds with 30 px around)
+const IMG = {}; let LIVE = null, PX = {};
+const STEPS = [
+  { name: 'one depth pass', say: 'One depth pass, after the fix: the mannequin’s distance from the camera as brightness, near bright and far dark. Move over it to read a value; the hands are the nearest part, the brightest thing in it.' },
+  { name: 'before the fix', say: 'The same figure before the fix, with near and far fixed 1.2 apart around a body about 0.4 deep. The face and the chest are there, faintly; mostly it is one flat grey shape.' },
+  { name: 'stretched', say: 'Stretch each body’s own darkest to its own brightest across the whole scale. Both carry the same shape: the before plate has it too, in fewer levels, so it comes up grainy. The ControlNet never sees this stretch; it sees step 2.' },
+  { name: 'the test', say: 'Where on the scale of 0 to 255 do the body’s pixels sit? Its interior only, the rim’s blend into black set aside. The page says the wide range fills only a quarter, and that the fix makes it fill the gradient.' },
+];
+function drawPlate(ctx, im, sx) { ctx.drawImage(im, BOX[0] + sx, BOX[1], BOX[2], BOX[3], 0, 0, BOX[2], BOX[3]); }
+function hist(ctx, h, col, label, W, H, y0) {
+  const n = Math.max(...h), L = 40, R = W - 20, base = y0 + H - 40, top = y0 + 30, X = (v) => L + v / 255 * (R - L);
+  ctx.strokeStyle = '#4a4a5a'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(L, base); ctx.lineTo(R, base); ctx.stroke();
+  ctx.fillStyle = col; for (let v = 0; v < 256; v++) if (h[v]) { const hh = (h[v] / n) * (base - top); ctx.fillRect(X(v), base - hh, Math.max(1.5, (R - L) / 256), hh); }
+  ctx.fillStyle = '#8a8aa0'; ctx.font = '13px JetBrains Mono, monospace'; ctx.textAlign = 'center'; [0, 64, 128, 192, 255].forEach((v) => ctx.fillText(v, X(v), base + 18));
+  ctx.textAlign = 'left'; ctx.fillStyle = col; ctx.fillText(label, L, top - 10);
+}
+function render() {
+  const A = $('a'), B = $('b'), N = (LIVE || BAKED).autorange;
+  if (cur === 0) { drawPlate(fit(A, BOX[2], BOX[3]), IMG.after, 0); $('aLabel').textContent = 'after · render 008'; $('aUnits').textContent = 'auto-ranged';
+    B.parentElement.classList.add('hidden'); }
+  else B.parentElement.classList.remove('hidden');
+  if (cur === 1) { drawPlate(fit(A, BOX[2], BOX[3]), IMG.before, 0); drawPlate(fit(B, BOX[2], BOX[3]), IMG.after, 0);
+    $('aLabel').textContent = 'before · render 005'; $('aUnits').textContent = 'near/far fixed, 1.2 apart'; $('bLabel').textContent = 'after · render 008'; $('bUnits').textContent = 'auto-ranged'; }
+  if (cur === 2) { const ctxA = fit(A, BOX[2], BOX[3]), ctxB = fit(B, BOX[2], BOX[3]);
+    ctxA.drawImage(IMG.st, BOX[0], BOX[1], BOX[2], BOX[3], 0, 0, BOX[2], BOX[3]); ctxB.drawImage(IMG.st, 768 + BOX[0], BOX[1], BOX[2], BOX[3], 0, 0, BOX[2], BOX[3]);
+    $('aLabel').textContent = `before, ${N.before.min}–${N.before.max} stretched to 0–255`; $('aUnits').textContent = ''; $('bLabel').textContent = `after, ${N.after.min}–${N.after.max} stretched to 0–255`; $('bUnits').textContent = ''; }
+  if (cur === 3) { drawPlate(fit(A, BOX[2], BOX[3]), IMG.before, 0); $('aLabel').textContent = 'before · render 005'; $('aUnits').textContent = 'as the ControlNet sees it';
+    const W = 720, H = 760, ctx = fit(B, W, H); ctx.fillStyle = '#12121a'; ctx.fillRect(0, 0, W, H);
+    hist(ctx, N.before.hist, '#c8c8d8', `before: ${N.before.min}–${N.before.max}, ${Math.round(100 * N.before.span_frac)}% of the scale`, W, H / 2, 0);
+    hist(ctx, N.after.hist, '#e8b84a', `after: ${N.after.min}–${N.after.max}, ${Math.round(100 * N.after.span_frac)}% of the scale`, W, H / 2, H / 2);
+    $('bLabel').textContent = 'the body’s interior on 0–255'; $('bUnits').textContent = 'pixel counts'; }
+  $('read').innerHTML = cur === 3 ? `<span>before <b>${N.before.min}–${N.before.max}</b>, nine in ten within <b>${N.before.p5}–${N.before.p95}</b></span><span>after <b>${N.after.min}–${N.after.max}</b>, nine in ten within <b>${N.after.p5}–${N.after.p95}</b></span><span>the body gets <b class="hot">${(N.after.span_frac / N.before.span_frac).toFixed(1)}×</b> the scale</span>` : (cur < 2 ? '<span id="probe">move over a plate to read its value</span>' : '');
+  const v = $('verdict');
+  if (cur === 3) { v.classList.remove('hidden');
+    v.innerHTML = `<p><b>The fix helps, about threefold, and does not fill the gradient.</b> Before, the body’s interior sits between ${N.before.min} and ${N.before.max} of 255, ${Math.round(100 * N.before.span_frac)}% of the scale, nine in ten of its pixels inside ${N.before.p5}–${N.before.p95}. After, ${N.after.min} to ${N.after.max}, ${Math.round(100 * N.after.span_frac)}%, nine in ten inside ${N.after.p5}–${N.after.p95}.</p>` +
+      `<p>The page’s “fills only a quarter” is a third by its own numbers, 0.4 in 1.2, and the body’s visible surface used less still, ${Math.round(100 * N.before.span_frac)}%, because the camera sees only its front. After the fix it uses about a third, not all of it: <code>cam_z_range()</code> brackets the whole mesh, the back the camera never sees included, and the hands, the nearest part, take the top of what is left. Volume did arrive, and it arrived as more levels for the same shape: step 3’s before plate carries the face and the chest, grainy, in ${N.before.max - N.before.min + 1} levels.</p>`; }
+  else v.classList.add('hidden');
+  $('hint').textContent = ['Values are the plate’s own 0–255, read from the file the ControlNet was sent.', 'Both plates are cropped to the same box around the figure; the black around it is the far plane, 0.', 'Each stretch maps that plate’s own interior minimum and maximum to 0 and 255; the rest of the frame stays black.', 'Interior means the body shrunk by four pixels, so the soft rim where the body meets the black doesn’t count as depth. Read with PIL in checks.py, and again here when the frame may read pixels.'][cur];
+}
+function probe(e) { const el = $('probe'); if (!el) return; const cv = e.currentTarget, r = cv.getBoundingClientRect();
+  const x = Math.floor((e.clientX - r.left) / r.width * BOX[2]), y = Math.floor((e.clientY - r.top) / r.height * BOX[3]);
+  const which = cur === 0 || cv.id === 'b' ? 'after' : 'before', d = PX[which];
+  if (!d) { el.textContent = 'this frame may not read pixels, so the probe is off'; return; }
+  const v = d[(BOX[1] + y) * 768 + BOX[0] + x]; el.innerHTML = `${which} · value <b class="hot">${v}</b> of 255 ${v === 0 ? '· the far plane' : ''}`; }
+function go(i) { markRail(i, STEPS.length); $('say').innerHTML = STEPS[i].say; render(); }
+function measure() {
+  const out = { autorange: {} };
+  for (const k of ['before', 'after']) {
+    const d = pixels(IMG[k], 0, 0, 768, 1024); if (!d) return null; const L = luma(d); PX[k] = L;
+    const m = new Uint8Array(L.length); for (let i = 0; i < L.length; i++) m[i] = L[i] > 3 ? 1 : 0;
+    const inner = morph(m, 768, 1024, 4, false), v = [], h = new Array(256).fill(0);
+    for (let i = 0; i < L.length; i++) if (inner[i]) { v.push(L[i]); h[L[i]]++; }
+    const s = Int16Array.from(v).sort(), mn = s[0], mx = s[s.length - 1], p5 = pctLower(s, 0.05), p95 = pctLower(s, 0.95);
+    out.autorange[k] = { hist: h, interior_px: s.length, min: mn, max: mx, p5, p95, span_frac: Math.round(1000 * (mx - mn) / 255) / 1000, p5_95_frac: Math.round(1000 * (p95 - p5) / 255) / 1000 };
+  }
+  return out;
+}
+(async () => {
+  sigil(3, 2);
+  IMG.before = await loadImg('renders/render_005_depth.png'); IMG.after = await loadImg('renders/render_008_depth.png'); IMG.st = await loadImg('rich-face/autorange-stretched.png');
+  ['a', 'b'].forEach((id) => $(id).addEventListener('mousemove', probe));
+  railWalk(STEPS, go);
+  LIVE = measure(); const same = LIVE && JSON.stringify(LIVE.autorange) === JSON.stringify(BAKED.autorange);
+  window.__gc = { piece: 'depth auto-range', live: LIVE && { before: { ...LIVE.autorange.before, hist: undefined }, after: { ...LIVE.autorange.after, hist: undefined } }, same };
+  $('src').textContent = LIVE ? (same ? 'Every number here was re-measured in this page from the two depth plates, and matches checks.py.' : 'Re-measured in this page; it differs from checks.py, so the page shows its own count.') : 'This frame may not read pixels, so the numbers are the ones checks.py measured from the same plates.';
+  go(0);
+})();
+</script>
+</body>
+</html>

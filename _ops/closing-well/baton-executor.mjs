@@ -172,8 +172,11 @@ function loadOnPickup() {
       + 'A baton without it is unfinished — the catcher reads the baton, not the ceremony. Refusing to write one.');
   }
   // Drop the §8 bundle frontmatter and the editor note; keep the checklist verbatim
-  // from its own heading down.
-  const at = raw.indexOf('## On pickup');
+  // from its own heading down. The heading must open a line: since Baton Ceremony
+  // v1.6 (50d30607) the editor note quotes it mid-line, and a bare indexOf took the
+  // footer from inside the note (the same fault lint-baton-footer.py had, f2ec6e0b).
+  const m = /^## On pickup/m.exec(raw);
+  const at = m ? m.index : -1;
   if (at < 0) {
     return die(1, `${ON_PICKUP_PATH} has no "## On pickup" heading — that is not the checklist. `
       + 'Refusing to write a baton with a malformed footer.');

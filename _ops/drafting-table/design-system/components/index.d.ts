@@ -189,3 +189,14 @@ export declare const Button: (p: ButtonProps) => JSX.Element;
 export declare const Readout: (p: ReadoutProps) => JSX.Element;
 export declare const Meter: (p: MeterProps) => JSX.Element;
 export declare const Scope: (p: ScopeProps) => JSX.Element;
+
+/** The Transport is not in the React bundle. transport.js (a plain script) mounts on an <audio>: every
+ *  `<audio controls>` on load, or by hand. A React page mounts it in an effect on the element's ref. */
+export interface TransportProps {
+  /** Shown after the time; else the element's data-label. */
+  label?: string;
+}
+export interface TransportApi { el: HTMLElement; audio: HTMLAudioElement; play(): void; stop(): void; draw(): void; }
+/** window.DT.transport when dt-controls.js is loaded first; else window.PalaceTransport.mount. */
+export declare const transport: (audio: HTMLAudioElement, opts?: TransportProps) => TransportApi;
+export declare const transportAll: (scope?: ParentNode) => TransportApi[];

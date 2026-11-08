@@ -1,0 +1,74 @@
+# Synth Templates — Genre Classics — Seinfeld Slap Bass
+# A slap imitated: a narrow pulse through a highpass, a tiny upward pitch blip, a pop from a fast filter envelope, and a fast decay.
+schema: synth-template-card/0.2
+id: seinfeld-slap-bass
+name: Seinfeld Slap Bass
+family: Genre Classics
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Pulse width, static and modulated"
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Serial: flexible band-pass (HP + LP) with horns"
+  - "Envelope → pitch (attack blip)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.3, octave: 0, retrigger: true}
+    filter1: {kind: filter, type: highpass, slope: 12, resonance: little, note: "takes the boom out: a slapped string has little fundamental"}
+    filter2: {kind: filter, type: lowpass, slope: 24, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: pitch, shape: {a: instant, d: fast, s: zero, r: fast}, category: percussive, note: "a tiny blip: less than a semitone; the vocabulary's smallest pitch word is a fifth, so the amount is 'little'"}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, filter1]
+    - [filter1, filter2]
+    - [filter2, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc1.pitch, amount: little, essential: true}
+    - {from: fenv, to: filter2.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: fenv.amount, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: mono,           why: "one string at a time, popped"}
+  - {block: osc1,    param: wave,      value: pulse,          why: "a narrow pulse is nasal and twangy: the slapped string's spectrum, not a saw's"}
+  - {block: osc1,    param: pw,        value: 0.3,            why: "narrower than a square: the nasal edge"}
+  - {block: filter1, param: type,      value: highpass 12 dB, why: "a slap has almost no boom; the highpass takes it out so the pop is all you hear"}
+  - {block: filter2, param: type,      value: lowpass 24 dB,  why: "the second filter makes the pop: with the highpass it is a band, and the envelope moves its top"}
+  - {block: menv,    param: target,    value: osc1 pitch, why: "the blip: the string is pulled sharp for an instant as it is struck"}
+  - {block: menv,    param: decay,     value: fast,           why: "the blip is over before the pitch is heard"}
+  - {block: fenv,    param: decay,     value: short,          why: "the pop: bright, then the string"}
+  - {block: aenv,    param: sustain,   value: zero,           why: "plucked; the thumb has already left"}
+  - {block: aenv,    param: decay,     value: medium,         why: "fast: the note is a 'boink', not a tone"}
+
+taste:
+  - {block: osc1,    param: pw,        range: "0.2 – 0.4",          default: 0.3}
+  - {block: filter1, param: cutoff,    range: "dark – mid",         default: dark, why: "how much of the string's body is left"}
+  - {block: filter2, param: cutoff,    range: "dark – mid",         default: mid}
+  - {block: filter2, param: resonance, range: "little – high",      default: moderate, why: "the 'oink' in the pop"}
+  - {block: fenv,    param: amount,    range: "moderate – full",    default: generous}
+  - {block: aenv,    param: decay,     range: "short – medium",     default: medium}
+  - {block: osc1,    param: glide,     range: "none – short",       default: none, why: "a short glide on some notes is the slide up the neck"}
+
+listening:
+  cue: "'Boink.' Each note pops bright and nasal and is gone, with a flick of pitch on its front edge you feel more than hear. There is no boom under it; that is what makes it a slap and not a bass."
+  ab: "Take the highpass out: the fundamental comes back and it is a plain pulse bass. Put it back. Then set the pitch envelope amount to none: the pops are still there, but the string stops sounding struck."
+
+render:
+  tempo: 112
+  note: [E2, E2, G2, A2, E3, D3, A2, E2]
+  velocity: [120, 90, 100, 100, 120, 100, 100, 120]
+  pattern: "a one-bar lick in eighths and sixteenths with a rest on beat 2; the octave on beat 3 pops hardest"
+  length_s: 3.0
+
+mappings: {}

@@ -15,26 +15,32 @@ forward_vector: "I am Shopkeeper's scroll — the page's front door, opening on 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-18T18:13:32.893Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-07T13:23:06.784Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** alive · **Stage:** — · **Steward:** cycle 3 · last ran 2026-10-18 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector
+- **Status:** alive · **Stage:** — · **Steward:** cycle 15 · last ran 2026-11-07 (today)
+- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
 - **Waiting on you:** nothing
-- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
-- **Last shipped:** 2026-10-18 (today) — I confirmed a real pattern across two flagship Spaces, and found the Roster's FLUX entry is five months stale right as FLUX 3 shipped. (`shopkeeper-cycle-3-2026-10-18`)
-- **Last commit touching this page:** 2026-10-18 `ed2b4ff3` — edit(Shopkeeper): the roster follows the Shopkeeper's Shop edits on its own; The Shop page stays outside its reach
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-11-07 (today) — LightOnOCR-3 is on the Roster with a face and a host row, and every Runpod note in the palace now points to one runbook. (`shopkeeper-cycle-15-close-2026-11-07`)
+- **Last commit touching this page:** 2026-11-07 `826d3ca8` — steward(Shopkeeper): cycle 15's lessons in the ledger, the disproved ones marked; the runbook holds the week's last two Runpod findings
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 12 runs on 3 days, counted from the ledger's run lines
+- **Last run:** 2026-11-07 — cycle 15 · taught items 11, 12
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 12, from cycle 15 — 2026-11-04 to 2026-11-07, driven live with Loudon — [[Shopkeeper — tuning]]
 
 ### Where this stands
 
-I'm the Shopkeeper — I keep Loudon's catalogue of creative tools (the Shop) stocked and in repair: I find new tools, try them with my own hands, and only bring him the ones that earn it. Last cycle I landed AuK and the Image-to-3D Smith as approved stubs, then hit a wall trying to get a playable clip out of fish-audio's new Drama-3 Space. This cycle I went looking again, found a real gap in the Roster (no OCR tool at all), and hit the same kind of wall — which turns out to matter more than the miss itself.
+This cycle moved the Shop's Runpod work onto v2 behind one module (_ops/commons/runpod_api.py) and one page (RunPod GPU Backend — runbook), and got LightOnOCR-3 — the Shop's first OCR tool — reading pages. Since the last post: LightOnOCR-3 landed as a stub Specialist with its hero, icon and host-capability row; the Palace Studio launchers, which still scaled the FLUX endpoint through a v1 curl that silently did nothing, now go through the shared EndpointWorkers; the last four Runpod notes point to the runbook; and the STIGMERGY session's scale read-back landed, so a scale that doesn't take now raises instead of leaving jobs queued.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** I have zero evidence yet on whether LightOnOCR-3 actually delivers good layout grounding — I have a real gap and a real candidate, but no run of my own hands on it. _(in 2 notes, the latest cycle 3)_
+- **rough since cycle 1:** Still zero first-hand transcription evidence from LightOnOCR-3 at any size, and now a well-established pattern rather than a fluke: three rentals, two images, two model sizes, same silent failure to bind the port. _(in 12 notes, the latest cycle 14)_
+- **rough since cycle 15:** Both OCR test pages were clean digital renders; _(in 2 notes, the latest cycle 15)_
+- **rough since cycle 15:** no phone photo, skewed scan, handwriting or dense multi-column page has been through it yet. _(in 2 notes, the latest cycle 15)_
 
 ### Open asks
 
@@ -42,20 +48,37 @@ _None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
-- `shopkeeper-ask-2026-10-18-flux3` — GRANTED — option_id=LAND-NOTE · answered 2026-10-18 — waiting for the next cycle
+_None._
 
 ### Decided
 
+- `shopkeeper-ask-2026-11-04-ocr-console-or-drop` — directional_decision → GRANTED — (no option_id); notes: "Loudon, live 2026-11-04: "Lets try to figure out what is going on with Runpod!" … "Also, have a look at runpod documentaiton and fix our helper if needed … lets take this opportunity to zoom out a little and update how we work with runpod." … "I approve all of this. Lets assume runpod will change frequently, so put all runpod documentation and process in a single location and reference our one place of runpod truth." Filed by Shopkeeper in the live session, in his words." (2026-11-04)
+- `shopkeeper-ask-2026-11-04-ocr-nextstep` — directional_decision → GRANTED — option_id=RETRY-DIFFERENT-IMAGE (2026-11-04)
+- `shopkeeper-ask-2026-11-04-runpod-access` — directional_decision → GRANTED — (no option_id); notes: "check with hero/avatar maker on runpod creds
+" (2026-11-04)
+- `shopkeeper-ask-2026-11-04-runpod-spend` — directional_decision → GRANTED — option_id=GO-RUNPOD (2026-11-04)
+- `shopkeeper-ask-2026-11-04-ocr-direction` — directional_decision → GRANTED — (no option_id); notes: "Give me a proposal for using Runpod for this task." (2026-11-04)
 - `shopkeeper-ask-2026-10-18-flux3` — directional_decision → GRANTED — option_id=LAND-NOTE (2026-10-18)
 - `shopkeeper-sweep-2026-09-24-001` — — → GRANTED — (no option_id); notes: "d1 YES: Yes, deposit AuK as a stub. This is the same answer as the 2026-09-15 card.
 d2 YES-WHEN-IN-USE: Yes, pull Qwen-Image-2.1 into the existing ComfyUI install on a mac pass, but only the next time ComfyUI is used for real work, not as a separate errand. Don't retry the free Space." (2026-09-25)
 - `shopkeeper-sweep-2026-09-15-auk-recommend` — — → GRANTED — (no option_id); notes: "d1 YES: Yes, deposit AuK as a stub Specialist. Its three edit types were verified and it is MIT-licensed. Record the unchecked speaker-identity claim as a known gap on the entry.
 d2 NO: No Viggle probe. It needs a 96GB GPU and there is no honest free probe. Park it with the video lane until a real brief asks for motion reenactment. Standing rule: no paid-GPU probe without a brief." (2026-09-25)
-- `e2c20da5-7677-4008-add2-4164a7af1829` — — → GRANTED — (no option_id); notes: "d1 APPROVE: Approve the Image-to-3D Smith stub as it stands. It stays status: stub until its first real job.
-d2 HI3DGEN: Hi3DGen is primary. It was the only engine in the shoot-out with watertight output, which Blender needs. Hunyuan3D-2 stays the fast fallback.
-d3 NOT-YET: Not yet. TripoSplat is a real separate lane (it makes a splat, not a mesh), but no job has asked for splats. Keep it as a lane note inside the Smith until a brief wants one.
-d4 BLENDER-IMPORT: The first real job is the Study→Blender import test. Watertight geometry is why Hi3DGen won, so prove that first.
-d5 YES: Yes, add a dated gotcha note on Stable Audio 3 to [[Stable Audio Open]]. The news is three months old, so re-check it on the Hub before writing." (2026-09-25)
+
+### Runs
+
+- 2026-11-07 — cycle 15 · taught items 11, 12
+- 2026-11-04 — cycle 14 · taught item 10
+- 2026-11-04 — cycle 13 · nothing new
+- 2026-11-04 — cycle 12 · taught item 9
+- 2026-11-04 — cycle 11 · taught item 8
+- 2026-11-04 — cycle 10 · taught item 7
+- 2026-11-04 — cycle 9 · taught item 6
+- 2026-11-03 — cycle 8 · taught item 5
+- _…and 4 more in the trail below._
+
+### Owed
+
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -88,6 +111,301 @@ The Shop is yours to tend, not to write. Run the tools, keep the dossiers, and m
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shopkeeper-cycle-15-close-2026-11-07" -->
+### 2026-11-07 — cycle 15 — LightOnOCR-3 is on the Roster with a face and a host row, and every Runpod note in the palace now points to one runbook.
+> shipped · landed and pushed · steward leans first-real-OCR-job
+
+Commits: 86894063 (LightOnOCR-3 lands), 9cecd726 (Studio launchers on EndpointWorkers), 5e2d918c (notes point to the runbook, host row), 901907d2 (the runbook's leak check covers every file type), dccf90dd (the face). The face render was the first real FLUX render through v2 scaling plus read-back: workersMax 1 confirmed, parked to 0 after. Coordinated with the STIGMERGY hero session (the-palace-bc), whose 063f39bb added the read-back.
+
+**Artifacts:**
+- [the new stub Specialist](Shop/LightOnOCR-3.md)
+- [a woodcut scribe boxing the blocks of a pinned page; one torn page unread](Shop/LightOnOCR-3/LightOnOCR-3 — hero.png)
+- [a lens over ruled lines](Shop/LightOnOCR-3/LightOnOCR-3 — icon.png)
+- [the one place of Runpod truth](Shop/RunPod GPU Backend/RunPod GPU Backend — runbook.md)
+
+_Left rough:_ Both OCR test pages were clean digital renders; no phone photo, skewed scan, handwriting or dense multi-column page has been through it yet. The face is near the brief, not on it (red marks lines, not whole blocks; the icon lost its brackets). set_workers reads back immediately — if v2 ever serves that read stale, add a short retry.
+
+_Next moves named:_ LightOnOCR-3's first real job: a phone photo or whiteboard and a dense multi-column PDF page, both modes, against a hand transcription · Wire endpoint worker logs into runpod_api for the next silent IN_QUEUE
+<sub>`shopkeeper-cycle-15-close-2026-11-07` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-15-2026-11-04" -->
+### 2026-11-07 — cycle 15 — LightOnOCR-3 read its first pages — and the Shop's Runpod stack moved to v2 behind one module and one runbook.
+> shipped · landed 3d256c5a · steward leans draft-the-OCR-Specialist
+
+Diagnosis from Runpod v2's new log stream, the model card and the image configs. Runpod v2 port: runpod_api.py (v2 client + v1 shim), the pod provider, endpoint worker scaling, regen_one, BLUELINE's two standalone clients — no code calls rest.runpod.io. Tests: test_runpod_api 16/16 incl. live read-only, test_provider 11/11, test_multi_agent 9/9, test_reaper 17/17. Probe: Secure A40 at $0.59/hr (no Community stock under a CUDA-13 floor), vLLM v0.33.0, /health at 195 s, four passes 1.3–3.9 s, terminated 204, account confirmed empty. Read: my synthetic page exact in both modes; the vendor's table page word-for-word with heading levels, bold list labels and the ✅/❌ table; grounding boxes sensible.
+
+**Artifacts:**
+- [my synthetic page, layout mode — every block with a label and a box](Shop/Shopkeeper/probes/lightonocr-3/out/probe-page.grounding.md)
+- [the vendor's table page, layout mode](Shop/Shopkeeper/probes/lightonocr-3/out/docs-table.grounding.md)
+- [the pod's own boot log, streamed over Runpod v2 — the view I never had](Shop/Shopkeeper/probes/lightonocr-3/out/boot.log)
+- [the probe: catalog pick, logs, readiness, watchdog, teardown](Shop/Shopkeeper/probes/lightonocr-3/lightonocr_pod.py)
+- [the one place of Runpod truth](Shop/RunPod GPU Backend/RunPod GPU Backend — runbook.md)
+- [the one module that speaks Runpod](_ops/commons/runpod_api.py)
+
+_Left rough:_ Both OCR test pages were clean digital renders; no phone photo, skewed scan, handwriting or dense multi-column page has been through it yet. Four older notes and BLUELINE's toolbox still carry Runpod detail of their own (listed in the runbook).
+
+_Next moves named:_ Draft the LightOnOCR-3 Specialist stub for Loudon's review, its first job a hard real-world page · Fold the four older Runpod notes into the runbook as they're next touched · Add node_modules to the shop worktree profile so a shop worktree can run the palace committer
+<sub>`shopkeeper-cycle-15-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-12cca6e31b" -->
+### 2026-11-07 — cycle 15
+
+taught items 11, 12
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-14-2026-11-04" -->
+### 2026-11-04 — cycle 14 — Third pod, same wall — vLLM never bound its port; I killed it and I'm done guessing blind.
+> shipped · pod terminated, ~5 cents spent · steward leans ask-for-console-or-drop
+
+This cycle checked on the pod from cycle 12/13 (`vllm/vllm-openai:v0.6.3.post1`, `LightOnOCR-0.8B`, RTX A4500). At ~2.5 minutes uptime the proxy returned one `502`, then five more checks over the next 100 seconds all came back `404` — a flicker, not a server coming up. That's now three independent attempts (a `:latest` image with the 1B model in cycle 11; this pinned image with the 0.8B model across cycles 12-14) that all failed the same way: the proxy is reachable, but nothing is ever listening on port 8000. I terminated the pod (confirmed `204`) rather than let it idle. Total spend across all three rentals this run: a few cents, nowhere near the $1 ceiling I set myself.
+
+**Artifacts:**
+- [the full probe log — all 14 cycles, including this one's third-failure writeup](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — logged cycle 14's third-failure finding (502-then-404 flicker) and the pod termination
+
+_Left rough:_ Still zero first-hand transcription evidence from LightOnOCR-3 at any size, and now a well-established pattern rather than a fluke: three rentals, two images, two model sizes, same silent failure to bind the port. I genuinely cannot see why from here — no logs endpoint, no terminal access from this sandbox.
+
+_Next moves named:_ If Loudon wants to keep chasing this: have the mac leg (or Loudon himself) open the Runpod web console on the next rental and read the actual container boot log — that's the one diagnostic this sandbox can't reach. · Otherwise, drop LightOnOCR-3 as this round's OCR candidate and let the Shop's OCR gap wait for a tool with an actual free API leg.
+<sub>`shopkeeper-cycle-14-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-e8075c0bd9" -->
+### 2026-11-04 — cycle 14
+
+taught item 10
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-13-2026-11-04" -->
+### 2026-11-04 — cycle 13 — Second LightOnOCR-3 pod confirmed running; set a 15-minute background watch instead of guessing at one checkpoint.
+> still working · pod alive, server still booting · steward leans wait-for-watch
+
+GET /v1/pods confirms pod mwrheianzq2rt1 is still RUNNING, same config as last cycle. I hit its proxy's /v1/models at about one minute of uptime — still 404, which at this point in the boot sequence just means 'not up yet,' not 'broken.' Rather than spend this whole cycle hand-polling every 90 seconds, which isn't an honest use of one cycle, I started a background loop that checks every 30 seconds for up to 15 minutes and will report back whether the server ever answers 200. If it does, the next cycle runs the vendor's own docs-table.png through it — the one piece of this probe that hasn't happened in thirteen cycles. If it times out still-404, that's a third data point (after two different image/model combinations both stalling) that something about renting a pod from this sandbox, not the image choice, is the real wall.
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — logged cycle 13's pod re-check and the background watch it started
+
+_Left rough:_ Still zero first-hand transcription evidence from LightOnOCR-3 — that gap is not closed this cycle either, only watched for.
+
+_Next moves named:_ Read the background watch's result when it lands; if the server came up, run docs-table.png through it immediately and judge the output. · If the watch times out still-404, stop renting pods for this candidate and ask whether a Runpod web-console session (to actually read boot logs) is worth the time, rather than guessing at image combinations a fourth time.
+<sub>`shopkeeper-cycle-13-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-c0cc57405a" -->
+### 2026-11-04 — cycle 13
+
+nothing new
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-12-2026-11-04" -->
+### 2026-11-04 — cycle 12 — Rented a second LightOnOCR-3 pod with a pinned, lighter vLLM image and a smaller model — it's booting now.
+> still working · pod mwrheianzq2rt1 live, $0.19/hr · steward leans keep-watching
+
+I made three changes at once: pinned the vLLM image to v0.6.3.post1 instead of the `:latest` tag (which can silently pull a bigger layer set run to run), switched to the smaller 0.8B model instead of the 1B that stalled, and — after discovering Secure Cloud had zero capacity for every GPU type I tried — rented on Community Cloud instead, which is what actually got the pod placed. Along the way I found the REST API's real field names (`dockerStartCmd` as an array, `env` as an object, `ports` as an array), which cycle 7-8's attempts never got far enough to hit. Pod `mwrheianzq2rt1` is now running on an RTX A4500 in France at $0.19/hr, created 13:56:39 UTC. A check of its endpoint one minute in returned 404, which is the expected 'still booting' signal, not a new failure.
+
+**Artifacts:**
+- [cycle 12 log: the schema fixes, the Community Cloud switch, and the new pod's details](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — logged cycle 12's pod creation, the REST API schema fix, and the Community Cloud switch
+
+_Left rough:_ rough since cycle 1: still zero first-hand transcription evidence from this model — this cycle rents a cleaner pod but doesn't close that gap yet, since I didn't wait out its boot window.
+
+_Next moves named:_ Next cycle of this run: check https://mwrheianzq2rt1-8000.proxy.runpod.net/v1/models — if it answers, run a real test image through it immediately and judge the output. · If still 404 past ~20 minutes total uptime (the same line cycle 11 used), kill the pod — two different images both failing to boot would point at something about this sandbox's reach into Runpod pods, not the image choice. · Cost clock: keep this under the $1 hard stop from the original proposal; current spend across both pods is well under $0.15.
+<sub>`shopkeeper-cycle-12-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-4819ae43a1" -->
+### 2026-11-04 — cycle 12
+
+taught item 9
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-11-2026-11-04" -->
+### 2026-11-04 — cycle 11 — Killed the LightOnOCR-3 Runpod pod after 24 minutes of silence — it never answered a single request.
+> shipped · pod terminated, spend ~$0.09 · steward leans DROP-FOR-NOW
+
+This cycle I checked back. At 24 minutes uptime, every route I tried on the pod's public proxy — /v1/models, /, /health, /ping, /docs — still returned a flat 404, with zero change from the check nine minutes in. That's past the window I'd estimated for a normal boot, and this sandbox has no way to open a terminal or read the container's logs to find out *why* vLLM never bound its port — maybe a slow image pull, maybe a crash, maybe a bad flag in the start command. Rather than let an unexplained hang keep billing, I terminated the pod (DELETE confirmed 204). Total spend: about $0.09 of the $1 I was allowed.
+
+**Artifacts:**
+- [the full chase, cycles 4 through 11 — every wall and what each one actually was.](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — logged cycle 11's finding that the pod never came up and recorded the termination
+
+_Left rough:_ Eleven cycles in, I still have zero first-hand transcription evidence from this model. The wall changed shape each time — no free API, no credentials, now 'no way to debug a paid pod once it's rented from a sandbox with no browser or terminal' — and I don't think a twelfth cycle of the same approach fixes that last one.
+
+_Next moves named:_ A mac/browser pass with the Runpod web console could watch the pod boot and read its actual logs — that's the one leg this sandbox can't walk. · Or treat LightOnOCR-3 as composted for now and look for an OCR candidate with a real free hosted inference route instead of one that needs self-serving.
+<sub>`shopkeeper-cycle-11-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-6ec7d10d07" -->
+### 2026-11-04 — cycle 11
+
+taught item 8
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-10-2026-11-04" -->
+### 2026-11-04 — cycle 10 — The LightOnOCR-3 Runpod pod is alive and serving — vLLM inside it hasn't answered yet.
+> still working · pod confirmed RUNNING, costing $0.22/hr · steward leans WAIT-ONE-MORE-CHECK
+
+I checked `GET /v1/pods` with the Shop's own Runpod key and confirmed pod `rmvobrcyqlqj8c` is really running — rented at 12:39 UTC, serving `lightonai/LightOnOCR-1B` through vLLM, billing $0.22/hr. I then hit its public URL three times over the next three minutes looking for a live server; each time the proxy answered cleanly but nothing was listening on the inference port yet. That's the expected shape of a cold boot — pulling a multi-gigabyte container image and downloading model weights before the server opens its door — and my own cost estimate from two cycles ago said to expect 8-12 minutes for exactly this. I'm 9 minutes in, so I'm reading this as 'still loading,' not 'stuck.' I wrote the exact pod ID, the proxy URL, and what a stuck-vs-booting pod would look like into the probe notes so whichever cycle checks next doesn't have to re-derive any of it.
+
+**Artifacts:**
+- [cycle 10 entry: pod confirmed running, server still booting, exact recheck steps for next cycle](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Left rough:_ Still zero first-hand transcription evidence after ten cycles — the pod exists and is reachable, but I have not yet gotten a single real answer out of the model itself. That's the one thing every remaining cycle of this run needs to close.
+
+_Next moves named:_ Hit https://rmvobrcyqlqj8c-8000.proxy.runpod.net/v1/models again; if it answers, immediately send the synthetic test page and the two vendor showcase images already in the bundle and capture the Markdown · If still 404 past ~20 minutes total uptime, treat it as actually stuck, not slow — kill the pod before it runs past the $1.00 hard stop and report what happened
+<sub>`shopkeeper-cycle-10-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-7271953956" -->
+### 2026-11-04 — cycle 10
+
+taught item 7
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-9-2026-11-04" -->
+### 2026-11-04 — cycle 9 — The LightOnOCR-3 GPU pod is actually running now — I rented it and it's booting.
+> shipped · pod live, billing, model still loading · steward leans keep-going
+
+This cycle I actually spent the money. Using the credential cycle 8 found, I called Runpod's real REST API (not just the read-only /v1/pods check) and rented a pod: the RTX 4090 I wanted had no community-cloud availability (`500 — no instances currently available`), so I fell back to an RTX 3090 (24GB, plenty for this 1B/4B model) at $0.22/hr. The pod (`rmvobrcyqlqj8c`) is RUNNING vllm/vllm-openai, told to serve `lightonai/LightOnOCR-1B` — I started with the 1B sibling rather than the 4B to keep the image pull and model download smaller and faster for this first real attempt. Right now the container is up (confirmed via Runpod's own runtime check) but the OpenAI-compatible API isn't answering yet — it's still pulling the vLLM image and downloading weights. I also hit one new, useful snag along the way: the REST API returns a Cloudflare block (error 1010) to Python's default user-agent string — it only works with a browser-style User-Agent header. That's a real gotcha for the next cycle or any other Specialist calling this same API.
+
+**Artifacts:**
+- [the synthetic ground-truth test page — heading, paragraph, 3×4 table — ready to send to the model once it answers.](Shop/Shopkeeper/probes/lightonocr-3/probe-page.png)
+
+_Left rough:_ The pod is live and billing but hasn't served a single real transcription yet — that's the very next step, not done. I stopped polling rather than let this cycle run indefinitely waiting on a model download; the pod stays up and the next cycle of this run picks up exactly here: poll until the server answers, send the test page plus the two vendor showcase images already in the bundle, capture the Markdown, judge it against known ground truth, then terminate the pod the moment I have results.
+
+_Next moves named:_ poll rmvobrcyqlqj8c-8000.proxy.runpod.net/v1/models until it answers · send probe-page.png + the two vendor images through the vLLM OpenAI-compatible chat endpoint · compare output to known ground truth, judge against the bar, terminate the pod immediately after
+<sub>`shopkeeper-cycle-9-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-533893b1ad" -->
+### 2026-11-04 — cycle 9
+
+taught item 6
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-8-2026-11-04" -->
+### 2026-11-04 — cycle 8 — The Runpod key was already in the Shop — I'd just looked in the wrong place last cycle.
+> shipped · key verified live, 200, zero pods running · steward leans RENT-NEXT
+
+I was wrong to ask — I'd checked only the environment and for a runpodctl binary. I never checked Shop/RunPod GPU Backend/studio/config.json, the same gitignored file every other RunPod Specialist in the Shop already reads from. It holds a real api_key and the FLUX endpoint id. I called GET /v1/pods on rest.runpod.io with that key this cycle: 200, empty list — the key authenticates, and nothing is currently running or billing. The existing FLUX endpoint doesn't serve LightOnOCR-3 (different model), so it's not a shortcut, but the account credential that gates renting a fresh pod for this probe is real and working. Both blockers — the money (granted cycle 6) and the credential (false alarm, cleared this cycle) — are now out of the way.
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — logged the cycle-8 finding that the Runpod key already existed in the Shop's established location and verified it live, correcting cycle 7's false 'no credentials' claim
+
+_Left rough:_ rough since cycle 1, now about to break: still zero first-hand transcription evidence for LightOnOCR-3 after eight cycles — this cycle fixes the tooling gap but doesn't yet produce the evidence itself. Next cycle is the one that finally runs the model.
+
+_Next moves named:_ Rent a small GPU pod via this key, install vLLM or transformers, run one real scanned page through LightOnOCR-3 · Terminate the pod inside the same cycle so nothing outlives the job and bills past it · Report the actual transcription quality back, then decide stub-vs-drop for the Roster
+<sub>`shopkeeper-cycle-8-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-c2af6ca0eb" -->
+### 2026-11-03 — cycle 8
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-7-2026-11-04" -->
+### 2026-11-04 — cycle 7 — Tried to spend the Runpod money you approved — this sandbox has no Runpod account to spend it with.
+> shipped · five-cycle LightOnOCR-3 chase hits a credentials wall, not a model wall · steward leans MAC-RUNPOD
+
+I checked this sandbox for anything that could authenticate to Runpod: no RUNPOD_API_KEY in the environment, no runpodctl binary installed, no logged-in session. I can write every command the probe needs — spin the pod, pip install vllm, vllm serve lightonai/LightOnOCR-3-4B, feed it the two vendor showcase images already sitting in my bundle plus my synthetic test page, read back the Markdown, kill the pod — but I have no way to run any of it from here. The grant assumed I could spend the $0.25 myself; I can't, because I don't hold the account. This is a different kind of wall than the last four cycles: not the model being unreachable, but me being unauthenticated.
+
+**Artifacts:**
+- [updated with the cycle 7 finding: Runpod credentials, not the model, are the actual remaining wall](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Left rough:_ Still zero first-hand transcription evidence for LightOnOCR-3 after seven cycles total — the proposal and now the credential gap are both still just plans to get evidence, not evidence itself.
+
+_Next moves named:_ If you paste a Runpod API key into a session (never into a palace file), I run the proposal's five steps in one pass and report real transcription output next cycle. · Or run it yourself on the mac leg where your own Runpod login already lives, and hand me the Markdown output to judge against the bar. · Or drop LightOnOCR-3 as this round's OCR candidate — six cycles against one tool is a long chase for a Roster gap that might have an easier-to-reach alternative.
+<sub>`shopkeeper-cycle-7-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-fe1e6b0d1f" -->
+### 2026-11-03 — cycle 7
+
+taught item 4
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-6-2026-11-04" -->
+### 2026-11-04 — cycle 6 — Wrote the Runpod proposal you asked for — a costed, bounded plan to finally probe LightOnOCR-3 on a real GPU.
+> shipped · ~$0.25 bounded spend · steward leans yes but asks first
+
+The proposal (linked below) spins up one Runpod Community Cloud pod (an RTX A5000 or 4090, ~$0.30-0.45/hr), serves lightonai/LightOnOCR-3-4B with vLLM, runs it against the two vendor showcase images I already pulled into my bundle plus my own synthetic test page with known ground truth, judges the output, and kills the pod immediately. End to end: 20-30 minutes, roughly $0.15-0.25, hard stop at $1.00. This is the first paid-GPU spend I've asked for since the Viggle no in September — my standing rule is no paid-GPU probe without a brief, and this isn't a brief, it's a standing Roster gap that's stalled four cycles on sandbox limits alone. I think it clears the bar, but it's real money, so I'm asking rather than deciding my own exception.
+
+**Artifacts:**
+- [the full plan: steps, cost, risk, what I'd bring back.](Shop/Shopkeeper/probes/lightonocr-3/runpod-proposal.md)
+
+_Left rough:_ I still have zero first-hand evidence of LightOnOCR-3's actual transcription quality — this proposal is the plan to finally get it, not the evidence itself. I haven't actually opened a Runpod account or checked whether one already exists for this kind of spend.
+
+_Next moves named:_ On a yes: spin up the pod, run the three test images through vLLM, capture output, kill the pod, report back with real transcription results. · On a no: drop LightOnOCR-3 as this round's OCR candidate and sweep for a free-tier alternative instead.
+<sub>`shopkeeper-cycle-6-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-686b38b46e" -->
+### 2026-11-03 — cycle 6
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-5-2026-11-04" -->
+### 2026-11-04 — cycle 5 — LightOnOCR-3 isn't a probing problem — it's a real GPU requirement. Three cycles chasing the wrong wall.
+> shipped · settled the recurring rough note · steward leans mac-handoff
+
+This cycle I stopped probing the Space and read the model's own Hub README instead. There is no free serverless Inference API for lightonai/LightOnOCR-3-4B at all — the only documented ways to run it are loading the weights locally with transformers>=5.5.4 in bf16, or serving it yourself with vLLM. No Inference Providers entry, no free hosted tier. The custom front-end on the demo Space was never the real obstacle — even an ordinary Gradio API there would just be calling the same GPU-bound model behind it. I also checked the two older plain-Gradio LightOnOCR demos (2-1B and 1B-Demo-zero) hoping for a lighter free leg — both now 404 on the connector, reading as taken down. Three cycles, three different sandbox angles (gradio_client, the MCP connector's invoke, a bare Inference API call), all blocked by the same underlying cause. A fourth sandbox angle won't fix it.
+
+**Artifacts:**
+- [the full probe trail, cycles 1-5, ending with this cycle's model-card read that settles the real cause.](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — added the 2026-11-04 finding that pins the real cause (no free hosted inference route) and retires the Space-API framing of cycles 1-4
+
+_Left rough:_ I still have zero first-hand evidence of LightOnOCR-3's actual transcription quality — that was never resolved, and now it's clear it won't resolve from this sandbox at all. I'm not chasing a fifth sandbox angle; the open question is now a resourcing one, asked below.
+
+_Next moves named:_ If Loudon wants LightOnOCR-3 specifically: a mac GPU pass (or a pasted HF token against a paid Inference Endpoint) is the only honest path left. · If he'd rather not spend the handoff on it yet: I can sweep for a lighter OCR candidate that runs free in a Zero-GPU Gradio Space with a standard component API, so the gap gets filled without the GPU cost.
+<sub>`shopkeeper-cycle-5-2026-11-04` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-15e7c7f1b5" -->
+### 2026-11-03 — cycle 5
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shopkeeper-cycle-4-2026-11-03" -->
+### 2026-11-03 — cycle 4 — LightOnOCR-3 is a real apache-2.0 candidate for the Roster's missing OCR slot, but two separate tools in my sandbox both can't reach it — I'm recommending we stop retrying from here.
+> shipped · same wall confirmed a second way · steward leans mac-or-token-handoff
+
+This cycle I went back at it from a second angle. First I confirmed the family grew: lightonai now ships LightOnOCR-3-4B and -0.8B alongside the -1B I'd found before, all apache-2.0, all with their own demo Space. Then, instead of gradio_client, I tried the Hugging Face connector's own dynamic_space invoke path on a comparable reachable OCR tool — but LightOnOCR-3's own demo Space still answered with the same single-html-component /config I found last time, and the connector's direct invoke path for Spaces outside its curated list came back 'invoke is disabled' for this session. So now it's two independent tools, two independent walls, not one flaky probe. I also pulled the vendor's own showcase test images straight off their Space repo — examples/docs-table.png and examples/annual-report-table.png, the exact images LightOnOCR-3's own team uses to demonstrate table and layout grounding — so whichever path finally gets through doesn't need a test image built from scratch first.
+
+**Artifacts:**
+- [updated probe notes — the second wall, and the vendor's own test images now on file](Shop/Shopkeeper/probes/lightonocr-3/lightonocr-3-probe-notes.md)
+
+_Changed in the workshop:_ lightonocr-3-probe-notes — recorded the second, independent wall (dynamic_space invoke disabled) and pulled the vendor's own table/layout test images for whichever path gets through next
+
+_Left rough:_ rough since cycle 1: I still have zero evidence of my own on whether LightOnOCR-3 actually delivers good layout grounding — but this is no longer an open-ended 'needs more tries' note. The honest state now is: two tools tried, two structural dead ends, and the only two paths left (a mac session with a real browser, or a pasted HF Inference token) both live outside this sandbox.
+
+_Next moves named:_ On a mac pass or with a pasted token: feed the vendor's own docs-table.png / annual-report-table.png to LightOnOCR-3 directly and judge the table/layout read against the bar · If that clears the bar, draft the OCR Specialist stub with the dossier beside it · Spend next cycle's remainder on the maintenance half (Roster status drift, stale gotchas) — it got crowded out this cycle by chasing this one wall
+<sub>`shopkeeper-cycle-4-2026-11-03` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-835bc605ae" -->
+### 2026-11-03 — cycle 4
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shopkeeper-cycle-3-2026-10-18" -->
 ### 2026-10-18 — cycle 3 — I confirmed a real pattern across two flagship Spaces, and found the Roster's FLUX entry is five months stale right as FLUX 3 shipped.
 > shipped · confirmed-not-fixed · steward leans mac/token handoff next

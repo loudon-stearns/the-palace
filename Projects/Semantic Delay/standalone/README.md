@@ -106,3 +106,24 @@ Two fixes to `coupling.py` came out of hearing it on the real model: the
 follower now speeds up with K, so a fully coupled echo has no slur on note
 changes; and `repair_octave_jumps()` folds pitch-tracker octave slips back before
 coupling, so an echo is never asked to dive an octave the singer never sang.
+
+## Stage 4 through the helper — one knob per echo (2026-10-14, re-run 2026-11-02)
+
+`stage4_wander_through_helper.py` runs the instrument offline against the real
+helper (RPC v0.2) with `tap_coupling=[1, 0.5, 0]` and an 11 s delay: the first
+repeat holds your melody, the second half-follows it, the third wanders free.
+Outputs in `demo/stage4-through-helper/`. Re-run 2026-11-02: no echo late; the
+model sang within 0.18-0.31 semitones of what it was asked; the echoes sat
+0.81, 2.44 and 4.32 semitones from the source melody. About a minute in the
+`soulx` env.
+
+Late echoes: the offline run replays the helper's own measured compute on a
+serial queue, so an echo that would land late live is skipped, not clipped.
+`test_late_and_wander_offline.py` checks that against a slow placeholder (no
+model needed).
+
+## The listening sheet
+
+`build_listening_sheet.py` puts the two open ear-checks on one self-contained
+page, `demo/listening-sheet.html`: the three knob echoes, and the same phrase at
+four speed settings. Every clip is inlined as MP3 (ffmpeg on the PATH).

@@ -1,0 +1,164 @@
+<!doctype html>
+<!--
+  title: STIGMERGY — rich — one pass
+  born: 2026-11-05
+  links: [[STIGMERGY]] (connects-to · rich-face-piece) · listed in [[STIGMERGY — rich.json]] · [[Trickster]] (connects-to · the human node) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am "The human node" played: six threads that stop at forks and post a blocking request with its answers already built, an inbox the reader clears in a sitting, and last a day of forks where the reader sets how often the inbox is opened and what one decision costs, picking a built answer or writing a reply, so the reader sees that one pass can clear many threads only because the answers come built, and what parking costs in work. I change only when that section does.
+  engine: STEP 1 — six threads advance one cell a tick; each stops at seeded fork cells and posts a RESOURCE_REQUEST with blocking: true; picking an option posts a RESOURCE_GRANT naming its option_id and the thread resumes. A sitting is grants with no gap over 2.5 s on the reader's clock. STEP 2 — a ten-hour day, eight threads, each forking as a Poisson process (one fork per two working hours on average) and parked while it waits; the person opens the inbox every T minutes and answers everything in it, at a set cost per decision. Two hundred seeded days per T. The per-decision costs are guesses, set by sliders, not measured.
+  remade: 2026-11-05, after the challenge — step 2 now tests the per-decision cost the sentence turns on, shows what parking costs in work, and no longer calls a parked thread free.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<meta name="piece:size" content="flow">
+<title>STIGMERGY — one pass</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap">
+<style>
+:root{--ph:#33ff66;--phb:#7fff9b;--phd:#1f8a3c;--deep:#0b2a14;--white:#d7f6dc;--bg:#050a06;--fg3:#0f5024;--amber:#ffb000;--red:#ff4136;--cyan:#7fdbff;
+  --mono:'IBM Plex Mono',Menlo,Consolas,monospace;--vt:'VT323','IBM Plex Mono',Menlo,monospace}
+*{box-sizing:border-box;border-radius:0}
+html,body{margin:0;background:var(--bg);color:var(--ph);font-family:var(--mono);font-size:14px;line-height:1.4em;color-scheme:dark}
+.piece{padding:16px 2ch 20px;max-width:112ch}
+.kicker{color:var(--phd);text-transform:uppercase;letter-spacing:.08em}
+h1{font-family:var(--vt);font-weight:400;font-size:38px;line-height:1;margin:.1em 0 .25em;text-shadow:0 0 6px currentColor}
+h3{font-family:var(--vt);font-weight:400;font-size:26px;line-height:1;margin:0 0 .3em;text-shadow:0 0 6px currentColor}
+.sub,.teach{max-width:84ch;margin:0 0 1em}.sub{color:var(--phd)}
+.rail{display:flex;flex-wrap:wrap;gap:1ch;margin:0 0 1.2em}
+button{font:inherit;background:transparent;color:var(--ph);border:1px solid var(--ph);padding:.1em 1ch;cursor:pointer}
+button:hover:not(:disabled),button:focus-visible{background:var(--ph);color:var(--bg);outline:none}
+button[aria-current=step]{background:var(--ph);color:var(--bg)}
+button:disabled{border-color:var(--fg3);color:var(--fg3);cursor:default}
+.step{display:none}.step.on{display:block}
+.dim{color:var(--phd)}.amber{color:var(--amber)}.red{color:var(--red)}.cyan{color:var(--cyan)}.white{color:var(--white)}
+.row{display:flex;flex-wrap:wrap;gap:1ch 2ch;align-items:center;margin:.5em 0}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:2ch}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.box{border:3px double var(--phd);padding:.6em 1ch;min-height:12em}
+.lane{white-space:nowrap;overflow:hidden;font-size:14px}
+.lane .h{color:var(--cyan)}
+.card{border:1px solid var(--amber);padding:.3em 1ch;margin:.4em 0}
+.card .q{color:var(--white)}
+.card button{margin:.25em .5ch 0 0;font-size:12px}
+svg text{font-family:var(--mono);font-size:12px;fill:var(--phd)}
+input[type=range]{accent-color:var(--ph);width:18ch;vertical-align:middle}
+.verdict{border-left:3px double var(--ph);padding:.2em 1ch;margin:.8em 0;max-width:84ch}
+.stat{display:inline-block;border:1px solid var(--phd);padding:.2em 1ch;margin:.2em 1ch .2em 0}
+.stat b{font-family:var(--vt);font-size:24px;font-weight:400;text-shadow:0 0 6px currentColor}
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">STIGMERGY · THE HUMAN NODE</div>
+  <h1>ONE PASS</h1>
+  <p class="sub">agents do not decide at a fork. they post the question with its answers already built, and wait. two steps: clear an inbox yourself, then a day of forks, with the price of one decision in your hands.</p>
+  <div class="rail">
+    <button data-go="0" aria-current="step">[1] BE THE TRICKSTER</button>
+    <button data-go="1">[2] WHAT A PASS COSTS</button>
+  </div>
+
+  <section class="step on">
+    <h3>BE THE TRICKSTER</h3>
+    <p class="teach">six threads run. at a fork a thread stops, posts a RESOURCE_REQUEST with <span class="cyan">blocking: true</span> and its options, and waits. you don't write a reply. you pick an option, and the grant goes on the board naming its option_id. let several pile up, then clear them all in one sitting. the asks are invented; the pages are real.</p>
+    <div class="row"><button id="go">run</button><button id="rs">reset</button><span class="dim" id="clk"></span></div>
+    <div class="two">
+      <div class="box"><div class="dim">THREADS</div><div id="lanes"></div></div>
+      <div class="box"><div class="dim">TRICKSTER · <span id="cnt">0</span> waiting</div><div id="inbox"></div></div>
+    </div>
+    <div class="verdict" id="v1">run the threads.</div>
+  </section>
+
+  <section class="step">
+    <h3>WHAT A PASS COSTS</h3>
+    <p class="teach">eight threads over a ten-hour day, each reaching a fork about once every two hours of work and parked while it waits. you set how often the inbox is opened, and what one decision costs the person: picking an answer that came built, or writing one. the costs are guesses; move them.</p>
+    <div class="row">
+      <label>open the inbox every <input type="range" id="T" min="0" max="240" step="15" value="60"> <b id="Tv"></b></label>
+      <label>pick a built answer <input type="range" id="cp" min="0.25" max="3" step="0.25" value="0.5"> <b id="cpv"></b></label>
+      <label>write a reply <input type="range" id="cw" min="1" max="10" step="0.5" value="4"> <b id="cwv"></b></label>
+    </div>
+    <div><span class="stat">interruptions a day <b id="sI"></b></span><span class="stat">decisions a pass <b id="sP"></b></span><span class="stat">a pass, picking <b id="sCp"></b></span><span class="stat">a pass, writing <b id="sCw"></b></span><span class="stat">forks reached <b id="sF"></b></span></div>
+    <svg id="ch" viewBox="0 0 760 250" width="100%" role="img" aria-label="minutes of the person's attention per pass, picking against writing, and the forks the day reaches, against the inbox interval"></svg>
+    <div class="verdict" id="v2"></div>
+  </section>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const steps=[...document.querySelectorAll('.step')], rail=[...document.querySelectorAll('[data-go]')];
+rail.forEach(b=>b.onclick=()=>{steps.forEach((s,i)=>s.classList.toggle('on',i==b.dataset.go));rail.forEach(r=>r.removeAttribute('aria-current'));b.setAttribute('aria-current','step');});
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+
+// ---- 1 ----
+const NAMES=['Shepard Tone Synthesizer','BLUELINE','Dissolutions','Tract Mirror','Synth Templates','Radio Play'];
+const ASKS=[['which octave stretch first?',['WIDE','NARROW','HOLD']],['keep the slower cut?',['KEEP','RECUT']],['ship the sketch as is?',['SHIP','ONE-MORE-PASS']],['open the camera piece?',['YES','NOT-YET']],['merge the two templates?',['MERGE','KEEP-APART']],['use the dry take?',['DRY','WET','BOTH']]];
+const LEN=28, SITTING_GAP=2500;
+let th, t1, timer1, waits, inboxKey, sit, best, finishedNoted;
+function reset1(){clearInterval(timer1);timer1=null;$('go').textContent='run';const r=mulberry32(5);
+  th=NAMES.map((n,i)=>({n,pos:0,blocked:null,forks:[4+Math.floor(r()*8),14+Math.floor(r()*10)],k:0,done:false,ask:i}));
+  t1=0;waits=[];inboxKey=null;sit={n:0,last:-1e9};best=0;finishedNoted=false;drawLanes();drawInbox();$('v1').textContent='run the threads.';}
+function drawLanes(){
+  $('lanes').innerHTML=th.map(t=>{const bar=[...Array(LEN)].map((_,i)=>i<t.pos?'█':(t.forks.includes(i)&&i>=t.pos?'◆':'·')).join('');
+    return `<div class="lane"><span class="h">${t.n.slice(0,14).padEnd(14,' ')}</span> <span class="${t.blocked?'amber':''}">${bar}</span> ${t.done?'<span class="dim">done</span>':t.blocked?'<span class="amber">waiting</span>':''}</div>`;}).join('');
+  $('clk').textContent='tick '+t1;
+}
+function drawInbox(){ // rebuilt only when the set of waiting cards changes, so a button never moves under the pointer
+  const open=th.filter(t=>t.blocked), key=open.map(t=>t.n).join('|');
+  $('cnt').textContent=open.length;
+  if(key===inboxKey) return; inboxKey=key;
+  $('inbox').innerHTML=open.length?open.map(t=>{const [q,opts]=ASKS[t.ask];return `<div class="card"><span class="cyan">${t.n}</span> · RESOURCE_REQUEST<br><span class="q">${q}</span><br>${opts.map(o=>`<button data-t="${th.indexOf(t)}" data-o="${o}">${o}</button>`).join('')}</div>`;}).join(''):'<span class="dim">(nothing needs you)</span>';
+  document.querySelectorAll('#inbox button').forEach(b=>b.onclick=()=>grant(+b.dataset.t));
+}
+function grant(i){const t=th[i]; if(!t.blocked) return; waits.push(t1-t.blocked.at); t.blocked=null; t.k++;
+  const now=performance.now(); if(now-sit.last>SITTING_GAP) sit.n=0; sit.n++; sit.last=now; best=Math.max(best,sit.n);
+  drawLanes(); drawInbox();
+  const n=waits.length;
+  $('v1').innerHTML=`${n} decision${n>1?'s':''}, each made by picking an answer that came built. the most you cleared in one sitting: <b>${best}</b> thread${best>1?'s':''}, unblocked together. the mean thread waited <b>${(waits.reduce((a,b)=>a+b,0)/n).toFixed(1)}</b> ticks for you, doing nothing while it waited.`;}
+function tick1(){t1++; for(const t of th){ if(t.done||t.blocked) continue; if(t.k<t.forks.length && t.pos===t.forks[t.k]){t.blocked={at:t1};continue;} t.pos++; if(t.pos>=LEN) t.done=true; }
+  drawLanes(); drawInbox();
+  if(th.every(t=>t.done)){clearInterval(timer1);timer1=null;$('go').textContent='run';$('go').disabled=true; if(!finishedNoted){finishedNoted=true;$('v1').innerHTML+=' every thread finished.';}}}
+$('go').onclick=()=>{if(timer1){clearInterval(timer1);timer1=null;$('go').textContent='run';}else{timer1=setInterval(tick1,260);$('go').textContent='pause';}};
+$('rs').onclick=()=>{$('go').disabled=false;reset1();};
+reset1();
+
+// ---- 2 ----
+function day(seed,T){ // minutes
+  const r=mulberry32(seed), N=8, DAY=600, MEAN=120;
+  let threads=[...Array(N)].map(()=>({next:-Math.log(1-r())*MEAN,waitingSince:null}));
+  let interrupts=0, answers=0, forks=0;
+  for(let m=0;m<DAY;m++){
+    for(const t of threads){ if(t.waitingSince===null){ t.next-=1; if(t.next<=0){t.waitingSince=m;forks++;} } }
+    const check = T===0 ? true : (m%T===0 && m>0);
+    if(check){ const w=threads.filter(t=>t.waitingSince!==null); if(w.length){ interrupts++; for(const t of w){ answers++; t.waitingSince=null; t.next=-Math.log(1-r())*MEAN; } } }
+  }
+  return {interrupts,answers,forks};
+}
+const RUNS=200, Ts=[...Array(17).keys()].map(i=>i*15);
+const table=Ts.map(T=>{let I=0,A=0,F=0;for(let s=1;s<=RUNS;s++){const d=day(s,T);I+=d.interrupts;A+=d.answers;F+=d.forks;} return {T,I:I/RUNS,perPass:I?A/I:0,F:F/RUNS};});
+function render2(){
+  const T=+$('T').value, cp=+$('cp').value, cw=+$('cw').value;
+  $('Tv').textContent=T===0?'as each lands':T+' min'; $('cpv').textContent=cp+' min'; $('cwv').textContent=cw+' min';
+  const row=table.find(x=>x.T===T), each=table[0];
+  const passPick=row.perPass*cp, passWrite=row.perPass*cw;
+  $('sI').textContent=row.I.toFixed(1); $('sP').textContent=row.perPass.toFixed(1); $('sCp').textContent=passPick.toFixed(1)+' min'; $('sCw').textContent=passWrite.toFixed(1)+' min'; $('sF').textContent=row.F.toFixed(1);
+  const x0=56,x1=740,yA0=110,yA1=18,yB0=226,yB1=134;
+  const maxC=Math.max(...table.map(r=>r.perPass))*Math.max(cw,cp), maxF=each.F;
+  const X=t=>x0+(x1-x0)*t/240, YA=v=>yA0-(yA0-yA1)*v/maxC, YB=v=>yB0-(yB0-yB1)*v/maxF;
+  let s='';
+  s+=`<line x1="${x0}" y1="${yA0}" x2="${x1}" y2="${yA0}" stroke="#1f8a3c"/><line x1="${x0}" y1="${yB0}" x2="${x1}" y2="${yB0}" stroke="#1f8a3c"/>`;
+  s+=`<text x="${x0}" y="${yA1-4}">minutes of attention one pass takes: <tspan fill="#33ff66">picking</tspan> · <tspan fill="#ffb000">writing</tspan> (top ${maxC.toFixed(0)})</text>`;
+  s+=`<text x="${x0}" y="${yB1-4}">forks the day reaches, out of ${maxF.toFixed(0)} when nothing waits long</text>`;
+  s+=`<polyline points="${table.map(r=>X(r.T)+','+YA(r.perPass*cw)).join(' ')}" fill="none" stroke="#ffb000" stroke-width="2"/>`;
+  s+=`<polyline points="${table.map(r=>X(r.T)+','+YA(r.perPass*cp)).join(' ')}" fill="none" stroke="#33ff66" stroke-width="2" style="filter:drop-shadow(0 0 3px #33ff66)"/>`;
+  s+=`<polyline points="${table.map(r=>X(r.T)+','+YB(r.F)).join(' ')}" fill="none" stroke="#33ff66" stroke-width="2"/>`;
+  for(const t of [0,60,120,180,240]) s+=`<text x="${X(t)}" y="${yB0+16}" text-anchor="middle">${t===0?'each':t+'m'}</text>`;
+  s+=`<text x="${x1}" y="${yB0+16}" text-anchor="end"></text><line x1="${X(T)}" y1="${yA1}" x2="${X(T)}" y2="${yB0}" stroke="#7fdbff" stroke-dasharray="3 3"/>`;
+  $('ch').innerHTML=s;
+  const lost=100*(1-row.F/each.F);
+  $('v2').innerHTML = T===0
+    ? `answered as each lands, the person is interrupted <b>${row.I.toFixed(0)}</b> times a day, one decision each time, and no thread waits. move T to open the inbox in passes.`
+    : `opening the inbox every ${T} minutes, a pass meets <b>${row.perPass.toFixed(1)}</b> decisions. picking built answers, that pass takes <b>${passPick.toFixed(1)}</b> minutes; writing each reply, <b>${passWrite.toFixed(1)}</b>. ${cp<cw?"that is the sentence's real claim: one sitting can unblock many threads because the answers arrive already written, so the cost of a pass is mostly the cost of choosing.":"<span class='amber'>with picking set as dear as writing, building the answers buys nothing, and the sentence's claim has nothing to stand on.</span>"} the price is in the bottom line. a parked thread spends nothing, and does nothing either: this day reaches <b>${row.F.toFixed(1)}</b> forks, ${lost.toFixed(0)}% fewer than when nothing waits long.`;
+}
+['T','cp','cw'].forEach(i=>$(i).oninput=render2); render2();
+</script>
+</body>
+</html>

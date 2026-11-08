@@ -15,25 +15,37 @@ forward_vector: "I am Quantum Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T14:20:28.083Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-02T03:30:52.229Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 18 · last ran 2026-10-14 (today)
-- **Plan:** none agreed yet — the work leans on the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 2 open asks
+- **Status:** active · **Stage:** growing · **Steward:** cycle 20 · last ran 2026-11-02 (today)
+- **Plan:** agreed 2026-10-15 (18 days ago) · 2 made things since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Every claim in the entry is tested and playable. Adopt a first plan that takes the instrument from the browser into Ableton? (`quantum-synth-043`)
-- **Last commit touching this project:** 2026-10-14 `9d320cf8` — steward(Quantum Synthesizer): cycle 17 — SPINNING UP. HOME: [Quantum Synthesizer](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-11-02 (today) — The Live device is written down: its partial tables exported, a Python voice that reads only them, and a build spec with every number tested. (`quantum-synth-047`)
+- **Last commit touching this project:** 2026-11-01 `ecbb6525` — steward(Quantum Synthesizer): cycle 19 — SPINNING UP. HOME: [Quantum Synthesizer](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-01 — cycle 20 · taught item 5
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 4 — items 1, 2, 3, 4; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 20 — 2026-11-01 — [[Quantum Synthesizer — tuning]]
 
 ### Where this stands
 
-This page claims Schrödinger's equation is a synthesizer: whatever holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Over the last two days I tested every claim in the entry with sound, one proof at a time. The walls choose the shapes and the equation turns shapes into pitches. Turning the i in the equation by a small angle gives every partial the same damping, which is how you get a bell. For a drum it's the second dimension that breaks the harmonic series, and under Schrödinger only the circle stays inharmonic. One fix to the entry has landed and four more drafts wait on your yes. This cycle put all of it into one instrument: pick the drum's equati…
+This page claims Schrödinger's equation is a synthesizer: whatever holds a wave sets its energy levels, and those levels, played as partials, are the timbre. Every claim in the entry has been tested with sound, and all of it is now one instrument you can play in the browser. The plan you adopted on October 15 ends with that instrument as a device you can play in Live. Last cycle I fixed the old drum proof's loudness error. This cycle I took the next step on the path, moving the engine toward Live. Max work is paused until there are patching standards, so I wrote the patch down instead of patching it. The instrument's mode tables are now plain data, a Python voice reads nothing but that data…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 5:** The device itself is unbuilt until the Max pause lifts and stays unverified until you open it. _(in 10 notes, the latest cycle 20)_
+- **rough since cycle 6:** I checked it headless (no script errors, all presets and readouts right), but I haven't heard the audio path in a live browser. _(in 12 notes, the latest cycle 18)_
+- **rough since cycle 18:** Nobody has played it by ear yet: not the instrument, not drum.wav, and now not the table voice either. _(in 3 notes, the latest cycle 20)_
 
 ### Open asks
 
-- `quantum-synth-040` — entry_text_fix · posted 2026-10-14 · options: LAND-ALL · ONE-AT-A-TIME · HOLD
-- `quantum-synth-043` — proposed plan revision: a first plan, now that every claim is tested · posted 2026-10-14 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -41,6 +53,8 @@ _None._
 
 ### Decided
 
+- `quantum-synth-043` — a first plan, now that every claim is tested → GRANTED — option_id=adopt (2026-10-15)
+- `quantum-synth-040` — entry_text_fix → GRANTED — option_id=LAND-ALL (2026-10-15)
 - `quantum-synth-035` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-14)
 - `quantum-synth-025` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-13)
 - `quantum-synth-016` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-10-13)
@@ -48,12 +62,30 @@ _None._
 - `quantum-synth-006` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-09-24)
 - `quantum-synth-004` — directional_steer → GRANTED — option_id=VIDEO-NEXT (2026-06-25)
 
+### Runs
+
+- 2026-11-01 — cycle 20 · taught item 5
+- 2026-11-01 — cycle 19 · proposed items 1, 2, 3, 4 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **1.** 2026-11-01 · [[Quantum Synthesizer]] · § Hermite-Gaussian Basis Functions as Spectral Shape: replace the second and third paragraphs (from 'When you sonify a quantum eigenstate' through the bold line); the first paragraph stays — Loudon said LAND-ALL on 2026-10-15. hermite.py's three checks show φₙ's n nodes don't mean n+1 partials, and the wavetable reading is where the entry's best sentence turns out to be exactly true. Evidence: proofs/hermite-checks.txt.
+- **2.** 2026-11-01 · [[Quantum Synthesizer]] · § Quantum Operators as Musical Transforms: replace all three paragraphs — Loudon said LAND-ALL on 2026-10-15. ladder.py's seven checks: a† on one rung moves it rather than adding an overtone, a leaves a coherent state unchanged, and collapse silences instead of filtering. Evidence: proofs/ladder-checks.txt.
+- **3.** 2026-11-01 · [[Quantum Synthesizer]] · § The Isomorphism: Wave Functions as Sound: replace the two paragraphs after the equation (from 'The imaginary unit $i$ is not a mathematical convenience.' through '…RLC resonant circuit.'); the equation stays — Loudon said LAND-ALL on 2026-10-15. wick.py's four checks: without i nothing escapes, each level is one lossless pole and not a conjugate pair, and turning i gives every partial the same damping ratio. Evidence: proofs/wick-checks.txt.
+- **4.** 2026-11-01 · [[Quantum Synthesizer]] · § Anharmonicity through Potential Shaping: replace the last paragraph ('Similarly, a struck bell or tam-tam…forces inharmonic eigenmodes]].') — Loudon said LAND-ALL on 2026-10-15. drum.py's five checks show a drum has no potential and that the second dimension breaks the series, while under Schrödinger only the circle stays inharmonic. The last sentence is founders' lore the script didn't measure, so cut it if it reads unearned. Evidence: proofs/drum-checks.txt.
+
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where it is going: prove, by ear, that Schrödinger's equation is a synthesis system, and end with an instrument a musician can play in Live. The moves, in order. First, play the browser instrument and pin notes. Your ear decides which shapes, strike points and angles are worth keeping as presets. Second, fix the earlier drum proof's loudness error so every proof agrees with the instrument. Third, port the engine to an RNBO codebox modal bank: shape and equation chosen as partial tables, the angle of i and the mallet as knobs, the strike point as an XY pad. Then export it as a Max for Live device, which stays unverified until you open it. Fourth, write a short étude with the device, the way the torus synth got its études. Fifth, rewrite the entry's 'Interactive Artifact' section around what was actually built and heard, and propose the stage move to growing.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -64,6 +96,104 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="quantum-synth-047" -->
+### 2026-11-02 — cycle 20 — The Live device is written down: its partial tables exported, a Python voice that reads only them, and a build spec with every number tested.
+> shipped · Max still paused, so the port is carried in Python · steward leans Sampler multisample next
+
+The browser instrument builds every strike from the modes of a shape (a line, a square or a circle), the rule that turns a mode into a pitch (the wave equation or Schrödinger's), and where you strike and listen. Only the modes need special maths, so partial_tables.py writes them out once: 18 rows for the line, 482 for the square, 230 for the circle. Each circle row carries its radial shape as 257 samples, so the device never computes a Bessel function. Rows with the same pitch share a slot, so they play as one oscillator.
+
+table_voice.py is the device's engine in Python. It ran five checks, and all five pass. On 47 strikes (the seven presets plus 40 random points and mallets) it gives the browser's partials to 3e-13. The circle's radial lookup costs at most -54 dB on any one partial. Rendered strikes match the browser's to 2e-4 of the peak.
+
+Two things came out that the patch has to get right. First, the voice budget: the boxes and the string are exact at 64 oscillators, but the two drums need 96 to stay within -40 dB of the full strike. At 64 the square drum is 36 dB off. Second, the gain: the browser reads each strike's peak before playing it, and a live device can't. Scaling by the sum of the partials' loudness never clips, and it lands the seven presets within 5.6 dB of each other. device-spec.md sets out the parameters (equation, shape, strike XY pad, angle of i, mallet, budget), what happens at control rate and at audio rate, and the cost, which is under 30 million multiplies a second per voice.
+
+I passed over porting only the two-knob stiffness/bump voice that earlier cycles named. The plan's device plays the three shapes under two equations, and that is the instrument you'd be pinning notes on.
+
+**Artifacts:**
+- [the patch, written down: data, parameters, signal flow, budget, what's physics and what's my choice.](Projects/Quantum Synthesizer/device/device-spec.md)
+- [the seven presets struck by the table voice, at 96 oscillators with the fixed gain the device would use.](Projects/Quantum Synthesizer/device/table-voice-tour.wav)
+- [five checks against instrument.html, all passing, with the budget and gain tables.](Projects/Quantum Synthesizer/device/table-voice-checks.txt)
+- [the mode tables the device reads (582 KB).](Projects/Quantum Synthesizer/device/partial-tables.json)
+- [writes the tables from scipy.](Projects/Quantum Synthesizer/device/partial_tables.py)
+- [the device's engine in Python, and its checks.](Projects/Quantum Synthesizer/device/table_voice.py)
+
+_Voice budget: strike error vs every partial, keeping the N loudest (dB, θ 0.03°)_
+| preset | N=32 | N=64 | N=96 | N=128 |
+| --- | --- | --- | --- | --- |
+| square drum | -21 | -36 | -54 | -67 |
+| round drum | -24 | -42 | -60 | -74 |
+| square box | -26 | exact | exact | exact |
+| round box | -29 | exact | exact | exact |
+| string / box / dead centre | exact | exact | exact | exact |
+
+_Changed in the workshop:_ device-spec — new: the Live device written down while Max is paused, so the build is a port and not a design session
+
+_Left rough:_ Nobody has played it by ear yet: not the instrument, not drum.wav, and now not the table voice either. The device itself is unbuilt until the Max pause lifts and stays unverified until you open it.
+
+_Next moves named:_ Render the presets as an Ableton Sampler multisample from the table voice. Sampler is Live's own device and isn't paused, so you'd have something playable in Live before the patch exists. I'd render one preset's keys first and gate the full set on your ear. · When the Max pause lifts, build the patch from device-spec.md. The signal flow, parameters, the 96-oscillator budget and the gain rule are already tested. · Fold your pinned notes from the browser instrument back into the presets and the spec's defaults, once your ear has been on it.
+<sub>`quantum-synth-047` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5adf489cd1" -->
+### 2026-11-01 — cycle 20
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="plan-quantum-synth-043" -->
+### 2026-10-14 — Plan agreed: Every claim in the entry is tested and playable. Adopt a first plan that takes the instrument from the browser into Ableton?
+
+This page has never had a plan. It has been steered by its standing order, which says to ship a small real thing every run. That worked: in two days every claim in the entry was tested with sound, and today they all became one playable page. The next stretch needs more than single proofs. My evidence is the instrument itself. Its engine is a bank of decaying sine partials that renders a strike in about 10 ms. That's the same shape as an RNBO modal bank, so the move to Max and Ableton is a port, not a redesign. The cost is that the Ableton step can't be verified here, so it stays unconfirmed until you open it. Adopt makes the plan below the path. Keep leaves the page on its standing order. Your yes or no on the four drafts is a separate card.
+<sub>`plan-quantum-synth-043` · plan agreed · agreed 2026-10-15T01:38:55.377Z · proposed by Quantum Synthesizer's steward (`quantum-synth-043`), adopted by Loudon (`resp-mv8veh3l-zm2ast`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="quantum-synth-045" -->
+### 2026-11-02 — cycle 19 — The drum proof is fixed: the round drum's off-centre partials come back up 6 dB, and nothing else moves. Your four approved drafts are filed for review.
+> shipped · drum proof matches the instrument · steward leans spec the Live port next
+
+Building the browser instrument last cycle turned up a bug in [drum.py](obsidian://open?vault=The%20Palace&file=Projects/Quantum%20Synthesizer/proofs/drum.py). Every circle mode that isn't perfectly round was scaled by π·J²ₘ₊₁ when the true value is (π/2)·J²ₘ₊₁, so those partials of the round drum and round box played 6 dB too quiet. It's fixed. A new fifth check adds up each of the first 40 circle shapes over the whole disk and finds unit loudness to 8e-7, for round and off-centre modes alike. The first four checks still pass: the Bessel zeros, the 2D grid solve, the peaks read from the sound, and which tones repeat. Then I measured the old and new [drum.wav](open:Projects/Quantum Synthesizer/proofs/drum.wav) against each other, partial by partial (table). The off-centre partials rose by exactly 6.0 dB. The round rings, the dead-centre strike and the whole square drum didn't move by a tenth of a dB. The round drum's closest return dropped from 0.75 to 0.71, which still counts as never repeating. No pitch and no verdict changed, so the drum draft's paragraph is untouched, and I updated its evidence lines. [drum.mp4](Projects/Quantum Synthesizer/proofs/drum.mp4) and the poster are re-rendered from the same run. The four drafts are now four proposals, each the exact replacement text. I folded in the one amendment the operators draft asked of the Hermite draft, so the two agree about which ear hears what.
+
+**Artifacts:**
+- [seven strikes, re-rendered with the corrected circle loudness](Projects/Quantum Synthesizer/proofs/drum.mp4)
+- [the same seven strikes, audio only](Projects/Quantum Synthesizer/proofs/drum.wav)
+- [every strike's ladder and spectrum, one still](Projects/Quantum Synthesizer/proofs/drum-poster.png)
+- [five checks, all PASS; the fifth is new](Projects/Quantum Synthesizer/proofs/drum-checks.txt)
+- [the fixed script](Projects/Quantum Synthesizer/proofs/drum.py)
+- [evidence lines updated to the re-render](Projects/Quantum Synthesizer/proofs/drum-paragraph — draft.md)
+- [the operators draft's amendment folded in](Projects/Quantum Synthesizer/proofs/hermite-paragraph — draft.md)
+
+_Partial levels relative to the 220 Hz fundamental, read from the sound before and after the fix (dB)_
+| strike | partial | kind | before | after | change |
+| --- | --- | --- | --- | --- | --- |
+| round drum | 1.593 | off-centre (m=1) | -9.4 | -3.3 | +6.0 |
+| round drum | 2.136 | off-centre (m=2) | -4.3 | +1.7 | +6.0 |
+| round drum | 2.295 | round ring (m=0) | -23.5 | -23.5 | 0.0 |
+| round drum | 2.653 | off-centre (m=3) | -8.0 | -2.0 | +6.0 |
+| round box | 2.539 | off-centre | -11.7 | -5.6 | +6.0 |
+| round box | 5.269 | round ring | -30.0 | -30.0 | 0.0 |
+| centre strike | 2.295 | round ring | +0.3 | +0.3 | 0.0 |
+| square drum | 2.550 | no circle modes | -6.1 | -6.1 | 0.0 |
+
+_Changed in the workshop:_ drum-paragraph — draft — its evidence lines now quote the re-rendered numbers and the fifth check
+_Changed in the workshop:_ hermite-paragraph — draft — folded in the operators draft's amendment so the two drafts agree on which ear hears what
+_Proposed for canon:_ Quantum Synthesizer (§ Hermite-Gaussian Basis Functions as Spectral Shape: replace the second and third paragraphs (from 'When you sonify a quantum eigenstate' through the bold line); the first paragraph stays) — Loudon said LAND-ALL on 2026-10-15. hermite.py's three checks show φₙ's n nodes don't mean n+1 partials, and the wavetable reading is where the entry's best sentence turns out to be exactly true. Evidence: proofs/hermite-checks.txt.; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Quantum Synthesizer (§ Quantum Operators as Musical Transforms: replace all three paragraphs) — Loudon said LAND-ALL on 2026-10-15. ladder.py's seven checks: a† on one rung moves it rather than adding an overtone, a leaves a coherent state unchanged, and collapse silences instead of filtering. Evidence: proofs/ladder-checks.txt.; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Quantum Synthesizer (§ The Isomorphism: Wave Functions as Sound: replace the two paragraphs after the equation (from 'The imaginary unit $i$ is not a mathematical convenience.' through '…RLC resonant circuit.'); the equation stays) — Loudon said LAND-ALL on 2026-10-15. wick.py's four checks: without i nothing escapes, each level is one lossless pole and not a conjugate pair, and turning i gives every partial the same damping ratio. Evidence: proofs/wick-checks.txt.; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Quantum Synthesizer (§ Anharmonicity through Potential Shaping: replace the last paragraph ('Similarly, a struck bell or tam-tam…forces inharmonic eigenmodes]].')) — Loudon said LAND-ALL on 2026-10-15. drum.py's five checks show a drum has no potential and that the second dimension breaks the series, while under Schrödinger only the circle stays inharmonic. The last sentence is founders' lore the script didn't measure, so cut it if it reads unearned. Evidence: proofs/drum-checks.txt.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has played it by ear yet: not the instrument, not drum.wav. The plan you adopted on October 15 doesn't show in the scroll's Plan section, which I can't write. Making the device is paused along with all Max work.
+
+_Next moves named:_ Carry the Live port without Max: write the patch's build spec (signal flow, partial tables per shape and equation, the angle of i and the mallet as knobs, the strike point as an XY pad) and export the partial tables as data the patch will read. · Render the instrument's presets as an Ableton Sampler multisample, which is Live's own device and not paused, so there's something playable in Live before the patch exists. · Rewrite the entry's section on the interactive instrument around the browser instrument, once your ear has been on it.
+<sub>`quantum-synth-045` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-dfb2c8153b" -->
+### 2026-11-01 — cycle 19
+
+proposed items 1, 2, 3, 4 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="quantum-synth-043" -->
 ### 2026-10-14 — cycle 18 — Every claim in the entry is tested and playable. Adopt a first plan that takes the instrument from the browser into Ableton?
 > still working · instrument shipped · steward leans adopt

@@ -1,0 +1,226 @@
+{
+  "classics": {
+    "crossfade": {
+      "frames": 5,
+      "between": 0,
+      "worst_dip_db": -8.7,
+      "pairs_with_a_hole": "1 of 4",
+      "holes_total": 32,
+      "deepest_hole_db": -9.6,
+      "buzz_db": -57.5
+    },
+    "spectral": {
+      "frames": 261,
+      "between": 64,
+      "worst_dip_db": -0.0,
+      "pairs_with_a_hole": "0 of 4",
+      "holes_total": 0,
+      "deepest_hole_db": 0.0,
+      "buzz_db": -59.1
+    },
+    "locked": {
+      "frames": 261,
+      "between": 64,
+      "worst_dip_db": -0.0,
+      "pairs_with_a_hole": "0 of 4",
+      "holes_total": 0,
+      "deepest_hole_db": 0.0,
+      "buzz_db": -59.3
+    },
+    "locked_only": {
+      "frames": 5,
+      "between": 0,
+      "worst_dip_db": -0.4,
+      "pairs_with_a_hole": "0 of 4",
+      "holes_total": 0,
+      "deepest_hole_db": -0.6,
+      "buzz_db": -66.4
+    },
+    "crossfade_blur1": {
+      "frames": 5,
+      "between": 0,
+      "worst_dip_db": -0.1,
+      "pairs_with_a_hole": "0 of 4",
+      "holes_total": 0,
+      "deepest_hole_db": -5.5,
+      "buzz_db": -77.5
+    },
+    "locked_blur1": {
+      "frames": 261,
+      "between": 64,
+      "worst_dip_db": 0.0,
+      "pairs_with_a_hole": "0 of 4",
+      "holes_total": 0,
+      "deepest_hole_db": 0.0,
+      "buzz_db": -77.4
+    }
+  },
+  "fmsynth": {
+    "crossfade": {
+      "frames": 122,
+      "between": 0,
+      "worst_dip_db": -2.2,
+      "pairs_with_a_hole": "70 of 121",
+      "holes_total": 216,
+      "deepest_hole_db": -30.4,
+      "buzz_db": -26.2
+    },
+    "spectral": {
+      "frames": 485,
+      "between": 3,
+      "worst_dip_db": -0.0,
+      "pairs_with_a_hole": "0 of 121",
+      "holes_total": 0,
+      "deepest_hole_db": -0.0,
+      "buzz_db": -20.7
+    },
+    "locked": {
+      "frames": 485,
+      "between": 3,
+      "worst_dip_db": -0.0,
+      "pairs_with_a_hole": "0 of 121",
+      "holes_total": 0,
+      "deepest_hole_db": -0.0,
+      "buzz_db": -27.1
+    },
+    "locked_only": {
+      "frames": 122,
+      "between": 0,
+      "worst_dip_db": -1.9,
+      "pairs_with_a_hole": "0 of 121",
+      "holes_total": 0,
+      "deepest_hole_db": -0.6,
+      "buzz_db": -28.8
+    },
+    "crossfade_blur1": {
+      "frames": 122,
+      "between": 0,
+      "worst_dip_db": -0.7,
+      "pairs_with_a_hole": "34 of 121",
+      "holes_total": 44,
+      "deepest_hole_db": -23.5,
+      "buzz_db": -36.9
+    },
+    "locked_blur1": {
+      "frames": 485,
+      "between": 3,
+      "worst_dip_db": 0.0,
+      "pairs_with_a_hole": "0 of 121",
+      "holes_total": 0,
+      "deepest_hole_db": 0.0,
+      "buzz_db": -35.7
+    }
+  },
+  "eorgan": {
+    "crossfade": {
+      "frames": 154,
+      "between": 0,
+      "worst_dip_db": -2.7,
+      "pairs_with_a_hole": "53 of 153",
+      "holes_total": 98,
+      "deepest_hole_db": -26.2,
+      "buzz_db": -24.1
+    },
+    "spectral": {
+      "frames": 460,
+      "between": 2,
+      "worst_dip_db": -0.3,
+      "pairs_with_a_hole": "0 of 153",
+      "holes_total": 0,
+      "deepest_hole_db": -1.2,
+      "buzz_db": -22.4
+    },
+    "locked": {
+      "frames": 460,
+      "between": 2,
+      "worst_dip_db": -0.2,
+      "pairs_with_a_hole": "0 of 153",
+      "holes_total": 0,
+      "deepest_hole_db": -0.0,
+      "buzz_db": -24.7
+    },
+    "locked_only": {
+      "frames": 154,
+      "between": 0,
+      "worst_dip_db": -2.6,
+      "pairs_with_a_hole": "0 of 153",
+      "holes_total": 0,
+      "deepest_hole_db": -0.3,
+      "buzz_db": -25.4
+    },
+    "crossfade_blur1": {
+      "frames": 154,
+      "between": 0,
+      "worst_dip_db": -0.6,
+      "pairs_with_a_hole": "8 of 153",
+      "holes_total": 9,
+      "deepest_hole_db": -14.2,
+      "buzz_db": -39.3
+    },
+    "locked_blur1": {
+      "frames": 460,
+      "between": 2,
+      "worst_dip_db": -0.0,
+      "pairs_with_a_hole": "0 of 153",
+      "holes_total": 0,
+      "deepest_hole_db": -0.0,
+      "buzz_db": -37.1
+    }
+  },
+  "cello": {
+    "crossfade": {
+      "frames": 19,
+      "between": 0,
+      "worst_dip_db": -1.8,
+      "pairs_with_a_hole": "16 of 18",
+      "holes_total": 43,
+      "deepest_hole_db": -23.5,
+      "buzz_db": -47.9
+    },
+    "spectral": {
+      "frames": 505,
+      "between": 27,
+      "worst_dip_db": -0.0,
+      "pairs_with_a_hole": "0 of 18",
+      "holes_total": 0,
+      "deepest_hole_db": -0.0,
+      "buzz_db": -44.5
+    },
+    "locked": {
+      "frames": 505,
+      "between": 27,
+      "worst_dip_db": 0.0,
+      "pairs_with_a_hole": "0 of 18",
+      "holes_total": 0,
+      "deepest_hole_db": -0.0,
+      "buzz_db": -46.1
+    },
+    "locked_only": {
+      "frames": 19,
+      "between": 0,
+      "worst_dip_db": -1.2,
+      "pairs_with_a_hole": "0 of 18",
+      "holes_total": 0,
+      "deepest_hole_db": 0.0,
+      "buzz_db": -50.1
+    },
+    "crossfade_blur1": {
+      "frames": 19,
+      "between": 0,
+      "worst_dip_db": -0.5,
+      "pairs_with_a_hole": "5 of 18",
+      "holes_total": 5,
+      "deepest_hole_db": -10.2,
+      "buzz_db": -56.3
+    },
+    "locked_blur1": {
+      "frames": 505,
+      "between": 27,
+      "worst_dip_db": 0.0,
+      "pairs_with_a_hole": "0 of 18",
+      "holes_total": 0,
+      "deepest_hole_db": 0.0,
+      "buzz_db": -55.0
+    }
+  }
+}

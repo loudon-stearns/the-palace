@@ -3,7 +3,8 @@
 // Reuses the feel lab's engine (../feel-lab/feel_engine.js), so these numbers
 // and the browser page describe one knob. Datasheet: iFlight GM5208-12,
 // read 2026-10-13: 15.2 Ω ±5 % (two leads), 0.09 ±0.1 A and 456–504 rpm
-// no-load at 20 V, 1800–2500 g·cm at 1 A, 195 g, Ø63 mm. KV and inductance
+// no-load at 20 V, 1800–2500 g·cm at 1 A, 195 g, Ø63 mm (the shop page,
+// read 2026-10-20, says 209 ±0.5 g; 209 g is used below). KV and inductance
 // are not published. Every derived number below is a bracket, not a value.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -26,9 +27,9 @@ const R = [7.6, 15.2];                             // Ω: per phase (half of lea
 // That is viscous damping, physical and instant — no loop, no delay.
 const bElec = [kt[0] ** 2 / R[1], kt[1] ** 2 / R[0]];
 const bElecMid = Math.sqrt(bElec[0] * bElec[1]);
-// ── 3. rotor inertia, from the shape (ASSUMED: ~80 g of the 195 g is the bell,
-// a ring between 22 and 31 mm radius) ────────────────────────────────────────
-const Jrotor = [0.06 * 0.022 ** 2, 0.09 * 0.031 ** 2];
+// ── 3. rotor inertia, from the shape (ASSUMED: 31–46 % of the 209 g is the bell,
+// as 60–90 g was of 195 g, a ring between 22 and 31 mm radius) ──────────────
+const Jrotor = [0.064 * 0.022 ** 2, 0.096 * 0.031 ** 2];
 // ── 4. electrical corner: torque falls off above R / (2πL). L ASSUMED 1–6 mH.
 const L = [0.001, 0.006];
 const corner = [R[0] / (TAU * L[1]), R[1] / (TAU * L[0])];

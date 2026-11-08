@@ -1,0 +1,447 @@
+<!doctype html>
+<!--
+  title: Dovetail Joint ↔ Counterpoint — rich — remove one voice
+  born: 2026-11-04
+  links: [[Dovetail Joint ↔ Counterpoint]] (connects-to · rich-face-piece) · listed in [[Dovetail Joint ↔ Counterpoint — rich.json]] · the rules are the page's own § Teaching the Resonance, Part 2, set as Fux's second species
+  forward_vector: I am the walk up to The Structural Identity's last row, "Remove one voice → other voice incomplete". One cantus alone; a line written for it by the page's Part 2 rules, set as Fux's second species, with either voice removable; the same cantus with four partners that are not written for it (parallel tenths, octave doubling, its own notes reordered, a line written for another cantus), and two measures of what removal costs — the chords the pair names that one voice can't, and how much of the removed line the remaining one could rebuild; and last a blind test in two blocks, the pairs together and then the voices apart, a line written for this cantus against one written for another, scored against guessing by a rule fixed before the first trial. I change only when the section I serve does.
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click. Changing step stops the sound. Every sound is made in this page by the core below: one additive tone, six harmonics, the same for both voices and every arm. No sample, no file.
+  check: Cross-Domain Resonances/Dovetail Joint ↔ Counterpoint/Dovetail Joint ↔ Counterpoint — rich — check.mjs runs this page's core in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Remove one voice · Dovetail Joint ↔ Counterpoint</title>
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --info:#4a8fff; --warn:#e8651b; --ok:#5fbf7f;
+    --serif:'Cormorant Garamond','Iowan Old Style','Palatino Linotype',Georgia,serif; --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --display:'Anton','Bebas Neue',Impact,'Arial Narrow',sans-serif; --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+    color-scheme: dark;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1);font-family:var(--sans);font-size:15px;line-height:1.55}
+  .wrap{max-width:1040px;margin:0 auto;padding:20px 20px 28px}
+  header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  header svg{flex:none}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:30px;letter-spacing:.02em;margin:0;line-height:1.05}
+  .rail{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+  .rail button{font-family:var(--mono);font-size:12px;background:var(--bg-elev-1);color:var(--fg-2);border:1px solid var(--border);border-radius:2px;padding:6px 10px;cursor:pointer}
+  .rail button[aria-current="step"]{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .say{font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--fg-1);margin:0 0 12px;max-width:72ch}
+  .say p{margin:0 0 10px}
+  .hint{font-size:13px;color:var(--fg-3);max-width:80ch}
+  .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+  button.b{font-family:var(--sans);font-size:13px;background:var(--bg-elev-2);color:var(--fg-1);border:1px solid var(--border);border-radius:2px;padding:7px 12px;cursor:pointer}
+  button.b:hover{border-color:rgba(232,184,74,.55)}
+  button.b.on{border-color:var(--accent);color:var(--accent)}
+  button.b.off{color:var(--fg-4);text-decoration:line-through}
+  button.b:disabled{opacity:.4;cursor:default}
+  canvas{display:block;width:100%;height:260px;background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:2px}
+  table{border-collapse:collapse;font-size:13px;margin:8px 0;width:100%}
+  th,td{border-bottom:1px solid var(--border-soft);padding:5px 8px;text-align:left;font-variant-numeric:tabular-nums}
+  th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-3);font-weight:400}
+  td.n{font-family:var(--mono)}
+  .eq{background:var(--bg-elev-1);border-left:2px solid var(--accent);padding:8px 12px;margin:10px 0;font-size:14px}
+  .eq .s{font-family:var(--mono);color:var(--fg-1)}
+  .eq .w{color:var(--fg-2)}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;border:1px solid var(--border);border-radius:2px;padding:1px 6px;color:var(--fg-2);margin-right:4px}
+  .good{color:var(--ok)} .bad{color:var(--warn)} .acc{color:var(--accent)}
+  .card{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:12px 14px;margin:10px 0}
+  .verdict{font-family:var(--serif);font-size:18px}
+  .nav{display:flex;justify-content:space-between;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg width="34" height="34" viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><circle r="1.05" fill="none" stroke="#4a4a5e" stroke-width="0.04"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="0.05"/></svg>
+    <div><div class="eyebrow">Dovetail Joint ↔ Counterpoint · The Structural Identity</div><h1>Remove one voice</h1></div>
+  </header>
+  <nav class="rail" id="rail"></nav>
+  <div id="step"></div>
+  <div class="nav"><button class="b" id="back">Back</button><button class="b" id="next">Next</button></div>
+</div>
+<script id="cp-core">
+const CP = (() => {
+  // two cantus firmi: Fux's D dorian (Gradus ad Parnassum, 1725) and a C major one written for this piece
+  const CANTI = [
+    { name: 'D dorian · Fux', notes: [50, 53, 52, 50, 55, 53, 57, 55, 53, 52, 50], lo: 57, hi: 77, lead: 61 },
+    { name: 'C major', notes: [48, 52, 50, 53, 52, 55, 57, 55, 53, 52, 50, 48], lo: 55, hi: 76, lead: 59 }
+  ];
+  const SCALE = [0, 2, 4, 5, 7, 9, 11];          // the white notes: D dorian and C major share them
+  const CONS = new Set([0, 3, 4, 7, 8, 9]);       // consonances above the lower voice, mod 12
+  const PERF = new Set([0, 7]);
+  const NAMES = ['C', 'C♯', 'D', 'E♭', 'E', 'F', 'F♯', 'G', 'A♭', 'A', 'B♭', 'B'];
+  const name = (m) => NAMES[m % 12] + (Math.floor(m / 12) - 1);
+  function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function shuffle(a, r) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  const pitches = (cf) => { const p = []; for (let m = cf.lo; m <= cf.hi; m++) if (SCALE.includes(m % 12)) p.push(m); return p; };
+  const sgn = (x) => (x > 0) - (x < 0);
+  // a line is [s0, w0, s1, w1, ..., s(n-2), w(n-2), final]: two notes a bar against the cantus, the last bar one
+  const strongs = (line) => line.filter((_, i) => i % 2 === 0);
+  const below = (cf, i) => cf.notes[Math.floor(i / 2)];
+  // the melodic rules, shared by every line this piece writes, interlocked or not
+  function melodicOk(line, i, cf) {
+    const m = line[i], p = line[i - 1];
+    if (i === 0) return true;
+    const d = m - p, a = Math.abs(d);
+    if (a === 0 || a === 6 || a === 10 || a === 11 || a > 12) return false;   // no repeat, tritone, seventh, beyond the octave
+    if (d === -8 || d === -9) return false;                                      // a sixth only upward, and then only a minor one
+    if (d === 9) return false;
+    if (i >= 2) { const d0 = p - line[i - 2]; if (Math.abs(d0) >= 5 && !(Math.abs(d) <= 2 && sgn(d) === -sgn(d0))) return false; } // a leap past a third turns back by step
+    let lo = Infinity, hi = -Infinity; for (let k = 0; k <= i; k++) { lo = Math.min(lo, line[k]); hi = Math.max(hi, line[k]); }
+    if (hi - lo > 16) return false;                                              // within a tenth
+    return true;
+  }
+  // the vertical rules: what makes a line written FOR this cantus (the page's Part 2, and Fux's second species)
+  function verticalOk(line, i, cf) {
+    const m = line[i], c = below(cf, i), iv = m - c, last = 2 * (cf.notes.length - 1);
+    if (iv <= 0) return false;                                                   // above, never crossing or on a unison
+    if (i === 0) return PERF.has(iv % 12);                                       // begin on a fifth or an octave
+    if (i === last) { const ps = line[i - 2], pc = below(cf, i - 2);              // end on the octave, not from an octave in similar motion
+      return iv % 12 === 0 && !((ps - pc) % 12 === 0 && sgn(m - ps) === sgn(c - pc)); }
+    if (i === last - 1) return iv % 12 === 9;                                    // the leading tone, a major sixth above
+    if (i % 2 === 0) {                                                           // strong beat: a consonance
+      if (!CONS.has(iv % 12)) return false;
+      const ps = line[i - 2], pc = below(cf, i - 2), piv = ps - pc;                // no parallel fifths or octaves, beat to beat
+      if (PERF.has(iv % 12) && (piv % 12) === (iv % 12) && sgn(m - ps) === sgn(c - pc)) return false;
+      const pw = line[i - 1], wiv = pw - pc;                                       // nor from the weak beat before
+      if (PERF.has(iv % 12) && CONS.has(wiv % 12) && (wiv % 12) === (iv % 12)) return false;
+      const w = line[i - 1], s = line[i - 2];                                      // a weak dissonance must pass, by step, one way
+      if (!CONS.has((w - pc) % 12) || w - pc <= 0) { const a = w - s, b = m - w; if (!(Math.abs(a) <= 2 && Math.abs(b) <= 2 && sgn(a) === sgn(b))) return false; }
+      return true;
+    }
+    return true;                                                                 // weak beat: judged when the next strong beat arrives
+  }
+  function cadenceOk(line, i, cf) { // the line's own cadence: the leading tone, then the final, shared by every arm that cadences
+    const last = 2 * (cf.notes.length - 1);
+    if (i === last - 1) return line[i] % 12 === cf.lead % 12;
+    if (i === last) return line[i] % 12 === cf.notes[0] % 12;
+    if (i === 0) return [cf.notes[0] % 12, (cf.notes[0] + 7) % 12].includes(line[i] % 12);
+    return true;
+  }
+  function search(cf, r, accept, budget = 6000) {
+    const n = 2 * (cf.notes.length - 1) + 1, P = pitches(cf), line = []; let steps = 0, found = null;
+    const cand = (i) => { const last = 2 * (cf.notes.length - 1); const ps = P.slice(); if (i === last - 1) ps.push(cf.lead, cf.lead + 12); const prev = line[i - 1]; return ps.filter((m) => m >= cf.lo && m <= cf.hi).map((m) => [m, (prev === undefined ? 0 : Math.abs(m - prev)) + r() * 5]).sort((a, b) => a[1] - b[1]).map((a) => a[0]); };
+    const go = (i) => {
+      if (found || ++steps > budget) return;
+      if (i === n) { if (accept(line)) found = line.slice(); return; }
+      for (const m of cand(i)) { line[i] = m; if (accept.step(line, i)) go(i + 1); if (found) return; }
+      line.length = i;
+    };
+    go(0); return found;
+  }
+  function partial(line, i, cf) { // counts so far, for pruning: leaps, contrary strong-beat moves, moves still to come
+    let leaps = 0; for (let k = 1; k <= i; k++) if (Math.abs(line[k] - line[k - 1]) > 2) leaps++;
+    let con = 0, sim = 0, done = 0; for (let k = 2; k <= i; k += 2) { done++; const j = k / 2, u = Math.sign(line[k] - line[k - 2]), c = Math.sign(cf.notes[j] - cf.notes[j - 1]); if (u && u === -c) con++; if (u && u === c) sim++; }
+    return { leaps, con, sim, left: cf.notes.length - 1 - done };
+  }
+  const throughCount = (l) => { let k = 0; for (let i = 1; i < l.length - 1; i += 2) if (Math.abs(l[i] - l[i - 1]) <= 2 && Math.abs(l[i + 1] - l[i]) <= 2 && sgn(l[i] - l[i - 1]) === sgn(l[i + 1] - l[i])) k++; return k; };
+  const similarCount = (line, cf) => { const s = strongs(line); let k = 0; for (let j = 1; j < s.length; j++) if (s[j] !== s[j - 1] && sgn(s[j] - s[j - 1]) === sgn(cf.notes[j] - cf.notes[j - 1])) k++; return k; };
+  const contraryCount = (line, cf) => { const s = strongs(line); let k = 0; for (let j = 1; j < s.length; j++) if (sgn(s[j] - s[j - 1]) === -sgn(cf.notes[j] - cf.notes[j - 1]) && s[j] !== s[j - 1]) k++; return k; };
+  function interlocked(cf, seed) {
+    const r = rng(seed), moves = cf.notes.length - 1;
+    for (let t = 0; t < 60; t++) {
+      const acc = (line) => { const d = describe(line, cf); return contraryCount(line, cf) >= Math.ceil(moves * 0.6) && d.leaps <= 6 && d.weakDis >= 2; };
+      const need = Math.ceil(moves * 0.6);
+      acc.step = (line, i) => { if (!melodicOk(line, i, cf) || !verticalOk(line, i, cf)) return false; const p = partial(line, i, cf); return p.leaps <= 6 && p.con + p.left >= need; };
+      const l = search(cf, r, acc); if (l) return l;
+    }
+    return null;
+  }
+  // not written for it: the same melodic rules and the same cadence, no vertical rule, exactly as much contrary motion,
+  // and the same notes: its strong beats use the written line's strong-beat pitch classes, its weak beats the weak-beat
+  // ones, each the same number of times, in another order, with at least four strong beats moved. So a lone line's
+  // note habits can't tell the two apart, and the measures, which read strong beats, see a line that really moved.
+  const BEATS = [(i) => i % 2 === 0, (i) => i % 2 === 1];
+  const pcCount = (l, f, upto = l.length - 1) => { const c = {}; for (let k = 0; k <= upto; k++) if (f(k)) c[l[k] % 12] = (c[l[k] % 12] || 0) + 1; return c; };
+  function independent(cf, seed, I, tries = 120) {
+    const r = rng(seed ^ 0x9e3779b9), want = describe(I, cf), target = BEATS.map((f) => pcCount(I, f));
+    const pcRoom = (line, i) => BEATS.every((f, g) => { const c = pcCount(line, f, i); return Object.keys(c).every((p) => c[p] <= (target[g][p] || 0)); });
+    const pcSame = (line) => BEATS.every((f, g) => { const c = pcCount(line, f); return Object.keys(c).length === Object.keys(target[g]).length && Object.keys(c).every((p) => c[p] === target[g][p]); });
+    for (let t = 0; t < tries; t++) {
+      const acc = (line) => { const d = describe(line, cf); return d.contrary === want.contrary && d.similar === want.similar && d.leaps === want.leaps && d.through === want.through && Math.abs((d.top - d.bottom) - (want.top - want.bottom)) <= 1 && Math.abs(d.mean - want.mean) <= 1.5 && !isCounterpoint(line, cf) && pcSame(line) && strongs(line).filter((m, j) => m !== strongs(I)[j]).length >= 4; };
+      acc.step = (line, i) => { if (!(line[i] > below(cf, i) && melodicOk(line, i, cf) && cadenceOk(line, i, cf) && pcRoom(line, i))) return false; const p = partial(line, i, cf); return p.leaps <= want.leaps && p.con <= want.contrary && p.sim <= want.similar && p.con + p.sim + p.left >= want.contrary + want.similar && p.con + p.left >= want.contrary && p.sim + p.left >= want.similar; };
+      const l = search(cf, r, acc); if (l) return l;
+    }
+    return null;
+  }
+  // another cantus in the same mode: the same length, final and cadence, by Fux's rules for a cantus (mostly steps; a
+  // leap past a third turns back by step; no tritone, no repeat, no wobble; one highest note; within a sixth or so)
+  function anotherCantus(base, r) {
+    const n = base.notes.length, fin = base.notes[0], pen = base.notes[n - 2], P = [];
+    for (let m = fin - 2; m <= fin + 9; m++) if (SCALE.includes(m % 12)) P.push(m);
+    const stepOk = (c, j, m) => { const d = m - c[j - 1], a = Math.abs(d), back = j >= 2 ? c[j - 1] - c[j - 2] : 0;
+      if (a === 0 || a === 6 || a > 7) return false; if (Math.abs(back) >= 5 && !(a <= 2 && sgn(d) === -sgn(back))) return false;
+      if (j >= 3 && m === c[j - 2] && c[j - 1] === c[j - 3]) return false; return true; };
+    for (let t = 0; t < 4000; t++) {
+      const c = [fin]; let ok = true;
+      for (let j = 1; j < n - 2 && ok; j++) { const opts = P.filter((m) => stepOk(c, j, m)); if (!opts.length) { ok = false; break; }
+        const w = opts.map((m) => (Math.abs(m - c[j - 1]) <= 2 ? 4 : 1)); let x = r() * w.reduce((a, b) => a + b, 0), k = 0; while (k < w.length - 1 && (x -= w[k]) > 0) k++; c.push(opts[k]); }
+      if (!ok || !stepOk(c, n - 2, pen)) continue; c.push(pen); if (!stepOk(c, n - 1, fin)) continue; c.push(fin);
+      const hi = Math.max(...c), lo = Math.min(...c); let leaps = 0; for (let j = 1; j < n; j++) if (Math.abs(c[j] - c[j - 1]) > 2) leaps++;
+      if (c.filter((m) => m === hi).length !== 1 || hi - lo > 9 || hi - lo < 5 || leaps > 3 || c.join() === base.notes.join()) continue;
+      return { ...base, name: base.name.split(' · ')[0] + ' · a fresh cantus', notes: c };
+    }
+    return null;
+  }
+  // a good line cut for another board: written by the same rules for another cantus, then laid on this one
+  function otherLine(cf, seed) {
+    const r = rng(seed ^ 0x5bd1e995);
+    for (let t = 0; t < 40; t++) { const Y = anotherCantus(cf, r); if (!Y) continue; const O = interlocked(Y, Math.floor(r() * 1e9)); if (O && !isCounterpoint(O, cf)) return { Y, O }; }
+    return null;
+  }
+  function isCounterpoint(line, cf) { for (let i = 0; i < line.length; i++) if (!melodicOk(line, i, cf) || !verticalOk(line, i, cf)) return false; return true; }
+  // parallel: the strong beats a fixed number of scale steps above the cantus; the weak beats by the same melodic rules
+  const deg = (m) => { const pc = m % 12; let k = SCALE.indexOf(pc); if (k < 0) k = SCALE.indexOf(pc - 1); return Math.floor(m / 12) * 7 + k; };
+  const fromDeg = (d) => Math.floor(d / 7) * 12 + SCALE[((d % 7) + 7) % 7];
+  function parallel(cf, steps) { // note against note, each held the whole bar: a tie where the other arms move
+    const sv = cf.notes.map((c) => fromDeg(deg(c) + steps)), line = [];
+    sv.forEach((m, j) => { line.push(m); if (j < sv.length - 1) line.push(m); }); return line;
+  }
+  // ── the two measures ──
+  // triads of the mode, the cadence's major dominant included: which chords could be sounding?
+  function triads(cf) { const T = []; for (let k = 0; k < 7; k++) T.push([SCALE[k], SCALE[(k + 2) % 7], SCALE[(k + 4) % 7]]); const L = cf.lead % 12; if (!SCALE.includes(L)) T.push([(L + 8) % 12, L, (L + 3) % 12]); return T; } // the dominant: root a major third below the leading tone, fifth a minor third above it
+  const fits = (T, pcs) => T.filter((t) => pcs.every((p) => t.includes(p % 12))).length;
+  function harmony(line, cf) { // per strong beat: chords that fit the cantus alone, and the pair
+    const T = triads(cf), s = strongs(line), out = { alone: [], pair: [] };
+    s.forEach((m, j) => { out.alone.push(fits(T, [cf.notes[j]])); out.pair.push(fits(T, [cf.notes[j], m])); });
+    const n = s.length; out.narrows = out.pair.filter((v, j) => v >= 1 && v < out.alone[j]).length / n;
+    out.contradicts = out.pair.filter((v) => v === 0).length / n; out.same = out.pair.filter((v, j) => v === out.alone[j]).length / n;
+    out.meanAlone = out.alone.reduce((a, b) => a + b, 0) / n; out.meanPair = out.pair.reduce((a, b) => a + b, 0) / n; return out;
+  }
+  function recover(line, cf) { // how much of the upper line the cantus still holds, beat by beat
+    const u = strongs(line).map(deg), c = cf.notes.map(deg), n = u.length; let shift = 0, mirror = 0;
+    for (let k = -16; k <= 16; k++) shift = Math.max(shift, u.filter((v, j) => v === c[j] + k).length / n);
+    for (let ax = 40; ax <= 110; ax++) mirror = Math.max(mirror, u.filter((v, j) => v === ax - c[j]).length / n);
+    let num = 0, cnt = 0; for (let j = 1; j < n; j++) { const a = sgn(u[j] - u[j - 1]), b = sgn(c[j] - c[j - 1]); if (a && b) { num += a * b; cnt++; } }
+    return { shift, mirror, direction: cnt ? num / cnt : 0 };
+  }
+  function describe(line, cf) { const s = strongs(line); let leaps = 0; for (let i = 1; i < line.length; i++) if (Math.abs(line[i] - line[i - 1]) > 2) leaps++;
+    let dis = 0; for (let i = 1; i < line.length - 1; i += 2) if (!CONS.has((line[i] - below(cf, i)) % 12)) dis++;
+    let sdis = 0; s.forEach((m, j) => { if (!CONS.has((m - cf.notes[j]) % 12)) sdis++; });
+    return { mean: line.reduce((a, b) => a + b, 0) / line.length, leaps, weakDis: dis, strongDis: sdis, through: throughCount(line), contrary: contraryCount(line, cf), similar: similarCount(line, cf), top: Math.max(...line), bottom: Math.min(...line) }; }
+  // ── sound: one additive tone, the same for every voice and every arm ──
+  const RATE = 48000, BEAT = 0.55;
+  const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+  function render(voices, cf, rate = RATE) { // voices: array of {line|cantus}; returns a mono buffer
+    const n = 2 * (cf.notes.length - 1) + 1, tail = 0.9, len = Math.ceil((n * BEAT + BEAT + tail) * rate), y = new Float32Array(len);
+    const note = (m, t0, dur) => { const f = hz(m), i0 = Math.floor(t0 * rate), L = Math.floor((dur + 0.25) * rate);
+      for (let k = 0; k < L && i0 + k < len; k++) { const t = k / rate, env = Math.min(1, t / 0.015) * Math.exp(-t * 1.6) * (t < dur ? 1 : Math.exp(-(t - dur) * 18));
+        let v = 0; for (let h = 1; h <= 6; h++) v += Math.sin(2 * Math.PI * f * h * t) / Math.pow(h, 1.5); y[i0 + k] += 0.18 * env * v; } };
+    for (const v of voices) {
+      if (v === 'cantus') cf.notes.forEach((m, j) => note(m, j * 2 * BEAT, j === cf.notes.length - 1 ? 2 * BEAT : 2 * BEAT - 0.04));
+      else v.forEach((m, i) => { if (i % 2 === 1 && m === v[i - 1]) return; const tied = i % 2 === 0 && v[i + 1] === m; note(m, i * BEAT, i === v.length - 1 || tied ? 2 * BEAT - (i === v.length - 1 ? 0 : 0.04) : BEAT - 0.04); });
+    }
+    return y;
+  }
+  const rms = (y) => { let s = 0; for (const v of y) s += v * v; return Math.sqrt(s / y.length); };
+  const TARGET = 0.08;
+  function matched(y) { const g = TARGET / rms(y), z = new Float32Array(y.length); for (let i = 0; i < y.length; i++) z[i] = y[i] * g; return { y: z, gainDb: 20 * Math.log10(g) }; }
+  // a blind trial: two fresh canti of one mode drawn alike; a line written for each; both laid on the first, in random order.
+  // Both upper lines come from the same rules and the same kind of cantus, so nothing in a line alone tells them apart:
+  // only which partner it was cut for.
+  function trial(seed) {
+    const r = rng(seed), base = CANTI[Math.floor(r() * CANTI.length)];
+    for (let t = 0; t < 40; t++) { const cf = anotherCantus(base, r), Y = anotherCantus(base, r); if (!cf || !Y || cf.notes.join() === Y.notes.join()) continue;
+      const I = interlocked(cf, Math.floor(r() * 1e9)), N = interlocked(Y, Math.floor(r() * 1e9)); if (!I || !N || isCounterpoint(N, cf)) continue;
+      const first = r() < 0.5 ? 'I' : 'N'; return { cf, other: Y, I, N, A: first === 'I' ? I : N, B: first === 'I' ? N : I, answer: first === 'I' ? 'A' : 'B' }; }
+    return null;
+  }
+  return { CANTI, SCALE, CONS, name, rng, shuffle, strongs, melodicOk, verticalOk, cadenceOk, isCounterpoint, interlocked, independent, anotherCantus, otherLine, parallel, contraryCount, triads, fits, harmony, recover, describe, render, rms, matched, trial, deg, fromDeg, RATE, BEAT, TARGET };
+})();
+</script>
+<script>
+(() => {
+  // numbers from the check, 2026-11-04, on the Mac: 84 pairs (60 seeds per cantus, 36 the search gave up on), and 300 simulated blind trials
+  const ENS = {"n":84,"written":{"narrows":0.723,"contradicts":0,"same":0.277,"shift":0.317,"shiftMax":0.455,"mirror":0.303,"mirrorMax":0.5,"direction":-0.452},"notwritten":{"narrows":0.569,"contradicts":0.192,"same":0.239,"shift":0.259,"shiftMax":0.417,"mirror":0.303,"mirrorMax":0.636,"direction":-0.452},"tenths":{"narrows":1,"contradicts":0,"same":0,"shift":1,"shiftMax":1,"mirror":0.264,"mirrorMax":0.273,"direction":1},"octaves":{"narrows":0,"contradicts":0,"same":1,"shift":1,"shiftMax":1,"mirror":0.264,"mirrorMax":0.273,"direction":1},"other":{"narrows":0.582,"contradicts":0.196,"same":0.222,"shift":0.263,"shiftMax":0.417,"mirror":0.292,"mirrorMax":0.545,"direction":-0.114}};
+  const LEAK = {"n":300,"rows":[["fewer leaps",0.44],["lower line",0.54],["higher line",0.46],["narrower range",0.46],["more passing weak beats",0.513],["more leaps",0.497],["more stepwise motion overall",0.48],["pitch-class habits, learned from the other half of the trials (one line alone)",0.463],["pitch-class habits on the strong beats, learned the same way",0.453],["melodic intervals, up and down, learned the same way",0.54],["note-to-note moves, learned the same way",0.497],["the note in each place, learned the same way",0.457],["pair · more contrary motion against the cantus (the page’s own rule)",0.82],["pair · fewer strong-beat dissonances against the cantus (the thing under test)",0.99]],"dis":{"mean":3.457,"share":0.301,"none":5}};
+  const LEAK0 = { pc: 0.717, strong: 0.687, iv: 0.8, moves: 0.857 }; // the first make's leaks, from the check's 300-trial runs: note habits with a line matched in shape; interval and move habits once it was given the written line's notes
+  const LEVEL = {"n":24,"lo":"−0.11","hi":"+0.24"};
+  const $ = (s) => document.querySelector(s);
+  const row = (k) => (LEAK.rows.find(([n]) => n.startsWith(k)) || [0, 0])[1];
+  const pct = (x) => Math.round(x * 100) + '%';
+  const ARM = { written: 'written for it', tenths: 'parallel tenths', octaves: 'octave doubling', notwritten: 'its notes, reordered', other: 'written for another cantus' };
+
+  // the Lissajous sigil
+  { let d = ''; for (let k = 0; k <= 400; k++) { const t = k / 400 * 2 * Math.PI; d += (k ? 'L' : 'M') + (0.9 * Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (0.9 * Math.sin(2 * t)).toFixed(3); } $('#sig').setAttribute('d', d); }
+
+  // ── sound: made on the first click ──
+  let ctx = null, srcs = [], gains = {}, playing = false;
+  function ensure() { if (!ctx) ctx = new AudioContext({ sampleRate: CP.RATE }); if (ctx.state === 'suspended') ctx.resume(); }
+  function stop() { srcs.forEach((s) => { try { s.stop(); } catch (e) {} }); srcs = []; playing = false; document.querySelectorAll('[data-play]').forEach((b) => b.textContent = b.dataset.play); }
+  function buf(y) { const b = ctx.createBuffer(1, y.length, CP.RATE); b.copyToChannel(y, 0); return b; }
+  // play several voices at once, each through its own gain so a voice can be removed while it plays; scaled together so the whole matches the target level
+  function playVoices(cf, voices, mute, onend) {
+    ensure(); stop();
+    const ys = voices.map((v) => CP.render([v], cf)), sum = new Float32Array(ys[0].length);
+    ys.forEach((y) => { for (let i = 0; i < y.length; i++) sum[i] += y[i]; });
+    const g = CP.TARGET / CP.rms(sum); gains = {};
+    ys.forEach((y, k) => { const s = ctx.createBufferSource(), gn = ctx.createGain(); s.buffer = buf(y); gn.gain.value = mute[k] ? 0 : g; s.connect(gn).connect(ctx.destination); s.start(); srcs.push(s); gains[k] = { gn, g };
+      if (k === 0) s.onended = () => { if (srcs.includes(s)) { playing = false; srcs = []; onend && onend(); } }; });
+    playing = true;
+  }
+  function setMute(k, m) { if (gains[k]) gains[k].gn.gain.setTargetAtTime(m ? 0 : gains[k].g, ctx.currentTime, 0.01); }
+  // one clip, matched on its own: what the blind test plays
+  function playClip(cf, voices, onend) { ensure(); stop(); const y = CP.matched(CP.render(voices, cf)).y, s = ctx.createBufferSource(); s.buffer = buf(y); s.connect(ctx.destination); s.start(); srcs.push(s); playing = true; s.onended = () => { if (srcs.includes(s)) { playing = false; srcs = []; onend && onend(); } }; }
+
+  // ── the roll ──
+  function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function draw(cv, cf, upper, opt = {}) {
+    const dpr = window.devicePixelRatio || 1, W = cv.clientWidth, H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr;
+    const g = cv.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    const n = 2 * (cf.notes.length - 1) + 2, lo = 46, hi = 80, L = 44, R = W - 10, T = 10, B = H - 34;
+    const x = (i) => L + (R - L) * i / n, y = (m) => B - (B - T) * (m - lo) / (hi - lo), h = (B - T) / (hi - lo);
+    g.font = '10px ' + css('--mono'); g.fillStyle = css('--fg-4');
+    for (let m = lo; m <= hi; m++) if (m % 12 === 0 || m % 12 === 2) { g.fillStyle = 'rgba(255,255,255,0.04)'; g.fillRect(L, y(m) - h / 2, R - L, h); g.fillStyle = css('--fg-3'); g.fillText(CP.name(m), 4, y(m) + 3); }
+    for (let j = 0; j < cf.notes.length; j++) { g.strokeStyle = 'rgba(255,255,255,0.06)'; g.beginPath(); g.moveTo(x(2 * j), T); g.lineTo(x(2 * j), B); g.stroke(); }
+    const bar = (m, i0, len, col, alpha, outline) => { g.globalAlpha = alpha; g.fillStyle = col; g.fillRect(x(i0) + 1, y(m) - h / 2 + 1, x(i0 + len) - x(i0) - 2, h - 2); if (outline) { g.strokeStyle = css('--warn'); g.lineWidth = 1.5; g.strokeRect(x(i0) + 1, y(m) - h / 2, x(i0 + len) - x(i0) - 2, h); } g.globalAlpha = 1; };
+    cf.notes.forEach((m, j) => bar(m, 2 * j, 2, css('--info'), opt.muteC ? 0.15 : 0.9));
+    if (upper) upper.forEach((m, i) => { if (i % 2 === 1 && m === upper[i - 1]) return; const tied = i % 2 === 0 && upper[i + 1] === m, len = i === upper.length - 1 || tied ? 2 : 1;
+      const c = cf.notes[Math.floor(i / 2)], dis = !CP.CONS.has((m - c) % 12); bar(m, i, len, css('--accent'), opt.muteU ? 0.15 : 0.9, dis && opt.marks); });
+    if (upper && opt.marks) { g.fillStyle = css('--fg-3'); const s = CP.strongs(upper); s.forEach((m, j) => { const iv = m - cf.notes[j], nm = ivName(iv); g.fillText(nm, x(2 * j) + 3, H - 20); });
+      g.fillStyle = css('--fg-4'); g.fillText('interval on each strong beat · an orange box is a weak-beat dissonance', L, H - 6); }
+  }
+  function ivName(iv) { const pc = ((iv % 12) + 12) % 12, oct = Math.floor(iv / 12); const base = { 0: 8, 3: 3, 4: 3, 7: 5, 8: 6, 9: 6, 1: 2, 2: 2, 5: 4, 6: '4+', 10: 7, 11: 7 }[pc];
+    if (pc === 0) return oct >= 2 ? '15' : '8'; if (typeof base === 'string') return base; return String(base + (oct >= 1 ? 7 : 0)); }
+
+  // ── state ──
+  const S = { step: 0, cf: 0, seed: 11, muteC: false, muteU: false, arm: 'written', ex: null, trials: null };
+  function example() { const cf = CP.CANTI[S.cf]; let s = S.seed, I = null; while (!(I = CP.interlocked(cf, s))) s++; let N = null, t = s; while (!(N = CP.independent(cf, t, I, 30))) { /* 30 tries here, not 120: a line with no match moves on sooner */ t++; I = CP.interlocked(cf, t); while (!I) I = CP.interlocked(cf, ++t); }
+    let o = null, u = s; while (!(o = CP.otherLine(cf, u))) u++;
+    S.ex = { cf, written: I, notwritten: N, tenths: CP.parallel(cf, 9), octaves: CP.parallel(cf, 7), other: o.O }; }
+
+  const STEPS = [
+    { key: 'one line', build: stepCantus },
+    { key: 'a line written for it', build: stepWritten },
+    { key: 'what removal costs', build: stepCost },
+    { key: 'blind · together, then apart', build: stepBlind }
+  ];
+  function rail() { $('#rail').innerHTML = STEPS.map((s, i) => `<button data-i="${i}" ${i === S.step ? 'aria-current="step"' : ''}>${i + 1} · ${s.key}</button>`).join('');
+    $('#rail').querySelectorAll('button').forEach((b) => b.onclick = () => go(+b.dataset.i)); $('#back').disabled = S.step === 0; $('#next').disabled = S.step === STEPS.length - 1; }
+  function go(i) { stop(); S.step = i; S.muteC = S.muteU = false; rail(); STEPS[i].build($('#step')); }
+  $('#back').onclick = () => go(Math.max(0, S.step - 1)); $('#next').onclick = () => go(Math.min(STEPS.length - 1, S.step + 1));
+  const playBtn = (label) => `<button class="b" data-play="${label}">${label}</button>`;
+  function wirePlay(el, fn) { el.querySelectorAll('[data-play]').forEach((b) => b.onclick = () => { if (playing) { stop(); return; } fn(b); b.textContent = 'Stop'; }); }
+  function cantusPicker() { return `<span class="eyebrow">cantus</span>` + CP.CANTI.map((c, i) => `<button class="b ${i === S.cf ? 'on' : ''}" data-cf="${i}">${c.name}</button>`).join(''); }
+  function wireCantus(el, rebuild) { el.querySelectorAll('[data-cf]').forEach((b) => b.onclick = () => { stop(); S.cf = +b.dataset.cf; S.ex = null; rebuild(el); }); }
+
+  function stepCantus(el) {
+    const cf = CP.CANTI[S.cf], T = CP.triads(cf), counts = cf.notes.map((m) => CP.fits(T, [m]));
+    el.innerHTML = `<div class="say"><p>One line alone: a cantus firmus, the slow tune that species counterpoint is written against. The first is the one Fux used in 1725 for his lessons, in D dorian; the second is a C major one written for this piece. All white keys.</p>
+      <p>Hear it as a line, then ask what harmony it has. On its own each note could belong to three of the mode's chords, or four. D could be D minor, G major or B diminished; in D dorian, A and E are also in the A major chord the cadence borrows. One voice names no chord.</p></div>
+      <div class="row">${cantusPicker()}</div><canvas id="cv"></canvas>
+      <div class="row">${playBtn('Play the cantus')}</div>
+      <table><tr><th>note</th>${cf.notes.map((m) => `<td class="n">${CP.name(m)}</td>`).join('')}</tr><tr><th>chords it could be in</th>${counts.map((c) => `<td class="n">${c}</td>`).join('')}</tr></table>
+      <p class="hint">“The mode's chords” here are the seven triads on the white keys, plus A major at the D dorian cadence, where C♯ is the leading tone. A note fits a chord if it is one of the chord's three notes.</p>`;
+    draw($('#cv'), cf, null); wireCantus(el, stepCantus); wirePlay(el, () => playVoices(cf, ['cantus'], [false], () => stop()));
+  }
+
+  function rulesTally(line, cf) { const s = CP.strongs(line); let strongOk = 0, dis = 0, disOk = 0; s.forEach((m, j) => { if (CP.CONS.has((m - cf.notes[j]) % 12) && m > cf.notes[j]) strongOk++; });
+    for (let i = 1; i < line.length - 1; i += 2) { const c = cf.notes[(i - 1) / 2]; if (!CP.CONS.has((line[i] - c) % 12)) { dis++; const a = line[i] - line[i - 1], b = line[i + 1] - line[i]; if (Math.abs(a) <= 2 && Math.abs(b) <= 2 && Math.sign(a) === Math.sign(b)) disOk++; } }
+    const d = CP.describe(line, cf); return { strongOk, n: s.length, dis, disOk, contrary: d.contrary, similar: d.similar, moves: s.length - 1 }; }
+
+  // the search for a line and its partners takes a second or three: say so first, then write
+  function writing(el, then) { el.innerHTML = '<p class="hint" style="padding:24px 0">writing a line for this cantus, and its four other partners…</p>'; setTimeout(() => { example(); then(el); }, 30); }
+  function stepWritten(el) {
+    if (!S.ex) return writing(el, stepWritten); const { cf, written: I } = S.ex, t = rulesTally(I, cf), H = CP.harmony(I, cf);
+    el.innerHTML = `<div class="say"><p>Now a second line, written for the first. Two notes against each of the cantus's, by the page's own guidelines in Teaching the Resonance, Part 2, set as Fux's second species. On each strong beat, a consonance: a third, sixth, fifth or octave above. On a weak beat, a consonance, or a dissonance that passes by step, one way, into the next strong beat. Mostly contrary motion. Never two fifths or two octaves in a row. A leading tone into the final octave.</p>
+      <p>The engine writes the line by search and checks every rule as it goes. “Another” writes a new one. Then take a voice away.</p></div>
+      <div class="row">${cantusPicker()}<button class="b" id="another">Another line</button></div><canvas id="cv"></canvas>
+      <div class="row">${playBtn('Play both')}<button class="b ${S.muteC ? 'off' : ''}" id="mC">cantus</button><button class="b ${S.muteU ? 'off' : ''}" id="mU">line written for it</button><span class="hint">click a voice to remove it, while it plays or before</span></div>
+      <div class="card"><span class="pill">strong beats consonant ${t.strongOk} of ${t.n}</span><span class="pill">weak-beat dissonances ${t.dis}, passing by step ${t.disOk} of ${t.dis}</span><span class="pill">contrary moves ${t.contrary} of ${t.moves}</span><span class="pill">similar ${t.similar}</span></div>
+      <table><tr><th>strong beat</th>${H.alone.map((_, j) => `<td class="n">${j + 1}</td>`).join('')}</tr>
+        <tr><th>chords: cantus alone</th>${H.alone.map((v) => `<td class="n">${v}</td>`).join('')}</tr>
+        <tr><th>chords: both voices</th>${H.pair.map((v, j) => `<td class="n ${v < H.alone[j] ? 'acc' : ''}">${v}</td>`).join('')}</tr></table>
+      <p class="hint">Together the two voices narrow the chord on ${pct(H.narrows)} of strong beats: a third or a sixth leaves two chords, a fifth one or two. An octave narrows nothing. Remove either voice and the narrowing goes. That is one reading of “incomplete”: a harmonic fact you can count. The next step asks whether it is what makes this pair different.</p>`;
+    draw($('#cv'), cf, I, { marks: true, muteC: S.muteC, muteU: S.muteU });
+    wireCantus(el, stepWritten); $('#another').onclick = () => { stop(); S.seed = Math.floor(Math.random() * 1e6); S.ex = null; stepWritten(el); };
+    const tog = (k) => { if (k === 0) S.muteC = !S.muteC; else S.muteU = !S.muteU; setMute(k, k === 0 ? S.muteC : S.muteU); $(k === 0 ? '#mC' : '#mU').classList.toggle('off'); draw($('#cv'), cf, I, { marks: true, muteC: S.muteC, muteU: S.muteU }); };
+    $('#mC').onclick = () => tog(0); $('#mU').onclick = () => tog(1);
+    wirePlay(el, () => playVoices(cf, ['cantus', I], [S.muteC, S.muteU], () => stop()));
+  }
+
+  function stepCost(el) {
+    if (!S.ex) return writing(el, stepCost); const ex = S.ex, cf = ex.cf, line = ex[S.arm];
+    const rowFor = (k) => { const H = CP.harmony(ex[k], cf), R = CP.recover(ex[k], cf), E = ENS[k];
+      return `<tr ${k === S.arm ? 'style="background:var(--accent-soft)"' : ''}><td>${ARM[k]}</td><td class="n">${pct(H.narrows)} <span class="hint">(${pct(E.narrows)})</span></td><td class="n">${pct(H.contradicts)} <span class="hint">(${pct(E.contradicts)})</span></td><td class="n">${pct(Math.max(R.shift, R.mirror))} <span class="hint">(${pct(Math.max(E.shiftMax, E.mirrorMax))} at most)</span></td><td class="n">${R.direction.toFixed(2)} <span class="hint">(${E.direction.toFixed(2)})</span></td></tr>`; };
+    el.innerHTML = `<div class="say"><p>“Incomplete” can mean two things, and they come apart. One is harmonic: the pair names chords that one voice can't, so removing a voice loses them. The other is about what's left: the line that remains can't rebuild the one removed. Hold the same cantus and change only its partner. Five partners: the line written for it; parallel tenths; the cantus doubled at the octave; the written line's own notes, reordered so they no longer fit (at least four strong beats moved), with its leaps, range and contrary motion kept; and a line written by the same rules for another cantus in the same mode, then laid on this one, a tail board cut for another drawer.</p></div>
+      <div class="row">${Object.keys(ARM).map((k) => `<button class="b ${k === S.arm ? 'on' : ''}" data-arm="${k}">${ARM[k]}</button>`).join('')}</div>
+      <canvas id="cv"></canvas>
+      <div class="row">${playBtn('Play the pair')}<button class="b ${S.muteC ? 'off' : ''}" id="mC">cantus</button><button class="b ${S.muteU ? 'off' : ''}" id="mU">${ARM[S.arm]}</button></div>
+      <div class="eq"><div class="s">narrows = (1/n) · #{ j : 1 ≤ chords(cⱼ, uⱼ) &lt; chords(cⱼ) }</div><div class="w">the share of strong beats where the two voices together fit fewer of the mode's chords than the cantus note alone, and still fit at least one; a beat that fits none is a contradiction</div></div>
+      <div class="eq"><div class="s">rebuild = max over k of (1/n) · #{ j : uⱼ = cⱼ + k  or  uⱼ = k − cⱼ }</div><div class="w">the most of the upper line's strong-beat notes you get back from the cantus by sliding it a fixed number of scale steps, or by mirroring it about a fixed note, the way a pin board is marked from its tails</div></div>
+      <table><tr><th>partner</th><th>narrows the chord</th><th>contradicts</th><th>rebuilt from the cantus</th><th>direction ±1</th></tr>${Object.keys(ARM).map(rowFor).join('')}</table>
+      <p class="hint">This pair first; in brackets the mean over ${ENS.n} pairs the check wrote, 60 seeds per cantus (for rebuilt, the most any pair reached). Direction is +1 when the line always moves with the cantus, −1 when always against it. The parallel lines move note against note, held a bar each; the other three move two against one.</p>
+      <div class="card"><div class="eyebrow">stated before the numbers were run · on these canti, none of it could have failed</div>
+      <p class="hint">If the harmonic reading is what marks co-design, the line written for it should narrow more strong beats than parallel tenths do. If the line left behind could rebuild the one removed — 80% of strong beats or more, by slide or mirror — removal would cost nothing you couldn't work out again. And if the line not written for it contradicted the cantus no more often than the written one, the vertical rules would be doing no work a melody does by itself.</p>
+      <p class="hint">Added on the second make, before its numbers were run: if a line written by the same rules for another cantus contradicted this one no more often than the line written for it, writing for this partner would add nothing to writing well.</p>
+      <p class="verdict">What came out: parallel tenths narrow ${pct(ENS.tenths.narrows)} of strong beats, the written line ${pct(ENS.written.narrows)}. So the harmonic reading does not single out co-design: a voice that only runs parallel a tenth above names chords as well or better, and octave doubling names none. The written line never contradicts its partner and can't be rebuilt from it, at most ${pct(Math.max(ENS.written.shiftMax, ENS.written.mirrorMax))} of it coming back from the cantus, and both facts are the rules' doing, not a finding: they are what it was written under. Parallel: no contradictions, and all of it comes back. The other partners contradict: its notes reordered on ${pct(ENS.notwritten.contradicts)} of strong beats, and a good line written for another cantus, the wrong partner, on ${pct(ENS.other.contradicts)}.</p>
+      <p class="hint">Five numbers here can't fail, and say so. The written line's 0% contradictions is the rule it was searched under. The parallel lines' 100% rebuild is how they were made: a control, showing the measure finds a line that can be rebuilt. The tenths' ${pct(ENS.tenths.narrows)} narrowing is arithmetic, not measurement: a third or a sixth always leaves fewer chords than one note does, so the first rule above could never have come out the other way. The written line's rebuild is held under 80% by its own rules: sliding by the demand that at least 60% of its moves go against the cantus, mirroring by the opening and cadence formula, which is Fux's, not the page's Part 2. The challenger counted at most 8 of 11 strong beats on Fux's cantus and 8 of 12 on the C major one for any line that keeps these rules, where 80% needs 9 and 10. And the two lines not written for this cantus were bound to contradict it on more than 0: a line with no vertical rule lands seconds and sevenths on the white keys, and random white-note lines contradict on 28%. So step 3 sorts five partners by two readings of “incomplete”; it doesn't test them. The reordered line's contrary motion is matched to the written line's in count, so the direction column shows the same ${ENS.written.direction.toFixed(2)} for both: contrary motion alone doesn't make a line written for its partner.</p></div>`;
+    draw($('#cv'), cf, line, { marks: true, muteC: S.muteC, muteU: S.muteU });
+    el.querySelectorAll('[data-arm]').forEach((b) => b.onclick = () => { stop(); S.arm = b.dataset.arm; S.muteC = S.muteU = false; stepCost(el); });
+    const tog = (k) => { if (k === 0) S.muteC = !S.muteC; else S.muteU = !S.muteU; setMute(k, k === 0 ? S.muteC : S.muteU); $(k === 0 ? '#mC' : '#mU').classList.toggle('off'); draw($('#cv'), cf, line, { marks: true, muteC: S.muteC, muteU: S.muteU }); };
+    $('#mC').onclick = () => tog(0); $('#mU').onclick = () => tog(1);
+    wirePlay(el, () => playVoices(cf, ['cantus', line], [S.muteC, S.muteU], () => stop()));
+  }
+
+  // ── the blind test ──
+  const B = { block: 'together', i: 0, list: null, answers: [], making: false };
+  function seed32() { const a = new Uint32Array(1); crypto.getRandomValues(a); return a[0]; }
+  function makeTrials(done) { B.list = []; B.making = true; const step = () => { if (B.list.length === 8) { B.making = false; done(); return; } const t = CP.trial(seed32()); if (t) B.list.push(t); $('#mk') && ($('#mk').textContent = `writing trial ${B.list.length + 1} of 8…`); setTimeout(step, 0); }; setTimeout(step, 0); }
+  function stepBlind(el) {
+    el.innerHTML = `<div class="say"><p>Last, with the score hidden. Each trial is a fresh cantus, made by Fux's rules for a cantus in D dorian or C major, and two upper lines, A and B. One was written for this cantus by the rules of step 2. The other was written by the same rules for a second fresh cantus, made the same way with the same opening and cadence, then laid on this one: a good line, cut for another board. Both come from the same rules and the same kind of partner, so nothing in either line alone tells them apart. Which one was written for the cantus you hear?</p></div>
+      <div class="card"><div class="eyebrow">the rule, fixed before the first trial</div>
+      <p class="hint">Eight trials a block. The written line is A or B by a fresh coin each trial, not balanced, so counting can't help. Guessing gets each trial right 1 time in 2. Seven or eight of eight is “heard”; guessing does that 9 times in 256 (3.5%). Six or fewer is “not shown”, which is not the same as “not there”. None of eight is not a pass. Both positions are scored: answering A every time gets about four of eight, and the tally shows it.</p>
+      <p class="hint"><b>Together</b> is the control: each pair whole, and you may remove either voice. Laid on this cantus, the line written for another lands ${LEAK.dis.mean.toFixed(2)} dissonant strong beats on average (${pct(LEAK.dis.share)} of them), and reading those alone picks the written line ${pct(row('pair · fewer strong-beat'))} of the time. So anyone who hears a clash on a downbeat should pass: it checks the page's Part 2 guideline, “on strong beats, use consonances”, not the row.</p>
+      <p class="hint"><b>Apart</b> is the block that speaks to the row: the cantus alone, then each upper line alone, never with the cantus — the page's “remove one voice” taken at its word. Does a lone line carry the mark of the partner it was written for? What it can't say: both lines were written for a partner, so it can't tell whether a lone line sounds incomplete, only whether it carries which partner it was cut for.</p>
+      <p class="hint">Every clip is turned to the same RMS level on its own (before that, a pair's two clips differed by ${LEVEL.lo} to ${LEVEL.hi} dB over ${LEVEL.n} trials); one tone for every voice; the same register limits for both lines; the same length. The guess written before any trial, by an agent that can't hear: together, a trained ear passes; apart, near chance.</p></div>
+      <div class="row"><span class="eyebrow">block</span><button class="b ${B.block === 'together' ? 'on' : ''}" data-bl="together">together</button><button class="b ${B.block === 'apart' ? 'on' : ''}" data-bl="apart">apart</button><button class="b" id="start">Start eight trials</button><span class="hint" id="mk"></span></div>
+      <div id="trial"></div>
+      <details class="card"><summary class="hint">what a reader who doesn't listen could do</summary>
+      <table><tr><th>pick the line with…</th><th>right, of ${LEAK.n} simulated trials</th></tr>${LEAK.rows.map(([k, v]) => `<tr><td>${k}</td><td class="n">${pct(v)}</td></tr>`).join('')}</table>
+      <p class="hint">A rule that reads one line alone and scores past 65% is a leak: it would pass “apart” without the partner. The rows marked <i>pair</i> read the cantus and the line at once. In “together” that is the thing under test; in “apart” only an ear that holds the cantus in memory can use them. The page's own rule, contrary motion, is one of them: it picks the written line ${pct(row('pair · more contrary'))} of the time, and strong-beat dissonance ${pct(row('pair · fewer strong-beat'))}. So passing “together” says you heard a clash on a downbeat, or the voices moving together where they should part; step 3 is where motion is held equal in count and the dissonance still tells.</p>
+      <p class="hint">This test's first make leaked, twice. Its second line was written by the same melodic rules without any cantus and matched to the first in leaps, passing tones, range, average pitch and contrary motion. A reader that learned, from half the trials, which notes each kind of line favours picked the written line ${pct(LEAK0.pc)} of the time from one line alone. Given the written line's own notes in another order, it fell to a coin, and a reader that learned melodic intervals then scored ${pct(LEAK0.iv)}, note-to-note moves ${pct(LEAK0.moves)}: a line rearranged to miss its partner moves unlike a line written for one. So the second line is now written for a partner too, just not this one.</p></details>`;
+    el.querySelectorAll('[data-bl]').forEach((b) => b.onclick = () => { stop(); B.block = b.dataset.bl; B.list = null; stepBlind(el); });
+    $('#start').onclick = () => { stop(); B.i = 0; B.answers = []; $('#start').disabled = true; makeTrials(() => { $('#mk').textContent = ''; $('#start').disabled = false; $('#start').textContent = 'Start again'; showTrial(); }); };
+    if (B.list && !B.making) showTrial();
+  }
+  function showTrial() {
+    const box = $('#trial'); if (!box) return;
+    if (B.i >= B.list.length) return showResult(box);
+    const t = B.list[B.i], cf = t.cf, mute = { A: [false, false], B: [false, false] };
+    const together = B.block === 'together';
+    box.innerHTML = `<div class="card"><div class="eyebrow">trial ${B.i + 1} of 8 · ${cf.name} · ${B.block}</div>
+      <div class="row">${together ? `${playBtn('Play A')}${playBtn('Play B')}<span class="hint">remove a voice from the one playing:</span><button class="b" id="rc">cantus</button><button class="b" id="ru">upper line</button>` : `${playBtn('Play the cantus')}${playBtn('Play A alone')}${playBtn('Play B alone')}`}</div>
+      <div class="row"><span class="hint">written for the cantus:</span><button class="b" data-ans="A">A</button><button class="b" data-ans="B">B</button></div></div>`;
+    let cur = null;
+    box.querySelectorAll('[data-play]').forEach((b) => b.onclick = () => { if (playing) { stop(); return; } const lbl = b.dataset.play;
+      if (lbl === 'Play the cantus') playClip(cf, ['cantus'], stop);
+      else { const which = lbl.includes(' A') ? 'A' : 'B', line = t[which]; cur = which;
+        if (together) { playVoices(cf, ['cantus', line], [false, false], stop); }
+        else playClip(cf, [line], stop); }
+      b.textContent = 'Stop'; });
+    if (together) { let mc = false, mu = false; $('#rc').onclick = () => { mc = !mc; $('#rc').classList.toggle('off'); setMute(0, mc); }; $('#ru').onclick = () => { mu = !mu; $('#ru').classList.toggle('off'); setMute(1, mu); }; }
+    box.querySelectorAll('[data-ans]').forEach((b) => b.onclick = () => { stop(); B.answers.push({ said: b.dataset.ans, answer: t.answer }); B.i++; showTrial(); });
+  }
+  function showResult(box) {
+    const right = B.answers.filter((a) => a.said === a.answer).length, inA = B.answers.filter((a) => a.answer === 'A'), inB = B.answers.filter((a) => a.answer === 'B');
+    const rA = inA.filter((a) => a.said === 'A').length, rB = inB.filter((a) => a.said === 'B').length, saidA = B.answers.filter((a) => a.said === 'A').length;
+    const tail = (k) => { let s = 0; const C = (n, r) => { let c = 1; for (let i = 0; i < r; i++) c = c * (n - i) / (i + 1); return c; }; for (let j = k; j <= 8; j++) s += C(8, j); return s; };
+    const heard = right >= 7;
+    box.innerHTML = `<div class="card"><div class="eyebrow">${B.block} · the result</div>
+      <p class="verdict">${right} of 8. ${heard ? '<span class="good">Heard</span>, by the rule set before the first trial.' : 'Not shown, by the rule set before the first trial. That is not the same as not there.'}</p>
+      <p class="hint">Guessing gets ${right} or more of 8 in ${tail(right)} of 256 rounds (${(100 * tail(right) / 256).toFixed(1)}%). When the written line was A: ${rA} of ${inA.length} right. When it was B: ${rB} of ${inB.length}. You answered A ${saidA} times of 8. One ear, one sitting, one pair of speakers: it says what you heard, not what every ear hears.</p>
+      <p class="hint">${B.block === 'together' ? 'Now try the same eight kinds of pair apart, with the voices never sounding together.' : 'If “apart” fell near four while “together” passed, the incompleteness is in the pair, not in the lone line: a line removed from its partner carries no mark you can hear of whom it was written for.'}</p></div>`;
+  }
+  go(0);
+})();
+</script>
+</body>
+</html>

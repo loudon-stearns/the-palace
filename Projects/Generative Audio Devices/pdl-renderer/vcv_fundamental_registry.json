@@ -1,12 +1,12 @@
 {
-  "version": "2.4",
+  "version": "2.7",
   "plugin": "Fundamental",
   "plugin_slug": "Fundamental",
   "vcv_rack_version": "2.x",
   "source": "https://github.com/VCVRack/Fundamental",
   "verification_method": "All port and param indices verified against Fundamental v2 + Rack v2/src/core source via WebFetch of each module's .cpp file (configInput / configOutput / configParam call order). Core slugs verified via `createModel<...>(\"slug\")` declarations.",
   "last_verified": "2026-05-26",
-  "notes": "Port indices are the integer IDs cables use in .vcv JSON, determined by the order of configInput()/configOutput() calls in each module's source. UI label position does NOT determine index. v2.0 corrected extensive errors in v1.0 (guessed indices). v2.1 (2026-04-19) added optional default_input / default_output fields per module so unnamed-port resolution prefers the conceptually 'right' port rather than the lowest-index one. v2.2 (2026-04-20, T11) adds per-module `plugin` field (Fundamental vs Core), MIDI_CV and AUDIO_8 under plugin:Core, and the top-level `virtual_endpoints` map so unbound `KEYBOARD` / `OUT` instances auto-bind to those modules — closing T1's audible-playback gate. v2.3 (2026-05-26, T7a phase 2) adds optional `regions` (named perceptual sub-ranges), `curve` hint (linear/log/exp), and `aliases` (alternate names accepted in PDL `*` lines) to selected params — extending the registry vocabulary so PDL can speak in named regions (e.g. `* VCF: CUTOFF = dark`) rather than only literals. Phase-2 extension is additive: params without `regions` still emit numeric literals or fall back to default exactly as in v2.2. v2.4 (2026-05-26, SEQ3 reconciliation) re-verifies SEQ3 against src/SEQ3.cpp: corrects SEQ3 param STEPS from index 5 (which is CV_PARAMS+1, a step-CV knob) to its actual enum index 3 (TRIG_PARAM, labeled `Steps` in the UI), and syncs the embedded `<script id=\"vcv-registry\">` block inside PDL Renderer.html to include the four post-2.0.0 outputs (STEPS_OUT, CLOCK_OUT, RUN_OUT, RESET_OUT at indices 12–15) that were already present here. Behavior-affecting: any prior `* SEQ3: STEPS = N` was silently writing to a step-CV knob, not the active-step-count knob.",
+  "notes": "Port indices are the integer IDs cables use in .vcv JSON, determined by the order of configInput()/configOutput() calls in each module's source. UI label position does NOT determine index. v2.0 corrected extensive errors in v1.0 (guessed indices). v2.1 (2026-04-19) added optional default_input / default_output fields per module so unnamed-port resolution prefers the conceptually 'right' port rather than the lowest-index one. v2.2 (2026-04-20, T11) adds per-module `plugin` field (Fundamental vs Core), MIDI_CV and AUDIO_8 under plugin:Core, and the top-level `virtual_endpoints` map so unbound `KEYBOARD` / `OUT` instances auto-bind to those modules — closing T1's audible-playback gate. v2.3 (2026-05-26, T7a phase 2) adds optional `regions` (named perceptual sub-ranges), `curve` hint (linear/log/exp), and `aliases` (alternate names accepted in PDL `*` lines) to selected params — extending the registry vocabulary so PDL can speak in named regions (e.g. `* VCF: CUTOFF = dark`) rather than only literals. Phase-2 extension is additive: params without `regions` still emit numeric literals or fall back to default exactly as in v2.2. v2.4 (2026-05-26, SEQ3 reconciliation) re-verifies SEQ3 against src/SEQ3.cpp: corrects SEQ3 param STEPS from index 5 (which is CV_PARAMS+1, a step-CV knob) to its actual enum index 3 (TRIG_PARAM, labeled `Steps` in the UI), and syncs the embedded `<script id=\"vcv-registry\">` block inside PDL Renderer.html to include the four post-2.0.0 outputs (STEPS_OUT, CLOCK_OUT, RUN_OUT, RESET_OUT at indices 12–15) that were already present here. Behavior-affecting: any prior `* SEQ3: STEPS = N` was silently writing to a step-CV knob, not the active-step-count knob. v2.5 (2026-10-26, steward cycle 1) adds optional `default_data` to MIDI_CV and AUDIO_8: the module `data` blob the emitter writes, copied from Rack's own re-save on Loudon's Mac, so every emitted patch opens on the QWERTY keyboard and the MacBook Pro Speakers (Standing Orders, 2026-10-24). v2.6 (2026-10-26, steward cycle 2) adds polyphony: MIDI_CV carries `voices` (which `data` key holds the voice count, and its range), every Fundamental module in the voice path carries `poly` (how it carries voices, read from its source), and AUDIO_8 notes that it sums voices. PDL says how many notes at once with `# voices: N`; an archetype may carry a default `voices`.",
   "signal_types": {
     "audio": { "voltage": "±5V nominal", "color_hint": "coral" },
     "cv":    { "voltage": "0–10V or ±5V context-dependent", "color_hint": "purple" },
@@ -22,6 +22,7 @@
       "hp": 12,
       "description": "Voltage-controlled oscillator. Four simultaneous waveform outputs. Hard sync input. Pulse width modulation.",
       "verification": "verified against src/VCO.cpp (2026-04-19)",
+      "poly": "carries voices — VCO.cpp: channels = max(PITCH_INPUT channels, 1); every output setChannels(channels) (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "V/OCT",
       "default_output": "SAW",
       "inputs": [
@@ -59,6 +60,7 @@
       "hp": 8,
       "description": "Voltage-controlled filter. Lowpass + highpass outputs simultaneously. Drive input adds saturation. Self-oscillates at high resonance.",
       "verification": "verified against src/VCF.cpp (2026-04-19)",
+      "poly": "carries voices — VCF.cpp: channels = max(1, IN_INPUT channels); FREQ/RES/DRIVE CV read with getPolyVoltageSimd, so a mono CV reaches every voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN",
       "default_output": "LPF",
       "inputs": [
@@ -94,6 +96,7 @@
       "hp": 8,
       "description": "Attack-Decay-Sustain-Release envelope generator. Gate input triggers envelope; CV inputs modulate each stage.",
       "verification": "verified against src/ADSR.cpp (2026-04-19)",
+      "poly": "carries voices — ADSR.cpp: channels = max(1, GATE_INPUT channels); one envelope per voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "GATE",
       "default_output": "ENV",
       "inputs": [
@@ -133,6 +136,7 @@
       "hp": 3,
       "description": "Single-channel voltage-controlled amplifier. CV input, audio input, audio output. Linear or exponential response.",
       "verification": "verified against src/VCA-1.cpp (2026-04-19)",
+      "poly": "carries voices — VCA-1.cpp: channels = max(1, IN channels, CV channels); gain per voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN",
       "default_output": "OUT",
       "inputs": [
@@ -160,6 +164,7 @@
       "hp": 10,
       "description": "Low-frequency oscillator. Four simultaneous waveform outputs. Clock input for sync. Can run at audio rate.",
       "verification": "verified against src/LFO.cpp (2026-04-19)",
+      "poly": "carries voices — LFO.cpp: channels follow FM_INPUT; with nothing in FM it stays one voice, and a mono cable broadcasts to every voice it reaches (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_output": "SIN",
       "inputs": [
         { "name": "FM",    "type": "cv",      "index": 0, "description": "Frequency modulation CV" },
@@ -240,6 +245,7 @@
       "hp": 6,
       "description": "Six-input simple mixer with single master Level knob. No per-channel level control — use VCMixer for that.",
       "verification": "verified against src/Mixer.cpp (2026-04-19)",
+      "poly": "carries voices — Mixer.cpp: channels = max over IN inputs; OUT setChannels(channels) (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN1",
       "default_output": "MIX",
       "inputs": [
@@ -268,19 +274,20 @@
       "name": "VCA Mix",
       "hp": 10,
       "description": "Four-channel mixer with per-channel level knobs AND CV-controllable levels. Each channel has its own pre-mix output. Use this when you need real per-channel mixing.",
-      "verification": "verified against src/VCMixer.cpp (2026-04-19)",
+      "verification": "verified against src/VCMixer.cpp at Fundamental v2.5.1 (tag v2.5.1, 962547d, the version on Loudon's Mac) and at 10dd016, 2026-11-04: InputIds are MIX_CV, CH_INPUTS 1–4, CV_INPUTS 5–8. The 2026-04-19 entry had audio and CV swapped",
+      "poly": "carries voices — VCMixer.cpp: channels = max over CH inputs; MIX and CH outputs carry every voice (read 2026-10-26 from GitHub VCVRack/Fundamental v2)",
       "default_input": "IN1",
       "default_output": "MIX",
       "inputs": [
         { "name": "MIX_CV", "type": "cv",    "index": 0, "description": "CV control of master mix level" },
-        { "name": "CV1",    "type": "cv",    "index": 1, "description": "Channel 1 level CV" },
-        { "name": "CV2",    "type": "cv",    "index": 2, "description": "Channel 2 level CV" },
-        { "name": "CV3",    "type": "cv",    "index": 3, "description": "Channel 3 level CV" },
-        { "name": "CV4",    "type": "cv",    "index": 4, "description": "Channel 4 level CV" },
-        { "name": "IN1",    "type": "audio", "index": 5, "description": "Channel 1 audio input. NOTE: audio inputs start at index 5, not 0." },
-        { "name": "IN2",    "type": "audio", "index": 6, "description": "Channel 2 audio input" },
-        { "name": "IN3",    "type": "audio", "index": 7, "description": "Channel 3 audio input" },
-        { "name": "IN4",    "type": "audio", "index": 8, "description": "Channel 4 audio input" }
+        { "name": "IN1",    "type": "audio", "index": 1, "description": "Channel 1 audio input" },
+        { "name": "IN2",    "type": "audio", "index": 2, "description": "Channel 2 audio input" },
+        { "name": "IN3",    "type": "audio", "index": 3, "description": "Channel 3 audio input" },
+        { "name": "IN4",    "type": "audio", "index": 4, "description": "Channel 4 audio input" },
+        { "name": "CV1",    "type": "cv",    "index": 5, "description": "Channel 1 level CV" },
+        { "name": "CV2",    "type": "cv",    "index": 6, "description": "Channel 2 level CV" },
+        { "name": "CV3",    "type": "cv",    "index": 7, "description": "Channel 3 level CV" },
+        { "name": "CV4",    "type": "cv",    "index": 8, "description": "Channel 4 level CV" }
       ],
       "outputs": [
         { "name": "MIX",  "type": "audio", "index": 0, "description": "Summed mix output" },
@@ -307,6 +314,9 @@
       "slug": "MIDIToCVInterface",
       "plugin": "Core",
       "name": "MIDI-CV",
+      "default_data": {"pwRange": 0.0, "smooth": true, "channels": 1, "polyMode": 0, "clockDivision": 24, "lastPw": 0, "lastMod": 0, "filterLambda": 30.0, "midi": {"driver": -11, "deviceName": "QWERTY keyboard (US)", "channel": -1}},
+      "default_data_source": "copied verbatim from Rack 2's own re-save of house_bass.vcv on Loudon's Mac (2026-10-24, proofs/2026-10-24-revival/house_bass-rack-resave.vcv); the emitter writes it as the module's `data` so every patch opens on this device (Standing Orders).",
+      "voices": { "data_key": "channels", "min": 1, "max": 16, "verification": "read 2026-10-26 from GitHub VCVRack/Rack v2: include/dsp/midi.hpp toJson writes `channels` (json_integer) and fromJson reads it back; MIDI_CV.cpp process() calls setChannels(midiParser.channels) on PITCH, GATE, VELOCITY, AFTERTOUCH and RETRIGGER, so one cable carries every voice. Its Polyphony channels menu offers 1 (Monophonic) to 16. polyMode 0 = ROTATE_MODE (enum PolyMode in midi.hpp), already in default_data." },
       "hp": 9,
       "description": "MIDI-to-CV interface. No inputs, no params — 12 outputs derived from incoming MIDI. Slug is 'MIDIToCVInterface' (historical), plugin is 'Core'.",
       "verification": "verified against Rack v2/src/core/MIDI_CV.cpp (2026-04-20). NUM_INPUTS=0, NUM_PARAMS=0, 12 configOutput() calls in OutputIds enum order. Slug verified from `createModel<MIDI_CV, MIDI_CVWidget>(\"MIDIToCVInterface\")`.",
@@ -337,6 +347,9 @@
       "slug": "AudioInterface",
       "plugin": "Core",
       "name": "Audio-8",
+      "default_data": {"audio": {"driver": 5, "deviceName": "MacBook Pro Speakers", "sampleRate": 48000.0, "blockSize": 256, "inputOffset": 0, "outputOffset": 0}, "dcFilter": false},
+      "default_data_source": "copied verbatim from Rack 2's own re-save of house_bass.vcv on Loudon's Mac (2026-10-24, proofs/2026-10-24-revival/house_bass-rack-resave.vcv); the emitter writes it as the module's `data` so every patch opens on this device (Standing Orders).",
+      "poly": "sums — Audio.cpp reads each input with getVoltageSum(), so every voice is heard (read 2026-10-26 from GitHub VCVRack/Rack v2)",
       "hp": 10,
       "description": "Audio interface, 8×8. Inputs on the left (signals leaving the rack to the DAW/speakers — 'device output N'). Outputs on the right (signals arriving from the DAW/mic — 'device input N'). For stereo listen, patch to IN1 AND IN2.",
       "verification": "verified against Rack v2/src/core/Audio.cpp (2026-04-20). AUDIO_INPUTS+i / AUDIO_OUTPUTS+i pattern for i∈[0,7], no params. Slug verified from `createModel<Audio<8,8>, AudioWidget<8,8>>(\"AudioInterface\")`.",

@@ -1,6 +1,6 @@
 """Haptic Handwheel — box day in one command.
 
-    python3 run_bench.py --R 7.6                 # finds the knob's USB port, runs the bench in order
+    python3 run_bench.py --R 7.6 --disc-J 3.77e-5   # finds the knob's USB port, runs the bench in order
     python3 run_bench.py --port /dev/cu.usbmodem1101 --R 7.6
     python3 run_bench.py --fake                  # a pretend knob, to rehearse without the hardware
 
@@ -21,7 +21,7 @@ BAUD = 921600
 STEPS = [  # (bench command, what to tell the person first, wait for Enter?)
     ('coast',      'Hands off. It spins up and lets go, twice (about 8 s).', False),
     ('accel-bare', 'Hands off, no cap. A short push from rest.', False),
-    ('accel-disc', 'Fit the disc of known mass now (the light 40 g cap).', True),
+    ('accel-disc', 'Fit the disc you hung and timed (disc_inertia.py) now.', True),
     ('cog',        'Hands off and keep the desk still: one turn forward, one back (about 100 s).', False),
     ('chirp',      'Tape the contact mic to the rim and START RECORDING in your DAW.', True),
 ]
@@ -92,6 +92,7 @@ def main():
     ap.add_argument('--port'); ap.add_argument('--fake', action='store_true')
     ap.add_argument('--R', type=float, required=True, help='ohms per phase: half the meter reading across two motor leads')
     ap.add_argument('--disc-mass', type=float, default=0.040); ap.add_argument('--disc-radius', type=float, default=0.040)
+    ap.add_argument('--disc-J', type=float, help="the disc's inertia from disc_inertia.py (kg·m²); use it unless the disc is flat and solid")
     ap.add_argument('--only', help='run just these tests, comma-separated (e.g. coast,cog)')
     ap.add_argument('--out', help='capture file (default capture-<date>.csv here)')
     a = ap.parse_args()
@@ -130,6 +131,7 @@ def main():
     if low: print('  warning: very few lines from', ', '.join(low), '— check the encoder wiring (box-day.html, step 6)')
     cmd = [sys.executable, os.path.join(HERE, 'bench_analyze.py'), out, '--R', str(a.R),
            '--disc-mass', str(a.disc_mass), '--disc-radius', str(a.disc_radius), '--plot', out.replace('.csv', '.png')]
+    if a.disc_J: cmd += ['--disc-J', str(a.disc_J)]
     if a.fake: cmd += ['--header', os.devnull]
     mic = os.path.join(HERE, 'chirp_mic.wav')
     if a.fake:

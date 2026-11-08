@@ -1,0 +1,154 @@
+{
+ "instrument": "flute",
+ "tag": "r1",
+ "flagged": [
+  {
+   "key": "G4",
+   "before": "range__flute_G5_s2.wav",
+   "before_own_sample": true,
+   "after": "flute_r1_G4__flute_G4_s5.wav",
+   "came_from": "fresh take (flute_r1_G4 seed 5)"
+  },
+  {
+   "key": "C#4",
+   "before": "range__flute_C#5_s2.wav",
+   "before_own_sample": true,
+   "after": "flute_r1_Cs4__flute_C#4_s8.wav",
+   "came_from": "fresh take (flute_r1_Cs4 seed 8)"
+  },
+  {
+   "key": "C#5",
+   "before": "range__flute_C#6_s1.wav",
+   "before_own_sample": true,
+   "after": "flute_r1_Cs5__flute_C#5_s9.wav",
+   "came_from": "fresh take (flute_r1_Cs5 seed 9)"
+  }
+ ],
+ "fresh_takes": {
+  "flute_r1_G4": [
+   {
+    "seed": 4,
+    "grade": "retunable",
+    "sounds_at": "G5"
+   },
+   {
+    "seed": 5,
+    "grade": "on_target",
+    "sounds_at": "G4"
+   },
+   {
+    "seed": 6,
+    "grade": "on_target",
+    "sounds_at": "G4"
+   },
+   {
+    "seed": 7,
+    "grade": "texture",
+    "sounds_at": "G4"
+   },
+   {
+    "seed": 8,
+    "grade": "texture",
+    "sounds_at": "G3"
+   },
+   {
+    "seed": 9,
+    "grade": "retunable",
+    "sounds_at": "G5"
+   }
+  ],
+  "flute_r1_Cs4": [
+   {
+    "seed": 4,
+    "grade": "retunable",
+    "sounds_at": "C#5"
+   },
+   {
+    "seed": 5,
+    "grade": "texture",
+    "sounds_at": "C#5"
+   },
+   {
+    "seed": 6,
+    "grade": "retunable",
+    "sounds_at": "C#5"
+   },
+   {
+    "seed": 7,
+    "grade": "on_target",
+    "sounds_at": "C#4"
+   },
+   {
+    "seed": 8,
+    "grade": "on_target",
+    "sounds_at": "C#4"
+   },
+   {
+    "seed": 9,
+    "grade": "retunable",
+    "sounds_at": "C#5"
+   }
+  ],
+  "flute_r1_Cs5": [
+   {
+    "seed": 4,
+    "grade": "retunable",
+    "sounds_at": "C#6"
+   },
+   {
+    "seed": 5,
+    "grade": "on_target",
+    "sounds_at": "C#5"
+   },
+   {
+    "seed": 6,
+    "grade": "on_target",
+    "sounds_at": "C#5"
+   },
+   {
+    "seed": 7,
+    "grade": "texture",
+    "sounds_at": "C#3"
+   },
+   {
+    "seed": 8,
+    "grade": "retunable",
+    "sounds_at": "C#4"
+   },
+   {
+    "seed": 9,
+    "grade": "on_target",
+    "sounds_at": "C#5"
+   }
+  ]
+ },
+ "base": "instruments/in_range/flute",
+ "finished": "instruments/finished/flute_r1",
+ "finishing": {
+  "instrument": "MusicGen Flute",
+  "from": "instruments/redo/r1/flute_looped",
+  "samples": 21,
+  "loop_level_spread_db": {
+   "before": 8.0,
+   "after": 0.0
+  },
+  "worst_neighbour_jump_db": {
+   "before": 6.0,
+   "after": 0.0
+  },
+  "worst_swell_db": {
+   "before": 9.59,
+   "after": 3.46
+  },
+  "seams_clean": 21,
+  "held_12s_on_target": 21,
+  "worst_click_db": 4.45,
+  "worst_level_step_db": 0.93,
+  "shared_trim_db": -1.57,
+  "velocity": {
+   "amp_veltrack": 80,
+   "cutoff": 3000,
+   "fil_veltrack": 2400
+  }
+ }
+}

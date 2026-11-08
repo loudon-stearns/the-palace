@@ -1,0 +1,13 @@
+{
+  "name": "synth-templates-workshop",
+  "private": true,
+  "description": "Synth Templates workshop: the site's reference voice rendered offline (render-refs.mjs) with node-web-audio-api.",
+  "type": "module",
+  "scripts": {
+    "render": "node render-refs.mjs"
+  },
+  "dependencies": {
+    "js-yaml": "^5.5.0",
+    "node-web-audio-api": "^2.2.0"
+  }
+}

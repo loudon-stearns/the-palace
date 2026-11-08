@@ -1,0 +1,641 @@
+<!doctype html>
+<!--
+  title: Crystal Synthesizer — rich — strike the seven
+  born: 2026-11-03
+  links: [[Crystal Synthesizer]] connects-to · rich-face-piece · listed in [[Crystal Synthesizer — rich.json]] · [[Progressive Staging]] exemplifies · a walk in steps
+  forward_vector: I am the Bravais section's hypotheses put to the instrument they were written for. I walk up in four steps: one mode ringing, two modes split by symmetry, nine strikes across the seven systems with the page's prediction beside each, and last the test the section is least sure of, diamond against labradorite, through the summer ring and the physics ring. The reader marks what held. I change when the section's hypotheses do.
+  engine: steps 3 and 4 strike with the plugin's own engine, plugin/ui/crystal_engine.js, copied verbatim between the ENGINE markers (held to the Python sketch to 6e-8 of peak by plugin/check/check_engine.py). Steps 1 and 2 use the same two-pole resonator and raised-cosine strike, written out small. The summer ring is the additive strike of triclinic-proof/render_labradorite.py, ported (its random phases are this file's own).
+  checks: rich-checks/check-rich-pieces.mjs, in the bundle, runs this file's engine headless against every number the piece shows.
+  dress: Loudon Live, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Strike the seven</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#181822; --soft:rgba(255,255,255,.07); --border:#4a4a5e; --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --violet:#a99cf0; --held:#9fd18b; --failed:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .cs-piece { padding: 22px 22px 18px; }
+  .cs-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .cs-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .cs-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .cs-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .cs-tabs { display: flex; flex-wrap: wrap; gap: 0; margin: 4px 0 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .cs-tabs button { border: 0; border-right: 1px solid var(--border); border-radius: 0; background: var(--bg); color: var(--fg3); font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; padding: 7px 11px; cursor: pointer; }
+  .cs-tabs button:last-child { border-right: 0; }
+  .cs-tabs button[aria-pressed="true"] { color: var(--amber); background: var(--e1); }
+  .cs-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .cs-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .cs-teach { font-size: 14px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 10px; }
+  .cs-teach b { color: var(--fg1); font-weight: 500; }
+  .cs-eq { margin: 10px 0 12px; padding: 8px 0 2px; border-top: 1px solid var(--soft); }
+  .cs-sym { font-family: var(--serif); font-size: 20px; color: var(--fg1); }
+  .cs-words { font-size: 13px; line-height: 1.5; color: var(--fg3); margin: 1px 0 8px; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .cs-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button.cs-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.16); }
+  button.cs-on { color: var(--amber); border-color: var(--amberline); }
+  .cs-seg { display: inline-flex; } .cs-seg button + button { border-left: 0; }
+  label.cs-sl { display: block; min-width: 260px; flex: 1; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.cs-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .cs-ticks { position: relative; height: 14px; font-family: var(--mono); font-size: 10px; color: var(--fg4); }
+  .cs-ticks span { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
+  .cs-ticks span.cs-l { transform: none; } .cs-ticks span.cs-r { transform: translateX(-100%); }
+  .cs-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .cs-read b { color: var(--fg1); font-weight: 500; }
+  .cs-back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 10px 0 0; }
+  .cs-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  table.cs-t { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+  .cs-t th { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); font-weight: 400; text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  .cs-t td { padding: 8px; border-bottom: 1px solid var(--soft); vertical-align: top; }
+  .cs-t tr.cs-cur td { background: var(--e2); }
+  .cs-sys { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .06em; text-transform: uppercase; }
+  .cs-min { color: var(--fg1); font-weight: 500; }
+  .cs-formula { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .cs-hyp { font-family: var(--serif); font-style: italic; font-size: 15.5px; color: var(--fg2); line-height: 1.35; }
+  .cs-meas { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; white-space: nowrap; }
+  .cs-meas b { color: var(--fg1); font-weight: 500; }
+  .cs-guess { font-family: var(--mono); font-size: 10.5px; color: var(--failed); }
+  .cs-mark button { padding: 4px 7px; font-size: 10px; letter-spacing: .06em; }
+  .cs-mark button.cs-held { color: var(--held); border-color: rgba(159,209,139,.55); }
+  .cs-mark button.cs-failed { color: var(--failed); border-color: rgba(255,155,74,.55); }
+  .cs-mark button.cs-unsure { color: var(--fg1); border-color: var(--border); background: var(--e2); }
+  .cs-tally { font-family: var(--mono); font-size: 12px; color: var(--fg2); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--soft); }
+  .cs-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); }
+  .cs-note { font-size: 12.5px; line-height: 1.55; color: var(--fg3); max-width: 80ch; margin: 10px 0 0; }
+  @media (max-width: 720px) { .cs-t .cs-hidecol { display: none; } }
+</style>
+</head>
+<body>
+<div class="cs-piece">
+  <div class="cs-head">
+    <div>
+      <div class="cs-kicker">made · study · a walk in four steps</div>
+      <h3 class="cs-title">Strike the seven</h3>
+    </div>
+    <svg class="cs-sigil" width="30" height="30" viewBox="-1.2 -1.2 2.4 2.4" aria-label="Lissajous sigil"><circle r="1.12" fill="none" stroke="#4a4a5e" stroke-width=".04"/><path id="sigil" fill="none" stroke="#e8b84a" stroke-width=".06"/></svg>
+  </div>
+  <p class="cs-sub">The section above prints a timbre for each lattice system and calls each one a hypothesis the instrument exists to test. Here they meet the instrument. Four steps, one idea each; the last is the test the section is least sure of. Nothing sounds until you press play.</p>
+  <div class="cs-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div id="stage"></div>
+  <div class="cs-nav"><button id="back">← back</button><button id="next">next step →</button></div>
+  <div class="cs-foot"><span>Crystal Synthesizer · the plugin's engine</span><span>Loud’n Live</span></div>
+</div>
+
+<script>
+/*ENGINE-START*/
+// crystal_engine.js — Crystal Synthesizer's engine in JavaScript, ported line for
+// line from src/Algorithm.h (reference/sketch.py says what each part does). It
+// exists only so the face page can sound and stream the same probes the plugin
+// will; the plugin itself is the C++. check/check_engine.py holds it to the sketch.
+const CE = (() => {
+  const V = 8, K = 9, M = 18, TWOPI = 6.283185307179586, MPI = 3.141592653589793, D_DIAMOND = 0.044;
+  const IDS = ["crystal", "hardness", "vel_bright", "velocity", "lifetime", "rolloff", "release",
+    "angle", "spread", "fire", "width", "level"];
+  const P = {}; IDS.forEach((id, i) => { P[id] = i; });
+  const DEFAULTS = [4, 1.0, 0.5, 0.6, 1.0, 0.7, 4.0, 90, 1.0, 40, 0.7, -6];
+  const RATIOS = [
+    [1.00, 1.32, 1.48, 1.57, 1.65],
+    [1.00, 1.00, 1.35, 1.47, 1.69, 2.48],
+    [1.00, 1.28, 1.41, 1.70, 1.85, 2.00],
+    [1.00, 1.23, 1.47, 1.68, 2.13, 2.30, 3.33],
+    [1.00, 1.10, 1.14, 1.19, 1.52, 1.70, 1.98],
+    [1.00, 1.62, 2.07, 2.77, 3.13, 3.63, 5.45, 6.21, 8.32],
+    [1.00, 1.45, 1.91, 2.37, 2.96, 3.68, 4.80, 6.05],
+    [1.00, 1.37, 1.71, 1.94, 2.23, 2.61],
+    [1.00, 1.83, 3.17, 4.67, 7.00, 9.50, 13.3, 17.5],
+  ];
+  const QS = [807.0, 27.0, 100.0, 57.0, 120.0, 62.0, 58.0, 100.0, 30.0];
+  const DN = [0.0, 0.0, 0.059, 0.006, 0.008, 0.009, 0.010, 0.006, 0.009];
+  const DISP = [0.044, 0.007, 0.039, 0.014, 0.018, 0.013, 0.014, 0.012, 0.012];
+  const ratio = (c, k) => (k < RATIOS[c].length ? RATIOS[c][k] : 0.0);
+  const qual = (c, k) => (c === 5 && k === 1 ? 17.0 : QS[c]);
+  const NUM_PROBES = 1 + 3 * V + K;
+
+  function voice() {
+    const z = () => new Float64Array(M);
+    return { state: 0, pending: false, held: false, note: -1, pendNote: 0, pendVel: 0, hz: 0, vel: 0, rel: 0,
+      age: 0, pulseEnd: 0, order: 0, pulseN: 1, steal: 0, stealN: 1, fresh: true, lastC: -1, lastLife: 0, lastRoll: 0, lastSplit: 0,
+      y1: z(), y2: z(), a1: z(), a2: z(), b0: z(), rr: z(), env: z(), amk: z(), delay: z() };
+  }
+
+  class Engine {
+    constructor(sr) { this.sr = sr; this.probes = new Float64Array(NUM_PROBES); this.y = new Float64Array(M); this.mode = new Float64Array(K); this.out = new Float64Array(2); this.reset(); }
+    reset() { this.voices = Array.from({ length: V }, voice); this.counter = 0; this.probes.fill(0); }
+    noteOn(note, velocity) {
+      const vs = this.voices; let pick = -1;
+      for (let i = 0; i < V && pick < 0; i++) if (vs[i].note === note && (vs[i].state === 1 || vs[i].pending)) pick = i;
+      for (let i = 0; i < V && pick < 0; i++) if (vs[i].state === 0 && !vs[i].pending) pick = i;
+      if (pick < 0) { pick = 0; for (let i = 1; i < V; i++) if (vs[i].order < vs[pick].order) pick = i; }
+      const vo = vs[pick];
+      vo.order = ++this.counter; vo.note = note; vo.held = true; vo.pendNote = note; vo.pendVel = velocity;
+      if (!vo.pending) {
+        if (vo.state === 1) { vo.stealN = Math.max(1, Math.floor(0.003 * this.sr)); vo.steal = vo.stealN; }
+        else vo.steal = 0;
+      }
+      vo.pending = true;
+    }
+    noteOff(note) { for (const vo of this.voices) if (vo.note === note) vo.held = false; }
+    coefs(vo, c, life, roll, split) {
+      const sr = this.sr, hz = vo.hz; let am = 1.0;
+      for (let k = 0; k < K; k++) {
+        const r = ratio(c, k), fo = hz * r, ok = r > 0.0 && fo < sr * 0.45;
+        for (let e = 0; e < 2; e++) {
+          const j = k + K * e, f = e === 1 ? fo * (1.0 + split) : fo;
+          if (ok && f < sr * 0.45) {
+            const w = TWOPI * f / sr, R = Math.exp(-MPI * f / (qual(c, k) * life * sr));
+            vo.a1[j] = 2.0 * R * Math.cos(w); vo.a2[j] = R * R; vo.b0[j] = am * Math.sin(w); vo.rr[j] = R; vo.amk[j] = am;
+          } else { vo.a1[j] = 0; vo.a2[j] = 0; vo.b0[j] = 0; vo.rr[j] = 0; vo.amk[j] = 0; }
+        }
+        if (ok) am *= roll;
+      }
+      vo.fresh = false; vo.lastC = c; vo.lastLife = life; vo.lastRoll = roll; vo.lastSplit = split;
+    }
+    strike(vo, c, v) {
+      const sr = this.sr;
+      vo.y1.fill(0); vo.y2.fill(0); vo.env.fill(0);
+      vo.hz = 440.0 * Math.pow(2.0, (vo.pendNote - 69) / 12.0);
+      vo.vel = vo.pendVel; vo.rel = 1.0; vo.age = 0;
+      const hard = v[P.hardness] * Math.pow(4.0, -v[P.vel_bright] * (2.0 * vo.vel - 1.0));
+      vo.pulseN = Math.max(1, Math.floor(hard * 0.001 * sr));
+      vo.state = 1; vo.pending = false;
+      const spreadS = v[P.fire] * 0.001 * (DISP[c] / D_DIAMOND);
+      let dmax = 0;
+      for (let k = 0; k < K; k++) {
+        const r = ratio(c, k), d = r > 0.0 ? Math.floor(spreadS * Math.log2(r) * sr) : 0;
+        vo.delay[k] = d; vo.delay[k + K] = d; dmax = Math.max(dmax, d);
+      }
+      vo.pulseEnd = dmax + vo.pulseN; vo.fresh = true;
+    }
+    step(v) {
+      const sr = this.sr, pr = this.probes, y = this.y, mode = this.mode;
+      const c = Math.min(Math.max(Math.trunc(v[P.crystal]), 0), 8);
+      const s = Math.sin(v[P.angle] * (MPI / 180.0));
+      const split = DN[c] * v[P.spread] * (s * s);
+      const life = v[P.lifetime], roll = v[P.rolloff], relk = Math.exp(-1.0 / (v[P.release] * sr)), wd = v[P.width];
+      pr[0] = split; mode.fill(0);
+      let L = 0.0, R = 0.0;
+      for (let i = 0; i < V; i++) {
+        const vo = this.voices[i];
+        if (vo.pending) {
+          if (vo.steal > 0) { vo.steal--; if (vo.steal === 0) this.strike(vo, c, v); }
+          else this.strike(vo, c, v);
+        }
+        const fade = vo.steal > 0 ? vo.steal / vo.stealN : 1.0;
+        if (vo.state === 1 && (vo.fresh || vo.lastC !== c || vo.lastLife !== life || vo.lastRoll !== roll || vo.lastSplit !== split))
+          this.coefs(vo, c, life, roll, split);
+        pr[1 + 3 * i] = 0; pr[2 + 3 * i] = 0; pr[3 + 3 * i] = 0;
+        if (vo.state === 0) continue;
+        const n = vo.pulseN;
+        let yo = 0.0, ye = 0.0, loud = 0.0;
+        for (let j = 0; j < M; j++) {
+          const ip = vo.age - vo.delay[j];
+          const x = (ip >= 0.0 && ip < n) ? (1.0 - Math.cos(TWOPI * (ip + 0.5) / n)) / n : 0.0;
+          if (ip === 0) vo.env[j] = vo.amk[j];
+          y[j] = vo.b0[j] * x + vo.a1[j] * vo.y1[j] - vo.a2[j] * vo.y2[j];
+          vo.y2[j] = vo.y1[j]; vo.y1[j] = y[j];
+          vo.env[j] = vo.env[j] * vo.rr[j];
+        }
+        for (let k = 0; k < K; k++) { yo += y[k]; ye += y[k + K]; loud = Math.max(loud, Math.max(vo.env[k], vo.env[k + K])); }
+        const g = (1.0 - v[P.velocity] * (1.0 - vo.vel)) * vo.rel * 0.3 * fade;
+        L += g * 0.5 * ((1.0 + wd) * yo + (1.0 - wd) * ye);
+        R += g * 0.5 * ((1.0 - wd) * yo + (1.0 + wd) * ye);
+        for (let k = 0; k < K; k++) mode[k] += g * 0.5 * (vo.env[k] + vo.env[k + K]);
+        pr[1 + 3 * i] = vo.hz; pr[2 + 3 * i] = g * loud; pr[3 + 3 * i] = vo.age / sr;
+        if (!vo.held) vo.rel *= relk;
+        vo.age += 1;
+        if (vo.age >= vo.pulseEnd && vo.steal === 0 && !vo.pending && !vo.held && loud * vo.rel < 1e-4) {
+          vo.state = 0; vo.y1.fill(0); vo.y2.fill(0); vo.env.fill(0);
+        }
+      }
+      for (let k = 0; k < K; k++) pr[1 + 3 * V + k] = mode[k];
+      const gain = Math.pow(10.0, v[P.level] / 20.0);
+      this.out[0] = Math.fround(Math.tanh(gain * L)); this.out[1] = Math.fround(Math.tanh(gain * R));
+      return this.out;
+    }
+    readProbes() { return this.probes; }
+  }
+  return { Engine, IDS, P, DEFAULTS, RATIOS, QS, DN, DISP, V, K, NUM_PROBES };
+})();
+/*ENGINE-END*/
+
+/*CHECK-START*/
+// Everything the piece shows is computed here, and rich-checks/check-rich-pieces.mjs runs this block headless.
+const CS = (() => {
+  const SR = 44100, A2 = 110, LN1000 = Math.log(1000);
+  const NAMES = ['diamond', 'fluorite', 'no mineral', 'emerald', 'ruby', 'amethyst', 'topaz', 'no mineral', 'labradorite'];
+  // Falling symmetry, by the order of each system's holohedry: cubic 48, hexagonal 24, tetragonal 16,
+  // trigonal 12, orthorhombic 8, monoclinic 4, triclinic 2. The page lists them in another order.
+  const ROWS = [
+    { c: 0, sys: 'cubic', order: 48, formula: 'C · Fd-3m' },
+    { c: 1, sys: 'cubic', order: 48, formula: 'CaF₂ · Fm-3m' },
+    { c: 3, sys: 'hexagonal', order: 24, formula: 'Be₃Al₂Si₆O₁₈ · P6/mcc' },
+    { c: 2, sys: 'tetragonal', order: 16, formula: 'zircon’s optics; partials guessed', guess: true },
+    { c: 4, sys: 'trigonal', order: 12, formula: 'α-Al₂O₃ · R-3c' },
+    { c: 5, sys: 'trigonal', order: 12, formula: 'α-SiO₂ · P3₁21' },
+    { c: 6, sys: 'orthorhombic', order: 8, formula: 'Al₂SiO₄(F,OH)₂ · Pbnm' },
+    { c: 7, sys: 'monoclinic', order: 4, formula: 'orthoclase’s optics; partials guessed', guess: true },
+    { c: 8, sys: 'triclinic', order: 2, formula: 'plagioclase · C-1' },
+  ];
+  // The page's hypothesis for each system, whole and in its own words, as printed when this piece was made (2026-11-03);
+  // where the page adds a sentence naming the mineral that proves it, that sentence follows a ·.
+  const HYP = {
+    cubic: 'thick, bright, rich partials — high-frequency modes densely packed, clustering near the zone boundary.',
+    tetragonal: 'slightly pinched, with directional coloration — two interleaved mode families from the axis asymmetry.',
+    orthorhombic: 'less dense in high frequencies, more separated partials — three distinct mode groups with wider spacing. · Topaz is the predicted proof: balanced, complex, neither brilliant nor alien.',
+    hexagonal: 'birefringent — a doubled, shimmery quality from two distinct propagation velocities.',
+    trigonal: 'near-hexagonal with subtle asymmetries — a slight irregularity in partial spacing that adds shimmer without full birefringent doubling. · Ruby’s doublets predict this shimmer will be audible as a slow beating or natural chorus effect.',
+    monoclinic: 'complex, inharmonic — no simple pattern to partial spacing, more bell-like and unpredictable.',
+    triclinic: 'deeply inharmonic, each partial scattered, no recurring structure — chaotic, bell-like, unpredictable decay patterns. The most “alien” timbre of the seven.',
+  };
+  const LABRADORITE_LINE = 508, LABRADORITE_WIDTH = 17;   // cm⁻¹, crystal-rings/linewidths.json (width estimated)
+
+  const qOf = (c, k) => (c === 5 && k === 1 ? 17 : CE.QS[c]);
+  const t60 = (Q, f) => LN1000 * Q / (Math.PI * f);            // seconds to fall 60 dB
+  const tau = (Q, f) => Q / (Math.PI * f);                      // seconds to fall to 1/e
+
+  // What step 3 prints for each crystal: its partials, its span, its ring, its closest pair.
+  function measures(c, across) {
+    const r = CE.RATIOS[c];
+    const uniq = [...new Set(r.map((x) => x.toFixed(2)))].map(Number);
+    let best = null;
+    for (let i = 0; i < r.length; i++) for (let j = i + 1; j < r.length; j++) {
+      const d = Math.abs(r[j] - r[i]); if (d < 1e-9) continue;
+      const lo = Math.min(r[i], r[j]), hi = Math.max(r[i], r[j]);
+      const ring = Math.min(t60(qOf(c, i), A2 * r[i]), t60(qOf(c, j), A2 * r[j]));
+      if (!best || d < best.d) best = { d, lo, hi, hz: A2 * d, beats: A2 * d * ring };
+    }
+    const split = across ? CE.DN[c] : 0;
+    const rays = split > 0 ? { cents: 1200 * Math.log2(1 + split), hz: A2 * split, beats: A2 * split * t60(qOf(c, 0), A2) } : null;
+    return { modes: r.length, unique: uniq.length, fused: r.length - uniq.length, span: Math.log2(Math.max(...r) / Math.min(...r)),
+      ring: t60(qOf(c, 0), A2), q: CE.QS[c], pair: best, rays };
+  }
+
+  // Steps 1 and 2: the plugin's resonator, written small. Each mode is a two-pole resonator,
+  // R = exp(−π f / (Q sr)), struck by one raised-cosine pulse; mono.
+  function ringModes(modes, f0, dur, pulseMs = 0.62) {
+    const n = Math.floor(dur * SR), out = new Float32Array(n), pn = Math.max(1, Math.floor(pulseMs * 0.001 * SR));
+    for (const m of modes) {
+      const f = f0 * m.r; if (f >= SR * 0.45) continue;
+      const w = 2 * Math.PI * f / SR, R = Math.exp(-Math.PI * f / (m.Q * SR));
+      const a1 = 2 * R * Math.cos(w), a2 = R * R, b0 = m.amp * Math.sin(w);
+      let y1 = 0, y2 = 0;
+      for (let i = 0; i < n; i++) {
+        const x = i < pn ? (1 - Math.cos(2 * Math.PI * (i + 0.5) / pn)) / pn : 0;
+        const y = b0 * x + a1 * y1 - a2 * y2; y2 = y1; y1 = y; out[i] += y;
+      }
+    }
+    return out;
+  }
+  // The summer proofs' strike (triclinic-proof/render_labradorite.py): a sine per partial, 80 ms attack,
+  // decay 5.5 s ÷ (1 + 0.15 k), each partial 0.7 of the one before. Chosen by taste, the same for every mineral.
+  function summerStrike(ratios, f0, dur) {
+    const n = Math.floor(dur * SR), out = new Float32Array(n), an = Math.floor(0.08 * SR);
+    let amp = 1, seed = 7;
+    const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+    ratios.forEach((r, k) => {
+      const f = f0 * r; if (f >= SR * 0.45) return;
+      const td = 5.5 / (1 + 0.15 * k), ph = 2 * Math.PI * rnd(), w = 2 * Math.PI * f / SR;
+      for (let i = 0; i < n; i++) { const e = Math.exp(-i / SR / td) * (i < an ? i / an : 1); out[i] += amp * e * Math.sin(w * i + ph); }
+      amp *= 0.7;
+    });
+    return out;
+  }
+  // Steps 3 and 4: the plugin's engine, its defaults, A2 held, Fire at 0 so only the partials and their rings speak.
+  function physicsStrike(c, { life = 1, across = false, dur = 8 } = {}) {
+    const e = new CE.Engine(SR), v = CE.DEFAULTS.slice();
+    v[CE.P.crystal] = c; v[CE.P.lifetime] = life; v[CE.P.fire] = 0; v[CE.P.angle] = across ? 90 : 0;
+    e.noteOn(45, 0.85);
+    const n = Math.floor(dur * SR), L = new Float32Array(n), R = new Float32Array(n);
+    for (let i = 0; i < n; i++) { const o = e.step(v); L[i] = o[0]; R[i] = o[1]; }
+    return [L, R];
+  }
+  // Envelope in dB, one value per `win` seconds, relative to the loudest window.
+  function envDb(ch, win = 0.01) {
+    const w = Math.max(1, Math.floor(win * SR)), m = Math.floor(ch[0].length / w), out = new Float32Array(m);
+    let top = 1e-12;
+    for (let j = 0; j < m; j++) { let s = 0; for (const x of ch) for (let i = j * w; i < (j + 1) * w; i++) s += x[i] * x[i]; out[j] = s / (w * ch.length); top = Math.max(top, out[j]); }
+    for (let j = 0; j < m; j++) out[j] = 10 * Math.log10(out[j] / top + 1e-15);
+    return out;
+  }
+  // Ring time read off a render: the late tail's slope (−20 to −50 dB, or as far as the render reaches), as T60.
+  function tailT60(ch, win = 0.01) {
+    const e = envDb(ch, win); let i0 = -1, i1 = -1;
+    for (let j = 0; j < e.length; j++) { if (i0 < 0 && e[j] < -20) i0 = j; if (e[j] < -50) { i1 = j; break; } }
+    if (i0 < 0) return Infinity; if (i1 < 0) i1 = e.length - 1;
+    let sx = 0, sy = 0, sxx = 0, sxy = 0, n = 0;
+    for (let j = i0; j <= i1; j++) { const x = j * win; sx += x; sy += e[j]; sxx += x * x; sxy += x * e[j]; n++; }
+    const slope = (n * sxy - sx * sy) / (n * sxx - sx * sx);
+    return slope < 0 ? -60 / slope : Infinity;
+  }
+  // Share of the strike's energy still to come after t seconds.
+  function energyAfter(ch, t) {
+    let all = 0, late = 0; const k = Math.floor(t * SR);
+    for (const x of ch) for (let i = 0; i < x.length; i++) { const s = x[i] * x[i]; all += s; if (i >= k) late += s; }
+    return late / all;
+  }
+  function normalize(ch, peak = 0.8) {
+    let p = 1e-12; for (const x of ch) for (let i = 0; i < x.length; i++) p = Math.max(p, Math.abs(x[i]));
+    const g = peak / p; for (const x of ch) for (let i = 0; i < x.length; i++) x[i] *= g;
+    // a 0.3 s fade at the end of the window, so a long ring stops without a click
+    const fn = Math.floor(0.3 * SR); for (const x of ch) for (let i = 0; i < fn; i++) x[x.length - 1 - i] *= i / fn;
+    return ch;
+  }
+  return { SR, A2, NAMES, ROWS, HYP, LABRADORITE_LINE, LABRADORITE_WIDTH, qOf, t60, tau, measures, ringModes, summerStrike, physicsStrike, envDb, tailT60, energyAfter, normalize };
+})();
+/*CHECK-END*/
+
+// ───────────────────────── sound: silent until a click; one source at a time ─────────────────────────
+let actx = null, out = null, playing = [];
+function ctx() {
+  if (!actx) {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = actx.createDynamicsCompressor(); comp.threshold.value = -6; comp.ratio.value = 4;
+    out = actx.createGain(); out.gain.value = 0.9; out.connect(comp); comp.connect(actx.destination);
+  }
+  if (actx.state === 'suspended') actx.resume();
+  return actx;
+}
+function stopSound() { for (const s of playing) { try { s.stop(); } catch (e) {} } playing = []; }
+function play(chans, when = 0) {
+  const a = ctx(); const buf = a.createBuffer(chans.length, chans[0].length, CS.SR);
+  chans.forEach((x, i) => buf.copyToChannel(x, i));
+  const s = a.createBufferSource(); s.buffer = buf; s.connect(out); s.start(a.currentTime + 0.03 + when);
+  playing.push(s); s.onended = () => { playing = playing.filter((p) => p !== s); };
+}
+
+// ───────────────────────── small helpers ─────────────────────────
+const $ = (s, r = document) => r.querySelector(s);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const k of kids.flat()) if (k != null) e.append(k.nodeType ? k : document.createTextNode(String(k)));
+  return e;
+}
+function eq(sym, words) { return el('div', {}, el('div', { class: 'cs-sym' }, sym), el('div', { class: 'cs-words' }, words)); }
+const fmt = (x, d = 2) => (x >= 100 ? x.toFixed(0) : x.toFixed(d));
+function canvas(h) {
+  const c = el('canvas', { height: h }); c.style.height = h + 'px';
+  return c;
+}
+function fit(c) {
+  const dpr = window.devicePixelRatio || 1, w = c.clientWidth || 600, h = parseInt(c.style.height, 10);
+  c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+  const g = c.getContext('2d'); g.setTransform(dpr, 0, 0, dpr, 0, 0); return { g, w, h };
+}
+function slider({ label, min, max, value, log = false, onInput, ticks }) {
+  const toV = (u) => (log ? min * Math.pow(max / min, u) : min + (max - min) * u);
+  const toU = (v) => (log ? Math.log(v / min) / Math.log(max / min) : (v - min) / (max - min));
+  const inp = el('input', { type: 'range', min: 0, max: 1, step: 0.0005, 'aria-label': label });
+  inp.value = toU(value);
+  const tk = ticks ? el('div', { class: 'cs-ticks' }, ...ticks.map(([v, t]) => { const u = toU(v), sp = el('span', { class: u < 0.08 ? 'cs-l' : u > 0.92 ? 'cs-r' : '' }, t); sp.style.left = (100 * u) + '%'; return sp; })) : null;
+  const b = el('b'); const lab = el('label', { class: 'cs-sl' }, label + ' ', b, inp, tk);
+  const set = (v) => { inp.value = toU(v); b.textContent = onInput(v) || ''; };
+  inp.addEventListener('input', () => { b.textContent = onInput(toV(+inp.value)) || ''; });
+  b.textContent = onInput(value) || '';
+  return { lab, set };
+}
+function drawEnvelope(c, curves, { seconds = 8, floor = -70, label = '' } = {}) {
+  const { g, w, h } = fit(c); const L = 40, R = 10, T = 12, B = 22;
+  g.clearRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(255,255,255,.07)'; g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.lineWidth = 1;
+  for (let db = 0; db >= floor; db -= 20) { const y = T + (h - T - B) * (-db / -floor); g.beginPath(); g.moveTo(L, y); g.lineTo(w - R, y); g.stroke(); g.fillText(db + ' dB', 2, y + 3); }
+  for (let s = 0; s <= seconds; s += seconds > 4 ? 1 : 0.5) { const x = L + (w - L - R) * s / seconds; g.fillText(s + ' s', x - 6, h - 6); }
+  const y60 = T + (h - T - B) * (60 / -floor);
+  g.strokeStyle = 'rgba(232,184,74,.25)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(L, y60); g.lineTo(w - R, y60); g.stroke(); g.setLineDash([]);
+  for (const cv of curves) {
+    g.strokeStyle = cv.color; g.lineWidth = 1.6; g.beginPath();
+    cv.db.forEach((d, j) => { const x = L + (w - L - R) * (j * cv.win) / seconds; if (x > w - R) return; const y = T + (h - T - B) * Math.min(1, -Math.max(d, floor) / -floor); j ? g.lineTo(x, y) : g.moveTo(x, y); });
+    g.stroke();
+    if (cv.name) { g.fillStyle = cv.color; g.fillText(cv.name, cv.lx ?? (L + 8), cv.ly ?? (T + 12)); }
+  }
+  if (label) { g.fillStyle = '#8a8aa0'; g.fillText(label, w - R - g.measureText(label).width, T + 12); }
+}
+
+// ───────────────────────── the steps ─────────────────────────
+const S = { step: 1, q: 120, split: 0.04, across: false, cur: 0, ring: 'physics', width: CS.LABRADORITE_WIDTH, marks: {} };
+const STEPS = [];
+
+// Step 1 · one mode rings
+STEPS.push({ name: 'one mode rings', build() {
+  const cv = canvas(190), read = el('div', { class: 'cs-read' });
+  const render = () => CS.ringModes([{ r: 1, Q: S.q, amp: 1 }], CS.A2, 8);
+  const draw = () => {
+    const f = CS.A2, t = CS.tau(S.q, f), T = CS.t60(S.q, f);
+    drawEnvelope(cv, [{ db: CS.envDb([render()], 0.02), win: 0.02, color: '#e8b84a', name: 'one mode at A2, 110 Hz · Q ' + fmt(S.q, 0) }], { label: 'the −60 dB line is where a ring is called gone' });
+    read.innerHTML = `<span>falls to 1/e in <b>${fmt(t * 1000, 0)} ms</b></span><span>rings about <b>${fmt(S.q / Math.PI, 0)} cycles</b></span><span>gone (−60 dB) after <b>${fmt(T, 2)} s</b></span>`;
+  };
+  const q = slider({ label: 'Q, the mode’s quality', min: 10, max: 1000, value: S.q, log: true,
+    ticks: [[10, '10'], [30, 'labradorite 30'], [120, 'ruby 120'], [807, 'diamond 807']],
+    onInput: (v) => { S.q = v; draw(); return fmt(v, 0); } });
+  return [
+    el('p', { class: 'cs-teach' }, 'A crystal vibrates in modes, and each mode, struck, rings like a tuned bell would: one pitch, dying away. How long it rings is set by how sharp the mode’s line is in a Raman spectrum. A narrow line rings long; a wide one is a knock. Here is one mode, alone, at A2. Drag its Q and strike it.'),
+    el('div', { class: 'cs-eq' },
+      eq('Q = ν ⁄ Δν', '(how long a mode rings, in no units) = (where its Raman line sits) ÷ (how wide the line is)'),
+      eq('τ = Q ⁄ (π f)', '(seconds to fall to about a third) = Q ÷ (π × the pitch it plays). Q has no units, so it survives the move from terahertz down to audio.')),
+    cv, read,
+    el('div', { class: 'cs-row' }, el('button', { class: 'cs-go', onclick: () => { stopSound(); play(CS.normalize([render()])); } }, '▸ play'), q.lab),
+    el('p', { class: 'cs-note' }, 'Diamond’s 807 is measured (its 1332 cm⁻¹ line is 1.65 cm⁻¹ wide). Ruby’s and labradorite’s are the bundle’s estimates, marked as such in crystal-rings/linewidths.json.'),
+  ];
+} });
+
+// Step 2 · two modes, one symmetry
+STEPS.push({ name: 'two modes, one symmetry', build() {
+  const cv = canvas(190), read = el('div', { class: 'cs-read' });
+  const render = () => CS.ringModes([{ r: 1, Q: S.q, amp: 0.5 }, { r: 1 + S.split, Q: S.q, amp: 0.5 }], CS.A2, 8);
+  const draw = () => {
+    const beat = CS.A2 * S.split, ring = CS.t60(S.q, CS.A2 * (1 + S.split));
+    drawEnvelope(cv, [{ db: CS.envDb([render()], 0.005), win: 0.005, color: '#e8b84a', name: S.split < 1e-4 ? 'two modes at one pitch: they ring as one' : `1.00 and ${(1 + S.split).toFixed(2)} at A2` }], {});
+    read.innerHTML = S.split < 1e-4 ? `<span><b>fused</b>: one pitch, no beat</span><span>this is step 1 again</span>`
+      : `<span>${fmt(1200 * Math.log2(1 + S.split), 0)} cents apart</span><span>beat <b>${fmt(beat, 1)} Hz</b></span><span><b>${fmt(beat * ring, 0)} beats</b> before the ring is gone</span>`;
+  };
+  const sp = slider({ label: 'how far symmetry splits the pair, Δr', min: 0, max: 0.7, value: S.split,
+    ticks: [[0, '0 · fused'], [0.32, '0.32 · an interval'], [0.7, '0.7']],
+    onInput: (v) => { S.split = v < 0.002 ? 0 : v; draw(); return S.split.toFixed(3); } });
+  const preset = (v, t) => el('button', { onclick: () => { sp.set(v); stopSound(); play(CS.normalize([render()])); } }, t);
+  return [
+    el('p', { class: 'cs-teach' }, 'Symmetry decides how many different pitches a crystal’s modes land on. In a cubic crystal, modes that symmetry makes equivalent ring at one pitch: fluorite’s first two modes are both 1.00, and two become one. Lower the symmetry and the pair splits. A little apart they beat; far apart they are an interval. Diamond’s 1.00 and 1.32 are that: two different modes about a fourth apart, not one mode split. Q stays where step 1 left it.'),
+    el('div', { class: 'cs-eq' }, eq('f_beat = f · Δr', '(how fast the pair wobbles) = (the pitch) × (how far apart their two ratios are)')),
+    cv, read,
+    el('div', { class: 'cs-row' },
+      el('button', { class: 'cs-go', onclick: () => { stopSound(); play(CS.normalize([render()])); } }, '▸ play'),
+      el('span', { class: 'cs-seg' }, preset(0, 'fluorite · fused'), preset(0.04, 'ruby · 1.10 / 1.14'), preset(0.32, 'diamond · 1.00 / 1.32 · an interval')), sp.lab),
+    el('p', { class: 'cs-back' }, 'Δr at 0 puts you back at step 1: two modes at one pitch ring as one.'),
+  ];
+} });
+
+// Step 3 · nine strikes, seven systems
+STEPS.push({ name: 'nine strikes, seven systems', build() {
+  const cv = canvas(200), read = el('div', { class: 'cs-read' });
+  const tbody = el('tbody');
+  const drawPartials = (row) => {
+    const { g, w, h } = fit(cv); const L = 40, R = 12, T = 14, B = 24, c = row.c;
+    g.clearRect(0, 0, w, h); g.font = '10px JetBrains Mono, monospace';
+    const fx = (f) => L + (w - L - R) * Math.log(f / 80) / Math.log(2400 / 80);
+    const ty = (t) => h - B - (h - T - B) * Math.min(1, Math.log10(Math.max(t, 0.05) / 0.05) / Math.log10(20 / 0.05));
+    g.strokeStyle = 'rgba(255,255,255,.07)'; g.fillStyle = '#4a4a5a';
+    for (const f of [110, 220, 440, 880, 1760]) { g.beginPath(); g.moveTo(fx(f), T); g.lineTo(fx(f), h - B); g.stroke(); g.fillText(f + ' Hz', fx(f) - 14, h - 8); }
+    for (const t of [0.1, 1, 10]) { g.beginPath(); g.moveTo(L, ty(t)); g.lineTo(w - R, ty(t)); g.stroke(); g.fillText(t + ' s', 4, ty(t) + 3); }
+    CE.RATIOS[c].forEach((r, k) => {
+      const f = CS.A2 * r, T60 = CS.t60(CS.qOf(c, k), f);
+      g.strokeStyle = `rgba(232,184,74,${0.35 + 0.65 * Math.pow(0.7, k)})`; g.lineWidth = 2.2;
+      g.beginPath(); g.moveTo(fx(f), h - B); g.lineTo(fx(f), ty(T60)); g.stroke();
+      if (S.across && CE.DN[c] > 0) { g.strokeStyle = 'rgba(169,156,240,.6)'; g.lineWidth = 1.2; const f2 = f * (1 + CE.DN[c]); g.beginPath(); g.moveTo(fx(f2) + 2, h - B); g.lineTo(fx(f2) + 2, ty(T60)); g.stroke(); }
+    });
+    g.fillStyle = '#8a8aa0'; const lab = `${CS.NAMES[c]} at A2 · each line a partial, its height how long it rings (to −60 dB)`;
+    g.fillText(lab, L + 6, T + 2);
+  };
+  const strike = (i) => {
+    S.cur = i; const row = CS.ROWS[i];
+    [...tbody.children].forEach((tr, j) => tr.classList.toggle('cs-cur', j === i));
+    drawPartials(row); stopSound(); play(CS.normalize(CS.physicsStrike(row.c, { across: S.across })));
+  };
+  const mark = (key, v, box) => { S.marks[key] = v; [...box.children].forEach((b) => { b.className = b.dataset.v === v ? 'cs-' + v : ''; }); tally(); };
+  const fill = () => {
+    tbody.innerHTML = '';
+    CS.ROWS.forEach((row, i) => {
+      const m = CS.measures(row.c, S.across), key = 'r' + i;
+      const box = el('span', { class: 'cs-mark cs-seg' }, ...['held', 'failed', 'unsure'].map((v) => el('button', { 'data-v': v, class: S.marks[key] === v ? 'cs-' + v : '', onclick: () => mark(key, v, box) }, v === 'unsure' ? 'can’t tell' : v)));
+      const pair = !m.pair ? '' : m.pair.hz < 20 ? `closest pair beats at <b>${fmt(m.pair.hz, 1)} Hz</b> · ${fmt(m.pair.beats, 0)} before it’s gone` : `closest pair <b>${fmt(m.pair.hz, 1)} Hz</b> apart: too far to beat`;
+      const rays = m.rays ? `<br>two rays <b>${fmt(m.rays.cents, 1)} ¢</b> · ${fmt(m.rays.hz, 2)} Hz · ${fmt(m.rays.beats, 1)} beats` : (S.across ? '<br>one ray: cubic, no birefringence' : '');
+      const meas = el('div', { class: 'cs-meas' }); meas.innerHTML = `<b>${m.unique}</b> pitches${m.fused ? ` (${m.modes} modes, ${m.fused} fused)` : ''} · span <b>${fmt(m.span, 2)}</b> oct<br>rings <b>${fmt(m.ring, 2)} s</b> · Q ${m.q}<br>${pair}${rays}`;
+      tbody.append(el('tr', { class: i === S.cur ? 'cs-cur' : '' },
+        el('td', {}, el('div', { class: 'cs-sys' }, row.sys), el('div', { class: 'cs-min' }, CS.NAMES[row.c]), el('div', { class: 'cs-formula' }, row.formula), row.guess ? el('div', { class: 'cs-guess' }, 'no mineral: tests nothing') : null),
+        el('td', { class: 'cs-hidecol' }, el('div', { class: 'cs-hyp' }, '“' + CS.HYP[row.sys] + '”')),
+        el('td', {}, el('button', { class: i === 0 ? 'cs-go' : '', onclick: () => strike(i) }, '▸ play'), el('div', { style: 'margin-top:8px' }, meas)),
+        el('td', {}, box)));
+    });
+  };
+  const tally = () => { const v = Object.values(S.marks); read.innerHTML = `<span>your marks so far: <b>${v.filter((x) => x === 'held').length}</b> held · <b>${v.filter((x) => x === 'failed').length}</b> failed · <b>${v.filter((x) => x === 'unsure').length}</b> can’t tell</span>`; };
+  const axis = el('span', { class: 'cs-seg' },
+    el('button', { class: S.across ? '' : 'cs-on', onclick: (e) => { S.across = false; axis.children[0].className = 'cs-on'; axis.children[1].className = ''; fill(); drawPartials(CS.ROWS[S.cur]); } }, 'along the optic axis · one ray'),
+    el('button', { class: S.across ? 'cs-on' : '', onclick: (e) => { S.across = true; axis.children[1].className = 'cs-on'; axis.children[0].className = ''; fill(); drawPartials(CS.ROWS[S.cur]); } }, 'across it · two rays'));
+  fill(); tally();
+  const node = [
+    el('p', { class: 'cs-teach' }, 'Now every mode at once. Each row is a crystal struck at A2 through the plugin’s own engine, ringing for as long as its line width says, beside the page’s prediction for its system. Strike it, listen, and mark whether the prediction held. The rows run in falling symmetry, cubic first, triclinic last. Hexagonal and trigonal predictions lean on two rays: turn the crystal across its optic axis to hear them.'),
+    el('div', { class: 'cs-row' }, axis),
+    cv,
+    el('table', { class: 'cs-t' }, el('thead', {}, el('tr', {}, el('th', {}, 'system · crystal'), el('th', { class: 'cs-hidecol' }, 'the page predicts'), el('th', {}, 'strike · measured'), el('th', {}, 'your mark'))), tbody),
+    read,
+    el('p', { class: 'cs-note' }, 'Each strike is scaled to the same peak, so loudness doesn’t vote. Fire is at 0, so dispersion doesn’t either. Two rows have no mineral behind them: their partials are the April session’s guesses and their Q a placeholder 100, so they can play their prediction but cannot test it. Two rays uses each mineral’s optical birefringence as the split, the plugin’s own stand-in; acoustic anisotropy is still unmeasured.'),
+    el('p', { class: 'cs-back' }, 'Strike fluorite and listen to its first two modes: the fused pair of step 2.'),
+  ];
+  node._after = () => drawPartials(CS.ROWS[S.cur]);
+  return node;
+} });
+
+// Step 4 · the test
+STEPS.push({ name: 'the test', build() {
+  const cv = canvas(210), read = el('div', { class: 'cs-read' }), tallyEl = el('div', { class: 'cs-tally' });
+  const life = () => (CS.LABRADORITE_LINE / S.width) / CE.QS[8];
+  const memo = {};
+  const once = (k, f) => (memo[k] ??= f());
+  const strikes = () => S.ring === 'summer'
+    ? [once('sd', () => [CS.summerStrike(CE.RATIOS[0], CS.A2, 8)]), once('sl', () => [CS.summerStrike(CE.RATIOS[8], CS.A2, 8)])]
+    : [once('pd', () => CS.physicsStrike(0)), once('pl' + S.width.toFixed(3), () => CS.physicsStrike(8, { life: life() }))];
+  const copy = (ch) => ch.map((x) => x.slice());
+  const draw = () => {
+    const [d, l] = strikes();
+    drawEnvelope(cv, [
+      { db: CS.envDb(d, 0.02), win: 0.02, color: '#e8b84a', name: 'diamond · cubic', lx: 48, ly: 150 },
+      { db: CS.envDb(l, 0.02), win: 0.02, color: '#a99cf0', name: 'labradorite · triclinic', lx: 48, ly: 164 }], { label: S.ring === 'summer' ? 'the summer ring: τ 5.5 s for every mineral' : 'the physics ring: each mode’s Q from its line width' });
+    const Ql = CS.LABRADORITE_LINE / S.width;
+    const rd = S.ring === 'summer' ? 5.5 * Math.log(1000) : CS.t60(807, CS.A2), rl = S.ring === 'summer' ? 5.5 * Math.log(1000) : CS.t60(Ql, CS.A2);
+    const top = CS.A2 * 17.5, topGone = S.ring === 'summer' ? 5.5 / (1 + 0.15 * 7) : CS.tau(Ql, top);
+    const how = S.ring === 'summer' ? ' to −60 dB (τ 5.5 s × ln 1000)' : ' to −60 dB';
+    read.innerHTML = `<span>diamond rings <b>${fmt(rd, 1)} s</b>${how} · ${fmt(100 * CS.energyAfter(d, 0.5), 1)}% of its energy after 0.5 s</span>`
+      + `<span>labradorite rings <b>${fmt(rl, 2)} s</b>${how} · ${fmt(100 * CS.energyAfter(l, 0.5), 1)}% after 0.5 s · its top partial, ${fmt(top, 0)} Hz, falls to 1/e in <b>${topGone < 1 ? fmt(topGone * 1000, 0) + ' ms' : fmt(topGone, 1) + ' s'}</b></span>`
+      + (S.ring === 'physics' ? `<span>labradorite at Q <b>${fmt(Ql, 0)}</b>, a ${fmt(S.width, 2)} cm⁻¹ line${Math.abs(S.width - CS.LABRADORITE_WIDTH) < 0.05 ? ' (the estimate)' : ''}</span>` : '');
+  };
+  const ringSeg = el('span', { class: 'cs-seg' },
+    el('button', { onclick: () => { S.ring = 'summer'; ringSeg.children[0].className = 'cs-on'; ringSeg.children[1].className = ''; wrap.style.opacity = 0.35; draw(); } }, 'the summer ring · taste'),
+    el('button', { class: 'cs-on', onclick: () => { S.ring = 'physics'; ringSeg.children[1].className = 'cs-on'; ringSeg.children[0].className = ''; wrap.style.opacity = 1; draw(); } }, 'the physics ring · line width'));
+  const wd = slider({ label: 'labradorite’s line width, cm⁻¹', min: 0.5, max: 25, value: S.width, log: true,
+    ticks: [[0.63, '↑ diamond’s Q, 0.63'], [17, 'the estimate, 17']],
+    onInput: (v) => { S.width = v; if (S.ring === 'physics') draw(); return fmt(v, 2); } });
+  const wrap = el('div', { style: 'flex:1;min-width:260px' }, wd.lab);
+  const [pd, pl] = [() => strikes()[0], () => strikes()[1]];
+  const box = el('span', { class: 'cs-mark cs-seg' }, ...['held', 'failed', 'unsure'].map((v) => el('button', { 'data-v': v, class: S.marks.tri === v ? 'cs-' + v : '', onclick: () => { S.marks.tri = v; [...box.children].forEach((b) => { b.className = b.dataset.v === v ? 'cs-' + v : ''; }); tally(); } }, v === 'unsure' ? 'can’t tell' : v)));
+  const tally = () => { const v = Object.values(S.marks); tallyEl.innerHTML = `All your marks: <b>${v.filter((x) => x === 'held').length}</b> held · <b>${v.filter((x) => x === 'failed').length}</b> failed · <b>${v.filter((x) => x === 'unsure').length}</b> can’t tell${S.marks.tri ? ` · the triclinic prediction: <b>${S.marks.tri === 'unsure' ? 'can’t tell' : S.marks.tri}</b>` : ''}.`; };
+  tally();
+  const node = [
+    el('p', { class: 'cs-teach' }, 'The prediction the section is least sure of: triclinic, the lowest symmetry, rings “chaotic, bell-like, unpredictable”, the most alien of the seven. The summer proofs heard it through a ring chosen by taste, a 5.5-second time constant for every mineral (so 38 seconds to fall 60 dB), and through that ring labradorite is a scattered bell. Give each mode the ring its line width sets instead, and strike the two ends of the symmetry arc through the same engine.'),
+    el('div', { class: 'cs-row' }, ringSeg),
+    cv, read,
+    el('div', { class: 'cs-row' },
+      el('button', { class: 'cs-go', onclick: () => { stopSound(); play(CS.normalize(copy(pd()))); } }, '▸ play diamond'),
+      el('button', { onclick: () => { stopSound(); play(CS.normalize(copy(pl()))); } }, '▸ play labradorite'),
+      el('button', { onclick: () => { stopSound(); const [d, l] = strikes(); play(CS.normalize(d.map((x) => x.slice(0, CS.SR * 3)))); play(CS.normalize(l.map((x) => x.slice(0, CS.SR * 3))), 3.4); } }, '▸ one, then the other'),
+      wrap),
+    el('div', { class: 'cs-row' }, el('span', { class: 'cs-sys' }, 'triclinic, “bell-like … the most alien”:'), box),
+    tallyEl,
+    el('p', { class: 'cs-note' }, 'Labradorite’s width, 17 cm⁻¹, is an estimate; feldspar’s Al/Si and Ca/Na disorder is thought to widen its lines, not narrow them. Drag it to find the width that would make it a bell. This is where the bundle’s ring study landed (crystal-rings/README.md): diamond is the only bell, and labradorite a dull knock with a bright tick, if its width holds. Its recordings sit beside this section, unchanged.'),
+    el('p', { class: 'cs-back' }, 'The summer ring puts you back where the summer proofs stood.'),
+  ];
+  node._after = draw;
+  return node;
+} });
+
+// ───────────────────────── the walk: the step list stays open; one step shows at a time ─────────────────────────
+const tabs = $('#tabs'), stage = $('#stage');
+STEPS.forEach((s, i) => tabs.append(el('button', { 'aria-pressed': 'false', onclick: () => go(i + 1) }, (i + 1) + ' · ' + s.name)));
+const built = {};
+function go(n) {
+  if (n !== S.step) stopSound();                 // changing step stops the sound
+  S.step = Math.max(1, Math.min(STEPS.length, n));
+  [...tabs.children].forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === S.step)));
+  stage.innerHTML = '';
+  const s = STEPS[S.step - 1], nodes = s.build(); stage._after = nodes._after;
+  stage.append(el('section', { class: 'cs-step', 'aria-label': 'step ' + S.step }, el('div', { class: 'cs-stephead' }, el('span', {}, S.step + ' · ' + s.name), el('span', {}, 'step ' + S.step + ' of ' + STEPS.length)), ...nodes));
+  // draw after layout, so canvases know their width
+  requestAnimationFrame(() => { if (nodes._after) nodes._after(); else stage.querySelector('input[type=range]')?.dispatchEvent(new Event('input')); });
+  $('#back').disabled = S.step === 1; $('#next').disabled = S.step === STEPS.length;
+}
+$('#back').onclick = () => go(S.step - 1);
+$('#next').onclick = () => go(S.step + 1);
+let rz = 0; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { const n = STEPS[S.step - 1]; const a = stage._after; if (a) a(); else stage.querySelector('input[type=range]')?.dispatchEvent(new Event('input')); }, 150); });
+// the sigil: a 3:2 Lissajous
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + (Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (Math.sin(2 * t)).toFixed(3); } $('#sigil').setAttribute('d', d); })();
+go(1);
+</script>
+</body>
+</html>

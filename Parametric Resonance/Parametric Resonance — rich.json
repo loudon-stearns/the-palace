@@ -1,0 +1,157 @@
+{
+  "title": "Parametric Resonance — rich",
+  "born": "2026-11-03",
+  "links": [
+    {
+      "target": "[[Parametric Resonance]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Parametric Resonance's rich face: three walks, the swing, the threshold heard and the pump's phase, each opening on one idea and ending on the page's own claim, and the fingerprint of the words each was made against. Two of them found the swing's timing backwards in the text; that waits as an offer, not an edit. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Parametric Resonance",
+  "tier": "sketch",
+  "made": "2026-11-03",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The pumped swing",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Parametric Resonance — rich — the pumped swing.html",
+            "verdict": "remake",
+            "why": "The test is sound and independently confirmed (own Lagrangian with the 2l̇θ̇ term: page rule × 0.7428, reverse × 1.3159, g/L model × 1.0839), but once the swing hits its 65° cap the child stops and the readouts keep describing pumping: step 4 reverse reads \"× 0.997 … swing gained −4.4 J\" about 8 s after the click, step 2 \"× 0.997 … grows exponentially\". Freeze gain and work at the last pumped swing and say the child holds still; freeze the dying swing's work at the third swing."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Parametric Resonance — rich — the pumped swing.html",
+          "origin": "made",
+          "by": "canvas · variable-length pendulum",
+          "height": 1150,
+          "title": "the pumped swing, timed both ways",
+          "caption": "**The swing, walked up to its timing.** The swing alone (one swing every 2.84 s at 2 m); standing and squatting once per swing (× 0.986, the same as holding still) and twice (× 1.316 a swing); the page's rule in the page's own equation, θ̈ = −(g⁄L) sin θ, where it builds (× 1.084); and last the same rule on a real swing, where the child's own rising and sinking counts. There it brakes (× 0.743), and the reverse, stand up through the bottom and squat at the ends, builds. The child's work each swing has the same sign as the energy the swing gains. When the child stops (the swing high enough at 65°, or dying under 4°) the readouts hold the last swing they pumped and say so. The checks beside it re-run every number.",
+          "near": "Each squat-stand changes the swing's effective length"
+        }
+      ],
+      "made_against": "5a089fa2e33c",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "The threshold",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Parametric Resonance — rich — the threshold heard.html",
+            "verdict": "remake",
+            "why": "Caption only; the piece is a clean test (fades measured against Floquet, threshold moves with damping). \"Says nothing until 3.1 s\" is one noise draw (2.67–4.46 s, median 3.57, over 24 seeds) and \"exactly 4ζ\" is first order (0.0240002 at ζ = 0.006): give the range and say \"to five figures here\"."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Parametric Resonance — rich — the threshold heard.html",
+          "origin": "made",
+          "by": "Web Audio Worklet · Floquet multipliers",
+          "height": 1000,
+          "title": "the threshold, heard",
+          "caption": "**Decay, then the crack.** A 220 Hz resonator pumped at 440 Hz: one ring alone (fades 18.0 dB a second); a pump below threshold, which only slows the fade (9.0 dB a second at ε = 0.003, as the Floquet multipliers predict); a pump held or swept past ε<sub>c</sub> = 4ζ, where a noise floor 80 dB down grows into a steady tone, and heavier damping moves the threshold; and last the page's open question set up as a test, a driven ring swept into resonance beside a pumped one swept through threshold. The driven one is heard from the start. The pumped one crosses ε<sub>c</sub> at 1.5 s and says nothing until about 3–4 s (2.7–4.5 s across 48 noise draws); every draw lags the crossing by at least 1.17 s. 4ζ is the first-order threshold, good to five figures here (0.0240002 measured at ζ = 0.006). It is in the page's ε, stiffness ω₀²(1 + ε cos Ωt); in the Mathieu page's q, ε = 2q, the same threshold reads q<sub>c</sub> = 2ζ. Both are right.",
+          "near": "the system's natural damping eats energy faster"
+        }
+      ],
+      "made_against": "c85912d19692",
+      "stamped": "2026-11-03"
+    },
+    {
+      "heading": "Where the phase lives",
+      "made": "2026-11-03",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-03",
+        "by": "maker · claude-opus-5-5 · proposal round",
+        "round": "proposal-round-2026-11"
+      },
+      "challenge": {
+        "date": "2026-11-03",
+        "by": "challenger · claude-opus-5-5",
+        "verdicts": [
+          {
+            "file": "Parametric Resonance — rich — with the ring, against it.html",
+            "verdict": "keep",
+            "why": "Tests the second bullet as written: the eigenvector lines are drawn, every start ends on the growing one, and a ring struck on the decaying line brakes at −72.0 dB/s (Floquet −72.0) then turns. Note: the caption's 0.76 s / 2.37 s is one draw (0.68–1.04 / 2.12–3.00 s over 24 seeds); a range would be truer."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Parametric Resonance — rich — with the ring, against it.html",
+          "origin": "made",
+          "by": "Web Audio Worklet · Floquet modes",
+          "height": 1050,
+          "title": "with the ring, against it",
+          "caption": "**The two Floquet modes, drawn and heard.** The ring watched once per cycle on the pump's clock, so its phase stands still; the pump switched on at twice the rate, where two lines appear, the eigenvectors of one pump period, and every starting phase ends on the growing one; the pump at the wrong rate, where no growing line exists; and last the section's own test. Struck exactly on the fading line the ring falls at 72 dB a second, four times faster than with no pump, turns at about 0.7–1.0 s and is full at about 2.1–3.0 s (across noise draws); struck on the growing line it is full at 0.11 s. A noisier room turns it sooner.",
+          "near": "The stability diagram is phase-blind on purpose"
+        }
+      ],
+      "made_against": "c36480f77952",
+      "stamped": "2026-11-03"
+    }
+  ],
+  "offers": [
+    {
+      "section": "The pumped swing",
+      "kind": "claim-change",
+      "what": "The rule \"squat at the bottom of the arc, stand at the peaks\" brakes a real swing; its reverse builds. Measured in the swing piece (point-mass child, L = 2 m ± 6%, timed by the swing's own phase): the page's rule × 0.743 a swing, the reverse × 1.316, holding still × 0.986. The page's rule builds only in θ̈ = −(g⁄L) sin θ, where length sets only the pitch (× 1.084; reverse × 0.897). Why: in arc length u = Lθ a real swing obeys ü + ((g − L̈)⁄L)u = 0, so the child's own acceleration pumps four times as hard as g⁄L and the other way round; net ε_eff = −3δ (measured −2.99). Proposed: \"stand up as you pass through the bottom, squat as you reach the peaks\", and a line saying the g⁄L Mathieu reading gets a swing's timing backwards. The same rule is repeated in the first paragraph of Where the phase lives. Three checks that use no timing rule (the challenger's, 2026-11-03): sudden length changes in closed form give a real swing × 0.697 a swing under the page's rule, against × 1.128 in the g/L model; on a fixed pump clock the growing mode has the child standing fastest near the bottom in a real swing (|θ|/amplitude ≈ 0.06–0.08) and near the peaks in the g/L model (≈ 0.92–0.94); read as postures rather than motions, the rule pumps nothing in either model (× 0.985–0.987, as holding still). Diagnosis: the g/L model treats the length as setting only the pitch and drops angular momentum (the 2L̇θ̇ term), so squatting at the bottom raises ½mL²θ̇² with nobody doing the work. That is the gain the page's rule gets there.",
+      "status": "open"
+    },
+    {
+      "section": "What makes the energy",
+      "kind": "claim-change",
+      "what": "The swing paragraph's accounting describes the braking cycle and gives it the wrong sign. Climbing where the rope pulls least (the peaks) and sinking where it pulls most (the bottom) means the swing does more work on the child than the child does on it: over the third swing, the child's work −0.91 J and the swing's energy −0.96 J (30 kg child; the challenger's independent energy balance: −0.92 J). The cycle that builds is the reverse, standing against the hardest pull at the bottom and sinking against the softest at the ends: +48.0 J of work (challenger: +47.96 J), +45.5 J to the swing, the air taking the rest. \"Net work done by the child per cycle is positive, and it equals the energy the swing gains\" is true of that reversed rule, less the air.",
+      "status": "open"
+    },
+    {
+      "section": "Driving vs. pumping",
+      "kind": "claim-change",
+      "what": "The pumped equation has no damping term, but the sentences after it say amplitude grows \"above a threshold ε\" and that below it \"damping wins\". With no damping the threshold at Ω = 2ω₀ is ε = 0. Proposed: write it ẍ + 2ζω₀ẋ + ω₀²(1 + ε cos Ωt)x = 0 and name ε_c ≈ 4ζ (first order) at Ω = 2ω₀; The threshold section could carry the same formula beside \"less damped systems threshold easier\". If the page cites the Mathieu page's q, give the bridge: ε = 2q, so q_c = 2ζ, the same threshold. Measured: the Floquet multipliers cross 1 at ε = 0.0060000 for ζ = 0.0015 and at 0.0240002 for ζ = 0.006. A small claim change, since it puts a formula on the page.",
+      "status": "open"
+    },
+    {
+      "section": "Where the phase lives",
+      "kind": "claim-change",
+      "what": "\"If you pump at the wrong phase you brake the swing instead of building it\" holds for good while the pumper keeps the wrong timing against the swing, as a child does (the swing piece: × 0.743 a swing). Against a fixed pump clock the wrong phase brakes for a while, then builds: struck exactly on the decaying mode at ε = 3ε_c the ring falls at −72.0 dB/s, four times the unpumped fade (Floquet −72.0, no pump −18.0), until the noise floor's share of the growing mode outgrows it; across noise draws it turns at about 0.7–1.0 s and is full at about 2.1–3.0 s, against 0.11 s on the growing mode, and a noise floor 20 dB higher turns it sooner. Proposed: one sentence naming the two cases: a pumper who follows the swing brakes it for good; a pump on its own clock brakes it, then builds it.",
+      "status": "open"
+    },
+    {
+      "section": "Open Questions",
+      "kind": "claim-change",
+      "what": "The first open question can carry numbers now. Same resonator, same six-second sweeps from the same quiet: the driven ring is above −60 dB from the start (its off-resonance response is set by the chosen force) and rises 10→90% in about 1.2–1.4 s; the pumped one crosses ε_c at 1.50 s by construction, stays under −60 dB until 2.7–4.5 s across 48 noise draws (median about 3.5 s), then rises 10→90% in about 0.75 s. Every draw lags the crossing by at least 1.17 s. The silence comes after the threshold, not at it: the crack lags the crossing by about ln(heard level ⁄ noise floor) ⁄ growth rate. Whether the ear hears it as a crack is still open; no listening was done.",
+      "status": "open"
+    }
+  ]
+}

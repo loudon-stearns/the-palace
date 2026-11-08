@@ -1,0 +1,95 @@
+{
+  "title": "Frequency-Time Duality — rich",
+  "born": "2026-10-25",
+  "links": [
+    {
+      "target": "[[Frequency-Time Duality]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Frequency-Time Duality — spec — rich face]]",
+      "type": "connects-to",
+      "label": "built-from"
+    },
+    {
+      "target": "[[Waveguide Synthesizer]]",
+      "type": "connects-to",
+      "label": "gathered-from"
+    }
+  ],
+  "forward_vector": "I am the manifest of Frequency-Time Duality's rich face, its first round at Sketch tier: what already existed, gathered beside the stops of the walk it tests (the May delay sketch at the echo walk, the flip rough's modulation tab and the May sweep at the recursion, the Waveguide project's string at the first doorway), with the fingerprint of the words each was laid against. I grow as the made pieces arrive, the ride, the bridge and the remakes, until a class can walk the whole axis by ear; I never hold the entry's words.",
+  "entry": "Frequency-Time Duality",
+  "tier": "sketch",
+  "made": "2026-10-25",
+  "round": 1,
+  "sections": [
+    {
+      "heading": "The Echo Walk",
+      "made_against": "ee21159e0e59",
+      "made": "2026-10-25",
+      "pieces": [
+        {
+          "file": "proofs/2026-05-04-delay-time-axis-v2.html",
+          "height": 777,
+          "contract": {},
+          "origin": "gathered",
+          "title": "One delay, six worlds · the May sketch",
+          "caption": "**Does each stop sound like its name?** Press play, then drag the delay from 5 s down to half a millisecond and listen at each stop in the list above. Turn the feedback down to hear the comb and filter stops as colour rather than a ring. This is the May sketch, gathered as it was, so its six names and edges are its own, not the text's eight: it calls everything under 10 ms *pitch*, and it plays in mono, so it has no Haas stop. Where the two disagree, the text wins; the remake will follow the text.",
+          "near": "The same delay block is every one of these"
+        }
+      ],
+      "stamped": "2026-10-25"
+    },
+    {
+      "heading": "The Recursion",
+      "made_against": "79f563d51fe5",
+      "made": "2026-10-25",
+      "pieces": [
+        {
+          "file": "proofs/2026-10-13-the-flip-three-axes.html",
+          "height": 1195,
+          "contract": {},
+          "origin": "gathered",
+          "title": "The flip, three axes · its Modulation tab",
+          "caption": "**Wobble becomes timbre in the same zone, or it doesn't.** The rough's second tab, on its own: choose *Modulation · wobble rate*. A 220 Hz sine goes through a 10 ms delay wobbled ± 5 ms at the rate under the playhead, the walk this section describes. Drag up through the threshold and mark the bottom and the top of the zone where the wobble stops being motion.",
+          "near": "This is why the walk keeps meeting the threshold"
+        },
+        {
+          "file": "proofs/2026-05-04-mod-rate-sweep.html",
+          "height": 625,
+          "contract": {},
+          "origin": "gathered",
+          "title": "One slider, six worlds · the May sweep",
+          "caption": "**The same climb as plain FM.** A 440 Hz sine whose pitch swings ± 60 Hz at the rate on the slider, from 0.1 Hz to 10 kHz, with no delay in the way. Its six names are the May sketch's. Its *tremolo* band, 10 to 30 Hz, is still pitch moving, not loudness. And it is not quite the wobbled delay above: with the swing held at 60 Hz the sidebands thin as the rate climbs, so high up the sine comes back nearly plain, while the delay's wobble keeps its sidebands at every rate.\n\nβ = Δf ÷ fₘ\n\n(how far the sidebands spread) = (the pitch swing, 60 Hz) ÷ (the rate)",
+          "near": "This is why the walk keeps meeting the threshold"
+        }
+      ],
+      "stamped": "2026-10-25"
+    },
+    {
+      "heading": "Three Doorways",
+      "made_against": "84ebe7f88a56",
+      "made": "2026-10-25",
+      "pieces": [
+        {
+          "file": "/Projects/Waveguide Synthesizer/sketch-karplus-strong/index.html",
+          "contract": {
+            "size": "fill 16/9"
+          },
+          "origin": "gathered",
+          "title": "Karplus–Strong · the Waveguide sketch",
+          "caption": "**A door, not a lesson.** The Bridge's last move, built: a burst of noise into a delay line, a gentle low-pass in the loop. Press *pluck* or click the string, and drag the frequency, brightness and decay. The loop is a whole number of samples long, so the pitch is the walk's reciprocal once more, the sample rate over the loop's length. Behind it is the Waveguide Synthesizer project, where the string gets a material and a body.",
+          "near": "Waveguides and physical modelling",
+          "height": 560
+        }
+      ],
+      "stamped": "2026-10-25"
+    }
+  ]
+}

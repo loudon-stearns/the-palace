@@ -1,0 +1,67 @@
+# Synth Templates — card — Pluck Bass
+# The shortest envelopes on the sheet, and velocity to the filter envelope so a hard note is a brighter note.
+schema: synth-template-card/0.2
+id: pluck-bass
+name: Pluck Bass
+family: Bass
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Velocity → filter envelope amount; → pitch envelope amount"
+  - "Velocity → amplitude; velocity → filter cutoff"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: fast, s: zero, r: fast}, category: plucked}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: short, s: zero, r: same as decay}, category: plucked}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: fenv.amount, amount: generous, essential: true}
+    - {from: vel,  to: amp.level, amount: some, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,    value: saw,            why: "the filter needs a full set of harmonics to sweep across"}
+  - {block: filter1, param: cutoff,  value: dark,           why: "closed at rest; everything bright is the envelope"}
+  - {block: fenv,    param: attack,  value: instant}
+  - {block: fenv,    param: decay,   value: fast,           why: "the brightness is gone in a few tens of milliseconds: the pluck"}
+  - {block: fenv,    param: sustain, value: zero,           why: "nothing stays open"}
+  - {block: aenv,    param: decay,   value: short,          why: "the body is only a little longer than the bite"}
+  - {block: aenv,    param: sustain, value: zero,           why: "plucked: the string is struck and left; the key length does not matter"}
+  - {block: aenv,    param: release, value: same as decay,  why: "a short key still finishes the pluck"}
+  - {block: vel,     param: target,  value: filter envelope amount, why: "a harder note opens the filter further: velocity makes it brighter, not only louder"}
+  - {block: mode,    param: voices,  value: mono}
+
+taste:
+  - {block: fenv,    param: decay,     range: "instant – short",      default: fast}
+  - {block: fenv,    param: amount,    range: "moderate – full",      default: generous}
+  - {block: aenv,    param: decay,     range: "short – medium",       default: short}
+  - {block: filter1, param: resonance, range: "none – moderate",      default: little, why: "a little puts a 'tk' on the front of the pluck"}
+  - {block: filter1, param: cutoff,    range: "dark – mid",           default: dark}
+
+listening:
+  cue: "A tick of brightness and then a dull thud: each note is over almost before it starts. Soft notes are dark taps; hard notes flash open."
+  ab: "Remove the velocity route to the filter envelope: every note is the same brightness, and the line goes flat even though the loud notes are still louder. Put it back and the accents light up."
+
+render:
+  tempo: 120
+  note: [C2, C2, C2, Eb2, C2, C2, G1, Bb1]
+  velocity: [120, 60, 60, 110, 60, 60, 110, 70]
+  pattern: "eighths, one bar; hard on 1, 4 and 7"
+  length_s: 2.0
+
+mappings: {}

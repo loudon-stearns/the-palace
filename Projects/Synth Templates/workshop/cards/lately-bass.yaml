@@ -1,0 +1,72 @@
+# Synth Templates — Genre Classics — Lately Bass
+# An FM bass: a sine body, and a modulator whose level drops fast so the attack is bright and the body is pure.
+schema: synth-template-card/0.2
+id: lately-bass
+name: Lately Bass
+family: Genre Classics
+tier: 2
+mode: mono
+classics: TX81Z
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Velocity → amplitude; velocity → filter cutoff"
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: sine, octave: 0, note: "carrier: the body"}
+    osc2:    {kind: oscillator, wave: sine, ratio: "1:1", level: little, note: "modulator; on the TX81Z this operator is not a sine, which is the extra grit"}
+    sub:     {kind: oscillator, wave: sine, octave: -1, level: half, note: "the octave under: Lately Bass sits in the floor"}
+    mix:     {kind: mixer}
+    amp:     {kind: amplifier, level: under unity}
+    menv:    {kind: envelope, role: index, shape: {a: instant, d: short, s: little, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, mix]
+    - [sub, mix]
+    - [mix, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: full, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: menv.amount, amount: generous, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: sub.pitch,  essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: mode,    param: voices,    value: mono,           why: "a bass line"}
+  - {block: osc1,    param: wave,      value: sine,           why: "the body is one partial; there is no filter, the FM is the brightness"}
+  - {block: osc2,    param: ratio,     value: "1:1",          why: "harmonic sidebands: the bite is a brighter version of the same note"}
+  - {block: osc2,    param: routing,   value: into osc1 fm,   why: "a modulator, not a mix: the sidebands fall at the index envelope's rate, something a filter sweep cannot do"}
+  - {block: menv,    param: decay,     value: short,          why: "the bright attack: a burst of sidebands that collapses to the sine in the first part of the note"}
+  - {block: menv,    param: sustain,   value: little,         why: "a trace of index stays, so the held note is not a bare sine"}
+  - {block: vel,     param: target,    value: index envelope amount, why: "hit harder and the attack is brighter, the body the same: the FM accent"}
+  - {block: aenv,    param: attack,    value: instant,        why: "the click is part of it"}
+  - {block: aenv,    param: sustain,   value: held}
+
+taste:
+  - {block: osc2,    param: level,     range: "little – half",       default: little, why: "the resting index"}
+  - {block: menv,    param: amount,    range: "moderate – full",     default: full}
+  - {block: menv,    param: decay,     range: "fast – medium",       default: short}
+  - {block: sub,     param: level,     range: "off – equal to osc1", default: half}
+  - {block: aenv,    param: release,   range: "instant – short",     default: short}
+  - {block: amp,     param: drive,     range: "none – light",        default: none}
+
+listening:
+  cue: "A bass that barks at the start of every note and is a pure sine by the end of it: bright 'bwow', then floor. Harder notes bark louder; the floor stays the same."
+  ab: "Set the index envelope amount to none: the bark is gone and it is a sine sub with a click. Put it back. Then raise the modulator's sustain to full: the brightness never collapses and it becomes a buzzy organ bass."
+
+render:
+  tempo: 108
+  note: [E1, E1, G1, A1, E1, D2, E1, B1]
+  velocity: [110, 80, 80, 110, 80, 110, 80, 80]
+  pattern: "eighth notes, one bar, a new-jack line; accents on 1, 4 and 6"
+  length_s: 3.0
+
+mappings: {}

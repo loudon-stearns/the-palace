@@ -1,0 +1,275 @@
+<!doctype html>
+<!--
+  title: Typography as Meaning — rich — the grammar, blind
+  born: 2026-11-03
+  links: [[Typography as Meaning]] (connects-to · rich-face-piece) · listed in [[Typography as Meaning — rich.json]] · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the section's grammar read blind, one part at a time. Only one thing changes in each step (weight, then case, then hand or type, then the balloon's outline with nothing else to go on), the reader puts the forms in order or names them before any label shows, and only then does the key say what the grammar predicted. I am a test of whether the convention reads to the person in front of me, not of whether it is natural; I change only when the section I serve does.
+  engine: the script block with id "engine" holds what each step shows, the grammar's answer for each, and the scoring (pairs in order, matches) with the chance figures.
+  checks: Typography as Meaning/Typography as Meaning — rich — check.mjs runs this engine's scoring and chance figures.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content=""><!-- needs nothing of its host: no device, no storage, no files, no network but the fonts -->
+<title>Typography as Meaning — the grammar, blind</title>
+<meta name="theme-color" content="#f0eee5">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, link, motion, select. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f0eee5); --fx-bg-elev-1: #e6e3d7; --fx-bg-elev-2: #dcd9ca; --fx-bg-elev-3: #d2cfbf; --fx-fg-1: var(--ink, #1a1916); --fx-fg-2: var(--ink2, #3a3a35); --fx-fg-3: #6a6862; --fx-fg-4: #a59f90; --fx-fg-on-accent: #f0eee5; --fx-border: var(--line, #b8b09a); --fx-border-soft: rgba(26,25,22,0.10); --fx-border-hover: rgba(200,38,26,0.55); --fx-accent: #c8261a; --fx-accent-soft: rgba(200,38,26,0.08); --fx-accent-line: rgba(200,38,26,0.50); --fx-danger: #c8261a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&family=Archivo:wght@500&family=Comic+Neue:wght@700&family=Kalam:wght@700&family=Recursive:wght@300..1000&display=swap">
+<style>
+  /* Loudon Live house style, Drafting skin. The weight and case specimens are set in Recursive, one family whose
+     weight can move while everything else holds still; the hand step needs three families, since hand or type is
+     itself a change of letterform. */
+  :root { --paper:#f0eee5; --paper2:#e7e4d8; --ink:#1a1916; --ink2:#3a3833; --mute:#6b675c; --faint:#a19d90; --line:#b9b5a7;
+    --red:#c8261a; --red-soft:rgba(200,38,26,.08); --red-line:rgba(200,38,26,.45); --blue:#2a4f8f; --green:#1d6b33;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; --display:'Anton',Impact,sans-serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink2); font-family: var(--sans); }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .title { font-family: var(--display); font-weight: 400; font-size: 34px; line-height: 1.05; text-transform: uppercase; color: var(--ink); margin: 0 0 8px; }
+  .sub { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 16px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 18px; border: 1px solid var(--line); border-radius: 2px; width: fit-content; max-width: 100%; }
+  .rail button { border: 0; border-right: 1px solid var(--line); border-radius: 0; background: transparent; padding: 7px 12px; color: var(--mute); }
+  .rail button:last-child { border-right: 0; }
+  .rail button[aria-current="step"] { background: var(--red-soft); color: var(--red); }
+  .step { display: none; }
+  .step.on { display: block; }
+  .step h3 { font-family: var(--serif); font-size: 25px; font-weight: 500; color: var(--ink); margin: 0 0 6px; }
+  .teach { font-size: 14px; line-height: 1.65; max-width: 76ch; margin: 0 0 12px; }
+  .ask { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--ink); margin: 4px 0 10px; }
+  .ask b { color: var(--red); font-weight: 500; }
+  button, select { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink2); background: var(--paper); border: 1px solid var(--line); border-radius: 2px; padding: 7px 11px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease), background 220ms var(--ease); }
+  select { text-transform: none; letter-spacing: .01em; padding: 5px 6px; width: 100%; border-color: var(--ink2); font-size: 12px; }
+  button:hover { border-color: var(--red-line); color: var(--ink); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.go { color: var(--red); border-color: var(--red-line); }
+  .btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0 12px; }
+  .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; max-width: 900px; }
+  .spec { position: relative; display: flex; align-items: center; justify-content: center; min-height: 128px; padding: 18px 10px 14px; background: #fbfaf5; border: 1px solid var(--line); border-radius: 2px; cursor: pointer; text-transform: none; letter-spacing: 0; color: var(--ink); }
+  .spec .w { font-family: 'Recursive', sans-serif; line-height: 1.1; text-align: center; }
+  .spec .tag { position: absolute; top: 5px; left: 7px; font-family: var(--mono); font-size: 10.5px; color: var(--mute); letter-spacing: .1em; }
+  .spec .rank { position: absolute; top: 5px; right: 6px; min-width: 20px; height: 20px; border-radius: 2px; background: var(--red); color: var(--paper); font-family: var(--mono); font-size: 11px; display: none; align-items: center; justify-content: center; }
+  .spec.picked { border-color: var(--red-line); }
+  .spec.picked .rank { display: flex; }
+  .spec .truth { position: absolute; bottom: 4px; left: 0; right: 0; text-align: center; font-family: var(--mono); font-size: 10.5px; color: var(--blue); }
+  .balloons { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; max-width: 960px; }
+  .bal { background: #fbfaf5; border: 1px solid var(--line); border-radius: 2px; padding: 6px 8px 8px; }
+  .bal svg { display: block; width: 100%; height: auto; }
+  .bal .tag { font-family: var(--mono); font-size: 10.5px; color: var(--mute); letter-spacing: .1em; margin-bottom: 2px; }
+  .bal .truth { font-family: var(--mono); font-size: 11px; margin-top: 6px; line-height: 1.45; min-height: 1.4em; }
+  .ok { color: var(--green); } .no { color: var(--red); }
+  .key { font-size: 13.5px; line-height: 1.6; max-width: 80ch; padding: 10px 14px; border-left: 1px solid var(--red-line); background: var(--paper2); color: var(--ink); margin: 10px 0 10px; }
+  .key:empty { display: none; }
+  .key b { font-weight: 600; }
+  table.t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; color: var(--ink2); width: 100%; max-width: 760px; margin: 8px 0 10px; }
+  table.t th { text-align: left; font-weight: 400; color: var(--mute); letter-spacing: .06em; font-size: 10.5px; border-bottom: 1px solid var(--ink2); padding: 5px 8px; }
+  table.t td { border-bottom: 1px solid var(--line); padding: 4px 8px; }
+  table.t td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .verdict { font-size: 14px; line-height: 1.6; max-width: 80ch; padding: 10px 14px; border: 1px solid var(--red-line); border-radius: 2px; background: var(--red-soft); color: var(--ink); margin: 10px 0 12px; }
+  .verdict:empty { display: none; }
+  .note { font-size: 12.5px; line-height: 1.55; color: var(--mute); max-width: 78ch; margin: 6px 0 0; }
+  nav.walk { display: flex; gap: 10px; align-items: center; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+  nav.walk .where { font-family: var(--mono); font-size: 11px; color: var(--mute); letter-spacing: .08em; margin-left: auto; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--faint); margin-top: 14px; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><span id="sigil"></span>made · study · a walk in four steps</div>
+  <h2 class="title">The grammar, blind</h2>
+  <p class="sub">The section lists what each part of the lettering means: weight is volume, case is intimacy, a hand belongs inside the story and type outside it, and the balloon's outline is the feeling. Read it here before the labels: in each step only one thing changes, you put the forms in order or name them, and only then does the key say what the grammar predicted. Nothing is kept once you leave.</p>
+  <div class="rail" id="rail"></div>
+
+  <section class="step" data-s="weight">
+    <h3>Weight</h3>
+    <p class="teach">One word, four times. Same family, same size, same case. Only the thickness of the strokes changes.</p>
+    <p class="ask">Press them in order, from the <b>quietest</b> voice to the <b>loudest</b>.</p>
+    <div class="specs" id="g-weight"></div>
+    <div class="btns"><button class="go" id="k-weight" disabled>show the key</button><button id="r-weight">start over</button></div>
+    <div class="key" id="o-weight"></div>
+  </section>
+
+  <section class="step" data-s="case">
+    <h3>Case</h3>
+    <p class="teach">One line, three times. Same weight, same family. Only the capitals change.</p>
+    <p class="ask">Press them in order, from the most <b>private</b> (said close, to one person) to the most <b>public</b>.</p>
+    <div class="specs" id="g-case"></div>
+    <div class="btns"><button class="go" id="k-case" disabled>show the key</button><button id="r-case">start over</button></div>
+    <div class="key" id="o-case"></div>
+  </section>
+
+  <section class="step" data-s="hand">
+    <h3>Hand or type</h3>
+    <p class="teach">One sentence, three times. Same case, the weights as near as three families allow. What changes is how the letters were made: a face drawn for print, a face drawn for print to look lettered, and a hand. That takes three families, so more than one detail moves here; hand or type is itself a change of letterform.</p>
+    <p class="ask">Press them in order, from the one most like <b>the author telling</b> the story to the one most like <b>someone in it</b> saying it.</p>
+    <div class="specs" id="g-hand"></div>
+    <div class="btns"><button class="go" id="k-hand" disabled>show the key</button><button id="r-hand">start over</button></div>
+    <div class="key" id="o-hand"></div>
+  </section>
+
+  <section class="step" data-s="shape">
+    <h3>The test: the balloon alone</h3>
+    <p class="teach">Seven balloons, and nothing else to go on. The words, the face, the size and the case are the same in all seven, and none has a tail, since a tail says who is speaking. Only the outline differs. The section's first line says the outline is the feeling, so name the feeling from the outline.</p>
+    <p class="ask">Give each balloon the meaning it reads as. A meaning may be used twice.</p>
+    <div class="balloons" id="g-shape"></div>
+    <div class="btns"><button class="go" id="k-shape" disabled>show the key</button><button id="r-shape">start over</button></div>
+    <div class="key" id="o-shape"></div>
+    <table class="t" id="tally"></table>
+    <div class="verdict" id="verdict"></div>
+    <p class="note">One reader, a handful of choices: a sign, not a measurement. The grammar is a convention, so a reader who knows comics will match more of it; the test is whether the convention reads to you, not whether it is natural. The section gives some outlines two or three meanings (spiky is a shout or electronic; the rectangle is formal, robotic or narration); the menu offers each outline its first one. Slant and tremor are left out: one change per step, and the walk stops at four.</p>
+  </section>
+
+  <nav class="walk"><button id="back">◀ back</button><button id="next">next ▶</button><span class="where" id="where"></span></nav>
+  <div class="foot">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// What each ordering step shows, and the grammar's order (rank 0 = first in the asked order).
+const ORDER_STEPS={
+  weight:{ask:"quietest to loudest",items:[
+    {id:"w300",text:"STAY",fam:"Recursive",weight:300,size:54,truth:0,label:"weight 300"},
+    {id:"w500",text:"STAY",fam:"Recursive",weight:500,size:54,truth:1,label:"weight 500"},
+    {id:"w750",text:"STAY",fam:"Recursive",weight:750,size:54,truth:2,label:"weight 750"},
+    {id:"w1000",text:"STAY",fam:"Recursive",weight:1000,size:54,truth:3,label:"weight 1000"}],
+    rule:"weight is volume: the lightest is the quietest"},
+  case:{ask:"most private to most public",items:[
+    {id:"lower",text:"i'm still here",fam:"Recursive",weight:500,size:30,truth:0,label:"lowercase"},
+    {id:"sentence",text:"I'm still here",fam:"Recursive",weight:500,size:30,truth:1,label:"sentence case"},
+    {id:"caps",text:"I'M STILL HERE",fam:"Recursive",weight:500,size:30,truth:2,label:"all capitals"}],
+    rule:"case is intimacy: lowercase is the confession, capitals the shout"},
+  hand:{ask:"the author telling it to someone in the story",items:[
+    {id:"type",text:"She never came back.",fam:"Archivo",weight:500,size:27,truth:0,label:"Archivo · typeset"},
+    {id:"mid",text:"She never came back.",fam:"Comic Neue",weight:700,size:27,truth:1,label:"Comic Neue · type that looks lettered"},
+    {id:"hand",text:"She never came back.",fam:"Kalam",weight:700,size:27,truth:2,label:"Kalam · a hand"}],
+    rule:"treatment is world-coherence: words inside the story are inked by hand, the author's voice is typeset against it"}
+};
+// The balloon test: seven outlines and what the section's first line gives each.
+const SHAPES=[
+  {id:"oval",means:"ordinary speech"},{id:"spiky",means:"a shout"},{id:"cloud",means:"a thought"},
+  {id:"wavy",means:"weak, fading"},{id:"rect",means:"a narrator, or a machine"},{id:"icicle",means:"cold menace"},{id:"dashed",means:"a whisper"}];
+const MEANINGS=SHAPES.map(s=>s.means);
+// Pairs put in the grammar's order: for each pair the reader ranked, does the grammar agree?
+function pairsAgree(order,truthOf){let ok=0,all=0;for(let i=0;i<order.length;i++)for(let j=i+1;j<order.length;j++){all++;if(truthOf(order[i])<truthOf(order[j]))ok++;}return {ok,all};}
+const factorial=n=>n<=1?1:n*factorial(n-1);
+// chance: a random order gets half the pairs on average and all of them once in n!; a random name is right 1 time in 7
+function chanceOrder(n){return {meanPairs:n*(n-1)/4,allPairs:n*(n-1)/2,oneIn:factorial(n)};}
+function scoreShapes(answers){let ok=0;SHAPES.forEach(s=>{if(answers[s.id]===s.means)ok++;});return ok;}
+const chanceShapes={mean:SHAPES.length/MEANINGS.length,allOneIn:Math.pow(MEANINGS.length,SHAPES.length)};
+</script>
+
+<script>
+const $=id=>document.getElementById(id);
+(function sigil(el){const p=[];for(let i=0;i<=240;i++){const t=i/240*2*Math.PI;p.push((11+9*Math.sin(3*t+Math.PI/4)).toFixed(2)+','+(11+9*Math.sin(2*t)).toFixed(2));}
+  el.innerHTML='<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="10.4" fill="none" stroke="#b9b5a7" stroke-width="1"/><polyline points="'+p.join(' ')+'" fill="none" stroke="#c8261a" stroke-width="1"/></svg>';})($('sigil'));
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const LET="ABCDEFG";
+const result={},tries={};
+
+// ---- the three ordering steps ----
+function setupOrder(k){
+  const S=ORDER_STEPS[k],g=$('g-'+k);let shown=shuffle(S.items);let picks=[],keyed=false;
+  function render(){
+    g.innerHTML="";
+    shown.forEach((it,i)=>{const b=document.createElement('button');b.className='spec'+(picks.includes(it.id)?' picked':'');
+      b.innerHTML=`<span class="tag">${LET[i]}</span><span class="rank">${picks.indexOf(it.id)+1}</span><span class="w" style="font-family:'${it.fam}',sans-serif;font-weight:${it.weight};font-size:${it.size}px">${it.text}</span>${keyed?`<span class="truth">${it.label}</span>`:""}`;
+      b.setAttribute('aria-label',`specimen ${LET[i]}`);
+      b.onclick=()=>{if(keyed||picks.includes(it.id))return;picks.push(it.id);render();};g.appendChild(b);});
+    $('k-'+k).disabled=keyed||picks.length<shown.length;
+  }
+  $('k-'+k).onclick=()=>{keyed=true;render();
+    const truth=id=>S.items.find(x=>x.id===id).truth,p=pairsAgree(picks,truth),c=chanceOrder(S.items.length);
+    const yours=picks.map(id=>LET[shown.findIndex(x=>x.id===id)]).join(", "),grammar=S.items.slice().sort((a,b)=>a.truth-b.truth).map(x=>LET[shown.indexOf(x)]).join(", ");
+    tries[k]=(tries[k]||0)+1;
+    result[k]={ok:p.ok,all:p.all,exact:p.ok===p.all,mean:c.meanPairs,oneIn:c.oneIn,try:tries[k]};
+    $('o-'+k).innerHTML=`${tries[k]>1?`<b>Try ${tries[k]}</b>, after seeing the key: the tally marks it. `:""}Your order, ${S.ask}: <b>${yours}</b>. The grammar's: <b>${grammar}</b> (${S.rule}). Pairs you put in the grammar's order: <b>${p.ok} of ${p.all}</b>. A random order gets ${c.meanPairs} on average, and all ${p.all} once in ${c.oneIn}.`;
+    tally();};
+  $('r-'+k).onclick=()=>{picks=[];keyed=false;delete result[k];$('o-'+k).innerHTML="";shown=shuffle(S.items);render();tally();};
+  render();
+}
+
+// ---- the balloon test ----
+function balloonPath(id){
+  const cx=130,cy=78,rx=96,ry=46,E=(n,f)=>{const p=[];for(let i=0;i<n;i++){const t=i/n*Math.PI*2,m=f?f(i,t):1;p.push([cx+Math.cos(t)*rx*m,cy+Math.sin(t)*ry*m]);}return p;};
+  const poly=p=>"M"+p.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join("L")+"Z";
+  switch(id){
+    case"spiky":return poly(E(28,i=>i%2?0.98:1.3));
+    case"cloud":{const n=11,p=E(n);let d="M"+p[0].map(v=>v.toFixed(1)).join(",");for(let i=1;i<=n;i++){const q=p[i%n];d+=` A ${rx*.3} ${ry*.42} 0 0 1 ${q[0].toFixed(1)},${q[1].toFixed(1)}`;}return d+"Z";}
+    case"wavy":return poly(E(120,(i,t)=>1+0.05*Math.sin(t*12)));
+    case"rect":return `M${cx-rx},${cy-ry}H${cx+rx}V${cy+ry}H${cx-rx}Z`;
+    case"icicle":{let d=`M${cx-rx},${cy-ry}H${cx+rx}V${cy+ry*.45}`;const n=8,w=2*rx/n;for(let i=0;i<n;i++){const x0=cx+rx-i*w,x1=x0-w;d+=`L${(x0+x1)/2},${cy+ry*(i%2?1.05:1.45)}L${x1},${cy+ry*.45}`;}return d+"Z";}
+    default:return poly(E(80));
+  }
+}
+function setupShapes(){
+  const g=$('g-shape'),menu=shuffle(MEANINGS);let shown=shuffle(SHAPES);let answers={},keyed=false;
+  function render(){
+    g.innerHTML="";
+    shown.forEach((s,i)=>{const d=document.createElement('div');d.className='bal';
+      const path=balloonPath(s.id),dash=s.id==="dashed"?' stroke-dasharray="8 6"':'';
+      const truth=keyed?(answers[s.id]===s.means?`<span class="ok">● ${s.means}</span>`:`<span class="no">○ the grammar: ${s.means}</span>`):"";
+      const drips=s.id==="wavy"?[[-34,22],[8,30],[44,18]].map(([dx,l])=>{const x=130+dx,y=78+46*Math.sqrt(1-(dx/96)**2)-8;return `<path d="M${x-4},${y}C${x-4},${y+l*.6} ${x-5},${y+l+6} ${x},${y+l+6}C${x+5},${y+l+6} ${x+4},${y+l*.6} ${x+4},${y}Z" fill="#fff" stroke="#1a1916" stroke-width="2.4"/>`;}).join(""):"";
+      d.innerHTML=`<div class="tag">${i+1}</div><svg viewBox="0 0 260 168">${drips}<path d="${path}" fill="#fff" stroke="#1a1916" stroke-width="2.4" stroke-linejoin="round"${dash}/><text x="130" y="85" text-anchor="middle" style="font-family:Recursive,sans-serif;font-size:21px;font-weight:600" fill="#1a1916">I'M STILL HERE.</text></svg>
+        <select aria-label="balloon ${i+1}" ${keyed?"disabled":""}><option value="">what does it mean?</option>${menu.map(m=>`<option${answers[s.id]===m?" selected":""}>${m}</option>`).join("")}</select><div class="truth">${truth}</div>`;
+      d.querySelector('select').onchange=e=>{answers[s.id]=e.target.value||undefined;$('k-shape').disabled=SHAPES.some(x=>!answers[x.id]);};
+      g.appendChild(d);});
+    $('k-shape').disabled=keyed||SHAPES.some(x=>!answers[x.id]);
+  }
+  $('k-shape').onclick=()=>{keyed=true;render();const ok=scoreShapes(answers);
+    const missed=shown.filter(s=>answers[s.id]!==s.means).map(s=>`${s.means} (you read it as ${answers[s.id]})`);
+    tries.shape=(tries.shape||0)+1;
+    result.shape={ok,all:SHAPES.length,mean:chanceShapes.mean,try:tries.shape};
+    $('o-shape').innerHTML=`${tries.shape>1?`<b>Try ${tries.shape}</b>, after seeing the key: the tally marks it. `:""}You named <b>${ok} of ${SHAPES.length}</b> the way the grammar does. Naming at random gets ${chanceShapes.mean} on average.${missed.length?" Where you and the grammar parted: "+missed.join("; ")+".":""}`;
+    tally();};
+  $('r-shape').onclick=()=>{answers={};keyed=false;delete result.shape;$('o-shape').innerHTML="";shown=shuffle(SHAPES);render();tally();};
+  render();
+}
+const NAMES={weight:"weight is volume",case:"case is intimacy",hand:"hand inside, type outside",shape:"the outline is the feeling"};
+function tally(){
+  const done=Object.keys(NAMES).filter(k=>result[k]);
+  if(!result.shape){$('tally').innerHTML="";$('verdict').innerHTML="";return;}
+  $('tally').innerHTML=`<tr><th>the grammar says</th><th>you agreed</th><th>chance alone</th></tr>`+Object.keys(NAMES).map(k=>{const r=result[k];
+    return `<tr><td>${NAMES[k]}</td><td class="n">${r?r.ok+" of "+r.all+(k==="shape"?" named":" pairs")+(r.try>1?" · try "+r.try+", key seen":""):"not done"}</td><td class="n">${r?(k==="shape"?r.mean+" named":r.mean+" pairs"):""}</td></tr>`;}).join("");
+  const held=done.filter(k=>result[k].ok===result[k].all),weak=done.filter(k=>result[k].ok<=result[k].mean);
+  $('verdict').innerHTML=`${held.length?`For you, the grammar held whole where it says <b>${held.map(k=>NAMES[k]).join("</b>, <b>")}</b>. `:""}${weak.length?`It did no better than chance where it says <b>${weak.map(k=>NAMES[k]).join("</b>, <b>")}</b>: there the form did not carry the meaning by itself, which is what the section's last forward vector asks to find. `:"Nowhere did it fall to chance. "}${done.length<4?"The steps you skipped are not counted. ":""}${done.some(k=>result[k].try>1)?"A row marked as a later try was answered after seeing its key, so it says less than a first try. ":""}The section claims each part of the lettering carries its meaning before a word is read; this is one reader's evidence for or against, part by part.`;
+}
+
+// ---- the walk ----
+const STEPS=["weight","case","hand or type","the balloon"];
+let cur=0;const secs=[...document.querySelectorAll('.step')];
+STEPS.forEach((s,i)=>{const b=document.createElement('button');b.textContent=(i+1)+' · '+s;b.onclick=()=>go(i);$('rail').appendChild(b);});
+function go(i){cur=Math.max(0,Math.min(STEPS.length-1,i));secs.forEach((s,k)=>s.classList.toggle('on',k===cur));
+  $('rail').querySelectorAll('button').forEach((b,k)=>b.setAttribute('aria-current',k===cur?'step':'false'));
+  $('back').disabled=cur===0;$('next').disabled=cur===STEPS.length-1;$('where').textContent=`step ${cur+1} of ${STEPS.length}`;}
+$('back').onclick=()=>go(cur-1);$('next').onclick=()=>go(cur+1);
+["weight","case","hand"].forEach(setupOrder);setupShapes();go(0);
+</script>
+</body>
+</html>

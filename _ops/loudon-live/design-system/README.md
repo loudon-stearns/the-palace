@@ -1,14 +1,14 @@
 # Loudon Live Design System
 
-The brand and visual system for **Loudon Live** — Loudon's public self, a loose online presence building slowly: streams and builds, the RTM series, the palace in public, and his music. Instruments get built, sound gets studied, and music gets played; DSP fundamentals sit next to real music technique, and the work in progress is part of the teaching.
+The brand and visual system for **Loud'n Live** — Loudon's teaching and coaching face, online and in person: YouTube videos and livestreams for electronic musicians, the RTM series, one-on-one coaching. It is a moving target; `Projects/Loudon Live.md` holds the current portrait and wins when the two disagree. Instruments get built, sound gets studied, and music gets played; DSP fundamentals sit next to real music technique, and the work in progress is part of the teaching.
 
 > Building synths, effects, and tools — out loud.
 
-**Audience:** Autodidact Polymaths — self-taught generalists who learn across many fields at once. Named situationally in prose, phrased to the register and said once — **not** stamped on every artifact (see *Naming the audience*, below).
+**Audience:** Electronic musicians, to start; in time, creative coaching for people who learn across fields on their own (Autodidact Polymaths, now in the background, 2026-10-14). Named situationally in prose, phrased to the register and said once — **not** stamped on every artifact (see *Naming the audience*, below).
 
 **Footer signature:** `Loud'n Live` — the wordmark alone. *(The `· Autodidact Polymaths` tagline was retired from the universal footer 2026-07; forward-only, already-shipped artifacts keep the old footer.)*
 
-**Editorial posture:** Subject is sound and music; tools are the medium. Honesty is a light touch, not a confession. The public self is itself a teaching artifact.
+**Editorial posture:** Subject is sound and music; tools are the medium. Honesty is a light touch, not a confession. Loud'n Live is itself a teaching artifact.
 
 **Pillars:** The Four Pillars — *Creation · Tools · Philosophy · Practice* — four projections of a single higher-dimensional reality cast by the light of curiosity.
 
@@ -34,6 +34,12 @@ Snapshots of the most useful sources live under `_reference/` for offline use.
 | Path | Contents |
 |---|---|
 | `colors_and_type.css` | Locked tokens — type, palettes (Graphite default + 5 skin classes), spacing, radii, motion |
+| `controls.css` | The browser's furniture re-dressed for the bare elements — scrollbars, selects, checkboxes, ranges, the textarea grip, spinners, `<details>`, focus, selection, autofill, links — in tokens, per skin. Load after `colors_and_type.css`. |
+| `preview/controls.html` | The specimen: every control bare, switchable across the six skins. |
+| `preview/scrollbar-3x.html` | The scrollbar at 3× on Graphite: the cap on its slot, square-ended. |
+| `transport.js` · `transport.css` | The player the house draws: a plain script that replaces every `<audio controls>` with a ▸ ■ button, a hairline scrub and the time said twice, in the skin's tokens. Load after the page's audio. |
+| `preview/transport.html` | The specimen: four players across the skins, sounds made in the page. |
+| `assets/favicon.svg` | The tab icon for a public-channel page with no entry of its own: the Lissajous at 32px. |
 | `palace-tokens.js` | Runtime token reader — `palaceTokens()` reads the active skin's values from `colors_and_type.css` into JS so D3 / Plot / p5 charts stay update-safe (never hardcode a hex). Also `palaceSeries()` (ordered ramp) and `palaceCategorical()` (the `--cat-1..6` qualitative palette). Read by any JS-driven visual. |
 | `palace-plot-defaults.js` | Observable Plot house-defaults wrapper — `palacePlot()` bakes the active skin (bg / fg-3 text / mono face / token frame) into every chart. Built on `palace-tokens.js`. |
 | `looks/` | Loud'n Live's complete looks — `worn-broadcast.html`, the first (§ Looks) |
@@ -125,8 +131,9 @@ Loud'n Live wears complete looks, and there will be a few. A look is a whole dre
 |---|---|---|
 | **Worn Broadcast** (2026-10-25, the first) | `looks/worn-broadcast.html` | A signal wearing out on old hardware. STIGMERGY's phosphor and grammar carried most of the way; Anton, the amber LIVE and the Lissajous sigil keep it Loud'n Live. Ground `#040805`, phosphor `#33ff66`, amber `#ffb000` for LIVE alone, cyan `#7fdbff` on handles and links. Anton · IBM Plex Mono · VT323. Circuit board, tube face, scanlines, grain, one glitch every few seconds, never constant. |
 | **Cyanotype** (2026-10-25, the second) | `looks/cyanotype.html` | A blueprint print a careful hand has worked on: the Drafting Table grammar on a dark cyanotype ground, revised. Every line ruled; the hand shows in guidelines left in, an erased old name, a rubbed-out first sigil, a revision table, a checker's red pencil. Ground a generated paper plate tinted to `#1e5c88` (a tone map only), cream ink `#f3edd8`, amber `#ffc23a` outline on LIVE, ice-blue `#a9d4f0` dimensions, red pencil `#ef4a36`. Josefin Sans (the wordmark a thin-pen outline) · JetBrains Mono · Caveat. The sigil draws itself once; the on-air dot pulses. |
+| **Night Signal** (2026-10-25, the third) | `looks/night-signal.html` | Cyberpunk and electronic music, layered and dirty: Worn Broadcast's bones pushed into a city at night and onto a dance floor. A generated night plate (rain on glass, neon bokeh), the old board, a TB-303 filter sweep, a spectrum analyser, the sigil as a stereo vectorscope, a synth panel with six 303 knobs over two octaves of keys, the neon wordmark (LOUD'N magenta, LIVE cyan, one tube failing), rain at two depths. Ground `#03030a`, magenta `#ff2bd6`, cyan `#00e5ff`, acid `#c6ff00`, amber `#ffb000`. Anton · Chakra Petch · IBM Plex Mono · VT323. Everything moves on one clock (`?bpm=`, default 128), with a drop every eight bars. |
 
-The file's header comment is each look's spec. Each fills from its URL, so it drops into OBS as a browser source: Worn Broadcast takes `?session=…&topic=…&handle=…&title=…&link=…&status=…&ghost=…`, Cyanotype `?sheet=…&title=…&subject=…&no=…&status=…&n1=…&n2=…&n3=…&check=…`.
+The file's header comment is each look's spec. Each fills from its URL, so it drops into OBS as a browser source: Worn Broadcast takes `?session=…&topic=…&handle=…&title=…&link=…&status=…&ghost=…`, Cyanotype `?sheet=…&title=…&subject=…&no=…&status=…&n1=…&n2=…&n3=…&check=…`, Night Signal `?bpm=…&session=…&chip=…&topic=…&handle=…&title=…`. The set is complete for now.
 
 ### Spacing · radii · borders
 
@@ -152,6 +159,24 @@ Elevation lifts off dark surfaces via an **inset top highlight + dark drop**, ne
 ### Iconography
 
 Iconographic system: **none, by design.** The channel uses **typographic glyphs as state indicators** (`● ▸ · ◐ ◇`), the **Lissajous trace** as the channel mark, and the **LL monogram** in avatars / lower-thirds. **No emoji. No CDN icon library.** Where a real icon set is later needed, Phosphor Light is the recommended substitute.
+
+---
+
+### The browser's furniture
+
+A browser supplies what a page does not: a scrollbar, a select's chevron and popup, the checkbox and the radio, a range slider's thumb, a textarea's resize grip, a number field's spinner, the `<details>` triangle, the focus ring, the selection colour, the autofill tint, the tab icon. Each arrives in the operating system's dress and sits in the artifact like a borrowed chair. On 2026-11-03 Loudon saw one: a Graphite textarea in a daily-page rough, with a white scrollbar and the OS's dotted grip. A sweep found the same on most of the 500 artifacts the palace has made: 424 dark pages with no `color-scheme`, 177 range sliders with the OS thumb, 34 textareas with the OS grip, 123 pages that hid keyboard focus and drew nothing in its place, no tab icon anywhere.
+
+`controls.css`, loaded after `colors_and_type.css` and before the artifact's own styles, re-dresses all of it for the bare elements, so a page gets it for free and a class of its own still wins by order. Its rules are the house grammar's: square or 2 px; a hairline is the control; the thumb is a mark, not a bar; accent only where the hand is (dragging, checked, keyboard focus); every value is also written as text beside its control. Three choices worth knowing:
+
+- **The scrollbar is a fader in the gutter.** A 1 px slot in `--border-soft` runs the length of the gutter and a 6 px square-ended cap rides it: `--fg-4` at rest, `--fg-3` under the pointer, accent only while dragged. No capsule, no arrows. Chrome and Safari draw it from the `::-webkit-scrollbar` rules; Chrome drops those the moment `scrollbar-width` is set and draws its own rounded thumb instead, so the standard properties are scoped to Firefox. Loudon, 2026-11-03: *"they still have that capsule look ... in stigmergy we gave them a square top and bottom and it feels much more custom."*
+- **`color-scheme` follows the skin.** Graphite, CRT, Strobe and Cobalt Grid are dark; Amber Lab and Drafting are light; the select popup, the date picker and the body scrollbar follow. This one line fixes most of what the sweep found.
+- **Checked is the house's `●` on.** Accent with the page colour ringed inside, not a tick. A radio is round because the shape means one-of. Focus is one accent hairline, 2 px outside; the house's one glow stays with the call to action.
+
+It also sets what the browser draws when nothing is asked: links (accent, hairline under, no purple visited), `hr`, `mark` (accent-soft, not yellow), `kbd`, `code` in the mono face, tabular numerals in cells and readouts, the autofill tint painted back, an invalid field in `--danger` with no OS bubble, `overscroll-behavior: contain` on in-window scrollers, no tap flash, and nothing moving under `prefers-reduced-motion` (the Lissajous rotation and the on-air pulse included). Where Chrome lets a page draw the select popup (`appearance: base-select`, 135+), it wears the skin; elsewhere `color-scheme` keeps it on the right side of the light.
+
+`<audio controls>` it hands to the transport: `transport.js`, loaded after the page's audio, replaces every OS audio player with the house's, a ▸ ■ button in the eyebrow voice, a hairline with a square head that goes accent while playing, and the time written twice (`transport.css`; the specimen is `preview/transport.html`). ■ stops and rewinds, the track scrubs, one player plays at a time, and a file that will not load says "no file" in the danger colour. What it still cannot dress: `<video controls>` and the `title=` tooltip (write the caption, or a `◇` aside).
+
+**The tab icon.** Every canon entry wears an avatar and a hero ([[Hero and Avatar Maker]]). A page in an entry's bundle takes the avatar beside it as its tab icon, `<link rel="icon" href="<Entry> — icon.png">`, and may pin the hero behind its header where that fits (STIGMERGY already renders the hero that way). A piece shown in a frame declares no icon and carries none. A framed piece never owns a browser tab, and declaring any file in `piece:files` turns its opaque sandbox into `allow-same-origin` and makes its storage persist (`_ops/rich-face/contract.mjs`, `sameOrigin`; `_ops/rich-face/README.md` § What the page lets run), a cost the palace will not pay for an icon nobody sees. The page that frames it (the rich face, a scroll's trail, a TRICKSTER card) wears the entry's avatar as its tab icon. A piece opened on its own from disk goes without: a known gap. A public-channel page with no entry takes `assets/favicon.svg`. `<meta name="theme-color">` carries the skin's `--bg`. The specimens are `preview/controls.html` and, for the scrollbar at 3×, `preview/scrollbar-3x.html`.
 
 ---
 
@@ -186,12 +211,15 @@ Each palette and each generator carries a conceptual handle that the autodidact 
 - Centred-book-cover layouts in slides — left-aligned editorial spread is the default.
 - Abbreviations cryptic enough to need decoding ("SNR" instead of "Snare").
 - Outcome-promising titles, second-person broadcast voice, emoji.
+- The browser's own furniture: an OS scrollbar, select chevron, checkbox, slider thumb, resize grip, spinner or details triangle on a page in this dress. A dark skin with no `color-scheme: dark`. A page with no tab icon.
 
 ---
 
 ## Naming the audience — state it, don't stamp it
 
 *(New 2026-07. Replaces the old universal `· Autodidact Polymaths` footer stamp.)*
+
+The audience is electronic musicians, to start (2026-10-14). The idea below, people who teach themselves across fields, stays in the background: the rules and the phrasing bank still hold for when it is named.
 
 The audience used to ride every footer. That over-said it, and "autodidact polymaths" carries an academic tilt that fights the everyday voice. Instead, name the idea in specific moments — prose, intros — quickly and never leaned on. Two rules:
 

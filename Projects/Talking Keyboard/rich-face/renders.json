@@ -1,0 +1,3843 @@
+{
+ "rendered": "2026-11-03",
+ "engine": "kokoro-onnx 0.5.0, kokoro-v1.0.onnx, voices-v1.0.bin, speed 1.0 (the build's settings; en-us for the English strings, as generate.py passes for all four voices)",
+ "voices": [
+  "af_nova",
+  "af_heart",
+  "bf_emma",
+  "am_michael"
+ ],
+ "lesson": {
+  "A": {
+   "text": "A four",
+   "ipa": "ɐ fˈɔːɹ",
+   "files": {
+    "af_nova": "lesson-A-af_nova.wav",
+    "af_heart": "lesson-A-af_heart.wav",
+    "bf_emma": "lesson-A-bf_emma.wav",
+    "am_michael": "lesson-A-am_michael.wav"
+   }
+  },
+  "ay": {
+   "text": "ay four",
+   "ipa": "ˈaɪ fˈɔːɹ",
+   "files": {
+    "af_nova": "lesson-ay-af_nova.wav",
+    "af_heart": "lesson-ay-af_heart.wav",
+    "bf_emma": "lesson-ay-bf_emma.wav",
+    "am_michael": "lesson-ay-am_michael.wav"
+   }
+  },
+  "eigh": {
+   "text": "eigh four",
+   "ipa": "ˈeɪ fˈɔːɹ",
+   "files": {
+    "af_nova": "lesson-eigh-af_nova.wav",
+    "af_heart": "lesson-eigh-af_heart.wav",
+    "bf_emma": "lesson-eigh-bf_emma.wav",
+    "am_michael": "lesson-eigh-am_michael.wav"
+   }
+  }
+ },
+ "audition": {
+  "ate": {
+   "text": "ate four",
+   "ipa": "ˈeɪt fˈɔːɹ",
+   "files": {
+    "af_heart": "audition-ate-af_heart.wav"
+   }
+  },
+  "ace": {
+   "text": "ace four",
+   "ipa": "ˈeɪs fˈɔːɹ",
+   "files": {
+    "af_heart": "audition-ace-af_heart.wav"
+   }
+  },
+  "aye": {
+   "text": "aye four",
+   "ipa": "ˈaɪ fˈɔːɹ",
+   "files": {
+    "af_heart": "audition-aye-af_heart.wav"
+   }
+  },
+  "ey": {
+   "text": "ey four",
+   "ipa": "ˈaɪ fˈɔːɹ",
+   "files": {
+    "af_heart": "audition-ey-af_heart.wav"
+   }
+  },
+  "A-dot": {
+   "text": "A. four",
+   "ipa": "ˈeɪ. fˈɔːɹ",
+   "files": {
+    "af_heart": "audition-A-dot-af_heart.wav"
+   }
+  }
+ },
+ "variants": {
+  "solfege": {
+   "lang": "en-us",
+   "voice": "af_heart",
+   "keys": [
+    {
+     "syllable": "do",
+     "text": "do four",
+     "ipa": "dˈuː fˈɔːɹ",
+     "syllable_ipa": "dˈuː",
+     "file": "variant-solfege-0-af_heart.wav"
+    },
+    {
+     "syllable": "re",
+     "text": "re four",
+     "ipa": "ɹˌiː fˈɔːɹ",
+     "syllable_ipa": "ɹˌiː",
+     "file": "variant-solfege-1-af_heart.wav"
+    },
+    {
+     "syllable": "mi",
+     "text": "mi four",
+     "ipa": "mˈaɪ fˈɔːɹ",
+     "syllable_ipa": "mˈaɪ",
+     "file": "variant-solfege-2-af_heart.wav"
+    },
+    {
+     "syllable": "fa",
+     "text": "fa four",
+     "ipa": "fˈɑː fˈɔːɹ",
+     "syllable_ipa": "fˈɑː",
+     "file": "variant-solfege-3-af_heart.wav"
+    },
+    {
+     "syllable": "sol",
+     "text": "sol four",
+     "ipa": "sˈɑːl fˈɔːɹ",
+     "syllable_ipa": "sˈɑːl",
+     "file": "variant-solfege-4-af_heart.wav"
+    },
+    {
+     "syllable": "la",
+     "text": "la four",
+     "ipa": "lˌæ fˈɔːɹ",
+     "syllable_ipa": "lˌæ",
+     "file": "variant-solfege-5-af_heart.wav"
+    },
+    {
+     "syllable": "ti",
+     "text": "ti four",
+     "ipa": "tˈaɪ fˈɔːɹ",
+     "syllable_ipa": "tˈaɪ",
+     "file": "variant-solfege-6-af_heart.wav"
+    }
+   ]
+  },
+  "respelt": {
+   "lang": "en-us",
+   "voice": "af_heart",
+   "keys": [
+    {
+     "syllable": "doe",
+     "text": "doe four",
+     "ipa": "dˈoʊ fˈɔːɹ",
+     "syllable_ipa": "dˈoʊ",
+     "file": "variant-respelt-0-af_heart.wav"
+    },
+    {
+     "syllable": "ray",
+     "text": "ray four",
+     "ipa": "ɹˈeɪ fˈɔːɹ",
+     "syllable_ipa": "ɹˈeɪ",
+     "file": "variant-respelt-1-af_heart.wav"
+    },
+    {
+     "syllable": "mee",
+     "text": "mee four",
+     "ipa": "mˈiː fˈɔːɹ",
+     "syllable_ipa": "mˈiː",
+     "file": "variant-respelt-2-af_heart.wav"
+    },
+    {
+     "syllable": "fah",
+     "text": "fah four",
+     "ipa": "fˈɑː fˈɔːɹ",
+     "syllable_ipa": "fˈɑː",
+     "file": "variant-respelt-3-af_heart.wav"
+    },
+    {
+     "syllable": "soh",
+     "text": "soh four",
+     "ipa": "sˈoʊ fˈɔːɹ",
+     "syllable_ipa": "sˈoʊ",
+     "file": "variant-respelt-4-af_heart.wav"
+    },
+    {
+     "syllable": "lah",
+     "text": "lah four",
+     "ipa": "lˈɑː fˈɔːɹ",
+     "syllable_ipa": "lˈɑː",
+     "file": "variant-respelt-5-af_heart.wav"
+    },
+    {
+     "syllable": "tee",
+     "text": "tee four",
+     "ipa": "tˈiː fˈɔːɹ",
+     "syllable_ipa": "tˈiː",
+     "file": "variant-respelt-6-af_heart.wav"
+    }
+   ]
+  },
+  "italian": {
+   "lang": "it",
+   "voice": "if_sara",
+   "keys": [
+    {
+     "syllable": "do",
+     "text": "do quattro",
+     "ipa": "dˈo kwˈatːro",
+     "syllable_ipa": "dˈo",
+     "file": "variant-italian-0-if_sara.wav"
+    },
+    {
+     "syllable": "re",
+     "text": "re quattro",
+     "ipa": "rˈɛ kwˈatːro",
+     "syllable_ipa": "rˈɛ",
+     "file": "variant-italian-1-if_sara.wav"
+    },
+    {
+     "syllable": "mi",
+     "text": "mi quattro",
+     "ipa": "mɪ kwˈatːro",
+     "syllable_ipa": "mˈi",
+     "file": "variant-italian-2-if_sara.wav"
+    },
+    {
+     "syllable": "fa",
+     "text": "fa quattro",
+     "ipa": "fˈa kwˈatːro",
+     "syllable_ipa": "fˈa",
+     "file": "variant-italian-3-if_sara.wav"
+    },
+    {
+     "syllable": "sol",
+     "text": "sol quattro",
+     "ipa": "sˈɔl kwˈatːro",
+     "syllable_ipa": "sˈɔl",
+     "file": "variant-italian-4-if_sara.wav"
+    },
+    {
+     "syllable": "la",
+     "text": "la quattro",
+     "ipa": "la kwˈatːro",
+     "syllable_ipa": "lˈa",
+     "file": "variant-italian-5-if_sara.wav"
+    },
+    {
+     "syllable": "si",
+     "text": "si quattro",
+     "ipa": "sɪ kwˈatːro",
+     "syllable_ipa": "sˈi",
+     "file": "variant-italian-6-if_sara.wav"
+    }
+   ]
+  },
+  "french": {
+   "lang": "fr-fr",
+   "voice": "ff_siwis",
+   "keys": [
+    {
+     "syllable": "do",
+     "text": "do quatre",
+     "ipa": "(en)dˈuː(fr) kˈatʁ",
+     "syllable_ipa": "(en)dˈuː(fr)",
+     "file": "variant-french-0-ff_siwis.wav"
+    },
+    {
+     "syllable": "ré",
+     "text": "ré quatre",
+     "ipa": "ʁˈe kˈatʁ",
+     "syllable_ipa": "ʁˈe",
+     "file": "variant-french-1-ff_siwis.wav"
+    },
+    {
+     "syllable": "mi",
+     "text": "mi quatre",
+     "ipa": "mˈi kˈatʁ",
+     "syllable_ipa": "mˈi",
+     "file": "variant-french-2-ff_siwis.wav"
+    },
+    {
+     "syllable": "fa",
+     "text": "fa quatre",
+     "ipa": "fˈa kˈatʁ",
+     "syllable_ipa": "fˈa",
+     "file": "variant-french-3-ff_siwis.wav"
+    },
+    {
+     "syllable": "sol",
+     "text": "sol quatre",
+     "ipa": "sˈɔl kˈatʁ",
+     "syllable_ipa": "sˈɔl",
+     "file": "variant-french-4-ff_siwis.wav"
+    },
+    {
+     "syllable": "la",
+     "text": "la quatre",
+     "ipa": "la kˈatʁ",
+     "syllable_ipa": "lˈa",
+     "file": "variant-french-5-ff_siwis.wav"
+    },
+    {
+     "syllable": "si",
+     "text": "si quatre",
+     "ipa": "sˈi kˈatʁ",
+     "syllable_ipa": "sˈi",
+     "file": "variant-french-6-ff_siwis.wav"
+    }
+   ]
+  },
+  "pitch-class": {
+   "lang": "en-us",
+   "voice": "af_heart",
+   "text": "C",
+   "ipa": "sˈiː",
+   "file": "variant-pitchclass-C-af_heart.wav"
+  }
+ },
+ "probe": {
+  "A": "ˈeɪ",
+  "C": "sˈiː",
+  "C four": "sˈiː fˈɔːɹ",
+  "B four": "bˈiː fˈɔːɹ",
+  "an A four": "ɐn ɐ fˈɔːɹ",
+  "eight": "ˈeɪt"
+ },
+ "verify": {
+  "what": "every shipped sample re-rendered from generate.py's own text and voice, compared sample by sample with the file in git, in 16-bit steps",
+  "files": 352,
+  "worst_lsb": 2,
+  "rows": [
+   {
+    "midi": 21,
+    "stem": "A0",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh zero",
+    "ipa": "ˈeɪ zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 21,
+    "stem": "A0",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh zero",
+    "ipa": "ˈeɪ zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 21,
+    "stem": "A0",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh zero",
+    "ipa": "ˈeɪ zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 21,
+    "stem": "A0",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh zero",
+    "ipa": "ˈeɪ zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 22,
+    "stem": "As0",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh sharp zero",
+    "ipa": "ˈeɪ ʃˈɑːɹp zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 22,
+    "stem": "As0",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh sharp zero",
+    "ipa": "ˈeɪ ʃˈɑːɹp zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 22,
+    "stem": "As0",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh sharp zero",
+    "ipa": "ˈeɪ ʃˈɑːɹp zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 22,
+    "stem": "As0",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh sharp zero",
+    "ipa": "ˈeɪ ʃˈɑːɹp zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 23,
+    "stem": "B0",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "B zero",
+    "ipa": "bˈiː zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 23,
+    "stem": "B0",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "B zero",
+    "ipa": "bˈiː zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 23,
+    "stem": "B0",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "B zero",
+    "ipa": "bˈiː zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 23,
+    "stem": "B0",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "B zero",
+    "ipa": "bˈiː zˈiəɹoʊ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 24,
+    "stem": "C1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C one",
+    "ipa": "sˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 24,
+    "stem": "C1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C one",
+    "ipa": "sˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 24,
+    "stem": "C1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C one",
+    "ipa": "sˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 24,
+    "stem": "C1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C one",
+    "ipa": "sˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 25,
+    "stem": "Cs1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C sharp one",
+    "ipa": "sˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 25,
+    "stem": "Cs1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C sharp one",
+    "ipa": "sˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 25,
+    "stem": "Cs1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C sharp one",
+    "ipa": "sˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 25,
+    "stem": "Cs1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C sharp one",
+    "ipa": "sˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 26,
+    "stem": "D1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D one",
+    "ipa": "dˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 26,
+    "stem": "D1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D one",
+    "ipa": "dˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 26,
+    "stem": "D1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D one",
+    "ipa": "dˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 26,
+    "stem": "D1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D one",
+    "ipa": "dˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 27,
+    "stem": "Ds1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D sharp one",
+    "ipa": "dˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 27,
+    "stem": "Ds1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D sharp one",
+    "ipa": "dˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 27,
+    "stem": "Ds1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D sharp one",
+    "ipa": "dˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 27,
+    "stem": "Ds1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D sharp one",
+    "ipa": "dˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 28,
+    "stem": "E1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "E one",
+    "ipa": "ˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 28,
+    "stem": "E1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "E one",
+    "ipa": "ˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 28,
+    "stem": "E1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "E one",
+    "ipa": "ˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 28,
+    "stem": "E1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "E one",
+    "ipa": "ˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 29,
+    "stem": "F1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F one",
+    "ipa": "ˈɛf wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 29,
+    "stem": "F1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F one",
+    "ipa": "ˈɛf wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 29,
+    "stem": "F1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F one",
+    "ipa": "ˈɛf wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 29,
+    "stem": "F1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F one",
+    "ipa": "ˈɛf wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 30,
+    "stem": "Fs1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F sharp one",
+    "ipa": "ˈɛf ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 30,
+    "stem": "Fs1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F sharp one",
+    "ipa": "ˈɛf ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 30,
+    "stem": "Fs1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F sharp one",
+    "ipa": "ˈɛf ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 30,
+    "stem": "Fs1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F sharp one",
+    "ipa": "ˈɛf ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 31,
+    "stem": "G1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G one",
+    "ipa": "dʒˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 31,
+    "stem": "G1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G one",
+    "ipa": "dʒˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 31,
+    "stem": "G1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G one",
+    "ipa": "dʒˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 31,
+    "stem": "G1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G one",
+    "ipa": "dʒˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 32,
+    "stem": "Gs1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G sharp one",
+    "ipa": "dʒˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 32,
+    "stem": "Gs1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G sharp one",
+    "ipa": "dʒˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 32,
+    "stem": "Gs1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G sharp one",
+    "ipa": "dʒˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 32,
+    "stem": "Gs1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G sharp one",
+    "ipa": "dʒˈiː ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 33,
+    "stem": "A1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh one",
+    "ipa": "ˈeɪ wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 33,
+    "stem": "A1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh one",
+    "ipa": "ˈeɪ wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 33,
+    "stem": "A1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh one",
+    "ipa": "ˈeɪ wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 33,
+    "stem": "A1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh one",
+    "ipa": "ˈeɪ wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 34,
+    "stem": "As1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh sharp one",
+    "ipa": "ˈeɪ ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 34,
+    "stem": "As1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh sharp one",
+    "ipa": "ˈeɪ ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 34,
+    "stem": "As1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh sharp one",
+    "ipa": "ˈeɪ ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 34,
+    "stem": "As1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh sharp one",
+    "ipa": "ˈeɪ ʃˈɑːɹp wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 35,
+    "stem": "B1",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "B one",
+    "ipa": "bˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 35,
+    "stem": "B1",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "B one",
+    "ipa": "bˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 35,
+    "stem": "B1",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "B one",
+    "ipa": "bˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 35,
+    "stem": "B1",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "B one",
+    "ipa": "bˈiː wˌʌn",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 36,
+    "stem": "C2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C two",
+    "ipa": "sˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 36,
+    "stem": "C2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C two",
+    "ipa": "sˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 36,
+    "stem": "C2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C two",
+    "ipa": "sˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 36,
+    "stem": "C2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C two",
+    "ipa": "sˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 37,
+    "stem": "Cs2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C sharp two",
+    "ipa": "sˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 37,
+    "stem": "Cs2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C sharp two",
+    "ipa": "sˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 37,
+    "stem": "Cs2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C sharp two",
+    "ipa": "sˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 37,
+    "stem": "Cs2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C sharp two",
+    "ipa": "sˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 38,
+    "stem": "D2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D two",
+    "ipa": "dˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 38,
+    "stem": "D2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D two",
+    "ipa": "dˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 38,
+    "stem": "D2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D two",
+    "ipa": "dˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 38,
+    "stem": "D2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D two",
+    "ipa": "dˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 39,
+    "stem": "Ds2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D sharp two",
+    "ipa": "dˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 39,
+    "stem": "Ds2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D sharp two",
+    "ipa": "dˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 39,
+    "stem": "Ds2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D sharp two",
+    "ipa": "dˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 39,
+    "stem": "Ds2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D sharp two",
+    "ipa": "dˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 40,
+    "stem": "E2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "E two",
+    "ipa": "ˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 40,
+    "stem": "E2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "E two",
+    "ipa": "ˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 40,
+    "stem": "E2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "E two",
+    "ipa": "ˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 40,
+    "stem": "E2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "E two",
+    "ipa": "ˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 41,
+    "stem": "F2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F two",
+    "ipa": "ˈɛf tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 41,
+    "stem": "F2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F two",
+    "ipa": "ˈɛf tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 41,
+    "stem": "F2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F two",
+    "ipa": "ˈɛf tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 41,
+    "stem": "F2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F two",
+    "ipa": "ˈɛf tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 42,
+    "stem": "Fs2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F sharp two",
+    "ipa": "ˈɛf ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 42,
+    "stem": "Fs2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F sharp two",
+    "ipa": "ˈɛf ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 42,
+    "stem": "Fs2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F sharp two",
+    "ipa": "ˈɛf ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 42,
+    "stem": "Fs2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F sharp two",
+    "ipa": "ˈɛf ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 43,
+    "stem": "G2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G two",
+    "ipa": "dʒˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 43,
+    "stem": "G2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G two",
+    "ipa": "dʒˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 43,
+    "stem": "G2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G two",
+    "ipa": "dʒˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 43,
+    "stem": "G2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G two",
+    "ipa": "dʒˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 44,
+    "stem": "Gs2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G sharp two",
+    "ipa": "dʒˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 44,
+    "stem": "Gs2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G sharp two",
+    "ipa": "dʒˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 44,
+    "stem": "Gs2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G sharp two",
+    "ipa": "dʒˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 44,
+    "stem": "Gs2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G sharp two",
+    "ipa": "dʒˈiː ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 45,
+    "stem": "A2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh two",
+    "ipa": "ˈeɪ tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 45,
+    "stem": "A2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh two",
+    "ipa": "ˈeɪ tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 45,
+    "stem": "A2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh two",
+    "ipa": "ˈeɪ tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 45,
+    "stem": "A2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh two",
+    "ipa": "ˈeɪ tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 46,
+    "stem": "As2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh sharp two",
+    "ipa": "ˈeɪ ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 46,
+    "stem": "As2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh sharp two",
+    "ipa": "ˈeɪ ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 46,
+    "stem": "As2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh sharp two",
+    "ipa": "ˈeɪ ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 46,
+    "stem": "As2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh sharp two",
+    "ipa": "ˈeɪ ʃˈɑːɹp tˈuː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 47,
+    "stem": "B2",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "B two",
+    "ipa": "bˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 47,
+    "stem": "B2",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "B two",
+    "ipa": "bˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 47,
+    "stem": "B2",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "B two",
+    "ipa": "bˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 47,
+    "stem": "B2",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "B two",
+    "ipa": "bˈiː tˈuː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 48,
+    "stem": "C3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C three",
+    "ipa": "sˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 48,
+    "stem": "C3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C three",
+    "ipa": "sˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 48,
+    "stem": "C3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C three",
+    "ipa": "sˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 48,
+    "stem": "C3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C three",
+    "ipa": "sˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 49,
+    "stem": "Cs3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C sharp three",
+    "ipa": "sˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 49,
+    "stem": "Cs3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C sharp three",
+    "ipa": "sˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 49,
+    "stem": "Cs3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C sharp three",
+    "ipa": "sˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 49,
+    "stem": "Cs3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C sharp three",
+    "ipa": "sˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 50,
+    "stem": "D3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D three",
+    "ipa": "dˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 50,
+    "stem": "D3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D three",
+    "ipa": "dˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 50,
+    "stem": "D3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D three",
+    "ipa": "dˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 50,
+    "stem": "D3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D three",
+    "ipa": "dˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 51,
+    "stem": "Ds3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D sharp three",
+    "ipa": "dˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 51,
+    "stem": "Ds3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D sharp three",
+    "ipa": "dˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 51,
+    "stem": "Ds3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D sharp three",
+    "ipa": "dˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 51,
+    "stem": "Ds3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D sharp three",
+    "ipa": "dˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 52,
+    "stem": "E3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "E three",
+    "ipa": "ˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 52,
+    "stem": "E3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "E three",
+    "ipa": "ˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 52,
+    "stem": "E3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "E three",
+    "ipa": "ˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 52,
+    "stem": "E3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "E three",
+    "ipa": "ˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 53,
+    "stem": "F3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F three",
+    "ipa": "ˈɛf θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 53,
+    "stem": "F3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F three",
+    "ipa": "ˈɛf θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 53,
+    "stem": "F3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F three",
+    "ipa": "ˈɛf θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 53,
+    "stem": "F3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F three",
+    "ipa": "ˈɛf θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 54,
+    "stem": "Fs3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F sharp three",
+    "ipa": "ˈɛf ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 54,
+    "stem": "Fs3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F sharp three",
+    "ipa": "ˈɛf ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 54,
+    "stem": "Fs3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F sharp three",
+    "ipa": "ˈɛf ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 54,
+    "stem": "Fs3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F sharp three",
+    "ipa": "ˈɛf ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 55,
+    "stem": "G3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G three",
+    "ipa": "dʒˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 55,
+    "stem": "G3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G three",
+    "ipa": "dʒˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 55,
+    "stem": "G3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G three",
+    "ipa": "dʒˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 55,
+    "stem": "G3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G three",
+    "ipa": "dʒˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 56,
+    "stem": "Gs3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G sharp three",
+    "ipa": "dʒˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 56,
+    "stem": "Gs3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G sharp three",
+    "ipa": "dʒˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 56,
+    "stem": "Gs3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G sharp three",
+    "ipa": "dʒˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 56,
+    "stem": "Gs3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G sharp three",
+    "ipa": "dʒˈiː ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 57,
+    "stem": "A3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh three",
+    "ipa": "ˈeɪ θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 57,
+    "stem": "A3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh three",
+    "ipa": "ˈeɪ θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 57,
+    "stem": "A3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh three",
+    "ipa": "ˈeɪ θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 57,
+    "stem": "A3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh three",
+    "ipa": "ˈeɪ θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 58,
+    "stem": "As3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh sharp three",
+    "ipa": "ˈeɪ ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 58,
+    "stem": "As3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh sharp three",
+    "ipa": "ˈeɪ ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 58,
+    "stem": "As3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh sharp three",
+    "ipa": "ˈeɪ ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 58,
+    "stem": "As3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh sharp three",
+    "ipa": "ˈeɪ ʃˈɑːɹp θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 59,
+    "stem": "B3",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "B three",
+    "ipa": "bˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 59,
+    "stem": "B3",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "B three",
+    "ipa": "bˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 59,
+    "stem": "B3",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "B three",
+    "ipa": "bˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 59,
+    "stem": "B3",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "B three",
+    "ipa": "bˈiː θɹˈiː",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 60,
+    "stem": "C4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C four",
+    "ipa": "sˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 60,
+    "stem": "C4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C four",
+    "ipa": "sˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 60,
+    "stem": "C4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C four",
+    "ipa": "sˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 60,
+    "stem": "C4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C four",
+    "ipa": "sˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 61,
+    "stem": "Cs4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C sharp four",
+    "ipa": "sˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 61,
+    "stem": "Cs4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C sharp four",
+    "ipa": "sˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 61,
+    "stem": "Cs4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C sharp four",
+    "ipa": "sˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 61,
+    "stem": "Cs4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C sharp four",
+    "ipa": "sˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 62,
+    "stem": "D4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D four",
+    "ipa": "dˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 62,
+    "stem": "D4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D four",
+    "ipa": "dˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 62,
+    "stem": "D4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D four",
+    "ipa": "dˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 62,
+    "stem": "D4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D four",
+    "ipa": "dˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 63,
+    "stem": "Ds4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D sharp four",
+    "ipa": "dˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 63,
+    "stem": "Ds4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D sharp four",
+    "ipa": "dˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 63,
+    "stem": "Ds4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D sharp four",
+    "ipa": "dˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 63,
+    "stem": "Ds4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D sharp four",
+    "ipa": "dˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 64,
+    "stem": "E4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "E four",
+    "ipa": "ˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 64,
+    "stem": "E4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "E four",
+    "ipa": "ˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 64,
+    "stem": "E4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "E four",
+    "ipa": "ˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 64,
+    "stem": "E4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "E four",
+    "ipa": "ˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 65,
+    "stem": "F4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F four",
+    "ipa": "ˈɛf fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 65,
+    "stem": "F4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F four",
+    "ipa": "ˈɛf fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 65,
+    "stem": "F4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F four",
+    "ipa": "ˈɛf fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 65,
+    "stem": "F4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F four",
+    "ipa": "ˈɛf fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 66,
+    "stem": "Fs4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F sharp four",
+    "ipa": "ˈɛf ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 66,
+    "stem": "Fs4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F sharp four",
+    "ipa": "ˈɛf ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 66,
+    "stem": "Fs4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F sharp four",
+    "ipa": "ˈɛf ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 66,
+    "stem": "Fs4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F sharp four",
+    "ipa": "ˈɛf ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 67,
+    "stem": "G4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G four",
+    "ipa": "dʒˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 67,
+    "stem": "G4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G four",
+    "ipa": "dʒˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 67,
+    "stem": "G4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G four",
+    "ipa": "dʒˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 67,
+    "stem": "G4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G four",
+    "ipa": "dʒˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 68,
+    "stem": "Gs4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G sharp four",
+    "ipa": "dʒˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 68,
+    "stem": "Gs4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G sharp four",
+    "ipa": "dʒˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 68,
+    "stem": "Gs4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G sharp four",
+    "ipa": "dʒˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 68,
+    "stem": "Gs4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G sharp four",
+    "ipa": "dʒˈiː ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 69,
+    "stem": "A4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh four",
+    "ipa": "ˈeɪ fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 69,
+    "stem": "A4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh four",
+    "ipa": "ˈeɪ fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 69,
+    "stem": "A4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh four",
+    "ipa": "ˈeɪ fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 69,
+    "stem": "A4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh four",
+    "ipa": "ˈeɪ fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 70,
+    "stem": "As4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh sharp four",
+    "ipa": "ˈeɪ ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 70,
+    "stem": "As4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh sharp four",
+    "ipa": "ˈeɪ ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 70,
+    "stem": "As4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh sharp four",
+    "ipa": "ˈeɪ ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 70,
+    "stem": "As4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh sharp four",
+    "ipa": "ˈeɪ ʃˈɑːɹp fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 71,
+    "stem": "B4",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "B four",
+    "ipa": "bˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 71,
+    "stem": "B4",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "B four",
+    "ipa": "bˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 71,
+    "stem": "B4",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "B four",
+    "ipa": "bˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 71,
+    "stem": "B4",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "B four",
+    "ipa": "bˈiː fˈɔːɹ",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 72,
+    "stem": "C5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C five",
+    "ipa": "sˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 72,
+    "stem": "C5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C five",
+    "ipa": "sˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 72,
+    "stem": "C5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C five",
+    "ipa": "sˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 72,
+    "stem": "C5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C five",
+    "ipa": "sˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 73,
+    "stem": "Cs5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C sharp five",
+    "ipa": "sˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 73,
+    "stem": "Cs5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C sharp five",
+    "ipa": "sˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 73,
+    "stem": "Cs5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C sharp five",
+    "ipa": "sˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 73,
+    "stem": "Cs5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C sharp five",
+    "ipa": "sˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 74,
+    "stem": "D5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D five",
+    "ipa": "dˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 74,
+    "stem": "D5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D five",
+    "ipa": "dˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 74,
+    "stem": "D5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D five",
+    "ipa": "dˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 74,
+    "stem": "D5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D five",
+    "ipa": "dˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 75,
+    "stem": "Ds5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D sharp five",
+    "ipa": "dˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 75,
+    "stem": "Ds5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D sharp five",
+    "ipa": "dˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 75,
+    "stem": "Ds5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D sharp five",
+    "ipa": "dˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 75,
+    "stem": "Ds5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D sharp five",
+    "ipa": "dˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 76,
+    "stem": "E5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "E five",
+    "ipa": "ˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 76,
+    "stem": "E5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "E five",
+    "ipa": "ˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 76,
+    "stem": "E5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "E five",
+    "ipa": "ˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 76,
+    "stem": "E5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "E five",
+    "ipa": "ˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 77,
+    "stem": "F5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F five",
+    "ipa": "ˈɛf fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 77,
+    "stem": "F5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F five",
+    "ipa": "ˈɛf fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 77,
+    "stem": "F5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F five",
+    "ipa": "ˈɛf fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 77,
+    "stem": "F5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F five",
+    "ipa": "ˈɛf fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 78,
+    "stem": "Fs5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F sharp five",
+    "ipa": "ˈɛf ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 78,
+    "stem": "Fs5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F sharp five",
+    "ipa": "ˈɛf ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 78,
+    "stem": "Fs5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F sharp five",
+    "ipa": "ˈɛf ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 78,
+    "stem": "Fs5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F sharp five",
+    "ipa": "ˈɛf ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 79,
+    "stem": "G5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G five",
+    "ipa": "dʒˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 79,
+    "stem": "G5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G five",
+    "ipa": "dʒˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 79,
+    "stem": "G5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G five",
+    "ipa": "dʒˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 79,
+    "stem": "G5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G five",
+    "ipa": "dʒˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 80,
+    "stem": "Gs5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G sharp five",
+    "ipa": "dʒˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 80,
+    "stem": "Gs5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G sharp five",
+    "ipa": "dʒˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 80,
+    "stem": "Gs5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G sharp five",
+    "ipa": "dʒˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 80,
+    "stem": "Gs5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G sharp five",
+    "ipa": "dʒˈiː ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 81,
+    "stem": "A5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh five",
+    "ipa": "ˈeɪ fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 81,
+    "stem": "A5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh five",
+    "ipa": "ˈeɪ fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 81,
+    "stem": "A5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh five",
+    "ipa": "ˈeɪ fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 81,
+    "stem": "A5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh five",
+    "ipa": "ˈeɪ fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 82,
+    "stem": "As5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh sharp five",
+    "ipa": "ˈeɪ ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 82,
+    "stem": "As5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh sharp five",
+    "ipa": "ˈeɪ ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 82,
+    "stem": "As5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh sharp five",
+    "ipa": "ˈeɪ ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 82,
+    "stem": "As5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh sharp five",
+    "ipa": "ˈeɪ ʃˈɑːɹp fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 83,
+    "stem": "B5",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "B five",
+    "ipa": "bˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 83,
+    "stem": "B5",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "B five",
+    "ipa": "bˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 83,
+    "stem": "B5",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "B five",
+    "ipa": "bˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 83,
+    "stem": "B5",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "B five",
+    "ipa": "bˈiː fˈaɪv",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 84,
+    "stem": "C6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C six",
+    "ipa": "sˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 84,
+    "stem": "C6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C six",
+    "ipa": "sˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 84,
+    "stem": "C6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C six",
+    "ipa": "sˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 84,
+    "stem": "C6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C six",
+    "ipa": "sˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 85,
+    "stem": "Cs6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C sharp six",
+    "ipa": "sˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 85,
+    "stem": "Cs6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C sharp six",
+    "ipa": "sˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 85,
+    "stem": "Cs6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C sharp six",
+    "ipa": "sˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 85,
+    "stem": "Cs6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C sharp six",
+    "ipa": "sˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 86,
+    "stem": "D6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D six",
+    "ipa": "dˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 86,
+    "stem": "D6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D six",
+    "ipa": "dˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 86,
+    "stem": "D6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D six",
+    "ipa": "dˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 86,
+    "stem": "D6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D six",
+    "ipa": "dˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 87,
+    "stem": "Ds6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D sharp six",
+    "ipa": "dˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 87,
+    "stem": "Ds6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D sharp six",
+    "ipa": "dˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 87,
+    "stem": "Ds6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D sharp six",
+    "ipa": "dˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 87,
+    "stem": "Ds6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D sharp six",
+    "ipa": "dˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 88,
+    "stem": "E6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "E six",
+    "ipa": "ˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 88,
+    "stem": "E6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "E six",
+    "ipa": "ˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 88,
+    "stem": "E6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "E six",
+    "ipa": "ˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 88,
+    "stem": "E6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "E six",
+    "ipa": "ˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 89,
+    "stem": "F6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F six",
+    "ipa": "ˈɛf sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 89,
+    "stem": "F6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F six",
+    "ipa": "ˈɛf sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 89,
+    "stem": "F6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F six",
+    "ipa": "ˈɛf sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 89,
+    "stem": "F6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F six",
+    "ipa": "ˈɛf sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 90,
+    "stem": "Fs6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F sharp six",
+    "ipa": "ˈɛf ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 90,
+    "stem": "Fs6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F sharp six",
+    "ipa": "ˈɛf ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 90,
+    "stem": "Fs6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F sharp six",
+    "ipa": "ˈɛf ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 90,
+    "stem": "Fs6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F sharp six",
+    "ipa": "ˈɛf ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 91,
+    "stem": "G6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G six",
+    "ipa": "dʒˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 91,
+    "stem": "G6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G six",
+    "ipa": "dʒˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 91,
+    "stem": "G6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G six",
+    "ipa": "dʒˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 91,
+    "stem": "G6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G six",
+    "ipa": "dʒˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 92,
+    "stem": "Gs6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G sharp six",
+    "ipa": "dʒˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 92,
+    "stem": "Gs6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G sharp six",
+    "ipa": "dʒˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 92,
+    "stem": "Gs6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G sharp six",
+    "ipa": "dʒˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 92,
+    "stem": "Gs6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G sharp six",
+    "ipa": "dʒˈiː ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 93,
+    "stem": "A6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh six",
+    "ipa": "ˈeɪ sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 93,
+    "stem": "A6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh six",
+    "ipa": "ˈeɪ sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 93,
+    "stem": "A6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh six",
+    "ipa": "ˈeɪ sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 93,
+    "stem": "A6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh six",
+    "ipa": "ˈeɪ sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 94,
+    "stem": "As6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh sharp six",
+    "ipa": "ˈeɪ ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 94,
+    "stem": "As6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh sharp six",
+    "ipa": "ˈeɪ ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 94,
+    "stem": "As6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh sharp six",
+    "ipa": "ˈeɪ ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 94,
+    "stem": "As6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh sharp six",
+    "ipa": "ˈeɪ ʃˈɑːɹp sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 95,
+    "stem": "B6",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "B six",
+    "ipa": "bˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 95,
+    "stem": "B6",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "B six",
+    "ipa": "bˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 95,
+    "stem": "B6",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "B six",
+    "ipa": "bˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 95,
+    "stem": "B6",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "B six",
+    "ipa": "bˈiː sˈɪks",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 96,
+    "stem": "C7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C seven",
+    "ipa": "sˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 96,
+    "stem": "C7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C seven",
+    "ipa": "sˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 96,
+    "stem": "C7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C seven",
+    "ipa": "sˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 96,
+    "stem": "C7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C seven",
+    "ipa": "sˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 97,
+    "stem": "Cs7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C sharp seven",
+    "ipa": "sˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 97,
+    "stem": "Cs7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C sharp seven",
+    "ipa": "sˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 97,
+    "stem": "Cs7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C sharp seven",
+    "ipa": "sˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 97,
+    "stem": "Cs7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C sharp seven",
+    "ipa": "sˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 98,
+    "stem": "D7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D seven",
+    "ipa": "dˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 98,
+    "stem": "D7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D seven",
+    "ipa": "dˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 98,
+    "stem": "D7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D seven",
+    "ipa": "dˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 98,
+    "stem": "D7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D seven",
+    "ipa": "dˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 99,
+    "stem": "Ds7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "D sharp seven",
+    "ipa": "dˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 99,
+    "stem": "Ds7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "D sharp seven",
+    "ipa": "dˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 99,
+    "stem": "Ds7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "D sharp seven",
+    "ipa": "dˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 99,
+    "stem": "Ds7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "D sharp seven",
+    "ipa": "dˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 100,
+    "stem": "E7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "E seven",
+    "ipa": "ˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 100,
+    "stem": "E7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "E seven",
+    "ipa": "ˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 100,
+    "stem": "E7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "E seven",
+    "ipa": "ˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 100,
+    "stem": "E7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "E seven",
+    "ipa": "ˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 101,
+    "stem": "F7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F seven",
+    "ipa": "ˈɛf sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 101,
+    "stem": "F7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F seven",
+    "ipa": "ˈɛf sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 101,
+    "stem": "F7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F seven",
+    "ipa": "ˈɛf sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 101,
+    "stem": "F7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F seven",
+    "ipa": "ˈɛf sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 102,
+    "stem": "Fs7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "F sharp seven",
+    "ipa": "ˈɛf ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 102,
+    "stem": "Fs7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "F sharp seven",
+    "ipa": "ˈɛf ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 102,
+    "stem": "Fs7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "F sharp seven",
+    "ipa": "ˈɛf ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 102,
+    "stem": "Fs7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "F sharp seven",
+    "ipa": "ˈɛf ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 103,
+    "stem": "G7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G seven",
+    "ipa": "dʒˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 103,
+    "stem": "G7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G seven",
+    "ipa": "dʒˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 103,
+    "stem": "G7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G seven",
+    "ipa": "dʒˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 103,
+    "stem": "G7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G seven",
+    "ipa": "dʒˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 104,
+    "stem": "Gs7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "G sharp seven",
+    "ipa": "dʒˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 104,
+    "stem": "Gs7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "G sharp seven",
+    "ipa": "dʒˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 104,
+    "stem": "Gs7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "G sharp seven",
+    "ipa": "dʒˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 104,
+    "stem": "Gs7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "G sharp seven",
+    "ipa": "dʒˈiː ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 105,
+    "stem": "A7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh seven",
+    "ipa": "ˈeɪ sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 105,
+    "stem": "A7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh seven",
+    "ipa": "ˈeɪ sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 105,
+    "stem": "A7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh seven",
+    "ipa": "ˈeɪ sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 105,
+    "stem": "A7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh seven",
+    "ipa": "ˈeɪ sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 106,
+    "stem": "As7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "eigh sharp seven",
+    "ipa": "ˈeɪ ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 106,
+    "stem": "As7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "eigh sharp seven",
+    "ipa": "ˈeɪ ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 106,
+    "stem": "As7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "eigh sharp seven",
+    "ipa": "ˈeɪ ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 106,
+    "stem": "As7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "eigh sharp seven",
+    "ipa": "ˈeɪ ʃˈɑːɹp sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 107,
+    "stem": "B7",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "B seven",
+    "ipa": "bˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 107,
+    "stem": "B7",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "B seven",
+    "ipa": "bˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 107,
+    "stem": "B7",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "B seven",
+    "ipa": "bˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 107,
+    "stem": "B7",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "B seven",
+    "ipa": "bˈiː sˈɛvən",
+    "same_length": true,
+    "max_lsb": 2
+   },
+   {
+    "midi": 108,
+    "stem": "C8",
+    "layer": 1,
+    "voice": "af_nova",
+    "text": "C eight",
+    "ipa": "sˈiː ˈeɪt",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 108,
+    "stem": "C8",
+    "layer": 2,
+    "voice": "af_heart",
+    "text": "C eight",
+    "ipa": "sˈiː ˈeɪt",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 108,
+    "stem": "C8",
+    "layer": 3,
+    "voice": "bf_emma",
+    "text": "C eight",
+    "ipa": "sˈiː ˈeɪt",
+    "same_length": true,
+    "max_lsb": 1
+   },
+   {
+    "midi": 108,
+    "stem": "C8",
+    "layer": 4,
+    "voice": "am_michael",
+    "text": "C eight",
+    "ipa": "sˈiː ˈeɪt",
+    "same_length": true,
+    "max_lsb": 1
+   }
+  ]
+ }
+}

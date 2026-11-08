@@ -1,0 +1,425 @@
+<!doctype html>
+<!--
+  title: Progressive Staging — rich — the leak at its stop
+  born: 2026-11-03
+  links: [[Progressive Staging]] (connects-to · rich-face-piece) · listed in [[Progressive Staging — rich.json]] · its engine is the dev plan of [[Action Potential Oscillator]] (neural_oscillator_dev_plan.md, Stages 1 and 2), as written
+  forward_vector: I am the page's own first rule put to its own fourth: Stage 1 alone, Stage 2 alone, the leak run to its stop and laid over Stage 1, and last Stage 1's frequency test, inherited, run on Stage 2. I want to show which part of "recover Stage 1 exactly" holds (the climb) and which part doesn't (the reset), and that the test the page says piles up is the thing that catches it. I change when the dev plan or the section I serve does.
+  sound: nothing plays until a play button is clicked; the AudioContext is made on that click. Changing step stops the sound.
+  check: Progressive Staging — rich — checks.mjs runs this page's engine in Node against every number it shows, and the page itself in headless Chromium.
+-->
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The leak at its stop</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: var(--bad, #ff2a2a); --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --bad:#ff6a5a;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',Impact,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.7;padding:28px 16px 36px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:42px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:27px;line-height:1.1;margin:4px 0 8px;letter-spacing:.01em}
+  p.lead{font-size:19px;color:var(--fg-2);margin:0 0 18px;max-width:66ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 11px;cursor:pointer;transition:all .22s cubic-bezier(.4,0,.2,1)}
+  .rail button[aria-current="step"]{color:var(--fg-1);border-color:var(--fg-3);background:var(--bg-elev-2)}
+  p.say{color:var(--fg-2);margin:0 0 14px;max-width:68ch}
+  .one{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
+  .dwh{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px;margin:0 0 14px;font-family:var(--sans);font-size:13.5px;color:var(--fg-2);line-height:1.55}
+  .dwh b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:4px;padding:16px;margin:0 0 14px}
+  .plabel{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3);display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+  canvas{width:100%;display:block;background:var(--bg-elev-2);border-radius:2px}
+  canvas + canvas{margin-top:10px}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .rowb .eyebrow{margin-right:2px}
+  button.play{font-family:var(--sans);font-weight:500;font-size:14px;color:#0a0a0f;background:var(--accent);border:0;border-radius:4px;padding:9px 20px;cursor:pointer;transition:box-shadow .22s cubic-bezier(.4,0,.2,1)}
+  button.play:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.ghost{font-family:var(--sans);font-size:13.5px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 12px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--fg-1);border-color:var(--accent-line);background:var(--bg-elev-2)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--accent)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--fg-1);text-align:right;white-space:nowrap;min-width:10ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--fg-2);margin-top:12px;line-height:1.75}
+  .meter b{color:var(--accent);font-weight:400}
+  .verdict{font-family:var(--sans);font-size:14.5px;color:var(--fg-1);margin-top:12px;padding:12px 14px;border-left:2px solid var(--accent-dim);background:var(--bg-elev-2);line-height:1.6}
+  .eq{font-family:var(--mono);font-size:13.5px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--fg-3);font-size:13px;margin-top:2px}
+  .key{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;color:var(--fg-3);margin-top:8px}
+  .key i{display:inline-block;width:14px;height:2px;vertical-align:middle;margin-right:6px}
+  table.t{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--fg-2);width:100%}
+  table.t td,table.t th{border-bottom:1px solid var(--border-soft);padding:5px 12px 5px 0;text-align:right;font-weight:400}
+  table.t th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  table.t td:first-child,table.t th:first-child{text-align:left}
+  table.t .pass{color:var(--accent)} table.t .fail{color:var(--bad)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  section.step[hidden]{display:none}
+  footer{margin-top:28px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+<div class="eyebrow">Progressive Staging · the method · four steps</div>
+<h1>The leak at its stop</h1>
+<p class="lead">The page says Stage 2 wraps around Stage 1, so that a student can turn the leak off and get Stage 1 back exactly. Here are the two stages as the Action Potential Oscillator's dev plan writes them. Take each alone, run the leak to its stop and lay it over Stage 1, then run Stage 1's own frequency test on Stage 2.</p>
+<nav class="rail" id="rail" aria-label="steps"></nav>
+
+<section class="step" data-name="Stage 1 alone" data-one="threshold and reset">
+<h2>1 · A capacitor and a threshold</h2>
+<p class="one">one thing: threshold and reset</p>
+<p class="say">Stage 1 is a membrane that only stores charge. A steady current fills it by the same amount every sample. When it reaches the threshold it resets and starts again. The plan resets by subtracting the threshold rather than setting the voltage to zero, so whatever spilled past the threshold on that sample is kept as the start of the next climb.</p>
+<div class="dwh"><div><b>do</b>Play. Try another note while it plays.</div><div><b>watch</b>A straight climb and a drop, three cycles of it. The ticks under each drop show where the next climb starts: just above zero, by what spilled over.</div><div><b>hear</b>A bright, buzzy sawtooth on the note you picked.</div></div>
+<div class="panel">
+<div class="plabel"><span>stage 1 · three cycles, as rendered</span><span id="r1"></span></div>
+<canvas id="c1" height="220"></canvas>
+<div class="key"><span><i style="background:var(--accent)"></i>stage 1, the voltage</span><span><i style="background:var(--fg-3)"></i>the threshold</span></div>
+<div class="rowb"><button class="play go" id="go1">▸ play stage 1</button>
+<span class="eyebrow">note</span><span class="notes"></span></div>
+<div class="meter" id="m1"></div>
+</div>
+<div class="eq">v ← v + f / fs ;   if v ≥ 1 :  v ← v − 1</div>
+<div class="eq words">(the voltage) grows by (the note) ÷ (the sample rate) each sample; at the threshold, take the threshold away and keep what is left</div>
+</section>
+
+<section class="step" data-name="Stage 2 alone" data-one="the time constant" hidden>
+<h2>2 · A leak</h2>
+<p class="one">one thing: the time constant</p>
+<p class="say">Stage 2 lets the charge leak away while it fills. Every sample the voltage loses a share of itself, set by the membrane's time constant τ, and the drive is turned up just enough that the climb still reaches the threshold in one period. A short τ bends the climb into a curve that slows near the top. As in the plan, Stage 2 resets to zero.</p>
+<div class="dwh"><div><b>do</b>Play, then slide τ while it plays.</div><div><b>watch</b>The climb bend away from the straight dashed line as τ shortens, and straighten as it lengthens.</div><div><b>hear</b>A short τ is warmer, fewer upper harmonics; a long one comes back toward Stage 1's buzz.</div></div>
+<div class="panel">
+<div class="plabel"><span>stage 2 · three cycles · dashed, a straight climb of the same period</span><span id="r2"></span></div>
+<canvas id="c2" height="220"></canvas>
+<div class="key"><span><i style="background:var(--info)"></i>stage 2, the voltage</span><span><i style="background:repeating-linear-gradient(90deg,var(--fg-3) 0 4px,transparent 4px 7px)"></i>a straight climb</span></div>
+<div class="ctl"><label for="tau2">membrane τ</label><input id="tau2" type="range" min="0" max="1000" value="500"><span class="v" id="tau2v"></span></div>
+<div class="rowb"><button class="play go" id="go2">▸ play stage 2</button>
+<span class="eyebrow">note</span><span class="notes"></span></div>
+<div class="meter" id="m2"></div>
+</div>
+<div class="eq">v ← v · (1 − 1/τ) + d ,   d = 1 / ( τ · (1 − e^(−P/τ)) ) ;   if v ≥ 1 :  v ← 0</div>
+<div class="eq words">(the voltage) keeps all but one τ-th of itself, plus (the drive), which is set from (the period P in samples) so the climb reaches the threshold in one period; at the threshold, back to zero</div>
+</section>
+
+<section class="step" data-name="the leak at its stop" data-one="what the leak gives back" hidden>
+<h2>3 · The leak at its stop, over Stage 1</h2>
+<p class="one">one thing: what turning the leak off gives back</p>
+<p class="say">Now slide τ to its stop, where the leak is gone. At the stop the leak's two numbers become Stage 1's: the voltage keeps all of itself and the drive is one period's worth, f / fs, exactly what Stage 1 adds. The climb is Stage 1's climb. Lay the two over each other and find the first reset they don't share, then watch how far Stage 2 falls behind over two seconds.</p>
+<div class="dwh"><div><b>do</b>Play both at once. Then their difference. Slide τ back off the stop and on again.</div><div><b>watch</b>Top: the samples around the first reset the two don't share, Stage 1 gold, Stage 2 blue. Below: how far Stage 2 has fallen behind, over two seconds.</div><div><b>hear</b>If Stage 2 were Stage 1, both at once would be one louder sawtooth and their difference silence. Listen for a slow beat instead.</div></div>
+<div class="panel">
+<div class="plabel"><span id="l3">the first reset they don't share · each dot a sample</span><span id="r3"></span></div>
+<canvas id="c3a" height="230"></canvas>
+<div class="plabel" style="margin-top:12px"><span>how far stage 2 runs behind stage 1, as a share of one cycle · over 2 s</span><span></span></div>
+<canvas id="c3b" height="120"></canvas>
+<div class="key"><span><i style="background:var(--accent)"></i>stage 1</span><span><i style="background:var(--info)"></i>stage 2</span><span><i style="background:var(--bad)"></i>how far behind</span></div>
+<div class="ctl"><label for="tau3">membrane τ</label><input id="tau3" type="range" min="0" max="1000" value="1000"><span class="v" id="tau3v"></span></div>
+<div class="rowb"><button class="play go" id="go3">▸ play</button>
+<span class="eyebrow">hear</span><button class="ghost" data-listen="s1">stage 1</button><button class="ghost" data-listen="s2">stage 2</button><button class="ghost" data-listen="both">both at once</button><button class="ghost" data-listen="diff">their difference</button></div>
+<div class="rowb"><span class="eyebrow">note</span><span class="notes"></span></div>
+<div class="meter" id="m3"></div>
+</div>
+<div class="eq">τ → ∞ :   (1 − 1/τ) → 1 ,   d → 1/P = f / fs</div>
+<div class="eq words">as (the time constant) grows without end, (the share kept) goes to all of it and (the drive) goes to Stage 1's step; the line above it, written as the plan writes it, gives 1 ÷ (∞ × 0) at the stop itself, which is not a number, so the stop here is the limit</div>
+</section>
+
+<section class="step" data-name="the test" data-one="Stage 1's test, inherited" hidden>
+<h2>4 · The test: Stage 1's own, inherited</h2>
+<p class="one">one thing: does the inherited test pass?</p>
+<p class="say">The page says testing criteria pile up: Stage 2's tests include Stage 1's frequency test, so a change that breaks Stage 1 is caught. Stage 1's test is in the plan: at 440 Hz the output measures 440 within a tenth of a hertz. Run it on Stage 2 with the leak at its stop, at five notes. Then give Stage 2 Stage 1's reset, keeping what spilled over, and run it again.</p>
+<div class="dwh"><div><b>do</b>Read the table. Switch the reset. Change the sample rate. Play both at once on any note.</div><div><b>watch</b>Each row: what Stage 1 measures, what Stage 2 at its stop measures, how far flat, and the largest difference between their samples over two seconds.</div><div><b>hear</b>With the plan's reset, the two beat against each other. With Stage 1's, they are one sound.</div></div>
+<div class="panel">
+<div class="plabel"><span>stage 1's frequency test, run on stage 2 at its stop · measured over 2 s</span><span id="r4"></span></div>
+<div class="rowb"><span class="eyebrow">stage 2 resets</span><button class="ghost" data-reset="hard">to zero, as the plan writes it</button><button class="ghost" data-reset="wrap">as Stage 1 does, keeping the spill</button></div>
+<div class="rowb"><span class="eyebrow">sample rate</span><button class="ghost" data-rate="44100">44.1 kHz</button><button class="ghost" data-rate="48000">48 kHz</button></div>
+<table class="t" id="t4"></table>
+<div class="verdict" id="v4"></div>
+<div class="rowb"><button class="play go" id="go4">▸ play both at once</button>
+<span class="eyebrow">note</span><span class="notes"></span></div>
+<div class="meter" id="m4"></div>
+</div>
+<div class="eq">| f_measured − f | ≤ 0.1 Hz</div>
+<div class="eq words">(the pitch the output measures) is within a tenth of a hertz of (the note asked for): Stage 1's test, carried into Stage 2</div>
+<div class="eq">hard reset:  period = ⌈P⌉ samples   ·   wrap:  period = P samples, on average</div>
+<div class="eq words">reset to zero, and each cycle can only end on a whole sample, so it takes (the period rounded up) and the note goes flat; keep the spill, and the part of a sample left over is carried into the next cycle, so the cycles average out to the true period</div>
+</section>
+
+<div class="walk"><button class="ghost" id="back">← back</button><button class="ghost" id="next">next →</button></div>
+<footer><b>LOUD’N LIVE</b> · made for the rich face of Progressive Staging · Stages 1 and 2 as neural_oscillator_dev_plan.md writes them · the engine runs in this page and in its check</footer>
+</main>
+
+<script id="engine">
+// ---- engine: Stages 1 and 2 of neural_oscillator_dev_plan.md, as written; touches nothing of the page ----
+const STOP = Infinity;   // the leak slider's stop: no leak at all
+// Stage 1 (plan, Stage 1 steps 1-4): accumulate f/fs, wrap at threshold, out = v*2-1
+function stage1(freq, sr, n) {
+  const out = new Float64Array(n); let v = 0; const f = Math.max(freq, 0.001);
+  for (let i = 0; i < n; i++) { v = v + f / sr; if (v >= 1.0) v = v - 1.0; out[i] = v; }
+  return out;
+}
+// the plan's own drive line, literally, so the page can show what it gives at the stop
+function planDrive(freq, tauMs, sr) {
+  const tau = Math.max(tauMs, 0.1) * 0.001 * sr, P = sr / Math.max(freq, 0.001);
+  return 1.0 / (tau * (1.0 - Math.exp(-P / tau)));
+}
+// Stage 2 (plan, Stage 2 steps 1-4): one-pole leak, exact drive, hard reset to 0.
+// At the stop the limit is used: coefficient 1, drive 1/P. reset 'wrap' gives it Stage 1's reset instead.
+function stage2(freq, tauMs, sr, n, reset) {
+  const out = new Float64Array(n); let v = 0; const f = Math.max(freq, 0.001);
+  const P = sr / f;
+  let coeff, drive;
+  if (tauMs === STOP) { coeff = 1.0; drive = 1.0 / P; }
+  else { const tau = Math.max(tauMs, 0.1) * 0.001 * sr; coeff = 1.0 - 1.0 / tau; drive = 1.0 / (tau * (1.0 - Math.exp(-P / tau))); }
+  for (let i = 0; i < n; i++) { v = v * coeff + drive; if (v >= 1.0) v = reset === 'wrap' ? v - 1.0 : 0; out[i] = v; }
+  return out;
+}
+// the samples where the voltage dropped (the resets)
+function resets(x) { const r = []; for (let i = 1; i < x.length; i++) if (x[i] < x[i - 1] - 0.5) r.push(i); return r; }
+// measured pitch: whole cycles between the first and last reset, over the samples they span
+function freqOf(x, sr) { const r = resets(x); return r.length < 2 ? NaN : sr * (r.length - 1) / (r[r.length - 1] - r[0]); }
+function maxDiff(a, b) { let m = 0; for (let i = 0; i < a.length; i++) m = Math.max(m, Math.abs(a[i] - b[i])); return m; }
+function firstDiff(a, b) { for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return i; return -1; }
+const cents = (a, b) => 1200 * Math.log2(a / b);
+const NOTES = [110, 220, 440, 880, 1760];
+// one row of the test: Stage 1 and Stage 2 at its stop, at one note and rate, over 2 s
+function testRow(f, sr, reset) {
+  const n = 2 * sr, a = stage1(f, sr, n), b = stage2(f, STOP, sr, n, reset);
+  const f1 = freqOf(a, sr), f2 = freqOf(b, sr);
+  return { f, f1, f2, c2: cents(f2, f), pass1: Math.abs(f1 - f) <= 0.1, pass2: Math.abs(f2 - f) <= 0.1, diff: maxDiff(a, b), first: firstDiff(a, b), P: sr / f };
+}
+// ---- end engine ----
+</script>
+
+<script>
+// ---- the walk and the sound ----
+const $ = (id) => document.getElementById(id);
+let SR = 48000;               // the device's own rate once a sound has played; 48000 until then
+let actx = null, master = null, src = null;
+function ensureAudio() {
+  if (actx) return;
+  actx = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = actx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 6;
+  master = actx.createGain(); master.gain.value = 0.5; master.connect(comp); comp.connect(actx.destination);
+  if (actx.sampleRate !== SR) { SR = actx.sampleRate; draw(); }
+}
+function play(data) {
+  if (actx.state !== 'running') actx.resume();
+  stopSound();
+  const d = Float32Array.from(data), T = Math.min(1024, d.length >> 2);
+  for (let i = 0; i < T; i++) { d[i] *= i / T; d[d.length - 1 - i] *= i / T; }
+  const b = actx.createBuffer(1, d.length, SR); b.copyToChannel(d, 0);
+  const s = actx.createBufferSource(); s.buffer = b;
+  const g = actx.createGain(); g.gain.value = 0; s.connect(g); g.connect(master);
+  const t = actx.currentTime; g.gain.setTargetAtTime(1, t, 0.008); s.start(t);
+  src = { s, g, t0: t };
+  s.onended = () => { if (src && src.s === s) { src = null; soundChanged(); } };
+  soundChanged();
+}
+function stopSound() {
+  if (!src) return;
+  const o = src; src = null;
+  try { o.g.gain.setTargetAtTime(0, actx.currentTime, 0.01); o.s.stop(actx.currentTime + 0.08); } catch (e) {}
+  soundChanged();
+}
+function soundChanged() { document.querySelectorAll('button.go').forEach((b) => { b.textContent = src ? '■ stop' : b.dataset.label; }); }
+function fit(c) {
+  const d = window.devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute('height');
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h };
+}
+function seg(group, value) { document.querySelectorAll(`[data-${group}]`).forEach((b) => b.setAttribute('aria-pressed', String(b.dataset[group] === String(value)))); }
+const css = getComputedStyle(document.documentElement), C = (n) => css.getPropertyValue(n).trim();
+
+// ---- the state, shared by every step ----
+const S = { note: 440, tau2: 5, tau3: STOP, listen: 'both', reset: 'hard', rate: 48000 };
+const steps = [...document.querySelectorAll('section.step')];
+let step = 0;
+function setStep(i) {
+  stopSound();
+  step = Math.max(0, Math.min(steps.length - 1, i));
+  steps.forEach((s, k) => { s.hidden = k !== step; });
+  [...$('rail').children].forEach((b, k) => b.setAttribute('aria-current', k === step ? 'step' : 'false'));
+  $('back').disabled = step === 0; $('next').disabled = step === steps.length - 1;
+  draw();
+}
+steps.forEach((s, i) => { const b = document.createElement('button'); b.textContent = `${i + 1} · ${s.dataset.name}`; b.onclick = () => setStep(i); $('rail').appendChild(b); });
+$('back').onclick = () => setStep(step - 1); $('next').onclick = () => setStep(step + 1);
+document.querySelectorAll('button.go').forEach((b) => { b.dataset.label = b.textContent; });
+document.querySelectorAll('.notes').forEach((el) => { el.innerHTML = NOTES.map((f) => `<button class="ghost" data-note="${f}">${f} Hz</button>`).join(' '); });
+
+// the τ slider: log from 0.5 ms to 1000 ms; the last notch is the stop, no leak
+function tauFrom(pos, withStop) { if (withStop && pos >= 990) return STOP; return 0.5 * Math.pow(2000, pos / (withStop ? 985 : 1000)); }
+function posFrom(tau, withStop) { if (tau === STOP) return 1000; return Math.round(Math.log(tau / 0.5) / Math.log(2000) * (withStop ? 985 : 1000)); }
+const fmtTau = (t) => t === STOP ? '∞ · no leak' : (t < 10 ? t.toFixed(2) : t < 100 ? t.toFixed(1) : t.toFixed(0)) + ' ms';
+$('tau2').value = posFrom(S.tau2, false); $('tau3').value = posFrom(S.tau3, true);
+$('tau2').oninput = () => { S.tau2 = tauFrom(+$('tau2').value, false); draw(); if (src) start(); };
+$('tau3').oninput = () => { S.tau3 = tauFrom(+$('tau3').value, true); draw(); if (src) start(); };
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.note) { S.note = +b.dataset.note; draw(); if (src) start(); }
+  else if (b.dataset.listen) { S.listen = b.dataset.listen; draw(); if (src) start(); }
+  else if (b.dataset.reset) { S.reset = b.dataset.reset; draw(); if (src) start(); }
+  else if (b.dataset.rate) { S.rate = +b.dataset.rate; draw(); }
+});
+
+// ---- sound: four seconds of what the step offers, at the device's own rate ----
+const SECS = 4, GAIN = 0.32;
+function render() {
+  const n = SECS * SR, f = S.note;
+  if (step === 0) return stage1(f, SR, n).map((v) => (v * 2 - 1) * GAIN);
+  if (step === 1) return stage2(f, S.tau2, SR, n, 'hard').map((v) => (v * 2 - 1) * GAIN);
+  const a = stage1(f, SR, n), b = stage2(f, step === 2 ? S.tau3 : STOP, SR, n, step === 2 ? 'hard' : S.reset);
+  const mode = step === 2 ? S.listen : 'both', out = new Float64Array(n);
+  for (let i = 0; i < n; i++) {
+    const x = a[i] * 2 - 1, y = b[i] * 2 - 1;
+    out[i] = mode === 's1' ? x * GAIN : mode === 's2' ? y * GAIN : mode === 'both' ? (x + y) * 0.5 * GAIN : (x - y) * 0.5 * GAIN;
+  }
+  return out;
+}
+function start() { ensureAudio(); play(render()); }
+document.querySelectorAll('button.go').forEach((b) => { b.onclick = () => { if (src) stopSound(); else start(); }; });
+
+// ---- drawing ----
+function axes(g, w, h, pad) {
+  g.strokeStyle = C('--fg-4'); g.lineWidth = 1; g.setLineDash([3, 4]);
+  g.beginPath(); g.moveTo(pad, pad); g.lineTo(w - 6, pad); g.stroke(); g.setLineDash([]);
+  g.strokeStyle = C('--border'); g.beginPath(); g.moveTo(pad, h - pad); g.lineTo(w - 6, h - pad); g.stroke();
+  g.fillStyle = C('--fg-3'); g.font = '10px ' + C('--mono'); g.fillText('threshold', pad + 4, pad - 4); g.fillText('0', 6, h - pad + 3);
+}
+function trace(g, x, n0, n1, X, Y, color, width, dash) {
+  g.strokeStyle = color; g.lineWidth = width || 1.6; g.setLineDash(dash || []);
+  g.beginPath(); for (let i = n0; i < n1; i++) { const px = X(i), py = Y(x[i]); if (i === n0) g.moveTo(px, py); else g.lineTo(px, py); } g.stroke(); g.setLineDash([]);
+}
+function drawCycles(cid, x, color, ref) {
+  const { g, w, h } = fit($(cid)), pad = 22, P = SR / S.note, n = Math.ceil(3 * P) + 2;
+  axes(g, w, h, pad);
+  const X = (i) => pad + (i / n) * (w - pad - 8), Y = (v) => h - pad - v * (h - 2 * pad);
+  if (ref) trace(g, ref, 0, n, X, Y, C('--fg-3'), 1, [4, 3]);
+  trace(g, x, 0, n, X, Y, color, 1.8);
+  return { g, X, Y, n, h, pad };
+}
+const hz = (f) => isFinite(f) ? f.toFixed(3) + ' Hz' : 'silent';
+const sgn = (c) => (c >= 0 ? '+' : '−') + Math.abs(c).toFixed(2);
+function draw() {
+  seg('note', S.note); seg('listen', S.listen); seg('reset', S.reset); seg('rate', S.rate);
+  $('tau2v').textContent = fmtTau(S.tau2); $('tau3v').textContent = fmtTau(S.tau3);
+  const f = S.note, n2 = 2 * SR, rate = `at ${SR / 1000} kHz${actx ? '' : ' (until a sound plays, then the device’s own)'}`;
+  if (step === 0) {
+    const a = stage1(f, SR, n2), d = drawCycles('c1', a, C('--accent'));
+    const r = resets(a).filter((i) => i < d.n);
+    d.g.fillStyle = C('--accent');
+    for (const i of r) { const px = d.X(i), py = d.Y(a[i]); d.g.fillRect(px - 1, d.h - d.pad + 4, 2, 7); d.g.beginPath(); d.g.arc(px, py, 2.6, 0, 7); d.g.fill(); }
+    const spill = r.map((i) => a[i]);
+    $('r1').textContent = rate;
+    $('m1').innerHTML = `measured over 2 s: <b>${hz(freqOf(a, SR))}</b> · the climb starts again at ${spill.map((v) => v.toFixed(4)).join(', ')} · a period is <b>${(SR / f).toFixed(3)}</b> samples, not a whole number, and the spill carries the part left over`;
+  } else if (step === 1) {
+    const b = stage2(f, S.tau2, SR, n2, 'hard'), P = SR / f, n = Math.ceil(3 * P) + 2, ref = new Float64Array(n);
+    const rr = resets(b), per = rr.length > 1 ? rr[1] - rr[0] : P;
+    for (let i = 0; i < n; i++) { const k = rr.filter((j) => j <= i).length, s0 = k ? rr[k - 1] : 0; ref[i] = (i - s0 + (k ? 0 : 1)) / per; }
+    drawCycles('c2', b, C('--info'), ref);
+    const tau = S.tau2 * 0.001 * SR;
+    $('r2').textContent = rate;
+    const fb = freqOf(b, SR);
+    $('m2').innerHTML = `τ = <b>${tau.toFixed(1)}</b> samples · keeps <b>${(1 - 1 / tau).toFixed(5)}</b> of itself each sample · drive <b>${planDrive(f, S.tau2, SR).toFixed(6)}</b> · measured over 2 s: <b>${hz(fb)}</b> (${sgn(cents(fb, f))} cents)`;
+  } else if (step === 2) {
+    const a = stage1(f, SR, n2), b = stage2(f, S.tau3, SR, n2, 'hard');
+    // centre on the first sample where one resets and the other doesn't; with none, on the first reset
+    const P = SR / f, isR = (x, i) => i > 0 && x[i] < x[i - 1] - 0.5;
+    let k0 = -1; for (let i = 1; i < n2 && k0 < 0; i++) if (isR(a, i) !== isR(b, i)) k0 = i;
+    const shared = k0 < 0, ctr = shared ? Math.round(P) : k0, c0 = Math.max(0, ctr - 8), c1 = ctr + 9;
+    const { g, w, h } = fit($('c3a')), pad = 22;
+    axes(g, w, h, pad);
+    const X = (i) => pad + ((i - c0) / (c1 - c0)) * (w - pad - 16), Y = (v) => h - pad - v * (h - 2 * pad);
+    for (const [x, col] of [[a, C('--accent')], [b, C('--info')]]) {
+      g.globalAlpha = 0.45; trace(g, x, c0, c1, X, Y, col, 1); g.globalAlpha = 1; g.fillStyle = col;
+      for (let i = c0; i < c1; i++) { g.beginPath(); g.arc(X(i), Y(x[i]), x === a ? 4.2 : 2.6, 0, 7); g.fill(); }
+    }
+    g.fillStyle = C('--fg-3'); g.font = '10px ' + C('--mono');
+    for (let i = c0; i < c1; i += 2) g.fillText(String(i), X(i) - 10, h - 6);
+    $('l3').textContent = shared ? 'every reset shared · the first one · each dot a sample' : `the first reset they don't share, cycle ${resets(a).filter((i) => i <= k0).length + (isR(a, k0) ? 0 : 1)} · each dot a sample`;
+    // how far behind: the two climbs have the same slope, so (stage 1 − stage 2) mod 1 is the lag as a share of a cycle
+    const { g: g2, w: w2, h: h2 } = fit($('c3b')), blk = Math.round(0.005 * SR), nb = Math.floor(n2 / blk);
+    g2.strokeStyle = C('--border'); g2.beginPath(); g2.moveTo(0, h2 - 14); g2.lineTo(w2, h2 - 14); g2.stroke();
+    g2.fillStyle = C('--bad');
+    for (let q = 0; q < nb; q++) { const i = q * blk, lag = ((a[i] - b[i]) % 1 + 1) % 1, bh = lag * (h2 - 24); g2.fillRect(q / nb * w2, h2 - 14 - bh, Math.max(1, w2 / nb - 0.5), Math.max(bh, 0.5)); }
+    g2.fillStyle = C('--fg-3'); g2.font = '10px ' + C('--mono'); g2.fillText('0 s', 2, h2 - 2); g2.fillText('1 s', w2 / 2 - 8, h2 - 2); g2.fillText('2 s', w2 - 22, h2 - 2); g2.fillText('a whole cycle', 4, 18);
+    const f1 = freqOf(a, SR), fb = freqOf(b, SR), fd = firstDiff(a, b), md = maxDiff(a, b);
+    $('r3').textContent = `samples ${c0}–${c1 - 1} · ` + rate;
+    const atStop = S.tau3 === STOP;
+    $('m3').innerHTML = (atStop ? `at the stop the drive is <b>1/P = ${(1 / P).toFixed(8)}</b>, Stage 1 adds <b>f/fs = ${(f / SR).toFixed(8)}</b>; the plan’s own line gives <b>${String(planDrive(f, Infinity, SR))}</b> here · ` : `τ is ${fmtTau(S.tau3)}, not yet the stop · `)
+      + `first sample where they differ: <b>${fd < 0 ? 'none' : fd}</b> · largest difference over 2 s: <b>${md.toFixed(4)}</b> of the threshold<br>`
+      + `stage 1 measures <b>${hz(f1)}</b>, stage 2 <b>${hz(fb)}</b> (${sgn(cents(fb, f))} cents) · together they beat <b>${Math.abs(f1 - fb).toFixed(2)}</b> times a second`;
+  } else {
+    const rows = NOTES.map((fn) => testRow(fn, S.rate, S.reset));
+    $('t4').innerHTML = `<tr><th>note</th><th>stage 1 measures</th><th>its test</th><th>stage 2 at its stop</th><th>cents</th><th>its test</th><th>largest sample difference</th></tr>`
+      + rows.map((r) => `<tr${r.f === S.note ? ' style="color:var(--fg-1)"' : ''}><td>${r.f} Hz</td><td>${hz(r.f1)}</td><td class="${r.pass1 ? 'pass' : 'fail'}">${r.pass1 ? 'pass' : 'fail'}</td><td>${hz(r.f2)}</td><td>${sgn(r.c2)}</td><td class="${r.pass2 ? 'pass' : 'fail'}">${r.pass2 ? 'pass' : 'fail'}</td><td>${r.diff === 0 ? '0, exactly' : r.diff.toFixed(4)}</td></tr>`).join('');
+    const fails = rows.filter((r) => !r.pass2), worst = rows.reduce((m, r) => (Math.abs(r.c2) > Math.abs(m.c2) ? r : m), rows[0]);
+    const s1ok = rows.every((r) => r.pass1);
+    $('r4').textContent = `table at ${S.rate / 1000} kHz · the sound at ${SR / 1000} kHz`;
+    $('v4').innerHTML = S.reset === 'hard'
+      ? `<b>The inherited test fails${fails.length === rows.length ? ' at every note' : ` at ${fails.length} of ${rows.length} notes`}.</b> ${s1ok ? 'Stage 1 passes it at all five.' : ''} With the leak at its stop, Stage 2 climbs exactly as Stage 1 does, but it resets to zero, so each cycle can only end on a whole sample and drops what spilled over. The note goes flat, up to ${Math.abs(worst.c2).toFixed(1)} cents at ${worst.f} Hz, and from the first reset on, the two reset on different samples. The leak gives Stage 1 back; the reset doesn’t. The test the page says piles up is the one that catches it.`
+      : (fails.length === 0 && rows.every((r) => r.diff === 0)
+        ? `<b>The inherited test passes at every note, and Stage 2 at its stop gives Stage 1’s samples, not nearly but exactly:</b> the largest difference over two seconds is zero at all five notes. With Stage 1’s reset carried into Stage 2, turning the leak off recovers Stage 1 exactly, as the page says.`
+        : `<b>${fails.length} of ${rows.length} notes still fail.</b> The largest sample difference is ${Math.max(...rows.map((r) => r.diff)).toFixed(6)}.`);
+    const r = testRow(S.note, SR, S.reset);
+    $('m4').innerHTML = `playing ${S.note} Hz at ${SR / 1000} kHz: stage 1 <b>${hz(r.f1)}</b>, stage 2 <b>${hz(r.f2)}</b> · they beat <b>${Math.abs(r.f1 - r.f2).toFixed(2)}</b> times a second`;
+  }
+}
+window.addEventListener('resize', () => draw());
+setStep(0);
+</script>
+</body>
+</html>

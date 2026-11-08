@@ -1,6 +1,6 @@
 // Entries catalog — server-side recursive walk of palace .md files.
 //
-// Per CLAUDE.md:
+// Per Substrate Skill (_ops/Substrate Skill.md):
 //   "Exclude .git/, .claude/, and .obsidian/. Any other subdirectory may
 //    contain valid entries. When loading files by path, use paths
 //    relative to the palace root."

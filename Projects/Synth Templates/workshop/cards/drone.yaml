@@ -1,0 +1,78 @@
+# Synth Templates — card 0.2 — Drone
+# No envelope to speak of: the gate opens and the sound is simply there until it is not. What moves is random and slow.
+schema: synth-template-card/0.2
+id: drone
+name: Drone
+family: Pads
+tier: 2
+mode: poly or mono
+classics: ""
+status: drafted
+concepts:
+  - "Sustaining vs non-sustaining sounds"
+  - "Switch envelope (organ); percussive organ"
+  - "Unison / unisono"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 4, detune: narrow}
+    osc2:    {kind: oscillator, wave: saw, octave: -1, unison: 2, detune: slight}
+    sub:     {kind: oscillator, wave: sine, octave: -2, note: "the floor two octaves down"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 12, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    aenv:    {kind: envelope, role: amp, shape: {a: short, d: short, s: full, r: long}, category: gate, note: "a switch: no shape while the key is down"}
+    lfo1:    {kind: lfo, wave: s&h, rate: very slow, sync: false, retrigger: false, note: "sample and hold: a random level every few seconds; the voice approximates it with a slow random wave"}
+    lfo2:    {kind: lfo, wave: random, rate: very slow, sync: false, retrigger: false, note: "smooth random on pitch: the tuning wanders"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [sub, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: lfo1, to: filter1.cutoff, amount: some, essential: true}
+    - {from: lfo2, to: osc1.pitch, amount: little, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: sub.pitch, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv,    param: sustain,   value: full,            why: "a sustaining sound in the plainest sense: the gate is the envelope; nothing happens to the level while the key is held"}
+  - {block: aenv,    param: attack,    value: short,           why: "fast enough to be a switch, slow enough not to click"}
+  - {block: osc1,    param: unison,    value: 4 voices,        why: "several detuned oscillators: the beating between them is the only guaranteed motion"}
+  - {block: osc1,    param: detune,    value: narrow,          why: "slow beats, a few a second; wider and it churns"}
+  - {block: lfo1,    param: wave,      value: sample and hold, why: "a new random cutoff every few seconds, stepped: the drone changes colour without anyone deciding when"}
+  - {block: lfo2,    param: wave,      value: random,          why: "a smooth wander on pitch, a few cents: the tuning drifts like old oscillators warming"}
+  - {block: lfo2,    param: amount,    value: little,          why: "cents, not semitones; it must stay the same note"}
+  - {block: filter1, param: cutoff,    value: dark,            why: "closed low; the S&H steps open it in bands"}
+  - {block: mode,    param: voices,    value: poly or mono,    why: "one key held is the piece; poly only so a second can be added under it"}
+
+taste:
+  - {block: osc1,    param: detune,    range: "slight – wide",          default: narrow}
+  - {block: sub,     param: level,     range: "off – half",             default: quarter}
+  - {block: filter1, param: cutoff,    range: "dark – mid",             default: dark}
+  - {block: lfo1,    param: rate,      range: "very slow – slow",       default: very slow}
+  - {block: lfo1,    param: depth,     range: "little – moderate",      default: some}
+  - {block: lfo2,    param: depth,     range: "none – some",            default: little}
+  - {block: aenv,    param: release,   range: "medium – very long",     default: long}
+  - {block: fx,      param: reverb,    range: "large – huge",           default: huge}
+
+listening:
+  cue: "A low note that is just on, and stays on: a slow churn of beating inside it, the colour stepping to a new shade every few seconds, the pitch leaning a hair sharp and flat. Nothing announces itself."
+  ab: "Set both LFO depths to none: the drone is still there, still beating, but now you can tell it is a synth holding a key. Put them back. Then set the amp sustain to half with a long decay: the drone becomes a pad, and a pad has a beginning."
+
+render:
+  tempo: 60
+  note: [D2, A2]
+  velocity: 90
+  pattern: "D2 held from the start, A2 added after two bars, both held to the end, released, tail to silence"
+  length_s: 20.0
+
+mappings: {}

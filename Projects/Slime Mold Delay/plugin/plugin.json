@@ -1,0 +1,31 @@
+{
+  "name": "Slime Mold Delay",
+  "target": "SlimeMoldDelay",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.SlimeMoldDelay",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Slmd",
+  "kind": "effect",
+  "version": "0.1.0",
+  "hostcheck": [
+    "feed=0.2",
+    "flow=2.0",
+    "regen=1.5",
+    "dry=0",
+    "wet=1.5"
+  ],
+  "ui": {
+    "width": 960,
+    "height": 620,
+    "min": [
+      860,
+      560
+    ],
+    "max": [
+      1500,
+      1000
+    ],
+    "direction": "bench",
+    "screen": true
+  }
+}

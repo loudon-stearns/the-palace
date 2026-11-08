@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rough 2 · broadcast glitch and blueprint</title>
+<meta name="theme-color" content="#040805">
+<link rel="icon" href="../Loudon%20Live%20Design%20System%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: link, motion. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, var(--page, #0a0a0f)); --fx-bg-elev-1: #12121a; --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg, var(--ink, #e8e8f0)); --fx-fg-2: var(--ink-2, #c8c8d8); --fx-fg-3: var(--dim, var(--ink-dim, #8a8aa0)); --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: var(--rule, #4a4a5e); --fx-border-soft: rgba(255,255,255,0.06); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, var(--amber, #e8b84a)); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Manrope:wght@300;500&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap" rel="stylesheet">
+<style>
+  :root { --page: #111114; --ink: #d8d8e0; --ink-dim: #8a8aa0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 24px 64px; background: var(--page); color: var(--ink); font-family: 'Manrope', system-ui, sans-serif; }
+  header.sheet { max-width: 1280px; margin: 0 auto 24px; }
+  header.sheet h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 30px; margin: 0 0 6px; }
+  header.sheet p { margin: 0; color: var(--ink-dim); font-size: 14px; max-width: 76ch; line-height: 1.55; }
+  .grid { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); gap: 28px 24px; }
+  .wide { grid-column: 1 / -1; }
+  figure { margin: 0; }
+  figcaption { margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-dim); max-width: 90ch; }
+  figcaption b { color: var(--ink); font-weight: 500; }
+
+  .card { position: relative; aspect-ratio: 16 / 9; overflow: hidden; container-type: inline-size; background: var(--bg); color: var(--fg); isolation: isolate; }
+  .card > canvas.trace, .card > canvas.grain, .card > svg.pcb { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+  /* ════════════════ E · the broadcast, worn ════════════════ */
+  .e { --bg: #040805; --fg: #eaf8ee; --dim: #1f8a3c; --amber: #ffb000; --cy: #7fdbff; --split: .3cqw; }
+  .e svg.pcb { z-index: 0; opacity: .9; }
+  .e canvas.trace { z-index: 1; }
+  .e .tube { position: absolute; z-index: 1; left: calc(72% - 23cqw); top: calc(46% - 23cqw * 1); width: 46cqw; aspect-ratio: 1; border-radius: 50%;
+             border: .35cqw solid #16241a; box-shadow: inset 0 0 4cqw rgba(51,255,102,.07), 0 0 0 .5cqw #0a120c, 0 0 0 .62cqw #1f3a26; pointer-events: none; }
+  .e .burn { position: absolute; z-index: 1; right: 4cqw; bottom: 2cqw; font-family: 'VT323', monospace; font-size: 15cqw; line-height: 1; color: rgba(51,255,102,.035); letter-spacing: .02em; pointer-events: none; }
+  .e .layer, .e .tear { position: absolute; inset: 0; padding: 5.5cqw 6.5cqw; display: flex; flex-direction: column; z-index: 3; }
+  .e .tear { z-index: 4; pointer-events: none; visibility: hidden; background: var(--bg); }
+  .e .tear.on { visibility: visible; }
+  .e .tag-row { display: flex; gap: 1.6cqw; align-items: center; }
+  .e .dymo { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 1.5cqw; letter-spacing: .14em; color: #f2efe6; background: #b3241c;
+             padding: .45cqw 1cqw .4cqw; transform: rotate(-1.2deg); box-shadow: inset 0 -.15cqw 0 rgba(0,0,0,.35), 0 .12cqw 0 rgba(0,0,0,.6); }
+  .e .eyebrow { font-family: 'VT323', monospace; font-size: 2.3cqw; letter-spacing: .1em; color: #33ff66; text-shadow: 0 0 .8cqw rgba(51,255,102,.55); }
+  .e .wordmark { font-family: 'Anton', sans-serif; font-size: 9cqw; line-height: .95; margin-top: auto; color: var(--fg);
+                 text-shadow: calc(var(--split) * -1) 0 rgba(255,40,90,.75), var(--split) 0 rgba(127,219,255,.75), 0 0 2cqw rgba(51,255,102,.2); }
+  .e .wordmark .live { color: var(--amber);
+                 text-shadow: calc(var(--split) * -1) 0 rgba(255,40,90,.8), var(--split) 0 rgba(127,219,255,.8), 0 0 .7cqw rgba(255,176,0,.85), 0 0 2.6cqw rgba(255,176,0,.45), 0 0 5cqw rgba(255,176,0,.2); }
+  .e .title { font-family: 'IBM Plex Mono', monospace; font-size: 2.55cqw; line-height: 1.25; margin-top: 2cqw; max-width: 55%; }
+  .e .title .cursor { display: inline-block; width: .55em; height: 1em; vertical-align: -.12em; background: var(--amber); margin-left: .15em; animation: blink 1.06s steps(1) infinite; }
+  .e .strip { margin-top: 3cqw; display: flex; align-items: center; gap: 1.1cqw; font-family: 'VT323', monospace; font-size: 2.1cqw; letter-spacing: .1em; color: var(--dim); }
+  .e .strip .on { color: #ff2a2a; }
+  .e .cyan { color: var(--cy); text-shadow: 0 0 .6cqw rgba(127,219,255,.5); }
+  .e .corner { position: absolute; z-index: 3; right: 3cqw; bottom: 2.4cqw; font-family: 'IBM Plex Mono', monospace; font-size: 1.35cqw; color: var(--dim); white-space: pre; }
+  .dot { width: 1.05cqw; height: 1.05cqw; border-radius: 50%; background: #ff2a2a; box-shadow: 0 0 .6cqw rgba(255,42,42,.9), 0 0 1.6cqw rgba(255,42,42,.5); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .45; } }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* the screen itself: scanlines, a rolling hold bar, grain, vignette */
+  .e canvas.grain { z-index: 5; mix-blend-mode: screen; opacity: var(--grain, .08); pointer-events: none; }
+  .e::before { content: ''; position: absolute; inset: 0; z-index: 6; pointer-events: none;
+               background: repeating-linear-gradient(180deg, rgba(0,0,0,.28) 0 1px, transparent 1px 3px); }
+  .e::after { content: ''; position: absolute; left: 0; right: 0; height: 22%; top: -22%; z-index: 6; pointer-events: none;
+              background: linear-gradient(180deg, transparent, rgba(180,255,200,.045) 45%, rgba(180,255,200,.07) 50%, transparent);
+              animation: roll var(--roll, 7s) linear infinite; }
+  @keyframes roll { to { transform: translateY(560%); } }
+  .e .vignette { position: absolute; inset: 0; z-index: 6; pointer-events: none; background: radial-gradient(120% 95% at 50% 50%, transparent 55%, rgba(0,0,0,.55) 100%); }
+  .e .sync { position: absolute; z-index: 7; left: 50%; top: 50%; transform: translate(-50%,-50%); font-family: 'VT323', monospace; font-size: 3.4cqw;
+             color: #eaf8ee; background: #040805; border: .15cqw solid #33ff66; padding: .3cqw 1.4cqw; letter-spacing: .12em; display: none; }
+  .e .sync.on { display: block; }
+
+  /* E+ turns every dial further */
+  .e.hard { --split: .55cqw; --grain: .2; --roll: 3.6s; }
+  .e.hard .layer { filter: contrast(1.08) saturate(1.1); }
+
+  /* ════════════════ F · Drafting Table, inverted: the blueprint ════════════════ */
+  .f { --bg: #0a1424; --fg: #eef3fa;
+       --ink: #eef3fa; --ink-2: #a9b8cf; --ink-3: #5d7193; --rule: #5d7193; --rule-soft: rgba(238,243,250,.055); --rule-major: rgba(238,243,250,.1);
+       --accent: #ff4136; --datasheet: #7fb0ff; --assumed: #ffb000; --measure: #ff4136;
+       background:
+         linear-gradient(var(--rule-major) 1px, transparent 1px) 0 0 / 12.5cqw 12.5cqw,
+         linear-gradient(90deg, var(--rule-major) 1px, transparent 1px) 0 0 / 12.5cqw 12.5cqw,
+         linear-gradient(var(--rule-soft) 1px, transparent 1px) 0 0 / 2.5cqw 2.5cqw,
+         linear-gradient(90deg, var(--rule-soft) 1px, transparent 1px) 0 0 / 2.5cqw 2.5cqw,
+         var(--bg);
+       font-family: 'JetBrains Mono', monospace; }
+  .f canvas.trace { z-index: 1; }
+  .f .frame { position: absolute; inset: 2.2cqw; border: 2px solid var(--ink); z-index: 2; pointer-events: none; }
+  .f .zone { position: absolute; font-size: 1cqw; color: var(--ink-3); z-index: 2; }
+  .f .layer { position: absolute; z-index: 3; left: 5cqw; top: 4.6cqw; right: 45%; bottom: 4.6cqw; display: flex; flex-direction: column; }
+  .f .eyebrow { font-size: 1.3cqw; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); }
+  .f .wm-wrap { position: relative; margin-top: auto; align-self: flex-start; padding-top: 3.6cqw; }
+  .f .wordmark { font-weight: 700; font-size: 6.4cqw; line-height: 1; letter-spacing: -.02em; color: var(--ink); white-space: nowrap; }
+  .f .wordmark .live { color: var(--accent); }
+  .f .dim { position: absolute; left: 0; right: 0; top: 0; height: 3.2cqw; color: var(--datasheet); }
+  .f .dim::before, .f .dim::after { content: ''; position: absolute; top: .4cqw; bottom: -.2cqw; width: 1px; background: var(--ink-3); }
+  .f .dim::before { left: 0; } .f .dim::after { right: 0; }
+  .f .dim .line { position: absolute; left: 0; right: 0; top: 1.7cqw; height: 1px; background: currentColor; }
+  .f .dim .line::before, .f .dim .line::after { content: ''; position: absolute; top: -.4cqw; border: .4cqw solid transparent; }
+  .f .dim .line::before { left: 0; border-left-width: 0; border-right: 1.1cqw solid currentColor; }
+  .f .dim .line::after { right: 0; border-right-width: 0; border-left: 1.1cqw solid currentColor; }
+  .f .dim .lbl { position: absolute; left: 50%; top: 0; transform: translateX(-50%); background: var(--bg); padding: 0 .8cqw; font-size: 1.15cqw; line-height: 1.6cqw; white-space: nowrap; }
+  .f .title { font-size: 2.2cqw; line-height: 1.3; margin-top: 1.6cqw; color: var(--ink); }
+  .f .strip { margin-top: 1.8cqw; display: flex; align-items: center; gap: 1cqw; font-size: 1.3cqw; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2); }
+  .f .strip .on { color: var(--measure); }
+  .f .notes { margin-top: 2.4cqw; font-size: 1.1cqw; line-height: 1.7; color: var(--ink-2); counter-reset: n; }
+  .f .notes div::before { counter-increment: n; content: counter(n) "  "; color: var(--ink-3); }
+  .f .notes .hold { color: var(--measure); }
+  .f .tb { position: absolute; z-index: 3; right: 2.2cqw; bottom: 2.2cqw; width: 38%; display: grid; grid-template-columns: 1.6fr 1fr 1fr;
+           border-top: 2px solid var(--ink); border-left: 2px solid var(--ink); background: var(--bg); }
+  .f .tb > div { border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: .5cqw .8cqw; font-size: 1.15cqw; line-height: 1.3; color: var(--ink); min-width: 0; }
+  .f .tb .k { display: block; font-size: .8cqw; letter-spacing: .16em; color: var(--ink-3); text-transform: uppercase; }
+  .f .tb .span3 { grid-column: span 3; } .f .tb .span2 { grid-column: span 2; }
+  .f .tb .big { font-weight: 700; font-size: 1.5cqw; letter-spacing: .04em; }
+  .f .tb .red { color: var(--measure); } .f .tb .blue { color: var(--datasheet); }
+  .f .legend { position: absolute; z-index: 3; right: 2.2cqw; top: 2.2cqw; border-left: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: .6cqw .9cqw; font-size: .95cqw; line-height: 1.7; background: var(--bg); }
+  .f .legend i { display: inline-block; width: 2cqw; height: 2px; vertical-align: middle; margin-right: .7cqw; }
+
+  @media (prefers-reduced-motion: reduce) { .dot, .cursor, .e::after { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="sheet">
+  <h1>Rough 2 · broadcast glitch and blueprint</h1>
+  <p>E is D pushed further: the signal is wearing out and the circuit is old. A worn PCB sits behind the card, the sigil plays on a round tube face, there's grain, tearing, a rolling hold bar, a burned-in ghost, and colour split on the wordmark. Cyan is in, now that the rule is retired. E+ turns every dial further, so you can see where too far is. F is something else: the Drafting Table grammar turned to a dark blue sheet with white ink, like a blueprint.</p>
+</header>
+
+<template id="pcb">
+  <svg class="pcb" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="#0e3d1d" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M-10 640 H210 L260 590 H520 L560 550 V430"/>
+      <path d="M-10 700 H300 L340 740 H640 L700 680 H880"/>
+      <path d="M120 900 V800 L170 750 H420"/>
+      <path d="M560 430 L610 380 H760"/>
+      <path d="M40 120 H260 L310 170 V300 L350 340 H480"/>
+      <path d="M40 160 H230 L270 200 V330"/>
+      <path d="M880 680 L930 630 V560"/>
+      <path d="M640 900 V820 L690 770 H900 L950 820 H1600"/>
+      <path d="M760 80 H1000 L1040 40 H1600"/>
+      <path d="M700 120 H900"/>
+    </g>
+    <g fill="none" stroke="#0b2f17" stroke-width="2.5">
+      <path d="M-10 610 H190 L240 560 H500"/>
+      <path d="M-10 730 H280 L320 770 H620"/>
+      <path d="M520 860 H760 L800 820"/>
+    </g>
+    <!-- pads and vias -->
+    <g fill="#04110a" stroke="#1f6b35" stroke-width="3">
+      <circle cx="560" cy="430" r="10"/><circle cx="760" cy="380" r="10"/><circle cx="480" cy="340" r="10"/>
+      <circle cx="270" cy="330" r="10"/><circle cx="880" cy="680" r="10"/><circle cx="930" cy="560" r="10"/>
+      <circle cx="420" cy="750" r="10"/><circle cx="900" cy="120" r="8"/><circle cx="700" cy="120" r="8"/>
+    </g>
+    <!-- a DIP op-amp, a valve socket, resistors, a cap -->
+    <g fill="none" stroke="#1a5a2c" stroke-width="2.5">
+      <rect x="610" y="455" width="150" height="70"/>
+      <path d="M610 480 a10 10 0 0 1 0 20"/>
+      <circle cx="360" cy="470" r="62"/><circle cx="360" cy="470" r="44" stroke-dasharray="6 9"/>
+      <rect x="300" y="610" width="90" height="28"/><rect x="200" y="235" width="28" height="80"/>
+      <rect x="760" y="730" width="34" height="80"/>
+    </g>
+    <g fill="#1f6b35">
+      <circle cx="625" cy="455" r="5"/><circle cx="655" cy="455" r="5"/><circle cx="685" cy="455" r="5"/><circle cx="715" cy="455" r="5"/>
+      <circle cx="625" cy="525" r="5"/><circle cx="655" cy="525" r="5"/><circle cx="685" cy="525" r="5"/><circle cx="715" cy="525" r="5"/>
+    </g>
+    <g font-family="IBM Plex Mono, monospace" font-size="17" fill="#1b5f2e" letter-spacing="1">
+      <text x="615" y="550">U3  TL072</text>
+      <text x="300" y="560">V1  12AX7</text>
+      <text x="300" y="604">R12 100K</text>
+      <text x="236" y="250">R7 1K5</text>
+      <text x="804" y="760">C4 47n</text>
+      <text x="36" y="104">J1 IN</text>
+      <text x="1010" y="26">GND</text>
+      <text x="36" y="872">LL-01 REV B  1978</text>
+    </g>
+    <!-- wear: a scorch and a lifted trace -->
+    <ellipse cx="300" cy="700" rx="120" ry="40" fill="rgba(40,22,6,.35)"/>
+  </svg>
+</template>
+
+<div class="grid">
+
+  <figure>
+    <div class="card e soft" data-glitch="soft">
+      <canvas class="trace" data-style="phosphor" data-color="#33ff66"></canvas>
+      <div class="tube"></div>
+      <div class="burn">STARTING SOON</div>
+      <div class="layer">
+        <div class="tag-row"><span class="dymo">SESSION 01</span><span class="eyebrow">&gt; WAVETABLE SCANNER // <span class="cyan">@ldn</span></span></div>
+        <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+        <div class="title"><span class="scramble">live build · scanning a wavetable by hand</span><span class="cursor"></span></div>
+        <div class="strip"><span class="dot"></span><span class="on">ON AIR</span> · <span class="cyan">→ palace/wavetable-scanner</span></div>
+      </div>
+      <div class="tear"></div>
+      <div class="corner">CH 3 · 625 LINES</div>
+      <div class="sync">◐ HOLD</div>
+      <canvas class="grain" width="320" height="180"></canvas>
+      <div class="vignette"></div>
+    </div>
+    <figcaption><b>E · worn.</b> The glitches come every few seconds, a tear or a scramble, never constantly. The vintage is in the board behind: a TL072 op-amp, a 12AX7 valve socket, a scorch mark, "REV B 1978", and a red embossed label-maker strip for the session. Cyan does what it does on the board: handles and links, plus the colour fringe on the wordmark.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="card e hard" data-glitch="hard">
+      <canvas class="trace" data-style="phosphor" data-color="#33ff66"></canvas>
+      <div class="tube"></div>
+      <div class="burn">STARTING SOON</div>
+      <div class="layer">
+        <div class="tag-row"><span class="dymo">SESSION 01</span><span class="eyebrow">&gt; WAVETABLE SCANNER // <span class="cyan">@ldn</span></span></div>
+        <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+        <div class="title"><span class="scramble">live build · scanning a wavetable by hand</span><span class="cursor"></span></div>
+        <div class="strip"><span class="dot"></span><span class="on">ON AIR</span> · <span class="cyan">→ palace/wavetable-scanner</span></div>
+      </div>
+      <div class="tear"></div>
+      <div class="corner">CH 3 · 625 LINES</div>
+      <div class="sync">◐ SYNC LOST</div>
+      <canvas class="grain" width="320" height="180"></canvas>
+      <div class="vignette"></div>
+    </div>
+    <figcaption><b>E+ · past the edge.</b> Same card with every dial turned up: wider colour split, twice the grain, faster roll, tears every second or two, and the signal drops out now and then. Probably too far for a card you'd look at for ten minutes before a stream starts, but it might be right for a five-second sting.</figcaption>
+  </figure>
+
+  <figure class="wide">
+    <div class="card f">
+      <canvas class="trace" data-style="ink"></canvas>
+      <div class="frame"></div>
+      <span class="zone" style="left:25%;top:.7cqw">1</span><span class="zone" style="left:50%;top:.7cqw">2</span><span class="zone" style="left:75%;top:.7cqw">3</span>
+      <span class="zone" style="left:.8cqw;top:30%">A</span><span class="zone" style="left:.8cqw;top:62%">B</span>
+      <div class="layer">
+        <div class="eyebrow">Sheet 01 / 01 · session 01</div>
+        <div class="wm-wrap">
+          <div class="dim"><div class="line"></div><span class="lbl">WORDMARK · 6.4 cqw · JETBRAINS MONO 700</span></div>
+          <div class="wordmark">LOUD’N <span class="live">LIVE</span></div>
+        </div>
+        <div class="title">Live build · scanning a wavetable by hand</div>
+        <div class="strip"><span class="dot"></span><span class="on">On air</span> · starting soon</div>
+        <div class="notes">
+          <div>All words are text.</div>
+          <div>Trace at 3 : 5 from the logo file, drift 0.12 rad/s.</div>
+          <div class="hold">HOLD: audio not yet patched.</div>
+        </div>
+      </div>
+      <div class="legend">
+        <div><i style="background:var(--ink)"></i>DESIGN</div>
+        <div><i style="background:var(--datasheet)"></i>DATASHEET</div>
+        <div><i style="background:var(--assumed)"></i>ASSUMED</div>
+        <div><i style="background:var(--measure)"></i>MEASURE</div>
+      </div>
+      <div class="tb">
+        <div class="span2"><span class="k">Title</span><span class="big">LOUD’N LIVE</span></div>
+        <div><span class="k">No.</span>LL-001</div>
+        <div class="span3"><span class="k">Subject</span>Scanning a wavetable by hand</div>
+        <div><span class="k">Status</span><span class="red">SKETCH</span></div>
+        <div><span class="k">Scale</span><span class="blue">3 : 5</span></div>
+        <div><span class="k">Drawn</span>L.S. 25.10.26</div>
+      </div>
+    </div>
+    <figcaption><b>F · Drafting Table, inverted.</b> The workshop's grammar on a dark blue sheet with white ink: frame and zone marks, a dimension line over the wordmark, numbered notes, a title block, and the provenance legend. The sigil is drawn as a part, with centre lines and dimensions. Everything is in mono, including the wordmark, the way the workshop sets everything. Red marks the one lit thing and the open HOLD. No glow, no motion except the on-air dot and the trace's slow drift.</figcaption>
+  </figure>
+
+</div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// circuit board behind each E card
+const pcbTpl = document.getElementById('pcb');
+document.querySelectorAll('.card.e').forEach(card => card.prepend(pcbTpl.content.cloneNode(true)));
+
+// ── the traces ────────────────────────────────────────────────
+const A = 3, B = 5;
+const traces = [...document.querySelectorAll('canvas.trace')].map(cv => ({ cv, ctx: cv.getContext('2d'), style: cv.dataset.style, color: cv.dataset.color, t: Math.random() * 10 }));
+function size(c) {
+  const r = c.cv.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+  c.cv.width = Math.max(1, r.width * dpr); c.cv.height = Math.max(1, r.height * dpr); c.w = c.cv.width; c.h = c.cv.height;
+}
+traces.forEach(size); addEventListener('resize', () => traces.forEach(size));
+
+function geo(c) {
+  return c.style === 'ink' ? { R: c.h * 0.2, cx: c.w * 0.76, cy: c.h * 0.4 } : { R: c.h * 0.33, cx: c.w * 0.72, cy: c.h * 0.46 };
+}
+function pt(g, s, phase) { return [g.cx + g.R * Math.sin(A * s + phase), g.cy + g.R * Math.sin(B * s)]; }
+
+function arrow(ctx, x, y, ang, L) {
+  ctx.beginPath(); ctx.moveTo(x, y);
+  ctx.lineTo(x - L * Math.cos(ang - .32), y - L * Math.sin(ang - .32));
+  ctx.lineTo(x - L * Math.cos(ang + .32), y - L * Math.sin(ang + .32)); ctx.closePath(); ctx.fill();
+}
+
+function drawPhosphor(c, phase) {
+  const { ctx } = c, g = geo(c);
+  ctx.clearRect(0, 0, c.w, c.h);
+  // graticule on the tube face
+  ctx.strokeStyle = 'rgba(51,255,102,.10)'; ctx.lineWidth = Math.max(1, c.w / 1400);
+  for (let i = -4; i <= 4; i++) {
+    ctx.beginPath(); ctx.moveTo(g.cx + i * g.R / 4, g.cy - g.R * 1.15); ctx.lineTo(g.cx + i * g.R / 4, g.cy + g.R * 1.15); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(g.cx - g.R * 1.15, g.cy + i * g.R / 4); ctx.lineTo(g.cx + g.R * 1.15, g.cy + i * g.R / 4); ctx.stroke();
+  }
+  ctx.beginPath();
+  for (let i = 0; i <= 900; i++) { const [x, y] = pt(g, i / 900 * Math.PI * 2, phase); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+  ctx.strokeStyle = c.color; ctx.globalAlpha = 0.14; ctx.stroke();
+  const head = c.t * 0.9, N = 160, span = Math.PI * 1.1;
+  ctx.lineCap = 'round'; ctx.lineWidth = Math.max(1.4, c.w / 520); ctx.shadowColor = c.color; ctx.shadowBlur = c.w / 110;
+  let [px, py] = pt(g, head - span, phase);
+  for (let i = 1; i <= N; i++) {
+    const [x, y] = pt(g, head - span + span * i / N, phase);
+    ctx.globalAlpha = Math.pow(i / N, 2.2); ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(x, y); ctx.stroke(); px = x; py = y;
+  }
+  ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+}
+
+function drawInk(c, phase) {
+  const { ctx } = c, g = geo(c), u = c.w / 1000, ink = '#eef3fa', ink3 = '#5d7193', blue = '#7fb0ff';
+  ctx.clearRect(0, 0, c.w, c.h);
+  // centre lines, dash-dot
+  ctx.setLineDash([14 * u, 4 * u, 2 * u, 4 * u]); ctx.strokeStyle = ink3; ctx.lineWidth = Math.max(1, u);
+  ctx.beginPath(); ctx.moveTo(g.cx - g.R * 1.3, g.cy); ctx.lineTo(g.cx + g.R * 1.3, g.cy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(g.cx, g.cy - g.R * 1.25); ctx.lineTo(g.cx, g.cy + g.R * 1.25); ctx.stroke();
+  ctx.setLineDash([]);
+  // the part
+  ctx.beginPath();
+  for (let i = 0; i <= 1200; i++) { const [x, y] = pt(g, i / 1200 * Math.PI * 2, phase); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+  ctx.strokeStyle = ink; ctx.lineWidth = Math.max(1.2, 1.6 * u); ctx.stroke();
+  // horizontal dimension below
+  const y0 = g.cy + g.R * 1.38, xl = g.cx - g.R, xr = g.cx + g.R;
+  ctx.strokeStyle = ink3; ctx.lineWidth = Math.max(1, u);
+  ctx.beginPath(); ctx.moveTo(xl, g.cy + g.R * 0.2); ctx.lineTo(xl, y0 + 8 * u); ctx.moveTo(xr, g.cy + g.R * 0.2); ctx.lineTo(xr, y0 + 8 * u); ctx.stroke();
+  ctx.strokeStyle = blue; ctx.fillStyle = blue;
+  ctx.beginPath(); ctx.moveTo(xl, y0); ctx.lineTo(xr, y0); ctx.stroke();
+  arrow(ctx, xl, y0, Math.PI, 11 * u); arrow(ctx, xr, y0, 0, 11 * u);
+  ctx.font = `${Math.round(11.5 * u)}px "JetBrains Mono", monospace`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const lbl = '3 LOBES : 5 LOBES', tw = ctx.measureText(lbl).width;
+  ctx.fillStyle = '#0a1424'; ctx.fillRect(g.cx - tw / 2 - 6 * u, y0 - 9 * u, tw + 12 * u, 18 * u);
+  ctx.fillStyle = blue; ctx.fillText(lbl, g.cx, y0);
+  // vertical dimension, right
+  const x0 = g.cx - g.R * 1.42, yt = g.cy - g.R, yb = g.cy + g.R;
+  ctx.strokeStyle = ink3;
+  ctx.beginPath(); ctx.moveTo(g.cx - g.R * 0.3, yt); ctx.lineTo(x0 - 8 * u, yt); ctx.moveTo(g.cx - g.R * 0.3, yb); ctx.lineTo(x0 - 8 * u, yb); ctx.stroke();
+  ctx.strokeStyle = ink; ctx.fillStyle = ink;
+  ctx.beginPath(); ctx.moveTo(x0, yt); ctx.lineTo(x0, yb); ctx.stroke();
+  arrow(ctx, x0, yt, -Math.PI / 2, 11 * u); arrow(ctx, x0, yb, Math.PI / 2, 11 * u);
+  ctx.save(); ctx.translate(x0, g.cy); ctx.rotate(-Math.PI / 2);
+  const l2 = '2R  ±0.01', t2 = ctx.measureText(l2).width;
+  ctx.fillStyle = '#0a1424'; ctx.fillRect(-t2 / 2 - 6 * u, -9 * u, t2 + 12 * u, 18 * u);
+  ctx.fillStyle = ink; ctx.fillText(l2, 0, 0); ctx.restore();
+  // view caption
+  ctx.textAlign = 'left'; ctx.fillStyle = '#a9b8cf'; ctx.font = `${Math.round(10.5 * u)}px "JetBrains Mono", monospace`;
+  ctx.fillText('VIEW A · THE SIGIL, FRONT', g.cx - g.R * 1.3, g.cy - g.R * 1.35);
+}
+
+// ── grain ─────────────────────────────────────────────────────
+const grains = [...document.querySelectorAll('canvas.grain')].map(cv => {
+  const ctx = cv.getContext('2d'), img = ctx.createImageData(cv.width, cv.height);
+  return { ctx, img };
+});
+function drawGrain() {
+  for (const g of grains) {
+    const d = g.img.data;
+    for (let i = 0; i < d.length; i += 4) { const v = Math.random() * 255; d[i] = v * .8; d[i + 1] = v; d[i + 2] = v * .85; d[i + 3] = 255; }
+    g.ctx.putImageData(g.img, 0, 0);
+  }
+}
+
+// ── tears, scrambles, dropouts ────────────────────────────────
+const GLYPHS = '▓▒░█▌▐#%&@$';
+document.querySelectorAll('.card.e').forEach(card => {
+  const hard = card.dataset.glitch === 'hard';
+  const layer = card.querySelector('.layer'), tear = card.querySelector('.tear');
+  const scr = card.querySelector('.scramble'), original = scr.textContent;
+  const sync = card.querySelector('.sync');
+  tear.innerHTML = layer.innerHTML;
+
+  function doTear() {
+    const top = Math.random() * 85, h = 2 + Math.random() * (hard ? 14 : 7);
+    const dx = (Math.random() - .5) * (hard ? 9 : 4);
+    tear.style.clipPath = `inset(${top}% 0 ${Math.max(0, 100 - top - h)}% 0)`;
+    tear.style.transform = `translateX(${dx}cqw)`;
+    tear.style.filter = Math.random() < .5 ? 'hue-rotate(120deg) brightness(1.3)' : 'none';
+    tear.classList.add('on');
+    card.style.setProperty('--split', `${(hard ? .55 : .3) + Math.random() * (hard ? 1.4 : .6)}cqw`);
+    setTimeout(() => { tear.classList.remove('on'); card.style.removeProperty('--split'); }, 60 + Math.random() * (hard ? 180 : 90));
+  }
+  function doScramble() {
+    let n = 0;
+    const iv = setInterval(() => {
+      scr.textContent = [...original].map(ch => ch !== ' ' && Math.random() < (hard ? .35 : .18) ? GLYPHS[Math.random() * GLYPHS.length | 0] : ch).join('');
+      if (++n > 5) { clearInterval(iv); scr.textContent = original; }
+    }, 45);
+  }
+  function doDrop() { sync.classList.add('on'); card.querySelector('.layer').style.opacity = .15; setTimeout(() => { sync.classList.remove('on'); card.querySelector('.layer').style.opacity = 1; }, 380); }
+
+  if (reduce) return;
+  (function loop() {
+    const r = Math.random();
+    if (hard && r < .12) doDrop(); else if (r < .6) doTear(); else doScramble();
+    setTimeout(loop, hard ? 700 + Math.random() * 1500 : 2200 + Math.random() * 3200);
+  })();
+});
+
+// ── one clock ─────────────────────────────────────────────────
+let frameNo = 0;
+function frame() {
+  for (const c of traces) {
+    c.t += 0.016;
+    const phase = c.t * (c.style === 'ink' ? 0.05 : 0.12);
+    c.style === 'ink' ? drawInk(c, phase) : drawPhosphor(c, phase);
+  }
+  if (frameNo++ % 3 === 0) drawGrain();
+  if (!reduce) requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>

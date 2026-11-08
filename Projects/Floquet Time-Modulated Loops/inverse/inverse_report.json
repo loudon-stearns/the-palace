@@ -1,0 +1,370 @@
+{
+ "fs": 48000,
+ "taps": 512,
+ "rows": 256,
+ "scan": "f_mod = f0/32, locked to the note",
+ "cases": {
+  "187.5_harmonic_hann": {
+   "note": "F#3+23c (harmonics on band centres)",
+   "target": "harmonic",
+   "window": "hann",
+   "f_mod_hz": 5.859375,
+   "partials": 24,
+   "max_rung": 0,
+   "design_rounding_cents_max": 0.0,
+   "measured_cents_max": 0.0,
+   "power_off_designed_lines": 0.0
+  },
+  "187.5_harmonic_rect": {
+   "note": "F#3+23c (harmonics on band centres)",
+   "target": "harmonic",
+   "window": "rect",
+   "f_mod_hz": 5.859375,
+   "partials": 24,
+   "max_rung": 0,
+   "design_rounding_cents_max": 0.0,
+   "measured_cents_max": 0.0,
+   "power_off_designed_lines": 0.0
+  },
+  "187.5_piano_hann": {
+   "note": "F#3+23c (harmonics on band centres)",
+   "target": "piano",
+   "window": "hann",
+   "f_mod_hz": 5.859375,
+   "partials": 24,
+   "max_rung": 15,
+   "design_rounding_cents_max": 5.52,
+   "measured_cents_max": 5.52,
+   "power_off_designed_lines": 0.0
+  },
+  "187.5_piano_rect": {
+   "note": "F#3+23c (harmonics on band centres)",
+   "target": "piano",
+   "window": "rect",
+   "f_mod_hz": 5.859375,
+   "partials": 24,
+   "max_rung": 15,
+   "design_rounding_cents_max": 5.52,
+   "measured_cents_max": 5.52,
+   "power_off_designed_lines": 0.0
+  },
+  "187.5_bar_hann": {
+   "note": "F#3+23c (harmonics on band centres)",
+   "target": "bar",
+   "window": "hann",
+   "f_mod_hz": 5.859375,
+   "partials": 6,
+   "max_rung": 13,
+   "design_rounding_cents_max": 4.5,
+   "measured_cents_max": 4.5,
+   "power_off_designed_lines": 0.0
+  },
+  "187.5_bar_rect": {
+   "note": "F#3+23c (harmonics on band centres)",
+   "target": "bar",
+   "window": "rect",
+   "f_mod_hz": 5.859375,
+   "partials": 6,
+   "max_rung": 13,
+   "design_rounding_cents_max": 4.5,
+   "measured_cents_max": 4.5,
+   "power_off_designed_lines": 0.0
+  },
+  "196_harmonic_hann": {
+   "note": "G3 (harmonics between bands)",
+   "target": "harmonic",
+   "window": "hann",
+   "f_mod_hz": 6.125,
+   "partials": 24,
+   "max_rung": 0,
+   "design_rounding_cents_max": 0.0,
+   "measured_cents_max": 0.0,
+   "power_off_designed_lines": 0.0
+  },
+  "196_harmonic_rect": {
+   "note": "G3 (harmonics between bands)",
+   "target": "harmonic",
+   "window": "rect",
+   "f_mod_hz": 6.125,
+   "partials": 24,
+   "max_rung": 0,
+   "design_rounding_cents_max": 0.0,
+   "measured_cents_max": 0.0,
+   "power_off_designed_lines": 0.00063
+  },
+  "196_piano_hann": {
+   "note": "G3 (harmonics between bands)",
+   "target": "piano",
+   "window": "hann",
+   "f_mod_hz": 6.125,
+   "partials": 24,
+   "max_rung": 15,
+   "design_rounding_cents_max": 5.52,
+   "measured_cents_max": 5.52,
+   "power_off_designed_lines": 0.00097
+  },
+  "196_piano_rect": {
+   "note": "G3 (harmonics between bands)",
+   "target": "piano",
+   "window": "rect",
+   "f_mod_hz": 6.125,
+   "partials": 24,
+   "max_rung": 15,
+   "design_rounding_cents_max": 5.52,
+   "measured_cents_max": 5.52,
+   "power_off_designed_lines": 0.01153
+  },
+  "196_bar_hann": {
+   "note": "G3 (harmonics between bands)",
+   "target": "bar",
+   "window": "hann",
+   "f_mod_hz": 6.125,
+   "partials": 6,
+   "max_rung": 13,
+   "design_rounding_cents_max": 4.5,
+   "measured_cents_max": 4.5,
+   "power_off_designed_lines": 0.00423
+  },
+  "196_bar_rect": {
+   "note": "G3 (harmonics between bands)",
+   "target": "bar",
+   "window": "rect",
+   "f_mod_hz": 6.125,
+   "partials": 6,
+   "max_rung": 13,
+   "design_rounding_cents_max": 4.5,
+   "measured_cents_max": 4.5,
+   "power_off_designed_lines": 0.04037
+  }
+ },
+ "zone_piano_G3_surface": {
+  "0": {
+   "power_off_stretched_lines": 0.001,
+   "partials_within_0.5_cents_of_design": 24
+  },
+  "10": {
+   "power_off_stretched_lines": 0.0013,
+   "partials_within_0.5_cents_of_design": 24
+  },
+  "25": {
+   "power_off_stretched_lines": 0.0035,
+   "partials_within_0.5_cents_of_design": 24
+  },
+  "50": {
+   "power_off_stretched_lines": 0.0134,
+   "partials_within_0.5_cents_of_design": 24
+  },
+  "100": {
+   "power_off_stretched_lines": 0.0414,
+   "partials_within_0.5_cents_of_design": 24
+  },
+  "200": {
+   "power_off_stretched_lines": 0.0941,
+   "partials_within_0.5_cents_of_design": 24
+  }
+ },
+ "rounding_vs_scan_ratio_piano_G3": {
+  "16": {
+   "f_mod_hz": 12.25,
+   "repeats_every_s": 0.082,
+   "max_rung": 7,
+   "worst_cents": 8.61,
+   "worst_partial": 5,
+   "rms_cents": 3.2
+  },
+  "32": {
+   "f_mod_hz": 6.125,
+   "repeats_every_s": 0.163,
+   "max_rung": 15,
+   "worst_cents": 5.52,
+   "worst_partial": 4,
+   "rms_cents": 1.86
+  },
+  "64": {
+   "f_mod_hz": 3.0625,
+   "repeats_every_s": 0.327,
+   "max_rung": 30,
+   "worst_cents": 3.11,
+   "worst_partial": 3,
+   "rms_cents": 1.08
+  },
+  "128": {
+   "f_mod_hz": 1.53125,
+   "repeats_every_s": 0.653,
+   "max_rung": 59,
+   "worst_cents": 1.39,
+   "worst_partial": 3,
+   "rms_cents": 0.61
+  }
+ },
+ "piano_G3_modes": [
+  {
+   "target": 196.039,
+   "h": 1,
+   "m": 2,
+   "n": 0,
+   "lands": 196.0
+  },
+  {
+   "target": 392.313,
+   "h": 2,
+   "m": 4,
+   "n": 0,
+   "lands": 392.0
+  },
+  {
+   "target": 589.057,
+   "h": 3,
+   "m": 6,
+   "n": 0,
+   "lands": 588.0
+  },
+  {
+   "target": 786.505,
+   "h": 4,
+   "m": 8,
+   "n": 0,
+   "lands": 784.0
+  },
+  {
+   "target": 984.888,
+   "h": 5,
+   "m": 10,
+   "n": 1,
+   "lands": 986.125
+  },
+  {
+   "target": 1184.437,
+   "h": 6,
+   "m": 13,
+   "n": 1,
+   "lands": 1182.125
+  },
+  {
+   "target": 1385.38,
+   "h": 7,
+   "m": 15,
+   "n": 2,
+   "lands": 1384.25
+  },
+  {
+   "target": 1587.944,
+   "h": 8,
+   "m": 17,
+   "n": 3,
+   "lands": 1586.375
+  },
+  {
+   "target": 1792.349,
+   "h": 9,
+   "m": 19,
+   "n": 5,
+   "lands": 1794.625
+  },
+  {
+   "target": 1998.816,
+   "h": 10,
+   "m": 21,
+   "n": 6,
+   "lands": 1996.75
+  },
+  {
+   "target": 2207.559,
+   "h": 11,
+   "m": 23,
+   "n": 8,
+   "lands": 2205.0
+  },
+  {
+   "target": 2418.789,
+   "h": 12,
+   "m": 25,
+   "n": 11,
+   "lands": 2419.375
+  },
+  {
+   "target": 2632.714,
+   "h": 13,
+   "m": 27,
+   "n": 14,
+   "lands": 2633.75
+  },
+  {
+   "target": 2849.535,
+   "h": 15,
+   "m": 31,
+   "n": -15,
+   "lands": 2848.125
+  },
+  {
+   "target": 3069.45,
+   "h": 16,
+   "m": 33,
+   "n": -11,
+   "lands": 3068.625
+  },
+  {
+   "target": 3292.651,
+   "h": 17,
+   "m": 36,
+   "n": -6,
+   "lands": 3295.25
+  },
+  {
+   "target": 3519.324,
+   "h": 18,
+   "m": 38,
+   "n": -1,
+   "lands": 3521.875
+  },
+  {
+   "target": 3749.652,
+   "h": 19,
+   "m": 40,
+   "n": 4,
+   "lands": 3748.5
+  },
+  {
+   "target": 3983.81,
+   "h": 20,
+   "m": 42,
+   "n": 10,
+   "lands": 3981.25
+  },
+  {
+   "target": 4221.969,
+   "h": 22,
+   "m": 46,
+   "n": -15,
+   "lands": 4220.125
+  },
+  {
+   "target": 4464.295,
+   "h": 23,
+   "m": 48,
+   "n": -7,
+   "lands": 4465.125
+  },
+  {
+   "target": 4710.946,
+   "h": 24,
+   "m": 50,
+   "n": 1,
+   "lands": 4710.125
+  },
+  {
+   "target": 4962.077,
+   "h": 25,
+   "m": 52,
+   "n": 10,
+   "lands": 4961.25
+  },
+  {
+   "target": 5217.837,
+   "h": 27,
+   "m": 56,
+   "n": -12,
+   "lands": 5218.5
+  }
+ ]
+}

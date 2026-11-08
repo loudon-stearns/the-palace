@@ -6,7 +6,7 @@ pillars:
   - tools
 born: 2026-03
 stage: mature
-version: "1.2"
+version: "1.3"
 trigger: ["harvest", "let's harvest"]
 links:
   - target: "[[SUBSTRATE]]"
@@ -36,11 +36,19 @@ links:
 
 ![[Harvest Ceremony — hero.png]]
 
-**Trigger:** "Let's harvest"
+**Trigger:** "harvest" / "let's harvest"
 
 The Harvest searches through a large body of past work — conversations, documents, archives — and surfaces what is worthy of eventual incorporation into the palace. It does not build palace entries. It identifies what should be built and routes those candidates toward [[Deposit Ceremony]].
 
 The Harvest is designed to run in sessions, stopped and started freely. Every harvest adapts to its source material and to the tools available in the current context.
+
+**Postconditions:**
+1. The scope was named before any triage: what was searched, and what was left out.
+2. Every candidate carries a pointer back to where it was found — a conversation, a `file:line`, a section — so the [[Deposit Ceremony]] re-enters the source, not the summary of it.
+3. Nothing entered canon from a sweep. In a close reading, every section has a disposition and a reason, and each write went through the Deposit's gate.
+4. The candidate list lives where the Deposit can find it, and the commit names it: `Harvest — [scope] — [N candidates surfaced]`. **A harvest that surfaced nothing is complete** — N is 0 and the scope is named. Requiring a find guarantees one gets manufactured.
+5. A harvest stopped partway is complete for what it covered, if its commit names where it stopped, so the next one starts there.
+6. The tuning ledger has the run's line.
 
 ---
 

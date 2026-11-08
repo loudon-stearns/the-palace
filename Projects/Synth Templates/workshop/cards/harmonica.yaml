@@ -1,0 +1,71 @@
+# Synth Templates — card — Harmonica
+# The band-pass lesson: a reed in a small box has no bottom and no top. The tremolo is the hand over the box.
+schema: synth-template-card/0.2
+id: harmonica
+name: Harmonica
+family: Brass and Winds
+tier: 2
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Low-pass, high-pass, band-pass, notch"
+  - "Resonance as width (Q) on band-pass and notch"
+  - "Combining waveforms: square + saw octave up (zipper)"
+  - "LFO → pitch / amplitude / pan / filter"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: pulse, pw: 0.3, octave: 0}
+    osc2:    {kind: oscillator, wave: saw, octave: 0, level: half, note: "fills the even harmonics the pulse thins out"}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: bandpass, slope: 12, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    aenv:    {kind: envelope, role: amp, shape: {a: fast, d: medium, s: held, r: short}, category: sustaining}
+    lfo1:    {kind: lfo, wave: sine, rate: medium, sync: false, note: "tremolo: the hand opening and closing over the reeds"}
+  audio:
+    - [osc1, mix]
+    - [osc2, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: lfo1,  to: amp.level, amount: moderate, essential: true}
+    - {from: wheel, to: lfo1.depth, amount: full, essential: true}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: osc2.pitch, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1,    param: wave,      value: pulse,         why: "the reed: buzzy and a little nasal"}
+  - {block: osc2,    param: wave,      value: saw,           why: "the even harmonics the pulse lacks; together the spectrum is full but uneven, like a reed"}
+  - {block: filter1, param: type,      value: bandpass,      why: "the box: no bottom, no top; the whole character lives in a band in the mids"}
+  - {block: filter1, param: cutoff,    value: mid,           why: "the band sits in the mids where a harmonica cuts through"}
+  - {block: filter1, param: resonance, value: moderate,      why: "resonance on a band-pass is width: moderate is a box, high is a kazoo"}
+  - {block: lfo1,    param: target,    value: amp level,     why: "tremolo, not vibrato: the hand over the reeds changes loudness, not pitch"}
+  - {block: wheel,   param: target,    value: tremolo depth, why: "the player decides when to wave the hand; with the wheel down it is a straight note"}
+  - {block: aenv,    param: attack,    value: fast,          why: "a reed speaks quickly with a breath behind it"}
+  - {block: aenv,    param: sustain,   value: held}
+  - {block: mode,    param: voices,    value: mono}
+
+taste:
+  - {block: filter1, param: cutoff,    range: "mid – bright",    default: mid,      why: "where the box sits"}
+  - {block: filter1, param: resonance, range: "little – high",   default: moderate, why: "narrower is boxier"}
+  - {block: osc2,    param: level,     range: "quarter – equal", default: half}
+  - {block: lfo1,    param: rate,      range: "medium – fast",   default: medium,   why: "how fast the hand waves"}
+  - {block: lfo1,    param: depth,     range: "some – full",     default: moderate}
+  - {block: aenv,    param: release,   range: "short – medium",  default: short}
+
+listening:
+  cue: "Boxy and mid-heavy: no low body, no air on top, just a reedy band in the middle. Push the wheel and the loudness pulses while the pitch stays put."
+  ab: "Change the filter to lowpass: the bottom comes back and it is a plain two-oscillator lead. Back to band-pass and the box returns. Then route the LFO to pitch instead of amp: the hand wave becomes a vibrato, and it is a different instrument."
+
+render:
+  tempo: 96
+  note: [E4, G4, A4, G4, E4]
+  velocity: 95
+  pattern: "a blues turn, one note per beat, the last held a bar with the wheel pushed up through it"
+  length_s: 5.0
+
+mappings: {}

@@ -1,0 +1,312 @@
+{
+ "reels": {
+  "knot_shadow_speech": {
+   "file": "kernel/phrase/reel_1_knot_shadow_speech.wav",
+   "seconds": 52.1,
+   "segments": [
+    {
+     "at_s": 0.0,
+     "what": "dry"
+    },
+    {
+     "at_s": 4.48,
+     "what": "Daniel, Knot Shadow frozen (the filter alone)"
+    },
+    {
+     "at_s": 8.96,
+     "what": "Daniel, Knot Shadow scanned at +15.62 Hz, aiming down a fourth"
+    },
+    {
+     "at_s": 13.45,
+     "what": "Daniel, Knot Shadow scanned at -15.62 Hz, aiming up a major third"
+    },
+    {
+     "at_s": 17.93,
+     "what": "Daniel, Knot Shadow locked to 1/3 \u00d7 pitch"
+    },
+    {
+     "at_s": 22.41,
+     "what": "Daniel, Knot Shadow locked to 2/3 \u00d7 pitch"
+    },
+    {
+     "at_s": 26.89,
+     "what": "dry"
+    },
+    {
+     "at_s": 31.09,
+     "what": "Flo, Knot Shadow frozen (the filter alone)"
+    },
+    {
+     "at_s": 35.3,
+     "what": "Flo, Knot Shadow scanned at +15.62 Hz, aiming down a fourth"
+    },
+    {
+     "at_s": 39.5,
+     "what": "Flo, Knot Shadow scanned at -15.62 Hz, aiming up a major third"
+    },
+    {
+     "at_s": 43.7,
+     "what": "Flo, Knot Shadow locked to 1/3 \u00d7 pitch"
+    },
+    {
+     "at_s": 47.91,
+     "what": "Flo, Knot Shadow locked to 2/3 \u00d7 pitch"
+    }
+   ]
+  },
+  "pitch_locked_melody": {
+   "file": "kernel/phrase/reel_2_pitch_locked_melody.wav",
+   "seconds": 32.5,
+   "segments": [
+    {
+     "at_s": 0.0,
+     "what": "dry"
+    },
+    {
+     "at_s": 4.65,
+     "what": "theta, scan locked to 2 \u00d7 pitch"
+    },
+    {
+     "at_s": 9.3,
+     "what": "theta, scan fixed at 2 \u00d7 pitch (329.6 Hz)"
+    },
+    {
+     "at_s": 13.95,
+     "what": "theta, scan locked to 0.03 \u00d7 pitch"
+    },
+    {
+     "at_s": 18.6,
+     "what": "penrose, scan locked to 2 \u00d7 pitch"
+    },
+    {
+     "at_s": 23.25,
+     "what": "penrose, scan fixed at 2 \u00d7 pitch (329.6 Hz)"
+    },
+    {
+     "at_s": 27.9,
+     "what": "penrose, scan locked to 0.03 \u00d7 pitch"
+    }
+   ]
+  },
+  "pitch_locked_speech": {
+   "file": "kernel/phrase/reel_3_pitch_locked_speech.wav",
+   "seconds": 31.4,
+   "segments": [
+    {
+     "at_s": 0.0,
+     "what": "dry"
+    },
+    {
+     "at_s": 4.48,
+     "what": "theta, scan locked to 2 \u00d7 pitch"
+    },
+    {
+     "at_s": 8.96,
+     "what": "theta, scan fixed at 2 \u00d7 pitch (232.9 Hz)"
+    },
+    {
+     "at_s": 13.45,
+     "what": "theta, scan locked to 0.03 \u00d7 pitch"
+    },
+    {
+     "at_s": 17.93,
+     "what": "penrose, scan locked to 2 \u00d7 pitch"
+    },
+    {
+     "at_s": 22.41,
+     "what": "penrose, scan fixed at 2 \u00d7 pitch (232.9 Hz)"
+    },
+    {
+     "at_s": 26.89,
+     "what": "penrose, scan locked to 0.03 \u00d7 pitch"
+    }
+   ]
+  },
+  "drums": {
+   "file": "kernel/phrase/reel_4_drums.wav",
+   "seconds": 23.7,
+   "segments": [
+    {
+     "at_s": 0.0,
+     "what": "dry"
+    },
+    {
+     "at_s": 4.74,
+     "what": "theta, scan 2 Hz"
+    },
+    {
+     "at_s": 9.47,
+     "what": "penrose, scan 6.25 Hz"
+    },
+    {
+     "at_s": 14.21,
+     "what": "penrose, scan 60 Hz"
+    },
+    {
+     "at_s": 18.94,
+     "what": "knot_shadow, scan 15.625 Hz"
+    }
+   ]
+  }
+ },
+ "knot_shadow_pitch": [
+  {
+   "voice": "Daniel",
+   "median_pitch_hz": 116.5,
+   "frozen": {
+    "harmonic_to_dry_pitch": 0.505
+   },
+   "fixed_0.75": {
+    "scan_hz": 15.625,
+    "harmonic_to_dry_pitch": 0.073,
+    "harmonic_to_aimed_pitch": 0.335
+   },
+   "fixed_1.25": {
+    "scan_hz": -15.625,
+    "harmonic_to_dry_pitch": 0.067,
+    "harmonic_to_aimed_pitch": 0.313
+   },
+   "locked_1/3": {
+    "harmonic_to_dry_pitch": 0.615
+   },
+   "locked_2/3": {
+    "harmonic_to_dry_pitch": 0.413
+   }
+  },
+  {
+   "voice": "Flo",
+   "median_pitch_hz": 249.0,
+   "frozen": {
+    "harmonic_to_dry_pitch": 0.758
+   },
+   "fixed_0.75": {
+    "scan_hz": 15.625,
+    "harmonic_to_dry_pitch": 0.012,
+    "harmonic_to_aimed_pitch": 0.572
+   },
+   "fixed_1.25": {
+    "scan_hz": -15.625,
+    "harmonic_to_dry_pitch": 0.077,
+    "harmonic_to_aimed_pitch": 0.679
+   },
+   "locked_1/3": {
+    "harmonic_to_dry_pitch": 0.322
+   },
+   "locked_2/3": {
+    "harmonic_to_dry_pitch": 0.74
+   }
+  }
+ ],
+ "harmonicity": [
+  {
+   "input": "melody",
+   "treatment": "dry",
+   "harmonicity": 0.84
+  },
+  {
+   "input": "melody",
+   "treatment": "theta, scan locked to 2 \u00d7 pitch",
+   "harmonicity": 0.946
+  },
+  {
+   "input": "melody",
+   "treatment": "theta, scan fixed at 2 \u00d7 pitch (329.6 Hz)",
+   "harmonicity": 0.531
+  },
+  {
+   "input": "melody",
+   "treatment": "theta, scan locked to 0.03 \u00d7 pitch",
+   "harmonicity": 0.919
+  },
+  {
+   "input": "melody",
+   "treatment": "theta, scan fixed at 0.03 \u00d7 pitch (4.9 Hz)",
+   "harmonicity": 0.943
+  },
+  {
+   "input": "melody",
+   "treatment": "penrose, scan locked to 2 \u00d7 pitch",
+   "harmonicity": 0.938
+  },
+  {
+   "input": "melody",
+   "treatment": "penrose, scan fixed at 2 \u00d7 pitch (329.6 Hz)",
+   "harmonicity": 0.746
+  },
+  {
+   "input": "melody",
+   "treatment": "penrose, scan locked to 0.03 \u00d7 pitch",
+   "harmonicity": 0.156
+  },
+  {
+   "input": "melody",
+   "treatment": "penrose, scan fixed at 0.03 \u00d7 pitch (4.9 Hz)",
+   "harmonicity": 0.155
+  },
+  {
+   "input": "speech",
+   "treatment": "dry",
+   "harmonicity": 0.44
+  },
+  {
+   "input": "speech",
+   "treatment": "theta, scan locked to 2 \u00d7 pitch",
+   "harmonicity": 0.614
+  },
+  {
+   "input": "speech",
+   "treatment": "theta, scan fixed at 2 \u00d7 pitch (232.9 Hz)",
+   "harmonicity": 0.517
+  },
+  {
+   "input": "speech",
+   "treatment": "theta, scan locked to 0.03 \u00d7 pitch",
+   "harmonicity": 0.724
+  },
+  {
+   "input": "speech",
+   "treatment": "theta, scan fixed at 0.03 \u00d7 pitch (3.5 Hz)",
+   "harmonicity": 0.645
+  },
+  {
+   "input": "speech",
+   "treatment": "penrose, scan locked to 2 \u00d7 pitch",
+   "harmonicity": 0.234
+  },
+  {
+   "input": "speech",
+   "treatment": "penrose, scan fixed at 2 \u00d7 pitch (232.9 Hz)",
+   "harmonicity": 0.175
+  },
+  {
+   "input": "speech",
+   "treatment": "penrose, scan locked to 0.03 \u00d7 pitch",
+   "harmonicity": 0.086
+  },
+  {
+   "input": "speech",
+   "treatment": "penrose, scan fixed at 0.03 \u00d7 pitch (3.5 Hz)",
+   "harmonicity": 0.102
+  },
+  {
+   "input": "melody",
+   "treatment": "knot_shadow, scan locked to 1/3 \u00d7 pitch",
+   "harmonicity": 0.891
+  },
+  {
+   "input": "melody",
+   "treatment": "knot_shadow, scan locked to 2/3 \u00d7 pitch",
+   "harmonicity": 0.946
+  },
+  {
+   "input": "melody",
+   "treatment": "knot_shadow, scan fixed at 15.625 Hz",
+   "harmonicity": 0.02
+  },
+  {
+   "input": "melody",
+   "treatment": "knot_shadow, frozen",
+   "harmonicity": 0.946
+  }
+ ]
+}

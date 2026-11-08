@@ -1,0 +1,365 @@
+<!doctype html>
+<!--
+  title: Wavetable Space as Torus — rich — one twist or many
+  born: 2026-11-03
+  links: [[Wavetable Space as Torus]] (connects-to · rich-face-piece) · listed in [[Wavetable Space as Torus — rich.json]] · [[Inharmonic Wavetable Synthesis]] (connects-to · the-B-coefficient) · [[Progressive Staging]] (exemplifies · a walk up to its test)
+  forward_vector: I am the monodromy section's B put to one question: is what B does to a lap one twist of the phase circle, or a different turn for every partial? I start on the plain loop, give it one twist, then give it B, and last search for the single twist that would do what B does. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too; Wavetable Space as Torus/workshop/rich-checks.mjs re-runs the claims on it. The worklet is a bank of sixteen sines at the frequencies freqsB and freqsTwist name.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>One twist, or one per partial?</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --cool:#7f9cff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rail button { border-radius: 0; margin-right: -1px; }
+  .rail button.here { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  .rail button.ahead { color: var(--fg3); }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); margin: 4px 0 4px; }
+  .says { font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 76ch; margin: 0 0 14px; min-height: 4.8em; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .row2 { margin-top: 16px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .legend i { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 6px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: end; margin-top: 16px; min-height: 40px; }
+  .ctl { min-width: 240px; flex: 1; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seglabel { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .4; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 96px; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 14px; line-height: 1.55; color: var(--amber); max-width: 80ch; min-height: 1.6em; }
+  .nav { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .05em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 90ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot svg { width: 22px; height: 22px; }
+  @media (max-width: 700px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio Worklet · study · a walk in four steps</div>
+  <h3 class="title">One twist, or one per partial?</h3>
+  <p class="sub">The section says B is a holonomy parameter: one trip around the loop shifts φ, and that shift is the monodromy. Here the loop is the one the B sentence takes, one period of the fundamental. Left, sixteen partials as sixteen dials, each turned by how far that partial has run past a whole number of turns, lap after lap. Right, that excess per lap, partial by partial. Underneath, the cycle after so many laps against the cycle at the start.</p>
+
+  <div class="rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="stephead" id="stephead"></div>
+  <p class="says" id="says"></p>
+
+  <div class="stage">
+    <div class="panel">
+      <div class="plabel"><span>the partials, after so many laps</span><span id="lapcount"></span></div>
+      <canvas id="dials"></canvas>
+      <div class="legend" id="dlegend"></div>
+    </div>
+    <div class="panel">
+      <div class="plabel"><span>excess turn per lap · radians · by partial</span><span id="exnote"></span></div>
+      <canvas id="excess"></canvas>
+      <div class="legend" id="elegend"></div>
+    </div>
+  </div>
+  <div class="panel row2">
+    <div class="plabel"><span>the cycle at lap 0, and after the laps above</span><span id="wnote"></span></div>
+    <canvas id="wave"></canvas>
+    <div class="legend" id="wlegend"></div>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict" id="verdict"></div>
+
+  <div class="controls" id="controls"></div>
+
+  <div class="nav">
+    <button id="back">← back</button>
+    <button class="go" id="go">▸ play</button>
+    <button id="next">next step →</button>
+  </div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">f<sub>n</sub> = n·f₀·√(1 + B·n²)</div>
+    <div class="words">(partial n’s frequency) = n × (the fundamental) × the square root of (1 + B × n²); B = 0 is a harmonic tone, and the page’s inharmonicity grows with B</div>
+    <div class="eq">e<sub>n</sub> = 2π·n·(√(1 + B·n²) − 1) ≈ π·B·n³</div>
+    <div class="words">(how far partial n turns past its whole turns in one lap of the fundamental) = 2π × n × (that square root, minus 1), which is about π × B × n³ while B·n² is small</div>
+    <div class="eq">e<sub>n</sub> = n·β</div>
+    <div class="words">a single twist β of the cycle, φ slid on by β each lap, turns partial n by n × β: every partial in step with its number</div>
+    <div class="eq">mismatch = 1 − Σ a<sub>n</sub>²·cos(e<sub>n</sub> − n·β) ⁄ Σ a<sub>n</sub>²</div>
+    <div class="words">(how unlike B’s cycle and the twisted cycle are) = 1 − their correlation: 0 when the twist matches B’s lap exactly, 1 when the two cycles are unrelated. Here a<sub>n</sub> = 1 ⁄ n, a sawtooth’s partials</div>
+  </div>
+  <div class="foot"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg><span>Wavetable Space as Torus · rich face · Loud’n Live</span></div>
+</div>
+
+<script id="engine">
+/*ENGINE-START*/
+const TWO_PI = 2 * Math.PI;
+const NP = 16, F0 = 110;
+const AMPS = Array.from({ length: NP }, (_, i) => 1 / (i + 1));
+// Partial n's excess turn per lap of the fundamental (radians, unwrapped), exact and the page's small-B form.
+function excessB(n, B) { return TWO_PI * n * (Math.sqrt(1 + B * n * n) - 1); }
+function excessApprox(n, B) { return Math.PI * B * n * n * n; }
+function excessesB(B, laps = 1) { return AMPS.map((_, i) => laps * excessB(i + 1, B)); }
+function excessesTwist(beta, laps = 1) { return AMPS.map((_, i) => laps * (i + 1) * beta); }
+// One cycle of the tone with partial n offset by off[n-1].
+function cycle(off, M = 512) { const y = new Float64Array(M); for (let i = 0; i < M; i++) { let s = 0; for (let n = 1; n <= NP; n++) s += AMPS[n - 1] * Math.sin(TWO_PI * n * i / M + off[n - 1]); y[i] = s; } return y; }
+// 1 - correlation of the cycle with offsets e and the cycle twisted by beta (each partial n by n*beta).
+function mismatch(e, beta) { let num = 0, den = 0; for (let n = 1; n <= NP; n++) { const a2 = AMPS[n - 1] ** 2; num += a2 * Math.cos(e[n - 1] - n * beta); den += a2; } return 1 - num / den; }
+// The single twist that comes closest, searched over every beta in (-pi, pi], then refined.
+function bestTwist(e) {
+  let best = 0, R = Infinity; const G = 20000;
+  for (let j = 0; j < G; j++) { const b = -Math.PI + TWO_PI * (j + 1) / G; const r = mismatch(e, b); if (r < R) { R = r; best = b; } }
+  let h = TWO_PI / G; for (let it = 0; it < 40; it++) { const a = mismatch(e, best - h), c = mismatch(e, best + h); if (a < R) { R = a; best -= h; } else if (c < R) { R = c; best += h; } else h /= 2; }
+  return { beta: best, R };
+}
+function freqsB(B) { return AMPS.map((_, i) => (i + 1) * F0 * Math.sqrt(1 + B * (i + 1) * (i + 1))); }
+function freqsTwist(beta) { return AMPS.map((_, i) => (i + 1) * F0 * (1 + beta / TWO_PI)); }
+/*ENGINE-END*/
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const STEPS = [
+  { n: 1, name: 'the plain loop',
+    says: 'A tone of sixteen partials, the nth at n times 110 Hz. Each lap of the fundamental, partial n turns exactly n times and comes home, so every dial stays at the top, lap after lap, and the cycle after any number of laps is the cycle you started with. Nothing twists: the bundle is trivial.',
+    hint: 'Sound starts only when you press play, and changing step stops it. The dials step one lap every half second.' },
+  { n: 2, name: 'one twist',
+    says: 'Give the loop a twist β: each lap, the cycle slides on by β before the next lap begins. Partial n turns n times as far, n·β, a straight line on the right. The cycle comes back slid, never reshaped, so the timbre is untouched; you hear the tone a little sharp, because a steady slide every lap is only a faster lap.',
+    hint: 'A twist of p ⁄ q of a turn brings every dial home after q laps; a twist no fraction names never does. That is the closing and filling the section names, and here it is only a question of the pitch.' },
+  { n: 3, name: 'the page’s B',
+    says: 'Now the page’s B. Partial n runs at n·f₀·√(1 + B·n²), so after one lap it has turned 2π·n·(√(1 + B·n²) − 1) past home, close to π·B·n³ as the page says. The excess grows as the cube of n: the high partials run ahead and the cycle comes back reshaped. That is the stretched sound of a stiff string.',
+    hint: 'Dots: the exact excess. Line: the page’s π·B·n³. The readout gives the gap at partial 16.' },
+  { n: 4, name: 'the test',
+    says: 'If B were one shift of φ per lap, some single twist would turn the dials the way B does. Here is the closest twist, searched over every β from −π to π against the shape of the cycle. It misses after one lap and misses more after ten and a hundred, each count searched again from scratch. B moves each partial by its own angle: its monodromy is a point on a torus of sixteen circles, one per partial, not one turn of the φ circle.',
+    hint: 'Hear B’s tone, then the best twist’s. The twist only ever retunes a harmonic tone; B stretches it.' },
+];
+const S = { step: 1, beta: 0.25, B: 0.0005, laps: 1, hear: 'B' };
+let lap = 0, lapClock = 0, lastT = 0, BT = null;
+function offsetsNow(k) {
+  if (S.step === 1) return { a: excessesB(0, k) };
+  if (S.step === 2) return { a: excessesTwist(S.beta, k) };
+  if (S.step === 3) return { a: excessesB(S.B, k) };
+  const t = bestTwist(excessesB(S.B, 1));
+  return { a: excessesB(S.B, k), b: excessesTwist(t.beta, k) };
+}
+function recompute() {
+  BT = S.step === 4 ? bestTwist(excessesB(S.B, 1)) : null;
+  const read = []; let verdict = '';
+  if (S.step === 1) read.push('<span>partials <b>16, aₙ = 1 ⁄ n</b></span>', '<span>fundamental <b>110 Hz</b></span>', '<span>excess per lap <b>0 for every partial</b></span>');
+  if (S.step === 2) { read.push(`<span>twist <b>β = ${S.beta.toFixed(3)} rad</b></span>`, `<span>partial 16 ⁄ partial 1 <b>${(16).toFixed(0)} ×</b></span>`, `<span>heard at <b>${(F0 * (1 + S.beta / TWO_PI)).toFixed(2)} Hz</b>, still harmonic</span>`);
+    verdict = 'The cycle after any number of laps is the first cycle slid along: the same shape.'; }
+  if (S.step === 3) { const e1 = excessB(1, S.B), e16 = excessB(16, S.B), a16 = excessApprox(16, S.B);
+    read.push(`<span>B <b>${S.B.toFixed(4)}</b></span>`, `<span>partial 1 <b>${e1.toFixed(4)} rad</b></span>`, `<span>partial 16 <b>${e16.toFixed(3)} rad</b></span>`, `<span>partial 16 ⁄ partial 1 <b>${S.B ? Math.round(e16 / e1).toLocaleString('en-US') : '—'} ×</b></span>`, `<span>π·B·n³ at 16 <b>${a16.toFixed(3)} rad · ${S.B ? (100 * (a16 - e16) / e16).toFixed(1) : '0.0'} % over</b></span>`);
+    verdict = S.B ? 'The cycle comes back reshaped: a twist slides a cycle, B bends it.' : 'At B = 0 this is the plain loop again.'; }
+  if (S.step === 4) { const e = excessesB(S.B, 1), r10 = bestTwist(excessesB(S.B, 10)).R, r100 = bestTwist(excessesB(S.B, 100)).R;
+    const e16 = excessB(16, S.B), e1 = excessB(1, S.B);
+    read.push(`<span>B <b>${S.B.toFixed(4)}</b></span>`, `<span>closest twist <b>β = ${BT.beta.toFixed(4)} rad</b></span>`, `<span>partial 16 ⁄ partial 1: B <b>${S.B ? Math.round(e16 / e1).toLocaleString('en-US') : '—'} ×</b>, any twist <b>16 ×</b></span>`, `<span>mismatch after 1 lap <b>${(100 * BT.R).toFixed(1)} %</b></span>`, `<span>after 10 <b>${(100 * r10).toFixed(1)} %</b></span>`, `<span>after 100 <b>${(100 * r100).toFixed(1)} %</b></span>`, `<span>hearing <b>${S.hear === 'B' ? 'B' : 'the closest twist'}</b></span>`);
+    verdict = S.B ? `No single twist does what B does: the closest leaves the cycles ${(100 * BT.R).toFixed(1)} % unlike after one lap and ${(100 * r100).toFixed(1)} % after a hundred, under a second at 110 Hz.` : 'At B = 0 there is nothing to match. Raise B.'; }
+  $('read').innerHTML = read.join(''); $('verdict').textContent = verdict;
+  $('dlegend').innerHTML = S.step === 4 ? '<span><i style="background:#e8b84a"></i>B</span><span><i style="background:#7f9cff"></i>the closest twist</span>' : '';
+  $('elegend').innerHTML = S.step === 3 ? '<span><i style="background:#e8b84a"></i>exact</span><span><i style="background:#8a8aa0"></i>π·B·n³</span>' : S.step === 4 ? '<span><i style="background:#e8b84a"></i>B, exact</span><span><i style="background:#7f9cff"></i>the closest twist, n·β</span>' : '';
+  $('wlegend').innerHTML = '<span><i style="background:#8a8aa0"></i>lap 0</span><span><i style="background:#e8b84a"></i>' + (S.step === 2 ? 'twisted' : 'B') + ', after the laps shown</span>' + (S.step === 4 ? '<span><i style="background:#7f9cff"></i>the closest twist, after the same laps</span>' : '');
+  drawExcess(); drawWave(); send();
+}
+function seg(label, items, get, set) {
+  const w = document.createElement('div'); w.className = 'ctl';
+  const l = document.createElement('span'); l.className = 'seglabel'; l.textContent = label; w.append(l);
+  const s = document.createElement('div'); s.className = 'seg';
+  for (const [text, v] of items) { const b = document.createElement('button'); b.textContent = text; if (get() === v) b.classList.add('on');
+    b.onclick = () => { set(v); for (const x of s.children) x.classList.remove('on'); b.classList.add('on'); recompute(); }; s.append(b); }
+  w.append(s); return w;
+}
+function slider(label, min, max, step, get, set, fmt) {
+  const w = document.createElement('div'); w.className = 'ctl';
+  const l = document.createElement('label'); l.className = 'sl'; const b = document.createElement('b'); b.textContent = fmt(get());
+  l.append(label + ' · ', b);
+  const i = document.createElement('input'); i.type = 'range'; i.min = min; i.max = max; i.step = step; i.value = get();
+  i.oninput = () => { set(Number(i.value)); b.textContent = fmt(get()); recompute(); };
+  w.append(l, i); return w;
+}
+function buildControls() {
+  const c = $('controls'); c.innerHTML = '';
+  if (S.step === 2) c.append(slider('twist β per lap, radians', 0, 0.6, 0.005, () => S.beta, (v) => (S.beta = v), (v) => v.toFixed(3)));
+  if (S.step === 3 || S.step === 4) c.append(slider('B', 0, 0.002, 0.00005, () => S.B, (v) => (S.B = v), (v) => v.toFixed(5)));
+  if (S.step === 4) c.append(seg('hear', [['B', 'B'], ['the closest twist', 'twist']], () => S.hear, (v) => (S.hear = v)));
+}
+function buildRail() {
+  const r = $('rail'); r.innerHTML = '';
+  for (const s of STEPS) { const b = document.createElement('button'); b.textContent = s.n + ' · ' + s.name;
+    if (s.n === S.step) b.classList.add('here'); else if (s.n > S.step) b.classList.add('ahead');
+    b.onclick = () => goStep(s.n); r.append(b); }
+}
+function goStep(n) {
+  n = Math.max(1, Math.min(STEPS.length, n));
+  if (n !== S.step) stop();
+  S.step = n; const s = STEPS[n - 1]; lap = 0; lapClock = 0;
+  $('stephead').textContent = `step ${n} of ${STEPS.length} · ${s.name}`;
+  $('says').textContent = s.says; $('hint').textContent = s.hint;
+  $('back').disabled = n === 1; $('next').disabled = n === STEPS.length;
+  $('next').textContent = n === STEPS.length ? 'the last step' : 'next step →';
+  buildRail(); buildControls(); recompute();
+}
+$('back').onclick = () => goStep(S.step - 1);
+$('next').onclick = () => goStep(S.step + 1);
+
+// ── drawing ──
+function fit(cv, aspect) { const w = cv.clientWidth || 400, h = Math.round(w * aspect), d = devicePixelRatio || 1;
+  if (cv.width !== Math.round(w * d) || cv.height !== Math.round(h * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); cv.style.height = h + 'px'; }
+  const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h }; }
+function drawDials() {
+  const { g, w, h } = fit($('dials'), 0.5); g.clearRect(0, 0, w, h);
+  const cols = 8, rows = 2, cw = w / cols, ch = h / rows, rad = Math.min(cw * 0.36, ch * 0.32);
+  const o = offsetsNow(lap);
+  for (let i = 0; i < NP; i++) {
+    const cx = (i % cols + 0.5) * cw, cy = (Math.floor(i / cols) + 0.45) * ch;
+    g.strokeStyle = 'rgba(200,200,216,0.25)'; g.lineWidth = 1; g.beginPath(); g.arc(cx, cy, rad, 0, TWO_PI); g.stroke();
+    const hand = (ang, col, lw, len) => { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + Math.sin(ang) * rad * len, cy - Math.cos(ang) * rad * len); g.stroke(); };
+    if (o.b) hand(o.b[i], '#7f9cff', 2, 0.8);
+    hand(o.a[i], '#e8b84a', 2, 1);
+    g.fillStyle = '#8a8aa0'; g.font = '9px JetBrains Mono, monospace'; g.textAlign = 'center'; g.fillText(String(i + 1), cx, cy + rad + 12);
+  }
+  g.textAlign = 'left';
+  $('lapcount').textContent = `lap ${lap}`;
+}
+function drawExcess() {
+  const { g, w, h } = fit($('excess'), 0.5); g.clearRect(0, 0, w, h);
+  let a, line = null, lineCol = '#8a8aa0';
+  if (S.step === 1) a = excessesB(0); else if (S.step === 2) a = excessesTwist(S.beta); else a = excessesB(S.B);
+  if (S.step === 3) line = AMPS.map((_, i) => excessApprox(i + 1, S.B));
+  if (S.step === 4 && BT) { line = excessesTwist(BT.beta); lineCol = '#7f9cff'; }
+  let mx = 0.5; for (const v of a) mx = Math.max(mx, v); if (line) for (const v of line) mx = Math.max(mx, v);
+  const L = 34, B0 = h - 18, T0 = 8, X = (n) => L + (n - 1) / (NP - 1) * (w - L - 10), Y = (v) => B0 - v / mx * (B0 - T0);
+  g.strokeStyle = 'rgba(200,200,216,0.2)'; g.lineWidth = 1; g.beginPath(); g.moveTo(L, T0); g.lineTo(L, B0); g.lineTo(w - 6, B0); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '9px JetBrains Mono, monospace';
+  for (const n of [1, 4, 8, 12, 16]) g.fillText(String(n), X(n) - 3, h - 4);
+  g.fillText(mx.toFixed(mx < 2 ? 2 : 1), 2, T0 + 8); g.fillText('0', 20, B0);
+  if (line) { g.strokeStyle = lineCol; g.lineWidth = 1.4; g.beginPath(); line.forEach((v, i) => (i ? g.lineTo(X(i + 1), Y(v)) : g.moveTo(X(i + 1), Y(v)))); g.stroke(); }
+  if (S.step === 2) { g.strokeStyle = '#e8b84a'; g.lineWidth = 1.4; g.beginPath(); a.forEach((v, i) => (i ? g.lineTo(X(i + 1), Y(v)) : g.moveTo(X(i + 1), Y(v)))); g.stroke(); }
+  g.fillStyle = '#e8b84a'; a.forEach((v, i) => { g.beginPath(); g.arc(X(i + 1), Y(v), 3, 0, TWO_PI); g.fill(); });
+  $('exnote').textContent = 'top ' + mx.toFixed(2) + ' rad';
+}
+function drawWave() {
+  const { g, w, h } = fit($('wave'), 0.22); g.clearRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(200,200,216,0.15)'; g.beginPath(); g.moveTo(0, h / 2); g.lineTo(w, h / 2); g.stroke();
+  const plot = (y, col, lw) => { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); for (let i = 0; i < y.length; i++) { const X = i / (y.length - 1) * w, Y = h / 2 - y[i] * h * 0.22; i ? g.lineTo(X, Y) : g.moveTo(X, Y); } g.stroke(); };
+  const o = offsetsNow(lap);
+  plot(cycle(AMPS.map(() => 0)), 'rgba(138,138,160,0.8)', 1.2);
+  if (o.b) plot(cycle(o.b), '#7f9cff', 1.4);
+  plot(cycle(o.a), '#e8b84a', 1.6);
+  $('wnote').textContent = `after ${lap} lap${lap === 1 ? '' : 's'}`;
+}
+function tick(t) {
+  const dt = Math.min(0.1, (t - lastT) / 1000 || 0); lastT = t;
+  lapClock += dt; if (lapClock > 0.5) { lapClock = 0; lap = (lap + 1) % 200; drawWave(); }
+  drawDials();
+  requestAnimationFrame(tick);
+}
+addEventListener('resize', () => { drawExcess(); drawWave(); });
+
+// ── sound: sixteen sine partials at the frequencies the engine names ──
+const WORKLET = `class Bank extends AudioWorkletProcessor {
+  constructor() { super(); this.ph = new Float64Array(16); this.f = null; this.t = null; this.a = null; this.g = 0; this.on = false;
+    this.port.onmessage = (e) => { const d = e.data; if ('on' in d) this.on = d.on; if (d.freqs) { this.t = Float64Array.from(d.freqs); if (!this.f) this.f = Float64Array.from(d.freqs); this.a = Float64Array.from(d.amps); } }; }
+  process(_, outs) {
+    const o = outs[0], L = o[0], R = o[1] || o[0], TWO_PI = 2 * Math.PI, dt = 1 / sampleRate;
+    for (let i = 0; i < L.length; i++) {
+      this.g += ((this.on ? 1 : 0) - this.g) * 0.002;
+      let y = 0;
+      if (this.f) for (let n = 0; n < this.f.length; n++) { this.f[n] += (this.t[n] - this.f[n]) * 0.0008; this.ph[n] += this.f[n] * dt; if (this.ph[n] >= 1) this.ph[n] -= 1; y += this.a[n] * Math.sin(TWO_PI * this.ph[n]); }
+      L[i] = y * this.g * 0.22; R[i] = y * this.g * 0.22;
+    }
+    return true;
+  }
+}
+registerProcessor('bank', Bank);`;
+let ctx = null, node = null, running = false;
+function send() {
+  if (!node) return;
+  let freqs;
+  if (S.step === 1) freqs = freqsB(0);
+  else if (S.step === 2) freqs = freqsTwist(S.beta);
+  else if (S.step === 3) freqs = freqsB(S.B);
+  else freqs = S.hear === 'B' ? freqsB(S.B) : freqsTwist((BT || bestTwist(excessesB(S.B, 1))).beta);
+  node.port.postMessage({ freqs, amps: AMPS });
+}
+async function start() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'bank', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    node.connect(comp).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && running) { running = false; $('go').textContent = '▸ play'; } };
+  }
+  send();
+  await ctx.resume();
+  node.port.postMessage({ on: true });
+  running = true; $('go').textContent = '❚❚ stop';
+}
+function stop() {
+  if (!running) return;
+  running = false; $('go').textContent = '▸ play';
+  if (node) node.port.postMessage({ on: false });
+  if (ctx) setTimeout(() => { if (!running) ctx.suspend(); }, 250);
+}
+$('go').onclick = () => (running ? stop() : start());
+
+{ let d = ''; for (let i = 0; i <= 240; i++) { const t = TWO_PI * i / 240; d += (i ? 'L' : 'M') + (Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (Math.sin(2 * t)).toFixed(3); } $('sigil').setAttribute('d', d); }
+
+goStep(1);
+requestAnimationFrame(tick);
+</script>
+</body>
+</html>

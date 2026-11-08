@@ -41,6 +41,7 @@ Any entry opens. `&review=0` hides the review layer.
 | `untracked.mjs` | every file a face names that git doesn't track, with the step that tracks it (§ Media a face plays). The checker's `file-local` carries the same steps |
 | `check-kuramoto-pieces.mjs` | re-checks the physics claims of Kuramoto's pieces headless, on their own worklet code |
 | `check-hidden-hush.mjs` | re-checks, in headless Chromium, that a playing piece goes quiet when its page is hidden and stays quiet when it comes back: in Kuramoto's face, framed by a page that sends nothing, and alone |
+| `check-time-cap.mjs` | re-checks, in headless Chromium, the kit's cap: a sound left a minute untouched warns, stops and says so, comes back on a touch, holds when kept playing, and a context left running at zero gain never trips it; `--face` adds the real minute on Frequency-Time Duality's face |
 | `kit/` | the piece kit (`piece.js`) and the one function every server injects it through (`inject.mjs`) |
 | `serve-file.mjs` | sends one file: its type, byte ranges, and a web page as a piece with the kit injected. The handler and the piece origin both send files through it. |
 | `grants.json` | what Loudon has let a piece use: camera, microphone, midi, hosts. One line per piece, written only on his yes. |
@@ -83,6 +84,49 @@ or one with nothing laid out. With neither, 800. Kuramoto's were measured in a 1
 
 `contract` is for a gathered proof nobody should edit: the manifest speaks for it, with the same fields a
 piece declares in its own head (below). A piece that declares for itself is held to its own words.
+
+### A section's status — the proposal round
+
+A section a proposal round makes ([[Enrichment]] § Proposal and approval) carries a `status` and the
+blocks that say who made it, who challenged it and who approved it. Write them exactly so:
+
+```json
+{ "heading": "In Our Instruments", "made_against": "<12 hex>", "made": "…", "stamped": "…",
+  "status": "proposal",
+  "proposed": { "date": "YYYY-MM-DD", "by": "<maker>", "round": "proposal-round-2026-11" },
+  "challenge": { "date": "YYYY-MM-DD", "by": "<challenger>",
+                 "verdicts": [ { "file": "…", "verdict": "keep|remake|retire", "why": "…" } ] },
+  "approved": { "date": "YYYY-MM-DD", "by": "Loudon", "via": "dock|chat" },
+  "pieces": [ … ] }
+```
+
+- `status` is `proposal`, `approved` or `retired`. **A section with no `status` is approved** — the faces made
+  before the round stand as they are. A `retired` section's pieces are not rendered and not counted.
+- `proposed` is written by the maker, with the round's name. `challenge` is written by the challenger, one
+  verdict per piece with its reason; a piece whose verdict is `retire` is removed from `pieces` and from the
+  bundle before landing, and only its verdict line remains. The challenger's full record is workshop,
+  `[Entry] — rich — challenge.md`.
+- `approved` is written only by `approve.mjs`, on Loudon's yes: `node _ops/rich-face/approve.mjs "<Entry>"
+  ["<Section>" …] [--all] [--by Loudon] [--via chat|dock]` flips those sections from `proposal` to
+  `approved`, writes the block, leaves everything else as it was, and prints the `palace-commit` line to run
+  (it never commits). `--via dock` records a yes that came as a `human_eval` from the dock's approve button
+  (`groups[<section>].verdict: "approve"`); `--via chat` records his word in conversation.
+- The page shows a chip, `proposal · <date>`, on every figure of a proposal section, live and in the public
+  build alike (the build copies the manifest whole), and the head counts the sections still waiting.
+
+The manifest may also carry, at the top level, the findings a round held back from the text (Enrichment
+step 7 — in a round the `.md` is never written):
+
+```json
+"offers": [ { "section": "In Our Instruments", "kind": "no-claim-edit|claim-change",
+              "what": "…", "status": "open|taken|declined" } ]
+```
+
+An offer whose home is another page names it in place of the heading, `"section": "→ BLUELINE"`, so the page that found it still carries it and the arrow says where it goes. `approve.mjs` leaves offers untouched; an offer is taken or declined by hand, by the agent that carries it
+home on Loudon's word (a `no-claim-edit` shown to him first; a `claim-change` through the Deposit map).
+`node _ops/rich-face/proposals.mjs [--json]` lists every section still at proposal across the palace, by
+entry, with its age and its challenger's verdict counts, and every open offer. Both scripts have a
+`node --test` beside them on a throwaway manifest.
 
 ## Media a face plays: what git tracks is what the public face has
 
@@ -186,6 +230,8 @@ palace writes runs there: every piece runs on the **piece origin**.
   - on `rich:hush`, suspends the piece's audio and pauses its media until the next touch;
   - when the page goes hidden, does the same itself, framed or alone, whatever the page around it sends
     (§ Making pieces, "A hidden page says nothing");
+  - stops a sound left a minute untouched, framed or alone, and says so over the piece
+    (§ Making pieces, "A sound left alone stops");
   - posts `rich:error` for the first three script errors;
   - keeps each piece's storage under its own prefix, its path, since every piece shares one origin. A piece
     with no origin keeps storage in memory, and the figure says it won't keep;
@@ -247,8 +293,21 @@ palace writes runs there: every piece runs on the **piece origin**.
   every media element paused, an `Audio()` never put in the page included. It is a cut, not a fade,
   since a hidden page gets no animation frames and slow timers, and nothing starts again when the page
   comes back: the next touch on a piece wakes its audio, as after any hush, and the room tone waits for
-  its button. A piece needs no `visibilitychange` handler of its own.
+  its button. A piece's own `resume()` that lands after the kit quieted it, a start still awaiting its
+  worklet when the page hid, say, is held too, until that next touch. A piece needs no
+  `visibilitychange` handler of its own.
   `node _ops/rich-face/check-hidden-hush.mjs` re-checks it.
+- **A sound left alone stops.** A piece that has sounded for a minute with nothing touching it is
+  quieted by its kit, as a hush quiets it (Loudon, 2026-10-25: one rule in the kit, not a copy of
+  every piece). The clock is the last touch on the piece, not the start of the sound, so a reader
+  dragging a slider keeps it going. Ten seconds before, a line over the piece says so and offers
+  *keep it playing*; at the cap the line says it stopped, with *go on* and *go on, and keep it
+  playing*, and *leave it stopped*, which only clears the line. Kept playing, the piece never stops on its own again that visit; any other touch is the
+  way back, as after a hush. Sound means media playing, or a running context whose output is above
+  silence: the kit taps every connection to a context's destination and reads it, so a context left
+  running at zero gain after its piece's own stop counts for nothing. A piece meant to run long says
+  so itself: `RichPiece.hold()` keeps it playing, `RichPiece.capAfter(seconds)` sets its own cap, `0`
+  for never. `node _ops/rich-face/check-time-cap.mjs` re-checks it.
 - **The camera starts on a click.** Call `RichPiece.camera()`, or `getUserMedia`, from a click handler.
   If a piece asks before any click, the kit holds the request behind a "start the camera" button. One
   piece holds a camera or microphone at a time: when one starts, the page (or the deck) stops every other

@@ -1,0 +1,459 @@
+<!doctype html>
+<!--
+  title: Action Potential Oscillator — rich — four stages
+  born: 2026-11-03
+  links: [[Action Potential Oscillator]] (connects-to · rich-face-piece) · [[Progressive Staging]] (exemplifies · a walk in steps) · listed in [[Action Potential Oscillator — rich.json]]
+  forward_vector: I am the four stages as a walk you can play, one neuron built up one mechanism at a time:
+    the capacitor, the leak, the spike, the refractory recovery. Each step is a whole oscillator with one
+    new thing to hear, and each can be turned back into the one before. The last step is the test of the
+    section's claim that a fixed spike darkens the tone as the pitch rises: sweep the note up into the
+    ceiling and watch what the spike does to the harmonics. I play inside the entry's rich face and stand
+    alone opened directly; I change only when the section I serve does.
+  engine: Stage 4 is neuropulse.dsp v0.4's neuron, line for line (one member of the crowd with no spread);
+    each earlier stage takes one mechanism away. The same engine runs in the worklet and draws every
+    picture, so what you see is what you hear. Checked headless by
+    "Action Potential Oscillator — rich — checks.mjs", beside this file.
+  dress: Loudon Live house style, Graphite skin; the trace keeps the artifact's ion colours
+    (charge yellow, Na+ orange, K+ blue, recovery purple).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Action Potential Oscillator — four stages</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --charge:#ffe44a; --na:#ff6b4a; --k:#4aadff; --rec:#a64aff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .apo-piece { padding: 22px 22px 20px; }
+  .apo-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+  .apo-kicker svg { width: 18px; height: 18px; }
+  .apo-title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .apo-sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 76ch; margin: 0 0 16px; }
+  .apo-rail { display: flex; flex-wrap: wrap; gap: 0; margin: 0 0 14px; }
+  .apo-rail button { border-radius: 0; margin-right: -1px; }
+  .apo-rail button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: border-color 220ms cubic-bezier(.4,0,.2,1), color 220ms cubic-bezier(.4,0,.2,1); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.apo-go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 104px; }
+  button.apo-on { color: var(--amber); border-color: var(--amberline); }
+  .apo-step { border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 14px 16px 16px; }
+  .apo-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .apo-says { font-size: 14.5px; line-height: 1.62; color: var(--fg2); max-width: 78ch; margin: 0 0 12px; }
+  .apo-says b { color: var(--fg1); font-weight: 500; }
+  .apo-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 14px; }
+  @media (max-width: 720px) { .apo-grid { grid-template-columns: 1fr; } }
+  .apo-panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--bg); padding: 8px 10px; }
+  .apo-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .apo-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 22px; align-items: end; margin-top: 14px; }
+  .apo-btns { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  label.apo-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  label.apo-sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .apo-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .apo-read b { color: var(--fg1); font-weight: 500; }
+  .apo-read .apo-flag { color: var(--amber); }
+  .apo-eqs { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .apo-eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .apo-words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 78ch; }
+  .apo-back { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 10px; }
+  .apo-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .apo-key { display: flex; gap: 14px; flex-wrap: wrap; font-family: var(--mono); font-size: 10.5px; color: var(--fg3); margin-top: 6px; }
+  .apo-key i { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 5px; }
+  .apo-verdict { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--fg1); max-width: 78ch; border-left: 2px solid var(--amberline); padding-left: 12px; }
+</style>
+</head>
+<body>
+<div class="apo-piece">
+  <div class="apo-kicker"><svg id="sigil" viewBox="0 0 18 18" aria-hidden="true"></svg><span>made · Web Audio Worklet · study · a walk in five steps</span></div>
+  <h3 class="apo-title">Four stages, one neuron</h3>
+  <p class="apo-sub">Build the oscillator the way the section does, one mechanism at a time. Each step is a whole instrument you can play, and each can be turned back into the one before. Nothing sounds until you press play. The last step tests the section's claim about the spike and the pitch.</p>
+
+  <div class="apo-rail" id="rail" role="group" aria-label="steps"></div>
+  <div class="apo-step">
+    <div class="apo-stephead"><span id="stepname"></span><span id="stepof"></span></div>
+    <p class="apo-says" id="says"></p>
+    <div class="apo-grid">
+      <div class="apo-panel">
+        <div class="apo-plabel"><span>membrane, 20 ms window</span><span id="wavenote"></span></div>
+        <canvas id="wave" height="190"></canvas>
+        <div class="apo-key" id="key"></div>
+      </div>
+      <div class="apo-panel">
+        <div class="apo-plabel"><span id="speclabel">harmonics, loudest = 0 dB</span><span>first 32</span></div>
+        <canvas id="spec" height="190"></canvas>
+      </div>
+    </div>
+    <div class="apo-panel" id="sweepPanel" style="margin-top:14px;display:none">
+      <div class="apo-plabel"><span>as the note rises · stage <span id="sweepStage">3</span></span><span>dial 55 Hz → 1000 Hz</span></div>
+      <canvas id="sweep" height="230"></canvas>
+      <div class="apo-key"><span><i style="background:#e8b84a"></i>harmonics within 20 dB of the loudest</span><span><i style="background:#8a8aa0"></i>the same count for the stage 1 sawtooth</span><span><i style="background:#4aadff"></i>brightness in hertz (spectral centroid, the whole band)</span><span><i style="background:repeating-linear-gradient(90deg,#4aadff 0 4px,transparent 4px 7px)"></i>the sawtooth's centroid</span><span><i style="background:rgba(166,74,255,.6)"></i>past the ceiling</span></div>
+    </div>
+    <div class="apo-controls" id="controls"></div>
+    <div class="apo-read" id="read"></div>
+    <div class="apo-verdict" id="verdict" style="display:none"></div>
+    <div class="apo-eqs" id="eqs"></div>
+    <div class="apo-back" id="backline"></div>
+    <div class="apo-nav"><button id="prev">← back</button><button id="next">next step →</button></div>
+  </div>
+</div>
+
+<script id="engine">
+/* ENGINE:START — one neuron, the four stages. Stage 4 is neuropulse.dsp v0.4's neuron exactly
+   (one member of the crowd with no spread); each earlier stage takes one mechanism away.
+   Shared by the AudioWorklet and the headless check; it touches nothing of the page. */
+function NeuronEngine(SR) {
+  const P = { stage: 4, freq: 110, tau_ms: 5, spike_ms: 1, rise_frac: 0.3, peak: 1.5, hyp: -0.2, damp: 0.3, refr_ms: 1.5 };
+  let V = 0, ph = 0, t = 0, vel = 0, el = 0, v0 = 0;
+  const thr = 1.0;
+  function reset() { V = 0; ph = 0; t = 0; vel = 0; el = 0; v0 = 0; }
+  function set(o) { const was = P.stage; for (const k in o) if (k in P) P[k] = o[k]; if (P.stage !== was) reset(); }
+  // one sample; returns the output in -1..1 and reports the phase in st.ph
+  function tick(st) {
+    const stage = P.stage;
+    const period = SR / Math.max(1, P.freq);
+    const leaky = stage >= 2 && isFinite(P.tau_ms);
+    const leakTau = leaky ? Math.max(2.0, P.tau_ms * 0.001 * SR) : Infinity;
+    const leakCoeff = leaky ? 1.0 - 1.0 / leakTau : 1.0;
+    const spikeS = Math.max(2.0, P.spike_ms * 0.001 * SR);
+    const riseS = Math.max(1.0, spikeS * P.rise_frac), fallS = Math.max(1.0, spikeS - riseS);
+    const refrS = Math.max(1.0, P.refr_ms * 0.001 * SR);
+    const floor = stage >= 4 ? P.hyp : 0.0;                        // stage 3 falls back to rest
+    const top = stage >= 3 ? P.peak : thr;
+    const riseRate = (P.peak - thr) / riseS, fallRate = (floor - P.peak) / fallS;
+    // what is left of the period for the charge, from where the membrane really started (v0.4's compensation)
+    const m = stage <= 2 ? Math.max(1.0, period - 0.5) : Math.max(1.0, period - (el - t) - 0.5);
+    let drive;
+    if (leaky) { const c = Math.pow(leakCoeff, m); drive = (thr - v0 * c) / (leakTau * (1.0 - c)); }
+    else drive = (thr - v0) / m;                                     // stage 1: the pure capacitor
+    const p = ph;
+    let nV, nph, fired = false;
+    if (p === 0) {
+      const chargeV = V * leakCoeff + drive;
+      fired = chargeV >= thr;
+      if (stage <= 2) { nV = fired ? 0.0 : chargeV; nph = 0; }       // stages 1-2: threshold and reset
+      else { nV = fired ? thr : chargeV; nph = fired ? 1 : 0; }        // stages 3-4: latch at threshold, spike
+    } else if (p === 1) { nV = Math.min(P.peak, V + riseRate); nph = (t + 1) >= riseS ? 2 : 1; }
+    else if (p === 2) { nV = Math.max(floor, V + fallRate); nph = (t + 1) >= fallS ? (stage >= 4 ? 3 : 0) : 2; }
+    else {
+      const springK = 1.0 / leakTau;
+      const recVel = vel + (-springK * V - P.damp * 2.0 * Math.sqrt(springK) * vel);
+      nV = V + recVel; nph = ((t + 1) >= refrS && V > P.hyp * 0.3) ? 0 : 3;
+      vel = recVel;
+    }
+    if (nph !== 3) vel = 0;
+    t = nph !== p ? 0 : t + 1;
+    el = (p === 0 && nph === 1) ? 0 : el + 1;
+    if ((p === 3 || p === 2) && nph === 0) v0 = nV;
+    V = nV; ph = nph;
+    if (st) { st.ph = ph; st.fired = fired; st.V = V; }
+    const lo = stage >= 4 ? P.hyp : 0.0;
+    return (V - lo) / (top - lo) * 2.0 - 1.0;
+  }
+  return { P, set, reset, tick };
+}
+/* ENGINE:END */
+</script>
+<script id="measure">
+/* MEASURE:START — what the pictures and readouts say, from the same engine. Also run by the headless check. */
+function measureNeuron(params, SR) {
+  const e = NeuronEngine(SR); e.set(Object.assign({}, params, { stage: params.stage }));
+  const st = {}, x = [], ph = [], fires = [];
+  const need = Math.min(SR * 2, Math.ceil(SR / Math.max(20, params.freq)) * 10 + SR * 0.05);
+  for (let i = 0; i < need; i++) { x.push(e.tick(st)); ph.push(st.ph); if (st.fired) fires.push(i); }
+  const n = fires.length;
+  if (n < 4) return null;
+  const a = fires[n - 3], b = fires[n - 2], c = fires[n - 1], P = c - b;
+  // does the cycle repeat sample for sample?
+  let repeat = 0; for (let k = 0; k < P; k++) repeat = Math.max(repeat, Math.abs(x[b + k] - x[a + k]));
+  if (b - a !== P) repeat = Infinity;
+  // exact DFT over two cycles, every bin up to the top of the band: even bins are the harmonics,
+  // odd bins sit at half the note and between harmonics. One fixed band (0 to SR/2) at every pitch.
+  const seg = x.slice(a, c), L = seg.length, mean = seg.reduce((s, v) => s + v, 0) / L;
+  const cs = new Float64Array(L), sn = new Float64Array(L);
+  for (let k = 0; k < L; k++) { cs[k] = Math.cos(2 * Math.PI * k / L); sn[k] = -Math.sin(2 * Math.PI * k / L); }
+  const H = [], half = [];
+  for (let bin = 1; bin <= Math.floor(L / 2); bin++) {
+    let re = 0, im = 0, j = 0; for (let k = 0; k < L; k++) { const v = seg[k] - mean; re += v * cs[j]; im += v * sn[j]; j += bin; if (j >= L) j -= L; }
+    const mag = 2 * Math.hypot(re, im) / L;
+    if (bin % 2 === 0) H.push(mag); else half.push(mag);
+  }
+  const f0 = SR / P, loud = Math.max(...H);
+  const within20 = H.filter(m => m >= loud * 0.1).length;
+  let num = 0, den = 0; H.forEach((m, i) => { num += (i + 1) * m; den += m; });
+  const centroidH = num / den;
+  const sub = Math.max(...half);
+  return { P, f0, H, within20, centroidH, centroidHz: centroidH * f0,
+           belowNoteDb: sub > 0 ? 20 * Math.log10(sub / H[0]) : -Infinity, repeat,
+           window: { x: x.slice(c - Math.round(SR * 0.02) > 0 ? c - Math.round(SR * 0.02) : 0, c), ph: ph.slice(c - Math.round(SR * 0.02) > 0 ? c - Math.round(SR * 0.02) : 0, c) } };
+}
+/* MEASURE:END */
+</script>
+<script>
+'use strict';
+const SR = 48000;                     // the pictures; the sound runs at the device's own rate
+(function sigil() { const s = document.getElementById('sigil'); let d = ''; for (let i = 0; i <= 160; i++) { const t = 2 * Math.PI * i / 160; d += (i ? 'L' : 'M') + (9 + 7.5 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 + 7.5 * Math.sin(2 * t)).toFixed(2); } s.innerHTML = '<path d="' + d + '" fill="none" stroke="#e8b84a" stroke-width="1"/>'; })();
+
+const S = { step: 1, freq: 110, tau: 5, tauInf: false, hyp: -0.2, damp: 0.3, refr: 1.5, testStage: 3, playing: false, sweeping: false };
+const PHASE_COL = ['#ffe44a', '#ff6b4a', '#4aadff', '#a64aff'];
+const $ = id => document.getElementById(id);
+const el = (tag, attrs = {}, ...kids) => { const n = document.createElement(tag); for (const k in attrs) { if (k === 'on') for (const ev in attrs.on) n.addEventListener(ev, attrs.on[ev]); else if (k === 'html') n.innerHTML = attrs[k]; else n.setAttribute(k, attrs[k]); } kids.forEach(c => n.append(c)); return n; };
+
+function params() {
+  const stage = S.step <= 4 ? S.step : S.testStage;
+  return { stage, freq: S.freq, tau_ms: (stage >= 2 && !(S.step === 2 && S.tauInf)) ? S.tau : Infinity,
+           hyp: S.hyp, damp: S.damp, refr_ms: S.refr, spike_ms: 1, rise_frac: 0.3, peak: 1.5 };
+}
+
+// ───────── sound: one worklet runs the engine; silent until a click ─────────
+let ctx = null, node = null, master = null;
+const WORKLET = () => document.getElementById('engine').textContent + `
+class ApoNeuron extends AudioWorkletProcessor {
+  constructor() { super(); this.e = NeuronEngine(sampleRate); this.f = 110; this.ft = 110; this.glide = 0.0015; this.x1 = 0; this.y1 = 0;
+    this.port.onmessage = (ev) => { const d = ev.data; if (d.set) this.e.set(d.set); if (d.freq != null) { this.ft = d.freq; if (d.jump) this.f = d.freq; } if (d.glide) this.glide = d.glide; }; }
+  process(_, outs) { const L = outs[0][0], R = outs[0][1] || L;
+    for (let i = 0; i < L.length; i++) { this.f += (this.ft - this.f) * this.glide; this.e.P.freq = this.f;
+      const x = this.e.tick(); const y = x - this.x1 + 0.9987 * this.y1; this.x1 = x; this.y1 = y;   // a DC blocker, as Faust's process has
+      L[i] = y * 0.42; if (R !== L) R[i] = L[i]; }
+    return true; }
+}
+registerProcessor('apo-neuron', ApoNeuron);`;
+
+async function play() {
+  if (!ctx) {
+    ctx = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET()], { type: 'application/javascript' }));
+    await ctx.audioWorklet.addModule(url); URL.revokeObjectURL(url);
+    node = new AudioWorkletNode(ctx, 'apo-neuron', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -16; comp.ratio.value = 4;
+    master = ctx.createGain(); master.gain.value = 0;
+    node.connect(comp).connect(master).connect(ctx.destination);
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && S.playing) { S.playing = false; S.sweeping = false; paint(); } };
+  }
+  send(true);
+  await ctx.resume();
+  master.gain.cancelScheduledValues(ctx.currentTime);
+  master.gain.setTargetAtTime(0.8, ctx.currentTime, 0.05);
+  S.playing = true; paint();
+}
+function stopSound() {
+  S.sweeping = false;
+  if (!ctx || !S.playing) { S.playing = false; return; }
+  master.gain.setTargetAtTime(0, ctx.currentTime, 0.03);
+  const c = ctx; setTimeout(() => { if (!S.playing) c.suspend(); }, 160);
+  S.playing = false; paint();
+}
+function send(jump) { if (node) node.port.postMessage({ set: params(), freq: S.freq, jump: !!jump }); }
+
+// ───────── pictures ─────────
+function fit(cv) { const r = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.height / (cv._r || 1); cv._r = r; cv.style.height = h + 'px'; cv.width = Math.round(w * r); cv.height = Math.round(h * r); const g = cv.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h }; }
+function drawWave(m) {
+  const { g, w, h } = fit($('wave'));
+  g.clearRect(0, 0, w, h);
+  g.strokeStyle = 'rgba(255,255,255,.06)'; g.lineWidth = 1;
+  for (let i = 1; i < 4; i++) { g.beginPath(); g.moveTo(0, h * i / 4); g.lineTo(w, h * i / 4); g.stroke(); }
+  if (!m) return;
+  const { x, ph } = m.window, n = x.length, pad = 8;
+  const X = i => i / (n - 1) * w, Y = v => pad + (1 - (v + 1) / 2) * (h - 2 * pad);
+  for (let i = 1; i < n; i++) { g.strokeStyle = PHASE_COL[ph[i]] || '#ffe44a'; g.lineWidth = 1.6; g.beginPath(); g.moveTo(X(i - 1), Y(x[i - 1])); g.lineTo(X(i), Y(x[i])); g.stroke(); }
+}
+function drawSpec(m) {
+  const { g, w, h } = fit($('spec'));
+  g.clearRect(0, 0, w, h);
+  const top = 12, bot = h - 16, dbMin = -60;
+  g.fillStyle = '#4a4a5a'; g.font = '10px "JetBrains Mono", monospace';
+  for (const db of [0, -20, -40, -60]) { const y = top + (-db / -dbMin) * (bot - top); g.fillRect(0, y, w, 1); g.fillText(db + '', 2, y - 2); }
+  if (!m) return;
+  const loud = Math.max(...m.H), n = Math.min(32, m.H.length), bw = (w - 26) / 32;
+  for (let i = 0; i < n; i++) {
+    const db = Math.max(dbMin, 20 * Math.log10(m.H[i] / loud + 1e-12));
+    const y = top + (-db / -dbMin) * (bot - top);
+    g.fillStyle = db >= -20 ? '#e8b84a' : '#6a6a80';
+    g.fillRect(26 + i * bw + 1, y, Math.max(1, bw - 2), bot - y);
+  }
+  // the half-note slot: where a subharmonic would stand, left of the first harmonic
+  if (S.step === 4) {
+    const db = Math.max(dbMin, m.belowNoteDb), y = top + (-db / -dbMin) * (bot - top);
+    g.strokeStyle = 'rgba(166,74,255,.8)'; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(26 - bw * 0.5 + 1, bot); g.lineTo(26 - bw * 0.5 + 1, top); g.stroke(); g.setLineDash([]);
+    if (db > dbMin) { g.fillStyle = '#a64aff'; g.fillRect(26 - bw * 0.5 - 1, y, 4, bot - y); }
+  }
+  g.fillStyle = '#8a8aa0'; g.fillText('1', 26 + bw * 0.3, h - 3); g.fillText('8', 26 + bw * 7.3, h - 3); g.fillText('16', 26 + bw * 15.2, h - 3); g.fillText('32', 26 + bw * 31 - 4, h - 3);
+}
+let curve = null, curveKey = '';
+function sweepCurve() {
+  const key = [S.testStage, S.hyp, S.damp, S.refr].join('|');
+  if (key === curveKey) return curve;
+  const pts = [];
+  for (let i = 0; i <= 64; i++) {
+    const f = 55 * Math.pow(1000 / 55, i / 64);
+    const m = measureNeuron(Object.assign(params(), { freq: f, stage: S.testStage }), SR);
+    const s1 = measureNeuron({ stage: 1, freq: f, tau_ms: Infinity }, SR);
+    pts.push({ f, played: m.f0, n20: m.within20, hz: m.centroidHz, n20saw: s1.within20, hzsaw: s1.centroidHz });
+  }
+  curveKey = key; curve = pts; return pts;
+}
+function drawSweep() {
+  const { g, w, h } = fit($('sweep'));
+  g.clearRect(0, 0, w, h);
+  const pts = sweepCurve(), L = 34, R = w - 44, T = 8, B = h - 22;
+  const X = f => L + Math.log(f / 55) / Math.log(1000 / 55) * (R - L);
+  const Yn = n => B - n / 16 * (B - T), Yh = hz => B - Math.min(hz, 8000) / 8000 * (B - T);
+  // past the ceiling: where the played pitch stops following the dial
+  const ceil = pts.find(p => p.played < p.f * 0.97);
+  if (ceil) { g.fillStyle = 'rgba(166,74,255,.12)'; g.fillRect(X(ceil.f), T, R - X(ceil.f), B - T); }
+  g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = '#4a4a5a';
+  for (const f of [55, 110, 220, 440, 880]) { g.fillRect(X(f), T, 1, B - T); g.fillText(f + '', X(f) - 8, h - 6); }
+  for (const n of [0, 4, 8, 12, 16]) { g.fillText(n + '', 6, Yn(n) + 3); }
+  for (const hz of [0, 2000, 4000, 6000, 8000]) { g.fillText(hz ? hz / 1000 + 'k' : '0', R + 6, Yh(hz) + 3); }
+  const line = (fx, fy, col, dash) => { g.strokeStyle = col; g.lineWidth = 1.6; g.setLineDash(dash || []); g.beginPath(); pts.forEach((p, i) => { const x = X(p.f), y = fy(p); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.setLineDash([]); };
+  line(null, p => Yn(p.n20saw), '#8a8aa0', [4, 4]);
+  line(null, p => Yh(p.hzsaw), '#4aadff', [4, 4]);
+  line(null, p => Yh(p.hz), '#4aadff');
+  line(null, p => Yn(p.n20), '#e8b84a');
+  // where you are
+  const x = X(Math.min(1000, Math.max(55, S.freq)));
+  g.strokeStyle = '#e8e8f0'; g.lineWidth = 1; g.beginPath(); g.moveTo(x, T); g.lineTo(x, B); g.stroke();
+  if (ceil) { g.fillStyle = '#a64aff'; g.fillText('ceiling ≈ ' + Math.round(ceil.played) + ' Hz', Math.min(X(ceil.f) + 4, R - 110), T + 12); }
+}
+
+// ───────── the steps ─────────
+let syncs = [];
+const fmtHz = f => f < 100 ? f.toFixed(1) : Math.round(f) + '';
+function slider({ label, min, max, get, set, fmt, log, inf }) {
+  const span = el('b'); const input = el('input', { type: 'range', min: 0, max: 1000, step: 1, 'aria-label': label });
+  const toPos = v => (inf && !isFinite(v)) ? 1000 : Math.round((log ? Math.log(v / min) / Math.log(max / min) : (v - min) / (max - min)) * (inf ? 960 : 1000));
+  const fromPos = p => (inf && p > 975) ? Infinity : (log ? min * Math.pow(max / min, p / (inf ? 960 : 1000)) : min + (max - min) * p / (inf ? 960 : 1000));
+  input.value = toPos(get());
+  const show = () => { span.textContent = fmt(get()); };
+  input.addEventListener('input', () => { set(fromPos(+input.value)); show(); send(); update(); });
+  show();
+  syncs.push(() => { if (document.activeElement !== input) input.value = toPos(get()); show(); });
+  return el('label', { class: 'apo-sl' }, label + ' · ', span, input);
+}
+const pitchSlider = (max = 1000) => slider({ label: 'pitch, the drive', min: 55, max, log: true, get: () => S.freq, set: v => { S.freq = v; }, fmt: v => fmtHz(v) + ' Hz' });
+
+const STEPS = [
+  { n: 1, name: 'the capacitor', key: [['charge', 0]],
+    says: '<b>Stage 1.</b> Strip a neuron to one fact: its membrane stores charge. A steady current fills it at a steady rate; at the threshold it empties and starts again. That is a ramp, then a reset, a sawtooth: the same core as an analog synth’s ramp oscillator. Turn the drive and the note follows it in proportion.',
+    eqs: [['C · dV/dt = I    ⇒    f = I ⁄ (C · (V<sub>th</sub> − V<sub>reset</sub>))', 'The voltage climbs at a rate set by the current. The time to climb from reset to threshold is one period, so the pitch is the current divided by how far it has to climb.']],
+    controls: () => [pitchSlider()], back: 'This is where every later step starts.' },
+  { n: 2, name: 'the leak', key: [['charge', 0]],
+    says: '<b>Stage 2.</b> Real membranes leak. Each sample a little of the charge drains away, so the ramp bends: fast at first, slower as it nears the threshold. The pitch is held where you set it (the drive is worked out from what is left of the period), so the only thing τ changes is the shape, and with it the colour.',
+    eqs: [['V[n] = V[n−1] · (1 − 1⁄τ) + I', 'Each sample keeps all but one τ-th of the voltage, then adds the drive. Written this way it is a one-pole lowpass: the same update a compressor uses to smooth its attack and release.']],
+    controls: () => [slider({ label: 'membrane time constant τ', min: 0.6, max: 50, log: true, inf: true, get: () => S.tauInf ? Infinity : S.tau, set: v => { if (isFinite(v)) { S.tau = v; S.tauInf = false; } else S.tauInf = true; }, fmt: v => isFinite(v) ? v.toFixed(1) + ' ms' : '∞ · stage 1' }), pitchSlider()],
+    back: 'Slide τ all the way right, to ∞, and the leak is gone: you are back at step 1, sample for sample.' },
+  { n: 3, name: 'the spike', key: [['charge', 0], ['rise · Na⁺', 1], ['fall · K⁺', 2]],
+    says: '<b>Stage 3.</b> Instead of a bare reset, the neuron fires a spike: a fast rise as the sodium channels open, a slower fall as potassium carries the charge back out. The spike takes 1 ms whatever the note. At 110 Hz that is a sliver of each cycle; play higher and watch it take more of the window.',
+    eqs: [['spike = 1 ms:  rise 0.3 ms  →  peak 1.5  →  fall 0.7 ms  →  rest', 'Threshold reached, the voltage is latched there and handed to the spike, so nothing jumps. The spike is stereotyped: the same shape and the same length on every cycle, at every pitch.']],
+    controls: () => [pitchSlider()], back: 'The charge under the spike is step 2’s, unchanged; the leak is still τ = 5 ms.' },
+  { n: 4, name: 'the refractory recovery', key: [['charge', 0], ['rise · Na⁺', 1], ['fall · K⁺', 2], ['recovery', 3]],
+    says: '<b>Stage 4.</b> After the spike the membrane overshoots below rest, then springs back, and for a while it cannot fire again. The recovery is a spring with damping: heavily damped it creeps home, lightly damped it rings past rest before the next charge. The dashed slot left of the first harmonic is where a subharmonic would stand, at half the note. Watch it as you take the damping down.',
+    eqs: [['a = −k · V − 2ζ√k · v      (k = 1⁄τ)', 'The pull back toward rest grows with the distance from rest; the damping ζ brakes the return. Below ζ = 1 the voltage overshoots and rings; at 1 it comes home as fast as it can without ringing; above 1 it creeps.']],
+    controls: () => [slider({ label: 'hyperpolarization depth', min: -0.8, max: -0.01, get: () => S.hyp, set: v => { S.hyp = v; }, fmt: v => v.toFixed(2) }),
+                     slider({ label: 'recovery damping ζ', min: 0.05, max: 2, log: true, get: () => S.damp, set: v => { S.damp = v; }, fmt: v => v.toFixed(2) + (v < 0.95 ? ' · rings' : v > 1.05 ? ' · creeps' : ' · critical') }), pitchSlider(400)],
+    back: 'Depth near 0 and heavy damping leave almost nothing after the spike: close to step 3 again.' },
+  { n: 5, name: 'the test', key: [['charge', 0], ['rise · Na⁺', 1], ['fall · K⁺', 2], ['recovery', 3]],
+    says: '<b>The claim.</b> The section says spike duration is fixed, so at high pitches the spike fills more of the cycle, “a natural spectral darkening with pitch.” Sweep the note from 55 Hz up past where the neuron can follow and watch two measures at once: how many harmonics stand within 20 dB of the loudest (the note’s richness), and the spectral centroid in hertz (brightness on an absolute scale).',
+    eqs: [['ceiling ≈ 1 ⁄ (spike + refractory)', 'When the spike and the recovery fill the whole period there is no time left to charge, and the pitch stops rising. With a 1 ms spike, stage 3 tops out near 960 Hz; stage 4 adds 1.5 ms of recovery and tops out near 390 Hz.']],
+    controls: () => [el('div', { class: 'apo-btns' },
+                       ...[3, 4].map(s => el('button', { 'aria-pressed': String(S.testStage === s), class: S.testStage === s ? 'apo-on' : '', on: { click: () => { S.testStage = s; send(true); build(); } } }, 'stage ' + s)),
+                       el('button', { id: 'sweepBtn', on: { click: sweepUp } }, '▸ sweep up')),
+                     pitchSlider()],
+    back: 'Stop anywhere in the sweep and steps 3 and 4 are what you hear.' },
+];
+
+function sweepUp() {
+  S.freq = 55; S.sweeping = true; build();
+  const go = async () => { if (!S.playing) await play(); if (node) node.port.postMessage({ freq: 55, jump: true }); const t0 = performance.now(), dur = 12000;
+    (function frame() { if (!S.sweeping) return; const q = Math.min(1, (performance.now() - t0) / dur); S.freq = 55 * Math.pow(1000 / 55, q); if (node) node.port.postMessage({ freq: S.freq, glide: 0.01 }); update(); if (q < 1) requestAnimationFrame(frame); else S.sweeping = false; })(); };
+  go();
+}
+
+function build() {
+  const s = STEPS[S.step - 1];
+  const rail = $('rail'); rail.innerHTML = '';
+  STEPS.forEach(t => rail.append(el('button', { 'aria-pressed': String(t.n === S.step), on: { click: () => goTo(t.n) } }, t.n + ' · ' + t.name)));
+  $('stepname').textContent = s.n + ' · ' + s.name; $('stepof').textContent = 'step ' + s.n + ' of ' + STEPS.length;
+  $('says').innerHTML = s.says;
+  const c = $('controls'); c.innerHTML = ''; syncs = [];
+  c.append(el('div', { class: 'apo-btns' }, el('button', { class: 'apo-go', id: 'go', on: { click: () => S.playing ? stopSound() : play() } }, S.playing ? '❚❚ stop' : '▸ play')));
+  s.controls().forEach(x => c.append(x));
+  $('eqs').innerHTML = ''; s.eqs.forEach(([sym, words]) => { $('eqs').append(el('div', { class: 'apo-eq', html: sym }), el('div', { class: 'apo-words' }, words)); });
+  $('key').innerHTML = s.key.map(([name, p]) => '<span><i style="background:' + PHASE_COL[p] + '"></i>' + name + '</span>').join('');
+  $('backline').textContent = s.back;
+  $('sweepPanel').style.display = S.step === 5 ? '' : 'none';
+  $('verdict').style.display = S.step === 5 ? '' : 'none';
+  $('sweepStage').textContent = S.testStage;
+  $('prev').disabled = S.step === 1; $('next').disabled = S.step === STEPS.length;
+  update();
+}
+function goTo(n) { if (n !== S.step) { stopSound(); S.step = n; if (n === 4 && S.freq > 380) S.freq = 110; send(true); build(); } }
+function paint() { const g = $('go'); if (g) g.textContent = S.playing ? '❚❚ stop' : '▸ play'; const b = $('sweepBtn'); if (b) b.textContent = S.sweeping ? 'sweeping…' : '▸ sweep up'; }
+
+function update() {
+  const p = params(), m = measureNeuron(p, SR);
+  drawWave(m); drawSpec(m);
+  const share = m ? Math.min(100, (p.stage >= 3 ? (1 + (p.stage >= 4 ? S.refr : 0)) : 0) / (1000 / m.f0) * 100) : 0;
+  const parts = [];
+  if (m) {
+    parts.push('dial <b>' + fmtHz(S.freq) + ' Hz</b>', 'plays <b>' + fmtHz(m.f0) + ' Hz</b>' + (m.f0 < S.freq * 0.97 ? ' <span class="apo-flag">· at the ceiling</span>' : ''));
+    if (S.step === 2) { const a = isFinite(p.tau_ms) ? 1 - 1 / (p.tau_ms * 0.001 * SR) : 1; parts.push('leak coefficient <b>' + a.toFixed(5) + '</b>'); }
+    if (p.stage >= 3) parts.push((p.stage >= 4 ? 'spike + recovery' : 'spike') + ' fills <b>' + share.toFixed(0) + '%</b> of the cycle');
+    parts.push('harmonics within 20 dB <b>' + m.within20 + '</b>', 'centroid <b>' + Math.round(m.centroidHz) + ' Hz</b> · harmonic <b>' + m.centroidH.toFixed(1) + '</b>');
+    if (S.step === 4) parts.push('each cycle repeats <b>' + (m.repeat === 0 ? 'sample for sample' : 'within ' + m.repeat.toExponential(1)) + '</b>', 'at half the note <b>' + (isFinite(m.belowNoteDb) && m.belowNoteDb > -120 ? m.belowNoteDb.toFixed(0) + ' dB' : 'nothing') + '</b>');
+  }
+  $('read').innerHTML = parts.map(x => '<span>' + x + '</span>').join('');
+  syncs.forEach(f => f());
+  $('wavenote').textContent = m ? (1000 / m.f0).toFixed(2) + ' ms per cycle' : '';
+  if (S.step === 5) {
+    drawSweep();
+    const pts = sweepCurve(), at = f => pts.reduce((a, b) => Math.abs(Math.log(b.f / f)) < Math.abs(Math.log(a.f / f)) ? b : a);
+    const lo = at(55), mid = at(S.testStage === 4 ? 330 : 440);
+    $('verdict').innerHTML = 'Measured on this engine, stage ' + S.testStage + ': from 55 Hz to ' + Math.round(mid.f) + ' Hz the harmonics within 20 dB fall from <b>' + lo.n20 + '</b> to <b>' + mid.n20 + '</b>, while the sawtooth keeps <b>' + lo.n20saw + '</b>. Relative to the note, the tone darkens, as the section says. In hertz the centroid still climbs, from <b>' + Math.round(lo.hz) + '</b> to <b>' + Math.round(mid.hz) + ' Hz</b>, as any harmonic tone\u2019s does: the sawtooth\u2019s climbs too, from <b>' + Math.round(lo.hzsaw) + '</b> to <b>' + Math.round(mid.hzsaw) + ' Hz</b>. What belongs to the spike is that its centroid stays near a fifth of the sawtooth\u2019s, and the count against the note falls: its fixed length fixes where its energy sits, and the rising note climbs up into that fixed envelope, the way a voice climbs into its own formants. At the ceiling itself the charge is squeezed to a sample or two and the tone brightens again.';
+  }
+  paint();
+}
+
+$('prev').addEventListener('click', () => goTo(Math.max(1, S.step - 1)));
+$('next').addEventListener('click', () => goTo(Math.min(STEPS.length, S.step + 1)));
+window.addEventListener('resize', () => update());
+build();
+</script>
+</body>
+</html>

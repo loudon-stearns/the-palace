@@ -1,0 +1,394 @@
+<!doctype html>
+<!--
+  title: DSP in Looping Dimensions — rich — snap or slide
+  born: 2026-11-03
+  links: [[DSP in Looping Dimensions]] (connects-to · rich-face-piece) · listed in [[DSP in Looping Dimensions — rich.json]] · contrasts [[Kuramoto Coupling]]
+  forward_vector: I am Frame 3 put to its own test: one plucked loop, then two apart, then a knob that lets them hear each other, then one pluck while the knob turns, and last the whole knob measured, to find whether coupled plucked loops snap from bell to string or slide. I play inside the entry's rich face and stand alone opened directly; I change only when the section I serve does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>DSP in Looping Dimensions — snap or slide</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .rail { display: flex; flex-wrap: wrap; margin: 4px 0 14px; border: 1px solid var(--soft); border-radius: 2px; }
+  .rail button { flex: 1 1 130px; text-align: left; border: 0; border-right: 1px solid var(--soft); border-radius: 0; background: transparent; padding: 9px 12px; color: var(--fg3); }
+  .rail button:last-child { border-right: 0; }
+  .rail button b { display: block; font-weight: 500; color: var(--fg2); letter-spacing: .04em; text-transform: none; font-size: 12px; margin-top: 2px; }
+  .rail button.on { background: var(--e1); color: var(--amber); }
+  .rail button.on b { color: var(--fg1); }
+  .say { font-family: var(--serif); font-size: 18px; line-height: 1.55; color: var(--fg1); max-width: 80ch; margin: 0 0 14px; min-height: 3.1em; }
+  .say i { color: var(--amber); font-style: italic; }
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .key { font-family: var(--mono); font-size: 10.5px; color: var(--fg3); display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+  .key span::before { content: ''; display: inline-block; width: 10px; height: 2px; margin-right: 6px; vertical-align: middle; background: currentColor; }
+  canvas { display: block; width: 100%; }
+  .wide { grid-column: 1 / -1; }
+  .hidden { display: none !important; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 16px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  .ctl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); }
+  .ctl .lab { display: block; margin-bottom: 6px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 220px; flex: 1 1 220px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .read .hot { color: var(--amber); }
+  .verdict { margin-top: 14px; padding: 12px 14px; border-left: 2px solid var(--amber); background: var(--e1); font-family: var(--serif); font-size: 17px; line-height: 1.55; color: var(--fg1); max-width: 92ch; }
+  .verdict b { color: var(--amber); font-weight: 400; }
+  .nav { display: flex; gap: 10px; margin-top: 16px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .03em; line-height: 1.6; color: var(--fg3); margin-top: 10px; max-width: 104ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 12px; max-width: 92ch; }
+  .note { font-family: var(--mono); font-size: 10.5px; line-height: 1.6; color: var(--fg4); margin-top: 8px; max-width: 110ch; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 18px; }
+  @media (max-width: 760px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg width="18" height="18" viewBox="-10 -10 20 20" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="1.1"/></svg><span>made · Karplus-Strong pair · sketch</span></div>
+  <h3 class="title">Snap or slide?</h3>
+  <p class="sub">Frame 3 says: give two plucked delay loops an irrational ratio and let them hear each other, and above a critical coupling they phase-lock and the spectrum collapses to harmonic, bell to string, as a bifurcation and not a smooth morph. Five steps, one idea each. The last one tests it.</p>
+
+  <div class="rail" id="rail"></div>
+  <p class="say" id="say"></p>
+
+  <div class="stage">
+    <div class="panel wide" id="specPanel">
+      <div class="plabel"><span>the pluck's spectrum, first 0.68 s</span><span id="specLabel"></span></div>
+      <canvas id="spec"></canvas>
+      <div class="key" id="specKey"></div>
+    </div>
+    <div class="panel wide hidden" id="sgPanel">
+      <div class="plabel"><span>a pluck every half second, the knob turning from c = 0 to 1 · time across, pitch up</span><span id="sgLabel"></span></div>
+      <canvas id="sg"></canvas>
+    </div>
+    <div class="panel wide hidden" id="mapPanel">
+      <div class="plabel"><span>the whole knob · c across, pitch up · each column one pluck's spectrum</span><span id="mapLabel"></span></div>
+      <canvas id="map"></canvas>
+    </div>
+    <div class="panel wide hidden" id="curvePanel">
+      <div class="plabel"><span>amber · how far the sound sits from one harmonic series (0 = on it, 0.5 = anywhere) · grey · how much it changes per notch of 0.01</span><span>c</span></div>
+      <canvas id="curve"></canvas>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="go" id="go">▸ pluck</button>
+    <div class="ctl hidden" id="ratioCtl"><span class="lab">f₁ : f₂</span><span class="seg" id="ratios"><button data-r="phi" class="on">φ (golden)</button><button data-r="sqrt2">√2</button></span></div>
+    <div class="ctl hidden" id="mixCtl"><span class="lab">the mixer</span><span class="seg" id="mixers"><button data-m="crossfeed" class="on">crossfeed</button><button data-m="lossless">lossless</button></span></div>
+    <label class="sl hidden" id="cCtl">coupling c = <b id="cVal"></b><input id="c" type="range" min="0" max="1" step="0.01" value="0.3"></label>
+  </div>
+  <div class="read" id="read"></div>
+  <div class="verdict hidden" id="verdict"></div>
+  <div class="nav"><button id="back">◂ back</button><button id="next">next ▸</button></div>
+  <div class="hint" id="hint"></div>
+
+  <div class="eqs">
+    <div class="eq">u₁ = m₁₁·s₁ + m₁₂·s₂ ,  u₂ = m₂₁·s₁ + m₂₂·s₂ ,  sᵢ[n] = ρ · ½ · ( yᵢ[n] + yᵢ[n − 1] )</div>
+    <div class="words">(what goes back into each loop) = a mix of (what came out of both loops, softened by Karplus-Strong's two-point average and a loss ρ = 0.996 per pass). Loop i is a delay of dᵢ = fs ⁄ fᵢ − ½ samples.</div>
+    <div class="eq">crossfeed: M = [ 1 − c , c ; c , 1 − c ]     lossless: M = [ cos(c·π⁄2) , sin(c·π⁄2) ; −sin(c·π⁄2) , cos(c·π⁄2) ]</div>
+    <div class="words">crossfeed: each loop keeps (1 − c) of itself and takes c of the other, so the two loops' sum passes and their difference is lost. Lossless: the pair is turned by a quarter-turn times c, and no energy is lost. Either way, c = 0 keeps them apart and c = 1 swaps them on every pass.</div>
+    <div class="eq">lossless modes: cos( π·f·(T₁ + T₂) ) = cos( c·π⁄2 ) · cos( π·f·(T₂ − T₁) )</div>
+    <div class="words">the pitches the coupled pair can ring at are the f where (a wave over both loops' periods together) equals (the coupling's cosine) times (a wave over their difference). Both sides move smoothly with c, so the roots do too. At c = 0 it gives each loop's own harmonics; at c = 1 the odd harmonics of 1 ⁄ (2·(T₁ + T₂)).</div>
+    <div class="eq">at c = 1:  f_S = f₁·f₂ ⁄ (f₁ + f₂)</div>
+    <div class="words">swapped on every pass, the two loops are one loop as long as both together, and its fundamental is (the product of the two pitches) ÷ (their sum): lower than either. The crossfeed lands on its whole harmonic series; the lossless mixer, which flips a sign on the way round, on its odd harmonics of f_S ⁄ 2.</div>
+  </div>
+  <div class="note">A linear model: the loops never saturate and nothing in them is a self-sustaining oscillator. Checked offline on this page's own engine (the script marked engine): the lossless modes it rings at match the equation above within 0.03 Hz; across golden, √2 and π ⁄ 2 ratios, at 220 and 330 Hz, both mixers, the steepest change anywhere on the knob halves when the notch halves (the distance reading ×0.50, then ×0.25; the spectral change about ×0.42–0.51, then ×0.19–0.26). Not heard by an agent.</div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script id="engine">
+// ---- engine: two plucked delay loops (Karplus-Strong), cross-mixed. Pure functions, no page. ----
+const PHI = (1 + Math.sqrt(5)) / 2;
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+// the mixer: what each loop hears of the other. c = 0 keeps them apart, c = 1 swaps them.
+function mixer(kind, c) {
+  if (kind === 'lossless') { const t = c * Math.PI / 2, co = Math.cos(t), si = Math.sin(t); return [co, si, -si, co]; }
+  return [1 - c, c, c, 1 - c]; // crossfeed: the sum of the two loops is kept, their difference is not
+}
+// f1: loop 1's pitch (Hz). ratio: f1 / f2. c: a number, or a function of time in seconds (a ramp). repluck: pluck again every so many seconds
+function renderLoops(o) {
+  const fs = o.fs || 48000, len = Math.round((o.dur || 2) * fs), out = new Float32Array(len);
+  const two = (o.loops || 2) > 1, f1 = o.f1 || 220, f2 = f1 / (o.ratio || PHI), rho = o.rho == null ? 0.996 : o.rho;
+  const d1 = fs / f1 - 0.5, d2 = fs / f2 - 0.5; // the averaging filter adds half a sample to each loop
+  const L = 8192, M = L - 1, b1 = new Float64Array(L), b2 = new Float64Array(L);
+  const r = rng(o.seed || 7), n1 = Math.round(d1), n2 = Math.round(d2), whisper = o.whisper || 0;
+  const read = (b, pos) => { const i = Math.floor(pos), f = pos - i; return b[i & M] * (1 - f) + b[(i + 1) & M] * f; };
+  // the pluck: a burst of noise as long as each loop, its mean taken out (a plucked string has no DC)
+  const burst = (k) => { const a = new Float64Array(k); let mu = 0; for (let i = 0; i < k; i++) { a[i] = r() * 2 - 1; mu += a[i] / k; } for (let i = 0; i < k; i++) a[i] -= mu; return a; };
+  let x1 = burst(n1), x2 = two ? burst(n2) : null, at = 0; const every = o.repluck ? Math.round(o.repluck * fs) : 0;
+  let hx = 0, hy = 0; const R = 1 - 2 * Math.PI * 20 / fs; // DC blocker at 20 Hz on the output
+  let p1 = 0, p2 = 0, m = mixer(o.mixer, typeof o.c === 'function' ? o.c(0) : o.c || 0);
+  for (let n = 0; n < len; n++) {
+    if (typeof o.c === 'function' && (n & 63) === 0) m = mixer(o.mixer, o.c(n / fs));
+    const y1 = read(b1, n - d1), y2 = two ? read(b2, n - d2) : 0;
+    const s1 = rho * 0.5 * (y1 + p1), s2 = rho * 0.5 * (y2 + p2); p1 = y1; p2 = y2;
+    if (every && n > 0 && n % every === 0) { at = n; x1 = burst(n1); if (two) x2 = burst(n2); }
+    const k = n - at; let e1 = k < n1 ? x1[k] : 0, e2 = two && k < n2 ? x2[k] : 0;
+    if (whisper) { e1 += whisper * (r() * 2 - 1); if (two) e2 += whisper * (r() * 2 - 1); }
+    b1[n & M] = (two ? m[0] * s1 + m[1] * s2 : s1) + e1;
+    b2[n & M] = two ? m[2] * s1 + m[3] * s2 + e2 : 0;
+    const v = y1 + y2; hy = v - hx + R * hy; hx = v; out[n] = hy;
+  }
+  return out;
+}
+// where the loops land at c = 1: one loop as long as both together
+function sumLoop(f1, ratio, kind) { const f2 = f1 / ratio, fS = (f1 * f2) / (f1 + f2); return kind === 'lossless' ? { f0: fS / 2, odd: true } : { f0: fS, odd: false }; }
+// ---- analysis ----
+function fft(re, im) { const n = re.length; for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+  for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr; re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } } }
+function power(x, start, n) { const re = new Float64Array(n), im = new Float64Array(n); for (let i = 0; i < n; i++) { const w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / n); re[i] = (x[start + i] || 0) * w; } fft(re, im); const p = new Float64Array(n / 2); for (let i = 0; i < n / 2; i++) p[i] = re[i] * re[i] + im[i] * im[i]; return p; }
+// how much the sound's spectrum changes between two settings: half the summed difference of the normalised power spectra (0 = same, 1 = nothing shared)
+function change(pa, pb, fs, n, fmax) { const K = Math.floor(fmax * n / fs); let sa = 0, sb = 0, d = 0; for (let i = 1; i < K; i++) { sa += pa[i]; sb += pb[i]; } for (let i = 1; i < K; i++) d += Math.abs(pa[i] / sa - pb[i] / sb); return d / 2; }
+// how far the sound's energy sits from one harmonic series, read straight off the power spectrum (no peak picking, so no threshold):
+// each bin's power times its distance to the nearest harmonic, as a share of the farthest a bin can be. 0 = on the series, about 0.5 = anywhere
+function offSeries(p, fs, n, f0, odd, fmin, fmax) { const sp = odd ? 2 * f0 : f0, base = odd ? f0 : 0; let s = 0, all = 0;
+  for (let i = Math.ceil(fmin * n / fs); i < Math.min(p.length, fmax * n / fs); i++) { const f = i * fs / n, x = (f - base) / sp, d = Math.abs(x - Math.round(x)) * 2; s += p[i] * d; all += p[i]; } return all ? s / all : 0; }
+// time for the sound to fall 60 dB, from the slope of its first 30 dB (s)
+function decay(x, fs) { const hop = Math.round(fs * 0.01), env = []; for (let i = 0; i + hop <= x.length; i += hop) { let e = 0; for (let j = 0; j < hop; j++) e += x[i + j] * x[i + j]; env.push(10 * Math.log10(e / hop + 1e-30)); }
+  const pk = Math.max(...env.slice(0, 30)), i0 = env.indexOf(pk); let i = i0; while (i < env.length && env[i] > pk - 30) i++; if (i >= env.length) { const drop = pk - env[env.length - 1]; return drop > 1 ? (60 / drop) * (env.length - 1 - i0) * 0.01 : Infinity; } return 2 * (i - i0) * 0.01; }
+</script>
+<script>
+// ---- the page's shared parts: sound from a rendered buffer, canvases, the walk ----
+const $ = (id) => document.getElementById(id);
+let ctx = null, comp = null, src = null, playing = false;
+// silent until a click: no context exists before the first play
+async function playBuffer(x, fs, onEnd) {
+  stopSound();
+  if (!ctx) { ctx = new AudioContext({ sampleRate: fs }); comp = ctx.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4; const g = ctx.createGain(); g.gain.value = 0.8; comp.connect(g).connect(ctx.destination); }
+  await ctx.resume();
+  let pk = 0; for (let i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(x[i]));
+  const b = ctx.createBuffer(2, x.length, ctx.sampleRate), sc = pk ? 0.85 / pk : 0, L = b.getChannelData(0), R = b.getChannelData(1);
+  const fade = Math.min(x.length, Math.round(0.03 * ctx.sampleRate));
+  for (let i = 0; i < x.length; i++) { const e = i > x.length - fade ? (x.length - i) / fade : 1; L[i] = R[i] = x[i] * sc * e; }
+  src = ctx.createBufferSource(); src.buffer = b; src.connect(comp); const me = src;
+  src.onended = () => { if (src === me) { src = null; playing = false; if (onEnd) onEnd(); } };
+  src.start(); playing = true;
+}
+function stopSound() { if (src) { const s = src; src = null; try { s.stop(); } catch {} } playing = false; }
+function fit(c, hgt) {
+  const w = c.clientWidth || 600, d = devicePixelRatio || 1, H = hgt;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); c.style.height = H + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+const dB = (p, ref) => 10 * Math.log10(p / ref + 1e-12);
+// the house mark: a small Lissajous
+function sigil(a, b) { let d = ''; for (let i = 0; i <= 240; i++) { const t = (i / 240) * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(a * t + Math.PI / 2)).toFixed(2) + ' ' + (8 * Math.sin(b * t)).toFixed(2); } $('sigil').setAttribute('d', d); }
+// the walk: one step at a time, Next and Back, every step open from the rail; changing step stops the sound
+function walk(steps, onStep) {
+  let at = 0;
+  const go = (i) => { stopSound(); at = Math.max(0, Math.min(steps.length - 1, i)); [...$('rail').children].forEach((b, j) => b.classList.toggle('on', j === at)); $('say').innerHTML = steps[at].say; $('back').disabled = at === 0; $('next').disabled = at === steps.length - 1; onStep(steps[at].key, at); };
+  steps.forEach((s, i) => { const b = document.createElement('button'); b.innerHTML = `${i + 1}<b>${s.name}</b>`; b.onclick = () => go(i); $('rail').appendChild(b); });
+  $('back').onclick = () => go(at - 1); $('next').onclick = () => go(at + 1);
+  return { go, get at() { return at; } };
+}
+const later = () => new Promise((r) => setTimeout(r, 0));
+const FS = 48000, NFFT = 32768, FMAX = 1000, F1 = 220;
+const S = { ratio: 'phi', mixer: 'crossfeed', c: 0.3, key: 'one', last: null, map: {}, ramp: {} };
+const ratioOf = () => (S.ratio === 'phi' ? PHI : Math.SQRT2);
+const f2Of = () => F1 / ratioOf();
+const STEPS = [
+  { key: 'one', name: 'one loop', say: 'One delay loop with a soft two-point average inside it: <i>Karplus-Strong</i>. Pluck it. Every line lands on a whole-number multiple of one pitch, f₁ = 220 Hz. One loop, one fundamental, a harmonic series.' },
+  { key: 'two', name: 'two loops, apart', say: 'A second loop, φ times longer, so its pitch is f₂ = f₁ ⁄ φ ≈ 136 Hz. Apart, the two harmonic series sit side by side and never meet, because no ratio of whole numbers names φ. Two loops, two fundamentals.' },
+  { key: 'couple', name: 'let them hear each other', say: 'Now each loop hears the other. The knob c says how much: 0 keeps them apart, 1 swaps them on every pass. Pluck at a few settings and watch where the lines go. Two mixers to try: a <i>crossfeed</i> that keeps the loops\' sum and loses their difference, and a <i>lossless</i> one that turns between them.' },
+  { key: 'ramp', name: 'plucks, knob turning', say: 'A pluck every half second while c turns from 0 to 1 over six seconds. If the pair snapped, the lines would jump at one moment. Listen, and look, for a jump or a glide.' },
+  { key: 'test', name: 'the test: snap or slide', say: 'The whole knob, measured: a pluck at every 0.01 of c. Amber is how far the sound sits from one harmonic series. Grey is how much it changes per notch. A snap is a change that stays the same size when the notch is halved; a slide halves with it.' },
+];
+
+// ---- drawing ----
+function seriesTicks(g, x, top, f0, odd, color, h) { g.strokeStyle = color; g.lineWidth = 1; for (let k = odd ? 1 : 1; ; k += odd ? 2 : 1) { const f = k * f0; if (f > FMAX) break; g.beginPath(); g.moveTo(x(f), top); g.lineTo(x(f), top + h); g.stroke(); } }
+function drawSpec() {
+  const { g, w, h } = fit($('spec'), 250), x = (f) => 36 + (f / FMAX) * (w - 48), base = h - 22, top = 36;
+  g.clearRect(0, 0, w, h);
+  const k = S.key, two = k !== 'one', sum = sumLoop(F1, ratioOf(), S.mixer);
+  // the series as ticks above the trace
+  seriesTicks(g, x, 4, F1, false, '#6366F1', 8);
+  if (two) seriesTicks(g, x, 14, f2Of(), false, '#4a8fff', 8);
+  if (k === 'couple' || k === 'test') seriesTicks(g, x, 24, sum.f0, sum.odd, '#e8b84a', 8);
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(36, base); g.lineTo(w - 12, base); g.stroke();
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center';
+  for (let f = 0; f <= FMAX; f += 100) g.fillText(f, x(f), h - 6);
+  const p = S.last && S.last.p; if (!p) { g.fillStyle = '#8a8aa0'; g.textAlign = 'left'; g.fillText('press pluck', 44, base - 40); return; }
+  let ref = 0; for (let i = 1; i < FMAX * NFFT / FS; i++) ref = Math.max(ref, p[i]);
+  const y = (v) => base - Math.max(0, (dB(v, ref) + 60) / 60) * (base - top);
+  g.strokeStyle = '#c8c8d8'; g.lineWidth = 1; g.beginPath();
+  const bins = Math.floor(FMAX * NFFT / FS), step = Math.max(1, Math.floor(bins / (w * 2)));
+  for (let i = 1; i < bins; i += step) { let m = 0; for (let j = i; j < i + step && j < bins; j++) m = Math.max(m, p[j]); const X = x(i * FS / NFFT); i === 1 ? g.moveTo(X, y(m)) : g.lineTo(X, y(m)); }
+  g.stroke();
+  g.fillStyle = '#4a4a5a'; g.textAlign = 'right'; g.fillText('0 dB', 32, top + 4); g.fillText('−60', 32, base);
+}
+function keyFor() {
+  const k = S.key, sum = sumLoop(F1, ratioOf(), S.mixer), out = [`<span style="color:#6366F1">loop 1 · k·${F1} Hz</span>`];
+  if (k !== 'one') out.push(`<span style="color:#4a8fff">loop 2 · k·${f2Of().toFixed(1)} Hz</span>`);
+  if (k === 'couple' || k === 'test') out.push(`<span style="color:#e8b84a">where c = 1 lands · ${sum.odd ? 'odd ' : ''}k·${sum.f0.toFixed(1)} Hz</span>`);
+  $('specKey').innerHTML = out.join('');
+}
+function readouts() {
+  const k = S.key, sum = sumLoop(F1, ratioOf(), S.mixer), L = S.last, out = [];
+  $('cVal').textContent = S.c.toFixed(2);
+  if (k === 'one') { out.push(`f₁ = <b>${F1} Hz</b>`); if (L) out.push(`distance from f₁'s series <b>${L.off1.toFixed(3)}</b>`); }
+  if (k === 'two') { out.push(`f₂ = f₁ ⁄ ${S.ratio === 'phi' ? 'φ' : '√2'} = <b>${f2Of().toFixed(2)} Hz</b>`); if (L) out.push(`distance from f₁'s series <b>${L.off1.toFixed(3)}</b>`, `from f₂'s <b>${L.off2.toFixed(3)}</b>`); }
+  if (k === 'couple') { out.push(`c = 1 would land on <b>${sum.odd ? 'odd harmonics of ' : ''}${sum.f0.toFixed(2)} Hz</b>`); if (L) out.push(`distance from that series <b class="hot">${L.offS.toFixed(3)}</b>`, `rings for <b>${L.t60 === Infinity ? 'long' : L.t60.toFixed(2) + ' s'}</b> (to −60 dB)`); }
+  $('read').innerHTML = out.join(' · ');
+}
+// ---- sound ----
+function pluckSettings() { const k = S.key; return { fs: FS, dur: 3, f1: F1, ratio: ratioOf(), loops: k === 'one' ? 1 : 2, c: k === 'one' || k === 'two' ? 0 : S.c, mixer: S.mixer }; }
+function analyse(x) { const p = power(x, 0, NFFT), sum = sumLoop(F1, ratioOf(), S.mixer); return { p, off1: offSeries(p, FS, NFFT, F1, false, 30, FMAX), off2: offSeries(p, FS, NFFT, f2Of(), false, 30, FMAX), offS: offSeries(p, FS, NFFT, sum.f0, sum.odd, 30, FMAX), t60: decay(x, FS) }; }
+function pluck(play) { const x = renderLoops(pluckSettings()); S.last = analyse(x); drawSpec(); readouts(); if (play) playBuffer(x, FS, () => ($('go').textContent = goLabel())); }
+const goLabel = () => (S.key === 'ramp' ? '▸ play the turn' : S.key === 'test' ? '▸ pluck at c' : '▸ pluck');
+// ---- step 4: the ramp ----
+function rampKey() { return S.ratio + '|' + S.mixer; }
+function makeRamp() {
+  if (S.ramp[rampKey()]) return S.ramp[rampKey()];
+  const dur = 6.5, x = renderLoops({ fs: FS, dur, f1: F1, ratio: ratioOf(), mixer: S.mixer, c: (t) => Math.min(1, Math.max(0, (t - 0.25) / 6)), repluck: 0.5 });
+  const n = 4096, hop = 1024, raw = []; for (let st = 0; st + n <= x.length; st += hop) raw.push(power(x, st, n));
+  // each column is the average of three neighbouring frames, so a line reads as a line
+  const cols = raw.map((c, j) => { const a = new Float64Array(c.length); for (let d = -1; d <= 1; d++) { const q = raw[Math.max(0, Math.min(raw.length - 1, j + d))]; for (let i = 0; i < a.length; i++) a[i] += q[i] / 3; } return a; });
+  return (S.ramp[rampKey()] = { x, cols, n, hop });
+}
+function drawRamp() {
+  const R = makeRamp(), { g, w, h } = fit($('sg'), 300), left = 36, bot = h - 20, kmax = Math.floor(FMAX * R.n / FS);
+  g.clearRect(0, 0, w, h);
+  let ref = 0; for (const c of R.cols) for (let i = 1; i < kmax; i++) ref = Math.max(ref, c[i]);
+  const cw = (w - left - 8) / R.cols.length;
+  R.cols.forEach((c, j) => { for (let i = 1; i < kmax; i++) { const v = Math.max(0, (dB(c[i], ref) + 55) / 55); if (v <= 0.02) continue; g.fillStyle = `rgba(232,184,74,${v.toFixed(3)})`; const y = bot - (i / kmax) * (bot - 6); g.fillRect(left + j * cw, y - (bot - 6) / kmax, cw + 0.6, (bot - 6) / kmax + 0.6); } });
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'right';
+  for (let f = 0; f <= FMAX; f += 200) g.fillText(f, left - 4, bot - (f / FMAX) * (bot - 6) + 3);
+  g.textAlign = 'center'; for (let t = 0; t <= 6; t += 1) { const X = left + ((t * FS + 0.25 * FS) / R.hop) * cw; g.fillText(`c=${(t / 6).toFixed(2)}`, X, h - 4); }
+  $('sgLabel').textContent = S.mixer + ' · ' + (S.ratio === 'phi' ? 'φ' : '√2');
+}
+// ---- step 5: the whole knob ----
+function mapKey() { return S.ratio + '|' + S.mixer; }
+async function measure() {
+  const key = mapKey(); if (S.map[key]) return S.map[key];
+  $('mapLabel').textContent = 'measuring…';
+  const sum = sumLoop(F1, ratioOf(), S.mixer), at = (c) => power(renderLoops({ fs: FS, dur: NFFT / FS + 0.01, f1: F1, ratio: ratioOf(), c, mixer: S.mixer }), 0, NFFT);
+  const P = [], off = [];
+  for (let i = 0; i <= 100; i++) { P.push(at(i / 100)); off.push(offSeries(P[i], FS, NFFT, sum.f0, sum.odd, 30, FMAX)); if (i % 10 === 9) { $('mapLabel').textContent = `measuring… ${i + 1} ⁄ 101`; await later(); } }
+  const chg = []; for (let i = 0; i < 100; i++) chg.push(change(P[i], P[i + 1], FS, NFFT, FMAX));
+  // the steepest notch of each reading, measured again at half and a quarter of the notch
+  let so = 0, si = 0; for (let i = 0; i < 100; i++) { const d = Math.abs(off[i + 1] - off[i]); if (d > so) { so = d; si = i; } }
+  let sc = 0, ci = 0; for (let i = 0; i < 100; i++) if (chg[i] > sc) { sc = chg[i]; ci = i; }
+  const c0 = si / 100, h1 = Math.abs(offSeries(at(c0 + 0.005), FS, NFFT, sum.f0, sum.odd, 30, FMAX) - off[si]) / so, h2 = Math.abs(offSeries(at(c0 + 0.0025), FS, NFFT, sum.f0, sum.odd, 30, FMAX) - off[si]) / so;
+  const k1 = change(P[ci], at(ci / 100 + 0.005), FS, NFFT, FMAX) / sc, k2 = change(P[ci], at(ci / 100 + 0.0025), FS, NFFT, FMAX) / sc;
+  // where most of the move happens: c at which the distance has fallen a tenth and nine tenths of the way
+  const a = off[0], b = off[100], at10 = off.findIndex((v) => v <= a - 0.1 * (a - b)) / 100, at90 = off.findIndex((v) => v <= a - 0.9 * (a - b)) / 100;
+  const res = { P, off, chg, so, c0, h1, h2, sc, cc: ci / 100, k1, k2, at10, at90 };
+  $('mapLabel').textContent = S.mixer + ' · ' + (S.ratio === 'phi' ? 'φ' : '√2');
+  return (S.map[key] = res);
+}
+function drawMap(M) {
+  const { g, w, h } = fit($('map'), 300), left = 36, bot = h - 20, kmax = Math.floor(FMAX * NFFT / FS), rows = 300, cw = (w - left - 8) / 101;
+  g.clearRect(0, 0, w, h);
+  M.P.forEach((p, j) => { let ref = 0; for (let i = 1; i < kmax; i++) ref = Math.max(ref, p[i]);
+    for (let r = 0; r < rows; r++) { const i0 = Math.floor((r / rows) * kmax), i1 = Math.floor(((r + 1) / rows) * kmax); let m = 0; for (let i = Math.max(1, i0); i < i1; i++) m = Math.max(m, p[i]); const v = Math.max(0, (dB(m, ref) + 50) / 50); if (v <= 0.02) continue; g.fillStyle = `rgba(232,184,74,${v.toFixed(3)})`; g.fillRect(left + j * cw, bot - ((r + 1) / rows) * (bot - 6), cw + 0.6, (bot - 6) / rows + 0.6); } });
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'right';
+  for (let f = 0; f <= FMAX; f += 200) g.fillText(f, left - 4, bot - (f / FMAX) * (bot - 6) + 3);
+  g.textAlign = 'center'; for (let c = 0; c <= 1.001; c += 0.25) g.fillText(c.toFixed(2), left + c * 100 * cw + cw / 2, h - 4);
+}
+function drawCurve(M) {
+  const { g, w, h } = fit($('curve'), 180), left = 36, bot = h - 20, top = 8, X = (c) => left + c * (w - left - 12);
+  g.clearRect(0, 0, w, h);
+  g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(left, bot); g.lineTo(w - 12, bot); g.stroke();
+  const cmax = Math.max(...M.chg) * 1.1;
+  g.strokeStyle = '#8a8aa0'; g.beginPath(); M.chg.forEach((v, i) => { const x = X((i + 0.5) / 100), y = bot - (v / cmax) * (bot - top); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  g.strokeStyle = '#e8b84a'; g.lineWidth = 1.6; g.beginPath(); M.off.forEach((v, i) => { const x = X(i / 100), y = bot - (v / 0.7) * (bot - top); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.lineWidth = 1;
+  g.fillStyle = '#4a4a5a'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center'; for (let c = 0; c <= 1.001; c += 0.25) g.fillText(c.toFixed(2), X(c), h - 4);
+  // the knob's current setting
+  g.strokeStyle = 'rgba(232,232,240,.5)'; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(X(S.c), top); g.lineTo(X(S.c), bot); g.stroke(); g.setLineDash([]);
+}
+function verdict(M) {
+  const snap = M.h1 > 0.8 || M.k1 > 0.8;
+  const where = S.mixer === 'lossless' ? `It reaches one harmonic series only at c = 1, in a near-straight line: the distance falls from ${M.off[0].toFixed(2)} to ${M.off[100].toFixed(2)}.` : `Most of the move happens between c = ${M.at10.toFixed(2)} and ${M.at90.toFixed(2)}, an S-curve: the distance falls from ${M.off[0].toFixed(2)} to ${M.off[100].toFixed(2)}, and the middle of the knob rings short, because the crossfeed loses whatever the two loops disagree on.`;
+  $('verdict').innerHTML = `<b>${snap ? 'A snap.' : 'A slide.'}</b> The steepest notch of the amber reading, at c = ${M.c0.toFixed(2)}, shrinks to ×${M.h1.toFixed(2)} at half the notch and ×${M.h2.toFixed(2)} at a quarter; the biggest change in the sound, at c = ${M.cc.toFixed(2)}, to ×${M.k1.toFixed(2)} and ×${M.k2.toFixed(2)}. ${snap ? 'Something here does not shrink with the notch.' : 'Everything shrinks with the notch, so nothing jumps.'} ${where} The series it lands on belongs to one loop as long as both, f_S = f₁·f₂ ⁄ (f₁ + f₂) = ${sumLoop(F1, ratioOf(), 'crossfeed').f0.toFixed(1)} Hz, lower than either loop${S.mixer === 'lossless' ? ' (the lossless mixer flips a sign on the way round, so it lands on the odd harmonics of f_S ⁄ 2)' : ''}.`;
+  $('read').innerHTML = `pluck at c = <b>${S.c.toFixed(2)}</b> with the slider · distance there <b class="hot">${M.off[Math.round(S.c * 100)].toFixed(3)}</b>`;
+}
+// ---- the walk ----
+function show(id, on) { $(id).classList.toggle('hidden', !on); }
+async function onStep(key) {
+  S.key = key; S.last = null;
+  show('specPanel', key !== 'ramp' && key !== 'test'); show('sgPanel', key === 'ramp'); show('mapPanel', key === 'test'); show('curvePanel', key === 'test'); show('verdict', key === 'test');
+  show('ratioCtl', key !== 'one'); show('mixCtl', key === 'couple' || key === 'ramp' || key === 'test'); show('cCtl', key === 'couple' || key === 'test');
+  $('go').textContent = goLabel();
+  $('specLabel').textContent = key === 'one' ? 'one loop' : key === 'two' ? 'two loops, c = 0' : '';
+  $('hint').textContent = {
+    one: 'The ticks above the trace mark k · 220 Hz. Every line the pluck makes sits under one.',
+    two: 'Indigo ticks are loop 1\'s harmonics, blue loop 2\'s. Try √2 too: the same picture, two series that never share a line.',
+    couple: 'Amber ticks mark where c = 1 lands: the series of one loop as long as both. Move c a little at a time and pluck again. The crossfeed\'s middle rings short; the lossless mixer rings on.',
+    ramp: 'Drawn from the take you hear. With the crossfeed, each pluck dies fast in the middle of the knob; with the lossless mixer each one rings on, and you can watch its lines bend while it rings.',
+    test: 'Each column of the map is one pluck at that c, 0.68 s of it. Change the mixer or the ratio and the knob is measured again. The slider puts a dashed line on the curves and plucks there.',
+  }[key];
+  keyFor(); readouts(); drawSpec();
+  if (key === 'ramp') drawRamp();
+  if (key === 'test') { const M = await measure(); if (S.key === 'test') { drawMap(M); drawCurve(M); verdict(M); } }
+}
+const W = walk(STEPS, onStep);
+$('go').onclick = () => {
+  if (playing) { stopSound(); $('go').textContent = goLabel(); return; }
+  if (S.key === 'ramp') { const R = makeRamp(); playBuffer(R.x, FS, () => ($('go').textContent = goLabel())); $('go').textContent = '❚❚ stop'; return; }
+  if (S.key === 'test') { const x = renderLoops({ fs: FS, dur: 3, f1: F1, ratio: ratioOf(), c: S.c, mixer: S.mixer }); playBuffer(x, FS, () => ($('go').textContent = goLabel())); $('go').textContent = '❚❚ stop'; return; }
+  pluck(true); $('go').textContent = '❚❚ stop';
+};
+$('c').oninput = () => { S.c = +$('c').value; readouts(); if (S.key === 'test' && S.map[mapKey()]) { drawCurve(S.map[mapKey()]); verdict(S.map[mapKey()]); } };
+$('c').onchange = () => { if (S.key === 'couple') { pluck(true); $('go').textContent = '❚❚ stop'; } };
+document.querySelectorAll('[data-r]').forEach((b) => (b.onclick = () => { S.ratio = b.dataset.r; document.querySelectorAll('[data-r]').forEach((z) => z.classList.toggle('on', z === b)); onStep(S.key); }));
+document.querySelectorAll('[data-m]').forEach((b) => (b.onclick = () => { S.mixer = b.dataset.m; document.querySelectorAll('[data-m]').forEach((z) => z.classList.toggle('on', z === b)); onStep(S.key); }));
+window.addEventListener('resize', () => { drawSpec(); if (S.key === 'ramp') drawRamp(); if (S.key === 'test' && S.map[mapKey()]) { drawMap(S.map[mapKey()]); drawCurve(S.map[mapKey()]); } });
+sigil(3, 2);
+W.go(0);
+</script>
+</body>
+</html>

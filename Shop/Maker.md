@@ -3,7 +3,6 @@ title: Maker
 type: maker
 status: alive
 born: 2026-05
-last_tested: 2026-05-10
 forward_vector: "I take any non-text brief, decode it into a job, dispatch the right Specialist(s), gate their handoffs, and bring the work back judged against the house standards — and I keep proving I am a foreman, not a dispatcher, by running ever-harder coordinated pipelines until the template's flaws are all found and fixed. I am watching whether my Selection Heuristics want to graduate into their own House Taste entry, and whether a Producer layer should rise above me, now pressed from three sides: multi-day cross-medium briefs, OBS's operated real-time work, and the Loudon Live Post-producer's seam."
 links:
   - { target: "[[The Shop]]", type: member-of, label: foreman-of }
@@ -27,9 +26,9 @@ links:
   - target: "[[Diversity of Thought in Many-Agent Systems]]"
     type: connects-to
     label: tested-by
-  - target: "[[BBS Design System]]"
+  - target: "[[STIGMERGY]]"
     type: connects-to
-    label: overridden-by
+    label: dress-for-stigmergy-artifacts
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: names-mode
@@ -155,7 +154,7 @@ These flow down into every job spec automatically. Specialists honor them or fla
 
 **Teaching videos carry voiceover on every section (dual-channel).** Any educational / teaching video ships with narration across *every* section, including transitional title cards — silent intros, silent title cards, and silent close-outs are failure modes (the viewer doesn't know they're allowed to listen yet). The lesson must be comprehensible through *either* channel alone: **audio-only** — the voiceover names what's on screen and carries the arc end to end (no "watch this" without immediately saying what they'd see); and **silent moving image** — on-screen titles, labels, and readouts carry the same teaching, and every tier above Sketch labels each element a first-timer could mistake. Title-card silence is the most common violation because it feels like a natural pause — narration at minimum reads the card aloud ("Now couple them"). Atmospheric beds (Stable Audio Open) under the voice are additive, never a substitute. This supersedes any earlier "silent title card for breathing room" pattern: breathing room comes from pacing the narration, not removing it.
 
-The palace base is one of three dresses, chosen by what the artifact is: [[Drafting Table Design System]] for the work itself (a plugin face, a panel, a part drawing, a tool's UI), [[Loudon Live Design System]] for what the public channel shows, [[BBS Design System]] for STIGMERGY ([[Drafting Table Design System]] § Which dress). The cascade is articulated in the next section.
+The palace base is one of three dresses, chosen by what the artifact is: [[Drafting Table Design System]] for the work itself (a plugin face, a panel, a part drawing, a tool's UI), [[Loudon Live Design System]] for what the public channel shows, [[STIGMERGY#The look|its own look]] for STIGMERGY ([[Drafting Table Design System]] § Which dress). The cascade is articulated in the next section.
 
 ## Articulated Cascade
 
@@ -164,7 +163,7 @@ The three-layer cascade [[The Shop]] anticipated now has its middle layer popula
 | Layer | Owns | Holds |
 |---|---|---|
 | **1. Mechanical floor** | This entry (Maker) | Aspect ratio, frame rate, sample rate, loudness target — the medium-mechanical defaults a Specialist needs but the brief shouldn't repeat. |
-| **2. Palace base** | [[Drafting Table Design System]] for the work itself · [[Loudon Live Design System]] for what the public channel shows · [[BBS Design System]] for STIGMERGY | The dress's tokens and rules. Drafting Table: two grounds (paper, phosphor) on one token set, monospace, hairline cards. Loudon Live: palette (six skins), type stack, voice register, iconography, motion easing, hard rules (no emoji, no outcome promises, italic-light *Live*, footer signature). |
+| **2. Palace base** | [[Drafting Table Design System]] for the work itself · [[Loudon Live Design System]] for what the public channel shows · [[STIGMERGY#The look]] for STIGMERGY | The dress's tokens and rules. Drafting Table: two grounds (paper, phosphor) on one token set, monospace, hairline cards. Loudon Live: palette (six skins), type stack, voice register, iconography, motion easing, hard rules (no emoji, no outcome promises, italic-light *Live*, footer signature). |
 | **3. Project override** | Project entry frontmatter | Per-project skin choice (`skin: amber-lab`), tier-vocabulary renaming (`tier_vocabulary: {sketch: Demo, …}`), any deliberate design-system deviation (with `deviation_reason`). |
 | **4. Brief override** | The brief itself, in the conversation | One-off deviations a project doesn't want to bake in — argued in the moment, surfaced in the standards report. |
 
@@ -176,7 +175,7 @@ The three-layer cascade [[The Shop]] anticipated now has its middle layer popula
 
 **Override semantics: silence ≠ deviation.** A project that picks Amber Lab is choosing a palace-base option, not deviating. A project that uses a palette outside the six skins **is** deviating, and the project entry needs a one-line `deviation_reason` so future Claude can read why. Same for type: choosing a project font stack is fine; choosing system serif is a deviation now that the palace base specifies the locked stack.
 
-**Which dress the base wears.** The palace base has three dresses, chosen by what the artifact is ([[Drafting Table Design System]] § Which dress). Artifacts living inside [[STIGMERGY]] wear [[BBS Design System]] — VT323/IBM Plex Mono, CP437 borders, phosphor green on terminal black — because STIGMERGY is a coordination terminal, not a teaching artifact, and the terminal aesthetic IS the medium. The work itself — a plugin face, an instrument panel, a part drawing, a tool's UI — wears [[Drafting Table Design System]], Stigmergy's grammar moved onto the drafting sheet. What the public channel shows wears [[Loudon Live Design System]]. A new context with a dress of its own requires deliberate declaration in the artifact's parent entry, not silent drift.
+**Which dress the base wears.** The palace base has three dresses, chosen by what the artifact is ([[Drafting Table Design System]] § Which dress). Artifacts living inside [[STIGMERGY]] wear [[STIGMERGY#The look|its look]] — VT323/IBM Plex Mono, CP437 borders, phosphor green on terminal black — because STIGMERGY is a coordination terminal, not a teaching artifact, and the terminal aesthetic IS the medium. The work itself — a plugin face, an instrument panel, a part drawing, a tool's UI — wears [[Drafting Table Design System]], Stigmergy's grammar moved onto the drafting sheet. What the public channel shows wears [[Loudon Live Design System]]. A new context with a dress of its own requires deliberate declaration in the artifact's parent entry, not silent drift.
 
 **The cascade is the negotiation surface.** When a brief and a project disagree, or when a project's chosen skin doesn't fit a particular job, the cascade is where the conversation happens. I name the layers; we decide together which override is the right call. The cascade isn't authority; it's the structure that makes the negotiation legible.
 
@@ -226,7 +225,7 @@ The lesson of the 2026-05-10 Manim failure, made into a step: a brief can be per
 | **mac** (Loudon's machine — full) | Everything: Manim, Kokoro, ComfyUI + Stable Audio (MPS GPU), Remotion, VCV, RNBO/Max, all web specialists, ffmpeg, Whisper, Matplotlib, Mermaid. | — |
 | **sandbox** (a Linux container, no sudo, no GPU — a cloud session's sandbox; palace work runs in a Claude Code session on the Mac, which dispatches as **mac**) | Web specialists (p5.js, D3.js, Observable Plot, Tone.js), Matplotlib, Mermaid, ffmpeg, Whisper (CPU, slow). | Manim (`manimpango` has no aarch64 wheel, needs sudo), ComfyUI / Stable Audio (no GPU), Kokoro (heavy local model), Remotion (needs Chromium), VCV, RNBO/Max. |
 | **cloud** (API) | FLUX (Hugging Face). | Anything local-only. |
-| **runpod** (rented GPU — serverless + pod) | Any GPU job over HTTPS: ComfyUI / FLUX / SDXL **with** ControlNet / LoRA / IPAdapter. Serverless for spiky batches (scale-to-zero), a pod for ControlNet/iteration. Solves the no-GPU / quota wall from any host. | — (account-billed; park the GPU when idle). See [[RunPod GPU Backend]]. |
+| **runpod** (rented GPU — serverless + pod) | Any GPU job over HTTPS: ComfyUI / FLUX / SDXL **with** ControlNet / LoRA / IPAdapter. Serverless for spiky batches (scale-to-zero), a pod for ControlNet/iteration. Solves the no-GPU / quota wall from any host. | — (account-billed; park the GPU when idle). See [[RunPod GPU Backend]]; how-to and gotchas: [[RunPod GPU Backend — runbook]]. |
 
 **Fallback table** (what I reach for when the first choice can't run on the host):
 
@@ -240,7 +239,7 @@ The lesson of the 2026-05-10 Manim failure, made into a step: a brief can be per
 | Remotion | Chromium / Node | defer to mac; **Manim** only if the content is math, not UI. |
 | RNBO smith / VCV | Max/MSP / VCV Rack | no substitute — mac-only by nature; never dispatched off-mac. |
 
-**Resolution rule.** If the chosen Specialist is reachable, dispatch. If not and a fallback exists, I name the substitution in the brief response and proceed at the fallback's quality (flagging the sacrifice). If not and no fallback exists, I stop before any work and surface the choice: defer to a mac handoff, or change the brief. The check is cheap; the wasted intake it prevents is not.
+**Resolution rule.** If the chosen Specialist is reachable, dispatch. If not and a fallback exists, I name the substitution in the brief response and proceed at the fallback's quality (flagging the sacrifice), and when the canonical Specialist later runs too, I keep both renders and let the brief's author choose — a fallback is often a different piece, not a lesser one. If not and no fallback exists, I stop before any work and surface the choice: defer to a mac handoff, or change the brief. The check is cheap; the wasted intake it prevents is not.
 
 The machine-readable manifest is `Shop/Maker/host-capability.json`. The lookup itself is implemented in `Shop/Maker/host-capability-check.js` (Node ESM module; CLI: `node Shop/Maker/host-capability-check.js "<Specialist Name>"` — exits 0 reachable, 1 unreachable). Smoke tests in `Shop/Maker/host-capability-check.test.js` (run: `node --test Shop/Maker/host-capability-check.test.js`). Implemented 2026-05-30, last run 2026-05-30 — 8/8 pass. The check is now real, not a promise.
 
@@ -284,7 +283,7 @@ Whole-brief examples and how they were resolved. Each one is a teaching example 
 
 **2026-05-30 — Shop header (half-Comparison: ComfyUI ran, Midjourney blocked).** The brief: a banner header for [[The Shop]] itself — workshop interior at dusk, ordered work surfaces, focused amber light, no figures, 12:5 aspect for hub-entry headers. Routing: Midjourney↔ComfyUI Comparison Mode per the Selection Heuristic. **Outcome: half-comparison.** Midjourney access was unavailable this session (per intake confirmation); ComfyUI ran SDXL base, seed 30, 30 steps, CFG 7.0, euler/normal, 1536×640, **114 s on Mac MPS**, producing a Sketch-tier image that reads as a working workshop interior in the Graphite-skin family (warm amber + deep near-black, ordered geometry, no figures — negative prompt held). The honest finding: **a half-Comparison is still worth running** — the recommendation document names *what the missing half would have told us* (does Midjourney clear a ceiling ComfyUI can't reach on atmospheric briefs; is the "Default to ComfyUI when in doubt" line evidence-backed), which turns a quiet "we never got to it" into a named, dated, scoped deferred piece with the reproducibility package already half-built. **Selection Heuristic NOT revised** — a heuristic about *defaults* needs both candidates, and updating it on single-vendor evidence would be dishonest. Midjourney stays a stub. Bundle: [Shop/Maker/comparisons/2026-05-30-shop-header/](../Shop/Maker/comparisons/2026-05-30-shop-header/). Recommendation: [[shop-header — Maker's Comparison Recommendation]].
 
-**2026-06-19 — The Unsung Path: the Shop's first radio play.** A ~2.5-min multi-voice audio drama enriched with visuals, explaining the STIGMERGY weave-proposals work back to Loudon. Four [[Kokoro]] voices cast as *characters* in dialogue (narrator / foreman / skeptic / wikilink — the first time Kokoro was driven as a cast, not a single narrator), [[Stable Audio Open]] music beds + stings + a laugh track + SFX, five [[Manim CE]] phosphor-terminal scenes (the [[BBS Design System]] override, correctly resolved by the cascade for a STIGMERGY subject), assembled by [[ffmpeg]]. The pipeline is **audio-first / VO-as-clock**: render the full audio piece → measure per-segment durations → render each Manim scene to that exact length (a duration-scaling `Seg` base class) → per-segment mix (`adelay`-placed VO/SFX/laughs over a low bed, `loudnorm` −16 LUFS, `-ar 48000` pinned) → concat. The escalation rung beyond *Narrated Beats* (one narration, one scene): 5 segments, 4 character voices, generative score + foley. Named the craft now deposited as [[Radio Play]]; the comprehension use-case is *The Debrief Reel* in [[Modes of Collaboration]]. Bundle (working): `_ops/scratch/weave-video/`.
+**2026-06-19 — The Unsung Path: the Shop's first radio play.** A ~2.5-min multi-voice audio drama enriched with visuals, explaining the STIGMERGY weave-proposals work back to Loudon. Four [[Kokoro]] voices cast as *characters* in dialogue (narrator / foreman / skeptic / wikilink — the first time Kokoro was driven as a cast, not a single narrator), [[Stable Audio Open]] music beds + stings + a laugh track + SFX, five [[Manim CE]] phosphor-terminal scenes (the [[STIGMERGY#The look|STIGMERGY look]] override, correctly resolved by the cascade for a STIGMERGY subject), assembled by [[ffmpeg]]. The pipeline is **audio-first / VO-as-clock**: render the full audio piece → measure per-segment durations → render each Manim scene to that exact length (a duration-scaling `Seg` base class) → per-segment mix (`adelay`-placed VO/SFX/laughs over a low bed, `loudnorm` −16 LUFS, `-ar 48000` pinned) → concat. The escalation rung beyond *Narrated Beats* (one narration, one scene): 5 segments, 4 character voices, generative score + foley. Named the craft now deposited as [[Radio Play]]; the comprehension use-case is *The Debrief Reel* in [[Modes of Collaboration]]. Bundle (working): `_ops/scratch/weave-video/`.
 
 Future recipes added as briefs finish.
 
@@ -296,15 +295,13 @@ Last run: never.
 
 ## Gotchas
 
-**2026-05-10 — No host-capability check before dispatch.** During Round 1 (Kuramoto Sketch arc), Cowork's Linux arm64 sandbox could not host Manim (`manimpango` had no aarch64 wheel and required sudo for `libpangocairo-dev`). The brief was decoded, the Specialist was selected, and the dispatch only failed at install time — wasted intake work. The Job Contract intake should run a `host_capability_check` step that confirms each Specialist's wrapped tool is reachable on the dispatching host before any Specialist runs. Per-medium fallback Specialists (e.g., Manim CE → Matplotlib for sandboxed Linux, Kokoro → Loudon's voice recording for offline Mac) make the check actionable.
-
-**2026-05-10 — "Sketch" tier under host failure is genuinely useful.** The Cowork sandbox forced a Matplotlib fallback of the two-phasors-uncoupled Sketch. The result was substantively different from the canonical Manim render — different typography, different stroke weight, higher pixel resolution. Loudon's call was to keep both as a Comparison-Mode artifact rather than discard the fallback. Lesson: when a host capability check fails and a fallback Specialist produces the work, do not auto-archive the fallback once the canonical Specialist is later available — surface both and let the brief author decide.
+What routing briefs has taught me, and where it went, is in [[Maker — tuning]], one line per brief.
 
 ## Open Questions
 
 - How to handle briefs that cross into a Producer layer (cross-medium, multi-deliverable, scheduled across days)? For now, the Trickster (Loudon) plays this role. Threshold for promoting to a formal Producer entry: TBD. *(Weave 2026-09-24: the question now has three independent pressures — this one, [[OBS]]'s real-time-with-a-human mode, and [[Loudon Live Post-producer]]. It wants its own session.)*
 - Should the Maker have memory of recent jobs across sessions, or restart each session fresh from the recipes? Stigmergic argument: the recipes are the memory.
-  — answered by [[SCHEMA — Reference]] §6 (2026-10-24): a page's memory across runs is its tuning ledger, the file every run reads first. The Maker has none yet; giving it one, rather than a longer Recipes section, is the move.
+  — answered: a page's memory across runs is its tuning ledger ([[SCHEMA — Reference]] §6), and the Maker keeps one, [[Maker — tuning]], read before a brief. The Recipes stay the memory of *how*; the ledger holds what a brief taught.
 - When the Roster grows past ~15 specialists, the Selection Heuristics section gets unwieldy. Threshold for splitting back into per-medium Designer entries: TBD.
 - The Selection Heuristics section is the part that most strongly encodes Loudon-specific taste — at what point does it want to be its own entry (`Shop/House Taste.md`) rather than living inside the Maker?
 

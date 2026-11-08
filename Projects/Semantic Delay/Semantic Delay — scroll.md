@@ -15,20 +15,33 @@ forward_vector: "I am Semantic Delay's scroll — the one page that always opens
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-14T21:34:37.586Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-02T03:38:41.844Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-10-14 (today)
-- **Plan:** agreed 2026-09-25 (19 days ago) · 3 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-11-02 (today)
+- **Plan:** agreed 2026-09-25 (37 days ago) · 5 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (today) — Four versions of one echo, slowest to fastest — which is fast enough and still sounds good? (`semantic-delay-steward-017`)
-- **Last commit touching this project:** 2026-10-14 `fd898922` — steward(Semantic Delay): cycle 8 — SPINNING UP. HOME: [Semantic Delay](obsidian://open?vault=The%20Palace&…
+- **Last shipped:** 2026-11-02 (today) — The first Semantic Delay plugin is built and installed: a VST3 and AU whose echoes the real model sings, all four on time in a real-time test. (`semantic-delay-steward-021`)
+- **Last commit touching this project:** 2026-11-01 `4df7659e` — steward(Semantic Delay): cycle 10 — SPINNING UP. HOME: [Semantic Delay](obsidian://open?vault=The%20Palace&…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-01 — cycle 11 · taught item 2, proposed item 3 for canon
+- **Owed in the ledger:** nothing
+- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 3, from cycle 11 — 2026-11-01 — [[Semantic Delay — tuning]]
 
 ### Where this stands
 
-Semantic Delay is a delay effect where each echo comes back sung by a different voice instead of repeating you. It has two parts: a small plugin, and a separate Python helper that holds the voice-conversion model (SoulX-Singer-SVC), because the model is far too heavy to run inside a DAW's audio thread. Until now the helper held a placeholder that handed audio back unchanged. Last cycle the real model sang in a standalone script. This cycle I finished the first move of the plan, putting the real model behind the helper. Now the playable Python instrument sends each phrase over its socket and gets back the same phrase in the reference singer's voice. The plugin will use that exact path later.…
+Semantic Delay is a delay whose echoes come back sung by another voice instead of repeating you. It has two parts: a thin plugin, and a Python helper that holds the voice-conversion model (SoulX-Singer-SVC). In October the real model went behind the helper, and so did a melody knob for each echo: hold your melody, or wander onto the phrase's scale. This cycle built the next step on the plan, the plugin itself. It's a JUCE VST3 and AU, made with VST Template's shared build, and it's installed on this Mac. The audio thread only cuts phrases and plays back what is ready. A second thread talks to the helper. The plugin reports zero latency, because the delay is the effect. I drove the plugin's…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 8:** Nobody has heard it in Live yet: the real-time test drove the plugin's code from a small test program, not from Live. _(in 4 notes, the latest cycle 11)_
+- **rough since cycle 8:** The singer and phrases are still SoulX's examples, not your voice. _(in 4 notes, the latest cycle 11)_
+- **rough since cycle 8:** The test is offline: live, an echo that finishes late would be clipped at the front, and the instrument doesn't guard against that yet. _(in 2 notes, the latest cycle 9)_
 
 ### Open asks
 
@@ -41,6 +54,21 @@ _None._
 ### Decided
 
 - `semantic-delay-steward-012` — directional_steer → GRANTED — option_id=F0-COUPLING; notes: "just a warning, the language here assumes I know what is going on with the project( you are describing phases without clearly describing the phases and the tradeoffs)." (2026-06-25)
+
+### Runs
+
+- 2026-11-01 — cycle 11 · taught item 2, proposed item 3 for canon
+- 2026-11-01 — cycle 10 · proposed item 1 for canon
+
+### Owed
+
+_Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **3.** 2026-11-01 · [[Semantic Delay]] · § Status, its first paragraph — the plugin landed this cycle, so the Status I proposed last cycle (next move: the plugin) is already out of date
 
 <!-- scroll:now:end -->
 
@@ -77,6 +105,118 @@ Decided with Loudon when the Phase 1 build was planned (2026-04-20), carried ove
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="semantic-delay-steward-021" -->
+### 2026-11-02 — cycle 11 — The first Semantic Delay plugin is built and installed: a VST3 and AU whose echoes the real model sings, all four on time in a real-time test.
+> shipped · plugin passes every check · not yet heard in Live · steward leans try it in Live next
+
+What I built, in `Projects/Semantic Delay/plugin/`:
+
+- **The audio thread** mixes the input to mono, keeps a short pre-roll so a phrase's first syllable isn't lost, and cuts phrases with the same energy gate as the Python instrument. It never waits, locks or allocates. Finished phrases go into a pool of six slots. Each slot belongs to one thread at a time.
+- **A worker thread** sends each phrase to the helper using the helper's v0.2 contract (falling back to v0.1). It sings one echo at a time, always the one due soonest across every phrase in flight. Each echo is handed back the moment it is ready, so a first repeat plays while the later ones are still being sung. An echo that comes back after its time plays at once, late, rather than clipped at the front, and is counted. That was the instrument's old rough edge.
+- **Knobs:** Delay (2–30 s), Repeats (1–4), Feedback, Voice (the helper's singers, in its own order), Hold melody (the first echo's knob), Let go (each later repeat loosens: hold × (1 − let go)^i), Quality (16 fast / 32 fine), Dry, Wet, Phrase gate. Quality covers half of my open speed-vs-quality question, so you can now answer it by ear.
+
+Checks, all passed:
+- `verify`: the audio thread against a numpy sketch, sample for sample. Which phrases open, close and get sent matches exactly, including a click that is dropped and a 9 s note that is cut at 8 s.
+- `validate`: codesign, pluginval at strictness 5, auval.
+- `hostcheck`: loads the installed VST3 and AU the way a DAW does.
+- **The real test:** the plugin's own Algorithm.h, built without JUCE, played in real time against the real helper on the M1 Max. Two sung phrases (6.7 s and 4.8 s), a 12 s delay, two repeats each (the first holds the melody, the second half lets go). Four conversions at about 1.0–1.2 s of compute per sung second at 16 steps. All four echoes started on the exact sample they were due. Each echo is in the singer's voice: zero correlation with the dry phrase and a large timbre distance from it.
+
+Two fixes this building taught me:
+1. **The phrase gate counted its own hangover.** The 0.3 s of quiet that closes a phrase counted toward the 0.2 s minimum, so a click was always sent. The plugin now counts only what came before the quiet. The Python instrument's segmenter still has the old bug.
+2. **Sing the soonest echo first.** My first worker went phrase by phrase. On the first real run, the second phrase's first echo waited behind the first phrase's second echo and came 0.33 s late. Ordering by due time made all four on time.
+
+**Artifacts:**
+- [what went in, and what the plugin played: four sung echoes, each starting on its dashed due line.](Projects/Semantic Delay/plugin/proofs/echo-through-helper-soulx/timeline.png)
+- [the plugin's output on the real model: two dry phrases, then four echoes in the singer's voice (stays on this Mac).](Projects/Semantic Delay/plugin/proofs/echo-through-helper-soulx/plugin-output.wav)
+- [the plugin's editor in the house style: Delay and Hold melody up top, then Echo, Voice, Mix, Phrase.](Projects/Semantic Delay/plugin/proofs/editor-900x600.png)
+- [the real-model run in numbers: each echo's due and start time, the model's device and load time.](Projects/Semantic Delay/plugin/proofs/echo-through-helper-soulx/report.json)
+- [the helper's log for that run: four conversions, their speed and key shift.](Projects/Semantic Delay/plugin/proofs/echo-through-helper-soulx/helper.log)
+- [the same test against the placeholder helper: the timing alone, no model.](Projects/Semantic Delay/plugin/proofs/echo-through-helper-stub/timeline.png)
+- [the placeholder run in numbers.](Projects/Semantic Delay/plugin/proofs/echo-through-helper-stub/report.json)
+- [the placeholder helper's log.](Projects/Semantic Delay/plugin/proofs/echo-through-helper-stub/helper.log)
+- [the placeholder run's output: your own phrases back, on time (stays on this Mac).](Projects/Semantic Delay/plugin/proofs/echo-through-helper-stub/plugin-output.wav)
+- [how the plugin is built, the knobs, where it finds the helper, what checked it, the gotchas.](Projects/Semantic Delay/plugin/README.md)
+- [the plugin: phrase cutter, slot hand-off, echo playback, and the worker that sings the soonest echo first.](Projects/Semantic Delay/plugin/src/Algorithm.h)
+- [the plugin's side of the helper's contract, in plain C++.](Projects/Semantic Delay/plugin/src/HelperLink.h)
+- [the numpy sketch the audio thread is checked against.](Projects/Semantic Delay/plugin/reference/sketch.py)
+- [the two test inputs and what each must pass.](Projects/Semantic Delay/plugin/reference/paths.py)
+- [a host in miniature: drives the plugin's code in real time against the helper.](Projects/Semantic Delay/plugin/tests/echo_through_helper.cpp)
+- [starts the helper, runs that host, measures and pictures the result.](Projects/Semantic Delay/plugin/tests/run_echo_test.py)
+- [name, plugin code Smdl, the editor's size and the host-check move.](Projects/Semantic Delay/plugin/plugin.json)
+- [finds VST Template's shared build.](Projects/Semantic Delay/plugin/CMakeLists.txt)
+- [build, verify, install, validate, hostcheck.](Projects/Semantic Delay/plugin/plugin.sh)
+- [keeps build output and caches out of git.](Projects/Semantic Delay/plugin/.gitignore)
+
+_Real model, real time: each echo the plugin played (12 s delay, 2 repeats, 16 steps)_
+| phrase | repeat | melody knob | due (s) | started (s) | late |
+| --- | --- | --- | --- | --- | --- |
+| 1 (6.7 s) | 1 | 1.0 | 19.20 | 19.20 | on time |
+| 2 (4.8 s) | 1 | 1.0 | 25.70 | 25.70 | on time (was 0.33 s late before the reorder) |
+| 1 | 2 | 0.5 | 31.20 | 31.20 | on time |
+| 2 | 2 | 0.5 | 37.70 | 37.70 | on time |
+
+_Proposed for canon:_ Semantic Delay (§ Status, its first paragraph) — the plugin landed this cycle, so the Status I proposed last cycle (next move: the plugin) is already out of date; owed in the tuning ledger until Loudon's review; it replaces item 1
+
+_Left rough:_ Nobody has heard it in Live yet: the real-time test drove the plugin's code from a small test program, not from Live. The singer and phrases are still SoulX's examples, not your voice. Delays shorter than the phrase plus its compute time are untested and will come late. The Voice knob shows numbers, not the singers' names. The build tool's own editor screenshot returned no picture, so the editor image is the browser mock.
+
+_Next moves named:_ Put it on a send in Live with the helper running (start the helper with its defaults, then load Semantic Delay under Loudon Live), sing into it, and hear it. · Lock the echoes to the song's tempo: read Live's tempo and playhead and offer dub's echo times (dotted eighth, quarter, half bar, bar) as well as seconds. · Fix the same phrase-gate bug in the Python instrument's segmenter, so the two cut phrases the same way. · Show the helper's singer names on the Voice knob instead of numbers.
+<sub>`semantic-delay-steward-021` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-991fc56398" -->
+### 2026-11-01 — cycle 11
+
+taught item 2, proposed item 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="semantic-delay-steward-019" -->
+### 2026-11-02 — cycle 10 — The melody knob now works through the helper on the real model, and both open ear-checks are on one listening page.
+> shipped · knob verified through the helper · steward leans start the plugin next
+
+The cut-off cycle on 2026-10-14 left three things in the folder: the knob carried through the helper (contract version 0.2), one knob for each echo in the playable instrument, and late-echo handling. It never posted them. They were committed by hand later, never re-checked. Tonight I re-checked all three. The test for late echoes passes. The 0.2 contract test passes 18 of 18, and the 0.1 test still passes 19 of 19. Then I re-ran the real model through the helper: one 4.5 s phrase, an 11 s delay, three echoes. The first holds your melody, the second half-follows it, the third wanders free: the dub feedback train, letting go a little more on each repeat. The model sang within a third of a semitone of what the knob asked every time, and the echoes moved 0.8, 2.4 and 4.3 semitones away from your melody. Each took about 2 s of compute per second sung, and none was late. Listen to the [delay timeline](open:Projects/Semantic Delay/standalone/demo/stage4-through-helper/wander-through-helper-delay.wav), or look at the [contour picture](Projects/Semantic Delay/standalone/demo/stage4-through-helper/wander-through-helper.png): grey is your melody, blue is what the knob asked for, red is what came back. Two gaps closed. The helper's code pointed at a description of contract version 0.2 that was never written. I wrote it from the code, so the plugin has a contract on paper to be built against. And the real model's reply now says it applied the knob, matching the placeholder, which says it did not. Then the [listening sheet](Projects/Semantic Delay/standalone/demo/listening-sheet.html): one page, the dry phrase on top, then the three knob echoes, then the same phrase at the four speed settings from the open card. Both ear-checks now cost one sitting.
+
+**Artifacts:**
+- [one page, both ear-checks: the dry phrase, the three knob echoes, the four speed settings.](Projects/Semantic Delay/standalone/demo/listening-sheet.html)
+- [the instrument through the real helper: you, then three echoes letting go of the melody one step at a time.](Projects/Semantic Delay/standalone/demo/stage4-through-helper/wander-through-helper-delay.wav)
+- [your melody (grey), what the knob asked (blue), what came back (red), per echo; the timeline below.](Projects/Semantic Delay/standalone/demo/stage4-through-helper/wander-through-helper.png)
+- [locked: your melody in the other voice.](Projects/Semantic Delay/standalone/demo/stage4-through-helper/echo-k1.0.wav)
+- [half: the shape held, the line loosened.](Projects/Semantic Delay/standalone/demo/stage4-through-helper/echo-k0.5.wav)
+- [free: your words and rhythm, its own line on the scale.](Projects/Semantic Delay/standalone/demo/stage4-through-helper/echo-k0.0.wav)
+- [the dry 4.5 s phrase at 44.1 kHz.](Projects/Semantic Delay/standalone/demo/stage4-through-helper/input-one-phrase-44k.wav)
+- [tonight's measurements.](Projects/Semantic Delay/standalone/demo/stage4-through-helper/wander-through-helper-report.json)
+- [the helper's log from tonight's run.](Projects/Semantic Delay/standalone/demo/stage4-through-helper/helper.log)
+- [the helper's contract, version 0.2: the knob, its reply, its one new error.](Projects/Semantic Delay/daemon/RPC-v0.2.md)
+- [the real model's reply now says the knob was applied.](Projects/Semantic Delay/daemon/soulx_backend.py)
+- [builds the listening sheet; ffmpeg only, no model.](Projects/Semantic Delay/standalone/build_listening_sheet.py)
+- [points at the 0.2 contract.](Projects/Semantic Delay/daemon/README.md)
+- [the knob through the helper, late echoes, the listening sheet.](Projects/Semantic Delay/standalone/README.md)
+
+_One phrase through the real helper · M1 Max · 11 s delay · re-run 2026-11-02_
+| echo | knob | sang (st from your melody) | sang (st from what it was asked) | compute per second sung | late? |
+| --- | --- | --- | --- | --- | --- |
+| 1 | locked (1.0) | 0.81 | 0.31 | 2.10 | no |
+| 2 | half (0.5) | 2.44 | 0.18 | 2.02 | no |
+| 3 | free (0.0) | 4.32 | 0.25 | 2.00 | no |
+
+_Changed in the workshop:_ RPC-v0.2 — the helper's code pointed at a description of contract version 0.2 that was never written; the plugin needs a contract on paper
+_Changed in the workshop:_ README — points at the 0.2 contract
+_Changed in the workshop:_ README — records the knob through the helper, late echoes, and the listening sheet
+_Proposed for canon:_ Semantic Delay (§ Status, its first paragraph) — the Status still says the next move is putting the real model behind the helper, which landed in October; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ I can't hear, so nobody has listened to these echoes yet. Only you can close that, so I put every unheard clip on the listening sheet. On the locked echo the model still makes two small dives that the knob didn't ask for, near 1 s and at the very end. The singer and phrase are still SoulX's examples, not your voice. The plan's opening still says no echo has changed voice yet, and that is no longer true; the plan is yours to update.
+
+_Next moves named:_ Start the plugin, the next move in the plan: a VST3 whose audio thread only cuts phrases and plays back finished echoes, while a second thread talks to the helper over contract version 0.2. I'll build it with the palace's VST Template tooling, which handles signing, pluginval and the host check, in this bundle's own plugin folder. · When you've listened: make your speed pick the helper's default so an 8-second delay holds again. · Teach the plugin's scheduler to drop an echo before spending compute on it once it can no longer land on time. The Python instrument found that ordering (oldest first) only half solves it.
+<sub>`semantic-delay-steward-019` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-19ccfe3d4e" -->
+### 2026-11-01 — cycle 10
+
+proposed item 1 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="semantic-delay-steward-017" -->
 ### 2026-10-14 — cycle 9 — Four versions of one echo, slowest to fastest — which is fast enough and still sounds good?
 > still working · real model in the helper · steward leans 5S-16

@@ -265,6 +265,18 @@ const LOCAL_CHIP = { text: 'only on this Mac', state: 'warn', title: 'git does n
 function markLocal(fig, names) {
   if (names.some((n) => info.media && info.media[n] && info.media[n].local)) chip(fig, LOCAL_CHIP, 'local');
 }
+// A section a proposal round made waits for Loudon (Enrichment § Proposal and
+// approval): each of its figures says so, live and on the public face alike,
+// and the head counts them. A section with no status is approved; a retired
+// section's pieces are not laid. The field shapes: README § A section's status.
+const isProposal = (sec) => !!sec && sec.status === 'proposal';
+const isRetired = (sec) => !!sec && sec.status === 'retired';
+const PROPOSAL_TITLE = 'made in a proposal round and not yet approved by Loudon; approve it from the note dock or say so in chat';
+function markProposal(fig, sec) {
+  if (!isProposal(sec)) return;
+  const date = (sec.proposed && sec.proposed.date) || sec.made || '';
+  chip(fig, { text: `proposal${date ? ' · ' + date : ''}`, state: 'note', title: PROPOSAL_TITLE }, 'proposal');
+}
 // Every file the face names that git does not track, pieces' declared files too.
 function localFiles() {
   const out = new Map();
@@ -371,6 +383,7 @@ async function manifestFigure(p, sec) {
   fig._place = p.place;
   markPiece(fig, media.firstElementChild);
   markLocal(fig, [p.file]);
+  markProposal(fig, sec);
   return fig;
 }
 
@@ -400,7 +413,7 @@ async function laySection(s, idx) {
   const afterProse = new Map(), afterFig = new Map(), atEnd = [];
   const proseBlocks = s.blocks.filter((b) => b.type === 'prose');
   const figNames = new Set(s.blocks.filter((b) => b.type === 'figure' && !b.diagram).flatMap((b) => b.media.map((m) => m.name)));
-  for (const p of (ms && ms.pieces) || []) {
+  for (const p of (ms && !isRetired(ms) && ms.pieces) || []) {
     if (p.near && figNames.has(p.near)) { (afterFig.get(p.near) || afterFig.set(p.near, []).get(p.near)).push(p); continue; }
     const i = p.near ? proseBlocks.findIndex((b) => norm(b.md).includes(norm(p.near))) : -1;
     if (i >= 0) (afterProse.get(i) || afterProse.set(i, []).get(i)).push(p);
@@ -427,16 +440,33 @@ async function laySection(s, idx) {
     if (r.band.childElementCount) el.append(r.band);
   }
 
+  // The note sits at the section's foot, in the reader's order: you read a
+  // section, then you review it (Loudon, 2026-11-07).
   if (REVIEW) {
     const k = noteKey(s.key);
     const ta = h('textarea', { placeholder: `A note on “${s.heading}” — the words, the pieces, or both.` });
     ta.value = localStorage.getItem(k) || '';
     const box = h('div', { class: 'rf-note' }, ta);
-    const pin = h('button', { class: 'pin' + (ta.value ? ' has' : ''), title: 'leave a note on this section' }, ta.value ? '◆ note' : '◇ note');
+    const pin = h('button', { class: 'pin', title: 'leave a note on this section' });
+    const paint = () => { pin.className = 'pin' + (ta.value ? ' has' : ''); pin.textContent = ta.value ? '◆ your note on this section' : '◇ a note on this section'; };
     pin.onclick = () => { box.classList.toggle('open'); if (box.classList.contains('open')) ta.focus(); };
-    ta.oninput = () => { localStorage.setItem(k, ta.value); pin.className = 'pin' + (ta.value ? ' has' : ''); pin.textContent = ta.value ? '◆ note' : '◇ note'; countNotes(); };
-    flags.append(pin);
-    label.after(box);
+    ta.oninput = () => { localStorage.setItem(k, ta.value); paint(); countNotes(); };
+    const foot = h('div', { class: 'rf-foot' }, pin);
+    // A proposal section also takes Loudon's yes: the button rides with the
+    // notes to the board as `verdict: "approve"`, and approve.mjs --via dock
+    // writes it into the manifest. Nothing here writes the manifest itself.
+    let paintAp = () => {};
+    if (isProposal(ms)) {
+      const ak = approveKey(s.key), on = () => localStorage.getItem(ak) === '1';
+      const ap = h('button', { class: 'pin', title: 'approve this section — sent with your notes to STIGMERGY, where the next session writes it' });
+      paintAp = () => { ap.className = 'pin' + (on() ? ' has' : ''); ap.textContent = on() ? '◆ approved' : '◇ approve'; };
+      ap.onclick = () => { localStorage.setItem(ak, on() ? '' : '1'); paintAp(); countNotes(); };
+      foot.append(ap);
+    }
+    paint(); paintAp();
+    // After a send clears what went, each section re-reads its box from storage.
+    noteViews.push(() => { ta.value = localStorage.getItem(k) || ''; if (!ta.value) box.classList.remove('open'); paint(); paintAp(); });
+    el.append(foot, box);
   }
   return el;
 }
@@ -448,7 +478,7 @@ async function checkDrift() {
   let lagging = 0;
   for (const s of entry.sections) {
     const ms = manifestSection(s.key);
-    if (!ms) continue;
+    if (!ms || isRetired(ms)) continue;
     const now = await fingerprint(sectionProse(s));
     const drifted = ms.made_against && ms.made_against !== now;
     const secEl = document.querySelector(`section.sec[data-key="${CSS.escape(s.key)}"]`);
@@ -473,16 +503,22 @@ async function checkDrift() {
 // ── review dock: one note per section, one for the page; send → STIGMERGY ──
 const round = () => (manifest && manifest.round) || 1;
 const noteKey = (k) => `richface:${ENTRY}:r${round()}:${k}`;
+const approveKey = (k) => noteKey(k) + ':approve';
+const approvedHere = (s) => isProposal(manifestSection(s.key)) && localStorage.getItem(approveKey(s.key)) === '1';
+const noteViews = [];
 function countNotes() {
-  let n = 0;
-  for (const s of entry.sections) if ((localStorage.getItem(noteKey(s.key)) || '').trim()) n++;
+  let n = 0, a = 0;
+  for (const s of entry.sections) { if ((localStorage.getItem(noteKey(s.key)) || '').trim()) n++; if (approvedHere(s)) a++; }
   if (($('#overall').value || '').trim()) n++;
-  $('#dock-count').textContent = `${n} note${n === 1 ? '' : 's'}`;
-  return n;
+  $('#dock-count').textContent = `${n} note${n === 1 ? '' : 's'}${a ? ` · ${a} approve${a === 1 ? '' : 's'}` : ''}`;
+  return n + a;
 }
 function collectNotes() {
   const groups = {};
-  for (const s of entry.sections) { const v = (localStorage.getItem(noteKey(s.key)) || '').trim(); if (v) groups[s.name] = { note: v }; }
+  for (const s of entry.sections) {
+    const v = (localStorage.getItem(noteKey(s.key)) || '').trim(), a = approvedHere(s);
+    if (v || a) groups[s.name] = { note: v, ...(a ? { verdict: 'approve' } : {}) };
+  }
   return { task: `rich-face:${ENTRY}:round-${round()}`, groups, overall: { note: ($('#overall').value || '').trim(), round: round(), url: location.href } };
 }
 function mountDock() {
@@ -494,20 +530,68 @@ function mountDock() {
   $('#copy').onclick = async () => {
     const d = collectNotes();
     const md = [`# Review — ${ENTRY} rich face, round ${round()}`, '', d.overall.note && `**The whole page:** ${d.overall.note}`, '',
-      ...Object.entries(d.groups).map(([k, v]) => `**${k}:** ${v.note}`)].filter((x) => x !== false && x !== '').join('\n\n');
+      ...Object.entries(d.groups).map(([k, v]) => `**${k}:**${v.verdict ? ` *${v.verdict}*` : ''}${v.note ? ' ' + v.note : ''}`)].filter((x) => x !== false && x !== '').join('\n\n');
     try { await navigator.clipboard.writeText(md); $('#dock-msg').textContent = 'Copied as markdown.'; } catch { $('#dock-msg').textContent = 'Clipboard blocked — use Send.'; }
   };
-  $('#send').onclick = async () => {
+  // One send at a time: the button is off while a send is in flight, and a
+  // send that lands clears what it carried, so a second click finds nothing to
+  // send. A failed send keeps every note.
+  const send = $('#send');
+  send.onclick = async () => {
+    if (send.disabled) return;
     const d = collectNotes();
-    if (!countNotes()) { $('#dock-msg').textContent = 'Nothing to send yet.'; return; }
-    $('#dock-msg').textContent = 'Sending…';
+    if (!countNotes()) {
+      $('#dock-msg').textContent = $('#dock-msg').title ? 'Nothing new to send — your last send is on the board.' : 'Nothing to send yet — leave a note at the foot of any section.';
+      return;
+    }
+    send.disabled = true; send.textContent = 'Sending…';
     try {
       const r = await fetch('_api/review', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) });
-      const j = await r.json();
-      $('#dock-msg').textContent = r.ok ? `On the board — ${j.message_id}. The next session reads it from there.` : `Not sent: ${j.error || JSON.stringify(j.board_response)}`;
-    } catch (e) { $('#dock-msg').textContent = 'Not sent: ' + e.message; }
+      const j = await r.json().catch(() => ({}));
+      if (r.ok) {
+        clearSent(d);
+        const where = [...Object.keys(d.groups), ...(d.overall.note ? ['the whole page'] : [])];
+        $('#dock-msg').textContent = `Sent. ${where.length} note${where.length === 1 ? '' : 's'} on the board, boxes cleared. The next session on ${ENTRY} finds them there.`;
+        $('#dock-msg').title = j.message_id || '';
+        flash(true, where);
+      } else {
+        const why = j.error || JSON.stringify(j.board_response) || `HTTP ${r.status}`;
+        $('#dock-msg').textContent = `Not sent — your notes are kept. ${why}`;
+        flash(false, [why]);
+      }
+    } catch (e) {
+      $('#dock-msg').textContent = `Not sent — your notes are kept. ${e.message}`;
+      flash(false, [e.message]);
+    } finally { send.disabled = false; send.textContent = 'Send to STIGMERGY'; }
   };
   countNotes();
+}
+
+// Clear only what the send carried: a note typed while it was in flight stays.
+function clearSent(d) {
+  for (const s of entry.sections) {
+    const g = d.groups[s.name];
+    if (!g) continue;
+    if ((localStorage.getItem(noteKey(s.key)) || '').trim() === g.note) localStorage.removeItem(noteKey(s.key));
+    if (g.verdict === 'approve') localStorage.removeItem(approveKey(s.key));
+  }
+  if (d.overall.note && $('#overall').value.trim() === d.overall.note) { localStorage.removeItem(noteKey('__overall')); $('#overall').value = ''; }
+  for (const sync of noteViews) sync();
+  countNotes();
+}
+
+// The word that it went, where he is reading, not only in the dock.
+let flashTimer;
+function flash(ok, items) {
+  const t = $('#sent');
+  t.className = ok ? 'ok' : 'fail';
+  t.replaceChildren(
+    h('div', { class: 'sent-head' }, ok ? `◆ Sent to STIGMERGY — ${items.length} note${items.length === 1 ? '' : 's'}` : '◇ Not sent — your notes are kept'),
+    h('div', { class: 'sent-items' }, ...items.map((x) => h('span', {}, x))));
+  t.hidden = false;
+  clearTimeout(flashTimer);
+  flashTimer = setTimeout(() => { t.hidden = true; }, ok ? 6000 : 12000);
+  t.onclick = () => { clearTimeout(flashTimer); t.hidden = true; };
 }
 
 // ── room tone: the page's bed, low and looped ──
@@ -628,7 +712,7 @@ async function boot() {
 
   // lost: manifest sections whose heading no longer exists
   const keys = new Set(entry.sections.map((s) => s.key));
-  const lost = (manifest && manifest.sections || []).filter((m) => !keys.has(sectionKey(m.heading)));
+  const lost = (manifest && manifest.sections || []).filter((m) => !isRetired(m) && !keys.has(sectionKey(m.heading)));
   // A heading renamed without touching its words keeps its fingerprint — so a
   // lost section whose stamp matches a current section was probably renamed.
   const fpNow = new Map();
@@ -645,16 +729,33 @@ async function boot() {
 
   // ledger: what the page is made of
   const textFigs = entry.sections.reduce((n, s) => n + s.blocks.filter((b) => b.type === 'figure').length, 0);
-  const pieces = (manifest && manifest.sections || []).flatMap((m) => m.pieces || []);
+  const live = (manifest && manifest.sections || []).filter((m) => !isRetired(m));
+  const pieces = live.flatMap((m) => m.pieces || []);
   const made = pieces.filter((p) => p.origin === 'made').length;
   const lagging = await checkDrift();
+  const proposals = live.filter(isProposal);
+  const offers = (manifest && manifest.offers || []).filter((o) => o && (!o.status || o.status === 'open'));
   const ledger = h('div', { class: 'ledger' },
     h('span', {}, manifest ? `enriched · ${manifest.tier || 'sketch'} · ${manifest.made || ''}` : 'not yet enriched'),
     h('span', {}, `${textFigs} carried by the text`),
     manifest && h('span', {}, `${pieces.length - made} gathered`),
     manifest && h('span', {}, `${made} made`),
-    lagging ? h('span', { style: 'color:var(--warn)' }, `${lagging} may lag the text`) : null);
+    lagging ? h('span', { style: 'color:var(--warn)' }, `${lagging} may lag the text`) : null,
+    proposals.length ? h('span', { style: 'color:var(--fg-2)' }, `${proposals.length} proposed`) : null);
   head.append(ledger);
+  // What waits for Loudon, named, the way the local files are: each proposal
+  // section, who made it and whether it was challenged, and the open offers.
+  if (proposals.length || offers.length) {
+    const n = proposals.length;
+    head.append(h('details', { class: 'rf-local rf-proposal' },
+      h('summary', {}, `${n ? `${n} section${n === 1 ? '' : 's'} made in a proposal round, not yet approved by Loudon` : ''}${n && offers.length ? ' · ' : ''}${offers.length ? `${offers.length} offer${offers.length === 1 ? '' : 's'} for the text` : ''}`),
+      h('p', {}, 'A proposal section waits until Loudon approves it — from the ◇ approve beside its note, or by saying so in chat; then ',
+        h('code', {}, `node _ops/rich-face/approve.mjs "${ENTRY}" "<Section>"`), ' writes it. An offer is a finding held back from the text, carried home only on his word.'),
+      h('ul', {}, [
+        ...proposals.map((m) => h('li', {}, h('code', {}, m.heading), ` · proposed ${(m.proposed && m.proposed.date) || m.made || ''}${m.proposed && m.proposed.by ? ' by ' + m.proposed.by : ''}${m.challenge ? ` · challenged ${m.challenge.date || ''}${m.challenge.by ? ' by ' + m.challenge.by : ''}` : ' · not yet challenged'}`)),
+        ...offers.map((o) => h('li', {}, 'offer · ', h('code', {}, o.section || '?'), ` · ${o.kind || '?'} · ${o.what || ''}`)),
+      ])));
+  }
   // What the public face will lack, named, so an author can track it on purpose.
   const local = STATIC ? new Map() : localFiles();
   if (local.size) {

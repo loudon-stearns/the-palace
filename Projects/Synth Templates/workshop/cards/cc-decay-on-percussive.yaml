@@ -1,0 +1,60 @@
+# Synth Templates — card — CC → Decay on Percussive
+# On a sound with no sustain, decay time is the length of the note. A controller on it is a length knob. The wheel stands in for the CC.
+schema: synth-template-card/0.2
+id: cc-decay-on-percussive
+name: CC → Decay on Percussive
+family: Performance Controls
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "CC73 / CC72 → attack / release; CC → decay"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Sustaining vs non-sustaining sounds"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: square, pw: 0.5, octave: 0}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: moderate}
+    amp:     {kind: amplifier, level: under unity}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: short, s: zero, r: short}, category: percussive}
+    aenv:    {kind: envelope, role: amp, shape: {a: instant, d: medium, s: zero, r: same as decay}, category: plucked, note: "any free CC (the wheel here) to decay; release follows decay so the knob moves both"}
+  audio:
+    - [osc1, filter1]
+    - [filter1, amp]
+    - [amp, out]
+  modulation:
+    - {from: fenv,  to: filter1.cutoff, amount: moderate, essential: true}
+    - {from: aenv,  to: amp.level, essential: true}
+    - {from: wheel, to: aenv.decay, amount: full, essential: true}
+    - {from: key,   to: osc1.pitch, essential: true}
+    - {from: key,   to: fenv.gate, essential: true}
+    - {from: key,   to: aenv.gate, essential: true}
+
+essentials:
+  - {block: aenv,  param: sustain, value: zero,          why: "no sustain: struck and left to die. Only then is decay the length of the note"}
+  - {block: aenv,  param: release, value: same as decay, why: "a short key press still plays the whole note, so the knob sets the length whatever the player holds"}
+  - {block: wheel, param: target,  value: amp envelope decay, why: "the length knob: turned down it is a marimba, turned up it is a gong"}
+  - {block: fenv,  param: decay,   value: short,         why: "a fixed bite at the front, so only the tail changes"}
+  - {block: osc1,  param: wave,    value: square,        why: "a hollow pluck that reads clearly at every length"}
+  - {block: mode,  param: voices,  value: mono,          why: "one line, so the length of each note is heard against the next"}
+
+taste:
+  - {block: aenv,    param: cc amount, range: "moderate – full", default: full, why: "the sweep of the knob: from the shortest tick to the longest ring"}
+  - {block: aenv,    param: decay,  range: "short – very long", default: medium, why: "where the knob rests"}
+  - {block: filter1, param: cutoff, range: "dark – mid",       default: dark}
+  - {block: fenv,    param: amount, range: "some – generous",  default: moderate}
+
+listening:
+  cue: "Steady eighth notes, and the controller turned slowly up. Each note starts the same and rings longer than the last, until they overlap into a wash; turn it back and they dry up to ticks."
+  ab: "Raise the amp sustain to held: now the key, not the knob, sets the length, and the controller does almost nothing. Set sustain back to zero and the knob is the length again."
+
+render:
+  tempo: 110
+  note: [C3, C3, G2, G2, C3, C3, G2, G2]
+  velocity: 100
+  pattern: "eighths for one bar, each a 16th long, while the controller rises from short to long"
+  length_s: 4.0
+
+mappings: {}

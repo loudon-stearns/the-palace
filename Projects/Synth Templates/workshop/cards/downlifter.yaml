@@ -1,0 +1,74 @@
+# Synth Templates — card 0.2 — Downlifter
+# Sound Effects, tier 1. The riser turned over: every envelope starts high and falls, so attack becomes decay.
+schema: synth-template-card/0.2
+id: downlifter
+name: Downlifter
+family: Sound Effects
+tier: 1
+mode: mono
+classics: ""
+status: drafted
+concepts:
+  - "Envelope → filter cutoff (bite; auto-wah with long attack)"
+  - "Envelope → pitch (attack blip)"
+  - "Pluck / strike: release = decay; gong vs marimba"
+  - "Envelope trigger / one-shot mode"
+
+graph:
+  blocks:
+    osc1:    {kind: oscillator, wave: saw, octave: 0, unison: 3, detune: wide}
+    noise:   {kind: oscillator, wave: noise, color: white}
+    mix:     {kind: mixer}
+    filter1: {kind: filter, type: lowpass, slope: 24, resonance: little}
+    amp:     {kind: amplifier, level: under unity}
+    fx:      {kind: fx, chain: [reverb]}
+    fenv:    {kind: envelope, role: filter, shape: {a: instant, d: very long, s: zero, r: same as decay}, category: percussive, one_shot: true}
+    menv:    {kind: envelope, role: pitch,  shape: {a: instant, d: very long, s: zero, r: same as decay}, category: percussive, one_shot: true}
+    aenv:    {kind: envelope, role: amp,    shape: {a: instant, d: very long, s: zero, r: same as decay}, category: percussive, one_shot: true}
+  audio:
+    - [osc1, mix]
+    - [noise, mix]
+    - [mix, filter1]
+    - [filter1, amp]
+    - [amp, fx]
+    - [fx, out]
+  modulation:
+    - {from: fenv, to: filter1.cutoff, amount: full, essential: true}
+    - {from: menv, to: osc1.pitch, amount: about an octave, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: fenv.gate, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: fenv,    param: attack,  value: instant,       why: "the filter is fully open at the downbeat; the fall starts at once"}
+  - {block: fenv,    param: decay,   value: very long,     why: "the sweep is the decay stage now, where the riser's was its attack"}
+  - {block: fenv,    param: sustain, value: zero,          why: "it falls all the way to the resting cutoff: dark"}
+  - {block: menv,    param: decay,   value: very long,     why: "pitch falls at the filter's pace; two things falling read as one"}
+  - {block: aenv,    param: sustain, value: zero,          why: "it dies away on its own, like a struck thing"}
+  - {block: aenv,    param: release, value: same as decay, why: "a short note still plays the whole fall out"}
+  - {block: fenv,    param: mode,    value: one-shot,      why: "hit and forget: the fall ignores the note length"}
+  - {block: noise,   param: wave,    value: noise,         why: "every frequency present, so the closing filter is heard the whole way down"}
+  - {block: fx,      param: chain,   value: reverb,        why: "the tail disappears into a room rather than a floor"}
+
+taste:
+  - {block: fenv,    param: decay,   range: "long – very long",      default: very long}
+  - {block: menv,    param: amount,  range: "a fifth – two octaves", default: about an octave}
+  - {block: aenv,    param: decay,   range: "long – very long",      default: very long, why: "shorter than the filter's and the amp ends it; longer and the filter does"}
+  - {block: noise,   param: level,   range: "quarter – equal",       default: half}
+  - {block: filter1, param: resonance, range: "none – moderate",     default: little}
+  - {block: fx,      param: reverb,  range: "large – huge",          default: large}
+
+listening:
+  cue: "It lands fully open and loud on the downbeat and then sinks: darker, lower, quieter, all at once, over the same seconds. The ear follows it down into the room."
+  ab: "Set the pitch envelope amount to none: the filter still closes but the sound no longer falls, it only dims. Put the octave back and it sinks again."
+
+render:
+  tempo: 128
+  note: C3
+  velocity: 100
+  pattern: "one short note on the downbeat; the fall plays out on its own"
+  length_s: 7.0
+
+mappings: {}

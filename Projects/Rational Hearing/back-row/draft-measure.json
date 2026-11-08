@@ -1,0 +1,97 @@
+{
+ "measured": "2026-10-30T10:13:08.693Z",
+ "runs": [
+  {
+   "page": "live",
+   "screen": [
+    1280,
+    720
+   ],
+   "cap_px": {
+    "ladder edge labels": 9.95664081554878,
+    "bracket column": 8.908573361280489,
+    "column heads": 5.764370998475609,
+    "ladder numerals": 24.105551448170733,
+    "ladder letter names": 7.860505907012195
+   },
+   "overlaps": [
+    "-6 × 6",
+    "15 × B",
+    "16 × C"
+   ],
+   "lit_after_tapping_P5": [
+    "P5"
+   ],
+   "errors": [],
+   "shot": "draft-live-1280x720.png"
+  },
+  {
+   "page": "live",
+   "screen": [
+    1920,
+    1080
+   ],
+   "cap_px": {
+    "ladder edge labels": 9.95664081554878,
+    "bracket column": 8.908573361280489,
+    "column heads": 5.764370998475609,
+    "ladder numerals": 24.105551448170733,
+    "ladder letter names": 7.860505907012195
+   },
+   "overlaps": [
+    "-6 × 6",
+    "15 × B",
+    "16 × C"
+   ],
+   "lit_after_tapping_P5": [
+    "P5"
+   ],
+   "errors": [],
+   "shot": "draft-live-1920x1080.png"
+  },
+  {
+   "page": "draft",
+   "screen": [
+    1280,
+    720
+   ],
+   "cap_px": {
+    "ladder edge labels": 17.733658536585367,
+    "bracket column": 10.64019512195122,
+    "column heads": 10.403746341463416,
+    "ladder numerals": 27.19160975609756,
+    "ladder letter names": 13.004682926829268
+   },
+   "overlaps": [
+    "-6 × 6"
+   ],
+   "lit_after_tapping_P5": [
+    "P5"
+   ],
+   "errors": [],
+   "shot": "draft-draft-1280x720.png"
+  },
+  {
+   "page": "draft",
+   "screen": [
+    1920,
+    1080
+   ],
+   "cap_px": {
+    "ladder edge labels": 21.60204649390244,
+    "bracket column": 12.961227896341464,
+    "column heads": 12.6732006097561,
+    "ladder numerals": 33.12313795731707,
+    "ladder letter names": 15.841500762195123
+   },
+   "overlaps": [
+    "-6 × 6"
+   ],
+   "lit_after_tapping_P5": [
+    "P5"
+   ],
+   "errors": [],
+   "shot": "draft-draft-1920x1080.png"
+  }
+ ]
+}

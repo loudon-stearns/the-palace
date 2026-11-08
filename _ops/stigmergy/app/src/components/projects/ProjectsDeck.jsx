@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { Box, Button, Tag } from '../primitives.jsx';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
+import { Box, Button } from '../primitives.jsx';
+import { healthColor } from '../../lib/format.js';
 import { fetchProjects, enchantProject } from '../../adapters/projects.js';
 import { advanceSteward, advanceAllStewards, dequeueSteward } from '../../adapters/stewards.js';
-import { ageOf, rowSignal, groupProjects, readyToAdvance } from '../../lib/scroll-view.js';
+import { ageOf, rowSignal, groupProjects, readyToAdvance, endedWord, rowEnded } from '../../lib/scroll-view.js';
 import { slug, StatusDot, RunningTag, QueuedTag } from './status.jsx';
 import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import ScheduleStrip from '../stewards/ScheduleStrip.jsx';
 import { advanceFeedback, enchantFeedback } from './steward-feedback.js';
+import RunCount, { defaultRunCount } from './RunCount.jsx';
 
 // The PROJECTS deck — every project on one screen, and one click into any of
 // them. Replaces the STEWARDS roster (2026-09-23): the roster showed stewards
@@ -22,8 +24,11 @@ import { advanceFeedback, enchantFeedback } from './steward-feedback.js';
 //             (ScrollHost), not this deck, because any page may keep a scroll
 //             and the entry reader's face switch opens the same view from STATE.
 //
-// Advancing fires a RUN (up to the manifest's max_iterations cycles) through
-// the same lane as before; the row shows "running k/N" while it is live.
+// Advancing fires a RUN through the same lane as before; the row shows
+// "running k/N" while it is live. The confirm step carries the cycle count
+// (RunCount, 2026-11-03): it opens at the manifest's max_iterations and Loudon
+// sets the cap for that advance there, 1 to 5; the manifest on disk is never
+// edited, and the run still ends early on a blocking ask, a stall or a limit.
 // Advancing while a cycle is live QUEUES the row behind it (2026-10-13): one
 // lane, click order; the row shows "queued #n" with an unqueue control.
 //
@@ -54,6 +59,21 @@ function SignalCell({ row }) {
 }
 
 const CEREMONY_COLS = 'minmax(180px, 2fr) 56px 90px 90px minmax(140px, 1.6fr) 90px';
+
+// The project table is ONE grid; the header and every row are subgrids of it.
+// Each row used to be its own grid, so the trailing `auto` column (the advance
+// button) sized differently in the header than in a row and shifted every
+// column after the name. The steward column is "cycle N", coloured by the
+// last cycle's health (orchestrator/src/process-cycle.js): bright when it
+// shipped, amber when it shipped nothing, red once stalled, dim with none.
+const PROJECT_COLS = 'minmax(180px, 2fr) 84px 76px minmax(120px, 1.4fr) 110px auto';
+const HEALTH_WORDS = {
+  green: 'last cycle shipped',
+  yellow: 'last cycle shipped nothing',
+  red: 'stalled: two cycles in a row shipped nothing',
+};
+const PROJECT_TABLE = { display: 'grid', gridTemplateColumns: PROJECT_COLS, columnGap: 10, rowGap: 2 };
+const PROJECT_SUBGRID = { gridColumn: '1 / -1', display: 'grid', gridTemplateColumns: 'subgrid' };
 
 export function CeremonyRow({ row, onOpen, onOpenEntry, prefix = 'ceremony' }) {
   const sid = slug(row.home);
@@ -97,20 +117,20 @@ export function CeremonyRow({ row, onOpen, onOpenEntry, prefix = 'ceremony' }) {
 function GroupHeading({ children, n }) {
   if (!n) return null;
   return (
-    <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase', padding: '8px 0 2px', borderBottom: '1px dashed var(--phosphor-dim)' }}>
+    <div style={{ gridColumn: '1 / -1', color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, letterSpacing: '.12em', textTransform: 'uppercase', padding: '8px 0 2px', borderBottom: '1px dashed var(--phosphor-dim)' }}>
       {children} · {n}
     </div>
   );
 }
 
-export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, confirming, onConfirm, onCancel, busy, onEnchant, confirmingEnchant, onConfirmEnchant, onDequeue }) {
+export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, confirming, onConfirm, onCancel, busy, onEnchant, confirmingEnchant, onConfirmEnchant, onDequeue, runCount, onRunCount }) {
   const sid = slug(row.home);
   const dim = { color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 11, whiteSpace: 'nowrap' };
   return (
     <div
       data-testid={`project-row-${sid}`}
       data-running={row.running ? 'true' : 'false'}
-      style={{ display: 'grid', gridTemplateColumns: 'minmax(180px, 2fr) 70px 90px minmax(120px, 1.4fr) 110px auto', gap: 10, alignItems: 'center', padding: '4px 0', borderBottom: '1px solid var(--fg4, rgba(31,138,60,.25))' }}
+      style={{ ...PROJECT_SUBGRID, alignItems: 'center', padding: '4px 0', borderBottom: '1px solid var(--fg4, rgba(31,138,60,.25))' }}
     >
       <span style={{ display: 'flex', alignItems: 'baseline', gap: 6, minWidth: 0 }}>
         <span
@@ -132,7 +152,15 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
         ) : null}
       </span>
       <span style={dim}>{row.stage || '—'}</span>
-      <span style={dim}>{row.stewarded ? `cyc ${row.iteration ?? 0}` : '—'}{row.stewarded && row.health ? <Tag tone={row.health === 'green' ? 'ok' : row.health === 'red' ? 'err' : 'default'}>{row.health}</Tag> : null}</span>
+      {row.stewarded ? (
+        <span
+          data-testid={`project-cycle-${sid}`}
+          data-health={row.health || 'none'}
+          title={HEALTH_WORDS[row.health] || 'no health recorded'}
+          aria-label={`cycle ${row.iteration ?? 0}: ${HEALTH_WORDS[row.health] || 'no health recorded'}`}
+          style={{ ...dim, color: healthColor(row.health), textShadow: HEALTH_WORDS[row.health] ? 'var(--glow)' : 'none' }}
+        >cycle {row.iteration ?? 0}</span>
+      ) : <span style={dim}>—</span>}
       <span style={{ ...dim, overflow: 'hidden', textOverflow: 'ellipsis' }} title={row.last_shipped ? row.last_shipped.headline || '' : ''}>
         {row.last_shipped ? `${ageOf(row.last_shipped.ts)} · ${row.last_shipped.headline || row.last_shipped.id}` : (row.last_activity ? `${ageOf(row.last_activity)} · (no shipped thing on the board)` : 'nothing yet')}
       </span>
@@ -140,15 +168,20 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
       <span style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
         {row.stewarded ? (confirming ? (
           <>
-            <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>run up to {row.run_cap} cycles?</span>
-            <span data-testid={`steward-confirm-${sid}`}><Button tone="primary" disabled={busy} onClick={() => onConfirm(row.home)}>confirm</Button></span>
+            <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>run</span>
+            <RunCount value={runCount ?? defaultRunCount(row)} onChange={onRunCount || (() => {})} disabled={busy} testId={`steward-run-count-${sid}`} />
+            <span data-testid={`steward-confirm-${sid}`}><Button tone="primary" disabled={busy} onClick={() => onConfirm(row.home, runCount ?? defaultRunCount(row))}>confirm</Button></span>
             <Button tone="default" disabled={busy} onClick={onCancel}>cancel</Button>
           </>
         ) : (
           row.queued && onDequeue
             ? <span data-testid={`steward-unqueue-${sid}`}><Button tone="default" disabled={busy} onClick={() => onDequeue(row.home)}>unqueue</Button></span>
             : <span data-testid={`steward-advance-${sid}`}><Button tone="default" disabled={!canAdvance} onClick={() => onAdvance(row.home)}>{row.running ? 'running' : 'advance'}</Button></span>
-        )) : (confirmingEnchant ? (
+        )) : rowEnded(row) ? (
+          // A finished page takes no steward, so it offers none; the signal
+          // column already says which way it ended.
+          <span data-testid={`project-ended-${sid}`} data-ended={endedWord(rowEnded(row))} title={`takes no steward: ${rowEnded(row).sentence}`} style={dim}>—</span>
+        ) : (confirmingEnchant ? (
           <>
             <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', fontSize: 11 }}>give {row.home} a steward?</span>
             <span data-testid={`project-enchant-confirm-${sid}`}><Button tone="primary" disabled={busy} onClick={() => onConfirmEnchant(row.home)}>confirm</Button></span>
@@ -165,15 +198,33 @@ export function ProjectRow({ row, onOpen, onOpenEntry, onAdvance, canAdvance, co
 export default function ProjectsDeck({ onOpenScroll }) {
   const [data, setData] = useState(null);
   const [pending, setPending] = useState(null);
+  // The cycle count in the open confirm step: reset to the row's manifest cap
+  // each time a confirm opens, then whatever Loudon sets before he confirms.
+  const [runCount, setRunCount] = useState(1);
+  const openConfirm = (row) => { setPending(row.home); setRunCount(defaultRunCount(row)); };
   const [feedback, setFeedback] = useState(null);
   const [busy, setBusy] = useState(false);
   const palace = usePalaceRef();
   const openEntry = palace?.openEntryInState || null;
 
+  // One request in flight at a time. The interval fired every 3 s whether or
+  // not the last answer had come back, so a slow server got slower requests
+  // stacked on it (2026-11-03: twelve in flight, 12-15 s each, the dev server
+  // pegged). A refresh asked for mid-flight — an advance's, say — runs once
+  // the current one lands, so it still sees fresh state.
+  const inFlight = useRef(false);
+  const again = useRef(false);
   const refresh = useCallback(async () => {
-    const r = await fetchProjects();
-    if (r.ok) setData(r);
-    else setData((prev) => prev ?? { projects: [], worker: {}, error: r.error });
+    if (inFlight.current) { again.current = true; return; }
+    inFlight.current = true;
+    try {
+      do {
+        again.current = false;
+        const r = await fetchProjects();
+        if (r.ok) setData(r);
+        else setData((prev) => prev ?? { projects: [], worker: {}, error: r.error });
+      } while (again.current);
+    } finally { inFlight.current = false; }
   }, []);
 
   useEffect(() => {
@@ -190,9 +241,9 @@ export default function ProjectsDeck({ onOpenScroll }) {
   const running = !!worker.running;
   const readyRows = readyToAdvance(rows);
 
-  async function doAdvance(name) {
+  async function doAdvance(name, count) {
     setBusy(true); setFeedback(null); setPending(null);
-    setFeedback(advanceFeedback(name, await advanceSteward(name)));
+    setFeedback(advanceFeedback(name, await advanceSteward(name, { maxCycles: count })));
     setBusy(false); refresh();
   }
 
@@ -230,10 +281,12 @@ export default function ProjectsDeck({ onOpenScroll }) {
       row={row}
       onOpen={onOpenScroll}
       onOpenEntry={openEntry}
-      onAdvance={(n) => setPending(n)}
+      onAdvance={() => openConfirm(row)}
       canAdvance={row.stewarded && !row.running && !row.queued && !busy}
       confirming={pending === row.home}
       onConfirm={doAdvance}
+      runCount={pending === row.home ? runCount : null}
+      onRunCount={setRunCount}
       onCancel={() => setPending(null)}
       busy={busy}
       onDequeue={doDequeue}
@@ -246,7 +299,7 @@ export default function ProjectsDeck({ onOpenScroll }) {
   return (
     <div data-testid="projects-screen" style={{ width: '100%' }}>
       <div style={{ color: 'var(--phosphor-dim)', textShadow: 'none', marginBottom: 10, fontSize: 13 }}>
-        {rows.length} projects &middot; {groups.needs_you.length} need you &middot; {readyRows.length} ready to advance &middot; {groups.stuck.length} stalled &middot; {groups.untended.length} without a steward{ceremonies.length ? <> &middot; {ceremonies.length} ceremonies</> : null}{pages.length ? <> &middot; {pages.length} other page{pages.length === 1 ? '' : 's'} with a ledger</> : null}.
+        {rows.length} projects &middot; {groups.needs_you.length} need you &middot; {readyRows.length} ready to advance &middot; {groups.stuck.length} stalled &middot; {groups.untended.length} without a steward{groups.finished.length ? <> &middot; {groups.finished.length} finished</> : null}{ceremonies.length ? <> &middot; {ceremonies.length} ceremonies</> : null}{pages.length ? <> &middot; {pages.length} other page{pages.length === 1 ? '' : 's'} with a ledger</> : null}.
         {data?.stubbed ? <span style={{ color: 'var(--warn)', textShadow: 'var(--glow)', marginLeft: 10 }}>&middot; stub worker (no live cycle)</span> : null}
       </div>
 
@@ -274,8 +327,8 @@ export default function ProjectsDeck({ onOpenScroll }) {
             {data?.error ? `failed to load projects: ${data.error}` : (data ? 'no project entries found.' : 'loading…')}
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(180px, 2fr) 70px 90px minmax(120px, 1.4fr) 110px auto', gap: 10, color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', padding: '2px 0' }}>
+          <div style={PROJECT_TABLE}>
+            <div style={{ ...PROJECT_SUBGRID, color: 'var(--phosphor-dim)', textShadow: 'none', fontSize: 10, letterSpacing: '.1em', textTransform: 'uppercase', padding: '2px 0' }}>
               <span>project</span><span>stage</span><span>steward</span><span>last shipped</span><span>signal</span><span />
             </div>
             <GroupHeading n={groups.needs_you.length}>needs you</GroupHeading>
@@ -288,6 +341,10 @@ export default function ProjectsDeck({ onOpenScroll }) {
             {renderGroup('tended', groups.tended)}
             <GroupHeading n={groups.untended.length}>no steward</GroupHeading>
             {renderGroup('untended', groups.untended)}
+            {groups.finished.length ? <>
+              <GroupHeading n={groups.finished.length}>finished</GroupHeading>
+              {renderGroup('finished', groups.finished)}
+            </> : null}
           </div>
         )}
       </Box>
@@ -295,17 +352,19 @@ export default function ProjectsDeck({ onOpenScroll }) {
       {services.length ? (
         <div style={{ marginTop: 10 }} data-testid="services-box">
           <Box title="SERVICES  --  stewarded pages that are not projects" tone="single">
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <div style={PROJECT_TABLE}>
               {services.map((row) => (
                 <ProjectRow
                   key={row.home}
                   row={row}
                   onOpen={onOpenScroll}
                   onOpenEntry={openEntry}
-                  onAdvance={(n) => setPending(n)}
+                  onAdvance={() => openConfirm(row)}
                   canAdvance={row.stewarded && !row.running && !row.queued && !busy}
                   confirming={pending === row.home}
                   onConfirm={doAdvance}
+                  runCount={pending === row.home ? runCount : null}
+                  onRunCount={setRunCount}
                   onCancel={() => setPending(null)}
                   busy={busy}
                   onDequeue={doDequeue}

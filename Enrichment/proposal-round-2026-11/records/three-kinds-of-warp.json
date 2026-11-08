@@ -1,0 +1,42 @@
+{
+ "entry": "Three Kinds of Warp",
+ "path": "Three Kinds of Warp.md",
+ "type": "concept",
+ "stage": "growing",
+ "weight": 10,
+ "claim": "§ The 1D obstruction theorem: any warp of one wavetable read by one period-T phase keeps the spectrum on {k/T}; producing inharmonicity requires breaking the period, by a second incommensurate clock (type 2) or by coupling (type 3).",
+ "pieces": [
+  {
+   "section": "The 1D obstruction theorem",
+   "what": "Draw any warp of one cycle (bend, kink, hand-drawn); a live spectrum shows energy moving among harmonic bins and never between them, however wild the warp. The theorem, tested by trying to break it.",
+   "kind": "interactive",
+   "walks_up_from": "one sine read by one phasor"
+  },
+  {
+   "section": "The typology",
+   "what": "Add a second clock at a ratio slider (rational, then irrational) and then a coupling K: the spectrum stays on a lattice, goes dense, then bends off the grid, heard and seen.",
+   "kind": "interactive",
+   "walks_up_from": "two phasors at 1:1"
+  },
+  {
+   "section": "The runner metaphor",
+   "what": "Four animated runner pairs (one lap, two laps, incommensurate tracks, pacing off each other) under their own audio.",
+   "kind": "interactive",
+   "walks_up_from": "one runner on one lap"
+  },
+  {
+   "section": "Where piano-style stretching lives",
+   "what": "Piano partials marked on the spectrum, with the type-2 approximate surface and the type-3 bending lattice heard against them.",
+   "kind": "audio",
+   "walks_up_from": "a stiff-string partial stack"
+  }
+ ],
+ "gathered": [
+  "Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_three_regimes.wav",
+  "Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.wav",
+  "Projects/2D Torus Wavetable Synthesizer/Auditions/cycle-7/penrose_kuramoto_ramp.png",
+  "Projects/2D Torus Wavetable Synthesizer/Wavetables/13_stiff_string.wav"
+ ],
+ "tier": "study",
+ "slice": 7
+}

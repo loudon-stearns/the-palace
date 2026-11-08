@@ -63,6 +63,9 @@ links:
   - target: "[[Cooperation Yields Agency]]"
     type: mirrors
     label: threshold-agency
+  - target: "[[Trickster — Context]]"
+    type: spawned
+    label: rationale-archive
 forward_vector: "I intercept, delay, substitute, and subvert the expected signal to amplify understanding and joyful creation.**"
 ---
 

@@ -1,0 +1,66 @@
+# Synth Templates — card — FM Bass
+# Two sine operators, 1:1. The pluck is an envelope on the modulator's level, so there is no filter at all.
+schema: synth-template-card/0.2
+id: fm-bass
+name: FM Bass
+family: Bass
+tier: 2
+mode: mono
+classics: DX7 'Bass 1'
+status: drafted
+concepts:
+  - "FM: audio-rate modulation, algorithms"
+  - "Sine: no response to filtering; FM/additive building block"
+  - "Velocity → filter envelope amount; → pitch envelope amount"
+
+graph:
+  blocks:
+    osc1: {kind: oscillator, wave: sine, octave: 0, note: "carrier: the note you hear"}
+    osc2: {kind: oscillator, wave: sine, ratio: "1:1", level: half, note: "modulator: its level is the FM index, the brightness"}
+    amp:  {kind: amplifier, level: under unity}
+    menv: {kind: envelope, role: index, shape: {a: instant, d: short, s: low, r: short}, category: percussive}
+    aenv: {kind: envelope, role: amp,   shape: {a: instant, d: medium, s: held, r: short}, category: sustaining}
+  audio:
+    - [osc2, osc1, fm]
+    - [osc1, amp]
+    - [amp, out]
+  modulation:
+    - {from: menv, to: osc2.level, amount: generous, essential: true}
+    - {from: aenv, to: amp.level, essential: true}
+    - {from: vel,  to: menv.amount, amount: moderate, essential: false}
+    - {from: key,  to: osc1.pitch, essential: true}
+    - {from: key,  to: osc2.pitch, essential: true}
+    - {from: key,  to: menv.gate, essential: true}
+    - {from: key,  to: aenv.gate, essential: true}
+
+essentials:
+  - {block: osc1, param: wave,    value: sine,              why: "the carrier starts as one partial; everything above it is made by the modulator"}
+  - {block: osc2, param: wave,    value: sine,              why: "a sine modulator makes clean, predictable sidebands"}
+  - {block: osc2, param: ratio,   value: "1:1",             why: "modulator at the carrier's pitch: the sidebands fall on the harmonic series, so it is a bass note, not a bell"}
+  - {block: osc2, param: routing, value: into osc1 fm,      why: "it varies the carrier's frequency; it is not mixed in. Two sines, and a wide spectrum with no filter"}
+  - {block: menv, param: target,  value: modulator level,   why: "the index envelope: a bright strike that mellows. This does what a filter envelope does on a saw"}
+  - {block: menv, param: decay,   value: short,             why: "the pluck"}
+  - {block: menv, param: sustain, value: low,               why: "a little index stays, so the held note has some edge"}
+  - {block: osc1, param: filter,  value: none,              why: "nothing to filter: the brightness is already an envelope"}
+  - {block: aenv, param: sustain, value: held,              why: "the body holds under the fading brightness"}
+  - {block: mode, param: voices,  value: mono}
+
+taste:
+  - {block: osc2, param: level,   range: "little – full",       default: half, why: "the resting index: how bright the held part of the note is"}
+  - {block: menv, param: amount,  range: "moderate – full",     default: generous, why: "how far the strike opens above the resting index"}
+  - {block: menv, param: decay,   range: "fast – medium",       default: short}
+  - {block: osc2, param: ratio,   range: "1:1 – 2:1",           default: "1:1", why: "2:1 keeps it harmonic but hollower; past that it stops being a bass"}
+  - {block: aenv, param: release, range: "short – medium",      default: short}
+
+listening:
+  cue: "A bright, slightly metallic bite at the front of each note that settles into a round, almost sine-like body. It plucks like a filtered saw would, but there is no filter and no saw."
+  ab: "Set the modulator level to zero: a bare sine, no attack at all. Bring it back and set the index envelope decay to zero: the edge never fades and it is a buzzy organ."
+
+render:
+  tempo: 100
+  note: [C2, C2, Eb2, F2, G2, F2, Eb2, C2]
+  velocity: [110, 80, 90, 90, 110, 90, 90, 80]
+  pattern: "eighths, one bar; each held almost full length"
+  length_s: 2.5
+
+mappings: {}

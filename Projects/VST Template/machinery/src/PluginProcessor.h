@@ -64,6 +64,16 @@ public:
     struct ProbeSink { double* data = nullptr; long steps = 0; long pos = 0; };
     ProbeSink* probeSink = nullptr;
 
+    // The CRT's feed: while an editor is open, processBlock writes a frame about every
+    // 1/kFeedHz s, each the probes in kProbes order and then the output's peak since the
+    // last frame, into a lock-free single-reader queue the editor drains on its timer.
+    static constexpr int kFeedHz = 480;
+    static constexpr int kFeedWidth = algo::kNumProbes + 1;
+    static constexpr int kFeedFrames = 512;
+    std::atomic<bool> feedOn { false };
+    int readFeed (float* dest, int maxFrames);   // message thread only; returns frames read
+    double feedRate() const { return feedRateHz; }
+
 private:
     static BusesProperties buses();
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
@@ -79,6 +89,12 @@ private:
     std::array<Smoother, algo::kNumParams> smooth {};
     std::array<double, algo::kNumParams> values {};
     std::atomic<bool> needsReset { true };
+
+    juce::AbstractFifo feed { kFeedFrames };
+    std::array<float, (size_t) kFeedFrames * kFeedWidth> feedRing {};
+    int feedEvery = 100, feedCount = 0;
+    float feedPeak = 0.0f;
+    double feedRateHz = kFeedHz;
 
     void snapSmoothers();
     void handleMidi (const juce::MidiMessage&);

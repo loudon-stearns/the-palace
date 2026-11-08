@@ -11,6 +11,7 @@
  *    <script src="review-layer.js"><\/script>   // or paste this whole file
  *    <script>
  *      mountReviewLayer({
+ *        page: 'Wavetable Scanner',             // the palace entry: Send puts the notes on its board
  *        project: 'wavetable-scanner',          // names the storage key + export
  *        round: 1,                              // bump each revision pass
  *        review: true,                          // false (or omit) ships clean
@@ -24,8 +25,12 @@
  *
  *  Styling reads Loudon Live design tokens (--accent, --bg, --fg-*, --border,
  *  --mono, --sans…) with safe fallbacks, so it also works outside the system.
- *  Export gives both shapes: JSON keyed per moment (individual responses) and
- *  a markdown digest ("Copy for Claude").
+ *  With `page`, Send puts the notes on the STIGMERGY board as a review note on
+ *  that entry, by the answers server's wire (POST /answers, _ops/loudon-eval/):
+ *  open the page at http://127.0.0.1:8211/<its palace path>. A send that lands
+ *  clears what it carried; one that can't keeps every note and says why.
+ *  Export gives both shapes as the fallback: JSON keyed per moment (individual
+ *  responses) and a markdown digest ("Copy for Claude").
  * ===================================================================== */
 (function (global) {
   function injectStyles() {
@@ -79,7 +84,13 @@
     #rv-toast{position:fixed;bottom:18px;right:18px;z-index:2147483602;font-family:var(--mono,monospace);
       font-size:11px;background:var(--accent,#e8b84a);color:var(--bg,#0a0a0f);padding:8px 12px;
       border-radius:var(--r-sm,3px);opacity:0;transition:opacity .2s;pointer-events:none}
-    #rv-toast.show{opacity:1}`;
+    #rv-toast.show{opacity:1}
+    #rv-toast.big{left:50%;right:auto;bottom:26px;transform:translateX(-50%);max-width:min(520px,calc(100vw - 32px));
+      font-size:12px;line-height:1.5;padding:11px 16px;pointer-events:auto;cursor:pointer}
+    #rv-toast.big.fail{background:var(--bg-elev-2,#16161d);color:var(--fg-1,#ececf2);border:1.5px solid var(--warn,#ff9b4a)}
+    #rv-toast .rv-list{display:block;opacity:.8;margin-top:3px}
+    #rv-panel .rv-foot button:disabled{opacity:.55;cursor:progress}
+    #rv-panel .rv-said{flex-basis:100%;font-family:var(--mono,monospace);font-size:10.5px;line-height:1.45;color:var(--fg-3,#8a8a99)}`;
     const s = document.createElement('style'); s.id = 'rv-styles'; s.textContent = css;
     document.head.appendChild(s);
   }
@@ -88,6 +99,7 @@
     opts = opts || {};
     if (opts.review === false) return;            // shipped clean — mount nothing
     const project = opts.project || 'artifact';
+    const page = opts.page || null;               // the palace entry; with it, Send reaches the board
     const round = opts.round || 1;
     const moments = opts.moments || [];
     const KEY = (opts.storageKey || ('review-' + project)) + '-r' + round;
@@ -106,18 +118,28 @@
          <div class="rv-sub" id="rv-sub"></div></div>
        <div class="rv-body" id="rv-body"></div>
        <div class="rv-foot">
-         <button class="primary" id="rv-copy">Copy for Claude</button>
+         ${page ? '<button class="primary" id="rv-send">Send to STIGMERGY</button>' : ''}
+         <button${page ? '' : ' class="primary"'} id="rv-copy">Copy for Claude</button>
          <button id="rv-json">Download .json</button>
          <button id="rv-md">Download .md</button>
          <button id="rv-hide">Hide</button>
          <button id="rv-clear">Clear all</button>
+         <div class="rv-said" id="rv-said"></div>
        </div>`;
     document.body.appendChild(panel);
     const tab = document.createElement('div'); tab.id = 'rv-tab'; tab.textContent = '◇ Review';
     document.body.appendChild(tab);
     const toast = document.createElement('div'); toast.id = 'rv-toast'; document.body.appendChild(toast);
     const body = panel.querySelector('#rv-body'), sub = panel.querySelector('#rv-sub');
-    const flash = (m) => { toast.textContent = m; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 1400); };
+    let flashTimer;
+    const flash = (m, big) => {
+      toast.className = big ? 'big' + (big.fail ? ' fail' : '') : '';
+      toast.textContent = m;
+      if (big && big.list) { const l = document.createElement('span'); l.className = 'rv-list'; l.textContent = big.list; toast.appendChild(l); }
+      toast.classList.add('show'); clearTimeout(flashTimer);
+      flashTimer = setTimeout(() => toast.classList.remove('show'), big ? (big.fail ? 12000 : 6000) : 1400);
+    };
+    toast.addEventListener('click', () => toast.classList.remove('show'));
     const refreshSub = () => { sub.textContent = `${count()} of ${moments.length} moments noted`; };
 
     const areas = {}, pins = {};
@@ -162,6 +184,36 @@
       const blob = new Blob([text], { type }); const url = URL.createObjectURL(blob);
       const a = document.createElement('a'); a.href = url; a.download = name; a.click(); URL.revokeObjectURL(url);
     }
+
+    // Send: the notes go to the board by the answers server's wire, one send at a
+    // time. A send that lands clears the notes it carried (a note typed while it
+    // was in flight stays); one that can't keeps every note and says why.
+    const sendBtn = panel.querySelector('#rv-send'), said = panel.querySelector('#rv-said');
+    if (sendBtn) sendBtn.addEventListener('click', async () => {
+      if (sendBtn.disabled) return;
+      const sent = buildJSON().responses;
+      if (!sent.length) { said.textContent = said.dataset.sent ? 'Nothing new to send — your last send is on the board.' : 'Nothing to send yet — leave a note on a moment.'; return; }
+      const fail = (why) => { said.textContent = `Not sent — your notes are kept. ${why} Copy for Claude still works.`; flash('◇ Not sent — your notes are kept', { fail: true, list: why }); };
+      if (!/^https?:$/.test(location.protocol)) { fail('This page is opened as a file, so it can’t reach the board.'); return; }
+      sendBtn.disabled = true; sendBtn.textContent = 'Sending…';
+      try {
+        const r = await fetch('/answers', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ page, task: opts.task || `review-layer:${project}:round-${round}`, answers: buildJSON(), summary: buildMarkdown(), url: location.pathname }) });
+        let j = null; try { j = await r.json(); } catch (e) { j = null; }
+        if (r.ok && j && j.message_id) {
+          sent.forEach(x => { if ((store[x.id] || '').trim() === x.note) { delete store[x.id]; areas[x.id].value = ''; areas[x.id].classList.remove('has'); syncPin(x.id); } });
+          save(); refreshSub();
+          said.dataset.sent = j.message_id;
+          said.textContent = `Sent. ${sent.length} note${sent.length === 1 ? '' : 's'} on the board as a review note on ${page}, boxes cleared.`;
+          flash(`◆ Sent to STIGMERGY — ${sent.length} note${sent.length === 1 ? '' : 's'}`, { list: sent.map(x => x.label).join(' · ') });
+        } else {
+          fail(r.status === 502 ? 'STIGMERGY isn’t running, so the board can’t take them.'
+            : r.status === 404 || r.status === 405 || r.status === 501 ? 'This page isn’t opened through the answers server (http://127.0.0.1:8211/).'
+            : `The board said ${r.status}${j && j.error ? ` (${j.error})` : ''}.`);
+        }
+      } catch (e) { fail('The answers server can’t be reached from here.'); }
+      finally { sendBtn.disabled = false; sendBtn.textContent = 'Send to STIGMERGY'; }
+    });
 
     panel.querySelector('#rv-copy').addEventListener('click', async () => {
       const md = buildMarkdown();

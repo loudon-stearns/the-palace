@@ -41,7 +41,7 @@ CANON_TYPES = {"concept", "hub", "project", "source", "meta",
                "practice", "person", "question", "spore", "specialist", "maker"}
 EXCLUDE_PARTS = {".git", ".obsidian", ".claude", "__pycache__", "node_modules", "venv", ".venv",
                  ".venvs", "dist", "build", ".next", ".cache", "site-packages", "_tools",
-                 "_manim_media"}
+                 "_manim_media", "proofs"}
 TYPE_RE = re.compile(r"^type:\s*['\"]?([A-Za-z\-]+)", re.M)
 WIKI_RE = re.compile(r"\[\[([^\]\n]+?)\]\]")
 COMMIT_MARK = "\x1ecommit "

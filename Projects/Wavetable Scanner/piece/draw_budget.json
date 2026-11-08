@@ -1,0 +1,80 @@
+{
+ "browser": "chrome 156.0.8078.80",
+ "pixel_ratio": 2,
+ "gpu": "ANGLE (Apple, ANGLE Metal Renderer: Apple M1 Max, Unspecified Version)",
+ "canvas": "2100×1040",
+ "rows": [
+  {
+   "table": "Packed in-browser — AKWF_cello, dull → bright · 19 frames",
+   "draw_calls": 23,
+   "lines": 20467,
+   "geometries": 23,
+   "line_vertices": 20490,
+   "ms_median": 1.7,
+   "ms_p95": 3.2
+  },
+  {
+   "table": "Classics — sine → tri → saw → square → bell · 5 frames",
+   "draw_calls": 9,
+   "lines": 6145,
+   "geometries": 9,
+   "line_vertices": 6154,
+   "ms_median": 2,
+   "ms_p95": 3.7
+  },
+  {
+   "table": "Classics — sine → saw · 2 frames",
+   "draw_calls": 6,
+   "lines": 3076,
+   "geometries": 6,
+   "line_vertices": 3082,
+   "ms_median": 1.9,
+   "ms_p95": 3.1
+  },
+  {
+   "table": "AKWF — centroid-sorted (6 frames, dull → bright) · 6 frames",
+   "draw_calls": 10,
+   "lines": 7168,
+   "geometries": 10,
+   "line_vertices": 7178,
+   "ms_median": 2,
+   "ms_p95": 4.7
+  },
+  {
+   "table": "AKWF — saw → bitreduced (2 frames) · 2 frames",
+   "draw_calls": 6,
+   "lines": 3076,
+   "geometries": 6,
+   "line_vertices": 3082,
+   "ms_median": 1.7,
+   "ms_p95": 4.3
+  },
+  {
+   "table": "AKWF — 4-frame test · 4 frames",
+   "draw_calls": 8,
+   "lines": 5122,
+   "geometries": 8,
+   "line_vertices": 5130,
+   "ms_median": 1.8,
+   "ms_p95": 3.6
+  },
+  {
+   "table": "Packed — 122 files, family chain · 122 frames",
+   "draw_calls": 126,
+   "lines": 125836,
+   "geometries": 126,
+   "line_vertices": 125962,
+   "ms_median": 1.9,
+   "ms_p95": 3.5
+  },
+  {
+   "table": "Table — wtsc_512.wav · 256 frames",
+   "draw_calls": 260,
+   "lines": 262918,
+   "geometries": 260,
+   "line_vertices": 263178,
+   "ms_median": 2.5,
+   "ms_p95": 5
+  }
+ ]
+}

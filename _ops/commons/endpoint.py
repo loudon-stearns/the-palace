@@ -12,13 +12,12 @@ GPU lease this is NOT opt-in — the coordination IS the safety — but it stays
 effort: if the board is unreachable it degrades to single-tenant scaling with a loud
 warning rather than crashing a render.
 """
-import json
 import sys
 import time
-import urllib.request
 from datetime import datetime
 
 from . import board, identity
+from .runpod_api import Runpod
 
 
 def _log(msg: str) -> None:
@@ -75,14 +74,7 @@ class EndpointWorkers:
         return [s for s in acquired if s not in released]
 
     def _set_workers(self, n: int) -> int:
-        req = urllib.request.Request(
-            f"https://rest.runpod.io/v1/endpoints/{self.ep}",
-            data=json.dumps({"workersMin": 0, "workersMax": n}).encode(), method="PATCH",
-            headers={"Authorization": f"Bearer {self.key}", "Content-Type": "application/json",
-                     # RunPod's WAF 403s Python's default user-agent (Shop/RunPod GPU Backend gotcha)
-                     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36"})
-        urllib.request.urlopen(req, timeout=30).read()
-        return n
+        return Runpod(api_key=self.key).set_workers(self.ep, n)   # runpod_api knows the shape
 
     def enter(self) -> None:
         """Register as an active renderer; ensure workersMax covers all live holders."""

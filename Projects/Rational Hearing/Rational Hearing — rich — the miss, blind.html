@@ -1,0 +1,544 @@
+<!doctype html>
+<!--
+  title: Rational Hearing — rich — the miss, blind
+  born: 2026-11-03
+  links: [[Rational Hearing]] connects-to · rich-face-piece · listed in [[Rational Hearing — rich.json]] under "The idea in one breath"
+  forward_vector: I am "The idea in one breath" as a walk to a blind test. I open on two notes at exactly
+    3 : 2, standing still; I pull one a few cents off and let it beat; I take the partials away and the beat
+    goes with them; I set each just interval against the piano's; and I end on the section's claim, put to
+    your own ear blind: equal temperament misses these ratios in number, and this is where, for you, the
+    miss is heard. I change only when the section I serve does.
+  engine: additive tones, rendered sample by sample into an AudioBuffer from ENGINE_SRC: seven harmonics at
+    1/i, the same wave the page's own just-against-equal playback uses. The checks beside this file
+    ("Rational Hearing — proof — rich face checks.mjs") pull ENGINE_SRC out of this page and hold it to
+    every step's claim, and run the staircase against simulated listeners of known threshold.
+  dress: Loudon Live house style, Drafting skin (the page itself wears the Drafting Table).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>The miss, blind — can you hear equal temperament?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#f0eee5">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #f0eee5); --fx-bg-elev-1: var(--e1, #e6e3d7); --fx-bg-elev-2: #dcd9ca; --fx-bg-elev-3: #d2cfbf; --fx-fg-1: var(--fg1, #1a1916); --fx-fg-2: var(--fg2, #3a3a35); --fx-fg-3: var(--fg3, #6a6862); --fx-fg-4: var(--fg4, #a59f90); --fx-fg-on-accent: #f0eee5; --fx-border: var(--border, #b8b09a); --fx-border-soft: var(--soft, rgba(26,25,22,0.10)); --fx-border-hover: rgba(200,38,26,0.55); --fx-accent: #c8261a; --fx-accent-soft: rgba(200,38,26,0.08); --fx-accent-line: rgba(200,38,26,0.50); --fx-danger: #c8261a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#f0eee5; --e1:#e8e5da; --soft:#d6d1c0; --border:#b8b09a; --fg1:#1a1916; --fg2:#3a3a35; --fg3:#6a6862; --fg4:#a09c90;
+    --red:#c8261a; --redline:rgba(200,38,26,.45); --blue:#2b5fb0;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 400; }
+  .piece { padding: 22px 22px 20px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .kicker svg { width: 18px; height: 18px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 16px; }
+  .tabs { display: flex; flex-wrap: wrap; margin-bottom: 14px; }
+  .tabs button { border-radius: 0; margin: 0 -1px -1px 0; }
+  .tabs button.ahead { color: var(--fg4); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 7px 12px; cursor: pointer; }
+  button:hover { border-color: var(--redline); color: var(--fg1); }
+  button[aria-pressed="true"] { color: var(--red); border-color: var(--redline); }
+  button.go { color: var(--red); border-color: var(--redline); min-width: 92px; }
+  button:disabled { color: var(--fg4); border-color: var(--soft); cursor: default; }
+  button.big { font-size: 15px; padding: 12px 22px; letter-spacing: .08em; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--red); outline-offset: 2px; }
+  .step { border: 1px solid var(--soft); background: var(--e1); padding: 12px 14px; margin-bottom: 12px; }
+  .stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .stephead b { color: var(--fg1); font-weight: 500; }
+  .teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 8px; }
+  .back { font-family: var(--mono); font-size: 11px; color: var(--fg3); margin: 6px 0 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0; }
+  .row .lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); min-width: 80px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: var(--fg3); min-width: 240px; flex: 1; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--red); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--red); cursor: pointer; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 12px; }
+  @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+  .panel { border: 1px solid var(--soft); background: var(--bg); padding: 10px 12px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  #parts { height: 210px; } #env { height: 90px; } #scope { height: 166px; } #track { height: 220px; }
+  .walk { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 12px 0; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 12px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; }
+  .verdict { margin-top: 10px; font-size: 15px; line-height: 1.55; color: var(--fg1); min-height: 1.5em; max-width: 78ch; }
+  .verdict .fam { color: var(--red); font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; margin-right: 8px; }
+  .trial { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0; }
+  .fb { font-family: var(--mono); font-size: 12px; color: var(--fg2); min-height: 1.4em; }
+  table.res { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin-top: 10px; width: 100%; }
+  table.res th, table.res td { border-bottom: 1px solid var(--soft); padding: 5px 8px; text-align: left; color: var(--fg2); }
+  table.res th { color: var(--fg3); font-weight: 400; letter-spacing: .1em; text-transform: uppercase; font-size: 10px; }
+  .eqs { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 20px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; color: var(--fg3); margin-top: 8px; line-height: 1.6; }
+  .key i { display: inline-block; width: 10px; height: 2px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .foot { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg4); margin-top: 14px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#c8261a" stroke-width="0.06"/></svg>made · Web Audio · sketch</div>
+  <h3 class="title">The miss, blind</h3>
+  <p class="sub">The page draws the gap between each whole-number ratio and the piano's key, to scale. This asks whether you can hear it. It walks from two notes at exactly 3 : 2 to a blind test of your own ear, and the test is the last step. Synthesised tones only, the same seven-harmonic wave the page's own just-against-equal playback uses. Headphones help.</p>
+
+  <div class="tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="step" id="step" aria-live="polite">
+    <div class="stephead"><b id="stepname"></b><span id="stepcount"></span></div>
+    <p class="teach" id="teach"></p>
+    <div id="controls"></div>
+    <p class="back" id="backline"></p>
+  </div>
+
+  <div class="walk">
+    <button id="back">◂ back</button>
+    <button id="go" class="go">▸ play</button>
+    <button id="next">next ▸</button>
+    <span class="hint" id="state">silent until you press play</span>
+  </div>
+
+  <div id="seeing">
+    <div class="grid">
+      <div class="panel">
+        <div class="plabel"><span>each note's partials · 0 – 3.2 kHz</span><span class="key"><i style="background:#1a1916"></i>low note, up<i style="background:#c8261a"></i>high note, down</span></div>
+        <canvas id="parts"></canvas>
+      </div>
+      <div class="panel">
+        <div class="plabel"><span>the two notes, as a figure</span></div>
+        <canvas id="scope"></canvas>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:12px">
+      <div class="plabel"><span>loudness over four seconds, from the sound itself · 60 to 100 % of its peak</span><span id="envnote"></span></div>
+      <canvas id="env"></canvas>
+    </div>
+    <div class="read">
+      <span>ratio <b id="r-ratio"></b></span>
+      <span>high note off by <b id="r-cents"></b></span>
+      <span>beating <b id="r-beat"></b></span>
+      <span>swells in one note <b id="r-swells"></b></span>
+    </div>
+  </div>
+
+  <div id="testing" hidden>
+    <div class="trial">
+      <button id="t-play" class="big">▸ play trial</button>
+      <button id="t-a" class="big" disabled>1 was whole</button>
+      <button id="t-b" class="big" disabled>2 was whole</button>
+      <button id="t-stop">end the run</button>
+    </div>
+    <div class="fb" id="t-fb">Choose an interval and a length, then play the first trial. Keys 1 and 2 answer; space plays.</div>
+    <div class="panel" style="margin-top:10px">
+      <div class="plabel"><span>how far off the second dyad was, trial by trial · cents, log scale</span><span class="key"><i style="background:#1a1916"></i>right<i style="background:#c8261a"></i>wrong<i style="background:#2b5fb0"></i>the piano's miss</span></div>
+      <canvas id="track"></canvas>
+    </div>
+    <table class="res" id="res" hidden><thead><tr><th>interval</th><th>length</th><th>trials</th><th>your threshold</th><th>piano's miss</th><th>for you</th></tr></thead><tbody></tbody></table>
+  </div>
+
+  <div class="verdict" id="verdict"></div>
+
+  <div class="eqs">
+    <div class="eq">b = | q · f<sub>high</sub> − p · f<sub>low</sub> |   for a ratio p ⁄ q</div>
+    <div class="words">(beats a second) = (the high note × the ratio's bottom number) − (the low note × the ratio's top number). Those are the two partials that meet when the ratio is exact: the low note's p-th and the high note's q-th. At the exact ratio they are one frequency and b is 0.</div>
+    <div class="eq">c = 1200 · log<sub>2</sub>( (f<sub>high</sub> ⁄ f<sub>low</sub>) ⁄ (p ⁄ q) )</div>
+    <div class="words">(cents off) = 1200 × log base 2 of ((the interval played) ÷ (the whole-number ratio)). A hundred cents is one piano step; the piano's fifth is about 2 cents narrow, its major third about 14 wide.</div>
+  </div>
+  <div class="hint">What this measures is one sitting, one length of note, one register (around middle C) and one tone. Another day, a longer note or a brighter tone moves the threshold. The page draws the miss; this is the ear's side of the same line.</div>
+  <div class="foot">Loud'n Live</div>
+</div>
+
+<script>
+(() => {
+// ───────────── the engine: additive tones, the beat rule, the staircase ─────────────
+// One string, so the checks beside this file run exactly what the page plays.
+const ENGINE_SRC = String.raw`
+const ROOT = 261.626;                       // C4, the root the page's own A/B plays from
+const HARMS = 7;                            // the page's A/B wave: seven harmonics at 1/i
+const INTERVALS = [                         // the five whose meeting partials sit inside seven harmonics
+  { short: 'P5', name: 'perfect fifth', p: 3, q: 2, semi: 7 },
+  { short: 'P4', name: 'perfect fourth', p: 4, q: 3, semi: 5 },
+  { short: 'M3', name: 'major third', p: 5, q: 4, semi: 4 },
+  { short: '-3', name: 'minor third', p: 6, q: 5, semi: 3 },
+  { short: 'M6', name: 'major sixth', p: 5, q: 3, semi: 9 },
+];
+const centsOf = r => 1200 * Math.log2(r);
+// the piano's miss: equal minus just, in cents (negative: the piano's interval is narrower)
+const etMiss = iv => iv.semi * 100 - centsOf(iv.p / iv.q);
+const highOf = (iv, f1, cents) => f1 * (iv.p / iv.q) * Math.pow(2, cents / 1200);
+function partials(f, timbre) {
+  const n = timbre === 'sine' ? 1 : HARMS, out = [];
+  for (let i = 1; i <= n; i++) out.push({ f: f * i, a: 1 / i, i });
+  return out;
+}
+// every pair of partials, one from each note, closer than 30 Hz: the beats the two notes make
+function beats(f1, f2, timbre) {
+  const out = [];
+  for (const a of partials(f1, timbre)) for (const b of partials(f2, timbre)) {
+    const d = Math.abs(a.f - b.f);
+    if (d < 30) out.push({ f: (a.f + b.f) / 2, rate: d < 1e-9 ? 0 : d, lo: a.i, hi: b.i, w: Math.min(a.a, b.a) });
+  }
+  return out.sort((x, y) => y.w - x.w);
+}
+const beatRate = (iv, f1, f2) => Math.abs(iv.q * f2 - iv.p * f1);
+// one dyad, sample by sample: a fixed level (never normalised per sound), a 30 ms rise, a 150 ms fall.
+// Sines are lifted to the seven-harmonic tone's loudness (RMS). Given rnd, every partial starts at a random
+// phase: partials that meet add in whatever phase they meet in, so the exact ratio is not always the louder
+// one (with every phase at 0 it would be, by about half a decibel, and the test could be passed by level).
+// gainDb moves the whole dyad, for the test's level rove.
+function renderDyad(f1, f2, sr, secs, timbre, rnd, gainDb) {
+  const N = Math.round(secs * sr), x = new Float32Array(N);
+  const g = 0.09 * (timbre === 'sine' ? Math.sqrt(1.5118) : 1) * Math.pow(10, (gainDb || 0) / 20);  // 1.5118 = sum of 1/i^2 to 7
+  const ps = partials(f1, timbre).concat(partials(f2, timbre)).filter(p => p.f < sr / 2);
+  const rise = 0.03 * sr, fall = 0.15 * sr;
+  for (const p of ps) {
+    const w = 2 * Math.PI * p.f / sr, a = g * p.a, ph = rnd ? 2 * Math.PI * rnd() : 0;
+    for (let n = 0; n < N; n++) x[n] += a * Math.sin(w * n + ph);
+  }
+  for (let n = 0; n < N; n++) {
+    const e = n < rise ? 0.5 - 0.5 * Math.cos(Math.PI * n / rise) : n > N - fall ? 0.5 - 0.5 * Math.cos(Math.PI * (N - n) / fall) : 1;
+    x[n] *= e;
+  }
+  return x;
+}
+// loudness over time: RMS through a 60 ms Hann window every 10 ms. The window lets a beat of up to about
+// 15 a second through and smooths away the much faster ripple of partials that don't meet.
+function envelope(x, sr) {
+  const W = Math.round(0.06 * sr), H = Math.round(0.01 * sr), out = [], win = new Float32Array(W);
+  let ws = 0; for (let n = 0; n < W; n++) { win[n] = 0.5 - 0.5 * Math.cos(2 * Math.PI * (n + 0.5) / W); ws += win[n]; }
+  for (let s = 0; s + W <= x.length; s += H) { let e = 0; for (let n = 0; n < W; n++) e += win[n] * x[s + n] * x[s + n]; out.push(Math.sqrt(e / ws)); }
+  return out;
+}
+// The staircase: two right in a row and the miss shrinks, one wrong and it grows (it settles where you are
+// right about 71 times in 100). Steps of x1.5 until four reversals, then x1.2. Ten reversals, or 50 trials,
+// ends it; the estimate is the geometric mean of the last six reversals, the first two left out.
+class Stair {
+  constructor(o = {}) { this.level = o.start || 16; this.floor = o.floor || 0.2; this.cap = o.cap || 40; this.streak = 0; this.dir = 0; this.reversals = []; this.trials = []; }
+  answer(correct) {
+    this.trials.push({ level: this.level, correct });
+    let move = 0;
+    if (correct) { if (++this.streak >= 2) { this.streak = 0; move = -1; } } else { this.streak = 0; move = 1; }
+    if (move) {
+      if (this.dir && move !== this.dir) this.reversals.push(this.level);
+      this.dir = move;
+      const f = this.reversals.length < 4 ? 1.5 : 1.2;
+      this.level = Math.min(this.cap, Math.max(this.floor, move < 0 ? this.level / f : this.level * f));
+    }
+  }
+  get done() { return this.reversals.length >= 10 || this.trials.length >= 50; }
+  estimate() {
+    const use = this.reversals.slice(2).slice(-6);
+    if (!use.length) return null;
+    return Math.exp(use.reduce((s, v) => s + Math.log(v), 0) / use.length);
+  }
+}
+// One blind trial: two dyads of the same interval, one exact, one off by the staircase's cents in the
+// direction the piano is off. Each starts on its own root, roved up to 40 cents either way, so the
+// high note's pitch gives nothing away, and at its own level, roved a decibel either way, so loudness
+// gives nothing away either. The order is a coin toss.
+function makeTrial(iv, cents, rnd) {
+  const rove = () => ROOT * Math.pow(2, (rnd() * 80 - 40) / 1200);
+  const sign = etMiss(iv) < 0 ? -1 : 1;
+  const just = { f1: rove(), db: rnd() * 2 - 1 }, off = { f1: rove(), db: rnd() * 2 - 1 };
+  just.f2 = highOf(iv, just.f1, 0); off.f2 = highOf(iv, off.f1, sign * cents);
+  const wholeFirst = rnd() < 0.5;
+  return { order: wholeFirst ? [just, off] : [off, just], whole: wholeFirst ? 0 : 1, cents: sign * cents };
+}
+`;
+const { ROOT, INTERVALS, centsOf, etMiss, highOf, partials, beats, beatRate, renderDyad, envelope, Stair, makeTrial } =
+  new Function(ENGINE_SRC + '; return { ROOT, INTERVALS, centsOf, etMiss, highOf, partials, beats, beatRate, renderDyad, envelope, Stair, makeTrial };')();
+
+// ───────────── the walk ─────────────
+const S = { step: 0, reached: 0, iv: 0, cents: 0, timbre: 'rich', len: 1.4, which: 'just', playing: false };
+const STEPS = [
+  { name: '3 : 2 · still', iv: 0, cents: 0, timbre: 'rich', ctl: [],
+    teach: 'Two notes, middle C and the G above it, at exactly 3 : 2. Neither note is one frequency. Each is a stack of partials, drawn as lines: C\'s in ink, pointing up, G\'s in red, pointing down. Every second partial of G lands exactly on every third partial of C, and where two lines meet they are one frequency. So nothing between them moves. Press play: the sound holds still, the loudness line is flat, and the figure, the two notes drawn against each other, stands still.' },
+  { name: 'a hair off · beating', iv: 0, cents: 2, timbre: 'rich', ctl: ['cents'],
+    teach: 'Now pull G a few cents off. The lines that met come apart by a fraction of a hertz or a few hertz, and two frequencies that close swell and fade together that many times a second. That is beating. The rate is the gap between the two lines that used to meet, written under the chart, and it is the rate the figure turns over. Two cents is what the piano does to this fifth.',
+    back: 'At 0 cents this is step 1 again.' },
+  { name: 'sines only · where the beat lives', iv: 0, cents: 6, timbre: 'sine', ctl: ['cents', 'timbre'],
+    teach: 'Take the partials away. C and G are now plain sines, still six cents apart from 3 : 2. No two lines meet, and the beating goes with them: the loudness line goes flat. What is left is faint, a slow turning of the wave\'s shape (the figure still turns) that some ears catch and many don\'t. So you hear a near-fifth as wrong through the partials inside each note. That is the section\'s first sentence from the other side: the interval is already inside a single note.',
+    back: 'The seven-harmonic tone brings the beating back.' },
+  { name: 'the piano\'s miss', iv: 0, which: 'just', timbre: 'rich', ctl: ['iv', 'which', 'len'],
+    teach: 'Equal temperament tunes every interval to whole piano steps, so each of these ratios is missed by a few cents: the fifth and fourth by about 2, the thirds and the major sixth by 14 to 16. The same few cents beat at a different speed for each interval, slow for the fifth, fast for the thirds, too fast to count. Choose an interval and play it just, then the piano\'s. The length matters too: 1.4 seconds is how long the page\'s own playback holds a note. Only five intervals are here because only these five have partials that meet inside seven harmonics; on the page\'s other columns the two notes share none, so nothing beats.' },
+  { name: 'the test · blind', iv: 0, timbre: 'rich', ctl: ['iv', 'len'], test: true,
+    teach: 'The section\'s claim, put to your ear. Each trial plays the chosen interval twice: once at the whole-number ratio, once off by some cents in the direction the piano is off, in a random order. Each starts on its own note, so pitch gives nothing away. That takes away a cue the page\'s own playback gives: there both dyads share a root, so the top note steps by the whole miss, 2 to 16 cents. This asks the stricter question, whether the ratio itself sounds off. Say which was the whole-number ratio. Two right and the next miss is smaller; one wrong and it grows. Where it settles is your threshold, for this interval at this length. The blue line is the piano\'s miss. If you settle above it, the piano\'s interval sounds whole to you; below it, you hear the miss.' },
+];
+
+const $ = id => document.getElementById(id);
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v); }
+  for (const c of kids) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+let syncers = [];
+function chips(label, items, get, set) {
+  const row = el('div', { class: 'row' }, el('span', { class: 'lab' }, label));
+  for (const [v, t] of items) {
+    const b = el('button', { 'aria-pressed': 'false', onclick: () => { set(v); update(); } }, t);
+    syncers.push(() => b.setAttribute('aria-pressed', String(get() === v)));
+    row.append(b);
+  }
+  return row;
+}
+function controls(list) {
+  syncers = [];
+  const out = [];
+  for (const c of list) {
+    if (c === 'cents') {
+      const val = el('b'), input = el('input', { type: 'range', min: -20, max: 20, step: 0.1, 'aria-label': 'cents off' });
+      syncers.push(() => { input.value = S.cents; val.textContent = (S.cents > 0 ? '+' : S.cents < 0 ? '−' : '') + Math.abs(S.cents).toFixed(1) + ' ¢'; });
+      input.addEventListener('input', () => { S.cents = +input.value; update(); });
+      input.addEventListener('change', () => { if (S.playing) play(); });
+      out.push(el('div', { class: 'row' }, el('label', { class: 'sl' }, 'the high note, off 3 : 2 by ', val, input)));
+    }
+    if (c === 'timbre') out.push(chips('tone', [['rich', 'seven harmonics'], ['sine', 'sines only']], () => S.timbre, v => { S.timbre = v; if (S.playing) play(); }));
+    if (c === 'iv') out.push(chips('interval', INTERVALS.map((iv, i) => [i, iv.short + ' ' + iv.p + ':' + iv.q]), () => S.iv, v => { S.iv = v; if (S.playing) play(); }));
+    if (c === 'which') out.push(chips('play', [['just', 'just'], ['equal', 'the piano\'s'], ['both', 'just, then the piano\'s']], () => S.which, v => { S.which = v; play(); }));
+    if (c === 'len') out.push(chips('note length', [[1.4, '1.4 s · as the page plays'], [4, '4 s']], () => S.len, v => { S.len = v; if (S.playing) play(); }));
+  }
+  return out;
+}
+
+function go(i) {
+  if (i !== S.step) { stop(); endRun(false); }       // changing step stops the sound
+  S.step = i; S.reached = Math.max(S.reached, i);
+  const s = STEPS[i];
+  S.iv = s.iv ?? S.iv; S.timbre = s.timbre; S.cents = s.cents ?? 0; if (s.which) S.which = s.which;
+  $('stepname').textContent = (i + 1) + ' · ' + s.name;
+  $('stepcount').textContent = 'step ' + (i + 1) + ' of ' + STEPS.length;
+  $('teach').textContent = s.teach;
+  $('backline').textContent = s.back || ''; $('backline').hidden = !s.back;
+  const host = $('controls'); host.textContent = ''; host.append(...controls(s.ctl));
+  $('back').hidden = i === 0; $('next').hidden = i === STEPS.length - 1;
+  $('go').hidden = !!s.test; $('state').hidden = !!s.test; $('seeing').hidden = !!s.test; $('testing').hidden = !s.test;
+  const tabs = $('tabs'); tabs.textContent = '';
+  STEPS.forEach((t, j) => tabs.append(el('button', { 'aria-pressed': String(j === i), class: j > S.reached ? 'ahead' : '', onclick: () => go(j) }, (j + 1) + ' · ' + t.name.split(' · ')[0])));
+  update();
+}
+$('back').addEventListener('click', () => go(Math.max(0, S.step - 1)));
+$('next').addEventListener('click', () => go(Math.min(STEPS.length - 1, S.step + 1)));
+
+// ───────────── audio: nothing exists before the first click ─────────────
+let ctx = null, out = null, live = [], endTimer = null;
+function ensure() {
+  if (ctx) return;
+  ctx = new AudioContext();
+  const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 3;
+  out = ctx.createGain(); out.gain.value = 0.9; out.connect(comp); comp.connect(ctx.destination);
+  // the kit may quiet the context (a hush, a hidden tab, a minute untouched): the controls follow it
+  ctx.addEventListener('statechange', () => { if (ctx.state !== 'running') { live.forEach(s => { try { s.stop(); } catch (e) {} }); live = []; S.playing = false; paint(); } });
+}
+async function sound(list) {               // list of { f1, f2, at, secs, timbre }
+  ensure();
+  if (ctx.state !== 'running') await ctx.resume();
+  live.forEach(s => { try { s.stop(); } catch (e) {} }); live = [];
+  const t0 = ctx.currentTime + 0.06; let end = 0;
+  for (const d of list) {
+    const x = renderDyad(d.f1, d.f2, ctx.sampleRate, d.secs, d.timbre || 'rich', rng, d.db || 0);
+    const buf = ctx.createBuffer(1, x.length, ctx.sampleRate); buf.copyToChannel(x, 0);
+    const src = ctx.createBufferSource(); src.buffer = buf; src.connect(out); src.start(t0 + d.at);
+    live.push(src); end = Math.max(end, d.at + d.secs);
+  }
+  return end;
+}
+function current() {
+  const iv = INTERVALS[S.iv], f1 = ROOT;
+  if (STEPS[S.step].ctl.includes('which')) {
+    const f2 = S.which === 'just' ? highOf(iv, f1, 0) : f1 * Math.pow(2, iv.semi / 12);
+    return { iv, f1, f2, cents: S.which === 'just' ? 0 : etMiss(iv), secs: S.len };
+  }
+  return { iv, f1, f2: highOf(iv, f1, S.cents), cents: S.cents, secs: 6 };
+}
+async function play() {
+  const c = current(), iv = INTERVALS[S.iv];
+  let list;
+  if (S.which === 'both' && STEPS[S.step].ctl.includes('which')) {
+    list = [{ f1: ROOT, f2: highOf(iv, ROOT, 0), at: 0, secs: S.len }, { f1: ROOT, f2: ROOT * Math.pow(2, iv.semi / 12), at: S.len + 0.5, secs: S.len }];
+  } else list = [{ f1: c.f1, f2: c.f2, at: 0, secs: c.secs, timbre: S.timbre }];
+  S.playing = true; paint();
+  const end = await sound(list);
+  clearTimeout(endTimer); endTimer = setTimeout(() => { S.playing = false; paint(); }, (end + 0.1) * 1000);
+}
+function stop() { live.forEach(s => { try { s.stop(); } catch (e) {} }); live = []; clearTimeout(endTimer); S.playing = false; paint(); }
+$('go').addEventListener('click', () => (S.playing ? stop() : play()));
+function paint() {
+  $('go').textContent = S.playing ? '❚❚ stop' : '▸ play';
+  $('state').textContent = S.playing ? 'playing' : 'silent until you press play';
+}
+
+// ───────────── readouts and drawing ─────────────
+let ENV = null, envKey = '';
+function update() {
+  for (const f of syncers) f();
+  if (STEPS[S.step].test) { if (!results.length) $('verdict').textContent = ''; drawTrack(); return; }
+  const c = current(), b = beatRate(c.iv, c.f1, c.f2), secs = STEPS[S.step].ctl.includes('which') ? S.len : 4;
+  $('r-ratio').textContent = c.iv.p + ' : ' + c.iv.q + ' · ' + c.iv.name;
+  $('r-cents').textContent = (Math.abs(c.cents) < 0.005 ? '0' : (c.cents > 0 ? '+' : '−') + Math.abs(c.cents).toFixed(2)) + ' ¢';
+  const meet = beats(c.f1, c.f2, S.timbre).length;
+  $('r-beat').textContent = S.timbre === 'sine' ? 'no partials meet' : (b < 1e-6 ? 'none · still' : b.toFixed(2) + ' a second');
+  $('r-swells').textContent = S.timbre === 'sine' || b < 1e-6 ? '—' : (b * secs).toFixed(1) + ' in ' + secs + ' s';
+  const v = $('verdict'); v.textContent = '';
+  if (S.step === 3) {
+    const iv = c.iv, m = etMiss(iv), bE = beatRate(iv, ROOT, ROOT * Math.pow(2, iv.semi / 12));
+    v.append(el('span', { class: 'fam' }, iv.short), 'The piano\'s ' + iv.name + ' is ' + Math.abs(m).toFixed(1) + ' cents ' + (m < 0 ? 'narrow' : 'wide') + ' of ' + iv.p + ' : ' + iv.q + '. At middle C that beats ' + bE.toFixed(2) + ' times a second: ' + (bE * S.len).toFixed(1) + ' swells in a ' + S.len + '-second note' + (bE * S.len < 2 ? ': about one swell before the note ends.' : bE > 8 ? ': too fast to count, a roughness more than a swell.' : '.'));
+  }
+  // the envelope is the sound itself, rendered at a low rate for drawing only
+  const key = [c.f1, c.f2, S.timbre].join('|');
+  if (key !== envKey) { envKey = key; const sr = 12000; ENV = envelope(renderDyad(c.f1, c.f2, sr, 4, S.timbre), sr); }
+  $('envnote').textContent = S.timbre === 'sine' ? 'sines: the shape turns, the loudness holds' : b < 1e-6 ? 'flat: nothing beats' : b > 8 ? 'too fast to see at this scale' : '';
+  drawParts(c); drawEnv();
+}
+function fit(cv) { const d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight; if (cv.width !== Math.round(w * d) || cv.height !== Math.round(h * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); } const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); g.clearRect(0, 0, w, h); return { g, w, h }; }
+function drawParts(c) {
+  const { g, w, h } = fit($('parts')); if (!w) return;
+  const FMAX = 3200, X = f => 8 + f / FMAX * (w - 16), mid = h / 2, L = mid - 22;
+  g.strokeStyle = '#b8b09a'; g.lineWidth = 1; g.beginPath(); g.moveTo(8, mid); g.lineTo(w - 8, mid); g.stroke();
+  g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = '#6a6862';
+  for (let f = 500; f < FMAX; f += 500) g.fillText(f + '', X(f) - 10, h - 2);
+  g.lineWidth = 2;
+  for (const p of partials(c.f1, S.timbre)) { g.strokeStyle = '#1a1916'; g.beginPath(); g.moveTo(X(p.f), mid); g.lineTo(X(p.f), mid - L * p.a); g.stroke(); }
+  for (const p of partials(c.f2, S.timbre)) { if (p.f > FMAX) continue; g.strokeStyle = '#c8261a'; g.beginPath(); g.moveTo(X(p.f), mid); g.lineTo(X(p.f), mid + L * p.a); g.stroke(); }
+  g.fillStyle = '#1a1916';
+  for (const m of beats(c.f1, c.f2, S.timbre)) {
+    const x = X(m.f);
+    g.fillText(m.rate < 1e-6 ? 'meet' : m.rate.toFixed(2) + ' Hz', Math.min(x + 4, w - 52), 12);
+    g.strokeStyle = 'rgba(26,25,22,.35)'; g.setLineDash([2, 3]); g.lineWidth = 1; g.beginPath(); g.moveTo(x, 16); g.lineTo(x, mid - L * m.w - 2); g.stroke(); g.setLineDash([]); g.lineWidth = 2;
+  }
+}
+function drawEnv() {
+  const { g, w, h } = fit($('env')); if (!w || !ENV) return;
+  const mx = Math.max(...ENV) || 1;
+  const R = w - 54;
+  g.strokeStyle = '#d6d1c0'; g.lineWidth = 1; for (let s = 1; s < 4; s++) { const x = 8 + s / 4 * (R - 8); g.beginPath(); g.moveTo(x, 4); g.lineTo(x, h - 4); g.stroke(); }
+  g.strokeStyle = '#1a1916'; g.lineWidth = 1.5; g.beginPath();
+  // drawn from 60 % to 100 % of the peak, so a swell of a tenth is plain; the rise and fall run off the bottom
+  const Y = v => h - 6 - Math.max(0, (v / mx - 0.6) / 0.4) * (h - 14);
+  ENV.forEach((v, i) => { const x = 8 + i / (ENV.length - 1) * (R - 8); i ? g.lineTo(x, Y(v)) : g.moveTo(x, Y(v)); });
+  g.stroke();
+  g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = '#6a6862'; g.fillText('100 %', R + 10, 12); g.fillText('60 %', R + 10, h - 6);
+}
+// the figure: x = sin(qθ), y = sin(pθ + φ); φ turns once every 1/b seconds of the figure's own repeat
+let phi = 0, lastT = 0;
+function scope(t) {
+  requestAnimationFrame(scope);
+  const dt = lastT ? Math.min(0.1, (t - lastT) / 1000) : 0; lastT = t;
+  if (STEPS[S.step].test) return;
+  const c = current(), sd = (c.iv.q * c.f2 - c.iv.p * c.f1) / c.iv.q;
+  phi += 2 * Math.PI * sd * dt;
+  const { g, w, h } = fit($('scope')); if (!w) return;
+  const r = Math.min(w, h) / 2 - 8, cx = w / 2, cy = h / 2;
+  g.strokeStyle = S.timbre === 'sine' ? '#3a3a35' : '#c8261a'; g.lineWidth = 1.5; g.beginPath();
+  for (let i = 0; i <= 600; i++) { const th = i / 600 * 2 * Math.PI, x = cx + r * Math.sin(c.iv.q * th), y = cy - r * Math.sin(c.iv.p * th + phi + Math.PI / 2); i ? g.lineTo(x, y) : g.moveTo(x, y); }
+  g.stroke();
+}
+
+// ───────────── the test ─────────────
+let run = null;                      // { iv, len, stair, trial, answered, rnd }
+const results = [];
+function rng() { return crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296; }
+async function playTrial() {
+  if (!run || run.ivIndex !== S.iv || run.len !== S.len) { endRun(true); run = { ivIndex: S.iv, len: S.len, stair: new Stair({ start: 16 }), trial: null }; }
+  if (!run.trial) run.trial = makeTrial(INTERVALS[run.ivIndex], run.stair.level, rng);
+  const t = run.trial;
+  $('t-a').disabled = false; $('t-b').disabled = false;
+  $('t-fb').textContent = 'Trial ' + (run.stair.trials.length + 1) + '. Listen to both, then say which was whole.';
+  await sound(t.order.map((d, k) => ({ f1: d.f1, f2: d.f2, db: d.db, at: k * (run.len + 0.6), secs: run.len })));
+  $('t-play').textContent = '▸ again';
+}
+function answer(k) {
+  if (!run || !run.trial) return;
+  const t = run.trial, right = k === t.whole;
+  run.stair.answer(right);
+  $('t-fb').textContent = (right ? 'Right: ' : 'Not this time: ') + (t.whole + 1) + ' was the whole-number ratio; the other was ' + Math.abs(t.cents).toFixed(2) + ' cents off.' + (run.stair.done ? '' : ' Next trial is ready.');
+  run.trial = null; $('t-a').disabled = true; $('t-b').disabled = true; $('t-play').textContent = '▸ play trial';
+  live.forEach(s => { try { s.stop(); } catch (e) {} }); live = [];
+  drawTrack();
+  if (run.stair.done) endRun(true);
+}
+function endRun(record) {
+  if (!run) return;
+  const st = run.stair, iv = INTERVALS[run.ivIndex], est = st.estimate();
+  if (record && st.trials.length) {
+    const m = Math.abs(etMiss(iv));
+    const call = est == null ? 'too few turns to say' : est < m ? 'heard: under the piano\'s miss' : 'whole: the miss hides';
+    results.push({ iv, len: run.len, n: st.trials.length, est, m, call, full: st.done });
+    const tb = $('res').querySelector('tbody'); tb.textContent = '';
+    for (const r of results) tb.append(el('tr', {}, el('td', {}, r.iv.short + ' ' + r.iv.p + ':' + r.iv.q), el('td', {}, r.len + ' s'), el('td', {}, r.n + (r.full ? '' : ', ended early')), el('td', {}, r.est == null ? '—' : r.est.toFixed(2) + ' ¢'), el('td', {}, r.m.toFixed(2) + ' ¢'), el('td', {}, r.call)));
+    $('res').hidden = false;
+    const v = $('verdict'); v.textContent = '';
+    v.append(el('span', { class: 'fam' }, est == null ? 'not yet' : est < m ? 'you hear the miss' : 'the miss hides'),
+      est == null ? 'Run a few more trials: the staircase needs to turn around a few times before it says anything.'
+        : 'Your threshold for the ' + iv.name + ' in ' + run.len + '-second notes came out at about ' + est.toFixed(2) + ' cents. The piano misses it by ' + m.toFixed(2) + '. ' + (est < m ? 'So for you, here, equal temperament\'s ' + iv.name + ' is heard as off, not only drawn off.' : 'So for you, here, the page draws a miss your ear lets pass.') + ' One run of ' + st.trials.length + ' trials; another sitting will move it.');
+  }
+  run = null; $('t-a').disabled = true; $('t-b').disabled = true; $('t-play').textContent = '▸ play trial';
+  drawTrack();
+}
+$('t-play').addEventListener('click', playTrial);
+$('t-a').addEventListener('click', () => answer(0));
+$('t-b').addEventListener('click', () => answer(1));
+$('t-stop').addEventListener('click', () => endRun(true));
+document.addEventListener('keydown', e => {
+  if (!STEPS[S.step].test || e.target.tagName === 'INPUT') return;
+  if (e.key === '1') answer(0); else if (e.key === '2') answer(1); else if (e.key === ' ') { e.preventDefault(); playTrial(); }
+});
+let shown = null;                    // the last run's stair, kept on the chart after it ends
+function drawTrack() {
+  const { g, w, h } = fit($('track')); if (!w) return;
+  const st = run ? run.stair : shown, iv = INTERVALS[run ? run.ivIndex : S.iv];
+  if (run) shown = run.stair;
+  const LO = Math.log(0.2), HI = Math.log(40), Y = c => 10 + (1 - (Math.log(c) - LO) / (HI - LO)) * (h - 30);
+  g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = '#6a6862'; g.strokeStyle = '#d6d1c0'; g.lineWidth = 1;
+  for (const c of [0.25, 0.5, 1, 2, 4, 8, 16, 32]) { const y = Y(c); g.beginPath(); g.moveTo(34, y); g.lineTo(w - 6, y); g.stroke(); g.fillText(c + '¢', 2, y + 3); }
+  const m = Math.abs(etMiss(iv)), ym = Y(m);
+  g.strokeStyle = '#2b5fb0'; g.setLineDash([5, 4]); g.lineWidth = 1.5; g.beginPath(); g.moveTo(34, ym); g.lineTo(w - 6, ym); g.stroke(); g.setLineDash([]);
+  g.fillStyle = '#2b5fb0'; g.fillText('the piano\'s ' + iv.short + ' · ' + m.toFixed(2) + '¢', w - 170, ym - 5);
+  if (!st || !st.trials.length) return;
+  const n = Math.max(30, st.trials.length + 2), X = i => 40 + i / n * (w - 50);
+  g.strokeStyle = '#a09c90'; g.lineWidth = 1; g.beginPath();
+  st.trials.forEach((t, i) => { const x = X(i), y = Y(t.level); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+  st.trials.forEach((t, i) => { g.fillStyle = t.correct ? '#1a1916' : '#c8261a'; g.beginPath(); g.arc(X(i), Y(t.level), 3.5, 0, 2 * Math.PI); g.fill(); });
+  const est = st.estimate();
+  if (est != null) { g.strokeStyle = '#1a1916'; g.lineWidth = 1; g.setLineDash([2, 2]); g.beginPath(); g.moveTo(34, Y(est)); g.lineTo(w - 6, Y(est)); g.stroke(); g.setLineDash([]); g.fillStyle = '#1a1916'; g.fillText('you, so far · ' + est.toFixed(2) + '¢', 40, Y(est) - 5); }
+}
+
+// the sigil: the house's Lissajous, 3 : 2, which here is also the just fifth
+(() => { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * 2 * Math.PI; d += (i ? 'L' : 'M') + Math.sin(3 * t + Math.PI / 2).toFixed(3) + ' ' + Math.sin(2 * t).toFixed(3); } $('sigil').setAttribute('d', d); })();
+
+addEventListener('resize', () => update());
+go(0); requestAnimationFrame(scope);
+})();
+</script>
+</body>
+</html>

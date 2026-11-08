@@ -1,0 +1,687 @@
+<!doctype html>
+<!--
+  title: Bayesian Granular Synthesizer — rich — one e, many grains
+  born: 2026-11-03
+  links: [[Bayesian Granular Synthesizer]] connects-to · rich-face-piece-of · [[Progressive Staging]] exemplifies · a walk up to its test · [[Frequency-Time Duality]] connects-to · the timescale echo
+  forward_vector: I am the page's statistics measured on the cloud itself, a walk of four steps: grains arriving
+    at random, the same e in the waiting and in the forgetting, many draws filling out the belief, and then the
+    test, many grains summed into a bell curve, if enough of them sound at once. I want each statistical name on
+    the page to point at something you can count in the cloud, and to say where it holds and where it does not.
+  dress: Loudon Live house style, Graphite skin, tokens inlined. Equations twice, symbols and words.
+  engine: bayes_engine.js's ENGINE block, verbatim (script id="bgs-engine"). The lab (script id="bgs-lab") adds
+    switches: grain rate, every grain one length, a log of every grain.
+  checks: Bayesian Granular Synthesizer — proof — rich checks.mjs re-runs every number this piece prints.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
+<title>Bayesian Granular Synthesizer — one e, many grains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .bgs-piece { padding: 22px 22px 16px; max-width: 1100px; }
+  .bgs-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .bgs-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .bgs-sub { font-size: 14px; line-height: 1.6; max-width: 78ch; margin: 0 0 16px; }
+  .bgs-rail { display: flex; flex-wrap: wrap; margin-bottom: 14px; border: 1px solid var(--border); width: fit-content; max-width: 100%; border-radius: 2px; }
+  .bgs-rail button { border: 0; border-right: 1px solid var(--border); border-radius: 0; }
+  .bgs-rail button:last-child { border-right: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 2px; padding: 8px 12px; cursor: pointer; transition: color 220ms var(--ease), border-color 220ms var(--ease); }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button:disabled { opacity: .35; cursor: default; }
+  button[aria-pressed="true"] { color: var(--amber); border-color: var(--amberline); background: rgba(232,184,74,.08); }
+  button.bgs-go { color: var(--amber); border-color: var(--amberline); min-width: 120px; }
+  button.bgs-go.bgs-on { box-shadow: 0 0 14px rgba(232,184,74,.22); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  .bgs-step { display: none; border: 1px solid var(--soft); background: var(--e1); border-radius: 2px; padding: 16px 16px 14px; }
+  .bgs-step.bgs-shown { display: block; }
+  .bgs-step h2 { font-family: var(--serif); font-weight: 400; font-size: 23px; color: var(--fg1); margin: 0 0 4px; }
+  .bgs-idea { font-size: 14.5px; line-height: 1.6; color: var(--fg1); max-width: 80ch; margin: 0 0 12px; }
+  .bgs-p { font-size: 13.5px; line-height: 1.6; max-width: 80ch; margin: 8px 0; }
+  .bgs-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin: 12px 0 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; background: var(--bg); border: 1px solid var(--soft); border-radius: 2px; }
+  .bgs-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .bgs-row label { font-family: var(--mono); font-size: 11px; color: var(--fg3); letter-spacing: .08em; }
+  input[type=range] { accent-color: var(--amber); flex: 1; min-width: 160px; max-width: 420px; }
+  .bgs-val { font-family: var(--mono); font-size: 12px; color: var(--fg1); min-width: 9ch; font-variant-numeric: tabular-nums; }
+  .bgs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+  .bgs-cell { border: 1px solid var(--soft); background: var(--bg); border-radius: 2px; padding: 8px 10px; }
+  .bgs-cell .bgs-k { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  .bgs-cell .bgs-v { font-family: var(--mono); font-size: 17px; color: var(--fg1); font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .bgs-cell.bgs-a .bgs-v { color: var(--amber); } .bgs-cell.bgs-c .bgs-v { color: var(--cyan); }
+  .bgs-eq { border-left: 2px solid var(--amberline); padding: 6px 12px; margin: 12px 0; }
+  .bgs-eq .bgs-sym { font-family: var(--mono); font-size: 15px; color: var(--fg1); }
+  .bgs-eq .bgs-words { font-family: var(--serif); font-style: italic; font-size: 16px; color: var(--fg2); margin-top: 2px; }
+  .bgs-test { font-size: 14px; line-height: 1.6; color: var(--fg1); border: 1px solid var(--soft); background: var(--e2); padding: 10px 12px; border-radius: 2px; max-width: 88ch; margin: 12px 0 4px; }
+  .bgs-test b { color: var(--amber); font-weight: 500; }
+  .bgs-note { font-family: var(--mono); font-size: 11px; color: var(--fg3); line-height: 1.6; margin: 6px 0 0; max-width: 110ch; }
+  table.bgs-t { border-collapse: collapse; font-family: var(--mono); font-size: 12px; margin: 10px 0; }
+  table.bgs-t th, table.bgs-t td { border: 1px solid var(--soft); padding: 4px 10px; text-align: right; font-variant-numeric: tabular-nums; }
+  table.bgs-t th { color: var(--fg3); font-weight: 400; letter-spacing: .06em; }
+  table.bgs-t td:first-child, table.bgs-t th:first-child { text-align: left; }
+  .bgs-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+  .bgs-foot { display: flex; align-items: center; gap: 8px; margin-top: 16px; font-family: var(--mono); font-size: 11px; letter-spacing: .14em; color: var(--fg3); }
+  .bgs-foot i { color: var(--amber); font-weight: 300; }
+  .bgs-legend { font-family: var(--mono); font-size: 11px; color: var(--fg3); }
+  .bgs-legend .bgs-sw { display: inline-block; width: 18px; height: 3px; vertical-align: middle; margin: 0 4px 0 10px; }
+  .bgs-keys { display: flex; gap: 2px; flex-wrap: wrap; }
+  .bgs-keys button { padding: 8px 0; width: 38px; letter-spacing: 0; text-transform: none; }
+  .bgs-keys button.bgs-black { background: #050508; color: var(--fg3); }
+  .bgs-keys button[aria-pressed="true"] { color: var(--amber); background: rgba(232,184,74,.12); }
+  .bgs-busy { font-family: var(--mono); font-size: 12px; color: var(--fg3); }
+
+</style>
+</head>
+<body>
+<main class="bgs-piece">
+  <div class="bgs-kicker">Bayesian Granular Synthesizer · the statistics underneath</div>
+  <h1 class="bgs-title">One e, many grains</h1>
+  <p class="bgs-sub">The page names four pieces of statistics under the cloud: Poisson onsets, the exponential, the Law of Large Numbers and the Central Limit Theorem. Each one can be counted in the cloud itself. Four steps, and the last is a test.</p>
+
+  <nav class="bgs-rail" aria-label="steps">
+    <button data-go="1" aria-pressed="true">1 · grains arrive at random</button>
+    <button data-go="2" aria-pressed="false">2 · the same e, twice</button>
+    <button data-go="3" aria-pressed="false">3 · many draws</button>
+    <button data-go="4" aria-pressed="false">4 · the test: many grains summed</button>
+  </nav>
+
+  <section class="bgs-step bgs-shown" data-step="1">
+    <h2>1 · Grains arrive at random</h2>
+    <p class="bgs-idea">The cloud starts grains at random moments, at a steady average rate: a Poisson process. Nothing remembers when the last grain came, so short waits are the most common and long ones get rarer by the same factor for every extra millisecond. The gaps between onsets fall away as an exponential curve.</p>
+    <div class="bgs-row"><label for="rate">grains per second</label><input id="rate" type="range" min="20" max="400" step="10" value="160"><span class="bgs-val" id="ratev"></span><button class="bgs-go" id="play1">play the cloud at this rate</button></div>
+    <div class="bgs-label"><span>onsets in the first half second, nothing held</span></div>
+    <canvas id="ticks" height="44"></canvas>
+    <div class="bgs-label"><span>gaps between onsets, 20 s of the cloud · bars counted, line predicted</span><span id="lab1"></span></div>
+    <canvas id="gaps" height="200"></canvas>
+    <div class="bgs-eq"><div class="bgs-sym">p(gap = t) = λ · e^(−λt) · mean gap = 1 ⁄ λ</div>
+      <div class="bgs-words">(how likely a wait of t seconds is) = (the rate) × e to the minus (rate × wait) · the average wait is one over the rate</div></div>
+    <p class="bgs-note">The counts come from the engine's own onsets, twenty seconds at the rate you set, nothing held. The KS distance is the largest gap between the counted and the predicted share of gaps up to any length; below its 5% line the counts give no reason to doubt the curve. A fair test still crosses that line at about one setting in twenty. Onsets land on whole samples, so the gaps come in steps of 1 ⁄ 48,000 s; twenty seconds of grains is too few to see the steps.</p>
+  </section>
+
+  <section class="bgs-step" data-step="2">
+    <h2>2 · The same e, twice</h2>
+    <p class="bgs-idea">The evidence envelopes are exponentials too: a held note's weight rises as 1 − e^(−t ⁄ 80 ms), and a released note's weight falls as e^(−t ⁄ 1.4 s). Measure each in its own unit, the gaps in mean gaps and the envelopes in their time constants, and they are one curve. Same e, two different things: one is a probability, how long you wait for the next grain; the other is a decay, how fast a let-go note is forgotten.</p>
+    <canvas id="same" height="240"></canvas>
+    <div class="bgs-grid">
+      <div class="bgs-cell bgs-a"><div class="bgs-k">release vs e^(−x), largest gap</div><div class="bgs-v" id="r2r">—</div></div>
+      <div class="bgs-cell bgs-a"><div class="bgs-k">attack vs e^(−x), largest gap</div><div class="bgs-v" id="r2a">—</div></div>
+      <div class="bgs-cell bgs-c"><div class="bgs-k">waiting vs e^(−x), largest gap</div><div class="bgs-v" id="r2g">—</div></div>
+    </div>
+    <div class="bgs-row"><button class="bgs-go" id="play2">play: C4 held 3 s, then let go</button></div>
+    <div class="bgs-eq"><div class="bgs-sym">P(gap > x ⁄ λ) = e^(−x) &nbsp;and&nbsp; w(x · τ) ⁄ w(0) = e^(−x)</div>
+      <div class="bgs-words">(the chance of waiting longer than x mean gaps) and (how much of a let-go note's weight is left after x time constants) are the same number</div></div>
+    <p class="bgs-note">The envelopes are the engine's own, stepped every 64 samples as it runs. The waiting is counted from step 1's twenty seconds, at its rate. The envelopes match e^(−x) to rounding because they are made of it; the waiting matches because a Poisson process forces it, and only as closely as twenty seconds of grains can show.</p>
+  </section>
+
+  <section class="bgs-step" data-step="3">
+    <h2>3 · Many draws fill out the belief</h2>
+    <p class="bgs-idea">Hold C3, E4 and G4 until the cloud is sure, then count where the grains land, semitone by semitone. A few grains say little. Many grains trace the belief itself: the share in each semitone settles on what the belief gives it. That is the Law of Large Numbers. Watch the average pitch too: it settles on one pitch, and it is not a note of the chord.</p>
+    <div class="bgs-row"><label for="nd">grains drawn</label><input id="nd" type="range" min="0" max="5" step="0.01" value="1"><span class="bgs-val" id="ndv"></span><button class="bgs-go" id="play3">play the cloud on this chord</button></div>
+    <div class="bgs-label"><span>share of grains per semitone (log) · bars counted, ticks predicted by the belief</span><span id="lab3"></span></div>
+    <canvas id="hist" height="210"></canvas>
+    <div class="bgs-label"><span>the running average pitch, against grains drawn (log)</span></div>
+    <canvas id="mean" height="160"></canvas>
+    <div class="bgs-grid">
+      <div class="bgs-cell"><div class="bgs-k">distance from the belief</div><div class="bgs-v" id="r3tv">—</div></div>
+      <div class="bgs-cell bgs-a"><div class="bgs-k">average pitch so far</div><div class="bgs-v" id="r3m">—</div></div>
+      <div class="bgs-cell bgs-c"><div class="bgs-k">where the belief puts it</div><div class="bgs-v" id="r3e">—</div></div>
+    </div>
+    <div class="bgs-eq"><div class="bgs-sym">share in a semitone → posterior mass there · mean pitch → (doubt · 64.5 + Σ wᵢ mᵢ) ⁄ (doubt + Σ wᵢ)</div>
+      <div class="bgs-words">(the share of grains in each semitone) settles on (what the belief puts there) · (the average pitch) settles on a weighted middle: the flat prior's middle, 64.5, weighted by doubt, and every held note weighted by its weight</div></div>
+    <p class="bgs-note">"Distance from the belief" is half the summed difference between counted and predicted shares, over every semitone: 0 is a perfect match, 1 is no overlap. It shrinks about as 1 ⁄ √N.</p>
+  </section>
+
+  <section class="bgs-step" data-step="4">
+    <h2>4 · The test: many grains summed into a bell</h2>
+    <p class="bgs-idea">The page says the Central Limit Theorem is why summed grain contributions tend Gaussian. Test it on the sound: at every sample, the output is the sum of the grains sounding then. Count how many sound at once, and how close the spread of sample values comes to a bell curve. A bell curve has kurtosis 3; a spikier, heavier-tailed spread scores higher.</p>
+    <div class="bgs-row">
+      <button class="bgs-go" data-play="pre">play nothing held</button>
+      <button class="bgs-go" data-play="held">play C E G believed</button>
+      <button class="bgs-go" data-play="short">play C E G, every grain short</button>
+      <span class="bgs-busy" id="busy4"></span>
+    </div>
+    <div class="bgs-label"><span>spread of the output's sample values, in standard deviations · log scale · dashed: the bell curve</span><span class="bgs-legend"><span class="bgs-sw" style="background:var(--cyan)"></span>nothing held<span class="bgs-sw" style="background:var(--amber)"></span>C E G believed<span class="bgs-sw" style="background:#8a8aa0"></span>C E G, every grain short</span></div>
+    <canvas id="bell" height="240"></canvas>
+    <table class="bgs-t" id="tab4"></table>
+    <p class="bgs-test" id="t4">Rendering…</p>
+    <p class="bgs-note">The render is the one the mechanism's test uses: ten seconds, C E G pressed at 2 s, seed 12345, left channel. "Nothing held" is 0 to 2 s; the two chord rows are 6 to 10 s, one with the engine as it is and one with every grain forced to 4 cycles.</p>
+  </section>
+
+  <div class="bgs-nav"><button id="back">back</button><button id="next">next</button></div>
+  <div class="bgs-foot">
+    <svg width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"><circle r="10" fill="none" stroke="#4a4a5e" stroke-width="1"/><path id="sig" fill="none" stroke="#e8b84a" stroke-width="1"/></svg>
+    <span>Loud’n <i>Live</i></span>
+  </div>
+</main>
+
+<script id="bgs-engine">
+/*ENGINE-START*/
+// The Bayesian grain cloud, rebuilt from the entry's spec (the V8 code was
+// never pulled out of the 2026-05-08 chat, so this is a reconstruction, not
+// the original). One engine runs both the offline render and the playable page.
+//
+//   prior      a paintable curve over pitch (10-cent bins, A1..C7). Default flat.
+//   evidence   each held note is a Gaussian bump in log-frequency. Its weight w
+//              rises fast on press and falls slowly on release; its width sigma
+//              narrows from ~120 cents toward a 5-cent floor while held (exponential
+//              in log-cents) and blurs back out after release.
+//   posterior  doubt * prior + sum of the bumps, normalized. Every grain draws
+//              its pitch from it: first pick prior or a note in proportion to
+//              mass, then draw inside that component.
+//   length     grains near a believed note grow long and pure, far ones stay
+//              short and clicky: cycles = nMin * (nMax/nMin)^(closeness * gate),
+//              where gate = the nearest note's weight * its conviction, so the
+//              coupling fades in with the evidence (the chord-press click fix).
+//   envelope   1-cycle Hann in, N sustain cycles, 1-cycle Hann out.
+//   level      amplitude ∝ sqrt(f / cycles): every grain carries equal energy,
+//              so long low grains do not swamp the mix.
+//   timing     onsets are a Poisson process at `rate` grains per second.
+//   prior tone (added 2026-10-14, cycle 3) the prior's own peaks may also
+//              lengthen grains, so a painted resting belief can sound tonal
+//              before any note is held. tone(bin) = ((p - mean)/(max - mean))^toneCurve,
+//              clamped to 0..1, zero for a flat prior; the length exponent
+//              becomes max(evidence gate, priorTone * tone(bin)). priorTone = 0
+//              is the instrument exactly as before.
+class BeliefCloud {
+  constructor(sr) {
+    this.sr = sr;
+    this.lo = 33; this.hi = 96; this.binC = 10;                 // MIDI A1..C7, 10-cent bins
+    this.B = Math.round((this.hi - this.lo) * 100 / this.binC);
+    this.prior = new Float64Array(this.B).fill(1); this.cdf = new Float64Array(this.B);
+    this.tone = new Float64Array(this.B); this.priorTone = 0; this.toneCurve = 1;
+    this.priorDirty = true;
+    this.doubt = 0.25;        // prior mass against each fully believed note's 1.0
+    this.tauOn = 0.08;        // s, weight attack
+    this.tauOff = 1.4;        // s, weight release
+    this.tauFocus = 1.6;      // s, sigma narrowing while held
+    this.tauBlur = 0.7;       // s, sigma widening after release
+    this.sigWide = 120; this.sigFloor = 5;                      // cents
+    this.near = 35;           // cents, how close counts as "near a note" for length
+    this.nMin = 4; this.nMax = 128;
+    this.rate = 160;          // grains per second
+    this.spread = 0.7;        // stereo
+    this.vol = 0.8;
+    this.notes = new Map();   // midi -> {w, sig, held}
+    this.s = 12345;
+    // voices
+    this.MAXV = 640; const M = this.MAXV;
+    this.vPh = new Float64Array(M); this.vInc = new Float64Array(M); this.vPos = new Int32Array(M);
+    this.vLen = new Int32Array(M); this.vFade = new Int32Array(M); this.vAmp = new Float64Array(M);
+    this.vL = new Float64Array(M); this.vR = new Float64Array(M); this.nv = 0;
+    this.next = 0; this.ctl = 0; this.CTL = 64;
+    this.dropped = 0;
+    // sine table
+    this.TN = 4096; this.tab = new Float64Array(this.TN + 1);
+    for (let i = 0; i <= this.TN; i++) this.tab[i] = Math.sin(2 * Math.PI * i / this.TN);
+    // recent grains for drawing: [midi, cycles, age]
+    this.GR = 256; this.gM = new Float32Array(this.GR); this.gN = new Float32Array(this.GR); this.gT = new Float64Array(this.GR); this.gw = 0;
+    this.clock = 0; this.meanCycles = this.nMin;
+  }
+  rand() { let t = (this.s += 0x6D2B79F5); t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }
+  gauss() { let u = 0; while (u === 0) u = this.rand(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * this.rand()); }
+
+  // ---- belief
+  noteOn(m) { const n = this.notes.get(m); if (n) n.held = true; else this.notes.set(m, { w: 0, sig: this.sigWide, held: true }); }
+  noteOff(m) { const n = this.notes.get(m); if (n) n.held = false; }
+  allOff() { for (const n of this.notes.values()) n.held = false; }
+  setPrior(arr) { for (let i = 0; i < this.B; i++) this.prior[i] = Math.max(0, arr[i]); this.priorDirty = true; }
+  binMidi(i) { return this.lo + (i + 0.5) * this.binC / 100; }
+  buildCdf() { let a = 0, mx = 0; for (let i = 0; i < this.B; i++) { a += this.prior[i]; this.cdf[i] = a; if (this.prior[i] > mx) mx = this.prior[i]; } this.priorSum = a; this.priorDirty = false;
+    const mean = a / this.B;
+    for (let i = 0; i < this.B; i++) { let t = 0; if (mx > mean * 1.05) { t = Math.pow(Math.max(0, Math.min(1, (this.prior[i] - mean) / (mx - mean))), this.toneCurve); } this.tone[i] = t; } }
+  // the painter's rule, shared with RNBO/paint-in.codebox: one weight per semitone
+  // (MIDI 33..96), each a Gaussian hill `width` cents wide, cut off at 3 semitones,
+  // on a small floor.
+  static paintedPrior(semis, B = 630, width = 20, floor = 0.02) {
+    const out = new Float64Array(B);
+    for (let i = 0; i < B; i++) {
+      const m = 33 + (i + 0.5) / 10; let v = floor;
+      for (let k = Math.max(0, Math.floor(m - 33) - 3); k <= Math.min(63, Math.floor(m - 33) + 3); k++) {
+        const d = (m - (33 + k)) * 100 / width; if (Math.abs(m - (33 + k)) < 3) v += semis[k] * Math.exp(-0.5 * d * d);
+      }
+      out[i] = v;
+    }
+    return out;
+  }
+  evolve(dt) {
+    const kOn = 1 - Math.exp(-dt / this.tauOn), dOff = Math.exp(-dt / this.tauOff);
+    const kF = 1 - Math.exp(-dt / this.tauFocus), kB = 1 - Math.exp(-dt / this.tauBlur);
+    const lw = Math.log(this.sigWide), lf = Math.log(this.sigFloor);
+    for (const [m, n] of this.notes) {
+      let ls = Math.log(n.sig);
+      if (n.held) { n.w += (1 - n.w) * kOn; ls += (lf - ls) * kF; }
+      else { n.w *= dOff; ls += (lw - ls) * kB; if (n.w < 1e-3) { this.notes.delete(m); continue; } }
+      n.sig = Math.exp(ls);
+    }
+  }
+  conviction(n) { return Math.max(0, Math.min(1, (Math.log(this.sigWide) - Math.log(n.sig)) / (Math.log(this.sigWide) - Math.log(this.sigFloor)))); }
+  // posterior density per bin (sums to 1 over bins) into out[B]
+  posterior(out) {
+    if (this.priorDirty) this.buildCdf();
+    let Z = this.doubt; for (const n of this.notes.values()) Z += n.w;
+    const pm = this.priorSum > 0 ? this.doubt / Z / this.priorSum : 0;
+    for (let i = 0; i < this.B; i++) out[i] = this.prior[i] * pm;
+    for (const [m, n] of this.notes) {
+      const sm = n.sig / 100, a = (n.w / Z) * (this.binC / 100) / (sm * Math.sqrt(2 * Math.PI));
+      const i0 = Math.max(0, Math.floor((m - 5 * sm - this.lo) * 100 / this.binC)), i1 = Math.min(this.B - 1, Math.ceil((m + 5 * sm - this.lo) * 100 / this.binC));
+      for (let i = i0; i <= i1; i++) { const d = (this.binMidi(i) - m) / sm; out[i] += a * Math.exp(-0.5 * d * d); }
+    }
+    return out;
+  }
+  // ---- one grain
+  draw() {
+    if (this.priorDirty) this.buildCdf();
+    let Z = this.doubt; for (const n of this.notes.values()) Z += n.w;
+    let u = this.rand() * Z, midi;
+    if (u < this.doubt || this.notes.size === 0) {
+      if (this.priorSum <= 0) return null;
+      const t = this.rand() * this.priorSum; let a = 0, b = this.B - 1;
+      while (a < b) { const c = (a + b) >> 1; if (this.cdf[c] < t) a = c + 1; else b = c; }
+      midi = this.lo + (a + this.rand()) * this.binC / 100;
+    } else {
+      u -= this.doubt; let pick = null;
+      for (const [m, n] of this.notes) { pick = [m, n]; if (u < n.w) break; u -= n.w; }
+      midi = pick[0] + this.gauss() * pick[1].sig / 100;
+    }
+    // nearest believed note → length
+    let best = 0;
+    for (const [m, n] of this.notes) {
+      const d = (midi - m) * 100 / this.near, close = Math.exp(-0.5 * d * d);
+      const g = close * n.w * this.conviction(n); if (g > best) best = g;
+    }
+    const bi = Math.floor((midi - this.lo) * 100 / this.binC);
+    if (bi >= 0 && bi < this.B) { const tt = this.priorTone * this.tone[bi]; if (tt > best) best = tt; }
+    const cycles = this.nMin * Math.pow(this.nMax / this.nMin, best);
+    return { midi, cycles };
+  }
+  spawn() {
+    const g = this.draw(); if (!g) return;
+    if (this.nv >= this.MAXV) { this.dropped++; return; }
+    const f = 440 * Math.pow(2, (g.midi - 69) / 12), sr = this.sr;
+    if (f > sr * 0.45) return;
+    const cyc = sr / f, v = this.nv++;
+    this.vPh[v] = this.rand(); this.vInc[v] = f / sr; this.vPos[v] = 0;
+    this.vFade[v] = Math.max(2, Math.round(cyc)); this.vLen[v] = Math.round(cyc * (g.cycles + 2));
+    // equal energy: A^2 * duration constant  →  A ∝ sqrt(f / cycles)
+    this.vAmp[v] = Math.sqrt(0.06 / this.rate) * Math.sqrt(f / (g.cycles + 1));
+    const p = 0.5 + this.spread * (this.rand() - 0.5);
+    this.vL[v] = Math.cos(p * Math.PI / 2); this.vR[v] = Math.sin(p * Math.PI / 2);
+    const k = this.gw++ % this.GR; this.gM[k] = g.midi; this.gN[k] = g.cycles; this.gT[k] = this.clock;
+    this.meanCycles += 0.02 * (g.cycles - this.meanCycles);
+  }
+  // ---- audio
+  process(L, R, n) {
+    const tab = this.tab, TN = this.TN, sr = this.sr;
+    for (let i = 0; i < n; i++) { L[i] = 0; R[i] = 0; }
+    let i = 0;
+    while (i < n) {
+      if (this.ctl <= 0) { this.evolve(this.CTL / sr); this.ctl = this.CTL; }
+      // next event: grain onset or control tick
+      const run = Math.min(n - i, this.ctl, Math.max(1, Math.ceil(this.next)));
+      for (let v = 0; v < this.nv; v++) {
+        let ph = this.vPh[v], pos = this.vPos[v]; const inc = this.vInc[v], len = this.vLen[v], fd = this.vFade[v];
+        const a = this.vAmp[v], gl = a * this.vL[v], gr = a * this.vR[v];
+        const m = Math.min(run, len - pos);
+        for (let k = 0; k < m; k++, pos++) {
+          let e = 1;
+          if (pos < fd) e = 0.5 - 0.5 * Math.cos(Math.PI * pos / fd);
+          else if (pos > len - fd) e = 0.5 - 0.5 * Math.cos(Math.PI * (len - pos) / fd);
+          const x = ph * TN, j = x | 0, s = tab[j] + (tab[j + 1] - tab[j]) * (x - j);
+          ph += inc; if (ph >= 1) ph -= 1;
+          L[i + k] += s * e * gl; R[i + k] += s * e * gr;
+        }
+        this.vPh[v] = ph; this.vPos[v] = pos;
+      }
+      // retire finished voices
+      for (let v = 0; v < this.nv; v++) if (this.vPos[v] >= this.vLen[v]) {
+        const w = --this.nv;
+        this.vPh[v] = this.vPh[w]; this.vInc[v] = this.vInc[w]; this.vPos[v] = this.vPos[w]; this.vLen[v] = this.vLen[w];
+        this.vFade[v] = this.vFade[w]; this.vAmp[v] = this.vAmp[w]; this.vL[v] = this.vL[w]; this.vR[v] = this.vR[w]; v--;
+      }
+      i += run; this.ctl -= run; this.next -= run; this.clock += run / sr;
+      while (this.next <= 0) { this.spawn(); let u = this.rand(); if (u < 1e-12) u = 1e-12; this.next += -Math.log(u) / this.rate * sr; }
+    }
+    const vol = this.vol;
+    for (let k = 0; k < n; k++) { L[k] = Math.tanh(L[k] * vol); R[k] = Math.tanh(R[k] * vol); }
+  }
+}
+/*ENGINE-END*/
+</script>
+<script id="bgs-lab">
+/* The lab: the piece's measurements, pure functions, no page. The checks beside this piece pull this block
+   and the engine block out of the file and re-run every number in Node. */
+(function (root) {
+  const LAB = {};
+  LAB.SR = 48000;
+  LAB.hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+  /* The engine as bayes_engine.js ships it, with three switches for the A/Bs, all off by default:
+     len      every grain this many cycles, whatever the belief (the coupling switched off)
+     flatAmp  every grain this amplitude, whatever its pitch and length (equal energy switched off)
+     log      keep [time, midi, cycles] for every grain spawned
+     rate     grains per second, in place of the engine's 160
+     draw() is the engine's own; a switch only changes what it returns, so the same seed draws the same pitches
+     in every variant. spawn() is the engine's line for line except the amplitude line. */
+  class Variant extends BeliefCloud {
+    constructor(sr, o) { super(sr); this.o = o || {}; this.log = this.o.log ? [] : null; if (this.o.rate) this.rate = this.o.rate; }
+    draw() { const g = super.draw(); if (g && this.o.len) g.cycles = this.o.len; return g; }
+    spawn() {
+      const g = this.draw(); if (!g) return;
+      if (this.nv >= this.MAXV) { this.dropped++; return; }
+      const f = 440 * Math.pow(2, (g.midi - 69) / 12), sr = this.sr;
+      if (f > sr * 0.45) return;
+      const cyc = sr / f, v = this.nv++;
+      this.vPh[v] = this.rand(); this.vInc[v] = f / sr; this.vPos[v] = 0;
+      this.vFade[v] = Math.max(2, Math.round(cyc)); this.vLen[v] = Math.round(cyc * (g.cycles + 2));
+      this.vAmp[v] = Math.sqrt(0.06 / this.rate) * (this.o.flatAmp ? this.o.flatAmp : Math.sqrt(f / (g.cycles + 1)));
+      const p = 0.5 + this.spread * (this.rand() - 0.5);
+      this.vL[v] = Math.cos(p * Math.PI / 2); this.vR[v] = Math.sin(p * Math.PI / 2);
+      const k = this.gw++ % this.GR; this.gM[k] = g.midi; this.gN[k] = g.cycles; this.gT[k] = this.clock;
+      this.meanCycles += 0.02 * (g.cycles - this.meanCycles);
+      if (this.log) this.log.push([this.clock, g.midi, g.cycles]);
+    }
+  }
+  LAB.Variant = Variant;
+  /* Render offline. events: [[seconds, 'on'|'off', midi]]. The output's tanh is bypassed (volume 1e-3, then
+     divided back out), so the numbers are the cloud's own, not the soft clip's. */
+  LAB.render = (o, events, dur, seed) => {
+    const sr = LAB.SR, c = new Variant(sr, o); if (seed != null) c.s = seed; c.vol = 1e-3;
+    const N = Math.round(dur * sr), L = new Float32Array(N), R = new Float32Array(N), B = 480; let ev = 0, voices = 0, vn = 0;
+    const vt = [];
+    for (let s = 0; s < N; s += B) {
+      const t = s / sr;
+      while (ev < events.length && events[ev][0] <= t + 1e-9) { const e = events[ev++]; if (e[1] === 'on') c.noteOn(e[2]); else c.noteOff(e[2]); }
+      const n = Math.min(B, N - s); c.process(L.subarray(s, s + n), R.subarray(s, s + n), n); vt.push(c.nv);
+    }
+    for (let i = 0; i < N; i++) { L[i] *= 1000; R[i] *= 1000; }
+    return { L, R, log: c.log, voices: vt, hop: B / sr, cloud: c };
+  };
+  LAB.fft = (re, im) => {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let b = n >> 1; for (; j & b; b >>= 1) j ^= b; j ^= b; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a), h = len >> 1;
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+        for (let k = 0; k < h; k++) { const p = i + k, q = p + h, vr = re[q] * cr - im[q] * ci, vi = re[q] * ci + im[q] * cr;
+          re[q] = re[p] - vr; im[q] = im[p] - vi; re[p] += vr; im[p] += vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+    }
+  };
+  /* Welch: Hann windows of n samples, half overlapping, both channels, summed power. */
+  LAB.welch = (L, R, a, b, n) => {
+    const P = new Float64Array(n / 2), re = new Float64Array(n), im = new Float64Array(n);
+    for (let s = a; s + n <= b; s += n / 2) for (const x of [L, R]) {
+      for (let i = 0; i < n; i++) { re[i] = x[s + i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / n)); im[i] = 0; }
+      LAB.fft(re, im); for (let i = 0; i < n / 2; i++) P[i] += re[i] * re[i] + im[i] * im[i];
+    }
+    return P;
+  };
+  /* share of the spectrum's power within ±cents of any of the notes */
+  LAB.shareNear = (P, n, notes, cents) => {
+    let tot = 0, on = 0;
+    for (let i = 1; i < P.length; i++) { const m = 69 + 12 * Math.log2(i * LAB.SR / n / 440); tot += P[i];
+      for (const q of notes) if (Math.abs(m - q) * 100 <= cents) { on += P[i]; break; } }
+    return on / tot;
+  };
+  LAB.shareBelow = (P, n, hz) => { let tot = 0, lo = 0; for (let i = 1; i < P.length; i++) { tot += P[i]; if (i * LAB.SR / n < hz) lo += P[i]; } return lo / tot; };
+  LAB.rms = (x, a, b) => { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / (b - a)); };
+  LAB.dB = (r) => 20 * Math.log10(r);
+  LAB.kurtosis = (x, a, b) => { let m = 0; for (let i = a; i < b; i++) m += x[i]; m /= (b - a); let s2 = 0, s4 = 0;
+    for (let i = a; i < b; i++) { const d = x[i] - m, d2 = d * d; s2 += d2; s4 += d2 * d2; } s2 /= (b - a); s4 /= (b - a); return s4 / (s2 * s2); };
+  LAB.median = (a) => { if (!a.length) return NaN; const s = a.slice().sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
+  /* one grain exactly as the engine's spawn() and process() build it: a one-cycle Hann fade in, N cycles, a one-cycle
+     fade out, amplitude A (exact sine in place of the engine's 4096-point table) */
+  LAB.grainWave = (f, N, A, sr) => {
+    const cyc = sr / f, len = Math.round(cyc * (N + 2)), fd = Math.max(2, Math.round(cyc)), x = new Float64Array(len);
+    for (let p = 0; p < len; p++) { let e = 1; if (p < fd) e = 0.5 - 0.5 * Math.cos(Math.PI * p / fd); else if (p > len - fd) e = 0.5 - 0.5 * Math.cos(Math.PI * (len - p) / fd); x[p] = A * e * Math.sin(2 * Math.PI * f * p / sr); }
+    return x;
+  };
+  LAB.energy = (x, sr) => { let s = 0; for (let i = 0; i < x.length; i++) s += x[i] * x[i]; return s / sr; };
+  /* how wide one grain's own spectrum is: half the span, in cents, where its power is at least half its peak */
+  LAB.grainHalfWidth = (f, N) => {
+    const sr = LAB.SR, x = LAB.grainWave(f, N, 1, sr), span = N < 16 ? 600 : 60, st = N < 16 ? 2 : 0.25; let pk = 0; const P = [];
+    for (let c = -span; c <= span; c += st) { const w = 2 * Math.PI * f * Math.pow(2, c / 1200) / sr; let a = 0, b = 0; for (let i = 0; i < x.length; i++) { a += x[i] * Math.cos(w * i); b += x[i] * Math.sin(w * i); } const v = a * a + b * b; P.push([c, v]); if (v > pk) pk = v; }
+    const hp = P.filter((q) => q[1] >= pk / 2).map((q) => q[0]); return (Math.max(...hp) - Math.min(...hp)) / 2;
+  };
+  root.LAB = LAB;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+</script>
+<script id="bgs-stats">
+/* The statistics: pure functions, no page. The checks run this block too. */
+(function (root) {
+  const ST = {};
+  const SR = LAB.SR;
+  ST.gaps = (rate, dur) => { const r = LAB.render({ log: 1, rate }, [], dur); const on = r.log.map((g) => g[0]), gaps = []; for (let i = 1; i < on.length; i++) gaps.push(on[i] - on[i - 1]); return { r, gaps }; };
+  ST.ksExp = (gaps, rate) => { const s = gaps.slice().sort((a, b) => a - b); let D = 0; s.forEach((g, i) => { const F = 1 - Math.exp(-g * rate); D = Math.max(D, Math.abs(F - (i + 1) / s.length), Math.abs(F - i / s.length)); }); return D; };
+  /* the engine's own envelopes, stepped as the engine steps them (64 samples), in units of their time constants */
+  ST.envelopes = () => {
+    const c = new BeliefCloud(SR), dt = c.CTL / SR, att = [], rel = [];
+    c.noteOn(60); let t = 0; att.push([0, 1 - c.notes.get(60).w]);
+    while (t < 6 * c.tauOn) { c.evolve(dt); t += dt; att.push([t / c.tauOn, 1 - c.notes.get(60).w]); }
+    for (let k = 0; k < 2000; k++) c.evolve(dt);
+    const w0 = c.notes.get(60).w; c.noteOff(60); t = 0; rel.push([0, 1]);
+    while (t < 5 * c.tauOff) { c.evolve(dt); t += dt; const n = c.notes.get(60); if (!n) break; rel.push([t / c.tauOff, n.w / w0]); }
+    const gap = (a) => Math.max(...a.map(([x, y]) => Math.abs(y - Math.exp(-x))));
+    return { att, rel, attGap: gap(att), relGap: gap(rel) };
+  };
+  /* the believed chord: evolved to steady state, then N draws from the engine's own draw() */
+  ST.CHORD = [48, 64, 67];
+  ST.steady = () => { const c = new BeliefCloud(SR); ST.CHORD.forEach((m) => c.noteOn(m)); for (let k = 0; k < 30 * SR / c.CTL; k++) c.evolve(c.CTL / SR); return c; };
+  const erf = (x) => { const s = Math.sign(x); x = Math.abs(x); const t = 1 / (1 + 0.3275911 * x); const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x); return s * y; };
+  const Phi = (z) => 0.5 * (1 + erf(z / Math.SQRT2));
+  /* predicted share per semitone bin [m − ½, m + ½), m = 33..96, clipped to the range */
+  ST.predicted = (c) => {
+    let Z = c.doubt; for (const n of c.notes.values()) Z += n.w;
+    const out = [];
+    for (let m = c.lo; m <= c.hi; m++) { const a = Math.max(c.lo, m - 0.5), b = Math.min(c.hi, m + 0.5); let p = (c.doubt / Z) * (b - a) / (c.hi - c.lo);
+      for (const [q, n] of c.notes) { const s = n.sig / 100; p += (n.w / Z) * (Phi((b - q) / s) - Phi((a - q) / s)); } out.push(p); }
+    return out;
+  };
+  ST.predictedMean = (c) => { let Z = c.doubt, s = c.doubt * (c.lo + c.hi) / 2; for (const [q, n] of c.notes) { Z += n.w; s += n.w * q; } return s / Z; };
+  ST.draws = (c, N) => { const out = new Float64Array(N); for (let i = 0; i < N; i++) out[i] = c.draw().midi; return out; };
+  ST.histAt = (c, d, N) => { const h = new Float64Array(c.hi - c.lo + 1); for (let i = 0; i < N; i++) { const k = Math.min(c.hi - c.lo, Math.max(0, Math.round(d[i]) - c.lo)); h[k]++; } return h.map((v) => v / Math.max(1, N)); };
+  ST.tv = (h, p) => { let s = 0; for (let i = 0; i < p.length; i++) s += Math.abs(h[i] - p[i]); return s / 2; };
+  /* the bell: the mechanism test's render, coupled and every grain short */
+  ST.bell = () => {
+    const ev = [[2, 'on', 60], [2, 'on', 64], [2, 'on', 67]], a = LAB.render({}, ev, 10), b = LAB.render({ len: 4 }, ev, 10);
+    const vmean = (r, t0, t1) => { const v = r.voices.slice(Math.round(t0 / r.hop), Math.round(t1 / r.hop)); return v.reduce((x, y) => x + y, 0) / v.length; };
+    return { a, b, rows: {
+      pre: { k: LAB.kurtosis(a.L, 0, 2 * SR), v: vmean(a, 0, 2), x: a.L, s: 0, e: 2 * SR },
+      held: { k: LAB.kurtosis(a.L, 6 * SR, 10 * SR), v: vmean(a, 6, 10), x: a.L, s: 6 * SR, e: 10 * SR },
+      short: { k: LAB.kurtosis(b.L, 6 * SR, 10 * SR), v: vmean(b, 6, 10), x: b.L, s: 6 * SR, e: 10 * SR } } };
+  };
+  root.ST = ST;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const COL = { amber: '#e8b84a', cyan: '#6aa8e8', fg3: '#8a8aa0', fg4: '#4a4a5a', soft: 'rgba(255,255,255,.06)', grid: 'rgba(255,255,255,.05)' };
+  const NOTE = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+  const nm = (m) => NOTE[((Math.round(m) % 12) + 12) % 12] + (Math.floor(Math.round(m) / 12) - 1);
+  const pitchName = (m) => { const r = Math.round(m), c = Math.round((m - r) * 100); return nm(r) + (c ? (c > 0 ? ' +' : ' −') + Math.abs(c) + '¢' : ''); };
+  let step = 1;
+
+  /* ── audio ── */
+  let ctx = null, src = null, playing = null;
+  async function ensureAudio() { if (!ctx) { ctx = new (window.AudioContext || window.webkitAudioContext)(); ctx.onstatechange = () => { if (ctx.state !== 'running') stopAll(); }; } if (ctx.state !== 'running') await ctx.resume(); }
+  function stopAll() { if (src) { try { src.stop(); } catch (e) {} src = null; } playing = null; document.querySelectorAll('.bgs-go').forEach((b) => { b.classList.remove('bgs-on'); b.textContent = b.dataset.label; }); }
+  async function playLR(id, btn, L, R, a, b, gain) {
+    if (playing === id) { stopAll(); return; }
+    stopAll(); await ensureAudio();
+    const n = b - a, buf = ctx.createBuffer(2, n, LAB.SR), x = buf.getChannelData(0), y = buf.getChannelData(1);
+    let pk = 0; if (!gain) { for (let i = a; i < b; i++) pk = Math.max(pk, Math.abs(L[i]), Math.abs(R[i])); gain = 0.85 / pk; }
+    for (let i = 0; i < n; i++) { x[i] = L[a + i] * gain; y[i] = R[a + i] * gain; }
+    const fade = Math.min(n, 2400); for (let i = 0; i < fade; i++) { x[n - 1 - i] *= i / fade; y[n - 1 - i] *= i / fade; }
+    src = ctx.createBufferSource(); src.buffer = buf; src.connect(ctx.destination); src.onended = () => { if (playing === id) stopAll(); };
+    src.start(); playing = id; btn.classList.add('bgs-on'); btn.textContent = 'stop';
+  }
+  function fit(c) { if (!c.dataset.h) c.dataset.h = c.getAttribute('height'); c.style.height = c.dataset.h + 'px'; const d = window.devicePixelRatio || 1, w = c.clientWidth, h = +c.dataset.h; if (c.width !== Math.round(w * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); } const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return [g, w, h]; }
+
+  /* ── step 1 ── */
+  let S1 = null;
+  function run1() { const rate = +$('rate').value; S1 = { rate, ...ST.gaps(rate, 20) }; S1.D = ST.ksExp(S1.gaps, rate); draw1(); if (step === 2) draw2(); }
+  function draw1() {
+    if (!S1) return; const rate = S1.rate, gaps = S1.gaps, mean = gaps.reduce((a, b) => a + b, 0) / gaps.length;
+    $('ratev').textContent = rate + ' /s · mean gap ' + (1000 / rate).toFixed(2) + ' ms';
+    $('lab1').textContent = gaps.length + ' gaps · mean ' + (mean * 1000).toFixed(2) + ' ms · KS distance ' + S1.D.toFixed(4) + ' (5% line ' + (1.36 / Math.sqrt(gaps.length)).toFixed(4) + ')';
+    { const [g, w, h] = fit($('ticks')); g.clearRect(0, 0, w, h); g.strokeStyle = COL.cyan; g.lineWidth = 1;
+      for (const [t, m] of S1.r.log) { if (t > 0.5) break; const x = 4 + t / 0.5 * (w - 8), y0 = 6 + (1 - (m - 33) / 63) * (h - 24); g.beginPath(); g.moveTo(x, y0); g.lineTo(x, y0 + 12); g.stroke(); } }
+    const [g, w, h] = fit($('gaps')); g.clearRect(0, 0, w, h);
+    const l = 40, r = w - 8, top = 8, bot = h - 20, tmax = 5 / rate, nb = 50, bw = tmax / nb, cnt = new Float64Array(nb);
+    for (const x of gaps) { const k = Math.floor(x / bw); if (k < nb) cnt[k]++; }
+    const dens = Array.from(cnt, (c) => c / gaps.length / bw), ymax = rate * 1.1, X = (t) => l + t / tmax * (r - l), Y = (d) => bot - d / ymax * (bot - top);
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = COL.fg3; g.textAlign = 'center';
+    for (let k = 0; k <= 5; k++) { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(k / rate), top); g.lineTo(X(k / rate), bot); g.stroke(); g.fillText((k * 1000 / rate).toFixed(1) + ' ms', X(k / rate), h - 6); }
+    g.fillStyle = 'rgba(106,168,232,.55)'; dens.forEach((d, k) => g.fillRect(X(k * bw) + 1, Y(d), X(bw) - l - 2, bot - Y(d)));
+    g.strokeStyle = COL.amber; g.lineWidth = 1.6; g.beginPath(); for (let k = 0; k <= 200; k++) { const t = k / 200 * tmax, y = Y(rate * Math.exp(-rate * t)); if (k) g.lineTo(X(t), y); else g.moveTo(X(t), y); } g.stroke();
+  }
+  /* ── step 2 ── */
+  let ENV = null;
+  function draw2() {
+    if (!ENV) ENV = ST.envelopes(); if (!S1) run1();
+    const s = S1.gaps.slice().sort((a, b) => a - b), mean = 1 / S1.rate, surv = [];
+    for (let k = 0; k <= 120; k++) { const x = k / 120 * 5, t = x * mean; let lo = 0, hi = s.length; while (lo < hi) { const md = (lo + hi) >> 1; if (s[md] <= t) lo = md + 1; else hi = md; } surv.push([x, 1 - lo / s.length]); }
+    $('r2r').textContent = ENV.relGap.toExponential(1); $('r2a').textContent = ENV.attGap.toExponential(1); $('r2g').textContent = S1.D.toFixed(4) + ' at ' + S1.rate + ' /s';
+    const [g, w, h] = fit($('same')); g.clearRect(0, 0, w, h);
+    const l = 40, r = w - 8, top = 10, bot = h - 22, X = (x) => l + x / 5 * (r - l), Y = (y) => bot - y * (bot - top);
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = COL.fg3; g.textAlign = 'center';
+    for (let k = 0; k <= 5; k++) { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(k), top); g.lineTo(X(k), bot); g.stroke(); g.fillText('x = ' + k, X(k), h - 6); }
+    g.textAlign = 'right'; for (const v of [0, 0.5, 1]) g.fillText(v, l - 4, Y(v) + 3);
+    const line = (pts, col, wd, dash) => { g.strokeStyle = col; g.lineWidth = wd; g.setLineDash(dash || []); g.beginPath(); pts.forEach(([x, y], i) => { if (x > 5) return; if (i) g.lineTo(X(x), Y(y)); else g.moveTo(X(x), Y(y)); }); g.stroke(); g.setLineDash([]); };
+    line(surv, COL.cyan, 4); line(ENV.rel, COL.amber, 2.2); line(ENV.att, 'rgba(232,184,74,.6)', 1.2);
+    const ref = []; for (let k = 0; k <= 100; k++) ref.push([k / 20, Math.exp(-k / 20)]); line(ref, '#e8e8f0', 1, [3, 4]);
+    g.textAlign = 'left'; g.fillStyle = COL.fg3; const lg = [[COL.cyan, 'waiting: share of gaps longer than x mean gaps'], [COL.amber, 'forgetting: a let-go note’s weight after x · 1.4 s'], ['rgba(232,184,74,.6)', 'believing: 1 − weight after x · 80 ms of holding'], ['#e8e8f0', 'e^(−x)']];
+    lg.forEach(([c, t], i) => { g.fillStyle = c; g.fillRect(X(2.2), top + 8 + i * 15, 14, 3); g.fillStyle = COL.fg3; g.fillText(t, X(2.2) + 20, top + 12 + i * 15); });
+  }
+  /* ── step 3 ── */
+  let S3 = null;
+  function prep3() { if (S3) return; const c = ST.steady(), pred = ST.predicted(c), mu = ST.predictedMean(c), d = ST.draws(c, 100000);
+    const run = new Float64Array(d.length); let s = 0; for (let i = 0; i < d.length; i++) { s += d[i]; run[i] = s / (i + 1); } S3 = { c, pred, mu, d, run }; }
+  function draw3() {
+    prep3(); const N = Math.max(1, Math.round(Math.pow(10, +$('nd').value))), c = S3.c, h3 = ST.histAt(c, S3.d, N), tv = ST.tv(h3, S3.pred);
+    $('ndv').textContent = N.toLocaleString('en-US'); $('r3tv').textContent = tv.toFixed(3); $('r3m').textContent = pitchName(S3.run[N - 1]); $('r3e').textContent = pitchName(S3.mu) + ' · ' + S3.mu.toFixed(2);
+    $('lab3').textContent = 'held: ' + ST.CHORD.map(nm).join(' ');
+    { const [g, w, h] = fit($('hist')); g.clearRect(0, 0, w, h);
+      const l = 40, r = w - 6, top = 6, bot = h - 18, nb = S3.pred.length, bw = (r - l) / nb, Y = (p) => bot - Math.max(0, Math.log10(Math.max(p, 1e-5)) + 5) / 5 * (bot - top);
+      g.font = '10px JetBrains Mono, monospace'; g.fillStyle = COL.fg3; g.textAlign = 'right';
+      for (const p of [1e-4, 1e-3, 1e-2, 1e-1, 1]) { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(l, Y(p)); g.lineTo(r, Y(p)); g.stroke(); g.fillText(p >= 0.01 ? (p * 100) + '%' : (p * 100).toFixed(p < 1e-3 ? 2 : 1) + '%', l - 4, Y(p) + 3); }
+      g.textAlign = 'center'; for (let m = 36; m <= 96; m += 12) g.fillText('C' + (m / 12 - 1), l + (m - c.lo + 0.5) * bw, h - 4);
+      for (let i = 0; i < nb; i++) { const held = ST.CHORD.includes(c.lo + i); g.fillStyle = held ? 'rgba(232,184,74,.75)' : 'rgba(106,168,232,.6)'; if (h3[i] > 0) g.fillRect(l + i * bw + 1, Y(h3[i]), bw - 2, bot - Y(h3[i]));
+        g.fillStyle = '#e8e8f0'; g.fillRect(l + i * bw, Y(S3.pred[i]) - 1, bw, 2); } }
+    { const [g, w, h] = fit($('mean')); g.clearRect(0, 0, w, h);
+      const l = 40, r = w - 6, top = 8, bot = h - 18, X = (n) => l + Math.log10(n) / 5 * (r - l), lo = 44, hi = 72, Y = (m) => bot - (m - lo) / (hi - lo) * (bot - top);
+      g.font = '10px JetBrains Mono, monospace'; g.textAlign = 'center'; g.fillStyle = COL.fg3;
+      for (let k = 0; k <= 5; k++) { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(Math.pow(10, k)), top); g.lineTo(X(Math.pow(10, k)), bot); g.stroke(); g.fillText(Math.pow(10, k).toLocaleString('en-US'), X(Math.pow(10, k)), h - 4); }
+      g.textAlign = 'left';
+      for (const m of ST.CHORD) { g.strokeStyle = 'rgba(232,184,74,.3)'; g.setLineDash([3, 4]); g.beginPath(); g.moveTo(l, Y(m)); g.lineTo(r, Y(m)); g.stroke(); g.setLineDash([]); g.fillStyle = COL.fg3; g.fillText(nm(m) + ' held', r - 60, Y(m) - 3); }
+      g.strokeStyle = COL.cyan; g.beginPath(); g.moveTo(l, Y(S3.mu)); g.lineTo(r, Y(S3.mu)); g.stroke(); g.fillStyle = COL.cyan; g.fillText('belief’s mean · ' + pitchName(S3.mu), l + 6, Y(S3.mu) - 4);
+      g.strokeStyle = COL.amber; g.lineWidth = 1.5; g.beginPath(); for (let i = 0; i < N; i = i < 100 ? i + 1 : Math.ceil(i * 1.01)) { const y = Y(Math.max(lo, Math.min(hi, S3.run[i]))); if (i) g.lineTo(X(i + 1), y); else g.moveTo(X(1), y); } g.lineTo(X(N), Y(S3.run[N - 1])); g.stroke(); g.lineWidth = 1; }
+  }
+  let R3s = null;
+  /* ── step 4 ── */
+  let B4 = null;
+  function show4() {
+    const o = B4.rows;
+    $('tab4').innerHTML = '<tr><th></th><th>grains sounding at once, mean</th><th>kurtosis (bell curve: 3)</th></tr>' +
+      [['pre', 'nothing held, 0–2 s'], ['held', 'C E G believed, 6–10 s'], ['short', 'C E G, every grain short, 6–10 s']].map(([k, lab]) => `<tr><td>${lab}</td><td>${o[k].v.toFixed(1)}</td><td>${o[k].k.toFixed(2)}</td></tr>`).join('');
+    const holds = Math.abs(o.held.k - 3) < 0.15 && o.pre.k > 3.5 && o.short.k > 3.3;
+    $('t4').innerHTML = (holds ? '<b>The theorem holds where the grains overlap, and only there.</b> ' : '<b>Not as expected:</b> ') +
+      `With C E G believed, about ${o.held.v.toFixed(0)} grains sound at once and the output's spread is a bell curve: kurtosis ${o.held.k.toFixed(2)}. With nothing held, about ${o.pre.v.toFixed(0)} sound at once and the spread is spiky and heavy-tailed: ${o.pre.k.toFixed(2)}. The chord is not what makes the bell: hold the same chord with every grain short, about ${o.short.v.toFixed(0)} at once, and it stays spiky at ${o.short.k.toFixed(2)}. The page's CLT line is true of the believing cloud, because its long grains overlap by the dozen; the clicky cloud it starts from is not Gaussian.`;
+    drawBell();
+  }
+  function drawBell() {
+    if (!B4) return; const [g, w, h] = fit($('bell')); g.clearRect(0, 0, w, h);
+    const l = 40, r = w - 6, top = 8, bot = h - 18, zmax = 6, X = (z) => l + (z + zmax) / (2 * zmax) * (r - l), Y = (p) => bot - Math.max(0, Math.log10(Math.max(p, 1e-6)) + 6) / 6 * (bot - top);
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = COL.fg3; g.textAlign = 'center';
+    for (let z = -6; z <= 6; z += 2) { g.strokeStyle = COL.grid; g.beginPath(); g.moveTo(X(z), top); g.lineTo(X(z), bot); g.stroke(); g.fillText((z > 0 ? '+' : '') + z + 'σ', X(z), h - 4); }
+    const nb = 96, bw = 2 * zmax / nb;
+    for (const [k, col] of [['short', '#8a8aa0'], ['pre', COL.cyan], ['held', COL.amber]]) {
+      const row = B4.rows[k], x = row.x; let m = 0; for (let i = row.s; i < row.e; i++) m += x[i]; m /= (row.e - row.s); let v = 0; for (let i = row.s; i < row.e; i++) v += (x[i] - m) ** 2; const sd = Math.sqrt(v / (row.e - row.s));
+      const cnt = new Float64Array(nb); for (let i = row.s; i < row.e; i++) { const b = Math.floor(((x[i] - m) / sd + zmax) / bw); if (b >= 0 && b < nb) cnt[b]++; }
+      g.strokeStyle = col; g.lineWidth = 1.5; g.beginPath(); let first = true;
+      for (let b = 0; b < nb; b++) { if (!cnt[b]) { first = true; continue; } const p = cnt[b] / (row.e - row.s) / bw, xx = X(-zmax + (b + 0.5) * bw), yy = Y(p); if (first) { g.moveTo(xx, yy); first = false; } else g.lineTo(xx, yy); }
+      g.stroke(); }
+    g.strokeStyle = '#e8e8f0'; g.setLineDash([3, 4]); g.lineWidth = 1; g.beginPath(); for (let k = 0; k <= 240; k++) { const z = -zmax + k / 240 * 2 * zmax, p = Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI); if (k) g.lineTo(X(z), Y(p)); else g.moveTo(X(z), Y(p)); } g.stroke(); g.setLineDash([]);
+  }
+
+  /* ── steps ── */
+  function show(n) {
+    stopAll(); step = n;
+    document.querySelectorAll('.bgs-step').forEach((s) => s.classList.toggle('bgs-shown', +s.dataset.step === n));
+    document.querySelectorAll('.bgs-rail button').forEach((b) => b.setAttribute('aria-pressed', +b.dataset.go === n ? 'true' : 'false'));
+    $('back').disabled = n === 1; $('next').disabled = n === 4;
+    if (n === 1) { if (!S1) run1(); else draw1(); }
+    if (n === 2) draw2();
+    if (n === 3) draw3();
+    if (n === 4 && !B4) { $('busy4').textContent = 'rendering…'; setTimeout(() => { B4 = ST.bell(); $('busy4').textContent = ''; show4(); }, 40); }
+    else if (n === 4) show4();
+  }
+  function sigil() { let d = ''; for (let i = 0; i <= 200; i++) { const t = i / 200 * 2 * Math.PI; d += (i ? 'L' : 'M') + (8 * Math.sin(3 * t + Math.PI / 4)).toFixed(2) + ' ' + (8 * Math.sin(2 * t)).toFixed(2); } $('sig').setAttribute('d', d); }
+  function wire() {
+    document.querySelectorAll('.bgs-go').forEach((b) => { b.dataset.label = b.textContent; });
+    document.querySelectorAll('.bgs-rail button').forEach((b) => b.onclick = () => show(+b.dataset.go));
+    $('back').onclick = () => show(Math.max(1, step - 1)); $('next').onclick = () => show(Math.min(4, step + 1));
+    let rt = null; $('rate').oninput = () => { $('ratev').textContent = $('rate').value + ' /s'; stopAll(); clearTimeout(rt); rt = setTimeout(run1, 150); };
+    $('play1').onclick = () => playLR('p1', $('play1'), S1.r.L, S1.r.R, 0, 6 * LAB.SR);
+    $('play2').onclick = () => { const r = LAB.render({}, [[0.5, 'on', 60], [3.5, 'off', 60]], 8); playLR('p2', $('play2'), r.L, r.R, 0, r.L.length); };
+    $('nd').oninput = draw3;
+    $('play3').onclick = () => { if (!R3s) R3s = LAB.render({}, ST.CHORD.map((m) => [0, 'on', m]), 7); playLR('p3', $('play3'), R3s.L, R3s.R, 2 * LAB.SR, 7 * LAB.SR); };
+    document.querySelectorAll('[data-play]').forEach((b) => b.onclick = () => { if (!B4) return; const k = b.dataset.play, row = B4.rows[k], r = k === 'short' ? B4.b : B4.a;
+      let pk = 0; for (const x of [B4.a.L, B4.a.R, B4.b.L, B4.b.R]) for (let i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(x[i]));
+      playLR('p4' + k, b, r.L, r.R, row.s, row.e, 0.85 / pk); });
+    let rz = null; new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(() => { if (step === 1) draw1(); if (step === 2) draw2(); if (step === 3) draw3(); if (step === 4) drawBell(); }, 80); }).observe(document.querySelector('.bgs-piece'));
+  }
+  sigil(); wire(); show(1);
+})();
+</script>
+</body>
+</html>

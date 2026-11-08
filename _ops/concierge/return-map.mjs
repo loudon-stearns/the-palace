@@ -216,6 +216,27 @@ try {
   blocked = { ok: false, error: e.message };
 }
 
+// Loudon's open review notes. He leaves them on a rich face's review dock, or as answers
+// to a rough sent through the answers server ([[Review Layer]] § How the answers come back),
+// and they sit on the board as REVIEW NOTE cards until someone grants or denies them. Safe,
+// but unseen unless something that starts work looks, so the return looks. Read through the
+// QUEUE's own fold (read-answers.mjs openReviews → buildQueue), so the map and the deck
+// never disagree about which are open. Imported here, so a checkout without the app reports
+// this probe unavailable and loses no other.
+const REVIEWS_CMD = 'node _ops/loudon-eval/read-answers.mjs --open';
+let reviews = { ok: false, cmd: REVIEWS_CMD, error: 'not read' };
+try {
+  const { openReviews, reviewMessages } = await import('../loudon-eval/read-answers.mjs');
+  const { readFileSync } = await import('node:fs');
+  const open = openReviews(reviewMessages(readFileSync(board, 'utf8'))).map((r) => ({
+    entry: r.entry, id: r.id, ts: r.ts, age: age(r.ts), count: r.count, via: r.via,
+    round: r.round, source: r.url ? r.url.split('/').pop() : null, ask: r.ask,
+  }));
+  reviews = { ok: true, cmd: REVIEWS_CMD, open };
+} catch (e) {
+  reviews = { ok: false, cmd: REVIEWS_CMD, error: e.message };
+}
+
 // Proposals for canon owed to Loudon's ledger review — the Return mentions them
 // (Loudon, 2026-10-18, "all three"). One line, the same the PROJECTS deck and
 // the Weave say. Imported here, not above, so a checkout without the
@@ -279,7 +300,7 @@ const data = {
   generated: new Date().toISOString(),
   root: ROOT,
   stopped: { lastCommit, gapDays, arc },
-  inFlight: { handoffs, blocked, proposals, batons: { all: batonFiles, unannounced } },
+  inFlight: { handoffs, blocked, reviews, proposals, batons: { all: batonFiles, unannounced } },
   drift: { linters, repo },
 };
 
@@ -335,6 +356,18 @@ else for (const w of blocked.waiting) {
 }
 
 console.log('');
+cmdLine(reviews.cmd);
+if (!reviews.ok) body(`${C.Rd}unavailable${C.R} — ${reviews.error}`);
+else if (!reviews.open.length) body('no open review notes — nothing of Loudon\'s waits on a page.');
+else {
+  body(`${reviews.open.length} page${reviews.open.length === 1 ? '' : 's'} with open review notes — work on a page begins by reading them:`);
+  for (const r of reviews.open) {
+    const where = r.via === 'rich-face' ? `rich face${r.round ? `, round ${r.round}` : ''}` : (r.source ? `sent from ${r.source}` : 'on the page');
+    console.log(`    ${C.G}◇${C.R} ${C.B}${r.entry}${C.R}  ${C.D}${r.count} note${r.count === 1 ? '' : 's'} · ${where} · ${r.age} · ${r.id}${C.R}`);
+  }
+}
+
+console.log('');
 cmdLine(proposals.cmd);
 if (!proposals.ok) body(`${C.Rd}unavailable${C.R} — ${proposals.error}`);
 else body(proposals.line);
@@ -361,6 +394,6 @@ for (const r of repo) {
 }
 
 const unavailable = [lastCommit, arc, ...linters, ...repo].filter((p) => !p.ok).length
-  + (handoffs.ok ? 0 : 1) + (blocked.ok ? 0 : 1) + (proposals.ok ? 0 : 1);
+  + (handoffs.ok ? 0 : 1) + (blocked.ok ? 0 : 1) + (reviews.ok ? 0 : 1) + (proposals.ok ? 0 : 1);
 console.log(`\n${C.D}${unavailable ? `${C.Y}${unavailable} probe(s) unavailable${C.R}${C.D} — a return map may not paper over them. ` : ''}`
   + `Next: read this, then recommend exactly one move.${C.R}`);
