@@ -55,3 +55,9 @@ Note: the opening asks for a process before any page: a fan-out that proposes pa
 > daily page tweak. One thing to add to the daily page process, I just did a major "enrichment" of the palace. If the daily page gets to review a page that has un reviewed/approved rich face elements, it should tell me and urge me to check them out in addition to the usual process in the daily review.
 
 Note: the opening names a running practice to change and the reason for the change (an enrichment just landed), not the change's form. It tests whether a child reads the Daily Page's card and ledger before touching them, finds where the new step belongs, and offers the form for his word rather than writing it.
+
+## 2026-11-03 · shopkeeper-needs (3ad2e43a)
+
+> what does the shopkeeper need?
+
+Note: the opening is one line that names a page and asks what it needs, not what to do to it. It tests whether a child reads the page and its board traffic first and finds what was already granted and never landed, offers that, and does not invent a need.
