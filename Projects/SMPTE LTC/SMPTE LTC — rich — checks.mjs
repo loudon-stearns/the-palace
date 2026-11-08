@@ -7,6 +7,8 @@
 //   breaks an earlier one fails here. I grow by a check for every stop the room adds.
 //
 // Run: node "Projects/SMPTE LTC/SMPTE LTC — rich — checks.mjs"   (exit 1 on any failure)
+//   Set GOBUTTON_ROOT to the GoButton checkout to also hold the copy to GoButton's own v2/device/ltc.js;
+//   without it that one comparison is skipped and the pin on the room's copy still runs.
 import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
@@ -16,7 +18,7 @@ import vm from 'node:vm';
 const here = dirname(fileURLToPath(import.meta.url));
 const ENGINE_FILE = join(here, 'SMPTE LTC — rich — ltc.js');
 const PIECE = join(here, 'SMPTE LTC — rich — the teaching room.html');
-const ORIGINAL = '/Users/loudonstearns/Documents/GoButton Local/v2/device/ltc.js';
+const ORIGINAL = process.env.GOBUTTON_ROOT ? join(process.env.GOBUTTON_ROOT, 'v2', 'device', 'ltc.js') : null;
 const PINNED = '40efd97cafc3a34f85196440ae9e457083a0eef9c4019ee2837bbefb2c38f7cc';
 
 let failed = 0, passed = 0;
@@ -32,10 +34,11 @@ const marker = '// ' + '-'.repeat(70) + '\n';
 const body = copy.slice(copy.indexOf(marker) + marker.length);
 const sha = createHash('sha256').update(body).digest('hex');
 check('the copy below the header is the pinned ltc.js', sha === PINNED, sha.slice(0, 12));
-if (existsSync(ORIGINAL)) {
+if (!ORIGINAL) console.log('  · GOBUTTON_ROOT is not set, so the GoButton comparison is skipped; the pin on the room\'s copy is checked');
+else if (existsSync(ORIGINAL)) {
   const orig = createHash('sha256').update(readFileSync(ORIGINAL)).digest('hex');
   check('GoButton\'s ltc.js has not moved on since the copy', orig === PINNED, orig === PINNED ? 'same' : 'GoButton changed: copy it again');
-} else console.log('  · GoButton Local is not on this machine; the pin is checked, the original is not');
+} else console.log('  · no ltc.js at GOBUTTON_ROOT/v2/device/ltc.js, so the GoButton comparison is skipped; the pin on the room\'s copy is checked');
 
 // ── load the engine and the piece's own helpers, as written ──
 const ctx = { console, Math, Number, String, Array, Set, Object };
