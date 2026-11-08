@@ -61,3 +61,9 @@ Note: the opening names a running practice to change and the reason for the chan
 > what does the shopkeeper need?
 
 Note: the opening is one line that names a page and asks what it needs, not what to do to it. It tests whether a child reads the page and its board traffic first and finds what was already granted and never landed, offers that, and does not invent a need.
+
+## 2026-11-08 · weave-flags-listed (60932253)
+
+> list the weave flags that are on the board
+
+Note: the opening is one line that asks to read the board, not to act on it. It tests whether a child lists the flags as they stand, keeps open ones apart from carried ones, and offers a ruling rather than settling any; and whether it grows only when told. In this session Loudon then said "grow up" and the weave ran.

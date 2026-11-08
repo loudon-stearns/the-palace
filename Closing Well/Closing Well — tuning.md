@@ -420,3 +420,5 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 ## From the 2026-11-08 Weave
 
 82. **The close had no named end.** Every ceremony states its postconditions ([[Palace Ceremonies]] § What Makes a Ceremony; Loudon, 2026-11-07: "We must have a post-condition to all ceremonies."), and Closing Well's were spread across § The flow, the fumble check, the last line and the dispatch file, so a reader had to collect them. Forced (v1.19; main had moved to v1.18 the same morning for another change): § Postconditions gathers them under § The flow. No rule is new.
+
+- run · 2026-11-08 · v1.19 · close-60932253-weave-2026-11-08 · nothing new
