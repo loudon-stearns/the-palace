@@ -446,3 +446,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
     Data, not a spec change; the version stays v1.15. The stake is named: the resident gave the opening read, landed `6cb53773`, and wrote the wondering that led to the item-2 writes.
 
 - run · 2026-11-07 · v1.15 · close-2026-11-07-projects-deck (drafted 2026-11-07, signed 2026-11-08 "Yes, place it"; placed 2026-11-08, main at v1.19) · taught item 85
+
+## From the Handwheel return close — drafted 2026-11-07, signed 2026-11-08
+
+86. **A continuity promise made at a close was never tested against how the Return would rank the thing, and Loudon's own habit made it true.** The room told him a bare "I'm back" would put the Handwheel's parts-order ask first (arc:1201, 1217). The Return's own list ranks it last of thirty, under two blocking requests from other stewards (`scout.md:75–77`), and it was the one move only because the dispatch named the project (arc:1139). The cold read caught it from the scout's list; the room owned it at the panel; Loudon said he'll name the Handwheel. Also data: the resident's Return item 19 overstated (`scout.md:19–22` already takes a scoped request), found when the moderator was asked to look at the resident's own work (item 73's stake, named from outside again). A cold read's "the arc shows no check" was wrong where the arc had cut the first tool call, and the working Claude's witness settled it (item 43's gap, for tool calls). Item 29 seen again: a prose boundary from the coordinator worked. Data, not a spec change; the version stays v1.15.
+
+- run · 2026-11-07 · v1.15 · close-2026-11-07-haptic-handwheel-return (drafted 2026-11-07, signed 2026-11-08 "yes to all"; placed 2026-11-08, main at v1.19) · taught item 86
