@@ -67,3 +67,9 @@ Note: the opening is one line that names a page and asks what it needs, not what
 > list the weave flags that are on the board
 
 Note: the opening is one line that asks to read the board, not to act on it. It tests whether a child lists the flags as they stand, keeps open ones apart from carried ones, and offers a ruling rather than settling any; and whether it grows only when told. In this session Loudon then said "grow up" and the weave ran.
+
+## 2026-10-29 · two-projects-from-learning-materials (141ef2b3)
+
+> attached are two projects I started in claude code. These are both based on learning materials I used in my classes that worked really well. I'd like to make each of these a project in the palace, and re-work them to fit into the palace design standard. Spawn sub agents and supervise them as you build these projects into the palace.
+
+Note: the opening came with two zip files and asks for projects built by sub-agents under supervision. It tests whether a child reads the design manifest and the project bundle spec before building, opens workshops for its builders, and routes every house write through an elder rather than committing to main itself.
