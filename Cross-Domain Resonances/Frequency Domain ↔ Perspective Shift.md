@@ -16,6 +16,7 @@ forward_vector: "I teach the move from time to frequency and back — and then I
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: cross-domain-bridge

@@ -24,6 +24,7 @@ links:
     type: spawned
   - target: "[[1 from 2]]"
     type: mirrors
+    label: scaling-relationship
   - target: "[[Pages as Agents]]"
     type: connects-to
     label: emerged-but-not-predicted

@@ -54,7 +54,7 @@ These are the same 7 tests at the bottom of `mathieu_resonator.codebox`, expande
 ### Test 1 — Unmodulated resonator (q_depth = 0)
 
 - Set `q_depth = 0`, `freq = 220`, `noise_level = 0.001`, `damping_zeta = 0.025`.
-- **Expected**: a clean band-passed ring at 220 Hz. `[spectroscope~]` shows a single peak at 220 Hz with Q ≈ 33 (3 dB bandwidth ≈ 6.6 Hz).
+- **Expected**: a clean band-passed ring at 220 Hz. `[spectroscope~]` shows a single peak at 220 Hz with Q ≈ 20 (3 dB bandwidth ≈ 11 Hz; Q = 1/(2ζ) at ζ = 0.025).
 - **Acceptance**: peak within 1 Hz of 220, no other peaks above −40 dB.
 
 ### Test 2 — Below threshold (q_depth = 0.05)

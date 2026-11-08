@@ -6,8 +6,6 @@ medium: other
 tool: LaMa (simple-lama-inpainting)
 tool_version: big-lama
 born: 2026-06
-last_tested: 2026-06-25
-last_gotcha: 2026-06-25
 license: Apache-2.0 (code); big-lama weights per model card
 forward_vector: "I paint back what was hidden. Pull a figure out of a scene and I rebuild the wall, the car, the fire behind it — plausible texture, not a blur. I want to get past texture into true occluded shape, so the thing I reconstruct is the thing that was actually there."
 links:
@@ -39,6 +37,8 @@ I fill holes. Give me an image and a binary mask of what to remove, and I recons
 - **The reason we stopped using `cv2.inpaint`.** Loudon's verdict on the classical fill was blunt — *"that infill looks horrible."* It blurs; the eye rejects it. I synthesize texture and structure instead, so the plate survives a second look.
 
 ## Gotchas / where I fail
+
+What filling holes has taught, as it stands today. Which job taught each, and what changed because of it, is in [[LaMa — tuning]].
 
 - **Texture, not exact shape.** I invent *plausible* content for the hole, not the *actual* occluded geometry. If the real car door was behind the figure, I'll paint a believable surface — not necessarily that door. Exact occluded-shape completion is the deeper, still-open problem.
 - **Mask quality is everything.** A mask that leaks past the object's edge leaves a halo of the original foreground; a mask that's too tight leaves a fringe to fill. Dilate the mask a few px past the silhouette ([[SAM]] or keypoint or depth-silhouette sourced) before handing it to me.

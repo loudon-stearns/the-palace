@@ -42,6 +42,9 @@ links:
   - target: "[[Generative Sample Libraries]]"
     type: connects-to
     label: flesh-for-a-fixed-skeleton
+  - target: "[[Splice Instrument Forge]]"
+    type: connects-to
+    label: the-sampler-built-on-request
 forward_vector: "I name the wiring diagrams the palace's instruments are built on, and offer one useful way to see them as a family: the loop, the crowd, the wiring. Next I want each project to know its family from its own side, and the next instrument found at a crossing nobody has built yet, like a crowd that drives a wiring."
 ---
 

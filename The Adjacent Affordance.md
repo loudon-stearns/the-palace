@@ -11,8 +11,6 @@ links:
   - target: "[[The Dichotomy of Control]]"
     type: mirrors
     label: engineering-register
-  - target: "[[Stoicism]]"
-    type: connects-to
   - target: "[[Spinoza Conatus]]"
     type: connects-to
     label: striving-rerouted

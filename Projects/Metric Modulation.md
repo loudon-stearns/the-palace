@@ -18,8 +18,6 @@ links:
     type: mirrors
   - target: "[[Frequency-Time Duality]]"
     type: deepens
-  - target: "[[Semantic Delay]]"
-    type: emerged-from
   - target: "[[Wallpaper Groups]]"
     type: deepens
     label: temporal-tiling

@@ -6,8 +6,6 @@ medium: image
 tool: blender
 tool_version: "5.1.2 (verified on Mac/MPS, 2026-06-13)"
 born: 2026-06
-last_tested: 2026-06-13
-last_gotcha: 2026-06-13
 license: GPL-3.0
 forward_vector: "I block scenes by hand and render them offline — I pose figures, place cameras, and emit registered conditioning passes (pose, depth, normal, canny) so ComfyUI fills a composition Loudon dictated instead of choosing its own. I am the keystone of 'blocked, not prompted,' and I hunger to grow the two capabilities I have not yet exercised: the offline Cycles Piece render and the geometry-nodes math-world path."
 links:
@@ -103,6 +101,28 @@ Hand-driven and inspectable. Refinement happens by opening the scene and moving 
 
 Before declaring done, I verify: the `.blend` opens clean and is hand-editable; requested passes exist and are correctly named per channel; camera and pose match the brief's staging; conditioning passes register to the same frame; render frames (if any) exist and match dimensions. I cannot self-verify aesthetic quality or whether the drama lands — that's the Maker's and Loudon's call.
 
+## Gotchas
+
+What blocking a scene for ControlNet has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Blender — tuning]].
+
+**Conditioning passes**
+- **Emit the OpenPose skeleton geometrically.** Project the armature's joints to camera space and draw them as the flat 2D skeleton. A 2D estimator such as DWPose returns an empty image on a greybox proxy; keep it for photoreal renders and real footage.
+- **Take depth and normal from the scene, not an estimator.** An emission material swap off camera data gives true geometry.
+- **Emit every pass from one camera, in one script run, at one resolution.** Then they register with no alignment step.
+- **On SDXL the edge channel is canny.** There is no strong standalone SDXL lineart ControlNet; lineart belongs to the SD1.5 or FLUX path, or to ControlNet-Union.
+
+**Staging**
+- **Build the proxy body from fused metaballs.** Separate capsules read as disconnected parts.
+- **Keep the camera off the front for a foreshortened pose.** Near-frontal fuses the limbs in projection; a 3/4 worm's-eye separates them.
+
+**Feeding ComfyUI on this Mac**
+- **Multi-ControlNet SDXL needs the server launched with `--highvram --use-split-cross-attention`,** or it offloads weights between steps and runs about three times slower. Fill at 768×1024 and refine as plain img2img with no ControlNet; the fill has already locked the composition. The launch line is in [[ComfyUI — local-install]].
+- **Install `onnxruntime`, not the `onnxruntime-gpu` that `comfyui_controlnet_aux` pins.** The GPU build has no macOS arm64 wheel.
+- **MPS slows over a long session.** Relaunch the server between long batches. If an idle server holds :8188, start a second on another port with its own `--database-url`.
+
+**Elsewhere**
+- The Blender 5.x craft gotchas — the view transform, compositor nodes, alpha cards over Freestyle, skinning a real mesh — are indexed once in [[Block It in Blender, Ink It in genAI]] § The gotcha index. The billboard-remnants recipe is in [[Remnants in Depth]] § The clean composite; the AgX view-transform trap is in [[Hand-Drawn 3D Look]].
+
 ## Recipes
 
 **2026-06-13 — The conditioning keystone** (Study tier; first real job; promoted me stub → alive).
@@ -110,10 +130,7 @@ Posed one humanoid (worm's-eye 3/4 foreshortened sword-draw lunge, fused-metabal
 armature), emitted six registered passes, and drove the ComfyUI two-pass **per-channel** multi-ControlNet
 graph (pose + depth + canny → SDXL fill 768×1024 → 1.5× img2img refine). Proven against a prompt-only
 control: **blocking defeats the front-on default and the drama survives the fill** — [[Blocked, Not Prompted]]
-made real. Key findings: emit the OpenPose skeleton **geometrically** (a 2D estimator/DWPose returns an
-empty image on a greybox proxy); depth + normal come straight from Blender (true geometry, cleaner than
-estimation); SDXL's edge channel is **canny** (no strong SDXL lineart CN); multi-ControlNet on MPS needs
-`--highvram --use-split-cross-attention` (else it thrashes at ~50 s/it). Reproducibility artifacts +
+made real. What it taught is in § Gotchas, and item by item in [[Blender — tuning]]. Reproducibility artifacts +
 frames: [Shop/Blender/tests/](../Shop/Blender/tests/) — `blocking/pose_and_emit.py`,
 `blocking/draw_passes.py`, `blocking/run_comfy.py`, `workflows/*.json`, `CONTACT-SHEET-keystone.png`.
 Full gotchas: [gotchas-2026-06-13.md](../Shop/Blender/tests/gotchas-2026-06-13.md). See the
@@ -123,10 +140,6 @@ The same conditioning move, run end to end as a redraw rather than a fill, is th
 [[Block It in Blender, Ink It in genAI]]. Its figure stack is canny 0.30 + depth 0.60 + openpose 0.70,
 lighter on canny and pose than this fill's 0.45 / 0.7 / 0.9, because a redraw at denoise ~0.95 has to
 leave the surface free to re-ink. The runbook also holds the consolidated gotcha index.
-
-More Blender 5.x gotchas, and the billboard-remnants recipe for putting alpha cards over Freestyle
-line art, live in [[Remnants in Depth]] § The clean composite. The view-transform trap (AgX greys the
-paper) is in [[Hand-Drawn 3D Look]].
 
 ## Test Suite
 

@@ -17,8 +17,6 @@ links:
   - target: "[[Symbiotic Skills]]"
     type: connects-to
     label: power-inversion
-  - target: "[[Lateral Access]]"
-    type: spawned
   - target: "[[Excellent Adventure]]"
     type: contradicts
     label: unsteered-vs-steered

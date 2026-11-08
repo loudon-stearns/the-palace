@@ -12,8 +12,6 @@ links:
   - target: "[[Objects to Think With]]"
     type: exemplifies
     label: object-to-think-with
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: connects-to
   - target: "[[Trickster]]"
     type: connects-to
     label: soft-knee-hides-discontinuity
@@ -26,6 +24,9 @@ links:
   - target: "[[Quadratic Interpolation in DSP]]"
     type: emerged-from
     label: soft-knee-is-quadratic
+  - target: "[[Boundary-Crossing Instruments]]"
+    type: exemplifies
+    label: ratio-as-slope
 forward_vector: "I am complete as a technical artifact but I want to become fully documented as a pedagogical method — the entry that captures not just what the compressor does but why every design choice was made to make the invisible visible. I want a teaching retrospective: the moments in a lesson where students heard the 500-sample window as time they could feel, and what changed in their understanding of DSP after that. The instrument is built; the pedagogy needs its evidence."
 ---
 

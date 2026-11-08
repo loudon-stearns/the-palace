@@ -11,7 +11,7 @@ born: 2026-03
 stage: mature
 energy: very high
 beauty: 9
-forward_vector: "I want to become the ceremony that activates the palace's nervous system — agents that inhabit pages, follow their forward vectors, and put the palace's own intelligence in dialogue with itself."
+forward_vector: "I wake pages as agents, each seeing through its own words, links and vector; I set them to act and to talk with each other, and I keep only what they write back."
 links:
   - target: "[[Swarm Weave]]"
     type: emerged-from

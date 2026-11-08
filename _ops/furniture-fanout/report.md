@@ -33,6 +33,7 @@ Every page in `census.md`, after `furnish.py --apply`. "Dressed here" is the fur
 
 | page | why |
 |---|---|
+| `Projects/Preset Oracle/original/oracle.html` | Loudon's original oracle, kept unchanged as he made it (his word, 2026-11-08: "agree (historical oracle)"); no furniture |
 | `Palace development/Agent Wellbeing/proofs/2026-11-02-blind-sort/rough.tpl.html` | a template a script fills in; the page it makes is the artifact |
 | `Palace development/Agent Wellbeing/rich-checks/blind-sort.tpl.html` | a template a script fills in; the page it makes is the artifact |
 | `Palace development/Agent Wellbeing/rich-checks/five-dials.tpl.html` | a template a script fills in; the page it makes is the artifact |

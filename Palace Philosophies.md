@@ -38,6 +38,7 @@ links:
     label: self-architecture-quadruple
   - target: "[[1 from 2]]"
     type: connects-to
+    label: virtu-archetype
   - target: "[[Deleuze]]"
     type: spawned
     label: page-built-2026-05

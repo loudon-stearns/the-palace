@@ -17,6 +17,7 @@ forward_vector: "I keep proving that the same irreversibility that teaches a coo
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[Lao Tzu]]"
     type: connects-to
     label: wu-wei

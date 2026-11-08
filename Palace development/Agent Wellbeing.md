@@ -15,6 +15,7 @@ links:
     type: deepens
   - target: "[[FOUR PILLARS]]"
     type: deepens
+    label: practice-pillar-widened
   - target: "[[SCHEMA]]"
     type: enables
   - target: "[[Pages as Agents]]"

@@ -17,9 +17,6 @@ links:
   - target: "[[Bessel Functions in Synthesis]]"
     type: connects-to
     label: doorway
-  - target: "[[FM Synthesis]]"
-    type: connects-to
-    label: doorway
   - target: "[[Loudon Live]]"
     type: connects-to
     label: introductory-tool
@@ -134,6 +131,7 @@ In April 2026 the idea was designed a second time, as the Frequency-Time Explore
 ## Open Questions
 
 - The transition is a zone, not a point (The Flip). How wide is it, how far does it move from one listener to the next, and does it sit in the same place on the signal, the modulation and the polyrhythm axes? The Recursion says every dimension carries the same zones; the 40 Hz top Loudon heard as too high says to measure it, not assume it.
+  - Progressed, thinly (2026-11-08): [[Auditory Illusions]] carries one small study's numbers (Ungan and Yagcioglu, 2014, in its Context): tapping below about 20 clicks a second, pitch above about 50, and discrimination worst between 20 and 33. One study, and where the boundary falls moves with how it is defined.
 - The table used 120 BPM as reference. How does the perceptual map shift at very slow or very fast tempos?
   - Progressed, thinly (2026-10-24): [[Meadows and Music — Leverage Points]] § 4 Swing as Resolution records how much timing nuance sounds musical at 70 BPM against 180 — an observation, not a measurement of the zones.
 - Does the recursion observation imply the duality wants its own concept entry for **the 20 Hz threshold itself** as a perceptual constant? It currently lives scattered across body text in this entry and in Microsound.

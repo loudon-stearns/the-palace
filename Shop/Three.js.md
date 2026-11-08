@@ -6,8 +6,6 @@ medium: interactive
 tool: three.js
 tool_version: "r128 (CDN / claude.ai artifact); latest via npm for R3F builds"
 born: 2026-05
-last_tested: 2026-05-31
-last_gotcha: 2026-05-31
 license: MIT
 forward_vector: "I build real-time 3D for the browser — scenes where depth carries meaning the flat tools can't, geometry bound straight to live audio or simulation state so the thing you see is the thing you hear. I want to grow from single-file Sketches into R3F instrument interfaces, and to keep proving that the meaning lives in what the geometry is bound to, never in the seductive orbiting camera."
 links:
@@ -134,20 +132,21 @@ Scene renders without WebGL/console errors; the geometry is provably bound to th
 
 ## Gotchas
 
-*Append-only, dated. The first three were anticipated when this entry was a stub; promoted to confirmed by the [[Wavetable Scanner]] Sketch (2026-05-31).*
+What building scenes with Three.js has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Three.js — tuning]].
 
-**2026-05-31 — claude.ai artifacts ship Three.js r128; `CapsuleGeometry` (r142+) and many later helpers don't exist.** Confirmed. Use Cylinder/Sphere/custom geometry. The [[Wavetable Scanner]] uses raw `BufferGeometry` lines throughout; no later-version reach was needed.
+**The r128 artifact path**
+- **claude.ai artifacts ship r128; build against it, not the docs' latest.** `CapsuleGeometry` (r142+) and many later helpers don't exist there; use Cylinder, Sphere or custom geometry.
+- **Load `three.min.js` and `OrbitControls.js` at the same version,** or `new THREE.OrbitControls(...)` throws "is not a constructor". The working single-file pair: `https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js` + `https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js`. Not `examples/jsm/controls/OrbitControls.js`: that is the module path, and it expects an importmap the single-file Sketch doesn't have.
 
-**2026-05-31 — `geometry.attributes.position.needsUpdate = true` is the silent no-op trap.** Confirmed. Hit it once on the cursor line during the [[Wavetable Scanner]] build — cursor vertices were mutated in JS but the GPU never re-uploaded the buffer; cursor sat frozen at its zeroed default. The fix is one assignment, the symptom is "everything moves except the thing I just changed." Reach for it whenever you write into a position-attribute array in place.
+**Geometry**
+- **After writing into a position array in place, set `geometry.attributes.position.needsUpdate = true`.** Without it the GPU never re-uploads the buffer and nothing errors: everything moves except the thing you just changed.
 
-**2026-05-31 — Match the CDN version of `three.min.js` and `OrbitControls.js`.** First call to `new THREE.OrbitControls(...)` throws "is not a constructor" if the two URLs disagree on version. The working pair for the r128 single-file Sketch path: `https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js` + `https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js`. Do not reach for `examples/jsm/controls/OrbitControls.js` — that's the module path and expects an importmap the single-file Sketch doesn't have.
+**Lines**
+- **`LineBasicMaterial.linewidth` draws 1px on most platforms, whatever you declare.** Carry contrast with colour at Sketch tier. Where a foreground line must be thick, use `LineMaterial` + `LineGeometry` + `Line2` from `examples/jsm/lines/` (needs a bundler, so Study or Piece), or render it as an extruded ribbon.
 
-**2026-05-31 — `LineBasicMaterial.linewidth` is honored as 1px only on most platforms.** Cosmetic, not silent — the line draws, just always 1px regardless of declared width. For a Piece where a foreground line needs to pop, the path is `LineMaterial` + `LineGeometry` + `Line2` from `examples/jsm/lines/` (which needs a bundler, so it's a Study/Piece move, not a Sketch one), or render the line as an extruded ribbon. Carry colour contrast in the Sketch and reserve thickness for higher tiers.
-
-*Still anticipated, not yet encountered on a real job:*
-
-- A backgrounded tab loses its WebGL context; long-lived interfaces need `webglcontextlost` / `webglcontextrestored` handling.
-- GLSL compile failures render a black screen with no thrown error — check `gl.getShaderInfoLog` when debugging a blank scene. The [[Wavetable Scanner]] uses no custom `ShaderMaterial`, so this stays anticipated until a job uses one.
+**Anticipated, not yet met on a job**
+- **A backgrounded tab loses its WebGL context.** A long-lived interface handles `webglcontextlost` and `webglcontextrestored`.
+- **A GLSL compile failure is a black screen with no thrown error.** On a blank scene with a custom `ShaderMaterial`, read `gl.getShaderInfoLog` first.
 
 ## Recipes
 

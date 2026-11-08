@@ -14,9 +14,6 @@ links:
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: "interrogates"
-  - target: "[[The Shop]]"
-    type: emerged-from
-    label: architectural-collapse-provoked-question
 ---
 
 # Diversity of Thought in Many-Agent Systems

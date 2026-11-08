@@ -19,6 +19,7 @@ links:
     label: what-injection-carries
   - target: "[[Lateral Access]]"
     type: mirrors
+    label: worn-path-hides-the-terrain
   - target: "[[Swarm Weave]]"
     type: connects-to
     label: steers-the-swarm

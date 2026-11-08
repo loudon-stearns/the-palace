@@ -6,8 +6,6 @@ medium: other
 tool: latex
 tool_version: "TeX Live 2026 (20260301); pdfTeX 1.40.29"
 born: 2026-06
-last_tested: 2026-06-09
-last_gotcha: 2026-06-09
 license: LPPL 1.3c (LaTeX) / mixed-free (TeX Live)
 forward_vector: "I typeset documents and mathematical notation — papers, problem sets, beamer decks, standalone vector cutouts — where exact typography is the subject. My capability probe passed but no real brief has run through me yet; I am hungry to land my first job, typeset the Loudon Live `fontspec` stack via xelatex, and earn my promotion from stub to alive."
 links:
@@ -64,7 +62,7 @@ The shop's typesetter — the one who cares that the en-dash isn't a hyphen and 
 - Cold first-run pays Metafont font generation (60–90 s on the first encounter of each glyph family); shared cost with Manim
 - Not interactive, not animated, not a data-exploration surface
 - The package ecosystem is vast and inconsistently documented; some tasks have three solutions, two abandoned
-- The SVG-cutout path is fragile on this host — see the 2026-06-09 `dvisvgm` gotcha; the PDF path is clean
+- The SVG-cutout path is fragile on this host — see the `dvisvgm` bridge under Gotchas; the PDF path is clean
 
 ## Tiers
 
@@ -119,17 +117,22 @@ Compile returns rc 0; output file exists; page count > 0 (or, for a cutout, the 
 
 ## Gotchas
 
-**2026-06-09 — The SVG-cutout path needs the `TEXPSHEADERS` bridge; the PDF path is clean.** Verified on this host (full Homebrew **TeX Live 2026**, `/opt/homebrew/Cellar/texlive/20260301`). The document path — `pdflatex` / `xelatex` / `latexmk` → **PDF** — runs clean with no special environment (probe: a minimal `amsmath` doc compiled to a 55 KB PDF first try). But the **SVG-cutout path** (`standalone` → `latex` → `.dvi` → `dvisvgm` → `.svg`) **fails** out of the box with *"PostScript header file tex.pro not found … undefined in TeXDict"*, because the Homebrew standalone `dvisvgm` formula owns `/opt/homebrew/bin/dvisvgm` and its kpathsea is rooted under its own Cellar, never the TeX Live tree. This is the **same root cause** as [[Shop/Manim CE|Manim CE]]'s 2026-06-09 gotcha — the two Specialists share the TeX pipeline. **Fix (confirmed, version-agnostic):**
+What typesetting has taught, as it stands today. Which probe taught each, and what changed because of it, is in [[LaTeX — tuning]].
+
+**The PDF path**
+- **`pdflatex` / `xelatex` / `latexmk` → PDF needs no special environment.** When no SVG is wanted, ignore the bridge below; `dvisvgm` is never invoked.
+
+**The SVG-cutout path**
+- **Run every `latex → dvisvgm` command through `Shop/Maker/tex-env.sh`** — `Shop/Maker/tex-env.sh <cmd>`, or `eval "$(Shop/Maker/tex-env.sh --print)"` in a shell. Homebrew's standalone `dvisvgm` owns `/opt/homebrew/bin/dvisvgm`, and its kpathsea never searches the TeX Live tree, so bare it fails with *"PostScript header file tex.pro not found"*. `TEXMFCNF` alone does not fix it. [[Shop/Manim CE|Manim CE]] shares the shim and the cause. The shim's export, version-agnostic:
 ```sh
 export TEXPSHEADERS="$(kpsewhich -var-value=TEXMFDIST)/dvips/base:$(kpsewhich -var-value=TEXMFDIST)/dvips/config"
 ```
-With it exported, `latex → dvisvgm` produces a valid SVG (probe: 15 KB). `TEXMFCNF` alone does **not** fix it. This export is centralized in the shared shim `Shop/Maker/tex-env.sh` — run `Shop/Maker/tex-env.sh <cmd>` to apply the bridge to any TeX command, or `eval "$(Shop/Maker/tex-env.sh --print)"` in a shell. [[Shop/Manim CE|Manim CE]] sources the same shim. For pure PDF output, ignore all of this — `dvisvgm` is never invoked. For `pdf2svg` as an alternative cutout route (PDF → SVG, no `.dvi`, no `dvisvgm`): not yet probed on this host; try it before committing a Piece-tier SVG if the `dvisvgm` bridge proves brittle.
+- **`pdf2svg` is unprobed here.** Try it before a Piece-tier SVG if the `dvisvgm` bridge proves brittle.
 
-*(Patterns below from LaTeX community wisdom — not yet confirmed on a palace job; dates land when first encountered:)*
-
-- **Reproducible PDFs need `SOURCE_DATE_EPOCH`.** `pdflatex` embeds `/CreationDate` + `/ModDate`, so two compiles of identical source are *not* byte-identical by default. `export SOURCE_DATE_EPOCH=0` (modern TeX Live honors it) for a determinism claim as strong as Manim's. Confirm before asserting.
+**Watch-list** (community wisdom, not yet confirmed on a palace job; when one is, date it into the ledger)
+- **Reproducible PDFs need `SOURCE_DATE_EPOCH`.** `pdflatex` embeds `/CreationDate` + `/ModDate`, so two compiles of identical source are not byte-identical by default. `export SOURCE_DATE_EPOCH=0` (modern TeX Live honours it) for a determinism claim as strong as Manim's. Confirm before asserting.
 - The "riddle three lines up" rule: the true error usually precedes the line LaTeX flags — read upward from the first `! ` in the log.
-- `xelatex`/`lualatex` are required for `fontspec` (the Loudon Live OpenType faces); `pdflatex` cannot load them and will silently fall back to Computer Modern.
+- `xelatex`/`lualatex` are required for `fontspec` (the Loudon Live OpenType faces); `pdflatex` cannot load them and silently falls back to Computer Modern.
 - Overfull `\hbox` warnings are layout smells, not errors — but for a Piece they get resolved, not ignored.
 
 ## Recipes

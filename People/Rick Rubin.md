@@ -28,6 +28,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: writer-on-craft
   - target: "[[Lao Tzu]]"
     type: connects-to
     label: wu-wei-in-the-studio

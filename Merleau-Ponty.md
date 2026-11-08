@@ -22,7 +22,7 @@ links:
     label: skilled-joy-is-bodily
   - target: "[[Playful Interface Design]]"
     type: deepens
-    label: motor-intentionality-of-the-knob
+    label: perceived-through-never-unseen
   - target: "[[FOUR PILLARS]]"
     type: connects-to
     label: why-practice-is-irreducible

@@ -9,12 +9,14 @@ energy: high
 hook_quality: 9
 beauty: 10
 who_leads: shared
-forward_vector: "I want to become the palace's direct entry to the discovered ceilings of symmetry — the 17 groups as a complete enumeration that appears in music, crystals, and craft, teaching through making rather than formalism, the way Granada's artisans encoded all 17 without language."
+forward_vector: "I want to become the palace's direct entry to the discovered ceilings of symmetry — the 17 groups as a complete enumeration that appears in music, crystals, and craft, teaching through making rather than formalism, the way Granada's artisans worked most of the 17 by hand without language."
 links:
   - target: "[[Quantum Synthesizer]]"
     type: connects-to
+    label: sonify-like-the-wavefunction
   - target: "[[Spinoza Conatus]]"
     type: mirrors
+    label: substance-and-modes
   - target: "[[Metric Modulation]]"
     type: spawned
     label: tiling-becomes-technique
@@ -52,11 +54,11 @@ Each group generates distinctive visual signatures: some have rotational symmetr
 
 In the 14th-century Islamic palaces of Granada, artisans tiled walls and ceilings with extraordinary sophistication. Their work was guided by aesthetic principle, mathematical intuition transmitted through apprenticeship, and centuries of craft refinement. No one wrote down the theory. No one needed to.
 
-In 1985, crystallographer M.C. Escher and mathematician H.S.M. Coxeter established what scholars later confirmed: the Alhambra's tilings contain all 17 wallpaper groups. Not mostly. Not "about." *All 17*.
+How many of the 17 the Alhambra holds is still argued. Edith Müller made the first count in 1944 and found eleven or twelve, depending on who reads her thesis. Grünbaum, Grünbaum and Shephard found thirteen in 1986; Pérez-Gómez claimed the missing four a year later, and Coxeter, reviewing him, allowed all but one. In 2006 Branko Grünbaum answered the popular claim of all seventeen: the count turns on what you count — colour or none, one tile or a whole wall — and no one had said.
 
-The artisans of Granada had empirically discovered the complete classification centuries before the mathematics existed to describe it. They encoded symmetry in their hands. When Fedorov and Pólya formalized the theory in the 1890s-1920s, they were not inventing something new—they were naming what had always been true, articulated by craftspeople who never heard of group theory.
+Whatever the final number, the artisans of Granada worked most of the classification by hand, centuries before the mathematics existed to describe it. They encoded symmetry in their hands. When Fedorov and Pólya formalized the theory in the 1890s-1920s, they were not inventing something new—they were naming what had always been true, articulated by craftspeople who never heard of group theory.
 
-This is profound: **the symmetry groups of the universe are knowable through direct making and perception, before they are knowable through formalism**. The 17 groups exist in the Alhambra, in honeycombs, in snowflakes, waiting to be seen. The mathematics follows.
+This is profound: **the symmetry groups of the universe are knowable through direct making and perception, before they are knowable through formalism**. The groups are there in the Alhambra, in honeycombs, in snowflakes, waiting to be seen. The mathematics follows.
 
 ## Extensions Beyond 2D
 

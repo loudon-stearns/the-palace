@@ -416,3 +416,7 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 - run · 2026-11-08 · v1.17 · close-2770a569-trickster-collapse (drafted 2026-11-07, revised twice on Loudon's word, signed 2026-11-08 "Yes, as drafted") · taught item 81
 
 - run · 2026-11-07 · v1.16 · close-2026-11-07-shopkeeper-needs (drafted and signed 2026-11-07, "Approve"; placed 2026-11-08, main at v1.17) · nothing new
+
+## From the 2026-11-08 Weave
+
+82. **The close had no named end.** Every ceremony states its postconditions ([[Palace Ceremonies]] § What Makes a Ceremony; Loudon, 2026-11-07: "We must have a post-condition to all ceremonies."), and Closing Well's were spread across § The flow, the fumble check, the last line and the dispatch file, so a reader had to collect them. Forced (v1.19; main had moved to v1.18 the same morning for another change): § Postconditions gathers them under § The flow. No rule is new.

@@ -37,6 +37,7 @@ links:
     label: teaching-roots
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
+    label: later-articulation
   - target: "[[Palace Enchantment]]"
     type: connects-to
     label: later-formalization

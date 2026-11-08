@@ -14,6 +14,8 @@
 <meta name="piece:size" content="flow">
 <title>Two pumps on one string</title>
 <meta name="theme-color" content="#0a0a0f">
+
+<link rel="icon" href="../Floquet%20Time-Modulated%20Loops%20%E2%80%94%20icon.png">
 <style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
 /* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
    In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus. */
@@ -34,6 +36,11 @@
 ::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
 input[type="number"] {-moz-appearance: textfield;}
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="checkbox"], input[type="radio"] {appearance: none; -webkit-appearance: none; width: 14px; height: 14px; margin: 0 var(--fx-s-2) 0 0; vertical-align: -2px; flex: none; border: 1px solid var(--fx-border); border-radius: var(--fx-r-xs); background: var(--fx-bg-elev-1); cursor: pointer; transition: border-color var(--fx-t-fast) var(--fx-ease), background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="radio"] {border-radius: var(--fx-r-pill);}
+input[type="checkbox"]:hover, input[type="radio"]:hover {border-color: var(--fx-border-hover);}
+input[type="checkbox"]:checked, input[type="radio"]:checked {border-color: var(--fx-accent); background: var(--fx-accent); box-shadow: inset 0 0 0 3px var(--fx-bg-elev-1);}
+input[type="checkbox"]:indeterminate {border-color: var(--fx-accent); background: linear-gradient(var(--fx-accent), var(--fx-accent)) center / 8px 2px no-repeat var(--fx-bg-elev-1);}
 input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
 input[type="range"]:focus {outline: none;}
 input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
@@ -46,7 +53,7 @@ input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-ra
 input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
 .num, td, th, time, output {font-variant-numeric: tabular-nums;}
 * {-webkit-tap-highlight-color: transparent;}
-label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+label, input[type="range"], input[type="checkbox"], input[type="radio"] {user-select: none; -webkit-user-select: none;}
 @media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
 }
 </style>

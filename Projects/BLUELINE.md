@@ -37,8 +37,6 @@ links:
   - target: "[[Loudon Live Design System]]"
     type: connects-to
     label: mockup-base-spec
-  - target: "[[Boundary-Crossing Instruments]]"
-    type: exemplifies
   - target: "[[Autodidact Polymaths]]"
     type: couples-with
     label: learn-by-building-the-tool

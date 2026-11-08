@@ -27,6 +27,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: writer-on-craft
   - target: "[[Iain McGilchrist]]"
     type: couples-with
     label: two-ways-of-seeing

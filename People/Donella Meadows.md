@@ -27,16 +27,12 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: core-five
   - target: "[[Leverage Points Framework]]"
     type: enables
-  - target: "[[FOUR PILLARS]]"
-    type: deepens
   - target: "[[Quality Manifesto]]"
     type: enables
-  - target: "[[Meadows and Music — Leverage Points]]"
-    type: spawned
-  - target: "[[Meadows and an Artist's Career]]"
-    type: spawned
+    label: paradigm-lever
   - target: "[[Meadows and Music — Leverage Points — Context]]"
     type: connects-to
     label: applied-to-music
@@ -55,6 +51,15 @@ links:
   - target: "[[Making a Palace Citizen]]"
     type: exemplifies
     label: made-by-this-method
+  - target: "[[FOUR PILLARS]]"
+    type: enables
+    label: kick-drum-lever
+  - target: "[[Meadows and Music — Leverage Points]]"
+    type: enables
+    label: applied-to-music
+  - target: "[[Meadows and an Artist's Career]]"
+    type: enables
+    label: career-reading
 ---
 
 # Donella Meadows

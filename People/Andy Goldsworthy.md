@@ -27,6 +27,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: artist-and-maker
   - target: "[[Like Water]]"
     type: mirrors
     label: work-with-material

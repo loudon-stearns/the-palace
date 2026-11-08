@@ -32,9 +32,6 @@ links:
   - target: "[[Modes of Collaboration]]"
     type: connects-to
     label: multi-device-sync
-  - target: "[[Signal-Rate CV Architecture]]"
-    type: connects-to
-    label: time-as-signal
   - target: "[[DSP Frameworks]]"
     type: connects-to
     label: framework-choice

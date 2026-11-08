@@ -27,6 +27,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: systems-thinker
   - target: "[[Donella Meadows]]"
     type: contradicts
     label: ephemeralization-vs-limits

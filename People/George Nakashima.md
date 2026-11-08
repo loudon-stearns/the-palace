@@ -25,6 +25,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: artist-and-maker
   - target: "[[Simondon]]"
     type: mirrors
     label: concretization

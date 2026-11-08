@@ -34,6 +34,7 @@ links:
     label: virtual-actualization
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
+    label: visited-entry
   - target: "[[Spinoza Conatus]]"
     type: connects-to
     label: threshold-as-striving

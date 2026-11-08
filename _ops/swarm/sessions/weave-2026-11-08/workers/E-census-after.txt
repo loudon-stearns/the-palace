@@ -1,0 +1,124 @@
+# Lane E — census after furnishing, 2026-11-08
+# 1) python3 _ops/furniture-fanout/census.py (its printed summary; the script's header line still says 'read 2026-11-03', a hardcoded date)
+
+# Furniture fan-out — census
+
+587 tracked HTML files (`git ls-files`, less node_modules, .claude, _tools and the design-system folders), read 2026-11-03 by `census.py`. One row per file is in `census.json`; the full table is below the summary.
+
+## Summary
+
+| | count |
+|---|---|
+| dress · own | 391 |
+| dress · Loudon Live | 140 |
+| dress · Drafting Table | 24 |
+| dress · Loudon Live (inline tokens) | 16 |
+| dress · STIGMERGY | 15 |
+| dress · Drafting Table (inline tokens) | 1 |
+| tokens · own | 424 |
+| tokens · inline | 150 |
+| tokens · linked | 13 |
+| ground · dark | 530 |
+| ground · light | 56 |
+| ground · ? | 1 |
+| rich-face pieces | 276 |
+| fragments (no `<html>`, no `<head>`) | 0 |
+| in an entry bundle with an avatar | 534 |
+| in an entry bundle, no avatar yet | 38 |
+| no entry | 15 |
+| dark with no `color-scheme` | 43 of 530 |
+| pages with an OS-dressed range | 22 |
+| pages with an OS-dressed textarea | 9 |
+| pages with an OS-dressed select | 17 |
+| pages with an OS-dressed check | 5 |
+| pages with an OS-dressed number | 3 |
+| pages with an OS-dressed details | 15 |
+| pages with an OS-dressed scroller | 17 |
+| pages with a `<button>` (the sheet's bare-button rule reaches it) | 507 |
+| `outline: none` with no `:focus-visible` | 9 |
+| animated, no `prefers-reduced-motion` | 33 of 491 |
+| tab icon | 252 |
+| `theme-color` | 541 |
+| `<html>` without `lang` | 2 |
+| head-less HTML5 pages (no `<html>` tag, so no `lang`) | 2 |
+
+# 2) the brief's check over that census.json (theme-color, html lang, controls.css linked after its token sheet or inlined as <style data-furniture>, rel=icon at a tracked file on a non-rich page), left-alone pages by furnish.py's LEAVE rules
+
+587 pages · 538 pass · 4 fail · 45 left alone · 18 with no icon because their entry has no avatar yet
+
+## Fail
+- Projects/Neural Granular Synthesis/plugin/proofs/crowd-tunnel-crt.html — icon not a tracked file (../../VST%20Template%20%E2%80%94%20icon.png)
+- Projects/Preset Oracle/original/oracle.html — theme-color, controls.css, icon
+- Projects/Wavetable Scanner/plugin/editor-mock.html — icon not a tracked file (../../VST%20Template%20%E2%80%94%20icon.png)
+- Projects/Wavetable Scanner/synth/page.html — icon not a tracked file (Wavetable%20Scanner%20%E2%80%94%20icon.png)
+
+## No icon: entry has no avatar yet
+- Projects/Cycle 5 Explorer/class/class-run-sheet.html — Cycle 5 Explorer
+- Projects/Cycle 5 Explorer/cycle5-explorer.html — Cycle 5 Explorer
+- Projects/Cycle 5 Explorer/import/src/artifact-body.html — Cycle 5 Explorer
+- Projects/Cycle 5 Explorer/import/src/index.html — Cycle 5 Explorer
+- Projects/Cycle 5 Explorer/review/review-sheet.html — Cycle 5 Explorer
+- Projects/Cycle 5 Explorer/workshop/back-row/back-row-report.html — Cycle 5 Explorer
+- Projects/Cycle 5 Explorer/workshop/wheel-labels/page-before.html — Cycle 5 Explorer
+- Projects/Rational Hearing/back-row/back-row-report.html — Rational Hearing
+- Projects/Rational Hearing/back-row/rational-hearing-projector-draft.html — Rational Hearing
+- Projects/Rational Hearing/import/src/index.html — Rational Hearing
+- Projects/Rational Hearing/import/src/rational-hearing.artifact.html — Rational Hearing
+- Projects/Rational Hearing/rational-hearing.html — Rational Hearing
+- Projects/Synth Templates/workshop/picker.html — Synth Templates
+- Projects/Synth Templates/workshop/proofs/2026-11-05-on-your-synth/house-bass-on-three-synths.html — Synth Templates
+- Projects/Synth Templates/workshop/site/index.html — Synth Templates
+- Projects/The Gallery/The Gallery — sketch — timeline.html — The Gallery
+- Resonance and Damping/Resonance and Damping — sketch — q-step-by-step.html — Resonance and Damping
+- Resonance and Damping/Resonance and Damping — sketch — q-you-can-hear.html — Resonance and Damping
+
+## Left alone
+- 22: a template a script fills in; the page it makes is the artifact
+- 15: STIGMERGY dress: the board keeps its own furniture (the .bbs look), which the sheets grew from
+- 6: a record of a past run: it stays as it was made (Loudon, 2026-11-03)
+- 2: machinery, not an artifact: the rich-face renderer or the eval server's page; a change there is its owner's code change
+  - Palace development/Agent Wellbeing/proofs/2026-11-02-blind-sort/rough.tpl.html — a template a script fills in; the page i
+  - Palace development/Agent Wellbeing/rich-checks/blind-sort.tpl.html — a template a script fills in; the page i
+  - Palace development/Agent Wellbeing/rich-checks/five-dials.tpl.html — a template a script fills in; the page i
+  - Palace development/Agent Wellbeing/rich-checks/one-number.tpl.html — a template a script fills in; the page i
+  - Palace development/Palace as Context Injection System/proofs/2026-10-20-birth-stack/reader.tpl.html — a template a script fills in; the page i
+  - Projects/2D Torus Wavetable Synthesizer/Instruments/singer.template.html — a template a script fills in; the page i
+  - Projects/2D Torus Wavetable Synthesizer/proofs/etude-ab/etude_ab_template.html — a template a script fills in; the page i
+  - Projects/2D Torus Wavetable Synthesizer/proofs/journey-map/journey_map_template.html — a template a script fills in; the page i
+  - Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/_proofs_template.html — a template a script fills in; the page i
+  - Projects/Bayesian Granular Synthesizer/belief-instrument.template.html — a template a script fills in; the page i
+  - Projects/Bayesian Granular Synthesizer/plugin/ui/belief-helix.template.html — a template a script fills in; the page i
+  - Projects/Generative Preset Development/ableton-wavetable/ear_sheet_template.html — a template a script fills in; the page i
+  - Projects/Haptic Handwheel/firmware/box_day_template.html — a template a script fills in; the page i
+  - Projects/Haptic Handwheel/proofs/feel-lab/feel_lab_template.html — a template a script fills in; the page i
+  - Projects/Inharmonic Wavetable Synthesis/dual-wavetable/dual-wavetable-instrument.template.html — a template a script fills in; the page i
+  - Projects/Murmuration/ceiling/ceiling-test.template.html — a template a script fills in; the page i
+  - Projects/Murmuration/three-d/murmuration-3d.template.html — a template a script fills in; the page i
+  - Projects/Portamento and Physical Pitch Modeling/zeta-over-time/page_template.html — a template a script fills in; the page i
+  - Projects/Project Stewardship System/fleet/Stewardship Health.html — STIGMERGY dress: the board keeps its own
+  - Projects/Project Stewardship System/fleet/dashboard.template.html — a template a script fills in; the page i
+  - Projects/Quantum Synthesizer/proofs/double_well_template.html — a template a script fills in; the page i
+  - Projects/Quantum Synthesizer/proofs/well_morph_template.html — a template a script fills in; the page i
+  - STIGMERGY/Archive/STIGMERGY v2.0 — recent features presentation.html — STIGMERGY dress: the board keeps its own
+  - STIGMERGY/STIGMERGY — rich — one line, two readers.html — STIGMERGY dress: the board keeps its own
+  - STIGMERGY/STIGMERGY — rich — one pass.html — STIGMERGY dress: the board keeps its own
+  - STIGMERGY/STIGMERGY — rich — say done or show done.html — STIGMERGY dress: the board keeps its own
+  - STIGMERGY/STIGMERGY — rich — the field.html — STIGMERGY dress: the board keeps its own
+  - STIGMERGY/STIGMERGY — rich — the fumble and the scent.html — STIGMERGY dress: the board keeps its own
+  - STIGMERGY/proofs/2026-11-01-find-the-ask/find-the-ask.html — STIGMERGY dress: the board keeps its own
+  - _ops/Harvest Ceremony/Archive/oblique-harvest-final.html — a record of a past run: it stays as it w
+  - _ops/Harvest Ceremony/Archive/oblique-harvest-round2.html — a record of a past run: it stays as it w
+  - _ops/Harvest Ceremony/Archive/oblique-harvest.html — a record of a past run: it stays as it w
+  - _ops/loudon-eval/rate.html — machinery, not an artifact: the rich-fac
+  - _ops/rich-face/rich.html — machinery, not an artifact: the rich-fac
+  - _ops/stigmergy/about/index.html — STIGMERGY dress: the board keeps its own
+  - _ops/stigmergy/app/index.html — STIGMERGY dress: the board keeps its own
+  - _ops/stigmergy/app/mockups/log-git-state.html — STIGMERGY dress: the board keeps its own
+  - _ops/stigmergy/app/mockups/quote-marks.html — STIGMERGY dress: the board keeps its own
+  - _ops/stigmergy/app/public/trickster-assets/slime-mold/index.html — STIGMERGY dress: the board keeps its own
+  - _ops/stigmergy/app/public/trickster-assets/witness/witness-diagram.html — STIGMERGY dress: the board keeps its own
+  - _ops/stigmergy/merleau-entry-agent-prototype.html — STIGMERGY dress: the board keeps its own
+  - _ops/swarm/experiments/palace-gnn-2026-08-26/template.html — a template a script fills in; the page i
+  - _ops/swarm/sessions/multi-lens-weave-2026-07-06/multi-lens-weave-report.html — a record of a past run: it stays as it w
+  - _ops/swarm/sessions/weave-2026-09-24/report.html — a record of a past run: it stays as it w
+  - _ops/swarm/sessions/weave-2026-10-24/report.html — a record of a past run: it stays as it w

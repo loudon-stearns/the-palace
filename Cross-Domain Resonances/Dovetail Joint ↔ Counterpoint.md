@@ -17,6 +17,7 @@ forward_vector: "I keep showing students that when you shape two things for each
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: cross-domain-bridge

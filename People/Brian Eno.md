@@ -29,6 +29,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: core-five
   - target: "[[FOUR PILLARS]]"
     type: deepens
     label: constraint-as-pillar-method

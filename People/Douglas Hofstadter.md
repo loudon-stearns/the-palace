@@ -26,6 +26,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: systems-thinker
   - target: "[[Cross-Domain Resonances]]"
     type: deepens
     label: cognitive-ground

@@ -19,12 +19,11 @@ links:
   - target: "[[Granular Synthesis]]"
     type: connects-to
     label: granular-dispersion
-  - target: "[[Crystal Synthesizer]]"
-    type: enables
   - target: "[[Particle Synthesis]]"
     type: enables
   - target: "[[Portamento and Physical Pitch Modeling]]"
     type: connects-to
+    label: stiff-string-glide
   - target: "[[Shimmer Cloud]]"
     type: connects-to
     label: reverb-dispersion

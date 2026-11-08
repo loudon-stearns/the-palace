@@ -17,6 +17,7 @@ forward_vector: "I keep showing that the first decision in any system isn't just
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: kick-drum-crossing

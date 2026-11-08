@@ -41,8 +41,6 @@ links:
   - target: "[[Particle Synthesis]]"
     type: connects-to
     label: physics-as-interface
-  - target: "[[Dispersion Table]]"
-    type: enables
 ---
 
 # Waveguide Synthesizer

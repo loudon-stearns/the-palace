@@ -28,6 +28,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: sound-thinker
   - target: "[[Shunryu Suzuki]]"
     type: connects-to
     label: returning-to-the-breath

@@ -19,16 +19,6 @@ links:
   - target: "[[Cross-Domain Resonances]]"
     type: enables
     label: draws-from
-  - target: "[[Donella Meadows]]"
-    type: spawned
-  - target: "[[Shunryu Suzuki]]"
-    type: spawned
-  - target: "[[Marcus Aurelius]]"
-    type: spawned
-  - target: "[[Lao Tzu]]"
-    type: spawned
-  - target: "[[Brian Eno]]"
-    type: spawned
   - target: "[[Stoicism]]"
     type: connects-to
     label: home-tradition

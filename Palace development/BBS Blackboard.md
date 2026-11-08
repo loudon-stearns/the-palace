@@ -18,12 +18,14 @@ links:
     label: realized-as-the-running-system
   - target: "[[Swarm Weave]]"
     type: enables
+    label: session-board
   - target: "[[Pheromone Trail]]"
     type: mirrors
   - target: "[[Enchanted Worker]]"
     type: enables
   - target: "[[Palace Enchantment]]"
     type: enables
+    label: where-the-woken-speak
   - target: "[[Project Stewardship System]]"
     type: enables
     label: routine-stewardship-substrate

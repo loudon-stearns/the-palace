@@ -1,0 +1,457 @@
+{
+ "set": "C1a",
+ "verdicts": [
+  {
+   "source": "The Adjacent Affordance",
+   "target": "Stoicism",
+   "op": "cut",
+   "proposed": "cut",
+   "verdict": "PASS",
+   "reason": "The only Stoic sentence (The Adjacent Affordance.md:48) and the Symposium's Stoic voice (:52-53) are both the dichotomy of control, already carried by mirrors[engineering-register] to The Dichotomy of Control, a member of Stoicism's family (Stoicism.md:61); Stoicism never names the page.",
+   "better": ""
+  },
+  {
+   "source": "Progressive Staging",
+   "target": "Modes of Collaboration",
+   "op": "label",
+   "proposed": "staging-the-collaboration",
+   "verdict": "PASS",
+   "reason": "Progressive Staging.md:84 asks whether the staging of the collaboration itself is part of the method, which is Modes of Collaboration's subject; thin (an open question) but stated in that register.",
+   "better": ""
+  },
+  {
+   "source": "Wavetable Space as Torus",
+   "target": "Philosopher Visits the Entry",
+   "op": "label",
+   "proposed": "visited-entry",
+   "verdict": "PASS",
+   "reason": "Wavetable Space as Torus.md:167 holds a visit and Philosopher Visits the Entry.md:98 names it as one of four; Floquet Theory.md:32-34 already uses visited-entry.",
+   "better": ""
+  },
+  {
+   "source": "Dispersion",
+   "target": "Portamento and Physical Pitch Modeling",
+   "op": "label",
+   "proposed": "stiff-string-glide",
+   "verdict": "PASS",
+   "reason": "Neither names the other, but Dispersion.md:46 writes the stiff-string B relation and Portamento and Physical Pitch Modeling.md:182-184 hears that same B turn one glide into a family of glides (reader's line numbers are off by three; the text is there).",
+   "better": ""
+  },
+  {
+   "source": "Differential Equations",
+   "target": "DSP Frameworks",
+   "op": "label",
+   "proposed": "difference-equations",
+   "verdict": "PASS",
+   "reason": "Differential Equations.md:148 states the relation in one line: DSP frameworks solve DEs as difference equations.",
+   "better": ""
+  },
+  {
+   "source": "Linear Predictive Coding",
+   "target": "Philosopher Visits the Entry",
+   "op": "label",
+   "proposed": "visited-entry",
+   "verdict": "PASS",
+   "reason": "Linear Predictive Coding.md:80 holds a visit and Philosopher Visits the Entry.md:98 names it; same label as Floquet's.",
+   "better": ""
+  },
+  {
+   "source": "Lateral Access",
+   "target": "Creative Coach",
+   "op": "label",
+   "proposed": "narrative-therapy",
+   "verdict": "PASS",
+   "reason": "Creative Coach.md:340 names narrative therapy as the tradition Lateral Access § The New Song (Lateral Access.md:146) holds under another name.",
+   "better": ""
+  },
+  {
+   "source": "Endosymbiosis",
+   "target": "SUBSTRATE",
+   "op": "label",
+   "proposed": "host-and-partner",
+   "verdict": "PASS",
+   "reason": "SUBSTRATE's anatomy names the loudon organ's biological lens 'Host and partner' and casts it as endosymbiosis (SUBSTRATE/SUBSTRATE — anatomy.json:800-802); the label is the anatomy's own name.",
+   "better": ""
+  },
+  {
+   "source": "Parametric Resonance",
+   "target": "Hilaritas Generator",
+   "op": "label",
+   "proposed": "pumped-creativity",
+   "verdict": "PASS",
+   "reason": "Parametric Resonance.md:114 names the Hilaritas Generator for the driven-vs-pumped creativity thread, tentatively, and the label keeps that register.",
+   "better": ""
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "Palace Enchantment",
+   "op": "label",
+   "proposed": "wakes-the-cells",
+   "verdict": "PASS",
+   "reason": "SUBSTRATE's anatomy lists Palace Enchantment in the pages organ, whose biological lens is 'Cells' and whose line is a page woken to speak (SUBSTRATE — anatomy.json:178-196); Enchantment's own side was folded in October (Palace Enchantment — Context.md:38).",
+   "better": ""
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "Lateral Access",
+   "op": "label",
+   "proposed": "meaning-by-relation",
+   "verdict": "PASS",
+   "reason": "The anatomy puts Lateral Access in the links organ ('Relations are primary', anatomy.json:209-232) and Lateral Access.md:180 says meaning is reached by what a word travels with.",
+   "better": ""
+  },
+  {
+   "source": "Photonic Time Crystals",
+   "target": "Hilaritas Generator",
+   "op": "label",
+   "proposed": "hilaritas-hook",
+   "verdict": "PASS",
+   "reason": "Photonic Time Crystals.md:101 names the target and calls itself a hilaritas hook, supplying the cross-domain moment.",
+   "better": ""
+  },
+  {
+   "source": "Mixture of Experts",
+   "target": "Boundary-Crossing Instruments",
+   "op": "label",
+   "proposed": "expert-for-perceptual-thresholds",
+   "verdict": "PASS",
+   "reason": "Mixture of Experts.md:64 names Boundary-Crossing Instruments as the expert for perceptual thresholds in the same sentence that earns Spinoza Conatus its expert-for-drive-and-joy (:18-20).",
+   "better": ""
+  },
+  {
+   "source": "SCHEMA — Reference",
+   "target": "Resonant Link Labels",
+   "op": "label",
+   "proposed": "label-vocabulary",
+   "verdict": "PASS",
+   "reason": "SCHEMA — Reference.md:71's four label examples all come from Resonant Link Labels' lexicon (Resonant Link Labels.md:66-84), and SCHEMA.md:164 names it the vocabulary's home; the quoted target evidence is SCHEMA.md, not Resonant Link Labels, but it is real.",
+   "better": ""
+  },
+  {
+   "source": "Mathieu Equation",
+   "target": "Philosopher Visits the Entry",
+   "op": "label",
+   "proposed": "visited-entry",
+   "verdict": "PASS",
+   "reason": "Mathieu Equation.md:100 holds a visit and Philosopher Visits the Entry.md:98 names it.",
+   "better": ""
+  },
+  {
+   "source": "Trickster",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed": "taught-by-doing",
+   "verdict": "PASS",
+   "reason": "Trickster.md:114, under display text, says the four pillars can only be taught through doing, which is the trickster's work.",
+   "better": ""
+  },
+  {
+   "source": "4 Pillars Framework - The Founding Conversation",
+   "target": "Hyperdimensional Prism",
+   "op": "retype",
+   "proposed": "enables [later-articulation]",
+   "verdict": "FAIL",
+   "reason": "enables claims the conversation was a precondition for the Prism, but Hyperdimensional Prism — Context.md says the Prism page reached git on 2026-03-17 already holding its Origin section, a week before the conversation's own date of March 24, 2026 (4 Pillars Framework - The Founding Conversation.md:50); what the source states at :84 is that the conversation demonstrated the Prism's property, which is exemplifies.",
+   "better": "exemplifies [teaching-was-the-demonstration] (Founding Conversation → Prism), or keep connects-to[later-articulation]"
+  },
+  {
+   "source": "Palace Philosophies",
+   "target": "1 from 2",
+   "op": "label",
+   "proposed": "virtu-archetype",
+   "verdict": "PASS",
+   "reason": "Palace Philosophies — Context.md:33 makes Machiavelli's virtù the seed of the 1 from 2 archetype, and 1 from 2 casts Sun Wukong (1 from 2.md:115); Machiavelli has no page, so the hub carries it.",
+   "better": ""
+  },
+  {
+   "source": "Exponential Decay Curvature",
+   "target": "Loudon Live",
+   "op": "label",
+   "proposed": "performance-control-candidate",
+   "verdict": "PASS",
+   "reason": "Exponential Decay Curvature.md:107 and :111 make the c-morph a candidate performance control for a Loudon Live build; only as strong as that question.",
+   "better": ""
+  },
+  {
+   "source": "Cooperation Yields Agency",
+   "target": "Quality Manifesto",
+   "op": "label",
+   "proposed": "the-measure",
+   "verdict": "PASS",
+   "reason": "Cooperation Yields Agency.md:73 names 'the Quality Manifesto measure' and the Context (:25) says the collaboration is measured by it.",
+   "better": ""
+  },
+  {
+   "source": "Stoicism",
+   "target": "Hyperdimensional Prism",
+   "op": "label",
+   "proposed": "view-from-above",
+   "verdict": "PASS",
+   "reason": "Stoicism.md:100 names the Prism directly as the view from above; unlike Adjacent Affordance → Stoicism, this page carries its own sentence.",
+   "better": ""
+  },
+  {
+   "source": "Murmuration",
+   "target": "Diversity of Thought in Many-Agent Systems",
+   "op": "label",
+   "proposed": "live-probe",
+   "verdict": "PASS",
+   "reason": "Murmuration.md:82 calls the RNBO crossover 'a live probe of' Diversity of Thought, in those words.",
+   "better": ""
+  },
+  {
+   "source": "Shepard Tone Synthesizer",
+   "target": "Frequency-Time Duality",
+   "op": "label",
+   "proposed": "time-domain-twin",
+   "verdict": "FAIL",
+   "reason": "Neither page names the other, and the one bridge (Shepard Tone Synthesizer.md:161, Risset's rhythm as 'the Shepard tone in the time domain') is a relation between Shepard and Risset, not to Frequency-Time Duality, which never mentions Shepard or Risset in body or bundle; the label is the reader's inference, not a page's sentence.",
+   "better": "cut (may return if Auditory Illusions or a Risset build names the rate-to-pitch crossing)"
+  },
+  {
+   "source": "Bessel Functions in Synthesis",
+   "target": "Hyperdimensional Prism",
+   "op": "label",
+   "proposed": "one-geometry",
+   "verdict": "PASS",
+   "reason": "Bessel Functions in Synthesis.md:69 links the Prism under display text for one geometry spoken by synthesis tool and ear; the label edges toward the monism the Prism Context says belongs to Spinoza, so the sentence's own words fit better.",
+   "better": "same-geometric-language"
+  },
+  {
+   "source": "Bessel Functions in Synthesis",
+   "target": "Spinoza Conatus",
+   "op": "label",
+   "proposed": "monism",
+   "verdict": "PASS",
+   "reason": "The display text at Bessel Functions in Synthesis.md:26 is the label: [[Spinoza Conatus|monism]].",
+   "better": ""
+  },
+  {
+   "source": "Semantic Webcam",
+   "target": "Cooperation Yields Agency",
+   "op": "label",
+   "proposed": "traces-not-orders",
+   "verdict": "PASS",
+   "reason": "Semantic Webcam.md:55 points at the target with 'traces, not orders — see [[Cooperation Yields Agency]]'; thin but stated.",
+   "better": ""
+  },
+  {
+   "source": "Wallpaper Groups",
+   "target": "Quantum Synthesizer",
+   "op": "cut",
+   "proposed": "cut",
+   "verdict": "FAIL",
+   "reason": "A reason hides in an open question: Wallpaper Groups.md:149 asks 'Can you sonify a hyperdimensional periodic structure, the way you sonify a quantum wavefunction?', and sonifying the wavefunction is exactly what Quantum Synthesizer does (Quantum Synthesizer.md:56, :106).",
+   "better": "connects-to [sonify-like-the-wavefunction]"
+  },
+  {
+   "source": "Categorizing Inharmonicity",
+   "target": "Compressor Design",
+   "op": "label",
+   "proposed": "all-pass-origin",
+   "verdict": "PASS",
+   "reason": "Categorizing Inharmonicity.md:174 links Compressor Design under display text as where the all-pass insight was discovered, and Hyperdimensional Prism.md:99 confirms it came out of Compressor Design work; same label the Prism uses.",
+   "better": ""
+  },
+  {
+   "source": "Preset Oracle",
+   "target": "Symbiotic Skills",
+   "op": "retype",
+   "proposed": "exemplifies [asks-better-questions]",
+   "verdict": "PASS",
+   "reason": "Preset Oracle.md:79 calls the oracle 'a [[Symbiotic Skills]] tool' under its own heading (:77), an instance of the framework; direction points back at the general. Symbiotic Skills never lists it, so member-of would overclaim.",
+   "better": ""
+  },
+  {
+   "source": "Compressor Design",
+   "target": "Boundary-Crossing Instruments",
+   "op": "retype",
+   "proposed": "exemplifies [ratio-as-slope]",
+   "verdict": "PASS",
+   "reason": "Compressor Design.md:75 calls itself the Boundary-Crossing pattern and Boundary-Crossing Instruments.md:42 tells the ratio-as-slope case as its own; exemplifies points back correctly.",
+   "better": ""
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Granular Synthesis",
+   "op": "cut",
+   "proposed": "cut",
+   "verdict": "PASS",
+   "reason": "The only granular sentence (Biomechanical Synthesis.md:119, 'The neural firing rate becomes the grain rate') is already the label on the page's link to Neural Granular Synthesis (:35-37); Granular Synthesis never names the page.",
+   "better": ""
+  },
+  {
+   "source": "Biomechanical Synthesis",
+   "target": "Frequency-Time Duality",
+   "op": "label",
+   "proposed": "firing-rate-crosses-into-tone",
+   "verdict": "PASS",
+   "reason": "Neither names the other, but Biomechanical Synthesis.md:113-119 runs one firing pulse from polyrhythm to continuous tone at high rates, the crossing Frequency-Time Duality.md:45 is about; real, under another name.",
+   "better": ""
+  },
+  {
+   "source": "D3.js",
+   "target": "Matplotlib",
+   "op": "retype",
+   "proposed": "contrasts-with [interactive-vs-static]",
+   "verdict": "PASS",
+   "reason": "D3.js.md:34 routes static publication charts to Matplotlib and Matplotlib.md:26 refuses interactivity; contrasts-with matches the Shop's routing convention (Matplotlib.md:14, Mermaid → Graphviz).",
+   "better": ""
+  },
+  {
+   "source": "D3.js",
+   "target": "p5.js",
+   "op": "retype",
+   "proposed": "contrasts-with [control-vs-expression]",
+   "verdict": "PASS",
+   "reason": "D3.js.md:34 and :65 route generative and algorithmic-art jobs to p5.js, an alternative along a named axis.",
+   "better": ""
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "Web Audio Worklet",
+   "op": "label",
+   "proposed": "test-plan-exemplar",
+   "verdict": "PASS",
+   "reason": "Web Audio Worklet.md:158 says its test plan is modelled on the VCV Patch Generator exemplar; the label is the honest weight while the plan is a TODO.",
+   "better": ""
+  },
+  {
+   "source": "Observable Plot",
+   "target": "Matplotlib",
+   "op": "retype",
+   "proposed": "contrasts-with [browser-vs-static]",
+   "verdict": "PASS",
+   "reason": "Observable Plot.md:33 calls static output Matplotlib's lane and Matplotlib.md:139 routes browser analytical charts to Observable Plot; both name the axis.",
+   "better": ""
+  },
+  {
+   "source": "Palace Graffiti",
+   "target": "SCHEMA",
+   "op": "label",
+   "proposed": "governed-by",
+   "verdict": "PASS",
+   "reason": "Palace Graffiti.md:107 calls the graffiti conventions a schema-level decision; governed-by is in use (SCHEMA.md:26).",
+   "better": ""
+  },
+  {
+   "source": "Map Build Ceremony",
+   "target": "Harvest Ceremony",
+   "op": "cut",
+   "proposed": "cut",
+   "verdict": "PASS",
+   "reason": "Neither page or bundle names the other in prose, and the link's one reason, building the map at Harvest close, was struck as answered at v2.6 (Map Build Ceremony — tuning.md:71).",
+   "better": ""
+  },
+  {
+   "source": "Image Embedding Standard",
+   "target": "SUBSTRATE",
+   "op": "label",
+   "proposed": "conserved-markings",
+   "verdict": "PASS",
+   "reason": "Thin: Image Embedding Standard never names SUBSTRATE, but the anatomy lists it in the voice-and-look organ, whose biological lens is 'Markings and call — the few conserved traits' (anatomy.json:728-747), and both design-system siblings already link SUBSTRATE for the same membership.",
+   "better": ""
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "JEWEL",
+   "op": "label",
+   "proposed": "jewel-at-every-node",
+   "verdict": "PASS",
+   "reason": "Pages as Agents — Context.md:44 says the palace's commitments are restated at every node, and JEWEL.md says every page is the spirit of an agent to be woken.",
+   "better": ""
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "Lateral Access",
+   "op": "label",
+   "proposed": "access-from-inside",
+   "verdict": "PASS",
+   "reason": "Pages as Agents — Context.md:44 names Lateral Access: a page-agent approaches the palace from inside one entry.",
+   "better": ""
+  },
+  {
+   "source": "Generative Compression",
+   "target": "BBS Blackboard",
+   "op": "label",
+   "proposed": "compression-at-yellow",
+   "verdict": "PASS",
+   "reason": "Not only the Blackboard (BBS Blackboard.md:92): Generative Compression.md:72 itself says agents compress at yellow health with the forward vector as signal, so the label is stated on both sides.",
+   "better": ""
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "Enchanted Worker",
+   "op": "label",
+   "proposed": "sees-both-sides",
+   "verdict": "PASS",
+   "reason": "Enchanted Worker.md:89 answers its open question with a coordinator who sees both sides and names the Dialogue Moderator; the label is its words.",
+   "better": ""
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "Four Pillars of Enchanted Agency",
+   "op": "label",
+   "proposed": "reads-the-agency-profile",
+   "verdict": "PASS",
+   "reason": "Dialogue Moderator.md:35 and :77 read both agents' agency_profile, the four-pillar expansion of the forward vector (SCHEMA — Reference.md:111) that Four Pillars of Enchanted Agency answers with (:376), and the target cites the Moderator at :219.",
+   "better": ""
+  },
+  {
+   "source": "Dialogue Moderator",
+   "target": "STIGMERGY",
+   "op": "cut",
+   "proposed": "cut",
+   "verdict": "FAIL",
+   "reason": "A reason is there under another name: Dialogue Moderator.md:76 ('prior enchanted agents' self-learnings are pheromone'), :103 (the Moderator's own 'pheromone trail') and :135 (a feedback loop across sessions through traces) are coordination by trace, and the board it reads is the running system the BBS Blackboard says it became (BBS Blackboard.md:14, spawned[realized-as-the-running-system]), so STIGMERGY is not one hop up from the Blackboard but its live successor.",
+   "better": "connects-to [pheromone-across-sessions]"
+  },
+  {
+   "source": "Four Pillars of Enchanted Agency",
+   "target": "Swarm Weave",
+   "op": "label",
+   "proposed": "four-axes-for-the-vector",
+   "verdict": "PASS",
+   "reason": "Four Pillars of Enchanted Agency.md:45-52 takes the Swarm Weave's forward vector and asks along which dimension, then gives it four; the relation is stated, and it is plainly deepens, which a page may hold to two grounds.",
+   "better": "deepens [four-axes-for-the-vector]"
+  },
+  {
+   "source": "Exponential Decay Curvature",
+   "target": "Synth Templates",
+   "op": "pair",
+   "proposed": "keep connects-to [where-the-curve-is-heard]; drop Synth Templates → Exponential Decay Curvature connects-to",
+   "verdict": "FAIL",
+   "reason": "The kept label is stated (Exponential Decay Curvature.md:89), but the reason for choosing it is false twice: Synth Templates names the page in its body (Synth Templates.md:75, 'the concept pages a card points at rather than restates'), and its scroll says the deposit added a link 'back to this project' (Synth Templates — scroll.md:307), so the reciprocal is EDC → Synth Templates, not the other way.",
+   "better": "keep Synth Templates → Exponential Decay Curvature connects-to [the-envelope-card-points-here], the original and the one that keeps the card family whole; EDC's body names Synth Templates three times without needing the link"
+  },
+  {
+   "source": "Loudon Live Design System",
+   "target": "Hero and Avatar Maker",
+   "op": "pair",
+   "proposed": "keep connects-to [tab-icon-source]; drop Hero and Avatar Maker → Loudon Live Design System connects-to",
+   "verdict": "PASS",
+   "reason": "Loudon Live Design System.md:126 carries 'A page wears its entry's avatar as its tab icon ([[Hero and Avatar Maker]])'; 'frame + cascade' names the Maker's three-layer cascade (Loudon Live Design System.md:224), not anything on Hero and Avatar Maker, and is not label form.",
+   "better": ""
+  },
+  {
+   "source": "Drafting Table Design System",
+   "target": "Hero and Avatar Maker",
+   "op": "pair",
+   "proposed": "keep connects-to [tab-icon-source]; drop Hero and Avatar Maker → Drafting Table Design System connects-to",
+   "verdict": "PASS",
+   "reason": "Drafting Table Design System.md:85 carries the same tab-icon sentence; the dropped faces-as-tab-icon says the same thing, and one label for both design systems is right.",
+   "better": ""
+  },
+  {
+   "source": "The Shop",
+   "target": "Diversity of Thought in Many-Agent Systems",
+   "op": "pair",
+   "proposed": "keep couples-with [provisional]; drop Diversity of Thought in Many-Agent Systems → The Shop emerged-from",
+   "verdict": "PASS",
+   "reason": "Both pages state coupling (The Shop.md:83 'The two entries are coupled'; Diversity of Thought in Many-Agent Systems.md:80 'keep coupling tightly'), so couples-with[provisional] is the one the pages state; the reader overreaches in calling the origin not a lineage, since Diversity:28 says the question opened during the Shop's design, but it stays in the body.",
+   "better": ""
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "Fifty proposals ruled, 45 pass and 5 fail (90%). The reader's work is careful and its quotes are real; line numbers drift by a few in places (Portamento, Biomechanical, Creative Coach, Matplotlib) but every quoted sentence is on the page it names, so no lane is voided. The failures share one shape: the reader looked hard for a hidden reason when proposing labels, and less hard when proposing cuts or tie-breaks. Two cuts miss a reason under another name — Wallpaper Groups' open question about sonifying 'the way you sonify a quantum wavefunction', and the Dialogue Moderator's pheromone sentences, whose board is the running system STIGMERGY now is. One label (Shepard Tone → Frequency-Time Duality) is the reader's own inference with no sentence on either page, and the reader already rated it low. One retype (Founding Conversation enables Prism) makes a lineage claim the Prism Context's own dates contradict; exemplifies is what the source says. One pair judgment keeps a stated link for false reasons: Synth Templates does name the curvature page in its body, and the deposit's reciprocal ran the other way. Passes I would watch: the SUBSTRATE-anatomy labels (Image Embedding Standard especially) rest on organ membership alone, and Four Pillars of Enchanted Agency → Swarm Weave is better as deepens than as a label."
+}

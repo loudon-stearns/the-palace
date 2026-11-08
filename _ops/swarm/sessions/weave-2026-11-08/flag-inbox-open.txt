@@ -1,0 +1,150 @@
+weave-flags: 197 live on WEAVE board (5 retracted, not counted) | 147 resolved explicitly (trailer/decline) | 33 TOUCHED-UNVERIFIED | 0 carried this weave | 17 OPEN
+
+PROPAGATE — decisions still spreading across the palace:
+  ● commons-the-palace-1792347287670  [2026-10-18 · TRICKSTER]  home: SCHEMA — Reference  ·  scope: the pages still carrying either field, mostly under Shop/  ·  rhythm: by-touch
+      decision: last_tested and last_gotcha are retired: nothing writes them, and a page's tuning ledger says when it last ran.
+      25 page(s) still match: Shop/Blender.md, Shop/Blender/toyxyz-conditioning-recipe.md, Shop/ComfyUI.md, Shop/D3.js.md, Shop/Depth Anything.md, Shop/Figure Rig.md, … +19
+  ● commons-the-palace-1792897099977  [2026-10-24 · Weave Ceremony]  home: Weave Ceremony  ·  scope: every canon entry's frontmatter  ·  rhythm: sweep
+      decision: A pair of entries carries one typed link. A symmetric link is stated once; a connects-to beside a specific link is folded into it; only a di
+      no pattern — the check is a reader's: python3 _ops/swarm/lint-link-pairs.py reports W0 0, W1 0, W2 0 (W3 is a judgment list)
+  ● commons-the-palace-1792897100172  [2026-10-24 · Weave Ceremony]  home: Weave Ceremony  ·  scope: every canon entry's frontmatter, new deposits included  ·  rhythm: sweep
+      decision: A connects-to without a label is the palace's weakest claim: it is given the label the body carries, retyped to the relation it really is, o
+      no pattern — the check is a reader's: python3 _ops/swarm/unsaid-links.py reports 0 bare unsaid links and python3 _ops/swarm/weave-health.py prints bare connec
+  ● commons-the-palace-1792897100361  [2026-10-24 · Weave Ceremony]  home: Weave Ceremony  ·  scope: the 20 pages the bundle audit and the folder readers both named: 2D Torus Wavetable Synthesizer, Action Potential Oscillator, Crystal Synthesizer, Floquet Time-Modulated Loops, Four Pillars of Enchanted Agency, Generative Sample Libraries, Inharmonic Wavetable Synthesis, Loudon Live, Manim CE, Palace Enchantment, Palace Graffiti, Palace Map, Portamento and Physical Pitch Modeling, Revival Ceremony, Substrate Skill, Swarm Weave, Web Audio Worklet, Ableton Session Writer, Mermaid Diagram Standard; then the rest of bundle-audit's list  ·  rhythm: sweep
+      decision: A page pointed at twenty times or more, over 20 KB, or mature or fruiting past half those marks, carries a Context companion: what it left o
+      no pattern — the check is a reader's: python3 _ops/swarm/bundle-audit.py no longer lists the page under CONTEXT OWED
+  ● commons-stale-worktree-remainder-4a8a3b-1793750726779  [2026-11-03 · TRICKSTER]  home: Loudon Live Design System  ·  scope: every tracked .html outside the design-system folders, except records of past runs, templates a script fills in, STIGMERGY-dressed pages and machinery (_ops/furniture-fanout/report.md § Left alone)  ·  rhythm: sweep
+      decision: Every HTML artifact wears the browser's furniture in the house style: lang="en", color-scheme and theme-color by its ground, its system's co
+      no pattern — the check is a reader's: its head has theme-color, html lang, and controls.css linked after its token sheet or inlined as <style data-furniture>;
+  ● commons-the-palace-1794057344288  [2026-11-07 · TRICKSTER]  home: [[RunPod GPU Backend — runbook]]  ·  scope: every canon entry and bundle note that touches Runpod (Shop Specialists, BLUELINE pages, READMEs)  ·  rhythm: by-touch
+      decision: All Runpod documentation and process lives in one place, [[RunPod GPU Backend — runbook]]; all Runpod code goes through _ops/commons/runpod_
+      3 page(s) still match: Shop/Hero and Avatar Maker/Hero and Avatar Maker — tuning.md, Shop/Shopkeeper/Shopkeeper — tuning.md, _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md
+  ● commons-palace-close-2026-11-07-palace-c-1794060976151  [2026-11-07 · Palace Ceremonies]  home: Palace Ceremonies  ·  scope: every page carrying trigger:  ·  rhythm: sweep
+      decision: Every ceremony states its postconditions: what must be true when a run ends.
+      no pattern — the check is a reader's: the page has a Postconditions, Contract or Completion Signal section naming what must be true when a run ends
+  ● commons-the-palace-1794143281804  [2026-11-08 · The Shop]  home: The Shop  ·  scope: every Specialist page under Shop/ whose frontmatter still carries last_gotcha: — 23 pages on 2026-11-08, Loudon: 'sweep them all'  ·  rhythm: sweep
+      decision: A Specialist's Gotchas section states today's rules for the next job. It has outgrown the page the moment it reads as a diary of dated event
+      23 page(s) still match: Shop/Blender.md, Shop/ComfyUI.md, Shop/D3.js.md, Shop/Depth Anything.md, Shop/Kokoro.md, Shop/LaMa.md, … +17
+
+TOUCHED-UNVERIFIED — a commit touched a source entry after the flag; read each by hand:
+  ◐ commons-the-palace-1790254299361  [2026-09-24 · Closing Well]  source: Generative Sample Libraries, Project Stewardship System
+      → Have the steward prompt say 'use the real clock' — steward posts should stamp ts from the actual wall clock, not a projected one.
+  ◐ commons-the-palace-1790299904567  [2026-09-24 · Closing Well]  source: Creative Coach, Sidechain ↔ Conversation
+      → Revisit the balint-stance-unturned label on the Creative Coach → Sidechain ↔ Conversation link (Creative Coach.md:42): decide whether it sti
+  ◐ commons-the-palace-1790299921121  [2026-09-24 · Closing Well]  source: Creative Coach
+      → Restate the rule in Creative Coach.md itself (its admission rule, :210, holds only half of it): compost Creative Coach table rows that never
+  ◐ commons-the-palace-1790303833543  [2026-09-24 · Closing Well]  source: Weave Ceremony — Context, Shop/Maker, Shop/RunPod GPU Backend
+      → simplify today's additions first under tuning item 39
+  ◐ commons-the-palace-1790345897392  [2026-09-25 · Closing Well]  source: Enrichment
+      → typed link back; name the fingerprint under Bidirectional drift as a working case — disclosure, not reconciliation
+  ◐ commons-the-palace-1790435294769  [2026-09-26 · Closing Well]  source: Loudon Live
+      → Re-check the spawned → [[Hyperdimensional Prism]] link on Loudon Live.md; it points backwards in time (Prism born 2025-09, Loudon Live 2026-
+  ◐ commons-the-palace-1791311804031  [2026-10-06 · Haptic Handwheel]  source: Haptic Handwheel
+      → Consider a reciprocal `mirrors` link to [[Haptic Handwheel]], and a line under Open Questions 1 (:219, can the damping ratio change over tim
+  ◐ commons-the-palace-1791311805006  [2026-10-06 · Haptic Handwheel]  source: Haptic Handwheel
+      → Consider a touch gate among section 4's siblings (:41 lists Look, Watch and Play): does the feel carry the intent in the hand? It differs fr
+  ◐ commons-the-palace-1791827827785  [2026-10-12 · Wavetable Oscillator]  source: Wavetable Oscillator, Wavetable Synthesis — Deep Research & Higher-Dimensional Design
+      → Scope the sentence that calls FM type-1 in disguise. At a whole-number carrier-to-modulator ratio FM keeps the harmonic lattice. At an irrat
+  ◐ commons-the-palace-1791827827990  [2026-10-12 · Wavetable Oscillator]  source: Wavetable Oscillator, Three Kinds of Warp
+      → In Part IV, Seven Methods to Introduce Inharmonicity: methods 1 (frozen spectral snapshots), 3 (phase distortion) and 7 (spectral stretching
+  ◐ commons-palace-close-2026-10-13-1791914501938  [2026-10-13 · Closing Well]  source: Language as a Tonal Medium
+      → Decide whether a Convolution entry is earned (the palace asking for the page) or retarget the two links to an existing neighbour. No entry n
+  ◐ commons-palace-close-2026-10-13-1791914509187  [2026-10-13 · Closing Well]  source: Stable Audio Open, Kuramoto Coupling, Project Stewardship System
+      → Reread four places today's moves left stale and fix each or let it go. (1) Shop/Stable Audio Open.md:157 says the synchronization-arriving c
+  ◐ commons-the-palace-1792107627377  [2026-10-15 · Closing Well]  source: Weave Ceremony, SCHEMA
+      → In _ops/swarm/lint-bundle-hygiene.py, drop 'breakthrough' from CANON_TYPES (line 50). One-line tooling fix; the Weave owns the linter.
+  ◐ commons-the-palace-1792107627579  [2026-10-15 · Closing Well]  source: Weave Ceremony
+      → Write the missing version paragraphs in _ops/Weave Ceremony/Weave Ceremony — Context.md for v1.2, v1.3 and v1.4, each saying which tuning it
+  ◐ commons-the-palace-1792107627767  [2026-10-15 · Closing Well]  source: CLAUDE, Weave Ceremony, ROSETTA, The Palace Voice
+      → Give the word 'face' one home that says it names two things: the faces a reader meets on a page (text, rich face, scroll), and the hero-plus
+  ◐ commons-the-palace-1792107627959  [2026-10-15 · Closing Well]  source: Radio Play, GenAI Camera, The Lens
+      → Decide per path: reword the scratch references in Radio Play, GenAI Camera and The Lens so they read as local, gitignored scratch (or drop t
+  ◐ commons-the-palace-1792347288086  [2026-10-18 · TRICKSTER]  source: Enchanted Worker
+      → Consider a typed link from Enchanted Worker to Enchanted Conversation Archive through the synthesis phase, then remove the in-file note that
+  ◐ commons-the-palace-1792347746312  [2026-10-18 · Closing Well]  source: The Shop, Loudon Live Post-producer
+      → Retype its frontmatter link to [[The Shop]] from connects-to to member-of, keeping the label producer-layer, so the roster counts it by memb
+  ◐ commons-the-palace-1792647281211  [2026-10-22 · Closing Well]  source: Palace Philosophies, Quality Manifesto, FOUR PILLARS
+      → Ask Loudon whether 'let's explore, not I'll teach' should return to the floor: it sits on no floor page after the rewrites (Quality Manifest
+  ◐ commons-the-palace-1792765795078  [2026-10-23 · Palace Map]  source: Palace Map, Substrate Skill
+      → may want a line pointing to [[Palace Map — proof — map-agent-test]]
+  ◐ commons-the-palace-1792765795465  [2026-10-23 · Palace Map]  source: Palace Map, Gemma 4 — Local Coordination Guide
+      → may want a line pointing to [[Palace Map — proof — map-agent-test]]
+  ◐ commons-the-palace-1792906004651  [2026-10-25 · Palace Map]  source: Palace Map
+      → consider citing the constellation test as evidence for § What Would Resolve This
+  ◐ commons-the-palace-1792906004848  [2026-10-25 · Palace Map]  source: Palace Map
+      → bring the sentence naming the foundational entries in line with the frontmatter
+  ◐ commons-scoped-linters-941839-1792968355433  [2026-10-25 · Closing Well]  source: Resonance and Damping
+      → Give Resonance and Damping a hero and an icon through the face work once Loudon has read the page; the close does not make them.
+  ◐ commons-scoped-linters-941839-1792968355730  [2026-10-25 · Closing Well]  source: Resonance and Damping
+      → Soft flag, an offer and not a ruling: ask Loudon whether the Practice pillar belongs on Resonance and Damping, and whether a page of roughly
+  ◐ commons-scoped-linters-941839-1792968356001  [2026-10-25 · Closing Well]  source: Resonance and Damping
+      → Measure the Mathieu Resonator's Q at damping_zeta = 0.025, then offer Loudon or the owner the choice of which number to fix: Projects/Floque
+  ◐ commons-the-palace-1792983305573  [2026-10-25 · Closing Well]  source: Frequency-Time Duality
+      → Decide fix or ignore for the link at Projects/Frequency-Time Duality.md:101, [[proofs/2026-10-13-the-flip-three-axes.html|The flip, three ax
+  ◐ commons-the-palace-1793711823205  [2026-11-03 · Palace Map]  source: Quantization ↔ Precision vs Flow
+      → Consider a couples-with link between Quantization ↔ Precision vs Flow and Synthesis ↔ Emergence — unjudged, a candidate for the Weave's mind
+  ◐ commons-close-2026-11-07-weekend-review-1794107646262  [2026-11-07 · Closing Well]  source: Closing Well, SCHEMA — Reference
+      → Rule which side moves: either executor.md § tuning (_ops/closing-well/executor.md) drops 'only when the close changed the spec' and 'a lesso
+  ◐ commons-the-palace-1794142679551  [2026-11-08 · Auditory Illusions]  source: Auditory Illusions, Shepard Tone Synthesizer
+      → Under Open Question 6 (`Projects/Shepard Tone Synthesizer.md:161`), add a progressed line in the page's own style (see :150, :155): "— progr
+  ◐ commons-the-palace-1794142679863  [2026-11-08 · Auditory Illusions]  source: Shepard Tone Synthesizer, Frequency-Time Duality, Auditory Illusions
+      → Judge whether Shepard's bare `connects-to [[Frequency-Time Duality]]` still earns its place. The 2026-10-24 checkpoint said "better: cut; it
+  ◐ commons-the-palace-1794142680159  [2026-11-08 · Auditory Illusions]  source: Auditory Illusions, Shepard Tone Synthesizer
+      → Don't add a reciprocal `member-of [[Auditory Illusions]]` or `exemplifies [[Auditory Illusions]]` link from Shepard. The pair already carrie
+  ◐ commons-the-palace-1794142680459  [2026-11-08 · Auditory Illusions]  source: Auditory Illusions, Frequency-Time Duality
+      → Read `Projects/Frequency-Time Duality.md:39` ("repeat rates above ~20 Hz fuse into tone") against Auditory Illusions § In time. That section
+
+OPEN weave_flags — act (and carry Palace-Resolves: <id>), carry a propagate flag (Carried flag <id>: <how far>), or decline an entry flag in the Weave commit body:
+  ● commons-the-palace-1792347287670  [2026-10-18 · TRICKSTER]  type=propagate
+      home: SCHEMA — Reference  ·  scope: the pages still carrying either field, mostly under Shop/  ·  rhythm: by-touch
+      → When the page grows a tuning ledger, take both fields off its frontmatter. Until then leave them as they are, frozen.
+  ● commons-the-palace-1792897099977  [2026-10-24 · Weave Ceremony]  type=propagate
+      home: Weave Ceremony  ·  scope: every canon entry's frontmatter  ·  rhythm: sweep
+      → fold the pair as Weave Step 3d says: keep the labelled or stating side, carry the label, drop the other
+  ● commons-the-palace-1792897100172  [2026-10-24 · Weave Ceremony]  type=propagate
+      home: Weave Ceremony  ·  scope: every canon entry's frontmatter, new deposits included  ·  rhythm: sweep
+      → label, retype or cut, reading both pages first (Weave Steps 3c and 3e)
+  ● commons-the-palace-1792897100361  [2026-10-24 · Weave Ceremony]  type=propagate
+      home: Weave Ceremony  ·  scope: the 20 pages the bundle audit and the folder readers both named: 2D Torus Wavetable Synthesizer, Action Potential Oscillator, Crystal Synthesizer, Floquet Time-Modulated Loops, Four Pillars of Enchanted Agency, Generative Sample Libraries, Inharmonic Wavetable Synthesis, Loudon Live, Manim CE, Palace Enchantment, Palace Graffiti, Palace Map, Portamento and Physical Pitch Modeling, Revival Ceremony, Substrate Skill, Swarm Weave, Web Audio Worklet, Ableton Session Writer, Mermaid Diagram Standard; then the rest of bundle-audit's list  ·  rhythm: sweep
+      → write <Entry>/<Entry> — Context.md with §8 frontmatter answering the three questions; add spawned [rationale-archive] from the parent
+  ● commons-the-palace-1793678931078  [2026-11-02 · Deposit Ceremony]  type=composting-confirmation
+      source: BBS Design System
+      → Confirm deletion of BBS Design System — composted on 2026-11-02, folded into STIGMERGY § The look
+  ● commons-stale-worktree-remainder-4a8a3b-1793750726779  [2026-11-03 · TRICKSTER]  type=propagate
+      home: Loudon Live Design System  ·  scope: every tracked .html outside the design-system folders, except records of past runs, templates a script fills in, STIGMERGY-dressed pages and machinery (_ops/furniture-fanout/report.md § Left alone)  ·  rhythm: sweep
+      → run _ops/furniture-fanout/census.py, then furnish.py --apply on it. A page on a system's token sheet gets a <link> to controls.css (a framed
+  ● commons-the-palace-1794053523017  [2026-11-07 · Closing Well]  type=channel-contradiction
+      source: The Lens, STIGMERGY
+      → Rule where The Lens's spark-4-or-more commit-or-hold ask goes: route it off TRICKSTER (to GENERAL, or the WEAVE card that carries the readin
+  ● commons-the-palace-1794057344288  [2026-11-07 · TRICKSTER]  type=propagate
+      home: [[RunPod GPU Backend — runbook]]  ·  scope: every canon entry and bundle note that touches Runpod (Shop Specialists, BLUELINE pages, READMEs)  ·  rhythm: by-touch
+      → replace the Runpod detail with a one-line pointer to [[RunPod GPU Backend — runbook]], and fold anything new into the runbook
+  ● commons-palace-close-2026-11-07-palace-c-1794060976151  [2026-11-07 · Palace Ceremonies]  type=propagate
+      home: Palace Ceremonies  ·  scope: every page carrying trigger:  ·  rhythm: sweep
+      → draft the page's postconditions, show them to Loudon, write on his yes; a spec change, so the version moves and a tuning item names it
+  ● commons-palace-close-2026-11-07-palace-c-1794060990361  [2026-11-07 · Palace Ceremonies]  type=entry_update
+      source: Palace Enchantment
+      → invite vector tuning (Weave Step 5b): the page's vector says where it hopes to arrive; its § The Forward Vector as Hinge now says the strong
+  ● commons-palace-close-2026-11-07-palace-c-1794060990613  [2026-11-07 · Palace Ceremonies]  type=entry_update
+      source: STIGMERGY
+      → place the line on STIGMERGY.md, then shrink the memory note to a pointer
+  ● commons-the-palace-1794061668904  [2026-11-07 · Closing Well]  type=missing-frontmatter-link
+      source: Merleau-Ponty, Preset Oracle
+      → decide whether Merleau-Ponty and Preset Oracle take one typed frontmatter link (for instance Preset Oracle contradicts or connects-to Merlea
+  ● commons-the-palace-1794061669086  [2026-11-07 · Closing Well]  type=label-review
+      source: Merleau-Ponty, Playful Interface Design
+      → re-read the label motor-intentionality-of-the-knob on Merleau-Ponty deepens Playful Interface Design, and relabel it if it no longer names t
+  ● commons-palace-close-2026-11-04-enrichme-1794110196821  [2026-11-07 · Closing Well]  type=faceless-entry
+      source: FM Synthesis, Cycle 5 Explorer, Rational Hearing, Synth Templates, Resonance and Damping
+      → Give each of the five pages a hero and an icon through the face work: FM Synthesis, Cycle 5 Explorer, Rational Hearing, Synth Templates, Res
+  ● commons-the-palace-1794142680785  [2026-11-08 · Auditory Illusions]  type=entry_update
+      source: Wallpaper Groups
+      → Correct `Projects/Wallpaper Groups.md:55`, "In 1985, crystallographer M.C. Escher and mathematician H.S.M. Coxeter established what scholars
+  ● commons-the-palace-1794142780604  [2026-11-08 · Closing Well]  type=entry_update
+      source: Maker
+      → A question for the Weave, not a decision: propose the edit to the Maker's Delivery step (Maker.md:67, 'anything weird that came up gets logg
+  ● commons-the-palace-1794143281804  [2026-11-08 · The Shop]  type=propagate
+      home: The Shop  ·  scope: every Specialist page under Shop/ whose frontmatter still carries last_gotcha: — 23 pages on 2026-11-08, Loudon: 'sweep them all'  ·  rhythm: sweep
+      → at the next weave, for each page that still matches: open the tuning ledger in its bundle on the Hero and Avatar Maker's frontmatter, move t
+
+summary: 17 open, 33 touched-unverified, 0 carried

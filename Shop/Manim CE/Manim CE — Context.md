@@ -10,11 +10,11 @@ forward_vector: "I hold why Manim CE is shaped as it is — what moved to its pa
 
 # Manim CE — Context
 
-[[Manim CE]] was born on 2026-05-09 with the rest of the Shop's first roster (`06b5dac1`): a full Specialist card, no jobs run, the Gotchas section a list of community wisdom marked "empty until first job." Almost everything since has been jobs writing back into it. The gotchas are its live part; their history belongs to a tuning ledger, which this page does not keep yet (SCHEMA — Reference.md:340).
+[[Manim CE]] was born on 2026-05-09 with the rest of the Shop's first roster (`06b5dac1`): a full Specialist card, no jobs run, the Gotchas section a list of community wisdom marked "empty until first job." Almost everything since has been jobs writing back into it. The gotchas are its live part; since 2026-11-08 the page states them as rules and their history sits in [[Manim CE — tuning]].
 
 ## Gotchas that were replaced
 
-The 2026-10-24 Weave took three doubled gotchas off the page — the TeX pipeline told twice, Python 3.14 said twice, the frozen arrows told twice — and left one current statement for each (`a75350ec`). That is the page's rule: one current statement per gotcha, and git holds the versions it replaced. What each one replaced, and the borrowed K_c value the sync-arriving recipe first carried (`a94481f0`, fixed in `071ae3b7`), are run lessons. They wait for the tuning ledger the open ledger plan proposes (`_ops/Palace Ceremonies/Palace Ceremonies — sketch — propagation plan.md:186`), not this file.
+The 2026-10-24 Weave took three doubled gotchas off the page — the TeX pipeline told twice, Python 3.14 said twice, the frozen arrows told twice — and left one current statement for each (`a75350ec`). That is the page's rule: one current statement per gotcha, and git holds the versions it replaced. What each one replaced, and the borrowed K_c value the sync-arriving recipe first carried (`a94481f0`, fixed in `071ae3b7`), are run lessons. They went into [[Manim CE — tuning]] when it opened on 2026-11-08 (items 2, 3, 4 and 8), not this file.
 
 ## What moved off the page
 
@@ -31,7 +31,7 @@ The 2026-10-24 Weave took three doubled gotchas off the page — the TeX pipelin
 
 **The unconfirmed gotchas.** The five community-wisdom bullets are unchanged since birth (`06b5dac1`). None has been hit on a job.
 
-**`last_tested` / `last_gotcha`.** These are no longer schema fields. The 2026-10-24 Weave carried a by-touch flag for the 27 Shop pages that still have them and moved none (`df2e3c14`). They come off when this page grows a tuning ledger (`SCHEMA — Reference.md:79`).
+**`last_tested` / `last_gotcha`.** These are no longer schema fields. The 2026-10-24 Weave carried a by-touch flag for the 27 Shop pages that still had them and moved none (`df2e3c14`). They came off this page at the 2026-11-08 Weave, when it grew its tuning ledger; the `last_tested` date is the ledger's run line.
 
 ## Smaller turns
 

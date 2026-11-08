@@ -16,8 +16,6 @@ links:
     type: mirrors
   - target: "[[Hilaritas Generator]]"
     type: deepens
-  - target: "[[Excellent Adventure]]"
-    type: couples-with
   - target: "[[Confucianism]]"
     type: mirrors
     label: relational-ground
@@ -29,6 +27,7 @@ links:
     label: access-through-shell
   - target: "[[Creative Coach]]"
     type: connects-to
+    label: narrative-therapy
   - target: "[[Lateral Access — Context]]"
     type: spawned
     label: rationale-archive

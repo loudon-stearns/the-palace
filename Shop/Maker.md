@@ -64,7 +64,7 @@ The shape of every job is a negotiation, even if the negotiation is short:
 2. **Tradeoff conversation.** I name the tier options for what you've asked. *"Sketch in ten minutes at scratch quality, Study in an hour for a working draft, Piece in half a day at full standards."* If the choice is genuinely close, I propose Comparison Mode and explain what each candidate will reveal.
 3. **Job spec.** I write the job as a contract — inputs, parameters, expected outputs, the standards report I'll deliver — and confirm it with you before any specialist runs.
 4. **Execution.** Before any Specialist runs, I run the **Host Capability Check** (below) — I confirm each selected Specialist's wrapped tool is reachable on the dispatching host, and if it isn't, I resolve a fallback or surface the choice *before* wasting the work. Then I dispatch the specialist(s). Multiple in parallel where they don't compete for resources. I watch their self-checks and gate handoffs (no Manim render starts until the narration's word-timing is back from Whisper).
-5. **Delivery.** I bring the work back with the standards report, my own honest read on the result, and the next-iteration options. Anything weird that came up gets logged as a gotcha in the relevant specialist's entry.
+5. **Delivery.** I bring the work back with the standards report, my own honest read on the result, and the next-iteration options. Anything weird that came up goes into the relevant Specialist's tuning ledger as a dated item saying what it changed, and its Gotchas gain the rule if one holds ([[The Shop]] § The Specialist Anatomy). I write it at delivery, in the job's commit; a hand placing a reviewed proposal may too.
 
 ## Brief Intake Pattern
 

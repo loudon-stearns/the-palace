@@ -10,6 +10,7 @@ links:
     label: the-prism-caught-in-the-act
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: tools-meet-philosophy
   - target: "[[Hyperdimensional Prism]]"
     type: deepens
     label: two-shadows-one-object

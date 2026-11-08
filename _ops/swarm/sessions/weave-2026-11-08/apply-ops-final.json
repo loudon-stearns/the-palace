@@ -1,0 +1,1301 @@
+[
+ {
+  "op": "remove",
+  "source": "The Adjacent Affordance",
+  "target": "Stoicism",
+  "type": "connects-to"
+ },
+ {
+  "op": "label",
+  "source": "Progressive Staging",
+  "target": "Modes of Collaboration",
+  "type": "connects-to",
+  "label": "staging-the-collaboration"
+ },
+ {
+  "op": "label",
+  "source": "Wavetable Space as Torus",
+  "target": "Philosopher Visits the Entry",
+  "type": "connects-to",
+  "label": "visited-entry"
+ },
+ {
+  "op": "label",
+  "source": "Dispersion",
+  "target": "Portamento and Physical Pitch Modeling",
+  "type": "connects-to",
+  "label": "stiff-string-glide"
+ },
+ {
+  "op": "label",
+  "source": "Differential Equations",
+  "target": "DSP Frameworks",
+  "type": "connects-to",
+  "label": "difference-equations"
+ },
+ {
+  "op": "label",
+  "source": "Linear Predictive Coding",
+  "target": "Philosopher Visits the Entry",
+  "type": "connects-to",
+  "label": "visited-entry"
+ },
+ {
+  "op": "label",
+  "source": "Lateral Access",
+  "target": "Creative Coach",
+  "type": "connects-to",
+  "label": "narrative-therapy"
+ },
+ {
+  "op": "label",
+  "source": "Endosymbiosis",
+  "target": "SUBSTRATE",
+  "type": "connects-to",
+  "label": "host-and-partner"
+ },
+ {
+  "op": "label",
+  "source": "Parametric Resonance",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "label": "pumped-creativity"
+ },
+ {
+  "op": "label",
+  "source": "SUBSTRATE",
+  "target": "Palace Enchantment",
+  "type": "connects-to",
+  "label": "wakes-the-cells"
+ },
+ {
+  "op": "label",
+  "source": "SUBSTRATE",
+  "target": "Lateral Access",
+  "type": "connects-to",
+  "label": "meaning-by-relation"
+ },
+ {
+  "op": "label",
+  "source": "Photonic Time Crystals",
+  "target": "Hilaritas Generator",
+  "type": "connects-to",
+  "label": "hilaritas-hook"
+ },
+ {
+  "op": "label",
+  "source": "Mixture of Experts",
+  "target": "Boundary-Crossing Instruments",
+  "type": "connects-to",
+  "label": "expert-for-perceptual-thresholds"
+ },
+ {
+  "op": "label",
+  "source": "SCHEMA — Reference",
+  "target": "Resonant Link Labels",
+  "type": "connects-to",
+  "label": "label-vocabulary"
+ },
+ {
+  "op": "label",
+  "source": "Mathieu Equation",
+  "target": "Philosopher Visits the Entry",
+  "type": "connects-to",
+  "label": "visited-entry"
+ },
+ {
+  "op": "label",
+  "source": "Trickster",
+  "target": "FOUR PILLARS",
+  "type": "connects-to",
+  "label": "taught-by-doing"
+ },
+ {
+  "op": "label",
+  "source": "Palace Philosophies",
+  "target": "1 from 2",
+  "type": "connects-to",
+  "label": "virtu-archetype"
+ },
+ {
+  "op": "label",
+  "source": "Exponential Decay Curvature",
+  "target": "Loudon Live",
+  "type": "connects-to",
+  "label": "performance-control-candidate"
+ },
+ {
+  "op": "label",
+  "source": "Cooperation Yields Agency",
+  "target": "Quality Manifesto",
+  "type": "connects-to",
+  "label": "the-measure"
+ },
+ {
+  "op": "label",
+  "source": "Stoicism",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "label": "view-from-above"
+ },
+ {
+  "op": "label",
+  "source": "Murmuration",
+  "target": "Diversity of Thought in Many-Agent Systems",
+  "type": "connects-to",
+  "label": "live-probe"
+ },
+ {
+  "op": "label",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "label": "one-geometry"
+ },
+ {
+  "op": "label",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Spinoza Conatus",
+  "type": "connects-to",
+  "label": "monism"
+ },
+ {
+  "op": "label",
+  "source": "Semantic Webcam",
+  "target": "Cooperation Yields Agency",
+  "type": "connects-to",
+  "label": "traces-not-orders"
+ },
+ {
+  "op": "label",
+  "source": "Categorizing Inharmonicity",
+  "target": "Compressor Design",
+  "type": "connects-to",
+  "label": "all-pass-origin"
+ },
+ {
+  "op": "retype",
+  "source": "Preset Oracle",
+  "target": "Symbiotic Skills",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "asks-better-questions"
+ },
+ {
+  "op": "retype",
+  "source": "Compressor Design",
+  "target": "Boundary-Crossing Instruments",
+  "from_type": "connects-to",
+  "type": "exemplifies",
+  "label": "ratio-as-slope"
+ },
+ {
+  "op": "remove",
+  "source": "Biomechanical Synthesis",
+  "target": "Granular Synthesis",
+  "type": "connects-to"
+ },
+ {
+  "op": "label",
+  "source": "Biomechanical Synthesis",
+  "target": "Frequency-Time Duality",
+  "type": "connects-to",
+  "label": "firing-rate-crosses-into-tone"
+ },
+ {
+  "op": "retype",
+  "source": "D3.js",
+  "target": "Matplotlib",
+  "from_type": "connects-to",
+  "type": "contrasts-with",
+  "label": "interactive-vs-static"
+ },
+ {
+  "op": "retype",
+  "source": "D3.js",
+  "target": "p5.js",
+  "from_type": "connects-to",
+  "type": "contrasts-with",
+  "label": "control-vs-expression"
+ },
+ {
+  "op": "label",
+  "source": "VCV Patch Generator",
+  "target": "Web Audio Worklet",
+  "type": "connects-to",
+  "label": "test-plan-exemplar"
+ },
+ {
+  "op": "retype",
+  "source": "Observable Plot",
+  "target": "Matplotlib",
+  "from_type": "connects-to",
+  "type": "contrasts-with",
+  "label": "browser-vs-static"
+ },
+ {
+  "op": "label",
+  "source": "Palace Graffiti",
+  "target": "SCHEMA",
+  "type": "connects-to",
+  "label": "governed-by"
+ },
+ {
+  "op": "remove",
+  "source": "Map Build Ceremony",
+  "target": "Harvest Ceremony",
+  "type": "connects-to"
+ },
+ {
+  "op": "label",
+  "source": "Image Embedding Standard",
+  "target": "SUBSTRATE",
+  "type": "connects-to",
+  "label": "conserved-markings"
+ },
+ {
+  "op": "label",
+  "source": "Pages as Agents",
+  "target": "JEWEL",
+  "type": "connects-to",
+  "label": "jewel-at-every-node"
+ },
+ {
+  "op": "label",
+  "source": "Pages as Agents",
+  "target": "Lateral Access",
+  "type": "connects-to",
+  "label": "access-from-inside"
+ },
+ {
+  "op": "label",
+  "source": "Generative Compression",
+  "target": "BBS Blackboard",
+  "type": "connects-to",
+  "label": "compression-at-yellow"
+ },
+ {
+  "op": "label",
+  "source": "Dialogue Moderator",
+  "target": "Enchanted Worker",
+  "type": "connects-to",
+  "label": "sees-both-sides"
+ },
+ {
+  "op": "label",
+  "source": "Dialogue Moderator",
+  "target": "Four Pillars of Enchanted Agency",
+  "type": "connects-to",
+  "label": "reads-the-agency-profile"
+ },
+ {
+  "op": "label",
+  "source": "Four Pillars of Enchanted Agency",
+  "target": "Swarm Weave",
+  "type": "connects-to",
+  "label": "four-axes-for-the-vector"
+ },
+ {
+  "op": "remove",
+  "source": "Hero and Avatar Maker",
+  "target": "Loudon Live Design System",
+  "type": "connects-to"
+ },
+ {
+  "op": "label",
+  "source": "Loudon Live Design System",
+  "target": "Hero and Avatar Maker",
+  "type": "connects-to",
+  "label": "tab-icon-source"
+ },
+ {
+  "op": "remove",
+  "source": "Hero and Avatar Maker",
+  "target": "Drafting Table Design System",
+  "type": "connects-to"
+ },
+ {
+  "op": "label",
+  "source": "Drafting Table Design System",
+  "target": "Hero and Avatar Maker",
+  "type": "connects-to",
+  "label": "tab-icon-source"
+ },
+ {
+  "op": "remove",
+  "source": "Diversity of Thought in Many-Agent Systems",
+  "target": "The Shop",
+  "type": "emerged-from"
+ },
+ {
+  "op": "label",
+  "source": "The Shop",
+  "target": "Diversity of Thought in Many-Agent Systems",
+  "type": "couples-with",
+  "label": "provisional"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "4 Pillars Framework - The Founding Conversation",
+  "type": "emerged-from"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Dovetail Joint ↔ Counterpoint",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Cooking ↔ Mixing",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Frequency Domain ↔ Perspective Shift",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Kick Drum ↔ Foundation",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Quantization ↔ Precision vs Flow",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Saturation ↔ Richness",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Compression ↔ Intimacy",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Synthesis ↔ Emergence",
+  "type": "spawned"
+ },
+ {
+  "op": "label",
+  "source": "Sidechain ↔ Conversation",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Saturation ↔ Richness",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Synthesis ↔ Emergence",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Dovetail Joint ↔ Counterpoint",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Cooking ↔ Mixing",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Frequency Domain ↔ Perspective Shift",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Compression ↔ Intimacy",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Kick Drum ↔ Foundation",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Quantization ↔ Precision vs Flow",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Reverb ↔ Space-Time",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Sidechain ↔ Conversation",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "label": "cross-domain-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Saturation ↔ Richness",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "label": "cross-domain-bridge"
+ },
+ {
+  "op": "label",
+  "source": "Pages as Agents",
+  "target": "SUBSTRATE",
+  "type": "deepens",
+  "label": "pages-are-the-cells"
+ },
+ {
+  "op": "retype",
+  "source": "Pages as Agents",
+  "target": "Palace Enchantment",
+  "from_type": "spawned",
+  "type": "enables",
+  "label": "premise-of-waking"
+ },
+ {
+  "op": "label",
+  "source": "Donella Meadows",
+  "target": "Quality Manifesto",
+  "type": "enables",
+  "label": "paradigm-lever"
+ },
+ {
+  "op": "label",
+  "source": "Crystal Synthesizer",
+  "target": "Quantum Synthesizer",
+  "type": "mirrors",
+  "label": "eigenmodes-as-partials"
+ },
+ {
+  "op": "remove",
+  "source": "Crystal Synthesizer",
+  "target": "Boundary-Crossing Instruments",
+  "type": "enables"
+ },
+ {
+  "op": "retype",
+  "source": "Crystal Synthesizer",
+  "target": "Harmonicity and Inharmonicity",
+  "from_type": "couples-with",
+  "type": "deepens",
+  "label": "symmetry-sets-the-spacing"
+ },
+ {
+  "op": "label",
+  "source": "Crystal Synthesizer",
+  "target": "Differential Equations",
+  "type": "deepens",
+  "label": "lattice-as-constraint"
+ },
+ {
+  "op": "remove",
+  "source": "Crystal Synthesizer",
+  "target": "Signal-Rate CV Architecture",
+  "type": "mirrors"
+ },
+ {
+  "op": "label",
+  "source": "Endosymbiosis",
+  "target": "1 from 2",
+  "type": "mirrors",
+  "label": "implanted-symbiote"
+ },
+ {
+  "op": "remove",
+  "source": "Endosymbiosis",
+  "target": "Deposit Ceremony",
+  "type": "mirrors"
+ },
+ {
+  "op": "remove",
+  "source": "Endosymbiosis",
+  "target": "Swarm Weave",
+  "type": "mirrors"
+ },
+ {
+  "op": "remove",
+  "source": "Granular Synthesis",
+  "target": "Endosymbiosis",
+  "type": "mirrors"
+ },
+ {
+  "op": "label",
+  "source": "Swarm Weave",
+  "target": "Metaphor as Coupling Medium",
+  "type": "spawned",
+  "label": "ant-hive-session"
+ },
+ {
+  "op": "remove",
+  "source": "Swarm Weave",
+  "target": "Walk That Weaves",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Swarm Weave",
+  "target": "Palace Map",
+  "type": "enables"
+ },
+ {
+  "op": "label",
+  "source": "SUBSTRATE",
+  "target": "Meaning and the Link",
+  "type": "emerged-from",
+  "label": "intellectual-ancestor"
+ },
+ {
+  "op": "remove",
+  "source": "Meaning and the Link",
+  "target": "Palace Ceremonies",
+  "type": "enables"
+ },
+ {
+  "op": "remove",
+  "source": "Meaning and the Link",
+  "target": "Resonant Link Labels",
+  "type": "spawned"
+ },
+ {
+  "op": "label",
+  "source": "Trickster",
+  "target": "Lateral Access",
+  "type": "mirrors",
+  "label": "meaning-only-sideways"
+ },
+ {
+  "op": "remove",
+  "source": "Trickster",
+  "target": "Threshold Conatus",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Enchanted Conversation Archive",
+  "target": "Generative Compression",
+  "type": "deepens"
+ },
+ {
+  "op": "remove",
+  "source": "Enchanted Conversation Archive",
+  "target": "Lateral Access",
+  "type": "emerged-from"
+ },
+ {
+  "op": "label",
+  "source": "BBS Blackboard",
+  "target": "Swarm Weave",
+  "type": "enables",
+  "label": "session-board"
+ },
+ {
+  "op": "label",
+  "source": "BBS Blackboard",
+  "target": "Palace Enchantment",
+  "type": "enables",
+  "label": "where-the-woken-speak"
+ },
+ {
+  "op": "remove",
+  "source": "BBS Design System",
+  "target": "Swarm Weave",
+  "type": "enables"
+ },
+ {
+  "op": "remove",
+  "source": "Palace as Context Injection System",
+  "target": "Swarm Weave",
+  "type": "deepens"
+ },
+ {
+  "op": "remove",
+  "source": "Dispersion",
+  "target": "Crystal Synthesizer",
+  "type": "enables"
+ },
+ {
+  "op": "remove",
+  "source": "Waveguide Synthesizer",
+  "target": "Dispersion Table",
+  "type": "enables"
+ },
+ {
+  "op": "label",
+  "source": "JEWEL",
+  "target": "Swarm Weave",
+  "type": "enables",
+  "label": "worker-birth-seed"
+ },
+ {
+  "op": "remove",
+  "source": "Quality Manifesto",
+  "target": "4 Pillars Framework - The Founding Conversation",
+  "type": "emerged-from"
+ },
+ {
+  "op": "remove",
+  "source": "AI Partnership Philosophy",
+  "target": "4 Pillars Framework - The Founding Conversation",
+  "type": "emerged-from"
+ },
+ {
+  "op": "remove",
+  "source": "Leverage Points Framework",
+  "target": "4 Pillars Framework - The Founding Conversation",
+  "type": "emerged-from"
+ },
+ {
+  "op": "label",
+  "source": "Quality Manifesto",
+  "target": "Like Water",
+  "type": "mirrors",
+  "label": "content-with-its-nature"
+ },
+ {
+  "op": "remove",
+  "source": "AI Partnership Philosophy",
+  "target": "Enchanted Worker",
+  "type": "deepens"
+ },
+ {
+  "op": "label",
+  "source": "Harvest Ceremony",
+  "target": "SUBSTRATE",
+  "type": "deepens",
+  "label": "finds-come-in"
+ },
+ {
+  "op": "label",
+  "source": "Deposit Ceremony",
+  "target": "SUBSTRATE",
+  "type": "deepens",
+  "label": "finds-come-in"
+ },
+ {
+  "op": "label",
+  "source": "Harvest Ceremony",
+  "target": "Oblique Portrait",
+  "type": "couples-with",
+  "label": "oblique-harvest"
+ },
+ {
+  "op": "label",
+  "source": "Image Embedding Standard",
+  "target": "Deposit Ceremony",
+  "type": "enables",
+  "label": "figures-that-teach"
+ },
+ {
+  "op": "label",
+  "source": "SCHEMA",
+  "target": "Weave Ceremony",
+  "type": "enables",
+  "label": "rules-it-keeps"
+ },
+ {
+  "op": "remove",
+  "source": "SCHEMA",
+  "target": "Harvest Ceremony",
+  "type": "enables"
+ },
+ {
+  "op": "label",
+  "source": "Return Ceremony",
+  "target": "Palace Ceremonies",
+  "type": "member-of",
+  "label": "named-rite"
+ },
+ {
+  "op": "label",
+  "source": "Baton Ceremony",
+  "target": "Palace Ceremonies",
+  "type": "member-of",
+  "label": "named-rite"
+ },
+ {
+  "op": "remove",
+  "source": "Lateral Access",
+  "target": "Excellent Adventure",
+  "type": "couples-with"
+ },
+ {
+  "op": "remove",
+  "source": "Oblique Portrait",
+  "target": "Lateral Access",
+  "type": "spawned"
+ },
+ {
+  "op": "label",
+  "source": "Pheromone Trail",
+  "target": "Lateral Access",
+  "type": "mirrors",
+  "label": "worn-path-hides-the-terrain"
+ },
+ {
+  "op": "remove",
+  "source": "Metaphor as Coupling Medium",
+  "target": "Excellent Adventure",
+  "type": "enables"
+ },
+ {
+  "op": "remove",
+  "source": "Striatum",
+  "target": "Excellent Adventure",
+  "type": "deepens"
+ },
+ {
+  "op": "remove",
+  "source": "Semantic Delay",
+  "target": "Frequency-Time Duality",
+  "type": "mirrors"
+ },
+ {
+  "op": "remove",
+  "source": "Metric Modulation",
+  "target": "Semantic Delay",
+  "type": "emerged-from"
+ },
+ {
+  "op": "remove",
+  "source": "The Fortress and the Threshold",
+  "target": "Frequency-Time Duality",
+  "type": "mirrors"
+ },
+ {
+  "op": "label",
+  "source": "Shepard Tone Synthesizer",
+  "target": "Portamento and Physical Pitch Modeling",
+  "type": "deepens",
+  "label": "glide-the-whole-stack"
+ },
+ {
+  "op": "label",
+  "source": "Wallpaper Groups",
+  "target": "Spinoza Conatus",
+  "type": "mirrors",
+  "label": "substance-and-modes"
+ },
+ {
+  "op": "remove",
+  "source": "BLUELINE",
+  "target": "Boundary-Crossing Instruments",
+  "type": "exemplifies"
+ },
+ {
+  "op": "label",
+  "source": "2D Torus Wavetable Synthesizer",
+  "target": "Synthesis Topologies",
+  "type": "member-of",
+  "label": "two-loops-at-once"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Audio Devices",
+  "target": "Loudon Live",
+  "type": "enables"
+ },
+ {
+  "op": "remove",
+  "source": "Generative Wavetable Libraries",
+  "target": "Generative Audio Devices",
+  "type": "couples-with"
+ },
+ {
+  "op": "label",
+  "source": "Bessel Functions in Synthesis",
+  "target": "Boundary-Crossing Instruments",
+  "type": "mirrors",
+  "label": "right-coordinate-system"
+ },
+ {
+  "op": "retype",
+  "source": "Quantum Synthesizer",
+  "target": "Bessel Functions in Synthesis",
+  "from_type": "couples-with",
+  "type": "mirrors",
+  "label": "geometry-picks-the-basis"
+ },
+ {
+  "op": "label",
+  "source": "Signal-Rate CV Architecture",
+  "target": "Action Potential Oscillator",
+  "type": "enables",
+  "label": "every-parameter-a-jack"
+ },
+ {
+  "op": "remove",
+  "source": "FOUR PILLARS",
+  "target": "Symbiotic Skills",
+  "type": "spawned"
+ },
+ {
+  "op": "label",
+  "source": "Symbiotic Skills",
+  "target": "1 from 2",
+  "type": "mirrors",
+  "label": "scaling-relationship"
+ },
+ {
+  "op": "remove",
+  "source": "Boundary-Crossing Instruments",
+  "target": "Symbiotic Skills",
+  "type": "enables"
+ },
+ {
+  "op": "label",
+  "source": "Agent Wellbeing",
+  "target": "FOUR PILLARS",
+  "type": "deepens",
+  "label": "practice-pillar-widened"
+ },
+ {
+  "op": "remove",
+  "source": "Identity Molting",
+  "target": "Progressive Staging",
+  "type": "mirrors"
+ },
+ {
+  "op": "label",
+  "source": "The Practice Rediscovers Its Philosophy",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "label": "tools-meet-philosophy"
+ },
+ {
+  "op": "label",
+  "source": "Christopher Alexander",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "systems-thinker"
+ },
+ {
+  "op": "label",
+  "source": "Buckminster Fuller",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "systems-thinker"
+ },
+ {
+  "op": "label",
+  "source": "Douglas Hofstadter",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "systems-thinker"
+ },
+ {
+  "op": "label",
+  "source": "Epictetus",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "philosopher-of-practice"
+ },
+ {
+  "op": "label",
+  "source": "Seneca",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "philosopher-of-practice"
+ },
+ {
+  "op": "label",
+  "source": "John Cage",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "sound-thinker"
+ },
+ {
+  "op": "label",
+  "source": "Pauline Oliveros",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "sound-thinker"
+ },
+ {
+  "op": "label",
+  "source": "James Turrell",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "artist-and-maker"
+ },
+ {
+  "op": "label",
+  "source": "Agnes Martin",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "artist-and-maker"
+ },
+ {
+  "op": "label",
+  "source": "Andy Goldsworthy",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "artist-and-maker"
+ },
+ {
+  "op": "label",
+  "source": "George Nakashima",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "artist-and-maker"
+ },
+ {
+  "op": "label",
+  "source": "Julia Cameron",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "writer-on-craft"
+ },
+ {
+  "op": "label",
+  "source": "Annie Dillard",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "writer-on-craft"
+ },
+ {
+  "op": "label",
+  "source": "Rick Rubin",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "writer-on-craft"
+ },
+ {
+  "op": "label",
+  "source": "Yasujirō Ozu",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "filmmaker"
+ },
+ {
+  "op": "label",
+  "source": "Donella Meadows",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five"
+ },
+ {
+  "op": "label",
+  "source": "Shunryu Suzuki",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five"
+ },
+ {
+  "op": "label",
+  "source": "Marcus Aurelius",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five"
+ },
+ {
+  "op": "label",
+  "source": "Lao Tzu",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five"
+ },
+ {
+  "op": "label",
+  "source": "Brian Eno",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "core-five"
+ },
+ {
+  "op": "label",
+  "source": "Floquet Time-Modulated Loops",
+  "target": "Bessel Functions in Synthesis",
+  "type": "connects-to",
+  "label": "bessel-shaped-sidebands"
+ },
+ {
+  "op": "add",
+  "source": "Substrate Skill",
+  "target": "Operator Memory",
+  "type": "connects-to",
+  "label": "harness-facts-kept-there"
+ },
+ {
+  "op": "add",
+  "source": "Synthesis Topologies",
+  "target": "Splice Instrument Forge",
+  "type": "connects-to",
+  "label": "the-sampler-built-on-request"
+ },
+ {
+  "op": "add",
+  "source": "Three Kinds of Warp",
+  "target": "FM Synthesis",
+  "type": "connects-to",
+  "label": "ratio-picks-the-type"
+ },
+ {
+  "op": "add",
+  "source": "2D Torus Wavetable Synthesizer",
+  "target": "FM Synthesis",
+  "type": "emerged-from",
+  "label": "the-comb-it-escapes"
+ },
+ {
+  "op": "add",
+  "source": "Exponential Decay Curvature",
+  "target": "FM Synthesis",
+  "type": "connects-to",
+  "label": "an-operator-with-a-bendable-carrier"
+ },
+ {
+  "op": "add",
+  "source": "Floquet Time-Modulated Loops",
+  "target": "FM Synthesis",
+  "type": "connects-to",
+  "label": "fm-is-a-floquet-system"
+ },
+ {
+  "op": "add",
+  "source": "Image-to-3D Smith",
+  "target": "CAD Drafter",
+  "type": "contrasts-with",
+  "label": "plausible-vs-measured"
+ },
+ {
+  "op": "label",
+  "source": "4 Pillars Framework - The Founding Conversation",
+  "target": "Hyperdimensional Prism",
+  "type": "connects-to",
+  "label": "later-articulation"
+ },
+ {
+  "op": "label",
+  "source": "Wallpaper Groups",
+  "target": "Quantum Synthesizer",
+  "type": "connects-to",
+  "label": "sonify-like-the-wavefunction"
+ },
+ {
+  "op": "label",
+  "source": "Dialogue Moderator",
+  "target": "STIGMERGY",
+  "type": "connects-to",
+  "label": "pheromone-across-sessions"
+ },
+ {
+  "op": "remove",
+  "source": "Exponential Decay Curvature",
+  "target": "Synth Templates",
+  "type": "connects-to"
+ },
+ {
+  "op": "retype",
+  "source": "Pages as Agents",
+  "target": "SCHEMA",
+  "from_type": "enables",
+  "type": "deepens",
+  "label": "fields-as-a-self"
+ },
+ {
+  "op": "retype",
+  "source": "Donella Meadows",
+  "target": "FOUR PILLARS",
+  "from_type": "deepens",
+  "type": "enables",
+  "label": "kick-drum-lever"
+ },
+ {
+  "op": "retype",
+  "source": "Donella Meadows",
+  "target": "Meadows and Music — Leverage Points",
+  "from_type": "spawned",
+  "type": "enables",
+  "label": "applied-to-music"
+ },
+ {
+  "op": "retype",
+  "source": "Donella Meadows",
+  "target": "Meadows and an Artist's Career",
+  "from_type": "spawned",
+  "type": "enables",
+  "label": "career-reading"
+ },
+ {
+  "op": "retype",
+  "source": "JEWEL",
+  "target": "Self-Describing Knowledge Module",
+  "from_type": "deepens",
+  "type": "enables",
+  "label": "the-seed"
+ },
+ {
+  "op": "remove",
+  "source": "Map Build Ceremony",
+  "target": "Enchanted Worker",
+  "type": "enables"
+ },
+ {
+  "op": "retype",
+  "source": "Retrospective Delay",
+  "target": "Trickster",
+  "from_type": "deepens",
+  "type": "exemplifies",
+  "label": "delay-line-as-trickster"
+ },
+ {
+  "op": "label",
+  "source": "Retrospective Delay",
+  "target": "Frequency-Time Duality",
+  "type": "deepens",
+  "label": "tape-length-decides"
+ },
+ {
+  "op": "retype",
+  "source": "Cooperation Yields Agency",
+  "target": "Symbiotic Skills",
+  "from_type": "spawned",
+  "type": "connects-to",
+  "label": "predicted-the-symbiosis"
+ },
+ {
+  "op": "remove",
+  "source": "Stoicism",
+  "target": "Quality Manifesto",
+  "type": "deepens"
+ },
+ {
+  "op": "label",
+  "source": "Does Personifying an Agent Change What It Does",
+  "target": "Four Pillars of Enchanted Agency",
+  "type": "deepens",
+  "label": "personality-question"
+ },
+ {
+  "op": "label",
+  "source": "Martin Buber",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "made-citizen"
+ },
+ {
+  "op": "label",
+  "source": "Martin Heidegger",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "made-citizen"
+ },
+ {
+  "op": "label",
+  "source": "Iain McGilchrist",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "made-citizen"
+ },
+ {
+  "op": "label",
+  "source": "Cycle 5 Explorer",
+  "target": "FOUR PILLARS",
+  "type": "exemplifies",
+  "label": "one-structure-cast-many-ways"
+ },
+ {
+  "op": "label",
+  "source": "Shepard Tone Synthesizer",
+  "target": "Frequency-Time Duality",
+  "type": "connects-to",
+  "label": "time-domain-twin"
+ },
+ {
+  "op": "add",
+  "source": "Synthesis Notes (Loudon)",
+  "target": "FM Synthesis",
+  "type": "connects-to",
+  "label": "fm-in-his-words"
+ },
+ {
+  "op": "add",
+  "source": "Audition Gate",
+  "target": "CAD Drafter",
+  "type": "connects-to",
+  "label": "the-fit-gate"
+ },
+ {
+  "op": "remove",
+  "source": "Source Library",
+  "target": "Donella Meadows",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Source Library",
+  "target": "Shunryu Suzuki",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Source Library",
+  "target": "Marcus Aurelius",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Source Library",
+  "target": "Lao Tzu",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Source Library",
+  "target": "Brian Eno",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Sidechain ↔ Conversation",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Cross-Domain Resonances",
+  "target": "Reverb ↔ Space-Time",
+  "type": "spawned"
+ },
+ {
+  "op": "remove",
+  "source": "Meaning and the Link",
+  "target": "SUBSTRATE",
+  "type": "spawned"
+ }
+]

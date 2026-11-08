@@ -20,6 +20,7 @@ links:
     label: "operates-at-every-interface-of"
   - target: "[[BBS Blackboard]]"
     type: connects-to
+    label: compression-at-yellow
   - target: "[[Enchanted Worker]]"
     type: connects-to
     label: compression-at-dispatch

@@ -26,6 +26,9 @@ links:
   - target: "[[The Daily Page]]"
     type: connects-to
     label: a-morning-decides-revive
+  - target: "[[Revival Ceremony — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Revival Ceremony

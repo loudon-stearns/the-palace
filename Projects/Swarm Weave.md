@@ -22,12 +22,9 @@ links:
     label: replaces-single-agent
   - target: "[[Metaphor as Coupling Medium]]"
     type: spawned
-  - target: "[[Walk That Weaves]]"
-    type: spawned
+    label: ant-hive-session
   - target: "[[Palace Enchantment]]"
     type: spawned
-  - target: "[[Palace Map]]"
-    type: enables
   - target: "[[Deposit Ceremony]]"
     type: connects-to
     label: post-deposit-step

@@ -137,11 +137,11 @@ held. Take the close map's last line, *What this run taught the ceremony*, and a
 run line to `Closing Well/Closing Well — tuning.md` (`- run · <date> · v<version> · <close id> ·
 nothing new`, or `taught item N`; [[SCHEMA — Reference]] §6). "Nothing" is a legal answer and
 places nothing more. Otherwise also append the next numbered item under a heading for this
-close — but only when the close changed the spec: the item names what the close showed, the spec change it forced, and
-the version that change produced ([[SCHEMA — Reference]] §6). A lesson that changed nothing
-stays in the close map and the commit body. Commit it with the spec change it records.
-*Executor check:* the item's number follows the last one; it names a spec change and a
-version; the version it names is the one now in `Closing Well.md`'s frontmatter.
+close, whether or not the close changed the spec: the item names what the close showed and,
+when it forced a spec change, that change and the version it produced ([[SCHEMA — Reference]] §6).
+A spec change is committed with the item that records it.
+*Executor check:* the item's number follows the last one; an item that names a spec change
+names a version, and that version is the one now in `Closing Well.md`'s frontmatter.
 
 ### let go → (nothing to place)
 Named in the reckoning, released. No executor — naming what didn't survive is the

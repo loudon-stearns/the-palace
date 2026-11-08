@@ -18,6 +18,7 @@ links:
     type: deepens
   - target: "[[Swarm Weave]]"
     type: connects-to
+    label: four-axes-for-the-vector
   - target: "[[Agent Wellbeing]]"
     type: deepens
   - target: "[[Kuramoto Coupling]]"

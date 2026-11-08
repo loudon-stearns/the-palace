@@ -15,16 +15,12 @@ links:
   - target: "[[Tree of Thoughts]]"
     type: connects-to
     label: persists
-  - target: "[[Generative Compression]]"
-    type: deepens
   - target: "[[Deposit Ceremony]]"
     type: mirrors
     label: archaeologizes
   - target: "[[Enchanted Worker]]"
     type: connects-to
     label: enchantment-record
-  - target: "[[Lateral Access]]"
-    type: emerged-from
   - target: "[[Self-Describing Knowledge Module]]"
     type: mirrors
     label: self-contained

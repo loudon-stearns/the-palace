@@ -19,8 +19,6 @@ links:
   - target: "[[Frequency-Time Duality]]"
     type: connects-to
     label: duality-machine
-  - target: "[[Endosymbiosis]]"
-    type: mirrors
 forward_vector: "I build boundary crossing instruments from populations of short-term oscillators, pushing toward the moment when population dynamics — Kuramoto coupling, particle physics, statistical distributions — become primary synthesis paradigms."
 ---
 

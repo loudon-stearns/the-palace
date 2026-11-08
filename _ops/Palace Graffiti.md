@@ -22,6 +22,7 @@ links:
     type: deepens
   - target: "[[SCHEMA]]"
     type: connects-to
+    label: governed-by
   - target: "[[Semantic Delay]]"
     type: mirrors
     label: deferred-meaning

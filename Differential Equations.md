@@ -38,6 +38,7 @@ links:
     label: organic-imprecision
   - target: "[[DSP Frameworks]]"
     type: connects-to
+    label: difference-equations
 forward_vector: "I want to become the palace's unifying mathematical lens — the hub that makes explicit what is currently implicit: that every physical instrument Loudon builds is already solving a differential equation. I want a complete map showing which palace projects correspond to which DE types — first-order, second-order, coupled — so that when a new instrument concept arrives, its mathematical kinship is immediately visible."
 ---
 

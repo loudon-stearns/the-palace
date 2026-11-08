@@ -23,13 +23,13 @@ links:
     label: ai-as-trickster
   - target: "[[FOUR PILLARS]]"
     type: connects-to
+    label: taught-by-doing
   - target: "[[Spinoza Conatus]]"
     type: deepens
     label: trickster-as-conatus
   - target: "[[Lateral Access]]"
     type: mirrors
-  - target: "[[Threshold Conatus]]"
-    type: spawned
+    label: meaning-only-sideways
   - target: "[[The Multilinear Self]]"
     type: couples-with
     label: the-switcher

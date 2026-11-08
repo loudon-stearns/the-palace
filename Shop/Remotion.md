@@ -6,8 +6,6 @@ medium: motion
 tool: remotion
 tool_version: 4.0.380
 born: 2026-05
-last_tested: 2026-05-26
-last_gotcha: 2026-05-26
 license: Remotion License (free for individuals; commercial requires paid license)
 forward_vector: "I render video from React components — UI mockups, palace-navigation walks, interface tours where HTML/CSS rendering matters more than mathematical precision. I want to grow a house base project (palace fonts, palette tokens, standard compositions) so every walkthrough ships fast and on-grammar, and I keep my Sequence-and-localFrame patterns sharp so each card animates itself. I watch the licensing line, ready to cost the paid tier before the first monetized Piece ships."
 links:
@@ -115,9 +113,13 @@ Output exists, dimensions match, frame rate matches, duration consistent with `f
 
 ## Gotchas
 
-**2026-05-26 — Install is lighter than expected; 184 packages, 7 s.** A minimal hand-rolled Remotion 4.0.380 project (package.json, tsconfig.json, src/{index,Root,PhenomenaWalk}.tsx, remotion.config.ts) installs in under 10 s on a warm npm cache. The Specialist's standing intuition that Remotion projects are heavy was based on `create-video` scaffolds that pull in ESLint, Tailwind, and other defaults the brief doesn't need. For Sketch / Study work in the Shop, hand-write the four files instead — the install is ~100 MB of node_modules and renders boot in a second.
+What rendering with Remotion has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Remotion — tuning]].
 
-**2026-05-26 — `Sequence` + `localFrame` is the right pattern for a card-walk.** Each card animates against a local frame counter (`frame - i * CARD_FRAMES`) inside its `Sequence`, so the same `TitleCard` component handles its own intro spring, body fade-in, and outro fade independently. No per-card timeline arithmetic in the parent. This is the analogue of Manim's per-`Scene` isolation but at the React level — the parent composes; the child knows its own animation.
+**Project setup**
+- **Hand-write the project for Sketch and Study work; don't scaffold with `create-video`.** The scaffold pulls in ESLint, Tailwind and other defaults a brief doesn't need. A minimal project is package.json, tsconfig.json, remotion.config.ts, and src/{index,Root}.tsx with one .tsx per composition: about 184 packages and 100 MB of node_modules, installed in under 10 s on a warm npm cache, with renders booting in a second.
+
+**Composition**
+- **Give each card its own `Sequence` and a local frame** (`frame - i * CARD_FRAMES`), so one component runs its own intro, body and outro. The parent composes; the child knows its own animation. No per-card timeline arithmetic in the parent.
 
 ## Recipes
 

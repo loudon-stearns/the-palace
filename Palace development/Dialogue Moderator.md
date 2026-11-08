@@ -11,6 +11,7 @@ energy: high
 links:
   - target: "[[Enchanted Worker]]"
     type: connects-to
+    label: sees-both-sides
   - target: "[[BBS Blackboard]]"
     type: connects-to
     label: dialogic-memory-halves
@@ -21,8 +22,10 @@ links:
     type: mirrors
   - target: "[[Four Pillars of Enchanted Agency]]"
     type: connects-to
+    label: reads-the-agency-profile
   - target: "[[STIGMERGY]]"
     type: connects-to
+    label: pheromone-across-sessions
   - target: "[[Pages as Agents]]"
     type: exemplifies
     label: coordinator-as-enchanted-page

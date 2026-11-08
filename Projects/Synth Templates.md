@@ -55,13 +55,12 @@ links:
   - target: "[[Synthesis Notes (Loudon)]]"
     type: emerged-from
     label: concepts-covered
-  - target: "[[Generative Audio Devices]]"
-    type: connects-to
-    label: cards-emit-pdl
 forward_vector: "I am a catalog of base presets that teach: house bass, super saw, pad, pluck, each a card that says what makes the sound that sound and what is yours to move. I want one vocabulary that holds across Vital, Serum and Wavetable, a reference render a learner can set beside their own, and a signal-flow sheet in the house style for every card, its blocks drawing what is essential about them. I want the first card to be the house bass alone, proven on three synths and heard by Loudon, before I grow a second."
 ---
 
 # Synth Templates
+
+![[Synth Templates — hero.png]]
 
 A catalog of base default presets, called templates, that teach basic synthesis and give learners one language that holds across synthesizers. "House Bass: mono, square, percussive filter envelope." "Super Saw: poly, unison detuned saws, low-pass." Each is a card, and a card is three things.
 

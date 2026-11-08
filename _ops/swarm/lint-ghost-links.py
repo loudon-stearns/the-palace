@@ -189,7 +189,7 @@ def check(root, only=None):
                             continue
                         kind = "embed"
                     else:
-                        if low in stems:
+                        if low in stems or low in names:
                             continue
                         kind = "link"
                     sink.append((rel, body_start_line + i, kind, tgt))
