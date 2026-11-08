@@ -71,6 +71,8 @@
   .gathered li{margin:4px 0}
   a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
+  button.send:disabled{opacity:.55;cursor:default}
   footer{margin-top:36px;font-family:var(--sans);font-size:13px;color:var(--fg-4)}
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
@@ -272,7 +274,7 @@
     <p class="say" style="margin-top:14px">It ends on a question. The PRC half is exact. The shadow half holds only as the coupling goes to zero, and how small is small enough depends on the loop. Should Phase Reduction stay in the catalogue as an identity, stand as an isomorphism, or be split into the exact half and the shadow?</p>
     <a class="proof-link" href="../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html">Open the proof</a>
     <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
-    <div class="rowb"><button class="ghost" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
+    <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
   </section>
 
   <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
@@ -280,6 +282,7 @@
   <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html">the shadow that locks</a> · <a href="index.html">all six sequences</a></footer>
 </main>
 
+<script src="../../../_ops/loudon-eval/answers.js"></script>
 <script>
 (function(){
   'use strict';
@@ -1051,6 +1054,31 @@
   Q('[data-note]').forEach(function(t){
     var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
     t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
+  });
+  // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
+  // Copy all notes, below, stays as the fallback
+  var TASK = 'the-shadow-that-locks', HEAD = 'The shadow that locks, learning sequence — notes', sending = false;
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
+  function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
+  $('send').addEventListener('click', function(){
+    if (sending) return;
+    var sent = {}, answers = {}, names = [];
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
+    if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
+    sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
+    Promise.resolve().then(function(){ return window.PalaceAnswers.submit({ page: 'Dissolutions', task: TASK, answers: answers, text: digest(sent) }); }).then(function(r){
+      if (r && r.mode === 'posted'){
+        // clear what went; a note changed while it was in flight stays
+        Object.keys(sent).forEach(function(k){ if (notes[k] === sent[k]) delete notes[k]; });
+        Q('[data-note]').forEach(function(t){ var k = t.closest('section.step').getAttribute('data-step'); if (!(k in notes)) t.value = ''; });
+        saveNotes();
+        $('copied').textContent = 'Sent to STIGMERGY — ' + names.length + (names.length === 1 ? ' note: ' : ' notes: ') + names.join(' · ') + '. They’re on the board, and their boxes are cleared.';
+      } else {
+        $('copied').textContent = 'Not sent — your notes are kept. ' + ((r && r.reason) || '');
+      }
+    }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
   });
   $('copy').addEventListener('click', function(){
     var text = 'The shadow that locks, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');

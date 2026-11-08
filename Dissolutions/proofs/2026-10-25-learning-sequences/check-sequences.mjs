@@ -10,7 +10,8 @@
 //    request off the disk, no AudioContext before a click, every step reached by
 //    Next with exactly one step showing, every Play makes the context and starts a
 //    sound only on its click, hiding the tab stops the sound with no restart on
-//    return, and the last step's link reaches a proof that exists.
+//    return, Send from a file keeps every note, and the last step's link reaches a
+//    proof that exists. Each page must load answers.js and send as page 'Dissolutions'.
 //    The index page's links all reach a file.
 // It reads the pages; it writes nothing but screenshots, and only with --shots.
 // The math pattern is ../check-dissolutions-proofs.mjs.
@@ -42,6 +43,10 @@ for (const f of pages) {
   catch (e) { check(`${f}: selfTest runs`, false, e.message); continue; }
   console.log(`\n── ${f}: the numbers (${lines.length})`);
   for (const l of lines) check(l.name, l.ok, l.detail);
+  // the notes go to the board: the shared answers script, named for the Dissolutions page
+  const inc = html.includes('<script src="../../../_ops/loudon-eval/answers.js"></script>');
+  check(`${f}: sends its notes to the board as page 'Dissolutions'`, inc && /PalaceAnswers\.submit\(\{ page: 'Dissolutions'/.test(html) && html.includes('id="send"'),
+    inc ? 'includes answers.js; Send to STIGMERGY calls PalaceAnswers.submit' : 'no answers.js include');
 }
 
 // ── 2. the pages, headless ───────────────────────────────────────────────────
@@ -80,7 +85,10 @@ for (const f of pages) {
   const ctx = await browser.newContext({ offline: true, viewport: { width: 1100, height: 900 } });
   const page = await ctx.newPage();
   const errors = [], offDisk = [];
-  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  // answers.js is main's (_ops/loudon-eval); on a tree without it the page falls back to Copy, and the
+  // failed load is said here, not counted as the page's error
+  const answersHere = existsSync(resolve(HERE, '../../../_ops/loudon-eval/answers.js'));
+  page.on('console', (m) => { if (m.type() === 'error' && !(!answersHere && /ERR_FILE_NOT_FOUND/.test(m.text()))) errors.push(m.text()); });
   page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
   page.on('request', (r) => { if (!r.url().startsWith('file:') && !r.url().startsWith('data:')) offDisk.push(r.url()); });
   await page.addInitScript(INIT);
@@ -147,6 +155,16 @@ for (const f of pages) {
   }
   check(`${f}: hiding the tab stops the sound, and showing it does not restart it`, hideOk, hideDetail);
   check(`${f}: each Play starts a sound on its click and stops on the next`, playOk && plays.length > 0, playOk ? `${plays.length} steps play; one context made, on the first click` : playDetail.join('; '));
+  // Send, opened as a file: nothing reaches a board, and every note stays
+  {
+    await page.evaluate(() => window.__seq.go(window.__seq.count - 1));
+    await page.fill('section.step:last-of-type [data-note]', 'a note from the check');
+    await page.click('#send');
+    await page.waitForFunction(() => !document.getElementById('send').disabled, null, { timeout: 3000 }).catch(() => {});
+    const r = await page.evaluate(() => ({ kept: document.querySelector('section.step:last-of-type [data-note]').value, said: document.getElementById('copied').textContent, box: !!document.getElementById('palace-answers-box') }));
+    check(`${f}: Send from a file keeps the notes and says why`, r.kept === 'a note from the check' && /^Not sent/.test(r.said),
+      `${answersHere ? 'answers.js loaded; its copy block ' + (r.box ? 'shown' : 'missing') : 'answers.js not on this tree (it lands with main); the page says so'} · “${r.said.slice(0, 70)}”`);
+  }
   check(`${f}: no console errors`, errors.length === 0, errors.length ? errors.slice(0, 3).join(' | ') : 'none');
   check(`${f}: nothing asked of the network`, offDisk.length === 0, offDisk.length ? offDisk.slice(0, 3).join(', ') : 'all from disk');
   await ctx.close();
