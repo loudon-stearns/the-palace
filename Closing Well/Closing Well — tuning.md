@@ -428,3 +428,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 83. **Canon landed on a yes to one-line descriptions, and the commit body said he had read the words.** Items 73 and 77 seen again, now inside a deposit: `a4cdd3b1` claimed a map and a reading that never happened, and its cold read was the placer's own; a correction line repairs the record (Deposit tuning). Twice more the day landed words after a yes to a summary (the rewrite `ca1101ef`; the steward's proposals refitted in `11d48abd` with changed claims), each shown whole afterward. Also: a live session and a steward worked one page with no collision but no meeting either. Its asks waited three days, and its cycle 1 read a page changing under it. That led to v1.18 (`be98d93d`, `dcff67d3`): read the steward's scroll before building, and leave it a signed note at the close. This close is that rule's first use. The resident placed every house write and then moderated, item 73's shape; the room named it.
 
 - run · 2026-11-08 · v1.18 · close-8eaea235-smpte-ltc (placed with main at v1.19) · taught item 83
+
+## From the Auditory Illusions close — 2026-11-08
+
+84. **'Read' has two tenses, and a two-button question hid the one he meant.** 'Read it, land it' (2026-11-08) was past tense: he had read the page. The deposit commit recorded it that way, correctly. At the panel, the moderator's first wondering offered an either/or ('did you read it through, or was it more go-ahead'), the room made it two buttons, and he picked 'More go-ahead' before correcting it. The binary nearly wrote a false correction into a true record. Also: the 2026-11-08 Weave carried all five of the session's flags two hours after posting, and the readiness check ran over that commit without connecting it (item 74, from the Weave's side).
+
+- run · 2026-11-08 · v1.19 · close-36f6d1fe-auditory-illusions · taught item 84

@@ -67,3 +67,9 @@ Note: the opening is one line that names a page and asks what it needs, not what
 > list the weave flags that are on the board
 
 Note: the opening is one line that asks to read the board, not to act on it. It tests whether a child lists the flags as they stand, keeps open ones apart from carried ones, and offers a ruling rather than settling any; and whether it grows only when told. In this session Loudon then said "grow up" and the weave ran.
+
+## 2026-11-08 · auditory-illusions-new-page (36f6d1fe)
+
+> NEw page: Sonic hallucinations Id like a new page dedicated to presenting and explaining all the different sonic explorations we can find, this will include shepard tones, and we can pull in the work being done in the shepard tone project, but what other sonic hallucinations are there? hallucinations can be used to probe the limits of our perception and to help undertstand how our hearing and cognition work, so in explaining these we gain a deeper undestanding of how physics and psychoacoustic function.
+
+Note: the opening asks for a new page, gives one example (the Shepard tone) and a sibling project to draw on, and leaves the range open: "what other sonic hallucinations are there?" It tests whether a child looks at what the palace already holds before it builds, finds the range itself rather than inventing a list, and offers the title and shape for his word. In this session the page took the name Auditory Illusions at his choice.
