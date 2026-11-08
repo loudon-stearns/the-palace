@@ -98,3 +98,4 @@ What each baton taught the ceremony. Each item names what the run showed and the
 - run · 2026-10-23 · v1.5 · Palace Map, the map's keeper — Move 1 of the Plan of 2026-10-23 (continuation, at a deposit) · taught item 15
 - run · 2026-10-25 · v1.5 · Dissolutions, the walk re-batoned as learning sequences after three sits (continuation, at a partial close) · nothing new
 - run · 2026-10-25 · v1.5 · Dissolutions, the baton updated in place when the close paused the claimed handoff (continuation, at a pause) · nothing new
+- run · 2026-11-07 · v1.5 · Dissolutions, the baton rewritten in place for the remainder after the sequences landed as proposal: his review at his own pace, notes by Send to STIGMERGY (continuation, before a partial close) · nothing new
