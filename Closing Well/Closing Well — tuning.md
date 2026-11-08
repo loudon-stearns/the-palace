@@ -434,3 +434,26 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 86. **A room assured Loudon that a blocking ask stops the heartbeat and the deck, and said it had read that from the page, not the runner.** Session 141ef2b3 (2026-10-29) told him Rational Hearing's and Cycle 5 Explorer's `-002` asks would hold their stewards until he answered, read from `Project Stewardship System.md`; the next morning's batch ran both (`fc56eec0`, `fee39ce0`, `a91383f5`, `d966fe3e`). The page does not make the claim (§ How it runs says the batch takes the stewards that are due, and a click is a run); the sentence was the room's reading, not the page's words. Loudon's answer at the close: keep the bias (his words, dated, in Project Stewardship System — Context). Second clause: the resident landed two builder branches without re-reading the builders' final diffs (arc:249), a check it owed itself. Also data: the close itself spanned ten days from first message to panel, and in the gap both pages moved under their stewards and an enrichment round; items 65 and 80's gap rule again. Data, not a spec change; the close ran on v1.18, main at v1.19 by its placing.
 
 - run · 2026-11-08 · v1.18 · close-141ef2b3-two-projects (opened 2026-10-29, closed 2026-11-08 "yes"; placed with main at v1.19) · taught item 86
+## From the Auditory Illusions close — 2026-11-08
+
+84. **'Read' has two tenses, and a two-button question hid the one he meant.** 'Read it, land it' (2026-11-08) was past tense: he had read the page. The deposit commit recorded it that way, correctly. At the panel, the moderator's first wondering offered an either/or ('did you read it through, or was it more go-ahead'), the room made it two buttons, and he picked 'More go-ahead' before correcting it. The binary nearly wrote a false correction into a true record. Also: the 2026-11-08 Weave carried all five of the session's flags two hours after posting, and the readiness check ran over that commit without connecting it (item 74, from the Weave's side).
+
+- run · 2026-11-08 · v1.19 · close-36f6d1fe-auditory-illusions · taught item 84
+
+## From the STIGMERGY PROJECTS deck close — drafted 2026-11-07, signed 2026-11-08
+
+85. **Three relay slips caught cold and owned at the panel, and a wondering the morning's own work had already answered.** The session spanned 2026-11-03 to 11-07.
+
+    First, item 70's gap rule seen again, from the board's side. TRICKSTER granted Wavetable Scanner's plan ask (`wavetable-scanner-steward-009`) at 2026-11-04T02:15Z, but on 11-07 the room told Loudon it "may still be waiting for your click", without re-reading the board. Second, a dollar figure ("about $2.88") went to Loudon, against [[The Palace Voice]]'s money rule. Third, a question left in `1cd71ffc`'s commit body was relayed as the resident's flag. That one is data with items 61, 64 and 70.
+
+    Then the moderator's own slip. Its cold read raised the live-steward posting question as a wondering without reading the gap's commits on that subject. `4f376b90` (finalize-live.js) and v1.15 (`62286146`) had settled it in practice that morning. Loudon caught it: "haven't we adjusted close well to account for this?" The panel then found the two places that still disagreed, and he said "Yes, both" to fixing them. So item 65's diff-the-gap rule applies to the moderator's wonderings too, not only to the room's claims.
+
+    Data, not a spec change; the version stays v1.15. The stake is named: the resident gave the opening read, landed `6cb53773`, and wrote the wondering that led to the item-2 writes.
+
+- run · 2026-11-07 · v1.15 · close-2026-11-07-projects-deck (drafted 2026-11-07, signed 2026-11-08 "Yes, place it"; placed 2026-11-08, main at v1.19) · taught item 85
+
+## From the Handwheel return close — drafted 2026-11-07, signed 2026-11-08
+
+86. **A continuity promise made at a close was never tested against how the Return would rank the thing, and Loudon's own habit made it true.** The room told him a bare "I'm back" would put the Handwheel's parts-order ask first (arc:1201, 1217). The Return's own list ranks it last of thirty, under two blocking requests from other stewards (`scout.md:75–77`), and it was the one move only because the dispatch named the project (arc:1139). The cold read caught it from the scout's list; the room owned it at the panel; Loudon said he'll name the Handwheel. Also data: the resident's Return item 19 overstated (`scout.md:19–22` already takes a scoped request), found when the moderator was asked to look at the resident's own work (item 73's stake, named from outside again). A cold read's "the arc shows no check" was wrong where the arc had cut the first tool call, and the working Claude's witness settled it (item 43's gap, for tool calls). Item 29 seen again: a prose boundary from the coordinator worked. Data, not a spec change; the version stays v1.15.
+
+- run · 2026-11-07 · v1.15 · close-2026-11-07-haptic-handwheel-return (drafted 2026-11-07, signed 2026-11-08 "yes to all"; placed 2026-11-08, main at v1.19) · taught item 86

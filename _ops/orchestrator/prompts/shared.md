@@ -295,6 +295,8 @@ prose without a corresponding TRICKSTER ask is a buried decision.
 
 ## Output discipline — emit, do not write
 
+**This section is for a headless cycle.** When Loudon drives you live, no orchestrator runs after you, and the live closing at the end of your prompt takes this section's place: you post each message yourself through the orchestrator's appender (`node _ops/stigmergy/orchestrator/src/cli.js append <file> --target persistent`), which runs the same strict validation, and you square your books with `finalize-live.js` before you stop.
+
 You produce BBS messages by **emitting JSON code-fence blocks in your
 text output**. You do NOT write to the board yourself. Do not call
 `palace-orch append`, do not edit `_ops/swarm/persistent/blackboard.jsonl`,

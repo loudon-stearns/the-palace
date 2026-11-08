@@ -15,7 +15,7 @@ forward_vector: "I carry the in-progress move on [[Auditory Illusions]] across a
 
 ## Move
 
-Build the page's rich face through [[Enrichment]]. For each illusion, the sound you can play goes beside the sentence that explains it and beside a picture of its visual twin. Start with the pairs the palace can make first, not all twenty-seven.
+Build the page's rich face through [[Enrichment]]. For each illusion, the sound you can play goes beside the sentence that explains it and beside a picture of its visual twin. Loudon's order, quoted (2026-11-08, close panel): "I would like the entire rich face completed and interactive and audible, and I review there." So the whole face, every illusion audible and interactive, not a first few.
 
 ## Why this move matters
 
@@ -39,7 +39,7 @@ What wants making, cheapest first, each a few lines of Web Audio:
 
 ## Next move
 
-Run Enrichment on Auditory Illusions ("enrich Auditory Illusions"). Read the page and its Context live, and gather the existing pieces before making anything. Propose the first three new pairs to Loudon before building them.
+Run Enrichment on Auditory Illusions ("enrich Auditory Illusions"). Read the page and its Context live, and gather the existing pieces before making anything. Build the whole face: every illusion audible and interactive, gathering the existing pieces first. The cheapest-first list above is build order, not a gate. Loudon reviews on the finished face, where Enrichment's pieces land at `status: proposal` for his approval section by section.
 
 ## Calibrations from this session
 
