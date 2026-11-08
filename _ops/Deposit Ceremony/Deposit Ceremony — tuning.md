@@ -150,3 +150,8 @@ A fold commissioned by a Daily Page baton, caught and placed in the same session
 A second deposit onto the same entry as the morning's D-2026-11-02-MOOGCURVE, under its own id: a new find gets a new map, and the record's through-line names the deposit it builds on. The working session drew the figure, then wrote an explanation of the heard effect that contradicted the figure it had drawn (the audible climb's timing, and a "faster rate" at the end where the figure shows a corner), and stated a sitting result ("the two tables converge") that the table did not hold. The room and the Concierge both read it and passed it; only a cold reader with the figure, the table and no stake caught all four. Item 30's rule held again: the claims had no file to back them, and the reader checked each against its file. The step-6 cold read did the work it exists for; nothing to force.
 - run · 2026-11-03 · v2.8 · D-2026-11-03-HEARDRISE · nothing new
 - run · 2026-11-05 · v2.9 · D-2026-11-05-LTCSPEED · nothing new
+
+## From the auditory illusions mint — 2026-11-04 to 11-08
+
+A mint that closed a ghost the 2026-10-24 Weave had ruled an invitation: Shepard Tone Synthesizer's [[Auditory Illusions]], under the name Loudon chose over his working one. The map's yes came as a title change, not as a read of the words, so the Concierge parked the words on a branch (step 6) rather than landing them. Three factual fixes, a cold read and a second read went onto the branch before Loudon read every word and said "Read it, land it". The gate as written held; no spec change.
+- run · 2026-11-08 · v2.9 · D-2026-11-04-AUDILLUSIONS · nothing new
