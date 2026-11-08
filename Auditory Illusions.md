@@ -164,3 +164,7 @@ That is why the page wants to become a set of instruments. Nearly every one here
 ---
 
 *Where to hear the rest, the research behind each, what was checked and what wasn't, the illusions left out, and the open questions live in [[Auditory Illusions — Context]].*
+
+## Active Baton
+
+[[Auditory Illusions — baton — rich face]] — drafted 2026-11-08
