@@ -258,8 +258,10 @@ has landed on his yes or been set down by him. Then the session's last words are
 
 *This session is closed well.*
 
-Nothing follows it: every tool call, the landing and the wrap-up come first, and in the desktop
-app it is the last line of the message after the wrap-up. A turn that still waits on his yes
+If this session has closed well before, the line counts the closes:
+*This session is closed well, for the second time.*, then the third, and so on. Nothing follows
+it: every tool call, the landing and the wrap-up come first, and in the desktop app it is the
+last line of the message after the wrap-up. A turn that still waits on his yes
 ends on the question instead, and the turn that finishes the close ends on the line
 ([[Closing Well]] § The flow).
 
