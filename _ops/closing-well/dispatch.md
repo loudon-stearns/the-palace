@@ -96,7 +96,12 @@ subjects only: not why, nor what its own open work now trips on. So the close le
 note: a BROADCAST from the session to the page, in plain words and under the payload cap. The note
 says what changed and in which commit, which of the steward's open work that touches (a proposal
 written against old words, a pinned copy, a shared script), and which of its asks Loudon answered
-here. If the session already left one, the close adds only what came after. The model is
+here. If the session already left one, the close adds only what came after. Sign it `from` the
+session's work (Enrichment, Deposit, the project's own work), never TRICKSTER: TRICKSTER is
+Loudon's voice, kept for his answers, so a steward can tell his words from a worker's. Post it
+through `_ops/commons/board-post.mjs --post --core-dir _ops/stigmergy/core --board-path
+_ops/swarm/persistent/blackboard.jsonl`, the message as JSON on stdin; it validates the line and
+holds the payload to its 2048-byte cap. The model is
 `smpte-ltc-live-note-20261108T131332` (2026-11-08).
 
 ## Path A — resume the resident (preferred)
