@@ -58,7 +58,7 @@ From standing knowledge, not re-checked: beats and moiré; Tartini; masking and 
 
 ## Bridges drawn
 
-- **Whisper's phantom phrases** ([[Whisper]], § Limits) against Deutsch's phantom words: a brain and a model, each built to find meaning, making it up when the input is thin. Cousins rather than twins: the model's input is absent, Deutsch's is ambiguous. `mirrors` names the shared move. Drawn as `mirrors`.
+- **Whisper's phantom phrases** ([[Whisper]], § Limits) against Deutsch's phantom words: a brain and a model, each built to find meaning, making it up when the input is thin. Cousins rather than twins: the model's input is absent, Deutsch's is ambiguous. `mirrors` names the shared move.
 - Considered, not drawn: Anil Seth's "controlled hallucination" against the [[Registry Pattern]] (generation held in check by a verified vocabulary). It may be real, but the page doesn't argue it yet, and Seth's wording wants checking against *Being You* (2021) before it is quoted.
 
 ## Open questions
