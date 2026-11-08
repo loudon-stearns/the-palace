@@ -29,7 +29,7 @@ What SMPTE LTC's steward cycles taught the page, and the changes to the house it
    Why: The page promises hostile test files; they exist now, and what they found about wrong frames is the most teachable fact the project has made.
    Path: `Projects/SMPTE LTC.md`
    > - **The hostile gauntlet** (`hostile/`) — twenty-six LTC files, each broken one way, with an answer key and a scorer any reader can take: the teaching room's challenge, made. GoButton's reader passes 22 and reads 297 wrong frames across the files and sweeps, 119 of them through one +12 dB EQ. A careful reader, the same code with hysteresis, a gap rule and two free checks (even 0s, and the frame after the last), passes 22 and reads none.
-3. **Proposed for canon** · 2026-11-05 · [[SMPTE LTC]] · § Open questions, the 'Resampling' bullet · canon change owed *(proposed by the steward, cycle 1)*
+3. **Proposed for canon** · 2026-11-05 · [[SMPTE LTC]] · § Open questions, the 'Resampling' bullet · paid in 11d48abd on 2026-11-08 09:49, on Loudon's "yes to all four", refitted to four readers *(proposed by the steward, cycle 1)*
    Why: The gauntlet's sample-rate sweep answers most of the question; what remains is narrower.
    Path: `Projects/SMPTE LTC.md`
    > - **Resampling.** At 30 fps both readers in the gauntlet read every frame from 8 kHz up, 3.3 samples a bit, and nothing below; 44.1 kHz's 18.375-sample bit costs nothing, and a card clock 8% off only reads as a different speed. What is still open is resampling *after* encoding: how a sample-rate converter's filter treats the edges.
@@ -39,7 +39,7 @@ What SMPTE LTC's steward cycles taught the page, and the changes to the house it
 ## From cycle 2 — 2026-11-05
 
 4. Check every hostile file's length and rate against its answer key before believing what it defeats: lame silently halved the 32 kbps file's rate, and a wrong test file read for a cycle as a codec loss. *(offered by the steward, cycle 2)*
-5. **Proposed for canon** · 2026-11-05 · [[SMPTE LTC]] · § The builds, a new bullet after 'The specification and its tests' · canon change owed *(proposed by the steward, cycle 2)*
+5. **Proposed for canon** · 2026-11-05 · [[SMPTE LTC]] · § The builds, a new bullet after 'The specification and its tests' · paid in 11d48abd on 2026-11-08 09:49, on Loudon's "yes to all four", the careful reader's three changes named *(proposed by the steward, cycle 2)*
    Why: The gauntlet now holds the room's own reader, and its finding (the even-zeros check is not enough, the order check is) is the most teachable thing the project has made; this updates the counts after the MP3 fix.
    Path: `Projects/SMPTE LTC.md`
    > - **The hostile gauntlet** (`hostile/`): twenty-six LTC files, each broken one way, with an answer key and a scorer any reader can take. It is the teaching room's challenge, made. GoButton's reader passes 22 of them and reads 300 wrong frames across the files and the sweeps, 119 of them through a single +12 dB EQ. The room's own reader reads a tape played backward, which GoButton's cannot, and still reads 102 wrong frames. It checks that every frame has an even count of 0s, and at 7 kHz that check let through 98 frames with even 0s, all of them wrong. Add the second free check, that every frame follows the one before, and both readers read none wrong. Of the two checks, the order check is the one that holds.
