@@ -87,6 +87,18 @@ has forgotten). Then the close carries two more things, whichever path it takes:
   and ledger tail (closing-well-agent.md § What a good moderator holds) and brings anything the
   session outdated to the panel as a question. Loudon's answer is written on his yes.
 
+## A session on a stewarded page
+
+When the session worked on a page that has a steward (`_ops/agents/permanent/<slug>/`) without being
+its cycle, the steward wakes to a page that moved without it. Its next cycle is told which commits
+touched the entry and the bundle's faces and Context (the page-change and bundle notices), by their
+subjects only: not why, nor what its own open work now trips on. So the close leaves it one board
+note: a BROADCAST from the session to the page, in plain words and under the payload cap. The note
+says what changed and in which commit, which of the steward's open work that touches (a proposal
+written against old words, a pinned copy, a shared script), and which of its asks Loudon answered
+here. If the session already left one, the close adds only what came after. The model is
+`smpte-ltc-live-note-20261108T131332` (2026-11-08).
+
 ## Path A — resume the resident (preferred)
 
 The resident already holds the charter, including its § At a close section, so it knows it is
