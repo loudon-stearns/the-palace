@@ -83,6 +83,8 @@ Where it's going: a student can make and read LTC in every form, and prove each 
 
 <!-- scroll:orders:start -->
 _Loudon's standing direction for this project. The steward reads this zone every cycle before anything else, and it is never regenerated. Taste, priorities, "stop asking me about X", "always prefer Y" — write it once here instead of answering it every cycle._
+
+- **All the way up** (Loudon, 2026-11-08), in his words: "I have read the page, it is excellent, it states that we need to teach "all the way down" but it doesn't teach "all the way up" we have done a great job of showing how the protocol works, but we have not shown how it is used."
 <!-- scroll:orders:end -->
 
 ## The making
