@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Still True? · The Palace Guide</title>
+<meta name="theme-color" content="#f0eee5">
+<link rel="icon" href="../../../README - The Palace Guide/The Palace Guide — icon.png">
+<link rel="stylesheet" href="../../../_ops/drafting-table/design-system/colors_and_type.css">
+<link rel="stylesheet" href="../../../_ops/drafting-table/design-system/fonts.css">
+<link rel="stylesheet" href="../../../_ops/drafting-table/design-system/controls.css">
+<style>
+  :root { color-scheme: light; }
+  body { margin: 0; background: var(--ground-000, #f0eee5); color: var(--ink, #1a1916);
+         font-family: var(--font-mono, ui-monospace, monospace); font-size: 15px; line-height: 1.6; }
+  .sheet { max-width: 760px; margin: 24px auto; padding: 0 16px; }
+  .frame { border: 2px solid var(--ink, #1a1916); padding: 20px 22px; }
+  h1 { font-size: 20px; margin: 0 0 4px; letter-spacing: .02em; }
+  .sub { color: var(--ink-2, #4a483f); margin: 0 0 18px; }
+  .card { border: 1px solid var(--rule, #1a1916); padding: 16px 18px; margin: 14px 0; }
+  .tag { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3, #77746a); }
+  blockquote { margin: 10px 0 14px; padding: 0 0 0 14px; border-left: 2px solid var(--ink, #1a1916); font-size: 16px; }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  button { font: inherit; background: var(--slab-face, #e6e3d6); color: var(--ink, #1a1916);
+           border: 1px solid var(--ink, #1a1916); border-radius: 0; padding: 6px 14px; cursor: pointer;
+           box-shadow: var(--shadow-slab, 0 1px 0 #1a1916); }
+  button:hover { background: var(--ground-200, #dcd9ca); }
+  button:focus-visible { outline: 2px solid var(--accent, #c8261a); outline-offset: 2px; }
+  button[disabled] { opacity: .45; cursor: default; }
+  .reveal { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--rule-soft, #9a978c); display: none; }
+  .reveal.on { display: block; }
+  .v-true { color: var(--source-datasheet, #1f4f9a); font-weight: 700; }
+  .v-drift { color: var(--source-measure, #c8261a); font-weight: 700; }
+  .cite { font-size: 13px; color: var(--ink-2, #4a483f); }
+  .you { font-size: 13px; }
+  textarea { width: 100%; min-height: 70px; font: inherit; box-sizing: border-box; border: 1px solid var(--ink, #1a1916);
+             background: var(--ground-100, #f7f5ee); color: inherit; padding: 8px; border-radius: 0; }
+  .titleblock { display: grid; grid-template-columns: 1fr auto; border-top: 2px solid var(--ink, #1a1916); margin-top: 22px; padding-top: 8px; font-size: 12px; }
+  #tally { font-size: 16px; }
+  #copybox { display: none; white-space: pre-wrap; border: 1px solid var(--ink,#1a1916); padding: 10px; margin-top: 10px; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="sheet"><div class="frame">
+  <h1>Still True?</h1>
+  <p class="sub">Eleven sentences from <em>The Palace Guide</em>, the palace's oldest door. For each: is it still true of the house today, or has it drifted? The first one is practice and doesn't count. No clock.</p>
+  <div id="deck"></div>
+
+  <div class="card" id="end" style="display:none">
+    <div class="tag">the tally</div>
+    <p id="tally"></p>
+    <p>One more, if you like, in a line: is this page still the front door, or did CLAUDE.md take that job?</p>
+    <textarea id="door" placeholder="optional"></textarea>
+    <p class="btns" style="margin-top:10px"><button id="send">Send</button></p>
+    <div id="copybox"></div>
+  </div>
+
+  <div class="titleblock"><span>README - The Palace Guide · Daily Page rough · 2026-11-09</span><span>SKETCH</span></div>
+</div></div>
+
+<script src="../../../_ops/loudon-eval/answers.js"></script>
+<script>
+// Each claim was checked against the house on 2026-11-09 (worktree at main, ddfe9e3f).
+var CARDS = [
+  { id: 'p', practice: true, line: 236,
+    q: 'The Walk (weekly, ~15 min) — Pick a starting entry. Follow links.',
+    truth: 'true', now: 'The Walk is still weekly, on purpose: "A garden walked daily becomes familiar to the point of invisibility."',
+    cite: '_ops/Walk Ceremony.md:46' },
+  { id: 'reading-order', line: 52,
+    q: 'For another AI reading this: 1. Read this guide first. 2. Read [[Substrate Skill]] for operational instructions.',
+    truth: 'drift', now: 'Every agent is now born from CLAUDE.md: the Jewel, the World files, then CHILD, whose first act is to summon the Concierge. ELDER lists this Guide among what an elder reads "on demand", as "the full manual". The Guide never mentions the Concierge, child or elder.',
+    cite: 'CLAUDE.md § Born with · CHILD.md § Growing up · ELDER.md:72' },
+  { id: 'be-bold', line: 34,
+    q: 'It has a git backup, so be bold, risk it.',
+    truth: 'drift', now: 'The house says the opposite to a newcomer: "A child does not change the house." It offers its finds to an elder. The line came in on 2026-03-24, inside a commit named for something else.',
+    cite: 'CLAUDE.md · CHILD.md · README Context:17 (4169e6a)' },
+  { id: 'add-trigger', line: 40,
+    q: '"Add this to the palace" — The AI will draft a new entry based on the current conversation and write it to the palace.',
+    truth: 'drift', now: 'The Guide contradicts itself: its own Deposit paragraph, lower down, says the deposit "writes only what Loudon has read". CHILD\'s trigger table hands the phrase to the Deposit Ceremony.',
+    cite: 'README - The Palace Guide.md:232 · CHILD.md § Ceremony Triggers' },
+  { id: 'link-count', line: 95,
+    q: '<!-- mirror of SCHEMA §4 — keep in sync (10 link types as of v1.9) -->',
+    truth: 'drift', now: 'SCHEMA §4 has 12 since v1.30 added contrasts-with and made-by. The table under the comment is right; only the hidden comment, the one meant to keep it honest, is stale. Its own Context already noticed.',
+    cite: 'SCHEMA.md:147-160 · README Context:27 (8ba2e39)' },
+  { id: 'type-count', line: 118,
+    q: '<!-- mirror of SCHEMA §1 — keep in sync (11 entry types as of v1.17) -->',
+    truth: 'true', now: 'SCHEMA §1 still lists eleven types, and the Guide\'s table matches them.',
+    cite: 'SCHEMA.md:77-89' },
+  { id: 'forward-vector', line: 89,
+    q: 'Forward vector — The closing section of every entry.',
+    truth: 'drift', now: 'The forward vector moved up into the frontmatter: one first-person sentence, the page\'s conatus. The Guide still teaches it as a body section in its template, and has no forward_vector of its own; this morning\'s dealer printed "(none)".',
+    cite: 'SCHEMA — Reference.md:70 · README - The Palace Guide.md:210' },
+  { id: 'foundational', line: 144,
+    q: '`foundational` is a reserved stage … for palace meta-entries (CLAUDE, JEWEL, ELDER, SCHEMA, this README, Substrate Skill).',
+    truth: 'drift', now: 'Substrate Skill is stage: mature, not foundational. SCHEMA\'s own list adds CHILD, SCHEMA — Reference, ROSETTA and Meaning and the Link.',
+    cite: 'SCHEMA.md:127 · _ops/Substrate Skill.md:8' },
+  { id: 'outside-ops', line: 230,
+    q: 'All ceremony files but Enrichment, Sentry and Closing Well … live in `_ops/`.',
+    truth: 'true', now: 'Checked by every page that carries a trigger: those three are the only ones outside _ops/.',
+    cite: 'git grep "^trigger:" (2026-11-09)' },
+  { id: 'versioning', line: 69,
+    q: 'To capture a session, commit through the palace\'s committer, which takes only the files you name, never `git add .`',
+    truth: 'true', now: 'True, and only recently: until 989f4602 this section still said git add ., the oldest unchanged text on the page.',
+    cite: 'README Context:19 · git log 989f4602' },
+  { id: 'closing-quote', line: 273,
+    q: '"Sufficient associations between a pattern of symbols and a reality form meaning." — Hofstadter, via Loudon\'s semantic web paper',
+    truth: 'drift', now: 'The sentence is yours, from Meaning and the Link (2014), written after a Hofstadter citation. Palace Quotes already re-attributed it and moved it to JEWEL. The front door still credits Hofstadter.',
+    cite: '_ops/Palace Quotes/Palace Quotes — Context.md:61 · Meaning and the Link.md:39' }
+];
+
+var picks = {};
+var deck = document.getElementById('deck');
+var shown = 0;
+
+function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); }
+
+function render(i) {
+  var c = CARDS[i];
+  var n = c.practice ? 'practice' : (i + ' of ' + (CARDS.length - 1));
+  var el = document.createElement('div');
+  el.className = 'card';
+  el.innerHTML =
+    '<div class="tag">' + n + ' · line ' + c.line + '</div>' +
+    '<blockquote>' + esc(c.q) + '</blockquote>' +
+    '<div class="btns"><button data-v="true">still true</button><button data-v="drift">drifted</button></div>' +
+    '<div class="reveal"><p class="you"></p><p></p><p class="cite"></p></div>';
+  el.querySelectorAll('button').forEach(function (b) {
+    b.onclick = function () { choose(i, b.getAttribute('data-v'), el); };
+  });
+  deck.appendChild(el);
+  el.querySelector('button').focus();
+}
+
+function choose(i, v, el) {
+  var c = CARDS[i];
+  picks[c.id] = v;
+  el.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
+  var r = el.querySelector('.reveal'); r.classList.add('on');
+  var ps = r.querySelectorAll('p');
+  var right = v === c.truth;
+  ps[0].textContent = 'You said ' + (v === 'true' ? 'still true' : 'drifted') + (right ? '. Agreed.' : '. The house says otherwise.');
+  ps[1].innerHTML = '<span class="' + (c.truth === 'true' ? 'v-true">STILL TRUE' : 'v-drift">DRIFTED') + '</span> · ' + esc(c.now);
+  ps[2].textContent = c.cite;
+  var next = document.createElement('p'); next.className = 'btns';
+  var nb = document.createElement('button');
+  nb.textContent = i + 1 < CARDS.length ? 'next' : 'tally';
+  nb.onclick = function () { nb.disabled = true; i + 1 < CARDS.length ? render(i + 1) : finish(); };
+  next.appendChild(nb); r.appendChild(next); nb.focus();
+}
+
+function summary() {
+  var scored = CARDS.filter(function (c) { return !c.practice; });
+  var agree = scored.filter(function (c) { return picks[c.id] === c.truth; }).length;
+  var drift = scored.filter(function (c) { return c.truth === 'drift'; }).length;
+  var lines = ['Still True? — ' + agree + ' of ' + scored.length + ' agreed with the house; ' + drift + ' of ' + scored.length + ' sentences have drifted.'];
+  scored.forEach(function (c) {
+    lines.push('- ' + c.id + ' (line ' + c.line + '): said ' + (picks[c.id] || '—') + ', house ' + c.truth);
+  });
+  var d = document.getElementById('door').value.trim();
+  lines.push('Front door? ' + (d || '—'));
+  return { agree: agree, drift: drift, n: scored.length, text: lines.join('\n') };
+}
+
+function finish() {
+  document.getElementById('end').style.display = 'block';
+  var s = summary();
+  document.getElementById('tally').textContent = 'You agreed with the house on ' + s.agree + ' of ' + s.n + '. ' + s.drift + ' of the ' + s.n + ' sentences have drifted.';
+  document.getElementById('door').focus();
+}
+
+document.getElementById('send').onclick = function () {
+  var s = summary();
+  var payload = { page: 'README - The Palace Guide', task: 'still-true', answers: { picks: picks, door: document.getElementById('door').value.trim() }, text: s.text };
+  if (window.PalaceAnswers) { PalaceAnswers.submit(payload); }
+  else { var b = document.getElementById('copybox'); b.style.display = 'block'; b.textContent = s.text; }
+};
+
+render(0);
+</script>
+</body>
+</html>
