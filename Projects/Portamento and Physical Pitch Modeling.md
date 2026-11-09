@@ -217,6 +217,7 @@ The bundle holds:
 ### Composition and Control
 
 1. **Portamento as a compositional parameter:** Can damping ratio ζ be modulated over time within a piece? What does ζ(t) sound like if it varies smoothly? If it jumps? *A proposal, not built:* [[Haptic Handwheel]]'s struck spring would let a finger damp the knob while it rings, which is ζ changed over time, by hand.
+   - Progressed (2026-11-02, the scroll's cycle 13): `zeta-over-time/` renders seven glides whose damping changes during the glide: caught gradually, grabbed at the crest, grabbed mid-swing, let go while moving, let go after arriving. The last sounds identical to a clean glide: damping acts only on motion, so ζ(t) is a gesture of the glide, not of the note. Nobody has listened yet.
 
 2. **Overshoot aesthetics:** Is there a perceptual threshold for underdamped overshoot? At what overshoot amount does a glide feel "energetic" vs. "out of tune"?
    - Progressed (2026-10-14, the scroll's cycle 11): on a bowed string the multi-mode study measured what an overshoot does to the tone — a soft bow's slipping overtone makes about one slow beat, likely inaudible; a firm bow's partial 5 beats as the pitch crests — and the reel's round three puts it to the ear. Nobody has listened yet.

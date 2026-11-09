@@ -1,0 +1,103 @@
+% Hearing a dimension: one, two, three, four loops; each a picture above (while there is one) and its spectrum below, on one axis.
+% Rates f1, phi f1, sqrt2 f1, sqrt3 f1; lines at sum m_i f_i with sum |m_i| <= 4, heights falling with that sum.
+% Geometry and data: hearing-a-dimension.py (had-mesh.tex, had-path.tex, had-cube.tex, had-1..4.dat, had-counts.tex).
+% Everything here is computed (ink). Compile: lualatex hearing-a-dimension.tex ; SVG via PyMuPDF.
+\documentclass[border=0pt]{standalone}
+\usepackage{fontspec}
+\setmainfont{JetBrains Mono}
+\setmonofont{JetBrains Mono}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{arrows.meta, calc, backgrounds, decorations.markings, positioning}
+% Drafting Table, paper ground (_ops/drafting-table/design-system/colors_and_type.css)
+\definecolor{paper}{HTML}{F0EEE5}
+\definecolor{ink}{HTML}{1A1916}
+\definecolor{ink2}{HTML}{3A3A35}
+\definecolor{ink3}{HTML}{6A6862}
+\definecolor{slab}{HTML}{D8D4C6}
+\definecolor{measure}{HTML}{C8261A}
+\tikzset{
+  >={Stealth[length=1.8mm]},
+  mesh/.style={draw=ink3!45, line width=0.25pt},
+  scan/.style={draw=ink, line width=0.5pt},
+  scanback/.style={draw=ink3!60, line width=0.3pt, densely dashed},
+  loop/.style={draw=ink, line width=1.5pt},
+  cube/.style={draw=ink3, line width=0.6pt},
+  cubeback/.style={draw=ink3, line width=0.5pt, densely dashed},
+  path3/.style={draw=ink, line width=1.1pt, line cap=round},
+  glue1/.style={draw=ink2, line width=0.7pt, -{Stealth[length=1.6mm]}},
+  glue2/.style={draw=ink2, line width=0.7pt, -{Stealth[length=1.5mm] . Stealth[length=1.5mm]}},
+  glue3/.style={draw=ink2, line width=0.7pt, -{Stealth[length=1.5mm] . Stealth[length=1.5mm] . Stealth[length=1.5mm]}},
+  lab/.style={font=\scriptsize, text=ink2},
+  rowhead/.style={font=\bfseries\small, anchor=west, text=ink},
+  rowsub/.style={font=\scriptsize, anchor=west, text=ink2},
+  colhead/.style={font=\bfseries\scriptsize, anchor=west, text=ink},
+  spin/.style={postaction={decorate}, decoration={markings, mark=at position 0.25 with {\arrow{>}}}},
+}
+\pgfplotsset{
+  /pgf/number format/assume math mode=true,
+  snd/.style={width=5.1cm, height=3.0cm, axis lines=left, tick align=outside, ymin=0, ymax=1.3, ytick=\empty,
+    xmin=0, xmax=5.25, xtick={0,1,...,5},
+    axis line style={ink, line width=0.5pt}, tick style={ink}, clip=false,
+    xlabel style={font=\scriptsize, text=ink2, yshift=1mm}, tick label style={font=\tiny, text=ink2},
+    xlabel={frequency ÷ f₁}},
+}
+\input{had-counts.tex}
+% one column: x0 (left rule), heading, subheading, data file, line count, caption under the picture
+\newcommand{\column}[6]{%
+  \node[rowhead] at (#1+0.3,-0.32) {#2};
+  \node[rowsub] at (#1+0.3,-0.7) {#3};
+  \node[lab, anchor=north] at (#1+2.525,-5.0) {#6};
+  \begin{axis}[snd, at={(#1cm+0.3cm,-8.35cm)}]
+    \addplot[ycomb, line width=0.9pt, ink] table[x=freq, y=amp] {#4};
+    \node[lab, anchor=north east] at (axis cs:5.25,1.34) {#5 lines};
+  \end{axis}}
+\begin{document}
+\begin{tikzpicture}
+
+\node[font=\scriptsize, anchor=west, text=ink2] at (0,0.55) {Nobody can see four dimensions. Anyone can hear four loops. Each loop adds a rate, and each rate an axis of the lattice.};
+
+% ---------- frame ----------
+\draw[ink, line width=0.5pt] (-0.3,0) rectangle (19.9,-9.3);
+\draw[ink, line width=0.3pt] (-0.3,-0.95) -- (19.9,-0.95) (-0.3,-5.6) -- (19.9,-5.6);
+\draw[ink, line width=0.3pt] (4.75,0) -- (4.75,-9.3) (9.8,0) -- (9.8,-9.3) (14.85,0) -- (14.85,-9.3);
+\node[font=\bfseries\scriptsize, text=ink, rotate=90] at (-0.62,-3.27) {THE LOOP};
+\node[font=\bfseries\scriptsize, text=ink, rotate=90] at (-0.62,-7.45) {THE SOUND};
+
+% =============== ONE LOOP ===============
+\column{-0.3}{ONE LOOP}{rate f₁}{had-1.dat}{\countOne}{a circle}
+\draw[loop, spin] (2.225,-3.0) circle (1.25); \node[lab] at (2.225,-3.0) {φ₁};
+
+% =============== TWO LOOPS ===============
+\column{4.75}{TWO LOOPS}{f₁, φ·f₁}{had-2.dat}{\countTwo}{a torus, filling}
+\begin{scope}[shift={(7.275,-3.0)}, scale=0.6]
+  \input{had-mesh.tex}
+  \input{had-path.tex}
+\end{scope}
+
+% =============== THREE LOOPS ===============
+\column{9.8}{THREE LOOPS}{f₁, φ·f₁, √2·f₁}{had-3.dat}{\countThree}{a 3-torus: like marks glue}
+\begin{scope}[shift={(12.325-1.775,-3.0-1.625)}]
+  \input{had-cube.tex}
+\end{scope}
+
+% =============== FOUR LOOPS ===============
+\column{14.85}{FOUR LOOPS}{f₁, φ·f₁, √2·f₁, √3·f₁}{had-4.dat}{\countFour}{a 4-torus}
+\draw[ink3, line width=0.6pt, densely dashed] (15.65,-1.75) rectangle (19.1,-4.4);
+\node[lab, align=center] at (17.375,-3.075) {no picture:\\[1mm] only the sound};
+
+\node[font=\scriptsize, anchor=north west, text=ink2, text width=19.6cm] at (0,-9.5) {Each loop is an axis you can listen for. A simple ratio is a closed knot you can hear repeat; a dense lattice is a surface filled in. Lines are the sums m₁f₁ + m₂f₂ + … with |m₁| + |m₂| + … ≤ 4, heights falling with that sum; one axis for all four.};
+
+% ---------- title block ----------
+\draw[ink, line width=0.8pt] (-0.3,-10.7) rectangle (19.9,-11.6);
+\draw[ink, line width=0.3pt] (9.6,-10.7) -- (9.6,-11.6) (14.6,-10.7) -- (14.6,-11.6);
+\node[font=\scriptsize\bfseries, text=ink, anchor=west] at (-0.1,-11.15) {DSP IN LOOPING DIMENSIONS · HEARING A DIMENSION};
+\node[font=\scriptsize, text=ink, anchor=west] at (9.8,-11.15) {INK computed};
+\node[font=\scriptsize, text=ink2, anchor=west] at (14.8,-11.15) {FIG · 2026-11-09 · PAPER};
+
+\begin{scope}[on background layer]
+  \fill[paper] ($(current bounding box.south west)+(-0.4,-0.4)$) rectangle ($(current bounding box.north east)+(0.4,0.4)$);
+\end{scope}
+\end{tikzpicture}
+\end{document}

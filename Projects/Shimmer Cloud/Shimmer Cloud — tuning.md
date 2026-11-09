@@ -38,3 +38,5 @@ What Shimmer Cloud's steward cycles taught the page, and the changes to the hous
    > Three lens models live in the bundle: a feedback lens, a droplet cloud and a dispersion cloud. Loudon's ear chose the droplet and dispersion clouds together, with dispersion as the start, and asked for the dispersion to be pushed harder until the modes come apart. Both of his asks from the revival are now built: the prism pushed to hundreds of milliseconds, and the feedback lens rebuilt as one interval jump at the door with the prism inside the loop. What was made, how he met it, and the plan ahead are on the scroll.
 
 - run · 2026-10-22 · cycle 2 · taught item 2, proposed item 3 for canon
+- run · 2026-11-09 · cycle 3, posted nothing · nothing new
+- run · 2026-11-09 · cycle 4, posted nothing · nothing new

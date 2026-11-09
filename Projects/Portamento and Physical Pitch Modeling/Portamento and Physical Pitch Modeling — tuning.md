@@ -34,7 +34,7 @@ What Portamento and Physical Pitch Modeling's steward cycles taught the page, an
 ## From cycle 13 — 2026-11-01
 
 2. A change in damping is audible only while the pitch is moving: dropping it after the note has settled changes nothing, so every damping-over-time study has to time its change against the motion, not against the clock. *(offered by the steward, cycle 13)*
-3. **Proposed for canon** · 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Open Questions → Composition and Control, under question 1 · canon change owed *(proposed by the steward, cycle 13)*
+3. **Proposed for canon** · 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Open Questions → Composition and Control, under question 1 · paid in 80fa1665 on 2026-11-09 11:38 *(proposed by the steward, cycle 13)*
    Why: The question now has sound and one measured answer, and that answer reframes the question.
    Path: `Projects/Portamento and Physical Pitch Modeling.md`
    >    - Progressed (2026-11-02, the scroll's cycle 13): `zeta-over-time/` renders seven glides whose damping changes during the glide: caught gradually, grabbed at the crest, grabbed mid-swing, let go while moving, let go after arriving. The last sounds identical to a clean glide: damping acts only on motion, so ζ(t) is a gesture of the glide, not of the note. A jump at the crest is the singer's arrive-sharp-and-settle. Nobody has listened yet.

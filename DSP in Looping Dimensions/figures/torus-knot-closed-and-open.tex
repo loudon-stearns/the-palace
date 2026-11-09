@@ -1,0 +1,123 @@
+% Torus knot, closed and open: two phasors into one table, at 2 : 3 and at the golden ratio; circuit, loop, sound.
+% Closed: the path is the (2, 3) torus knot (a trefoil), and every line sits on one harmonic series. Open: it fills the surface.
+% Geometry and data: torus-knot-closed-and-open.py (tkco-mesh.tex, tkco-knot.tex, tkco-fill.tex, tkco-closed.dat, tkco-open.dat).
+% Everything here is computed (ink). Compile: lualatex torus-knot-closed-and-open.tex ; SVG via PyMuPDF.
+\documentclass[border=0pt]{standalone}
+\usepackage{fontspec}
+\setmainfont{JetBrains Mono}
+\setmonofont{JetBrains Mono}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{arrows.meta, calc, backgrounds, decorations.markings, positioning}
+% Drafting Table, paper ground (_ops/drafting-table/design-system/colors_and_type.css)
+\definecolor{paper}{HTML}{F0EEE5}
+\definecolor{ink}{HTML}{1A1916}
+\definecolor{ink2}{HTML}{3A3A35}
+\definecolor{ink3}{HTML}{6A6862}
+\definecolor{slab}{HTML}{D8D4C6}
+\definecolor{measure}{HTML}{C8261A}
+\tikzset{
+  >={Stealth[length=1.8mm]},
+  mesh/.style={draw=ink3!45, line width=0.25pt},
+  knot/.style={draw=ink, line width=1.5pt, line cap=round},
+  knotback/.style={draw=ink, line width=0.7pt, densely dashed},
+  fill/.style={draw=ink, line width=0.45pt},
+  fillback/.style={draw=ink3!60, line width=0.3pt, densely dashed},
+  loop/.style={draw=ink, line width=1.5pt},
+  back/.style={draw=ink, line width=1.5pt, ->},
+  wire/.style={draw=ink, line width=0.6pt},
+  blk/.style={rectangle, draw=ink, fill=slab, line width=0.7pt, minimum height=7mm, minimum width=24mm, inner sep=2pt, font=\scriptsize, text=ink},
+  lab/.style={font=\scriptsize, text=ink2},
+  rowhead/.style={font=\bfseries\small, anchor=west, text=ink},
+  rowsub/.style={font=\scriptsize, anchor=west, text=ink2},
+  colhead/.style={font=\bfseries\scriptsize, anchor=west, text=ink},
+  spin/.style={postaction={decorate}, decoration={markings, mark=at position 0.25 with {\arrow{>}}}},
+}
+\pgfplotsset{
+  /pgf/number format/assume math mode=true,
+  snd/.style={width=6.6cm, height=3.0cm, axis lines=left, tick align=outside, ymin=0, ytick=\empty,
+    axis line style={ink, line width=0.5pt}, tick style={ink}, clip=false,
+    xlabel style={font=\scriptsize, text=ink2, yshift=1mm}, ylabel style={font=\scriptsize, text=ink2},
+    tick label style={font=\tiny, text=ink2}},
+}
+\newcommand{\rowframe}[3]{%
+  \draw[ink, line width=0.5pt] (-0.3,#1) rectangle (19.9,#1-5.9);
+  \draw[ink, line width=0.3pt] (6.9,#1-0.95) -- (6.9,#1-5.9) (12.4,#1-0.95) -- (12.4,#1-5.9) (-0.3,#1-0.95) -- (19.9,#1-0.95);
+  \node[rowhead] at (0,#1-0.32) {#2};
+  \node[rowsub] at (0,#1-0.7) {#3};}
+% the circuit: two phasors into one table (#1, #2: the phasor labels)
+\newcommand{\twophasors}[2]{%
+  \node[blk] (p1) at (1.4,-2.5) {#1};
+  \node[blk] (p2) at (1.4,-4.85) {#2};
+  \draw[back] (p1.north east) to[out=40, in=140, looseness=1.6] node[lab, above] {wraps} (p1.north west);
+  \draw[back] (p2.north east) to[out=40, in=140, looseness=1.6] node[lab, above] {wraps} (p2.north west);
+  \node[blk, minimum width=20mm, minimum height=12mm] (w) at (4.6,-3.7) {table W(φ₁, φ₂)};
+  \draw[wire,->] (p1.east) -| ([xshift=-4mm]w.north);
+  \draw[wire,->] (p2.east) -| ([xshift=-4mm]w.south);
+  \draw[wire,->] (w.east) -- (6.65,-3.7) node[lab, above left] {out};}
+% the loop: two circles, read together, are a torus
+\newcommand{\twocircles}{%
+  \draw[loop, spin] (7.75,-2.05) circle (0.42); \node[lab] at (7.75,-2.05) {φ₁};
+  \draw[loop, spin] (7.75,-4.2) circle (0.3);  \node[lab] at (7.75,-4.2) {φ₂};
+  \node[font=\small, text=ink] at (8.35,-3.15) {×};}
+% the sound: lines over the dashed series of f0 = f1 / 2
+\newcommand{\grid}{\foreach \k in {1,...,11} { \edef\t{\noexpand\draw[ink3!60, densely dashed, line width=0.4pt] (axis cs:\k/2,0) -- (axis cs:\k/2,1.15);} \t }}
+\begin{document}
+\begin{tikzpicture}
+
+% ---------- column heads ----------
+\node[colhead] at (0,1.15) {THE CIRCUIT \quad what you build};
+\node[colhead] at (7.2,1.15) {THE LOOP \quad what it is};
+\node[colhead] at (12.7,1.15) {THE SOUND \quad what you hear};
+\node[font=\scriptsize, anchor=west, text=ink2] at (0,0.55) {Same circuit twice; only the ratio of the two phasors changes. Heavy: the path that comes back to where it began.};
+
+% =============== CLOSED · 2 : 3 ===============
+\def\y{0}
+\rowframe{\y}{CLOSED \enspace f₁ : f₂ = 2 : 3}{the path comes home: twice round one loop, three times round the other}
+\begin{scope}[shift={(0,\y)}]
+  \twophasors{phasor f₁ = 2f₀}{phasor f₂ = 3f₀}
+  \twocircles
+  \begin{scope}[shift={(10.45,-3.25)}, scale=0.75]
+    \input{tkco-mesh.tex}
+    \input{tkco-knot.tex}
+  \end{scope}
+  \node[lab, anchor=north] at (9.65,-4.95) {the (2, 3) torus knot, a trefoil};
+  \begin{axis}[snd, at={(12.85cm,-4.95cm)}, xmin=0, xmax=5.8, ymax=1.75, xtick={0,1,...,5}, xlabel={frequency ÷ f₁ \quad (f₂ = 1.5 f₁)}]
+    \grid
+    \addplot[ycomb, line width=1.4pt, ink] table[x=freq, y=amp] {tkco-closed.dat};
+    \node[lab, anchor=north east, align=right] at (axis cs:5.8,1.78) {dashed: every f₀ = f₁ ÷ 2};
+  \end{axis}
+\end{scope}
+
+% =============== OPEN · GOLDEN ===============
+\def\y{-6.3}
+\rowframe{\y}{OPEN \enspace f₂ ÷ f₁ = φ = 1.618…}{the path never comes home: twelve turns, and the surface starts to fill}
+\begin{scope}[shift={(0,\y)}]
+  \twophasors{phasor f₁}{phasor f₂ = φf₁}
+  \twocircles
+  \begin{scope}[shift={(10.45,-3.25)}, scale=0.75]
+    \input{tkco-mesh.tex}
+    \input{tkco-fill.tex}
+  \end{scope}
+  \node[lab, anchor=north] at (9.65,-4.95) {never closes, never a knot};
+  \begin{axis}[snd, at={(12.85cm,-4.95cm)}, xmin=0, xmax=5.8, ymax=1.75, xtick={0,1,...,5}, xlabel={frequency ÷ f₁ \quad (f₂ = 1.618 f₁)}]
+    \grid
+    \addplot[ycomb, line width=1.4pt, ink] table[x=freq, y=amp] {tkco-open.dat};
+    \node[lab, anchor=north east, align=right] at (axis cs:5.8,1.78) {most lines fall between};
+  \end{axis}
+\end{scope}
+\node[font=\scriptsize, anchor=north west, text=ink2, text width=19.6cm] at (0,-12.4) {A path that winds p times one way and q times the other is a (p, q) torus knot, and the winding numbers do not change when the speed does. Whether that invariance is audible is an open listening test. Lines are m·f₁ + n·f₂ for |m| + |n| ≤ 5, heights falling with |m| + |n|.};
+
+% ---------- title block ----------
+\draw[ink, line width=0.8pt] (-0.3,-13.6) rectangle (19.9,-14.5);
+\draw[ink, line width=0.3pt] (9.6,-13.6) -- (9.6,-14.5) (14.6,-13.6) -- (14.6,-14.5);
+\node[font=\scriptsize\bfseries, text=ink, anchor=west] at (-0.1,-14.05) {DSP IN LOOPING DIMENSIONS · TORUS KNOT, CLOSED AND OPEN};
+\node[font=\scriptsize, text=ink, anchor=west] at (9.8,-14.05) {INK computed};
+\node[font=\scriptsize, text=ink2, anchor=west] at (14.8,-14.05) {FIG · 2026-11-09 · PAPER};
+
+\begin{scope}[on background layer]
+  \fill[paper] ($(current bounding box.south west)+(-0.4,-0.4)$) rectangle ($(current bounding box.north east)+(0.4,0.4)$);
+\end{scope}
+\end{tikzpicture}
+\end{document}
