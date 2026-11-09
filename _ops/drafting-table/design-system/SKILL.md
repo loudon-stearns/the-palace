@@ -8,6 +8,8 @@ user-invocable: true
 
 Drafting Table is the workshop's dress. It is the STIGMERGY terminal grown up and moved onto the CAD Drafter's sheet: monospace everywhere, a hairline is the card, nothing rounded unless it was turned on a lathe, every word is text you can grep. Two things changed from the board: the ground (paper or phosphor) and the mass (a control has a solid face you could pick up). Loud'n Live keeps the public channel; Drafting Table keeps the bench.
 
+It is a standard to push against, not a cage. Reach for it, then bend it where the piece wants; the art is in the seam between the standard and the piece. `README.md` opens on Loudon's words for this, and its 3D section on his two pictures: a hologram above the drafting, the paper pushed up from beneath.
+
 ## How to use this skill
 
 1. Read `README.md` in full: the sources, the two grounds, the seven rules of the grammar, type, colour in use, solid surfaces and 3D, iconography, the component table, and § For a plugin editor.
