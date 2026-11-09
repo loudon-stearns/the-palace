@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hear the Lift</title>
+<!-- Sketch · Daily Page rough 3 (made 2026-11-08 for the 2026-11-03 sit) · [[Quantization ↔ Precision vs Flow]].
+     Asked for in the sit: four measures, a slider for lift, playback that shows which dots are sounding;
+     then a second gesture: a drummer with no click who speeds up and drops back into the old tempo.
+     Two modes. Lean: a fixed clock; the drummer leans ahead (or behind) through bars 3 and 4 and lands
+     back on the clock's bar 1. Tempo: no clock; the pulse itself speeds up (or slows) through bars 3 and 4
+     and eases back to the starting tempo, so the loop comes round early (or late) and never "returns".
+     Clean time on purpose: no swing, no stumbles. -->
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  p{margin:0 0 12px;color:var(--fg-2)}
+  .lede{font-size:20px;color:var(--fg-1)}
+  section{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:6px;padding:22px 22px 18px;margin:22px 0}
+  button{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:7px 14px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button:hover{border-color:var(--fg-3);color:var(--fg-1)}
+  button.on{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+  button.primary{color:#0a0a0f;background:var(--accent);border:0;font-weight:500;padding:9px 22px}
+  .bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px}
+  .spacer{flex:1}
+  canvas{display:block;width:100%;background:var(--bg-elev-2);border-radius:4px}
+  .ctl{display:grid;grid-template-columns:120px 1fr 9ch;align-items:center;gap:10px;margin-top:16px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl .v{font-family:var(--mono);font-size:14px;text-align:right}
+  .hidden{display:none}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .legend{font-family:var(--sans);font-size:12px;color:var(--fg-3);margin-top:8px}
+  textarea{width:100%;margin-top:12px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3)}
+  .modes{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:12px;color:var(--fg-3)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-2)}
+  @media (max-width:560px){ h1{font-size:40px} .ctl{grid-template-columns:80px 1fr 8ch} section{padding:18px 14px} }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily Page · Sketch 3 · Quantization ↔ Precision vs Flow</div>
+  <h1>Hear the Lift</h1>
+  <p class="lede">Four bars, perfectly in time, except for one gesture through bars 3 and 4. Two ways a drummer can make it.</p>
+  <p><b>Lean against a click:</b> the clock never moves. The drummer leans ahead of it, a little more each beat, then lands back on the clock's bar 1. <b>Speed up, no click:</b> there is no clock to return to. The pulse itself quickens, then eases back to the old tempo, and the loop comes round early. No swing, no stumbles, so the gesture is the only thing moving.</p>
+
+  <section>
+    <div class="modes">
+      <button data-mode="lean" class="on">Lean against a click</button>
+      <button data-mode="tempo">Speed up, no click</button>
+    </div>
+    <canvas id="tl" width="1880" height="450"></canvas>
+    <div class="legend" id="legend"></div>
+
+    <div class="bar">
+      <button class="primary" id="play">Play loop</button>
+      <button id="ab" class="on">Gesture on</button>
+      <button id="click">Click off</button>
+      <span class="spacer"></span>
+      <button data-dir="-1" class="on" id="dirA">Lean ahead (rush)</button>
+      <button data-dir="1" id="dirB">Lay back (drag)</button>
+    </div>
+    <div class="ctl" id="liftRow"><label for="lift">Lean</label><input id="lift" type="range" min="0" max="60" value="24"><span class="v" id="lv">24 ms</span></div>
+    <div class="ctl hidden" id="speedRow"><label for="speed">Tempo change</label><input id="speed" type="range" min="0" max="15" value="6" step="0.5"><span class="v" id="sv">6%</span></div>
+    <div class="ctl"><label for="cres">Crescendo</label><input id="cres" type="range" min="0" max="100" value="0"><span class="v" id="cv">off</span></div>
+    <p class="hint" style="margin-top:12px" id="hint"></p>
+    <textarea id="notes" placeholder="What you hear, or don't (optional)"></textarea>
+    <div class="bar"><button id="copy">Copy my notes</button><span class="hint" id="copied"></span></div>
+  </section>
+
+  <footer><b>Loud’n Live</b> · sketch 3 for the Daily Page</footer>
+</main>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var BPM = 92, S = 60 / BPM / 4, BARS = 4, SLOTS = 16, N = BARS * SLOTS;
+  var LANES = ['hat', 'snare', 'kick'];
+  var PATTERN = [];
+  for (var s = 0; s < SLOTS; s += 2) PATTERN.push({ lane: 0, slot: s, v: s % 4 === 0 ? 0.85 : 0.5 });
+  [4, 12].forEach(function(s){ PATTERN.push({ lane: 1, slot: s, v: 0.85 }); });
+  [0, 7, 10].forEach(function(s){ PATTERN.push({ lane: 2, slot: s, v: s === 0 ? 0.95 : 0.75 }); });
+
+  var mode = 'lean', dir = -1, on = true, clickOn = false;
+
+  // ---- timing: where each position (in sixteenths from the loop's bar 1) lands, in seconds ----
+  function smooth(u){ u = Math.max(0, Math.min(1, u)); return u * u * (3 - 2 * u); }
+  // The push keeps building right into the next downbeat; bar 1 then arrives fast and settles back.
+  function tempoFactor(x){ // x in bars; >1 is faster
+    var k = on ? (-dir) * (+$('speed').value) / 100 : 0;
+    if (x < 1) return 1 + k * (1 - smooth(x));
+    if (x < 2) return 1;
+    return 1 + k * Math.pow((x - 2) / 2, 1.4);
+  }
+  var table = null;
+  function buildTable(){ // time at every 1/8 sixteenth, by integrating the tempo curve
+    table = [0]; var t = 0, step = 1 / 8;
+    for (var i = 1; i <= N * 8; i++){ var pos = (i - 0.5) * step; t += step * S / tempoFactor(pos / SLOTS); table.push(t); }
+  }
+  function T(pos){ var i = Math.round(pos * 8); return table[Math.max(0, Math.min(table.length - 1, i))]; }
+  // The lean grows all the way to the next downbeat, which lands early too, then settles onto the click by beat 3.
+  function leanMs(pos){
+    var x = pos / SLOTS, L = dir * (+$('lift').value);
+    if (!on) return 0;
+    if (x < 0.5) return L * (1 - smooth(x / 0.5));
+    if (x < 2) return 0;
+    return L * Math.pow((x - 2) / 2, 1.4);
+  }
+  function timeOf(pos){ return mode === 'lean' ? pos * S + leanMs(pos) / 1000 : T(pos); }
+  function loopDur(){ return mode === 'lean' ? N * S : T(N); }
+  function gain(pos){ var x = pos / SLOTS, c = +$('cres').value / 100; return x < 2 ? 1 : 1 + 0.5 * c * (x - 2) / 2; }
+  function hits(){
+    var out = [];
+    // bar 4 adds two sixteenth hats on its last beat, so the push has notes all the way to the downbeat
+    var LAST = [{ lane: 0, slot: 13, v: 0.45 }, { lane: 0, slot: 15, v: 0.5 }];
+    for (var b = 0; b < BARS; b++) (b === BARS - 1 ? PATTERN.concat(LAST) : PATTERN).forEach(function(p){
+      var pos = b * SLOTS + p.slot;
+      out.push({ bar: b, slot: p.slot, lane: p.lane, pos: pos, v: Math.min(1, p.v * gain(pos)), t: timeOf(pos) });
+    });
+    return out;
+  }
+
+  // ---- sound ----
+  var ctx = null, master = null, noiseBuf = null, out = null;
+  function initAudio(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.7;
+    var comp = ctx.createDynamicsCompressor(); master.connect(comp); comp.connect(ctx.destination);
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    var d = noiseBuf.getChannelData(0); for (var n = 0; n < d.length; n++) d[n] = Math.random() * 2 - 1;
+  }
+  function env(g, t, peak, dec){ g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + dec); }
+  function hat(t, v){
+    var g = ctx.createGain(), hp = ctx.createBiquadFilter(), bp = ctx.createBiquadFilter();
+    hp.type = 'highpass'; hp.frequency.value = 7000; bp.type = 'bandpass'; bp.frequency.value = 9500; bp.Q.value = 0.8;
+    [205.3, 304.4, 369.6, 522.7, 540, 800].forEach(function(f){ var o = ctx.createOscillator(); o.type = 'square'; o.frequency.value = f * 2.2; o.connect(bp); o.start(t); o.stop(t + 0.12); });
+    bp.connect(hp); hp.connect(g); g.connect(out); env(g, t, 0.2 * v, 0.04 + 0.04 * v);
+  }
+  function snare(t, v){
+    var s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = noiseBuf; f.type = 'bandpass'; f.frequency.value = 1900; f.Q.value = 0.9;
+    s.connect(f); f.connect(g); g.connect(out); env(g, t, 0.9 * v, 0.12 + 0.06 * v);
+    s.start(t, Math.random() * 0.5); s.stop(t + 0.25);
+    var o = ctx.createOscillator(), og = ctx.createGain(); o.frequency.setValueAtTime(210, t); o.frequency.exponentialRampToValueAtTime(160, t + 0.06);
+    o.connect(og); og.connect(out); env(og, t, 0.35 * v, 0.08); o.start(t); o.stop(t + 0.12);
+  }
+  function kick(t, v){
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.setValueAtTime(115, t); o.frequency.exponentialRampToValueAtTime(46, t + 0.09);
+    o.connect(g); g.connect(out); env(g, t, 0.95 * v, 0.28); o.start(t); o.stop(t + 0.32);
+  }
+  function tick(t, accent){
+    var o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine'; o.frequency.value = accent ? 1760 : 1320;
+    o.connect(g); g.connect(out); env(g, t, accent ? 0.22 : 0.14, 0.03); o.start(t); o.stop(t + 0.05);
+  }
+  function sound(h, t){ if (h.lane === 0) hat(t, h.v); else if (h.lane === 1) snare(t, h.v); else kick(t, h.v); }
+
+  var player = null, fired = [];
+  function stop(){
+    if (!player) return;
+    clearInterval(player.timer);
+    var bus = player.bus; bus.gain.setTargetAtTime(0, ctx.currentTime, 0.008); setTimeout(function(){ bus.disconnect(); }, 150);
+    player = null; fired = []; $('play').classList.remove('on'); $('play').textContent = 'Play loop';
+  }
+  function start(){
+    initAudio(); if (ctx.state === 'suspended') ctx.resume();
+    var p = { b: 0, loopStart: ctx.currentTime + 0.12, bus: ctx.createGain(), loops: [] }; p.bus.connect(master);
+    p.timer = setInterval(function(){
+      out = p.bus;
+      while (p.loopStart + timeOf(p.b * SLOTS) - 0.03 < ctx.currentTime + 0.35){
+        if (p.b === 0){ p.loops.push({ t: p.loopStart, dur: loopDur() }); if (p.loops.length > 4) p.loops.shift(); }
+        var ls = p.loopStart, b = p.b;
+        hits().forEach(function(h){
+          if (h.bar !== b) return;
+          var t = Math.max(ctx.currentTime, ls + h.t);
+          sound(h, t); fired.push({ key: h.bar + '-' + h.lane + '-' + h.slot, t: t });
+        });
+        if (clickOn) for (var q = 0; q < 4; q++){ var ct = ls + (b * SLOTS + q * 4) * S; if (ct >= ctx.currentTime) tick(ct, q === 0); }
+        p.b++;
+        if (p.b === BARS){ p.b = 0; p.loopStart += loopDur(); }
+      }
+      if (fired.length > 200) fired = fired.slice(-120);
+    }, 25);
+    player = p; $('play').classList.add('on'); $('play').textContent = 'Stop';
+  }
+  $('play').onclick = function(){ if (player) stop(); else start(); };
+
+  // ---- the picture: x is real time, in sixteenths of the starting tempo ----
+  function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  var cv = $('tl'), g = cv.getContext('2d');
+  function draw(){
+    var W = cv.width, H = cv.height, pl = 90, pr = 20, pt = 48, pb = 20, rowH = (H - pt - pb) / 3, span = N * 1.12;
+    var X = function(pos){ return pl + pos / span * (W - pl - pr); };
+    var now = ctx ? ctx.currentTime : 0;
+    g.clearRect(0, 0, W, H);
+    g.fillStyle = 'rgba(232,184,74,0.05)'; g.fillRect(X(2 * SLOTS), pt - 34, X(4 * SLOTS) - X(2 * SLOTS), H - pt + 24);
+    g.font = '20px JetBrains Mono, monospace'; g.textBaseline = 'middle'; g.textAlign = 'center';
+    for (var b = 0; b < BARS; b++){ g.fillStyle = b >= 2 ? css('--accent') : css('--fg-3'); g.fillText('bar ' + (b + 1), X(b * SLOTS + SLOTS / 2), 16); }
+    // the starting tempo's grid (the click, in lean mode)
+    for (var s = 0; s <= N; s++){
+      g.strokeStyle = s % SLOTS === 0 ? css('--fg-3') : s % 4 === 0 ? css('--fg-4') : 'rgba(255,255,255,0.05)';
+      g.lineWidth = s % SLOTS === 0 ? 2 : 1; g.beginPath(); g.moveTo(X(s), pt - 10); g.lineTo(X(s), H - pb); g.stroke();
+    }
+    // the drummer's own beats, where the pulse has moved (tempo mode)
+    if (mode === 'tempo'){
+      g.setLineDash([8, 6]);
+      for (var qb = 1; qb <= BARS * 4; qb++){
+        var pos = qb * 4, x = X(T(pos) / S);
+        if (Math.abs(T(pos) / S - pos) < 0.05) continue;
+        g.strokeStyle = qb % 4 === 0 ? css('--accent') : css('--accent-line'); g.lineWidth = qb % 4 === 0 ? 2 : 1;
+        g.beginPath(); g.moveTo(x, pt - 10); g.lineTo(x, H - pb); g.stroke();
+      }
+      g.setLineDash([]);
+      var end = X(loopDur() / S); g.fillStyle = css('--accent'); g.textAlign = 'center';
+      g.fillText('next bar 1', end, pt - 22);
+    }
+    g.textAlign = 'left';
+    for (var r = 0; r < 3; r++){ g.fillStyle = css('--fg-3'); g.fillText(LANES[r], 10, pt + rowH * r + rowH / 2); }
+    var lit = {};
+    fired.forEach(function(f){ var age = now - f.t; if (age >= 0 && age < 0.16) lit[f.key] = 1 - age / 0.16; });
+    var moving = on && +(mode === 'lean' ? $('lift').value : $('speed').value) > 0;
+    hits().forEach(function(h){
+      var y = pt + rowH * h.lane + rowH / 2, gx = X(h.pos), x = X(h.t / S);
+      var rad = 7 + 5 * h.v, l = lit[h.bar + '-' + h.lane + '-' + h.slot] || 0;
+      if (Math.abs(x - gx) > 0.5){
+        g.strokeStyle = css('--fg-4'); g.lineWidth = 2; g.beginPath(); g.arc(gx, y, rad, 0, Math.PI * 2); g.stroke();
+        g.strokeStyle = css('--accent-line'); g.beginPath(); g.moveTo(gx, y); g.lineTo(x, y); g.stroke();
+      }
+      if (l > 0){ g.fillStyle = 'rgba(232,184,74,' + (0.35 * l) + ')'; g.beginPath(); g.arc(x, y, rad * (1.6 + 0.8 * l), 0, Math.PI * 2); g.fill(); }
+      g.fillStyle = l > 0 ? css('--accent') : (h.bar >= 2 && moving ? 'rgba(232,184,74,0.75)' : 'rgba(232,232,240,0.7)');
+      g.beginPath(); g.arc(x, y, rad, 0, Math.PI * 2); g.fill();
+    });
+    if (player){
+      var cur = null; player.loops.forEach(function(lp){ if (lp.t <= now) cur = lp; });
+      if (cur){
+        var ph = (now - cur.t) / S;
+        if (ph <= span){ g.strokeStyle = css('--fg-1'); g.lineWidth = 2; g.beginPath(); g.moveTo(X(ph), pt - 10); g.lineTo(X(ph), H - pb); g.stroke(); }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  // ---- controls ----
+  var TEXT = {
+    lean: {
+      legend: 'Left to right is time. Grey lines are the click. Hollow rings are where the click says each hit belongs; filled dots are where it lands. The white line is the clock. A dot lights as it sounds.',
+      hint: 'Lean is how far ahead of the click the next downbeat lands. It grows through bars 3 and 4, the downbeat itself comes early, and the drummer settles back onto the click by beat 3 of bar 1. Turn the click on to hear it hold still while the drummer leans.',
+      a: 'Lean ahead (rush)', b: 'Lay back (drag)'
+    },
+    tempo: {
+      legend: 'Left to right is time. Grey lines are the starting tempo, kept only as a ruler. Dashed amber lines are the drummer\'s own beats once the pulse moves. "Next bar 1" is where the loop really comes round. A dot lights as it sounds.',
+      hint: 'Tempo change is how much faster the pulse is at the next downbeat. It keeps quickening right into it, then eases back to the starting tempo across bar 1. There is nothing to land back on, so the next bar 1 comes early and the old grid is gone. A click here restarts with each loop, so you hear how far the drummer ran from it.',
+      a: 'Speed up', b: 'Slow down'
+    }
+  };
+  function label(){
+    buildTable();
+    $('lv').textContent = $('lift').value + ' ms';
+    $('sv').textContent = $('speed').value + '%';
+    $('cv').textContent = +$('cres').value ? $('cres').value + '%' : 'off';
+    $('ab').textContent = on ? 'Gesture on' : 'Gesture off'; $('ab').classList.toggle('on', on);
+    $('click').textContent = clickOn ? 'Click on' : 'Click off'; $('click').classList.toggle('on', clickOn);
+    $('liftRow').classList.toggle('hidden', mode !== 'lean'); $('speedRow').classList.toggle('hidden', mode !== 'tempo');
+    $('legend').textContent = TEXT[mode].legend; $('hint').textContent = TEXT[mode].hint;
+    $('dirA').textContent = TEXT[mode].a; $('dirB').textContent = TEXT[mode].b;
+    publish();
+  }
+  $('lift').oninput = label; $('speed').oninput = label; $('cres').oninput = label;
+  $('ab').onclick = function(){ on = !on; label(); };
+  $('click').onclick = function(){ clickOn = !clickOn; label(); };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-dir]'), function(btn){
+    btn.onclick = function(){ dir = +btn.dataset.dir; Array.prototype.forEach.call(document.querySelectorAll('[data-dir]'), function(o){ o.classList.toggle('on', o === btn); }); label(); };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-mode]'), function(btn){
+    btn.onclick = function(){
+      var wasPlaying = !!player; stop();
+      mode = btn.dataset.mode; Array.prototype.forEach.call(document.querySelectorAll('[data-mode]'), function(o){ o.classList.toggle('on', o === btn); });
+      label(); if (wasPlaying) start();
+    };
+  });
+  function block(){
+    return ['Hear the Lift · Daily Page rough 3',
+      'last at: ' + (mode === 'lean' ? 'lean against a click, ' + $('lift').value + ' ms ' + (dir < 0 ? 'ahead' : 'behind') : 'tempo, no click, ' + $('speed').value + '% ' + (dir < 0 ? 'faster' : 'slower')) +
+        ', gesture ' + (on ? 'on' : 'off') + ', click ' + (clickOn ? 'on' : 'off') + ', crescendo ' + $('cv').textContent,
+      'notes: ' + ($('notes').value.trim() || '—')].join('\n');
+  }
+  function publish(){ window.hearTheLiftResults = block(); }
+  $('notes').oninput = publish;
+  $('copy').onclick = function(){
+    var text = block();
+    function done(){ $('copied').textContent = 'Copied. Paste it into the chat.'; }
+    function fallback(){ var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { $('copied').textContent = 'Copy blocked; the notes are in window.hearTheLiftResults.'; } document.body.removeChild(ta); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+  };
+  label();
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
