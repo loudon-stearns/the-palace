@@ -59,6 +59,12 @@ The forward vector asks this neighborhood to be *used*, not surveyed. Two mechan
 
 **The front-end vector:** [[STIGMERGY Philosophical Lenses]] proposes how this lives in the front-end — visits inline in STATE, the dialectics roster as a QUEUE lane, a live DIALECTIC swarm mode. Philosophy becomes a lens you switch on over everything else.
 
+## Traditions used without pages
+
+- **Aboriginal Australian songlines.** Knowledge activated by walking it, not by looking it up: the path is the knowledge. The palace keeps the word for walking pages in order: the Walk, and the orchestrator's songline mode (`_ops/orchestrator/songline.md`).
+- **Mycorrhizal networks.** Distributed memory with hub nodes, where resources flow toward need. It is the picture behind a hub earned by what flows through it ([[SCHEMA]] §1).
+- **Bowlby's attachment theory.** A secure base makes exploration possible, and a rupture repaired deepens trust.
+
 ## Open Questions
 
 - How do these traditions contradict each other productively? Spinoza's determinism vs. Machiavelli's virtù; Plato's eternal Forms vs. Deleuze's difference-without-identity; Taoism's wu wei vs. Machiavelli's virtù. The contradictions are as generative as the convergences.

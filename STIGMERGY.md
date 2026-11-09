@@ -162,3 +162,6 @@ Become the front door — the single surface Loudon opens to run the palace, whe
 *"Stigmergy is a mechanism of indirect coordination between agents where the trace left by an action stimulates the performance of a subsequent action."* — Pierre-Paul Grassé
 
 *"The medium is the message."* — Marshall McLuhan
+
+## Active Baton
+[[STIGMERGY — baton]] — drafted 2026-11-09

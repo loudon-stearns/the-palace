@@ -38,3 +38,24 @@ Entry Bundles arrived with v1.2 on 2026-05-05 (`94f6096`). It had handoff exampl
 - **Where a new entry goes.** Step 1 sent every entry to the root until 2026-10-06. It was rewritten from practice: by then 32 of 41 project entries already sat in `Projects/` (`feea2f8`).
 - **The `breakthrough` type** left the table and step 1 with v1.17 (`de5990e`).
 - **The working-queue examples** went from Harvest Queue and Deposit Archive (`46d904f`) to Palace To-Do and Palace Graffiti (`004ff7c`), then to Graffiti alone when the To-Do retired (`00961f3`).
+
+## The 2026-11-09 rewrite: from mirror to door
+
+The Daily Page dealt the Guide on 2026-11-09. Its piece was a game called Still True?: ten sentences from the page, each checked against the page that owns the subject. Seven of the ten had drifted. Playing blind, Loudon agreed with the house on five of the ten. A page that copies rules from other pages goes stale as soon as one of them moves, and no reader can tell which lines have. His rule for the rewrite: a door holds nothing another page owns. The page now welcomes a stranger, human or any AI, and points. Its links are plain Markdown so they work on GitHub too, and the root `README.md` is generated from it (`_ops/readme/build-readme.mjs`).
+
+Where the old sections live now:
+
+- **The ceremony triggers and the ceremony paragraphs**: [[CHILD]] § Ceremony Triggers and [[Palace Ceremonies]].
+- **The reading order for another AI**: [[CLAUDE]], then [[ELDER]] § How loading works. The old list contradicted that order.
+- **Versioning and committing**: [[How the Palace Commits]].
+- **The link table, the entry types and the stages**: [[SCHEMA]] §§1, 2 and 4. The mirror comments are gone with them; the §4 count had been stale since v1.30.
+- **Frontmatter and the forward vector**: [[SCHEMA — Reference]] §3 and [[Pages as Agents]].
+- **Bundles**: [[SCHEMA — Reference]] §8.
+- **The Four Pillars**: [[FOUR PILLARS]]. The old line that a page touching all four is likely a hub contradicted SCHEMA §1, where a hub is earned by inbound links.
+- **The visual language**: [[Image Embedding Standard]], [[Mermaid Diagram Standard]] and [[Technical Diagram Standard]].
+- **How to add an entry, and its template**: [[Substrate Skill]] and [[Deposit Ceremony]].
+- **The philosophical foundations**: [[Palace Philosophies]], [[Meaning and the Link]], [[STIGMERGY]], [[Endosymbiosis]] and [[Spinoza Conatus]]. Luhmann is in [[SUBSTRATE — Context]].
+
+Some lines had no other home. "Plant seeds; tend them later" and "one idea, one page, one link" stay on the page itself. The closing-quotes rule, "composting is not death", and songlines, mycorrhizal networks and Bowlby as named traditions were drafted homes elsewhere, for Loudon to read before they are written. Until then they live only in the old text. The closing-quotes rule was let go on purpose, not rehomed. Loudon, 2026-11-09: "closing quotes rule has been overruled by our palace quotes system we don't need that here." See [[Palace Quotes]].
+
+The old text is whole at the rewrite's parent commit, `ddfe9e3f`: `git show ddfe9e3f:"README - The Palace Guide.md"`. The frontmatter link `emerged-from` [[Symbiotic Skills]] was dropped, because that page was composted on 2026-11-03 (`f55909e3`).
