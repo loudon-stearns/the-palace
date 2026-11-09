@@ -206,3 +206,7 @@ This page is also a way to teach higher dimensions to people who cannot picture 
 
 > *"God made the integers; all else is the work of man."* — Leopold Kronecker
 > *(and the irony that his most famous theorem is about what the irrationals do that the integers cannot)*
+
+## Active Baton
+
+[[DSP in Looping Dimensions — baton — playable face]] — drafted 2026-11-09
