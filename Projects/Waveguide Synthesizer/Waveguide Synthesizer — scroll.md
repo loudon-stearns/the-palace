@@ -15,32 +15,32 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-09T12:11:45.055Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-09T12:20:11.100Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 21 · last ran 2026-11-09 (today)
-- **Plan:** agreed 2026-10-13 (27 days ago) · 8 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** growing · **Steward:** cycle 22 · last ran 2026-11-09 (today)
+- **Plan:** agreed 2026-10-13 (27 days ago) · 9 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-09 (today) — Study v1.14: on a short screen the lesson card moves off the string, carries its own slider, and the string is framed in the space left over. (`waveguide-synthesizer-steward-049`)
-- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
+- **Last shipped:** 2026-11-09 (today) — Study v1.15: high notes no longer die in a tenth of a second. Every pitch now rings about as long as G3. (`waveguide-synthesizer-steward-051`)
+- **Last commit touching this project:** 2026-11-09 `fac463ca` — steward(Waveguide Synthesizer): cycle 21 — SPINNING UP. HOME: [Waveguide Synthesizer](obsidian://open?vault=The%20…
 - **Signal:** steady
 - **Left uncommitted:** ⚠ 69 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-1-pluck.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-2-reflection.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-3-loss.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-4-pitch.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-5-stiffness.png`, and 64 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-09 — cycle 21 · taught item 4
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-09 — cycle 22 · taught item 5
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 4, from cycle 21 — 2026-11-09 — [[Waveguide Synthesizer — tuning]]
+- **Latest lesson:** item 5, from cycle 22 — 2026-11-09 — [[Waveguide Synthesizer — tuning]]
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry the wave each way, and their sum is the string you see and hear. You can pluck, strike or bow it on a soundboard. Every slider lights what it names. Since v1.12 a seven-stop lesson walks you through it: pluck, reflection, loss, pitch, stiffness, bow, body. On any screen under 640 pixels tall (a laptop with the board open, a landscape phone) that lesson card sat right on top of the string, the slider panel and both charts. You couldn't see the thing the lesson was asking you to watch. v1.14 fixes that. The plan proposal from 2026-10-20 (refine from your own run through the lesson, then phone,…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry the wave each way, and their sum is the string you see and hear. You can pluck, strike or bow it on a soundboard. Every slider lights what it names, and a seven-stop lesson walks you through it (v1.12; v1.14 made the lesson fit short screens). For weeks my scroll carried a worry that the soundboard rang on after the string went quiet at high notes. I measured it this cycle, and the worry was wrong. The board stops within a tenth of a second of the string. The real fault was that high notes died far too fast. A pluck at G3 rang about a second, but at C6 it was gone in a tenth of a second. Tha…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 8:** Between replucks in the walk, the string goes quiet within about a second at higher notes while the soundboard keeps ringing, which may mean the board's tail is too long. _(in 5 notes, the latest cycle 17)_
-- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 8 notes, the latest cycle 21)_
+- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 9 notes, the latest cycle 22)_
+- **rough since cycle 15:** Also, high plucks now peak about 3 dB quieter at G4 to C5 (−15 against −12 dBFS), because the board gets less per bounce at the start. _(in 2 notes, the latest cycle 22)_
 - **rough since cycle 16:** The force slider now quietly scales with bow position, so the same number means a different press at different places. _(in 3 notes, the latest cycle 18)_
 - **rough since cycle 16:** Last cycle's small polish, making the pull dot visibly climb toward the limit line, is still not done. _(in 3 notes, the latest cycle 19)_
 - **rough since cycle 16:** The first slowed frame said 'breaking up' for a moment right after the slow-motion change. _(in 2 notes, the latest cycle 18)_
@@ -64,6 +64,7 @@ _None._
 
 ### Runs
 
+- 2026-11-09 — cycle 22 · taught item 5
 - 2026-11-09 — cycle 21 · taught item 4
 - 2026-10-20 — cycle 20 · taught item 3
 - 2026-10-20 — cycle 19 · taught item 1, proposed item 2 for canon
@@ -95,6 +96,61 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-051" -->
+### 2026-11-09 — cycle 22 — Study v1.15: high notes no longer die in a tenth of a second. Every pitch now rings about as long as G3.
+> shipped · G3 and below unchanged to the sample · steward leans a phone run next
+
+**What I measured first.** I ran v1.14's own engine in Node and tapped the string's pickup and the board apart. The board's tail ends with the string's at every pitch, within 0.1 s at G3, because the board is only ever driven by the string. So the old note about the board ringing too long is settled: it doesn't. What the numbers did show was the string itself going silent. It fell 40 dB in 0.98 s at G3, 0.46 s at G4, 0.16 s at G5 and 0.10 s at C6. The lesson's pitch stop sweeps up to 660 Hz, so there the sound vanished as the note climbed, and the stop taught 'higher is shorter' alongside 'shorter loop is higher'.
+
+**What changed.** Above G3, each bounce now takes the bridge loss, the nut loss and the brightness filter to the power G3/f, which makes the loss the same per second. Below G3 nothing changes, so bass notes still ring longer, as real ones do. The board's feed uses the same per-bounce figure, so it gets the same energy per second. The tuning math sees the new values too.
+
+**What it does now.** At C6 a pluck rings 0.74 s instead of 0.10. At G4 it rings 1.00 s, the same as G3. At 98 and 196 Hz the output is identical to v1.14 sample for sample. Pluck tuning at the top got better, from +4 cents to +0.1 cents at C6. The bow still sings at every pitch I tried. Bowed pitch sits within 6 cents, and after the bow lifts the string now rings out instead of choking. In Chrome, 0.4 s after a pluck at A5 (the slider's top), v1.14's string is flat (largest bead 1e-8) and v1.15's is still visibly moving (0.011). The page loaded with no errors.
+
+**What the picture says.** The nut and bridge labels used to say 'keeps 98.5% each bounce' at every pitch. That stopped being true, so above G3 each now gives the real per-bounce figure plus the G3 figure the slider reads, for example 'keeps 99.7% each bounce (98.5% at G3, the same ring time)'. A higher note bounces more often, so each bounce keeps more. The pitch stop's 'hear' line now ends: 'the loop's length is the pitch, and only the pitch: each note rings about as long as the last.'
+
+**Passed over:** making loss fully even below G3 too. That would shorten the bass, which currently rings longer, as a real low string does. I also passed over a gentler half-compensation: it would keep the pitch stop mixing pitch with decay, and that mixing is what I set out to remove.
+
+**Artifacts:**
+- [study v1.15, playable: click to start, drag pitch to the top and pluck (space); press L for the lesson.](Projects/Waveguide Synthesizer/study-v1.15-even-loss/index.html)
+- [plucks rising G2 to C6: v1.14, a pause, then v1.15. Listen to the last three notes of each half.](Projects/Waveguide Synthesizer/offline-v1.15/even-loss-plucks-before-after.wav)
+- [the same six notes bowed and lifted: v1.14, then v1.15. High notes now ring after the lift instead of choking.](Projects/Waveguide Synthesizer/offline-v1.15/even-loss-bow-before-after.wav)
+- [v1.14 at A5, 0.4 s after a pluck: the string is already flat.](Projects/Waveguide Synthesizer/offline-v1.15/still-v1.14-880hz-0.4s.png)
+- [v1.15 at A5, 0.4 s after a pluck: still moving, with the new two-line bounce labels on nut and bridge.](Projects/Waveguide Synthesizer/offline-v1.15/still-v1.15-880hz-0.4s.png)
+- [v1.14 at G3, for reference.](Projects/Waveguide Synthesizer/offline-v1.15/still-v1.14-196hz-0.4s.png)
+- [v1.15 at G3: unchanged.](Projects/Waveguide Synthesizer/offline-v1.15/still-v1.15-196hz-0.4s.png)
+- [the probe that taps string and board apart and times each one's ring.](Projects/Waveguide Synthesizer/offline-v1.15/tail_probe.mjs)
+- [ring times before.](Projects/Waveguide Synthesizer/offline-v1.15/tail-v1.14.json)
+- [ring times after.](Projects/Waveguide Synthesizer/offline-v1.15/tail-v1.15.json)
+- [tuning, pluck and bow levels at six pitches, both versions, and the two WAVs.](Projects/Waveguide Synthesizer/offline-v1.15/check_render.mjs)
+- [the check's numbers.](Projects/Waveguide Synthesizer/offline-v1.15/check.json)
+- [the Chrome run that took the four stills.](Projects/Waveguide Synthesizer/offline-v1.15/smoke.mjs)
+- [page errors (none) and the string's largest bead 0.4 s after each pluck.](Projects/Waveguide Synthesizer/offline-v1.15/smoke.json)
+- [v1.14 → v1.15, every change through the asserting rep().](Projects/Waveguide Synthesizer/offline-v1.15/patch_page.py)
+- [the stand-in audio clock the Chrome run uses (copied from v1.14).](Projects/Waveguide Synthesizer/offline-v1.15/fake_audio_clock.js)
+
+_how long a pluck rings, in seconds to fall 40 dB (bridge 0.985, guitar-sized board)_
+| note | v1.14 string | v1.14 board | v1.15 string | v1.15 board |
+| --- | --- | --- | --- | --- |
+| G2 · 98 Hz | 1.94 | 2.52 | 1.94 | 2.52 |
+| G3 · 196 Hz | 0.98 | 1.08 | 0.98 | 1.08 |
+| G4 · 392 Hz | 0.46 | 0.52 | 1.00 | 1.10 |
+| C5 · 523 Hz | 0.32 | 0.24 | 0.94 | 0.66 |
+| G5 · 784 Hz | 0.16 | 0.16 | 0.82 | 0.74 |
+| C6 · 1047 Hz | 0.10 | 0.08 | 0.74 | 0.50 |
+
+_Left rough:_ Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. Also, high plucks now peak about 3 dB quieter at G4 to C5 (−15 against −12 dBFS), because the board gets less per bounce at the start. At A5 with stiffness at zero, the ladder now reads 'a little stiff' (+3.4 cents at overtone 8, just over its 3-cent line), where v1.14 read 'harmonic' at −4.2. The 69 before/after frames v1.14's cycle left in offline-v1.14/frames are still uncommitted. I left them for you to keep or clear, since they're untracked and deleting them can't be undone.
+
+_Next moves named:_ Your ears on even-loss-plucks-before-after.wav: does C6 ringing as long as G3 sound right, or should the top fall off a little faster, the way real high strings do? (One constant in the page, LOSS_REF and the exponent, sets it.) · Nudge the ladder's 'harmonic' line, or the loop's own stretch, so an unstiffened string at A5 doesn't read 'a little stiff'. · When you answer the plan card: a run on a real phone, with touch, is the next proof.
+<sub>`waveguide-synthesizer-steward-051` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-085f1936af" -->
+### 2026-11-09 — cycle 22
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-049" -->
 ### 2026-11-09 — cycle 21 — Study v1.14: on a short screen the lesson card moves off the string, carries its own slider, and the string is framed in the space left over.
 > shipped · lesson fits all five short screens tested · steward leans the board's long tail next

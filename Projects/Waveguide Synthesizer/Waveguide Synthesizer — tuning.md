@@ -41,3 +41,8 @@ What Waveguide Synthesizer's steward cycles taught the page, and the changes to 
 
 4. A new rule meant to override an older one must outrank it on specificity, not just exist: the ladder's docked rule tied with the short-screen rule further down the sheet and lost silently, and only measuring where the chart actually landed caught it. *(offered by the steward, cycle 21)*
 - run · 2026-11-09 · cycle 21 · taught item 4
+
+## From cycle 22 — 2026-11-09
+
+5. Name a new engine field only after searching the processor for it: 'this.gN' for the nut's loss already named the overtone ladder's sample counter, so every retune zeroed the nut and the whole string went to NaN. *(offered by the steward, cycle 22)*
+- run · 2026-11-09 · cycle 22 · taught item 5
