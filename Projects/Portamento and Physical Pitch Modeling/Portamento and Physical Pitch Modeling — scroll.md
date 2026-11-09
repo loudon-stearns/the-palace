@@ -15,14 +15,14 @@ forward_vector: "I am Portamento and Physical Pitch Modeling's scroll — the on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-02T03:24:15.595Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-09T07:03:47-05:00 from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** mature · **Steward:** cycle 13 · last ran 2026-11-02 (today)
-- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector
+- **Status:** active · **Stage:** mature · **Steward:** cycle 13 · last ran 2026-11-02 (7 days ago)
+- **Plan:** agreed 2026-11-09 (today) · 0 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-02 (today) — Seven glides whose damping changes partway through, plus an exercise: can you hear when a spring was caught, grabbed or let go? (`portamento-steward-028`)
-- **Last commit touching this project:** 2026-11-01 `3deb04e3` — steward(Portamento and Physical Pitch Modeling): cycle 12 — SPINNING UP. HOME: [Portamento and Physical Pitch Modeling](obsidian://…
+- **Last shipped:** 2026-11-02 (7 days ago) — Seven glides whose damping changes partway through, plus an exercise: can you hear when a spring was caught, grabbed or let go? (`portamento-steward-028`)
+- **Last commit touching this project:** 2026-11-09 `56df77e4` — edit(Portamento and Physical Pitch Modeling): the forward vector tuned: two characters and a speed by ear, critical damping as the design point, and a lean from the passive spring to the controller
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 - **Runs:** 2 runs on 1 day, counted from the ledger's run lines
@@ -78,7 +78,14 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+**Where the work is going:** from a passive spring that was never listened to, to a model of the player — one that builds a better synth glide and reads a real one.
+
+**The moves ahead:**
+1. **Correct the text.** The four errors the face's challenger found: 59% at 2/ωₙ, not 95%; the sign of the f_max formula; a landing from above that overshoots arrives flat, not sharp, on the page's own model; and the tool list, which describes files that are not there. Retell the ten tools as what they are, PID and PD glide controllers, the page's real origin. 36% becomes 37%; the wavelet section's pictures are called spectrograms; Kuramoto said once. Each claim change is shown to Loudon before it lands.
+2. **Say what the ear found.** The 2026-11-04 blind test (in proofs) heard two characters and a speed: overdamped and critical, matched in time, came out at chance. The text and the ear set teach critical damping as the design point, not a third sound.
+3. **Build the controller.** Model the glide as a closed loop, a PID with perceptual delay, and render it beside the passive spring. Test whether delay alone gives a singer's overshoot.
+4. **Read real glides.** Begin with Carl Seashore's measured glides (Psychology of Music, 1938, and his Iowa lab's phonophotography), then recordings of real singers and players; extend the model fitter to the controller and fit it to them. Not Loudon's own voice.
+5. **Play it.** A portamento for a synth, built from what moves 3 and 4 found.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -90,6 +97,13 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-11-09T07-03-47-05-00" -->
+### 2026-11-09 — Plan agreed
+
+The first plan, agreed by Loudon in the Daily Page sit of 2026-11-09 (the page dealt 2026-11-04, verdict tune): "It is good, and you can proceed", with his edit that no reading is based on his own voice, which is why move 4 reads Seashore's measured glides and recordings of real singers and players instead. It takes the page from the passive spring to a model of the player, and follows the forward vector tuned the same morning.
+<sub>`plan-2026-11-09T07-03-47-05-00` · plan agreed · agreed 2026-11-09T07:03:47-05:00 · the Concierge, on Loudon's yes of 2026-11-09</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="portamento-steward-028" -->
 ### 2026-11-02 — cycle 13 — Seven glides whose damping changes partway through, plus an exercise: can you hear when a spring was caught, grabbed or let go?
 > shipped · page's first open question now has sound · steward leans: listen to grab-crest vs ramp first
