@@ -255,7 +255,7 @@ This system and STIGMERGY's look sit in productive contrast.
 | **Type** | Anton + Cormorant + Manrope + JetBrains | VT323 + IBM Plex Mono |
 | **Layout** | Editorial spread, left-aligned | 80ch character-cell grid |
 | **Color** | Six skins, accent reserved | Phosphor green, amber for flags |
-| **Motion** | Cubic-bezier, restrained | `steps()` only, discrete |
+| **Motion** | Cubic-bezier, restrained | Type-on at 20 ms a character |
 | **Borders** | 1 – 1.5 px CSS | CSS borders evoking CP437, never rounded |
 
 They are **sibling systems**, both born from palace work, addressing different surfaces. Loudon Live is what the palace shows the world. STIGMERGY is what the palace looks like when it's working on itself. A third sibling, [[Drafting Table Design System]], is STIGMERGY's grammar moved onto the drafting sheet, and dresses the work itself: plugin faces, panels, part drawings, tool UIs.

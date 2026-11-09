@@ -40,6 +40,7 @@ The page is a hub that hands its depth elsewhere:
 - **Commits on the bus.** Infrastructure agents once coordinated commits over the board. Since 2026-10-14 every commit goes through one door ([[How the Palace Commits]]). The page says so as of `c5e4d8e9`.
 - **TRICKSTER for any note.** Narrowed to stewardship's blocking forks on 2026-09-24 (`400f5cbe`).
 - **Enrichment's card queue.** Retired for the rich face the same day (`d7ab5219`).
+- **`steps()` only.** § The look held motion to `steps()`, with no springs and no easing curves. Loudon took the rule out on 2026-11-09: "lets remove all of these constraints", said to a one-sentence summary relayed by the working session ("STIGMERGY allows stepped motion only"). The page and the kit's brand book no longer state it. The app's stylesheets were not changed.
 
 The lease, heartbeat and dead-letter rungs were not dropped. They are deferred by design, written down so the next rung is a known direction, not a rediscovery.
 
