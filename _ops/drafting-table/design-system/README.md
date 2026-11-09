@@ -10,7 +10,7 @@ Three sources, each read exactly.
 
 | Source | What it gave |
 |---|---|
-| **STIGMERGY** · `_ops/stigmergy/design-system/` | The phosphor scale (`#33ff66` `#1f8a3c` `#0b2a14` `#d7f6dc` on `#050a06`), amber and red status, the text-first rule, hairlines-not-shadows, `border-radius: 0`, `steps()` motion, VT323 for banners, IBM Plex Mono for the terminal, the inverted hover. |
+| **STIGMERGY** · `_ops/stigmergy/design-system/` | The phosphor scale (`#33ff66` `#1f8a3c` `#0b2a14` `#d7f6dc` on `#050a06`), amber and red status, the text-first rule, hairlines-not-shadows, `border-radius: 0`, VT323 for banners, IBM Plex Mono for the terminal, the inverted hover. |
 | **Loudon Live · Drafting skin** · `_ops/loudon-live/design-system/colors_and_type.css` | The paper (`#f0eee5`), ink (`#1a1916` `#3a3a35` `#6a6862`), the fill `#dcd9ca`, engineering red `#c8261a`, the six categorical hues, the 4px spacing scale, the inset-top-highlight elevation idea. The other five skins and the Anton / Cormorant / Manrope stack stay with Loudon Live; they are the public channel's dress, not the workshop's. |
 | **The CAD Drafter's sheets** · `Shop/Shopkeeper/probes/2026-10-20-cad/` | The look Loudon asked for: an A4 sheet with a frame, projected views, ISO 45° hatching on a cut face, dimension lines with arrows outside narrow spans, a title block of cells, numbered notes, and a legend where the colour of a number is its provenance: **DATASHEET** blue, **DESIGN** ink, **MEASURE** red. See `reference/` for the light cap sheet. |
 
@@ -34,7 +34,6 @@ The one thing that does not change with the ground is the **scope**: `scope-grou
 5. **Colour is provenance, then signal.** A number's colour says where it came from: `source-design` (chosen here), `source-datasheet` (read from elsewhere), `source-assumed` (nominal, will be corrected), `source-measure` (unknown; red; holds the build). On a plugin that reads: your value, the host's automation, a modulated value not at rest, clipping or a missing input. `accent` is the one lit thing in a view. Everything else is ink.
 6. **Hatch, don't tint.** A filled region (a meter's level, a cut face, a selected range) is 45° hatching in `ink-3` over `ground-200`. `bundle.css` gives you `.dt-hatch`.
 7. **Say it twice when it is a number.** A value shows as digits and unit (`440.0 Hz`); a parameter that has a tolerance or range shows it (`±0.05`, `20 – 20k`). A HOLD is written as a HOLD, in `source-measure`, not hinted by colour alone.
-8. **Motion is discrete or short.** On Phosphor, `steps()` and a 100ms fade at most, as Stigmergy has it. On Paper, 120ms linear for a state change and nothing ambient. No bounces, no springs. A knob follows the hand with no easing at all.
 
 ## Type
 
@@ -62,13 +61,9 @@ Casing: uppercase for sheet eyebrows, view captions, title-block names and hotke
 
 The slab tokens exist so the same look survives leaving the browser. For a part rendered in Three.js or Blender, or a 3D plugin face:
 
-- **Material:** matte, no specular highlight, `slab-face` as the albedo. Light from above-front so the top edge reads as `slab-light` and the underside as `slab-shade`.
-- **Outline pass:** every silhouette and crease edge in `ink` at about `stroke-outline` screen pixels, constant width regardless of depth. This is what makes a render look drawn. (Blender: Freestyle or Grease Pencil Line Art; Three.js: an inverted-hull or post-process edge pass.)
 - **Cut faces:** when a section is shown, the cut face is `ground-200` with 45° hatching in `ink-3`, as on the sheets.
 - **Ground:** the sheet, `ground-000`, flat, with no horizon. A faint `rule-soft` grid is allowed under a part the way a graticule sits under a trace.
 - **Dimensions in 3D** are the same `Dimension` component drawn as a billboard: extension lines, arrows, a `sheet-dim` label coloured by source.
-
-No glass, no chrome, no bloom on Paper. On Phosphor, the only lit material is the phosphor itself: an emissive `scope-trace` wire or LED with `shadow-glow`.
 
 ## Iconography
 

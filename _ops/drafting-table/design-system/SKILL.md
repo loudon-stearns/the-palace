@@ -10,7 +10,7 @@ Drafting Table is the workshop's dress. It is the STIGMERGY terminal grown up an
 
 ## How to use this skill
 
-1. Read `README.md` in full: the sources, the two grounds, the eight rules of the grammar, type, colour in use, solid surfaces and 3D, iconography, the component table, and § For a plugin editor.
+1. Read `README.md` in full: the sources, the two grounds, the seven rules of the grammar, type, colour in use, solid surfaces and 3D, iconography, the component table, and § For a plugin editor.
 2. `colors_and_type.css` is every token, compiled from `tokens.json`. Set `data-theme="paper"` (default) or `data-theme="phosphor"` on the root. Add `fonts.css` for the local faces, `aliases.css` only for a page written against Loudon Live's names. Load `controls.css` after the tokens and before anything of your own: it re-dresses what the browser draws alone (scrollbars, selects, checkboxes, range sliders, the textarea grip, number spinners, `<details>`, focus, selection, autofill) in the sheet's tokens.
 3. For a plugin editor read `plugin-face.md`, then inline, in order: `colors_and_type.css`, `fonts.css`, `aliases.css` (if needed), `bundle.css`, `dt-controls.js`, and `transport.js` if the face plays a sound. The controls take a `tpl::ParamSpec` row and a host binding `{get, set, begin, end, on}`.
 4. For a React page load `components/bundle.js` after React 18; `components/index.d.ts` documents the props.
