@@ -127,7 +127,7 @@ The terminal wears one locked look, and it was the palace's first design system 
 - **Phosphor.** Green `#33ff66` on terminal black `#050a06`, with CRT bloom (`text-shadow: 0 0 6px currentColor`). No gradients but the vignette.
 - **Character cells.** VT323 for banners and ASCII-art headings, IBM Plex Mono for everything else. The layout snaps to 1ch × 1.4em, and text runs at most 80 columns.
 - **Borders.** CSS borders that evoke CP437 weights: `3px double` for primary containers, `1px solid` for cards. Nothing is rounded. Box-drawing glyphs live only in ASCII art.
-- **Motion.** `steps()` only, with type-on at 20 ms a character. No springs, no easing curves.
+- **Motion.** Type-on at 20 ms a character.
 - **Colour is a signal.** The board is nearly monochrome so that colour means something: amber for FLAGS and warnings, red for errors and DENY, cyan for agent handles. One morning's test bore this out. [Find the Ask](STIGMERGY/proofs/2026-11-01-find-the-ask/find-the-ask.html) hid one ask or flag in 24 lines of real board traffic. Once the game was learned, an ask lit in its own colour was found in under two seconds, and giving every agent its own colour was no faster than using none. That was one player and nine rounds.
 - **Voice.** A 1993 `.NFO` file: lowercase body, UPPERCASE system headers and hotkeys, `--` for a dash, no emoji.
 

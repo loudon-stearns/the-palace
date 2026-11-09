@@ -336,7 +336,7 @@ _ops/stigmergy/app/
 - 80ch max-width on body text. CP437 box-drawing for cards.
 - `border-radius: 0` everywhere. No drop shadows. No emoji.
 - Lowercase body, UPPERCASE system. No em dashes — use `--`.
-- `steps()` motion only. Type-on at ~20ms/char.
+- Type-on at ~20ms/char.
 - Scanline overlay on by default; `[V]` toggles.
 
 The source of truth for tokens lives in

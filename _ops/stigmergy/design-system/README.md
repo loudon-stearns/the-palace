@@ -142,9 +142,7 @@ Full scale, semantic tokens, and CRT-glow utilities live in `colors_and_type.css
 - **Blink** — the cursor blinks at ~1.1 Hz. Text can blink too for alerts (use sparingly).
 - **Type-on** -- headers and banners "type in" character by character on first paint. Two tokens govern the rate: `--dur-type` (default `20ms`) is the per-character rate for short headers and menu rows (a 40-character heading completes in under a second); `--dur-type-banner` (default `2ms`) is the per-character rate for full-screen ASCII banners (a ~1300-character banner completes in ~2 seconds). Pick whichever scale puts total type-on time in the ~0.6s--~2.5s range; for in-between sizes, multiply at the call site. Rule of thumb: `--dur-type` for H1-scale strings; `--dur-type-banner` for multi-line banners. This is the flagship motion -- it must feel like a teletype, not a loading screen.
 - **Scroll, not fade** — content moves on; it does not dissolve. New messages push old ones up.
-- **Easing: `steps()`**, not cubic-bezier. Motion is discrete, not smooth. `transition: opacity 60ms steps(3)` — never `ease-in-out`.
 - **Fades are rare.** When used, they're 100ms max.
-- **No bounces, no springs.** This is a teletype, not an iPhone.
 
 ### Hover / press states
 - **Hover on menu items:** invert colors. Green-on-black becomes black-on-green. Instant; no transition.
@@ -264,7 +262,7 @@ Each card is a small, focused HTML file in `preview/`. The UI kit in `ui_kits/bl
 
 If you're **designing a slide, mock, or prototype**, copy the relevant assets out of `assets/` and `fonts/` and reference `colors_and_type.css`. The UI kit in `ui_kits/blackboard/` has ready-to-lift components.
 
-If you're **writing production code**, the CSS variables in `colors_and_type.css` are the source of truth for color and type. Everything else (spacing, borders, motion) is described above — implement using `ch` units, CP437 glyphs, and `steps()` easing.
+If you're **writing production code**, the CSS variables in `colors_and_type.css` are the source of truth for color and type. Everything else (spacing, borders, motion) is described above — implement using `ch` units and CP437 glyphs.
 
 If you're **an agent answering a question about this brand**, read `SKILL.md` first.
 
