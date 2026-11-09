@@ -1,0 +1,218 @@
+<!doctype html>
+<!--
+  title: DSP in Looping Dimensions — rough — push back
+  born: 2026-11-05 (Daily Page prep, a rough; not on the face)
+  tests: Frame 3's surviving question, the one the face's challenger left open (challenge.md l.68):
+         do two loops that sustain themselves snap where two plucked loops slide?
+  model: each loop is a delay, a one-pole lowpass (a = 0.35), a DC blocker (R = 0.99), a gain g = 1.5 and tanh.
+         Gain above one keeps it ringing; tanh holds its amplitude. Coupling c mixes each loop's output into
+         the other's delay input. Runs at 16 kHz, the same model as sim.mjs / ramp.mjs beside it.
+  measured headless (ramp.mjs, 220 & 226.6 Hz, c ramped 0 → 0.16 → 0 over 80 s, slips counted per second):
+         up: ~6 slips/s, pulled to ~4 by c ≈ 0.10, then 1, then 0 by c ≈ 0.13;
+         down: held at 0 down to c ≈ 0.104, then 3 slips/s at c = 0.100. A jump, and a lag between lock and release.
+  golden (sweep.mjs, 220 & 136 Hz): slight pulling, both series kept, no lock onto a fraction; near c ≈ 0.10–0.15
+         one oscillation takes over the other, and further hops come above c ≈ 0.25. Not yet read as snap or slide.
+  read 2026-11-09: a snap with hysteresis, up 0.28 / down 0.19 (ramp-golden.txt); locked, both loops share 1077 Hz.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Push back · a rough</title>
+<meta name="theme-color" content="#0a0a0f">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blue:#4a8fff;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  ::selection { background: var(--amber); color: var(--bg); }
+  :focus { outline: none; } :focus-visible { outline: 1px solid var(--amber); outline-offset: 2px; }
+  .piece { padding: 22px 22px 20px; max-width: 1100px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 30px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-family: var(--serif); font-size: 18px; line-height: 1.6; color: var(--fg1); max-width: 78ch; margin: 0 0 16px; }
+  .sub i { color: var(--amber); }
+  .panel { border: 1px solid var(--soft); border-radius: 2px; background: var(--e1); padding: 10px 12px; margin-top: 14px; }
+  .plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  canvas { display: block; width: 100%; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: flex-end; margin-top: 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 13px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.on { color: var(--amber); border-color: var(--amberline); }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); min-width: 110px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  .seg button { letter-spacing: .04em; text-transform: none; font-size: 12px; padding: 7px 10px; }
+  label.sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--fg3); min-width: 260px; flex: 1 1 260px; }
+  label.sl b { color: var(--fg1); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 12px 0 4px; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 13px; height: 13px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .read { display: flex; flex-wrap: wrap; gap: 6px 26px; margin-top: 14px; font-family: var(--mono); font-size: 12px; color: var(--fg3); }
+  .read b { color: var(--fg1); font-weight: 500; } .read .hot { color: var(--amber); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); margin-top: 12px; }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 6px; max-width: 92ch; }
+  .ask { margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .q { font-family: var(--serif); font-size: 18px; color: var(--fg1); margin: 14px 0 6px; }
+  textarea { width: 100%; min-height: 64px; background: var(--bg); color: var(--fg1); border: 1px solid var(--border); border-radius: 2px; font-family: var(--sans); font-size: 14px; padding: 8px; resize: vertical; }
+  .hint { font-family: var(--mono); font-size: 11px; line-height: 1.6; color: var(--fg3); margin-top: 8px; }
+  .footer { font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg4); margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">rough · daily page · 2026-11-05 · sketch</div>
+  <h1 class="title">Push back</h1>
+  <p class="sub">The face found that two plucked loops <i>slide</i>: couple them and their pitches drift toward each other smoothly, with no snap. Plucked loops only ring down, though. These two loops keep themselves going, like a bowed string or a feedback loop, and they hold their own loudness. Turn the knob up slowly and listen for the beating to stop. Then turn it back down and notice where it starts again.</p>
+
+  <div class="controls">
+    <button class="go" id="go">▸ start</button>
+    <span class="seg" id="presets">
+      <button data-a="220" data-b="226.6" class="on">near unison · 220 &amp; 226.6 Hz</button>
+      <button data-a="220" data-b="135.967">golden · 220 &amp; 136 Hz</button>
+    </span>
+    <button id="ramp">auto · up and back, 60 s</button>
+    <button id="reset">restart the loops</button>
+  </div>
+  <div class="controls">
+    <label class="sl">coupling c = <b id="cval">0.000</b><input type="range" id="c" min="0" max="0.3" step="0.001" value="0"></label>
+  </div>
+
+  <div class="read">
+    <span>loop A <b id="fa">—</b></span><span>loop B <b id="fb">—</b></span>
+    <span>slips per second <b class="hot" id="slip">—</b></span>
+    <span id="state"></span>
+  </div>
+
+  <div class="panel">
+    <div class="plabel"><span>slips per second against the knob · amber going up · blue coming down</span><span>c across</span></div>
+    <canvas id="map" height="260"></canvas>
+  </div>
+
+  <div class="eq">yₖ[n] = tanh( g · hp( lp( xₖ[n − Nₖ] ) ) ),  x_A = (1 − c) · y_A + c · y_B</div>
+  <div class="words">(loop k's output now) = tanh( (gain) × (DC blocker)( (lowpass)( (what went into loop k's delay, one loop ago) ) ) ),  (what goes into A's delay) = (1 − coupling) × (A's output) + (coupling) × (B's output)</div>
+  <div class="eq">slips per second = | f_A − f_B |</div>
+  <div class="words">(how often one loop laps the other) = | (loop A's pitch) − (loop B's pitch) |. Zero means they move as one.</div>
+  <p class="hint">Loop A on the left, B on the right. Pitches are counted from upward zero crossings over the last second, so they read in whole hertz and wobble by one. The model runs at 16 kHz, so the sound is dull on purpose. Headphones help with the beating.</p>
+
+  <div class="ask">
+    <div class="kicker">your ear · three questions</div>
+    <div class="q">Near unison: going up, did the beating fade out or stop all at once? Roughly where?</div>
+    <textarea id="q1"></textarea>
+    <div class="q">Coming back down, did it let go at the same place?</div>
+    <textarea id="q2"></textarea>
+    <div class="q">Golden: what happened as you turned it? Does the page's bell-to-string line live here?</div>
+    <textarea id="q3"></textarea>
+    <div class="controls" style="margin-top:12px"><button id="copy">copy my answers</button><span class="hint" id="copied"></span></div>
+  </div>
+  <div class="footer">Loud’n Live</div>
+</div>
+
+<script>
+// The model runs at 16 kHz, as in sim.mjs; the output is resampled to whatever rate the browser gives.
+// A ScriptProcessor, not an AudioWorklet: the worklet is missing from sandboxed and file pages.
+const SR = 16000;
+class Loops {
+  constructor() { this.c = 0; this.set(220, 226.6); }
+  set(a, b) { this.NA = SR / a; this.NB = SR / b; this.L = 4096;
+    this.bA = new Float64Array(this.L); this.bB = new Float64Array(this.L);
+    let s = 12345; const r = () => ((s = (s * 1103515245 + 12345) % 2147483648) / 2147483648 - 0.5);
+    for (let i = 0; i < this.L; i++) { this.bA[i] = 0.01 * r(); this.bB[i] = 0.01 * r(); }
+    this.w = 0; this.lA = this.lB = this.hxA = this.hyA = this.hxB = this.hyB = 0; this.pA = this.pB = 0;
+    this.zA = this.zB = 0; this.k = 0; this.yA = this.yB = this.qA = this.qB = 0; }
+  rd(b, N) { const p = this.w - N, i0 = Math.floor(p), f = p - i0, L = this.L; return b[(i0 + 4 * L) % L] * (1 - f) + b[(i0 + 1 + 4 * L) % L] * f; }
+  step() { // one sample at 16 kHz
+    const c = this.c, g = 1.5, a = 0.35, R = 0.99;
+    const xa = this.rd(this.bA, this.NA), xb = this.rd(this.bB, this.NB);
+    this.lA += a * (xa - this.lA); this.lB += a * (xb - this.lB);
+    this.hyA = this.lA - this.hxA + R * this.hyA; this.hxA = this.lA; this.hyB = this.lB - this.hxB + R * this.hyB; this.hxB = this.lB;
+    this.qA = this.yA; this.qB = this.yB;
+    const yA = this.yA = Math.tanh(g * this.hyA), yB = this.yB = Math.tanh(g * this.hyB);
+    this.bA[this.w] = (1 - c) * yA + c * yB; this.bB[this.w] = (1 - c) * yB + c * yA; this.w = (this.w + 1) % this.L;
+    if (yA > 0 && this.pA <= 0) this.zA++; if (yB > 0 && this.pB <= 0) this.zB++; this.pA = yA; this.pB = yB;
+    if (++this.k === SR / 4) { onBlock([this.zA, this.zB]); this.zA = this.zB = 0; this.k = 0; }
+  }
+}
+
+let ctx, node, gain, loops = new Loops(), ph = 0, blocks = [], pts = [], lastC = 0, dir = 'up', rampT = null;
+const $ = id => document.getElementById(id);
+const cIn = $('c');
+let preset = [220, 226.6];
+
+async function start() {
+  if (ctx) { if (ctx.state === 'running') { await ctx.suspend(); $('go').textContent = '▸ start'; } else { await ctx.resume(); $('go').textContent = '■ stop'; } return; }
+  ctx = new (window.AudioContext || window.webkitAudioContext)();
+  const ratio = SR / ctx.sampleRate;
+  node = ctx.createScriptProcessor(2048, 0, 2);
+  node.onaudioprocess = e => {
+    const L = e.outputBuffer.getChannelData(0), Rt = e.outputBuffer.getChannelData(1);
+    for (let i = 0; i < L.length; i++) {
+      ph += ratio; while (ph >= 1) { ph -= 1; loops.step(); }
+      L[i] = 0.12 * (loops.qA + (loops.yA - loops.qA) * ph); Rt[i] = 0.12 * (loops.qB + (loops.yB - loops.qB) * ph);
+    }
+  };
+  gain = ctx.createGain(); gain.gain.value = 0; gain.gain.setTargetAtTime(1, ctx.currentTime, 0.3);
+  node.connect(gain).connect(ctx.destination);
+  await ctx.resume();
+  $('go').textContent = '■ stop';
+}
+const post = d => { if (d.c !== undefined) loops.c = d.c; if (d.a) loops.set(d.a, d.b); };
+function onBlock([za, zb]) {
+  blocks.push([za, zb]); if (blocks.length > 4) blocks.shift();
+  if (blocks.length < 4) return;
+  const A = blocks.reduce((s, b) => s + b[0], 0), B = blocks.reduce((s, b) => s + b[1], 0), slip = Math.abs(A - B);
+  $('fa').textContent = A + ' Hz'; $('fb').textContent = B + ' Hz'; $('slip').textContent = slip;
+  $('state').textContent = slip === 0 ? 'moving as one' : slip <= 1 ? 'nearly one' : 'two, beating';
+  pts.push({ c: +cIn.value, s: slip, dir }); if (pts.length > 1200) pts.shift();
+  draw();
+}
+function setC(v) {
+  v = Math.max(0, Math.min(0.3, v));
+  if (Math.abs(v - lastC) > 1e-6) dir = v > lastC ? 'up' : 'down'; lastC = v;
+  cIn.value = v; $('cval').textContent = v.toFixed(3);
+  post({ c: v });
+}
+cIn.addEventListener('input', () => { stopRamp(); setC(+cIn.value); });
+document.querySelectorAll('#presets button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#presets button').forEach(x => x.classList.toggle('on', x === b));
+  preset = [+b.dataset.a, +b.dataset.b]; pts = []; blocks = []; stopRamp(); setC(0);
+  post({ a: preset[0], b: preset[1] });
+  draw();
+}));
+$('reset').addEventListener('click', () => { pts = []; blocks = []; stopRamp(); setC(0); post({ a: preset[0], b: preset[1] }); draw(); });
+function stopRamp() { if (rampT) { clearInterval(rampT); rampT = null; $('ramp').classList.remove('on'); } }
+$('ramp').addEventListener('click', async () => {
+  if (rampT) return stopRamp();
+  if (!ctx || ctx.state !== 'running') await start();
+  const top = preset[1] > 200 ? 0.16 : 0.3, t0 = performance.now(), T = 30000;
+  setC(0); pts = []; $('ramp').classList.add('on');
+  rampT = setInterval(() => { const t = performance.now() - t0; if (t > 2 * T) { setC(0); return stopRamp(); }
+    setC(t < T ? top * t / T : top * (2 - t / T)); }, 50);
+});
+$('go').addEventListener('click', start);
+
+function draw() {
+  const cv = $('map'), dpr = devicePixelRatio || 1, W = cv.clientWidth, H = 260;
+  cv.width = W * dpr; cv.height = H * dpr; const g = cv.getContext('2d'); g.scale(dpr, dpr);
+  g.clearRect(0, 0, W, H);
+  const pad = 34, cmax = 0.3, smax = Math.max(10, ...pts.map(p => p.s));
+  g.strokeStyle = 'rgba(255,255,255,.06)'; g.fillStyle = '#8a8aa0'; g.font = '10px JetBrains Mono, monospace';
+  for (let c = 0; c <= cmax + 1e-9; c += 0.05) { const x = pad + (W - pad - 24) * c / cmax; g.beginPath(); g.moveTo(x, 8); g.lineTo(x, H - 20); g.stroke(); g.fillText(c.toFixed(2), x - 12, H - 6); }
+  g.fillText(smax.toFixed(0), 4, 14); g.fillText('0', 4, H - 22);
+  for (const p of pts) {
+    const x = pad + (W - pad - 24) * p.c / cmax, y = (H - 22) - (H - 32) * Math.min(p.s, smax) / smax;
+    g.fillStyle = p.dir === 'up' ? 'rgba(232,184,74,.85)' : 'rgba(74,143,255,.85)'; g.beginPath(); g.arc(x, y, 2.2, 0, 7); g.fill();
+  }
+}
+addEventListener('resize', draw); draw();
+
+$('copy').addEventListener('click', async () => {
+  const txt = `Push back · rough · 2026-11-05\nNear unison, going up: ${$('q1').value.trim() || '—'}\nComing back down: ${$('q2').value.trim() || '—'}\nGolden: ${$('q3').value.trim() || '—'}`;
+  try { await navigator.clipboard.writeText(txt); }
+  catch { const t = document.createElement('textarea'); t.value = txt; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+  $('copied').textContent = 'copied · paste it into the chat';
+});
+</script>
+</body>
+</html>

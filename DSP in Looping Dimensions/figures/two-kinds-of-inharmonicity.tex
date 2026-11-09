@@ -1,0 +1,139 @@
+% Two kinds of inharmonicity, each three times over: the circuit you build, the loop it is, the sound you hear.
+% Lattice: two loops multiplied (FM, ring mod, a torus scan). Eigen: one loop whose medium has its own resonances.
+% Geometry: gen-loops.py (torus-mesh.tex, torus-path.tex, stretch-rings.tex). Data: two-kinds-of-inharmonicity.py.
+% Both sound panels share one y scale (cents off a harmonic series) so the contrast reads at a glance.
+% Compile: lualatex two-kinds-of-inharmonicity.tex ; SVG via PyMuPDF (dvisvgm's PDF route is broken on this Mac).
+\documentclass[border=0pt]{standalone}
+\usepackage{fontspec}
+\setmainfont{JetBrains Mono}
+\setmonofont{JetBrains Mono}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{arrows.meta, calc, backgrounds, decorations.markings, positioning}
+% Drafting Table, paper ground (_ops/drafting-table/design-system/colors_and_type.css)
+\definecolor{paper}{HTML}{F0EEE5}
+\definecolor{ink}{HTML}{1A1916}
+\definecolor{ink2}{HTML}{3A3A35}
+\definecolor{ink3}{HTML}{6A6862}
+\definecolor{slab}{HTML}{D8D4C6}
+\definecolor{measure}{HTML}{C8261A}
+\definecolor{source}{HTML}{2B5FB0}
+\tikzset{
+  >={Stealth[length=1.8mm]},
+  mesh/.style={draw=ink3!45, line width=0.25pt},
+  scan/.style={draw=ink, line width=0.6pt},
+  scanback/.style={draw=ink3!70, line width=0.4pt, densely dashed},
+  ring/.style={draw=ink, line width=0.9pt},
+  loop/.style={draw=ink, line width=1.5pt},
+  back/.style={draw=ink, line width=1.5pt, ->},
+  wire/.style={draw=ink, line width=0.6pt},
+  blk/.style={rectangle, draw=ink, fill=slab, line width=0.7pt, minimum height=7mm, minimum width=12mm, inner sep=2pt, font=\scriptsize, text=ink},
+  adder/.style={circle, draw=ink, fill=paper, line width=0.7pt, minimum size=4.6mm, inner sep=0pt, font=\scriptsize},
+  tap/.style={circle, fill=ink, minimum size=3pt, inner sep=0pt},
+  lab/.style={font=\scriptsize, text=ink2},
+  rowhead/.style={font=\bfseries\small, anchor=west, text=ink},
+  rowsub/.style={font=\scriptsize, anchor=west, text=ink2},
+  colhead/.style={font=\bfseries\scriptsize, anchor=west, text=ink},
+  spin/.style={postaction={decorate}, decoration={markings, mark=at position 0.25 with {\arrow{>}}}},
+}
+\pgfplotsset{
+  /pgf/number format/assume math mode=true,
+  cents/.style={scale only axis, width=5.5cm, height=3.3cm, axis lines=left, tick align=outside,
+    xmin=0, xmax=31, ymin=-400, ymax=300, xtick={1,10,20,30}, ytick={-300,0,300}, clip=false,
+    axis line style={ink, line width=0.5pt}, tick style={ink},
+    xlabel style={font=\scriptsize, text=ink2, yshift=1mm}, ylabel style={font=\scriptsize, text=ink2, yshift=-1mm},
+    tick label style={font=\tiny, text=ink2}, ylabel={cents off}},
+}
+% a row: frame, heading, and the two column rules (row height 6.6)
+\newcommand{\rowframe}[3]{%
+  \draw[ink, line width=0.5pt] (-0.3,#1) rectangle (19.9,#1-6.6);
+  \draw[ink, line width=0.3pt] (6.9,#1-0.95) -- (6.9,#1-6.6) (12.4,#1-0.95) -- (12.4,#1-6.6) (-0.3,#1-0.95) -- (19.9,#1-0.95);
+  \node[rowhead] at (0,#1-0.32) {#2};
+  \node[rowsub] at (0,#1-0.7) {#3};}
+\begin{document}
+\begin{tikzpicture}
+
+% ---------- column heads ----------
+\node[colhead] at (0,1.15) {THE CIRCUIT \quad what you build};
+\node[colhead] at (7.2,1.15) {THE LOOP \quad what it is};
+\node[colhead] at (12.7,1.15) {THE SOUND \quad what you hear};
+\node[font=\scriptsize, anchor=west, text=ink2] at (0,0.55) {Both sound panels share one scale: cents away from a harmonic series. Zero is in tune.};
+
+% =============== 01 · LATTICE ===============
+\def\y{0}
+\rowframe{\y}{01 \enspace LATTICE \enspace multiply two loops}{partials land on every m·f₁ + n·f₂: FM, ring mod, a scan across a torus}
+\begin{scope}[shift={(0,\y)}]
+  \node[blk] (p1) at (1.2,-2.55) {phasor f₁};
+  \node[blk] (p2) at (1.2,-5.0) {phasor f₂};
+  \draw[back] (p1.north east) to[out=40, in=140, looseness=2.2] node[lab, above] {wraps} (p1.north west);
+  \draw[back] (p2.north east) to[out=40, in=140, looseness=2.2] node[lab, above] {wraps} (p2.north west);
+  % FM: the modulator's sine, scaled by the index I, is added into the carrier's phase
+  \node[adder] (a) at (2.85,-2.55) {+};
+  \node[blk, minimum width=9mm] (sc) at (4.35,-2.55) {sin};
+  \node[blk, minimum width=9mm] (sm) at (2.85,-5.0) {sin};
+  \node[blk, minimum width=9mm] (g) at (2.85,-3.8) {× I};
+  \draw[wire,->] (p1) -- (a); \draw[wire,->] (a) -- (sc);
+  \draw[wire,->] (p2) -- (sm); \draw[wire,->] (sm) -- (g); \draw[wire,->] (g) -- (a);
+  \draw[wire,->] (sc.east) -- (6.65,-2.55) node[lab, above left] {out};
+  \node[lab, anchor=west, align=left] at (3.45,-3.8) {the modulator\\bends the\\carrier's phase};
+  \node[lab, anchor=north west] at (3.55,-5.55) {f₂ = φ·f₁};
+  % the loop: two circles, multiplied, are a torus
+  \draw[loop, spin] (7.75,-2.4) circle (0.42); \node[lab] at (7.75,-2.4) {φ₁};
+  \draw[loop, spin] (7.75,-4.55) circle (0.3);  \node[lab] at (7.75,-4.55) {φ₂};
+  \node[font=\small, text=ink] at (8.35,-3.5) {×};
+  \begin{scope}[shift={(10.45,-3.55)}, scale=0.75]
+    \input{torus-mesh.tex}
+    \input{torus-path.tex}
+  \end{scope}
+  \node[lab, anchor=north] at (10.45,-5.25) {one path over two loops};
+  \begin{axis}[cents, at={(13.6cm,-5.55cm)}, xlabel={partial rank, low to high}]
+    \draw[ink3!60, densely dashed, line width=0.4pt] (axis cs:0,0) -- (axis cs:31,0);
+    \addplot[ycomb, line width=0.5pt, ink3!70] table[x=rank, y=cents] {tki-lattice.dat};
+    \addplot[only marks, mark=*, mark size=1.4pt, ink] table[x=rank, y=cents] {tki-lattice.dat};
+    \node[lab, anchor=north east, align=right] at (axis cs:31,300) {FM sidebands |k| ≤ 12, against\\the lowest line, 0.618 f₁};
+  \end{axis}
+\end{scope}
+
+% =============== 02 · EIGEN ===============
+\def\y{-7.0}
+\rowframe{\y}{02 \enspace EIGEN \enspace bend one loop}{partials are the medium's own resonances: a stiff string, a dispersive loop}
+\begin{scope}[shift={(0,\y)}]
+  \node[lab] (in) at (0.1,-3.0) {in};
+  \node[adder] (a) at (0.85,-3.0) {+};
+  \node[blk] (d) at (2.25,-3.0) {delay T};
+  \node[blk] (ap) at (4.0,-3.0) {allpass};
+  \node[tap] (t) at (5.15,-3.0) {};
+  \draw[wire,->] (in) -- (a); \draw[wire,->] (a) -- (d); \draw[wire,->] (d) -- (ap); \draw[wire] (ap) -- (t);
+  \draw[wire,->] (t) -- (6.65,-3.0) node[lab, above left] {out};
+  \draw[back] (t) -- ++(0,-1.25) -| (a);
+  \node[lab, anchor=north] at (3.2,-4.6) {the allpass delays high partials less};
+  % the loop: each partial's own ring
+  \begin{scope}[shift={(8.75,-3.55)}, scale=0.78]
+    \input{stretch-rings.tex}
+  \end{scope}
+  \node[lab, anchor=north] at (9.6,-5.25) {ring n: T ÷ √(1 + B·n²)};
+  \node[font=\tiny, text=ink3, anchor=north] at (9.6,-5.7) {B exaggerated so the rings part};
+  \begin{axis}[cents, at={(13.6cm,-5.55cm)}, xlabel={partial n}]
+    \draw[ink3!60, densely dashed, line width=0.4pt] (axis cs:0,0) -- (axis cs:31,0);
+    \addplot[line width=1.0pt, ink, smooth] table[x=n, y=cents] {tki-eigen.dat};
+    \addplot[only marks, mark=*, mark size=1.1pt, ink] table[x=n, y=cents] {tki-eigen.dat};
+    \node[lab, anchor=north west, align=left] at (axis cs:1,300) {f\textsubscript{n} = n·f₀·√(1 + B·n²)\\piano, \textcolor{source}{B = 0.0004}};
+    \node[lab, anchor=north east] at (axis cs:30.5,105) {266 at n = 30};
+    \node[lab, anchor=north west] at (axis cs:1.5,-45) {0.35 at n = 1};
+  \end{axis}
+\end{scope}
+\node[font=\scriptsize, anchor=north west, text=ink2, text width=19.6cm] at (0,-13.85) {\textbf{FM cannot make a piano: its knobs move a lattice, and a piano's partials are not one.} Turn the ratio and the scattered points reshuffle; they never line up into a smooth curve. Stiffness bends one series smoothly; it never scatters it.};
+
+% ---------- title block ----------
+\draw[ink, line width=0.8pt] (-0.3,-15.1) rectangle (19.9,-16.0);
+\draw[ink, line width=0.3pt] (9.6,-15.1) -- (9.6,-16.0) (15.3,-15.1) -- (15.3,-16.0);
+\node[font=\scriptsize\bfseries, text=ink, anchor=west] at (-0.1,-15.55) {DSP IN LOOPING DIMENSIONS · TWO KINDS OF INHARMONICITY};
+\node[font=\scriptsize, text=ink, anchor=west] at (9.8,-15.55) {INK computed \quad \textcolor{source}{BLUE from a source}};
+\node[font=\scriptsize, text=ink2, anchor=west] at (15.5,-15.55) {FIG · 2026-11-09 · PAPER};
+
+\begin{scope}[on background layer]
+  \fill[paper] ($(current bounding box.south west)+(-0.4,-0.4)$) rectangle ($(current bounding box.north east)+(0.4,0.4)$);
+\end{scope}
+\end{tikzpicture}
+\end{document}
