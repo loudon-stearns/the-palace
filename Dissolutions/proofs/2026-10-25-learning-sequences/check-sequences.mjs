@@ -88,9 +88,12 @@ for (const f of pages) {
   // answers.js is main's (_ops/loudon-eval); on a tree without it the page falls back to Copy, and the
   // failed load is said here, not counted as the page's error
   const answersHere = existsSync(resolve(HERE, '../../../_ops/loudon-eval/answers.js'));
-  page.on('console', (m) => { if (m.type() === 'error' && !(!answersHere && /ERR_FILE_NOT_FOUND/.test(m.text()))) errors.push(m.text()); });
+  // the proof shown in place on the last step is its own page: its Google Fonts request is a
+  // proof-page fault the baton names, so only this page's own requests and errors count here
+  const proofAsked = new Set(), ownPage = (u) => !/2026-10-20-/.test(u || '') && !proofAsked.has(u);
+  page.on('console', (m) => { if (m.type() === 'error' && ownPage(m.location().url) && !(!answersHere && /ERR_FILE_NOT_FOUND/.test(m.text()))) errors.push(m.text()); });
   page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
-  page.on('request', (r) => { if (!r.url().startsWith('file:') && !r.url().startsWith('data:')) offDisk.push(r.url()); });
+  page.on('request', (r) => { if (r.frame() !== page.mainFrame()) proofAsked.add(r.url()); if (r.frame() === page.mainFrame() && !r.url().startsWith('file:') && !r.url().startsWith('data:')) offDisk.push(r.url()); });
   await page.addInitScript(INIT);
   await page.goto(pathToFileURL(join(HERE, f)).href);
   await page.waitForTimeout(800);
@@ -112,10 +115,10 @@ for (const f of pages) {
   const atEnd = await page.evaluate(() => document.getElementById('next').disabled);
   check(`${f}: Next stops at the last step`, atEnd, '');
 
-  // the last step's link reaches a proof
-  const href = await page.evaluate(() => { const a = document.querySelector('section.step:last-of-type a.proof-link'); return a && a.getAttribute('href'); });
+  // the last step shows its proof in place, a proof that exists, with the proof's own notes hidden
+  const href = await page.evaluate(() => { const a = document.querySelector('section.step:last-of-type iframe.proof'); return a && a.getAttribute('src'); });
   const target = href && resolve(HERE, decodeURI(href));
-  check(`${f}: the last step opens a proof that exists`, !!href && existsSync(target), href || 'no a.proof-link');
+  check(`${f}: the last step shows a proof that exists`, !!href && existsSync(target), href || 'no iframe.proof');
 
   // every Play: sound only on its click, and it stops
   const plays = await page.evaluate(() => [...document.querySelectorAll('section.step')].map((s, i) => (s.querySelector('[data-play]') ? i : -1)).filter((i) => i >= 0));
