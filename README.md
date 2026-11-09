@@ -40,3 +40,6 @@ The palace began on 17 March 2026 as a folder of Markdown files in Obsidian, and
 
 *"Sufficient associations between a pattern of symbols and a reality form meaning."*
 — Loudon Stearns, [Meaning and the Link](Meaning%20and%20the%20Link.md) (2014)
+
+## Active Baton
+[README - The Palace Guide — baton](README%20-%20The%20Palace%20Guide/README%20-%20The%20Palace%20Guide%20%E2%80%94%20baton.md) — drafted 2026-11-09
