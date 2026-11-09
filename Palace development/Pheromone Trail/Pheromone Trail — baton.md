@@ -52,6 +52,12 @@ Loudon's guesses before he saw the result were: hot stays hot "about a third", c
 
 The second rough is `proofs/2026-11-06-daily-page/ant-farm.html`, a playful ant farm and the seed for the face's next round. It has ants with legs, an amber "home this way" glow and a teal "food this way" glow. Click to drop a palace page as food; drag to make rain that washes trails away. Sliders set the fade rate and the share of wild ants, and `?warm=N` pre-runs N steps. The room checked it headless: after 2,500 steps, 135 crumbs had been carried home, and a clear teal road had formed to the page that was found. **Loudon has played it.** In his words, 2026-11-08: "I played the ant farm, it is great".
 
+## Where the face goes
+
+The target for the playful face round, from Loudon at the close, 2026-11-08, verbatim: "In the end I would have liked to see ants crawling all over the topology map of the palace stigmergy with all the icons and for the ants to be showing actual data pulled from the history of the palace, maybe a timeline of the palace growing and ants crawling all over it. That is a place to go for the pheromone trail page, to visualize the history or a snapshot in time of the palace and how the many trails are laid over time and build the complex map that we have."
+
+In plain terms: ants on the real palace topology, with the page icons, driven by git history, and a timeline of the palace growing. The ant farm is the seed; this is where it is going.
+
 ## Where is the nest?
 
 Loudon asked on 2026-11-07, verbatim: "this is way more fun, and educational now that we embrace the metaphor viscerally. What is the \"nest\" in our palace?" The room offered an answer for the rewrite to test. It is not canon:
