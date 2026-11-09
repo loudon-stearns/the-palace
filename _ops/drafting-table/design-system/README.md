@@ -4,6 +4,8 @@ The house dress for the work Loudon makes with his hands and ears: plugin faces,
 
 > Drawn, not rendered. Every surface is outlined in ink, every number says where it came from.
 
+This is a standard, and a standard is something to push against. The grammar below is the reliable default. The art is in how a piece authors the seam with it: where it holds the standard, and where it bends it. Loudon, 2026-11-09: "Be artistic, don't hold ourselves hostage to a system, we are not a corporation, we are artists pushing at boundaries."
+
 ## Where it came from
 
 Three sources, each read exactly.
@@ -59,11 +61,13 @@ Casing: uppercase for sheet eyebrows, view captions, title-block names and hotke
 
 ## Solid surfaces, and 3D
 
-The slab tokens exist so the same look survives leaving the browser. For a part rendered in Three.js or Blender, or a 3D plugin face:
+The sheet is where 3D starts, not where it stops. Loudon, 2026-11-09: "I'd like it to get 3D, in a creative way, as if the 3D were a hologram above the drafting or as if it were pushing the paper up, the trick is to bend the design in a creative way!" Those are two ways in, not the only two: a figure of light standing above the drawing it came from, or the paper itself lifted from beneath. Find another.
 
-- **Cut faces:** when a section is shown, the cut face is `ground-200` with 45° hatching in `ink-3`, as on the sheets.
-- **Ground:** the sheet, `ground-000`, flat, with no horizon. A faint `rule-soft` grid is allowed under a part the way a graticule sits under a trace.
-- **Dimensions in 3D** are the same `Dimension` component drawn as a billboard: extension lines, arrows, a `sheet-dim` label coloured by source.
+What the sheet offers a 3D piece to bend:
+
+- **Cut faces:** on the sheets, a cut face is `ground-200` with 45° hatching in `ink-3`.
+- **Ground:** the sheet, `ground-000`, with a faint `rule-soft` grid the way a graticule sits under a trace.
+- **Dimensions** are the `Dimension` component drawn as a billboard: extension lines, arrows, a `sheet-dim` label coloured by source.
 
 ## Iconography
 
