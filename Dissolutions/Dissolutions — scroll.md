@@ -42,7 +42,7 @@ _Nothing decided on the board yet._
 <!-- scroll:plan:start -->
 **One playable proof per dissolution.** Agreed with Loudon, 2026-10-18.
 
-1. Each member gets an interactive proof that tests its identity claim rather than illustrates it, reached by a learning sequence: a few short interactive steps that take each component concept on its own, then combine them, and arrive at the proof as the last step. Loudon's outline for the table that travels is the model: the table alone, the loop alone, the two combined through their difference, then the filter. *One curve, three readers* is the first proof (Exponential Decay Curvature, partly Volterra Kernels and the Torus and Chebyshev is Fourier), and shows where the feeling of difference comes from: a dissolution is hidden by nature, which is why it is taught. *(The sequence agreed with Loudon, 2026-10-25.)*
+1. Each member gets an interactive proof that tests its identity claim rather than illustrates it, reached by a learning sequence. The sequence opens by saying what is being dissolved: the two things, each defined clearly on its own, before any step joins them. Then a few short interactive steps take each component concept on its own, combine them, and arrive at the proof as the last step. Loudon's outline for the table that travels is the model: the table alone, the loop alone, the two combined through their difference, then the filter. *One curve, three readers* is the first proof (Exponential Decay Curvature, partly Volterra Kernels and the Torus and Chebyshev is Fourier), and shows where the feeling of difference comes from: a dissolution is hidden by nature, which is why it is taught. *(The sequence agreed with Loudon, 2026-10-25; its opening, 2026-11-08.)*
 2. Built 2026-10-20: Dispersion Table, Phase Reduction, Chebyshev is Fourier, Volterra Kernels and the Torus, Linear Predictive Coding, Rank-N Lattice Analysis. Owed: a learning sequence for each.
 3. Each proof ends in a hunt-ledger line: identity, isomorphism or analogy, and the knob it unlocked.
 4. A proof that will not come alive is a question about whether that member stands, carried to a sit, not hidden.
@@ -61,6 +61,19 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-11-08-sequence-opening" -->
+### 2026-11-08 — Plan revised
+
+Loudon's yes of 2026-11-08, "Yes, both offers", after his review of the shadow that locks. His words: "Each dissolution must start with a clear description of what we are dissolving, what are the two concepts defined clearly and individually first, then go through the proof." So step 1 now says each sequence opens on the two things, each defined on its own, before any step joins them. The six sequences already open that way, on a step 0 (0a0838cd). The same yes put his "within limits" sentence on [[Dissolutions]].
+
+_The plan before this change:_
+
+> 1. Each member gets an interactive proof that tests its identity claim rather than illustrates it, reached by a learning sequence: a few short interactive steps that take each component concept on its own, then combine them, and arrive at the proof as the last step. Loudon's outline for the table that travels is the model: the table alone, the loop alone, the two combined through their difference, then the filter. *One curve, three readers* is the first proof (Exponential Decay Curvature, partly Volterra Kernels and the Torus and Chebyshev is Fourier), and shows where the feeling of difference comes from: a dissolution is hidden by nature, which is why it is taught. *(The sequence agreed with Loudon, 2026-10-25.)*
+>
+> Steps 2 to 6 and *On form* are unchanged.
+
+<sub>`plan-2026-11-08-sequence-opening` · plan revised · agreed 2026-11-08 · the Concierge, on Loudon's yes of 2026-11-08</sub>
+<!-- /scroll:entry -->
 <!-- scroll:entry id="sit-2026-11-07-one-curve-three-readers" -->
 ### 2026-11-07 — One curve, three readers, played again: the turn-around shows the bend, and the pictures should carry the labels
 
