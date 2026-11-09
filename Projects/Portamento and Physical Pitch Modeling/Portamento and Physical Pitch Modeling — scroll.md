@@ -15,20 +15,20 @@ forward_vector: "I am Portamento and Physical Pitch Modeling's scroll — the on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-09T07:03:47-05:00 from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-09T07:08:13-05:00 from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** active · **Stage:** mature · **Steward:** cycle 13 · last ran 2026-11-02 (7 days ago)
 - **Plan:** agreed 2026-11-09 (today) · 0 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
 - **Last shipped:** 2026-11-02 (7 days ago) — Seven glides whose damping changes partway through, plus an exercise: can you hear when a spring was caught, grabbed or let go? (`portamento-steward-028`)
-- **Last commit touching this project:** 2026-11-09 `56df77e4` — edit(Portamento and Physical Pitch Modeling): the forward vector tuned: two characters and a speed by ear, critical damping as the design point, and a lean from the passive spring to the controller
+- **Last commit touching this project:** 2026-11-09 `191e5c6a` — edit(Portamento and Physical Pitch Modeling): the kept proof Three Springs, Blind says in its own-voice section that the sung answer is not used as a reading; on Loudon's word of 2026-11-09
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 - **Runs:** 2 runs on 1 day, counted from the ledger's run lines
 - **Last run:** 2026-11-01 — cycle 13 · taught item 2, proposed items 3, 4 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 3 — items 1, 3, 4; waiting on Loudon's review, and the page has not changed
+- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
 - **Latest lesson:** item 4, from cycle 13 — 2026-11-01 — [[Portamento and Physical Pitch Modeling — tuning]]
 
 ### Where this stands
@@ -69,9 +69,7 @@ _Nothing owed._
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
-- **1.** 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Artifacts and Interactive Exploration, end of the bundle list — The entry lists what the bundle holds, and this is the first tool that measures a listener rather than teaching one.
 - **3.** 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Open Questions → Composition and Control, under question 1 — The question now has sound and one measured answer, and that answer reframes the question.
-- **4.** 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Artifacts and Interactive Exploration, end of the bundle list (after the threshold/ line) — The entry lists what the bundle holds.
 
 <!-- scroll:now:end -->
 
@@ -81,8 +79,8 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 **Where the work is going:** from a passive spring that was never listened to, to a model of the player — one that builds a better synth glide and reads a real one.
 
 **The moves ahead:**
-1. **Correct the text.** The four errors the face's challenger found: 59% at 2/ωₙ, not 95%; the sign of the f_max formula; a landing from above that overshoots arrives flat, not sharp, on the page's own model; and the tool list, which describes files that are not there. Retell the ten tools as what they are, PID and PD glide controllers, the page's real origin. 36% becomes 37%; the wavelet section's pictures are called spectrograms; Kuramoto said once. Each claim change is shown to Loudon before it lands.
-2. **Say what the ear found.** The 2026-11-04 blind test (in proofs) heard two characters and a speed: overdamped and critical, matched in time, came out at chance. The text and the ear set teach critical damping as the design point, not a third sound.
+1. ~~Correct the text.~~ Landed 2026-11-09 in `1ecd9350`. The four errors the face's challenger found are corrected (59% at 2/ωₙ; the sign of the peak formula; a falling overshoot lands flat; the tool list retold as the PID and PD glide controllers they are), with 37%, spectrograms named as such, and Kuramoto said once. The singers' paragraph now rests on Seashore's measured glides.
+2. ~~Say what the ear found.~~ Landed in the text 2026-11-09 in `1ecd9350`: the opening and § Critically Damped say two characters and a speed, and cite the 2026-11-04 blind test. The ear set is not yet changed.
 3. **Build the controller.** Model the glide as a closed loop, a PID with perceptual delay, and render it beside the passive spring. Test whether delay alone gives a singer's overshoot.
 4. **Read real glides.** Begin with Carl Seashore's measured glides (Psychology of Music, 1938, and his Iowa lab's phonophotography), then recordings of real singers and players; extend the model fitter to the controller and fit it to them. Not Loudon's own voice.
 5. **Play it.** A portamento for a synth, built from what moves 3 and 4 found.
@@ -97,6 +95,24 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-2026-11-09T07-08-13-05-00" -->
+### 2026-11-09 — Plan revised
+
+Moves 1 and 2 landed on Loudon's yes of 2026-11-09, in the Daily Page sit: the eight corrections to the page in 1ecd9350. Move 2 is marked landed in the text only; the ear set has not been changed.
+
+_The plan before this change:_
+
+> **Where the work is going:** from a passive spring that was never listened to, to a model of the player — one that builds a better synth glide and reads a real one.
+>
+> **The moves ahead:**
+> 1. **Correct the text.** The four errors the face's challenger found: 59% at 2/ωₙ, not 95%; the sign of the f_max formula; a landing from above that overshoots arrives flat, not sharp, on the page's own model; and the tool list, which describes files that are not there. Retell the ten tools as what they are, PID and PD glide controllers, the page's real origin. 36% becomes 37%; the wavelet section's pictures are called spectrograms; Kuramoto said once. Each claim change is shown to Loudon before it lands.
+> 2. **Say what the ear found.** The 2026-11-04 blind test (in proofs) heard two characters and a speed: overdamped and critical, matched in time, came out at chance. The text and the ear set teach critical damping as the design point, not a third sound.
+> 3. **Build the controller.** Model the glide as a closed loop, a PID with perceptual delay, and render it beside the passive spring. Test whether delay alone gives a singer's overshoot.
+> 4. **Read real glides.** Begin with Carl Seashore's measured glides (Psychology of Music, 1938, and his Iowa lab's phonophotography), then recordings of real singers and players; extend the model fitter to the controller and fit it to them. Not Loudon's own voice.
+> 5. **Play it.** A portamento for a synth, built from what moves 3 and 4 found.
+<sub>`plan-2026-11-09T07-08-13-05-00` · plan revised · agreed 2026-11-09T07:08:13-05:00 · the Concierge, on Loudon's yes of 2026-11-09</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="daily-2026-11-04-three-springs-blind" -->
 ### 2026-11-04 — Three Springs, Blind: are the page's three regimes three sounds, or two and a speed?
 
