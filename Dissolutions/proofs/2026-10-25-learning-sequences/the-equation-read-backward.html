@@ -4,7 +4,7 @@
   born: 2026-10-25
   parent: [[Dissolutions]] · leads up to ../2026-10-20-the-equation-read-backward/the-equation-read-backward.html · tests [[Linear Predictive Coding]]
   forward_vector: I am the way up to the equation read backward. I take the source and the filter, the guess from one sample, the residual sixteen weights leave, the same line run the other way, and the order that splits the voice between them, one step each, so that the proof makes sense the first time it is played.
-  outline: the template's arc (Loudon's, for the table that travels) cast for LPC — source and filter alone, prediction alone, the two met in the residual, the line solved the other way, then the order.
+  outline: step 0, the two things each defined on its own, with where the dissolution holds and where it stops (Loudon’s review, 2026-11-09); then the template's arc (Loudon's, for the table that travels) cast for LPC — source and filter alone, prediction alone, the two met in the residual, the line solved the other way, then the order.
   sound: nothing plays until a Play button is clicked; the AudioContext is made on that click. Every buffer is made at 16 kHz, the proof's world.
 -->
 <html lang="en" class="skin-graphite">
@@ -122,19 +122,82 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
   @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+  /* step 0: the two things, each on its own, before anything joins them */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .thing{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-top:2px solid var(--accent-dim);border-radius:8px;padding:16px 18px}
+  .thing h3{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.15;margin:4px 0 10px;letter-spacing:.01em;color:var(--fg-1)}
+  .thing p{margin:0 0 10px;color:var(--fg-2)}
+  .thing p.where,.thing p.alone{font-family:var(--sans);font-size:13.5px;line-height:1.6;color:var(--fg-3)}
+  .thing p.where b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);margin-right:6px}
+  .thing p.alone{color:var(--accent);margin:0}
+  .claim p{margin:6px 0 10px;color:var(--fg-1);max-width:74ch}
+  .claim p b{color:var(--accent);font-weight:600}
+  .claim p.kind{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--fg-2);margin:0}
+  .claim p.kinds{font-family:var(--sans);font-size:12.5px;line-height:1.6;color:var(--fg-3);margin:0 0 6px}
+  .limits{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .limits>div{padding:12px 16px;border-left:2px solid var(--border);background:var(--bg-elev-1);border-radius:0 6px 6px 0}
+  .limits>div.holds{border-left-color:var(--accent)}
+  .limits p{margin:4px 0 0;color:var(--fg-2)}
+  dl.words{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:6px 18px;margin:6px 0 16px;font-family:var(--sans);font-size:14px;line-height:1.55}
+  dl.words dt{color:var(--fg-1);font-weight:500}
+  dl.words dd{margin:0;color:var(--fg-3)}
+  @media (max-width:640px){.pair,.limits{grid-template-columns:1fr}dl.words{grid-template-columns:1fr;gap:2px}dl.words dd{margin-bottom:8px}}
 </style>
 </head>
 <body>
 <main>
   <div class="eyebrow">Dissolutions · learning sequence · Linear Predictive Coding</div>
   <h1>The equation read backward, step by step</h1>
-  <p class="lead">Five short steps up to the proof. A buzz and a mouth, a guess from one sample, the guess made with sixteen weights, the same line run the other way, then how many weights to use. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <p class="lead">Step 0 names the two things this sequence dissolves, defines each on its own, and says where the dissolution holds and where it stops. Then five short steps up to the proof. A buzz and a mouth, a guess from one sample, the guess made with sixteen weights, the same line run the other way, then how many weights to use. Each step has one thing to hear. Nothing plays until you press Play.</p>
   <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
+  <!-- ───────────── step 0 ───────────── -->
+  <section class="step" data-step="0" data-title="The two things">
+    <div class="eyebrow">Step 0 · the two things, before anything joins them</div>
+    <h2>Analysis and synthesis, each on its own</h2>
+    <p class="say">This sequence takes two jobs done to a voice, taking one apart and putting one together, and tests whether they are one equation solved two ways.</p>
+    <div class="pair">
+      <div class="thing">
+        <div class="eyebrow">The first thing</div>
+        <h3>Analysis: linear prediction</h3>
+        <p>Take a recorded voice, a list of numbers called samples, 16,000 a second here, and guess each sample from the few just before it, as a weighted sum: so much of the last one, so much of the one before. Choose the weights that make the guesses as close as they can be. What the guess still misses is called the residual. The weights end up holding the slow resonances that make the vowel; the residual holds what they could not predict, sample by sample.</p>
+        <p class="where"><b>Where you meet it</b>Linear predictive coding, LPC, inside speech codecs since the 1970s: send the weights and a little of the residual instead of the whole wave.</p>
+        <p class="alone">Steps 2 and 3.</p>
+      </div>
+      <div class="thing">
+        <div class="eyebrow">The second thing</div>
+        <h3>Synthesis: a source and a filter</h3>
+        <p>Make a voice from scratch out of two parts. A source: a buzz, like the vocal folds snapping shut over and over, or a hiss for a whisper. A filter: something that rings at a few frequencies and lets the rest fade, as the mouth does. Those ringing frequencies are the formants, and they make a vowel a vowel. The source sets the pitch; the filter sets the vowel.</p>
+        <p class="where"><b>Where you meet it</b>Vocoders, talk boxes, and the speaking toys of the late 1970s, the Speak & Spell among them.</p>
+        <p class="alone">Step 1.</p>
+      </div>
+    </div>
+    <div class="panel claim">
+      <div class="eyebrow">The claim that joins them</div>
+      <p>Both jobs are one line: a sample equals the weighted guess from the samples before it, plus the residual. Analysis solves the line for the residual. Synthesis solves the same line, with the same weights, for the sample: the residual is the source, the weights are the filter. Feed the residual back in and the voice returns, every sample of it (step 4).</p>
+      <p class="kinds">Three kinds of sameness. Identity: one object, read two ways. Isomorphism: an exact map between two things that stay two. Analogy: a likeness that breaks when you push it.</p>
+      <p class="kind"><b>Identity, of the equation.</b> What is one is the line and its numbers, not two machines. Solved for the residual, the line is a filter that takes the vowel out; solved for the sample, it is a filter that puts it back. Two filters that exactly undo each other, made from one line.</p>
+    </div>
+    <div class="limits">
+      <div class="holds"><div class="eyebrow">Where it holds</div><p>The round trip closes to rounding error at every order, every number of weights, from 1 to 32 (step 5), when the same weights and the residual go back exactly as they came out. The order never decides whether it closes, only how the voice is shared between the weights and the residual.</p></div>
+      <div class="stops"><div class="eyebrow">Where it stops</div><p>Exactness needs the weights and the residual handed back untouched: a codec that rounds them to save bits gives back a voice close to the original, not the same one. And the weights hold over a short window only, 25 ms here, because a voice keeps changing; the method assumes the mouth holds still that long, and takes a fresh set every 10 ms. What the round trip never promised: swap the residual for a plain buzz and the line still runs, on a different source. The vowels survive and the life goes: the robot voice of LPC-10, the 1970s secure-voice standard (the proof).</p></div>
+    </div>
+    <div class="eyebrow">Words the steps use</div>
+    <dl class="words">
+        <dt>weight</dt><dd>How much of one past sample goes into the guess.</dd>
+        <dt>order</dt><dd>How many weights, so how many past samples the guess reads (step 5).</dd>
+        <dt>residual</dt><dd>What the guess misses, sample by sample (step 3).</dd>
+        <dt>formant</dt><dd>A frequency the mouth rings at; two or three of them make a vowel.</dd>
+        <dt>window</dt><dd>The short stretch of voice one set of weights is fitted to.</dd>
+      </dl>
+    <div class="try"><span class="eyebrow">Try</span>Before you press Next, say each of the two things back in a sentence of your own, without the other. If either one won’t come, that is the note to leave here.</div>
+    <textarea data-note placeholder="Are the two things clear, each on its own, before the steps join them?"></textarea>
+  </section>
+
   <!-- ───────────── step 1 ───────────── -->
-  <section class="step" data-step="0" data-title="A buzz and a mouth">
+  <section class="step" data-step="1" data-title="A buzz and a mouth">
     <div class="eyebrow">Step 1 of 6 · the source and the filter</div>
     <h2>A buzz, shaped by a mouth</h2>
     <p class="say">A voice is two things. A source, which is a buzz: the vocal folds snapping shut over and over, here a plain click 125 times a second. And a filter, the mouth, which rings at a few frequencies and lets the others fade. The buzz sets the pitch. The mouth sets the vowel.</p>
@@ -163,7 +226,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 2 ───────────── -->
-  <section class="step" data-step="1" data-title="A guess from one sample" hidden>
+  <section class="step" data-step="2" data-title="A guess from one sample" hidden>
     <div class="eyebrow">Step 2 of 6 · prediction, by hand</div>
     <h2>Guess the next sample from the last one</h2>
     <p class="say">Now take a finished voice, the proof’s, singing ah, ee, oo, and try to guess each sample before it arrives. The simplest guess: the last sample, times one weight. What the guess gets wrong is the miss. Set the weight by hand and listen to how loud the miss is.</p>
@@ -187,7 +250,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 3 ───────────── -->
-  <section class="step" data-step="2" data-title="Sixteen weights: the residual" hidden>
+  <section class="step" data-step="3" data-title="Sixteen weights: the residual" hidden>
     <div class="eyebrow">Step 3 of 6 · the residual</div>
     <h2>Sixteen weights, and what they cannot guess</h2>
     <p class="say">One weight can only cancel the lows. Give the guess sixteen weights, reading the last sixteen samples, and let the machine choose them, a fresh set every 10 ms as the vowel changes. Now the guess catches the vowel itself. What it still misses is called the residual, and it sounds like the buzz you started with.</p>
@@ -211,7 +274,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 4 ───────────── -->
-  <section class="step" data-step="3" data-title="Run it the other way" hidden>
+  <section class="step" data-step="4" data-title="Run it the other way" hidden>
     <div class="eyebrow">Step 4 of 6 · the same line, solved for the voice</div>
     <h2>Residual in, voice out</h2>
     <p class="say">The line that gave you the residual has three parts: the voice, the guess, the miss. Move the guess to the other side and the same line, with the same weights, makes a voice from a residual. Each new sample is the residual plus the guess from its own last sixteen outputs. That is the mouth’s shape from step 1. Feed it the residual and the voice comes back, every sample.</p>
@@ -238,7 +301,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 5 ───────────── -->
-  <section class="step" data-step="4" data-title="How many weights" hidden>
+  <section class="step" data-step="5" data-title="How many weights" hidden>
     <div class="eyebrow">Step 5 of 6 · the order</div>
     <h2>Where the voice is split</h2>
     <p class="say">The number of weights is called the order. It never decides whether the round trip closes: it closes at every order. It decides how the voice is shared between the two halves. The weights hold the shape of the mouth, and the residual holds whatever they could not reach. Drive the weights with a plain buzz and you hear what they hold; play the residual and you hear what they left.</p>
@@ -263,7 +326,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 6 ───────────── -->
-  <section class="step" data-step="5" data-title="The proof" hidden>
+  <section class="step" data-step="6" data-title="The proof" hidden>
     <div class="eyebrow">Step 6 of 6 · the proof</div>
     <h2>Now the whole thing, on one page</h2>
     <p class="say">The proof puts every step on one screen, around the same made voice. Here is where each one is waiting for you there.</p>
@@ -587,7 +650,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   var steps = Q('section.step'), cur = 0, seen = {};
   var rail = document.querySelector('.rail');
   steps.forEach(function(s, i){
-    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    var b = document.createElement('button'); b.textContent = i + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
     b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
   });
   var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed() }
@@ -727,7 +790,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       pressGroup('data-s1door', door); pressGroup('data-s1vowel', vowel);
       $('s1m').innerHTML = 'the buzz: <b>' + F0 + '</b> clicks a second, one every <b>' + Math.round(SRV / F0) + '</b> samples · the mouth for ' + NAMES[vowel] + ': resonances near <b>' + VOWELS[vowel].join(', ') + ' Hz</b>';
     }
-    STEP[0] = {
+    STEP[1] = {
       // the last two seconds are exactly periodic (250 periods of 128 samples), so the loop needs no crossfade; the bare clicks go a little higher, being so sparse
       render: function(){ var src = door === 'buzz' ? bz : y, pk = door === 'buzz' ? pkB : pkY, out = new Float32Array(2 * SRV); for (var i = 0; i < out.length; i++) out[i] = (door === 'buzz' ? 0.95 : 0.7) * src[SRV + i] / pk; return out; },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
@@ -759,7 +822,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       }
     };
     Q('[data-s1door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s1door'); ui(); refreshAudio(); }); });
-    Q('[data-s1vowel]').forEach(function(b){ b.addEventListener('click', function(){ vowel = b.getAttribute('data-s1vowel'); STEP[0].changed(); }); });
+    Q('[data-s1vowel]').forEach(function(b){ b.addEventListener('click', function(){ vowel = b.getAttribute('data-s1vowel'); STEP[1].changed(); }); });
   })();
 
   // ---- step 2: a guess from one sample ----
@@ -772,7 +835,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       var m = missDbFormula(rho, a), best = missDbFormula(rho, rho);
       $('s2m').innerHTML = 'your weight <b>' + a.toFixed(2) + '</b>: the miss is ' + (Math.abs(m) < 0.05 ? '<b>as loud as the voice</b>' : '<b>' + Math.abs(m).toFixed(1) + ' dB</b> ' + (m < 0 ? 'below' : 'above') + ' the voice') + ' · the best single weight is ρ = <b>' + rho.toFixed(2) + '</b>, <b>' + (-best).toFixed(1) + ' dB</b> below';
     }
-    STEP[1] = {
+    STEP[2] = {
       render: function(){ var src = door === 'voice' ? X : E, pk = peak(src); return withRest(src, Math.min(0.8, 0.95 / pk)); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -797,7 +860,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         label(g, 'the weight', cx0 + cw, p + hh - 22 * d, d, 'right');
       }
     };
-    $('s2a').addEventListener('input', function(){ a = parseFloat($('s2a').value); STEP[1].changed(); });
+    $('s2a').addEventListener('input', function(){ a = parseFloat($('s2a').value); STEP[2].changed(); });
     Q('[data-s2door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s2door'); ui(); refreshAudio(); }); });
   })();
 
@@ -816,7 +879,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       pressGroup('data-s3door', door);
       $('s3m').innerHTML = '<b>16</b> weights, a fresh set every <b>10 ms</b>: <b>' + FR16.length + '</b> sets for the ' + SECSV + ' s · the guess catches <b>' + gain.toFixed(1) + ' dB</b> of the voice; the best single weight caught ' + (-missDbFormula(rho1(X), rho1(X))).toFixed(1) + ' dB';
     }
-    STEP[2] = {
+    STEP[3] = {
       render: function(){ return door === 'voice' ? withRest(X, 0.8) : withRest(E16, 0.9 / PK_E16); },
       changed: function(){ ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -857,7 +920,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       else h = nudge ? 'You hear <b>the leftover</b>: what the nudged numbers failed to give back.' : 'You hear <b>silence</b>: the voice and its solved-back self cancel.';
       $('s4h').innerHTML = h;
     }
-    STEP[3] = {
+    STEP[4] = {
       render: function(){ return door === 'res' ? withRest(E16, 0.9 / PK_E16) : withRest(door === 'syn' ? Y : D, 0.8); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -880,7 +943,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       }
     };
     Q('[data-s4door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s4door'); ui(); refreshAudio(); }); });
-    $('s4nudge').addEventListener('click', function(){ nudge = !nudge; STEP[3].changed(); });
+    $('s4nudge').addEventListener('click', function(){ nudge = !nudge; STEP[4].changed(); });
   })();
 
   // ---- step 5: how many weights ----
@@ -897,7 +960,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       $('s5ov').textContent = order + (order === 1 ? ' weight' : ' weights');
       $('s5m').innerHTML = 'order <b>' + order + '</b>: the weights catch <b>' + gain.toFixed(1) + ' dB</b> of the voice; the residual carries the rest · the round trip still closes: largest difference <b>' + trip.toExponential(1) + '</b>';
     }
-    STEP[4] = {
+    STEP[5] = {
       render: function(){ return door === 'model' ? withRest(Ym, 0.8 / pkY) : withRest(E, 0.9 / pkE); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -918,7 +981,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         freqTicks(g, ex0, B.y + B.h - 8 * d, ew, 8000, d);
       }
     };
-    $('s5o').addEventListener('input', function(){ order = parseInt($('s5o').value, 10); $('s5ov').textContent = order + (order === 1 ? ' weight' : ' weights'); clearTimeout(pendO); pendO = setTimeout(function(){ STEP[4].changed(); }, 60); });
+    $('s5o').addEventListener('input', function(){ order = parseInt($('s5o').value, 10); $('s5ov').textContent = order + (order === 1 ? ' weight' : ' weights'); clearTimeout(pendO); pendO = setTimeout(function(){ STEP[5].changed(); }, 60); });
     Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
   })();
 
@@ -942,8 +1005,18 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   }
 
   // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
-  var KEY = 'dissolutions-seq-equation-read-backward-notes', notes = {};
-  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  // step 0 came in front on 2026-11-09 and every step moved up one index, its number kept;
+  // notes still under the old key are carried across, each to the step it was written on
+  var KEY = 'dissolutions-seq-equation-read-backward-notes-v2', KEY_BEFORE = 'dissolutions-seq-equation-read-backward-notes', notes = {};
+  try {
+    notes = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (!notes){
+      var before = JSON.parse(localStorage.getItem(KEY_BEFORE) || '{}') || {}; notes = {};
+      Object.keys(before).forEach(function(k){ notes[String(+k + 1)] = before[k]; });
+      if (Object.keys(notes).length){ localStorage.setItem(KEY, JSON.stringify(notes)); localStorage.removeItem(KEY_BEFORE); }
+    }
+  } catch (e) { notes = notes || {}; }
+  window.__seq.keys = { now: KEY, before: KEY_BEFORE };
   Q('[data-note]').forEach(function(t){
     var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
     t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
@@ -951,13 +1024,13 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
   // Copy all notes, below, stays as the fallback
   var TASK = 'the-equation-read-backward', HEAD = 'The equation read backward, learning sequence — notes', sending = false;
-  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
   function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
   function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
   $('send').addEventListener('click', function(){
     if (sending) return;
     var sent = {}, answers = {}, names = [];
-    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[i + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
     if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
     if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
     sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
@@ -974,7 +1047,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
     }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
   });
   $('copy').addEventListener('click', function(){
-    var text = 'The equation read backward, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var text = 'The equation read backward, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
     var done = function(){ $('copied').textContent = 'copied'; };
     if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
   });

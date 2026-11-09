@@ -4,7 +4,7 @@
   born: 2026-10-25
   parent: [[Dissolutions]] · leads up to ../2026-10-20-the-table-that-travels/the-table-that-travels.html · tests [[Dispersion Table]]
   forward_vector: I am the way up to the table that travels. I take the table alone, the loop alone, the two through their difference, the filter alone, and the filter in the loop, one step each, so that the proof makes sense the first time it is played.
-  outline: Loudon's, from the sit of 2026-10-25 — the table alone, the loop alone, the two combined through their difference, then the filter.
+  outline: step 0, the two things each defined on its own, with where the dissolution holds and where it stops (Loudon’s review, 2026-11-09); then Loudon's, from the sit of 2026-10-25 — the table alone, the loop alone, the two combined through their difference, then the filter.
   sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
 -->
 <html lang="en" class="skin-graphite">
@@ -122,19 +122,81 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
   @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+  /* step 0: the two things, each on its own, before anything joins them */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .thing{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-top:2px solid var(--accent-dim);border-radius:8px;padding:16px 18px}
+  .thing h3{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.15;margin:4px 0 10px;letter-spacing:.01em;color:var(--fg-1)}
+  .thing p{margin:0 0 10px;color:var(--fg-2)}
+  .thing p.where,.thing p.alone{font-family:var(--sans);font-size:13.5px;line-height:1.6;color:var(--fg-3)}
+  .thing p.where b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);margin-right:6px}
+  .thing p.alone{color:var(--accent);margin:0}
+  .claim p{margin:6px 0 10px;color:var(--fg-1);max-width:74ch}
+  .claim p b{color:var(--accent);font-weight:600}
+  .claim p.kind{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--fg-2);margin:0}
+  .claim p.kinds{font-family:var(--sans);font-size:12.5px;line-height:1.6;color:var(--fg-3);margin:0 0 6px}
+  .limits{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .limits>div{padding:12px 16px;border-left:2px solid var(--border);background:var(--bg-elev-1);border-radius:0 6px 6px 0}
+  .limits>div.holds{border-left-color:var(--accent)}
+  .limits p{margin:4px 0 0;color:var(--fg-2)}
+  dl.words{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:6px 18px;margin:6px 0 16px;font-family:var(--sans);font-size:14px;line-height:1.55}
+  dl.words dt{color:var(--fg-1);font-weight:500}
+  dl.words dd{margin:0;color:var(--fg-3)}
+  @media (max-width:640px){.pair,.limits{grid-template-columns:1fr}dl.words{grid-template-columns:1fr;gap:2px}dl.words dd{margin-bottom:8px}}
 </style>
 </head>
 <body>
 <main>
   <div class="eyebrow">Dissolutions · learning sequence · Dispersion Table</div>
   <h1>The table that travels, step by step</h1>
-  <p class="lead">Five short steps up to the proof. A table alone, a loop alone, the two set against each other, a filter alone, then the filter put in the loop. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <p class="lead">Step 0 names the two things this sequence dissolves, defines each on its own, and says where the dissolution holds and where it stops. Then five short steps up to the proof. A table alone, a loop alone, the two set against each other, a filter alone, then the filter put in the loop. Each step has one thing to hear. Nothing plays until you press Play.</p>
   <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
+  <!-- ───────────── step 0 ───────────── -->
+  <section class="step" data-step="0" data-title="The two things">
+    <div class="eyebrow">Step 0 · the two things, before anything joins them</div>
+    <h2>A wavetable and a delay loop, each on its own</h2>
+    <p class="say">This sequence takes two ways of making a pitched tone, taught as two different machines, and tests whether they are one. First each of them on its own, with nothing joined.</p>
+    <div class="pair">
+      <div class="thing">
+        <div class="eyebrow">The first thing</div>
+        <h3>A wavetable oscillator</h3>
+        <p>A digital sound is a list of numbers, called samples: 48,000 of them a second here. A wavetable keeps one cycle of a wave as a short list of samples, and a reader steps along the list and jumps back to the start at the end, over and over. The stored cycle never changes. The pitch is only how fast the reader goes round: twice as fast, an octave up.</p>
+        <p class="where"><b>Where you meet it</b>Nearly every software synth has one: Serum, Vital, Ableton’s Wavetable.</p>
+        <p class="alone">You hear it on its own in step 1.</p>
+      </div>
+      <div class="thing">
+        <div class="eyebrow">The second thing</div>
+        <h3>A delay loop</h3>
+        <p>A delay line is a queue of samples: each one goes in, waits its turn, and comes out L samples later. Send what comes out straight back in, losing nothing on the way, and whatever is inside comes round again and again, once every L samples. The samples do the moving, round the queue and past one fixed exit point where you listen. Its length sets the pitch, one trip per cycle.</p>
+        <p class="where"><b>Where you meet it</b>It is the skeleton of physical modelling, where it is called a waveguide loop. A plucked string (Karplus–Strong) is this loop with a little loss on every trip.</p>
+        <p class="alone">You hear it on its own in step 2.</p>
+      </div>
+    </div>
+    <div class="panel claim">
+      <div class="eyebrow">The claim that joins them</div>
+      <p>With nothing but delay in the loop, and the loop a whole number of samples long, these are not two machines that happen to sound alike. Fill the loop with the table’s cycle and the two give the same samples, one for one: their difference is exactly zero. A wavetable is a delay loop with an empty slot. The slot is the point. A loop can hold a filter that every trip passes through, and a table has nowhere to put one. A filter that delays some frequencies more than others moves the partials, the sine waves the tone is made of, off the even grid of 1, 2, 3… times the pitch, the way a piano string’s upper partials run sharp. That is the new knob the dissolution hands you.</p>
+      <p class="kinds">Three kinds of sameness. Identity: one object, read two ways. Isomorphism: an exact map between two things that stay two. Analogy: a likeness that breaks when you push it.</p>
+      <p class="kind"><b>Identity.</b> The table and the loop give one set of samples, not two sets that match.</p>
+    </div>
+    <div class="limits">
+      <div class="holds"><div class="eyebrow">Where it holds</div><p>Exactly, sample for sample, when the loop is a whole number of samples long and holds nothing but delay. Step 3 tests it: one flipped upside down and added to the other, and the sum is silence.</p></div>
+      <div class="stops"><div class="eyebrow">Where it stops</div><p>At whole-sample lengths only, and those give only certain pitches: a loop of 100 samples is one pitch, a loop of 101 the next, with nothing between, and most notes fall between. To play them the loop needs a fractional length, say 436.5 samples where the proof uses 436, and then it has to read between two samples on every trip. Reading between samples is already a filter: it dulls the highs a little more each trip, which a table never does. And once a real filter goes in, the loop does what no table can follow. That is not the identity failing; it is the knob (steps 4 and 5).</p></div>
+    </div>
+    <div class="eyebrow">Words the steps use</div>
+    <dl class="words">
+        <dt>partial</dt><dd>One of the sine waves a tone is made of. In a pitched tone they sit at 1, 2, 3… times the pitch: the harmonic grid.</dd>
+        <dt>null test</dt><dd>Flip one sound upside down and add it to the other. Silence means they are the same numbers (step 3).</dd>
+        <dt>allpass filter</dt><dd>A filter that lets every frequency through at full strength and changes only how late each one arrives (step 4).</dd>
+        <dt>phase response</dt><dd>How late a filter makes each frequency arrive, counted in fractions of that frequency’s own cycle. It is the axis a loop has and a table does not.</dd>
+      </dl>
+    <div class="try"><span class="eyebrow">Try</span>Before you press Next, say each of the two things back in a sentence of your own, without the other. If either one won’t come, that is the note to leave here.</div>
+    <textarea data-note placeholder="Are the two things clear, each on its own, before the steps join them?"></textarea>
+  </section>
+
   <!-- ───────────── step 1 ───────────── -->
-  <section class="step" data-step="0" data-title="The table">
+  <section class="step" data-step="1" data-title="The table">
     <div class="eyebrow">Step 1 of 6 · the table alone</div>
     <h2>A stored cycle and a reader</h2>
     <p class="say">A wavetable is one cycle of a wave, kept as a list of numbers, and a reader that runs across it and jumps back to the start. The cycle never changes. The pitch is only how fast the reader goes round: twice as fast, an octave up.</p>
@@ -160,7 +222,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 2 ───────────── -->
-  <section class="step" data-step="1" data-title="The loop" hidden>
+  <section class="step" data-step="2" data-title="The loop" hidden>
     <div class="eyebrow">Step 2 of 6 · the loop alone</div>
     <h2>A delay fed back into itself</h2>
     <p class="say">Now a different machine. Take a delay line, fill it once, and send its output back into its input. Nothing sweeps across it. The samples travel round the ring and pass a tap that holds still. What went in comes back after one trip, then again, and again. Its length sets the pitch: one trip per period. And a partial lasts only if it turns a whole number of times in one trip, so the loop keeps exactly the harmonic grid: once, twice, three times the pitch, and nothing between.</p>
@@ -185,7 +247,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 3 ───────────── -->
-  <section class="step" data-step="2" data-title="Their difference" hidden>
+  <section class="step" data-step="3" data-title="Their difference" hidden>
     <div class="eyebrow">Step 3 of 6 · the two, through their difference</div>
     <h2>Turn one upside down and add them</h2>
     <p class="say">Fill the loop with the table's own cycle and make the loop exactly one cycle long. Now play both, with one flipped upside down. Where they match, they cancel. Studio engineers call this a null test: if two paths cancel to silence, they are giving you the same numbers. Here the table's moving reader and the loop's moving samples cancel completely.</p>
@@ -211,7 +273,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 4 ───────────── -->
-  <section class="step" data-step="3" data-title="The filter" hidden>
+  <section class="step" data-step="4" data-title="The filter" hidden>
     <div class="eyebrow">Step 4 of 6 · the filter alone</div>
     <h2>A filter that only delays</h2>
     <p class="say">The proof puts one kind of filter in the loop, an allpass. It is a strange filter: it lets every frequency through at full strength, and changes only how late each one arrives. Turn it up and the low frequencies come out later than the high ones. On its own you hear that as a click smeared into a quick downward zap: the highs arrive first.</p>
@@ -233,7 +295,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 5 ───────────── -->
-  <section class="step" data-step="4" data-title="The filter in the loop" hidden>
+  <section class="step" data-step="5" data-title="The filter in the loop" hidden>
     <div class="eyebrow">Step 5 of 6 · the filter in the loop</div>
     <h2>Put the filter where only the loop can follow</h2>
     <p class="say">Now place that filter inside the loop, so every trip goes through it. A table has nowhere to put it: its cycle is fixed, and its reader moves one cycle per period for every harmonic alike. In the loop, each frequency now takes its own time to get round. A partial can only last if it comes back in step with itself, a whole number of turns per trip. Highs take a shorter trip than lows, so they fit their turns at a higher frequency, and the partials walk sharp, off the harmonic grid.</p>
@@ -258,7 +320,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 6 ───────────── -->
-  <section class="step" data-step="5" data-title="The proof" hidden>
+  <section class="step" data-step="6" data-title="The proof" hidden>
     <div class="eyebrow">Step 6 of 6 · the proof</div>
     <h2>Now the whole thing, on one page</h2>
     <p class="say">The proof puts every step on one screen. Here is where each one is waiting for you there.</p>
@@ -495,7 +557,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   var steps = Q('section.step'), cur = 0, seen = {};
   var rail = document.querySelector('.rail');
   steps.forEach(function(s, i){
-    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    var b = document.createElement('button'); b.textContent = i + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
     b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
   });
   var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed() }
@@ -591,7 +653,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       $('s1m').innerHTML = 'the table: <b>' + P0 + '</b> numbers, never changed · the reader moves <b>' + (P0 * f() / sr).toFixed(3) + '</b> of them per sample · <b>' + f().toFixed(1) + '</b> trips a second';
       pressGroup('data-s1shape', shape);
     }
-    STEP[0] = {
+    STEP[1] = {
       render: function(){ var x = new Float64Array(out.length); for (var i = 0; i < x.length; i++) x[i] = 0.8 * out[i]; return loopify(x, Math.round(0.15 * sr)); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -611,8 +673,8 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         strip(g, x0, y1, w, hh2, function(t){ return out[Math.floor(t * span)]; }, ACC, 1.8 * d);
       }
     };
-    $('s1f').addEventListener('input', function(){ s = parseFloat($('s1f').value); STEP[0].changed(); });
-    Q('[data-s1shape]').forEach(function(b){ b.addEventListener('click', function(){ shape = b.getAttribute('data-s1shape'); STEP[0].changed(); }); });
+    $('s1f').addEventListener('input', function(){ s = parseFloat($('s1f').value); STEP[1].changed(); });
+    Q('[data-s1shape]').forEach(function(b){ b.addEventListener('click', function(){ shape = b.getAttribute('data-s1shape'); STEP[1].changed(); }); });
   })();
 
   // the eye's clock: the readers in the pictures turn at a slow, steady rate, faster for a higher pitch
@@ -632,7 +694,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       $('s2m').innerHTML = 'one trip: <b>' + L + '</b> samples · pitch = ' + sr + ' ÷ ' + L + ' = <b>' + (sr / L).toFixed(1) + ' Hz</b> · every trip the same as the last';
       pressGroup('data-s2fill', fill);
     }
-    STEP[1] = {
+    STEP[2] = {
       render: function(){ var x = new Float32Array(buf.length); for (var i = 0; i < x.length; i++) x[i] = 0.7 * buf[i]; return x; },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -657,8 +719,8 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         strip(g, x0, y0, w, hh, function(t){ return buf[Math.min(buf.length - 1, Math.floor(t * span))]; }, INFO, 1.4 * d);
       }
     };
-    $('s2l').addEventListener('input', function(){ s = parseFloat($('s2l').value); STEP[1].changed(); });
-    Q('[data-s2fill]').forEach(function(b){ b.addEventListener('click', function(){ fill = b.getAttribute('data-s2fill'); STEP[1].changed(); }); });
+    $('s2l').addEventListener('input', function(){ s = parseFloat($('s2l').value); STEP[2].changed(); });
+    Q('[data-s2fill]').forEach(function(b){ b.addEventListener('click', function(){ fill = b.getAttribute('data-s2fill'); STEP[2].changed(); }); });
   })();
 
   // ---- step 3: their difference ----
@@ -679,7 +741,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       else h = dmax === 0 ? 'You hear <b>silence</b>: the two cancel exactly.' : 'You hear <b>the leftover</b>: the two drifting out of step, swelling from silence, then starting over.';
       $('s3h').innerHTML = h;
     }
-    STEP[2] = {
+    STEP[3] = {
       render: function(){
         var x = new Float64Array(tab.length);
         for (var i = 0; i < x.length; i++) x[i] = 0.8 * (door === 'table' ? tab[i] : door === 'loop' ? lp[i] : 0.5 * (tab[i] - lp[i]));
@@ -703,7 +765,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       }
     };
     Q('[data-s3door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s3door'); ui(); refreshAudio(); }); });
-    $('s3miss').addEventListener('click', function(){ miss = !miss; STEP[2].changed(); });
+    $('s3miss').addEventListener('click', function(){ miss = !miss; STEP[3].changed(); });
   })();
 
   // ---- step 4: the filter alone ----
@@ -720,7 +782,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       $('s4av').textContent = s === 0 ? 'none · a = 0' : 'a = ' + a.toFixed(2);
       $('s4m').innerHTML = 'each section delays the lows <b>' + D.toFixed(2) + '</b> samples and the very top <b>1</b> sample · eight sections: lows <b>' + (M * D).toFixed(1) + '</b> samples late, highs <b>8</b> · level change at every frequency: <b>none</b>';
     }
-    STEP[3] = {
+    STEP[4] = {
       render: function(){ var x = new Float32Array(click.length), pk = 1e-9, i; for (i = 0; i < x.length; i++) pk = Math.max(pk, Math.abs(click[i])); for (i = 0; i < x.length; i++) x[i] = 0.8 * click[i] / pk; return x; },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -747,7 +809,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         label(g, '0', cx0, p + hh - 6 * d, d); label(g, '120 ms', cx0 + cw, p + hh - 6 * d, d, 'right');
       }
     };
-    $('s4a').addEventListener('input', function(){ s = parseFloat($('s4a').value); STEP[3].changed(); });
+    $('s4a').addEventListener('input', function(){ s = parseFloat($('s4a').value); STEP[4].changed(); });
   })();
 
   // ---- step 5: the filter in the loop ----
@@ -767,7 +829,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       var top = pred[pred.length - 1], sharp = (top / (pred.length * pred[0]) - 1) * 100;
       $('s5m').innerHTML = 'partial ' + pred.length + ' sits at <b>' + top.toFixed(1) + ' Hz</b>, ' + (Math.abs(sharp) < 0.005 ? 'exactly on' : '<b>' + sharp.toFixed(2) + '%</b> sharp of') + ' the harmonic grid · the equation’s worst miss against the measurement: <b>' + worst.toFixed(3) + ' Hz</b> across ' + pred.length;
     }
-    STEP[4] = {
+    STEP[5] = {
       render: function(){ var src = door === 'table' ? tab : lp, x = new Float64Array(src.length); for (var i = 0; i < x.length; i++) x[i] = 0.8 * src[i]; return loopify(x, Math.round(0.15 * sr)); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -787,7 +849,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         }
       }
     };
-    $('s5a').addEventListener('input', function(){ s = parseFloat($('s5a').value); STEP[4].changed(); });
+    $('s5a').addEventListener('input', function(){ s = parseFloat($('s5a').value); STEP[5].changed(); });
     Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
   })();
 
@@ -811,8 +873,18 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   }
 
   // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
-  var KEY = 'dissolutions-seq-table-travels-notes', notes = {};
-  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  // step 0 came in front on 2026-11-09 and every step moved up one index, its number kept;
+  // notes still under the old key are carried across, each to the step it was written on
+  var KEY = 'dissolutions-seq-table-travels-notes-v2', KEY_BEFORE = 'dissolutions-seq-table-travels-notes', notes = {};
+  try {
+    notes = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (!notes){
+      var before = JSON.parse(localStorage.getItem(KEY_BEFORE) || '{}') || {}; notes = {};
+      Object.keys(before).forEach(function(k){ notes[String(+k + 1)] = before[k]; });
+      if (Object.keys(notes).length){ localStorage.setItem(KEY, JSON.stringify(notes)); localStorage.removeItem(KEY_BEFORE); }
+    }
+  } catch (e) { notes = notes || {}; }
+  window.__seq.keys = { now: KEY, before: KEY_BEFORE };
   Q('[data-note]').forEach(function(t){
     var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
     t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
@@ -820,13 +892,13 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
   // Copy all notes, below, stays as the fallback
   var TASK = 'the-table-that-travels', HEAD = 'The table that travels, learning sequence — notes', sending = false;
-  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
   function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
   function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
   $('send').addEventListener('click', function(){
     if (sending) return;
     var sent = {}, answers = {}, names = [];
-    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[i + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
     if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
     if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
     sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
@@ -843,7 +915,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
     }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
   });
   $('copy').addEventListener('click', function(){
-    var text = 'The table that travels, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var text = 'The table that travels, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
     var done = function(){ $('copied').textContent = 'copied'; };
     if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
   });

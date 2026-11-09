@@ -4,7 +4,7 @@
   born: 2026-10-25
   parent: [[Dissolutions]] · leads up to ../2026-10-20-the-circles-shadow/the-circles-shadow.html · tests [[Chebyshev is Fourier]]
   forward_vector: I am the way up to the circle's shadow. I take the shadow alone, the stack of cosines alone, a bent curve alone, the one curve that gives back one harmonic, the curve and the stack through their difference, the reach alone, and the reach on the drawbars, one step each, so that the proof makes sense the first time it is played.
-  outline: the model of Loudon's outline for the table that travels (sit of 2026-10-25) — each thing alone, the two through their difference, the extra ingredient alone, then put into the combination.
+  outline: step 0, the two things each defined on its own, with where the dissolution holds and where it stops (Loudon’s review, 2026-11-09); then the model of Loudon's outline for the table that travels (sit of 2026-10-25) — each thing alone, the two through their difference, the extra ingredient alone, then put into the combination.
   sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
 -->
 <html lang="en" class="skin-graphite">
@@ -126,19 +126,89 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   .bars-wrap .eyebrow{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
   canvas.bars{width:100%;height:110px;display:block;background:var(--bg-elev-2);border-radius:6px;margin-top:6px;cursor:ns-resize;touch-action:none}
   @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+  /* step 0: the two things, each on its own, before anything joins them */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .thing{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-top:2px solid var(--accent-dim);border-radius:8px;padding:16px 18px}
+  .thing h3{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.15;margin:4px 0 10px;letter-spacing:.01em;color:var(--fg-1)}
+  .thing p{margin:0 0 10px;color:var(--fg-2)}
+  .thing p.where,.thing p.alone{font-family:var(--sans);font-size:13.5px;line-height:1.6;color:var(--fg-3)}
+  .thing p.where b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);margin-right:6px}
+  .thing p.alone{color:var(--accent);margin:0}
+  .claim p{margin:6px 0 10px;color:var(--fg-1);max-width:74ch}
+  .claim p b{color:var(--accent);font-weight:600}
+  .claim p.kind{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--fg-2);margin:0}
+  .claim p.kinds{font-family:var(--sans);font-size:12.5px;line-height:1.6;color:var(--fg-3);margin:0 0 6px}
+  .limits{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .limits>div{padding:12px 16px;border-left:2px solid var(--border);background:var(--bg-elev-1);border-radius:0 6px 6px 0}
+  .limits>div.holds{border-left-color:var(--accent)}
+  .limits p{margin:4px 0 0;color:var(--fg-2)}
+  dl.words{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:6px 18px;margin:6px 0 16px;font-family:var(--sans);font-size:14px;line-height:1.55}
+  dl.words dt{color:var(--fg-1);font-weight:500}
+  dl.words dd{margin:0;color:var(--fg-3)}
+  @media (max-width:640px){.pair,.limits{grid-template-columns:1fr}dl.words{grid-template-columns:1fr;gap:2px}dl.words dd{margin-bottom:8px}}
 </style>
 </head>
 <body>
 <main>
   <div class="eyebrow">Dissolutions · learning sequence · Chebyshev is Fourier</div>
   <h1>The circle's shadow, step by step</h1>
-  <p class="lead">Seven short steps up to the proof. A shadow alone, a stack of cosines alone, a bent curve alone, the curve that gives back one harmonic, then the curve and the stack set against each other. Then the reach, alone and on the drawbars. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <p class="lead">Step 0 names the two things this sequence dissolves, defines each on its own, and says where the dissolution holds and where it stops. Then seven short steps up to the proof. A shadow alone, a stack of cosines alone, a bent curve alone, the curve that gives back one harmonic, then the curve and the stack set against each other. Then the reach, alone and on the drawbars. Each step has one thing to hear. Nothing plays until you press Play.</p>
   <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
+  <!-- ───────────── step 0 ───────────── -->
+  <section class="step" data-step="0" data-title="The two things">
+    <div class="eyebrow">Step 0 · the two things, before anything joins them</div>
+    <h2>A stack of cosines and a bent curve, each on its own</h2>
+    <p class="say">This sequence takes two ways of giving a tone its harmonics, one from additive synthesis and one from distortion, and tests whether they are one. Both lean on two words, so those come first.</p>
+    <div class="panel">
+      <div class="eyebrow">First, the words both lean on</div>
+      <dl class="words">
+        <dt>cosine</dt><dd>The plainest wave there is: one frequency and nothing else. It is the shadow of a point going steadily round a circle, cos θ, where θ is how far round the point has gone.</dd>
+        <dt>harmonic</dt><dd>A tone that repeats 220 times a second can hold waves at 220, 440, 660… Hz: once, twice, three times its pitch. Those are its harmonics, and how loud each one is gives the tone its colour.</dd>
+      </dl>
+    </div>
+    <div class="pair">
+      <div class="thing">
+        <div class="eyebrow">The first thing</div>
+        <h3>A stack of cosines (a Fourier cosine series)</h3>
+        <p>Build a tone by adding cosines: one at the pitch, one at twice the pitch, one at three times, each at a level you choose, and all of them starting together at their peak. Fourier showed that any repeating wave can be built from such a stack once each harmonic may also start at its own point in its cycle; with every one starting at its peak, as here, you get the waves that look the same run backward from their start. The levels are the recipe, and here they are drawbars, one per harmonic, like an organ’s. Nothing is bent: it is only cosines, added.</p>
+        <p class="where"><b>Where you meet it</b>An organ’s drawbars, an additive synth, and every spectrum analyser, which runs the recipe backward.</p>
+        <p class="alone">You hear it on its own in step 2.</p>
+      </div>
+      <div class="thing">
+        <div class="eyebrow">The second thing</div>
+        <h3>A bent curve (a Chebyshev waveshaper)</h3>
+        <p>A waveshaper is a fixed curve a signal passes through: each input value is swapped for the curve’s height at that value. A straight line changes nothing. A bent one reshapes every cycle the same way, so the tone keeps its pitch and changes colour; distortion pedals are waveshapers. The Chebyshev polynomials are one family of such curves, T₁, T₂, T₃…, each a sum of powers of the input, such as T₃(x) = 4x³ − 3x, on the stretch from −1 to 1. Mathematicians use them to approximate other curves with the smallest worst-case error.</p>
+        <p class="where"><b>Where you meet it</b>Waveshaping synthesis, since the late 1970s, and any distortion designed to make chosen harmonics.</p>
+        <p class="alone">Step 3 bends a curve; step 4 meets the Chebyshev curves one at a time.</p>
+      </div>
+    </div>
+    <div class="panel claim">
+      <div class="eyebrow">The claim that joins them</div>
+      <p>Read a Chebyshev curve with a full-size cosine and out comes a single harmonic: Tₙ(cos θ) = cos(n × θ). The nth curve turns the shadow of a point going round into the shadow of a point going n times as fast. So one curve built from the drawbars, T₁ weighted by the first drawbar plus T₂ by the second and so on, read by a cosine, is the stack of cosines with those drawbars. The stack labels each moment by the angle round the circle; the curve labels it by the shadow’s place on the line. Swap one label for the other, x = cos θ, and the numbers are the same: one object, read two ways.</p>
+      <p class="kinds">Three kinds of sameness. Identity: one object, read two ways. Isomorphism: an exact map between two things that stay two. Analogy: a likeness that breaks when you push it.</p>
+      <p class="kind"><b>Identity.</b> The curve and the stack are one set of numbers, labelled two ways.</p>
+    </div>
+    <div class="limits">
+      <div class="holds"><div class="eyebrow">Where it holds</div><p>Exactly, for any drawbars, when the cosine going in sweeps the whole line from −1 to 1, which this sequence calls full reach. Step 5 tests it: the curve and the stack, built by separate code, one flipped and added to the other, cancel to rounding error.</p></div>
+      <div class="stops"><div class="eyebrow">Where it stops</div><p>Turn the input down, less reach, and the curve stops giving clean harmonics: each drawbar keeps only part of its level and leaks the rest into lower harmonics of its own kind, odd to odd and even to even (step 6). The stack has no input to turn down. So the identity holds at full reach only, for a single cosine going in; it says nothing about any other input. And a curve read by a cosine can only make a stack whose harmonics all start at their peak: a stack with any harmonic shifted in its cycle is out of the curve’s reach. Below full reach the gap is not a flaw. It is drive, a colour knob the stack does not have (step 7).</p></div>
+    </div>
+    <div class="eyebrow">Words the steps use</div>
+    <dl class="words">
+        <dt>polynomial</dt><dd>A sum of powers of x, each with its weight, such as 4x³ − 3x.</dd>
+        <dt>drawbar</dt><dd>The level of one harmonic in the stack, the way an organ’s drawbar sets one.</dd>
+        <dt>reach, L</dt><dd>How far the input cosine swings, from −L to L. Full reach is L = 1; on a waveshaper this is the drive (step 6).</dd>
+        <dt>parity</dt><dd>Whether a harmonic’s number is odd or even.</dd>
+        <dt>null test</dt><dd>Flip one sound upside down and add it to the other. Silence means they are the same numbers (step 5).</dd>
+      </dl>
+    <div class="try"><span class="eyebrow">Try</span>Before you press Next, say each of the two things back in a sentence of your own, without the other. If either one won’t come, that is the note to leave here.</div>
+    <textarea data-note placeholder="Are the two things clear, each on its own, before the steps join them?"></textarea>
+  </section>
+
   <!-- ───────────── step 1 ───────────── -->
-  <section class="step" data-step="0" data-title="The shadow">
+  <section class="step" data-step="1" data-title="The shadow">
     <div class="eyebrow">Step 1 of 8 · the shadow alone</div>
     <h2>A point going round, and its shadow</h2>
     <p class="say">Send a point round a circle at a steady speed and look at its shadow on a straight line. The shadow slides left and right, and its place on the line is cos θ, where θ is how far round the point has gone. Played as sound, that sliding is the plainest tone there is: one frequency, nothing else. The shadow lingers at the two ends, where the point is heading straight up or down and its shadow barely moves.</p>
@@ -159,7 +229,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 2 ───────────── -->
-  <section class="step" data-step="1" data-title="The stack" hidden>
+  <section class="step" data-step="2" data-title="The stack" hidden>
     <div class="eyebrow">Step 2 of 8 · the stack of cosines alone</div>
     <h2>Many points, each going round faster</h2>
     <p class="say">An organ builds a tone another way. Each drawbar is its own point going round: the first at the note's speed, the second twice as fast, the third three times, and so on up. Each one's shadow is a cosine, and the drawbar sets how big its circle is. Add the shadows up and you have the tone. Nothing is bent here: it is only cosines, added.</p>
@@ -184,7 +254,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 3 ───────────── -->
-  <section class="step" data-step="2" data-title="A bent curve" hidden>
+  <section class="step" data-step="3" data-title="A bent curve" hidden>
     <div class="eyebrow">Step 3 of 8 · a bent curve alone</div>
     <h2>A curve that bends the shadow</h2>
     <p class="say">Back to one point and one shadow. This time the shadow doesn't go straight to the speaker. It slides along under a curve, and the curve's height above it is what you hear. That is a waveshaper. A straight line hands the shadow through unchanged; bend the line, and every cycle is reshaped the same way, so the tone changes colour but keeps its pitch.</p>
@@ -211,7 +281,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 4 ───────────── -->
-  <section class="step" data-step="3" data-title="One harmonic" hidden>
+  <section class="step" data-step="4" data-title="One harmonic" hidden>
     <div class="eyebrow">Step 4 of 8 · the curve that gives back one harmonic</div>
     <h2>Bend it just so, and the shadow goes n times as fast</h2>
     <p class="say">Here is the fact the proof stands on. For every whole number n there is one curve, Tₙ, the nth Chebyshev polynomial, that turns the slow shadow into the shadow of a point going n times as fast. No oscillator runs at the higher speed. The curve has n&nbsp;−&nbsp;1 bends, and as the shadow sweeps across them the height rises and falls n times a turn. Each curve is built from the two before it, by the rule written below, with no cosine anywhere in it.</p>
@@ -233,7 +303,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 5 ───────────── -->
-  <section class="step" data-step="4" data-title="Their difference" hidden>
+  <section class="step" data-step="5" data-title="Their difference" hidden>
     <div class="eyebrow">Step 5 of 8 · the curve and the stack, through their difference</div>
     <h2>Write the drawbars as one curve</h2>
     <p class="say">Now put steps 2 and 4 together. Weight each curve Tₙ by its drawbar and add them into one curve. Read that one curve with the slow shadow; build the stack of cosines from the same drawbars; the two never share a line of code. Then flip one upside down and add them. Studio engineers call this a null test: if two paths cancel to silence, they are giving you the same numbers.</p>
@@ -265,7 +335,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 6 ───────────── -->
-  <section class="step" data-step="5" data-title="The reach" hidden>
+  <section class="step" data-step="6" data-title="The reach" hidden>
     <div class="eyebrow">Step 6 of 8 · the reach alone</div>
     <h2>Don't swing the whole way</h2>
     <p class="say">So far the shadow has always swept the whole line, from −1 to 1. Turn the input down and it only sweeps the middle, from −L to L, as if the point went round a smaller circle. On a waveshaper this is the drive. The identity needs the full sweep, so below it the curve stops giving back one clean harmonic. It follows a rule instead: harmonic n keeps only Lⁿ of its level, and the rest falls to harmonics below it of the same kind, odd to odd, even to even.</p>
@@ -289,7 +359,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 7 ───────────── -->
-  <section class="step" data-step="6" data-title="Reach on the drawbars" hidden>
+  <section class="step" data-step="7" data-title="Reach on the drawbars" hidden>
     <div class="eyebrow">Step 7 of 8 · the reach, put into the combination</div>
     <h2>Drive becomes a colour the stack doesn't have</h2>
     <p class="say">Set the drawbars again and give the one curve its reach. At full reach the curve is the stack, as in step 5. Below it, every drawbar leaks downward at once, so the curve's colour depends on how hard you drive it. The stack has no input to turn down: it can only get louder or quieter. Swell the reach and you hear what a waveshaper is for.</p>
@@ -322,7 +392,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   </section>
 
   <!-- ───────────── step 8 ───────────── -->
-  <section class="step" data-step="7" data-title="The proof" hidden>
+  <section class="step" data-step="8" data-title="The proof" hidden>
     <div class="eyebrow">Step 8 of 8 · the proof</div>
     <h2>Now the whole thing, on one page</h2>
     <p class="say">The proof puts every step on one screen, in one picture. Here is where each one is waiting for you there.</p>
@@ -582,7 +652,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   var steps = Q('section.step'), cur = 0, seen = {};
   var rail = document.querySelector('.rail');
   steps.forEach(function(s, i){
-    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    var b = document.createElement('button'); b.textContent = i + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
     b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
   });
   var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed() }
@@ -779,7 +849,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   (function(){
     var s = 0.333;
     function f(){ return freqFor(s); }
-    STEP[0] = {
+    STEP[1] = {
       render: function(){ return renderTheta(function(th){ return 0.7 * Math.cos(th); }, f(), 1); },
       changed: function(){
         $('s1fv').textContent = f() + ' Hz';
@@ -812,7 +882,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         dot(g, x0, y0 + h2 / 2 - Math.cos(th) * h2 * 0.42, 5 * d, ACC);
       }
     };
-    $('s1f').addEventListener('input', function(){ s = parseFloat($('s1f').value); STEP[0].changed(); });
+    $('s1f').addEventListener('input', function(){ s = parseFloat($('s1f').value); STEP[1].changed(); });
   })();
 
   // ---- step 2: the stack alone ----
@@ -824,7 +894,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         'sounding: <b>' + on.length + '</b> cosine' + (on.length === 1 ? '' : 's') + ', at <b>' + on.map(function(n){ return n * F0; }).join(', ') + ' Hz</b> · each one a point going round a whole number of times for each turn of the first';
       Q('[data-s2preset]').forEach(function(b){ var src = PRESETS[b.getAttribute('data-s2preset')], same = true; for (var i = 0; i < 10; i++) if (Math.abs(src[i] - bars[i]) > 1e-9) same = false; b.setAttribute('aria-pressed', String(same)); });
     }
-    STEP[1] = {
+    STEP[2] = {
       render: function(){ var g = 0.8 / norm(bars); return renderTheta(function(th){ return g * stackAt(bars, th); }, F0, 1); },
       changed: function(){ ui(); refreshAudio(); },
       bars: null,
@@ -849,9 +919,9 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         strip(g, x0, y0, w, hh, function(t){ return stackAt(bars, th - 4 * Math.PI * t) / nb; }, ACC, 2 * d);
       }
     };
-    ed = makeBars($('s2bars'), bars, function(){ STEP[1].changed(); });
-    STEP[1].bars = ed;
-    Q('[data-s2preset]').forEach(function(b){ b.addEventListener('click', function(){ setPreset(bars, b.getAttribute('data-s2preset')); STEP[1].changed(); }); });
+    ed = makeBars($('s2bars'), bars, function(){ STEP[2].changed(); });
+    STEP[2].bars = ed;
+    Q('[data-s2preset]').forEach(function(b){ b.addEventListener('click', function(){ setPreset(bars, b.getAttribute('data-s2preset')); STEP[2].changed(); }); });
   })();
 
   // ---- step 3: a bent curve alone ----
@@ -867,7 +937,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       for (i = 0; i < 10; i++){ if (spec[i] > 0.0005 && parts.length < 5) parts.push('harmonic ' + (i + 1) + ': <b>' + spec[i].toFixed(3) + '</b>'); if (i % 2 === 1) ev = Math.max(ev, spec[i]); }
       $('s3m').innerHTML = parts.join(' · ') + (ev < 1e-9 ? ' · even harmonics: <b>none</b>' : '') + (kind === 'straight' ? ' · nothing else: the line changes nothing' : '');
     }
-    STEP[2] = {
+    STEP[3] = {
       render: function(){ var g = 0.75 / peak; return renderTheta(function(th){ return g * shaper(kind, Math.cos(th)); }, F0, 1); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -881,7 +951,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         });
       }
     };
-    Q('[data-s3curve]').forEach(function(b){ b.addEventListener('click', function(){ kind = b.getAttribute('data-s3curve'); STEP[2].changed(); }); });
+    Q('[data-s3curve]').forEach(function(b){ b.addEventListener('click', function(){ kind = b.getAttribute('data-s3curve'); STEP[3].changed(); }); });
   })();
 
   // ---- step 4: the curve that gives back one harmonic ----
@@ -895,7 +965,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       $('s4nv').textContent = 'T' + ['₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉', '₁₀'][n - 1];
       $('s4m').innerHTML = 'T' + ['₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉', '₁₀'][n - 1] + '(x) = <b>' + polyText(chebCoeffs(n)) + '</b><br>read by the ' + F0 + ' Hz shadow: harmonic <b>' + n + '</b>, at <b>' + n * F0 + ' Hz</b>, level <b>' + level.toFixed(3) + '</b> · the largest of every other harmonic: <b>' + worstOther.toExponential(0) + '</b>';
     }
-    STEP[3] = {
+    STEP[4] = {
       render: function(){ return renderTheta(function(th){ return 0.7 * cheb(n, Math.cos(th)); }, F0, 1); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -917,7 +987,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         });
       }
     };
-    $('s4n').addEventListener('input', function(){ n = parseInt($('s4n').value, 10); STEP[3].changed(); });
+    $('s4n').addEventListener('input', function(){ n = parseInt($('s4n').value, 10); STEP[4].changed(); });
   })();
 
   // ---- step 5: the curve and the stack, through their difference ----
@@ -940,7 +1010,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       $('s5h').innerHTML = h;
       Q('[data-s5preset]').forEach(function(b){ var src = PRESETS[b.getAttribute('data-s5preset')], same = true; for (var i = 0; i < 10; i++) if (Math.abs(src[i] - bars[i]) > 1e-9) same = false; b.setAttribute('aria-pressed', String(same)); });
     }
-    STEP[4] = {
+    STEP[5] = {
       render: function(){
         var g = 0.8 / norm(bars);
         return renderTheta(function(th){ var a = curveFn(Math.cos(th)), b = stackAt(bars, th); return g * (door === 'curve' ? a : door === 'stack' ? b : a - b); }, F0, 1);
@@ -964,10 +1034,10 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         });
       }
     };
-    STEP[4].bars = makeBars($('s5bars'), bars, function(){ STEP[4].changed(); });
+    STEP[5].bars = makeBars($('s5bars'), bars, function(){ STEP[5].changed(); });
     Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
-    Q('[data-s5preset]').forEach(function(b){ b.addEventListener('click', function(){ setPreset(bars, b.getAttribute('data-s5preset')); STEP[4].changed(); }); });
-    $('s5pow').addEventListener('click', function(){ pow = !pow; STEP[4].changed(); });
+    Q('[data-s5preset]').forEach(function(b){ b.addEventListener('click', function(){ setPreset(bars, b.getAttribute('data-s5preset')); STEP[5].changed(); }); });
+    $('s5pow').addEventListener('click', function(){ pow = !pow; STEP[5].changed(); });
   })();
 
   // ---- step 6: the reach alone ----
@@ -986,7 +1056,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       if (Math.abs(dc) > 0.0005) txt += ' · steady offset <b>' + dc.toFixed(3) + '</b>, taken out before you hear it';
       $('s6m').innerHTML = txt;
     }
-    STEP[5] = {
+    STEP[6] = {
       render: function(){
         var x = renderTheta(function(th){ return cheb(n, L * Math.cos(th)); }, F0, 1);
         removeMean(x); var g = 0.75 / Math.max(1, peakOf(x));
@@ -1006,8 +1076,8 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
         });
       }
     };
-    $('s6n').addEventListener('input', function(){ n = parseInt($('s6n').value, 10); STEP[5].changed(); });
-    $('s6r').addEventListener('input', function(){ L = parseFloat($('s6r').value); STEP[5].changed(); });
+    $('s6n').addEventListener('input', function(){ n = parseInt($('s6n').value, 10); STEP[6].changed(); });
+    $('s6r').addEventListener('input', function(){ L = parseFloat($('s6r').value); STEP[6].changed(); });
   })();
 
   // ---- step 7: the reach, on the drawbars ----
@@ -1032,7 +1102,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       Q('[data-s7preset]').forEach(function(b){ var src = PRESETS[b.getAttribute('data-s7preset')], same = true; for (var i = 0; i < 10; i++) if (Math.abs(src[i] - bars[i]) > 1e-9) same = false; b.setAttribute('aria-pressed', String(same)); });
     }
     function liveReach(){ if (!swell) return L; var k = nowSample(); return k < 0 ? L : swellAt(k / voice.len); }
-    STEP[6] = {
+    STEP[7] = {
       render: function(){
         var g = 0.8 / norm(bars), secs = swell ? SW : 1;
         return renderTheta(function(th, u){
@@ -1059,11 +1129,11 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
     var dcTab = null;
     function buildDc(){ dcTab = new Float64Array(257); for (var j = 0; j <= 256; j++) dcTab[j] = dcOfCurve(bars, j / 256); }
     function dcOfCurveFast(Lh){ var u = Math.max(0, Math.min(1, Lh)) * 256, j = Math.min(255, Math.floor(u)), f = u - j; return dcTab[j] + f * (dcTab[j + 1] - dcTab[j]); }
-    STEP[6].bars = makeBars($('s7bars'), bars, function(){ STEP[6].changed(); });
+    STEP[7].bars = makeBars($('s7bars'), bars, function(){ STEP[7].changed(); });
     Q('[data-s7door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s7door'); ui(); refreshAudio(); }); });
-    Q('[data-s7preset]').forEach(function(b){ b.addEventListener('click', function(){ setPreset(bars, b.getAttribute('data-s7preset')); STEP[6].changed(); }); });
-    $('s7r').addEventListener('input', function(){ L = parseFloat($('s7r').value); STEP[6].changed(); });
-    $('s7swell').addEventListener('click', function(){ swell = !swell; STEP[6].changed(); });
+    Q('[data-s7preset]').forEach(function(b){ b.addEventListener('click', function(){ setPreset(bars, b.getAttribute('data-s7preset')); STEP[7].changed(); }); });
+    $('s7r').addEventListener('input', function(){ L = parseFloat($('s7r').value); STEP[7].changed(); });
+    $('s7swell').addEventListener('click', function(){ swell = !swell; STEP[7].changed(); });
   })();
 
   // ---------- the picture loop: only the step in view is drawn ----------
@@ -1087,8 +1157,18 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   }
 
   // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
-  var KEY = 'dissolutions-seq-circles-shadow-notes', notes = {};
-  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  // step 0 came in front on 2026-11-09 and every step moved up one index, its number kept;
+  // notes still under the old key are carried across, each to the step it was written on
+  var KEY = 'dissolutions-seq-circles-shadow-notes-v2', KEY_BEFORE = 'dissolutions-seq-circles-shadow-notes', notes = {};
+  try {
+    notes = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (!notes){
+      var before = JSON.parse(localStorage.getItem(KEY_BEFORE) || '{}') || {}; notes = {};
+      Object.keys(before).forEach(function(k){ notes[String(+k + 1)] = before[k]; });
+      if (Object.keys(notes).length){ localStorage.setItem(KEY, JSON.stringify(notes)); localStorage.removeItem(KEY_BEFORE); }
+    }
+  } catch (e) { notes = notes || {}; }
+  window.__seq.keys = { now: KEY, before: KEY_BEFORE };
   Q('[data-note]').forEach(function(t){
     var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
     t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
@@ -1096,13 +1176,13 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
   // Copy all notes, below, stays as the fallback
   var TASK = 'the-circles-shadow', HEAD = 'The circle’s shadow, learning sequence — notes', sending = false;
-  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
   function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
   function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
   $('send').addEventListener('click', function(){
     if (sending) return;
     var sent = {}, answers = {}, names = [];
-    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[i + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
     if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
     if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
     sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
@@ -1119,7 +1199,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
     }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
   });
   $('copy').addEventListener('click', function(){
-    var text = 'The circle’s shadow, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var text = 'The circle’s shadow, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
     var done = function(){ $('copied').textContent = 'copied'; };
     if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
   });
