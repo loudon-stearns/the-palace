@@ -97,6 +97,24 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="daily-2026-11-04-three-springs-blind" -->
+### 2026-11-04 — Three Springs, Blind: are the page's three regimes three sounds, or two and a speed?
+
+The Daily Page's rough for this page, sat on 2026-11-09. It opens with the three regimes played once each, unscored, then asks the ear to name blind glides. Round 1 uses the regimes as the page writes them (ζ 2.5, 1 and 0.3), up or down a fourth or a fifth, with ωₙ jittered so that speed alone is not the answer. Round 2 plays only overdamped and critical, each glide matched to reach 90% of the way in the same time. The first block of each round holds one of every regime, so no regime takes the opening rounds (Daily Page tuning item 83).
+
+| round | what was asked | score |
+| --- | --- | --- |
+| 1 | the three regimes as written, ζ 2.5 / 1 / 0.3, ωₙ jittered | 8 of 9; the miss was a critical glide heard as underdamped, the second item |
+| 2 | overdamped against critical, matched at 90% time | 3 of 6, chance |
+
+One listener, small n.
+
+**Artifacts:**
+- [Three Springs, Blind](Projects/Portamento%20and%20Physical%20Pitch%20Modeling/proofs/2026-11-04-three-springs-blind.html)
+
+<sub>Daily Page, 2026-11-04 · rough · kept on Loudon's yes of 2026-11-09</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-11-09T07-03-47-05-00" -->
 ### 2026-11-09 — Plan agreed
 
