@@ -39,3 +39,4 @@ What Shimmer Cloud's steward cycles taught the page, and the changes to the hous
 
 - run · 2026-10-22 · cycle 2 · taught item 2, proposed item 3 for canon
 - run · 2026-11-09 · cycle 3, posted nothing · nothing new
+- run · 2026-11-09 · cycle 4, posted nothing · nothing new

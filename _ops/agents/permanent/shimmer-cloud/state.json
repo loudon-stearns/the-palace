@@ -1,6 +1,6 @@
 {
-  "iteration": 3,
-  "last_active": "2026-11-09T12:40:55.643Z",
+  "iteration": 4,
+  "last_active": "2026-11-09T13:05:59.109Z",
   "last_read_cursor": "shimmer-cloud-005",
   "health": {
     "context_pct": null,
@@ -8,7 +8,7 @@
     "duplicate_flags": 0,
     "posting_discipline_violations": 1,
     "max_tokens_hits": 0,
-    "score": "yellow",
-    "stalled": false
+    "score": "red",
+    "stalled": true
   }
 }
