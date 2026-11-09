@@ -204,6 +204,8 @@ This is a high-dimensional coupled system, but it too can be modeled as coupled 
 The bundle holds:
 
 - `portamento-tool-01.html` … `portamento-tool-10.html` — where the page began, in the 2026-01-06 conversation: portamento met as a control problem. Ten silent visualizers of one glide steered by a controller, in the order they were fought for: PID (01–03, "Fixed", "Stable"), PD (04–06 and 10, one a debug mode), exponential smoothing (07), exponential plus PD (08), and PD with the derivative taken on the measurement (09). Their titles keep the history: the integral term was dropped on the way to stable.
+- `threshold/` — the overshoot threshold test: it finds the smallest overshoot a listener can hear on a glide up a fifth, and where an overshoot turns from alive to sour, the page's second open question, measured one listener at a time.
+- `zeta-over-time/` — the first open question, rendered: seven glides whose damping changes while they move, with a listening page and an exercise that asks what happened to the damping.
 - `curated-ear-set/` — twelve rendered glides, each with its regime, a physical motivation and a spectrogram, played through a quiz, paired A-vs-B exercises and the single-session reel.
 - `multi-mode/` — the multi-mode study: a bowed string whose partials lock or slip during a glide, with renders and listening pages for mode locking, bow strength and tone colour.
 - `model-fitter/` — the model run backward: it recovers ζ and ωₙ from a recorded glide, validated on the twelve ear-set examples.
