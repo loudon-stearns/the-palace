@@ -122,6 +122,8 @@ seed → sprout → growing → mature → fruiting → dormant → composting
 | `dormant` | Not currently active but preserved deliberately. | — |
 | `composting` | Being broken down; nutrients being redistributed to other entries. | — |
 
+Composting is not death; it is nutrient recycling. What breaks down feeds the pages that stay.
+
 **Composting protocol:** Before deleting any entry, mark it `stage: composting` for one Weave cycle. During the next Weave, confirm deletion or revive. This prevents accidental loss.
 
 **`foundational`** is a reserved stage for palace meta-entries (CLAUDE, JEWEL, CHILD, ELDER, SCHEMA, SCHEMA — Reference, ROSETTA, Meaning and the Link, README) that are structural and do not follow the seed-to-mature lifecycle. These entries persist as long as the palace exists.
