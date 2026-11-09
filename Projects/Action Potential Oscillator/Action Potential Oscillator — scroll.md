@@ -15,32 +15,32 @@ forward_vector: "I am Action Potential Oscillator's scroll — the one page that
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-09T12:24:50.914Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-09T12:38:49.273Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** mature · **Steward:** cycle 10 · last ran 2026-11-09 (today)
-- **Plan:** agreed 2026-09-25 (44 days ago) · 8 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** mature · **Steward:** cycle 11 · last ran 2026-11-09 (today)
+- **Plan:** agreed 2026-09-25 (44 days ago) · 9 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-09 (today) — Rewrite my plan as you asked on 4 November: the plugin is built, the web instrument comes next, and the trip to the H90 waits for Max. (`apo-steward-023`)
-- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
+- **Last shipped:** 2026-11-09 (today) — I measured what the plugin costs: 64 neurons take 5% of a core, and one cached line makes that 2%, matching bit for bit. (`apo-steward-025`)
+- **Last commit touching this project:** 2026-11-09 `9bfbd521` — steward(Action Potential Oscillator): cycle 10 — SPINNING UP. HOME: [Action Potential Oscillator](obsidian://open?vault=…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-09 — cycle 10 · taught item 3, proposed item 4 for canon
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-09 — cycle 11 · taught item 5, proposed item 6 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 2, 4; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 4, from cycle 10 — 2026-11-09 — [[Action Potential Oscillator — tuning]]
+- **Proposed for canon:** 3 — items 2, 4, 6; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 6, from cycle 11 — 2026-11-09 — [[Action Potential Oscillator — tuning]]
 
 ### Where this stands
 
-Action Potential Oscillator builds a synth from a neuron's biology. Each knob is a part of the membrane: the leak, the sodium rise, the potassium fall, the undershoot and its ringing recovery. The single neuron has been playable in Max since March. In October a crowd of these neurons ran in Faust: turn up the coupling and they pull together into one tone. Last cycle a pitch anchor made that lock land on the note you play. On 21 October you asked me to become a product, a plugin you play in Ableton with a picture of my own on its screen. On 4 November you asked for the plan to put a web instrument and a VST before Max. This cycle built the VST. Action Potential is installed on this Mac as VS…
+Action Potential Oscillator builds a synth from a neuron's biology, where every knob is a part of the membrane. The single neuron has played in Max since March. In October a crowd of these neurons ran in Faust, and turning up the coupling pulls them into one tone. Earlier today I built that crowd into Action Potential, a VST3/AU plugin installed on this Mac with a 3D axon on its screen, and asked you to rewrite the plan so the plugin and a web instrument come before Max. That ask is still open. This cycle I measured the CPU cost, which I had left unmeasured since October. 64 neurons take about 5% of one core at 44.1 kHz. I found the one line that costs most of it and proved a fix that cuts…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 6:** CPU wasn't measured. _(in 2 notes, the latest cycle 10)_
-- **rough since cycle 8:** Nobody has listened yet. _(in 3 notes, the latest cycle 10)_
+- **rough since cycle 8:** Nobody has listened yet, and only Loudon can do that. _(in 4 notes, the latest cycle 11)_
 
 ### Open asks
 
@@ -58,6 +58,7 @@ _None._
 
 ### Runs
 
+- 2026-11-09 — cycle 11 · taught item 5, proposed item 6 for canon
 - 2026-11-09 — cycle 10 · taught item 3, proposed item 4 for canon
 - 2026-10-20 — cycle 9 · taught item 1, proposed item 2 for canon
 
@@ -71,6 +72,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **2.** 2026-10-20 · [[Action Potential Oscillator]] · § Implementation Status, end of the 'Key implementation decisions' list — The entry records the single neuron's tuning decisions but not the crowd's, and 'the lock lands on the note' is the fact a player needs first.
 - **4.** 2026-11-09 · [[Action Potential Oscillator]] · § Implementation Status, after its first paragraph — The entry says the crowd runs only in Faust; it is now an installed plugin, and that is the first thing a player needs to know.
+- **6.** 2026-11-09 · [[Action Potential Oscillator]] · § Open Questions, under the Signal-Rate CV Architecture question, after its 2026-10-24 'progressed' line — The page asks what per-sample cost the crowd has and says it isn't stated anywhere yet; now it is measured.
 
 <!-- scroll:now:end -->
 
@@ -96,6 +98,53 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="apo-steward-025" -->
+### 2026-11-09 — cycle 11 — I measured what the plugin costs: 64 neurons take 5% of a core, and one cached line makes that 2%, matching bit for bit.
+> shipped · CPU measured at last · cache proven, not installed · steward leans land it next
+
+I ran the plugin's engine (`src/Algorithm.h`, exactly as compiled into the plugin at -O3) one sample at a time on your M1 Max, with a note held and best of five runs.
+
+The cost is about 17 ns per neuron per sample. The default crowd of 32 takes 2.8% of one core at 44.1 kHz and 64 take 5.2%. At 96 kHz, 64 take 11.5%. A locked crowd costs the same as a scattered one, because every neuron hears the crowd through one shared number, not through every other neuron.
+
+About 60% of the cost is the one `pow` in the charging step, which works out how far the leak has pulled the neuron. While a neuron charges, that power gets the same inputs on every sample unless a knob or the glide moves. High notes are cheaper for the same reason: a neuron spends less of each cycle charging.
+
+So I cached the result per neuron and recompute it only when its inputs change. I rendered 50 seconds through both engines, with every crowd size, a coupling sweep and a second note gliding in, and the outputs are bit-identical. Cached, 64 neurons cost 2.0% at 44.1 kHz and 4.2% at 96 kHz.
+
+On your page's open question about the RNBO crowd of 512 (an extrapolation, not a measurement): this design would take about 40% of a core, or about 15% with the cache.
+
+**Artifacts:**
+- [what the engine costs, where the cost goes, and the cache fix with how to land it](Projects/Action Potential Oscillator/plugin/bench/README.md)
+- [the timing harness: the plugin's own step(), per crowd size and sample rate](Projects/Action Potential Oscillator/plugin/bench/bench.cpp)
+- [renders 50 s through an engine so two builds can be compared bit for bit](Projects/Action Potential Oscillator/plugin/bench/exact.cpp)
+- [the engine with pow cached per neuron: bit-identical output, about 2.6× cheaper](Projects/Action Potential Oscillator/plugin/bench/cached/Algorithm.h)
+- [the installed engine's numbers](Projects/Action Potential Oscillator/plugin/bench/bench-2026-11-09.tsv)
+- [the cached engine's numbers](Projects/Action Potential Oscillator/plugin/bench/bench-2026-11-09-cached.tsv)
+
+_Percent of one M1 Max core, real time · crowd size across the top_
+| case | 1 | 8 | 16 | 32 | 64 | 64 cached |
+| --- | --- | --- | --- | --- | --- | --- |
+| default, 44.1 kHz, A2, locked | 0.44 | 0.93 | 1.62 | 2.82 | 5.21 | 2.01 |
+| scattered, 44.1 kHz | 0.46 | 0.98 | 1.63 | 2.86 | 5.45 | 2.04 |
+| default, 48 kHz | 0.48 | 1.06 | 1.90 | 3.27 | 6.17 | 2.18 |
+| default, 96 kHz | 1.00 | 2.15 | 3.60 | 6.31 | 11.49 | 4.21 |
+| A5, 48 kHz, 0.3 ms spike | 0.33 | 0.45 | 0.74 | 1.16 | 2.08 | 1.98 |
+
+_Changed in the workshop:_ README — New: the CPU measurement the plugin README listed as not done, and the proven cache fix.
+_Proposed for canon:_ Action Potential Oscillator (§ Open Questions, under the Signal-Rate CV Architecture question, after its 2026-10-24 'progressed' line) — The page asks what per-sample cost the crowd has and says it isn't stated anywhere yet; now it is measured.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened yet, and only Loudon can do that. The CPU numbers are for the engine alone, not the plugin running inside Live with its screen drawing, and the cache is proven but not yet in the installed plugin.
+
+_Next moves named:_ Put the cache into src/Algorithm.h, run ./plugin.sh all to rebuild, re-verify against the sketch and reinstall, then time the real plugin inside a host. · If the plan revision is adopted, start the web instrument: the same engine in an AudioWorklet with the axon screen beside it, so the crowd can be played from a link. · Write down for the Max patching blocks: the RNBO codebox should cache the same pow, since 512 neurons would take about 40% of a core without it.
+<sub>`apo-steward-025` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-2fcbf0513f" -->
+### 2026-11-09 — cycle 11
+
+taught item 5, proposed item 6 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="apo-steward-023" -->
 ### 2026-11-09 — cycle 10 — Rewrite my plan as you asked on 4 November: the plugin is built, the web instrument comes next, and the trip to the H90 waits for Max.
 > still working · plugin installed, nobody has played it · steward leans adopt

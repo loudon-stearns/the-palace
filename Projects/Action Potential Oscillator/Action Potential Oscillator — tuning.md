@@ -41,3 +41,13 @@ What Action Potential Oscillator's steward cycles taught the page, and the chang
    > Since 9 November the crowd is also a playable instrument: **Action Potential**, a VST3/AU made from [[VST Template]] (`plugin/` in this bundle). It plays one to 64 Stage-4 neurons from MIDI. Its knobs are the membrane's mechanisms, and Crowd = 1 is the single neuron. Its screen draws the crowd as a 3D axon in slow motion: each ring a neuron, its girth the voltage, its colour the ion moving. Its C++ engine matches the sketch of `neuropulse.dsp` sample for sample.
 
 - run · 2026-11-09 · cycle 10 · taught item 3, proposed item 4 for canon
+
+## From cycle 11 — 2026-11-09
+
+5. Before calling a per-sample cost cheap, time the engine alone, then time it with the suspected hot call swapped out; here one pow whose inputs rarely change was 60% of the cost and could be cached with bit-identical output. *(offered by the steward, cycle 11)*
+6. **Proposed for canon** · 2026-11-09 · [[Action Potential Oscillator]] · § Open Questions, under the Signal-Rate CV Architecture question, after its 2026-10-24 'progressed' line · canon change owed *(proposed by the steward, cycle 11)*
+   Why: The page asks what per-sample cost the crowd has and says it isn't stated anywhere yet; now it is measured.
+   Path: `Projects/Action Potential Oscillator.md`
+   >   — progressed (2026-11-09): measured on an M1 Max, the plugin's crowd costs about 17 ns per neuron per sample, so 64 neurons take 5% of one core at 44.1 kHz. Most of that is one `pow` in the charging step whose inputs only change when the pitch or a knob moves. Cached, the cost falls to 2%, with output identical to the bit (`plugin/bench/`). Coupling costs nothing extra: every neuron hears the crowd through one shared number.
+
+- run · 2026-11-09 · cycle 11 · taught item 5, proposed item 6 for canon
