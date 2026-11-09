@@ -1,0 +1,573 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — click into pitch
+  born: 2026-11-08
+  links: [[Auditory Illusions]] connects-to · rich-face-piece-of · [[Frequency-Time Duality]] connects-to · one-axis-cut-in-two ·
+    [[Boundary-Crossing Instruments]] connects-to · one-dial-several-worlds · [[Progressive Staging]] exemplifies · experience-first-then-the-walk
+  forward_vector: I am rhythm turning into pitch as a wheel you spin, then a walk of four more steps. You spin a flywheel
+    whose teeth flick a card, push it until the taps become a note, let it coast down until they are taps again, and mark
+    both. A lamp beside it can flash with the card. Then the numbers come out, the signal is shown to stay one thing at
+    every rate, the eye gets its turn with the screen's own limit measured and said, and a blind trial asks taps or tone at
+    rates you can't see. I am a proposal until Loudon has played me.
+  understood as: a thing with mass. A flywheel with forty teeth and a card in them, like a playing card in bicycle spokes:
+    you can push it faster and brake it, and it coasts down on its own, so letting go sweeps the threshold for you.
+  red means: really there. The card that makes each click, and in the reveal each click as an event in time. Red never
+    marks what the sense makes up. (Same meaning in "the risset rhythm".) The flashing lamp is never red: red flashes are
+    the riskier kind.
+  engine: the dial maps 0..1 to 2·100^p clicks a second (2 to 200, 20 in the middle); forty clicks per turn of the wheel,
+    the hand geared ×2; coasting loses 63 % of its speed in 6 s; each click is a 0.12 ms one-pole impulse whose gain is
+    √(2/r), so power stays level as the rate climbs. The lamp follows the clicks, held at 3 a second unless the reader
+    chooses more, and shows a steady average past half the measured refresh rate.
+  remade: 2026-11-08, after the challenge: the lamp's brightness is a sine (0.5 + 0.5·cos), not a one-frame square, so a
+    60 Hz screen adds no slow alias below 29.4 a second; the blind trial states the verdict's own chance (inside 19 %,
+    against 81 % for random answers) and reads a verdict only when the split explains 16 or more of the 18.
+  checks: Auditory Illusions — rich — check — in-time.mjs, beside this file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Click into pitch</title>
+<meta name="theme-color" content="#f4f2ec">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03, retinted to the paper ground 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (_ops/furniture-fanout/furnish.py),
+   its --fx-* tokens retinted from Graphite to the Auditory Illusions paper ground. In a layer, so every rule this page writes wins.
+   Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: #f4f2ec; --fx-bg-elev-1: #efece4; --fx-bg-elev-2: #e8e5dc; --fx-bg-elev-3: #dedad0; --fx-fg-1: #141414; --fx-fg-2: #3a3a3a; --fx-fg-3: #7a7a7a; --fx-fg-4: #c9c6bd; --fx-fg-on-accent: #f4f2ec; --fx-border: #c9c6bd; --fx-border-soft: rgba(20,20,20,0.10); --fx-border-hover: #141414; --fx-accent: #141414; --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.45); --fx-danger: #d1301c; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink-2); font-family: var(--sans); font-weight: 400; }
+  .ct-piece { padding: 20px 20px 16px; }
+  .ct-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .ct-title { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--ink); margin: 0 0 6px; line-height: 1.15; }
+  .ct-title em { font-style: italic; font-weight: 300; }
+  .ct-says { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 12px; min-height: 3.2em; }
+  .ct-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+  .ct-tabs { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .ct-tabs button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); background: var(--paper); border: 1px solid var(--rule); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: var(--ink); color: var(--ink); }
+  button[aria-pressed="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+  button.ct-go { color: var(--ink); border: 1.5px solid var(--ink); min-width: 104px; }
+  button.ct-go[aria-pressed="true"] { color: var(--paper); }
+  button:disabled { opacity: .35; cursor: default; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+  .ct-stage { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14px; align-items: start; position: relative; }
+  @media (max-width: 640px) { .ct-stage { grid-template-columns: 1fr; } }
+  .ct-panel { border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); padding: 10px 12px; }
+  .ct-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  #wheel { touch-action: none; cursor: grab; }
+  #wheel.held { cursor: grabbing; }
+  label.ct-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ink-3); }
+  label.ct-sl b { color: var(--ink); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--ink-3); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--ink); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: var(--ink); cursor: pointer; }
+  .ct-lampbox { display: flex; align-items: center; justify-content: center; height: 150px; border: 1px solid var(--rule); border-radius: 2px; }
+  .ct-lamp { width: 88px; height: 88px; border-radius: 50%; border: 1.5px solid var(--ink); background: var(--paper); }
+  .ct-warn { font-size: 12.5px; line-height: 1.5; color: var(--ink-2); margin: 8px 0; border-left: 2px solid var(--ink); padding-left: 8px; }
+  .ct-status { font-family: var(--mono); font-size: 11px; color: var(--ink-3); min-height: 3em; margin: 6px 0; line-height: 1.5; }
+  .ct-status b { color: var(--ink); font-weight: 500; }
+  .ct-read { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); min-height: 1.6em; }
+  .ct-read b { color: var(--ink); font-weight: 500; }
+  .ct-red, .ct-red b { color: var(--red); }
+  .ct-curtain { position: absolute; inset: 0; background: var(--paper); border: 1.5px solid var(--ink); border-radius: 2px; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 10px; text-align: center; padding: 20px; z-index: 3; }
+  .ct-curtain.on { display: flex; }
+  .ct-curtain .ct-cbig { font-family: var(--serif); font-size: 28px; color: var(--ink); }
+  .ct-curtain .ct-ccount { font-family: var(--mono); font-size: 12px; letter-spacing: .18em; color: var(--ink-3); }
+  .ct-step { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 12px; }
+  .ct-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .ct-stephead span + span { color: var(--ink-3); }
+  .ct-teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 6px 0 10px; }
+  .ct-back { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin: 4px 0 0; }
+  .ct-eq { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
+  .ct-eq .ct-sym { font-family: var(--serif); font-size: 20px; color: var(--ink); }
+  .ct-eq .ct-words { font-size: 13px; line-height: 1.55; color: var(--ink-2); margin: 2px 0 6px; }
+  .ct-view { margin: 8px 0; border: 1px solid var(--rule); border-radius: 2px; padding: 8px 10px; }
+  .ct-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0; }
+  .ct-two > div { border: 1px solid var(--rule); border-radius: 2px; padding: 10px 12px; }
+  .ct-two .ct-k { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+  .ct-two .ct-v { font-family: var(--serif); font-size: 26px; color: var(--ink); margin-top: 4px; }
+  table.ct-tally { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 10px 0 4px; }
+  table.ct-tally th, table.ct-tally td { border: 1px solid var(--rule); padding: 6px 10px; text-align: left; }
+  table.ct-tally th { color: var(--ink-3); font-weight: 400; }
+  table.ct-tally td b { color: var(--ink); font-weight: 500; }
+  .ct-foot { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--rule); display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+  .ct-foot svg { width: 20px; height: 20px; }
+</style>
+</head>
+<body>
+<div class="ct-piece">
+  <div class="ct-kicker">made · Web Audio · study · proposal</div>
+  <h3 class="ct-title">Click into pitch — <em>spin it till it sings</em></h3>
+  <div class="ct-row">
+    <button class="ct-go" id="play" aria-pressed="false">▸ Play</button>
+    <button id="back">← Back</button>
+    <button id="next">Next step →</button>
+  </div>
+  <p class="ct-says" id="says">Silent until you press Play, or grab the wheel.</p>
+  <div class="ct-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="ct-stage" id="stage">
+    <div class="ct-panel">
+      <div class="ct-plabel"><span>the wheel · forty teeth, one card</span><span id="mode">coasting</span></div>
+      <canvas id="wheel" aria-label="a flywheel: drag round it to spin it faster, drag against it to brake"></canvas>
+      <label class="ct-sl">the dial <b id="dialread">slow ← → fast</b><input type="range" id="dial" min="0" max="1000" step="1" value="151" aria-label="click rate dial"></label>
+      <div class="ct-row" style="margin-top:8px">
+        <button id="marknote">It’s a note now</button>
+        <button id="marktaps">It’s taps again</button>
+        <button id="coastbtn">Let it coast</button>
+      </div>
+      <canvas id="marks" height="56" aria-label="your marks along the dial"></canvas>
+    </div>
+    <div class="ct-panel">
+      <div class="ct-plabel"><span>the eye’s twin · flicker</span><span>shape, not mechanism</span></div>
+      <div class="ct-lampbox"><div class="ct-lamp" id="lamp" aria-label="a lamp that flashes with the clicks"></div></div>
+      <p class="ct-warn" id="warn">Flashing light. This lamp pulses once per click. It is held at 3 flashes a second unless you choose more. If flashing light affects you, leave it unlit.</p>
+      <div class="ct-row"><button id="light" aria-pressed="false">Light the lamp</button><button id="consent" aria-pressed="false" style="display:none">Let it flash faster than 3 a second</button></div>
+      <div class="ct-status" id="lampstatus">unlit</div>
+    </div>
+    <div class="ct-curtain" id="curtain"><div class="ct-cbig" id="cbig">Listening, wheel covered</div><div class="ct-ccount" id="ccount"></div>
+      <div class="ct-row" style="justify-content:center"><button id="ans-taps">← Taps</button><button id="ans-tone">Tone →</button></div></div>
+  </div>
+  <div class="ct-read" id="read"></div>
+  <div id="steps"></div>
+  <div class="ct-foot"><svg viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#141414" stroke-width="0.8"/></svg><span>Loud’n Live · Auditory Illusions · In time</span></div>
+</div>
+
+<script>
+// ───────── the engine: pure, no DOM, no sound; the check script runs this text ─────────
+const ENGINE_SRC = String.raw`
+const R_MIN = 2, R_MAX = 200;                                  // clicks a second at the dial's two ends
+function rateOf(p) { return R_MIN * Math.pow(R_MAX / R_MIN, Math.min(1, Math.max(0, p))); }
+function posOf(r) { return Math.log(r / R_MIN) / Math.log(R_MAX / R_MIN); }
+const PER_TURN = 40;                                           // teeth on the wheel: clicks per turn
+const GEAR = 2;                                                // the wheel turns twice for each turn of the hand
+const TAU = 6;                                                 // s: coasting loses 63 % of the wheel's speed in this long
+function turnsPerSec(r) { return r / PER_TURN; }
+function handRate(handTurnsPerSec) { return GEAR * Math.abs(handTurnsPerSec) * PER_TURN; }
+function coast(r, dt) { return Math.max(R_MIN, r * Math.exp(-dt / TAU)); }
+function clickGain(r) { return Math.sqrt(R_MIN / r); }         // constant power: r · g² stays R_MIN
+const CLICK_TAU = 0.00012;                                     // s: each click a one-pole impulse this short
+const FLASH_CAP = 3;                                           // flashes a second, unless the reader chooses more
+function screenLimit(refreshHz) { return refreshHz / 2; }      // the fastest on/off a screen can draw: one frame on, one off
+function lampMode(r, consent, refreshHz) {
+  if (r > FLASH_CAP && !consent) return 'held';
+  if (r >= 0.98 * screenLimit(refreshHz)) return 'screen';
+  return 'flash';
+}
+const NAMES = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+function note(f) { const m = 69 + 12 * Math.log2(f / 440), n = Math.round(m); return { midi: m, name: NAMES[((n % 12) + 12) % 12] + (Math.floor(n / 12) - 1), cents: Math.round(100 * (m - n)) }; }
+const PAGE = { taps: 20, toneLo: 30, toneHi: 50 };            // the page: taps below about 20; a pitch somewhere past 30 to 50
+const BANDS = [[4, 10], [10, 20], [20, 33], [33, 50], [50, 100], [100, 180]];
+const PER_BAND = 3, CATCH = [3, 190], TRIAL_S = 1.2;
+function plan(rand) {
+  const t = [];
+  BANDS.forEach(b => { for (let i = 0; i < PER_BAND; i++) t.push({ r: b[0] * Math.pow(b[1] / b[0], (i + rand()) / PER_BAND), band: b, katch: false }); });
+  CATCH.forEach(r => t.push({ r: r, band: null, katch: true }));
+  for (let i = t.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); const x = t[i]; t[i] = t[j]; t[j] = x; }
+  return t;
+}
+function crossing(answers) {   // the split that best explains "taps below, tone above"; its rate is the geometric middle of the gap
+  const a = answers.slice().sort((x, y) => x.r - y.r); let best = -1, at = 0;
+  for (let i = 0; i <= a.length; i++) { let ok = 0; a.forEach((x, j) => { if ((j >= i) === x.tone) ok++; }); if (ok > best) { best = ok; at = i; } }
+  const lo = at > 0 ? a[at - 1].r : R_MIN, hi = at < a.length ? a[at].r : R_MAX;
+  return { r: Math.sqrt(lo * hi), agree: best / Math.max(1, a.length) };
+}
+function verdict(c) { return c.r < PAGE.taps ? 'below' : c.r > PAGE.toneHi ? 'above' : 'inside'; }
+const READ_MIN = 16;                                            // a verdict is read only when the split explains 16 or more of the 18
+function readable(c, n) { return Math.round(c.agree * n) >= READ_MIN; }
+function lampLevel(phase) { return 0.5 + 0.5 * Math.cos(2 * Math.PI * phase); }   // brightness as a sine: a screen samples it without slow aliases up to half its refresh
+`;
+const { R_MIN, R_MAX, rateOf, posOf, PER_TURN, GEAR, TAU, turnsPerSec, handRate, coast, clickGain, CLICK_TAU, FLASH_CAP, screenLimit, lampMode, NAMES, note, PAGE, BANDS, PER_BAND, CATCH, TRIAL_S, plan, crossing, verdict, READ_MIN, readable, lampLevel } =
+  new Function(ENGINE_SRC + '; return { R_MIN, R_MAX, rateOf, posOf, PER_TURN, GEAR, TAU, turnsPerSec, handRate, coast, clickGain, CLICK_TAU, FLASH_CAP, screenLimit, lampMode, NAMES, note, PAGE, BANDS, PER_BAND, CATCH, TRIAL_S, plan, crossing, verdict, READ_MIN, readable, lampLevel };')();
+
+// ───────── state ─────────
+const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const S = { step: 1, r: 4, mode: 'coast', playing: false, angle: 0, marks: [], eye: [], lamp: { on: false, consent: false, contrast: 0.6 },
+  refresh: 60, refreshMeasured: false, climb: null, trial: null, results: [] };
+const HAND = { down: false, last: null, w: 0, lastMove: 0 };
+const CLICKS = [];   // the last scheduled click times, audio clock
+
+// ───────── sound: nothing exists until the first click ─────────
+let ac = null, bus = null, buf = null, timer = null, next = 0;
+function build() {
+  ac = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ac.createDynamicsCompressor(); comp.threshold.value = -12; comp.ratio.value = 4;
+  const hp = ac.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 15;
+  bus = ac.createGain(); bus.gain.value = 0; bus.connect(hp).connect(comp).connect(ac.destination);
+  const sr = ac.sampleRate, n = Math.ceil(sr * 0.002); buf = ac.createBuffer(1, n, sr);
+  const d = buf.getChannelData(0); for (let i = 0; i < n; i++) d[i] = Math.exp(-i / (sr * CLICK_TAU));
+}
+function tick() {
+  const a = ac.currentTime, horizon = a + 0.1;
+  if (next < a) next = a + 0.01;
+  const tr = S.trial;
+  while (next < horizon) {
+    if (tr && (!tr.playing || next > tr.endAt)) break;   // silent between trials and after each burst
+    const r = tr && tr.playing ? tr.r : S.r;
+    const s = ac.createBufferSource(); s.buffer = buf; const g = ac.createGain(); g.gain.value = 0.8 * clickGain(r);
+    s.connect(g).connect(bus); s.start(next);
+    CLICKS.push(next); if (CLICKS.length > 160) CLICKS.shift();
+    next += 1 / r;
+  }
+}
+async function start() {
+  if (!ac) build();
+  if (ac.state !== 'running') await ac.resume();
+  next = ac.currentTime + 0.03;
+  bus.gain.cancelScheduledValues(ac.currentTime); bus.gain.setTargetAtTime(1, ac.currentTime, 0.02);
+  S.playing = true; tick(); if (!timer) timer = setInterval(tick, 20);
+  playBtn.textContent = '■ Stop'; playBtn.setAttribute('aria-pressed', 'true');
+}
+function stop() {
+  if (timer) clearInterval(timer); timer = null;
+  if (ac) { bus.gain.cancelScheduledValues(ac.currentTime); bus.gain.setTargetAtTime(0, ac.currentTime, 0.02); }
+  S.playing = false; S.climb = null; playBtn.textContent = '▸ Play'; playBtn.setAttribute('aria-pressed', 'false');
+  if (S.trial) endTrials(true);
+}
+function ensure() { if (!S.playing) start().catch(e => says('Sound could not start: ' + e.message)); }
+
+// ───────── the screen's own rate, measured ─────────
+function measureRefresh() {
+  const ts = []; let n = 0;
+  function f(t) { ts.push(t); if (++n < 91) requestAnimationFrame(f); else {
+    const d = []; for (let i = 1; i < ts.length; i++) d.push(ts[i] - ts[i - 1]); d.sort((a, b) => a - b);
+    const med = d[Math.floor(d.length / 2)]; if (med > 2) { S.refresh = 1000 / med; S.refreshMeasured = true; } renderStep4(); } }
+  requestAnimationFrame(f);
+}
+
+// ───────── the wheel ─────────
+const wheel = document.getElementById('wheel');
+function handAngle(e) { const b = wheel.getBoundingClientRect(); return Math.atan2(e.clientY - (b.top + b.height / 2), e.clientX - (b.left + b.width / 2)); }
+wheel.addEventListener('pointerdown', e => { if (S.trial) return; e.preventDefault(); wheel.setPointerCapture(e.pointerId); HAND.down = true; HAND.last = { a: handAngle(e), t: performance.now() }; HAND.w = 0; wheel.classList.add('held'); S.mode = 'coast'; S.climb = null; ensure(); });
+wheel.addEventListener('pointermove', e => {
+  if (!HAND.down) return;
+  const a = handAngle(e), t = performance.now(); let d = a - HAND.last.a;
+  if (d > Math.PI) d -= 2 * Math.PI; if (d < -Math.PI) d += 2 * Math.PI;
+  const dt = Math.max(1, t - HAND.last.t) / 1000, w = d / (2 * Math.PI) / dt;
+  HAND.w = HAND.w + (w - HAND.w) * Math.min(1, dt / 0.08); HAND.last = { a: a, t: t }; HAND.lastMove = t;
+});
+const release = () => { HAND.down = false; HAND.w = 0; wheel.classList.remove('held'); };
+wheel.addEventListener('pointerup', release); wheel.addEventListener('pointercancel', release);
+
+function physics(dt) {
+  if (S.trial) return;
+  if (S.climb) { const k = Math.min(1, (performance.now() - S.climb.t0) / 1000 / S.climb.dur); S.r = S.climb.from * Math.pow(S.climb.to / S.climb.from, k); if (k >= 1) S.climb = null; }
+  else if (HAND.down) {
+    const w = performance.now() - HAND.lastMove > 90 ? 0 : HAND.w;
+    if (w > 0.03) { const target = handRate(w); S.r = target > S.r ? S.r + (target - S.r) * (1 - Math.exp(-dt / 0.15)) : coast(S.r, dt); }
+    else if (w < -0.03) S.r = Math.max(R_MIN, S.r * Math.exp(-dt / 0.4));
+    else S.r = coast(S.r, dt);
+  } else if (S.mode === 'coast') S.r = coast(S.r, dt);
+  S.r = Math.min(R_MAX, Math.max(R_MIN, S.r));
+}
+
+const INK = '#141414', INK3 = '#7a7a7a', RULE = '#c9c6bd', PAPER = '#f4f2ec', RED = '#d1301c';
+function fit(c, hh) { const r = window.devicePixelRatio || 1, w = c.clientWidth || 360, h = hh || Number(c.getAttribute('height')) || w; c.width = Math.round(w * r); c.height = Math.round(h * r); c.style.height = h + 'px'; const x = c.getContext('2d'); x.setTransform(r, 0, 0, r, 0, 0); return [x, w, h]; }
+function lastClick(now) { for (let i = CLICKS.length - 1; i >= 0; i--) if (CLICKS[i] <= now) return CLICKS[i]; return -1; }
+
+function drawWheel() {
+  const [x, w] = fit(wheel, Math.min(300, Math.max(200, (wheel.clientWidth || 300) * 0.62))); const h = wheel.height / (window.devicePixelRatio || 1);
+  x.clearRect(0, 0, w, h);
+  const cx = w * 0.42, cy = h / 2, R = Math.min(h / 2 - 14, w * 0.32);
+  const perFrame = S.r / S.refresh;   // teeth passing the card per frame
+  const teethA = Math.max(0, Math.min(1, 1 - (perFrame - 0.25) / 0.25));
+  x.strokeStyle = INK; x.lineWidth = 1.5; x.beginPath(); x.arc(cx, cy, R, 0, 7); x.stroke();
+  if (teethA > 0) { x.globalAlpha = teethA; x.lineWidth = 1.2; for (let i = 0; i < PER_TURN; i++) { const a = S.angle + i / PER_TURN * 2 * Math.PI; x.beginPath(); x.moveTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); x.lineTo(cx + Math.cos(a) * (R + 7), cy + Math.sin(a) * (R + 7)); x.stroke(); } }
+  if (teethA < 1) { x.globalAlpha = 1 - teethA; x.strokeStyle = 'rgba(20,20,20,.35)'; x.lineWidth = 7; x.beginPath(); x.arc(cx, cy, R + 3.5, 0, 7); x.stroke(); }
+  x.globalAlpha = 1; x.strokeStyle = INK; x.lineWidth = 1.2;
+  for (let i = 0; i < 3; i++) { const a = S.angle + i * 2 * Math.PI / 3; x.beginPath(); x.moveTo(cx, cy); x.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); x.stroke(); }
+  x.fillStyle = INK; x.beginPath(); x.arc(cx, cy, 4, 0, 7); x.fill();
+  const ha = S.angle; x.beginPath(); x.arc(cx + Math.cos(ha) * R * 0.72, cy + Math.sin(ha) * R * 0.72, 7, 0, 7); x.lineWidth = 1.5; x.stroke();
+  // the card: struck by every tooth, red because it is the one thing really there
+  const now = ac ? ac.currentTime : 0, lc = lastClick(now), period = 1 / S.r;
+  const bend = S.playing && lc > 0 ? Math.max(0, 1 - (now - lc) / Math.min(period, 0.12)) : 0;
+  const px = cx + R + 9, py = cy;
+  x.save(); x.translate(px + 26, py);
+  if (S.playing && perFrame > 0.25) { x.fillStyle = 'rgba(209,48,28,.22)'; x.beginPath(); x.moveTo(0, 0); x.lineTo(-30, -2); x.lineTo(-30, -16); x.closePath(); x.fill(); }
+  x.rotate(-0.45 * bend); x.fillStyle = RED; x.fillRect(-30, -2.5, 30, 5); x.restore();
+  x.fillStyle = INK; x.fillRect(px + 24, py - 8, 4, 16);
+}
+
+function drawMarks() {
+  const c = document.getElementById('marks'); const [x, w, h] = fit(c); x.clearRect(0, 0, w, h);
+  const L = 10, R = 10, X = r => L + posOf(r) * (w - L - R), base = h - 18;
+  x.strokeStyle = INK3; x.lineWidth = 1; x.beginPath(); x.moveTo(L, base); x.lineTo(w - R, base); x.stroke();
+  x.font = '10px JetBrains Mono'; x.fillStyle = INK3;
+  if (S.step >= 2) { x.textAlign = 'center'; [2, 5, 10, 20, 50, 100, 200].forEach(r => { x.beginPath(); x.moveTo(X(r), base); x.lineTo(X(r), base + 4); x.stroke(); x.fillText(r, X(r), base + 14); }); }
+  else { x.textAlign = 'left'; x.fillText('slow', L, base + 14); x.textAlign = 'right'; x.fillText('fast', w - R, base + 14); }
+  S.marks.forEach(m => { const mx = X(m.r); x.strokeStyle = INK; x.lineWidth = 1.2; x.beginPath(); x.moveTo(mx, base); x.lineTo(mx, base - 22); x.stroke(); x.beginPath(); x.arc(mx, base - 26, 4, 0, 7); if (m.kind === 'note') { x.fillStyle = INK; x.fill(); } else { x.fillStyle = PAPER; x.fill(); x.stroke(); } });
+  S.eye.forEach(m => { const mx = X(m.r); x.strokeStyle = INK3; x.setLineDash([2, 2]); x.beginPath(); x.moveTo(mx, base); x.lineTo(mx, 6); x.stroke(); x.setLineDash([]); x.fillStyle = INK3; x.textAlign = 'center'; x.fillText('eye', mx, 6 + 3); });
+  const nx = X(S.r); x.fillStyle = INK; x.beginPath(); x.moveTo(nx, base + 1); x.lineTo(nx - 5, base + 8); x.lineTo(nx + 5, base + 8); x.closePath(); x.fill();
+}
+
+function drawAxis(c) {
+  const [x, w, h] = fit(c); x.clearRect(0, 0, w, h);
+  const L = 12, R = 12, X = r => L + posOf(r) * (w - L - R), base = h - 26;
+  x.fillStyle = 'rgba(20,20,20,.05)'; x.fillRect(X(PAGE.taps), 10, X(PAGE.toneHi) - X(PAGE.taps), base - 10);
+  for (let r = PAGE.toneLo; r <= PAGE.toneHi; r *= 1.04) { x.fillStyle = 'rgba(20,20,20,.03)'; x.fillRect(X(r), 10, X(PAGE.toneHi) - X(r), base - 10); }
+  x.font = '10.5px JetBrains Mono'; x.fillStyle = INK3; x.textAlign = 'center';
+  x.fillText('taps', (X(R_MIN) + X(PAGE.taps)) / 2, 22); x.fillText('muddy', (X(PAGE.taps) + X(PAGE.toneHi)) / 2, 22); x.fillText('a buzz with a pitch', (X(PAGE.toneHi) + X(R_MAX)) / 2, 22);
+  x.font = '9.5px JetBrains Mono'; x.fillText('the page: below about 20 · a pitch past 30 to 50', w / 2, 36);
+  x.strokeStyle = INK; x.lineWidth = 1; x.beginPath(); x.moveTo(L, base); x.lineTo(w - R, base); x.stroke();
+  x.font = '10px JetBrains Mono';
+  [2, 3, 5, 10, 20, 30, 50, 100, 200].forEach(r => { x.beginPath(); x.moveTo(X(r), base); x.lineTo(X(r), base + 4); x.stroke(); x.fillText(r, X(r), base + 15); });
+  x.textAlign = 'left'; x.fillText('clicks a second', L, h - 1);
+  S.marks.forEach(m => { const mx = X(m.r); x.strokeStyle = INK; x.beginPath(); x.moveTo(mx, base); x.lineTo(mx, base - 26); x.stroke(); x.beginPath(); x.arc(mx, base - 30, 4, 0, 7); if (m.kind === 'note') { x.fillStyle = INK; x.fill(); } else { x.fillStyle = PAPER; x.fill(); x.stroke(); } });
+  const nx = X(S.r); x.strokeStyle = INK; x.lineWidth = 2; x.beginPath(); x.moveTo(nx, 42); x.lineTo(nx, base); x.stroke();
+}
+
+function drawComb(c) {
+  const [x, w, h] = fit(c); x.clearRect(0, 0, w, h);
+  const now = ac ? ac.currentTime : 0, span = 0.5, L = 8, R = 8, top = 8, mid = h * 0.42;
+  x.font = '10px JetBrains Mono'; x.fillStyle = INK3; x.textAlign = 'left'; x.fillText('the last half second · each red tick one click', L, h * 0.42 + 26);
+  x.strokeStyle = RULE; x.beginPath(); x.moveTo(L, mid); x.lineTo(w - R, mid); x.stroke();
+  x.strokeStyle = RED; x.lineWidth = 1.2;
+  CLICKS.forEach(t => { if (t <= now && now - t < span) { const px = L + (1 - (now - t) / span) * (w - L - R); x.beginPath(); x.moveTo(px, top); x.lineTo(px, mid); x.stroke(); } });
+  // the same signal as a spectrum: lines at f, 2f, 3f … on a log axis
+  const lo = Math.log10(2), hi = Math.log10(4000), X = f => L + (Math.log10(f) - lo) / (hi - lo) * (w - L - R), base = h - 16, sh = h * 0.28;
+  x.strokeStyle = INK3; x.lineWidth = 1; x.beginPath(); x.moveTo(L, base); x.lineTo(w - R, base); x.stroke();
+  x.fillStyle = INK3; x.textAlign = 'center';
+  [2, 10, 50, 200, 1000, 4000].forEach(f => x.fillText(f >= 1000 ? f / 1000 + 'k' : f, X(f), base + 12));
+  x.strokeStyle = INK; x.globalAlpha = 0.8;
+  for (let n = 1; n * S.r <= 4000; n++) { const f = n * S.r, a = 1 / Math.sqrt(1 + Math.pow(2 * Math.PI * f * CLICK_TAU, 2)); x.beginPath(); x.moveTo(X(f), base); x.lineTo(X(f), base - sh * a); x.stroke(); }
+  x.globalAlpha = 1; x.textAlign = 'right'; x.fillText('the same clicks as frequencies: lines at f, 2f, 3f … Hz', w - R, base - sh - 4);
+}
+
+// ───────── the lamp ─────────
+const lampEl = document.getElementById('lamp');
+function mix(a, b, t) { return 'rgb(' + [0, 1, 2].map(i => Math.round(a[i] + (b[i] - a[i]) * t)).join(',') + ')'; }
+const ON = [255, 253, 246], OFF_INK = [20, 20, 20];
+function drawLamp() {
+  const st = document.getElementById('lampstatus');
+  if (!S.lamp.on || S.trial) { lampEl.style.background = PAPER; lampEl.style.backgroundImage = ''; st.innerHTML = S.trial ? 'unlit during the trial' : 'unlit'; return; }
+  const offC = mix(ON, OFF_INK, S.lamp.contrast), m = lampMode(S.r, S.lamp.consent, S.refresh), lim = screenLimit(S.refresh);
+  if (!S.playing) { lampEl.style.backgroundImage = ''; lampEl.style.background = offC; st.innerHTML = 'lit, waiting for the clicks'; return; }
+  if (m === 'held') {
+    lampEl.style.background = PAPER; lampEl.style.backgroundImage = 'repeating-linear-gradient(45deg, rgba(20,20,20,.25) 0 2px, transparent 2px 7px)';
+    st.innerHTML = 'held: the wheel is past <b>3 a second</b>, the cap. This hatching is not a steady light; the lamp has stopped.';
+    return;
+  }
+  lampEl.style.backgroundImage = '';
+  if (m === 'screen') {
+    lampEl.style.background = mix(ON, OFF_INK, S.lamp.contrast / 2);
+    st.innerHTML = 'steady, <b>but the screen’s, not your eye’s</b>: past ' + lim.toFixed(0) + ' a second this screen can’t draw a flash, so the lamp shows its average.';
+    return;
+  }
+  const now = ac.currentTime, lc = lastClick(now), b = lc > 0 ? lampLevel((now - lc) * S.r) : 0;
+  lampEl.style.background = mix(OFF_INK.map((v, i) => ON[i] + (v - ON[i]) * S.lamp.contrast), ON, b);   // brightest on each click, a smooth wave between
+  st.innerHTML = 'flashing with the clicks' + (S.step >= 2 ? ', <b>' + S.r.toFixed(1) + '</b> a second' : '');
+}
+
+// ───────── readouts ─────────
+function readout() {
+  const el = document.getElementById('read');
+  document.getElementById('mode').textContent = S.climb ? 'climbing' : HAND.down ? 'in your hand' : S.mode === 'hold' ? 'held by the dial' : 'coasting';
+  document.getElementById('dialread').textContent = S.step >= 2 ? S.r.toFixed(1) + ' clicks a second' : 'slow ← → fast';
+  if (!dialDragging) document.getElementById('dial').value = Math.round(posOf(S.r) * 1000);
+  if (S.step === 1 || S.trial) { el.innerHTML = ''; return; }
+  const n = note(S.r);
+  el.innerHTML = ['<span class="ct-red">rate <b>' + S.r.toFixed(1) + '</b> clicks a second</span>', 'period <b>' + (1000 / S.r).toFixed(1) + ' ms</b>',
+    'as a tempo <b>' + Math.round(60 * S.r) + ' BPM</b>', S.r < 16 ? 'as a note <b>none</b>, below C0' : 'as a note <b>' + n.name + ' ' + (n.cents >= 0 ? '+' : '−') + Math.abs(n.cents) + ' ¢</b>'].join(' · ');
+}
+
+let lastT = performance.now(), lastDraw = 0, dialDragging = false;
+function loop(t) {
+  const dt = Math.min(0.05, (t - lastT) / 1000); lastT = t;
+  physics(dt); S.angle += turnsPerSec(S.r) * dt * 2 * Math.PI * (S.playing ? 1 : 0);
+  if (!REDUCED || t - lastDraw > 500 || HAND.down) { lastDraw = t; drawWheel(); drawMarks(); views.forEach(v => { if (v.c.isConnected) v.draw(v.c); }); }
+  drawLamp(); readout(); updateTwo();
+  requestAnimationFrame(loop);
+}
+
+// ───────── marks ─────────
+let rPrev = S.r, rTrend = 0;
+setInterval(() => { rTrend = S.r > rPrev * 1.01 ? 1 : S.r < rPrev * 0.99 ? -1 : 0; rPrev = S.r; }, 250);
+function mark(kind) {
+  if (!S.playing) { says('Play first, then mark what you hear.'); return; }
+  S.marks.push({ r: S.r, kind: kind, dir: rTrend });
+  const ups = S.marks.filter(m => m.kind === 'note').length, downs = S.marks.filter(m => m.kind === 'taps').length;
+  says(kind === 'note' ? 'Marked. ' + (downs ? '' : 'Now let it coast down and mark where it turns back into taps.') : 'Marked. ' + (ups ? 'Do it a few times; the marks pile up below the wheel.' : 'Spin it up and mark where it turns into a note.'));
+  if (ups >= 2 && downs >= 2 && S.step === 1) says('Enough to compare. Next step shows where your marks fell.');
+}
+document.getElementById('marknote').addEventListener('click', () => mark('note'));
+document.getElementById('marktaps').addEventListener('click', () => mark('taps'));
+document.getElementById('coastbtn').addEventListener('click', () => { S.mode = 'coast'; S.climb = null; });
+const dial = document.getElementById('dial');
+dial.addEventListener('input', () => { dialDragging = true; S.mode = 'hold'; S.climb = null; S.r = rateOf(Number(dial.value) / 1000); ensure(); });
+dial.addEventListener('change', () => { dialDragging = false; });
+dial.addEventListener('pointerup', () => { dialDragging = false; });
+
+// ───────── the lamp's controls ─────────
+const lightBtn = document.getElementById('light'), consentBtn = document.getElementById('consent');
+lightBtn.addEventListener('click', () => { S.lamp.on = !S.lamp.on; lightBtn.setAttribute('aria-pressed', String(S.lamp.on)); lightBtn.textContent = S.lamp.on ? 'Put the lamp out' : 'Light the lamp'; consentBtn.style.display = S.lamp.on ? '' : 'none'; if (!S.lamp.on) setConsent(false); if (S.lamp.on && !S.refreshMeasured) measureRefresh(); });
+function setConsent(v) { S.lamp.consent = v; consentBtn.setAttribute('aria-pressed', String(v)); consentBtn.textContent = v ? 'Back to 3 a second at most' : 'Let it flash faster than 3 a second'; }
+consentBtn.addEventListener('click', () => setConsent(!S.lamp.consent));
+
+// ───────── the blind trial ─────────
+let trialTimer = null;
+function rng() { return Math.random(); }
+async function runTrials() {
+  if (S.trial) return;
+  S.climb = null; HAND.down = false;
+  if (!S.playing) await start();
+  S.trial = { list: plan(rng), i: -1, answers: [], playing: false, r: 4, endAt: 0 };
+  document.getElementById('curtain').classList.add('on');
+  nextTrial();
+}
+function nextTrial() {
+  const tr = S.trial; if (!tr) return;
+  tr.i++;
+  if (tr.i >= tr.list.length) { endTrials(false); return; }
+  tr.r = tr.list[tr.i].r; tr.playing = true; next = ac.currentTime + 0.05; tr.endAt = next + TRIAL_S; tr.answered = false;
+  document.getElementById('cbig').textContent = 'Taps, or tone?';
+  document.getElementById('ccount').textContent = 'trial ' + (tr.i + 1) + ' of ' + tr.list.length;
+  tick();
+}
+function answer(tone) {
+  const tr = S.trial; if (!tr || tr.answered || tr.i < 0) return;
+  tr.answered = true; tr.playing = false;
+  const t = tr.list[tr.i]; tr.answers.push({ r: t.r, tone: tone, katch: t.katch, band: t.band });
+  document.getElementById('ccount').textContent = 'trial ' + (tr.i + 1) + ' of ' + tr.list.length + ' · answered';
+  trialTimer = setTimeout(nextTrial, 450);
+}
+function endTrials(abandon) {
+  if (trialTimer) clearTimeout(trialTimer); trialTimer = null;
+  const tr = S.trial; S.trial = null; document.getElementById('curtain').classList.remove('on');
+  if (!tr || abandon) return;
+  S.results = tr.answers; renderResults();
+  if (S.playing) stop();
+}
+document.getElementById('ans-taps').addEventListener('click', () => answer(false));
+document.getElementById('ans-tone').addEventListener('click', () => answer(true));
+document.addEventListener('keydown', e => { if (!S.trial) return; if (e.key === 'ArrowLeft') { e.preventDefault(); answer(false); } if (e.key === 'ArrowRight') { e.preventDefault(); answer(true); } });
+let resultsHost = null;
+function renderResults() {
+  if (!resultsHost) return;
+  const A = S.results; if (!A.length) { resultsHost.innerHTML = ''; return; }
+  const main = A.filter(a => !a.katch), K = A.filter(a => a.katch);
+  const rows = BANDS.map(b => { const inb = main.filter(a => a.band === b || (a.band && a.band[0] === b[0])); const tone = inb.filter(a => a.tone).length;
+    return '<tr><td>' + b[0] + '–' + b[1] + '</td><td><b>' + inb.length + '</b></td><td><b>' + (inb.length ? Math.round(100 * tone / inb.length) + ' %' : '—') + '</b></td><td><b>' + (inb.length ? Math.round(100 * (inb.length - tone) / inb.length) + ' %' : '—') + '</b></td><td>50 %</td></tr>'; }).join('');
+  const kOK = K.every(a => a.tone === (a.r > 50));
+  const c = crossing(main), v = verdict(c), ok = readable(c, main.length);
+  const vText = { inside: 'inside the page’s muddy zone, 20 to 50: the piece agrees with the page for your ear', below: 'below 20: for your ear, on this rig, the piece comes out against the page', above: 'above 50: for your ear, on this rig, the piece comes out against the page' }[v];
+  resultsHost.innerHTML = '<table class="ct-tally"><tr><th>clicks a second</th><th>trials</th><th>you said tone</th><th>you said taps</th><th>a coin</th></tr>' + rows + '</table>' +
+    '<p class="ct-teach">Catch trials (3 and 190 a second): <b>' + (kOK ? 'both answered the obvious way' : 'not both answered the obvious way, so treat the rest as noise') + '</b>. Your answers split best at <b>' + c.r.toFixed(0) + ' clicks a second</b>, and that split explains <b>' + Math.round(c.agree * main.length) + ' of ' + main.length + '</b>. ' + (ok ? 'That clears the bar of ' + READ_MIN + ', so the verdict reads: ' + vText + '.' : 'That is under the bar of ' + READ_MIN + ', so no verdict is read: your answers don’t split cleanly into taps below and tone above.') + ' Twenty trials is a sketch, not a measurement; run it again and see if the split holds.</p>';
+}
+
+// ───────── the steps ─────────
+const views = [];
+function el(tag, attrs, ...kids) { const e = document.createElement(tag); for (const k in (attrs || {})) { if (k.startsWith('on')) e.addEventListener(k.slice(2), attrs[k]); else e.setAttribute(k, attrs[k]); } kids.flat().forEach(c => e.append(c)); return e; }
+function says(t) { document.getElementById('says').textContent = t; }
+function eq(sym, words) { return el('div', { class: 'ct-eq' }, el('div', { class: 'ct-sym' }, sym), el('div', { class: 'ct-words' }, words)); }
+function view(label, h, draw) { const c = el('canvas', { height: String(h) }); views.push({ c: c, draw: draw }); return el('div', { class: 'ct-view' }, el('div', { class: 'ct-plabel' }, el('span', {}, label)), c); }
+let step4Host = null, twoHost = null;
+function renderStep4() {
+  if (!step4Host) return;
+  const R = S.refresh, lim = screenLimit(R);
+  step4Host.textContent = (S.refreshMeasured ? 'This screen draws ' + R.toFixed(1) + ' frames a second (measured with requestAnimationFrame over 90 frames).' : 'This screen’s rate is not measured yet; light the lamp to measure it.') +
+    ' The fastest flicker it can draw is one frame lit, one dark: ' + lim.toFixed(1) + ' a second. From ' + (0.98 * lim).toFixed(1) + ' a second up (98 % of that, where alternate frames can no longer keep in step), this lamp shows a steady middle grey, and that steadiness is the screen’s, not your eye’s. On a 60 Hz screen this lamp becomes a steady light at 29.4 a second. For a bright, full-contrast light the eye’s own fusion rate is commonly put somewhere around 50 to 90 a second, depending on brightness and where on the eye it falls (standard knowledge, not checked by this piece), so at full contrast a 60 Hz screen runs out before your eye does. Turn the contrast down: a faint flicker fuses at lower rates, inside what the screen can draw.';
+}
+function updateTwo() {
+  if (!twoHost || !twoHost.isConnected) return;
+  const n = note(S.r), m = lampMode(S.r, S.lamp.consent, S.refresh);
+  twoHost.querySelector('[data-ear]').textContent = !S.playing ? '—' : S.r < PAGE.taps ? 'taps, ' + S.r.toFixed(1) + ' a second' : n.name + (S.r < PAGE.toneHi ? ', muddy' : '') + ' · ' + S.r.toFixed(0) + ' Hz';
+  twoHost.querySelector('[data-eye]').textContent = !S.lamp.on ? 'unlit' : !S.playing ? '—' : m === 'held' ? 'held at the cap' : m === 'screen' ? 'steady (the screen’s)' : 'flashing, ' + S.r.toFixed(1) + ' a second';
+}
+const STEPS = [
+  { n: 1, name: 'Spin it', build: () => [
+    el('p', { class: 'ct-teach' }, 'Grab the wheel and spin it (drag round it; drag against it to brake), or slide the dial. Every tooth flicks the card. Push it until the flicking stops being taps, and press “It’s a note now” the moment it turns. Then let go: it coasts down on its own. Press “It’s taps again” when it turns back. Do it a few times. Light the lamp too, if flashing light is fine for you.'),
+  ] },
+  { n: 2, name: 'The numbers', build: () => {
+    const ups = () => S.marks.filter(m => m.kind === 'note').map(m => m.r), downs = () => S.marks.filter(m => m.kind === 'taps').map(m => m.r);
+    const gm = a => a.length ? Math.exp(a.reduce((s, r) => s + Math.log(r), 0) / a.length) : null;
+    const sum = el('p', { class: 'ct-teach' });
+    const fill = () => { const u = gm(ups()), d = gm(downs()); sum.textContent = (u || d) ? 'Your marks: it became a note at ' + (u ? u.toFixed(1) : '—') + ' a second (average of ' + ups().length + '), and taps again at ' + (d ? d.toFixed(1) : '—') + ' (average of ' + downs().length + ').' + (u && d ? (u > d * 1.1 ? ' Going up you heard the note later than coming down: the switch has a lag, a hysteresis, the way a held perception tends to.' : u < d / 1.1 ? ' Coming down the note held on longer than it took to arrive going up.' : ' Up and down landed close together.') : '') : 'No marks yet: go back a step and spin it.'; };
+    setTimeout(fill, 0); const t = setInterval(() => { if (!sum.isConnected) { clearInterval(t); return; } fill(); }, 700);
+    return [
+      el('p', { class: 'ct-teach' }, 'The dial ran from 2 clicks a second to 200, on a log scale, so 20 sits in the middle. The page says: below about 20 a second you hear a fast tapping; somewhere past 30 to 50 it has become a buzz with a pitch, with a muddy zone between. That rests on one small study (Ungan and Yagcioglu, 2014: taps below about 20, pitch above about 50, worst discrimination at 20 to 33), and the boundary moves with how it is defined.'),
+      view('the dial with numbers · your marks · the page’s zones', 120, c => drawAxis(c)),
+      sum,
+      eq('T = 1 ⁄ f,   note = 69 + 12 · log₂(f ⁄ 440)', 'The time between clicks is one over the rate. Read the same rate as a pitch and it has a note number: 69 is the A at 440 Hz, and each doubling of the rate adds twelve. 41.2 clicks a second is the low E string of a bass guitar; 196 is the G below middle C.'),
+    ];
+  } },
+  { n: 3, name: 'Nothing changes kind', build: () => [
+    el('p', { class: 'ct-teach' }, 'The code does one thing at every rate: it starts a 2 ms click, waits one period, starts another. The red ticks are those clicks as they happen; they are what is really there. Underneath, the same clicks drawn as frequencies: a comb of lines at the rate, twice the rate, three times, and on. Slow, the lines crowd together; fast, they spread apart. Neither picture has a point where the signal turns into something else.'),
+    view('the clicks in time · and the same clicks in frequency', 190, c => drawComb(c)),
+    el('p', { class: 'ct-teach' }, 'What changes is the listener. Below about 20 a second the ear hears each click as its own event: it can count them. Past about 50 it stops counting and reads the period the clicks share as a pitch, the same reading that makes the missing fundamental, where harmonics that share a period are heard at a pitch nothing is playing. Between, neither reading is sharp. Which stage of hearing draws the line is not settled by the page or by this piece.'),
+    eq('x(t) = Σₙ c(t − n ⁄ f)   ⇔   lines at f, 2f, 3f …', 'A train of the same click c, one every 1 ⁄ f seconds, is the same thing as a set of tones at the rate and its whole multiples. Each click’s gain is √(2 ⁄ f), so the total power stays level as the rate climbs: the change you hear is not getting louder.'),
+  ] },
+  { n: 4, name: 'The eye’s turn', build: () => {
+    step4Host = el('p', { class: 'ct-teach' }); renderStep4();
+    twoHost = el('div', { class: 'ct-two' }, el('div', {}, el('div', { class: 'ct-k' }, 'the ear hears'), el('div', { class: 'ct-v', 'data-ear': '1' }, '—')), el('div', {}, el('div', { class: 'ct-k' }, 'the eye sees'), el('div', { class: 'ct-v', 'data-eye': '1' }, '—')));
+    const cb = el('b', {}, Math.round(S.lamp.contrast * 100) + ' %');
+    const ci = el('input', { type: 'range', min: 10, max: 100, step: 1, 'aria-label': 'lamp contrast' }); ci.value = Math.round(S.lamp.contrast * 100);
+    ci.addEventListener('input', () => { S.lamp.contrast = Number(ci.value) / 100; cb.textContent = ci.value + ' %'; });
+    return [
+      el('p', { class: 'ct-teach' }, 'Flicker fusion is the eye’s version: a light flashing fast enough looks steady. Light the lamp (the warning beside it stands), choose whether it may pass 3 flashes a second, and press Climb: the rate rises from 2 to 60 a second over twenty seconds, clicks and lamp together. Press “Steady now” when the lamp stops flickering for you. Its brightness follows a smooth wave, brightest on each click, not an on-off flash: a screen draws a smooth wave honestly right up to half its refresh rate, where an on-off flash would pick up a false slow shimmer from about a sixth of it. The ear turns the rate into a note you could sing; the eye only sees the light go steady. Nothing in what you see has a pitch.'),
+      twoHost,
+      el('div', { class: 'ct-row' },
+        el('button', { class: 'ct-go', onclick: async () => { HAND.down = false; S.mode = 'hold'; S.climb = { from: 2, to: 60, dur: 20, t0: performance.now() }; S.r = 2; await start(); } }, '▸ Climb'),
+        el('button', { onclick: () => { if (!S.playing) return; const m = lampMode(S.r, S.lamp.consent, S.refresh); S.eye.push({ r: S.r, mode: m, lit: S.lamp.on }); says(!S.lamp.on ? 'The lamp is unlit: light it first.' : m === 'held' ? 'That was the cap, not your eye: the lamp was held at 3 a second.' : m === 'screen' ? 'That was the screen’s limit, not your eye: the lamp was already showing its average.' : 'Marked: steady for your eye at ' + S.r.toFixed(1) + ' a second, at ' + Math.round(S.lamp.contrast * 100) + ' % contrast. Your ear called it a note at ' + (S.marks.filter(x => x.kind === 'note').length ? (Math.exp(S.marks.filter(x => x.kind === 'note').reduce((s, x) => s + Math.log(x.r), 0) / S.marks.filter(x => x.kind === 'note').length)).toFixed(1) : '—') + '.'); } }, 'Steady now')),
+      el('label', { class: 'ct-sl' }, 'lamp contrast ', cb, ci),
+      step4Host,
+      el('p', { class: 'ct-back' }, 'Shape, not mechanism: both senses have a rate past which they stop counting events; only the ear makes the rate into something new.'),
+    ];
+  } },
+  { n: 5, name: 'Taps or tone?', build: () => {
+    resultsHost = el('div', {}); setTimeout(renderResults, 0);
+    return [
+      el('p', { class: 'ct-teach' }, 'Blind: twenty short bursts of clicks, 1.2 s each, at rates you can’t see, the wheel and the readout covered and the lamp unlit. Answer each one: taps (← key) or tone (→ key). Eighteen are spread across six bands from 4 to 180 a second, three in each, in a shuffled order; two are catch trials, at 3 and at 190, whose answers should be obvious. A coin would say tone half the time in every band. The verdict rule, set before you start: the piece finds the rate where your answers best split into taps below and tone above, and reads a verdict only if that split explains 16 or more of the 18 (random answers get there 0.9 % of the time). If the split falls between 20 and 50, it agrees with the page; below 20 or above 50, it comes out against the page, for your ear on this rig. Know the rule’s lean: random answers, when forced to a split, land inside 20 to 50 about 19 % of the time and outside it about 81 %, so “agrees” is the harder verdict to get by luck.'),
+      el('div', { class: 'ct-row' }, el('button', { class: 'ct-go', onclick: () => runTrials() }, '▸ Start the twenty')),
+      resultsHost,
+      el('p', { class: 'ct-back' }, 'Laptop speakers roll off below about 100 Hz, but a click train’s pitch survives without its lowest lines (the missing fundamental again), so speakers will do; headphones are better. What the boundary is, for you, only your answers can say.'),
+    ];
+  } },
+];
+
+const host = document.getElementById('steps'), tabs = document.getElementById('tabs'), playBtn = document.getElementById('play');
+const built = {};
+function go(n) {
+  if (n < 1 || n > STEPS.length) return;
+  if (n !== S.step && S.playing) stop();
+  S.step = n; S.climb = null;
+  if (!built[n]) built[n] = STEPS[n - 1].build();
+  host.replaceChildren(el('section', { class: 'ct-step', 'aria-label': 'step ' + n },
+    el('div', { class: 'ct-stephead' }, el('span', {}, n + ' · ' + STEPS[n - 1].name), el('span', {}, 'step ' + n + ' of ' + STEPS.length)), built[n]));
+  tabs.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === n)));
+  document.getElementById('back').disabled = n === 1;
+  document.getElementById('next').disabled = n === STEPS.length;
+  renderStep4();
+}
+STEPS.forEach(s => tabs.append(el('button', { onclick: () => go(s.n) }, s.n + ' · ' + s.name)));
+playBtn.addEventListener('click', () => { if (S.playing) stop(); else { if (S.r <= R_MIN * 1.01 && S.mode === 'coast') S.r = 4; start().catch(e => says('Sound could not start: ' + e.message)); } });
+document.getElementById('back').addEventListener('click', () => go(S.step - 1));
+document.getElementById('next').addEventListener('click', () => go(S.step + 1));
+(function sigil() { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * Math.PI * 2; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+go(1);
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

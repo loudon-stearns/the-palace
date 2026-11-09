@@ -1,0 +1,478 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the tritone vote
+  born: 2026-11-08
+  links: [[Auditory Illusions]] connects-to · rich-face-piece-of (§ Pitch is computed, not measured, The tritone paradox) · [[Shepard Tone Synthesizer]] connects-to · its-open-question-4 · [[Playful Interface Design]] dressed-by
+  forward_vector: I am the tritone paradox as a vote with no right answer. Two notes, then two arrows: up or down?
+    Beside them a drawing of a striped dress in a glare, standing in for the 2015 photo, which cannot be used here,
+    with its own vote. Then what a Shepard tone is, why C to F sharp is exactly half the circle, what Deutsch found
+    about who hears which way, and last a run of thirty-two pairs that draws the reader's own pitch-class circle and
+    scores both arms: catch pairs that step two semitones (which do have a shorter way round, so can be scored), and
+    the six opposite tritone pairs each heard four times, C to F sharp twice and F sharp to C twice, scored for
+    answers that are consistent and opposite (if C sounds higher, one goes down and the other up), which a coin
+    manages one time in eight and a reader who always presses one button never does. I never say which tritone answer
+    is right; there is none. Remade 2026-11-08 after the challenge: the old rule (the same answer twice) was passed by
+    pressing "up" every time.
+  understood as: a ballot box with two slots, and a compass that has no north until you give it one. Each vote is
+    kept; at the end your answers set where the top of your circle sits.
+  red means: really there. Red marks the components actually sounding (on the ladder) and the two pitch classes
+    actually played (on the circle). Which way you heard the pair go is yours, so it is drawn in ink, never red.
+  sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. A
+    compressor sits before the destination as a safety (threshold -3 dBFS).
+  check: "Auditory Illusions — rich — check — pitch-is-computed.mjs", beside this file: every component of the second
+    tone is exactly 2^(6/12) above one of the first's (and 2^(6/12) below the next), so both ways round are six
+    semitones; the chance figures, and that a one-button reader passes no pair; the two tones of every pair are matched in power (within 0.001 dB) and in spectral centre (within a thousandth of
+    an octave, under half a cent), so brightness cannot leak the answer; the catch pairs step two semitones; and the trial list is 24 tritones
+    (each first pitch class twice) and 8 catches. What direction a listener hears, only a listener can say.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The tritone vote · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08 · retinted to paper">
+/* The browser's furniture, re-dressed: the free seam's inlined block (from _ops/loudon-live/design-system/controls.css), retinted to this face's paper ground.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: #ece9e1; --fx-bg-elev-2: #e4e0d6; --fx-bg-elev-3: #dcd8cd; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: var(--rule, #c9c6bd); --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.55); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: var(--red, #d1301c); --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: none; --fx-shadow-3: none; }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink-2); font-family: var(--sans); }
+  .pc-piece { padding: 22px 22px 18px; }
+  .pc-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .pc-title { font-family: var(--serif); font-size: 29px; font-weight: 400; color: var(--ink); margin: 0 0 8px; line-height: 1.12; }
+  .pc-title em { font-style: italic; }
+  .pc-says { font-family: var(--serif); font-size: 20px; line-height: 1.42; color: var(--ink); max-width: 66ch; margin: 0 0 14px; min-height: 2.9em; }
+  .pc-tabs { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .pc-tabs button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); background: var(--paper); border: 1px solid var(--rule); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: var(--ink-3); color: var(--ink); }
+  button[aria-pressed="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+  button.pc-go { color: var(--ink); border: 1.5px solid var(--ink); min-width: 140px; }
+  button:disabled { opacity: .35; cursor: default; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+  .pc-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+  .pc-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 700px) { .pc-stage { grid-template-columns: 1fr; } }
+  .pc-panel { border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); padding: 10px 12px; }
+  .pc-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas, svg.pc-fig { display: block; width: 100%; }
+  .pc-ballot { display: flex; gap: 12px; margin: 10px 0 4px; }
+  .pc-ballot button { flex: 1; font-size: 30px; line-height: 1; padding: 18px 0 14px; font-family: var(--serif); letter-spacing: 0; text-transform: none; }
+  .pc-ballot button small { display: block; font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; margin-top: 6px; color: inherit; }
+  .pc-ballot button.pc-flash { background: var(--ink); color: var(--paper); }
+  .pc-tally { font-family: var(--mono); font-size: 12px; color: var(--ink-3); min-height: 1.5em; letter-spacing: .06em; }
+  .pc-tally b { color: var(--ink); font-weight: 500; }
+  .pc-step { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 12px; }
+  .pc-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .pc-stephead span + span { color: var(--ink-3); }
+  .pc-teach { font-size: 14.5px; line-height: 1.62; max-width: 74ch; margin: 6px 0 10px; color: var(--ink-2); }
+  .pc-teach b { color: var(--ink); font-weight: 500; }
+  .pc-back { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin: 4px 0 0; }
+  .pc-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--ink-3); min-height: 1.6em; }
+  .pc-read b { color: var(--ink); font-weight: 500; }
+  .pc-eq { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
+  .pc-eq .pc-sym { font-family: var(--serif); font-size: 21px; color: var(--ink); }
+  .pc-eq .pc-words { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); margin: 2px 0 6px; max-width: 74ch; }
+  table.pc-t { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 10px 0 4px; }
+  table.pc-t th, table.pc-t td { border: 1px solid var(--rule); padding: 6px 10px; text-align: left; }
+  table.pc-t th { color: var(--ink-3); font-weight: 400; letter-spacing: .06em; }
+  table.pc-t td b { color: var(--ink); font-weight: 500; }
+  .pc-hidden { display: none !important; }
+  .pc-foot { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--rule); display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+  .pc-foot svg { width: 20px; height: 20px; }
+</style>
+</head>
+<body>
+<div class="pc-piece">
+  <div class="pc-kicker">made · Web Audio · Auditory Illusions · pitch is computed · proposal</div>
+  <h3 class="pc-title">Two notes. <em>Up, or down?</em></h3>
+  <p class="pc-says" id="says">Press for two notes, then vote. There are no wrong votes here.</p>
+  <div class="pc-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="pc-row">
+    <button id="back">← Back</button>
+    <button id="next">Next step →</button>
+  </div>
+  <div class="pc-stage">
+    <div class="pc-panel" id="leftPanel"><div class="pc-plabel"><span id="leftLabel">a dress, in a glare</span><span id="leftNote">a stand-in</span></div><div id="left"></div></div>
+    <div class="pc-panel" id="rightPanel"><div class="pc-plabel"><span id="rightLabel">the ballot</span><span id="rightNote"></span></div><div id="right"></div></div>
+  </div>
+  <div class="pc-read" id="read"></div>
+  <div id="steps"></div>
+  <div class="pc-foot"><svg viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#141414" stroke-width="0.8"/></svg><span>Loud’n Live · Auditory Illusions · the tritone vote</span></div>
+</div>
+
+<script id="pc-core">
+// The engine: pure, no DOM, no sound. The check script runs this text in Node.
+const TP = (function () {
+  const NAMES = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+  const C1 = 32.70319566257483;
+  const CENTER = 400, SIGMA = 1.0;      // Hz, octaves: one bell in log frequency for every tone
+  const FLO = 20, FHI = 10000;
+  const A = 0.1;                         // amplitude at the top of the bell
+  const DUR = 0.5, RAMP = 0.025;         // seconds per tone, and its fade in and out
+  // A Shepard tone on pitch class k (0 = C): every octave of it from 20 Hz to 10 kHz, weighed by the bell.
+  function tone(k) {
+    const out = [];
+    for (let j = -1; j < 12; j++) {
+      const f = C1 * Math.pow(2, j + k / 12);
+      if (f < FLO || f > FHI) continue;
+      const d = Math.log2(f / CENTER) / SIGMA;
+      out.push({ f: f, g: Math.exp(-0.5 * d * d) });
+    }
+    return out;
+  }
+  function power(t) { return t.reduce((s, c) => s + c.g * c.g, 0); }
+  function centre(t) { const p = power(t); return t.reduce((s, c) => s + c.g * c.g * Math.log2(c.f), 0) / p; }   // in log2 Hz
+  // The trial list for the test: every first pitch class twice as a tritone pair, and eight two-semitone catches.
+  function trials(rand) {
+    rand = rand || Math.random;
+    const list = [];
+    for (let rep = 0; rep < 2; rep++) for (let k = 0; k < 12; k++) list.push({ kind: 'tritone', a: k, b: (k + 6) % 12 });
+    const firsts = [];
+    while (firsts.length < 8) { const k = Math.floor(rand() * 12); if (firsts.indexOf(k) < 0) firsts.push(k); }
+    firsts.forEach((k, i) => { const up = i % 2 === 0; list.push({ kind: 'catch', a: k, b: (k + (up ? 2 : 10)) % 12, short: up ? 'up' : 'down' }); });
+    for (let i = list.length - 1; i > 0; i--) { const j = Math.floor(rand() * (i + 1)); const t = list[i]; list[i] = list[j]; list[j] = t; }
+    return list;
+  }
+  // Binomial tail: chance of at least s of n successes, each with chance p (1/2 when p is left out).
+  function tail(s, n, p) { if (p == null) p = 0.5; let c = 0, b = 1; for (let i = 0; i <= n; i++) { if (i > 0) b = b * (n - i + 1) / i; if (i >= s) c += b * Math.pow(p, i) * Math.pow(1 - p, n - i); } return c; }
+  // The six opposite pairs {k, k+6}, k = 0..5, each heard four times: k to k+6 twice and k+6 to k twice. A pair passes
+  // when both k to k+6 answers agree, both k+6 to k answers agree, and the two disagree: one pitch class heard as the
+  // higher both ways round. A coin passes a pair with chance 2/16 = 1/8; a reader who always presses one button, never.
+  const PASS_P = 1 / 8, PASS_AT = 4;
+  function opposites(tritoneAnswers) {
+    const out = [];
+    for (let k = 0; k < 6; k++) {
+      const A = tritoneAnswers.filter(t => t.a === k).map(t => t.dir), B = tritoneAnswers.filter(t => t.a === k + 6).map(t => t.dir);
+      const complete = A.length === 2 && B.length === 2;
+      const pass = complete && A[0] === A[1] && B[0] === B[1] && A[0] !== B[0];
+      out.push({ k: k, complete: complete, pass: pass, kHigh: pass ? A[0] === 'down' : null });
+    }
+    return out;
+  }
+  // Where the top of a listener's circle sits: for each first pitch class answered the same twice, +1 if the first
+  // tone was heard higher (the pair went down), -1 if lower; the angle of the summed vectors names the top.
+  function topOf(consistent) {
+    let x = 0, y = 0, n = 0;
+    consistent.forEach(c => { const a = c.k / 12 * 2 * Math.PI, s = c.down ? 1 : -1; x += s * Math.cos(a); y += s * Math.sin(a); n++; });
+    if (!n || Math.hypot(x, y) < 1e-9) return null;
+    let k = Math.atan2(y, x) / (2 * Math.PI) * 12; if (k < 0) k += 12;
+    return { k: k, strength: Math.hypot(x, y) / n };
+  }
+  return { NAMES, C1, CENTER, SIGMA, FLO, FHI, A, DUR, RAMP, tone, power, centre, trials, tail, topOf, PASS_P, PASS_AT, opposites };
+})();
+</script>
+
+<script>
+// ───────────────────────── state ─────────────────────────
+const S = { step: 1, enc: [], dress: [], test: null, busy: false };
+const ENC = [[0, 6], [3, 9], [8, 2]];   // the encounter's three pairs: C to F♯, then two more
+
+// ───────────────────────── sound ─────────────────────────
+let ac = null, out = null, live = [];
+async function ensure() {
+  if (!ac) {
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    const comp = ac.createDynamicsCompressor(); comp.threshold.value = -3; comp.knee.value = 3; comp.ratio.value = 4;
+    out = ac.createGain(); out.gain.value = 1; out.connect(comp).connect(ac.destination);
+  }
+  if (ac.state !== 'running') await ac.resume();
+}
+function playTone(k, t0) {
+  const g = ac.createGain(); g.gain.value = 0; g.connect(out);
+  const norm = 1 / Math.sqrt(TP.power(TP.tone(0)));          // one level for every tone (their powers match)
+  g.gain.setValueAtTime(0, t0); g.gain.linearRampToValueAtTime(TP.A * norm * 1.4, t0 + TP.RAMP);
+  g.gain.setValueAtTime(TP.A * norm * 1.4, t0 + TP.DUR - TP.RAMP); g.gain.linearRampToValueAtTime(0, t0 + TP.DUR);
+  TP.tone(k).forEach(c => {
+    const o = ac.createOscillator(), w = ac.createGain(); o.frequency.value = c.f; w.gain.value = c.g;
+    o.connect(w).connect(g); o.start(t0); o.stop(t0 + TP.DUR + 0.02); live.push(o);
+  });
+}
+async function playPair(a, b) {
+  await ensure();
+  const t = ac.currentTime + 0.06;
+  playTone(a, t); playTone(b, t + TP.DUR);
+  return new Promise(r => setTimeout(r, (TP.DUR * 2 + 0.12) * 1000));
+}
+async function playOne(k) { await ensure(); playTone(k, ac.currentTime + 0.04); }
+function hush() { live.forEach(o => { try { o.stop(); } catch (e) { /* already stopped */ } }); live = []; }
+
+// ───────────────────────── the dress, a stand-in drawn here ─────────────────────────
+function dressSVG() {
+  // A drawing, not the 2015 photograph. Two stripe colours that sit between readings, under a warm glare.
+  const bandA = '#8c97c4', bandB = '#6e5a38';
+  let bands = '';
+  [70, 100, 104, 150, 196, 200, 246].forEach((y, i) => { bands += `<rect x="0" y="${y}" width="300" height="${i % 3 === 1 ? 3 : 9}" fill="${bandB}"/>`; });
+  return `<svg class="pc-fig" style="max-height:290px" viewBox="0 0 300 300" aria-label="a drawn dress in a glare, standing in for the 2015 photograph">
+    <defs>
+      <radialGradient id="glare" cx="78%" cy="18%" r="85%"><stop offset="0" stop-color="#fffbe8"/><stop offset=".45" stop-color="#f3e3b4"/><stop offset="1" stop-color="#8c7a55"/></radialGradient>
+      <clipPath id="dress"><path d="M120 40 L180 40 L188 70 L176 104 L214 268 L86 268 L124 104 L112 70 Z"/></clipPath>
+      <linearGradient id="shade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset=".5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".22"/></linearGradient>
+    </defs>
+    <rect width="300" height="300" fill="url(#glare)"/>
+    <g clip-path="url(#dress)"><rect width="300" height="300" fill="${bandA}"/>${bands}<rect width="300" height="300" fill="url(#shade)"/></g>
+    <path d="M120 40 L180 40 L188 70 L176 104 L214 268 L86 268 L124 104 L112 70 Z" fill="none" stroke="#141414" stroke-width="1"/>
+    <path d="M150 40 L150 22 M138 22 Q150 8 162 22" fill="none" stroke="#141414" stroke-width="1.5"/>
+  </svg>`;
+}
+function dressBallot() {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = dressSVG() + '<p class="pc-back" style="margin:6px 0 8px">A drawing of mine, standing in for the 2015 photograph of the dress, which can’t be used here. It may not split anyone the way the photo did.</p>';
+  const row = document.createElement('div'); row.className = 'pc-row';
+  [['blue and black', 'bb'], ['white and gold', 'wg'], ['something else', 'x']].forEach(([t, v]) => {
+    const b = document.createElement('button'); b.textContent = t; b.setAttribute('aria-pressed', String(S.dress[S.dress.length - 1] === v));
+    b.addEventListener('click', () => { S.dress.push(v); row.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true'); tallyLine(); });
+    row.append(b);
+  });
+  wrap.append(row);
+  const tl = document.createElement('div'); tl.className = 'pc-tally'; tl.id = 'dressTally'; wrap.append(tl);
+  return wrap;
+}
+function tallyLine() {
+  const t = document.getElementById('dressTally'); if (!t) return;
+  if (!S.dress.length) { t.textContent = ''; return; }
+  const last = S.dress[S.dress.length - 1], name = { bb: 'blue and black', wg: 'white and gold', x: 'something else' }[last];
+  t.innerHTML = 'you said <b>' + name + '</b>' + (S.dress.length > 1 ? ' · ' + S.dress.length + ' answers this visit' : '');
+}
+
+// ───────────────────────── the ballot (the encounter) ─────────────────────────
+let encI = 0, encPending = false;
+function ballot() {
+  const wrap = document.createElement('div');
+  const go = document.createElement('button'); go.className = 'pc-go'; go.id = 'pairBtn'; go.textContent = '▸ Two notes';
+  const box = document.createElement('div'); box.className = 'pc-ballot';
+  const up = document.createElement('button'); up.innerHTML = '▲<small>went up</small>'; up.disabled = true;
+  const dn = document.createElement('button'); dn.innerHTML = '▼<small>went down</small>'; dn.disabled = true;
+  const tl = document.createElement('div'); tl.className = 'pc-tally'; tl.id = 'encTally';
+  box.append(up, dn); wrap.append(go, box, tl);
+  const vote = (dir, btn) => {
+    if (!encPending) return;
+    encPending = false; up.disabled = dn.disabled = true;
+    const [a, b] = ENC[encI % ENC.length];
+    S.enc.push({ a, b, dir }); encI++;
+    btn.classList.add('pc-flash'); setTimeout(() => btn.classList.remove('pc-flash'), 220);
+    tl.innerHTML = 'your votes <b>' + S.enc.map(e => e.dir === 'up' ? '▲' : '▼').join(' ') + '</b>';
+    if (S.enc.length === 1) says('Kept. Another pair?');
+    else if (S.enc.length === 2) says('Kept. One more.');
+    else if (S.enc.length === 3) says('Three votes. Were any of them wrong? Next step.');
+    else says('Kept.');
+  };
+  up.addEventListener('click', () => vote('up', up)); dn.addEventListener('click', () => vote('down', dn));
+  go.addEventListener('click', async () => {
+    if (S.busy) return; S.busy = true; go.disabled = true;
+    const [a, b] = ENC[encI % ENC.length];
+    says('Listen…');
+    try { await playPair(a, b); } catch (e) { says('Sound could not start: ' + e.message); S.busy = false; go.disabled = false; return; }
+    S.busy = false; go.disabled = false; encPending = true; up.disabled = dn.disabled = false; go.textContent = '▸ Two more notes';
+    says('Up, or down?');
+  });
+  return wrap;
+}
+document.addEventListener('keydown', e => {
+  if (S.step === 5 && S.test && S.test.waiting) { if (e.key === 'ArrowUp') { e.preventDefault(); answer('up'); } if (e.key === 'ArrowDown') { e.preventDefault(); answer('down'); } }
+});
+
+// ───────────────────────── drawings ─────────────────────────
+function fit(c, h) { const r = window.devicePixelRatio || 1, w = c.clientWidth || 400; c.width = w * r; c.height = h * r; c.style.height = h + 'px'; const x = c.getContext('2d'); x.setTransform(r, 0, 0, r, 0, 0); return [x, w, h]; }
+function drawLadder(c, ks) {
+  const [x, w, h] = fit(c, 280);
+  x.clearRect(0, 0, w, h);
+  const lo = Math.log2(TP.FLO), hi = Math.log2(TP.FHI), y = f => h - 14 - (Math.log2(f) - lo) / (hi - lo) * (h - 28);
+  const colW = (w - 50) / ks.length;
+  x.font = '10px JetBrains Mono'; x.fillStyle = '#7a7a7a'; x.textAlign = 'right';
+  [50, 200, 800, 3200].forEach(f => x.fillText(f >= 1000 ? f / 1000 + 'k' : f, 34, y(f) + 3));
+  ks.forEach((k, j) => {
+    const x0 = 44 + j * colW, bw = colW - 18;
+    x.beginPath(); for (let py = 14; py <= h - 14; py += 2) { const f = Math.pow(2, lo + (h - 14 - py) / (h - 28) * (hi - lo)); const d = Math.log2(f / TP.CENTER) / TP.SIGMA; const px = x0 + Math.exp(-0.5 * d * d) * bw; py === 14 ? x.moveTo(px, py) : x.lineTo(px, py); }
+    x.strokeStyle = '#141414'; x.lineWidth = 1; x.stroke();
+    TP.tone(k).forEach(cpt => { x.fillStyle = '#d1301c'; x.fillRect(x0, y(cpt.f) - 2.5, Math.max(1.5, cpt.g * bw), 5); });
+    x.fillStyle = '#141414'; x.textAlign = 'left'; x.font = '12px JetBrains Mono'; x.fillText(TP.NAMES[k], x0, 12);
+  });
+}
+function drawCircle(c, opts) {
+  const [x, w, h] = fit(c, 300);
+  x.clearRect(0, 0, w, h);
+  const cx = w / 2, cy = h / 2 + 4, R = Math.min(w, h) / 2 - 34;
+  const ang = k => k / 12 * 2 * Math.PI - Math.PI / 2;
+  const P = (k, r) => [cx + Math.cos(ang(k)) * (r || R), cy + Math.sin(ang(k)) * (r || R)];
+  x.strokeStyle = '#c9c6bd'; x.lineWidth = 1; x.beginPath(); x.arc(cx, cy, R, 0, Math.PI * 2); x.stroke();
+  x.font = '11px JetBrains Mono'; x.textAlign = 'center';
+  for (let k = 0; k < 12; k++) { const [px, py] = P(k, R + 18); x.fillStyle = '#7a7a7a'; x.fillText(TP.NAMES[k], px, py + 4); }
+  if (opts.pair) {
+    const [a, b] = opts.pair;
+    // the two ways round, dashed ink, equal length
+    [1, -1].forEach((s, i) => { x.setLineDash([4, 4]); x.strokeStyle = '#141414'; x.beginPath(); x.arc(cx, cy, R - 12 - i * 10, ang(a), ang(a) + s * Math.PI, s < 0); x.stroke(); x.setLineDash([]); });
+    x.fillStyle = '#141414'; x.font = '10px JetBrains Mono';
+    x.fillText('6 up', ...P(a + 3, R - 30)); x.fillText('6 down', ...P(a - 3, R - 34));
+    [a, b].forEach(k => { const [px, py] = P(k); x.fillStyle = '#d1301c'; x.beginPath(); x.arc(px, py, 7, 0, Math.PI * 2); x.fill(); });
+  }
+  if (opts.marks) {
+    opts.marks.forEach(m => { const [px, py] = P(m.k, R); x.beginPath(); x.arc(px, py, 6, 0, Math.PI * 2); x.strokeStyle = '#141414'; x.lineWidth = 1.5; if (m.high) { x.fillStyle = '#141414'; x.fill(); } else if (m.low) { x.fillStyle = '#f4f2ec'; x.fill(); x.stroke(); } else { x.setLineDash([2, 2]); x.stroke(); x.setLineDash([]); } });
+  }
+  if (opts.top) {
+    const a = ang(opts.top.k), L = R * Math.min(1, 0.35 + opts.top.strength);
+    x.strokeStyle = '#141414'; x.lineWidth = 2; x.beginPath(); x.moveTo(cx, cy); x.lineTo(cx + Math.cos(a) * L, cy + Math.sin(a) * L); x.stroke();
+    x.beginPath(); const tx = cx + Math.cos(a) * L, ty = cy + Math.sin(a) * L; x.moveTo(tx, ty); x.lineTo(tx - 9 * Math.cos(a - .4), ty - 9 * Math.sin(a - .4)); x.lineTo(tx - 9 * Math.cos(a + .4), ty - 9 * Math.sin(a + .4)); x.closePath(); x.fillStyle = '#141414'; x.fill();
+    x.font = '10px JetBrains Mono'; x.fillText('your top', cx, cy + 16);
+  }
+}
+
+// ───────────────────────── the test: your circle ─────────────────────────
+function newTest() { S.test = { list: TP.trials(), i: 0, answers: [], waiting: false, started: false }; }
+async function nextTrial() {
+  const T = S.test; if (!T || S.busy) return;
+  if (T.i >= T.list.length) { finish(); return; }
+  S.busy = true; T.waiting = false; T.started = true; syncTest();
+  const tr = T.list[T.i];
+  try { await playPair(tr.a, tr.b); } catch (e) { says('Sound could not start: ' + e.message); S.busy = false; return; }
+  S.busy = false; T.waiting = true; syncTest();
+}
+function answer(dir) {
+  const T = S.test; if (!T || !T.waiting) return;
+  T.waiting = false; T.answers.push(Object.assign({}, T.list[T.i], { dir })); T.i++;
+  syncTest();
+  if (T.i < T.list.length) setTimeout(nextTrial, 450); else finish();
+}
+function syncTest() {
+  const T = S.test, st = document.getElementById('testState'), up = document.getElementById('tUp'), dn = document.getElementById('tDn'), go = document.getElementById('tGo');
+  if (!st) return;
+  up.disabled = dn.disabled = !(T && T.waiting);
+  go.disabled = S.busy || (T && T.started && T.i < T.list.length);
+  st.innerHTML = T ? 'pair <b>' + Math.min(T.i + 1, T.list.length) + ' of ' + T.list.length + '</b>' + (S.busy ? ' · listening' : T.waiting ? ' · up or down? (↑ ↓ keys work)' : '') : '';
+}
+function results() {
+  const A = S.test.answers;
+  const catches = A.filter(a => a.kind === 'catch'), cOK = catches.filter(a => a.dir === a.short).length;
+  const op = TP.opposites(A.filter(a => a.kind === 'tritone'));
+  const passed = op.filter(o => o.pass);
+  const consistent = []; passed.forEach(o => { consistent.push({ k: o.k, down: o.kHigh }); consistent.push({ k: o.k + 6, down: !o.kHigh }); });
+  return { catches: catches.length, cOK, pairs: op.filter(o => o.complete).length, agree: passed.length, consistent, top: TP.topOf(consistent), op };
+}
+function finish() {
+  const R = results();
+  says('Done. Your circle is drawn.');
+  const host = document.getElementById('testOut'); if (!host) return;
+  const pc = (s, n) => (TP.tail(s, n) * 100).toFixed(1) + ' %';
+  host.innerHTML = '<table class="pc-t"><tr><th>arm</th><th>you</th><th>chance alone gives this or better</th><th>the rule, set before the first pair</th></tr>' +
+    '<tr><td>catch pairs, 2 semitones (a shorter way exists)</td><td><b>' + R.cOK + ' of ' + R.catches + '</b> the short way</td><td>' + pc(R.cOK, R.catches) + '</td><td>7 of 8 or more: you can hear which way these tones step</td></tr>' +
+    '<tr><td>opposite tritone pairs, each heard four times (no shorter way)</td><td><b>' + R.agree + ' of ' + R.pairs + '</b> consistent and opposite</td><td>' + (R.pairs ? (v => v < 0.01 ? 'under 0.01 %' : v.toFixed(2) + ' %')(TP.tail(R.agree, R.pairs, TP.PASS_P) * 100) : '—') + '</td><td>4 of 6 or more: your answers follow the pitch classes</td></tr></table>';
+  const verdict = [];
+  verdict.push(R.cOK >= 7 ? 'You heard the short way on the catch pairs.' : 'The catch pairs came out near chance, so the tritone answers below say little: these tones may not step clearly on this rig.');
+  verdict.push(R.agree >= TP.PASS_AT ? 'Your tritone answers followed the pitch classes: the same pair got the same answer, and turning it round turned the answer round. The page’s claim that each listener is consistent held for you.' : 'Consistency was not shown this run. That is not evidence against the page: a short run misses often, even for a listener who hears the paradox clearly, and a second run will say more.');
+  if (R.top) verdict.push('On your circle, the highest region sits near ' + TP.NAMES[Math.round(R.top.k) % 12] + ': tones on that side of the circle you tend to hear as the higher of a pair. It is not a right answer, and another listener’s top may sit across from yours.');
+  host.innerHTML += '<p class="pc-teach">' + verdict.join(' ') + '</p>';
+  const cv = document.getElementById('testCircle');
+  const marks = []; R.op.forEach(o => { if (!o.complete) return; marks.push({ k: o.k, high: o.pass && o.kHigh, low: o.pass && !o.kHigh }); marks.push({ k: o.k + 6, high: o.pass && !o.kHigh, low: o.pass && o.kHigh }); });
+  if (cv) drawCircle(cv, { marks: marks, top: R.top });
+  readout();
+}
+
+// ───────────────────────── the steps ─────────────────────────
+function el(tag, attrs, ...kids) { const e = document.createElement(tag); for (const k in (attrs || {})) { if (k.startsWith('on')) e.addEventListener(k.slice(2), attrs[k]); else e.setAttribute(k, attrs[k]); } kids.flat().forEach(c => e.append(c)); return e; }
+function says(t) { document.getElementById('says').textContent = t; }
+function eq(sym, words) { return el('div', { class: 'pc-eq' }, el('div', { class: 'pc-sym' }, sym), el('div', { class: 'pc-words' }, words)); }
+const left = document.getElementById('left'), right = document.getElementById('right');
+function panels(lLabel, lNote, rLabel, rNote) { document.getElementById('leftLabel').textContent = lLabel; document.getElementById('leftNote').textContent = lNote; document.getElementById('rightLabel').textContent = rLabel; document.getElementById('rightNote').textContent = rNote; }
+const STEPS = [
+  { n: 1, name: 'up or down', show: () => { panels('a dress, in a glare', 'a stand-in', 'the ballot', ''); left.replaceChildren(dressBallot()); right.replaceChildren(ballot()); tallyLine(); },
+    build: () => [el('p', { class: 'pc-teach' }, 'Press for two notes, then vote which way the second went. Three pairs. Beside them, a dress: say what colours you see.')] },
+  { n: 2, name: 'a Shepard tone', show: () => {
+      panels('two tones, side by side', 'log Hz', 'hear each alone', '');
+      const c = el('canvas', {}); left.replaceChildren(c); requestAnimationFrame(() => drawLadder(c, [0, 6]));
+      right.replaceChildren(el('div', { class: 'pc-row' }, el('button', { onclick: () => playOne(0) }, '▸ C alone'), el('button', { onclick: () => playOne(6) }, '▸ F♯ alone'), el('button', { onclick: () => playPair(0, 6) }, '▸ C then F♯')),
+        el('p', { class: 'pc-teach' }, 'Each tone is one pitch class in every octave from 20 Hz to 10 kHz, the red bars, under one bell of loudness (the ink curve), centred on 400 Hz and an octave wide either side. The bell is the same for every tone, so no tone has a lowest component to hear as its bottom, and none is brighter than another.'));
+    },
+    build: () => [
+      el('p', { class: 'pc-teach' }, 'A Shepard tone keeps a note’s ', el('b', {}, 'chroma'), ', where it sits on the circle C, C♯, D … C, and throws away its ', el('b', {}, 'height'), ', which octave it is in. With no height, the only thing that says which way a pair moved is the circle.'),
+      eq('fⱼ = 32.7 Hz · 2^(j + k⁄12),   gⱼ = exp(−½ · (log₂(fⱼ ⁄ 400 Hz))²)', 'Pitch class k (0 for C, 6 for F♯) sounds in every octave j; each component’s level gⱼ is a bell in log frequency, one octave wide, on 400 Hz. The check script measures that all twelve tones come out equal in power and share one spectral centre, to within a thousandth of an octave.'),
+    ] },
+  { n: 3, name: 'half the circle', show: () => {
+      panels('the pitch-class circle', 'C and F♯', 'your three votes', '');
+      const c = el('canvas', {}); left.replaceChildren(c); requestAnimationFrame(() => drawCircle(c, { pair: [0, 6] }));
+      right.replaceChildren(el('p', { class: 'pc-teach' }, S.enc.length ? 'You voted ' + S.enc.map(e => TP.NAMES[e.a] + ' → ' + TP.NAMES[e.b] + ' ' + (e.dir === 'up' ? '▲' : '▼')).join(', ') + '. On the circle, each of those pairs sits exactly opposite: up and down are the same distance, so none of those votes was wrong.' : 'You haven’t voted yet; step 1 keeps the ballot.'),
+        el('div', { class: 'pc-row' }, el('button', { onclick: () => playPair(0, 6) }, '▸ C then F♯ again')));
+    },
+    build: () => [
+      el('p', { class: 'pc-teach' }, 'C and F♯ sit exactly across the circle, the red dots. Going up from C to F♯ is six semitones; going down from C to the F♯ below is also six. Neither way round is shorter, so the shortest-path rule that makes a two-semitone pair obvious has nothing to choose between. Something else in you does the choosing.'),
+      eq('f(F♯) ⁄ f(C) = 2^(6⁄12) = √2 ≈ 1.414,   f(C′) ⁄ f(F♯) = √2', 'In every octave, F♯ is √2 above C, and the next C is √2 above F♯. A tritone is the one interval that is its own inversion.'),
+    ] },
+  { n: 4, name: 'who hears what', show: () => {
+      panels('a dress, in a glare', 'a stand-in', 'your votes so far', '');
+      left.replaceChildren(dressBallot()); tallyLine();
+      const ups = S.enc.filter(e => e.dir === 'up').length;
+      right.replaceChildren(el('p', { class: 'pc-teach' }, S.enc.length ? 'Tritones: ' + ups + ' heard going up, ' + (S.enc.length - ups) + ' going down.' : 'No tritone votes yet.'),
+        el('p', { class: 'pc-teach' }, S.dress.length ? 'The dress: you said ' + ({ bb: 'blue and black', wg: 'white and gold', x: 'something else' })[S.dress[S.dress.length - 1]] + '.' : 'No dress vote yet.'));
+    },
+    build: () => [
+      el('p', { class: 'pc-teach' }, 'Deutsch found (1986) that some listeners hear a given tritone pair go up and others hear it go down, and that each listener is consistent: the same pair, the same answer. The split tracks where people grew up. In her 1991 study, listeners raised in ', el('b', {}, 'California'), ' and in ', el('b', {}, 'southern England'), ' tended to hear the same pairs in opposite directions, and she traced the split to the pitch range of the speech they grew up hearing. What it proves, on the page’s account: which way pitch moves is partly learned.'),
+      el('p', { class: 'pc-teach' }, 'The twin is the dress, and the drawing here only stands in for it. The 2015 photo split people into blue-and-black and white-and-gold, each sure, because each assumed a different light falling on it. The page grades the pair a ', el('b', {}, 'shape'), ': a stable split between people, set by their assumptions, built by different machinery. It is not the Necker cube, which flips inside one viewer; neither of these flips.'),
+    ] },
+  { n: 5, name: 'your circle', show: () => {
+      panels('your circle', 'filled: heard higher · open: lower', 'the test', '');
+      const c = el('canvas', { id: 'testCircle' }); left.replaceChildren(c); requestAnimationFrame(() => drawCircle(c, {}));
+      if (!S.test) newTest();
+      right.replaceChildren(
+        el('p', { class: 'pc-teach' }, 'Before the first pair, the rules. Thirty-two pairs. Eight are ', el('b', {}, 'catch'), ' pairs that step two semitones, where a shorter way exists; guessing gets each half right, and 7 of 8 or more (3.5 % by chance) says you can hear which way these tones step. Twenty-four are tritones: six opposite pairs, each heard four times, one way round twice (C then F♯, say) and the other way round twice (F♯ then C). There is no right answer, but there is a consistent one: if C sounds higher to you than F♯, C then F♯ goes down and F♯ then C goes up. A pair counts when all four of its answers do that. A coin manages it one time in eight, and pressing one button every time never does; 4 of 6 or more (0.30 % by chance) says your answers follow the pitch classes. The pitch classes stay hidden until the end.'),
+        el('div', { class: 'pc-row' }, el('button', { class: 'pc-go', id: 'tGo', onclick: () => nextTrial() }, '▸ Start'), el('button', { onclick: () => { newTest(); document.getElementById('testOut').innerHTML = ''; drawCircle(document.getElementById('testCircle'), {}); syncTest(); } }, 'Start over')),
+        el('div', { class: 'pc-ballot' }, el('button', { id: 'tUp', onclick: () => answer('up') }, '▲', el('small', {}, 'up')), el('button', { id: 'tDn', onclick: () => answer('down') }, '▼', el('small', {}, 'down'))),
+        el('div', { class: 'pc-tally', id: 'testState' }),
+        el('div', { id: 'testOut' }));
+      syncTest();
+      if (S.test && S.test.i >= S.test.list.length) finish();
+    },
+    build: () => [
+      el('p', { class: 'pc-teach' }, 'At the end, every opposite pair that counted is marked on your circle: filled at the pitch class you heard as the higher, open at the one you heard as the lower; a pair that didn’t count is dashed. The arrow points at the top of your circle. Listen on headphones or good speakers; a laptop’s speakers drop the lowest octaves of every tone alike, which leaves the pairs ambiguous but changes the bell.'),
+    ] },
+];
+const host = document.getElementById('steps'), tabs = document.getElementById('tabs');
+function go(n) {
+  if (n < 1 || n > STEPS.length) return;
+  if (n !== S.step) { hush(); if (S.test) { S.test.waiting = false; S.busy = false; if (S.test.i < S.test.list.length && S.test.started) { S.test.started = false; } } encPending = false; }
+  S.step = n;
+  host.replaceChildren(el('section', { class: 'pc-step', 'aria-label': 'step ' + n },
+    el('div', { class: 'pc-stephead' }, el('span', {}, n + ' · ' + STEPS[n - 1].name), el('span', {}, 'step ' + n + ' of ' + STEPS.length)), STEPS[n - 1].build()));
+  STEPS[n - 1].show();
+  tabs.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === n)));
+  document.getElementById('back').disabled = n === 1;
+  document.getElementById('next').disabled = n === STEPS.length;
+  says(n === 1 ? (S.enc.length ? 'Another pair, or Next step.' : 'Press for two notes, then vote. There are no wrong votes here.') : n === 2 ? 'What each note is made of.' : n === 3 ? 'Exactly half the circle.' : n === 4 ? 'Who hears which way.' : 'Thirty-two pairs, and your circle.');
+  readout();
+}
+function readout() {
+  const r = document.getElementById('read');
+  const parts = [];
+  if (S.enc.length) parts.push('ballot <b>' + S.enc.map(e => e.dir === 'up' ? '▲' : '▼').join(' ') + '</b>');
+  if (S.test && S.test.answers.length) parts.push('test <b>' + S.test.answers.length + ' of ' + S.test.list.length + '</b> answered');
+  r.innerHTML = parts.join('<span> · </span>');
+}
+STEPS.forEach(s => tabs.append(el('button', { onclick: () => go(s.n) }, s.n + ' · ' + s.name)));
+document.getElementById('back').addEventListener('click', () => go(S.step - 1));
+document.getElementById('next').addEventListener('click', () => go(S.step + 1));
+window.addEventListener('resize', () => { if (S.step === 5 && S.test && S.test.i >= S.test.list.length) finish(); });
+(function sigil() { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * Math.PI * 2; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+go(1);
+</script>
+</body>
+</html>

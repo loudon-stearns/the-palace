@@ -1,0 +1,533 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — two ears, two tunes
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece-of, § Sorting the world into sources) · listed in [[Auditory Illusions — rich.json]] · its siblings in the section are the gallop, two ears, two tunes, behind the fence and the gap that jumps, which share their scaffold byte for byte
+  forward_vector: I am the walk up to the scale illusion (Deutsch, 1975): play the swapped scales and say what each ear carries; then see the zigzag each ear really got, with your report over it in red; then the rule (pitch beats place) beside its twin in the eye, graded shape and kept so; then break it with a timbre that follows the ear and with mono; and last a blind test of the swapped scales against the two smooth tunes they sound like, which differ only in which ear each note goes to. I change only when the section I serve does.
+  understood as: a listener seen from above: a head with two ears, each lit by every note it gets, and your report of each ear’s tune drawn beside it in red.
+  red: red, on all four of this section’s pieces, means one thing: what the hearing supplies that the signal does not have (the reader’s own marks and reports, and the percept the page says is made up). Everything physically in the sound is drawn in ink.
+  dress: the Auditory Illusions face’s op-art dress (paper, ink, one red), after the page’s Bridget Riley hero; Manrope, Cormorant Garamond, JetBrains Mono; the Lissajous sigil in the foot.
+  engine: C major, C4 to C5, as sines at four notes a second with 12 ms raised-cosine ends; at step i the rising note C-major[i] goes left when i is even and right when odd, the falling note C-major[7−i] the other way; the smooth control puts the higher of each pair in one ear; mono at 1/√2; the bright left ear is six harmonics at 1/h, RMS-matched.
+  sound: nothing plays until a button (or, on the gallop, the dots) is pressed; the AudioContext is made on that press. Changing step stops the sound. Every sound is synthesised here; no recordings.
+  check: Auditory Illusions — rich — check — sorting-the-world.mjs, beside this file, runs this piece’s engine in Node and measures the buffers it plays. It measures the L/R assignment step by step, each ear’s zigzag and the swap at every step, that the control holds the same two notes at every step, the frequencies measured in each channel of the rendered buffer, the solo and mono routes, and every peak under the compressor’s threshold. What a listener hears, it cannot check: nobody has listened to this yet.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Two ears, two tunes · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (via a 2026-11-03 piece, _ops/furniture-fanout/furnish.py), its --fx-* tokens retinted to the paper ground on 2026-11-08.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: var(--paper-2, #ebe8df); --fx-bg-elev-2: var(--paper-3, #e2ded3); --fx-bg-elev-3: #d8d4c8; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: #a9a59b; --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: #d1301c; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: 0 1px 2px rgba(20,20,20,0.12); --fx-shadow-3: 0 6px 18px -6px rgba(20,20,20,0.25); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --paper-2:#ebe8df; --paper-3:#e2ded3; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd;
+    --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.55;padding:22px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1.05;margin:4px 0 6px;letter-spacing:-.005em}
+  h2{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.15;margin:2px 0 6px}
+  .lead{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:62ch}
+  p.say{font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--ink-2);margin:0 0 12px;max-width:66ch}
+  p.say b{font-weight:500;color:var(--ink)}
+  p.say .red,.red{color:var(--red)}
+  .rail{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 16px}
+  .rail button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 9px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .panel{border:1px solid var(--rule);border-radius:3px;padding:16px;margin:0 0 12px;background:var(--paper)}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0 0}
+  button.go{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:10px 20px;cursor:pointer;letter-spacing:.01em}
+  button.go:hover{background:var(--ink-2)}
+  button.go[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink-2);background:transparent;border:1px solid var(--ink-3);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.ghost:hover{border-color:var(--ink)}
+  button.ghost[aria-pressed="true"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  button.ghost:disabled,button.go:disabled{opacity:.35;cursor:default}
+  button.big{font-family:var(--serif);font-size:22px;font-weight:500;padding:8px 22px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:2px;cursor:pointer}
+  button.big:hover{background:var(--paper-2)}
+  button.big.hot{background:var(--ink);color:var(--paper)}
+  canvas.stage{width:100%;display:block;background:var(--paper);border:1px solid var(--rule);border-radius:2px;touch-action:none}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.35}
+  .ctl label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px;color:var(--ink-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--ink)}
+  .ctl .v{font-family:var(--mono);font-size:13.5px;color:var(--ink);text-align:right;white-space:nowrap;min-width:10ch}
+  .read{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .read b{font-weight:500;color:var(--ink)}
+  .read .red{color:var(--red)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--ink);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--ink-3);font-size:13px;margin-top:2px}
+  .graph{font-family:var(--mono);font-size:12px;color:var(--ink-2);border-left:2px solid var(--rule);padding:4px 0 4px 10px;margin-top:12px;overflow-wrap:anywhere}
+  .legend{display:flex;gap:6px 18px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--ink-3)}
+  .legend span::before{content:"";display:inline-block;width:18px;height:0;border-top:2px solid var(--ink);vertical-align:middle;margin-right:6px}
+  .legend span.r::before{border-top-color:var(--red)}
+  .legend span.d::before{border-top-style:dashed}
+  .legend span.g::before{border-top:8px solid var(--paper-3);height:0}
+  .cards{display:flex;gap:8px;flex-wrap:wrap}
+  .cards button{font-family:var(--sans);font-size:14px;background:transparent;color:var(--ink-2);border:1px solid var(--ink-3);border-radius:2px;padding:7px 12px;cursor:pointer;min-width:7.5em}
+  .cards button .glyph{display:block;font-family:var(--mono);font-size:20px;color:var(--ink);line-height:1.1}
+  .cards button[aria-pressed="true"]{border-color:var(--red);color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+  .cards button[aria-pressed="true"] .glyph{color:var(--red)}
+  .note{font-family:var(--sans);font-size:13px;color:var(--ink-3);margin-top:10px;max-width:72ch}
+  .warn{font-family:var(--sans);font-size:13.5px;color:var(--ink);border:1px solid var(--ink);border-radius:2px;padding:9px 12px;margin:0 0 12px;max-width:72ch}
+  .warn b{font-weight:600}
+  table.marks{border-collapse:collapse;margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:4px 14px 4px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .verdict{font-family:var(--serif);font-size:19px;color:var(--ink);margin-top:10px;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12.5px;color:var(--ink-3);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  footer b{font-family:var(--mono);font-weight:500;letter-spacing:.12em;font-size:11px;color:var(--ink-2)}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}p.say{font-size:18px}}
+</style>
+
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · Sorting the world into sources · the scale illusion · headphones</div>
+  <h1>Two ears, two tunes</h1>
+  <p class="lead">Two scales, one in each ear. Which tune is where?</p>
+  <div class="warn"><b>Headphones.</b> This one needs each ear to get its own sound; on speakers the two ears mix and there is nothing to hear. Check them first: each button plays a short tone in one ear only.
+    <span class="row" style="margin-top:8px"><button class="ghost" id="chkL">tone in the left ear</button><button class="ghost" id="chkR">tone in the right ear</button><span class="hint" id="chkHint"></span></span></div>
+
+  <nav class="rail" id="rail" aria-label="Steps"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div data-show="0">
+      <div class="row" style="margin:0 0 10px"><button class="go" id="play0">Play the two scales</button><span class="hint">a two-second loop; press again to stop</span></div>
+      <canvas class="stage" id="head" style="height:260px" aria-label="A listener seen from above; each ear lights with every note it gets"></canvas>
+      <div id="ask" hidden>
+        <div class="row"><span class="eyebrow" style="min-width:9em">left ear, I heard</span><span class="cards" id="cardsL"></span></div>
+        <div class="row"><span class="eyebrow" style="min-width:9em">right ear, I heard</span><span class="cards" id="cardsR"></span></div>
+      </div>
+    </div>
+    <div data-show="1 2 3">
+      <div class="row" style="margin:0 0 10px"><span class="eyebrow">play</span>
+        <button class="ghost" data-route="both" aria-pressed="false">both ears</button>
+        <button class="ghost" data-route="L" aria-pressed="false">left ear alone</button>
+        <button class="ghost" data-route="R" aria-pressed="false">right ear alone</button>
+        <button class="ghost" data-route="mono" data-show="3" aria-pressed="false">mono: both notes in both ears</button>
+        <button class="ghost" id="stop1">stop</button></div>
+      <div class="row" data-show="3" style="margin:0 0 10px"><span class="eyebrow">the left ear’s notes</span>
+        <button class="ghost" id="tbSine" aria-pressed="true">pure, like the right</button>
+        <button class="ghost" id="tbBright" aria-pressed="false">bright: six harmonics, same pitch, same RMS</button></div>
+      <canvas class="stage" id="score" style="height:330px" aria-label="The score: each ear's notes, across for time and up for pitch"></canvas>
+      <div class="legend" id="scoreLegend"></div>
+      <div class="read" id="noteRead"></div>
+    </div>
+    <div data-show="1">
+      <div class="eq">f = 440 · 2<sup>(m − 69)/12</sup> Hz &nbsp;·&nbsp; step i: rising note m = C‑major[i], falling note m = C‑major[7 − i] &nbsp;·&nbsp; rising note → left ear when i is even, right ear when i is odd</div>
+      <div class="eq words">In words: two C‑major scales at once, one climbing C4 to C5 and one falling C5 to C4, four notes a second. At every step the two notes trade ears, so each ear gets every other note of each scale.</div>
+      <div class="graph">one two-second stereo buffer, rendered here (sines, 12 ms raised-cosine ends) → AudioBufferSourceNode, looping → gain → DynamicsCompressor (threshold −3 dBFS, above every peak, so it never acts) → speakers. The left channel reaches only the left ear, on headphones.</div>
+    </div>
+    <div data-show="2">
+      <div class="row"><span class="eyebrow">draw the lines</span>
+        <button class="ghost" id="joinEar" aria-pressed="true">by ear, as it was played</button>
+        <button class="ghost" id="joinPitch" aria-pressed="false">by pitch, as most people hear it</button></div>
+      <div class="eyebrow" style="margin-top:18px">the twin in the eye · grouping by similarity · shape</div>
+      <canvas class="stage" id="grid" style="height:180px;margin-top:6px" aria-label="A grid of dots: columns close together, rows coloured alike"></canvas>
+      <div class="ctl"><label for="contrast">colour difference<i>between the rows</i></label><input type="range" id="contrast" min="0" max="100" value="100"><span class="v" id="contrastV"></span></div>
+    </div>
+    <div data-show="4">
+      <div class="row" style="margin-top:0"><span class="eyebrow">hear each once, labelled</span>
+        <button class="ghost" id="refA">A · the swapped scales</button>
+        <button class="ghost" id="refB">B · two smooth tunes</button>
+        <span class="hint">B puts the high tune in your</span>
+        <button class="ghost" id="hiL" aria-pressed="false">left</button><button class="ghost" id="hiR" aria-pressed="true">right</button><span class="hint">ear</span></div>
+      <p class="note" id="rule"></p>
+      <div class="row"><button class="go" id="trial">Play trial 1</button><span class="eyebrow" id="trialN"></span></div>
+      <div class="row"><span class="eyebrow">that was</span><button class="big" id="ansA" disabled>A · swapped</button><button class="big" id="ansB" disabled>B · smooth</button></div>
+      <canvas class="stage" id="dots" style="height:60px;margin-top:12px" aria-label="Your trials so far"></canvas>
+      <div class="verdict" id="verdict"></div>
+    </div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Auditory Illusions · two ears, two tunes · proposal, 2026-11-08 · every sound made here, in Web Audio</footer>
+</main>
+
+<script id="scale-core">
+// The engine: plain functions, no page. The sound, the pictures and the check beside this piece all read it.
+const SCALE = (() => {
+  const SR = 44100;
+  const NOTE = 0.25, RAMP = 0.012;            // four notes a second, 12 ms raised-cosine ends
+  const AMP = 0.2;                            // a sine's peak in one ear; a bright note is matched to the same RMS
+  const MIDI = [60, 62, 64, 65, 67, 69, 71, 72];   // C major, C4 to C5
+  const NAME = { 60: 'C4', 62: 'D4', 64: 'E4', 65: 'F4', 67: 'G4', 69: 'A4', 71: 'B4', 72: 'C5' };
+  const hz = (m) => 440 * Math.pow(2, (m - 69) / 12);
+  // The score, eight steps. At step i the rising scale plays MIDI[i] and the falling one MIDI[7 - i].
+  // 'illusion': the rising scale's note goes left on even steps and right on odd ones; the falling note takes the other ear.
+  // 'smooth': the same two notes at every step, but the higher always in one ear (highEar) and the lower in the other:
+  //           the two tunes most listeners report hearing, played as they are heard.
+  function score(mode, highEar) {
+    const s = [];
+    for (let i = 0; i < 8; i++) {
+      const up = MIDI[i], dn = MIDI[7 - i];
+      if (mode === 'smooth') { const hi = Math.max(up, dn), lo = Math.min(up, dn); s.push(highEar === 'L' ? { L: hi, R: lo } : { L: lo, R: hi }); }
+      else s.push(i % 2 === 0 ? { L: up, R: dn } : { L: dn, R: up });
+    }
+    return s;
+  }
+  function note(x, at, f, sr, bright) {
+    const n = Math.round(NOTE * sr), r = Math.round(RAMP * sr);
+    const H = bright ? [1, 2, 3, 4, 5, 6] : [1];
+    let norm = 0; for (const h of H) norm += 1 / (h * h); norm = Math.sqrt(norm);
+    for (let i = 0; i < n; i++) {
+      let s = 0; for (const h of H) s += Math.sin(2 * Math.PI * h * f * i / sr) / h;
+      const w = i < r ? 0.5 - 0.5 * Math.cos(Math.PI * i / r) : i >= n - r ? 0.5 - 0.5 * Math.cos(Math.PI * (n - 1 - i) / r) : 1;
+      x[at + i] += AMP * w * s / norm;
+    }
+  }
+  // Render a score to two channels, one loop of two seconds.
+  // o.route: 'both' (each ear its own notes), 'L' or 'R' (one ear alone, the other silent), 'mono' (both ears get both, at 1/√2).
+  // o.brightL: the left ear's notes get six harmonics (same pitch, same RMS): a timbre that follows the ear.
+  function render(sc, o = {}) {
+    const sr = o.sr || SR, n = Math.round(8 * NOTE * sr), L = new Float32Array(n), R = new Float32Array(n);
+    sc.forEach((st, i) => { const at = Math.round(i * NOTE * sr); note(L, at, hz(st.L), sr, !!o.brightL); note(R, at, hz(st.R), sr, false); });
+    const route = o.route || 'both';
+    if (route === 'L') R.fill(0);
+    else if (route === 'R') L.fill(0);
+    else if (route === 'mono') { const k = Math.SQRT1_2; for (let i = 0; i < n; i++) { const m = (L[i] + R[i]) * k; L[i] = m; R[i] = m; } }
+    return [L, R];
+  }
+  // The check tone: 600 Hz for half a second in one ear.
+  function check(ear, sr = SR) {
+    const n = Math.round(0.5 * sr), r = Math.round(0.02 * sr), x = new Float32Array(n), z = new Float32Array(n);
+    for (let i = 0; i < n; i++) { const w = i < r ? i / r : i >= n - r ? (n - 1 - i) / r : 1; x[i] = AMP * w * Math.sin(2 * Math.PI * 600 * i / sr); }
+    return ear === 'L' ? [x, z] : [z, x];
+  }
+  return { SR, NOTE, RAMP, AMP, MIDI, NAME, hz, score, render, check };
+})();
+</script>
+<script id="sw-scaffold">
+// ── the scaffold, the same in this section's four pieces: sound only on a click, one compressor, the walk, the sigil ──
+const $ = (id) => document.getElementById(id);
+const REDUCED = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const AU = (() => {
+  let ctx = null, out = null;
+  const live = new Set();
+  const listeners = [];
+  // The AudioContext is made on the first click that asks for sound, never before.
+  async function ensure() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      // A compressor before the destination, set above every buffer's peak (the check measures them), so it only guards.
+      const comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -3; comp.knee.value = 0; comp.ratio.value = 8; comp.attack.value = 0.002; comp.release.value = 0.2;
+      out = ctx.createGain(); out.gain.value = 1;
+      out.connect(comp).connect(ctx.destination);
+      ctx.onstatechange = () => { if (ctx.state !== 'running') listeners.forEach((f) => f()); };
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+    return ctx;
+  }
+  // Play one buffer: chans is [mono] or [left, right], Float32Arrays at sr.
+  function play(chans, sr, o = {}) {
+    const b = ctx.createBuffer(chans.length, chans[0].length, sr);
+    chans.forEach((c, i) => b.copyToChannel(c, i));
+    const src = ctx.createBufferSource(); src.buffer = b; src.loop = !!o.loop;
+    const g = ctx.createGain(); g.gain.value = o.gain == null ? 1 : o.gain;
+    src.connect(g).connect(out);
+    const t0 = o.when || ctx.currentTime + 0.03;
+    if (o.fade) { g.gain.value = 0; g.gain.setTargetAtTime(o.gain == null ? 1 : o.gain, t0, 0.006); }
+    src.start(t0, o.offset || 0);
+    const v = { src, g, t0, dur: b.duration, loop: !!o.loop };
+    live.add(v);
+    src.onended = () => { live.delete(v); if (o.onended) o.onended(); };
+    return v;
+  }
+  // Stop one voice, fading over a few milliseconds from time at (default now).
+  function stop(v, at) {
+    if (!v || !ctx) return;
+    const t = at || ctx.currentTime;
+    try { v.g.gain.setTargetAtTime(0, t, 0.006); v.src.stop(t + 0.05); } catch (e) { /* already stopped */ }
+    live.delete(v);
+  }
+  function stopAll() {
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    for (const v of live) { try { v.g.gain.setTargetAtTime(0, now, 0.008); v.src.stop(now + 0.05); } catch (e) { /* already stopped */ } }
+    live.clear();
+  }
+  return { ensure, play, stop, stopAll, onQuiet: (f) => listeners.push(f), get ctx() { return ctx; } };
+})();
+function fit(c) {
+  const w = c.clientWidth, h = c.clientHeight, d = window.devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+const INK = '#141414', INK2 = '#3a3a3a', INK3 = '#7a7a7a', RULE = '#c9c6bd', PAPER = '#f4f2ec', PAPER3 = '#e2ded3', RED = '#d1301c';
+function sigil() {
+  const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); }
+  $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="${INK}" stroke-width="1"/>`;
+}
+function shuffled(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+// The chance of k or more right out of n by guessing, at one in two.
+function tail(k, n) { let s = 0; const C = (n, r) => { let c = 1; for (let i = 0; i < r; i++) c = c * (n - i) / (i + 1); return c; }; for (let j = k; j <= n; j++) s += C(n, j); return s / Math.pow(2, n); }
+// The walk: one step shows at a time; an element with data-show="1 3" shows on those steps (numbered from 0).
+function makeWalk(STEPS, onStep) {
+  const W = { i: 0 };
+  $('rail').innerHTML = STEPS.map((s, i) => `<button data-i="${i}">${i + 1} · ${s.tab}</button>`).join('');
+  $('rail').querySelectorAll('button').forEach((b) => b.onclick = () => go(+b.dataset.i));
+  function go(i) {
+    i = Math.max(0, Math.min(STEPS.length - 1, i));
+    AU.stopAll();
+    W.i = i; const s = STEPS[i];
+    $('rail').querySelectorAll('button').forEach((b, j) => { b.removeAttribute('aria-current'); if (j === i) b.setAttribute('aria-current', 'step'); });
+    $('stepEyebrow').textContent = `step ${i + 1} of ${STEPS.length} · ${s.eyebrow}`;
+    $('stepTitle').textContent = s.title;
+    $('stepSay').innerHTML = s.say;
+    document.querySelectorAll('[data-show]').forEach((el) => { el.hidden = !el.dataset.show.split(/\s+/).includes(String(i)); });
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    onStep(s, i);
+  }
+  $('back').onclick = () => go(W.i - 1); $('next').onclick = () => go(W.i + 1);
+  W.go = go; return W;
+}
+</script>
+<script>
+(() => {
+  const E = SCALE, SR = E.SR;
+  const S = { route: null, brightL: false, join: 'ear', report: { L: null, R: null }, highEar: 'R', loopT0: 0, playing: false, heard: false };
+  let voice = null;
+  function stopSound() { AU.stopAll(); voice = null; S.playing = false; S.route = null; $('play0').textContent = 'Play the two scales'; document.querySelectorAll('[data-route]').forEach((b) => b.setAttribute('aria-pressed', 'false')); }
+  AU.onQuiet(() => { if (S.playing) stopSound(); });
+  async function loop(chans) {
+    await AU.ensure(); AU.stopAll();
+    voice = AU.play(chans, SR, { loop: true }); S.loopT0 = voice.t0; S.playing = true;
+  }
+  // ── headphone check ──
+  async function chk(ear) { await AU.ensure(); stopSound(); AU.play(E.check(ear), SR); $('chkHint').textContent = ear === 'L' ? 'that should be in your left ear only' : 'that should be in your right ear only'; }
+  $('chkL').onclick = () => chk('L'); $('chkR').onclick = () => chk('R');
+
+  // ── step 0: the encounter ──
+  $('play0').onclick = async () => {
+    if (S.playing) { stopSound(); return; }
+    await loop(E.render(E.score('illusion'), {}));
+    $('play0').textContent = 'Stop'; S.heard = true; $('ask').hidden = false;
+  };
+  const CARDS = [
+    { k: 'down', glyph: '↘↗', label: 'a tune going down, then up' },
+    { k: 'up', glyph: '↗↘', label: 'a tune going up, then down' },
+    { k: 'zig', glyph: '∧∨∧∨', label: 'a zigzag, jumping about' },
+    { k: 'unsure', glyph: '?', label: 'not sure' },
+  ];
+  for (const ear of ['L', 'R']) {
+    const box = $('cards' + ear);
+    box.innerHTML = CARDS.map((c) => `<button data-k="${c.k}" aria-pressed="false"><span class="glyph">${c.glyph}</span>${c.label}</button>`).join('');
+    box.querySelectorAll('button').forEach((b) => b.onclick = () => {
+      S.report[ear] = b.dataset.k;
+      box.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      // the smooth control puts the high tune in the ear you said carried the falling-then-rising one
+      if (S.report.L === 'down' && S.report.R !== 'down') hiEar('L'); else if (S.report.R === 'down') hiEar('R');
+    });
+  }
+  // the tunes as the ear reports them, by card
+  const TUNE = { down: [72, 71, 69, 67, 67, 69, 71, 72], up: [60, 62, 64, 65, 65, 64, 62, 60] };
+
+  // ── steps 1 to 3: the score, by ear ──
+  document.querySelectorAll('[data-route]').forEach((b) => b.onclick = async () => {
+    const r = b.dataset.route;
+    if (S.route === r && S.playing) { stopSound(); return; }
+    await loop(E.render(E.score('illusion'), { route: r, brightL: S.brightL }));
+    S.route = r; document.querySelectorAll('[data-route]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  });
+  $('stop1').onclick = stopSound;
+  const tb = async (b) => {
+    S.brightL = b; $('tbSine').setAttribute('aria-pressed', String(!b)); $('tbBright').setAttribute('aria-pressed', String(b));
+    if (S.playing && S.route) { const r = S.route; await loop(E.render(E.score('illusion'), { route: r, brightL: S.brightL })); S.route = r; document.querySelector(`[data-route="${r}"]`).setAttribute('aria-pressed', 'true'); }
+  };
+  $('tbSine').onclick = () => tb(false); $('tbBright').onclick = () => tb(true);
+  const join = (j) => { S.join = j; $('joinEar').setAttribute('aria-pressed', String(j === 'ear')); $('joinPitch').setAttribute('aria-pressed', String(j === 'pitch')); legend(); };
+  $('joinEar').onclick = () => join('ear'); $('joinPitch').onclick = () => join('pitch');
+  function curStep() { const ctx = AU.ctx; if (!ctx || !S.playing) return -1; const t = ctx.currentTime - S.loopT0; return t < 0 ? -1 : Math.floor((t % (8 * E.NOTE)) / E.NOTE); }
+  const sc = E.score('illusion');
+  $('noteRead').innerHTML = `left ear: <b>${sc.map((s) => E.NAME[s.L]).join(' ')}</b><br>right ear: <b>${sc.map((s) => E.NAME[s.R]).join(' ')}</b>`;
+  function legend() {
+    const i = W ? W.i : 1;
+    $('scoreLegend').innerHTML = i === 2
+      ? (S.join === 'ear' ? '<span>left ear’s notes, joined in order (filled)</span><span class="d">right ear’s notes, joined in order (rings)</span>' : '<span class="r">the high tune and the low tune: grouping by pitch, what the ear supplies</span>')
+      : '<span>what each ear was given, joined in order</span><span class="r d">what you said you heard in that ear</span>';
+  }
+  function drawHead() {
+    const c = $('head'); if (c.offsetParent === null) return;
+    const { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const cx = w / 2, cy = h / 2 + 6, rx = 62, ry = 76;
+    g.strokeStyle = INK; g.lineWidth = 1.5;
+    g.beginPath(); g.ellipse(cx, cy, rx, ry, 0, 0, 2 * Math.PI); g.stroke();
+    g.beginPath(); g.moveTo(cx - 9, cy - ry + 2); g.lineTo(cx, cy - ry - 12); g.lineTo(cx + 9, cy - ry + 2); g.stroke();   // the nose: facing up the page
+    const ears = { L: cx - rx - 2, R: cx + rx + 2 };
+    g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'center';
+    for (const ear of ['L', 'R']) {
+      const ex = ears[ear], side = ear === 'L' ? -1 : 1;
+      g.beginPath(); g.ellipse(ex + side * 4, cy, 8, 18, 0, 0, 2 * Math.PI); g.strokeStyle = INK; g.stroke();
+      g.fillText(ear === 'L' ? 'left ear' : 'right ear', ex + side * 22, cy + 46);
+      // each note arriving: a ring at the ear (every step, both ears: neither ear is ever idle)
+      const st = curStep();
+      if (st >= 0) {
+        const into = ((AU.ctx.currentTime - S.loopT0) % E.NOTE) / E.NOTE;
+        const r = REDUCED ? 26 : 14 + into * 34;
+        g.globalAlpha = REDUCED ? (into < 0.5 ? 0.8 : 0) : 1 - into; g.beginPath(); g.arc(ex + side * 4, cy, r, side < 0 ? Math.PI / 2 : -Math.PI / 2, side < 0 ? 3 * Math.PI / 2 : Math.PI / 2); g.strokeStyle = INK; g.stroke(); g.globalAlpha = 1;
+      }
+      // the reader's report, in red, beside the ear
+      const rep = S.report[ear]; if (!rep) continue;
+      const bx = ear === 'L' ? ex - 170 : ex + 50, by = cy - 40, bw = 120, bh = 70;
+      g.strokeStyle = RED; g.fillStyle = RED; g.lineWidth = 2;
+      if (rep === 'unsure') { g.font = '28px "Cormorant Garamond", serif'; g.fillText('?', bx + bw / 2, by + bh / 2 + 10); continue; }
+      const tune = rep === 'zig' ? sc.map((s) => s[ear]) : TUNE[rep];
+      g.beginPath(); tune.forEach((m, i) => { const x = bx + i / 7 * bw, y = by + bh - (m - 60) / 12 * bh; i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+      g.lineWidth = 1.5;
+    }
+  }
+  function drawScore() {
+    const c = $('score'); if (c.offsetParent === null) return;
+    const { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const x0 = 64, x1 = w - 20, X = (i) => x0 + (i + 0.5) / 8 * (x1 - x0), st = curStep();
+    g.font = '11px "JetBrains Mono", monospace';
+    if (W.i === 2) {                                         // one plot: the X of the two scales
+      const y0 = 18, y1 = h - 18, Y = (m) => y1 - (m - 60) / 12 * (y1 - y0);
+      g.strokeStyle = RULE; g.fillStyle = INK3; g.textAlign = 'right'; g.lineWidth = 1;
+      for (const m of E.MIDI) { g.beginPath(); g.moveTo(x0, Y(m)); g.lineTo(x1, Y(m)); g.stroke(); g.fillText(E.NAME[m], x0 - 8, Y(m) + 4); }
+      if (S.join === 'ear') for (const ear of ['L', 'R']) { g.strokeStyle = INK2; g.lineWidth = 1.2; g.setLineDash(ear === 'R' ? [4, 4] : []); g.beginPath(); sc.forEach((s, i) => (i ? g.lineTo(X(i), Y(s[ear])) : g.moveTo(X(i), Y(s[ear])))); g.stroke(); g.setLineDash([]); }
+      else for (const t of [TUNE.down, TUNE.up]) { g.strokeStyle = RED; g.lineWidth = 2; g.beginPath(); t.forEach((m, i) => (i ? g.lineTo(X(i), Y(m)) : g.moveTo(X(i), Y(m)))); g.stroke(); }
+      sc.forEach((s, i) => { for (const ear of ['L', 'R']) { g.beginPath(); g.arc(X(i), Y(s[ear]), i === st ? 8 : 6, 0, 2 * Math.PI); g.fillStyle = ear === 'L' ? INK : PAPER; g.fill(); g.strokeStyle = INK; g.lineWidth = 1.5; g.stroke(); } });
+      return;
+    }
+    const lanes = { L: [14, h / 2 - 12], R: [h / 2 + 12, h - 14] };
+    for (const ear of ['L', 'R']) {
+      const [y0, y1] = lanes[ear], Y = (m) => y1 - (m - 60) / 12 * (y1 - y0);
+      g.strokeStyle = RULE; g.lineWidth = 1; g.strokeRect(x0, y0 - 6, x1 - x0, y1 - y0 + 12);
+      g.fillStyle = INK3; g.textAlign = 'right'; g.fillText(ear === 'L' ? 'LEFT' : 'RIGHT', x0 - 8, (y0 + y1) / 2 - 2); g.fillText('ear', x0 - 8, (y0 + y1) / 2 + 12);
+      const quiet = (S.route === 'L' && ear === 'R') || (S.route === 'R' && ear === 'L');
+      g.globalAlpha = quiet ? 0.25 : 1;
+      g.strokeStyle = INK; g.lineWidth = 1.3; g.beginPath(); sc.forEach((s, i) => (i ? g.lineTo(X(i), Y(s[ear])) : g.moveTo(X(i), Y(s[ear])))); g.stroke();
+      sc.forEach((s, i) => { g.beginPath(); g.arc(X(i), Y(s[ear]), i === st ? 7 : 5, 0, 2 * Math.PI); g.fillStyle = ear === 'L' && S.brightL && W.i === 3 ? PAPER : INK; g.fill(); g.strokeStyle = INK; g.stroke(); g.fillStyle = INK3; g.textAlign = 'center'; g.fillText(E.NAME[s[ear]], X(i), Y(s[ear]) + (s[ear] > 66 ? 18 : -10)); });
+      g.globalAlpha = 1;
+      const rep = S.report[ear];
+      if (rep === 'down' || rep === 'up') { g.strokeStyle = RED; g.lineWidth = 2; g.setLineDash([6, 4]); g.beginPath(); TUNE[rep].forEach((m, i) => (i ? g.lineTo(X(i), Y(m)) : g.moveTo(X(i), Y(m)))); g.stroke(); g.setLineDash([]); }
+    }
+  }
+  // ── the twin in the eye: a grid whose columns are close and whose rows share a colour ──
+  $('contrast').oninput = () => { $('contrastV').textContent = $('contrast').value + '%'; };
+  $('contrastV').textContent = '100%';
+  function drawGrid() {
+    const c = $('grid'); if (c.offsetParent === null) return;
+    const { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const k = +$('contrast').value / 100, cols = Math.max(8, Math.floor((w - 40) / 24)), rows = 8, dx = 24, dy = 15;
+    const ox = (w - (cols - 1) * dx) / 2, oy = (h - (rows - 1) * dy) / 2;
+    const mix = (a, b, t) => Math.round(a + (b - a) * t);
+    const light = `rgb(${mix(20, 244, k)},${mix(20, 242, k)},${mix(20, 236, k)})`;
+    for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) { g.beginPath(); g.arc(ox + i * dx, oy + j * dy, 4.6, 0, 2 * Math.PI); g.fillStyle = j % 2 ? light : INK; g.fill(); g.strokeStyle = INK; g.lineWidth = 1; g.stroke(); }
+  }
+
+  // ── step 4: the blind test ──
+  const N = 10, PASS = 8;
+  const B = { order: [], i: 0, ans: [], ready: false };
+  function hiEar(e) { S.highEar = e; $('hiL').setAttribute('aria-pressed', String(e === 'L')); $('hiR').setAttribute('aria-pressed', String(e === 'R')); }
+  $('hiL').onclick = () => hiEar('L'); $('hiR').onclick = () => hiEar('R');
+  const twice = ([L, R]) => { const n = L.length, a = new Float32Array(2 * n), b = new Float32Array(2 * n); a.set(L); a.set(L, n); b.set(R); b.set(R, n); return [a, b]; };
+  const stim = (kind) => twice(E.render(E.score(kind === 'A' ? 'illusion' : 'smooth', S.highEar), {}));
+  async function once(chans) { await AU.ensure(); stopSound(); AU.play(chans, SR); }
+  $('refA').onclick = () => once(stim('A')); $('refB').onclick = () => once(stim('B'));
+  $('rule').innerHTML = `Ten trials, five of each kind, in a shuffled order. Each plays the two-second loop twice. Guessing gets 5 of 10 on average. <b>The rule, set now:</b> 8 or more right (guessing does that 5.5% of the time) means your ears can tell the swapped scales from the smooth tunes they sound like, and the illusion did not hold for you; fewer means this test did not show that you can. The two kinds are scored apart, so leaning on one answer shows. Nothing tells you right or wrong until the end.`;
+  function newTest() { B.order = shuffled(['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B', 'B', 'B']); B.i = 0; B.ans = []; B.ready = false; $('verdict').innerHTML = ''; trialUI(); }
+  function trialUI() { const done = B.i >= N; $('trial').textContent = done ? 'Start again' : `Play trial ${B.i + 1}`; $('trialN').textContent = done ? '' : `${B.i} of ${N} answered`; $('ansA').disabled = $('ansB').disabled = !B.ready || done; }
+  $('trial').onclick = async () => { if (B.i >= N) { newTest(); return; } await once(stim(B.order[B.i])); B.ready = true; trialUI(); };
+  const answer = (a) => { if (!B.ready) return; B.ans.push(a); B.i++; B.ready = false; stopSound(); trialUI(); if (B.i >= N) verdict(); };
+  $('ansA').onclick = () => answer('A'); $('ansB').onclick = () => answer('B');
+  function verdict() {
+    let right = 0, rA = 0, rB = 0;
+    B.order.forEach((k, i) => { if (B.ans[i] === k) { right++; if (k === 'A') rA++; else rB++; } });
+    const p = tail(right, N);
+    const said = B.ans.filter((a) => a === 'B').length;
+    $('verdict').innerHTML = `<b>${right} of ${N}</b> right · swapped scales named right <b>${rA} of 5</b> · smooth tunes named right <b>${rB} of 5</b> · guessing scores ${right} or more ${(100 * p).toFixed(1)}% of the time.<br>`
+      + (right >= PASS ? 'By the rule: you can tell them apart. The swapped scales did not fully sound like two smooth tunes to you.'
+        : `By the rule: this test did not show you can tell the swapped scales from two smooth tunes. That is what the illusion predicts, or ten trials too few to show a weak difference.`)
+      + (said >= 9 || said <= 1 ? ` You answered “${said >= 9 ? 'smooth' : 'swapped'}” almost every time, which says more about how it sounded than either score does.` : '');
+  }
+  function drawDots() {
+    const c = $('dots'); if (c.offsetParent === null) return;
+    const { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const gap = Math.min(30, (w - 20) / N), x0 = w / 2 - (N - 1) * gap / 2;
+    for (let i = 0; i < N; i++) { g.beginPath(); g.arc(x0 + i * gap, h / 2, 8, 0, 2 * Math.PI); g.strokeStyle = i === B.i ? INK : RULE; g.lineWidth = 1.5; g.stroke(); if (i < B.ans.length) { g.fillStyle = INK3; g.fill(); } }
+  }
+
+  // ── the walk ──
+  const STEPS = [
+    { tab: 'two tunes', eyebrow: 'the encounter', title: 'Two ears, two tunes',
+      say: 'Headphones on, then play. Two scales at once, one in each ear. Listen to each ear on its own for a few loops, and say what tune you hear there.' },
+    { tab: 'each ear', eyebrow: 'what was played', title: 'Neither ear got a tune',
+      say: 'This is what each ear was actually given: a zigzag, high then low then high, in both. Each step, the climbing scale and the falling one <b>swap ears</b>, so no ear ever gets two notes of one scale in a row. Play an ear alone to hear its zigzag; then both again. Your report, if you gave one, is drawn over it in red: red on this piece is what your hearing supplied.' },
+    { tab: 'the rule', eyebrow: 'how the ear sorts', title: 'Like goes with like',
+      say: 'Two cues compete for which note belongs with which: where it comes from, and how high it is. Here they disagree at every step, and pitch wins: the brain joins each note to the nearest pitch, not to the same ear, then hangs each tune on an ear (Deutsch, 1975). Switch the lines between “by ear” and “by pitch” to see the two readings of one score. The twin in the eye is grouping by similarity: a grid whose columns sit close but whose rows share a colour reads as rows. Fade the colour difference and it falls back into columns, the way nearness would have it. The page grades this pair <b>shape</b>: the same structure, like going with like, and no claim that the eye’s machinery is the ear’s.' },
+    { tab: 'break it', eyebrow: 'where it stops working', title: 'Give the ears something else to group by',
+      say: 'If similarity in pitch is what groups the notes, then a similarity that follows the ear should pull them back. Make the left ear’s notes bright (six harmonics, the same pitch, the same RMS) and play both ears: does each ear now carry its zigzag? Then mono, both notes in both ears: there is no place left to group by, and nothing to fool. Nothing here is scored; it is your ear against the page’s “grouping by pitch beats grouping by place”.' },
+    { tab: 'blind', eyebrow: 'the test', title: 'Swapped scales, or smooth tunes?',
+      say: 'If the illusion is complete, the swapped scales should sound just like two smooth tunes played straight, the high one in one ear and the low one in the other. So play both, blind. The two differ in one thing only: which ear each note goes to. Every step has the same two notes at the same level in both.' },
+  ];
+  const W = makeWalk(STEPS, (s, i) => {
+    stopSound();
+    if (i === 4 && !B.order.length) newTest();
+    legend();
+  });
+  function frame() { drawHead(); drawScore(); drawGrid(); drawDots(); requestAnimationFrame(frame); }
+  sigil(); W.go(0); frame();
+})();
+</script>
+</body>
+</html>

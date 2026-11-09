@@ -1,0 +1,615 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the loop that sings
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece), § Meaning gets in early, the speech to song paragraph · listed in [[Auditory Illusions — rich.json]] · siblings: "who rewrites whom", "the seesaw", "the talking socket", which share its voice box (VB) and scaffolding (UI) byte for byte
+  forward_vector: I am speech to song with what a browser has: its own synthetic voice says a sentence, then loops a phrase from it, "sometimes behave so strangely", ten times on a fixed interval, while you mark each repetition from spoken to sung; then the sentence again. Beside it a Mooney image, a dog made of blots, that you can't un-see once you have seen it. The break plays three loops under letters, exact, transposed and jumbled in a hidden order, and names them, with Deutsch's report, only after you have marked them (remade 2026-11-08, after the challenge). I say plainly that the voice is synthetic and the effect may be weaker than Deutsch's. I change only when the section I serve does.
+  understood as: a tape loop, a physical thing: two reels and a band of tape that goes round once per repetition, with a counter. Beside it, a shaded drawing printed too hard, like a photograph left too long in the developer.
+  red means: what your own perception supplied: your marks of how sung each repetition sounded, and the dog's outline once you have seen it. Ink is what was played and printed. Red means this in all four of this section's pieces.
+  sound: nothing plays until Start or a Play is clicked. The words are the browser's speech synthesis, which plays outside Web Audio: the piece cannot filter it, measure its pitch, or pan it, and says so. The AudioContext (made on the click, through a compressor) plays only the tape machine's start clunk. Changing step stops the sound, the speech included. Ten repetitions and the sentence twice, then it stops on its own.
+  check: "Auditory Illusions — rich — check — meaning-gets-in-early.mjs", beside this file, measures the repetition schedule (fixed onset-to-onset interval for a given measured utterance length), the transposed and jumbled conditions' values, and the Mooney image: the share of black at each threshold and how well the thresholded blots match the dog's own outline.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The loop that sings · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-08, retinted to the paper ground (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: var(--paper-2, #ebe8e0); --fx-bg-elev-2: var(--paper-3, #e2dfd6); --fx-bg-elev-3: #d8d4ca; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: var(--rule, #c9c6bd); --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.4); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --paper-2:#ebe8e0; --paper-3:#e2dfd6; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd;
+    --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.55;padding:24px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--serif);font-weight:500;font-style:italic;font-size:44px;line-height:1.02;margin:4px 0 6px;letter-spacing:-.01em}
+  h2{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.1;margin:2px 0 6px}
+  p.lead{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:62ch}
+  p.say{font-family:var(--serif);font-size:18px;line-height:1.5;color:var(--ink-2);margin:0 0 12px;max-width:66ch}
+  .rail{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 16px;border-top:1.5px solid var(--ink);padding-top:10px}
+  .rail button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 9px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .rail .half{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);align-self:center;margin:0 4px 0 8px}
+  .panel{border:1.5px solid var(--ink);border-radius:2px;padding:16px;margin:0 0 12px;background:var(--paper)}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.go{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 18px;cursor:pointer}
+  button.go:disabled{opacity:.35;cursor:default}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--paper);background:var(--ink)}
+  button.ghost:disabled{opacity:.3;cursor:default}
+  button.ans{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:2px;padding:4px 18px;cursor:pointer;min-width:64px}
+  button.ans:disabled{opacity:.3;cursor:default}
+  button.ans.picked{color:var(--paper);background:var(--red);border-color:var(--red)}
+  canvas.stage{width:100%;display:block;border-radius:2px;touch-action:none}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  .meter{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .meter b{font-weight:500;color:var(--ink)}
+  .meter i{font-style:normal;color:var(--red)}
+  .eq{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--ink-3);font-size:12.5px;margin-top:2px}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.35}
+  .ctl .v{font-family:var(--mono);font-size:13px;color:var(--ink);text-align:right;white-space:nowrap;min-width:8ch}
+  .warn{border:1.5px solid var(--ink);background:var(--paper-2);padding:14px 16px;border-radius:2px;margin:10px 0}
+  .warn b{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  table.marks{border-collapse:collapse;margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  table.marks .r{color:var(--red)}
+  .verdict{font-family:var(--serif);font-size:18px;line-height:1.5;margin:10px 0 0;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px;border-top:1px solid var(--rule);padding-top:10px}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}button.ans{font-size:19px;padding:4px 12px;min-width:52px}}
+</style>
+<style>
+  #stage{height:300px}
+  #chart{height:170px;margin-top:10px}
+  .seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:2px;overflow:hidden}
+  .seg button{font-family:var(--mono);font-size:12px;background:transparent;border:0;border-right:1px solid var(--rule);padding:6px 11px;cursor:pointer;color:var(--ink)}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+  .scale button{min-width:44px}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · meaning gets in early · five steps</div>
+  <h1>The loop that sings</h1>
+  <p class="lead" id="lead"></p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="sEye"></div>
+    <h2 id="sTitle"></h2>
+    <p class="say" id="sSay"></p>
+  </section>
+
+  <div class="panel">
+    <canvas class="stage" id="stage" aria-label="a tape loop, and a picture made of blots"></canvas>
+    <div class="row" id="playRow">
+      <button class="go" id="start">Start: play the tape</button>
+      <span class="lbl" id="repLbl">this time it sounds</span>
+      <span class="scale" id="scale"><button class="ans" data-r="1">spoken</button><button class="ans" data-r="2">·</button><button class="ans" data-r="3">◐</button><button class="ans" data-r="4">·</button><button class="ans" data-r="5">sung</button></span>
+    </div>
+    <div class="row" id="afterRow" hidden><span class="lbl">in the sentence, the phrase</span><button class="ans" data-q="sang">sang</button><button class="ans" data-q="spoke">was spoken</button><button class="ans" data-q="unsure">not sure</button></div>
+    <div class="row" id="dogRow"><span class="lbl">the picture</span><button class="ghost" id="seeIt">I see what it is</button><button class="ghost" id="showMe">Show me</button></div>
+    <div id="timeCtl" hidden>
+      <div class="ctl"><label for="gap">silence between<br>repetitions</label><input type="range" id="gap" min="150" max="2000" step="50" value="600"><span class="v" id="gapV"></span></div>
+      <div class="ctl"><label for="rate">speaking<br>rate</label><input type="range" id="rate" min="0.6" max="1.3" step="0.05" value="0.9"><span class="v" id="rateV"></span></div>
+    </div>
+    <div id="mooCtl" hidden>
+      <div class="ctl"><label for="thr">the threshold</label><input type="range" id="thr" min="0.2" max="0.8" step="0.01" value="0.5"><span class="v" id="thrV"></span></div>
+      <div class="row"><span class="lbl">show</span><span class="seg" id="segMoo"><button data-v="blots" aria-pressed="true">the blots</button><button data-v="gray" aria-pressed="false">the shaded drawing</button></span></div>
+    </div>
+    <div id="breakCtl" hidden>
+      <div class="row"><span class="lbl">the loop</span><span class="seg" id="segCond"><button data-v="A" aria-pressed="true">loop A</button><button data-v="B" aria-pressed="false">loop B</button><button data-v="C" aria-pressed="false">loop C</button></span></div>
+    </div>
+    <canvas class="stage" id="chart" aria-label="how sung each repetition sounded to you"></canvas>
+    <div class="verdict" id="note"></div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg id="sigil" width="20" height="20" viewBox="-10 -10 20 20" aria-hidden="true"></svg>Auditory Illusions · the loop that sings · the browser’s synthetic voice and Web Audio, 2026-11-08 · nobody has listened to it yet</footer>
+</main>
+
+<script id="ai-voice">
+// The voice box: one small formant synthesizer, the same in all four of this section's pieces, byte for byte.
+// A glottal pulse (Rosenberg's shape) at a gliding pitch goes through five resonators in series, each a
+// two-pole filter (Klatt's form) whose centre frequency and bandwidth move with the syllable; a burst of
+// noise through its own resonator marks a stop's release; the output is differenced, as a mouth radiates.
+// Plain functions, rendered offline into a buffer, so the picture, the sound and the headless check share one source.
+const VB = (() => {
+  const SR = 44100;
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  // Piecewise-linear lookup in keyframes [[t, v], …], held flat past either end.
+  function at(keys, t) {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) { const [t0, v0] = keys[i - 1], [t1, v1] = keys[i]; return v0 + (v1 - v0) * (t - t0) / Math.max(t1 - t0, 1e-9); }
+    return keys[keys.length - 1][1];
+  }
+  // Klatt's resonator: y[n] = A·x[n] + B·y[n−1] + C·y[n−2], unity gain at 0 Hz.
+  function coef(F, BW) { const T = 1 / SR, C = -Math.exp(-2 * Math.PI * BW * T), B = 2 * Math.exp(-Math.PI * BW * T) * Math.cos(2 * Math.PI * F * T); return [1 - B - C, B, C]; }
+  const DEF = { F4: [[0, 3300]], F5: [[0, 3850]], B1: [[0, 70]], B2: [[0, 90]], B3: [[0, 150]], B4: [[0, 250]], B5: [[0, 300]], AH: [[0, 0]] };
+  // spec: { dur (s), F0, F1…F5, B1…B5, AV (voicing 0–1), AH (aspiration 0–1): keyframe lists; bursts: [{ t, dur, amp, f, bw }] }
+  function render(spec, seed = 1) {
+    const n = Math.round(spec.dur * SR), out = new Float64Array(n), r = rng(seed), S = Object.assign({}, DEF, spec);
+    const y1 = new Float64Array(5), y2 = new Float64Array(5); let cf = [], ph = 0, prev = 0, nz = 0;
+    const bursts = (spec.bursts || []).map((b) => ({ ...b, c: coef(b.f, b.bw), y1: 0, y2: 0 }));
+    let F0 = 100, AV = 0, AH = 0;
+    for (let i = 0; i < n; i++) {
+      const t = i / SR;
+      if (i % 16 === 0) {
+        F0 = at(S.F0, t); AV = at(S.AV, t); AH = at(S.AH, t);
+        cf = [1, 2, 3, 4, 5].map((k) => coef(at(S['F' + k], t), at(S['B' + k], t)));
+      }
+      ph += F0 / SR; if (ph >= 1) ph -= 1;
+      const g = ph < 0.4 ? 0.5 * (1 - Math.cos(Math.PI * ph / 0.4)) : ph < 0.56 ? Math.cos(Math.PI * (ph - 0.4) / 0.32) : 0;
+      nz = 0.6 * nz + 0.4 * (r() * 2 - 1);
+      let x = AV * g + AH * nz * 0.5;
+      for (let k = 0; k < 5; k++) { const [A, B, C] = cf[k]; const y = A * x + B * y1[k] + C * y2[k]; y2[k] = y1[k]; y1[k] = y; x = y; }
+      for (const b of bursts) if (t >= b.t && t < b.t + b.dur * 4) {
+        const e = b.amp * Math.exp(-(t - b.t) / b.dur) * (r() * 2 - 1);
+        const y = b.c[0] * e + b.c[1] * b.y1 + b.c[2] * b.y2; b.y2 = b.y1; b.y1 = y; x += y;
+      }
+      out[i] = x - prev; prev = x;
+    }
+    return out;
+  }
+  // ── the syllables ──
+  // ba · da · ga on one dial, c from 0 (ba) through 0.5 (da) to 1 (ga): the second and third formants start at the
+  // lips' (low), the tongue tip's (F2 high) or the tongue body's (F2 and F3 pinched together) place and glide to "ah".
+  const PL = { ba: { F2: 900, F3: 2100, bf: 900, bbw: 1600, ba: 0.18 }, da: { F2: 1700, F3: 2750, bf: 3900, bbw: 1600, ba: 0.069 }, ga: { F2: 1950, F3: 2150, bf: 2000, bbw: 450, ba: 0.1 } };
+  function place(c) { const a = c <= 0.5 ? PL.ba : PL.da, b = c <= 0.5 ? PL.da : PL.ga, u = c <= 0.5 ? c / 0.5 : (c - 0.5) / 0.5, m = {}; for (const k in a) m[k] = a[k] + (b[k] - a[k]) * u; return m; }
+  const REL = 0.06; // the release, in seconds from the buffer's start: the burst, and the instant the lips (or tongue) let go
+  function syllable(c = 0) {
+    const p = place(c), R = REL;
+    return { dur: 0.46, F0: [[0, 128], [R + 0.1, 122], [0.42, 96]],
+      F1: [[0, 250], [R, 250], [R + 0.04, 730]], F2: [[0, p.F2], [R, p.F2], [R + 0.045, 1220]], F3: [[0, p.F3], [R, p.F3], [R + 0.045, 2560]],
+      B1: [[0, 60], [R + 0.04, 90]], AV: [[0, 0], [R + 0.006, 0], [R + 0.02, 1], [0.34, 1], [0.42, 0]], AH: [[0, 0], [R, 0.25], [R + 0.012, 0]],
+      bursts: [{ t: R, dur: 0.004, amp: p.ba, f: p.bf, bw: p.bbw }] };
+  }
+  // Two names, one on each side of a crossover: "Laurel" lives low (its F1 and F2 under 1.6 kHz), "Yanny" lives high
+  // (its F2 and F3 glides above it). Their syllables are timed to land together.
+  function laurel() {
+    return { dur: 0.62, F0: [[0, 118], [0.16, 134], [0.34, 112], [0.58, 92]],
+      F1: [[0, 340], [0.07, 360], [0.15, 600], [0.24, 590], [0.30, 460], [0.36, 470], [0.42, 500], [0.5, 380]],
+      F2: [[0, 950], [0.07, 980], [0.15, 900], [0.24, 950], [0.30, 1100], [0.36, 1150], [0.42, 1250], [0.5, 980]],
+      F3: [[0, 2700], [0.07, 2650], [0.15, 2550], [0.24, 2350], [0.30, 1650], [0.36, 1700], [0.42, 2200], [0.5, 2650]],
+      AV: [[0, 0], [0.012, 0.75], [0.07, 0.75], [0.12, 1], [0.38, 0.95], [0.5, 0.75], [0.58, 0]] };
+  }
+  function yanny() {
+    return { dur: 0.62, F0: [[0, 118], [0.16, 134], [0.34, 112], [0.58, 92]],
+      F1: [[0, 280], [0.06, 290], [0.13, 760], [0.24, 740], [0.28, 280], [0.34, 280], [0.40, 300], [0.5, 300]],
+      F2: [[0, 2250], [0.06, 2200], [0.13, 1750], [0.24, 1700], [0.28, 1500], [0.34, 1600], [0.40, 2300], [0.5, 2350]],
+      F3: [[0, 3050], [0.06, 3000], [0.13, 2600], [0.24, 2550], [0.28, 2500], [0.34, 2600], [0.40, 3000], [0.5, 3050]],
+      B1: [[0, 70], [0.25, 70], [0.27, 200], [0.35, 200], [0.37, 70]], B2: [[0, 90], [0.25, 90], [0.27, 300], [0.35, 300], [0.37, 90]],
+      AV: [[0, 0], [0.012, 0.8], [0.06, 0.8], [0.12, 1], [0.26, 1], [0.28, 0.45], [0.35, 0.45], [0.38, 0.95], [0.5, 0.8], [0.58, 0]] };
+  }
+  // Two words for the phantom loop: "no" (a nasal, then a rounded vowel gliding shut) and "way" (lips rounded, then a
+  // front vowel gliding up). 0.3 s each.
+  function no() {
+    return { dur: 0.3, F0: [[0, 120], [0.3, 108]],
+      F1: [[0, 270], [0.06, 270], [0.1, 480], [0.2, 440], [0.28, 360]], F2: [[0, 1500], [0.06, 1450], [0.1, 950], [0.2, 880], [0.28, 800]],
+      F3: [[0, 2550], [0.1, 2450], [0.28, 2350]], B1: [[0, 200], [0.06, 200], [0.09, 80]], B2: [[0, 300], [0.06, 300], [0.09, 90]],
+      AV: [[0, 0], [0.01, 0.45], [0.06, 0.45], [0.1, 1], [0.24, 0.9], [0.3, 0]] };
+  }
+  function way() {
+    return { dur: 0.3, F0: [[0, 116], [0.3, 104]],
+      F1: [[0, 300], [0.05, 300], [0.12, 480], [0.2, 450], [0.28, 360]], F2: [[0, 650], [0.05, 700], [0.12, 1850], [0.2, 2000], [0.28, 2200]],
+      F3: [[0, 2200], [0.05, 2250], [0.12, 2550], [0.28, 2700]],
+      AV: [[0, 0], [0.015, 0.7], [0.06, 0.85], [0.1, 1], [0.24, 0.9], [0.3, 0]] };
+  }
+  // ── measures and helpers ──
+  function rms(x, a = 0, b = x.length) { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / Math.max(1, b - a)); }
+  function peak(x) { let p = 0; for (const v of x) p = Math.max(p, Math.abs(v)); return p; }
+  // Scale to an RMS (over the voiced part: samples within 30 dB of the loudest 10 ms), peak held under 0.95.
+  function level(x, target = 0.1) { const h = 441, fr = []; for (let i = 0; i + h <= x.length; i += h) fr.push(rms(x, i, i + h)); const top = Math.max(...fr); let s = 0, c = 0; fr.forEach((v) => { if (v > top * 0.0316) { s += v * v; c++; } }); let k = target / Math.sqrt(s / c); if (peak(x) * k > 0.95) k = 0.95 / peak(x); return Float32Array.from(x, (v) => v * k); }
+  // RBJ's biquads, the same as the Web Audio spec's: lowpass / highpass (Q), lowshelf / highshelf (gain in dB, S = 1).
+  function biquad(type, f, q, gainDb = 0) {
+    const w = 2 * Math.PI * f / SR, cw = Math.cos(w), sw = Math.sin(w), A = Math.pow(10, gainDb / 40);
+    let b0, b1, b2, a0, a1, a2;
+    if (type === 'lowpass' || type === 'highpass') { const al = sw / (2 * q), s = type === 'lowpass' ? 1 - cw : 1 + cw; b0 = s / 2; b1 = type === 'lowpass' ? s : -s; b2 = s / 2; a0 = 1 + al; a1 = -2 * cw; a2 = 1 - al; }
+    else { const al = sw / 2 * Math.sqrt(2), sa = 2 * Math.sqrt(A) * al, lo = type === 'lowshelf' ? 1 : -1;
+      b0 = A * ((A + 1) - lo * (A - 1) * cw + sa); b1 = lo * 2 * A * ((A - 1) - lo * (A + 1) * cw); b2 = A * ((A + 1) - lo * (A - 1) * cw - sa);
+      a0 = (A + 1) + lo * (A - 1) * cw + sa; a1 = -lo * 2 * ((A - 1) + lo * (A + 1) * cw); a2 = (A + 1) + lo * (A - 1) * cw - sa; }
+    return [b0 / a0, b1 / a0, b2 / a0, a1 / a0, a2 / a0];
+  }
+  function filter(x, c) { const y = new Float64Array(x.length); let x1 = 0, x2 = 0, y1 = 0, y2 = 0; for (let i = 0; i < x.length; i++) { const v = c[0] * x[i] + c[1] * x1 + c[2] * x2 - c[3] * y1 - c[4] * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
+  // The magnitude, in dB, of a biquad at a frequency.
+  function gainAt(c, f) { const w = 2 * Math.PI * f / SR, re = (a, b, d) => a + b * Math.cos(w) + d * Math.cos(2 * w), im = (b, d) => -b * Math.sin(w) - d * Math.sin(2 * w);
+    const nr = re(c[0], c[1], c[2]), ni = im(c[1], c[2]), dr = re(1, c[3], c[4]), di = im(c[3], c[4]); return 10 * Math.log10((nr * nr + ni * ni) / (dr * dr + di * di)); }
+  // The two names, split at the crossover with three 2-pole filters each side (36 dB an octave), matched in level.
+  const XO = 1600;
+  function names() {
+    const lp = biquad('lowpass', XO, 0.7071), hp = biquad('highpass', XO, 0.7071), three = (x, c) => filter(filter(filter(x, c), c), c);
+    const L = three(render(laurel(), 7), lp), Y = three(render(yanny(), 9), hp);
+    return { laurel: level(L, 0.1), yanny: level(Y, 0.1) };
+  }
+  // radix-2 FFT, in place
+  function fft(re, im) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], vr = re[i + j + len / 2] * cr - im[i + j + len / 2] * ci, vi = re[i + j + len / 2] * ci + im[i + j + len / 2] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[i + j + len / 2] = ur - vr; im[i + j + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  }
+  // A spectrogram for drawing: 1024-point frames every 5 ms, Hann window, dB, up to fmax.
+  function spectrogram(x, fmax = 5000, hop = 0.005) {
+    const N = 1024, H = Math.round(hop * SR), kmax = Math.round(fmax / SR * N), frames = [];
+    for (let s = 0; s + N <= x.length + N / 2; s += H) { const re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < N; i++) { const j = s - N / 2 + i; re[i] = (j >= 0 && j < x.length ? x[j] : 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N)); } fft(re, im); const f = new Float32Array(kmax); for (let k = 0; k < kmax; k++) f[k] = 10 * Math.log10(re[k] * re[k] + im[k] * im[k] + 1e-12); frames.push(f); }
+    return { frames, df: SR / N, hop };
+  }
+  return { SR, rng, at, render, syllable, place, REL, laurel, yanny, no, way, rms, peak, level, biquad, filter, gainAt, XO, names, fft, spectrogram };
+})();
+</script>
+<script id="ai-ui">
+// The scaffolding, the same in this section's four pieces: sound only on a click, through one compressor;
+// buffers that stop on a step change; the screen's clock set against the sound's; the walk; the sigil.
+const UI = (() => {
+  const $ = (id) => document.getElementById(id);
+  let ctx = null, master = null;
+  const live = new Set(), quietHooks = [];
+  async function audio() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -8; comp.knee.value = 6; comp.ratio.value = 4; comp.connect(ctx.destination);
+      master = ctx.createGain(); master.gain.value = 0.9; master.connect(comp);
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+    return ctx;
+  }
+  const out = () => master;
+  function buffer(chs, sr = 44100) { const b = ctx.createBuffer(chs.length, chs[0].length, sr); chs.forEach((c, i) => b.copyToChannel(c instanceof Float32Array ? c : Float32Array.from(c), i)); return b; }
+  function play(buf, when, dest, loop = false) {
+    const s = ctx.createBufferSource(); s.buffer = buf; s.loop = loop; const g = ctx.createGain(); s.connect(g).connect(dest || master);
+    const t = when || ctx.currentTime + 0.03; s.start(t); const me = { s, g, t, buf }; live.add(me); s.onended = () => live.delete(me); return me;
+  }
+  function stop() {
+    for (const f of quietHooks) { try { f(); } catch (e) { /* nothing left to stop */ } }
+    if (!ctx) return; const now = ctx.currentTime;
+    for (const m of live) { try { m.g.gain.setTargetAtTime(0, now, 0.008); m.s.stop(now + 0.06); } catch (e) { /* already stopped */ } }
+    live.clear();
+  }
+  const onStop = (f) => quietHooks.push(f);
+  // A context time, as a performance.now() time: when that sample reaches the speaker, as near as this browser can tell.
+  function perfAt(T) {
+    try { const ts = ctx.getOutputTimestamp(); if (ts && ts.performanceTime > 0 && ts.contextTime > 0) return ts.performanceTime + (T - ts.contextTime) * 1000; } catch (e) { /* no timestamp here */ }
+    return performance.now() + (T - ctx.currentTime + (ctx.outputLatency || 0) + (ctx.baseLatency || 0)) * 1000;
+  }
+  const latencyMs = () => (ctx ? 1000 * ((ctx.outputLatency || 0) + (ctx.baseLatency || 0)) : null);
+  // The display's frame interval, measured: the median of the last 40 frame steps.
+  const steps = []; let lastF = 0;
+  function frameTick(ts) { if (lastF) { steps.push(ts - lastF); if (steps.length > 40) steps.shift(); } lastF = ts; }
+  function frameMs() { if (steps.length < 5) return 1000 / 60; const s = steps.slice().sort((a, b) => a - b); return s[s.length >> 1]; }
+  function fit(c, h) {
+    if (h) c.style.height = h + 'px';
+    const w = c.clientWidth, H = c.clientHeight, d = devicePixelRatio || 1;
+    if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); }
+    const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+  }
+  // The walk: one step at a time, the list always open; changing step stops the sound.
+  function walk(steps, show, halves) {
+    let i = 0;
+    function rail() {
+      const r = $('rail'); r.innerHTML = '';
+      steps.forEach((s, k) => {
+        if (halves && halves[k]) { const h = document.createElement('span'); h.className = 'half'; h.textContent = halves[k]; r.appendChild(h); }
+        const b = document.createElement('button'); b.textContent = (k + 1) + ' · ' + s.rail; if (k === i) b.setAttribute('aria-current', 'step'); b.onclick = () => go(k); r.appendChild(b);
+      });
+    }
+    function go(k) { stop(); i = Math.max(0, Math.min(steps.length - 1, k)); rail(); $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1; show(i, steps[i]); }
+    $('back').onclick = () => go(i - 1); $('next').onclick = () => go(i + 1);
+    return { go, now: () => i };
+  }
+  function sigil() { const pts = []; for (let k = 0; k <= 240; k++) { const t = k / 240 * 2 * Math.PI; pts.push((8 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (8 * Math.sin(2 * t)).toFixed(2)); }
+    $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+  // The page asks every other piece to fall quiet when one plays; this piece hears that and stops,
+  // its spoken words included, which no audio context can reach.
+  function hush() { stop(); try { speechSynthesis.cancel(); } catch (x) { /* no speech here */ } if (ctx && ctx.state === 'running') ctx.suspend(); }
+  window.addEventListener('message', (e) => { if ((e.source === window.parent || e.source == null) && e.data && e.data.type === 'rich:hush') hush(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) hush(); });
+  // Speech the browser says has no audio context for the page to hear start, so the piece tells the page itself.
+  function announce() { if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) { /* alone */ } } }
+  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function shuffled(a) { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; }
+  const pct = (p) => (p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%');
+  return { $, announce, audio, out, buffer, play, stop, onStop, perfAt, latencyMs, frameTick, frameMs, fit, walk, sigil, reduced, shuffled, pct, ctx: () => ctx };
+})();
+</script>
+<script id="mge-song">
+// This piece's own measures: the loop's schedule, its three conditions, and the Mooney image.
+const SG = (() => {
+  const PHRASE = 'sometimes behave so strangely';
+  const SENTENCE = 'Listen closely, because the sounds in this room sometimes behave so strangely that nobody quite believes them.';
+  const REPS = 10;
+  // Onsets on a fixed grid: the k-th repetition starts k × (the phrase's measured length + the silence) after the first.
+  const onsets = (durMs, gapMs, n = REPS) => Array.from({ length: n }, (_, k) => k * (durMs + gapMs));
+  // The browser voice's pitch for each repetition (1 is its own): exact holds it; transposed moves it each time.
+  const PITCH = { exact: Array(REPS).fill(1), transposed: [1, 1.3, 0.8, 1.15, 0.7, 1.35, 0.9, 1.25, 0.75, 1.1], jumbled: Array(REPS).fill(1) };
+  // The words for each repetition: exact and transposed say the phrase; jumbled says its four words in a new order each time.
+  const ORDERS = [[0, 1, 2, 3], [2, 0, 3, 1], [3, 2, 1, 0], [1, 3, 0, 2], [0, 2, 1, 3], [3, 0, 2, 1], [2, 1, 3, 0], [1, 0, 3, 2], [3, 1, 0, 2], [2, 3, 0, 1]];
+  function words(cond, k) { const w = PHRASE.split(' '); return cond === 'jumbled' ? ORDERS[k % ORDERS.length].map((i) => w[i]).join(' ') : PHRASE; }
+  // How far your marks climbed: the mean of the last three repetitions less the mean of the first two.
+  function climb(r) { const v = r.map((x, i) => [i, x]).filter(([, x]) => x != null); const a = v.filter(([i]) => i < 2).map(([, x]) => x), b = v.filter(([i]) => i >= REPS - 3).map(([, x]) => x); if (!a.length || !b.length) return null; const m = (u) => u.reduce((s, x) => s + x, 0) / u.length; return m(b) - m(a); }
+  // ── the Mooney image: a dog, sniffing, made of light and shadow, on dappled ground; printed at a threshold ──
+  const W = 240, H = 180;
+  function sdfCapsule(px, py, ax, ay, bx, by, r) { const pax = px - ax, pay = py - ay, bax = bx - ax, bay = by - ay, h = Math.max(0, Math.min(1, (pax * bax + pay * bay) / (bax * bax + bay * bay))); return Math.hypot(pax - bax * h, pay - bay * h) - r; }
+  function sdfEllipse(px, py, cx, cy, rx, ry, rot = 0) { const c = Math.cos(rot), s = Math.sin(rot), x = (px - cx) * c + (py - cy) * s, y = -(px - cx) * s + (py - cy) * c; return (Math.hypot(x / rx, y / ry) - 1) * Math.min(rx, ry); }
+  function dog(x, y) {
+    return Math.min(
+      sdfEllipse(x, y, 132, 92, 56, 25), sdfCapsule(x, y, 88, 90, 64, 116, 13), sdfEllipse(x, y, 58, 124, 19, 14, 0.4), sdfCapsule(x, y, 48, 130, 33, 140, 7),
+      sdfEllipse(x, y, 70, 112, 6, 12, 0.5), sdfCapsule(x, y, 96, 104, 92, 160, 7), sdfCapsule(x, y, 112, 108, 116, 160, 7), sdfCapsule(x, y, 166, 102, 172, 160, 8),
+      sdfCapsule(x, y, 180, 98, 188, 158, 8), sdfCapsule(x, y, 186, 82, 208, 66, 4));
+  }
+  function mooney(seed = 4) {
+    const r = VB.rng(seed), g = new Float32Array(W * H), mask = new Uint8Array(W * H), h = new Float32Array(W * H);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const d = dog(x, y); mask[y * W + x] = d < 0 ? 1 : 0; h[y * W + x] = d < 0 ? Math.sqrt(-d * 6) : 0; }
+    const leaves = Array.from({ length: 130 }, () => [r() * W, r() * H, 4 + r() * 12, r() < 0.5 ? -1 : 1]);
+    const spots = Array.from({ length: 26 }, () => [40 + r() * 170, 70 + r() * 90, 2 + r() * 5]);
+    const L = [-0.55, -0.62, 0.56];
+    for (let y = 1; y < H - 1; y++) for (let x = 1; x < W - 1; x++) {
+      const i = y * W + x;
+      let v;
+      if (mask[i]) {
+        const nx = -(h[i + 1] - h[i - 1]) / 2, ny = -(h[i + W] - h[i - W]) / 2, nz = 1, nl = Math.hypot(nx, ny, nz);
+        v = 0.12 + 0.95 * Math.max(0, (nx * L[0] + ny * L[1] + nz * L[2]) / nl);
+        for (const [sx, sy, sr] of spots) if (Math.hypot(x - sx, y - sy) < sr && dog(x, y) < -2) v -= 0.5;
+      } else {
+        v = 0.53 + 0.07 * Math.sin(x / 23) * Math.cos(y / 17); for (const [lx, ly, lr, s] of leaves) { const d = Math.hypot(x - lx, y - ly) / lr; if (d < 1) v += s * 0.38 * (1 - d * d); }
+      }
+      g[i] = v;
+    }
+    // a soft blur, as a print from a soft lens
+    const b = new Float32Array(W * H);
+    for (let y = 2; y < H - 2; y++) for (let x = 2; x < W - 2; x++) { let s = 0; for (let j = -2; j <= 2; j++) for (let k = -2; k <= 2; k++) s += g[(y + j) * W + x + k]; b[y * W + x] = s / 25; }
+    return { W, H, gray: b, mask };
+  }
+  // How the blots at a threshold match the dog: the share of black, and the share of the dog's outline where black meets white.
+  function measure(m, t) {
+    let black = 0, edges = 0, onOutline = 0;
+    for (let y = 2; y < m.H - 2; y++) for (let x = 2; x < m.W - 2; x++) { const i = y * m.W + x, a = m.gray[i] < t; if (a) black++; const outline = m.mask[i] !== m.mask[i + 1] || m.mask[i] !== m.mask[i + m.W]; if (outline) { edges++; if (a !== (m.gray[i + 1] < t) || a !== (m.gray[i + m.W] < t)) onOutline++; } }
+    return { black: black / ((m.W - 4) * (m.H - 4)), outlineKept: onOutline / edges };
+  }
+  return { PHRASE, SENTENCE, REPS, onsets, PITCH, words, climb, mooney, measure, W, H };
+})();
+</script>
+<script>
+(() => {
+  const $ = UI.$;
+  const STEPS = [
+    { key: 'loop', rail: 'the loop', title: 'Play the tape', lead: true,
+      say: 'A sentence, then a piece of it, round and round, ten times. Each time it comes round, mark how it sounds to you, from spoken to sung. At the end the whole sentence plays again. And while it plays, the picture: what is it?' },
+    { key: 'time', rail: 'what played', title: 'Exactly the same, on a grid',
+      say: 'The browser’s speech synthesizer said the phrase. The piece timed its first repetition, then started every later one on a fixed grid: the phrase’s own length plus a silence, so the onsets fall like beats. A speech synthesizer usually says the same text the same way each time, so the loop should be exact, as Deutsch’s was: one recording, repeated. The piece can’t hear the voice to confirm it. The meter shows how late each repetition actually started against the grid; the browser decides that, not the piece. The voice itself plays outside Web Audio, so its pitch can’t be measured or drawn here.',
+      eq: ['onset_k = onset_1 + k · (d + s) · d = the phrase’s measured length, s = the silence', 'every repetition starts one fixed interval after the last, like a beat'] },
+    { key: 'why', rail: 'why it sings', title: 'Repetition moves the line',
+      say: 'Speech has pitch, but the ear usually throws the exact pitches away once it has the words: the words are what speech is for. Said once, the phrase’s rise and fall is a contour. Said again and again, the words stop carrying anything new, and the ear starts keeping what it was discarding: each syllable’s pitch is heard as a note, and the notes as a tune. Then the sentence plays again and the phrase sings inside it, because the line between talking and music is drawn by the listener, and it has moved. A synthetic voice may make this weaker than Deutsch’s recording, or, with its steadier pitches, stronger; nobody has listened to this one yet.' },
+    { key: 'dog', rail: 'the dog', title: 'One-way recognition',
+      say: 'The picture is a dog, sniffing the ground, lit from the upper left, printed at a threshold: everything brighter than the threshold white, everything darker black, so its shadows run into the dark leaves and its light into the light ground. Once you have seen the dog, look back at the blots: you can’t make them blots again. The page grades this twin a shape: both are recognition that can’t be undone, made by different machinery. Slide the threshold to see where the dog is easiest and where it is gone.',
+      eq: ['pixel = white if brightness ≥ θ, else black', 'one threshold turns a shaded drawing into blots; the outline survives only where light meets shadow'] },
+    { key: 'break', rail: 'three loops', title: 'Three loops',
+      say: 'Three loops of the same phrase, made three different ways, under letters in an order drawn when the page opened. Play each and mark each repetition the same way as before, from spoken to sung; the chart lays your three curves together. What the three ways are, and what was reported for them, appears once you have marked at least five repetitions of each, so the names don’t steer the marks. Not a blind trial: you will hear that the loops differ.',
+      eq: ['climb = mean(marks, last three) − mean(marks, first two)', 'how far your marks rose from the start of the loop to the end'] },
+  ];
+  const S = { step: 0, rep: -1, playing: false, marks: { exact: Array(SG.REPS).fill(null), transposed: Array(SG.REPS).fill(null), jumbled: Array(SG.REPS).fill(null) }, cond: 'exact', after: null, seen: null, gap: 600, rate: 0.9, thr: 0.5, moo: 'blots', durMs: null, late: [], noVoice: false, phase: 'idle' };
+  const MOO = SG.mooney();
+  const BLIND = UI.shuffled(['exact', 'transposed', 'jumbled']), condOf = (L) => BLIND['ABC'.indexOf(L)];
+  S.letter = 'A'; S.bm = { exact: Array(SG.REPS).fill(null), transposed: Array(SG.REPS).fill(null), jumbled: Array(SG.REPS).fill(null) };
+  const store = () => (STEPS[S.step].key === 'break' ? S.bm : S.marks);
+  const unveiled = () => Object.values(S.bm).every((v) => v.filter((x) => x != null).length >= 5);
+  let timers = [], session = 0;
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+  UI.onStop(() => { session++; clearTimers(); try { speechSynthesis.cancel(); } catch (e) { /* no speech */ } S.playing = false; S.phase = 'idle'; paint(); });
+  function voiceOk() { try { return 'speechSynthesis' in window && speechSynthesis.getVoices().length > 0; } catch (e) { return false; } }
+  // a short thump, the tape machine starting: the one sound Web Audio makes here
+  async function clunk() { await UI.audio(); const SR = VB.SR, n = Math.round(0.06 * SR), r = VB.rng(5); const x = Float32Array.from({ length: n }, (_, i) => 0.25 * (r() * 2 - 1) * Math.exp(-i / (0.008 * SR)) + 0.3 * Math.sin(2 * Math.PI * 70 * i / SR) * Math.exp(-i / (0.02 * SR))); UI.play(UI.buffer([x])); }
+  function speak(text, pitch = 1) {
+    return new Promise((done) => {
+      let u; try { u = new SpeechSynthesisUtterance(text); } catch (e) { done(null); return; }
+      u.rate = S.rate; u.pitch = pitch; let t0 = null; const guard = setTimeout(() => done(null), 9000);
+      u.onstart = () => { t0 = performance.now(); };
+      u.onend = () => { clearTimeout(guard); done(t0 == null ? null : { t0, t1: performance.now() }); };
+      u.onerror = () => { clearTimeout(guard); done(null); };
+      try { speechSynthesis.speak(u); } catch (e) { clearTimeout(guard); done(null); }
+    });
+  }
+  async function run(cond) {
+    UI.stop(); const me = ++session; S.playing = true; S.cond = cond; S.rep = -1; S.late = []; S.after = null; paint();
+    await clunk(); UI.announce();
+    if (!voiceOk()) await new Promise((r) => setTimeout(r, 400));
+    if (!voiceOk()) { S.noVoice = true; S.playing = false; paint(); return; }
+    S.phase = 'sentence'; paint();
+    const first = await speak(SG.SENTENCE); if (me !== session) return;
+    if (!first) { S.noVoice = true; S.playing = false; paint(); return; }
+    await new Promise((r) => (timers.push(setTimeout(r, 900)))); if (me !== session) return;
+    S.phase = 'loop';
+    // the first repetition sets the grid
+    S.rep = 0; paint();
+    const one = await speak(SG.words(cond, 0), SG.PITCH[cond][0]); if (me !== session || !one) return;
+    S.durMs = one.t1 - one.t0; const grid = SG.onsets(S.durMs, S.gap), base = one.t0; S.late = [0];
+    for (let k = 1; k < SG.REPS; k++) {
+      timers.push(setTimeout(() => { if (me !== session) return; S.rep = k; paint(); const u = speak(SG.words(cond, k), SG.PITCH[cond][k]); u.then((v) => { if (v && me === session) S.late[k] = v.t0 - (base + grid[k]); meter(); }); }, Math.max(0, base + grid[k] - performance.now())));
+    }
+    timers.push(setTimeout(async () => {
+      if (me !== session) return; S.phase = 'sentence2'; paint();
+      await speak(SG.SENTENCE); if (me !== session) return;
+      S.playing = false; S.phase = 'after'; paint();
+    }, Math.max(0, base + grid[SG.REPS - 1] + S.durMs + 1200 - performance.now())));
+  }
+  $('start').onclick = () => (S.playing ? UI.stop() : run(S.step === 4 ? S.cond : 'exact'));
+  document.querySelectorAll('[data-r]').forEach((b) => (b.onclick = () => { if (S.rep < 0) return; store()[S.cond][S.rep] = +b.dataset.r; paint(); }));
+  document.querySelectorAll('[data-q]').forEach((b) => (b.onclick = () => { S.after = b.dataset.q; paint(); }));
+  $('seeIt').onclick = () => { S.seen = 'self'; paint(); };
+  $('showMe').onclick = () => { S.seen = 'shown'; S.moo = 'gray'; paint(); setTimeout(() => { S.moo = 'blots'; paint(); }, 2600); };
+  function seg(id, cb) { document.querySelectorAll(`#${id} button`).forEach((b) => (b.onclick = () => { document.querySelectorAll(`#${id} button`).forEach((x) => x.setAttribute('aria-pressed', x === b)); cb(b.dataset.v); })); }
+  seg('segMoo', (v) => { S.moo = v; if (v === 'gray') S.seen = S.seen || 'shown'; });
+  seg('segCond', (v) => { UI.stop(); S.letter = v; S.cond = condOf(v); paint(); });
+  $('gap').oninput = () => { S.gap = +$('gap').value; $('gapV').textContent = S.gap + ' ms'; };
+  $('rate').oninput = () => { S.rate = +$('rate').value; $('rateV').textContent = '×' + S.rate.toFixed(2); };
+  $('thr').oninput = () => { S.thr = +$('thr').value; $('thrV').textContent = S.thr.toFixed(2); meter(); };
+  $('gapV').textContent = '600 ms'; $('rateV').textContent = '×0.90'; $('thrV').textContent = '0.50';
+
+  function paint() {
+    const k = STEPS[S.step].key;
+    $('start').textContent = S.playing ? 'Stop' : k === 'break' ? `Play loop ${S.letter}` : S.marks.exact.some((x) => x != null) ? 'Play the tape again' : 'Start: play the tape';
+    $('repLbl').textContent = S.phase === 'loop' && S.rep >= 0 ? `repetition ${S.rep + 1} of ${SG.REPS} sounds` : 'each time round, it sounds';
+    document.querySelectorAll('[data-r]').forEach((b) => { b.disabled = !(S.phase === 'loop' && S.rep >= 0); b.classList.toggle('picked', S.rep >= 0 && store()[S.cond][S.rep] === +b.dataset.r); });
+    $('afterRow').hidden = !(S.phase === 'after' || S.after) || k !== 'loop';
+    document.querySelectorAll('[data-q]').forEach((b) => b.classList.toggle('picked', S.after === b.dataset.q));
+    let n = '';
+    if (S.noVoice) n = 'This browser has no speech voice to give, so the tape can’t play here. The picture still works, and the steps explain what the loop would do.';
+    else if (k === 'loop' && S.phase === 'after' || (k === 'loop' && S.after)) {
+      const c = SG.climb(S.marks.exact);
+      n = c == null ? 'Mark a few repetitions, early and late, and the chart shows whether they climbed.' : c >= 1 ? `<span style="color:var(--red)">Your marks climbed ${c.toFixed(1)} points</span> from the first repetitions to the last: the same words, the same sound, heard more as song as they came round.` : `Your marks moved ${c.toFixed(1)} points: for you, on this voice, the loop stayed mostly speech.`;
+      if (S.after === 'sang') n += ' And it sang inside the sentence: the line moved and stayed moved.';
+    }
+    if (k === 'break') {
+      if (!unveiled()) n = `<span class="hint">${['A', 'B', 'C'].map((L) => `loop ${L}: ${S.bm[condOf(L)].filter((x) => x != null).length} of 10 marked`).join(' · ')}</span>`;
+      else { const cl = (c) => SG.climb(S.bm[c]), f = (x) => (x == null ? '—' : (x >= 0 ? '+' : '') + x.toFixed(1));
+        n = `The three ways: ${['A', 'B', 'C'].map((L) => `loop ${L} was <b>${condOf(L)}</b> (climb ${f(cl(condOf(L)))})`).join(', ')}. Exact repeats the phrase as it is; transposed moves the voice’s pitch each time; jumbled says the four words in a new order each time. Deutsch and colleagues reported, from memory and not re-checked here, that the song did not come when the repetitions were transposed or the syllables jumbled. The page says repetition moves the line; if the transposed or jumbled loop climbed as far as the exact one for you, something besides exact repetition did it. The browser’s pitch setting moves its whole voice by an amount the browser decides, so the transposition is a direction, not a measured interval.`; }
+    }
+    if (k === 'loop' && S.seen) n += S.seen === 'self' ? ' You found the dog yourself. Try now to see only blots.' : ' That was a dog. Look at the blots again: it is still there.';
+    $('note').innerHTML = n;
+    meter();
+  }
+  function meter() {
+    const k = STEPS[S.step].key; let h = '';
+    if (k === 'time' || k === 'loop' || k === 'break') {
+      const late = S.late.filter((x) => x != null).slice(1);
+      h = S.durMs ? `the phrase took <b>${S.durMs.toFixed(0)} ms</b> · grid step <b>${(S.durMs + S.gap).toFixed(0)} ms</b> · repetitions started late by ${late.length ? late.map((x) => `<b>${x.toFixed(0)}</b>`).join(' · ') + ' ms' : '—'}` : 'play the tape and the meter fills with what the browser actually did';
+    } else if (k === 'dog') { const m = SG.measure(MOO, S.thr); h = `black: <b>${(100 * m.black).toFixed(0)}%</b> of the print · the dog’s own outline that falls on a black–white edge: <b>${(100 * m.outlineKept).toFixed(0)}%</b>`; }
+    $('meter').innerHTML = h;
+  }
+  function show(i, s) {
+    S.step = i; const k = s.key;
+    $('sEye').textContent = `Step ${i + 1} of ${STEPS.length}`; $('sTitle').textContent = s.title; $('sSay').textContent = s.say;
+    $('lead').textContent = 'A sentence, then a piece of it, round and round.';
+    $('playRow').hidden = k === 'dog' || k === 'why'; $('dogRow').hidden = k !== 'loop';
+    $('timeCtl').hidden = k !== 'time'; $('mooCtl').hidden = k !== 'dog'; $('breakCtl').hidden = k !== 'break';
+    $('chart').hidden = !(k === 'loop' || k === 'break' || k === 'time');
+    S.cond = k === 'break' ? condOf(S.letter) : 'exact';
+    if (k !== 'dog') { S.moo = 'blots'; document.querySelectorAll('#segMoo button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.v === 'blots')); }
+    $('eq1').textContent = (s.eq || ['', ''])[0]; $('eq1w').textContent = (s.eq || ['', ''])[1];
+    paint();
+  }
+
+  // ── drawing ──
+  const INK = '#141414', PAPER = '#f4f2ec', RED = '#d1301c', RULE = '#c9c6bd', INK3 = '#7a7a7a';
+  const img = document.createElement('canvas'); img.width = SG.W; img.height = SG.H; const ig = img.getContext('2d'); let printed = null;
+  function print() {
+    const key = S.moo + S.thr; if (printed === key) return; printed = key;
+    const d = ig.createImageData(SG.W, SG.H);
+    for (let i = 0; i < SG.W * SG.H; i++) { const v = S.moo === 'gray' ? Math.max(0, Math.min(1, MOO.gray[i])) : MOO.gray[i] >= S.thr ? 1 : 0; const c = S.moo === 'gray' ? Math.round(30 + v * 214) : v ? 244 : 20; d.data[i * 4] = c; d.data[i * 4 + 1] = c - (v && S.moo !== 'gray' ? 2 : 0); d.data[i * 4 + 2] = c - (v && S.moo !== 'gray' ? 8 : 0); d.data[i * 4 + 3] = 255; }
+    ig.putImageData(d, 0, 0);
+  }
+  let spin = 0, lastT = 0;
+  function tape(g, x, y, w, h, now) {
+    if (S.playing && !UI.reduced()) spin += (now - lastT) * 0.004; lastT = now;
+    const r = Math.min(46, h * 0.2), a = { x: x + w * 0.27, y: y + h * 0.38 }, b = { x: x + w * 0.73, y: y + h * 0.38 };
+    for (const c of [a, b]) {
+      g.strokeStyle = INK; g.lineWidth = 1.5; g.beginPath(); g.arc(c.x, c.y, r, 0, 2 * Math.PI); g.stroke();
+      for (let k = 0; k < 4; k++) { g.lineWidth = 1; g.beginPath(); g.arc(c.x, c.y, r * (0.35 + k * 0.15), 0, 2 * Math.PI); g.strokeStyle = 'rgba(20,20,20,0.35)'; g.stroke(); }
+      for (let k = 0; k < 3; k++) { const t = spin + k * 2.094; g.strokeStyle = INK; g.lineWidth = 2; g.beginPath(); g.moveTo(c.x + Math.cos(t) * r * 0.12, c.y + Math.sin(t) * r * 0.12); g.lineTo(c.x + Math.cos(t) * r * 0.3, c.y + Math.sin(t) * r * 0.3); g.stroke(); }
+    }
+    // the band of tape, round both reels and down past the head
+    const hy = y + h * 0.82;
+    g.strokeStyle = INK; g.lineWidth = 1.2; g.beginPath(); g.moveTo(a.x - r, a.y); g.lineTo(x + w * 0.2, hy); g.lineTo(x + w * 0.8, hy); g.lineTo(b.x + r, b.y); g.stroke();
+    g.beginPath(); g.moveTo(a.x, a.y - r); g.lineTo(b.x, b.y - r); g.stroke();
+    g.fillStyle = INK; g.fillRect(x + w * 0.46, hy, w * 0.08, 10);
+    // the counter: one notch per repetition heard
+    for (let k = 0; k < SG.REPS; k++) { const cx = x + w * 0.2 + (k + 0.5) * (w * 0.6 / SG.REPS); const m = store()[S.cond][k]; g.strokeStyle = k <= S.rep && S.phase === 'loop' || (S.phase !== 'loop' && m != null) ? INK : RULE; g.lineWidth = 1.5; g.beginPath(); g.moveTo(cx, hy + 18); g.lineTo(cx, hy + 26); g.stroke(); if (m != null) { g.fillStyle = RED; g.beginPath(); g.arc(cx, hy + 26 - m * 0, 2.5 + m * 0.6, 0, 2 * Math.PI); g.fill(); } }
+    g.font = 'italic 17px "Cormorant Garamond", serif'; g.textAlign = 'center'; g.fillStyle = INK;
+    const what = S.phase === 'sentence' || S.phase === 'sentence2' ? 'the whole sentence' : S.phase === 'loop' ? `“${SG.words(S.cond, Math.max(0, S.rep))}”` : '';
+    g.fillText(what, x + w / 2, y + 18);
+  }
+  function stage(g, w, h, now) {
+    g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    const k = STEPS[S.step].key, withDog = k === 'loop' || k === 'dog';
+    if (k === 'dog') { dogDraw(g, 0, 0, w, h); return; }
+    tape(g, 0, 0, withDog ? w * 0.58 : w, h, now);
+    if (withDog) dogDraw(g, w * 0.6, 10, w * 0.4 - 6, h - 20);
+  }
+  function dogDraw(g, x, y, w, h) {
+    print(); const s = Math.min(w / SG.W, h / SG.H), dw = SG.W * s, dh = SG.H * s, ox = x + (w - dw) / 2, oy = y + (h - dh) / 2;
+    g.imageSmoothingEnabled = S.moo === 'gray'; g.drawImage(img, ox, oy, dw, dh); g.strokeStyle = INK; g.lineWidth = 1; g.strokeRect(ox, oy, dw, dh);
+    if (S.moo === 'gray') { // what your eye now supplies: the outline, in red
+      g.strokeStyle = RED; g.lineWidth = 1.2; g.beginPath();
+      for (let yy = 1; yy < SG.H - 1; yy++) for (let xx = 1; xx < SG.W - 1; xx++) { const i = yy * SG.W + xx; if (MOO.mask[i] && (!MOO.mask[i + 1] || !MOO.mask[i - 1] || !MOO.mask[i + SG.W] || !MOO.mask[i - SG.W])) g.rect(ox + xx * s, oy + yy * s, s * 0.8, s * 0.8); }
+      g.stroke();
+    }
+  }
+  function chart(g, w, h) {
+    g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    const x0 = 70, ww = w - 90, top = 14, bot = h - 28, X = (k) => x0 + (k + 0.5) * ww / SG.REPS, Y = (m) => bot - (m - 1) / 4 * (bot - top);
+    g.strokeStyle = RULE; g.lineWidth = 1; for (let m = 1; m <= 5; m++) { g.beginPath(); g.moveTo(x0, Y(m)); g.lineTo(x0 + ww, Y(m)); g.stroke(); }
+    g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'right'; g.fillText('sung', x0 - 8, Y(5) + 3); g.fillText('spoken', x0 - 8, Y(1) + 3);
+    g.textAlign = 'center'; for (let k = 0; k < SG.REPS; k++) g.fillText(String(k + 1), X(k), h - 10);
+    const brk = STEPS[S.step].key === 'break', conds = brk ? ['A', 'B', 'C'].map(condOf) : ['exact'], open = unveiled();
+    conds.forEach((c, ci) => {
+      const v = brk ? S.bm[c] : S.marks[c]; g.strokeStyle = ci === 0 ? RED : `rgba(209,48,28,${ci === 1 ? 0.55 : 0.3})`; g.setLineDash(ci === 0 ? [] : ci === 1 ? [5, 3] : [2, 3]); g.lineWidth = 1.6; g.beginPath(); let on = false;
+      v.forEach((m, k) => { if (m == null) { on = false; return; } on ? g.lineTo(X(k), Y(m)) : g.moveTo(X(k), Y(m)); on = true; }); g.stroke(); g.setLineDash([]);
+      v.forEach((m, k) => { if (m != null) { g.fillStyle = RED; g.beginPath(); g.arc(X(k), Y(m), 3, 0, 2 * Math.PI); g.fill(); } });
+      if (conds.length > 1) { const cl = SG.climb(v); g.fillStyle = RED; g.textAlign = 'left'; g.fillText(`${open ? c : 'loop ' + 'ABC'[ci]}${cl != null ? ' · climb ' + (cl >= 0 ? '+' : '') + cl.toFixed(1) : ''}`, x0 + 6 + ci * 150, top - 2); }
+    });
+  }
+  function draw(ts) {
+    requestAnimationFrame(draw); UI.frameTick(ts);
+    const st = UI.fit($('stage')); stage(st.g, st.w, st.h, performance.now());
+    if (!$('chart').hidden) { const c = UI.fit($('chart')); chart(c.g, c.w, c.h); }
+  }
+  const W = UI.walk(STEPS, show);
+  UI.sigil(); W.go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

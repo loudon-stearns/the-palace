@@ -1,0 +1,737 @@
+{
+ "title": "Auditory Illusions — rich",
+ "born": "2026-11-08",
+ "links": [
+  {
+   "target": "[[Auditory Illusions]]",
+   "type": "connects-to",
+   "label": "rich-face-of"
+  },
+  {
+   "target": "[[Enrichment]]",
+   "type": "connects-to",
+   "label": "made-by"
+  },
+  {
+   "target": "[[Playful Interface Design]]",
+   "type": "exemplifies",
+   "label": "illusion-first"
+  }
+ ],
+ "forward_vector": "I am the manifest of Auditory Illusions' rich face, its first round: every illusion on the page playable beside the sentence that explains it and a drawing of its twin in the eye, each opening as play before it explains, made by eight makers and read by eight challengers in one day, and offered whole as a proposal for Loudon to review by ear. I never hold the entry's words.",
+ "entry": "Auditory Illusions",
+ "tier": "study",
+ "made": "2026-11-08",
+ "round": 1,
+ "dress": "Riley op-art on paper, the page's own hero idiom: which look is best for this exact context (Loudon, 2026-11-08). One red, meaning stated per piece.",
+ "sections": [
+  {
+   "heading": "In the air — the baseline",
+   "made_against": "ee42dd978d7a",
+   "made": "2026-11-08",
+   "stamped": "2026-11-08",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-08",
+    "by": "maker · claude-opus-5-5 · single-page run with the round's three changes (in-the-air)",
+    "round": "auditory-illusions-2026-11-08"
+   },
+   "pieces": [
+    {
+     "file": "Auditory Illusions — rich — beats and moiré.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "Watered silk: beats and moiré",
+     "caption": "A peg and a piece of moiré cloth: press Play and one note seems to breathe while the cloth's bands pass in step. Then, a step at a time: a scope measured from the output shows the swell is really in the waveform; the identity that makes it; ink on ink against light on light, mixed and squinted in linear light (the ink band survives the squint, the added-light band and the sound's are outlines only, until something nonlinear reads them: the eye, the hair cell); two Kuramoto-coupled oscillators you can pull until they lock; the ear's filter at 440 Hz; and last a sweep with the numbers hidden and the scale stretched at random, where you mark when the swell turns rough and when you hear two notes. Measured in Node: the outline's rate equals the difference to 0.034% from 0.5 to 150 Hz; the sum's square holds 3 Hz at exactly a² and a half-wave-rectified copy at −9.6 dB, while the sum itself holds nothing there (the arithmetic's floor); the coupled pair matches two directly integrated oscillators to 1.6e-8. Whether it sounds like one note, where it turns rough, where it splits: only an ear can say, and nobody has listened yet. Speakers or headphones; small speakers can add roughness of their own.",
+     "near": "Play 440 Hz and 443 Hz together",
+     "place": "band",
+     "height": 1500,
+     "remade": "2026-11-08, after the challenge: light on light is mixed and squinted in linear light in the canvas (rendered band contrast, 16 px means of linear luminance: ink 0.738 → 0.608 at a 12 px squint; light 0.006 → 0.001), replacing an sRGB mix (0.27 on screen) and a CSS blur; step 4 adds the eye's compressive response bringing a faint band back (L^0.4: 0.156), as the hair cell does for the beat; −174 dB named the arithmetic's floor and a squared-sum check added (3 Hz at a² = 0.0400); step 5 says the outline's height, not loudness, and names the K/2 coupling form; the test's 'says nothing' became 'says little' (the shuffle stretches the scale about 30% either way)."
+    }
+   ],
+   "challenge": {
+    "date": "2026-11-08",
+    "by": "challenger · Claude Opus 5.5",
+    "verdicts": [
+     {
+      "file": "Auditory Illusions — rich — beats and moiré.html",
+      "verdict": "keep",
+      "why": "Remade in linear light; the twin step now matches what the screen does, and the smaller fixes landed.",
+      "first": {
+       "verdict": "remake",
+       "why": "Play-first and physically right everywhere I recomputed, but step 4's twin is shown on a confound: the light-on-light cloth is mixed in sRGB values, so the screen emits a real band (luminance contrast 0.27 in my headless capture, against 0.76 for ink) that a reader's own squint or a step back keeps, while the squint slider, a CSS blur that Chrome runs on encoded values, erases it (0.003). So 'the squint wipes them out' holds for the slider and fails for the eye. One round: mix light on light in linear light (encode (lin(ta)+lin(tb))/2), do the squint as a linear-light blur in the canvas instead of CSS filter, and add one sentence that the eye's compressive response brings a faint band back to added light, as the hair cell does for the beat (L^0.4 gives a band 0.16 of the mean). Smaller fixes in the same round: call −174 dB the arithmetic's floor (the sum of two sines has no 3 Hz by construction; a null that cannot fail, tuning 12c); the test's 'where your hand is says nothing' overclaims, because the shuffle only stretches the log scale by 0.75 to 1.33, so the hand predicts the hertz to about ±30% ('says little'); and step 5's 'loudness = 2a·R' should read 'the outline's height', since loudness is the ear's word."
+      },
+      "second": "Keep: my recapture reads light on light at luminance contrast 0.007 unblurred and 0.003 at a 12 px squint (ink 0.730 to 0.582), so the slider and the light now agree, and step 4 says the slider wipes the band while the reader's own squint may bring a faint one back through the eye's compressive response, which is true. Also fixed: −174 dB named the floor with an a² = 0.0400 check, the outline's height, the K/2 form, and 'says little'. 32 PASS, conform clean, console empty, no AudioContext before a click."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "In the cochlea — the ear is not a microphone",
+   "made_against": "254767cf90bf",
+   "made": "2026-11-08",
+   "stamped": "2026-11-08",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-08",
+    "by": "maker · claude-opus-5-5 · single-page run with the round's three changes (in-the-cochlea)",
+    "round": "auditory-illusions-2026-11-08"
+   },
+   "pieces": [
+    {
+     "file": "Auditory Illusions — rich — the ghost tone.html",
+     "origin": "made",
+     "by": "Web Audio · claude-opus-5-5",
+     "title": "The ghost tone · catch a tone that isn't in the signal",
+     "caption": "**Catch a tone that isn't there.** A ghost hunt in five steps. Two tones, 1000 and 1200 Hz; then a probe tone you drag along an op-art field until it stops throbbing, and you mark where it goes still, the way combination tones have been hunted since Tartini. The lines bend only where a tone is really in the air and pulse only where two real tones beat, so a throb the picture never draws is your ear's. Then the signal as sent, read live by an analyser: two peaks and the probe, nothing at 800 or 200 Hz down to the meter's −90 dB floor, your marks in red. Then the ghost runs backwards as the upper tone moves (2f₁ − f₂), with a hidden-spacing round you can fail: a mark within 5 Hz is caught, which a blind guess does 4.4% of the time. Last, two accounts of the ear's ghost set side by side before you listen: the page's (an amplifier pushed hard, so it fades faster than the tones as you turn down) and Goldstein's (it keeps its distance). You record 'there' or 'gone' at each level, on headphones; a soft clipper puts a pushed-hard ghost in the signal for comparison. Which account your ear follows is open. Measured in Node: the sent signal has nothing at either ghost (double-precision zero); through a roex filter and a compressive envelope the dry tones and probe throb at 5 Hz only at −43.1 dB, against −19.5 dB with a real 800 Hz at −20 dB; the clipper's 800 Hz sits 18.3 dB under the tones at full level and falls 1.7–2.0 dB further per dB turned down; the browser's analyser read −19 and −36 dB, which agrees. Whether you hear the ghost, and where the probe goes still, only an ear can judge. Speakers or headphones; volume firm, never painful. Small speakers that distort make a ghost of their own, so step 5 asks for headphones. At 1000 and 1200 Hz the ghost also completes a 4:5:6 chord, which the piece names; the hidden round moves off it.",
+     "near": "Tartini heard them on the violin",
+     "place": "band",
+     "height": 1400,
+     "remade": "2026-11-08, after the challenge: step 5 now states both predictions (the page's pushed-hard fade and Goldstein's constant relative level), calls the offer open, asks for headphones, and lets a 'gone' record stand as a result; marks are keyed to the hidden round, so an earlier mark at the same f₂ can't be scored; step 3 names the 4:5:6 chord confound; the check's null now runs through a roex filter and a compressive envelope (dry −43.1 dB vs −19.5 dB with a real ghost)."
+    },
+    {
+     "file": "Auditory Illusions — rich — the hiding place.html",
+     "origin": "made",
+     "by": "Web Audio · claude-opus-5-5",
+     "title": "The hiding place · hide-and-seek with a cricket and a loud tone",
+     "caption": "**Paint where your ear hides a sound.** Hide-and-seek in four steps. A loud 1 kHz tone sits still while a quiet cricket chirps and hops past it, always 30 dB under it; you hold a red button whenever you can see it chirping and can't hear it, and your ear paints the hiding place. Beside it, the eye's twin: one grey square on paper and on ink, to drag or join, graded shape, not mechanism, as the page grades it. Then the filter bank (ERB widths, roex shapes) with your red beside the model's box; then the loud one turned up and down, tone or noise band, each run kept as a row and read after a full up-and-back pass (about 38 s) so hand lag cancels, against the lab claim that the hiding place grows with level and leans upward (the piece's symmetric model leans one sixth-octave at most, so a stronger lean is your ear's); last, the MP3's bet as a blind trial over a band of noise one filter wide (not the page's tone, because a tone and a cricket just above it beat at 59.5 Hz, a cue the piece names): sixteen trials, eight close (1059 Hz) and eight far (2828 Hz), a coin per trial for whether the cricket chirps, chance 4 of 8 in each place and 7 or more counted as heard, stated before the first trial, both places scored. Measured in Node: ERB at 1 kHz 132.6 Hz; the model hides 794–1260 Hz at the starting level; a trial with and without the cricket differs by 0.0077 dB; the noise band is one ERB wide and stays under the compressor. What you hear, and where your red falls, only an ear can judge. Speakers or headphones that carry 3 kHz.",
+     "near": "A loud tone hides a quiet one close to it in frequency",
+     "place": "band",
+     "height": 1400
+    },
+    {
+     "file": "Cross-Domain Resonances/Sidechain ↔ Conversation/Sidechain ↔ Conversation — rich — under the kick.html",
+     "origin": "gathered",
+     "title": "Under the kick · masking in a mix, from Sidechain ↔ Conversation",
+     "caption": "**Masking where producers meet it.** From [[Sidechain ↔ Conversation]]'s rich face: a bass note under a kick in the same 60–120 Hz band (about one critical band; nearer 1.75 ERB), walked up in five steps to eight blind trials naming the note, chance 4 of 8. It tests masking within about one critical band, in a mix; the hiding place above tests it across the bands. At proposal status there, not yet approved by Loudon; its challenger asked for a remake of how a chance score is worded, and the piece now says a chance score is what the page predicts, not proof the note was gone: remade, not yet re-judged. Needs headphones or speakers that reach 60 Hz.",
+     "near": "The MP3 is built on this",
+     "height": 1290
+    }
+   ],
+   "challenge": {
+    "date": "2026-11-08",
+    "by": "challenger · claude-opus-5-5",
+    "verdicts": [
+     {
+      "file": "Auditory Illusions — rich — the ghost tone.html",
+      "verdict": "keep",
+      "why": "The hunt is good play and the hidden-spacing round is a real test that can fail: a fixed guess is caught at most 11/251 = 4.4%, and a mark dropped anywhere on the 150–990 Hz strip only 1.25%. Two fixes. (1) Step 5 states Goldstein's rule as settled ('the ear's ghost keeps about the same distance') and never says the page says 'pushed hard'. Then it explains away the one result that would favour the page: 'if it vanishes with the clipper off… suspect your speakers'. So the ear arm can only confirm the offer. Rewrite it to give both predictions first: the page's 'pushed hard' says the ear's ghost fades like the clipper's; Goldstein's abstract says it holds its distance. Say this is an open offer against the page, ask for headphones for the clipper-off runs, and let a 'gone' record stand as a result, with speakers named only as a caveat. (2) Marks are keyed by f₂, not by round. If the hidden f₂ lands on a 10 Hz slider value the reader already marked at (26 of 251 draws), the old marks show bright red and count in 'marks this round'. Reveal can then score an old mark made with the spacing shown. Tag each mark with a round id, or clear it on hide.",
+      "first": "remake",
+      "second": "Read as it stands: marks now carry a round id (scored, counted and drawn bright only for m.round === S.round), so a hidden f₂ on a 10 Hz value no longer brings back old marks; step 5 gives both accounts, calls the offer open, asks for headphones, and says a 'gone' counts for the page's account, so the ear arm can come out against the offer; step 3 names the 4:5:6 chord. Note: a few hidden draws still land near simple ratios (f₂ 1250, 1333), so 'moves the pair off such ratios' is mostly true, not always."
+     },
+     {
+      "file": "Auditory Illusions — rich — the hiding place.html",
+      "verdict": "keep",
+      "why": "The best opening in the section. The eye watches the cricket chirp the whole time while the ear loses it, and the reader paints the hiding place in red. The twin is kept at 'shape, not mechanism' in its own words. The blind bet scores both places, states chance (4 of 8) and its rule (7 or more) first, and any answer strategy that ignores the sound hits 7+ in 9/256 of runs. Notes, not remakes: the bet uses a tone masker, though step 3 itself says beats can give a cricket away. Close in, the cricket makes 59.5 Hz fluctuation of depth 0.032 (−30 dB), around the AM detection threshold, so offer the noise band for the bet or name the cue. Tell the reader that a lean run should cover a full up-and-back pass (38 s), so reaction lag cancels before red is read as an upward lean."
+     },
+     {
+      "file": "Cross-Domain Resonances/Sidechain ↔ Conversation/Sidechain ↔ Conversation — rich — under the kick.html",
+      "verdict": "keep",
+      "why": "The caption is honest about where the piece stands. Its section is at status proposal in Sidechain ↔ Conversation — rich.json. Its challenger's verdict there was remake on how a chance score is worded, and line 359 now says 'That is what the page predicts, though it doesn't prove the note was gone.' Two small notes. The manifest holds no second verdict on the remake, so 'remade, not yet re-judged' would be exact. 60–120 Hz is about 1.75 ERB (roughly two Barks), so 'inside one critical band' should read 'about one critical band' or 'one low band'. The near phrase 'The MP3 is built on this' is verbatim."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Between the two ears — timing to tens of microseconds",
+   "made_against": "717c57b7329f",
+   "made": "2026-11-08",
+   "stamped": "2026-11-08",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-08",
+    "by": "maker · claude-opus-5-5 · single-page run with the round's three changes (between-the-ears)",
+    "round": "auditory-illusions-2026-11-08"
+   },
+   "pieces": [
+    {
+     "file": "Auditory Illusions — rich — binaural beats.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "Two earpieces",
+     "caption": "Headphones. A listening head seen from above: put the earpieces on (440 Hz left, 443 Hz right), lift one, and the wobble in the middle of the head should go. Then the Pulfrich pendulum, drawn to scale because a screen can't dim one eye (hold a sunglass lens over one eye and watch the swinging bob); each ear alone; the interaural phase the brainstem compares, live; the beat in the air beside the beat between the ears; and the break: raise the carrier until the beat is gone, then check it blind (8 trials, beat or one tone, Δf held to 5 Hz or less and the carrier roved ±50 cents per trial so pitch can't tell the arms apart; chance 4 of 8, 7+ counts, both arms scored). Measured by its check, from the piece's own graph rendered offline: 440.000 and 443.000 Hz, difference 3.000 Hz; each ear's envelope flat within 1%; in the air the envelope swings 94% at 3.01 Hz, same RMS; the trial's arms differ by at most 21.5 cents in one ear at the lowest carrier, inside the rove; the Pulfrich dot sits where the drawn sight lines cross (63.0 cm). Whether you hear the beat, and where it stops for you, only an ear can say.",
+     "near": "you hear a beat at 3 Hz that exists in neither ear",
+     "place": "band",
+     "height": 1300,
+     "remade": "2026-11-08, after the challenge: the blind trial's Δf capped at 5 Hz and its carrier roved ±50 cents per trial, so a pitch difference can't pass for a beat; the Pulfrich geometry fixed (the dimmed left eye now sees the bob late, and the red dot sits where the drawn lines cross, behind the path)."
+    },
+    {
+     "file": "Auditory Illusions — rich — Huggins pitch.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "One ear, both ears",
+     "caption": "Headphones. Hiss in one ear and random dots for one eye; press both ears and a tune should appear, both eyes and a shape floats up (free-fuse or red/cyan; the stereogram is made live). Then what each ear gets, how the brain subtracts (play left minus right and hear the tune in the sound itself; subtract the images and see the shape), and the break: fold to mono, widen the band, and a blind up/down trial with a one-ear leak arm and a mono arm. Method: a second-order all-pass (Cramer and Huggins's), gated between notes. Measured by its check: interaural phase −177° at f0 (model −180°), within 6° of 0 outside the band; band 414–468 Hz at Q 8; each ear's spectrum the same within 0.06 dB; the mono fold notches f0 by 19 dB. Retuning a sounding filter put +24.9 dB at the new note into one ear alone, so the piece gates the twist; the gate leaves a smaller cue the other way, a dip at the note halfway through each 25 ms crossfade (10 dB or more at f0 for about 8 ms; −1.4 dB over 10 ms by the check, −3.0 dB by the challenger), and no 60 ms window now differs by more than +1.6 or −4.4 dB. The one-ear arm is there to catch either. Whether a tune is heard, only an ear can say.",
+     "near": "made only out of the difference between two ears",
+     "place": "band",
+     "height": 1400
+    },
+    {
+     "file": "Auditory Illusions — rich — precedence effect.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "Point to the clap",
+     "caption": "Headphones (the default) or two speakers. A clap from both speakers, one 3 ms late, a coin deciding which; you point where you heard it, and each point is recorded as toward the first, the middle, or the late one; then tap a speaker to silence it. On headphones the two speakers are simulated: each reaches both ears, the far ear 0.26 ms later and 6 dB down, so the late speaker's copy arrives in both ears as from real speakers (no room). Then the two arrivals in milliseconds (0–40 ms, click, clap or a synthetic “ta”), and the break: a sweep that finds your echo threshold, a louder late speaker (to +12 dB), and a blind trial that answers one sound at the left, one at the right, or two sounds (picking a side by guessing gets 7+ of 8 3.5% of the time; the late side 7+ times, or two sounds below your marked threshold, counts against the page). Stereo on purpose: the Echo Walk sketch is mono. Measured by its check: every delay exact to the sample, both routes; on headphones each ear gets both speakers at the right times and levels (3 ms: left ear 0 and 3.25 ms ×0.5, right ear 0.25 ms ×0.5 and 3 ms); the limiter never reached (−1.98 dBFS at the worst, threshold −1). Where the sound sits, and your threshold, only an ear can say.",
+     "near": "is heard only from the first",
+     "place": "band",
+     "height": 1300,
+     "remade": "2026-11-08, after the challenge: on headphones the two speakers are now simulated (each reaches both ears, far ear 0.26 ms later and 6 dB down), not one copy per ear; the blind trial gained a 'two sounds' answer scored against the page below the reader's own echo threshold; pointing at the late speaker or the middle is recorded as a result, not blamed on the wiring."
+    },
+    {
+     "file": "Auditory Illusions — rich — Franssen effect.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "Silence the bell",
+     "caption": "Headphones or two speakers. A bell rings; tap the speaker it is ringing from to silence it, and it should go on ringing, because that speaker went quiet 55 ms after it began. Then the two speakers' levels in time; on headphones a virtual live room made here, mirrored, and rescaled at the bell's frequency so that once the bell has settled both ears get it at the same level (the onset still favours the start side, 7.2 dB in its first 3 ms). The break: 12 blind trials, 8 bells that move and 4 that stay, in an arm you choose (room or dry, tone or noise, fast or slow crossfade); 7+ of 8 at the start speaker means it held, 7+ at the end speaker means it failed. What Hartmann and Rakerd (1989) and Yost and colleagues (1997) found the trick needs is shown only after you answer (abstracts only). Measured by its check: the first speaker 42.6 dB down at 5τ and silent after; the settled bell's level gap between the ears within 0.15 dB at 300, 750, 1500 and 3000 Hz from either side (this room unequalised: +11.6 to −26.1 dB); the room exactly mirrored. Whether you hear it held, only an ear can say; the dry arm may well break it.",
+     "near": "Location is decided at the onset and then held.",
+     "place": "band",
+     "height": 1300,
+     "remade": "2026-11-08, after the challenge: the room mirrored and, for a tone, its far-ear room part rescaled at the tone so the settled bell has no level gap (it had run −11.6 to +26.1 dB by tone and side, and at 300 Hz favoured the start ear); the literature moved to after the trial; the default tone moved to 1500 Hz; the caption's ear corrected (the number it described is gone)."
+    }
+   ],
+   "challenge": {
+    "date": "2026-11-08",
+    "by": "challenger · Claude Opus 5.5",
+    "verdicts": [
+     {
+      "file": "Auditory Illusions — rich — binaural beats.html",
+      "verdict": "keep",
+      "why": "Two fixes. (1) The blind trial is matched in level (0.000 dB) and duration (3 s each, the same 80 ms ramps), but Δf can go to 40 Hz. There the two arms differ by 77 cents in one ear alone at 440 Hz, and by 46 cents between the ears at 1500 Hz, so a 7+ above 1500 Hz is not evidence of a beat, yet the verdict tells the reader it is and calls it 'worth an offer'. The rule's 'with one earpiece off you should score at chance' holds only for small Δf. Fix: hold the trial's Δf at 5 Hz or less, where the one-ear step is at most 3.9 cents at 672 Hz and less higher up, or rove the carrier per trial; then reword the one-earpiece line. (2) The Pulfrich drawing gets the direction wrong: seen() delays the right eye while the drawing dims the left one and its sight lines delay the left. With 10 ms delay and the bob at centre moving right, the red dot sits at 57.2 cm (in front) while the drawn lines cross at 63.1 cm (behind). Swap xl and xr in seen(). The opening (a head whose earpieces come off, with red only while both are on) is good play, and the test was right to show the page's 1500 Hz line only after the reader marks.",
+      "second": "Remade as asked: the trial's Δf now runs 0.5–5 Hz and the carrier roves ±50 cents per play, so pitch can no longer tell the arms apart, and seen() now delays the dimmed left eye; my own ray intersection and the piece both put the dot at 63.05 cm, behind the 60 cm path, where the drawn sight lines cross."
+     },
+     {
+      "file": "Auditory Illusions — rich — Huggins pitch.html",
+      "verdict": "keep",
+      "why": "The section's strongest piece: hiss in one ear, then both ears and a tune, beside a live random-dot stereogram (disparity sign and anaglyph channels check out); a subtraction you can hear; and a blind trial with a one-ear arm and a mono arm, chance stated, both directions scored. Note for the next round: the gate swaps the +24.9 dB ring for a dip. Crossfading plain noise against its all-passed copy cancels at f0 halfway through the fade: 10 dB or more down for 7.9 ms at f0, and −3.0 dB in 470–520 Hz over 10 ms (mean of 40 noises). The maker's own check logged −4.4 dB in the fade-in window but scores only the upward side. Make the check two-sided and say so in the caption, or do the swap under a short gap in both ears so one ear carries nothing. The one-ear arm plays the twisted noise to both ears, which makes it stricter, so it will catch this if anything can.",
+      "second": "Note applied: the caption names the gate's dip at f0 and the check now scores both directions."
+     },
+     {
+      "file": "Auditory Illusions — rich — precedence effect.html",
+      "verdict": "keep",
+      "why": "Three fixes. (1) On headphones each 'speaker' is one ear, so 3 ms is a one-copy-per-ear interaural delay about 4× the head's ~0.7 ms range. That is not the page's 'same sound from two speakers', where each ear hears both. Render each speaker to both ears on headphones (near ear direct, far ear ~0.26 ms later and a few dB down, as the Franssen sibling already does), or recommend speakers and say what headphones test instead. (2) The blind trial asks only left or right, so 'heard only from the first' cannot come out against it: a listener who hears two sounds will still report the first. Add a 'two sounds' answer, scored against the page below the reader's own echo threshold. (3) 'Point to where it came from' confirms rather than tests: it is unscored, the reveal follows every clap, and pointing at the late speaker gets 'try again, and check left and right above'. Record that as a result instead of blaming the wiring. Delays are exact (3 ms = 144 samples), and +12 dB peaks at −1.15 dBFS, under the −1 dBFS limiter by 0.15 dB.",
+      "second": "It now tests the page's situation: on headphones each speaker reaches both ears (far ear 0.26 ms later, 6 dB down, as the Franssen room does), so lead and lag each arrive in both ears, and the 'two sounds' answer lets 'heard only from the first' come out against it; one note: 'two sounds twice or more' has no chance level or catch trial, so a careless clicker reaches 'against the page' easily, and a mark of it should be read as a prompt to rerun, not a refutation."
+     },
+     {
+      "file": "Auditory Illusions — rich — Franssen effect.html",
+      "verdict": "keep",
+      "why": "The virtual room can give the answer away by level. The two speakers' room impulse responses are separate random draws, not mirror images. Measured from the piece's own render with a one-bin DFT over 1.2–2.2 s, the settled tone's level difference between the ears runs from −11.6 to +26.1 dB depending on the tone and the start side. At 300 Hz both moving directions settle louder at the start side's ear (by 2.5 and 11.6 dB), so a 'held' there is a level cue, not the onset. At 1500 Hz, near Yost's strongest frequency, one direction gets 18.3 dB toward the truth. The stay trials catch only the case where every cue is wrong (0 of 4). Fix: mirror the impulse responses (same seed, channels swapped), show the settled level difference for the chosen tone beside the slider, and correct the caption's '1.4 dB louder at the far ear' (it is the near ear, for start-left only; start-right gives −1.6 dB). Also, step 2 tells the reader that the dry and noise arms fail before step 3 asks where they hear the bell, which can bias the answers. Move the literature after the trial, or let the trial run first. The opening (tap the speaker to silence a bell that keeps ringing) is the best encounter in the section.",
+      "second": "Recomputed from the piece's own render with my one-bin DFT: the settled level gap is now 0.0 dB at every tone from 200 to 4000 Hz from either side (was −11.6 to +26.1); what remains is the room's steady phase between the ears, mirrored but tone-dependent (at 300, 750 and 1000 Hz it leans toward the start speaker for a moving bell, ±83–113°), which is room physics, not a defect, and the stay trials catch it; the 1500 Hz default sits near ±167°, close to ambiguous."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Pitch is computed, not measured",
+   "made_against": "1ce009c8f9d5",
+   "made": "2026-11-08",
+   "stamped": "2026-11-08",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-08",
+    "by": "maker · claude-opus-5-5 · single-page run with the round's three changes (pitch-is-computed)",
+    "round": "auditory-illusions-2026-11-08"
+   },
+   "pieces": [
+    {
+     "file": "Auditory Illusions — rich — the missing fundamental.html",
+     "origin": "made",
+     "by": "Web Audio · claude-opus-5-5",
+     "title": "the missing fundamental, and three ways to break it",
+     "caption": "**Three discs wake, each with a harmonic (200, 300, 400 Hz), and a hum arrives with a triangle nobody drew.** Find the hum’s note among four forks before any number is shown; then what is actually playing (a live spectrum, nothing at 100 Hz), the one 10 ms period the three share, and where the eye’s twin parts from the ear’s: turn the 200 away and the triangle breaks while the period stays, which is why the page grades the pair a shape. Then the tests: add the real 100 Hz and take it away, with the bottom buried in noise; shift or stretch the harmonics until they stop sharing a period, and match the pitch you hear against a reference; a synthesized low voice (not a recording) down a phone line. Measured in what the page plays: at 100 Hz, nothing above the measurement’s floor (174 dB under each partial), while a real 100 Hz added at −20 dB reads −20.0; the line takes 57 dB at 100 Hz and 23 dB at 200 Hz. Whether you hear 100 Hz, only your ear can say. Headphones or good speakers.",
+     "near": "Play 200, 300 and 400 Hz together and you hear 100 Hz",
+     "place": "band",
+     "height": 1200,
+     "remade": "2026-11-08, after the challenge (kept, two notes taken): the live readout prints the analyser's value instead of claiming a −110 dB floor; 'that is why the page grades this twin a shape' now reads 'one way to see why'"
+    },
+    {
+     "file": "Auditory Illusions — rich — the barber pole and the stair.html",
+     "origin": "made",
+     "by": "Web Audio · claude-opus-5-5",
+     "title": "the barber pole and the stair, with a Risset glide",
+     "caption": "**Spin a barber pole by hand; a walker climbs a Penrose stair; a tone rises with both and gets nowhere.** The tone is a small Risset glide of my own, eight sines an octave apart in a raised-cosine window, made only to sit under the twin: the full build, stage by stage with its seam tested blind, is the Shepard Tone Synthesizer’s, gathered beside this. The reveal shows what really turns (the voices; a pole turning sideways; a stair that is a real spiral seen from the one view where its ends meet), and the break takes the window off for the ear and walks round the stair for the eye. Checked: the stripes rise as the tone rises (an edge moves up 3 px for +0.05 octave) while the surface turns sideways; voices exactly octaves apart, a wrapping voice at least 84 dB down at any frame rate (96 dB at 60 frames a second), the mix’s level constant to 1e-15, the stair’s ends 0 apart from the special view and 0.74 of a step apart 15° round. Whether it climbs for you, only your ear can say.",
+     "near": "the barber pole, and the Penrose stair Escher drew",
+     "place": "band",
+     "height": 1050,
+     "remade": "2026-11-08, after the challenge: the pole turned the wrong way (stripes fell as the tone rose), now rises; the wrap bound made frame-rate independent (a frame moves the glide at most 1/30 s, so ≤ −84 dB); the aperture named as the pole's long sides"
+    },
+    {
+     "file": "Auditory Illusions — rich — the tritone vote.html",
+     "origin": "made",
+     "by": "Web Audio · claude-opus-5-5",
+     "title": "the tritone vote",
+     "caption": "**Two notes, two arrows: up or down?** Beside them a dress of my own drawing in a glare, standing in for the 2015 photograph, which can’t be used here and which this drawing may not match: it has its own vote. Then what a Shepard tone is, why C to F♯ is exactly half the circle, and Deutsch’s finding as the page gives it. Last, thirty-two pairs with the rules stated first: eight two-semitone catch pairs scored for the short way (7 of 8, 3.5 % by chance), and six opposite tritone pairs each heard four times (C then F♯ twice, F♯ then C twice), a pair counting when its answers are consistent and opposite: 4 of 6, 0.30 % by coin, and never by pressing one button. A short run reads “not shown”, not “against the page”. Drawn as your own pitch-class circle. It never says which tritone answer is right. Checked: both ways round are six semitones; all twelve tones match in power and spectral centre to a thousandth of an octave, so brightness can’t leak the answer. Votes stay in the visit.",
+     "near": "Two Shepard tones a tritone apart, C then F♯",
+     "place": "band",
+     "height": 1150,
+     "remade": "2026-11-08, after the challenge: the consistency rule (the same answer twice) was passed by pressing up every time; now six opposite pairs must be consistent and opposite, pass at 4 of 6 (0.30 % by coin, 0 for a one-button reader, 66 % for a listener right 90 % of the time); a short run reads 'not shown this run'"
+    },
+    {
+     "file": "Auditory Illusions — rich — the octave illusion.html",
+     "origin": "made",
+     "by": "Web Audio · claude-opus-5-5",
+     "title": "the octave illusion, and a red X",
+     "caption": "**Headphones; a left/right check first.** 400 and 800 Hz alternate four times a second, always opposite between the ears. Say on a drawing of your own head what each ear heard; only then does the page show what was played. Then Deutsch’s account (what follows one ear, where follows the higher tone), held as argued; then the eye’s twin: a red X and a blue O flashed once beside two digits, one brief picture per press, tallied as a handful of your own trials, not a study. Then one ear alone and the high tone off the octave, each reported beside the model’s prediction, and a repeat that starts on the other ear, which the piece says is only a retest: since each ear alternates, swapping the headphones moves the sequence on by a quarter second, and every account predicts the same report. Checked in the page’s own stereo render: every 250 ms segment carries its planned tone on each channel with the other 114 dB or more down. What you hear and see, only you can say.",
+     "near": "On headphones, 400 and 800 Hz alternate, always opposite between the ears",
+     "place": "band",
+     "height": 1150,
+     "remade": "2026-11-08, after the challenge: 'ears swapped' was the same sequence one segment later, so it could not fail; renamed 'again, other ear first' and described as a retest; the 2018 MEG sentence no longer credits that study with the renaming; a feedback line that named the O's colour wrongly fixed"
+    },
+    {
+     "file": "Projects/Shepard Tone Synthesizer/Shepard Tone Synthesizer — rich — the still drone.html",
+     "origin": "gathered",
+     "title": "the still drone · the Shepard page’s Stage 1 walk",
+     "caption": "**Gathered from the Shepard Tone Synthesizer, where it waits at proposal for Loudon’s ear.** The Shepard tone before it moves: one sine at C4, its octaves added one at a time, the window weighed three ways, then the test of how far one voice can stray before seven sines stop being one note. It declares its own needs in its head, so this entry carries no contract. Nobody has listened to it yet.",
+     "near": "it climbs forever and arrives nowhere",
+     "height": 900
+    },
+    {
+     "file": "Projects/Shepard Tone Synthesizer/Shepard Tone Synthesizer — rich — the free seam.html",
+     "origin": "gathered",
+     "title": "the free seam · the Shepard page’s Stage 2 walk",
+     "caption": "**Gathered from the Shepard Tone Synthesizer, at proposal there.** The climb, step by step, with the seam lit red as each voice wraps, then a blind trial on headphones: press when you hear the join, with chance stated first and two comparisons that pull the window apart from octave equivalence. Measured on that page, not heard: the wrapping voice leaves 34.8 dB and lands 33.2 dB under the loudest voice. It declares its own needs, so no contract here.",
+     "near": "it climbs forever and arrives nowhere",
+     "height": 1000
+    },
+    {
+     "file": "rich-face/shepard_C.wav",
+     "origin": "gathered",
+     "title": "drone · C",
+     "caption": "**One of twelve rendered drones (this and the F♯ gathered; the other ten stay in their library)**, from Generative Sample Libraries’ shepard-instrument: a still Shepard tone on C, seven octaves (C1 to C7 transposed) under shepard_synth.py’s Stage 1 window (σ 1 octave on C4), 6 s, mono. Its audition gate is still open: nobody has yet confirmed by ear that it fuses into one tone. git ignores it (Projects/**/*.wav), so it plays only on this Mac; the public face shows a box until a copy is tracked under a bundle’s rich-face/ folder.",
+     "near": "One pitch class stacked across every octave"
+    },
+    {
+     "file": "rich-face/shepard_Fs.wav",
+     "origin": "gathered",
+     "title": "drone · F♯",
+     "caption": "Still Shepard tone on F♯, from the same twelve, in the same window; unauditioned, and only on this Mac. Played after the C, it is the tritone pair the paradox below is made of, in a different window from the vote’s.",
+     "near": "One pitch class stacked across every octave"
+    }
+   ],
+   "challenge": {
+    "date": "2026-11-08",
+    "by": "challenger · Claude Opus 5.5",
+    "verdicts": [
+     {
+      "file": "Auditory Illusions — rich — the missing fundamental.html",
+      "verdict": "keep",
+      "why": "A strong encounter. Three notched discs turn in and a Kanizsa triangle and the hum arrive together. The forks are four identical drawings, so nothing visual gives the note away. The reveal shows the live spectrum and the 10 ms period, and keeps the twin graded as shape. Step 4 really does run the masking control: lowpass noise sits 11.3 dB under one partial in the 100 Hz ERB by my count (the maker measured 10.2) and 19.3 dB under at 200 Hz, so it covers a difference tone and leaves the partials. Step 5 adds a second test that can come out against the page: the shift, with a matcher. Two notes, neither a fault. (1) The live readout prints 'the analyser's floor (−110 dB)' when the value it read was −145.6 dB. getFloatFrequencyData is not clamped at minDecibels, so it should say 'below −110 dB' or print the number. (2) 'That is why the page grades this twin a shape' gives the page a reason the page never states; better 'one way to see why'.",
+      "second": "Notes taken: the readout now prints the measured value (for example −146 dB) with \"under the analyser's −110 dB range\", and the shape sentence reads \"one way to see why\"."
+     },
+     {
+      "file": "Auditory Illusions — rich — the barber pole and the stair.html",
+      "verdict": "keep",
+      "why": "The pole spins the wrong way. When the glide rises, the stripes move down the screen: headless at the pole's centre column, a stripe edge moves from y = 95 to y = 99 px as p goes from 0 to +0.05 octave, which matches the drawing code (base = 3u with u = θ/2π − ρ, so y grows by 70·Δp). So the eye's half falls while the ear and the walker climb, which breaks 'one motion', and step 2's dashed 'seen' arrow points up against a pole that falls. Fix in one round: flip the sign (u = θ/2π + ρ), then re-check the solid 'turns' arrow. Also: (a) the aperture account should name the pole's long sides, where the stripe ends slide, not 'the pole's ends'; (b) the caption's '≥ 96 dB down at the wrap' holds only at 60 fps and top speed. The 100 ms frame clamp allows −65.1 dB, so say 'at 60 frames a second'. The window sits on each voice, the whole stack shares one glide, and the voices are exact octaves, all as the page says.",
+      "second": "Keep: in my own headless check a stripe edge now moves from y 95 to y 92 px for +0.05 octave, so the stripes rise with the glide. The surface moves left, matching the solid \"turns\" arrow. The aperture is named as the pole's long sides, and capping each frame at 1/30 s holds the wrap at ≤ −84.2 dB at any frame rate (−96.2 dB at 60 fps)."
+     },
+     {
+      "file": "Auditory Illusions — rich — the tritone vote.html",
+      "verdict": "keep",
+      "why": "Everything holds except the consistency rule. The catch arm is sound: 4 up and 4 down, 7 of 8 is 3.5 %, and response bias cannot pass it. The tritone arm can be passed by response bias. A listener who presses 'up' every time scores 12 of 12 'consistent'. With an up-rate of 0.8 they pass 20.8 % of the time, and with 0.9, 63 %. So 'your answers follow the pitch classes, not chance' is not earned. Fix: score complementarity on the six antipodal pairs (k→k+6 twice and k+6→k twice, consistent and opposite, which is what Deutsch's account predicts). A coin gets 1 in 8 per pair, so 4 of 6 or more is 0.30 % by chance, about 0.01 % for an up-rate of 0.8, and still 66 % for a listener who is right 90 % of the time. When a run falls short, say 'not shown this run', not 'goes against the page's sentence for you': a real paradox listener who is right 85 % of the time fails the current rule 62 % of the time. The equal level and spectral centre (0.38 cents), the stand-in dress caption, and never naming a right answer are all good.",
+      "second": "Keep: a pair now passes only when C→F♯ ×2 and F♯→C ×2 come out consistent and opposite, at 4 of 6. My own count of the coin chance is 778/262144 = 0.297 %. A reader who always presses one button passes no pairs, and a short run reads \"not shown this run\"."
+     },
+     {
+      "file": "Auditory Illusions — rich — the octave illusion.html",
+      "verdict": "keep",
+      "why": "Report-before-reveal is honoured. Headphones and the left/right check come before the first click. The red X / blue O is one picture per press, warned before the first trial, and tallied as 'not a study' with the Treisman citation flagged as unchecked. The fault is in one break that cannot fail. 'Ears swapped' plays the same alternating sequence one 250 ms segment later (checked headless: swap[k] = both[k+1] for all 39 segments), so every account predicts no change. 'If your high tone moved ears with the swap, the model is wrong for you' therefore overclaims. Reword it as a repeat that starts on the other ear (test-retest), or replace it with a break that separates the accounts. Note: step 3 goes beyond the page with Chambers 2002, a 2018 MEG study and the 'Deutsch illusion' name. The MEG study is real (Brancucci et al., Brain Struct Funct 2018), but as far as I can find, the renaming comes from the same group's 2009 Psychol Res paper, so the sentence merges two papers. Also, the section paragraph right above the piece states the percept, so a reader who reads it first knows the answer before reporting (it isn't scored, so this is a note only).",
+      "second": "Keep: the condition is now \"again, other ear first\", and the text calls it a repeat that \"every account predicts the same report\", with no claim that it tests the model. The MEG sentence now credits the renaming proposal to the same group, and the feedback line for a wrong colour now names the O's colour correctly."
+     },
+     {
+      "file": "Projects/Shepard Tone Synthesizer/Shepard Tone Synthesizer — rich — the still drone.html",
+      "verdict": "keep",
+      "why": "Honest gathered record. It is at proposal on its own face (Shepard Tone Synthesizer — rich.json says 'a Study offered as a proposal'), the caption says so and says unheard, and the page reports 'introduced', clean, at 760 and 1130 px.",
+      "second": "Unchanged; keep."
+     },
+     {
+      "file": "Projects/Shepard Tone Synthesizer/Shepard Tone Synthesizer — rich — the free seam.html",
+      "verdict": "keep",
+      "why": "Honest. Its 34.8 / 33.2 dB matches its own manifest word for word, and the caption keeps those numbers on that page and states its proposal status. Introduced, clean.",
+      "second": "Unchanged; keep."
+     },
+     {
+      "file": "rich-face/shepard_C.wav",
+      "verdict": "keep",
+      "why": "The captions are honest. git check-ignore confirms Projects/**/*.wav, so they play only on this Mac, and 'unauditioned' is said. Note: twelve entries means twelve boxes on the public face. Gather C and F♯ only (the tritone pair the caption already names), or track copies under rich-face/, so the section isn't busy.",
+      "second": "Trimmed to C and F♯, as suggested; keep."
+     },
+     {
+      "file": "rich-face/shepard_Fs.wav",
+      "verdict": "keep",
+      "why": "The captions are honest. git check-ignore confirms Projects/**/*.wav, so they play only on this Mac, and 'unauditioned' is said. Note: twelve entries means twelve boxes on the public face. Gather C and F♯ only (the tritone pair the caption already names), or track copies under rich-face/, so the section isn't busy.",
+      "second": "Trimmed to C and F♯, as suggested; keep."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Sorting the world into sources",
+   "made_against": "cf3792cd0978",
+   "made": "2026-11-08",
+   "stamped": "2026-11-08",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-08",
+    "by": "maker · claude-opus-5-5 · single-page run with the round's three changes (sorting-the-world)",
+    "round": "auditory-illusions-2026-11-08"
+   },
+   "pieces": [
+    {
+     "file": "Auditory Illusions — rich — the gallop.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "The gallop",
+     "caption": "Auditory streaming in five steps. A low-high-low gallop drawn as dots you drag: up and down pulls the two pitches apart, sideways squeezes the time, and the dots regroup into two rows in the eye as you go. Then the signal (two sines either side of 1000 Hz, 40 ms tones, slot time 50–300 ms), the twin in the eye with its grade kept at mechanism, arguably, and Remez's objection, Bregman's three rules with a playable timbre, and last your own boundary: speeding-up and slowing-down runs at gaps from 1 to 14 semitones, drawn as your two lines once each run ends (nothing on screen moves during a run, and its start is held a random 0–4 s). The slope rule is set before you mark: Kendall's τ ≥ 0.6 over four or more gaps, which random marks reach 16.7% of the time with four gaps and 6.8% with six. Van Noorden's numbers are not drawn. Measured: timing, pattern, frequencies, ramps, RMS match, the ramp's ends. Where it splits is only for an ear; nobody has listened yet.",
+     "near": "it splits into two lines and the gallop is gone",
+     "place": "band",
+     "height": 1150,
+     "remade": "2026-11-08, after the challenge: the cursor, the slot readout and earlier marks are hidden during a run, with a random 0–4 s hold at the start; the slope rule now needs 4+ gaps and τ ≥ 0.6, with its exact chance stated first (16.7% / 11.7% / 6.8% at 4 / 5 / 6 gaps, against 50% for the old rule at 3); the lit-dot ring is off under reduced motion."
+    },
+    {
+     "file": "Auditory Illusions — rich — two ears, two tunes.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "Two ears, two tunes",
+     "caption": "Headphones (a left/right check comes first). Deutsch's scale illusion: play two C-major scales swapping ears at every step and say what tune each ear carries; then see the zigzag each ear really got, with your report over it in red; the rule beside its twin, grouping by similarity, graded shape; a timbre that follows the ear and mono to break it; and a blind test, 10 trials with chance and the rule stated first, of the swapped scales against the two smooth tunes they sound like, which differ only in which ear each note goes to. Measured: the L/R assignment, each channel's note at each step; the other ear's note is absent from that channel, never added (the challenger's fit puts it at −186 dB or lower; the 36 dB in the check is that meter's floor), equal levels across the two arms. Whether it fools you is for your ears.",
+     "near": "Grouping by pitch beats grouping by place",
+     "place": "band",
+     "height": 1100
+    },
+    {
+     "file": "Auditory Illusions — rich — behind the fence.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "Behind the fence",
+     "caption": "The continuity illusion beside Bregman's own twin. A cat behind a picket fence, and a 1000 Hz tone behind bursts of noise. You play it and say what the tone did before anything is explained; then lift the fence, and both were only ever slices. Then the sound analysed in the page, the bet the hearing makes, and three tests. Bring the fence down 2 dB a loop and mark where the gaps show; the plot stays blank during the run, then compares your mark with where the noise could just mask the tone (about +3 dB, from a critical ratio taken from standing knowledge). Move the noise band off the tone at the same loudness, read through a roex filter shaped like the ear's. And a blind test of a tone really there against one filled in, under the same frozen noise. Measured: a 150 ms gap; the noise in the tone's filter +9.9 dB at +10 on the slider; through roex +0.1 dB at a 1270 Hz centre and −13.4 dB at 1414 Hz. Phonemic restoration is not made, and the piece says why.",
+     "near": "you hear the tone go on through the noise",
+     "place": "band",
+     "height": 1150,
+     "remade": "2026-11-08, after the challenge: the opening asks what the tone did (cards) before lifting the fence; the descending run hides its dot, the masking line, the level readout and earlier marks until you press; step 5's in-band readout runs the noise through a roex(p) filter one ERB wide (+0.1 dB at a 1270 Hz centre and −13.4 dB at 1414 Hz, where the old rectangular readout said none), with the hard-edged figure beside it."
+    },
+    {
+     "file": "Auditory Illusions — rich — the gap that jumps.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "The gap that jumps",
+     "caption": "The gap transfer illusion as a shell game: two glides cross under a cup, one goes silent for 100 ms, you bet which, and the cup lifts. Then the sound analysed in the page beside what listeners report, with red for what the ear supplies; onsets and endings and how, on Nakajima's account, the ear pairs them; where it breaks (move the gap, stretch it, uncross the glides); and a blind test, 10 trials with chance and the rule stated first, of which glide really carries the gap. The glide numbers are this piece's, not Nakajima's. Measured: they cross at 1.2 s and 800 Hz by formula and in the buffer, and the gap is 100 ms centred there. No twin in the eye, as the page says.",
+     "near": "Listeners hear the long one as continuous and the gap as belonging to the short one",
+     "place": "band",
+     "height": 1000
+    }
+   ],
+   "challenge": {
+    "date": "2026-11-08",
+    "by": "challenger · Claude Opus 5.5",
+    "verdicts": [
+     {
+      "file": "Auditory Illusions — rich — the gallop.html",
+      "verdict": "keep",
+      "why": "The encounter is right: a string of beads you pull, dots that move where the tones move. The slope rule lets the test fail, but it leaks and is weak. During a run the map shows an ink cursor at the current slot time, the readout prints 'slot X ms', and your earlier marks and red lines stay on screen, so a reader who knows the page can press to draw the slope it predicts. Hide the cursor, the readout and the marks until the run ends, and consider jittering the ramp's start. Also, with 3 gaps, τ = +0.33 already passes the >0.3 rule, which random marks do 50% of the time (4 gaps 37.5%, 6 gaps 23.5%). Require 4 or more gaps and state what random marks score before the first run. Minor: the lit-dot ring on the main field blinks at up to 15 Hz at 50 ms slots and ignores prefers-reduced-motion. The build-up aside (Bregman 1978) is flagged as not on the page, which is fine.",
+      "first": "remake",
+      "second": "Remake read and confirmed: during a run the map draws only its axes, and the marks table, the slope verdict and the slot readout are hidden. The start is held a random 0–4 s. The rule needs 4 or more gaps and τ ≥ 0.6, with chance stated first; I recomputed it by enumerating every order: 16.7% at 4 gaps, 11.7% at 5, 6.8% at 6, matching the piece."
+     },
+     {
+      "file": "Auditory Illusions — rich — two ears, two tunes.html",
+      "verdict": "keep",
+      "why": "It opens on a question with cards, then shows the zigzag each ear really got with your report in red. In the blind test the two arms carry the same two notes at every step, with per-ear, per-step levels equal to 0.000 dB and every note ramped 12 ms in both arms, so there is no level or click cue at a swap. Only the ear assignment differs, which is the variable under test. Arm B follows the reader's own report of which ear has the high tune, chance and the 8-of-10 rule (5.5%) are stated first, and both arms are scored. Note for the caption: 'the other ear's note at least 36 dB down' is the maker's meter floor. The note is absent: a joint least-squares fit puts it at −186 dB or lower, so say 'absent'.",
+      "first": "keep",
+      "second": "Kept from the first round; the maker reports the caption now says the other ear's note is absent, which removes my only note."
+     },
+     {
+      "file": "Auditory Illusions — rich — behind the fence.html",
+      "verdict": "keep",
+      "why": "Three fixes. (1) Leak: during the descending run the threshold plot slides a black dot toward the dashed line labelled 'could just hide the tone', and the readout prints 'fence at X dB'. A reader can press when the dot reaches the line. Hide the dot, the line and the readout until the run ends. (2) Step 4's 'covered %' and 'none: the band has left it' use a rectangular ERB. At a 1270 Hz centre it reads none (−20.7 dB), but a roex(p) filter at 1 kHz still passes −0.0 dB re the tone, within 3.2 dB of the masking line, and −13.2 dB at 1414 Hz. Show a roex-weighted level, or a reader who still hears continuity near 1.3 kHz is told they are against the page. (3) The opening line tells the percept before the click ('the tone runs on behind the bursts'). Ask instead, e.g. 'is the tone ever cut?'. The blind test is sound. The 'really there' arm is not level-matched and should not be: it differs only by the tone itself (at +10 dB, +0.12 dB total and +0.28 dB in the ERB; at +4 dB, +0.55 and +1.2 dB). The cat is drawn in slices in both arms, so the picture does not give the answer away.",
+      "first": "remake",
+      "second": "Remake read and confirmed. The opening only says 'press play and follow the tone… then say what it did', with neutral cards (ran on, was cut, not sure), and Lift stays hidden until you answer. Mid-run the plot shows only its axes and 'running': no dot, no masking line, no marks, no level readout. Step 4's readout now runs the noise through a roex filter, with the hard-edged figure beside it. Its +0.1 dB at a 1270 Hz centre and −13.4 dB at 1414 Hz agree with my own −0.0 and −13.2 to within 0.2 dB. The picket darkness still falls with level during a run, but with no target line drawn it gives nothing to aim at."
+     },
+     {
+      "file": "Auditory Illusions — rich — the gap that jumps.html",
+      "verdict": "keep",
+      "why": "The shell game is a real opening: you bet before you know, and the cup (0.45 s wide, 120 px tall) hides the break in the long glide. In the blind test the arms are equal in energy and the 100 ms gap is at the same moment. The only cue is which glide sounds through the gap: the short one falling 848→755 Hz, or the long one rising 777→823 Hz. That is exactly what the illusion says the ear misassigns, not a confound. Chance and the rule are stated first, both arms are scored, and the line 'if the page is right you will put the gap in the short one' cannot produce a pass. It invents no twin, as the page says.",
+      "first": "keep",
+      "second": "Kept from the first round; unchanged."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Meaning gets in early",
+   "made_against": "a7d2b26dc1e8",
+   "made": "2026-11-08",
+   "stamped": "2026-11-08",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-08",
+    "by": "maker · claude-opus-5-5 · single-page run with the round's three changes (meaning-gets-in-early)",
+    "round": "auditory-illusions-2026-11-08"
+   },
+   "pieces": [
+    {
+     "file": "Auditory Illusions — rich — who rewrites whom.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "Who rewrites whom",
+     "caption": "The page's mirror pair, played both ways. A firefly blinks once and chirps twice: count its blinks (the sound-induced flash, flashing warned first, never more than two flashes in a second). Then a mouth drawn in ink shapes “ga” while a formant synthesizer says “ba”: what did it say? Each half ends in a blind test scored on every arm, its rule set first. The flash test's pad offers 1 or 2; it passes only if two chirps add at least ⅔ of a blink and the reader's eye can tell one blink from two (otherwise it is void, so counting chirps can't pass); a coin passes 3 in 512 (0.6%). The lip test's chance is 13%. Measured: the chirps (7 ms of 3.5 kHz, onsets 57.0 ms apart), the flash schedule, the syllables' F2 onsets (about 1010, 1490, 1600 Hz 20 ms after the release for ba, da, ga) and the mouth's opening at the release. Only an eye and an ear can judge whether the second blink or the da appears. A drawn mouth and a synthetic voice are far weaker than the filmed face McGurk used; the face-shut arm says whether this ba is even a ba to you.",
+     "near": "Hearing speech is already seeing",
+     "place": "band",
+     "height": 1029,
+     "remade": "2026-11-08, after the challenge: the flash test's pad cut to 1 or 2 so the stated chance holds (7/64 for the split alone, 3/512 for the whole rule); a failed eye check now voids the verdict instead of cautioning it; the spectrogram's release line is ink, not red; the meter's frame and latency numbers wait until the first answer."
+    },
+    {
+     "file": "Auditory Illusions — rich — the seesaw.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "The seesaw",
+     "caption": "Not the 2018 recording, which is not ours to play: the page's mechanism, built. One synthetic sound holds two names, “Laurel” below 1.6 kHz and “Yanny” above it, and you slide a weight along a beam that tilts the spectrum with two shelf filters; a makeup gain after them holds the mix's RMS level at every tilt (within 0.003 dB, measured; without it the Laurel end was up to 9 dB louder). The test hides the beam and runs two staircases from −18 and +18 dB to find where your reading flips, and which way: random answers find a flip point 0.2% of the time; clean simulated listeners are found within 1 dB of their own flip. Measured: each layer keeps to its side (Laurel 100% below 1.6 kHz; Yanny 95.5% above). Only an ear can judge whether these formant-synth names are heard as names, and the test cannot tell a word from a brightness; the piece says so before the first trial. The two ear models in step 4 are not loudness-matched, and say so.",
+     "near": "each listener sure",
+     "place": "band",
+     "height": 897,
+     "remade": "2026-11-08, after the challenge: a makeup gain per tilt, read from a table of the mix's RMS through the shelves at every whole dB, holds loudness at every tilt (was up to +6.2 dB at −18, +9 dB at −24), and the false 'same loudness' sentence is corrected; the 14-trial permutation test, which the louder name passed by construction, is replaced by two interleaved staircases that report each reader's flip point and its direction."
+    },
+    {
+     "file": "Auditory Illusions — rich — the talking socket.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "The talking socket",
+     "caption": "A quiet wall with a speaker each side says two synthetic words, “no” and “way”, over and over, the right side one word behind the left; you write down the words you hear, and the ones it never said come back in red. In the middle, a plain US outlet as drawn: say when it looks back at you, and it notes how long it sat there. That twin, pareidolia (a shape pair), is shown, not tested. Needs stereo: two speakers or headphones. The browser's own voice can't overlap itself or be panned, so it is offered one side only. The last step compares two sides against one place for 60 s each, and says what the counts mean only after both runs: a comparison, not a blind trial. Measured: the loop (600 ms, each word 300 ms), the side delay by cross-correlation (300.0 ms), the words' formants. Only an ear can judge whether phantom words come, and whether the second side matters.",
+     "near": "hear words that aren't there",
+     "place": "band",
+     "height": 1017
+    },
+    {
+     "file": "Auditory Illusions — rich — the loop that sings.html",
+     "origin": "made",
+     "by": "Web Audio · browser speech synthesis · Claude Opus 5.5",
+     "title": "The loop that sings",
+     "caption": "A tape loop: the browser's synthetic voice says a sentence, then loops “sometimes behave so strangely” ten times on a fixed grid while you mark each repetition from spoken to sung, then the sentence again. Beside it a Mooney print of a dog that can't be un-seen. The last step plays three loops under letters, exact, transposed and jumbled in a hidden order, and names them, with Deutsch's reported result (from memory, flagged), only after at least five marks on each. Synthetic speech, so the effect may be weaker than Deutsch's recording; the voice plays outside Web Audio, so its pitch can't be measured or drawn, and the piece reports how late each repetition started against the grid. Measured: the conditions, and the print (43% black at θ 0.5, with 6% of the dog's outline on a black–white edge). Only an ear can judge the song.",
+     "near": "the phrase still sings",
+     "place": "band",
+     "height": 1133,
+     "remade": "2026-11-08, after the challenge: the break is now 'Three loops' under letters in a hidden order, with the conditions and Deutsch's report shown only after the marks; the repetitions are no longer started 30 ms early; 'the photograph' is renamed 'the shaded drawing'."
+    }
+   ],
+   "challenge": {
+    "date": "2026-11-08",
+    "by": "challenger · Claude Opus 5.5",
+    "verdicts": [
+     {
+      "file": "Auditory Illusions — rich — who rewrites whom.html",
+      "verdict": "keep",
+      "why": "The firefly is a real blind test, four arms, rule set first, and the mouth half says plainly it is a drawn mouth and a synthesizer and that a miss does not test the page; both stand. Four small fixes: (1) 7/64 is right only for a 1-or-2 guesser, but the test's pad offers 3 as well, and a uniform 1–3 guesser passes 23.0%: drop the 3 from the test pad (keep it in the encounter) or state 23%; (2) someone who counts the chirps passes split and merge with the eye check at 0, and the verdict still prints 'The ear rewrote what your eye counted' with a caution after it: when the eye check fails, call the result ambiguous, not a pass; (3) the dashed release line on the step-6 spectrogram is red but marks a signal fact: make it ink; (4) the meter's frame and latency numbers show under the jar before the first blink: hide them until the reader has answered.",
+      "first": "remake",
+      "second": "Remake confirmed as it stands: the test pad offers only 1 or 2, an eye-check failure now voids the verdict, the release line is ink, and the meter stays empty until the first answer; I recomputed the full rule (split ≥ ⅔ and eye check) by exact enumeration at 3/512 = 0.59%, and the split alone at 7/64."
+     },
+     {
+      "file": "Auditory Illusions — rich — the seesaw.html",
+      "verdict": "keep",
+      "why": "Honest that it is not the 2018 clip, and the brightness leak is said before the first trial. But step 2's 'same loudness overall' is false: through its own shelves the mix is +6.2 dB RMS at −18 and +1.6 dB at +18 against a level beam (+3.7 / +0.3 at ±12), so the Laurel side is up to 4.6 dB louder than the Yanny side, a second cue besides the name that lines up with the answer. Fix: a makeup gain per tilt that holds the mix's RMS level, and correct the sentence. Note, not a condition: the test can only fail if the synthesizer fails, since the louder name wins by construction. A threshold finder (where does your reading flip, in dB?) would test the page's actual claim that listeners differ, and give the reader their own place on the beam.",
+      "first": "remake",
+      "second": "Through my own RBJ shelves plus the piece’s makeup table, the mix holds the level beam’s RMS within 0.0023 dB at every tilt from −24 to +24 (raw: +9.0 at −24, +6.2 at −18), and the step text now says so; random three-way answers through its staircase logic find a flip point 0.21% of the time (200,000 runs, stated 0.2%); the brightness leak is still stated before the first trial, and the rule names only the direction it scores, not a result."
+     },
+     {
+      "file": "Auditory Illusions — rich — the talking socket.html",
+      "verdict": "keep",
+      "why": "This is Deutsch's set-up, built: two words, two sides, one word apart (300 ms lag by onset; both sides sounding 93% of the loop). The 60 s comparison can fail (the 'one place gave more' outcome is scored and said), and its caption admits it is not blind. Notes: the test's text tells the reader which outcome supports the page before they write, so move 'The page says…' after the tally; dragging the holes until the socket 'looks back' makes the reader build a face, where pareidolia finds one unbidden, so the real sockets of step 4 are the truer twin and could lead; the grilles' ripple ignores prefers-reduced-motion; the notebook types every word in red, even 'no' and 'way'.",
+      "first": "keep",
+      "second": "Notes applied: the test’s text says what the counts mean only after both runs, and the face half is captioned shown, not tested."
+     },
+     {
+      "file": "Auditory Illusions — rich — the loop that sings.html",
+      "verdict": "keep",
+      "why": "The loop is steady. Measured headless with the voice at volume 0, onset to onset was 2731 ms, then 2758–2763 ms against a grid step of 2760, so each repetition starts 26–29 ms before its grid slot: the code subtracts 30 ms for a speak-to-start latency of 1–3 ms on this engine. The break is the problem: its title, 'Where the song should not come', and the Deutsch result in its text both state the expected answer before self-rated marks, which is the leak named in tuning 12b. Fix: give the step a neutral title, keep the condition names hidden (or the order random) until the marks are in, and show Deutsch's report after them. Also: the 'photograph' toggle shows a synthetic shaded render, so call it 'the shaded drawing'.",
+      "first": "remake",
+      "second": "The break now plays three loops under letters in a shuffled order, and the chart labels and Deutsch’s report stay hidden until five repetitions of each are marked (titled “Three loops”, no expected result stated); the 30 ms early start is gone, so each onset is scheduled on the grid itself, and the grey view is “the shaded drawing”."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "In time",
+   "made_against": "54e2f57f8272",
+   "made": "2026-11-08",
+   "stamped": "2026-11-08",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-08",
+    "by": "maker · claude-opus-5-5 · single-page run with the round's three changes (in-time)",
+    "round": "auditory-illusions-2026-11-08"
+   },
+   "pieces": [
+    {
+     "file": "Auditory Illusions — rich — the risset rhythm.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "The Risset rhythm · keep up with it",
+     "caption": "**Tap along, and keep up.** Press play and tap with the beat: your tempo readout climbs and climbs while an ink picture that contains itself zooms beside it, and neither gets anywhere. Then the walk: the five layers under a loudness window, drawn as the Shepard window moved onto tempo; the same five rates moved up seven octaves into a Shepard–Risset glissando, to put tempo and pitch on one axis; the window opened flat and the crossfade stopped, so the seam can be heard and seen; and a blind trial, press when the loop restarts, page's window against stopped crossfade, ten trials an arm, no clock on screen, chance stated first: 26 % for a reader who presses mid-loop without listening, and a heard seam set as 6 or more hits of 10. Measured in Node on the page's own engine: every layer exactly double the one below, an 11.09 s loop, a window whose summed power is the same at every moment (1.875), level continuous across the seam, and each layer's beats running on into the next layer's as one accelerating stream. Whether the seam is heard is the ear's to say. Speakers are fine. The zoom is the twin by shape only: same loop, other machinery.",
+     "near": "a beat that speeds up forever",
+     "place": "band",
+     "height": 990,
+     "remade": "2026-11-08, after the challenge: the trial's elapsed-seconds clock hidden; chance restated as 26 % (the best fixed press, since the seam falls in 15–85 % of the loop), not 18 %; the verdict set as a count, 6 or more hits of 10 in each arm (2.3 % for a non-listener)."
+    },
+    {
+     "file": "Auditory Illusions — rich — click into pitch.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "Click into pitch · spin it till it sings",
+     "caption": "**A flywheel with a card in its teeth.** Spin it up until the taps become a note and mark it; let it coast down until they are taps again and mark that. A lamp beside it can pulse with each click, its brightness a smooth wave: it carries a flashing warning, stays unlit until you light it, and is held at 3 flashes a second unless you choose more. Then the numbers come out against the page's zones, the clicks are shown as one signal at every rate (a comb in time, a comb in frequency), the eye gets its turn, and a blind trial asks taps or tone for twenty unseen bursts, a coin's 50 % shown in every band; a verdict is read only when one split explains 16 or more of 18 answers, and the page states first that random answers would come out 'agrees' 19 % of the time and 'against' 81 %. Measured: the dial is 2·100^p (2, 20, 200 clicks a second), level is held constant in power, the lamp's cap and screen limit switch where stated, and the sine lamp adds no slow false shimmer on a 60 Hz screen, where a one-frame on-off flash added one at about −9.5 dB from 17 to 22 a second. The screen limits the eye's half: the piece measures the refresh rate with requestAnimationFrame (59.9 frames a second in headless Chromium) and its flicker turns to the screen's own steady average at 29.4 a second on a 60 Hz screen, below where a bright light usually fuses, so the eye's fusion shows only at low contrast. Where taps turn to tone, and when the lamp looks steady, only the reader can say.",
+     "near": "Nothing about the sound changes kind",
+     "place": "band",
+     "height": 935,
+     "remade": "2026-11-08, after the challenge: the lamp's brightness is now a sine (0.5 + 0.5·cos 2πrt) instead of a one-frame square, so a 60 Hz screen adds no slow alias below 29.4 a second (the square's was −9.5 dB at 17, 19, 21 and 22/s); the blind trial states the verdict's own chance (inside 19 %, against 81 % for random answers) and reads a verdict only at 16 or more of 18 (0.9 % by chance)."
+    },
+    {
+     "file": "Projects/Frequency-Time Duality/proofs/2026-10-13-the-flip-three-axes.html",
+     "origin": "gathered",
+     "title": "The flip, three axes · from Frequency-Time Duality",
+     "caption": "**The palace's first build of this crossing, as it was made.** A Daily Page rough of 2026-10-13, kept as a record and not edited: drag a playhead along one log rate axis from 0.5 Hz to 2 kHz on three axes, click rate, wobble rate and a polyrhythm, listen, and mark the bottom and top of your crossing zone on each, to see whether the zones agree. It shades 16 to 40 Hz as its threshold zone and marks 20 Hz as this page's claim. It wears its own dark dress, not this page's paper.",
+     "near": "Speed up a click.",
+     "contract": {},
+     "height": 1195
+    }
+   ],
+   "challenge": {
+    "date": "2026-11-08",
+    "by": "challenger · Claude Opus 5.5",
+    "verdicts": [
+     {
+      "file": "Auditory Illusions — rich — the risset rhythm.html",
+      "verdict": "keep",
+      "why": "Everything but the trial holds: tap-along opening first, five honest steps, shape kept as shape, levels and beats continuous across the seam (my own build matches its 549 events to 7e-15 s). The fault is in the trial. The seam is drawn from 15–85 % of the loop and the curtain shows elapsed seconds, so someone who never listens and always presses at mid-loop scores 25.8 % (2/(0.7·T)), not the stated 18 %. And 'well above' has no number. Fix in one round: hide the elapsed counter or state chance as 26 %, and set the bar as a count, e.g. ≥6 hits of 10 (2.3 % at 26 %, 0.4 % at 18 %).",
+      "second": "Remade as asked: during a trial the curtain shows only 'listening' and then 'pressed · listening on' (read headless across 9 s of a live trial), chance is stated as 26 % before the first trial, and 6 or more hits of 10 per arm is the bar, which a non-listener pressing mid-loop reaches 2.29 % of the time by my binomial (0.37 % at the old 18 %)."
+     },
+     {
+      "file": "Auditory Illusions — rich — click into pitch.html",
+      "verdict": "keep",
+      "why": "The flywheel is a strong opening, the dial, power law and blind plan are right, and the screen limit is said honestly. Two fixes. (1) The lamp is a 50 % square wave drawn per frame, so on a 60 Hz screen everything from about 10 to 29.4 a second picks up a slow 3–9 Hz alias at roughly a third of the fundamental (−9.5 dB at 17, 19, 21 and 22/s). That is right where the eye's 'steady now' mark gets compared with the ear's 20, so the eye's mark is biased upward. Fix: drive the lamp's brightness as a sine sampled each frame (0.5 + 0.5·cos 2πrt), which is alias-free up to 30, and say so. (2) State the verdict's own chance before the twenty: random answers come out 'inside, agrees with the page' 19 % of the time and 'against' 81 % (47.8 % below, 32.9 % above). Read a verdict only if the split explains ≥16 of 18; a coin gets there 0.9 % of the time. Notes, not faults: step 3's link to the missing fundamental is the piece's own reading (fair, from § Pitch is computed); under prefers-reduced-motion the opt-in lamp still flashes.",
+      "second": "Remade as asked: the lamp is 0.5 + 0.5·cos sampled each frame; in my own 60 Hz frame simulation the slow shimmer that sat at −9.5 dB for the square wave at 17–22 a second falls to about −280 dB (numerical noise) at every rate from 12.5 to 28. Before the twenty, the page now states the 19 % / 81 % lean and the 16-of-18 bar (coin 0.9 %), and a verdict is gated on it. Headless: no AudioContext before the click, empty console."
+     },
+     {
+      "file": "Projects/Frequency-Time Duality/proofs/2026-10-13-the-flip-three-axes.html",
+      "verdict": "keep",
+      "why": "An honest gathered record: it plays on click (no AudioContext before), its console is clean, and the caption says it is a rough in its own dress. One caption fix. The flip itself labels '~20 Hz · the page's claim', and its readout calls 16–20 'flutter' and 20–40 'the threshold'. So 'puts the threshold at 16 to 40 Hz, a little lower than this page's' overstates the gap. Say instead that it shades 16–40 and marks 20 as the claim.",
+      "second": "The caption now says the flip shades 16–40 Hz and marks 20 Hz as this page's claim, which is what the file draws."
+     }
+    ]
+   }
+  },
+  {
+   "heading": "Hearing what isn't there",
+   "made_against": "5dd5b260ce4e",
+   "made": "2026-11-08",
+   "stamped": "2026-11-08",
+   "status": "proposal",
+   "proposed": {
+    "date": "2026-11-08",
+    "by": "maker · claude-opus-5-5 · single-page run with the round's three changes (hearing-what-isnt-there)",
+    "round": "auditory-illusions-2026-11-08"
+   },
+   "pieces": [
+    {
+     "file": "Auditory Illusions — rich — the waterfall.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "The waterfall",
+     "caption": "Stand by a drawn waterfall for 20 seconds while a sound climbs beside it, then both stop, and you say what the stopped water and the sound did. Then the sound taken apart (120 sines under a ripple that drifts up the octaves), a cartoon of the tired detectors with chosen numbers, and a test in two blocks, the still ripple first as the control, then the climb: each opens with an adaptation you choose up to three minutes (the page asks for a few; the piece asks the kit to keep playing for a trial), each trial tops up 8 s, then the ripple drifts by a hidden amount (−0.15 to +0.15 oct/s) and you say up or down. The score is how far the climb moves your point of no motion; answers that ignore the sound reach the 0.15 oct/s rule 5.9% of the time, and the piece says what no audible-adaptor test can rule out. Measured in Node from the worklet's output: the climb at 0.500 oct/s, still at 0.0002, every hidden test drift within 0.004 oct/s, the stop at 20.00 s. Whether anything seems to move only an ear and an eye can say. Opened as a file, it says its sound engine can't load and the walk still works.",
+     "near": "drifting upward in frequency",
+     "place": "band",
+     "height": 1200,
+     "remade": "2026-11-08, after the challenge: the test now hides a real drift in each trial and scores the shift of the reader's no-motion point (chance 5.9%) instead of counting 'down'; first adaptation up to 3 min with RichPiece.hold for the trial; the context is kept only after the worklet loads, so file:// no longer sticks the walk; the opening asks about the stopped water and drops an unsourced claim"
+    },
+    {
+     "file": "Auditory Illusions — rich — the ghost in the gap.html",
+     "origin": "made",
+     "by": "Web Audio · Claude Opus 5.5",
+     "title": "The ghost in the gap",
+     "caption": "One red shape that is also the noise's spectrum: stare into its gap for 20 seconds while pink noise with a band cut out plays, then white paper and silence, and say whether a ghost came in the eye, a tone in the ear, or nothing. Then the hole itself (sliders for centre and width), two cartoons that keep the page's hedge (shape for certain; mechanism likely different, since vision's is fatigue and this may not be, and is still argued), the section's tinnitus and musical ear syndrome drawn and not played, with Charles Bonnet as a dashed figure labelled not there, and a test: eight trials, four with a gap hidden anywhere within 1.25 octaves of your setting and four plain. Before trial one it prints both chances: the tone-or-nothing rule 14.5% for random answers (and what it can't rule out), and the pitch match against the hidden gap (47% for a reader matching at their own slider, 22% at random, at the default gap; matches count as a fingerprint only under 5%). Measured in Node at 44.1 and 48 kHz: the gap's bins at the 32-bit floor over the whole loop, and deeper than −100 dB in the gap's middle in every 8192-sample slice (worst −103.5 dB); edges within one bin; both arms −20.000 dBFS; a seamless loop. Whether a tone is heard, and where, only an ear can say; nothing is an honest answer.",
+     "near": "a band cut out of it",
+     "place": "band",
+     "height": 1150,
+     "remade": "2026-11-08, after the challenge: the match is scored against a gap hidden anywhere within 1.25 octaves (at most an octave wide, a twelfth-octave window), with the slider-matcher's and random matcher's chance printed first; the tone rule prints 14.5% and what it can't rule out; step three retitled 'maybe two machines' and kept to the page's hedge, the where-the-red-was argument dropped; the slice depth stated as worst −103.5 dB"
+    }
+   ],
+   "challenge": {
+    "date": "2026-11-08",
+    "by": "challenger · Claude Opus 5.5",
+    "verdicts": [
+     {
+      "file": "Auditory Illusions — rich — the waterfall.html",
+      "verdict": "keep",
+      "why": "The encounter is right: a place, eyes on a cross, both senses adapted in one breath, red meaning 'moving now'. Three things need fixing in one round. (1) The test is open to a leak. The arm is audible (you hear the climb) and the page states the answer ('it seems to drift down'), so a reader who answers from the prediction says 'down' after the climb and 'still' after the still ripple, scores A − C = 4, and is told 'the aftereffect showed for you'. The rule's own line, that the still arm catches 'a prediction answering instead of an ear', is false: the still arm only catches a habit of saying 'down' in both arms. Fix: give the test part a small hidden real drift on most trials (for example −0.15, −0.05, 0, +0.05, +0.15 oct/s) and score how far the reader's point of 'no motion' shifts after the climb against after the still ripple, in oct/s. A reader who answers from the prediction gives themselves away on the trials that truly climb. Then state its chance before trial one, and say plainly what no audible-adaptor design can rule out. (2) The 45 s ceiling is self-imposed. The kit gives a piece RichPiece.capAfter(s) and RichPiece.hold(), so the piece can offer the page's 'few minutes' (Shu et al. adapted for minutes), either as one long first adaptation followed by short top-ups, run in blocks with the still block first, or as a 2–3 minute option. As it stands, every null comes from 20 s, a small fraction of the page's adaptation, and the opening's 'stood still' reply blames the ear's weakness rather than the short adaptation. That reply also adds a claim the page doesn't make ('reported weaker than the eye's'); either source it in the Context or say 'twenty seconds is far short of the page's few minutes'. (3) The piece breaks if the worklet fails to load. Opened on its own from file://, Chromium refuses the Blob worklet ('Unable to load a worklet's module'). After that, ctx exists and node is null, so every Back or Next throws in stopAll (node.port) and the walk is stuck on step 1, and any later Play would throw the same way. Guard node in stopAll and play, and make ctx only after addModule succeeds. On a secure sandboxed frame, the way the face serves it, it loads clean. Smaller, at the maker's taste: with the eyes held on the cross, the rocks fall on unadapted retina. Ask about the stopped water too, or tell the reader to look at the rock beside the cross when the water stops.",
+      "second": "Keep: the test now scores a shift in the point of no motion against hidden real drifts, with a still-ripple control block first, and my own enumeration gives the same 5.9% chance the piece prints (p = 0.5 is also the worst lean). The leak from answering by the page is named, not closed: answering 'down' to everything after the climb puts the point at +0.20 and passes, and the piece says before trial one that it cannot rule this out. Adaptation now reaches 3 min under RichPiece.hold, and from file:// it now runs clean, with the engine error shown and every step working."
+     },
+     {
+      "file": "Auditory Illusions — rich — the ghost in the gap.html",
+      "verdict": "keep",
+      "why": "The lamp that is its own spectrum, with an afterimage and a possible Zwicker tone in the same dark, is the section's best encounter, and the tinnitus, musical ear and Charles Bonnet step is honest: nothing is played, the figure is dashed and labelled 'not there', and the grade is quoted right. Three faults. (1) The pitch match, which the verdict calls 'the tone's fingerprint, not a guess at the slider', is not a fingerprint. The gap moves at most ±0.5 octave, but a match counts as in the gap anywhere within the gap's edges ±1/6 octave, so a reader who always matches at their own slider centre lands 'in the gap' 100% of the time at the default 1-octave width (and at any width from 0.667 octave up), 83% at 0.5 octave and 58.5% at 0.25. A log-uniform random matcher lands in 25%. Widen the hidden jitter well past the scoring window, or score how close each match is to the true centre against the slider centre, and state the guesser's hit rate before trial one. (2) The tone or nothing rule has no stated chance and the same leak as the waterfall. 'There is no coin to beat' is not a chance level: a reader answering at random gets A − C ≥ 2 14.5% of the time (p = 0.5, the worst case), and since the hollow hiss gives the arm away (the piece says so), a reader who answers from the page's prediction scores 4 − 0. Print the 14.5% and say that this count only rules out a habit of saying 'tone', not the prediction; let the fixed match carry the weight. (3) Step three asserts more than the page does. The page says the pair is 'shape for certain; mechanism likely different, since vision's version is fatigue and this one may not be', and that the mechanism 'is still argued'. The piece titles it 'Two ghosts, two machines', calls it 'the same event, built by different machinery', and adds its own proof: 'the eye's ghost sits where the red was, the ear's where the noise wasn't'. That proof sets the eye's position in space against the ear's position in frequency. On the matching axis, wavelength, the eye's green ghost also sits where the light wasn't, which is the Zwicker shape. Drop that argument from the step and the caption, keep the page's own reason and its 'likely' and 'may not be', and retitle it 'maybe two machines'. Also, the caption's '−125 dB or deeper in a 171 ms window' is one mid-loop slice. Across all 62 half-overlapping 8192-sample Hann slices the loudest gap bin reaches −103.5 dB (48 kHz) and −106.1 dB (44.1 kHz). That is still window leakage and inaudible, but say 'deeper than −100 dB in every slice'.",
+      "second": "Keep: step three is now 'One shape, maybe two machines'. It keeps the page's wording (shape for certain, mechanism likely different, vision's version fatigue and this one may not be, still argued) and drops the space-against-frequency argument. Before trial one the piece prints the 14.5% tone-or-nothing chance and names the hollow-hiss leak. The match is scored against a gap hidden within ±1.25 octaves, with guess rates printed, and counts only under 5%. The depth is stated at its worst slice."
+     }
+    ]
+   }
+  }
+ ],
+ "offers": [
+  {
+   "section": "In the air — the baseline",
+   "kind": "no-claim-edit",
+   "what": "A sharpening, not a correction: the page's 'gratings laid over each other... really in the image' is already the multiplicative case, and 'mechanism' stands. Numbers: ink-on-ink cloth carries its band as a real component (6 cycles at 0.20 on a mean of 0.27; band contrast 0.94 after blur); the air's sum of 440 + 443 Hz holds no 3 Hz in pressure (the arithmetic's floor), 3 Hz at exactly a² = 0.0400 in its square, and −9.6 dB of its varying power half-wave rectified; light added from two projectors loses its band only in linear light (contrast 0.026 → 0.004 under a 12 px squint), and through a compressive eye (L^0.4) gets one back at 0.16. Candidate Seen sentence, with Loudon's yes: 'The air adds two fast waves and the slow pattern is an outline; overlaid ink multiplies them and the slow band is really in the image. Either way it becomes real where something nonlinear reads it.'",
+   "status": "open"
+  },
+  {
+   "section": "→ Kuramoto Coupling",
+   "kind": "no-claim-edit",
+   "what": "For two oscillators the beat's outline has height 2a·R, where R = |cos(φ/2)| is Kuramoto's order parameter (the identity sin θ1 + sin θ2 = 2·cos(φ/2)·sin(θ̄) in Kuramoto's terms). In the air K = 0, so R sweeps 0 to 1 forever. With the K/N form θᵢ′ = ωᵢ + (K/2)·sin(θⱼ − θᵢ), the swells slow to √(Δf² − (K/2π)²) a second (Adler's slip law; check: 2.598 at K = 0.5Δω, 1.308 at 0.9Δω, 0.597 at 0.98Δω, within 0.2%; challenger recomputed the same and 0.1341 at 0.999) and stop at K = Δω, locked at φ* = asin(Δω/K) (56.44° at 1.2Δω, R = 0.881). With θᵢ′ = ωᵢ + K·sin(θⱼ − θᵢ) the lock comes at Δω/2, so [[Kuramoto Coupling]] should name its form. Candidate sentence: 'The swell's outline is R, Kuramoto's order parameter; in the air nothing couples the two, so it never settles.' Confirmed by the challenger.",
+   "status": "open"
+  },
+  {
+   "section": "In the cochlea — the ear is not a microphone",
+   "kind": "claim-change",
+   "what": "\"like any amplifier pushed hard, distort it\" makes the ear's ghost a product of being pushed hard, and that is the one thing that tells it apart from a speaker's. Goldstein (1967, JASA 41, 676; read at abstract level on the web 2026-11-08, not the paper) found the relative level of 2f₁ − f₂ nearly unaffected by stimulus level, set by the two tones' level ratio and falling sharply as f₂/f₁ grows (about 15–20% of the primaries at f₂/f₁ = 1.10). A device pushed hard behaves the other way: the ghost tone piece's soft clipper puts 800 Hz at −18.3 dB re the tones at full level, −34.9 dB ten dB down, −54.6 dB twenty down (1.7–2.0 dB further per dB; the browser's analyser read −19 and −36 dB). The f₂ − f₁ tone does need high level. Suggested, changing only the simile: 'its outer hair cells amplify sound, and the amplifier bends it at ordinary levels, not only when pushed: the 800 Hz ghost keeps about the same distance below the two tones as they get quieter (Goldstein, 1967); the low one at 200 Hz needs loud tones.' 'What it proves: active and nonlinear' stands. The challenger confirmed the reading (abstract level, clipper numbers reproduced: −18.5 / −34.9 / −54.6 / −74.6 dB). The ghost tone's step 5 lets a listener's records come out for either account. Worth a source check of the paper before it lands.",
+   "status": "open"
+  },
+  {
+   "section": "Between the two ears — timing to tens of microseconds",
+   "kind": "claim-change",
+   "what": "The page states the Franssen effect without its condition: “Listeners go on hearing it at the first.” Hartmann and Rakerd (JASA 86(4), 1366–1373, 1989, abstract) found it fails completely in an anechoic environment, tied to how implausible steady-state cues are in a room; Yost, Mapes-Riordan and Guzman (JASA 101(5), 1997, abstract) found it strongest in a live room with mid-frequency tones, strongest near 1500 Hz. Suggest: “In a reverberant room, with a steady mid-frequency tone, listeners go on hearing it at the first.” This would move Franssen off the Context's not-re-checked list. The piece's dry arm can test it by ear; nobody has listened yet. (Challenger: confirmed from abstracts.)",
+   "status": "open"
+  },
+  {
+   "section": "→ Auditory Illusions — Context",
+   "kind": "no-claim-edit",
+   "what": "Open question 1 says Huggins pitch is “a few lines of code.” A single pitch is; a melody needs one gate. Retuning a sounding Web Audio all-pass to the next note makes it ring at that note: +24.9 dB in 470–520 Hz in the first 60 ms after a switch to 493.88 Hz, in the twisted ear alone, a cue one ear could hear. Gating it (crossfade the twist out, retune unheard, fade back in) trades the ring for a dip: halfway through each crossfade the plain and twisted noise cancel at f0, 10 dB or more for about 8 ms of a 25 ms fade, −1.4 dB (this check) to −3.0 dB (the challenger) over 10 ms in the band. Band at Q 8: 413.4–468.3 Hz = f0/Q, −180° at f0. (Challenger: confirmed.)",
+   "status": "open"
+  },
+  {
+   "section": "→ Web Audio Worklet",
+   "kind": "no-claim-edit",
+   "what": "A gotcha for every rich-face piece that makes its AudioContext on the click and plays at once through a DynamicsCompressor (the brief's required limiter): Chrome's compressor starts cold. Measured offline in headless Chromium (and recomputed by the challenger): its output starts at 0.183 of settled at 5 ms, 0.582 at 50 ms, 0.851 at 100 ms, 0.966 at 150 ms, 1.000 by 200 ms; 0.3 s of silence first settles it fully. It also applies automatic makeup gain, ×1.482 (+3.4 dB) at threshold −6 and ×1.068 at −1, so a 'limiter' set this way raises the level too. Unwarmed, the precedence piece's late copy came out up to 8.8 dB louder than set (a click 40 ms late), and the Franssen onset 14 dB under its steady level, the very cue the illusion rests on. These four pieces wait until the context has run 0.3 s before sounding. It also delays everything by 6.0 ms (its look-ahead), equally in both channels. Home: the Web Audio Worklet page, or the rich-face README's piece gotchas.",
+   "status": "open"
+  },
+  {
+   "section": "Pitch is computed, not measured",
+   "kind": "claim-change",
+   "what": "'Play 200, 300 and 400 Hz together and you hear 100 Hz, a pitch with no energy at it' holds in the air: in what the missing-fundamental piece plays, measured after its compressor, nothing at 100 Hz rises above the measurement's floor, 174 dB under each partial, while a real 100 Hz added at −20 dB reads −20.0 dB. But the page's own Combination tones paragraph says loud tones make an f₂ − f₁ difference tone inside the cochlea, and here f₂ − f₁ = 100 Hz for both neighbouring pairs, the old objection. The cleanest answer is the shift the piece's step 5 runs: shift all three by +30 Hz and f₂ − f₁ stays exactly 100 Hz, while the least-squares residue moves to 109.31 Hz (de Boer's rule about 110 Hz). Suggest: '…a pitch with no energy at it; and it moves when all three are shifted by the same amount, which a difference tone would not, and survives noise over the low band.' The evidence for the clause is the literature (Schouten and de Boer on the shift, Licklider on masking), not this piece: nobody has listened. Confirmed by the challenger.",
+   "status": "open"
+  },
+  {
+   "section": "Sorting the world into sources",
+   "kind": "no-claim-edit",
+   "what": "The gap transfer sentence doesn't say where the gap sits. The illusion is built with the gap at the crossing: in this piece's numbers the two glides are about 150 cents apart at the gap's edges (777 vs 848 Hz at 1.15 s, 823 vs 755 Hz at 1.25 s; the challenger's bisection gives 150.0 cents on both sides). Suggest \"a long glide with a short gap at the point where it crosses a short glide with none\". The piece's break step lets a listener check that a gap moved away from the crossing stays put; nobody has listened yet. Confirmed by the challenger.",
+   "status": "open"
+  },
+  {
+   "section": "Sorting the world into sources",
+   "kind": "no-claim-edit",
+   "what": "\"When something covers a sound\" could say what covering takes: noise in the tone's own range, loud enough to have hidden it. Measured: with the band on the tone, the noise in the tone's filter is +10.07 dB re the tone through a roex(p) filter (challenger) and +9.9 dB in the piece's readout. Moved to 2 kHz at the same total loudness (+14.2 dB re the tone), it is −74.3 dB through roex and −82.8 dB rectangular as played, burst edges included; the maker's earlier −115.5 dB left the edges out. Suggested wording: \"a burst of noise loud enough, in the tone's own range, to have hidden it\". The challenger disputed it as a claim-change: covering already implies it, so it spells out a word rather than changing a claim. It rests on arithmetic and standing knowledge (Warren, Houtgast), not on a listener.",
+   "status": "open"
+  },
+  {
+   "section": "In time",
+   "kind": "no-claim-edit",
+   "what": "For the Context, § What was checked and what wasn't: a screen can show only part of the flicker-fusion twin. A browser draws flicker no faster than half its refresh rate (measured 59.9 frames a second in headless Chromium, so 29.95 a second; the piece hands over to a steady average at 29.4 on a 60 Hz screen). Even below that, only a smoothly varying lamp is drawn cleanly. An on-off flash is clean only below a sixth of the refresh rate (10 a second at 60 Hz); from there to 30 its third harmonic folds back as a slow false shimmer, about −9.5 dB at 17 to 22 a second. A bright, full-contrast light usually fuses above 30, so on a 60 Hz screen the eye's fusion shows only at low contrast. The ear's half has no such limit (clicks to 200 a second, exactly 1/r apart).",
+   "status": "open"
+  },
+  {
+   "section": "→ Auditory Illusions — Context",
+   "kind": "no-claim-edit",
+   "what": "Open question 2 (\"Should the page grow a rich face\") is answered by Loudon's order of 2026-11-08; the Context still reads it as open. Mark it answered, dated.",
+   "status": "open"
+  }
+ ]
+}

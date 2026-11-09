@@ -1,0 +1,429 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — Franssen effect
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece) · section "Between the two ears — timing to tens of microseconds" · siblings on this face: "binaural beats", "Huggins pitch", "precedence effect"
+  forward_vector: I am the Franssen effect as a bell you try to silence. It rings; you tap the speaker it is ringing from, and it goes on ringing, because that speaker went quiet a tenth of a second after it began. Then the two speakers' levels laid out in time, and what the literature says the trick needs (a live room, a pure tone); last the break: a blind trial with stay-put trials mixed in, run dry and in a room, tone and noise. I change only when the section I serve does.
+  understood as: a thing with a nature — a bell that keeps ringing after you have stopped it, in a room seen from above; tapping a speaker is how you try to silence it.
+  red means: what the ear is making up — the speaker you tap, believing the bell is there. Ink is what is physically there: the two speakers' levels.
+  sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. A sine (or white noise) into two gains: the first speaker jumps on and dies by e every τ, the second rises as 1 − e^(−t/τ), so their amplitudes always sum to the same. "Dry": each speaker is one channel. "Room": each speaker reaches both ears through a stereo impulse response made here (a direct sound to the near ear, the far ear 0.26 ms later and 6 dB down, early reflections, and a decaying noise tail, about 0.9 s, independent in each ear): a crude virtual live room for headphones. The room is mirrored (the right speaker's response is the left's with the ears swapped), and for a tone the far ear's room part (not its direct sound) is rescaled at the tone's frequency so the settled bell reaches both ears at the same level: level cannot answer the trial either way. The onset still favours the start side by about 6 dB, as a real speaker's would.
+  remade: 2026-11-08, after the challenge — the room mirrored and equalised at the tone (the settled level gap had run −11.6 to +26.1 dB by tone and side, and at 300 Hz favoured the start ear, which could fake "held"); the literature on what holds it moved to after the trial; the default tone moved to 1500 Hz, near Yost and colleagues' strongest.
+  check: "Auditory Illusions — rich — check — between-the-ears.mjs" renders this graph offline in headless Chromium and measures each channel's level over time (the first speaker's fall, the second's rise), and how alike the two ears are in the dry and the room versions.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Franssen effect · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (copied from a model piece on 2026-11-08), its --fx-* tokens retinted to the paper ground.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: #f4f2ec; --fx-bg-elev-1: #ece9e1; --fx-bg-elev-2: #e4e0d5; --fx-bg-elev-3: #dad6ca; --fx-fg-1: #141414; --fx-fg-2: #3a3a3a; --fx-fg-3: #7a7a7a; --fx-fg-4: #a9a59a; --fx-fg-on-accent: #f4f2ec; --fx-border: #c9c6bd; --fx-border-soft: rgba(20,20,20,0.10); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: #141414; --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: #d1301c; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: 0 1px 2px rgba(20,20,20,0.10); --fx-shadow-3: 0 6px 18px -6px rgba(20,20,20,0.25); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{--paper:#f4f2ec;--paper-2:#f8f6f1;--ink:#141414;--ink-2:#3a3a3a;--ink-3:#7a7a7a;--rule:#c9c6bd;--red:#d1301c;--red-soft:rgba(209,48,28,.12);
+    --sans:'Manrope',system-ui,sans-serif;--serif:'Cormorant Garamond',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.6;padding:24px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .bands{height:10px;margin:6px 0 10px;background:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 5px);-webkit-mask:linear-gradient(90deg,#000 0 40%,transparent 40% 41%,#000 41%);mask:linear-gradient(90deg,#000 0 40%,transparent 40% 41%,#000 41%)}
+  h1{font-family:var(--serif);font-weight:500;font-size:42px;line-height:1.05;margin:2px 0 8px}
+  h2{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.15;margin:2px 0 6px}
+  p.lead{font-family:var(--serif);font-size:21px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:60ch}
+  .say{font-family:var(--serif);font-size:18px;line-height:1.55;color:var(--ink-2);margin:0 0 12px;max-width:68ch}
+  .say p{margin:0 0 10px}
+  .hp{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;border:1.5px solid var(--ink);border-radius:2px;padding:9px 12px;margin:0 0 16px;font-size:14px}
+  .hp b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .hp .hint{flex-basis:100%}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 10px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .panel{border:1px solid var(--rule);border-radius:2px;padding:16px;margin:0 0 12px;background:var(--paper-2)}
+  canvas.stage{width:100%;display:block;touch-action:manipulation}
+  button.go{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 18px;cursor:pointer}
+  button.gh{font-family:var(--sans);font-size:14px;color:var(--ink);background:transparent;border:1px solid var(--ink-3);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.gh[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  button:disabled{opacity:.35;cursor:default}
+  .row{display:flex;gap:8px 10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  .ctl{display:grid;grid-template-columns:180px 1fr 11ch;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+  .ctl label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px}
+  .ctl output{font-family:var(--mono);font-size:14px;text-align:right;white-space:nowrap}
+  .read{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .read em{font-style:normal;color:var(--red)}
+  .eq{font-family:var(--mono);font-size:13px;margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.w{color:var(--ink-3);font-size:13px;margin-top:2px;font-family:var(--sans)}
+  .hint{font-size:13px;color:var(--ink-3)}
+  .reply{font-family:var(--serif);font-size:18px;color:var(--ink);margin-top:10px;min-height:1em;max-width:68ch}
+  .rulebox{border-left:3px solid var(--ink);padding:6px 12px;margin:12px 0;font-size:14px;max-width:72ch}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:4px 12px 4px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:26px;font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px}
+  footer svg{flex:none}
+  [hidden]{display:none !important}
+  @media (max-width:560px){h1{font-size:33px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr 10ch}}
+  .say b{font-weight:400;font-style:italic;color:var(--ink)}
+
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · between the two ears · the Franssen effect</div>
+  <h1>Silence the bell</h1>
+  <div class="bands" aria-hidden="true"></div>
+  <p class="lead">A bell rings in one of two speakers. Tap the speaker it is ringing from, to silence it.</p>
+
+  <div class="hp" role="group" aria-label="Headphone check"><b>● Headphones, or two speakers</b> Each speaker here is one channel. Check:
+    <button class="gh" id="hpL">left</button><button class="gh" id="hpR">right</button><span class="hint" id="hpSay">On headphones the piece starts in a virtual live room (step 2 can switch it off). On two real speakers, sit midway and switch the room off: your room is the room.</span></div>
+
+  <nav class="rail" id="rail" aria-label="Steps"></nav>
+  <section aria-live="polite"><div class="eyebrow" id="sEy"></div><h2 id="sT"></h2><div class="say" id="sS"></div></section>
+
+  <div class="panel">
+    <canvas class="stage" id="stage"></canvas>
+
+    <div data-k="ring">
+      <div class="row"><button class="go" id="ring">Ring the bell</button><span class="hint" id="ringHint"></span></div>
+      <div class="reply" id="reply"></div>
+    </div>
+
+    <div data-k="levels break">
+      <div class="row"><button class="go" id="lPlay" data-k="levels">Ring once</button><span class="eyebrow">source</span><button class="gh" id="sTone" aria-pressed="true">tone</button><button class="gh" id="sNoise" aria-pressed="false">noise</button>
+        <span class="eyebrow">room</span><button class="gh" id="rRoom" aria-pressed="true">live room</button><button class="gh" id="rDry" aria-pressed="false">dry</button>
+        <span class="eyebrow" data-k="levels">starts in</span><button class="gh" id="stL" aria-pressed="true" data-k="levels">left</button><button class="gh" id="stR" aria-pressed="false" data-k="levels">right</button></div>
+      <div class="ctl"><label for="tau">the crossfade<i>τ: the first dies by e every</i></label><input type="range" id="tau" min="0" max="100" step="1" value="25"><output id="tauV"></output></div>
+      <div class="ctl"><label for="fq">the tone</label><input type="range" id="fq" min="0" max="100" step="1" value="67"><output id="fqV"></output></div>
+      <div class="read" id="lRead"></div>
+      <div class="eq" data-k="levels">a₁(t) = e^(−t/τ) &nbsp;·&nbsp; a₂(t) = 1 − e^(−t/τ) &nbsp;·&nbsp; a₁ + a₂ = 1</div>
+      <div class="eq w" data-k="levels">The first speaker starts at full and dies away; the second rises in its place; the two always add to the same amplitude. After 5τ the first has fallen 43 dB, and the bell is all in the second.</div>
+    </div>
+
+    <div data-k="break">
+      <div class="rulebox" id="rule"></div>
+      <div class="row"><button class="go" id="bStart">Start 12 blind trials</button><span class="eyebrow" id="bLabel"></span></div>
+      <div class="row" id="bRow" hidden><button class="go" id="bPlay">Ring the trial</button><span class="eyebrow">where is it now?</span><button class="gh" id="bL">left</button><button class="gh" id="bR">right</button></div>
+      <div id="bResult"></div>
+      <table class="marks" id="tally"></table>
+    </div>
+  </div>
+
+  <div class="walk"><button class="gh" id="back">Back</button><button class="gh" id="next">Next</button></div>
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><span>Auditory Illusions · the Franssen effect · a sine, two gains and a room made here, 2026-11-08 · nobody has listened to it yet</span></footer>
+</main>
+
+<script>
+// ── shared by this section's four pieces: sound only on a click, one stereo out, the walk, the headphone check ──
+const $ = (id) => document.getElementById(id);
+const RM = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const INK = { ink: '#141414', ink2: '#3a3a3a', ink3: '#7a7a7a', rule: '#c9c6bd', paper: '#f8f6f1', red: '#d1301c', redSoft: 'rgba(209,48,28,.14)' };
+const AU = { ctx: null, out: null, stops: new Set(), thresholdDb: -6 };
+// The out chain every sound goes through, live and in the offline render the check script reads:
+// a compressor set as a safety limiter (threshold AU.thresholdDb, -6 dB unless a piece raises it; ratio 20), then the master level.
+function outChain(ctx) {
+  const comp = ctx.createDynamicsCompressor();
+  comp.threshold.value = AU.thresholdDb; comp.knee.value = 0; comp.ratio.value = 20; comp.attack.value = 0.002; comp.release.value = 0.2;
+  const m = ctx.createGain(); m.gain.value = 0.8; comp.connect(m); m.connect(ctx.destination); return comp;
+}
+// The limiter starts cold: Chrome's compressor gain climbs from about a fifth of its settled value over its first
+// 150 ms (measured by the check script). So nothing sounds until the context has run 0.3 s of silence through it.
+const WARM = 0.3;
+async function ensure() {
+  if (!AU.ctx) { AU.ctx = new AudioContext(); AU.out = outChain(AU.ctx); }
+  if (AU.ctx.state !== 'running') await AU.ctx.resume();
+  while (AU.ctx.currentTime < WARM) await new Promise((r) => setTimeout(r, 25));
+  return AU.ctx;
+}
+function keep(stop) { AU.stops.add(stop); return stop; }
+function stopAll() { for (const f of [...AU.stops]) { try { f(); } catch (e) { /* already stopped */ } } AU.stops.clear(); }
+// Two mono inputs, one per ear (or per speaker): L goes only to channel 0, R only to channel 1.
+function stereo(ctx, out) {
+  const m = ctx.createChannelMerger(2); m.connect(out);
+  const ch = (i) => { const g = ctx.createGain(); g.channelCount = 1; g.channelCountMode = 'explicit'; g.connect(m, 0, i); return g; };
+  return { L: ch(0), R: ch(1), m };
+}
+// The same graph, rendered offline: what the check script measures is what the button plays.
+// It warms the limiter the same way: the graph starts at WARM, and what comes back starts there too.
+async function offline(seconds, fn, sr = 48000) {
+  const ctx = new OfflineAudioContext(2, Math.round((seconds + WARM) * sr), sr);
+  const out = outChain(ctx); fn(ctx, out, WARM);
+  const b = await ctx.startRendering(), a = Math.round(WARM * sr);
+  return { sr, L: Array.from(b.getChannelData(0).subarray(a)), R: Array.from(b.getChannelData(1).subarray(a)) };
+}
+// The headphone check: three pips in one ear.
+async function pip(side) {
+  stopAll(); const ctx = await ensure(); const s = stereo(ctx, AU.out);
+  const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = 660;
+  const g = ctx.createGain(); g.gain.value = 0; o.connect(g); g.connect(side === 'L' ? s.L : s.R);
+  const t = ctx.currentTime + 0.03;
+  for (let k = 0; k < 3; k++) { const a = t + k * 0.22; g.gain.setValueAtTime(0, a); g.gain.linearRampToValueAtTime(0.4, a + 0.01); g.gain.setTargetAtTime(0, a + 0.08, 0.02); }
+  o.start(t); o.stop(t + 0.85);
+  $('hpSay').textContent = side === 'L' ? 'Three pips, in your left ear only? Then left is left.' : 'Three pips, in your right ear only? Then you are set. If both ears heard them, this is mono: the piece needs two channels.';
+}
+function hpStrip() { $('hpL').onclick = () => pip('L'); $('hpR').onclick = () => pip('R'); }
+// The walk: one step at a time; changing step stops the sound.
+function walk(steps, show) {
+  let cur = 0;
+  function go(i) {
+    stopAll(); cur = Math.max(0, Math.min(steps.length - 1, i)); const s = steps[cur];
+    const rail = $('rail'); rail.innerHTML = '';
+    steps.forEach((t, j) => { const b = document.createElement('button'); b.textContent = (j + 1) + ' · ' + t.rail; if (j === cur) b.setAttribute('aria-current', 'step'); b.onclick = () => go(j); rail.appendChild(b); });
+    $('sEy').textContent = `Step ${cur + 1} of ${steps.length} · ${s.rail}`; $('sT').textContent = s.title; $('sS').innerHTML = s.say;
+    document.querySelectorAll('[data-k]').forEach((el) => { el.hidden = !el.dataset.k.split(' ').includes(s.key); });
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    show(s.key);
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  return { go, key: () => steps[cur].key };
+}
+function fit(c, h) {
+  if (h) c.style.height = h + 'px';
+  const w = c.clientWidth, H = c.clientHeight, d = window.devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+function radio(ids, on) { ids.forEach((id) => $(id).setAttribute('aria-pressed', String(id === on))); }
+// Chance: the probability of k or more right out of n by guessing, each guess right with probability p.
+function atLeast(k, n, p = 0.5) { let s = 0; for (let j = k; j <= n; j++) { let c = 1; for (let i = 0; i < j; i++) c = c * (n - i) / (i + 1); s += c * Math.pow(p, j) * Math.pow(1 - p, n - j); } return s; }
+const pct = (p) => (p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%');
+function sigil() { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); }
+  $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+function clock() { return AU.ctx ? AU.ctx.currentTime : performance.now() / 1000; }
+
+</script>
+<script>
+// ── the engine ──
+const FR = {
+  rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; },
+  // A speaker at ±30° in a live room, heard through headphones: [near ear, far ear].
+  // Mirrored: both speakers use the same near-ear and far-ear responses (the same seeds), with the ears swapped.
+  // For a tone at f, the far ear's room part is rescaled (roomScale) so that once the bell has settled in one speaker,
+  // both ears get it at the same level.
+  irData(sr, seconds = 1.2, rt60 = 0.9) {
+    const key = sr + ':' + seconds; FR._ir = FR._ir || {}; if (FR._ir[key]) return FR._ir[key];
+    const n = Math.round(seconds * sr), near = new Float32Array(n), far = new Float32Array(n);
+    near[0] = 1; far[Math.round(0.00026 * sr)] = 0.5;
+    [near, far].forEach((ch, e) => {
+      const r = FR.rng(100 + e);
+      for (let k = 0; k < 8; k++) ch[Math.round((0.003 + 0.025 * r()) * sr)] += (r() < 0.5 ? -1 : 1) * (0.25 + 0.25 * r());
+      let en = 0; const tail = new Float32Array(n);
+      for (let i = Math.round(0.005 * sr); i < n; i++) { const t = i / sr; tail[i] = (r() * 2 - 1) * Math.exp(-6.9 * t / rt60) * Math.min(1, (t - 0.005) / 0.02); en += tail[i] * tail[i]; }
+      const k2 = Math.sqrt(2 / en); for (let i = 0; i < n; i++) ch[i] += k2 * tail[i];   // the tail carries twice the direct sound's energy
+    });
+    return (FR._ir[key] = { near, far });
+  },
+  dft(x, f, sr) { let re = 0, im = 0; const w = 2 * Math.PI * f / sr; for (let i = 0; i < x.length; i++) { re += x[i] * Math.cos(w * i); im -= x[i] * Math.sin(w * i); } return [re, im]; },
+  mag(x, f, sr) { return Math.hypot(...FR.dft(x, f, sr)); },
+  // The far ear's room part (everything after its direct sound) is scaled by c so that |H_far(f)| = |H_near(f)|,
+  // leaving the direct sound, and so the onset's 6 dB, untouched: |D + cR|² = M², the positive root.
+  roomScale(f, sr) {
+    const d = FR.irData(sr), itd = Math.round(0.00026 * sr), M = FR.mag(d.near, f, sr), w = 2 * Math.PI * f / sr;
+    const D = [0.5 * Math.cos(w * itd), -0.5 * Math.sin(w * itd)], H = FR.dft(d.far, f, sr), R = [H[0] - D[0], H[1] - D[1]];
+    const a = R[0] * R[0] + R[1] * R[1], b = 2 * (D[0] * R[0] + D[1] * R[1]), c0 = D[0] * D[0] + D[1] * D[1] - M * M, disc = b * b - 4 * a * c0;
+    return disc < 0 ? null : (-b + Math.sqrt(disc)) / (2 * a);
+  },
+  // The settled bell's level difference between the ears, far over near, in dB, before equalising.
+  gap(f, sr = 48000) { const d = FR.irData(sr); return 20 * Math.log10(FR.mag(d.far, f, sr) / FR.mag(d.near, f, sr)); },
+  ir(ctx, side, f) {
+    const sr = ctx.sampleRate, d = FR.irData(sr), b = ctx.createBuffer(2, d.near.length, sr), itd = Math.round(0.00026 * sr);
+    const c = f ? FR.roomScale(f, sr) : 1;
+    b.getChannelData(side === 'L' ? 0 : 1).set(d.near); const far = b.getChannelData(side === 'L' ? 1 : 0);
+    if (c === null) { const k = FR.mag(d.near, f, sr) / FR.mag(d.far, f, sr); for (let i = 0; i < d.far.length; i++) far[i] = k * d.far[i]; }   // no root: scale it all
+    else { for (let i = 0; i < d.far.length; i++) far[i] = i === itd ? 0.5 + c * (d.far[i] - 0.5) : c * d.far[i]; }
+    return b;
+  },
+  noise(ctx, seconds = 4) { const n = Math.round(seconds * ctx.sampleRate), b = ctx.createBuffer(1, n, ctx.sampleRate), x = b.getChannelData(0), r = FR.rng(5); for (let i = 0; i < n; i++) x[i] = (r() + r() + r() - 1.5); return b; },
+  // p: { f, tau, src: 'tone'|'noise', room, start: 'L'|'R', dur, move: true (crossfade) | false (stays in the start speaker) }
+  build(ctx, out, p, t0) {
+    const env = ctx.createGain(); env.connect(out);
+    const s = stereo(ctx, env);
+    let src;
+    if (p.src === 'noise') { src = ctx.createBufferSource(); src.buffer = FR.noise(ctx); src.loop = true; } else { src = ctx.createOscillator(); src.frequency.value = p.f; }
+    const lvl = (p.room ? 0.1 : 0.3) * (p.src === 'noise' ? 0.6 : 1);
+    const gS = ctx.createGain(), gO = ctx.createGain(), mute = { L: ctx.createGain(), R: ctx.createGain() };
+    src.connect(gS); src.connect(gO);
+    const other = p.start === 'L' ? 'R' : 'L';
+    gS.connect(mute[p.start]); gO.connect(mute[other]);
+    if (p.room) { ['L', 'R'].forEach((sd) => { const c = ctx.createConvolver(); c.normalize = false; c.buffer = FR.ir(ctx, sd, p.src === 'noise' ? null : p.f); mute[sd].connect(c); c.connect(env); }); }
+    else { mute.L.connect(s.L); mute.R.connect(s.R); }
+    const on = t0 + 0.001, end = t0 + p.dur;
+    gS.gain.setValueAtTime(0, t0); gS.gain.linearRampToValueAtTime(lvl, on);
+    gO.gain.setValueAtTime(0, t0);
+    if (p.move !== false) { gS.gain.setTargetAtTime(0, on, p.tau); gO.gain.setValueAtTime(0, on); gO.gain.setTargetAtTime(lvl, on, p.tau); }
+    env.gain.setValueAtTime(1, end); env.gain.linearRampToValueAtTime(0, end + 0.05);
+    src.start(t0); src.stop(end + 0.06);
+    return {
+      mute(sd, m) { mute[sd].gain.setTargetAtTime(m ? 0 : 1, ctx.currentTime, 0.004); },
+      stop() { const t = ctx.currentTime; env.gain.cancelScheduledValues(t); env.gain.setValueAtTime(env.gain.value, t); env.gain.linearRampToValueAtTime(0, t + 0.04); try { src.stop(t + 0.05); } catch (e) { /* already stopped */ } },
+    };
+  },
+};
+window.PIECE = { gap: (f) => FR.gap(f), render: (p, seconds = 1.5) => offline(seconds, (ctx, out, t0) => { FR.build(ctx, out, Object.assign({ f: 700, tau: 0.03, src: 'tone', room: false, start: 'L', dur: seconds - 0.1 }, p), t0); }) };
+
+(() => {
+  const tauOf = (v) => { const s = 0.002 * Math.pow(1000, v / 100); return s < 0.01 ? Math.round(s * 10000) / 10000 : s < 0.1 ? Math.round(s * 1000) / 1000 : Math.round(s * 100) / 100; };   // 2 ms .. 2 s, log; 25 → 11 ms
+  const fOf = (v) => { const r = 200 * Math.pow(20, v / 100); return r < 1000 ? Math.round(r / 10) * 10 : Math.round(r / 50) * 50; };                                          // 200 .. 4000 Hz, log; 67 → 1500 Hz
+  const S = { src: 'tone', room: true, start: 'L', ring: null, taps: [], trials: null, tally: [] };
+  let live = null;
+  const P = () => ({ f: fOf(+$('fq').value), tau: tauOf(+$('tau').value), src: S.src, room: S.room, start: S.start });
+
+  const STEPS = [
+    { key: 'ring', rail: 'silence it', title: 'Tap the speaker it is ringing from',
+      say: '<p>Ring the bell. It rings for eight seconds, unless you silence the speaker it is in. Tap the one you hear it from.</p>' },
+    { key: 'levels', rail: 'the levels', title: 'It moved; you didn’t follow',
+      say: '<p>Here is what the two speakers did. The bell starts with a jump in one speaker, and from that instant fades out of it while it fades into the other, the two always adding to the same amplitude. By the time you tapped, the first speaker had long been silent. The page’s account: location is decided at the onset, the one sharp moment the ear can place, and then held.</p><p>On headphones the speakers sit in a virtual live room, mirrored, and set so that once the bell has settled both ears get it at the same level; the line under the sliders says what it would have been. Try it dry, try noise, try a slow crossfade. Which of those keeps the bell where it started is the question the next step asks; what the literature found waits until after you answer.</p>' },
+    { key: 'break', rail: 'where it breaks', title: 'Where it breaks',
+      say: '<p>A blind check, run in whatever arm you set: room or dry, tone or noise, fast or slow crossfade. Answer where you hear the bell once it has settled, not where you think it ought to be.</p>' },
+  ];
+  const W = walk(STEPS, (k) => { $('stage').style.height = ({ ring: 300, levels: 220, break: 200 })[k] + 'px'; writeAll(); });
+
+  // ── step 1 ──
+  $('ring').onclick = async () => {
+    stopAll(); const ctx = await ensure(), start = Math.random() < 0.5 ? 'L' : 'R', t0 = ctx.currentTime + 0.03;
+    const v = FR.build(ctx, AU.out, { f: 1500, tau: 0.011, src: 'tone', room: true, start, dur: 8 }, t0); live = v;
+    S.ring = { start, t0, muted: { L: false, R: false }, taps: 0 }; $('reply').textContent = ''; $('ringHint').textContent = 'tap the speaker it is ringing from';
+    const end = setTimeout(() => stopAll(), 8200);
+    keep(() => { clearTimeout(end); v.stop(); live = null; $('ringHint').textContent = ''; });
+  };
+  function geo(w, h) { const cx = w / 2, cy = h - 40, R = Math.min(w / 2 - 40, h - 80); return { cx, cy, R, sp: (sd) => { const a = (sd === 'L' ? -30 : 30) * Math.PI / 180; return { x: cx + R * Math.sin(a), y: cy - R * Math.cos(a) }; } }; }
+  $('stage').addEventListener('pointerdown', (e) => {
+    if (W.key() !== 'ring' || !S.ring || !live) return;
+    const r = e.target.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, G = geo(r.width, r.height);
+    for (const sd of ['L', 'R']) { const p = G.sp(sd); if (Math.hypot(x - p.x, y - p.y) < 40) {
+      const R = S.ring; R.muted[sd] = !R.muted[sd]; live.mute(sd, R.muted[sd]); R.taps++; S.taps.push(sd);
+      const t = clock() - R.t0, side = sd === 'L' ? 'left' : 'right';
+      if (!R.muted[sd]) { $('reply').textContent = `The ${side} speaker is back on.`; return; }
+      if (sd === R.start && t > 0.06) $('reply').textContent = `Still ringing? The ${side} speaker went quiet about ${Math.round(5 * 11)} ms after the bell began; you silenced a speaker that was already silent. The bell has been in the other one all along. Tap it.`;
+      else if (sd === R.start) $('reply').textContent = `You were quick: that was still the onset. Ring again and wait a second before you tap.`;
+      else $('reply').textContent = R.muted[R.start] ? 'Silence. It was here, in the speaker you didn’t hear it in, from a tenth of a second after it began.' : 'Silence, at the first tap? Then you heard where it really was, and the illusion missed you this time. Ring it again; the first speaker is a coin each time. On headphones the virtual room is only a sketch of a room.';
+      return; } }
+  });
+
+  // ── steps 2 and 3 ──
+  $('sTone').onclick = () => { S.src = 'tone'; radio(['sTone', 'sNoise'], 'sTone'); writeAll(); };
+  $('sNoise').onclick = () => { S.src = 'noise'; radio(['sTone', 'sNoise'], 'sNoise'); writeAll(); };
+  $('rRoom').onclick = () => { S.room = true; radio(['rRoom', 'rDry'], 'rRoom'); writeAll(); };
+  $('rDry').onclick = () => { S.room = false; radio(['rRoom', 'rDry'], 'rDry'); writeAll(); };
+  $('stL').onclick = () => { S.start = 'L'; radio(['stL', 'stR'], 'stL'); writeAll(); };
+  $('stR').onclick = () => { S.start = 'R'; radio(['stL', 'stR'], 'stR'); writeAll(); };
+  ['tau', 'fq'].forEach((id) => ($(id).oninput = writeAll));
+  $('lPlay').onclick = async () => {
+    stopAll(); const ctx = await ensure(), t0 = ctx.currentTime + 0.03, p = Object.assign(P(), { dur: 3 });
+    const v = FR.build(ctx, AU.out, p, t0); S.lv = { t0, p }; const end = setTimeout(() => stopAll(), 3200);
+    keep(() => { clearTimeout(end); v.stop(); S.lv = null; });
+  };
+  const N = 12;
+  $('bStart').onclick = () => {
+    stopAll(); const kinds = [...Array(8).fill('move'), ...Array(4).fill('stay')];
+    for (let i = kinds.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [kinds[i], kinds[j]] = [kinds[j], kinds[i]]; }
+    S.trials = { p: P(), kinds, starts: kinds.map(() => (Math.random() < 0.5 ? 'L' : 'R')), ans: [], active: true }; $('bRow').hidden = false; $('bResult').innerHTML = ''; writeAll();
+  };
+  $('bPlay').onclick = async () => {
+    const tr = S.trials; if (!tr || tr.ans.length >= N) return; stopAll(); const i = tr.ans.length;
+    const ctx = await ensure(), t0 = ctx.currentTime + 0.03, v = FR.build(ctx, AU.out, Object.assign({}, tr.p, { start: tr.starts[i], move: tr.kinds[i] === 'move', dur: 3 }), t0);
+    const end = setTimeout(() => stopAll(), 3200); keep(() => { clearTimeout(end); v.stop(); });
+  };
+  function answer(a) { const tr = S.trials; if (!tr || tr.ans.length >= N) return; stopAll(); tr.ans.push(a); if (tr.ans.length >= N) { tr.active = false; $('bRow').hidden = true; $('bResult').innerHTML = verdict(tr); } writeAll(); }
+  $('bL').onclick = () => answer('L'); $('bR').onclick = () => answer('R');
+  const armName = (p) => `${p.room ? 'room' : 'dry'} · ${p.src === 'noise' ? 'noise' : p.f + ' Hz'} · τ ${fmtT(p.tau)}`;
+  function verdict(tr) {
+    let mOn = 0, mN = 0, sOn = 0, sN = 0;
+    tr.kinds.forEach((k, i) => { const atStart = tr.ans[i] === tr.starts[i]; if (k === 'move') { mN++; if (atStart) mOn++; } else { sN++; if (atStart) sOn++; } });
+    S.tally.push({ arm: armName(tr.p), mOn, mN, sOn, sN });
+    const held = mOn >= 7, failed = mN - mOn >= 7;
+    let say = held ? `On the bells that moved, you heard it at the speaker it started in ${mOn} times of 8. A guesser gets that far 3.5% of the time: in this arm the Franssen effect held for you.`
+      : failed ? `On the bells that moved, you heard it where it really ended up ${mN - mOn} times of 8. A guesser gets that far 3.5% of the time: in this arm the illusion failed, and you found the bell where it was.` + (tr.p.room ? ' The page says listeners go on hearing it at the first; here, for you, they didn’t. Worth a note on the section.' : ' Compare the room arm.')
+      : `On the bells that moved, ${mOn} of 8 at the start speaker: neither clearly held nor clearly broken (a guesser gets 7 or more either way 3.5% of the time).`;
+    say += sOn === sN ? ` On the bells that stayed put you placed all ${sN} correctly, so you can place a bell that doesn’t move.` : ` On the bells that stayed put you placed ${sOn} of ${sN}: if you can’t place a bell that doesn’t move, the moving ones say little.`;
+    return `<p class="say" style="margin-top:10px">${say}</p><p class="hint">Both arms of the coin: moving bells ${mOn} of ${mN} heard at the start · staying bells ${sOn} of ${sN} heard at the start (correct for those).</p><p class="say">What the literature found, now that you have answered: Hartmann and Rakerd (1989) found the illusion fails completely in an anechoic room, and tied it to how implausible a steady tone’s cues are in a room; Yost and colleagues (1997) found it strongest in a live room with mid-frequency tones, near 1500 Hz. A steady tone in a room is hard to place, because the room scrambles its cues; an onset arrives before the room does. Both from their abstracts, not the papers. Run another arm and compare.</p>`;
+  }
+  const fmtT = (s) => (s < 1 ? (1000 * s).toFixed(s < 0.01 ? 1 : 0) + ' ms' : s.toFixed(2) + ' s');
+  function writeAll() {
+    const p = P(); $('tauV').textContent = fmtT(p.tau); $('fqV').textContent = S.src === 'noise' ? 'noise' : p.f + ' Hz';
+    const gp = S.src === 'tone' ? FR.gap(p.f) : null;
+    $('lRead').innerHTML = `the first speaker is 43 dB down after 5τ = <b>${fmtT(5 * p.tau)}</b> · ${S.room ? 'live room: each speaker reaches both ears, with reflections and a 0.9 s tail' + (gp !== null ? `; settled, the far ear gets the bell at <b>0.0 dB</b> re the near ear (equalised; this room unequalised: ${gp >= 0 ? '+' : ''}${gp.toFixed(1)} dB)` : '; noise is not equalised') : 'dry: each speaker is one ear, nothing else'} · ${S.src === 'noise' ? 'white noise: a dense spectrum' : 'a sine, ' + p.f + ' Hz'}`;
+    const tr = S.trials;
+    $('rule').innerHTML = `<b>The blind check, before you start.</b> Twelve trials in the arm set above (now ${armName(p)}; fixed when you press Start). Eight bells move: they start in one speaker and end in the other. Four stay in the speaker they start in. Which speaker starts, and which bells move, is random and hidden. Each rings 3 s; answer where you hear it now. On the eight that move, 7 or more answers at the start speaker happens by guessing 3.5% of the time, so 7+ means the illusion held; 7 or more at the end speaker means it failed, with the same 3.5%. The four that stay check that you can place a bell at all.`;
+    $('bLabel').textContent = tr ? (tr.active ? `trial ${tr.ans.length + 1} of 12 · ${armName(tr.p)}` : 'all twelve answered') : '';
+    $('tally').innerHTML = S.tally.length ? `<tr><th>arm</th><th>moving: heard at start</th><th>staying: placed right</th></tr>` + S.tally.map((r) => `<tr><td>${r.arm}</td><td>${r.mOn} of ${r.mN}</td><td>${r.sOn} of ${r.sN}</td></tr>`).join('') : '';
+  }
+
+  function speaker(g, x, y, ang, muted, lit) {
+    g.save(); g.translate(x, y); g.rotate(ang); g.strokeStyle = INK.ink; g.fillStyle = muted ? INK.paper : INK.ink;
+    g.fillRect(-16, -11, 32, 22); g.strokeRect(-16, -11, 32, 22); g.beginPath(); g.moveTo(-9, 11); g.lineTo(-18, 22); g.lineTo(18, 22); g.lineTo(9, 11); g.stroke();
+    if (muted) { g.beginPath(); g.moveTo(-11, -7); g.lineTo(11, 7); g.moveTo(11, -7); g.lineTo(-11, 7); g.stroke(); }
+    g.restore();
+    if (lit) { g.strokeStyle = INK.red; g.lineWidth = 2; g.beginPath(); g.arc(x, y + 4, 34, 0, 2 * Math.PI); g.stroke(); g.lineWidth = 1; }
+  }
+  function draw() {
+    requestAnimationFrame(draw);
+    const k = W.key(), { g, w, h } = fit($('stage')); g.clearRect(0, 0, w, h); g.font = '11px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+    if (k === 'ring') {
+      const G = geo(w, h); g.strokeStyle = INK.rule; for (let i = 0; i < 4; i++) g.strokeRect(8 + i * 6, 6 + i * 6, w - 16 - i * 12, h - 12 - i * 12);
+      for (let i = 0; i < 6; i++) { g.strokeStyle = INK.ink; g.beginPath(); g.ellipse(G.cx, G.cy, 20 - i * 3, 24 - i * 3.5, 0, 0, 2 * Math.PI); g.stroke(); }
+      g.beginPath(); g.moveTo(G.cx - 5, G.cy - 23); g.lineTo(G.cx, G.cy - 32); g.lineTo(G.cx + 5, G.cy - 23); g.stroke();
+      const R = S.ring, tapped = R ? S.taps[S.taps.length - 1] : null;
+      ['L', 'R'].forEach((sd) => { const p = G.sp(sd); speaker(g, p.x, p.y, (sd === 'L' ? -1 : 1) * 0.52, R ? R.muted[sd] : false, R && live && tapped === sd && R.muted[sd]); });
+      if (R && live && R.taps) {   // after the first tap, the truth: each speaker's level right now, in ink
+        const t = clock() - R.t0, aS = Math.exp(-Math.max(0, t) / 0.011), lv = { [R.start]: aS, [R.start === 'L' ? 'R' : 'L']: 1 - aS };
+        ['L', 'R'].forEach((sd) => { const p = G.sp(sd); g.fillStyle = INK.ink3; g.textAlign = 'center'; g.fillText(lv[sd] < 1e-3 ? 'silent since 0.06 s' : 'playing', p.x, p.y - 44); });
+      }
+      return;
+    }
+    // the two speakers' amplitudes over the first 1.5 s (or 3 s for a slow crossfade)
+    const p = P(), T = Math.max(1.5, Math.min(3, 8 * p.tau)), X = (t) => 90 + t / T * (w - 110), first = S.start;
+    ['left', 'right'].forEach((lab, r) => {
+      const y0 = 30 + r * 80, isS = (r === 0) === (first === 'L');
+      g.fillStyle = INK.ink3; g.textAlign = 'left'; g.fillText(lab, 0, y0 + 30); g.fillText(isS ? 'starts here' : 'ends here', 0, y0 + 44);
+      g.strokeStyle = INK.rule; g.beginPath(); g.moveTo(90, y0 + 50); g.lineTo(w - 20, y0 + 50); g.stroke();
+      g.strokeStyle = INK.ink; g.lineWidth = 1.6; g.beginPath();
+      for (let px = 90; px <= w - 20; px++) { const t = (px - 90) / (w - 110) * T, a = isS ? Math.exp(-t / p.tau) : 1 - Math.exp(-t / p.tau); px === 90 ? g.moveTo(px, y0 + 50 - 46 * (isS ? 1 : 0)) : g.lineTo(px, y0 + 50 - 46 * a); } g.stroke(); g.lineWidth = 1;
+    });
+    if (S.lv) { const t = clock() - S.lv.t0; if (t >= 0 && t <= T) { g.strokeStyle = INK.ink3; g.beginPath(); g.moveTo(X(t), 20); g.lineTo(X(t), h - 24); g.stroke(); } }
+    g.fillStyle = INK.ink3; g.textAlign = 'center'; for (let s = 0; s <= T + 1e-9; s += T > 2 ? 0.5 : 0.25) g.fillText(s.toFixed(2) + ' s', X(s), h - 10);
+  }
+  hpStrip(); sigil(); W.go(0); draw();
+})();
+</script>
+</body>
+</html>

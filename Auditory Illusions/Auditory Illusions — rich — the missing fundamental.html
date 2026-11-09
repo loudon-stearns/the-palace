@@ -1,0 +1,636 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the missing fundamental
+  born: 2026-11-08
+  links: [[Auditory Illusions]] connects-to · rich-face-piece-of (§ Pitch is computed, not measured) · [[Playful Interface Design]] dressed-by · [[Progressive Staging]] walks-by
+  forward_vector: I am the missing fundamental as an encounter, then a reveal, then three breaks. Three notched discs
+    wake one by one, each with its harmonic (200, 300, 400 Hz), and a low hum arrives with the triangle nobody drew.
+    The reader finds the hum's note among four forks before any number is shown. Then what is actually playing
+    (a live spectrum with nothing at 100 Hz), what the three share (one 10 ms period), and the breaks: add the real
+    100 Hz and take it away, with the bottom buried in noise; shift or stretch the harmonics until they stop sharing a
+    period, with a matcher that records where the reader hears the pitch; a low synthesized voice through a phone
+    line. I end where the page's sentence ends and leave the hearing to the ear that plays me. I am a proposal until
+    Loudon has played me.
+  understood as: a sleeping figure made of three discs. Each disc is a harmonic; turned in, it sings; all three in,
+    the figure (the triangle) and the low note both appear, and neither is drawn or played. A disc turned away breaks
+    both, or, honestly, only one of them: take away the 200 and the triangle goes, but the 100 Hz pitch stays, since
+    300 and 400 still share a 10 ms period. That divergence is the reason the page grades this twin shape, not mechanism.
+  red means: really there. Red marks energy that is in the air (the three partials, the real fundamental when added)
+    and the period that is physically in the waveform. What the ear or eye makes up (the 100 Hz pitch, the
+    triangle's edges) is never red: it is drawn, when it is drawn at all, as a dashed ink outline.
+  sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. A
+    compressor sits before the destination, set as a safety only (threshold -3 dBFS) so it cannot ripple the gain at
+    the period and put energy at 100 Hz; the check measures that.
+  check: "Auditory Illusions — rich — check — pitch-is-computed.mjs", beside this file. It runs the engine below in
+    Node (harmonic spacing, the shared period, the implied fundamentals, the phone-line filter's attenuation), then
+    renders this page's own Web Audio graph offline in headless Chromium and measures the level at 100 Hz after the
+    compressor. Whether the reader hears 100 Hz, only an ear can say.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The missing fundamental · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08 · retinted to paper">
+/* The browser's furniture, re-dressed: the free seam's inlined block (from _ops/loudon-live/design-system/controls.css), retinted to this face's paper ground.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: #ecE9e1; --fx-bg-elev-2: #e4e0d6; --fx-bg-elev-3: #dcd8cd; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: var(--rule, #c9c6bd); --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.55); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: var(--red, #d1301c); --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: none; --fx-shadow-3: none; }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink-2); font-family: var(--sans); }
+  .pc-piece { padding: 22px 22px 18px; }
+  .pc-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .pc-title { font-family: var(--serif); font-size: 29px; font-weight: 400; color: var(--ink); margin: 0 0 8px; line-height: 1.12; }
+  .pc-title em { font-style: italic; }
+  .pc-says { font-family: var(--serif); font-size: 20px; line-height: 1.42; color: var(--ink); max-width: 66ch; margin: 0 0 14px; min-height: 2.9em; }
+  .pc-tabs { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .pc-tabs button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); background: var(--paper); border: 1px solid var(--rule); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: var(--ink-3); color: var(--ink); }
+  button[aria-pressed="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+  button.pc-go { color: var(--ink); border: 1.5px solid var(--ink); min-width: 120px; }
+  button.pc-go[aria-pressed="true"] { color: var(--paper); }
+  button:disabled { opacity: .35; cursor: default; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+  .pc-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+  .pc-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  .pc-stage.pc-one { grid-template-columns: 1fr; }
+  @media (max-width: 700px) { .pc-stage { grid-template-columns: 1fr; } }
+  .pc-panel { border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); padding: 10px 12px; min-height: 120px; }
+  .pc-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas, svg.pc-fig { display: block; width: 100%; }
+  .pc-step { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 12px; }
+  .pc-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .pc-stephead span + span { color: var(--ink-3); }
+  .pc-teach { font-size: 14.5px; line-height: 1.62; max-width: 74ch; margin: 6px 0 10px; color: var(--ink-2); }
+  .pc-teach b { color: var(--ink); font-weight: 500; }
+  .pc-back { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin: 4px 0 0; }
+  label.pc-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ink-3); max-width: 380px; margin: 4px 0 10px; }
+  label.pc-sl b { color: var(--ink); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 14px; background: transparent; margin: 6px 0 2px; }
+  input[type=range]::-webkit-slider-runnable-track { height: 1.5px; background: var(--ink-3); }
+  input[type=range]::-moz-range-track { height: 1.5px; background: var(--ink-3); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -5.25px; background: var(--ink); border-radius: 0; cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border: 0; border-radius: 0; background: var(--ink); cursor: pointer; }
+  .pc-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--ink-3); min-height: 1.6em; }
+  .pc-read b { color: var(--ink); font-weight: 500; }
+  .pc-read .pc-red { color: var(--red); }
+  .pc-eq { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
+  .pc-eq .pc-sym { font-family: var(--serif); font-size: 21px; color: var(--ink); }
+  .pc-eq .pc-words { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); margin: 2px 0 6px; max-width: 74ch; }
+  .pc-forks { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+  .pc-fork { border: 1px solid var(--rule); border-radius: 2px; padding: 6px 8px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; width: 92px; }
+  .pc-fork svg { width: 56px; height: 86px; cursor: pointer; }
+  .pc-fork.pc-chosen { border-color: var(--ink); border-width: 1.5px; }
+  .pc-hidden { display: none !important; }
+  .pc-foot { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--rule); display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+  .pc-foot svg { width: 20px; height: 20px; }
+  .pc-disc { cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="pc-piece">
+  <div class="pc-kicker">made · Web Audio · Auditory Illusions · pitch is computed · proposal</div>
+  <h3 class="pc-title">Three discs, asleep. <em>Wake them, and listen.</em></h3>
+  <p class="pc-says" id="says">Silent until you press. Headphones or good speakers help.</p>
+  <div class="pc-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="pc-row">
+    <button class="pc-go" id="play" aria-pressed="false">▸ Wake them</button>
+    <button id="back">← Back</button>
+    <button id="next">Next step →</button>
+  </div>
+  <div class="pc-stage">
+    <div class="pc-panel" id="figPanel">
+      <div class="pc-plabel"><span id="figLabel">the discs</span><span id="figNote">tap a disc to turn it</span></div>
+      <svg class="pc-fig" id="fig" viewBox="0 -6 300 272" aria-label="three notched discs"></svg>
+    </div>
+    <div class="pc-panel" id="rightPanel">
+      <div class="pc-plabel"><span id="rightLabel">four forks</span><span id="rightNote"></span></div>
+      <div id="right"></div>
+    </div>
+  </div>
+  <div class="pc-read" id="read"></div>
+  <div id="steps"></div>
+  <div class="pc-foot"><svg viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#141414" stroke-width="0.8"/></svg><span>Loud’n Live · Auditory Illusions · the missing fundamental</span></div>
+</div>
+
+<script id="pc-core">
+// The engine: pure, no DOM, no sound. The check script runs this text in Node.
+const MF = (function () {
+  const F0 = 100;                 // Hz, the period the three share
+  const NS = [2, 3, 4];           // harmonic numbers played: 200, 300, 400 Hz
+  const A = 0.1;                  // each partial's amplitude (peak of the sum 0.3, -10.5 dBFS)
+  const SR = 48000;
+  // The partials, shifted by the same Hz, or stretched (f = F0 * n^(1+s)), or with some switched off.
+  function partials(o) {
+    o = o || {};
+    const shift = o.shift || 0, stretch = o.stretch || 0, on = o.on || [1, 1, 1];
+    return NS.map((n, i) => ({ n: n, f: F0 * Math.pow(n, 1 + stretch) + shift, a: on[i] ? A : 0 })).filter(p => p.a > 0);
+  }
+  // What each partial says the period is, if it is harmonic n.
+  function implied(ps) { return ps.map(p => p.f / p.n); }
+  // Least-squares fundamental for the harmonic numbers played: the pattern-matching guess.
+  function fit(ps) { let a = 0, b = 0; ps.forEach(p => { a += p.f * p.n; b += p.n * p.n; }); return b ? a / b : 0; }
+  function spreadCents(ps) { const v = implied(ps); return v.length < 2 ? 0 : 1200 * Math.log2(Math.max.apply(null, v) / Math.min.apply(null, v)); }
+  // The largest f0 >= lo for which every partial sits within tolCents of a whole multiple (n <= nmax): the shared period.
+  function shared(fs, lo, tolCents, nmax) {
+    lo = lo || 20; tolCents = tolCents || 3; nmax = nmax || 24;
+    if (!fs.length) return null;
+    const fmin = Math.min.apply(null, fs);
+    for (let k = 1; k <= nmax; k++) {
+      const f0 = fmin / k; if (f0 < lo) break;
+      const ns = fs.map(f => Math.round(f / f0));
+      if (ns.every((n, i) => n >= 1 && n <= nmax && Math.abs(1200 * Math.log2(fs[i] / (n * f0))) < tolCents)) return { f0: f0, ns: ns, ms: 1000 / f0 };
+    }
+    return null;
+  }
+  // The sum, sampled: for drawing and for the check.
+  function wave(ps, t) { let s = 0; ps.forEach(p => { s += p.a * Math.sin(2 * Math.PI * p.f * t); }); return s; }
+  // The chimes the reader matches against: harmonics 1..5, amplitudes 1/n, a bell-like decay.
+  const CHIMES = [100, 200, 300, 400];
+  function chimeParts(f0) { return [1, 2, 3, 4, 5].map(n => ({ f: f0 * n, a: 0.09 / n })); }
+  // The low voice: a sawtooth (all harmonics, 1/n) on 100 Hz, through three vowel formants ("ah").
+  const VOICE = { f0: 100, intonation: 10, intonationHz: 0.45, vibrato: 0.8, vibratoHz: 5.2,
+    formants: [{ f: 700, q: 5, g: 1 }, { f: 1220, q: 8, g: 0.6 }, { f: 2600, q: 10, g: 0.35 }] };
+  // The phone line: three highpass stages at 300 Hz and two lowpass stages at 3400 Hz, each a 2-pole Butterworth (Q 0.7071).
+  const PHONE = { hp: 300, hpStages: 3, lp: 3400, lpStages: 2, q: Math.SQRT1_2 };
+  // Magnitude of Web Audio's biquad (the RBJ cookbook forms it uses), at frequency f. q is linear here; the graph hands
+  // a lowpass or highpass node 20·log10(q), since Web Audio reads their Q in dB (a bandpass Q it reads as linear).
+  function biquadMag(type, fc, q, f, sr) {
+    sr = sr || SR;
+    const w0 = 2 * Math.PI * fc / sr, al = Math.sin(w0) / (2 * q), cw = Math.cos(w0);
+    let b0, b1, b2; const a0 = 1 + al, a1 = -2 * cw, a2 = 1 - al;
+    if (type === 'highpass') { b0 = (1 + cw) / 2; b1 = -(1 + cw); b2 = (1 + cw) / 2; }
+    else if (type === 'lowpass') { b0 = (1 - cw) / 2; b1 = 1 - cw; b2 = (1 - cw) / 2; }
+    else { b0 = al; b1 = 0; b2 = -al; } // bandpass, constant 0 dB peak
+    const w = 2 * Math.PI * f / sr;
+    const re = (c0, c1, c2) => c0 + c1 * Math.cos(-w) + c2 * Math.cos(-2 * w), im = (c0, c1, c2) => c1 * Math.sin(-w) + c2 * Math.sin(-2 * w);
+    const nr = re(b0, b1, b2), ni = im(b0, b1, b2), dr = re(a0, a1, a2), di = im(a0, a1, a2);
+    return Math.sqrt((nr * nr + ni * ni) / (dr * dr + di * di));
+  }
+  function phoneMag(f, sr) {
+    let m = 1;
+    for (let i = 0; i < PHONE.hpStages; i++) m *= biquadMag('highpass', PHONE.hp, PHONE.q, f, sr);
+    for (let i = 0; i < PHONE.lpStages; i++) m *= biquadMag('lowpass', PHONE.lp, PHONE.q, f, sr);
+    return m;
+  }
+  function formantMag(f, sr) { return VOICE.formants.reduce((s, F) => s + F.g * biquadMag('bandpass', F.f, F.q, f, sr), 0); }
+  // The voice's harmonic n at f0: its level in, and after the phone line.
+  function voiceHarm(n, f0, phone, sr) { const f = n * f0; return (1 / n) * formantMag(f, sr) * (phone ? phoneMag(f, sr) : 1); }
+  return { F0, NS, A, SR, partials, implied, fit, spreadCents, shared, wave, CHIMES, chimeParts, VOICE, PHONE, biquadMag, phoneMag, formantMag, voiceHarm };
+})();
+</script>
+
+<script>
+// ───────────────────────── state ─────────────────────────
+const RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const S = { step: 1, on: [0, 0, 0], awake: false, chosen: null, heardChimes: new Set(),
+  fund: false, fundDb: 0, abFund: false, noise: false,
+  shift: 0, stretch: 0, match: false, refF0: 110, matchLog: [],
+  phone: false, voice: false };
+
+// ───────────────────────── sound: nothing exists until the first click ─────────────────────────
+// One graph builder for the live context and for the offline render the check script asks for.
+function makeGraph(ctx) {
+  const G = { ctx };
+  G.comp = ctx.createDynamicsCompressor();
+  G.comp.threshold.value = -3; G.comp.knee.value = 3; G.comp.ratio.value = 4; G.comp.attack.value = 0.01; G.comp.release.value = 0.25;
+  G.master = ctx.createGain(); G.master.gain.value = 0;
+  G.master.connect(G.comp); G.comp.connect(ctx.destination);
+  G.an = ctx.createAnalyser(); G.an.fftSize = 16384; G.an.minDecibels = -110; G.an.maxDecibels = -10; G.an.smoothingTimeConstant = 0.5;
+  G.comp.connect(G.an);
+  const osc = (f, type) => { const o = ctx.createOscillator(); o.type = type || 'sine'; o.frequency.value = f; const g = ctx.createGain(); g.gain.value = 0; o.connect(g); o.start(); return { o, g }; };
+  // the three partials and the real fundamental
+  G.p = MF.NS.map(n => { const v = osc(MF.F0 * n); v.g.connect(G.master); return v; });
+  G.fund = osc(MF.F0); G.fund.g.connect(G.master);
+  // the reference tone for matching: harmonics 1..5 at 1/n, sustained
+  G.ref = [1, 2, 3, 4, 5].map(n => { const v = osc(110 * n); v.g.connect(G.master); v.n = n; return v; });
+  // noise covering the bottom: white noise through two lowpass stages at 160 Hz
+  const nb = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate), nd = nb.getChannelData(0);
+  let seed = 12345; for (let i = 0; i < nd.length; i++) { seed = (seed * 1664525 + 1013904223) >>> 0; nd[i] = seed / 2147483648 - 1; }
+  const ns = ctx.createBufferSource(); ns.buffer = nb; ns.loop = true;
+  // Web Audio reads a lowpass or highpass Q in dB: 20·log10(0.7071) = -3.01 dB is the linear 0.7071 of a Butterworth stage.
+  const qdB = q => 20 * Math.log10(q);
+  const l1 = ctx.createBiquadFilter(), l2 = ctx.createBiquadFilter(); [l1, l2].forEach(f => { f.type = 'lowpass'; f.frequency.value = 160; f.Q.value = qdB(Math.SQRT1_2); });
+  G.noiseG = ctx.createGain(); G.noiseG.gain.value = 0;
+  ns.connect(l1).connect(l2).connect(G.noiseG).connect(G.master); ns.start();
+  // the low voice: a sawtooth on 100 Hz with slow intonation and a little vibrato, through three formants
+  const V = MF.VOICE;
+  G.vsrc = ctx.createOscillator(); G.vsrc.type = 'sawtooth'; G.vsrc.frequency.value = V.f0;
+  const lfo1 = ctx.createOscillator(), lg1 = ctx.createGain(); lfo1.frequency.value = V.intonationHz; lg1.gain.value = V.intonation; lfo1.connect(lg1).connect(G.vsrc.frequency); lfo1.start();
+  const lfo2 = ctx.createOscillator(), lg2 = ctx.createGain(); lfo2.frequency.value = V.vibratoHz; lg2.gain.value = V.f0 * V.vibrato / 100; lfo2.connect(lg2).connect(G.vsrc.frequency); lfo2.start();
+  const vsum = ctx.createGain(); vsum.gain.value = 0.35;
+  V.formants.forEach(F => { const b = ctx.createBiquadFilter(); b.type = 'bandpass'; b.frequency.value = F.f; b.Q.value = F.q; const g = ctx.createGain(); g.gain.value = F.g; G.vsrc.connect(b).connect(g).connect(vsum); });
+  G.vsrc.start();
+  G.vDirect = ctx.createGain(); G.vDirect.gain.value = 0;
+  G.vPhone = ctx.createGain(); G.vPhone.gain.value = 0;
+  vsum.connect(G.vDirect).connect(G.master);
+  let node = vsum;
+  for (let i = 0; i < MF.PHONE.hpStages; i++) { const f = ctx.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = MF.PHONE.hp; f.Q.value = qdB(MF.PHONE.q); node.connect(f); node = f; }
+  for (let i = 0; i < MF.PHONE.lpStages; i++) { const f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = MF.PHONE.lp; f.Q.value = qdB(MF.PHONE.q); node.connect(f); node = f; }
+  node.connect(G.vPhone).connect(G.master);
+  return G;
+}
+// Set every gain and frequency from the state. which: 'test' | 'ref' (the matcher and A/B alternate it).
+function apply(G, st, instant, which) {
+  const t = G.ctx.currentTime, tc = instant ? 0.004 : 0.03;
+  const set = (param, v) => param.setTargetAtTime(v, t, tc);
+  const testOn = which !== 'ref';
+  const voiceStep = st.voice;
+  const ps = MF.NS.map((n, i) => ({ n, f: MF.F0 * Math.pow(n, 1 + st.stretch) + st.shift, on: st.on[i] }));
+  ps.forEach((p, i) => { G.p[i].o.frequency.setTargetAtTime(p.f, t, instant ? 0.002 : 0.02); set(G.p[i].g.gain, (!voiceStep && testOn && p.on) ? MF.A : 0); });
+  const fundOn = !voiceStep && testOn && st.fund && (!st.abFund || which !== 'b');
+  set(G.fund.g.gain, fundOn ? MF.A * Math.pow(10, st.fundDb / 20) : 0);
+  G.ref.forEach(v => { v.o.frequency.setTargetAtTime(st.refF0 * v.n, t, 0.01); set(v.g.gain, (which === 'ref') ? 0.12 / v.n : 0); });
+  set(G.noiseG.gain, (!voiceStep && st.noise) ? 1 : 0);
+  set(G.vDirect.gain, (voiceStep && !st.phone) ? 1 : 0);
+  set(G.vPhone.gain, (voiceStep && st.phone) ? 1 : 0);
+}
+function ring(G, f0, when) {
+  const ctx = G.ctx, t = when || ctx.currentTime;
+  MF.chimeParts(f0).forEach(p => {
+    const o = ctx.createOscillator(), g = ctx.createGain(); o.frequency.value = p.f; g.gain.value = 0;
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(p.a * 1.6, t + 0.012); g.gain.setTargetAtTime(0, t + 0.05, 0.45);
+    o.connect(g).connect(G.master); o.start(t); o.stop(t + 2.4);
+  });
+}
+
+let G = null, playing = false, abTimer = null, abPhase = 'test';
+async function ensure() {
+  if (!G) G = makeGraph(new (window.AudioContext || window.webkitAudioContext)());
+  if (G.ctx.state !== 'running') await G.ctx.resume();
+}
+async function start() {
+  await ensure();
+  apply(G, S, true, 'test');
+  G.master.gain.setTargetAtTime(1, G.ctx.currentTime, 0.05);
+  playing = true; syncPlay(); loop();
+}
+function stop() {
+  stopAB();
+  if (G) G.master.gain.setTargetAtTime(0, G.ctx.currentTime, 0.04);
+  playing = false; syncPlay();
+}
+function syncPlay() {
+  const b = document.getElementById('play');
+  b.setAttribute('aria-pressed', String(playing));
+  b.textContent = playing ? '■ Quiet' : (S.step === 1 && !S.awake ? '▸ Wake them' : '▸ Play');
+}
+function refresh() { if (G && playing) apply(G, S, false, abPhase); draw(); }
+function startAB(period) {
+  stopAB(); abPhase = 'test';
+  abTimer = setInterval(() => {
+    if (S.match) abPhase = abPhase === 'test' ? 'ref' : 'test';
+    else abPhase = abPhase === 'test' ? 'b' : 'test';
+    if (G && playing) apply(G, S, false, abPhase); draw();
+  }, period);
+}
+function stopAB() { if (abTimer) clearInterval(abTimer); abTimer = null; abPhase = 'test'; }
+
+// ───────────────────────── the discs (the twin in the eye) ─────────────────────────
+const SVGNS = 'http://www.w3.org/2000/svg';
+const fig = document.getElementById('fig');
+const TRI = (() => { const cx = 150, cy = 146, R = 80; return [0, 1, 2].map(k => { const a = -Math.PI / 2 + k * 2 * Math.PI / 3; return { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) }; }); })();
+const CENT = { x: (TRI[0].x + TRI[1].x + TRI[2].x) / 3, y: (TRI[0].y + TRI[1].y + TRI[2].y) / 3 };
+const DISC_R = 44;
+const rot = [180, 180, 180];   // degrees; 0 = notch toward the centre
+let rotAnim = null;
+function discPath(v) {
+  const th = Math.atan2(CENT.y - v.y, CENT.x - v.x), a1 = th + Math.PI / 6, a2 = th - Math.PI / 6;
+  const p1 = { x: v.x + DISC_R * Math.cos(a1), y: v.y + DISC_R * Math.sin(a1) }, p2 = { x: v.x + DISC_R * Math.cos(a2), y: v.y + DISC_R * Math.sin(a2) };
+  return `M${v.x.toFixed(2)} ${v.y.toFixed(2)} L${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A${DISC_R} ${DISC_R} 0 1 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} Z`;
+}
+function drawFig() {
+  const reveal = S.step >= 2 && S.step <= 3;
+  const allIn = rot.every(r => Math.abs(r) < 1);
+  let s = '';
+  // the triangle's edges, drawn only in the reveal, dashed ink: made up, not there
+  if (reveal && allIn) s += `<polygon points="${TRI.map(v => v.x.toFixed(1) + ',' + v.y.toFixed(1)).join(' ')}" fill="none" stroke="#141414" stroke-width="1" stroke-dasharray="4 4"/>` +
+    `<text x="${CENT.x}" y="${CENT.y + 4}" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#7a7a7a" letter-spacing="1">NO LINE HERE</text>`;
+  TRI.forEach((v, i) => {
+    const sounding = S.on[i] && playing;
+    const fill = (reveal && S.on[i]) ? '#d1301c' : '#141414';
+    s += `<g class="pc-disc" data-i="${i}" transform="rotate(${rot[i].toFixed(2)} ${v.x.toFixed(2)} ${v.y.toFixed(2)})"><path d="${discPath(v)}" fill="${fill}" opacity="${S.on[i] ? 1 : 0.92}"/></g>`;
+    const dx = v.x - CENT.x, dy = v.y - CENT.y, dl = Math.hypot(dx, dy), lx = v.x + dx / dl * (DISC_R + 16), ly = v.y + dy / dl * (DISC_R + 16) + 4;
+    if (S.step >= 2) s += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="${S.on[i] ? '#d1301c' : '#7a7a7a'}">${MF.F0 * MF.NS[i]} Hz${S.on[i] ? '' : ' · off'}</text>`;
+    else if (sounding) s += '';
+  });
+  fig.innerHTML = s;
+  fig.querySelectorAll('.pc-disc').forEach(g => g.addEventListener('click', () => toggleDisc(Number(g.dataset.i))));
+}
+function turn(i, target) {
+  const from = rot[i], dur = RM ? 0 : 520, t0 = performance.now();
+  const stepf = () => {
+    const k = dur ? Math.min(1, (performance.now() - t0) / dur) : 1, e = 1 - Math.pow(1 - k, 3);
+    rot[i] = from + (target - from) * e; drawFig();
+    if (k < 1) requestAnimationFrame(stepf);
+  };
+  stepf();
+}
+async function toggleDisc(i) {
+  if (S.step > 3) return;
+  if (!playing) await start();
+  S.on[i] = S.on[i] ? 0 : 1; turn(i, S.on[i] ? 0 : 180); refresh(); afterDiscs();
+}
+function afterDiscs() {
+  if (S.step === 1) {
+    const n = S.on.reduce((a, b) => a + b, 0);
+    if (n === 3) { S.awake = true; says('A hum, and a triangle. Find the hum’s note: one of these four forks rings it. Strike them; keep the one that matches.'); showForks(true); }
+    else if (S.awake) says(n === 0 ? 'All asleep. Tap a disc to wake it.' : 'One turned away: the triangle breaks. Listen to what the hum does.');
+  }
+  readout();
+}
+async function wake() {
+  await start();
+  S.awake = false;
+  says('Waking…');
+  [0, 1, 2].forEach((i, k) => setTimeout(() => { if (S.step !== 1 || !playing) return; S.on[i] = 1; turn(i, 0); refresh(); afterDiscs(); }, RM ? k * 300 : 200 + k * 750));
+}
+
+// ───────────────────────── the chimes (step 1's matching) ─────────────────────────
+const right = document.getElementById('right');
+let forkOrder = null, forkWobble = {};
+function shuffle(a) { const b = a.slice(); for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; }
+function forkSVG(amp) {
+  const d = amp * 3;
+  return `<svg viewBox="0 0 56 86" aria-hidden="true"><path d="M${16 - d} 6 L${16 - d} 46 Q16 62 28 62 Q40 62 ${40 + d} 46 L${40 + d} 6" fill="none" stroke="#141414" stroke-width="5" stroke-linecap="square"/><line x1="28" y1="62" x2="28" y2="84" stroke="#141414" stroke-width="5"/></svg>`;
+}
+function showForks(on) {
+  if (!forkOrder) forkOrder = shuffle(MF.CHIMES);
+  right.innerHTML = '';
+  if (!on) { right.innerHTML = '<p class="pc-teach" style="margin:6px 0">Wake the discs first.</p>'; return; }
+  const box = document.createElement('div'); box.className = 'pc-forks';
+  forkOrder.forEach((f, k) => {
+    const c = document.createElement('div'); c.className = 'pc-fork' + (S.chosen === f ? ' pc-chosen' : ''); c.dataset.f = f;
+    c.innerHTML = forkSVG(0) + `<button data-pick="${f}" aria-pressed="${S.chosen === f}">${S.chosen === f ? 'this one' : 'this one?'}</button>`;
+    c.querySelector('svg').setAttribute('aria-label', 'fork ' + (k + 1));
+    c.querySelector('svg').addEventListener('click', () => strike(f, c));
+    c.querySelector('button').addEventListener('click', () => { S.chosen = f; showForks(true); says('Kept. Now see what is actually playing: Next step.'); readout(); });
+    box.append(c);
+  });
+  right.append(box);
+  const p = document.createElement('p'); p.className = 'pc-back'; p.textContent = 'Tap a fork to strike it; the hum steps aside while it rings. Each fork carries its note and four harmonics above it.'; right.append(p);
+}
+async function strike(f, card) {
+  if (!playing) await start();
+  S.heardChimes.add(f);
+  const t = G.ctx.currentTime;
+  // the hum steps aside for 1.6 s, then comes back
+  G.p.forEach((v, i) => { v.g.gain.cancelScheduledValues(t); v.g.gain.setTargetAtTime(0, t, 0.02); v.g.gain.setTargetAtTime(S.on[i] ? MF.A : 0, t + 1.6, 0.05); });
+  ring(G, f, t + 0.06);
+  // the prongs shake with the chime's own envelope
+  const t0 = performance.now(), svgHost = card;
+  const anim = () => {
+    const age = (performance.now() - t0) / 1000, env = Math.exp(-Math.max(0, age - 0.06) / 0.45);
+    const amp = RM ? 0 : env * Math.sin(age * 2 * Math.PI * 9);
+    const old = svgHost.querySelector('svg'); const tmp = document.createElement('div'); tmp.innerHTML = forkSVG(amp);
+    const nu = tmp.firstChild; nu.addEventListener('click', () => strike(f, card)); old.replaceWith(nu);
+    if (age < 1.8) requestAnimationFrame(anim);
+  };
+  anim();
+}
+
+// ───────────────────────── drawing the signal ─────────────────────────
+let cv = null;
+function fit(c, h) { const r = window.devicePixelRatio || 1, w = c.clientWidth || 420; c.width = w * r; c.height = h * r; c.style.height = h + 'px'; const x = c.getContext('2d'); x.setTransform(r, 0, 0, r, 0, 0); return [x, w, h]; }
+const LO = 40, HI = 4000;
+function xOf(f, w) { return 34 + (Math.log(f / LO) / Math.log(HI / LO)) * (w - 44); }
+function drawSpectrum() {
+  if (!cv) return;
+  const [x, w, h] = fit(cv, 220);
+  x.clearRect(0, 0, w, h);
+  const yOf = db => 10 + (1 - (db + 110) / 100) * (h - 34);
+  // grid
+  x.font = '10px JetBrains Mono'; x.fillStyle = '#7a7a7a'; x.strokeStyle = '#c9c6bd'; x.lineWidth = 1;
+  [50, 100, 200, 300, 500, 1000, 2000].forEach(f => { const px = xOf(f, w); x.beginPath(); x.moveTo(px, 8); x.lineTo(px, h - 22); x.stroke(); x.textAlign = 'center'; x.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), px, h - 8); });
+  x.textAlign = 'right'; [-20, -60, -100].forEach(db => x.fillText(db + '', 30, yOf(db) + 3));
+  // phone-line band
+  if (S.step === 6 && S.phone) { x.fillStyle = 'rgba(20,20,20,.05)'; x.fillRect(34, 8, xOf(300, w) - 34, h - 30); x.fillStyle = '#7a7a7a'; x.textAlign = 'left'; x.fillText('cut by the line', 38, h - 30); }
+  // the heard pitch, where nothing need be: dashed ink
+  const heard = S.step === 6 ? MF.VOICE.f0 : (S.step === 5 ? null : MF.F0);
+  if (heard) { const px = xOf(heard, w); x.setLineDash([4, 4]); x.strokeStyle = '#141414'; x.strokeRect(px - 7, 10, 14, h - 34); x.setLineDash([]); x.fillStyle = '#141414'; x.textAlign = 'left'; x.fillText('heard', px + 10, 22); }
+  // the live spectrum, measured after the compressor
+  if (G && playing) {
+    const n = G.an.frequencyBinCount, d = new Float32Array(n); G.an.getFloatFrequencyData(d);
+    const binHz = G.ctx.sampleRate / G.an.fftSize;
+    x.beginPath(); x.strokeStyle = '#141414'; x.lineWidth = 1;
+    let first = true;
+    for (let px = 34; px < w - 10; px++) {
+      const f0 = LO * Math.pow(HI / LO, (px - 34) / (w - 44)), f1 = LO * Math.pow(HI / LO, (px + 1 - 34) / (w - 44));
+      let m = -200; for (let b = Math.floor(f0 / binHz); b <= Math.ceil(f1 / binHz) && b < n; b++) m = Math.max(m, d[b]);
+      const py = yOf(Math.max(-110, m)); if (first) { x.moveTo(px, py); first = false; } else x.lineTo(px, py);
+    }
+    x.stroke();
+    // red marks: energy really there
+    const marks = [];
+    if (S.step < 6) {
+      MF.NS.forEach((n, i) => { if (S.on[i] && abPhase !== 'ref') marks.push(MF.F0 * Math.pow(n, 1 + S.stretch) + S.shift); });
+      if (S.fund && abPhase === 'test') marks.push(MF.F0);
+    }
+    x.fillStyle = '#d1301c';
+    marks.forEach(f => { const px = xOf(f, w); x.beginPath(); x.moveTo(px, h - 24); x.lineTo(px - 4, h - 16); x.lineTo(px + 4, h - 16); x.closePath(); x.fill(); });
+  } else { x.fillStyle = '#7a7a7a'; x.textAlign = 'left'; x.fillText('silent: press Play to see the live spectrum', 40, 30); }
+}
+function levelAt(f, f2) {
+  if (!G || !playing) return null;
+  const n = G.an.frequencyBinCount, d = new Float32Array(n); G.an.getFloatFrequencyData(d);
+  const hz = G.ctx.sampleRate / G.an.fftSize, b1 = Math.round(f / hz) - 1, b2 = Math.round((f2 || f) / hz) + 1;
+  let m = -Infinity; for (let b = Math.max(0, b1); b <= Math.min(n - 1, b2); b++) m = Math.max(m, d[b]); return m;
+}
+function drawWave() {
+  if (!cv) return;
+  const [x, w, h] = fit(cv, 200);
+  x.clearRect(0, 0, w, h);
+  const ps = MF.partials({ on: S.on }), T = 0.035, mid = h / 2 - 8, amp = (h / 2 - 22) / 0.3;
+  const sh = MF.shared(ps.map(p => p.f));
+  if (sh) { x.strokeStyle = '#d1301c'; x.fillStyle = '#d1301c'; x.lineWidth = 1; x.font = '10px JetBrains Mono'; x.textAlign = 'left';
+    for (let t = 0; t <= T + 1e-9; t += 1 / sh.f0) { const px = 10 + t / T * (w - 20); x.beginPath(); x.moveTo(px, 10); x.lineTo(px, h - 26); x.stroke(); }
+    x.fillText('repeats every ' + sh.ms.toFixed(1) + ' ms', 14, 20); }
+  x.strokeStyle = '#141414'; x.lineWidth = 1.2; x.beginPath();
+  for (let px = 10; px <= w - 10; px++) { const t = (px - 10) / (w - 20) * T, y = mid - MF.wave(ps, t) * amp; px === 10 ? x.moveTo(px, y) : x.lineTo(px, y); }
+  x.stroke();
+  x.fillStyle = '#7a7a7a'; x.font = '10px JetBrains Mono'; x.textAlign = 'center';
+  [0, 10, 20, 30].forEach(ms => { x.textAlign = ms ? 'center' : 'left'; x.fillText(ms + ' ms', 10 + ms / 35 * (w - 20), h - 8); });
+}
+function draw() { drawFig(); if (S.step === 3) drawWave(); else if (S.step >= 2) drawSpectrum(); readout(); }
+let raf = null;
+function loop() { if (raf) return; const f = () => { raf = null; if (!playing) { draw(); return; } if (S.step >= 2 && S.step !== 3) drawSpectrum(); readoutLive(); raf = requestAnimationFrame(f); }; raf = requestAnimationFrame(f); }
+
+// ───────────────────────── readouts ─────────────────────────
+const readEl = document.getElementById('read');
+function readout() {
+  const parts = [];
+  const ps = MF.partials({ on: S.on, shift: S.step === 5 ? S.shift : 0, stretch: S.step === 5 ? S.stretch : 0 });
+  if (S.step === 1) { readEl.innerHTML = ''; return; }
+  if (S.step === 2 || S.step === 3) {
+    parts.push('playing <b class="pc-red">' + (ps.length ? ps.map(p => p.f.toFixed(0)).join(' + ') + ' Hz' : 'nothing') + '</b>');
+    const sh = MF.shared(ps.map(p => p.f));
+    if (S.step === 3) parts.push('shared period <b>' + (sh ? sh.ms.toFixed(2) + ' ms = ' + sh.f0.toFixed(1) + ' Hz' : 'none') + '</b>', 'each says <b>' + ps.map(p => p.f.toFixed(0) + '⁄' + p.n + ' = ' + (p.f / p.n).toFixed(1)).join(' · ') + '</b>');
+    if (S.step === 2 && S.chosen) parts.push('your fork <b>' + S.chosen + ' Hz</b>');
+  }
+  if (S.step === 5) {
+    parts.push('partials <b class="pc-red">' + ps.map(p => p.f.toFixed(1)).join(' · ') + ' Hz</b>');
+    parts.push('spacing <b>' + (ps[1].f - ps[0].f).toFixed(1) + ', ' + (ps[2].f - ps[1].f).toFixed(1) + ' Hz</b>');
+    parts.push('each says the period is <b>' + MF.implied(ps).map(v => v.toFixed(1)).join(', ') + ' Hz</b> (spread ' + MF.spreadCents(ps).toFixed(0) + ' ¢)');
+    parts.push('best common fit <b>' + MF.fit(ps).toFixed(1) + ' Hz</b>');
+    const sh = MF.shared(ps.map(p => p.f));
+    parts.push('shared period <b>' + (sh ? sh.f0.toFixed(1) + ' Hz (harmonics ' + sh.ns.join(', ') + ')' : 'none above 20 Hz') + '</b>');
+    if (S.matchLog.length) parts.push('your matches <b>' + S.matchLog.map(m => m.ref.toFixed(1) + ' Hz @ +' + m.shift + ' Hz, s ' + m.stretch.toFixed(2)).join(' · ') + '</b>');
+  }
+  readEl.innerHTML = parts.join('<span> · </span>');
+  readoutLive();
+}
+function readoutLive() {
+  const host = document.getElementById('live'); if (!host) return;
+  if (!G || !playing) { host.innerHTML = ''; return; }
+  if (S.step === 2 || S.step === 4) {
+    const a = levelAt(100), b = levelAt(200);
+    host.innerHTML = 'measured now, after the compressor · at 100 Hz <b>' + (a <= -110 ? a.toFixed(0) + ' dB, under the analyser’s −110 dB range: nothing it can see' : a.toFixed(0) + ' dB') + '</b> · at 200 Hz <b>' + b.toFixed(0) + ' dB</b>';
+  } else if (S.step === 6) {
+    const V = MF.VOICE, a = levelAt(V.f0 - V.intonation - 3, V.f0 + V.intonation + 3), b = levelAt(1100, 1300);
+    host.innerHTML = 'measured now · the voice’s lowest harmonic, 87 to 113 Hz <b>' + (a <= -110 ? a.toFixed(0) + ' dB, under its −110 dB range' : a.toFixed(0) + ' dB') + '</b> · strongest, 1.1 to 1.3 kHz <b>' + b.toFixed(0) + ' dB</b>';
+  } else host.innerHTML = '';
+}
+
+// ───────────────────────── the steps ─────────────────────────
+function el(tag, attrs, ...kids) { const e = document.createElement(tag); for (const k in (attrs || {})) { if (k.startsWith('on')) e.addEventListener(k.slice(2), attrs[k]); else e.setAttribute(k, attrs[k]); } kids.flat().forEach(c => e.append(c)); return e; }
+function says(t) { document.getElementById('says').textContent = t; }
+function eq(sym, words) { return el('div', { class: 'pc-eq' }, el('div', { class: 'pc-sym' }, sym), el('div', { class: 'pc-words' }, words)); }
+function toggle(label, get, setv) { const b = el('button', { 'aria-pressed': String(get()), onclick: async () => { setv(!get()); b.setAttribute('aria-pressed', String(get())); if (!playing) await start(); refresh(); } }, label); return b; }
+function slider(label, min, max, step, get, setv, fmt) {
+  const b = el('b', {}, fmt(get())); const i = el('input', { type: 'range', min, max, step, 'aria-label': label }); i.value = get();
+  i.addEventListener('input', () => { setv(Number(i.value)); b.textContent = fmt(get()); refresh(); });
+  return el('label', { class: 'pc-sl' }, label + ' ', b, i);
+}
+function canvasPanel(label) { cv = el('canvas', {}); return cv; }
+
+const STEPS = [
+  { n: 1, name: 'the hum', fig: 'the discs', right: 'four forks', build: () => [
+    el('p', { class: 'pc-teach' }, 'Press ', el('b', {}, 'Wake them'), '. Each disc turns and sings as it wakes. Tap a disc to turn it away and back. When the hum is there, find its note among the forks.'),
+  ] },
+  { n: 2, name: 'what is actually playing', fig: 'the discs, named', right: 'the live spectrum', build: () => [
+    el('p', { class: 'pc-teach' }, 'Three sines, at ', el('b', {}, '200, 300 and 400 Hz'), ', one per disc, marked in red below the spectrum: the energy that is really in the air. The dashed box is where the hum’s pitch sits, at 100 Hz. The spectrum is measured live, after everything this page does to the sound. There is nothing in the box. The triangle is the same: the dashed edges are drawn only now, and nothing was drawn there before.'),
+    el('div', { class: 'pc-read', id: 'live' }),
+    eq('fₙ = n · f₀,   n = 2, 3, 4,   f₀ = 100 Hz', 'Each sine is a whole-number multiple of 100 Hz, twice, three times and four times it. The 100 Hz itself, n = 1, is not played.'),
+    el('p', { class: 'pc-back' }, 'If you kept the 200 Hz fork: that is the lowest thing really playing, an octave above the period. Pitch matches slip by octaves easily; the next step shows why 100 is the one the three agree on.'),
+  ] },
+  { n: 3, name: 'what they share', fig: 'turn a disc away', right: 'the sum, drawn from the numbers', build: () => [
+    el('p', { class: 'pc-teach' }, 'Add the three waves and the sum repeats every ', el('b', {}, '10 ms'), ': two cycles of the 200, three of the 300, four of the 400 line up again. The red lines mark that period, and it is really in the air. The pitch is not. Hearing reads the period off the pattern, from the timing of the nerve’s firing or by fitting a template of harmonics; which of those, is still argued. Ohm said the ear hears only the sines; Seebeck heard the period. This is Seebeck’s side.'),
+    el('p', { class: 'pc-teach' }, 'Now turn discs away and watch the readout. Take away the ', el('b', {}, '200'), ': the triangle breaks, but 300 and 400 still share 10 ms, so the period, and on the page’s account the pitch, stays. Take away the ', el('b', {}, '300'), ': 200 and 400 share only 5 ms, and the period jumps an octave up. The eye’s figure needs all three discs; the ear’s 10 ms survives losing the 200 or the 400, not the 300. It is one way to see why the page grades this twin a ', el('b', {}, 'shape'), ', not a mechanism: the same structure, built by different machinery.'),
+    eq('T = 1 ⁄ f₀ = 1 ⁄ 100 Hz = 10 ms', 'The period is one over the greatest frequency all the partials are whole multiples of. 200, 300 and 400 are all multiples of 100, so the sum repeats every hundredth of a second.'),
+  ] },
+  { n: 4, name: 'add it, take it away', fig: 'the discs', right: 'the live spectrum', build: () => [
+    el('p', { class: 'pc-teach' }, 'The first test. Add the real 100 Hz, in red when it is on, and take it away again; the A/B switch does it every second. Listen for what changes: the pitch, or only the colour. The page says the pitch was already 100 Hz; if the real one moves the pitch, the page is wrong for your ear.'),
+    el('div', { class: 'pc-row' }, toggle('Add the real 100 Hz', () => S.fund, v => { S.fund = v; }),
+      el('button', { 'aria-pressed': 'false', onclick: async (e) => { S.abFund = !S.abFund; e.target.setAttribute('aria-pressed', String(S.abFund)); if (S.abFund) { S.fund = true; } if (!playing) await start(); if (S.abFund) startAB(1000); else stopAB(); refresh(); } }, 'A/B every second')),
+    slider('the real 100 Hz, against each partial', -30, 0, 1, () => S.fundDb, v => { S.fundDb = v; }, v => (v === 0 ? '0' : v) + ' dB'),
+    el('p', { class: 'pc-teach' }, 'An old objection: the inner ear distorts (this page’s combination tones), so two loud partials 100 Hz apart can make a real 100 Hz difference tone inside the cochlea, and that could be what you hear. The classic control is to bury the bottom in noise. Cover the band below about 160 Hz and listen: a difference tone in the ear is covered with it; a pitch read from the period is not. In the band round 100 Hz the noise sits about 10 dB under one partial’s power (the check script measures it in what this page plays), enough to cover a faint difference tone. Whether it covers the one in your ear at your volume, only your ear can say.'),
+    el('div', { class: 'pc-row' }, toggle('Cover the bottom with noise', () => S.noise, v => { S.noise = v; })),
+    el('div', { class: 'pc-read', id: 'live' }),
+  ] },
+  { n: 5, name: 'break the period', fig: 'the discs', right: 'the live spectrum', build: () => [
+    el('p', { class: 'pc-teach' }, 'The second test. ', el('b', {}, 'Shift'), ' slides all three up by the same number of hertz: the gaps between them stay 100 Hz, but they stop being multiples of anything near 100. If pitch were the gap (the difference tone), it would stay at 100. If it is the period they share, it should move, and blur. ', el('b', {}, 'Stretch'), ' pulls them apart unevenly, so no period fits at all.'),
+    slider('shift all three by', 0, 60, 1, () => S.shift, v => { S.shift = v; }, v => '+' + v + ' Hz'),
+    slider('stretch (f = 100 · n^(1 + s))', 0, 0.25, 0.01, () => S.stretch, v => { S.stretch = v; }, v => 's = ' + v.toFixed(2)),
+    el('p', { class: 'pc-teach' }, 'Then measure your own ear. ', el('b', {}, 'Match'), ' alternates the test tone with a plain reference tone (harmonics 1 to 5, the fundamental included). Slide the reference until the two sound like the same note, and press ', el('b', {}, 'Keep my match'), '. The readout keeps every match beside the two predictions: the gap, and the best common fit.'),
+    el('div', { class: 'pc-row' },
+      el('button', { 'aria-pressed': 'false', onclick: async (e) => { S.match = !S.match; e.target.setAttribute('aria-pressed', String(S.match)); if (!playing) await start(); if (S.match) startAB(900); else stopAB(); refresh(); } }, 'Match: alternate with the reference'),
+      el('button', { onclick: () => { S.matchLog.push({ ref: S.refF0, shift: S.shift, stretch: S.stretch }); readout(); } }, 'Keep my match'),
+      el('button', { onclick: () => { S.shift = 0; S.stretch = 0; go(5); } }, 'Back to unbroken')),
+    slider('reference tone', 70, 160, 0.5, () => S.refF0, v => { S.refF0 = v; }, v => v.toFixed(1) + ' Hz'),
+    eq('f̂₀ = Σ n·fₙ ⁄ Σ n²', 'The best common fit: the one fundamental that sits closest to all three partials, if they are harmonics 2, 3 and 4. It is the pattern-matching guess, one of the accounts; shifted by Δ, it moves by about 9Δ⁄29, roughly a third of the shift. The gap moves by nothing.'),
+  ] },
+  { n: 6, name: 'the phone line', fig: 'the discs, resting', right: 'the live spectrum', build: () => [
+    el('p', { class: 'pc-teach' }, 'The last test is the page’s own example. A low voice, synthesized here (a buzzing source on 100 Hz with a slow rise and fall, through three vowel resonances: an “ah”, not a recording), and a phone line that cuts everything below about 300 Hz: three filter stages at 300 Hz, and two more above 3.4 kHz. Switch the line in. The spectrum empties below 300 Hz; the voice’s 100 Hz and most of its 200 Hz are gone. Does the voice get higher, or only thinner?'),
+    el('div', { class: 'pc-row' }, toggle('Phone line, 300 Hz to 3.4 kHz', () => S.phone, v => { S.phone = v; })),
+    el('div', { class: 'pc-read', id: 'live' }),
+    eq('|H(100 Hz)| ≈ −57 dB,   |H(200 Hz)| ≈ −23 dB,   |H(1 kHz)| ≈ 0 dB', 'How much the line takes, at the voice’s first two harmonics and in the middle of the band: the check script computes these from the filters’ own formulas. Small speakers do the same to bass, and the same reading puts the low note back.'),
+  ] },
+];
+
+const host = document.getElementById('steps'), tabs = document.getElementById('tabs'), playBtn = document.getElementById('play');
+function go(n, force) {
+  if (n < 1 || n > STEPS.length) return;
+  if ((n !== S.step || force) && playing) stop();
+  stopAB(); S.match = false; S.abFund = false;
+  S.step = n; S.voice = n === 6;
+  if (n >= 2) { S.on = n === 6 ? [0, 0, 0] : [1, 1, 1]; [0, 1, 2].forEach(i => { rot[i] = S.on[i] ? 0 : 180; }); }
+  if (n !== 4) { S.fund = false; S.noise = false; }
+  if (n !== 5) { S.shift = 0; S.stretch = 0; }
+  if (n !== 6) S.phone = false;
+  const st = STEPS[n - 1];
+  host.replaceChildren(el('section', { class: 'pc-step', 'aria-label': 'step ' + n },
+    el('div', { class: 'pc-stephead' }, el('span', {}, n + ' · ' + st.name), el('span', {}, 'step ' + n + ' of ' + STEPS.length)), st.build()));
+  document.getElementById('figLabel').textContent = st.fig;
+  document.getElementById('figPanel').classList.toggle('pc-hidden', n >= 4);
+  document.querySelector('.pc-stage').classList.toggle('pc-one', n >= 4);
+  document.getElementById('figNote').textContent = n <= 3 ? 'tap a disc to turn it' : '';
+  document.getElementById('rightLabel').textContent = st.right;
+  right.innerHTML = '';
+  if (n === 1) { showForks(S.awake); cv = null; }
+  else { cv = el('canvas', {}); right.append(cv); }
+  tabs.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === n)));
+  document.getElementById('back').disabled = n === 1;
+  document.getElementById('next').disabled = n === STEPS.length;
+  if (n === 2) says(S.chosen ? 'You kept the fork at ' + S.chosen + ' Hz. Here is what is actually playing.' : 'Here is what is actually playing.');
+  else if (n === 3) says('Three waves, one period.');
+  else if (n === 4) says('Bring the real one in. Take it away.');
+  else if (n === 5) says('Make them disagree.');
+  else if (n === 6) says('A low voice down a phone line.');
+  else says(S.awake ? 'The discs are awake. Tap one to turn it.' : 'Silent until you press. Headphones or good speakers help.');
+  syncPlay(); draw();
+}
+STEPS.forEach(s => tabs.append(el('button', { onclick: () => go(s.n) }, s.n + ' · ' + s.name)));
+playBtn.addEventListener('click', () => {
+  if (playing) { stop(); draw(); return; }
+  const p = (S.step === 1 && !S.awake) ? wake() : start();
+  p.catch(e => says('Sound could not start: ' + e.message));
+});
+document.getElementById('back').addEventListener('click', () => go(S.step - 1));
+document.getElementById('next').addEventListener('click', () => go(S.step + 1));
+window.addEventListener('resize', () => draw());
+(function sigil() { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * Math.PI * 2; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+
+// For the check script: render this page's own graph offline and measure it. Makes no sound and no live context.
+window.PC_RENDER = async function (opts) {
+  opts = opts || {};
+  const sr = 48000, secs = opts.secs || 2, ctx = new OfflineAudioContext(1, sr * secs, sr);
+  const g = makeGraph(ctx);
+  const st = Object.assign({}, S, { on: [1, 1, 1], fund: false, fundDb: 0, abFund: false, noise: false, shift: 0, stretch: 0, phone: false, voice: false }, opts.state || {});
+  apply(g, st, true, 'test'); g.master.gain.value = 1;
+  const buf = await ctx.startRendering(), x = buf.getChannelData(0);
+  const from = Math.floor(sr * 0.5), N = x.length - from;   // skip the first half second
+  const mag = f => { let re = 0, im = 0; for (let i = 0; i < N; i++) { const w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1)); re += w * x[from + i] * Math.cos(2 * Math.PI * f * i / sr); im -= w * x[from + i] * Math.sin(2 * Math.PI * f * i / sr); } return 2 * Math.sqrt(re * re + im * im) / (N / 2); };
+  let peak = 0; for (let i = from; i < x.length; i++) peak = Math.max(peak, Math.abs(x[i]));
+  // band power, one-sided, from a Hann-windowed DFT stepped one bin (sr / N) at a time: P = 16 Σ|X|² / (3 N²)
+  const band = (f1, f2) => { let P = 0; const df = sr / N; for (let f = f1; f <= f2; f += df) { let re = 0, im = 0; for (let i = 0; i < N; i++) { const w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1)); re += w * x[from + i] * Math.cos(2 * Math.PI * f * i / sr); im -= w * x[from + i] * Math.sin(2 * Math.PI * f * i / sr); } P += re * re + im * im; } return 16 * P / (3 * N * N); };
+  const out = { peak, at: {}, bands: {} }; (opts.freqs || [100, 200, 300, 400]).forEach(f => { out.at[f] = mag(f); });
+  (opts.bands || []).forEach(([f1, f2]) => { out.bands[f1 + '-' + f2] = band(f1, f2); });
+  return out;
+};
+go(1);
+</script>
+</body>
+</html>

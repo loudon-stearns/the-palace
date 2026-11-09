@@ -1,0 +1,591 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the seesaw
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece), § Meaning gets in early, the Yanny or Laurel paragraph · listed in [[Auditory Illusions — rich.json]] · siblings: "who rewrites whom", "the talking socket", "the loop that sings", which share its voice box (VB) and scaffolding (UI) byte for byte
+  forward_vector: I am the mechanism the page names for Yanny or Laurel, built, since the 2018 recording is not ours: one synthetic sound holding two names, "Laurel" below 1.6 kHz and "Yanny" above it, on a seesaw you tip with a spectral tilt. I say plainly I am not the clip. My test finds where your reading flips, blind, with two staircases from opposite ends of the beam, and I say what it cannot tell apart. Loudness is held at every tilt (remade 2026-11-08, after the challenge). I change only when the section I serve does.
+  understood as: a seesaw, a thing with mass. The sound's weight is a ball on a beam: slide it toward low or high and the beam tips, and the spectrum below it leans the same way. The ball's place is the tilt, in dB, and nothing else.
+  red means: what your own perception supplied: the name you report, and the trail of your answers on the beam. Ink is the sound and the filters. Red means this in all four of this section's pieces.
+  sound: nothing plays until Start or a Play is clicked; the AudioContext is made on that click and goes through a compressor. Changing step stops the sound. Both names are formant synthesis from the voice box, made here; no recording.
+  check: "Auditory Illusions — rich — check — meaning-gets-in-early.mjs", beside this file, measures each name's formants by LPC, how much of each layer's energy sits on its own side of 1.6 kHz, the high-minus-low balance at each tilt (through the same shelf filters the Web Audio spec defines), the mix's RMS level at every tilt after the makeup gain, and how often random answers find a flip point.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The seesaw · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-08, retinted to the paper ground (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: var(--paper-2, #ebe8e0); --fx-bg-elev-2: var(--paper-3, #e2dfd6); --fx-bg-elev-3: #d8d4ca; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: var(--rule, #c9c6bd); --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.4); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --paper-2:#ebe8e0; --paper-3:#e2dfd6; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd;
+    --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.55;padding:24px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--serif);font-weight:500;font-style:italic;font-size:44px;line-height:1.02;margin:4px 0 6px;letter-spacing:-.01em}
+  h2{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.1;margin:2px 0 6px}
+  p.lead{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:62ch}
+  p.say{font-family:var(--serif);font-size:18px;line-height:1.5;color:var(--ink-2);margin:0 0 12px;max-width:66ch}
+  .rail{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 16px;border-top:1.5px solid var(--ink);padding-top:10px}
+  .rail button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 9px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .rail .half{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);align-self:center;margin:0 4px 0 8px}
+  .panel{border:1.5px solid var(--ink);border-radius:2px;padding:16px;margin:0 0 12px;background:var(--paper)}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.go{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 18px;cursor:pointer}
+  button.go:disabled{opacity:.35;cursor:default}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--paper);background:var(--ink)}
+  button.ghost:disabled{opacity:.3;cursor:default}
+  button.ans{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:2px;padding:4px 18px;cursor:pointer;min-width:64px}
+  button.ans:disabled{opacity:.3;cursor:default}
+  button.ans.picked{color:var(--paper);background:var(--red);border-color:var(--red)}
+  canvas.stage{width:100%;display:block;border-radius:2px;touch-action:none}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  .meter{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .meter b{font-weight:500;color:var(--ink)}
+  .meter i{font-style:normal;color:var(--red)}
+  .eq{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--ink-3);font-size:12.5px;margin-top:2px}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.35}
+  .ctl .v{font-family:var(--mono);font-size:13px;color:var(--ink);text-align:right;white-space:nowrap;min-width:8ch}
+  .warn{border:1.5px solid var(--ink);background:var(--paper-2);padding:14px 16px;border-radius:2px;margin:10px 0}
+  .warn b{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  table.marks{border-collapse:collapse;margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  table.marks .r{color:var(--red)}
+  .verdict{font-family:var(--serif);font-size:18px;line-height:1.5;margin:10px 0 0;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px;border-top:1px solid var(--rule);padding-top:10px}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}button.ans{font-size:19px;padding:4px 12px;min-width:52px}}
+</style>
+<style>
+  #stage{height:320px;cursor:grab}
+  #spec{height:200px;margin-top:10px}
+  .seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:2px;overflow:hidden}
+  .seg button{font-family:var(--mono);font-size:12px;background:transparent;border:0;border-right:1px solid var(--rule);padding:6px 11px;cursor:pointer;color:var(--ink)}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · meaning gets in early · five steps</div>
+  <h1>The seesaw</h1>
+  <p class="lead" id="lead"></p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="sEye"></div>
+    <h2 id="sTitle"></h2>
+    <p class="say" id="sSay"></p>
+  </section>
+
+  <div class="panel">
+    <canvas class="stage" id="stage" aria-label="a seesaw: drag the weight toward low or high"></canvas>
+    <div class="row" id="hearRow">
+      <button class="go" id="start">Start: say the name</button>
+      <span class="lbl" style="margin-left:6px">you hear</span>
+      <button class="ans" data-w="laurel">Laurel</button><button class="ans" data-w="yanny">Yanny</button><button class="ans" data-w="neither">neither</button>
+      <button class="ghost" id="level" style="margin-left:auto">Level the beam</button>
+    </div>
+    <div class="row" id="halfRow" hidden>
+      <span class="lbl">play</span><span class="seg" id="segHalf"><button data-v="both" aria-pressed="true">both halves</button><button data-v="low" aria-pressed="false">below 1.6 kHz only</button><button data-v="high" aria-pressed="false">above 1.6 kHz only</button></span>
+    </div>
+    <div class="row" id="earRow" hidden>
+      <span class="lbl">listen through</span><span class="seg" id="segEar"><button data-v="flat" aria-pressed="true">a flat path</button><button data-v="phone" aria-pressed="false">lows thinned below 500 Hz</button><button data-v="dull" aria-pressed="false">highs fading above 2 kHz</button></span>
+    </div>
+    <div id="testBox" hidden>
+      <div class="row"><span class="lbl" id="tLabel"></span><button class="go" id="tPlay">Play the trial</button>
+        <span class="lbl" style="margin-left:6px">you hear</span>
+        <button class="ans" data-t="laurel">Laurel</button><button class="ans" data-t="yanny">Yanny</button><button class="ans" data-t="neither">neither</button>
+        <button class="ghost" id="tAgain" style="margin-left:auto">Start again</button></div>
+      <div id="tResult"></div>
+    </div>
+    <canvas class="stage" id="spec" aria-label="the sound’s spectrum, and the filter"></canvas>
+    <div class="verdict" id="note"></div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg id="sigil" width="20" height="20" viewBox="-10 -10 20 20" aria-hidden="true"></svg>Auditory Illusions · the seesaw · made in Web Audio, 2026-11-08 · not the 2018 recording · nobody has listened to it yet</footer>
+</main>
+
+<script id="ai-voice">
+// The voice box: one small formant synthesizer, the same in all four of this section's pieces, byte for byte.
+// A glottal pulse (Rosenberg's shape) at a gliding pitch goes through five resonators in series, each a
+// two-pole filter (Klatt's form) whose centre frequency and bandwidth move with the syllable; a burst of
+// noise through its own resonator marks a stop's release; the output is differenced, as a mouth radiates.
+// Plain functions, rendered offline into a buffer, so the picture, the sound and the headless check share one source.
+const VB = (() => {
+  const SR = 44100;
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  // Piecewise-linear lookup in keyframes [[t, v], …], held flat past either end.
+  function at(keys, t) {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) { const [t0, v0] = keys[i - 1], [t1, v1] = keys[i]; return v0 + (v1 - v0) * (t - t0) / Math.max(t1 - t0, 1e-9); }
+    return keys[keys.length - 1][1];
+  }
+  // Klatt's resonator: y[n] = A·x[n] + B·y[n−1] + C·y[n−2], unity gain at 0 Hz.
+  function coef(F, BW) { const T = 1 / SR, C = -Math.exp(-2 * Math.PI * BW * T), B = 2 * Math.exp(-Math.PI * BW * T) * Math.cos(2 * Math.PI * F * T); return [1 - B - C, B, C]; }
+  const DEF = { F4: [[0, 3300]], F5: [[0, 3850]], B1: [[0, 70]], B2: [[0, 90]], B3: [[0, 150]], B4: [[0, 250]], B5: [[0, 300]], AH: [[0, 0]] };
+  // spec: { dur (s), F0, F1…F5, B1…B5, AV (voicing 0–1), AH (aspiration 0–1): keyframe lists; bursts: [{ t, dur, amp, f, bw }] }
+  function render(spec, seed = 1) {
+    const n = Math.round(spec.dur * SR), out = new Float64Array(n), r = rng(seed), S = Object.assign({}, DEF, spec);
+    const y1 = new Float64Array(5), y2 = new Float64Array(5); let cf = [], ph = 0, prev = 0, nz = 0;
+    const bursts = (spec.bursts || []).map((b) => ({ ...b, c: coef(b.f, b.bw), y1: 0, y2: 0 }));
+    let F0 = 100, AV = 0, AH = 0;
+    for (let i = 0; i < n; i++) {
+      const t = i / SR;
+      if (i % 16 === 0) {
+        F0 = at(S.F0, t); AV = at(S.AV, t); AH = at(S.AH, t);
+        cf = [1, 2, 3, 4, 5].map((k) => coef(at(S['F' + k], t), at(S['B' + k], t)));
+      }
+      ph += F0 / SR; if (ph >= 1) ph -= 1;
+      const g = ph < 0.4 ? 0.5 * (1 - Math.cos(Math.PI * ph / 0.4)) : ph < 0.56 ? Math.cos(Math.PI * (ph - 0.4) / 0.32) : 0;
+      nz = 0.6 * nz + 0.4 * (r() * 2 - 1);
+      let x = AV * g + AH * nz * 0.5;
+      for (let k = 0; k < 5; k++) { const [A, B, C] = cf[k]; const y = A * x + B * y1[k] + C * y2[k]; y2[k] = y1[k]; y1[k] = y; x = y; }
+      for (const b of bursts) if (t >= b.t && t < b.t + b.dur * 4) {
+        const e = b.amp * Math.exp(-(t - b.t) / b.dur) * (r() * 2 - 1);
+        const y = b.c[0] * e + b.c[1] * b.y1 + b.c[2] * b.y2; b.y2 = b.y1; b.y1 = y; x += y;
+      }
+      out[i] = x - prev; prev = x;
+    }
+    return out;
+  }
+  // ── the syllables ──
+  // ba · da · ga on one dial, c from 0 (ba) through 0.5 (da) to 1 (ga): the second and third formants start at the
+  // lips' (low), the tongue tip's (F2 high) or the tongue body's (F2 and F3 pinched together) place and glide to "ah".
+  const PL = { ba: { F2: 900, F3: 2100, bf: 900, bbw: 1600, ba: 0.18 }, da: { F2: 1700, F3: 2750, bf: 3900, bbw: 1600, ba: 0.069 }, ga: { F2: 1950, F3: 2150, bf: 2000, bbw: 450, ba: 0.1 } };
+  function place(c) { const a = c <= 0.5 ? PL.ba : PL.da, b = c <= 0.5 ? PL.da : PL.ga, u = c <= 0.5 ? c / 0.5 : (c - 0.5) / 0.5, m = {}; for (const k in a) m[k] = a[k] + (b[k] - a[k]) * u; return m; }
+  const REL = 0.06; // the release, in seconds from the buffer's start: the burst, and the instant the lips (or tongue) let go
+  function syllable(c = 0) {
+    const p = place(c), R = REL;
+    return { dur: 0.46, F0: [[0, 128], [R + 0.1, 122], [0.42, 96]],
+      F1: [[0, 250], [R, 250], [R + 0.04, 730]], F2: [[0, p.F2], [R, p.F2], [R + 0.045, 1220]], F3: [[0, p.F3], [R, p.F3], [R + 0.045, 2560]],
+      B1: [[0, 60], [R + 0.04, 90]], AV: [[0, 0], [R + 0.006, 0], [R + 0.02, 1], [0.34, 1], [0.42, 0]], AH: [[0, 0], [R, 0.25], [R + 0.012, 0]],
+      bursts: [{ t: R, dur: 0.004, amp: p.ba, f: p.bf, bw: p.bbw }] };
+  }
+  // Two names, one on each side of a crossover: "Laurel" lives low (its F1 and F2 under 1.6 kHz), "Yanny" lives high
+  // (its F2 and F3 glides above it). Their syllables are timed to land together.
+  function laurel() {
+    return { dur: 0.62, F0: [[0, 118], [0.16, 134], [0.34, 112], [0.58, 92]],
+      F1: [[0, 340], [0.07, 360], [0.15, 600], [0.24, 590], [0.30, 460], [0.36, 470], [0.42, 500], [0.5, 380]],
+      F2: [[0, 950], [0.07, 980], [0.15, 900], [0.24, 950], [0.30, 1100], [0.36, 1150], [0.42, 1250], [0.5, 980]],
+      F3: [[0, 2700], [0.07, 2650], [0.15, 2550], [0.24, 2350], [0.30, 1650], [0.36, 1700], [0.42, 2200], [0.5, 2650]],
+      AV: [[0, 0], [0.012, 0.75], [0.07, 0.75], [0.12, 1], [0.38, 0.95], [0.5, 0.75], [0.58, 0]] };
+  }
+  function yanny() {
+    return { dur: 0.62, F0: [[0, 118], [0.16, 134], [0.34, 112], [0.58, 92]],
+      F1: [[0, 280], [0.06, 290], [0.13, 760], [0.24, 740], [0.28, 280], [0.34, 280], [0.40, 300], [0.5, 300]],
+      F2: [[0, 2250], [0.06, 2200], [0.13, 1750], [0.24, 1700], [0.28, 1500], [0.34, 1600], [0.40, 2300], [0.5, 2350]],
+      F3: [[0, 3050], [0.06, 3000], [0.13, 2600], [0.24, 2550], [0.28, 2500], [0.34, 2600], [0.40, 3000], [0.5, 3050]],
+      B1: [[0, 70], [0.25, 70], [0.27, 200], [0.35, 200], [0.37, 70]], B2: [[0, 90], [0.25, 90], [0.27, 300], [0.35, 300], [0.37, 90]],
+      AV: [[0, 0], [0.012, 0.8], [0.06, 0.8], [0.12, 1], [0.26, 1], [0.28, 0.45], [0.35, 0.45], [0.38, 0.95], [0.5, 0.8], [0.58, 0]] };
+  }
+  // Two words for the phantom loop: "no" (a nasal, then a rounded vowel gliding shut) and "way" (lips rounded, then a
+  // front vowel gliding up). 0.3 s each.
+  function no() {
+    return { dur: 0.3, F0: [[0, 120], [0.3, 108]],
+      F1: [[0, 270], [0.06, 270], [0.1, 480], [0.2, 440], [0.28, 360]], F2: [[0, 1500], [0.06, 1450], [0.1, 950], [0.2, 880], [0.28, 800]],
+      F3: [[0, 2550], [0.1, 2450], [0.28, 2350]], B1: [[0, 200], [0.06, 200], [0.09, 80]], B2: [[0, 300], [0.06, 300], [0.09, 90]],
+      AV: [[0, 0], [0.01, 0.45], [0.06, 0.45], [0.1, 1], [0.24, 0.9], [0.3, 0]] };
+  }
+  function way() {
+    return { dur: 0.3, F0: [[0, 116], [0.3, 104]],
+      F1: [[0, 300], [0.05, 300], [0.12, 480], [0.2, 450], [0.28, 360]], F2: [[0, 650], [0.05, 700], [0.12, 1850], [0.2, 2000], [0.28, 2200]],
+      F3: [[0, 2200], [0.05, 2250], [0.12, 2550], [0.28, 2700]],
+      AV: [[0, 0], [0.015, 0.7], [0.06, 0.85], [0.1, 1], [0.24, 0.9], [0.3, 0]] };
+  }
+  // ── measures and helpers ──
+  function rms(x, a = 0, b = x.length) { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / Math.max(1, b - a)); }
+  function peak(x) { let p = 0; for (const v of x) p = Math.max(p, Math.abs(v)); return p; }
+  // Scale to an RMS (over the voiced part: samples within 30 dB of the loudest 10 ms), peak held under 0.95.
+  function level(x, target = 0.1) { const h = 441, fr = []; for (let i = 0; i + h <= x.length; i += h) fr.push(rms(x, i, i + h)); const top = Math.max(...fr); let s = 0, c = 0; fr.forEach((v) => { if (v > top * 0.0316) { s += v * v; c++; } }); let k = target / Math.sqrt(s / c); if (peak(x) * k > 0.95) k = 0.95 / peak(x); return Float32Array.from(x, (v) => v * k); }
+  // RBJ's biquads, the same as the Web Audio spec's: lowpass / highpass (Q), lowshelf / highshelf (gain in dB, S = 1).
+  function biquad(type, f, q, gainDb = 0) {
+    const w = 2 * Math.PI * f / SR, cw = Math.cos(w), sw = Math.sin(w), A = Math.pow(10, gainDb / 40);
+    let b0, b1, b2, a0, a1, a2;
+    if (type === 'lowpass' || type === 'highpass') { const al = sw / (2 * q), s = type === 'lowpass' ? 1 - cw : 1 + cw; b0 = s / 2; b1 = type === 'lowpass' ? s : -s; b2 = s / 2; a0 = 1 + al; a1 = -2 * cw; a2 = 1 - al; }
+    else { const al = sw / 2 * Math.sqrt(2), sa = 2 * Math.sqrt(A) * al, lo = type === 'lowshelf' ? 1 : -1;
+      b0 = A * ((A + 1) - lo * (A - 1) * cw + sa); b1 = lo * 2 * A * ((A - 1) - lo * (A + 1) * cw); b2 = A * ((A + 1) - lo * (A - 1) * cw - sa);
+      a0 = (A + 1) + lo * (A - 1) * cw + sa; a1 = -lo * 2 * ((A - 1) + lo * (A + 1) * cw); a2 = (A + 1) + lo * (A - 1) * cw - sa; }
+    return [b0 / a0, b1 / a0, b2 / a0, a1 / a0, a2 / a0];
+  }
+  function filter(x, c) { const y = new Float64Array(x.length); let x1 = 0, x2 = 0, y1 = 0, y2 = 0; for (let i = 0; i < x.length; i++) { const v = c[0] * x[i] + c[1] * x1 + c[2] * x2 - c[3] * y1 - c[4] * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
+  // The magnitude, in dB, of a biquad at a frequency.
+  function gainAt(c, f) { const w = 2 * Math.PI * f / SR, re = (a, b, d) => a + b * Math.cos(w) + d * Math.cos(2 * w), im = (b, d) => -b * Math.sin(w) - d * Math.sin(2 * w);
+    const nr = re(c[0], c[1], c[2]), ni = im(c[1], c[2]), dr = re(1, c[3], c[4]), di = im(c[3], c[4]); return 10 * Math.log10((nr * nr + ni * ni) / (dr * dr + di * di)); }
+  // The two names, split at the crossover with three 2-pole filters each side (36 dB an octave), matched in level.
+  const XO = 1600;
+  function names() {
+    const lp = biquad('lowpass', XO, 0.7071), hp = biquad('highpass', XO, 0.7071), three = (x, c) => filter(filter(filter(x, c), c), c);
+    const L = three(render(laurel(), 7), lp), Y = three(render(yanny(), 9), hp);
+    return { laurel: level(L, 0.1), yanny: level(Y, 0.1) };
+  }
+  // radix-2 FFT, in place
+  function fft(re, im) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], vr = re[i + j + len / 2] * cr - im[i + j + len / 2] * ci, vi = re[i + j + len / 2] * ci + im[i + j + len / 2] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[i + j + len / 2] = ur - vr; im[i + j + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  }
+  // A spectrogram for drawing: 1024-point frames every 5 ms, Hann window, dB, up to fmax.
+  function spectrogram(x, fmax = 5000, hop = 0.005) {
+    const N = 1024, H = Math.round(hop * SR), kmax = Math.round(fmax / SR * N), frames = [];
+    for (let s = 0; s + N <= x.length + N / 2; s += H) { const re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < N; i++) { const j = s - N / 2 + i; re[i] = (j >= 0 && j < x.length ? x[j] : 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N)); } fft(re, im); const f = new Float32Array(kmax); for (let k = 0; k < kmax; k++) f[k] = 10 * Math.log10(re[k] * re[k] + im[k] * im[k] + 1e-12); frames.push(f); }
+    return { frames, df: SR / N, hop };
+  }
+  return { SR, rng, at, render, syllable, place, REL, laurel, yanny, no, way, rms, peak, level, biquad, filter, gainAt, XO, names, fft, spectrogram };
+})();
+</script>
+<script id="ai-ui">
+// The scaffolding, the same in this section's four pieces: sound only on a click, through one compressor;
+// buffers that stop on a step change; the screen's clock set against the sound's; the walk; the sigil.
+const UI = (() => {
+  const $ = (id) => document.getElementById(id);
+  let ctx = null, master = null;
+  const live = new Set(), quietHooks = [];
+  async function audio() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -8; comp.knee.value = 6; comp.ratio.value = 4; comp.connect(ctx.destination);
+      master = ctx.createGain(); master.gain.value = 0.9; master.connect(comp);
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+    return ctx;
+  }
+  const out = () => master;
+  function buffer(chs, sr = 44100) { const b = ctx.createBuffer(chs.length, chs[0].length, sr); chs.forEach((c, i) => b.copyToChannel(c instanceof Float32Array ? c : Float32Array.from(c), i)); return b; }
+  function play(buf, when, dest, loop = false) {
+    const s = ctx.createBufferSource(); s.buffer = buf; s.loop = loop; const g = ctx.createGain(); s.connect(g).connect(dest || master);
+    const t = when || ctx.currentTime + 0.03; s.start(t); const me = { s, g, t, buf }; live.add(me); s.onended = () => live.delete(me); return me;
+  }
+  function stop() {
+    for (const f of quietHooks) { try { f(); } catch (e) { /* nothing left to stop */ } }
+    if (!ctx) return; const now = ctx.currentTime;
+    for (const m of live) { try { m.g.gain.setTargetAtTime(0, now, 0.008); m.s.stop(now + 0.06); } catch (e) { /* already stopped */ } }
+    live.clear();
+  }
+  const onStop = (f) => quietHooks.push(f);
+  // A context time, as a performance.now() time: when that sample reaches the speaker, as near as this browser can tell.
+  function perfAt(T) {
+    try { const ts = ctx.getOutputTimestamp(); if (ts && ts.performanceTime > 0 && ts.contextTime > 0) return ts.performanceTime + (T - ts.contextTime) * 1000; } catch (e) { /* no timestamp here */ }
+    return performance.now() + (T - ctx.currentTime + (ctx.outputLatency || 0) + (ctx.baseLatency || 0)) * 1000;
+  }
+  const latencyMs = () => (ctx ? 1000 * ((ctx.outputLatency || 0) + (ctx.baseLatency || 0)) : null);
+  // The display's frame interval, measured: the median of the last 40 frame steps.
+  const steps = []; let lastF = 0;
+  function frameTick(ts) { if (lastF) { steps.push(ts - lastF); if (steps.length > 40) steps.shift(); } lastF = ts; }
+  function frameMs() { if (steps.length < 5) return 1000 / 60; const s = steps.slice().sort((a, b) => a - b); return s[s.length >> 1]; }
+  function fit(c, h) {
+    if (h) c.style.height = h + 'px';
+    const w = c.clientWidth, H = c.clientHeight, d = devicePixelRatio || 1;
+    if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); }
+    const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+  }
+  // The walk: one step at a time, the list always open; changing step stops the sound.
+  function walk(steps, show, halves) {
+    let i = 0;
+    function rail() {
+      const r = $('rail'); r.innerHTML = '';
+      steps.forEach((s, k) => {
+        if (halves && halves[k]) { const h = document.createElement('span'); h.className = 'half'; h.textContent = halves[k]; r.appendChild(h); }
+        const b = document.createElement('button'); b.textContent = (k + 1) + ' · ' + s.rail; if (k === i) b.setAttribute('aria-current', 'step'); b.onclick = () => go(k); r.appendChild(b);
+      });
+    }
+    function go(k) { stop(); i = Math.max(0, Math.min(steps.length - 1, k)); rail(); $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1; show(i, steps[i]); }
+    $('back').onclick = () => go(i - 1); $('next').onclick = () => go(i + 1);
+    return { go, now: () => i };
+  }
+  function sigil() { const pts = []; for (let k = 0; k <= 240; k++) { const t = k / 240 * 2 * Math.PI; pts.push((8 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (8 * Math.sin(2 * t)).toFixed(2)); }
+    $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+  // The page asks every other piece to fall quiet when one plays; this piece hears that and stops,
+  // its spoken words included, which no audio context can reach.
+  function hush() { stop(); try { speechSynthesis.cancel(); } catch (x) { /* no speech here */ } if (ctx && ctx.state === 'running') ctx.suspend(); }
+  window.addEventListener('message', (e) => { if ((e.source === window.parent || e.source == null) && e.data && e.data.type === 'rich:hush') hush(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) hush(); });
+  // Speech the browser says has no audio context for the page to hear start, so the piece tells the page itself.
+  function announce() { if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) { /* alone */ } } }
+  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function shuffled(a) { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; }
+  const pct = (p) => (p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%');
+  return { $, announce, audio, out, buffer, play, stop, onStop, perfAt, latencyMs, frameTick, frameMs, fit, walk, sigil, reduced, shuffled, pct, ctx: () => ctx };
+})();
+</script>
+<script id="mge-seesaw">
+// This piece's own measures: the tilt, the test's tilts, and its permutation rule.
+const SW = (() => {
+  const MAX = 24;                                   // the beam's reach: ±24 dB of tilt
+  const STARTS = [-18, 18], PER = 10;               // the test: two staircases, one from each end, ten trials each, interleaved
+  // The tilt T: a low shelf at the crossover cut by T/2, a high shelf boosted by T/2, so high minus low is T dB.
+  const shelves = (T) => ({ low: VB.biquad('lowshelf', VB.XO, 0, -T / 2), high: VB.biquad('highshelf', VB.XO, 0, T / 2) });
+  // Loudness held: the mix is run through the shelves at every whole dB of tilt, and the gain that brings its RMS back
+  // to the level beam's is kept in a table; between whole dB the table is read in a straight line.
+  function makeupTable(mix) {
+    const rms0 = VB.rms(mix), t = {};
+    for (let T = -MAX; T <= MAX; T++) { const c = shelves(T); t[T] = 20 * Math.log10(rms0 / VB.rms(VB.filter(VB.filter(mix, c.low), c.high))); }
+    return t;
+  }
+  function makeup(table, T) { const a = Math.floor(Math.max(-MAX, Math.min(MAX - 1, T))), u = T - a; return table[a] + (table[a + 1] - table[a]) * u; }
+  // A staircase: a Yanny answer moves the next trial 1 step down the beam, a Laurel answer 1 step up, "neither" stays.
+  // The step starts at 6 dB and halves at each reversal, down to 1.5 dB.
+  const stair = (start) => ({ start, T: start, step: 6, dir: 0, rev: [], track: [] });
+  function answer(st, a) {
+    st.track.push({ T: st.T, a }); if (a === 'neither') return st;
+    const d = a === 'yanny' ? -1 : 1;
+    if (st.dir && d !== st.dir) { st.rev.push(st.T); st.step = Math.max(1.5, st.step / 2); }
+    st.dir = d; st.T = Math.max(-MAX, Math.min(MAX, st.T + d * st.step)); return st;
+  }
+  // A staircase's flip point: the mean tilt of its reversals after the first, once it has three.
+  const flipOf = (st) => (st.rev.length >= 3 ? st.rev.slice(1).reduce((s, x) => s + x, 0) / (st.rev.length - 1) : null);
+  // The mean tilt of your Yanny answers less that of your Laurel answers: positive is the page's direction.
+  function gap(trials) { const y = trials.filter((t) => t.a === 'yanny'), l = trials.filter((t) => t.a === 'laurel'); if (!y.length || !l.length) return null; const m = (v) => v.reduce((s, t) => s + t.T, 0) / v.length; return m(y) - m(l); }
+  // The verdict, set before the first trial: a flip point is found when both staircases reverse at least three times,
+  // agree within 6 dB, and your Yanny answers sit higher on the beam than your Laurel answers.
+  function verdict(A, B) {
+    const trials = A.track.concat(B.track), nn = trials.filter((t) => t.a === 'neither').length, g = gap(trials), a = flipOf(A), b = flipOf(B);
+    const kind = nn >= 12 ? 'names' : g == null ? 'one' : g <= 0 ? 'reversed' : a == null || b == null ? 'noflip' : Math.abs(a - b) > 6 ? 'unsettled' : 'found';
+    return { kind, flip: kind === 'found' ? (a + b) / 2 : null, a, b, gap: g, neither: nn };
+  }
+  return { MAX, STARTS, PER, shelves, makeupTable, makeup, stair, answer, flipOf, gap, verdict };
+})();
+</script>
+<script>
+(() => {
+  const $ = UI.$, SR = VB.SR;
+  const STEPS = [
+    { key: 'hear', rail: 'which name', title: 'Which name do you hear?', lead: true,
+      say: 'One short sound, said over and over. Which name is it? Then slide the weight along the beam, toward low or toward high, and answer again as it changes.' },
+    { key: 'tilt', rail: 'the tilt', title: 'The weight is a tilt',
+      say: 'The weight does one thing: it tips the sound’s spectrum around 1.6 kHz. Two shelf filters share that corner. The low one cuts everything below it by half the tilt; the high one lifts everything above it by the other half. So at +12 dB the top of the sound is 12 dB louder against the bottom than when the beam is level. The curve below is the filter you are hearing through, live. Nothing else changes: the same sound, at the same loudness. Tipping the shelves alone would change it, 6.2 dB louder at −18 and 9 dB at −24, because more of this sound’s energy sits below the corner than above it, so a third gain after the shelves holds the mix’s RMS level where it is with the beam level, at every tilt.',
+      eq: ['T = (high shelf gain) − (low shelf gain) · each shelf at 1.6 kHz, ±T/2, slope 1', 'the tilt is how much louder the top half of the spectrum is than the bottom half'],
+      eq2: ['makeup(T) = 20·log10(RMS(level) ÷ RMS(through the shelves at T))', 'after the tilt, a gain puts the whole sound back at the level beam’s loudness, so louder never decides the name'] },
+    { key: 'halves', rail: 'two names', title: 'Two names, one sound',
+      say: 'This is not the 2018 recording; that one is not ours to play. This piece builds the page’s mechanism on purpose. The sound is two synthetic names laid in two bands: “Laurel” below 1.6 kHz, where its first two resonances live, and “Yanny” above it, where its second and third do, timed so their syllables land together. Play each half alone and see it in the spectrum. The 2018 clip was one recording whose cues happened to split this way; here the split is built, so it is clearer and cruder than the real thing.',
+      eq: ['Laurel: F1 340–600 Hz, F2 900–1250 Hz, and an /r/ dip of F3 to 1650 · Yanny: F2 1500–2350 Hz, F3 2500–3050', 'each name’s identity lives in the movement of its resonances; the two sets move in different bands'],
+      eq2: ['lowpass / highpass at 1.6 kHz, 36 dB an octave each', 'the halves are cut apart steeply, so each side holds almost only its own name'] },
+    { key: 'ears', rail: 'whose ear', title: 'Your ear is a filter too',
+      say: 'The page says people who weight high frequencies, or have younger ears, or better speakers, hear Yanny. Each of those is a tilt you cannot see: a speaker or an ear that carries the top well leans the sound one way, an ear that has lost its top leans it the other. Listen through two rough models, with the beam level: a path whose lows are thinned, and a path whose highs fade. They are sketches of a path, not measurements of any speaker or anyone’s ear. Unlike the tilt, these paths are not loudness-matched: each takes energy away, as a real one would.',
+      eq: ['lows thinned: highpass 500 Hz · highs fading: lowpass 2 kHz, each 12 dB an octave', 'one takes the bottom away, the other the top'],
+      eq2: ['', ''] },
+    { key: 'test', rail: 'your flip point', title: 'Where does your name flip?',
+      say: 'The beam is hidden. Twenty trials, from two staircases mixed together: one starts at −18 dB, one at +18. After a Yanny the next trial on that staircase moves down the beam, after a Laurel up, after “neither” it stays; each step starts at 6 dB and halves when your answer turns round. Where the answers keep turning round is your flip point, in dB of tilt: below zero, you hear Yanny even with the highs turned down; above zero, you need them turned up. The rule, set before you start: a flip point is found when both staircases turn round at least three times, agree within 6 dB, and your Yanny answers sit higher on the beam than your Laurels, which is the page’s direction. Answering at random finds one 0.2% of the time. One thing this cannot do: a tilt also makes the sound brighter or darker, and someone answering “Yanny” for bright finds a flip point without hearing a name at all. It tests where your reading turns, and which way, not that a word was there.',
+      eq: ['flip = mean tilt at each staircase’s reversals after the first, averaged over the two', 'where your answers keep changing their mind; with two staircases from opposite ends, so neither end’s habit decides it'],
+      eq2: ['', ''] },
+  ];
+  const S = { step: 0, T: 0, trail: [], last: null, half: 'both', ear: 'flat', test: null, playing: false };
+  const NM = VB.names();
+  const mix = { both: Float32Array.from(NM.laurel, (v, i) => v + NM.yanny[i]), low: NM.laurel, high: NM.yanny };
+  const MK = SW.makeupTable(mix.both);
+  const LOOP = 1.15; // the name, then silence, every 1.15 s
+  const padded = (x) => { const y = new Float32Array(Math.round(LOOP * SR)); y.set(x.subarray(0, Math.min(x.length, y.length))); return y; };
+  let chain = null;
+  async function sound(which, loop = true) {
+    UI.stop(); await UI.audio(); const ctx = UI.ctx();
+    const lo = ctx.createBiquadFilter(); lo.type = 'lowshelf'; lo.frequency.value = VB.XO;
+    const hi = ctx.createBiquadFilter(); hi.type = 'highshelf'; hi.frequency.value = VB.XO;
+    const ear = ctx.createBiquadFilter(); setEar(ear, S.ear);
+    const mk = ctx.createGain(); lo.connect(hi).connect(mk).connect(ear).connect(UI.out());
+    chain = { lo, hi, mk, ear }; setTilt(S.T, true);
+    UI.play(UI.buffer([padded(mix[which])]), 0, lo, loop); S.playing = true;
+  }
+  UI.onStop(() => { S.playing = false; chain = null; });
+  function setEar(f, v) { if (v === 'phone') { f.type = 'highpass'; f.frequency.value = 500; f.Q.value = 0.707; } else if (v === 'dull') { f.type = 'lowpass'; f.frequency.value = 2000; f.Q.value = 0.707; } else { f.type = 'allpass'; f.frequency.value = 1000; } }
+  function setTilt(T, now) { S.T = Math.max(-SW.MAX, Math.min(SW.MAX, T)); if (chain) { const t = UI.ctx().currentTime; chain.lo.gain.setTargetAtTime(-S.T / 2, t, now ? 0.001 : 0.03); chain.hi.gain.setTargetAtTime(S.T / 2, t, now ? 0.001 : 0.03); chain.mk.gain.setTargetAtTime(Math.pow(10, SW.makeup(MK, S.T) / 20), t, now ? 0.001 : 0.03); } meter(); }
+
+  // ── the encounter ──
+  $('start').onclick = () => (S.playing ? UI.stop() : sound(S.step === 2 ? S.half : 'both'));
+  document.querySelectorAll('[data-w]').forEach((b) => (b.onclick = () => { if (!S.playing && !S.trail.length) return; S.last = b.dataset.w; S.trail.push({ T: S.T, a: b.dataset.w }); paint(); note(); }));
+  $('level').onclick = () => setTilt(0);
+  function paint() { document.querySelectorAll('[data-w]').forEach((b) => b.classList.toggle('picked', b.dataset.w === S.last)); $('start').textContent = S.playing ? 'Stop' : S.trail.length ? 'Play' : 'Start: say the name'; }
+  function note() {
+    if (S.step !== 0) { $('note').innerHTML = ''; return; }
+    if (!S.trail.length) { $('note').innerHTML = ''; return; }
+    const y = S.trail.filter((t) => t.a === 'yanny'), l = S.trail.filter((t) => t.a === 'laurel');
+    $('note').innerHTML = S.trail.length === 1 ? 'Now slide the weight along the beam and answer again when the name changes, or doesn’t.'
+      : y.length && l.length ? `<span style="color:var(--red)">Both names, from one sound.</span> Your Laurels sit at ${(l.reduce((s, t) => s + t.T, 0) / l.length).toFixed(0)} dB on average, your Yannys at ${(y.reduce((s, t) => s + t.T, 0) / y.length).toFixed(0)} dB. Nothing moved but the weight.`
+      : `So far, only ${y.length ? 'Yanny' : l.length ? 'Laurel' : 'neither'}. Slide the weight all the way to the other end.`;
+  }
+  // dragging the weight
+  let drag = false;
+  const toT = (e) => { const r = $('stage').getBoundingClientRect(), x = e.clientX - r.left, w = r.width, half = Math.min(w * 0.42, 360); return ((x - w / 2) / half) * SW.MAX; };
+  $('stage').addEventListener('pointerdown', (e) => { if (STEPS[S.step].key === 'test') return; drag = true; $('stage').setPointerCapture(e.pointerId); setTilt(toT(e)); });
+  $('stage').addEventListener('pointermove', (e) => { if (drag) setTilt(toT(e)); });
+  $('stage').addEventListener('pointerup', () => { drag = false; });
+  $('stage').addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') setTilt(S.T - 1); if (e.key === 'ArrowRight') setTilt(S.T + 1); });
+  $('stage').tabIndex = 0;
+
+  function seg(id, cb) { document.querySelectorAll(`#${id} button`).forEach((b) => (b.onclick = () => { document.querySelectorAll(`#${id} button`).forEach((x) => x.setAttribute('aria-pressed', x === b)); cb(b.dataset.v); })); }
+  seg('segHalf', (v) => { S.half = v; sound(v); paint(); });
+  seg('segEar', (v) => { S.ear = v; if (chain) setEar(chain.ear, v); else sound('both'); paint(); meter(); });
+
+  // ── the test ──
+  function newTest() { S.test = { A: SW.stair(SW.STARTS[0]), B: SW.stair(SW.STARTS[1]), n: 0, cur: null, played: false, done: false }; pick(); }
+  function pick() { const T = S.test, a = T.A.track.length < SW.PER, b = T.B.track.length < SW.PER; T.cur = a && b ? (Math.random() < 0.5 ? 'A' : 'B') : a ? 'A' : b ? 'B' : null; if (!T.cur) T.done = true; }
+  function buildTest() {
+    const T = S.test; $('tLabel').textContent = T.done ? 'all twenty answered' : `trial ${T.n + 1} of ${2 * SW.PER}`; $('tPlay').disabled = T.done;
+    document.querySelectorAll('[data-t]').forEach((b) => (b.disabled = T.done || !T.played));
+    $('tResult').innerHTML = T.done ? verdict() : `<p class="hint" style="margin-top:10px">${T.n} answered. Your flip point shows after the twentieth.</p>`;
+  }
+  $('tPlay').onclick = async () => { const T = S.test, st = T[T.cur]; S.ear = 'flat'; S.T = st.T; await sound('both', false); setTilt(st.T, true); T.played = true; buildTest(); };
+  document.querySelectorAll('[data-t]').forEach((b) => (b.onclick = () => { const T = S.test; if (T.done || !T.played) return; UI.stop(); SW.answer(T[T.cur], b.dataset.t); T.n++; T.played = false; pick(); buildTest(); }));
+  $('tAgain').onclick = () => { UI.stop(); newTest(); buildTest(); };
+  function verdict() {
+    const T = S.test, v = SW.verdict(T.A, T.B), f = (x) => (x == null ? '—' : (x >= 0 ? '+' : '') + x.toFixed(1) + ' dB');
+    // both tracks, drawn: tilt against trial, your answers in red
+    const W = 520, H = 150, X = (k) => 30 + k * (W - 40) / (SW.PER - 1), Y = (t) => H / 2 - t / SW.MAX * (H / 2 - 12);
+    const track = (st, dash) => `<polyline fill="none" stroke="#141414" stroke-width="1" ${dash ? 'stroke-dasharray="4 3"' : ''} points="${st.track.map((x, k) => X(k) + ',' + Y(x.T)).join(' ')}"/>` + st.track.map((x, k) => `<text x="${X(k)}" y="${Y(x.T) - 5}" font-size="11" text-anchor="middle" fill="#d1301c" font-family="Cormorant Garamond, serif" font-style="italic">${x.a === 'yanny' ? 'Y' : x.a === 'laurel' ? 'L' : '·'}</text>`).join('');
+    const svg = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;display:block;margin-top:10px"><line x1="30" x2="${W - 10}" y1="${Y(0)}" y2="${Y(0)}" stroke="#c9c6bd"/>${[-18, 18].map((t) => `<text x="0" y="${Y(t) + 4}" font-size="9" fill="#7a7a7a" font-family="JetBrains Mono, monospace">${t > 0 ? '+' : ''}${t}</text>`).join('')}${v.flip != null ? `<line x1="30" x2="${W - 10}" y1="${Y(v.flip)}" y2="${Y(v.flip)}" stroke="#d1301c" stroke-dasharray="2 3"/>` : ''}${track(T.A, false)}${track(T.B, true)}</svg>`;
+    const say = {
+      found: `Your flip point: <b>${f(v.flip)}</b> (from below ${f(v.a)}, from above ${f(v.b)}). ${v.flip < -1 ? 'You hear Yanny even with the top of the sound turned down: you weight the high frequencies, the page’s Yanny listener.' : v.flip > 1 ? 'You need the top turned up before Yanny comes: you weight the low frequencies, the page’s Laurel listener.' : 'You flip near a level beam: your weighting sits in the middle.'} The direction is the page’s: your Yannys sat ${v.gap.toFixed(1)} dB higher than your Laurels. With the brightness caveat above.`,
+      names: `“Neither” ${v.neither} times in 20. For your ear these synthetic names are not names, and this says nothing about the mechanism. That is this synthesizer failing, and worth knowing.`,
+      one: `Only one name, across everything the staircases played. Either the tilt never moved your reading within ±24 dB, or this sound holds one name better than the other for you.`,
+      reversed: `Your answers ran against the page: your Yannys sat ${(-v.gap).toFixed(1)} dB lower on the beam than your Laurels. For you, on this sound, the Yanny cue did not sit in the high frequencies.`,
+      noflip: `No flip point: ${v.a == null ? 'the staircase from below' : 'the staircase from above'} turned round fewer than three times, so it ran to an end of the beam. Your flip, if there is one, is beyond ±24 dB, or the answers never settled.`,
+      unsettled: `The two staircases settled ${Math.abs(v.a - v.b).toFixed(1)} dB apart (from below ${f(v.a)}, from above ${f(v.b)}): more than 6 dB, so where you flip depends on where you came from. No single flip point.`,
+    }[v.kind];
+    return `${svg}<p class="hint">solid: the staircase from −18 · dashed: from +18 · red: what you heard${v.flip != null ? ', and your flip point' : ''}</p><p class="verdict">${say}</p>`;
+  }
+
+  // ── the walk ──
+  function show(i, s) {
+    S.step = i; const k = s.key;
+    $('sEye').textContent = `Step ${i + 1} of ${STEPS.length}`; $('sTitle').textContent = s.title; $('sSay').textContent = s.say;
+    $('lead').textContent = 'A name, said over and over, balanced on a beam.';
+    $('hearRow').hidden = k === 'test'; $('halfRow').hidden = k !== 'halves'; $('earRow').hidden = k !== 'ears'; $('testBox').hidden = k !== 'test';
+    $('spec').hidden = k === 'hear' || k === 'test';
+    if (k === 'test') { if (!S.test) newTest(); buildTest(); }
+    if (k !== 'ears') { S.ear = 'flat'; document.querySelectorAll('#segEar button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.v === 'flat')); }
+    if (k === 'ears') setTilt(0);
+    for (const [a, b] of [['eq1', 0], ['eq1w', 1]]) $(a).textContent = (s.eq || ['', ''])[b];
+    for (const [a, b] of [['eq2', 0], ['eq2w', 1]]) $(a).textContent = (s.eq2 || ['', ''])[b];
+    paint(); note(); meter();
+  }
+
+  // ── what each layer holds: spectra averaged over the voiced part, on a log axis, for drawing and the meter ──
+  function avgSpec(x) { const N = 4096, P = new Float64Array(N / 2); let n = 0; for (let s = 0; s + N <= x.length + N; s += 1024) { const re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < N; i++) { const j = s + i - N / 2; re[i] = (j >= 0 && j < x.length ? x[j] : 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N)); } VB.fft(re, im); for (let k = 0; k < N / 2; k++) P[k] += re[k] * re[k] + im[k] * im[k]; n++; } return { P, df: SR / N }; }
+  const SPEC = { laurel: avgSpec(NM.laurel), yanny: avgSpec(NM.yanny) };
+  function bandDb(T) { // high side minus low side, in dB, of the mix through the tilt (and the ear model)
+    const c = SW.shelves(T), ear = S.ear === 'phone' ? VB.biquad('highpass', 500, 0.707) : S.ear === 'dull' ? VB.biquad('lowpass', 2000, 0.707) : null; let lo = 0, hi = 0;
+    for (const L of ['laurel', 'yanny']) { const { P, df } = SPEC[L]; for (let k = 2; k < P.length; k++) { const f = k * df; if (f > 8000) break; const gdb = VB.gainAt(c.low, f) + VB.gainAt(c.high, f) + (ear ? VB.gainAt(ear, f) : 0); const e = P[k] * Math.pow(10, gdb / 10); if (f < VB.XO) lo += e; else hi += e; } }
+    return 10 * Math.log10(hi / lo);
+  }
+  function meter() {
+    const k = STEPS[S.step].key; if (k === 'test') { $('meter').innerHTML = ''; return; }
+    $('meter').innerHTML = `tilt <b>${S.T >= 0 ? '+' : ''}${S.T.toFixed(1)} dB</b> · makeup <b>${SW.makeup(MK, S.T) >= 0 ? '+' : ''}${SW.makeup(MK, S.T).toFixed(1)} dB</b>, loudness held · energy above 1.6 kHz against below it: <b>${bandDb(S.T).toFixed(1)} dB</b>${S.ear !== 'flat' ? ` · through ${S.ear === 'phone' ? 'the thinned-lows path' : 'the fading-highs path'}` : ''}`;
+  }
+
+  // ── drawing ──
+  const INK = '#141414', PAPER = '#f4f2ec', RED = '#d1301c', RULE = '#c9c6bd', INK3 = '#7a7a7a';
+  function seesaw(g, w, h) {
+    g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    const cx = w / 2, cy = h * 0.5, half = Math.min(w * 0.42, 360), hidden = STEPS[S.step].key === 'test';
+    if (hidden) { g.strokeStyle = 'rgba(20,20,20,0.16)'; for (let x = -h; x < w; x += 9) { g.beginPath(); g.moveTo(x, h); g.lineTo(x + h, 0); g.stroke(); } g.fillStyle = INK; g.font = 'italic 22px "Cormorant Garamond", serif'; g.textAlign = 'center'; g.fillText('the beam is hidden', cx, cy); return; }
+    const ang = (S.T / SW.MAX) * 0.33;
+    // the fulcrum, in parallel lines
+    g.strokeStyle = INK; g.lineWidth = 1.2;
+    for (let k = 0; k < 6; k++) { g.beginPath(); g.moveTo(cx - 34 + k * 3, cy + 66); g.lineTo(cx, cy + 6 + k * 5); g.lineTo(cx + 34 - k * 3, cy + 66); g.stroke(); }
+    g.beginPath(); g.moveTo(cx - 70, cy + 66); g.lineTo(cx + 70, cy + 66); g.stroke();
+    // the beam, seven parallel lines that bend nowhere
+    g.save(); g.translate(cx, cy); g.rotate(ang);
+    for (let k = 0; k < 7; k++) { g.lineWidth = k === 3 ? 1.8 : 1; g.strokeStyle = k === 3 ? INK : 'rgba(20,20,20,0.5)'; g.beginPath(); g.moveTo(-half, -9 + k * 3); g.lineTo(half, -9 + k * 3); g.stroke(); }
+    g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'left'; g.fillText('LOW', -half, 24); g.textAlign = 'right'; g.fillText('HIGH', half, 24);
+    for (let d = -24; d <= 24; d += 6) { const x = d / SW.MAX * half; g.strokeStyle = RULE; g.beginPath(); g.moveTo(x, 12); g.lineTo(x, 17); g.stroke(); }
+    // your answers, where you gave them
+    S.trail.forEach((t, i) => { const x = t.T / SW.MAX * half; g.fillStyle = RED; g.font = 'italic 15px "Cormorant Garamond", serif'; g.textAlign = 'center'; g.fillText(t.a === 'yanny' ? 'Y' : t.a === 'laurel' ? 'L' : '·', x, -20 - (i % 4) * 13); });
+    // the weight
+    const bx = S.T / SW.MAX * half; g.fillStyle = INK; g.beginPath(); g.arc(bx, -24, 15, 0, 2 * Math.PI); g.fill();
+    g.strokeStyle = PAPER; g.lineWidth = 1; for (let r = 4; r < 15; r += 4) { g.beginPath(); g.arc(bx, -24, r, 0, 2 * Math.PI); g.stroke(); }
+    g.restore();
+    // the name you hear, in red
+    g.font = 'italic 40px "Cormorant Garamond", serif'; g.textAlign = 'center';
+    if (S.last) { g.fillStyle = RED; g.fillText(S.last === 'neither' ? '…' : S.last[0].toUpperCase() + S.last.slice(1), cx, 52); }
+    else { g.fillStyle = 'rgba(20,20,20,0.25)'; g.fillText('?', cx, 52); }
+    g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.fillText(`${S.T >= 0 ? '+' : ''}${S.T.toFixed(0)} dB`, cx, h - 12);
+  }
+  function specDraw(g, w, h) {
+    g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    const x0 = 44, ww = w - 60, top = 10, bot = h - 26, F0 = 100, F1 = 8000, X = (f) => x0 + Math.log(f / F0) / Math.log(F1 / F0) * ww, Y = (db) => top + (-db / 60) * (bot - top);
+    g.strokeStyle = RULE; g.fillStyle = INK3; g.font = '10px "JetBrains Mono", monospace'; g.textAlign = 'center'; g.lineWidth = 1;
+    for (const f of [100, 250, 500, 1000, 2000, 4000, 8000]) { g.beginPath(); g.moveTo(X(f), top); g.lineTo(X(f), bot); g.stroke(); g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), X(f), h - 10); }
+    const c = SW.shelves(S.T), ear = S.ear === 'phone' ? VB.biquad('highpass', 500, 0.707) : S.ear === 'dull' ? VB.biquad('lowpass', 2000, 0.707) : null;
+    const gain = (f) => VB.gainAt(c.low, f) + VB.gainAt(c.high, f) + (ear ? VB.gainAt(ear, f) : 0);
+    let mx = 0; for (const L of ['laurel', 'yanny']) for (const v of SPEC[L].P) mx = Math.max(mx, v);
+    const show = S.step === 2 ? S.half : 'both';
+    for (const L of ['laurel', 'yanny']) {
+      if ((show === 'low' && L === 'yanny') || (show === 'high' && L === 'laurel')) continue;
+      const { P, df } = SPEC[L]; g.beginPath(); g.moveTo(X(F0), bot);
+      for (let px = 0; px <= ww; px += 2) { const f = F0 * Math.pow(F1 / F0, px / ww), k = Math.round(f / df); let m = 0; for (let j = Math.max(1, k - 2); j <= k + 2 && j < P.length; j++) m = Math.max(m, P[j]); const db = Math.max(-60, 10 * Math.log10(m / mx + 1e-12) + gain(f)); g.lineTo(x0 + px, Y(Math.min(0, db))); }
+      g.lineTo(X(F1), bot); g.closePath(); g.fillStyle = L === 'laurel' ? 'rgba(20,20,20,0.55)' : 'rgba(20,20,20,0.22)'; g.fill();
+    }
+    // the filter itself
+    g.strokeStyle = INK; g.lineWidth = 1.5; g.beginPath(); for (let px = 0; px <= ww; px += 2) { const f = F0 * Math.pow(F1 / F0, px / ww), y = Y(-30 + gain(f)); px ? g.lineTo(x0 + px, y) : g.moveTo(x0 + px, y); } g.stroke();
+    g.setLineDash([3, 3]); g.strokeStyle = INK3; g.beginPath(); g.moveTo(X(VB.XO), top); g.lineTo(X(VB.XO), bot); g.stroke(); g.setLineDash([]);
+    g.fillStyle = INK; g.textAlign = 'left'; g.fillText('dark: the “Laurel” layer · light: the “Yanny” layer · line: the filter (0 dB at the middle)', x0, top + 8);
+  }
+  function draw(ts) {
+    requestAnimationFrame(draw); UI.frameTick(ts);
+    const st = UI.fit($('stage')); seesaw(st.g, st.w, st.h);
+    if (!$('spec').hidden) { const sp = UI.fit($('spec')); specDraw(sp.g, sp.w, sp.h); }
+  }
+  const W = UI.walk(STEPS, show);
+  UI.sigil(); W.go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — who rewrites whom
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece), § Meaning gets in early, the McGurk paragraph and its twin · listed in [[Auditory Illusions — rich.json]] · siblings in this section: "the seesaw", "the talking socket", "the loop that sings", which share its voice box (VB) and scaffolding (UI) byte for byte
+  forward_vector: I am the page's mirror pair, played both ways in one piece. First the ear rewrites the eye: a firefly blinks once and chirps twice, and you count two blinks (the sound-induced flash, the real test here, scored on four kinds of trial). Then the eye tries to rewrite the ear: a mouth drawn in ink shapes "ga" while the voice box says "ba", and you are asked what it said, with the face shut as the control. I change only when the section I serve does.
+  understood as: two characters. A firefly in a jar at night, which blinks and chirps and asks you to count its blinks; then a mouth drawn on paper, which speaks and asks what it said. The firefly is fixed in place on purpose: its light is the stimulus, so it never moves.
+  red means: what your own perception supplied, never what was drawn or played (the blink you counted that was not drawn, the syllable you heard that was not said). Ink is what was really there. Red means this in all four of this section's pieces.
+  sound: nothing plays until a Start or Play is clicked; the AudioContext is made on that click and goes through a compressor. Changing step stops the sound. Every sound is made here: the chirps are sines; the syllables come from the voice box, a formant synthesizer. The browser's own voice is an option in step 6 only, and says so.
+  flashing: steps 1 to 4 flash a small light once or twice per trial; never more than two flashes in any one second (a trial cannot start within 1.2 s of the last flash). A warning comes before the first flash, and the mouth half has none.
+  check: "Auditory Illusions — rich — check — meaning-gets-in-early.mjs", beside this file, measures the chirps (pitch, length, onset spacing), the flash schedule (most flashes in any second), the syllables (burst level, F2 and F3 just after the release, by LPC), the mouth's opening at the release, and every chance level the two tests state.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Who rewrites whom · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-08, retinted to the paper ground (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: var(--paper-2, #ebe8e0); --fx-bg-elev-2: var(--paper-3, #e2dfd6); --fx-bg-elev-3: #d8d4ca; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: var(--rule, #c9c6bd); --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.4); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --paper-2:#ebe8e0; --paper-3:#e2dfd6; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd;
+    --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.55;padding:24px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--serif);font-weight:500;font-style:italic;font-size:44px;line-height:1.02;margin:4px 0 6px;letter-spacing:-.01em}
+  h2{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.1;margin:2px 0 6px}
+  p.lead{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:62ch}
+  p.say{font-family:var(--serif);font-size:18px;line-height:1.5;color:var(--ink-2);margin:0 0 12px;max-width:66ch}
+  .rail{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 16px;border-top:1.5px solid var(--ink);padding-top:10px}
+  .rail button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 9px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .rail .half{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);align-self:center;margin:0 4px 0 8px}
+  .panel{border:1.5px solid var(--ink);border-radius:2px;padding:16px;margin:0 0 12px;background:var(--paper)}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.go{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 18px;cursor:pointer}
+  button.go:disabled{opacity:.35;cursor:default}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--paper);background:var(--ink)}
+  button.ghost:disabled{opacity:.3;cursor:default}
+  button.ans{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:2px;padding:4px 18px;cursor:pointer;min-width:64px}
+  button.ans:disabled{opacity:.3;cursor:default}
+  button.ans.picked{color:var(--paper);background:var(--red);border-color:var(--red)}
+  canvas.stage{width:100%;display:block;border-radius:2px;touch-action:none}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  .meter{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .meter b{font-weight:500;color:var(--ink)}
+  .meter i{font-style:normal;color:var(--red)}
+  .eq{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--ink-3);font-size:12.5px;margin-top:2px}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.35}
+  .ctl .v{font-family:var(--mono);font-size:13px;color:var(--ink);text-align:right;white-space:nowrap;min-width:8ch}
+  .warn{border:1.5px solid var(--ink);background:var(--paper-2);padding:14px 16px;border-radius:2px;margin:10px 0}
+  .warn b{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  table.marks{border-collapse:collapse;margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  table.marks .r{color:var(--red)}
+  .verdict{font-family:var(--serif);font-size:18px;line-height:1.5;margin:10px 0 0;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px;border-top:1px solid var(--rule);padding-top:10px}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}button.ans{font-size:19px;padding:4px 12px;min-width:52px}}
+</style>
+<style>
+  .seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:2px;overflow:hidden}
+  .seg button{font-family:var(--mono);font-size:12px;background:transparent;border:0;border-right:1px solid var(--rule);padding:6px 11px;cursor:pointer;color:var(--ink)}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+  #stage{height:300px}
+  #film{height:150px;margin-top:10px}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · meaning gets in early · seven steps</div>
+  <h1>Who rewrites whom</h1>
+  <p class="lead" id="lead"></p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="sEye"></div>
+    <h2 id="sTitle"></h2>
+    <p class="say" id="sSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="warn" id="warn" hidden>
+      <b>A small light flashes here</b>
+      <p class="hint" style="margin:6px 0 10px">Once or twice per trial, never more than twice in any second, and only when you start a trial. If flashing light is a problem for you, skip to step 5: the mouth half has none. Sound on, at a comfortable level.</p>
+      <button class="go" id="wake">Start: wake the firefly</button>
+    </div>
+    <canvas class="stage" id="stage" aria-label="the stage"></canvas>
+
+    <div id="countBox" hidden>
+      <div class="row"><span class="lbl">how many times did it blink?</span>
+        <button class="ans" data-c="1">1</button><button class="ans" data-c="2">2</button><button class="ans" data-c="3">3</button>
+        <button class="ghost" id="again">Watch again</button></div>
+    </div>
+
+    <div id="filmCtl" class="row" hidden>
+      <span class="lbl">blinks</span><span class="seg" id="segF"><button data-v="1" aria-pressed="true">1</button><button data-v="2" aria-pressed="false">2</button></span>
+      <span class="lbl" style="margin-left:10px">chirps</span><span class="seg" id="segC"><button data-v="0" aria-pressed="false">0</button><button data-v="1" aria-pressed="false">1</button><button data-v="2" aria-pressed="true">2</button></span>
+      <button class="go" id="playFilm" style="margin-left:auto">Play the trial</button>
+    </div>
+
+    <div id="voteCtl" hidden>
+      <div class="ctl"><label for="sigV">the eye’s blur<br><span style="text-transform:none">σ</span> eye</label><input type="range" id="sigV" min="0.1" max="1.5" step="0.01" value="0.6"><span class="v" id="sigVv"></span></div>
+      <div class="ctl"><label>the ear’s blur<br><span style="text-transform:none">σ</span> ear</label><span class="hint">held at 0.15 of a blink: the ear counts sharply</span><span class="v">0.15</span></div>
+    </div>
+
+    <div id="testBox" hidden>
+      <div class="row"><span class="lbl" id="tLabel"></span><button class="go" id="tPlay">Play the trial</button></div>
+      <div class="row"><span class="lbl">blinks you saw</span>
+        <button class="ans" data-t="1">1</button><button class="ans" data-t="2">2</button>
+        <button class="ghost" id="tAgain" style="margin-left:auto">Start again</button></div>
+      <div id="tResult"></div>
+      <div id="breakBox" hidden>
+        <div class="ctl"><label for="gapR">gap between<br>the chirps</label><input type="range" id="gapR" min="30" max="400" step="1" value="57"><span class="v" id="gapRv"></span></div>
+        <div class="row"><button class="go" id="bPlay">Play one blink, two chirps</button><span class="lbl">you saw</span><button class="ans" data-b="1">1</button><button class="ans" data-b="2">2</button></div>
+        <div class="meter" id="bLog"></div>
+      </div>
+    </div>
+
+    <div id="lipAsk" hidden>
+      <div class="row"><button class="go" id="speak">Start: let it speak</button><button class="ghost" id="speakAgain" hidden>Again</button></div>
+      <div class="row"><span class="lbl">what did it say?</span>
+        <button class="ans" data-l="ba">ba</button><button class="ans" data-l="da">da</button><button class="ans" data-l="ga">ga</button><button class="ans" data-l="tha">tha</button><button class="ans" data-l="other">other</button></div>
+    </div>
+
+    <div id="lipCtl" hidden>
+      <div class="row"><span class="lbl">face</span><span class="seg" id="segFace"><button data-v="on" aria-pressed="true">shown</button><button data-v="off" aria-pressed="false">eyes shut</button></span>
+        <span class="lbl" style="margin-left:10px">mouth shapes</span><span class="seg" id="segMouth"><button data-v="ga" aria-pressed="true">ga</button><button data-v="ba" aria-pressed="false">ba</button></span>
+        <span class="lbl" style="margin-left:10px">voice</span><span class="seg" id="segVoice"><button data-v="vb" aria-pressed="true">voice box</button><button data-v="tts" aria-pressed="false">browser’s</button></span></div>
+      <div class="ctl"><label for="place">the sound<br>ba · da · ga</label><input type="range" id="place" min="0" max="1" step="0.01" value="0"><span class="v" id="placeV"></span></div>
+      <div class="ctl"><label for="lag">sound against<br>the mouth</label><input type="range" id="lag" min="-300" max="300" step="5" value="0"><span class="v" id="lagV"></span></div>
+      <div class="row"><button class="go" id="lipPlay">Play</button><span class="hint" id="ttsNote"></span></div>
+    </div>
+
+    <div id="lipTest" hidden>
+      <div class="row"><span class="lbl" id="lLabel"></span><button class="go" id="lPlay">Play the trial</button></div>
+      <div class="row"><span class="lbl">it said</span>
+        <button class="ans" data-m="ba">ba</button><button class="ans" data-m="da">da</button><button class="ans" data-m="ga">ga</button><button class="ans" data-m="other">other</button>
+        <button class="ghost" id="lAgain" style="margin-left:auto">Start again</button></div>
+      <div id="lResult"></div>
+    </div>
+
+    <canvas class="stage" id="film" hidden aria-label="what was drawn and played, in time"></canvas>
+    <div class="verdict" id="filmSay"></div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="20" height="20" viewBox="-10 -10 20 20" aria-hidden="true"></svg>Auditory Illusions · who rewrites whom · made in Web Audio, 2026-11-08 · nobody has listened to it yet</footer>
+</main>
+
+<script id="ai-voice">
+// The voice box: one small formant synthesizer, the same in all four of this section's pieces, byte for byte.
+// A glottal pulse (Rosenberg's shape) at a gliding pitch goes through five resonators in series, each a
+// two-pole filter (Klatt's form) whose centre frequency and bandwidth move with the syllable; a burst of
+// noise through its own resonator marks a stop's release; the output is differenced, as a mouth radiates.
+// Plain functions, rendered offline into a buffer, so the picture, the sound and the headless check share one source.
+const VB = (() => {
+  const SR = 44100;
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  // Piecewise-linear lookup in keyframes [[t, v], …], held flat past either end.
+  function at(keys, t) {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) { const [t0, v0] = keys[i - 1], [t1, v1] = keys[i]; return v0 + (v1 - v0) * (t - t0) / Math.max(t1 - t0, 1e-9); }
+    return keys[keys.length - 1][1];
+  }
+  // Klatt's resonator: y[n] = A·x[n] + B·y[n−1] + C·y[n−2], unity gain at 0 Hz.
+  function coef(F, BW) { const T = 1 / SR, C = -Math.exp(-2 * Math.PI * BW * T), B = 2 * Math.exp(-Math.PI * BW * T) * Math.cos(2 * Math.PI * F * T); return [1 - B - C, B, C]; }
+  const DEF = { F4: [[0, 3300]], F5: [[0, 3850]], B1: [[0, 70]], B2: [[0, 90]], B3: [[0, 150]], B4: [[0, 250]], B5: [[0, 300]], AH: [[0, 0]] };
+  // spec: { dur (s), F0, F1…F5, B1…B5, AV (voicing 0–1), AH (aspiration 0–1): keyframe lists; bursts: [{ t, dur, amp, f, bw }] }
+  function render(spec, seed = 1) {
+    const n = Math.round(spec.dur * SR), out = new Float64Array(n), r = rng(seed), S = Object.assign({}, DEF, spec);
+    const y1 = new Float64Array(5), y2 = new Float64Array(5); let cf = [], ph = 0, prev = 0, nz = 0;
+    const bursts = (spec.bursts || []).map((b) => ({ ...b, c: coef(b.f, b.bw), y1: 0, y2: 0 }));
+    let F0 = 100, AV = 0, AH = 0;
+    for (let i = 0; i < n; i++) {
+      const t = i / SR;
+      if (i % 16 === 0) {
+        F0 = at(S.F0, t); AV = at(S.AV, t); AH = at(S.AH, t);
+        cf = [1, 2, 3, 4, 5].map((k) => coef(at(S['F' + k], t), at(S['B' + k], t)));
+      }
+      ph += F0 / SR; if (ph >= 1) ph -= 1;
+      const g = ph < 0.4 ? 0.5 * (1 - Math.cos(Math.PI * ph / 0.4)) : ph < 0.56 ? Math.cos(Math.PI * (ph - 0.4) / 0.32) : 0;
+      nz = 0.6 * nz + 0.4 * (r() * 2 - 1);
+      let x = AV * g + AH * nz * 0.5;
+      for (let k = 0; k < 5; k++) { const [A, B, C] = cf[k]; const y = A * x + B * y1[k] + C * y2[k]; y2[k] = y1[k]; y1[k] = y; x = y; }
+      for (const b of bursts) if (t >= b.t && t < b.t + b.dur * 4) {
+        const e = b.amp * Math.exp(-(t - b.t) / b.dur) * (r() * 2 - 1);
+        const y = b.c[0] * e + b.c[1] * b.y1 + b.c[2] * b.y2; b.y2 = b.y1; b.y1 = y; x += y;
+      }
+      out[i] = x - prev; prev = x;
+    }
+    return out;
+  }
+  // ── the syllables ──
+  // ba · da · ga on one dial, c from 0 (ba) through 0.5 (da) to 1 (ga): the second and third formants start at the
+  // lips' (low), the tongue tip's (F2 high) or the tongue body's (F2 and F3 pinched together) place and glide to "ah".
+  const PL = { ba: { F2: 900, F3: 2100, bf: 900, bbw: 1600, ba: 0.18 }, da: { F2: 1700, F3: 2750, bf: 3900, bbw: 1600, ba: 0.069 }, ga: { F2: 1950, F3: 2150, bf: 2000, bbw: 450, ba: 0.1 } };
+  function place(c) { const a = c <= 0.5 ? PL.ba : PL.da, b = c <= 0.5 ? PL.da : PL.ga, u = c <= 0.5 ? c / 0.5 : (c - 0.5) / 0.5, m = {}; for (const k in a) m[k] = a[k] + (b[k] - a[k]) * u; return m; }
+  const REL = 0.06; // the release, in seconds from the buffer's start: the burst, and the instant the lips (or tongue) let go
+  function syllable(c = 0) {
+    const p = place(c), R = REL;
+    return { dur: 0.46, F0: [[0, 128], [R + 0.1, 122], [0.42, 96]],
+      F1: [[0, 250], [R, 250], [R + 0.04, 730]], F2: [[0, p.F2], [R, p.F2], [R + 0.045, 1220]], F3: [[0, p.F3], [R, p.F3], [R + 0.045, 2560]],
+      B1: [[0, 60], [R + 0.04, 90]], AV: [[0, 0], [R + 0.006, 0], [R + 0.02, 1], [0.34, 1], [0.42, 0]], AH: [[0, 0], [R, 0.25], [R + 0.012, 0]],
+      bursts: [{ t: R, dur: 0.004, amp: p.ba, f: p.bf, bw: p.bbw }] };
+  }
+  // Two names, one on each side of a crossover: "Laurel" lives low (its F1 and F2 under 1.6 kHz), "Yanny" lives high
+  // (its F2 and F3 glides above it). Their syllables are timed to land together.
+  function laurel() {
+    return { dur: 0.62, F0: [[0, 118], [0.16, 134], [0.34, 112], [0.58, 92]],
+      F1: [[0, 340], [0.07, 360], [0.15, 600], [0.24, 590], [0.30, 460], [0.36, 470], [0.42, 500], [0.5, 380]],
+      F2: [[0, 950], [0.07, 980], [0.15, 900], [0.24, 950], [0.30, 1100], [0.36, 1150], [0.42, 1250], [0.5, 980]],
+      F3: [[0, 2700], [0.07, 2650], [0.15, 2550], [0.24, 2350], [0.30, 1650], [0.36, 1700], [0.42, 2200], [0.5, 2650]],
+      AV: [[0, 0], [0.012, 0.75], [0.07, 0.75], [0.12, 1], [0.38, 0.95], [0.5, 0.75], [0.58, 0]] };
+  }
+  function yanny() {
+    return { dur: 0.62, F0: [[0, 118], [0.16, 134], [0.34, 112], [0.58, 92]],
+      F1: [[0, 280], [0.06, 290], [0.13, 760], [0.24, 740], [0.28, 280], [0.34, 280], [0.40, 300], [0.5, 300]],
+      F2: [[0, 2250], [0.06, 2200], [0.13, 1750], [0.24, 1700], [0.28, 1500], [0.34, 1600], [0.40, 2300], [0.5, 2350]],
+      F3: [[0, 3050], [0.06, 3000], [0.13, 2600], [0.24, 2550], [0.28, 2500], [0.34, 2600], [0.40, 3000], [0.5, 3050]],
+      B1: [[0, 70], [0.25, 70], [0.27, 200], [0.35, 200], [0.37, 70]], B2: [[0, 90], [0.25, 90], [0.27, 300], [0.35, 300], [0.37, 90]],
+      AV: [[0, 0], [0.012, 0.8], [0.06, 0.8], [0.12, 1], [0.26, 1], [0.28, 0.45], [0.35, 0.45], [0.38, 0.95], [0.5, 0.8], [0.58, 0]] };
+  }
+  // Two words for the phantom loop: "no" (a nasal, then a rounded vowel gliding shut) and "way" (lips rounded, then a
+  // front vowel gliding up). 0.3 s each.
+  function no() {
+    return { dur: 0.3, F0: [[0, 120], [0.3, 108]],
+      F1: [[0, 270], [0.06, 270], [0.1, 480], [0.2, 440], [0.28, 360]], F2: [[0, 1500], [0.06, 1450], [0.1, 950], [0.2, 880], [0.28, 800]],
+      F3: [[0, 2550], [0.1, 2450], [0.28, 2350]], B1: [[0, 200], [0.06, 200], [0.09, 80]], B2: [[0, 300], [0.06, 300], [0.09, 90]],
+      AV: [[0, 0], [0.01, 0.45], [0.06, 0.45], [0.1, 1], [0.24, 0.9], [0.3, 0]] };
+  }
+  function way() {
+    return { dur: 0.3, F0: [[0, 116], [0.3, 104]],
+      F1: [[0, 300], [0.05, 300], [0.12, 480], [0.2, 450], [0.28, 360]], F2: [[0, 650], [0.05, 700], [0.12, 1850], [0.2, 2000], [0.28, 2200]],
+      F3: [[0, 2200], [0.05, 2250], [0.12, 2550], [0.28, 2700]],
+      AV: [[0, 0], [0.015, 0.7], [0.06, 0.85], [0.1, 1], [0.24, 0.9], [0.3, 0]] };
+  }
+  // ── measures and helpers ──
+  function rms(x, a = 0, b = x.length) { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / Math.max(1, b - a)); }
+  function peak(x) { let p = 0; for (const v of x) p = Math.max(p, Math.abs(v)); return p; }
+  // Scale to an RMS (over the voiced part: samples within 30 dB of the loudest 10 ms), peak held under 0.95.
+  function level(x, target = 0.1) { const h = 441, fr = []; for (let i = 0; i + h <= x.length; i += h) fr.push(rms(x, i, i + h)); const top = Math.max(...fr); let s = 0, c = 0; fr.forEach((v) => { if (v > top * 0.0316) { s += v * v; c++; } }); let k = target / Math.sqrt(s / c); if (peak(x) * k > 0.95) k = 0.95 / peak(x); return Float32Array.from(x, (v) => v * k); }
+  // RBJ's biquads, the same as the Web Audio spec's: lowpass / highpass (Q), lowshelf / highshelf (gain in dB, S = 1).
+  function biquad(type, f, q, gainDb = 0) {
+    const w = 2 * Math.PI * f / SR, cw = Math.cos(w), sw = Math.sin(w), A = Math.pow(10, gainDb / 40);
+    let b0, b1, b2, a0, a1, a2;
+    if (type === 'lowpass' || type === 'highpass') { const al = sw / (2 * q), s = type === 'lowpass' ? 1 - cw : 1 + cw; b0 = s / 2; b1 = type === 'lowpass' ? s : -s; b2 = s / 2; a0 = 1 + al; a1 = -2 * cw; a2 = 1 - al; }
+    else { const al = sw / 2 * Math.sqrt(2), sa = 2 * Math.sqrt(A) * al, lo = type === 'lowshelf' ? 1 : -1;
+      b0 = A * ((A + 1) - lo * (A - 1) * cw + sa); b1 = lo * 2 * A * ((A - 1) - lo * (A + 1) * cw); b2 = A * ((A + 1) - lo * (A - 1) * cw - sa);
+      a0 = (A + 1) + lo * (A - 1) * cw + sa; a1 = -lo * 2 * ((A - 1) + lo * (A + 1) * cw); a2 = (A + 1) + lo * (A - 1) * cw - sa; }
+    return [b0 / a0, b1 / a0, b2 / a0, a1 / a0, a2 / a0];
+  }
+  function filter(x, c) { const y = new Float64Array(x.length); let x1 = 0, x2 = 0, y1 = 0, y2 = 0; for (let i = 0; i < x.length; i++) { const v = c[0] * x[i] + c[1] * x1 + c[2] * x2 - c[3] * y1 - c[4] * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
+  // The magnitude, in dB, of a biquad at a frequency.
+  function gainAt(c, f) { const w = 2 * Math.PI * f / SR, re = (a, b, d) => a + b * Math.cos(w) + d * Math.cos(2 * w), im = (b, d) => -b * Math.sin(w) - d * Math.sin(2 * w);
+    const nr = re(c[0], c[1], c[2]), ni = im(c[1], c[2]), dr = re(1, c[3], c[4]), di = im(c[3], c[4]); return 10 * Math.log10((nr * nr + ni * ni) / (dr * dr + di * di)); }
+  // The two names, split at the crossover with three 2-pole filters each side (36 dB an octave), matched in level.
+  const XO = 1600;
+  function names() {
+    const lp = biquad('lowpass', XO, 0.7071), hp = biquad('highpass', XO, 0.7071), three = (x, c) => filter(filter(filter(x, c), c), c);
+    const L = three(render(laurel(), 7), lp), Y = three(render(yanny(), 9), hp);
+    return { laurel: level(L, 0.1), yanny: level(Y, 0.1) };
+  }
+  // radix-2 FFT, in place
+  function fft(re, im) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], vr = re[i + j + len / 2] * cr - im[i + j + len / 2] * ci, vi = re[i + j + len / 2] * ci + im[i + j + len / 2] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[i + j + len / 2] = ur - vr; im[i + j + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  }
+  // A spectrogram for drawing: 1024-point frames every 5 ms, Hann window, dB, up to fmax.
+  function spectrogram(x, fmax = 5000, hop = 0.005) {
+    const N = 1024, H = Math.round(hop * SR), kmax = Math.round(fmax / SR * N), frames = [];
+    for (let s = 0; s + N <= x.length + N / 2; s += H) { const re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < N; i++) { const j = s - N / 2 + i; re[i] = (j >= 0 && j < x.length ? x[j] : 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N)); } fft(re, im); const f = new Float32Array(kmax); for (let k = 0; k < kmax; k++) f[k] = 10 * Math.log10(re[k] * re[k] + im[k] * im[k] + 1e-12); frames.push(f); }
+    return { frames, df: SR / N, hop };
+  }
+  return { SR, rng, at, render, syllable, place, REL, laurel, yanny, no, way, rms, peak, level, biquad, filter, gainAt, XO, names, fft, spectrogram };
+})();
+</script>
+<script id="ai-ui">
+// The scaffolding, the same in this section's four pieces: sound only on a click, through one compressor;
+// buffers that stop on a step change; the screen's clock set against the sound's; the walk; the sigil.
+const UI = (() => {
+  const $ = (id) => document.getElementById(id);
+  let ctx = null, master = null;
+  const live = new Set(), quietHooks = [];
+  async function audio() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -8; comp.knee.value = 6; comp.ratio.value = 4; comp.connect(ctx.destination);
+      master = ctx.createGain(); master.gain.value = 0.9; master.connect(comp);
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+    return ctx;
+  }
+  const out = () => master;
+  function buffer(chs, sr = 44100) { const b = ctx.createBuffer(chs.length, chs[0].length, sr); chs.forEach((c, i) => b.copyToChannel(c instanceof Float32Array ? c : Float32Array.from(c), i)); return b; }
+  function play(buf, when, dest, loop = false) {
+    const s = ctx.createBufferSource(); s.buffer = buf; s.loop = loop; const g = ctx.createGain(); s.connect(g).connect(dest || master);
+    const t = when || ctx.currentTime + 0.03; s.start(t); const me = { s, g, t, buf }; live.add(me); s.onended = () => live.delete(me); return me;
+  }
+  function stop() {
+    for (const f of quietHooks) { try { f(); } catch (e) { /* nothing left to stop */ } }
+    if (!ctx) return; const now = ctx.currentTime;
+    for (const m of live) { try { m.g.gain.setTargetAtTime(0, now, 0.008); m.s.stop(now + 0.06); } catch (e) { /* already stopped */ } }
+    live.clear();
+  }
+  const onStop = (f) => quietHooks.push(f);
+  // A context time, as a performance.now() time: when that sample reaches the speaker, as near as this browser can tell.
+  function perfAt(T) {
+    try { const ts = ctx.getOutputTimestamp(); if (ts && ts.performanceTime > 0 && ts.contextTime > 0) return ts.performanceTime + (T - ts.contextTime) * 1000; } catch (e) { /* no timestamp here */ }
+    return performance.now() + (T - ctx.currentTime + (ctx.outputLatency || 0) + (ctx.baseLatency || 0)) * 1000;
+  }
+  const latencyMs = () => (ctx ? 1000 * ((ctx.outputLatency || 0) + (ctx.baseLatency || 0)) : null);
+  // The display's frame interval, measured: the median of the last 40 frame steps.
+  const steps = []; let lastF = 0;
+  function frameTick(ts) { if (lastF) { steps.push(ts - lastF); if (steps.length > 40) steps.shift(); } lastF = ts; }
+  function frameMs() { if (steps.length < 5) return 1000 / 60; const s = steps.slice().sort((a, b) => a - b); return s[s.length >> 1]; }
+  function fit(c, h) {
+    if (h) c.style.height = h + 'px';
+    const w = c.clientWidth, H = c.clientHeight, d = devicePixelRatio || 1;
+    if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); }
+    const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+  }
+  // The walk: one step at a time, the list always open; changing step stops the sound.
+  function walk(steps, show, halves) {
+    let i = 0;
+    function rail() {
+      const r = $('rail'); r.innerHTML = '';
+      steps.forEach((s, k) => {
+        if (halves && halves[k]) { const h = document.createElement('span'); h.className = 'half'; h.textContent = halves[k]; r.appendChild(h); }
+        const b = document.createElement('button'); b.textContent = (k + 1) + ' · ' + s.rail; if (k === i) b.setAttribute('aria-current', 'step'); b.onclick = () => go(k); r.appendChild(b);
+      });
+    }
+    function go(k) { stop(); i = Math.max(0, Math.min(steps.length - 1, k)); rail(); $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1; show(i, steps[i]); }
+    $('back').onclick = () => go(i - 1); $('next').onclick = () => go(i + 1);
+    return { go, now: () => i };
+  }
+  function sigil() { const pts = []; for (let k = 0; k <= 240; k++) { const t = k / 240 * 2 * Math.PI; pts.push((8 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (8 * Math.sin(2 * t)).toFixed(2)); }
+    $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+  // The page asks every other piece to fall quiet when one plays; this piece hears that and stops,
+  // its spoken words included, which no audio context can reach.
+  function hush() { stop(); try { speechSynthesis.cancel(); } catch (x) { /* no speech here */ } if (ctx && ctx.state === 'running') ctx.suspend(); }
+  window.addEventListener('message', (e) => { if ((e.source === window.parent || e.source == null) && e.data && e.data.type === 'rich:hush') hush(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) hush(); });
+  // Speech the browser says has no audio context for the page to hear start, so the piece tells the page itself.
+  function announce() { if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) { /* alone */ } } }
+  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function shuffled(a) { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; }
+  const pct = (p) => (p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%');
+  return { $, announce, audio, out, buffer, play, stop, onStop, perfAt, latencyMs, frameTick, frameMs, fit, walk, sigil, reduced, shuffled, pct, ctx: () => ctx };
+})();
+</script>
+<script id="mge-who">
+// This piece's own measures: the chirps, the flash schedule, the mouth's shape in time, the chance levels.
+const FL = (() => {
+  const SR = 44100;
+  const CHIRP = { f: 3500, dur: 0.007, ramp: 0.001, amp: 0.3 };   // 7 ms of 3.5 kHz, 1 ms raised-cosine ends
+  const GAP = 0.057;    // the two chirps' onsets, 57 ms apart
+  const FGAP = 0.067;   // two blinks' onsets, 67 ms apart: four frames at 60 Hz
+  const LEAD = 0.25;    // a chirp buffer starts 250 ms before the event
+  const MINGAP = 1.2;   // no trial starts within 1.2 s of the last flash
+  function chirps(n, gap = GAP) {
+    const x = new Float32Array(Math.round((LEAD + 0.6) * SR)), L = Math.round(CHIRP.dur * SR), R = Math.round(CHIRP.ramp * SR);
+    for (let k = 0; k < n; k++) { const at = Math.round((LEAD + k * gap) * SR); for (let i = 0; i < L; i++) { const e = Math.min(1, i / R, (L - 1 - i) / R); x[at + i] += CHIRP.amp * Math.sin(2 * Math.PI * CHIRP.f * i / SR) * (0.5 - 0.5 * Math.cos(Math.PI * Math.max(0, e))); } }
+    return x;
+  }
+  const flashes = (n) => (n === 2 ? [0, FGAP] : [0]);
+  const ARMS = [{ key: '1f1c', f: 1, c: 1 }, { key: '1f2c', f: 1, c: 2 }, { key: '2f2c', f: 2, c: 2 }, { key: '2f1c', f: 2, c: 1 }];
+  const PER = 3;
+  // The most flashes inside any one second, for flash times in seconds.
+  function maxPerSecond(ts) { let m = 0; for (const a of ts) m = Math.max(m, ts.filter((b) => b >= a && b < a + 1).length); return m; }
+  // A coin-guesser says 1 or 2 with equal odds on every trial. The chance that one arm's average beats another's
+  // by at least d blinks, PER trials each: the sums are PER + Binomial(PER, 1/2).
+  function coinBeats(d, n = PER) { const b = []; for (let k = 0; k <= n; k++) { let c = 1; for (let i = 0; i < k; i++) c = c * (n - i) / (i + 1); b.push(c / Math.pow(2, n)); } let p = 0; for (let x = 0; x <= n; x++) for (let y = 0; y <= n; y++) if ((y - x) / n >= d - 1e-9) p += b[x] * b[y]; return p; }
+  // The mouth, t seconds from the release: how far open (0 to 1) and how hard the lips press (0 to 1).
+  // ga: the lips part early and stay apart, the back of the tongue does the closing, out of sight. ba: the lips press shut, then pop.
+  const ease = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u));
+  function mouth(kind, t) {
+    let open, press = 0;
+    if (kind === 'ga') open = t < -0.35 ? 0 : t < -0.2 ? 0.17 * ease((t + 0.35) / 0.15) : t < 0 ? 0.17 : t < 0.09 ? 0.17 + 0.68 * ease(t / 0.09) : t < 0.3 ? 0.85 : 0.85 * (1 - ease((t - 0.3) / 0.25));
+    else { open = t < 0 ? 0 : t < 0.06 ? 0.85 * ease(t / 0.06) : t < 0.3 ? 0.85 : 0.85 * (1 - ease((t - 0.3) / 0.25)); press = t < -0.28 ? 0 : t < -0.12 ? ease((t + 0.28) / 0.16) : t < 0 ? 1 : Math.max(0, 1 - t / 0.03); }
+    return { open, press };
+  }
+  // The lip test: a guesser picks one of four answers at random, so says "not ba" three times in four.
+  // The rule passes when at least 2 of 3 mouth-ga trials are not ba and at most 1 of 3 sound-alone trials is.
+  // The whole flash rule for a coin-guesser: split ≥ ⅔ and the eye check (mean(2 blinks, 2 chirps) > mean(1 blink, 2 chirps)).
+  function coinPassesAll(n = PER) { const b = []; for (let k = 0; k <= n; k++) { let c = 1; for (let i = 0; i < k; i++) c = c * (n - i) / (i + 1); b.push(c / Math.pow(2, n)); } let p = 0; for (let a = 0; a <= n; a++) for (let s = 0; s <= n; s++) for (let e = 0; e <= n; e++) if ((s - a) / n >= 2 / 3 - 1e-9 && e > s) p += b[a] * b[s] * b[e]; return p; }
+  function lipChance() { const q = 0.75, P = (k) => [1, 3, 3, 1][k] * Math.pow(q, k) * Math.pow(1 - q, 3 - k); return (P(2) + P(3)) * (P(0) + P(1)); }
+  return { SR, CHIRP, GAP, FGAP, LEAD, MINGAP, chirps, flashes, ARMS, PER, maxPerSecond, coinBeats, coinPassesAll, mouth, lipChance };
+})();
+</script>
+<script>
+(() => {
+  const $ = UI.$, SR = VB.SR;
+  const STEPS = [
+    { key: 'count', rail: 'count', lead: true, title: 'Count the blinks',
+      say: 'Look at the small cross. The firefly sits below it and blinks when it wakes. Count the blinks.' },
+    { key: 'film', rail: 'the film', title: 'What was drawn, and what was played',
+      say: 'The film of each trial, in milliseconds. A blink is one frame of your screen, measured below: one white disc, drawn once, gone on the next frame. A chirp is 7 ms of a 3.5 kHz sine; two chirps start 57 ms apart. Choose the blinks and the chirps, play, and read the film. In red: the blink you reported that was never drawn.',
+      eq: ['blink: 1 frame ≈ 16.7 ms at 60 Hz · chirp: 7 ms at 3.5 kHz · chirps 57 ms apart · two blinks 67 ms apart', 'one frame of light; a sliver of tone; two of them closer together than a sixteenth of a second'],
+      eq2: ['flash drawn at ≈ the first chirp’s arrival, as far as this browser can say', 'the sound clock and the screen clock are set against each other; the meter says by how much'] },
+    { key: 'vote', rail: 'who votes', title: 'Who gets to count',
+      say: 'Each sense makes its own guess at how many things happened, and the brain weighs the guesses by how sure each sense is. For how many and when, the ear is the sharper sense: it splits two clicks a few milliseconds apart, while two flashes 67 ms apart, off to the side, are much harder for the eye to tell from one. So the chirps outvote the blink. For where, it runs the other way: the eye is sharper, and a ventriloquist’s voice comes from the puppet. This is a model, drawn to be played with, not a measurement of you: blur the eye and watch the count move to the ear’s.',
+      eq: ['n̂ = (n_ear / σ_ear² + n_eye / σ_eye²) ÷ (1 / σ_ear² + 1 / σ_eye²)', 'the combined count is each sense’s count, weighted by how sure it is: the surer sense pulls harder'],
+      eq2: ['report two when n̂ ≥ 1.5', 'the count you say is the weighted one rounded, not either sense’s own'] },
+    { key: 'test', rail: 'the test', title: 'Twelve trials, four kinds',
+      say: 'Twelve trials, three each of four kinds, shuffled: one blink with one chirp, one blink with two chirps, two blinks with two chirps, two blinks with one chirp. Look at the cross and count only the blinks; the pad offers 1 or 2, since no trial draws more than two. The rule, set before you start: the chirps moved your count if, with one blink drawn, two chirps raise your average by at least two thirds of a blink over one chirp, and your eye passes its own check: two blinks with two chirps must count higher than one blink with two chirps. Without that check, someone counting the chirps instead of the blinks would pass; with it, they can’t, and the result is called void. Someone answering 1 or 2 by coin passes the first part 7 times in 64 (11%), and both parts 3 times in 512 (0.6%). The same rule is scored the other way round, two blinks with one chirp against two with two. Nothing on the screen differs between kinds except the blinks.',
+      eq: ['split = mean(1 blink, 2 chirps) − mean(1 blink, 1 chirp) · merge = mean(2, 2) − mean(2, 1)', 'how far a second chirp adds a blink; how far a missing chirp takes one away'],
+      eq2: ['P(coin passes) = P(split ≥ ⅔) = 7 / 64 ≈ 11% · with the eye check as well = 3 / 512 ≈ 0.6%', 'two sums of three coin flips, one beating the other by two or more; and a third sum beating the second'] },
+    { key: 'lips', rail: 'read my lips', lead: true, title: 'What does it say?',
+      say: 'A mouth, drawn in ink. It says one syllable. Watch it, and say what you heard.' },
+    { key: 'shut', rail: 'eyes shut', title: 'The same sound, with and without the face',
+      say: 'The sound never changed: the voice box said ba every time. The mouth shaped ga: its lips part early and stay apart, because ga is closed at the back of the mouth, out of sight. Your ear heard a ba; your eye saw lips that never closed, and a ba needs closed lips. Where the two disagree, the brain can settle on something between them, a da, made at the tongue tip: the McGurk effect. Shut the face and play the same sound. Then slide the sound itself from ba to ga, and move it ahead of or behind the mouth to find where the two stop belonging together. A drawn mouth is far weaker than a filmed face, and this voice is a synthesizer; if nothing changes for you, that is a finding, and the next step scores it.',
+      eq: ['F2 starts at 900 Hz (ba) · 1700 Hz (da) · 1950 Hz (ga), and glides to 1220 Hz in 45 ms', 'where the second resonance starts says where the mouth closed: the lips pull it low, the tongue tip high, the tongue’s back pinches it up against the third'],
+      eq2: ['the mouth at the release: open 0.17 (ga) · 0, lips pressed (ba)', 'the one thing the eye can see: whether the lips were shut at the moment the sound began'] },
+    { key: 'ltest', rail: 'the test', title: 'Nine trials, three kinds',
+      say: 'Nine trials, shuffled, three of each kind, and the sound is always the same ba. The kinds: the face shut (sound alone), the mouth shaping ga, the mouth shaping ba. Say what you heard. The rule, set before you start: the mouth rewrote the sound if at least 2 of the 3 mouth-ga trials are heard as something other than ba, while at most 1 of the 3 sound-alone trials is. Someone picking among the four answers at random passes 13% of the time. If the sound alone is not heard as ba, this voice cannot test it for you, and the score says so.',
+      eq: ['P(random passes) = P(≥ 2 of 3 not ba) × P(≤ 1 of 3 not ba), each “not ba” 3 in 4 ≈ 13%', 'a guesser picks four ways; passing needs the mouth-ga trials to differ from the sound-alone ones'],
+      eq2: ['', ''] },
+  ];
+  const HALVES = { 0: 'the firefly', 4: 'the mouth' };
+  const S = { step: 0, warned: false, said: null, film: null, f: 1, c: 2, sig: 0.6, test: null, brk: [], lip: { face: 'on', mouth: 'ga', voice: 'vb', place: 0, lag: 0 }, ltest: null, lipSaid: null };
+
+  // ── the firefly's trials ──
+  let plan = [], lastFlash = -1e9, mouthAnim = null, curtain = false;
+  const trialCtl = { busy: false };
+  async function trial(f, c, gap = FL.GAP) {
+    if (trialCtl.busy) return false;
+    const wait = lastFlash + FL.MINGAP * 1000 - performance.now();
+    if (wait > 0) await new Promise((r) => setTimeout(r, wait));
+    trialCtl.busy = true;
+    await UI.audio(); const ctx = UI.ctx();
+    const E = ctx.currentTime + 0.75;
+    if (c > 0) UI.play(UI.buffer([FL.chirps(c, gap)]), E - FL.LEAD);
+    const chirpP = [0, gap].slice(0, c).map((d) => UI.perfAt(E + d));
+    plan = FL.flashes(f).map((d) => ({ P: UI.perfAt(E + d), lit: 0, shown: null }));
+    const me = { f, c, gap, chirpP, plan };
+    await new Promise((r) => setTimeout(r, 1150));
+    trialCtl.busy = false;
+    return me;
+  }
+  UI.onStop(() => { plan = []; mouthAnim = null; });
+
+  // ── the walk ──
+  function show(i, s) {
+    S.step = i;
+    $('sEye').textContent = `Step ${i + 1} of ${STEPS.length} · ${i < 4 ? 'the firefly' : 'the mouth'}`;
+    $('sTitle').textContent = s.title; $('sSay').textContent = s.say;
+    $('lead').textContent = i < 4 ? 'A firefly lives in this jar. It blinks, and it chirps. Count its blinks.' : 'A mouth drawn in ink. It says one thing. What?';
+    const k = s.key;
+    $('warn').hidden = !(i < 4 && !S.warned);
+    $('countBox').hidden = !(k === 'count' && S.warned);
+    $('filmCtl').hidden = k !== 'film' || !S.warned; $('voteCtl').hidden = k !== 'vote'; $('testBox').hidden = k !== 'test' || !S.warned;
+    $('lipAsk').hidden = k !== 'lips'; $('lipCtl').hidden = k !== 'shut'; $('lipTest').hidden = k !== 'ltest';
+    $('film').hidden = !((k === 'count' && S.said) || k === 'film' || k === 'vote' || k === 'shut');
+    $('filmSay').innerHTML = k === 'count' && S.said ? sayCount() : k === 'lips' && S.lipSaid ? sayLips() : '';
+    curtain = k === 'shut' && S.lip.face === 'off';
+    $('stage').hidden = k === 'vote';
+    $('stage').style.height = (i < 4 ? 300 : 340) + 'px';
+    if (k === 'test' && !S.test) newTest();
+    if (k === 'test') buildTest();
+    if (k === 'ltest' && !S.ltest) newLTest();
+    if (k === 'ltest') buildLTest();
+    if (k === 'lips') { $('speakAgain').hidden = !S.lipHeard; lipButtons(); }
+    if (k === 'count') countButtons();
+    for (const [a, b] of [['eq1', 0], ['eq1w', 1]]) $(a).textContent = (s.eq || ['', ''])[b];
+    for (const [a, b] of [['eq2', 0], ['eq2w', 1]]) $(a).textContent = (s.eq2 || ['', ''])[b];
+    meter();
+  }
+
+  // step 1: the encounter
+  $('wake').onclick = async () => { S.warned = true; show(S.step, STEPS[S.step]); if (S.step === 0) await encounter(); };
+  let encounterTrial = null;
+  async function encounter() { const t = await trial(1, 2); if (t) { encounterTrial = t; S.film = t; } countButtons(); }
+  $('again').onclick = async () => { const t = await trial(1, 2); if (t) { encounterTrial = t; S.film = t; } };
+  function countButtons() { document.querySelectorAll('[data-c]').forEach((b) => { b.classList.toggle('picked', S.said === +b.dataset.c); }); }
+  document.querySelectorAll('[data-c]').forEach((b) => (b.onclick = () => { if (!encounterTrial) return; S.said = +b.dataset.c; S.film = Object.assign({}, encounterTrial, { said: S.said }); countButtons(); show(S.step, STEPS[S.step]); }));
+  function sayCount() {
+    return S.said >= 2 ? `It blinked once. One frame of light, drawn once; the firefly chirped twice. <span style="color:var(--red)">The ${S.said === 2 ? 'second blink' : 'other blinks'} you counted came from the chirps.</span> Watch again, and keep counting the light.`
+      : 'Once: right. It chirped twice, and many people count two blinks here. Watch again with the sound up, or go on to the film, where you can take the chirps away.';
+  }
+
+  // step 2: the film
+  function seg(id, key, cb) { document.querySelectorAll(`#${id} button`).forEach((b) => (b.onclick = () => { document.querySelectorAll(`#${id} button`).forEach((x) => x.setAttribute('aria-pressed', x === b)); cb(b.dataset.v); })); }
+  seg('segF', 'f', (v) => { S.f = +v; }); seg('segC', 'c', (v) => { S.c = +v; });
+  $('playFilm').onclick = async () => { const t = await trial(S.f, S.c); if (t) { S.film = t; meter(); } };
+
+  // step 3: the vote
+  $('sigV').oninput = () => { S.sig = +$('sigV').value; meter(); };
+
+  // step 4: the test
+  function newTest() { const o = []; FL.ARMS.forEach((a) => { for (let k = 0; k < FL.PER; k++) o.push(a); }); S.test = { order: UI.shuffled(o), t: 0, ans: [], played: false, done: false }; S.brk = []; }
+  function buildTest() {
+    const T = S.test, n = T.order.length;
+    $('tLabel').textContent = T.done ? 'all twelve answered' : `trial ${T.t + 1} of ${n}`;
+    $('tPlay').disabled = T.done;
+    document.querySelectorAll('[data-t]').forEach((b) => (b.disabled = T.done || !T.played));
+    $('tResult').innerHTML = T.done ? verdict() : `<p class="hint" style="margin-top:10px">${T.ans.length} answered. The score shows after the twelfth.</p>`;
+    $('breakBox').hidden = !T.done; drawBreak();
+  }
+  $('tPlay').onclick = async () => { const a = S.test.order[S.test.t]; $('tPlay').disabled = true; const t = await trial(a.f, a.c); $('tPlay').disabled = S.test.done; if (t) { S.test.played = true; buildTest(); } };
+  document.querySelectorAll('[data-t]').forEach((b) => (b.onclick = () => { const T = S.test; if (T.done || !T.played) return; T.ans.push(+b.dataset.t); T.t++; T.played = false; if (T.t >= T.order.length) T.done = true; buildTest(); }));
+  $('tAgain').onclick = () => { UI.stop(); newTest(); buildTest(); };
+  function armMean(key) { const v = S.test.order.map((a, i) => (a.key === key ? S.test.ans[i] : null)).filter((x) => x != null); return v.reduce((s, x) => s + x, 0) / v.length; }
+  function verdict() {
+    const m = {}; FL.ARMS.forEach((a) => (m[a.key] = armMean(a.key)));
+    const split = m['1f2c'] - m['1f1c'], merge = m['2f2c'] - m['2f1c'], eye = m['2f2c'] - m['1f2c'];
+    S.splitScore = split;
+    const row = (a, name) => `<tr><td>${name}</td><td>${a.f}</td><td>${S.test.order.map((x, i) => (x.key === a.key ? S.test.ans[i] : null)).filter((x) => x != null).map((x) => (x > a.f ? `<span class="r">${x}</span>` : x)).join(' · ')}</td><td>${m[a.key].toFixed(2)}</td></tr>`;
+    const t = `<table class="marks"><tr><th>kind</th><th>blinks drawn</th><th>you said</th><th>average</th></tr>${row(FL.ARMS[0], '1 blink, 1 chirp')}${row(FL.ARMS[1], '1 blink, 2 chirps')}${row(FL.ARMS[2], '2 blinks, 2 chirps')}${row(FL.ARMS[3], '2 blinks, 1 chirp')}</table>`;
+    const ok = split >= 2 / 3 - 1e-9, okM = merge >= 2 / 3 - 1e-9, eyeOk = eye > 0;
+    let say = !eyeOk ? `Void. You counted two blinks with two chirps no higher than one blink with two chirps (${eye.toFixed(2)}), so these answers can’t tell blinks from chirps: you may have counted the sound, or your eye may not have separated two blinks 67 ms apart. The second chirp added ${split.toFixed(2)} of a blink, but that says nothing until the eye check passes. Look at the cross, count the light, and start again.`
+      : ok ? `With one blink drawn, the second chirp added <b>${split.toFixed(2)}</b> of a blink to your count, and your eye could tell one blink from two (+${eye.toFixed(2)}). That passes the rule; a coin does both 0.6% of the time. The ear rewrote what your eye counted.`
+      : `With one blink drawn, the second chirp added <b>${split.toFixed(2)}</b> of a blink. That does not pass the rule: for you, on this screen, the chirps did not reliably make a second blink.`;
+    if (eyeOk) say += okM ? ` The other way round, one chirp took away <b>${merge.toFixed(2)}</b> of a blink from two: it merged them.` : ` One chirp under two blinks took away ${merge.toFixed(2)} of a blink, short of the rule.`;
+    return `${t}<p class="verdict">${say}</p><p class="hint">Where it breaks: below, widen the gap between the two chirps and see when the second blink goes.</p>`;
+  }
+  $('gapR').oninput = () => { $('gapRv').textContent = $('gapR').value + ' ms'; };
+  $('gapRv').textContent = '57 ms';
+  let brkPlayed = null;
+  $('bPlay').onclick = async () => { const g = +$('gapR').value; const t = await trial(1, 2, g / 1000); if (t) brkPlayed = g; };
+  document.querySelectorAll('[data-b]').forEach((b) => (b.onclick = () => { if (brkPlayed == null) return; S.brk.push([brkPlayed, +b.dataset.b]); brkPlayed = null; drawBreak(); }));
+  function drawBreak() { $('bLog').innerHTML = S.brk.length ? 'gap · you saw: ' + S.brk.map(([g, n]) => (n >= 2 ? `<i>${g} ms · ${n}</i>` : `${g} ms · ${n}`)).join('  ·  ') : 'nothing played yet at a wider gap'; }
+
+  // ── the mouth ──
+  const syl = new Map();
+  function sylBuf(c) { const k = Math.round(c * 100); if (!syl.has(k)) syl.set(k, VB.level(VB.render(VB.syllable(k / 100), 3), 0.12)); return syl.get(k); }
+  let ttsVoice = null;
+  function canSpeak() { try { return 'speechSynthesis' in window && speechSynthesis.getVoices().length > 0; } catch (e) { return false; } }
+  // Say a syllable with the mouth: sound at the release plus lag (ms; positive is the sound late), the mouth's release at R.
+  async function say({ place = 0, mouth = 'ga', face = true, lag = 0, voice = 'vb' }) {
+    await UI.audio(); const ctx = UI.ctx();
+    curtain = !face;
+    const R = ctx.currentTime + 0.7;     // the mouth's release, in context time
+    if (voice === 'tts' && canSpeak()) {
+      // The browser speaks when it can; the mouth follows its start event, with the release assumed 70 ms after it.
+      // That 70 ms is a guess: this browser does not say when its voice reaches the speaker.
+      const u = new SpeechSynthesisUtterance(place < 0.25 ? 'bah' : place < 0.75 ? 'dah' : 'gah'); u.rate = 0.8;
+      u.onstart = () => { mouthAnim = { kind: mouth, relP: performance.now() + 70 - lag }; };
+      u.onerror = () => { $('ttsNote').textContent = 'the browser’s voice did not speak here'; };
+      try { speechSynthesis.cancel(); speechSynthesis.speak(u); UI.announce(); } catch (e) { $('ttsNote').textContent = 'no browser voice here'; }
+      return;
+    }
+    const b = sylBuf(place);
+    UI.play(UI.buffer([b]), R + lag / 1000 - VB.REL);
+    mouthAnim = { kind: mouth, relP: UI.perfAt(R) };
+  }
+  $('speak').onclick = async () => { await say({ place: 0, mouth: 'ga' }); S.lipHeard = true; $('speakAgain').hidden = false; };
+  $('speakAgain').onclick = () => say({ place: 0, mouth: 'ga' });
+  function lipButtons() { document.querySelectorAll('[data-l]').forEach((b) => b.classList.toggle('picked', S.lipSaid === b.dataset.l)); }
+  document.querySelectorAll('[data-l]').forEach((b) => (b.onclick = () => { if (!S.lipHeard) return; S.lipSaid = b.dataset.l; lipButtons(); $('filmSay').innerHTML = sayLips(); }));
+  function sayLips() {
+    return S.lipSaid === 'ba' ? 'Ba: you heard the sound as it was. The voice said ba, and the mouth shaped ga. For many people the face wins a little and they hear da; a drawn mouth may simply be too weak to do it. The next step lets you shut the face and compare.'
+      : `<span style="color:var(--red)">You heard ${S.lipSaid === 'other' ? 'something else' : S.lipSaid}.</span> The voice said ba. The mouth shaped ga, and its lips never closed. Shut the face in the next step and play the same sound.`;
+  }
+  seg('segFace', 'face', (v) => { S.lip.face = v; curtain = v === 'off'; }); seg('segMouth', 'mouth', (v) => { S.lip.mouth = v; }); seg('segVoice', 'voice', (v) => { S.lip.voice = v; $('ttsNote').textContent = v === 'tts' ? (canSpeak() ? 'the browser’s voice: its timing against the mouth is a guess (it starts 70 ms before the release, by assumption), and it cannot be shifted in pitch or place' : 'this browser offers no voice here') : ''; });
+  const placeName = (c) => (c < 0.2 ? 'ba' : c < 0.4 ? 'ba–da' : c < 0.6 ? 'da' : c < 0.8 ? 'da–ga' : 'ga');
+  $('place').oninput = () => { S.lip.place = +$('place').value; $('placeV').textContent = placeName(S.lip.place); spec = null; meter(); };
+  $('lag').oninput = () => { S.lip.lag = +$('lag').value; $('lagV').textContent = (S.lip.lag > 0 ? '+' : '') + S.lip.lag + ' ms'; meter(); };
+  $('placeV').textContent = 'ba'; $('lagV').textContent = '0 ms';
+  $('lipPlay').onclick = () => say({ place: S.lip.place, mouth: S.lip.mouth, face: S.lip.face === 'on', lag: S.lip.lag, voice: S.lip.voice });
+
+  // the lip test
+  const LARMS = [{ key: 'alone', face: false, mouth: 'ga', name: 'face shut' }, { key: 'ga', face: true, mouth: 'ga', name: 'mouth shapes ga' }, { key: 'ba', face: true, mouth: 'ba', name: 'mouth shapes ba' }];
+  function newLTest() { const o = []; LARMS.forEach((a) => { for (let k = 0; k < 3; k++) o.push(a); }); S.ltest = { order: UI.shuffled(o), t: 0, ans: [], played: false, done: false }; }
+  function buildLTest() {
+    const T = S.ltest; $('lLabel').textContent = T.done ? 'all nine answered' : `trial ${T.t + 1} of 9`; $('lPlay').disabled = T.done;
+    document.querySelectorAll('[data-m]').forEach((b) => (b.disabled = T.done || !T.played));
+    $('lResult').innerHTML = T.done ? lverdict() : `<p class="hint" style="margin-top:10px">${T.ans.length} answered. The score shows after the ninth.</p>`;
+  }
+  $('lPlay').onclick = async () => { const a = S.ltest.order[S.ltest.t]; await say({ place: 0, mouth: a.mouth, face: a.face }); S.ltest.played = true; buildLTest(); };
+  document.querySelectorAll('[data-m]').forEach((b) => (b.onclick = () => { const T = S.ltest; if (T.done || !T.played) return; T.ans.push(b.dataset.m); T.t++; T.played = false; if (T.t >= 9) T.done = true; buildLTest(); }));
+  $('lAgain').onclick = () => { UI.stop(); newLTest(); buildLTest(); };
+  function lverdict() {
+    const T = S.ltest, not = {}, said = {}; LARMS.forEach((a) => { said[a.key] = T.order.map((x, i) => (x.key === a.key ? T.ans[i] : null)).filter((x) => x); not[a.key] = said[a.key].filter((x) => x !== 'ba').length; });
+    const t = `<table class="marks"><tr><th>kind</th><th>the sound</th><th>you said</th><th>not ba</th></tr>${LARMS.map((a) => `<tr><td>${a.name}</td><td>ba</td><td>${said[a.key].map((x) => (x !== 'ba' ? `<span class="r">${x}</span>` : x)).join(' · ')}</td><td>${not[a.key]} of 3</td></tr>`).join('')}</table>`;
+    let v;
+    if (not.alone >= 2) v = `With the face shut you heard something other than ba ${not.alone} times in 3. The voice box’s ba is not a clear ba to your ear, so this voice cannot test the mouth for you. That is this synthesizer’s limit, not the effect’s.`;
+    else if (not.ga >= 2) v = `The mouth shaping ga turned the same ba into something else ${not.ga} times in 3, against ${not.alone} in 3 with the face shut. That passes the rule (13% by chance). The eye rewrote the ear${not.ba >= 2 ? ', though the ba mouth did too, so part of it may be the face being there at all' : ''}.`;
+    else v = `The mouth shaping ga changed the ba ${not.ga} times in 3, against ${not.alone} in 3 with the face shut: short of the rule. A drawn mouth was not enough here. The page’s McGurk claim is about a filmed face; this does not test that.`;
+    const flash = S.splitScore != null ? `<p class="hint">Side by side: the firefly’s chirps added ${S.splitScore.toFixed(2)} of a blink to your count; the mouth turned ${not.ga - not.alone >= 0 ? not.ga - not.alone : 0} more ba trials in 3 into something else than the shut face did. The ear rewrites the eye; the eye rewrites the ear.</p>` : '';
+    return `${t}<p class="verdict">${v}</p>${flash}`;
+  }
+
+  // ── the meter ──
+  let spec = null;
+  function meter() {
+    const k = STEPS[S.step].key; let h = '';
+    const fm = UI.frameMs(), lat = UI.latencyMs();
+    if (k === 'count' && !S.said) h = '';
+    else if (k === 'film' || k === 'count') {
+      const f = S.film; let off = '';
+      if (f && f.plan[0] && f.plan[0].shown && f.chirpP[0]) off = ` · the blink was drawn <b>${(f.plan[0].shown - f.chirpP[0]).toFixed(0)} ms</b> ${f.plan[0].shown >= f.chirpP[0] ? 'after' : 'before'} the first chirp reached the speaker, by this browser’s clocks`;
+      h = `your screen’s frame: <b>${fm.toFixed(1)} ms</b> (${(1000 / fm).toFixed(0)} Hz) · sound out, latency the browser reports: <b>${lat == null ? '—' : lat.toFixed(1) + ' ms'}</b>${off}`;
+    } else if (k === 'vote') {
+      const sa = 0.15, sv = S.sig, n = (2 / (sa * sa) + 1 / (sv * sv)) / (1 / (sa * sa) + 1 / (sv * sv)), wa = (1 / (sa * sa)) / (1 / (sa * sa) + 1 / (sv * sv));
+      $('sigVv').textContent = sv.toFixed(2);
+      h = `the ear says <b>2</b> · the eye says <b>1</b> · the ear’s weight <b>${(100 * wa).toFixed(0)}%</b> · combined n̂ = <b>${n.toFixed(2)}</b> → you’d report <i>${n >= 1.5 ? 'two' : 'one'}</i>`;
+    } else if (k === 'shut') {
+      const p = VB.place(S.lip.place);
+      h = `the sound at its release: F2 starts at <b>${p.F2.toFixed(0)} Hz</b>, F3 at <b>${p.F3.toFixed(0)} Hz</b>, burst at <b>${p.bf.toFixed(0)} Hz</b> · the sound is <b>${Math.abs(S.lip.lag)} ms ${S.lip.lag >= 0 ? 'behind' : 'ahead of'}</b> the mouth`;
+    } else if (k === 'test' || k === 'ltest' || k === 'lips') h = '';
+    $('meter').innerHTML = h;
+  }
+
+  // ── drawing ──
+  const INK = '#141414', PAPER = '#f4f2ec', RED = '#d1301c', RULE = '#c9c6bd', INK3 = '#7a7a7a';
+  function night(g, w, h, now) {
+    g.fillStyle = INK; g.fillRect(0, 0, w, h);
+    const cx = w / 2, fy = 64, by = Math.min(h - 50, fy + 150);
+    g.strokeStyle = PAPER; g.lineWidth = 1.5; g.beginPath(); g.moveTo(cx - 7, fy); g.lineTo(cx + 7, fy); g.moveTo(cx, fy - 7); g.lineTo(cx, fy + 7); g.stroke();
+    // the jar, in fine paper lines
+    g.strokeStyle = 'rgba(244,242,236,0.28)'; g.lineWidth = 1;
+    for (let k = 0; k < 3; k++) { const jw = 120 + k * 8; g.beginPath(); g.moveTo(cx - jw / 2, fy + 34 - k * 3); g.lineTo(cx - jw / 2, h - 18 + k * 3); g.lineTo(cx + jw / 2, h - 18 + k * 3); g.lineTo(cx + jw / 2, fy + 34 - k * 3); g.stroke(); }
+    // the firefly: wings, body, the tail that lights
+    g.strokeStyle = 'rgba(244,242,236,0.55)'; g.lineWidth = 1.2;
+    g.beginPath(); g.ellipse(cx - 13, by - 24, 15, 7, -0.5, 0, 2 * Math.PI); g.stroke();
+    g.beginPath(); g.ellipse(cx + 13, by - 24, 15, 7, 0.5, 0, 2 * Math.PI); g.stroke();
+    g.beginPath(); g.ellipse(cx, by - 16, 6, 12, 0, 0, 2 * Math.PI); g.stroke();
+    g.beginPath(); g.arc(cx, by - 32, 4.5, 0, 2 * Math.PI); g.stroke();
+    g.beginPath(); g.arc(cx, by + 6, 12, 0, 2 * Math.PI); g.stroke();
+    let lit = false;
+    for (const p of plan) {
+      if (!p.lit && now >= p.P - fm() * 0.5 && now < p.P + 120) { p.lit = now; p.shown = now + fm() * 0.5; }
+      if (p.lit && now - p.lit < 15) lit = true;
+    }
+    if (lit) { g.fillStyle = '#ffffff'; g.beginPath(); g.arc(cx, by + 6, 15, 0, 2 * Math.PI); g.fill(); }
+    if (S.step === 0 && !plan.length && S.warned && !S.said) { g.fillStyle = 'rgba(244,242,236,0.6)'; g.font = '12px Manrope, sans-serif'; g.textAlign = 'center'; g.fillText('look at the cross', cx, fy - 18); }
+  }
+  const fm = () => UI.frameMs();
+  function lipPath(g, cx, cy, o, pr, inset) {
+    const jaw = o * 52, cw = 66 - o * 12 - pr * 4 - inset * 0.6;
+    const upTop = 20 - pr * 5 - inset * 0.5, loBot = 22 - pr * 6 - inset * 0.5 + jaw;
+    g.beginPath();
+    g.moveTo(cx - cw, cy);
+    g.bezierCurveTo(cx - cw * 0.6, cy - upTop * 0.6, cx - 24, cy - upTop * 1.05, cx - 13, cy - upTop);
+    g.quadraticCurveTo(cx, cy - upTop + 6, cx + 13, cy - upTop);
+    g.bezierCurveTo(cx + 24, cy - upTop * 1.05, cx + cw * 0.6, cy - upTop * 0.6, cx + cw, cy);
+    g.bezierCurveTo(cx + cw * 0.6, cy + loBot * 0.9, cx - cw * 0.6, cy + loBot * 0.9, cx - cw, cy);
+    g.closePath();
+  }
+  function mouthDraw(g, w, h, now) {
+    g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    const cx = w / 2, cy = h * 0.4, sc = Math.min(1.2, w / 360);
+    g.save(); g.translate(cx, cy); g.scale(sc, sc); g.translate(-cx, -cy);
+    let m = { open: 0, press: 0 };
+    if (mouthAnim) { const t = (now - mouthAnim.relP) / 1000; m = FL.mouth(mouthAnim.kind, t); if (t > 1.2) mouthAnim = null; }
+    const o = m.open, pr = m.press;
+    g.strokeStyle = INK; g.lineWidth = 1.5;
+    // nose and philtrum
+    g.beginPath(); g.moveTo(cx - 30, cy - 92); g.quadraticCurveTo(cx - 34, cy - 70, cx - 14, cy - 66); g.quadraticCurveTo(cx, cy - 60, cx + 14, cy - 66); g.quadraticCurveTo(cx + 34, cy - 70, cx + 30, cy - 92); g.stroke();
+    g.beginPath(); g.moveTo(cx - 8, cy - 58); g.lineTo(cx - 10, cy - 26 + pr * 4); g.moveTo(cx + 8, cy - 58); g.lineTo(cx + 10, cy - 26 + pr * 4); g.stroke();
+    // chin, which drops with the jaw
+    g.beginPath(); g.moveTo(cx - 70, cy + 60 + o * 46); g.quadraticCurveTo(cx, cy + 112 + o * 52, cx + 70, cy + 60 + o * 46); g.stroke();
+    // the lips, three parallel contours (the op-art of the hero, in miniature)
+    for (let k = 0; k < 3; k++) { lipPath(g, cx, cy, o, pr, k * 7); g.lineWidth = k ? 1 : 1.6; g.strokeStyle = k ? 'rgba(20,20,20,0.45)' : INK; g.stroke(); }
+    // the opening
+    if (o > 0.015) {
+      const iw = 50 - o * 10, top = cy - 2 - o * 5, bot = cy + 2 + o * 50;
+      g.fillStyle = INK; g.beginPath(); g.moveTo(cx - iw, cy); g.quadraticCurveTo(cx, top - 6, cx + iw, cy); g.quadraticCurveTo(cx, bot + 6, cx - iw, cy); g.fill();
+      if (o > 0.08) { g.fillStyle = PAPER; g.beginPath(); g.moveTo(cx - iw * 0.62, cy - 1); g.quadraticCurveTo(cx, top - 3, cx + iw * 0.62, cy - 1); g.lineTo(cx + iw * 0.55, cy - 1 + Math.min(9, o * 16)); g.quadraticCurveTo(cx, top + Math.min(9, o * 16), cx - iw * 0.55, cy - 1 + Math.min(9, o * 16)); g.fill(); }
+    } else { g.lineWidth = 1.6 + pr * 1.4; g.strokeStyle = INK; g.beginPath(); g.moveTo(cx - 60, cy); g.quadraticCurveTo(cx, cy + 3 - pr * 2, cx + 60, cy); g.stroke(); }
+    g.restore();
+    if (curtain) {
+      g.fillStyle = '#e2dfd6'; g.fillRect(0, 0, w, h);
+      g.strokeStyle = 'rgba(20,20,20,0.18)'; g.lineWidth = 1; for (let x = -h; x < w; x += 9) { g.beginPath(); g.moveTo(x, h); g.lineTo(x + h, 0); g.stroke(); }
+      g.fillStyle = INK; g.font = 'italic 22px "Cormorant Garamond", serif'; g.textAlign = 'center'; g.fillText('eyes shut: listen', w / 2, h / 2 + 6);
+    }
+  }
+  // the film: what was drawn (ink) and played, in time, and the blink reported that was not drawn (red)
+  function filmDraw(g, w, h) {
+    g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    const k = STEPS[S.step].key;
+    if (k === 'vote') return voteDraw(g, w, h);
+    if (k === 'shut') return specDraw(g, w, h);
+    const f = S.film; const x0 = 60, ww = w - 80, T0 = -60, T1 = 260, X = (ms) => x0 + (ms - T0) / (T1 - T0) * ww;
+    g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'center'; g.strokeStyle = RULE; g.lineWidth = 1;
+    for (let ms = -50; ms <= 250; ms += 50) { g.beginPath(); g.moveTo(X(ms), 18); g.lineTo(X(ms), h - 24); g.stroke(); g.fillText(ms + ' ms', X(ms), h - 9); }
+    g.textAlign = 'right'; g.fillText('light', x0 - 8, 50); g.fillText('sound', x0 - 8, 104);
+    const frame = fm();
+    // frames, as cells
+    for (let ms = T0; ms < T1; ms += frame) { g.strokeStyle = 'rgba(20,20,20,0.12)'; g.strokeRect(X(ms), 34, X(ms + frame) - X(ms), 30); }
+    if (!f) { g.fillStyle = INK3; g.textAlign = 'left'; g.fillText('play a trial to see its film', x0, 14); return; }
+    FL.flashes(f.f).forEach((d) => { const ms = d * 1000; g.fillStyle = INK; g.fillRect(X(ms), 34, X(ms + frame) - X(ms), 30); });
+    [0, f.gap].slice(0, f.c).forEach((d) => { const ms = d * 1000; g.fillStyle = INK; g.fillRect(X(ms), 88, Math.max(2, X(ms + 7) - X(ms)), 32); });
+    const said = f.said != null ? f.said : null;
+    if (said != null && said > f.f) {
+      const extra = f.c >= 2 ? f.gap * 1000 : 60;
+      g.setLineDash([4, 3]); g.strokeStyle = RED; g.lineWidth = 1.5; g.strokeRect(X(extra), 34, X(extra + frame) - X(extra), 30); g.setLineDash([]);
+      g.fillStyle = RED; g.textAlign = 'left'; g.fillText('the blink you counted', X(extra) + 4 + (X(extra + frame) - X(extra)), 30);
+    }
+    g.fillStyle = INK; g.textAlign = 'left'; g.fillText(`${f.f} blink${f.f > 1 ? 's' : ''} drawn · ${f.c} chirp${f.c === 1 ? '' : 's'} played`, x0, 14);
+  }
+  function voteDraw(g, w, h) {
+    const x0 = 50, ww = w - 80, X = (n) => x0 + (n - 0.25) / 2.5 * ww, base = h - 30, sa = 0.15, sv = S.sig;
+    const gauss = (m, s, col, lw) => { g.strokeStyle = col; g.lineWidth = lw; g.beginPath(); for (let px = 0; px <= ww; px += 2) { const n = 0.25 + px / ww * 2.5, y = Math.exp(-0.5 * ((n - m) / s) ** 2); const Y = base - y * (h - 60); px ? g.lineTo(x0 + px, Y) : g.moveTo(x0 + px, Y); } g.stroke(); };
+    g.strokeStyle = RULE; g.lineWidth = 1; g.beginPath(); g.moveTo(x0, base); g.lineTo(x0 + ww, base); g.stroke();
+    g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'center';
+    [0.5, 1, 1.5, 2, 2.5].forEach((n) => g.fillText(String(n), X(n), h - 12));
+    gauss(1, sv, 'rgba(20,20,20,0.45)', 1.2); gauss(2, sa, INK, 1.6);
+    const n = (2 / (sa * sa) + 1 / (sv * sv)) / (1 / (sa * sa) + 1 / (sv * sv));
+    g.strokeStyle = RED; g.lineWidth = 2; g.beginPath(); g.moveTo(X(n), 16); g.lineTo(X(n), base); g.stroke();
+    g.fillStyle = INK3; g.textAlign = 'left'; g.fillText('the eye: 1, blurred', X(1) - 40, base - 10); g.fillStyle = INK; g.fillText('the ear: 2, sharp', X(2) + 8, 26);
+    g.fillStyle = RED; g.fillText('what you report: n̂ = ' + n.toFixed(2), X(n) + 6, 12);
+  }
+  function specDraw(g, w, h) {
+    if (!spec || spec.w !== w) { const x = VB.render(VB.syllable(S.lip.place), 3); spec = { w, sg: VB.spectrogram(x, 4000) }; }
+    const { frames, df, hop } = spec.sg, x0 = 50, ww = w - 70, top = 8, bot = h - 24, T = frames.length * hop;
+    let mx = -1e9; for (const f of frames) for (const v of f) if (v > mx) mx = v;
+    const cw = ww / frames.length;
+    frames.forEach((f, i) => { for (let k = 0; k < f.length; k += 1) { const a = Math.max(0, Math.min(1, (f[k] - mx + 55) / 55)); if (a < 0.05) continue; g.fillStyle = `rgba(20,20,20,${(a * a * 0.9).toFixed(3)})`; const y = bot - (k * df) / 4000 * (bot - top); g.fillRect(x0 + i * cw, y - (df / 4000) * (bot - top), cw + 0.5, (df / 4000) * (bot - top) + 0.5); } });
+    // the release, and the mouth's opening in time for the mouth chosen
+    const relX = x0 + VB.REL / T * ww;
+    g.strokeStyle = INK; g.lineWidth = 1; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(relX, top); g.lineTo(relX, bot); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = 'rgba(20,20,20,0.85)'; g.lineWidth = 1.5; g.beginPath();
+    for (let px = 0; px <= ww; px += 2) { const t = px / ww * T - VB.REL - S.lip.lag / -1000; const o = FL.mouth(S.lip.mouth, t).open; const y = bot - o * (bot - top) * 0.35 - 2; px ? g.lineTo(x0 + px, y) : g.moveTo(x0 + px, y); }
+    g.stroke();
+    g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'right';
+    [0, 1000, 2000, 3000, 4000].forEach((f) => g.fillText(f ? f / 1000 + 'k' : '0', x0 - 6, bot - f / 4000 * (bot - top) + 3));
+    g.textAlign = 'left'; g.fillText('the sound’s spectrum in time, 0–4 kHz · the line: how open the mouth is (' + S.lip.mouth + ') · dashed: the release', x0, h - 8);
+  }
+  function draw(ts) {
+    requestAnimationFrame(draw); UI.frameTick(ts);
+    const now = performance.now(), k = STEPS[S.step].key;
+    const st = UI.fit($('stage'));
+    if ($('stage').hidden) { /* the vote draws below */ } else if (S.step < 4) night(st.g, st.w, st.h, now); else mouthDraw(st.g, st.w, st.h, now);
+    if (!$('film').hidden) { const fl = UI.fit($('film')); filmDraw(fl.g, fl.w, fl.h); }
+    if ((k === 'film' || k === 'count') && S.film && S.film.plan[0] && S.film.plan[0].shown && !S.film.metered) { S.film.metered = true; meter(); }
+  }
+  const W = UI.walk(STEPS, show, HALVES);
+  UI.sigil(); W.go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

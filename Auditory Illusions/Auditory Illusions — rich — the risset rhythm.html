@@ -1,0 +1,574 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the risset rhythm
+  born: 2026-11-08
+  links: [[Auditory Illusions]] connects-to · rich-face-piece-of · [[Frequency-Time Duality]] connects-to · tempo-and-pitch-on-one-axis ·
+    [[Shepard Tone Synthesizer]] connects-to · the-same-loop-on-the-slow-side · [[Progressive Staging]] exemplifies · experience-first-then-the-walk
+  forward_vector: I am the Risset rhythm as an encounter, then a walk of four more steps. You press play and tap along, and
+    your tempo keeps climbing while an ink picture that contains itself zooms beside you, forever; neither arrives anywhere.
+    Then I show the five layers and the loudness window that hides their ends, put tempo and pitch on one axis by moving
+    every rate up seven octaves, let you break the window, and end on a blind trial: press when you hear the loop restart,
+    with the crossfade on and with it stopped. I am a proposal until Loudon has played me.
+  understood as: a place you fall into. The zoom is a picture of nested frames, each frame one layer of the beat, its size
+    the layer's tempo on a log scale, its ink the layer's loudness; every beat darkens its own frame. The tap pad is the
+    reader's body keeping up.
+  red means: really there. The loop's seam, the loop counter, the restart the ear and eye are not shown. Red never marks
+    what the sense makes up; it marks the physical fact the illusion hides. (Same meaning in "click into pitch".)
+  engine: five layers at B0·2^(k+φ), B0 = 0.375 Hz (22.5 BPM), φ climbing 0→1 in T = 6·ln2/B0 = 11.09 s, so the slowest
+    layer plays exactly 6 beats a cycle and every layer lands on the next one's beats at the seam. Window sin²(πx/5) over
+    x = k+φ, each beat's level w/√Σw². The pitch version is the same five rates × 128 as sines. The window exponent p
+    (1 the page's bell, 0 flat) and the stopped crossfade (one layer, x in [2,3), hard cut) are this piece's own.
+  build note: every layer restarts at beat zero each loop, which is why the slowest layer must play a whole number of beats
+    a cycle (6). A layer whose phase ran on as the integral of its rate would carry across the seam for any count; this one
+    is the simpler construction, not the only one.
+  remade: 2026-11-08, after the challenge: the trial's clock hidden, chance stated as 26 % (pressing mid-loop), and the
+    verdict set as a count, 6 or more hits of 10 in each arm.
+  checks: Auditory Illusions — rich — check — in-time.mjs, beside this file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The Risset rhythm</title>
+<meta name="theme-color" content="#f4f2ec">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03, retinted to the paper ground 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (_ops/furniture-fanout/furnish.py),
+   its --fx-* tokens retinted from Graphite to the Auditory Illusions paper ground. In a layer, so every rule this page writes wins.
+   Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: #f4f2ec; --fx-bg-elev-1: #efece4; --fx-bg-elev-2: #e8e5dc; --fx-bg-elev-3: #dedad0; --fx-fg-1: #141414; --fx-fg-2: #3a3a3a; --fx-fg-3: #7a7a7a; --fx-fg-4: #c9c6bd; --fx-fg-on-accent: #f4f2ec; --fx-border: #c9c6bd; --fx-border-soft: rgba(20,20,20,0.10); --fx-border-hover: #141414; --fx-accent: #141414; --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.45); --fx-danger: #d1301c; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink-2); font-family: var(--sans); font-weight: 400; }
+  .rr-piece { padding: 20px 20px 16px; }
+  .rr-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .rr-title { font-family: var(--serif); font-size: 28px; font-weight: 400; color: var(--ink); margin: 0 0 6px; line-height: 1.15; }
+  .rr-title em { font-style: italic; font-weight: 300; }
+  .rr-says { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 0 0 12px; min-height: 3.2em; color: var(--ink-2); }
+  .rr-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+  .rr-tabs { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .rr-tabs button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); background: var(--paper); border: 1px solid var(--rule); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: var(--ink); color: var(--ink); }
+  button[aria-pressed="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+  button.rr-go { color: var(--ink); border: 1.5px solid var(--ink); min-width: 104px; }
+  button.rr-go[aria-pressed="true"] { color: var(--paper); }
+  button:disabled { opacity: .35; cursor: default; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+  .rr-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start; position: relative; }
+  @media (max-width: 640px) { .rr-stage { grid-template-columns: 1fr; } }
+  .rr-panel { border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); padding: 10px 12px; }
+  .rr-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  .rr-pad { position: relative; width: 100%; height: 132px; border: 1.5px solid var(--ink); border-radius: 2px; background: var(--paper); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; font-family: var(--mono); letter-spacing: .3em; font-size: 13px; color: var(--ink); overflow: hidden; touch-action: manipulation; }
+  .rr-pad small { font-size: 10px; letter-spacing: .14em; color: var(--ink-3); text-transform: none; }
+  .rr-pad .rr-ring { position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border: 1.5px solid var(--ink); border-radius: 50%; opacity: 0; pointer-events: none; }
+  .rr-pad .rr-ring.on { animation: rr-ring .5s ease-out; }
+  @keyframes rr-ring { from { opacity: .8; transform: scale(.4); } to { opacity: 0; transform: scale(5); } }
+  .rr-big { font-family: var(--mono); font-size: 30px; color: var(--ink); font-weight: 500; letter-spacing: .02em; margin: 10px 0 0; }
+  .rr-big small { font-size: 12px; color: var(--ink-3); font-weight: 400; letter-spacing: .1em; }
+  .rr-read { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); min-height: 1.6em; }
+  .rr-read b { color: var(--ink); font-weight: 500; }
+  .rr-red { color: var(--red); }
+  .rr-red b { color: var(--red); }
+  .rr-curtain { position: absolute; inset: 0; background: var(--paper); border: 1.5px solid var(--ink); border-radius: 2px; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 10px; text-align: center; padding: 20px; z-index: 3; }
+  .rr-curtain.on { display: flex; }
+  .rr-curtain .rr-cbig { font-family: var(--serif); font-size: 28px; color: var(--ink); }
+  .rr-curtain .rr-ccount { font-family: var(--mono); font-size: 12px; letter-spacing: .18em; color: var(--ink-3); }
+  .rr-step { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 12px; }
+  .rr-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .rr-stephead span + span { color: var(--ink-3); }
+  .rr-teach { font-size: 14px; line-height: 1.6; max-width: 76ch; margin: 6px 0 10px; }
+  .rr-back { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin: 4px 0 0; }
+  label.rr-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ink-3); max-width: 420px; }
+  label.rr-sl b { color: var(--ink); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--ink-3); margin: 12px 0 4px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--ink); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: var(--ink); cursor: pointer; }
+  .rr-eq { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
+  .rr-eq .rr-sym { font-family: var(--serif); font-size: 20px; color: var(--ink); }
+  .rr-eq .rr-words { font-size: 13px; line-height: 1.55; color: var(--ink-2); margin: 2px 0 6px; }
+  .rr-view { margin: 8px 0; border: 1px solid var(--rule); border-radius: 2px; padding: 8px 10px; }
+  table.rr-tally { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 10px 0 4px; }
+  table.rr-tally th, table.rr-tally td { border: 1px solid var(--rule); padding: 6px 10px; text-align: left; }
+  table.rr-tally th { color: var(--ink-3); font-weight: 400; }
+  table.rr-tally td b { color: var(--ink); font-weight: 500; }
+  table.rr-tally tr.rr-now td { background: rgba(20,20,20,.05); }
+  .rr-twin { font-size: 12.5px; line-height: 1.5; color: var(--ink-3); margin: 8px 0 0; }
+  .rr-foot { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--rule); display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+  .rr-foot svg { width: 20px; height: 20px; }
+</style>
+</head>
+<body>
+<div class="rr-piece">
+  <div class="rr-kicker">made · Web Audio · study · proposal</div>
+  <h3 class="rr-title">The Risset rhythm — <em>keep up with it</em></h3>
+  <div class="rr-row">
+    <button class="rr-go" id="play" aria-pressed="false">▸ Play</button>
+    <button id="back">← Back</button>
+    <button id="next">Next step →</button>
+  </div>
+  <p class="rr-says" id="says">Silent until you press Play. Then tap along with the beat, on the pad or the space bar, and keep up with it.</p>
+  <div class="rr-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="rr-stage" id="stage">
+    <div class="rr-panel">
+      <div class="rr-plabel"><span>your hand</span><span id="tapnote">tap with the beat</span></div>
+      <div class="rr-pad" id="pad" role="button" tabindex="0" aria-label="tap along with the beat">TAP<small>or the space bar</small><span class="rr-ring" id="ring"></span></div>
+      <div class="rr-big" id="tempo">— <small>BPM, your tapping</small></div>
+      <div class="rr-read" id="tapread"></div>
+      <canvas id="trace" height="120" aria-label="your tapped tempo over the last 40 seconds"></canvas>
+    </div>
+    <div class="rr-panel">
+      <div class="rr-plabel"><span>the eye’s twin · infinite zoom</span><span>shape, not mechanism</span></div>
+      <canvas id="zoom" aria-label="an ink picture that contains itself, zooming in forever"></canvas>
+      <p class="rr-twin" id="twin">A picture that contains itself. It zooms in forever and never gets anywhere either.</p>
+    </div>
+    <div class="rr-curtain" id="curtain"><div class="rr-cbig">Listening, picture covered</div><div class="rr-ccount" id="ccount"></div><div class="rr-ccount">press NOW, or the space bar, once, when you hear it restart</div></div>
+  </div>
+  <div class="rr-read" id="read"></div>
+  <div id="steps"></div>
+  <div class="rr-foot"><svg viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#141414" stroke-width="0.8"/></svg><span>Loud’n Live · Auditory Illusions · In time</span></div>
+</div>
+
+<script>
+// ───────── the engine: pure, no DOM, no sound; the check script runs this text ─────────
+const ENGINE_SRC = String.raw`
+const N = 5;                              // layers
+const B0 = 0.375;                         // Hz: the slowest layer at the start of a cycle, 22.5 BPM
+const N0 = 6;                             // beats of the slowest layer in one cycle: an integer, so the seam lands on a beat
+const T = N0 * Math.LN2 / B0;             // s: one cycle, one doubling of every layer's tempo (11.09 s)
+const CUT = 2;                            // the stopped crossfade keeps only the layer with x in [2, 3)
+const UP = 128;                           // 2^7: the same rates moved up seven octaves, into pitch
+function frac(x) { return x - Math.floor(x); }
+function rate(x) { return B0 * Math.pow(2, x); }               // Hz at log2 position x
+function bpm(x) { return 60 * rate(x); }
+function win(x, p, cut) {                                      // the window over x in [0, N)
+  if (x < 0 || x >= N) return 0;
+  if (cut) return (x >= CUT && x < CUT + 1) ? 1 : 0;
+  const s = Math.pow(Math.sin(Math.PI * x / N), 2);
+  return p === 1 ? s : Math.pow(s, p);
+}
+function weights(ph, p, cut) { const w = []; for (let k = 0; k < N; k++) w.push(win(k + ph, p, cut)); return w; }
+function power(ph, p, cut) { return weights(ph, p, cut).reduce((a, g) => a + g * g, 0); }
+function level(x, ph, p, cut) { const P = power(ph, p, cut); return P > 0 ? win(x, p, cut) / Math.sqrt(P) : 0; }
+// Beat times of layer k inside one cycle: its phase is 2^k·N0·(2^(u/T) − 1) beats, so beat j falls at u = T·log2(1 + j/M).
+const BEATS = [];
+for (let k = 0; k < N; k++) { const M = Math.pow(2, k) * N0, u = []; for (let j = 0; j < M; j++) u.push(T * Math.log2(1 + j / M)); BEATS.push(u); }
+function events(t0, t1, p, cut) {
+  const out = [];
+  for (let c = Math.floor(t0 / T); c * T < t1; c++) {
+    for (let k = 0; k < N; k++) for (const u of BEATS[k]) {
+      const t = c * T + u; if (t < t0 || t >= t1) continue;
+      const ph = u / T, g = level(k + ph, ph, p, cut);
+      if (g > 1e-4) out.push({ t: t, k: k, c: c, g: g, x: k + ph });
+    }
+  }
+  return out.sort((a, b) => a.t - b.t);
+}
+// The same five trajectories, by voice: voice v sits at x = (v + t/T) mod N and wraps alone, silent.
+function voices(t) { const out = []; for (let v = 0; v < N; v++) out.push({ v: v, x: ((v + t / T) % N + N) % N }); return out; }
+const SEAM_TOL = 1.0;                                          // s: a press this close to the seam counts
+function chance() { return 2 * SEAM_TOL / T; }                 // one press at a random moment in the loop
+const SEAM_LO = 0.15, SEAM_HI = 0.85;                          // the trial's start is drawn so the seam falls in this part of the loop
+function chanceMid() { return 2 * SEAM_TOL / ((SEAM_HI - SEAM_LO) * T); }   // the best a non-listener can do: always press mid-loop
+const ARM_TRIALS = 10, BAR = 6;                                // the verdict: 6 or more hits of 10
+function atLeast(k, n, p) { let s = 0; for (let i = k; i <= n; i++) { let c = 1; for (let j = 0; j < i; j++) c = c * (n - j) / (j + 1); s += c * Math.pow(p, i) * Math.pow(1 - p, n - i); } return s; }
+`;
+const { N, B0, N0, T, CUT, UP, frac, rate, bpm, win, weights, power, level, BEATS, events, voices, SEAM_TOL, chance, SEAM_LO, SEAM_HI, chanceMid, ARM_TRIALS, BAR, atLeast } =
+  new Function(ENGINE_SRC + '; return { N, B0, N0, T, CUT, UP, frac, rate, bpm, win, weights, power, level, BEATS, events, voices, SEAM_TOL, chance, SEAM_LO, SEAM_HI, chanceMid, ARM_TRIALS, BAR, atLeast };')();
+
+// ───────── state ─────────
+const REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const S = { step: 1, tt: 0, p: 1, cut: false, up: false, playing: false, loops: 0, lastPh: 0, seamFlash: -1e9, seamsPerf: [], trial: null, tally: {} };
+const TAP = { times: [], pts: [], oct: 0, last: null };
+const PULSES = [];
+const dB = g => g > 0 ? (20 * Math.log10(g)).toFixed(1) : '−∞';
+
+// ───────── sound: nothing exists until the first click ─────────
+let ac = null, bus = null, buf = null, osc = [], oamp = [], timer = null, t0 = 0, until = 0;
+function tock() {   // a short woodblock knock, made in code: the same sound for every layer
+  const sr = ac.sampleRate, n = Math.floor(sr * 0.06), b = ac.createBuffer(1, n, sr), d = b.getChannelData(0);
+  let seed = 7;
+  for (let i = 0; i < n; i++) {
+    const t = i / sr; seed = (seed * 16807) % 2147483647;
+    d[i] = 0.5 * (0.8 * Math.sin(2 * Math.PI * 1150 * t) * Math.exp(-t / 0.008) + 0.5 * Math.sin(2 * Math.PI * 620 * t) * Math.exp(-t / 0.02) + 0.35 * (seed / 2147483647 * 2 - 1) * Math.exp(-t / 0.0015));
+  }
+  return b;
+}
+function build() {
+  ac = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ac.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+  bus = ac.createGain(); bus.gain.value = 0; bus.connect(comp).connect(ac.destination);
+  buf = tock();
+  for (let v = 0; v < N; v++) { const o = ac.createOscillator(); o.type = 'sine'; o.frequency.value = 220; const g = ac.createGain(); g.gain.value = 0; o.connect(g).connect(bus); o.start(); osc.push(o); oamp.push(g); }
+}
+function engineNow() { return S.playing ? ac.currentTime - t0 : S.tt; }
+function tick() {
+  const a = ac.currentTime, horizon = a - t0 + 0.15;
+  if (!S.up) {
+    for (const e of events(until, horizon, S.p, S.cut)) {
+      const when = e.t + t0; if (when < a) continue;
+      const s = ac.createBufferSource(); s.buffer = buf; const g = ac.createGain(); g.gain.value = e.g * 0.6;
+      s.connect(g).connect(bus); s.start(when);
+      PULSES.push({ at: when, k: e.k, g: e.g });
+    }
+  }
+  until = Math.max(until, horizon);
+  const tn = a - t0 + 0.03;
+  voices(tn).forEach((vo, i) => {
+    const g = S.up ? level(vo.x, frac(vo.x), S.p, S.cut) * 0.22 : 0;
+    osc[i].frequency.setTargetAtTime(UP * rate(vo.x), a, 0.012);
+    oamp[i].gain.setTargetAtTime(g, a, 0.02);
+  });
+}
+async function start() {
+  if (!ac) build();
+  if (ac.state !== 'running') await ac.resume();
+  t0 = ac.currentTime + 0.05 - S.tt; until = S.tt; S.lastPh = frac((ac.currentTime - t0) / T);
+  bus.gain.cancelScheduledValues(ac.currentTime); bus.gain.setTargetAtTime(0.9, ac.currentTime, 0.05);
+  S.playing = true; tick(); timer = setInterval(tick, 25);
+  playBtn.textContent = '■ Stop'; playBtn.setAttribute('aria-pressed', 'true');
+}
+function stop() {
+  if (timer) clearInterval(timer); timer = null;
+  if (ac && S.playing) { S.tt = Math.max(0, ac.currentTime - t0); bus.gain.cancelScheduledValues(ac.currentTime); bus.gain.setTargetAtTime(0, ac.currentTime, 0.03); oamp.forEach(g => g.gain.setTargetAtTime(0, ac.currentTime, 0.03)); }
+  S.playing = false; playBtn.textContent = '▸ Play'; playBtn.setAttribute('aria-pressed', 'false');
+  if (S.trial) endTrial(true);
+}
+
+// ───────── the hand: tapping ─────────
+function tap() {
+  if (S.trial) { press(); return; }
+  if (!S.playing) { start().catch(e => says('Sound could not start: ' + e.message)); }
+  const now = performance.now() / 1000;
+  const ring = document.getElementById('ring'); ring.classList.remove('on'); void ring.offsetWidth; if (!REDUCED) ring.classList.add('on');
+  if (TAP.times.length && now - TAP.times[TAP.times.length - 1] > 2.5) { TAP.times = []; TAP.last = null; }
+  TAP.times.push(now); if (TAP.times.length > 4) TAP.times.shift();
+  if (TAP.times.length < 3) { renderTap(); return; }
+  const iv = []; for (let i = 1; i < TAP.times.length; i++) iv.push(TAP.times[i] - TAP.times[i - 1]);
+  iv.sort((a, b) => a - b);
+  const b = 60 / iv[Math.floor(iv.length / 2)];
+  if (TAP.last) { const r = b / TAP.last; if (r < 0.7 && r > 0.3) TAP.oct++; else if (r > 1.45 && r < 3.2) TAP.oct--; }
+  TAP.last = b; TAP.pts.push({ t: now, b: b, u: b * Math.pow(2, TAP.oct) });
+  if (TAP.pts.length > 400) TAP.pts.shift();
+  renderTap();
+}
+function renderTap() {
+  const P = TAP.pts, el = document.getElementById('tempo'), rd = document.getElementById('tapread');
+  if (!P.length) { el.innerHTML = (TAP.times.length ? '…' : '—') + ' <small>BPM, your tapping</small>'; rd.innerHTML = ''; return; }
+  const last = P[P.length - 1], prev = P.length > 3 ? P[P.length - 4] : null;
+  const dir = prev ? (last.b > prev.b * 1.02 ? '▲' : last.b < prev.b * 0.98 ? '▼' : '·') : '';
+  el.innerHTML = Math.round(last.b) + ' <small>BPM, your tapping ' + dir + '</small>';
+  const span = (last.t - P[0].t);
+  const parts = ['tapping for <b>' + Math.round(span) + ' s</b>'];
+  const climb = P.length > 1 ? Math.log2(last.u / P[0].u) : 0;
+  if (climb > 0.05) parts.push('you have sped up <b>× ' + Math.pow(2, climb).toFixed(1) + '</b>');
+  if (TAP.oct > 0) parts.push('fallen back an octave <b>' + TAP.oct + '×</b>, so kept up, you’d be at <b>' + Math.round(last.u).toLocaleString('en') + ' BPM</b>');
+  rd.innerHTML = parts.join(' · ');
+}
+
+// ───────── drawing ─────────
+function fit(c, hh) { const r = window.devicePixelRatio || 1, w = c.clientWidth || 360, h = hh || Number(c.getAttribute('height')) || w; c.width = Math.round(w * r); c.height = Math.round(h * r); c.style.height = h + 'px'; const x = c.getContext('2d'); x.setTransform(r, 0, 0, r, 0, 0); return [x, w, h]; }
+const INK = '#141414', INK3 = '#7a7a7a', RULE = '#c9c6bd', PAPER = '#f4f2ec', RED = '#d1301c';
+
+// The infinite zoom: five nested frames of wavy ink lines, each the picture of the one outside it at half size,
+// zoomed about the point the nesting converges on. Frame k is layer k: its size is 2^(x−4) of the canvas, x = k + φ,
+// so as the beat doubles, the picture doubles; its ink is the layer's window weight; its beats darken its rule.
+function drawZoom(ph) {
+  const c = document.getElementById('zoom'); const [x, w] = fit(c, (c.clientWidth || 360)); const H = w;
+  x.fillStyle = PAPER; x.fillRect(0, 0, w, H);
+  const Px = 0.64 * w, Py = 0.62 * H, a = ac ? ac.currentTime : 0;
+  const bump = new Array(N).fill(0);
+  for (const p of PULSES) { const d = a - p.at; if (d >= 0 && d < 0.09) bump[p.k] = Math.max(bump[p.k], p.g * (1 - d / 0.09)); }
+  const rect = s => [Px - Px * s, Py - Py * s, w * s, H * s];
+  for (let k = N - 1; k >= -1; k--) {
+    const xx = k + ph, s = Math.pow(2, xx - (N - 1)), [rx, ry, rw, rh] = rect(s);
+    x.globalAlpha = 1; x.fillStyle = PAPER; x.fillRect(rx, ry, rw, rh);
+    if (k < 0) { x.fillStyle = INK; x.beginPath(); x.arc(Px, Py, 1.2, 0, 7); x.fill(); break; }
+    const al = win(xx, S.p, S.cut);
+    if (al <= 0.003) continue;
+    const [ix, iy, iw, ih] = rect(s / 2), L = 14, lw = Math.max(0.25, 1.5 * s * w / 420);
+    x.save(); x.beginPath(); x.rect(rx, ry, rw, rh); x.rect(ix + iw, iy, -iw, ih); x.clip('evenodd');
+    x.globalAlpha = al; x.strokeStyle = INK; x.lineWidth = lw;
+    for (let i = 0; i < L; i++) {
+      const y0 = ry + (i + 0.5) / L * rh, amp = rh / L * 0.32; x.beginPath();
+      for (let px = 0; px <= 64; px++) { const X = rx + px / 64 * rw, Y = y0 + amp * Math.sin(px / 64 * Math.PI * 6 + i * 0.9); px ? x.lineTo(X, Y) : x.moveTo(X, Y); }
+      x.stroke();
+    }
+    x.restore();
+    x.globalAlpha = al; x.strokeStyle = INK; x.lineWidth = Math.max(0.5, (1.4 + 5 * bump[k]) * s * w / 420 + 1.2 * bump[k]);
+    x.strokeRect(ix, iy, iw, ih);
+  }
+  x.globalAlpha = 1; x.strokeStyle = INK; x.lineWidth = 1.5; x.strokeRect(0.75, 0.75, w - 1.5, H - 1.5);
+}
+
+function drawTrace() {
+  const c = document.getElementById('trace'); const [x, w, h] = fit(c);
+  x.clearRect(0, 0, w, h);
+  const now = performance.now() / 1000, span = 40, lo = Math.log2(20), hi = Math.log2(900);
+  const X = t => 34 + (1 - (now - t) / span) * (w - 40), Y = b => h - 14 - (Math.log2(b) - lo) / (hi - lo) * (h - 22);
+  x.font = '10px JetBrains Mono'; x.fillStyle = INK3; x.textAlign = 'right';
+  [30, 60, 120, 240, 480].forEach(b => { x.strokeStyle = 'rgba(20,20,20,.07)'; x.beginPath(); x.moveTo(34, Y(b)); x.lineTo(w, Y(b)); x.stroke(); x.fillText(b, 30, Y(b) + 3); });
+  x.textAlign = 'left'; x.fillText('BPM · last 40 s', 36, 10);
+  if (S.step >= 2) S.seamsPerf.forEach(t => { if (now - t < span) { x.strokeStyle = RED; x.lineWidth = 1; x.beginPath(); x.moveTo(X(t), 12); x.lineTo(X(t), h - 12); x.stroke(); } });
+  const P = TAP.pts.filter(p => now - p.t < span);
+  if (TAP.oct > 0 || P.some(p => p.u !== p.b)) {
+    x.setLineDash([2, 3]); x.strokeStyle = INK3; x.lineWidth = 1; x.beginPath();
+    P.forEach((p, i) => { const y = Math.max(4, Y(p.u)); i ? x.lineTo(X(p.t), y) : x.moveTo(X(p.t), y); }); x.stroke(); x.setLineDash([]);
+  }
+  x.fillStyle = INK; P.forEach(p => { x.beginPath(); x.arc(X(p.t), Y(p.b), 2.2, 0, 7); x.fill(); });
+}
+
+function drawWindow(c, ph) {
+  const [x, w, h] = fit(c); x.clearRect(0, 0, w, h);
+  const L = 40, R = 16, Tp = 16, B = 30, X = q => L + q / N * (w - L - R), Y = g => h - B - g * (h - Tp - B);
+  x.strokeStyle = RULE; x.lineWidth = 1; x.beginPath(); x.moveTo(L, h - B); x.lineTo(w - R, h - B); x.stroke();
+  x.font = '10px JetBrains Mono'; x.fillStyle = INK3; x.textAlign = 'center';
+  for (let q = 0; q <= N; q++) { x.textAlign = q === N ? 'right' : 'center'; x.fillText(q === N ? Math.round(bpm(q)) + ' BPM' : String(Math.round(bpm(q) * 10) / 10), q === N ? X(q) + 6 : X(q), h - B + 14); }
+  x.textAlign = 'left'; x.fillText('tempo, one octave per tick →', L, h - 4);
+  x.save(); x.translate(12, h - B); x.rotate(-Math.PI / 2); x.fillText('loudness', 0, 0); x.restore();
+  x.strokeStyle = INK; x.lineWidth = 1.2; x.beginPath();
+  for (let i = 0; i <= 400; i++) { const q = i / 400 * N * 0.9999, g = win(q, S.p, S.cut); i ? x.lineTo(X(q), Y(g)) : x.moveTo(X(q), Y(g)); }
+  x.stroke();
+  const flash = performance.now() - S.seamFlash < 900;
+  if (flash) {
+    x.strokeStyle = RED; x.fillStyle = RED; x.lineWidth = 1.5;
+    [0, N].forEach(q => { x.beginPath(); x.moveTo(X(q), Tp - 4); x.lineTo(X(q), h - B); x.stroke(); });
+    x.textAlign = 'right'; x.fillText('the seam: the top layer leaves, silent', X(N) - 4, Tp + 4);
+    x.textAlign = 'left'; x.fillText('a new one enters, silent', X(0) + 4, Tp + 4);
+  }
+  for (let k = 0; k < N; k++) {
+    const q = k + ph, g = win(q, S.p, S.cut), lv = level(q, ph, S.p, S.cut);
+    x.strokeStyle = 'rgba(20,20,20,.35)'; x.lineWidth = 1; x.beginPath(); x.moveTo(X(q), h - B); x.lineTo(X(q), Y(g)); x.stroke();
+    x.fillStyle = INK; x.beginPath(); x.arc(X(q), Y(g), 3 + 6 * lv, 0, 7); x.fill();
+  }
+}
+
+function drawLanes(c, tt) {
+  const [x, w, h] = fit(c); x.clearRect(0, 0, w, h);
+  const span = 4, L = 8, R = 178, rowH = h / N, X = t => L + (1 - (tt - t) / span) * (w - L - R), ph = frac(tt / T);
+  const ev = events(Math.max(0, tt - span), tt, S.p, S.cut);
+  x.font = '10.5px JetBrains Mono';
+  for (let k = 0; k < N; k++) {
+    const row = N - 1 - k, yc = row * rowH + rowH / 2;
+    x.strokeStyle = 'rgba(20,20,20,.07)'; x.beginPath(); x.moveTo(L, yc); x.lineTo(w - R, yc); x.stroke();
+    const q = k + ph, lv = level(q, ph, S.p, S.cut);
+    x.fillStyle = INK3; x.textAlign = 'left';
+    x.fillText((k + 1) + ' · ' + Math.round(bpm(q)) + ' BPM · ' + dB(lv) + ' dB', w - R + 8, yc + 3);
+  }
+  ev.forEach(e => {
+    const row = N - 1 - e.k, yc = row * rowH + rowH / 2, hh = rowH * 0.42 * (0.25 + 0.75 * Math.min(1, e.g / 0.75));
+    x.strokeStyle = 'rgba(20,20,20,' + (0.15 + 0.85 * Math.min(1, e.g / 0.75)).toFixed(2) + ')'; x.lineWidth = 1.6;
+    x.beginPath(); x.moveTo(X(e.t), yc - hh); x.lineTo(X(e.t), yc + hh); x.stroke();
+  });
+  for (let c2 = Math.ceil((tt - span) / T); c2 * T <= tt; c2++) {
+    const sx = X(c2 * T); if (sx < L) continue;
+    x.strokeStyle = RED; x.lineWidth = 1.2; x.beginPath(); x.moveTo(sx, 0); x.lineTo(sx, h); x.stroke();
+    x.fillStyle = RED; x.textAlign = 'left'; x.fillText('seam: every row moves up one', sx + 4, 10);
+  }
+}
+
+function drawAxis(c) {
+  const [x, w, h] = fit(c); x.clearRect(0, 0, w, h);
+  const lo = Math.log10(0.2), hi = Math.log10(20000), L = 12, R = 12, X = f => L + (Math.log10(f) - lo) / (hi - lo) * (w - L - R), base = h - 34;
+  x.strokeStyle = INK; x.lineWidth = 1; x.beginPath(); x.moveTo(L, base); x.lineTo(w - R, base); x.stroke();
+  x.font = '10px JetBrains Mono'; x.fillStyle = INK3; x.textAlign = 'center';
+  [0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000].forEach(f => { x.beginPath(); x.moveTo(X(f), base); x.lineTo(X(f), base + 4); x.stroke(); x.fillText(f >= 1000 ? f / 1000 + 'k' : f, X(f), base + 15); });
+  x.textAlign = 'left'; x.fillText('rate, Hz (events a second), on one log axis', L, h - 4);
+  x.fillStyle = 'rgba(20,20,20,.06)'; x.fillRect(X(20), 8, X(50) - X(20), base - 8);
+  x.fillStyle = INK3; x.textAlign = 'center'; x.fillText('20–50: taps turn to tone', (X(20) + X(50)) / 2, 18);
+  const bell = (mult, on, label) => {
+    x.strokeStyle = on ? INK : 'rgba(20,20,20,.3)'; x.lineWidth = on ? 1.6 : 1; x.beginPath();
+    for (let i = 0; i <= 200; i++) { const q = i / 200 * N, f = mult * rate(q), y = base - win(q, 1, false) * (base - 34); i ? x.lineTo(X(f), y) : x.moveTo(X(f), y); }
+    x.stroke(); x.fillStyle = on ? INK : INK3; x.textAlign = 'center'; x.fillText(label, X(mult * rate(N / 2)), 30);
+  };
+  bell(1, !S.up, 'the beat: 22.5 to 720 BPM');
+  bell(UP, S.up, 'the same, × 128: 48 to 1536 Hz');
+}
+
+const views = [];
+function frame() {
+  const tt = S.playing ? ac.currentTime - t0 : S.tt, ph = frac(tt / T);
+  if (S.playing) {
+    if (ph < S.lastPh - 0.5 && !S.up) { S.loops++; S.seamFlash = performance.now(); S.seamsPerf.push(performance.now() / 1000); if (S.seamsPerf.length > 30) S.seamsPerf.shift(); }
+    if (ph < S.lastPh - 0.5 && S.up) { S.loops++; S.seamFlash = performance.now(); }
+    S.lastPh = ph;
+  }
+  while (PULSES.length && ac && PULSES[0].at < ac.currentTime - 0.2) PULSES.shift();
+  if (!S.trial) {
+    drawZoom(ph); drawTrace();
+    views.forEach(v => { if (v.c.isConnected) v.draw(v.c, tt, ph); });
+    readout(tt, ph);
+  } else countdown();
+}
+let lastDraw = 0;
+function loop(ts) { if (!REDUCED || ts - lastDraw > 500) { lastDraw = ts; frame(); } requestAnimationFrame(loop); }
+
+function readout(tt, ph) {
+  const el = document.getElementById('read');
+  if (S.step === 1) { el.innerHTML = ''; return; }
+  const parts = ['<span class="rr-red">loop <b>' + T.toFixed(2) + ' s</b> · heard <b>' + S.loops + '×</b></span>'];
+  parts.push('loudest layer <b>' + Math.round(bpm(2 + ph)) + ' BPM</b>');
+  if (S.step >= 4) parts.push('window <b>' + (S.cut ? 'stopped: one layer' : S.p === 1 ? 'the page’s bell' : 'opened, p = ' + S.p.toFixed(2)) + '</b>');
+  if (S.up) parts.push('<b>pitch</b>, every rate × 128');
+  el.innerHTML = parts.join(' · ');
+}
+
+// ───────── the blind trial ─────────
+const ARMS = { page: 'the page’s window, crossfading', cut: 'crossfade stopped: one layer, hard cut' };
+let trialTimer = null;
+async function runTrial(arm) {
+  if (S.trial) return;
+  const keep = { p: S.p, cut: S.cut, up: S.up };
+  if (S.playing) stop();
+  S.up = false; S.p = 1; S.cut = arm === 'cut';
+  const ph0 = SEAM_LO + (SEAM_HI - SEAM_LO) * Math.random(); S.tt = ph0 * T;
+  await start();
+  S.trial = { arm: arm, a0: t0 + ph0 * T, seamAt: (1 - ph0) * T, press: null, keep: keep };
+  document.getElementById('curtain').classList.add('on');
+  trialTimer = setTimeout(() => endTrial(false), T * 1000 + 250);
+  says('One loop, from a random point. The restart falls somewhere inside it, once. Press NOW when you hear it.');
+}
+function press() { const tr = S.trial; if (!tr || tr.press !== null) return; tr.press = ac.currentTime - tr.a0; countdown(); }
+function countdown() { const tr = S.trial; if (!tr || !ac) return; document.getElementById('ccount').textContent = tr.press !== null ? 'pressed · listening on' : 'listening'; }   // no clock: a counter would let a reader press mid-loop without listening
+function endTrial(abandon) {
+  if (trialTimer) clearTimeout(trialTimer); trialTimer = null;
+  const tr = S.trial; S.trial = null; document.getElementById('curtain').classList.remove('on');
+  if (!tr) return;
+  if (S.playing) stop();
+  S.p = tr.keep.p; S.cut = tr.keep.cut; S.up = tr.keep.up;
+  if (abandon) return;
+  const t = S.tally[tr.arm] || (S.tally[tr.arm] = { n: 0, hit: 0, none: 0, err: [] });
+  t.n++;
+  if (tr.press === null) { t.none++; says('The restart was at ' + tr.seamAt.toFixed(1) + ' s. You didn’t press.'); }
+  else { const e = tr.press - tr.seamAt; t.err.push(e); if (Math.abs(e) <= SEAM_TOL) t.hit++; says('The restart was at ' + tr.seamAt.toFixed(1) + ' s; you pressed at ' + tr.press.toFixed(1) + ' s (' + (e >= 0 ? '+' : '') + e.toFixed(1) + ' s)' + (Math.abs(e) <= SEAM_TOL ? ': a hit.' : '.') + ' One trial is a coin toss; ten an arm start to say something.'); }
+  renderTally(tr.arm);
+}
+let tallyHost = null;
+function verdictLine() {
+  const pg = S.tally.page, ct = S.tally.cut, n = a => a ? a.n : 0, h = a => a ? a.hit : 0;
+  if (n(pg) < ARM_TRIALS || n(ct) < ARM_TRIALS) return '<p class="rr-back">Verdict after ' + ARM_TRIALS + ' trials in each arm (' + n(pg) + ' and ' + n(ct) + ' so far).</p>';
+  const P = h(pg) / n(pg) * 10, C = h(ct) / n(ct) * 10;   // per 10, if more were run
+  const say = P >= BAR ? 'the page’s window scored ' + h(pg) + ' of ' + n(pg) + ': the seam is audible for you, and the piece comes out against the page'
+    : C >= BAR ? 'the page’s window scored ' + h(pg) + ' of ' + n(pg) + ' and the stopped crossfade ' + h(ct) + ' of ' + n(ct) + ': the window hid the seam for you, as the page says'
+    : 'neither arm reached ' + BAR + ' of 10: even the stopped crossfade’s seam didn’t come through for you on this rig, so the trial says nothing about the window';
+  return '<p class="rr-teach"><b>Verdict:</b> ' + say + '.</p>';
+}
+function renderTally(now) {
+  if (!tallyHost) return;
+  const pct = (a, n) => n ? Math.round(100 * a / n) + ' %' : '—';
+  const rows = Object.keys(ARMS).map(k => { const t = S.tally[k]; return '<tr' + (k === now ? ' class="rr-now"' : '') + '><td>' + ARMS[k] + '</td><td><b>' + (t ? t.n : 0) + '</b></td><td><b>' + (t ? pct(t.hit, t.n) : '—') + '</b></td><td>' + (t ? t.none : 0) + '</td></tr>'; }).join('');
+  tallyHost.innerHTML = '<table class="rr-tally"><tr><th>arm</th><th>trials</th><th>within ±' + SEAM_TOL + ' s</th><th>no press</th></tr>' + rows +
+    '<tr><td>chance: one press, not listening</td><td></td><td>' + Math.round(100 * chanceMid()) + ' %</td><td></td></tr></table>' + verdictLine();
+}
+document.addEventListener('keydown', e => {
+  if (e.code !== 'Space') return;
+  if (S.trial) { e.preventDefault(); press(); return; }
+  if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') return;
+  e.preventDefault(); tap();
+});
+
+// ───────── the steps ─────────
+function el(tag, attrs, ...kids) { const e = document.createElement(tag); for (const k in (attrs || {})) { if (k.startsWith('on')) e.addEventListener(k.slice(2), attrs[k]); else e.setAttribute(k, attrs[k]); } kids.flat().forEach(c => e.append(c)); return e; }
+function says(t) { document.getElementById('says').textContent = t; }
+function eq(sym, words) { return el('div', { class: 'rr-eq' }, el('div', { class: 'rr-sym' }, sym), el('div', { class: 'rr-words' }, words)); }
+function view(label, h, draw) { const c = el('canvas', { height: String(h) }); views.push({ c: c, draw: draw }); return el('div', { class: 'rr-view' }, el('div', { class: 'rr-plabel' }, el('span', {}, label)), c); }
+function windowControls() {
+  const b = el('b', {}, 'p = 1.00, the page’s bell');
+  const i = el('input', { type: 'range', min: 0, max: 100, step: 1, 'aria-label': 'how far the window is opened' }); i.value = 0;
+  i.addEventListener('input', () => { S.p = 1 - Number(i.value) / 100; b.textContent = 'p = ' + S.p.toFixed(2) + (S.p === 1 ? ', the page’s bell' : S.p === 0 ? ', flat: every layer equal' : ''); });
+  const cut = el('button', { 'aria-pressed': String(S.cut), onclick: () => { S.cut = !S.cut; cut.setAttribute('aria-pressed', String(S.cut)); cut.textContent = S.cut ? 'Crossfade stopped: one layer' : 'Stop the crossfade'; } }, S.cut ? 'Crossfade stopped: one layer' : 'Stop the crossfade');
+  const reset = el('button', { onclick: () => { S.p = 1; S.cut = false; i.value = 0; b.textContent = 'p = 1.00, the page’s bell'; cut.setAttribute('aria-pressed', 'false'); cut.textContent = 'Stop the crossfade'; } }, 'Back to the page’s window');
+  return [el('label', { class: 'rr-sl' }, 'open the window: w = sin²(πx/5)^p  ', b, i), el('div', { class: 'rr-row' }, cut, reset)];
+}
+const STEPS = [
+  { n: 1, name: 'Keep up', build: () => [
+    el('p', { class: 'rr-teach' }, 'Press Play and tap along with the beat. Stay with it as long as you can. Watch your number, and the picture.'),
+  ] },
+  { n: 2, name: 'Five layers', build: () => [
+    el('p', { class: 'rr-teach' }, 'It never got anywhere: the sound is an 11.09-second loop, and the counter in red says how many times you have heard it. Five copies of one beat play at once, each at double the tempo of the one below, all speeding up together. A loudness window sits over them: the middle layers are loud, the slowest and fastest fade to nothing. When every layer has doubled, the fastest has faded out and a new slowest has faded in, and the whole stack is back where it started, one layer up. The seam is drawn in red. Nothing jumps there; every row just moves up one.'),
+    view('the window over tempo · five layers, φ climbing', 190, (c, tt, ph) => drawWindow(c, ph)),
+    view('the last four seconds · one row per layer, fastest on top', 170, (c, tt) => drawLanes(c, tt)),
+    eq('Bₖ(t) = B₀ · 2^(k + φ(t)),   φ = (t mod T) ⁄ T,   wₖ = sin²(π(k + φ) ⁄ 5)', 'Layer k’s tempo is the base tempo, 22.5 beats a minute, doubled k times and then doubled once more over each cycle as φ runs from 0 to 1. Its loudness is a bell over its place on the octave ladder: silent at the bottom and top, loudest in the middle. The cycle is T = 6 · ln 2 ⁄ B₀ = 11.09 s, chosen so the slowest layer plays exactly six beats a cycle and the seam lands on a beat of every layer.'),
+    el('p', { class: 'rr-teach' }, 'The picture is built the same way: each frame is one layer, its size the layer’s tempo on a log scale, its ink the layer’s loudness. A frame grows past the edge as its layer fades out; a new one appears at the centre as a layer fades in. That is the shared shape and only the shape: the eye has no beat to lose, and its version is drawn by a different machine.'),
+  ] },
+  { n: 3, name: 'One axis', build: () => [
+    el('p', { class: 'rr-teach' }, 'This is the Shepard tone run on the slow side of one axis. Tempo is a rate, events a second, on the same axis as pitch: two beats a second is 2 Hz. Multiply every rate here by 128, seven octaves, and the five layers become five sine tones climbing forever: the Shepard–Risset glissando, with the same window, the same loop and the same 11.09 s. Between the two sits the band where a rate stops being heard as events and starts being heard as pitch: the next piece on this page.'),
+    view('one axis · rate in Hz, log scale', 150, c => drawAxis(c)),
+    el('div', { class: 'rr-row' }, el('button', { id: 'upbtn', 'aria-pressed': String(S.up), onclick: async (e) => { S.up = !S.up; e.currentTarget.setAttribute('aria-pressed', String(S.up)); e.currentTarget.textContent = S.up ? 'Back down to the beat' : 'Move every rate up 7 octaves'; if (!S.playing) await start(); } }, S.up ? 'Back down to the beat' : 'Move every rate up 7 octaves')),
+    eq('f_pitch = 2⁷ · Bₖ = 48 Hz · 2^(k + φ)', 'The pitch of each sine is its layer’s tempo in beats a second times 128. The slowest layer starts at 48 Hz, the fastest ends at 1536 Hz. Same code, one number changed.'),
+    el('p', { class: 'rr-back' }, 'Press the button again and you are back at step 2.'),
+  ] },
+  { n: 4, name: 'Break it', build: () => [
+    el('p', { class: 'rr-teach' }, 'Two ways to break it, both in the sound and in the picture at once. Open the window toward flat and every layer is equally loud: you can hear the five streams separately, and the slowest one now arrives out of nothing and the fastest vanishes at full strength. Stop the crossfade and only one layer plays: it speeds up for eleven seconds, from 90 to 180 beats a minute, then drops back to 90 at the seam. That drop is what the window was hiding.'),
+    ...windowControls(),
+    view('the window you have made', 150, (c, tt, ph) => drawWindow(c, ph)),
+    eq('wₖ = sin²(π(k + φ) ⁄ 5)^p,   level = wₖ ⁄ √Σⱼ wⱼ²', 'p = 1 is the page’s bell; p = 0 makes every layer equal. Each beat’s level is its weight divided by the root of the summed squares, so the total power stays level as you open it. With the page’s bell that sum is the same at every moment of the loop, 1.875, so the bell alone causes no swell.'),
+    el('p', { class: 'rr-back' }, 'Back to the page’s window, with the crossfade on, and you are at step 2.'),
+  ] },
+  { n: 5, name: 'Find the seam', build: () => {
+    tallyHost = el('div', {}); setTimeout(() => renderTally(null), 0);
+    return [
+      el('p', { class: 'rr-teach' }, 'The claim, tested blind: the window hides the seam. A trial plays exactly one loop from a random point, with the picture and the readouts covered, so the restart falls somewhere inside it. Press NOW (or the space bar) once, when you hear the beat restart. A press within ±1 s of the seam counts. The seam is kept away from the loop’s two ends, so the best a reader can do without listening is to press in the middle every time: 26 % (2 s out of the 7.8 s the seam can fall in); a press at a random moment scores 18 %. No clock shows during a trial. The verdict rule, set before you start: run ten trials in each arm. A hit count of 6 or more of 10 is a heard seam (a non-listener gets there 2.3 % of the time). If the page is right, the page’s window stays at 5 or fewer and the stopped crossfade reaches 6 or more. If the page’s window also reaches 6, the seam is audible for you and the piece has come out against the page.'),
+      el('div', { class: 'rr-row' },
+        el('button', { class: 'rr-go', onclick: () => runTrial('page') }, '▸ Start a trial: page’s window'),
+        el('button', { class: 'rr-go', onclick: () => runTrial('cut') }, '▸ Start a trial: crossfade stopped'),
+        el('button', { onclick: () => press() }, 'Now')),
+      tallyHost,
+      el('p', { class: 'rr-back' }, 'Speakers are fine here: every layer sits in the middle of hearing. What only an ear can judge is whether the restart can be heard; nothing in the code can say.'),
+    ];
+  } },
+];
+
+const host = document.getElementById('steps'), tabs = document.getElementById('tabs'), playBtn = document.getElementById('play');
+const built = {};
+function go(n) {
+  if (n < 1 || n > STEPS.length) return;
+  if (n !== S.step && S.playing) stop();
+  if (n !== S.step && S.up && n !== 3) S.up = false;
+  if (n !== S.step && n !== 4 && n !== 5) { S.p = 1; S.cut = false; }
+  S.step = n;
+  if (!built[n] || n === 4) built[n] = STEPS[n - 1].build();   // step 4 rebuilds, so its controls show the window as it is
+  host.replaceChildren(el('section', { class: 'rr-step', 'aria-label': 'step ' + n },
+    el('div', { class: 'rr-stephead' }, el('span', {}, n + ' · ' + STEPS[n - 1].name), el('span', {}, 'step ' + n + ' of ' + STEPS.length)), built[n]));
+  tabs.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === n)));
+  document.getElementById('back').disabled = n === 1;
+  document.getElementById('next').disabled = n === STEPS.length;
+  const ub = document.getElementById('upbtn'); if (ub) { ub.setAttribute('aria-pressed', String(S.up)); ub.textContent = S.up ? 'Back down to the beat' : 'Move every rate up 7 octaves'; }
+  document.getElementById('twin').textContent = n === 1 ? 'A picture that contains itself. It zooms in forever and never gets anywhere either.'
+    : 'Each frame is one layer: size is tempo, ink is loudness. Shape, not mechanism: the same loop, drawn by other machinery.';
+  frame();
+}
+STEPS.forEach(s => tabs.append(el('button', { onclick: () => go(s.n) }, s.n + ' · ' + s.name)));
+playBtn.addEventListener('click', () => S.playing ? stop() : start().catch(e => says('Sound could not start: ' + e.message)));
+document.getElementById('back').addEventListener('click', () => go(S.step - 1));
+document.getElementById('next').addEventListener('click', () => go(S.step + 1));
+const pad = document.getElementById('pad');
+pad.addEventListener('pointerdown', e => { e.preventDefault(); tap(); });
+pad.addEventListener('keydown', e => { if (e.key === 'Enter') tap(); });
+(function sigil() { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * Math.PI * 2; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+go(1);
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

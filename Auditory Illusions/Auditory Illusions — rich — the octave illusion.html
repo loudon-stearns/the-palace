@@ -1,0 +1,532 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the octave illusion
+  born: 2026-11-08
+  links: [[Auditory Illusions]] connects-to · rich-face-piece-of (§ Pitch is computed, not measured, The octave illusion) · [[Playful Interface Design]] dressed-by · [[Progressive Staging]] walks-by
+  forward_vector: I am the octave illusion as a report before a reveal, with its twin in the eye beside it. On
+    headphones, 400 and 800 Hz alternate four times a second, always opposite between the ears; the reader says what
+    each ear heard on a drawing of their own head, and only then sees what was played. Then Deutsch's account (what
+    the pitch is follows one ear; where it is follows the higher tone), held as argued, as the page holds it. Then the
+    eye's version: a red X and a blue O flashed for a moment beside two digits, and the question of which colour the X
+    was, tallied honestly as one person's handful of trials. Last the breaks: a repeat that starts on the other ear,
+    one ear alone, and the high tone moved off the octave, each with its own report beside what the account predicts.
+  understood as: your own head, seen from above, with two ears you fill in. The piece never shows which ear is
+    getting what while you listen; the ears hold only what you say you heard, until the reveal puts what was played
+    beside them.
+  red means: really there. Red marks the tones actually in each ear (the reveal's timeline) and the red X actually
+    shown (a stimulus colour, and the only red the twin uses). What you report, and what Deutsch's model predicts,
+    are ink. The blue O is blue because the stimulus needs a second colour; it means nothing else.
+  sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. A
+    ChannelMerger puts each ear on its own channel; a compressor sits before the destination as a safety (threshold
+    -3 dBFS, the same on both channels). Headphones are asked for before the first click, with a left/right check.
+  flashing: the twin shows one brief picture and one patterned mask per press, never more than one trial a second,
+    and says so before its first trial.
+  check: "Auditory Illusions — rich — check — pitch-is-computed.mjs", beside this file: the plan alternates every
+    250 ms with the ears always opposite, the other-ear-first repeat is the same sequence one segment on, one-ear plans silence the other channel, and the model's
+    output for each; then this page's own stereo graph rendered offline in headless Chromium, every 250 ms segment
+    measured on each channel at 400 and 800 Hz; and every conjunction display holds one X, one O, one red, one blue.
+    What a listener hears, and what a viewer saw, only they can say.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The octave illusion · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08 · retinted to paper">
+/* The browser's furniture, re-dressed: the free seam's inlined block (from _ops/loudon-live/design-system/controls.css), retinted to this face's paper ground.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: #ece9e1; --fx-bg-elev-2: #e4e0d6; --fx-bg-elev-3: #dcd8cd; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: var(--rule, #c9c6bd); --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.55); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: var(--red, #d1301c); --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: none; --fx-shadow-3: none; }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12); --blue:#2449c8;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink-2); font-family: var(--sans); }
+  .pc-piece { padding: 22px 22px 18px; }
+  .pc-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .pc-title { font-family: var(--serif); font-size: 29px; font-weight: 400; color: var(--ink); margin: 0 0 8px; line-height: 1.12; }
+  .pc-title em { font-style: italic; }
+  .pc-says { font-family: var(--serif); font-size: 20px; line-height: 1.42; color: var(--ink); max-width: 66ch; margin: 0 0 14px; min-height: 2.9em; }
+  .pc-tabs { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .pc-tabs button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); background: var(--paper); border: 1px solid var(--rule); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: var(--ink-3); color: var(--ink); }
+  button[aria-pressed="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+  button.pc-go { color: var(--ink); border: 1.5px solid var(--ink); min-width: 140px; }
+  button.pc-go[aria-pressed="true"] { color: var(--paper); }
+  button:disabled { opacity: .35; cursor: default; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+  .pc-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+  .pc-banner { border: 1.5px solid var(--ink); padding: 10px 12px; margin: 0 0 12px; font-size: 14px; line-height: 1.5; max-width: 74ch; color: var(--ink); }
+  .pc-banner b { font-weight: 500; }
+  .pc-stage { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+  @media (max-width: 700px) { .pc-stage { grid-template-columns: 1fr; } }
+  .pc-panel { border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); padding: 10px 12px; }
+  .pc-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas, svg.pc-fig { display: block; width: 100%; }
+  .pc-ear { cursor: pointer; }
+  .pc-step { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 12px; }
+  .pc-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .pc-stephead span + span { color: var(--ink-3); }
+  .pc-teach { font-size: 14.5px; line-height: 1.62; max-width: 74ch; margin: 6px 0 10px; color: var(--ink-2); }
+  .pc-teach b { color: var(--ink); font-weight: 500; }
+  .pc-back { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin: 4px 0 0; }
+  .pc-tally { font-family: var(--mono); font-size: 12px; color: var(--ink-3); min-height: 1.5em; letter-spacing: .04em; margin: 6px 0; }
+  .pc-tally b { color: var(--ink); font-weight: 500; }
+  label.pc-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ink-3); max-width: 380px; margin: 4px 0 10px; }
+  label.pc-sl b { color: var(--ink); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 14px; background: transparent; margin: 6px 0 2px; }
+  input[type=range]::-webkit-slider-runnable-track { height: 1.5px; background: var(--ink-3); }
+  input[type=range]::-moz-range-track { height: 1.5px; background: var(--ink-3); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -5.25px; background: var(--ink); border-radius: 0; cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border: 0; border-radius: 0; background: var(--ink); cursor: pointer; }
+  .pc-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--ink-3); min-height: 1.6em; }
+  .pc-read b { color: var(--ink); font-weight: 500; }
+  .pc-eq { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
+  .pc-eq .pc-sym { font-family: var(--serif); font-size: 21px; color: var(--ink); }
+  .pc-eq .pc-words { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); margin: 2px 0 6px; max-width: 74ch; }
+  table.pc-t { border-collapse: collapse; font-family: var(--mono); font-size: 11.5px; margin: 10px 0 4px; }
+  table.pc-t th, table.pc-t td { border: 1px solid var(--rule); padding: 6px 10px; text-align: left; }
+  table.pc-t th { color: var(--ink-3); font-weight: 400; letter-spacing: .06em; }
+  table.pc-t td b { color: var(--ink); font-weight: 500; }
+  .pc-hidden { display: none !important; }
+  .pc-foot { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--rule); display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+  .pc-foot svg { width: 20px; height: 20px; }
+</style>
+</head>
+<body>
+<div class="pc-piece">
+  <div class="pc-kicker">made · Web Audio · Auditory Illusions · pitch is computed · proposal</div>
+  <h3 class="pc-title">Two ears, two tones. <em>Say what you hear, then see what was played.</em></h3>
+  <div class="pc-banner" id="banner"><b>Headphones, please.</b> This one sends a different sound to each ear and doesn’t work on speakers. Check them first: each button should sound in one ear only.
+    <div class="pc-row" style="margin:8px 0 0"><button id="chkL">▸ Left ear</button><button id="chkR">▸ Right ear</button></div></div>
+  <p class="pc-says" id="says">Then listen for twenty seconds, and tap each ear to say what it heard.</p>
+  <div class="pc-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="pc-row">
+    <button id="back">← Back</button>
+    <button id="next">Next step →</button>
+  </div>
+  <div class="pc-stage">
+    <div class="pc-panel" id="leftPanel"><div class="pc-plabel"><span id="leftLabel">your head, from above</span><span id="leftNote">tap an ear</span></div><div id="left"></div></div>
+    <div class="pc-panel" id="rightPanel"><div class="pc-plabel"><span id="rightLabel">listen</span><span id="rightNote"></span></div><div id="right"></div></div>
+  </div>
+  <div class="pc-read" id="read"></div>
+  <div id="steps"></div>
+  <div class="pc-foot"><svg viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#141414" stroke-width="0.8"/></svg><span>Loud’n Live · Auditory Illusions · the octave illusion</span></div>
+</div>
+
+<script id="pc-core">
+// The engine: pure, no DOM, no sound. The check script runs this text in Node.
+const OI = (function () {
+  const FL = 400, FH = 800;     // Hz: the low tone, and the high one an octave up
+  const DUR = 0.25;             // seconds per tone, no gaps (Deutsch, 1974)
+  const A = 0.18;               // amplitude in the ear that has a tone
+  // The plan: n segments. In segment k the left ear has the high tone when k is even, the right ear has the other.
+  // o.swap starts on the other ear: since each ear alternates, that is the same sequence one segment later, so it is a
+  // repeat (swapping the headphones does exactly this), not a test that separates accounts; o.only ('L' | 'R') silences the other ear; o.fh moves the high tone (600 Hz: off the octave).
+  function plan(n, o) {
+    o = o || {}; const fh = o.fh || FH, out = [];
+    for (let k = 0; k < n; k++) {
+      const leftHigh = (k % 2 === 0) !== !!o.swap;
+      let L = leftHigh ? fh : FL, R = leftHigh ? FL : fh;
+      if (o.only === 'L') R = 0; if (o.only === 'R') L = 0;
+      out.push({ k: k, t: k * DUR, L: L, R: R });
+    }
+    return out;
+  }
+  // Deutsch's account, as a model: the pitch heard follows the dominant ear's frequency; where it is heard follows the
+  // ear getting the higher tone. With one ear silent, that ear's tone is heard, there.
+  function model(p, dom) {
+    return p.map(s => {
+      if (!s.L || !s.R) { const ear = s.L ? 'L' : 'R'; return { k: s.k, pitch: s[ear], at: ear }; }
+      return { k: s.k, pitch: s[dom], at: s.L > s.R ? 'L' : 'R' };
+    });
+  }
+  // What the model says a listener reports for each ear: 'high', 'low', 'high and low', or '—'.
+  function summary(m, fl, fh) {
+    const ear = e => { const ps = m.filter(x => x.at === e).map(x => x.pitch); const hi = ps.some(p => p > fl), lo = ps.some(p => p === fl); return hi && lo ? 'high and low' : hi ? 'high' : lo ? 'low' : '—'; };
+    return { L: ear('L'), R: ear('R') };
+  }
+  // The eye's version: a red X and a blue O (or a blue X and a red O), between two black digits.
+  function display(rand) {
+    rand = rand || Math.random;
+    const d1 = 1 + Math.floor(rand() * 9); let d2 = d1; while (d2 === d1) d2 = 1 + Math.floor(rand() * 9);
+    const xRed = rand() < 0.5, xLeft = rand() < 0.5;
+    return { digits: [d1, d2], letters: [{ shape: 'X', color: xRed ? 'red' : 'blue', side: xLeft ? 'left' : 'right' }, { shape: 'O', color: xRed ? 'blue' : 'red', side: xLeft ? 'right' : 'left' }] };
+  }
+  return { FL, FH, DUR, A, plan, model, summary, display };
+})();
+</script>
+
+<script>
+// ───────────────────────── state ─────────────────────────
+const S = { step: 1, cond: 'both', rep: {}, dom: 'R', conj: [], expo: 100, listening: null };
+const CONDS = { both: { label: 'as first played', o: {} }, swap: { label: 'again, other ear first', o: { swap: true } }, onlyL: { label: 'left ear alone', o: { only: 'L' } }, onlyR: { label: 'right ear alone', o: { only: 'R' } }, fifth: { label: 'high tone at 600 Hz', o: { fh: 600 } } };
+const ANSWERS = ['—', 'high', 'low', 'high and low', 'one steady tone'];
+function rep(c) { return S.rep[c] || (S.rep[c] = { L: '—', R: '—' }); }
+
+// ───────────────────────── sound: one stereo graph, for the live context and the offline check ─────────────────────────
+function makeGraph(ctx) {
+  const G = { ctx };
+  G.comp = ctx.createDynamicsCompressor(); G.comp.threshold.value = -3; G.comp.knee.value = 3; G.comp.ratio.value = 4;
+  G.merge = ctx.createChannelMerger(2);
+  G.master = ctx.createGain(); G.master.gain.value = 1;
+  G.merge.connect(G.master).connect(G.comp).connect(ctx.destination);
+  G.ears = ['L', 'R'].map((e, ch) => {
+    const lo = ctx.createOscillator(), hi = ctx.createOscillator(), gl = ctx.createGain(), gh = ctx.createGain();
+    lo.frequency.value = OI.FL; hi.frequency.value = OI.FH; gl.gain.value = 0; gh.gain.value = 0;
+    lo.connect(gl).connect(G.merge, 0, ch); hi.connect(gh).connect(G.merge, 0, ch);
+    return { lo, hi, gl, gh };
+  });
+  return G;
+}
+// Schedule a plan from time t0. Every oscillator starts at t0, so all are at phase zero on every 250 ms boundary
+// (100 cycles of 400 Hz, 200 of 800); the switches are 2 ms linear crossfades centred on the boundaries.
+function schedule(G, p, t0, fh) {
+  G.ears.forEach(ear => { ear.hi.frequency.setValueAtTime(fh || OI.FH, t0); });
+  G.ears.forEach(ear => { ear.lo.start(t0); ear.hi.start(t0); });
+  const X = 0.001;
+  p.forEach((s, i) => {
+    ['L', 'R'].forEach((e, ch) => {
+      const ear = G.ears[ch], f = s[e], prev = i ? p[i - 1][e] : 0, t = t0 + s.t;
+      const lvLo = f === OI.FL ? OI.A : 0, lvHi = f && f !== OI.FL ? OI.A : 0;
+      const pLo = prev === OI.FL ? OI.A : 0, pHi = prev && prev !== OI.FL ? OI.A : 0;
+      if (lvLo !== pLo) { ear.gl.gain.setValueAtTime(pLo, Math.max(t0, t - X)); ear.gl.gain.linearRampToValueAtTime(lvLo, t + X); }
+      if (lvHi !== pHi) { ear.gh.gain.setValueAtTime(pHi, Math.max(t0, t - X)); ear.gh.gain.linearRampToValueAtTime(lvHi, t + X); }
+    });
+  });
+  const end = t0 + p.length * OI.DUR;
+  const last = p[p.length - 1];
+  ['L', 'R'].forEach((e, ch) => {
+    const ear = G.ears[ch], f = last[e], lo = f === OI.FL ? OI.A : 0, hi = f && f !== OI.FL ? OI.A : 0;
+    ear.gl.gain.setValueAtTime(lo, end - X); ear.gl.gain.linearRampToValueAtTime(0, end + X);
+    ear.gh.gain.setValueAtTime(hi, end - X); ear.gh.gain.linearRampToValueAtTime(0, end + X);
+    ear.lo.stop(end + 0.05); ear.hi.stop(end + 0.05);
+  });
+  return end;
+}
+let ac = null, G = null, timer = null, tick = null;
+async function ensure() { if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)(); if (ac.state !== 'running') await ac.resume(); }
+function stopAll() {
+  if (G) { try { G.master.gain.setTargetAtTime(0, ac.currentTime, 0.01); G.ears.forEach(e => { e.lo.stop(ac.currentTime + 0.05); e.hi.stop(ac.currentTime + 0.05); }); } catch (e) { /* not started */ } G = null; }
+  if (timer) clearTimeout(timer); timer = null; if (tick) clearInterval(tick); tick = null;
+  S.listening = null; syncListen();
+}
+async function listen(cond, secs) {
+  stopAll(); await ensure();
+  G = makeGraph(ac);
+  const c = CONDS[cond], n = Math.round(secs / OI.DUR), t0 = ac.currentTime + 0.08;
+  schedule(G, OI.plan(n, c.o), t0, c.o.fh);
+  S.listening = { cond, until: performance.now() + secs * 1000 + 80 };
+  timer = setTimeout(() => { S.listening = null; G = null; syncListen(); afterListen(cond); }, secs * 1000 + 150);
+  tick = setInterval(syncListen, 250); syncListen();
+}
+async function check(ear) {
+  stopAll(); await ensure();
+  const g = makeGraph(ac), t0 = ac.currentTime + 0.05, ch = ear === 'L' ? 0 : 1, e = g.ears[ch];
+  e.hi.frequency.value = 600; e.hi.start(t0); e.lo.start(t0); e.gh.gain.setValueAtTime(0, t0); e.gh.gain.linearRampToValueAtTime(OI.A, t0 + 0.02);
+  e.gh.gain.setValueAtTime(OI.A, t0 + 0.6); e.gh.gain.linearRampToValueAtTime(0, t0 + 0.65); e.hi.stop(t0 + 0.7); e.lo.stop(t0 + 0.7);
+  says(ear === 'L' ? 'That should have been in your left ear only.' : 'That should have been in your right ear only.');
+}
+
+// ───────────────────────── your head, from above ─────────────────────────
+function headSVG(cond, opts) {
+  opts = opts || {};
+  const r = rep(cond);
+  const ring = [];
+  for (let i = 0; i < 7; i++) ring.push(`<circle cx="150" cy="120" r="${30 + i * 7}" fill="none" stroke="#141414" stroke-width="${i % 2 ? 0.6 : 1.1}"/>`);
+  const mark = (side, word, model) => {
+    const x = side === 'L' ? 46 : 254, col = model ? '#7a7a7a' : '#141414';
+    const hi = word === 'high' || word === 'high and low', lo = word === 'low' || word === 'high and low', st = word === 'one steady tone';
+    let s = '';
+    if (hi) s += `<line x1="${x - 12}" y1="${model ? 92 : 96}" x2="${x + 12}" y2="${model ? 92 : 96}" stroke="${col}" stroke-width="3" ${model ? 'stroke-dasharray="3 3"' : ''}/>`;
+    if (lo) s += `<line x1="${x - 12}" y1="${model ? 148 : 144}" x2="${x + 12}" y2="${model ? 148 : 144}" stroke="${col}" stroke-width="3" ${model ? 'stroke-dasharray="3 3"' : ''}/>`;
+    if (st) s += `<line x1="${x - 12}" y1="120" x2="${x + 12}" y2="120" stroke="${col}" stroke-width="3"/>`;
+    return s;
+  };
+  return `<svg class="pc-fig" viewBox="0 0 300 250" style="max-height:300px" aria-label="your head seen from above, nose up">
+    ${ring.join('')}
+    <path d="M141 50 L150 34 L159 50" fill="none" stroke="#141414" stroke-width="1.4"/>
+    <text x="150" y="24" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#7a7a7a">NOSE</text>
+    <g class="pc-ear" data-ear="L"><path d="M106 96 Q70 92 70 120 Q70 148 106 144" fill="#f4f2ec" stroke="#141414" stroke-width="1.6"/><rect x="18" y="80" width="56" height="80" fill="transparent"/></g>
+    <g class="pc-ear" data-ear="R"><path d="M194 96 Q230 92 230 120 Q230 148 194 144" fill="#f4f2ec" stroke="#141414" stroke-width="1.6"/><rect x="226" y="80" width="56" height="80" fill="transparent"/></g>
+    <text x="46" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#7a7a7a">HIGH</text>
+    <text x="46" y="166" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#7a7a7a">LOW</text>
+    <text x="254" y="80" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#7a7a7a">HIGH</text>
+    <text x="254" y="166" text-anchor="middle" font-family="JetBrains Mono" font-size="9" fill="#7a7a7a">LOW</text>
+    ${mark('L', r.L)}${mark('R', r.R)}
+    ${opts.model ? mark('L', opts.model.L, true) + mark('R', opts.model.R, true) : ''}
+    <text x="46" y="196" text-anchor="middle" font-family="JetBrains Mono" font-size="10.5" fill="#141414">LEFT</text>
+    <text x="254" y="196" text-anchor="middle" font-family="JetBrains Mono" font-size="10.5" fill="#141414">RIGHT</text>
+    <text x="46" y="214" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#141414">${r.L}</text>
+    <text x="254" y="214" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#141414">${r.R}</text>
+    ${opts.model ? `<text x="150" y="240" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#7a7a7a">dashed grey: what the model predicts</text>` : ''}
+  </svg>`;
+}
+function headPanel(cond, opts) {
+  const wrap = document.createElement('div');
+  const draw = () => {
+    wrap.innerHTML = headSVG(cond, opts && opts.model ? { model: opts.model() } : {});
+    wrap.querySelectorAll('.pc-ear').forEach(g => g.addEventListener('click', () => {
+      const r = rep(cond), e = g.dataset.ear; r[e] = ANSWERS[(ANSWERS.indexOf(r[e]) + 1) % ANSWERS.length]; draw(); readout(); if (opts && opts.onChange) opts.onChange();
+    }));
+  };
+  draw(); wrap.redraw = draw;
+  const p = document.createElement('p'); p.className = 'pc-back'; p.textContent = 'Tap an ear to cycle: high, low, high and low, one steady tone, nothing.';
+  const outer = document.createElement('div'); outer.append(wrap, p); outer.redraw = draw;
+  return outer;
+}
+function listenBox(cond, secs, label) {
+  const b = document.createElement('button'); b.className = 'pc-go'; b.dataset.listen = cond; b.textContent = label || '▸ Listen';
+  b.addEventListener('click', () => { if (S.listening && S.listening.cond === cond) { stopAll(); return; } listen(cond, secs).catch(e => says('Sound could not start: ' + e.message)); });
+  return b;
+}
+function syncListen() {
+  document.querySelectorAll('[data-listen]').forEach(b => {
+    const on = S.listening && S.listening.cond === b.dataset.listen;
+    b.setAttribute('aria-pressed', String(!!on));
+    b.textContent = on ? '■ ' + Math.max(0, Math.ceil((S.listening.until - performance.now()) / 1000)) + ' s · stop' : (b.dataset.label || '▸ Listen');
+  });
+}
+function afterListen(cond) {
+  if (S.step === 1) says('Now tap each ear and say what it heard. Then the next step shows what was played.');
+}
+
+// ───────────────────────── the reveal's timeline ─────────────────────────
+function fit(c, h) { const r = window.devicePixelRatio || 1, w = c.clientWidth || 420; c.width = w * r; c.height = h * r; c.style.height = h + 'px'; const x = c.getContext('2d'); x.setTransform(r, 0, 0, r, 0, 0); return [x, w, h]; }
+function drawTimeline(c, cond, withModel) {
+  const [x, w, h] = fit(c, withModel ? 250 : 170);
+  x.clearRect(0, 0, w, h);
+  const o = CONDS[cond].o, p = OI.plan(8, o), fh = o.fh || OI.FH, x0 = 70, sw = (w - x0 - 30) / p.length;
+  x.font = '10.5px JetBrains Mono'; x.textAlign = 'right'; x.fillStyle = '#141414';
+  const rows = [['left ear', 'L', 30], ['right ear', 'R', 90]];
+  rows.forEach(([name, e, y]) => {
+    x.fillText(name, x0 - 8, y + 4);
+    p.forEach((s, i) => {
+      const f = s[e]; if (!f) return;
+      const hi = f !== OI.FL, bx = x0 + i * sw + 1, by = hi ? y - 18 : y + 2;
+      x.fillStyle = '#d1301c'; x.fillRect(bx, by, sw - 2, 16);
+      x.fillStyle = '#f4f2ec'; x.textAlign = 'center'; x.fillText(String(f), bx + (sw - 2) / 2, by + 12); x.textAlign = 'right'; x.fillStyle = '#141414';
+    });
+  });
+  x.textAlign = 'center'; x.fillStyle = '#7a7a7a';
+  for (let i = 0; i <= p.length; i += 2) x.fillText((i * OI.DUR * 1000) + ' ms', x0 + i * sw, 140);
+  if (withModel) {
+    const m = OI.model(p, S.dom);
+    x.textAlign = 'right'; x.fillStyle = '#141414'; x.fillText('model', x0 - 8, 186); x.fillText('heard', x0 - 8, 198);
+    m.forEach((s, i) => {
+      const bx = x0 + i * sw + 1, by = s.at === 'L' ? 170 : 206, hi = s.pitch !== OI.FL;
+      x.setLineDash([3, 3]); x.strokeStyle = '#141414'; x.strokeRect(bx, by, sw - 2, 22); x.setLineDash([]);
+      x.fillStyle = '#141414'; x.textAlign = 'center'; x.fillText((hi ? 'high ' : 'low ') + s.pitch, bx + (sw - 2) / 2, by + 15);
+    });
+    x.textAlign = 'left'; x.fillStyle = '#7a7a7a'; x.fillText('upper: heard on the left · lower: on the right', x0, h - 6);
+  }
+}
+
+// ───────────────────────── the eye's version: a red X and a blue O ─────────────────────────
+const COL = { red: '#d1301c', blue: '#2449c8' };
+let conjCur = null, conjBusy = false;
+function conjCanvas() { const c = document.createElement('canvas'); c.id = 'conj'; return c; }
+function drawConj(phase, d) {
+  const c = document.getElementById('conj'); if (!c) return;
+  const [x, w, h] = fit(c, 170);
+  x.clearRect(0, 0, w, h);
+  const cy = h / 2;
+  if (phase === 'fix') { x.strokeStyle = '#141414'; x.lineWidth = 2; x.beginPath(); x.moveTo(w / 2 - 8, cy); x.lineTo(w / 2 + 8, cy); x.moveTo(w / 2, cy - 8); x.lineTo(w / 2, cy + 8); x.stroke(); }
+  if (phase === 'show') {
+    x.font = '500 34px JetBrains Mono'; x.textAlign = 'center'; x.textBaseline = 'middle';
+    x.fillStyle = '#141414'; x.fillText(String(d.digits[0]), w * 0.12, cy); x.fillText(String(d.digits[1]), w * 0.88, cy);
+    d.letters.forEach(L => { x.fillStyle = COL[L.color]; x.font = '700 46px Manrope, sans-serif'; x.fillText(L.shape, L.side === 'left' ? w * 0.38 : w * 0.62, cy); });
+  }
+  if (phase === 'mask') {
+    for (let i = 0; i < 140; i++) { const px = Math.random() * w, py = Math.random() * h, a = Math.random() * Math.PI, l = 8 + Math.random() * 18; x.strokeStyle = ['#d1301c', '#2449c8', '#141414'][i % 3]; x.lineWidth = 3; x.beginPath(); x.moveTo(px, py); x.lineTo(px + Math.cos(a) * l, py + Math.sin(a) * l); x.stroke(); }
+  }
+  if (phase === 'ask') { x.fillStyle = '#7a7a7a'; x.font = '12px JetBrains Mono'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('answer below', w / 2, cy); }
+}
+function conjRun() {
+  if (conjBusy) return; conjBusy = true;
+  const d = OI.display(); conjCur = { d, shown: 0, digitsOK: null };
+  document.getElementById('conjQ').innerHTML = '';
+  drawConj('fix');
+  setTimeout(() => {
+    drawConj('show', d);
+    const t0 = performance.now();
+    // hold the picture for the chosen exposure, counted in frames, and measure what it really was
+    const hold = () => { if (performance.now() - t0 >= S.expo - 8) { conjCur.shown = performance.now() - t0; drawConj('mask'); setTimeout(() => { drawConj('ask'); askDigits(); }, 250); } else requestAnimationFrame(hold); };
+    requestAnimationFrame(hold);
+  }, 600);
+}
+function askDigits() {
+  const q = document.getElementById('conjQ'), d = conjCur.d;
+  const right = d.digits.join(' '), opts = [right];
+  while (opts.length < 3) { const a = 1 + Math.floor(Math.random() * 9), b = 1 + Math.floor(Math.random() * 9); const s = a + ' ' + b; if (a !== b && opts.indexOf(s) < 0) opts.push(s); }
+  opts.sort(() => Math.random() - 0.5);
+  q.innerHTML = '<p class="pc-teach" style="margin:4px 0">First, the two black digits, left then right:</p>';
+  const row = document.createElement('div'); row.className = 'pc-row';
+  opts.forEach(s => { const b = document.createElement('button'); b.textContent = s; b.addEventListener('click', () => { conjCur.digitsOK = s === right; askColour(); }); row.append(b); });
+  q.append(row);
+}
+function askColour() {
+  const q = document.getElementById('conjQ');
+  q.innerHTML = '<p class="pc-teach" style="margin:4px 0">What colour was the <b>X</b>?</p>';
+  const row = document.createElement('div'); row.className = 'pc-row';
+  [['red', 'red'], ['blue', 'blue'], ['not sure', 'unsure']].forEach(([t, v]) => { const b = document.createElement('button'); b.textContent = t; b.addEventListener('click', () => scoreConj(v)); row.append(b); });
+  q.append(row);
+}
+function scoreConj(v) {
+  const d = conjCur.d, xCol = d.letters[0].color;
+  const kind = v === 'unsure' ? 'unsure' : v === xCol ? 'right' : 'swap';
+  S.conj.push({ kind, expo: S.expo, shown: Math.round(conjCur.shown), digitsOK: conjCur.digitsOK });
+  conjBusy = false;
+  const q = document.getElementById('conjQ');
+  q.innerHTML = '<p class="pc-teach" style="margin:4px 0">' + (kind === 'right' ? 'The X was ' + xCol + '.' : kind === 'swap' ? 'The X was ' + xCol + ', and the O was ' + (xCol === 'red' ? 'blue' : 'red') + '. Both colours and both shapes were there; they were bound the other way round.' : 'The X was ' + xCol + '.') + ' Shown for ' + Math.round(conjCur.shown) + ' ms.</p>';
+  conjTally();
+}
+function conjTally() {
+  const t = document.getElementById('conjT'); if (!t) return;
+  const n = S.conj.length;
+  if (n >= 3) { const e = document.getElementById('conjExplain'), w = document.getElementById('conjWait'); if (e) e.classList.remove('pc-hidden'); if (w) w.classList.add('pc-hidden'); }
+  if (!n) { t.innerHTML = ''; return; }
+  const sw = S.conj.filter(c => c.kind === 'swap').length, un = S.conj.filter(c => c.kind === 'unsure').length, dg = S.conj.filter(c => c.digitsOK).length;
+  const answered = n - un;
+  t.innerHTML = 'your trials <b>' + n + '</b> · colour bound the wrong way <b>' + sw + (answered ? ' of ' + answered + ' answered (' + Math.round(100 * sw / answered) + ' %)' : '') + '</b> · not sure <b>' + un + '</b> · digits right <b>' + dg + ' of ' + n + '</b>' +
+    '<br>Pure guessing would bind wrongly half the time. This is a handful of trials from one person on one screen, not a study.';
+}
+
+// ───────────────────────── the steps ─────────────────────────
+function el(tag, attrs, ...kids) { const e = document.createElement(tag); for (const k in (attrs || {})) { if (k.startsWith('on')) e.addEventListener(k.slice(2), attrs[k]); else e.setAttribute(k, attrs[k]); } kids.flat().forEach(c => e.append(c)); return e; }
+function says(t) { document.getElementById('says').textContent = t; }
+function eq(sym, words) { return el('div', { class: 'pc-eq' }, el('div', { class: 'pc-sym' }, sym), el('div', { class: 'pc-words' }, words)); }
+const left = document.getElementById('left'), right = document.getElementById('right');
+function panels(a, b, c, d) { document.getElementById('leftLabel').textContent = a; document.getElementById('leftNote').textContent = b; document.getElementById('rightLabel').textContent = c; document.getElementById('rightNote').textContent = d; }
+function domRow(onChange) {
+  const row = el('div', { class: 'pc-row' });
+  [['R', 'model: right ear leads'], ['L', 'model: left ear leads']].forEach(([v, t]) => { const b = el('button', { 'aria-pressed': String(S.dom === v), onclick: () => { S.dom = v; row.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); onChange(); } }, t); row.append(b); });
+  return row;
+}
+const STEPS = [
+  { n: 1, name: 'your ears', show: () => {
+      panels('your head, from above', 'tap an ear', 'listen', '20 s');
+      left.replaceChildren(headPanel('both'));
+      const b = listenBox('both', 20, '▸ Listen'); b.dataset.label = '▸ Listen';
+      right.replaceChildren(b, el('p', { class: 'pc-teach' }, 'Two tones, a high and a low, four times a second. Listen to each ear on its own for a while. Then, on the head, say what each ear heard. Nothing on this page shows what is being played until the next step.'));
+    },
+    build: () => [el('p', { class: 'pc-teach' }, 'Check the left and right buttons above first. Then listen, and report before you look.')] },
+  { n: 2, name: 'what was played', show: () => {
+      panels('what you said', '', 'what was played', 'first two seconds');
+      left.replaceChildren(headPanel('both'));
+      const c = el('canvas', {}); right.replaceChildren(c, el('div', { class: 'pc-row' }, (() => { const b = listenBox('both', 10, '▸ Listen again'); b.dataset.label = '▸ Listen again'; return b; })()));
+      requestAnimationFrame(() => drawTimeline(c, 'both', false));
+    },
+    build: () => [
+      el('p', { class: 'pc-teach' }, 'Every moment, ', el('b', {}, 'both ears had a tone'), ': one had 400 Hz and the other 800 Hz, and every quarter second they swapped. Each ear really got high, low, high, low. Most people don’t hear that. They hear a high tone in one ear alternating with a low tone in the other (Deutsch, 1974), as if the tones jumped from ear to ear, and they don’t hear the second tone in each ear at all. Put your report beside the red: what did you hear that wasn’t there, and what that was there did you miss?'),
+      eq('L(t) = 800 Hz, R(t) = 400 Hz for ⌊t ⁄ 250 ms⌋ even;   swapped for odd', 'For the first quarter second the left ear has 800 Hz and the right 400 Hz; for the next, the other way round; and so on. 800 is exactly twice 400, an octave. The tones follow each other with no gap.'),
+    ] },
+  { n: 3, name: 'what and where', show: () => {
+      panels('your report, and the model', 'dashed grey', 'what the model hears', '');
+      const head = headPanel('both', { model: () => OI.summary(OI.model(OI.plan(8, {}), S.dom), OI.FL, OI.FH) });
+      left.replaceChildren(head);
+      const c = el('canvas', {});
+      right.replaceChildren(c, domRow(() => { drawTimeline(c, 'both', true); head.redraw(); }));
+      requestAnimationFrame(() => drawTimeline(c, 'both', true));
+    },
+    build: () => [
+      el('p', { class: 'pc-teach' }, 'Deutsch’s account splits the job in two. ', el('b', {}, 'What'), ' the pitch is gets read from one ear, the leading one, and the other ear’s tone is dropped. ', el('b', {}, 'Where'), ' it is gets put on the side with the higher tone. Run that on the plan: if the right ear leads, every moment you hear the right ear’s frequency, placed wherever the 800 is. That gives high on the right, low on the left, alternating: a pattern that was never played. Switch the leading ear and the model flips.'),
+      el('p', { class: 'pc-teach' }, 'That is one account, and the page says so: others explain it differently (Chambers, Mattingley and Moss, 2002, argue against it), a 2018 MEG study found activity in both pathways, and the same group has proposed calling it the Deutsch illusion, since it isn’t limited to the octave. The twin the page gives is graded a ', el('b', {}, 'mechanism, if Deutsch is right'), ': features computed apart and bound wrong. The next step is that twin.'),
+    ] },
+  { n: 4, name: 'the eye’s version', show: () => {
+      panels('look at the cross', 'one brief picture per press', 'answer', '');
+      left.replaceChildren(conjCanvas(), el('div', { class: 'pc-row', style: 'margin-top:10px' }, el('button', { class: 'pc-go', onclick: () => conjRun() }, '▸ Show one')));
+      const b = el('b', {}, S.expo + ' ms'), i = el('input', { type: 'range', min: 33, max: 400, step: 1, 'aria-label': 'how long the picture stays' }); i.value = S.expo;
+      i.addEventListener('input', () => { S.expo = Number(i.value); b.textContent = S.expo + ' ms'; });
+      right.replaceChildren(el('div', { id: 'conjQ' }), el('div', { class: 'pc-tally', id: 'conjT' }), el('label', { class: 'pc-sl' }, 'how long the picture stays ', b, i));
+      requestAnimationFrame(() => { drawConj('fix'); conjTally(); });
+    },
+    build: () => [
+      el('p', { class: 'pc-teach' }, 'Before the first one: each press shows a cross, then ', el('b', {}, 'one brief picture'), ' (about a tenth of a second) and a patterned mask, once, never more than one trial a second. The picture has two black digits at the edges and, between them, an X and an O, one red and one blue. Read the digits first; then say what colour the X was.'),
+      el('p', { class: 'pc-back', id: 'conjWait' }, 'After three trials, what it tests appears here.'),
+      el('p', { class: 'pc-teach pc-hidden', id: 'conjExplain' }, 'With attention on the digits and the picture cut short, people sometimes report a red O when the O was blue: both colours and both shapes were there, bound the wrong way round. These are illusory conjunctions (Treisman and Schmidt, 1982; that citation is from standing knowledge, not checked for this page). Make the picture last longer and see whether your mistakes go. Your tally is yours: a handful of trials, on a screen whose frame timing is coarse, not a study.'),
+    ] },
+  { n: 5, name: 'break it', show: () => {
+      panels('your head, under the chosen condition', '', 'conditions', '10 s each');
+      const head = headPanel(S.cond, { model: () => { const o = CONDS[S.cond].o; return OI.summary(OI.model(OI.plan(8, o), S.dom), OI.FL, o.fh || OI.FH); }, onChange: () => renderTable() });
+      left.replaceChildren(head);
+      const row = el('div', { class: 'pc-row' });
+      Object.keys(CONDS).forEach(k => { const b = el('button', { 'aria-pressed': String(S.cond === k), onclick: () => { stopAll(); S.cond = k; STEPS[4].show(); } }, CONDS[k].label); row.append(b); });
+      const lb = listenBox(S.cond, 10, '▸ Listen: ' + CONDS[S.cond].label); lb.dataset.label = '▸ Listen: ' + CONDS[S.cond].label;
+      right.replaceChildren(row, lb, domRow(() => { head.redraw(); renderTable(); }), el('div', { id: 'condTable' }));
+      renderTable();
+    },
+    build: () => [
+      el('p', { class: 'pc-teach' }, 'Two breaks and a repeat, each with its own report on the head. ', el('b', {}, 'Again, other ear first'), ': since each ear alternates, swapping the headphones only moves the sequence on by a quarter second, so this is the same test again and every account predicts the same report. It tells you whether your own report is steady between listens, nothing more. ', el('b', {}, 'One ear alone'), ': now the ear really does get high and low, and you should hear both; it is the control that says you can. ', el('b', {}, 'Off the octave'), ': the high tone moves to 600 Hz; if the illusion holds, it was never only about the octave.'),
+      el('p', { class: 'pc-back' }, 'Ink is your report; dashed grey is the model’s, for the leading ear you choose. Neither is red: only what was played is.'),
+    ] },
+];
+function renderTable() {
+  const t = document.getElementById('condTable'); if (!t) return;
+  const rows = Object.keys(CONDS).map(k => {
+    const o = CONDS[k].o, m = OI.summary(OI.model(OI.plan(8, o), S.dom), OI.FL, o.fh || OI.FH), r = S.rep[k];
+    const same = r && r.L === m.L && r.R === m.R;
+    return '<tr><td>' + CONDS[k].label + '</td><td><b>' + (r ? 'L ' + r.L + ' · R ' + r.R : '—') + '</b></td><td>L ' + m.L + ' · R ' + m.R + '</td><td>' + (r ? (same ? 'matches' : 'differs') : '') + '</td></tr>';
+  }).join('');
+  t.innerHTML = '<table class="pc-t"><tr><th>condition</th><th>you heard</th><th>model, ' + (S.dom === 'R' ? 'right' : 'left') + ' ear leading</th><th></th></tr>' + rows + '</table>';
+}
+const host = document.getElementById('steps'), tabs = document.getElementById('tabs');
+function go(n) {
+  if (n < 1 || n > STEPS.length) return;
+  if (n !== S.step) stopAll();
+  S.step = n;
+  host.replaceChildren(el('section', { class: 'pc-step', 'aria-label': 'step ' + n },
+    el('div', { class: 'pc-stephead' }, el('span', {}, n + ' · ' + STEPS[n - 1].name), el('span', {}, 'step ' + n + ' of ' + STEPS.length)), STEPS[n - 1].build()));
+  STEPS[n - 1].show();
+  tabs.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === n)));
+  document.getElementById('back').disabled = n === 1;
+  document.getElementById('next').disabled = n === STEPS.length;
+  says(n === 1 ? 'Then listen for twenty seconds, and tap each ear to say what it heard.' : n === 2 ? 'What was really in each ear.' : n === 3 ? 'What, and where, worked out apart.' : n === 4 ? 'The same mistake, made by the eye.' : 'Repeat, isolate, detune.');
+  readout(); syncListen();
+}
+function readout() {
+  const r = S.rep.both;
+  document.getElementById('read').innerHTML = r && (r.L !== '—' || r.R !== '—') ? 'you said · left <b>' + r.L + '</b> · right <b>' + r.R + '</b>' : '';
+}
+STEPS.forEach(s => tabs.append(el('button', { onclick: () => go(s.n) }, s.n + ' · ' + s.name)));
+document.getElementById('back').addEventListener('click', () => go(S.step - 1));
+document.getElementById('next').addEventListener('click', () => go(S.step + 1));
+document.getElementById('chkL').addEventListener('click', () => check('L').catch(e => says('Sound could not start: ' + e.message)));
+document.getElementById('chkR').addEventListener('click', () => check('R').catch(e => says('Sound could not start: ' + e.message)));
+(function sigil() { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * Math.PI * 2; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+
+// For the check script: render this page's own stereo graph offline and measure every segment on each channel.
+window.PC_RENDER = async function (opts) {
+  opts = opts || {};
+  const sr = 48000, n = opts.n || 8, cond = CONDS[opts.cond || 'both'], secs = n * OI.DUR + 0.2;
+  const ctx = new OfflineAudioContext(2, Math.ceil(sr * secs), sr), g = makeGraph(ctx);
+  const p = OI.plan(n, cond.o); schedule(g, p, 0, cond.o.fh);
+  const buf = await ctx.startRendering(), ch = [buf.getChannelData(0), buf.getChannelData(1)];
+  const mag = (x, a, b, f) => { let re = 0, im = 0; const N = b - a; for (let i = 0; i < N; i++) { const w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1)); re += w * x[a + i] * Math.cos(2 * Math.PI * f * i / sr); im -= w * x[a + i] * Math.sin(2 * Math.PI * f * i / sr); } return 2 * Math.sqrt(re * re + im * im) / (N / 2); };
+  const fh = cond.o.fh || OI.FH;
+  return p.map(s => { const a = Math.round((s.t + 0.02) * sr), b = Math.round((s.t + OI.DUR - 0.02) * sr); return { k: s.k, plan: { L: s.L, R: s.R }, L: { lo: mag(ch[0], a, b, OI.FL), hi: mag(ch[0], a, b, fh) }, R: { lo: mag(ch[1], a, b, OI.FL), hi: mag(ch[1], a, b, fh) } }; });
+};
+go(1);
+</script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — binaural beats
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece) · section "Between the two ears — timing to tens of microseconds" · siblings on this face: "Huggins pitch", "precedence effect", "Franssen effect" (same shared scaffolding)
+  forward_vector: I am binaural beats as a head with two earpieces you can lift. First you are fooled (a slow wobble in the middle of your head), then the eye's version, the Pulfrich pendulum, drawn because this screen cannot dim one eye for you; then each ear alone, the phase the brainstem compares, the beat in the air beside the beat between the ears; last, where it stops: you raise the carrier until the beat is gone and check your mark blind. I change only when the section I serve does.
+  understood as: a body — a listening head seen from above, whose earpieces have weight and come off. Every reaction is the sound: the red glow in the head swells at the difference frequency and only while both earpieces are on.
+  red means: what the ear or eye is making up — the beat inside the head, the Pulfrich ellipse. Ink is what is physically there.
+  sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. Two sine oscillators, one per channel (a ChannelMerger), through a safety compressor.
+  check: "Auditory Illusions — rich — check — between-the-ears.mjs", beside this file, renders this piece's own graph offline in headless Chromium and measures each ear's frequency, the difference, and each ear's envelope depth.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Binaural beats · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (copied from a model piece on 2026-11-08), its --fx-* tokens retinted to the paper ground.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: #f4f2ec; --fx-bg-elev-1: #ece9e1; --fx-bg-elev-2: #e4e0d5; --fx-bg-elev-3: #dad6ca; --fx-fg-1: #141414; --fx-fg-2: #3a3a3a; --fx-fg-3: #7a7a7a; --fx-fg-4: #a9a59a; --fx-fg-on-accent: #f4f2ec; --fx-border: #c9c6bd; --fx-border-soft: rgba(20,20,20,0.10); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: #141414; --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: #d1301c; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: 0 1px 2px rgba(20,20,20,0.10); --fx-shadow-3: 0 6px 18px -6px rgba(20,20,20,0.25); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{--paper:#f4f2ec;--paper-2:#f8f6f1;--ink:#141414;--ink-2:#3a3a3a;--ink-3:#7a7a7a;--rule:#c9c6bd;--red:#d1301c;--red-soft:rgba(209,48,28,.12);
+    --sans:'Manrope',system-ui,sans-serif;--serif:'Cormorant Garamond',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.6;padding:24px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .bands{height:10px;margin:6px 0 10px;background:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 5px);-webkit-mask:linear-gradient(90deg,#000 0 40%,transparent 40% 41%,#000 41%);mask:linear-gradient(90deg,#000 0 40%,transparent 40% 41%,#000 41%)}
+  h1{font-family:var(--serif);font-weight:500;font-size:42px;line-height:1.05;margin:2px 0 8px}
+  h2{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.15;margin:2px 0 6px}
+  p.lead{font-family:var(--serif);font-size:21px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:60ch}
+  .say{font-family:var(--serif);font-size:18px;line-height:1.55;color:var(--ink-2);margin:0 0 12px;max-width:68ch}
+  .say p{margin:0 0 10px}
+  .hp{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;border:1.5px solid var(--ink);border-radius:2px;padding:9px 12px;margin:0 0 16px;font-size:14px}
+  .hp b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .hp .hint{flex-basis:100%}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 10px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .panel{border:1px solid var(--rule);border-radius:2px;padding:16px;margin:0 0 12px;background:var(--paper-2)}
+  canvas.stage{width:100%;display:block;touch-action:manipulation}
+  button.go{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 18px;cursor:pointer}
+  button.gh{font-family:var(--sans);font-size:14px;color:var(--ink);background:transparent;border:1px solid var(--ink-3);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.gh[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  button:disabled{opacity:.35;cursor:default}
+  .row{display:flex;gap:8px 10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  .ctl{display:grid;grid-template-columns:180px 1fr 11ch;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+  .ctl label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px}
+  .ctl output{font-family:var(--mono);font-size:14px;text-align:right;white-space:nowrap}
+  .read{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .read em{font-style:normal;color:var(--red)}
+  .eq{font-family:var(--mono);font-size:13px;margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.w{color:var(--ink-3);font-size:13px;margin-top:2px;font-family:var(--sans)}
+  .hint{font-size:13px;color:var(--ink-3)}
+  .reply{font-family:var(--serif);font-size:18px;color:var(--ink);margin-top:10px;min-height:1em;max-width:68ch}
+  .rulebox{border-left:3px solid var(--ink);padding:6px 12px;margin:12px 0;font-size:14px;max-width:72ch}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:4px 12px 4px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:26px;font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px}
+  footer svg{flex:none}
+  [hidden]{display:none !important}
+  @media (max-width:560px){h1{font-size:33px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr 10ch}}
+  .say b{font-weight:400;font-style:italic;color:var(--ink)}
+
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · between the two ears · binaural beats</div>
+  <h1>Two earpieces</h1>
+  <div class="bands" aria-hidden="true"></div>
+  <p class="lead">One tone goes to each ear. Put them on and listen to the middle of your head. Then take one off.</p>
+
+  <div class="hp" role="group" aria-label="Headphone check"><b>● Headphones</b> This happens between your ears, so it needs one channel for each. Check:
+    <button class="gh" id="hpL">left ear</button><button class="gh" id="hpR">right ear</button><span class="hint" id="hpSay">Speakers won’t do: in a room each ear hears both, and then the beat is in the air instead.</span></div>
+
+  <nav class="rail" id="rail" aria-label="Steps"></nav>
+  <section aria-live="polite"><div class="eyebrow" id="sEy"></div><h2 id="sT"></h2><div class="say" id="sS"></div></section>
+
+  <div class="panel">
+    <canvas class="stage" id="stage"></canvas>
+
+    <div data-k="meet">
+      <div class="row"><button class="go" id="wear">Put them on</button>
+        <button class="gh" id="liftL" aria-pressed="false">lift the left</button><button class="gh" id="liftR" aria-pressed="false">lift the right</button>
+        <span class="hint">or tap an earpiece in the drawing</span></div>
+      <div class="row" id="askRow" hidden><span class="eyebrow">where was the wobble?</span>
+        <button class="gh" data-ans="L">left ear</button><button class="gh" data-ans="R">right ear</button><button class="gh" data-ans="M">the middle</button><button class="gh" data-ans="N">I heard none</button></div>
+      <div class="reply" id="reply"></div>
+    </div>
+
+    <div data-k="twin">
+      <div class="row"><button class="go" id="swing">Swing it</button><span class="hint" id="swingHint"></span></div>
+      <div class="ctl"><label for="dly">the dim eye’s delay<i>how late its signal arrives</i></label><input type="range" id="dly" min="0" max="30" step="1" value="10"><output id="dlyV"></output></div>
+      <div class="read" id="twinRead"></div>
+    </div>
+
+    <div data-k="alone">
+      <div class="row"><span class="eyebrow">play</span><button class="gh" id="soloL" aria-pressed="false">left alone</button><button class="gh" id="soloR" aria-pressed="false">right alone</button><button class="gh" id="soloB" aria-pressed="false">both</button><button class="gh" id="soloStop">stop</button></div>
+      <div class="read" id="aloneRead"></div>
+    </div>
+
+    <div data-k="phase">
+      <div class="row"><button class="go" id="phPlay">Play</button></div>
+      <div class="ctl"><label for="df">difference<i>right minus left</i></label><input type="range" id="df" min="0" max="100" step="1" value="41"><output id="dfV"></output></div>
+      <div class="read" id="phRead"></div>
+      <div class="eq">Δφ(t) = 2π · (f_R − f_L) · t &nbsp;·&nbsp; Δt = Δφ ⁄ (2π f_L)</div>
+      <div class="eq w">The phase between the ears turns one whole circle for every cycle of the difference; read as a time, it is the interaural delay the brainstem measures, here sweeping across ± half a period.</div>
+    </div>
+
+    <div data-k="air">
+      <div class="row"><span class="eyebrow">the two tones</span><button class="gh" id="mEars" aria-pressed="true">one per ear</button><button class="gh" id="mAir" aria-pressed="false">both in both ears (in the air)</button><button class="gh" id="airStop">stop</button></div>
+      <div class="read" id="airRead"></div>
+      <div class="eq">air: x(t) = sin(2π f_L t) + sin(2π f_R t) = 2 cos(π Δf t) · sin(2π f̄ t)</div>
+      <div class="eq w">In the air the two waves add, and their sum swells and fades Δf times a second: the beat is in the waveform. Between the ears nothing adds; each ear’s level is flat.</div>
+    </div>
+
+    <div data-k="test">
+      <div class="ctl"><label for="fc">left-ear tone<i>the carrier</i></label><input type="range" id="fc" min="0" max="1000" step="1" value="389"><output id="fcV"></output></div>
+      <div class="ctl"><label for="df2">difference<i>0.5 to 5 Hz here, so the two arms can’t differ by pitch</i></label><input type="range" id="df2" min="0" max="100" step="1" value="78"><output id="df2V"></output></div>
+      <div class="row"><span class="eyebrow">arm</span><button class="gh" id="aEars" aria-pressed="true">between the ears</button><button class="gh" id="aAir" aria-pressed="false">in the air</button>
+        <button class="go" id="tPlay">Play</button><button class="gh" id="mark">the beat is gone here</button><button class="gh" id="unmark">clear marks</button></div>
+      <table class="marks" id="marks"></table>
+      <div class="rulebox" id="rule"></div>
+      <div class="row"><button class="go" id="bStart">Start 8 blind trials here</button><span class="eyebrow" id="bLabel"></span></div>
+      <div class="row" id="bRow" hidden><button class="go" id="bPlay">Play the trial</button><button class="gh" id="bBeat">beat</button><button class="gh" id="bSteady">steady</button></div>
+      <div id="bResult"></div>
+    </div>
+  </div>
+
+  <div class="walk"><button class="gh" id="back">Back</button><button class="gh" id="next">Next</button></div>
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><span>Auditory Illusions · binaural beats · made here from two sine waves, 2026-11-08 · nobody has listened to it yet</span></footer>
+</main>
+
+<script>
+// ── shared by this section's four pieces: sound only on a click, one stereo out, the walk, the headphone check ──
+const $ = (id) => document.getElementById(id);
+const RM = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const INK = { ink: '#141414', ink2: '#3a3a3a', ink3: '#7a7a7a', rule: '#c9c6bd', paper: '#f8f6f1', red: '#d1301c', redSoft: 'rgba(209,48,28,.14)' };
+const AU = { ctx: null, out: null, stops: new Set(), thresholdDb: -6 };
+// The out chain every sound goes through, live and in the offline render the check script reads:
+// a compressor set as a safety limiter (threshold AU.thresholdDb, -6 dB unless a piece raises it; ratio 20), then the master level.
+function outChain(ctx) {
+  const comp = ctx.createDynamicsCompressor();
+  comp.threshold.value = AU.thresholdDb; comp.knee.value = 0; comp.ratio.value = 20; comp.attack.value = 0.002; comp.release.value = 0.2;
+  const m = ctx.createGain(); m.gain.value = 0.8; comp.connect(m); m.connect(ctx.destination); return comp;
+}
+// The limiter starts cold: Chrome's compressor gain climbs from about a fifth of its settled value over its first
+// 150 ms (measured by the check script). So nothing sounds until the context has run 0.3 s of silence through it.
+const WARM = 0.3;
+async function ensure() {
+  if (!AU.ctx) { AU.ctx = new AudioContext(); AU.out = outChain(AU.ctx); }
+  if (AU.ctx.state !== 'running') await AU.ctx.resume();
+  while (AU.ctx.currentTime < WARM) await new Promise((r) => setTimeout(r, 25));
+  return AU.ctx;
+}
+function keep(stop) { AU.stops.add(stop); return stop; }
+function stopAll() { for (const f of [...AU.stops]) { try { f(); } catch (e) { /* already stopped */ } } AU.stops.clear(); }
+// Two mono inputs, one per ear (or per speaker): L goes only to channel 0, R only to channel 1.
+function stereo(ctx, out) {
+  const m = ctx.createChannelMerger(2); m.connect(out);
+  const ch = (i) => { const g = ctx.createGain(); g.channelCount = 1; g.channelCountMode = 'explicit'; g.connect(m, 0, i); return g; };
+  return { L: ch(0), R: ch(1), m };
+}
+// The same graph, rendered offline: what the check script measures is what the button plays.
+// It warms the limiter the same way: the graph starts at WARM, and what comes back starts there too.
+async function offline(seconds, fn, sr = 48000) {
+  const ctx = new OfflineAudioContext(2, Math.round((seconds + WARM) * sr), sr);
+  const out = outChain(ctx); fn(ctx, out, WARM);
+  const b = await ctx.startRendering(), a = Math.round(WARM * sr);
+  return { sr, L: Array.from(b.getChannelData(0).subarray(a)), R: Array.from(b.getChannelData(1).subarray(a)) };
+}
+// The headphone check: three pips in one ear.
+async function pip(side) {
+  stopAll(); const ctx = await ensure(); const s = stereo(ctx, AU.out);
+  const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = 660;
+  const g = ctx.createGain(); g.gain.value = 0; o.connect(g); g.connect(side === 'L' ? s.L : s.R);
+  const t = ctx.currentTime + 0.03;
+  for (let k = 0; k < 3; k++) { const a = t + k * 0.22; g.gain.setValueAtTime(0, a); g.gain.linearRampToValueAtTime(0.4, a + 0.01); g.gain.setTargetAtTime(0, a + 0.08, 0.02); }
+  o.start(t); o.stop(t + 0.85);
+  $('hpSay').textContent = side === 'L' ? 'Three pips, in your left ear only? Then left is left.' : 'Three pips, in your right ear only? Then you are set. If both ears heard them, this is mono: the piece needs two channels.';
+}
+function hpStrip() { $('hpL').onclick = () => pip('L'); $('hpR').onclick = () => pip('R'); }
+// The walk: one step at a time; changing step stops the sound.
+function walk(steps, show) {
+  let cur = 0;
+  function go(i) {
+    stopAll(); cur = Math.max(0, Math.min(steps.length - 1, i)); const s = steps[cur];
+    const rail = $('rail'); rail.innerHTML = '';
+    steps.forEach((t, j) => { const b = document.createElement('button'); b.textContent = (j + 1) + ' · ' + t.rail; if (j === cur) b.setAttribute('aria-current', 'step'); b.onclick = () => go(j); rail.appendChild(b); });
+    $('sEy').textContent = `Step ${cur + 1} of ${steps.length} · ${s.rail}`; $('sT').textContent = s.title; $('sS').innerHTML = s.say;
+    document.querySelectorAll('[data-k]').forEach((el) => { el.hidden = !el.dataset.k.split(' ').includes(s.key); });
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    show(s.key);
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  return { go, key: () => steps[cur].key };
+}
+function fit(c, h) {
+  if (h) c.style.height = h + 'px';
+  const w = c.clientWidth, H = c.clientHeight, d = window.devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+function radio(ids, on) { ids.forEach((id) => $(id).setAttribute('aria-pressed', String(id === on))); }
+// Chance: the probability of k or more right out of n by guessing, each guess right with probability p.
+function atLeast(k, n, p = 0.5) { let s = 0; for (let j = k; j <= n; j++) { let c = 1; for (let i = 0; i < j; i++) c = c * (n - i) / (i + 1); s += c * Math.pow(p, j) * Math.pow(1 - p, n - j); } return s; }
+const pct = (p) => (p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%');
+function sigil() { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); }
+  $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+function clock() { return AU.ctx ? AU.ctx.currentTime : performance.now() / 1000; }
+
+</script>
+<script>
+// ── the engine: two sines; who hears which is the whole illusion ──
+// mode 'ears': f_L to the left ear only, f_R = f_L + Δf to the right only.
+// mode 'air':  both tones in both ears, each at amp/√2, so each ear's RMS is the same as in 'ears'.
+// mode 'same': the blind test's other arm: one tone at f_L + Δf/2 in both ears; no difference anywhere.
+const BB = {
+  coefs(p) { const a = p.amp, b = a / Math.SQRT2; return p.mode === 'air' ? [b, b, b, b] : p.mode === 'same' ? [a, 0, a, 0] : [a, 0, 0, a]; },
+  build(ctx, out, p, t0) {
+    const env = ctx.createGain(); env.gain.value = 0; env.connect(out);
+    const s = stereo(ctx, env);
+    const oA = ctx.createOscillator(), oB = ctx.createOscillator();
+    const g = [0, 1, 2, 3].map(() => ctx.createGain());           // A→L, B→L, A→R, B→R
+    oA.connect(g[0]).connect(s.L); oB.connect(g[1]).connect(s.L); oA.connect(g[2]).connect(s.R); oB.connect(g[3]).connect(s.R);
+    const fA = (q) => (q.mode === 'same' ? q.f + q.df / 2 : q.f), fB = (q) => q.f + q.df;
+    oA.frequency.value = fA(p); oB.frequency.value = fB(p); BB.coefs(p).forEach((c, i) => (g[i].gain.value = c));
+    oA.start(t0); oB.start(t0); env.gain.setValueAtTime(0, t0); env.gain.linearRampToValueAtTime(1, t0 + 0.08);
+    return {
+      set(q) { const t = ctx.currentTime; oA.frequency.setTargetAtTime(fA(q), t, 0.02); oB.frequency.setTargetAtTime(fB(q), t, 0.02); BB.coefs(q).forEach((c, i) => g[i].gain.setTargetAtTime(c, t, 0.03)); },
+      lift(side, off) { (side === 'L' ? s.L : s.R).gain.setTargetAtTime(off ? 0 : 1, ctx.currentTime, 0.06); },
+      stop(t = ctx.currentTime) { env.gain.cancelScheduledValues(t); env.gain.setValueAtTime(env.gain.value, t); env.gain.linearRampToValueAtTime(0, t + 0.08); oA.stop(t + 0.1); oB.stop(t + 0.1); },
+    };
+  },
+};
+// For the check script: this piece's own graph, rendered offline.
+window.PIECE = { TRIAL_DF_MAX: 5, ROVE_CENTS: 50, render: (p, seconds = 2) => offline(seconds, (ctx, out, t0) => { const v = BB.build(ctx, out, Object.assign({ amp: 0.25 }, p), t0); if (p.liftL) v.lift('L', true); }) };
+
+(() => {
+  const P = { f: 440, df: 3, mode: 'ears', amp: 0.25 };
+  const S = { lifted: { L: false, R: false }, liftAt: { L: 0, R: 0 }, lifts: 0, swinging: !RM, swing0: performance.now() / 1000, solo: null, marks: [], trials: null };
+  let live = null;
+  async function sound(p) {
+    const ctx = await ensure();
+    if (live) { live.set(p); return; }
+    live = BB.build(ctx, AU.out, p, ctx.currentTime + 0.01);
+    ['L', 'R'].forEach((sd) => S.lifted[sd] && live.lift(sd, true));
+    keep(() => { if (live) live.stop(); live = null; afterStop(); });
+  }
+  function afterStop() { $('wear').textContent = 'Put them on'; $('tPlay').textContent = 'Play'; $('phPlay').textContent = 'Play'; S.solo = null; radio(['soloL', 'soloR', 'soloB'], null); }
+
+  // ── the steps ──
+  const STEPS = [
+    { key: 'meet', rail: 'put them on', title: 'Put them on, then take one off',
+      say: '<p>Put the headphones on (the button), and listen to the middle of your head for a few seconds. Then lift one earpiece, and put it back.</p>' },
+    { key: 'twin', rail: 'the eye’s version', title: 'The eye’s version: a pendulum that swings round an ellipse',
+      say: '<p>The page pairs this with the Pulfrich effect. Hang a pendulum swinging flat, left to right. Put a dark filter over one eye. The pendulum now seems to swing round an ellipse, nearer on one pass and farther on the other. The dim eye’s signal is slower to reach the brain, so the two eyes see the bob at two moments, and the brain turns that gap into depth.</p><p>This screen can’t dim one eye for you, so the right side is the explanation, drawn to scale. If you have sunglasses, hold one lens over one eye and watch the swinging bob on the left; swap eyes and the ellipse turns the other way. The page grades this pair as shape, not mechanism: both make a percept out of a timing gap between two sensors, but the eye’s gap comes from a dimmed retina and the ear’s from two different frequencies.</p>' },
+    { key: 'alone', rail: 'each ear alone', title: 'Each ear alone is steady',
+      say: '<p>Now the numbers. The left ear gets 440 Hz and nothing else; the right gets 443 Hz. Play either alone: a plain, steady tone, no wobble. The drawing holds the left wave still and shows the right one sliding past it, one whole cycle three times a second. Neither ear’s level ever moves.</p>' },
+    { key: 'phase', rail: 'where they meet', title: 'They meet in the brainstem',
+      say: '<p>The two waves never meet in the air. They meet in the brainstem, where cells take input from both ears and fire most when the two arrive in step (Dove found the beat in 1839). As the right wave slides past the left, the timing between the ears sweeps through every value and back, Δf times a second, and that sweep is what you hear: at a few hertz, a slow sway inside the head; faster, a flutter. Change the difference and watch the dial.</p><p>The page’s claim is about precision: the brain compares the ears to within a few hundredths of a millisecond. At 440 Hz, 20 microseconds is 3° on this dial.</p>' },
+    { key: 'air', rail: 'in the air', title: 'The same beat, in the air',
+      say: '<p>Now put both tones in both ears. This is the beat the page starts from, the one that is not you: the two waves add in each ear and the sum really swells and fades. Switch between the two and compare. The level drawing shows each ear’s envelope; only the air version moves.</p>' },
+    { key: 'test', rail: 'where it stops', title: 'Where it stops',
+      say: '<p>The page says the binaural beat fades above about 1500 Hz, because the nerve can no longer follow the wave’s phase. The beat in the air has no such limit: there is nothing to follow, the swell is in the sound. Raise the left-ear tone until the beat between the ears is gone and mark it; then switch to the air arm and try the same. Then check your mark blind.</p><p>Claims that binaural beats entrain brainwaves are another matter, and remain weakly supported. This piece makes none and tests none.</p>' },
+  ];
+  const W = walk(STEPS, (k) => { $('stage').style.height = ({ meet: 300, twin: 320, alone: 240, phase: 260, air: 260, test: 120 })[k] + 'px'; writeAll(); });
+
+  // ── step 1: the head ──
+  $('wear').onclick = async () => { if (live) { stopAll(); return; } S.lifted = { L: false, R: false }; ['L', 'R'].forEach((sd) => { $('lift' + sd).setAttribute('aria-pressed', 'false'); $('lift' + sd).textContent = 'lift the ' + (sd === 'L' ? 'left' : 'right'); }); Object.assign(P, { f: 440, df: 3, mode: 'ears' }); await sound(P); $('wear').textContent = 'Take them off'; };
+  function lift(sd) {
+    S.lifted[sd] = !S.lifted[sd]; S.liftAt[sd] = performance.now() / 1000; $('lift' + sd).setAttribute('aria-pressed', String(S.lifted[sd]));
+    $('lift' + sd).textContent = (S.lifted[sd] ? 'put back the ' : 'lift the ') + (sd === 'L' ? 'left' : 'right');
+    if (live) live.lift(sd, S.lifted[sd]);
+    if (!S.lifted[sd] && live) { S.lifts++; if (S.lifts >= 1) $('askRow').hidden = false; }
+  }
+  $('liftL').onclick = () => lift('L'); $('liftR').onclick = () => lift('R');
+  $('stage').addEventListener('pointerdown', (e) => {
+    if (W.key() !== 'meet') return; const r = e.target.getBoundingClientRect(), x = e.clientX - r.left, cx = r.width / 2;
+    if (x < cx - 60) lift('L'); else if (x > cx + 60) lift('R');
+  });
+  const REPLY = {
+    M: 'That is where most people put it. Neither earpiece carries it: each plays one steady tone, the whole time. Lift either one and the wobble goes, because there is nothing left to compare. The next steps show where the two meet.',
+    L: 'Lift the right one and listen to the left alone. Is the wobble still there? It shouldn’t be: each earpiece plays one steady tone. Where it seems to sit can wander; it is made between the ears, not in either.',
+    R: 'Lift the left one and listen to the right alone. Is the wobble still there? It shouldn’t be: each earpiece plays one steady tone. Where it seems to sit can wander; it is made between the ears, not in either.',
+    N: 'A binaural beat is quieter than a beat in the air, and at 3 Hz it is often heard as a slow sway or turning inside the head rather than as loudness. Turn the volume up a little, or go to step 5, where the two kinds sit side by side.',
+  };
+  document.querySelectorAll('[data-ans]').forEach((b) => (b.onclick = () => { document.querySelectorAll('[data-ans]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); $('reply').textContent = REPLY[b.dataset.ans]; }));
+
+  // ── step 2: the pendulum ──
+  $('swing').onclick = () => { S.swinging = !S.swinging; S.swing0 = performance.now() / 1000; writeAll(); };
+  $('dly').oninput = writeAll;
+  // geometry, in metres: eyes 6.5 cm apart, the bob 60 cm away, swinging ±8 cm with a 1.6 s period
+  const EYE = 0.0325, Z = 0.6, A = 0.08, T = 1.6;
+  const bobX = (t) => A * Math.sin(2 * Math.PI * t / T);
+  // the left eye is the dimmed one (filled in the drawing): it sees the bob d late
+  function seen(t, d) { const xl = bobX(t - d), xr = bobX(t); const Y = 2 * EYE * Z / (2 * EYE + xl - xr); return { X: -EYE + (xl + EYE) * Y / Z, Y }; }
+  window.PIECE.seen = seen; window.PIECE.dfTest = (v) => dfTest(v);
+
+  // ── step 3, 4, 5 controls ──
+  async function solo(which) {
+    S.solo = which; radio(['soloL', 'soloR', 'soloB'], 'solo' + which);
+    Object.assign(P, { f: 440, df: 3, mode: 'ears' }); await sound(P);
+    S.lifted.L = which === 'R'; S.lifted.R = which === 'L'; live.lift('L', S.lifted.L); live.lift('R', S.lifted.R);
+    radio(['soloL', 'soloR', 'soloB'], 'solo' + which); S.solo = which;
+  }
+  $('soloL').onclick = () => solo('L'); $('soloR').onclick = () => solo('R'); $('soloB').onclick = () => solo('B'); $('soloStop').onclick = () => stopAll();
+  const dfOf = (v) => { const r = 0.5 * Math.pow(80, v / 100); return r < 2 ? Math.round(r * 10) / 10 : r < 10 ? Math.round(r * 2) / 2 : Math.round(r); };   // 0.5 .. 40 Hz, log
+  const fcOf = (v) => Math.round(200 * Math.pow(15, v / 1000));             // 200 .. 3000 Hz, log; 389 → 576 Hz
+  const dfTest = (v) => { const r = 0.5 * Math.pow(10, v / 100); return r < 2 ? Math.round(r * 10) / 10 : Math.round(r * 2) / 2; };   // 0.5 .. 5 Hz, log; 78 → 3 Hz
+  $('phPlay').onclick = async () => { if (live) { stopAll(); return; } S.lifted = { L: false, R: false }; Object.assign(P, { f: 440, df: dfOf(+$('df').value), mode: 'ears' }); await sound(P); $('phPlay').textContent = 'Stop'; };
+  $('df').oninput = () => { P.df = dfOf(+$('df').value); if (live && W.key() === 'phase') live.set(P); writeAll(); };
+  async function airMode(m) { radio(['mEars', 'mAir'], m === 'air' ? 'mAir' : 'mEars'); S.lifted = { L: false, R: false }; Object.assign(P, { f: 440, df: 3, mode: m }); await sound(P); writeAll(); }
+  $('mEars').onclick = () => airMode('ears'); $('mAir').onclick = () => airMode('air'); $('airStop').onclick = () => stopAll();
+
+  // ── step 6: the test ──
+  const T6 = { arm: 'ears' };
+  const tP = () => ({ f: fcOf(+$('fc').value), df: dfTest(+$('df2').value), mode: T6.arm, amp: 0.25 });
+  $('tPlay').onclick = async () => { if (live) { stopAll(); return; } S.lifted = { L: false, R: false }; Object.assign(P, tP()); await sound(P); $('tPlay').textContent = 'Stop'; };
+  ['fc', 'df2'].forEach((id) => ($(id).oninput = () => { if (live && W.key() === 'test' && !S.trials?.active) { Object.assign(P, tP()); live.set(P); } writeAll(); }));
+  function arm(a) { T6.arm = a; radio(['aEars', 'aAir'], a === 'air' ? 'aAir' : 'aEars'); if (live && !S.trials?.active) { Object.assign(P, tP()); live.set(P); } writeAll(); }
+  $('aEars').onclick = () => arm('ears'); $('aAir').onclick = () => arm('air');
+  $('mark').onclick = () => { const q = tP(); S.marks.push({ arm: q.mode, f: q.f, df: q.df }); writeAll(); };
+  $('unmark').onclick = () => { S.marks = []; writeAll(); };
+  const N = 8;
+  $('bStart').onclick = () => { stopAll(); const q = tP(); S.trials = { f: q.f, df: q.df, kinds: Array.from({ length: N }, () => (Math.random() < 0.5 ? 'ears' : 'same')), ans: [], active: true }; $('bRow').hidden = false; $('bResult').innerHTML = ''; writeAll(); };
+  $('bPlay').onclick = async () => {
+    const tr = S.trials; if (!tr || tr.ans.length >= N) return; stopAll();
+    const ctx = await ensure(); const t0 = ctx.currentTime + 0.02;
+    // each trial's carrier roves at random within ±50 cents of the one you set, so absolute pitch can't tell the arms apart
+    const f = tr.f * Math.pow(2, (Math.random() - 0.5) / 12);
+    const v = BB.build(ctx, AU.out, { f, df: tr.df, mode: tr.kinds[tr.ans.length], amp: 0.25 }, t0); v.stop(t0 + 3);
+    keep(() => v.stop());
+  };
+  function answer(a) { const tr = S.trials; if (!tr || tr.ans.length >= N) return; stopAll(); tr.ans.push(a); if (tr.ans.length >= N) { tr.active = false; $('bRow').hidden = true; $('bResult').innerHTML = verdict(tr); } writeAll(); }
+  $('bBeat').onclick = () => answer('beat'); $('bSteady').onclick = () => answer('steady');
+  function verdict(tr) {
+    let hit = 0, nb = 0, cr = 0, ns = 0;
+    tr.kinds.forEach((k, i) => { if (k === 'ears') { nb++; if (tr.ans[i] === 'beat') hit++; } else { ns++; if (tr.ans[i] === 'steady') cr++; } });
+    const right = hit + cr, p = atLeast(right, N);
+    const above = tr.f > 1500;
+    let say;
+    if (right >= 7) say = `${right} of 8 right. A guesser gets that far ${pct(p)} of the time: you hear the binaural beat at ${tr.f} Hz.` + (above ? ` That is above the page’s “about 1500 Hz”: worth a note on the section, with your Δf (${tr.df} Hz) beside it, since the limit is known to move with Δf. The two arms differ by at most a few cents in either ear here, inside the ±50-cent rove, so pitch alone shouldn’t have done it.` : ' The page’s limit is above this, so this agrees with it.');
+    else if (right >= 5) say = `${right} of 8. A guesser gets that far ${pct(p)} of the time, so this doesn’t settle it. Try again, or move the carrier.`;
+    else say = `${right} of 8: no better than a coin. At ${tr.f} Hz you could not tell a binaural beat from a steady tone.` + (tr.f < 1000 ? ' That is well below the page’s limit; try the step-1 setting (440 Hz) to check the headphones and the volume.' : ' The page predicts this above about 1500 Hz.');
+    return `<table class="marks"><tr><th>trial</th>${tr.kinds.map((_, i) => `<th>${i + 1}</th>`).join('')}</tr><tr><td>played</td>${tr.kinds.map((k) => `<td>${k === 'ears' ? 'beat' : 'same'}</td>`).join('')}</tr><tr><td>you said</td>${tr.ans.map((a) => `<td>${a}</td>`).join('')}</tr></table>
+      <p class="say" style="margin-top:10px">${say}</p><p class="hint">Both arms: beat trials ${hit} of ${nb} called beat · same-tone trials ${cr} of ${ns} called steady. Chance for each total: ${[5, 6, 7, 8].map((k) => `${k}+ · ${pct(atLeast(k, N))}`).join(' · ')}.</p>`;
+  }
+
+  // ── readouts ──
+  function writeAll() {
+    const k = W.key();
+    $('dlyV').textContent = $('dly').value + ' ms';
+    $('swing').textContent = S.swinging ? 'Stop the swing' : 'Swing it';
+    $('swingHint').textContent = RM ? 'Your system asks for less motion, so it swings only when you ask.' : '';
+    if (k === 'twin') { const d = +$('dly').value / 1000; let mn = 9, mx = -9; for (let i = 0; i < 200; i++) { const y = seen(i / 200 * T, d).Y; mn = Math.min(mn, y); mx = Math.max(mx, y); } $('twinRead').innerHTML = `bob 60 cm away · swing ±8 cm · eyes 6.5 cm apart · the dim eye ${$('dly').value} ms late → the path seems to bulge <em>${((mx - mn) * 100).toFixed(1)} cm</em> deep`; }
+    $('aloneRead').innerHTML = 'left ear: <b>440.0 Hz</b>, level steady · right ear: <b>443.0 Hz</b>, level steady · in either ear alone, no beat';
+    const df = dfOf(+$('df').value); $('dfV').textContent = df + ' Hz';
+    $('phRead').innerHTML = `left 440 Hz · right ${(440 + df).toFixed(2)} Hz · the dial turns ${df} times a second · one period at 440 Hz = 2273 µs, so the delay sweeps ±1136 µs`;
+    $('airRead').innerHTML = P.mode === 'air' ? 'in the air: each ear gets both tones · each ear’s level swells and fades 3 times a second, from 0 to full' : 'one per ear: each ear gets one tone · each ear’s level is flat; the beat is <em>made up</em>';
+    const q = tP(); $('fcV').textContent = q.f + ' Hz'; $('df2V').textContent = q.df + ' Hz';
+    $('marks').innerHTML = S.marks.length ? `<tr><th>arm</th><th>carrier where you marked it gone</th><th>Δf</th></tr>` + S.marks.map((m) => `<tr><td>${m.arm === 'air' ? 'in the air' : 'between the ears'}</td><td>${m.f} Hz</td><td>${m.df} Hz</td></tr>`).join('') : '';
+    const tr = S.trials;
+    $('rule').innerHTML = `<b>The blind check, before you start.</b> Eight trials at the carrier and difference set above (now ${q.f} Hz, Δf ${q.df} Hz; fixed when you press Start). Each trial a coin decides: the ears differ by Δf, or both ears get one tone between the two. Each plays 3 s, its carrier roved at random within ±50 cents of the one set, and Δf is held to 5 Hz or less, so the two kinds differ in either ear by less than the rove. Answer beat or steady. Guessing scores 4 of 8 on average; 7 or more happens by guessing 3.5% of the time, so 7+ counts as hearing it there. Both kinds of trial are scored. With one earpiece off you should score at chance; if you don’t, something other than the two ears is giving it away.`;
+    $('bLabel').textContent = tr ? (tr.active ? `trial ${tr.ans.length + 1} of 8 · ${tr.f} Hz, Δf ${tr.df} Hz` : 'all eight answered') : '';
+  }
+
+  // ── drawing ──
+  function head(g, cx, cy, rx, ry) {
+    g.strokeStyle = INK.ink; g.lineWidth = 1;
+    for (let i = 0; i < 7; i++) { g.beginPath(); g.ellipse(cx, cy, rx - i * 7, ry - i * 8, 0, 0, 2 * Math.PI); g.stroke(); }
+    g.beginPath(); g.moveTo(cx - 9, cy - ry + 2); g.lineTo(cx, cy - ry - 14); g.lineTo(cx + 9, cy - ry + 2); g.stroke();
+  }
+  function cup(g, x, y, side, off, tilt) {
+    g.save(); g.translate(x + side * off, y); g.rotate(side * tilt);
+    g.fillStyle = INK.ink; g.fillRect(-9, -26, 18, 52);
+    g.strokeStyle = INK.paper; g.lineWidth = 1; for (let i = -20; i <= 20; i += 5) { g.beginPath(); g.moveTo(-9, i); g.lineTo(9, i + 3); g.stroke(); }
+    g.restore();
+  }
+  function draw() {
+    requestAnimationFrame(draw);
+    const k = W.key(), c = $('stage'), { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const now = performance.now() / 1000, t = clock();
+    g.font = '11px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+    if (k === 'meet') {
+      const cx = w / 2, cy = h / 2 + 8, rx = 72, ry = 92;
+      const offL = S.lifted.L ? Math.min(1, (now - S.liftAt.L) / 0.25) : Math.max(0, 1 - (now - S.liftAt.L) / 0.25);
+      const offR = S.lifted.R ? Math.min(1, (now - S.liftAt.R) / 0.25) : Math.max(0, 1 - (now - S.liftAt.R) / 0.25);
+      // the headband, bending where a cup is lifted
+      g.strokeStyle = INK.ink; g.lineWidth = 2; g.beginPath(); g.moveTo(cx - rx - 8 - 60 * offL, cy - 20); g.bezierCurveTo(cx - rx, cy - ry - 70, cx + rx, cy - ry - 70, cx + rx + 8 + 60 * offR, cy - 20); g.stroke(); g.lineWidth = 1;
+      head(g, cx, cy, rx, ry);
+      cup(g, cx - rx - 10, cy, -1, 60 * offL, 0.35 * offL); cup(g, cx + rx + 10, cy, 1, 60 * offR, 0.35 * offR);
+      // each earpiece's tone: a steady ink line beside it while it sounds
+      const on = !!live;
+      [['L', -1, offL], ['R', 1, offR]].forEach(([sd, s, off]) => { if (!on) return; const x0 = cx + s * (rx + 30 + 60 * off); g.strokeStyle = INK.ink3; g.beginPath(); for (let i = 0; i <= 40; i++) { const y = cy - 40 + i * 2; const x = x0 + s * (6 + 4 * Math.sin(i * 1.3 + (RM ? 0 : now * 30))); i ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); });
+      // the beat: only where both ears are on, at Δf, in the middle of the head — made up, so red
+      const both = on && (1 - offL) * (1 - offR);
+      if (both > 0.02) {
+        const b = RM ? 0.7 : 0.5 + 0.5 * Math.cos(2 * Math.PI * P.df * t);
+        g.fillStyle = `rgba(209,48,28,${(0.15 + 0.75 * b) * both})`; g.beginPath(); g.arc(cx, cy + 4, 8 + 26 * b * both, 0, 2 * Math.PI); g.fill();
+      }
+      g.fillStyle = INK.ink3; g.textAlign = 'center'; g.fillText(on ? (S.lifted.L || S.lifted.R ? 'one ear' : 'both ears') : 'silent', cx, h - 12);
+      return;
+    }
+    if (k === 'twin') {
+      const half = w < 560 ? w : w / 2, d = +$('dly').value / 1000, ts = S.swinging ? now - S.swing0 : 0.4;
+      // left: the pendulum, front view, at a size you can try sunglasses on
+      const px = half / 2, py = 26, L = h - 90, sx = Math.min(half * 0.32, 140);
+      const bx = px + sx * Math.sin(2 * Math.PI * ts / T), by = py + L - 0.06 * L * Math.abs(Math.sin(2 * Math.PI * ts / T));
+      g.strokeStyle = INK.ink; g.beginPath(); g.moveTo(px - 30, py); g.lineTo(px + 30, py); g.stroke();
+      g.beginPath(); g.moveTo(px, py); g.lineTo(bx, by); g.stroke(); g.fillStyle = INK.ink; g.beginPath(); g.arc(bx, by, 11, 0, 2 * Math.PI); g.fill();
+      g.fillStyle = INK.ink3; g.textAlign = 'center'; g.fillText('front view: it swings flat', px, h - 12);
+      if (w < 560) return;
+      // right: top view, to scale; the bob's real path (ink), where the two eyes put it (red)
+      const ox = half + half / 2, oy = h - 40, k1 = (half - 60) / (2 * A + 0.06), kz = (h - 150) / Z;
+      const X = (x) => ox + x * k1, Y = (z) => oy - z * kz;
+      g.strokeStyle = INK.ink; g.fillStyle = INK.ink;
+      [[-EYE, true], [EYE, false]].forEach(([e, dim]) => { g.beginPath(); g.arc(X(e), oy + 12, 7, 0, 2 * Math.PI); dim ? g.fill() : g.stroke(); });
+      g.setLineDash([3, 4]); g.strokeStyle = INK.ink3; g.beginPath(); g.moveTo(X(-A), Y(Z)); g.lineTo(X(A), Y(Z)); g.stroke(); g.setLineDash([]);
+      g.strokeStyle = INK.red; g.lineWidth = 1.5; g.beginPath(); for (let i = 0; i <= 200; i++) { const p = seen(i / 200 * T, d); i ? g.lineTo(X(p.X), Y(p.Y)) : g.moveTo(X(p.X), Y(p.Y)); } g.stroke(); g.lineWidth = 1;
+      const xr = bobX(ts), xl = bobX(ts - d), p = seen(ts, d);
+      g.strokeStyle = 'rgba(20,20,20,.25)'; g.beginPath(); g.moveTo(X(-EYE), oy + 12); g.lineTo(X(xl), Y(Z)); g.moveTo(X(EYE), oy + 12); g.lineTo(X(xr), Y(Z)); g.stroke();
+      g.fillStyle = INK.ink; g.beginPath(); g.arc(X(xr), Y(Z), 4, 0, 2 * Math.PI); g.fill();
+      g.fillStyle = INK.red; g.beginPath(); g.arc(X(p.X), Y(p.Y), 5, 0, 2 * Math.PI); g.fill();
+      g.fillStyle = INK.ink3; g.fillText('top view, to scale: the filled eye is dimmed', ox, h - 12);
+      g.textAlign = 'left'; g.fillStyle = INK.red; g.fillText('red: where the two eyes put it', half + 10, 20); g.fillStyle = INK.ink3; g.fillText('dashed: where it really goes', half + 10, 36);
+      return;
+    }
+    if (k === 'alone') {
+      const df = 3, ph = RM ? 1.2 : 2 * Math.PI * df * t, rows = [['left · 440 Hz', 0], ['right · 443 Hz', ph]];
+      rows.forEach(([lab, phi], r) => {
+        const y0 = 60 + r * 110, on = live && (S.solo === 'B' || S.solo === (r ? 'R' : 'L'));
+        g.strokeStyle = INK.rule; g.setLineDash([2, 4]); g.beginPath(); g.moveTo(90, y0 - 34); g.lineTo(w - 10, y0 - 34); g.moveTo(90, y0 + 34); g.lineTo(w - 10, y0 + 34); g.stroke(); g.setLineDash([]);
+        g.strokeStyle = on ? INK.ink : INK.rule; g.lineWidth = 1.4; g.beginPath();
+        for (let x = 90; x <= w - 10; x++) { const tt = (x - 90) / (w - 100) * 0.012; const y = y0 - 32 * Math.sin(2 * Math.PI * 440 * tt + phi); x === 90 ? g.moveTo(x, y) : g.lineTo(x, y); } g.stroke(); g.lineWidth = 1;
+        g.fillStyle = INK.ink3; g.textAlign = 'left'; g.fillText(lab, 0, y0);
+      });
+      g.fillStyle = INK.ink3; g.textAlign = 'right'; g.fillText('12 ms shown · left held still · dashed: each ear’s level, flat', w - 10, h - 10);
+      return;
+    }
+    if (k === 'phase') {
+      const df = dfOf(+$('df').value), on = !!live, ph = on && !RM ? 2 * Math.PI * df * t : 0.9;
+      const cx = Math.min(150, w / 4), cy = h / 2, R = Math.min(95, h / 2 - 25);
+      g.strokeStyle = INK.ink; for (let i = 0; i < 4; i++) { g.beginPath(); g.arc(cx, cy, R - i * 5, 0, 2 * Math.PI); g.stroke(); }
+      for (let a = 0; a < 360; a += 30) { const r0 = R + 4, r1 = R + 10, q = a * Math.PI / 180; g.beginPath(); g.moveTo(cx + r0 * Math.sin(q), cy - r0 * Math.cos(q)); g.lineTo(cx + r1 * Math.sin(q), cy - r1 * Math.cos(q)); g.stroke(); }
+      g.strokeStyle = INK.red; g.lineWidth = 2.5; g.beginPath(); g.moveTo(cx, cy); g.lineTo(cx + (R - 12) * Math.sin(ph), cy - (R - 12) * Math.cos(ph)); g.stroke(); g.lineWidth = 1;
+      g.fillStyle = INK.ink3; g.textAlign = 'center'; g.fillText('in step', cx, cy - R - 18);
+      let w2 = ((ph % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI); if (w2 > Math.PI) w2 -= 2 * Math.PI;
+      const us = w2 / (2 * Math.PI * 440) * 1e6;
+      g.textAlign = 'left'; g.fillStyle = INK.ink; g.font = '15px JetBrains Mono, monospace';
+      const tx = cx + R + 40; g.fillText(`interaural phase  ${(w2 * 180 / Math.PI).toFixed(0).padStart(4)}°`, tx, cy - 22);
+      g.fillText(`interaural delay  ${us.toFixed(0).padStart(5)} µs`, tx, cy + 4);
+      g.font = '11px JetBrains Mono, monospace'; g.fillStyle = INK.ink3; g.fillText(on ? 'live, from the audio clock' : 'press Play', tx, cy + 30);
+      g.fillStyle = INK.red; g.fillText('red: the comparison you hear as the beat', tx, cy + 48);
+      return;
+    }
+    if (k === 'air') {
+      const air = P.mode === 'air' && !!live, tt0 = RM ? 0 : t;
+      ['left ear', 'right ear'].forEach((lab, r) => {
+        const y0 = 70 + r * 100; g.fillStyle = INK.ink3; g.textAlign = 'left'; g.fillText(lab, 0, y0);
+        g.strokeStyle = INK.rule; g.beginPath(); g.moveTo(80, y0 + 30); g.lineTo(w - 10, y0 + 30); g.stroke();
+        g.strokeStyle = live ? INK.ink : INK.rule; g.lineWidth = 1.6; g.beginPath();
+        for (let x = 80; x <= w - 10; x++) { const s = tt0 - 2 + (x - 80) / (w - 90) * 2; const y = y0 + 30 - 56 * (air ? Math.abs(Math.cos(Math.PI * 3 * s)) : 0.7); x === 80 ? g.moveTo(x, y) : g.lineTo(x, y); } g.stroke(); g.lineWidth = 1;
+      });
+      g.fillStyle = INK.ink3; g.textAlign = 'right'; g.fillText('each ear’s level, the last 2 seconds', w - 10, h - 10);
+      return;
+    }
+    if (k === 'test') {
+      const X = (f) => 20 + Math.log(f / 100) / Math.log(30) * (w - 40);
+      g.strokeStyle = INK.ink; g.beginPath(); g.moveTo(X(100), 60); g.lineTo(X(3000), 60); g.stroke();
+      g.textAlign = 'center'; g.fillStyle = INK.ink3;
+      [100, 200, 500, 1000, 2000, 3000].forEach((f) => { g.beginPath(); g.moveTo(X(f), 56); g.lineTo(X(f), 64); g.stroke(); g.fillText(f >= 1000 ? f / 1000 + 'k' : f, X(f), 78); });
+      if (S.marks.some((m) => m.arm === 'ears')) { g.setLineDash([4, 4]); g.beginPath(); g.moveTo(X(1500), 24); g.lineTo(X(1500), 66); g.stroke(); g.setLineDash([]); g.fillText('the page: about 1500 Hz', X(1500), 14); }   // shown only after your own mark, so it can’t anchor it
+      const q = tP(); g.fillStyle = INK.ink; g.beginPath(); g.moveTo(X(q.f), 60); g.lineTo(X(q.f) - 6, 46); g.lineTo(X(q.f) + 6, 46); g.fill();
+      S.marks.forEach((m) => { g.fillStyle = m.arm === 'air' ? INK.ink : INK.red; g.beginPath(); g.arc(X(m.f), 98, 5, 0, 2 * Math.PI); g.fill(); });
+      g.textAlign = 'left'; g.fillStyle = INK.ink3; g.fillText('marks: red · between the ears   ink · in the air', 20, h - 4);
+    }
+  }
+  hpStrip(); sigil(); W.go(0); draw();
+})();
+</script>
+</body>
+</html>
