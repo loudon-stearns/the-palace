@@ -268,3 +268,7 @@ It worked when you think "I want this to feel close" and reach for a compressor.
 ---
 
 *Compress to feel close; stay uncompressed to feel distant. Both are choices.*
+
+## Active Baton
+
+[[Compression ↔ Intimacy — baton]] — drafted 2026-11-08
