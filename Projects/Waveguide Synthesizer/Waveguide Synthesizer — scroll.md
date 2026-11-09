@@ -15,33 +15,32 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-20T10:41:34.998Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-09T12:11:45.055Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 20 · last ran 2026-10-20 (today)
-- **Plan:** agreed 2026-10-13 (7 days ago) · 7 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** growing · **Steward:** cycle 21 · last ran 2026-11-09 (today)
+- **Plan:** agreed 2026-10-13 (27 days ago) · 8 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-20 (today) — Study v1.13: the bow chart's pull panel now shows a singing bow holding at about half its grip, then the passing corner kicking it free. (`waveguide-synthesizer-steward-047`)
-- **Last commit touching this project:** 2026-10-20 `220c1198` — steward(Waveguide Synthesizer): cycle 19 — SPINNING UP. HOME: [Waveguide Synthesizer](obsidian://open?vault=The%20…
+- **Last shipped:** 2026-11-09 (today) — Study v1.14: on a short screen the lesson card moves off the string, carries its own slider, and the string is framed in the space left over. (`waveguide-synthesizer-steward-049`)
+- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 69 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-1-pluck.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-2-reflection.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-3-loss.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-4-pitch.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-5-stiffness.png`, and 64 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-20 — cycle 20 · taught item 3
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-09 — cycle 21 · taught item 4
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 20 — 2026-10-20 — [[Waveguide Synthesizer — tuning]]
+- **Latest lesson:** item 4, from cycle 21 — 2026-11-09 — [[Waveguide Synthesizer — tuning]]
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound: two delay lines, one carrying the wave rightward and one leftward, and their sum is the string you see and hear. You can pluck, strike or bow it, and it sits on a soundboard. Every step of the plan you set on 2026-10-13 is now built. Every slider changes the picture, there's a body and a visible bow, stiffness shows on an overtone ladder, and v1.12 added the seven-stop lesson. A proposal for what comes next (refine from your run through the lesson, then phone, then stage) is still waiting for you on its own card. This cycle cleared a small fix that had been carried since cycle 16: the bow chart's pull dot was sup…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry the wave each way, and their sum is the string you see and hear. You can pluck, strike or bow it on a soundboard. Every slider lights what it names. Since v1.12 a seven-stop lesson walks you through it: pluck, reflection, loss, pitch, stiffness, bow, body. On any screen under 640 pixels tall (a laptop with the board open, a landscape phone) that lesson card sat right on top of the string, the slider panel and both charts. You couldn't see the thing the lesson was asking you to watch. v1.14 fixes that. The plan proposal from 2026-10-20 (refine from your own run through the lesson, then phone,…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 8:** Between replucks in the walk, the string goes quiet within about a second at higher notes while the soundboard keeps ringing, which may mean the board's tail is too long. _(in 5 notes, the latest cycle 17)_
-- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 7 notes, the latest cycle 20)_
-- **rough since cycle 14:** And a pinned string has no point where its own pull breaks the hair free, so it gets dragged further and further off its rest line. _(in 2 notes, the latest cycle 16)_
+- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 8 notes, the latest cycle 21)_
 - **rough since cycle 16:** The force slider now quietly scales with bow position, so the same number means a different press at different places. _(in 3 notes, the latest cycle 18)_
 - **rough since cycle 16:** Last cycle's small polish, making the pull dot visibly climb toward the limit line, is still not done. _(in 3 notes, the latest cycle 19)_
 - **rough since cycle 16:** The first slowed frame said 'breaking up' for a moment right after the slow-motion change. _(in 2 notes, the latest cycle 18)_
@@ -65,18 +64,13 @@ _None._
 
 ### Runs
 
+- 2026-11-09 — cycle 21 · taught item 4
 - 2026-10-20 — cycle 20 · taught item 3
 - 2026-10-20 — cycle 19 · taught item 1, proposed item 2 for canon
 
 ### Owed
 
 _Nothing owed._
-
-### Proposed for canon
-
-_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
-
-- **2.** 2026-10-20 · [[Waveguide Synthesizer]] · § Forward Vector: replace the paragraph that begins 'First move: a Shop brief to the Maker' — The section still names the first Sketch brief as the next move; the page has since built through all five steps of Loudon's plan.
 
 <!-- scroll:now:end -->
 
@@ -101,6 +95,47 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-049" -->
+### 2026-11-09 — cycle 21 — Study v1.14: on a short screen the lesson card moves off the string, carries its own slider, and the string is framed in the space left over.
+> shipped · lesson fits all five short screens tested · steward leans the board's long tail next
+
+What I built: when the lesson runs on a short screen, it docks. The card takes the left side (the bottom on screens narrower than 700 pixels). The stop's own slider is lent into the card, right under the 'do' line. It's the same element, so dragging it there drives the string and ticks the stop. The panel steps aside, and so does any chart the stop doesn't name. The overtone ladder shows only for loss and stiffness, the grip chart only for the bow. The chart that does show sits in its own strip at the top right. The camera then frames the whole string in whatever space is left, below the chart or beside it. Leaving the lesson gives the slider back and restores the panel and camera. A screen 640 pixels tall or more doesn't change at all. How I checked: a probe opened v1.13 and v1.14 at 1280×600, 1024×560, 844×390, 640×480 and 480×480, went through all seven stops, and measured whether seven points along the string were covered by the card, the panel or a chart. In v1.13, every stop at every size covered all seven. In v1.14, none are covered, the card never runs off screen, and its buttons are always visible. A second check at 844×390 dragged the pitch slider inside the card by mouse: it ticked the stop, then 'leave' put all eleven sliders back in order. At 1280×720 the lesson never docked. Zero page errors.
+
+**Artifacts:**
+- [before and after. Top: 844×390 at the bow stop, v1.13 left, v1.14 right. Bottom: 480×480 at the pitch stop.](Projects/Waveguide Synthesizer/offline-v1.14/fit-sheet.png)
+- [study v1.14: press L on a short window to take the docked lesson.](Projects/Waveguide Synthesizer/study-v1.14-the-lesson-fits/index.html)
+- [v1.13 → v1.14, every change through the asserting rep(), always rebuilt from v1.13.](Projects/Waveguide Synthesizer/offline-v1.14/patch_page.py)
+- [the probe: five short screens, seven stops, what the card and charts cover.](Projects/Waveguide Synthesizer/offline-v1.14/fit_probe.mjs)
+- [the probe's numbers for v1.13.](Projects/Waveguide Synthesizer/offline-v1.14/fit-before.json)
+- [the probe's numbers for v1.14.](Projects/Waveguide Synthesizer/offline-v1.14/fit-after.json)
+- [the slider lent to the card, dragged by mouse, then leave; plus the tall-screen check.](Projects/Waveguide Synthesizer/offline-v1.14/hand_check.mjs)
+- [what the hand check found.](Projects/Waveguide Synthesizer/offline-v1.14/hand-check.json)
+- [rebuilds fit-sheet.png from the frames.](Projects/Waveguide Synthesizer/offline-v1.14/sheet.sh)
+- [the stand-in speaker clock the probes run on.](Projects/Waveguide Synthesizer/offline-v1.14/fake_audio_clock.js)
+- [v1.14 at 844×390, loss stop: the ladder at the top right, the string whole below it.](Projects/Waveguide Synthesizer/offline-v1.14/frames/after-844x390-3-loss.png)
+
+_Points along the string (out of 7) hidden behind the card, panel or a chart, worst stop at each size_
+| screen | v1.13 | v1.14 | where the card goes |
+| --- | --- | --- | --- |
+| 1280×600 | 7 | 0 | left |
+| 1024×560 | 7 | 0 | left |
+| 844×390 (landscape phone) | 7 | 0 | left |
+| 640×480 | 7 | 0 | bottom |
+| 480×480 (the board's frame) | 7 | 0 | bottom |
+
+_Left rough:_ Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. The string is small on the chart stops at 844×390 (about a third of the width), and nothing has been tried on a real touch screen.
+
+_Next moves named:_ The oldest note on the scroll: between replucks the string goes quiet while the soundboard keeps ringing. Measure the board's tail against the string's, then shorten it if it's really too long. · When you answer the plan card: a run on a real phone, with touch, is the natural next proof after this.
+<sub>`waveguide-synthesizer-steward-049` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-0d8eff17ec" -->
+### 2026-11-09 — cycle 21
+
+taught item 4
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-047" -->
 ### 2026-10-20 — cycle 20 — Study v1.13: the bow chart's pull panel now shows a singing bow holding at about half its grip, then the passing corner kicking it free.
 > shipped · polish rough since cycle 16 settled · plan proposal still waiting on you

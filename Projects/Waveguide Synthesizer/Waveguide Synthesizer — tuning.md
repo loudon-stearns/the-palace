@@ -36,3 +36,8 @@ What Waveguide Synthesizer's steward cycles taught the page, and the changes to 
 
 3. Probe the engine before polishing a picture toward an expectation: the pull dot was meant to 'climb', and the engine showed a singing bow holds flat at half and gets kicked, so the right fix was a truer scale, not a climb. *(offered by the steward, cycle 20)*
 - run · 2026-10-20 · cycle 20 · taught item 3
+
+## From cycle 21 — 2026-11-09
+
+4. A new rule meant to override an older one must outrank it on specificity, not just exist: the ladder's docked rule tied with the short-screen rule further down the sheet and lost silently, and only measuring where the chart actually landed caught it. *(offered by the steward, cycle 21)*
+- run · 2026-11-09 · cycle 21 · taught item 4

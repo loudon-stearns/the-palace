@@ -1,0 +1,49 @@
+{
+ "errors": [],
+ "844x390": {
+  "before": {
+   "docked": true,
+   "inCard": true,
+   "freq": 196,
+   "engineFreq": 196
+  },
+  "during": {
+   "stop": "pitch",
+   "ticked": true,
+   "got": "✓ low to high: you counted the loop in beads.",
+   "freqAfter": 60,
+   "readout": "60"
+  },
+  "after": {
+   "docked": false,
+   "dock": null,
+   "sliders": 11,
+   "order": "freq,bright,bridge,body,nut,stiff,pick,bspd,bfrc,bpos,slow",
+   "ui": "block",
+   "view": false
+  }
+ },
+ "1280x720": {
+  "before": {
+   "docked": false,
+   "inCard": false,
+   "freq": 196,
+   "engineFreq": 196
+  },
+  "during": {
+   "stop": "pitch",
+   "ticked": true,
+   "got": "✓ low to high: you counted the loop in beads.",
+   "freqAfter": 60,
+   "readout": "60"
+  },
+  "after": {
+   "docked": false,
+   "dock": null,
+   "sliders": 11,
+   "order": "freq,bright,bridge,body,nut,stiff,pick,bspd,bfrc,bpos,slow",
+   "ui": "block",
+   "view": true
+  }
+ }
+}

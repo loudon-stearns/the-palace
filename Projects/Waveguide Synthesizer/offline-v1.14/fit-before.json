@@ -1,0 +1,660 @@
+{
+ "errors": [],
+ "sizes": [
+  {
+   "size": "1280x600",
+   "stops": [
+    {
+     "stop": "pluck",
+     "card": [
+      345,
+      318,
+      590,
+      228
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 0,
+     "on_ladder": 0,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": null,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "reflection",
+     "card": [
+      345,
+      327,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 0,
+     "on_ladder": 0,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "loss",
+     "card": [
+      345,
+      331,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 0,
+     "on_ladder": 0,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "pitch",
+     "card": [
+      345,
+      331,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 0,
+     "on_ladder": 0,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "stiffness",
+     "card": [
+      345,
+      331,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 0,
+     "on_ladder": 0,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "bow",
+     "card": [
+      345,
+      307,
+      590,
+      228
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 0,
+     "on_ladder": 0,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "body",
+     "card": [
+      345,
+      327,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 0,
+     "on_ladder": 0,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    }
+   ]
+  },
+  {
+   "size": "1024x560",
+   "stops": [
+    {
+     "stop": "pluck",
+     "card": [
+      217,
+      278,
+      590,
+      228
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 23028,
+     "on_ladder": 1098,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": null,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "reflection",
+     "card": [
+      217,
+      287,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 21059,
+     "on_ladder": 1098,
+     "on_grip": 0,
+     "on_slider": 2998,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "loss",
+     "card": [
+      217,
+      291,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 21059,
+     "on_ladder": 1098,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "pitch",
+     "card": [
+      217,
+      291,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 21059,
+     "on_ladder": 1098,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "stiffness",
+     "card": [
+      217,
+      291,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 21059,
+     "on_ladder": 1098,
+     "on_grip": 0,
+     "on_slider": 5470,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "bow",
+     "card": [
+      217,
+      267,
+      590,
+      228
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 23028,
+     "on_ladder": 1098,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "body",
+     "card": [
+      217,
+      287,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 21059,
+     "on_ladder": 1098,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    }
+   ]
+  },
+  {
+   "size": "844x390",
+   "stops": [
+    {
+     "stop": "pluck",
+     "card": [
+      127,
+      108,
+      590,
+      228
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 43548,
+     "on_ladder": 12078,
+     "on_grip": 11562,
+     "on_slider": 0,
+     "slider_in_view": null,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "reflection",
+     "card": [
+      127,
+      117,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 39824,
+     "on_ladder": 12078,
+     "on_grip": 8813,
+     "on_slider": 5996,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "loss",
+     "card": [
+      127,
+      121,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 39824,
+     "on_ladder": 12078,
+     "on_grip": 8813,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "pitch",
+     "card": [
+      127,
+      121,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 39824,
+     "on_ladder": 12078,
+     "on_grip": 8813,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "stiffness",
+     "card": [
+      127,
+      117,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 39824,
+     "on_ladder": 12078,
+     "on_grip": 8813,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "bow",
+     "card": [
+      127,
+      97,
+      590,
+      228
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 43548,
+     "on_ladder": 12078,
+     "on_grip": 11562,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "body",
+     "card": [
+      127,
+      121,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 39824,
+     "on_ladder": 12078,
+     "on_grip": 8813,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    }
+   ]
+  },
+  {
+   "size": "640x480",
+   "stops": [
+    {
+     "stop": "pluck",
+     "card": [
+      25,
+      198,
+      590,
+      228
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 66804,
+     "on_ladder": 24522,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": null,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "reflection",
+     "card": [
+      25,
+      207,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 61091,
+     "on_ladder": 24522,
+     "on_grip": 0,
+     "on_slider": 9394,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "loss",
+     "card": [
+      25,
+      211,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 61091,
+     "on_ladder": 24522,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "pitch",
+     "card": [
+      25,
+      211,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 61091,
+     "on_ladder": 24522,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "stiffness",
+     "card": [
+      25,
+      211,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 61091,
+     "on_ladder": 24522,
+     "on_grip": 0,
+     "on_slider": 17140,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "bow",
+     "card": [
+      25,
+      187,
+      590,
+      228
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 66804,
+     "on_ladder": 24522,
+     "on_grip": 972,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "body",
+     "card": [
+      25,
+      207,
+      590,
+      209
+     ],
+     "card_offscreen": false,
+     "nav_visible": true,
+     "on_ui": 61091,
+     "on_ladder": 24522,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    }
+   ]
+  },
+  {
+   "size": "480x480",
+   "stops": [
+    {
+     "stop": "pluck",
+     "card": [
+      -3,
+      179,
+      486,
+      248
+     ],
+     "card_offscreen": true,
+     "nav_visible": true,
+     "on_ui": 77220,
+     "on_ladder": 26840,
+     "on_grip": 3013,
+     "on_slider": 0,
+     "slider_in_view": null,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "reflection",
+     "card": [
+      -3,
+      168,
+      486,
+      248
+     ],
+     "card_offscreen": true,
+     "nav_visible": true,
+     "on_ui": 77220,
+     "on_ladder": 26840,
+     "on_grip": 3013,
+     "on_slider": 9661,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "loss",
+     "card": [
+      -3,
+      191,
+      486,
+      228
+     ],
+     "card_offscreen": true,
+     "nav_visible": true,
+     "on_ui": 71136,
+     "on_ladder": 26840,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "pitch",
+     "card": [
+      -3,
+      211,
+      486,
+      209
+     ],
+     "card_offscreen": true,
+     "nav_visible": true,
+     "on_ui": 65052,
+     "on_ladder": 26840,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "stiffness",
+     "card": [
+      -3,
+      191,
+      486,
+      228
+     ],
+     "card_offscreen": true,
+     "nav_visible": true,
+     "on_ui": 71136,
+     "on_ladder": 26840,
+     "on_grip": 0,
+     "on_slider": 17627,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "bow",
+     "card": [
+      -3,
+      168,
+      486,
+      248
+     ],
+     "card_offscreen": true,
+     "nav_visible": true,
+     "on_ui": 77220,
+     "on_ladder": 26840,
+     "on_grip": 3013,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    },
+    {
+     "stop": "body",
+     "card": [
+      -3,
+      207,
+      486,
+      209
+     ],
+     "card_offscreen": true,
+     "nav_visible": true,
+     "on_ui": 65052,
+     "on_ladder": 26840,
+     "on_grip": 0,
+     "on_slider": 0,
+     "slider_in_view": true,
+     "string_pts_covered": 7,
+     "string_pts_offscreen": 0
+    }
+   ]
+  }
+ ]
+}
