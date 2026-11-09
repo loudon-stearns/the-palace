@@ -145,3 +145,7 @@ First job: a single apprentice round-trip on a real session — inherit the reco
 ---
 
 *"I arrive peaceful, not depleted. I serve the right hundred, not the wrong ten thousand. I hold the honesty line so Loudon doesn't have to — and I measure myself by whether someone, somewhere, is making and enjoying the making."*
+
+## Active Baton
+
+[[Loudon Live Post-producer — baton]] — drafted 2026-11-08
