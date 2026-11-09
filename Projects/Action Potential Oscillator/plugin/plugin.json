@@ -1,0 +1,30 @@
+{
+  "name": "Action Potential",
+  "target": "ActionPotential",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.ActionPotential",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Apot",
+  "kind": "instrument",
+  "version": "0.1.0",
+  "hostcheck": [
+    "couple=0.03",
+    "spread=0.3",
+    "damp=0.05",
+    "spike=3"
+  ],
+  "ui": {
+    "width": 1100,
+    "height": 720,
+    "min": [
+      980,
+      660
+    ],
+    "max": [
+      1800,
+      1100
+    ],
+    "direction": "bench",
+    "screen": true
+  }
+}
