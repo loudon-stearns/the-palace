@@ -26,7 +26,7 @@ links:
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
     label: use-computed-from-git
-forward_vector: "I want to become the palace's explanation for why entry quality directly determines swarm behavior — the entry that a coordinator reads before dispatching workers to understand why a richly-worked neighborhood produces different results than a sparse one. I want to accumulate evidence: specific Weave sessions where strong pheromone trails produced unexpected connections, and specific spore-check findings where cold trails flagged dormant ideas worth revival."
+forward_vector: "I want to become the palace's account of its own pheromones: every kind of trace an agent leaves for the next one — a page and its bundle, typed links, scrolls with their plans and standing orders, ledgers, batons and handoffs, board flags and review notes, and commits that carry more each month — what each one carries, how long it lasts, and who reads it. I want to hold evidence from the palace's own history of whether these trails steer the work, and to keep asking which ones have gone cold."
 ---
 
 # Pheromone Trail
@@ -77,3 +77,7 @@ The Spore Check ceremony is the mechanism for detecting decayed trails and decid
   — answered on [[Swarm Weave]] § The oblique lens: every weave now cuts the map once more with no axis at all, a chance cover that sends workers off the worn routes (2026-10-24)
 - Should the palace develop a convention for marking fresh trails vs. reinforced ones — a `confidence` or use threshold below which a link is considered provisional?
   — answered on [[Weave Ceremony]]: a typed link is a claim with a reason — its type, its label, or a sentence in the body — and a link with no reason is cut (Steps 3c–3e). A trail without a reason is not provisional; it is absent until it has one (2026-10-24)
+
+## Active Baton
+
+[[Pheromone Trail — baton]] — drafted 2026-11-07
