@@ -44,7 +44,7 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 ## Standing Orders
 
 <!-- scroll:orders:start -->
-- **Make rich faces playful, bold and visceral, not scientific** (Loudon, 2026-11-07, on the Pheromone Trail face at the Daily Page). In his words: "I'd like a rich face visualizer that shows ants crawling through stigmergy! Be visceral and playful with rich faces, so far the rich faces have been too scientific, lets embrace playfulness and boldness in the interactions as we continue to tweak them." This holds for every face, not only that one, until he revokes it.
+- **Make rich faces playful, bold and visceral, not scientific** (Loudon, 2026-11-07, on the Pheromone Trail face at the Daily Page). In his words: "I'd like a rich face visualizer that shows ants crawling through stigmergy! Be visceral and playful with rich faces, so far the rich faces have been too scientific, lets embrace playfulness and boldness in the interactions as we continue to tweak them." On 2026-11-08 he confirmed its reach and set its order: "and yes, it should be a standing order, at least START with playful and then show how it works sceintifically." So a face opens with the playful piece, then shows how it works scientifically. The science comes after the play, not in place of it. This holds for every face, not only that one, until he revokes it.
 <!-- scroll:orders:end -->
 
 ## The making
