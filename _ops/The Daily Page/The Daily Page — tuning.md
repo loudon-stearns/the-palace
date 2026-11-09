@@ -270,7 +270,7 @@ What each morning taught the practice. Each item names what the morning showed a
 
 ## From a missed morning — Pheromone Trail, 2026-11-06 (sat 11-07)
 
-107. **The pane shows a still frame of a canvas rough.** The ant farm is a canvas that moves, and the preview pane caught one frame of it, so the rough was checked headless and played in Chrome. Item 56's family. Nothing forced.
-108. **On a worktree morning the answers server serves the main checkout.** The rough lived in the morning's worktree, so it was copied into the main checkout's `roughs/` folder to be served. A seam in "Where it works". Nothing forced, on Loudon's word.
-109. **The verdict reached past its page on his explicit word.** A standing order went to [[Enrichment]]'s scroll and a baton to [[Review Layer]]. The reach-past-the-page question again (items 50, 70, 80). Nothing forced.
-- run · 2026-11-06 · v1.6 · Pheromone Trail, tune · taught items 107–109
+112. **The pane shows a still frame of a canvas rough.** The ant farm is a canvas that moves, and the preview pane caught one frame of it, so the rough was checked headless and played in Chrome. Item 56's family. Nothing forced.
+113. **On a worktree morning the answers server serves the main checkout.** The rough lived in the morning's worktree, so it was copied into the main checkout's `roughs/` folder to be served. A seam in "Where it works". Nothing forced, on Loudon's word.
+114. **The verdict reached past its page on his explicit word.** A standing order went to [[Enrichment]]'s scroll and a baton to [[Review Layer]]. The reach-past-the-page question again (items 50, 70, 80). Nothing forced.
+- run · 2026-11-06 · v1.6 · Pheromone Trail, tune · taught items 112–114
