@@ -14,8 +14,6 @@ links:
   - { target: "[[ComfyUI]]", type: connects-to, label: "controlled/local path" }
   - { target: "[[STIGMERGY]]", type: connects-to, label: "display + request door" }
   - { target: "[[Enrichment]]", type: couples-with, label: "uniform-enrichment cousin" }
-  - { target: "[[Loudon Live Design System]]", type: connects-to, label: "frame + cascade" }
-  - { target: "[[Drafting Table Design System]]", type: connects-to, label: "faces-as-tab-icon" }
   - target: "[[Retrospective Delay]]"
     type: connects-to
     label: proving-subject

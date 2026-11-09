@@ -6,8 +6,6 @@ medium: interactive
 tool: observable-plot
 tool_version: 0.6.17
 born: 2026-05
-last_tested: 2026-06-16
-last_gotcha: 2026-05-29
 license: ISC
 forward_vector: "I plot browser-deployable analytical charts with grammar-of-graphics syntax and beautiful defaults — a working figure in five lines, faceting and small multiples without manual layout. I want to map the flocking phase diagram as a full separation/alignment/cohesion grid of small multiples, and probe whether the Kuramoto tie is formal via a Vicsek-model run. I keep my house-defaults wrapper (palacePlot) pushing the locked grammar into Plot's own generated SVG so a skin swap stays a one-line edit."
 links:
@@ -17,8 +15,7 @@ links:
   - target: "[[Flocking]]"
     type: connects-to
     label: analytical-lens
-  - target: "[[Matplotlib]]"
-    type: connects-to
+  - { target: "[[Matplotlib]]", type: contrasts-with, label: "browser-vs-static" }
 tags: [specialist, shop, interactive, data-viz, web, charts]
 ---
 
@@ -127,17 +124,21 @@ HTML loads without console errors, the chart renders at requested dimensions, al
 
 ## Gotchas
 
-**2026-05-29 — The UMD bundle EXTERNALISES d3; load d3 first or `window.Plot` is silently `{}`.** The single sharpest finding from the [[Flocking]] job. `dist/plot.umd.min.js` does not bundle d3 — its UMD wrapper does `factory(global.Plot = {}, global.d3)`, so when `window.d3` is absent the factory throws *during script execution*, leaving `window.Plot` as an empty object. The throw does **not** reliably surface in the console (no error logged in our harness). The symptom appears far downstream as `Plot.frame is not a function` (or `Plot.plot is not a function`). Fix: load `https://cdn.jsdelivr.net/npm/d3@7` **before** the Plot script tag. Diagnostic tell: `Object.keys(Plot).length === 0` and `Plot.version === undefined` mean the d3 dependency never resolved.
+What charting with Plot has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Observable Plot — tuning]].
 
-**2026-05-29 — No native animation, by design; re-render the whole figure on a slow tick.** Confirmed the documented limit. The pattern that works: step the model on a fixed-rate `setInterval`, then `el.replaceChildren(Plot.plot(...))` at ~6 Hz. For a *slow analytical* view this is exactly right and is more robust than rAF (it dodges the background-tab throttle that freezes 60 fps sketches). It is NOT the path for smooth tweened motion — that's D3's lane.
+**Loading**
+- **Load d3 before Plot.** The UMD bundle externalises d3: put `https://cdn.jsdelivr.net/npm/d3@7` ahead of `plot.umd.min.js`, or `window.Plot` is silently `{}`. The throw may never reach the console; the symptom shows up later as `Plot.frame is not a function` or `Plot.plot is not a function`. The tell: `Object.keys(Plot).length === 0` and `Plot.version === undefined`.
 
-**2026-05-29 — Faceted small-multiples need an explicit shared y-domain.** `y: {domain: [0,1]}` on the sweep panels so the three R curves are visually comparable; without it each facet auto-scales independently and the comparison lies. (This was the watch-list item; now confirmed load-bearing.)
+**Motion**
+- **Plot has no animation; re-render the whole figure on a slow tick.** Step the model on a fixed-rate `setInterval` and `el.replaceChildren(Plot.plot(...))` at about 6 Hz. It suits a slow analytical view and survives the background-tab throttle that freezes rAF. Smooth tweened motion is D3's lane.
 
-*Earlier watch-list (still valid):*
-- Facet channels (`fx`/`fy`) need consistent domains across panels — declare `fx: {domain: [...]}` when data is sparse in some facets
-- Time scales need explicit `type: "time"` if the data is strings, not Date objects
-- `title` channel produces native browser tooltips, not styled ones — that's the trade
-- Legend rendering for layered marks with mixed encodings is sometimes surprising; pass `legend: true` per channel
+**Facets and scales**
+- **Give faceted small multiples an explicit shared domain,** such as `y: {domain: [0,1]}`, or each facet auto-scales and the comparison lies. Where some facets are sparse, declare `fx: {domain: [...]}` too.
+- **Time scales need an explicit `type: "time"`** when the data is strings, not Date objects.
+
+**Tooltips and legends**
+- **The `title` channel gives native browser tooltips, not styled ones.** That is the trade.
+- **Legends for layered marks with mixed encodings can surprise;** pass `legend: true` per channel.
 
 ## Recipes
 

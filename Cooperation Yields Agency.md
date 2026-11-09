@@ -19,10 +19,9 @@ links:
   - target: "[[Spinoza Conatus]]"
     type: deepens
     label: agency-as-power-increase
-  - target: "[[Symbiotic Skills]]"
-    type: spawned
   - target: "[[Quality Manifesto]]"
     type: connects-to
+    label: the-measure
   - target: "[[Modes of Collaboration]]"
     type: spawned
   - target: "[[Cooperation Yields Agency — Context]]"
@@ -31,6 +30,9 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: enables
     label: cooperation-applied-to-pedagogy
+  - target: "[[Symbiotic Skills]]"
+    type: connects-to
+    label: predicted-the-symbiosis
 forward_vector: "I want to scale from describing two collaborators to describing the palace's full distributed intelligence — and test whether the formula holds at enchanted-page scale."
 ---
 

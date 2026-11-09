@@ -8,15 +8,18 @@ forward_vector: "I will keep building the crossing between Bessel function mathe
 links:
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
+    label: right-coordinate-system
   - target: "[[Harmonicity and Inharmonicity]]"
     type: deepens
   - target: "[[Hyperdimensional Prism]]"
     type: connects-to
+    label: one-geometry
   - target: "[[Crystal Synthesizer]]"
     type: connects-to
     label: physics-constrains-spectrum
   - target: "[[Spinoza Conatus]]"
     type: connects-to
+    label: monism
 ---
 
 # Bessel Functions in Synthesis

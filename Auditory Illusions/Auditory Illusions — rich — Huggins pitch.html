@@ -1,0 +1,510 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — Huggins pitch
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece) · section "Between the two ears — timing to tens of microseconds" · siblings on this face: "binaural beats", "precedence effect", "Franssen effect"
+  forward_vector: I am Huggins pitch beside its twin, the random-dot stereogram, the page's tightest pair. Hiss in one ear and dots for one eye; then both ears and a tune appears, both eyes and a shape floats up. Then what each ear gets (the same hiss, twisted in one narrow band), what the brain does with the two (it subtracts, and so can you, on both sides), and last the break: fold it to mono, widen the band, and a blind trial with a leak check. I change only when the section I serve does.
+  understood as: a pair of matched switches, one ear / both ears and one eye / both eyes: an instrument whose only control is how many of your two sensors it lets in.
+  red means: what the ear or eye is making up — the pitch you hear (a red mark at the twisted band) and the floating shape (the depth map). Ink is what is physically in each signal.
+  method: a sharp second-order ALL-PASS (Web Audio's BiquadFilterNode type "allpass", the RBJ form), not a band-limited phase inversion. One ear gets white noise; the other gets the same noise through the all-pass, whose phase turns a full 360° across a narrow band around f0 and is exactly 180° at f0, so the ears are out of phase only there. This is the all-pass method of Cramer and Huggins (1958). The melody moves f0. Between notes the right ear crossfades (25 ms) to the plain noise, the filter is retuned unheard, and the twist crossfades back in 90 ms later, so the filter's ringing at a new note never reaches an ear alone. The gate leaves a smaller cue the other way: halfway through each 25 ms crossfade the plain and twisted noise cancel at f0, a dip at the note (10 dB or more for about 8 ms at f0, about −1.4 to −3 dB over 10 ms in the band, measured by the check and the challenger). The one-ear arm of the blind trial is there to catch it if an ear can.
+  sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. The noise is made here (seeded, 8 s, looped); nothing is recorded.
+  check: "Auditory Illusions — rich — check — between-the-ears.mjs" renders this graph offline in headless Chromium and measures the interaural phase at f0 and across the band, each ear's spectrum, the mono fold's notch, the difference signal, and the right ear alone (the leak check).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Huggins pitch · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (copied from a model piece on 2026-11-08), its --fx-* tokens retinted to the paper ground.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: #f4f2ec; --fx-bg-elev-1: #ece9e1; --fx-bg-elev-2: #e4e0d5; --fx-bg-elev-3: #dad6ca; --fx-fg-1: #141414; --fx-fg-2: #3a3a3a; --fx-fg-3: #7a7a7a; --fx-fg-4: #a9a59a; --fx-fg-on-accent: #f4f2ec; --fx-border: #c9c6bd; --fx-border-soft: rgba(20,20,20,0.10); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: #141414; --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: #d1301c; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: 0 1px 2px rgba(20,20,20,0.10); --fx-shadow-3: 0 6px 18px -6px rgba(20,20,20,0.25); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{--paper:#f4f2ec;--paper-2:#f8f6f1;--ink:#141414;--ink-2:#3a3a3a;--ink-3:#7a7a7a;--rule:#c9c6bd;--red:#d1301c;--red-soft:rgba(209,48,28,.12);
+    --sans:'Manrope',system-ui,sans-serif;--serif:'Cormorant Garamond',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.6;padding:24px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  .bands{height:10px;margin:6px 0 10px;background:repeating-linear-gradient(90deg,var(--ink) 0 1px,transparent 1px 5px);-webkit-mask:linear-gradient(90deg,#000 0 40%,transparent 40% 41%,#000 41%);mask:linear-gradient(90deg,#000 0 40%,transparent 40% 41%,#000 41%)}
+  h1{font-family:var(--serif);font-weight:500;font-size:42px;line-height:1.05;margin:2px 0 8px}
+  h2{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.15;margin:2px 0 6px}
+  p.lead{font-family:var(--serif);font-size:21px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:60ch}
+  .say{font-family:var(--serif);font-size:18px;line-height:1.55;color:var(--ink-2);margin:0 0 12px;max-width:68ch}
+  .say p{margin:0 0 10px}
+  .hp{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;border:1.5px solid var(--ink);border-radius:2px;padding:9px 12px;margin:0 0 16px;font-size:14px}
+  .hp b{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .hp .hint{flex-basis:100%}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 10px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .panel{border:1px solid var(--rule);border-radius:2px;padding:16px;margin:0 0 12px;background:var(--paper-2)}
+  canvas.stage{width:100%;display:block;touch-action:manipulation}
+  button.go{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 18px;cursor:pointer}
+  button.gh{font-family:var(--sans);font-size:14px;color:var(--ink);background:transparent;border:1px solid var(--ink-3);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.gh[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  button:disabled{opacity:.35;cursor:default}
+  .row{display:flex;gap:8px 10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  .ctl{display:grid;grid-template-columns:180px 1fr 11ch;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+  .ctl label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px}
+  .ctl output{font-family:var(--mono);font-size:14px;text-align:right;white-space:nowrap}
+  .read{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .read em{font-style:normal;color:var(--red)}
+  .eq{font-family:var(--mono);font-size:13px;margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.w{color:var(--ink-3);font-size:13px;margin-top:2px;font-family:var(--sans)}
+  .hint{font-size:13px;color:var(--ink-3)}
+  .reply{font-family:var(--serif);font-size:18px;color:var(--ink);margin-top:10px;min-height:1em;max-width:68ch}
+  .rulebox{border-left:3px solid var(--ink);padding:6px 12px;margin:12px 0;font-size:14px;max-width:72ch}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:4px 12px 4px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:26px;font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px}
+  footer svg{flex:none}
+  [hidden]{display:none !important}
+  @media (max-width:560px){h1{font-size:33px}h2{font-size:23px}.ctl{grid-template-columns:110px 1fr 10ch}}
+  .say b{font-weight:400;font-style:italic;color:var(--ink)}
+
+  .pair{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .pair .grp{display:flex;gap:6px;align-items:center}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · between the two ears · Huggins pitch</div>
+  <h1>One ear, both ears</h1>
+  <div class="bands" aria-hidden="true"></div>
+  <p class="lead">Hiss for one ear, dots for one eye. Nothing in either. Now let the other one in.</p>
+
+  <div class="hp" role="group" aria-label="Headphone check"><b>● Headphones</b> This needs a separate channel for each ear. Check:
+    <button class="gh" id="hpL">left ear</button><button class="gh" id="hpR">right ear</button><span class="hint" id="hpSay">On speakers both ears hear both channels, and the tune should be gone. Keep the volume low: it is hiss.</span></div>
+
+  <nav class="rail" id="rail" aria-label="Steps"></nav>
+  <section aria-live="polite"><div class="eyebrow" id="sEy"></div><h2 id="sT"></h2><div class="say" id="sS"></div></section>
+
+  <div class="panel">
+    <canvas class="stage" id="stage"></canvas>
+
+    <div data-k="hiss">
+      <div class="row pair">
+        <span class="grp"><button class="go" id="hiss">Play the hiss</button></span>
+        <span class="grp"><span class="eyebrow">ears</span><button class="gh" id="ear1" aria-pressed="true">one ear</button><button class="gh" id="ear2" aria-pressed="false">both ears</button></span>
+        <span class="grp"><span class="eyebrow">eyes</span><button class="gh" id="eye1" aria-pressed="true">one eye</button><button class="gh" id="eye2" aria-pressed="false">both eyes</button></span>
+      </div>
+      <div class="row" id="eyeOpts" hidden><span class="eyebrow">to fuse them</span><button class="gh" id="vPar" aria-pressed="true">look through (parallel)</button><button class="gh" id="vCross" aria-pressed="false">cross your eyes</button><button class="gh" id="vAna" aria-pressed="false">red/cyan glasses</button></div>
+      <div class="hint" id="eyeHint"></div>
+      <div class="row" id="askRow" hidden><span class="eyebrow">a tune?</span><button class="gh" data-ans="yes">I hear a tune</button><button class="gh" data-ans="no">only hiss</button></div>
+      <div class="reply" id="reply"></div>
+    </div>
+
+    <div data-k="twist">
+      <div class="row"><button class="go" id="twPlay">Play, both ears</button><span class="eyebrow">or one ear at a time</span><button class="gh" id="twL">left alone</button><button class="gh" id="twR">right alone</button></div>
+      <div class="read" id="twRead"></div>
+      <div class="eq">R(f) = L(f) · e^(i·φ(f)) &nbsp;·&nbsp; |e^(iφ)| = 1 &nbsp;·&nbsp; φ(f₀) = −180°</div>
+      <div class="eq w">The right ear’s noise is the left ear’s with its phase turned, and the size of every frequency untouched; the turn sweeps a full circle across a narrow band, half a circle at its centre.</div>
+    </div>
+
+    <div data-k="subtract">
+      <div class="row"><button class="go" id="suPlay">Play</button><span class="eyebrow">what to play</span><button class="gh" id="suBoth" aria-pressed="true">left to one ear, right to the other</button><button class="gh" id="suDiff" aria-pressed="false">left minus right, to both ears</button></div>
+      <div class="read" id="suRead"></div>
+      <div class="eq">D(f) = L(f) − R(f) = L(f) · (1 − e^(iφ(f))) &nbsp;·&nbsp; |1 − e^(iφ)| = 2 at f₀, ≈ 0 far from it</div>
+      <div class="eq w">Subtract the ears and everything identical cancels; what is left is a narrow band of noise at f₀, which you can hear as a whistle. The eye’s version: subtract the two images and everything identical cancels, leaving the shape.</div>
+    </div>
+
+    <div data-k="break">
+      <div class="row"><button class="go" id="brPlay">Play the tune</button><span class="eyebrow">route</span>
+        <button class="gh" id="rBoth" aria-pressed="true">one per ear</button><button class="gh" id="rFold" aria-pressed="false">fold to mono, (L+R)/2</button><button class="gh" id="rCopy" aria-pressed="false">left to both</button></div>
+      <div class="ctl"><label for="bw">the twisted band<i>narrow to wide</i></label><input type="range" id="bw" min="0" max="100" step="1" value="56"><output id="bwV"></output></div>
+      <div class="read" id="brRead"></div>
+      <div class="rulebox" id="rule"></div>
+      <div class="row"><span class="eyebrow">arm</span><button class="gh" id="aBoth" aria-pressed="true">one per ear</button><button class="gh" id="aRonly" aria-pressed="false">right ear’s signal alone</button><button class="gh" id="aFold" aria-pressed="false">folded to mono</button>
+        <button class="go" id="bStart">Start 8 blind trials</button><span class="eyebrow" id="bLabel"></span></div>
+      <div class="row" id="bRow" hidden><button class="go" id="bPlay">Play the trial</button><button class="gh" id="bUp">up</button><button class="gh" id="bDown">down</button></div>
+      <div id="bResult"></div>
+      <table class="marks" id="tally"></table>
+    </div>
+  </div>
+
+  <div class="walk"><button class="gh" id="back">Back</button><button class="gh" id="next">Next</button></div>
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><span>Auditory Illusions · Huggins pitch · white noise and one all-pass filter, made here, 2026-11-08 · nobody has listened to it yet</span></footer>
+</main>
+
+<script>
+// ── shared by this section's four pieces: sound only on a click, one stereo out, the walk, the headphone check ──
+const $ = (id) => document.getElementById(id);
+const RM = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const INK = { ink: '#141414', ink2: '#3a3a3a', ink3: '#7a7a7a', rule: '#c9c6bd', paper: '#f8f6f1', red: '#d1301c', redSoft: 'rgba(209,48,28,.14)' };
+const AU = { ctx: null, out: null, stops: new Set(), thresholdDb: -6 };
+// The out chain every sound goes through, live and in the offline render the check script reads:
+// a compressor set as a safety limiter (threshold AU.thresholdDb, -6 dB unless a piece raises it; ratio 20), then the master level.
+function outChain(ctx) {
+  const comp = ctx.createDynamicsCompressor();
+  comp.threshold.value = AU.thresholdDb; comp.knee.value = 0; comp.ratio.value = 20; comp.attack.value = 0.002; comp.release.value = 0.2;
+  const m = ctx.createGain(); m.gain.value = 0.8; comp.connect(m); m.connect(ctx.destination); return comp;
+}
+// The limiter starts cold: Chrome's compressor gain climbs from about a fifth of its settled value over its first
+// 150 ms (measured by the check script). So nothing sounds until the context has run 0.3 s of silence through it.
+const WARM = 0.3;
+async function ensure() {
+  if (!AU.ctx) { AU.ctx = new AudioContext(); AU.out = outChain(AU.ctx); }
+  if (AU.ctx.state !== 'running') await AU.ctx.resume();
+  while (AU.ctx.currentTime < WARM) await new Promise((r) => setTimeout(r, 25));
+  return AU.ctx;
+}
+function keep(stop) { AU.stops.add(stop); return stop; }
+function stopAll() { for (const f of [...AU.stops]) { try { f(); } catch (e) { /* already stopped */ } } AU.stops.clear(); }
+// Two mono inputs, one per ear (or per speaker): L goes only to channel 0, R only to channel 1.
+function stereo(ctx, out) {
+  const m = ctx.createChannelMerger(2); m.connect(out);
+  const ch = (i) => { const g = ctx.createGain(); g.channelCount = 1; g.channelCountMode = 'explicit'; g.connect(m, 0, i); return g; };
+  return { L: ch(0), R: ch(1), m };
+}
+// The same graph, rendered offline: what the check script measures is what the button plays.
+// It warms the limiter the same way: the graph starts at WARM, and what comes back starts there too.
+async function offline(seconds, fn, sr = 48000) {
+  const ctx = new OfflineAudioContext(2, Math.round((seconds + WARM) * sr), sr);
+  const out = outChain(ctx); fn(ctx, out, WARM);
+  const b = await ctx.startRendering(), a = Math.round(WARM * sr);
+  return { sr, L: Array.from(b.getChannelData(0).subarray(a)), R: Array.from(b.getChannelData(1).subarray(a)) };
+}
+// The headphone check: three pips in one ear.
+async function pip(side) {
+  stopAll(); const ctx = await ensure(); const s = stereo(ctx, AU.out);
+  const o = ctx.createOscillator(); o.type = 'triangle'; o.frequency.value = 660;
+  const g = ctx.createGain(); g.gain.value = 0; o.connect(g); g.connect(side === 'L' ? s.L : s.R);
+  const t = ctx.currentTime + 0.03;
+  for (let k = 0; k < 3; k++) { const a = t + k * 0.22; g.gain.setValueAtTime(0, a); g.gain.linearRampToValueAtTime(0.4, a + 0.01); g.gain.setTargetAtTime(0, a + 0.08, 0.02); }
+  o.start(t); o.stop(t + 0.85);
+  $('hpSay').textContent = side === 'L' ? 'Three pips, in your left ear only? Then left is left.' : 'Three pips, in your right ear only? Then you are set. If both ears heard them, this is mono: the piece needs two channels.';
+}
+function hpStrip() { $('hpL').onclick = () => pip('L'); $('hpR').onclick = () => pip('R'); }
+// The walk: one step at a time; changing step stops the sound.
+function walk(steps, show) {
+  let cur = 0;
+  function go(i) {
+    stopAll(); cur = Math.max(0, Math.min(steps.length - 1, i)); const s = steps[cur];
+    const rail = $('rail'); rail.innerHTML = '';
+    steps.forEach((t, j) => { const b = document.createElement('button'); b.textContent = (j + 1) + ' · ' + t.rail; if (j === cur) b.setAttribute('aria-current', 'step'); b.onclick = () => go(j); rail.appendChild(b); });
+    $('sEy').textContent = `Step ${cur + 1} of ${steps.length} · ${s.rail}`; $('sT').textContent = s.title; $('sS').innerHTML = s.say;
+    document.querySelectorAll('[data-k]').forEach((el) => { el.hidden = !el.dataset.k.split(' ').includes(s.key); });
+    $('back').disabled = cur === 0; $('next').disabled = cur === steps.length - 1;
+    show(s.key);
+  }
+  $('back').onclick = () => go(cur - 1); $('next').onclick = () => go(cur + 1);
+  return { go, key: () => steps[cur].key };
+}
+function fit(c, h) {
+  if (h) c.style.height = h + 'px';
+  const w = c.clientWidth, H = c.clientHeight, d = window.devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+}
+function radio(ids, on) { ids.forEach((id) => $(id).setAttribute('aria-pressed', String(id === on))); }
+// Chance: the probability of k or more right out of n by guessing, each guess right with probability p.
+function atLeast(k, n, p = 0.5) { let s = 0; for (let j = k; j <= n; j++) { let c = 1; for (let i = 0; i < j; i++) c = c * (n - i) / (i + 1); s += c * Math.pow(p, j) * Math.pow(1 - p, n - j); } return s; }
+const pct = (p) => (p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%');
+function sigil() { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); }
+  $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+function clock() { return AU.ctx ? AU.ctx.currentTime : performance.now() / 1000; }
+
+</script>
+<script>
+// ── the engine ──
+// One noise, two paths: direct, and X. X is the noise through a second-order all-pass at f0 (Q sets how narrow
+// the twist is) while a note sounds, and the plain noise between notes. Each ear is a mix of direct and X; the mode
+// sets the mix, a fixed matrix. Between notes X crossfades (25 ms) back to the plain noise, the filter is retuned
+// while no ear hears it, and X crossfades in again 90 ms later: retuning a sounding all-pass makes it ring at the
+// new note, a cue one ear alone could hear (the check script measured +25 dB in the band before this gate).
+const HG = {
+  K: 4,                                    // the difference is raised 12 dB so a narrow band can be heard
+  MIX: { one: [1, 0, 0, 0], both: [1, 0, 0, 1], fold: [0.5, 0.5, 0.5, 0.5], copy: [1, 0, 1, 0], ronly: [0, 1, 0, 1], diff: [4, -4, 4, -4] },
+  FADE: 0.025, RETUNE: 0.09,
+  rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; },
+  noise(ctx, seconds = 8, seed = 7) {
+    const n = Math.round(seconds * ctx.sampleRate), b = ctx.createBuffer(1, n, ctx.sampleRate), x = b.getChannelData(0), r = HG.rng(seed);
+    for (let i = 0; i < n; i++) x[i] = 0.3 * (r() + r() + r() - 1.5);   // RMS 0.15 per ear
+    return b;
+  },
+  build(ctx, out, p, t0) {
+    const env = ctx.createGain(); env.gain.value = 0; env.connect(out);
+    const s = stereo(ctx, env);
+    const src = ctx.createBufferSource(); src.buffer = HG.noise(ctx); src.loop = true;
+    const ap = ctx.createBiquadFilter(); ap.type = 'allpass'; ap.frequency.value = p.f0 || 1000; ap.Q.value = p.q;
+    const X = ctx.createGain(), xa = ctx.createGain(), xd = ctx.createGain(); xa.gain.value = p.f0 ? 1 : 0; xd.gain.value = p.f0 ? 0 : 1;
+    src.connect(ap); ap.connect(xa).connect(X); src.connect(xd).connect(X);
+    const g = [0, 1, 2, 3].map(() => ctx.createGain());           // direct→L, X→L, direct→R, X→R
+    src.connect(g[0]).connect(s.L); X.connect(g[1]).connect(s.L); src.connect(g[2]).connect(s.R); X.connect(g[3]).connect(s.R);
+    HG.MIX[p.mode].forEach((c, i) => (g[i].gain.value = c));
+    src.start(t0, p.offset || 0); env.gain.setValueAtTime(0, t0); env.gain.linearRampToValueAtTime(1, t0 + 0.15);
+    return {
+      ap,
+      mode(m) { const t = ctx.currentTime; HG.MIX[m].forEach((c, i) => g[i].gain.setTargetAtTime(c, t, 0.02)); },
+      q(v) { ap.Q.setTargetAtTime(v, ctx.currentTime, 0.02); },
+      note(t, f) { ap.frequency.setValueAtTime(f, t - HG.RETUNE); xa.gain.setValueAtTime(0, t); xa.gain.linearRampToValueAtTime(1, t + HG.FADE); xd.gain.setValueAtTime(1, t); xd.gain.linearRampToValueAtTime(0, t + HG.FADE); },
+      rest(t) { xa.gain.setValueAtTime(1, t); xa.gain.linearRampToValueAtTime(0, t + HG.FADE); xd.gain.setValueAtTime(0, t); xd.gain.linearRampToValueAtTime(1, t + HG.FADE); },
+      stop(t = ctx.currentTime) { env.gain.cancelScheduledValues(t); env.gain.setValueAtTime(env.gain.value, t); env.gain.linearRampToValueAtTime(0, t + 0.1); src.stop(t + 0.12); },
+    };
+  },
+  // The tune: Twinkle, Twinkle (traditional), in D. [frequency, beats]; a beat is 0.5 s, the last 120 ms of each note a rest.
+  TUNE: [[293.66, 1], [293.66, 1], [440, 1], [440, 1], [493.88, 1], [493.88, 1], [440, 2], [392, 1], [392, 1], [369.99, 1], [369.99, 1], [329.63, 1], [329.63, 1], [293.66, 2]],
+  BEAT: 0.5, GAP: 0.12, PAUSE: 1.5,
+  tuneLength() { return HG.TUNE.reduce((a, [, b]) => a + b * HG.BEAT, 0) + HG.PAUSE; },
+  events(t0) { const ev = []; let t = t0; for (const [f, b] of HG.TUNE) { ev.push([t, f]); ev.push([t + b * HG.BEAT - HG.GAP, null]); t += b * HG.BEAT; } return ev; },
+  // The RBJ all-pass, as Web Audio computes it, so the drawings are of the filter that plays.
+  phase(f, f0, Q, sr = 48000) {
+    const w0 = 2 * Math.PI * f0 / sr, al = Math.sin(w0) / (2 * Q), c = Math.cos(w0);
+    const b = [1 - al, -2 * c, 1 + al], a = [1 + al, -2 * c, 1 - al], w = 2 * Math.PI * f / sr;
+    const re = (k) => k[0] + k[1] * Math.cos(-w) + k[2] * Math.cos(-2 * w), im = (k) => k[1] * Math.sin(-w) + k[2] * Math.sin(-2 * w);
+    let ph = Math.atan2(im(b), re(b)) - Math.atan2(im(a), re(a)); while (ph > 0) ph -= 2 * Math.PI; while (ph <= -2 * Math.PI) ph += 2 * Math.PI; return ph;
+  },
+  band(f0, Q) { const lo = [], f = (x) => HG.phase(x, f0, Q) * 180 / Math.PI; let a = null, b = null; for (let x = f0 / 4; x < f0 * 4; x *= 1.0005) { const v = f(x); if (a === null && v < -90) a = x; if (b === null && v < -270) b = x; } return { lo: a, hi: b, width: b - a }; },
+};
+window.PIECE = {
+  render: (p, seconds = 2) => offline(seconds, (ctx, out, t0) => { const v = HG.build(ctx, out, Object.assign({ q: 8 }, p), t0); if (p.notes) p.notes.forEach(([t, f]) => (f ? v.note(t0 + t, f) : v.rest(t0 + t))); }),
+  phase: HG.phase, band: HG.band, MIX: HG.MIX, events: HG.events, TUNE: HG.TUNE,
+};
+
+(() => {
+  const qOf = (v) => +(1 * Math.pow(40, v / 100)).toFixed(1);       // Q from 1 to 40, log; 56 → 8.0
+  const S = { ears: 1, eyes: 1, view: 'par', heard: false, route: 'both', arm: 'both', ev: [], trials: null, tally: [] };
+  let live = null, timer = null;
+  async function play(mode, opts = {}) {
+    const ctx = await ensure();
+    if (live) { live.mode(mode); return; }
+    const t0 = ctx.currentTime + 0.02;
+    live = HG.build(ctx, AU.out, { mode, q: opts.q || 8 }, t0);
+    S.ev = [];
+    if (opts.tune !== false) {
+      let next = t0 + 0.6;
+      const sched = () => { while (next < ctx.currentTime + 4) { const ev = HG.events(next); ev.forEach(([t, f]) => (f ? live.note(t, f) : live.rest(t))); S.ev.push(...ev); next += HG.tuneLength(); } S.ev = S.ev.filter(([t]) => t > ctx.currentTime - 30); };
+      sched(); timer = setInterval(sched, 500);
+    }
+    keep(() => { clearInterval(timer); timer = null; if (live) live.stop(); live = null; afterStop(); });
+  }
+  function nowF() { const t = clock(); let f = null; for (const [te, fe] of S.ev) { if (te <= t) f = fe; else break; } return f; }
+  function afterStop() { $('hiss').textContent = 'Play the hiss'; $('twPlay').textContent = 'Play, both ears'; $('suPlay').textContent = 'Play'; $('brPlay').textContent = 'Play the tune'; }
+
+  const STEPS = [
+    { key: 'hiss', rail: 'one, then both', title: 'Hiss, and dots',
+      say: '<p>Play the hiss. It goes to your left ear only. Listen as long as you like: there is nothing in it. Then press <b>both ears</b>.</p><p>On the eye’s side, one eye’s dots. Press <b>both eyes</b> and try to fuse the two squares into one.</p>' },
+    { key: 'twist', rail: 'what each ear gets', title: 'The same hiss, twisted in one narrow band',
+      say: '<p>Each ear gets white noise, and the two noises are the same noise: the same sizes at every frequency, so each ear alone is just hiss. Play either alone to check. The one difference is phase. The right ear’s noise has gone through an all-pass filter, which changes no frequency’s size and turns the phase of a narrow band through a full circle, half a circle at its centre. So in that one band the ears are out of step, and everywhere else in step (Cramer and Huggins, 1958).</p><p>The tune is made by moving that band. The red mark follows the pitch you hear; the ink curve is the phase between the ears.</p>' },
+    { key: 'subtract', rail: 'what the brain does', title: 'The brain subtracts, and so does the eye',
+      say: '<p>One account of why a pitch appears (Culling, Summerfield and Marshall, 1998, on Durlach’s equalization-cancellation idea): the auditory system can line the two ears up and cancel what they share. Everywhere the ears agree, the noise cancels. In the twisted band it doesn’t, and what survives is a narrow band of noise: a faint pitch. This is binaural unmasking, the same machinery that helps you hear a voice in a noisy room.</p><p>You can do the subtraction outside your head. Play <b>left minus right</b>: the computed difference, put in both ears. It is the tune, as a breathy whistle, now in the sound itself. On the right, the same move for the eyes: subtract the two dot images and only the shape is left. Both senses find a structure that exists only in the difference between two random signals: same kind of trick, which is why the page grades this pair as mechanism, its tightest.</p>' },
+    { key: 'break', rail: 'break it', title: 'Break it',
+      say: '<p>Three ways to take the tune away, and one to blur it. <b>Fold to mono</b> mixes the two ears into one signal, as a single speaker would: the twist becomes a notch, a hole in the spectrum, and the binaural pitch should go (a notch can leave a faint pitch of its own at its edges, so listen for that). <b>Left to both</b> leaves only plain hiss. The band slider widens the twist: the page says narrow, and a wide band should smear the pitch.</p><p>Then a blind check: each trial is two notes, made only of the twist. Is the second higher or lower?</p>' },
+  ];
+  const W = walk(STEPS, (k) => { $('stage').style.height = ({ hiss: 330, twist: 280, subtract: 300, break: 220 })[k] + 'px'; S.heard = false; writeAll(); });
+
+  // ── step 1 ──
+  $('hiss').onclick = async () => { if (live) { stopAll(); return; } await play(S.ears === 2 ? 'both' : 'one'); $('hiss').textContent = 'Stop'; };
+  function ears(n) { S.ears = n; radio(['ear1', 'ear2'], n === 2 ? 'ear2' : 'ear1'); if (live) live.mode(n === 2 ? 'both' : 'one'); if (n === 2) setTimeout(() => ($('askRow').hidden = false), 2500); writeAll(); }
+  $('ear1').onclick = () => ears(1); $('ear2').onclick = () => ears(2);
+  function eyes(n) { S.eyes = n; radio(['eye1', 'eye2'], n === 2 ? 'eye2' : 'eye1'); $('eyeOpts').hidden = n !== 2; writeAll(); }
+  $('eye1').onclick = () => eyes(1); $('eye2').onclick = () => eyes(2);
+  function view(v) { S.view = v; radio(['vPar', 'vCross', 'vAna'], { par: 'vPar', cross: 'vCross', ana: 'vAna' }[v]); writeAll(); }
+  $('vPar').onclick = () => view('par'); $('vCross').onclick = () => view('cross'); $('vAna').onclick = () => view('ana');
+  const REPLY = {
+    yes: 'Twinkle, Twinkle, Little Star. Neither ear has it: each is hiss, and the next step shows they are the same hiss. Lift one earpiece and the tune goes. (On the eye’s side, the shape that floats up is a musical note.)',
+    no: 'It is faint, and not everyone hears it at first. Keep the volume low but not tiny, check the headphones above, and listen for a thin, slightly hollow pitch inside the hiss, moving: it is a tune you know. If you still hear only hiss, step 3 plays the difference out loud, and you can come back.',
+  };
+  document.querySelectorAll('[data-ans]').forEach((b) => (b.onclick = () => { document.querySelectorAll('[data-ans]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); $('reply').textContent = REPLY[b.dataset.ans]; S.heard = true; }));
+
+  // ── step 2 ──
+  const twBtn = (mode, id) => async () => { const was = live; await play(mode); ['twL', 'twR'].forEach((x) => $(x).setAttribute('aria-pressed', String(x === id))); $('twPlay').textContent = 'Stop'; S.twMode = mode; };
+  $('twPlay').onclick = async () => { if (live) { stopAll(); ['twL', 'twR'].forEach((x) => $(x).setAttribute('aria-pressed', 'false')); return; } await play('both'); S.twMode = 'both'; $('twPlay').textContent = 'Stop'; };
+  // left alone: the direct noise to the left ear; right alone: the twisted noise to the right ear
+  HG.MIX.lonly = [1, 0, 0, 0]; HG.MIX.ronlyR = [0, 0, 0, 1];
+  $('twL').onclick = twBtn('lonly', 'twL'); $('twR').onclick = twBtn('ronlyR', 'twR');
+
+  // ── step 3 ──
+  async function su(m) { radio(['suBoth', 'suDiff'], m === 'diff' ? 'suDiff' : 'suBoth'); S.suMode = m; if (live) live.mode(m); writeAll(); }
+  $('suBoth').onclick = () => su('both'); $('suDiff').onclick = () => su('diff');
+  $('suPlay').onclick = async () => { if (live) { stopAll(); return; } await play(S.suMode || 'both'); $('suPlay').textContent = 'Stop'; };
+
+  // ── step 4 ──
+  function route(r) { S.route = r; radio(['rBoth', 'rFold', 'rCopy'], { both: 'rBoth', fold: 'rFold', copy: 'rCopy' }[r]); if (live && !S.trials?.active) live.mode(r); writeAll(); }
+  $('rBoth').onclick = () => route('both'); $('rFold').onclick = () => route('fold'); $('rCopy').onclick = () => route('copy');
+  $('brPlay').onclick = async () => { if (live) { stopAll(); return; } await play(S.route, { q: qOf(+$('bw').value) }); $('brPlay').textContent = 'Stop'; };
+  $('bw').oninput = () => { if (live) live.q(qOf(+$('bw').value)); writeAll(); };
+  function arm(a) { S.arm = a; radio(['aBoth', 'aRonly', 'aFold'], { both: 'aBoth', ronly: 'aRonly', fold: 'aFold' }[a]); writeAll(); }
+  $('aBoth').onclick = () => arm('both'); $('aRonly').onclick = () => arm('ronly'); $('aFold').onclick = () => arm('fold');
+  const N = 8;
+  $('bStart').onclick = () => {
+    stopAll();
+    const kinds = Array.from({ length: N }, () => (Math.random() < 0.5 ? 'up' : 'down'));
+    const notes = kinds.map((k) => { const base = 300 + Math.random() * 220, st = 3 + Math.floor(Math.random() * 5); return [base, base * Math.pow(2, (k === 'up' ? 1 : -1) * st / 12)]; });
+    S.trials = { arm: S.arm, q: qOf(+$('bw').value), kinds, notes, ans: [], active: true }; $('bRow').hidden = false; $('bResult').innerHTML = ''; writeAll();
+  };
+  $('bPlay').onclick = async () => {
+    const tr = S.trials; if (!tr || tr.ans.length >= N) return; stopAll();
+    const ctx = await ensure(), t0 = ctx.currentTime + 0.02, [f1, f2] = tr.notes[tr.ans.length];
+    const v = HG.build(ctx, AU.out, { mode: tr.arm, q: tr.q, offset: Math.random() * 7 }, t0);
+    v.note(t0 + 0.4, f1); v.rest(t0 + 1.0); v.note(t0 + 1.2, f2); v.rest(t0 + 1.8); v.stop(t0 + 2.2);
+    keep(() => v.stop());
+  };
+  function answer(a) {
+    const tr = S.trials; if (!tr || tr.ans.length >= N) return; stopAll(); tr.ans.push(a);
+    if (tr.ans.length >= N) { tr.active = false; $('bRow').hidden = true; $('bResult').innerHTML = verdict(tr); }
+    writeAll();
+  }
+  $('bUp').onclick = () => answer('up'); $('bDown').onclick = () => answer('down');
+  const ARM = { both: 'one per ear', ronly: 'right ear’s signal alone', fold: 'folded to mono' };
+  function verdict(tr) {
+    let up = 0, nu = 0, dn = 0, nd = 0; tr.kinds.forEach((k, i) => { if (k === 'up') { nu++; if (tr.ans[i] === 'up') up++; } else { nd++; if (tr.ans[i] === 'down') dn++; } });
+    const right = up + dn, p = atLeast(right, N);
+    S.tally.push({ arm: tr.arm, right, up, nu, dn, nd, q: tr.q });
+    let say;
+    if (tr.arm === 'both') say = right >= 7 ? `${right} of 8. A guesser gets that far ${pct(p)} of the time: you heard the tune’s direction in a pitch that is in neither ear.` : right >= 5 ? `${right} of 8: a guesser gets that far ${pct(p)} of the time; not settled. Try again with the volume a little up.` : `${right} of 8: chance. On this setup you could not follow the twist; check the headphones, or widen the band less.`;
+    else if (tr.arm === 'ronly') say = right >= 7 ? `${right} of 8 with only one ear’s signal. That should be impossible: it means the right ear alone carries a cue (the filter jumping between notes, say). The piece leaks; please say so in the section’s note.` : `${right} of 8 with one ear’s signal: ${right >= 5 ? 'not clearly above chance' : 'chance'}, as it should be. The right ear alone carries no tune you could follow, so whatever you follow in the one-per-ear arm is made between the ears.`;
+    else say = right >= 7 ? `${right} of 8, folded to mono. The page says the tune needs two ears; folded, the twist becomes a notch, and you followed the notch. That is a monaural pitch, not Huggins pitch, but it means a mono speaker could carry the tune too: worth a note.` : `${right} of 8 folded to mono: ${right >= 5 ? 'not clearly above chance' : 'chance'}. Folded, the twist is only a notch, and the tune is gone, as the page says.`;
+    return `<p class="say" style="margin-top:10px">${say}</p><p class="hint">Both arms of the coin: up trials ${up} of ${nu} called up · down trials ${dn} of ${nd} called down.</p>`;
+  }
+
+  // ── readouts ──
+  function writeAll() {
+    const k = W.key(), q = qOf(+$('bw').value), f0 = live ? nowF() : null, bnd = HG.band(440, q);
+    $('eyeHint').textContent = S.eyes === 2 ? (S.view === 'ana' ? 'With red over the left eye and cyan over the right, the shape floats in front of the dots. Without glasses you can see coloured fringes where the two images differ: that is the comparison, done on the page.' : S.view === 'cross' ? 'Cross your eyes until the two squares become three; the middle one holds the shape, floating in front. The images are swapped for crossing.' : 'Look through the screen, as if at something far behind it, until the two squares drift into three; the middle one holds the shape, floating in front. It can take a minute.') : '';
+    $('twRead').innerHTML = `each ear: white noise, same size at every frequency · interaural phase 0° except in the band · at the band’s centre <em>180°</em> · now ${live && f0 ? '<em>' + f0.toFixed(0) + ' Hz</em>' : 'between notes: no twist anywhere'}`;
+    $('suRead').innerHTML = S.suMode === 'diff' ? `playing L − R in both ears, raised 12 dB: a narrow band of noise centred on the tune’s note` : `playing L to the left ear and R to the right: hiss in each, the tune <em>between them</em>`;
+    $('bwV').textContent = 'Q ' + q;
+    $('brRead').innerHTML = `twisted band at 440 Hz: ${bnd.lo.toFixed(0)}–${bnd.hi.toFixed(0)} Hz, <b>${bnd.width.toFixed(0)} Hz</b> wide (${(100 * bnd.width / 440).toFixed(0)}% of the note; the −90° to −270° points) · route: ${{ both: 'one per ear', fold: 'folded to mono: the twist becomes a notch', copy: 'left to both: plain hiss' }[S.route]}`;
+    const tr = S.trials;
+    $('rule').innerHTML = `<b>The blind check, before you start.</b> Eight trials in the arm you pick, with the band as set now. Each trial is two notes of 0.6 s made only of the twist; a coin decides whether the second is higher or lower, by 3 to 7 semitones, from a random start. Answer up or down. Guessing scores 4 of 8 on average; 7 or more happens by guessing 3.5% of the time, so 7+ counts. Both directions are scored. The <b>right ear’s signal alone</b> arm is the leak check: it plays only the twisted noise, to both ears, and should score at chance. <b>Folded to mono</b> asks whether the notch carries the tune by itself.`;
+    $('bLabel').textContent = tr ? (tr.active ? `trial ${tr.ans.length + 1} of 8 · ${ARM[tr.arm]}` : 'all eight answered') : '';
+    $('tally').innerHTML = S.tally.length ? `<tr><th>arm</th><th>right</th><th>up</th><th>down</th><th>Q</th></tr>` + S.tally.map((r) => `<tr><td>${ARM[r.arm]}</td><td>${r.right} of 8</td><td>${r.up}/${r.nu}</td><td>${r.dn}/${r.nd}</td><td>${r.q}</td></tr>`).join('') : '';
+  }
+
+  // ── the stereogram: 100 × 100 cells, a note shape lifted 5 cells toward you ──
+  const NC = 100, DISP = 5;
+  const shape = new Uint8Array(NC * NC);
+  { const c = document.createElement('canvas'); c.width = c.height = NC; const g = c.getContext('2d'); g.fillStyle = '#000';
+    g.beginPath(); g.ellipse(40, 70, 14, 10, -0.35, 0, 2 * Math.PI); g.fill(); g.fillRect(50, 20, 5, 50);
+    g.beginPath(); g.moveTo(55, 20); g.quadraticCurveTo(70, 30, 74, 48); g.lineTo(68, 50); g.quadraticCurveTo(66, 38, 55, 33); g.fill();
+    const d = g.getImageData(0, 0, NC, NC).data; for (let i = 0; i < NC * NC; i++) shape[i] = d[i * 4 + 3] > 128 ? 1 : 0; }
+  const RDS = (() => {
+    const r = HG.rng(11), L = new Uint8Array(NC * NC), R = new Uint8Array(NC * NC), done = new Uint8Array(NC * NC);
+    for (let i = 0; i < NC * NC; i++) L[i] = r() < 0.5 ? 1 : 0; R.set(L);
+    for (let y = 0; y < NC; y++) for (let x = 0; x < NC; x++) if (shape[y * NC + x] && x - DISP >= 0) { R[y * NC + x - DISP] = L[y * NC + x]; done[y * NC + x - DISP] = 1; }
+    for (let y = 0; y < NC; y++) for (let x = 0; x < NC; x++) if (shape[y * NC + x] && !done[y * NC + x]) R[y * NC + x] = r() < 0.5 ? 1 : 0;
+    return { L, R };
+  })();
+  function img(kind) {
+    const c = document.createElement('canvas'); c.width = c.height = NC; const g = c.getContext('2d'), im = g.createImageData(NC, NC), d = im.data;
+    for (let i = 0; i < NC * NC; i++) {
+      const l = RDS.L[i], rr = RDS.R[i]; let px;
+      if (kind === 'L') px = l ? [20, 20, 20] : [248, 246, 241];
+      else if (kind === 'R') px = rr ? [20, 20, 20] : [248, 246, 241];
+      else if (kind === 'ana') px = [l ? 20 : 248, rr ? 20 : 246, rr ? 20 : 241];
+      else if (kind === 'xor') px = l !== rr ? [20, 20, 20] : [248, 246, 241];
+      else px = shape[i] ? [209, 48, 28] : [248, 246, 241];
+      d.set([...px, 255], i * 4);
+    }
+    g.putImageData(im, 0, 0); return c;
+  }
+  const IM = { L: img('L'), R: img('R'), ana: img('ana'), xor: img('xor'), depth: img('depth') };
+  function put(g, c, x, y, s) { g.imageSmoothingEnabled = false; g.drawImage(c, x, y, s, s); g.strokeStyle = INK.ink; g.strokeRect(x - 0.5, y - 0.5, s + 1, s + 1); }
+
+  // ── drawing ──
+  const FX = (w, f) => 50 + Math.log(f / 100) / Math.log(40) * (w - 70);   // 100 Hz .. 4 kHz, log
+  function axis(g, w, y0, y1, label) {
+    g.strokeStyle = INK.rule; g.fillStyle = INK.ink3; g.textAlign = 'center';
+    [100, 200, 500, 1000, 2000, 4000].forEach((f) => { g.beginPath(); g.moveTo(FX(w, f), y0); g.lineTo(FX(w, f), y1); g.stroke(); g.fillText(f >= 1000 ? f / 1000 + 'k' : f, FX(w, f), y1 + 12); });
+    g.textAlign = 'left'; g.fillText(label, 50, y0 - 8);
+  }
+  function earsGlyph(g, x, y, onL, onR) {
+    [['L', -1, onL], ['R', 1, onR]].forEach(([lab, s, on]) => {
+      const cx = x + s * 34; g.strokeStyle = on ? INK.ink : INK.rule; g.lineWidth = 1.5;
+      g.beginPath(); g.arc(cx, y, 14, -Math.PI / 2, Math.PI / 2, s < 0); g.stroke(); g.lineWidth = 1;
+      if (on) { g.strokeStyle = INK.ink3; g.beginPath(); for (let i = 0; i < 26; i++) { const yy = y - 26 + i * 2, xx = cx + s * (22 + 5 * Math.random()); i ? g.lineTo(xx, yy) : g.moveTo(xx, yy); } g.stroke(); }
+      g.fillStyle = INK.ink3; g.textAlign = 'center'; g.fillText(lab, cx, y + 30);
+    });
+  }
+  function draw() {
+    requestAnimationFrame(draw);
+    const k = W.key(), { g, w, h } = fit($('stage')); g.clearRect(0, 0, w, h);
+    g.font = '11px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+    const q = qOf(+$('bw').value), f0 = live ? nowF() : null;
+    if (k === 'hiss') {
+      const on = !!live, earX = w < 600 ? w / 2 : 90;
+      earsGlyph(g, earX, w < 600 ? h - 50 : h / 2, on, on && S.ears === 2);
+      const x0 = w < 600 ? 10 : 200, avail = w - x0 - 10, s = Math.min(S.eyes === 2 && S.view !== 'ana' ? 200 : 260, avail, h - (w < 600 ? 110 : 30));
+      if (S.eyes === 1) put(g, IM.L, x0 + (avail - s) / 2, 10, s);
+      else if (S.view === 'ana') put(g, IM.ana, x0 + (avail - s) / 2, 10, s);
+      else { const gap = 16, sz = Math.min(s, (avail - gap) / 2), xx = x0 + (avail - 2 * sz - gap) / 2; const [a, b] = S.view === 'cross' ? [IM.R, IM.L] : [IM.L, IM.R]; put(g, a, xx, 10, sz); put(g, b, xx + sz + gap, 10, sz); }
+      return;
+    }
+    if (k === 'twist') {
+      const y0 = 30, y1 = h - 70, Y = (deg) => y0 + (-deg / 360) * (y1 - y0);
+      axis(g, w, y0, y1, 'phase between the ears, right minus left (0° at top, −360° at bottom)');
+      g.strokeStyle = INK.rule; g.beginPath(); g.moveTo(50, Y(-180)); g.lineTo(w - 20, Y(-180)); g.stroke();
+      const ff = f0;
+      if (ff) { g.strokeStyle = INK.ink; g.lineWidth = 1.6; g.beginPath(); for (let x = 50; x <= w - 20; x++) { const f = 100 * Math.pow(40, (x - 50) / (w - 70)); const ph = HG.phase(f, ff, 8) * 180 / Math.PI; x === 50 ? g.moveTo(x, Y(ph)) : g.lineTo(x, Y(ph)); } g.stroke(); g.lineWidth = 1;
+        g.fillStyle = INK.red; g.beginPath(); g.arc(FX(w, ff), Y(-180), 6, 0, 2 * Math.PI); g.fill(); g.textAlign = 'left'; g.fillText('the pitch you hear', FX(w, ff) + 10, Y(-180) - 12); }
+      else { g.fillStyle = INK.ink3; g.textAlign = 'center'; g.fillText(live ? 'between notes: the right ear gets the plain noise, no twist anywhere' : 'press Play: the curve follows the tune', w / 2, Y(-180) - 14); }
+      g.fillStyle = INK.ink3; g.textAlign = 'left'; g.fillText('each ear’s spectrum: flat, and the same in both (not drawn: nothing to see)', 50, h - 20);
+      return;
+    }
+    if (k === 'subtract') {
+      const half = w < 620 ? w : w * 0.58, y0 = 30, y1 = h - 40, ff = live && f0 ? f0 : 440;
+      const FXh = (f) => 50 + Math.log(f / 100) / Math.log(40) * (half - 70), Y = (m) => y1 - m / 2 * (y1 - y0 - 10);
+      g.strokeStyle = INK.rule; g.fillStyle = INK.ink3; g.textAlign = 'center'; [100, 300, 1000, 4000].forEach((f) => { g.beginPath(); g.moveTo(FXh(f), y0); g.lineTo(FXh(f), y1); g.stroke(); g.fillText(f >= 1000 ? f / 1000 + 'k' : f, FXh(f), y1 + 12); });
+      const curve = (fn, col, dash) => { g.strokeStyle = col; g.lineWidth = 1.6; g.setLineDash(dash || []); g.beginPath(); for (let x = 50; x <= half - 20; x++) { const f = 100 * Math.pow(40, (x - 50) / (half - 70)), ph = HG.phase(f, ff, 8), m = fn(ph); x === 50 ? g.moveTo(x, Y(m)) : g.lineTo(x, Y(m)); } g.stroke(); g.setLineDash([]); g.lineWidth = 1; };
+      curve(() => 1, INK.rule); curve((ph) => Math.hypot(1 - Math.cos(ph), Math.sin(ph)), INK.ink); curve((ph) => Math.hypot(1 + Math.cos(ph), Math.sin(ph)) / 2, INK.ink3, [3, 3]);
+      g.fillStyle = INK.red; g.beginPath(); g.arc(FXh(ff), Y(2), 5, 0, 2 * Math.PI); g.fill();
+      g.textAlign = 'left'; g.fillStyle = INK.ink; g.fillText('L − R: only the band survives', 54, y0 - 10); g.fillStyle = INK.ink3; g.fillText('dashed: (L+R)/2, a notch · grey: each ear', 54, y0 + 6);
+      if (w >= 620) { const s = Math.min((w - half - 40) / 2, h - 60); put(g, IM.xor, half + 10, 30, s); put(g, IM.depth, half + 24 + s, 30, s); g.fillStyle = INK.ink3; g.textAlign = 'center'; g.fillText('left image − right image', half + 10 + s / 2, 30 + s + 14); g.fillText('the depth the eyes build', half + 24 + 1.5 * s, 30 + s + 14); }
+      return;
+    }
+    if (k === 'break') {
+      const y0 = 26, y1 = h - 40, Y = (deg) => y0 + (-deg / 360) * (y1 - y0), ff = live && f0 ? f0 : 440;
+      axis(g, w, y0, y1, `phase between the ears at Q ${q}`);
+      if (S.route === 'both') { g.strokeStyle = INK.ink; g.lineWidth = 1.6; g.beginPath(); for (let x = 50; x <= w - 20; x++) { const f = 100 * Math.pow(40, (x - 50) / (w - 70)); const ph = HG.phase(f, ff, q) * 180 / Math.PI; x === 50 ? g.moveTo(x, Y(ph)) : g.lineTo(x, Y(ph)); } g.stroke(); g.lineWidth = 1; }
+      else { g.strokeStyle = INK.ink; g.lineWidth = 1.6; g.beginPath(); g.moveTo(50, Y(0) + 1); g.lineTo(w - 20, Y(0) + 1); g.stroke(); g.lineWidth = 1; g.fillStyle = INK.ink3; g.textAlign = 'center'; g.fillText(S.route === 'fold' ? 'folded: both ears get the same signal, so no phase between them; the twist is now a notch' : 'left to both: the same plain hiss in each ear', w / 2, Y(-180)); }
+    }
+  }
+  hpStrip(); sigil(); W.go(0); draw(); setInterval(() => { if (live) writeAll(); }, 250);
+})();
+</script>
+</body>
+</html>

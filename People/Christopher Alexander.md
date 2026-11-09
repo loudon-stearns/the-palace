@@ -28,6 +28,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: systems-thinker
   - target: "[[Cross-Domain Resonances]]"
     type: connects-to
     label: pattern-language-kin

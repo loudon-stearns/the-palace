@@ -12,8 +12,6 @@ links:
     type: spawned
   - target: "[[Agent Wellbeing]]"
     type: spawned
-  - target: "[[Swarm Weave]]"
-    type: deepens
   - target: "[[SUBSTRATE]]"
     type: deepens
   - target: "[[JEWEL]]"

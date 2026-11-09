@@ -1,0 +1,607 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — behind the fence
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece-of, § Sorting the world into sources) · listed in [[Auditory Illusions — rich.json]] · its siblings in the section are the gallop, two ears, two tunes, behind the fence and the gap that jumps, which share their scaffold byte for byte
+  forward_vector: I am the walk up to the continuity illusion and Bregman’s own pairing of it with amodal completion: a cat behind a picket fence and a tone behind a fence of noise, both lifted to show they were only ever slices; the signal analysed in the page; the bet the hearing makes, and when it takes it; then the tests: bring the fence down until the gaps show and compare your mark with where the noise could just have hidden the tone; move the fence off the tone’s band; and last a blind test of a tone that was there against one your hearing filled in. Phonemic restoration is named and not made, and I say why. I change only when the section I serve does.
+  understood as: a place: a cat behind a picket fence, drawn in ink; the cat is the tone and each picket is a burst of noise, as wide as the gap, as dark as the noise is loud, as high as the noise band sits, so the picture moves only when the sound does.
+  red: red, on all four of this section’s pieces, means one thing: what the hearing supplies that the signal does not have (the reader’s own marks and reports, and the percept the page says is made up). Everything physically in the sound is drawn in ink.
+  dress: the Auditory Illusions face’s op-art dress (paper, ink, one red), after the page’s Bridget Riley hero; Manrope, Cormorant Garamond, JetBrains Mono; the Lissajous sigil in the foot.
+  engine: a 1000 Hz sine, peak 0.025, on 250 ms and off 150 ms in a two-second loop of five cycles; in each gap a burst of frozen Gaussian noise, a half-octave band (841–1189 Hz on the tone) shaped in the frequency domain, crossfaded with the tone over 8 ms; the level set as noise power in one ERB round 1 kHz (Glasberg and Moore) against the tone’s power.
+  sound: nothing plays until a button (or, on the gallop, the dots) is pressed; the AudioContext is made on that press. Changing step stops the sound. Every sound is synthesised here; no recordings.
+  check: Auditory Illusions — rich — check — sorting-the-world.mjs, beside this file, runs this piece’s engine in Node and measures the buffers it plays. It measures the gap’s duration (tone silent, noise full), the crossfade edges, the noise band measured by FFT and its share of the tone’s ERB on and off the tone, the level arithmetic, that the two arms of the blind test differ only in the tone inside the gaps, the loop’s seam, and every peak under the compressor’s threshold. What a listener hears, it cannot check: nobody has listened to this yet.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Behind the fence · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (via a 2026-11-03 piece, _ops/furniture-fanout/furnish.py), its --fx-* tokens retinted to the paper ground on 2026-11-08.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: var(--paper-2, #ebe8df); --fx-bg-elev-2: var(--paper-3, #e2ded3); --fx-bg-elev-3: #d8d4c8; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: #a9a59b; --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: #d1301c; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: 0 1px 2px rgba(20,20,20,0.12); --fx-shadow-3: 0 6px 18px -6px rgba(20,20,20,0.25); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --paper-2:#ebe8df; --paper-3:#e2ded3; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd;
+    --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.55;padding:22px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1.05;margin:4px 0 6px;letter-spacing:-.005em}
+  h2{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.15;margin:2px 0 6px}
+  .lead{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:62ch}
+  p.say{font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--ink-2);margin:0 0 12px;max-width:66ch}
+  p.say b{font-weight:500;color:var(--ink)}
+  p.say .red,.red{color:var(--red)}
+  .rail{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 16px}
+  .rail button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 9px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .panel{border:1px solid var(--rule);border-radius:3px;padding:16px;margin:0 0 12px;background:var(--paper)}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0 0}
+  button.go{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:10px 20px;cursor:pointer;letter-spacing:.01em}
+  button.go:hover{background:var(--ink-2)}
+  button.go[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink-2);background:transparent;border:1px solid var(--ink-3);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.ghost:hover{border-color:var(--ink)}
+  button.ghost[aria-pressed="true"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  button.ghost:disabled,button.go:disabled{opacity:.35;cursor:default}
+  button.big{font-family:var(--serif);font-size:22px;font-weight:500;padding:8px 22px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:2px;cursor:pointer}
+  button.big:hover{background:var(--paper-2)}
+  button.big.hot{background:var(--ink);color:var(--paper)}
+  canvas.stage{width:100%;display:block;background:var(--paper);border:1px solid var(--rule);border-radius:2px;touch-action:none}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.35}
+  .ctl label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px;color:var(--ink-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--ink)}
+  .ctl .v{font-family:var(--mono);font-size:13.5px;color:var(--ink);text-align:right;white-space:nowrap;min-width:10ch}
+  .read{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .read b{font-weight:500;color:var(--ink)}
+  .read .red{color:var(--red)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--ink);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--ink-3);font-size:13px;margin-top:2px}
+  .graph{font-family:var(--mono);font-size:12px;color:var(--ink-2);border-left:2px solid var(--rule);padding:4px 0 4px 10px;margin-top:12px;overflow-wrap:anywhere}
+  .legend{display:flex;gap:6px 18px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--ink-3)}
+  .legend span::before{content:"";display:inline-block;width:18px;height:0;border-top:2px solid var(--ink);vertical-align:middle;margin-right:6px}
+  .legend span.r::before{border-top-color:var(--red)}
+  .legend span.d::before{border-top-style:dashed}
+  .legend span.g::before{border-top:8px solid var(--paper-3);height:0}
+  .cards{display:flex;gap:8px;flex-wrap:wrap}
+  .cards button{font-family:var(--sans);font-size:14px;background:transparent;color:var(--ink-2);border:1px solid var(--ink-3);border-radius:2px;padding:7px 12px;cursor:pointer;min-width:7.5em}
+  .cards button .glyph{display:block;font-family:var(--mono);font-size:20px;color:var(--ink);line-height:1.1}
+  .cards button[aria-pressed="true"]{border-color:var(--red);color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+  .cards button[aria-pressed="true"] .glyph{color:var(--red)}
+  .note{font-family:var(--sans);font-size:13px;color:var(--ink-3);margin-top:10px;max-width:72ch}
+  .warn{font-family:var(--sans);font-size:13.5px;color:var(--ink);border:1px solid var(--ink);border-radius:2px;padding:9px 12px;margin:0 0 12px;max-width:72ch}
+  .warn b{font-weight:600}
+  table.marks{border-collapse:collapse;margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:4px 14px 4px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .verdict{font-family:var(--serif);font-size:19px;color:var(--ink);margin-top:10px;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12.5px;color:var(--ink-3);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  footer b{font-family:var(--mono);font-weight:500;letter-spacing:.12em;font-size:11px;color:var(--ink-2)}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}p.say{font-size:18px}}
+</style>
+
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · Sorting the world into sources · the continuity illusion</div>
+  <h1>Behind the fence</h1>
+  <p class="lead">A cat behind a fence, a tone behind a noise.</p>
+  <nav class="rail" id="rail" aria-label="Steps"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="row" style="margin:0 0 10px" data-show="0 1 2 3 4">
+      <button class="go" id="play" aria-pressed="false">Play</button>
+      <button class="ghost" id="lift" aria-pressed="false">Lift the fence</button>
+      <span class="hint" id="liftHint"></span>
+    </div>
+    <canvas class="stage" id="scene" style="height:250px" data-show="0 2 3 4 5" aria-label="A cat behind a picket fence. The cat is the tone; each picket is a burst of noise."></canvas>
+    <div data-show="0"><div id="ask0" hidden>
+      <div class="row"><span class="eyebrow">the tone</span><span class="cards" id="said">
+        <button data-k="on" aria-pressed="false"><span class="glyph">———</span>ran on, unbroken</button>
+        <button data-k="cut" aria-pressed="false"><span class="glyph">— — —</span>was cut, again and again</button>
+        <button data-k="unsure" aria-pressed="false"><span class="glyph">?</span>not sure</button></span></div>
+      <div class="hint" id="saidNote" style="margin-top:8px"></div></div></div>
+    <div data-show="1 2 4">
+      <canvas class="stage" id="spec" style="height:260px;margin-top:10px" aria-label="The sound itself, analysed here: time across, frequency up"></canvas>
+      <div class="legend"><span class="g">the sound as played, analysed here (darker is louder)</span><span class="r d">where the tone is heard going on: supplied by the ear</span></div>
+    </div>
+    <div data-show="1">
+      <div class="read" id="read1"></div>
+      <div class="eq">tone: x(t) = 0.025 · g(t) · sin(2π · 1000 · t) &nbsp;·&nbsp; g = 1 for 250 ms, 0 for 150 ms, again &nbsp;·&nbsp; noise: Gaussian, band 841–1189 Hz, gated on exactly where g is off</div>
+      <div class="eq words">In words: a 1000 Hz tone switched off for 150 ms out of every 400, and a half-octave of noise switched on in each gap, crossfaded over 8 ms so there is no click and no silence at either edge.</div>
+      <div class="graph">one two-second buffer, rendered here (the noise is frozen: the same five bursts every time, shaped in the frequency domain) → AudioBufferSourceNode, looping → gain → DynamicsCompressor (threshold −3 dBFS, above every peak, so it never acts) → speakers</div>
+    </div>
+    <div data-show="3 5">
+      <div class="ctl"><label for="lvl">the fence’s level<i>noise in the tone’s own band</i></label><input type="range" id="lvl" min="-30" max="12" step="1"><span class="v" id="lvlV"></span></div>
+    </div>
+    <div data-show="4">
+      <div class="ctl"><label for="ctr">where the fence stands<i>the noise band’s centre</i></label><input type="range" id="ctr" min="0" max="200" step="1" value="0"><span class="v" id="ctrV"></span></div>
+      <div class="read" id="read4"></div>
+    </div>
+    <div data-show="3">
+      <div class="row"><button class="go" id="desc">Run: the fence comes down</button><button class="big" id="markGap" disabled>I hear the gaps</button><span class="read" id="descRead" style="margin:0"></span></div>
+      <canvas class="stage" id="thr" style="height:120px;margin-top:12px" aria-label="Your marks: the fence level at which the gaps showed"></canvas>
+      <div class="verdict" id="thrRead"></div>
+    </div>
+    <div data-show="5">
+      <div class="row"><button class="ghost" id="refC">hear it really continuous</button><button class="ghost" id="refG">hear it really gapped</button><span class="hint">both under the fence at this level</span></div>
+      <p class="note" id="rule"></p>
+      <div class="row"><button class="go" id="trial">Play trial 1</button><span class="eyebrow" id="trialN"></span></div>
+      <div class="row"><span class="eyebrow">the tone was</span><button class="big" id="ansC" disabled>really continuous</button><button class="big" id="ansG" disabled>gapped</button></div>
+      <canvas class="stage" id="dots" style="height:60px;margin-top:12px" aria-label="Your trials so far"></canvas>
+      <div class="verdict" id="verdict"></div>
+    </div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Auditory Illusions · behind the fence · proposal, 2026-11-08 · every sound made here, in Web Audio</footer>
+</main>
+
+<script id="cont-core">
+// The engine: plain functions, no page. The sound, the pictures and the check beside this piece all read it.
+const CONT = (() => {
+  const SR = 44100;
+  const F = 1000;                         // the tone, Hz
+  const ON = 0.25, GAP = 0.15, R = 0.008; // tone on 250 ms, gap 150 ms, 8 ms raised-cosine crossfades
+  const CYCLE = ON + GAP, CYCLES = 5, LOOP = CYCLE * CYCLES;   // a two-second loop, 2000 whole cycles of the tone
+  const AMP = 0.025;                      // the tone's peak
+  const ERB = (f) => 24.7 * (4.37 * f / 1000 + 1);   // Glasberg and Moore (1990): the ear's filter width at f
+  const LEVEL = { min: -30, max: 12, start: 10 };    // noise in the tone's band, dB re the tone, when the band sits on the tone
+  const BAND = { min: 1000, max: 4000 };             // the noise band's centre, Hz; half an octave wide
+  const band = (c) => ({ lo: c * Math.pow(2, -0.25), hi: c * Math.pow(2, 0.25) });
+  // The level, in two numbers. The slider sets the noise in the tone's own band (one ERB round 1 kHz) when the band sits on
+  // the tone; the noise's total power is fixed by that, so a band moved away keeps its loudness and loses its overlap.
+  function levels(L, c) {
+    const Pt = AMP * AMP / 2, b0 = band(F), b = band(c), e = ERB(F), eLo = F - e / 2, eHi = F + e / 2;
+    const Pn = Pt * Math.pow(10, L / 10) * (b0.hi - b0.lo) / e;
+    const over = Math.max(0, Math.min(b.hi, eHi) - Math.max(b.lo, eLo));
+    const inBand = over > 0 ? 10 * Math.log10(Pn * over / (b.hi - b.lo) / Pt) : -Infinity;
+    // The same through a filter shaped like the ear's: roex(p) round the tone, W(g) = (1 + pg)·e^(−pg), g = |f − F|/F,
+    // p = 4F/ERB (Patterson's form; its equivalent rectangular width is one ERB). It passes the tone at 1 and the noise
+    // through its skirts, so a band just off the tone still reaches it, as it does in an ear.
+    const W = (f) => { const g = Math.abs(f - F) / F, p = 4 * F / e; return (1 + p * g) * Math.exp(-p * g); };
+    let wsum = 0; const K = 2000, df = (b.hi - b.lo) / K; for (let k = 0; k < K; k++) wsum += W(b.lo + (k + 0.5) * df) * df;
+    const roexDb = 10 * Math.log10(Pn * wsum / (b.hi - b.lo) / Pt);
+    return { Pt, Pn, rms: Math.sqrt(Pn), band: b, erb: e, erbLo: eLo, erbHi: eHi, overlapHz: over, overlapFrac: over / e, inBandDb: inBand, roexDb, roexW: W, totalDb: 10 * Math.log10(Pn / Pt) };
+  }
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function fft(re, im, inv) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = (inv ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let k = 0; k < len / 2; k++) { const ur = re[i + k], ui = im[i + k], vr = re[i + k + len / 2] * cr - im[i + k + len / 2] * ci, vi = re[i + k + len / 2] * ci + im[i + k + len / 2] * cr; re[i + k] = ur + vr; im[i + k] = ui + vi; re[i + k + len / 2] = ur - vr; im[i + k + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+    }
+    if (inv) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+  }
+  // Frozen noise: Gaussian, shaped to the band in the frequency domain, scaled to its RMS. The same seed gives the same burst,
+  // so the two arms of the blind test hear the same fence.
+  function noise(n, lo, hi, rms, seed, sr = SR) {
+    let N = 1; while (N < n) N <<= 1;
+    const r = rng(seed), re = new Float64Array(N), im = new Float64Array(N);
+    for (let i = 0; i < N; i++) { const u = Math.max(r(), 1e-12), v = r(); re[i] = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+    fft(re, im, false);
+    for (let k = 0; k < N; k++) { const f = (k <= N / 2 ? k : N - k) * sr / N; if (f < lo || f > hi) { re[k] = 0; im[k] = 0; } }
+    fft(re, im, true);
+    let s = 0; for (let i = 0; i < n; i++) s += re[i] * re[i];
+    const k = rms / Math.sqrt(s / n), out = new Float32Array(n);
+    for (let i = 0; i < n; i++) out[i] = re[i] * k;
+    return out;
+  }
+  const rc = (u) => 0.5 - 0.5 * Math.cos(Math.PI * Math.min(1, Math.max(0, u)));   // 0 → 1 over u in [0, 1]
+  // The tone's gate at time t in the loop: 1 while on, 0 in the gap, raised-cosine crossfades at each edge.
+  function toneGate(t) { const u = ((t % CYCLE) + CYCLE) % CYCLE; if (u < R) return rc(u / R); if (u < ON - R) return 1; if (u < ON) return rc((ON - u) / R); if (u < CYCLE) return 0; return 0; }
+  // The noise's gate: rises as the tone falls, full through the gap, falls as the tone comes back.
+  function noiseGate(t) { const u = ((t % CYCLE) + CYCLE) % CYCLE; if (u >= ON - R && u < ON) return rc((u - (ON - R)) / R); if (u >= ON && u < CYCLE) return 1; if (u < R) return rc((R - u) / R); return 0; }
+  // One loop, two seconds. o: { level, center, noise (bool), gapped (bool) }.
+  function render(o = {}, sr = SR) {
+    const L = o.level == null ? LEVEL.start : o.level, c = o.center || F, gapped = o.gapped !== false, withNoise = o.noise !== false;
+    const n = Math.round(LOOP * sr), y = new Float32Array(n);
+    for (let i = 0; i < n; i++) { const t = i / sr; y[i] = AMP * (gapped ? toneGate(t) : 1) * Math.sin(2 * Math.PI * F * t); }
+    if (withNoise) {
+      const lv = levels(L, c), m = Math.round((GAP + 2 * R) * sr);
+      for (let j = 0; j < CYCLES; j++) {
+        const z = noise(m, lv.band.lo, lv.band.hi, lv.rms, 101 + j, sr), at = Math.round((j * CYCLE + ON - R) * sr);
+        for (let i = 0; i < m; i++) { const idx = (at + i) % n; y[idx] += z[i] * noiseGate(idx / sr); }
+      }
+    }
+    return y;
+  }
+  // A short-time spectrum of a buffer, for the picture: frames × bins of dB, 1024-point Hann, hop 256.
+  function spectrogram(y, sr = SR, N = 1024, hop = 256) {
+    const frames = [], w = new Float64Array(N); for (let i = 0; i < N; i++) w[i] = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / N);
+    for (let s = 0; s + N <= y.length; s += hop) { const re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < N; i++) re[i] = y[s + i] * w[i]; fft(re, im, false); const d = new Float32Array(N / 2); for (let k = 0; k < N / 2; k++) d[k] = 10 * Math.log10(re[k] * re[k] + im[k] * im[k] + 1e-20); frames.push(d); }
+    return { frames, df: sr / N, dt: hop / sr };
+  }
+  return { SR, F, ON, GAP, R, CYCLE, CYCLES, LOOP, AMP, ERB, LEVEL, BAND, band, levels, rng, fft, noise, toneGate, noiseGate, render, spectrogram };
+})();
+</script>
+<script id="sw-scaffold">
+// ── the scaffold, the same in this section's four pieces: sound only on a click, one compressor, the walk, the sigil ──
+const $ = (id) => document.getElementById(id);
+const REDUCED = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const AU = (() => {
+  let ctx = null, out = null;
+  const live = new Set();
+  const listeners = [];
+  // The AudioContext is made on the first click that asks for sound, never before.
+  async function ensure() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      // A compressor before the destination, set above every buffer's peak (the check measures them), so it only guards.
+      const comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -3; comp.knee.value = 0; comp.ratio.value = 8; comp.attack.value = 0.002; comp.release.value = 0.2;
+      out = ctx.createGain(); out.gain.value = 1;
+      out.connect(comp).connect(ctx.destination);
+      ctx.onstatechange = () => { if (ctx.state !== 'running') listeners.forEach((f) => f()); };
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+    return ctx;
+  }
+  // Play one buffer: chans is [mono] or [left, right], Float32Arrays at sr.
+  function play(chans, sr, o = {}) {
+    const b = ctx.createBuffer(chans.length, chans[0].length, sr);
+    chans.forEach((c, i) => b.copyToChannel(c, i));
+    const src = ctx.createBufferSource(); src.buffer = b; src.loop = !!o.loop;
+    const g = ctx.createGain(); g.gain.value = o.gain == null ? 1 : o.gain;
+    src.connect(g).connect(out);
+    const t0 = o.when || ctx.currentTime + 0.03;
+    if (o.fade) { g.gain.value = 0; g.gain.setTargetAtTime(o.gain == null ? 1 : o.gain, t0, 0.006); }
+    src.start(t0, o.offset || 0);
+    const v = { src, g, t0, dur: b.duration, loop: !!o.loop };
+    live.add(v);
+    src.onended = () => { live.delete(v); if (o.onended) o.onended(); };
+    return v;
+  }
+  // Stop one voice, fading over a few milliseconds from time at (default now).
+  function stop(v, at) {
+    if (!v || !ctx) return;
+    const t = at || ctx.currentTime;
+    try { v.g.gain.setTargetAtTime(0, t, 0.006); v.src.stop(t + 0.05); } catch (e) { /* already stopped */ }
+    live.delete(v);
+  }
+  function stopAll() {
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    for (const v of live) { try { v.g.gain.setTargetAtTime(0, now, 0.008); v.src.stop(now + 0.05); } catch (e) { /* already stopped */ } }
+    live.clear();
+  }
+  return { ensure, play, stop, stopAll, onQuiet: (f) => listeners.push(f), get ctx() { return ctx; } };
+})();
+function fit(c) {
+  const w = c.clientWidth, h = c.clientHeight, d = window.devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+const INK = '#141414', INK2 = '#3a3a3a', INK3 = '#7a7a7a', RULE = '#c9c6bd', PAPER = '#f4f2ec', PAPER3 = '#e2ded3', RED = '#d1301c';
+function sigil() {
+  const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); }
+  $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="${INK}" stroke-width="1"/>`;
+}
+function shuffled(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+// The chance of k or more right out of n by guessing, at one in two.
+function tail(k, n) { let s = 0; const C = (n, r) => { let c = 1; for (let i = 0; i < r; i++) c = c * (n - i) / (i + 1); return c; }; for (let j = k; j <= n; j++) s += C(n, j); return s / Math.pow(2, n); }
+// The walk: one step shows at a time; an element with data-show="1 3" shows on those steps (numbered from 0).
+function makeWalk(STEPS, onStep) {
+  const W = { i: 0 };
+  $('rail').innerHTML = STEPS.map((s, i) => `<button data-i="${i}">${i + 1} · ${s.tab}</button>`).join('');
+  $('rail').querySelectorAll('button').forEach((b) => b.onclick = () => go(+b.dataset.i));
+  function go(i) {
+    i = Math.max(0, Math.min(STEPS.length - 1, i));
+    AU.stopAll();
+    W.i = i; const s = STEPS[i];
+    $('rail').querySelectorAll('button').forEach((b, j) => { b.removeAttribute('aria-current'); if (j === i) b.setAttribute('aria-current', 'step'); });
+    $('stepEyebrow').textContent = `step ${i + 1} of ${STEPS.length} · ${s.eyebrow}`;
+    $('stepTitle').textContent = s.title;
+    $('stepSay').innerHTML = s.say;
+    document.querySelectorAll('[data-show]').forEach((el) => { el.hidden = !el.dataset.show.split(/\s+/).includes(String(i)); });
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    onStep(s, i);
+  }
+  $('back').onclick = () => go(W.i - 1); $('next').onclick = () => go(W.i + 1);
+  W.go = go; return W;
+}
+</script>
+<script>
+(() => {
+  const E = CONT, SR = E.SR;
+  const S = { L: E.LEVEL.start, c: E.F, lifted: false, playing: false, ref: 0, shownLift: 0, run: null };
+  let voice = null;
+  const cache = new Map();
+  function sound(o) { const key = JSON.stringify(o); if (!cache.has(key)) { if (cache.size > 24) cache.clear(); cache.set(key, E.render(o)); } return cache.get(key); }
+  const current = () => sound({ level: S.L, center: S.c, noise: !S.lifted, gapped: true });
+  const phase = () => { const ctx = AU.ctx; return ctx && S.playing ? (((ctx.currentTime - S.ref) % E.LOOP) + E.LOOP) % E.LOOP : null; };
+  // Start the loop, or swap the playing loop for a new one at the same place, crossfaded.
+  async function loop(y) {
+    await AU.ensure();
+    const ctx = AU.ctx, t0 = ctx.currentTime + 0.02;
+    let off = 0;
+    if (voice && S.playing) { off = (((t0 - S.ref) % E.LOOP) + E.LOOP) % E.LOOP; AU.stop(voice, t0); } else AU.stopAll();
+    voice = AU.play([y], SR, { loop: true, when: t0, offset: off, fade: true });
+    S.ref = t0 - off; S.playing = true;
+    $('play').textContent = 'Stop'; $('play').setAttribute('aria-pressed', 'true');
+  }
+  function stopSound() {
+    AU.stopAll(); voice = null; S.playing = false;
+    $('play').textContent = 'Play'; $('play').setAttribute('aria-pressed', 'false');
+    if (S.run) endRun(null, true);
+  }
+  AU.onQuiet(() => { if (S.playing) stopSound(); });
+  $('play').onclick = () => { if (!S.playing) $('ask0').hidden = false; S.playing ? stopSound() : loop(current()); };
+  $('said').querySelectorAll('button').forEach((b) => b.onclick = () => {
+    $('said').querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    $('lift').hidden = false;
+    $('saidNote').textContent = b.dataset.k === 'on' ? 'Now lift the fence, and listen to the tone again.' : b.dataset.k === 'cut' ? 'You heard it cut. Lift the fence and compare.' : 'Lift the fence and compare.';
+  });
+  $('lift').onclick = () => {
+    S.lifted = !S.lifted;
+    $('lift').textContent = S.lifted ? 'Put the fence back' : 'Lift the fence'; $('lift').setAttribute('aria-pressed', String(S.lifted));
+    $('liftHint').textContent = S.lifted ? 'the noise is off: this is the tone as it always was' : '';
+    if (S.playing) loop(current());
+  };
+  // ── the level and the band ──
+  const lvl = $('lvl'), ctr = $('ctr');
+  const fmtDb = (v) => (v === -Infinity ? 'none' : (v >= 0 ? '+' : '−') + Math.abs(v).toFixed(1) + ' dB');
+  const inBand = (v) => (v === -Infinity ? 'none: the band has left it' : fmtDb(v) + ' re the tone');
+  function setL(v) { S.L = v; lvl.value = v; $('lvlV').textContent = fmtDb(v); }
+  lvl.oninput = () => { setL(+lvl.value); if (S.playing && !S.run) loop(current()); resetTest(); };
+  ctr.oninput = () => { S.c = E.F * Math.pow(4, +ctr.value / 200); readouts(); if (S.playing) loop(current()); };
+  function readouts() {
+    const v = E.levels(S.L, S.c);
+    $('ctrV').textContent = `${Math.round(S.c)} Hz`;
+    const v0 = E.levels(S.L, E.F);
+    $('read1').innerHTML = `tone <b>1000 Hz</b>, peak 0.025 (<b>${(20 * Math.log10(E.AMP)).toFixed(0)} dBFS</b>) · on <b>250 ms</b>, gap <b>150 ms</b>, crossfades 8 ms<br>noise band <b>${v0.band.lo.toFixed(0)}–${v0.band.hi.toFixed(0)} Hz</b> · the ear’s filter round the tone (one ERB) <b>${v0.erbLo.toFixed(0)}–${v0.erbHi.toFixed(0)} Hz</b>, covered <b>${(100 * v0.overlapFrac).toFixed(0)}%</b><br>noise through the ear’s filter round the tone (roex, one ERB wide) <b>${fmtDb(v0.roexDb)}</b> re the tone · the noise in all <b>${fmtDb(v0.totalDb)}</b>`;
+    $('read4').innerHTML = `noise band <b>${v.band.lo.toFixed(0)}–${v.band.hi.toFixed(0)} Hz</b> · the tone’s ERB ${v.erbLo.toFixed(0)}–${v.erbHi.toFixed(0)} Hz, overlapped <b>${(100 * v.overlapFrac).toFixed(0)}%</b><br>noise through the ear’s filter round the tone (roex, its skirts included) <b>${fmtDb(v.roexDb)}</b> re the tone · in a hard-edged ERB ${inBand(v.inBandDb)} · the noise in all <b>${fmtDb(v.totalDb)}</b>, the same wherever the fence stands`;
+  }
+
+  // ── the scene: the cat is the tone, each picket a burst of noise; across is the same two seconds ──
+  function catPath(g, x0, x1, y0, y1) {
+    const W = x1 - x0, H = y1 - y0, X = (u) => x0 + u * W, Y = (v) => y0 + v * H;
+    g.beginPath();
+    g.moveTo(X(0.12), Y(0.55));                                                     // rump
+    g.bezierCurveTo(X(0.10), Y(0.30), X(0.25), Y(0.22), X(0.45), Y(0.26));          // back
+    g.bezierCurveTo(X(0.62), Y(0.29), X(0.74), Y(0.25), X(0.80), Y(0.22));          // to the neck
+    g.lineTo(X(0.83), Y(0.02)); g.lineTo(X(0.86), Y(0.14));                          // ear
+    g.lineTo(X(0.90), Y(0.13)); g.lineTo(X(0.93), Y(0.0)); g.lineTo(X(0.945), Y(0.20)); // second ear
+    g.bezierCurveTo(X(0.98), Y(0.30), X(0.97), Y(0.48), X(0.90), Y(0.50));          // face
+    g.bezierCurveTo(X(0.86), Y(0.52), X(0.83), Y(0.55), X(0.80), Y(0.62));          // chin, chest
+    g.lineTo(X(0.79), Y(1.0)); g.lineTo(X(0.755), Y(1.0)); g.lineTo(X(0.75), Y(0.68)); // front leg
+    g.lineTo(X(0.70), Y(0.70)); g.lineTo(X(0.695), Y(1.0)); g.lineTo(X(0.66), Y(1.0)); g.lineTo(X(0.655), Y(0.72));
+    g.bezierCurveTo(X(0.50), Y(0.76), X(0.35), Y(0.74), X(0.25), Y(0.72));          // belly
+    g.lineTo(X(0.245), Y(1.0)); g.lineTo(X(0.21), Y(1.0)); g.lineTo(X(0.20), Y(0.70)); // back legs
+    g.lineTo(X(0.165), Y(1.0)); g.lineTo(X(0.13), Y(1.0)); g.lineTo(X(0.125), Y(0.62));
+    g.bezierCurveTo(X(0.08), Y(0.60), X(0.03), Y(0.40), X(0.05), Y(0.10));          // tail, up
+    g.bezierCurveTo(X(0.055), Y(0.05), X(0.075), Y(0.06), X(0.075), Y(0.12));
+    g.bezierCurveTo(X(0.06), Y(0.38), X(0.09), Y(0.50), X(0.12), Y(0.55));
+    g.closePath();
+  }
+  function drawScene() {
+    const c = $('scene'); if (c.offsetParent === null) return;
+    const { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const x0 = 16, x1 = w - 16, X = (t) => x0 + t / E.LOOP * (x1 - x0);
+    const cy0 = 78, cy1 = h - 26;                                   // the cat's height on the page: the tone's place
+    // the cat, drawn only where the tone is on: hatched in horizontal ink lines
+    g.save(); g.beginPath();
+    for (let j = 0; j < E.CYCLES; j++) g.rect(X(j * E.CYCLE), 0, X(j * E.CYCLE + E.ON) - X(j * E.CYCLE), h);
+    g.clip();
+    catPath(g, x0 + 10, x1 - 10, cy0, cy1); g.save(); g.clip();
+    g.strokeStyle = INK; g.lineWidth = 1.6; g.beginPath(); for (let y = cy0; y < cy1; y += 4) { g.moveTo(x0, y); g.lineTo(x1, y); } g.stroke();
+    g.restore(); catPath(g, x0 + 10, x1 - 10, cy0, cy1); g.lineWidth = 1.5; g.stroke();
+    g.restore();
+    // the fence: one picket per burst of noise, as wide as the gap; as dark as the noise is loud; as high as the band sits
+    const Lnow = S.run && runLevel() != null ? runLevel() : S.L, v = E.levels(Lnow, S.c);
+    const alpha = Math.max(0.06, Math.min(1, (Lnow - E.LEVEL.min) / (E.LEVEL.max - E.LEVEL.min)));
+    const target = S.lifted ? 1 : 0; S.shownLift += (target - S.shownLift) * (REDUCED ? 1 : 0.12);
+    // the pickets ride up off the cat as the noise reaching the tone's filter falls: fully off 30 dB below where it was on the tone
+    const drop = Math.max(0, Math.min(1, (E.levels(Lnow, E.F).roexDb - v.roexDb) / 30));
+    const shift = drop * (cy1 - cy0 + 40) + S.shownLift * (h + 40);
+    const py0 = cy0 - 26 - shift, py1 = cy1 + 12 - shift;
+    g.globalAlpha = alpha;
+    for (let j = 0; j < E.CYCLES; j++) {
+      const a = X(j * E.CYCLE + E.ON), b = X((j + 1) * E.CYCLE), m = (a + b) / 2;
+      const board = () => { g.beginPath(); g.moveTo(a, py1); g.lineTo(a, py0 + 14); g.lineTo(m, py0); g.lineTo(b, py0 + 14); g.lineTo(b, py1); g.closePath(); };
+      board(); g.fillStyle = PAPER; g.fill();
+      g.save(); board(); g.clip(); g.strokeStyle = INK; g.lineWidth = 1.2; g.beginPath(); for (let x = a + 3; x < b; x += 5) { g.moveTo(x, py0); g.lineTo(x, py1); } g.stroke(); g.restore();
+      board(); g.strokeStyle = INK; g.lineWidth = 1.5; g.stroke();
+    }
+    g.globalAlpha = 1;
+    const p = phase(); if (p != null) { g.strokeStyle = INK3; g.lineWidth = 1; g.beginPath(); g.moveTo(X(p), 8); g.lineTo(X(p), h - 8); g.stroke(); }
+    if (W.i >= 2) { g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'left'; g.fillText(w > 640 ? 'across: the same two seconds · the cat is the tone · each picket a burst of noise' : 'the cat is the tone · a picket, a burst', x0, 16); }
+  }
+  // ── the sound itself, analysed here ──
+  let specKey = '', specImg = null;
+  function drawSpec() {
+    const c = $('spec'); if (c.offsetParent === null) return;
+    const { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const x0 = 44, x1 = w - 10, y0 = 8, y1 = h - 22, fLo = 200, fHi = 8000;
+    const Yf = (f) => y1 - Math.log(f / fLo) / Math.log(fHi / fLo) * (y1 - y0);
+    const key = `${S.L}|${S.c}|${S.lifted}`;
+    if (key !== specKey) {
+      specKey = key;
+      const sp = E.spectrogram(current()), F = sp.frames.length, H = 160;
+      let mx = -Infinity; for (const fr of sp.frames) for (const d of fr) if (d > mx) mx = d;
+      const off = document.createElement('canvas'); off.width = F; off.height = H; const og = off.getContext('2d'), im = og.createImageData(F, H);
+      for (let r = 0; r < H; r++) { const f = fLo * Math.pow(fHi / fLo, 1 - r / (H - 1)), k = Math.round(f / sp.df); for (let x = 0; x < F; x++) { const u = Math.max(0, Math.min(1, (sp.frames[x][k] - (mx - 60)) / 60)), i = 4 * (r * F + x); im.data[i] = 244 - u * 224; im.data[i + 1] = 242 - u * 222; im.data[i + 2] = 236 - u * 216; im.data[i + 3] = 255; } }
+      og.putImageData(im, 0, 0); specImg = off;
+    }
+    g.imageSmoothingEnabled = true; g.drawImage(specImg, x0, y0, x1 - x0, y1 - y0);
+    g.strokeStyle = RULE; g.strokeRect(x0, y0, x1 - x0, y1 - y0);
+    g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'right';
+    for (const f of [250, 500, 1000, 2000, 4000, 8000]) g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), x0 - 5, Yf(f) + 4);
+    g.textAlign = 'center'; for (const t of [0, 0.5, 1, 1.5, 2]) g.fillText(t + ' s', x0 + t / E.LOOP * (x1 - x0), h - 6);
+    if ((W.i === 1 || W.i === 2) && !S.lifted) {
+      g.strokeStyle = RED; g.lineWidth = 2; g.setLineDash([5, 4]);
+      for (let j = 0; j < E.CYCLES; j++) { const a = x0 + (j * E.CYCLE + E.ON) / E.LOOP * (x1 - x0), b = x0 + ((j + 1) * E.CYCLE) / E.LOOP * (x1 - x0); g.beginPath(); g.moveTo(a, Yf(1000)); g.lineTo(b, Yf(1000)); g.stroke(); }
+      g.setLineDash([]);
+    }
+    const p = phase(); if (p != null) { const x = x0 + p / E.LOOP * (x1 - x0); g.strokeStyle = INK; g.lineWidth = 1; g.beginPath(); g.moveTo(x, y0); g.lineTo(x, y1); g.stroke(); }
+  }
+
+  // ── step 3: bring the fence down until the gaps show ──
+  const marks = [], MASK = 3.2;   // where a 1 kHz tone would just be masked: the noise in its band about 3 dB above it (critical ratio about 18 dB)
+  const STEP_DB = 2, LEVELS = []; for (let L = E.LEVEL.max; L >= E.LEVEL.min; L -= STEP_DB) LEVELS.push(L);
+  let runBuf = null;
+  function buildRun() {
+    if (runBuf) return runBuf;
+    const one = E.render({ level: 0 }).length, y = new Float32Array(one * LEVELS.length);
+    LEVELS.forEach((L, i) => y.set(sound({ level: L, center: E.F, noise: true, gapped: true }), i * one));
+    return (runBuf = y);
+  }
+  $('desc').onclick = async () => {
+    if (S.run) { endRun(null, true); return; }
+    S.lifted = false; $('lift').textContent = 'Lift the fence'; $('lift').setAttribute('aria-pressed', 'false');
+    await AU.ensure(); AU.stopAll();
+    const y = buildRun(), t0 = AU.ctx.currentTime + 0.05;
+    voice = AU.play([y], SR, { when: t0, onended: () => { if (S.run) endRun(null); } });
+    S.ref = t0; S.playing = true; S.run = { t0 }; $('thrRead').hidden = true;
+    $('desc').textContent = 'Stop the run'; $('markGap').disabled = false; $('markGap').classList.add('hot');
+  };
+  const runLevel = () => { if (!S.run || !AU.ctx) return null; const i = Math.floor((AU.ctx.currentTime - S.run.t0) / E.LOOP); return i < 0 ? LEVELS[0] : i >= LEVELS.length ? null : LEVELS[i]; };
+  $('markGap').onclick = () => endRun(runLevel());
+  // A run ends with a mark (L), with no press before the fence reached the bottom (null), or abandoned (nothing kept).
+  function endRun(L, abandoned) {
+    const r = S.run; S.run = null; if (!r) return; $('thrRead').hidden = false;
+    if (!abandoned) marks.push(L);
+    AU.stopAll(); voice = null; S.playing = false; $('play').textContent = 'Play'; $('play').setAttribute('aria-pressed', 'false');
+    $('desc').textContent = 'Run again'; $('markGap').disabled = true; $('markGap').classList.remove('hot'); $('descRead').textContent = '';
+    writeThr();
+  }
+  function writeThr() {
+    const got = marks.filter((m) => m != null);
+    const list = marks.map((m) => (m == null ? 'never, down to −30 dB' : fmtDb(m))).join(' · ');
+    if (!got.length) { $('thrRead').innerHTML = marks.length ? `your runs: ${list}` : ''; return; }
+    const mean = got.reduce((s, v) => s + v, 0) / got.length, d = mean - MASK;
+    $('thrRead').innerHTML = `<span class="read">your runs: <span class="red">${list}</span> · mean <b class="red">${fmtDb(mean)}</b></span><br>`
+      + (Math.abs(d) <= 6 ? `Within 6 dB of where the noise could just have hidden the tone (${fmtDb(MASK)}): the fence held exactly as long as it could have been covering something, which is the bet the page describes.`
+        : d < -6 ? `More than 6 dB <i>below</i> where the noise could have hidden the tone: you heard it go on through a fence too quiet to cover it. That comes out against the rule; worth running again.`
+          : `More than 6 dB <i>above</i> where the noise could have hidden the tone: the gaps showed while the fence was still loud enough to cover them. That comes out against the rule too; worth running again.`)
+      + ` (Your mark lands up to one level late: each level plays for one two-second loop.)`;
+  }
+  function drawThr() {
+    const c = $('thr'); if (c.offsetParent === null) return;
+    const { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const x0 = 30, x1 = w - 30, X = (L) => x0 + (L - E.LEVEL.min) / (E.LEVEL.max - E.LEVEL.min) * (x1 - x0), y = h / 2;
+    g.strokeStyle = INK3; g.lineWidth = 1; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
+    g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'center';
+    for (let L = -30; L <= 12; L += 6) { g.beginPath(); g.moveTo(X(L), y - 4); g.lineTo(X(L), y + 4); g.stroke(); g.fillText((L > 0 ? '+' : '') + L, X(L), y + 18); }
+    g.fillText(w > 520 ? 'noise in the tone’s band, dB re the tone   ·   ← quieter fence' : 'dB re the tone · ← quieter', (x0 + x1) / 2, h - 4);
+    if (S.run) { g.fillStyle = INK2; g.fillText('running · the plot comes back when you press', (x0 + x1) / 2, 14); return; }   // nothing to aim at mid-run
+    g.strokeStyle = INK; g.lineWidth = 1.5; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(X(MASK), 10); g.lineTo(X(MASK), y + 6); g.stroke(); g.setLineDash([]);
+    g.fillStyle = INK2; g.fillText('could just hide the tone', X(MASK), 12);
+    for (const m of marks) { if (m == null) continue; g.strokeStyle = RED; g.lineWidth = 2; g.beginPath(); g.moveTo(X(m), y - 12); g.lineTo(X(m), y + 12); g.stroke(); }
+
+  }
+
+  // ── step 5: blind, really continuous or gapped, under the fence at the chosen level ──
+  const N = 10, PASS = 8, B = { order: [], i: 0, ans: [], ready: false };
+  const twice = (y) => { const z = new Float32Array(2 * y.length); z.set(y); z.set(y, y.length); return z; };
+  const stim = (k) => twice(sound({ level: S.L, center: E.F, noise: true, gapped: k === 'G' }));
+  async function once(y) { await AU.ensure(); stopSound(); const t0 = AU.ctx.currentTime + 0.03; voice = AU.play([y], SR, { when: t0 }); S.ref = t0; }
+  $('refC').onclick = () => once(stim('C')); $('refG').onclick = () => once(stim('G'));
+  $('rule').innerHTML = `Ten trials at the fence level above, five of each kind, shuffled; each plays the loop twice. The fence is the same frozen noise in every trial, so the only difference is whether the tone was really there in the gaps. Guessing gets 5 of 10. <b>The rule, set now:</b> 8 or more right (guessing does that 5.5% of the time) means you can tell, and at this level the fence did not hide the gaps from you; fewer means this test did not show that you can. Both kinds are scored apart. Change the level and the test starts over.`;
+  function resetTest() { B.order = shuffled(['C', 'C', 'C', 'C', 'C', 'G', 'G', 'G', 'G', 'G']); B.i = 0; B.ans = []; B.ready = false; $('verdict').innerHTML = ''; trialUI(); }
+  function trialUI() { const done = B.i >= N; $('trial').textContent = done ? 'Start again' : `Play trial ${B.i + 1}`; $('trialN').textContent = done ? '' : `${B.i} of ${N} answered · fence at ${fmtDb(S.L)}`; $('ansC').disabled = $('ansG').disabled = !B.ready || done; }
+  $('trial').onclick = async () => { if (B.i >= N) { resetTest(); return; } await once(stim(B.order[B.i])); B.ready = true; trialUI(); };
+  const answer = (a) => { if (!B.ready) return; B.ans.push(a); B.i++; B.ready = false; stopSound(); trialUI(); if (B.i >= N) verdict(); };
+  $('ansC').onclick = () => answer('C'); $('ansG').onclick = () => answer('G');
+  function verdict() {
+    let right = 0, rC = 0, rG = 0;
+    B.order.forEach((k, i) => { if (B.ans[i] === k) { right++; if (k === 'C') rC++; else rG++; } });
+    const said = B.ans.filter((a) => a === 'C').length;
+    $('verdict').innerHTML = `<b>${right} of ${N}</b> right, fence at ${fmtDb(S.L)} · really continuous named right <b>${rC} of 5</b> · gapped named right <b>${rG} of 5</b> · guessing scores ${right} or more ${(100 * tail(right, N)).toFixed(1)}% of the time.<br>`
+      + (right >= PASS ? 'By the rule: you can tell. At this level the fence did not hide the gaps from you; try it louder.' : 'By the rule: this test did not show you can tell a tone that was there from one your hearing filled in. That is the illusion holding at this level, or ten trials too few to show a weak difference.')
+      + (said >= 9 ? ' You called nearly every trial continuous: the gapped tone sounded whole to you.' : said <= 1 ? ' You called nearly every trial gapped.' : '');
+  }
+  function drawDots() {
+    const c = $('dots'); if (c.offsetParent === null) return;
+    const { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const gap = Math.min(30, (w - 20) / N), x0 = w / 2 - (N - 1) * gap / 2;
+    for (let i = 0; i < N; i++) { g.beginPath(); g.arc(x0 + i * gap, h / 2, 8, 0, 2 * Math.PI); g.strokeStyle = i === B.i ? INK : RULE; g.lineWidth = 1.5; g.stroke(); if (i < B.ans.length) { g.fillStyle = INK3; g.fill(); } }
+  }
+
+  // ── the walk ──
+  const STEPS = [
+    { tab: 'the fence', eyebrow: 'the encounter', title: 'Behind the fence',
+      say: 'A cat behind a picket fence, and a tone behind a fence of noise. Press play and follow the tone for a few loops. Then say what it did.' },
+    { tab: 'what plays', eyebrow: 'the signal', title: 'The tone was never whole',
+      say: 'Here is the sound itself, analysed in this page: a 1000 Hz tone that switches off for 150 ms out of every 400, and a burst of noise in each hole. If you heard the tone going on through the noise, the red dashes, that stretch is <b>not in the signal</b>. Lift the fence while you look and the holes are what is left. The cat was the same: it was only ever drawn in slices.' },
+    { tab: 'the bet', eyebrow: 'which stage, and what it assumes', title: 'A sound covered for a moment is still there',
+      say: 'The stage that sorts sound into sources makes a bet: when something loud covers a sound, the sound probably went on underneath. It takes the bet when there is no evidence the tone stopped: the noise has energy in the tone’s own band, enough that it could have hidden it, and the tone is the same on both sides. Then the brain fills in what was probably there (Warren, 1970; Bregman). The eye bets the same way on the cat: amodal completion, one cat behind the boards, not five slices. The page grades this pair <b>mechanism</b>, and it is Bregman’s own pairing: the noise is the fence, and the gap is in time instead of space. Do the same to a syllable and you hear the missing sound, phonemic restoration. That one is not made here: the browser’s speech voice plays straight to the speakers, so no sound can be cut out of it and replaced with noise; it would need a recorded or buffer-synthesised syllable.' },
+    { tab: 'how loud', eyebrow: 'the test, part one', title: 'Bring the fence down until the gaps show',
+      say: 'If the bet is taken only when the noise could have hidden the tone, the illusion should break about where the noise gets too quiet to hide it. Run it: the fence starts loud and drops 2 dB every loop. Press the moment you hear the tone break into pieces. Do it a few times. The dashed line is where the noise in the tone’s band would just mask a 1 kHz tone, about 3 dB above it, from the critical ratio (about 18 dB at 1 kHz: standing knowledge, not checked in this round). <b>The rule, set now:</b> your mean within 6 dB of that line agrees with the bet; further off comes out against it.' },
+    { tab: 'wrong place', eyebrow: 'the test, part two', title: 'A fence that doesn’t cover the cat',
+      say: 'Now keep the fence just as loud but move it. Slide the noise band up, away from the tone. The bet needs the noise to have energy where the tone was; once the band leaves the tone’s own filter, nothing could have hidden it, and the holes should show. The readout runs the noise through a filter shaped like the ear’s (roex, one ERB wide, with sloping skirts), so a band just off the tone still counts for what reaches the tone; the hard-edged figure beside it is the cruder count. The pickets ride up off the cat as that level falls. Listen for where the gaps appear, and compare it with the masking line, about +3 dB. (Masking spreads upward from a low sound more than downward from a high one, which is why this fence moves up, never down.)' },
+    { tab: 'blind', eyebrow: 'the test, part three', title: 'There, or filled in?',
+      say: 'The strongest claim is that a tone your hearing fills in is as good as a tone that was there. So play both under the same fence, blind. Set the fence level first: loud, where the page says the illusion holds, or near your mark from part one, where it should start to give.' },
+  ];
+  const W = makeWalk(STEPS, (s, i) => {
+    stopSound();
+    if (i !== 0 && i !== 1 && i !== 2) { S.lifted = false; $('lift').textContent = 'Lift the fence'; $('lift').setAttribute('aria-pressed', 'false'); $('liftHint').textContent = ''; }
+    $('lift').hidden = i > 2 || (i === 0 && !$('said').querySelector('[aria-pressed="true"]'));
+    if (i !== 4) { S.c = E.F; ctr.value = 0; }
+    if (i === 5 && !B.order.length) resetTest();
+    readouts();
+  });
+  setL(S.L); readouts();
+  function frame() { drawScene(); drawSpec(); drawThr(); drawDots(); requestAnimationFrame(frame); }
+  sigil(); W.go(0); frame();
+})();
+</script>
+</body>
+</html>

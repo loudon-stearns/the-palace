@@ -16,6 +16,7 @@ links:
     type: mirrors
   - target: "[[Modes of Collaboration]]"
     type: connects-to
+    label: staging-the-collaboration
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: natural-staging

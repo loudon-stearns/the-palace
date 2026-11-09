@@ -26,6 +26,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: artist-and-maker
   - target: "[[FOUR PILLARS]]"
     type: deepens
     label: informs

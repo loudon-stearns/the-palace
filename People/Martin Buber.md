@@ -27,6 +27,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: made-citizen
   - target: "[[Dovetail Joint ↔ Counterpoint]]"
     type: connects-to
     label: all-real-living-is-meeting

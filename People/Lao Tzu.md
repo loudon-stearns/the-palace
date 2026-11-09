@@ -27,6 +27,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: core-five
   - target: "[[Like Water]]"
     type: connects-to
     label: wu-wei-source

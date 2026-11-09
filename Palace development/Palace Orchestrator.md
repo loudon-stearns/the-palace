@@ -94,7 +94,11 @@ since `state.last_active`. If the page changed, it appends a `PAGE_UPDATE_NOTICE
 messages) to history before the model call — so a commit message is Trickster-to-agent
 communication; write them deliberately. If the change touched `forward_vector`, consider session
 invalidation (archive history, start fresh) — the vector is the agent's direction, and a new one is
-a new agent.
+a new agent. A second notice, `BUNDLE_UPDATE_NOTICE`, lists the commits since then that touched the
+bundle's top-level `<home> — …` files (the rich face, the Context, `face.json`) and the files each
+touched, so a steward sees a live session's work on its faces before it builds on them. It leaves out
+the scroll and the tuning ledger, which the cycle writes itself, merges, and the steward's own
+`steward(` commits.
 
 **Dual-path health.** The `health` block is always written by the orchestrator, never by the woken
 agent. Two paths:

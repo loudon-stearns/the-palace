@@ -32,6 +32,7 @@ links:
     label: harvested-the-carried-question
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
+    label: traces-not-orders
 ---
 
 # Semantic Webcam

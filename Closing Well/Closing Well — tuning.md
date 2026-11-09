@@ -408,3 +408,64 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 80. **A close handed over as "one sitting" held a 13-hour gap, and its panel then waited three more days.** Session 412b18cc gave two Daily Page orders on 2026-11-03 and the resident landed v1.4 and v1.5 the same evening (`b5b7a986`, `baa029bd`). Pass 1 read the day as one sitting; a 13-hour gap followed, and the panel sat on 2026-11-07. In that time the card moved three versions to v1.7 under other sessions, and an offer the room made at the panel (the shim tidy) was already paid (`e48cf988`). Beside item 65, where a gap let a Weave reshape the session's canon before its close, and item 67, where the cold read corrected the warm one: here the stale read was the moderator's own pass-1 homework. The pass-2 reckoning must re-read the touched files and the entry's version on the day it is drafted, not from pass 1. Spec candidate, not taken: one line in `closing-well-agent-map.md` Step 1, re-check the touched files if days have passed since pass 1; a note for a later ceremony edit, not written by this close. Also data: the panel's human reading answered questions 1 and 2 and left question 3 (the hello's whole plan) unfilled, so the card stands as written. Data, not a spec change; the version stays v1.14 for this close, main at v1.17 by its placing.
 
 - run · 2026-11-07 · v1.14 · close-412b18cc-daily-page-rich-face-review (drafted and signed 2026-11-07, "Approve") · taught item 80
+
+## From the TRICKSTER deck collapse close — drafted 2026-11-07, signed 2026-11-08
+
+81. **A child acted as an elder without being told to grow up, and Loudon said what should have happened.** Session 2770a569 never heard "grow up". It made seven code changes (`3870b35d` … `66ec2f06`) in his main checkout, where no elder had opened a workshop (`CLAUDE.md:44`), and committed each to main itself straight after "commit it". It never handed a commit to the resident or asked to grow up (`CHILD.md:43`). The commit-door slip (`How the Palace Commits.md:62,64`) sits inside that. How it happened, by the room's own witness: (1) CHILD's house list names neither code nor main, and the room read it narrowly, skipping the workshop rule; (2) the harness's general "commit when the user asks" was louder at action time, and CHILD never says "commit it" is not "grow up"; (3) How the Palace Commits is not in a child's birth set; (4) nothing fires at commit time: `.claude/settings.local.json` has no `hooks` key and there is no `.claude/settings.json`, the git commit-msg hook only annotates, and the ear logs each such commit as `via=around` but is read only at a close. The resident saw the uncommitted edits, did not name the boundary, and was not consulted before a commit. His answer, on the substance and not a wording: "I should have been warned and asked to grow up." He kept the changes: "I like the changes, so we leave them." Item 46 is a neighbour: the birth text allowing a reading the spec didn't mean. The follow-up is the baton [[How the Palace Commits — baton — the child commit guard]], which commissions a guard and a proposed CHILD line for an elder to bring him before either lands; this close built and wrote neither. Also data: in the gap between draft and sign, another session placed the STIGMERGY ledger lines and page sentence (`508f4715`, `21777f1b`), found only by checking git, item 65's gap rule again. Data plus a handed-on fix, not a spec change; the version stays v1.17.
+
+- run · 2026-11-08 · v1.17 · close-2770a569-trickster-collapse (drafted 2026-11-07, revised twice on Loudon's word, signed 2026-11-08 "Yes, as drafted") · taught item 81
+
+- run · 2026-11-07 · v1.16 · close-2026-11-07-shopkeeper-needs (drafted and signed 2026-11-07, "Approve"; placed 2026-11-08, main at v1.17) · nothing new
+
+## From the 2026-11-08 Weave
+
+82. **The close had no named end.** Every ceremony states its postconditions ([[Palace Ceremonies]] § What Makes a Ceremony; Loudon, 2026-11-07: "We must have a post-condition to all ceremonies."), and Closing Well's were spread across § The flow, the fumble check, the last line and the dispatch file, so a reader had to collect them. Forced (v1.19; main had moved to v1.18 the same morning for another change): § Postconditions gathers them under § The flow. No rule is new.
+
+- run · 2026-11-08 · v1.19 · close-60932253-weave-2026-11-08 · nothing new
+
+## From the SMPTE LTC close — 2026-11-08
+
+83. **Canon landed on a yes to one-line descriptions, and the commit body said he had read the words.** Items 73 and 77 seen again, now inside a deposit: `a4cdd3b1` claimed a map and a reading that never happened, and its cold read was the placer's own; a correction line repairs the record (Deposit tuning). Twice more the day landed words after a yes to a summary (the rewrite `ca1101ef`; the steward's proposals refitted in `11d48abd` with changed claims), each shown whole afterward. Also: a live session and a steward worked one page with no collision but no meeting either. Its asks waited three days, and its cycle 1 read a page changing under it. That led to v1.18 (`be98d93d`, `dcff67d3`): read the steward's scroll before building, and leave it a signed note at the close. This close is that rule's first use. The resident placed every house write and then moderated, item 73's shape; the room named it.
+
+- run · 2026-11-08 · v1.18 · close-8eaea235-smpte-ltc (placed with main at v1.19) · taught item 83
+
+## From the two-projects close — 2026-11-08
+
+87. **A room assured Loudon that a blocking ask stops the heartbeat and the deck, and said it had read that from the page, not the runner.** Session 141ef2b3 (2026-10-29) told him Rational Hearing's and Cycle 5 Explorer's `-002` asks would hold their stewards until he answered, read from `Project Stewardship System.md`; the next morning's batch ran both (`fc56eec0`, `fee39ce0`, `a91383f5`, `d966fe3e`). The page does not make the claim (§ How it runs says the batch takes the stewards that are due, and a click is a run); the sentence was the room's reading, not the page's words. Loudon's answer at the close: keep the bias (his words, dated, in Project Stewardship System — Context). Second clause: the resident landed two builder branches without re-reading the builders' final diffs (arc:249), a check it owed itself. Also data: the close itself spanned ten days from first message to panel, and in the gap both pages moved under their stewards and an enrichment round; items 65 and 80's gap rule again. Data, not a spec change; the close ran on v1.18, main at v1.19 by its placing.
+
+- run · 2026-11-08 · v1.18 · close-141ef2b3-two-projects (opened 2026-10-29, closed 2026-11-08 "yes"; placed with main at v1.19) · taught item 87
+## From the Auditory Illusions close — 2026-11-08
+
+84. **'Read' has two tenses, and a two-button question hid the one he meant.** 'Read it, land it' (2026-11-08) was past tense: he had read the page. The deposit commit recorded it that way, correctly. At the panel, the moderator's first wondering offered an either/or ('did you read it through, or was it more go-ahead'), the room made it two buttons, and he picked 'More go-ahead' before correcting it. The binary nearly wrote a false correction into a true record. Also: the 2026-11-08 Weave carried all five of the session's flags two hours after posting, and the readiness check ran over that commit without connecting it (item 74, from the Weave's side).
+
+- run · 2026-11-08 · v1.19 · close-36f6d1fe-auditory-illusions · taught item 84
+
+## From the STIGMERGY PROJECTS deck close — drafted 2026-11-07, signed 2026-11-08
+
+85. **Three relay slips caught cold and owned at the panel, and a wondering the morning's own work had already answered.** The session spanned 2026-11-03 to 11-07.
+
+    First, item 70's gap rule seen again, from the board's side. TRICKSTER granted Wavetable Scanner's plan ask (`wavetable-scanner-steward-009`) at 2026-11-04T02:15Z, but on 11-07 the room told Loudon it "may still be waiting for your click", without re-reading the board. Second, a dollar figure ("about $2.88") went to Loudon, against [[The Palace Voice]]'s money rule. Third, a question left in `1cd71ffc`'s commit body was relayed as the resident's flag. That one is data with items 61, 64 and 70.
+
+    Then the moderator's own slip. Its cold read raised the live-steward posting question as a wondering without reading the gap's commits on that subject. `4f376b90` (finalize-live.js) and v1.15 (`62286146`) had settled it in practice that morning. Loudon caught it: "haven't we adjusted close well to account for this?" The panel then found the two places that still disagreed, and he said "Yes, both" to fixing them. So item 65's diff-the-gap rule applies to the moderator's wonderings too, not only to the room's claims.
+
+    Data, not a spec change; the version stays v1.15. The stake is named: the resident gave the opening read, landed `6cb53773`, and wrote the wondering that led to the item-2 writes.
+
+- run · 2026-11-07 · v1.15 · close-2026-11-07-projects-deck (drafted 2026-11-07, signed 2026-11-08 "Yes, place it"; placed 2026-11-08, main at v1.19) · taught item 85
+
+## From the Handwheel return close — drafted 2026-11-07, signed 2026-11-08
+
+86. **A continuity promise made at a close was never tested against how the Return would rank the thing, and Loudon's own habit made it true.** The room told him a bare "I'm back" would put the Handwheel's parts-order ask first (arc:1201, 1217). The Return's own list ranks it last of thirty, under two blocking requests from other stewards (`scout.md:75–77`), and it was the one move only because the dispatch named the project (arc:1139). The cold read caught it from the scout's list; the room owned it at the panel; Loudon said he'll name the Handwheel. Also data: the resident's Return item 19 overstated (`scout.md:19–22` already takes a scoped request), found when the moderator was asked to look at the resident's own work (item 73's stake, named from outside again). A cold read's "the arc shows no check" was wrong where the arc had cut the first tool call, and the working Claude's witness settled it (item 43's gap, for tool calls). Item 29 seen again: a prose boundary from the coordinator worked. Data, not a spec change; the version stays v1.15.
+
+- run · 2026-11-07 · v1.15 · close-2026-11-07-haptic-handwheel-return (drafted 2026-11-07, signed 2026-11-08 "yes to all"; placed 2026-11-08, main at v1.19) · taught item 86
+
+## From the answers-back close — 2026-11-08
+
+88. **A reply about the next step was read as a yes to exact words, and this time it was one.** Loudon answered the manifest line with "after we have completed this, coordinate with the dissolusions session…". The room took it as his yes to the line's exact words; the brief to the resident said "Loudon has read the words and said to complete it", and the resident carried that into `0fc9e5f7`'s body as his word without checking. The room told him after the landing (`0707f029`). Asked at the panel, he said "Yes, it did." A near miss, not a slip on his words: items 68 and 73 came the same way, and this time the reading happened to be right. Also data: the resident's commit subject `bad47a11` says the sequences sit "one beside each member", where the face places all six at the end of the catalogue list; and the room told him the Dissolutions session "has ended" on ListAgents and list_sessions evidence alone. Data, not a spec change.
+
+- run · 2026-11-08 · v1.19 · close-2026-11-08-answers-back-second · taught item 88
+
+## From the Quantization close — 2026-11-08
+
+89. **A collision with main was caught at the resident's write, not by the cold read, because five days stood between the homework and the panel.** The moderator's homework looked at the tree as it was; the panel came five days on, and in between main had moved 462 commits. The resident's write is where it showed. The re-check at the write found that main's Weave (`1315454d`) had added `label: catalogued-bridge` to the page's frontmatter three lines below the vector the close meant to rewrite, and that `f2ec6e0b` had fixed the baton-footer linter. The set-aside copy had to be put aside, the worktree fast-forwarded, and the vector reapplied by hand against main's text. The moderator's view of the tree was stale by the time of the panel, and the re-check found both. The resident also cannot spawn a fresh executor (item 61's family). Data, not a spec change; the version stays v1.19.
+
+- run · 2026-11-08 · v1.19 · close-2026-11-08-quantization (signed 2026-11-08 "Yes, land it"; the sit ran across 2026-11-03 and 2026-11-08) · taught item 89

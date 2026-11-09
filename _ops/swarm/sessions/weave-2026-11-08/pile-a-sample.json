@@ -1,0 +1,87 @@
+[
+ {
+  "op": "remove",
+  "source": "Swarm Weave",
+  "target": "Palace Map",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; Palace Map's deepens back to Swarm Weave is said in its body. Keep that one."
+ },
+ {
+  "op": "remove",
+  "source": "Striatum",
+  "target": "Excellent Adventure",
+  "type": "deepens",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The body's three threads are hilaritas, the practice pillar and beat timing; nothing touches dialogue with a figure, and the Adventure never names the striatum."
+ },
+ {
+  "op": "label",
+  "source": "Sidechain ↔ Conversation",
+  "target": "Cross-Domain Resonances",
+  "type": "member-of",
+  "label": "catalogued-bridge",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The page sits in the hub's own folder as one of its bridges; the label names what kind of member it is, since the bridge's body never names its hub. The hub's spawned to this page is said, not bare, so it is outside this lane; fold it at the coordinator so the pair keeps one link."
+ },
+ {
+  "op": "remove",
+  "source": "Crystal Synthesizer",
+  "target": "Signal-Rate CV Architecture",
+  "type": "mirrors",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "No shared pattern is stated on either page; Signal-Rate only asks, as an open question, whether its principle could govern Crystal. A question is not a mirror."
+ },
+ {
+  "op": "remove",
+  "source": "Quality Manifesto",
+  "target": "4 Pillars Framework - The Founding Conversation",
+  "type": "emerged-from",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The pair carries two links; the Founding Conversation's spawned[paradigm-statement] to this page is labelled and listed in its 'What It Spawned' table. Keep that one."
+ },
+ {
+  "op": "label",
+  "source": "James Turrell",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "artist-and-maker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "label",
+  "source": "Dispersion",
+  "target": "Portamento and Physical Pitch Modeling",
+  "type": "connects-to",
+  "label": "stiff-string-glide",
+  "lane": "C1a-bare-links.json",
+  "rationale": "Neither names the other, but both write the same stiff-string B: Dispersion gives the relation, Portamento hears it move during a glide (tuning item 58: the reason under another name)."
+ },
+ {
+  "op": "label",
+  "source": "Pauline Oliveros",
+  "target": "Source Library",
+  "type": "member-of",
+  "label": "sound-thinker",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "The hub lists this person on a named shelf; the label names the shelf, so the membership carries its reason."
+ },
+ {
+  "op": "remove",
+  "source": "SCHEMA",
+  "target": "Harvest Ceremony",
+  "type": "enables",
+  "lane": "C1b-unsaid-links.json",
+  "rationale": "Every ceremony follows SCHEMA's conventions; nothing particular ties SCHEMA to the Harvest, and the Harvest cites only SCHEMA — Reference §6."
+ },
+ {
+  "op": "label",
+  "source": "Murmuration",
+  "target": "Diversity of Thought in Many-Agent Systems",
+  "type": "connects-to",
+  "label": "live-probe",
+  "lane": "C1a-bare-links.json",
+  "rationale": "The body's own words: the RNBO crossover is a live probe of the Diversity question."
+ }
+]

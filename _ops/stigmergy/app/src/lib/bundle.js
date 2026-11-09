@@ -8,7 +8,7 @@
 // to 2 levels deep, skipping hidden files, Archive/, __pycache__/, and
 // anything whose name starts with `.`.
 
-import { existsSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, statSync, openSync, readSync, closeSync } from 'node:fs';
 import { extname, join, resolve, sep, dirname, basename } from 'node:path';
 
 // config.json holds a live credential (RunPod GPU Backend/studio/) — never listed in a bundle.
@@ -46,6 +46,26 @@ export function iconRelFor(palaceRoot, absBundleDir) {
   try { entries = readdirSync(absBundleDir, { withFileTypes: true }); } catch (_) { return null; }
   const hit = entries.find((e) => e.isFile() && / — icon\.png$/i.test(e.name));
   return hit ? toRel(join(absBundleDir, hit.name)) : null;
+}
+
+// The entry's hero (`<Title> — hero.png`, else any `* — hero.png`) at the top
+// of its bundle, in the bundle listing's shape { name, relPath, size } so
+// HeroBackdrop can draw it behind a file the entry owns — its Context, a
+// ledger, its scroll. Null when the bundle carries none.
+export function heroFor(palaceRoot, absBundleDir) {
+  if (typeof absBundleDir !== 'string' || absBundleDir === '') return null;
+  const root = resolve(palaceRoot);
+  let entries;
+  try { entries = readdirSync(absBundleDir, { withFileTypes: true }); } catch (_) { return null; }
+  const stem = basename(absBundleDir);
+  const hit = entries.find((e) => e.isFile() && e.name === `${stem} — hero.png`)
+    ?? entries.find((e) => e.isFile() && / — hero\.png$/i.test(e.name));
+  if (!hit) return null;
+  const full = join(absBundleDir, hit.name);
+  let size = null;
+  try { size = statSync(full).size; } catch (_) { /* drawn without a cache-buster */ }
+  const relPath = full.startsWith(root + sep) ? full.slice(root.length + 1).replaceAll(sep, '/') : full;
+  return { name: hit.name, relPath, size };
 }
 
 // An entry's faces (CHILD.md § A page and its folder): the text always; the
@@ -86,6 +106,62 @@ export function faceOwnerOf(relPath) {
   const dir = parts[parts.length - 2];
   if (file !== `${dir} — scroll.md`) return null;
   return { path: `${parts.slice(0, -1).join('/')}.md`, face: 'scroll' };
+}
+
+// An entry's memory (CHILD.md § A page and its folder; SCHEMA — Reference §8):
+// what the next worker reads, not a face — so the reader offers it beside the
+// face switch, not in the F cycle. The Context is `<Title> — Context.md`, else
+// any top-level `* — context.md` (a bundle whose folder and title differ in
+// case, as JEWEL/ holds `Jewel — Context.md`). A ledger is any top-level
+// bundle `.md` whose frontmatter names `ledger:` (§6) — tuning, diary, and the
+// rest — labelled by that value. Returns { context: rel|null, ledgers:
+// [{ kind, path }] } with palace-relative paths; the baton is transient and
+// stays in the bundle list.
+export function memoryFor(palaceRoot, absBundleDir) {
+  const memory = { context: null, ledgers: [] };
+  if (typeof absBundleDir !== 'string' || absBundleDir === '') return memory;
+  const root = resolve(palaceRoot);
+  const toRel = (full) => (full.startsWith(root + sep) ? full.slice(root.length + 1).replaceAll(sep, '/') : full);
+  let entries;
+  try { entries = readdirSync(absBundleDir, { withFileTypes: true }); } catch (_) { return memory; }
+  const files = entries.filter((e) => e.isFile() && e.name.endsWith('.md') && !isHidden(e.name));
+  const stem = basename(absBundleDir);
+  const ctx = files.find((e) => e.name === `${stem} — Context.md`)
+    ?? files.find((e) => / — context\.md$/i.test(e.name));
+  if (ctx) memory.context = toRel(join(absBundleDir, ctx.name));
+  for (const e of files) {
+    const kind = ledgerKindOf(join(absBundleDir, e.name));
+    if (kind) memory.ledgers.push({ kind, path: toRel(join(absBundleDir, e.name)) });
+  }
+  memory.ledgers.sort((a, b) => a.kind.localeCompare(b.kind) || a.path.localeCompare(b.path));
+  return memory;
+}
+
+// The `ledger:` value in a markdown file's frontmatter, or null. Reads only
+// the head of the file — a ledger grows without bound.
+function ledgerKindOf(absPath) {
+  let head;
+  try {
+    const fd = openSync(absPath, 'r');
+    try {
+      const buf = Buffer.alloc(4096);
+      head = buf.toString('utf8', 0, readSync(fd, buf, 0, buf.length, 0));
+    } finally { closeSync(fd); }
+  } catch (_) { return null; }
+  const fm = /^---\r?\n([\s\S]*?)\r?\n---/.exec(head);
+  if (!fm) return null;
+  const m = /^ledger:[ \t]*["']?([^"'\r\n#]+?)["']?[ \t]*(?:#.*)?$/m.exec(fm[1]);
+  return m ? m[1].trim() : null;
+}
+
+// The entry a bundle file belongs to, by place alone: `<Dir>/<Name>/<file>` →
+// `<Dir>/<Name>.md`. Whether the file is that entry's memory is the caller's
+// check (memoryFor). Null at the root.
+export function bundleOwnerOf(relPath) {
+  if (typeof relPath !== 'string') return null;
+  const parts = relPath.split('/');
+  if (parts.length < 2) return null;
+  return `${parts.slice(0, -1).join('/')}.md`;
 }
 
 // Classify a bundle file by extension so the UI can render media inline

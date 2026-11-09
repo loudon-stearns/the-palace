@@ -42,7 +42,7 @@ The radio play is **cut as a complete audio piece first** — voices, then score
 
 ## Enrichments (outward from the audio spine)
 
-- **Visuals — via VO-as-clock.** Render the finished audio, *measure* it, and let its per-segment durations set each visual scene's length; the picture fills and syncs to the spine, never the reverse. First instance: the *Unsung Path* explainer (2026-06-19) — [[Maker]]-dispatched, assets in `_ops/scratch/weave-video/`.
+- **Visuals — via VO-as-clock.** Render the finished audio, *measure* it, and let its per-segment durations set each visual scene's length; the picture fills and syncs to the spine, never the reverse. First instance: the *Unsung Path* explainer (2026-06-19) — [[Maker]]-dispatched, its assets kept in Loudon's local scratch, outside the palace.
 - **Interactive** — a branching / choosable radio play. Not yet built.
 - **The first deck** — twenty facets, two unseen presenters read as type, synthesized sound: `radio-play-deck.html` in this bundle (2026-05).
 - More as briefs reveal them.
@@ -53,4 +53,4 @@ The radio play is **cut as a complete audio piece first** — voices, then score
 - Grow a recurring cast: stable voice IDs with written personas and comedic timing.
 - Codify VO-as-clock into a reusable [[The Shop|Shop]] pipeline template (script → audio → measure → fill).
 - Prototype the interactive radio play.
-- Promote out of `_ops/scratch/` into a proper bundle once the template stabilizes.
+- Give the template a proper home in this bundle once it stabilizes; it lives in local scratch today.

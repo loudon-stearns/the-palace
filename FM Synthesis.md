@@ -30,6 +30,8 @@ links:
 
 # FM Synthesis
 
+![[FM Synthesis — hero.png]]
+
 Speed a vibrato up and, somewhere past 20 Hz, it stops being a wobble in the pitch and becomes a change in the tone. That is the threshold [[Frequency-Time Duality]] walks, and the new partials that appear on the far side of it are a two-operator FM patch. John Chowning heard it happen at Stanford in the autumn of 1967, two sine oscillators on a mainframe, a vibrato pushed faster and deeper than any singer's. This page is that instrument: what its parts are, what its knobs do to the ear, and how Yamaha turned it into the sound of the 1980s. The maths of the sidebands, and why their loudness rises and falls the way it does, is in [[Bessel Functions in Synthesis]].
 
 ## Carrier and modulator

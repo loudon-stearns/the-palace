@@ -15,20 +15,19 @@ forward_vector: "I am SMPTE LTC's scroll — the one page that always opens on w
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-05T15:58:12.883Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-08T14:49:34.891Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-05 (today)
-- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 2 open asks
-- **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-05 (today) — The teaching room's backward reader took the gauntlet. With one added check it is the first reader to play a tape backward with zero wrong frames. (`smpte-ltc-steward-006`)
-- **Last commit touching this project:** 2026-11-05 `2c2357ed` — steward(SMPTE LTC): cycle 1 — SPINNING UP. HOME: [SMPTE LTC](obsidian://open?vault=The%20Palace&file=…
+- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-05 (3 days ago)
+- **Plan:** agreed 2026-11-08 (today) · 0 made things since
+- **Waiting on you:** nothing
+- **Ready to advance:** 2 answers filed since the steward last ran — a cycle will consume them
+- **Last shipped:** 2026-11-05 (3 days ago) — The teaching room's backward reader took the gauntlet. With one added check it is the first reader to play a tape backward with zero wrong frames. (`smpte-ltc-steward-006`)
+- **Last commit touching this project:** 2026-11-08 `183844aa` — ops(SMPTE LTC): tuning items 3 and 5 paid in 11d48abd, on Loudon's yes
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
 - **Runs:** 2 runs on 1 day, counted from the ledger's run lines
 - **Last run:** 2026-11-05 — cycle 2 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 3, 5; waiting on Loudon's review, and the page has not changed
 - **Latest lesson:** item 5, from cycle 2 — 2026-11-05 — [[SMPTE LTC — tuning]]
 
 ### Where this stands
@@ -45,16 +44,17 @@ _What the trail's left-rough notes keep saying, oldest first, in its latest word
 
 ### Open asks
 
-- `smpte-ltc-steward-003` — directional_decision · posted 2026-11-05 · options: DRAFT-PATCH · FINDING-ONLY · TEACH-ONLY
-- `smpte-ltc-steward-004` — proposed plan revision: a first plan for SMPTE LTC · posted 2026-11-05 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
-_None._
+- `smpte-ltc-steward-003` — GRANTED — option_id=DRAFT-PATCH; notes: "Loudon, live 2026-11-08, answering the four open items as recommended: "yes to all four". Filed by the live session that rewrote SMPTE LTC (8eaea235), in his words. The recommendation he took: draft in the workshop, a GoButton session lands it; when it lands, refresh the room's pinned copy (see the live note smpte-ltc-live-note-20261108T131332)." · answered 2026-11-08 — waiting for the next cycle
+- `smpte-ltc-steward-004` — GRANTED — option_id=adopt; notes: "Loudon, live 2026-11-08, answering the four open items as recommended: "yes to all four". Filed by the live session that rewrote SMPTE LTC (8eaea235), in his words. Your tuning proposals 3 (Resampling) and 5 (the gauntlet under The builds) were also yes; the Concierge places them against the page as it stands now." · answered 2026-11-08 — waiting for the next cycle
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `smpte-ltc-steward-004` — a first plan for SMPTE LTC → GRANTED — option_id=adopt; notes: "Loudon, live 2026-11-08, answering the four open items as recommended: "yes to all four". Filed by the live session that rewrote SMPTE LTC (8eaea235), in his words. Your tuning proposals 3 (Resampling) and 5 (the gauntlet under The builds) were also yes; the Concierge places them against the page as it stands now." (2026-11-08)
+- `smpte-ltc-steward-003` — directional_decision → GRANTED — option_id=DRAFT-PATCH; notes: "Loudon, live 2026-11-08, answering the four open items as recommended: "yes to all four". Filed by the live session that rewrote SMPTE LTC (8eaea235), in his words. The recommendation he took: draft in the workshop, a GoButton session lands it; when it lands, refresh the room's pinned copy (see the live note smpte-ltc-live-note-20261108T131332)." (2026-11-08)
 
 ### Runs
 
@@ -65,30 +65,40 @@ _Nothing decided on the board yet._
 
 _Nothing owed._
 
-### Proposed for canon
-
-_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
-
-- **3.** 2026-11-05 · [[SMPTE LTC]] · § Open questions, the 'Resampling' bullet — The gauntlet's sample-rate sweep answers most of the question; what remains is narrower.
-- **5.** 2026-11-05 · [[SMPTE LTC]] · § The builds, a new bullet after 'The specification and its tests' — The gauntlet now holds the room's own reader, and its finding (the even-zeros check is not enough, the order check is) is the most teachable thing the project has made; this updates the counts after the MP3 fix.
-
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+Where it's going: a student can make and read LTC in every form, and prove each tool right against GoButton's ltc.js, in a room you can teach it from.
+
+1. The hostile gauntlet: 26 broken files, an answer key, a scorer any reader can take. (Shipped 2026-11-05.)
+2. Readers through the gauntlet: the rich face's backward reader, then a reader with a filter matched to the bit, aiming to take the files nobody passes (noise 6 dB down, MP3 at 32 kbps, a resonant EQ) and to read zero wrong frames.
+3. The room's middle stops, Wave, Read and Break it, built in the workshop and proposed through Enrichment, with Break it playing the gauntlet's files.
+4. Build: an LTC reader and writer plugin (VST3/AU and standalone) from VST Template in JUCE, the third copy, held to ltc.js sample for sample and put through the gauntlet. The writer follows the host's playhead by moving, never jumping.
+5. The proof in the world: an hour of 29.97 drop read by a hardware reader, and a student encoder that fools one. This one is yours, in a room with a cable.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
 
 <!-- scroll:orders:start -->
 _Loudon's standing direction for this project. The steward reads this zone every cycle before anything else, and it is never regenerated. Taste, priorities, "stop asking me about X", "always prefer Y" — write it once here instead of answering it every cycle._
+
+- **All the way up** (Loudon, 2026-11-08), in his words: "I have read the page, it is excellent, it states that we need to teach "all the way down" but it doesn't teach "all the way up" we have done a great job of showing how the protocol works, but we have not shown how it is used."
 <!-- scroll:orders:end -->
 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-smpte-ltc-steward-004" -->
+### 2026-11-08 — Plan agreed: SMPTE LTC has no plan yet. Here's one: gauntlet, better readers, the room's last stops, a JUCE plugin, then a hardware check.
+
+Catch-up: SMPTE LTC teaches timecode down to the bits, and every build is held to GoButton's ltc.js. The rich face already has Count, Bits, an encoder and a backward reader. Today I added the hostile gauntlet, the challenge the room's last stop promises. There's no plan on the scroll, so I'm working from the page's direction alone. This plan follows the page's own path. Readers go through the gauntlet until one passes it all. The room's middle stops get built and proposed through Enrichment. Then comes the plugin, a third copy held to the specification. I lean JUCE through VST Template, because Max and RNBO are paused and the template already builds and checks plugins. A hardware run is last, and it's yours. What it costs: the plugin waits behind the room.
+
+Loudon: "Loudon, live 2026-11-08, answering the four open items as recommended: "yes to all four". Filed by the live session that rewrote SMPTE LTC (8eaea235), in his words. Your tuning proposals 3 (Resampling) and 5 (the gauntlet under The builds) were also yes; the Concierge places them against the page as it stands now."
+<sub>`plan-smpte-ltc-steward-004` · plan agreed · agreed 2026-11-08T14:46:08Z · proposed by SMPTE LTC's steward (`smpte-ltc-steward-004`), adopted by Loudon (`resp-smpte-ltc-004-adopt`)</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="smpte-ltc-steward-006" -->
 ### 2026-11-05 — cycle 2 — The teaching room's backward reader took the gauntlet. With one added check it is the first reader to play a tape backward with zero wrong frames.
 > shipped · workshop only · four readers scored · steward leans the sequence check is the lesson

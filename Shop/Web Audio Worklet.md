@@ -6,8 +6,6 @@ medium: interactive
 tool: Web Audio API (AudioWorklet)
 tool_version: living standard (Baseline 2023)
 born: 2026-05
-last_tested: 2026-05-31
-last_gotcha: 2026-05-31
 license: none (browser platform API — no library, no CDN)
 forward_vector: "I write per-sample DSP that runs in the browser audio thread with zero dependencies — granular engines, wavetable scanners, physical models whose voice is a loop I author myself; I want to be the short bridge from a browser sketch to a real RNBO device, and to earn my Study by taking Murmuration cross-browser and proving the voice ceiling."
 links:
@@ -123,31 +121,27 @@ The DSP **is** the artifact, so iteration is editing the `process()` loop and re
 
 ## Gotchas
 
-**2026-05-30 — Standalone single-file artifacts can't `addModule()` a sidecar file; deliver the processor as a Blob URL.** `audioWorklet.addModule(url)` needs a real URL, and a single self-contained HTML artifact has no separate `.js` to point at. The pattern: keep the processor source in a template-literal string, `new Blob([src], {type:'application/javascript'})`, `URL.createObjectURL(blob)`, `addModule(url)`, then `revokeObjectURL`. This is the load-bearing trick that makes worklet DSP viable in the palace's preferred single-file deployment. (Proven in Murmuration.)
+What writing DSP in the audio thread has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Web Audio Worklet — tuning]].
 
-**2026-05-30 — `AudioWorkletNode` is mono unless you ask for stereo, in two places.** Pass `outputChannelCount:[2]` in the constructor options **and** write to `out[1]` in `process()` (falling back to `out[0]` when only one channel is allocated). Setting one without the other gives silent-right or a thrown channel-count mismatch. The defensive idiom `const outR = out[1] || out[0];` handles the mono-host case without branching in the inner loop.
+**Loading and unlocking**
+- **In a single-file artifact, ship the processor as a Blob URL.** Keep its source in a template-literal string, then `new Blob([src], {type:'application/javascript'})`, `URL.createObjectURL(blob)`, `addModule(url)`, `revokeObjectURL`. There is no sidecar `.js` to point `addModule` at.
+- **`${...}` in the worklet string resolves at page-definition time.** It is a clean way to share a constant like table length across the thread boundary, but the raw string won't parse on its own (`this.L = ${L}`); substitute the interpolations before a headless `node --check`.
+- **The context starts `suspended`, and `addModule` is async.** The Engage handler awaits both the module load and `context.resume()`.
+- **Decoding doesn't need the gesture.** An `AudioContext` constructs and runs `decodeAudioData` while `suspended`; only `resume()` and starting source nodes need one. Let files load before Engage; don't gate uploads behind the unlock click.
 
-**2026-05-30 — Granular phase-scatter must land at the Hann envelope zero (grain boundary), or it clicks.** Resetting a grain's read phase to a random start is what gives the granular cloud its texture — but do it only when the grain-envelope phase wraps (`gp >= 1`), where the window value is ≈0. Reset mid-grain and you splice across a non-zero window and hear a click per grain. The window is the whole reason the scatter is free; respect its zeros.
+**Inside `process()`**
+- **Read the bare global `sampleRate`** (and `currentTime`, `currentFrame`); `this.context.sampleRate` is undefined in `AudioWorkletGlobalScope`. Cache `1/sampleRate` once.
+- **Ask for stereo in two places:** `outputChannelCount:[2]` in the constructor options, and a write to `out[1]` in `process()`. One without the other gives a silent right channel or a thrown channel-count mismatch. `const outR = out[1] || out[0];` covers a mono host without a branch in the inner loop.
+- **Scatter a grain's read phase only at the window's zero,** when the envelope phase wraps (`gp >= 1`). Mid-grain it clicks once per grain.
+- **Put a `DynamicsCompressor` after the worklet when voice counts swell,** and tune `threshold` and `ratio`; don't trust the sum to behave.
 
-**2026-05-30 — Transferring a buffer to the worklet neuters it on the main thread; allocate fresh each frame.** Sending the flock state with `port.postMessage({...}, [buf.buffer])` moves ownership — the main-thread view is now empty. For per-frame control traffic, allocate a new `Float32Array` each frame rather than reusing one. The GC cost is acceptable at 60 Hz for sketch-scale payloads; the alternative (a double-buffer pool) is a Study-tier optimisation, not a Sketch one.
+**Crossing the thread boundary**
+- **A transferred buffer is empty on the side that sent it,** after `port.postMessage(msg, [buf.buffer])` and after `decodeAudioData(buf)` alike. Pass `decodeAudioData` a `buf.slice(0)` when you keep the original.
+- **Copy or transfer by who needs the data.** If only the audio thread needs it, transfer the original. If both threads need it across its lifetime, copy into a fresh `Float32Array` and transfer the copy. Per-frame control traffic allocates fresh each frame; a double-buffer pool is a Study-tier optimisation.
 
-**2026-05-30 — `sampleRate` is a global inside `AudioWorkletGlobalScope`, not `audioCtx.sampleRate`.** Inside the processor, read the bare global `sampleRate` (and `currentTime`/`currentFrame` if needed). Reaching for `this.context.sampleRate` (the main-thread idiom) is undefined here. Cache `1/sampleRate` once; division in the inner loop is wasteful.
-
-**2026-05-30 — Template-literal worklet source resolves `${...}` at page-definition time — useful, but it hides them from a standalone syntax check.** Injecting constants like table length via `${L}` into the worklet string is a clean way to share a constant across the thread boundary. The cost: the extracted raw string isn't valid JS on its own (`this.L = ${L}` won't parse), so headless `node --check` of the worklet body requires substituting the interpolations first. Worth knowing for any verification harness.
-
-**2026-05-31 — `decodeAudioData` neuters its input ArrayBuffer; slice before calling.** Loading a user-supplied WAV via `<input type="file">` returns an `ArrayBuffer`; `audioCtx.decodeAudioData(buf)` transfers ownership. Any retained reference to `buf` is empty after the call. Pass `buf.slice(0)` instead. Small enough to miss until a "retry on decode failure" path returns silently empty. Confirmed during the [[Wavetable Scanner]] Sketch build.
-
-**2026-05-31 — `AudioContext` can be constructed and `decodeAudioData`'d while still `suspended`.** Only `resume()` and starting source nodes need a user gesture; decoding doesn't. This lets file-load happen pre-Engage, which is the ergonomic the user actually wants (load a table, then play). Don't gate file uploads behind the unlock click. Surfaced when wiring the [[Wavetable Scanner]]'s drag-and-drop path.
-
-**2026-05-31 — Transferable vs retain: send a copy when both threads need the data over its lifetime.** [[Murmuration]] transfers per-frame flock buffers and *wants* the main-thread side neutered — the gotcha on the 30th was framed that way. The [[Wavetable Scanner]] needs the same Float32Array on both threads — the worklet for lookup, the visualizer for geometry. Decision rule: if both threads need the data across its lifetime, allocate a fresh `Float32Array`, copy into it, and transfer the copy; if only the audio thread needs it, transfer the original. This generalises the earlier gotcha — same primitive, opposite direction.
-
-**2026-05-31 — Wavetable position morph is a 2D linear interpolation, not a 1D frame switcher:** the morph is the blend of two frames at fractional phase. The pattern is its own concept entry, [[1D Wavetable Scanning]].
-
-**2026-05-31 — Drone by default for a wavetable *scanner*, gated by default for a synth voice.** The deciding question — is the user exploring the timbre, or playing a melody? — lives in [[1D Wavetable Scanning]].
-
-*(Inherited from the platform, confirmed on first encounter:)*
-- Audio context starts `suspended`; first sound needs a user gesture. `addModule` is `async`, so the Engage handler must `await` both the module load and `context.resume()`.
-- A `DynamicsCompressor` after the worklet is the cheap insurance against clipping when voice counts swell; tune `threshold`/`ratio` rather than trusting the sum to behave.
+**Wavetables**
+- **A position morph blends two frames at fractional phase; it is not a frame switcher.** The pattern is [[1D Wavetable Scanning]].
+- **A scanner drones by default; a synth voice gates.** Ask whether the user is exploring the timbre or playing a melody; [[1D Wavetable Scanning]] holds the question.
 
 ## Recipes
 

@@ -1,0 +1,666 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — beats and moiré
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece, section "In the air — the baseline") · [[Kuramoto Coupling]] (deepens · two-oscillators-that-never-lock) · [[Playful Interface Design]] (exemplifies · a thing with a nature) · [[Progressive Staging]] (walks up to its test)
+  forward_vector: I am the page's control case, the one illusion that isn't one. I open as an instrument with one peg and a piece of watered silk: press, turn the peg, and a note breathes while the cloth's bands pass in step with it. Then I show the breath is really in the waveform (a scope measured from the output), the identity that makes it, the twin read honestly (ink multiplies, air adds), the Kuramoto picture of two oscillators that never lock, and the ear's filter that turns a swell into roughness and then two notes. Last, you push the difference up with the numbers hidden and mark where your hearing changes kind, and I show that the waveform never did. I change only when the section I serve does.
+  understood as: two strings a hair out of tune, a peg to tune them, and a piece of moiré silk (moiré is watered silk) that breathes with them. Every reaction means something about the sound: a light band is the two waves in step, a dark band is them cancelling, the band's speed is the beat rate, and a perfectly tuned peg can freeze the note loud or nearly silent, wherever the phases stopped.
+  red means: really there in the signal. The measured outline of the waveform on the scope, the light that survives a linear-light squint in the cloth, and the two hands' average on the wheel (Kuramoto's R). Red never marks something the ear or eye is making up; in this piece nothing is.
+  sound: nothing plays until Play is pressed; the AudioContext is made on that click. Changing step stops the sound. Two sine OscillatorNodes at 0.2 each into a sum bus, the scope's AnalyserNode tapped on that bus, then a compressor (threshold -6 dB; the sum peaks at 0.4, -8 dBFS, below it) before the destination. Step 5's coupled pair is one carrier OscillatorNode at the mean frequency times a looping buffer holding 2a·cos(φ/2), φ integrated from Adler's equation, which is exactly the sum of the two coupled sines.
+  dress: the page's own op-art (Bridget Riley, the hero): ink lines on paper, red sparingly, Manrope, Cormorant Garamond, JetBrains Mono; the furniture inlined from the design system and retinted to the paper ground.
+  remade: 2026-11-08, after the challenge: the cloth is mixed and squinted in linear light (the squint is a three-pass box blur of the light in the canvas, not a CSS blur of code values), so light on light really holds no band of brightness on screen; step 4 adds that the eye's compressive response brings a faint band back, as the hair cell does for the beat; step 5 says the outline's height, not loudness, and names the K/2 coupling form; the test says the hand's place says little (the shuffle stretches the scale about 30% either way).
+  check: "Auditory Illusions — rich — check — in-the-air.mjs", beside this file, pulls the engine (the script tagged ai-core) and measures, in Node: the envelope rate of 440 + (440 + Δf) for Δf from 0.5 to 150 Hz; that the sum has no energy at the difference and a rectified copy does; that overlaid ink gratings keep a band after blur and added light ones don't; that the coupled pair built here equals two Kuramoto oscillators integrated directly, with the slip rate √(Δf² − (K/2π)²); the in-page rate estimator against the truth; the loop seams; the test's hidden scale. What anyone hears it cannot check.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>Beats and moiré · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03, retinted to the paper ground 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (via the 2026-11-03 copy in Sidechain ↔ Conversation's pieces, _ops/furniture-fanout/furnish.py), its --fx-* tokens retinted to this face's paper ground on 2026-11-08.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #f4f2ec); --fx-bg-elev-1: var(--bg-elev-1, #efece5); --fx-bg-elev-2: var(--bg-elev-2, #ebe8e0); --fx-bg-elev-3: #e2dfd6; --fx-fg-1: var(--fg-1, #141414); --fx-fg-2: var(--fg-2, #3a3a3a); --fx-fg-3: var(--fg-3, #7a7a7a); --fx-fg-4: var(--fg-4, #a8a49a); --fx-fg-on-accent: #f4f2ec; --fx-border: var(--border, #c9c6bd); --fx-border-soft: var(--border-soft, rgba(20,20,20,0.08)); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--accent, #141414); --fx-accent-soft: var(--accent-soft, rgba(20,20,20,0.06)); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: #d1301c; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: 0 1px 0 rgba(20,20,20,0.06), 0 4px 10px rgba(20,20,20,0.08); --fx-shadow-3: 0 1px 0 rgba(20,20,20,0.08), 0 12px 28px -8px rgba(20,20,20,0.18); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;700&display=swap">
+<style>
+  :root{
+    color-scheme: light;
+    --paper:#f4f2ec; --paper-2:#ebe8e0; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --bg:var(--paper); --bg-elev-1:#efece5; --bg-elev-2:var(--paper-2); --border:var(--rule); --border-soft:rgba(20,20,20,.08);
+    --fg-1:var(--ink); --fg-2:var(--ink-2); --fg-3:var(--ink-3); --fg-4:#a8a49a; --accent:var(--ink); --accent-soft:rgba(20,20,20,.06);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--serif);font-size:18px;line-height:1.6;padding:26px 16px 32px}
+  main{max-width:960px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--sans);font-weight:700;font-size:40px;line-height:1.05;letter-spacing:-.01em;margin:6px 0 8px}
+  h2{font-family:var(--sans);font-weight:500;font-size:24px;line-height:1.15;margin:4px 0 8px}
+  p.lead{font-size:19px;color:var(--ink-2);margin:0 0 16px;max-width:64ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 10px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);border-color:var(--ink);background:var(--ink)}
+  p.say{color:var(--ink-2);margin:0 0 14px;max-width:68ch}
+  .panel{background:var(--bg-elev-1);border:1px solid var(--rule);border-radius:2px;padding:16px;margin:0 0 14px}
+  .tabs{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+  button.play{font-family:var(--sans);font-weight:700;font-size:14px;letter-spacing:.04em;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 22px;cursor:pointer}
+  button.play[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+  canvas{display:block;width:100%}
+  #field{height:220px;border:1px solid var(--ink);border-radius:0;image-rendering:auto}
+  #strip{height:46px;margin-top:4px;background:var(--paper)}
+  #scope{height:190px;background:var(--paper);border:1px solid var(--rule);margin-top:10px}
+  #wheel{height:250px;background:var(--paper);border:1px solid var(--rule)}
+  #filt{height:170px;background:var(--paper);border:1px solid var(--rule)}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:12px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+  .ctl label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px;color:var(--fg-4)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--ink);text-align:right;white-space:nowrap;min-width:9ch}
+  input[type=range]{accent-color:var(--ink)}
+  [hidden]{display:none !important}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--ink);font-weight:500}
+  .meter .r{color:var(--red)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--ink);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--serif);font-size:16px;color:var(--ink-3);margin-top:2px;font-style:italic}
+  .rowb{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink-2);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--paper);border-color:var(--ink);background:var(--ink)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  p.hint{margin:8px 0 0}
+  .ask{font-family:var(--sans);font-size:15px;color:var(--ink)}
+  .cover{height:120px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);
+    background:repeating-linear-gradient(90deg,var(--paper) 0 4px,var(--paper-2) 4px 8px);border:1px solid var(--rule)}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--border-soft);padding:5px 16px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+  footer{margin-top:26px;font-family:var(--sans);font-size:13px;color:var(--ink-3);display:flex;align-items:center;gap:10px}
+  footer b{font-weight:700;letter-spacing:.08em;color:var(--ink-2)}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:21px}.ctl{grid-template-columns:96px 1fr auto}#field{height:180px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · in the air · seven steps</div>
+  <h1>Watered silk</h1>
+  <p class="lead">An instrument with one peg and a piece of cloth. Nothing sounds until you press Play.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="tabs"><button class="play" id="play" aria-pressed="false">▸ Play</button><span class="hint" id="hearHint"></span></div>
+
+    <div id="fieldBox"><canvas id="field" aria-label="two overlaid gratings of black lines"></canvas><canvas id="strip" aria-label="brightness of the cloth after a full squint"></canvas></div>
+    <canvas id="wheel" aria-label="the two oscillators as hands on a dial"></canvas>
+    <canvas id="filt" aria-label="the ear's filter around 440 Hz and the two tones"></canvas>
+    <canvas id="scope" aria-label="the summed waveform, measured, last moments"></canvas>
+
+    <div class="ctl" id="pegRow"><label>the peg<i>turn it slowly</i></label><input type="range" id="peg" min="0" max="8" step="0.01" value="3" aria-label="the peg"><span class="v" id="pegV"></span></div>
+    <p class="hint" id="pegSay"></p>
+
+    <div id="askRow" hidden>
+      <div class="rowb"><span class="ask">How many notes are sounding?</span>
+        <button class="ghost" data-ans="one">One</button><button class="ghost" data-ans="two">Two</button><button class="ghost" data-ans="cant">Can’t tell</button></div>
+      <p class="say" id="askSay" style="margin-top:10px"></p>
+    </div>
+
+    <div class="rowb" id="soloRow"><span class="eyebrow">hear</span>
+      <button class="ghost" data-solo="a" aria-pressed="false">A alone · 440 Hz</button>
+      <button class="ghost" data-solo="b" aria-pressed="false">B alone</button>
+      <button class="ghost" data-solo="both" aria-pressed="true">Both</button></div>
+
+    <div id="modeRow">
+      <div class="rowb"><span class="eyebrow">the overlay</span>
+        <button class="ghost" data-mode="ink" aria-pressed="true">ink on ink · ×</button>
+        <button class="ghost" data-mode="light" aria-pressed="false">light on light · +</button></div>
+      <div class="ctl"><label>squint<i>blur the cloth</i></label><input type="range" id="squint" min="0" max="12" step="0.5" value="0" aria-label="squint"><span class="v" id="squintV">0 px</span></div>
+    </div>
+
+    <div class="ctl" id="kRow"><label>pull · K<i>how hard each hand tugs the other</i></label><input type="range" id="kr" min="0" max="1.6" step="0.02" value="0" aria-label="coupling K"><span class="v" id="krV"></span></div>
+
+    <div class="ctl" id="wideRow"><label>the difference<i>push it a long way</i></label><input type="range" id="wide" min="0" max="1" step="0.001" value="0.3" aria-label="the difference, wide"><span class="v" id="wideV"></span></div>
+
+    <div id="testBox" hidden>
+      <div class="cover">the picture is covered · ears only</div>
+      <div class="rowb"><button class="ghost" id="tPlay" aria-pressed="false">▸ Play the sweep</button><span class="hint" id="tState"></span></div>
+      <div class="ctl"><label>the difference<i>left small, right large · no numbers</i></label><input type="range" id="tU" min="0" max="1" step="0.001" value="0" aria-label="the difference, hidden"><span class="v">· · ·</span></div>
+      <div class="rowb"><span class="eyebrow">mark</span>
+        <button class="ghost" id="mRough">It turned rough</button><button class="ghost" id="mTwo">Now two notes</button></div>
+      <div class="rowb"><button class="ghost" id="tReveal">Reveal</button><button class="ghost" id="tAgain">Shuffle the scale again</button></div>
+      <div id="tOut"></div>
+    </div>
+
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Auditory Illusions · beats and moiré · Sketch, 2026-11-08</footer>
+</main>
+
+<script id="ai-core">
+// The engine: plain functions, shared by the picture, the sound and the headless check beside this piece.
+const AI = (() => {
+  const F1 = 440, A = 0.2, TAU = 2 * Math.PI;
+  // The cloth: line gratings 8 px apart, each line black for 48% of its period.
+  const SP = 8, DUTY = 0.48;
+  // The width of the ear's filter at f, two measures: the ERB (Glasberg and Moore, 1990) and Zwicker's critical band.
+  const erb = (f) => 24.7 * (4.37 * f / 1000 + 1);
+  const cb = (f) => 25 + 75 * Math.pow(1 + 1.4 * Math.pow(f / 1000, 2), 0.69);
+  // A roex(p) auditory filter centred on fc: its power weight at f, and the amplitude it passes.
+  function roex(f, fc) { const p = 4 * fc / erb(fc), g = Math.abs(f - fc) / fc; return (1 + p * g) * Math.exp(-p * g); }
+  const pass = (f, fc) => Math.sqrt(roex(f, fc));
+  // The outline of a measured trace: per column the larger of |min| and |max|, then a running max over one carrier
+  // period (so a column narrower than a cycle still reads the outline, not the wave).
+  function outline(lo, hi, colDur, carrier = 400) {
+    const n = lo.length, m = new Float64Array(n), e = new Float64Array(n);
+    for (let i = 0; i < n; i++) m[i] = Math.max(Math.abs(lo[i]), Math.abs(hi[i]));
+    const h = Math.max(0, Math.ceil(((1 / carrier) / colDur - 1) / 2));
+    for (let i = 0; i < n; i++) { let v = 0; for (let j = Math.max(0, i - h); j <= Math.min(n - 1, i + h); j++) if (m[j] > v) v = m[j]; e[i] = v; }
+    return e;
+  }
+  // How many swells a second an outline holds: its autocorrelation (each lag averaged over the overlap it has), the
+  // first peak past the first zero that stands within 10% of the tallest, refined by a parabola. null when the window
+  // holds fewer than two swells. Never above 300 a second (shorter lags are ripple).
+  function rate(E, dt) {
+    const n = E.length; let mean = 0; for (let i = 0; i < n; i++) mean += E[i]; mean /= n;
+    const x = new Float64Array(n); for (let i = 0; i < n; i++) x[i] = E[i] - mean;
+    const half = Math.floor(n / 2), lmin = Math.max(1, Math.ceil(1 / (300 * dt)));
+    const r = new Float64Array(half + 2);
+    for (let l = 0; l <= half + 1; l++) { let s = 0; for (let i = 0; i + l < n; i++) s += x[i] * x[i + l]; r[l] = s / (n - l); }
+    let z = -1; for (let l = lmin; l <= half; l++) if (r[l] < 0) { z = l; break; }
+    if (z < 0) return null;
+    const peaks = []; for (let l = z; l < half; l++) if (r[l] > 0 && r[l] >= r[l - 1] && r[l] >= r[l + 1]) peaks.push(l);
+    if (!peaks.length) return null;
+    const top = Math.max(...peaks.map((l) => r[l])), bl = peaks.find((l) => r[l] >= 0.9 * top);
+    const y0 = r[bl - 1], y1 = r[bl], y2 = r[bl + 1], den = y0 - 2 * y1 + y2, d = den ? 0.5 * (y0 - y2) / den : 0;
+    return 1 / ((bl + d) * dt);
+  }
+  // Two sines pulled together the Kuramoto way: θ1' = ω1 + (K/2)·sin(θ2 − θ1), θ2' = ω2 + (K/2)·sin(θ1 − θ2).
+  // The sum of their phases runs at ω1 + ω2 exactly, so sin θ1 + sin θ2 = 2·cos(φ/2)·sin(θ̄): a carrier at the mean
+  // frequency times a slow factor, with φ = θ2 − θ1 obeying Adler's equation φ' = Δω − K·sin φ.
+  // This returns the slow factor 2a·cos(φ/2) as samples from φ0, one full period of it when they drift (φ moves
+  // 4π, so it loops without a seam), six seconds when they lock (loop the last half-second, where φ has settled).
+  // kr is K as a share of |Δω|: they lock when kr ≥ 1.
+  function coupled(df, kr, sr, phi0 = 0, a = A) {
+    const dw = TAU * df, K = kr * Math.abs(dw), locked = K >= Math.abs(dw) && dw !== 0;
+    const f = (p) => dw - K * Math.sin(p), h = 1 / sr;
+    const slip = locked ? Infinity : TAU / Math.sqrt(dw * dw - K * K);
+    const n = locked ? Math.round(6 * sr) : Math.max(1, Math.round(2 * slip * sr));
+    const loopStart = locked ? Math.round(5.5 * sr) : 0;
+    const env = new Float32Array(n), phi = new Float64Array(Math.ceil(n / 64) + 1);
+    let p = phi0;
+    for (let i = 0; i < n; i++) {
+      env[i] = 2 * a * Math.cos(p / 2); if ((i & 63) === 0) phi[i >> 6] = p;
+      const k1 = f(p), k2 = f(p + h * k1 / 2), k3 = f(p + h * k2 / 2), k4 = f(p + h * k3);
+      p += h * (k1 + 2 * k2 + 2 * k3 + k4) / 6;
+    }
+    return { env, phi, n, loopStart, locked, slip, phiStar: locked ? Math.asin(dw / K) : null, end: p };
+  }
+  // The test's hidden scale: the slider's place u in 0..1, stretched by a factor s drawn fresh each run.
+  const testDf = (u, s) => Math.min(200, 0.5 * Math.pow(320, u) * s);
+  // The step-six window: the longest of these that shows at most twenty swells.
+  const WINDOWS = [2, 1, 0.5, 0.25, 0.12, 0.06];
+  const windowFor = (df) => { for (const T of WINDOWS) if (Math.abs(df) * T <= 20) return T; return WINDOWS[WINDOWS.length - 1]; };
+  // Two line gratings, each black for a share d of its period, laid over each other. Their offset is delta periods.
+  // Ink on ink: black wherever either is black, a product of the two transmittances; its mean brightness is what
+  // survives a full squint of the light. Light on light: the two added, half each; in linear light its mean never moves.
+  function inkMean(delta, d) { let u = delta % 1; if (u < 0) u += 1; const o = Math.min(u, 1 - u), overlap = Math.max(0, d - o); return 1 - (2 * d - overlap); }
+  const lightMean = (d) => 1 - d;
+  // The screen's code values and light: sRGB encoded 0..1 to linear light and back. The cloth is mixed and blurred in
+  // linear light, the way light really adds and spreads, and only then encoded for the screen.
+  const lin = (v) => v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  const enc = (v) => v <= 0.0031308 ? 12.92 * v : 1.055 * Math.pow(v, 1 / 2.4) - 0.055;
+  // The squint: a box blur of radius r px, three passes each way (close to a Gaussian), in place on a W×H map of light.
+  function blur(L, W, H, r) {
+    r = Math.round(r); if (r < 1) return L;
+    const tmp = new Float32Array(Math.max(W, H)), n = 2 * r + 1;
+    const pass = (len, get, set) => { for (let k = 0; k < 3; k++) { let s = 0; for (let i = -r; i <= r; i++) s += get(Math.min(len - 1, Math.max(0, i)));
+      for (let i = 0; i < len; i++) { tmp[i] = s / n; s += get(Math.min(len - 1, i + r + 1)) - get(Math.max(0, i - r)); } for (let i = 0; i < len; i++) set(i, tmp[i]); } };
+    for (let y = 0; y < H; y++) { const o = y * W; pass(W, (i) => L[o + i], (i, v) => { L[o + i] = v; }); }
+    for (let x = 0; x < W; x++) pass(H, (i) => L[i * W + x], (i, v) => { L[i * W + x] = v; });
+    return L;
+  }
+  return { F1, A, TAU, SP, DUTY, lin, enc, blur, erb, cb, roex, pass, outline, rate, coupled, testDf, WINDOWS, windowFor, inkMean, lightMean };
+})();
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const TAU = AI.TAU, F1 = AI.F1, A = AI.A;
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const COL = { paper: [244, 242, 236], ink: [20, 20, 20] };
+  const C = { paper: '#f4f2ec', paper2: '#ebe8e0', ink: '#141414', ink2: '#3a3a3a', ink3: '#7a7a7a', rule: '#c9c6bd', red: '#d1301c' };
+  const SP = AI.SP, DUTY = AI.DUTY, COLS = 600;
+
+  // ── state ──
+  const S = { step: 0, df: 3, kr: 0, wu: 0.3, mode: 'ink', squint: 0, solo: 'both', played: false, answered: null,
+              test: { s: 1, u: 0, rough: null, two: null, shown: false } };
+  const wideDf = () => Math.min(150, 0.5 * Math.pow(300, S.wu));
+
+  // ── sound: made on the first click; a sum bus, the scope's tap on it, a compressor, the speakers ──
+  let ctx = null, bus = null, an = null, tbuf = null, voice = null, playing = false, carrier = null;
+  async function ensure() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      bus = ctx.createGain(); bus.gain.value = 1;
+      an = ctx.createAnalyser(); an.fftSize = 8192; an.smoothingTimeConstant = 0; tbuf = new Float32Array(an.fftSize);
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -6; comp.knee.value = 0; comp.ratio.value = 4; comp.attack.value = 0.003; comp.release.value = 0.25;
+      const out = ctx.createGain(); out.gain.value = 0.9;
+      bus.connect(an); bus.connect(comp).connect(out).connect(ctx.destination);
+      ctx.onstatechange = () => { if (ctx.state !== 'running' && playing) stopSound(); };
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  // Two sines into the bus. Their phase difference is tracked here exactly: both start at phase 0, and every change
+  // of B's frequency is scheduled at a known time, so φ(t) is piecewise linear and known.
+  function startPair(df) {
+    const t = ctx.currentTime + 0.03, g = ctx.createGain();
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(1, t + 0.03); g.connect(bus);
+    const oA = ctx.createOscillator(), oB = ctx.createOscillator(); oA.frequency.value = F1; oB.frequency.value = F1 + df;
+    const gA = ctx.createGain(), gB = ctx.createGain(); gA.gain.value = S.solo === 'b' ? 0 : A; gB.gain.value = S.solo === 'a' ? 0 : A;
+    oA.connect(gA).connect(g); oB.connect(gB).connect(g); oA.start(t); oB.start(t);
+    voice = { kind: 'pair', g, oA, oB, gA, gB, segs: [{ at: t, phi: 0, df }] };
+  }
+  function pairDf(df) {
+    if (!voice || voice.kind !== 'pair') return;
+    const t = ctx.currentTime + 0.02, segs = voice.segs, last = segs[segs.length - 1];
+    if (t <= last.at) last.df = df; else { segs.push({ at: t, phi: phiAt(t), df }); if (segs.length > 64) segs.shift(); }
+    voice.oB.frequency.setValueAtTime(F1 + df, Math.max(t, last.at));
+  }
+  // The coupled pair: one carrier at the mean frequency, times the slow factor from AI.coupled. A change of K starts a
+  // new slow factor from the phase difference the old one has reached, and crossfades to it in 60 ms.
+  function startCoupled(df, kr) {
+    const sr = ctx.sampleRate, t = ctx.currentTime + 0.03;
+    if (!carrier) { carrier = ctx.createOscillator(); carrier.frequency.value = F1 + df / 2; carrier.start(t); }
+    const phi0 = voice && voice.kind === 'coupled' ? phiAt(t) : 0;
+    const c = AI.coupled(df, kr, sr, phi0);
+    const buf = ctx.createBuffer(1, c.n, sr); buf.copyToChannel(c.env, 0);
+    const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true;
+    if (c.locked) { src.loopStart = c.loopStart / sr; src.loopEnd = c.n / sr; }
+    const mod = ctx.createGain(); mod.gain.value = 0; src.connect(mod.gain); carrier.connect(mod);
+    const vg = ctx.createGain(); vg.gain.setValueAtTime(0, t); vg.gain.linearRampToValueAtTime(1, t + 0.06); mod.connect(vg).connect(bus);
+    src.start(t);
+    const old = voice;
+    voice = { kind: 'coupled', src, mod, vg, at: t, c, sr, df, kr };
+    if (old && old.kind === 'coupled') { old.vg.gain.setValueAtTime(1, t); old.vg.gain.linearRampToValueAtTime(0, t + 0.06); old.src.stop(t + 0.1); }
+  }
+  // The phase difference φ at audio time τ, from whichever voice is playing.
+  function phiAt(tau) {
+    if (!voice) return 0;
+    if (voice.kind === 'pair') { // the last segment that has begun by tau; before the first, the start
+      const segs = voice.segs; let k = segs.length - 1; while (k > 0 && segs[k].at > tau) k--;
+      const sg = segs[k]; return sg.phi + TAU * sg.df * Math.max(0, tau - sg.at); }
+    const c = voice.c, sr = voice.sr, len = c.n / sr; let rel = Math.max(0, tau - voice.at);
+    if (!c.locked) rel = rel % len;
+    else if (rel >= len) { const ls = c.loopStart / sr; rel = ls + ((rel - ls) % (len - ls)); }
+    return c.phi[Math.min(c.phi.length - 1, Math.floor(rel * sr / 64))];
+  }
+  function stopSound() {
+    playing = false;
+    if (ctx && voice) {
+      const t = ctx.currentTime, v = voice;
+      try {
+        if (v.kind === 'pair') { v.g.gain.cancelScheduledValues(t); v.g.gain.setValueAtTime(v.g.gain.value, t); v.g.gain.linearRampToValueAtTime(0, t + 0.04); v.oA.stop(t + 0.06); v.oB.stop(t + 0.06); }
+        else { v.vg.gain.cancelScheduledValues(t); v.vg.gain.setValueAtTime(v.vg.gain.value, t); v.vg.gain.linearRampToValueAtTime(0, t + 0.04); v.src.stop(t + 0.06); }
+      } catch (e) { /* already stopped */ }
+      if (carrier) { try { carrier.stop(t + 0.08); } catch (e) { /* already stopped */ } carrier = null; }
+    }
+    voice = null;
+    $('play').textContent = '▸ Play'; $('play').setAttribute('aria-pressed', 'false');
+    $('tPlay').textContent = '▸ Play the sweep'; $('tPlay').setAttribute('aria-pressed', 'false');
+  }
+  const KEYS = () => STEPS[S.step].key;
+  function stepDf() { const k = KEYS(); return k === 'filt' ? wideDf() : k === 'test' ? AI.testDf(S.test.u, S.test.s) : (k === 'lock' ? (S.df >= 0.5 ? S.df : 3) : S.df); }
+  async function play() {
+    await ensure(); stopSound();
+    const k = KEYS(), df = stepDf();
+    if (k === 'lock') startCoupled(df, S.kr); else startPair(df);
+    playing = true; S.played = true; resetRing(df);
+    if (k === 'test') { $('tPlay').textContent = '■ Stop'; $('tPlay').setAttribute('aria-pressed', 'true'); }
+    else { $('play').textContent = '■ Stop'; $('play').setAttribute('aria-pressed', 'true'); }
+    if (k === 'silk') $('askRow').hidden = false;
+  }
+  $('play').onclick = () => (playing ? stopSound() : play());
+  $('tPlay').onclick = () => (playing ? stopSound() : play());
+
+  // ── the scope's memory: per column the min and max of the measured sum, and φ at that moment ──
+  let ringT = 2, lo = new Float32Array(COLS), hi = new Float32Array(COLS), ph = new Float64Array(COLS), head = 0, acc = 0, cLo = 1, cHi = -1, lastT = 0;
+  function resetRing(df) {
+    ringT = KEYS() === 'filt' ? AI.windowFor(df) : 2;
+    lo.fill(0); hi.fill(0); head = 0; acc = 0; cLo = 1; cHi = -1;
+    const now = ctx ? ctx.currentTime : 0, p0 = ctx ? phiAt(now) : 0;
+    for (let i = 0; i < COLS; i++) ph[i] = p0 - TAU * df * ringT * (1 - (i + 1) / COLS); // the past, as if it had run at df
+    lastT = now;
+  }
+  function staticPhase(i) { return TAU * stepDf() * ringT * (i / COLS); }
+  function pull() {
+    if (!playing || !an) return;
+    an.getFloatTimeDomainData(tbuf);
+    const now = ctx.currentTime, sr = ctx.sampleRate; let n = Math.round((now - lastT) * sr); lastT = now;
+    if (n <= 0) return; if (n > tbuf.length) n = tbuf.length;
+    const spc = ringT * sr / COLS, L = tbuf.length;
+    for (let i = L - n; i < L; i++) {
+      const v = tbuf[i]; if (v > cHi) cHi = v; if (v < cLo) cLo = v;
+      if (++acc >= spc) { acc -= spc; lo[head] = cLo; hi[head] = cHi; ph[head] = phiAt(now - (L - 1 - i) / sr); head = (head + 1) % COLS; cLo = 1; cHi = -1; }
+    }
+  }
+  const ordered = (a) => { const o = new Float64Array(COLS); for (let i = 0; i < COLS; i++) o[i] = a[(head + i) % COLS]; return o; };
+  let measured = null, measT = 0;
+  function measure() { const L = ordered(lo), H = ordered(hi), dt = ringT / COLS; measured = AI.rate(AI.outline(L, H, dt), dt); }
+
+  // ── the cloth ──
+  const lut = new Float32Array(1024);
+  for (let i = 0; i < 1024; i++) { const u = i / 1024, dist = Math.min(u, 1 - u) * SP, edge = DUTY / 2 * SP; lut[i] = Math.max(0, Math.min(1, 0.5 + (dist - edge))); }
+  let img = null, Lmap = null;
+  const PL = COL.paper.map((v) => AI.lin(v / 255)), KL = COL.ink.map((v) => AI.lin(v / 255));
+  const ENC = [0, 1, 2].map((ch) => { const t = new Uint8ClampedArray(4097); for (let i = 0; i <= 4096; i++) t[i] = Math.round(255 * AI.enc(KL[ch] + (PL[ch] - KL[ch]) * i / 4096)); return t; });
+  function colPhase(i) { return (S.played ? ph[(head + i) % COLS] : staticPhase(i)); }
+  function drawField() {
+    const c = $('field'), W = c.clientWidth | 0, H = c.clientHeight | 0; if (!W || !H) return;
+    if (c.width !== W || c.height !== H) { c.width = W; c.height = H; img = null; }
+    const g = c.getContext('2d'); if (!img) { img = g.createImageData(W, H); Lmap = new Float32Array(W * H); }
+    const d = img.data, phx = new Float64Array(W), off = new Float64Array(H);
+    for (let x = 0; x < W; x++) phx[x] = colPhase(Math.min(COLS - 1, Math.floor(x / W * COLS))) / TAU;
+    for (let y = 0; y < H; y++) off[y] = 4 * Math.sin(TAU * y / 120) + 1.5 * Math.sin(TAU * y / 47);
+    // L is the share of the paper's light that gets through, in linear light: a product for ink on ink, half of each
+    // for light on light. The squint blurs L itself; only then is it encoded for the screen.
+    const mult = S.mode === 'ink';
+    for (let y = 0, q = 0; y < H; y++) {
+      const o = off[y];
+      for (let x = 0; x < W; x++, q++) {
+        const xa = (x + o) / SP, ua = xa - Math.floor(xa), xb = xa + phx[x], ub = xb - Math.floor(xb);
+        const ta = lut[(ua * 1024) | 0], tb = lut[(ub * 1024) | 0];
+        Lmap[q] = mult ? ta * tb : (ta + tb) / 2;
+      }
+    }
+    if (KEYS() === 'ink' && S.squint) AI.blur(Lmap, W, H, S.squint);
+    for (let q = 0, p = 0; q < W * H; q++, p += 4) { const i = Math.round(Math.max(0, Math.min(1, Lmap[q])) * 4096); d[p] = ENC[0][i]; d[p + 1] = ENC[1][i]; d[p + 2] = ENC[2][i]; d[p + 3] = 255; }
+    g.putImageData(img, 0, 0);
+  }
+  function fit(c) {
+    const w = c.clientWidth, h = c.clientHeight, r = devicePixelRatio || 1;
+    if (c.width !== Math.round(w * r) || c.height !== Math.round(h * r)) { c.width = Math.round(w * r); c.height = Math.round(h * r); }
+    const g = c.getContext('2d'); g.setTransform(r, 0, 0, r, 0, 0); return { g, w, h };
+  }
+  // What survives a full squint: the cloth's mean brightness, column by column, in red.
+  function drawStrip() {
+    const { g, w, h } = fit($('strip')); g.clearRect(0, 0, w, h);
+    const top = 6, bot = h - 14, Y = (L) => bot - (L / 0.6) * (bot - top);
+    g.strokeStyle = C.rule; g.beginPath(); g.moveTo(0, bot + 0.5); g.lineTo(w, bot + 0.5); g.stroke();
+    g.strokeStyle = C.red; g.lineWidth = 1.5; g.beginPath();
+    for (let x = 0; x < w; x += 2) { const i = Math.min(COLS - 1, Math.floor(x / w * COLS)), L = S.mode === 'ink' ? AI.inkMean(colPhase(i) / TAU, DUTY) : AI.lightMean(DUTY); x ? g.lineTo(x, Y(L)) : g.moveTo(x, Y(L)); }
+    g.stroke(); g.lineWidth = 1;
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = C.ink3; g.fillText('light after a full squint (linear)', 2, h - 2);
+  }
+  function drawScope() {
+    const { g, w, h } = fit($('scope')); g.fillStyle = C.paper; g.fillRect(0, 0, w, h);
+    const mid = h / 2, k = (h / 2 - 10) / 0.42, Y = (v) => mid - v * k;
+    g.strokeStyle = C.rule; g.beginPath(); g.moveTo(0, mid + 0.5); g.lineTo(w, mid + 0.5); g.stroke();
+    const L = ordered(lo), H = ordered(hi), dt = ringT / COLS;
+    g.strokeStyle = C.ink3; g.lineWidth = 1; g.beginPath();
+    for (let i = 0; i < COLS; i++) { const x = (i + 0.5) / COLS * w; g.moveTo(x, Y(H[i])); g.lineTo(x, Y(L[i]) + 0.5); }
+    g.stroke();
+    const E = AI.outline(L, H, dt);
+    g.strokeStyle = C.red; g.lineWidth = KEYS() === 'ident' ? 2.5 : 1.5;
+    for (const s of [1, -1]) { g.beginPath(); for (let i = 0; i < COLS; i++) { const x = (i + 0.5) / COLS * w; i ? g.lineTo(x, Y(s * E[i])) : g.moveTo(x, Y(s * E[i])); } g.stroke(); }
+    g.lineWidth = 1;
+    if (KEYS() === 'ident' && S.played) { // the formula's outline, dashed, on top of the measured one
+      g.strokeStyle = C.ink; g.lineWidth = 1.5; g.setLineDash([6, 5]);
+      for (const s of [1, -1]) { g.beginPath(); for (let i = 0; i < COLS; i++) { const x = (i + 0.5) / COLS * w, v = s * 2 * A * Math.abs(Math.cos(ph[(head + i) % COLS] / 2)); i ? g.lineTo(x, Y(v)) : g.moveTo(x, Y(v)); } g.stroke(); }
+      g.setLineDash([]); g.lineWidth = 1;
+    }
+    if ((KEYS() === 'wave' || KEYS() === 'ident') && playing) { // a magnifier on the newest 6 ms: it is a fast wave inside
+      const bw = Math.min(150, w * 0.3), bh = 56, bx = w - bw - 8, by = 8, n = Math.round(0.006 * ctx.sampleRate);
+      g.fillStyle = C.paper; g.fillRect(bx, by, bw, bh); g.strokeStyle = C.rule; g.strokeRect(bx + 0.5, by + 0.5, bw, bh);
+      g.strokeStyle = C.ink; g.beginPath();
+      for (let i = 0; i < n; i++) { const x = bx + i / (n - 1) * bw, y = by + bh / 2 - tbuf[tbuf.length - n + i] * (bh / 2 - 4) / 0.42; i ? g.lineTo(x, y) : g.moveTo(x, y); }
+      g.stroke(); g.font = '10px JetBrains Mono, monospace'; g.fillStyle = C.ink3; g.fillText('newest 6 ms', bx + 4, by + bh - 4);
+    }
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = C.ink3; g.textAlign = 'left'; g.fillText(`−${ringT >= 1 ? ringT + ' s' : Math.round(ringT * 1000) + ' ms'}`, 4, h - 4);
+    g.textAlign = 'right'; g.fillText('now', w - 4, h - 4); g.textAlign = 'left';
+  }
+  function drawWheel() {
+    const { g, w, h } = fit($('wheel')); g.fillStyle = C.paper; g.fillRect(0, 0, w, h);
+    const R = Math.min(h * 0.38, w * 0.2), cx = Math.max(R + 20, w * 0.26), cy = h / 2;
+    const phi = playing && voice && voice.kind === 'coupled' ? phiAt(ctx.currentTime) : 0;
+    g.strokeStyle = C.rule; g.beginPath(); g.arc(cx, cy, R, 0, TAU); g.stroke();
+    const at = (a, r) => [cx + r * Math.sin(a), cy - r * Math.cos(a)];
+    const pa = at(-phi / 2, R), pb = at(phi / 2, R);
+    g.strokeStyle = C.ink; g.lineWidth = 2;
+    for (const p of [pa, pb]) { g.beginPath(); g.moveTo(cx, cy); g.lineTo(p[0], p[1]); g.stroke(); g.beginPath(); g.arc(p[0], p[1], 4, 0, TAU); g.fillStyle = C.ink; g.fill(); }
+    const Rord = Math.cos(phi / 2); const pr = [cx + (pa[0] + pb[0] - 2 * cx) / 2, cy + (pa[1] + pb[1] - 2 * cy) / 2];
+    g.strokeStyle = C.red; g.lineWidth = 3; g.beginPath(); g.moveTo(cx, cy); g.lineTo(pr[0], pr[1]); g.stroke(); g.lineWidth = 1;
+    g.font = '11px JetBrains Mono, monospace'; g.fillStyle = C.ink2;
+    g.fillText('A', pa[0] + (pa[0] < cx ? -14 : 8), pa[1]); g.fillText('B', pb[0] + (pb[0] < cx ? -14 : 8), pb[1]);
+    const tx = cx + R + 40, df = stepDf(), c = voice && voice.kind === 'coupled' ? voice.c : null;
+    if (tx < w - 120) {
+      g.fillStyle = C.ink2; g.fillText(`gap between the hands  φ = ${(((phi % TAU) + TAU) % TAU * 180 / Math.PI).toFixed(0)}°`, tx, cy - 30);
+      g.fillStyle = C.red; g.fillText(`their average, R = ${Math.abs(Rord).toFixed(2)}`, tx, cy - 8);
+      g.fillStyle = C.ink3; g.fillText(c && c.locked ? `locked at φ* = ${(c.phiStar * 180 / Math.PI).toFixed(0)}°` : `pull K = ${S.kr.toFixed(2)} × Δω`, tx, cy + 14);
+      g.fillText(`Δf = ${df.toFixed(2)} Hz`, tx, cy + 36);
+    }
+  }
+  function drawFilt() {
+    const { g, w, h } = fit($('filt')); g.fillStyle = C.paper; g.fillRect(0, 0, w, h);
+    const f0 = 340, f1 = 660, X = (f) => 10 + (f - f0) / (f1 - f0) * (w - 20), top = 14, bot = h - 22, Y = (a) => bot - a * (bot - top);
+    const f2 = F1 + wideDf();
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = C.ink3; g.textAlign = 'center';
+    for (let f = 350; f <= 650; f += 50) { g.strokeStyle = C.rule; g.beginPath(); g.moveTo(X(f), bot); g.lineTo(X(f), bot + 4); g.stroke(); g.fillText(String(f), X(f), h - 6); }
+    g.strokeStyle = C.rule; g.beginPath(); g.moveTo(0, bot + 0.5); g.lineTo(w, bot + 0.5); g.stroke();
+    const curve = (fc, dash) => { g.setLineDash(dash); g.beginPath(); for (let x = 0; x <= w; x += 2) { const f = f0 + (x - 10) / (w - 20) * (f1 - f0); const y = Y(AI.pass(f, fc)); x ? g.lineTo(x, y) : g.moveTo(x, y); } g.stroke(); g.setLineDash([]); };
+    g.strokeStyle = C.ink; g.lineWidth = 1.5; curve(F1, []); g.strokeStyle = C.ink3; g.lineWidth = 1; curve(f2, [4, 4]);
+    const e = AI.erb(F1); g.strokeStyle = C.ink2; g.beginPath(); g.moveTo(X(F1 - e / 2), Y(0.5)); g.lineTo(X(F1 + e / 2), Y(0.5)); g.stroke();
+    g.fillStyle = C.ink2; g.fillText(`ERB ${e.toFixed(0)} Hz`, X(F1), Y(0.5) - 5);
+    g.lineWidth = 2.5; g.strokeStyle = C.ink;
+    for (const f of [F1, f2]) { g.beginPath(); g.moveTo(X(f), bot); g.lineTo(X(f), Y(0.92)); g.stroke(); }
+    g.lineWidth = 1; g.textAlign = 'left'; g.fillStyle = C.ink;
+    g.fillText('440', X(F1) + 4, top + 4); g.fillText(f2.toFixed(0), X(f2) + 4, top + 16);
+  }
+
+  // ── the walk ──
+  const STEPS = [
+    { key: 'silk', rail: 'watered silk', title: 'Watered silk',
+      say: 'Press Play, then turn the peg slowly, all the way down. Watch the cloth while you listen.',
+      show: ['fieldBox', 'pegRow'] },
+    { key: 'wave', rail: 'in the waveform', title: 'It is really in the waveform',
+      say: 'Two sines, A at 440 Hz and B a few hertz above it, added. The scope draws the sum as it leaves for the speaker, two seconds of it, newest on the right: each thin stroke is the swing of the wave in a few milliseconds, and the red line is its outline, measured from the samples, not drawn from a formula. The magnifier shows the newest 6 ms: a fast wave. Hear A alone, then B alone: the outline goes flat, since one sine has nothing slow in it. Together it rises and falls, and the light bands in the cloth, drawn from the same two phases, pass at the same rate. This is the control case for the whole page: the pulse is in the air, not in you.',
+      show: ['fieldBox', 'scope', 'pegRow', 'soloRow'] },
+    { key: 'ident', rail: 'the identity', title: 'One identity does it',
+      say: 'Two sines added can be rewritten, exactly, as one sine at their average frequency multiplied by a slow cosine at half their difference. The dashed line is that slow cosine’s size, drawn from the formula; the red line is still the measured outline, and they lie on each other. The ear takes the average as the pitch, which is why you hear one note, and the slow size as loudness. Loudness has no sign, so each half-turn of the slow cosine is one swell, and the swells come at the full difference. Nothing in the sum sits at the difference itself: its spectrum holds only the two tones. The slow thing is an outline, not a tone.',
+      show: ['scope', 'pegRow'],
+      eq: () => [`sin(2π·${F1}·t) + sin(2π·${(F1 + S.df).toFixed(2)}·t) = 2·cos(2π·${(S.df / 2).toFixed(2)}·t) · sin(2π·${(F1 + S.df / 2).toFixed(2)}·t)`,
+        `two sines added are one sine at their average, ${(F1 + S.df / 2).toFixed(2)} Hz, whose size is swung by a slow cosine at half their difference`,
+        `outline = 2a·|cos(π·Δf·t)|  →  swells per second = |f₂ − f₁| = ${S.df.toFixed(2)}`,
+        'the ear ignores the slow cosine’s sign, so each of its half-turns is one swell: as many swells a second as the difference in hertz'] },
+    { key: 'ink', rail: 'ink and air', title: 'Ink multiplies, air adds',
+      say: 'The cloth is two gratings of black lines, one a touch finer than the other, laid over each other the way ink lies on ink: wherever either is black, it is black. That is a product, and the identity read backwards turns a product of two fast patterns into a real slow one at their difference. Pull the squint: the bands survive, because they are in the light itself. The red trace is that light. Now switch to light on light, two projectors adding their beams the way the air adds two sounds. The cloth is mixed and blurred here in linear light, as real light adds and spreads: the bands become bands of crispness against grey, the squint slider wipes them out, and the red trace goes flat. That is the sound’s case: the air only adds, so the beat is an outline with nothing slow inside it. Squint with your own eyes, though, and a faint band may come back, because the eye’s response is compressive, just as the hair cell’s one-sided response turns the beat’s outline into a level. Sum or product, the slow pattern becomes real where something nonlinear reads it: in the ink, in the eye, in the ear.',
+      show: ['fieldBox', 'pegRow', 'modeRow'],
+      eq: () => ['air: cos a + cos b = 2·cos((a − b)/2) · cos((a + b)/2)',
+        'added, two fast patterns make one fast pattern with a slow outline; nothing slow is in it, and a blur of the light erases it',
+        'ink: cos a · cos b = ½·cos(a − b) + ½·cos(a + b)',
+        'multiplied, the same two make a real slow pattern at their difference; blur keeps it, and that is the moiré band (the lines here are hard-edged, not cosines; the same holds for their first harmonics)'] },
+    { key: 'lock', rail: 'never lock', title: 'Two oscillators that never lock',
+      say: 'Draw each sine as a hand going round. The dial turns with their average, so the two hands open and close like scissors. The red arrow is the average of the two hands, and its length is the height of the sound’s outline: hands together, loud; hands opposite, silent. In the air nothing pulls one hand toward the other, so they never lock: the gap opens at the difference forever, and the swells never stop. That is the picture Kuramoto Coupling starts from. Now give them a pull, K. The gap lingers where the hands are nearly together and whips round where they are apart, so the swells slow and lurch. Past K = Δω the pull wins: the hands hold still at a fixed angle, the swelling stops, one steady note remains. What you hear here is the coupled pair, computed exactly, and the red arrow’s length is Kuramoto’s order parameter R. The beat’s outline is R, made audible.',
+      show: ['wheel', 'scope', 'kRow'],
+      eq: () => ['dφ/dt = Δω − K·sin φ,   φ = θ₂ − θ₁,   Δω = 2π·(f₂ − f₁)',
+        'the gap between the two phases grows at their difference in speed, minus a pull toward agreement; in the air the pull is zero',
+        `the outline’s height = 2a·|cos(φ/2)| = 2a·R   ·   swells per second = √(Δf² − (K/2π)²)   ·   lock when K ≥ |Δω|`,
+        'the outline is the order parameter of two oscillators (coupled as θᵢ′ = ωᵢ + (K/2)·sin(θⱼ − θᵢ)); pull harder and the swells slow, then stop'] },
+    { key: 'filt', rail: 'one filter or two', title: 'One filter or two',
+      say: 'The cochlea is a row of overlapping filters. The solid curve is the one centred on 440 Hz, about 72 Hz wide by Glasberg and Moore’s measure; the dashed curve is the one centred on the second tone. While both tones sit in one filter, that filter’s output swells at the difference, and up to about fifteen swells a second the ear follows them as loudness. Faster, it cannot follow them as swells and hears roughness, a buzz in the tone. Further, and the second tone has a filter of its own: two places on the membrane, two pitches, rough at first, then smooth once they are about a filter-width apart. Watch the scope while you push: the red outline swings at exactly the difference the whole way. The physics never changes kind; the hearing does.',
+      show: ['filt', 'scope', 'wideRow'],
+      eq: () => [`ERB(f) = 24.7·(4.37·f/1000 + 1) = ${AI.erb(F1).toFixed(1)} Hz at 440 Hz   ·   Zwicker’s critical band there ≈ ${AI.cb(F1).toFixed(0)} Hz`,
+        'two measures of how wide the ear’s filter is around 440 Hz; tones closer than this share one',
+        'one filter: swell below ≈ 15 Hz · rough above · two pitches as f₂ leaves the filter · smooth past it',
+        'textbook values, from standing knowledge; the next step lets you find your own'] },
+    { key: 'test', rail: 'where it breaks', title: 'Where it breaks',
+      say: 'Now find your own edges, ears only. The picture is covered and the numbers stay hidden until you reveal them; the slider’s scale is stretched by a random factor each time (up to about 30% either way), so where your hand is says little. Start at the left and push slowly right while it plays. Press the first mark when the swell stops being a swell and turns rough, the second when you hear two notes. There is no right answer and no chance level to beat: the marks are yours, and the reveal sets them beside the textbook’s numbers and beside what the waveform was doing.',
+      show: ['testBox'] },
+  ];
+  const ALL = ['fieldBox', 'wheel', 'filt', 'scope', 'pegRow', 'soloRow', 'modeRow', 'kRow', 'wideRow', 'testBox'];
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => goStep(i); r.appendChild(b); }); }
+  function goStep(i) {
+    stopSound(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    S.solo = 'both'; document.querySelectorAll('[data-solo]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.solo === 'both'));
+    rail();
+    $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`;
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    for (const id of ALL) $(id).hidden = !s.show.includes(id);
+    $('strip').hidden = s.key !== 'ink';
+    $('askRow').hidden = !(s.key === 'silk' && S.played);
+    $('play').hidden = s.key === 'test';
+    if (s.key !== 'ink' && S.mode !== 'ink') setMode('ink');
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    measured = null; resetRing(stepDf()); S.played = s.key === 'silk' ? S.played : false;
+    writeEq(); writeMeter(); writePeg();
+  }
+  $('back').onclick = () => goStep(S.step - 1); $('next').onclick = () => goStep(S.step + 1);
+  function writeEq() {
+    const s = STEPS[S.step], e = s.eq ? s.eq() : ['', '', '', ''];
+    $('eq1').textContent = e[0]; $('eq1w').textContent = e[1]; $('eq2').textContent = e[2]; $('eq2w').textContent = e[3];
+  }
+
+  // ── the peg ──
+  function writePeg() {
+    const k = KEYS();
+    $('pegV').textContent = k === 'silk' ? '' : `Δf ${S.df.toFixed(2)} Hz`;
+    let say = '';
+    if (S.df === 0 && playing && voice && voice.kind === 'pair') {
+      const r = Math.abs(Math.cos(phiAt(ctx.currentTime) / 2));
+      say = r > 0.75 ? 'Still. The bands stopped, and so did the breathing: they froze in step, loud.'
+        : r < 0.3 ? 'Still. They froze against each other: almost silent, and the cloth is dark. Nudge the peg and let them drift back.'
+        : 'Still. They froze half in step: steady, softer than their loudest.';
+    }
+    $('pegSay').textContent = say;
+  }
+  $('peg').oninput = () => {
+    let v = +$('peg').value; if (v < 0.08) v = 0; S.df = v;
+    if (playing) pairDf(v);
+    writePeg(); writeEq(); writeMeter();
+  };
+  document.querySelectorAll('[data-ans]').forEach((b) => (b.onclick = () => {
+    S.answered = b.dataset.ans; document.querySelectorAll('[data-ans]').forEach((x) => x.setAttribute('aria-pressed', x === b));
+    $('askSay').textContent = { one: 'That is what nearly everyone hears: one note, breathing. There are two, A at 440 Hz and B a few hertz above it. The next step shows them.',
+      two: 'There are two, A at 440 Hz and B a few hertz above it. Most people hear one note breathing. The next step shows the pair.',
+      cant: 'Fair. There are two, A at 440 Hz and B a few hertz above it, and most people hear one note breathing. The next step shows them.' }[S.answered];
+  }));
+  document.querySelectorAll('[data-solo]').forEach((b) => (b.onclick = () => {
+    S.solo = b.dataset.solo; document.querySelectorAll('[data-solo]').forEach((x) => x.setAttribute('aria-pressed', x === b));
+    if (voice && voice.kind === 'pair') { const t = ctx.currentTime; voice.gA.gain.setTargetAtTime(S.solo === 'b' ? 0 : A, t, 0.015); voice.gB.gain.setTargetAtTime(S.solo === 'a' ? 0 : A, t, 0.015); }
+    writeMeter();
+  }));
+  function setMode(m) { S.mode = m; document.querySelectorAll('[data-mode]').forEach((x) => x.setAttribute('aria-pressed', x.dataset.mode === m)); writeMeter(); }
+  document.querySelectorAll('[data-mode]').forEach((b) => (b.onclick = () => setMode(b.dataset.mode)));
+  $('squint').oninput = () => { S.squint = +$('squint').value; $('squintV').textContent = S.squint + ' px'; };
+  $('kr').oninput = () => {
+    let v = +$('kr').value; if (v > 0.985 && v < 1) v = 1; S.kr = v; $('krV').textContent = `${v.toFixed(2)} × Δω`;
+    if (playing && voice && voice.kind === 'coupled') startCoupled(stepDf(), v);
+    writeMeter();
+  };
+  $('wide').oninput = () => {
+    S.wu = +$('wide').value; const df = wideDf(); $('wideV').textContent = `Δf ${df.toFixed(1)} Hz`;
+    if (playing) { pairDf(df); if (AI.windowFor(df) !== ringT) { measured = null; resetRing(df); } }
+    writeMeter();
+  };
+
+  // ── the readouts ──
+  const mr = () => measured == null ? 'too slow to measure in this window' : measured < 20 ? `${measured.toFixed(1)} a second` : `≈ ${measured.toFixed(0)} a second (this readout is good to about 2%)`;
+  function writeMeter() {
+    const k = KEYS(); let h = '';
+    if (k === 'wave') h = `A <b>${F1.toFixed(2)} Hz</b> · B <b>${(F1 + S.df).toFixed(2)} Hz</b> · difference <b>${S.df.toFixed(2)} Hz</b>` + (playing ? `<br><span class="r">the measured outline swells ${S.solo === 'both' ? mr() : 'not at all: one sine alone'}</span>` : '');
+    else if (k === 'ident') h = `the pitch, their average: <b>${(F1 + S.df / 2).toFixed(2)} Hz</b> · swells predicted: <b>${S.df.toFixed(2)} a second</b>` + (playing ? `<br><span class="r">measured from the outline: ${mr()}</span>` : '');
+    else if (k === 'ink') h = `bands across the cloth: <b>${(S.df * 2).toFixed(1)}</b>, one for every swell in the scope’s two seconds · overlay: <b>${S.mode === 'ink' ? 'ink on ink, a product' : 'light on light, a sum'}</b>`;
+    else if (k === 'lock') { const df = stepDf(), lock = S.kr >= 1; h = `difference <b>${df.toFixed(2)} Hz</b>${S.df < 0.5 ? ' (the peg was in tune, so 3 Hz here)' : ''} · pull <b>K = ${S.kr.toFixed(2)} × Δω</b> · ` + (lock ? '<b>locked: no swells</b>' : `swells predicted <b>${(df * Math.sqrt(1 - S.kr * S.kr)).toFixed(2)} a second</b>`) + (playing && !lock ? `<br><span class="r">measured from the outline: ${mr()}</span>` : ''); }
+    else if (k === 'filt') { const df = wideDf(); h = `B <b>${(F1 + df).toFixed(1)} Hz</b> · difference <b>${df.toFixed(1)} Hz</b> · the 440 Hz filter passes B at <b>${(100 * AI.pass(F1 + df, F1)).toFixed(0)}%</b> of its amplitude` + (playing ? `<br><span class="r">measured from the outline: ${mr()}</span>` : ''); }
+    $('meter').innerHTML = h;
+  }
+
+  // ── the test ──
+  function newScale() { S.test.s = 0.75 + Math.random() * 0.58; S.test.rough = null; S.test.two = null; S.test.shown = false; $('tOut').innerHTML = ''; tState(); }
+  function tState() { $('tState').textContent = `marks: rough ${S.test.rough == null ? '○' : '●'} · two notes ${S.test.two == null ? '○' : '●'}`; }
+  $('tU').oninput = () => { S.test.u = +$('tU').value; if (playing && KEYS() === 'test') pairDf(AI.testDf(S.test.u, S.test.s)); };
+  $('mRough').onclick = () => { S.test.rough = AI.testDf(S.test.u, S.test.s); tState(); };
+  $('mTwo').onclick = () => { S.test.two = AI.testDf(S.test.u, S.test.s); tState(); };
+  $('tAgain').onclick = () => { stopSound(); $('tU').value = 0; S.test.u = 0; newScale(); };
+  $('tReveal').onclick = () => {
+    const r = S.test.rough, t = S.test.two, f = (v) => v == null ? 'not marked' : `${v.toFixed(1)} Hz`;
+    const cr = r == null ? '' : r < 8 ? 'earlier than the textbook’s 15 to 20 Hz' : r <= 30 ? 'in the neighbourhood of the textbook’s 15 to 20 Hz' : 'later than the textbook’s 15 to 20 Hz';
+    const ct = t == null ? '' : (r != null && t < r) ? 'before your roughness mark, an unusual order; worth a second pass' : t < AI.cb(F1) ? `inside the critical band (${AI.cb(F1).toFixed(0)} Hz here), where the textbook says two pitches first come apart while still rough` : `past the critical band (${AI.cb(F1).toFixed(0)} Hz), later than the textbook expects`;
+    $('tOut').innerHTML = `<table class="marks"><tr><th>mark</th><th>the difference</th><th>beside the textbook</th></tr>
+      <tr><td>turned rough</td><td>${f(r)}</td><td>${cr}</td></tr><tr><td>two notes</td><td>${f(t)}</td><td>${ct}</td></tr></table>
+      <p class="say" style="margin-top:12px">At ${r == null && t == null ? 'any mark' : 'each mark'}, the waveform’s outline was swinging at exactly the difference: ${[r, t].filter((v) => v != null).map((v) => v.toFixed(1) + ' times a second').join(' and ') || 'whatever the slider set'}. The check beside this piece measured the outline’s rate against the difference from 0.5 to 150 Hz and found them equal to within a few hundredths of a percent. Nothing in the air changed kind at your marks. What changed was your hearing.</p>
+      <p class="hint">The textbook numbers (swell to roughness near 15 to 20 Hz; two pitches inside the critical band; smooth past it, 72 Hz by the ERB and ${AI.cb(F1).toFixed(0)} Hz by Zwicker’s band at 440 Hz) are standing knowledge, after Plomp and Levelt and Zwicker, and were not checked against a source when this piece was made. Your speakers matter: a small speaker’s own distortion can add roughness.</p>`;
+    S.test.shown = true;
+  };
+
+  // ── the loop ──
+  let lastDraw = 0;
+  function frame(ts) {
+    requestAnimationFrame(frame);
+    pull();
+    if (RM && ts - lastDraw < 500) return; lastDraw = ts;
+    const s = STEPS[S.step];
+    if (s.show.includes('fieldBox')) drawField();
+    if (s.key === 'ink') drawStrip();
+    if (s.show.includes('scope')) drawScope();
+    if (s.show.includes('wheel')) drawWheel();
+    if (s.show.includes('filt')) drawFilt();
+    if (playing && ts - measT > 300) { measT = ts; if (s.show.includes('scope')) measure(); writeMeter(); writePeg(); }
+  }
+  function sigil() { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * TAU; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); }
+    $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+  sigil(); newScale(); $('krV').textContent = '0.00 × Δω'; $('wideV').textContent = `Δf ${wideDf().toFixed(1)} Hz`;
+  goStep(0); requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,567 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the talking socket
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece), § Meaning gets in early, the phantom words paragraph · listed in [[Auditory Illusions — rich.json]] · siblings: "who rewrites whom", "the seesaw", "the loop that sings", which share its voice box (VB) and scaffolding (UI) byte for byte
+  forward_vector: I am Deutsch's phantom words built from what a browser can make: two synthetic words, "no" and "way", looped from two sides with the right side one word behind the left, and a notebook for the words you hear that aren't there; beside them a plain wall socket, a US outlet as drawn, which you say when you first see looking back at you: pareidolia shown, not tested (remade 2026-11-08, after the challenge). The test compares two sides against one side, and says it is a comparison, not a blind trial. I change only when the section I serve does.
+  understood as: a place, a quiet wall that talks. Two speaker grilles in the wall, one each side, ripple when their side speaks; a socket in the middle is the face in the wall; the notebook under it is yours.
+  red means: what your own perception supplied: the words you write that the wall never said, and the eyes and mouth you named on the socket. Ink is the wall, the plate and the two words played. Red means this in all four of this section's pieces.
+  sound: nothing plays until Start or a Play is clicked; the AudioContext is made on that click and goes through a compressor. Changing step stops the sound. The two words are formant synthesis from the voice box, made here. The browser's own voice is offered in step 2 as one side only, because it speaks one utterance at a time and cannot overlap itself or be panned. The loop asks the kit for a 150 s cap, since the effect takes a while.
+  needs: stereo, from two speakers or headphones; the piece says so before the first click.
+  check: "Auditory Illusions — rich — check — meaning-gets-in-early.mjs", beside this file, measures the loop: its period, each word's length, which word is on which side when, and the delay between the sides by cross-correlation; and the two words' formants by LPC.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The talking socket · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-08, retinted to the paper ground (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: var(--paper-2, #ebe8e0); --fx-bg-elev-2: var(--paper-3, #e2dfd6); --fx-bg-elev-3: #d8d4ca; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: var(--rule, #c9c6bd); --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.4); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --paper-2:#ebe8e0; --paper-3:#e2dfd6; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd;
+    --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.55;padding:24px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--serif);font-weight:500;font-style:italic;font-size:44px;line-height:1.02;margin:4px 0 6px;letter-spacing:-.01em}
+  h2{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.1;margin:2px 0 6px}
+  p.lead{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:62ch}
+  p.say{font-family:var(--serif);font-size:18px;line-height:1.5;color:var(--ink-2);margin:0 0 12px;max-width:66ch}
+  .rail{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 16px;border-top:1.5px solid var(--ink);padding-top:10px}
+  .rail button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 9px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .rail .half{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);align-self:center;margin:0 4px 0 8px}
+  .panel{border:1.5px solid var(--ink);border-radius:2px;padding:16px;margin:0 0 12px;background:var(--paper)}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+  button.go{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 18px;cursor:pointer}
+  button.go:disabled{opacity:.35;cursor:default}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--paper);background:var(--ink)}
+  button.ghost:disabled{opacity:.3;cursor:default}
+  button.ans{font-family:var(--serif);font-size:22px;font-style:italic;color:var(--ink);background:transparent;border:1.5px solid var(--ink);border-radius:2px;padding:4px 18px;cursor:pointer;min-width:64px}
+  button.ans:disabled{opacity:.3;cursor:default}
+  button.ans.picked{color:var(--paper);background:var(--red);border-color:var(--red)}
+  canvas.stage{width:100%;display:block;border-radius:2px;touch-action:none}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  .meter{font-family:var(--mono);font-size:12.5px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .meter b{font-weight:500;color:var(--ink)}
+  .meter i{font-style:normal;color:var(--red)}
+  .eq{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--ink-3);font-size:12.5px;margin-top:2px}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.35}
+  .ctl .v{font-family:var(--mono);font-size:13px;color:var(--ink);text-align:right;white-space:nowrap;min-width:8ch}
+  .warn{border:1.5px solid var(--ink);background:var(--paper-2);padding:14px 16px;border-radius:2px;margin:10px 0}
+  .warn b{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+  table.marks{border-collapse:collapse;margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:5px 14px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  table.marks .r{color:var(--red)}
+  .verdict{font-family:var(--serif);font-size:18px;line-height:1.5;margin:10px 0 0;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px;border-top:1px solid var(--rule);padding-top:10px}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:34px}h2{font-size:23px}.ctl{grid-template-columns:100px 1fr auto}button.ans{font-size:19px;padding:4px 12px;min-width:52px}}
+</style>
+<style>
+  #stage{height:340px}
+  #lanes{height:120px;margin-top:10px}
+  .seg{display:inline-flex;border:1.5px solid var(--ink);border-radius:2px;overflow:hidden}
+  .seg button{font-family:var(--mono);font-size:12px;background:transparent;border:0;border-right:1px solid var(--rule);padding:6px 11px;cursor:pointer;color:var(--ink)}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-right:2px}
+  input.note{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--ink);background:transparent;border:0;border-bottom:1.5px solid var(--ink);padding:4px 2px;min-width:0;flex:1 1 220px;outline:none}
+  input.note::placeholder{color:var(--ink-3)}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · meaning gets in early · five steps</div>
+  <h1>The talking socket</h1>
+  <p class="lead" id="lead"></p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="sEye"></div>
+    <h2 id="sTitle"></h2>
+    <p class="say" id="sSay"></p>
+  </section>
+
+  <div class="panel">
+    <p class="hint" id="stereo" style="margin:0 0 8px">Stereo: two speakers, or headphones. <button class="ghost" id="lr" style="padding:3px 9px;font-size:12px">Check left, then right</button></p>
+    <canvas class="stage" id="stage" aria-label="a wall with two speakers and a socket"></canvas>
+    <div class="row" id="listenRow">
+      <button class="go" id="start">Start: listen to the wall</button>
+      <input class="note" id="note" placeholder="write a word you hear, then Enter" autocomplete="off" aria-label="a word you hear">
+    </div>
+    <div class="row" id="faceRow">
+      <span class="lbl">the socket</span><button class="ghost" id="face">It’s looking at me</button><span class="hint" id="faceT"></span>
+    </div>
+    <div id="loopCtl" hidden>
+      <div class="row"><span class="lbl">voice</span><span class="seg" id="segVoice"><button data-v="vb" aria-pressed="true">voice box, two sides</button><button data-v="tts" aria-pressed="false">browser’s, one side</button></span><span class="hint" id="ttsNote"></span></div>
+      <div class="ctl"><label for="off">right side<br>behind left</label><input type="range" id="off" min="0" max="300" step="5" value="300"><span class="v" id="offV"></span></div>
+    </div>
+    <div id="testBox" hidden>
+      <div class="row"><span class="lbl" id="tLabel"></span><button class="go" id="tPlay">Play this run</button><span class="hint" id="tClock"></span></div>
+      <div id="tResult"></div>
+    </div>
+    <canvas class="stage" id="lanes" hidden aria-label="what each side is saying, in time"></canvas>
+    <div class="verdict" id="reveal"></div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg id="sigil" width="20" height="20" viewBox="-10 -10 20 20" aria-hidden="true"></svg>Auditory Illusions · the talking socket · made in Web Audio, 2026-11-08 · nobody has listened to it yet</footer>
+</main>
+
+<script id="ai-voice">
+// The voice box: one small formant synthesizer, the same in all four of this section's pieces, byte for byte.
+// A glottal pulse (Rosenberg's shape) at a gliding pitch goes through five resonators in series, each a
+// two-pole filter (Klatt's form) whose centre frequency and bandwidth move with the syllable; a burst of
+// noise through its own resonator marks a stop's release; the output is differenced, as a mouth radiates.
+// Plain functions, rendered offline into a buffer, so the picture, the sound and the headless check share one source.
+const VB = (() => {
+  const SR = 44100;
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  // Piecewise-linear lookup in keyframes [[t, v], …], held flat past either end.
+  function at(keys, t) {
+    if (t <= keys[0][0]) return keys[0][1];
+    for (let i = 1; i < keys.length; i++) if (t <= keys[i][0]) { const [t0, v0] = keys[i - 1], [t1, v1] = keys[i]; return v0 + (v1 - v0) * (t - t0) / Math.max(t1 - t0, 1e-9); }
+    return keys[keys.length - 1][1];
+  }
+  // Klatt's resonator: y[n] = A·x[n] + B·y[n−1] + C·y[n−2], unity gain at 0 Hz.
+  function coef(F, BW) { const T = 1 / SR, C = -Math.exp(-2 * Math.PI * BW * T), B = 2 * Math.exp(-Math.PI * BW * T) * Math.cos(2 * Math.PI * F * T); return [1 - B - C, B, C]; }
+  const DEF = { F4: [[0, 3300]], F5: [[0, 3850]], B1: [[0, 70]], B2: [[0, 90]], B3: [[0, 150]], B4: [[0, 250]], B5: [[0, 300]], AH: [[0, 0]] };
+  // spec: { dur (s), F0, F1…F5, B1…B5, AV (voicing 0–1), AH (aspiration 0–1): keyframe lists; bursts: [{ t, dur, amp, f, bw }] }
+  function render(spec, seed = 1) {
+    const n = Math.round(spec.dur * SR), out = new Float64Array(n), r = rng(seed), S = Object.assign({}, DEF, spec);
+    const y1 = new Float64Array(5), y2 = new Float64Array(5); let cf = [], ph = 0, prev = 0, nz = 0;
+    const bursts = (spec.bursts || []).map((b) => ({ ...b, c: coef(b.f, b.bw), y1: 0, y2: 0 }));
+    let F0 = 100, AV = 0, AH = 0;
+    for (let i = 0; i < n; i++) {
+      const t = i / SR;
+      if (i % 16 === 0) {
+        F0 = at(S.F0, t); AV = at(S.AV, t); AH = at(S.AH, t);
+        cf = [1, 2, 3, 4, 5].map((k) => coef(at(S['F' + k], t), at(S['B' + k], t)));
+      }
+      ph += F0 / SR; if (ph >= 1) ph -= 1;
+      const g = ph < 0.4 ? 0.5 * (1 - Math.cos(Math.PI * ph / 0.4)) : ph < 0.56 ? Math.cos(Math.PI * (ph - 0.4) / 0.32) : 0;
+      nz = 0.6 * nz + 0.4 * (r() * 2 - 1);
+      let x = AV * g + AH * nz * 0.5;
+      for (let k = 0; k < 5; k++) { const [A, B, C] = cf[k]; const y = A * x + B * y1[k] + C * y2[k]; y2[k] = y1[k]; y1[k] = y; x = y; }
+      for (const b of bursts) if (t >= b.t && t < b.t + b.dur * 4) {
+        const e = b.amp * Math.exp(-(t - b.t) / b.dur) * (r() * 2 - 1);
+        const y = b.c[0] * e + b.c[1] * b.y1 + b.c[2] * b.y2; b.y2 = b.y1; b.y1 = y; x += y;
+      }
+      out[i] = x - prev; prev = x;
+    }
+    return out;
+  }
+  // ── the syllables ──
+  // ba · da · ga on one dial, c from 0 (ba) through 0.5 (da) to 1 (ga): the second and third formants start at the
+  // lips' (low), the tongue tip's (F2 high) or the tongue body's (F2 and F3 pinched together) place and glide to "ah".
+  const PL = { ba: { F2: 900, F3: 2100, bf: 900, bbw: 1600, ba: 0.18 }, da: { F2: 1700, F3: 2750, bf: 3900, bbw: 1600, ba: 0.069 }, ga: { F2: 1950, F3: 2150, bf: 2000, bbw: 450, ba: 0.1 } };
+  function place(c) { const a = c <= 0.5 ? PL.ba : PL.da, b = c <= 0.5 ? PL.da : PL.ga, u = c <= 0.5 ? c / 0.5 : (c - 0.5) / 0.5, m = {}; for (const k in a) m[k] = a[k] + (b[k] - a[k]) * u; return m; }
+  const REL = 0.06; // the release, in seconds from the buffer's start: the burst, and the instant the lips (or tongue) let go
+  function syllable(c = 0) {
+    const p = place(c), R = REL;
+    return { dur: 0.46, F0: [[0, 128], [R + 0.1, 122], [0.42, 96]],
+      F1: [[0, 250], [R, 250], [R + 0.04, 730]], F2: [[0, p.F2], [R, p.F2], [R + 0.045, 1220]], F3: [[0, p.F3], [R, p.F3], [R + 0.045, 2560]],
+      B1: [[0, 60], [R + 0.04, 90]], AV: [[0, 0], [R + 0.006, 0], [R + 0.02, 1], [0.34, 1], [0.42, 0]], AH: [[0, 0], [R, 0.25], [R + 0.012, 0]],
+      bursts: [{ t: R, dur: 0.004, amp: p.ba, f: p.bf, bw: p.bbw }] };
+  }
+  // Two names, one on each side of a crossover: "Laurel" lives low (its F1 and F2 under 1.6 kHz), "Yanny" lives high
+  // (its F2 and F3 glides above it). Their syllables are timed to land together.
+  function laurel() {
+    return { dur: 0.62, F0: [[0, 118], [0.16, 134], [0.34, 112], [0.58, 92]],
+      F1: [[0, 340], [0.07, 360], [0.15, 600], [0.24, 590], [0.30, 460], [0.36, 470], [0.42, 500], [0.5, 380]],
+      F2: [[0, 950], [0.07, 980], [0.15, 900], [0.24, 950], [0.30, 1100], [0.36, 1150], [0.42, 1250], [0.5, 980]],
+      F3: [[0, 2700], [0.07, 2650], [0.15, 2550], [0.24, 2350], [0.30, 1650], [0.36, 1700], [0.42, 2200], [0.5, 2650]],
+      AV: [[0, 0], [0.012, 0.75], [0.07, 0.75], [0.12, 1], [0.38, 0.95], [0.5, 0.75], [0.58, 0]] };
+  }
+  function yanny() {
+    return { dur: 0.62, F0: [[0, 118], [0.16, 134], [0.34, 112], [0.58, 92]],
+      F1: [[0, 280], [0.06, 290], [0.13, 760], [0.24, 740], [0.28, 280], [0.34, 280], [0.40, 300], [0.5, 300]],
+      F2: [[0, 2250], [0.06, 2200], [0.13, 1750], [0.24, 1700], [0.28, 1500], [0.34, 1600], [0.40, 2300], [0.5, 2350]],
+      F3: [[0, 3050], [0.06, 3000], [0.13, 2600], [0.24, 2550], [0.28, 2500], [0.34, 2600], [0.40, 3000], [0.5, 3050]],
+      B1: [[0, 70], [0.25, 70], [0.27, 200], [0.35, 200], [0.37, 70]], B2: [[0, 90], [0.25, 90], [0.27, 300], [0.35, 300], [0.37, 90]],
+      AV: [[0, 0], [0.012, 0.8], [0.06, 0.8], [0.12, 1], [0.26, 1], [0.28, 0.45], [0.35, 0.45], [0.38, 0.95], [0.5, 0.8], [0.58, 0]] };
+  }
+  // Two words for the phantom loop: "no" (a nasal, then a rounded vowel gliding shut) and "way" (lips rounded, then a
+  // front vowel gliding up). 0.3 s each.
+  function no() {
+    return { dur: 0.3, F0: [[0, 120], [0.3, 108]],
+      F1: [[0, 270], [0.06, 270], [0.1, 480], [0.2, 440], [0.28, 360]], F2: [[0, 1500], [0.06, 1450], [0.1, 950], [0.2, 880], [0.28, 800]],
+      F3: [[0, 2550], [0.1, 2450], [0.28, 2350]], B1: [[0, 200], [0.06, 200], [0.09, 80]], B2: [[0, 300], [0.06, 300], [0.09, 90]],
+      AV: [[0, 0], [0.01, 0.45], [0.06, 0.45], [0.1, 1], [0.24, 0.9], [0.3, 0]] };
+  }
+  function way() {
+    return { dur: 0.3, F0: [[0, 116], [0.3, 104]],
+      F1: [[0, 300], [0.05, 300], [0.12, 480], [0.2, 450], [0.28, 360]], F2: [[0, 650], [0.05, 700], [0.12, 1850], [0.2, 2000], [0.28, 2200]],
+      F3: [[0, 2200], [0.05, 2250], [0.12, 2550], [0.28, 2700]],
+      AV: [[0, 0], [0.015, 0.7], [0.06, 0.85], [0.1, 1], [0.24, 0.9], [0.3, 0]] };
+  }
+  // ── measures and helpers ──
+  function rms(x, a = 0, b = x.length) { let s = 0; for (let i = a; i < b; i++) s += x[i] * x[i]; return Math.sqrt(s / Math.max(1, b - a)); }
+  function peak(x) { let p = 0; for (const v of x) p = Math.max(p, Math.abs(v)); return p; }
+  // Scale to an RMS (over the voiced part: samples within 30 dB of the loudest 10 ms), peak held under 0.95.
+  function level(x, target = 0.1) { const h = 441, fr = []; for (let i = 0; i + h <= x.length; i += h) fr.push(rms(x, i, i + h)); const top = Math.max(...fr); let s = 0, c = 0; fr.forEach((v) => { if (v > top * 0.0316) { s += v * v; c++; } }); let k = target / Math.sqrt(s / c); if (peak(x) * k > 0.95) k = 0.95 / peak(x); return Float32Array.from(x, (v) => v * k); }
+  // RBJ's biquads, the same as the Web Audio spec's: lowpass / highpass (Q), lowshelf / highshelf (gain in dB, S = 1).
+  function biquad(type, f, q, gainDb = 0) {
+    const w = 2 * Math.PI * f / SR, cw = Math.cos(w), sw = Math.sin(w), A = Math.pow(10, gainDb / 40);
+    let b0, b1, b2, a0, a1, a2;
+    if (type === 'lowpass' || type === 'highpass') { const al = sw / (2 * q), s = type === 'lowpass' ? 1 - cw : 1 + cw; b0 = s / 2; b1 = type === 'lowpass' ? s : -s; b2 = s / 2; a0 = 1 + al; a1 = -2 * cw; a2 = 1 - al; }
+    else { const al = sw / 2 * Math.sqrt(2), sa = 2 * Math.sqrt(A) * al, lo = type === 'lowshelf' ? 1 : -1;
+      b0 = A * ((A + 1) - lo * (A - 1) * cw + sa); b1 = lo * 2 * A * ((A - 1) - lo * (A + 1) * cw); b2 = A * ((A + 1) - lo * (A - 1) * cw - sa);
+      a0 = (A + 1) + lo * (A - 1) * cw + sa; a1 = -lo * 2 * ((A - 1) + lo * (A + 1) * cw); a2 = (A + 1) + lo * (A - 1) * cw - sa; }
+    return [b0 / a0, b1 / a0, b2 / a0, a1 / a0, a2 / a0];
+  }
+  function filter(x, c) { const y = new Float64Array(x.length); let x1 = 0, x2 = 0, y1 = 0, y2 = 0; for (let i = 0; i < x.length; i++) { const v = c[0] * x[i] + c[1] * x1 + c[2] * x2 - c[3] * y1 - c[4] * y2; x2 = x1; x1 = x[i]; y2 = y1; y1 = v; y[i] = v; } return y; }
+  // The magnitude, in dB, of a biquad at a frequency.
+  function gainAt(c, f) { const w = 2 * Math.PI * f / SR, re = (a, b, d) => a + b * Math.cos(w) + d * Math.cos(2 * w), im = (b, d) => -b * Math.sin(w) - d * Math.sin(2 * w);
+    const nr = re(c[0], c[1], c[2]), ni = im(c[1], c[2]), dr = re(1, c[3], c[4]), di = im(c[3], c[4]); return 10 * Math.log10((nr * nr + ni * ni) / (dr * dr + di * di)); }
+  // The two names, split at the crossover with three 2-pole filters each side (36 dB an octave), matched in level.
+  const XO = 1600;
+  function names() {
+    const lp = biquad('lowpass', XO, 0.7071), hp = biquad('highpass', XO, 0.7071), three = (x, c) => filter(filter(filter(x, c), c), c);
+    const L = three(render(laurel(), 7), lp), Y = three(render(yanny(), 9), hp);
+    return { laurel: level(L, 0.1), yanny: level(Y, 0.1) };
+  }
+  // radix-2 FFT, in place
+  function fft(re, im) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) { const a = -2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], vr = re[i + j + len / 2] * cr - im[i + j + len / 2] * ci, vi = re[i + j + len / 2] * ci + im[i + j + len / 2] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[i + j + len / 2] = ur - vr; im[i + j + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  }
+  // A spectrogram for drawing: 1024-point frames every 5 ms, Hann window, dB, up to fmax.
+  function spectrogram(x, fmax = 5000, hop = 0.005) {
+    const N = 1024, H = Math.round(hop * SR), kmax = Math.round(fmax / SR * N), frames = [];
+    for (let s = 0; s + N <= x.length + N / 2; s += H) { const re = new Float64Array(N), im = new Float64Array(N); for (let i = 0; i < N; i++) { const j = s - N / 2 + i; re[i] = (j >= 0 && j < x.length ? x[j] : 0) * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / N)); } fft(re, im); const f = new Float32Array(kmax); for (let k = 0; k < kmax; k++) f[k] = 10 * Math.log10(re[k] * re[k] + im[k] * im[k] + 1e-12); frames.push(f); }
+    return { frames, df: SR / N, hop };
+  }
+  return { SR, rng, at, render, syllable, place, REL, laurel, yanny, no, way, rms, peak, level, biquad, filter, gainAt, XO, names, fft, spectrogram };
+})();
+</script>
+<script id="ai-ui">
+// The scaffolding, the same in this section's four pieces: sound only on a click, through one compressor;
+// buffers that stop on a step change; the screen's clock set against the sound's; the walk; the sigil.
+const UI = (() => {
+  const $ = (id) => document.getElementById(id);
+  let ctx = null, master = null;
+  const live = new Set(), quietHooks = [];
+  async function audio() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -8; comp.knee.value = 6; comp.ratio.value = 4; comp.connect(ctx.destination);
+      master = ctx.createGain(); master.gain.value = 0.9; master.connect(comp);
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+    return ctx;
+  }
+  const out = () => master;
+  function buffer(chs, sr = 44100) { const b = ctx.createBuffer(chs.length, chs[0].length, sr); chs.forEach((c, i) => b.copyToChannel(c instanceof Float32Array ? c : Float32Array.from(c), i)); return b; }
+  function play(buf, when, dest, loop = false) {
+    const s = ctx.createBufferSource(); s.buffer = buf; s.loop = loop; const g = ctx.createGain(); s.connect(g).connect(dest || master);
+    const t = when || ctx.currentTime + 0.03; s.start(t); const me = { s, g, t, buf }; live.add(me); s.onended = () => live.delete(me); return me;
+  }
+  function stop() {
+    for (const f of quietHooks) { try { f(); } catch (e) { /* nothing left to stop */ } }
+    if (!ctx) return; const now = ctx.currentTime;
+    for (const m of live) { try { m.g.gain.setTargetAtTime(0, now, 0.008); m.s.stop(now + 0.06); } catch (e) { /* already stopped */ } }
+    live.clear();
+  }
+  const onStop = (f) => quietHooks.push(f);
+  // A context time, as a performance.now() time: when that sample reaches the speaker, as near as this browser can tell.
+  function perfAt(T) {
+    try { const ts = ctx.getOutputTimestamp(); if (ts && ts.performanceTime > 0 && ts.contextTime > 0) return ts.performanceTime + (T - ts.contextTime) * 1000; } catch (e) { /* no timestamp here */ }
+    return performance.now() + (T - ctx.currentTime + (ctx.outputLatency || 0) + (ctx.baseLatency || 0)) * 1000;
+  }
+  const latencyMs = () => (ctx ? 1000 * ((ctx.outputLatency || 0) + (ctx.baseLatency || 0)) : null);
+  // The display's frame interval, measured: the median of the last 40 frame steps.
+  const steps = []; let lastF = 0;
+  function frameTick(ts) { if (lastF) { steps.push(ts - lastF); if (steps.length > 40) steps.shift(); } lastF = ts; }
+  function frameMs() { if (steps.length < 5) return 1000 / 60; const s = steps.slice().sort((a, b) => a - b); return s[s.length >> 1]; }
+  function fit(c, h) {
+    if (h) c.style.height = h + 'px';
+    const w = c.clientWidth, H = c.clientHeight, d = devicePixelRatio || 1;
+    if (c.width !== Math.round(w * d) || c.height !== Math.round(H * d)) { c.width = Math.round(w * d); c.height = Math.round(H * d); }
+    const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h: H };
+  }
+  // The walk: one step at a time, the list always open; changing step stops the sound.
+  function walk(steps, show, halves) {
+    let i = 0;
+    function rail() {
+      const r = $('rail'); r.innerHTML = '';
+      steps.forEach((s, k) => {
+        if (halves && halves[k]) { const h = document.createElement('span'); h.className = 'half'; h.textContent = halves[k]; r.appendChild(h); }
+        const b = document.createElement('button'); b.textContent = (k + 1) + ' · ' + s.rail; if (k === i) b.setAttribute('aria-current', 'step'); b.onclick = () => go(k); r.appendChild(b);
+      });
+    }
+    function go(k) { stop(); i = Math.max(0, Math.min(steps.length - 1, k)); rail(); $('back').disabled = i === 0; $('next').disabled = i === steps.length - 1; show(i, steps[i]); }
+    $('back').onclick = () => go(i - 1); $('next').onclick = () => go(i + 1);
+    return { go, now: () => i };
+  }
+  function sigil() { const pts = []; for (let k = 0; k <= 240; k++) { const t = k / 240 * 2 * Math.PI; pts.push((8 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (8 * Math.sin(2 * t)).toFixed(2)); }
+    $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+  // The page asks every other piece to fall quiet when one plays; this piece hears that and stops,
+  // its spoken words included, which no audio context can reach.
+  function hush() { stop(); try { speechSynthesis.cancel(); } catch (x) { /* no speech here */ } if (ctx && ctx.state === 'running') ctx.suspend(); }
+  window.addEventListener('message', (e) => { if ((e.source === window.parent || e.source == null) && e.data && e.data.type === 'rich:hush') hush(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) hush(); });
+  // Speech the browser says has no audio context for the page to hear start, so the piece tells the page itself.
+  function announce() { if (window.parent !== window) { try { window.parent.postMessage({ type: 'rich:play' }, '*'); } catch (e) { /* alone */ } } }
+  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function shuffled(a) { a = a.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; }
+  const pct = (p) => (p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%');
+  return { $, announce, audio, out, buffer, play, stop, onStop, perfAt, latencyMs, frameTick, frameMs, fit, walk, sigil, reduced, shuffled, pct, ctx: () => ctx };
+})();
+</script>
+<script id="mge-socket">
+// This piece's own measures: the loop, and the socket's three holes.
+const PW = (() => {
+  const SR = 44100, WORD = 0.3, PERIOD = 2 * WORD;   // "no" then "way", 0.3 s each: one loop is 0.6 s
+  // The loop, as [left, right]: the left says no–way, the right says the same, d seconds behind (0.3 s: way–no).
+  // At d = 0 the two sides are one sound, from the middle.
+  function loop(words, d = WORD) {
+    const n = Math.round(PERIOD * SR), L = new Float32Array(n), R = new Float32Array(n), k = Math.round(d * SR);
+    const put = (x, w, at) => { for (let i = 0; i < w.length; i++) x[(at + i) % n] += w[i]; };
+    put(L, words.no, 0); put(L, words.way, Math.round(WORD * SR));
+    for (let i = 0; i < n; i++) R[(i + k) % n] = L[i];
+    return [L, R];
+  }
+  function words() { const no = VB.level(VB.render(VB.no(), 21), 0.12), way = VB.level(VB.render(VB.way(), 22), 0.12); return { no, way }; }
+  // The socket: two slots and a round hole, each with a place (in plate units, −1 to 1) and a turn.
+  // The socket as made: a US outlet, two upright slots over a round ground hole. Nothing here is drawn as a face.
+  const FIXED = [{ k: 'slot', x: -0.32, y: -0.28, a: 0 }, { k: 'slot', x: 0.32, y: -0.28, a: 0 }, { k: 'hole', x: 0, y: 0.42, a: 0 }];
+  const SCRAMBLED = [{ k: 'slot', x: -0.5, y: 0.45, a: 1.1 }, { k: 'slot', x: 0.35, y: -0.55, a: 0.2 }, { k: 'hole', x: 0.45, y: 0.3, a: 0 }];
+  function scrambled(r = Math.random) { return [{ k: 'slot', x: r() * 1.4 - 0.7, y: r() * 1.4 - 0.7, a: r() * 3 }, { k: 'slot', x: r() * 1.4 - 0.7, y: r() * 1.4 - 0.7, a: r() * 3 }, { k: 'hole', x: r() * 1.4 - 0.7, y: r() * 1.4 - 0.7, a: 0 }]; }
+  // Which hole you would call eyes and which a mouth: the lowest is the mouth.
+  function named(f) { const lo = f.reduce((m, h, i) => (h.y > f[m].y ? i : m), 0); return f.map((h, i) => (i === lo ? 'mouth' : 'eye')); }
+  // A word you wrote, against the two the wall says.
+  const said = (w) => /^(no|way|no way|noway|way no|wayno)$/i.test(w.trim());
+  return { SR, WORD, PERIOD, loop, words, FIXED, SCRAMBLED, scrambled, named, said };
+})();
+</script>
+<script>
+(() => {
+  const $ = UI.$, SR = VB.SR;
+  const STEPS = [
+    { key: 'wall', rail: 'the wall', title: 'Listen to the wall', lead: true,
+      say: 'The wall says something, over and over, from both sides. Write down each word you hear, as you hear it; keep listening for a minute or two, and write again whenever it changes. And the socket in the middle: when it looks back at you, say so.' },
+    { key: 'loop', rail: 'two words', title: 'It only ever said two words',
+      say: 'The wall said “no” and “way”, 0.3 s each, and nothing else. The left speaker says no–way, no–way; the right says the same, one word behind, so it says way–no while the left says no–way. Every moment one side is saying one word and the other side the other. The lanes below show it. Slide the right side back into line with the left and the two become one sound from the middle; try the browser’s own voice, a real speech engine, though it can only speak one side and can’t overlap itself.',
+      eq: ['left: no · way · no · way …   right: the left, delayed d · d = 300 ms → way · no · way · no', 'one loop is 600 ms; at every instant the two sides are saying different words'] },
+    { key: 'why', rail: 'why words', title: 'Why words appear',
+      say: 'Hearing speech means cutting a stream into words, and the cut is a guess. This loop gives the guess nothing to settle on: no–way–no–way can be cut as “no way”, “way no”, “wayno”, or not as these words at all, and each side offers a different cut at every moment. The ear also sorts sound into sources by place, so it can follow one side, or stitch across both. As the guess keeps changing, the words you hear change, and the brain fills them from what it expects. Deutsch reports that the words people hear often have to do with what is on their minds. A single word repeated alone changes too, the verbal transformation effect (Warren, from memory, not re-checked here), which the last step puts to use as the control.',
+      eq: ['', ''] },
+    { key: 'face', rail: 'the face', title: 'The pattern-finder supplies the pattern',
+      say: 'The socket is the same move in the eye: three holes, and you see eyes and a mouth. Nothing on the plate is a face; the face is what your eye adds, because faces are what it is built to find. The page grades this twin a shape, not a mechanism: the same structure, a pattern-finder supplying the pattern, built by different machinery in the eye and the ear. Below, three real sockets. One is surprised, one is cross, one is worried, and none of them was drawn to be anything. This half is shown, not tested: the clock beside “It’s looking at me” is only how long the plate sat on the wall before you said so.' },
+    { key: 'test', rail: 'two sides or one', title: 'Two sides, or one?',
+      say: 'Two runs of 60 seconds, in a random order: the two sides, one word apart, as the page describes; and the same loop from one place, both sides in line. Write every word you hear in each. What the counts mean comes after both runs, so it doesn’t steer what you write. This is a comparison, not a blind trial: you will hear which run is which, and nothing here can tell what you heard from what you wrote.',
+      eq: ['new words = the words you wrote, less “no”, “way” and their joins, counted once each', 'what the wall never said'] },
+  ];
+  const S = { step: 0, notes: [], start: null, feats: PW.FIXED.map((f) => ({ ...f })), faced: null, shownAt: performance.now(), off: 300, voice: 'vb', test: null, playing: false, t0: 0 };
+  const W2 = PW.words();
+  let loopRun = null, ttsOn = false;
+  async function startLoop(d) {
+    UI.stop(); await UI.audio(); const ctx = UI.ctx();
+    const [L, R] = PW.loop(W2, d / 1000);
+    const at = ctx.currentTime + 0.05; UI.play(UI.buffer([L, R]), at, null, true);
+    loopRun = { at, d }; S.playing = true; if (!S.start) S.start = performance.now();
+    if (window.RichPiece) RichPiece.capAfter(150);
+    paint();
+  }
+  function speakLoop() {
+    UI.stop(); ttsOn = true; S.playing = true; if (!S.start) S.start = performance.now();
+    const once = () => { if (!ttsOn) return; const u = new SpeechSynthesisUtterance('no way'); u.rate = 1.1; u.onend = once; u.onerror = () => { ttsOn = false; S.playing = false; $('ttsNote').textContent = 'the browser’s voice did not speak here'; paint(); }; try { speechSynthesis.speak(u); } catch (e) { ttsOn = false; } };
+    try { speechSynthesis.cancel(); UI.announce(); once(); } catch (e) { $('ttsNote').textContent = 'no browser voice here'; }
+    setTimeout(() => { if (ttsOn) { ttsOn = false; try { speechSynthesis.cancel(); } catch (e) { /* gone */ } S.playing = false; paint(); } }, 120000);
+    paint();
+  }
+  UI.onStop(() => { loopRun = null; S.playing = false; if (ttsOn) { ttsOn = false; try { speechSynthesis.cancel(); } catch (e) { /* no speech */ } } });
+  $('start').onclick = () => { if (S.playing) { UI.stop(); paint(); return; } if (S.step === 1 && S.voice === 'tts') speakLoop(); else startLoop(S.step === 1 ? S.off : 300); };
+  function paint() { $('start').textContent = S.playing ? 'Stop' : S.notes.length ? 'Listen again' : 'Start: listen to the wall'; }
+  // left, then right
+  $('lr').onclick = async () => { UI.stop(); await UI.audio(); const n = Math.round(0.35 * SR), z = new Float32Array(Math.round(1.0 * SR)); const tone = Float32Array.from({ length: n }, (_, i) => 0.2 * Math.sin(2 * Math.PI * 660 * i / SR) * Math.min(1, i / 400, (n - i) / 400)); const L = z.slice(), R = z.slice(); L.set(tone, 0); R.set(tone, Math.round(0.55 * SR)); UI.play(UI.buffer([L, R])); };
+
+  // the notebook
+  $('note').addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter') return; const w = $('note').value.trim(); if (!w) return; $('note').value = '';
+    const t = S.start ? (performance.now() - S.start) / 1000 : 0;
+    const entry = { w, t, run: S.test && S.test.running ? S.test.running : null };
+    S.notes.push(entry); if (S.test && S.test.running) S.test.words[S.test.running].push(w);
+    reveal(); paint();
+  });
+  function reveal() {
+    if (S.step !== 0) { $('reveal').innerHTML = ''; return; }
+    const n = S.notes.length; if (n < 3) { $('reveal').innerHTML = n ? '<span class="hint">Keep listening, and keep writing.</span>' : ''; return; }
+    const loops = Math.max(1, S.start ? Math.round((performance.now() - S.start) / 600) : 1);
+    const extra = [...new Set(S.notes.filter((x) => !PW.said(x.w)).map((x) => x.w.toLowerCase()))];
+    $('reveal').innerHTML = `The wall said two words, “no” and “way”, ${loops === 1 ? 'once' : loops + ' times'} each so far, and nothing else. ${extra.length ? `<span style="color:var(--red)">${extra.map((w) => '“' + w + '”').join(', ')}</span>: you supplied ${extra.length === 1 ? 'that' : 'those'}.` : 'So far you have written only what it said; give it longer.'} Step 2 shows the loop.`;
+  }
+  // the socket
+  const plate = (w, h) => { const s = Math.min(78, h * 0.24), face = STEPS[S.step] && STEPS[S.step].key === 'face'; return { cx: w / 2, cy: face ? 150 : h * 0.48, s }; };
+  $('face').onclick = () => { if (S.faced) return; S.faced = PW.named(S.feats); $('faceT').textContent = `after ${((performance.now() - S.shownAt) / 1000).toFixed(0)} s on the wall. The plate never changed.`; };
+
+  // step 2 controls
+  function seg(id, cb) { document.querySelectorAll(`#${id} button`).forEach((b) => (b.onclick = () => { document.querySelectorAll(`#${id} button`).forEach((x) => x.setAttribute('aria-pressed', x === b)); cb(b.dataset.v); })); }
+  seg('segVoice', (v) => { S.voice = v; UI.stop(); paint(); $('ttsNote').textContent = v === 'tts' ? 'one utterance at a time, from the middle: no offset, no sides' : ''; $('off').disabled = v === 'tts'; });
+  $('off').oninput = () => { S.off = +$('off').value; $('offV').textContent = S.off + ' ms'; if (loopRun) startLoop(S.off); meter(); };
+  $('offV').textContent = '300 ms';
+
+  // the test: two runs of 60 s
+  function newTest() { const order = UI.shuffled(['two', 'one']); S.test = { order, k: 0, running: null, words: { two: [], one: [] }, done: false, until: 0 }; }
+  function buildTest() {
+    const T = S.test; const name = (r) => (r === 'two' ? 'two sides, one word apart' : 'one place, both sides in line');
+    $('tLabel').textContent = T.done ? 'both runs done' : `run ${T.k + 1} of 2: ${name(T.order[T.k])}`;
+    $('tPlay').disabled = T.done || !!T.running;
+    if (T.done) {
+      const nw = (r) => [...new Set(T.words[r].filter((w) => !PW.said(w)).map((w) => w.toLowerCase()))];
+      const a = nw('two'), b = nw('one');
+      const v = a.length > b.length ? `Two sides gave you ${a.length} new word${a.length === 1 ? '' : 's'}, one place gave ${b.length}. For you, today, the second side added words, as the page’s setup implies.` : a.length === b.length ? `${a.length} new words from each. The second side made no difference you could count.` : `One place gave you more new words (${b.length}) than two sides did (${a.length}). The second speaker wasn’t needed for you: the repetition did it alone.`;
+      $('tResult').innerHTML = `<table class="marks"><tr><th>run</th><th>new words</th><th>you wrote</th></tr><tr><td>two sides</td><td>${a.length}</td><td class="r">${a.join(' · ')}</td></tr><tr><td>one place</td><td>${b.length}</td><td class="r">${b.join(' · ')}</td></tr></table><p class="verdict">${v} The page says phantom words come from two words overlapped from two speakers; if one place gives as many new words as two, the second speaker wasn’t needed, and what was heard is the older effect of a word repeated. The run that came first had a fresher ear; play the test again for the other order.</p>`;
+    } else $('tResult').innerHTML = '<p class="hint" style="margin-top:10px">Write in the notebook above as the run plays. The tally shows after both runs.</p>';
+  }
+  $('tPlay').onclick = async () => { const T = S.test; const r = T.order[T.k]; T.running = r; await startLoop(r === 'two' ? 300 : 0); T.until = performance.now() + 60000; buildTest(); };
+  setInterval(() => {
+    const T = S.test; if (!T || !T.running) { $('tClock').textContent = ''; return; }
+    const left = Math.ceil((T.until - performance.now()) / 1000); $('tClock').textContent = left > 0 ? `${left} s left` : '';
+    if (left <= 0 || !S.playing) { UI.stop(); T.running = null; T.k++; if (T.k >= 2) T.done = true; buildTest(); paint(); }
+  }, 250);
+
+  // ── the walk ──
+  function show(i, s) {
+    S.step = i; const k = s.key;
+    $('sEye').textContent = `Step ${i + 1} of ${STEPS.length}`; $('sTitle').textContent = s.title; $('sSay').textContent = s.say;
+    $('lead').textContent = 'A quiet wall, two speakers, a socket. Listen for a while.';
+    $('listenRow').hidden = k === 'face' || k === 'why' ? false : false;
+    $('start').hidden = k === 'test' || k === 'face'; $('faceRow').hidden = !(k === 'wall' || k === 'face');
+    $('loopCtl').hidden = k !== 'loop'; $('testBox').hidden = k !== 'test'; $('lanes').hidden = !(k === 'loop' || k === 'why');
+    $('stereo').hidden = !(k === 'wall' || k === 'test');
+    $('stage').style.height = (k === 'face' ? 420 : 340) + 'px';
+    if (k === 'test') { if (!S.test) newTest(); if (S.test.running) { S.test.running = null; } buildTest(); }
+    $('eq1').textContent = (s.eq || ['', ''])[0]; $('eq1w').textContent = (s.eq || ['', ''])[1];
+    reveal(); paint(); meter();
+  }
+  function meter() {
+    const k = STEPS[S.step].key;
+    $('meter').innerHTML = k === 'loop' ? `one loop <b>${PW.PERIOD * 1000} ms</b> · each word <b>${PW.WORD * 1000} ms</b> · the right side <b>${S.off} ms</b> behind the left${S.off === 0 ? ': one sound, from the middle' : S.off === 300 ? ': one word behind' : ''}` : '';
+  }
+
+  // ── drawing ──
+  const INK = '#141414', PAPER = '#f4f2ec', RED = '#d1301c', RULE = '#c9c6bd', INK3 = '#7a7a7a';
+  const envOf = (x) => { const h = 441, e = []; for (let i = 0; i < x.length; i += h) { let s = 0; for (let j = i; j < Math.min(x.length, i + h); j++) s += x[j] * x[j]; e.push(Math.sqrt(s / h)); } const m = Math.max(...e); return e.map((v) => v / m); };
+  const ENV = { no: envOf(W2.no), way: envOf(W2.way) };
+  // what each side is saying now: [word, level 0–1] for left and right
+  function nowSaying() {
+    if (!loopRun || !UI.ctx()) return null;
+    const t = UI.ctx().currentTime - loopRun.at; if (t < 0) return null;
+    const side = (tt) => { const p = ((tt % PW.PERIOD) + PW.PERIOD) % PW.PERIOD, w = p < PW.WORD ? 'no' : 'way', k = Math.floor((p % PW.WORD) * 100); return [w, ENV[w][k] || 0]; };
+    return [side(t), side(t - loopRun.d / 1000)];
+  }
+  function grille(g, x, y, r, lev) { g.strokeStyle = INK; for (let k = 0; k < 7; k++) { g.lineWidth = 1; g.beginPath(); g.arc(x, y, r * (0.25 + k * 0.12) * (1 + lev * 0.05 * (7 - k)), 0, 2 * Math.PI); g.stroke(); } g.fillStyle = INK; g.beginPath(); g.arc(x, y, r * 0.18, 0, 2 * Math.PI); g.fill(); }
+  function wall(g, w, h) {
+    g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    g.strokeStyle = 'rgba(20,20,20,0.07)'; g.lineWidth = 1; for (let y = 6; y < h; y += 6) { g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke(); }
+    const ns = nowSaying(), R = Math.min(52, w * 0.09);
+    const still = UI.reduced(); grille(g, R + 24, h * 0.42, R, ns && !still ? ns[0][1] : 0); grille(g, w - R - 24, h * 0.42, R, ns && !still ? ns[1][1] : 0);
+    g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'center'; g.fillText('LEFT', R + 24, h * 0.42 + R + 20); g.fillText('RIGHT', w - R - 24, h * 0.42 + R + 20);
+    // the plate
+    const { cx, cy, s } = plate(w, h);
+    g.fillStyle = '#ebe8e0'; g.strokeStyle = INK; g.lineWidth = 1.5; const pw = s * 1.15, ph = s * 1.5;
+    g.beginPath(); g.roundRect ? g.roundRect(cx - pw, cy - ph, pw * 2, ph * 2, 10) : g.rect(cx - pw, cy - ph, pw * 2, ph * 2); g.fill(); g.stroke();
+    g.beginPath(); g.arc(cx, cy + ph * 0.86, 3, 0, 2 * Math.PI); g.stroke();
+    S.feats.forEach((f, i) => {
+      const x = cx + f.x * s, y = cy + f.y * s; g.save(); g.translate(x, y); g.rotate(f.a); g.fillStyle = INK;
+      if (f.k === 'slot') g.fillRect(-4, -15, 8, 30); else { g.beginPath(); g.arc(0, -2, 9, Math.PI, 0); g.lineTo(9, 8); g.lineTo(-9, 8); g.closePath(); g.fill(); }
+      g.restore();
+      if (S.faced) { g.fillStyle = RED; g.font = 'italic 16px "Cormorant Garamond", serif'; g.textAlign = 'center'; g.fillText(S.faced[i], x, y + (S.faced[i] === 'mouth' ? 32 : -22)); }
+    });
+    // the notebook, around the wall
+    const ws = S.notes.slice(-10);
+    ws.forEach((n, i) => { const col = i % 2, row = Math.floor(i / 2); const x = col ? w * 0.68 : w * 0.32, y = 28 + row * 26; g.fillStyle = PW.said(n.w) ? INK : RED; g.font = 'italic 20px "Cormorant Garamond", serif'; g.textAlign = 'center'; g.fillText(n.w, x, y); });
+    if (STEPS[S.step].key === 'face') gallery(g, w, h);
+  }
+  // three real sockets, small, along the bottom: US type B, UK type G, Australian type I
+  function gallery(g, w, h) {
+    const y = h - 46, xs = [w * 0.2, w * 0.5, w * 0.8]; g.font = '10px "JetBrains Mono", monospace'; g.textAlign = 'center';
+    xs.forEach((x, i) => {
+      g.strokeStyle = INK; g.lineWidth = 1; g.strokeRect(x - 26, y - 30, 52, 60); g.fillStyle = INK;
+      if (i === 0) { g.fillRect(x - 14, y - 16, 4, 14); g.fillRect(x + 10, y - 16, 4, 14); g.beginPath(); g.arc(x, y + 12, 5, Math.PI, 0); g.lineTo(x + 5, y + 16); g.lineTo(x - 5, y + 16); g.fill(); }
+      if (i === 1) { g.fillRect(x - 3, y - 20, 6, 12); g.fillRect(x - 18, y + 6, 12, 5); g.fillRect(x + 6, y + 6, 12, 5); }
+      if (i === 2) { g.save(); g.translate(x - 11, y - 8); g.rotate(-0.55); g.fillRect(-2, -8, 4, 16); g.restore(); g.save(); g.translate(x + 11, y - 8); g.rotate(0.55); g.fillRect(-2, -8, 4, 16); g.restore(); g.fillRect(x - 2, y + 6, 4, 13); }
+      g.fillStyle = INK3; g.fillText(['US, type B', 'UK, type G', 'Australia, type I'][i], x, y + 44);
+    });
+  }
+  function lanes(g, w, h) {
+    g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    const x0 = 60, ww = w - 76, span = 2.4, d = (loopRun ? loopRun.d : S.off) / 1000, now = loopRun && UI.ctx() ? UI.ctx().currentTime - loopRun.at : 0;
+    const X = (t) => x0 + (t / span) * ww;
+    g.font = '10px "JetBrains Mono", monospace'; g.textAlign = 'right'; g.fillStyle = INK3; g.fillText('LEFT', x0 - 8, 36); g.fillText('RIGHT', x0 - 8, 80);
+    for (const [row, off] of [[22, 0], [66, d]]) {
+      for (let k = -1; k < span / PW.WORD + 2; k++) { const t0 = k * PW.WORD + off, word = (((k % 2) + 2) % 2) === 0 ? 'no' : 'way'; if (X(t0) > x0 + ww) break; const a = Math.max(x0, X(t0)), b = Math.min(x0 + ww, X(t0 + PW.WORD) - 2); if (b <= a) continue; g.strokeStyle = INK; g.lineWidth = 1; g.strokeRect(a, row, b - a, 22); g.fillStyle = INK; g.textAlign = 'center'; g.font = 'italic 15px "Cormorant Garamond", serif'; g.fillText(word, (a + b) / 2, row + 16); }
+    }
+    if (loopRun) { const p = x0 + ((now % span) / span) * ww; g.strokeStyle = INK; g.lineWidth = 1.5; g.beginPath(); g.moveTo(p, 14); g.lineTo(p, 96); g.stroke(); }
+    g.font = '10px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'center'; for (let t = 0; t <= span + 1e-9; t += 0.6) g.fillText((t * 1000).toFixed(0) + ' ms', X(t), h - 8);
+  }
+  function draw(ts) {
+    requestAnimationFrame(draw); UI.frameTick(ts);
+    const st = UI.fit($('stage')); wall(st.g, st.w, st.h);
+    if (!$('lanes').hidden) { const l = UI.fit($('lanes')); lanes(l.g, l.w, l.h); }
+  }
+  const W = UI.walk(STEPS, show);
+  UI.sigil(); W.go(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

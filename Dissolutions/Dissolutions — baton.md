@@ -57,6 +57,7 @@ So the move waits on him. A proof here tests an identity by letting you play it;
 - `one-field-two-hands`: after "Line the hands up" the difference shown is about 3e-13, not machine epsilon.
 - Three proofs' legends say "Middle · …" for a panel drawn top-left: the shadow, the equation, one-field.
 - All six proofs load Google Fonts, which is a network request.
+- Three proofs (the table that travels, one field two hands, the lattice read back), new 2026-11-08: their `loopify` blends the tail onto the start with an equal-power fade, which swells about 3 dB at the seam when the two pieces are the same wave in phase, once a loop. Loudon heard it in the shadow that locks' sequence, step 1 ("a jolt in the audio it doesn't seem to come right with any visual shift"). The six sequences were fixed in 568a587a (the fade scales by how alike the pieces are); the proofs keep theirs.
 
 **Not placed: A, B, E.** They stay offers, each shown right after he has met the proof it rests on. A and B are now set up out loud by the sequences: one field, two hands (steps 5–6) teaches A and says the Volterra page holds otherwise; the lattice read back (steps 4–6) teaches B and says the Rank-N page holds otherwise. Anchors were re-found on 2026-10-25, after the 2026-10-24 Weave moved them; re-check them before showing. The offered words are carried whole below.
 
@@ -108,6 +109,7 @@ Nothing, until he sends notes. When a session opens on Dissolutions, read them f
 - **The sequences hush when their tab is hidden,** and stay hushed on return. A sound that stops when you switch tabs is the design, not a fault. `check-sequences.mjs` tests it.
 - **A checker that reuses the page's own search can't catch that search.** The lattice's 157 passed every check until a challenger searched exhaustively by its own route. A second route is what found it.
 - **His answers become public when the palace is pushed.** The board is tracked in a public repository; he accepted that on 2026-11-07 (`_ops/loudon-eval/README.md`).
+- **He approves the six sequences one at a time** (Loudon, 2026-11-08: "One at a time"), naming each in the section's note or in chat. The face holds all six in one section, "The catalogue (so far)", and `approve.mjs` approves a whole section, so the section stays at proposal until the last of the six has his yes; each yes is written here as it comes.
 
 ## Load these files first
 

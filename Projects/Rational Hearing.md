@@ -45,6 +45,8 @@ forward_vector: "I am page one of a lecture, the sheet Loudon keeps up on the pr
 
 # Rational Hearing
 
+![[Rational Hearing — hero.png]]
+
 > musical intervals are ratios
 
 Loudon's one-page teaching handout on intervals as whole-number ratios, limited to **5-limit** harmony (primes 2, 3, 5), rebuilt as a page you can play. It is a lecture backdrop: it stays up across a few lectures while students take notes on printed copies, and Loudon supplies the explanation out loud. So it gives him anchors to point at and sound, not paragraphs to read.

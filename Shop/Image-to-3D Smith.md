@@ -13,6 +13,7 @@ links:
   - { target: "[[Three.js]]", type: enables, label: feeds-display }
   - { target: "[[Blender]]", type: enables, label: feeds-finishing }
   - { target: "[[FLUX (Hugging Face)]]", type: connects-to, label: image-source-upstream }
+  - { target: "[[CAD Drafter]]", type: contrasts-with, label: "plausible-vs-measured" }
 ---
 
 # Image-to-3D Smith

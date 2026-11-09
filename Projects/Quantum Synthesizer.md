@@ -10,8 +10,6 @@ stage: growing
 status: active
 forward_vector: "I will keep proving — through audio and video artifacts, not only prose — that the Schrödinger equation IS a synthesis system: testing boundary conditions as harmonic content with actual sound, testing potential shape as anharmonicity with actual visualization, until monism is something the ear has heard rather than something the page has claimed."
 links:
-  - target: "[[Bessel Functions in Synthesis]]"
-    type: couples-with
   - target: "[[Spinoza Conatus]]"
     type: deepens
   - target: "[[Boundary-Crossing Instruments]]"
@@ -21,6 +19,9 @@ links:
   - target: "[[Piano String Inharmonicity]]"
     type: connects-to
     label: stiffness-road-to-the-squares
+  - target: "[[Bessel Functions in Synthesis]]"
+    type: mirrors
+    label: geometry-picks-the-basis
 ---
 
 # Quantum Synthesizer

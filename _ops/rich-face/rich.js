@@ -220,6 +220,13 @@ window.addEventListener('message', (e) => {
       : asked < CAP.min ? `asked for ${asked} px; held at ${CAP.min}, the least a frame takes` : null);
     return;
   }
+  if (type === 'rich:note') {
+    const sec = f.closest('section.sec'), text = typeof e.data.text === 'string' ? e.data.text.trim().slice(0, 20000) : '';
+    const ok = !!(REVIEW && sec && sec._takeNote && text);
+    if (ok) sec._takeNote(text);
+    tell(f, { type: 'rich:note-taken', ok });
+    return;
+  }
   if (type === 'rich:held') { capNote(f, `sized by its own window, so it grows with its frame: held at ${Math.ceil(Number(e.data.height)) || parseInt(f.style.height, 10)} px`); return; }
   if (type === 'rich:camera') {
     if (e.data.on) document.querySelectorAll('iframe').forEach((o) => { if (o !== f) tell(o, { type: 'rich:camera-off' }); });
@@ -464,6 +471,13 @@ async function laySection(s, idx) {
       foot.append(ap);
     }
     paint(); paintAp();
+    // A piece that asks Loudon something (answers.js) hands its answers here
+    // when it is framed in this section: they join the box, once, and go to the
+    // board with the face's Send.
+    el._takeNote = (text) => {
+      if (!ta.value.includes(text)) ta.value = ta.value.trim() ? `${ta.value.trimEnd()}\n\n${text}` : text;
+      localStorage.setItem(k, ta.value); paint(); countNotes(); box.classList.add('open');
+    };
     // After a send clears what went, each section re-reads its box from storage.
     noteViews.push(() => { ta.value = localStorage.getItem(k) || ''; if (!ta.value) box.classList.remove('open'); paint(); paintAp(); });
     el.append(foot, box);

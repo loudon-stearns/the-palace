@@ -6,8 +6,6 @@ medium: other
 tool: Depth Anything V2
 tool_version: V2-Small (transformers / hf)
 born: 2026-06
-last_tested: 2026-06-25
-last_gotcha: 2026-06-25
 license: Apache-2.0 (Small/Base); model card per checkpoint
 forward_vector: "I read depth out of a flat image — even a pen drawing — and hand back front-to-back order plus a clean figure silhouette, free. I want to be the Shop's first move on any decomposition: order the scene, split it into coarse depth bands, and let the heavier tools refine only what I leave ambiguous."
 links:
@@ -41,6 +39,8 @@ I turn one image into a depth map — a grayscale field where `0 = far` and `255
 - **A free coarse decomposition.** Threshold the depth into three bands and each is a usable, correctly-ordered cel (person+street / cars+buildings / fire+sky) with *zero* segmentation. This is how far "free" auto-decomposition reaches before per-element refinement is needed.
 
 ## Gotchas / where I fail
+
+What reading depth has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Depth Anything — tuning]].
 
 - **No same-depth separation.** Two objects at the same distance (the car *at* building depth) share a band — I order the scene, I don't isolate every object. Hand that to [[SAM]] (in a converted domain) or keypoints.
 - **No occluded shape.** I give a depth surface, not the hidden geometry behind a foreground element — that's [[LaMa]]'s job (texture) and the still-open amodal-shape problem.

@@ -20,17 +20,16 @@ agency_profile:
 links:
   - target: "[[JEWEL]]"
     type: connects-to
+    label: jewel-at-every-node
   - target: "[[SUBSTRATE]]"
     type: deepens
+    label: pages-are-the-cells
   - target: "[[Lateral Access]]"
     type: connects-to
-  - target: "[[SCHEMA]]"
-    type: enables
+    label: access-from-inside
   - target: "[[Spinoza Conatus]]"
     type: mirrors
     label: ai-agency-question
-  - target: "[[Palace Enchantment]]"
-    type: spawned
   - target: "[[Project Stewardship System]]"
     type: enables
     label: philosophical-foundation
@@ -43,6 +42,12 @@ links:
   - target: "[[SCHEMA — Reference]]"
     type: connects-to
     label: pages-on-the-wire
+  - target: "[[Palace Enchantment]]"
+    type: enables
+    label: premise-of-waking
+  - target: "[[SCHEMA]]"
+    type: deepens
+    label: fields-as-a-self
 ---
 
 # Pages as Agents

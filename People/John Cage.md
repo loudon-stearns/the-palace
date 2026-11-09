@@ -28,6 +28,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: sound-thinker
   - target: "[[Brian Eno]]"
     type: connects-to
     label: coins-and-tape-loops

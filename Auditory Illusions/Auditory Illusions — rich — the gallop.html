@@ -1,0 +1,544 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the gallop
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece-of, § Sorting the world into sources) · listed in [[Auditory Illusions — rich.json]] · its siblings in the section are the gallop, two ears, two tunes, behind the fence and the gap that jumps, which share their scaffold byte for byte
+  forward_vector: I am the walk up to the page’s claim that the brain sorts sound into sources by rules before anything else. A gallop of two tones you pull apart with your hands, until it falls into two lines; the signal that never split; the dots that group the same way in the eye, with the twin’s grade (mechanism, arguably) and Remez’s objection kept; Bregman’s three rules, the third one playable; and last your own boundary, marked run by run and drawn as your two lines on van Noorden’s plane, without his numbers. I change only when the section I serve does.
+  understood as: a thing with mass: an elastic string of beads that is the sound’s own score; dragging it up and down pulls the two pitches apart, dragging it sideways squeezes the time, and the dots go where the tones go.
+  red: red, on all four of this section’s pieces, means one thing: what the hearing supplies that the signal does not have (the reader’s own marks and reports, and the percept the page says is made up). Everything physically in the sound is drawn in ink.
+  dress: the Auditory Illusions face’s op-art dress (paper, ink, one red), after the page’s Bridget Riley hero; Manrope, Cormorant Garamond, JetBrains Mono; the Lissajous sigil in the foot.
+  engine: two sines either side of 1000 Hz, g semitones apart (f = 1000·2^(±g/24)); slots every T seconds (50–300 ms), pattern low high low rest; each tone 40 ms with 5 ms raised-cosine ends, rendered here and scheduled 150 ms ahead; the bright timbre is six harmonics at 1/h, matched in RMS.
+  sound: nothing plays until a button (or, on the gallop, the dots) is pressed; the AudioContext is made on that press. Changing step stops the sound. Every sound is synthesised here; no recordings.
+  check: Auditory Illusions — rich — check — sorting-the-world.mjs, beside this file, runs this piece’s engine in Node and measures the buffers it plays. It measures the gallop’s timing and pattern, the two frequencies against the gap, the tone length and ramps, the bright tone’s RMS match, the test ramp’s end points and duration, and every peak under the compressor’s threshold. What a listener hears, it cannot check: nobody has listened to this yet.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The gallop · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (via a 2026-11-03 piece, _ops/furniture-fanout/furnish.py), its --fx-* tokens retinted to the paper ground on 2026-11-08.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: var(--paper-2, #ebe8df); --fx-bg-elev-2: var(--paper-3, #e2ded3); --fx-bg-elev-3: #d8d4c8; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: #a9a59b; --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: #d1301c; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: 0 1px 2px rgba(20,20,20,0.12); --fx-shadow-3: 0 6px 18px -6px rgba(20,20,20,0.25); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --paper-2:#ebe8df; --paper-3:#e2ded3; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd;
+    --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--sans);font-size:15px;line-height:1.55;padding:22px 16px 30px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--serif);font-weight:500;font-size:40px;line-height:1.05;margin:4px 0 6px;letter-spacing:-.005em}
+  h2{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.15;margin:2px 0 6px}
+  .lead{font-family:var(--serif);font-size:20px;line-height:1.45;color:var(--ink-2);margin:0 0 14px;max-width:62ch}
+  p.say{font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--ink-2);margin:0 0 12px;max-width:66ch}
+  p.say b{font-weight:500;color:var(--ink)}
+  p.say .red,.red{color:var(--red)}
+  .rail{display:flex;gap:4px;flex-wrap:wrap;margin:0 0 16px}
+  .rail button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 9px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  .panel{border:1px solid var(--rule);border-radius:3px;padding:16px;margin:0 0 12px;background:var(--paper)}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0 0}
+  button.go{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:10px 20px;cursor:pointer;letter-spacing:.01em}
+  button.go:hover{background:var(--ink-2)}
+  button.go[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink-2);background:transparent;border:1px solid var(--ink-3);border-radius:2px;padding:7px 13px;cursor:pointer}
+  button.ghost:hover{border-color:var(--ink)}
+  button.ghost[aria-pressed="true"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  button.ghost:disabled,button.go:disabled{opacity:.35;cursor:default}
+  button.big{font-family:var(--serif);font-size:22px;font-weight:500;padding:8px 22px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:2px;cursor:pointer}
+  button.big:hover{background:var(--paper-2)}
+  button.big.hot{background:var(--ink);color:var(--paper)}
+  canvas.stage{width:100%;display:block;background:var(--paper);border:1px solid var(--rule);border-radius:2px;touch-action:none}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.35}
+  .ctl label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px;color:var(--ink-3)}
+  .ctl input[type=range]{width:100%;accent-color:var(--ink)}
+  .ctl .v{font-family:var(--mono);font-size:13.5px;color:var(--ink);text-align:right;white-space:nowrap;min-width:10ch}
+  .read{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:10px;line-height:1.75}
+  .read b{font-weight:500;color:var(--ink)}
+  .read .red{color:var(--red)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--ink);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--ink-3);font-size:13px;margin-top:2px}
+  .graph{font-family:var(--mono);font-size:12px;color:var(--ink-2);border-left:2px solid var(--rule);padding:4px 0 4px 10px;margin-top:12px;overflow-wrap:anywhere}
+  .legend{display:flex;gap:6px 18px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--ink-3)}
+  .legend span::before{content:"";display:inline-block;width:18px;height:0;border-top:2px solid var(--ink);vertical-align:middle;margin-right:6px}
+  .legend span.r::before{border-top-color:var(--red)}
+  .legend span.d::before{border-top-style:dashed}
+  .legend span.g::before{border-top:8px solid var(--paper-3);height:0}
+  .cards{display:flex;gap:8px;flex-wrap:wrap}
+  .cards button{font-family:var(--sans);font-size:14px;background:transparent;color:var(--ink-2);border:1px solid var(--ink-3);border-radius:2px;padding:7px 12px;cursor:pointer;min-width:7.5em}
+  .cards button .glyph{display:block;font-family:var(--mono);font-size:20px;color:var(--ink);line-height:1.1}
+  .cards button[aria-pressed="true"]{border-color:var(--red);color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+  .cards button[aria-pressed="true"] .glyph{color:var(--red)}
+  .note{font-family:var(--sans);font-size:13px;color:var(--ink-3);margin-top:10px;max-width:72ch}
+  .warn{font-family:var(--sans);font-size:13.5px;color:var(--ink);border:1px solid var(--ink);border-radius:2px;padding:9px 12px;margin:0 0 12px;max-width:72ch}
+  .warn b{font-weight:600}
+  table.marks{border-collapse:collapse;margin-top:10px;font-family:var(--mono);font-size:12.5px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:4px 14px 4px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .verdict{font-family:var(--serif);font-size:19px;color:var(--ink);margin-top:10px;max-width:66ch}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12.5px;color:var(--ink-3);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  footer b{font-family:var(--mono);font-weight:500;letter-spacing:.12em;font-size:11px;color:var(--ink-2)}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:32px}h2{font-size:23px}.ctl{grid-template-columns:96px 1fr auto}p.say{font-size:18px}}
+</style>
+
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · Sorting the world into sources · auditory streaming</div>
+  <h1>The gallop</h1>
+  <p class="lead">One rhythm, two tones. Pull on it.</p>
+  <nav class="rail" id="rail" aria-label="Steps"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div data-show="0 1 2 3">
+      <div class="row" style="margin:0 0 10px">
+        <button class="go" id="start" aria-pressed="false">Start the gallop</button>
+        <span class="hint" id="dragHint">then drag the dots: up and down pulls the two pitches apart, left and right squeezes the time</span>
+      </div>
+      <canvas class="stage" id="field" style="height:300px" aria-label="The gallop drawn as dots: across is time, up is pitch. Drag to change it."></canvas>
+    </div>
+    <div data-show="1 2 3">
+      <div class="ctl"><label for="tSl">slot time<i>onset to onset</i></label><input type="range" id="tSl" min="0" max="1000" step="1"><span class="v" id="tV"></span></div>
+      <div class="ctl"><label for="gSl">pitch gap<i>low tone to high</i></label><input type="range" id="gSl" min="0" max="150" step="1"><span class="v" id="gV"></span></div>
+      <div class="read" id="read"></div>
+    </div>
+    <div data-show="1">
+      <div class="eq">f<sub>lo</sub> = 1000 · 2<sup>−g/24</sup> Hz &nbsp;·&nbsp; f<sub>hi</sub> = 1000 · 2<sup>+g/24</sup> Hz &nbsp;·&nbsp; slot k starts at t<sub>k</sub> = k · T &nbsp;·&nbsp; pattern: lo hi lo —</div>
+      <div class="eq words">In words: the two tones sit either side of 1000 Hz, g semitones apart. A slot starts every T seconds; three slots sound, the fourth rests, and the four repeat. That is the whole signal: no echo, no filter, nothing else.</div>
+      <div class="graph">for each sounding slot: a 40 ms tone rendered here (a sine, 5 ms raised-cosine ends) → AudioBufferSourceNode → gain → DynamicsCompressor (threshold −3 dBFS, above every tone’s peak, so it never acts) → speakers. A clock schedules each tone 150 ms ahead, so a drag changes the next tone, not the one sounding.</div>
+    </div>
+    <div data-show="2">
+      <div class="warn" id="flashWarn"><b>Flicker.</b> The box below shows the same tones as a dot that appears and vanishes with each one, up to 15 times a second at the fastest setting. Leave it unticked if flicker troubles you; nothing else on the page needs it.</div>
+      <div class="row" style="margin-top:0"><label class="hint"><input type="checkbox" id="flashOk"> show the tones as one dot in two places</label></div>
+      <canvas class="stage" id="hop" style="height:150px" hidden aria-label="One dot that appears at the high or the low place with each tone"></canvas>
+    </div>
+    <div data-show="3">
+      <div class="row"><span class="eyebrow">the high tones</span>
+        <button class="ghost" id="tSine" aria-pressed="true">pure, like the low ones</button>
+        <button class="ghost" id="tBright" aria-pressed="false">bright: six harmonics, same pitch, same RMS</button></div>
+      <div class="row"><button class="ghost" id="fresh">Start again from silence</button><span class="hint">the split can take a few seconds to build</span></div>
+    </div>
+    <div data-show="4">
+      <div class="row" style="margin-top:0"><span class="eyebrow">pitch gap</span><span id="gapPick" style="display:flex;gap:6px;flex-wrap:wrap"></span></div>
+      <div class="row"><span class="eyebrow">the run</span>
+        <button class="ghost" id="dirUp" aria-pressed="true">speeding up · press when it splits</button>
+        <button class="ghost" id="dirDn" aria-pressed="false">slowing down · press when it is one gallop again</button></div>
+      <div class="row"><button class="go" id="run">Run</button><button class="big" id="mark" disabled>It split</button><span class="read" id="runRead" style="margin:0"></span></div>
+      <canvas class="stage" id="map" style="height:320px;margin-top:12px" aria-label="Your map: slot time across, pitch gap up; your marks in red"></canvas>
+      <div class="legend"><span class="r">speeding up: where it split for you</span><span class="r d">slowing down: where it joined again</span></div>
+      <div id="marksOut"></div>
+      <div class="verdict" id="slope"></div>
+    </div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Auditory Illusions · the gallop · proposal, 2026-11-08 · every sound made here, in Web Audio</footer>
+</main>
+
+<script id="stream-core">
+// The engine: plain functions, no page. The sound, the picture and the check beside this piece all read it.
+const STREAM = (() => {
+  const SR = 44100;
+  const CENTER = 1000;                       // Hz: the two tones sit either side of it, on a log scale
+  const TONE = 0.040, RAMP = 0.005;          // each tone 40 ms, with 5 ms raised-cosine ends
+  const AMP = 0.25;                          // a sine's peak; a bright tone is matched to the same RMS
+  const T = { slow: 0.30, fast: 0.05 };      // the slot time, onset to onset, in seconds
+  const GAP = { min: 0, max: 15 };           // semitones between the low tone and the high one
+  const PATTERN = ['lo', 'hi', 'lo', null];  // the gallop: low, high, low, rest; then again
+  const freqs = (gap) => ({ lo: CENTER * Math.pow(2, -gap / 24), hi: CENTER * Math.pow(2, gap / 24) });
+  // What sounds in slot k: which tone, at what frequency, or nothing (the rest).
+  function slot(k, gap) { const p = PATTERN[((k % 4) + 4) % 4]; return p ? { which: p, f: freqs(gap)[p] } : null; }
+  // A run of n slots at a steady slot time: every onset, in seconds.
+  function events(slotT, gap, n) {
+    const out = [];
+    for (let k = 0; k < n; k++) { const s = slot(k, gap); if (s) out.push({ k, t: k * slotT, f: s.f, which: s.which, dur: TONE }); }
+    return out;
+  }
+  // One tone, rendered: a sine (or six harmonics falling as 1/h, the same RMS) with raised-cosine ends.
+  function tone(f, o = {}) {
+    const sr = o.sr || SR, n = Math.round(TONE * sr), r = Math.round(RAMP * sr), x = new Float32Array(n);
+    const H = o.bright ? [1, 2, 3, 4, 5, 6] : [1];
+    let norm = 0; for (const h of H) norm += 1 / (h * h); norm = Math.sqrt(norm);
+    for (let i = 0; i < n; i++) {
+      let s = 0; for (const h of H) if (h * f < sr / 2 - 1000) s += Math.sin(2 * Math.PI * h * f * i / sr) / h;
+      const w = i < r ? 0.5 - 0.5 * Math.cos(Math.PI * i / r) : i >= n - r ? 0.5 - 0.5 * Math.cos(Math.PI * (n - 1 - i) / r) : 1;
+      x[i] = AMP * w * s / norm;
+    }
+    return x;
+  }
+  // The test's ramp: the slot time slides geometrically from slow to fast (dir +1) or back (dir -1) over RAMP_S seconds.
+  const RAMP_S = 30;
+  function rampT(sec, dir) {
+    const u = Math.min(1, Math.max(0, sec / RAMP_S));
+    const a = dir > 0 ? T.slow : T.fast, b = dir > 0 ? T.fast : T.slow;
+    return a * Math.pow(b / a, u);
+  }
+  const TEST_GAPS = [1, 3, 5, 7, 10, 14];
+  return { SR, CENTER, TONE, RAMP, AMP, T, GAP, PATTERN, freqs, slot, events, tone, RAMP_S, rampT, TEST_GAPS };
+})();
+</script>
+<script id="sw-scaffold">
+// ── the scaffold, the same in this section's four pieces: sound only on a click, one compressor, the walk, the sigil ──
+const $ = (id) => document.getElementById(id);
+const REDUCED = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+const AU = (() => {
+  let ctx = null, out = null;
+  const live = new Set();
+  const listeners = [];
+  // The AudioContext is made on the first click that asks for sound, never before.
+  async function ensure() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      // A compressor before the destination, set above every buffer's peak (the check measures them), so it only guards.
+      const comp = ctx.createDynamicsCompressor();
+      comp.threshold.value = -3; comp.knee.value = 0; comp.ratio.value = 8; comp.attack.value = 0.002; comp.release.value = 0.2;
+      out = ctx.createGain(); out.gain.value = 1;
+      out.connect(comp).connect(ctx.destination);
+      ctx.onstatechange = () => { if (ctx.state !== 'running') listeners.forEach((f) => f()); };
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+    return ctx;
+  }
+  // Play one buffer: chans is [mono] or [left, right], Float32Arrays at sr.
+  function play(chans, sr, o = {}) {
+    const b = ctx.createBuffer(chans.length, chans[0].length, sr);
+    chans.forEach((c, i) => b.copyToChannel(c, i));
+    const src = ctx.createBufferSource(); src.buffer = b; src.loop = !!o.loop;
+    const g = ctx.createGain(); g.gain.value = o.gain == null ? 1 : o.gain;
+    src.connect(g).connect(out);
+    const t0 = o.when || ctx.currentTime + 0.03;
+    if (o.fade) { g.gain.value = 0; g.gain.setTargetAtTime(o.gain == null ? 1 : o.gain, t0, 0.006); }
+    src.start(t0, o.offset || 0);
+    const v = { src, g, t0, dur: b.duration, loop: !!o.loop };
+    live.add(v);
+    src.onended = () => { live.delete(v); if (o.onended) o.onended(); };
+    return v;
+  }
+  // Stop one voice, fading over a few milliseconds from time at (default now).
+  function stop(v, at) {
+    if (!v || !ctx) return;
+    const t = at || ctx.currentTime;
+    try { v.g.gain.setTargetAtTime(0, t, 0.006); v.src.stop(t + 0.05); } catch (e) { /* already stopped */ }
+    live.delete(v);
+  }
+  function stopAll() {
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    for (const v of live) { try { v.g.gain.setTargetAtTime(0, now, 0.008); v.src.stop(now + 0.05); } catch (e) { /* already stopped */ } }
+    live.clear();
+  }
+  return { ensure, play, stop, stopAll, onQuiet: (f) => listeners.push(f), get ctx() { return ctx; } };
+})();
+function fit(c) {
+  const w = c.clientWidth, h = c.clientHeight, d = window.devicePixelRatio || 1;
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h };
+}
+const INK = '#141414', INK2 = '#3a3a3a', INK3 = '#7a7a7a', RULE = '#c9c6bd', PAPER = '#f4f2ec', PAPER3 = '#e2ded3', RED = '#d1301c';
+function sigil() {
+  const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); }
+  $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="${INK}" stroke-width="1"/>`;
+}
+function shuffled(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+// The chance of k or more right out of n by guessing, at one in two.
+function tail(k, n) { let s = 0; const C = (n, r) => { let c = 1; for (let i = 0; i < r; i++) c = c * (n - i) / (i + 1); return c; }; for (let j = k; j <= n; j++) s += C(n, j); return s / Math.pow(2, n); }
+// The walk: one step shows at a time; an element with data-show="1 3" shows on those steps (numbered from 0).
+function makeWalk(STEPS, onStep) {
+  const W = { i: 0 };
+  $('rail').innerHTML = STEPS.map((s, i) => `<button data-i="${i}">${i + 1} · ${s.tab}</button>`).join('');
+  $('rail').querySelectorAll('button').forEach((b) => b.onclick = () => go(+b.dataset.i));
+  function go(i) {
+    i = Math.max(0, Math.min(STEPS.length - 1, i));
+    AU.stopAll();
+    W.i = i; const s = STEPS[i];
+    $('rail').querySelectorAll('button').forEach((b, j) => { b.removeAttribute('aria-current'); if (j === i) b.setAttribute('aria-current', 'step'); });
+    $('stepEyebrow').textContent = `step ${i + 1} of ${STEPS.length} · ${s.eyebrow}`;
+    $('stepTitle').textContent = s.title;
+    $('stepSay').innerHTML = s.say;
+    document.querySelectorAll('[data-show]').forEach((el) => { el.hidden = !el.dataset.show.split(/\s+/).includes(String(i)); });
+    $('back').disabled = i === 0; $('next').disabled = i === STEPS.length - 1;
+    onStep(s, i);
+  }
+  $('back').onclick = () => go(W.i - 1); $('next').onclick = () => go(W.i + 1);
+  W.go = go; return W;
+}
+</script>
+<script>
+(() => {
+  const E = STREAM, SR = E.SR;
+  // ── state: what the sound is, and what the reader has marked ──
+  const S = { T: 0.24, gap: 2, bright: false, playing: false, shownT: 0.24, shownGap: 2, flash: false };
+  const tSl = $('tSl'), gSl = $('gSl');
+  const T_TO = (v) => E.T.slow * Math.pow(E.T.fast / E.T.slow, v / 1000);           // slider 0..1000 → slot time, slow to fast
+  const T_FROM = (T) => Math.round(1000 * Math.log(T / E.T.slow) / Math.log(E.T.fast / E.T.slow));
+  function setT(T) { S.T = Math.min(E.T.slow, Math.max(E.T.fast, T)); tSl.value = T_FROM(S.T); readout(); }
+  function setGap(g) { S.gap = Math.min(E.GAP.max, Math.max(E.GAP.min, g)); gSl.value = Math.round(S.gap * 10); readout(); }
+  tSl.oninput = () => { S.T = T_TO(+tSl.value); readout(); };
+  gSl.oninput = () => { S.gap = +gSl.value / 10; readout(); };
+  function readout() {
+    const F = E.freqs(S.gap);
+    $('tV').textContent = `${(S.T * 1000).toFixed(0)} ms`;
+    $('gV').textContent = `${S.gap.toFixed(1)} st`;
+    $('read').innerHTML = `low <b>${F.lo.toFixed(1)} Hz</b> · high <b>${F.hi.toFixed(1)} Hz</b> · gap <b>${S.gap.toFixed(1)} semitones</b> · slot <b>${(S.T * 1000).toFixed(0)} ms</b> · <b>${(1 / S.T).toFixed(1)}</b> slots a second · <b>${(1 / (4 * S.T)).toFixed(2)}</b> gallops a second`;
+  }
+
+  // ── the sound: a clock that schedules each tone a little ahead, so a drag changes the next one ──
+  const cache = new Map();
+  function toneBuf(f, bright) {
+    const key = f.toFixed(2) + (bright ? 'b' : 's');
+    if (!cache.has(key)) { if (cache.size > 400) cache.clear(); cache.set(key, E.tone(f, { bright })); }
+    return cache.get(key);
+  }
+  let timer = null, nextT = 0, k = 0, timeline = [], run = null;
+  const AHEAD = 0.15;
+  function slotTime(at) { return run ? E.rampT(at - run.t0 - run.hold, run.dir) : S.T; }
+  function tick() {
+    const ctx = AU.ctx; if (!ctx || !S.playing) return;
+    while (nextT < ctx.currentTime + AHEAD) {
+      const T = slotTime(nextT), gap = run ? run.gap : S.gap, s = E.slot(k, gap);
+      if (s) AU.play([toneBuf(s.f, s.which === 'hi' && S.bright)], SR, { when: nextT });
+      timeline.push({ t: nextT, k, T, gap, which: s ? s.which : null });
+      if (timeline.length > 80) timeline.shift();
+      k++; nextT += T;
+      if (run && nextT - run.t0 - run.hold > E.RAMP_S + 0.5) { endRun(null); return; }
+    }
+  }
+  async function start(fromSilence) {
+    await AU.ensure();
+    if (S.playing && !fromSilence) return;
+    stop();
+    S.playing = true; k = 0; timeline = [];
+    nextT = AU.ctx.currentTime + 0.06;
+    timer = setInterval(tick, 25); tick();
+    $('start').textContent = 'Stop'; $('start').setAttribute('aria-pressed', 'true');
+  }
+  function stop() {
+    if (timer) clearInterval(timer); timer = null;
+    S.playing = false; AU.stopAll();
+    $('start').textContent = 'Start the gallop'; $('start').setAttribute('aria-pressed', 'false');
+  }
+  AU.onQuiet(() => { if (S.playing) { if (run) endRun(null, true); stop(); } });
+  $('start').onclick = () => (S.playing ? stop() : start());
+  $('fresh').onclick = () => start(true);
+  const timbre = (b) => { S.bright = b; $('tSine').setAttribute('aria-pressed', String(!b)); $('tBright').setAttribute('aria-pressed', String(b)); };
+  $('tSine').onclick = () => timbre(false); $('tBright').onclick = () => timbre(true);
+  // the slot sounding now, read off the clock
+  function now() {
+    const ctx = AU.ctx; if (!ctx || !S.playing) return null;
+    let cur = null; for (const e of timeline) if (e.t <= ctx.currentTime) cur = e;
+    return cur ? { ...cur, into: ctx.currentTime - cur.t } : null;
+  }
+
+  // ── the field: the gallop as dots, across for time and up for pitch, at a scale chosen here ──
+  const WINDOW = 2.4, PX_ST = 15;             // seconds across the field; pixels per semitone
+  const field = $('field');
+  function geom() { const { g, w, h } = fit(field); return { g, w, h, x0: 18, x1: w - 18, mid: h / 2 }; }
+  let drag = false;
+  function fromPointer(e) {
+    const r = field.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = e.clientY - r.top;
+    setT(E.T.slow * Math.pow(E.T.fast / E.T.slow, Math.min(1, Math.max(0, (x - 0.04) / 0.92))));
+    setGap(2 * Math.abs(y - r.height / 2) / PX_ST);
+  }
+  field.addEventListener('pointerdown', (e) => { drag = true; field.setPointerCapture(e.pointerId); fromPointer(e); if (!S.playing) start(); });
+  field.addEventListener('pointermove', (e) => { if (drag) fromPointer(e); });
+  field.addEventListener('pointerup', () => { drag = false; });
+  field.addEventListener('pointercancel', () => { drag = false; });
+  function drawField() {
+    if (field.offsetParent === null) return;
+    const { g, w, h, x0, x1, mid } = geom();
+    const ease = REDUCED ? 1 : 0.25;
+    S.shownT += (S.T - S.shownT) * ease; S.shownGap += (S.gap - S.shownGap) * ease;
+    g.clearRect(0, 0, w, h);
+    g.strokeStyle = RULE; g.lineWidth = 1; g.setLineDash([2, 4]); g.beginPath(); g.moveTo(x0, mid); g.lineTo(x1, mid); g.stroke(); g.setLineDash([]);
+    // whole gallops that fill the width: the window is a whole number of cycles, near 2.4 s
+    const T = S.shownT, M = 4 * Math.max(2, Math.round(WINDOW / (4 * T))), span = M * T;
+    const cur = now(), curK = cur && cur.into < E.TONE + 0.03 ? cur.k : -1;
+    for (let s = 0; s < M; s++) {
+      const sl = E.slot(s, S.shownGap); if (!sl) continue;
+      const x = x0 + (s * T + E.TONE / 2) / span * (x1 - x0);
+      const y = mid + (sl.which === 'hi' ? -1 : 1) * S.shownGap / 2 * PX_ST;
+      const lit = !REDUCED && curK >= 0 && ((curK % M) + M) % M === s;
+      g.beginPath(); g.arc(x, y, lit ? 7 : 5, 0, 2 * Math.PI); g.fillStyle = INK; g.fill();
+      if (lit) { g.beginPath(); g.arc(x, y, 12, 0, 2 * Math.PI); g.strokeStyle = INK; g.lineWidth = 1; g.stroke(); }
+    }
+    if (W.i >= 1) {
+      g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'left';
+      g.fillText(`${span.toFixed(2)} s across · ${PX_ST} px a semitone (a scale chosen here)`, x0, h - 10);
+    }
+  }
+  // ── the hop: the same tones as one dot in two places (opt-in, it flickers) ──
+  $('flashOk').onchange = () => { S.flash = $('flashOk').checked; $('hop').hidden = !S.flash; };
+  function drawHop() {
+    const c = $('hop'); if (c.hidden || c.offsetParent === null) return;
+    const { g, w, h } = fit(c); g.clearRect(0, 0, w, h);
+    const mid = h / 2, dy = Math.min(h / 2 - 14, S.gap / 2 * PX_ST);
+    g.strokeStyle = RULE; g.beginPath(); g.moveTo(w / 2 - 40, mid - dy); g.lineTo(w / 2 - 30, mid - dy); g.moveTo(w / 2 - 40, mid + dy); g.lineTo(w / 2 - 30, mid + dy); g.stroke();
+    const cur = now();
+    if (cur && cur.which && cur.into < E.TONE) { g.beginPath(); g.arc(w / 2, cur.which === 'hi' ? mid - dy : mid + dy, 9, 0, 2 * Math.PI); g.fillStyle = INK; g.fill(); }
+  }
+
+  // ── the test: a run at one gap, the slot time sliding; the reader marks the change ──
+  const marks = [];                       // { gap, dir, T | null (never) }
+  let pickGap = 5, pickDir = 1;
+  $('gapPick').innerHTML = E.TEST_GAPS.map((g) => `<button class="ghost" data-g="${g}" aria-pressed="${g === pickGap}">${g} st</button>`).join('');
+  $('gapPick').querySelectorAll('button').forEach((b) => b.onclick = () => { if (run) return; pickGap = +b.dataset.g; $('gapPick').querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); });
+  const dir = (d) => { if (run) return; pickDir = d; $('dirUp').setAttribute('aria-pressed', String(d > 0)); $('dirDn').setAttribute('aria-pressed', String(d < 0)); $('mark').textContent = d > 0 ? 'It split' : 'One gallop again'; };
+  $('dirUp').onclick = () => dir(1); $('dirDn').onclick = () => dir(-1);
+  $('run').onclick = async () => {
+    if (run) { endRun(null, true); return; }
+    await AU.ensure(); stop();
+    S.playing = true; k = 0; timeline = []; nextT = AU.ctx.currentTime + 0.06;
+    // a random hold of 0 to 4 s at the starting pace, so the clock can't tell you where you are on the ramp
+    run = { gap: pickGap, dir: pickDir, t0: nextT, hold: 4 * Math.random() };
+    $('marksOut').hidden = true; $('slope').hidden = true; $('runRead').textContent = 'running · nothing on screen moves until you press';
+    timer = setInterval(tick, 25); tick();
+    $('run').textContent = 'Abandon this run'; $('mark').disabled = false; $('mark').classList.add('hot');
+  };
+  $('mark').onclick = () => { const c = now(); endRun(c ? c.T : null); };
+  function endRun(T, abandoned) {
+    if (!run) return;
+    const r = run; run = null;
+    if (!abandoned) marks.push({ gap: r.gap, dir: r.dir, T });
+    stop();
+    $('run').textContent = 'Run'; $('mark').disabled = true; $('mark').classList.remove('hot'); $('runRead').textContent = '';
+    $('marksOut').hidden = false; $('slope').hidden = false;
+    writeMarks();
+  }
+  function writeMarks() {
+    if (!marks.length) { $('marksOut').innerHTML = ''; $('slope').textContent = ''; return; }
+    const rows = marks.map((m) => `<tr><td>${m.gap} st</td><td>${m.dir > 0 ? 'speeding up' : 'slowing down'}</td><td>${m.T == null ? (m.dir > 0 ? 'never split, down to 50 ms' : 'never joined, up to 300 ms') : (m.T * 1000).toFixed(0) + ' ms'}</td></tr>`).join('');
+    $('marksOut').innerHTML = `<table class="marks"><tr><th>gap</th><th>run</th><th>your mark, slot time</th></tr>${rows}</table>`;
+    // The rule, fixed before any mark: over four or more gaps run speeding up (a run that never split counts as faster than
+    // 50 ms), does a wider gap split at a slower pace? Kendall's tau over the gaps; |tau| >= 0.6 counts. The chance figure is
+    // exact: every order the marks could have come in, taken as equally likely.
+    const up = byGap(1); if (up.length < 4) { $('slope').textContent = `Mark at least four gaps speeding up to read the slope of your line (${up.length} so far).`; return; }
+    const tau = kendall(up.map((u) => u.gap), up.map((u) => u.T)), ch = chance(up.length);
+    const tag = `(τ = ${tau.toFixed(2)}, ${up.length} gaps; random marks reach |τ| ≥ 0.6 one way ${(100 * ch).toFixed(1)}% of the time)`;
+    $('slope').innerHTML = tau >= 0.6 ? `Your line slopes the way the page’s sentence implies: the wider the gap, the slower the pace at which it split ${tag}. Pitch and time trade against each other.`
+      : tau <= -0.6 ? `Your line slopes against the page: the wider the gap, the <i>faster</i> it had to go before it split ${tag}. Worth running again; if it holds, it is your ear coming out against the text.`
+      : `Your line does not slope clearly either way ${tag}. The page’s “faster or further apart” implies a slope; yours doesn’t show one by this rule.`;
+  }
+  function kendall(a, b) { let c = 0, d = 0; for (let i = 0; i < a.length; i++) for (let j = i + 1; j < a.length; j++) { const s = Math.sign(a[j] - a[i]) * Math.sign(b[j] - b[i]); if (s > 0) c++; else if (s < 0) d++; } return (c - d) / (a.length * (a.length - 1) / 2); }
+  // the share of all n! orders whose tau is at least 0.6
+  function chance(n) { const idx = [...Array(n).keys()], perm = []; let hit = 0, all = 0; const used = new Array(n).fill(false);
+    (function rec() { if (perm.length === n) { all++; if (kendall(idx, perm) >= 0.6 - 1e-9) hit++; return; } for (let i = 0; i < n; i++) if (!used[i]) { used[i] = true; perm.push(i); rec(); perm.pop(); used[i] = false; } })();
+    return hit / all; }
+  // mean slot time per gap for one direction; a run that never changed counts as just past the end of the range
+  function byGap(dirn) {
+    const m = new Map();
+    for (const x of marks) if (x.dir === dirn) { const T = x.T == null ? (dirn > 0 ? 0.045 : 0.33) : x.T; if (!m.has(x.gap)) m.set(x.gap, []); m.get(x.gap).push(T); }
+    return [...m.entries()].map(([gap, a]) => ({ gap, T: Math.exp(a.reduce((s, v) => s + Math.log(v), 0) / a.length) })).sort((a, b) => a.gap - b.gap);
+  }
+  const map = $('map');
+  function drawMap() {
+    if (map.offsetParent === null) return;
+    const { g, w, h } = fit(map); g.clearRect(0, 0, w, h);
+    const x0 = 44, x1 = w - 16, y0 = 14, y1 = h - 34;
+    const X = (T) => x0 + Math.log(T / 0.33) / Math.log(0.045 / 0.33) * (x1 - x0);   // slower left, faster right
+    const Y = (gap) => y1 - gap / 15 * (y1 - y0);
+    g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.strokeStyle = RULE; g.lineWidth = 1;
+    g.textAlign = 'center';
+    for (const T of [0.3, 0.2, 0.15, 0.1, 0.075, 0.05]) { g.beginPath(); g.moveTo(X(T), y0); g.lineTo(X(T), y1); g.stroke(); g.fillText(`${Math.round(T * 1000)}`, X(T), y1 + 14); }
+    g.fillText('slot time, ms  ·  slower ←   → faster', (x0 + x1) / 2, h - 4);
+    g.textAlign = 'right';
+    for (const gp of [0, 3, 6, 9, 12, 15]) { g.beginPath(); g.moveTo(x0, Y(gp)); g.lineTo(x1, Y(gp)); g.stroke(); g.fillText(`${gp} st`, x0 - 5, Y(gp) + 4); }
+    if (run) return;   // during a run nothing is drawn but the axes: no cursor, no earlier marks, no lines to aim at
+    // the band between your two lines, where either way of hearing held for you
+    const up = byGap(1), dn = byGap(-1);
+    const both = up.filter((u) => dn.some((d) => d.gap === u.gap));
+    if (both.length >= 2) {
+      g.fillStyle = 'rgba(209,48,28,.10)'; g.beginPath();
+      both.forEach((u, i) => (i ? g.lineTo(X(u.T), Y(u.gap)) : g.moveTo(X(u.T), Y(u.gap))));
+      [...both].reverse().forEach((u) => { const d = dn.find((x) => x.gap === u.gap); g.lineTo(X(d.T), Y(d.gap)); });
+      g.closePath(); g.fill();
+    }
+    const line = (pts, dashed) => { if (pts.length < 2) return; g.strokeStyle = RED; g.lineWidth = 1.5; g.setLineDash(dashed ? [5, 4] : []); g.beginPath(); pts.forEach((p, i) => (i ? g.lineTo(X(p.T), Y(p.gap)) : g.moveTo(X(p.T), Y(p.gap)))); g.stroke(); g.setLineDash([]); };
+    line(up, false); line(dn, true);
+    for (const m of marks) {
+      const T = m.T == null ? (m.dir > 0 ? 0.045 : 0.33) : m.T, x = X(T), y = Y(m.gap);
+      g.beginPath(); g.arc(x, y, 5, 0, 2 * Math.PI); g.strokeStyle = RED; g.lineWidth = 1.5;
+      if (m.dir > 0) { g.fillStyle = RED; g.fill(); } else g.stroke();
+      if (m.T == null) { g.fillStyle = RED; g.textAlign = m.dir > 0 ? 'left' : 'right'; g.fillText(m.dir > 0 ? '›' : '‹', x + (m.dir > 0 ? 8 : -8), y + 4); }
+    }
+  }
+
+  // ── the walk ──
+  const STEPS = [
+    { tab: 'pull', eyebrow: 'the encounter', title: 'A gallop you can pull apart',
+      say: 'Press start and you hear a horse: ta‑ta‑ta, ta‑ta‑ta. Then take hold of the dots. Pull them up and down; squeeze them toward the right. Somewhere the gallop stops being a gallop. Listen for what it turns into, and watch the dots while you do.' },
+    { tab: 'what plays', eyebrow: 'the signal', title: 'Two tones and a clock',
+      say: 'Nothing in the signal ever splits. It is one row of short tones, low, high, low, rest, over and over; the two knobs only move the high and low tones apart in pitch and the slots closer in time. When it fell into two lines, a high one ticking on its own and a low one twice as fast, <b>that sorting was done by you</b>, not by anything played. The numbers under the sliders are the whole recipe.' },
+    { tab: 'the eye', eyebrow: 'the twin in the eye', title: 'The dots group the same way',
+      say: 'Look at the dots, not the sound. Slow and close, they read as little peaks, one gallop after another; squeezed and pulled apart, they read as two rows. That is Gestalt grouping by proximity: what is near goes together. The picture is the sound’s own map, across for time and up for pitch, and on it eye and ear seem to follow one rule. Bregman built his account on that likeness, and a 2001 study found streaming, apparent motion and still dot patterns grouping alike. The page grades the pair <b>mechanism, arguably</b>, and the argument is real: Remez answers that a shared rule describes the grouping without explaining it. One more honesty: how near the dots look depends on how many pixels this picture gives a semitone and a second. That scale was chosen here, so where your eye splits this picture says nothing about where your ear splits the sound. What the two share is the shape of the rule.' },
+    { tab: 'the rules', eyebrow: 'how the ear sorts', title: 'Close in pitch, close in time, same timbre',
+      say: 'Before anything else, the brain sorts sound into sources, and it sorts by rules (Bregman, <i>Auditory Scene Analysis</i>, 1990). Tones close in pitch go together; tones close in time go together; tones of the same timbre go together. Your hands have worked the first two. Try the third: give the high tones a brighter timbre at the same pitch and loudness, and listen whether the gallop now breaks at a smaller gap or a slower pace. One thing the page doesn’t say: the split builds up. At a setting that splits, start again from silence, and the first second or two may still gallop (Bregman, 1978; from standing knowledge, not checked in this round).' },
+    { tab: 'your map', eyebrow: 'the test', title: 'Where it splits, for you',
+      say: 'Map it. Pick a gap and a run. Speeding up, the slot time slides from 300 to 50 ms over 30 seconds: press the moment the gallop falls into two lines. Slowing down, it slides back: press when it is one gallop again. A run you never press lands at the edge. Your marks are red; red on this piece is only ever what you heard. While a run plays, the map shows nothing but its axes, and the start is held a random few seconds, so neither the screen nor the clock can guide your press. <b>The rule, set now:</b> over four or more gaps speeding up, Kendall’s τ between gap and the pace where it split; τ ≥ 0.6 (wider gaps split at a slower pace) is the slope the page’s “faster or further apart” implies; τ ≤ −0.6 comes out against it; between is no clear slope. Marks pressed at random reach τ ≥ 0.6 16.7% of the time with four gaps, 11.7% with five, 6.8% with six. Van Noorden (1975) drew two such lines, the edges of a band where either way of hearing can hold. His numbers are not drawn here, and his task was not this one: he asked listeners to hold a percept, and here you report a change, so your reaction time and the build-up ride in your marks.' },
+  ];
+  const W = makeWalk(STEPS, (s, i) => {
+    stop(); if (run) endRun(null, true);
+    $('dragHint').hidden = i !== 0;
+    readout();
+  });
+  setT(S.T); setGap(S.gap);
+  function frame() { drawField(); drawHop(); drawMap(); requestAnimationFrame(frame); }
+  sigil(); W.go(0); frame();
+})();
+</script>
+</body>
+</html>

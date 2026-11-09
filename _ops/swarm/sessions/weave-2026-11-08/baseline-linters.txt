@@ -1,0 +1,361 @@
+### lint-link-directions
+  W1  ground emits emerged-from:  BLUELINE (inbound emerged-from=9) --emerged-from--> Adopt the Craft, Author the Seam  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Swarm Weave (inbound deepens=5) --deepens--> Weave Ceremony  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Swarm Weave (inbound deepens=5) --deepens--> Pages as Agents  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Floquet Time-Modulated Loops (inbound deepens=4) --deepens--> DSP in Looping Dimensions  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Floquet Time-Modulated Loops (inbound deepens=4) --deepens--> Frequency-Time Duality  (verify arrow: grounds are usually targets)
+  W1  ground emits emerged-from:  Generative Sample Libraries (inbound emerged-from=4) --emerged-from--> Crystal Synthesizer  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Generative Sample Libraries (inbound deepens=4) --deepens--> Shepard Tone Synthesizer  (verify arrow: grounds are usually targets)
+  W1  ground emits emerged-from:  Palace Enchantment (inbound emerged-from=5) --emerged-from--> Swarm Weave  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Palace Enchantment (inbound deepens=5) --deepens--> Pheromone Trail  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Pages as Agents (inbound deepens=12) --deepens--> SUBSTRATE  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Excellent Adventure (inbound deepens=5) --deepens--> Hilaritas Generator  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Excellent Adventure (inbound deepens=5) --deepens--> Spinoza Conatus  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Palace as Context Injection System (inbound deepens=4) --deepens--> Swarm Weave  (verify arrow: grounds are usually targets)
+  W1  ground emits deepens:  Palace as Context Injection System (inbound deepens=4) --deepens--> SUBSTRATE  (verify arrow: grounds are usually targets)
+  W2  exemplifies toward less-central target:  Closing Well (inbound 19) --exemplifies--> Palace Conatus (inbound 5)
+  W2  exemplifies toward less-central target:  Closing Well (inbound 19) --exemplifies--> Reflective Practice (inbound 6)
+  W2  exemplifies toward less-central target:  Remnants in Depth (inbound 4) --exemplifies--> Move the Ink, Don't Redraw It (inbound 3)
+  W2  exemplifies toward less-central target:  No Mind Checks Itself (inbound 6) --exemplifies--> Bring In a Bigger Mind (inbound 2)
+  W2  member-of toward less-central target:  assume multi-agent (inbound 7) --member-of--> Tool Builder (inbound 3)
+  W2  exemplifies toward less-central target:  Cross-Domain Resonances (inbound 18) --exemplifies--> Metric Modulation (inbound 2)
+  W2  exemplifies toward less-central target:  SUBSTRATE (inbound 27) --exemplifies--> Scale-Stratified Identity (inbound 2)
+  W2  exemplifies toward less-central target:  Blocked, Not Prompted (inbound 13) --exemplifies--> Blender (inbound 9)
+  W2  exemplifies toward less-central target:  The Shop (inbound 54) --exemplifies--> The Dichotomy of Control (inbound 14)
+  W2  exemplifies toward less-central target:  Loudon Live (inbound 29) --exemplifies--> Creative Coach (inbound 5)
+  W2  exemplifies toward less-central target:  BLUELINE (inbound 18) --exemplifies--> Blocked, Not Prompted (inbound 13)
+  W2  exemplifies toward less-central target:  BLUELINE (inbound 18) --exemplifies--> The Flow Field is the Spine (inbound 6)
+  W2  exemplifies toward less-central target:  2D Torus Wavetable Synthesizer (inbound 22) --exemplifies--> Objects to Think With (inbound 6)
+  W2  member-of toward less-central target:  2D Torus Wavetable Synthesizer (inbound 22) --member-of--> Synthesis Topologies (inbound 11)
+  W2  exemplifies toward less-central target:  Compressor Design (inbound 8) --exemplifies--> Objects to Think With (inbound 6)
+  W2  exemplifies toward less-central target:  Action Potential Oscillator (inbound 21) --exemplifies--> Objects to Think With (inbound 6)
+  W2  exemplifies toward less-central target:  Crystal Synthesizer (inbound 12) --exemplifies--> Biomechanical Synthesis (inbound 3)
+  W2  exemplifies toward less-central target:  Frame Designer (inbound 8) --exemplifies--> Comic and Cinema — Two Ways of Seeing (inbound 4)
+  W2  exemplifies toward less-central target:  Web Audio Worklet (inbound 5) --exemplifies--> Zoom Out to the Structure (inbound 4)
+  W2  exemplifies toward less-central target:  Baton Ceremony (inbound 8) --exemplifies--> Generative Compression (inbound 5)
+  W2  exemplifies toward less-central target:  Donella Meadows (inbound 10) --exemplifies--> Found ↔ Made (inbound 8)
+  W2  exemplifies toward less-central target:  Brian Eno (inbound 7) --exemplifies--> The Blindspot Is the Surprise Fuel (inbound 6)
+  W2  exemplifies toward less-central target:  Philosopher Visits the Entry (inbound 11) --exemplifies--> No Mind Checks Itself (inbound 6)
+  W2  exemplifies toward less-central target:  Loudon Live Design System (inbound 20) --exemplifies--> The Multilinear Self (inbound 6)
+  W2  exemplifies toward less-central target:  Concierge (inbound 13) --exemplifies--> Skills Are Enchantable Pages (inbound 4)
+  W2  exemplifies toward less-central target:  Palace Orchestrator (inbound 8) --exemplifies--> Skills Are Enchantable Pages (inbound 4)
+
+### lint-doc-drift
+doc-drift lint - root: /Users/loudonstearns/Documents/palace-weave-2026-11-08
+  scanned 182 foundational docs, indexed 12835 files, 1580 dirs
+
+WARNINGS (25):
+  W0  broken dir ref in 4 Pillars Framework - The Founding Conversation.md:  `4 Pillars Framework/`  (no such directory)
+  W0  broken dir ref in Block It in Blender, Ink It in genAI.md:  `followups/rig-openpose/`  (no such directory)
+  W0  broken dir ref in GenAI Camera.md:  `layers/`  (no such directory)
+  W0  broken dir ref in Radio Play.md:  `_ops/scratch/`  (no such directory)
+  W0  broken dir ref in Radio Play.md:  `_ops/scratch/weave-video/`  (no such directory)
+  W0  broken dir ref in SCHEMA — Reference.md:  `Artifacts/`  (no such directory)
+  W0  broken dir ref in SCHEMA — Reference.md:  `proofs/`  (no such directory)
+  W0  broken dir ref in The Flow Field is the Spine.md:  `session-4-figure-flow/`  (no such directory)
+  W0  broken dir ref in Worktree Practice.md:  `_tools/`  (no such directory)
+  W0  broken dir ref in _ops/Baton Ceremony.md:  `Archive/`  (no such directory)
+  W0  broken dir ref in _ops/Image Embedding Standard.md:  `images/`  (no such directory)
+  W0  broken dir ref in _ops/The Daily Page.md:  `_ops/daily-page/roughs/`  (no such directory)
+  W0  broken dir ref in _ops/loudon-live/design-system/README.md:  `The Palace/`  (no such directory)
+  W0  broken dir ref in _ops/loudon-live/design-system/README.md:  `_reference/`  (no such directory)
+  W0  broken path ref in Block It in Blender, Ink It in genAI.md:  `_swarm.py`  (no such file)
+  W0  broken path ref in The Lens.md:  `_ops/scratch/lens-prototype-2026-07-02.md`  (no such file)
+  W0  broken path ref in The Scroll.md:  `BLUELINE — scroll — genai-camera.html`  (no such file)
+  W0  broken path ref in The Scroll.md:  `— scroll.html`  (no such file)
+  W0  broken path ref in The Shop.md:  `Shop.md`  (no such file)
+  W0  broken path ref in Weaving Memory into the Palace.md:  `MEMORY.md`  (no such file)
+  W0  broken path ref in _ops/Image Embedding Standard.md:  `kuramoto-order-parameter-vs-coupling-strength.svg`  (no such file)
+  W0  broken path ref in _ops/Palace Map.md:  `Conatus.md`  (no such file)
+  W0  broken path ref in _ops/Technical Diagram Standard.md:  `plot.svg`  (no such file)
+  W0  broken path ref in _ops/loudon-live/design-system/ui_kits/session-artifact/README.md:  `_reference/shepard-tone-session.html`  (no such file)
+  W1  dangling section pin in Worktree Practice.md:  [[SCHEMA — Reference]] §9's one-write-path rather than breaking i  (no matching heading in SCHEMA — Reference.md)
+
+summary: 0 errors, 25 warnings
+
+### lint-entry-naming
+entry-naming lint - root: /Users/loudonstearns/Documents/palace-weave-2026-11-08
+
+WARNINGS (4):
+  W1  title != filename in JEWEL.md:  title "The Jewel"  vs  file "JEWEL.md"
+  W1  title != filename in Meaning and the Link.md:  title "Meaning and the Link (2014)"  vs  file "Meaning and the Link.md"
+  W1  title != filename in README - The Palace Guide.md:  title "The Palace Guide"  vs  file "README - The Palace Guide.md"
+  W1  title != filename in ROSETTA.md:  title "Rosetta Stone"  vs  file "ROSETTA.md"
+
+summary: 0 errors, 4 warnings
+
+### lint-ghost-links
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:35:  [[4 Pillars Weekly Structure]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:37:  [[Graphviz]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:37:  [[HTML React Artifact]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:37:  [[Plotly]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:40:  [[Convolution]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:40:  [[Oblique Enrichment]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:42:  [[Bayesian Inference]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:42:  [[Dynamic Convolution]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:42:  [[Eulers Number]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:42:  [[Hammerstein Model]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:42:  [[Hopf Fibration]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:42:  [[Infeasible DSP Now Shippable]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:42:  [[Karplus-Strong]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:42:  [[Phase Response Curve]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:42:  [[The Right Representation Reveals the Symmetry]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:47:  [[Trickster Commit — build baton]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:50:  [[ControlNet Workflow Mastery]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:54:  [[Capability-first prototyping]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:54:  [[breakthrough]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Archive/Deposit Ceremony — Deposit Archive.md:55:  [[Capability-first prototyping]]  (resolves to no file)
+  W  ghost link in _ops/Deposit Ceremony/Deposit Ceremony — tuning.md:56:  [[Palace To-Do]]  (resolves to no file)
+  W  ghost link in _ops/Harvest Ceremony/Harvest — 2026-08-25 — the June-July making.md:60:  [[Line-Art Layer Decomposition]]  (resolves to no file)
+  W  ghost link in _ops/Palace Ceremonies/Archive/Palace Ceremonies — sketch — propagation plan.md:19:  [[Palace Ceremonies — baton]]  (resolves to no file)
+  W  ghost link in _ops/Palace Ceremonies/Archive/Palace Ceremonies — sketch — propagation plan.md:21:  [[Palace Ceremonies — baton]]  (resolves to no file)
+  W  ghost link in _ops/Palace Ceremonies/Archive/Palace Ceremonies — sketch — runs survey.md:16:  [[Palace Ceremonies — baton]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:15:  [[Palace To-Do]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:118:  [[STIGMERGY Entry-Agent Window — Integration Plan]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:153:  [[STIGMERGY Entry-Agent Window — Integration Plan]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:212:  [[Palace Audit — 2026-05-28]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:258:  [[Toolkit — Synthesizers]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:267:  [[Toolkit — Synthesizers]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:299:  [[Frequency-Time Explorer]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:303:  [[Toolkit — Audio Plugins]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:303:  [[Toolkit — Synthesizers]]  (resolves to no file)
+  W  ghost link in _ops/Palace To-Do/Palace To-Do — Archive.md:305:  [[4 Pillars Weekly Structure]]  (resolves to no file)
+  W  ghost link in _ops/The Daily Page/Archive/The Daily Page — record — 2026-10-13.md:35:  [[Frequency-Time Explorer]]  (resolves to no file)
+  W  ghost link in _ops/The Daily Page/The Daily Page — Context.md:15:  [[Frequency-Time Explorer]]  (resolves to no file)
+  W  ghost link in _ops/orchestrator/runAgentCycle.md:112:  [[Bundle-Local Stewardship — Production Plan]]  (resolves to no file)
+
+summary: 0 errors, 25 warnings
+
+### lint-bundle-hygiene
+bundle-hygiene lint - root: /Users/loudonstearns/Documents/palace-weave-2026-11-08
+
+WARNINGS (14) - demotion candidates; the Weave rules each:
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Compression ↔ Intimacy.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Cooking ↔ Mixing.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Dovetail Joint ↔ Counterpoint.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Frequency Domain ↔ Perspective Shift.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Kick Drum ↔ Foundation.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Quantization ↔ Precision vs Flow.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Reverb ↔ Space-Time.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Saturation ↔ Richness.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Sidechain ↔ Conversation.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "concept" inside bundle "Cross-Domain Resonances/":  Cross-Domain Resonances/Synthesis ↔ Emergence.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "practice" inside bundle "Modes of Collaboration/":  Modes of Collaboration/Dialectic.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "practice" inside bundle "Modes of Collaboration/":  Modes of Collaboration/Excellent Adventure.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "practice" inside bundle "Modes of Collaboration/":  Modes of Collaboration/Oblique Portrait.md - substrate to demote, or genuine nested canon? (Weave rules)
+  W1  canon type "practice" inside bundle "Modes of Collaboration/":  Modes of Collaboration/Philosopher Visits the Entry.md - substrate to demote, or genuine nested canon? (Weave rules)
+
+summary: 0 errors, 14 warnings
+
+### lint-voice-drift
+    55.3      8.7   1502 ! Cross-Domain Resonances.md
+    23.5     38.4    469 ! Radio Play.md
+    73.9      2.7   1461 ! Source Library.md
+    52.7     24.9    683 ! Block It in Blender, Ink It in genAI.md
+    35.3     27.3   2124 ! Making a Palace Citizen.md
+    34.0     23.0   1001 ! Hand-Drawn 3D Look.md
+    15.2     34.4    726 ! Confucianism.md
+     6.5     45.8    306 ! CLAUDE.md
+    17.3     30.6    752 ! The Multilinear Self.md
+    13.9     29.2    719 ! Projects/Talking Keyboard.md
+     7.0     34.3   1283 ! Projects/Meadows and an Artist's Career.md
+    47.2     23.0    784 ! Shop/LoRA Trainer.md
+    36.6     23.7   1392 ! Shop/Figure Rig.md
+    37.6     16.1    372 ! Shop/SAM.md
+    42.6     40.9    587 ! Shop/Lettering.md
+    37.6     21.6   1063 ! _ops/swarm/Multi-Lens Worker Prompt Template.md
+     4.0     29.3    752 ! People/Marcus Aurelius.md
+    10.7     29.7   1311 ! People/Yasujirō Ozu.md
+    13.1     34.3   1223 ! Modes of Collaboration/Dialectic.md
+    10.0     31.4    701 ! Modes of Collaboration/Excellent Adventure.md
+    17.9     30.1   1231 ! Palace development/Sentry.md
+    50.3      6.7   1194 ! Palace development/AI Partnership Philosophy.md
+    21.6     29.1   1064 ! Palace development/Skills Are Enchantable Pages.md
+    47.9      9.4    960 ! Cross-Domain Resonances/Kick Drum ↔ Foundation.md
+    42.9     12.4   1050 ! Cross-Domain Resonances/Reverb ↔ Space-Time.md
+    75.5      3.1   1272 ! Cross-Domain Resonances/Quantization ↔ Precision vs Flow.md
+    78.3      3.8   1060 ! Cross-Domain Resonances/Saturation ↔ Richness.md
+    49.8      5.4   1104 ! Cross-Domain Resonances/Dovetail Joint ↔ Counterpoint.md
+    56.9      7.7   1036 ! Cross-Domain Resonances/Frequency Domain ↔ Perspective Shift.md
+    68.0      8.6   1280 ! Cross-Domain Resonances/Synthesis ↔ Emergence.md
+    44.4      6.8    879 ! Cross-Domain Resonances/Cooking ↔ Mixing.md
+    64.5      8.2    976 ! Cross-Domain Resonances/Compression ↔ Intimacy.md
+    41.3      8.8   1018 ! Cross-Domain Resonances/Sidechain ↔ Conversation.md
+
+measured 341 entries — mean bold 15.7/kw, mean em-dash 18.6/kw
+ceilings: bold 32.0/kw, em-dash 29.0/kw (~p90 of the corpus)
+over ceiling: 45 entries (13%)
+
+Advisory: a flagged entry wants a human read, not an automatic rewrite.
+Bold what is load-bearing; let the sentence carry the rest.
+
+### face-audit
+face audit - root: /Users/loudonstearns/Documents/palace-weave-2026-11-08
+
+MISSING A FACE (8 of 330 canon entries in the palace) - every canon entry wears a hero and an icon -> render batch:
+  + Auditory Illusions.md  (concept, sprout) - no hero, no icon
+  + FM Synthesis.md  (concept, growing) - no hero, no icon
+  + Projects/Cycle 5 Explorer.md  (project, sprout) - no hero, no icon
+  + Projects/Rational Hearing.md  (project, sprout) - no hero, no icon
+  + Projects/Synth Templates.md  (project, sprout) - no hero, no icon
+  + Projects/The Gallery.md  (project, seed) - no hero, no icon
+  + Resonance and Damping.md  (concept, growing) - no hero, no icon
+  + Synthesis Notes (Loudon).md  (source, sprout) - no hero, no icon
+
+summary: 8 missing a face, 322 of 330 wear both
+
+### lint-link-pairs
+link-pairs: map 2026-11-08 · 2511 edges · 94 pairs with more than one link
+  W1  symmetric stated twice             Exponential Decay Curvature -connects-to[where-the-curve-is-heard]-> Synth Templates | Synth Templates -connects-to[the-envelope-card-points-here]-> Exponential Decay Curvature
+  W1  symmetric stated twice             Hero and Avatar Maker -connects-to[frame + cascade]-> Loudon Live Design System | Loudon Live Design System -connects-to[tab-icon-source]-> Hero and Avatar Maker
+  W1  symmetric stated twice             Hero and Avatar Maker -connects-to[faces-as-tab-icon]-> Drafting Table Design System | Drafting Table Design System -connects-to[tab-icon-source]-> Hero and Avatar Maker
+  W1  symmetric stated twice             Rational Hearing -couples-with[the-fifth-heard-and-the-fifth-walked]-> Cycle 5 Explorer | Cycle 5 Explorer -couples-with[the-fifth-heard-and-the-fifth-walked]-> Rational Hearing
+  W1  symmetric stated twice             Signal-Rate CV Architecture -connects-to[time-as-signal]-> SMPTE LTC | SMPTE LTC -connects-to[time-as-signal]-> Signal-Rate CV Architecture
+  W2  connects-to beside a specific link FM Synthesis -emerged-from[second-doorway]-> Frequency-Time Duality | Frequency-Time Duality -connects-to[doorway]-> FM Synthesis
+  W2  connects-to beside a specific link Synth Templates -emerged-from[house-bass-recipe-and-archetypes]-> Generative Audio Devices | Synth Templates -connects-to[cards-emit-pdl]-> Generative Audio Devices | Generative Audio Devices -spawned[house-bass-taught]-> Synth Templates
+  W2  connects-to beside a specific link Synthesis Notes (Loudon) -connects-to[seeds-the-catalog]-> Synth Templates | Synth Templates -emerged-from[concepts-covered]-> Synthesis Notes (Loudon)
+  W3  two specific types                 Diversity of Thought in Many-Agent Systems -emerged-from[architectural-collapse-provoked-question]-> The Shop | The Shop -couples-with[provisional]-> Diversity of Thought in Many-Agent Systems
+summary: W0 exact 0 · W1 symmetric-twice 5 · W2 weaker-beside-specific 3 · W3 judgment 1 · ok lineage 85
+
+### unsaid-links
+             -connects-to[prove-the-control-small]-> Capability-first prototyping
+    1 unsaid (0 bare)  Synth Templates
+             -emerged-from[concepts-covered]-> Synthesis Notes (Loudon)
+    1 unsaid (0 bare)  Talking Keyboard
+             -mirrors[sister-build]-> Phoneme Choir
+    1 unsaid (0 bare)  The Aftermath Frame
+             -connects-to[the-posed-swinger]-> Figure Rig
+    1 unsaid (0 bare)  The Cooperation Path
+             -spawned[mode-selection-as-path-design]-> Modes of Collaboration
+    1 unsaid (0 bare)  The Daily Page
+             -exemplifies[a-morning-that-plays]-> Hilaritas Generator
+    1 unsaid (0 bare)  The Drift
+             -contradicts[refuses-the-cultivated-body]-> Merleau-Ponty
+    1 unsaid (0 bare)  The Four Virtues
+             -deepens[virtue-is-the-only-good]-> Quality Manifesto
+    1 unsaid (0 bare)  The Lens
+             -connects-to[single-voice-sibling]-> Excellent Adventure
+    1 unsaid (0 bare)  The Multilinear Self
+             -contradicts[impersonal-texture-vs-personed-projection]-> Stable Audio Open
+    1 unsaid (0 bare)  The Palace Hardens Around Values
+             -connects-to[canon-is-plain-text]-> SCHEMA
+    1 unsaid (0 bare)  The Palace Practices on Itself
+             -connects-to[the-worked-example]-> The Commons
+    1 unsaid (0 bare)  The Scroll
+             -member-of[named-mode]-> Modes of Collaboration
+    1 unsaid (0 bare)  The View From Above
+             -contradicts[zoom-direction-inverted]-> Zoom Out to the Structure
+    1 unsaid (0 bare)  Tract Mirror
+             -connects-to[source-filter-as-one-machine]-> Boundary-Crossing Instruments
+    1 unsaid (0 bare)  Trickster Commit
+             -connects-to[honest-about-unverified]-> Closing Well
+    1 unsaid (0 bare)  Two Batons, One Board
+             -connects-to[cross-surface-meta-mode]-> Modes of Collaboration
+    1 unsaid (0 bare)  VST Template
+             -connects-to[framework-choice]-> DSP Frameworks
+    1 unsaid (0 bare)  Web Audio Worklet
+             -exemplifies[gotcha-becomes-concept]-> Zoom Out to the Structure
+    1 unsaid (0 bare)  assume multi-agent
+             -connects-to[worked-instance]-> The Palace Practices on Itself
+summary: 764 unsaid links in 264 entries; 142 bare (unlabelled and unsaid)
+
+### bundle-audit
+  in= 22  23 KB  2D Torus Wavetable Synthesizer  (project/fruiting) — inbound 22, 23 KB, fruiting
+  in= 21  15 KB  Action Potential Oscillator  (project/mature) — inbound 21, mature
+  in= 20  29 KB  Loudon Live Design System  (source/growing) — inbound 20, 29 KB
+  in= 12  17 KB  Crystal Synthesizer  (project/fruiting) — fruiting
+  in= 10  19 KB  Portamento and Physical Pitch Modeling  (project/mature) — mature
+  in= 10   7 KB  Identity Molting  (concept/mature) — mature
+  in=  7  35 KB  Inharmonic Wavetable Synthesis  (project/growing) — 35 KB
+  in=  7  30 KB  Palace Map  (concept/growing) — 30 KB
+  in=  7  23 KB  Shepard Tone Synthesizer  (project/growing) — 23 KB
+  in=  6  68 KB  Floquet Time-Modulated Loops  (project/growing) — 68 KB
+  in=  5  31 KB  Creative Coach  (practice/growing) — 31 KB
+  in=  2  10 KB  Revival Ceremony  (practice/mature) — mature
+
+SCROLL OWED (4) — projects with no scroll:
+  Compressor Design  (mature, status complete)
+  Phoneme Choir  (fruiting, status complete)
+  STIGMERGY Philosophical Lenses  (growing, status proposed)
+  Talking Keyboard  (fruiting, status complete)
+
+TUNING OWED (1) — pages that run with no tuning ledger:
+  Generative Preset Development  ( steward)
+
+RICH-FACE CANDIDATES (top 15, score ≥ 3; judgment decides):
+  5  in= 54  The Shop  (hub/mature, workshop files 0)
+  5  in= 25  Palace Enchantment  (project/mature, workshop files 0)
+  5  in= 19  Closing Well  (hub/mature, workshop files 12)
+  5  in= 18  Cross-Domain Resonances  (hub/growing, workshop files 85)
+  4  in= 78  FOUR PILLARS  (hub/mature, workshop files 1)
+  4  in= 45  Hilaritas Generator  (hub/mature, workshop files 0)
+  4  in= 41  Cooperation Yields Agency  (hub/mature, workshop files 1)
+  4  in= 38  Quality Manifesto  (hub/mature, workshop files 0)
+  4  in= 23  Trickster  (hub/mature, workshop files 1)
+  4  in= 20  Loudon Live Design System  (source/growing, workshop files 21)
+  4  in= 17  Project Stewardship System  (project/growing, workshop files 8)
+  4  in=  3  Preset Oracle  (project/mature, workshop files 37)
+  3  in= 31  Pages as Agents  (hub/growing, workshop files 0)
+  3  in= 29  Loudon Live  (project/growing, workshop files 4)
+  3  in= 23  Deposit Ceremony  (hub/mature, workshop files 0)
+
+summary: 13 Context owed · 4 scroll owed · 1 tuning owed · 15 rich candidates
+
+### label-harvest
+    3 edges ·   3 labels ·   3 sources   [dispatch]  compression-at-dispatch, dispatched-by, the-menu-it-dispatches-from
+    3 edges ·   3 labels ·   3 sources   [phase]  prediction-as-phase-collapse, living-philosophy-phase-coherence, pump-phase-lives-in-the-floquet-eigenvector
+    3 edges ·   3 labels ·   3 sources   [pillar]  ask-which-pillar-is-absent, pillars-as-monads, creation-pillar
+    3 edges ·   3 labels ·   3 sources   [four]  three-of-four-primitives, a-life-cast-four-ways, four-primitives-per-card
+    3 edges ·   3 labels ·   3 sources   [oblique]  oblique-cousin, oblique-line, oblique-strategies-principle
+    3 edges ·   3 labels ·   3 sources   [regist]  register, register-gap, depth-between-registers
+    3 edges ·   3 labels ·   3 sources   [text]  text-layer-canon, text-transduces-too, canon-is-plain-text
+    3 edges ·   3 labels ·   3 sources   [method]  a-method-in-the-roster, wrong-method-as-latent-error, restraint-as-method
+    3 edges ·   3 labels ·   3 sources   [wu]  wu-wei-in-the-studio, wu-wei-as-constraint, wu-wei
+    3 edges ·   3 labels ·   3 sources   [constraint]  constraint-practitioner, constraints-as-creative-force, constraints-as-generative
+    3 edges ·   3 labels ·   3 sources   [layer]  atmosphere-layers, two-layers-one-image, provenance-layer
+    3 edges ·   3 labels ·   3 sources   [door]  sweeps-its-doors, display + request door, one-door
+    3 edges ·   3 labels ·   3 sources   [attention]  attention-as-noticing, felt-attention, attention-without-seizure
+    3 edges ·   3 labels ·   2 sources   [emergence]  emergence-as-provocation, inharmonics-as-emergence, emergence-at-joints
+    3 edges ·   3 labels ·   3 sources   [over]  depth-over-reach, compression-over-history, patience-over-speed
+    3 edges ·   3 labels ·   3 sources   [mechanism]  clarifies-mechanism, proved-the-mechanism-live, mechanism-side
+    3 edges ·   3 labels ·   3 sources   [back]  the-way-back-in-from-sleep, push-back-is-cooperation, answers-come-back-by
+    3 edges ·   3 labels ·   3 sources   [entry]  visited-entry, dormancy-as-entry-mortality, entry-template
+    3 edges ·   3 labels ·   3 sources   [floor]  last-on-the-floor, birth-floor, the-floor
+    3 edges ·   3 labels ·   3 sources   [skill]  skills-as-experts, the-Segment-skill-and-its-wall, ceremony-as-skill
+    3 edges ·   3 labels ·   3 sources   [built]  built-in-the-open, built-by, built-on
+    3 edges ·   3 labels ·   3 sources   [coherence]  coherence-is-between, consonance-as-coherence, coherence-as-harmonicity
+    3 edges ·   3 labels ·   3 sources   [cycle]  quarter-cycle-lag, the-fifths-cycle-it-asked-for, hilaritas-cycle
+    3 edges ·   3 labels ·   1 sources   [justice]  under-credits-justice, justice-as-honest-handoff, relational-justice
+    3 edges ·   3 labels ·   3 sources   [weave]  end-of-weave, weave-substep, weave-confirms-the-compost
+    3 edges ·   3 labels ·   3 sources   [ode]  ramp-as-ode-solution, particle-as-ode-solution, periodically-coefficient-linear-ode
+    3 edges ·   3 labels ·   3 sources   [many]  one-family-among-many, many-angles, generate-many
+    3 edges ·   3 labels ·   3 sources   [body]  the-lived-body, li-as-body-schema, absorbable-into-the-body
+    3 edges ·   3 labels ·   3 sources   [making]  physical-making, making-as-expansion, making-against-the-vector
+    3 edges ·   3 labels ·   3 sources   [elder]  consults-the-elder, resident-elder, the-elder-in-the-room
+    3 edges ·   3 labels ·   2 sources   [map]  map-as-altitude, the-map-addressed, the-map-loaded
+    3 edges ·   3 labels ·   3 sources   [born]  born-this-way, born-with, born-from
+    3 edges ·   3 labels ·   3 sources   [nature]  virtue-as-nature, fidelity-to-nature, disciplined-looking-at-nature
+    3 edges ·   2 labels ·   3 sources   [lattice]  change-of-basis-reveals-the-lattice, lattice-exemplar
+    3 edges ·   2 labels ·   2 sources   [brows]  browser-incarnation, browser-cousin-of
+    3 edges ·   2 labels ·   2 sources   [consum]  consumes-citizens, consumes-its-mask
+    3 edges ·   2 labels ·   2 sources   [fire]  fire-at-nicopolis, the-fire-at-nicopolis
+    3 edges ·   1 labels ·   3 sources   [structured-by]  structured-by
+    3 edges ·   1 labels ·   1 sources   [doorway]  doorway
+summary: 129 clusters at or above 3 edges · 186 labels used once
+
+### anatomy
+    98  links                    in 64 · use 17 · couplings 4
+    93  self-check               in 21 · use 36 · couplings 1
+    90  bundles                  in 12 · use 39 · couplings 3
+    72  concierge                in 18 · use 27 · couplings 5
+    69  lifecycle                in 7 · use 31 · couplings 2
+    68  self-model               in 32 · use 18 · couplings 1
+    67  sentry                   in 7 · use 30 · couplings 3
+    53  loudon-live              in 29 · use 12 · couplings 3
+    38  loudon                   in 28 · use 5 · couplings 4
+    20  commons                  in 4 · use 8 · couplings 2
+
+✓ every home, member and coupling resolves; every ceremony has an organ
+
+meta entries no organ claims (5) — read, then claim or leave:
+  Coordinator Synthesis Template · Multi-Lens Worker Prompt Template · Single-Doc Worker Prompt Template · Stigmergy Weave A/B — Experiment Plan · Stigmergy Weave A/B — Findings

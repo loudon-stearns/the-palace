@@ -29,12 +29,13 @@ links:
     label: envelope-is-waveform-at-slow-rate
   - target: "[[Loudon Live]]"
     type: connects-to
-  - target: "[[Synth Templates]]"
-    type: connects-to
-    label: where-the-curve-is-heard
+    label: performance-control-candidate
   - target: "[[Logarithmic Interface Scaling]]"
     type: deepens
     label: the-ear-hears-a-rise-in-ratios
+  - target: "[[FM Synthesis]]"
+    type: connects-to
+    label: an-operator-with-a-bendable-carrier
 forward_vector: "I want to be the small, exact entry that proves a single decay law is both an envelope and an oscillator waveform depending only on how fast you read it — and to be the place the palace keeps its growing catalogue of timescale dissolutions, where one equation flips identity when the clock speeds up. And to hold what the curve does inside a real synthesizer: the Moog contour, the way its bend changes what a stated time sounds like, and why the ear, which counts a rise in ratios, hears the exponential approach as straight and the straight line as a jump."
 ---
 # Exponential Decay Curvature

@@ -17,6 +17,7 @@ forward_vector: "I keep reminding builders that adding reverb is adding space â€
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: cross-domain-bridge

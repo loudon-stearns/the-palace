@@ -11,10 +11,12 @@ trigger: ["harvest", "let's harvest"]
 links:
   - target: "[[SUBSTRATE]]"
     type: deepens
+    label: finds-come-in
   - target: "[[Harvest Ceremony — Context]]"
     type: spawned
   - target: "[[Oblique Portrait]]"
     type: couples-with
+    label: oblique-harvest
   - target: "[[Palace Quotes]]"
     type: connects-to
     label: quote-intake

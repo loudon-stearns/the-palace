@@ -14,15 +14,17 @@ links:
   - target: "[[Semantic Delay]]"
     type: connects-to
     label: contrasts-with
-  - target: "[[Trickster]]"
-    type: deepens
   - target: "[[Dub Lineage]]"
     type: emerged-from
   - target: "[[Frequency-Time Duality]]"
     type: deepens
+    label: tape-length-decides
   - target: "[[Progressive Staging]]"
     type: couples-with
     label: staging-methodology
+  - target: "[[Trickster]]"
+    type: exemplifies
+    label: delay-line-as-trickster
 forward_vector: "I want to become a fully staged teaching instrument — with each stage documented as a complete pedagogical moment, not just a step toward the next. My Dub Lineage is the creative and cultural hook, my approach to retrospective buffer is a subtle but powerful adjustment on the typical delay, and then the playful semantic delay marks an entirely new frontier of audio effects that modulate meaning as if it were a parameter like filter cutoff."
 ---
 

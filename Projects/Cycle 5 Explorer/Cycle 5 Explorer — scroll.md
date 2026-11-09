@@ -88,6 +88,7 @@ Where this is going: the page Loudon pulls up to teach harmony, proven in a clas
 ## Standing Orders
 
 <!-- scroll:orders:start -->
+- **"Fine tuning" is Loudon sitting with the page.** Loudon, 2026-11-08, closing the session that built this page and Rational Hearing, asked to leave their fine tuning for later and said what that is: "'fine tuning' is me sitting with what was created and discussing with you and thinking about a student experience and how it can best represent the goal… building in a metaphor will help students remember." He added: "similarly with the harmony explorer." The path he leaned toward was a metaphor and the student's experience, not a move on the Plan; a move, when he names one, comes as a `plan_revision`.
 <!-- scroll:orders:end -->
 
 ## The making

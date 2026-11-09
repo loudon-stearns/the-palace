@@ -4,7 +4,7 @@
   born: 2026-10-25
   parent: [[Dissolutions]] · leads up to ../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html · tests [[Phase Reduction]]
   forward_vector: I am the way up to the shadow that locks. I take one oscillator and its loop, a kick and when it lands, the same curve read off the loop itself, two oscillators that lock, why their pitch climbs, and the phase-only shadow, one step each, so that the proof makes sense the first time it is played, and so the pitch that climbs at strong coupling is heard as the spring it is, not an error.
-  outline: the loop alone, the kick alone (the PRC by experiment), the PRC from the loop (Floquet), two joined (locking), the spring (why the pitch climbs, from Loudon's note of 2026-10-25), the phase-only shadow against the pair, then the proof.
+  outline: step 0, the two things each defined on its own, with where the dissolution holds and where it stops (Loudon’s review, 2026-11-09); then the loop alone, the kick alone (the PRC by experiment), the PRC from the loop (Floquet), two joined (locking), the spring (why the pitch climbs, from Loudon's note of 2026-10-25), the phase-only shadow against the pair, then the proof.
   sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
 -->
 <html lang="en" class="skin-graphite">
@@ -12,6 +12,49 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Shadow That Locks · learning sequence</title>
+
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" href="../../Dissolutions%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, link, textarea. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+textarea {resize: vertical; min-height: 3.5em;}
+textarea::-webkit-resizer {background: linear-gradient(135deg, transparent 0 58%, var(--fx-fg-4) 58% 64%, transparent 64% 76%, var(--fx-fg-4) 76% 82%, transparent 82%); background-clip: content-box;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
 <style>
   :root{
     --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
@@ -71,6 +114,7 @@
   .gathered li{margin:4px 0}
   a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  iframe.proof{display:block;width:100%;height:1600px;margin-top:14px;border:1px solid var(--border-soft);border-radius:6px;background:var(--bg)}
   button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
   button.send:disabled{opacity:.55;cursor:default}
   .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
@@ -78,19 +122,92 @@
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
   @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+  /* step 0: the two things, each on its own, before anything joins them */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .thing{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-top:2px solid var(--accent-dim);border-radius:8px;padding:16px 18px}
+  .thing h3{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.15;margin:4px 0 10px;letter-spacing:.01em;color:var(--fg-1)}
+  .thing p{margin:0 0 10px;color:var(--fg-2)}
+  .thing p.where,.thing p.alone{font-family:var(--sans);font-size:13.5px;line-height:1.6;color:var(--fg-3)}
+  .thing p.where b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);margin-right:6px}
+  .thing p.alone{color:var(--accent);margin:0}
+  .claim p{margin:6px 0 10px;color:var(--fg-1);max-width:74ch}
+  .claim p b{color:var(--accent);font-weight:600}
+  .claim p.kind{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--fg-2);margin:0}
+  .claim p.kinds{font-family:var(--sans);font-size:12.5px;line-height:1.6;color:var(--fg-3);margin:0 0 6px}
+  .limits{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .limits>div{padding:12px 16px;border-left:2px solid var(--border);background:var(--bg-elev-1);border-radius:0 6px 6px 0}
+  .limits>div.holds{border-left-color:var(--accent)}
+  .limits p{margin:4px 0 0;color:var(--fg-2)}
+  dl.words{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:6px 18px;margin:6px 0 16px;font-family:var(--sans);font-size:14px;line-height:1.55}
+  dl.words dt{color:var(--fg-1);font-weight:500}
+  dl.words dd{margin:0;color:var(--fg-3)}
+  @media (max-width:640px){.pair,.limits{grid-template-columns:1fr}dl.words{grid-template-columns:1fr;gap:2px}dl.words dd{margin-bottom:8px}}
 </style>
 </head>
 <body>
 <main>
   <div class="eyebrow">Dissolutions · learning sequence · Phase Reduction</div>
   <h1>The shadow that locks, step by step</h1>
-  <p class="lead">Six short steps up to the proof. One oscillator and the loop it keeps falling back onto, a kick and when it lands, the same curve read off the loop itself, two oscillators that lock, why their pitch climbs, and the phase-only shadow. Each step has one thing to hear or see. Nothing plays until you press Play.</p>
+  <p class="lead">Step 0 names the two things this sequence dissolves, defines each on its own, and says where the dissolution holds and where it stops. Then six short steps up to the proof. One oscillator and the loop it keeps falling back onto, a kick and when it lands, the same curve read off the loop itself, two oscillators that lock, why their pitch climbs, and the phase-only shadow. Each step has one thing to hear or see. Nothing plays until you press Play.</p>
   <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
+  <!-- ───────────── step 0 ───────────── -->
+  <section class="step" data-step="0" data-title="The two things">
+    <div class="eyebrow">Step 0 · the two things, before anything joins them</div>
+    <h2>Floquet and Kuramoto, each on its own</h2>
+    <p class="say">This sequence takes two ways of studying things that repeat, taught in different courses, and tests whether one is the other. Both lean on five words, so those come first.</p>
+    <div class="panel">
+      <div class="eyebrow">First, the words both lean on</div>
+      <dl class="words">
+        <dt>oscillator</dt><dd>Anything that repeats on its own: a pendulum clock, a heart cell, a synth’s oscillator. Left alone, it settles into one repeating motion.</dd>
+        <dt>loop</dt><dd>Draw the oscillator’s state as a point, here its position across and its speed up, and the repeating motion is a closed loop the point goes round. Knock it off and it falls back onto the loop. Mathematicians call this loop a limit cycle.</dd>
+        <dt>phase, θ</dt><dd>Where the point is around its loop, as an angle: 0° at a chosen start, 360° once round. One number.</dd>
+        <dt>van der Pol oscillator</dt><dd>The oscillator this sequence tests with, written down by Balthasar van der Pol in the 1920s from a vacuum-tube circuit. Its state is a position x and a speed y. Its rule pushes the swing outward while it is small and brakes it once it is big, so from any start it settles onto the same loop. One number, μ, sets the loop’s shape: at 0.3 nearly a circle, and nearly a pure tone; at 1, the middle loop and the one the proof mostly uses; at 3 a lopsided box, and a buzz.</dd>
+        <dt>phase response curve, PRC</dt><dd>Kick an oscillator once, a small push at one moment, and let it settle back onto its loop. It ends up a little ahead of where it would have been, or a little behind, and stays there. The PRC is that shift, drawn against when in the cycle the kick landed: some moments advance it, some delay it (step 2).</dd>
+      </dl>
+    </div>
+    <div class="pair">
+      <div class="thing">
+        <div class="eyebrow">The first thing</div>
+        <h3>Floquet theory</h3>
+        <p>The study of one oscillator up close. Nudge it a little off its loop and follow it once round: Floquet theory says what one trip does to each kind of nudge. A nudge across the loop shrinks, because the loop pulls the point back. A nudge along the loop comes back exactly as big as it left, because a little ahead or a little behind is still on the loop, and nothing corrects it. Each kind of nudge has a multiplier, the factor one trip scales it by: below 1 across the loop, exactly 1 along it.</p>
+        <p class="where"><b>Where you meet it</b>Anything that repeats or is pushed in a cycle: an orbit, a circuit driven by a clock, a heartbeat. It speaks about one oscillator in full, every number of its state.</p>
+        <p class="alone">Step 1 shows the loop and a nudge across it shrinking; step 3 reads a curve off the loop this way.</p>
+      </div>
+      <div class="thing">
+        <div class="eyebrow">The second thing</div>
+        <h3>Kuramoto coupling</h3>
+        <p>A model of many oscillators pulling each other into step: fireflies that flash together, metronomes on one shelf, a clapping crowd that falls into rhythm. It keeps one number per oscillator, its phase, and throws the rest away. Each phase runs at its own speed, plus a pull from the others that depends only on the gap between their phases. How strong that pull is, is called the coupling. If it is stronger than the difference in their speeds, the gap stops changing and they lock. If it is weaker, the gap keeps sliding and they drift.</p>
+        <p class="where"><b>Where you meet it</b>Yoshiki Kuramoto’s model, from 1975, is the standard picture of synchronisation in physics and biology, and the palace’s Kuramoto Coupling. It speaks about phases only.</p>
+        <p class="alone">Step 4 joins two real oscillators and you hear them lock; step 6 runs Kuramoto’s phases-only version beside them.</p>
+      </div>
+    </div>
+    <div class="panel claim">
+      <div class="eyebrow">The claim that joins them</div>
+      <p>Kuramoto’s model is not a separate guess about oscillators. Take real oscillators, keep only their phases, and Kuramoto’s equation is what comes out; the phases-only version is called their shadow. Floquet theory supplies the one part the shadow leaves open, the pull, and the PRC is the bridge. For the nudge along the loop, the one with multiplier exactly 1, Floquet theory gives a reading, called the left eigenvector, of how much of any small nudge counts as a shift along the loop. Taken at every point of the cycle, that reading is a curve, and the claim is that it is the PRC (step 3). Kuramoto’s pull is then built from that curve (step 6). So the proof tests two claims. The PRC you measure by kicking is the curve Floquet theory reads off the loop. And the shadow, pulled by that curve, behaves like the real pair.</p>
+      <p class="kinds">Three kinds of sameness. Identity: one object, read two ways. Isomorphism: an exact map between two things that stay two. Analogy: a likeness that breaks when you push it.</p>
+      <p class="kind"><b>Two claims, two kinds.</b> The first is an identity: one curve, read two ways. The second is an isomorphism that becomes exact only in the limit, as the coupling goes to zero: the shadow is a faithful copy of the pair at weak coupling, not the pair.</p>
+    </div>
+    <div class="limits">
+      <div class="holds"><div class="eyebrow">Where it holds</div><p>The first claim holds exactly: the kicked curve closes onto the loop’s curve as the kicks get smaller (step 3). The second holds while the coupling is weak next to how fast the loop pulls a nudged oscillator back. On the middle loop, μ = 1, the proof runs the full pair and the shadow over a grid of detunings and couplings, and where they lock matches cell for cell up to a coupling of 0.1.</p></div>
+      <div class="stops"><div class="eyebrow">Where it stops</div><p>On the middle loop the two have parted by a coupling of 0.4, and by 0.5 the shadow’s pitch runs sharp of the real pair’s (steps 5 and 6). On the nearly round loop, μ = 0.3, the shadow fails even when the coupling is weak: at 0.04 the real pair locks and the shadow says it drifts (step 6), because there the part of the pull that draws the pair together nearly cancels out. How weak counts as weak depends on the loop. And the proof tests one-to-one locking only, the two at one pitch; locking at other ratios, 2:1 say, needs extra terms in the pull. Whether Phase Reduction stays in the catalogue as an identity, as an isomorphism, or split in two is the question the proof ends on.</p></div>
+    </div>
+    <div class="eyebrow">Words the steps use</div>
+    <dl class="words">
+        <dt>coupling, ε</dt><dd>How hard the two pull on each other. Here each one’s speed gets ε times the gap between their positions (step 4).</dd>
+        <dt>detuning</dt><dd>How far apart the two oscillators’ own pitches are before they are joined.</dd>
+        <dt>left eigenvector</dt><dd>For the nudge along the loop, the reading that says how much of any small nudge counts as a shift along it. Taken at every phase, it is the PRC (step 3).</dd>
+        <dt>Γ, the pull</dt><dd>Kuramoto’s pull at each gap: the PRC times the other’s push, averaged over one cycle (step 6).</dd>
+        <dt>tongue</dt><dd>In the proof: the region of detuning and coupling where the pair locks. It widens as the coupling grows, in the shape of a tongue.</dd>
+      </dl>
+    <div class="try"><span class="eyebrow">Try</span>Before you press Next, say each of the two things back in a sentence of your own, without the other. If either one won’t come, that is the note to leave here.</div>
+    <textarea data-note placeholder="Are the two things clear, each on its own, before the steps join them?"></textarea>
+  </section>
+
   <!-- ───────────── step 1 ───────────── -->
-  <section class="step" data-step="0" data-title="The loop">
+  <section class="step" data-step="1" data-title="The loop">
     <div class="eyebrow">Step 1 of 7 · one oscillator alone</div>
     <h2>An oscillator that keeps its own shape</h2>
     <p class="say">Here is one oscillator, the van der Pol: a position x, a speed y, and a rule that pushes them round. Start it anywhere and it falls onto the same closed loop, the gold one, and goes round it for good. Where it is on the loop is its phase, θ: one number. What you hear is x, going round 220 times a second.</p>
@@ -116,7 +233,7 @@
   </section>
 
   <!-- ───────────── step 2 ───────────── -->
-  <section class="step" data-step="1" data-title="A kick" hidden>
+  <section class="step" data-step="2" data-title="A kick" hidden>
     <div class="eyebrow">Step 2 of 7 · a kick alone</div>
     <h2>Kick it, and it comes back early or late</h2>
     <p class="say">Now kick it: add a little to its speed at one moment. The loop pulls it back on, but not to where it would have been. It comes back a little ahead or a little behind, and stays that way, because nothing along the loop pulls it back. How far, against when in the cycle the kick lands, is the phase response curve: the PRC.</p>
@@ -143,7 +260,7 @@
   </section>
 
   <!-- ───────────── step 3 ───────────── -->
-  <section class="step" data-step="2" data-title="The curve from the loop" hidden>
+  <section class="step" data-step="3" data-title="The curve from the loop" hidden>
     <div class="eyebrow">Step 3 of 7 · the PRC without kicking</div>
     <h2>The same curve, read off the loop itself</h2>
     <p class="say">You can get the PRC without kicking at all. Follow one trip round the loop and watch what it does to every small nudge: across the loop a nudge shrinks, and along the loop it comes back exactly the size it left, a multiplier of 1. Read the direction that goes with that 1, its left eigenvector, at each phase, and you have the PRC. That is Floquet theory, and the proof’s first claim: the gold line and the blue dots are one curve.</p>
@@ -174,7 +291,7 @@
   </section>
 
   <!-- ───────────── step 4 ───────────── -->
-  <section class="step" data-step="3" data-title="Two, joined" hidden>
+  <section class="step" data-step="4" data-title="Two, joined" hidden>
     <div class="eyebrow">Step 4 of 7 · two oscillators, coupled</div>
     <h2>Two oscillators, joined, lock together</h2>
     <p class="say">Now two of them, the second tuned a little sharp, and join them: each one’s speed gets a nudge of ε times the gap between their positions. With no coupling the gap between their phases slides round and round, and they drift. Give them a little and the gap stops sliding: they lock. On this loop they lock far apart, heading toward opposite as the coupling grows, one near the top of its swing while the other is near the bottom.</p>
@@ -202,7 +319,7 @@
   </section>
 
   <!-- ───────────── step 5 ───────────── -->
-  <section class="step" data-step="4" data-title="The spring" hidden>
+  <section class="step" data-step="5" data-title="The spring" hidden>
     <div class="eyebrow">Step 5 of 7 · why the pitch climbs</div>
     <h2>The coupling is a spring, and it stiffens the swing</h2>
     <p class="say">The coupling pulls each one toward the other’s position, ε times the distance between them: a spring between the two. Locked nearly opposite, they are always far apart, so the spring is always stretched, and it always pulls each one back toward the middle, the same way as its own − x. A stiffer pull back means a faster swing, so the pitch rises. It is the higher mode of two pendulums joined by a spring, and it is not an error.</p>
@@ -229,7 +346,7 @@
   </section>
 
   <!-- ───────────── step 6 ───────────── -->
-  <section class="step" data-step="5" data-title="The shadow" hidden>
+  <section class="step" data-step="6" data-title="The shadow" hidden>
     <div class="eyebrow">Step 6 of 7 · the phases alone</div>
     <h2>Forget everything but the phases</h2>
     <p class="say">Phase reduction makes a bet. If the loop pulls each oscillator back much faster than the coupling pushes it off, then knowing where each one is around its loop is nearly knowing everything. So keep only the two phases, and pull each with Γ: the PRC from steps 2 and 3, times the other’s push, averaged over a cycle. That is Kuramoto’s equation, the shadow, and it locks where the curve on the left crosses zero going down.</p>
@@ -261,7 +378,7 @@
   </section>
 
   <!-- ───────────── step 7 ───────────── -->
-  <section class="step" data-step="6" data-title="The proof" hidden>
+  <section class="step" data-step="7" data-title="The proof" hidden>
     <div class="eyebrow">Step 7 of 7 · the proof</div>
     <h2>Now the whole thing, on one page</h2>
     <p class="say">The proof puts every step on one screen and runs the full pair and the shadow side by side. Here is where each step is waiting for you there.</p>
@@ -274,8 +391,8 @@
       <li>What the proof adds: <b>the tongue</b>, bottom right. It runs the full pair at every detuning and coupling on a grid, gold where it locks, with blue lines where the shadow says locking ends. At weak coupling the gold sits between the lines; turn the coupling up and it walks away from them. The box’s third line weighs step 6’s bet: how fast the loop pulls back, against how hard the coupling pushes.</li>
     </ul>
     <p class="say" style="margin-top:14px">It ends on a question. The PRC half is exact. The shadow half holds only as the coupling goes to zero, and how small is small enough depends on the loop. Should Phase Reduction stay in the catalogue as an identity, stand as an isomorphism, or be split into the exact half and the shadow?</p>
-    <a class="proof-link" href="../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html">Open the proof</a>
-    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <iframe class="proof" src="../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html" title="the proof" loading="lazy"></iframe>
+    <textarea data-note placeholder="The proof, and the walk up to it: did the steps get you there? What was missing?"></textarea>
     <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
     <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
   </section>
@@ -285,6 +402,40 @@
   <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-the-shadow-that-locks/the-shadow-that-locks.html">the shadow that locks</a> · <a href="index.html">all six sequences</a></footer>
 </main>
 
+<script>
+// The proof shows in place on the last step, unchanged. Its own notes could
+// only be copied, so they are hidden here and this step's box is the one place
+// to write. The frame takes the proof's height; a hush from the face reaches
+// the proof, and the proof's play reaches the face. Opened as a file the proof
+// can't be reached into, and keeps its notes and a fixed height. The message
+// names are built, not written: the piece kit leaves hushing to any page whose
+// own script spells one out, and this page's sound is still the kit's to hush.
+(function(){
+  var f = document.querySelector('iframe.proof'); if (!f) return;
+  var HUSH = ['rich', 'hush'].join(':'), PLAY = ['rich', 'play'].join(':');
+  var step = f.closest('section.step'), last = 0;
+  function reach(){ try { return f.contentDocument && f.contentDocument.body ? f.contentDocument : null; } catch (e) { return null; } }
+  function fit(){
+    var d = reach(); if (!d) return;
+    ['doorNote', 'wholeNote'].forEach(function(id){ var e = d.getElementById(id); if (e) e.style.display = 'none'; });
+    var c = d.getElementById('copy'), row = c && c.closest('.rowb'); if (row) row.style.display = 'none';
+    var h = Math.min(8000, Math.max(600, d.documentElement.scrollHeight));
+    if (Math.abs(h - last) > 2){ last = h; f.style.height = h + 'px'; }
+  }
+  function hush(){ try { f.contentWindow.postMessage({ type: HUSH }, '*'); } catch (e) {} }
+  f.addEventListener('load', function(){
+    fit(); setTimeout(fit, 400); setTimeout(fit, 1500);
+    var d = reach(); if (d && window.ResizeObserver) new ResizeObserver(fit).observe(d.body);
+  });
+  window.addEventListener('message', function(e){
+    if (!e.data) return;
+    if (e.source === window.parent && e.data.type === HUSH) hush();
+    if (e.source === f.contentWindow && e.data.type === PLAY && window.parent !== window) window.parent.postMessage({ type: PLAY }, '*');
+  });
+  new MutationObserver(function(){ if (step.hidden) hush(); }).observe(step, { attributes: true, attributeFilter: ['hidden'] });
+  document.addEventListener('visibilitychange', function(){ if (document.hidden) hush(); });
+})();
+</script>
 <script src="../../../_ops/loudon-eval/answers.js"></script>
 <script>
 (function(){
@@ -631,7 +782,7 @@
   var steps = Q('section.step'), cur = 0, seen = {};
   var rail = document.querySelector('.rail');
   steps.forEach(function(s, i){
-    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    var b = document.createElement('button'); b.textContent = i + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
     b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
   });
   var STEP = []; // per-step behaviour: { render(): Float32Array or [left, right], draw(g, W, H, d, dt), changed() }
@@ -646,10 +797,17 @@
     // the buffers are rendered on Play, at the context's own rate, so nothing needs rebuilding here
     if (ctx.sampleRate !== sr) sr = ctx.sampleRate;
   }
+  // The loop blends the F extra samples at the tail onto the start. The blend
+  // holds the level whatever the two pieces are: r is how alike they are, so the
+  // same wave in the same phase gets a straight fade and two unrelated sounds a
+  // near equal-power one. An equal-power fade of one wave onto itself swells
+  // 3 dB at the seam, once a loop (Loudon heard it, 2026-11-08).
   function loopify(x, F){
-    var N = x.length - F, out = new Float32Array(N);
-    for (var i = 0; i < N; i++){
-      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+    var N = x.length - F, out = new Float32Array(N), sab = 0, saa = 0, sbb = 0, i;
+    for (i = 0; i < F; i++){ sab += x[i] * x[N + i]; saa += x[i] * x[i]; sbb += x[N + i] * x[N + i]; }
+    var r = saa > 0 && sbb > 0 ? Math.max(0, sab / Math.sqrt(saa * sbb)) : 0;
+    for (i = 0; i < N; i++){
+      if (i < F){ var a = i / F, b = 1 - a; out[i] = (x[i] * a + x[N + i] * b) / Math.sqrt(a * a + b * b + 2 * r * a * b); }
       else out[i] = x[i];
     }
     return out;
@@ -759,7 +917,7 @@
       $('s1m').innerHTML = 'one trip: <b>' + c.T.toFixed(3) + '</b> time units, played at <b>' + F0 + ' Hz</b> · a nudge across the loop shrinks to <b>' + c.across.toExponential(2) + '</b> of itself in one trip · a nudge along it stays: that is the phase';
       pressGroup('data-s1mu', String(mu));
     }
-    STEP[0] = {
+    STEP[1] = {
       render: function(){ var c = L.cyc; return loopOut(scaled(renderOne(c, hAudio(c), nAudio() + Math.round(0.15 * sr)), 0.4)); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(g, W, H, d){
@@ -786,7 +944,7 @@
         strip(g, x0, y0, w, hh, function(t){ return cycleAt(c, t * 6 * Math.PI)[0] / (M.xm / 1.3); }, ACC, 2 * d);
       }
     };
-    Q('[data-s1mu]').forEach(function(b){ b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-s1mu')); STEP[0].changed(); }); });
+    Q('[data-s1mu]').forEach(function(b){ b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-s1mu')); STEP[1].changed(); }); });
   })();
 
   // ---- step 2: a kick ----
@@ -806,7 +964,7 @@
       var beat = Math.abs(F0 * (ratio - 1));
       $('s2h').innerHTML = door === 'plain' ? 'You hear <b>the oscillator, untouched</b>, at ' + F0 + ' Hz.' : door === 'kick' ? 'You hear <b>the kicked one</b>, ' + (ratio >= 1 ? 'sharp' : 'flat') + ', with a faint tick each cycle where the kick lands.' : 'You hear <b>both</b>: they beat about <b>' + beat.toFixed(1) + '</b> times a second, the gap between their pitches.';
     }
-    STEP[1] = {
+    STEP[2] = {
       render: function(){
         var c = L.cyc, n = nAudio() + Math.round(0.15 * sr), h = hAudio(c), a = renderOne(c, h, n), b = kickedRun(c, dg * Math.PI / 180, DY, h, n).x, x = new Float64Array(n);
         for (var i = 0; i < n; i++) x[i] = door === 'plain' ? 0.4 * a[i] : door === 'kick' ? 0.4 * b[i] : 0.22 * (a[i] + b[i]);
@@ -836,7 +994,7 @@
         label(g, '0°', x0, y0 + ch + 16 * d, d); label(g, '360°', x0 + w, y0 + ch + 16 * d, d, 'right');
       }
     };
-    $('s2p').addEventListener('input', function(){ dg = parseInt($('s2p').value, 10); STEP[1].changed(); });
+    $('s2p').addEventListener('input', function(){ dg = parseInt($('s2p').value, 10); STEP[2].changed(); });
     Q('[data-s2door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s2door'); ui(); refreshAudio(); }); });
   })();
 
@@ -854,7 +1012,7 @@
       pressGroup('data-s3mu', String(mu)); pressGroup('data-s3k', String(kick));
       $('s3m').innerHTML = 'multipliers of one trip: <b>' + L.prc[0].one.toFixed(4) + '</b> along the loop, <b>' + L.cyc.across.toExponential(2) + '</b> across it · eigenvector against kicks of ' + kick + ': largest gap <b>' + gap.toFixed(2) + '%</b> of the curve’s height';
     }
-    STEP[2] = {
+    STEP[3] = {
       changed: function(){ rebuild(); ui(); },
       draw: function(g, W, H, d){
         var p = 14 * d; box(g, p, p, W - 2 * p, H - 2 * p, d);
@@ -873,8 +1031,8 @@
         if (W > 640 * d) label(g, 'gold: eigenvector · blue: kicks', x0 + w, p + 14 * d, d, 'right');
       }
     };
-    Q('[data-s3mu]').forEach(function(b){ b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-s3mu')); STEP[2].changed(); }); });
-    Q('[data-s3k]').forEach(function(b){ b.addEventListener('click', function(){ kick = parseFloat(b.getAttribute('data-s3k')); STEP[2].changed(); }); });
+    Q('[data-s3mu]').forEach(function(b){ b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-s3mu')); STEP[3].changed(); }); });
+    Q('[data-s3k]').forEach(function(b){ b.addEventListener('click', function(){ kick = parseFloat(b.getAttribute('data-s3k')); STEP[3].changed(); }); });
   })();
 
   // the gap over time, as in the proof's reader: dots once a cycle, an optional dashed shadow
@@ -907,7 +1065,7 @@
       $('s4m').innerHTML = 'the gap: ' + (full.locked ? '<b>locked at ' + fmtDeg(full.at) + '</b>' : '<b>drifting</b>') + ' · coupling ' + eps.toFixed(3) + ', the second tuned ' + (det >= 0 ? '+' : '−') + Math.abs(det * 100).toFixed(1) + '%';
       $('s4h').innerHTML = door === 'ears' ? 'You hear <b>one oscillator in each ear</b>. Headphones help.' : 'You hear <b>both in the middle</b>: ' + (full.locked ? 'locked far apart, they partly cancel.' : 'drifting, they swell and fade as they slide past each other.');
     }
-    STEP[3] = {
+    STEP[4] = {
       render: function(){
         var c = L.cyc, n = nAudio() + Math.round(0.15 * sr), a = renderPair(c, L.G, eps, det, PSI0, hAudio(c), n, 100 * Math.round(sr / F0)).full;
         if (door === 'ears') return [loopOut(scaled(a[0], 0.4)), loopOut(scaled(a[1], 0.4))];
@@ -926,8 +1084,8 @@
         drawReader(g, rx + 12 * d, p + 40 * d, rw - 24 * d, hh - 66 * d, d, full, null);
       }
     };
-    $('s4e').addEventListener('input', function(){ eps = parseFloat($('s4e').value); STEP[3].changed(); });
-    $('s4d').addEventListener('input', function(){ det = parseFloat($('s4d').value); STEP[3].changed(); });
+    $('s4e').addEventListener('input', function(){ eps = parseFloat($('s4e').value); STEP[4].changed(); });
+    $('s4d').addEventListener('input', function(){ det = parseFloat($('s4d').value); STEP[4].changed(); });
     Q('[data-s4door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s4door'); ui(); refreshAudio(); }); });
   })();
 
@@ -948,7 +1106,7 @@
       $('s5m').innerHTML = (full.locked ? 'locked <b>' + Math.abs(deg(full.at)).toFixed(1) + '°</b> apart' : '<b>not locked</b>') + ' · the pitch: <b>' + pct(pp.r1, 1) + '</b>, ' + F0 + ' → ' + (F0 * pp.r1).toFixed(1) + ' Hz, <b>' + semis(pp.r1).toFixed(2) + '</b> semitones' + (full.locked ? ' · the spring’s count for a round swing: <b>' + pct(sc, 1) + '</b>' : '');
       $('s5h').innerHTML = door === 'alone' ? 'You hear <b>one oscillator alone</b>, at ' + F0 + ' Hz: where the pair starts from.' : 'You hear <b>the coupled pair</b>, one in each ear, at about ' + Math.round(F0 * pp.r1) + ' Hz.';
     }
-    STEP[4] = {
+    STEP[5] = {
       render: function(){
         var c = L.cyc, n = nAudio() + Math.round(0.15 * sr);
         if (door === 'alone') return loopOut(scaled(renderOne(c, hAudio(c), n), 0.4));
@@ -987,8 +1145,8 @@
         label(g, 'x₁', tx0 - 4 * d, ya + 4 * d, d, 'right'); label(g, 'x₂', tx0 - 4 * d, yb + 4 * d, d, 'right');
       }
     };
-    $('s5e').addEventListener('input', function(){ eps = parseFloat($('s5e').value); STEP[4].changed(); });
-    $('s5in').addEventListener('click', function(){ inStep = !inStep; STEP[4].changed(); });
+    $('s5e').addEventListener('input', function(){ eps = parseFloat($('s5e').value); STEP[5].changed(); });
+    $('s5in').addEventListener('click', function(){ inStep = !inStep; STEP[5].changed(); });
     Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
   })();
 
@@ -1012,7 +1170,7 @@
         '<br>the bet: the loop pulls back at <b>' + pulls.toFixed(3) + '</b> per unit time, the coupling pushes at about <b>' + pushes.toFixed(3) + '</b>' + (pushes > 0 ? ' (' + (pulls / pushes).toFixed(1) + ' to 1)' : '');
       $('s6h').innerHTML = door === 'full' ? 'You hear <b>the two oscillators</b> in full, one in each ear.' : door === 'red' ? 'You hear <b>the shadow</b>: two phases, read back through the loop.' : 'You hear <b>what the shadow leaves out</b>: the oscillators minus their shadow, ear by ear.';
     }
-    STEP[5] = {
+    STEP[6] = {
       render: function(){
         var c = L.cyc, n = nAudio() + Math.round(0.15 * sr), b = renderPair(c, L.G, eps, DET, PSI0, hAudio(c), n, 100 * Math.round(sr / F0)), out = [];
         for (var ch = 0; ch < 2; ch++){ var x = new Float64Array(n); for (var i = 0; i < n; i++) x[i] = 0.4 * (door === 'full' ? b.full[ch][i] : door === 'red' ? b.red[ch][i] : b.full[ch][i] - b.red[ch][i]); out.push(loopOut(x)); }
@@ -1037,8 +1195,8 @@
         drawReader(g, rx + 12 * d, p + 40 * d, rw - 24 * d, hh - 66 * d, d, full, shadow);
       }
     };
-    $('s6e').addEventListener('input', function(){ eps = parseFloat($('s6e').value); STEP[5].changed(); });
-    Q('[data-s6mu]').forEach(function(b){ b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-s6mu')); STEP[5].changed(); }); });
+    $('s6e').addEventListener('input', function(){ eps = parseFloat($('s6e').value); STEP[6].changed(); });
+    Q('[data-s6mu]').forEach(function(b){ b.addEventListener('click', function(){ mu = parseFloat(b.getAttribute('data-s6mu')); STEP[6].changed(); }); });
     Q('[data-s6door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s6door'); ui(); refreshAudio(); }); });
   })();
 
@@ -1062,8 +1220,18 @@
   }
 
   // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
-  var KEY = 'dissolutions-seq-shadow-locks-notes', notes = {};
-  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  // step 0 came in front on 2026-11-09 and every step moved up one index, its number kept;
+  // notes still under the old key are carried across, each to the step it was written on
+  var KEY = 'dissolutions-seq-shadow-locks-notes-v2', KEY_BEFORE = 'dissolutions-seq-shadow-locks-notes', notes = {};
+  try {
+    notes = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (!notes){
+      var before = JSON.parse(localStorage.getItem(KEY_BEFORE) || '{}') || {}; notes = {};
+      Object.keys(before).forEach(function(k){ notes[String(+k + 1)] = before[k]; });
+      if (Object.keys(notes).length){ localStorage.setItem(KEY, JSON.stringify(notes)); localStorage.removeItem(KEY_BEFORE); }
+    }
+  } catch (e) { notes = notes || {}; }
+  window.__seq.keys = { now: KEY, before: KEY_BEFORE };
   Q('[data-note]').forEach(function(t){
     var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
     t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
@@ -1071,13 +1239,13 @@
   // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
   // Copy all notes, below, stays as the fallback
   var TASK = 'the-shadow-that-locks', HEAD = 'The shadow that locks, learning sequence — notes', sending = false;
-  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
   function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
   function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
   $('send').addEventListener('click', function(){
     if (sending) return;
     var sent = {}, answers = {}, names = [];
-    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[i + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
     if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
     if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
     sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
@@ -1094,7 +1262,7 @@
     }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
   });
   $('copy').addEventListener('click', function(){
-    var text = 'The shadow that locks, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var text = 'The shadow that locks, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
     var done = function(){ $('copied').textContent = 'copied'; };
     if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
   });

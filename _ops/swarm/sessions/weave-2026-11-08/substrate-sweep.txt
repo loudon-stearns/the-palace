@@ -1,0 +1,104 @@
+## git status
+ M .claude/launch.json
+ M _ops/daily-page/visits.jsonl
+ D _ops/maps/palace-map-full-2026-11-01-adjacency.txt
+ D _ops/maps/palace-map-full-2026-11-01.json
+ D _ops/maps/palace-map-full-2026-11-01.tsv
+ D _ops/maps/palace-map-full-2026-11-02-adjacency.txt
+ D _ops/maps/palace-map-full-2026-11-02.json
+ D _ops/maps/palace-map-full-2026-11-02.tsv
+ D _ops/maps/palace-map-full-2026-11-03-adjacency.txt
+ D _ops/maps/palace-map-full-2026-11-03.json
+ D _ops/maps/palace-map-full-2026-11-03.tsv
+ M _ops/swarm/persistent/blackboard.jsonl
+?? "Projects/2D Torus Wavetable Synthesizer/plugin/"
+?? _ops/maps/palace-map-full-2026-11-06-adjacency.txt
+?? _ops/maps/palace-map-full-2026-11-06.json
+?? _ops/maps/palace-map-full-2026-11-06.tsv
+?? _ops/maps/palace-map-full-2026-11-07-adjacency.txt
+?? _ops/maps/palace-map-full-2026-11-07.json
+?? _ops/maps/palace-map-full-2026-11-07.tsv
+?? _ops/maps/palace-map-full-2026-11-08-adjacency.txt
+?? _ops/maps/palace-map-full-2026-11-08.json
+?? _ops/maps/palace-map-full-2026-11-08.tsv
+
+## stashes
+
+## fsck dangling (commits only)
+unreachable commit 020444cba10c320387e2dd808833c53aaa5b106b
+unreachable commit 820c9e02a7c0b46c43495d712aee3daead6f15b4
+unreachable commit 360e60a0455e498eaad64d220613f5b9f90246ad
+unreachable commit 6d0ff060fa72106aa66a57d95f4efcb01e2bb276
+unreachable commit a810ae9ad6f2394985b6b8271df06c7a81e4e33f
+unreachable commit 5112d0faa39c2c5ea225bdd540fe9130e6887517
+unreachable commit 9a12dc1c1283d6cc16d93dd705092ff73e1ead65
+unreachable commit 1416f4b6e807d6421f4614e28cba4ffed1c32cf2
+unreachable commit fe19dcd90e5a992615248b62c457569997ed0540
+unreachable commit f51c8e0fb7b2fcbaebef0cc42ebf9a4c04bd0aff
+unreachable commit 531f74054f20c019c24cbceceb7526a122ef9453
+unreachable commit 4020b8eadac947a1356a63dd30af4506404d4d00
+unreachable commit 2b2270789d8d399ce5178553efeb2cc1ab40c162
+unreachable commit 682ff09c9707a0122439243a87a5051f4021c2ad
+unreachable commit 37307c77d7378ea849c2d00fc60e9966ac5fbe80
+unreachable commit 9432ee11c718533ebc0e4d14a64122f9a266a58c
+unreachable commit 7d332cc16cbb8f26ad9c01341664792d87e4b124
+unreachable commit f338f2845bdd0ecb76ac42e3b5015f10ba0f5213
+unreachable commit 2940d8d5ce9284b123fbd4fab125ab85328c8981
+unreachable commit f7403e1e26a71617e6ca832e895aad17999067f8
+
+## unmerged branches
++ claude/dazzling-noyce-acd879
++ claude/happy-feynman-5a7e02
++ claude/mystifying-hugle-4fd6e0
+  remotes/origin/dependabot/npm_and_yarn/Kuramoto-Coupling/phenomena-walk/fast-uri-3.1.9
+  remotes/origin/dependabot/npm_and_yarn/Kuramoto-Coupling/phenomena-walk/multi-630b8a0dbc
+  remotes/origin/dependabot/npm_and_yarn/_ops/stigmergy/multi-140621012a
+  remotes/origin/dependabot/npm_and_yarn/_ops/stigmergy/multi-456d42d8d4
+  remotes/origin/dependabot/npm_and_yarn/_ops/stigmergy/qs-6.17.1
+  remotes/origin/dependabot/npm_and_yarn/_ops/stigmergy/vite-6.4.5
+  remotes/origin/ops/read-view-every-rich-face
+
+## reflog rewrites (30d)
+fc7b232a HEAD@{2026-11-07 09:28:28 -0500}: commit: ops(Closing Well): tuning item 74 and the run line for close-2026-11-07-preset-oracle: a board state relayed across a three-day gap unread, and a heading rename that orphaned a rich-face section; and the session's opening kept on Loudon's word
+ad14b8ff HEAD@{2026-11-07 09:27:04 -0500}: commit: ops(Preset Oracle): the scroll regenerated: preset-oracle-018 on the trail, the standing order kept through regeneration
+481ca582 HEAD@{2026-11-07 09:22:08 -0500}: commit: edit(Preset Oracle): standing order: push the playful interface ideas even further as this develops — Loudon, 2026-11-07
+82ecf655 HEAD@{2026-11-07 08:29:41 -0500}: commit: steward(Preset Oracle): cycle 7 — machinery and scroll
+205af2b9 HEAD@{2026-11-07 08:08:43 -0500}: commit: edit(Preset Oracle): Four-Pillars Compression in the deck's words: the theme, the technical guidance, thirty minutes, on Loudon's word of 2026-11-07
+6c29709f HEAD@{2026-11-07 08:06:40 -0500}: commit: ops(Preset Oracle): tuning item 3 (The Encounter Archive) declined at Loudon's review: withdrawn by the refocus on the oracle itself
+4d1b4669 HEAD@{2026-11-07 08:06:31 -0500}: commit: edit(Preset Oracle): refocused on the oracle itself: the restored 170-card deck in six parts, the eye-over-the-page interface, a new vector and status active; exemplifies Playful Interface Design, on Loudon's word of 2026-11-07
+19eb0728 HEAD@{2026-11-07 08:01:59 -0500}: commit: steward(Preset Oracle): the eye made more transparent: the layer at 55%, a lighter iris wash, a fainter doze
+5e09d712 HEAD@{2026-11-07 08:00:27 -0500}: commit: steward(Preset Oracle): the cursor made light: pre-drawn glow sprites, a 40-mote trail that fades fast, no live blur
+9d741928 HEAD@{2026-11-07 07:57:56 -0500}: commit: steward(Preset Oracle): the oracle's cursor: a turning star of light with a rising, twinkling trail
+
+## trunk-state
+The trunk, 2026-11-08 13:20 UTC
+- main is 17 ahead of origin, the oldest unsent 4 days old (origin as last fetched, 9 h ago)
+- last push: 2026-11-08 04:01, 72 commits, sent, gate high=0 warn=95
+- the ear, in the last 24h: 46 moves of main, 45 through the door, 1 around it
+    around: 13:03 9b570df7 by zsh (session d1cebd69) in /Users/loudonstearns/Documents/The Palace
+- unsaved in the main checkout: 22 paths in 5 places
+    _ops/maps: 18, 33 h to 35 min old
+    .claude: 1, 24 min to 24 min old, written by session 8eaea235
+    _ops/daily-page: 1, 34 min to 34 min old
+    _ops/swarm: 1, 7 min to 7 min old
+    Projects/2D Torus Wavetable Synthesizer: 1, 24 h to 24 h old, written by session b72c4dfc
+- worktrees: 15, of which 9 merged and clean
+    weave/2026-11-08: merged, 8 unsaved (/Users/loudonstearns/Documents/palace-weave-2026-11-08)
+    worktree-agent-a52635a33234ca54f: merged, 1 unsaved (/Users/loudonstearns/Documents/The Palace/.claude/worktrees/agent-a52635a33234ca54f)
+    claude/dazzling-noyce-acd879: holds work not on main (/Users/loudonstearns/Documents/The Palace/.claude/worktrees/dazzling-noyce-acd879)
+    claude/nice-easley-c1a2f3: merged, 4 unsaved (/Users/loudonstearns/Documents/The Palace/.claude/worktrees/practical-goldberg-06549a)
+    claude/happy-feynman-5a7e02: holds work not on main (/Users/loudonstearns/Documents/The Palace/.claude/worktrees/steward-review-b487e5)
+    claude/mystifying-hugle-4fd6e0: holds work not on main (/Users/loudonstearns/Documents/The Palace/.claude/worktrees/topologies-read-d1d05c)
+- branches: 54 besides main, 3 with work not on main: claude/dazzling-noyce-acd879, claude/happy-feynman-5a7e02, claude/mystifying-hugle-4fd6e0
+
+## drift-check
+STIGMERGY drift check — 1 finding(s)
+
+✓ decks     level
+✓ types     level
+✓ lanes     level
+✓ tokens    level
+✓ readme    level
+✓ handoffs  level
+! tuning    
+    1 commit(s) changed the app after the ledger's newest run line (2026-11-07)  — STIGMERGY/STIGMERGY — tuning.md

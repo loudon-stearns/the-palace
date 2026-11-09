@@ -34,6 +34,7 @@ links:
     label: frequency-dependent-amplification
   - target: "[[Hilaritas Generator]]"
     type: connects-to
+    label: hilaritas-hook
   - target: "[[Floquet Theory]]"
     type: connects-to
     label: experimental-incarnation

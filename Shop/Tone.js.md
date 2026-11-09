@@ -6,8 +6,6 @@ medium: interactive
 tool: tone.js
 tool_version: 15.0.4
 born: 2026-05
-last_tested: 2026-06-16
-last_gotcha: 2026-05-26
 license: MIT
 forward_vector: "I make browser-deployable music software that speaks in bars and beats, not seconds — synths, sequencers, effect chains that run anywhere a browser does; I want to grow a base artifact scaffold and a reflex for mobile audio-context unlock so every Piece survives first contact with a phone."
 links:
@@ -115,21 +113,23 @@ HTML loads without console errors, audio context unlocks correctly on first user
 
 ## Gotchas
 
-**2026-05-26 — Tone's musical clock and the browser's `requestAnimationFrame` clock don't need reconciling when `Tone.Transport` is not running.** The standing open question of how to reconcile Tone's musical time with p5/UI draw time has a simple answer for parameter-write traffic from the UI thread: use `param.setValueAtTime(value, Tone.now())`. `Tone.now()` returns the audio context's wall-clock time (not bar-relative), and that's what every other Tone scheduler reads. When the brief doesn't need musical timing (sequence playback, tempo-quantized events), don't start `Tone.Transport` at all — the audio thread reads parameter changes the moment they arrive, and the UI thread's `requestAnimationFrame` cadence (~60 Hz) is fine for live frequency/modulation updates on audio-rate oscillators. The reconciliation problem appears only when both clocks are scheduling events; for parameter feeding, they're independent.
+What building browser instruments with Tone.js has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Tone.js — tuning]].
 
-**2026-05-26 — `Tone.Oscillator` + `setValueAtTime` at UI rate is enough to feel Kuramoto locking on two audio-rate sines.** Surfaced on the Kuramoto two-oscillator audio explorer. Kuramoto's dθ/dt = ω + K sin(Δθ) was integrated on the UI thread (`requestAnimationFrame`-paced, ~60 Hz), then both oscillators' instantaneous frequencies were pushed via `osc.frequency.setValueAtTime(fInst, Tone.now())`. Audible result: at K=0 the listener hears beating at |Δf| Hz; raising K past K_c = |Δf|/2 first slows the beating, then collapses it as the two oscillators lock to a shared frequency. No need to drive phase per-sample via a custom `AudioWorkletNode` — the kinematic UI-rate update is sample-coherent enough for audio-rate carriers in the 100–500 Hz range because the parameter automation is rendered at audio rate by Web Audio's internal scheduling.
+**Clocks**
+- **Feed parameters with `param.setValueAtTime(value, Tone.now())`.** `Tone.now()` is the audio context's wall-clock time, the one every Tone scheduler reads; a UI or p5 `draw()` loop at ~60 Hz can write live frequency and modulation this way.
+- **Leave `Tone.Transport` stopped unless the brief needs musical timing** (sequence playback, tempo-quantised events). Tone's clock and `requestAnimationFrame` need reconciling only when both are scheduling events.
+- **UI-rate frequency writes are enough for audio-rate coupling.** Integrate the model on the UI thread and push each oscillator's instantaneous frequency with `setValueAtTime`; Web Audio renders the automation at audio rate. For carriers around 100–500 Hz no custom `AudioWorkletNode` is needed.
 
-*(Patterns below from Tone.js community wisdom — confirmed and dated only on first encounter:)*
-
-- Audio context starts in `suspended` state on most browsers; first sound requires user gesture (click, touch, keypress) to unlock
-- iOS Safari has stricter audio context rules than desktop Safari; verify on a real device
-- Polyphony spikes can cause audible glitches if voice stealing is too aggressive — tune `maxPolyphony` per instrument
-- `Tone.Transport.start()` doesn't start instruments; instruments scheduled with `Tone.Loop` or `Tone.Part` are what produce sound. Easy to miss
-- Web Audio's clock drifts under tab-throttling when the tab is backgrounded; long pieces backgrounded mid-play come back in unexpected places
+**Community wisdom, not yet met on a job** (date one here, and in the ledger, the first time a job hits it)
+- **The audio context starts `suspended`;** the first sound needs a user gesture (click, touch, keypress).
+- **iOS Safari is stricter than desktop Safari.** Verify on a real device.
+- **Tune `maxPolyphony` per instrument;** voice stealing that is too aggressive glitches on polyphony spikes.
+- **`Tone.Transport.start()` makes no sound by itself.** Instruments scheduled with `Tone.Loop` or `Tone.Part` are what play.
+- **A backgrounded tab throttles Web Audio's clock;** a long piece backgrounded mid-play comes back somewhere unexpected.
 
 ## Recipes
 
-**2026-05-26 — Two-oscillator audio coupling explorer** (Study tier, standalone HTML, ~5 KB script). Two `Tone.Oscillator` sines driven by Kuramoto's two-oscillator dynamics. Sliders: f<sub>A</sub>, f<sub>B</sub> (120–320 Hz), K (0–6 Hz), output volume. A `Tone.Analyser('waveform')` feeds a `requestAnimationFrame`-driven oscilloscope below the controls. Lock criterion exposed in a HUD: K_c = |f_B − f_A|/2, state reads `drift` / `pulling in` / `lock`. Palette matches the Kuramoto arc's `#6366F1` / `#F59E0B` / `#0B0B10`. Source = output: [Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html](../Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html). Tone.js loaded from CDN (`tone@15.0.4`). Pairs with the existing p5.js visual coupling explorer; the same K_c threshold can be felt both ways. Open question from the entry — Tone-clock vs UI-clock reconciliation — resolved as the first dated gotcha above.
+**2026-05-26 — Two-oscillator audio coupling explorer** (Study tier, standalone HTML, ~5 KB script). Two `Tone.Oscillator` sines driven by Kuramoto's two-oscillator dynamics. Sliders: f<sub>A</sub>, f<sub>B</sub> (120–320 Hz), K (0–6 Hz), output volume. A `Tone.Analyser('waveform')` feeds a `requestAnimationFrame`-driven oscilloscope below the controls. Lock criterion exposed in a HUD: K_c = |f_B − f_A|/2, state reads `drift` / `pulling in` / `lock`. Palette matches the Kuramoto arc's `#6366F1` / `#F59E0B` / `#0B0B10`. Source = output: [Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html](../Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html). Tone.js loaded from CDN (`tone@15.0.4`). Pairs with the existing p5.js visual coupling explorer; the same K_c threshold can be felt both ways. Open question from the entry — Tone-clock vs UI-clock reconciliation — resolved as the first gotcha above (item 1 in [[Tone.js — tuning]]).
 
 The Specialist's Self-Check explicitly requires Chrome-minimum verification before claiming a Piece tier; this is a Study and the smoke test is "audio context unlocks, both sliders affect the heard tone, beating slows visibly on the oscilloscope as K crosses K_c."
 

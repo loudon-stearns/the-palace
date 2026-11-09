@@ -1,0 +1,653 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the ghost in the gap
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece) § Hearing what isn't there: the Zwicker tone, and the section's last entry, tinnitus and musical ear syndrome, which this piece draws and does not play · its twin in the eye, the negative afterimage, which the page grades shape for certain, mechanism likely different · sibling on this section: "Auditory Illusions — rich — the waterfall"
+  forward_vector: I am one red shape that is also a spectrum: stare at it while its noise plays, and when both go out, a ghost may come in each sense. Then I show the hole in the noise, then two cartoons that keep to the page's hedge (vision's ghost is fatigue; the ear's may not be, and is still argued), then the true hallucinations, drawn and not played, then a test of eight trials, four with a gap hidden anywhere within an octave and a quarter of where you set it and four with no gap, where "nothing" is always an honest answer and a pitch match is scored against the hidden gap with its chance printed first. Remade 2026-11-08 after the challenge. I change when the section does, or when ears tell me where the tone sits.
+  understood as: a lamp with a hole in it. One lit red shape that is the noise's own spectrum, the hole in it the band cut out; stare into it and listen, and when the lamp goes out, see and hear what it leaves.
+  red means: really there, right now: the noise's energy while it plays, drawn as the lit shape. What the eye or ear makes up is never drawn; it is only asked about. The drawn figure in step four is dashed ink, because it is not there. The sibling piece keeps the same meaning.
+  sound: nothing plays until a button is clicked; the AudioContext is made on that click. Changing step stops the sound. Every sound is made here: pink noise built in the frequency domain (each bin a level and a random phase, the gap's bins set to zero, one inverse FFT, a seamless loop of 2^18 samples), played by an AudioBufferSourceNode -> GainNode -> DynamicsCompressor -> speakers. Each run is under 30 seconds from its click, so the kit's minute cap never cuts one; step two's loop, left untouched, meets it (any touch resets its clock), and the page says so there.
+  check: "Auditory Illusions — rich — check — hearing-what-isnt-there.mjs", beside this file. It pulls the script with id zw-core out and measures, at 44.1 and 48 kHz: the gap's depth (whole-loop FFT, and every half-overlapping 8192-sample Hann slice of the loop), its edges and width against what was asked, the level match between notched and plain noise, the loop's seam, the soft top edge, the hidden gap's range, the match's chance for a reader who ignores the sound (by formula and by simulation), the tone rule's chance, the timings, and whether the overshoot cartoon's ghost lands inside the gap. What a listener hears it cannot check.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The ghost in the gap · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03, retinted to the paper ground on 2026-11-08 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: #ece9e1; --fx-bg-elev-2: #e4e0d6; --fx-bg-elev-3: #dcd8cc; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: #a9a59b; --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: #d1301c; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: 0 1px 2px rgba(20,20,20,0.10); --fx-shadow-3: 0 6px 18px -6px rgba(20,20,20,0.25); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--serif);font-size:18px;line-height:1.6;padding:24px 16px 32px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--sans);font-weight:500;font-size:32px;letter-spacing:-.01em;line-height:1.1;margin:6px 0 8px}
+  h2{font-family:var(--sans);font-weight:500;font-size:21px;line-height:1.2;margin:4px 0 6px}
+  p.lead{font-size:20px;color:var(--ink-2);margin:0 0 16px;max-width:64ch}
+  p.say{color:var(--ink-2);margin:0 0 12px;max-width:68ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:7px 10px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--ink);border-color:var(--ink)}
+  .panel{border:1.5px solid var(--ink);border-radius:2px;padding:14px;margin:0 0 14px;background:var(--paper)}
+  canvas.stage{width:100%;display:block;border:1px solid var(--rule);border-radius:2px;background:#fbfaf6}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.go{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:10px 22px;cursor:pointer}
+  button.go:disabled{opacity:.35;cursor:default}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink);background:transparent;border:1px solid var(--ink-3);border-radius:2px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3);line-height:1.5}
+  .ask{font-family:var(--sans);font-size:14px;color:var(--ink);margin-top:12px}
+  .ask .q{display:inline-block;min-width:15ch;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:12px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+  .ctl label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px;color:var(--ink-3)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--ink);text-align:right;white-space:nowrap;min-width:12ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:12px;line-height:1.7}
+  .meter b{font-weight:500;color:var(--ink)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--ink);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--ink-3);font-size:13px;margin-top:2px}
+  .note{font-family:var(--sans);font-size:14px;color:var(--ink-2);border-left:2px solid var(--ink);padding:4px 0 4px 12px;margin:12px 0;max-width:70ch}
+  .true p{font-size:18px;color:var(--ink-2);max-width:68ch;margin:10px 0}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:5px 12px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:26px;font-family:var(--sans);font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:26px}.ctl{grid-template-columns:1fr auto}.ctl label{grid-column:1 / -1}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · hearing what isn't there · the Zwicker tone</div>
+  <h1>The ghost in the gap</h1>
+  <p class="lead">A red lamp that hums. Stare into the gap for twenty seconds while it plays. Then it goes out.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <canvas class="stage" id="stage" aria-label="the picture for this step"></canvas>
+
+    <!-- step 1: the lamp -->
+    <div id="s-open">
+      <div class="row"><button class="go" id="openGo">Stare and listen</button><span class="hint">keep it soft: a comfortable hiss, not loud</span></div>
+      <div id="openAsk" hidden>
+        <div class="ask"><span class="q">in the white</span>
+          <button class="ghost" data-eye="ghost">I saw a ghost of the shape</button>
+          <button class="ghost" data-eye="nothing">nothing</button></div>
+        <div class="ask"><span class="q">in the quiet</span>
+          <button class="ghost" data-ear="tone">I heard a faint tone</button>
+          <button class="ghost" data-ear="nothing">nothing</button></div>
+      </div>
+      <div id="openTold"></div>
+    </div>
+
+    <!-- step 2: the hole -->
+    <div id="s-hole" hidden>
+      <div class="row">
+        <button class="go" id="holeGo">Play</button>
+        <button class="ghost" id="fill" aria-pressed="false">fill the hole</button>
+        <span class="hint">the kit stops a sound left a minute untouched; touching anything here starts its clock again</span>
+      </div>
+      <div class="ctl" id="centreCtl">
+        <label for="centre">gap centre<i>the middle of the hole, on a log scale</i></label>
+        <input type="range" id="centre" min="0" max="1" step="0.001" value="0.5">
+        <span class="v" id="centreV"></span>
+      </div>
+      <div class="ctl" id="widthCtl">
+        <label for="width">gap width<i>in octaves</i></label>
+        <input type="range" id="width" min="0.25" max="2" step="0.05" value="1">
+        <span class="v" id="widthV"></span>
+      </div>
+    </div>
+
+    <!-- step 3: maybe two machines -->
+    <div id="s-why" hidden>
+      <div class="row"><button class="go" id="whyGo">Run the cartoon</button><span class="hint">silent; 28 seconds of model time in 7</span></div>
+      <div class="ctl">
+        <label for="when">time<i>20 s lit, then 8 s dark</i></label>
+        <input type="range" id="when" min="0" max="28" step="0.05" value="10">
+        <span class="v" id="whenV"></span>
+      </div>
+    </div>
+
+    <!-- step 4: the true ones: drawn, nothing plays -->
+    <div id="s-true" class="true" hidden></div>
+
+    <!-- step 5: the test -->
+    <div id="s-test" hidden>
+      <div class="note" id="rule"></div>
+      <div class="row"><button class="go" id="trialGo">Play trial 1</button><span class="hint" id="trialHint"></span></div>
+      <div class="ask"><span class="q">after the noise</span>
+        <button class="ghost" data-ans="tone" disabled>a tone</button>
+        <button class="ghost" data-ans="nothing" disabled>nothing</button></div>
+      <div id="matchBox" hidden>
+        <div class="ctl">
+          <label for="match">where was it?<i>drag, play, compare; roughly is fine</i></label>
+          <input type="range" id="match" min="0" max="1" step="0.001" value="0.5">
+          <span class="v" id="matchV"></span>
+        </div>
+        <div class="row"><button class="ghost" id="matchPlay">play the match</button><button class="go" id="matchDone">That’s about where it was</button><button class="ghost" id="matchSkip">I can’t place it</button></div>
+      </div>
+      <div class="row"><button class="ghost" id="again">Start again</button></div>
+      <div id="result"></div>
+    </div>
+
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg id="sigil" width="20" height="20" viewBox="-11 -11 22 22" aria-hidden="true"></svg><span>Auditory Illusions · the ghost in the gap · proposal, 2026-11-08 · every sound made here; nobody has listened to it yet</span></footer>
+</main>
+
+<script id="zw-core">
+// The engine: the noise, its measures, the plans, and two cartoons. Plain functions, shared by the picture,
+// the sound and the headless check beside this file.
+const ZW = (() => {
+  const LEN = 1 << 18;                       // one loop: 5.9 s at 44.1 kHz, 5.5 s at 48 kHz
+  const BAND = { lo: 80, hi: 8000 };         // pink and flat (per octave) between; a raised-cosine fade over one octave each side
+  const LEVEL_RMS = 0.1;                     // every noise, notched or plain, at the same RMS (−20 dBFS)
+  const OPEN = { expose: 20, silent: 8 }, TEST = { expose: 12, silent: 6 };
+  const GAP0 = { centre: 2828.4, width: 1 }; // 2 to 4 kHz: chosen, not taken from a paper
+  const CENTRE = { min: 1000, max: 8000 }, WIDTH = { min: 0.25, max: 2 };
+  const JITTER = 1.25;                       // octaves either way: where the test hides each gap
+  const HIDE = { lo: 600, hi: 7000 };        // and never outside this, so the gap stays inside the band
+  const TEST_WIDTH = 1;                      // the test's gaps are at most an octave wide, so a match can miss
+  const MATCH_TOL = 1 / 12;                  // a match within a twelfth of an octave of the gap's edges counts as in it
+  const MATCH = { min: 300, max: 12000, level: 0.03, dur: 0.6 };
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  // radix-2 FFT in place; sign −1 forward, +1 inverse (unscaled)
+  function fft(re, im, sign = -1) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = sign * 2 * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a), h = len >> 1;
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < h; j++) { const p = i + j, q = p + h, vr = re[q] * cr - im[q] * ci, vi = re[q] * ci + im[q] * cr; re[q] = re[p] - vr; im[q] = im[p] - vi; re[p] += vr; im[p] += vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } }
+    }
+  }
+  const gapOf = (centre, width) => ({ centre, width, lo: centre * Math.pow(2, -width / 2), hi: centre * Math.pow(2, width / 2) });
+  // The level of the noise at f (an amplitude per bin): pink, so power falls 3 dB an octave and every octave
+  // holds the same energy; faded in below 80 Hz and out above 8 kHz over an octave, so neither end is a cliff
+  // (a cliff can leave a Zwicker tone of its own); zero inside the gap.
+  function shape(f, gap) {
+    if (f <= BAND.lo / 2 || f >= BAND.hi * 2) return 0;
+    if (gap && f >= gap.lo && f <= gap.hi) return 0;
+    let a = 1 / Math.sqrt(f / 1000);
+    if (f < BAND.lo) a *= 0.5 - 0.5 * Math.cos(Math.PI * Math.log2(f / (BAND.lo / 2)));
+    else if (f > BAND.hi) a *= 0.5 + 0.5 * Math.cos(Math.PI * Math.log2(f / BAND.hi));
+    return a;
+  }
+  // The noise: each bin gets its level and a random phase, the gap's bins zero, then one inverse FFT. The phases
+  // depend only on the seed, so the notched noise and the plain one are the same noise but for the hole. The
+  // loop is one period of its own spectrum, so it repeats without a seam.
+  function noise(sr, gap, seed = 11, len = LEN) {
+    const re = new Float64Array(len), im = new Float64Array(len), r = rng(seed);
+    for (let k = 1; k < len / 2; k++) { const a = shape(k * sr / len, gap), ph = 2 * Math.PI * r(); re[k] = a * Math.cos(ph); im[k] = a * Math.sin(ph); re[len - k] = re[k]; im[len - k] = -im[k]; }
+    fft(re, im, +1);
+    let s = 0; for (let i = 0; i < len; i++) s += re[i] * re[i];
+    const g = LEVEL_RMS / Math.sqrt(s / len), out = new Float32Array(len);
+    for (let i = 0; i < len; i++) out[i] = re[i] * g;
+    return out;
+  }
+  function power(x) { const n = x.length, re = new Float64Array(n), im = new Float64Array(n); for (let i = 0; i < n; i++) re[i] = x[i]; fft(re, im, -1); const p = new Float64Array(n / 2); for (let k = 0; k < n / 2; k++) p[k] = re[k] * re[k] + im[k] * im[k]; return p; }
+  // Depth: the loudest bin inside the gap against the mean bin within a third of an octave outside each edge.
+  function measure(x, sr, gap) {
+    const p = power(x), df = sr / x.length; let inMax = 0, near = 0, nn = 0, loEdge = 0, hiEdge = Infinity;
+    for (let k = 1; k < p.length; k++) {
+      const f = k * df;
+      if (f > gap.lo && f < gap.hi) { if (p[k] > inMax) inMax = p[k]; }
+      else if ((f >= gap.lo / Math.pow(2, 1 / 3) && f <= gap.lo) || (f >= gap.hi && f <= gap.hi * Math.pow(2, 1 / 3))) { near += p[k]; nn++; }
+    }
+    near /= nn;
+    for (let k = 1; k < p.length; k++) { const f = k * df; if (p[k] > near * 1e-6) { if (f < gap.centre) loEdge = f; else if (f > gap.centre && hiEdge === Infinity) hiEdge = f; } }
+    return { depthDb: 10 * Math.log10(inMax / near + 1e-300), loEdge, hiEdge, widthOct: Math.log2(hiEdge / loEdge), df };
+  }
+  // The noise's level per constant slice of an octave (drawn in 1/24-octave steps), in dB against the flat top:
+  // flat for pink, and the same shape a third-octave analyser would show, shifted. What the lamp draws.
+  function thirds(gap, fmin = 40, fmax = 16000) {
+    const out = []; for (let f0 = fmin; f0 < fmax; f0 *= Math.pow(2, 1 / 24)) {
+      const f1 = f0 * Math.pow(2, 1 / 24); let e = 0, m = 0; for (let j = 0; j < 8; j++) { const f = f0 * Math.pow(f1 / f0, (j + 0.5) / 8), a = shape(f, gap); e += a * a * f; m++; }
+      out.push({ f: Math.sqrt(f0 * f1), db: 10 * Math.log10(e / m / 1000 + 1e-12) });
+    } return out;
+  }
+  function opening() { return { gap: gapOf(GAP0.centre, GAP0.width), expose: OPEN.expose, silent: OPEN.silent, total: OPEN.expose + OPEN.silent }; }
+  // Where the test may hide a gap, in log2(Hz): within JITTER octaves of the reader's centre, inside HIDE.
+  function hideRange(centre) { const l = Math.log2(centre); return [Math.max(Math.log2(HIDE.lo), l - JITTER), Math.min(Math.log2(HIDE.hi), l + JITTER)]; }
+  // A test trial: a gapped trial hides its centre anywhere in that range (u uniform in 0..1, so uniform on a log axis).
+  function trial(arm, centre, width, u) {
+    const [a, b] = hideRange(centre), w = Math.min(width, TEST_WIDTH);
+    return { arm, gap: arm === 'notch' ? gapOf(Math.pow(2, a + u * (b - a)), w) : null, expose: TEST.expose, silent: TEST.silent, total: TEST.expose + TEST.silent };
+  }
+  // How often a match lands in the hidden gap for a reader who ignores the sound: one who always matches at
+  // their own slider's centre, and one who drags the match anywhere at random (log-uniform over its range).
+  function matchChance(centre, width) {
+    const [a, b] = hideRange(centre), half = Math.min(width, TEST_WIDTH) / 2 + MATCH_TOL, l = Math.log2(centre);
+    const slider = Math.max(0, Math.min(b, l + half) - Math.max(a, l - half)) / (b - a);
+    const random = Math.min(1, 2 * half / Math.log2(MATCH.max / MATCH.min));
+    return { slider, random, worst: Math.max(slider, random) };
+  }
+  const choose = (n, k) => { let c = 1; for (let i = 0; i < k; i++) c = c * (n - i) / (i + 1); return c; };
+  function atLeast(k, n, p) { let s = 0; for (let j = k; j <= n; j++) s += choose(n, j) * Math.pow(p, j) * Math.pow(1 - p, n - j); return s; }
+  // P(A − C ≥ d), A and C each Binomial(n, p): the tone rule's chance for a reader answering at random.
+  function diffAtLeast(n, p, d) { let s = 0; for (let a = 0; a <= n; a++) for (let c = 0; c <= n; c++) if (a - c >= d) s += choose(n, a) * Math.pow(p, a) * Math.pow(1 - p, n - a) * choose(n, c) * Math.pow(p, c) * Math.pow(1 - p, n - c); return s; }
+  const inGap = (f, gap) => !!gap && f >= gap.lo * Math.pow(2, -MATCH_TOL) && f <= gap.hi * Math.pow(2, MATCH_TOL);
+  // The ear's cartoon, one account of the overshoot story (not Franosch's model, which this only gestures at):
+  // channels along the frequency axis. Each is held down by its neighbours' input (lateral inhibition, a
+  // Gaussian σ = 0.4 octave wide, strength k) and slowly turns its own excitability e toward keeping its
+  // activity at the spontaneous level s: de/dt = (s − a)/τ. Inside the gap the channels get no input and are
+  // held down from both sides, so they turn themselves up. When the noise stops, the inhibition goes at once
+  // and the turned-up channels overshoot: activity where there was no noise, fading over a few seconds.
+  // The numbers (k = 0.8, s = 0.2, τ = 3 s) are chosen to draw it.
+  function earModel(gap, expose = OPEN.expose, silent = OPEN.silent, o = {}) {
+    const oct = o.oct || 8, M = o.M || 16 * oct, f0 = 100, sigma = o.sigma || 0.4, k = o.k || 0.8, s = o.s || 0.2, tau = o.tau || 3, dt = o.dt || 0.05;
+    const x = [], f = [], I = [];
+    for (let j = 0; j < M; j++) { x.push((j + 0.5) / M * oct); f.push(f0 * Math.pow(2, x[j])); I.push(shape(f[j], gap) * Math.sqrt(f[j] / 1000)); }
+    const K = []; for (let j = 0; j < M; j++) { const row = new Float64Array(M); let z = 0; for (let m = 0; m < M; m++) if (m !== j) { row[m] = Math.exp(-Math.pow(x[j] - x[m], 2) / (2 * sigma * sigma)); z += row[m]; } for (let m = 0; m < M; m++) row[m] /= z; K.push(row); }
+    const inh = I.map((_, j) => { let v = 0; for (let m = 0; m < M; m++) v += K[j][m] * I[m]; return k * v; });
+    const e = new Float64Array(M), frames = [];
+    for (let n = 0; n * dt <= expose + silent + 1e-9; n++) {
+      const t = n * dt, on = t < expose, a = new Float64Array(M);
+      for (let j = 0; j < M; j++) { a[j] = Math.max(0, s + e[j] + (on ? I[j] - inh[j] : 0)); }
+      frames.push({ t, a });
+      for (let j = 0; j < M; j++) e[j] += (s - a[j]) / tau * dt;
+    }
+    return { x, f, frames, s, dt, expose };
+  }
+  // The eye's cartoon: two cone types under a red light. The light drives the long-wave (L) cones hard and the
+  // middle-wave (M) cones a little; each one's sensitivity tires with its drive and recovers: dS/dt = (1 − S)/τr − c·d·S.
+  // On white, both are driven equally, and the red–green signal L − M comes out negative: green. The ghost sits
+  // where the red was. Chosen numbers again (τr = 8 s, c = 0.08 a second; drive 1 and 0.15).
+  function eyeModel(expose = OPEN.expose, silent = OPEN.silent, o = {}) {
+    const tauR = o.tauR || 8, c = o.c || 0.08, dt = o.dt || 0.05; let L = 1, Mc = 1; const frames = [];
+    for (let n = 0; n * dt <= expose + silent + 1e-9; n++) {
+      const t = n * dt, on = t < expose, dL = on ? 1 : 1, dM = on ? 0.15 : 1;
+      frames.push({ t, L, M: Mc, rg: on ? L * dL - Mc * dM : L - Mc });
+      L += ((1 - L) / tauR - c * dL * L) * dt; Mc += ((1 - Mc) / tauR - c * dM * Mc) * dt;
+    }
+    return { frames };
+  }
+  return { LEN, BAND, LEVEL_RMS, OPEN, TEST, GAP0, CENTRE, WIDTH, JITTER, HIDE, TEST_WIDTH, MATCH_TOL, MATCH, hideRange, matchChance, atLeast, diffAtLeast,
+           rng, fft, gapOf, shape, noise, power, measure, thirds, opening, trial, inGap, earModel, eyeModel };
+})();
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const RED = '#d1301c', INK = '#141414', INK2 = '#3a3a3a', INK3 = '#7a7a7a', RULE = '#c9c6bd', PAPER = '#fbfaf6';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── sound: made on the first click; one source at a time ──
+  let ctx = null, out = null, src = null, srcGain = null, run = null, session = 0, timers = [];
+  const LEVEL = 0.8, cache = new Map();
+  async function ensure() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 4; comp.attack.value = 0.01; comp.release.value = 0.25;
+      out = ctx.createGain(); out.gain.value = LEVEL; out.connect(comp).connect(ctx.destination);
+      ctx.onstatechange = () => { if (ctx.state !== 'running' && run) interrupted(); };
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  function bufferFor(gap) {
+    const key = gap ? gap.lo.toFixed(2) + '-' + gap.hi.toFixed(2) : 'plain';
+    if (!cache.has(key)) { const x = ZW.noise(ctx.sampleRate, gap); const b = ctx.createBuffer(1, x.length, ctx.sampleRate); b.copyToChannel(x, 0); cache.set(key, { b, x }); if (cache.size > 12) cache.delete(cache.keys().next().value); }
+    return cache.get(key);
+  }
+  function stopAll() {
+    session++; timers.forEach(clearTimeout); timers = [];
+    if (src && ctx) { const t = ctx.currentTime, g = srcGain, s = src; g.gain.cancelScheduledValues(t); g.gain.setTargetAtTime(0, t, 0.01); try { s.stop(t + 0.08); } catch (e) { /* already stopped */ } }
+    src = null; run = null; $('holeGo').textContent = 'Play';
+  }
+  function later(sec, fn) { const id = session; timers.push(setTimeout(() => { if (id === session) fn(); }, sec * 1000)); }
+  // Play a noise: fade in over 0.3 s; if `expose` is given, stop it then with a 15 ms fade (short enough to be
+  // an end, long enough not to click).
+  async function noiseRun(gap, kind, expose) {
+    await ensure(); stopAll();
+    const { b } = bufferFor(gap), t0 = ctx.currentTime + 0.08;
+    src = ctx.createBufferSource(); src.buffer = b; src.loop = true; srcGain = ctx.createGain(); srcGain.gain.value = 0; src.connect(srcGain).connect(out);
+    srcGain.gain.setValueAtTime(0, t0); srcGain.gain.linearRampToValueAtTime(1, t0 + 0.3);
+    if (expose) { srcGain.gain.setValueAtTime(1, t0 + expose - 0.015); srcGain.gain.linearRampToValueAtTime(0, t0 + expose); src.start(t0); src.stop(t0 + expose + 0.05); }
+    else src.start(t0);
+    run = { kind, t0, gap, expose };
+    return run;
+  }
+  const elapsed = () => (run && ctx ? ctx.currentTime - run.t0 : -1);
+  function interrupted() {
+    const k = run && run.kind; stopAll();
+    if (k === 'open') { $('openGo').disabled = false; $('openTold').innerHTML = '<p class="hint">The sound was paused, so the run stopped. Start it again when you are ready.</p>'; }
+    if (k === 'trial') { T.playing = false; setAnswers(false); buildTest(); $('trialHint').textContent = 'the trial was interrupted; play it again'; }
+  }
+  async function matchTone(f) {
+    await ensure(); const t = ctx.currentTime + 0.03, o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.value = f; g.gain.value = 0; o.connect(g).connect(out);
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(ZW.MATCH.level, t + 0.03); g.gain.setValueAtTime(ZW.MATCH.level, t + ZW.MATCH.dur - 0.03); g.gain.linearRampToValueAtTime(0, t + ZW.MATCH.dur);
+    o.start(t); o.stop(t + ZW.MATCH.dur + 0.02);
+  }
+
+  // ── the walk ──
+  const STEPS = [
+    { key: 'open', rail: 'the lamp', title: 'Stare into the gap',
+      say: 'The red shape is a lamp that hums. Keep your eyes on the small dot in its gap for twenty seconds and let the hiss run. Then the lamp goes out: white paper, and quiet, for eight seconds. Keep looking at the dot. Keep listening.' },
+    { key: 'hole', rail: 'the hole', title: 'A hole in the noise',
+      say: 'The lamp is the noise’s own spectrum. Left to right is frequency, on a log scale; height is the level in each third of an octave. The noise is pink, so every octave carries the same energy and the shape is flat on top, fading out below 80 Hz and above 8 kHz. One band is cut out: the gap. In the code, the noise is built bin by bin, each with its level and a random phase; the gap’s bins are set to zero, and one inverse FFT turns the spectrum into sound. Move the gap and hear the hiss go a little hollow; fill it and hear plain noise at the same level.' },
+    { key: 'why', rail: 'maybe two machines', title: 'One shape, maybe two machines',
+      say: 'Zwicker named the tone after the afterimage: “negative afterimage in hearing.” The page grades the pair shape for certain, and the mechanism likely different, since vision’s version is fatigue and this one may not be. Run the two cartoons side by side. In the eye’s, the cones the red light drove tire, and on white the tired ones answer less than their neighbours: fatigue, and the opposite colour. In the ear’s, on the account the page calls the best guess, the channels inside the gap were held down by their neighbours and turned themselves up; when the noise stops the hold lets go and they overshoot. If that account is right, it is not fatigue; the mechanism is still argued, and both cartoons run on chosen numbers. Two more things the ear’s cartoon shows that no ear has confirmed here: its overshoot is strongest just inside the gap’s edges, and it rises at the far top too, above about 10 kHz, where the noise fades out over an octave; the cartoon doesn’t know how steep an edge a real ear needs before it leaves a ghost. The plain noise in the test fades out the same way, so that edge is in both arms. Where in the gap a real ear puts the tone is the test’s question, not the cartoon’s.' },
+    { key: 'true', rail: 'the true ones', title: 'The true hallucinations, drawn',
+      say: 'The section ends with the hallucinations that are not tricks of a lab. Nothing in this step plays, on purpose.' },
+    { key: 'test', rail: 'the test', title: 'Was there a tone?',
+      say: 'Eight trials, shuffled: four noises with a gap, four without. Each gapped trial hides its gap anywhere within an octave and a quarter of the centre you set in step two (kept between 600 Hz and 7 kHz, and at most an octave wide), so you don’t know where it is. Twelve seconds of noise, then six of quiet. Say whether you heard a tone. If you did, find it with a soft matching tone; roughly is fine.' },
+  ];
+  const S = { step: 0 };
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => goStep(i); r.appendChild(b); }); }
+  function goStep(i) {
+    stopAll(); whyAnim = null; S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    rail();
+    $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`;
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    for (const k of ['open', 'hole', 'why', 'true', 'test']) $('s-' + k).hidden = s.key !== k;
+    $('openGo').disabled = false;
+    if (s.key === 'true') buildTrue();
+    if (s.key === 'test') { if (!T.trials) newTest(); else buildTest(); setAnswers(false); }
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    $('stage').style.height = ({ open: innerWidth < 560 ? 300 : 360, hole: 280, why: 320, true: 300, test: 170 })[s.key] + 'px';
+    writeMeter();
+  }
+  $('back').onclick = () => goStep(S.step - 1); $('next').onclick = () => goStep(S.step + 1);
+
+  // ── the gap the reader sets ──
+  const centreOf = (v) => ZW.CENTRE.min * Math.pow(ZW.CENTRE.max / ZW.CENTRE.min, v);
+  const sliderGap = () => ZW.gapOf(centreOf(+$('centre').value), +$('width').value);
+  const hz = (f) => (f >= 1000 ? (f / 1000).toFixed(f >= 10000 ? 1 : 2) + ' kHz' : Math.round(f) + ' Hz');
+  $('centre').value = String(Math.log(ZW.GAP0.centre / ZW.CENTRE.min) / Math.log(ZW.CENTRE.max / ZW.CENTRE.min));
+  let measured = null;
+  function remeasure() { if (!ctx) { measured = null; return; } const g = sliderGap(), { x } = bufferFor(g); measured = ZW.measure(x, ctx.sampleRate, g); }
+  function writeMeter() {
+    const k = STEPS[S.step].key, m = $('meter'); const e = (a, b, c, d) => { $('eq1').textContent = a; $('eq1w').textContent = b; $('eq2').textContent = c || ''; $('eq2w').textContent = d || ''; };
+    $('centreV').textContent = hz(centreOf(+$('centre').value)); $('widthV').textContent = (+$('width').value).toFixed(2) + ' oct';
+    if (k === 'hole') {
+      const g = sliderGap(), filled = $('fill').getAttribute('aria-pressed') === 'true';
+      m.innerHTML = `gap <b>${hz(g.lo)} to ${hz(g.hi)}</b> · ${g.width.toFixed(2)} octave · ${filled ? 'filled: plain noise' : 'cut out'} · both at RMS −20 dBFS before the output gain` +
+        (measured && !filled ? `<br>measured on this loop: loudest bin in the gap <b>${measured.depthDb.toFixed(0)} dB</b> against the noise beside it${measured.depthDb < -120 ? ' (the gap’s bins are zero; this is the floor of 32-bit samples)' : ''} · edges ${hz(measured.loEdge)} and ${hz(measured.hiEdge)}` : '') +
+        `<br>graph: AudioBufferSourceNode (a ${(ZW.LEN / (ctx ? ctx.sampleRate : 48000)).toFixed(1)} s loop) → GainNode → DynamicsCompressor → your speakers`;
+      e('X(f) = A(f) · e^(iθ(f)),  A(f) = 0 for f_lo ≤ f ≤ f_hi ,  x(t) = IFFT[X]', 'each frequency gets a level and a random phase; inside the gap the level is zero; one inverse FFT makes the sound',
+        'A(f) ∝ 1/√f  →  equal energy in every octave', 'pink: the power in each hertz halves each time the frequency doubles, and each octave holds twice as many hertz, so every octave holds the same');
+    } else if (k === 'why') {
+      e('ear:  a = max(0, s + e + I − k·(K∗I)),   de/dt = (s − a)/τ', 'each channel’s activity is its input minus its neighbours’ pull, plus a slow self-adjustment that tries to keep it at its resting level',
+        'eye:  dS/dt = (1 − S)/τr − c·drive·S,   seen colour ∝ L − M', 'each cone type’s sensitivity tires with how hard it is driven; on white, the tired red-catching cones lose to their neighbours');
+      m.innerHTML = '';
+    } else { m.innerHTML = ''; e('', ''); }
+  }
+  $('centre').oninput = $('width').oninput = () => writeMeter();
+  $('centre').onchange = $('width').onchange = async () => { if (run && run.kind === 'hole') await playHole(); remeasure(); writeMeter(); };
+
+  // ── step 1: the lamp ──
+  let openAns = {};
+  $('openGo').onclick = async () => {
+    openAns = {}; $('openAsk').hidden = true; $('openTold').innerHTML = ''; document.querySelectorAll('[data-eye],[data-ear]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    $('openGo').disabled = true;
+    const p = ZW.opening(); await noiseRun(p.gap, 'open', p.expose);
+    later(p.total + 0.1, () => { run = null; $('openAsk').hidden = false; $('openGo').disabled = false; $('openGo').textContent = 'Stare again'; });
+  };
+  function openAnswer(kind, val, btn) {
+    openAns[kind] = val; document.querySelectorAll(`[data-${kind}]`).forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    if (!openAns.eye || !openAns.ear) return;
+    const eye = openAns.eye === 'ghost' ? 'You saw the ghost: the shape again, and not red.' : 'No ghost for your eye this time; a steadier stare usually brings one.';
+    const ear = openAns.ear === 'tone' ? 'You heard a tone in the quiet. If it was where the page says, it was pitched inside the hole, where there had been no noise at all.' : 'Nothing in the quiet, for you. That is an honest and common answer: the page says between about half and most people hear it, depending on the noise.';
+    $('openTold').innerHTML = `<div class="note">${eye} ${ear} For those eight seconds the speaker was silent and the screen was empty paper.</div>`;
+  }
+  document.querySelectorAll('[data-eye]').forEach((b) => (b.onclick = () => openAnswer('eye', b.dataset.eye, b)));
+  document.querySelectorAll('[data-ear]').forEach((b) => (b.onclick = () => openAnswer('ear', b.dataset.ear, b)));
+
+  // ── step 2: the hole ──
+  async function playHole() { const filled = $('fill').getAttribute('aria-pressed') === 'true'; await noiseRun(filled ? null : sliderGap(), 'hole'); $('holeGo').textContent = 'Stop'; }
+  $('holeGo').onclick = async () => { if (run && run.kind === 'hole') { stopAll(); return; } await playHole(); remeasure(); writeMeter(); };
+  $('fill').onclick = async () => { $('fill').setAttribute('aria-pressed', String($('fill').getAttribute('aria-pressed') !== 'true')); if (run && run.kind === 'hole') await playHole(); writeMeter(); };
+
+  // ── step 3: the cartoons ──
+  let ear = null, eyeM = ZW.eyeModel(), whyAnim = null;
+  function earFor() { const g = sliderGap(); const key = g.lo.toFixed(1) + g.hi.toFixed(1); if (!ear || ear.key !== key) { ear = ZW.earModel(g); ear.key = key; ear.gap = g; } return ear; }
+  $('when').oninput = () => { whyAnim = null; $('whenV').textContent = (+$('when').value).toFixed(1) + ' s'; };
+  $('whyGo').onclick = () => { whyAnim = { start: performance.now() }; };
+  $('whenV').textContent = (+$('when').value).toFixed(1) + ' s';
+
+  // ── step 4: the true ones ──
+  function buildTrue() {
+    $('s-true').innerHTML = `
+      <p><b>Tinnitus and musical ear syndrome.</b> When input drops away (hearing loss, a very quiet room) the auditory system turns its gain up and starts hearing its own noise: a ringing, sometimes music. Most people who hear the music know it isn’t real. These are the true hallucinations, and the Zwicker tone is the lab’s small, safe version of them. The cartoon in the last step makes the same move small: channels with nothing coming in turned themselves up.</p>
+      <p>This piece does not try to make you hear ringing or music. Nothing honest could be played for them, and nothing should be: a sound built to bring on a ringing that might not leave is not a demonstration. If you live with tinnitus, the Zwicker tone may be harder to pick out, or may sit beside your own; nothing here is a test of your hearing.</p>
+      <p><b>Its twin, drawn and not shown.</b> Charles Bonnet syndrome: people losing their sight see vivid figures and patterns, and know they aren’t there. The page grades the pair mechanism, as clinicians do when they call musical ear syndrome auditory Charles Bonnet. The drawing above is only a drawing: a room and a figure in dashed ink, because the figure isn’t there. No screen can give anyone the syndrome, and this one doesn’t try.</p>`;
+  }
+
+  // ── step 5: the test ──
+  const PER = 4, TRIALS = 2 * PER;
+  const T = { trials: null, i: 0, answers: [], playing: false, done: false, matching: null };
+  const pct = (p) => (p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.2 ? 1 : 0) + '%');
+  function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function newTest() {
+    const g = sliderGap();
+    T.trials = shuffle([...Array(PER).fill('notch'), ...Array(PER).fill('plain')]).map((arm) => ZW.trial(arm, g.centre, g.width, Math.random()));
+    T.i = 0; T.answers = []; T.done = false; T.playing = false; T.matching = null; $('matchBox').hidden = true; buildTest();
+  }
+  function buildTest() {
+    const g = sliderGap();
+    const mc = ZW.matchChance(g.centre, g.width), [ra, rb] = ZW.hideRange(g.centre), tone = ZW.diffAtLeast(PER, 0.5, 2);
+    $('rule').innerHTML = `<b>Before trial one.</b> Your centre from step two is ${hz(g.centre)}; each gapped trial hides a gap ${Math.min(g.width, ZW.TEST_WIDTH).toFixed(2)} octave wide with its centre anywhere from ${hz(Math.pow(2, ra))} to ${hz(Math.pow(2, rb))}. Two counts. <b>Tone or nothing:</b> the trials where you heard a tone, after gapped noise (A, of ${PER}) and after plain (C, of ${PER}); it showed if A − C is 2 or more. Answers at random get there ${pct(tone)} of the time at worst. That count rules out a habit of saying “tone”; it can’t rule out a reader who hears the hollow hiss of a gap and answers from the page. <b>The match</b> carries the weight: a match counts if it lands in the hidden gap, give or take a twelfth of an octave. Matching at your own slider every time lands ${pct(mc.slider)} of the time; dragging at random, ${pct(mc.random)}. Your matches follow the gap if a reader ignoring the sound would score as well less than 5% of the time. “Nothing” is always an honest answer.`;
+    $('trialGo').textContent = T.done ? 'all eight answered' : `Play trial ${T.i + 1} of ${TRIALS}`;
+    $('trialGo').disabled = T.done || T.playing || !!T.matching;
+    if (!T.playing && !T.matching) $('trialHint').textContent = T.done ? '' : '12 s of noise, then 6 s of quiet';
+    $('result').innerHTML = T.done ? verdict() : `<p class="hint" style="margin-top:12px">${T.answers.length} answered. The score shows after the eighth.</p>`;
+  }
+  function setAnswers(on) { document.querySelectorAll('[data-ans]').forEach((b) => (b.disabled = !on)); }
+  $('trialGo').onclick = async () => {
+    if (T.done || T.playing || T.matching) return;
+    const tr = T.trials[T.i]; T.playing = true; setAnswers(false); $('trialGo').disabled = true; $('trialHint').textContent = 'listen';
+    await noiseRun(tr.gap, 'trial', tr.expose);
+    later(tr.expose, () => { setAnswers(true); $('trialHint').textContent = 'quiet now. A tone, or nothing?'; });
+    later(tr.total, () => { run = null; $('trialHint').textContent = 'answer when ready'; });
+  };
+  const matchHz = () => ZW.MATCH.min * Math.pow(ZW.MATCH.max / ZW.MATCH.min, +$('match').value);
+  $('match').oninput = () => { $('matchV').textContent = hz(matchHz()); };
+  $('matchPlay').onclick = () => matchTone(matchHz());
+  function record(said, match) { T.answers.push({ arm: T.trials[T.i].arm, gap: T.trials[T.i].gap, said, match }); T.i++; T.playing = false; T.matching = null; $('matchBox').hidden = true; if (T.i >= TRIALS) T.done = true; buildTest(); }
+  document.querySelectorAll('[data-ans]').forEach((b) => (b.onclick = () => {
+    if (T.done || T.matching) return; stopAll(); setAnswers(false);
+    if (b.dataset.ans === 'nothing') { record('nothing', null); return; }
+    T.matching = true; $('match').value = String(0.15 + Math.random() * 0.7); $('matchV').textContent = hz(matchHz()); $('matchBox').hidden = false;
+    $('trialHint').textContent = 'find it, roughly'; buildTest();
+  }));
+  $('matchDone').onclick = () => record('tone', matchHz());
+  $('matchSkip').onclick = () => record('tone', null);
+  $('again').onclick = () => { stopAll(); newTest(); setAnswers(false); };
+  function verdict() {
+    const heard = (arm) => T.answers.filter((a) => a.arm === arm && a.said === 'tone').length;
+    const A = heard('notch'), C = heard('plain'), matched = T.answers.filter((a) => a.arm === 'notch' && a.match), inside = matched.filter((a) => ZW.inGap(a.match, a.gap)).length;
+    const rows = T.answers.map((a, i) => `<tr><td>${i + 1}</td><td>${a.gap ? `gap ${hz(a.gap.lo)}–${hz(a.gap.hi)}` : 'no gap'}</td><td>${a.said === 'tone' ? 'a tone' : 'nothing'}</td><td>${a.match ? hz(a.match) + (a.gap ? (ZW.inGap(a.match, a.gap) ? ' · in the gap' : ' · outside it') : '') : '—'}</td></tr>`).join('');
+    const say = A - C >= 2 ? `A − C = ${A - C}: the tone showed for you. You heard it after ${A} of ${PER} gapped noises and ${C} of ${PER} plain ones.`
+      : A - C === 1 ? `A − C = 1: not settled. ${A} of ${PER} after gapped noise, ${C} of ${PER} after plain.`
+      : `A − C = ${A - C}: no Zwicker tone for you on this noise, beyond what plain noise gave you. The page says between about half and most people hear it, depending on the noise; a different gap or width may differ, and “nothing” is a real result.`;
+    const g = sliderGap(), mc = ZW.matchChance(g.centre, g.width), pm = matched.length ? ZW.atLeast(inside, matched.length, mc.worst) : 1;
+    const where = !matched.length ? ' No matches to score.' : ` ${inside} of your ${matched.length} match${matched.length === 1 ? '' : 'es'} after gapped noise landed in the hidden gap. A reader ignoring the sound does that well ${pct(pm)} of the time. ` + (pm < 0.05 ? 'Your matches followed the gap: that is the tone’s fingerprint, which a guess at the slider or at the page can’t fake.' : matched.length < 3 ? 'Too few matches to tell a heard tone from a guess.' : 'They did not follow the gap better than a guess would.');
+    return `<table class="marks"><tr><th>#</th><th>the noise</th><th>you said</th><th>your match</th></tr>${rows}</table><p class="say" style="margin-top:12px">${say}${where}</p>`;
+  }
+
+  // ── drawing ──
+  function fit(c) { const w = c.clientWidth, h = c.clientHeight, d = devicePixelRatio || 1; if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); } const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h }; }
+  const FMIN = 40, FMAX = 16000;
+  const Xf = (f, x0, x1) => x0 + Math.log(f / FMIN) / Math.log(FMAX / FMIN) * (x1 - x0);
+  // the lamp: the noise's level in each third of an octave, filled red while it really plays
+  // mode: 'lit' (red: the noise is playing), 'outline' (dashed ink: the lamp, unlit), 'none' (white paper)
+  function lamp(g, w, h, gap, mode, axes) {
+    const x0 = 24, x1 = w - 24, top = h * 0.16, base = h * 0.82, th = ZW.thirds(gap);
+    const Y = (db) => base - Math.max(0, (db + 30) / 30) * (base - top);
+    if (mode === 'lit') {
+      g.fillStyle = RED; g.beginPath(); g.moveTo(Xf(th[0].f, x0, x1), base);
+      for (const p of th) g.lineTo(Xf(p.f, x0, x1), Y(p.db));
+      g.lineTo(Xf(th[th.length - 1].f, x0, x1), base); g.closePath(); g.fill();
+    }
+    if (axes) {
+      g.strokeStyle = INK; g.lineWidth = 1; g.beginPath(); g.moveTo(x0, base + 0.5); g.lineTo(x1, base + 0.5); g.stroke();
+      g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'center';
+      for (const f of [62.5, 125, 250, 500, 1000, 2000, 4000, 8000]) { const x = Xf(f, x0, x1); g.beginPath(); g.moveTo(x, base); g.lineTo(x, base + 4); g.stroke(); g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), x, base + 16); }
+    }
+    if (mode === 'outline') {
+      { g.strokeStyle = INK3; g.setLineDash([3, 3]); g.beginPath(); th.forEach((p, i) => { const x = Xf(p.f, x0, x1), y = Y(p.db); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.setLineDash([]); }
+    }
+    return { x0, x1, top, base, cx: gap ? Xf(gap.centre, x0, x1) : (x0 + x1) / 2, cy: (top + base) / 2 + 10 };
+  }
+  function drawOpen(g, w, h) {
+    const p = ZW.opening(), e = elapsed(), on = run && run.kind === 'open' && e >= 0;
+    const mode = !on ? 'outline' : e < p.expose ? 'lit' : 'none';   // after it goes out: white paper, the dot only
+    const geo = lamp(g, w, h, p.gap, mode, false);
+    // the dot to stare at, and a ring that drains while the lamp is lit
+    g.fillStyle = INK; g.beginPath(); g.arc(geo.cx, geo.cy, 3, 0, 2 * Math.PI); g.fill();
+    if (on && e < p.expose) {
+      const frac = 1 - e / p.expose;
+      if (reduced) { g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK; g.textAlign = 'center'; g.fillText(String(Math.ceil(p.expose - e)), geo.cx, geo.cy - 14); }
+      else { g.strokeStyle = INK; g.lineWidth = 1.2; g.beginPath(); g.arc(geo.cx, geo.cy, 11, -Math.PI / 2, -Math.PI / 2 + frac * 2 * Math.PI); g.stroke(); }
+    }
+    g.font = '11px "JetBrains Mono", monospace'; g.textAlign = 'left';
+    if (on && e < p.expose) { g.fillStyle = RED; g.fillText('● lit · the noise is playing', 10, 18); }
+    else if (on) { g.fillStyle = INK3; g.fillText('○ out. keep looking at the dot. listen.', 10, 18); }
+    else { g.fillStyle = INK3; g.fillText('○ the lamp, unlit: press Stare and listen', 10, 18); }
+  }
+  function drawHole(g, w, h) {
+    const filled = $('fill').getAttribute('aria-pressed') === 'true', gap = filled ? null : sliderGap(), on = run && run.kind === 'hole';
+    const geo = lamp(g, w, h, gap, on ? 'lit' : 'outline', true);
+    const sg = sliderGap(), xa = Xf(sg.lo, geo.x0, geo.x1), xb = Xf(sg.hi, geo.x0, geo.x1);
+    g.strokeStyle = INK; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(xa, geo.top - 8); g.lineTo(xa, geo.base); g.moveTo(xb, geo.top - 8); g.lineTo(xb, geo.base); g.stroke(); g.setLineDash([]);
+    g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK; g.textAlign = 'center'; g.fillText(filled ? 'filled' : 'the gap', (xa + xb) / 2, geo.top - 12);
+    g.textAlign = 'left'; g.fillStyle = on ? RED : INK3; g.fillText(on ? '● playing' : '○ press Play', 10, 18);
+    g.fillStyle = INK3; g.textAlign = 'right'; g.fillText('level per third of an octave (pink is flat here)', w - 10, 18);
+  }
+  function drawWhy(g, w, h) {
+    const E = earFor(); let t = +$('when').value;
+    if (whyAnim) { t = Math.min(28, (performance.now() - whyAnim.start) / 1000 * 4); $('when').value = String(t); $('whenV').textContent = t.toFixed(1) + ' s'; if (t >= 28) whyAnim = null; }
+    const n = Math.min(E.frames.length - 1, Math.round(t / E.dt)), on = t < E.expose, fr = E.frames[n], ef = eyeM.frames[Math.min(eyeM.frames.length - 1, n)];
+    const split = Math.max(170, w * 0.28);
+    g.font = '11px "JetBrains Mono", monospace';
+    // the eye: two cones' sensitivity, and the colour the red–green signal says
+    g.textAlign = 'left'; g.fillStyle = INK; g.fillText('the eye', 12, 18);
+    const bx = 22, bw = 26, bb = h - 40, bt = 52, BH = bb - bt;
+    [['L', ef.L], ['M', ef.M]].forEach(([nm, v], i) => { const x = bx + i * 44; g.strokeStyle = INK; g.strokeRect(x, bt, bw, BH); g.fillStyle = INK; g.fillRect(x, bb - v * BH, bw, v * BH); g.fillStyle = INK3; g.textAlign = 'center'; g.fillText(nm, x + bw / 2, bb + 14); });
+    g.textAlign = 'left'; g.fillStyle = INK3; g.fillText('cone sensitivity', 12, 36);
+    const sx = bx + 100, sw = Math.max(20, split - sx - 16);
+    if (on) { g.strokeStyle = INK; g.strokeRect(sx, bt, sw, 40); g.save(); g.beginPath(); g.rect(sx, bt, sw, 40); g.clip(); for (let d = -40; d < sw; d += 6) { g.beginPath(); g.moveTo(sx + d, bt + 40); g.lineTo(sx + d + 40, bt); g.stroke(); } g.restore(); g.fillStyle = INK3; g.fillText('the red light', sx, bt + 56); g.fillText('(in the model)', sx, bt + 70); }
+    else { g.strokeStyle = INK; g.strokeRect(sx, bt, sw, 40); g.fillStyle = INK; const rg = ef.rg; g.fillText(rg < -0.02 ? `L − M = ${rg.toFixed(2)}` : 'L − M ≈ 0', sx, bt + 56); g.fillText(rg < -0.02 ? 'reads green' : 'reads white', sx, bt + 70); g.fillStyle = INK3; g.fillText('fatigue: the red-', sx, bt + 90); g.fillText('catching cones tired', sx, bt + 104); }
+    g.strokeStyle = RULE; g.beginPath(); g.moveTo(split, 8); g.lineTo(split, h - 8); g.stroke();
+    // the ear: activity along frequency
+    const x0 = split + 30, x1 = w - 14, top = 40, base = h - 40, amax = 0.9, Y = (a) => base - Math.min(1, a / amax) * (base - top);
+    const fx = (f) => x0 + Math.log(f / 100) / Math.log(16000 / 100) * (x1 - x0);
+    g.fillStyle = INK; g.textAlign = 'left'; g.fillText('the ear', x0, 18); g.fillStyle = INK3; g.fillText('activity across frequency channels', x0, 32);
+    g.fillStyle = 'rgba(20,20,20,0.05)'; g.fillRect(fx(E.gap.lo), top, fx(E.gap.hi) - fx(E.gap.lo), base - top);
+    if (on) { g.fillStyle = 'rgba(20,20,20,0.35)'; for (let j = 0; j < E.f.length && E.f[j] <= 16000; j++) { const I = ZW.shape(E.f[j], E.gap) * Math.sqrt(E.f[j] / 1000); if (I > 0.01) g.fillRect(fx(E.f[j]) - 1, base - 6, 2, 6); } }
+    g.strokeStyle = RULE; g.setLineDash([3, 3]); g.beginPath(); g.moveTo(x0, Y(E.s)); g.lineTo(x1, Y(E.s)); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = INK; g.lineWidth = 1.6; g.beginPath(); fr.a.forEach((a, j) => { if (E.f[j] > 16000) return; const x = fx(E.f[j]), y = Y(a); j ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.lineWidth = 1;
+    g.strokeStyle = INK; g.beginPath(); g.moveTo(x0, base + 0.5); g.lineTo(x1, base + 0.5); g.stroke();
+    g.fillStyle = INK3; g.textAlign = 'center'; for (const f of [125, 500, 2000, 8000]) g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), fx(f), base + 14);
+    g.textAlign = 'left'; g.fillStyle = INK3; g.fillText('resting level (dashed)', x0, base + 28);
+    g.fillStyle = INK; g.textAlign = 'right'; g.fillText(on ? `noise on (in the model) · ${t.toFixed(1)} s` : `noise off · ${(t - E.expose).toFixed(1)} s after`, x1, 18);
+    if (!on) { g.fillStyle = INK3; g.fillText('overshoot: the held-down channels let go', x1, 32); }
+  }
+  function drawTrue(g, w, h) {
+    // a room: a window with its blinds, a chair, a lamp on a table; a figure in dashed ink beside the chair
+    const cx = w / 2, floor = h - 34, s = Math.min(1, w / 640);
+    g.strokeStyle = INK; g.lineWidth = 1.3; g.beginPath(); g.moveTo(16, floor); g.lineTo(w - 16, floor); g.stroke();
+    const wx = cx - 250 * s, wy = 30, ww = 150 * s, wh = 150; g.strokeRect(wx, wy, ww, wh);
+    g.lineWidth = 1; for (let y = wy + 8; y < wy + wh; y += 8) { g.beginPath(); g.moveTo(wx + 4, y); g.lineTo(wx + ww - 4, y); g.stroke(); }
+    // the chair
+    const chx = cx - 40 * s; g.lineWidth = 1.3; g.beginPath();
+    g.moveTo(chx, floor); g.lineTo(chx, floor - 60); g.lineTo(chx + 70 * s, floor - 60); g.lineTo(chx + 70 * s, floor);
+    g.moveTo(chx, floor - 60); g.lineTo(chx - 4 * s, floor - 130); g.lineTo(chx + 8 * s, floor - 132); g.lineTo(chx + 10 * s, floor - 62);
+    g.moveTo(chx - 6 * s, floor - 60); g.lineTo(chx + 76 * s, floor - 60); g.stroke();
+    // the figure that isn't there
+    const fx = cx + 110 * s; g.setLineDash([4, 4]); g.lineWidth = 1.2; g.beginPath();
+    g.arc(fx, floor - 172, 14, 0, 2 * Math.PI);
+    g.moveTo(fx - 22, floor - 150); g.lineTo(fx + 22, floor - 150); g.lineTo(fx + 30, floor); g.moveTo(fx - 22, floor - 150); g.lineTo(fx - 30, floor);
+    g.moveTo(fx - 22, floor - 150); g.lineTo(fx - 30, floor - 80); g.moveTo(fx + 22, floor - 150); g.lineTo(fx + 30, floor - 80);
+    g.stroke(); g.setLineDash([]);
+    g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK; g.textAlign = 'left'; g.fillText('not there', fx + 36, floor - 168);
+    g.beginPath(); g.moveTo(fx + 34, floor - 172); g.lineTo(fx + 18, floor - 172); g.stroke();
+    g.fillStyle = INK3; g.fillText('a drawing, not a simulation · nothing plays in this step', 16, h - 12);
+  }
+  function drawTest(g, w, h) {
+    const r = 8, gp = 26, x0 = w / 2 - (TRIALS - 1) * gp / 2, cy = 30;
+    for (let i = 0; i < TRIALS; i++) { g.beginPath(); g.arc(x0 + i * gp, cy, r, 0, 2 * Math.PI); g.strokeStyle = i === T.i && !T.done ? INK : RULE; g.lineWidth = 1.5; g.stroke(); if (i < T.answers.length) { g.fillStyle = INK3; g.fill(); } }
+    const e = elapsed();
+    if (run && run.kind === 'trial' && e >= 0) {
+      const tr = T.trials[T.i], x1 = 30, x2 = w - 30, X = (t) => x1 + (Math.min(t, tr.total) / tr.total) * (x2 - x1), y = 92;
+      g.strokeStyle = RULE; g.lineWidth = 6; g.beginPath(); g.moveTo(x1, y); g.lineTo(x2, y); g.stroke();
+      g.strokeStyle = e < tr.expose ? RED : INK; g.beginPath(); g.moveTo(x1, y); g.lineTo(X(e), y); g.stroke(); g.lineWidth = 1;
+      g.strokeStyle = INK; g.beginPath(); g.moveTo(X(tr.expose), y - 12); g.lineTo(X(tr.expose), y + 12); g.stroke();
+      g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'left'; g.fillText('noise', x1, y + 26); g.textAlign = 'right'; g.fillText('quiet', x2, y + 26);
+    }
+  }
+  function draw() {
+    requestAnimationFrame(draw);
+    const { g, w, h } = fit($('stage')); g.clearRect(0, 0, w, h); g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    const k = STEPS[S.step].key;
+    if (k === 'open') drawOpen(g, w, h); else if (k === 'hole') drawHole(g, w, h); else if (k === 'why') drawWhy(g, w, h); else if (k === 'true') drawTrue(g, w, h); else drawTest(g, w, h);
+  }
+  function sigil() { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+  $('matchV').textContent = hz(matchHz());
+  sigil(); goStep(0); draw();
+})();
+</script>
+</body>
+</html>

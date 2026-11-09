@@ -4,7 +4,7 @@
   born: 2026-10-25
   parent: [[Dissolutions]] · leads up to ../2026-10-20-one-field-two-hands/one-field-two-hands.html · tests [[Volterra Kernels and the Torus]]
   forward_vector: I am the way up to one field, two hands. I take the field alone, the two phasors alone, the input read along the diagonal, the two hands through their difference, the lag's test that a static curve cannot pass, and the field translated into a kernel, one step each, so that the proof makes sense the first time it is played.
-  outline: Loudon's model from the sit of 2026-10-25 on the table that travels — each concept alone, then the combination through the difference, then the extra ingredient. Here: the field, the synthesizer's hand, the effect's hand at lag 0 (a static curve), the hands lined up and nulled, the lag that makes mixing depend on which tones went in, the kernel.
+  outline: step 0, the two things each defined on its own, with where the dissolution holds and where it stops (Loudon’s review, 2026-11-09); then Loudon's model from the sit of 2026-10-25 on the table that travels — each concept alone, then the combination through the difference, then the extra ingredient. Here: the field, the synthesizer's hand, the effect's hand at lag 0 (a static curve), the hands lined up and nulled, the lag that makes mixing depend on which tones went in, the kernel.
   sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
 -->
 <html lang="en" class="skin-graphite">
@@ -12,6 +12,49 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>One Field, Two Hands · learning sequence</title>
+
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" href="../../Dissolutions%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, link, textarea. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+textarea {resize: vertical; min-height: 3.5em;}
+textarea::-webkit-resizer {background: linear-gradient(135deg, transparent 0 58%, var(--fx-fg-4) 58% 64%, transparent 64% 76%, var(--fx-fg-4) 76% 82%, transparent 82%); background-clip: content-box;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
 <style>
   :root{
     --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
@@ -71,6 +114,7 @@
   .gathered li{margin:4px 0}
   a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  iframe.proof{display:block;width:100%;height:1600px;margin-top:14px;border:1px solid var(--border-soft);border-radius:6px;background:var(--bg)}
   button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
   button.send:disabled{opacity:.55;cursor:default}
   .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
@@ -78,19 +122,82 @@
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
   @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+  /* step 0: the two things, each on its own, before anything joins them */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .thing{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-top:2px solid var(--accent-dim);border-radius:8px;padding:16px 18px}
+  .thing h3{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.15;margin:4px 0 10px;letter-spacing:.01em;color:var(--fg-1)}
+  .thing p{margin:0 0 10px;color:var(--fg-2)}
+  .thing p.where,.thing p.alone{font-family:var(--sans);font-size:13.5px;line-height:1.6;color:var(--fg-3)}
+  .thing p.where b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);margin-right:6px}
+  .thing p.alone{color:var(--accent);margin:0}
+  .claim p{margin:6px 0 10px;color:var(--fg-1);max-width:74ch}
+  .claim p b{color:var(--accent);font-weight:600}
+  .claim p.kind{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--fg-2);margin:0}
+  .claim p.kinds{font-family:var(--sans);font-size:12.5px;line-height:1.6;color:var(--fg-3);margin:0 0 6px}
+  .limits{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .limits>div{padding:12px 16px;border-left:2px solid var(--border);background:var(--bg-elev-1);border-radius:0 6px 6px 0}
+  .limits>div.holds{border-left-color:var(--accent)}
+  .limits p{margin:4px 0 0;color:var(--fg-2)}
+  dl.words{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:6px 18px;margin:6px 0 16px;font-family:var(--sans);font-size:14px;line-height:1.55}
+  dl.words dt{color:var(--fg-1);font-weight:500}
+  dl.words dd{margin:0;color:var(--fg-3)}
+  @media (max-width:640px){.pair,.limits{grid-template-columns:1fr}dl.words{grid-template-columns:1fr;gap:2px}dl.words dd{margin-bottom:8px}}
 </style>
 </head>
 <body>
 <main>
   <div class="eyebrow">Dissolutions · learning sequence · Volterra Kernels and the Torus</div>
   <h1>One field, two hands, step by step</h1>
-  <p class="lead">Six short steps up to the proof. A field of heights alone, two phasors reading it, the input reading it along its diagonal, the two hands lined up until they cancel, a lag that does what no fixed curve can, and the same reading written as a kernel. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <p class="lead">Step 0 names the two things this sequence dissolves, defines each on its own, and says where the dissolution holds and where it stops. Then six short steps up to the proof. A field of heights alone, two phasors reading it, the input reading it along its diagonal, the two hands lined up until they cancel, a lag that does what no fixed curve can, and the same reading written as a kernel. Each step has one thing to hear. Nothing plays until you press Play.</p>
   <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
+  <!-- ───────────── step 0 ───────────── -->
+  <section class="step" data-step="0" data-title="The two things">
+    <div class="eyebrow">Step 0 · the two things, before anything joins them</div>
+    <h2>A synthesizer and an effect, each on its own</h2>
+    <p class="say">This sequence takes two kinds of instrument that sit in different places on a mixer, one that makes a sound and one that a sound goes through, and tests whether they are one stored field read by different hands. Then it tests a third description, a mathematical way of writing the effect down.</p>
+    <div class="pair">
+      <div class="thing">
+        <div class="eyebrow">The first thing</div>
+        <h3>A torus wavetable synthesizer</h3>
+        <p>An ordinary wavetable keeps one cycle of a wave, and a reader runs round it to make a tone. Stretch that to two directions: a square of stored heights, called a field. Two phasors pick a point on it. A phasor is a counter that runs round and round at a steady rate, like the wavetable’s reader; one sets how far across, the other how far up. The height under the point is the output, sample after sample. Both counters wrap round, so the square’s left edge meets its right and its top meets its bottom: the shape is a torus, a doughnut. Where the two rates mix, new pitches land at their sums and differences.</p>
+        <p class="where"><b>Where you meet it</b>Loudon’s 2D Torus Wavetable Synthesizer. It makes sound with nothing coming in.</p>
+        <p class="alone">Step 1 is the field alone; step 2 has two phasors reading it.</p>
+      </div>
+      <div class="thing">
+        <div class="eyebrow">The second thing</div>
+        <h3>An effect that reads a field</h3>
+        <p>An effect takes a sound in and sends a sound out. The simplest kind, a waveshaper, keeps one fixed curve and swaps each input value for the curve’s height at that value; it has no memory. Give it a square of heights instead of a curve, and read the square with the input itself: how far across from where the input is now, how far up from where it was a moment ago, a lag τ back. Now what comes out depends on where the signal has been as well as where it is: an effect with memory.</p>
+        <p class="where"><b>Where you meet it</b>A distortion pedal is its no-lag case: the input reads only along the line where across equals up. The lag is the step past it. It needs a sound coming in.</p>
+        <p class="alone">Step 3 lets the input read the field with no lag; step 4 adds the lag.</p>
+      </div>
+    </div>
+    <div class="panel claim">
+      <div class="eyebrow">The claim that joins them</div>
+      <p>Both read one stored field; only the hand differs. The synthesizer’s hand is two phasors. The effect’s hand is the input, now and a lag ago. Set the two hands to trace the same path and they give the same samples, to rounding error: one field, one lookup (step 4). The second claim brings in a third description. The standard mathematical way to write an effect with memory is Vito Volterra’s series: a sum of products of the input at chosen lags, the input now times itself, the input now times the input τ ago, and so on, each product with its own weight. The table of those weights is called the kernel. The field-reading effect can be rewritten exactly as a Volterra kernel (step 6).</p>
+      <p class="kinds">Three kinds of sameness. Identity: one object, read two ways. Isomorphism: an exact map between two things that stay two. Analogy: a likeness that breaks when you push it.</p>
+      <p class="kind"><b>Two claims, two kinds.</b> Synthesizer and effect: an identity, one field read two ways. Field and kernel: an isomorphism, an exact map between two things that stay two, because the field lives on heights of the signal and the kernel lives on lags.</p>
+    </div>
+    <div class="limits">
+      <div class="holds"><div class="eyebrow">Where it holds</div><p>Synthesizer and effect null wherever the two hands can trace the same path: one pure sine going in, at full level, so that now and a lag ago are two phasors at a ratio of exactly 1 (step 4). Every field read at now and τ ago becomes a kernel, exactly (step 6).</p></div>
+      <div class="stops"><div class="eyebrow">Where it stops</div><p>With anything but one pure sine at full level, the effect’s hand wanders where no pair of phasors goes: the field is still one, but the two hands no longer share a path to compare. And the map from field to kernel runs one way only: a kernel with a weight at any other lag has no field of this kind behind it (step 6). Volterra series fit many effects with memory, the ones whose memory fades; an effect with hysteresis, whose memory never fades, is outside them.</p></div>
+    </div>
+    <div class="eyebrow">Words the steps use</div>
+    <dl class="words">
+        <dt>lag, τ</dt><dd>How long ago. x(t − τ) is the input as it was τ earlier.</dd>
+        <dt>static curve</dt><dd>A waveshaper: a fixed curve with no memory, each input value swapped for the curve’s height.</dd>
+        <dt>intermodulation</dt><dd>New pitches at the sums and differences of the tones that went in (step 3).</dd>
+        <dt>Hammerstein structure</dt><dd>A static curve followed by a filter (step 5).</dd>
+        <dt>diagonal</dt><dd>On the field, the line where across equals up; on the kernel, the weights whose lags are equal (steps 3 and 6).</dd>
+      </dl>
+    <div class="try"><span class="eyebrow">Try</span>Before you press Next, say each of the two things back in a sentence of your own, without the other. If either one won’t come, that is the note to leave here.</div>
+    <textarea data-note placeholder="Are the two things clear, each on its own, before the steps join them?"></textarea>
+  </section>
+
   <!-- ───────────── step 1 ───────────── -->
-  <section class="step" data-step="0" data-title="The field">
+  <section class="step" data-step="1" data-title="The field">
     <div class="eyebrow">Step 1 of 7 · the field alone</div>
     <h2>A landscape of heights, read along one line</h2>
     <p class="say">The field is a square of heights: gold where it rises above zero, blue where it dips below. Pick a height up the square and walk straight across it, and the heights under your feet make one curve. Run a cosine back and forth across that line, and the curve shapes the cosine into a tone. The field is built from curves across, one per harmonic: curve m, read by a cosine, gives harmonic m. Moving the line up changes how much of each, so the colour moves.</p>
@@ -117,7 +224,7 @@
   </section>
 
   <!-- ───────────── step 2 ───────────── -->
-  <section class="step" data-step="1" data-title="Two phasors" hidden>
+  <section class="step" data-step="2" data-title="Two phasors" hidden>
     <div class="eyebrow">Step 2 of 7 · the synthesizer's hand</div>
     <h2>Two phasors, one point on the field</h2>
     <p class="say">Now give each direction its own hand. One phasor turns at 220 Hz and its shadow sets how far across; a second turns at its own rate and its shadow sets how far up. Together they move one point, which traces a figure across the field. Both phases wrap round, so the pair lives on a torus, and that is the torus synthesizer. Where the two rates mix, new pitches land at their sums and differences.</p>
@@ -144,7 +251,7 @@
   </section>
 
   <!-- ───────────── step 3 ───────────── -->
-  <section class="step" data-step="2" data-title="The diagonal" hidden>
+  <section class="step" data-step="3" data-title="The diagonal" hidden>
     <div class="eyebrow">Step 3 of 7 · the effect's hand, with no lag</div>
     <h2>Let the input be the hand</h2>
     <p class="say">Take the phasors away and feed the field a signal. Read it at across = the input and up = the input too. The hand can only stand where across equals up, so it never leaves the diagonal, and the diagonal is one curve. That makes this an ordinary waveshaper, a static curve. A static curve still mixes: give it two tones and it makes their difference and their sum, pitches neither tone has.</p>
@@ -178,7 +285,7 @@
   </section>
 
   <!-- ───────────── step 4 ───────────── -->
-  <section class="step" data-step="3" data-title="Their difference" hidden>
+  <section class="step" data-step="4" data-title="Their difference" hidden>
     <div class="eyebrow">Step 4 of 7 · the two hands, through their difference</div>
     <h2>Read the input twice, and the phasors come back</h2>
     <p class="say">Now read the input at two moments: across from where it is now, up from where it was a lag τ ago. With one tone in, the moment τ ago is the same cosine, turned back a little. That is two phasors at a ratio of exactly 1, a fixed offset apart. So set the synthesizer to that, flip one hand upside down, and add. If they cancel to silence, the two hands are reading one field along one path.</p>
@@ -211,7 +318,7 @@
   </section>
 
   <!-- ───────────── step 5 ───────────── -->
-  <section class="step" data-step="4" data-title="The lag's test" hidden>
+  <section class="step" data-step="5" data-title="The lag's test" hidden>
     <div class="eyebrow">Step 5 of 7 · what the lag can do</div>
     <h2>Mixing that depends on which tones went in</h2>
     <p class="say">Here is a test a static curve cannot pass, even with a filter after it. Send in two tones 30 Hz apart and slide both up together. Their difference stays at 30 Hz the whole way. A static curve makes that 30 Hz tone at one strength, whatever the two tones are, and a filter after it only ever hears 30 Hz, so it can move that strength but never make it rise and fall. With a lag, the two tones are read at two moments, each has turned by its own amount in between, and how strongly they mix depends on the tones themselves.</p>
@@ -245,7 +352,7 @@
   </section>
 
   <!-- ───────────── step 6 ───────────── -->
-  <section class="step" data-step="5" data-title="The kernel" hidden>
+  <section class="step" data-step="6" data-title="The kernel" hidden>
     <div class="eyebrow">Step 6 of 7 · the same reading, written as a kernel</div>
     <h2>A field of heights, translated onto lags</h2>
     <p class="say">There is another way to write any effect with memory: a Volterra series. It multiplies the input against itself at chosen lags, and a kernel holds the weight for each choice of lags. The field read at now and τ ago translates into one exactly. Its axes are no longer heights of the signal but lags, and every weight sits at a lag of 0 or τ. The map runs one way only for kernels that sparse: put a weight at any other lag, and no field read at now and τ ago can give it.</p>
@@ -277,7 +384,7 @@
   </section>
 
   <!-- ───────────── step 7 ───────────── -->
-  <section class="step" data-step="6" data-title="The proof" hidden>
+  <section class="step" data-step="7" data-title="The proof" hidden>
     <div class="eyebrow">Step 7 of 7 · the proof</div>
     <h2>Now the whole thing, on one page</h2>
     <p class="say">The proof puts every step on one screen, with one field and both hands. Here is where each one is waiting for you there.</p>
@@ -291,8 +398,8 @@
       <li>Things the proof adds: a <b>phasor offset</b> slider you can move by hand, a spectrum panel of whatever you are hearing with the difference and sum ticked, and the lag given in milliseconds as well as samples. Its 30 Hz chart is measured from the real output; there is no lifted 300 Hz copy to listen to, so listen there with headphones, or come back here for the glide.</li>
     </ul>
     <p class="say" style="margin-top:14px">It ends on two questions. Are the synthesizer and the effect one instrument? And is the Volterra kernel that same instrument, or a faithful map of it drawn in another space?</p>
-    <a class="proof-link" href="../2026-10-20-one-field-two-hands/one-field-two-hands.html">Open the proof</a>
-    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <iframe class="proof" src="../2026-10-20-one-field-two-hands/one-field-two-hands.html" title="the proof" loading="lazy"></iframe>
+    <textarea data-note placeholder="The proof, and the walk up to it: did the steps get you there? What was missing?"></textarea>
     <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
     <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
   </section>
@@ -302,6 +409,40 @@
   <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-one-field-two-hands/one-field-two-hands.html">one field, two hands</a> · <a href="index.html">all six sequences</a></footer>
 </main>
 
+<script>
+// The proof shows in place on the last step, unchanged. Its own notes could
+// only be copied, so they are hidden here and this step's box is the one place
+// to write. The frame takes the proof's height; a hush from the face reaches
+// the proof, and the proof's play reaches the face. Opened as a file the proof
+// can't be reached into, and keeps its notes and a fixed height. The message
+// names are built, not written: the piece kit leaves hushing to any page whose
+// own script spells one out, and this page's sound is still the kit's to hush.
+(function(){
+  var f = document.querySelector('iframe.proof'); if (!f) return;
+  var HUSH = ['rich', 'hush'].join(':'), PLAY = ['rich', 'play'].join(':');
+  var step = f.closest('section.step'), last = 0;
+  function reach(){ try { return f.contentDocument && f.contentDocument.body ? f.contentDocument : null; } catch (e) { return null; } }
+  function fit(){
+    var d = reach(); if (!d) return;
+    ['doorNote', 'wholeNote'].forEach(function(id){ var e = d.getElementById(id); if (e) e.style.display = 'none'; });
+    var c = d.getElementById('copy'), row = c && c.closest('.rowb'); if (row) row.style.display = 'none';
+    var h = Math.min(8000, Math.max(600, d.documentElement.scrollHeight));
+    if (Math.abs(h - last) > 2){ last = h; f.style.height = h + 'px'; }
+  }
+  function hush(){ try { f.contentWindow.postMessage({ type: HUSH }, '*'); } catch (e) {} }
+  f.addEventListener('load', function(){
+    fit(); setTimeout(fit, 400); setTimeout(fit, 1500);
+    var d = reach(); if (d && window.ResizeObserver) new ResizeObserver(fit).observe(d.body);
+  });
+  window.addEventListener('message', function(e){
+    if (!e.data) return;
+    if (e.source === window.parent && e.data.type === HUSH) hush();
+    if (e.source === f.contentWindow && e.data.type === PLAY && window.parent !== window) window.parent.postMessage({ type: PLAY }, '*');
+  });
+  new MutationObserver(function(){ if (step.hidden) hush(); }).observe(step, { attributes: true, attributeFilter: ['hidden'] });
+  document.addEventListener('visibilitychange', function(){ if (document.hidden) hush(); });
+})();
+</script>
 <script src="../../../_ops/loudon-eval/answers.js"></script>
 <script>
 (function(){
@@ -575,7 +716,7 @@
   var steps = Q('section.step'), cur = 0, seen = {};
   var rail = document.querySelector('.rail');
   steps.forEach(function(s, i){
-    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    var b = document.createElement('button'); b.textContent = i + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
     b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
   });
   var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed(), aspect?(cssW) }
@@ -589,10 +730,17 @@
     master = ctx.createGain(); master.gain.value = 0.4; master.connect(comp); comp.connect(ctx.destination);
     if (ctx.sampleRate !== sr){ sr = ctx.sampleRate; STEP.forEach(function(s){ s.changed(); }); }
   }
+  // The loop blends the F extra samples at the tail onto the start. The blend
+  // holds the level whatever the two pieces are: r is how alike they are, so the
+  // same wave in the same phase gets a straight fade and two unrelated sounds a
+  // near equal-power one. An equal-power fade of one wave onto itself swells
+  // 3 dB at the seam, once a loop (Loudon heard it, 2026-11-08).
   function loopify(x, F){
-    var N = x.length - F, out = new Float32Array(N);
-    for (var i = 0; i < N; i++){
-      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+    var N = x.length - F, out = new Float32Array(N), sab = 0, saa = 0, sbb = 0, i;
+    for (i = 0; i < F; i++){ sab += x[i] * x[N + i]; saa += x[i] * x[i]; sbb += x[N + i] * x[N + i]; }
+    var r = saa > 0 && sbb > 0 ? Math.max(0, sab / Math.sqrt(saa * sbb)) : 0;
+    for (i = 0; i < N; i++){
+      if (i < F){ var a = i / F, b = 1 - a; out[i] = (x[i] * a + x[N + i] * b) / Math.sqrt(a * a + b * b + 2 * r * a * b); }
       else out[i] = x[i];
     }
     return out;
@@ -713,7 +861,7 @@
       $('s1m').innerHTML = 'one 220 Hz cosine, read along the line at v = ' + v.toFixed(2) + ' · harmonic 1: <b>' + meas[1].toFixed(2) + '</b> · 2: <b>' + meas[2].toFixed(2) + '</b> · 3: <b>' + meas[3].toFixed(2) + '</b>' + (meas[1] + meas[2] + meas[3] < 1e-6 ? ' · <b>silence</b>: this line is all zero' : '');
       pressGroup('data-s1field', field);
     }
-    STEP[0] = {
+    STEP[1] = {
       // whole periods of 220 Hz in 2 s, so the loop is seamless
       render: function(){ return toF32(dcOff(buf), 0.8 * norm(field)); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
@@ -743,8 +891,8 @@
         }
       }
     };
-    $('s1v').addEventListener('input', function(){ v = parseFloat($('s1v').value); STEP[0].changed(); });
-    Q('[data-s1field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s1field'); STEP[0].changed(); }); });
+    $('s1v').addEventListener('input', function(){ v = parseFloat($('s1v').value); STEP[1].changed(); });
+    Q('[data-s1field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s1field'); STEP[1].changed(); }); });
   })();
 
   // ---- step 2: two phasors, the synthesizer's hand ----
@@ -761,7 +909,7 @@
       $('s2m').innerHTML = 'f₁ = <b>220 Hz</b>, f₂ = 220 × ' + r.toFixed(3) + ' = <b>' + (F1 * r).toFixed(1) + ' Hz</b> · ' + ps.length + ' partial' + (ps.length === 1 ? '' : 's') + ': <b>' + shown + (ps.length > 8 ? ' …' : '') + '</b> Hz';
       pressGroup('data-s2field', field);
     }
-    STEP[1] = {
+    STEP[2] = {
       render: function(){ return loopify(toF32(dcOff(buf), 0.8 * norm(field)), Math.round(0.15 * sr)); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       aspect: narrowAspect,
@@ -792,8 +940,8 @@
         label(g, '0', x0, sy + h2 - 4 * d, d); label(g, '2 kHz', x0 + w, sy + h2 - 4 * d, d, 'right');
       }
     };
-    $('s2r').addEventListener('input', function(){ r = parseFloat($('s2r').value); STEP[1].changed(); });
-    Q('[data-s2field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s2field'); STEP[1].changed(); }); });
+    $('s2r').addEventListener('input', function(){ r = parseFloat($('s2r').value); STEP[2].changed(); });
+    Q('[data-s2field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s2field'); STEP[2].changed(); }); });
   })();
 
   // ---- step 3: the diagonal, a static curve ----
@@ -817,7 +965,7 @@
       else $('s3m').innerHTML = 'one tone in, ' + base + ' Hz · out of the curve, harmonics 1–4: <b>' + lv.h.map(dbs).join('</b> · <b>') + '</b>';
       $('s3h').innerHTML = door === 'in' ? 'You hear <b>the input</b>, before the curve.' : 'You hear <b>the input through the curve</b>: the field read on its diagonal.';
     }
-    STEP[2] = {
+    STEP[3] = {
       render: function(){ return door === 'in' ? toF32(inp, 0.7) : toF32(dcOff(outb), 0.8 * norm(field)); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       aspect: narrowAspect,
@@ -844,9 +992,9 @@
         label(g, '0', sx0, sy + h2 - 4 * d, d); label(g, '1.2 kHz', sx0 + sw, sy + h2 - 4 * d, d, 'right');
       }
     };
-    $('s3b').addEventListener('input', function(){ base = parseInt($('s3b').value, 10); STEP[2].changed(); });
-    Q('[data-s3field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s3field'); STEP[2].changed(); }); });
-    Q('[data-s3input]').forEach(function(b){ b.addEventListener('click', function(){ input = b.getAttribute('data-s3input'); STEP[2].changed(); }); });
+    $('s3b').addEventListener('input', function(){ base = parseInt($('s3b').value, 10); STEP[3].changed(); });
+    Q('[data-s3field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s3field'); STEP[3].changed(); }); });
+    Q('[data-s3input]').forEach(function(b){ b.addEventListener('click', function(){ input = b.getAttribute('data-s3input'); STEP[3].changed(); }); });
     Q('[data-s3door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s3door'); ui(); refreshAudio(); }); });
   })();
 
@@ -872,7 +1020,7 @@
       else h = dmax < 1e-9 ? 'You hear <b>silence</b>: one path, two hands.' : 'You hear <b>the leftover</b> between two paths.';
       $('s4h').innerHTML = h;
     }
-    STEP[3] = {
+    STEP[4] = {
       render: function(){
         var g0 = 0.8 * norm(field), x = new Float32Array(SY.length);
         for (var i = 0; i < x.length; i++) x[i] = g0 * (door === 'syn' ? SY[i] : door === 'fx' ? FX[i] : 0.5 * (SY[i] - FX[i]));
@@ -914,9 +1062,9 @@
         label(g, 'difference × 10', R.x + R.w - 6 * d, yb + 10 * d, d, 'right');
       }
     };
-    $('s4l').addEventListener('input', function(){ lag = parseInt($('s4l').value, 10); STEP[3].changed(); });
-    $('s4nudge').addEventListener('click', function(){ nudge = !nudge; STEP[3].changed(); });
-    Q('[data-s4field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s4field'); STEP[3].changed(); }); });
+    $('s4l').addEventListener('input', function(){ lag = parseInt($('s4l').value, 10); STEP[4].changed(); });
+    $('s4nudge').addEventListener('click', function(){ nudge = !nudge; STEP[4].changed(); });
+    Q('[data-s4field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s4field'); STEP[4].changed(); }); });
     Q('[data-s4door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s4door'); ui(); refreshAudio(); }); });
   })();
 
@@ -946,7 +1094,7 @@
       $('s5m').innerHTML = lines.join('<br>');
       $('s5h').innerHTML = door === 'steady' ? 'You hear <b>everything that comes out</b>, the two tones held at the slider.' : 'You hear <b>only the 30 Hz tone</b>, lifted to 300 Hz, while both tones glide up and back down.';
     }
-    STEP[4] = {
+    STEP[5] = {
       render: function(){
         var g0 = 0.8 * norm(field);
         if (door === 'steady'){ var y = readEffect(FIELDS[field], 'two', base, L(), sr, Math.round(sr * SECS)); return toF32(dcOff(y), g0); }
@@ -977,10 +1125,10 @@
         label(g, fNow.toFixed(0) + ' Hz', X(fNow) + 4 * d, yt - 4 * d, d, 'left', door === 'glide' && playing ? ACC : FG3);
       }
     };
-    function later(){ clearTimeout(tpend); tpend = setTimeout(function(){ STEP[4].changed(); }, 40); }
+    function later(){ clearTimeout(tpend); tpend = setTimeout(function(){ STEP[5].changed(); }, 40); }
     $('s5l').addEventListener('input', function(){ lag = parseInt($('s5l').value, 10); $('s5lv').textContent = lag + ' smp · ' + (lag / 48).toFixed(2) + ' ms'; later(); });
     $('s5b').addEventListener('input', function(){ base = parseInt($('s5b').value, 10); $('s5bv').textContent = base + ' Hz'; later(); });
-    Q('[data-s5field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s5field'); STEP[4].changed(); }); });
+    Q('[data-s5field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s5field'); STEP[5].changed(); }); });
     Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
   })();
 
@@ -1008,7 +1156,7 @@
       $('s6m').innerHTML = lines.join('<br>');
       $('s6h').innerHTML = door === 'field' ? 'You hear <b>the field</b>, read at now and τ ago.' : door === 'series' ? 'You hear <b>the Volterra series</b>: the input multiplied against itself at 0 and τ, weighted by the kernel.' : 'You hear <b>silence</b>: the series and the field give the same numbers.';
     }
-    STEP[5] = {
+    STEP[6] = {
       render: function(){
         var g0 = 0.8 * norm(field), x = new Float64Array(FD.length);
         for (var i = 0; i < x.length; i++) x[i] = door === 'field' ? FD[i] : door === 'series' ? SE[i] : 0.5 * (FD[i] - SE[i]);
@@ -1039,8 +1187,8 @@
         label(g, 'τ', ox - 6 * d, LY(lag) + 3 * d, d, 'right', FG2); label(g, '0', ox - 6 * d, LY(0) + 3 * d, d, 'right'); label(g, 'τ₂', ox - 6 * d, oy + 10 * d, d, 'right');
       }
     };
-    $('s6l').addEventListener('input', function(){ lag = parseInt($('s6l').value, 10); STEP[5].changed(); });
-    Q('[data-s6field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s6field'); STEP[5].changed(); }); });
+    $('s6l').addEventListener('input', function(){ lag = parseInt($('s6l').value, 10); STEP[6].changed(); });
+    Q('[data-s6field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s6field'); STEP[6].changed(); }); });
     Q('[data-s6door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s6door'); ui(); refreshAudio(); }); });
   })();
 
@@ -1064,8 +1212,18 @@
   }
 
   // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
-  var KEY = 'dissolutions-seq-one-field-two-hands-notes', notes = {};
-  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  // step 0 came in front on 2026-11-09 and every step moved up one index, its number kept;
+  // notes still under the old key are carried across, each to the step it was written on
+  var KEY = 'dissolutions-seq-one-field-two-hands-notes-v2', KEY_BEFORE = 'dissolutions-seq-one-field-two-hands-notes', notes = {};
+  try {
+    notes = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (!notes){
+      var before = JSON.parse(localStorage.getItem(KEY_BEFORE) || '{}') || {}; notes = {};
+      Object.keys(before).forEach(function(k){ notes[String(+k + 1)] = before[k]; });
+      if (Object.keys(notes).length){ localStorage.setItem(KEY, JSON.stringify(notes)); localStorage.removeItem(KEY_BEFORE); }
+    }
+  } catch (e) { notes = notes || {}; }
+  window.__seq.keys = { now: KEY, before: KEY_BEFORE };
   Q('[data-note]').forEach(function(t){
     var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
     t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
@@ -1073,13 +1231,13 @@
   // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
   // Copy all notes, below, stays as the fallback
   var TASK = 'one-field-two-hands', HEAD = 'One field, two hands, learning sequence — notes', sending = false;
-  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
   function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
   function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
   $('send').addEventListener('click', function(){
     if (sending) return;
     var sent = {}, answers = {}, names = [];
-    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[i + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
     if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
     if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
     sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
@@ -1096,7 +1254,7 @@
     }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
   });
   $('copy').addEventListener('click', function(){
-    var text = 'One field, two hands, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var text = 'One field, two hands, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
     var done = function(){ $('copied').textContent = 'copied'; };
     if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
   });

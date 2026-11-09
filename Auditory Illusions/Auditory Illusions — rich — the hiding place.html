@@ -1,0 +1,448 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the hiding place
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece) · its section "In the cochlea — the ear is not a microphone", the paragraph on masking · sibling: "Auditory Illusions — rich — the ghost tone" · gathered beside it: [[Sidechain ↔ Conversation]]'s "under the kick", a blind masking trial at proposal status, which this piece does not copy · checked by "Auditory Illusions — rich — check — in-the-cochlea.mjs", beside this file
+  forward_vector: I am hide-and-seek. A loud tone sits still while a quiet cricket hops past it, and the reader holds a red button whenever they can see the cricket and not hear it, so their own ear paints the hiding place. Then I show the bank of filters that makes it, with the reader's red beside the model's; then I turn the loud one up and down so the hiding place can grow and lean the way labs say it does; then the MP3's bet as a blind trial, near and far, both arms scored. The eye's twin, a grey square on paper and on ink, sits beside the encounter, graded shape, not mechanism, as the page grades it.
+  understood as: hide-and-seek on an op-art field: a cricket that is always visibly chirping, a loud neighbour it can hide behind, and the reader's own red where the ear lost it.
+  red: red is always what the ear makes up — here, where the reader's ear hid a cricket that was chirping all along. Ink is what is in the signal. Same meaning in "the ghost tone".
+  twin: lateral inhibition, the same grey square on paper and on ink; drag one, or join them. The page grades it shape: the cochlea swamps inside one filter, the eye's version is usually explained as neighbours suppressing each other.
+  sound: nothing plays until a button is pressed; the AudioContext is made on that press. Changing step stops the sound. Masker (oscillator, or a looped noise band made here by FFT) and cricket (oscillator through a chirp envelope) → a compressor that never acts at these levels (threshold −1 dBFS) → the speakers.
+  check: "Auditory Illusions — rich — check — in-the-cochlea.mjs" runs <script id="mk-core"> in Node: the filter widths, the model's hidden span at each level, the noise band's width, level and peak, the chirp's spread, that a trial with and without the cricket differs only by the cricket, the chance figures, and that the two grey squares are one grey.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The hiding place · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (as _ops/furniture-fanout/furnish.py does), its --fx-* tokens retinted to the face's paper ground on 2026-11-08.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: #f4f2ec; --fx-bg-elev-1: #efece4; --fx-bg-elev-2: #e8e5dc; --fx-bg-elev-3: #dedad0; --fx-fg-1: #141414; --fx-fg-2: #3a3a3a; --fx-fg-3: #7a7a7a; --fx-fg-4: #a9a69d; --fx-fg-on-accent: #f4f2ec; --fx-border: #c9c6bd; --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: #141414; --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.5); --fx-danger: #d1301c; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:focus-visible::-webkit-slider-thumb {outline: 1px solid var(--fx-accent); outline-offset: 2px;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&display=swap">
+<style>
+  :root{ --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--serif);font-size:18px;line-height:1.6;padding:26px 16px 32px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--sans);font-weight:600;font-size:36px;line-height:1.08;letter-spacing:-.01em;margin:6px 0 10px}
+  h2{font-family:var(--sans);font-weight:500;font-size:22px;line-height:1.2;margin:2px 0 6px}
+  p.lead{font-size:19px;color:var(--ink-2);margin:0 0 16px;max-width:64ch}
+  p.say{color:var(--ink-2);margin:0 0 12px;max-width:68ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 10px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--ink);border-color:var(--ink)}
+  .panel{border:1.5px solid var(--ink);border-radius:2px;padding:16px;margin:0 0 14px;background:var(--paper)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 0}
+  button.go{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 18px;cursor:pointer}
+  button.go[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink-2);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:7px 12px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--ink);border-color:var(--ink);background:rgba(20,20,20,.05)}
+  button.ghost:disabled,button.go:disabled{opacity:.35;cursor:default}
+  button.mark{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--red);background:transparent;border:1.5px solid var(--red);border-radius:2px;padding:7px 14px;cursor:pointer}
+  button.mark:active,button.mark.on{background:var(--red);color:var(--paper)}
+  canvas.stage{width:100%;display:block;touch-action:none;margin-top:10px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--ink);text-align:right;white-space:nowrap;min-width:9ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--ink);font-weight:500}
+  .meter i{color:var(--red);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--ink);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--ink-3);font-family:var(--sans);font-size:13px;margin-top:2px}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:4px 12px 4px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  table.marks b{color:var(--red);font-weight:500}
+  .key{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-family:var(--sans);font-size:12px;color:var(--ink-3)}
+  .key span::before{content:'';display:inline-block;width:14px;height:0;border-top:1.5px solid var(--ink);vertical-align:middle;margin-right:6px}
+  .key span.r::before{border-top:1.5px dashed var(--red)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  .note{font-family:var(--sans);font-size:13px;color:var(--ink-2);border-left:2px solid var(--red);padding:2px 0 2px 10px;margin:10px 0 0;max-width:68ch}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px}
+  footer b{font-weight:600;letter-spacing:.08em;color:var(--ink-2)}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:28px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+<style>
+  .twin{display:grid;grid-template-columns:minmax(0,320px) 1fr;gap:14px;align-items:center;margin-top:14px;border-top:1px solid var(--rule);padding-top:12px}
+  .twin svg{width:100%;height:auto;display:block;touch-action:none;border:1px solid var(--ink)}
+  .twin p{margin:0;font-family:var(--sans);font-size:13px;color:var(--ink-2)}
+  @media (max-width:560px){.twin{grid-template-columns:1fr}}
+  button.lost{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--red);background:transparent;border:1.5px solid var(--red);border-radius:2px;padding:9px 18px;cursor:pointer;user-select:none;-webkit-user-select:none;touch-action:none}
+  button.lost.on{background:var(--red);color:var(--paper)}
+  .key span.d::before{border-top:1.5px dashed var(--ink)}
+  .key span.r::before{border:0;height:9px;width:12px;background:rgba(209,48,28,.55)}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · in the cochlea · four steps</div>
+  <h1>The hiding place</h1>
+  <p class="lead">A loud neighbour, and a cricket that keeps chirping. The first step is play; then the filters that make it, then a test of how near is near, then a blind bet. Speakers or headphones that carry high notes. Nothing sounds until you press.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="row" id="playRow">
+      <button class="go" id="go">Let it out</button>
+      <button class="lost" id="lost">Hold: I’ve lost it</button>
+      <button class="ghost" id="hop" hidden>let it hop</button>
+    </div>
+    <canvas class="stage" id="stage" aria-label="The field: the loud tone, the cricket, and your red where you lost it"></canvas>
+    <div class="key" id="key" hidden></div>
+    <div class="twin" id="twin">
+      <svg id="sq" viewBox="0 0 320 120" role="img" aria-label="Two grey squares, one on paper and one on ink; drag the right one">
+        <rect x="0" y="0" width="160" height="120" fill="#fbfaf7"/><rect x="160" y="0" width="160" height="120" fill="#141414"/>
+        <rect id="bridge" x="105" y="53" width="110" height="14" fill="#8c8a84" visibility="hidden"/>
+        <rect id="sqL" x="55" y="35" width="50" height="50" fill="#8c8a84"/>
+        <rect id="sqR" x="215" y="35" width="50" height="50" fill="#8c8a84" style="cursor:ew-resize"/>
+      </svg>
+      <div><p><b>Seen, the twin, by shape.</b> Two grey squares, one on paper, one on ink. Which is darker? Drag the right one across the line, or <button class="ghost" id="join" aria-pressed="false">join them</button></p></div>
+    </div>
+    <div id="levelBox">
+      <div class="ctl"><label for="lvl">the loud one</label><input type="range" id="lvl" min="-24" max="6" step="2" value="0"><span class="v" id="lvlv"></span></div>
+      <div class="row"><button class="ghost" id="typeBtn" aria-pressed="false">the loud one: a tone</button><button class="ghost" id="newRun">new run</button><span class="hint">each run is kept as a row under the field</span></div>
+    </div>
+    <div id="testBox">
+      <div class="row"><span class="eyebrow" id="trialLabel"></span><button class="go" id="trialPlay">Play the trial</button></div>
+      <div class="row"><span class="eyebrow">in that trial</span><button class="ghost" id="ansYes">a cricket chirped</button><button class="ghost" id="ansNo">only the loud one</button><button class="ghost" id="again">start again</button></div>
+      <div id="result"></div>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Auditory Illusions · the hiding place · Sketch, 2026-11-08 · Web Audio, made here</footer>
+</main>
+
+<script id="mk-core">
+// The engine: the numbers this piece plays and draws, shared with the check script beside it, which runs this
+// block in Node. Plain functions, no Web Audio.
+const MK = (() => {
+  const FM = 1000;                         // the loud one
+  const AM = 0.14;                         // its amplitude at 0 dB on the slider: −17 dBFS (a noise band gets the same RMS; at +6 dB its peaks stay under −1 dBFS)
+  const CRICKET_DB = -30;                  // the cricket, always, re the loud one at 0 dB
+  const FMIN = 200, FMAX = 5000;           // the field
+  const HOPS = Array.from({ length: 25 }, (_, k) => 250 * Math.pow(2, k / 6));  // 250 Hz to 4 kHz in sixth-octave hops
+  const CHIRP = { on: 0.07, ramp: 0.01, every: 0.2 };  // 70 ms chirps with 10 ms raised-cosine ramps, five a second
+  const HOP_S = 0.8;                       // four chirps on each hop
+  const NEAR = FM * Math.pow(2, 1 / 12), FAR = FM * Math.pow(2, 1.5);  // the blind trial's two places: a semitone above, an octave and a half above
+  const GREY = '#8c8a84';                  // the twin's one grey
+  // Glasberg and Moore's equivalent rectangular bandwidth: how wide the cochlea's filter is at f.
+  const erb = (f) => 24.7 * (4.37 * f / 1000 + 1);
+  // Patterson's rounded-exponential filter: how much of a tone at f the filter centred at fc lets through (power).
+  const roex = (fc, f) => { const p = 4 * fc / erb(fc), g = Math.abs(f - fc) / fc; return (1 + p * g) * Math.exp(-p * g); };
+  // The loud one as the cricket's own filter hears it, dB re the loud one: a tone, or a band of noise (the mean across the band).
+  function leak(fc, type = 'tone') {
+    if (type === 'tone') return 10 * Math.log10(roex(fc, FM));
+    const [lo, hi] = band(); let s = 0; const n = 64; for (let i = 0; i < n; i++) s += roex(fc, lo + (hi - lo) * (i + 0.5) / n); return 10 * Math.log10(s / n);
+  }
+  // The power-spectrum model with symmetric filters: hidden when the loud one, through the cricket's filter, is louder than the cricket.
+  const hidden = (fc, maskDb = 0, type = 'tone') => leak(fc, type) + maskDb > CRICKET_DB;
+  const span = (maskDb = 0, type = 'tone') => { const h = HOPS.filter((f) => hidden(f, maskDb, type)); return h.length ? [h[0], h[h.length - 1]] : null; };
+  // The noise band: one ERB wide, centred on the loud one.
+  const band = () => [FM - erb(FM) / 2, FM + erb(FM) / 2];
+  // The chirp's envelope, 0 to 1, as 65 points over CHIRP.on (setValueCurveAtTime reads them linearly).
+  function chirpCurve(n = 65) { const c = new Float32Array(n); for (let i = 0; i < n; i++) { const t = i / (n - 1) * CHIRP.on, r = CHIRP.ramp; c[i] = t < r ? 0.5 - 0.5 * Math.cos(Math.PI * t / r) : t > CHIRP.on - r ? 0.5 - 0.5 * Math.cos(Math.PI * (CHIRP.on - t) / r) : 1; } c[0] = 0; c[n - 1] = 0; return c; }
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function fft(re, im, inv = false) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; } }
+    for (let len = 2; len <= n; len <<= 1) { const a = (inv ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a); for (let i = 0; i < n; i += len) { let cr = 1, ci = 0; for (let j = 0; j < len / 2; j++) { const ur = re[i + j], ui = im[i + j], vr = re[i + j + len / 2] * cr - im[i + j + len / 2] * ci, vi = re[i + j + len / 2] * ci + im[i + j + len / 2] * cr; re[i + j] = ur + vr; im[i + j] = ui + vi; re[i + j + len / 2] = ur - vr; im[i + j + len / 2] = ui - vi; const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+  }
+  // A band of noise made in the frequency domain: equal energy, random phase, only between lo and hi; periodic in n, so it loops with no seam; RMS that of a unit sine (1/√2).
+  function noiseBand(sr, n = 131072, seed = 7) {
+    const [lo, hi] = band(), re = new Float64Array(n), im = new Float64Array(n), r = rng(seed), df = sr / n;
+    for (let k = Math.ceil(lo / df); k <= Math.floor(hi / df); k++) { const ph = 2 * Math.PI * r(); re[k] = Math.cos(ph); im[k] = Math.sin(ph); re[n - k] = re[k]; im[n - k] = -im[k]; }
+    fft(re, im, true); let s = 0; for (let i = 0; i < n; i++) s += re[i] * re[i]; const g = Math.SQRT1_2 / Math.sqrt(s / n);
+    const out = new Float32Array(n); for (let i = 0; i < n; i++) out[i] = re[i] * g; return out;
+  }
+  function atLeast(k, n, p) { let s = 0; for (let j = k; j <= n; j++) { let c = 1; for (let i = 0; i < j; i++) c = c * (n - i) / (i + 1); s += c * Math.pow(p, j) * Math.pow(1 - p, n - j); } return s; }
+  const COMP = { threshold: -1, knee: 0, ratio: 4, attack: 0.003, release: 0.25 };
+  return { FM, AM, CRICKET_DB, FMIN, FMAX, HOPS, CHIRP, HOP_S, NEAR, FAR, GREY, erb, roex, leak, hidden, span, band, chirpCurve, rng, fft, noiseBand, atLeast, COMP };
+})();
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lin = (d) => Math.pow(10, d / 20), NH = MK.HOPS.length;
+  const newRun = () => ({ maskDb: S.maskDb, type: S.type, gone: new Float64Array(NH), visits: new Float64Array(NH) });
+  const S = { step: 0, playing: false, maskDb: 0, type: 'tone', manual: null, holding: false, t0: 0, runs: [], cur: null, trials: null, t: 0, answers: [], done: false };
+  S.cur = newRun(); S.runs.push(S.cur);
+
+  // ── sound ──
+  let ctx = null, N = null, timer = null, nextChirp = 0, chirps = [], noiseBuf = null;
+  function ensure() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      const comp = new DynamicsCompressorNode(ctx, MK.COMP); comp.connect(ctx.destination);
+      const out = new GainNode(ctx, { gain: 1 }); out.connect(comp);
+      N = { out, comp, m: null, c: null };
+    }
+    if (ctx.state !== 'running') ctx.resume();
+  }
+  // the cricket's place now: where the reader put it, or where its hop has got to (up the field and back)
+  function hopIndex(at) { if (S.manual !== null) return S.manual; const k = Math.floor(Math.max(0, at - S.t0) / MK.HOP_S) % (2 * (NH - 1)); return k < NH ? k : 2 * (NH - 1) - k; }
+  function startMasker(withCricket, fixedF) {
+    ensure(); stopAll();
+    const t = ctx.currentTime, mg = new GainNode(ctx, { gain: 0 }); mg.connect(N.out);
+    let src;
+    if (S.type === 'tone') { src = new OscillatorNode(ctx, { frequency: MK.FM }); }
+    else { if (!noiseBuf || noiseBuf.sampleRate !== ctx.sampleRate) { const d = MK.noiseBand(ctx.sampleRate); noiseBuf = ctx.createBuffer(1, d.length, ctx.sampleRate); noiseBuf.copyToChannel(d, 0); } src = new AudioBufferSourceNode(ctx, { buffer: noiseBuf, loop: true }); }
+    src.connect(mg); src.start(t); mg.gain.setTargetAtTime(MK.AM * lin(S.maskDb), t, 0.03);
+    N.m = { src, g: mg };
+    if (withCricket) {
+      const o = new OscillatorNode(ctx, { frequency: fixedF || MK.HOPS[0] }), cg = new GainNode(ctx, { gain: 0 }); o.connect(cg).connect(N.out); o.start(t);
+      N.c = { o, g: cg, f: fixedF || null }; S.t0 = t + 0.1; nextChirp = t + 0.15; chirps = [];
+      timer = setInterval(schedule, 25); schedule();
+    }
+    S.playing = true; buttons();
+  }
+  const CURVE = MK.chirpCurve();
+  function schedule() {
+    if (!N || !N.c) return; const amp = MK.AM * lin(MK.CRICKET_DB), ahead = ctx.currentTime + 0.15;
+    while (nextChirp < ahead) {
+      const f = N.c.f || MK.HOPS[hopIndex(nextChirp)];
+      N.c.o.frequency.setValueAtTime(f, nextChirp - 0.004);
+      const c = new Float32Array(CURVE.length); for (let i = 0; i < c.length; i++) c[i] = CURVE[i] * amp;
+      N.c.g.gain.setValueCurveAtTime(c, nextChirp, MK.CHIRP.on);
+      chirps.push(nextChirp); if (chirps.length > 12) chirps.shift();
+      nextChirp += MK.CHIRP.every;
+    }
+  }
+  function stopAll() {
+    if (timer) { clearInterval(timer); timer = null; }
+    if (N && ctx) { const t = ctx.currentTime; for (const k of ['m', 'c']) if (N[k]) { const n = N[k]; n.g.gain.cancelScheduledValues(t); n.g.gain.setValueAtTime(n.g.gain.value, t); n.g.gain.setTargetAtTime(0, t, 0.015); (n.src || n.o).stop(t + 0.12); N[k] = null; } }
+    S.playing = false; chirps = []; buttons();
+  }
+  function setLevel(d) { S.maskDb = d; if (N && N.m) N.m.g.gain.setTargetAtTime(MK.AM * lin(d), ctx.currentTime, 0.03); }
+
+  // ── the hunt: hold while it's gone ──
+  function hold(on) { if (on && !(S.playing && N && N.c)) return; S.holding = on; $('lost').classList.toggle('on', on); }
+  $('lost').addEventListener('pointerdown', (e) => { e.preventDefault(); try { $('lost').setPointerCapture(e.pointerId); } catch (_) { /* a synthetic press has no pointer to hold */ } hold(true); });
+  for (const ev of ['pointerup', 'pointercancel', 'lostpointercapture']) $('lost').addEventListener(ev, () => hold(false));
+  document.addEventListener('keydown', (e) => { if (e.code === 'Space' && STEPS[S.step].key !== 'bet' && document.activeElement.tagName !== 'INPUT') { e.preventDefault(); if (!e.repeat) hold(true); } });
+  document.addEventListener('keyup', (e) => { if (e.code === 'Space' && STEPS[S.step].key !== 'bet' && document.activeElement.tagName !== 'INPUT') { e.preventDefault(); hold(false); } });
+  let last = 0;
+  function tally(now) {
+    const dt = Math.min(0.1, (now - last) / 1000); last = now;
+    if (!S.playing || !N || !N.c || !ctx || STEPS[S.step].key === 'bet') return;
+    const i = hopIndex(ctx.currentTime); S.cur.visits[i] += dt; if (S.holding) S.cur.gone[i] += dt;
+  }
+  function freshRun() { if (S.cur.visits.some((v) => v > 0)) { S.cur = newRun(); S.runs.push(S.cur); } else { S.cur.maskDb = S.maskDb; S.cur.type = S.type; } }
+
+  // ── the steps ──
+  const STEPS = [
+    { key: 'hunt', rail: 'hide and seek', title: 'A cricket and a loud neighbour',
+      say: 'Press Let it out. A loud tone sits still. A small cricket chirps and hops along the lines, low to high and back, the same loudness all the way. Watch it and listen for it. Whenever you can see it chirping but cannot hear it, hold the red button (or the space bar) until it is back. Set the volume so the loud tone is clearly loud but comfortable, and the cricket faint but clear when it is far off to the left. Drag the cricket to keep it in one place.' },
+    { key: 'filters', rail: 'the filters', title: 'Why near and not far',
+      say: 'Your red is the hiding place: the stretch either side of the loud tone where the cricket was chirping and your ear could not find it. Far off, it was never hidden, though it was always the same 30 dB under the loud one. The cochlea hears through a bank of overlapping filters, the critical bands, each listening to a narrow slice; at 1 kHz a slice is about 130 Hz wide. A quiet sound is heard when some filter has it louder than everything else that filter lets in. Far from the loud one, the cricket’s own filter barely lets the loud one in, and the cricket wins. Close to it, the cricket’s filter is full of the loud one, and the cricket is swamped. In the picture, the thin humps are the filters; the black line is how loud the loud one is through the filter at each place; the dashed line is the cricket. Where black is above dashed, the model says hidden (the box). Tap the field to put the cricket anywhere and read the verdict. The grey squares are the page’s twin by shape, not mechanism: in both, one signal hides or shifts a neighbour, but the cochlea swamps inside one filter, and the eye’s version is usually explained as neighbours suppressing each other.' },
+    { key: 'lean', rail: 'how near is near', title: 'Turn the loud one up',
+      say: 'The page says near hides and far does not. How near? Labs find the hiding place grows with the loud one’s level, and grows mostly upward: a loud sound hides what is above it far more than what is below it (the upward spread of masking). The model in the last step gives each filter the same shape on both sides, so its box grows nearly evenly: at +6 dB it reaches one hop further up than down, no more. Real filters widen on their low side as the level rises, so a loud sound spills upward. The prediction, before you try: at the top of the slider your red should reach further right of the loud one than left, more lopsided than the dashed box; at the bottom it should shrink to a sliver. The cricket’s loudness stays put; only the loud one moves. Set a level, let it out, and let the cricket make a full pass up and back (about 38 seconds) while you hold whenever it is gone, so the lag of your hand falls on both sides alike before you read a lean; then New run and change the level. Each run is a row under the field. Try a band of noise too: labs use noise, because two tones close together beat, and a beat can give a hidden cricket away.' },
+    { key: 'bet', rail: 'the MP3’s bet', title: 'The MP3’s bet',
+      say: 'An MP3 encoder runs a model like this one on every slice of the music and throws away what it predicts your filters will hide. Here is that bet, made on you. Sixteen trials, each two seconds of the loud one as a band of noise one filter wide; in some, the cricket chirps. Noise, not the page’s tone, because a tone and a cricket just above it beat (a 59.5 Hz flutter about 30 dB deep, near what an ear can catch), and a beat could give the cricket away without the cricket being heard as itself. In eight trials it would sit just above the loud one, in the other eight an octave and a half above, mixed, and a coin decides each time whether it chirps at all. Nothing on screen says which. Chance is 4 of 8 in each place. The rule, stated now: in a place where you score 7 or 8, you heard the cricket there (a guesser does that 3.5% of the time). The page predicts 7 or 8 far off and about 4 close. If close is about 4, an encoder could have deleted the cricket and you would not have known.' },
+  ];
+
+  function buttons() {
+    $('go').textContent = S.playing && STEPS[S.step].key !== 'bet' ? 'Stop' : 'Let it out';
+    $('hop').hidden = S.manual === null || STEPS[S.step].key === 'bet';
+    $('typeBtn').textContent = 'the loud one: ' + (S.type === 'tone' ? 'a tone' : 'a band of noise'); $('typeBtn').setAttribute('aria-pressed', String(S.type !== 'tone'));
+  }
+  $('go').onclick = () => (S.playing ? stopAll() : startMasker(true));
+  $('hop').onclick = () => { S.manual = null; if (N && N.c) { S.t0 = ctx.currentTime; } buttons(); meter(); };
+  $('lvl').oninput = (e) => { setLevel(+e.target.value); freshRun(); meter(); };
+  $('typeBtn').onclick = () => { S.type = S.type === 'tone' ? 'noise' : 'tone'; freshRun(); const was = S.playing; if (was) startMasker(true); buttons(); meter(); };
+  $('newRun').onclick = () => { freshRun(); meter(); };
+
+  // ── the twin: drag the right square; join them ──
+  (() => {
+    const svg = $('sq'), R = $('sqR'); let d = null;
+    const toX = (e) => { const r = svg.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 320; };
+    R.addEventListener('pointerdown', (e) => { try { R.setPointerCapture(e.pointerId); } catch (_) { /* a synthetic press has no pointer to hold */ } d = toX(e) - +R.getAttribute('x'); });
+    R.addEventListener('pointermove', (e) => { if (d === null) return; const x = Math.max(4, Math.min(266, toX(e) - d)); R.setAttribute('x', x.toFixed(1)); const b = $('bridge'); b.setAttribute('x', Math.min(105, x + 50)); b.setAttribute('width', Math.max(0, Math.abs(x - 105))); });
+    R.addEventListener('pointerup', () => (d = null)); R.addEventListener('pointercancel', () => (d = null));
+    $('join').onclick = () => { const b = $('bridge'), on = b.getAttribute('visibility') === 'hidden'; const x = +R.getAttribute('x'); b.setAttribute('x', Math.min(105, x + 50)); b.setAttribute('width', Math.abs(x - 105)); b.setAttribute('visibility', on ? 'visible' : 'hidden'); $('join').setAttribute('aria-pressed', String(on)); };
+  })();
+
+  // ── the blind bet ──
+  const TR = 16;
+  function shuffled(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function newTest() { const places = shuffled([...Array(8).fill('close'), ...Array(8).fill('far')]); S.trials = places.map((p) => ({ place: p, there: Math.random() < 0.5 })); S.t = 0; S.answers = []; S.done = false; buildTest(); }
+  let trialStop = null;
+  $('trialPlay').onclick = () => {
+    if (S.done) return; const tr = S.trials[S.t]; const keep = S.type, lv = S.maskDb; S.type = 'noise'; S.maskDb = 0;
+    startMasker(tr.there, tr.place === 'close' ? MK.NEAR : MK.FAR); S.type = keep; S.maskDb = lv;
+    clearTimeout(trialStop); trialStop = setTimeout(stopAll, 2000);
+  };
+  function answer(a) { if (S.done) return; stopAll(); S.answers.push(a); S.t++; if (S.t >= TR) S.done = true; buildTest(); }
+  $('ansYes').onclick = () => answer(true); $('ansNo').onclick = () => answer(false);
+  $('again').onclick = () => { stopAll(); newTest(); };
+  const pct = (p) => p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%';
+  function buildTest() {
+    $('trialLabel').textContent = S.done ? 'all sixteen answered' : `trial ${S.t + 1} of ${TR}`;
+    $('trialPlay').disabled = $('ansYes').disabled = $('ansNo').disabled = S.done;
+    if (!S.done) { $('result').innerHTML = `<p class="hint" style="margin-top:10px">${S.answers.length} answered. The scores show after the sixteenth.</p>`; return; }
+    const arm = (p) => { let right = 0, n = 0, hit = 0, there = 0, cr = 0, none = 0; S.trials.forEach((t, i) => { if (t.place !== p) return; n++; const ok = S.answers[i] === t.there; if (ok) right++; if (t.there) { there++; if (S.answers[i]) hit++; } else { none++; if (!S.answers[i]) cr++; } }); return { right, n, hit, there, cr, none, p: MK.atLeast(right, n, 0.5) }; };
+    const c = arm('close'), f = arm('far');
+    const say = (a, name) => a.right >= 7 ? `${name}: <b>${a.right} of 8</b>. A guesser gets that far ${pct(a.p)} of the time: you heard the cricket ${name === 'Far off' ? 'there' : 'even there; the hiding place did not hide it from you'}.`
+      : a.right >= 5 ? `${name}: ${a.right} of 8. A guesser gets that far ${pct(a.p)} of the time; this doesn’t settle it either way.`
+      : `${name}: ${a.right} of 8, no better than a coin. You couldn’t tell when it chirped${name === 'Close' ? ', which is the MP3’s bet won: it could have been deleted' : '; check the volume and that your speakers carry 2.8 kHz'}.`;
+    $('result').innerHTML = `<table class="marks"><tr><th>place</th><th>right</th><th>chirped, and you said so</th><th>silent, and you said so</th><th>a guesser gets this far</th></tr>
+      <tr><td>close (${MK.NEAR.toFixed(0)} Hz)</td><td>${c.right} of 8</td><td>${c.hit} of ${c.there}</td><td>${c.cr} of ${c.none}</td><td>${pct(c.p)}</td></tr>
+      <tr><td>far (${MK.FAR.toFixed(0)} Hz)</td><td>${f.right} of 8</td><td>${f.hit} of ${f.there}</td><td>${f.cr} of ${f.none}</td><td>${pct(f.p)}</td></tr></table>
+      <p class="say" style="margin-top:10px">${say(c, 'Close')}<br>${say(f, 'Far off')}</p><p class="hint">Chance, for every score in a place: ${[4, 5, 6, 7, 8].map((k) => `${k} or more · ${pct(MK.atLeast(k, 8, 0.5))}`).join(' · ')}.</p>`;
+  }
+
+  // ── the walk ──
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => goStep(i); r.appendChild(b); }); }
+  function goStep(i) {
+    stopAll(); hold(false); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step], k = s.key;
+    rail(); $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('playRow').hidden = k === 'bet'; $('twin').hidden = !(k === 'hunt' || k === 'filters'); $('levelBox').hidden = k !== 'lean'; $('testBox').hidden = k !== 'bet';
+    $('key').hidden = !(k === 'filters' || k === 'lean');
+    $('key').innerHTML = k === 'filters' ? '<span>the loud one, through the filter at each place</span><span class="d">the cricket’s level; the box, where the model hides it</span><span class="r">where your ear lost it</span>' : '<span class="d">the box: where the model hides it</span><span class="r">where your ear lost it; each row an earlier run</span>';
+    if (k !== 'lean') { if (S.maskDb !== 0 || S.type !== 'tone') { S.maskDb = 0; S.type = 'tone'; $('lvl').value = 0; freshRun(); } }
+    if (k === 'bet' && !S.trials) newTest();
+    const eq = {
+      hunt: ['', '', '', ''],
+      filters: ['ERB(f) = 24.7 · (4.37 · f / 1000 + 1) Hz   →   ERB(1000) = 133 Hz', 'each filter’s width grows with its frequency; at 1 kHz it is about 130 Hz', 'W(g) = (1 + p·g) · e^(−p·g),   g = |f − f_c| / f_c,   p = 4·f_c / ERB(f_c)', 'the share of a tone at f that gets through the filter centred at f_c: all at the centre, falling off steeply either side'],
+      lean: ['hidden  ⇔  L_loud + 10·log₁₀ W(f_cricket, f_loud)  >  L_cricket', 'the cricket is hidden when the loud one, heard through the cricket’s own filter, is still louder than the cricket', '', ''],
+      bet: ['P(7 or more of 8 by guessing) = 9 / 256 = 3.5%', 'a coin per trial, so a guesser scores half; the rule counts only 7 or 8, one-sided', '', ''],
+    }[k];
+    $('eq1').textContent = eq[0]; $('eq1w').textContent = eq[1]; $('eq2').textContent = eq[2]; $('eq2w').textContent = eq[3];
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    buttons(); meter();
+  }
+  $('back').onclick = () => goStep(S.step - 1); $('next').onclick = () => goStep(S.step + 1);
+
+  const hz = (f) => f >= 1000 ? (f / 1000).toFixed(2) + ' kHz' : f.toFixed(0) + ' Hz';
+  function redSpan(run) { const g = []; for (let i = 0; i < NH; i++) if (run.visits[i] > 0.3 && run.gone[i] / run.visits[i] > 0.5) g.push(MK.HOPS[i]); return g.length ? [g[0], g[g.length - 1]] : null; }
+  function meter() {
+    const k = STEPS[S.step].key; let h = '';
+    if (k === 'filters') {
+      if (S.manual !== null) { const f = MK.HOPS[S.manual], L = MK.leak(f, S.type) + S.maskDb; h = `the cricket at <b>${hz(f)}</b> · its filter is ${MK.erb(f).toFixed(0)} Hz wide · through it the loud one is <b>${L.toFixed(1)} dB</b>, the cricket <b>${MK.CRICKET_DB} dB</b> · the model says <i>${L > MK.CRICKET_DB ? 'hidden, by ' + (L - MK.CRICKET_DB).toFixed(1) + ' dB' : 'heard, by ' + (MK.CRICKET_DB - L).toFixed(1) + ' dB'}</i>`; }
+      else h = 'tap the field to put the cricket in one place';
+      const sp = MK.span(S.maskDb, S.type), rs = redSpan(S.cur); h += `<br>the model hides ${sp ? hz(sp[0]) + ' to ' + hz(sp[1]) : 'nothing'} · your red ${rs ? '<i>' + hz(rs[0]) + ' to ' + hz(rs[1]) + '</i>' : 'not yet painted (step 1)'}`;
+    }
+    if (k === 'lean') { const sp = MK.span(S.maskDb, S.type), rs = redSpan(S.cur); h = `the loud one at <b>${S.maskDb >= 0 ? '+' : ''}${S.maskDb} dB</b>, ${S.type === 'tone' ? 'a tone' : 'a band of noise ' + MK.erb(MK.FM).toFixed(0) + ' Hz wide'} · the cricket <b>${MK.CRICKET_DB - S.maskDb} dB</b> under it · the symmetric model hides ${sp ? hz(sp[0]) + ' to ' + hz(sp[1]) : 'nothing'} · your red this run ${rs ? '<i>' + hz(rs[0]) + ' to ' + hz(rs[1]) + '</i>' : 'not yet'}`; }
+    $('meter').innerHTML = h; $('lvlv').textContent = (S.maskDb >= 0 ? '+' : '') + S.maskDb + ' dB';
+  }
+
+  // ── the field ──
+  const cv = $('stage'); let W = 0, H = 0, gg = null;
+  function fit(h) { cv.style.height = h + 'px'; const d = devicePixelRatio || 1, w = cv.clientWidth; if (cv.width !== Math.round(w * d) || cv.height !== Math.round(h * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); } gg = cv.getContext('2d'); gg.setTransform(d, 0, 0, d, 0, 0); W = w; H = h; }
+  const PAD = 26, X = (f) => PAD + Math.log(f / MK.FMIN) / Math.log(MK.FMAX / MK.FMIN) * (W - 2 * PAD);
+  const nearestHop = (x) => { let b = 0, bd = Infinity; MK.HOPS.forEach((f, i) => { const d = Math.abs(X(f) - x); if (d < bd) { bd = d; b = i; } }); return b; };
+  const cellX = (i) => [X(MK.HOPS[i] * Math.pow(2, -1 / 12)), X(MK.HOPS[i] * Math.pow(2, 1 / 12))];
+  let shownX = null;
+  function draw(now) {
+    requestAnimationFrame(draw); tally(now);
+    const k = STEPS[S.step].key;
+    const rows = k === 'lean' ? S.runs.filter((r) => r.visits.some((v) => v > 0)).slice(-6) : [];
+    fit(k === 'bet' ? 70 : k === 'filters' ? 270 : 210 + rows.length * 16);
+    const g = gg; g.clearRect(0, 0, W, H);
+    if (k === 'bet') { const r = 7, gap = 20, x0 = W / 2 - (TR - 1) * gap / 2; for (let i = 0; i < TR; i++) { g.beginPath(); g.arc(x0 + i * gap, H / 2, r, 0, 2 * Math.PI); g.strokeStyle = i === S.t && !S.done ? '#141414' : '#c9c6bd'; g.lineWidth = 1.5; g.stroke(); if (i < S.answers.length) { g.fillStyle = '#7a7a7a'; g.fill(); } } return; }
+    const top = 16, bot = (k === 'filters' ? 236 : 186), t = ctx ? ctx.currentTime : 0;
+    // the reader's red: each place shaded by the share of its visits it was lost
+    for (let i = 0; i < NH; i++) { const v = S.cur.visits[i]; if (v < 0.3) continue; const a = S.cur.gone[i] / v; if (a <= 0) continue; const [x0, x1] = cellX(i); g.fillStyle = `rgba(209,48,28,${(0.08 + 0.32 * a).toFixed(3)})`; g.fillRect(x0, top, x1 - x0, bot - top); g.fillStyle = '#d1301c'; g.fillRect(x0, bot - 3, x1 - x0, 3 * a + 0.5); }
+    // what is in the air: the loud one (a bump as wide as a tone, or as its noise band), and the cricket while it chirps
+    const loud = S.playing && N && N.m ? MK.AM * lin(S.maskDb) : 0;
+    const chirping = chirps.some((c) => t >= c && t < c + MK.CHIRP.on);
+    const ci = S.playing && N && N.c ? (N.c.f ? null : hopIndex(t)) : (S.manual !== null ? S.manual : null);
+    const cf = N && N.c && N.c.f ? N.c.f : ci !== null ? MK.HOPS[ci] : null;
+    const px = (a) => Math.max(0, 20 * Math.log10(Math.max(a, 1e-9)) + 60) / 60 * 30;
+    const loudW = S.type === 'tone' ? 12 : Math.max(12, (X(MK.band()[1]) - X(MK.band()[0])) / 1.4);
+    const lines = k === 'filters' ? 7 : 13;
+    g.lineWidth = 1; g.strokeStyle = k === 'filters' ? 'rgba(20,20,20,0.12)' : '#141414';
+    for (let li = 0; li < lines; li++) {
+      const y0 = top + 26 + li * (bot - top - 30) / (lines - 1), lift = 1 - 0.5 * li / (lines - 1); g.beginPath();
+      for (let x = PAD - 10; x <= W - PAD + 10; x += 2) { let d = 0; if (loud) { const z = (x - X(MK.FM)) / loudW; d += px(loud) * Math.exp(-z * z); } if (chirping && cf) { const z = (x - X(cf)) / 9; d += px(MK.AM * lin(MK.CRICKET_DB)) * Math.exp(-z * z); } const y = y0 - d * lift; x === PAD - 10 ? g.moveTo(x, y) : g.lineTo(x, y); }
+      g.stroke();
+    }
+    if (k === 'filters') {
+      // the filter bank, the loud one through each filter, the cricket's level, and the model's box
+      const Y = (d) => top + 10 + (-d / 60) * (bot - top - 20);
+      g.strokeStyle = 'rgba(20,20,20,0.22)'; g.lineWidth = 1;
+      for (const fc of MK.HOPS) { g.beginPath(); for (let x = PAD; x <= W - PAD; x += 2) { const f = MK.FMIN * Math.pow(MK.FMAX / MK.FMIN, (x - PAD) / (W - 2 * PAD)); const d = 10 * Math.log10(MK.roex(fc, f)); const y = Y(Math.max(-60, d)); x === PAD ? g.moveTo(x, y) : g.lineTo(x, y); } g.stroke(); }
+      g.strokeStyle = '#141414'; g.lineWidth = 1.8; g.beginPath(); for (let x = PAD; x <= W - PAD; x += 2) { const f = MK.FMIN * Math.pow(MK.FMAX / MK.FMIN, (x - PAD) / (W - 2 * PAD)); const d = MK.leak(f, S.type) + S.maskDb; x === PAD ? g.moveTo(x, Y(Math.max(-60, d))) : g.lineTo(x, Y(Math.max(-60, d))); } g.stroke();
+      g.setLineDash([5, 4]); g.lineWidth = 1.2; g.beginPath(); g.moveTo(PAD, Y(MK.CRICKET_DB)); g.lineTo(W - PAD, Y(MK.CRICKET_DB)); g.stroke();
+      const sp = MK.span(S.maskDb, S.type); if (sp) { const a = X(sp[0] * Math.pow(2, -1 / 12)), b = X(sp[1] * Math.pow(2, 1 / 12)); g.strokeRect(a, top + 4, b - a, bot - top - 4); }
+      g.setLineDash([]); g.lineWidth = 1;
+      g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#7a7a7a'; g.textAlign = 'left';
+      for (const d of [0, -30, -60]) g.fillText(d + ' dB', 2, Y(d) - 3);
+      g.fillText('cricket', W - PAD - 44, Y(MK.CRICKET_DB) - 4);
+    }
+    if (k === 'lean') { const sp = MK.span(S.maskDb, S.type); if (sp) { g.setLineDash([5, 4]); g.strokeStyle = '#141414'; g.lineWidth = 1.2; const a = X(sp[0] * Math.pow(2, -1 / 12)), b = X(sp[1] * Math.pow(2, 1 / 12)); g.strokeRect(a, top + 4, b - a, bot - top - 4); g.setLineDash([]); g.lineWidth = 1; } }
+    // the axis
+    g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#7a7a7a'; g.strokeStyle = '#c9c6bd'; g.textAlign = 'center';
+    if (k !== 'hunt') for (const f of [250, 500, 1000, 2000, 4000]) { g.beginPath(); g.moveTo(X(f), bot); g.lineTo(X(f), bot + 4); g.stroke(); g.fillText(f >= 1000 ? f / 1000 + 'k' : f + '', X(f), bot + 15); }
+    // the cricket: always drawn where it is, chirping or not
+    if (cf) {
+      const tx = X(cf); if (shownX === null || reduce) shownX = tx; else shownX += (tx - shownX) * 0.25;
+      const hopArc = reduce ? 0 : Math.min(8, Math.abs(tx - shownX) * 0.5), bounce = chirping && !reduce ? 2 : 0, y = top + 12 - hopArc - bounce;
+      g.fillStyle = '#141414'; g.strokeStyle = '#141414'; g.lineWidth = 1.2;
+      g.beginPath(); g.ellipse(shownX, y, 7, 3.6, 0, 0, 2 * Math.PI); g.fill();
+      g.beginPath(); g.moveTo(shownX + 6, y - 2); g.lineTo(shownX + 12, y - 8); g.moveTo(shownX + 6, y - 1); g.lineTo(shownX + 13, y - 4); g.moveTo(shownX - 3, y + 3); g.lineTo(shownX - 7, y + 8); g.moveTo(shownX + 2, y + 3); g.lineTo(shownX + 4, y + 8); g.stroke(); g.lineWidth = 1;
+      if (chirping) { g.strokeStyle = '#141414'; g.beginPath(); g.arc(shownX + 13, y - 8, 4, -0.9, 0.9); g.stroke(); }
+    } else shownX = null;
+    // the kept runs, one row each
+    rows.forEach((r, j) => { const y = bot + 24 + j * 16; g.fillStyle = '#7a7a7a'; g.textAlign = 'left'; g.fillText(`${r.maskDb >= 0 ? '+' : ''}${r.maskDb} dB ${r.type}`, 2, y + 8); for (let i = 0; i < NH; i++) { const v = r.visits[i]; if (v < 0.3) continue; const [x0, x1] = cellX(i); if (x1 <= 92) continue; const xa = Math.max(x0, 92); g.fillStyle = 'rgba(20,20,20,0.06)'; g.fillRect(xa, y, x1 - xa, 10); if (r.gone[i] > 0) { g.fillStyle = `rgba(209,48,28,${(0.9 * r.gone[i] / v).toFixed(3)})`; g.fillRect(xa, y, x1 - xa, 10); } } g.strokeStyle = '#141414'; g.beginPath(); g.moveTo(X(MK.FM), y - 2); g.lineTo(X(MK.FM), y + 12); g.stroke(); });
+  }
+  // placing the cricket: drag on the field
+  let dragging = false;
+  const place = (e) => { const r = cv.getBoundingClientRect(); S.manual = nearestHop(e.clientX - r.left); buttons(); meter(); };
+  cv.addEventListener('pointerdown', (e) => { if (STEPS[S.step].key === 'bet') return; dragging = true; try { cv.setPointerCapture(e.pointerId); } catch (_) { /* a synthetic press has no pointer to hold */ } place(e); });
+  cv.addEventListener('pointermove', (e) => { if (dragging) place(e); });
+  cv.addEventListener('pointerup', () => (dragging = false)); cv.addEventListener('pointercancel', () => (dragging = false));
+
+  function sigil() { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+  sigil(); goStep(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

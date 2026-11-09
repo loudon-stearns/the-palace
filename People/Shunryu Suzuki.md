@@ -27,6 +27,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: core-five
   - target: "[[Quality Manifesto]]"
     type: connects-to
     label: wellbeing-over-metrics

@@ -74,6 +74,8 @@ Three systems, one rule for which to wear:
 
 Loudon's word for Drafting Table, 2026-10-21, was "the standard for the work I do." The palace's settled posture for its one default dress is a floor, not a cage ([[Loudon Live Design System]] § The house style); Drafting Table takes the same posture for the workshop: the reliable default a face reaches for, departed from deliberately and with a reason written down. The first wearer is the [[VST Template]]'s WebView editor, by Loudon's decision the same day.
 
+Loudon, 2026-11-08, closing the session that dressed [[Rational Hearing]] and [[Cycle 5 Explorer]] in Drafting Table: "the design systems are in flux… we should be asking 'which look is best for this exact context'. I am not a corporation trying to maintain a brand, I am an artist trying to explore." That is the floor-not-cage posture in its stronger form: the rule above says which dress to reach for; his sentence says the question to ask before reaching.
+
 ## What it is, in brief
 
 - **Two grounds, one set of tokens.** `paper` (`#f0eee5`, ink `#1a1916`, fill `#dcd9ca`, engineering red `#c8261a`: the Drafting skin and the CAD sheets) and `phosphor` (`#050a06`, `#33ff66`, `#1f8a3c`, `#0b2a14`, `#d7f6dc`: Stigmergy, value for value). `data-theme` on the root switches them. A plugin ships on Phosphor in a DAW's dark room; Paper is for pages, prints and proofs.

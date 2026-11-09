@@ -97,10 +97,38 @@
     ta.focus(); ta.select();
   }
 
+  function showHanded() {
+    var box = panel();
+    box.appendChild(el('b', 'display:block;margin-bottom:4px', 'Handed to the rich face.'));
+    box.appendChild(el('div', '', 'Your answers are in the note box at the foot of this section. The face’s Send to STIGMERGY, at the bottom right, sends them with your other notes.'));
+  }
+
+  // Framed in a rich face, the page hands its answers to the face, which keeps
+  // them in its note box for this section and sends them with the rest. A frame
+  // nothing answers within 800 ms is not in a face, and the answers go on as usual.
+  function toFace(o, text) {
+    if (window.parent === window) return Promise.resolve(false);
+    return new Promise(function (resolve) {
+      var done = function (ok) { window.removeEventListener('message', on); clearTimeout(t); resolve(ok); };
+      var on = function (e) { if (e.source === window.parent && e.data && e.data.type === 'rich:note-taken') done(!!e.data.ok); };
+      var t = setTimeout(function () { done(false); }, 800);
+      window.addEventListener('message', on);
+      try { window.parent.postMessage({ type: 'rich:note', page: o.page, task: o.task || '', text: text }, '*'); } catch (e) { done(false); }
+    });
+  }
+
   function submit(o) {
     o = o || {};
     if (!o.page) throw new Error('PalaceAnswers.submit needs { page }');
     var text = readable(o);
+    return toFace(o, text).then(function (handed) {
+      if (!handed) return post(o, text);
+      showHanded();
+      return { mode: 'face', text: text, reason: 'They’re in the rich face’s note box for this section: send them from the face.' };
+    });
+  }
+
+  function post(o, text) {
     var copy = function (why) { showCopy(text, why); return { mode: 'copy', text: text, reason: why }; };
     if (!/^https?:$/.test(location.protocol)) return Promise.resolve(copy('This page is opened as a file, so it can’t reach the board.'));
     var body = JSON.stringify({ page: o.page, task: o.task, answers: o.answers, summary: o.text, url: location.pathname });

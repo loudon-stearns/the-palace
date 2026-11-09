@@ -26,6 +26,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: philosopher-of-practice
   - target: "[[Stoicism]]"
     type: exemplifies
     label: slave-philosopher

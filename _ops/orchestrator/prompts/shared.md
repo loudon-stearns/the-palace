@@ -96,9 +96,9 @@ reader now tolerates all four, but write them correctly anyway; leniency
 is a net, not a licence.
 
 1. **Always set a top-level `request_id`.** It is the correlation key
-   Loudon's grant answers with (`re`). Two requests shipped without one
-   and became cards that could not be cleared — one of them was answered
-   and *still* rendered seven weeks later.
+   Loudon's grant answers with (`re`). Without it the inbox falls back to
+   the message's own `id`; a request carrying neither can never be
+   answered.
 2. **The option key is `id`, never `option_id`.** The grant side uses
    `chosen_option_id`, which makes `option_id` feel symmetrical. It is
    not. A wrong key drops the whole `options[]` and your real question
@@ -294,6 +294,8 @@ BROADCAST prose — the human has no click surface there, and "I propose…"
 prose without a corresponding TRICKSTER ask is a buried decision.
 
 ## Output discipline — emit, do not write
+
+**This section is for a headless cycle.** When Loudon drives you live, no orchestrator runs after you, and the live closing at the end of your prompt takes this section's place: you post each message yourself through the orchestrator's appender (`node _ops/stigmergy/orchestrator/src/cli.js append <file> --target persistent`), which runs the same strict validation, and you square your books with `finalize-live.js` before you stop.
 
 You produce BBS messages by **emitting JSON code-fence blocks in your
 text output**. You do NOT write to the board yourself. Do not call

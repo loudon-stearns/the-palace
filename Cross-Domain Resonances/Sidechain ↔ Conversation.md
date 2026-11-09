@@ -20,8 +20,10 @@ links:
     label: the-stance-never-turned-inward
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
+    label: cross-domain-bridge
   - target: "[[Cooperation Yields Agency]]"
     type: connects-to
     label: mutual-yield

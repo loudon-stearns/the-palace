@@ -22,6 +22,7 @@ links:
     type: enables
   - target: "[[Resonant Link Labels]]"
     type: connects-to
+    label: label-vocabulary
   - target: "[[Worktree Practice]]"
     type: connects-to
     label: specific-vs-hub
@@ -305,7 +306,7 @@ deletes the stale copy.
 
 ## 8. Entry Bundles
 
-An **entry bundle** is an optional sibling folder, named identically to the entry (no extension), that holds the entry's owned files. To anyone who arrives they are of three kinds ([[CHILD]] § A page and its folder): **faces** a reader meets beside the text — the rich face and the scroll; **memory** the next worker reads — the Context companion, the ledgers, the baton; and **workshop**, everything else made along the way. The `.md` is the canonical surface and the first face. Bundles are plumbing, not ceremony — they appear when a ceremony needs a file to live somewhere, and do not require their own invocation.
+An **entry bundle** is an optional sibling folder, named identically to the entry (no extension), that holds the entry's owned files. To anyone who arrives they are of three kinds ([[CHILD]] § A page and its folder): **faces** a reader meets beside the text — the rich face and the scroll; **memory** the next worker reads — the Context companion, the ledgers, the baton; and **workshop**, everything else made along the way. The `.md` is the canonical surface and the first face. The word *face* also names the hero and icon every canon entry wears ([[Hero and Avatar Maker]] § The convention): the faces a reader meets, and the face a page shows the shelf. Bundles are plumbing, not ceremony — they appear when a ceremony needs a file to live somewhere, and do not require their own invocation.
 
 **Folder naming:** `[Entry].md` ↔ `[Entry]/` (exact match, no extension).
 

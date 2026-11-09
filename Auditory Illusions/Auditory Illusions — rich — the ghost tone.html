@@ -1,0 +1,418 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the ghost tone
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece) · its section "In the cochlea — the ear is not a microphone", the paragraph on combination tones · sibling: "Auditory Illusions — rich — the hiding place" (masking, same section) · checked by "Auditory Illusions — rich — check — in-the-cochlea.mjs", beside this file
+  forward_vector: I am a ghost hunt. Two loud tones, and the reader catches a third that is not in the signal by dragging a probe tone until it stops throbbing against it, Tartini-tone hunting done by hand. Then I show the signal I actually sent, two peaks and the probe, with the reader's own marks in red where the ear put the ghost; then the ghost running backwards when the upper tone moves; then a test that tells the ear's distortion from a speaker's, by level and by a clipper that puts the distortion in the signal. I change only when the paragraph I serve does.
+  understood as: a ghost hunt on an op-art field. The lines bulge only where a tone is really in the air and pulse only where two real tones beat; the reader's ear hears a throb the picture never draws, and that gap is the encounter.
+  red: red is always what the ear makes up — the reader's still-point marks and the places the ear puts its ghosts. Ink is what is in the signal. Same meaning in "the hiding place".
+  twin: none, as the page says ("no clean twin"); this piece does not invent one.
+  sound: nothing plays until a button is pressed; the AudioContext is made on that press. Changing step stops the sound. Oscillators → sum → level → (dry, or a 4x-oversampled WaveShaper soft clip → 20 Hz high-pass) → a compressor that never acts at these levels (peaks stay under its −3 dBFS threshold) → an analyser → the speakers. The analyser reads what is sent.
+  check: "Auditory Illusions — rich — check — in-the-cochlea.mjs" runs <script id="ct-core"> in Node: the sent signal has nothing at 2f1−f2 or f2−f1; the probe and a primary make no slow beat in a square-law envelope until the clipper is on; the clipper's products by level; peaks under the compressor's threshold; the analyser calibration.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The ghost tone · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css (as _ops/furniture-fanout/furnish.py does), its --fx-* tokens retinted to the face's paper ground on 2026-11-08.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: #f4f2ec; --fx-bg-elev-1: #efece4; --fx-bg-elev-2: #e8e5dc; --fx-bg-elev-3: #dedad0; --fx-fg-1: #141414; --fx-fg-2: #3a3a3a; --fx-fg-3: #7a7a7a; --fx-fg-4: #a9a69d; --fx-fg-on-accent: #f4f2ec; --fx-border: #c9c6bd; --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: #141414; --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.5); --fx-danger: #d1301c; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:focus-visible::-webkit-slider-thumb {outline: 1px solid var(--fx-accent); outline-offset: 2px;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&display=swap">
+<style>
+  :root{ --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--serif);font-size:18px;line-height:1.6;padding:26px 16px 32px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--sans);font-weight:600;font-size:36px;line-height:1.08;letter-spacing:-.01em;margin:6px 0 10px}
+  h2{font-family:var(--sans);font-weight:500;font-size:22px;line-height:1.2;margin:2px 0 6px}
+  p.lead{font-size:19px;color:var(--ink-2);margin:0 0 16px;max-width:64ch}
+  p.say{color:var(--ink-2);margin:0 0 12px;max-width:68ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:6px 10px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--ink);border-color:var(--ink)}
+  .panel{border:1.5px solid var(--ink);border-radius:2px;padding:16px;margin:0 0 14px;background:var(--paper)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0 0}
+  button.go{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:9px 18px;cursor:pointer}
+  button.go[aria-pressed="true"]{background:var(--paper);color:var(--ink)}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink-2);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:7px 12px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--ink);border-color:var(--ink);background:rgba(20,20,20,.05)}
+  button.ghost:disabled,button.go:disabled{opacity:.35;cursor:default}
+  button.mark{font-family:var(--sans);font-weight:600;font-size:14px;color:var(--red);background:transparent;border:1.5px solid var(--red);border-radius:2px;padding:7px 14px;cursor:pointer}
+  button.mark:active,button.mark.on{background:var(--red);color:var(--paper)}
+  canvas.stage{width:100%;display:block;touch-action:none;margin-top:10px}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3)}
+  .ctl{display:grid;grid-template-columns:150px 1fr auto;gap:6px 14px;align-items:center;margin-top:10px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--ink);text-align:right;white-space:nowrap;min-width:9ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:12px;line-height:1.7}
+  .meter b{color:var(--ink);font-weight:500}
+  .meter i{color:var(--red);font-style:normal}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--ink);margin:12px 0 0;overflow-wrap:anywhere}
+  .eq.words{color:var(--ink-3);font-family:var(--sans);font-size:13px;margin-top:2px}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:4px 12px 4px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  table.marks b{color:var(--red);font-weight:500}
+  .key{display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-family:var(--sans);font-size:12px;color:var(--ink-3)}
+  .key span::before{content:'';display:inline-block;width:14px;height:0;border-top:1.5px solid var(--ink);vertical-align:middle;margin-right:6px}
+  .key span.r::before{border-top:1.5px dashed var(--red)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  .note{font-family:var(--sans);font-size:13px;color:var(--ink-2);border-left:2px solid var(--red);padding:2px 0 2px 10px;margin:10px 0 0;max-width:68ch}
+  footer{margin-top:24px;font-family:var(--sans);font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px}
+  footer b{font-weight:600;letter-spacing:.08em;color:var(--ink-2)}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:28px}.ctl{grid-template-columns:96px 1fr auto}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · in the cochlea · five steps</div>
+  <h1>The ghost between two tones</h1>
+  <p class="lead">Two tones, and something else. The first two steps are play; then what was really sent, then why, then a test you can fail. Speakers or headphones. Volume firm, never painful. Nothing sounds until you press.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <div class="row" id="strikeRow">
+      <button class="go" id="both">Strike both</button>
+      <button class="ghost" id="lower">Only the lower</button>
+      <button class="ghost" id="upper">Only the upper</button>
+      <button class="ghost" id="hush">Stop</button>
+    </div>
+    <div class="row" id="soundRow"><button class="go" id="sound">Sound</button><span class="hint" id="soundHint"></span></div>
+    <canvas class="stage" id="stage" tabindex="0" aria-label="The field: drag the diamond to move the probe tone"></canvas>
+    <div class="key" id="key" hidden><span>in the signal, measured live</span><span class="r">where the ear puts a ghost</span></div>
+    <div class="row" id="probeRow">
+      <button class="ghost" id="nudgeDown" aria-label="probe down 1 Hz">‹</button>
+      <button class="ghost" id="nudgeUp" aria-label="probe up 1 Hz">›</button>
+      <button class="mark" id="markBtn">Mark: it went still</button>
+      <span class="hint">probe</span>
+      <button class="ghost" data-pl="-32">softer</button><button class="ghost" data-pl="-22" aria-pressed="true">middle</button><button class="ghost" data-pl="-12">louder</button>
+      <button class="ghost" id="clearMarks">clear marks</button>
+    </div>
+    <div class="ctl" id="f2Row"><label for="f2">the upper tone<br><span style="text-transform:none;letter-spacing:0">f₂</span></label><input type="range" id="f2" min="1080" max="1500" step="10" value="1200"><span class="v" id="f2v"></span></div>
+    <div class="row" id="mysteryRow"><button class="ghost" id="hideBtn">hide the spacing</button><button class="ghost" id="revealBtn" disabled>reveal</button><span class="hint" id="mysteryHint"></span></div>
+    <div id="rounds"></div>
+    <div id="testBox">
+      <div class="ctl"><label for="lvl">level of the pair</label><input type="range" id="lvl" min="-30" max="0" step="1" value="0"><span class="v" id="lvlv"></span></div>
+      <div class="row">
+        <button class="ghost" id="clipBtn" aria-pressed="false">clipper: off</button>
+        <button class="ghost" id="probeBtn" aria-pressed="false">probe: off</button>
+        <span class="hint">then, at this setting, the ghost is</span>
+        <button class="ghost" id="recYes">there</button><button class="ghost" id="recNo">gone</button>
+      </div>
+      <div id="records"></div>
+    </div>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+
+  <footer><svg id="sigil" width="22" height="22" viewBox="-11 -11 22 22" aria-hidden="true"></svg><b>LOUD’N LIVE</b> · Auditory Illusions · the ghost tone · Sketch, 2026-11-08 · Web Audio, made here</footer>
+</main>
+
+<script id="ct-core">
+// The engine: the numbers this piece plays and draws, shared with the check script beside it, which runs this
+// block in Node. Plain functions, no Web Audio.
+const CT = (() => {
+  const F1 = 1000, F2 = 1200;                 // the page's two tones
+  const A = 0.2;                              // each tone's amplitude, −14 dBFS; the pair peaks at 0.4 (−8 dBFS)
+  const PROBE_DB = -22;                       // the probe's starting level, re one tone
+  const FMIN = 120, FMAX = 1600;              // the strip
+  const PROBE_MIN = 150, PROBE_MAX = 1500;
+  // Where an ear (or any bent amplifier) puts new tones from two: the cubic ones and the quadratic one.
+  const ghosts = (f1, f2) => ({ cubic: 2 * f1 - f2, quad: f2 - f1, upper: 2 * f2 - f1, fifth: 3 * f1 - 2 * f2 });
+  // The clipper: a soft clip, a little lopsided, as a small speaker pushed hard is. Its slope is 1 at zero, so a
+  // quiet signal passes nearly untouched; the bias makes it lopsided, which adds the even product f2 − f1.
+  const DRIVE = 5, BIAS = 0.06;
+  function clip(x, k = DRIVE, b = BIAS) { const s = 1 / Math.cosh(k * b); return (Math.tanh(k * (x + b)) - Math.tanh(k * b)) / (k * s * s); }
+  function curve(n = 8193) { const c = new Float32Array(n); for (let i = 0; i < n; i++) c[i] = clip(-1 + 2 * i / (n - 1)); return c; }
+  // How a WaveShaperNode reads its curve (the Web Audio spec): input in [−1, 1] mapped onto the curve, linear between points.
+  function shape(c, x) { const n = c.length, v = (n - 1) / 2 * (x + 1); if (v <= 0) return c[0]; if (v >= n - 1) return c[n - 1]; const i = Math.floor(v), f = v - i; return c[i] * (1 - f) + c[i + 1] * f; }
+  // An AnalyserNode's dB for a sine of amplitude a (the spec: 1/N, a Blackman window whose mean is 0.42, one side): 20·log10(a·0.21).
+  const CAL = -20 * Math.log10(0.42 / 2);
+  const ampFromDb = (db) => Math.pow(10, (db + CAL) / 20);
+  const COMP = { threshold: -3, knee: 0, ratio: 4, attack: 0.003, release: 0.25 };
+  const METER_FLOOR = -90;                    // dB re the 1000 Hz tone: below this the meter says "below the floor"
+  // The hidden spacing: f2 drawn from 1100–1350 Hz (whole Hz), so the ghost lands somewhere in 650–900 Hz; a mark within
+  // 5 Hz of it counts as caught, which a blind guess does at most 11 times in 251 (about 4%). The probe stops at 990 Hz,
+  // so the upper tone can't be found by beating against it.
+  const MYSTERY = { lo: 1100, hi: 1350, within: 5, probeMax: 990 };
+  const mysteryChance = () => (2 * MYSTERY.within + 1) / (MYSTERY.hi - MYSTERY.lo + 1);
+  return { MYSTERY, mysteryChance, F1, F2, A, PROBE_DB, FMIN, FMAX, PROBE_MIN, PROBE_MAX, ghosts, DRIVE, BIAS, clip, curve, shape, CAL, ampFromDb, COMP, METER_FLOOR };
+})();
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const db = (a) => 20 * Math.log10(Math.max(a, 1e-12));
+  const S = { step: 0, playing: false, on1: true, on2: true, probeOn: false, probeF: 560, probeDb: CT.PROBE_DB, f2: CT.F2, levelDb: 0, clip: false, marks: [], records: [], mystery: false, round: null, roundCount: 0, rounds: [] };
+
+  // ── sound: made on the first press ──
+  let ctx = null, N = null;
+  function ensure() {
+    if (!ctx) {
+      ctx = new AudioContext();
+      const comp = new DynamicsCompressorNode(ctx, CT.COMP);
+      const an = new AnalyserNode(ctx, { fftSize: 32768, smoothingTimeConstant: 0.5, minDecibels: -180, maxDecibels: 0 });
+      comp.connect(an); an.connect(ctx.destination);
+      const out = new GainNode(ctx, { gain: 1 }); out.connect(comp);
+      const sum = new GainNode(ctx, { gain: 1 }), level = new GainNode(ctx, { gain: 1 });
+      const dry = new GainNode(ctx, { gain: 1 }), wet = new GainNode(ctx, { gain: 0 });
+      const shaper = new WaveShaperNode(ctx, { curve: CT.curve(), oversample: '4x' });
+      const hp = new BiquadFilterNode(ctx, { type: 'highpass', frequency: 20, Q: Math.SQRT1_2 });
+      sum.connect(level); level.connect(dry).connect(out); level.connect(shaper).connect(hp).connect(wet).connect(out);
+      N = { comp, an, out, sum, level, dry, wet, oscs: null, bins: new Float32Array(an.frequencyBinCount) };
+    }
+    if (ctx.state !== 'running') ctx.resume();
+    return ctx;
+  }
+  const lin = (d) => Math.pow(10, d / 20);
+  function start() {
+    ensure(); stopOscs();
+    const t = ctx.currentTime, mk = (f, a) => { const o = new OscillatorNode(ctx, { frequency: f }), g = new GainNode(ctx, { gain: 0 }); o.connect(g).connect(N.sum); o.start(t); g.gain.setTargetAtTime(a, t, 0.02); return { o, g }; };
+    N.oscs = { a: mk(CT.F1, S.on1 ? CT.A : 0), b: mk(S.f2, S.on2 ? CT.A : 0), p: mk(S.probeF, S.probeOn ? CT.A * lin(S.probeDb) : 0) };
+    applyLevel(); applyClip(); S.playing = true; buttons();
+  }
+  function stopOscs() { if (N && N.oscs) { const t = ctx.currentTime; for (const k in N.oscs) { const { o, g } = N.oscs[k]; g.gain.setTargetAtTime(0, t, 0.015); o.stop(t + 0.12); } N.oscs = null; } }
+  function stop() { stopOscs(); S.playing = false; buttons(); }
+  function set(k, a) { if (N && N.oscs) N.oscs[k].g.gain.setTargetAtTime(a, ctx.currentTime, 0.02); }
+  function applyLevel() { if (N) N.level.gain.setTargetAtTime(lin(S.levelDb), ctx.currentTime, 0.03); }
+  function applyClip() { if (N) { const t = ctx.currentTime; N.dry.gain.setTargetAtTime(S.clip ? 0 : 1, t, 0.02); N.wet.gain.setTargetAtTime(S.clip ? 1 : 0, t, 0.02); } }
+  function setProbeF(f) { S.probeF = Math.max(CT.PROBE_MIN, Math.min(S.mystery ? CT.MYSTERY.probeMax : CT.PROBE_MAX, f)); if (N && N.oscs) N.oscs.p.o.frequency.setTargetAtTime(S.probeF, ctx.currentTime, 0.015); }
+  function setProbeDb(d) { S.probeDb = d; set('p', S.probeOn ? CT.A * lin(d) : 0); document.querySelectorAll('[data-pl]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.pl === d))); }
+  function setF2(f) { S.f2 = f; if (N && N.oscs) N.oscs.b.o.frequency.setTargetAtTime(f, ctx.currentTime, 0.02); }
+
+  // ── the analyser's reading near a frequency: the loudest bin within ±3, as a sine's amplitude ──
+  function readAmp(f) { if (!N || !S.playing) return 0; const df = ctx.sampleRate / N.an.fftSize, k = Math.round(f / df); let m = -Infinity; for (let i = k - 3; i <= k + 3; i++) if (i > 0 && i < N.bins.length && N.bins[i] > m) m = N.bins[i]; return CT.ampFromDb(m); }
+
+  // ── the steps ──
+  const STEPS = [
+    { key: 'strike', rail: 'two tones', title: 'Two bright tones',
+      say: 'Press Strike both. Two steady tones, bright and fairly high. Now listen underneath them: lower than either one, is something else there, faint and steady? Try each tone alone, then both again, and listen for what comes and goes with the pair. Turn the volume up to firm, louder than talking, never painful. Stop if it hurts.' },
+    { key: 'catch', rail: 'catch it', title: 'Catch it with a probe',
+      say: 'Something faint is easy to doubt, so catch it the way violinists have hunted it since Tartini: with a probe. Press Sound, then drag the diamond along the lines (‹ › move it one step; shift-drag moves it finely). Wherever the probe comes near another tone, the two throb against each other, slower the closer they get, and the throb stops when the probe sits right on it. When it goes still, press Mark, or M. Hunt the whole strip. Watch the lines while you listen.' },
+    { key: 'sent', rail: 'what was sent', title: 'What was sent',
+      say: 'This is the signal itself, measured live as it leaves for your speakers: across is pitch, up is level. Two tall peaks at 1000 and 1200 Hz, and the probe. Nothing else, down to the meter’s floor. Near 1000 and 1200 the probe throbbed against tones that are really there; those are beats in the air, the page’s first section, and the lines pulsed with them. If you also found a still point near 800 Hz, the probe was beating against a tone that is not in this signal. Your ear made it. Some people also find one near 200 Hz; it needs more level. One honest catch: 800, 1000 and 1200 Hz make a 4 : 5 : 6 chord, so part of the stillness at 800 may be your ear hearing a chord come into tune. The hidden round in the next step moves the pair off such ratios.' },
+    { key: 'back', rail: 'it runs backwards', title: 'The ghost runs backwards',
+      say: 'Move the upper tone. Up, and the ghost goes down: it sits at twice the lower tone minus the upper, so it moves against the tone you moved. Nothing in the air does that; the signal is still only the two tones and the probe. Hunt it again at a new spacing. Spread the pair wide and it fades: Goldstein (1967) found it strongest when the two are close, falling off sharply as the gap grows. Then hide the spacing: the upper tone moves somewhere you are not told, the picture goes blank, and you hunt the ghost by ear alone. Reveal, and see how close you came; within 5 Hz counts as caught, which a blind guess does about 4% of the time. Where it comes from: the cochlea is not a microphone. Its outer hair cells push on the membrane in time with the sound, an amplifier that lifts quiet sounds and squashes loud ones. Anything that squashes a sum of two tones makes new tones out of them. The cube in the squash puts one at 2f₁ − f₂, below both, at a place on the membrane the two tones barely reach, and there it is heard as a tone of its own. It is physical: a small microphone in the ear canal picks it up coming back out of the ear (a distortion-product otoacoustic emission), and newborn hearing screens listen for it.' },
+    { key: 'test', rail: 'yours, or the speaker’s', title: 'Yours, or the speaker’s?',
+      say: 'Two accounts of the ghost disagree, and this step lets your ear weigh in. The page says the outer hair cells distort “like any amplifier pushed hard”: then the ghost should behave like an overloaded amplifier’s and fade away faster than the tones as you turn them down. Goldstein (1967) found the opposite: its level, measured against the two tones, depended on the ratio between their levels, not on how loud they were, so it should keep its distance as you turn down. Which is right for your ear is open; it is an offer against the page, not settled. Use headphones for the runs with the clipper off, so your speakers add nothing. Turn down in steps and record at each one whether the ghost is there or gone; a “gone” is a result, and it counts for the page’s account. For comparison, the clipper is an amplifier pushed hard, on purpose: switch it on and the meter reads the 800 Hz it puts in the signal, which falls about 2 dB further below the tones for each 1 dB you turn down. Speakers can do the same, which is why headphones. The probe is off here so the meter reads only what the clipper adds; switch it on to hunt.' },
+  ];
+
+  function buttons() {
+    $('both').setAttribute('aria-pressed', String(S.playing && S.on1 && S.on2));
+    $('lower').setAttribute('aria-pressed', String(S.playing && S.on1 && !S.on2));
+    $('upper').setAttribute('aria-pressed', String(S.playing && !S.on1 && S.on2));
+    $('sound').textContent = S.playing ? 'Stop' : 'Sound';
+    $('clipBtn').textContent = 'clipper: ' + (S.clip ? 'on' : 'off'); $('clipBtn').setAttribute('aria-pressed', String(S.clip));
+    $('probeBtn').textContent = 'probe: ' + (S.probeOn ? 'on' : 'off'); $('probeBtn').setAttribute('aria-pressed', String(S.probeOn));
+  }
+  function strike(on1, on2) { S.on1 = on1; S.on2 = on2; if (!S.playing) start(); else { set('a', on1 ? CT.A : 0); set('b', on2 ? CT.A : 0); } buttons(); }
+  $('both').onclick = () => strike(true, true);
+  $('lower').onclick = () => strike(true, false);
+  $('upper').onclick = () => strike(false, true);
+  $('hush').onclick = stop;
+  $('sound').onclick = () => (S.playing ? stop() : start());
+  $('nudgeDown').onclick = () => setProbeF(S.probeF - 1);
+  $('nudgeUp').onclick = () => setProbeF(S.probeF + 1);
+  function mark() { if (!S.probeOn) return; S.marks.push({ f: S.probeF, f2: S.f2, round: S.round }); $('markBtn').classList.add('on'); setTimeout(() => $('markBtn').classList.remove('on'), 160); meter(); }
+  $('markBtn').onclick = mark;
+  $('clearMarks').onclick = () => { S.marks = []; meter(); };
+  document.querySelectorAll('[data-pl]').forEach((b) => (b.onclick = () => setProbeDb(+b.dataset.pl)));
+  $('f2').oninput = (e) => { setF2(+e.target.value); meter(); };
+  $('hideBtn').onclick = () => {
+    S.mystery = true; S.round = ++S.roundCount; const M = CT.MYSTERY; setF2(M.lo + Math.floor(Math.random() * (M.hi - M.lo + 1)));
+    S.probeOn = true; setProbeF(Math.min(S.probeF, M.probeMax)); if (!S.playing) start(); else set('p', CT.A * lin(S.probeDb));
+    $('f2Row').hidden = true; $('hideBtn').disabled = true; $('revealBtn').disabled = false; meter();
+  };
+  $('revealBtn').onclick = () => {
+    const here = S.marks.filter((m) => m.round === S.round), last = here[here.length - 1], ghost = CT.ghosts(CT.F1, S.f2).cubic;
+    S.rounds.push({ f2: S.f2, ghost, mark: last ? last.f : null, off: last ? last.f - ghost : null });
+    S.mystery = false; S.round = null; $('f2Row').hidden = false; $('f2').value = Math.round(S.f2 / 10) * 10; $('hideBtn').disabled = false; $('revealBtn').disabled = true;
+    const rows = S.rounds.map((r, i) => `<tr><td>${i + 1}</td><td>${r.f2} Hz</td><td>${r.ghost} Hz</td><td>${r.mark === null ? 'no mark' : r.mark.toFixed(1) + ' Hz'}</td><td>${r.off === null ? '—' : (r.off >= 0 ? '+' : '') + r.off.toFixed(1) + ' Hz'}</td><td>${r.off !== null && Math.abs(r.off) <= CT.MYSTERY.within ? '<b>caught</b>' : 'missed'}</td></tr>`).join('');
+    const caught = S.rounds.filter((r) => r.off !== null && Math.abs(r.off) <= CT.MYSTERY.within).length;
+    $('rounds').innerHTML = `<table class="marks"><tr><th>round</th><th>hidden f₂</th><th>ghost, 2f₁ − f₂</th><th>your last mark</th><th>off by</th><th></th></tr>${rows}</table><p class="hint">Caught ${caught} of ${S.rounds.length}. A blind guess lands within ${CT.MYSTERY.within} Hz at most ${(100 * CT.mysteryChance()).toFixed(1)}% of the time, so two catches in a row by guessing is under 0.2%.</p>`;
+    meter();
+  };
+  $('lvl').oninput = (e) => { S.levelDb = +e.target.value; applyLevel(); meter(); };
+  $('clipBtn').onclick = () => { S.clip = !S.clip; applyClip(); buttons(); };
+  $('probeBtn').onclick = () => { S.probeOn = !S.probeOn; set('p', S.probeOn ? CT.A * lin(S.probeDb) : 0); buttons(); };
+  function record(heard) {
+    const a1 = readAmp(CT.F1), g = CT.ghosts(CT.F1, S.f2), rc = db(readAmp(g.cubic) / a1);
+    S.records.push({ level: S.levelDb, clip: S.clip, own: S.playing && a1 > 0 ? rc : null, heard });
+    const rows = S.records.map((r) => `<tr><td>${r.level} dB</td><td>${r.clip ? 'on' : 'off'}</td><td>${r.own === null ? 'not sounding' : r.own < CT.METER_FLOOR ? 'below the floor' : r.own.toFixed(0) + ' dB'}</td><td>${r.heard ? '<b>there</b>' : 'gone'}</td></tr>`).join('');
+    $('records').innerHTML = `<table class="marks"><tr><th>level</th><th>clipper</th><th>the signal’s own 800 Hz, re the tones</th><th>you heard the ghost</th></tr>${rows}</table>`;
+  }
+  $('recYes').onclick = () => record(true); $('recNo').onclick = () => record(false);
+
+  function meter() {
+    const k = STEPS[S.step].key, g = CT.ghosts(CT.F1, S.f2); let h = '';
+    if (k === 'back' && S.mystery) { const n = S.marks.filter((m) => m.round === S.round).length; h = `the spacing is hidden · the probe stops at ${CT.MYSTERY.probeMax} Hz, so the upper tone can’t be found by beating · marks this round: <b>${n}</b> (the last one counts)`; $('meter').innerHTML = h; return; }
+    if (k === 'sent' || k === 'back') {
+      const here = S.marks.filter((m) => m.f2 === S.f2 && m.round === null);
+      const near = here.filter((m) => Math.abs(m.f - g.cubic) <= 15 || Math.abs(m.f - g.quad) <= 15);
+      h = `your still points at f₂ = ${S.f2} Hz: ${here.length ? here.map((m) => `<i>${m.f.toFixed(1)} Hz</i>`).join(' · ') : 'none yet'}`;
+      h += `<br>the ear’s ghosts for this pair: <i>2f₁ − f₂ = ${g.cubic} Hz</i> · <i>f₂ − f₁ = ${g.quad} Hz</i> · ${near.length ? `<b>${near.length}</b> of your marks within 15 Hz of one` : 'no mark within 15 Hz of either yet; not everyone hears it, and level and speakers matter (step 5)'}`;
+      if (k === 'back') h += `<br>f₂ / f₁ = <b>${(S.f2 / CT.F1).toFixed(2)}</b>`;
+    }
+    if (k === 'test') h = `<span id="live"></span>`;
+    $('meter').innerHTML = h;
+    $('f2v').textContent = S.f2 + ' Hz'; $('lvlv').textContent = S.levelDb + ' dB';
+  }
+  function live() {
+    const el = $('live'); if (!el) return;
+    if (!S.playing) { el.innerHTML = 'press Sound to read the signal'; return; }
+    const g = CT.ghosts(CT.F1, S.f2), a1 = readAmp(CT.F1), r = (f) => { const v = db(readAmp(f) / a1); return v < CT.METER_FLOOR ? 'below the floor (' + CT.METER_FLOOR + ' dB)' : v.toFixed(0) + ' dB'; };
+    el.innerHTML = `in the signal now · 1000 Hz tone <b>${db(a1).toFixed(1)} dBFS</b> · at ${g.cubic} Hz <b>${r(g.cubic)}</b> · at ${g.quad} Hz <b>${r(g.quad)}</b> (re the tone)${S.probeOn ? ' · <i>the probe is on: near the ghost it reads the probe too</i>' : ''}`;
+  }
+
+  // ── the walk ──
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => goStep(i); r.appendChild(b); }); }
+  function goStep(i) {
+    stop(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step], k = s.key;
+    rail();
+    $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`; $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    $('strikeRow').hidden = k !== 'strike'; $('soundRow').hidden = k === 'strike';
+    $('probeRow').hidden = k === 'strike'; $('f2Row').hidden = k !== 'back'; $('testBox').hidden = k !== 'test';
+    $('key').hidden = !(k === 'sent' || k === 'back' || k === 'test');
+    S.on1 = S.on2 = true; S.mystery = false; S.round = null; $('hideBtn').disabled = false; $('revealBtn').disabled = true;
+    $('mysteryRow').hidden = k !== 'back'; $('rounds').hidden = k !== 'back';
+    S.probeOn = k === 'catch' || k === 'sent' || k === 'back';
+    if (k !== 'back') { S.f2 = CT.F2; $('f2').value = CT.F2; }
+    if (k !== 'test') { S.levelDb = 0; $('lvl').value = 0; S.clip = false; }
+    $('soundHint').textContent = k === 'catch' ? 'then drag the diamond' : k === 'test' ? 'the pair, at the level below' : '';
+    const eq = {
+      strike: ['', '', '', ''], catch: ['', '', '', ''],
+      sent: ['2f₁ − f₂ = 2 × 1000 − 1200 = 800 Hz', 'twice the lower tone, minus the upper', 'f₂ − f₁ = 1200 − 1000 = 200 Hz', 'the gap between the two'],
+      back: ['(cos ω₁t + cos ω₂t)³ contains ¾·cos((2ω₁ − ω₂)t)', 'cube a sum of two tones and a tone at twice the first minus the second falls out of it', '(cos ω₁t + cos ω₂t)² contains cos((ω₂ − ω₁)t)', 'square it and the gap appears; the low f₂ − f₁ ghost needs a lopsided bend, and more level'],
+      test: ['clipper: y = [tanh(k(x + b)) − tanh(kb)] / (k·sech²(kb)),  k = 5, b = 0.06', 'a soft clip with slope 1 at zero, a little lopsided: quiet passes nearly clean, loud gets squashed, as a small speaker pushed hard', 'turned down by 1 dB: page’s account, the ghost falls further below the tones · Goldstein’s, it keeps its distance · this clipper, ≈ 2 dB further', 'two predictions for the ear, one measured for the clipper; your records say which your ear follows'],
+    }[k];
+    $('eq1').textContent = eq[0]; $('eq1w').textContent = eq[1]; $('eq2').textContent = eq[2]; $('eq2w').textContent = eq[3];
+    $('stage').style.height = (k === 'strike' || k === 'catch' ? 230 : 260) + 'px';
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    buttons(); meter();
+  }
+  $('back').onclick = () => goStep(S.step - 1); $('next').onclick = () => goStep(S.step + 1);
+
+  // ── the field ──
+  const cv = $('stage'); let W = 0, H = 0, g2 = null;
+  function fit() { const d = devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight; if (cv.width !== Math.round(w * d) || cv.height !== Math.round(h * d)) { cv.width = Math.round(w * d); cv.height = Math.round(h * d); } g2 = cv.getContext('2d'); g2.setTransform(d, 0, 0, d, 0, 0); W = w; H = h; }
+  const PAD = 26, X = (f) => PAD + Math.log(f / CT.FMIN) / Math.log(CT.FMAX / CT.FMIN) * (W - 2 * PAD), F = (x) => CT.FMIN * Math.pow(CT.FMAX / CT.FMIN, (x - PAD) / (W - 2 * PAD));
+  // What is in the air right now: the tones this piece sends, and, with the clipper on, the products it measures.
+  function components() {
+    if (!S.playing) return [];
+    const L = lin(S.levelDb), c = [];
+    if (S.on1) c.push({ f: CT.F1, a: CT.A * L }); if (S.on2) c.push({ f: S.f2, a: CT.A * L });
+    if (S.probeOn) c.push({ f: S.probeF, a: CT.A * lin(S.probeDb) * L, probe: true });
+    if (S.clip && N) { const g = CT.ghosts(CT.F1, S.f2); for (const f of [g.cubic, g.quad, g.upper, g.fifth]) if (f > CT.FMIN && f < CT.FMAX) { const a = readAmp(f); if (db(a / (CT.A * L)) > -60) c.push({ f, a }); } }
+    return c;
+  }
+  const bumpPx = (a) => Math.max(0, db(a) + 70) / 70 * 24;
+  function draw(ts) {
+    requestAnimationFrame(draw); fit(); const g = g2; g.clearRect(0, 0, W, H);
+    if (N && S.playing) N.an.getFloatFrequencyData(N.bins);
+    const k = STEPS[S.step].key, spec = (k === 'sent' || k === 'back' || k === 'test') && !S.mystery, t = ts / 1000;
+    const comps = S.mystery ? [] : components();
+    // Real beats: two components in the air within 12 Hz throb at their difference; draw the pair as one bump whose height follows the true envelope.
+    const shown = comps.map((c) => ({ ...c, h: bumpPx(c.a) }));
+    for (let i = 0; i < shown.length; i++) for (let j = i + 1; j < shown.length; j++) {
+      const a = shown[i], b = shown[j], d = Math.abs(a.f - b.f); if (d > 12) continue;
+      const env = Math.sqrt(a.a * a.a + b.a * b.a + 2 * a.a * b.a * (reduce ? 1 : Math.cos(2 * Math.PI * d * t)));
+      const big = a.a >= b.a ? a : b, small = big === a ? b : a; big.h = bumpPx(env); small.h = 0; big.beat = d;
+    }
+    // the op-art field: level lines, bent only by what is in the air
+    const lines = spec ? 7 : 15, top = spec ? 16 : 20, bot = H - (spec ? 34 : 18);
+    g.lineWidth = 1; g.strokeStyle = spec ? 'rgba(20,20,20,0.12)' : '#141414';
+    for (let li = 0; li < lines; li++) {
+      const y0 = top + 18 + li * (bot - top - 18) / (lines - 1), lift = 1 - 0.55 * li / (lines - 1);
+      g.beginPath();
+      for (let x = PAD - 10; x <= W - PAD + 10; x += 2) { let d = 0; for (const c of shown) { const z = (x - X(c.f)) / 13; d += c.h * Math.exp(-z * z); } const y = y0 - d * lift; x === PAD - 10 ? g.moveTo(x, y) : g.lineTo(x, y); }
+      g.stroke();
+    }
+    if (reduce) { g.font = '11px JetBrains Mono, monospace'; g.fillStyle = '#3a3a3a'; g.textAlign = 'center'; for (const c of shown) if (c.beat) g.fillText(`throbbing in the air · ${c.beat.toFixed(1)} Hz`, X(c.f), top + 8); }
+    if (spec) {
+      // the axis, and the live spectrum of what was sent
+      const Y = (d) => top + (-d / 100) * (bot - top);
+      g.font = '10px JetBrains Mono, monospace'; g.fillStyle = '#7a7a7a'; g.strokeStyle = '#c9c6bd'; g.textAlign = 'center';
+      for (const f of [125, 200, 300, 400, 600, 800, 1000, 1200, 1500]) { g.beginPath(); g.moveTo(X(f), bot); g.lineTo(X(f), bot + 4); g.stroke(); g.fillText(f + '', X(f), bot + 15); }
+      g.textAlign = 'left'; for (const d of [0, -40, -80]) g.fillText(d + ' dB', 2, Y(d) + 3);
+      g.fillText('meter floor', 2, Y(-100) - 2);
+      if (N && S.playing) {
+        const df = ctx.sampleRate / N.an.fftSize; g.strokeStyle = '#141414'; g.lineWidth = 1.5; g.beginPath();
+        for (let x = PAD; x <= W - PAD; x++) { const f0 = F(x), f1 = F(x + 1); let m = -Infinity; for (let b = Math.floor(f0 / df); b <= Math.ceil(f1 / df); b++) if (N.bins[b] > m) m = N.bins[b]; const d = Math.max(-100, Math.min(0, db(CT.ampFromDb(m)))); x === PAD ? g.moveTo(x, Y(d)) : g.lineTo(x, Y(d)); }
+        g.stroke(); g.lineWidth = 1;
+      }
+      // where the ear puts its ghosts: red, dashed, because they are not in this line
+      const gh = CT.ghosts(CT.F1, S.f2); g.setLineDash([4, 4]); g.strokeStyle = '#d1301c'; g.fillStyle = '#d1301c'; g.textAlign = 'center';
+      for (const [f, lab] of [[gh.cubic, '2f₁ − f₂'], [gh.quad, 'f₂ − f₁']]) { g.beginPath(); g.moveTo(X(f), top + 12); g.lineTo(X(f), bot); g.stroke(); g.fillText(lab, X(f), top + 8); }
+      g.setLineDash([]);
+    }
+    // the reader's still points: red ticks along the foot (faint for another spacing of the pair)
+    for (const m of S.marks) { g.strokeStyle = (S.mystery ? m.round === S.round : m.round === null && m.f2 === S.f2) ? '#d1301c' : 'rgba(209,48,28,0.3)'; g.lineWidth = 2; g.beginPath(); g.moveTo(X(m.f), bot - 22); g.lineTo(X(m.f), bot); g.stroke(); g.lineWidth = 1; }
+    // the probe: a diamond on a hairline
+    if (S.probeOn && k !== 'strike') {
+      const x = X(S.probeF); g.strokeStyle = '#7a7a7a'; g.setLineDash([2, 3]); g.beginPath(); g.moveTo(x, 14); g.lineTo(x, bot); g.stroke(); g.setLineDash([]);
+      g.fillStyle = '#f4f2ec'; g.strokeStyle = '#141414'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(x, 2); g.lineTo(x + 7, 9); g.lineTo(x, 16); g.lineTo(x - 7, 9); g.closePath(); g.fill(); g.stroke(); g.lineWidth = 1;
+      if (spec) { g.fillStyle = '#141414'; g.font = '10px JetBrains Mono, monospace'; g.textAlign = x > W - 90 ? 'right' : 'left'; g.fillText(S.probeF.toFixed(1) + ' Hz', x + (x > W - 90 ? -10 : 10), 12); }
+    }
+    if (k === 'test') live();
+  }
+  // dragging the probe: anywhere on the strip; shift for a fine move
+  let drag = null;
+  cv.addEventListener('pointerdown', (e) => { if (!S.probeOn || STEPS[S.step].key === 'strike') return; try { cv.setPointerCapture(e.pointerId); } catch (_) { /* a synthetic press has no pointer to hold */ } const r = cv.getBoundingClientRect(); drag = { x: e.clientX - r.left, f: S.probeF }; if (!e.shiftKey) setProbeF(F(drag.x)); drag.f = S.probeF; });
+  cv.addEventListener('pointermove', (e) => { if (!drag) return; const r = cv.getBoundingClientRect(), x = e.clientX - r.left; const per = Math.log(CT.FMAX / CT.FMIN) / (W - 2 * PAD); setProbeF(drag.f * Math.exp((x - drag.x) * per * (e.shiftKey ? 0.1 : 1))); drag.x = x; drag.f = S.probeF; });
+  cv.addEventListener('pointerup', () => (drag = null)); cv.addEventListener('pointercancel', () => (drag = null));
+  cv.addEventListener('keydown', (e) => { if (!S.probeOn) return; if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); setProbeF(S.probeF + (e.key === 'ArrowRight' ? 1 : -1) * (e.shiftKey ? 10 : 1)); } });
+  document.addEventListener('keydown', (e) => { if ((e.key === 'm' || e.key === 'M') && document.activeElement && document.activeElement.tagName !== 'INPUT') mark(); });
+
+  function sigil() { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+  sigil(); goStep(0); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

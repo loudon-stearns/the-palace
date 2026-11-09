@@ -1,0 +1,419 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the barber pole and the stair
+  born: 2026-11-08
+  links: [[Auditory Illusions]] connects-to · rich-face-piece-of (§ Pitch is computed, not measured, The Shepard tone) · [[Shepard Tone Synthesizer]] points-to · the-full-build · [[Playful Interface Design]] dressed-by
+  forward_vector: I am the Shepard tone's twin in the eye, heard and seen in one gesture, and nothing more: the full
+    build, stage by stage with its blind test of the seam, lives on the Shepard Tone Synthesizer page, and the face
+    gathers it there. Here a barber pole you spin with your hand, a Penrose stair a small walker climbs, and under
+    both a Risset glide of my own (eight sines an octave apart in a raised-cosine loudness window) rise together and
+    arrive nowhere. Then what is really turning (eight voices; a pole turning sideways; a stair that is a real spiral
+    seen from the one place its ends meet), and the break: take the window off and the ear hears the seam; walk
+    round the stair and the eye sees it.
+  understood as: a thing with mass, turned by hand. The pole spins when you drag across it, keeps some of the spin
+    when you let go, and settles to a slow motor turn in the direction you last gave it. Every reaction is the
+    sound's: the pole's turn, the walker's steps and the glide are one number, the phase, advancing in octaves.
+  red means: really there. The pole's red stripes are really painted on it; on the ladder of voices the red bars
+    are the sines really sounding, at their real level. What the eye or ear makes up (the upward motion, the
+    closed loop of the stair, the endless climb) is never red; where it is drawn, it is a dashed ink line.
+  sound: nothing plays until a click; the AudioContext is made on that click. Changing step stops the sound. A
+    compressor sits before the destination as a safety (threshold -3 dBFS).
+  check: "Auditory Illusions — rich — check — pitch-is-computed.mjs", beside this file: the voices exactly an octave
+    apart, the window's level at the wrap (a frame moves the glide at most 1/30 s, so a voice wraps at most 0.02 octave from the edge), the mix's summed amplitude and power constant across the climb, the flat
+    window matched in power, and the stair's two ends projecting onto one point at the special view and apart off
+    it. Whether it climbs for you, only an ear can say.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>The barber pole and the stair · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-08 · retinted to paper">
+/* The browser's furniture, re-dressed: the free seam's inlined block (from _ops/loudon-live/design-system/controls.css), retinted to this face's paper ground.
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: #ece9e1; --fx-bg-elev-2: #e4e0d6; --fx-bg-elev-3: #dcd8cd; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: var(--rule, #c9c6bd); --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.55); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.06); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: var(--red, #d1301c); --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: none; --fx-shadow-3: none; }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); color: var(--ink-2); font-family: var(--sans); }
+  .pc-piece { padding: 22px 22px 18px; }
+  .pc-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .pc-title { font-family: var(--serif); font-size: 29px; font-weight: 400; color: var(--ink); margin: 0 0 8px; line-height: 1.12; }
+  .pc-title em { font-style: italic; }
+  .pc-says { font-family: var(--serif); font-size: 20px; line-height: 1.42; color: var(--ink); max-width: 66ch; margin: 0 0 14px; min-height: 2.9em; }
+  .pc-tabs { display: flex; flex-wrap: wrap; margin: 0 0 12px; }
+  .pc-tabs button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); background: var(--paper); border: 1px solid var(--rule); border-radius: 2px; padding: 8px 12px; cursor: pointer; }
+  button:hover { border-color: var(--ink-3); color: var(--ink); }
+  button[aria-pressed="true"] { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+  button.pc-go { color: var(--ink); border: 1.5px solid var(--ink); min-width: 120px; }
+  button.pc-go[aria-pressed="true"] { color: var(--paper); }
+  button:disabled { opacity: .35; cursor: default; }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+  .pc-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; }
+  .pc-stage { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: stretch; }
+  .pc-stage.pc-three { grid-template-columns: 150px 1fr 220px; }
+  @media (max-width: 760px) { .pc-stage, .pc-stage.pc-three { grid-template-columns: 120px 1fr; } .pc-ladder { grid-column: 1 / -1; } }
+  .pc-panel { border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); padding: 10px 12px; position: relative; }
+  .pc-plabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; display: flex; justify-content: space-between; gap: 10px; }
+  canvas { display: block; width: 100%; }
+  #pole { cursor: grab; touch-action: none; }
+  #pole.pc-drag { cursor: grabbing; }
+  .pc-step { margin-top: 14px; border-top: 1px solid var(--rule); padding-top: 12px; }
+  .pc-stephead { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .pc-stephead span + span { color: var(--ink-3); }
+  .pc-teach { font-size: 14.5px; line-height: 1.62; max-width: 74ch; margin: 6px 0 10px; color: var(--ink-2); }
+  .pc-teach b { color: var(--ink); font-weight: 500; }
+  .pc-back { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin: 4px 0 0; }
+  label.pc-sl { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; color: var(--ink-3); max-width: 380px; margin: 4px 0 10px; }
+  label.pc-sl b { color: var(--ink); font-weight: 500; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 14px; background: transparent; margin: 6px 0 2px; }
+  input[type=range]::-webkit-slider-runnable-track { height: 1.5px; background: var(--ink-3); }
+  input[type=range]::-moz-range-track { height: 1.5px; background: var(--ink-3); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; margin-top: -5.25px; background: var(--ink); border-radius: 0; cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 12px; height: 12px; border: 0; border-radius: 0; background: var(--ink); cursor: pointer; }
+  .pc-read { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--ink-3); min-height: 1.6em; }
+  .pc-read b { color: var(--ink); font-weight: 500; }
+  .pc-eq { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule); }
+  .pc-eq .pc-sym { font-family: var(--serif); font-size: 21px; color: var(--ink); }
+  .pc-eq .pc-words { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); margin: 2px 0 6px; max-width: 74ch; }
+  .pc-hidden { display: none !important; }
+  .pc-foot { margin-top: 16px; padding-top: 10px; border-top: 1px solid var(--rule); display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+  .pc-foot svg { width: 20px; height: 20px; }
+</style>
+</head>
+<body>
+<div class="pc-piece">
+  <div class="pc-kicker">made · Web Audio · Auditory Illusions · the Shepard tone’s twin · proposal</div>
+  <h3 class="pc-title">A pole, a stair, a tone. <em>Spin the pole.</em></h3>
+  <p class="pc-says" id="says">Drag across the pole to turn it. Sound starts with your first touch.</p>
+  <div class="pc-tabs" id="tabs" role="group" aria-label="steps"></div>
+  <div class="pc-row">
+    <button class="pc-go" id="play" aria-pressed="false">▸ Turn it on</button>
+    <button id="stopSpin">Let it rest</button>
+    <button id="back">← Back</button>
+    <button id="next">Next step →</button>
+  </div>
+  <div class="pc-stage" id="stage">
+    <div class="pc-panel"><div class="pc-plabel"><span>the pole</span></div><canvas id="pole" height="330" aria-label="a barber pole; drag across it to spin it"></canvas></div>
+    <div class="pc-panel"><div class="pc-plabel"><span>the stair</span><span id="stairNote"></span></div><canvas id="stair" height="330" aria-label="a Penrose stair with a walker"></canvas></div>
+    <div class="pc-panel pc-ladder pc-hidden" id="ladderPanel"><div class="pc-plabel"><span>the voices</span><span>log Hz</span></div><canvas id="ladder" height="330"></canvas></div>
+  </div>
+  <div class="pc-read" id="read"></div>
+  <div id="steps"></div>
+  <div class="pc-foot"><svg viewBox="-11 -11 22 22" aria-hidden="true"><path id="sigil" fill="none" stroke="#141414" stroke-width="0.8"/></svg><span>Loud’n Live · Auditory Illusions · the barber pole and the stair</span></div>
+</div>
+
+<script id="pc-core">
+// The engine: pure, no DOM, no sound. The check script runs this text in Node.
+const RG = (function () {
+  const N = 8;              // voices, one octave apart
+  const FMIN = 25;          // Hz: a voice is born here, silent, and leaves at FMIN * 2^N = 6400 Hz, silent
+  const A = 0.08;           // amplitude of a voice at the top of the window
+  const FLAT = Math.sqrt(3 / 8);   // the flat window's gain, matched in power to the raised cosine (sum of g^2 = 3N/8)
+  // Each voice's place in octaves, 0..N, for a phase p (in octaves, any real number).
+  function place(i, p) { let x = (i + p) % N; if (x < 0) x += N; return x; }
+  function win(x) { return 0.5 - 0.5 * Math.cos(2 * Math.PI * x / N); }   // raised cosine over N octaves: 0 at both ends
+  function voices(p, flat) {
+    const v = [];
+    for (let i = 0; i < N; i++) { const x = place(i, p); v.push({ i: i, x: x, f: FMIN * Math.pow(2, x), g: flat ? FLAT : win(x) }); }
+    return v;
+  }
+  // The stair: n1 steps +x, n1 +y, n3 -x, n3 -y, each rising dz. The ends differ by (H', H', H) with H' = n1 - n3;
+  // seen along that vector they project onto one point: the view whose elevation is atan(H / (H' * sqrt 2)), azimuth 45 degrees.
+  const STAIR = { n1: 5, n3: 3, dz: 0.25 };
+  function stairCells() {
+    const s = STAIR, mv = [];
+    for (let k = 0; k < s.n1; k++) mv.push([1, 0]); for (let k = 0; k < s.n1; k++) mv.push([0, 1]);
+    for (let k = 0; k < s.n3; k++) mv.push([-1, 0]); for (let k = 0; k < s.n3; k++) mv.push([0, -1]);
+    const c = []; let x = 0, y = 0, z = 0;
+    for (let k = 0; k <= mv.length; k++) { c.push({ k: k, x: x, y: y, z: z }); if (k < mv.length) { x += mv[k][0]; y += mv[k][1]; z += s.dz; } }
+    return c;   // mv.length + 1 cells: the last is where the next step after the top would stand, one loop up
+  }
+  function stairView(azOffsetDeg) {
+    const s = STAIR, n = 2 * s.n1 + 2 * s.n3, H = n * s.dz, Hx = s.n1 - s.n3;
+    const el = Math.atan(H / (Hx * Math.SQRT2)), az = (45 + (azOffsetDeg || 0)) * Math.PI / 180;
+    const d = [Math.cos(el) * Math.cos(az), Math.cos(el) * Math.sin(az), Math.sin(el)];
+    const r = [-Math.sin(az), Math.cos(az), 0];
+    const u = [-Math.sin(el) * Math.cos(az), -Math.sin(el) * Math.sin(az), Math.cos(el)];
+    const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+    return { el: el * 180 / Math.PI, d: d, P: p => [dot(p, r), -dot(p, u)], depth: p => dot(p, d), steps: n };
+  }
+  return { N, FMIN, A, FLAT, place, win, voices, STAIR, stairCells, stairView };
+})();
+</script>
+
+<script>
+const RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const S = { step: 1, p: 0, v: 0, motor: 0.08, flat: false, az: 0, touched: false };
+const VMAX = 0.6;   // octaves a second, either way
+
+// ───────────────────────── sound ─────────────────────────
+let ac = null, out = null, osc = [], amp = [], playing = false, tick = null, lastT = 0, lastX = [];
+function build() {
+  ac = new (window.AudioContext || window.webkitAudioContext)();
+  const comp = ac.createDynamicsCompressor(); comp.threshold.value = -3; comp.knee.value = 3; comp.ratio.value = 4;
+  out = ac.createGain(); out.gain.value = 0; out.connect(comp).connect(ac.destination);
+  RG.voices(S.p, S.flat).forEach((v, i) => {
+    const o = ac.createOscillator(), g = ac.createGain(); o.frequency.value = v.f; g.gain.value = 0;
+    o.connect(g).connect(out); o.start(); osc[i] = o; amp[i] = g; lastX[i] = v.x;
+  });
+}
+function voiceSet(instant) {
+  if (!ac) return;
+  const t = ac.currentTime;
+  RG.voices(S.p, S.flat).forEach((v, i) => {
+    const jumped = Math.abs(v.x - lastX[i]) > RG.N / 2;   // a wrap: the voice is at the window's edge, silent
+    if (jumped || instant) osc[i].frequency.setValueAtTime(v.f, t); else osc[i].frequency.setTargetAtTime(v.f, t, 0.012);
+    amp[i].gain.setTargetAtTime(RG.A * v.g, t, jumped || instant ? 0.003 : 0.015);
+    lastX[i] = v.x;
+  });
+}
+async function start() {
+  if (!ac) build();
+  if (ac.state !== 'running') await ac.resume();
+  voiceSet(true);
+  out.gain.setTargetAtTime(1, ac.currentTime, 0.08);
+  playing = true; syncPlay();
+}
+function stop() {
+  if (ac) out.gain.setTargetAtTime(0, ac.currentTime, 0.05);
+  playing = false; syncPlay();
+}
+function syncPlay() { const b = document.getElementById('play'); b.setAttribute('aria-pressed', String(playing)); b.textContent = playing ? '■ Quiet' : '▸ Turn it on'; }
+
+// ───────────────────────── motion: one phase for the pole, the walker and the glide ─────────────────────────
+let lastFrame = performance.now();
+let dirty = true;
+function advance() {
+  // at most 1/30 s of glide per frame, whatever the frame rate: a slow frame slows the glide instead of letting a voice
+  // wrap further from the window's edge (worst case 0.6/30 octave from the edge, the check's figure)
+  const now = performance.now(), dt = Math.min(1 / 30, (now - lastFrame) / 1000); lastFrame = now;
+  if (!drag && !dirty && Math.abs(S.v) < 1e-4 && Math.abs(S.motor) < 1e-4) return;   // nothing moving: nothing to draw
+  dirty = false;
+  if (!drag) S.v += (S.motor - S.v) * Math.min(1, dt * 1.2);   // spin settles to the motor
+  S.p += S.v * dt;
+  if (playing) voiceSet(false);
+  draw();
+  readout();
+}
+let raf = null;
+function frame() { advance(); raf = requestAnimationFrame(frame); }
+function startAnim() { if (raf) return; lastFrame = performance.now(); raf = requestAnimationFrame(frame); }
+// reduced motion: the stage still advances, in calm steps, four times a second
+let calm = null;
+if (RM) { calm = setInterval(advance, 250); } else startAnim();
+
+// the pole as a thing with mass: drag across it (or up and down) to spin it
+const poleC = document.getElementById('pole');
+let drag = null;
+poleC.addEventListener('pointerdown', async e => {
+  drag = { x: e.clientX, y: e.clientY, t: performance.now() }; poleC.classList.add('pc-drag'); poleC.setPointerCapture(e.pointerId);
+  if (!playing) await start().catch(err => says('Sound could not start: ' + err.message));
+  if (!S.touched) { S.touched = true; says('Keep it turning. Listen to the tone: when does it get there?'); }
+});
+poleC.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const now = performance.now(), dt = Math.max(8, now - drag.t) / 1000;
+  const d = (e.clientX - drag.x) - (e.clientY - drag.y);          // right or up spins it upward
+  const target = Math.max(-VMAX, Math.min(VMAX, d / dt / 900));
+  S.v += (target - S.v) * 0.5;
+  drag = { x: e.clientX, y: e.clientY, t: now };
+});
+const endDrag = () => { if (!drag) return; drag = null; poleC.classList.remove('pc-drag'); S.motor = Math.abs(S.v) < 0.01 ? S.motor : Math.sign(S.v) * 0.08; };
+poleC.addEventListener('pointerup', endDrag); poleC.addEventListener('pointercancel', endDrag);
+
+// ───────────────────────── drawing ─────────────────────────
+function fit(c) { const r = window.devicePixelRatio || 1, w = c.clientWidth || 300, h = Number(c.getAttribute('height')); c.width = w * r; c.height = h * r; c.style.height = h + 'px'; const x = c.getContext('2d'); x.setTransform(r, 0, 0, r, 0, 0); return [x, w, h]; }
+const NSTRIPES = 3;      // stripe starts round the pole
+const PITCH = 70;        // px of height per stripe turn
+function drawPole() {
+  const [x, w, h] = fit(poleC);
+  x.clearRect(0, 0, w, h);
+  const cx = w / 2, r = Math.min(34, w / 2 - 14), top = 26, bot = h - 26;
+  // one octave = one stripe passing a point: the pole turns 1/NSTRIPES of a turn per octave
+  const rho = S.p / NSTRIPES;
+  for (let px = -r; px < r; px += 1) {
+    const th = Math.asin(Math.max(-1, Math.min(1, (px + 0.5) / r)));
+    const u = th / (2 * Math.PI) + rho;                      // the turn carries the pattern leftward on the front face, so the stripes rise as the glide rises
+    // red where frac(NSTRIPES * u + (py - top) / PITCH) < 1/2: runs of PITCH/2 px, drawn as runs
+    const base = NSTRIPES * u; x.fillStyle = '#d1301c';
+    for (let m = Math.floor(base) - 1; m <= Math.ceil(base + (bot - top) / PITCH) + 1; m++) {
+      const y0 = Math.max(top, top + (m - base) * PITCH), y1 = Math.min(bot, top + (m + 0.5 - base) * PITCH);
+      if (y1 > y0) x.fillRect(cx + px, y0, 1.05, y1 - y0);
+    }
+    // curvature: ink shading near the edges
+    const sh = Math.pow(Math.abs(px + 0.5) / r, 6) * 0.35;
+    if (sh > 0.01) { x.fillStyle = 'rgba(20,20,20,' + sh.toFixed(3) + ')'; x.fillRect(cx + px, top, 1.05, bot - top); }
+  }
+  x.strokeStyle = '#141414'; x.lineWidth = 1.5; x.strokeRect(cx - r, top, 2 * r, bot - top);
+  // caps
+  x.fillStyle = '#141414'; x.fillRect(cx - r - 6, top - 12, 2 * r + 12, 12); x.fillRect(cx - r - 6, bot, 2 * r + 12, 12);
+  if (S.step >= 2) {
+    // what really moves: sideways (ink, solid); what you see: up (ink, dashed)
+    x.strokeStyle = '#141414'; x.fillStyle = '#141414'; x.lineWidth = 1.5;
+    const ay = top + 30, dir = Math.sign(S.v || S.motor) || 1;
+    x.beginPath(); x.moveTo(cx - r + 6, ay); x.lineTo(cx + r - 6, ay); x.stroke();
+    arrowHead(x, dir > 0 ? cx - r + 6 : cx + r - 6, ay, dir > 0 ? Math.PI : 0);
+    x.setLineDash([4, 4]); x.beginPath(); x.moveTo(cx, bot - 20); x.lineTo(cx, top + 50); x.stroke(); x.setLineDash([]);
+    arrowHead(x, cx, top + 50, -Math.PI / 2);
+    x.font = '9.5px JetBrains Mono'; x.textAlign = 'center'; x.fillStyle = '#141414';
+    x.fillText('turns', cx, top - 16); x.fillText('seen', cx, h - 4);
+  }
+}
+function arrowHead(x, px, py, ang) { x.beginPath(); x.moveTo(px, py); x.lineTo(px - 7 * Math.cos(ang - 0.45), py - 7 * Math.sin(ang - 0.45)); x.lineTo(px - 7 * Math.cos(ang + 0.45), py - 7 * Math.sin(ang + 0.45)); x.closePath(); x.fill(); }
+
+const stairC = document.getElementById('stair');
+const CELLS = RG.stairCells();
+function drawStair() {
+  const [x, w, h] = fit(stairC);
+  x.clearRect(0, 0, w, h);
+  const V = RG.stairView(S.step >= 3 ? S.az : 0), loopN = V.steps;
+  const base = -1.6;
+  const cells = CELLS.slice(0, loopN);   // the drawn stair: one loop of steps
+  // fit the drawing into the canvas
+  const pts = []; cells.forEach(c => [[-.5, -.5], [.5, .5], [-.5, .5], [.5, -.5]].forEach(o => { pts.push(V.P([c.x + o[0], c.y + o[1], c.z])); pts.push(V.P([c.x + o[0], c.y + o[1], base])); }));
+  const minX = Math.min(...pts.map(p => p[0])), maxX = Math.max(...pts.map(p => p[0])), minY = Math.min(...pts.map(p => p[1])), maxY = Math.max(...pts.map(p => p[1]));
+  const sc = Math.min((w - 30) / (maxX - minX), (h - 40) / (maxY - minY)), ox = (w - (maxX - minX) * sc) / 2 - minX * sc, oy = 20 - minY * sc;
+  const pt = p => { const q = V.P(p); return [ox + q[0] * sc, oy + q[1] * sc]; };
+  const poly = (ps, fill) => { x.beginPath(); ps.forEach((p, i) => { const q = pt(p); i ? x.lineTo(q[0], q[1]) : x.moveTo(q[0], q[1]); }); x.closePath(); x.fillStyle = fill; x.fill(); x.strokeStyle = '#141414'; x.lineWidth = 1.1; x.stroke(); };
+  // the walker: one loop of steps per octave of the glide
+  const fr = ((S.p % 1) + 1) % 1, kf = fr * loopN, k = Math.floor(kf), hop = kf - k;
+  const items = cells.map(c => ({ kind: 'box', c: c, depth: V.depth([c.x, c.y, (c.z + base) / 2]) }));
+  items.sort((a, b) => a.depth - b.depth);
+  items.forEach(it => {
+    const c = it.c, x0 = c.x - .5, x1 = c.x + .5, y0 = c.y - .5, y1 = c.y + .5, z0 = base, z1 = c.z;
+    poly([[x1, y0, z0], [x1, y1, z0], [x1, y1, z1], [x1, y0, z1]], '#d8d4ca');
+    poly([[x0, y1, z0], [x1, y1, z0], [x1, y1, z1], [x0, y1, z1]], '#a9a59c');
+    poly([[x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]], '#f4f2ec');
+    if (c.k === k) drawWalker();
+  });
+  function drawWalker() {
+    const a = CELLS[k], b = CELLS[k + 1];
+    const ease = hop < 0.5 ? 0 : (hop - 0.5) * 2, lift = Math.sin(Math.min(1, ease) * Math.PI) * 0.25;
+    const p = [a.x + (b.x - a.x) * ease, a.y + (b.y - a.y) * ease, a.z + (b.z - a.z) * ease + lift];
+    const f = pt(p), head = pt([p[0], p[1], p[2] + 0.95]);
+    x.strokeStyle = '#141414'; x.lineWidth = 3; x.beginPath(); x.moveTo(f[0], f[1]); x.lineTo(head[0], head[1] + 6); x.stroke();
+    x.beginPath(); x.arc(head[0], head[1], 6.5, 0, Math.PI * 2); x.fillStyle = '#141414'; x.fill();
+  }
+  // in the reveal: where the eye closes the loop (dashed ink), and how far apart the two ends really are
+  if (S.step >= 3) {
+    const topC = CELLS[loopN - 1], next = CELLS[loopN], first = CELLS[0];
+    const a = pt([topC.x, topC.y, topC.z]), b = pt([next.x, next.y, next.z]), c = pt([first.x, first.y, first.z]);
+    x.setLineDash([4, 4]); x.strokeStyle = '#141414'; x.lineWidth = 1.2;
+    x.beginPath(); x.moveTo(a[0], a[1]); x.lineTo(b[0], b[1]); x.stroke();
+    x.beginPath(); x.arc(c[0], c[1], 9, 0, Math.PI * 2); x.stroke(); x.setLineDash([]);
+    const gap = Math.hypot(b[0] - c[0], b[1] - c[1]);
+    document.getElementById('stairNote').textContent = gap < 1 ? 'the ends meet, on screen' : 'the ends, ' + gap.toFixed(0) + ' px apart';
+  } else document.getElementById('stairNote').textContent = '';
+}
+const ladC = document.getElementById('ladder');
+function drawLadder() {
+  if (S.step < 2) return;
+  const [x, w, h] = fit(ladC);
+  x.clearRect(0, 0, w, h);
+  const lo = Math.log2(RG.FMIN), hi = Math.log2(RG.FMIN * Math.pow(2, RG.N)), y = f => h - 14 - (Math.log2(f) - lo) / (hi - lo) * (h - 28);
+  const x0 = 40, bw = w - x0 - 10;
+  // the window, ink
+  x.beginPath(); for (let py = 14; py <= h - 14; py += 2) { const xo = (h - 14 - py) / (h - 28) * RG.N; const px = x0 + (S.flat ? RG.FLAT : RG.win(xo)) * bw; py === 14 ? x.moveTo(px, py) : x.lineTo(px, py); }
+  x.strokeStyle = '#141414'; x.lineWidth = 1; x.setLineDash(S.flat ? [3, 3] : []); x.stroke(); x.setLineDash([]);
+  x.font = '10px JetBrains Mono'; x.fillStyle = '#7a7a7a'; x.textAlign = 'right';
+  [25, 100, 400, 1600, 6400].forEach(f => x.fillText(f >= 1000 ? (f / 1000) + 'k' : String(f), x0 - 6, y(f) + 3));
+  RG.voices(S.p, S.flat).forEach(v => { x.fillStyle = '#d1301c'; x.fillRect(x0, y(v.f) - 3, Math.max(1.5, v.g * bw), 6); });
+}
+function draw() { drawPole(); drawStair(); drawLadder(); dirty = false; }
+function redraw() { dirty = true; }
+function readout() {
+  const el = document.getElementById('read');
+  if (S.step < 2) { el.innerHTML = ''; return; }
+  const vs = RG.voices(S.p, S.flat), top = vs.reduce((a, b) => a.f > b.f ? a : b), low = vs.reduce((a, b) => a.f < b.f ? a : b);
+  el.innerHTML = ['speed <b>' + (S.v >= 0 ? '+' : '') + S.v.toFixed(2) + ' oct/s</b>', 'climbed <b>' + S.p.toFixed(2) + ' octaves</b>',
+    'lowest voice <b>' + low.f.toFixed(1) + ' Hz at ' + (20 * Math.log10(Math.max(1e-6, low.g))).toFixed(0) + ' dB</b>',
+    'highest <b>' + top.f.toFixed(0) + ' Hz at ' + (20 * Math.log10(Math.max(1e-6, top.g))).toFixed(0) + ' dB</b>'].join('<span> · </span>');
+}
+
+// ───────────────────────── the steps ─────────────────────────
+function el(tag, attrs, ...kids) { const e = document.createElement(tag); for (const k in (attrs || {})) { if (k.startsWith('on')) e.addEventListener(k.slice(2), attrs[k]); else e.setAttribute(k, attrs[k]); } kids.flat().forEach(c => e.append(c)); return e; }
+function says(t) { document.getElementById('says').textContent = t; }
+function eq(sym, words) { return el('div', { class: 'pc-eq' }, el('div', { class: 'pc-sym' }, sym), el('div', { class: 'pc-words' }, words)); }
+const STEPS = [
+  { n: 1, name: 'spin it', build: () => [
+    el('p', { class: 'pc-teach' }, 'Drag across the pole, either way. The pole, the walker on the stair and the tone are one motion. Let go and it settles to a slow turn the way you last spun it; ', el('b', {}, 'Let it rest'), ' stops it.'),
+  ] },
+  { n: 2, name: 'what is turning', build: () => [
+    el('p', { class: 'pc-teach' }, 'The tone is ', el('b', {}, 'eight sines, an octave apart'), ', all gliding up together, in red on the right at their real level. Each is born at 25 Hz, silent, swells through the middle, and fades out silent at 6.4 kHz, where it is replaced, unheard, at the bottom. That is a Risset glide, the continuous Shepard tone: the stack’s pitch class goes round a circle while its height is hidden by the loudness window. Now look at the pole. Its stripes never move up. The pole only turns, sideways (the solid arrow); you see the stripes rise (the dashed one) because an edge seen through a gap shows only the motion across itself. The gap is the pole’s two long sides, where every stripe slides out of view; they run up and down, so the motion you are shown runs up.'),
+    eq('fᵢ = 25 Hz · 2^((i + p) mod 8),   gᵢ = ½ − ½ cos(2π · ((i + p) mod 8) ⁄ 8)', 'Voice i sits (i + p) octaves above 25 Hz, wrapped round after eight octaves, where p is how far the glide has gone. Its level gᵢ is a raised cosine across the eight octaves: zero at both ends, one in the middle. Every voice changes place only where its level is zero.'),
+    el('p', { class: 'pc-back' }, 'The mix never gets louder or softer as it climbs: across the eight voices the levels always add to 4, and their squares to 3. The check script measures both.'),
+  ] },
+  { n: 3, name: 'the stair from the side', build: () => {
+    const b = el('b', {}, '0°');
+    const i = el('input', { type: 'range', min: -25, max: 25, step: 1, 'aria-label': 'walk round the stair' }); i.value = S.az;
+    i.addEventListener('input', () => { S.az = Number(i.value); b.textContent = (S.az > 0 ? '+' : '') + S.az + '°'; draw(); redraw(); });
+    return [
+      el('p', { class: 'pc-teach' }, 'The stair is not impossible here. It is a real spiral: sixteen steps, each rising a quarter of its own depth, round a ring whose last flight is shorter than its first, so the top ends a little nearer you than the bottom began. From exactly one place, ', el('b', {}, 'looking along the line between the two ends'), ', they land on the same spot on screen, and the loop closes. The dashed line is the join your eye makes. Walk round it.'),
+      el('label', { class: 'pc-sl' }, 'walk round the stair ', b, i),
+      el('p', { class: 'pc-teach' }, 'Three loops, three different hidings. The tone hides its height in the loudness window. The pole hides its sideways turn behind its own ends. The stair hides its rise along your line of sight. The page grades the pairing a ', el('b', {}, 'shape'), ': the same structure, a loop with its seam out of view, built by different machinery.'),
+    ];
+  } },
+  { n: 4, name: 'break it', build: () => {
+    const flatB = el('button', { 'aria-pressed': String(S.flat), onclick: async () => { S.flat = !S.flat; flatB.setAttribute('aria-pressed', String(S.flat)); if (!playing) await start(); redraw(); } }, 'Take the window off');
+    const b = el('b', {}, (S.az > 0 ? '+' : '') + S.az + '°');
+    const i = el('input', { type: 'range', min: -25, max: 25, step: 1, 'aria-label': 'walk round the stair' }); i.value = S.az;
+    i.addEventListener('input', () => { S.az = Number(i.value); b.textContent = (S.az > 0 ? '+' : '') + S.az + '°'; draw(); redraw(); });
+    return [
+      el('p', { class: 'pc-teach' }, 'Take the window off and every voice plays at one level, the same total power as before. Now the top voice is loud when it leaves 6.4 kHz and the new one is loud when it arrives at 25 Hz. Listen for the join, once an octave. Then walk round the stair until its ends come apart. The ear’s break and the eye’s are the same move: show the place the loop was hiding its seam.'),
+      el('div', { class: 'pc-row' }, flatB),
+      el('label', { class: 'pc-sl' }, 'walk round the stair ', b, i),
+      el('p', { class: 'pc-teach' }, 'This is a small glide of my own, made only to sit under the pole and the stair. The full build, stage by stage, with its seam tested blind, is on the ', el('b', {}, 'Shepard Tone Synthesizer'), ' page: the still drone and the free seam, gathered beside this piece.'),
+    ];
+  } },
+];
+const host = document.getElementById('steps'), tabs = document.getElementById('tabs');
+function go(n) {
+  if (n < 1 || n > STEPS.length) return;
+  if (n !== S.step && playing) stop();
+  S.step = n; if (n < 4) S.flat = false; if (n < 3) S.az = 0;
+  host.replaceChildren(el('section', { class: 'pc-step', 'aria-label': 'step ' + n },
+    el('div', { class: 'pc-stephead' }, el('span', {}, n + ' · ' + STEPS[n - 1].name), el('span', {}, 'step ' + n + ' of ' + STEPS.length)), STEPS[n - 1].build()));
+  document.getElementById('ladderPanel').classList.toggle('pc-hidden', n < 2);
+  document.getElementById('stage').classList.toggle('pc-three', n >= 2);
+  tabs.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === n)));
+  document.getElementById('back').disabled = n === 1;
+  document.getElementById('next').disabled = n === STEPS.length;
+  says(n === 1 ? (S.touched ? 'Keep it turning. When does it get there?' : 'Drag across the pole to turn it. Sound starts with your first touch.')
+    : n === 2 ? 'What is really turning.' : n === 3 ? 'The stair, from the side.' : 'Break both loops.');
+  draw(); readout();
+}
+STEPS.forEach(s => tabs.append(el('button', { onclick: () => go(s.n) }, s.n + ' · ' + s.name)));
+document.getElementById('play').addEventListener('click', () => { if (playing) stop(); else { if (Math.abs(S.motor) < 0.01) S.motor = 0.08; start().catch(e => says('Sound could not start: ' + e.message)); } });
+document.getElementById('stopSpin').addEventListener('click', () => { S.motor = 0; redraw(); });
+document.getElementById('back').addEventListener('click', () => go(S.step - 1));
+document.getElementById('next').addEventListener('click', () => go(S.step + 1));
+window.addEventListener('resize', draw);
+(function sigil() { let d = ''; for (let i = 0; i <= 400; i++) { const t = i / 400 * Math.PI * 2; d += (i ? 'L' : 'M') + (9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ' ' + (9 * Math.sin(2 * t)).toFixed(2); } document.getElementById('sigil').setAttribute('d', d); })();
+S.motor = 0; S.v = 0;   // still until touched
+go(1);
+</script>
+</body>
+</html>

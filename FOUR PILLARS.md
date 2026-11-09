@@ -16,8 +16,6 @@ who_leads: loudon
 links:
   - target: "[[Hilaritas Generator]]"
     type: spawned
-  - target: "[[Symbiotic Skills]]"
-    type: spawned
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: specific-to-general

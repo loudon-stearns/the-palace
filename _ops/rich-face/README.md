@@ -241,6 +241,10 @@ palace writes runs there: every piece runs on the **piece origin**.
 
   A piece whose own inline script already says `rich:height` or `rich:hush` is left to do that part
   itself.
+- **A piece that asks Loudon something hands his answers to its section.** A piece calling
+  `_ops/loudon-eval/answers.js` posts `rich:note` with its readable text. The page adds it once to the
+  note box of the section the piece sits in, opens the box, and answers `rich:note-taken`. The dock's
+  Send takes it to the board with the rest.
 - **On the public site** the read view frames pieces opaque, from its own copied files. Storage lives in
   memory only, and the figure says so. A camera or microphone piece opens in its own tab.
 - **Every link goes to the web, to mail, or into the palace.** After marked, the HTML is parsed inert

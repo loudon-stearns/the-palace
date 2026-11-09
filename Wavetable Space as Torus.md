@@ -41,6 +41,7 @@ links:
     label: perception-topology
   - target: "[[Philosopher Visits the Entry]]"
     type: connects-to
+    label: visited-entry
   - target: "[[Simondon]]"
     type: connects-to
     label: concretization

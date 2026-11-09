@@ -1,0 +1,547 @@
+{
+ "set": "C1b-1",
+ "verdicts": [
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "4 Pillars Framework - The Founding Conversation",
+   "op": "cut",
+   "proposed": "cut emerged-from",
+   "verdict": "PASS",
+   "reason": "Neither body names the other; the hub's '4 Pillars approach' is FOUR PILLARS, already held by its deepens[worked-bridges], and the Founding Conversation's 'What It Spawned' table leaves the hub out.",
+   "better": ""
+  },
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "Dovetail Joint ↔ Counterpoint",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "All ten bridges carry member-of back to Cross-Domain Resonances (checked each frontmatter); the bridges live in the hub's own folder, so member-of is the truer of the two and this bare spawned is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "Cooking ↔ Mixing",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "All ten bridges carry member-of back to Cross-Domain Resonances (checked each frontmatter); the bridges live in the hub's own folder, so member-of is the truer of the two and this bare spawned is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "Frequency Domain ↔ Perspective Shift",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "All ten bridges carry member-of back to Cross-Domain Resonances (checked each frontmatter); the bridges live in the hub's own folder, so member-of is the truer of the two and this bare spawned is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "Kick Drum ↔ Foundation",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "All ten bridges carry member-of back to Cross-Domain Resonances (checked each frontmatter); the bridges live in the hub's own folder, so member-of is the truer of the two and this bare spawned is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "Quantization ↔ Precision vs Flow",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "All ten bridges carry member-of back to Cross-Domain Resonances (checked each frontmatter); the bridges live in the hub's own folder, so member-of is the truer of the two and this bare spawned is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "Saturation ↔ Richness",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "All ten bridges carry member-of back to Cross-Domain Resonances (checked each frontmatter); the bridges live in the hub's own folder, so member-of is the truer of the two and this bare spawned is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "Compression ↔ Intimacy",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "All ten bridges carry member-of back to Cross-Domain Resonances (checked each frontmatter); the bridges live in the hub's own folder, so member-of is the truer of the two and this bare spawned is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Cross-Domain Resonances",
+   "target": "Synthesis ↔ Emergence",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "All ten bridges carry member-of back to Cross-Domain Resonances (checked each frontmatter); the bridges live in the hub's own folder, so member-of is the truer of the two and this bare spawned is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Sidechain ↔ Conversation",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "The hub says 'This hub catalogs the surprising connections that make the 4 Pillars approach work' and the bridge sits in the hub's folder; catalogued-bridge names that membership.",
+   "better": ""
+  },
+  {
+   "source": "Saturation ↔ Richness",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "Label holds on the hub's 'catalogs' line and the folder; the quoted 'Saturation ↔ Stress in Materials' line is a near cousin, not this exact bridge.",
+   "better": ""
+  },
+  {
+   "source": "Synthesis ↔ Emergence",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "Label holds on the hub's 'This hub catalogs…' line and the folder, but the evidence quote ('Synthesis ↔ Woodworking') is a different bridge, so it supports nothing here; the quote is real, just misapplied.",
+   "better": ""
+  },
+  {
+   "source": "Dovetail Joint ↔ Counterpoint",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "The hub says 'This hub catalogs the surprising connections that make the 4 Pillars approach work' and the bridge sits in the hub's folder; catalogued-bridge names that membership.",
+   "better": ""
+  },
+  {
+   "source": "Cooking ↔ Mixing",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "The hub says 'This hub catalogs the surprising connections that make the 4 Pillars approach work' and the bridge sits in the hub's folder; catalogued-bridge names that membership.",
+   "better": ""
+  },
+  {
+   "source": "Frequency Domain ↔ Perspective Shift",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "The hub says 'This hub catalogs the surprising connections that make the 4 Pillars approach work' and the bridge sits in the hub's folder; catalogued-bridge names that membership.",
+   "better": ""
+  },
+  {
+   "source": "Compression ↔ Intimacy",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "The hub says 'This hub catalogs the surprising connections that make the 4 Pillars approach work' and the bridge sits in the hub's folder; catalogued-bridge names that membership.",
+   "better": ""
+  },
+  {
+   "source": "Kick Drum ↔ Foundation",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "The hub says 'This hub catalogs the surprising connections that make the 4 Pillars approach work' and the bridge sits in the hub's folder; catalogued-bridge names that membership.",
+   "better": ""
+  },
+  {
+   "source": "Quantization ↔ Precision vs Flow",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "The hub says 'This hub catalogs the surprising connections that make the 4 Pillars approach work' and the bridge sits in the hub's folder; catalogued-bridge names that membership.",
+   "better": ""
+  },
+  {
+   "source": "Reverb ↔ Space-Time",
+   "target": "Cross-Domain Resonances",
+   "op": "label",
+   "proposed": "member-of[catalogued-bridge]",
+   "verdict": "PASS",
+   "reason": "The hub says 'This hub catalogs the surprising connections that make the 4 Pillars approach work' and the bridge sits in the hub's folder; catalogued-bridge names that membership.",
+   "better": ""
+  },
+  {
+   "source": "Sidechain ↔ Conversation",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed": "exemplifies[cross-domain-bridge]",
+   "verdict": "PASS",
+   "reason": "Every sibling bridge carries exemplifies[cross-domain-bridge] and the hub's forward vector asks each bridge to 'earn its FOUR PILLARS exemplification'; FOUR PILLARS: 'The most valuable insights occur at intersections.'",
+   "better": ""
+  },
+  {
+   "source": "Saturation ↔ Richness",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed": "exemplifies[cross-domain-bridge]",
+   "verdict": "PASS",
+   "reason": "Every sibling bridge carries exemplifies[cross-domain-bridge] and the hub's forward vector asks each bridge to 'earn its FOUR PILLARS exemplification'; FOUR PILLARS: 'The most valuable insights occur at intersections.'",
+   "better": ""
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "SUBSTRATE",
+   "op": "label",
+   "proposed": "deepens[pages-are-the-cells]",
+   "verdict": "PASS",
+   "reason": "SUBSTRATE:75 'Pages are the cells, and each is a sleeping agent with a forward vector ([[Pages as Agents]])' — the label is SUBSTRATE's own words and deepens points back at the ground.",
+   "better": ""
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "SCHEMA",
+   "op": "label",
+   "proposed": "enables[fields-as-a-self]",
+   "verdict": "FAIL",
+   "reason": "The label is real on Pages as Agents (its four gifts are SCHEMA's fields read as a self), but that is Pages as Agents elaborating SCHEMA, not producing it: SCHEMA long preceded it, and SCHEMA — Context credits the person-as-citizen rule to Making a Palace Citizen and the first Dialectic, so enables[fields-as-a-self] claims a generation neither page states.",
+   "better": "retype deepens, label fields-as-a-self"
+  },
+  {
+   "source": "Pages as Agents",
+   "target": "Palace Enchantment",
+   "op": "retype",
+   "proposed": "enables[premise-of-waking]",
+   "verdict": "PASS",
+   "reason": "Palace Enchantment names Swarm Weave as its origin and its Context records the old deepening to Pages as Agents being cut; Pages as Agents' 'Every entry here is a sleeping agent… wakes up as that page' is the premise the ceremony needs, so enables points forward correctly.",
+   "better": ""
+  },
+  {
+   "source": "Donella Meadows",
+   "target": "FOUR PILLARS",
+   "op": "label",
+   "proposed": "deepens[kick-drum-lever]",
+   "verdict": "FAIL",
+   "reason": "The label is grounded in FOUR PILLARS:61 ('Donella Meadows' leverage points, the kick as a small lever that moves the whole system'), but deepens says her page elaborates the framework; the page never mentions the pillars, and the sentence has the framework drawing on her.",
+   "better": "retype enables, label kick-drum-lever"
+  },
+  {
+   "source": "Donella Meadows",
+   "target": "Quality Manifesto",
+   "op": "label",
+   "proposed": "enables[paradigm-lever]",
+   "verdict": "PASS",
+   "reason": "Quality Manifesto:37 'it is a Meadows leverage point at level #2: the paradigm the system arises from' — her ladder is what lets it name itself a paradigm; enables and the label fit.",
+   "better": ""
+  },
+  {
+   "source": "Donella Meadows",
+   "target": "Meadows and Music — Leverage Points",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "FAIL",
+   "reason": "The dates do refute spawned, but the relation itself is all over the target: frontmatter 'author: Donella Meadows', and nine '### Connection to Meadows' sections ('Meadows was right: leverage points exist'); cutting leaves the pair joined only through a link to the project's Context, a bundle file, which is the costly wrong cut.",
+   "better": "retype enables, label applied-to-music (and let the Meadows → project-Context connects-to[applied-to-music] be the redundant one)"
+  },
+  {
+   "source": "Donella Meadows",
+   "target": "Meadows and an Artist's Career",
+   "op": "label",
+   "proposed": "spawned[career-reading]",
+   "verdict": "FAIL",
+   "reason": "Her agency profile only wants to spawn a career reading; the project (born 2026-05, before her page became a citizen) names its parent as Meadows and Music ('A pivot of the original…', emerged-from[refocus-of]), so spawned overclaims; the real relation is her 1999 framework driving it ('Working from Meadows' 1999 paper').",
+   "better": "retype enables, label career-reading"
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "Quantum Synthesizer",
+   "op": "label",
+   "proposed": "mirrors[eigenmodes-as-partials]",
+   "verdict": "PASS",
+   "reason": "Crystal: 'the phonon mode structure becomes an instrument's timbre palette'; Quantum: '### Energy Eigenvalues as Harmonic Partials'; Differential Equations lists both (lines 145, 149). Same move, two materials.",
+   "better": ""
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "Boundary-Crossing Instruments",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "BCI is a wall inside one parameter dissolving under a new coordinate system; Crystal dissolves no such wall, Crystal (2026-02) postdates BCI (2025-08) so enables is backwards, neither body nor either Context names the other. Only Signal-Rate's open question files Crystal among BCI projects.",
+   "better": ""
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "Harmonicity and Inharmonicity",
+   "op": "retype",
+   "proposed": "deepens[symmetry-sets-the-spacing]",
+   "verdict": "PASS",
+   "reason": "couples-with is wrong (no always-together firing); Crystal's lattice hypotheses are partial-spacing predictions ('Partials have no simple integer relationships', 'symmetry determines sonic character'), so Crystal elaborating Harmonicity holds, pointing back at the ground. exemplifies would be a close second.",
+   "better": ""
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "Differential Equations",
+   "op": "label",
+   "proposed": "deepens[lattice-as-constraint]",
+   "verdict": "PASS",
+   "reason": "Differential Equations:149 '[[Crystal Synthesizer]] — geometric constraints as generative constraints (DEs are constraints on how systems must evolve)'.",
+   "better": ""
+  },
+  {
+   "source": "Crystal Synthesizer",
+   "target": "Signal-Rate CV Architecture",
+   "op": "cut",
+   "proposed": "cut mirrors",
+   "verdict": "PASS",
+   "reason": "Signal-Rate:58 only asks whether its principle 'could govern' Crystal; neither page states a shared pattern, and a question is not a mirror.",
+   "better": ""
+  },
+  {
+   "source": "Endosymbiosis",
+   "target": "1 from 2",
+   "op": "label",
+   "proposed": "mirrors[implanted-symbiote]",
+   "verdict": "PASS",
+   "reason": "1 from 2: 'one of the few people to take well to an artificial intelligence symbiote. A powerful computer implanted in his brain' and 'this cooperation deepens into something indistinguishable…'; Endosymbiosis: 'the distinction between the cooperating entities becomes difficult to draw'.",
+   "better": ""
+  },
+  {
+   "source": "Endosymbiosis",
+   "target": "Deposit Ceremony",
+   "op": "cut",
+   "proposed": "cut mirrors",
+   "verdict": "PASS",
+   "reason": "Deposit Ceremony and its bundle never touch symbiosis or merger, Endosymbiosis never names it, and its Context records the link arriving unexplained in an unrelated commit.",
+   "better": ""
+  },
+  {
+   "source": "Endosymbiosis",
+   "target": "Swarm Weave",
+   "op": "cut",
+   "proposed": "cut mirrors",
+   "verdict": "PASS",
+   "reason": "Swarm Weave names Endosymbiosis only as what a biology lens reaches for and as a member of the mirror lens's example group; its own biological frame is ant colonies, morphogens and epigenetics, not merger. Note: Swarm Weave's side went in the October fold, so this cut removes the pair entirely, which is right on the merits.",
+   "better": ""
+  },
+  {
+   "source": "Granular Synthesis",
+   "target": "Endosymbiosis",
+   "op": "cut",
+   "proposed": "cut mirrors",
+   "verdict": "PASS",
+   "reason": "Granular's only merger is 'Collision and merging: Two clouds… coalesce' (line 76), physical coalescence not a symbiosis; its clustering is Kuramoto, already its emerged-from. Endosymbiosis — Context's claim that both partners state this mirror is false; the pair goes from both sides, so that Context line will need correcting.",
+   "better": ""
+  },
+  {
+   "source": "Swarm Weave",
+   "target": "Metaphor as Coupling Medium",
+   "op": "label",
+   "proposed": "spawned[ant-hive-session]",
+   "verdict": "PASS",
+   "reason": "Metaphor as Coupling Medium opens: 'The realization arrived in the session that produced the Swarm Weave… is the Weave actually a hive of ants with a queen?' The label names the shared birth; spawned is loose (the session made both) but defensible.",
+   "better": ""
+  },
+  {
+   "source": "Swarm Weave",
+   "target": "Walk That Weaves",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "Walk That Weaves carries emerged-from Swarm Weave and its first line says so ('surfaced… in the session that produced [[Swarm Weave]]'); the bare spawned is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Swarm Weave",
+   "target": "Palace Map",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "Palace Map carries deepens → Swarm Weave and names it in its body (line 163, line 277); Swarm Weave's body never names the Palace Map, so the unsaid enables is the one to fold.",
+   "better": ""
+  },
+  {
+   "source": "SUBSTRATE",
+   "target": "Meaning and the Link",
+   "op": "label",
+   "proposed": "emerged-from[intellectual-ancestor]",
+   "verdict": "PASS",
+   "reason": "Meaning and the Link: 'This paper is the intellectual ancestor of the palace's own architecture' — a diffuse origin, so emerged-from with that label fits better than the paper's spawned, which the coordinator should fold.",
+   "better": ""
+  },
+  {
+   "source": "Meaning and the Link",
+   "target": "Palace Ceremonies",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "The paper grounds the typed-link system, not the ceremonies; Palace Ceremonies and its bundle never name the paper, semantics or relations-first.",
+   "better": ""
+  },
+  {
+   "source": "Meaning and the Link",
+   "target": "Resonant Link Labels",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "Resonant Link Labels carries deepens[operationalizes] → the paper and says it at line 97; its Origin names Lossy Compression as the source, so spawned is both a duplicate and an overclaim.",
+   "better": ""
+  },
+  {
+   "source": "Trickster",
+   "target": "Lateral Access",
+   "op": "label",
+   "proposed": "mirrors[meaning-only-sideways]",
+   "verdict": "PASS",
+   "reason": "Trickster:92 'The trickster shows you through lateral approaches… meaning is accessible only sideways'; Lateral Access: 'not accessible through direct questioning… They arrive through a window the self doesn't know is open.' Note the display text links Oblique Portrait, not Lateral Access; the reason is the shared claim, not the link.",
+   "better": ""
+  },
+  {
+   "source": "Trickster",
+   "target": "Threshold Conatus",
+   "op": "cut",
+   "proposed": "cut spawned",
+   "verdict": "PASS",
+   "reason": "Threshold Conatus carries emerged-from Trickster and its line 63 says 'Born from the Stage 4 enchanted dialogue between [[Trickster]] and [[Spinoza Conatus]]'; Palace Enchantment also holds spawned[stage-4-deposit].",
+   "better": ""
+  },
+  {
+   "source": "Enchanted Conversation Archive",
+   "target": "Generative Compression",
+   "op": "cut",
+   "proposed": "cut deepens",
+   "verdict": "PASS",
+   "reason": "The archive keeps every enchantment whole; Generative Compression collapses what doesn't serve the purpose. Neither names the other; if anything they contrast, and neither says that either.",
+   "better": ""
+  },
+  {
+   "source": "Enchanted Conversation Archive",
+   "target": "Lateral Access",
+   "op": "cut",
+   "proposed": "cut emerged-from",
+   "verdict": "PASS",
+   "reason": "Neither body nor Lateral Access — Context speaks of the archive; the only trace is a To-Do line saying LA's enchantment was reconstructed as JSONL, a fact about content already carried by Palace Enchantment's first-enchantment link.",
+   "better": ""
+  },
+  {
+   "source": "BBS Blackboard",
+   "target": "Swarm Weave",
+   "op": "label",
+   "proposed": "enables[session-board]",
+   "verdict": "PASS",
+   "reason": "BBS Blackboard: '/palace/swarm/sessions/[session-id]/blackboard.jsonl… Every agent in a swarm session can read the full blackboard'; Swarm Weave names the BBS Blackboard at line 292. session-board fits.",
+   "better": ""
+  },
+  {
+   "source": "BBS Blackboard",
+   "target": "Palace Enchantment",
+   "op": "label",
+   "proposed": "enables[where-the-woken-speak]",
+   "verdict": "PASS",
+   "reason": "Palace Enchantment:321 and 333 write the woken agent's Loudon-facing rules for the BBS ('the Steward addresses the Trickster on the BBS'; 'The BBS may render only the rationale text'). Medium: the running BBS is STIGMERGY, this page its historical root.",
+   "better": ""
+  },
+  {
+   "source": "BBS Design System",
+   "target": "Swarm Weave",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "The page is composting into STIGMERGY; its forward vector speaks of 'swarm sessions' only as what STIGMERGY's look serves, and STIGMERGY already holds the visual-substrate link. No body sentence gives the design system a hand in the Swarm Weave.",
+   "better": ""
+  },
+  {
+   "source": "Palace as Context Injection System",
+   "target": "Swarm Weave",
+   "op": "cut",
+   "proposed": "cut deepens",
+   "verdict": "PASS",
+   "reason": "Palace as Context Injection System's body never mentions the swarm; the 'Design Implications for the Swarm Weave' passage lives on Enchanted Worker (line 56), which this page spawned and which deepens Swarm Weave.",
+   "better": ""
+  },
+  {
+   "source": "Dispersion",
+   "target": "Crystal Synthesizer",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "Crystal carries emerged-from Dispersion and argues it at length (§ The Optical-Sonic Bridge, line 98); Dispersion's body never names Crystal. One link per pair, keep the said one.",
+   "better": ""
+  },
+  {
+   "source": "Waveguide Synthesizer",
+   "target": "Dispersion Table",
+   "op": "cut",
+   "proposed": "cut enables",
+   "verdict": "PASS",
+   "reason": "Dispersion Table carries emerged-from[loop-round-trip-condition] → Waveguide and line 63 says 'see [[Waveguide Synthesizer]] for the physics scaffolding'; the bare enables is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "JEWEL",
+   "target": "Swarm Weave",
+   "op": "label",
+   "proposed": "enables[worker-birth-seed]",
+   "verdict": "PASS",
+   "reason": "Jewel — Context: 'emerged from a conversation about agent spawning' and 'the Swarm Weave's worker templates still paste an older Jewel inline'; Weave Ceremony: workers are 'born with the real Jewel'. enables[worker-birth-seed] holds.",
+   "better": ""
+  },
+  {
+   "source": "JEWEL",
+   "target": "Self-Describing Knowledge Module",
+   "op": "retype",
+   "proposed": "exemplifies[the-seed]",
+   "verdict": "FAIL",
+   "reason": "The Jewel is a part of the module's seed (SDKM: '`CLAUDE.md` and [[SCHEMA]] are the seed'), not an instance of a self-describing knowledge module, so exemplifies misstates it; a seed is the generative force of SER growth, which is enables pointing forward.",
+   "better": "retype enables, label the-seed (or connects-to[the-seed] if part-of is the only claim wanted)"
+  },
+  {
+   "source": "Quality Manifesto",
+   "target": "4 Pillars Framework - The Founding Conversation",
+   "op": "cut",
+   "proposed": "cut emerged-from",
+   "verdict": "PASS",
+   "reason": "The Founding Conversation's spawned[paradigm-statement] is labelled and in its 'What It Spawned' table; the bare emerged-from back is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "AI Partnership Philosophy",
+   "target": "4 Pillars Framework - The Founding Conversation",
+   "op": "cut",
+   "proposed": "cut emerged-from",
+   "verdict": "PASS",
+   "reason": "The Founding Conversation's spawned[collaboration-doctrine] is labelled and tabled; the bare emerged-from back is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Leverage Points Framework",
+   "target": "4 Pillars Framework - The Founding Conversation",
+   "op": "cut",
+   "proposed": "cut emerged-from",
+   "verdict": "PASS",
+   "reason": "The Founding Conversation's spawned[decision-lens] is labelled and tabled; the bare emerged-from back is the duplicate.",
+   "better": ""
+  },
+  {
+   "source": "Quality Manifesto",
+   "target": "Like Water",
+   "op": "label",
+   "proposed": "mirrors[content-with-its-nature]",
+   "verdict": "PASS",
+   "reason": "Like Water § The Quality Manifesto Mirror: 'Water cannot be faulted because it is content with its nature. Work cannot be faulted when it is measured against its own actual goals.'",
+   "better": ""
+  },
+  {
+   "source": "AI Partnership Philosophy",
+   "target": "Enchanted Worker",
+   "op": "cut",
+   "proposed": "cut deepens",
+   "verdict": "PASS",
+   "reason": "Enchanted Worker never names the doctrine; the nearest passage, APP's 'Claude's Configuration' (memory priorities, behavioural guidelines), is context-seeding one collaborator, which is Palace as Context Injection System's ground, not neighbourhood-loaded swarm workers. And deepens would point the founding doctrine back at a later mechanism.",
+   "better": ""
+  }
+ ],
+ "fabricated_quotes": [],
+ "summary": "55 of 60 pass (92%): cuts 29/30, labels 24/27, retypes 2/3; no fabricated quotes, though two of the catalogued-bridge labels lean on hub lines about a different bridge (Synthesis ↔ Woodworking, Saturation ↔ Stress in Materials) and stand only on the hub's 'This hub catalogs…' line. The duplicate folds (hub spawned vs bridge member-of, spawned vs a said emerged-from or deepens) are sound throughout. The failures share one pattern: the reader checked that a label's words were on a page but not that the type under it says the same thing. Pages as Agents → SCHEMA and Meadows → FOUR PILLARS carry true labels on types pointing the wrong way (deepens and enables swapped). Meadows → Artist's Career keeps a spawned the dates and the project's own 'pivot of' line refute. The Jewel is part of the module's seed, not an instance of the module. The one costly error is the Meadows → Meadows and Music cut: the dates do kill spawned, but the project credits her as author and has a 'Connection to Meadows' in every exercise, so it should be retyped to enables, not cut. Two cuts (Endosymbiosis ↔ Swarm Weave, Granular ↔ Endosymbiosis) finish removing pairs whose other side went in October. They are right on the merits, but Endosymbiosis — Context's claim that Granular states the mirror becomes false and needs a line."
+}

@@ -14,6 +14,7 @@ import { usePalaceRef } from '../../lib/palace-ref.jsx';
 import { fetchProjects } from '../../adapters/projects.js';
 import { rowSignal } from '../../lib/scroll-view.js';
 import FaceSwitch from '../FaceSwitch.jsx';
+import MemorySwitch from '../MemorySwitch.jsx';
 import { orderFaces, nextFace, richHref } from '../../lib/faces.js';
 import { IS_PUBLIC, BASE, getSiteMeta } from '../../lib/public-mode.js';
 import NoCarrier from '../public/NoCarrier.jsx';
@@ -139,11 +140,12 @@ export default function EntryReader({
   const palace = usePalaceRef();
   const [projectRow, setProjectRow] = useState(null);
   // The face owner: the entry itself, or — when this file IS a face (its
-  // scroll, `<Name>/<Name> — scroll.md`) — the entry it belongs to. The face
-  // switch reads the owner's faces and lights the one being read.
+  // scroll, `<Name>/<Name> — scroll.md`) or its memory (Context, a ledger) —
+  // the entry it belongs to. The face and memory switches read the owner's
+  // and light the one being read.
   const okEntry = state.kind === 'ok' ? state.entry : null;
   const faceOwner = okEntry
-    ? (okEntry.face_of ?? { path: okEntry.path, title: okEntry.title, faces: okEntry.faces, files: okEntry.face_files })
+    ? (okEntry.face_of ?? { path: okEntry.path, title: okEntry.title, faces: okEntry.faces, files: okEntry.face_files, memory: okEntry.memory })
     : null;
   const isProject = okEntry?.frontmatter?.type === 'project';
   // The read view has no board or stewards, so no row to fetch.
@@ -219,9 +221,10 @@ export default function EntryReader({
   const editAllow = checkPathSafety(entry.path);
 
   // The entry's hero, faint behind the top of the reading column (HeroBackdrop,
-  // which a page's scroll draws too).
+  // which a page's scroll draws too). A file the entry owns — its Context, a
+  // ledger — keeps no bundle of its own, so it wears its owner's hero.
   const bundleFiles = entry.bundle?.files || [];
-  const heroFile = heroFileOf(bundleFiles, entry.title);
+  const heroFile = heroFileOf(bundleFiles, entry.title) ?? entry.face_of?.hero ?? null;
 
   // The face switch. RICH leaves the app for the rich page, every page's
   // focused reading face; the floating companion is a feature of the text
@@ -392,7 +395,15 @@ export default function EntryReader({
           </span>
         ) : null}
       </div>
-      <FaceSwitch faces={faces} current={currentFace} onSelect={selectFace} signal={projectSignal} />
+      {/* The faces, then the memory; on a narrow screen the memory drops
+          under the faces rather than squeezing the path. */}
+      <span style={{
+        flex: '0 1 auto', minWidth: 0, display: 'flex', alignItems: 'center',
+        justifyContent: 'flex-end', gap: '6px 12px', flexWrap: 'wrap',
+      }}>
+        <FaceSwitch faces={faces} current={currentFace} onSelect={selectFace} signal={projectSignal} />
+        {!IS_PUBLIC ? <MemorySwitch memory={faceOwner.memory} current={entry.path} onOpen={onNavigate} /> : null}
+      </span>
       </div>
 
       <FrontmatterHeader

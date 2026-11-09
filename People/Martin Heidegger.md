@@ -27,6 +27,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: made-citizen
   - target: "[[Reverb ↔ Space-Time]]"
     type: connects-to
     label: dwelling-makes-space

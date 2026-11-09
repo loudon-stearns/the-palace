@@ -60,6 +60,8 @@ Three different things get called "the same," and only one of them is a dissolut
 
 A dissolution is an identity. Every member here should be tested against this, and some may turn out to be isomorphisms dressed as identities. A member that tests as an isomorphism is marked as one, and whether it stays is asked, not assumed.
 
+**A dissolution can hold within limits**, if it is precise inside them and says plainly where they are: where it holds, and where it stops.
+
 **A dissolution in the math can leave a seam in perception.** Read the same curve faster and somewhere near 20 Hz it stops being heard as a change in loudness and starts being heard as a sound. Nothing in the equation changes there; the ear does. The boundary is gone from the object and still there in the listener, and that crossing is itself something a designer can play.
 
 A dissolution is hidden by nature. The two readings feel different, and that feeling is honest; what they share lies underneath it. So a dissolution may never be felt, only understood, and that is why it has to be taught.

@@ -27,6 +27,7 @@ agency_profile:
 links:
   - target: "[[Source Library]]"
     type: member-of
+    label: core-five
   - target: "[[Kick Drum ↔ Foundation]]"
     type: deepens
     label: first-action-sets-trajectory

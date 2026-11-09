@@ -23,7 +23,7 @@ links:
     type: connects-to
     label: public-face
   - target: "[[Hyperdimensional Prism]]"
-    type: spawned
+    type: emerged-from
     label: visual-identity
   - target: "[[Confucianism]]"
     type: deepens
@@ -46,6 +46,9 @@ links:
   - target: "[[Retrospective Delay]]"
     type: connects-to
     label: interface-mythology
+  - target: "[[Loudon Live — Context]]"
+    type: spawned
+    label: rationale-archive
 ---
 
 # Loudon Live

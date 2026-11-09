@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mistake or Feel?</title>
+<!-- Sketch · Daily Page rough, 2026-11-03 · tests [[Quantization ↔ Precision vs Flow]].
+     One synthetic 4-bar drum take with a repeating feel and non-repeating mistakes.
+     Practice round (outside the count), the blind six (0/25/50/75/100% and the take's own groove),
+     and an explorer that overlays the four bars. Answers leave by one copy button,
+     and sit on window.mistakeOrFeelResults for a session reading the pane. -->
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --coral:#e07a5f;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:900px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;letter-spacing:.02em;margin:0 0 6px}
+  p{margin:0 0 12px;color:var(--fg-2)}
+  .lede{font-size:20px;color:var(--fg-1)}
+  section{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:6px;padding:22px 22px 18px;margin:26px 0}
+  button{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button:hover{border-color:var(--fg-3);color:var(--fg-1)}
+  button.on{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+  button.primary{color:#0a0a0f;background:var(--accent);border:0;font-weight:500;padding:9px 20px}
+  .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--border-soft)}
+  .row:first-of-type{border-top:0}
+  .letter{font-family:var(--display);font-size:26px;width:34px;color:var(--fg-1)}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);margin-left:auto;min-width:9ch;text-align:right}
+  .tag.shown{color:var(--accent)}
+  .spacer{flex:1}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin:6px 0 0}
+  .result{font-family:var(--sans);font-size:15px;color:var(--fg-1);min-height:1.6em;margin-top:8px}
+  textarea{width:100%;margin-top:12px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  canvas{display:block;width:100%;background:var(--bg-elev-2);border-radius:4px;margin-top:12px}
+  .ctl{display:grid;grid-template-columns:110px 1fr 7ch;align-items:center;gap:10px;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl .v{font-family:var(--mono);font-size:14px;text-align:right}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq + .eq{color:var(--fg-3);margin-top:2px}
+  .meters{display:flex;gap:28px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--fg-3);margin-top:10px}
+  .meters b{font-weight:400;color:var(--fg-1);font-size:15px}
+  .legend{font-family:var(--sans);font-size:12px;color:var(--fg-3);margin-top:6px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:12px;color:var(--fg-3)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-2)}
+  @media (max-width:560px){ h1{font-size:40px} .ctl{grid-template-columns:80px 1fr 6ch} section{padding:18px 14px} }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily Page · Sketch · Quantization ↔ Precision vs Flow</div>
+  <h1>Mistake or Feel?</h1>
+  <p class="lede">The page says quantization can't tell a mistake from feel, and only you can. Here is one drummer, four bars, and both kinds of deviation. Your ear first, then the picture.</p>
+  <p>The drummer has a feel: swung sixteenths on the hats, a backbeat that sits behind, ghost notes that lean early. It comes back every bar. The drummer also makes mistakes: a little jitter everywhere and three clear flubs. Those don't come back.</p>
+
+  <section id="practice">
+    <div class="eyebrow">Practice · not counted</div>
+    <h2>Find the grid</h2>
+    <p>Two clips of the same take. One is as played, one is snapped all the way to the grid. Which is the grid?</p>
+    <div class="row">
+      <span class="letter">X</span><button data-play="px">Play X</button>
+      <span class="spacer"></span><button data-guess="X">X is the grid</button>
+    </div>
+    <div class="row">
+      <span class="letter">Y</span><button data-play="py">Play Y</button>
+      <span class="spacer"></span><button data-guess="Y">Y is the grid</button>
+    </div>
+    <div class="result" id="practiceResult"></div>
+  </section>
+
+  <section id="blind">
+    <div class="eyebrow">The blind six · the page's own ask</div>
+    <h2>Which one grooves?</h2>
+    <p>Six versions of the same take, shuffled. Five are snapped to the grid at different strengths. One is snapped to something else. For each, say what it is to your ear, then pick the one you'd keep.</p>
+    <div id="clips"></div>
+    <textarea id="blindNotes" placeholder="Anything you heard (optional)"></textarea>
+    <div class="row" style="border-top:0">
+      <button class="primary" id="copy">Copy my answers</button>
+      <button id="reveal">Reveal what each one is</button>
+      <span class="hint" id="copied"></span>
+    </div>
+  </section>
+
+  <section id="explorer">
+    <div class="eyebrow">The picture</div>
+    <h2>Four bars on one grid</h2>
+    <p>Each dot is one hit, placed where it landed. All four bars are laid on top of each other. Feel shows as a tight cluster sitting off the gridline. A mistake shows as a dot that wanders from its cluster.</p>
+    <canvas id="grid" width="1760" height="420"></canvas>
+    <div class="legend">Rows, top to bottom: hat, ghost, snare, kick. Thin lines are the sixteenth grid. Short amber ticks are the take's own groove: the median of the four bars for that slot.</div>
+
+    <div class="row" style="border-top:0;margin-top:10px">
+      <span class="eyebrow" style="width:110px">Snap toward</span>
+      <button id="tGrid" class="on">The grid</button>
+      <button id="tGroove">Its own groove</button>
+      <span class="spacer"></span>
+      <button class="primary" id="exPlay">Play loop</button>
+    </div>
+    <div class="ctl"><label for="s">Strength</label><input id="s" type="range" min="0" max="100" value="0"><span class="v" id="sv">0%</span></div>
+    <div class="eq">t′ = t + s × (g − t)</div>
+    <div class="eq">(new time) = (played time) + (strength) × ((target) − (played time))</div>
+    <p class="hint">The target g is the gridline, or the gridline plus the groove's offset for that slot.</p>
+
+    <div class="meters">
+      <span>feel kept <b id="mFeel">–</b> ms</span>
+      <span>mistakes left <b id="mMis">–</b> ms</span>
+    </div>
+    <canvas id="plot" width="1760" height="620"></canvas>
+    <div class="legend">Feel kept: how far each slot's cluster sits from the gridline, on average. Mistakes left: how far hits stray from their own cluster. The dashed path is grid quantize from 0 to 100%. The solid path is groove quantize.</div>
+    <textarea id="exNotes" placeholder="What the picture told you (optional)"></textarea>
+  </section>
+
+  <footer><b>Loud’n Live</b> · a sketch for the Daily Page, made before you woke</footer>
+</main>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var BPM = 92, S = 60 / BPM / 4, BARS = 4, SLOTS = 16;
+  var LANE_NAMES = ['hat', 'ghost', 'snare', 'kick'];
+
+  // ---- the take: a fixed seed, so every listen is the same drummer ----
+  function mulberry32(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  var rnd = mulberry32(20261103);
+  function gauss(){ var u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+
+  var PATTERN = [];
+  for (var sl = 0; sl < SLOTS; sl++) PATTERN.push({ lane: 0, slot: sl, v: sl % 4 === 0 ? 0.95 : sl % 2 === 0 ? 0.65 : 0.42 });
+  [3, 9, 14].forEach(function(sl){ PATTERN.push({ lane: 1, slot: sl, v: 0.3 }); });
+  [4, 12].forEach(function(sl){ PATTERN.push({ lane: 2, slot: sl, v: 1.0 }); });
+  [[0, 0.95], [7, 0.7], [10, 0.85]].forEach(function(k){ PATTERN.push({ lane: 3, slot: k[0], v: k[1] }); });
+
+  function feelMs(lane, slot){
+    var swing = slot % 2 === 1 ? 26 : 0;
+    if (lane === 0) return swing + (slot % 4 === 2 ? 4 : 0);
+    if (lane === 1) return -9 + swing * 0.5;
+    if (lane === 2) return 18;
+    return 2 + swing * 0.8;
+  }
+  var FLUBS = { '1-3-10': -38, '2-2-12': 44, '3-0-13': -30 };
+
+  var TAKE = [];
+  for (var b = 0; b < BARS; b++) PATTERN.forEach(function(p){
+    var ms = feelMs(p.lane, p.slot) + gauss() * 8;
+    var key = b + '-' + p.lane + '-' + p.slot;
+    if (FLUBS[key] !== undefined) ms = feelMs(p.lane, p.slot) + FLUBS[key];
+    TAKE.push({ bar: b, slot: p.slot, lane: p.lane, v: Math.max(0.05, Math.min(1, p.v + (rnd() - 0.5) * 0.16)), off: ms / 1000 });
+  });
+
+  function median(a){ var s = a.slice().sort(function(x, y){ return x - y; }), n = s.length; return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; }
+  function grooveOf(hits){
+    var bucket = {};
+    hits.forEach(function(h){ var k = h.lane + '-' + h.slot; (bucket[k] = bucket[k] || []).push(h.off); });
+    var g = {}; for (var k in bucket) g[k] = median(bucket[k]); return g;
+  }
+  var GROOVE = grooveOf(TAKE);
+
+  function processed(strength, target){
+    return TAKE.map(function(h){
+      var g = target === 'groove' ? GROOVE[h.lane + '-' + h.slot] : 0;
+      return { bar: h.bar, slot: h.slot, lane: h.lane, v: h.v, off: h.off + strength * (g - h.off) };
+    });
+  }
+  function metrics(hits){
+    var m = grooveOf(hits), f = 0, e = 0;
+    hits.forEach(function(h){ var c = m[h.lane + '-' + h.slot]; f += c * c; e += (h.off - c) * (h.off - c); });
+    return { feel: Math.sqrt(f / hits.length) * 1000, mis: Math.sqrt(e / hits.length) * 1000 };
+  }
+
+  // ---- sound ----
+  var ctx = null, master = null, noiseBuf = null;
+  function initAudio(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.7;
+    var comp = ctx.createDynamicsCompressor(); master.connect(comp); comp.connect(ctx.destination);
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    var d = noiseBuf.getChannelData(0); for (var n = 0; n < d.length; n++) d[n] = Math.random() * 2 - 1;
+  }
+  function env(g, t, peak, dec){ g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + dec); }
+  function hat(t, v){
+    var g = ctx.createGain(), hp = ctx.createBiquadFilter(), bp = ctx.createBiquadFilter();
+    hp.type = 'highpass'; hp.frequency.value = 7000; bp.type = 'bandpass'; bp.frequency.value = 9500; bp.Q.value = 0.8;
+    [205.3, 304.4, 369.6, 522.7, 540, 800].forEach(function(f){ var o = ctx.createOscillator(); o.type = 'square'; o.frequency.value = f * 2.2; o.connect(bp); o.start(t); o.stop(t + 0.1); });
+    bp.connect(hp); hp.connect(g); g.connect(out); env(g, t, 0.2 * v, 0.05);
+  }
+  function snare(t, v){
+    var s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = noiseBuf; f.type = 'bandpass'; f.frequency.value = 1900; f.Q.value = 0.9;
+    s.connect(f); f.connect(g); g.connect(out); env(g, t, 0.9 * v, 0.12 + 0.06 * v);
+    s.start(t, Math.random() * 0.5); s.stop(t + 0.25);
+    var o = ctx.createOscillator(), og = ctx.createGain(); o.frequency.setValueAtTime(210, t); o.frequency.exponentialRampToValueAtTime(160, t + 0.06);
+    o.connect(og); og.connect(out); env(og, t, 0.35 * v, 0.08); o.start(t); o.stop(t + 0.12);
+  }
+  function kick(t, v){
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.setValueAtTime(115, t); o.frequency.exponentialRampToValueAtTime(46, t + 0.09);
+    o.connect(g); g.connect(out); env(g, t, 0.95 * v, 0.28); o.start(t); o.stop(t + 0.32);
+  }
+  function sound(h, t){ if (h.lane === 0) hat(t, h.v); else if (h.lane === 1) snare(t, h.v * 0.9); else if (h.lane === 2) snare(t, h.v); else kick(t, h.v); }
+
+  // one player at a time; getHits is asked again at every bar, so the explorer can change mid-loop
+  var player = null, out = null;
+  function stop(){
+    if (player){ clearInterval(player.timer); var bus = player.bus; bus.gain.setTargetAtTime(0, ctx.currentTime, 0.008); setTimeout(function(){ bus.disconnect(); }, 150); if (player.btn){ player.btn.classList.remove('on'); player.btn.textContent = player.label; } player = null; }
+  }
+  function play(getHits, loop, btn){
+    initAudio(); if (ctx.state === 'suspended') ctx.resume();
+    var same = player && player.btn === btn; stop(); if (same) return;
+    var p = { bar: 0, barStart: ctx.currentTime + 0.15, btn: btn, label: btn ? btn.textContent : '', bus: ctx.createGain() }; p.bus.connect(master);
+    if (btn){ btn.classList.add('on'); btn.textContent = 'Stop'; }
+    p.timer = setInterval(function(){
+      out = p.bus; while (p.barStart < ctx.currentTime + 0.35){
+        if (!loop && p.bar >= BARS){ var end = p.barStart; setTimeout(function(){ if (player === p) stop(); }, Math.max(0, (end - ctx.currentTime) * 1000 + 300)); p.barStart = Infinity; break; }
+        var b = p.bar % BARS, start = p.barStart;
+        getHits().forEach(function(h){ if (h.bar === b) sound(h, Math.max(ctx.currentTime, start + h.slot * S + h.off)); });
+        p.bar++; p.barStart += SLOTS * S;
+      }
+    }, 25);
+    player = p;
+  }
+
+  // ---- practice ----
+  var practiceGridIs = Math.random() < 0.5 ? 'X' : 'Y', practiceGuess = null;
+  var raw = processed(0, 'grid'), full = processed(1, 'grid');
+  document.querySelector('[data-play="px"]').onclick = function(){ play(function(){ return practiceGridIs === 'X' ? full : raw; }, false, this); };
+  document.querySelector('[data-play="py"]').onclick = function(){ play(function(){ return practiceGridIs === 'Y' ? full : raw; }, false, this); };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-guess]'), function(btn){
+    btn.onclick = function(){
+      practiceGuess = btn.dataset.guess;
+      Array.prototype.forEach.call(document.querySelectorAll('[data-guess]'), function(o){ o.classList.toggle('on', o === btn); });
+      $('practiceResult').textContent = (practiceGuess === practiceGridIs ? 'Yes. ' : 'Not this time. ') + practiceGridIs + ' was the grid. The ear is warmed up; the six below are the real round.';
+      publish();
+    };
+  });
+
+  // ---- the blind six ----
+  var VERSIONS = [
+    { id: '0%', s: 0, t: 'grid' }, { id: '25%', s: 0.25, t: 'grid' }, { id: '50%', s: 0.5, t: 'grid' },
+    { id: '75%', s: 0.75, t: 'grid' }, { id: '100%', s: 1, t: 'grid' }, { id: 'its own groove, 100%', s: 1, t: 'groove' }
+  ];
+  var order = VERSIONS.map(function(v, i){ return i; });
+  for (var i = order.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), tmp = order[i]; order[i] = order[j]; order[j] = tmp; }
+  var LETTERS = 'ABCDEF', answers = {}, best = null, revealed = false;
+  order.forEach(function(vi, k){
+    var v = VERSIONS[vi], L = LETTERS[k], hits = processed(v.s, v.t);
+    var row = document.createElement('div'); row.className = 'row';
+    row.innerHTML = '<span class="letter">' + L + '</span><button class="pl">Play ' + L + '</button>' +
+      '<button data-a="too stiff">too stiff</button><button data-a="grooves">grooves</button><button data-a="too loose">too loose</button>' +
+      '<button data-best>keep this one</button><span class="tag" data-tag></span>';
+    row.querySelector('.pl').onclick = function(){ play(function(){ return hits; }, false, this); };
+    Array.prototype.forEach.call(row.querySelectorAll('[data-a]'), function(btn){
+      btn.onclick = function(){ answers[L] = btn.dataset.a; Array.prototype.forEach.call(row.querySelectorAll('[data-a]'), function(o){ o.classList.toggle('on', o === btn); }); publish(); };
+    });
+    row.querySelector('[data-best]').onclick = function(){
+      best = L; Array.prototype.forEach.call(document.querySelectorAll('[data-best]'), function(o){ o.classList.remove('on'); });
+      this.classList.add('on'); publish();
+    };
+    row.querySelector('[data-tag]').dataset.id = v.id;
+    $('clips').appendChild(row);
+  });
+  $('reveal').onclick = function(){
+    revealed = true;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-tag]'), function(t){ t.textContent = t.dataset.id; t.classList.add('shown'); });
+    publish();
+  };
+
+  // ---- results out ----
+  function block(){
+    var lines = ['Mistake or Feel? · Daily Page rough · 2026-11-03'];
+    lines.push('practice: guessed ' + (practiceGuess || '—') + ', grid was ' + practiceGridIs);
+    order.forEach(function(vi, k){ var L = LETTERS[k]; lines.push(L + ' = ' + VERSIONS[vi].id + ' · heard: ' + (answers[L] || '—') + (best === L ? ' · KEPT' : '')); });
+    lines.push('revealed before copying: ' + (revealed ? 'yes' : 'no'));
+    if ($('blindNotes').value.trim()) lines.push('notes on the six: ' + $('blindNotes').value.trim());
+    lines.push('explorer last at: ' + Math.round(+$('s').value) + '% toward ' + (target === 'grid' ? 'the grid' : 'its own groove'));
+    if ($('exNotes').value.trim()) lines.push('notes on the picture: ' + $('exNotes').value.trim());
+    return lines.join('\n');
+  }
+  function publish(){ window.mistakeOrFeelResults = block(); }
+  $('blindNotes').oninput = publish; $('exNotes').oninput = publish;
+  $('copy').onclick = function(){
+    var text = block(); window.mistakeOrFeelResults = text;
+    function done(){ $('copied').textContent = 'Copied. Paste it into the chat.'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+    function fallback(){ var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { $('copied').textContent = 'Copy blocked; the answers are in window.mistakeOrFeelResults.'; } document.body.removeChild(ta); }
+  };
+
+  // ---- the explorer ----
+  var target = 'grid';
+  function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function current(){ return processed(+$('s').value / 100, target); }
+
+  function drawGrid(){
+    var cv = $('grid'), g = cv.getContext('2d'), W = cv.width, H = cv.height, padL = 90, padR = 20, rowH = (H - 20) / 4;
+    var slotW = (W - padL - padR) / SLOTS;
+    g.clearRect(0, 0, W, H);
+    g.font = '22px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+    for (var r = 0; r < 4; r++){ g.fillStyle = css('--fg-3'); g.fillText(LANE_NAMES[r], 8, 10 + rowH * r + rowH / 2); }
+    for (var s = 0; s <= SLOTS; s++){
+      var x = padL + s * slotW; g.strokeStyle = s % 4 === 0 ? css('--fg-4') : 'rgba(255,255,255,0.07)'; g.lineWidth = s % 4 === 0 ? 2 : 1;
+      g.beginPath(); g.moveTo(x, 6); g.lineTo(x, H - 6); g.stroke();
+    }
+    for (var k in GROOVE){
+      var parts = k.split('-'), lane = +parts[0], slot = +parts[1], gx = padL + (slot + GROOVE[k] / S) * slotW, cy = 10 + rowH * lane + rowH / 2;
+      g.strokeStyle = css('--accent'); g.lineWidth = 3; g.beginPath(); g.moveTo(gx, cy - rowH * 0.36); g.lineTo(gx, cy - rowH * 0.2); g.stroke();
+    }
+    current().forEach(function(h){
+      var x = padL + (h.slot + h.off / S) * slotW, y = 10 + rowH * h.lane + rowH / 2 + (h.bar - 1.5) * 9;
+      g.fillStyle = 'rgba(232,232,240,0.78)'; g.beginPath(); g.arc(x, y, 5 + 4 * h.v, 0, Math.PI * 2); g.fill();
+    });
+  }
+
+  var RAWM = metrics(processed(0, 'grid'));
+  function drawPlot(){
+    var cv = $('plot'), g = cv.getContext('2d'), W = cv.width, H = cv.height, pl = 110, pr = 40, pt = 30, pb = 80;
+    var xMax = Math.ceil(RAWM.mis * 1.15), yMax = Math.ceil(RAWM.feel * 1.2);
+    var X = function(v){ return pl + v / xMax * (W - pl - pr); }, Y = function(v){ return H - pb - v / yMax * (H - pt - pb); };
+    g.clearRect(0, 0, W, H);
+    g.strokeStyle = css('--fg-4'); g.lineWidth = 2; g.beginPath(); g.moveTo(pl, pt); g.lineTo(pl, H - pb); g.lineTo(W - pr, H - pb); g.stroke();
+    g.fillStyle = css('--fg-3'); g.font = '22px JetBrains Mono, monospace';
+    g.textAlign = 'center'; g.fillText('mistakes left (ms) →', (pl + W - pr) / 2, H - 24);
+    g.save(); g.translate(36, (pt + H - pb) / 2); g.rotate(-Math.PI / 2); g.fillText('feel kept (ms) →', 0, 0); g.restore();
+    g.textAlign = 'right'; g.fillText('0', pl - 10, H - pb + 6); g.fillText(String(yMax), pl - 10, pt + 8);
+    g.textAlign = 'center'; g.fillText(String(xMax), W - pr, H - pb + 30);
+    function path(t, dashed){
+      g.setLineDash(dashed ? [10, 8] : []); g.strokeStyle = dashed ? css('--fg-3') : css('--accent'); g.lineWidth = 3; g.beginPath();
+      for (var i = 0; i <= 20; i++){ var m = metrics(processed(i / 20, t)); if (i) g.lineTo(X(m.mis), Y(m.feel)); else g.moveTo(X(m.mis), Y(m.feel)); }
+      g.stroke(); g.setLineDash([]);
+    }
+    path('grid', true); path('groove', false);
+    g.textAlign = 'left'; g.fillStyle = css('--fg-2');
+    g.fillText('as played', X(RAWM.mis) - 130, Y(RAWM.feel) - 22);
+    g.fillText('100% grid', pl + 14, H - pb - 18);
+    g.fillStyle = css('--accent'); g.fillText('100% its own groove', pl + 14, Y(RAWM.feel) - 22);
+    var m = metrics(current());
+    g.fillStyle = css('--fg-1'); g.beginPath(); g.arc(X(m.mis), Y(m.feel), 11, 0, Math.PI * 2); g.fill();
+    $('mFeel').textContent = m.feel.toFixed(1); $('mMis').textContent = m.mis.toFixed(1);
+  }
+  function redraw(){ $('sv').textContent = $('s').value + '%'; drawGrid(); drawPlot(); publish(); }
+  $('s').oninput = redraw;
+  $('tGrid').onclick = function(){ target = 'grid'; this.classList.add('on'); $('tGroove').classList.remove('on'); redraw(); };
+  $('tGroove').onclick = function(){ target = 'groove'; this.classList.add('on'); $('tGrid').classList.remove('on'); redraw(); };
+  $('exPlay').onclick = function(){ play(current, true, this); };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(redraw);
+  redraw();
+})();
+</script>
+</body>
+</html>

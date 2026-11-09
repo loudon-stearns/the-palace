@@ -12,10 +12,11 @@ energy: very high
 hook_quality: 9
 beauty: 8
 who_leads: shared
-forward_vector: "I keep showing learners that precision and flow are the same question at every scale — in MIDI timing, in structuring a song, in planning a creative practice — and I push them, before they reach for the grid, to name the resolution they need, and to notice when the better resolution is listening to each other."
+forward_vector: "I keep showing learners that a deviation from the grid can carry intent — a lean chosen by someone who knows the standard well enough to step just outside it — and that intent speaks at every span at once, beat, bar, phrase and form, and in the voice of the material it moves; so before they reach for the grid I push them to name what they are listening for, and over how long, and to notice when the better resolution is listening to each other."
 links:
   - target: "[[Cross-Domain Resonances]]"
     type: member-of
+    label: catalogued-bridge
   - target: "[[FOUR PILLARS]]"
     type: exemplifies
     label: cross-domain-bridge
@@ -34,6 +35,9 @@ links:
   - target: "[[Quantization ↔ Precision vs Flow — Context]]"
     type: spawned
     label: rationale-archive
+  - target: "[[Adopt the Craft, Author the Seam]]"
+    type: connects-to
+    label: edge-of-the-norm
 ---
 
 # Quantization ↔ Precision vs Flow
@@ -353,3 +357,7 @@ Coarse quantization flattens reality; fine quantization preserves detail. Binary
 ---
 
 *Perfect grid. Perfect time. Perfectly dead. Offset by 20ms. Dragging the beat. Perfectly alive. The drummer rushed. Fix it or keep it? Is it mistake or feel? Quantization can't tell the difference. Only you can. Choose the resolution that serves the music. Not the grid that serves the software.*
+
+## Active Baton
+
+[[Quantization ↔ Precision vs Flow — baton]] — drafted 2026-11-03

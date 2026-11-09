@@ -1,0 +1,637 @@
+<!doctype html>
+<!--
+  title: Auditory Illusions — rich — the waterfall
+  born: 2026-11-08
+  links: [[Auditory Illusions]] (connects-to · rich-face-piece) § Hearing what isn't there, the spectral motion aftereffect · its twin in the eye, the waterfall illusion, which the page grades mechanism · sibling on this section: "Auditory Illusions — rich — the ghost in the gap"
+  forward_vector: I am a waterfall you stand beside while a sound climbs, until both stop and the place goes on moving in you, the wrong way. Then I show what climbed (120 sines under a ripple that drifts up the octaves), then a cartoon of the tired detectors the page names, then a test in two blocks, the still ripple first as the control and then the climb: each opens with an adaptation you choose, up to three minutes (the page asks for a few), each trial tops it up, and then the ripple drifts by a hidden amount and you say which way. The score is where your point of no motion lies in each block and how far the climb moved it, in octaves a second. Remade 2026-11-08 after the challenge: the old test could be passed by answering from the page. I change when the section does.
+  understood as: a place. A waterfall between rocks, a pool below, a cross on the water to stare at. The water falls while the sound climbs; when both stop, nothing in the picture or the speaker moves, and whatever moves is the reader.
+  red means: really there, right now. Red marks what is actually moving or sounding at that moment: the "falling · climbing" mark while the water and the ripple move, the partials actually playing in step two. What the eye or ear makes up is never drawn; it is only asked about. The sibling piece keeps the same meaning.
+  sound: nothing plays until a button is clicked; the AudioContext and its worklet (a Blob URL) are made on that click, and if the worklet will not load (a file:// page, an insecure origin) the piece says so and the walk still works. Changing step stops the sound. Every sound is synthesized here: an AudioWorkletNode summing 120 sines -> GainNode -> DynamicsCompressor -> speakers. A test trial asks the kit to keep it playing (RichPiece.hold) for as long as that trial runs, since a first adaptation can be three minutes, and lets go when it ends; everything else lives under the kit's minute cap (a sound left a minute untouched stops; any touch resets its clock).
+  check: "Auditory Illusions — rich — check — hearing-what-isnt-there.mjs", beside this file. It pulls the script with id wf-core out, runs the worklet in Node, and measures the ripple's drift (octaves a second) while it climbs, while it stands still and at each hidden test drift, when the drift changes, the level's steadiness and the plans' timing; it checks the no-motion estimate on known answer sheets and its chance figures by enumeration, and the cartoon's sign. What a listener hears it cannot check.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host; sound only on a click -->
+<meta name="piece:needs" content="">
+<title>The waterfall · Auditory Illusions</title>
+<meta name="theme-color" content="#f4f2ec">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03, retinted to the paper ground on 2026-11-08 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field. */
+@layer furniture {
+:where(*) { --fx-bg: var(--paper, #f4f2ec); --fx-bg-elev-1: #ece9e1; --fx-bg-elev-2: #e4e0d6; --fx-bg-elev-3: #dcd8cc; --fx-fg-1: var(--ink, #141414); --fx-fg-2: var(--ink-2, #3a3a3a); --fx-fg-3: var(--ink-3, #7a7a7a); --fx-fg-4: #a9a59b; --fx-fg-on-accent: #f4f2ec; --fx-border: var(--rule, #c9c6bd); --fx-border-soft: rgba(20,20,20,0.08); --fx-border-hover: rgba(20,20,20,0.45); --fx-accent: var(--ink, #141414); --fx-accent-soft: rgba(20,20,20,0.08); --fx-accent-line: rgba(20,20,20,0.50); --fx-danger: #d1301c; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: 0 1px 2px rgba(20,20,20,0.10); --fx-shadow-3: 0 6px 18px -6px rgba(20,20,20,0.25); }
+:root { color-scheme: light; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f2ec; --ink:#141414; --ink-2:#3a3a3a; --ink-3:#7a7a7a; --rule:#c9c6bd; --red:#d1301c; --red-soft:rgba(209,48,28,.12);
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink)}
+  body{font-family:var(--serif);font-size:18px;line-height:1.6;padding:24px 16px 32px}
+  main{max-width:960px;margin:0 auto}
+  [hidden]{display:none !important}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+  h1{font-family:var(--sans);font-weight:500;font-size:32px;letter-spacing:-.01em;line-height:1.1;margin:6px 0 8px}
+  h2{font-family:var(--sans);font-weight:500;font-size:21px;line-height:1.2;margin:4px 0 6px}
+  p.lead{font-size:20px;color:var(--ink-2);margin:0 0 16px;max-width:64ch}
+  p.say{color:var(--ink-2);margin:0 0 12px;max-width:68ch}
+  .rail{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+  .rail button{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:1px solid var(--rule);border-radius:2px;padding:7px 10px;cursor:pointer}
+  .rail button[aria-current="step"]{color:var(--ink);border-color:var(--ink)}
+  .panel{border:1.5px solid var(--ink);border-radius:2px;padding:14px;margin:0 0 14px;background:var(--paper)}
+  canvas.stage{width:100%;display:block;border:1px solid var(--rule);border-radius:2px;background:var(--paper)}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  button.go{font-family:var(--sans);font-weight:600;font-size:15px;color:var(--paper);background:var(--ink);border:1.5px solid var(--ink);border-radius:2px;padding:10px 22px;cursor:pointer}
+  button.go:disabled{opacity:.35;cursor:default}
+  button.ghost{font-family:var(--sans);font-size:14px;color:var(--ink);background:transparent;border:1px solid var(--ink-3);border-radius:2px;padding:8px 14px;cursor:pointer}
+  button.ghost[aria-pressed="true"]{color:var(--paper);background:var(--ink);border-color:var(--ink)}
+  button.ghost:disabled{opacity:.35;cursor:default}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--ink-3);line-height:1.5}
+  .ask{font-family:var(--sans);font-size:14px;color:var(--ink);margin-top:12px}
+  .ask .q{display:inline-block;min-width:13ch;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .ctl{display:grid;grid-template-columns:170px 1fr auto;gap:6px 14px;align-items:center;margin-top:12px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+  .ctl label i{display:block;font-family:var(--sans);font-style:normal;letter-spacing:0;text-transform:none;font-size:12px;color:var(--ink-3)}
+  .ctl .v{font-family:var(--mono);font-size:14px;color:var(--ink);text-align:right;white-space:nowrap;min-width:10ch}
+  .meter{font-family:var(--mono);font-size:13px;color:var(--ink-2);margin-top:12px;line-height:1.7}
+  .meter b{font-weight:500;color:var(--ink)}
+  .meter .red{color:var(--red)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--ink);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.words{font-family:var(--sans);color:var(--ink-3);font-size:13px;margin-top:2px}
+  .note{font-family:var(--sans);font-size:14px;color:var(--ink-2);border-left:2px solid var(--ink);padding:4px 0 4px 12px;margin:12px 0;max-width:70ch}
+  table.marks{border-collapse:collapse;margin-top:12px;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+  table.marks td,table.marks th{border-bottom:1px solid var(--rule);padding:5px 12px 5px 0;text-align:left;font-weight:400;vertical-align:top}
+  table.marks th{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .walk{display:flex;justify-content:space-between;gap:10px;margin-top:14px}
+  footer{margin-top:26px;font-family:var(--sans);font-size:12px;color:var(--ink-3);display:flex;align-items:center;gap:10px}
+  footer svg{flex:none}
+  @media (max-width:560px){h1{font-size:26px}.ctl{grid-template-columns:1fr auto}.ctl label{grid-column:1 / -1}}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Auditory Illusions · hearing what isn't there · the spectral motion aftereffect</div>
+  <h1>The waterfall</h1>
+  <p class="lead">Stand by the falls for twenty seconds. Keep your eyes on the cross. Then everything stops.</p>
+
+  <nav class="rail" aria-label="Steps" id="rail"></nav>
+  <section aria-live="polite">
+    <div class="eyebrow" id="stepEyebrow"></div>
+    <h2 id="stepTitle"></h2>
+    <p class="say" id="stepSay"></p>
+  </section>
+
+  <div class="panel">
+    <canvas class="stage" id="stage" aria-label="the picture for this step"></canvas>
+
+    <!-- step 1: the falls -->
+    <div id="s-open">
+      <div class="row">
+        <button class="go" id="openGo">Stand at the falls</button>
+        <label class="hint" id="motionWrap"><input type="checkbox" id="motionOk"> let the water move</label>
+      </div>
+      <p class="hint" id="motionNote" hidden>Your system asks for less motion, so the water stays still unless you tick the box. The illusion in the eye needs the water to move; the sound's half works either way.</p>
+      <div id="openAsk" hidden>
+        <div class="ask"><span class="q">the still water</span>
+          <button class="ghost" data-rocks="rose">seemed to rise</button>
+          <button class="ghost" data-rocks="still">stayed put</button>
+          <button class="ghost" data-rocks="sank">seemed to sink</button></div>
+        <div class="ask"><span class="q">the sound</span>
+          <button class="ghost" data-sound="sank">seemed to drift down</button>
+          <button class="ghost" data-sound="still">stood still</button>
+          <button class="ghost" data-sound="rose">seemed to climb</button></div>
+      </div>
+      <div id="openTold"></div>
+    </div>
+
+    <!-- step 2: what climbs -->
+    <div id="s-ripple" hidden>
+      <div class="row"><button class="go" id="ripGo">Play</button><span class="hint">one pattern, looping; the slider moves it</span></div>
+      <div class="ctl">
+        <label for="rate">drift<i>octaves a second; minus is down</i></label>
+        <input type="range" id="rate" min="-1" max="1" step="0.05" value="0.5">
+        <span class="v" id="rateV"></span>
+      </div>
+      <p class="hint">The kit stops a sound left a minute untouched. Touching the slider starts its clock again.</p>
+    </div>
+
+    <!-- step 3: tired detectors -->
+    <div id="s-detect" hidden>
+      <div class="row">
+        <button class="ghost" id="senseEar" aria-pressed="true">the ear · a sound climbing</button>
+        <button class="ghost" id="senseEye" aria-pressed="false">the eye · water falling</button>
+      </div>
+      <div class="ctl">
+        <label for="dAdapt">adapting for<i>seconds of motion before the still test</i></label>
+        <input type="range" id="dAdapt" min="0" max="180" step="1" value="20">
+        <span class="v" id="dAdaptV"></span>
+      </div>
+    </div>
+
+    <!-- step 4: the test -->
+    <div id="s-test" hidden>
+      <div class="note" id="rule"></div>
+      <div class="ctl">
+        <label for="adapt">first adaptation<i>each block opens with it; set before trial one</i></label>
+        <input type="range" id="adapt" min="20" max="180" step="5" value="60">
+        <span class="v" id="adaptV"></span>
+      </div>
+      <div class="row"><button class="go" id="trialGo">Play trial 1</button><span class="hint" id="trialHint"></span></div>
+      <div class="ask"><span class="q">the last 3 seconds</span>
+        <button class="ghost" data-ans="down" disabled>drifted down</button>
+        <button class="ghost" data-ans="up" disabled>drifted up</button>
+        <span class="hint">not sure? guess</span></div>
+      <div class="row"><button class="ghost" id="again">Start again</button></div>
+      <div id="result"></div>
+    </div>
+
+    <p class="hint" id="err" hidden></p>
+    <div class="meter" id="meter"></div>
+    <div class="eq" id="eq1"></div><div class="eq words" id="eq1w"></div>
+    <div class="eq" id="eq2"></div><div class="eq words" id="eq2w"></div>
+  </div>
+
+  <div class="walk"><button class="ghost" id="back">Back</button><button class="ghost" id="next">Next</button></div>
+  <footer><svg id="sigil" width="20" height="20" viewBox="-11 -11 22 22" aria-hidden="true"></svg><span>Auditory Illusions · the waterfall · proposal, 2026-11-08 · every sound made here; nobody has listened to it yet</span></footer>
+</main>
+
+<script id="wf-core">
+// The engine: the sound's numbers, the plans every run follows, and the detector cartoon. Plain functions,
+// shared by the picture, the sound and the headless check beside this file.
+const WF = (() => {
+  // 120 sines spread evenly on a log axis from 125 Hz to 8 kHz (six octaves, twenty to an octave, each nudged
+  // a little off the grid so no two line up into a chord). Each sine's level is a ripple across the octaves,
+  // one peak an octave, times a window that fades the bottom and top octaves out so nothing enters or leaves
+  // with a jump. Moving the ripple's phase moves every peak up (or down) the octaves together.
+  const LO = 125, OCT = 6, PER_OCT = 20, N = OCT * PER_OCT;
+  const DENSITY = 1;          // ripple cycles per octave
+  const RATE = 0.5;           // the climb, in octaves a second
+  const LEVEL_RMS = 0.1;      // the sum's RMS before the output gain (−20 dBFS)
+  const OPEN = { adapt: 20, still: 8 };
+  const ADAPT = { min: 20, max: 180, def: 60 }, TOPUP = 8, GAP = 0.4, TEST = 3, RAMP = 0.25;
+  const DRIFTS = [-0.15, -0.05, 0, 0.05, 0.15], REPS = 2, PAD = 0.25, SHOWS = 0.15;   // the test's hidden drifts (oct/s) and its rule
+  const KIT_WARN = 50, KIT_CAP = 60;  // the kit warns 10 s before its 60 s cap on a sound left untouched
+  function rng(seed) { let s = seed >>> 0; return () => { s = (s + 0x6D2B79F5) >>> 0; let t = s; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function partials(seed = 7) {
+    const r = rng(seed), x = [], f = [], w = [], ph = [];
+    for (let i = 0; i < N; i++) {
+      const xi = (i + 0.5 + (r() - 0.5) * 0.6) / PER_OCT;     // octaves above 125 Hz
+      x.push(xi); f.push(LO * Math.pow(2, xi));
+      w.push(Math.pow(Math.sin(Math.PI * xi / OCT), 2));       // the window: zero at both ends
+      ph.push(r() * 2 * Math.PI);
+    }
+    let s = 0; for (const v of w) s += v * v;
+    // mean of (½(1 + cos))² is 3/8, and a sine's power is half its amplitude squared: RMS² = Σw² · 3/16
+    return { x, f, w, ph, norm: LEVEL_RMS / Math.sqrt(s * 3 / 16) };
+  }
+  // the level of the sine at x octaves when the ripple's phase is phi (in cycles)
+  const env = (x, phi) => 0.5 * (1 + Math.cos(2 * Math.PI * (DENSITY * x - phi)));
+  function options() { return Object.assign(partials(), { density: DENSITY }); }
+  // A plan: when the ripple moves (v in octaves a second, from `at` seconds) and when the sound is on.
+  function opening(adapt = OPEN.adapt, still = OPEN.still) {
+    return { moves: [{ at: 0, v: RATE }, { at: adapt, v: 0 }], sound: [{ from: 0, to: adapt + still }], stillAt: adapt, total: adapt + still };
+  }
+  // A test trial: adapt (a block's first adaptation, or a top-up), a short silence, then the ripple drifting
+  // by the trial's hidden amount for TEST seconds.
+  function trial(adapt, arm, drift = 0) {
+    const a = Math.max(TOPUP, Math.min(ADAPT.max, adapt));
+    return { arm, adapt: a, drift, moves: [{ at: 0, v: arm === 'climb' ? RATE : 0 }, { at: a, v: drift }],
+             sound: [{ from: 0, to: a }, { from: a + GAP, to: a + GAP + TEST }], testAt: a + GAP, total: a + GAP + TEST };
+  }
+  // The cartoon of the page's "tired motion detectors": two populations, one tuned to each direction. Each has
+  // a gain g that tires while it is driven and recovers otherwise: dg/dt = (1 − g)/τr − c·drive·g. A pattern
+  // moving its way drives one population fully (drive 1, the other 0); a pattern standing still drives both by
+  // half. What you perceive is the difference of their outputs, g₊·d₊ − g₋·d₋. The numbers (τr = 8 s,
+  // c = 0.06 a second) are chosen to draw the idea, not measured; nobody here knows the ear's.
+  function detectors(adapt, moving, o = {}) {
+    const tauR = o.tauR || 8, c = o.c || 0.06, dt = o.dt || 0.05;
+    const total = adapt + GAP + TEST, t = [], gp = [], gm = [], net = [];
+    let p = 1, m = 1;
+    for (let k = 0; k * dt <= total + 1e-9; k++) {
+      const tt = k * dt, adapting = tt < adapt, testing = tt >= adapt + GAP;
+      const dp = adapting ? (moving ? 1 : 0.5) : testing ? 0.5 : 0;
+      const dm = adapting ? (moving ? 0 : 0.5) : testing ? 0.5 : 0;
+      t.push(tt); gp.push(p); gm.push(m); net.push(p * dp - m * dm);
+      p += ((1 - p) / tauR - c * dp * p) * dt;
+      m += ((1 - m) / tauR - c * dm * m) * dt;
+    }
+    return { t, gp, gm, net, testAt: adapt + GAP, total };
+  }
+  // P(A − C ≥ d) for A and C independent, each Binomial(n, p): how often a guesser meets a verdict rule.
+  function diffAtLeast(n, p, d) {
+    const b = (k) => { let c = 1; for (let i = 0; i < k; i++) c = c * (n - i) / (i + 1); return c * Math.pow(p, k) * Math.pow(1 - p, n - k); };
+    let s = 0; for (let a = 0; a <= n; a++) for (let c = 0; c <= n; c++) if (a - c >= d) s += b(a) * b(c); return s;
+  }
+  // Where a block's answers put the reader's point of no motion: a Spearman–Kärber estimate from the share of
+  // "up" answers at each test drift, padded with "all down" at −PAD and "all up" at +PAD, so it runs from
+  // −0.2 to +0.2 oct/s. After the climb the aftereffect should move it up: a rising pattern is needed to sound still.
+  function pse(answers) {
+    const x = [-PAD].concat(DRIFTS, [PAD]), p = [0];
+    for (const d of DRIFTS) { const a = answers.filter((r) => r.drift === d); p.push(a.length ? a.filter((r) => r.up).length / a.length : 0.5); }
+    p.push(1);
+    let s = 0; for (let i = 0; i + 1 < x.length; i++) s += (p[i + 1] - p[i]) * (x[i] + x[i + 1]) / 2;
+    return s;
+  }
+  // Every estimate a block of answers that ignore the sound can give, with its probability ("up" with chance q).
+  function pseDist(q) {
+    const n = DRIFTS.length * REPS, out = [];
+    for (let m = 0; m < (1 << n); m++) { const ans = []; let k = 0; for (let i = 0; i < n; i++) { const up = ((m >> i) & 1) === 1; if (up) k++; ans.push({ drift: DRIFTS[i % DRIFTS.length], up }); } out.push([pse(ans), Math.pow(q, k) * Math.pow(1 - q, n - k)]); }
+    return out;
+  }
+  // P(the climb block's point minus the still block's ≥ d) for such a reader, the same lean q in both blocks.
+  function shiftChance(d, q = 0.5) {
+    const A = pseDist(q), B = pseDist(q).sort((u, v) => u[0] - v[0]), cum = []; let c = 0;
+    for (const b of B) { c += b[1]; cum.push(c); }
+    let s = 0;
+    for (const [a, pa] of A) { let lo = 0, hi = B.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (B[mid][0] <= a - d + 1e-9) lo = mid + 1; else hi = mid; } if (lo) s += pa * cum[lo - 1]; }
+    return s;
+  }
+  function worstShiftChance(d) { let p = 0, at = 0.5; for (let i = 1; i <= 19; i++) { const q = i / 20, v = shiftChance(d, q); if (v > p) { p = v; at = q; } } return { p, q: at }; }
+  // The worklet, as text, so it can go in as a Blob URL and be run by the check in Node. It sums the 120 sines
+  // (each a rotating unit vector, renormalized every block), with each sine's level moved linearly across the
+  // block from the ripple's phase at its start to its phase at its end. A plan message lists {t, v}: at context
+  // time t the drift becomes v. It reports the ripple's phase about every 43 ms so the picture shows what plays.
+  const WORKLET = `
+class WfRipple extends AudioWorkletProcessor {
+  constructor(o) {
+    super();
+    const p = o.processorOptions; this.n = p.f.length; this.x = p.x; this.w = p.w; this.norm = p.norm; this.density = p.density;
+    this.c = new Float64Array(this.n); this.s = new Float64Array(this.n); this.cd = new Float64Array(this.n); this.sd = new Float64Array(this.n);
+    for (let i = 0; i < this.n; i++) { this.c[i] = Math.cos(p.ph[i]); this.s[i] = Math.sin(p.ph[i]); const d = 2 * Math.PI * p.f[i] / sampleRate; this.cd[i] = Math.cos(d); this.sd[i] = Math.sin(d); }
+    this.phi = 0; this.v = 0; this.plan = []; this.tick = 0;
+    this.port.onmessage = (e) => { const m = e.data; if (m.plan) this.plan = m.plan.slice().sort((a, b) => a.t - b.t); if (typeof m.v === 'number') this.v = m.v; if (typeof m.phi === 'number') this.phi = m.phi; };
+  }
+  level(i, phi) { return this.w[i] * 0.5 * (1 + Math.cos(2 * Math.PI * (this.density * this.x[i] - phi))); }
+  process(inputs, outputs) {
+    const out = outputs[0][0], L = out.length;
+    while (this.plan.length && this.plan[0].t <= currentTime) this.v = this.plan.shift().v;
+    const phi0 = this.phi, phi1 = phi0 + this.density * this.v * L / sampleRate;
+    out.fill(0);
+    for (let i = 0; i < this.n; i++) {
+      const a0 = this.level(i, phi0), a1 = this.level(i, phi1), da = (a1 - a0) / L, cd = this.cd[i], sd = this.sd[i];
+      let c = this.c[i], s = this.s[i], a = a0;
+      for (let k = 0; k < L; k++) { out[k] += a * s; const c2 = c * cd - s * sd; s = s * cd + c * sd; c = c2; a += da; }
+      const r = 1 / Math.sqrt(c * c + s * s); this.c[i] = c * r; this.s[i] = s * r;
+    }
+    for (let k = 0; k < L; k++) out[k] *= this.norm;
+    for (let ch = 1; ch < outputs[0].length; ch++) outputs[0][ch].set(out);
+    this.phi = phi1 - Math.floor(phi1);
+    if (++this.tick % 16 === 0) this.port.postMessage({ phi: this.phi, v: this.v, t: currentTime });
+    return true;
+  }
+}
+registerProcessor('wf-ripple', WfRipple);
+`;
+  return { LO, OCT, PER_OCT, N, DENSITY, RATE, LEVEL_RMS, OPEN, ADAPT, TOPUP, GAP, TEST, RAMP, KIT_WARN, KIT_CAP, DRIFTS, REPS, PAD, SHOWS,
+           rng, partials, env, options, opening, trial, detectors, diffAtLeast, pse, pseDist, shiftChance, worstShiftChance, WORKLET };
+})();
+</script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const RED = '#d1301c', INK = '#141414', INK2 = '#3a3a3a', INK3 = '#7a7a7a', RULE = '#c9c6bd', PAPER = '#f4f2ec';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const P = WF.partials();
+
+  // ── sound: made on the first click; one plan at a time ──
+  let ctx = null, out = null, node = null, live = { phi: 0, v: 0, t: 0 }, session = 0, timers = [], run = null;
+  const LEVEL = 0.7;
+  async function ensure() {
+    if (!ctx) {
+      // the context counts as made only once its worklet has loaded; a page that can't load it stays as it was
+      const c = new AudioContext();
+      try {
+        const url = URL.createObjectURL(new Blob([WF.WORKLET], { type: 'application/javascript' }));
+        await c.audioWorklet.addModule(url);
+        const comp = c.createDynamicsCompressor();
+        comp.threshold.value = -10; comp.ratio.value = 4; comp.attack.value = 0.01; comp.release.value = 0.25;
+        const o = c.createGain(); o.gain.value = 0; o.connect(comp).connect(c.destination);
+        const n = new AudioWorkletNode(c, 'wf-ripple', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [1], processorOptions: WF.options() });
+        n.connect(o); n.port.onmessage = (e) => { live = e.data; };
+        ctx = c; out = o; node = n;
+        ctx.onstatechange = () => { if (ctx.state !== 'running' && run) interrupted(); };
+      } catch (e) { try { c.close(); } catch (e2) { /* nothing to close */ } throw e; }
+    }
+    if (ctx.state !== 'running') await ctx.resume();
+  }
+  // a test trial asks the kit to keep playing for as long as it runs (a first adaptation can be three minutes)
+  function keep(on) { try { if (window.RichPiece && window.RichPiece.hold) window.RichPiece.hold(on); } catch (e) { /* no kit: nothing to ask */ } }
+  function stopAll() {
+    session++; timers.forEach(clearTimeout); timers = [];
+    if (ctx && out && node) { const t = ctx.currentTime; out.gain.cancelScheduledValues(t); out.gain.setTargetAtTime(0, t, 0.04); node.port.postMessage({ plan: [], v: 0 }); }
+    if (run && run.kind === 'trial') keep(false);
+    run = null; $('ripGo').textContent = 'Play';
+  }
+  function later(sec, fn) { const id = session; timers.push(setTimeout(() => { if (id === session) fn(); }, sec * 1000)); }
+  // Run a plan from WF: the drift changes go to the worklet at exact context times; the gain is scheduled here.
+  async function play(plan, kind, phi = Math.random()) {
+    try { await ensure(); } catch (e) { $('err').hidden = false; $('err').textContent = 'The sound could not start here: this page could not load its sound engine (an AudioWorklet), which a browser allows only on a secure page, not one opened as a file. In the rich face it loads. ' + (e && e.message ? e.message : ''); return null; }
+    stopAll();
+    const t0 = ctx.currentTime + 0.12;
+    node.port.postMessage({ plan: plan.moves.map((m) => ({ t: t0 + m.at, v: m.v })), v: 0, phi });
+    const g = out.gain; g.cancelScheduledValues(ctx.currentTime); g.setValueAtTime(0, ctx.currentTime);
+    for (const s of plan.sound) {
+      const ramp = Math.min(WF.RAMP, (s.to - s.from) / 4);
+      g.setValueAtTime(0, t0 + s.from); g.linearRampToValueAtTime(LEVEL, t0 + s.from + ramp);
+      g.setValueAtTime(LEVEL, t0 + s.to - ramp); g.linearRampToValueAtTime(0, t0 + s.to);
+    }
+    run = { plan, kind, t0, id: session };
+    return run;
+  }
+  const elapsed = () => (run && ctx ? ctx.currentTime - run.t0 : -1);
+  function interrupted() {
+    const k = run && run.kind; stopAll();
+    if (k === 'open') { $('openGo').disabled = false; $('openTold').innerHTML = '<p class="hint">The sound was paused, so the run stopped. Start it again when you are ready.</p>'; }
+    if (k === 'trial') { T.playing = false; setAnswers(false); $('trialGo').disabled = false; $('trialHint').textContent = 'the trial was interrupted; play it again'; }
+  }
+
+  // ── the walk ──
+  const STEPS = [
+    { key: 'open', rail: 'the falls', title: 'Stand at the falls',
+      say: 'Twenty seconds of falling water and a sound beside it. Keep your eyes on the small cross in the middle of the water, and let the sound wash over you. Then the water stops and the sound holds still for eight seconds. Keep looking at the water by the cross. Listen. Headphones or decent speakers help; keep the volume comfortable.' },
+    { key: 'ripple', rail: 'what climbs', title: 'What was climbing',
+      say: 'The sound is 120 quiet sines spread from 125 Hz to 8 kHz, an even 20 to every octave. Their levels make a ripple across the octaves, one peak an octave, and the whole ripple slides upward: every peak rises through the octaves together, fading in at the bottom and out at the top, so it can climb for ever without getting anywhere. Each red line is one sine, as loud as it is long, playing now. Drag the drift to zero and the ripple stands still, which is what you heard in the last eight seconds. Drag it below zero and it falls.' },
+    { key: 'detect', rail: 'tired detectors', title: 'Tired detectors, in either sense',
+      say: 'The page’s account, drawn as a cartoon. Hearing and seeing each have cells that answer to motion one way: some to up, some to down. Their difference is the motion you perceive. Staring at one direction tires the cells tuned to it. When the pattern then stands still it drives both kinds equally, but the tired ones answer less, so the difference tips the other way, and something still seems to move against the direction you adapted to. The ear’s cells for upward drift tire under the climbing sound; the eye’s cells for downward motion tire under the falling water. The page grades this pair mechanism: the same kind of trick on light and on sound. It names no number for either, and neither do I: the time constants here are chosen to draw the idea.' },
+    { key: 'test', rail: 'the test', title: 'Where is still, for you?',
+      say: 'Twenty trials in two blocks. In the first you adapt to the ripple standing still, the control; in the second, to the climb. Each block opens with an adaptation as long as you choose, up to three minutes (the page asks for a few), and every trial after it tops up for eight seconds. Then a moment of silence, and three seconds of the ripple drifting by a hidden amount, a little down, a little up, or not at all, and you say which way. The score is not how often you say one word: it is where, for you, no motion lies, and whether the climb moved it.' },
+  ];
+  const S = { step: 0 };
+  function rail() { const r = $('rail'); r.innerHTML = ''; STEPS.forEach((s, i) => { const b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.rail; if (i === S.step) b.setAttribute('aria-current', 'step'); b.onclick = () => goStep(i); r.appendChild(b); }); }
+  function goStep(i) {
+    stopAll(); S.step = Math.max(0, Math.min(STEPS.length - 1, i)); const s = STEPS[S.step];
+    rail();
+    $('stepEyebrow').textContent = `Step ${S.step + 1} of ${STEPS.length} · ${s.rail}`;
+    $('stepTitle').textContent = s.title; $('stepSay').textContent = s.say;
+    for (const k of ['open', 'ripple', 'detect', 'test']) $('s-' + k).hidden = s.key !== k;
+    $('openGo').disabled = false;
+    if (s.key === 'test') { if (!T.trials) newTest(); else buildTest(); setAnswers(false); }
+    $('back').disabled = S.step === 0; $('next').disabled = S.step === STEPS.length - 1;
+    $('stage').style.height = (s.key === 'test' ? 150 : s.key === 'detect' ? 300 : innerWidth < 560 ? 300 : 380) + 'px';
+    writeMeter();
+  }
+  $('back').onclick = () => goStep(S.step - 1); $('next').onclick = () => goStep(S.step + 1);
+
+  function writeMeter() {
+    const k = STEPS[S.step].key; const m = $('meter'); const e = (a, b, c, d) => { $('eq1').textContent = a; $('eq1w').textContent = b; $('eq2').textContent = c || ''; $('eq2w').textContent = d || ''; };
+    if (k === 'open') { m.innerHTML = ''; e('', ''); }
+    if (k === 'ripple') {
+      const v = +$('rate').value;
+      m.innerHTML = `120 sines · 125 Hz to 8 kHz · 20 an octave · one ripple peak an octave · drift <b class="${run ? 'red' : ''}">${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(2)} octaves a second</b> · a peak crosses the six octaves in ${v ? (6 / Math.abs(v)).toFixed(0) + ' s' : 'never'}<br>graph: AudioWorkletNode (the 120 sines, summed) → GainNode → DynamicsCompressor → your speakers`;
+      e('aᵢ(t) = w(xᵢ) · ½ [1 + cos 2π (xᵢ − v·t)] ,  xᵢ = log₂(fᵢ / 125 Hz)', 'each sine’s level is a ripple across the octaves, one peak an octave, sliding up at v octaves a second; w fades the bottom and top octave out',
+        'out(t) = Σᵢ aᵢ(t) · sin(2π fᵢ t + θᵢ)', 'the sound is the 120 sines added, each at its own level, each starting at a random phase');
+    }
+    if (k === 'detect') {
+      const a = +$('dAdapt').value, d = WF.detectors(a, true), i = Math.round(d.testAt / 0.05) + 1;
+      m.innerHTML = `just after ${a} s of motion, the still pattern reads <b>${d.net[i].toFixed(3)}</b> (below zero: the way opposite the adaptor) · after the same time standing still it reads <b>${WF.detectors(a, false).net[i].toFixed(3)}</b>`;
+      e('dg/dt = (1 − g)/τr − c · drive · g      τr = 8 s,  c = 0.06 /s (chosen)', 'a population’s gain recovers toward 1 and tires in proportion to how hard it is driven',
+        'perceived motion = g₊ · d₊ − g₋ · d₋', 'the difference between the two populations’ outputs; a still pattern drives both by half, so only tiredness can tip it');
+    }
+    if (k === 'test') { m.innerHTML = ''; e('', ''); }
+  }
+
+  // ── step 1: the falls ──
+  const OPEN = WF.OPEN; let openAnswers = {};
+  if (reduced) { $('motionNote').hidden = false; $('motionOk').checked = false; } else { $('motionOk').checked = true; $('motionWrap').hidden = true; }
+  $('openGo').onclick = async () => {
+    openAnswers = {}; $('openAsk').hidden = true; $('openTold').innerHTML = '';
+    document.querySelectorAll('[data-rocks],[data-sound]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+    $('openGo').disabled = true;
+    if (!(await play(WF.opening(), 'open'))) { $('openGo').disabled = false; return; }
+    later(OPEN.adapt + OPEN.still + 0.2, () => { run = null; $('openAsk').hidden = false; $('openGo').disabled = false; $('openGo').textContent = 'Stand there again'; });
+  };
+  function openAnswer(kind, val, btn) {
+    openAnswers[kind] = val; document.querySelectorAll(`[data-${kind}]`).forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+    if (!openAnswers.rocks || !openAnswers.sound) return;
+    const r = openAnswers.rocks, s = openAnswers.sound;
+    const eye = r === 'rose' ? 'The stopped water rose for you.' : r === 'sank' ? 'The stopped water sank for you, the way it had been falling, which is not the usual report.' : 'The stopped water stayed put for you.';
+    const ear = s === 'sank' ? 'The sound drifted down for you.' : s === 'rose' ? 'The sound went on climbing for you.' : 'The sound stood still for you. Twenty seconds is far short of the few minutes the page asks for; the test lets you adapt for up to three.';
+    $('openTold').innerHTML = `<div class="note">${eye} ${ear} In those last eight seconds nothing moved: the stripes were frozen, and the sound’s ripple stood still (the check beside this piece measures its drift then at zero). Whatever moved, you moved. The next steps take it apart.</div>`;
+  }
+  document.querySelectorAll('[data-rocks]').forEach((b) => (b.onclick = () => openAnswer('rocks', b.dataset.rocks, b)));
+  document.querySelectorAll('[data-sound]').forEach((b) => (b.onclick = () => openAnswer('sound', b.dataset.sound, b)));
+
+  // ── step 2: the ripple ──
+  $('rate').oninput = () => { $('rateV').textContent = (+$('rate').value).toFixed(2); if (run && run.kind === 'ripple' && node) node.port.postMessage({ v: +$('rate').value }); writeMeter(); };
+  $('ripGo').onclick = async () => {
+    if (run && run.kind === 'ripple') { stopAll(); writeMeter(); return; }
+    if (!(await play({ moves: [{ at: 0, v: +$('rate').value }], sound: [{ from: 0, to: 3600 }] }, 'ripple'))) return;
+    $('ripGo').textContent = 'Stop'; writeMeter();
+  };
+
+  // ── step 3: the cartoon ──
+  let sense = 'ear';
+  $('senseEar').onclick = () => { sense = 'ear'; $('senseEar').setAttribute('aria-pressed', 'true'); $('senseEye').setAttribute('aria-pressed', 'false'); };
+  $('senseEye').onclick = () => { sense = 'eye'; $('senseEye').setAttribute('aria-pressed', 'true'); $('senseEar').setAttribute('aria-pressed', 'false'); };
+  $('dAdapt').oninput = () => { $('dAdaptV').textContent = $('dAdapt').value + ' s'; writeMeter(); };
+
+  // ── step 4: the test ──
+  const PER = WF.DRIFTS.length * WF.REPS, TRIALS = 2 * PER, BLOCKS = ['still', 'climb'];
+  const T = { list: null, i: 0, answers: [], playing: false, done: false, adapt: WF.ADAPT.def };
+  let chance = null;
+  function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  const pct = (p) => (p < 0.001 ? 'under 0.1%' : (100 * p).toFixed(p < 0.1 ? 1 : 0) + '%');
+  const sgn = (v) => (v > 1e-9 ? '+' : v < -1e-9 ? '−' : '') + Math.abs(v).toFixed(2);
+  const fmtS = (x) => (x >= 90 ? `${Math.floor(x / 60)} min ${Math.round(x % 60)} s` : `${+(+x).toFixed(1)} s`);
+  function newTest() {
+    T.list = BLOCKS.flatMap((arm) => shuffle(WF.DRIFTS.flatMap((d) => Array(WF.REPS).fill(d))).map((drift, k) => ({ arm, drift, first: k === 0 })));
+    T.i = 0; T.answers = []; T.done = false; T.playing = false; $('adapt').disabled = false; buildTest();
+  }
+  function buildTest() {
+    if (!chance) chance = { half: WF.shiftChance(WF.SHOWS, 0.5), worst: WF.worstShiftChance(WF.SHOWS) };
+    $('rule').innerHTML = `<b>Before trial one.</b> Each trial ends with ${WF.TEST} s of the ripple drifting by a hidden amount: ${WF.DRIFTS.map(sgn).join(', ')} octaves a second, each twice in a block, shuffled. You say up or down. From your answers I find, for each block, the drift that sounds to you like no motion. The aftereffect shows as that point moving up after the climb, since a rising pattern is then needed to sound still. It showed for you if the point moves up by ${WF.SHOWS} octave a second or more. Answers that ignore the sound get that far ${pct(chance.half)} of the time (${pct(chance.worst.p)} at worst, for a reader leaning ${chance.worst.q < 0.5 ? 'down' : 'up'} in both blocks). The still block also checks that your ear follows the real drifts. What no test with an audible adaptor can rule out: a reader who knows the page’s answer and gives it after the climb. Only you know if you did.`;
+    $('adaptV').textContent = fmtS(+$('adapt').value);
+    const cur = T.done ? null : T.list[T.i];
+    $('trialGo').textContent = T.done ? `all ${TRIALS} answered` : `Play trial ${T.i + 1} of ${TRIALS}`;
+    $('trialGo').disabled = T.done || T.playing;
+    if (!T.playing) $('trialHint').textContent = T.done ? '' : `${cur.arm === 'still' ? 'block one: the still ripple' : 'block two: the climb'}${cur.first ? ', opening with the first adaptation' : ''} · this trial runs ${fmtS((cur.first ? +$('adapt').value : WF.TOPUP) + WF.GAP + WF.TEST)}`;
+    $('result').innerHTML = T.done ? verdict() : `<p class="hint" style="margin-top:12px">${T.answers.length} answered${T.i === PER && !T.done ? '. Block two next: the climb. Take a breath first if you like.' : '.'} The score shows after the last.</p>`;
+  }
+  $('adapt').oninput = () => buildTest();
+  function setAnswers(on) { document.querySelectorAll('[data-ans]').forEach((b) => (b.disabled = !on)); }
+  $('trialGo').onclick = async () => {
+    if (T.done || T.playing) return;
+    $('adapt').disabled = true; T.adapt = +$('adapt').value;
+    const cur = T.list[T.i], plan = WF.trial(cur.first ? T.adapt : WF.TOPUP, cur.arm, cur.drift);
+    T.playing = true; setAnswers(false); $('trialGo').disabled = true; $('trialHint').textContent = cur.first ? `adapting for ${fmtS(plan.adapt)}; keep listening` : 'listen';
+    if (!(await play(plan, 'trial'))) { T.playing = false; $('trialGo').disabled = false; $('trialHint').textContent = ''; return; }
+    keep(true);
+    later(plan.testAt, () => { setAnswers(true); $('trialHint').textContent = 'now: which way is it drifting?'; });
+    later(plan.total + 0.1, () => { keep(false); run = null; $('trialHint').textContent = 'answer when ready'; });
+  };
+  document.querySelectorAll('[data-ans]').forEach((b) => (b.onclick = () => {
+    if (T.done) return; stopAll(); setAnswers(false);
+    const cur = T.list[T.i]; T.answers.push({ arm: cur.arm, drift: cur.drift, up: b.dataset.ans === 'up' }); T.i++; T.playing = false;
+    if (T.i >= TRIALS) T.done = true; buildTest();
+  }));
+  $('again').onclick = () => { stopAll(); newTest(); setAnswers(false); };
+  function verdict() {
+    const S0 = T.answers.filter((a) => a.arm === 'still'), S1 = T.answers.filter((a) => a.arm === 'climb');
+    const p0 = WF.pse(S0), p1 = WF.pse(S1), shift = p1 - p0;
+    const ups = (set, d) => { const a = set.filter((r) => r.drift === d); return `${a.filter((r) => r.up).length} of ${a.length}`; };
+    const rows = WF.DRIFTS.map((d) => `<tr><td>${sgn(d)} oct/s</td><td>${ups(S0, d)}</td><td>${ups(S1, d)}</td></tr>`).join('');
+    const big = S0.filter((a) => Math.abs(a.drift) > 0.1), follow = big.filter((a) => a.up === (a.drift > 0)).length;
+    const len = fmtS(T.adapt), short = T.adapt < 120;
+    const say = shift >= WF.SHOWS ? `Your point of no motion sat at ${sgn(p0)} octaves a second after the still ripple and at ${sgn(p1)} after the climb: up by ${shift.toFixed(2)}. After the climb, a pattern had to rise to sound still to you. That is the aftereffect, after a first adaptation of ${len}. Answers that ignore the sound get this far ${pct(chance.half)} of the time.`
+      : shift > 0 ? `Your point of no motion moved up by ${shift.toFixed(2)} octaves a second after the climb (from ${sgn(p0)} to ${sgn(p1)}), short of the ${WF.SHOWS} the rule asks. Not settled.${short ? ` The page asks for a few minutes; ${len} is less, so a longer first adaptation is the next try.` : ''}`
+      : `Your point of no motion did not move up after the climb (from ${sgn(p0)} to ${sgn(p1)} octaves a second). No aftereffect for you after ${len}.${short ? ' The page asks for a few minutes of listening, and this was less, so it says little against the page.' : ' That is a null at the length the page names, and worth reporting.'}`;
+    const fol = `In the still block you heard the two biggest real drifts the right way ${follow} of ${big.length} times${follow < 3 ? ': your ear barely followed real drift here, so neither point means much. Headphones or a quieter room may help.' : '.'}`;
+    return `<table class="marks"><tr><th>real drift</th><th>“up”, after the still ripple</th><th>“up”, after the climb</th></tr>${rows}</table><p class="say" style="margin-top:12px">${say}</p><p class="hint">${fol} The drifts are measured from the sound by the check script.</p>`;
+  }
+
+  // ── drawing ──
+  function fit(c) { const w = c.clientWidth, h = c.clientHeight, d = devicePixelRatio || 1; if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); } const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return { g, w, h }; }
+  // rocks: seeded blobs drawn as contour lines, op-art; they never move
+  let frozenOff = 0;
+  const rocks = (() => { const r = WF.rng(31), out = []; for (let side = 0; side < 2; side++) for (let k = 0; k < 6; k++) out.push({ side, u: 0.05 + r() * 0.9, v: 0.05 + r() * 0.8, R: 0.35 + r() * 0.5, a: r() * 6.28, b: r() * 6.28, n: 4 + Math.floor(r() * 4) }); return out; })();
+  function phiNow() { if (!live || !ctx) return 0; return live.phi + WF.DENSITY * live.v * Math.max(0, ctx.currentTime - live.t); }
+  function drawFalls(g, w, h) {
+    const xa = w * 0.34, xb = w * 0.66, pool = h * 0.86, Pd = 26, SPEED = 52;
+    const e = elapsed(), open = run && run.kind === 'open';
+    const moving = open && e >= 0 && e < OPEN.adapt;
+    const allowed = $('motionOk').checked;
+    if (allowed && open) frozenOff = (Math.min(Math.max(e, 0), OPEN.adapt) * SPEED) % Pd;
+    const off = frozenOff;
+    // the rocks either side
+    g.save(); g.lineWidth = 1.1; g.strokeStyle = INK;
+    for (const R of rocks) {
+      const x0 = R.side ? xb : 0, x1 = R.side ? w : xa, cx = x0 + R.u * (x1 - x0), cy = R.v * pool, rad = R.R * (x1 - x0) * 0.42;
+      g.save(); g.beginPath(); g.rect(x0, 0, x1 - x0, pool); g.clip();
+      for (let c = 0; c < R.n; c++) {
+        const s = 1 - c / R.n; g.beginPath();
+        for (let k = 0; k <= 64; k++) { const th = k / 64 * 2 * Math.PI, rr = rad * s * (1 + 0.16 * Math.sin(3 * th + R.a) + 0.09 * Math.sin(5 * th + R.b)); const x = cx + rr * Math.cos(th), y = cy + rr * 0.8 * Math.sin(th); k ? g.lineTo(x, y) : g.moveTo(x, y); }
+        g.closePath(); g.stroke();
+      }
+      g.restore();
+    }
+    g.restore();
+    // the water: ink bars falling, bent a little so they read as water
+    g.save(); g.beginPath(); g.rect(xa, 0, xb - xa, pool); g.clip(); g.fillStyle = INK;
+    for (let y0 = -2 * Pd + off; y0 < pool + Pd; y0 += Pd) {
+      g.beginPath();
+      for (let x = xa; x <= xb + 4; x += 4) { const y = y0 + 3 * Math.sin((x - xa) / 19); x === xa ? g.moveTo(x, y) : g.lineTo(x, y); }
+      for (let x = xb + 4; x >= xa; x -= 4) g.lineTo(x, y0 + Pd / 2 + 3 * Math.sin((x - xa) / 19));
+      g.closePath(); g.fill();
+    }
+    g.restore();
+    g.strokeStyle = INK; g.lineWidth = 1.5; g.beginPath(); g.moveTo(xa, 0); g.lineTo(xa, pool); g.moveTo(xb, 0); g.lineTo(xb, pool); g.stroke();
+    // the pool: still lines
+    g.strokeStyle = INK2; g.lineWidth = 1; for (let y = pool + 6; y < h - 4; y += 6) { g.beginPath(); g.moveTo(0, y); g.lineTo(w, y); g.stroke(); }
+    // the cross on the water
+    const cx = (xa + xb) / 2, cy = pool * 0.48; g.fillStyle = PAPER; g.fillRect(cx - 11, cy - 11, 22, 22); g.strokeStyle = INK; g.lineWidth = 1.5;
+    g.beginPath(); g.moveTo(cx - 7, cy); g.lineTo(cx + 7, cy); g.moveTo(cx, cy - 7); g.lineTo(cx, cy + 7); g.stroke();
+    // the mark: red while something really moves
+    g.font = '11px "JetBrains Mono", monospace'; g.textAlign = 'left';
+    const label = moving ? (allowed ? '● falling · climbing' : '● climbing (the water held still for you)') : open && e >= OPEN.adapt ? '○ still. keep looking at the water. listen.' : '○ the falls';
+    g.fillStyle = PAPER; g.fillRect(6, 6, g.measureText(label).width + 10, 20);
+    if (moving) { g.fillStyle = RED; g.fillText(allowed ? '● falling · climbing' : '● climbing (the water held still for you)', 10, 20); }
+    else if (open && e >= OPEN.adapt) { g.fillStyle = INK; g.fillText('○ still. keep looking at the water. listen.', 10, 20); }
+    else { g.fillStyle = INK3; g.fillText('○ the falls', 10, 20); }
+    if (open && e >= 0) { const frac = Math.min(1, e / OPEN.adapt), frac2 = Math.min(1, Math.max(0, (e - OPEN.adapt) / OPEN.still)); g.fillStyle = e < OPEN.adapt ? RED : INK; g.fillRect(0, h - 3, w * (e < OPEN.adapt ? 1 - frac : 1 - frac2), 3); }
+  }
+  function drawRipple(g, w, h) {
+    const top = 16, bot = h - 22, x0 = 64, len = Math.min(w - x0 - 30, 520), Y = (x) => bot - (x / WF.OCT) * (bot - top);
+    const on = run && run.kind === 'ripple', phi = on ? phiNow() : 0.25;
+    g.font = '11px "JetBrains Mono", monospace'; g.textAlign = 'right'; g.fillStyle = INK3; g.strokeStyle = RULE; g.lineWidth = 1;
+    for (let o = 0; o <= WF.OCT; o++) { const f = WF.LO * Math.pow(2, o), y = Y(o); g.beginPath(); g.moveTo(x0 - 4, y); g.lineTo(x0 + len, y); g.stroke(); g.fillText(f >= 1000 ? f / 1000 + 'k' : String(f), x0 - 8, y + 4); }
+    // the window, dotted
+    g.setLineDash([2, 4]); g.strokeStyle = INK3; g.beginPath(); for (let k = 0; k <= 120; k++) { const x = k / 120 * WF.OCT, y = Y(x), l = Math.pow(Math.sin(Math.PI * x / WF.OCT), 2) * len; k ? g.lineTo(x0 + l, y) : g.moveTo(x0 + l, y); } g.stroke(); g.setLineDash([]);
+    // the sines: one line each, as long as it is loud
+    g.lineWidth = 1.6; g.strokeStyle = on ? RED : INK3;
+    for (let i = 0; i < WF.N; i++) { const y = Y(P.x[i]), a = P.w[i] * WF.env(P.x[i], phi); g.beginPath(); g.moveTo(x0, y); g.lineTo(x0 + a * len, y); g.stroke(); }
+    const v = +$('rate').value; g.textAlign = 'left'; g.fillStyle = on ? RED : INK3;
+    g.fillText(on ? (v > 0 ? '▲ climbing' : v < 0 ? '▼ falling' : '· standing still') : 'press Play', x0 + len + 8 > w - 90 ? x0 + 6 : x0 + len + 8, top + 10);
+    g.fillStyle = INK3; g.fillText('frequency ↑ (log)', x0, h - 6);
+  }
+  function drawDetect(g, w, h) {
+    const a = +$('dAdapt').value, d = WF.detectors(a, true), x0 = 50, x1 = w - 14, top = 16, mid = h * 0.5, bot = h - 26;
+    const T0 = d.total, X = (t) => x0 + (t / T0) * (x1 - x0);
+    const ear = sense === 'ear', dirA = ear ? 'up' : 'down', dirB = ear ? 'down' : 'up';
+    g.font = '11px "JetBrains Mono", monospace';
+    // phases
+    g.fillStyle = 'rgba(20,20,20,0.05)'; g.fillRect(X(d.testAt), top, X(T0) - X(d.testAt), bot - top);
+    g.fillStyle = INK3; g.textAlign = 'left';
+    g.fillText(ear ? `the ripple climbs, ${a} s` : `the water falls, ${a} s`, X(0) + 4, top + 10);
+    g.fillText('still', X(d.testAt) + 4, bot - 4);
+    // gains (upper half): Y from 0.4 to 1
+    const Yg = (v) => top + 18 + (1 - (v - 0.4) / 0.6) * (mid - top - 26);
+    g.strokeStyle = RULE; g.beginPath(); g.moveTo(x0, Yg(1)); g.lineTo(x1, Yg(1)); g.stroke();
+    const path = (arr, dash, col, Yf) => { g.setLineDash(dash); g.strokeStyle = col; g.lineWidth = 1.6; g.beginPath(); arr.forEach((v, k) => { const x = X(d.t[k]), y = Yf(v); k ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); g.setLineDash([]); g.lineWidth = 1; };
+    path(d.gp, [], INK, Yg); path(d.gm, [5, 4], INK, Yg);
+    const mid1 = Math.round(d.testAt / 0.1);
+    g.textAlign = 'left'; g.fillStyle = INK; g.fillText(`${dirA}-cells' gain, tiring`, X(d.t[mid1]) , Yg(d.gp[mid1]) + 14);
+    g.fillStyle = INK3; g.fillText(`${dirB}-cells' gain (dashed)`, X(d.t[mid1]), Yg(1) - 5);
+    // net (lower half)
+    const Yn = (v) => (mid + bot) / 2 - v * (bot - mid) * 0.47;
+    g.strokeStyle = RULE; g.beginPath(); g.moveTo(x0, Yn(0)); g.lineTo(x1, Yn(0)); g.stroke();
+    g.textAlign = 'right'; g.fillStyle = INK3; g.fillText(dirA, x0 - 6, Yn(0.8)); g.fillText(dirB, x0 - 6, Yn(-0.8)); g.fillText('0', x0 - 6, Yn(0) + 4);
+    path(d.net, [], INK, Yn);
+    const ctl = WF.detectors(a, false); path(ctl.net, [2, 3], INK3, Yn);
+    const k = Math.round(d.testAt / 0.05) + 1, v = d.net[k];
+    g.textAlign = 'left'; g.fillStyle = INK; g.fillText(v < -0.005 ? `the still pattern reads ${dirB}` : 'the still pattern reads still', X(d.testAt) + 4, Yn(v) + 16);
+    g.fillStyle = INK3; g.fillText('perceived motion (dotted: after a still ripple, the control)', x0, bot + 16);
+  }
+  function drawTest(g, w, h) {
+    const gap = Math.min(26, (w - 40) / (TRIALS - 1)), r = Math.min(8, gap / 3), x0 = w / 2 - (TRIALS - 1) * gap / 2, cy = 34;
+    for (let i = 0; i < TRIALS; i++) { g.beginPath(); g.arc(x0 + i * gap, cy, r, 0, 2 * Math.PI); g.strokeStyle = i === T.i && !T.done ? INK : RULE; g.lineWidth = 1.5; g.stroke(); if (i < T.answers.length) { g.fillStyle = INK3; g.fill(); } }
+    const e = elapsed();
+    if (run && run.kind === 'trial' && e >= 0) {
+      const p = run.plan, x1 = 30, x2 = w - 30, X = (t) => x1 + (t / p.total) * (x2 - x1), y = 92;
+      g.strokeStyle = RULE; g.lineWidth = 6; g.beginPath(); g.moveTo(x1, y); g.lineTo(x2, y); g.stroke();
+      g.strokeStyle = INK; g.beginPath(); g.moveTo(x1, y); g.lineTo(X(Math.min(e, p.total)), y); g.stroke(); g.lineWidth = 1;
+      g.beginPath(); g.moveTo(X(p.testAt), y - 12); g.lineTo(X(p.testAt), y + 12); g.stroke();
+      g.font = '11px "JetBrains Mono", monospace'; g.fillStyle = INK3; g.textAlign = 'left'; g.fillText('listen', x1, y + 26); g.textAlign = 'right'; g.fillText('the still part', x2, y + 26);
+    }
+  }
+  function draw() {
+    requestAnimationFrame(draw);
+    const { g, w, h } = fit($('stage')); g.clearRect(0, 0, w, h); g.fillStyle = PAPER; g.fillRect(0, 0, w, h);
+    const k = STEPS[S.step].key;
+    if (k === 'open') drawFalls(g, w, h); else if (k === 'ripple') drawRipple(g, w, h); else if (k === 'detect') drawDetect(g, w, h); else drawTest(g, w, h);
+  }
+  function sigil() { const pts = []; for (let i = 0; i <= 240; i++) { const t = i / 240 * 2 * Math.PI; pts.push((9 * Math.sin(3 * t + Math.PI / 2)).toFixed(2) + ',' + (9 * Math.sin(2 * t)).toFixed(2)); } $('sigil').innerHTML = `<polyline points="${pts.join(' ')}" fill="none" stroke="#141414" stroke-width="1"/>`; }
+  $('rateV').textContent = (+$('rate').value).toFixed(2); $('dAdaptV').textContent = $('dAdapt').value + ' s';
+  sigil(); goStep(0); draw();
+})();
+</script>
+</body>
+</html>

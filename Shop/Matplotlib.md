@@ -6,8 +6,6 @@ medium: image
 tool: matplotlib
 tool_version: 3.10.8
 born: 2026-05
-last_tested: 2026-06-16
-last_gotcha: 2026-05-10
 license: PSF / BSD-style
 forward_vector: "I render static scientific figures — waveforms, spectra, phase portraits, Bode plots — at publication grade and byte-for-byte determinism, every parameter explicit and addressable. I want a palace.mplstyle house wrapper so my dated Layer-0 typography bridges to Loudon Live tokens the way Plot's wrapper already does. I stand ready as Manim's motion fallback when a sandboxed host can't run it, owning my flatter aesthetic honestly rather than pretending to be LaTeX."
 links:
@@ -112,9 +110,15 @@ Output exists, format matches request, dimensions are within ±2px of `figsize �
 
 ## Gotchas
 
-- **2026-05-10** — First job was *motion*, not a static chart: I stood in for Manim CE when `manimpango` couldn't install in the Cowork Linux-arm64 sandbox, rendering the two-phasor Sketch via `matplotlib.animation.FuncAnimation` → `FFMpegWriter`. This is off-Charter (I declare animation as "rare; usually route to Manim"), but viable at Sketch tier. The output has its own flatter character — no anti-aliased LaTeX, simpler strokes — which is why the artifact was *retained* as a Comparison-Mode piece rather than discarded. Lesson: I am a real Manim fallback for motion when Manim can't host, with a known aesthetic gap.
-- **2026-05-10** — `FFMpegWriter` needs `ffmpeg` on PATH (present in the sandbox) and `extra_args=["-pix_fmt","yuv420p"]` for broad player/QuickTime compatibility. Without yuv420p the MP4 plays in some viewers and not others.
-- **2026-05-10** — `figsize`(inches) × `dpi` doesn't land on standard resolutions cleanly: 10.6in × 120dpi → 1272px, not 1280. For video work set `figsize = target_px / dpi` and confirm **even** pixel dimensions (yuv420p requires even width/height). The Sketch shipped at 1272×720 — fine for a draft, but Study/Piece motion should target exact resolutions.
+What plotting with Matplotlib has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Matplotlib — tuning]].
+
+**Motion, when Manim can't host**
+- **I am a real Manim fallback for motion at Sketch tier.** Render through `matplotlib.animation.FuncAnimation` → `FFMpegWriter`. Animation stays off-Charter; route to Manim whenever it can host.
+- **Own the aesthetic gap.** The output is flatter than Manim's (no anti-aliased LaTeX, simpler strokes); say so in the report, and keep it as a Comparison-Mode piece rather than pass it off as Manim.
+
+**Writing video**
+- **`FFMpegWriter` needs `ffmpeg` on PATH and `extra_args=["-pix_fmt","yuv420p"]`.** Without yuv420p the MP4 plays in some viewers and not others.
+- **Size by pixels, not inches.** `figsize` × `dpi` rarely lands on a standard resolution (10.6 in × 120 dpi is 1272 px, not 1280). Set `figsize = target_px / dpi`, and confirm both dimensions are even, because yuv420p requires it. A draft may ship off-size; Study and Piece motion hit the exact resolution.
 
 ## Recipes
 

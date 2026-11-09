@@ -11,15 +11,13 @@ links:
     type: mirrors
   - target: "[[SUBSTRATE]]"
     type: connects-to
+    label: host-and-partner
   - target: "[[1 from 2]]"
     type: mirrors
-  - target: "[[Deposit Ceremony]]"
-    type: mirrors
+    label: implanted-symbiote
   - target: "[[Symbiotic Skills]]"
     type: connects-to
     label: candidate-foundation
-  - target: "[[Swarm Weave]]"
-    type: mirrors
   - target: "[[Modes of Collaboration]]"
     type: spawned
     label: evolutionary-pattern

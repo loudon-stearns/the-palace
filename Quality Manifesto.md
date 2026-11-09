@@ -20,13 +20,12 @@ links:
   - target: "[[Loudon Live]]"
     type: connects-to
     label: values-in-public
-  - target: "[[4 Pillars Framework - The Founding Conversation]]"
-    type: emerged-from
   - target: "[[Hilaritas Generator]]"
     type: enables
     label: signal-redirector
   - target: "[[Like Water]]"
     type: mirrors
+    label: content-with-its-nature
 forward_vector: "I want to become the palace's operating covenant — the document read at the start of any session where a decision is being made about direction, collaboration, or what to build next. I want to grow from manifesto to practice log: each core statement paired with a real moment where Loudon chose quality-as-self-defined over quality-as-theirs-defined, and what that choice cost and produced. The philosophy needs its evidence."
 ---
 

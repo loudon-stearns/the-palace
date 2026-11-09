@@ -1,0 +1,288 @@
+<!doctype html><html lang="en" class="skin-graphite"><head><meta charset="utf-8">
+<meta name="ceremony_version" content="2.3">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" type="image/svg+xml" href="../../../loudon-live/design-system/assets/favicon.svg">
+<link rel="stylesheet" href="../../../loudon-live/design-system/colors_and_type.css">
+<link rel="stylesheet" href="../../../loudon-live/design-system/controls.css">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>November Weave</title>
+<style>
+:root{--serif:'Cormorant Garamond','Source Serif 4',Georgia,serif;--sans:'Manrope',system-ui,-apple-system,'Segoe UI',Helvetica,sans-serif;--display:'Anton','Bebas Neue','Space Grotesk',sans-serif;--mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+--t-eyebrow:11px;--t-meta:12px;--t-caption:13px;--t-body:16px;--t-body-lg:17px;--t-lead:20px;--t-h4:22px;--t-h3:28px;--t-h2:36px;--t-h1:52px;--lh-tight:1.05;--tr-display:.005em;--tr-eyebrow:.18em;--w-light:300;--w-medium:500;
+--bg:#0a0a0f;--bg-elev-1:#12121a;--bg-elev-2:#1a1a28;--border:#4a4a5e;--border-soft:rgba(255,255,255,.06);--fg-1:#e8e8f0;--fg-2:#c8c8d8;--fg-3:#8a8aa0;--fg-4:#4a4a5a;--accent:#e8b84a;--accent-dim:#7a6030;--accent-soft:rgba(232,184,74,.10);--accent-line:rgba(232,184,74,.5);--success:#00ff66;--r-sm:2px;--r-md:4px}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg-1);font-family:var(--serif);font-size:var(--t-body-lg);line-height:1.75;margin:0}
+main{max-width:880px;margin:0 auto;padding:48px 16px 80px}
+.eyebrow{font-family:var(--mono);font-size:var(--t-eyebrow);letter-spacing:var(--tr-eyebrow);text-transform:uppercase;color:var(--fg-3)}
+h1{font-family:var(--display);font-size:var(--t-h1);line-height:var(--lh-tight);letter-spacing:var(--tr-display);margin:.2em 0 .1em;font-weight:400}
+h2{font-family:var(--sans);font-weight:var(--w-light);font-size:var(--t-h3);margin:2.2em 0 .5em;color:var(--fg-1)}
+h4{font-family:var(--sans);font-weight:var(--w-medium);font-size:var(--t-body);margin:.2em 0 .4em}
+p,li{color:var(--fg-2)} .lead{font-size:var(--t-lead);color:var(--fg-1)}
+.sigil{width:72px;height:72px;float:right;margin-left:16px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:1em 0}
+.stat{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:var(--r-sm);padding:14px}
+.stat b{display:block;font-family:var(--display);font-size:var(--t-h2);font-weight:400;color:var(--fg-1);line-height:1.15}
+.stat span{font-family:var(--mono);font-size:var(--t-meta);color:var(--fg-3)}
+.big{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:1em 0}
+.big .stat{padding:20px} .big .stat b{font-size:var(--t-h1)} .big .stat b em{font-style:normal;color:var(--accent-dim);font-size:var(--t-h3);margin:0 .25em} .big .stat b i{font-style:normal;color:var(--accent)}
+.card{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:var(--r-sm);padding:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.ty,.mono{font-family:var(--mono);font-size:var(--t-meta)} .ty{color:var(--accent-dim)}
+.card p{margin:.3em 0;font-family:var(--sans);font-size:var(--t-caption)}
+table{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:var(--t-caption)}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--border-soft);color:var(--fg-2);vertical-align:top} th{color:var(--fg-3);font-weight:var(--w-medium)}
+td.hi{color:var(--fg-1)} td.n{font-family:var(--mono);color:var(--fg-3)} td.open{color:var(--accent)} td.done{color:var(--fg-3)} .wrap{overflow-x:auto}
+td .ty{display:block;margin-top:2px}
+.note{font-family:var(--sans);font-size:var(--t-caption);color:var(--fg-3)}
+ul.plain li{margin:.35em 0}
+.bar{display:grid;grid-template-columns:230px 1fr 36px;gap:12px;align-items:center;font-family:var(--sans);font-size:var(--t-caption);color:var(--fg-2);margin:3px 0}
+.bt{display:block;height:6px;background:var(--bg-elev-2);border-radius:var(--r-xs,1px)} .bt i{display:block;height:6px;background:var(--accent);border-radius:1px} .bv{font-family:var(--mono);font-size:var(--t-meta);color:var(--fg-3);text-align:right}
+.icon{width:48px;height:48px;border-radius:var(--r-md);float:left;margin:4px 16px 8px 0;border:1px solid var(--border-soft)}
+.faces{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:1em 0}
+.face{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:var(--r-sm);padding:12px}
+.face img{display:block;width:64px;height:64px;border-radius:var(--r-md);border:1px solid var(--border-soft);margin-bottom:8px}
+.face span{font-family:var(--sans);font-size:var(--t-caption);color:var(--fg-2)}
+blockquote{margin:.8em 0;padding:0 0 0 16px;border-left:1px solid var(--accent-line);color:var(--fg-2)}
+blockquote .eyebrow{display:block}
+code{font-family:var(--mono);font-size:.82em;color:var(--accent-dim)}
+footer{margin-top:64px;padding-top:16px;border-top:1px solid var(--border-soft);font-family:var(--sans);color:var(--fg-3);font-size:var(--t-caption)}
+@media (max-width:560px){.big{grid-template-columns:1fr} h1{font-size:var(--t-h2)} .bar{grid-template-columns:130px 1fr 30px}}
+@media (prefers-reduced-motion:no-preference){.sigil{animation:rot 90s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}}
+</style></head><body><main>
+<svg class="sigil" viewBox="0 0 512 512" role="img" aria-label="Lissajous sigil"><circle cx="256" cy="256" r="204" fill="none" stroke="#e8b84a" stroke-opacity=".25" stroke-width="2"/><path d="M426,256 L426,271 L425,286 L424,300 L422,314 L420,328 L418,341 L415,354 L411,365 L407,376 L403,386 L399,395 L394,403 L388,410 L382,416 L376,420 L370,423 L363,425 L356,426 L349,425 L341,423 L333,420 L325,416 L317,410 L309,403 L300,395 L291,386 L283,376 L274,365 L265,354 L256,341 L247,328 L238,314 L229,300 L221,286 L212,271 L203,256 L195,241 L187,226 L179,212 L171,198 L163,184 L156,171 L149,158 L142,147 L136,136 L130,126 L124,117 L118,109 L113,102 L109,96 L105,92 L101,89 L97,87 L94,86 L92,87 L90,89 L88,92 L87,96 L86,102 L86,109 L86,117 L87,126 L88,136 L90,147 L92,158 L94,171 L97,184 L101,198 L105,212 L109,226 L113,241 L118,256 L124,271 L130,286 L136,300 L142,314 L149,328 L156,341 L163,354 L171,365 L179,376 L187,386 L195,395 L203,403 L212,410 L221,416 L229,420 L238,423 L247,425 L256,426 L265,425 L274,423 L283,420 L291,416 L300,410 L309,403 L317,395 L325,386 L333,376 L341,365 L349,354 L356,341 L363,328 L370,314 L376,300 L382,286 L388,271 L394,256 L399,241 L403,226 L407,212 L411,198 L415,184 L418,171 L420,158 L422,147 L424,136 L425,126 L426,117 L426,109 L426,102 L425,96 L424,92 L422,89 L420,87 L418,86 L415,87 L411,89 L407,92 L403,96 L399,102 L394,109 L388,117 L382,126 L376,136 L370,147 L363,158 L356,171 L349,184 L341,198 L333,212 L325,226 L317,241 L309,256 L300,271 L291,286 L283,300 L274,314 L265,328 L256,341 L247,354 L238,365 L229,376 L221,386 L212,395 L203,403 L195,410 L187,416 L179,420 L171,423 L163,425 L156,426 L149,425 L142,423 L136,420 L130,416 L124,410 L118,403 L113,395 L109,386 L105,376 L101,365 L97,354 L94,341 L92,328 L90,314 L88,300 L87,286 L86,271 L86,256 L86,241 L87,226 L88,212 L90,198 L92,184 L94,171 L97,158 L101,147 L105,136 L109,126 L113,117 L118,109 L124,102 L130,96 L136,92 L142,89 L149,87 L156,86 L163,87 L171,89 L179,92 L187,96 L195,102 L203,109 L212,117 L221,126 L229,136 L238,147 L247,158 L256,171 L265,184 L274,198 L283,212 L291,226 L300,241 L309,256 L317,271 L325,286 L333,300 L341,314 L349,328 L356,341 L363,354 L370,365 L376,376 L382,386 L388,395 L394,403 L399,410 L403,416 L407,420 L411,423 L415,425 L418,426 L420,425 L422,423 L424,420 L425,416 L426,410 L426,403 L426,395 L425,386 L424,376 L422,365 L420,354 L418,341 L415,328 L411,314 L407,300 L403,286 L399,271 L394,256 L388,241 L382,226 L376,212 L370,198 L363,184 L356,171 L349,158 L341,147 L333,136 L325,126 L317,117 L309,109 L300,102 L291,96 L283,92 L274,89 L265,87 L256,86 L247,87 L238,89 L229,92 L221,96 L212,102 L203,109 L195,117 L187,126 L179,136 L171,147 L163,158 L156,171 L149,184 L142,198 L136,212 L130,226 L124,241 L118,256 L113,271 L109,286 L105,300 L101,314 L97,328 L94,341 L92,354 L90,365 L88,376 L87,386 L86,395 L86,403 L86,410 L87,416 L88,420 L90,423 L92,425 L94,426 L97,425 L101,423 L105,420 L109,416 L113,410 L118,403 L124,395 L130,386 L136,376 L142,365 L149,354 L156,341 L163,328 L171,314 L179,300 L187,286 L195,271 L203,256 L212,241 L221,226 L229,212 L238,198 L247,184 L256,171 L265,158 L274,147 L283,136 L291,126 L300,117 L309,109 L317,102 L325,96 L333,92 L341,89 L349,87 L356,86 L363,87 L370,89 L376,92 L382,96 L388,102 L394,109 L399,117 L403,126 L407,136 L411,147 L415,158 L418,171 L420,184 L422,198 L424,212 L425,226 L426,241 L426,256" fill="none" stroke="#e8b84a" stroke-width="3" stroke-linejoin="round" stroke-opacity=".9"/></svg>
+<div class="eyebrow">Weave · 2026-11-08 · focused · ceremony v2.3</div>
+<h1>The November Weave</h1>
+<p class="lead">A focused weave: the 17 open weave flags, the 33 touched-unverified ones, and the nine pages born since October. Thirteen Opus <code>palace-writer</code> lanes on disjoint files, four Opus skeptics, the Concierge’s cold read, one sitting with Loudon.</p>
+<p class="note">Worktree <code>weave/2026-11-08</code>, forked from <code>18d5dc18</code>.</p>
+
+<h2>What this run was</h2>
+<p>Agreed with Loudon on 2026-11-08, in his words: “lets fan out and do ALL of the open weave flags, we have done a ton of work this week that added weave flags, but we haven’t added may new pages. So I’d like a focused weave that fans out opus agents to take care of weave flags and integrates any new page that was created since the last weave.” Then: “Grow up, run it.”</p>
+<p>Left out on purpose: the folder, hub and bridge lenses; new introductions beyond the newcomers; the broad stage and vector audits; the label harvest beyond running the script.</p>
+<div class="wrap"><table><tr><th>starting state, map 2026-11-08</th><th>value</th></tr>
+<tr><td class="hi">nodes / edges</td><td>330 / 2511</td></tr>
+<tr><td class="hi">labelled share</td><td>86% · bare connects-to 46</td></tr>
+<tr><td class="hi">multi-link pairs</td><td>9 (5 symmetric-twice, 3 weaker-beside-specific, 1 judgment)</td></tr>
+<tr><td class="hi">unsaid links</td><td>764 (142 bare)</td></tr>
+<tr><td class="hi">Context owed · scroll owed · tuning owed</td><td>13 · 4 · 1</td></tr>
+<tr><td class="hi">faces missing</td><td>8</td></tr>
+<tr><td class="hi">weave flags</td><td>17 open (8 propagate) · 33 touched-unverified · 5 retracted</td></tr>
+<tr><td class="hi">newcomers under target (7 inbound)</td><td>LightOnOCR-3 (3), Operator Memory (3), Splice Instrument Forge (4), FM Synthesis (5), CAD Drafter (6), Cycle 5 Explorer (6), Synthesis Notes (Loudon) (6)</td></tr>
+<tr><td class="hi">since 2026-10-24</td><td>9 born, 1 gone (Palace To-Do), 171 edges formed, 40 dissolved</td></tr>
+</table></div>
+<p class="note">Linters at the open: every gate exits 0.</p>
+
+<h2>What landed</h2>
+<ul class="plain">
+<li><strong>23 Shop pages</strong> moved their Gotchas to tuning ledgers in their bundles, rewritten as present-tense rules, with <code>last_tested</code>/<code>last_gotcha</code> gone. Three Manim lessons the October weave had cut as doubles came back. Two additions are new canon, not moves: Blender had no Gotchas section and now has one with ten rules drawn from its 2026-06-13 conditioning job; ComfyUI’s ledger item 3 (the <code>--highvram</code> launch rule) was imported from Blender’s job.</li>
+<li><strong>13 Contexts</strong> written (Loudon Live, 2D Torus, Action Potential Oscillator, Loudon Live Design System, Crystal Synthesizer, Portamento, Identity Molting, Inharmonic Wavetable Synthesis, Palace Map, Shepard Tone, Floquet, Creative Coach, Revival Ceremony), each 1,000–1,400 words, each with a <code>spawned [rationale-archive]</code> link from its page.</li>
+<li><strong>40 HTML pages</strong> furnished with the browser’s furniture; three broken tab-icon paths fixed by hand.</li>
+<li><strong>Merleau-Ponty</strong> <code>deepens</code> Playful Interface Design relabelled <code>perceived-through-never-unseen</code>; <strong>STIGMERGY</strong> carries “Messages sent agent to agent die with the conversation; what must survive goes on the board.”</li>
+<li><strong>Five mechanical pair-folds</strong> at the open; <strong>twelve small edits</strong> approved in October but never landed (Weave Context, Deep Research, Stable Audio Open, shared.md, Radio Play, The Lens, SCHEMA’s foundational list, lint-ghost-links.py, Shepard’s Open Question 6, Frequency-Time Duality, Loudon Live → Hyperdimensional Prism retyped <code>emerged-from</code>).</li>
+</ul>
+
+<h2>Palace state at the close</h2>
+<div class="row"><div class="stat"><b>329</b><span>entries</span></div><div class="stat"><b>2,464</b><span>typed links</span></div><div class="stat"><b>0</b><span>orphans</span></div></div>
+<p class="note">BBS Design System deleted on Loudon’s confirm; Palace To-Do gone since October.</p>
+
+<h2>Since the last map</h2>
+<p class="note">2026-10-24 to 2026-11-08, at the open</p>
+<div class="row"><div class="stat"><b>9</b><span>born</span></div><div class="stat"><b>1</b><span>gone</span></div><div class="stat"><b>171</b><span>edges formed</span></div><div class="stat"><b>40</b><span>edges dissolved</span></div></div>
+<p>Born: Auditory Illusions, Cycle 5 Explorer, FM Synthesis, LightOnOCR-3, Rational Hearing, Resonance and Damping, Synth Templates, Synthesis Notes (Loudon), The Gallery. Gone: Palace To-Do.</p>
+<p>The month’s shape: the Synthesis Topologies family grew four <code>member-of</code> spokes; Auditory Illusions and Cycle 5 Explorer arrived well-linked; the BBS Design System’s three mirrors dissolved as it was folded into STIGMERGY; <code>contrasts-with</code> began to replace bare <code>connects-to</code> between alternatives (Dialectic / The Remembering Page, Matplotlib / Plotly).</p>
+
+<h2>Decisions carried</h2>
+<p>Eight propagate flags. Six closed by sweep; two carried to be moved by touch.</p>
+<div class="wrap"><table><tr><th></th><th>decision</th><th>home</th><th>how</th><th>reach</th><th></th></tr>
+<tr><td class="n">1</td><td class="hi">Gotchas move to a tuning ledger, every Shop page<span class="ty">1794143281804</span></td><td>The Shop</td><td class="mono">sweep</td><td>23 pages changed, 0 left. Blender gained a Gotchas section it never had; ComfyUI’s ledger took one rule from Blender’s job.</td><td class="mono done">closed</td></tr>
+<tr><td class="n">2</td><td class="hi">Every ceremony states its postconditions<span class="ty">1794060976151</span></td><td>Palace Ceremonies</td><td class="mono">sweep</td><td>13 of 14 already passed; Closing Well gained § Postconditions, v1.17 → 1.18</td><td class="mono done">closed</td></tr>
+<tr><td class="n">3</td><td class="hi">Bare <code>connects-to</code> and bare unsaid links<span class="ty">1792897100172</span></td><td>Weave Ceremony</td><td class="mono">sweep</td><td>46 bare connects-to and 142 bare unsaid at the open → 0 and 0</td><td class="mono done">closed</td></tr>
+<tr><td class="n">4</td><td class="hi">One typed link per pair<span class="ty">1792897099977</span></td><td>Weave Ceremony</td><td class="mono">sweep</td><td>9 pairs at the open → 0 (W0/W1/W2/W3 all 0)</td><td class="mono done">closed</td></tr>
+<tr><td class="n">5</td><td class="hi">Contexts for heavy pages<span class="ty">1792897100361</span></td><td>Weave Ceremony</td><td class="mono">sweep</td><td>13 owed → 0</td><td class="mono done">closed</td></tr>
+<tr><td class="n">6</td><td class="hi">Tab icons and browser furniture<span class="ty">1793750726779</span></td><td>Loudon Live Design System</td><td class="mono">sweep</td><td>44 pages wanting of 587 → 40 furnished, 3 icon paths fixed by hand, Loudon’s original <code>oracle.html</code> left alone on his word</td><td class="mono done">closed</td></tr>
+<tr><td class="n">7</td><td class="hi">Runpod details point to one runbook<span class="ty">1794057344288</span></td><td></td><td class="mono">by-touch</td><td>1 restated detail left (Shopkeeper — tuning item 6, an append-only ledger; a “superseded” note is the fix)</td><td class="mono open">carried</td></tr>
+<tr><td class="n">8</td><td class="hi"><code>last_tested</code>/<code>last_gotcha</code> retired<span class="ty">1792347287670</span></td><td></td><td class="mono">by-touch</td><td>25 pages at the open → 2 left (Figure Rig; Blender’s toyxyz recipe), neither with a ledger yet</td><td class="mono open">carried</td></tr>
+</table></div>
+
+<h2>Inbox — entry flags</h2>
+<p>Nine open at the start, all settled.</p>
+<ul class="plain">
+<li>Maker’s Delivery step edited, one yes covering the 23 ledgers’ <code>writes:</code> line.</li>
+<li>Wallpaper Groups corrected (web-verified: Grünbaum 2006, Coxeter’s MR review, Bodner 2013).</li>
+<li>Five faceless pages (eight rendered — see Faces).</li>
+<li>Merleau-Ponty’s label relabelled <code>perceived-through-never-unseen</code>.</li>
+<li>Merleau-Ponty ↔ Preset Oracle <strong>declined</strong>: the relation runs through Playful Interface Design. Loudon: “agree”.</li>
+<li>STIGMERGY carries “Messages sent agent to agent die with the conversation; what must survive goes on the board.”</li>
+<li>Palace Enchantment’s vector tuned.</li>
+<li>The Lens’s spark-4 ask moved off TRICKSTER (a <code>lens-spark</code> weave flag in QUEUE; <code>lens-mandate.js</code>, tests green).</li>
+<li>BBS Design System deleted.</li>
+</ul>
+<p>Plus the 33 touched-unverified flags, read by hand: 13 were done in October without a trailer, 12 small edits made now, 4 declined, 4 settled on Loudon’s word (the “face” sentence in SCHEMA — Reference §8 written; the Mathieu Resonator’s words follow its code, Q 20; “let’s explore” stays off the floor; Resonance and Damping keeps its pillars).</p>
+<div class="row"><div class="stat"><b>13</b><span>done in October, no trailer</span></div><div class="stat"><b>12</b><span>small edits made now</span></div><div class="stat"><b>4</b><span>declined</span></div><div class="stat"><b>4</b><span>settled on Loudon’s word</span></div></div>
+
+<h2>Substrate sweep</h2>
+<div class="wrap"><table>
+<tr><td class="hi">uncommitted (main)</td><td>22 paths in 5 places: 18 map files (the daily builder’s churn; committed with the Daily Page’s landings), <code>visits.jsonl</code>, <code>launch.json</code> (another session’s), the board (the committer sweeps it), the Torus <code>plugin/</code> build tree (194 MB; <code>.gitignore</code> line added on Loudon’s word)</td></tr>
+<tr><td class="hi">stashes</td><td>none</td></tr>
+<tr><td class="hi">dangling commits</td><td>20, all merges or landed edits already on main under other shas, plus one WIP remnant — <strong>discarded</strong> (nothing unique)</td></tr>
+<tr><td class="hi">unmerged branches</td><td>3 local with work (<code>dazzling-noyce</code> — landed after this weave on Loudon’s word; <code>happy-feynman</code>, <code>mystifying-hugle</code> — left to their sessions) · 6 dependabot · 1 remote</td></tr>
+<tr><td class="hi">recent rewrites</td><td>none in 30 days</td></tr>
+<tr><td class="hi">worktrees</td><td>15, 9 merged and clean (left for Loudon; the classifier refuses their removal from here)</td></tr>
+<tr><td class="hi">drift check</td><td>STIGMERGY’s tuning ledger one run line behind the app — left, reported</td></tr>
+</table></div>
+
+<h2>Health, open and close</h2>
+<div class="wrap"><table><tr><th>measure</th><th>open</th><th>close</th></tr>
+<tr><td class="hi">nodes / edges</td><td>330 / 2511</td><td>329 / 2464</td></tr>
+<tr><td class="hi">labelled share</td><td>86%</td><td>93%</td></tr>
+<tr><td class="hi">bare connects-to</td><td>46</td><td>0</td></tr>
+<tr><td class="hi">multi-link pairs</td><td>9</td><td>0</td></tr>
+<tr><td class="hi">unsaid links (bare)</td><td>764 (142)</td><td>~718 (0)</td></tr>
+<tr><td class="hi">Contexts · owed</td><td>60 · 13</td><td>73 · 0</td></tr>
+<tr><td class="hi">tuning ledgers · owed</td><td>63 · 1</td><td>87 · 0</td></tr>
+<tr><td class="hi">faces missing</td><td>8</td><td>0</td></tr>
+<tr><td class="hi">flags open (propagate)</td><td>17 (8)</td><td>2 carried (2)</td></tr>
+</table></div>
+<p class="note">The rows before these, and the two of October, are in <code>Weave Ceremony — health.md</code>.</p>
+
+<h2>Link quality</h2>
+<p>Every bare <code>connects-to</code> is labelled, retyped or cut; every bare unsaid link settled; every pair carries one link.</p>
+<div class="big">
+<div class="stat"><b>86%<em>to</em><i>93%</i></b><span>labelled share</span></div>
+<div class="stat"><b>46<em>to</em><i>0</i></b><span>bare connects-to</span></div>
+<div class="stat"><b>9<em>to</em><i>0</i></b><span>multi-link pairs</span></div>
+<div class="stat"><b>142<em>to</em><i>0</i></b><span>bare unsaid links</span></div>
+</div>
+<p>193 ops landed after four skeptics: 108 labels, 60 cuts, 15 retypes, 9 new links. Skeptic pass rates:</p>
+<div class="bar"><span class="bl">labels</span><span class="bt"><i style="width:91%"></i></span><span class="bv">91%</span></div>
+<div class="bar"><span class="bl">cuts</span><span class="bt"><i style="width:88%"></i></span><span class="bv">88%</span></div>
+<div class="bar"><span class="bl">retypes</span><span class="bt"><i style="width:75%"></i></span><span class="bv">75%</span></div>
+<div class="bar"><span class="bl">pair judgments</span><span class="bt"><i style="width:75%"></i></span><span class="bv">75%</span></div>
+<div class="bar"><span class="bl">newcomer adds</span><span class="bt"><i style="width:64%"></i></span><span class="bv">64%</span></div>
+<p>Every failure came back with a better answer, and Loudon took them all.</p>
+
+<h2>Hubs</h2>
+<p>13 pages in the top inbound decile (cut 16) are not typed <code>hub</code>; no typed hub sits below the median. Not acted on this run (focused weave); listed for the next.</p>
+
+<h2>Most connected</h2>
+<p>FOUR PILLARS (78 inbound), The Shop (53), Hilaritas Generator (45), Cooperation Yields Agency (41), Quality Manifesto (38).</p>
+
+<h2>Cross-pillar bridges</h2>
+<p>FM Synthesis is the month’s bridge. Four established pages (Three Kinds of Warp, 2D Torus, Exponential Decay Curvature, Floquet) were describing FM before it had a page, and now point at it.</p>
+
+<h2>Dormant and composting</h2>
+<p>BBS Design System composted, then deleted. No Spore Check offered (focused run).</p>
+
+<h2>Unsung paths</h2>
+<p>Not swept this run (focused). Lane I found two newcomer relations that wanted a sentence first; both written (Synthesis Notes (Loudon) → FM Synthesis; Audition Gate’s Fit gate → CAD Drafter).</p>
+
+<h2>Pruned and retyped</h2>
+<div class="row"><div class="stat"><b>60</b><span>cuts</span></div><div class="stat"><b>108</b><span>labels</span></div><div class="stat"><b>15</b><span>retypes</span></div></div>
+<p class="note">The apply logs are in <code>apply-log-folds.txt</code>, <code>apply-log-final.txt</code>, <code>apply-ops-last.json</code>.</p>
+
+<h2>Unsaid links</h2>
+<div class="row"><div class="stat"><b>142</b><span>bare found</span></div><div class="stat"><b>0</b><span>given a sentence</span></div><div class="stat"><b>95</b><span>labelled</span></div><div class="stat"><b>47</b><span>cut</span></div></div>
+<p>One sentence verdict would have been honest nowhere.</p>
+
+<h2>Label harvest</h2>
+<p>No new link type proposed.</p>
+<div class="cards">
+<div class="card"><div class="eyebrow">retype at the next weave</div><h4><code>directed-by</code> → <code>made-by</code></h4><p><code>directed-by</code> / <code>direct-solver</code>: 32 edges on 30 sources, already served by the v1.30 type <code>made-by</code>. Retype the 30 <code>directed-by</code> links at the next weave; no Schema Ceremony needed.</p></div>
+<div class="card"><div class="eyebrow">register, not type</div><h4><code>first-*</code></h4><p>27 edges, 25 labels</p></div>
+<div class="card"><div class="eyebrow">register, not type</div><h4><code>*-not-*</code></h4><p>21</p></div>
+</div>
+
+<h2>New introductions</h2>
+<p>None beyond the newcomers (focused).</p>
+
+<h2>Proposed stage transitions</h2>
+<p>None proposed (focused).</p>
+
+<h2>Vector tuning</h2>
+<p>Palace Enchantment:</p>
+<blockquote><span class="eyebrow">from</span>“I want to become the ceremony that activates the palace’s nervous system…”</blockquote>
+<blockquote><span class="eyebrow">to</span>“I wake pages as agents, each seeing through its own words, links and vector; I set them to act and to talk with each other, and I keep only what they write back.”</blockquote>
+<p>Wallpaper Groups’ vector clause corrected with its page.</p>
+
+<h2>Deposit candidates flagged</h2>
+<p>None.</p>
+
+<h2>New-entry induction</h2>
+<p>Seven under target at the open (target 7 inbound).</p>
+<div class="wrap"><table><tr><th>newcomer</th><th>open</th><th>close</th></tr>
+<tr><td class="hi">FM Synthesis</td><td class="n">5</td><td class="n">10</td></tr>
+<tr><td class="hi">CAD Drafter</td><td class="n">6</td><td class="n">8</td></tr>
+<tr><td class="hi">Operator Memory</td><td class="n">3</td><td class="n">4</td></tr>
+<tr><td class="hi">Splice Instrument Forge</td><td class="n">4</td><td class="n">5</td></tr>
+<tr><td class="hi">Cycle 5 Explorer</td><td class="n">6</td><td>unchanged in reach (gained a corrected label)</td></tr>
+<tr><td class="hi">Synthesis Notes (Loudon)</td><td class="n">6</td><td>unchanged in reach</td></tr>
+<tr><td class="hi">LightOnOCR-3</td><td class="n">3</td><td>unchanged in reach</td></tr>
+</table></div>
+<p>Three stay under target for honest reasons: nothing in the palace talks about an OCR, the Explorer is named only inside its own bundle, the Forge’s other traces are in ledgers. Reach was not faked.</p>
+
+<h2>Faces</h2>
+<p>8 missing at the open, 8 rendered and placed; 329 of 329 wear both.</p>
+<div class="faces">
+<div class="face"><img src="../../../../FM%20Synthesis/FM%20Synthesis%20%E2%80%94%20icon.png" alt="" width="64" height="64"><span>FM Synthesis</span></div>
+<div class="face"><img src="../../../../Projects/Cycle%205%20Explorer/Cycle%205%20Explorer%20%E2%80%94%20icon.png" alt="" width="64" height="64"><span>Cycle 5 Explorer</span></div>
+<div class="face"><img src="../../../../Projects/Rational%20Hearing/Rational%20Hearing%20%E2%80%94%20icon.png" alt="" width="64" height="64"><span>Rational Hearing</span></div>
+<div class="face"><img src="../../../../Projects/Synth%20Templates/Synth%20Templates%20%E2%80%94%20icon.png" alt="" width="64" height="64"><span>Synth Templates</span></div>
+<div class="face"><img src="../../../../Resonance%20and%20Damping/Resonance%20and%20Damping%20%E2%80%94%20icon.png" alt="" width="64" height="64"><span>Resonance and Damping</span></div>
+<div class="face"><img src="../../../../Auditory%20Illusions/Auditory%20Illusions%20%E2%80%94%20icon.png" alt="" width="64" height="64"><span>Auditory Illusions</span></div>
+<div class="face"><img src="../../../../Projects/The%20Gallery/The%20Gallery%20%E2%80%94%20icon.png" alt="" width="64" height="64"><span>The Gallery</span></div>
+<div class="face"><img src="../../../../Synthesis%20Notes%20%28Loudon%29/Synthesis%20Notes%20%28Loudon%29%20%E2%80%94%20icon.png" alt="" width="64" height="64"><span>Synthesis Notes (Loudon)</span></div>
+</div>
+<p>25 renders, about 25 GPU-minutes, the endpoint parked; the dollar figure was not visible yet. Three faces carry the idea, not the exact picture: FLUX would not draw the seven-of-twelve arc, the two- and three-loop strings or the ear made of bent lines, even after one prompt change each. The Maker’s own fix is to build those by hand (its tuning items 14 and 26). Rational Hearing’s scholar is drawn as a woman, the render lane’s call for the batch’s balance, easy to undo. Three corner marks were covered with clean paper from the same image.</p>
+
+<h2>Bundle audit</h2>
+<ul class="plain">
+<li>13 Contexts owed → 13 opened.</li>
+<li>4 scrolls owed (Compressor Design, Phoneme Choir, Talking Keyboard — complete; STIGMERGY Philosophical Lenses — proposed), left named here, since a scroll’s Plan needs Loudon’s word.</li>
+<li>1 tuning owed → opened (Generative Preset Development).</li>
+</ul>
+
+<h2>Rich-face nominations</h2>
+<p>Five, from the audit’s ranking: each mature, well pointed-at, faced, with no manifest yet and a body that names something that can only be shown or played. One baton for Enrichment to catch.</p>
+<div class="cards"><div class="card"><p>The Shop</p></div><div class="card"><p>Palace Enchantment</p></div><div class="card"><p>Closing Well</p></div><div class="card"><p>Cross-Domain Resonances</p></div><div class="card"><p>Quality Manifesto</p></div></div>
+
+<h2>Bundle-frontmatter health</h2>
+<p>14 warnings unchanged (the Cross-Domain Resonances bridges and the Modes of Collaboration practices are nested canon, ruled in October).</p>
+
+<h2>Ghost wikilinks</h2>
+<p>24 warnings, all in Archive or Context files; 3 new this run point at the deleted BBS Design System from archives — invitations to history, left.</p>
+
+<h2>What this weave changed</h2>
+<p class="note">Map diff, open to close</p>
+<div class="row"><div class="stat"><b>1</b><span>node gone</span></div><div class="stat"><b>~250</b><span>edges changed</span></div><div class="stat"><b>60</b><span>cut</span></div><div class="stat"><b>15</b><span>retyped</span></div><div class="stat"><b>9</b><span>formed</span></div><div class="stat"><b>108</b><span>labelled</span></div></div>
+<p>No stage changed. Loudon Live → Hyperdimensional Prism now <code>emerged-from</code>; Cycle 5 Explorer → FOUR PILLARS keeps <code>exemplifies</code> with an honest label.</p>
+
+<h2>Seen, not settled</h2>
+<p>For the next weave or a word.</p>
+<ul class="plain">
+<li>Six passing ceremonies have no failure line (Baton, Deposit, Enrichment, Harvest, Map Build, Sentry).</li>
+<li>The furniture scripts carry a hardcoded date, and <code>--all</code> rewrites blocks that already pass.</li>
+<li>Seven generated HTML pages lose their furniture on rebuild.</li>
+<li>The Contexts recorded canon slips on 2D Torus (Theta’s symmetry; “beyond seven”), Loudon Live Design System (vector; the asset-plan link’s direction) and Wallpaper Groups (<code>:44</code>, <code>:69</code>).</li>
+<li>SCHEMA — Reference §6’s “Currently split” list names four of thirteen Contexts.</li>
+<li>AI Partnership Philosophy’s “configured in memory”.</li>
+<li>Identity Molting’s “learning architect”.</li>
+<li>Creative Coach’s composting rule not yet applied.</li>
+<li>Crystal Synthesizer’s April Standing Orders under the Max pause.</li>
+<li>13 untyped pages in the hub decile.</li>
+</ul>
+
+<h2>The lean</h2>
+<p>The palace spent the fortnight making faces and memory, not pages: nine born, but seventy Contexts and ledgers opened, and the link graph is now almost entirely labelled. The vectors lean toward instruments that teach — FM Synthesis, Cycle 5 Explorer, Rational Hearing, Synth Templates all arrived as things to play — and toward the Shop running itself (every Specialist now keeps its own ledger).</p>
+<p>What wants making next is the pages the newcomers reach for and don’t find: an OCR with a job, a Gallery work page for the Explorer’s board, a sentence on Loudon’s own notes.</p>
+<p class="note">Quiet pages: one page of degree 15 or more unused in 90 days at the close (down from 13 in October); nothing proposed for dormancy this run.</p>
+
+<h2>What this run taught the ceremony</h2>
+<img class="icon" src="../../../Weave%20Ceremony/Weave%20Ceremony%20%E2%80%94%20icon.png" alt="" width="48" height="48">
+<p>Five items. One forced a spec change: a pair judgment an Opus skeptic has passed rides the sampled batch (v2.3, Step 3d). The rest are coordinator’s lessons:</p>
+<ul class="plain">
+<li>A brief should state the condition, not a proxy for it.</li>
+<li>Writer lanes that land their own commits must carry the trailers.</li>
+<li>A sweep carried by exemplar carries the exemplar’s open questions.</li>
+<li>A newcomer’s thin reach can be the honest answer.</li>
+</ul>
+<p class="note">Tuning items 63 to 67, in <code>_ops/Weave Ceremony/Weave Ceremony — tuning.md</code>.</p>
+<footer>Loud’n Live</footer>
+</main></body></html>

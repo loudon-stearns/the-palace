@@ -36,6 +36,7 @@ links:
     label: first-mechanism
   - target: "[[Diversity of Thought in Many-Agent Systems]]"
     type: connects-to
+    label: live-probe
   - target: "[[Granular Synthesis]]"
     type: exemplifies
     label: flock-as-grains

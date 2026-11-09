@@ -39,6 +39,12 @@ selected so Cmd-C works where the clipboard is refused. The page says which happ
 `window.PalaceAnswers` before calling, and keep the page's own copy as the fallback if the
 script fails to load.
 
+**Framed in a rich face**, the script first hands the readable text to the face (`rich:note`).
+The face adds it to the note box of the section the piece sits in, and its own Send takes it to
+the board with his other notes. `submit` then resolves `{ mode: 'face' }`. If no face answers
+within 800 ms, it posts as above. The piece must declare `/_ops/loudon-eval/answers.js` in
+`piece:files` or in its manifest contract, or the piece origin answers 404.
+
 **Reading them back:**
 
 ```bash

@@ -20,11 +20,13 @@ links:
     type: spawned
   - target: "[[Swarm Weave]]"
     type: enables
-  - target: "[[Self-Describing Knowledge Module]]"
-    type: deepens
+    label: worker-birth-seed
   - target: "[[SUBSTRATE]]"
     type: connects-to
     label: birth-floor
+  - target: "[[Self-Describing Knowledge Module]]"
+    type: enables
+    label: the-seed
 ---
 
 # The Jewel

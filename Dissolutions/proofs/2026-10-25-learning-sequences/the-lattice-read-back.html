@@ -4,7 +4,7 @@
   born: 2026-10-25
   parent: [[Dissolutions]] · leads up to ../2026-10-20-the-lattice-read-back/the-lattice-read-back.html · tests [[Rank-N Lattice Analysis]]
   forward_vector: I am the way up to the lattice read back. I take one generator, two generators, a ruler laid across the peaks, the bound on the ruler's whole numbers, and the same lattice counted along other steps, one step each, so that the proof, and the two qualifications it puts on rank, make sense the first time it is played.
-  outline: the general one from Loudon's note of 2026-10-25 (each concept alone, then combined, then the proof), applied here: rank 1 alone, rank 2 alone, reading back with one ruler, the bound that makes rank mean something, the basis the analysis cannot see, then the proof.
+  outline: step 0, the two things each defined on its own, with where the dissolution holds and where it stops (Loudon’s review, 2026-11-09); then the general one from Loudon's note of 2026-10-25 (each concept alone, then combined, then the proof), applied here: rank 1 alone, rank 2 alone, reading back with one ruler, the bound that makes rank mean something, the basis the analysis cannot see, then the proof.
   sound: nothing plays until a Play button is clicked; the AudioContext is made on that click.
 -->
 <html lang="en" class="skin-graphite">
@@ -12,6 +12,49 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Lattice Read Back · learning sequence</title>
+
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" href="../../Dissolutions%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, link, textarea. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--bg-elev-1, #12121a); --fx-bg-elev-2: var(--bg-elev-2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg-1, #e8e8f0); --fx-fg-2: var(--fg-2, #c8c8d8); --fx-fg-3: var(--fg-3, #8a8aa0); --fx-fg-4: var(--fg-4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--border-soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--accent, #e8b84a); --fx-accent-soft: var(--accent-soft, rgba(232,184,74,0.10)); --fx-accent-line: var(--accent-line, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+textarea {resize: vertical; min-height: 3.5em;}
+textarea::-webkit-resizer {background: linear-gradient(135deg, transparent 0 58%, var(--fx-fg-4) 58% 64%, transparent 64% 76%, var(--fx-fg-4) 76% 82%, transparent 82%); background-clip: content-box;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
+input[type="range"]:focus {outline: none;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label, input[type="range"] {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
 <style>
   :root{
     --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
@@ -71,6 +114,7 @@
   .gathered li{margin:4px 0}
   a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  iframe.proof{display:block;width:100%;height:1600px;margin-top:14px;border:1px solid var(--border-soft);border-radius:6px;background:var(--bg)}
   button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
   button.send:disabled{opacity:.55;cursor:default}
   .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
@@ -78,19 +122,87 @@
   footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-3)}
   footer a{color:var(--fg-3)}
   @media (max-width:520px){h1{font-size:40px}h2{font-size:26px}.ctl{grid-template-columns:90px 1fr auto}}
+  /* step 0: the two things, each on its own, before anything joins them */
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .thing{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-top:2px solid var(--accent-dim);border-radius:8px;padding:16px 18px}
+  .thing h3{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.15;margin:4px 0 10px;letter-spacing:.01em;color:var(--fg-1)}
+  .thing p{margin:0 0 10px;color:var(--fg-2)}
+  .thing p.where,.thing p.alone{font-family:var(--sans);font-size:13.5px;line-height:1.6;color:var(--fg-3)}
+  .thing p.where b{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-2);margin-right:6px}
+  .thing p.alone{color:var(--accent);margin:0}
+  .claim p{margin:6px 0 10px;color:var(--fg-1);max-width:74ch}
+  .claim p b{color:var(--accent);font-weight:600}
+  .claim p.kind{font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--fg-2);margin:0}
+  .claim p.kinds{font-family:var(--sans);font-size:12.5px;line-height:1.6;color:var(--fg-3);margin:0 0 6px}
+  .limits{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 16px}
+  .limits>div{padding:12px 16px;border-left:2px solid var(--border);background:var(--bg-elev-1);border-radius:0 6px 6px 0}
+  .limits>div.holds{border-left-color:var(--accent)}
+  .limits p{margin:4px 0 0;color:var(--fg-2)}
+  dl.words{display:grid;grid-template-columns:minmax(120px,max-content) 1fr;gap:6px 18px;margin:6px 0 16px;font-family:var(--sans);font-size:14px;line-height:1.55}
+  dl.words dt{color:var(--fg-1);font-weight:500}
+  dl.words dd{margin:0;color:var(--fg-3)}
+  @media (max-width:640px){.pair,.limits{grid-template-columns:1fr}dl.words{grid-template-columns:1fr;gap:2px}dl.words dd{margin-bottom:8px}}
 </style>
 </head>
 <body>
 <main>
   <div class="eyebrow">Dissolutions · learning sequence · Rank-N Lattice Analysis</div>
   <h1>The lattice read back, step by step</h1>
-  <p class="lead">Five short steps up to the proof. One generator, then two, then a ruler laid across the peaks to read them back, then the bound on how large its whole numbers may grow, then the same lattice counted along other steps. Each step has one thing to hear. Nothing plays until you press Play.</p>
+  <p class="lead">Step 0 names the two things this sequence dissolves, defines each on its own, and says where the dissolution holds and where it stops. Then five short steps up to the proof. One generator, then two, then a ruler laid across the peaks to read them back, then the bound on how large its whole numbers may grow, then the same lattice counted along other steps. Each step has one thing to hear. Nothing plays until you press Play.</p>
   <div class="proposal" title="made in a proposal round and not yet approved by Loudon; send a note from the last step, or say so in chat">proposal · 2026-11-07 · not yet approved by Loudon</div>
 
   <nav class="rail" aria-label="Steps"></nav>
 
+  <!-- ───────────── step 0 ───────────── -->
+  <section class="step" data-step="0" data-title="The two things">
+    <div class="eyebrow">Step 0 · the two things, before anything joins them</div>
+    <h2>Generators, and the analysis that finds them, each on its own</h2>
+    <p class="say">This sequence takes a synthesizer that builds a sound from a few base frequencies, and an analysis that tries to find those frequencies in a finished sound, and tests whether the analysis reads back what the synthesizer used. Both lean on one word, so it comes first.</p>
+    <div class="panel">
+      <div class="eyebrow">First, the words both lean on</div>
+      <dl class="words">
+        <dt>partial</dt><dd>One of the sine waves a sound is made of. In a spectrum, a picture of how loud each frequency is, each partial shows as a peak.</dd>
+      </dl>
+    </div>
+    <div class="pair">
+      <div class="thing">
+        <div class="eyebrow">The first thing</div>
+        <h3>Synthesis from generators</h3>
+        <p>Pick base frequencies, the generators. With one generator g, put partials at g, 2g, 3g…: a harmonic series, heard as one pitch. With two, g₁ and g₂, put a partial at m × g₁ + n × g₂ for chosen whole numbers m and n: g₁ + g₂, 2g₁ − g₂, and so on. Every frequency that rule can reach makes a lattice, like the points of a grid. When g₂ ÷ g₁ is no ratio of whole numbers, √2 say, no single generator lines up all the partials, and you hear a bell, not a pitch.</p>
+        <p class="where"><b>Where you meet it</b>Loudon’s 2D Torus Wavetable Synthesizer makes such sounds from two oscillators turning at g₁ and g₂.</p>
+        <p class="alone">Steps 1 and 2.</p>
+      </div>
+      <div class="thing">
+        <div class="eyebrow">The second thing</div>
+        <h3>Rank-N lattice analysis</h3>
+        <p>Start from the finished sound alone. Find the peaks in its spectrum, then find the fewest base frequencies, called generators, whose whole-number combinations land on every peak. Laying one generator across the peaks is laying a ruler with a mark at every whole multiple of it. The number of generators needed is the rank: a harmonic tone is rank 1, a bell needs 2 or more. One setting has to be chosen first, the bound: how large the whole numbers may grow. Without one, a tiny enough generator has a mark near anything. Pitch detection is the rank-1 case.</p>
+        <p class="where"><b>Where you meet it</b>Pitch trackers, measuring a piano’s stretched partials, the modes of a struck bar. The palace’s Rank-N page names them all one operation.</p>
+        <p class="alone">Step 3, then the bound in step 4.</p>
+      </div>
+    </div>
+    <div class="panel claim">
+      <div class="eyebrow">The claim that joins them</div>
+      <p>The synthesizer turns generators into a sound; the analysis turns a sound back into generators. Run the analysis on the synthesizer’s sound and it hands back the lattice the synthesizer used. One object, read in two directions.</p>
+      <p class="kinds">Three kinds of sameness. Identity: one object, read two ways. Isomorphism: an exact map between two things that stay two. Analogy: a likeness that breaks when you push it.</p>
+      <p class="kind"><b>Identity, with two conditions.</b> One lattice, read two ways, up to a change of basis, meaning another pair of generators that draws the same lattice, and with the rank measured against a bound. Both conditions are part of the claim, not footnotes.</p>
+    </div>
+    <div class="limits">
+      <div class="holds"><div class="eyebrow">Where it holds</div><p>Given a bound, the analysis finds the lattice and its rank: rank 2 for the √2 bell, and honestly rank 1 when the ratio is 3 ÷ 2 and every partial falls on one harmonic series.</p></div>
+      <div class="stops"><div class="eyebrow">Where it stops</div><p>In two places. It gets back the lattice, not the generators that drew it: (g₁, g₂) and (g₁, g₁ + g₂) draw the same set of frequencies, and the analysis may return either (step 5). And with no bound, any set of peaks fits rank 1 on a small enough generator, so the rank means something only against the bound you choose (step 4). At 7 ÷ 5 the same sound is rank 2 or rank 1 depending on the bound alone. The tolerance, how near a mark a peak must sit to count, half a hertz here, is a choice the rank leans on in the same way.</p></div>
+    </div>
+    <div class="eyebrow">Words the steps use</div>
+    <dl class="words">
+        <dt>ruler</dt><dd>A trial generator with a mark at every whole multiple; a peak is explained if it sits within half a hertz of a mark (step 3).</dd>
+        <dt>bound, K</dt><dd>The largest whole number the analysis may use (step 4).</dd>
+        <dt>basis</dt><dd>The pair of generators a lattice is counted along. Another pair can draw the same lattice (step 5).</dd>
+        <dt>determinant</dt><dd>For new generators ĝ₁ = a × g₁ + b × g₂ and ĝ₂ = c × g₁ + d × g₂, the number a × d − b × c. When it is 1 or −1, the new pair reaches every old point and no others (step 5).</dd>
+      </dl>
+    <div class="try"><span class="eyebrow">Try</span>Before you press Next, say each of the two things back in a sentence of your own, without the other. If either one won’t come, that is the note to leave here.</div>
+    <textarea data-note placeholder="Are the two things clear, each on its own, before the steps join them?"></textarea>
+  </section>
+
   <!-- ───────────── step 1 ───────────── -->
-  <section class="step" data-step="0" data-title="One generator">
+  <section class="step" data-step="1" data-title="One generator">
     <div class="eyebrow">Step 1 of 6 · one generator</div>
     <h2>A harmonic series is rank 1</h2>
     <p class="say">Start with the plainest tone there is: partials at 1, 2, 3, 4 and 5 times one frequency. That frequency is the generator, and every partial is a whole-number multiple of it, a mark on one ruler. One generator, so we call it rank 1. You hear one pitch because the partials share one ruler.</p>
@@ -121,7 +233,7 @@
   </section>
 
   <!-- ───────────── step 2 ───────────── -->
-  <section class="step" data-step="1" data-title="Two generators" hidden>
+  <section class="step" data-step="2" data-title="Two generators" hidden>
     <div class="eyebrow">Step 2 of 6 · two generators</div>
     <h2>Two phases make a lattice</h2>
     <p class="say">A torus synth keeps a field on a square and reads it with two phases at once: one runs across at g₁, the other up at g₂. Each lit point (m, n) of the field becomes one partial, at m × g₁ + n × g₂. With g₂ ÷ g₁ = √2 the reading line winds round the square and never comes back to where it began, so no one ruler holds the partials. Two generators: rank 2. You hear a bell, not a pitch.</p>
@@ -149,7 +261,7 @@
   </section>
 
   <!-- ───────────── step 3 ───────────── -->
-  <section class="step" data-step="2" data-title="A ruler on the peaks" hidden>
+  <section class="step" data-step="3" data-title="A ruler on the peaks" hidden>
     <div class="eyebrow">Step 3 of 6 · reading back</div>
     <h2>Which whole numbers explain the peaks?</h2>
     <p class="say">Now turn round. The analysis gets the sound and nothing else. It finds the peaks in the spectrum, then lays a ruler across them: a trial generator with a mark at every whole multiple. A peak is explained if it sits within half a hertz of a mark. What the ruler explains can be played back; what it cannot is left over in the difference.</p>
@@ -180,7 +292,7 @@
   </section>
 
   <!-- ───────────── step 4 ───────────── -->
-  <section class="step" data-step="3" data-title="The bound" hidden>
+  <section class="step" data-step="4" data-title="The bound" hidden>
     <div class="eyebrow">Step 4 of 6 · the bound on the whole numbers</div>
     <h2>How large may the whole numbers grow?</h2>
     <p class="say">Rulers can always get finer. Shrink the generator far enough and its marks crowd so close that every peak finds one. So the analysis has to be told how large a whole number it may use, and the rank it hands back depends on that bound. Set the bound low and this sound needs two generators. Raise it past one point and a single tiny ruler explains every peak, and tells you almost nothing.</p>
@@ -210,7 +322,7 @@
   </section>
 
   <!-- ───────────── step 5 ───────────── -->
-  <section class="step" data-step="4" data-title="Another basis" hidden>
+  <section class="step" data-step="5" data-title="Another basis" hidden>
     <div class="eyebrow">Step 5 of 6 · the same lattice, counted along other steps</div>
     <h2>The analysis gets the lattice, not the hand</h2>
     <p class="say">Two generators draw a lattice, but they are not the only two that draw it. Swap g₂ for g₁ + g₂ and every point you lit still has whole-number coordinates, different ones, and lands on exactly the same frequency. The sound cannot tell the two apart, so neither can the analysis: it recovers the lattice, not the generators that drew it. Any whole-number change of steps does the same, as long as its determinant is 1 or −1.</p>
@@ -247,7 +359,7 @@
   </section>
 
   <!-- ───────────── step 6 ───────────── -->
-  <section class="step" data-step="5" data-title="The proof" hidden>
+  <section class="step" data-step="6" data-title="The proof" hidden>
     <div class="eyebrow">Step 6 of 6 · the proof</div>
     <h2>Now the whole round trip, on one page</h2>
     <p class="say">The proof plays a field through two generators, hands only the sound to the analysis, and draws what comes back. Here is where each step is waiting for you there.</p>
@@ -260,8 +372,8 @@
     </ul>
     <p class="say" style="margin-top:14px">The Rank-N Lattice Analysis page, as it stands, calls rank a property of the source and has the analysis hand back the generators. Steps 4 and 5 show otherwise: the rank depends on how large the whole numbers may grow, and what comes back is the lattice, which more than one pair of generators draws. Offer B in the Dissolutions baton is the change that would bring the page in line.</p>
     <p class="say" style="margin-top:14px">It ends on a question: is the rank a property of the sound, or of the sound and how much you are willing to count?</p>
-    <a class="proof-link" href="../2026-10-20-the-lattice-read-back/the-lattice-read-back.html">Open the proof</a>
-    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <iframe class="proof" src="../2026-10-20-the-lattice-read-back/the-lattice-read-back.html" title="the proof" loading="lazy"></iframe>
+    <textarea data-note placeholder="The proof, and the walk up to it: did the steps get you there? What was missing?"></textarea>
     <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
     <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
   </section>
@@ -271,6 +383,40 @@
   <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-the-lattice-read-back/the-lattice-read-back.html">the lattice read back</a> · <a href="index.html">all six sequences</a></footer>
 </main>
 
+<script>
+// The proof shows in place on the last step, unchanged. Its own notes could
+// only be copied, so they are hidden here and this step's box is the one place
+// to write. The frame takes the proof's height; a hush from the face reaches
+// the proof, and the proof's play reaches the face. Opened as a file the proof
+// can't be reached into, and keeps its notes and a fixed height. The message
+// names are built, not written: the piece kit leaves hushing to any page whose
+// own script spells one out, and this page's sound is still the kit's to hush.
+(function(){
+  var f = document.querySelector('iframe.proof'); if (!f) return;
+  var HUSH = ['rich', 'hush'].join(':'), PLAY = ['rich', 'play'].join(':');
+  var step = f.closest('section.step'), last = 0;
+  function reach(){ try { return f.contentDocument && f.contentDocument.body ? f.contentDocument : null; } catch (e) { return null; } }
+  function fit(){
+    var d = reach(); if (!d) return;
+    ['doorNote', 'wholeNote'].forEach(function(id){ var e = d.getElementById(id); if (e) e.style.display = 'none'; });
+    var c = d.getElementById('copy'), row = c && c.closest('.rowb'); if (row) row.style.display = 'none';
+    var h = Math.min(8000, Math.max(600, d.documentElement.scrollHeight));
+    if (Math.abs(h - last) > 2){ last = h; f.style.height = h + 'px'; }
+  }
+  function hush(){ try { f.contentWindow.postMessage({ type: HUSH }, '*'); } catch (e) {} }
+  f.addEventListener('load', function(){
+    fit(); setTimeout(fit, 400); setTimeout(fit, 1500);
+    var d = reach(); if (d && window.ResizeObserver) new ResizeObserver(fit).observe(d.body);
+  });
+  window.addEventListener('message', function(e){
+    if (!e.data) return;
+    if (e.source === window.parent && e.data.type === HUSH) hush();
+    if (e.source === f.contentWindow && e.data.type === PLAY && window.parent !== window) window.parent.postMessage({ type: PLAY }, '*');
+  });
+  new MutationObserver(function(){ if (step.hidden) hush(); }).observe(step, { attributes: true, attributeFilter: ['hidden'] });
+  document.addEventListener('visibilitychange', function(){ if (document.hidden) hush(); });
+})();
+</script>
 <script src="../../../_ops/loudon-eval/answers.js"></script>
 <script>
 (function(){
@@ -578,7 +724,7 @@
   var steps = Q('section.step'), cur = 0, seen = {};
   var rail = document.querySelector('.rail');
   steps.forEach(function(s, i){
-    var b = document.createElement('button'); b.textContent = (i + 1) + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
+    var b = document.createElement('button'); b.textContent = i + ' · ' + s.getAttribute('data-title'); b.setAttribute('data-go', i);
     b.addEventListener('click', function(){ go(i); }); rail.appendChild(b);
   });
   var STEP = []; // per-step behaviour: { render(): Float32Array, draw(g, W, H, d, dt), changed(), aspect?(cssWidth) }
@@ -592,10 +738,17 @@
     master = ctx.createGain(); master.gain.value = 0.4; master.connect(comp); comp.connect(ctx.destination);
     if (ctx.sampleRate !== sr){ sr = ctx.sampleRate; STEP.forEach(function(s){ s.changed(); }); }
   }
+  // The loop blends the F extra samples at the tail onto the start. The blend
+  // holds the level whatever the two pieces are: r is how alike they are, so the
+  // same wave in the same phase gets a straight fade and two unrelated sounds a
+  // near equal-power one. An equal-power fade of one wave onto itself swells
+  // 3 dB at the seam, once a loop (Loudon heard it, 2026-11-08).
   function loopify(x, F){
-    var N = x.length - F, out = new Float32Array(N);
-    for (var i = 0; i < N; i++){
-      if (i < F){ var q = i / F; out[i] = x[i] * Math.sin(q * Math.PI / 2) + x[N + i] * Math.cos(q * Math.PI / 2); }
+    var N = x.length - F, out = new Float32Array(N), sab = 0, saa = 0, sbb = 0, i;
+    for (i = 0; i < F; i++){ sab += x[i] * x[N + i]; saa += x[i] * x[i]; sbb += x[N + i] * x[N + i]; }
+    var r = saa > 0 && sbb > 0 ? Math.max(0, sab / Math.sqrt(saa * sbb)) : 0;
+    for (i = 0; i < N; i++){
+      if (i < F){ var a = i / F, b = 1 - a; out[i] = (x[i] * a + x[N + i] * b) / Math.sqrt(a * a + b * b + 2 * r * a * b); }
       else out[i] = x[i];
     }
     return out;
@@ -683,7 +836,7 @@
       $('s1m').innerHTML = 'lit partials: <b>' + list(lit.map(function(k){ return k * g; }), 1) + '</b> Hz · each ÷ ' + g.toFixed(1) + ' = <b>' + lit.join(', ') + '</b>, every one whole<br>the largest ruler they all sit on: <b>' + (r * g).toFixed(1) + ' Hz</b>' + (r > 1 ? ' (' + r + ' × the generator)' : '') + ' · one generator, rank <b>1</b>';
       Q('[data-s1k]').forEach(function(b){ b.setAttribute('aria-pressed', String(lit.indexOf(parseInt(b.getAttribute('data-s1k'), 10)) >= 0)); });
     }
-    STEP[0] = {
+    STEP[1] = {
       render: function(){ return asBuffer(y, 0.9); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       draw: function(gc, W, H, d){
@@ -708,11 +861,11 @@
         strip(gc, x0, y1, w, hh2, function(t){ return y[Math.floor(t * span)] / pk; }, ACC, 1.8 * d);
       }
     };
-    $('s1g').addEventListener('input', function(){ s = parseFloat($('s1g').value); STEP[0].changed(); });
+    $('s1g').addEventListener('input', function(){ s = parseFloat($('s1g').value); STEP[1].changed(); });
     Q('[data-s1k]').forEach(function(b){ b.addEventListener('click', function(){
       var k = parseInt(b.getAttribute('data-s1k'), 10), at = lit.indexOf(k);
       if (at >= 0){ if (lit.length > 1) lit.splice(at, 1); } else { lit.push(k); lit.sort(function(a, c){ return a - c; }); }
-      STEP[0].changed();
+      STEP[1].changed();
     }); });
   })();
 
@@ -736,7 +889,7 @@
       else ln += 'the path does not close within <b>12</b> turns of φ₁: no small whole-number ratio between the generators';
       $('s2m').innerHTML = ln;
     }
-    STEP[1] = {
+    STEP[2] = {
       render: function(){ return asBuffer(y, 0.9); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       aspect: function(w){ return w < 600 ? 1.55 : 0.56; },
@@ -790,9 +943,9 @@
         label(gc, '0', fx0, lineY + 14 * d, d); label(gc, Math.round(fmax) + ' Hz', fx0 + fw, lineY + 14 * d, d, 'right');
       }
     };
-    $('s2r').addEventListener('input', function(){ ratio = parseFloat($('s2r').value); STEP[1].changed(); });
-    Q('[data-s2ratio]').forEach(function(b){ b.addEventListener('click', function(){ ratio = parseFloat(b.getAttribute('data-s2ratio')); STEP[1].changed(); }); });
-    Q('[data-s2field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s2field'); STEP[1].changed(); }); });
+    $('s2r').addEventListener('input', function(){ ratio = parseFloat($('s2r').value); STEP[2].changed(); });
+    Q('[data-s2ratio]').forEach(function(b){ b.addEventListener('click', function(){ ratio = parseFloat(b.getAttribute('data-s2ratio')); STEP[2].changed(); }); });
+    Q('[data-s2field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s2field'); STEP[2].changed(); }); });
   })();
 
   // ---- step 3: a ruler on the peaks ----
@@ -819,7 +972,7 @@
       else h = hits.length === ms.fs.length ? 'You hear <b>what it leaves</b>: silence. The ruler explains the whole sound.' : 'You hear <b>what it leaves</b>: the ' + (ms.fs.length - hits.length) + ' partial' + (ms.fs.length - hits.length === 1 ? '' : 's') + ' no mark explains.';
       $('s3h').innerHTML = h;
     }
-    STEP[2] = {
+    STEP[3] = {
       aspect: function(w){ return w < 600 ? 0.95 : 0.52; },
       render: function(){ return asBuffer(door === 'sound' ? y : door === 'read' ? read : left, 0.9); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
@@ -844,7 +997,7 @@
     };
     $('s3g').addEventListener('input', function(){ s = parseFloat($('s3g').value); reread(); ui(); refreshAudio(); });
     Q('[data-s3ruler]').forEach(function(b){ b.addEventListener('click', function(){ s = rulerPos(parseFloat(b.getAttribute('data-s3ruler'))); reread(); ui(); refreshAudio(); }); });
-    Q('[data-s3sound]').forEach(function(b){ b.addEventListener('click', function(){ sound = b.getAttribute('data-s3sound'); STEP[2].changed(); }); });
+    Q('[data-s3sound]').forEach(function(b){ b.addEventListener('click', function(){ sound = b.getAttribute('data-s3sound'); STEP[3].changed(); }); });
     Q('[data-s3door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s3door'); ui(); refreshAudio(); }); });
   })();
 
@@ -874,7 +1027,7 @@
       else h = fit.rank === 1 ? 'You hear <b>the bell over its one ruler</b>: ' + fmt(fit.g) + ' Hz with all ' + topH() + ' of its marks sounding, ' + (fit.g < 15 ? 'ticks, not a pitch' : 'a low buzz') + '.' : 'You hear <b>the bell alone</b>: at this bound there is no single ruler to play under it.';
       $('s4h').innerHTML = h;
     }
-    STEP[3] = {
+    STEP[4] = {
       aspect: function(w){ return w < 600 ? 0.95 : 0.52; },
       render: function(){
         var x = new Float64Array(y.length);
@@ -912,7 +1065,7 @@
       }
     };
     $('s4k').addEventListener('input', function(){ K = parseInt($('s4k').value, 10); refit(); ui(); refreshAudio(); });
-    Q('[data-s4sound]').forEach(function(b){ b.addEventListener('click', function(){ sound = b.getAttribute('data-s4sound'); STEP[3].changed(); }); });
+    Q('[data-s4sound]').forEach(function(b){ b.addEventListener('click', function(){ sound = b.getAttribute('data-s4sound'); STEP[4].changed(); }); });
     Q('[data-s4door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s4door'); ui(); refreshAudio(); }); });
   })();
 
@@ -956,7 +1109,7 @@
       gc.strokeStyle = color; gc.fillStyle = color; gc.lineWidth = 2 * d; gc.beginPath(); gc.moveTo(x0, y0); gc.lineTo(x1, y1); gc.stroke();
       var a = Math.atan2(y1 - y0, x1 - x0), r = 7 * d; gc.beginPath(); gc.moveTo(x1, y1); gc.lineTo(x1 - r * Math.cos(a - 0.4), y1 - r * Math.sin(a - 0.4)); gc.lineTo(x1 - r * Math.cos(a + 0.4), y1 - r * Math.sin(a + 0.4)); gc.fill();
     }
-    STEP[4] = {
+    STEP[5] = {
       render: function(){ var x = new Float64Array(y.length); for (var i = 0; i < x.length; i++) x[i] = door === 'drawn' ? y[i] : door === 'recount' ? yR[i] : y[i] - yR[i]; return asBuffer(x, 0.9); },
       changed: function(){ rebuild(); ui(); refreshAudio(); },
       aspect: function(w){ return w < 600 ? 1.5 : 0.6; },
@@ -1002,7 +1155,7 @@
       }
     };
     Q('[data-s5basis]').forEach(function(b){ b.addEventListener('click', function(){ bi = parseInt(b.getAttribute('data-s5basis'), 10); recast(); ui(); refreshAudio(); }); });
-    Q('[data-s5field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s5field'); STEP[4].changed(); }); });
+    Q('[data-s5field]').forEach(function(b){ b.addEventListener('click', function(){ field = b.getAttribute('data-s5field'); STEP[5].changed(); }); });
     Q('[data-s5door]').forEach(function(b){ b.addEventListener('click', function(){ door = b.getAttribute('data-s5door'); ui(); refreshAudio(); }); });
   })();
 
@@ -1027,8 +1180,18 @@
   }
 
   // ---------- notes: one per step; kept in this tab, and in storage only where storage is allowed ----------
-  var KEY = 'dissolutions-seq-the-lattice-read-back-notes', notes = {};
-  try { notes = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { notes = {}; }
+  // step 0 came in front on 2026-11-09 and every step moved up one index, its number kept;
+  // notes still under the old key are carried across, each to the step it was written on
+  var KEY = 'dissolutions-seq-the-lattice-read-back-notes-v2', KEY_BEFORE = 'dissolutions-seq-the-lattice-read-back-notes', notes = {};
+  try {
+    notes = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if (!notes){
+      var before = JSON.parse(localStorage.getItem(KEY_BEFORE) || '{}') || {}; notes = {};
+      Object.keys(before).forEach(function(k){ notes[String(+k + 1)] = before[k]; });
+      if (Object.keys(notes).length){ localStorage.setItem(KEY, JSON.stringify(notes)); localStorage.removeItem(KEY_BEFORE); }
+    }
+  } catch (e) { notes = notes || {}; }
+  window.__seq.keys = { now: KEY, before: KEY_BEFORE };
   Q('[data-note]').forEach(function(t){
     var k = t.closest('section.step').getAttribute('data-step'); t.value = notes[k] || '';
     t.addEventListener('input', function(){ notes[k] = t.value; try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} });
@@ -1036,13 +1199,13 @@
   // the notes go to the STIGMERGY board through the answers server (_ops/loudon-eval/answers.js);
   // Copy all notes, below, stays as the fallback
   var TASK = 'the-lattice-read-back', HEAD = 'The lattice read back, learning sequence — notes', sending = false;
-  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
+  function digest(n){ return HEAD + '\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (n[i] || '—'); }).join('\n'); }
   function saveNotes(){ try { localStorage.setItem(KEY, JSON.stringify(notes)); } catch (e) {} }
   function sendDone(){ sending = false; $('send').disabled = false; $('send').textContent = 'Send to STIGMERGY'; }
   $('send').addEventListener('click', function(){
     if (sending) return;
     var sent = {}, answers = {}, names = [];
-    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[(i + 1) + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
+    steps.forEach(function(s, i){ if ((notes[i] || '').trim()){ sent[i] = notes[i]; answers[i + ' · ' + s.getAttribute('data-title')] = notes[i]; names.push(s.getAttribute('data-title')); } });
     if (!names.length){ $('copied').textContent = 'Nothing to send yet: every notes box is empty.'; return; }
     if (!window.PalaceAnswers){ $('copied').textContent = 'Not sent, and your notes are kept: the answers script didn’t load. Use Copy all notes.'; return; }
     sending = true; $('send').disabled = true; $('send').textContent = 'Sending…'; $('copied').textContent = '';
@@ -1059,7 +1222,7 @@
     }, function(e){ $('copied').textContent = 'Not sent — your notes are kept. ' + ((e && e.message) || ''); }).then(sendDone, sendDone);
   });
   $('copy').addEventListener('click', function(){
-    var text = 'The lattice read back, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + (i + 1) + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
+    var text = 'The lattice read back, learning sequence — notes\n' + steps.map(function(s, i){ return '- ' + i + ' ' + s.getAttribute('data-title') + ': ' + (notes[i] || '—'); }).join('\n');
     var done = function(){ $('copied').textContent = 'copied'; };
     if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function(){ $('copied').textContent = text; }); else $('copied').textContent = text;
   });

@@ -22,8 +22,6 @@ links:
   - target: "[[Loudon Live]]"
     type: connects-to
     label: weekly-cadence
-  - target: "[[4 Pillars Framework - The Founding Conversation]]"
-    type: emerged-from
   - target: "[[Meadows and Music — Leverage Points]]"
     type: spawned
     label: domain-application

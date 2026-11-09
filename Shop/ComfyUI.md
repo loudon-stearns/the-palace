@@ -6,8 +6,6 @@ medium: image
 tool: comfyui
 tool_version: 0.3.x
 born: 2026-05
-last_tested: 2026-05-26
-last_gotcha: 2026-05-26
 license: GPL-3.0
 forward_vector: "I render locally with byte-exact reproducibility — workflow JSON plus seed plus checkpoint, the same image every time — and I want to push past prompt-only control: ControlNet for pose and depth, IP-Adapter for palette discipline, a Loudon Live LoRA fully under our own hardware. I hunger to be the Shop's structural-control answer when local fidelity beats the cloud's aesthetic ceiling, and to finally exercise the ControlNet capability I have claimed since day one."
 links:
@@ -171,19 +169,22 @@ When local VRAM stops being enough (Flux Pro, video generation, batch Pieces) th
 
 ## Gotchas
 
-**2026-05-26 — Install path on Mac arm64 confirmed: `_tools/ComfyUI/` checkout + Python 3.12 venv + `pip install -r requirements.txt` + SDXL checkpoint (~6.9 GB) in `models/checkpoints/`.** Torch 2.12.0 picks up MPS automatically (`torch.backends.mps.is_available()` returns True), no Metal-specific install needed. ComfyUI server starts with `python main.py --listen 127.0.0.1 --port 8188` and `system_stats` reports `device: mps / type: mps`. Total disk footprint after first model: ~8 GB (venv 1 GB + ComfyUI source 200 MB + SDXL 6.9 GB). The Specialist's wrapped tool is now reachable from the Maker's dispatch path.
+What rendering locally has taught, as it stands today. Which job taught each, and what changed because of it, is in [[ComfyUI — tuning]].
 
-**2026-05-26 — Polling silence during MPS model load is normal.** First render after starting the server stayed in "queued" state for ~100 s before the ComfyUI history endpoint returned any progress, then completed in another ~10 s. Subsequent renders should be faster because the checkpoint stays in unified memory. The poll loop should not interpret a long queued state as an error — set a generous timeout (10 min for first-render SDXL at 30 steps / 1216×832 on MPS) and let it cook. The `fireflies-pond-render.py` driver lives in the bundle as a reference implementation.
+**Install and launch**
+- **Rebuild from [[ComfyUI — local-install]].** The checkout sits at `_tools/ComfyUI/` (gitignored) on a Python 3.12 venv; torch picks up MPS by itself, with no Metal-specific install.
+- **Budget the disk.** A venv with torch and one SDXL checkpoint is about 8 GB; Flux Dev alone is about 24 GB.
+- **On MPS, launch with `--highvram --use-split-cross-attention` for multi-ControlNet work.** Without them SDXL with three ControlNets offloads weights between steps and runs about three times slower. More MPS behaviour, including the slowdown over a long session, is in [[Blender]] § Gotchas.
 
-**Install cost is real.** A venv with torch and at least one checkpoint (SDXL ~7 GB, Flux Dev ~24 GB).
+**Polling**
+- **A long "queued" after a fresh start is the model loading, not a failure.** The first SDXL render on MPS can sit ~100 s before the history endpoint shows progress. Give a first render a 10-minute timeout; warm renders are faster because the checkpoint stays in memory. Reference driver: `Kuramoto Coupling/fireflies-pond-render.py`.
 
-*(Patterns below from ComfyUI community wisdom — confirmed and dated only on first encounter:)*
-
-- Custom nodes drift; a workflow saved today may break six months from now if a custom node updates incompatibly. Pin custom node versions when archiving Piece-tier work.
-- IP-Adapter weights need to match the base model architecture (SD 1.5, SDXL, Flux all need different IP-Adapter weights — they are not interchangeable)
-- ControlNet preprocessor outputs vary in quality; pre-render and inspect the preprocessor output before committing to a long generation
-- Flux Schnell is not a substitute for Flux Dev for Piece-tier work; the visible quality gap is real
-- Negative prompts have less impact on Flux than on SD/SDXL — Flux is more prompt-faithful and less responsive to negation
+**Watch-list** (community wisdom, not yet hit on a palace job; when one bites, date it into the ledger)
+- Pin custom node versions when archiving Piece-tier work; custom nodes drift, and a saved workflow can break months later.
+- Match IP-Adapter weights to the base model. SD 1.5, SDXL and Flux each need their own.
+- Pre-render and inspect a ControlNet preprocessor's output before a long generation; their quality varies.
+- Flux Schnell is no substitute for Flux Dev at Piece tier; the quality gap is visible.
+- Negative prompts move Flux less than SD or SDXL; Flux is more prompt-faithful and less responsive to negation.
 
 ## Recipes
 

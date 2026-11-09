@@ -13,6 +13,7 @@ links:
     label: beyond-voice
   - target: "[[Four Pillars of Enchanted Agency]]"
     type: deepens
+    label: personality-question
   - target: "[[Diversity of Thought in Many-Agent Systems]]"
     type: connects-to
     label: temperament-as-diversity

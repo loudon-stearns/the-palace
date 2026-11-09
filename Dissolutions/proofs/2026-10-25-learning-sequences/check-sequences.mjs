@@ -7,7 +7,9 @@
 //    a selfTest() that re-derives every number its steps show. This pulls that
 //    exact source out of the HTML, runs selfTest in node, and prints its lines.
 // 2. The page. In headless Chromium, offline, from file://: no console errors, no
-//    request off the disk, no AudioContext before a click, every step reached by
+//    request off the disk, no AudioContext before a click, step 0 first with its two things
+//    each defined on its own and where the dissolution holds and stops, a note kept from before
+//    step 0 landing on the step it was written on, every step reached by
 //    Next with exactly one step showing, every Play makes the context and starts a
 //    sound only on its click, hiding the tab stops the sound with no restart on
 //    return, Send from a file keeps every note, and the last step's link reaches a
@@ -88,9 +90,12 @@ for (const f of pages) {
   // answers.js is main's (_ops/loudon-eval); on a tree without it the page falls back to Copy, and the
   // failed load is said here, not counted as the page's error
   const answersHere = existsSync(resolve(HERE, '../../../_ops/loudon-eval/answers.js'));
-  page.on('console', (m) => { if (m.type() === 'error' && !(!answersHere && /ERR_FILE_NOT_FOUND/.test(m.text()))) errors.push(m.text()); });
+  // the proof shown in place on the last step is its own page: its Google Fonts request is a
+  // proof-page fault the baton names, so only this page's own requests and errors count here
+  const proofAsked = new Set(), ownPage = (u) => !/2026-10-20-/.test(u || '') && !proofAsked.has(u);
+  page.on('console', (m) => { if (m.type() === 'error' && ownPage(m.location().url) && !(!answersHere && /ERR_FILE_NOT_FOUND/.test(m.text()))) errors.push(m.text()); });
   page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
-  page.on('request', (r) => { if (!r.url().startsWith('file:') && !r.url().startsWith('data:')) offDisk.push(r.url()); });
+  page.on('request', (r) => { if (r.frame() !== page.mainFrame()) proofAsked.add(r.url()); if (r.frame() === page.mainFrame() && !r.url().startsWith('file:') && !r.url().startsWith('data:')) offDisk.push(r.url()); });
   await page.addInitScript(INIT);
   await page.goto(pathToFileURL(join(HERE, f)).href);
   await page.waitForTimeout(800);
@@ -98,6 +103,30 @@ for (const f of pages) {
   check(`${f}: silent at load`, a0.contexts === 0 && a0.starts === 0, `${a0.contexts} audio contexts, ${a0.starts} sounds started`);
   const n = await page.evaluate(() => window.__seq && window.__seq.count);
   check(`${f}: has steps`, n >= 3, `${n} steps`);
+
+  // step 0 opens the sequence: the two things, each defined on its own, the claim, and where it
+  // holds and where it stops, before any step joins them (Loudon's review, 2026-11-09)
+  const s0 = await page.evaluate(() => {
+    const s = document.querySelector('section.step');
+    const txt = (sel) => [...s.querySelectorAll(sel)].map((e) => e.textContent.trim());
+    const things = [...s.querySelectorAll('.pair .thing')].map((t) => ({ name: (t.querySelector('h3') || {}).textContent || '', what: (t.querySelector('p') || {}).textContent || '' }));
+    return { first: s.getAttribute('data-step') === '0' && !s.hidden, rail: (document.querySelector('.rail button') || {}).textContent || '',
+      things, claim: txt('.claim > p').join(' '), holds: txt('.limits .holds p').join(''), stops: txt('.limits .stops p').join(''), note: !!s.querySelector('[data-note]') };
+  });
+  check(`${f}: step 0 comes first, two things each defined on its own, the claim, where it holds and where it stops`,
+    s0.first && /^0 · /.test(s0.rail) && s0.things.length === 2 && s0.things.every((t) => t.name && t.what.length > 120) && s0.claim.length > 120 && s0.holds.length > 60 && s0.stops.length > 60 && s0.note,
+    `${s0.things.map((t) => t.name).join(' | ')}; rail “${s0.rail}”`);
+  // a note left before step 0 came in front lands on the step it was written on
+  {
+    const moved = await page.evaluate(() => { const k = window.__seq.keys; localStorage.removeItem(k.now); localStorage.setItem(k.before, JSON.stringify({ 0: 'old step 1 note' })); return k; });
+    await page.reload(); await page.waitForTimeout(400);
+    const r = await page.evaluate((k) => ({ s0: document.querySelector('section.step[data-step="0"] [data-note]').value, s1: document.querySelector('section.step[data-step="1"] [data-note]').value,
+      before: localStorage.getItem(k.before), now: localStorage.getItem(k.now), rail1: document.querySelectorAll('.rail button')[1].textContent }), moved);
+    check(`${f}: a note kept from before step 0 lands on the step it was written on`, r.s0 === '' && r.s1 === 'old step 1 note' && r.before === null && /^1 · /.test(r.rail1),
+      `step 0 “${r.s0}”, step 1 “${r.s1}”, old key ${r.before === null ? 'cleared' : 'still there'}, rail “${r.rail1}”`);
+    await page.evaluate((k) => { localStorage.removeItem(k.now); localStorage.removeItem(k.before); }, moved);
+    await page.reload(); await page.waitForTimeout(400);
+  }
 
   // walk forward with Next, touching nothing that plays
   let walkOk = true, walkDetail = [];
@@ -112,10 +141,10 @@ for (const f of pages) {
   const atEnd = await page.evaluate(() => document.getElementById('next').disabled);
   check(`${f}: Next stops at the last step`, atEnd, '');
 
-  // the last step's link reaches a proof
-  const href = await page.evaluate(() => { const a = document.querySelector('section.step:last-of-type a.proof-link'); return a && a.getAttribute('href'); });
+  // the last step shows its proof in place, a proof that exists, with the proof's own notes hidden
+  const href = await page.evaluate(() => { const a = document.querySelector('section.step:last-of-type iframe.proof'); return a && a.getAttribute('src'); });
   const target = href && resolve(HERE, decodeURI(href));
-  check(`${f}: the last step opens a proof that exists`, !!href && existsSync(target), href || 'no a.proof-link');
+  check(`${f}: the last step shows a proof that exists`, !!href && existsSync(target), href || 'no iframe.proof');
 
   // every Play: sound only on its click, and it stops
   const plays = await page.evaluate(() => [...document.querySelectorAll('section.step')].map((s, i) => (s.querySelector('[data-play]') ? i : -1)).filter((i) => i >= 0));

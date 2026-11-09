@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, tools, philosophy]
 born: 2026-03
 stage: mature
-version: "2.2"
+version: "2.3"
 trigger: ["weave", "let's weave"]
 links:
   - target: "[[Walk Ceremony]]"
@@ -236,7 +236,7 @@ Present label proposals to Loudon in one sampled batch (tuning item 34). Write c
 
 **Step 3d: Prune and retype — one link per pair**
 
-A pair of entries carries one typed link. `lint-link-pairs.py` lists every pair carrying more than one: a symmetric link stated on both sides is kept once — mechanically when one side has a label and the other none, or both carry the same; when the two labels differ, the worker who read both pages says which holds, and that is a judgment; a `connects-to` beside a specific link is folded into it, its label carried if the specific link had none; two specific links on one pair are a judgment, and the worker who read both pages says which relation it is. The exception is a direct lineage reciprocal — `spawned` ↔ `emerged-from`, `enables` ↔ its ground — where the lineage is direct; a diffuse origin does not earn a `spawned` back. Beyond pairs, a link with no reason anywhere — bare, unsaid, and no worker can say why — is cut.
+A pair of entries carries one typed link. `lint-link-pairs.py` lists every pair carrying more than one: a symmetric link stated on both sides is kept once — mechanically when one side has a label and the other none, or both carry the same; when the two labels differ, the worker who read both pages says which holds, and that is a judgment; a `connects-to` beside a specific link is folded into it, its label carried if the specific link had none; two specific links on one pair are a judgment, and the worker who read both pages says which relation it is; a pair judgment an Opus skeptic has passed rides the sampled batch, and one it refused goes to Pile B (v2.3). The exception is a direct lineage reciprocal — `spawned` ↔ `emerged-from`, `enables` ↔ its ground — where the lineage is direct; a diffuse origin does not earn a `spawned` back. Beyond pairs, a link with no reason anywhere — bare, unsaid, and no worker can say why — is cut.
 
 The mechanical folds go to Loudon as one sampled batch; the judgments go in Pile B. The mechanical folds run at the open, before the fan-out; only the judgments remain here. Write confirmed changes to frontmatter.
 

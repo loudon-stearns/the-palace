@@ -13,6 +13,7 @@ links:
     type: deepens
   - target: "[[Deposit Ceremony]]"
     type: enables
+    label: figures-that-teach
   - target: "[[README - The Palace Guide]]"
     type: connects-to
     label: one-of-three-standards
@@ -21,6 +22,7 @@ links:
     label: faces-held-to-their-own-test
   - target: "[[SUBSTRATE]]"
     type: connects-to
+    label: conserved-markings
 ---
 # Image Embedding Standard
 

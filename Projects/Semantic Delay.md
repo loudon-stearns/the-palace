@@ -8,8 +8,6 @@ status: active
 links:
   - target: "[[Kuramoto Coupling]]"
     type: couples-with
-  - target: "[[Frequency-Time Duality]]"
-    type: mirrors
   - target: "[[Spinoza Conatus]]"
     type: deepens
   - target: "[[Dub Lineage]]"
