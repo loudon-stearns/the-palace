@@ -27,7 +27,7 @@ links:
   - target: "[[Portamento and Physical Pitch Modeling — Context]]"
     type: spawned
     label: rationale-archive
-forward_vector: "I want to become a fully implemented and staged teaching instrument — where overdamped, critically damped, and underdamped portamento are not just equations but audible, feelable distinctions that any student can identify by ear after a single session. I want to develop concrete listening exercises: pairs of portamento examples where the student identifies the damping regime and explains what physical system would produce that trajectory. The physics is already here; the pedagogy needs its exercises."
+forward_vector: "I want to be the page that lets you hear what a glide is: a spring that rings or doesn't, how fast it arrives, and a performer steering it by ear. By ear the regimes are two characters and a speed, not three; critical damping is the design point between them, the fastest clean landing. I want to grow from the passive spring to the controller — PID, delay, a singer correcting late — so the same model builds a synth's glide and reads a human's."
 ---
 
 # Portamento and Physical Pitch Modeling
@@ -36,7 +36,7 @@ forward_vector: "I want to become a fully implemented and staged teaching instru
 
 Portamento is not a parameter. It is not an effect applied *after* pitch reaches its target. Portamento *is* the continuous physical mechanism of pitch itself — the trajectory through frequency space as a resonant system finds equilibrium. When a vocalist slides between notes, the larynx is a damped oscillator settling toward a new target frequency. When a finger slides on a string, every intermediate length is an instantaneous state under tension. There is no "jump-and-glide" duality; there is only trajectory.
 
-This project models pitch as a second-order physical system. The motion of frequency in time obeys the same law as a mass on a spring with friction. This reveals three distinct sonic characters — overdamped (smooth surrender), critically damped (purposeful arrival), underdamped (overshoot and ring-back) — that are not parameters layered onto synthesis. They are the direct consequence of physical resonance.
+This project models pitch as a second-order physical system. The motion of frequency in time obeys the same law as a mass on a spring with friction. This gives three regimes — overdamped (smooth surrender), critically damped (purposeful arrival), underdamped (overshoot and ring-back) — that are not parameters layered onto synthesis but the direct consequence of physical resonance. By ear they are two characters and a speed: a glide rings or it doesn't, and critical damping is the fastest it can arrive without ringing.
 
 ## The Physical Reality of Portamento
 
@@ -61,7 +61,7 @@ The larynx is a coupled resonant system: vocal folds vibrate within a vocal trac
 
 Pitch change requires muscle control. There is no instantaneous frequency shift. The larynx is a damped oscillator responding to neural input. When a singer slides from one note to another, muscle activation ramps up or down. The frequency trajectory that results is the transient response of a resonant system to a changing control signal.
 
-**The auditory artifact:** Vocalists typically overshoot slightly when landing on a note from above—they arrive sharp and then settle. This is underdamped behavior. It is not a mistake; it is a feature of the biomechanical system.
+**What singers actually do.** On this page's spring, a glide that overshoots lands past the note: sharp when it rises, flat when it falls. Singers do overreach; Carl Seashore's lab, measuring sung pitch frame by frame in the 1930s, describes a portamento "considerably overreached" (*Psychology of Music*, 1938, p. 262). But overshoot is not the commonest shape. In the legato songs his lab measured, 40 per cent of the moves between notes were portamentos, averaging about 0.15 second, mostly over small intervals, longer for wider ones. A quarter of the notes began with a gliding attack, and 97 per cent of those rose into the note "quite irrespective of the melodic lines", averaging 0.2 second and about 0.9 of a tone (pp. 270–272). And in good singing, he found, the transition is always timed to the vibrato cycle, which lengthens or shortens it to fit (p. 272). A passive spring has no vibrato to ride and no ear to correct by. That is where the controller begins (the scroll's Plan).
 
 ## The Second-Order Physical Model
 
@@ -105,9 +105,9 @@ The system reaches the target as fast as physically possible without overshootin
 
 $$f(t) = f_{\text{target}} + (f_0 - f_{\text{target}})(1 + \omega_n t) e^{-\omega_n t}$$
 
-**Sonic character:** Purposeful, direct. Arrives with certainty. Neither lingering nor sloppy. Percussive character: the attack phase feels decisive. Used in plucked instruments (pick strike) and struck instruments (hammer impact).
+**Sonic character:** Purposeful, direct; it arrives without lingering and without ringing. But matched in time, an overdamped and a critical glide are hard to tell apart by ear (the 2026-11-04 blind test, in the bundle's proofs: one listener, at chance). Critical damping is a design point more than a third sound: the fastest landing that never overshoots, the setting a control engineer tunes a loop toward.
 
-**Time scale:** Two settling times (1/ω_n each) = 2/ω_n total time to reach ~95% of target.
+**Time scale:** 1/ω_n is the clock. At 2/ω_n the glide has covered about 59% of the way; it is within 5% at about 4.7/ω_n and within 2% at about 5.8/ω_n. (Three time constants to 95% is the rule for a first-order glide, not this one.) A singer's 0.15-second portamento, if it were a critical glide, would mean ω_n of about 26 rad/s.
 
 #### Underdamped (0 < ζ < 1)
 
@@ -119,11 +119,11 @@ Where $\omega_d = \omega_n\sqrt{1-\zeta^2}$ is the damped oscillation frequency.
 
 **Sonic character:** The overshoot is *musically important*. Singers land sharp and settle. Bells ring beyond their target frequencies. The tone has energy, slight discord initially, then resolution. The ringing-back is perceptually apparent for ζ < 0.5. This is the character of impact, resonance, and aliveness.
 
-**Overshoot amount:** Maximum frequency reached is:
+**Overshoot amount:** The first swing past the note, at t = π/ω_d, reaches:
 
-$$f_{\max} = f_{\text{target}} + (f_0 - f_{\text{target}}) e^{-\pi\zeta / \sqrt{1-\zeta^2}}$$
+$$f_{\text{peak}} = f_{\text{target}} - (f_0 - f_{\text{target}}) e^{-\pi\zeta / \sqrt{1-\zeta^2}}$$
 
-For ζ = 0.3, overshoot is ~36%. For ζ = 0.7, overshoot is ~5%.
+past the note by that fraction of the jump: for ζ = 0.3, about 37%; for ζ = 0.7, about 5%.
 
 ## Wavelet Analysis for Pitch Trajectory Understanding
 
@@ -167,6 +167,8 @@ Wavelet spectrograms make the distinction between the three damping regimes *aud
 - **Critically damped:** Single ridge arriving at target with minimal tail
 - **Underdamped:** Ridge with visible oscillation around the target frequency
 
+The bundle's pictures are short-time Fourier spectrograms, the wavelet view's close cousin; no wavelet transform has been rendered yet.
+
 This is particularly useful for vocal analysis: a wavelet spectrogram reveals whether a singer is landing with overshoot (typical, energetic) or attempting pure arrival (technically demanding, controlled).
 
 ## Coupled Modes and Real Instrument Complexity
@@ -181,7 +183,7 @@ A vibrating string has:
 
 When the string length changes (finger slides), all modes change frequency, but they do not all change at the same rate if the string has inharmonicity (stiffness). The inharmonicity coefficient B couples the modes: higher modes become progressively sharper relative to the fundamental as the string becomes stiffer.
 
-**Result:** Portamento on a stiff string is not one glide; it is a family of coupled glides. The timbre evolves during the slide. A slider that begins with a bell-like inharmonic character can end with a nearly harmonic character as the modes compress together.
+**Result:** Portamento on a stiff string is not one glide; it is a family of coupled glides. The timbre evolves during the slide. Which way the timbre moves depends on how the pitch is changed. Slid up the neck, the string shortens, its stiffness tells more and the partials spread toward a bell; raised by tension, they compress toward a pure string (the multi-mode study: 27.6 → 105.5 cents of inharmonicity, against 27.6 → 7.0).
 
 ### Kuramoto Coupling Perspective
 
@@ -201,7 +203,9 @@ This is a high-dimensional coupled system, but it too can be modeled as coupled 
 
 The bundle holds:
 
-- `portamento-tool-01.html` … `portamento-tool-10.html` — ten interactive teaching tools from the 2026-01-06 conversation: the three damping regimes, a wavelet spectrogram and ridge extractor, string and vocal glides, a bell mode analyzer, a string bend, five Kuramoto-coupled modes, an overshoot calculator and a regime ear-training quiz.
+- `portamento-tool-01.html` … `portamento-tool-10.html` — where the page began, in the 2026-01-06 conversation: portamento met as a control problem. Ten silent visualizers of one glide steered by a controller, in the order they were fought for: PID (01–03, "Fixed", "Stable"), PD (04–06 and 10, one a debug mode), exponential smoothing (07), exponential plus PD (08), and PD with the derivative taken on the measurement (09). Their titles keep the history: the integral term was dropped on the way to stable.
+- `threshold/` — the overshoot threshold test: it finds the smallest overshoot a listener can hear on a glide up a fifth, and where an overshoot turns from alive to sour, the page's second open question, measured one listener at a time.
+- `zeta-over-time/` — the first open question, rendered: seven glides whose damping changes while they move, with a listening page and an exercise that asks what happened to the damping.
 - `curated-ear-set/` — twelve rendered glides, each with its regime, a physical motivation and a spectrogram, played through a quiz, paired A-vs-B exercises and the single-session reel.
 - `multi-mode/` — the multi-mode study: a bowed string whose partials lock or slip during a glide, with renders and listening pages for mode locking, bow strength and tone colour.
 - `model-fitter/` — the model run backward: it recovers ζ and ωₙ from a recorded glide, validated on the twelve ear-set examples.
@@ -247,7 +251,7 @@ Portamento is the physical manifestation of the frequency-time tradeoff. A pure 
 
 ### Connection to [[Kuramoto Coupling]]
 
-Modes in a physical resonator are coupled through the instrument's geometry and the driving force. When multiple modes must transition together (as in a string length change), they are Kuramoto oscillators finding phase relationships. The coupling strength determines whether they transition coherently or with phase drift. Complex instruments show this: a rapid glide may cause modal desynchronization (audible as timbre change), while a slow glide keeps them in phase.
+The modes' coupling is described above. A stronger case is Seashore's: in good singing the portamento is timed to the vibrato cycle (p. 272), so the glide is not a free spring but a motion entrained by a running oscillator. A synth glide that waits for its vibrato's phase would be the first test.
 
 ### Connection to [[Bessel Functions in Synthesis]]
 

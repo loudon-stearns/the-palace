@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three Springs, Blind</title>
+<style>
+  :root {
+    --paper: #f3efe4; --ink: #1d2a44; --blue: #2b5fa8; --faint: #c9c2ae;
+    --red: #b4372b; --green: #2f7a4a; --amber: #b07a17;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #12161f; --ink: #dfe5ef; --blue: #7fa8e6; --faint: #2c3444;
+      --red: #e07a6e; --green: #7cc495; --amber: #e0b360;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 16px/1.5 "Iowan Old Style", Georgia, serif;
+    background-image: linear-gradient(var(--faint) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--faint) 1px, transparent 1px);
+    background-size: 24px 24px; background-position: -1px -1px;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 80px; }
+  .sheet { background: var(--paper); border: 1.5px solid var(--ink); padding: 20px 22px; margin: 22px 0; }
+  h1 { font: 600 28px/1.15 ui-monospace, "JetBrains Mono", Menlo, monospace; letter-spacing: .02em; margin: 0 0 6px; text-transform: uppercase; }
+  h2 { font: 600 14px/1.2 ui-monospace, Menlo, monospace; text-transform: uppercase; letter-spacing: .12em; margin: 0 0 10px; color: var(--blue); }
+  .meta { font: 12px ui-monospace, Menlo, monospace; color: var(--blue); }
+  p { margin: 8px 0; }
+  button {
+    font: 600 13px ui-monospace, Menlo, monospace; letter-spacing: .04em;
+    background: transparent; color: var(--ink); border: 1.5px solid var(--ink);
+    padding: 8px 12px; margin: 4px 6px 4px 0; cursor: pointer;
+  }
+  button:hover { background: var(--ink); color: var(--paper); }
+  button:disabled { opacity: .35; cursor: default; background: transparent; color: var(--ink); }
+  button.play { border-color: var(--blue); color: var(--blue); }
+  button.play:hover { background: var(--blue); color: var(--paper); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+  .item { border-top: 1px dashed var(--faint); padding: 12px 0; }
+  .num { font: 600 13px ui-monospace, Menlo, monospace; width: 2.4em; display: inline-block; }
+  .verdict { font: 13px ui-monospace, Menlo, monospace; margin-left: 6px; }
+  .ok { color: var(--green); } .no { color: var(--red); }
+  canvas { width: 100%; height: 90px; display: block; margin-top: 6px; }
+  textarea { width: 100%; min-height: 70px; font: 14px/1.4 ui-monospace, Menlo, monospace; background: transparent; color: var(--ink); border: 1.5px solid var(--ink); padding: 8px; }
+  pre { white-space: pre-wrap; font: 12px/1.45 ui-monospace, Menlo, monospace; border: 1px dashed var(--blue); padding: 10px; }
+  .hidden { display: none; }
+  .note { font-size: 14px; color: var(--blue); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Three Springs, Blind</h1>
+  <div class="meta">ROUGH · DAILY PAGE 2026-11-04 · PORTAMENTO AND PHYSICAL PITCH MODELING</div>
+
+  <p>The page says a glide is a spring settling on a note, and that its three regimes are three sonic characters any student can name by ear after one session. Nobody has tried. This takes about five minutes.</p>
+
+  <div class="sheet">
+    <h2>0 · Hear the three first (not scored)</h2>
+    <p>Each one glides up a fifth on the same spring. Only the damping changes.</p>
+    <div class="row">
+      <button class="play" data-demo="over">▶ Overdamped · eases in</button>
+      <button class="play" data-demo="crit">▶ Critical · lands clean</button>
+      <button class="play" data-demo="under">▶ Underdamped · overshoots, rings back</button>
+    </div>
+    <canvas id="demoPlot"></canvas>
+  </div>
+
+  <div class="sheet">
+    <h2>1 · Name it — as the page states it</h2>
+    <p>Nine glides, up or down, a fourth or a fifth, from different notes. The spring's stiffness wanders a little, so speed alone is not the answer, but the page's regimes are used as written (same spring, damping 2.5, 1, 0.3). Play as often as you like, then name it.</p>
+    <div id="round1"></div>
+  </div>
+
+  <div class="sheet">
+    <h2>2 · The harder question — is it shape, or only speed?</h2>
+    <p>Six glides, overdamped or critical only, but now each pair is matched so both reach 90% of the way in the same time. If you can still tell them apart, the page's "three characters" are three. If not, there are really two: it rings, or it doesn't, at some speed.</p>
+    <div id="round2"></div>
+  </div>
+
+  <div class="sheet">
+    <h2>3 · Your own voice</h2>
+    <p>The page says singers "overshoot slightly when landing on a note from above — they arrive sharp and then settle." On the page's own spring, a landing from above that overshoots arrives <em>flat</em>. Hear the model, then sing it.</p>
+    <div class="row">
+      <button class="play" id="fromAbove">▶ Model: down a fourth, damping 0.3</button>
+    </div>
+    <canvas id="abovePlot"></canvas>
+    <p class="note">The sung answer is not used as a reading (Loudon, 2026-11-09).</p>
+    <p>Sing a slide down onto a note a few times. Where do you land first?</p>
+    <div class="row" id="sing">
+      <button data-sing="sharp">Sharp, then settle</button>
+      <button data-sing="flat">Flat, then settle</button>
+      <button data-sing="clean">Neither — I land on it</button>
+      <button data-sing="unsure">Can't tell</button>
+    </div>
+    <p class="note" id="singNote"></p>
+  </div>
+
+  <div class="sheet">
+    <h2>4 · Anything else</h2>
+    <textarea id="comment" placeholder="What did the regimes sound like to you? Which word on the page fit, and which didn't?"></textarea>
+  </div>
+
+  <div class="sheet">
+    <h2>Results</h2>
+    <p>One button copies everything above as a block to paste into the chat.</p>
+    <button id="copy">Copy results</button> <span class="verdict" id="copied"></span>
+    <pre id="results">(nothing answered yet)</pre>
+  </div>
+</main>
+
+<script>
+(() => {
+  // ---- the page's own equation, solved exactly: f(t) = target + Δ·x(t), x(0)=1, x'(0)=0
+  function x(t, zeta, wn) {
+    if (t <= 0) return 1;
+    if (Math.abs(zeta - 1) < 1e-6) return (1 + wn * t) * Math.exp(-wn * t);
+    if (zeta < 1) {
+      const wd = wn * Math.sqrt(1 - zeta * zeta);
+      return Math.exp(-zeta * wn * t) * (Math.cos(wd * t) + zeta / Math.sqrt(1 - zeta * zeta) * Math.sin(wd * t));
+    }
+    const r = Math.sqrt(zeta * zeta - 1);
+    const s1 = -wn * (zeta - r), s2 = -wn * (zeta + r);
+    return (s2 * Math.exp(s1 * t) - s1 * Math.exp(s2 * t)) / (s2 - s1);
+  }
+  // time to cover 90% of the jump
+  function t90(zeta, wn) {
+    let t = 0; while (Math.abs(x(t, zeta, wn)) > 0.1 || (zeta < 1 && false)) t += 0.0005;
+    return t;
+  }
+  // find wn so that t90 matches a target, for a given zeta (t90 scales as 1/wn)
+  function wnFor(zeta, target) { return t90(zeta, 1) / target; }
+
+  const ZETA = { over: 2.5, crit: 1.0, under: 0.3 };
+  const NAME = { over: "overdamped", crit: "critical", under: "underdamped" };
+  const HOLD = 0.35, GLIDE = 1.9, SR = 200;
+
+  let ctx = null;
+  function audio() { if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === "suspended") ctx.resume(); return ctx; }
+
+  function curve(spec) {
+    const n = Math.round((HOLD + GLIDE) * SR), out = new Float32Array(n);
+    for (let i = 0; i < n; i++) {
+      const t = i / SR - HOLD;
+      out[i] = spec.to + (spec.from - spec.to) * x(t, spec.zeta, spec.wn);
+    }
+    return out;
+  }
+
+  let playing = [];
+  function play(spec, canvas) {
+    const ac = audio();
+    playing.forEach(n => { try { n.stop(); } catch (e) {} }); playing = [];
+    const c = curve(spec), t0 = ac.currentTime + 0.05, dur = HOLD + GLIDE;
+    const g = ac.createGain(), lp = ac.createBiquadFilter();
+    lp.type = "lowpass"; lp.frequency.value = 2400; lp.Q.value = 0.5;
+    g.gain.setValueAtTime(0, t0);
+    g.gain.linearRampToValueAtTime(0.16, t0 + 0.03);
+    g.gain.setValueAtTime(0.16, t0 + dur - 0.15);
+    g.gain.linearRampToValueAtTime(0, t0 + dur);
+    lp.connect(g).connect(ac.destination);
+    // two detuned saws, a vocal-ish buzz
+    [0, 4].forEach(cents => {
+      const o = ac.createOscillator(); o.type = "sawtooth"; o.detune.value = cents;
+      o.frequency.setValueCurveAtTime(c, t0, dur);
+      o.connect(lp); o.start(t0); o.stop(t0 + dur + 0.02); playing.push(o);
+    });
+    if (canvas) draw(canvas, spec, c);
+  }
+
+  function draw(canvas, spec, c) {
+    const dpr = window.devicePixelRatio || 1, w = canvas.clientWidth, h = canvas.clientHeight;
+    canvas.width = w * dpr; canvas.height = h * dpr;
+    const g = canvas.getContext("2d"); g.scale(dpr, dpr); g.clearRect(0, 0, w, h);
+    const cs = getComputedStyle(document.documentElement);
+    const cents = Array.from(c, f => 1200 * Math.log2(f / spec.to));
+    const lo = Math.min(...cents, -60), hi = Math.max(...cents, 60), pad = 8;
+    const y = v => pad + (hi - v) / (hi - lo) * (h - 2 * pad);
+    g.strokeStyle = cs.getPropertyValue("--faint"); g.setLineDash([4, 4]);
+    g.beginPath(); g.moveTo(0, y(0)); g.lineTo(w, y(0)); g.stroke(); g.setLineDash([]);
+    g.strokeStyle = cs.getPropertyValue("--blue"); g.lineWidth = 2; g.beginPath();
+    cents.forEach((v, i) => { const px = i / (cents.length - 1) * w; i ? g.lineTo(px, y(v)) : g.moveTo(px, y(v)); });
+    g.stroke();
+    g.fillStyle = cs.getPropertyValue("--ink"); g.font = "11px ui-monospace, Menlo, monospace";
+    g.fillText("target", 4, y(0) - 4);
+  }
+
+  // ---- demos
+  const demo = r => ({ from: 196, to: 293.66, zeta: ZETA[r], wn: 12 });
+  document.querySelectorAll("[data-demo]").forEach(b => b.onclick = () => play(demo(b.dataset.demo), document.getElementById("demoPlot")));
+
+  // ---- random but repeatable-enough material
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+  function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function interval() {
+    const base = rnd(175, 262), step = pick([7, 5]), dir = pick([1, -1]);
+    const other = base * Math.pow(2, dir * step / 12);
+    return { from: base, to: other, label: (dir > 0 ? "up " : "down ") + (step === 7 ? "a fifth" : "a fourth") };
+  }
+
+  // round 1: first block of three holds one of each, so no regime takes the opening
+  const r1 = shuffle(["over", "crit", "under"]).concat(shuffle(["over", "crit", "under", "over", "crit", "under"]))
+    .map(r => Object.assign(interval(), { regime: r, zeta: ZETA[r], wn: 12 * rnd(0.75, 1.3) }));
+
+  // round 2: matched t90, overdamped vs critical only; first two are one of each
+  const r2 = shuffle(["over", "crit"]).concat(shuffle(["over", "crit", "over", "crit"])).map(r => {
+    const target = rnd(0.28, 0.5);
+    return Object.assign(interval(), { regime: r, zeta: ZETA[r], wn: wnFor(ZETA[r], target), t90: target });
+  });
+
+  const answers = { r1: [], r2: [], sing: null };
+
+  function build(el, items, key, choices) {
+    items.forEach((it, i) => {
+      const div = document.createElement("div"); div.className = "item";
+      div.innerHTML = `<div class="row"><span class="num">${i + 1}.</span></div><canvas class="hidden"></canvas>`;
+      const row = div.querySelector(".row"), cv = div.querySelector("canvas");
+      const p = document.createElement("button"); p.className = "play"; p.textContent = "▶ play"; row.appendChild(p);
+      let plays = 0; p.onclick = () => { plays++; play(it, answers[key][i] ? cv : null); };
+      const btns = choices.map(ch => {
+        const b = document.createElement("button"); b.textContent = NAME[ch]; row.appendChild(b);
+        b.onclick = () => {
+          answers[key][i] = { said: ch, was: it.regime, plays, interval: it.label, wn: +it.wn.toFixed(2) };
+          btns.forEach(x => x.disabled = true);
+          const v = document.createElement("span"); v.className = "verdict " + (ch === it.regime ? "ok" : "no");
+          v.textContent = ch === it.regime ? "✓ " + NAME[it.regime] : "✗ it was " + NAME[it.regime];
+          row.appendChild(v); cv.classList.remove("hidden"); draw(cv, it, curve(it)); report();
+        };
+        return b;
+      });
+      el.appendChild(div);
+    });
+  }
+  build(document.getElementById("round1"), r1, "r1", ["over", "crit", "under"]);
+  build(document.getElementById("round2"), r2, "r2", ["over", "crit"]);
+
+  // ---- round 3
+  const above = { from: 293.66, to: 220, zeta: 0.3, wn: 12 };
+  document.getElementById("fromAbove").onclick = () => play(above, document.getElementById("abovePlot"));
+  document.querySelectorAll("[data-sing]").forEach(b => b.onclick = () => {
+    answers.sing = b.dataset.sing;
+    document.querySelectorAll("[data-sing]").forEach(x => x.style.background = x === b ? "var(--ink)" : "");
+    document.querySelectorAll("[data-sing]").forEach(x => x.style.color = x === b ? "var(--paper)" : "");
+    document.getElementById("singNote").textContent =
+      answers.sing === "sharp" ? "Then your voice isn't overshooting from above. It may be stopping short, or the page's sentence is about something else." :
+      answers.sing === "flat" ? "Then your voice behaves like the page's spring, and the sentence has its direction backwards." : "";
+    report();
+  });
+  document.getElementById("comment").oninput = report;
+
+  function report() {
+    const score = a => { const d = a.filter(Boolean); return `${d.filter(r => r.said === r.was).length} of ${d.length}`; };
+    const lines = ["Three Springs, Blind — results (Daily Page 2026-11-04, Portamento)", ""];
+    lines.push(`Round 1 (page's regimes as written, ζ 2.5 / 1 / 0.3): ${score(answers.r1)}`);
+    answers.r1.forEach((a, i) => a && lines.push(`  ${i + 1}. said ${a.said}, was ${a.was} · ${a.interval} · ωn ${a.wn} · ${a.plays} play(s)`));
+    lines.push(`Round 2 (over vs critical, matched 90% time): ${score(answers.r2)}`);
+    answers.r2.forEach((a, i) => a && lines.push(`  ${i + 1}. said ${a.said}, was ${a.was} · ${a.interval} · ${a.plays} play(s)`));
+    lines.push(`Round 3 (singing down onto a note, I land first): ${answers.sing || "—"}`);
+    const c = document.getElementById("comment").value.trim();
+    lines.push(`Comment: ${c || "—"}`);
+    const text = lines.join("\n");
+    document.getElementById("results").textContent = text;
+    window.threeSpringsResults = text;
+    return text;
+  }
+  document.getElementById("copy").onclick = async () => {
+    const text = report();
+    try { await navigator.clipboard.writeText(text); document.getElementById("copied").textContent = "copied"; }
+    catch (e) {
+      const r = document.createRange(); r.selectNodeContents(document.getElementById("results"));
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      document.getElementById("copied").textContent = "selected — press ⌘C";
+    }
+  };
+})();
+</script>
+</body>
+</html>
