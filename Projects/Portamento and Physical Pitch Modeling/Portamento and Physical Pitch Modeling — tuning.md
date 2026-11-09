@@ -24,7 +24,7 @@ What Portamento and Physical Pitch Modeling's steward cycles taught the page, an
 
 ## From cycle 12 — 2026-11-01
 
-1. **Proposed for canon** · 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Artifacts and Interactive Exploration, end of the bundle list · canon change owed *(proposed by the steward, cycle 12)*
+1. **Proposed for canon** · 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Artifacts and Interactive Exploration, end of the bundle list · paid in 2c81cc3a on 2026-11-09 07:07 *(proposed by the steward, cycle 12)*
    Why: The entry lists what the bundle holds, and this is the first tool that measures a listener rather than teaching one.
    Path: `Projects/Portamento and Physical Pitch Modeling.md`
    > - `threshold/` — the overshoot threshold test: it finds the smallest overshoot a listener can hear on a glide up a fifth, and where an overshoot turns from alive to sour, the page's second open question, measured one listener at a time.
@@ -38,7 +38,7 @@ What Portamento and Physical Pitch Modeling's steward cycles taught the page, an
    Why: The question now has sound and one measured answer, and that answer reframes the question.
    Path: `Projects/Portamento and Physical Pitch Modeling.md`
    >    - Progressed (2026-11-02, the scroll's cycle 13): `zeta-over-time/` renders seven glides whose damping changes during the glide: caught gradually, grabbed at the crest, grabbed mid-swing, let go while moving, let go after arriving. The last sounds identical to a clean glide: damping acts only on motion, so ζ(t) is a gesture of the glide, not of the note. A jump at the crest is the singer's arrive-sharp-and-settle. Nobody has listened yet.
-4. **Proposed for canon** · 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Artifacts and Interactive Exploration, end of the bundle list (after the threshold/ line) · canon change owed *(proposed by the steward, cycle 13)*
+4. **Proposed for canon** · 2026-11-01 · [[Portamento and Physical Pitch Modeling]] · § Artifacts and Interactive Exploration, end of the bundle list (after the threshold/ line) · paid in 2c81cc3a on 2026-11-09 07:07 *(proposed by the steward, cycle 13)*
    Why: The entry lists what the bundle holds.
    Path: `Projects/Portamento and Physical Pitch Modeling.md`
    > - `zeta-over-time/` — the first open question, rendered: seven glides whose damping changes while they move, with a listening page and an exercise that asks what happened to the damping.
