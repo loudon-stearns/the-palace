@@ -27,7 +27,7 @@ links:
   - target: "[[Portamento and Physical Pitch Modeling — Context]]"
     type: spawned
     label: rationale-archive
-forward_vector: "I want to become a fully implemented and staged teaching instrument — where overdamped, critically damped, and underdamped portamento are not just equations but audible, feelable distinctions that any student can identify by ear after a single session. I want to develop concrete listening exercises: pairs of portamento examples where the student identifies the damping regime and explains what physical system would produce that trajectory. The physics is already here; the pedagogy needs its exercises."
+forward_vector: "I want to be the page that lets you hear what a glide is: a spring that rings or doesn't, how fast it arrives, and a performer steering it by ear. By ear the regimes are two characters and a speed, not three; critical damping is the design point between them, the fastest clean landing. I want to grow from the passive spring to the controller — PID, delay, a singer correcting late — so the same model builds a synth's glide and reads a human's."
 ---
 
 # Portamento and Physical Pitch Modeling
