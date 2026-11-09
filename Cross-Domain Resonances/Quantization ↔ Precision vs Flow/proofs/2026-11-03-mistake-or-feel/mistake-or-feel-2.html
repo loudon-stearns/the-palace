@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en" class="skin-graphite">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mistake or Feel, Phrased</title>
+<!-- Sketch · Daily Page rough 2, 2026-11-03 · tests [[Quantization ↔ Precision vs Flow]].
+     Rebuilt on a correction from the sit: feel speaks on many levels at once, and a measure
+     sets up the next. Eight bars; the drummer settles in bar 1 and pushes into bar 8.
+     Five blind versions, timing only (dynamics identical in all five):
+     0%, 50%, 100% grid; snapped to the bar groove (median per slot over 8 bars);
+     snapped to bar groove + phrase lean (residuals smoothed over ~a bar).
+     Answers leave by one copy button and sit on window.mistakeOrFeelResults. -->
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-elev-1:#12121a; --bg-elev-2:#1a1a28; --border:#4a4a5e; --border-soft:rgba(255,255,255,0.06);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#8a8aa0; --fg-4:#4a4a5a;
+    --accent:#e8b84a; --accent-dim:#7a6030; --accent-soft:rgba(232,184,74,0.10); --accent-line:rgba(232,184,74,0.5);
+    --info:#4a8fff; --coral:#e07a5f;
+    --serif:'Cormorant Garamond','Source Serif 4',Georgia,serif; --sans:'Manrope',system-ui,sans-serif;
+    --display:'Anton','Bebas Neue',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1)}
+  body{font-family:var(--serif);font-size:17px;line-height:1.75;padding:40px 16px 64px}
+  main{max-width:900px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-3)}
+  h1{font-family:var(--display);font-weight:400;font-size:52px;line-height:1.05;margin:6px 0 10px}
+  h2{font-family:var(--display);font-weight:400;font-size:28px;letter-spacing:.02em;margin:0 0 6px}
+  p{margin:0 0 12px;color:var(--fg-2)}
+  .lede{font-size:20px;color:var(--fg-1)}
+  section{background:var(--bg-elev-1);border:1px solid var(--border-soft);border-radius:6px;padding:22px 22px 18px;margin:26px 0}
+  button{font-family:var(--sans);font-size:13px;color:var(--fg-2);background:transparent;border:1px solid var(--border);border-radius:4px;padding:6px 12px;cursor:pointer;transition:all .18s cubic-bezier(.4,0,.2,1)}
+  button:hover{border-color:var(--fg-3);color:var(--fg-1)}
+  button.on{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+  button.primary{color:#0a0a0f;background:var(--accent);border:0;font-weight:500;padding:9px 20px}
+  .row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--border-soft)}
+  .row:first-of-type{border-top:0}
+  .letter{font-family:var(--display);font-size:26px;width:34px;color:var(--fg-1)}
+  .sep{width:1px;height:22px;background:var(--border);margin:0 4px}
+  .q{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-3);margin-left:auto;text-align:right}
+  .tag.shown{color:var(--accent)}
+  .spacer{flex:1}
+  .hint{font-family:var(--sans);font-size:13px;color:var(--fg-3);margin:6px 0 0}
+  .result{font-family:var(--sans);font-size:15px;color:var(--fg-1);min-height:1.6em;margin-top:8px}
+  textarea{width:100%;margin-top:12px;min-height:54px;font-family:var(--sans);font-size:14px;color:var(--fg-1);background:var(--bg-elev-2);border:1px solid var(--border-soft);border-radius:4px;padding:8px 10px;resize:vertical}
+  canvas{display:block;width:100%;background:var(--bg-elev-2);border-radius:4px;margin-top:12px}
+  .ctl{display:grid;grid-template-columns:110px 1fr 7ch;align-items:center;gap:10px;margin-top:14px}
+  .ctl label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-3)}
+  .ctl .v{font-family:var(--mono);font-size:14px;text-align:right}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .eq{font-family:var(--mono);font-size:13px;color:var(--fg-1);margin:14px 0 0;overflow-wrap:anywhere}
+  .eq.w{color:var(--fg-3);margin-top:2px}
+  .legend{font-family:var(--sans);font-size:12px;color:var(--fg-3);margin-top:6px}
+  footer{margin-top:28px;font-family:var(--sans);font-size:12px;color:var(--fg-3)}
+  footer b{font-family:var(--display);font-weight:400;letter-spacing:.06em;color:var(--fg-2)}
+  @media (max-width:560px){ h1{font-size:40px} .ctl{grid-template-columns:80px 1fr 6ch} section{padding:18px 14px} .sep{display:none} }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Daily Page · Sketch 2 · Quantization ↔ Precision vs Flow</div>
+  <h1>Mistake or Feel, Phrased</h1>
+  <p class="lede">Feel speaks on many levels at once. A measure is not a copy of the last one; it sets up the next.</p>
+  <p>Same drummer, now eight bars. The feel inside each bar is the same as before: swung hats, a laid-back backbeat, early ghosts. On top of it the drummer plays the phrase: settles back into bar 1, holds steady, then leans ahead through bars 7 and 8 into the turnaround, getting louder. The stumbles are still there too.</p>
+  <p>Only timing changes between versions. The dynamics, the crescendo included, are the same in all five, so the ear is judging time alone.</p>
+
+  <section id="practice">
+    <div class="eyebrow">Practice · not counted</div>
+    <h2>Find the push</h2>
+    <p>Two clips. One is as played. The other is snapped to the bar groove, which keeps the feel inside a bar and throws away everything slower. Which one leans into the turnaround?</p>
+    <div class="row">
+      <span class="letter">X</span><button data-play="px">Play X</button>
+      <span class="spacer"></span><button data-guess="X">X leans in</button>
+    </div>
+    <div class="row">
+      <span class="letter">Y</span><button data-play="py">Play Y</button>
+      <span class="spacer"></span><button data-guess="Y">Y leans in</button>
+    </div>
+    <div class="result" id="practiceResult"></div>
+  </section>
+
+  <section id="blind">
+    <div class="eyebrow">The blind five</div>
+    <h2>Which one grooves, and which one lifts?</h2>
+    <p>Each clip plays bars 5 to 8 and the landing, about ten seconds. Five versions, shuffled. Two questions each: how it sits, and whether it lifts into the turnaround. Then keep one.</p>
+    <div id="clips"></div>
+    <textarea id="blindNotes" placeholder="Anything you heard (optional)"></textarea>
+    <div class="row" style="border-top:0">
+      <button class="primary" id="copy">Copy my answers</button>
+      <button id="reveal">Reveal what each one is</button>
+      <span class="hint" id="copied"></span>
+    </div>
+  </section>
+
+  <section id="explorer">
+    <div class="eyebrow">The picture</div>
+    <h2>Two spans of listening</h2>
+    <p>Above: all eight bars on one grid. White dots are bars 1 to 6, amber dots are bars 7 and 8. Watch the amber drift ahead of the white as the drummer pushes. Below: the phrase, as how far each bar leans beyond the take's own groove.</p>
+    <canvas id="grid" width="1760" height="420"></canvas>
+    <div class="legend">Rows, top to bottom: hat, ghost, snare, kick. Thin lines are the sixteenth grid.</div>
+
+    <div class="row" style="border-top:0;margin-top:10px">
+      <span class="eyebrow" style="width:110px">Snap toward</span>
+      <button data-t="grid" class="on">The grid</button>
+      <button data-t="bar">The bar groove</button>
+      <button data-t="phrase">Bar groove + phrase</button>
+      <span class="spacer"></span>
+      <button class="primary" id="exPlay">Play loop</button>
+    </div>
+    <div class="ctl"><label for="s">Strength</label><input id="s" type="range" min="0" max="100" value="0"><span class="v" id="sv">0%</span></div>
+    <div class="eq">g = grid + bar groove[slot] + phrase lean(t)</div>
+    <div class="eq w">(target) = (gridline) + (the slot's usual offset, median over 8 bars) + (the lean around that moment, smoothed over about a bar)</div>
+    <p class="hint">"The grid" uses the first term only, "the bar groove" the first two, "bar groove + phrase" all three. Each is the same snap, t′ = t + s × (g − t), listening over a longer span.</p>
+
+    <canvas id="arc" width="1760" height="560"></canvas>
+    <div class="legend">Each point is one bar: the average of its hits' offsets beyond the take's usual groove. Dashed is as played; solid is the version above. Earlier than usual is up. A flat line means every bar is the same bar.</div>
+    <textarea id="exNotes" placeholder="What the picture told you (optional)"></textarea>
+  </section>
+
+  <footer><b>Loud’n Live</b> · sketch 2 for the Daily Page, made in the sit</footer>
+</main>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var BPM = 92, S = 60 / BPM / 4, BARS = 8, SLOTS = 16;
+  var LANE_NAMES = ['hat', 'ghost', 'snare', 'kick'];
+
+  function mulberry32(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  var rnd = mulberry32(20261103);
+  function gauss(){ var u = 0, v = 0; while (!u) u = rnd(); while (!v) v = rnd(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+
+  var PATTERN = [];
+  for (var sl = 0; sl < SLOTS; sl++) PATTERN.push({ lane: 0, slot: sl, v: sl % 4 === 0 ? 0.9 : sl % 2 === 0 ? 0.6 : 0.38 });
+  [3, 9, 14].forEach(function(sl){ PATTERN.push({ lane: 1, slot: sl, v: 0.28 }); });
+  [4, 12].forEach(function(sl){ PATTERN.push({ lane: 2, slot: sl, v: 0.85 }); });
+  [[0, 0.95], [7, 0.7], [10, 0.85]].forEach(function(k){ PATTERN.push({ lane: 3, slot: k[0], v: k[1] }); });
+
+  function feelMs(lane, slot){
+    var swing = slot % 2 === 1 ? 26 : 0;
+    if (lane === 0) return swing + (slot % 4 === 2 ? 4 : 0);
+    if (lane === 1) return -9 + swing * 0.5;
+    if (lane === 2) return 18;
+    return 2 + swing * 0.8;
+  }
+  // the phrase: settle back into bar 1, hold, then lean ahead through bars 7 and 8 (negative = early)
+  function phraseMs(bar, slot){
+    var x = bar + slot / SLOTS;
+    if (x < 1) return 9 * (1 - x);
+    if (x < 6) return 0;
+    return -34 * Math.pow((x - 6) / 2, 1.4);
+  }
+  function phraseGain(bar, slot){ var x = bar + slot / SLOTS; return x < 6 ? 1 : 1 + 0.35 * (x - 6) / 2; }
+  var FLUBS = { '2-3-10': -36, '4-2-12': 40, '5-0-13': -28 };
+
+  var TAKE = [];
+  for (var b = 0; b < BARS; b++) PATTERN.forEach(function(p){
+    var ms = feelMs(p.lane, p.slot) + phraseMs(b, p.slot) + gauss() * 7;
+    var key = b + '-' + p.lane + '-' + p.slot;
+    if (FLUBS[key] !== undefined) ms = feelMs(p.lane, p.slot) + FLUBS[key];
+    TAKE.push({ bar: b, slot: p.slot, lane: p.lane, v: Math.max(0.05, Math.min(1, p.v * phraseGain(b, p.slot) + (rnd() - 0.5) * 0.14)), off: ms / 1000 });
+  });
+
+  function median(a){ var s = a.slice().sort(function(x, y){ return x - y; }), n = s.length; return n % 2 ? s[(n - 1) / 2] : (s[n / 2 - 1] + s[n / 2]) / 2; }
+  function grooveOf(hits){
+    var bucket = {};
+    hits.forEach(function(h){ var k = h.lane + '-' + h.slot; (bucket[k] = bucket[k] || []).push(h.off); });
+    var g = {}; for (var k in bucket) g[k] = median(bucket[k]); return g;
+  }
+  var BARG = grooveOf(TAKE);
+  // phrase lean: each hit's residual from the bar groove, smoothed in time with a gaussian about a bar wide
+  var SIGMA = 6;
+  var PHRASE = TAKE.map(function(h){
+    var t0 = h.bar * SLOTS + h.slot, num = 0, den = 0;
+    TAKE.forEach(function(o){
+      var d = o.bar * SLOTS + o.slot - t0, w = Math.exp(-d * d / (2 * SIGMA * SIGMA));
+      num += w * (o.off - BARG[o.lane + '-' + o.slot]); den += w;
+    });
+    return num / den;
+  });
+
+  function processed(strength, target){
+    return TAKE.map(function(h, i){
+      var g = 0;
+      if (target !== 'grid') g += BARG[h.lane + '-' + h.slot];
+      if (target === 'phrase') g += PHRASE[i];
+      return { bar: h.bar, slot: h.slot, lane: h.lane, v: h.v, off: h.off + strength * (g - h.off) };
+    });
+  }
+  function barLeans(hits){
+    var g = grooveOf(hits), sum = [], n = [];
+    for (var b = 0; b < BARS; b++){ sum.push(0); n.push(0); }
+    hits.forEach(function(h){ sum[h.bar] += h.off - g[h.lane + '-' + h.slot]; n[h.bar]++; });
+    return sum.map(function(s, b){ return s / n[b] * 1000; });
+  }
+
+  // ---- sound ----
+  var ctx = null, master = null, noiseBuf = null;
+  function initAudio(){
+    if (ctx) return;
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.7;
+    var comp = ctx.createDynamicsCompressor(); master.connect(comp); comp.connect(ctx.destination);
+    noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+    var d = noiseBuf.getChannelData(0); for (var n = 0; n < d.length; n++) d[n] = Math.random() * 2 - 1;
+  }
+  function env(g, t, peak, dec){ g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(Math.max(0.0002, peak), t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + dec); }
+  function hat(t, v){
+    var g = ctx.createGain(), hp = ctx.createBiquadFilter(), bp = ctx.createBiquadFilter();
+    hp.type = 'highpass'; hp.frequency.value = 7000; bp.type = 'bandpass'; bp.frequency.value = 9500; bp.Q.value = 0.8;
+    [205.3, 304.4, 369.6, 522.7, 540, 800].forEach(function(f){ var o = ctx.createOscillator(); o.type = 'square'; o.frequency.value = f * 2.2; o.connect(bp); o.start(t); o.stop(t + 0.12); });
+    bp.connect(hp); hp.connect(g); g.connect(out); env(g, t, 0.2 * v, 0.04 + 0.04 * v);
+  }
+  function snare(t, v){
+    var s = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = noiseBuf; f.type = 'bandpass'; f.frequency.value = 1900; f.Q.value = 0.9;
+    s.connect(f); f.connect(g); g.connect(out); env(g, t, 0.9 * v, 0.12 + 0.06 * v);
+    s.start(t, Math.random() * 0.5); s.stop(t + 0.25);
+    var o = ctx.createOscillator(), og = ctx.createGain(); o.frequency.setValueAtTime(210, t); o.frequency.exponentialRampToValueAtTime(160, t + 0.06);
+    o.connect(og); og.connect(out); env(og, t, 0.35 * v, 0.08); o.start(t); o.stop(t + 0.12);
+  }
+  function kick(t, v){
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.setValueAtTime(115, t); o.frequency.exponentialRampToValueAtTime(46, t + 0.09);
+    o.connect(g); g.connect(out); env(g, t, 0.95 * v, 0.28); o.start(t); o.stop(t + 0.32);
+  }
+  function sound(h, t){ if (h.lane === 0) hat(t, h.v); else if (h.lane === 1) snare(t, h.v * 0.9); else if (h.lane === 2) snare(t, h.v); else kick(t, h.v); }
+
+  var player = null, out = null;
+  function stop(){
+    if (player){ clearInterval(player.timer); var bus = player.bus; bus.gain.setTargetAtTime(0, ctx.currentTime, 0.008); setTimeout(function(){ bus.disconnect(); }, 150); if (player.btn){ player.btn.classList.remove('on'); player.btn.textContent = player.label; } player = null; }
+  }
+  function play(getHits, loop, btn, from){
+    initAudio(); if (ctx.state === 'suspended') ctx.resume();
+    var same = player && player.btn === btn; stop(); if (same) return;
+    var p = { bar: from || 0, barStart: ctx.currentTime + 0.15, btn: btn, label: btn ? btn.textContent : '', bus: ctx.createGain() }; p.bus.connect(master);
+    if (btn){ btn.classList.add('on'); btn.textContent = 'Stop'; }
+    p.timer = setInterval(function(){
+      out = p.bus; while (p.barStart < ctx.currentTime + 0.35){
+        if (!loop && p.bar >= BARS){ var end = p.barStart; setTimeout(function(){ if (player === p) stop(); }, Math.max(0, (end - ctx.currentTime) * 1000 + 300)); p.barStart = Infinity; break; }
+        var b = p.bar % BARS, start = p.barStart;
+        getHits().forEach(function(h){ if (h.bar === b) sound(h, Math.max(ctx.currentTime, start + h.slot * S + h.off)); });
+        // a downbeat after bar 8 closes the phrase, so the push has somewhere to land
+        if (!loop && p.bar === BARS - 1){ var land = start + SLOTS * S + 0.006; kick(land, 1); hat(land, 0.9); }
+        p.bar++; p.barStart += SLOTS * S;
+      }
+    }, 25);
+    player = p;
+  }
+
+  // ---- practice ----
+  var practicePushIs = Math.random() < 0.5 ? 'X' : 'Y', practiceGuess = null;
+  var raw = processed(0, 'grid'), barOnly = processed(1, 'bar');
+  document.querySelector('[data-play="px"]').onclick = function(){ play(function(){ return practicePushIs === 'X' ? raw : barOnly; }, false, this, 4); };
+  document.querySelector('[data-play="py"]').onclick = function(){ play(function(){ return practicePushIs === 'Y' ? raw : barOnly; }, false, this, 4); };
+  Array.prototype.forEach.call(document.querySelectorAll('[data-guess]'), function(btn){
+    btn.onclick = function(){
+      practiceGuess = btn.dataset.guess;
+      Array.prototype.forEach.call(document.querySelectorAll('[data-guess]'), function(o){ o.classList.toggle('on', o === btn); });
+      $('practiceResult').textContent = (practiceGuess === practicePushIs ? 'Yes. ' : 'Not this time. ') + practicePushIs + ' was as played; the other had the push snapped away. The five below are the real round.';
+      publish();
+    };
+  });
+
+  // ---- the blind five ----
+  var VERSIONS = [
+    { id: 'as played', s: 0, t: 'grid' }, { id: '50% grid', s: 0.5, t: 'grid' }, { id: '100% grid', s: 1, t: 'grid' },
+    { id: 'bar groove', s: 1, t: 'bar' }, { id: 'bar groove + phrase', s: 1, t: 'phrase' }
+  ];
+  var order = VERSIONS.map(function(v, i){ return i; });
+  for (var i = order.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)), tmp = order[i]; order[i] = order[j]; order[j] = tmp; }
+  var LETTERS = 'ABCDE', sits = {}, lifts = {}, best = null, revealed = false;
+  function chips(row, sel, store, L){
+    Array.prototype.forEach.call(row.querySelectorAll(sel), function(btn){
+      btn.onclick = function(){ store[L] = btn.dataset.v; Array.prototype.forEach.call(row.querySelectorAll(sel), function(o){ o.classList.toggle('on', o === btn); }); publish(); };
+    });
+  }
+  order.forEach(function(vi, k){
+    var v = VERSIONS[vi], L = LETTERS[k], hits = processed(v.s, v.t);
+    var row = document.createElement('div'); row.className = 'row';
+    row.innerHTML = '<span class="letter">' + L + '</span><button class="pl">Play ' + L + '</button>' +
+      '<button data-s data-v="too stiff">too stiff</button><button data-s data-v="grooves">grooves</button><button data-s data-v="too loose">too loose</button>' +
+      '<span class="sep"></span><span class="q">lifts?</span><button data-l data-v="yes">yes</button><button data-l data-v="no">no</button>' +
+      '<span class="sep"></span><button data-best>keep</button><span class="tag" data-tag></span>';
+    row.querySelector('.pl').onclick = function(){ play(function(){ return hits; }, false, this, 4); };
+    chips(row, '[data-s]', sits, L); chips(row, '[data-l]', lifts, L);
+    row.querySelector('[data-best]').onclick = function(){
+      best = L; Array.prototype.forEach.call(document.querySelectorAll('[data-best]'), function(o){ o.classList.remove('on'); });
+      this.classList.add('on'); publish();
+    };
+    row.querySelector('[data-tag]').dataset.id = v.id;
+    $('clips').appendChild(row);
+  });
+  $('reveal').onclick = function(){
+    revealed = true;
+    Array.prototype.forEach.call(document.querySelectorAll('[data-tag]'), function(t){ t.textContent = t.dataset.id; t.classList.add('shown'); });
+    publish();
+  };
+
+  // ---- results out ----
+  var target = 'grid';
+  function block(){
+    var lines = ['Mistake or Feel, Phrased · Daily Page rough 2 · 2026-11-03'];
+    lines.push('practice: guessed ' + (practiceGuess || '—') + ' leans in; as played was ' + practicePushIs);
+    order.forEach(function(vi, k){ var L = LETTERS[k]; lines.push(L + ' = ' + VERSIONS[vi].id + ' · sits: ' + (sits[L] || '—') + ' · lifts: ' + (lifts[L] || '—') + (best === L ? ' · KEPT' : '')); });
+    lines.push('revealed before copying: ' + (revealed ? 'yes' : 'no'));
+    if ($('blindNotes').value.trim()) lines.push('notes on the five: ' + $('blindNotes').value.trim());
+    lines.push('explorer last at: ' + $('s').value + '% toward ' + target);
+    if ($('exNotes').value.trim()) lines.push('notes on the picture: ' + $('exNotes').value.trim());
+    return lines.join('\n');
+  }
+  function publish(){ window.mistakeOrFeelResults = block(); }
+  $('blindNotes').oninput = publish; $('exNotes').oninput = publish;
+  $('copy').onclick = function(){
+    var text = block(); window.mistakeOrFeelResults = text;
+    function done(){ $('copied').textContent = 'Copied. Paste it into the chat.'; }
+    function fallback(){ var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) { $('copied').textContent = 'Copy blocked; the answers are in window.mistakeOrFeelResults.'; } document.body.removeChild(ta); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback); else fallback();
+  };
+
+  // ---- the explorer ----
+  function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function current(){ return processed(+$('s').value / 100, target); }
+
+  function drawGrid(){
+    var cv = $('grid'), g = cv.getContext('2d'), W = cv.width, H = cv.height, padL = 90, padR = 20, rowH = (H - 20) / 4;
+    var slotW = (W - padL - padR) / SLOTS;
+    g.clearRect(0, 0, W, H);
+    g.font = '22px JetBrains Mono, monospace'; g.textBaseline = 'middle';
+    for (var r = 0; r < 4; r++){ g.fillStyle = css('--fg-3'); g.fillText(LANE_NAMES[r], 8, 10 + rowH * r + rowH / 2); }
+    for (var s = 0; s <= SLOTS; s++){
+      var x = padL + s * slotW; g.strokeStyle = s % 4 === 0 ? css('--fg-4') : 'rgba(255,255,255,0.07)'; g.lineWidth = s % 4 === 0 ? 2 : 1;
+      g.beginPath(); g.moveTo(x, 6); g.lineTo(x, H - 6); g.stroke();
+    }
+    current().forEach(function(h){
+      var x = padL + (h.slot + h.off / S) * slotW, y = 10 + rowH * h.lane + rowH / 2 + (h.bar - 3.5) * 5;
+      g.fillStyle = h.bar >= 6 ? 'rgba(232,184,74,0.9)' : 'rgba(232,232,240,0.55)';
+      g.beginPath(); g.arc(x, y, 4 + 3 * Math.min(1, h.v), 0, Math.PI * 2); g.fill();
+    });
+  }
+
+  var RAWLEAN = barLeans(TAKE);
+  function drawArc(){
+    var cv = $('arc'), g = cv.getContext('2d'), W = cv.width, H = cv.height, pl = 110, pr = 50, pt = 40, pb = 70;
+    var lim = Math.ceil(Math.max.apply(null, RAWLEAN.map(Math.abs)) * 1.25);
+    var X = function(b){ return pl + b / (BARS - 1) * (W - pl - pr); }, Y = function(ms){ return pt + (H - pt - pb) / 2 + ms / lim * (H - pt - pb) / 2; };
+    g.clearRect(0, 0, W, H);
+    g.strokeStyle = css('--fg-4'); g.lineWidth = 2; g.beginPath(); g.moveTo(pl, Y(0)); g.lineTo(W - pr, Y(0)); g.stroke();
+    g.fillStyle = css('--fg-3'); g.font = '22px JetBrains Mono, monospace'; g.textAlign = 'center';
+    for (var b = 0; b < BARS; b++) g.fillText('bar ' + (b + 1), X(b), H - 24);
+    g.textAlign = 'right'; g.fillText('early', pl - 14, pt + 10); g.fillText('late', pl - 14, H - pb - 6); g.fillText('0 ms', pl - 14, Y(0) + 7);
+    function line(vals, color, dashed){
+      g.setLineDash(dashed ? [10, 8] : []); g.strokeStyle = color; g.lineWidth = 3; g.beginPath();
+      vals.forEach(function(v, b){ if (b) g.lineTo(X(b), Y(v)); else g.moveTo(X(b), Y(v)); }); g.stroke(); g.setLineDash([]);
+      if (!dashed) vals.forEach(function(v, b){ g.fillStyle = color; g.beginPath(); g.arc(X(b), Y(v), 8, 0, Math.PI * 2); g.fill(); });
+    }
+    line(RAWLEAN, css('--fg-3'), true);
+    line(barLeans(current()), css('--accent'), false);
+  }
+  function redraw(){ $('sv').textContent = $('s').value + '%'; drawGrid(); drawArc(); publish(); }
+  $('s').oninput = redraw;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(btn){
+    btn.onclick = function(){ target = btn.dataset.t; Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(o){ o.classList.toggle('on', o === btn); }); redraw(); };
+  });
+  $('exPlay').onclick = function(){ play(current, true, this); };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(redraw);
+  redraw();
+})();
+</script>
+</body>
+</html>
