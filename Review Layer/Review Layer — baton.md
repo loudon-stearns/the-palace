@@ -39,6 +39,8 @@ Work in a worktree of your own. In `rich.js`:
 - Clear the sent notes and approvals from `localStorage` and reset the pins. On failure, keep the notes.
 - Move each section's note box, and the pin that opens it, to the end of the section, after its last row of pieces.
 
+One more, in `_ops/loudon-eval/answers.js`: guard a page that sets its text colour (`--ink`) and no background (`--paper`), so the sent panel stays readable. The cause: the Pheromone Trail rough set `--ink:#e7e4dc` with no `--paper`, so `panel()` drew light ink on its light default paper (`background:var(--paper,#f0eee5);color:var(--ink,#1a1916)`).
+
 You might also guard on the server, refusing a body identical to one posted moments before, but that is optional; the client guard is what he asked for. Prove it in a headless browser: one click sends one message, the boxes empty, and a failed send keeps the notes. Do it before you land, through the palace committer by path. Show Loudon the dock before you call it done.
 
 ## Calibrations from this session
