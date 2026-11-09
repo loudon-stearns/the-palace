@@ -1,0 +1,118 @@
+% The arena of loops: every method in the page's arena table, placed on a map by how its loops meet.
+% Five zones, each with its loop drawn heavy as in where-the-loops-meet: one loop alone, read together (a product),
+% in a row (linear), bent, pushing back (self-sustaining). A chip on a border meets two ways.
+% Placements and the check against the draft: the-arena-of-loops.py (writes arena-chips.tex). Torus: gen-loops.py.
+% Compile: lualatex the-arena-of-loops.tex ; SVG via PyMuPDF (dvisvgm's PDF route is broken on this Mac).
+\documentclass[border=0pt]{standalone}
+\usepackage{fontspec}
+\setmainfont{JetBrains Mono}
+\setmonofont{JetBrains Mono}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc, backgrounds, decorations.pathmorphing, decorations.markings}
+% Drafting Table, paper ground (_ops/drafting-table/design-system/colors_and_type.css)
+\definecolor{paper}{HTML}{F0EEE5}
+\definecolor{ink}{HTML}{1A1916}
+\definecolor{ink2}{HTML}{3A3A35}
+\definecolor{ink3}{HTML}{6A6862}
+\definecolor{slab}{HTML}{D8D4C6}
+\tikzset{
+  >={Stealth[length=1.8mm]},
+  mesh/.style={draw=ink3!45, line width=0.25pt},
+  scan/.style={draw=ink, line width=0.6pt},
+  scanback/.style={draw=ink3!70, line width=0.4pt, densely dashed},
+  ring/.style={draw=ink, line width=0.9pt},
+  loop/.style={draw=ink, line width=1.5pt},
+  wire/.style={draw=ink, line width=0.6pt},
+  lab/.style={font=\scriptsize, text=ink2},
+  rowhead/.style={font=\bfseries\small, anchor=west, text=ink},
+  rowsub/.style={font=\scriptsize, anchor=west, text=ink2},
+  colhead/.style={font=\bfseries\scriptsize, anchor=west, text=ink},
+  spin/.style={postaction={decorate}, decoration={markings, mark=at position 0.25 with {\arrow{>}}}},
+  chipz/.style={draw=ink, fill=paper, line width=0.5pt, font=\scriptsize, text=ink, align=left, inner sep=2.2pt},
+  chipb/.style={chipz, fill=slab},
+  chipnote/.style={font=\tiny, text=ink2, anchor=north west},
+  bnote/.style={font=\tiny, text=ink2, align=left},
+}
+% a chip: role tag (black, one letter) joined to the method's name
+\newcommand{\chip}[4]{%
+  \node[#4, anchor=west] (c) at ($(#1)+(3.4mm,0)$) {#3};
+  \draw[ink, fill=ink, line width=0.5pt] ([xshift=-3.4mm]c.north west) rectangle (c.south west);
+  \node[font=\tiny\bfseries, text=paper] at ([xshift=-1.7mm]c.west) {#2};}
+% a zone: frame and heading
+\newcommand{\zone}[6]{% x0, y0, x1, y1, heading, sub
+  \draw[ink, line width=0.5pt] (#1,#2) rectangle (#3,#4);
+  \node[rowhead] at (#1+0.3,#2-0.42) {#5};
+  \node[rowsub] at (#1+0.3,#2-0.82) {#6};}
+\begin{document}
+\begin{tikzpicture}
+
+% ---------- head: the claim and the role key ----------
+\node[colhead] at (0,1.25) {THE ARENA \quad every method in the table, placed by how its loops meet};
+\node[colhead] at (13.2,1.25) {ROLE};
+\node[font=\scriptsize, anchor=west, text=ink2] at (0,0.62) {Oscillators, effects and analysis share the same few kinds of meeting. Heavy: the loop.};
+\foreach \t/\w [count=\i] in {M/make, S/shape, R/read, F/follow} {
+  \draw[ink, fill=ink] (14.05+1.5*\i-1.5,1.11) rectangle ++(0.3,0.28);
+  \node[font=\tiny\bfseries, text=paper] at (14.2+1.5*\i-1.5,1.25) {\t};
+  \node[font=\scriptsize, text=ink2, anchor=west] at (14.4+1.5*\i-1.5,1.25) {\w};
+}
+
+% ---------- zones ----------
+\zone{-0.3}{0}{12.0}{-5.55}{READ TOGETHER}{a product · a lattice in frequency, m·f₁ + n·f₂}
+\zone{12.0}{0}{19.9}{-5.55}{IN A ROW}{linear · a lattice in time, j·T₁ + k·T₂}
+\zone{-0.3}{-5.55}{5.0}{-12.4}{}{}
+\zone{5.0}{-5.55}{14.6}{-12.4}{}{}
+\zone{14.6}{-5.55}{19.9}{-12.4}{}{}
+% bottom headings sit below the border chips
+\node[rowhead] at (0,-6.2) {BENT};            \node[rowsub] at (0,-6.6) {a stretched series};
+\node[rowhead] at (5.3,-6.2) {ONE LOOP};      \node[rowsub] at (5.3,-6.6) {alone · a harmonic series};
+\node[rowhead] at (14.9,-6.2) {PUSH BACK};    \node[rowsub] at (14.9,-6.6) {self-sustaining · locking};
+
+% ---------- glyphs: each zone's loop ----------
+% read together: two circles, read as one point, are a torus
+\draw[loop, spin] (8.55,-1.15) circle (0.34); \node[lab] at (8.55,-1.15) {φ₁};
+\node[font=\small, text=ink] at (9.17,-1.15) {×};
+\draw[loop, spin] (9.7,-1.15) circle (0.24); \node[font=\tiny, text=ink2] at (9.7,-1.15) {φ₂};
+\node[font=\small, text=ink] at (10.2,-1.15) {=};
+\begin{scope}[shift={(11.05,-1.2)}, scale=0.36]
+  \input{torus-mesh.tex}
+  \input{torus-path.tex}
+\end{scope}
+% in a row: one loop feeds the next
+\node[lab] (rin) at (16.85,-2.75) {in};
+\draw[loop, spin] (17.55,-2.75) circle (0.3); \node[font=\tiny, text=ink2] at (17.55,-2.75) {T₁};
+\draw[loop, spin] (18.75,-2.75) circle (0.48); \node[lab] at (18.75,-2.75) {T₂};
+\draw[wire,->] (rin) -- (17.25,-2.75); \draw[wire,->] (17.85,-2.75) -- (18.27,-2.75); \draw[wire,->] (19.23,-2.75) -- (19.7,-2.75);
+% bent: each partial round its own, shorter loop
+\foreach \r in {0.62, 0.55, 0.49, 0.44, 0.40} { \draw[ring] (3.95,-7.25) circle (\r); }
+\draw[loop, spin] (3.95,-7.25) circle (0.68);
+% one loop
+\draw[loop, spin] (13.3,-6.7) circle (0.42);
+% push back: two loops and a spring
+\draw[loop, spin] (16.55,-7.35) circle (0.3);
+\draw[loop, spin] (18.85,-7.35) circle (0.46);
+\fill[ink] (16.85,-7.35) circle (1.4pt); \fill[ink] (18.39,-7.35) circle (1.4pt);
+\draw[ink, line width=0.7pt, decorate, decoration={coil, aspect=0.5, segment length=1.8mm, amplitude=1.3mm}] (16.85,-7.35) -- (18.39,-7.35);
+
+% ---------- chips ----------
+\input{arena-chips.tex}
+
+% notes for the chips on a border
+\node[bnote, anchor=west] at (13.1,-4.05) {on the border: a stored field read like a table,\\indexed by the input's own past, as a row of taps};
+\node[bnote, anchor=west, fill=paper, inner sep=1pt] at (10.15,-6.05) {one loop, read along\\a table's diagonal};
+\node[bnote, anchor=west, fill=paper, inner sep=1pt] at (2.95,-6.05) {a loop bent in time;\\its LFO multiplies in};
+\node[bnote, anchor=north, align=center] at (14.45,-8.2) {one resets\\the other};
+
+\node[font=\scriptsize, anchor=north west, text=ink2, text width=19.6cm] at (0,-12.75) {Grey chips sit on a border: their loops meet two ways. Each chip is placed by the table's "Where they meet" column; two read methods, \mbox{rank-N} analysis and linear prediction, carry "—" there and are placed by what they read back. Additive sits with one loop: many loops that never meet, only summed.};
+
+% ---------- title block ----------
+\draw[ink, line width=0.8pt] (-0.3,-13.85) rectangle (19.9,-14.75);
+\draw[ink, line width=0.3pt] (9.6,-13.85) -- (9.6,-14.75) (14.6,-13.85) -- (14.6,-14.75);
+\node[font=\scriptsize\bfseries, text=ink, anchor=west] at (-0.1,-14.3) {DSP IN LOOPING DIMENSIONS · THE ARENA OF LOOPS};
+\node[font=\scriptsize, text=ink, anchor=west] at (9.8,-14.3) {INK from the page's table};
+\node[font=\scriptsize, text=ink2, anchor=west] at (14.8,-14.3) {FIG · 2026-11-09 · PAPER};
+
+\begin{scope}[on background layer]
+  \fill[paper] ($(current bounding box.south west)+(-0.4,-0.4)$) rectangle ($(current bounding box.north east)+(0.4,0.4)$);
+\end{scope}
+\end{tikzpicture}
+\end{document}

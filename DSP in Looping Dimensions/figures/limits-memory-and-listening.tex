@@ -1,0 +1,104 @@
+% The limits: two walls a loop synthesizer meets. (a) memory: a table on N loops at r samples per axis is r^N float32 samples.
+% (b) listening: the share of a band's energy in its loudest tenth of FFT bins, as the window grows, for noise and for 1, 2 and 6 loops.
+% Data: limits-memory-and-listening.py. Panel (a) is arithmetic; panel (b) runs the listen-longer piece's own engine under node
+% (reproduces the published numbers exactly), so both panels are computed (ink).
+% Compile: lualatex limits-memory-and-listening.tex ; SVG via PyMuPDF (dvisvgm's PDF route is broken on this Mac).
+\documentclass[border=0pt]{standalone}
+\usepackage{fontspec}
+\setmainfont{JetBrains Mono}
+\setmonofont{JetBrains Mono}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{arrows.meta, calc, backgrounds}
+% Drafting Table, paper ground (_ops/drafting-table/design-system/colors_and_type.css)
+\definecolor{paper}{HTML}{F0EEE5}
+\definecolor{ink}{HTML}{1A1916}
+\definecolor{ink2}{HTML}{3A3A35}
+\definecolor{ink3}{HTML}{6A6862}
+\definecolor{slab}{HTML}{D8D4C6}
+\tikzset{
+  >={Stealth[length=1.8mm]},
+  lab/.style={font=\scriptsize, text=ink2},
+  rowhead/.style={font=\bfseries\small, anchor=west, text=ink},
+  rowsub/.style={font=\scriptsize, anchor=west, text=ink2},
+  colhead/.style={font=\bfseries\scriptsize, anchor=west, text=ink},
+  dot/.style={circle, fill=ink, minimum size=4pt, inner sep=0pt},
+}
+\pgfplotsset{
+  /pgf/number format/assume math mode=true,
+  plt/.style={width=8.6cm, height=6.6cm, axis lines=left, tick align=outside, clip=false,
+    axis line style={ink, line width=0.5pt}, tick style={ink}, grid style={ink3!25, line width=0.25pt},
+    xlabel style={font=\scriptsize, text=ink2}, ylabel style={font=\scriptsize, text=ink2},
+    tick label style={font=\tiny, text=ink2}},
+}
+% a panel: frame, heading, and the rule under it
+\newcommand{\panelframe}[4]{% x0, x1, heading, sub
+  \draw[ink, line width=0.5pt] (#1,0) rectangle (#2,-9.6);
+  \draw[ink, line width=0.3pt] (#1,-0.95) -- (#2,-0.95);
+  \node[rowhead] at (#1+0.3,-0.32) {#3};
+  \node[rowsub] at (#1+0.3,-0.7) {#4};}
+\begin{document}
+\begin{tikzpicture}
+
+\node[font=\scriptsize, anchor=west, text=ink2] at (0,0.55) {Two walls. The mathematics never runs out of loops; the table runs out of room, and the ear runs out of time.};
+
+% =============== a · MEMORY ===============
+\panelframe{-0.3}{9.6}{a \enspace MEMORY}{the table runs out of room: its size grows as r\textsuperscript{N}}
+\begin{axis}[plt, width=7.3cm, at={(1.0cm,-7.3cm)}, ymode=log, log basis y=2, xmin=0.8, xmax=6.2, ymin=2^6, ymax=2^52,
+    xtick={1,...,6}, xlabel={loops N},
+    ytick={2^10,2^20,2^30,2^40,2^50},
+    yticklabels={1 KB,1 MB,1 GB,1 TB,1 PB}, ylabel={table size, float32},
+    ymajorgrids]
+  \addplot[ink, line width=0.6pt, densely dotted] table[x=N, y=r32] {lml-memory.dat};
+  \addplot[ink, line width=0.6pt, dashed] table[x=N, y=r64] {lml-memory.dat};
+  \addplot[ink, line width=0.9pt] table[x=N, y=r128] {lml-memory.dat};
+  \addplot[ink, line width=1.5pt] table[x=N, y=r256] {lml-memory.dat};
+  \node[lab, anchor=west, align=left] at (axis cs:6.15,1125899906842624) {r = 256\\128 harmonics};
+  \node[lab, anchor=west, align=left] at (axis cs:6.15,17592186044416) {r = 128\\64 harmonics};
+  \node[lab, anchor=west, align=left] at (axis cs:6.15,274877906944) {r = 64\\32 harmonics};
+  \node[lab, anchor=west, align=left] at (axis cs:6.15,4294967296) {r = 32\\16 harmonics};
+  \node[dot] (m64) at (axis cs:3,67108864) {};
+  \node[dot] (m4g) at (axis cs:6,4294967296) {};
+  \draw[ink, line width=0.4pt] (m64) -- ++(-0.35cm,1.6cm) node[lab, anchor=south, align=center, text=ink, fill=paper, inner sep=1pt] {64 MB\\three loops at 256};
+  \draw[ink, line width=0.4pt] (m4g) -- ++(-0.15cm,-2.3cm) node[lab, anchor=north east, align=right, text=ink, fill=paper, inner sep=1pt] {4 GB · six loops at 32\\still 16 harmonics a loop};
+\end{axis}
+\node[lab, anchor=west, text=ink] at (6.75,-1.95) {harmonics/loop ≈ r/2};
+\node[lab, anchor=north west, text width=9.3cm] at (0,-8.65) {A table with r samples per axis holds about r/2 harmonics per loop; its size grows as r\textsuperscript{N}.};
+
+% =============== b · LISTENING ===============
+\panelframe{10.0}{19.9}{b \enspace LISTENING}{dense lattices take time to hear (band 100–4000 Hz)}
+\begin{axis}[plt, at={(11.3cm,-7.3cm)}, xmode=log, xmin=0.018, xmax=6.6, ymin=28, ymax=102,
+    xtick={0.021333,0.1,1,5.461333}, xticklabels={21 ms,0.1 s,1 s,5.5 s}, xlabel={analysis window},
+    ytick={33,50,75,100}, yticklabels={33,50,75,100}, ylabel={\% energy in loudest tenth of bins}, ymajorgrids]
+  \fill[slab!70] (axis cs:0.018,34.471) rectangle (axis cs:6.6,36.189);
+  \addplot[ink3, line width=0.9pt, densely dashed, mark=*, mark size=0.9pt, mark options={solid}] table[x=win, y=noise] {lml-listen.dat};
+  \addplot[ink, line width=1.5pt, mark=*, mark size=1.2pt] table[x=win, y=l1] {lml-listen.dat};
+  \addplot[ink, line width=0.9pt, mark=*, mark size=1.1pt] table[x=win, y=l2] {lml-listen.dat};
+  \addplot[ink, line width=0.6pt, densely dotted, mark=*, mark size=1.1pt, mark options={solid}] table[x=win, y=l6] {lml-listen.dat};
+  % readouts at the published points
+  \node[lab, anchor=south west, text=ink] at (axis cs:0.05,103) {one loop: past 99 \% by 43 ms};
+  \draw[ink, line width=0.3pt] (axis cs:0.042667,99.881) -- (axis cs:0.05,104);
+  \node[lab, anchor=west, text=ink] at (axis cs:0.75,90) {two loops: 99.9 \%};
+  \node[lab, anchor=west, text=ink] at (axis cs:0.75,86.5) {by 0.68 s};
+  \draw[ink, line width=0.3pt] (axis cs:0.682667,99.914) -- (axis cs:0.78,91.5);
+  \node[lab, anchor=south, text=ink] at (axis cs:0.021333,41.8) {40.7};
+  \node[lab, anchor=south east, text=ink] at (axis cs:5.461333,51.6) {six loops: 51.2};
+  \node[lab, anchor=north west, text=ink3] at (axis cs:0.03,33.6) {noise: 34.5–36.2 \%, at every length};
+\end{axis}
+\node[lab, anchor=north west, text width=9.4cm] at (10.3,-8.65) {The limit holds in the mathematics; how long you listen decides when it shows.};
+
+\node[font=\scriptsize, anchor=north west, text=ink2, text width=19.6cm] at (0,-9.95) {(a) is arithmetic: r\textsuperscript{N} samples × 4 bytes, in powers of 2. (b) re-runs the listen-longer piece's own engine: six seconds at 48 kHz, tone on 220 Hz, Hann windows, every whole window averaged. Noise holds about a third, (1 + ln 10)/10, at any length; lines climb once the window can part them. Six loops put 136,862 lines within 36 dB of the loudest into this band, against 21,299 bins at 5.5 s.};
+
+% ---------- title block ----------
+\draw[ink, line width=0.8pt] (-0.3,-11.45) rectangle (19.9,-12.35);
+\draw[ink, line width=0.3pt] (9.6,-11.45) -- (9.6,-12.35) (14.6,-11.45) -- (14.6,-12.35);
+\node[font=\scriptsize\bfseries, text=ink, anchor=west] at (-0.1,-11.9) {DSP IN LOOPING DIMENSIONS · THE LIMITS};
+\node[font=\scriptsize, text=ink, anchor=west] at (9.8,-11.9) {INK computed};
+\node[font=\scriptsize, text=ink2, anchor=west] at (14.8,-11.9) {FIG · 2026-11-09 · PAPER};
+
+\begin{scope}[on background layer]
+  \fill[paper] ($(current bounding box.south west)+(-0.4,-0.4)$) rectangle ($(current bounding box.north east)+(0.4,0.4)$);
+\end{scope}
+\end{tikzpicture}
+\end{document}

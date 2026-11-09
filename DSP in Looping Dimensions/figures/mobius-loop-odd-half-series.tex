@@ -1,0 +1,109 @@
+% The Moebius loop: a delay fed back with a sign flip, three times over: the circuit you build, the loop it is, the sound you hear.
+% The heavy stroke is the path that comes back: the feedback wire in the circuit, the path round the band on its own.
+% Data and geometry: mobius-loop-odd-half-series.py (mlohs-comb.dat, mlohs-peaks.dat, mobius-strip.tex). Everything here is computed (ink).
+% Compile: lualatex mobius-loop-odd-half-series.tex ; SVG via PyMuPDF (dvisvgm's PDF route is broken on this Mac).
+\documentclass[border=0pt]{standalone}
+\usepackage{fontspec}
+\setmainfont{JetBrains Mono}
+\setmonofont{JetBrains Mono}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{array}
+\pgfplotsset{compat=1.16}
+\usetikzlibrary{arrows.meta, calc, backgrounds, decorations.markings, positioning}
+% Drafting Table, paper ground (_ops/drafting-table/design-system/colors_and_type.css)
+\definecolor{paper}{HTML}{F0EEE5}
+\definecolor{ink}{HTML}{1A1916}
+\definecolor{ink2}{HTML}{3A3A35}
+\definecolor{ink3}{HTML}{6A6862}
+\definecolor{slab}{HTML}{D8D4C6}
+\tikzset{
+  >={Stealth[length=1.8mm]},
+  loop/.style={draw=ink, line width=1.5pt},
+  back/.style={draw=ink, line width=1.5pt, ->},
+  wire/.style={draw=ink, line width=0.6pt},
+  blk/.style={rectangle, draw=ink, fill=slab, line width=0.7pt, minimum height=7mm, minimum width=12mm, inner sep=2pt, font=\scriptsize, text=ink},
+  adder/.style={circle, draw=ink, fill=paper, line width=0.7pt, minimum size=4.6mm, inner sep=0pt, font=\scriptsize},
+  tap/.style={circle, fill=ink, minimum size=3pt, inner sep=0pt},
+  lab/.style={font=\scriptsize, text=ink2},
+  rowhead/.style={font=\bfseries\small, anchor=west, text=ink},
+  rowsub/.style={font=\scriptsize, anchor=west, text=ink2},
+  colhead/.style={font=\bfseries\scriptsize, anchor=west, text=ink},
+  spin/.style={postaction={decorate}, decoration={markings, mark=at position 0.25 with {\arrow{>}}}},
+}
+\pgfplotsset{
+  /pgf/number format/assume math mode=true,
+  snd/.style={width=6.6cm, height=3.0cm, axis lines=left, tick align=outside, ymin=0, ytick=\empty,
+    axis line style={ink, line width=0.5pt}, tick style={ink}, clip=false,
+    xlabel style={font=\scriptsize, text=ink2, yshift=1mm}, ylabel style={font=\scriptsize, text=ink2},
+    tick label style={font=\tiny, text=ink2}},
+}
+% a row: frame (top y, height), heading, subtitle, and the two column rules
+\newcommand{\rowframe}[4]{%
+  \draw[ink, line width=0.5pt] (-0.3,#1) rectangle (19.9,#1-#2);
+  \draw[ink, line width=0.3pt] (6.9,#1-0.95) -- (6.9,#1-#2) (12.4,#1-0.95) -- (12.4,#1-#2) (-0.3,#1-0.95) -- (19.9,#1-0.95);
+  \node[rowhead] at (0,#1-0.32) {#3};
+  \node[rowsub] at (0,#1-0.7) {#4};}
+\begin{document}
+\begin{tikzpicture}
+
+% ---------- column heads ----------
+\node[colhead] at (0,1.15) {THE CIRCUIT \quad what you build};
+\node[colhead] at (7.2,1.15) {THE LOOP \quad what it is};
+\node[colhead] at (12.7,1.15) {THE SOUND \quad what you hear};
+\node[font=\scriptsize, anchor=west, text=ink2] at (0,0.55) {Heavy: the path that comes back. In the circuit it is the feedback wire; on its own it is a path round a band with one half twist.};
+
+% =============== THE MÖBIUS LOOP ===============
+\def\y{0}
+\rowframe{\y}{6.6}{THE MÖBIUS LOOP}{flip the sign each trip: the odd multiples of half the loop's frequency, 120 · 360 · 600 · 840 Hz}
+\begin{scope}[shift={(0,\y)}]
+  % the circuit
+  \node[lab] (in) at (0.1,-3.0) {in};
+  \node[adder] (a) at (0.9,-3.0) {+};
+  \node[blk] (d) at (2.6,-3.0) {delay T};
+  \node[tap] (t) at (4.3,-3.0) {};
+  \draw[wire,->] (in) -- (a); \draw[wire,->] (a) -- (d); \draw[wire] (d) -- (t);
+  \draw[wire,->] (t) -- (6.65,-3.0) node[lab, above left] {out};
+  \node[blk, minimum width=12mm, minimum height=8mm] (g) at (2.6,-4.6) {× {\large\bfseries −a}};
+  \draw[back] (t) |- (g.east);
+  \draw[back] (g.west) -| (a);
+  \node[lab, anchor=north, align=center] at (2.75,-5.25) {what comes back is turned\\upside down every trip};
+
+  % the loop: a band with one half twist, and a plain circle for contrast
+  \begin{scope}[shift={(8.7,-3.05)}, scale=1.15]
+    \input{mobius-strip.tex}
+    \fill[ink] (mstart) circle (2.2pt);
+    \filldraw[fill=paper, draw=ink, line width=0.8pt] (mlap) circle (2.0pt);
+    \draw[ink, line width=1.5pt, ->] (marrA) -- (marrA2);
+  \end{scope}
+  \draw[loop, spin] (11.55,-2.15) circle (0.38);
+  \fill[ink] ($(11.55,-2.15)+(-40:0.38)$) circle (1.6pt);
+  \node[lab, anchor=north, align=center] at (11.55,-2.6) {plain loop:\\once round};
+  \node[lab, anchor=north west, align=left, font=\tiny] at (10.4,-3.65) {● start\\○ after one trip:\\\ \ the other side\\solid: trip one\\dashed: trip two};
+  \node[lab, anchor=north, align=center] at (8.7,-5.0) {two trips round\\to come home};
+
+  % the sound
+  \begin{axis}[snd, at={(12.85cm,-4.5cm)}, height=3.4cm, xmin=0, xmax=1000, ymax=5.6,
+      xtick={120,360,600,840}, xlabel={frequency, Hz \quad (loop of T = 1/240 s)}]
+    \foreach \k in {240,480,720} { \edef\t{\noexpand\draw[ink3!60, densely dashed, line width=0.4pt] (axis cs:\k,0) -- (axis cs:\k,5.0);} \t }
+    \addplot[line width=1.0pt, ink] table[x=f, y=mag] {mlohs-comb.dat};
+    \node[font=\tiny, text=ink2, anchor=south] at (axis cs:240,5.0) {240};
+    \node[font=\tiny, text=ink2, anchor=south] at (axis cs:480,5.0) {480};
+    \node[font=\tiny, text=ink2, anchor=south] at (axis cs:720,5.0) {720};
+  \end{axis}
+  \node[lab, anchor=north west, align=left] at (12.75,-5.25) {dashed: where a plain loop of T rings\\solid: the flipped loop rings between};
+\end{scope}
+\node[font=\scriptsize, anchor=north west, text=ink2, text width=19.6cm] at (0,-6.85) {A loop that flips its sign each trip must go round twice to return, so it rings at the odd harmonics of half its frequency. A clarinet's odd harmonics come the same way: the bore flips the wave's sign at its open end and not at the reed. Computed with a = 0.8, T = 200 samples at 48 kHz.};
+
+% ---------- title block ----------
+\draw[ink, line width=0.8pt] (-0.3,-7.95) rectangle (19.9,-8.85);
+\draw[ink, line width=0.3pt] (9.6,-7.95) -- (9.6,-8.85) (14.6,-7.95) -- (14.6,-8.85);
+\node[font=\scriptsize\bfseries, text=ink, anchor=west] at (-0.1,-8.4) {DSP IN LOOPING DIMENSIONS · THE MÖBIUS LOOP};
+\node[font=\scriptsize, text=ink, anchor=west] at (9.8,-8.4) {INK computed};
+\node[font=\scriptsize, text=ink2, anchor=west] at (14.8,-8.4) {FIG · 2026-11-09 · PAPER};
+
+\begin{scope}[on background layer]
+  \fill[paper] ($(current bounding box.south west)+(-0.4,-0.4)$) rectangle ($(current bounding box.north east)+(0.4,0.4)$);
+\end{scope}
+\end{tikzpicture}
+\end{document}
