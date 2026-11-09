@@ -114,6 +114,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   .gathered li{margin:4px 0}
   a.proof-link{display:inline-block;font-family:var(--sans);font-weight:500;font-size:15px;color:#0a0a0f;background:var(--accent);border-radius:4px;padding:11px 22px;text-decoration:none;margin-top:14px}
   a.proof-link:hover{box-shadow:0 0 24px var(--accent-soft)}
+  iframe.proof{display:block;width:100%;height:1600px;margin-top:14px;border:1px solid var(--border-soft);border-radius:6px;background:var(--bg)}
   button.send{font-family:var(--sans);font-weight:500;font-size:14px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:4px;padding:8px 16px;cursor:pointer}
   button.send:disabled{opacity:.55;cursor:default}
   .proposal{display:inline-block;margin:10px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);border:1px dashed var(--accent-line);border-radius:3px;padding:3px 9px}
@@ -275,8 +276,8 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
       <li>One thing the proof adds: <b>A whisper</b>. Noise in place of the residual. The vowels come back whispered, with no pitch at all, because the pitch lived in the residual and noise has none to give.</li>
     </ul>
     <p class="say" style="margin-top:14px">It ends on a question. With its own residual the voice comes back whole; with a buzz the vowels survive and the life does not. Are analysis and synthesis one thing, or one equation with two kinds of thing in it, a model and what the model cannot reach?</p>
-    <a class="proof-link" href="../2026-10-20-the-equation-read-backward/the-equation-read-backward.html">Open the proof</a>
-    <textarea data-note placeholder="Did the steps get you there? What was missing?"></textarea>
+    <iframe class="proof" src="../2026-10-20-the-equation-read-backward/the-equation-read-backward.html" title="the proof" loading="lazy"></iframe>
+    <textarea data-note placeholder="The proof, and the walk up to it: did the steps get you there? What was missing?"></textarea>
     <div class="rowb"><button class="send" id="send">Send to STIGMERGY</button><button class="ghost small" id="copy">Copy all notes</button><span class="hint" id="copied"></span></div>
     <p class="hint" style="margin-top:8px">These notes are the review: step by step, say keep, revise or drop. Approval is yours, one sequence at a time, whenever you come back to it.</p>
   </section>
@@ -286,6 +287,40 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   <footer><b>LOUD’N LIVE</b> · a learning sequence for Dissolutions, 2026-10-25 · up to <a href="../2026-10-20-the-equation-read-backward/the-equation-read-backward.html">the equation read backward</a> · <a href="index.html">all six sequences</a></footer>
 </main>
 
+<script>
+// The proof shows in place on the last step, unchanged. Its own notes could
+// only be copied, so they are hidden here and this step's box is the one place
+// to write. The frame takes the proof's height; a hush from the face reaches
+// the proof, and the proof's play reaches the face. Opened as a file the proof
+// can't be reached into, and keeps its notes and a fixed height. The message
+// names are built, not written: the piece kit leaves hushing to any page whose
+// own script spells one out, and this page's sound is still the kit's to hush.
+(function(){
+  var f = document.querySelector('iframe.proof'); if (!f) return;
+  var HUSH = ['rich', 'hush'].join(':'), PLAY = ['rich', 'play'].join(':');
+  var step = f.closest('section.step'), last = 0;
+  function reach(){ try { return f.contentDocument && f.contentDocument.body ? f.contentDocument : null; } catch (e) { return null; } }
+  function fit(){
+    var d = reach(); if (!d) return;
+    ['doorNote', 'wholeNote'].forEach(function(id){ var e = d.getElementById(id); if (e) e.style.display = 'none'; });
+    var c = d.getElementById('copy'), row = c && c.closest('.rowb'); if (row) row.style.display = 'none';
+    var h = Math.min(8000, Math.max(600, d.documentElement.scrollHeight));
+    if (Math.abs(h - last) > 2){ last = h; f.style.height = h + 'px'; }
+  }
+  function hush(){ try { f.contentWindow.postMessage({ type: HUSH }, '*'); } catch (e) {} }
+  f.addEventListener('load', function(){
+    fit(); setTimeout(fit, 400); setTimeout(fit, 1500);
+    var d = reach(); if (d && window.ResizeObserver) new ResizeObserver(fit).observe(d.body);
+  });
+  window.addEventListener('message', function(e){
+    if (!e.data) return;
+    if (e.source === window.parent && e.data.type === HUSH) hush();
+    if (e.source === f.contentWindow && e.data.type === PLAY && window.parent !== window) window.parent.postMessage({ type: PLAY }, '*');
+  });
+  new MutationObserver(function(){ if (step.hidden) hush(); }).observe(step, { attributes: true, attributeFilter: ['hidden'] });
+  document.addEventListener('visibilitychange', function(){ if (document.hidden) hush(); });
+})();
+</script>
 <script src="../../../_ops/loudon-eval/answers.js"></script>
 <script>
 (function(){
