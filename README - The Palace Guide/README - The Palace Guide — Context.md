@@ -56,6 +56,6 @@ Where the old sections live now:
 - **How to add an entry, and its template**: [[Substrate Skill]] and [[Deposit Ceremony]].
 - **The philosophical foundations**: [[Palace Philosophies]], [[Meaning and the Link]], [[STIGMERGY]], [[Endosymbiosis]] and [[Spinoza Conatus]]. Luhmann is in [[SUBSTRATE — Context]].
 
-Some lines had no other home. "Plant seeds; tend them later" and "one idea, one page, one link" stay on the page itself. The closing-quotes rule, "composting is not death", and songlines, mycorrhizal networks and Bowlby as named traditions were drafted homes elsewhere, for Loudon to read before they are written. Until then they live only in the old text.
+Some lines had no other home. "Plant seeds; tend them later" and "one idea, one page, one link" stay on the page itself. The closing-quotes rule, "composting is not death", and songlines, mycorrhizal networks and Bowlby as named traditions were drafted homes elsewhere, for Loudon to read before they are written. Until then they live only in the old text. The closing-quotes rule was let go on purpose, not rehomed. Loudon, 2026-11-09: "closing quotes rule has been overruled by our palace quotes system we don't need that here." See [[Palace Quotes]].
 
 The old text is whole at the rewrite's parent commit, `ddfe9e3f`: `git show ddfe9e3f:"README - The Palace Guide.md"`. The frontmatter link `emerged-from` [[Symbiotic Skills]] was dropped, because that page was composted on 2026-11-03 (`f55909e3`).
