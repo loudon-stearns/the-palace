@@ -96,7 +96,7 @@ Written on branch `claude/happy-feynman-5a7e02` in `.claude/worktrees/steward-re
 ## Load these files first
 
 1. `Palace development/Pheromone Trail.md`, the new vector included
-2. Both roughs in `Palace development/Pheromone Trail/proofs/2026-11-06-daily-page/`
+2. Both roughs in `Palace development/Pheromone Trail/proofs/2026-11-06-daily-page/`, and beside them the method behind the first rough's numbers: `trail.py` and its recorded run, `trail.json`. Usage: `python3 trail.py <palace root> <map json> <out json>`, against the 2026-11-06 map build, which has been pruned from `_ops/maps/` (recover it with `git show 929bc7e2:_ops/maps/palace-map-full-2026-11-06.json`). Git reads a date-only window edge at the current time of day, so a re-run reproduces 54% / 38% / 40% only against history as of the run, `bc902cb1`. Against later history window B picks up commits from 2026-11-07, and the result drifts.
 3. `_ops/swarm/experiments/stigmergy-weave-ab-2026-05-29/findings.md`
 4. [[Swarm Weave]], [[STIGMERGY]], [[SCHEMA — Reference]] §6 and §8
 5. `Palace development/Pheromone Trail/Pheromone Trail — rich.json` and its three pieces, which are still at proposal
