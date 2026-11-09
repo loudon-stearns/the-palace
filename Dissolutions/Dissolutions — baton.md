@@ -108,6 +108,7 @@ Nothing, until he sends notes. When a session opens on Dissolutions, read them f
 - **The sequences hush when their tab is hidden,** and stay hushed on return. A sound that stops when you switch tabs is the design, not a fault. `check-sequences.mjs` tests it.
 - **A checker that reuses the page's own search can't catch that search.** The lattice's 157 passed every check until a challenger searched exhaustively by its own route. A second route is what found it.
 - **His answers become public when the palace is pushed.** The board is tracked in a public repository; he accepted that on 2026-11-07 (`_ops/loudon-eval/README.md`).
+- **He approves the six sequences one at a time** (Loudon, 2026-11-08: "One at a time"), naming each in the section's note or in chat. The face holds all six in one section, "The catalogue (so far)", and `approve.mjs` approves a whole section, so the section stays at proposal until the last of the six has his yes; each yes is written here as it comes.
 
 ## Load these files first
 
