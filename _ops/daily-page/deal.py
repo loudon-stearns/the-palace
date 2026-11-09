@@ -68,7 +68,10 @@ Nothing is let go on its own.
 The list (Loudon, 2026-11-09: "every day at the close, list the undone daily page work, and give
 links"). `--undone` lists every morning of the lap not yet done, newest first, each with where it
 stopped and a link that opens its app session. Done is: its page sat, or its close posted, on or
-after its deal, with nothing left on its branch or in its folder; or let go by name. A morning's
+after its deal, with nothing left on its branch or in its folder; or let go by name; or, never sat
+and holding nothing, its session archived (Loudon, 2026-11-09: "Yes, archiving does it"). The
+archived flag is read fresh each time, so unarchiving the session brings the morning back; a morning
+holding work stays listed, archived or not, marked so. A morning's
 folder and branch come from its start on the board, else from its session's record; its session
 from the app's own records on this Mac (title "Daily Page · <Entry>", which the scheduled task
 sets), read and never written. Today's morning is not listed. The brief counts the list.
@@ -523,7 +526,10 @@ def undone(trunk: Path, s: dict, today: str, board, board_file, sessions_dir: Pa
     """Every morning of the lap not yet done, newest first (Loudon, 2026-11-09: "every day at the
     close, list the undone daily page work"). A morning is done when its page was sat, or its close
     posted, on or after its deal, and its branch and folder hold nothing main lacks; or when he let it
-    go by name. Nothing is let go here. Today's morning is not listed: it is still today's."""
+    go by name; or when it was never sat, holds nothing, and its session is archived, which he said
+    lets it go (2026-11-09) and which is read live, so unarchiving brings it back. A morning holding
+    work stays, archived or not. Nothing is let go here. Today's morning is not listed: it is still
+    today's."""
     starts, closes = marks(board, board_file)
     records = session_records(sessions_dir)
     unmerged = unmerged_branches(trunk)
@@ -545,6 +551,8 @@ def undone(trunk: Path, s: dict, today: str, board, board_file, sessions_dir: Pa
             stopped = ("closed, then more work" if closed else "close stopped" if sat
                        else "sat, close owed") + ": " + where_held(h)
         else:
+            if sess and sess["archived"]:
+                continue                  # greeted only, and its session archived: let go by archiving
             stopped = "greeted only" if sess else "dealt, not sat (no session found)"
         out.append({"date": d, "entry": entry, "stopped": stopped, "held": h,
                     "session": sess["id"] if sess else None,

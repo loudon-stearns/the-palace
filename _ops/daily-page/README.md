@@ -31,7 +31,7 @@ node "/Users/loudonstearns/Documents/The Palace/_ops/daily-page/wake.mjs" "<Entr
 
 The verdicts are `keep`, `trim`, `tune`, `fold`, `compost`, `revive` and `open`. A fold needs `--into`, and the dealer refuses one without it. `revive` is for a page that is dormant or composting. If the main checkout is off `main`, a deal or a `--sat` refuses and says why; tell Loudon and stop.
 
-A deal posts the morning's start to the board's `SYSTEM` board and counts the undone mornings; `--closed` posts the close after the landing and refuses while the morning's branch or folder holds work; `--let-go` marks a morning let go on Loudon's word, and nothing is let go otherwise; `--undone` lists the mornings not yet done, each with a link to its session, read from the app's own session records. With `--state`, the board is used only when `--board FILE` names one.
+A deal posts the morning's start to the board's `SYSTEM` board and counts the undone mornings; `--closed` posts the close after the landing and refuses while the morning's branch or folder holds work; `--let-go` marks a morning let go on Loudon's word, and nothing is let go otherwise; `--undone` lists the mornings not yet done, each with a link to its session, read from the app's own session records; a morning never sat and holding nothing leaves the list when its session is archived, and comes back if it is unarchived. With `--state`, the board is used only when `--board FILE` names one.
 
 The dealer still accepts `--feel`, and the practice no longer passes it. `visits.jsonl` is tracked, and Loudon's own words stay in the page's diary, which is kept off git.
 
