@@ -15,18 +15,19 @@ forward_vector: "I am Shimmer Cloud's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-22T10:06:23.867Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-09T12:40:55.643Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-22 (today)
-- **Plan:** agreed 2026-10-21 (1 day ago) · 3 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 3 · last ran 2026-11-09 (today)
+- **Plan:** agreed 2026-10-21 (19 days ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-22 (today) — The feedback lens rebuilt your way: one interval jump at the door, then the prism on every pass. Five intervals, on a page that plays. (`shimmer-cloud-005`)
-- **Last commit touching this project:** 2026-10-22 `519dacc6` — steward(Shimmer Cloud): cycle 1 — SPINNING UP. HOME: [Shimmer Cloud](obsidian://open?vault=The%20Palace&f…
-- **Signal:** steady
+- **Last shipped:** 2026-10-22 (18 days ago) — The feedback lens rebuilt your way: one interval jump at the door, then the prism on every pass. Five intervals, on a page that plays. (`shimmer-cloud-005`)
+- **Last commit touching this project:** 2026-11-03 `a027a3f7` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 3 of 5: Projects, Q to Z (94 pages)
+- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
+- **Left uncommitted:** ⚠ 4 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Shimmer Cloud/proofs/2026-11-09-swell/draw_figure.py`, `Projects/Shimmer Cloud/proofs/2026-11-09-swell/make_page.py`, `Projects/Shimmer Cloud/proofs/2026-11-09-swell/render.log`, `Projects/Shimmer Cloud/proofs/2026-11-09-swell/render_swell.py`. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-22 — cycle 2 · taught item 2, proposed item 3 for canon
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-09 — cycle 3, posted nothing · nothing new
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
 - **Latest lesson:** item 3, from cycle 2 — 2026-10-22 — [[Shimmer Cloud — tuning]]
@@ -55,6 +56,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-09 — cycle 3, posted nothing · nothing new
 - 2026-10-22 — cycle 2 · taught item 2, proposed item 3 for canon
 - 2026-10-22 — cycle 1 · taught item 1
 
@@ -96,6 +98,13 @@ Every render comes with a page Loudon can play, the takes built in, like the rev
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-ade9495f2b" -->
+### 2026-11-09 — cycle 3, posted nothing
+
+nothing new
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shimmer-cloud-005" -->
 ### 2026-10-22 — cycle 2 — The feedback lens rebuilt your way: one interval jump at the door, then the prism on every pass. Five intervals, on a page that plays.
 > shipped · listening page ready · steward leans a fifth as the default going into the swell
