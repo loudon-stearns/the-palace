@@ -357,3 +357,7 @@ Coarse quantization flattens reality; fine quantization preserves detail. Binary
 ---
 
 *Perfect grid. Perfect time. Perfectly dead. Offset by 20ms. Dragging the beat. Perfectly alive. The drummer rushed. Fix it or keep it? Is it mistake or feel? Quantization can't tell the difference. Only you can. Choose the resolution that serves the music. Not the grid that serves the software.*
+
+## Active Baton
+
+[[Quantization ↔ Precision vs Flow — baton]] — drafted 2026-11-03
