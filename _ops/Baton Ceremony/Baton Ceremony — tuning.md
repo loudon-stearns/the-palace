@@ -109,3 +109,7 @@ What each baton taught the ceremony. Each item names what the run showed and the
 - run · 2026-11-08 · v1.6 · Compression ↔ Intimacy, rebuild the claim around nearness, trust and dread, a second Enrichment round, and the Rubin claims to check (commissioning, at the Daily Page) · nothing new
 - run · 2026-11-08 · v1.6 · Loudon Live Post-producer, the charter rewrite from the Daily Page sit (commissioning, at the Daily Page) · nothing new
 - run · 2026-11-08 · v1.6 · Quantization ↔ Precision vs Flow, commissioning (Daily Page) · nothing new
+
+## From the Daily Page's week-two review — 2026-11-03, carried 2026-11-09
+
+17. **A baton reached the board before its file was in git.** At the Daily Page of 2026-10-18, `baton-executor.mjs --post` announced `dissolutions-handoff-2026-10-18` mid-sit, so for the rest of the morning the board pointed at a file only the working tree held, and a crash would have left it pointing at nothing ([[The Daily Page — tuning]] item 34). The Daily Page's card now commits a baton when it is written and posts after (v1.6); the executor still appends the announce and then prints the commit (`_ops/closing-well/baton-executor.mjs:14-16`), and § Announcing the Baton on the Board does not say which comes first. **Change owed, open:** post at the commit that carries the baton, or commit the baton when it is written. Carried here because the executor is this ceremony's.
