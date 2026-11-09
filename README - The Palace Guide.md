@@ -42,7 +42,7 @@ This page holds almost nothing itself. It is the door. Say what you came for, an
 
 ## What did you come for?
 
-**To find out what this is.** Three short pages hold the heart of it.
+**To find out what this is.** The easiest way in is to walk it: [the palace's public site](https://loudon-stearns.github.io/the-palace/) shows every published page with its face, laid out by the Four Pillars. Three short pages hold the heart of it.
 [Cooperation Yields Agency](Cooperation%20Yields%20Agency.md) is the idea underneath everything: two who want the same thing and bring different strengths can do together what neither can alone.
 [Four Pillars](FOUR%20PILLARS.md) is the frame every page is tagged with: Creation, Tools, Philosophy, Practice.
 [Hilaritas Generator](Hilaritas%20Generator.md) is what good feels like here.
