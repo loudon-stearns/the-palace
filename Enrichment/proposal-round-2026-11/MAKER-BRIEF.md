@@ -15,6 +15,7 @@ From the owner's folder run:
 
 - Enrichment.md (the ceremony, v2.8 — the proposal round is now in the spec)
 - Enrichment/Enrichment — tuning.md (the tail read: items 1–11; item 11 is last round's, read it whole)
+- Enrichment/Enrichment — scroll.md § Standing Orders, whole: Loudon's orders on play first, on data visualization, and his words on the hook. Then open the two roughs in `Palace development/Pheromone Trail/proofs/2026-11-09-ants-on-topology/`.
 - _ops/rich-face/README.md, whole, especially § The manifest, § Media a face plays, § What the page lets run, § Making pieces
 - Kuramoto Coupling/Kuramoto Coupling — rich.json and two of its made pieces (the model)
 - Loudon Live Design System.md (the house dress for anything the public face shows; equations appear twice, symbols and words)

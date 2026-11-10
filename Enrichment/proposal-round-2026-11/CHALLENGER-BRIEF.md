@@ -20,6 +20,7 @@ In the worktree: `node _ops/rich-face/conform.mjs "<Entry>"` and `node _ops/rich
 ## 3. Judge every piece, with a reason
 
 Three questions, from the ceremony, for every piece:
+0. **Is there a hook?** Something outside the technical, at least a little out of the ordinary, that gives a reason to dig in. Loudon, 2026-11-10: "If an interaction or image is solely a chart with faders, then we should be suspicious." No hook is a remake, with the reason said.
 1. **Does it test the section's claim, or decorate it?** A piece that only illustrates what the text already says is decoration. A piece that could come out differently if the text were wrong is a test.
 2. **Is it faithful to what the text says?** The piece must not assert a claim the page does not make, change a number, or smooth a contradiction the page holds on purpose. The text wins. Where the piece disagrees with the text, that is an offer for Loudon, not a reason to retire, but say which it is.
 3. **Does it walk up?** It opens on one concept alone and reaches the test last. A piece that opens on the end of a proof fails this (tuning item 9, Loudon's own note).
