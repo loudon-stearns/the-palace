@@ -429,7 +429,3 @@ The commit body lists every substrate disposition (one line each), a `Palace-Res
 
 **The lean:** [where the palace is heading; quiet pages revived or put to sleep]
 ```
-
-## Active Baton
-
-[[Weave Ceremony — baton — deck-greys-answered-flags]] — drafted 2026-11-04
