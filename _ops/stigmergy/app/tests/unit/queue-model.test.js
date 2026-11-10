@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
-  buildQueue, reconcileQueue, partitionQueue, rankQueue, laneCounts, vantage, deriveAsk,
+  buildQueue, reconcileQueue, reconcileWeaveFlags, partitionQueue, rankQueue, laneCounts, vantage, deriveAsk,
   synthesizeProposalAsk, synthesizeFlagAsk, cardAge, STALE_AGE_MS,
 } from '../../src/lib/queue-model.js';
 
@@ -372,6 +372,119 @@ describe('buildQueue — weave_flag', () => {
       },
     })]);
     expect(q[0].pointer).toEqual({ type: 'board', target: 'WEAVE' });
+  });
+});
+
+// The deck greys an answered entry flag a commit closes, rather than losing it
+// (Weave Ceremony tuning item 59): QueuePanel runs
+// reconcileWeaveFlags(buildQueue(messages, commits), commits).
+describe('buildQueue — an answered entry flag a commit closes stays to grey', () => {
+  const grant = { id: 'g-wf', type: 'RESOURCE_GRANT', re: 'wf-1', board: 'WEAVE', ts: '2026-06-05T14:00:00Z' };
+  const deny = { ...grant, id: 'd-wf', type: 'RESOURCE_DENY' };
+  const commit = (shortHash, over = {}) => ({ shortHash, date: '2026-06-06T00:00:00Z', entries: [], resolves: [], declined: [], carried: [], ...over });
+  const deck = (messages, commits) => reconcileWeaveFlags(buildQueue(messages, commits), commits);
+
+  it('keeps a GRANTed flag a Palace-Resolves trailer closes, and greys it', () => {
+    const cs = [commit('aaa1111', { resolves: ['wf-1'] })];
+    const q = deck([flagMsg(), grant], cs);
+    expect(q).toHaveLength(1);
+    expect(q[0].id).toBe('wf-1');
+    expect(q[0].resolved).toEqual({ done: true, reason: 'resolved by commit aaa1111', commit: 'aaa1111' });
+  });
+
+  it('keeps a DENYed flag a Declined flag line closes, and greys it with the reason', () => {
+    const cs = [commit('bbb2222', { declined: [{ id: 'wf-1', note: 'the hub already links it' }] })];
+    const q = deck([flagMsg(), deny], cs);
+    expect(q).toHaveLength(1);
+    expect(q[0].resolved.done).toBe(true);
+    expect(q[0].resolved.reason).toBe('declined in commit bbb2222: the hub already links it');
+  });
+
+  it('reads a trailer listing several ids, as the linter does', () => {
+    const q = deck([flagMsg(), grant], [commit('ccc3333', { resolves: ['wf-0, wf-1'] })]);
+    expect(q.map((i) => i.id)).toEqual(['wf-1']);
+    expect(q[0].resolved.done).toBe(true);
+  });
+
+  it('still drops an answered flag no commit closes', () => {
+    const cs = [commit('ddd4444', { resolves: ['wf-2'], entries: ['Floquet Theory'] })];
+    expect(deck([flagMsg(), grant], cs)).toHaveLength(0);
+  });
+
+  it('matches the id as a whole token, not a substring (wf-10 does not close wf-1)', () => {
+    expect(deck([flagMsg(), grant], [commit('eee5555', { resolves: ['wf-10'] })])).toHaveLength(0);
+  });
+
+  it('without commits, an answered flag drops as before', () => {
+    expect(buildQueue([flagMsg(), grant])).toHaveLength(0);
+    expect(buildQueue([flagMsg(), grant], [])).toHaveLength(0);
+  });
+
+  it('an unanswered flag is unchanged by the commits argument', () => {
+    const cs = [commit('fff6666', { resolves: ['wf-1'] })];
+    expect(buildQueue([flagMsg()], cs)).toEqual(buildQueue([flagMsg()]));
+  });
+
+  it('keeps no answered card of another kind — only entry flags grey', () => {
+    const cs = [commit('aaa1111', { resolves: ['vp-1', 'stigmergy-todo-t1'] })];
+    const vpGrant = { id: 'g-vp', type: 'RESOURCE_GRANT', re: 'vp-1', ts: '2026-06-02T00:00:00Z' };
+    const todoGrant = { id: 'g-td', type: 'RESOURCE_GRANT', re: 'stigmergy-todo-t1', ts: '2026-06-09T00:00:00Z' };
+    expect(buildQueue([proposalMsg(), vpGrant, todoMsg(), todoGrant], cs)).toHaveLength(0);
+  });
+});
+
+// RETRACT withdraws the message its `re` names (SCHEMA — Reference §9). The
+// handoff case is above; these are the other cards.
+describe('buildQueue — RETRACT withdraws any card', () => {
+  const retract = (re, id = `r-${re}`) => ({
+    id, type: 'RETRACT', re, from: 'STIGMERGY', ts: '2026-06-10T00:00:00Z', board: 'WEAVE',
+    payload: { kind: 'retract', reason: 'posted in error' },
+  });
+
+  it('drops a retracted weave flag and keeps its repost', () => {
+    const q = buildQueue([flagMsg(), flagMsg({ id: 'wf-2' }), retract('wf-1')]);
+    expect(q.map((i) => i.id)).toEqual(['wf-2']);
+  });
+
+  it('drops a retracted weave flag even when a trailer closes it (the linter does not count it)', () => {
+    const grant = { id: 'g-wf', type: 'RESOURCE_GRANT', re: 'wf-1', ts: '2026-06-05T14:00:00Z' };
+    const cs = [{ shortHash: 'aaa1111', date: '2026-06-06T00:00:00Z', resolves: ['wf-1'], declined: [] }];
+    expect(buildQueue([flagMsg(), retract('wf-1')], cs)).toHaveLength(0);
+    expect(buildQueue([flagMsg(), grant, retract('wf-1')], cs)).toHaveLength(0);
+  });
+
+  it('drops a retracted propagate flag', () => {
+    const prop = flagMsg({ id: 'p-1', payload: { kind: 'weave_flag', flag_type: 'propagate', decision: 'say it plainly', target_entry: 'The Palace Voice' } });
+    expect(buildQueue([prop])).toHaveLength(1);
+    expect(buildQueue([prop, retract('p-1')])).toHaveLength(0);
+  });
+
+  it('drops a retracted vector_proposal and stigmergy_todo', () => {
+    expect(buildQueue([proposalMsg(), retract('vp-1')])).toHaveLength(0);
+    expect(buildQueue([todoMsg(), retract('stigmergy-todo-t1')])).toHaveLength(0);
+  });
+
+  it('drops a retracted RESOURCE_REQUEST named by its id or its request_id', () => {
+    expect(buildQueue([reqMsg(), retract('m1')])).toHaveLength(0);
+    expect(buildQueue([reqMsg(), retract('req-1')])).toHaveLength(0);
+  });
+
+  it('a retracted review send leaves its round; the other send keeps the card', () => {
+    const send = (id, note, ts) => ({
+      id, type: 'BROADCAST', from: 'TRICKSTER', ts, board: 'GENERAL',
+      payload: { kind: 'human_eval', entry: 'Kuramoto Coupling', overall: { note } },
+    });
+    const a = send('he-a', 'the bed is too loud', '2026-06-10T10:00:00Z');
+    const b = send('he-b', 'the slider reads backwards', '2026-06-10T11:00:00Z');
+    const q = buildQueue([a, b, retract('he-b')]);
+    expect(q).toHaveLength(1);
+    expect(q[0].id).toBe('he-a');
+    expect(q[0].notes.map((n) => n.note)).toEqual(['the bed is too loud']);
+    expect(buildQueue([a, retract('he-a')])).toHaveLength(0);
+  });
+
+  it('a RETRACT naming no card changes nothing', () => {
+    expect(buildQueue([flagMsg(), retract('nothing-here')]).map((i) => i.id)).toEqual(['wf-1']);
   });
 });
 
