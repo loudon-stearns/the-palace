@@ -29,7 +29,9 @@
 //   8. returns a `stop_hint` so a multi-cycle run (steward-lane.js) knows
 //      whether to keep going: 'shipped' | 'barren' | 'blocking_ask' |
 //      'interactive_session' | 'spawn_failed' (the worker never spoke — the
-//      cycle is not counted at all).
+//      cycle is not counted at all) | 'interrupted' (the worker was cut off
+//      before it posted: a usage limit or API error in the transcript, or a
+//      batch limit the caller names in `cutOff` — not counted either).
 //
 // Promoted from /tmp/process-cycle-v2.mjs (the 2026-05-27 batch finalizer).
 // Two changes from that throwaway: the palace root is configurable (no
@@ -328,6 +330,11 @@ export function processCycle(opts) {
     // 'plan' only plans the commit and returns it as commit.plan, for the
     // STIGMERGY lane, which commits it asynchronously.
     commit = false,
+    // The caller stopped the worker itself: `{ reason, detail }`, e.g.
+    // `{ reason: 'batch_limit', detail: 'batch clock: 60 of 60 min' }` from the
+    // steward lane's watchdog. A worker killed that way writes no error into
+    // its transcript, so only the caller can say it was cut off (2026-11-09).
+    cutOff = null,
   } = opts;
 
   if (!transcriptPath) throw new Error('processCycle: transcriptPath is required');
@@ -357,15 +364,31 @@ export function processCycle(opts) {
   // no barren accounting, no stall. Checked before the spawn-failure guard: a
   // limit on the very first call leaves zero model turns, and that is a cut-off,
   // not a launch that never ran.
-  if (messages.length === 0 && interruption) {
-    appendFileSync(join(agentDirAbs, 'history.jsonl'), JSON.stringify({
+  //
+  // A batch limit is a cut-off too (found 2026-11-09: seven cycles stopped by
+  // the lane's watchdog — the batch clock or the per-cycle ceiling — were
+  // scored barren, and Generative Preset Development and Shimmer Cloud went
+  // STALLED). The killed worker leaves no error in its transcript, so the
+  // transcript's own signal wins when there is one, else the caller's `cutOff`.
+  const cut = interruption
+    || (cutOff ? { reason: String(cutOff.reason || 'batch_limit'), error: String(cutOff.detail || cutOff.reason || 'stopped by a batch limit') } : null);
+  if (messages.length === 0 && cut) {
+    const histPath = join(agentDirAbs, 'history.jsonl');
+    appendFileSync(histPath, JSON.stringify({
       event: 'CYCLE_INTERRUPTED', ts: tsNow, attempted_cycle: cycleN, dispatched_by: dispatchedBy, model,
-      reason: interruption.reason,
-      error: interruption.error.slice(0, 300),
-      note: 'the worker was cut off before posting anything (usage limit or API error); not a barren cycle, iteration not advanced',
+      reason: cut.reason,
+      error: cut.error.slice(0, 300),
+      note: 'the worker was cut off before posting anything (a usage limit, an API error, or a batch limit that stopped it); not a barren cycle, iteration not advanced',
     }) + '\n');
+    // A cut-off worker often dies halfway through making something; name what
+    // it left in the bundle, as a barren cycle's record always did.
+    try {
+      const b = resolveBundleDir(palaceRoot, home);
+      const left = b ? uncommittedInBundle(palaceRoot, b.bundleDir, { home }) : [];
+      if (left.length) appendFileSync(histPath, JSON.stringify({ event: 'WORKSHOP_LEFTOVERS', ts: tsNow, cycle: cycleN, interrupted: true, count: left.length, paths: left.slice(0, 50) }) + '\n');
+    } catch { /* naming leftovers is best effort */ }
     return {
-      posted_ids: [], valid_count: 0, invalid_ids: [], errors: [{ interrupted: true, reason: interruption.reason, error: interruption.error.slice(0, 300) }],
+      posted_ids: [], valid_count: 0, invalid_ids: [], errors: [{ interrupted: true, reason: cut.reason, error: cut.error.slice(0, 300) }],
       pending_after: null, resolved_count_after: null, backstop: [], artifact_lint_warnings: [],
       stop_hint: 'interrupted', barren: false, stalled: false, spawn_failed: false, interrupted: true, usage_limit,
       scroll: { written: false, reason: 'interrupted' }, commit: null,
@@ -529,6 +552,10 @@ export function processCycle(opts) {
       const lines = readFileSync(join(agentDirAbs, 'history.jsonl'), 'utf8').trim().split('\n').filter(Boolean);
       for (let i = lines.length - 1; i >= 0; i--) {
         let e; try { e = JSON.parse(lines[i]); } catch { continue; }
+        // A reviewed STALL_CLEARED (the barren cycles were cut-offs, not
+        // idling) ends the count here as it does on the scroll (readStall), so
+        // one later quiet cycle is not called STALLED on a cleared streak.
+        if (e.event === 'STALL_CLEARED') return false;
         if (e.event === 'CYCLE_COMPLETE') return !(Array.isArray(e.posted_messages) && e.posted_messages.length);
       }
     } catch { /* no history */ }

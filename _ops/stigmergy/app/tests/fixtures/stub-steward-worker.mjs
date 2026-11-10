@@ -17,8 +17,10 @@
 //   --sleep <ms>     stay alive before emitting + exiting (default 0)
 //   --from <name>    the emitted message's `from` / page title (default "Stub Steward")
 //   --msg-id <id>    the emitted message id (default stub-msg-<ts>-<rand>)
-//   --emit <mode>    message | none | blocking | session | silent   (default message)
+//   --emit <mode>    message | none | blocking | session | silent | stall   (default message)
 //                    silent = exit with an EMPTY transcript (a spawn failure: the model never ran)
+//                    stall  = one working assistant turn at once, then hang for --sleep ms and
+//                             exit with nothing more (a cycle the lane's watchdog stops mid-work)
 //                    blocking/session emit a RESOURCE_REQUEST that ends a run
 //   --count-file <p> when set, append one line per invocation (run-loop tests)
 
@@ -70,4 +72,11 @@ function emitTranscript() {
   process.stdout.write(JSON.stringify(record) + '\n');
 }
 
-setTimeout(() => { emitTranscript(); process.exit(0); }, sleepMs);
+if (emit === 'stall') {
+  // A real worker at work: it has spoken, it posts nothing yet, and it is
+  // still busy when the watchdog's SIGTERM arrives (no result line, no error).
+  process.stdout.write(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: 'Rendering the long take now.' }], usage: { input_tokens: 5, output_tokens: 8 } } }) + '\n');
+  setTimeout(() => process.exit(0), sleepMs);
+} else {
+  setTimeout(() => { emitTranscript(); process.exit(0); }, sleepMs);
+}

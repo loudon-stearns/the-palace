@@ -205,7 +205,8 @@ export function runCapFor(manifest, override = null) {
  *   blocking_ask         → stop (Loudon's move)
  *   interactive_session  → stop (a conversation, not a cycle)
  *   spawn_failed         → stop at once, no retry — the worker never ran
- *   interrupted          → stop at once, no retry — the worker was cut off (a usage limit)
+ *   interrupted          → stop at once, no retry — the worker was cut off (a usage limit,
+ *                          an API error, or this lane's watchdog on a batch limit)
  *                          (retrying an environment failure just repeats it)
  */
 export function nextRunStep(run, stopHint) {
@@ -301,11 +302,17 @@ export function createStewardLane(opts = {}) {
   // one slow cycle ran 91 minutes under a 60-minute limit (the first heartbeat
   // under limits — Semantic Webcam, 20 turns in 87 minutes, API-bound). Now a
   // timer looks every 30 s while a worker is alive and sends it SIGTERM when
-  // the batch clock or the per-cycle ceiling is passed; the reap then counts
-  // the cycle as interrupted and limitHit drops the queue as before.
+  // the batch clock or the per-cycle ceiling is passed; limitHit then drops
+  // the queue as before. A killed worker writes no error into its transcript,
+  // so the watchdog remembers why it stopped the cycle and the reap hands that
+  // to processCycle as `cutOff`: the cycle is interrupted, not barren, and
+  // cannot feed the two-barren STALLED rule (2026-11-09; before this, seven
+  // such cycles were scored barren and two working stewards went STALLED).
   let watchdog = null;
+  const watchdogMs = Number.isFinite(opts.watchdogMs) && opts.watchdogMs > 0 ? opts.watchdogMs : 30000; // tests shorten it
   let cycleStarted = null;
   let cycleCeilingMin = null;  // per-cycle ceiling for the live fire, minutes (null = none)
+  let cutOffBy = null;         // why the watchdog stopped the live fire (null = it did not)
   function cycleOverrun() {
     const now = Date.now();
     const L = batch.limits;
@@ -322,9 +329,10 @@ export function createStewardLane(opts = {}) {
       if (!alive.running || !alive.pid) { stopWatchdog(); return; }
       logLine(`watchdog — ${why}: stopping ${current || 'the live worker'} (pid ${alive.pid})`);
       if (!batch.stopped_because) batch.stopped_because = why;
+      cutOffBy = why;
       try { process.kill(alive.pid, 'SIGTERM'); } catch (_) { /* already gone */ }
       stopWatchdog();
-    }, 30000);
+    }, watchdogMs);
     if (typeof watchdog.unref === 'function') watchdog.unref();
   }
   function stopWatchdog() { if (watchdog) { clearInterval(watchdog); watchdog = null; } }
@@ -371,6 +379,8 @@ export function createStewardLane(opts = {}) {
   // a throw can never escape into the exit handler -- that would crash Vite.
   function reap(ctx) {
     stopWatchdog();
+    const cutOff = cutOffBy ? { reason: 'batch_limit', detail: cutOffBy } : null; // the watchdog stopped this fire
+    cutOffBy = null;
     const meta = ctx && ctx.meta;
     const run = (meta && meta.run) || { cap: 1, position: 1, retried: false };
     // A live run honours a cap lowered mid-run (2026-10-13): re-read the
@@ -400,6 +410,7 @@ export function createStewardLane(opts = {}) {
         tsNow: meta.tsNow,
         dispatchedBy: 'bbs-actuator',
         boardPath,
+        cutOff,
         // The cycle commits what it shipped, but not here: this runs on the
         // server's event loop, and the server may be holding the door for a
         // commit of its own. A blocking commit would wait on the server, which
@@ -541,7 +552,7 @@ export function createStewardLane(opts = {}) {
     });
     current = r.fired ? name : null;
     currentRun = r.fired ? { name, ...thisRun, cycle_n: cycleN } : null;
-    if (r.fired) { cycleStarted = Date.now(); startWatchdog(); } else { cycleStarted = null; }
+    if (r.fired) { cutOffBy = null; cycleStarted = Date.now(); startWatchdog(); } else { cycleStarted = null; }
     currentTranscript = r.fired ? transcriptPath : null;
     return { ok: !!r.fired, fired: !!r.fired, found: true, msg: r.msg, name, cycle_n: cycleN, model, run: thisRun };
   }
