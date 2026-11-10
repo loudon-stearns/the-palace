@@ -23,9 +23,10 @@
 //      missing_connection_audit, section_expansion, hub_candidate,
 //      mirror_link_sweep, standard_reference. Carries source_entries: [string]
 //      so a commit touching any one of them closes it via reconcileQueue.
-//      Same RESOURCE_GRANT/RESOURCE_DENY close path as vector_proposal, except
-//      that an answered entry flag a commit closes stays to grey (buildQueue's
-//      `commits`), so the deck counts what lint-weave-flags.py counts.
+//      Unlike a vector_proposal, a GRANT/DENY does not retire an entry flag:
+//      the Weave still has to carry it out and lint-weave-flags.py still counts
+//      it, so it stays, marked `answered`, until a trailer or a Declined line
+//      greys it (reconcileWeaveFlags).
 //      A PROPAGATE flag (flag_type 'propagate') is a decision for every page:
 //      no source entries, never closed by a GRANT/DENY or a touch, only by a
 //      Palace-Resolves trailer — see reconcileWeaveFlags.)
@@ -37,7 +38,15 @@
 //      the page, or a RESOURCE_GRANT/DENY.)
 //
 // A RETRACT whose `re` names any of these messages withdraws its card
-// (SCHEMA — Reference §9), as it does a handoff_ready.
+// (SCHEMA — Reference §9), as it does a handoff_ready. A RETRACT whose `re`
+// names an answer withdraws the answer, and the card it retired is back in
+// play: a GRANT/DENY retracted leaves its card unanswered; a handoff_closed
+// retracted leaves its handoff claimed (or open, if no live claim); a claim
+// retracted leaves it open. A RETRACT naming a RETRACT does nothing: the first
+// retraction stands. Retracting a partial close leaves the remainder it posted
+// standing: a handoff_ready of its own, retracted by name if it should go too
+// (mirrors _ops/stigmergy/handoff-model.mjs foldHandoffs). A commit that
+// closed a weave flag still closes it, whatever becomes of its answer.
 //
 // reconcileQueue() layers git resolution on top: given the LOG commits, it
 // marks an item resolved when its stale_if is satisfied — the prospective →
@@ -53,33 +62,33 @@ import { normalizeApplyOp } from './weave-apply-op.js';
 // git (reconcileQueue). Here we only drop handoff_ready items that have an
 // explicit board-level "consumed" acknowledgement (a BROADCAST whose payload
 // references the handoff id as picked-up), which is rare; git is the main path.
-//
-// `commits` (optional, the LOG shape reconcileWeaveFlags reads) lets an entry
-// flag a GRANT/DENY answered stay in the list when a commit closes it, so the
-// deck greys it rather than the flag vanishing — the deck then counts what
-// lint-weave-flags.py counts. Without commits an answered entry flag drops, as
-// before.
-export function buildQueue(messages, commits = null) {
+export function buildQueue(messages) {
   if (!Array.isArray(messages)) return [];
   const items = [];
-  const cs = Array.isArray(commits) ? commits : null;
 
-  // Resource requests + vector proposals are both answered by RESOURCE_GRANT
-  // / RESOURCE_DENY messages that carry `re: <message_id>`. One shared set
-  // covers both (the dedup is by the answered message's id).
-  const responded = new Set();
   // A RETRACT withdraws the message its `re` names (SCHEMA — Reference §9): the
-  // card that message raised leaves the list, whatever its kind. Keyed the same
-  // way, by the withdrawn message's id (a request's request_id is honoured too).
+  // card that message raised leaves the list, whatever its kind, and an answer
+  // it names no longer answers. Keyed by the withdrawn message's id (a
+  // request's request_id is honoured too). A RETRACT is never itself withdrawn.
   const retracted = new Set();
   for (const m of messages) {
-    if ((m?.type === 'RESOURCE_GRANT' || m?.type === 'RESOURCE_DENY') && m.re) {
-      responded.add(m.re);
-    }
     if (m?.type === 'RETRACT' && typeof m.re === 'string' && m.re) retracted.add(m.re);
   }
-  const isRetracted = (m) => retracted.has(m.id)
-    || (m.type === 'RESOURCE_REQUEST' && m.request_id != null && retracted.has(m.request_id));
+  const isRetracted = (m) => m.type !== 'RETRACT' && (retracted.has(m.id)
+    || (m.type === 'RESOURCE_REQUEST' && m.request_id != null && retracted.has(m.request_id)));
+
+  // Resource requests + vector proposals are both answered by RESOURCE_GRANT
+  // / RESOURCE_DENY messages that carry `re: <message_id>`. One shared map
+  // covers both (the dedup is by the answered message's id); it keeps the
+  // latest live answer, so an entry flag can say who answered it and when. A
+  // retracted answer is no answer.
+  const answers = new Map();                   // answered message id -> latest live answer
+  for (const m of messages) {
+    if ((m?.type === 'RESOURCE_GRANT' || m?.type === 'RESOURCE_DENY') && m.re && !retracted.has(m.id)) {
+      answers.set(m.re, m);
+    }
+  }
+  const responded = new Set(answers.keys());
 
   // Handoff lifecycle — three states, folded from board events (mirrors
   // _ops/stigmergy/handoff-model.mjs and STIGMERGY.md § Handoff Lifecycle):
@@ -94,13 +103,16 @@ export function buildQueue(messages, commits = null) {
   // A lifecycle message names its handoff two ways, both honored: payload
   // handoff_id and the top-level `re`. Done is NEVER inferred from git — only an
   // explicit close (or the migration grandfather) retires a card. A RETRACT
-  // whose `re` names a handoff_ready withdraws it too (SCHEMA — Reference §9).
+  // whose `re` names a handoff_ready withdraws it too (SCHEMA — Reference §9);
+  // one that names a close or a claim withdraws that event, so the card falls
+  // back to claimed or open.
   const closedHandoffs = new Set();
   const claimByHandoff = new Map();            // handoff_ready id -> its claim message
   for (const m of messages) {
     if (m?.type === 'RETRACT' && typeof m.re === 'string' && m.re) { closedHandoffs.add(m.re); continue; }
     const p = m?.payload;
     if (!p || (p.kind !== 'handoff_closed' && p.kind !== 'handoff_picked_up')) continue;
+    if (retracted.has(m.id)) continue;         // a withdrawn close or claim moves nothing
     const refs = [];
     if (typeof p.handoff_id === 'string' && p.handoff_id) refs.push(p.handoff_id);
     if (typeof m.re === 'string' && m.re) refs.push(m.re);
@@ -199,12 +211,12 @@ export function buildQueue(messages, commits = null) {
       continue;
     }
 
-    // A propagate flag is a decision Loudon already made; a GRANT/DENY on the
-    // board neither finishes nor retires it (Weave Ceremony Step 0c), so it stays.
-    // An entry flag a GRANT/DENY answered stays too when a commit closes it (a
-    // trailer or a Declined line), so reconcileWeaveFlags greys it.
-    if (p.kind === 'weave_flag' && (p.flag_type === 'propagate' || !responded.has(m.id)
-      || (cs && weaveFlagClose(m.id, false, cs)))) {
+    // A GRANT/DENY never retires a weave flag. A propagate flag is a decision
+    // Loudon already made, so an answer means nothing to it (Weave Ceremony
+    // Step 0c). An entry flag Loudon granted or denied stays, marked `answered`:
+    // the Weave still has to carry it out and the linter still counts it, so a
+    // grant must never look like done. A trailer or a Declined line greys it.
+    if (p.kind === 'weave_flag') {
       // source_entries is an array of entry titles. We expose it as `entries`
       // on the queue item so reconcileQueue's array-aware entry-touch path
       // can close the flag when a commit touches any one of them. We also
@@ -257,13 +269,16 @@ export function buildQueue(messages, commits = null) {
           : propagate
             ? `a commit carries Palace-Resolves: ${m.id} once the check is clean`
             : (sourceEntries.length > 0
-                ? `a commit touches any of [${sourceEntries.join(', ')}], or a RESOURCE_GRANT/DENY answers this flag`
-                : 'a RESOURCE_GRANT or RESOURCE_DENY answers this flag'),
+                ? `a commit touches any of [${sourceEntries.join(', ')}], or a commit carries Palace-Resolves: ${m.id} or a decline line for it`
+                : `a commit carries Palace-Resolves: ${m.id} or a decline line for it`),
         // A propagate flag points at its decision's home; it still names no
         // `entry`, so no touch to that page can close it.
         pointer: primary ? { type: 'entry', target: primary }
           : (propagate && targetEntry ? { type: 'entry', target: targetEntry } : { type: 'board', target: m.board }),
         carried: null,
+        // Loudon's live answer to an entry flag, or null: granted or denied, and
+        // waiting on the commit that carries it out. Never set on a propagate flag.
+        answered: !propagate && answers.has(m.id) ? answerOf(answers.get(m.id)) : null,
         resolved: { done: false, reason: null, commit: null },
         blocking: p.blocking === true,
         health: m.health || null,
@@ -364,6 +379,18 @@ export function buildQueue(messages, commits = null) {
   items.push(...buildReviewCards(messages.filter((m) => !(m && typeof m === 'object' && isRetracted(m))), responded));
 
   return rankQueue(items);
+}
+
+// The answer a card shows: { type: 'grant' | 'deny', by, id, ts, option }.
+function answerOf(a) {
+  const p = a.payload || {};
+  return {
+    type: a.type === 'RESOURCE_DENY' ? 'deny' : 'grant',
+    by: a.from || null,
+    id: a.id || null,
+    ts: a.ts || null,
+    option: (typeof p.option_label === 'string' && p.option_label) || (typeof p.option_id === 'string' && p.option_id) || null,
+  };
 }
 
 // ── Rich-face review notes: one card per page and round ──────────────────────
@@ -598,8 +625,8 @@ const flagLineFor = (list, id) => (Array.isArray(list) ? list.find((d) => flagNa
 
 // The commit that closes a weave flag, by the first two rules above: a
 // Palace-Resolves trailer naming it closes any flag, a Declined line closes an
-// entry flag. Returns { commit, reason } or null. buildQueue asks it too, to
-// keep an answered entry flag that a commit closes.
+// entry flag. Returns { commit, reason } or null. An answer on the board, live
+// or retracted, plays no part: a commit that closed a flag still closes it.
 function weaveFlagClose(id, isPropagate, cs) {
   const byResolve = cs.find((c) => Array.isArray(c.resolves)
     && c.resolves.some((r) => String(r).split(/[\s,]+/).includes(id)));

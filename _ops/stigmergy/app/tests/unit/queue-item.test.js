@@ -100,3 +100,47 @@ describe('QueueItem — human_eval (a rich-face review note)', () => {
     expect(html).not.toContain('data-testid="queue-item-grant"');
   });
 });
+
+// An entry flag Loudon granted or denied that no commit has closed: it stays on
+// the deck as answered, waiting on a commit, and offers no second answer.
+describe('QueueItem — an answered weave flag', () => {
+  const flag = (over = {}) => ({
+    id: 'wf-1', kind: 'weave_flag', from: 'deposit-ceremony', ts: '2026-11-01T10:00:00Z', board: 'WEAVE',
+    flag_type: 'backlink_audit', ask: 'add the backlink', propagate: null,
+    pointer: { type: 'board', target: 'WEAVE' }, resolved: { done: false, reason: null, commit: null },
+    answered: null, ...over,
+  });
+  const html = (item) => renderToStaticMarkup(React.createElement(QueueItem, { item, onRespond: () => {}, onClear: () => {} }));
+  const granted = { type: 'grant', by: 'TRICKSTER', id: 'g-wf', ts: '2026-11-02T09:00:00Z', option: null };
+
+  it('an open flag offers grant and deny, and no answered badge', () => {
+    const h = html(flag());
+    expect(h).toContain('data-testid="queue-item-grant"');
+    expect(h).not.toContain('data-testid="queue-item-answered"');
+    expect(h).toContain('data-answered="false"');
+  });
+
+  it('a granted flag shows "+ GRANTED -- waiting on a commit" and no grant or deny', () => {
+    const h = html(flag({ answered: granted }));
+    expect(h).toContain('data-testid="queue-item-answered"');
+    expect(h).toContain('data-answered="grant"');
+    expect(h).toContain('+ GRANTED -- waiting on a commit');
+    expect(h).not.toContain('data-testid="queue-item-grant"');
+    expect(h).not.toContain('data-testid="queue-item-deny"');
+    expect(h).not.toContain('data-testid="queue-item-custom"');
+    expect(h).not.toContain('data-testid="queue-item-resolved"');
+  });
+
+  it('a denied flag shows "x DENIED", with the option label when there was one', () => {
+    const h = html(flag({ answered: { ...granted, type: 'deny', option: 'not this weave' } }));
+    expect(h).toContain('x DENIED -- not this weave -- waiting on a commit');
+  });
+
+  it('once a commit closes it, it greys as before and the answered badge goes', () => {
+    const h = html(flag({ answered: granted, resolved: { done: true, reason: 'resolved by commit aaa1111', commit: 'aaa1111' } }));
+    expect(h).toContain('data-testid="queue-item-resolved"');
+    expect(h).toContain('looks done -- resolved by commit aaa1111');
+    expect(h).not.toContain('data-testid="queue-item-answered"');
+    expect(h).not.toContain('data-testid="queue-item-grant"');
+  });
+});

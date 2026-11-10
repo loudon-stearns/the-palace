@@ -336,20 +336,32 @@ describe('buildQueue — weave_flag', () => {
     expect(it.stale_if).toMatch(/Floquet Theory|Kuramoto Coupling/);
   });
 
-  it('drops a weave_flag answered by RESOURCE_GRANT', () => {
+  it('keeps a weave_flag answered by RESOURCE_GRANT, marked answered and not resolved', () => {
     const grant = {
-      id: 'g-wf', type: 'RESOURCE_GRANT', re: 'wf-1', board: 'WEAVE',
+      id: 'g-wf', type: 'RESOURCE_GRANT', re: 'wf-1', board: 'WEAVE', from: 'TRICKSTER',
       ts: '2026-06-05T14:00:00Z',
     };
-    expect(buildQueue([flagMsg(), grant])).toHaveLength(0);
+    const q = buildQueue([flagMsg(), grant]);
+    expect(q).toHaveLength(1);
+    expect(q[0].answered).toEqual({ type: 'grant', by: 'TRICKSTER', id: 'g-wf', ts: '2026-06-05T14:00:00Z', option: null });
+    expect(q[0].resolved.done).toBe(false);
   });
 
-  it('drops a weave_flag answered by RESOURCE_DENY', () => {
+  it('keeps a weave_flag answered by RESOURCE_DENY, marked answered', () => {
     const deny = {
       id: 'd-wf', type: 'RESOURCE_DENY', re: 'wf-1', board: 'WEAVE',
       ts: '2026-06-05T14:00:00Z',
     };
-    expect(buildQueue([flagMsg(), deny])).toHaveLength(0);
+    const q = buildQueue([flagMsg(), deny]);
+    expect(q).toHaveLength(1);
+    expect(q[0].answered).toMatchObject({ type: 'deny', id: 'd-wf' });
+  });
+
+  it('an unanswered weave_flag carries answered: null, and a stale_if no answer can meet', () => {
+    const [it] = buildQueue([flagMsg()]);
+    expect(it.answered).toBeNull();
+    expect(it.stale_if).not.toMatch(/GRANT|DENY/);
+    expect(it.stale_if).toMatch(/Palace-Resolves: wf-1/);
   });
 
   it('synthesizes an ask from flag_type + source_entries when proposed_action is absent', () => {
@@ -375,24 +387,26 @@ describe('buildQueue — weave_flag', () => {
   });
 });
 
-// The deck greys an answered entry flag a commit closes, rather than losing it
-// (Weave Ceremony tuning item 59): QueuePanel runs
-// reconcileWeaveFlags(buildQueue(messages, commits), commits).
-describe('buildQueue — an answered entry flag a commit closes stays to grey', () => {
+// An entry flag Loudon granted or denied stays on the deck, marked answered,
+// until a commit closes it; then it greys (Weave Ceremony tuning item 59 and
+// Loudon's ruling of 2026-11-10). QueuePanel runs
+// reconcileWeaveFlags(buildQueue(messages), commits).
+describe('buildQueue — an answered entry flag stays, answered, until a commit greys it', () => {
   const grant = { id: 'g-wf', type: 'RESOURCE_GRANT', re: 'wf-1', board: 'WEAVE', ts: '2026-06-05T14:00:00Z' };
   const deny = { ...grant, id: 'd-wf', type: 'RESOURCE_DENY' };
   const commit = (shortHash, over = {}) => ({ shortHash, date: '2026-06-06T00:00:00Z', entries: [], resolves: [], declined: [], carried: [], ...over });
-  const deck = (messages, commits) => reconcileWeaveFlags(buildQueue(messages, commits), commits);
+  const deck = (messages, commits) => reconcileWeaveFlags(buildQueue(messages), commits);
 
-  it('keeps a GRANTed flag a Palace-Resolves trailer closes, and greys it', () => {
+  it('greys a GRANTed flag a Palace-Resolves trailer closes', () => {
     const cs = [commit('aaa1111', { resolves: ['wf-1'] })];
     const q = deck([flagMsg(), grant], cs);
     expect(q).toHaveLength(1);
     expect(q[0].id).toBe('wf-1');
     expect(q[0].resolved).toEqual({ done: true, reason: 'resolved by commit aaa1111', commit: 'aaa1111' });
+    expect(q[0].answered.type).toBe('grant');
   });
 
-  it('keeps a DENYed flag a Declined flag line closes, and greys it with the reason', () => {
+  it('greys a DENYed flag a decline line closes, with the reason', () => {
     const cs = [commit('bbb2222', { declined: [{ id: 'wf-1', note: 'the hub already links it' }] })];
     const q = deck([flagMsg(), deny], cs);
     expect(q).toHaveLength(1);
@@ -406,30 +420,29 @@ describe('buildQueue — an answered entry flag a commit closes stays to grey', 
     expect(q[0].resolved.done).toBe(true);
   });
 
-  it('still drops an answered flag no commit closes', () => {
+  it('keeps an answered flag no commit closes, answered and not resolved', () => {
     const cs = [commit('ddd4444', { resolves: ['wf-2'], entries: ['Floquet Theory'] })];
-    expect(deck([flagMsg(), grant], cs)).toHaveLength(0);
+    const q = deck([flagMsg(), grant], cs);
+    expect(q).toHaveLength(1);
+    expect(q[0].answered).toMatchObject({ type: 'grant', id: 'g-wf' });
+    expect(q[0].resolved.done).toBe(false);
   });
 
   it('matches the id as a whole token, not a substring (wf-10 does not close wf-1)', () => {
-    expect(deck([flagMsg(), grant], [commit('eee5555', { resolves: ['wf-10'] })])).toHaveLength(0);
+    const q = deck([flagMsg(), grant], [commit('eee5555', { resolves: ['wf-10'] })]);
+    expect(q[0].resolved.done).toBe(false);
   });
 
-  it('without commits, an answered flag drops as before', () => {
-    expect(buildQueue([flagMsg(), grant])).toHaveLength(0);
-    expect(buildQueue([flagMsg(), grant], [])).toHaveLength(0);
+  it('the latest live answer is the one shown, and its option label rides along', () => {
+    const later = { id: 'g-wf-2', type: 'RESOURCE_GRANT', re: 'wf-1', from: 'TRICKSTER', ts: '2026-06-05T15:00:00Z', payload: { option_id: 'b', option_label: 'add it as mirrors' } };
+    const [it] = buildQueue([flagMsg(), deny, later]);
+    expect(it.answered).toEqual({ type: 'grant', by: 'TRICKSTER', id: 'g-wf-2', ts: '2026-06-05T15:00:00Z', option: 'add it as mirrors' });
   });
 
-  it('an unanswered flag is unchanged by the commits argument', () => {
-    const cs = [commit('fff6666', { resolves: ['wf-1'] })];
-    expect(buildQueue([flagMsg()], cs)).toEqual(buildQueue([flagMsg()]));
-  });
-
-  it('keeps no answered card of another kind — only entry flags grey', () => {
-    const cs = [commit('aaa1111', { resolves: ['vp-1', 'stigmergy-todo-t1'] })];
+  it('still drops an answered card of another kind; only entry flags stay', () => {
     const vpGrant = { id: 'g-vp', type: 'RESOURCE_GRANT', re: 'vp-1', ts: '2026-06-02T00:00:00Z' };
     const todoGrant = { id: 'g-td', type: 'RESOURCE_GRANT', re: 'stigmergy-todo-t1', ts: '2026-06-09T00:00:00Z' };
-    expect(buildQueue([proposalMsg(), vpGrant, todoMsg(), todoGrant], cs)).toHaveLength(0);
+    expect(buildQueue([proposalMsg(), vpGrant, todoMsg(), todoGrant])).toHaveLength(0);
   });
 });
 
@@ -449,8 +462,8 @@ describe('buildQueue — RETRACT withdraws any card', () => {
   it('drops a retracted weave flag even when a trailer closes it (the linter does not count it)', () => {
     const grant = { id: 'g-wf', type: 'RESOURCE_GRANT', re: 'wf-1', ts: '2026-06-05T14:00:00Z' };
     const cs = [{ shortHash: 'aaa1111', date: '2026-06-06T00:00:00Z', resolves: ['wf-1'], declined: [] }];
-    expect(buildQueue([flagMsg(), retract('wf-1')], cs)).toHaveLength(0);
-    expect(buildQueue([flagMsg(), grant, retract('wf-1')], cs)).toHaveLength(0);
+    expect(reconcileWeaveFlags(buildQueue([flagMsg(), retract('wf-1')]), cs)).toHaveLength(0);
+    expect(reconcileWeaveFlags(buildQueue([flagMsg(), grant, retract('wf-1')]), cs)).toHaveLength(0);
   });
 
   it('drops a retracted propagate flag', () => {
@@ -485,6 +498,95 @@ describe('buildQueue — RETRACT withdraws any card', () => {
 
   it('a RETRACT naming no card changes nothing', () => {
     expect(buildQueue([flagMsg(), retract('nothing-here')]).map((i) => i.id)).toEqual(['wf-1']);
+  });
+});
+
+// Retracting an answer puts the card it retired back in play (Loudon,
+// 2026-11-10: "retracting an answer should reopen a card").
+describe('buildQueue — a retracted answer reopens its card', () => {
+  const retract = (re, id = `r-${re}`) => ({
+    id, type: 'RETRACT', re, from: 'TRICKSTER', ts: '2026-06-10T00:00:00Z', board: 'TRICKSTER',
+    payload: { kind: 'retract', reason: 'answered in error' },
+  });
+  const answer = (re, id, type = 'RESOURCE_GRANT') => ({ id, type, re, from: 'TRICKSTER', ts: '2026-06-09T00:00:00Z', board: 'TRICKSTER', payload: {} });
+  const claim = (re, id = `claim-${re}`) => ({ id, type: 'BROADCAST', re, ts: '2026-05-29T10:00:00Z', board: 'GENERAL', from: 'catcher', payload: { kind: 'handoff_picked_up', handoff_id: re, lifecycle: 'claim' } });
+  const close = (re, id = `close-${re}`, extra = {}) => ({ id, type: 'BROADCAST', re, ts: '2026-05-29T11:00:00Z', board: 'GENERAL', from: 'catcher', payload: { kind: 'handoff_closed', handoff_id: re, ...extra } });
+
+  it('a retracted GRANT leaves its request unanswered again', () => {
+    expect(buildQueue([reqMsg(), answer('req-1', 'g1')])).toHaveLength(0);
+    const q = buildQueue([reqMsg(), answer('req-1', 'g1'), retract('g1')]);
+    expect(q.map((i) => i.id)).toEqual(['req-1']);
+  });
+
+  it('a retracted DENY reopens a vector_proposal and a to-do', () => {
+    const q = buildQueue([proposalMsg(), answer('vp-1', 'd1', 'RESOURCE_DENY'), retract('d1'),
+      todoMsg(), answer('stigmergy-todo-t1', 'd2', 'RESOURCE_DENY'), retract('d2')]);
+    expect(q.map((i) => i.id).sort()).toEqual(['stigmergy-todo-t1', 'vp-1']);
+  });
+
+  it('a retracted answer to an entry flag returns it to plain open, not answered', () => {
+    const [it] = buildQueue([flagMsg(), answer('wf-1', 'g-wf'), retract('g-wf')]);
+    expect(it.id).toBe('wf-1');
+    expect(it.answered).toBeNull();
+  });
+
+  it('with two answers, retracting the later one shows the earlier', () => {
+    const later = { ...answer('wf-1', 'g-late'), ts: '2026-06-09T12:00:00Z' };
+    const [it] = buildQueue([flagMsg(), answer('wf-1', 'd-early', 'RESOURCE_DENY'), later, retract('g-late')]);
+    expect(it.answered).toMatchObject({ type: 'deny', id: 'd-early' });
+  });
+
+  it('an answer retracted after a commit closed the flag: the commit still closes it', () => {
+    const cs = [{ shortHash: 'aaa1111', date: '2026-06-06T00:00:00Z', resolves: ['wf-1'], declined: [] }];
+    const [it] = reconcileWeaveFlags(buildQueue([flagMsg(), answer('wf-1', 'g-wf'), retract('g-wf')]), cs);
+    expect(it.resolved).toMatchObject({ done: true, commit: 'aaa1111' });
+    expect(it.answered).toBeNull();
+  });
+
+  it('a retracted answer reopens a review card', () => {
+    const send = { id: 'he-a', type: 'BROADCAST', from: 'TRICKSTER', ts: '2026-06-10T10:00:00Z', board: 'GENERAL',
+      payload: { kind: 'human_eval', entry: 'Kuramoto Coupling', overall: { note: 'the bed is too loud' } } };
+    expect(buildQueue([send, answer('he-a', 'g-he')])).toHaveLength(0);
+    expect(buildQueue([send, answer('he-a', 'g-he'), retract('g-he')]).map((i) => i.id)).toEqual(['he-a']);
+  });
+
+  it('a retracted handoff_closed leaves the handoff claimed when its claim stands', () => {
+    const q = buildQueue([handoffMsg(), claim('h1'), close('h1'), retract('close-h1')]);
+    expect(q).toHaveLength(1);
+    expect(q[0]).toMatchObject({ id: 'h1', state: 'claimed' });
+  });
+
+  it('a retracted handoff_closed with no claim leaves the handoff open', () => {
+    const q = buildQueue([handoffMsg(), close('h1'), retract('close-h1')]);
+    expect(q[0]).toMatchObject({ id: 'h1', state: 'open' });
+  });
+
+  it('a retracted claim leaves the handoff open; a retracted claim and close, open', () => {
+    expect(buildQueue([handoffMsg(), claim('h1'), retract('claim-h1')])[0]).toMatchObject({ state: 'open' });
+    const q = buildQueue([handoffMsg(), claim('h1'), close('h1'), retract('close-h1'), retract('claim-h1')]);
+    expect(q[0]).toMatchObject({ id: 'h1', state: 'open' });
+  });
+
+  it('a retracted legacy pickup (no claim marker) reopens the handoff', () => {
+    const legacy = { id: 'pk-legacy', type: 'BROADCAST', re: 'h1', ts: '2026-05-29T10:00:00Z', payload: { kind: 'handoff_picked_up', handoff_id: 'h1' } };
+    expect(buildQueue([handoffMsg(), legacy])).toHaveLength(0);
+    expect(buildQueue([handoffMsg(), legacy, retract('pk-legacy')])[0]).toMatchObject({ state: 'open' });
+  });
+
+  it('retracting a partial close reopens the original; the remainder it posted stays, retracted only by name', () => {
+    const remainder = handoffMsg({ id: 'h1-remainder', payload: { kind: 'handoff_ready', entry: 'Project Stewardship System', move: 'the rest' } });
+    const partial = close('h1', 'close-h1', { completion: 'partial', remainder_handoff_id: 'h1-remainder' });
+    const q = buildQueue([handoffMsg(), claim('h1'), remainder, partial, retract('close-h1')]);
+    expect(q.map((i) => `${i.id}:${i.state}`).sort()).toEqual(['h1-remainder:open', 'h1:claimed']);
+    const both = buildQueue([handoffMsg(), claim('h1'), remainder, partial, retract('close-h1'), retract('h1-remainder')]);
+    expect(both.map((i) => i.id)).toEqual(['h1']);
+  });
+
+  it('a retraction of a retraction does nothing: the first stands', () => {
+    const r1 = retract('g1', 'r1');
+    const r2 = retract('r1', 'r2');
+    expect(buildQueue([reqMsg(), answer('req-1', 'g1'), r1, r2]).map((i) => i.id)).toEqual(['req-1']);
+    expect(buildQueue([flagMsg(), retract('wf-1', 'rw'), retract('rw', 'rrw')])).toHaveLength(0);
   });
 });
 

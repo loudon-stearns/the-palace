@@ -96,11 +96,20 @@ function pointsAt(m, readyId) {
 // A RETRACT whose `re` names a ready withdraws it (SCHEMA — Reference §9): the
 // card is shown nowhere and resolves like a closed one, its `close` the RETRACT,
 // which names its replacement in payload.superseded_by when there is one.
+// A RETRACT whose `re` names a close or a claim withdraws that event, and the
+// card falls back a state: a retracted close leaves it claimed (or open, with
+// no live claim), a retracted claim leaves it open. A retracted legacy pickup
+// is withdrawn the same way. A RETRACT naming a RETRACT does nothing: the first
+// retraction stands. Retracting a partial close does not withdraw the
+// remainder it posted: that is a handoff_ready of its own, retracted by name
+// if it should go too. (Mirrors app/src/lib/queue-model.js buildQueue.)
 export function foldHandoffs(lines) {
-  const readies = lines.filter((m) => (m.payload || {}).kind === 'handoff_ready');
-  const pickups = lines.filter((m) => (m.payload || {}).kind === 'handoff_picked_up');
-  const closes = lines.filter((m) => (m.payload || {}).kind === 'handoff_closed');
   const retracts = lines.filter((m) => m.type === 'RETRACT' && typeof m.re === 'string');
+  const withdrawn = new Set(retracts.map((r) => r.re));
+  const live = (m) => !withdrawn.has(m.id);
+  const readies = lines.filter((m) => (m.payload || {}).kind === 'handoff_ready');
+  const pickups = lines.filter((m) => (m.payload || {}).kind === 'handoff_picked_up' && live(m));
+  const closes = lines.filter((m) => (m.payload || {}).kind === 'handoff_closed' && live(m));
 
   const cards = readies.map((m) => {
     const close = closes.find((c) => pointsAt(c, m.id)) || null;

@@ -84,6 +84,11 @@ export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onC
   const decision = item.decision || null;
   const decided = !!decision;
   const dColor = decided ? (DECISION_COLOR[decision.verb] || 'var(--phosphor)') : null;
+  // An entry flag Loudon granted or denied on the board, that no commit has
+  // closed yet: answered, waiting on the Weave's commit. Not open, not done.
+  const answered = !resolved && !decided && item.answered ? item.answered : null;
+  const aVerb = answered ? (answered.type === 'deny' ? 'DENIED' : 'GRANTED') : null;
+  const aColor = answered ? DECISION_COLOR[aVerb] : null;
   const accent = KIND_COLOR[item.kind] || 'var(--phosphor)';
   const age = cardAge(item.ts);
   const [showRationale, setShowRationale] = useState(false);
@@ -112,7 +117,8 @@ export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onC
   // grants or denies it. It closes by a Palace-Resolves trailer once a weave
   // finds its check clean, and only Loudon retires it (Weave Ceremony Step 1c).
   const propagate = item.kind === 'weave_flag' ? item.propagate : null;
-  const canRespond = !resolved && !decided && !propagate
+  // An answered card offers no second answer: the board already holds one.
+  const canRespond = !resolved && !decided && !answered && !item.answered && !propagate
     && (item.kind === 'resource_request'
         || item.kind === 'vector_proposal'
         || item.kind === 'weave_flag'
@@ -126,13 +132,14 @@ export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onC
       data-kind={item.kind}
       data-resolved={resolved ? 'true' : 'false'}
       data-decided={decided ? 'true' : 'false'}
+      data-answered={answered ? answered.type : 'false'}
       style={{
         border: '1px solid var(--phosphor-dim)',
-        borderLeft: `3px solid ${decided ? dColor : resolved ? 'var(--phosphor-dim)' : accent}`,
+        borderLeft: `3px solid ${decided ? dColor : answered ? aColor : resolved ? 'var(--phosphor-dim)' : accent}`,
         padding: '10px 14px',
         marginBottom: 10,
         background: 'var(--phosphor-deep)',
-        opacity: decided ? 0.85 : resolved ? 0.55 : 1,
+        opacity: (decided || answered) ? 0.85 : resolved ? 0.55 : 1,
       }}
     >
       {/* Top strip: kind chip on the left, blocking on the right. */}
@@ -657,6 +664,28 @@ export default function QueueItem({ item, onJump, onClear, onDismissHandoff, onC
                 clear
               </span>
             ) : null}
+          </span>
+        ) : null}
+
+        {/* Answered on the board, not yet carried out: the verdict badge in its
+            outline form (as "sending..." wears it), since the answer is given
+            but the work is not done. No clear: the Weave still owes it. */}
+        {answered ? (
+          <span
+            data-testid="queue-item-answered"
+            data-verb={aVerb}
+            title={`${aVerb.toLowerCase()} by ${answered.by || 'TRICKSTER'}${answered.ts ? ` at ${answered.ts}` : ''}; it greys once a commit carries Palace-Resolves: ${item.id} or a decline line for it`}
+            style={{
+              marginLeft: 'auto',
+              background: 'transparent', color: aColor,
+              border: `1px solid ${aColor}`, padding: '2px 8px',
+              textShadow: 'var(--glow)', fontWeight: 'normal',
+              fontSize: 11, textTransform: 'uppercase', letterSpacing: '.05em',
+            }}
+          >
+            {`${DECISION_MARK[aVerb]} ${aVerb}`}
+            {answered.option ? ` -- ${answered.option}` : ''}
+            {' -- waiting on a commit'}
           </span>
         ) : null}
 

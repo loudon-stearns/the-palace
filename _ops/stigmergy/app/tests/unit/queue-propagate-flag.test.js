@@ -51,9 +51,12 @@ describe('parseFlagLines', () => {
 });
 
 describe('buildQueue — propagate flags', () => {
-  it('keeps a propagate flag a RESOURCE_DENY answered, and still drops a denied entry flag', () => {
+  it('keeps a propagate flag a RESOURCE_DENY answered, unmarked; keeps a denied entry flag, marked answered', () => {
     const items = buildQueue([propagateFlag(), entryFlag(), deny('p-1'), deny('e-1')]);
-    expect(items.map((i) => i.id)).toEqual(['p-1']);
+    const byId = Object.fromEntries(items.map((i) => [i.id, i]));
+    expect(Object.keys(byId).sort()).toEqual(['e-1', 'p-1']);
+    expect(byId['p-1'].answered).toBeNull();
+    expect(byId['e-1'].answered).toMatchObject({ type: 'deny' });
   });
   it('carries the decision, points at its home, and names no entry a touch could close it by', () => {
     const [it] = buildQueue([propagateFlag()]);

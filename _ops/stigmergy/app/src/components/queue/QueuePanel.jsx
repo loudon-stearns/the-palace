@@ -242,15 +242,35 @@ export default function QueuePanel({ messages, onJumpEntry }) {
   };
   useEffect(() => { loadCommits(); }, []);
 
+  // The model's view of the board, before this session's decisions and clears.
+  // Decisions (RESOURCE_REQUESTs) live on the TRICKSTER deck, not here. QUEUE
+  // is the open-WORK board: proposals, flags, to-dos, ready handoffs — things
+  // you might act on, none of which a steward is blocked waiting on. buildQueue
+  // still models resource_requests (the model is complete + unit-tested); this
+  // view simply doesn't surface them, so a decision never appears twice.
+  const built = useMemo(
+    () => reconcileWeaveFlags(buildQueue(messages).filter((it) => it.kind !== 'resource_request'), commits),
+    [messages, commits],
+  );
+  // Entry flags the board holds as answered and no commit has closed yet. They
+  // stay on the deck (the Weave still owes them), so auto-clear leaves them be.
+  const boardAnswered = useRef(new Set());
+  boardAnswered.current = useMemo(
+    () => new Set(built.filter((it) => it.answered && !it.resolved?.done).map((it) => it.id)),
+    [built],
+  );
+
   // Auto-clear: once a verdict is confirmed (not pending, no error), schedule
   // the decided card to tidy itself ~10s later -- long enough to read it.
-  // Manual "clear" still works and cancels the timer (see clearItem).
+  // Manual "clear" still works and cancels the timer (see clearItem). An entry
+  // flag the board now holds as answered is not tidied: it stays, answered.
   useEffect(() => {
     for (const [id, d] of decisions) {
       const settled = d && d.pending === false && !d.error;
       if (settled && !autoClearTimers.current.has(id) && !dismissed.has(id)) {
         const t = setTimeout(() => {
           autoClearTimers.current.delete(id);
+          if (boardAnswered.current.has(id)) return;
           setDismissed((prev) => {
             if (prev.has(id)) return prev;
             const next = new Set(prev);
@@ -270,14 +290,6 @@ export default function QueuePanel({ messages, onJumpEntry }) {
   }, []);
 
   const items = useMemo(() => {
-    // Decisions (RESOURCE_REQUESTs) live on the TRICKSTER deck, not here. QUEUE
-    // is the open-WORK board: proposals, flags, to-dos, ready handoffs — things
-    // you might act on, none of which a steward is blocked waiting on. buildQueue
-    // still models resource_requests (the model is complete + unit-tested); this
-    // view simply doesn't surface them, so a decision never appears twice.
-    // buildQueue gets the commits too, so an entry flag a GRANT/DENY answered
-    // stays when a trailer or Declined line closes it, and greys below.
-    const built = reconcileWeaveFlags(buildQueue(messages, commits).filter((it) => it.kind !== 'resource_request'), commits);
     // Staleness (git auto-resolution via reconcileQueue) is DISABLED for now —
     // the heuristic was mis-firing. Items stay OPEN until the human clears them
     // with the card's clear button; nothing greys or self-retires off a git
@@ -289,6 +301,8 @@ export default function QueuePanel({ messages, onJumpEntry }) {
     // flag has got — the same rules lint-weave-flags.py gates the Weave with.
     // Re-attach decided items buildQueue has since dropped (a GRANT/DENY landed
     // on the board), so their verdict badge survives until the human clears it.
+    // An entry flag is not dropped: once the board carries its answer the card
+    // shows that (item.answered), and this session's badge steps aside.
     const present = new Set(built.map((it) => it.id));
     const merged = [...built];
     for (const [id, snap] of snapshots) {
@@ -296,8 +310,8 @@ export default function QueuePanel({ messages, onJumpEntry }) {
     }
     return rankQueue(merged)
       .filter((it) => !dismissed.has(it.id))
-      .map((it) => (decisions.has(it.id) ? { ...it, decision: decisions.get(it.id) } : it));
-  }, [messages, commits, dismissed, decisions, snapshots]);
+      .map((it) => (decisions.has(it.id) && !it.answered ? { ...it, decision: decisions.get(it.id) } : it));
+  }, [built, dismissed, decisions, snapshots]);
 
   const lanes = useMemo(() => laneCounts(items), [items]);
   // Lanes are filters. The board chips slice by `board`; the handoffs chip
@@ -313,8 +327,10 @@ export default function QueuePanel({ messages, onJumpEntry }) {
   const { open, resolved } = partitionQueue(laneFiltered);
   // Decided items still partition as "open" (not git-resolved); split them out
   // for the status counts so "open" means genuinely-awaiting-you.
-  const liveOpen = open.filter((it) => !it.decision);
-  const decidedOpen = open.filter((it) => it.decision);
+  // An entry flag the board holds as answered counts as decided too: it waits
+  // on a commit, not on you.
+  const liveOpen = open.filter((it) => !it.decision && !it.answered);
+  const decidedOpen = open.filter((it) => it.decision || it.answered);
   // Handoffs get their own lane PINNED at the top of the open list. Batons
   // aren't `blocking`, so newest-first ranking would sink them below every
   // request — but a baton is the one item that should be seen and caught first
