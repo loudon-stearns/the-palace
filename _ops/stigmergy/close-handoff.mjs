@@ -14,6 +14,12 @@
 //      name the --remainder, which this posts as a fresh handoff_ready so the
 //      leftover reappears as open work — never a silent gap.
 //
+// When the entry has an active steward (_ops/agents/permanent/<slug>/, on
+// REGISTRY.json), the close is addressed to it (`to` its agent id, and
+// `payload.steward`), so the steward's next cycle reads what landed on its page
+// ([[Two Batons, One Board]]; steward-watch.mjs). The steward only reads it: no
+// steward closes or edits a baton.
+//
 // Usage:
 //   node _ops/stigmergy/close-handoff.mjs <id | entry> --commit <hash> [--note "..."]
 //   node _ops/stigmergy/close-handoff.mjs <id> --commit <hash> --partial \
@@ -29,10 +35,12 @@
 //   --note <text>          how the move landed; any deviation from the letter
 //   --model <id>           health.model (default: the latest Opus, _ops/models/latest-opus.mjs)
 //   --board <path>         board override (default: owner persistent board)
+//   --root <path>          the checkout to verify the commit and read the registry in (default: the owner)
 //   --force                skip the commit-exists verification
 //   --dry-run              print what would post; write nothing
 
 import { execSync } from 'node:child_process';
+import { resolve } from 'node:path';
 import {
   ownerRoot, boardPath, loadBoard, foldHandoffs, resolveCard,
   postMessage, slug, stamp, stubHealth, worktreeLive, C,
@@ -62,7 +70,7 @@ if (flags.partial && (!flags.remainder || !String(flags.remainder).trim())) {
   die('a --partial close must name what is left — pass --remainder "<what remains>". It will be posted as a fresh open handoff.');
 }
 
-const ROOT = ownerRoot();
+const ROOT = flags.root ? resolve(flags.root) : ownerRoot();
 const board = boardPath(flags.board);
 
 // Verify the commit resolves (best-effort; --force to skip). This is what makes
@@ -132,6 +140,15 @@ if (flags.partial) {
   };
 }
 
+// --- a steward on the same project hears the close ---------------------------
+// Its cycle reads every board line addressed to it (build-cycle-prompt.js,
+// filterBoardForAgent), so the close is addressed to it rather than to '*'.
+let steward = null;
+try {
+  const { activeSteward } = await import('./steward-watch.mjs');
+  steward = activeSteward(ROOT, p.entry);
+} catch { steward = null; }
+
 // --- build the close --------------------------------------------------------
 const completion = flags.partial ? 'partial' : 'complete';
 const note = flags.note
@@ -145,7 +162,7 @@ const closeMsg = {
   ts: new Date().toISOString(),
   session_id: `close-${slug(p.entry || selector)}`,
   from,
-  to: '*',
+  to: steward ? steward.agent_id : '*',
   type: 'REPLY',
   board: 'GENERAL',
   re: card.m.id,
@@ -156,6 +173,7 @@ const closeMsg = {
     handoff_id: card.m.id,
     completion,                                   // "complete" | "partial"
     commit: flags.commit,
+    steward: steward ? steward.agent_id : undefined,
     remainder_handoff_id: remainderMsg ? remainderMsg.id : undefined,
     move: p.move,
     note,
@@ -165,6 +183,7 @@ const closeMsg = {
 if (flags.dryRun) {
   console.log(`${C.D}--dry-run — would post (nothing written):${C.R}`);
   if (remainderMsg) { console.log(`\n${C.Y}① remainder handoff_ready:${C.R}`); console.log(JSON.stringify(remainderMsg, null, 2)); }
+  if (steward) console.log(`\n${C.Y}◦ "${p.entry}" has an active steward — the close is addressed to ${steward.agent_id}.${C.R}`);
   console.log(`\n${C.G}${remainderMsg ? '②' : '①'} handoff_closed:${C.R}`);
   console.log(JSON.stringify(closeMsg, null, 2));
   process.exit(0);
@@ -178,6 +197,9 @@ try {
 }
 
 console.log(`${C.G}✓ closed${C.R} — ${C.B}${p.entry}${C.R} (${completion}) retired on the board. commit ${flags.commit}.`);
+if (steward) {
+  console.log(`${C.Y}◦ told the steward${C.R} — the close is addressed to ${steward.agent_id}; its next cycle reads what landed.`);
+}
 if (remainderMsg) {
   console.log(`${C.Y}◦ remainder re-batoned${C.R} — a fresh OPEN handoff for the rest: ${C.D}${remainderMsg.id}${C.R}`);
   console.log(`${C.D}  "${flags.remainder}"${C.R}`);
