@@ -60,3 +60,4 @@ if (claimed.length) {
 if (total) {
   console.log(`${C.D}claim → pickup-handoff.mjs <id | entry>   ·   close → close-handoff.mjs <id> --commit <hash>${C.R}`);
 }
+console.log(`${C.D}before saying a project is still waiting → project-since.mjs "<entry>" (every commit on it, its steward's included)${C.R}`);
