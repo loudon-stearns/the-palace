@@ -80,7 +80,7 @@ That gap is the engine. Loewenstein's account of curiosity is an information gap
 
 ## Kinds already made: examples from the palace
 
-Each of these is a design decision about what an instrument *is*, before any decision about how it is drawn or built. The first three are characters; the last two are not, and belong here just as much.
+Each of these is a design decision about what an instrument *is*, before any decision about how it is drawn or built. The first three are characters; the last three are not, and belong here just as much.
 
 ### The séance medium (Retrospective Delay)
 
@@ -113,6 +113,12 @@ Instruments whose DSP is built from a biological process: a compressor that is b
 A wheel that pushes back. No picture on a screen at all; the nature is in the resistance, the inertia, the detent.
 
 **Nature:** Matter. The player reads the instrument through the hand, and the "character," if there is one, is the physics the wheel has been given. This is the kind that proves the direction is not about drawing. Lives in [[Haptic Handwheel]].
+
+### The colony (Pheromone Trail)
+
+A picture of the palace's own history, and not an instrument: every commit is an ant crawling the palace's real topology.
+
+**Nature:** A colony on a drafting sheet. Each ant leaves the nest, visits the pages its commit touched and comes home. The paper rises under the pages visited lately, and the trails float above it as a hologram. The page says on its face what is read from git and what is a guess. Loudon, 2026-11-09, asked for it here "as another good example." Lives in [[Pheromone Trail]], at `Palace development/Pheromone Trail/proofs/2026-11-09-ants-on-topology/ants-relief.html`; the flat version, `ants-on-topology.html`, sits beside it.
 
 ### Kinds still waiting for their instruments
 

@@ -58,6 +58,8 @@ The target for the playful face round, from Loudon at the close, 2026-11-08, ver
 
 In plain terms: ants on the real palace topology, with the page icons, driven by git history, and a timeline of the palace growing. The ant farm is the seed; this is where it is going.
 
+Two roughs now stand at that target, in `proofs/2026-11-09-ants-on-topology/`: `ants-on-topology.html`, flat, and `ants-relief.html`, the same data as a relief on a drafting sheet. Loudon played both on 2026-11-09. His verdict: "YES! This is the kind of data visualization we should be promoting all across the palace."
+
 ## Where is the nest?
 
 Loudon asked on 2026-11-07, verbatim: "this is way more fun, and educational now that we embrace the metaphor viscerally. What is the \"nest\" in our palace?" The room offered an answer for the rewrite to test. It is not canon:
