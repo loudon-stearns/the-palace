@@ -72,9 +72,10 @@ export function readAnswers(text, { page, task, since } = {}) {
   return out.sort((a, b) => Date.parse(a.ts) - Date.parse(b.ts));
 }
 
-// The lines the review fold reads: the notes, and the grants and denies that answer them
-// (the same set as the app's review-notes.js).
-const REVIEW_LINES = /"human_eval"|"RESOURCE_GRANT"|"RESOURCE_DENY"/;
+// The lines the review fold reads: the notes, the grants and denies that answer them, and
+// the RETRACTs that withdraw either, so a retracted answer reopens its card here as on the
+// deck (the same set as the app's review-notes.js; SCHEMA — Reference §9).
+const REVIEW_LINES = /"human_eval"|"RESOURCE_GRANT"|"RESOURCE_DENY"|"RETRACT"/;
 
 export function reviewMessages(text) {
   const out = [];

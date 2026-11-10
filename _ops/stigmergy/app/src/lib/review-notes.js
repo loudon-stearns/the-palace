@@ -12,8 +12,10 @@ import { buildQueue } from './queue-model.js';
 
 export const BOARD_REL = '_ops/swarm/persistent/blackboard.jsonl';
 
-// Only these lines matter: the notes, and the grants and denies that answer them.
-const WANTED = /"human_eval"|"RESOURCE_GRANT"|"RESOURCE_DENY"/;
+// Only these lines matter: the notes, the grants and denies that answer them, and
+// the RETRACTs that withdraw either (SCHEMA — Reference §9): without them buildQueue
+// would read a retracted answer as given and a retracted note as standing.
+const WANTED = /"human_eval"|"RESOURCE_GRANT"|"RESOURCE_DENY"|"RETRACT"/;
 
 /**
  * @param {string} palaceRoot

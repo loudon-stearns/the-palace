@@ -4,6 +4,7 @@
 // and lift each section's artifacts so ArtifactSlot can render them inline.
 
 import { SKIP_STAGES, pageEnded } from '../../../orchestrator/src/batch-due.js';
+import { liveAnswers, liveAnswerFor } from '../../../live-answers.mjs';
 
 const ENTRY_RE = /<!--\s*scroll:entry id="([^"]+)"\s*-->([\s\S]*?)<!--\s*\/scroll:entry\s*-->/g;
 const MEDIA_EXT = /\.(png|jpe?g|gif|webp|svg|wav|mp3|ogg|m4a|flac|mp4|webm|mov|m4v|html?|pdf)$/i;
@@ -191,11 +192,16 @@ export function messageForSection(section, messages) {
   return messages.find((m) => m && m.id === section.id) || null;
 }
 
-/** Loudon's answer to this message, if it was an ask: { option, notes, ts } or null. */
+/**
+ * Loudon's answer to this message, if it was an ask: { option, notes, ts } or null.
+ * The FIRST live answer is the one shown, as it always has been here, where
+ * the other readers take the last (../../../live-answers.mjs § The tie). A
+ * retracted answer is no answer (SCHEMA — Reference §9): the card shows the
+ * next live one, or none.
+ */
 export function decisionFor(msg, messages) {
   if (!msg || !Array.isArray(messages)) return null;
-  const key = msg.request_id != null ? msg.request_id : msg.id;
-  const g = messages.find((m) => m && (m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re === key);
+  const g = liveAnswerFor(msg, liveAnswers(messages, { pick: 'first' }));
   if (!g) return null;
   const p = g.payload || {};
   return { option: p.option_label || p.option_id || (g.type === 'RESOURCE_DENY' ? 'denied' : 'granted'), notes: typeof p.notes === 'string' && p.notes.trim() ? p.notes.trim() : null, ts: g.ts || null };
