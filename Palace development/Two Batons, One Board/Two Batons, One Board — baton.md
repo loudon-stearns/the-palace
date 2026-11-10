@@ -29,11 +29,7 @@ Spec words landed with them: [[Baton Ceremony]] v1.7, [[Project Stewardship Syst
 
 ## Next move
 1. Watch for check 1 in a live cycle. BLUELINE has an open card and an active steward, so its next cycle that ships should post a note against that card (`node _ops/stigmergy/pickup-handoff.mjs blueline-remainder-20261107T123342Z --dry-run` lists the notes). If no note appears, that is a bug to find in step 6d, not a reason to wait longer.
-2. Bring Loudon the four questions the build raised, and build what he rules:
-   - Should a landing itself tell a project's steward when a branch touches its page? Today only the baton's close does, and doing it from `palace-land` would mean the door writes to the board.
-   - Should the claim be addressed to the steward too, so it knows a session holds the baton before the close?
-   - A note posts on every cycle that ships while a baton is open, whether or not the work overlaps. Is that the right amount?
-   - Is the Baton Ceremony's sentence enough for `project-since.mjs`, or should Closing Well carry it too?
+2. Land the claim change. Loudon ruled on the build's four questions on 2026-11-10 ("Yes, your lean"): a landing does not tell the steward, the close does; the claim is addressed to the steward as the close is; a note on every shipping cycle stays; and the `project-since.mjs` sentence stays in the Baton Ceremony alone until it is seen whether sessions run it. Only the second needed code. It is built and tested on branch `fanout/claim-to-steward` (`00d6b697`, worktree `/Users/loudonstearns/Documents/palace-fanout-claim-to-steward`) and waits on his yes to land, with one sentence for [[Baton Ceremony]] § Announcing the Baton on the Board saying the claim is addressed too.
 3. Stale and left alone: this page's paragraphs on each baton still say the [[BBS Blackboard]] "is nowhere in this loop". Show Loudon the words before changing them.
 
 ## Calibrations from this session
