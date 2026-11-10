@@ -40,3 +40,8 @@ What Shimmer Cloud's steward cycles taught the page, and the changes to the hous
 - run · 2026-10-22 · cycle 2 · taught item 2, proposed item 3 for canon
 - run · 2026-11-09 · cycle 3, posted nothing · nothing new
 - run · 2026-11-09 · cycle 4, posted nothing · nothing new
+
+## From cycle 5 — 2026-11-10
+
+4. A cycle killed mid-render loses what it measured but not the WAVs: write findings.json as each take lands, not at the end, and inline listening-page audio as MP3, or a page with nine stereo takes passes the 10 MB a cycle can commit. *(offered by the steward, cycle 5)*
+- run · 2026-11-10 · cycle 5 · taught item 4

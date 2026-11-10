@@ -60,6 +60,10 @@ The third is the most physics-honest interpretation of "Shimmer Cloud as prism."
 
 `proofs/2026-10-22-interval/` rebuilds the feedback lens the way Loudon asked at the revival: the phrase jumps once at the door (a fourth, fifth, octave, twelfth, or octave down), then goes round a loop where each pass runs through a fresh pushed-prism cloud (150–600 ms) and drifts a few cents, never jumping again. `proofs/2026-10-22-interval-listening.html` plays it. With no pitch jitter a whole cloud folds into one transfer function per channel, so a 600-lens pass is one FFT multiply. Measure the pitch with one tone (`tone_test`): May's lens lands 69/21/7% at +12/+24/+36; every new take lands 100% on its interval. Gotcha: below 80 Hz the lenses don't disperse and sum in phase, so in a loop the rumble multiplies every pass. Each pass is flattened to unity gain per third-octave to stop it.
 
+## A swell before the dry, and long tails (2026-11-09)
+
+`proofs/2026-11-09-swell/` makes the cloud arrive before the sound and hang after it, from the lens's own timing. A prism lens is an all-pass, so it only delays; run the same loop backward in time (`lead = reverse(loop(reverse(dry)))`) and every delay becomes an advance. The loop's quietest pass then comes first, so the swell crescendos into the onset with no envelope drawn by hand, and with highs late in the forward lens the swell brings highs first. The tail is the same loop forward, sixteen passes, losing a little top each time. `proofs/2026-11-09-swell-listening.html` plays it. Gotcha: run backward, the nearest pass still ends one loop gap before the onset and leaves a hole there; `lead_lens` slides the swell up one gap. Live cost: the dry must wait the swell's length (2 s here), so a live version carries the swell as lookahead — fine on a playback track or looper, impossible on a monitored mic.
+
 ## Next-stage candidates (not yet built)
 
 - Time-modulated dispersion: each lens's dispersion curve drifts over its lifetime

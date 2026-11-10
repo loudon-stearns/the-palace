@@ -1,0 +1,98 @@
+{
+  "takes": {
+    "p_tail": {
+      "input": "phrase",
+      "seconds": 12.06,
+      "hangs_past_dry_end_s_-30dB": 5.72
+    },
+    "p_swell": {
+      "input": "phrase",
+      "seconds": 3.58,
+      "hangs_past_dry_end_s_-30dB": 0.0
+    },
+    "p_both": {
+      "input": "phrase",
+      "seconds": 12.06,
+      "hangs_past_dry_end_s_-30dB": 5.68
+    },
+    "p_both_fifth": {
+      "input": "phrase",
+      "seconds": 12.14,
+      "hangs_past_dry_end_s_-30dB": 6.02
+    },
+    "p_swell_lows": {
+      "input": "phrase",
+      "seconds": 12.06,
+      "hangs_past_dry_end_s_-30dB": 5.72
+    },
+    "c_both": {
+      "input": "chord",
+      "seconds": 11.15,
+      "hangs_past_dry_end_s_-30dB": 3.46
+    },
+    "c_both_fifth": {
+      "input": "chord",
+      "seconds": 11.08,
+      "hangs_past_dry_end_s_-30dB": 2.58
+    },
+    "c_tail": {
+      "input": "chord",
+      "seconds": 11.15,
+      "hangs_past_dry_end_s_-30dB": 3.58
+    }
+  },
+  "click": {
+    "highs_first": {
+      "swell_reaches_s_before": 1.82,
+      "swell_level_dB_before_onset": {
+        "-1.50s": -17.9,
+        "-1.00s": -12.3,
+        "-0.50s": -2.5,
+        "-0.20s": -0.8,
+        "-0.05s": -9.7
+      },
+      "tail_hangs_s": {
+        "-30dB": 6.44,
+        "-45dB": 8.24
+      },
+      "swell_lows_centre_s": -0.25,
+      "swell_highs_centre_s": -0.46
+    },
+    "lows_first": {
+      "swell_reaches_s_before": 1.7,
+      "swell_level_dB_before_onset": {
+        "-1.50s": -26.9,
+        "-1.00s": -20.9,
+        "-0.50s": -14.5,
+        "-0.20s": -10.1,
+        "-0.05s": -2.6
+      },
+      "tail_hangs_s": {
+        "-30dB": 6.44,
+        "-45dB": 8.24
+      },
+      "swell_lows_centre_s": -0.5,
+      "swell_highs_centre_s": -0.15
+    }
+  },
+  "settings": {
+    "lead_s": 2.0,
+    "lead": {
+      "interval": 0.0,
+      "passes": 5,
+      "gap_ms": 160.0,
+      "g": 0.62,
+      "drift_cents": 6.0
+    },
+    "tail": {
+      "interval": 0.0,
+      "passes": 16,
+      "gap_ms": 210.0,
+      "g": 0.86,
+      "drift_cents": 6.0,
+      "lp": 6000.0,
+      "tail_s": 6.0
+    },
+    "cloud": "600 lenses per pass, 150\u2013600 ms, highs late"
+  }
+}

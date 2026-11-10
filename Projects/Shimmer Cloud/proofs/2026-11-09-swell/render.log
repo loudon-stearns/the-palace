@@ -1,0 +1,5 @@
+p_tail {'input': 'phrase', 'seconds': 12.06, 'hangs_past_dry_end_s_-30dB': np.float64(5.72), 'render_s': 101.2}
+p_swell {'input': 'phrase', 'seconds': 3.58, 'hangs_past_dry_end_s_-30dB': 0.0, 'render_s': 15.8}
+p_both {'input': 'phrase', 'seconds': 12.06, 'hangs_past_dry_end_s_-30dB': np.float64(5.68), 'render_s': 15.8}
+p_both_fifth {'input': 'phrase', 'seconds': 12.14, 'hangs_past_dry_end_s_-30dB': np.float64(6.02), 'render_s': 113.8}
+p_swell_lows {'input': 'phrase', 'seconds': 12.06, 'hangs_past_dry_end_s_-30dB': np.float64(5.72), 'render_s': 15.4}

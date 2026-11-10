@@ -15,36 +15,35 @@ forward_vector: "I am Shimmer Cloud's scroll — the one page that always opens 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-09T13:05:59.109Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-10T18:19:37.787Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 4 · last ran 2026-11-09 (today)
-- **Plan:** agreed 2026-10-21 (19 days ago) · 3 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 5 · last ran 2026-11-10 (today)
+- **Plan:** agreed 2026-10-21 (20 days ago) · 5 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-22 (18 days ago) — The feedback lens rebuilt your way: one interval jump at the door, then the prism on every pass. Five intervals, on a page that plays. (`shimmer-cloud-005`)
-- **Last commit touching this project:** 2026-11-09 `0d0af370` — steward(Shimmer Cloud): cycle 3 — machinery and scroll
-- **Signal:** ⚠ **STALLED** — the last 2 cycles posted nothing. The loop is broken until a cycle ships; the lane retries once, then flags here.
-- **Left uncommitted:** ⚠ 5 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Shimmer Cloud/README.md`, `Projects/Shimmer Cloud/proofs/2026-11-09-swell/draw_figure.py`, `Projects/Shimmer Cloud/proofs/2026-11-09-swell/make_page.py`, `Projects/Shimmer Cloud/proofs/2026-11-09-swell/render.log`, `Projects/Shimmer Cloud/proofs/2026-11-09-swell/render_swell.py`. Look, then commit or clear them.
+- **Last shipped:** 2026-11-10 (today) — Here's the plan you asked for: Shimmer Cloud becomes a playable VST, prism-first, ranges that go very far. Adopt it? (`shimmer-cloud-008`)
+- **Last commit touching this project:** 2026-11-09 `25669bb9` — steward(Shimmer Cloud): cycle 4 — machinery and scroll
+- **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-09 — cycle 4, posted nothing · nothing new
+- **Runs:** 5 runs on 3 days, counted from the ledger's run lines
+- **Last run:** 2026-11-10 — cycle 5 · taught item 4
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 2 — 2026-10-22 — [[Shimmer Cloud — tuning]]
+- **Latest lesson:** item 4, from cycle 5 — 2026-11-10 — [[Shimmer Cloud — tuning]]
 
 ### Where this stands
 
-Shimmer Cloud is a reverb that is also a prism: a cloud of hundreds of small lenses around any sound, each delaying the sound's frequencies by different amounts. At the revival you chose the dispersion cloud as the start and asked two things: push the prism harder, and rebuild May's feedback lens so it jumps once, by an octave or another interval, and then only drifts, instead of stacking octave on octave. Earlier today the pushed prism shipped with a ladder of strengths. This cycle built the second ask, the interval lens, using the middle strength (150–600 ms) I leaned on, since you haven't steered yet. Next on the plan is a cloud that swells in before the dry and leaves long tails.
+Shimmer Cloud is a reverb that is also a prism: a cloud of hundreds of small lenses around any sound, each delaying the sound's frequencies by different amounts. In October I pushed the prism harder and rebuilt the old feedback lens so it jumps once, by a fifth or an octave, and then only drifts. Last night you answered that listening page: the prism alone, sorted, pushed much further, and both directions of the light on one knob, all as a VST. Before that answer arrived, two cycles on 9 November rendered the plan's next step, a cloud that swells in before the dry and leaves long tails, but the clock stopped them both before they posted. This cycle finished that study and built its page.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard it yet: I checked it by tone test, spectrogram and levels, not by ear. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Nobody has heard it yet: I checked it by tone test, spectrogram and levels, not by ear. _(in 3 notes, the latest cycle 5)_
 
 ### Open asks
 
-- `shimmer-cloud-003` — directional_decision · posted 2026-10-22 · options: LIGHTER · MIDDLE · HEAVIER · BOTH-WAYS
+- `shimmer-cloud-008` — proposed plan revision: make Shimmer Cloud a VST · posted 2026-11-10 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -52,10 +51,18 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `shimmer-cloud-003` — directional_decision → GRANTED — (no option_id); notes: "Shimmer Cloud · pushed · 2026-11-10
+- Each mode alone: B prism
+- Same smear, sorted or not: B sorted
+- Pure, or with drift: no difference
+- How hard to push: at 3 — i am very curious to hear this instrument with the sound pushed much further.
+- Which way the light bends: a cloud of both — I like both and the ability to move between them with a knob.
+
+Adjust the plan to make a VST with a playful interface, start with the VST template and an interesting visual, extend the ranges of the parameters to go clearly very far, and also have fine resolution at very small amounts." (2026-11-10)
 
 ### Runs
 
+- 2026-11-10 — cycle 5 · taught item 4
 - 2026-11-09 — cycle 4, posted nothing · nothing new
 - 2026-11-09 — cycle 3, posted nothing · nothing new
 - 2026-10-22 — cycle 2 · taught item 2, proposed item 3 for canon
@@ -99,6 +106,78 @@ Every render comes with a page Loudon can play, the takes built in, like the rev
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shimmer-cloud-008" -->
+### 2026-11-10 — cycle 5 — Here's the plan you asked for: Shimmer Cloud becomes a playable VST, prism-first, ranges that go very far. Adopt it?
+> still working · swell and tail shipped · steward leans adopt
+
+Shimmer Cloud is a reverb that is also a prism. You agreed a six-step plan in October: push the prism, add an interval at the door, swell and tails, then a live web prototype, the GPU, and 3D space. The first three are built. Last night you answered the pushed page: the prism alone, sorted; push it much further; both directions of the light on one knob; and make it a VST with a playful face from the VST Template, with ranges that go very far and still resolve tiny amounts. Crystal Synthesizer and Neural Granular already went that way, so the template now builds a plugin inside a project's own folder. The revision swaps the web prototype for the VST, folds swell, tail and interval into it as knobs, and keeps the GPU and 3D-space steps after it. Cost: the swell is lookahead, so it works on tracks, not live mics.
+
+**Artifacts:**
+- [p_swell_lows.wav](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_swell_lows.wav)
+- [p_both_fifth.wav](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_both_fifth.wav)
+- [p_both.wav](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_both.wav)
+- [p_swell.wav](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_swell.wav)
+- [p_tail.wav](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_tail.wav)
+- [c_dry.wav](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/c_dry.wav)
+<sub>`shimmer-cloud-008` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shimmer-cloud-007" -->
+### 2026-11-10 — cycle 5 — The cloud now swells in before the sound and hangs up to six seconds after it, all from the prism's own timing. It's on a page that plays.
+> shipped · swell and tail on one listening page · nobody has heard it · steward leans VST next
+
+**Start with [the listening page](open:Projects/Shimmer Cloud/proofs/2026-11-09-swell-listening.html).** Nothing plays until you click, and each section has a place for your ear.
+
+**How the swell works.** A prism lens only delays sound. It never makes anything louder. So if you run the loop backward in time, every delay becomes an advance: swell = reverse(loop(reverse(dry))). The cloud arrives before the words and grows into them. Nobody drew that crescendo. Run backward, the loop's quietest pass simply comes first. The tail is the same loop run forward, sixteen trips through a fresh 600-lens cloud, losing a little top each time, so it darkens as it hangs.
+
+**What one click showed.** I measured with a click, because words bias the timing. The swell reaches 1.8 s ahead of the sound. With highs first it rises from −18 dB at 1.5 s before to within 1 dB at 0.2 s. The tail falls 30 dB in 6.4 s and 45 dB in 8.2 s. On the phrase it hangs 5.7 s past the words. On the struck chord it hangs 3.5 s. With a fifth at the door it hangs 6.0 s.
+
+**What it costs live.** A swell before a sound has to hear the sound first. On a playback track or in a looper that's fine: the plugin reports the swell as latency and Live compensates. On a mic you're monitoring it can't work. The VST should show that on its face.
+
+**Artifacts:**
+- [the listening page: long tail, swell alone and with tail, highs or lows first, the struck chord, a fifth at the door. Click to play.](Projects/Shimmer Cloud/proofs/2026-11-09-swell-listening.html)
+- [one click through the lens (the swell rising, then the tail falling), and spectrograms of the phrase and the chord.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/swell.png)
+- [every measured number.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/findings.json)
+- [the lens, the swell and tail loops, the takes and the click test.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/render_swell.py)
+- [measures the takes already rendered and runs the click test the stopped cycle never reached.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/finish_findings.py)
+- [draws the figure.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/draw_figure.py)
+- [builds the page, with audio inlined as MP3 so it stays committable.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/make_page.py)
+- [the 9 November render's log.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/render.log)
+- [the phrase, swell and tail (stays on this Mac).](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_both.wav)
+- [the phrase, long tail only.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_tail.wav)
+- [the phrase, swell only.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_swell.wav)
+- [the phrase, swell lows first.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_swell_lows.wav)
+- [the phrase, a fifth at the door, swell and tail.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/p_both_fifth.wav)
+- [the struck chord, dry.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/c_dry.wav)
+- [the chord, tail only.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/c_tail.wav)
+- [the chord, swell and tail.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/c_both.wav)
+- [the chord, a fifth at the door, swell and tail.](Projects/Shimmer Cloud/proofs/2026-11-09-swell/takes/c_both_fifth.wav)
+
+_Swell and tail, measured (one click, and the takes on the page)_
+| what | highs first | lows first |
+| --- | --- | --- |
+| swell reaches ahead of the sound | 1.82 s | 1.70 s |
+| swell level 1.0 s / 0.2 s before | −12 / −1 dB | −21 / −10 dB |
+| where the swell's highs / lows sit | 0.46 / 0.25 s before | 0.15 / 0.50 s before |
+| tail falls 30 / 45 dB | 6.4 / 8.2 s | 6.4 / 8.2 s |
+| phrase hangs past the words (−30 dB) | 5.7 s | 5.7 s |
+| chord hangs past the strike · with a fifth | 3.5 s · 2.6 s | — |
+
+_Changed in the workshop:_ README — the bundle's map gains the swell-and-tail section: how the backward loop makes the swell, the hole at the onset, and the live lookahead cost.
+
+_Left rough:_ Nobody has heard it yet: I checked it by tone test, spectrogram and levels, not by ear. With highs first, the swell dips about 9 dB in the last 50 ms before the onset, and there's a 150 ms gap between the click and the tail's first pass. Both are audible in the figure, and I haven't fixed either.
+
+_Next moves named:_ If you adopt the VST plan: start the plugin from the VST Template. Port the prism, with the swell as reported latency and the tail as the loop, to the template's numpy sketch and C++ engine, with log-scaled ranges that go very far and still resolve tiny amounts. · Close the 50 ms dip and the 150 ms gap at the onset, so the swell runs straight into the tail with no hole.
+<sub>`shimmer-cloud-007` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-d055ae7308" -->
+### 2026-11-10 — cycle 5
+
+taught item 4
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-e639e2ed27" -->
 ### 2026-11-09 — cycle 4, posted nothing
 
