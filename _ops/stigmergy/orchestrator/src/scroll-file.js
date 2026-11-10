@@ -1024,9 +1024,9 @@ export function adoptedPlanRevisions(board, home) {
  * `planId` is the newest `plan-` section on the trail (readPlanInfo's `id`):
  * applyAdoptedPlans writes an adopted ask's plan under `plan-<request id>`, so
  * that section names the ask whose plan stands. Returns that request id when
- * the ask is this page's own live plan_revision ask, it has no live answer,
- * and a RESOURCE_GRANT choosing `adopt` that named it has been withdrawn;
- * else null. A plan written on the deck or by an elder (`plan-<moment>`) names
+ * the ask is this page's own live plan_revision ask, no live adopt grant
+ * answers it (it may be unanswered, denied, or answered `keep`), and a
+ * RESOURCE_GRANT choosing `adopt` that named it has been withdrawn; else null. A plan written on the deck or by an elder (`plan-<moment>`) names
  * no ask, so it is never read this way. Nothing is un-applied (Loudon,
  * 2026-11-10): Now says it, and the plan changes only by a new plan he agrees.
  */
@@ -1036,7 +1036,11 @@ export function withdrawnAdoption(board, home, planId) {
   const live = readAnswers(board);
   const ask = board.find((m) => m && m.type === 'RESOURCE_REQUEST' && m.from === home && !live.withdrawn(m)
     && (m.payload || {}).kind === 'plan_revision' && (m.request_id || m.id) === rid);
-  if (!ask || live.answerFor(ask)) return null;
+  if (!ask) return null;
+  // Only a live adopt puts the adoption back. A live deny, or a grant choosing
+  // anything but adopt, leaves the plan on the scroll unadopted, so Now still says so.
+  const standing = live.answerFor(ask);
+  if (standing && standing.type === 'RESOURCE_GRANT' && (standing.payload && standing.payload.option_id) === 'adopt') return null;
   const names = new Set([ask.request_id, ask.id].filter(Boolean));
   const withdrawnAdopt = board.some((m) => isAnswer(m) && m.type === 'RESOURCE_GRANT' && live.withdrawn(m)
     && names.has(m.re) && (m.payload && m.payload.option_id) === 'adopt');

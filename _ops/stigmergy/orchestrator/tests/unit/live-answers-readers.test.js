@@ -96,6 +96,14 @@ describe('Now says when the plan on the scroll was adopted by an answer since wi
     expect(withdrawnAdoption([PLAN_ASK, adopt, retract('g-adopt', 'r1'), grant('shep-010', 'g2', 'adopt', '2026-11-04T09:00:00Z')], HOME, 'plan-shep-010')).toBe(null);
   });
 
+  test('the adopt retracted, then denied or answered keep: the plan here is still not adopted, and Now says so with nothing waiting', () => {
+    const denied = [PLAN_ASK, adopt, retract('g-adopt', 'r1'), deny('shep-010', 'd1', '2026-11-04T09:00:00Z')];
+    expect(withdrawnAdoption(denied, HOME, 'plan-shep-010')).toBe('shep-010');
+    expect(planLineOf(adopted, denied)).toBe(`- **Plan:** agreed 2026-11-02 (8 days ago) · 0 made things since · ${CLAUSE}`);
+    const kept = [PLAN_ASK, adopt, retract('g-adopt', 'r1'), grant('shep-010', 'g-keep', 'keep', '2026-11-04T09:00:00Z')];
+    expect(withdrawnAdoption(kept, HOME, 'plan-shep-010')).toBe('shep-010');
+  });
+
   test('only the plan on the scroll counts: a later plan written over it, or a retracted grant that was not adopt, says nothing', () => {
     const board = [PLAN_ASK, adopt, retract('g-adopt', 'r1')];
     const over = applyPlan(adopted, { plan: 'Go down.', headline: 'by hand', ts: '2026-11-05T09:00:00' }).text;
