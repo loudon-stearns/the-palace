@@ -241,10 +241,19 @@ export function unansweredRequests(messages) {
   // Restrict to TRICKSTER-board messages — the protocol surface.
   const trickster = messages.filter((m) => m && m.board === 'TRICKSTER');
 
+  // A RETRACT withdraws the message its `re` names (SCHEMA — Reference §9),
+  // whichever board it is posted on: a retracted request is no card, and a
+  // retracted grant or deny answers nothing, so its request is waiting again.
+  // A RETRACT is never itself withdrawn (mirrors queue-model.js buildQueue).
+  const retracted = new Set();
+  for (const m of messages) {
+    if (m && m.type === 'RETRACT' && typeof m.re === 'string' && m.re) retracted.add(m.re);
+  }
+
   // Build a set of ids that have already been responded to.
   const responded = new Set();
   for (const m of trickster) {
-    if ((m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re) {
+    if ((m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re && !retracted.has(m.id)) {
       responded.add(m.re);
     }
   }
@@ -252,8 +261,11 @@ export function unansweredRequests(messages) {
   const isResponded = (m) =>
     (m.request_id != null && responded.has(m.request_id)) ||
     (m.id != null && responded.has(m.id));
+  const isRetracted = (m) =>
+    (m.id != null && retracted.has(m.id)) ||
+    (m.request_id != null && retracted.has(m.request_id));
 
-  return trickster.filter((m) => m.type === 'RESOURCE_REQUEST' && !isResponded(m));
+  return trickster.filter((m) => m.type === 'RESOURCE_REQUEST' && !isResponded(m) && !isRetracted(m));
 }
 
 // How many TRICKSTER requests are waiting — the count on the TRICKSTER tab.

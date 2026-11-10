@@ -383,3 +383,36 @@ describe('buildInbox — session-request kind (payload.kind)', () => {
     expect(item.kind).toBe(null);
   });
 });
+
+// RETRACT on the TRICKSTER deck (SCHEMA — Reference §9): a retracted answer
+// answers nothing, a retracted request is no card, and a RETRACT of a RETRACT
+// does nothing. Mirrors queue-model.js buildQueue.
+describe('buildInbox — RETRACT', () => {
+  const RETRACT = (re, id = `retract-${re}`, board = 'TRICKSTER') => ({
+    schema_version: '1.0', id, ts: '2026-04-01T16:00:00Z', session_id: 's', from: 'TRICKSTER', to: '*',
+    type: 'RETRACT', board, re, payload: { reason: 'answered in error' },
+  });
+  const ids = (msgs) => buildInbox(msgs).pending_requests.map((r) => r.request_id);
+
+  test('a retracted GRANT leaves its request pending again', () => {
+    expect(ids([REQ('r1'), GRANT('r1')])).toEqual([]);
+    expect(ids([REQ('r1'), GRANT('r1'), RETRACT('grant-r1')])).toEqual(['r1']);
+  });
+
+  test('a retracted DENY does too, and a RETRACT posted on another board still counts', () => {
+    expect(ids([REQ('r1'), DENY('r1'), RETRACT('deny-r1', 'x', 'GENERAL')])).toEqual(['r1']);
+  });
+
+  test('a second, live answer still answers it', () => {
+    expect(ids([REQ('r1'), GRANT('r1'), DENY('r1'), RETRACT('grant-r1')])).toEqual([]);
+  });
+
+  test('a retracted request is no card, named by id or request_id', () => {
+    expect(ids([REQ('r1'), RETRACT('msg-r1')])).toEqual([]);
+    expect(ids([REQ('r1'), RETRACT('r1')])).toEqual([]);
+  });
+
+  test('a retraction of a retraction does nothing: the first stands', () => {
+    expect(ids([REQ('r1'), GRANT('r1'), RETRACT('grant-r1', 'rt1'), RETRACT('rt1', 'rt2')])).toEqual(['r1']);
+  });
+});
