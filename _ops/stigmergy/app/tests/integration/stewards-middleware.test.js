@@ -432,6 +432,65 @@ describe('a worker that never speaks (spawn failure) is not counted as a cycle',
   }, 20000);
 });
 
+describe('a cycle the watchdog stops on a batch limit is interrupted, not barren (2026-11-09)', () => {
+  // Before the fix the reap read the killed worker's transcript (it had spoken,
+  // posted nothing, and left no error) as a barren cycle: the lane retried, and
+  // a second stop made a working steward STALLED (Shimmer Cloud, 2026-11-09).
+  let root, stewardLane, countFile;
+  const readHistory = (agentDir) => readFileSync(join(agentDir, 'history.jsonl'), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
+  const laneWith = (extra) => createStewardLane({
+    palaceRoot: root,
+    stateDir: join(root, '_ops/stigmergy/.actuator-steward'),
+    buildArgv: () => ['node', STUB, '--permission-mode', 'bypassPermissions', ...extra],
+    dryReap: false,
+    watchdogMs: 50,
+  });
+  afterEach(async () => {
+    try { await waitFor(() => !existsSync(stewardLane.paths.pidFile) && !stewardLane.status().running, { timeout: 8000 }); } catch (_) { /* ignore */ }
+    rmSync(root, { recursive: true, force: true });
+  });
+
+  test('stopped at the per-cycle ceiling mid-work: interrupted, no retry, no barren count, no stall', async () => {
+    root = makeTempPalace();
+    countFile = join(root, 'fires.txt');
+    stewardLane = laneWith(['--from', 'Cut Steward', '--emit', 'stall', '--sleep', '20000', '--count-file', countFile]);
+    const { agentDir } = seedSteward(root, { name: 'Cut Steward', slug: 'cut-steward', requestId: 'cut-001' });
+    // The previous cycle was barren, so a barren score here would read STALLED.
+    writeFileSync(join(agentDir, 'history.jsonl'), JSON.stringify({ event: 'CYCLE_COMPLETE', iteration: 1, posted_messages: [] }) + '\n');
+
+    stewardLane.advanceAll({ names: ['Cut Steward'], maxCycles: 3, maxCycleMinutes: 0.003 }); // a 180 ms ceiling
+    await waitFor(() => existsSync(stewardLane.paths.lastCycleFile) && !stewardLane.status().running, { timeout: 12000 });
+    await new Promise((r) => setTimeout(r, 300)); // give a wrongful retry time to show
+
+    const last = JSON.parse(readFileSync(stewardLane.paths.lastCycleFile, 'utf8'));
+    expect(last.stop_hint).toBe('interrupted');
+    expect(last.run.stopped_because).toBe('interrupted');
+    expect(last.error).toMatch(/cycle ceiling/);
+    expect(readFileSync(countFile, 'utf8').trim().split('\n').length).toBe(1); // no retry
+    const st = readState(agentDir);
+    expect(st.iteration).toBe(1);                // not counted
+    expect(st.health.stalled).toBeUndefined();   // never written
+    const h = readHistory(agentDir);
+    expect(h.some((e) => e.event === 'CYCLE_BARREN')).toBe(false);
+    expect(h.find((e) => e.event === 'CYCLE_INTERRUPTED')).toMatchObject({ reason: 'batch_limit', attempted_cycle: 2 });
+  }, 20000);
+
+  test('a quiet cycle that ends on its own under the same watchdog is still barren', async () => {
+    root = makeTempPalace();
+    countFile = join(root, 'fires.txt');
+    stewardLane = laneWith(['--emit', 'none', '--sleep', '30', '--count-file', countFile]);
+    const { agentDir } = seedSteward(root, { name: 'Quiet Steward', slug: 'quiet-steward', requestId: 'quiet-001' });
+
+    stewardLane.advanceAll({ names: ['Quiet Steward'], maxCycles: 3, maxCycleMinutes: 0.5 }); // 30 s: never reached
+    await waitFor(() => readState(agentDir).iteration === 3 && !stewardLane.status().running, { timeout: 12000 });
+    const last = JSON.parse(readFileSync(stewardLane.paths.lastCycleFile, 'utf8'));
+    expect(last.stop_hint).toBe('barren');
+    expect(last.run.stopped_because).toBe('stalled');
+    expect(readHistory(agentDir).filter((e) => e.event === 'CYCLE_BARREN')).toHaveLength(2);
+    expect(readHistory(agentDir).some((e) => e.event === 'CYCLE_INTERRUPTED')).toBe(false);
+  }, 20000);
+});
+
 describe('GET /api/steward/transcript (the WATCH pane, 2026-10-13)', () => {
   let root, server, base, stewardLane;
   beforeEach(async () => { root = makeTempPalace(); ({ server, stewardLane } = makeServer(root, { extra: ['--sleep', '40'] })); base = await listen(server); });

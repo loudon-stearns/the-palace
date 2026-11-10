@@ -565,6 +565,81 @@ describe('processCycle — usage limits are never barren', () => {
   });
 });
 
+describe('processCycle — a cycle the caller stopped on a batch limit is interrupted, not barren (2026-11-09)', () => {
+  let root;
+  afterEach(() => { if (root) rmSync(root, { recursive: true, force: true }); root = null; });
+
+  // The real shape of Shimmer Cloud's cycle 3, 2026-11-09: the worker worked
+  // (many turns, no fenced message yet) and was killed by the lane's watchdog,
+  // so its transcript has no result line and no error at all.
+  const working = (text) => JSON.stringify({ type: 'assistant', message: { model: 'claude-opus-5-5', usage: { output_tokens: 40 }, content: [{ type: 'text', text }] } });
+  function setup(historyLines) {
+    root = mkdtempSync(path.join(tmpdir(), 'palace-pc-cut-'));
+    const agentDir = '_ops/agents/permanent/test-steward';
+    mkdirSync(path.join(root, agentDir), { recursive: true });
+    mkdirSync(path.join(root, '_ops/swarm/persistent'), { recursive: true });
+    writeFileSync(path.join(root, agentDir, 'manifest.json'), JSON.stringify({ agent_id: 'Test Steward', home: 'Test Steward', mode: 'long_duration_background', session_id: 's', model: { name: 'claude-opus-5-5' } }));
+    writeFileSync(path.join(root, agentDir, 'state.json'), JSON.stringify({ iteration: 2, last_active: '2026-10-22T10:06:23Z', last_read_cursor: 'x' }));
+    writeFileSync(path.join(root, agentDir, 'history.jsonl'), historyLines.map((e) => JSON.stringify(e)).join('\n') + (historyLines.length ? '\n' : ''));
+    writeFileSync(path.join(root, '_ops/swarm/persistent/blackboard.jsonl'), '');
+    return agentDir;
+  }
+  function run(agentDir, lines, extra = {}) {
+    const transcriptPath = path.join(root, 'transcript.jsonl');
+    writeFileSync(transcriptPath, lines.join('\n'));
+    return processCycle({ palaceRoot: root, transcriptPath, agentDir, cycleN: 3, iteration: 3, tsNow: '2026-11-09T12:40:55Z', ...extra });
+  }
+  const history = (agentDir) => readFileSync(path.join(root, agentDir, 'history.jsonl'), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
+  const prevBarren = { event: 'CYCLE_COMPLETE', iteration: 2, posted_messages: [] };
+
+  test('stopped by the watchdog mid-work: interrupted, iteration kept, no barren, no stall', () => {
+    const agentDir = setup([prevBarren]);
+    const s = run(agentDir, [working('rendering the swell'), working('drawing the figure')], { cutOff: { reason: 'batch_limit', detail: 'cycle ceiling: 25 of 25 min' } });
+    expect(s.stop_hint).toBe('interrupted');
+    expect(s.interrupted).toBe(true);
+    expect(s.barren).toBe(false);
+    expect(s.stalled).toBe(false);
+    expect(s.usage_limit).toBe(false); // a batch limit does not stop the rest of the queue by itself
+    expect(s.errors[0]).toMatchObject({ interrupted: true, reason: 'batch_limit', error: 'cycle ceiling: 25 of 25 min' });
+    expect(JSON.parse(readFileSync(path.join(root, agentDir, 'state.json'), 'utf8')).iteration).toBe(2);
+    const h = history(agentDir);
+    expect(h.some((e) => e.event === 'CYCLE_BARREN')).toBe(false);
+    expect(h[h.length - 1]).toMatchObject({ event: 'CYCLE_INTERRUPTED', reason: 'batch_limit', attempted_cycle: 3 });
+  });
+
+  test('the same transcript with no cutOff is still barren — and, after a barren cycle, STALLED', () => {
+    const agentDir = setup([prevBarren]);
+    const s = run(agentDir, [working('rendering the swell'), working('drawing the figure')]);
+    expect(s.stop_hint).toBe('barren');
+    expect(s.stalled).toBe(true);
+  });
+
+  test('a worker that posted before it was stopped keeps its cycle', () => {
+    const agentDir = setup([]);
+    const shipped = { schema_version: '1.0', id: 'ship-1', ts: '2026-11-09T12:50:00Z', session_id: 's', from: 'Test Steward', to: '*', type: 'BROADCAST', board: 'GENERAL', payload: { kind: 'shipped_artifact', headline: 'made a thing' } };
+    const s = run(agentDir, [working('```json\n' + JSON.stringify(shipped) + '\n```')], { cutOff: { reason: 'batch_limit', detail: 'batch clock: 60 of 60 min' } });
+    expect(s.stop_hint).toBe('shipped');
+    expect(s.posted_ids).toEqual(['ship-1']);
+  });
+
+  test('the transcript\'s own signal wins over the caller\'s: a usage limit stays a usage limit', () => {
+    const agentDir = setup([]);
+    const limit = JSON.stringify({ type: 'assistant', error: 'rate_limit', isApiErrorMessage: true, message: { model: '<synthetic>', usage: {}, content: [{ type: 'text', text: "You've hit your session limit" }] } });
+    const s = run(agentDir, [working('working'), limit], { cutOff: { reason: 'batch_limit', detail: 'batch clock: 60 of 60 min' } });
+    expect(s.stop_hint).toBe('interrupted');
+    expect(s.usage_limit).toBe(true);
+    expect(s.errors[0].reason).toBe('usage_limit');
+  });
+
+  test('a reviewed STALL_CLEARED ends the barren count: the next quiet cycle is barren, not STALLED', () => {
+    const agentDir = setup([prevBarren, { event: 'STALL_CLEARED', ts: '2026-11-09T22:00:00Z', cycles: [{ cycle: 2, reason: 'batch_limit' }] }]);
+    const s = run(agentDir, [working('I looked around and made nothing')]);
+    expect(s.stop_hint).toBe('barren');
+    expect(s.stalled).toBe(false);
+    expect(JSON.parse(readFileSync(path.join(root, agentDir, 'state.json'), 'utf8')).health).toMatchObject({ stalled: false, score: 'yellow' });
+  });
+});
+
 describe('classifyInterruption — the limit wordings seen on disk', () => {
   test('every limit phrasing reads as a usage limit, even with no error kind', () => {
     for (const text of [
