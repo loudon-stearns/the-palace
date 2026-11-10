@@ -33,7 +33,7 @@ forward_vector: "I want to become the place that holds the recognition that the 
 
 ![[Two Batons, One Board — hero.png]]
 
-The palace moves work across instance and surface boundaries with two different batons, and for now they do not know about each other.
+The palace moves work across instance and surface boundaries with two different batons. They share one board, and on a project both are working, each sees what the other did; nothing yet dispatches the hand-written one.
 
 The **human-carried handoff baton.** A session develops an idea; at the close, [[Closing Well]] and the [[Baton Ceremony]] package the in-progress move into a markdown file in the entry's bundle; Loudon pastes the suggested invocation into a Claude Code session, which catches the baton. The baton is a file, and *Loudon is the transport layer.* The [[BBS Blackboard]] is nowhere in this loop.
 
@@ -55,6 +55,8 @@ This is why the two batons belong on one board: they are not two mechanisms to r
 ## Where This Sits
 
 This entry is one case inside [[Project Stewardship System]], the human-originated handoff, and the board half of it has landed: a baton is announced as a `handoff_ready` post, and `list-handoffs`, `pickup-handoff` and `close-handoff` (`_ops/stigmergy/`) carry it to close ([[Baton Ceremony]] § Announcing the Baton on the Board). The dispatch half has not: the heartbeat that cycles stewards picks up no handoffs, so a session still claims each one by hand, and bridging that step is the open contribution of this entry.
+
+When a baton and a steward work one project at the same time, each sees the other. The pickup lists the steward's commits since the baton was born and the proposals it has filed; a steward cycle that ships posts a note against the baton's card and never touches the baton; the close is addressed to the steward; and `project-since.mjs` reads the whole project before anyone says it is still waiting ([[Baton Ceremony]] § Announcing the Baton on the Board). The case that asked for this was BLUELINE, 2026-11-04 to 11-07, told in [[Project Stewardship System — Context]] § Where the decisions came from.
 
 ## The board is a pheromone field, not an actuator
 

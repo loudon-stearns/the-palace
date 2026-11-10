@@ -14,6 +14,11 @@
 // landed ([[Baton Ceremony]] § On pickup: "this may already be done; check
 // before continuing"). Read that list before you commit to the work.
 //
+// When the entry has an active steward (_ops/agents/permanent/<slug>/, on
+// REGISTRY.json), it says so and lists the steward's commits since the baton was
+// born, the notes its cycles posted against this card, and the canon edits it
+// has filed and Loudon has not settled ([[Two Batons, One Board]]; steward-watch.mjs).
+//
 // Beside it, Loudon's open review notes on the entry: the REVIEW NOTE cards the QUEUE
 // holds for it, from a rich face's dock or as answers from a rough ([[Review Layer]]),
 // read through the QUEUE's own fold (read-answers.mjs openReviews). Read-only: the
@@ -30,9 +35,11 @@
 //   --note <text>     free-text note on the claim + health metadata
 //   --model <id>      health.model (default: the latest Opus, _ops/models/latest-opus.mjs)
 //   --board <path>    board file override (default: owner persistent board)
+//   --root <path>     the checkout to read git, the registry and ledgers from (default: the owner)
 //   --dry-run         print the claim + reconciliation view; do not post
 
 import { execSync } from 'node:child_process';
+import { resolve } from 'node:path';
 import {
   ownerRoot, boardPath, loadBoard, foldHandoffs, resolveCard,
   postMessage, slug, stamp, stubHealth, C,
@@ -56,7 +63,7 @@ if (!selector) {
   die('usage: node _ops/stigmergy/pickup-handoff.mjs <handoff-id | entry-name> [--note "..."] [--dry-run]');
 }
 
-const ROOT = ownerRoot();
+const ROOT = flags.root ? resolve(flags.root) : ownerRoot();
 const board = boardPath(flags.board);
 const fold = foldHandoffs(loadBoard(board));
 const res = resolveCard(fold, selector);
@@ -102,6 +109,47 @@ if (p.entry) {
     console.log(`${C.D}no commits have touched "${p.entry}" since the baton was posted — likely still fresh.${C.R}`);
   }
   console.log('');
+}
+
+// --- a steward on the same project (read-only) --------------------------------
+// [[Two Batons, One Board]]: a baton and a steward working one project at once
+// must each see what the other did. If the entry has an active steward, say so,
+// list its commits since the baton was born, the notes its cycles posted against
+// this card, and the canon edits it has filed and Loudon has not settled — one of
+// those may be a baton item already (one route per edit: say so on both, settle it once).
+if (p.entry) {
+  try {
+    const { activeSteward, cardSince, stewardCommitsSince, stewardNotesOn, owedProposalsFor } = await import('./steward-watch.mjs');
+    const st = activeSteward(ROOT, p.entry);
+    if (st) {
+      const { since, from: sinceFrom } = cardSince(ROOT, card);
+      const commits = stewardCommitsSince(ROOT, st, since);
+      const notes = stewardNotesOn(loadBoard(board), card.m.id);
+      const owed = owedProposalsFor(ROOT, st.home);
+      const sinceLabel = sinceFrom === 'baton' ? `since the baton was born (${since})` : `since the card was posted (${String(since).slice(0, 10)})`;
+      console.log(`${C.Y}⚑ "${p.entry}" has an active steward (${st.agent_id}, ${st.dir}). It may have moved this baton's items.${C.R}`);
+      if (commits.length) {
+        console.log(`  its commits ${sinceLabel}:`);
+        for (const c of commits.slice(0, 12)) console.log(`  ${C.D}${c.hash} ${c.date} ${c.subject.slice(0, 110)}${C.R}`);
+        if (commits.length > 12) console.log(`  ${C.D}… and ${commits.length - 12} more (git log -- ${st.dir})${C.R}`);
+      } else {
+        console.log(`  ${C.D}no steward commits ${sinceLabel}.${C.R}`);
+      }
+      if (notes.length) {
+        console.log(`  its cycles posted ${notes.length} note${notes.length === 1 ? '' : 's'} against this card:`);
+        for (const n of notes.slice(-6)) console.log(`  ${C.D}${String(n.ts).slice(0, 10)} cycle ${n.payload.cycle}: ${(n.payload.proposals || []).map((x) => `item ${x.item} (${x.page})`).join(', ') || 'no proposals'}${C.R}`);
+      }
+      if (owed.length) {
+        console.log(`  its proposals for canon, owed until Loudon's ledger review (${owed[0].ledger}):`);
+        for (const o of owed.slice(0, 8)) console.log(`  ${C.D}item ${o.n} · ${o.date} · ${o.page}${o.place ? ` — ${o.place.slice(0, 70)}` : ''}${C.R}`);
+        console.log(`  ${C.D}→ if a baton item is one of these, it is one change: say so on the baton and in the ledger, and settle it once.${C.R}`);
+      }
+      console.log(`  ${C.D}→ the close will be addressed to ${st.agent_id}, so its next cycle reads what landed.${C.R}`);
+      console.log('');
+    }
+  } catch (e) {
+    console.log(`${C.D}steward check: unavailable — ${e.message}${C.R}\n`);
+  }
 }
 
 // --- Loudon's open review notes on the entry (read-only) ----------------------

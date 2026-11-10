@@ -23,6 +23,12 @@
 //   6c. when the cycle commits and its vetted page edits touch a page directly
 //      under Shop/, reruns the Shop roster (refreshShopRoster). Since
 //      2026-10-18 no vetted edit can, so it does not fire,
+//   6d. when the cycle shipped and its page has an active handoff card (a
+//      baton OPEN or CLAIMED on the board), posts one REPLY against each card,
+//      `payload.kind: handoff_steward_cycle`: the cycle, what it posted, the
+//      canon edits it filed. It never closes or edits the baton; the catcher
+//      reads it at pickup and decides ([[Two Batons, One Board]],
+//      steward-watch.mjs),
 //   7. materializes the bundle-local `[Entry] — scroll.md` (the project's front
 //      door — Now zone + append-only making trail) from the board-derived view.
 //      The scroll replaced the older plan.md read-model on 2026-09-23.
@@ -55,6 +61,7 @@ import { commitCycle, planCycleCommit, pageEditsOf, vetPageEdits, proposedEditsO
 import { uncommittedInBundle } from './workshop-leftovers.js';
 import { refreshShopRoster, rosterTriggers, ROSTER_BUILDER } from './shop-roster.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
+import { activeCardsFor, stewardCycleNote } from '../../steward-watch.mjs';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
 
@@ -622,6 +629,36 @@ export function processCycle(opts) {
     run = { error: e.message };
   }
 
+  // ── A baton on the same page hears the cycle (2026-11-10) ─────────────────
+  // [[Two Batons, One Board]]: on 2026-11-05 BLUELINE's steward built its open
+  // baton's item 1 and filed the edit as a proposal, and nothing told the card.
+  // Now a cycle that shipped posts one note against each OPEN or CLAIMED card
+  // on its page: which cycle, what it posted, the canon edits it filed. The
+  // code cannot know whether the cycle advanced a baton item, so the note says
+  // only what happened and the catcher decides. It is a board line, which
+  // every cycle writes; nothing here closes, claims or edits a baton. Not
+  // counted in posted_ids, so it never makes a barren cycle look shipped; it
+  // rides the cycle's commit with the board.
+  const handoff_notes = [];
+  if (!barren) {
+    try {
+      const filedNow = run && Array.isArray(run.filed) ? run.filed : [];
+      for (const card of activeCardsFor(board, home)) {
+        const note = stewardCycleNote({ card, home, cycleN, tsNow, sessionId: manifest.session_id, health, posted: appended, proposals: filedNow });
+        const res = validateForPosting(note);
+        if (!res.valid) { handoff_notes.push({ handoff_id: card.m.id, error: 'invalid', errors: res.errors }); continue; }
+        appendMessage(boardFile, note);
+        handoff_notes.push({ handoff_id: card.m.id, id: note.id, state: card.state });
+      }
+    } catch (e) {
+      handoff_notes.push({ error: e.message });
+    }
+    const noted = handoff_notes.filter((n) => n.id);
+    if (noted.length) {
+      appendFileSync(histPath, noted.map((n) => JSON.stringify({ event: 'HANDOFF_NOTED', ts: tsNow, cycle: cycleN, handoff_id: n.handoff_id, message_id: n.id, state: n.state })).join('\n') + '\n');
+    }
+  }
+
   // ── What the bundle holds that this cycle will not commit (2026-10-29) ───
   // Every uncommitted file in the steward's bundle that no posted message
   // declared: a dying spawn's work, most often (GPD cycle 10, 2026-10-24).
@@ -782,6 +819,8 @@ export function processCycle(opts) {
     shop_roster: roster,
     // Where the project's scroll landed (replaces the plan.md read-model).
     scroll,
+    // The notes posted against active handoff cards on this page (empty when none).
+    handoff_notes,
     // Uncommitted files in the bundle that no message declared: named, not committed.
     workshop_leftovers: leftovers,
     // What the cycle committed (null when the caller did not opt in).
