@@ -60,6 +60,24 @@ test('the Return map: a retracted grant leaves its ask waiting; a RETRACT of tha
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+test('the Return map keys an ask the deck\'s way: answered by its request_id or by its message id; with no RETRACT, as before', () => {
+  // An ask whose request_id differs from its message id, answered by the request_id:
+  // the old probe keyed asks by message id alone and showed this one as waiting.
+  const split = { ...ask('msg-7', '2026-11-01T09:00:00Z'), request_id: 'req-7' };
+  // An ask with no request_id, answered by its message id.
+  const bare = { ...ask('msg-8', '2026-11-01T09:00:00Z') }; delete bare.request_id;
+  const { dir, board } = scratch([
+    split, grant('req-7', 'g-7', '2026-11-01T10:00:00Z'),
+    bare, grant('msg-8', 'g-8', '2026-11-01T10:00:00Z'),
+    ask('q-open', '2026-11-01T09:00:00Z'),
+    ask('q-answered', '2026-11-01T09:00:00Z'), grant('q-answered', 'g-a', '2026-11-01T10:00:00Z'),
+    { ...ask('msg-9', '2026-11-01T09:00:00Z'), request_id: 'req-9' },
+  ]);
+  try {
+    assert.deepEqual(blockedIds(board), ['msg-9', 'q-open']);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});
+
 test('read-answers --open and review-notes.js: a retracted answer reopens its review card; a RETRACT of it changes nothing', () => {
   const lines = [
     dock('kc-r1', '2026-11-02T09:00:00Z', 'Kuramoto Coupling', 1, 'the slider reads backwards'),

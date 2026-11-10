@@ -34,7 +34,7 @@ import { readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { boardPath, loadBoard, foldHandoffs, age, C, ownerRoot } from '../stigmergy/handoff-model.mjs';
 import { parseSince, sinceFor } from '../stigmergy/app/scripts/trunk-state.mjs';
-import { retractedIds, isWithdrawn } from '../stigmergy/live-answers.mjs';
+import { readAnswers } from '../stigmergy/live-answers.mjs';
 
 const ROOT = ownerRoot();
 const argv = process.argv.slice(2);
@@ -193,20 +193,19 @@ try {
 
 // Anyone blocked on Loudon. A steward can wait months in silence, and silence
 // is exactly what a returning instance cannot see — so ask the board directly.
-// A RETRACT withdraws (SCHEMA — Reference §9; ../stigmergy/live-answers.mjs): a
-// retracted grant or deny answers nothing, so its ask is waiting again, and a
-// retracted request is no ask. The keying is this probe's own and unchanged: an
-// ask by its message `id`, an answer by `re` (or a payload request_id).
+// It reads an ask the deck's way (../stigmergy/live-answers.mjs): keyed by its
+// `request_id`, else its own `id`, and answered by a live grant or deny whose
+// `re` names either. A RETRACT withdraws (SCHEMA — Reference §9): a retracted
+// grant or deny answers nothing, so its ask is waiting again, and a retracted
+// request is no ask. Every answer on the board names its ask in `re` (checked
+// 2026-11-10: none carries it only in a payload request_id), so `re` is the
+// only key read.
 let blocked = { ok: false, error: 'board unreadable' };
 try {
   const msgs = loadBoard(board);
-  const retracted = retractedIds(msgs);
-  const answered = new Set(
-    msgs.filter((m) => (m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && !isWithdrawn(m, retracted))
-      .map((m) => m.re || (m.payload || {}).request_id).filter(Boolean),
-  );
+  const { answerFor, withdrawn } = readAnswers(msgs);
   const waiting = msgs
-    .filter((m) => m.type === 'RESOURCE_REQUEST' && !isWithdrawn(m, retracted) && !answered.has(m.id))
+    .filter((m) => m.type === 'RESOURCE_REQUEST' && !withdrawn(m) && !answerFor(m))
     .map((m) => ({
       id: m.id,
       from: m.from,
