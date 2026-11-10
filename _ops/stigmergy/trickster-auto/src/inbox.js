@@ -11,8 +11,20 @@
 // counts as answered when a grant's `re` matches either id, as the deck reads
 // it. A request carrying neither id can never be answered, so it is named once
 // in `unanswerable` rather than queued forever.
+//
+// A RETRACT withdraws (SCHEMA — Reference §9; the rule is ../../live-answers.mjs,
+// shared with the deck and the stewards): a retracted request is no ask, in
+// neither `pending` nor `unanswerable`, and a retracted grant or deny answers
+// nothing, so its request is pending again. That holds whoever answered: an
+// ask whose answer Loudon retracted is pending here as it is on the deck, and
+// the rules evaluate it like any other. In --shadow (the default; switching
+// --live is still Loudon's open move, [[Project Stewardship System]]) that only
+// changes the digest; in --live the engine could answer an ask whose answer
+// Loudon withdrew. Whether his retraction
+// should keep the engine off is Loudon's call; this reader does not decide it.
 
 import { parseRequest } from './parse.js';
+import { readAnswers } from '../../live-answers.mjs';
 
 /**
  * @param {Array<object>} messages — parsed board messages, in board order
@@ -24,13 +36,9 @@ import { parseRequest } from './parse.js';
  * }}
  */
 export function buildInbox(messages) {
-  const answeredIds = new Set();
-  for (const m of messages) {
-    if (m && (m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY')) {
-      const re = typeof m.re === 'string' && m.re.trim() !== '' ? m.re : null;
-      if (re) answeredIds.add(re);
-    }
-  }
+  // Every `re` a live grant or deny names. A retracted answer is not here.
+  const live = readAnswers(messages);
+  const answeredIds = new Set([...live.answers.keys()].filter((re) => re.trim() !== ''));
 
   // De-duplicate by key, keeping the LAST occurrence (a re-posted request
   // supersedes its earlier form — matches the gsl-steward-004 →
@@ -39,6 +47,7 @@ export function buildInbox(messages) {
   const unanswerable = [];
   for (const m of messages) {
     if (!m || m.type !== 'RESOURCE_REQUEST') continue;
+    if (live.withdrawn(m)) continue;          // a retracted request is no ask
     const r = parseRequest(m);
     if (r.request_id) byId.set(r.request_id, r);
     else unanswerable.push(r);
