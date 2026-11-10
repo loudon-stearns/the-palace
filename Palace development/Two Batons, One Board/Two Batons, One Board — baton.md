@@ -11,7 +11,7 @@ forward_vector: "I carry the in-progress move on [[Two Batons, One Board]] acros
 # Baton: Two Batons, One Board — when a baton and a steward work the same project
 
 ## Move
-Build four checks so a baton and a steward working one project at the same time each see what the other did: a steward cycle that advances an active baton's item posts against that baton's card; `pickup-handoff.mjs` warns when the project has an active steward and lists its cycles since the baton was born, and the close and the landing post to the steward; a status claim like "still waiting" re-checks git on the project first; and the launch prompt stops telling the catcher to delete the baton at pickup.
+The four checks are built and landed (`71d0f092`). What is left: see the steward's note work in a live cycle, and carry Loudon's four rulings on how far the checks reach.
 
 ## Why this move matters
 This page says the baton and the steward are one atom on one board. In practice they are still blind to each other. Loudon, 2026-11-07: "I was testing to see how we would handle a baton and steward working at the same time… I imagine this will happen more and more."
@@ -19,25 +19,34 @@ This page says the baton and the steward are one atom on one board. In practice 
 The case, BLUELINE, 2026-11-04 to 11-07. A session left BLUELINE's reset baton on 2026-11-04 (`7cc04682`); its item 1 was to put the board record on the Set's tempo map. On 2026-11-05 BLUELINE's steward built that tempo map in two cycles (`2980ecfb`, `5426e608`) and filed the record's clock edit as a proposal in `BLUELINE — tuning` item 2. Nothing told the baton's card. On 2026-11-07 a session said the project was "still waiting"; its freshness check covered only the files it was about to edit, not the project. The baton was then brought up to date by hand at the close (`b3ad6656`).
 
 ## Current state
-Nothing built. Where each check would sit:
-1. `_ops/stigmergy/orchestrator/src/process-cycle.js` commits a steward cycle and posts its lines; it reads no handoff cards. Spec home: [[Project Stewardship System]].
-2. `_ops/stigmergy/pickup-handoff.mjs` prints every commit that touched the entry since the baton posted, then claims; it does not ask whether a steward is active (`_ops/agents/permanent/<slug>/`). `close-handoff.mjs` and `palace-land` post nothing to a steward.
-3. No check exists. The claim was made in a session's own words.
-4. `_ops/stigmergy/app/src/lib/launch-prompt.js:102` reads "mark it caught, then delete the baton file — git is its archive." The On-pickup checklist (step 8) deletes at the close, not the catch. Implicated in Closing Well — tuning item 69. Loudon chose to add this check, 2026-11-07.
+All four checks landed on 2026-11-10 in merge `71d0f092`, on Loudon's "Yes, land all". They share one read-only module, `_ops/stigmergy/steward-watch.mjs`.
+1. A steward cycle that ships posts one note against each open or claimed card on its page (`_ops/stigmergy/orchestrator/src/process-cycle.js`, step 6d; `payload.kind: "handoff_steward_cycle"`). Tested on fixture palaces only. It has not run in a live cycle.
+2. `pickup-handoff.mjs` warns of an active steward and lists its commits since the baton was born, its notes on the card and its owed proposals. Proved by dry run on BLUELINE's open card. `close-handoff.mjs` addresses the close to the steward. `palace-land` posts nothing to a steward: the close carries that word.
+3. `_ops/stigmergy/project-since.mjs "<entry>"` prints every commit on a project, its steward's included. Nothing makes a session run it; the sentence asking for it is in [[Baton Ceremony]] § Announcing the Baton on the Board.
+4. The launch prompt (`_ops/stigmergy/app/src/lib/launch-prompt.js`) leaves the baton file and its pointer until the close.
+
+Spec words landed with them: [[Baton Ceremony]] v1.7, [[Project Stewardship System]] § What's Decided and its Context, and this page's opening.
 
 ## Next move
-Start with check 2, the smallest, and prove it on BLUELINE's open card, which has an active steward. Then 1, then 4, then 3. Code and spec changes to [[Baton Ceremony]] and [[Project Stewardship System]] go on a worktree of your own (`node _ops/worktree/new-worktree.mjs --name <branch> --profile <p>`), landed on Loudon's yes.
+1. Watch for check 1 in a live cycle. BLUELINE has an open card and an active steward, so its next cycle that ships should post a note against that card (`node _ops/stigmergy/pickup-handoff.mjs blueline-remainder-20261107T123342Z --dry-run` lists the notes). If no note appears, that is a bug to find in step 6d, not a reason to wait longer.
+2. Bring Loudon the four questions the build raised, and build what he rules:
+   - Should a landing itself tell a project's steward when a branch touches its page? Today only the baton's close does, and doing it from `palace-land` would mean the door writes to the board.
+   - Should the claim be addressed to the steward too, so it knows a session holds the baton before the close?
+   - A note posts on every cycle that ships while a baton is open, whether or not the work overlaps. Is that the right amount?
+   - Is the Baton Ceremony's sentence enough for `project-since.mjs`, or should Closing Well carry it too?
+3. Stale and left alone: this page's paragraphs on each baton still say the [[BBS Blackboard]] "is nowhere in this loop". Show Loudon the words before changing them.
 
 ## Calibrations from this session
 - A steward writes only its workshop, its scroll and its tuning ledger; a change it wants in the house is a proposal, owed until Loudon's ledger review. A check must not have the steward close or edit a baton.
 - One route per edit: when a baton item and a steward proposal are the same change, say so on both and settle it once.
 - "Still waiting" is a status claim. Check git on the project before making it.
+- "Since the baton was born" and "since the card was posted" are different windows. A remainder card is reposted at each partial close while the baton file lives on, so the pickup reaches back to the baton's `born:`.
 
 ## Load these files first
 1. `Palace development/Two Batons, One Board.md` — the atom.
 2. `_ops/Baton Ceremony.md` § Announcing the Baton on the Board, and [[STIGMERGY]] § Handoff Lifecycle.
-3. `Projects/Project Stewardship System.md`, then `_ops/stigmergy/orchestrator/src/process-cycle.js`.
-4. `_ops/stigmergy/pickup-handoff.mjs`, `close-handoff.mjs`, `handoff-model.mjs`, and `app/src/lib/launch-prompt.js`.
+3. `_ops/stigmergy/steward-watch.mjs`, then `_ops/stigmergy/orchestrator/src/process-cycle.js` step 6d and `orchestrator/tests/unit/handoff-steward-note.test.js`.
+4. `_ops/stigmergy/pickup-handoff.mjs`, `close-handoff.mjs`, `project-since.mjs`.
 5. The case: `Projects/BLUELINE/BLUELINE — baton.md`, `BLUELINE — tuning.md`, and `git log --since=2026-11-04 -- Projects/BLUELINE`.
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
