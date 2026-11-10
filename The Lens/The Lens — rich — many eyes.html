@@ -1,0 +1,503 @@
+<!doctype html>
+<!--
+  title: The Lens — rich — many eyes
+  born: 2026-11-10
+  links: [[The Lens]] (connects-to · rich-face-piece) · listed in [[The Lens — rich.json]] · [[Spinoza]], [[Merleau-Ponty]], [[Simondon]], [[Deleuze]] (connects-to · the eyes, each drawn from what its palace page records) · [[Graphic Storytelling]] (connects-to · one panel, ink first, colour as the variable)
+  forward_vector: I am one comic panel in ink and a round glass you drag over it. The glass holds one of four people's eyes at a time, and under it the same drawing is recoloured and bent as the palace records that person sees; around it the ink stays. I end on a pair of spectacles that shows the arrow: one eye on the other's thing, then swapped, and the two pictures differ. Everything is one SVG drawn by hand in code and changed live; nothing here is a quotation. I change when the page's people do, or when Loudon rules on glasses for the living.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lens — many eyes</title>
+<meta name="theme-color" content="#0a0a0f">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --accent:#e8b84a; --accent-soft:rgba(232,184,74,.10); --accent-line:rgba(232,184,74,.5);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif;
+    --ease:cubic-bezier(.4,0,.2,1); }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 20px 20px 22px; max-width: 1180px; margin: 0 auto; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--fg1); margin: 0 0 4px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 74ch; margin: 0 0 14px; }
+  h3 { font-family: var(--serif); font-size: 23px; font-weight: 400; color: var(--fg1); margin: 30px 0 4px; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 9px 12px; cursor: pointer; transition: border-color 220ms var(--ease), color 220ms var(--ease), background 220ms var(--ease); }
+  button:hover { border-color: var(--accent-line); color: var(--fg1); }
+  button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent-line); }
+  button:focus-visible, svg:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0 0; }
+  .lbl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-right: 4px; }
+  .sep { width: 1px; height: 22px; background: var(--border); margin: 0 6px; }
+  .stage { border: 1px solid var(--soft); background: #050507; padding: 10px; border-radius: 2px; }
+  svg { display: block; width: 100%; height: auto; }
+  #panel { cursor: crosshair; user-select: none; -webkit-user-select: none; }
+  #grab { cursor: grab; touch-action: none; }
+  #grab:active { cursor: grabbing; }
+  .note { margin: 14px 0 0; padding: 10px 14px; border-left: 1px solid var(--accent-line); background: var(--e1); max-width: 80ch; min-height: 118px; }
+  .note .who { font-family: var(--serif); font-size: 22px; color: var(--fg1); }
+  .note p { font-size: 13.5px; line-height: 1.6; margin: 4px 0 0; }
+  .note .bent { color: var(--fg3); font-size: 12.5px; }
+  .note .src { font-family: var(--mono); font-size: 10.5px; letter-spacing: .04em; color: var(--fg3); }
+  .after { font-size: 14px; line-height: 1.6; max-width: 74ch; margin: 10px 0 0; }
+  .after b { color: var(--fg1); font-weight: 500; }
+  .specs { max-width: 760px; }
+  .cap2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 760px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .03em; color: var(--fg2); text-align: center; margin-top: 4px; }
+  .cap2 b { color: var(--accent); font-weight: 500; }
+  .fine { font-size: 12.5px; line-height: 1.6; color: var(--fg3); max-width: 80ch; margin: 14px 0 0; }
+
+  /* ── the one drawing. Every paint is a variable; an eye is a set of values. ── */
+  .eye { --paper:#efe6d2; --ink:#16130f; --lw:1; --dash:none;
+    --wall:var(--paper); --sky:var(--paper); --sun:var(--paper); --hill:var(--paper); --hill2:var(--paper); --water:var(--paper);
+    --frame:var(--paper); --black:#16130f; --hi:var(--paper); --bench:var(--paper); --synth:var(--paper); --panelf:var(--paper);
+    --screen:#16130f; --wave:var(--paper); --knob:var(--paper); --knob2:var(--paper); --skin:var(--paper); --skinline:var(--ink);
+    --sleeve:#16130f; --cable:#16130f; --cone:none; --jack:#16130f;
+    --far-f:none; --far-o:1; --synth-o:1; --hand-dash:none; --hatch-o:1; }
+  .s-l  { stroke: var(--ink); stroke-width: calc(var(--lw) * 4px); stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: var(--dash); }
+  .s-t  { stroke: var(--ink); stroke-width: calc(var(--lw) * 2px); stroke-linecap: round; stroke-linejoin: round; fill: none; }
+  .s-h  { stroke: var(--ink); stroke-width: calc(var(--lw) * 6px); stroke-linecap: round; stroke-linejoin: round; }
+  .nf { fill: none; }
+  .g-far { filter: var(--far-f); opacity: var(--far-o); }
+  .g-synth { opacity: var(--synth-o); }
+  .g-hand { opacity: var(--hand-o, 1); }
+  .hatch { opacity: var(--hatch-o); }
+  .fo { stroke: var(--skinline); opacity: var(--fo-o, 1); fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: var(--hand-dash); }
+  .ff { stroke: var(--skin); fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Merleau-Ponty: the touch is near and warm, the tool takes the hand's colour, the far goes soft */
+  .eye-mp { --paper:#f6e2cf; --ink:#5a2a1c; --lw:1.35; --wall:#f3d7c0; --sky:#e9dfe6; --sun:#f6efe0; --hill:#dfd3d6; --hill2:#d6c8cc; --water:#e6e2ec;
+    --frame:#ecd3bd; --black:#7a4634; --hi:#f6e2cf; --bench:#e9c2a0; --synth:#f1cdb4; --panelf:#f5d8c2; --screen:#8a4a3a; --wave:#ffd9b0;
+    --knob:#e8906c; --knob2:#f0c0a4; --skin:#e8906c; --skinline:#5a2a1c; --sleeve:#b5543a; --cable:#b98a78; --cone:rgba(255,236,200,.5); --jack:#b98a78;
+    --far-f:blur(5px); --far-o:.75; --synth-o:.8; --hatch-o:.3; }
+  /* Spinoza: one substance, one hue; the borders between things grow faint */
+  .eye-spinoza { --paper:#e3f0ee; --ink:#2c6f96; --lw:.55; --wall:#dcecec; --sky:#d3e8ec; --sun:#eef7f4; --hill:#bcdbe3; --hill2:#a9d0dc; --water:#8fc0d4;
+    --frame:#cfe4e8; --black:#3d81a6; --hi:#e3f0ee; --bench:#bcdbe3; --synth:#a9d0dc; --panelf:#bcdbe3; --screen:#3d81a6; --wave:#e3f0ee;
+    --knob:#8fc0d4; --knob2:#a9d0dc; --skin:#a9d0dc; --skinline:#5d9bbb; --sleeve:#5d9bbb; --cable:#3d81a6; --cone:rgba(255,255,255,.35); --jack:#3d81a6; --hatch-o:.5; }
+  /* Simondon: the machine is the being in the room; open it, and show where it came from */
+  .eye-simondon { --paper:#0f3158; --ink:#d7e8ff; --lw:.5; --wall:#0f3158; --sky:#0f3158; --sun:none; --hill:none; --hill2:none; --water:none;
+    --frame:none; --black:#0a2444; --hi:#5f86b4; --bench:#123a66; --synth:#174574; --panelf:#1b4f84; --screen:#0a2444; --wave:#ffc04a;
+    --knob:rgba(255,255,255,.10); --knob2:rgba(255,255,255,.10); --skin:#143d6b; --skinline:#9fbde0; --sleeve:#143d6b; --cable:#d7e8ff; --cone:none; --jack:#d7e8ff;
+    --far-o:.4; --hatch-o:.25; --hand-o:.62; }
+  /* Deleuze: no outline closes; every fill is a gradient; the print is off its register */
+  .eye-deleuze { --paper:#fff3cf; --ink:#2b1650; --lw:1.1; --wall:url(#gd-wall); --sky:url(#gd-sky); --sun:#ffe14a; --hill:url(#gd-hill); --hill2:url(#gd-hill2); --water:url(#gd-water);
+    --frame:#ffd9ec; --black:#2b1650; --hi:#ff3d9a; --bench:url(#gd-skin); --synth:url(#gd-synth); --panelf:url(#gd-panel); --screen:#2b1650; --wave:#7dffe4;
+    --knob:url(#gd-knob); --knob2:#ffe14a; --skin:#ff8a5c; --skinline:#2b1650; --sleeve:#00a6d6; --cable:#ff2d8a; --cone:rgba(255,225,74,.45); --jack:#2b1650; }
+  .ghost { --wall:none; --sky:none; --sun:none; --hill:none; --hill2:none; --water:none; --frame:none; --black:none; --hi:none; --bench:none; --synth:none; --panelf:none;
+    --screen:none; --wave:none; --knob:none; --knob2:none; --skin:none; --sleeve:none; --cone:none; --jack:none; --lw:.9; --fo-o:0; mix-blend-mode: multiply; display: none; }
+  .ghost.g1 { --ink:#ff2d8a; --skinline:#ff2d8a; --cable:#ff2d8a; }
+  .ghost.g2 { --ink:#00a6d6; --skinline:#00a6d6; --cable:#00a6d6; }
+  .eye-deleuze .ghost { display: inline; }
+  .extra { display: none; }
+  .eye-mp .x-mp, .eye-spinoza .x-spinoza, .eye-simondon .x-simondon, .eye-deleuze .x-deleuze, .eye-tint .x-tint { display: inline; }
+  @media (max-width: 560px) {
+    .piece { padding: 14px 10px 18px; } .title { font-size: 24px; } .stage { padding: 4px; }
+    button { padding: 9px 9px; letter-spacing: .06em; } .note { min-height: 190px; } .sep { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">The Lens · one panel, many eyes</div>
+  <h2 class="title">Drag the glass. Then change whose eye is in it.</h2>
+  <p class="sub">One drawing, in ink: a hand on a knob, a machine, a river out the window. Under the glass it is coloured and bent the way one person sees. Around the glass, the ink stays as it was.</p>
+
+  <div class="stage">
+  <svg id="panel" viewBox="0 0 1200 760" tabindex="0" role="application" aria-label="A comic panel in ink: a hand turning a knob on a synthesizer, a lamp above, a river through the window. A round glass can be dragged across it, or moved with the arrow keys; keys 1 to 5 change whose eye is in the glass.">
+    <defs>
+      <!-- gradients: Deleuze's fills are all gradients (an intensity is a kept difference) -->
+      <linearGradient id="gd-sky" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe14a"/><stop offset="1" stop-color="#ff7ab8"/></linearGradient>
+      <linearGradient id="gd-wall" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff3cf"/><stop offset="1" stop-color="#ffd3e6"/></linearGradient>
+      <linearGradient id="gd-hill" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00c2a8"/><stop offset="1" stop-color="#ffe14a"/></linearGradient>
+      <linearGradient id="gd-hill2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff7ab8"/><stop offset="1" stop-color="#00c2a8"/></linearGradient>
+      <linearGradient id="gd-water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dffe4"/><stop offset="1" stop-color="#3b6bff"/></linearGradient>
+      <linearGradient id="gd-synth" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a5cff"/><stop offset="1" stop-color="#00c2e0"/></linearGradient>
+      <linearGradient id="gd-panel" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#ffd0ea"/><stop offset=".5" stop-color="#fff3a8"/><stop offset="1" stop-color="#a8f3ff"/></linearGradient>
+      <linearGradient id="gd-skin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffe14a"/><stop offset="1" stop-color="#ff5c8a"/></linearGradient>
+      <radialGradient id="gd-knob"><stop offset="0" stop-color="#fff3a8"/><stop offset="1" stop-color="#ff2d8a"/></radialGradient>
+      <radialGradient id="gd-warm"><stop offset="0" stop-color="#ff8a5c" stop-opacity=".55"/><stop offset=".55" stop-color="#ffb08a" stop-opacity=".22"/><stop offset="1" stop-color="#ffb08a" stop-opacity="0"/></radialGradient>
+      <pattern id="p-waves" width="96" height="30" patternUnits="userSpaceOnUse"><path d="M0,15 Q24,1 48,15 T96,15" fill="none" stroke="#2c6f96" stroke-width="1.6" opacity=".55"/></pattern>
+      <pattern id="p-grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30,0 H0 V30" fill="none" stroke="#9fc4f0" stroke-width=".7" opacity=".35"/></pattern>
+      <pattern id="p-dots" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(18)"><circle cx="6" cy="6" r="2.5" fill="#ff2d8a" opacity=".3"/></pattern>
+      <marker id="m-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#e0a21a"/></marker>
+      <marker id="m-tick" viewBox="0 0 2 12" refX="1" refY="6" markerWidth="2" markerHeight="12" orient="auto"><path d="M1,0 V12" stroke="#d7e8ff" stroke-width="1.4"/></marker>
+      <clipPath id="c-win"><rect x="86" y="86" width="328" height="358"/></clipPath>
+      <clipPath id="c-scope"><rect x="570" y="330" width="190" height="120" rx="10"/></clipPath>
+      <clipPath id="c-glass"><circle id="c-glass-shape" cx="930" cy="450" r="170"/></clipPath>
+      <clipPath id="c-all"><rect x="0" y="0" width="1200" height="760"/></clipPath>
+      <filter id="f-shadow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7"/></filter>
+
+      <!-- ═══ THE ONE DRAWING ═══ -->
+      <g id="scene">
+        <rect x="0" y="0" width="1200" height="560" fill="var(--wall)"/>
+        <!-- window, river: the far things -->
+        <g class="g-far">
+          <rect x="70" y="70" width="360" height="390" fill="var(--frame)" class="s-h"/>
+          <g clip-path="url(#c-win)">
+            <rect x="86" y="86" width="328" height="358" fill="var(--sky)"/>
+            <circle cx="330" cy="150" r="32" fill="var(--sun)" class="s-l"/>
+            <path d="M86,300 Q150,228 240,290 T414,268 V444 H86 Z" fill="var(--hill)" class="s-l"/>
+            <path d="M86,352 Q200,300 300,360 T414,338 V444 H86 Z" fill="var(--hill2)" class="s-l"/>
+            <path d="M296,322 C332,346 252,366 232,392 C202,426 300,440 262,446 L128,446 C192,436 150,414 190,386 C216,362 300,346 288,322 Z" fill="var(--water)" class="s-l"/>
+            <path class="s-t" d="M214,404 q12,-7 24,0 M178,428 q14,-7 28,0 M226,430 q12,-6 24,0 M246,376 q9,-5 18,0"/>
+            <path class="s-t" d="M120,140 h44 M134,154 h56 M352,236 h36"/>
+          </g>
+          <path class="s-l nf" d="M250,86 V444 M86,214 H414"/>
+          <rect x="52" y="458" width="396" height="22" fill="var(--frame)" class="s-h"/>
+        </g>
+        <g class="hatch"><path class="s-t" d="M446,96 l26,-26 M446,132 l40,-40 M446,168 l40,-40 M446,204 l40,-40 M446,240 l40,-40 M446,276 l40,-40 M446,312 l40,-40 M446,348 l40,-40 M446,384 l40,-40 M446,420 l40,-40 M446,452 l36,-36"/></g>
+        <!-- lamp -->
+        <path d="M724,170 L796,170 L972,548 L548,548 Z" fill="var(--cone)"/>
+        <path class="s-l nf" d="M760,0 V112"/>
+        <path d="M716,172 L740,110 H780 L804,172 Z" fill="var(--black)" class="s-l"/>
+        <path class="s-t hatch" d="M700,196 l-10,22 M820,196 l10,22 M686,236 l-10,22 M836,236 l10,22"/>
+        <!-- bench -->
+        <rect x="-10" y="560" width="1220" height="210" fill="var(--black)"/>
+        <path class="hatch" d="M30,610 H300 M60,640 H220 M380,625 H520 M420,700 H700 M40,720 H180 M760,650 H900 M820,690 H930" stroke="var(--hi)" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <rect x="-10" y="546" width="1220" height="20" fill="var(--bench)" class="s-h"/>
+        <!-- the machine -->
+        <g class="g-synth">
+          <path d="M478,548 L520,286 H1100 L1134,548 Z" fill="var(--synth)" class="s-h"/>
+          <path d="M512,534 L546,304 H1078 L1104,534 Z" fill="var(--panelf)" class="s-l"/>
+          <rect x="570" y="330" width="190" height="120" rx="10" fill="var(--screen)" class="s-l"/>
+          <path d="M582,390 q14,-58 28,0 t28,0 t28,0 t28,0 t28,0 t28,0" fill="none" stroke="var(--wave)" stroke-width="5" stroke-linecap="round"/>
+          <g>
+            <circle cx="596" cy="496" r="17" fill="var(--knob2)" class="s-l"/><path class="s-l" d="M596,496 l-9,-12"/>
+            <circle cx="654" cy="496" r="17" fill="var(--knob2)" class="s-l"/><path class="s-l" d="M654,496 l2,-15"/>
+            <circle cx="712" cy="496" r="17" fill="var(--knob2)" class="s-l"/><path class="s-l" d="M712,496 l12,-9"/>
+            <circle cx="770" cy="496" r="17" fill="var(--knob2)" class="s-l"/><path class="s-l" d="M770,496 l-13,-7"/>
+          </g>
+          <g fill="var(--jack)"><circle cx="800" cy="322" r="8"/><circle cx="840" cy="322" r="8"/><circle cx="880" cy="322" r="8"/><circle cx="960" cy="322" r="8"/><circle cx="1000" cy="322" r="8"/><circle cx="1040" cy="322" r="8"/></g>
+          <path class="s-t" d="M840,430 h-12 M845,400 l-11,-5 M858,375 l-9,-9 M960,430 h12 M955,400 l11,-5 M942,375 l9,-9 M900,362 v-10"/>
+        </g>
+        <!-- cables -->
+        <g fill="none" stroke="var(--cable)" stroke-width="6" stroke-linecap="round">
+          <path d="M800,322 C802,372 958,372 960,322"/>
+          <path d="M840,322 C846,356 1036,360 1040,322"/>
+          <path d="M880,322 C872,236 566,214 500,292 C452,350 478,500 420,546"/>
+        </g>
+        <!-- the hand: fingers behind the knob first -->
+        <g class="g-hand">
+          <path class="fo" stroke-width="124" d="M1140,690 L1270,830"/><path d="M1140,690 L1270,830" fill="none" stroke="var(--sleeve)" stroke-width="112" stroke-linecap="round"/>
+          <path class="fo" stroke-width="98" d="M1064,612 L1150,700"/><path class="ff" stroke-width="88" d="M1064,612 L1150,700"/>
+          <path class="fo" stroke-width="31" d="M1108,566 L1120,514 L1100,482"/><path class="ff" stroke-width="22" d="M1108,566 L1120,514 L1100,482"/>
+          <path class="fo" stroke-width="35" d="M1082,548 L1086,482 L1058,446"/><path class="ff" stroke-width="26" d="M1082,548 L1086,482 L1058,446"/>
+          <path class="fo" stroke-width="37" d="M1056,532 L1046,458 L1006,418"/><path class="ff" stroke-width="28" d="M1056,532 L1046,458 L1006,418"/>
+        </g>
+        <!-- the big knob -->
+        <g>
+          <circle cx="900" cy="430" r="47" fill="var(--knob)" class="s-h"/>
+          <circle cx="900" cy="430" r="33" class="s-t"/>
+          <path class="s-h" d="M900,430 L929,396"/>
+          <path class="s-t" d="M832,378 a86,86 0 0 1 34,-27 M818,398 a100,100 0 0 1 8,-17"/>
+        </g>
+        <!-- palm, index, thumb in front -->
+        <g class="g-hand">
+          <path d="M982,596 C984,534 1044,494 1112,538 C1142,572 1124,640 1074,660 C1024,672 980,644 982,596 Z" fill="var(--skin)" stroke="var(--skinline)" stroke-width="calc(var(--lw) * 4.5px)" stroke-dasharray="var(--hand-dash)" stroke-linejoin="round"/>
+          <path class="fo" stroke-width="37" d="M1030,524 L1000,452 L948,402"/><path class="ff" stroke-width="28" d="M1030,524 L1000,452 L948,402"/>
+          <path class="fo" stroke-width="43" d="M996,592 L934,548 L880,482"/><path class="ff" stroke-width="34" d="M996,592 L934,548 L880,482"/>
+          <path d="M1000,560 Q1030,548 1052,520 M1078,640 q20,-8 30,-30" fill="none" stroke="var(--skinline)" stroke-width="calc(var(--lw) * 2px)" stroke-linecap="round" stroke-dasharray="var(--hand-dash)"/>
+          <path d="M872,472 l10,-6 M940,396 l8,8" fill="none" stroke="var(--skinline)" stroke-width="calc(var(--lw) * 2px)" stroke-linecap="round"/>
+        </g>
+      </g>
+
+      <!-- ═══ what each eye adds to the same drawing ═══ -->
+      <g id="x-mp">
+        <circle cx="940" cy="470" r="330" fill="url(#gd-warm)"/>
+        <path d="M750,390 C800,376 850,446 900,430 C950,414 1000,470 1040,560" fill="none" stroke="#d9482b" stroke-width="10" stroke-linecap="round" opacity=".62"/>
+        <g fill="none" stroke="#d9482b" stroke-width="3" stroke-linecap="round" opacity=".85">
+          <path d="M862,470 a22,22 0 0 0 10,26 M850,462 a36,36 0 0 0 14,44"/>
+          <path d="M934,384 a22,22 0 0 1 26,6 M930,370 a36,36 0 0 1 42,10"/>
+        </g>
+      </g>
+      <g id="x-spinoza">
+        <rect x="0" y="0" width="1200" height="760" fill="url(#p-waves)"/>
+        <g fill="none" stroke="#2c6f96" stroke-width="1.1" opacity=".8">
+          <circle cx="900" cy="430" r="112"/><circle cx="330" cy="150" r="62"/>
+          <path d="M330,150 L900,430 L665,390 Z M900,430 L760,140 L330,150 M232,392 L900,430 L1064,612"/>
+        </g>
+        <g fill="none" stroke="#e0a21a" stroke-width="4" stroke-linecap="round" marker-end="url(#m-arrow)">
+          <path d="M300,330 C310,356 246,372 226,404"/>
+          <path d="M760,186 V262"/>
+          <path d="M1150,704 L1086,634"/>
+          <path d="M836,470 A76,76 0 0 1 866,362"/>
+          <path d="M612,224 C560,232 520,262 498,300"/>
+          <path d="M770,376 H806"/>
+          <path d="M330,112 V84"/>
+        </g>
+      </g>
+      <g id="x-simondon">
+        <rect x="0" y="0" width="1200" height="760" fill="url(#p-grid)"/>
+        <!-- where it came from: two earlier, simpler bodies standing behind it -->
+        <g fill="none" stroke="#9fc4f0" stroke-linejoin="round">
+          <g transform="translate(-52,-44)" opacity=".5" stroke-width="1.6" stroke-dasharray="9 6"><path d="M478,548 L520,286 H1100 L1134,548 Z"/><rect x="570" y="330" width="190" height="120" rx="10"/><circle cx="900" cy="430" r="47"/><circle cx="654" cy="496" r="17"/></g>
+          <g transform="translate(-104,-88)" opacity=".28" stroke-width="1.4" stroke-dasharray="4 7"><path d="M478,548 L520,286 H1100 L1134,548 Z"/><circle cx="900" cy="430" r="47"/></g>
+        </g>
+        <!-- inside the panel -->
+        <g fill="none" stroke="#d7e8ff" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+          <rect x="862" y="392" width="76" height="76" stroke-dasharray="5 4"/>
+          <path d="M862,412 H806 V352 M862,448 H830 l5,-7 l8,14 l8,-14 l8,14 l5,-7"/>
+          <path d="M938,448 H1000 V330 M1040,330 V500 H990 M984,490 v20 M990,490 v20"/>
+          <path d="M596,513 V526 H770 V513 M654,513 V526 M712,513 V526"/>
+          <path d="M800,330 V352 H806 M840,330 V344 H960 V330"/>
+        </g>
+        <!-- one part, several jobs -->
+        <path d="M665,450 V526 H900 V477 M900,383 V346 H880 V330" fill="none" stroke="#ffc04a" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <g fill="#ffc04a"><circle cx="665" cy="450" r="5"/><circle cx="900" cy="477" r="5"/><circle cx="900" cy="383" r="5"/><circle cx="880" cy="330" r="5"/></g>
+        <!-- centre lines, a dimension, the joints of the hand -->
+        <g fill="none" stroke="#d7e8ff" stroke-width="1.1" stroke-dasharray="16 5 3 5"><path d="M780,430 H1020 M900,310 V550"/></g>
+        <path d="M478,596 H1134" fill="none" stroke="#d7e8ff" stroke-width="1.3" marker-start="url(#m-tick)" marker-end="url(#m-tick)"/>
+        <g fill="#0f3158" stroke="#9fbde0" stroke-width="1.6">
+          <circle cx="1030" cy="524" r="6"/><circle cx="1000" cy="452" r="6"/><circle cx="948" cy="402" r="6"/>
+          <circle cx="996" cy="592" r="6"/><circle cx="934" cy="548" r="6"/><circle cx="880" cy="482" r="6"/>
+          <circle cx="1056" cy="532" r="5"/><circle cx="1046" cy="458" r="5"/><circle cx="1082" cy="548" r="5"/><circle cx="1086" cy="482" r="5"/><circle cx="1108" cy="566" r="5"/><circle cx="1120" cy="514" r="5"/>
+        </g>
+        <g fill="none" stroke="#9fbde0" stroke-width="1" stroke-dasharray="12 4 2 4"><path d="M1030,524 L1000,452 L948,402 M996,592 L934,548 L880,482"/></g>
+      </g>
+      <g id="x-deleuze">
+        <rect x="0" y="0" width="1200" height="760" fill="url(#p-dots)"/>
+        <!-- every setting the knob is not at -->
+        <g fill="none" stroke-linecap="round" stroke-width="5" opacity=".55">
+          <path stroke="#7a5cff" d="M900,430 L868,461 M900,430 L856,424 M900,430 L870,397 M900,430 L900,385"/>
+          <path stroke="#00a6d6" d="M900,430 L944,424 M900,430 L932,462"/>
+          <circle cx="900" cy="430" r="62" stroke="#ff2d8a" stroke-width="2" stroke-dasharray="3 7"/><circle cx="900" cy="430" r="78" stroke="#00a6d6" stroke-width="2" stroke-dasharray="2 9"/>
+        </g>
+        <!-- every wave the screen is not showing -->
+        <g fill="none" stroke-width="2.2" stroke-linecap="round" clip-path="url(#c-scope)" opacity=".9">
+          <path stroke="#ff2d8a" d="M582,390 q21,-40 42,0 t42,0 t42,0 t42,0"/>
+          <path stroke="#ffe14a" d="M582,390 q9,-30 18,0 t18,0 t18,0 t18,0 t18,0 t18,0 t18,0 t18,0 t18,0"/>
+          <path stroke="#00c2e0" d="M582,400 q42,-70 84,0 t84,0"/>
+          <path stroke="#ffffff" d="M582,384 q28,34 56,0 t56,0 t56,0"/>
+        </g>
+        <!-- the cables reach for everything -->
+        <g fill="none" stroke-width="5" stroke-linecap="round">
+          <path stroke="#ff2d8a" d="M800,322 C700,180 480,60 330,150"/>
+          <path stroke="#00a6d6" d="M960,322 C980,180 860,120 760,140"/>
+          <path stroke="#7a5cff" d="M500,292 C400,330 330,360 232,392"/>
+          <path stroke="#ff2d8a" d="M1040,322 C1150,360 1130,520 1074,600"/>
+          <path stroke="#00a6d6" d="M420,546 C380,640 520,700 600,770"/>
+          <path stroke="#7a5cff" d="M1000,322 C1040,200 1120,140 1210,96"/>
+          <path stroke="#00a6d6" d="M596,496 C540,560 300,520 120,470"/>
+          <path stroke="#ff2d8a" d="M330,150 C240,200 170,250 190,386"/>
+        </g>
+        <g fill="#2b1650"><circle cx="330" cy="150" r="7"/><circle cx="760" cy="140" r="7"/><circle cx="232" cy="392" r="7"/><circle cx="1074" cy="600" r="7"/><circle cx="500" cy="292" r="7"/><circle cx="120" cy="470" r="7"/></g>
+      </g>
+      <g id="x-tint"><rect x="0" y="0" width="1200" height="760" fill="#e8a23a" opacity=".62" style="mix-blend-mode:multiply"/></g>
+    </defs>
+
+    <!-- the committed drawing: ink on paper -->
+    <rect x="0" y="0" width="1200" height="760" fill="#efe6d2"/>
+    <g class="eye"><use href="#scene"/></g>
+
+    <!-- the glass -->
+    <g id="glass">
+      <circle id="g-shadow" cx="938" cy="462" r="172" fill="#000" opacity=".38" filter="url(#f-shadow)"/>
+      <g id="lens" clip-path="url(#c-glass)">
+        <g id="lens-eye" class="eye eye-mp">
+          <rect id="lens-bg" x="-200" y="-200" width="1600" height="1160" fill="var(--paper)"/>
+          <g id="lens-world">
+            <use href="#scene"/>
+            <use href="#scene" class="ghost g1" transform="translate(-9,5) rotate(-.7 600 380)"/>
+            <use href="#scene" class="ghost g2" transform="translate(10,-6) rotate(.8 600 380)"/>
+            <use href="#x-mp" class="extra x-mp"/><use href="#x-spinoza" class="extra x-spinoza"/><use href="#x-simondon" class="extra x-simondon"/><use href="#x-deleuze" class="extra x-deleuze"/><use href="#x-tint" class="extra x-tint"/>
+          </g>
+        </g>
+      </g>
+      <g id="rim">
+        <circle id="rim-o" cx="930" cy="450" r="170" fill="none" stroke="#14121a" stroke-width="9"/>
+        <circle id="rim-i" cx="930" cy="450" r="164" fill="none" stroke="#fff" stroke-width="1.6" opacity=".55"/>
+        <path id="rim-hi" d="" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+      </g>
+      <circle id="grab" cx="930" cy="450" r="170" fill="transparent"/>
+    </g>
+    <rect x="3" y="3" width="1194" height="754" fill="none" stroke="#16130f" stroke-width="8"/>
+  </svg>
+  </div>
+
+  <div class="row" id="eyes" role="group" aria-label="Whose eye is in the glass">
+    <span class="lbl">whose eye</span>
+    <button data-eye="mp">Merleau-Ponty</button>
+    <button data-eye="spinoza">Spinoza</button>
+    <button data-eye="simondon">Simondon</button>
+    <button data-eye="deleuze">Deleuze</button>
+    <button data-eye="tint" title="a plain tint, the same everywhere">a tint</button>
+    <span class="sep"></span>
+    <button id="wear" aria-pressed="false" title="let the glass cover the whole panel">wear it</button>
+    <button id="lift" aria-pressed="false" title="take the glass away">lift it off</button>
+  </div>
+
+  <div class="note" id="note" aria-live="polite"></div>
+
+  <p class="after" id="after">Lift the glass off and the ink is exactly as it was. Looking wrote nothing. None of these eyes is the true one; the ink is only the one that was committed, and each colour belongs to the eye that brought it.</p>
+
+  <h3>Swap who is looking</h3>
+  <p class="sub">Each of the four has a thing in this room that is theirs. Put one person's eye on the other's thing, then trade places. The two lenses of the spectacles do not match.</p>
+  <div class="row" id="pairs" role="group" aria-label="Which two people trade places">
+    <span class="lbl">the two</span>
+    <button data-a="simondon" data-b="mp">Simondon · Merleau-Ponty</button>
+    <button data-a="spinoza" data-b="deleuze">Spinoza · Deleuze</button>
+    <button data-a="deleuze" data-b="simondon">Deleuze · Simondon</button>
+    <button data-a="mp" data-b="spinoza">Merleau-Ponty · Spinoza</button>
+  </div>
+  <div class="specs">
+    <svg id="specs" viewBox="0 0 760 372" role="img" aria-label="A pair of spectacles. Each lens shows a different part of the same panel through a different eye.">
+      <defs>
+        <clipPath id="c-sl"><circle cx="196" cy="190" r="164"/></clipPath>
+        <clipPath id="c-sr"><circle cx="564" cy="190" r="164"/></clipPath>
+      </defs>
+      <g clip-path="url(#c-sl)"><g id="sl-eye" class="eye"><rect x="0" y="0" width="760" height="372" fill="var(--paper)"/><g id="sl-world">
+        <use href="#scene"/><use href="#scene" class="ghost g1" transform="translate(-9,5) rotate(-.7 600 380)"/><use href="#scene" class="ghost g2" transform="translate(10,-6) rotate(.8 600 380)"/>
+        <use href="#x-mp" class="extra x-mp"/><use href="#x-spinoza" class="extra x-spinoza"/><use href="#x-simondon" class="extra x-simondon"/><use href="#x-deleuze" class="extra x-deleuze"/></g></g></g>
+      <g clip-path="url(#c-sr)"><g id="sr-eye" class="eye"><rect x="0" y="0" width="760" height="372" fill="var(--paper)"/><g id="sr-world">
+        <use href="#scene"/><use href="#scene" class="ghost g1" transform="translate(-9,5) rotate(-.7 600 380)"/><use href="#scene" class="ghost g2" transform="translate(10,-6) rotate(.8 600 380)"/>
+        <use href="#x-mp" class="extra x-mp"/><use href="#x-spinoza" class="extra x-spinoza"/><use href="#x-simondon" class="extra x-simondon"/><use href="#x-deleuze" class="extra x-deleuze"/></g></g></g>
+      <g fill="none" stroke="#c8c8d8" stroke-width="8" stroke-linecap="round">
+        <circle cx="196" cy="190" r="164"/><circle cx="564" cy="190" r="164"/>
+        <path d="M352,150 Q380,118 408,150"/><path d="M34,160 L6,138 M726,160 L754,138"/>
+      </g>
+    </svg>
+  </div>
+  <div class="cap2"><div id="cap-l"></div><div id="cap-r"></div></div>
+  <p class="after" id="arrow-line"></p>
+
+  <p class="fine">How this was made, and what it bends. The panel is one drawing, written by hand as SVG; each eye is a set of colours, a line weight, a warp and a few added marks laid on that same drawing live, not a second picture. What each person attends to is taken from their palace page. The palettes, the warps and the marks are this piece's invention, and so is each person's "own thing" in the room. Nothing here is a quotation. The spectacles show what the page's arrow means; they were drawn to differ, so they do not prove it.</p>
+</div>
+
+<script>
+(() => {
+  const NS = 'http://www.w3.org/2000/svg';
+  const $ = id => document.getElementById(id);
+  const W = 1200, H = 760, R = 170;
+
+  // An eye: what the palace's page records (said in this piece's words), what the glass bends,
+  // the thing in the room that is theirs, and the optics: magnify, turn, warp.
+  const EYES = {
+    mp: { name: 'Merleau-Ponty', mag: 1.24, rot: 0, warp: { f: '0.022', oct: 2, scale: 4 }, home: [962, 470], thing: 'the hand', wearAt: [940, 470], wearMag: 1.1,
+      sees: 'A tool, once learned, stops being a thing you look at and becomes a thing you feel through: a blind man’s cane, a synth gone transparent. So the knob takes the hand’s colour, the touch is the nearest and sharpest thing in the room, and the far window goes soft.',
+      bent: 'The glass’s doing: the warm palette, the blur, and the red line of sound felt through the fingers.',
+      src: 'from the palace page Merleau-Ponty: the body schema, the instrument as body extension, the flesh' },
+    spinoza: { name: 'Spinoza', mag: 1, rot: 0, warp: { f: '0.0014 0.017', oct: 1, scale: 20 }, home: [250, 320], thing: 'the river', wearAt: [600, 380], wearMag: 1,
+      sees: 'There is only one thing, and every separate thing is a way of it, as a wave is a mode of the sea. He thinks like a geometer, and of anything he asks what it is striving to keep being. So: one blue, one swell running through hand, machine and river alike, ruled lines, and a gold arrow on each thing’s striving. He ground lenses for his living.',
+      bent: 'The glass’s doing: the blue, the swell, and where each arrow points.',
+      src: 'from the palace page Spinoza (People): one substance, more geometrico, the striving, the lenses' },
+    simondon: { name: 'Simondon', mag: 1, rot: 0, warp: null, home: [700, 430], thing: 'the machine', wearAt: [600, 380], wearMag: 1,
+      sees: 'A machine is a being with a lineage, and it is better made as one part comes to do several jobs. So the panel opens, two earlier and simpler bodies stand behind the synth, and one amber trace does three jobs at once: knob, screen and jack. The hand becomes joints and axes.',
+      bent: 'The glass’s doing: the blueprint, and the circuit, which is invented and is no real schematic.',
+      src: 'from the palace page Simondon: the technical object, genesis and lineage, concretization' },
+    deleuze: { name: 'Deleuze', mag: 1.06, rot: -3, warp: { f: '0.007', oct: 2, scale: 34 }, home: [900, 300], thing: 'the cables', wearAt: [600, 380], wearMag: 1.03,
+      sees: 'Difference comes before identity. A patch holds every sound it could make, and a knob selects among them; growth is a rhizome, where any point joins any other. So no outline closes: it prints three times, off its register. The knob shows the settings it is not at, the screen the waves it is not playing, and the cables reach for everything.',
+      bent: 'The glass’s doing: the off-register print, the dots, and every extra cable.',
+      src: 'from the palace page Deleuze: difference-in-itself, the virtual and the actual, intensity, rhizome' },
+    tint: { name: 'A tint', mag: 1, rot: 0, warp: null, home: [600, 380], thing: '', wearAt: [600, 380], wearMag: 1,
+      sees: 'Nobody’s eye. One amber wash, the same over the hand as over the river. Drag it anywhere: it never notices what is under it. A glass that makes everything look the same is the one this page calls broken.',
+      bent: 'Compare any of the four: each does something to the hand that it does not do to the window.',
+      src: 'the plain filter, for contrast' }
+  };
+  const ORDER = ['mp', 'spinoza', 'simondon', 'deleuze', 'tint'];
+
+  const q = new URLSearchParams(location.search);
+  const S = {
+    eye: EYES[q.get('eye')] ? q.get('eye') : 'mp',
+    x: +q.get('x') || 930, y: +q.get('y') || 450,
+    wear: q.get('wear') === '1', lift: q.get('lift') === '1',
+    a: EYES[q.get('a')] && q.get('a') !== 'tint' ? q.get('a') : 'simondon',
+    b: EYES[q.get('b')] && q.get('b') !== 'tint' ? q.get('b') : 'mp'
+  };
+  if (S.a === S.b) { S.a = 'simondon'; S.b = 'mp'; }
+
+  // one warp filter per place it is used; its region is kept to the glass so a drag stays light
+  function makeFilter(svg, id) {
+    const f = document.createElementNS(NS, 'filter');
+    f.setAttribute('id', id); f.setAttribute('filterUnits', 'userSpaceOnUse'); f.setAttribute('color-interpolation-filters', 'sRGB');
+    const t = document.createElementNS(NS, 'feTurbulence'); t.setAttribute('type', 'fractalNoise'); t.setAttribute('seed', '4'); t.setAttribute('result', 'n');
+    const d = document.createElementNS(NS, 'feDisplacementMap'); d.setAttribute('in', 'SourceGraphic'); d.setAttribute('in2', 'n');
+    d.setAttribute('xChannelSelector', 'R'); d.setAttribute('yChannelSelector', 'G');
+    f.append(t, d); svg.querySelector('defs').append(f);
+    return { f, t, d };
+  }
+  function setFilter(F, warp, x, y, w, h) {
+    F.f.setAttribute('x', x); F.f.setAttribute('y', y); F.f.setAttribute('width', w); F.f.setAttribute('height', h);
+    if (warp) { F.t.setAttribute('baseFrequency', warp.f); F.t.setAttribute('numOctaves', warp.oct); F.d.setAttribute('scale', warp.scale); }
+  }
+  const FG = makeFilter($('panel'), 'f-glass'), FL = makeFilter($('specs'), 'f-sl'), FR = makeFilter($('specs'), 'f-sr');
+
+  function draw() {
+    const e = EYES[S.eye];
+    const x = S.wear ? e.wearAt[0] : S.x, y = S.wear ? e.wearAt[1] : S.y;
+    const mag = S.wear ? e.wearMag : e.mag;
+    $('glass').style.display = S.lift ? 'none' : '';
+    $('lens-eye').setAttribute('class', 'eye eye-' + S.eye);
+    $('lens-world').setAttribute('transform', `translate(${x} ${y}) rotate(${e.rot}) scale(${mag}) translate(${-x} ${-y})`);
+    $('lens').setAttribute('clip-path', S.wear ? 'url(#c-all)' : 'url(#c-glass)');
+    if (e.warp) {
+      if (S.wear) setFilter(FG, e.warp, -40, -40, W + 80, H + 80); else setFilter(FG, e.warp, S.x - R - 40, S.y - R - 40, 2 * R + 80, 2 * R + 80);
+      $('lens').setAttribute('filter', 'url(#f-glass)');
+    } else $('lens').removeAttribute('filter');
+    for (const id of ['c-glass-shape', 'rim-o', 'rim-i', 'grab']) { $(id).setAttribute('cx', S.x); $(id).setAttribute('cy', S.y); }
+    $('rim-i').setAttribute('r', R - 6);
+    $('g-shadow').setAttribute('cx', S.x + 8); $('g-shadow').setAttribute('cy', S.y + 12);
+    const a0 = -2.5, a1 = -1.85, r = R - 16;
+    $('rim-hi').setAttribute('d', `M${S.x + r * Math.cos(a0)},${S.y + r * Math.sin(a0)} A${r},${r} 0 0 1 ${S.x + r * Math.cos(a1)},${S.y + r * Math.sin(a1)}`);
+    for (const id of ['rim', 'g-shadow', 'grab']) $(id).style.display = S.wear ? 'none' : '';
+    document.querySelectorAll('#eyes button[data-eye]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.eye === S.eye && !S.lift)));
+    $('wear').setAttribute('aria-pressed', String(S.wear)); $('lift').setAttribute('aria-pressed', String(S.lift));
+    $('lift').textContent = S.lift ? 'put it back' : 'lift it off';
+    $('note').innerHTML = S.lift
+      ? `<div class="who">No glass</div><p>The ink, as drawn. Nothing the glass showed was written onto it.</p><p class="src">the committed drawing</p>`
+      : `<div class="who">${e.name}</div><p>${e.sees}</p><p class="bent">${e.bent}</p><p class="src">${e.src}</p>`;
+  }
+
+  function specLens(side, eyeKey, at, F, cx) {
+    const e = EYES[eyeKey], mag = .86 * (e.mag > 1.1 ? 1.12 : 1);
+    $(side + '-eye').setAttribute('class', 'eye eye-' + eyeKey);
+    $(side + '-world').setAttribute('transform', `translate(${cx} 190) rotate(${e.rot}) scale(${mag}) translate(${-at[0]} ${-at[1]})`);
+    const g = $(side + '-eye').parentNode;
+    if (e.warp) { setFilter(F, e.warp, cx - 200, -10, 400, 400); g.setAttribute('filter', `url(#f-${side})`); } else g.removeAttribute('filter');
+  }
+  function drawSpecs() {
+    const A = EYES[S.a], B = EYES[S.b];
+    specLens('sl', S.a, B.home, FL, 196);   // A's eye on B's thing
+    specLens('sr', S.b, A.home, FR, 564);   // B's eye on A's thing
+    $('cap-l').innerHTML = `${B.thing}, through <b>${A.name}</b>’s eye`;
+    $('cap-r').innerHTML = `${A.thing}, through <b>${B.name}</b>’s eye`;
+    $('arrow-line').innerHTML = `Same two people, same room. <b>${B.name}’s thing seen by ${A.name}</b> is not <b>${A.name}’s thing seen by ${B.name}</b>: which one is the glass and which one is under it changes the picture.`;
+    document.querySelectorAll('#pairs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.a === S.a && b.dataset.b === S.b)));
+  }
+
+  // hands: drag the glass, or tap anywhere on the panel to bring it there
+  const panel = $('panel');
+  const toUser = ev => { const r = panel.getBoundingClientRect(); return [(ev.clientX - r.left) * W / r.width, (ev.clientY - r.top) * H / r.height]; };
+  const clamp = () => { S.x = Math.max(40, Math.min(W - 40, S.x)); S.y = Math.max(40, Math.min(H - 40, S.y)); };
+  let drag = null;
+  $('grab').addEventListener('pointerdown', ev => { const [ux, uy] = toUser(ev); drag = [S.x - ux, S.y - uy]; $('grab').setPointerCapture(ev.pointerId); ev.preventDefault(); });
+  $('grab').addEventListener('pointermove', ev => { if (!drag) return; const [ux, uy] = toUser(ev); S.x = ux + drag[0]; S.y = uy + drag[1]; clamp(); draw(); });
+  const end = () => { drag = null; };
+  $('grab').addEventListener('pointerup', end); $('grab').addEventListener('pointercancel', end);
+  panel.addEventListener('click', ev => {
+    if (ev.target === $('grab')) return;
+    if (S.wear) { S.wear = false; }
+    S.lift = false; [S.x, S.y] = toUser(ev); clamp(); draw();
+  });
+  panel.addEventListener('keydown', ev => {
+    const step = ev.shiftKey ? 60 : 20, k = ev.key;
+    if (k === 'ArrowLeft') S.x -= step; else if (k === 'ArrowRight') S.x += step; else if (k === 'ArrowUp') S.y -= step; else if (k === 'ArrowDown') S.y += step;
+    else if (k >= '1' && k <= '5') { S.eye = ORDER[+k - 1]; S.lift = false; }
+    else return;
+    ev.preventDefault(); clamp(); draw();
+  });
+  $('eyes').addEventListener('click', ev => {
+    const b = ev.target.closest('button'); if (!b) return;
+    if (b.dataset.eye) { S.eye = b.dataset.eye; S.lift = false; }
+    else if (b.id === 'wear') { S.wear = !S.wear; S.lift = false; }
+    else if (b.id === 'lift') { S.lift = !S.lift; if (S.lift) S.wear = false; }
+    draw();
+  });
+  $('pairs').addEventListener('click', ev => { const b = ev.target.closest('button'); if (!b) return; S.a = b.dataset.a; S.b = b.dataset.b; drawSpecs(); });
+
+  draw(); drawSpecs();
+})();
+</script>
+</body>
+</html>
