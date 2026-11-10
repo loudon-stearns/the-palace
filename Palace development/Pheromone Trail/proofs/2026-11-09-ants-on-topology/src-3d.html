@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14110c">
+<title>Ants on the Topology, in relief · Pheromone Trail · a rough</title>
+<link rel="icon" href="../../Pheromone Trail — icon.png">
+<style>
+  :root { --bg:#14110c; --paper:#211c14; --ink:#f3ead8; --dim:#a39a86; --over:#f2a33a; --link:#5fd0c8; --rule:#3a3227; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--ink); font: 15px/1.45 system-ui, -apple-system, sans-serif; overflow:hidden; }
+  canvas#c { position:fixed; inset:0; width:100vw; height:100vh; display:block; cursor:grab; touch-action:none; }
+  canvas#c.drag { cursor:grabbing; }
+  .panel { background:rgba(20,17,12,.86); border:1px solid var(--rule); backdrop-filter: blur(4px); }
+  .col { position:fixed; left:16px; top:16px; width:min(372px, calc(100vw - 32px)); max-height:calc(100vh - 128px); overflow:auto; display:flex; flex-direction:column; gap:10px; }
+  .hud { padding:14px 16px; }
+  h1 { font: 800 25px/1.05 system-ui, sans-serif; margin:0 0 8px; letter-spacing:-.01em; }
+  h1 em { font-style:normal; color:var(--over); }
+  .key { margin:8px 0 4px; font-size:13.5px; }
+  .key div { margin:5px 0; display:flex; gap:9px; align-items:baseline; }
+  .key b { font-weight:700; }
+  .sw { flex:none; display:inline-block; width:26px; height:0; border-top:5px solid var(--link); border-radius:3px; transform:translateY(-3px); }
+  .sw.over { border-top:4px dashed var(--over); border-radius:0; }
+  .sw.ant { border:0; width:26px; height:10px; transform:none; }
+  .sw.dot { border:0; width:14px; height:14px; margin:0 6px; border-radius:50%; background:var(--ink); box-shadow:0 0 0 4px rgba(243,234,216,.25); transform:translateY(2px); }
+  label { display:block; font-size:12.5px; color:var(--dim); margin-top:10px; }
+  label b { color:var(--ink); }
+  input[type=range] { width:100%; accent-color: var(--over); margin:2px 0 0; }
+  button { font: 700 13px/1 system-ui, sans-serif; color:var(--ink); background:transparent; border:1px solid var(--rule); padding:9px 12px; cursor:pointer; border-radius:999px; }
+  button:hover { border-color:var(--dim); }
+  button:focus-visible, input:focus-visible, summary:focus-visible { outline:2px solid var(--over); outline-offset:2px; }
+  button.on { background:var(--over); color:#14110c; border-color:var(--over); }
+  .stats { font: 12px/1.6 ui-monospace, "JetBrains Mono", Menlo, monospace; color:var(--dim); margin-top:10px; }
+  .stats b { color:var(--ink); font-weight:600; }
+  details { margin-top:10px; font-size:12.5px; color:var(--dim); }
+  details summary { cursor:pointer; color:var(--ink); font-weight:700; }
+  details p { margin:6px 0; }
+  .side { padding:12px 14px; font-size:13px; }
+  .side h2 { font: 800 15px/1.2 system-ui; margin:0 0 2px; color:var(--over); }
+  .side .sub { color:var(--dim); font-size:12px; margin-bottom:8px; }
+  .side ol { list-style:none; margin:0; padding:0; }
+  .side li { display:flex; gap:8px; padding:5px 0; border-top:1px solid var(--rule); cursor:pointer; }
+  .side li:hover { color:var(--over); }
+  .side li .n { font: 600 12px ui-monospace, Menlo, monospace; color:var(--over); min-width:26px; text-align:right; }
+  .side .worn { margin-top:10px; padding-top:8px; border-top:1px solid var(--rule); color:var(--ink); }
+  .side .worn b { color:var(--link); }
+  .min { position:fixed; right:16px; top:16px; display:flex; gap:8px; }
+  .time { position:fixed; left:16px; right:16px; bottom:14px; padding:10px 14px 10px; display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center; }
+  .time .date { font: 800 20px/1 system-ui; min-width:132px; }
+  .time .date small { display:block; font: 500 11px/1.4 ui-monospace, Menlo, monospace; color:var(--dim); margin-top:4px; }
+  .scrub { position:relative; height:46px; }
+  .scrub canvas { position:absolute; inset:0; width:100%; height:100%; }
+  .scrub input { position:absolute; inset:0; width:100%; height:100%; margin:0; opacity:0; cursor:ew-resize; }
+  .ticker { position:fixed; left:16px; right:16px; bottom:92px; pointer-events:none; font: 12px/1.5 ui-monospace, Menlo, monospace; color:var(--dim); text-shadow:0 1px 3px #000; }
+  .ticker div { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:min(760px, 100%); margin-left:auto; text-align:right; }
+  .ticker div:last-child { color:var(--ink); }
+  .tip { position:fixed; pointer-events:none; padding:7px 10px; font-size:12.5px; max-width:260px; display:none; z-index:5; }
+  .tip b { display:block; font-size:14px; }
+  .tip span { color:var(--dim); font: 11.5px/1.5 ui-monospace, Menlo, monospace; }
+  @media (max-width: 900px) { .col { max-height:44vh; } h1 { font-size:20px; } }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div class="col" id="col">
+<div class="hud panel" id="hud">
+  <h1>Every ant is a commit.<br><em>Where they walk, the paper rises.</em></h1>
+  <div class="key">
+    <div><canvas class="sw ant" id="keyAnt" width="52" height="20"></canvas><span><b>One ant = one commit.</b> It leaves the nest, visits the pages that commit touched, and carries the work home to main.</span></div>
+    <div><span class="sw"></span><span><b>Teal light = ants walking a typed link.</b> Thicker means more ants, more lately. The light floats above the ink it was drawn from.</span></div>
+    <div><span class="sw over"></span><span><b>Amber dashes = no link there.</b> Two pages worked together anyway: a desire path.</span></div>
+    <div><span class="sw dot"></span><span><b>Raised, lit paper = pages visited lately.</b> Flat and dim has gone cold.</span></div>
+    <div style="color:var(--dim)"><span class="sw" style="border:0"></span><span>Drag to turn the sheet. Shift-drag to slide it. Scroll to come closer.</span></div>
+      </div>
+  <label>Speed · <b id="oSpeed"></b><input id="speed" type="range" min="0" max="100" value="42"></label>
+  <label>How fast trails fade · <b id="oFade"></b><input id="fade" type="range" min="0" max="100" value="45"></label>
+  <div class="stats" id="stats"></div>
+  <details>
+    <summary>What is real here, and what is a guess</summary>
+    <p><b>Real:</b> every page, its avatar, the day it was born, the day each typed link first showed in frontmatter, and every non-merge commit with the pages it touched. All read from git by <code>build.py</code>, beside this file.</p>
+    <p><b>A guess:</b> the order an ant visits a commit's pages. Git records which pages, not which first. The ant follows a link when one exists, and otherwise goes to the nearest page. So which pairs show as desire paths leans on that choice.</p>
+    <p><b>Left out:</b> a commit touching more than 12 pages sends one ant per page, out and back, and lays no trail between them. Those are sweeps, not walks.</p>
+    <p id="metaNote"></p>
+  </details>
+</div>
+
+<div class="side panel" id="side">
+  <h2>Desire paths</h2>
+  <div class="sub">Walked together most, with no link between them yet. Click one to see it.</div>
+  <ol id="desire"></ol>
+  <div class="worn" id="worn"></div>
+</div>
+</div>
+
+<div class="min">
+  <button id="play" class="on">pause</button>
+  <button id="fit">reset view</button>
+  <button id="hide">hide panels</button>
+</div>
+
+<div class="ticker" id="ticker"></div>
+
+<div class="time panel">
+  <div class="date"><span id="date"></span><small id="dsub"></small></div>
+  <div class="scrub"><canvas id="hist"></canvas><input id="scrub" type="range" min="0" max="1000" value="0" step="1" aria-label="timeline"></div>
+  <div class="stats" style="margin:0;text-align:right" id="tstat"></div>
+</div>
+
+<div class="tip panel" id="tip"></div>
+
+<script src="data.js"></script>
+<script>
+'use strict';
+const D = window.PALACE, NODES = D.nodes, N = NODES.length, COMMITS = D.commits, META = D.meta;
+const DAYS = META.days, BIG = 12, NEST_R = 34;
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const sheet = new Image(); let sheetReady = false; sheet.onload = () => { sheetReady = true; }; sheet.src = 'icons.webp';
+const $ = id => document.getElementById(id);
+const fmtDate = d => new Date((META.first + d * 86400) * 1000).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+// ---- the graph ---------------------------------------------------------------
+const pairOf = new Map();                       // a*N+b (a<b) -> {a,b,born,type}
+for (const [a, b, born, type] of D.pairs) pairOf.set(a * N + b, { a, b, born, type });
+const key = (a, b) => a < b ? a * N + b : b * N + a;
+const linkedAt = (k, t) => { const p = pairOf.get(k); return !!p && p.born <= t; };
+const visitTimes = NODES.map(() => []);
+for (const c of COMMITS) for (const i of c[2]) visitTimes[i].push(c[0]);
+
+// ---- every commit's walk, worked out once -------------------------------------
+// tour = {big, stops:[node...], hops:[{a,b,k,linked}]}
+const dist2 = (i, j) => { const dx = NODES[i].x - NODES[j].x, dy = NODES[i].y - NODES[j].y; return dx * dx + dy * dy; };
+const TOURS = COMMITS.map(c => {
+  const t = c[0], pages = c[2];
+  if (pages.length > BIG) {
+    const step = Math.max(1, Math.ceil(pages.length / 40));
+    return { big: true, stops: pages.filter((_, i) => i % step === 0), hops: [] };
+  }
+  const left = pages.slice(); let cur = 0, best = Infinity;
+  left.forEach((p, i) => { const d = NODES[p].x ** 2 + NODES[p].y ** 2; if (d < best) { best = d; cur = i; } });
+  const stops = [left.splice(cur, 1)[0]], hops = [];
+  while (left.length) {
+    const from = stops[stops.length - 1]; let bi = -1, bd = Infinity, bl = false;
+    left.forEach((p, i) => {
+      const l = linkedAt(key(from, p), t), d = dist2(from, p);
+      if ((l && !bl) || (l === bl && d < bd)) { bi = i; bd = d; bl = l; }
+    });
+    const to = left.splice(bi, 1)[0];
+    hops.push({ a: from, b: to, k: key(from, to), linked: bl });
+    stops.push(to);
+  }
+  return { big: false, stops, hops };
+});
+// running totals, by commit index
+const cum = { linked: [0], over: [0] };
+TOURS.forEach((T, i) => {
+  let l = 0, o = 0; for (const h of T.hops) h.linked ? l++ : o++;
+  cum.linked.push(cum.linked[i] + l); cum.over.push(cum.over[i] + o);
+});
+// links that were walked overland before anyone drew them
+const pre = new Map();
+TOURS.forEach(T => { for (const h of T.hops) if (!h.linked && pairOf.has(h.k)) pre.set(h.k, (pre.get(h.k) || 0) + 1); });
+const wornIn = [...pre.values()].filter(v => v >= 2).length;
+
+// ---- state ---------------------------------------------------------------------
+let simT = 0, ci = 0, playing = true, speed = 1.3, tau = 10;
+let ants = [], trails = new Map(), desire = new Map(), delivered = 0, nestPulse = 0, flash = null;
+const heatV = new Float32Array(N), heatT = new Float32Array(N), popAt = new Float64Array(N).fill(-1e12), labelUntil = new Float64Array(N);
+const shown = new Uint8Array(N);
+let ticker = [];
+const MAX_ANTS = 320;
+
+const decay = (v, from, to) => tau === Infinity ? v : v * Math.exp(-(to - from) / tau);
+function deposit(h, t) {
+  let tr = trails.get(h.k);
+  if (!tr) { tr = { a: h.a, b: h.b, v: 0, t }; trails.set(h.k, tr); }
+  tr.v = decay(tr.v, tr.t, t) + 1; tr.t = t;
+}
+function warm(i, t) { heatV[i] = decay(heatV[i], heatT[i], t) + 1; heatT[i] = t; }
+function countDesire(T) { for (const h of T.hops) if (!h.linked) desire.set(h.k, (desire.get(h.k) || 0) + 1); }
+
+function launch(i, now) {
+  const T = TOURS[i], c = COMMITS[i];
+  countDesire(T);
+  ticker.push(c[1]); if (ticker.length > 3) ticker.shift();
+  if (ants.length > MAX_ANTS) {                       // too crowded to draw: the trail still gets laid
+    for (const h of T.hops) deposit(h, c[0]);
+    for (const s of T.stops) warm(s, c[0]);
+    delivered++; return;
+  }
+  const rim = (x, y) => { const d = Math.hypot(x, y) || 1; return [x / d * NEST_R, y / d * NEST_R]; };
+  const seg = (x0, y0, x1, y1, to, hop) => { if (!x0 && !y0) [x0, y0] = rim(x1, y1); if (!x1 && !y1) [x1, y1] = rim(x0, y0); return { x0, y0, x1, y1, len: Math.hypot(x1 - x0, y1 - y0) || 1, to, hop }; };
+  const P = i => NODES[i];
+  if (T.big) {
+    for (const s of T.stops) ants.push(mkAnt([seg(0, 0, P(s).x, P(s).y, s, null), seg(P(s).x, P(s).y, 0, 0, -1, null)], Math.random() * 2.2));
+  } else {
+    const segs = [seg(0, 0, P(T.stops[0]).x, P(T.stops[0]).y, T.stops[0], null)];
+    for (const h of T.hops) segs.push(seg(P(h.a).x, P(h.a).y, P(h.b).x, P(h.b).y, h.b, h));
+    const last = P(T.stops[T.stops.length - 1]);
+    segs.push(seg(last.x, last.y, 0, 0, -1, null));
+    ants.push(mkAnt(segs, Math.random() * .8));
+  }
+}
+function mkAnt(segs, delay) { return { segs, si: 0, d: 0, delay, x: 0, y: 0, a: 0, step: Math.random() * 10, ph: Math.random() * 6.28, carry: false }; }
+
+function seek(t) {
+  simT = Math.max(0, Math.min(DAYS, t));
+  ants = []; trails = new Map(); desire = new Map(); heatV.fill(0); heatT.fill(0); ticker = []; delivered = 0;
+  ci = 0;
+  while (ci < COMMITS.length && COMMITS[ci][0] <= simT) {
+    const c = COMMITS[ci], T = TOURS[ci];
+    countDesire(T); delivered += 1;
+    if (tau === Infinity || simT - c[0] < tau * 7) { for (const h of T.hops) deposit(h, c[0]); for (const s of T.stops) warm(s, c[0]); }
+    ci++;
+  }
+  for (let i = 0; i < N; i++) { shown[i] = NODES[i].born <= simT ? 1 : 0; popAt[i] = -1e12; labelUntil[i] = 0; }
+  snapRelief = true;
+  for (let i = Math.max(0, ci - 3); i < ci; i++) ticker.push(COMMITS[i][1]);
+  desireDirty = true;
+}
+
+// ---- camera: a sheet of paper on a dark desk, seen from above and to one side ----
+let W = 0, H = 0, dpr = 1, F = 900, CX = 0, CY = 0, lastTouch = -1e9, lastDraw = 0;
+const cam = { az: -.42, el: .7, dist: 4000, tx: 0, ty: 0 };
+let ext = { x0: 1e9, x1: -1e9, y0: 1e9, y1: -1e9 };
+for (const n of NODES) { ext.x0 = Math.min(ext.x0, n.x - n.r); ext.x1 = Math.max(ext.x1, n.x + n.r); ext.y0 = Math.min(ext.y0, n.y - n.r); ext.y1 = Math.max(ext.y1, n.y + n.r); }
+const MARGIN = 190, X0 = ext.x0 - MARGIN, X1 = ext.x1 + MARGIN, Y0 = ext.y0 - MARGIN, Y1 = ext.y1 + MARGIN;
+const GX = 78, GY = 52, VX = GX + 1, VY = GY + 1, CW = (X1 - X0) / GX, CH = (Y1 - Y0) / GY;
+const hT = new Float32Array(VX * VY), hC = new Float32Array(VX * VY), hV = new Float32Array(VX * VY);
+const PXa = new Float32Array(VX * VY), PYa = new Float32Array(VX * VY);
+const HEIGHT = 150, HMAX = 300, SIG = 2.1, HOLO = 230;
+let panelsHidden = false, snapRelief = true;
+let ca = 1, sa = 0, ce = 1, se = 0;
+const P = [0, 0, 0, 0];                                   // screen x, screen y, px per world unit, depth
+function proj(x, y, z) {
+  const dx = x - cam.tx, dy = y - cam.ty, xr = dx * ca - dy * sa, yr = dx * sa + dy * ca;
+  const depth = cam.dist - yr * ce - z * se, sc = F / Math.max(80, depth);
+  P[0] = CX + xr * sc; P[1] = CY - (-yr * se + z * ce) * sc; P[2] = sc; P[3] = depth; return P;
+}
+function hAt(x, y) {
+  const fx = Math.max(0, Math.min(GX - .001, (x - X0) / CW)), fy = Math.max(0, Math.min(GY - .001, (y - Y0) / CH));
+  const i = fx | 0, j = fy | 0, u = fx - i, v = fy - j, k = j * VX + i;
+  return (hC[k] * (1 - u) + hC[k + 1] * u) * (1 - v) + (hC[k + VX] * (1 - u) + hC[k + VX + 1] * u) * v;
+}
+function fit() {
+  const wide = W > 1100 && !panelsHidden;
+  F = H * 1.25; CX = wide ? (W + 400) / 2 : W / 2; CY = H * .5;
+  const aw = wide ? W - 430 : W - 20;
+  cam.dist = Math.max((X1 - X0) * F / (aw * .98), (Y1 - Y0) * F / (H * 1.0));
+  cam.tx = (X0 + X1) / 2; cam.ty = (Y0 + Y1) / 2;
+}
+function resetCam() { cam.az = -.42; cam.el = .7; fit(); }
+function resize() {
+  dpr = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+  cv.width = W * dpr; cv.height = H * dpr; fit(); drawHist();
+}
+// the paper is pushed up under every page that was visited lately, and it springs
+function relief(dt) {
+  hT.fill(0);
+  for (let n = 0; n < N; n++) {
+    if (!shown[n]) continue;
+    const nd = NODES[n], h = Math.min(1.7, decay(heatV[n], heatT[n], simT) / 2.2), amp = (.04 + h) * HEIGHT * .8;
+    const gx = (nd.x - X0) / CW, gy = (nd.y - Y0) / CH;
+    const i0 = Math.max(0, Math.floor(gx - 5)), i1 = Math.min(GX, Math.ceil(gx + 5)), j0 = Math.max(0, Math.floor(gy - 5)), j1 = Math.min(GY, Math.ceil(gy + 5));
+    for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) { const d2 = (i - gx) * (i - gx) + (j - gy) * (j - gy); hT[j * VX + i] += amp * Math.exp(-d2 / (2 * SIG * SIG)); }
+  }
+  for (let k = 0; k < hT.length; k++) {
+    const t = HMAX * Math.tanh(hT[k] / HMAX);
+    if (snapRelief) { hC[k] = t; hV[k] = 0; continue; }
+    hV[k] += ((t - hC[k]) * 70 - hV[k] * 6.5) * dt; hC[k] += hV[k] * dt;
+  }
+  snapRelief = false;
+}
+
+// ---- step ----------------------------------------------------------------------
+function step(dt, now) {
+  if (playing) {
+    simT += speed * dt;
+    if (simT >= DAYS) { simT = DAYS; playing = false; $('play').textContent = 'replay'; $('play').classList.remove('on'); }
+    let born = [];
+    for (let i = 0; i < N; i++) if (!shown[i] && NODES[i].born <= simT) { shown[i] = 1; popAt[i] = now; born.push(i); }
+    if (born.length && born.length <= 5) for (const i of born) labelUntil[i] = now + 2800;
+    while (ci < COMMITS.length && COMMITS[ci][0] <= simT) { launch(ci, now); ci++; desireDirty = true; }
+  }
+  const v = 250 * Math.max(1, Math.min(3.2, Math.sqrt(speed / .8)));
+  for (const a of ants) {
+    if (a.delay > 0) { a.delay -= dt; continue; }
+    a.d += v * dt; a.step += v * dt * .11;
+    let s = a.segs[a.si];
+    while (s && a.d >= s.len) {
+      a.d -= s.len;
+      if (s.hop) deposit(s.hop, simT);
+      if (s.to >= 0) warm(s.to, simT); else { delivered++; nestPulse = 1; }
+      a.si++; s = a.segs[a.si];
+    }
+    if (!s) { a.done = true; continue; }
+    a.carry = a.si === a.segs.length - 1;
+    const u = a.d / s.len, ang = Math.atan2(s.y1 - s.y0, s.x1 - s.x0);
+    const wig = Math.sin(a.d * .045 + a.ph) * 5 * Math.sin(Math.PI * u);
+    a.x = s.x0 + (s.x1 - s.x0) * u - Math.sin(ang) * wig;
+    a.y = s.y0 + (s.y1 - s.y0) * u + Math.cos(ang) * wig;
+    a.a = ang + Math.cos(a.d * .045 + a.ph) * .22;
+  }
+  if (ants.some(a => a.done)) ants = ants.filter(a => !a.done);
+  nestPulse *= Math.pow(.02, dt);
+}
+
+// ---- draw ----------------------------------------------------------------------
+const backOut = u => { const c = 2.2; return 1 + (c + 1) * Math.pow(u - 1, 3) + c * Math.pow(u - 1, 2); };
+const scrX = new Float32Array(N), scrY = new Float32Array(N), scrR = new Float32Array(N);
+function drape(A, B, lift, pieces) {                       // a line laid over the relief, or floated above it
+  for (let q = 0; q <= pieces; q++) {
+    const x = A.x + (B.x - A.x) * q / pieces, y = A.y + (B.y - A.y) * q / pieces;
+    proj(x, y, hAt(x, y) + lift); q ? g.lineTo(P[0], P[1]) : g.moveTo(P[0], P[1]);
+  }
+}
+function draw(now) {
+  const dt = Math.min(.05, (now - lastDraw) / 1000) || .016; lastDraw = now;
+  if (playing && now - lastTouch > 5000) cam.az += .03 * dt;       // the desk turns slowly when left alone
+  ca = Math.cos(cam.az); sa = Math.sin(cam.az); ce = Math.cos(cam.el); se = Math.sin(cam.el);
+  relief(dt);
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.fillStyle = '#0d0b08'; g.fillRect(0, 0, W, H);
+  for (let j = 0; j < VY; j++) for (let i = 0; i < VX; i++) { const k = j * VX + i; proj(X0 + i * CW, Y0 + j * CH, hC[k]); PXa[k] = P[0]; PYa[k] = P[1]; }
+  // the paper, far cells first. Lifted paper catches the light.
+  const jd = ca >= 0, id = sa >= 0;
+  g.lineWidth = .6; g.strokeStyle = 'rgba(26,25,22,.16)'; g.lineJoin = 'round';
+  for (let jj = 0; jj < GY; jj++) {
+    const j = jd ? jj : GY - 1 - jj;
+    for (let ii = 0; ii < GX; ii++) {
+      const i = id ? ii : GX - 1 - ii, k = j * VX + i;
+      const a = hC[k], b = hC[k + 1], c = hC[k + VX], d = hC[k + VX + 1];
+      const lit = Math.min(1, Math.max(0, (a + b + c + d) * .25 / HEIGHT));
+      const sh = Math.max(.62, Math.min(1.4, 1 + 1.25 * ((b + d - a - c) / (2 * CW) + (c + d - a - b) / (2 * CH))));
+      const br = (.3 + .4 * lit) * sh;
+      g.fillStyle = 'rgb(' + Math.min(255, 240 * br | 0) + ',' + Math.min(255, 237 * br | 0) + ',' + Math.min(255, 226 * br | 0) + ')';
+      g.beginPath(); g.moveTo(PXa[k], PYa[k]); g.lineTo(PXa[k + 1], PYa[k + 1]); g.lineTo(PXa[k + VX + 1], PYa[k + VX + 1]); g.lineTo(PXa[k + VX], PYa[k + VX]); g.closePath(); g.fill(); g.stroke();
+    }
+  }
+  // the sheet's frame, in ink, one cell in from the edge
+  g.strokeStyle = 'rgba(26,25,22,.7)'; g.lineWidth = 1.6; g.beginPath();
+  for (let i = 1; i < GX; i++) { const k = VX + i; i === 1 ? g.moveTo(PXa[k], PYa[k]) : g.lineTo(PXa[k], PYa[k]); }
+  for (let j = 1; j < GY; j++) { const k = j * VX + GX - 1; g.lineTo(PXa[k], PYa[k]); }
+  for (let i = GX - 1; i >= 1; i--) { const k = (GY - 1) * VX + i; g.lineTo(PXa[k], PYa[k]); }
+  for (let j = GY - 1; j >= 1; j--) { const k = j * VX + 1; g.lineTo(PXa[k], PYa[k]); }
+  g.stroke();
+  // the typed links, drawn on the paper in ink
+  g.lineWidth = .8; g.strokeStyle = 'rgba(20,18,14,.2)'; g.beginPath();
+  const fresh = [];
+  for (const p of pairOf.values()) {
+    if (p.born > simT) continue;
+    drape(NODES[p.a], NODES[p.b], 1, 4);
+    if (simT - p.born < 1.2 && playing) fresh.push(p);
+  }
+  g.stroke();
+  // the trails, worn into the paper
+  g.lineCap = 'round';
+  const live = [];
+  for (const [kk, tr] of trails) {
+    const v = decay(tr.v, tr.t, simT);
+    if (v < .06) { if (tau !== Infinity && v < .01) trails.delete(kk); continue; }
+    const A = NODES[tr.a], B = NODES[tr.b], st = Math.log2(1 + v), on = linkedAt(kk, simT);
+    proj((A.x + B.x) / 2, (A.y + B.y) / 2, 0); const w = Math.min(11, 1 + 1.9 * st) * Math.max(.6, Math.min(1.8, P[2] * 3.4));
+    g.lineWidth = w; g.strokeStyle = 'rgba(20,18,14,' + Math.min(.6, .14 + .12 * st) + ')';
+    g.setLineDash(on ? [] : [w * 1.1, w * 1.7]);
+    g.beginPath(); drape(A, B, 1, 4); g.stroke();
+    live.push([A, B, st, on, w]);
+  }
+  g.setLineDash([]);
+  // the nest: a hole in the sheet
+  g.fillStyle = '#060504'; g.beginPath();
+  for (let q = 0; q <= 28; q++) { const t = q / 28 * 6.2832; proj(Math.cos(t) * NEST_R * 1.7, Math.sin(t) * NEST_R * 1.7, hAt(0, 0) + 1); q ? g.lineTo(P[0], P[1]) : g.moveTo(P[0], P[1]); }
+  g.fill();
+  for (let r = 0; r < 3; r++) {
+    g.strokeStyle = 'rgba(20,18,14,' + (.6 - r * .17 + nestPulse * .3) + ')'; g.lineWidth = 1.4; g.beginPath();
+    const rr = NEST_R * (1.9 + r * .45) + Math.sin(now / 400 + r) * 3 + nestPulse * 12;
+    for (let q = 0; q <= 28; q++) { const t = q / 28 * 6.2832; proj(Math.cos(t) * rr, Math.sin(t) * rr, hAt(0, 0) + 1); q ? g.lineTo(P[0], P[1]) : g.moveTo(P[0], P[1]); }
+    g.stroke();
+  }
+  proj(0, 0, hAt(0, 0)); const nX = P[0], nY = P[1];
+  g.textAlign = 'center'; g.fillStyle = '#f3ead8'; g.font = '800 12px system-ui'; g.fillText('NEST', nX, nY + 1); g.font = '600 10px ui-monospace, Menlo, monospace'; g.fillStyle = '#a39a86'; g.fillText('main', nX, nY + 13);
+  // the ants, in ink, on the paper
+  for (const a of ants) {
+    if (a.delay > 0) continue;
+    proj(a.x + Math.cos(a.a) * 24, a.y + Math.sin(a.a) * 24, hAt(a.x + Math.cos(a.a) * 24, a.y + Math.sin(a.a) * 24)); const hx = P[0], hy = P[1];
+    proj(a.x, a.y, hAt(a.x, a.y) + 2);
+    drawAnt(g, P[0], P[1], Math.atan2(hy - P[1], hx - P[0]), a.step, Math.max(.55, Math.min(1.8, P[2] * 3.3)), a.carry, true);
+  }
+  // the pages stand on the paper like pins, far ones first
+  const order = [];
+  for (let i = 0; i < N; i++) { scrR[i] = 0; if (!shown[i]) continue; const n = NODES[i]; proj(n.x, n.y, hAt(n.x, n.y)); order.push([P[3], i, P[0], P[1], P[2]]); }
+  order.sort((a, b) => b[0] - a[0]);
+  const labels = [], beams = [];
+  for (const [, i, X, Y, sc] of order) {
+    if (X < -50 || Y < -80 || X > W + 50 || Y > H + 50) continue;
+    const n = NODES[i], age = (now - popAt[i]) / 650, pop = age >= 1 ? 1 : Math.max(0, backOut(Math.max(0, age)));
+    const h = Math.min(1, decay(heatV[i], heatT[i], simT) / 2.5);
+    const r = Math.max(4.5, n.r * 1.3 * sc) * pop * (1 + .12 * h), cy = Y - r * 1.15;
+    g.strokeStyle = 'rgba(20,18,14,.55)'; g.lineWidth = 1; g.beginPath(); g.moveTo(X, Y); g.lineTo(X, cy); g.stroke();
+    if (h > .03) { g.fillStyle = 'rgba(255,246,222,' + (.4 * h) + ')'; g.beginPath(); g.arc(X, cy, r + 3 + 5 * h, 0, 6.283); g.fill(); }
+    g.globalAlpha = .55 + .45 * h;
+    if (n.icon && sheetReady) g.drawImage(sheet, (i % META.cols) * META.cell, Math.floor(i / META.cols) * META.cell, META.cell, META.cell, X - r, cy - r, r * 2, r * 2);
+    else { g.fillStyle = '#3a3227'; g.beginPath(); g.arc(X, cy, r, 0, 6.283); g.fill(); g.fillStyle = '#f3ead8'; g.font = '700 ' + Math.max(8, r) + 'px system-ui'; g.fillText(n.id[0], X, cy + r * .35); }
+    g.globalAlpha = 1;
+    g.strokeStyle = 'rgba(20,18,14,.8)'; g.lineWidth = 1; g.beginPath(); g.arc(X, cy, r, 0, 6.283); g.stroke();
+    scrX[i] = X; scrY[i] = cy; scrR[i] = r;
+    if (h > .2) beams.push([n, h, X, cy]);
+    if (labelUntil[i] > now || i === hover) labels.push([n.id, X, cy + r + 14, true]);
+  }
+  // the hologram: the same trails, as light, floating above the sheet
+  const flick = .86 + .14 * Math.sin(now / 61) * Math.sin(now / 173);
+  g.globalCompositeOperation = 'lighter';
+  g.strokeStyle = 'rgba(95,208,200,' + (.16 * flick) + ')'; g.lineWidth = 1; g.beginPath();   // its frame, and four corner beams
+  const cs = [[X0 + CW, Y0 + CH], [X1 - CW, Y0 + CH], [X1 - CW, Y1 - CH], [X0 + CW, Y1 - CH]];
+  cs.forEach(([x, y], q) => { proj(x, y, HOLO); q ? g.lineTo(P[0], P[1]) : g.moveTo(P[0], P[1]); }); g.closePath();
+  for (const [x, y] of cs) { proj(x, y, 0); g.moveTo(P[0], P[1]); proj(x, y, HOLO); g.lineTo(P[0], P[1]); }
+  g.stroke();
+  for (const [n, h, X, cy] of beams) {                       // a beam from each warm page up to its light
+    proj(n.x, n.y, hAt(n.x, n.y) + HOLO);
+    const gr = g.createLinearGradient(X, cy, P[0], P[1]); gr.addColorStop(0, 'rgba(255,246,222,0)'); gr.addColorStop(1, 'rgba(160,240,232,' + (.5 * h * flick) + ')');
+    g.strokeStyle = gr; g.lineWidth = 1.2; g.beginPath(); g.moveTo(X, cy); g.lineTo(P[0], P[1]); g.stroke();
+    g.fillStyle = 'rgba(190,250,244,' + (.75 * h * flick) + ')'; g.beginPath(); g.arc(P[0], P[1], 1.5 + 2.5 * h, 0, 6.283); g.fill();
+  }
+  for (const [A, B, st, on, w] of live) {
+    const al = Math.min(.95, .3 + .2 * st) * flick, col = on ? '95,225,214,' : '255,170,60,';
+    g.setLineDash(on ? [] : [w * 1.1, w * 1.7]);
+    g.strokeStyle = 'rgba(' + col + (al * .22) + ')'; g.lineWidth = w * 3.2; g.beginPath(); drape(A, B, HOLO, 3); g.stroke();
+    g.strokeStyle = 'rgba(' + col + al + ')'; g.lineWidth = Math.max(1, w * .8); g.beginPath(); drape(A, B, HOLO, 3); g.stroke();
+  }
+  g.setLineDash([]);
+  for (const p of fresh) {                                   // a link being drawn, this last day: a flash of light
+    const u = 1 - (simT - p.born) / 1.2;
+    g.strokeStyle = 'rgba(200,255,250,' + (.6 * u) + ')'; g.lineWidth = 1.4; g.beginPath(); drape(NODES[p.a], NODES[p.b], HOLO, 3); g.stroke();
+  }
+  if (flash && now < flash.until) {
+    const u = .5 + .5 * Math.sin(now / 110);
+    g.strokeStyle = 'rgba(255,214,140,' + (.5 + .5 * u) + ')'; g.lineWidth = 3 + 3 * u; g.setLineDash([8, 8]);
+    g.beginPath(); drape(NODES[flash.a], NODES[flash.b], HOLO, 3); g.stroke(); g.setLineDash([]);
+    labelUntil[flash.a] = labelUntil[flash.b] = now + 100;
+  }
+  g.globalCompositeOperation = 'source-over';
+  // names
+  g.textAlign = 'center';
+  for (const [name, x, y] of labels) {
+    g.font = '700 13px system-ui';
+    const w = g.measureText(name).width + 10;
+    g.fillStyle = 'rgba(13,11,8,.85)'; g.fillRect(x - w / 2, y - 11, w, 16);
+    g.fillStyle = '#f3ead8'; g.fillText(name, x, y + 1);
+  }
+}
+function drawAnt(g, x, y, ang, stepv, s, carry, ink) {
+  g.save(); g.translate(x, y); g.rotate(ang); g.scale(s, s);
+  const w = Math.sin(stepv * .9) * 2.2, body = ink ? '#14110c' : '#f3ead8';
+  g.strokeStyle = body; g.lineWidth = 1; g.beginPath();
+  for (const d of [-1, 1]) { g.moveTo(-1, 0); g.lineTo(-4 + w * d, 5 * d); g.moveTo(1, 0); g.lineTo(1 - w * d, 5.5 * d); g.moveTo(3, 0); g.lineTo(6 + w * d, 4.5 * d); }
+  g.moveTo(6, 0); g.lineTo(10, -3); g.moveTo(6, 0); g.lineTo(10, 3); g.stroke();
+  g.fillStyle = body;
+  g.beginPath(); g.ellipse(-4, 0, 3.4, 2.4, 0, 0, 6.283); g.fill();
+  g.beginPath(); g.ellipse(1, 0, 2, 1.5, 0, 0, 6.283); g.fill();
+  g.beginPath(); g.arc(5, 0, 1.8, 0, 6.283); g.fill();
+  if (carry) { g.fillStyle = '#ffb648'; g.beginPath(); g.arc(8.8, 0, 2.7, 0, 6.283); g.fill(); }
+  g.restore();
+}
+
+// ---- the timeline ----------------------------------------------------------------
+const hc = $('hist'), hg = hc.getContext('2d');
+function drawHist() {
+  const r = hc.getBoundingClientRect(); if (!r.width) return;
+  hc.width = r.width * dpr; hc.height = r.height * dpr; hg.setTransform(dpr, 0, 0, dpr, 0, 0);
+  hg.clearRect(0, 0, r.width, r.height);
+  const mx = Math.max(...D.hist), bw = r.width / DAYS, px = simT / DAYS * r.width;
+  for (let d = 0; d < DAYS; d++) {
+    const h = Math.sqrt(D.hist[d] / mx) * (r.height - 14);
+    hg.fillStyle = d <= simT ? '#f2a33a' : '#3a3227'; hg.fillRect(d * bw, r.height - 12 - h, Math.max(1, bw - .6), h);
+  }
+  hg.fillStyle = '#a39a86'; hg.font = '10px ui-monospace, Menlo, monospace'; hg.textBaseline = 'bottom';
+  let lastM = -1;
+  for (let d = 0; d < DAYS; d++) { const dt = new Date((META.first + d * 86400) * 1000); if (dt.getMonth() !== lastM) { lastM = dt.getMonth(); if (d > 3) { hg.textAlign = 'left'; hg.fillText(dt.toLocaleDateString('en-GB', { month: 'short' }), d * bw + 2, r.height); hg.fillRect(d * bw, r.height - 12, 1, 3); } } }
+  hg.fillStyle = '#f3ead8'; hg.fillRect(px - 1, 0, 2, r.height - 10);
+}
+let desireDirty = true, lastUi = 0;
+function ui(now) {
+  if (now - lastUi < 160) return; lastUi = now;
+  $('date').textContent = fmtDate(Math.min(simT, DAYS - .01));
+  $('dsub').textContent = 'day ' + Math.floor(simT) + ' of ' + DAYS;
+  let pages = 0; for (let i = 0; i < N; i++) pages += shown[i];
+  let links = 0; for (const p of pairOf.values()) if (p.born <= simT) links++;
+  const l = cum.linked[ci], o = cum.over[ci], share = l + o ? Math.round(100 * l / (l + o)) : 0;
+  $('stats').innerHTML = '<b>' + pages + '</b> pages · <b>' + links + '</b> linked pairs · <b>' + ci.toLocaleString() + '</b> commits walked<br>steps between pages: <b>' + l.toLocaleString() + '</b> on a link, <b>' + o.toLocaleString() + '</b> across open ground (' + share + '% on a link)';
+  $('tstat').innerHTML = '<b>' + ants.filter(a => a.delay <= 0).length + '</b> ants out<br>' + (D.hist[Math.min(DAYS - 1, Math.floor(simT))] || 0) + ' commits today';
+  $('ticker').innerHTML = ticker.map(s => '<div>› ' + s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])) + '</div>').join('');
+  if (!scrubbing) $('scrub').value = Math.round(simT / DAYS * 1000);
+  drawHist();
+  if (desireDirty) {
+    desireDirty = false;
+    const top = [...desire].filter(([k]) => !linkedAt(k, simT)).sort((a, b) => b[1] - a[1]).slice(0, 7);
+    $('desire').innerHTML = top.length ? top.map(([k, n]) => { const a = Math.floor(k / N), b = k % N; return '<li data-a="' + a + '" data-b="' + b + '"><span class="n">' + n + '×</span><span>' + NODES[a].id + ' ↔ ' + NODES[b].id + '</span></li>'; }).join('') : '<li style="cursor:default;color:var(--dim)">none yet</li>';
+  }
+}
+
+// ---- controls ----------------------------------------------------------------------
+function setSpeed() { const v = +$('speed').value / 100; speed = .15 * Math.pow(100, v); $('oSpeed').textContent = (speed < 1 ? speed.toFixed(2) : speed.toFixed(1)) + ' days a second'; }
+function setFade() {
+  const v = +$('fade').value;
+  if (v <= 2) { tau = Infinity; $('oFade').textContent = 'never: every trail ever laid'; }
+  else { tau = 60 * Math.pow(1 / 60, v / 100) * 1.0; $('oFade').textContent = 'half gone in ' + (tau * .693 < 1.5 ? (tau * .693 * 24).toFixed(0) + ' hours' : (tau * .693).toFixed(0) + ' days'); }
+}
+$('speed').oninput = setSpeed;
+$('fade').oninput = () => { setFade(); seek(simT); };
+$('play').onclick = () => {
+  if (simT >= DAYS) seek(0);
+  playing = !playing || simT === 0; $('play').textContent = playing ? 'pause' : 'play'; $('play').classList.toggle('on', playing);
+};
+$('fit').onclick = resetCam;
+$('hide').onclick = e => { panelsHidden = !panelsHidden; $('col').style.display = panelsHidden ? 'none' : ''; e.target.textContent = panelsHidden ? 'show panels' : 'hide panels'; fit(); };
+let scrubbing = false;
+$('scrub').oninput = e => { scrubbing = true; seek(+e.target.value / 1000 * DAYS); if ($('play').textContent === 'replay') { $('play').textContent = 'play'; } };
+$('scrub').onchange = () => { scrubbing = false; };
+$('desire').onclick = e => { const li = e.target.closest('li[data-a]'); if (li) flash = { a: +li.dataset.a, b: +li.dataset.b, until: performance.now() + 4000 }; };
+addEventListener('keydown', e => { if (e.code === 'Space' && e.target.tagName !== 'BUTTON') { e.preventDefault(); $('play').click(); } });
+
+let hover = -1, dragging = null;
+function pick(mx, my) {
+  let best = -1, bd = 1e9;
+  for (let i = 0; i < N; i++) { if (!scrR[i]) continue; const dx = scrX[i] - mx, dy = scrY[i] - my, r = Math.max(8, scrR[i]) + 3, d = dx * dx + dy * dy; if (d < r * r && d < bd) { bd = d; best = i; } }
+  return best;
+}
+cv.addEventListener('pointerdown', e => { dragging = { x: e.clientX, y: e.clientY, az: cam.az, el: cam.el, tx: cam.tx, ty: cam.ty, pan: e.shiftKey || e.button === 2 }; cv.setPointerCapture(e.pointerId); cv.classList.add('drag'); lastTouch = performance.now(); });
+cv.addEventListener('pointermove', e => {
+  if (dragging) {
+    lastTouch = performance.now(); $('tip').style.display = 'none';
+    const dx = e.clientX - dragging.x, dy = e.clientY - dragging.y;
+    if (dragging.pan) { const s0 = F / cam.dist, xr = -dx / s0, yr = -dy / s0 / Math.max(.25, se); cam.tx = dragging.tx + xr * ca + yr * sa; cam.ty = dragging.ty - xr * sa + yr * ca; }
+    else { cam.az = dragging.az + dx * .006; cam.el = Math.max(.2, Math.min(1.5, dragging.el + dy * .005)); }
+    return;
+  }
+  hover = pick(e.clientX, e.clientY);
+  const tip = $('tip');
+  if (hover < 0) { tip.style.display = 'none'; return; }
+  const n = NODES[hover], vt = visitTimes[hover]; let v = 0; while (v < vt.length && vt[v] <= simT) v++;
+  const last = v ? simT - vt[v - 1] : null;
+  tip.innerHTML = '<b>' + n.id + '</b><span>' + n.type + ' · born ' + fmtDate(n.born) + '<br>' + v + ' commits so far' + (last === null ? '' : ' · last ' + (last < 1 ? 'today' : Math.floor(last) + ' days ago')) + '</span>';
+  tip.style.display = 'block';
+  tip.style.left = Math.min(W - 270, e.clientX + 14) + 'px'; tip.style.top = Math.min(H - 90, e.clientY + 14) + 'px';
+});
+cv.addEventListener('pointerup', () => { dragging = null; cv.classList.remove('drag'); });
+cv.addEventListener('pointerleave', () => { hover = -1; $('tip').style.display = 'none'; });
+cv.addEventListener('contextmenu', e => e.preventDefault());
+cv.addEventListener('wheel', e => { e.preventDefault(); lastTouch = performance.now(); cam.dist = Math.max(500, Math.min(14000, cam.dist * Math.exp(e.deltaY * .0015))); }, { passive: false });
+cv.addEventListener('dblclick', resetCam);
+addEventListener('resize', resize);
+
+// ---- go ------------------------------------------------------------------------------
+$('worn').innerHTML = '<b>' + wornIn + '</b> of today\'s ' + pairOf.size.toLocaleString() + ' linked pairs were walked overland at least twice before anyone drew the link. Watch for amber turning teal.';
+$('metaNote').textContent = 'Map ' + META.map + ' at ' + META.head + '. ' + META.commits_on_map.toLocaleString() + ' of ' + META.commits_all.toLocaleString() + ' non-merge commits touch a page on the map. ' + (META.pairs - META.pairs_dated_by_grep) + ' of ' + META.pairs + ' links could not be dated from frontmatter and take the later birthday of their two pages.';
+{ const kc = $('keyAnt').getContext('2d'); kc.scale(2, 2); drawAnt(kc, 12, 5, 0, 1, .95, true); }
+resize(); setSpeed(); setFade();
+if (innerWidth < 760) $('hide').click();
+const q = new URLSearchParams(location.search);
+seek(+(q.get('day') || 0));
+if (q.has('pause')) { playing = false; $('play').textContent = 'play'; $('play').classList.remove('on'); }
+window.__ants = { get state() { return { simT, ci, ants: ants.length, trails: trails.size, desire: desire.size, delivered, wornIn, d: cam.dist }; }, run(sec, dt = 1 / 30) { for (let t = 0; t < sec; t += dt) step(dt, performance.now()); draw(performance.now()); return this.state; } };
+let prev = performance.now();
+function loop(now) { const dt = Math.min(.05, (now - prev) / 1000); prev = now; step(dt, now); draw(now); ui(now); requestAnimationFrame(loop); }
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
