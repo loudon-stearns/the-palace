@@ -27,6 +27,7 @@ import { dirname, resolve } from 'node:path';
 import { validateMessage } from './core/schema/validator.js';
 import { appendMessage } from './core/blackboard/jsonl.js';
 import { latestOpus } from '../models/latest-opus.mjs';
+import { retractedIds } from './live-answers.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 
@@ -102,10 +103,11 @@ function pointsAt(m, readyId) {
 // is withdrawn the same way. A RETRACT naming a RETRACT does nothing: the first
 // retraction stands. Retracting a partial close does not withdraw the
 // remainder it posted: that is a handoff_ready of its own, retracted by name
-// if it should go too. (Mirrors app/src/lib/queue-model.js buildQueue.)
+// if it should go too. (Mirrors app/src/lib/queue-model.js buildQueue; the
+// withdrawn set is the one every board reader shares, ./live-answers.mjs.)
 export function foldHandoffs(lines) {
   const retracts = lines.filter((m) => m.type === 'RETRACT' && typeof m.re === 'string');
-  const withdrawn = new Set(retracts.map((r) => r.re));
+  const withdrawn = retractedIds(lines);
   const live = (m) => !withdrawn.has(m.id);
   const readies = lines.filter((m) => (m.payload || {}).kind === 'handoff_ready');
   const pickups = lines.filter((m) => (m.payload || {}).kind === 'handoff_picked_up' && live(m));

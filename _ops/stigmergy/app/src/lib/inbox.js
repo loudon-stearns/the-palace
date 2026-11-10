@@ -22,6 +22,7 @@
 import { tsCompare } from './format.js';
 import { CATCHUP_OVERRIDES } from './catchup-overrides.js';
 import { artifactsFromPayload } from './artifact.js';
+import { retractedIds, isWithdrawn, liveAnswers, liveAnswerFor } from '../../../live-answers.mjs';
 
 const RESPONSE_OPTIONS = [
   { label: 'Grant -- limited',   type: 'RESOURCE_GRANT', constraints: '<your constraints>' },
@@ -244,28 +245,15 @@ export function unansweredRequests(messages) {
   // A RETRACT withdraws the message its `re` names (SCHEMA — Reference §9),
   // whichever board it is posted on: a retracted request is no card, and a
   // retracted grant or deny answers nothing, so its request is waiting again.
-  // A RETRACT is never itself withdrawn (mirrors queue-model.js buildQueue).
-  const retracted = new Set();
-  for (const m of messages) {
-    if (m && m.type === 'RETRACT' && typeof m.re === 'string' && m.re) retracted.add(m.re);
-  }
+  // A RETRACT is never itself withdrawn. The rule is shared with buildQueue
+  // and every other board reader: ../../../live-answers.mjs.
+  const retracted = retractedIds(messages);
 
-  // Build a set of ids that have already been responded to.
-  const responded = new Set();
-  for (const m of trickster) {
-    if ((m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re && !retracted.has(m.id)) {
-      responded.add(m.re);
-    }
-  }
+  // The live answers on the TRICKSTER board, by the id each names.
+  const answers = liveAnswers(trickster, { retracted });
 
-  const isResponded = (m) =>
-    (m.request_id != null && responded.has(m.request_id)) ||
-    (m.id != null && responded.has(m.id));
-  const isRetracted = (m) =>
-    (m.id != null && retracted.has(m.id)) ||
-    (m.request_id != null && retracted.has(m.request_id));
-
-  return trickster.filter((m) => m.type === 'RESOURCE_REQUEST' && !isResponded(m) && !isRetracted(m));
+  return trickster.filter((m) => m.type === 'RESOURCE_REQUEST'
+    && liveAnswerFor(m, answers) === null && !isWithdrawn(m, retracted));
 }
 
 // How many TRICKSTER requests are waiting — the count on the TRICKSTER tab.

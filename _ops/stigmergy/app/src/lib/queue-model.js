@@ -54,6 +54,7 @@
 
 import { tsCompare, tsToEpoch } from './format.js';
 import { normalizeApplyOp } from './weave-apply-op.js';
+import { retractedIds, isWithdrawn, liveAnswers } from '../../../live-answers.mjs';
 
 // ── Build the open queue from board messages ─────────────────────────────────
 
@@ -70,24 +71,16 @@ export function buildQueue(messages) {
   // card that message raised leaves the list, whatever its kind, and an answer
   // it names no longer answers. Keyed by the withdrawn message's id (a
   // request's request_id is honoured too). A RETRACT is never itself withdrawn.
-  const retracted = new Set();
-  for (const m of messages) {
-    if (m?.type === 'RETRACT' && typeof m.re === 'string' && m.re) retracted.add(m.re);
-  }
-  const isRetracted = (m) => m.type !== 'RETRACT' && (retracted.has(m.id)
-    || (m.type === 'RESOURCE_REQUEST' && m.request_id != null && retracted.has(m.request_id)));
+  // The rule is shared with every other board reader: ../../../live-answers.mjs.
+  const retracted = retractedIds(messages);
+  const isRetracted = (m) => isWithdrawn(m, retracted);
 
   // Resource requests + vector proposals are both answered by RESOURCE_GRANT
   // / RESOURCE_DENY messages that carry `re: <message_id>`. One shared map
   // covers both (the dedup is by the answered message's id); it keeps the
   // latest live answer, so an entry flag can say who answered it and when. A
   // retracted answer is no answer.
-  const answers = new Map();                   // answered message id -> latest live answer
-  for (const m of messages) {
-    if ((m?.type === 'RESOURCE_GRANT' || m?.type === 'RESOURCE_DENY') && m.re && !retracted.has(m.id)) {
-      answers.set(m.re, m);
-    }
-  }
+  const answers = liveAnswers(messages, { retracted }); // answered message id -> latest live answer
   const responded = new Set(answers.keys());
 
   // Handoff lifecycle — three states, folded from board events (mirrors
