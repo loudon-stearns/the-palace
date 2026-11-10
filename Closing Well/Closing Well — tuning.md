@@ -470,3 +470,9 @@ Item 51 again: seven of the room's outgoing messages are cut in the arc. The co-
 
 - run · 2026-11-08 · v1.19 · close-2026-11-08-quantization (signed 2026-11-08 "Yes, land it"; the sit ran across 2026-11-03 and 2026-11-08) · taught item 89
 - run · 2026-11-08 · v1.19 · close-2026-11-08-pheromone-trail · nothing new
+
+## From the ants-on-topology close — 2026-11-09
+
+90. **When the resident wrote every house write, the placement check had no second reader.** In session eaa4936e the resident wrote every house write, and at the close the moderator judged its own ten commits. The room named the stake at the top of the panel. Also data: a word-for-word landing froze a sentence the approval made stale. Data, not a spec change; the version stays v1.19.
+
+- run · 2026-11-09 · v1.19 · close-2026-11-09-ants-on-topology (signed 2026-11-09 "this is the close"; placed 2026-11-10) · taught item 90

@@ -58,7 +58,7 @@ The target for the playful face round, from Loudon at the close, 2026-11-08, ver
 
 In plain terms: ants on the real palace topology, with the page icons, driven by git history, and a timeline of the palace growing. The ant farm is the seed; this is where it is going.
 
-Two roughs now stand at that target, in `proofs/2026-11-09-ants-on-topology/`: `ants-on-topology.html`, flat, and `ants-relief.html`, the same data as a relief on a drafting sheet. Loudon played both on 2026-11-09. His verdict: "YES! This is the kind of data visualization we should be promoting all across the palace."
+Two roughs now stand at that target, in `proofs/2026-11-09-ants-on-topology/`: `ants-on-topology.html`, flat, and `ants-relief.html`, the same data as a relief on a drafting sheet. Loudon played both on 2026-11-09. His verdict: "YES! This is the kind of data visualization we should be promoting all across the palace." Three findings, read off the flat rough's own readout late in its run, for the evidence the move asks for: 53% of ant steps between pages ran on a typed link; [[README - The Palace Guide]] and [[ROSETTA]] were worked together 12 times with no link between them; and 13 of 2,264 linked pairs were walked overland at least twice before the link was drawn, though the visiting order within a commit is a guess, so the pair counts lean on it.
 
 ## Where is the nest?
 
