@@ -83,6 +83,27 @@ test('pickup says nothing of a steward when the project has none', () => {
   try {
     const out = run(PICKUP, [p.ready.id, '--root', p.root, '--board', p.board, '--dry-run']);
     assert.ok(!/active steward/.test(out));
+    const json = JSON.parse(out.slice(out.indexOf('{', out.indexOf('--dry-run — would post'))));
+    assert.equal(json.to, '*', 'with no steward the claim stays a broadcast');
+    assert.equal(json.payload.steward, undefined);
+  } finally { rmSync(p.base, { recursive: true, force: true }); }
+});
+
+test('the claim is addressed to the steward, and a claimed card stays active', () => {
+  const p = palace();
+  try {
+    const out = run(PICKUP, [p.ready.id, '--root', p.root, '--board', p.board, '--dry-run']);
+    assert.match(out, /this claim and the close are addressed to Test Page/);
+    const json = JSON.parse(out.slice(out.indexOf('{', out.indexOf('--dry-run — would post'))));
+    assert.equal(json.to, PAGE);
+    assert.equal(json.payload.steward, PAGE);
+    assert.equal(json.payload.kind, 'handoff_picked_up');
+
+    // a real claim on the scratch board: the card folds to claimed whoever it is addressed to
+    run(PICKUP, [p.ready.id, '--root', p.root, '--board', p.board]);
+    const lines = readFileSync(p.board, 'utf8').trim().split('\n').map((l) => JSON.parse(l));
+    assert.equal(lines[lines.length - 1].to, PAGE);
+    assert.deepEqual(activeCardsFor(lines, PAGE).map((c) => c.state), ['claimed']);
   } finally { rmSync(p.base, { recursive: true, force: true }); }
 });
 

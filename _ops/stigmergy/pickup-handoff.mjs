@@ -18,6 +18,8 @@
 // REGISTRY.json), it says so and lists the steward's commits since the baton was
 // born, the notes its cycles posted against this card, and the canon edits it
 // has filed and Loudon has not settled ([[Two Batons, One Board]]; steward-watch.mjs).
+// The claim is then addressed to the steward (`to` its agent id, and
+// `payload.steward`), so its next cycle reads that a session holds the baton.
 //
 // Beside it, Loudon's open review notes on the entry: the REVIEW NOTE cards the QUEUE
 // holds for it, from a rich face's dock or as answers from a rough ([[Review Layer]]),
@@ -117,11 +119,13 @@ if (p.entry) {
 // list its commits since the baton was born, the notes its cycles posted against
 // this card, and the canon edits it has filed and Loudon has not settled — one of
 // those may be a baton item already (one route per edit: say so on both, settle it once).
+let steward = null;
 if (p.entry) {
   try {
     const { activeSteward, cardSince, stewardCommitsSince, stewardNotesOn, owedProposalsFor } = await import('./steward-watch.mjs');
     const st = activeSteward(ROOT, p.entry);
     if (st) {
+      steward = st;
       const { since, from: sinceFrom } = cardSince(ROOT, card);
       const commits = stewardCommitsSince(ROOT, st, since);
       const notes = stewardNotesOn(loadBoard(board), card.m.id);
@@ -144,7 +148,7 @@ if (p.entry) {
         for (const o of owed.slice(0, 8)) console.log(`  ${C.D}item ${o.n} · ${o.date} · ${o.page}${o.place ? ` — ${o.place.slice(0, 70)}` : ''}${C.R}`);
         console.log(`  ${C.D}→ if a baton item is one of these, it is one change: say so on the baton and in the ledger, and settle it once.${C.R}`);
       }
-      console.log(`  ${C.D}→ the close will be addressed to ${st.agent_id}, so its next cycle reads what landed.${C.R}`);
+      console.log(`  ${C.D}→ this claim and the close are addressed to ${st.agent_id}, so its next cycle reads who holds the baton and what landed.${C.R}`);
       console.log('');
     }
   } catch (e) {
@@ -179,7 +183,7 @@ const msg = {
   ts: new Date().toISOString(),
   session_id: flags.from ? slug(flags.from) : `claim-${slug(p.entry || selector)}`,
   from: flags.from || p.entry || 'COORDINATOR',
-  to: '*',
+  to: steward ? steward.agent_id : '*',
   type: 'REPLY',
   board: 'GENERAL',
   re: card.m.id,
@@ -187,6 +191,7 @@ const msg = {
   payload: {
     kind: 'handoff_picked_up',
     lifecycle: 'claim',                 // marks this a lifecycle-v1 claim, not a legacy terminal pickup
+    steward: steward ? steward.agent_id : undefined,
     entry: p.entry,
     handoff_id: card.m.id,
     handoff_path: p.handoff_path,
