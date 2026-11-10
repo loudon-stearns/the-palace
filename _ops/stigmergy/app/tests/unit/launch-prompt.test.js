@@ -27,6 +27,17 @@ describe('buildLaunchPrompt — handoff', () => {
     expect(p).toMatch(/superseded/i);
   });
 
+  // The On-pickup checklist deletes the baton at the close (step 8), never at the
+  // catch; a prompt that said "mark it caught, then delete" contradicted it
+  // ([[Two Batons, One Board]], check 4; Closing Well — tuning item 69).
+  test('never tells the catcher to delete the baton at pickup — it comes out at the close', () => {
+    const p = buildLaunchPrompt(ctx);
+    expect(p).not.toMatch(/then delete the baton/i);
+    expect(p).not.toMatch(/mark it caught/i);
+    expect(p).toMatch(/claim it when you catch it, and close it when the move lands/);
+    expect(p).toMatch(/in place until the close/);
+  });
+
   test('defaults kind to handoff', () => {
     expect(buildLaunchPrompt({ sourcePath: 'x — baton.md' })).toContain('catching an in-progress baton');
   });

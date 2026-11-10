@@ -99,7 +99,9 @@ function handoffPrompt({ sourcePath, entry, from, id, summary, move, invocation,
     '   quotes still matches the file. If the move is already done, superseded, or no',
     '   longer wanted, STOP and tell Loudon — do not execute a stale move.',
     step('If it is still live, follow the baton\'s own "On pickup" checklist (it rides'),
-    '   inside the baton): mark it caught, then delete the baton file — git is its archive.',
+    '   inside the baton): claim it when you catch it, and close it when the move lands.',
+    '   Leave the baton file and its Active Baton pointer in place until the close; they',
+    '   come out then (its step 8), so a move dropped halfway never erases the work.',
     step('Pick up the move where it left off and keep going, interactively.'),
   );
   // The board's `invocation` is a ready, verbatim first action — surface it so
