@@ -65,6 +65,12 @@ const PIECES = {
   'vh.html': '<!doctype html><body style="margin:8px"><div style="height:100vh;background:#123">full</div></body>',
   // Fills its window, the way a plugin editor does: it reports whatever window it is given.
   'fill.html': '<!doctype html><html style="height:100%"><body style="margin:0;height:100%;display:flex;flex-direction:column"><header style="height:60px">head</header><main style="flex:1;min-height:0;overflow:auto">body</main></body></html>',
+  // A muted video started by a click, the way a camera piece shows its preview:
+  // a picture, not a sound, so it must not claim the turn.
+  'mutedvid.html': `<!doctype html><body style="margin:8px"><button id="go">show</button><video id="v" muted playsinline style="width:160px"></video><canvas id="c" width="16" height="16"></canvas><script>
+document.getElementById('go').addEventListener('click', () => { const v = document.getElementById('v'); v.srcObject = document.getElementById('c').captureStream(5); v.play(); });
+window.vidState = () => (document.getElementById('v').paused ? 'paused' : 'playing');
+</script></body>`,
   // Speaks the protocol itself: its own height is the one that counts.
   'speaker.html': `<!doctype html><body><div style="height:900px">x</div><script>
 parent.postMessage({ type: 'rich:height', height: 333 }, '*');
@@ -261,6 +267,16 @@ describe.skipIf(!chromium)('the piece kit', () => {
     expect(await frameHeight(page, 'fill.html')).toBe(h);
     const held = await heard(page, 'fill.html', 'rich:held');
     expect(held.map((m) => m.direction)).toEqual(['shrink']);
+    await page.close();
+  }, 20000);
+
+  test('a muted video started by a click claims nothing: no rich:play', async () => {
+    const page = await open(['mutedvid.html', 'a.html']);
+    await frameOf(page, 'mutedvid.html').waitForLoadState();
+    await page.frameLocator('iframe[data-n="mutedvid.html"]').locator('#go').click();
+    await expect.poll(() => frameOf(page, 'mutedvid.html').evaluate(() => window.vidState()), { timeout: 5000 }).toBe('playing');
+    await page.waitForTimeout(500);
+    expect((await heard(page, 'mutedvid.html', 'rich:play')).length).toBe(0);
     await page.close();
   }, 20000);
 

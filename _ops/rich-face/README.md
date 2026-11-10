@@ -291,7 +291,9 @@ palace writes runs there: every piece runs on the **piece origin**.
   `rich:height` gives it exactly the window it asked for, with no border counted inside the height.
 - **One voice at a time, by the kit.** It hears an `AudioContext` start (Tone.js's own included) or an
   `<audio>`/`<video>` start after a click, and tells the page, which hushes every other video, strip
-  and piece. A piece that answers `rich:hush` itself is left to it.
+  and piece. Only an element that can be heard counts. A muted one, such as a camera's own preview,
+  claims nothing, and claims the turn only if it is unmuted while it plays. A piece that answers
+  `rich:hush` itself is left to it.
 - **A hidden page says nothing.** When the page goes hidden, the page hushes every strip, video,
   piece and its room tone, and each piece's kit hushes the piece itself too, so a piece is quiet on a
   hidden tab in the face, in the deck, or opened alone. Here the kit does not leave a piece to itself:

@@ -10,7 +10,8 @@
 //            rich:height itself is left to it.
 //   play   — posts {type:'rich:play'} when the piece starts a sound the reader
 //            asked for (an AudioContext or <audio>/<video> starting after a
-//            click), so the page can quiet every other piece.
+//            click, and not muted: a camera's preview is no sound), so the
+//            page can quiet every other piece.
 //   hush   — on {type:'rich:hush'} from the page, suspends the piece's audio
 //            and pauses its media; the next touch on the piece brings its audio
 //            back. A piece that answers rich:hush itself is left to it.
@@ -177,7 +178,23 @@
       Src.prototype.start = function () { if (navigator.userActivation ? navigator.userActivation.isActive : true) played(); return start.apply(this, arguments); };
     }
   }
-  document.addEventListener('play', played, true); // <audio>/<video>: 'play' does not bubble, so catch it on the way down
+  // <audio>/<video>: 'play' does not bubble, so catch it on the way down. A
+  // muted one is not a sound (a camera's own preview), so it claims nothing:
+  // it was hushing the piece that had just taken the camera from it, whose
+  // stream then stopped (2026-11-09, the flaky camera test in rich-pieces).
+  // It claims the turn if it is unmuted while it plays.
+  function audible(m) {
+    if (!m || m.muted || !(m.volume > 0)) return false;
+    var s = m.srcObject;
+    return !(s && s.getAudioTracks && !s.getAudioTracks().length);
+  }
+  var heard = typeof WeakMap === 'function' ? new WeakMap() : null; // was it audible last we looked
+  document.addEventListener('play', function (e) { var on = audible(e.target); if (heard && e.target) heard.set(e.target, on); if (on) played(); }, true);
+  document.addEventListener('volumechange', function (e) {
+    var m = e.target, on = audible(m), was = heard ? heard.get(m) : false;
+    if (heard && m) heard.set(m, on);
+    if (on && !was && !m.paused) played(); // only the turn from silent to heard, not every drag of a slider
+  }, true);
   // An Audio() never put in the page plays all the same, out of the document's
   // reach: keep every element that starts, so a hush finds it.
   var started = [];
