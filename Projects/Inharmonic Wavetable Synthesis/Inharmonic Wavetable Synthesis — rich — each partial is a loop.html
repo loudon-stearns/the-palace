@@ -1,0 +1,543 @@
+<!doctype html>
+<!--
+  title: Inharmonic Wavetable Synthesis — rich — each partial is a loop
+  born: 2026-11-10
+  links: [[Inharmonic Wavetable Synthesis]] (connects-to · rich-face-piece) · listed in [[Inharmonic Wavetable Synthesis — rich.json]] · [[Synthesis Topologies]] (grew-from · a loop that drives a crowd)
+  forward_vector: I am the spectrum you can get your hands on. Seen from the side I am a row of bars; turned, each bar is a loop, one partial going round. A loop that closes after one lap of the fundamental stands still. Push one off its place and it stops closing, crawls, and the sound goes with it. Pull the whole body and let go, and it oozes home into harmony. I want to become the screen of the project's plugin; until then I am the face's hook, and I change when Loudon's hands say what feels wrong.
+  engine: everything between ENGINE-START and ENGINE-END is pure and runs in Node too. makeBank is Bent Line's voice (plugin/src/Algorithm.h) carried over operation for operation: phase accumulators, f = n · f0 · 2^(bend · cents / 1200) read once every 32 samples, the level slewed across those 32, the 4 ms attack, the release, the Nyquist guard, and the struck decay tau = decay / (1 + 0.07 (n − 1)). What differs is said in its head comment. workshop/rich-checks/check-loops.mjs renders it offline and FFTs it against the picture.
+  dress: Loudon Live house style, Graphite skin.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>Each partial is a loop</title>
+<meta name="theme-color" content="#0a0a0f">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, focus, range. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+:root { color-scheme: dark; }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --ring:#22222e; --border:#4a4a5e; --soft:rgba(255,255,255,.06); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --indigo:#6366F1; --warn:#ff9b4a;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 300; }
+  .piece { padding: 22px 22px 16px; }
+  .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  .title { font-family: var(--serif); font-size: 27px; font-weight: 300; color: var(--fg1); margin: 0 0 6px; }
+  .sub { font-size: 14px; line-height: 1.6; color: var(--fg2); max-width: 78ch; margin: 0 0 14px; }
+  .stage { position: relative; border: 1px solid var(--soft); border-radius: 2px; background: radial-gradient(120% 90% at 30% 45%, #14141f 0%, #0c0c13 60%, #0a0a0f 100%); overflow: hidden; }
+  canvas#obj { display: block; width: 100%; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+  canvas#obj.grabbing { cursor: grabbing; }
+  .wake { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); font-size: 12px; padding: 12px 20px; background: rgba(10,10,15,.82); white-space: nowrap; }
+  .wake[hidden] { display: none; }
+  .tell { font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; line-height: 1.6; color: var(--fg3); margin: 10px 0 0; min-height: 3.2em; }
+  .tell b { color: var(--fg1); font-weight: 500; }
+  .tell .open { color: var(--warn); } .tell .shut { color: var(--amber); }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: end; margin-top: 12px; }
+  .ctl { display: flex; flex-direction: column; gap: 5px; }
+  .ctl > span, label.sl { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); }
+  label.sl { display: block; min-width: 170px; flex: 1; max-width: 300px; }
+  .seg { display: inline-flex; flex-wrap: wrap; } .seg button + button { border-left: 0; }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 8px 11px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); color: var(--fg1); }
+  button.on { color: var(--amber); border-color: var(--amberline); position: relative; z-index: 1; }
+  button.go { color: var(--amber); border-color: var(--amberline); box-shadow: 0 0 14px rgba(232,184,74,.18); }
+  button:focus-visible, input:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 14px 0 12px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 15px; height: 15px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  .keys { display: flex; margin-top: 14px; }
+  .keys button { flex: 1; min-width: 0; padding: 14px 0 8px; border-radius: 0; margin-right: -1px; font-size: 10.5px; letter-spacing: .02em; text-transform: none; line-height: 1.5; }
+  .keys button.sharp { background: #050508; color: var(--fg3); }
+  .keys button i { display: block; font-style: normal; font-size: 9px; color: var(--fg4); }
+  .keys button.on { background: rgba(232,184,74,.12); }
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; line-height: 1.6; color: var(--fg3); margin-top: 12px; max-width: 96ch; }
+  .eqs { margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--soft); }
+  .eq { font-family: var(--serif); font-size: 19px; color: var(--fg1); }
+  .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 86ch; }
+  .foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
+  .foot svg { width: 22px; height: 22px; }
+  @media (max-width: 560px) { .piece { padding: 16px 12px 12px; } .title { font-size: 24px; } button { padding: 9px 8px; letter-spacing: .05em; } .keys button i { display: none; } .controls { gap: 12px 14px; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kicker">made · Web Audio Worklet · an instrument</div>
+  <h3 class="title">Each partial is a loop</h3>
+  <p class="sub">From the side a spectrum is a row of bars. Turn it, and each bar is a loop: one partial, going round. A loop that closes after one lap of the fundamental stands still. Push a loop off its place and it stops closing. It crawls, and you hear it leave the chord. Take hold of it.</p>
+
+  <div class="stage">
+    <canvas id="obj" aria-label="The spectrum as a row of loops. Drag a loop sideways to move that partial; drag up or down to change how loud it is."></canvas>
+    <button class="wake go" id="wake">▸ wake it · then drag a loop</button>
+  </div>
+  <p class="tell" id="tell"></p>
+
+  <div class="controls">
+    <div class="ctl"><span>your grip</span><span class="seg" id="grip"></span></div>
+    <div class="ctl"><span>when you let go, it</span><span class="seg" id="putty"></span></div>
+    <div class="ctl"><span>home is</span><span class="seg" id="rest"></span></div>
+    <div class="ctl"><span>the note is</span><span class="seg" id="ring"></span></div>
+    <label class="sl">turn it · bars ↔ loops<input type="range" id="turn" min="0" max="70" step="1" value="32"></label>
+    <div class="ctl"><span>&nbsp;</span><span class="seg"><button id="home">send it home</button><button id="sound">▸ sound</button></span></div>
+  </div>
+
+  <div class="keys" id="keys" role="group" aria-label="notes"></div>
+
+  <div class="hint">Sideways moves a partial; the stem under each loop still stands on the harmonic it was filed under, so a leaning stem is a partial out of place. Up and down is how loud. Shift-drag swaps your grip. The keys play notes; with “held” they latch, so build a chord and then pull on it. The crawl is what a strobe tuner shows: the loop lit once per lap of the fundamental, slowed so the eye can follow.</div>
+
+  <div class="eqs">
+    <div class="eq">f<sub>n</sub> = n · f<sub>0</sub> · 2<sup>(c<sub>n</sub> ⁄ 1200)</sup></div>
+    <div class="words">(partial n's frequency) = (n times the fundamental), raised by (that partial's bend, c<sub>n</sub> cents). This is the project's engine, and c<sub>n</sub> is Wavetable B. Here your hand writes it: where the loop sits along the object is f<sub>n</sub> ⁄ f<sub>0</sub>, and the engine is sent the cents that put it there.</div>
+    <div class="eq">turn per lap = f<sub>n</sub> ⁄ f<sub>0</sub> − nearest whole number</div>
+    <div class="words">(how far a loop misses closing, each time the fundamental goes round once) = (its place in harmonics) minus (the nearest whole number). Zero, and the loop closes and stands still: it is a harmonic, of whichever number it landed on. Anything else, and it crawls at that rate.</div>
+  </div>
+  <div class="foot"><svg viewBox="-1.1 -1.1 2.2 2.2" aria-hidden="true"><path id="sigil" fill="none" stroke="#e8b84a" stroke-width="0.06"/></svg><span>Inharmonic Wavetable Synthesis · rich face · Loud’n Live</span></div>
+</div>
+
+<script id="engine">
+/*ENGINE-START*/
+const NP = 24;          // loops
+const AXIS = 32;        // the object's length, in harmonics of the fundamental
+const BASE_NOTE = 45;   // A2, 110 Hz
+// homes: where the body rests. Cents off each harmonic slot (Wavetable B) and the level of each partial (Wavetable A).
+const STRING_B = 7.4049e-4;   // the library's measured A4 string (trajectory-library/piano-A4.wtb.json)
+const BELL = {                // the library's Brooklyn bell, filed by rank; medians over its live frames, levels at its fifth frame
+  cents: [3.3,-1009.0,-1257.5,-1052.7,-1321.1,-1517.7,-1223.3,-1407.6,-1484.6,-1585.3,-1615.7,-1571.6,-1650.1,-1608.6,-1701.9,-1571.2,-1633.8,-700.9,-543.8,-585.0,-622.6,-512.4,-548.4,-616.2],
+  lev: [0.656,0.0086,0.2795,0.0079,0.049,0.0305,0.0325,0.0866,0.0057,0.0068,0.0111,0.0088,0.0316,0.0212,0.0068,0.0139,0.0085,0.0047,0.0064,0.0147,0.0122,0.0139,0.0068,0.0051] };
+const HOMES = {
+  flat:   { label: 'the harmonic series', cents: (n) => 0, amp: (n) => 1 / n },
+  string: { label: 'a stiff string', cents: (n) => 600 * Math.log2(1 + STRING_B * n * n), amp: (n) => 1 / n },
+  bell:   { label: 'a measured bell', cents: (n) => BELL.cents[n - 1], amp: (n) => BELL.lev[n - 1] },
+};
+const R_MIN = 0.3, R_MAX = AXIS + 1.5, G_MIN = -40, G_MAX = 12;
+function ratioOf(n, cents) { return n * Math.pow(2, cents / 1200); }
+function centsOf(n, r) { return 1200 * Math.log2(r / n); }
+function missOf(r) { return r - Math.round(r); }                 // turn per lap of the fundamental
+function closed(r) { return Math.abs(1200 * Math.log2(r / Math.max(1, Math.round(r)))) < 1; }   // within a cent of a harmonic
+
+// the body: for each loop, where home is (R0, A0), how far the hand has it from home (u, in harmonics; g, in dB), and how fast it is moving
+function makeBody(home) {
+  const S = { home, R0: new Float64Array(NP), A0: new Float64Array(NP), u: new Float64Array(NP), v: new Float64Array(NP), g: new Float64Array(NP), gv: new Float64Array(NP), homing: 0 };
+  setHome(S, home, false);
+  return S;
+}
+function setHome(S, home, keepPlace) {
+  const H = HOMES[home]; let e = 0;
+  const a = []; for (let i = 0; i < NP; i++) { a.push(H.amp(i + 1)); e += a[i] * a[i]; }
+  for (let i = 0; i < NP; i++) {
+    const was = S.R0[i] + S.u[i];
+    S.R0[i] = ratioOf(i + 1, H.cents(i + 1));
+    S.u[i] = keepPlace ? was - S.R0[i] : 0; S.v[i] = 0; S.g[i] = 0; S.gv[i] = 0;
+    S.A0[i] = a[i] * 0.2 / Math.sqrt(e);          // a voice's level, as "bend the line" sets it
+  }
+  S.home = home; S.homing = keepPlace ? 1 : 0;
+}
+function place(S, i) { return Math.min(R_MAX, Math.max(R_MIN, S.R0[i] + S.u[i])); }      // f_n / f0: where the loop is drawn, and what is played
+function level(S, i) { return S.A0[i] * Math.pow(10, S.g[i] / 20); }
+function bodyCents(S) { const c = new Float64Array(NP); for (let i = 0; i < NP; i++) c[i] = centsOf(i + 1, place(S, i)); return c; }
+function bodyAmps(S) { const a = new Float64Array(NP); for (let i = 0; i < NP; i++) a[i] = level(S, i); return a; }
+
+// a grip: which loops come with the hand, and how much. 'one' is a fingertip on one loop.
+// 'body' takes the whole thing like putty stuck to the wall at zero: loops near the hand come along,
+// far ones less (a bell curve 8 harmonics wide), and below the hand the pull thins toward the wall.
+const GRIP_SIGMA = 8;
+function makeGrip(S, kind, i) {
+  const w = new Float64Array(NP), rg = place(S, i);
+  for (let m = 0; m < NP; m++) {
+    if (kind === 'one') { w[m] = m === i ? 1 : 0; continue; }
+    const rm = place(S, m), d = rm - rg, wall = Math.min(1, rm / rg);
+    w[m] = m === i ? 1 : Math.exp(-d * d / (2 * GRIP_SIGMA * GRIP_SIGMA)) * wall * wall;
+  }
+  return { i, w, u0: Float64Array.from(S.u), g0: Float64Array.from(S.g) };
+}
+function pull(S, grip, dr, ddB) {            // the hand has moved dr harmonics along the object and ddB up it
+  for (let m = 0; m < NP; m++) {
+    const w = grip.w[m]; if (w < 1e-4) continue;
+    S.u[m] = Math.min(R_MAX, Math.max(R_MIN, S.R0[m] + grip.u0[m] + w * dr)) - S.R0[m]; S.v[m] = 0;
+    S.g[m] = Math.min(G_MAX, Math.max(G_MIN, grip.g0[m] + w * ddB)); S.gv[m] = 0;
+  }
+}
+// what the putty does when let go. ooze: creeps home, time constant 2.5 s. spring: rings home at 2.2 Hz, lightly damped. stay: keeps the shape.
+const OOZE_TAU = 2.5, SPRING_HZ = 2.2, SPRING_ZETA = 0.16, HOMING_TAU = 0.25;
+function relax(S, dt, mode, grip) {
+  let moving = false;
+  const om = 2 * Math.PI * SPRING_HZ;
+  for (let m = 0; m < NP; m++) {
+    if (grip && grip.w[m] >= 1e-4) continue;
+    if (S.u[m] === 0 && S.g[m] === 0 && S.v[m] === 0 && S.gv[m] === 0) continue;
+    const how = S.homing ? 'home' : mode;
+    if (how === 'stay') continue;
+    if (how === 'spring') {
+      S.v[m] += (-om * om * S.u[m] - 2 * SPRING_ZETA * om * S.v[m]) * dt; S.u[m] += S.v[m] * dt;
+      S.gv[m] += (-om * om * S.g[m] - 2 * SPRING_ZETA * om * S.gv[m]) * dt; S.g[m] += S.gv[m] * dt;
+    } else {
+      const k = Math.exp(-dt / (how === 'home' ? HOMING_TAU : OOZE_TAU));
+      S.u[m] *= k; S.g[m] *= k; S.v[m] = 0; S.gv[m] = 0;
+    }
+    const off = Math.abs(1200 * Math.log2((S.R0[m] + S.u[m]) / S.R0[m]));
+    const still = Math.abs(S.v[m]) < 0.02 && Math.abs(S.gv[m]) < 0.2;
+    if (off < 0.25 && still) { S.u[m] = 0; S.v[m] = 0; }             // home, exactly: the loop closes
+    if (Math.abs(S.g[m]) < 0.05 && still) { S.g[m] = 0; S.gv[m] = 0; }
+    if (S.u[m] !== 0 || S.g[m] !== 0) moving = true;
+  }
+  if (!moving) S.homing = 0;
+  return moving;
+}
+
+// The voice bank. Bent Line's engine (plugin/src/Algorithm.h, step) carried over operation for operation:
+//   every K = 32 samples a voice reads f = n · f0 · 2^(bend · cents / 1200) and its level, and slews the level across the next 32;
+//   every sample each partial advances its phase by f / sr and adds level · decay · sin(2π phase);
+//   a 4 ms attack, an exponential release, nothing sounded at or above 0.45 · sr, the same voice picking.
+// What differs: the cents and levels come from the hand, not from a material's frame table, so they are smoothed here
+// with the plugin's 20 ms (it smooths its Bend knob the same); 24 partials and 4 voices, not 64 and 8;
+// and "held" switches the struck decay off (the plugin always decays), so a hand can be heard for as long as it pulls.
+function makeBank(sr, NPART) {
+  const NV = 4, K = 32, TWO_PI = 6.283185307179586;
+  const P = { cents: new Float64Array(NPART), amps: new Float64Array(NPART), bend: 1, held: true, decay: 3, release: 0.4, gain: 1 };
+  const cs = new Float64Array(NPART), as = new Float64Array(NPART);
+  const smooth = 1 - Math.exp(-K / (sr * 0.02));
+  let primed = false, gctr = 0, counter = 0;
+  const voices = [];
+  for (let q = 0; q < NV; q++) voices.push({ active: false, held: false, note: -1, ctr: 0, order: 0, age: 0, f0: 0, vel: 0, e: 0,
+    ph: new Float64Array(NPART), inc: new Float64Array(NPART), amp: new Float64Array(NPART), damp: new Float64Array(NPART), dec: new Float64Array(NPART).fill(1), dk: new Float64Array(NPART).fill(1) });
+  function set(cents, amps) { P.cents.set(cents); P.amps.set(amps); if (!primed) { cs.set(cents); as.set(amps); primed = true; } }
+  function noteOn(note, velocity) {
+    let pick = -1;
+    for (let q = 0; q < NV; q++) if (pick < 0 && voices[q].active && voices[q].note === note) pick = q;
+    for (let q = 0; q < NV; q++) if (pick < 0 && !voices[q].active) pick = q;
+    if (pick < 0) { pick = 0; for (let q = 1; q < NV; q++) if (voices[q].order < voices[pick].order) pick = q; }
+    const vo = voices[pick];
+    counter += 1;
+    vo.order = counter; vo.note = note; vo.held = true; vo.active = true;
+    vo.f0 = 440 * Math.pow(2, (note - 69) / 12); vo.vel = velocity;
+    vo.age = 0; vo.ctr = 0; vo.e = 0;
+    vo.ph.fill(0); vo.amp.fill(0); vo.dec.fill(1);
+  }
+  function noteOff(note) { for (const vo of voices) if (vo.note === note) vo.held = false; }
+  function allOff() { for (const vo of voices) vo.held = false; }
+  function step() {
+    if (gctr === 0) for (let s = 0; s < NPART; s++) { cs[s] += (P.cents[s] - cs[s]) * smooth; as[s] += (P.amps[s] - as[s]) * smooth; }
+    gctr += 1; if (gctr === K) gctr = 0;
+    const rk = Math.exp(-1 / (sr * P.release)), ainc = 1 / (0.004 * sr);
+    let y = 0;
+    for (let q = 0; q < NV; q++) {
+      const vo = voices[q];
+      if (!vo.active) continue;
+      if (vo.ctr === 0) {
+        for (let s = 0; s < NPART; s++) {
+          const nn = s + 1;
+          const f = nn * vo.f0 * Math.pow(2, P.bend * cs[s] / 1200);
+          vo.inc[s] = f / sr;
+          let A = as[s];
+          if (!(f < 0.45 * sr)) A = 0;
+          vo.damp[s] = (A * vo.vel - vo.amp[s]) / K;
+          const tau = P.decay / (1 + 0.07 * (nn - 1));
+          vo.dk[s] = P.held ? 1 : Math.exp(-1 / (sr * tau));
+        }
+      }
+      vo.ctr += 1; if (vo.ctr === K) vo.ctr = 0;
+      if (vo.held) vo.e = Math.min(1, vo.e + ainc); else vo.e = vo.e * rk;
+      let s = 0;
+      for (let k = 0; k < NPART; k++) {
+        vo.amp[k] = vo.amp[k] + vo.damp[k];
+        vo.dec[k] = vo.dec[k] * vo.dk[k];
+        let p = vo.ph[k] + vo.inc[k];
+        p = p - Math.floor(p);
+        vo.ph[k] = p;
+        s += vo.amp[k] * vo.dec[k] * Math.sin(TWO_PI * p);
+      }
+      y += s * vo.e;
+      vo.age += 1;
+      if (!vo.held && vo.e < 1e-5) vo.active = false;
+    }
+    return y * P.gain;
+  }
+  function sounding() {      // what the first sounding voice is playing right now, in Hz, and its fundamental
+    for (const vo of voices) if (vo.active) return { f0: vo.f0, f: Array.from(vo.inc, (x) => x * sr) };
+    return null;
+  }
+  return { P, set, noteOn, noteOff, allOff, step, sounding };
+}
+/*ENGINE-END*/
+</script>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const TWO_PI = 2 * Math.PI;
+const S = makeBody('flat');
+const UI = { grip: 'body', putty: 'ooze', ring: 'held', turn: 32, awake: false, sounding: false, notes: new Set(), lastNote: BASE_NOTE, hover: -1, drag: null, touched: false };
+const phase = new Float64Array(NP);      // each loop's strobe phase, in turns
+const STROBE = 0.5;                      // a loop one whole harmonic off its place crawls this many ripples a second
+const view = { w: 300, h: 300, cx: 0, cy: 0, S: 1, D: 1, psi: 0, phi: 12 * Math.PI / 180, Rmax: 1, F: 1 };
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ── the view: the object lies along X (harmonics), each loop stands in the plane across it ──
+function proj(X, Y, Z) {
+  const cs = Math.cos(view.psi), sn = Math.sin(view.psi), cp = Math.cos(view.phi), sp = Math.sin(view.phi);
+  const x1 = X * cs - Z * sn, z1 = X * sn + Z * cs;
+  const y2 = Y * cp + z1 * sp, z2 = -Y * sp + z1 * cp;
+  const k = view.D / (view.D + z2);
+  return [view.cx + x1 * k, view.cy - y2 * k, z2];
+}
+const axisX = (r) => (r - AXIS / 2) * view.S;
+function harmonicsAt(px) {               // which place along the object's spine is under this screen x
+  const kx = px - view.cx, cs = Math.cos(view.psi), sn = Math.sin(view.psi), cp = Math.cos(view.phi);
+  const X = kx * view.D / (view.D * cs - kx * sn * cp);
+  return X / view.S + AXIS / 2;
+}
+function radiusOf(i) { const a = level(S, i) / UI.aref; return view.Rmax * (0.15 + 0.85 * Math.sqrt(Math.min(1.5, a))); }
+
+function fit() {
+  const c = $('obj'), w = c.clientWidth || 300, d = Math.min(2, devicePixelRatio || 1);
+  const h = Math.round(Math.max(290, Math.min(540, w * 0.5)));
+  if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
+  const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0);
+  view.w = w; view.h = h; view.cx = w * 0.53; view.cy = h * 0.40; view.S = w * 0.90 / AXIS; view.D = w * 2.2; view.Rmax = h * 0.27; view.F = h * 0.33;
+  return g;
+}
+
+const drawn = { loops: [], ticks: [] };   // what the last frame put on the screen, for anyone checking the picture
+function draw(g) {
+  const { w, h } = view;
+  g.clearRect(0, 0, w, h);
+  g.lineCap = 'round'; g.lineJoin = 'round';
+  g.font = '10px JetBrains Mono, monospace';
+  // the floor: a ruler of harmonic slots
+  drawn.ticks = [];
+  { const a = proj(axisX(0), -view.F, 0), b = proj(axisX(AXIS), -view.F, 0);
+    g.strokeStyle = '#2a2a38'; g.lineWidth = 1; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke();
+    g.textAlign = 'center';
+    for (let k = 1; k <= AXIS; k++) {
+      const p = proj(axisX(k), -view.F, 0), q = proj(axisX(k), -view.F - (k <= NP ? 6 : 3), 0);
+      g.strokeStyle = k <= NP ? '#4a4a5e' : '#2a2a38'; g.beginPath(); g.moveTo(p[0], p[1]); g.lineTo(q[0], q[1]); g.stroke();
+      drawn.ticks.push({ k, x: proj(axisX(k), 0, 0)[0] });
+      if (k === 1 || k % 4 === 0) { g.fillStyle = '#6a6a80'; g.fillText(k, q[0], q[1] + 12); }
+    }
+    g.textAlign = 'right'; g.fillStyle = '#4a4a5a'; g.fillText('× f₀', b[0] + 4, b[1] - 8);
+  }
+  const order = []; for (let i = 0; i < NP; i++) order.push(i);
+  const R = order.map((i) => place(S, i)), RHO = order.map((i) => radiusOf(i));
+  // the skin: the body's outline through the top and bottom of every loop
+  { const byR = order.slice().sort((a, b) => R[a] - R[b]);
+    g.beginPath();
+    byR.forEach((i, j) => { const p = proj(axisX(R[i]), RHO[i], 0); j ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1]); });
+    byR.slice().reverse().forEach((i) => { const p = proj(axisX(R[i]), -RHO[i], 0); g.lineTo(p[0], p[1]); });
+    g.closePath(); g.fillStyle = 'rgba(232,184,74,.045)'; g.fill(); g.strokeStyle = 'rgba(232,184,74,.16)'; g.lineWidth = 1; g.stroke();
+  }
+  // stems: from each loop's harmonic slot on the floor up to the loop. A leaning stem is a partial out of place.
+  for (let i = 0; i < NP; i++) {
+    const a = proj(axisX(i + 1), -view.F, 0), b = proj(axisX(R[i]), -RHO[i], 0), lean = Math.abs(R[i] - (i + 1));
+    g.strokeStyle = lean > 0.004 ? `rgba(255,155,74,${Math.min(0.75, 0.3 + lean * 0.5)})` : 'rgba(138,138,160,.28)';
+    g.lineWidth = 1; g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke();
+  }
+  // the loops, far ones first
+  drawn.loops = [];
+  order.slice().sort((a, b) => R[b] - R[a]).forEach((i) => {
+    const r = R[i], rho = RHO[i], X = axisX(r), isShut = closed(r), miss = missOf(r);
+    const a = Math.min(1, level(S, i) / UI.aref), hot = i === UI.hover || (UI.drag && UI.drag.grip.i === i);
+    const depth = 0.13, ph = TWO_PI * phase[i];
+    const M = Math.min(280, Math.max(72, Math.ceil(r * 9)));
+    const mix = isShut ? 0 : Math.min(1, 0.45 + Math.abs(miss) * 2);
+    const col = (al) => `rgba(${Math.round(232 + 23 * mix)},${Math.round(184 - 29 * mix)},${Math.round(74)},${al})`;
+    const alpha = 0.3 + 0.7 * Math.sqrt(a), lw = (hot ? 2.4 : 1.1) + 1.5 * Math.sqrt(a);
+    const pts = [];
+    for (let j = 0; j <= M; j++) { const th = TWO_PI * j / M, rr = rho * (1 + depth * Math.sin(r * th + ph)); pts.push(proj(X, rr * Math.cos(th), rr * Math.sin(th))); }
+    const half = Math.floor(M / 2);
+    g.strokeStyle = col(alpha * 0.42); g.lineWidth = lw; g.beginPath();           // the far half of the loop
+    for (let j = 0; j <= half; j++) j ? g.lineTo(pts[j][0], pts[j][1]) : g.moveTo(pts[j][0], pts[j][1]); g.stroke();
+    g.strokeStyle = hot ? `rgba(255,243,208,${Math.min(1, alpha + 0.3)})` : col(alpha); g.beginPath();   // the near half
+    for (let j = half; j <= M; j++) j > half ? g.lineTo(pts[j][0], pts[j][1]) : g.moveTo(pts[j][0], pts[j][1]); g.stroke();
+    if (!isShut) {                                                                 // the seam: where the loop fails to meet itself
+      const s0 = pts[0], s1 = pts[M];
+      g.strokeStyle = 'rgba(255,120,60,.95)'; g.lineWidth = lw + 0.6; g.beginPath(); g.moveTo(s0[0], s0[1]); g.lineTo(s1[0], s1[1]); g.stroke();
+      g.fillStyle = 'rgba(255,120,60,.95)'; g.beginPath(); g.arc(s1[0], s1[1], Math.max(1.6, lw * 0.9), 0, TWO_PI); g.fill();
+    }
+    const c = proj(X, 0, 0);
+    drawn.loops.push({ n: i + 1, x: c[0], y: c[1], r, top: proj(X, rho, 0)[1], bottom: proj(X, -rho, 0)[1] });
+  });
+  drawn.loops.sort((a, b) => a.n - b.n);
+  // a word in the corner
+  g.textAlign = 'left'; g.fillStyle = '#6a6a80';
+  const f0 = 440 * Math.pow(2, (UI.lastNote - 69) / 12);
+  g.fillText(view.w > 520 ? `lit once per lap of the fundamental · slowed ${Math.round(f0 / STROBE)}×` : `strobe · slowed ${Math.round(f0 / STROBE)}×`, 10, view.h - 10);
+}
+
+// ── telling: what is under the hand, and how the whole body stands ──
+function fmtC(c) { return (c >= 0 ? '+' : '−') + Math.abs(c).toFixed(Math.abs(c) < 100 ? 1 : 0) + ' ¢'; }
+function tell() {
+  let shut = 0; for (let i = 0; i < NP; i++) if (closed(place(S, i))) shut++;
+  const f0 = 440 * Math.pow(2, (UI.lastNote - 69) / 12);
+  const i = UI.drag ? UI.drag.grip.i : UI.hover;
+  let line1 = `<b>${shut} of ${NP}</b> loops close · home is ${HOMES[S.home].label} · fundamental ${f0.toFixed(1)} Hz`;
+  let line2 = UI.awake ? 'Drag a loop sideways. Let go, and listen to it come home.' : 'Nothing sounds until you wake it.';
+  if (i >= 0) {
+    const r = place(S, i), c = centsOf(i + 1, r), m = missOf(r), dB = S.g[i];
+    line2 = `loop ${i + 1} · sits at <b>${r.toFixed(2)} × f₀</b> · ${(r * f0).toFixed(1)} Hz · ${fmtC(c)} from slot ${i + 1} · ` +
+      (closed(r) ? `<span class="shut">closes${Math.round(r) !== i + 1 ? ' on harmonic ' + Math.round(r) : ''}</span>` : `<span class="open">misses by ${Math.abs(m).toFixed(2)} of a turn each lap</span>`) +
+      (Math.abs(dB) >= 0.1 ? ` · ${dB > 0 ? '+' : '−'}${Math.abs(dB).toFixed(1)} dB` : '');
+  }
+  $('tell').innerHTML = line1 + '<br>' + line2;
+}
+
+// ── the hand ──
+function nearest(px) { let best = -1, d = 1e9; for (const L of drawn.loops) { const dd = Math.abs(L.x - px); if (dd < d) { d = dd; best = L.n - 1; } } return best; }
+(function bindHand() {
+  const c = $('obj');
+  const at = (e) => { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  c.addEventListener('pointerdown', (e) => {
+    const [x, y] = at(e); const i = nearest(x); if (i < 0) return;
+    const kind = e.shiftKey ? (UI.grip === 'one' ? 'body' : 'one') : UI.grip;
+    UI.drag = { grip: makeGrip(S, kind, i), r0: harmonicsAt(x), y0: y, side: y < view.cy ? 1 : -1, id: e.pointerId };
+    S.homing = 0; UI.touched = true;
+    c.setPointerCapture(e.pointerId); c.classList.add('grabbing'); e.preventDefault();
+  });
+  c.addEventListener('pointermove', (e) => {
+    const [x, y] = at(e);
+    if (!UI.drag) { UI.hover = nearest(x); return; }
+    const dr = harmonicsAt(x) - UI.drag.r0;
+    let dy = (UI.drag.y0 - y) * UI.drag.side; dy = Math.abs(dy) < 12 ? 0 : dy - Math.sign(dy) * 12;      // a small dead band, so a sideways pull stays sideways
+    pull(S, UI.drag.grip, dr, dy * 36 / view.Rmax / 2);
+  });
+  const drop = () => { if (!UI.drag) return; UI.drag = null; c.classList.remove('grabbing'); };
+  c.addEventListener('pointerup', drop); c.addEventListener('pointercancel', drop);
+  c.addEventListener('pointerleave', () => { if (!UI.drag) UI.hover = -1; });
+  c.addEventListener('click', () => { if (!UI.awake) wake(); });
+})();
+
+// ── controls ──
+function seg(id, items, get, set) {
+  const s = $(id);
+  for (const [label, val] of items) { const b = document.createElement('button'); b.textContent = label; b.dataset.val = val;
+    b.onclick = () => { set(val); paintSeg(id, get); }; s.append(b); }
+  paintSeg(id, get);
+}
+function paintSeg(id, get) { [...$(id).children].forEach((b) => b.classList.toggle('on', b.dataset.val === get())); }
+seg('grip', [['one loop', 'one'], ['the whole body', 'body']], () => UI.grip, (v) => (UI.grip = v));
+seg('putty', [['oozes home', 'ooze'], ['springs home', 'spring'], ['stays', 'stay']], () => UI.putty, (v) => (UI.putty = v));
+seg('rest', [['harmonic', 'flat'], ['stiff string', 'string'], ['bell', 'bell']], () => S.home, (v) => { setHome(S, v, true); UI.aref = aref(); });
+seg('ring', [['held', 'held'], ['struck', 'struck']], () => UI.ring, (v) => { UI.ring = v; post({ t: 'par', held: v === 'held' }); if (v === 'struck') { post({ t: 'alloff' }); UI.notes.clear(); paintKeys(); } });
+function aref() { let m = 0; for (let i = 0; i < NP; i++) m = Math.max(m, S.A0[i]); return m; }
+UI.aref = aref();
+$('turn').oninput = (e) => { UI.turn = +e.target.value; UI.touched = true; };
+$('home').onclick = () => { S.homing = 1; };
+
+const NAMES = ['A', 'A♯', 'B', 'C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A'], KEYS = 'awsedftgyhujk';
+NAMES.forEach((nm, k) => { const b = document.createElement('button'); b.innerHTML = nm + '<i>' + KEYS[k] + '</i>'; b.dataset.note = BASE_NOTE + k; if (nm.length > 1) b.classList.add('sharp');
+  b.addEventListener('pointerdown', (e) => { e.preventDefault(); keyDown(BASE_NOTE + k); });
+  b.addEventListener('pointerup', () => keyUp(BASE_NOTE + k)); b.addEventListener('pointerleave', () => keyUp(BASE_NOTE + k));
+  b.addEventListener('click', () => { if (!UI.sounding) start(); });
+  $('keys').append(b); });
+function paintKeys() { [...$('keys').children].forEach((b) => b.classList.toggle('on', UI.notes.has(+b.dataset.note))); }
+const down = new Set();
+function keyDown(note) {
+  if (down.has(note)) return; down.add(note); UI.lastNote = note;
+  if (UI.ring === 'struck') { UI.notes.clear(); UI.notes.add(note); post({ t: 'on', note }); }
+  else if (UI.notes.has(note)) { UI.notes.delete(note); post({ t: 'off', note }); }
+  else { if (UI.notes.size >= 4) { const old = UI.notes.values().next().value; UI.notes.delete(old); post({ t: 'off', note: old }); } UI.notes.add(note); post({ t: 'on', note }); }
+  paintKeys();
+}
+function keyUp(note) { down.delete(note); }
+addEventListener('keydown', (e) => { if (e.repeat || e.metaKey || e.ctrlKey || e.altKey) return; const k = KEYS.indexOf(e.key.toLowerCase()); if (k >= 0 && UI.sounding) keyDown(BASE_NOTE + k); });
+addEventListener('keyup', (e) => { const k = KEYS.indexOf(e.key.toLowerCase()); if (k >= 0) keyUp(BASE_NOTE + k); });
+
+// ── sound: the bank above, in a worklet ──
+const WORKLET = `${makeBank.toString()}
+class Loops extends AudioWorkletProcessor {
+  constructor() { super(); this.bank = makeBank(sampleRate, ${NP});
+    this.port.onmessage = (e) => { const m = e.data, b = this.bank;
+      if (m.t === 'set') b.set(m.c, m.a);
+      else if (m.t === 'on') b.noteOn(m.note, 1);
+      else if (m.t === 'off') b.noteOff(m.note);
+      else if (m.t === 'alloff') b.allOff();
+      else if (m.t === 'par') b.P.held = m.held;
+      else if (m.t === 'probe') this.port.postMessage({ t: 'probe', sr: sampleRate, now: b.sounding() }); }; }
+  process(_i, outs) { const o = outs[0], L = o[0], R = o[1] || o[0], b = this.bank;
+    for (let s = 0; s < L.length; s++) { const y = b.step(); L[s] = y; R[s] = y; }
+    return true; }
+}
+registerProcessor('iws-loops', Loops);`;
+let ctx = null, node = null, lastSent = '';
+function post(m) { if (node) node.port.postMessage(m); }
+function sendBody(force) {
+  if (!node) return;
+  const c = bodyCents(S), a = bodyAmps(S);
+  let key = ''; for (let i = 0; i < NP; i++) key += c[i].toFixed(2) + ',' + a[i].toFixed(5) + ';';
+  if (!force && key === lastSent) return; lastSent = key;
+  node.port.postMessage({ t: 'set', c, a });
+}
+async function start() {
+  if (!ctx) {
+    const c = new AudioContext();
+    const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+    try { await c.audioWorklet.addModule(url); } catch (e) { c.close(); throw e; } finally { URL.revokeObjectURL(url); }
+    ctx = c;
+    node = new AudioWorkletNode(ctx, 'iws-loops', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+    const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
+    node.connect(comp).connect(ctx.destination);
+    node.port.onmessage = (e) => { if (e.data.t === 'probe') window.__loops.probed = e.data; };
+    ctx.onstatechange = () => { if (ctx.state !== 'running' && UI.sounding) { UI.sounding = false; $('sound').textContent = '▸ sound'; } };
+    post({ t: 'par', held: UI.ring === 'held' });
+  }
+  sendBody(true);
+  await ctx.resume();
+  UI.sounding = true; $('sound').textContent = '❚❚ quiet';
+  if (!UI.notes.size && !down.size) { UI.notes.add(UI.lastNote); paintKeys(); }
+  for (const n of UI.notes) post({ t: 'on', note: n });
+}
+function quiet() {
+  if (!UI.sounding) return;
+  UI.sounding = false; $('sound').textContent = '▸ sound';
+  post({ t: 'alloff' });
+  setTimeout(() => { if (!UI.sounding && ctx) ctx.suspend(); }, 700);
+}
+function wake() { UI.awake = true; $('wake').hidden = true; return start(); }
+$('wake').onclick = (e) => { e.stopPropagation(); wake(); };
+$('sound').onclick = () => { if (UI.sounding) quiet(); else { UI.awake = true; $('wake').hidden = true; start(); } };
+
+// ── the clock: putty, strobe, picture, sound ──
+let last = performance.now(), t0 = last;
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  for (let k = 0; k < 2; k++) relax(S, dt / 2, UI.putty, UI.drag && UI.drag.grip);
+  for (let i = 0; i < NP; i++) { const r = place(S, i); phase[i] = closed(r) ? phase[i] : (phase[i] + missOf(r) * STROBE * dt) % 1; }
+  // before the first touch the object sways from bars to loops and back, so the eye sees they are one thing
+  const want = (!UI.touched && !UI.awake && !reduced) ? 17 + 17 * Math.sin((now - t0) / 1000 * TWO_PI / 9 - Math.PI / 2) : UI.turn;
+  const psiNow = view.psi * 180 / Math.PI; view.psi = (psiNow + (want - psiNow) * Math.min(1, dt * 5)) * Math.PI / 180;
+  const g = fit(); draw(g); tell(); sendBody(false);
+  requestAnimationFrame(frame);
+}
+view.psi = (reduced ? UI.turn : 0) * Math.PI / 180;
+window.__loops = { S, UI, view, drawn, probed: null, probe: () => post({ t: 'probe' }), freeze: (deg) => { UI.touched = true; UI.turn = deg; view.psi = deg * Math.PI / 180; } };
+requestAnimationFrame(frame);
+addEventListener('resize', () => { const g = fit(); draw(g); });
+
+// the sigil: a 3:2 Lissajous
+{ let d = ''; for (let i = 0; i <= 240; i++) { const t = TWO_PI * i / 240; d += (i ? 'L' : 'M') + (Math.sin(3 * t + Math.PI / 2)).toFixed(3) + ' ' + (Math.sin(2 * t)).toFixed(3); } $('sigil').setAttribute('d', d); }
+</script>
+</body>
+</html>
