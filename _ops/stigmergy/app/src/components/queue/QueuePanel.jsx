@@ -275,7 +275,9 @@ export default function QueuePanel({ messages, onJumpEntry }) {
     // you might act on, none of which a steward is blocked waiting on. buildQueue
     // still models resource_requests (the model is complete + unit-tested); this
     // view simply doesn't surface them, so a decision never appears twice.
-    const built = reconcileWeaveFlags(buildQueue(messages).filter((it) => it.kind !== 'resource_request'), commits);
+    // buildQueue gets the commits too, so an entry flag a GRANT/DENY answered
+    // stays when a trailer or Declined line closes it, and greys below.
+    const built = reconcileWeaveFlags(buildQueue(messages, commits).filter((it) => it.kind !== 'resource_request'), commits);
     // Staleness (git auto-resolution via reconcileQueue) is DISABLED for now —
     // the heuristic was mis-firing. Items stay OPEN until the human clears them
     // with the card's clear button; nothing greys or self-retires off a git

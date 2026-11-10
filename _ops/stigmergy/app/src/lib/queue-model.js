@@ -23,7 +23,9 @@
 //      missing_connection_audit, section_expansion, hub_candidate,
 //      mirror_link_sweep, standard_reference. Carries source_entries: [string]
 //      so a commit touching any one of them closes it via reconcileQueue.
-//      Same RESOURCE_GRANT/RESOURCE_DENY close path as vector_proposal.
+//      Same RESOURCE_GRANT/RESOURCE_DENY close path as vector_proposal, except
+//      that an answered entry flag a commit closes stays to grey (buildQueue's
+//      `commits`), so the deck counts what lint-weave-flags.py counts.
 //      A PROPAGATE flag (flag_type 'propagate') is a decision for every page:
 //      no source entries, never closed by a GRANT/DENY or a touch, only by a
 //      Palace-Resolves trailer — see reconcileWeaveFlags.)
@@ -33,6 +35,9 @@
 //      note names — never on the board or session_id. One card per page and
 //      round (buildReviewCards). Closes like a weave_flag: a commit touching
 //      the page, or a RESOURCE_GRANT/DENY.)
+//
+// A RETRACT whose `re` names any of these messages withdraws its card
+// (SCHEMA — Reference §9), as it does a handoff_ready.
 //
 // reconcileQueue() layers git resolution on top: given the LOG commits, it
 // marks an item resolved when its stale_if is satisfied — the prospective →
@@ -48,19 +53,33 @@ import { normalizeApplyOp } from './weave-apply-op.js';
 // git (reconcileQueue). Here we only drop handoff_ready items that have an
 // explicit board-level "consumed" acknowledgement (a BROADCAST whose payload
 // references the handoff id as picked-up), which is rare; git is the main path.
-export function buildQueue(messages) {
+//
+// `commits` (optional, the LOG shape reconcileWeaveFlags reads) lets an entry
+// flag a GRANT/DENY answered stay in the list when a commit closes it, so the
+// deck greys it rather than the flag vanishing — the deck then counts what
+// lint-weave-flags.py counts. Without commits an answered entry flag drops, as
+// before.
+export function buildQueue(messages, commits = null) {
   if (!Array.isArray(messages)) return [];
   const items = [];
+  const cs = Array.isArray(commits) ? commits : null;
 
   // Resource requests + vector proposals are both answered by RESOURCE_GRANT
   // / RESOURCE_DENY messages that carry `re: <message_id>`. One shared set
   // covers both (the dedup is by the answered message's id).
   const responded = new Set();
+  // A RETRACT withdraws the message its `re` names (SCHEMA — Reference §9): the
+  // card that message raised leaves the list, whatever its kind. Keyed the same
+  // way, by the withdrawn message's id (a request's request_id is honoured too).
+  const retracted = new Set();
   for (const m of messages) {
     if ((m?.type === 'RESOURCE_GRANT' || m?.type === 'RESOURCE_DENY') && m.re) {
       responded.add(m.re);
     }
+    if (m?.type === 'RETRACT' && typeof m.re === 'string' && m.re) retracted.add(m.re);
   }
+  const isRetracted = (m) => retracted.has(m.id)
+    || (m.type === 'RESOURCE_REQUEST' && m.request_id != null && retracted.has(m.request_id));
 
   // Handoff lifecycle — three states, folded from board events (mirrors
   // _ops/stigmergy/handoff-model.mjs and STIGMERGY.md § Handoff Lifecycle):
@@ -95,6 +114,7 @@ export function buildQueue(messages) {
 
   for (const m of messages) {
     if (!m || typeof m !== 'object') continue;
+    if (isRetracted(m)) continue;
     const p = m.payload || {};
 
     if (m.type === 'RESOURCE_REQUEST' && !responded.has(m.request_id)) {
@@ -181,7 +201,10 @@ export function buildQueue(messages) {
 
     // A propagate flag is a decision Loudon already made; a GRANT/DENY on the
     // board neither finishes nor retires it (Weave Ceremony Step 0c), so it stays.
-    if (p.kind === 'weave_flag' && (p.flag_type === 'propagate' || !responded.has(m.id))) {
+    // An entry flag a GRANT/DENY answered stays too when a commit closes it (a
+    // trailer or a Declined line), so reconcileWeaveFlags greys it.
+    if (p.kind === 'weave_flag' && (p.flag_type === 'propagate' || !responded.has(m.id)
+      || (cs && weaveFlagClose(m.id, false, cs)))) {
       // source_entries is an array of entry titles. We expose it as `entries`
       // on the queue item so reconcileQueue's array-aware entry-touch path
       // can close the flag when a commit touches any one of them. We also
@@ -337,7 +360,8 @@ export function buildQueue(messages) {
   }
 
   // Loudon's rich-face notes, one card per page and round (buildReviewCards).
-  items.push(...buildReviewCards(messages, responded));
+  // A retracted send leaves its round.
+  items.push(...buildReviewCards(messages.filter((m) => !(m && typeof m === 'object' && isRetracted(m))), responded));
 
   return rankQueue(items);
 }
@@ -569,32 +593,37 @@ export function reconcileQueue(items, commits) {
 // that switched reconcileQueue off in the QUEUE deck). Items of other kinds
 // pass through untouched. Returns a NEW array; resolution stays advisory (the
 // card greys with "looks done", and the human clears it).
+const flagNames = (id) => [id, `msg-${id}`];
+const flagLineFor = (list, id) => (Array.isArray(list) ? list.find((d) => flagNames(id).includes(d.id)) : null);
+
+// The commit that closes a weave flag, by the first two rules above: a
+// Palace-Resolves trailer naming it closes any flag, a Declined line closes an
+// entry flag. Returns { commit, reason } or null. buildQueue asks it too, to
+// keep an answered entry flag that a commit closes.
+function weaveFlagClose(id, isPropagate, cs) {
+  const byResolve = cs.find((c) => Array.isArray(c.resolves)
+    && c.resolves.some((r) => String(r).split(/[\s,]+/).includes(id)));
+  if (byResolve) return { commit: byResolve.shortHash, reason: `resolved by commit ${byResolve.shortHash}` };
+  if (isPropagate) return null;
+  for (const c of cs) {
+    const d = flagLineFor(c.declined, id);
+    if (d) return { commit: c.shortHash, reason: `declined in commit ${c.shortHash}${d.note ? `: ${d.note}` : ''}` };
+  }
+  return null;
+}
+
 export function reconcileWeaveFlags(items, commits) {
   if (!Array.isArray(items)) return [];
   const cs = Array.isArray(commits) ? commits : [];
-  const names = (id) => [id, `msg-${id}`];
-  const resolvesId = (c, id) => Array.isArray(c.resolves)
-    && c.resolves.some((r) => String(r).split(/[\s,]+/).includes(id));
-  const lineFor = (list, id) => (Array.isArray(list) ? list.find((d) => names(id).includes(d.id)) : null);
   return items.map((item) => {
     if (item?.kind !== 'weave_flag' || item.resolved?.done) return item;
     const isPropagate = item.flag_type === 'propagate';
-    const byResolve = cs.find((c) => resolvesId(c, item.id));
-    if (byResolve) {
-      return { ...item, resolved: { done: true, reason: `resolved by commit ${byResolve.shortHash}`, commit: byResolve.shortHash } };
-    }
-    if (!isPropagate) {
-      for (const c of cs) {
-        const d = lineFor(c.declined, item.id);
-        if (d) {
-          return { ...item, resolved: { done: true, reason: `declined in commit ${c.shortHash}${d.note ? `: ${d.note}` : ''}`, commit: c.shortHash } };
-        }
-      }
-      return item;
-    }
+    const closed = weaveFlagClose(item.id, isPropagate, cs);
+    if (closed) return { ...item, resolved: { done: true, reason: closed.reason, commit: closed.commit } };
+    if (!isPropagate) return item;
     // Commits arrive newest first, so the first Carried line is the latest.
     for (const c of cs) {
-      const d = lineFor(c.carried, item.id);
+      const d = flagLineFor(c.carried, item.id);
       if (d) return { ...item, carried: { commit: c.shortHash, date: c.date ?? null, note: d.note } };
     }
     return item;
