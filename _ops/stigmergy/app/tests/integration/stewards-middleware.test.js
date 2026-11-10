@@ -438,12 +438,13 @@ describe('a cycle the watchdog stops on a batch limit is interrupted, not barren
   // a second stop made a working steward STALLED (Shimmer Cloud, 2026-11-09).
   let root, stewardLane, countFile;
   const readHistory = (agentDir) => readFileSync(join(agentDir, 'history.jsonl'), 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
-  const laneWith = (extra) => createStewardLane({
+  const laneWith = (extra, more = {}) => createStewardLane({
     palaceRoot: root,
     stateDir: join(root, '_ops/stigmergy/.actuator-steward'),
     buildArgv: () => ['node', STUB, '--permission-mode', 'bypassPermissions', ...extra],
     dryReap: false,
     watchdogMs: 50,
+    ...more,
   });
   afterEach(async () => {
     try { await waitFor(() => !existsSync(stewardLane.paths.pidFile) && !stewardLane.status().running, { timeout: 8000 }); } catch (_) { /* ignore */ }
@@ -473,6 +474,39 @@ describe('a cycle the watchdog stops on a batch limit is interrupted, not barren
     const h = readHistory(agentDir);
     expect(h.some((e) => e.event === 'CYCLE_BARREN')).toBe(false);
     expect(h.find((e) => e.event === 'CYCLE_INTERRUPTED')).toMatchObject({ reason: 'batch_limit', attempted_cycle: 2 });
+  }, 20000);
+
+  test('a ceiling stop ends its cycle, not the batch: the batch names no stop reason when it ends on its own', async () => {
+    root = makeTempPalace();
+    stewardLane = laneWith(['--from', 'Ceiling Steward', '--emit', 'stall', '--sleep', '20000']);
+    seedSteward(root, { name: 'Ceiling Steward', slug: 'ceiling-steward', requestId: 'ceiling-001' });
+
+    stewardLane.advanceAll({ names: ['Ceiling Steward'], maxCycles: 2, maxCycleMinutes: 0.003 }); // a 180 ms ceiling
+    await waitFor(() => existsSync(stewardLane.paths.lastCycleFile) && !stewardLane.status().running, { timeout: 12000 });
+    await new Promise((r) => setTimeout(r, 200));
+    expect(readFileSync(stewardLane.paths.logFile, 'utf8')).toMatch(/watchdog — cycle ceiling: .* stopping Ceiling Steward/);
+    expect(stewardLane.status().batch.stopped_because).toBeNull(); // was 'cycle ceiling: 0 of 0.003 min'
+  }, 20000);
+
+  test('a sleep is named: the log gives the gap, and the batch clock says how much of it was asleep', async () => {
+    root = makeTempPalace();
+    let offset = 0;
+    stewardLane = laneWith(['--from', 'Sleepy Steward', '--emit', 'stall', '--sleep', '20000'], { clock: () => Date.now() + offset });
+    seedSteward(root, { name: 'Sleepy Steward', slug: 'sleepy-steward', requestId: 'sleepy-001' });
+
+    stewardLane.advanceAll({ names: ['Sleepy Steward'], maxCycles: 2, maxMinutes: 60, maxCycleMinutes: 45 });
+    await waitFor(() => stewardLane.status().running === true, { timeout: 3000 });
+    await new Promise((r) => setTimeout(r, 120)); // a few ordinary ticks: no sleep, no stop
+    expect(readFileSync(stewardLane.paths.logFile, 'utf8')).not.toMatch(/slept/);
+    offset += 120 * 60000; // the lid closes for two hours
+    await waitFor(() => existsSync(stewardLane.paths.lastCycleFile) && !stewardLane.status().running, { timeout: 12000 });
+
+    const log = readFileSync(stewardLane.paths.logFile, 'utf8');
+    expect(log).toMatch(/watchdog — the Mac slept: no tick for 120 min/);
+    expect(log).toMatch(/watchdog — batch clock: 120 of 60 min \(120 of them asleep\): stopping Sleepy Steward/);
+    const last = JSON.parse(readFileSync(stewardLane.paths.lastCycleFile, 'utf8'));
+    expect(last.stop_hint).toBe('interrupted');
+    expect(stewardLane.status().batch.stopped_because).toMatch(/of 60 min \(120 of them asleep\)$/);
   }, 20000);
 
   test('a quiet cycle that ends on its own under the same watchdog is still barren', async () => {
