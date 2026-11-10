@@ -284,9 +284,11 @@ palace writes runs there: every piece runs on the **piece origin**.
   from a Blob URL work.
 - **The kit sizes a piece; the maker writes nothing for it.** It measures the content on load and on
   every change, so a piece fits its frame at any width (Kuramoto's waveform piece is 914 px tall in a
-  1130 px column and 1025 at 760). Size by content, not the viewport: the kit stops growing a
-  viewport-tied piece after two equal steps. A piece with nothing laid out (a fixed full-frame canvas)
-  keeps its manifest `height`, so still give every interactive one.
+  1130 px column and 1025 at 760). Size by content, not the viewport: a viewport-tied piece moves
+  with its frame, so after two equal steps the kit holds it, whether it was growing or shrinking. A
+  piece with nothing laid out (a fixed full-frame canvas) keeps its manifest `height`, so still give
+  every interactive one. The host keeps the other half: a page that frames a piece and obeys
+  `rich:height` gives it exactly the window it asked for, with no border counted inside the height.
 - **One voice at a time, by the kit.** It hears an `AudioContext` start (Tone.js's own included) or an
   `<audio>`/`<video>` start after a click, and tells the page, which hushes every other video, strip
   and piece. A piece that answers `rich:hush` itself is left to it.

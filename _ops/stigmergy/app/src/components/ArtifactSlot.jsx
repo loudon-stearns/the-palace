@@ -74,7 +74,7 @@ function FrameBody({ path, name, initialHeight = FRAME_HEIGHT }) {
         setHeight(Math.min(CAP.max, Math.max(CAP.min, px)));
         setCap(px > CAP.max ? `asked for ${px} px; held at ${CAP.max}, the most a frame takes` : px < CAP.min ? `asked for ${px} px; held at ${CAP.min}, the least a frame takes` : null);
       } else if (type === 'rich:held') {
-        setCap('sized by its own window, so it grows with its frame: held where it stopped');
+        setCap(`sized by its own window, so it ${e.data.direction === 'shrink' ? 'shrinks' : 'grows'} with its frame: held where it stopped`);
       } else if (type === 'rich:play') {
         document.dispatchEvent(new CustomEvent('rich:play', { detail: win }));
       } else if (type === 'rich:camera') {

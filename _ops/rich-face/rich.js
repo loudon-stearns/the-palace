@@ -227,7 +227,7 @@ window.addEventListener('message', (e) => {
     tell(f, { type: 'rich:note-taken', ok });
     return;
   }
-  if (type === 'rich:held') { capNote(f, `sized by its own window, so it grows with its frame: held at ${Math.ceil(Number(e.data.height)) || parseInt(f.style.height, 10)} px`); return; }
+  if (type === 'rich:held') { capNote(f, `sized by its own window, so it ${e.data.direction === 'shrink' ? 'shrinks' : 'grows'} with its frame: held at ${Math.ceil(Number(e.data.height)) || parseInt(f.style.height, 10)} px`); return; }
   if (type === 'rich:camera') {
     if (e.data.on) document.querySelectorAll('iframe').forEach((o) => { if (o !== f) tell(o, { type: 'rich:camera-off' }); });
     return;

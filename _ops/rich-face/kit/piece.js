@@ -98,19 +98,29 @@
   // A piece sized by the viewport (100vh plus a margin) grows by the same step
   // every time its frame does; after two such steps the kit stops growing it,
   // until the width changes, and tells the page once so it can say so.
-  var lastH = 0, lastStep = 0, lastAt = 0, coupled = false, pending = false, lastW = window.innerWidth;
+  // The same loop runs the other way when a piece fills its window (html, body
+  // {height:100%}) and its frame keeps an edge inside the height it is given (a
+  // border under border-box): each report comes back that edge short. After two
+  // equal steps down the kit stops shrinking it too, and says so once, with
+  // direction 'shrink' (2026-11-09: the Shepard Tone editor mock, 480 to 120).
+  var lastH = 0, lastStep = 0, lastAt = 0, coupled = false, sunk = false, pending = false, lastW = window.innerWidth;
   function report() {
     pending = false;
     if (speaks('rich:height') || fills()) return;
-    if (window.innerWidth !== lastW) { lastW = window.innerWidth; coupled = false; }
+    if (window.innerWidth !== lastW) { lastW = window.innerWidth; coupled = false; sunk = false; }
     var h = contentHeight();
     if (!h || Math.abs(h - lastH) < 2) return;
     var step = h - lastH, now = Date.now();
-    if (step > 0 && lastStep > 0 && Math.abs(step - lastStep) <= 2 && now - lastAt < 1500) {
-      if (!coupled) post({ type: 'rich:held', reason: 'viewport', height: lastH });
+    var same = lastStep && step * lastStep > 0 && Math.abs(step - lastStep) <= 2 && now - lastAt < 1500;
+    if (same && step > 0) {
+      if (!coupled) post({ type: 'rich:held', reason: 'viewport', direction: 'grow', height: lastH });
       coupled = true;
     }
-    if (coupled && step > 0) return;
+    if (same && step < 0) {
+      if (!sunk) post({ type: 'rich:held', reason: 'viewport', direction: 'shrink', height: lastH });
+      sunk = true;
+    }
+    if ((coupled && step > 0) || (sunk && step < 0)) return;
     lastStep = step; lastAt = now; lastH = h;
     post({ type: 'rich:height', height: h });
   }

@@ -63,6 +63,8 @@ const PIECES = {
   'flow.html': `<!doctype html><body style="margin:8px"><p style="font:16px/20px monospace;margin:0">${WORDS}</p></body>`,
   // Sized by the viewport: each time its frame grows, so does it.
   'vh.html': '<!doctype html><body style="margin:8px"><div style="height:100vh;background:#123">full</div></body>',
+  // Fills its window, the way a plugin editor does: it reports whatever window it is given.
+  'fill.html': '<!doctype html><html style="height:100%"><body style="margin:0;height:100%;display:flex;flex-direction:column"><header style="height:60px">head</header><main style="flex:1;min-height:0;overflow:auto">body</main></body></html>',
   // Speaks the protocol itself: its own height is the one that counts.
   'speaker.html': `<!doctype html><body><div style="height:900px">x</div><script>
 parent.postMessage({ type: 'rich:height', height: 333 }, '*');
@@ -97,8 +99,11 @@ function makeTempPalace() {
 // sandboxed to scripts, 480 px until the piece speaks, heights taken within
 // 120..8000, and a rich:play from one frame sends rich:hush to every other.
 // It keeps every message it hears, by frame, in window.__heard.
-function hostPage(names, width) {
-  const frames = names.map((n) => `<iframe data-n="${n}" sandbox="allow-scripts" src="/api/file?path=${encodeURIComponent(`Kit/${n}`)}" style="display:block;width:${width}px;height:480px;border:0"></iframe>`).join('');
+// With `bordered`, each frame keeps a 1 px border inside its height (border-box),
+// the shape the deck's frame had until 2026-11-09.
+function hostPage(names, width, bordered = false) {
+  const edge = bordered ? 'box-sizing:border-box;border:1px solid #484' : 'border:0';
+  const frames = names.map((n) => `<iframe data-n="${n}" sandbox="allow-scripts" src="/api/file?path=${encodeURIComponent(`Kit/${n}`)}" style="display:block;width:${width}px;height:480px;${edge}"></iframe>`).join('');
   return `<!doctype html><body style="margin:0">${frames}<script>
 window.__heard = [];
 const frames = [...document.querySelectorAll('iframe')];
@@ -143,7 +148,7 @@ function makeServer(palaceRoot) {
     const u = new URL(req.url, 'http://x');
     if (u.pathname === '/deck') {
       res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end('<!doctype html><body style="margin:0;width:900px"><div id="root"></div><script type="module" src="/deck-host.js"></script></body>');
+      res.end('<!doctype html><style>*, *::before, *::after { box-sizing: border-box; } :root { --phosphor-dim: #484; --bg: #000; }</style><body style="margin:0;width:900px"><div id="root"></div><script type="module" src="/deck-host.js"></script></body>');
       return;
     }
     if (u.pathname === '/deck-host.js') {
@@ -152,7 +157,7 @@ function makeServer(palaceRoot) {
     }
     if (u.pathname === '/host') {
       res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end(hostPage(u.searchParams.get('p').split(','), Number(u.searchParams.get('w') || 900)));
+      res.end(hostPage(u.searchParams.get('p').split(','), Number(u.searchParams.get('w') || 900), u.searchParams.get('b') === '1'));
       return;
     }
     let i = 0;
@@ -163,13 +168,15 @@ function makeServer(palaceRoot) {
 
 describe.skipIf(!chromium)('the piece kit', () => {
   let root, base, browser;
-  const open = async (names, width = 900) => {
+  const open = async (names, width = 900, bordered = false) => {
     const page = await browser.newPage({ viewport: { width: width + 40, height: 900 } });
-    await page.goto(`${base}/host?p=${names.join(',')}&w=${width}`);
+    await page.goto(`${base}/host?p=${names.join(',')}&w=${width}${bordered ? '&b=1' : ''}`);
     return page;
   };
   // A host page asks /api/file for its pieces; the deck's slot frames them on the piece origin, by path.
   const frameOf = (page, n) => page.frames().find((f) => f.url().includes(encodeURIComponent(`Kit/${n}`)) || f.url().endsWith(`/Kit/${n}`));
+  // The deck's slot mounts its frame only once /api/piece answers, so wait for it.
+  const frameSoon = async (page, n) => { await expect.poll(() => !!frameOf(page, n), { timeout: 10000 }).toBe(true); return frameOf(page, n); };
   const heard = (page, n, type) => page.evaluate(([n, type]) => window.__heard.filter((m) => m.n === n && m.type === type), [n, type]);
   const frameHeight = (page, n) => page.$eval(`iframe[data-n="${n}"]`, (f) => f.getBoundingClientRect().height);
 
@@ -244,6 +251,19 @@ describe.skipIf(!chromium)('the piece kit', () => {
     await page.close();
   }, 20000);
 
+  test('a piece that fills its window stops shrinking a bordered frame after two equal steps', async () => {
+    const page = await open(['fill.html'], 900, true);
+    await frameOf(page, 'fill.html').waitForLoadState();
+    await page.waitForTimeout(1500);
+    const h = await frameHeight(page, 'fill.html');
+    expect(h).toBeGreaterThan(480 - 2 * 4);
+    await page.waitForTimeout(800);
+    expect(await frameHeight(page, 'fill.html')).toBe(h);
+    const held = await heard(page, 'fill.html', 'rich:held');
+    expect(held.map((m) => m.direction)).toEqual(['shrink']);
+    await page.close();
+  }, 20000);
+
   test('a piece that reports its own height is left to it', async () => {
     const page = await open(['speaker.html']);
     await frameOf(page, 'speaker.html').waitForLoadState();
@@ -294,6 +314,16 @@ describe.skipIf(!chromium)('the piece kit', () => {
     };
     const slotFrame = (page, n) => page.frameLocator(`[data-slot="${n}"] iframe`);
 
+    test('a piece that fills its window keeps the frame it was given, under the app\'s border-box rule', async () => {
+      const page = await openDeck(['fill.html']);
+      const box = () => page.$eval('[data-slot="fill.html"] iframe', (f) => ({ outer: f.getBoundingClientRect().height, inner: f.clientHeight }));
+      await (await frameSoon(page, 'fill.html')).waitForLoadState();
+      await page.waitForTimeout(1500);
+      expect(await box()).toEqual({ outer: 482, inner: 480 });
+      expect(await page.$('[data-slot="fill.html"] [data-testid="artifact-piece-cap"]')).toBeNull();
+      await page.close();
+    }, 30000);
+
     test('one voice at a time across frames and the phosphor player', async () => {
       const page = await openDeck(['a.html', 'b.html', 'tone.wav']);
       const state = (n) => frameOf(page, n).evaluate(() => window.toneState());
@@ -315,7 +345,7 @@ describe.skipIf(!chromium)('the piece kit', () => {
 
     test('a frame takes the piece\'s height, and a failed script shows under it', async () => {
       const page = await openDeck(['flow.html', 'broken.html']);
-      const f = frameOf(page, 'flow.html');
+      const f = await frameSoon(page, 'flow.html');
       await f.waitForLoadState();
       const content = await f.evaluate(() => Math.ceil(document.querySelector('p').getBoundingClientRect().bottom + 8));
       const frameH = () => page.$eval('[data-slot="flow.html"] iframe', (el) => el.clientHeight);
