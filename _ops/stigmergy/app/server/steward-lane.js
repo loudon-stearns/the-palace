@@ -290,9 +290,11 @@ export function createStewardLane(opts = {}) {
   //   limits.max_minutes — wall clock from the first fire
   //   limits.max_tokens  — summed from each cycle's own result line
   // `tokens` is the running total; `stopped_because` names the limit that hit.
+  // The lane's clock: Date.now, unless a test hands in one it can move (a sleep).
+  const clock = typeof opts.clock === 'function' ? opts.clock : Date.now;
   let batch = freshBatch(0);
   function freshBatch(total, { source = null, limits = null } = {}) {
-    return { total, done: 0, started: total > 0 ? Date.now() : null, tokens: 0, source, limits, stopped_because: null };
+    return { total, done: 0, started: total > 0 ? clock() : null, tokens: 0, source, limits, stopped_because: null, slept_ms: 0 };
   }
   // The cost a cycle reports in its own result line (stream-json `result`).
   function readCycleTokens(transcriptPath) {
@@ -313,22 +315,48 @@ export function createStewardLane(opts = {}) {
   let cycleStarted = null;
   let cycleCeilingMin = null;  // per-cycle ceiling for the live fire, minutes (null = none)
   let cutOffBy = null;         // why the watchdog stopped the live fire (null = it did not)
+  // A sleeping Mac stops every timer, the watchdog's and the worker's alike, and
+  // wall time runs on (2026-10-30: one tick came 27 hours late and read "batch
+  // clock: 1647 of 60 min"). A tick more than SLEEP_GAP_TICKS intervals after
+  // the last is a sleep: the log says so, with the gap, and a stop reason names
+  // how much of its reading was spent asleep. The sleep still counts against
+  // the limits — they are wall clock, by definition — so a batch never wakes
+  // into a second working session at whatever hour the lid opens.
+  const SLEEP_GAP_TICKS = 10;
+  let lastTick = null;
+  let cycleSleptMs = 0;
+  const asleep = (ms) => (ms >= 60000 ? ` (${Math.round(ms / 60000)} of them asleep)` : '');
   function cycleOverrun() {
-    const now = Date.now();
+    const now = clock();
     const L = batch.limits;
-    if (L && Number.isFinite(L.max_minutes) && L.max_minutes > 0 && batch.started && (now - batch.started) / 60000 >= L.max_minutes) return `batch clock: ${Math.round((now - batch.started) / 60000)} of ${L.max_minutes} min`;
-    if (Number.isFinite(cycleCeilingMin) && cycleCeilingMin > 0 && cycleStarted && (now - cycleStarted) / 60000 >= cycleCeilingMin) return `cycle ceiling: ${Math.round((now - cycleStarted) / 60000)} of ${cycleCeilingMin} min`;
+    if (L && Number.isFinite(L.max_minutes) && L.max_minutes > 0 && batch.started && (now - batch.started) / 60000 >= L.max_minutes) return `batch clock: ${Math.round((now - batch.started) / 60000)} of ${L.max_minutes} min${asleep(batch.slept_ms)}`;
+    if (Number.isFinite(cycleCeilingMin) && cycleCeilingMin > 0 && cycleStarted && (now - cycleStarted) / 60000 >= cycleCeilingMin) return `cycle ceiling: ${Math.round((now - cycleStarted) / 60000)} of ${cycleCeilingMin} min${asleep(cycleSleptMs)}`;
     return null;
   }
   function startWatchdog() {
     stopWatchdog();
+    lastTick = clock();
+    cycleSleptMs = 0;
     watchdog = setInterval(() => {
+      const now = clock();
+      const gap = lastTick == null ? 0 : now - lastTick;
+      lastTick = now;
+      if (gap > SLEEP_GAP_TICKS * watchdogMs) {
+        const slept = gap - watchdogMs;
+        batch.slept_ms = (batch.slept_ms || 0) + slept;
+        cycleSleptMs += slept;
+        logLine(`watchdog — the Mac slept: no tick for ${Math.round(gap / 60000)} min (${Math.round(gap / 1000)} s; one is due every ${Math.round(watchdogMs / 1000)} s), ${current || 'the live worker'} frozen with it`);
+      }
       const why = cycleOverrun();
       if (!why) return;
       const alive = actuator.isAlive();
       if (!alive.running || !alive.pid) { stopWatchdog(); return; }
       logLine(`watchdog — ${why}: stopping ${current || 'the live worker'} (pid ${alive.pid})`);
-      if (!batch.stopped_because) batch.stopped_because = why;
+      // The batch's stop reason names only what ends the batch: the batch
+      // clock. A per-cycle ceiling ends that one cycle and the batch goes on
+      // (2026-11-07: a ceiling stop at 12:56 stood as the batch's reason after
+      // the batch ran on and ended on its clock).
+      if (!batch.stopped_because && why.startsWith('batch clock')) batch.stopped_because = why;
       cutOffBy = why;
       try { process.kill(alive.pid, 'SIGTERM'); } catch (_) { /* already gone */ }
       stopWatchdog();
@@ -342,7 +370,7 @@ export function createStewardLane(opts = {}) {
     const L = batch.limits;
     if (!L) return null;
     if (Number.isFinite(L.max_tokens) && L.max_tokens > 0 && batch.tokens >= L.max_tokens) return `tokens: ${formatTokens(batch.tokens)} of ${formatTokens(L.max_tokens)}`;
-    if (Number.isFinite(L.max_minutes) && L.max_minutes > 0 && batch.started && (Date.now() - batch.started) / 60000 >= L.max_minutes) return `clock: ${Math.round((Date.now() - batch.started) / 60000)} of ${L.max_minutes} min`;
+    if (Number.isFinite(L.max_minutes) && L.max_minutes > 0 && batch.started && (clock() - batch.started) / 60000 >= L.max_minutes) return `clock: ${Math.round((clock() - batch.started) / 60000)} of ${L.max_minutes} min${asleep(batch.slept_ms)}`;
     return null;
   }
   let current = null;
@@ -552,7 +580,7 @@ export function createStewardLane(opts = {}) {
     });
     current = r.fired ? name : null;
     currentRun = r.fired ? { name, ...thisRun, cycle_n: cycleN } : null;
-    if (r.fired) { cutOffBy = null; cycleStarted = Date.now(); startWatchdog(); } else { cycleStarted = null; }
+    if (r.fired) { cutOffBy = null; cycleStarted = clock(); startWatchdog(); } else { cycleStarted = null; }
     currentTranscript = r.fired ? transcriptPath : null;
     return { ok: !!r.fired, fired: !!r.fired, found: true, msg: r.msg, name, cycle_n: cycleN, model, run: thisRun };
   }
@@ -686,7 +714,7 @@ export function createStewardLane(opts = {}) {
       current,
       current_run: currentRun,
       current_transcript: a.running ? currentTranscript : null,
-      cycle_minutes: a.running && cycleStarted ? Math.round((Date.now() - cycleStarted) / 600) / 100 : null,
+      cycle_minutes: a.running && cycleStarted ? Math.round((clock() - cycleStarted) / 600) / 100 : null,
       cycle_ceiling_minutes: cycleCeilingMin,
       queue: queue.slice(),
       batch: { total: batch.total, done: batch.done, remaining: queue.length, tokens: batch.tokens, started: batch.started ? new Date(batch.started).toISOString() : null, source: batch.source, limits: batch.limits, stopped_because: batch.stopped_because },
