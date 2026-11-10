@@ -62,6 +62,7 @@ import { uncommittedInBundle } from './workshop-leftovers.js';
 import { refreshShopRoster, rosterTriggers, ROSTER_BUILDER } from './shop-roster.js';
 import { resolveModel } from '../../../models/latest-opus.mjs';
 import { activeCardsFor, stewardCycleNote } from '../../steward-watch.mjs';
+import { readAnswers } from '../../live-answers.mjs';
 
 const PALACE_ROOT_DEFAULT = resolve(fileURLToPath(new URL('.', import.meta.url)), '../../../..');
 
@@ -176,24 +177,28 @@ export function classifyInterruption(kind, text) {
 /**
  * Reconcile a steward's RESOURCE_REQUESTs against the whole board.
  *
- * An ask is resolved iff a RESOURCE_GRANT/RESOURCE_DENY exists whose top-level
- * `re` equals the ask's `request_id`. Returns the two partitions in the shape
- * state.json stores (pending_requests / resolved_requests entries).
+ * An ask is resolved iff a live RESOURCE_GRANT/RESOURCE_DENY names it in `re`
+ * (its `request_id`, else its `id`); the last live answer is its answer. Returns
+ * the two partitions in the shape state.json once stored (pending_requests /
+ * resolved_requests entries).
+ *
+ * A RETRACT withdraws (SCHEMA — Reference §9; the rule is ../../live-answers.mjs):
+ * a retracted grant or deny answers nothing, so its ask is back in stillPending
+ * on the next read, and a retracted request is in neither partition. Nothing is
+ * stored between cycles (state.json carries no decision arrays), so every
+ * caller sees the reopened ask the next time it reconciles. What a cycle
+ * already did on the withdrawn answer is not undone here: the steward reads the
+ * ask as open again and decides.
  *
  * @param {object[]} board — every message on the board
  * @param {string} home — the steward's agent_id / page title (the `from` field)
  * @returns {{ stillPending: object[], nowResolved: object[] }}
  */
 export function reconcilePendingRequests(board, home) {
+  const live = readAnswers(board);
   const myAsks = board.filter(
-    (m) => m && m.type === 'RESOURCE_REQUEST' && m.from === home && m.board === 'TRICKSTER'
+    (m) => m && m.type === 'RESOURCE_REQUEST' && m.from === home && m.board === 'TRICKSTER' && !live.withdrawn(m)
   );
-  const responses = new Map();
-  for (const m of board) {
-    if (m && (m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re) {
-      responses.set(m.re, m);
-    }
-  }
 
   const stillPending = [];
   const nowResolved = [];
@@ -214,7 +219,7 @@ export function reconcilePendingRequests(board, home) {
     if (ask.payload?.steward_recommendation) askEntry.steward_recommendation = ask.payload.steward_recommendation;
     if (ask.payload?.next_cycle_action_if_granted) askEntry.next_cycle_action_if_granted = ask.payload.next_cycle_action_if_granted;
 
-    const resp = responses.get(reqId);
+    const resp = live.answerFor(ask);
     if (resp) {
       askEntry.resolved_at = resp.ts;
       askEntry.resolved_by = resp.id;
