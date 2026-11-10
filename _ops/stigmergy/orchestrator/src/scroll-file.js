@@ -45,6 +45,7 @@ import { execFileSync } from 'node:child_process';
 import { resolveBundleDir } from './entry-paths.js';
 import { parseFrontmatter } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
+import { readAnswers } from '../../live-answers.mjs';
 import { readTrigger } from './ceremony-scroll.js';
 import { pageEnded } from './batch-due.js';
 import { uncommittedInBundle } from './workshop-leftovers.js';
@@ -988,18 +989,25 @@ export function applyPlan(existing, { plan, id, headline = '', why = '', by = ''
 /**
  * A steward's proposed plans that Loudon adopted: its `plan_revision` asks
  * (a RESOURCE_REQUEST carrying the whole revised plan in `payload.plan`) whose
- * latest answer is a RESOURCE_GRANT choosing option `adopt`. Board order.
+ * latest live answer is a RESOURCE_GRANT choosing option `adopt`. Board order.
+ *
+ * A RETRACT withdraws (SCHEMA — Reference §9; ../../live-answers.mjs): a
+ * retracted grant adopts nothing, and a retracted ask is no proposal. This only
+ * says what to apply next. A plan already written into the scroll from a grant
+ * later retracted stays there: applyAdoptedPlans never un-applies, the trail
+ * keeps the adoption's section, and the ask reads as waiting again in Now
+ * (reconcilePendingRequests), so the plan changes back only by a new plan
+ * Loudon agrees.
  */
 export function adoptedPlanRevisions(board, home) {
-  const answers = new Map();
-  for (const m of board) if (m && (m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re) answers.set(m.re, m);
+  const live = readAnswers(board);
   const out = [];
   for (const m of board) {
-    if (!m || m.type !== 'RESOURCE_REQUEST' || m.from !== home) continue;
+    if (!m || m.type !== 'RESOURCE_REQUEST' || m.from !== home || live.withdrawn(m)) continue;
     const p = m.payload || {};
     if (p.kind !== 'plan_revision' || typeof p.plan !== 'string' || !p.plan.trim()) continue;
     const rid = m.request_id || m.id;
-    const g = answers.get(rid);
+    const g = live.answerFor(m);
     if (!g || g.type !== 'RESOURCE_GRANT' || (g.payload && g.payload.option_id) !== 'adopt') continue;
     out.push({ ask: m, grant: g, request_id: rid });
   }

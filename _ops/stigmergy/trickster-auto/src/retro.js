@@ -12,6 +12,7 @@
 
 import { parseRequest } from './parse.js';
 import { evaluate } from './evaluate.js';
+import { retractedIds, isWithdrawn, isAnswer } from '../../live-answers.mjs';
 
 // The default "earned --live" criterion, per-rule. Conservative on purpose:
 // zero dangerous false-grants is non-negotiable; the rest are tunable.
@@ -36,11 +37,14 @@ const isAutoPost = (m) =>
 export function scoreBoard(board, ruleset, opts = {}) {
   const criterion = { ...DEFAULT_PROMOTION, ...(opts.promotion || {}) };
 
-  // 1. Human ground truth: a non-auto grant/deny correlated by `re`.
+  // 1. Human ground truth: a non-auto grant/deny correlated by `re`. A
+  // retracted answer is not his decision (SCHEMA — Reference §9;
+  // ../../live-answers.mjs), so it is not scored; the last live one stands.
+  const retracted = retractedIds(board);
   const human = new Map();
   for (const m of board) {
-    if (!m || (m.type !== 'RESOURCE_GRANT' && m.type !== 'RESOURCE_DENY')) continue;
-    if (typeof m.re !== 'string' || m.re.trim() === '') continue;
+    if (!isAnswer(m) || isWithdrawn(m, retracted)) continue;
+    if (m.re.trim() === '') continue;
     if (isAutoPost(m)) continue;
     human.set(m.re, {
       verb: m.type === 'RESOURCE_GRANT' ? 'grant' : 'deny',
@@ -53,6 +57,7 @@ export function scoreBoard(board, ruleset, opts = {}) {
   const byId = new Map();
   for (const m of board) {
     if (!m || m.type !== 'RESOURCE_REQUEST') continue;
+    if (isWithdrawn(m, retracted)) continue;   // a retracted request is no ask
     const id = typeof m.request_id === 'string' ? m.request_id : (m.id || `__noid__${byId.size}`);
     byId.set(id, m);
   }

@@ -28,6 +28,7 @@ const mod = (p) => import(pathToFileURL(join(ST, p)).href);
 const sf = await mod('orchestrator/src/scroll-file.js');
 const pc = await mod('orchestrator/src/process-cycle.js');
 const ef = await mod('orchestrator/src/entry-frontmatter.js');
+const la = await mod('live-answers.mjs');
 let costOf = null;
 try { costOf = (await mod('app/server/steward-lane.js')).costFromTranscriptText; } catch { /* no app deps here: costs stay null */ }
 
@@ -181,12 +182,15 @@ for (const d of existsSync(PROJ) ? readdirSync(PROJ) : []) {
   unstewarded.push({ home: d, status: meta.data.status || null, stage: meta.stage || null });
 }
 
-// Fleet-wide asks open on TRICKSTER, from anyone.
-const answered = new Set(board.filter((m) => m && (m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re).map((m) => m.re));
-const openAsks = board.filter((m) => m && m.type === 'RESOURCE_REQUEST' && m.board === 'TRICKSTER' && !answered.has(m.request_id || m.id))
+// Fleet-wide asks open on TRICKSTER, from anyone. A RETRACT withdraws (SCHEMA —
+// Reference §9; _ops/stigmergy/live-answers.mjs, the rule the deck reads by): a
+// retracted answer answers nothing and a retracted ask is no ask. A retracted
+// grant is not counted among the grants either.
+const live = la.readAnswers(board);
+const openAsks = board.filter((m) => m && m.type === 'RESOURCE_REQUEST' && m.board === 'TRICKSTER' && !live.withdrawn(m) && !live.answerFor(m))
   .map((m) => ({ id: m.request_id || m.id, from: m.from, ts: m.ts, blocking: m.payload?.blocking === true, topic: m.payload?.decision_topic || m.payload?.subject || null }));
 
-const grants = board.filter((m) => m && m.type === 'RESOURCE_GRANT');
+const grants = board.filter((m) => m && m.type === 'RESOURCE_GRANT' && !live.withdrawn(m));
 const handoffs = { ready: 0, picked_up: 0, closed: 0 };
 for (const m of board) {
   const k = m && m.payload && m.payload.kind;

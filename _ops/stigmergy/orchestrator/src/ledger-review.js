@@ -18,6 +18,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { listOwedProposals } from './ledger.js';
+import { liveAnswers } from '../../live-answers.mjs';
 
 const HEADING_RE = /^(#{1,6})\s+(.+?)\s*#*\s*$/;
 const FRONTMATTER_RE = /^---\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)/;
@@ -110,13 +111,17 @@ export function sectionNow(pageText, place) {
  * Asks posted before 2026-10-25 offered LAND-NOW for the same yes; an answer
  * carrying it reads as PLACE-NOW, since placing, not git's landing, is what it
  * says yes to.
+ *
+ * A retracted answer is no answer (SCHEMA — Reference §9; ../../live-answers.mjs):
+ * the item reads as unanswered again and stays owed with the rest. That holds
+ * only while the item is owed. A PLACE-NOW already placed was paid with the
+ * commit that placed it, and a DECLINE already settled was declined on its
+ * ledger; a paid or declined item is not owed, so this is never asked of it,
+ * and retracting its answer later undoes neither.
  */
 export function urgentAnswer(proposal, board = []) {
   if (!proposal || !proposal.urgent || !proposal.ask) return null;
-  let hit = null;
-  for (const m of board) {
-    if (m && (m.type === 'RESOURCE_GRANT' || m.type === 'RESOURCE_DENY') && m.re === proposal.ask) hit = m;
-  }
+  const hit = liveAnswers(board).get(proposal.ask) || null;
   if (!hit) return null;
   const p = hit.payload || {};
   const given = hit.type === 'RESOURCE_DENY' ? 'DECLINE' : String(p.option_id || 'PLACE-NOW').toUpperCase();
