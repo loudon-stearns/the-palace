@@ -45,7 +45,7 @@ import { execFileSync } from 'node:child_process';
 import { resolveBundleDir } from './entry-paths.js';
 import { parseFrontmatter } from './entry-frontmatter.js';
 import { reconcilePendingRequests } from './process-cycle.js';
-import { readAnswers } from '../../live-answers.mjs';
+import { readAnswers, isAnswer } from '../../live-answers.mjs';
 import { readTrigger } from './ceremony-scroll.js';
 import { pageEnded } from './batch-due.js';
 import { uncommittedInBundle } from './workshop-leftovers.js';
@@ -463,6 +463,9 @@ export function computeNow({ home, board = [], state = null, history = [], meta 
     revised: planInfo.revised || null,
     shipped_since: Number.isNaN(revisedMs) ? null : shipped.filter((m) => { const t = Date.parse(m.ts); return !Number.isNaN(t) && t > revisedMs; }).length,
     waiting: stillPending.filter((r) => r.kind === 'plan_revision').length,
+    // The plan on the scroll was adopted by a grant since withdrawn: its ask's
+    // request id, else null (withdrawnAdoption). The plan is not un-applied.
+    withdrawn_adoption: withdrawnAdoption(board, home, planInfo.id),
   };
 
   const pageKind = kind || scrollKind(meta?.data || {});
@@ -595,7 +598,8 @@ export function roughLine(r) {
 /** The Now zone's one-line read of the plan. */
 function planLine(now) {
   const p = now.plan || { agreed: false };
-  const waiting = p.waiting ? ` · **a proposed revision is waiting on you**` : '';
+  const withdrawn = p.withdrawn_adoption ? ` · **the plan here was adopted by an answer that has since been withdrawn**` : '';
+  const waiting = `${withdrawn}${p.waiting ? ` · **a proposed revision is waiting on you**` : ''}`;
   if (!p.agreed) return `none agreed yet — ${now.ledger ? 'the next run works from what the ledger owes and the forward vector' : 'the work leans on the forward vector'}${waiting}`;
   if (!p.revised) return `agreed (no dated change on the trail yet)${waiting}`;
   const made = p.shipped_since == null ? '' : ` · ${p.shipped_since} made thing${p.shipped_since === 1 ? '' : 's'} since`;
@@ -995,9 +999,10 @@ export function applyPlan(existing, { plan, id, headline = '', why = '', by = ''
  * retracted grant adopts nothing, and a retracted ask is no proposal. This only
  * says what to apply next. A plan already written into the scroll from a grant
  * later retracted stays there: applyAdoptedPlans never un-applies, the trail
- * keeps the adoption's section, and the ask reads as waiting again in Now
- * (reconcilePendingRequests), so the plan changes back only by a new plan
- * Loudon agrees.
+ * keeps the adoption's section, the ask reads as waiting again in Now
+ * (reconcilePendingRequests), and Now says the plan here was adopted by an
+ * answer since withdrawn (withdrawnAdoption), so the plan changes back only by
+ * a new plan Loudon agrees.
  */
 export function adoptedPlanRevisions(board, home) {
   const live = readAnswers(board);
@@ -1012,6 +1017,30 @@ export function adoptedPlanRevisions(board, home) {
     out.push({ ask: m, grant: g, request_id: rid });
   }
   return out;
+}
+
+/**
+ * Is the plan on the scroll one an adopt grant put there, since withdrawn?
+ * `planId` is the newest `plan-` section on the trail (readPlanInfo's `id`):
+ * applyAdoptedPlans writes an adopted ask's plan under `plan-<request id>`, so
+ * that section names the ask whose plan stands. Returns that request id when
+ * the ask is this page's own live plan_revision ask, it has no live answer,
+ * and a RESOURCE_GRANT choosing `adopt` that named it has been withdrawn;
+ * else null. A plan written on the deck or by an elder (`plan-<moment>`) names
+ * no ask, so it is never read this way. Nothing is un-applied (Loudon,
+ * 2026-11-10): Now says it, and the plan changes only by a new plan he agrees.
+ */
+export function withdrawnAdoption(board, home, planId) {
+  if (typeof planId !== 'string' || !planId.startsWith('plan-') || !Array.isArray(board)) return null;
+  const rid = planId.slice('plan-'.length);
+  const live = readAnswers(board);
+  const ask = board.find((m) => m && m.type === 'RESOURCE_REQUEST' && m.from === home && !live.withdrawn(m)
+    && (m.payload || {}).kind === 'plan_revision' && (m.request_id || m.id) === rid);
+  if (!ask || live.answerFor(ask)) return null;
+  const names = new Set([ask.request_id, ask.id].filter(Boolean));
+  const withdrawnAdopt = board.some((m) => isAnswer(m) && m.type === 'RESOURCE_GRANT' && live.withdrawn(m)
+    && names.has(m.re) && (m.payload && m.payload.option_id) === 'adopt');
+  return withdrawnAdopt ? rid : null;
 }
 
 /** Apply every adopted proposal not yet on the trail (keyed `plan-<request id>`). */

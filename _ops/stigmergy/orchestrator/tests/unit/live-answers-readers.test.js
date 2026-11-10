@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { reconcilePendingRequests } from '../../src/process-cycle.js';
-import { adoptedPlanRevisions, applyAdoptedPlans, ensurePlanZone, readPlan } from '../../src/scroll-file.js';
+import { adoptedPlanRevisions, applyAdoptedPlans, ensurePlanZone, readPlan, readPlanInfo, applyPlan, withdrawnAdoption, computeNow, renderNow } from '../../src/scroll-file.js';
 import { urgentAnswer } from '../../src/ledger-review.js';
 
 // The orchestrator's readers of answers honour a RETRACT (SCHEMA — Reference §9;
@@ -66,6 +66,49 @@ describe('adoptedPlanRevisions', () => {
     expect(after.text).toBe(first.text);
     // and the ask reads as waiting again
     expect(ids(reconcilePendingRequests([PLAN_ASK, adopt, retract('g-adopt', 'r1')], HOME).stillPending)).toEqual(['shep-010']);
+  });
+});
+
+describe('Now says when the plan on the scroll was adopted by an answer since withdrawn', () => {
+  const PLAN_ASK = ask('shep-010', { kind: 'plan_revision', decision_topic: 'glide first', plan: 'Go up, gliding.', options: [{ id: 'adopt' }, { id: 'keep' }] });
+  const adopt = grant('shep-010', 'g-adopt', 'adopt');
+  const SCROLL = ensurePlanZone('# Shep — scroll\n\n<!-- scroll:now:start -->\n<!-- scroll:now:end -->\n\n## Making\n\n<!-- scroll:making:start -->\n<!-- scroll:making:end -->\n');
+  const CLAUSE = '**the plan here was adopted by an answer that has since been withdrawn**';
+  const adopted = applyAdoptedPlans(SCROLL, [PLAN_ASK, adopt], HOME).text;
+  const planLineOf = (text, board) => renderNow(computeNow({ home: HOME, board, state: null, tsNow: '2026-11-10T00:00:00Z', plan: readPlanInfo(text) }), { home: HOME })
+    .split('\n').find((l) => l.startsWith('- **Plan:**'));
+
+  test('with no RETRACT the line is as it was', () => {
+    expect(withdrawnAdoption([PLAN_ASK, adopt], HOME, readPlanInfo(adopted).id)).toBe(null);
+    expect(planLineOf(adopted, [PLAN_ASK, adopt])).toBe('- **Plan:** agreed 2026-11-02 (8 days ago) · 0 made things since');
+  });
+
+  test('the adopt grant retracted: Now says so, beside the waiting ask, and the plan stays', () => {
+    const board = [PLAN_ASK, adopt, retract('g-adopt', 'r1')];
+    expect(readPlanInfo(adopted).id).toBe('plan-shep-010');
+    expect(withdrawnAdoption(board, HOME, 'plan-shep-010')).toBe('shep-010');
+    expect(planLineOf(adopted, board)).toBe(`- **Plan:** agreed 2026-11-02 (8 days ago) · 0 made things since · ${CLAUSE} · **a proposed revision is waiting on you**`);
+    expect(readPlan(applyAdoptedPlans(adopted, board, HOME).text)).toBe('Go up, gliding.');
+  });
+
+  test('a RETRACT of that RETRACT changes nothing; a later live answer settles it', () => {
+    expect(withdrawnAdoption([PLAN_ASK, adopt, retract('g-adopt', 'r1'), retract('r1', 'r2')], HOME, 'plan-shep-010')).toBe('shep-010');
+    expect(withdrawnAdoption([PLAN_ASK, adopt, retract('g-adopt', 'r1'), grant('shep-010', 'g2', 'adopt', '2026-11-04T09:00:00Z')], HOME, 'plan-shep-010')).toBe(null);
+  });
+
+  test('only the plan on the scroll counts: a later plan written over it, or a retracted grant that was not adopt, says nothing', () => {
+    const board = [PLAN_ASK, adopt, retract('g-adopt', 'r1')];
+    const over = applyPlan(adopted, { plan: 'Go down.', headline: 'by hand', ts: '2026-11-05T09:00:00' }).text;
+    expect(readPlanInfo(over).id).not.toBe('plan-shep-010');
+    expect(withdrawnAdoption(board, HOME, readPlanInfo(over).id)).toBe(null);
+    expect(planLineOf(over, board)).not.toContain(CLAUSE);
+    const keep = grant('shep-010', 'g-keep', 'keep');
+    expect(withdrawnAdoption([PLAN_ASK, keep, retract('g-keep', 'r1')], HOME, 'plan-shep-010')).toBe(null);
+  });
+
+  test('a retracted ask, or another page\'s ask, is not read this way', () => {
+    expect(withdrawnAdoption([PLAN_ASK, adopt, retract('g-adopt', 'r1'), retract('shep-010', 'r3')], HOME, 'plan-shep-010')).toBe(null);
+    expect(withdrawnAdoption([PLAN_ASK, adopt, retract('g-adopt', 'r1')], 'Other', 'plan-shep-010')).toBe(null);
   });
 });
 
