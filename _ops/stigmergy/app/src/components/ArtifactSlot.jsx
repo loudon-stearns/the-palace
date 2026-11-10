@@ -129,8 +129,13 @@ function FrameBody({ path, name, initialHeight = FRAME_HEIGHT }) {
         src={url}
         sandbox={pieceOrigin ? 'allow-scripts allow-same-origin' : 'allow-scripts'}
         allow={(plan && plan.allow) || 'autoplay'}
+        // content-box: the height a piece asks for is its window's, so the border
+        // sits outside it. Under the app's border-box rule a piece that fills its
+        // window (html, body {height:100%}) saw 2 px less than it asked, asked for
+        // that, and walked the frame down to 120 (2026-11-09, the Shepard Tone
+        // editor mock: "asked for 118 px; held at 120").
         style={{
-          width: '100%', height,
+          boxSizing: 'content-box', width: 'calc(100% - 2px)', height,
           border: '1px solid var(--phosphor-dim)', background: 'var(--bg)', borderRadius: 0,
         }}
       />
