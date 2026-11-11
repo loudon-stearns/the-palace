@@ -1,0 +1,718 @@
+<!doctype html>
+<!--
+  title: Biomechanical Synthesis — rich — mycelial reverb
+  born: 2026-11-10
+  links: [[Biomechanical Synthesis]] (connects-to · rich-face-piece) · listed in [[Biomechanical Synthesis — rich.json]] · checked by "Biomechanical Synthesis — rich — mycelial reverb — check.mjs"
+  forward_vector: I am a reverb you grow. A spore in a dish, threads that lengthen only while sound is reaching their tips, and fruiting bodies you hear from. Every thread is a delay line and every meeting of threads shares out what arrives and adds nothing, so I cannot blow up. I open on the living thing and keep the arithmetic underneath for whoever digs. I play inside the entry's rich face and stand alone opened directly; I change when The Mycelial Model in Detail does.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Biomechanical Synthesis — the mycelial reverb</title>
+<meta name="theme-color" content="#0a0a0f">
+<meta name="piece:needs" content="">
+
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, field, range, scheme, textarea. */
+@layer furniture {
+:where(*) { --fx-bg: var(--bg, #0a0a0f); --fx-bg-elev-1: var(--e1, #12121a); --fx-bg-elev-2: var(--e2, #1a1a28); --fx-bg-elev-3: #22222e; --fx-fg-1: var(--fg1, #e8e8f0); --fx-fg-2: var(--fg2, #c8c8d8); --fx-fg-3: var(--fg3, #8a8aa0); --fx-fg-4: var(--fg4, #4a4a5a); --fx-fg-on-accent: #0a0a0f; --fx-border: var(--border, #4a4a5e); --fx-border-soft: var(--soft, rgba(255,255,255,0.06)); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: var(--amber, #e8b84a); --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: var(--amberline, rgba(232,184,74,0.50)); --fx-danger: #ff2a2a; --fx-mono: var(--mono, 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace); --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
+::-webkit-scrollbar {width: 11px; height: 11px;}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
+::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
+textarea {resize: vertical; min-height: 3.5em;}
+textarea::-webkit-resizer {background: linear-gradient(135deg, transparent 0 58%, var(--fx-fg-4) 58% 64%, transparent 64% 76%, var(--fx-fg-4) 76% 82%, transparent 82%); background-clip: content-box;}
+input[type="number"] {-moz-appearance: textfield;}
+input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
+.num, td, th, time, output {font-variant-numeric: tabular-nums;}
+[style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
+* {-webkit-tap-highlight-color: transparent;}
+label {user-select: none; -webkit-user-select: none;}
+@media (prefers-reduced-motion: reduce) {*, *::before, *::after {animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important;}}
+}
+</style>
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --blood:#c2324a; --flesh:#e6c9b8; --hypha:#d9d3c0; --vein:#7a5af0;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; --serif:Georgia,'Times New Roman',serif; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); font-weight: 400; }
+  .piece { padding: 22px 22px 26px; max-width: 1100px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  h1 { font-family: var(--serif); font-size: 29px; font-weight: 400; color: var(--fg1); margin: 0 0 8px; }
+  h2 { font-family: var(--serif); font-size: 21px; font-weight: 400; color: var(--fg1); margin: 26px 0 8px; }
+  p { font-size: 14.5px; line-height: 1.6; max-width: 74ch; margin: 0 0 12px; }
+  .lead { font-size: 16px; color: var(--fg1); }
+  a { color: var(--amber); }
+  button, .filebtn { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 9px 12px; cursor: pointer; min-height: 36px; display: inline-flex; align-items: center; }
+  button:hover, .filebtn:hover { border-color: var(--amberline); color: var(--fg1); }
+  button.on { border-color: var(--amber); color: var(--amber); background: rgba(232,184,74,.08); }
+  button.big { font-size: 12px; padding: 11px 16px; border-color: var(--amberline); color: var(--amber); }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .row .lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-right: 4px; min-width: 62px; }
+  .dishwrap { position: relative; margin: 14px 0 6px; border: 1px solid var(--soft); background: #07070b; touch-action: manipulation; }
+  canvas#dish { display: block; width: 100%; cursor: crosshair; }
+  .status { font-family: var(--mono); font-size: 11.5px; color: var(--fg3); margin: 6px 0 2px; min-height: 16px; font-variant-numeric: tabular-nums; }
+  .status b { color: var(--fg1); font-weight: 400; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12.5px; color: var(--fg3); margin: 6px 0 4px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+  .rail { display: flex; flex-wrap: wrap; align-items: center; margin: 14px 0 0; }
+  .diglab { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-right: 4px; min-width: 66px; }
+  .rail button { border-radius: 0; margin-right: -1px; margin-bottom: -1px; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 14px 18px 6px; margin-bottom: 14px; }
+  .panel[hidden] { display: none; }
+  .eq { font-family: var(--serif); font-size: 18px; color: var(--fg1); margin: 8px 0 2px; overflow-x: auto; }
+  .words { font-size: 13.5px; color: var(--fg3); margin: 0 0 12px; max-width: 74ch; line-height: 1.55; }
+  .soil { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px 26px; margin: 8px 0 2px; }
+  .soil label { font-size: 13px; color: var(--fg2); display: block; }
+  .soil label b { font-family: var(--mono); font-weight: 400; color: var(--amber); font-size: 12px; margin-left: 6px; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 3px; background: var(--fg4); margin: 14px 0 8px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  table { border-collapse: collapse; font-size: 13px; margin: 8px 0 12px; width: 100%; max-width: 760px; }
+  th, td { text-align: right; padding: 5px 10px 5px 0; border-bottom: 1px solid var(--soft); font-variant-numeric: tabular-nums; }
+  th { font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg3); font-weight: 400; vertical-align: bottom; }
+  td:first-child, th:first-child { text-align: left; }
+  .tablewrap { overflow-x: auto; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+  .fact { border-top: 1px solid var(--soft); padding: 10px 0 2px; }
+  .fact .k { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 4px; }
+  .fact .k.m { color: #7fd4a0; } .fact .k.x { color: var(--amber); }
+  .fact p { font-size: 13.5px; margin-bottom: 8px; }
+  .fact .src { font-size: 12px; color: var(--fg3); }
+  .note { font-size: 12.5px; color: var(--fg3); }
+  input[type=file] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  @media (max-width: 640px) {
+    .piece { padding: 16px 12px 22px; } h1 { font-size: 24px; } .soil { grid-template-columns: 1fr; } .two { grid-template-columns: 1fr; }
+    .row .lab, .diglab { min-width: 100%; margin-bottom: 6px; } button, .filebtn { padding: 10px 11px; min-height: 40px; }
+  }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="eyebrow">Biomechanical Synthesis · the mycelial model, built</div>
+  <h1>A reverb you grow</h1>
+  <p class="lead">There is a spore in the dish. Knock on it. The sound runs out along the threads, and wherever it reaches a growing tip, the tip grows. Keep feeding it and the dry little knock you started with comes back from a room that was not there a minute ago.</p>
+
+  <div class="dishwrap"><canvas id="dish" aria-label="A dish with a growing fungal network. Click anywhere to knock on it."></canvas></div>
+  <div class="status" id="status">&nbsp;</div>
+  <div class="legend">
+    <span><i style="border:2px solid var(--amber)"></i>where the sound goes in (click to move it)</span>
+    <span><i style="background:var(--flesh)"></i>fruiting bodies: where you hear it from</span>
+    <span><i style="background:var(--amber)"></i>glow: the sound in that thread right now, read from the running network</span>
+  </div>
+
+  <div class="row"><span class="lab">feed it</span>
+    <button class="big" id="bKnock">knock</button>
+    <button id="bStrings">plucked strings</button>
+    <button id="bRain">rain</button>
+    <label class="filebtn" for="fFile" id="lFile">your own sound…</label><input type="file" id="fFile" accept="audio/*">
+    <button id="bQuiet">quiet</button>
+  </div>
+  <div class="rail" id="rail">
+    <span class="lab diglab">dig</span>
+    <button data-tab="alive" class="on">the colony</button>
+    <button data-tab="thread">1 · one thread</button>
+    <button data-tab="fork">2 · one fork</button>
+    <button data-tab="loop">3 · one fusion</button>
+    <button data-tab="grow">4 · growing</button>
+  </div>
+  <div class="panel" data-panel="alive">
+    <p>The colony is made of three small things, and each numbered button puts one of them in the dish alone to knock on. As it stands: sound goes in at the amber ring and comes out at the fruiting bodies, each one placed left to right as it sits in the dish. Until the first one appears you are listening at the spore. A tip grows only while sound is reaching it, so a colony fed in one corner grows from that corner. A frost kills every dead end back by one thread; what survives is whatever had joined up into a ring.</p>
+  </div>
+  <div class="panel" data-panel="thread" hidden>
+    <div class="eq">y(t) = x(t) + r · g² · y(t − 2L)</div>
+    <p class="words">What you hear now is the knock, plus what you heard one round trip ago (2L: down the thread and back), made smaller by the end it turned at (r, here 0.8: each end keeps a fifth) and by the way there and back (g).</p>
+    <p>One hypha, two ends. A pulse runs down it, turns round, comes back: an echo. Now shorten the thread. The echoes crowd together until you cannot count them, and somewhere under about 25 ms you stop hearing a rhythm and start hearing a note. Same thread, same arithmetic.</p>
+    <div class="soil" style="grid-template-columns:1fr"><div><label for="sLen">the length of the thread <b id="vLen"></b></label><input type="range" id="sLen" min="14" max="286" step="1" value="286"></div></div>
+  </div>
+  <div class="panel" data-panel="fork" hidden>
+    <div class="eq">out<sub>i</sub> = 2√y<sub>i</sub> · ( Σ √y<sub>j</sub> · in<sub>j</sub> ) / Σ y<sub>j</sub> − in<sub>i</sub></div>
+    <p class="words">What leaves a junction down thread i is the junction's shared pressure (everything arriving, each thread weighted by its thickness y) less what arrived on thread i itself. For three equal threads that is: a third comes back upside down, and two thirds goes on down each of the other two.</p>
+    <p>A branch. The pulse reaches the fork and has to be shared out. Nothing is made there and nothing is lost: add up the squares of what leaves and you get the squares of what arrived, for any number of threads of any thickness. That one fact is why the whole colony cannot run away, however it grows.</p>
+  </div>
+  <div class="panel" data-panel="loop" hidden>
+    <div class="eq">loops = threads − joins + 1</div>
+    <p class="words">Count the threads, take away the places they meet or end, add one. A tree gives zero: every way out is a dead end. Each fusion adds one way round.</p>
+    <p>A fusion. When a growing hypha meets another it can fuse with it, and now there is a way round. The pulse goes round both ways at once and meets itself coming back, so the echoes stop being evenly spaced. Dead ends eat sound here (each tip keeps a fifth); a ring has no ends, so a ring holds on to it.</p>
+  </div>
+  <div class="panel" data-panel="grow" hidden>
+    <p>Put those together and let it grow. These are impulse responses of the engine in this page, rendered without a browser, on twelve colonies fed the same plucked strings (medians; carry 3 s, soil 0.25).</p>
+    <div class="tablewrap"><table id="tStages">
+      <tr><th>threads</th><th>loops</th><th>dead ends</th><th>fruiting bodies</th><th>fed for</th><th>rings for (RT60)</th><th>a wash from</th></tr>
+      <tr><td>3</td><td>0</td><td>3</td><td>0</td><td>0 s</td><td>0.40 s</td><td>never</td></tr>
+      <tr><td>10</td><td>0</td><td>5</td><td>0</td><td>1 s</td><td>0.92 s</td><td>215 ms</td></tr>
+      <tr><td>26</td><td>0</td><td>8</td><td>1</td><td>3 s</td><td>1.34 s</td><td>195 ms</td></tr>
+      <tr><td>60</td><td>4</td><td>11</td><td>3</td><td>13 s</td><td>1.79 s</td><td>195 ms</td></tr>
+      <tr><td>110</td><td>9</td><td>18</td><td>4</td><td>21 s</td><td>2.06 s</td><td>180 ms</td></tr>
+      <tr><td>170</td><td>16</td><td>17</td><td>5</td><td>31 s</td><td>2.22 s</td><td>200 ms</td></tr>
+    </table></div>
+    <p id="pStages">Fed nothing but the same strings, the tail went from 0.40 s at three threads to 2.22 s with the dish full: longer in 12 of 12 colonies. A frost, pressed until nothing more died, took every dead end (17 to 0) and left 117 threads, all of them in rings. That rang for 2.66 s: longer in 12 of 12. Dead ends eat sound and rings keep it. One guess, written down before the first run, is not settled. It said the echoes would blur into a wash sooner as the colony grew. Three threads never make a wash and ten do, about 215 ms in. From ten threads to a full dish it came sooner in 10 colonies and later in 2, but the median moved only from 215 to 200 ms, and an earlier tuning of the growth rules gave 5 sooner and 7 later. So growing lengthens the tail, the wash arrives with the first few branches, and past that this piece claims nothing.</p>
+    <p id="pStable">Can it blow up? With nothing going in, the energy held in the network was read every 64 samples over 160 runs, at the corners of every control and past what these sliders reach (carry out to 12 s, no damping, tips that give everything back). The largest step was 1.000000 of the one before, where anything over 1 would be a rise. Then the torture: a minute of full-scale noise while the colony grew, was frosted, and every control jumped four times a second. The loudest sample out was 1.51 times the input, every sample a finite number, and 100 dB gone twenty seconds after the noise stopped. Failure would have been one rise, or one sample that was not a number. The page puts a compressor after the dish as well, for your ears.</p>
+  </div>
+  <div class="row"><span class="lab">the dish</span>
+    <button id="bFrost" title="Every dead end dies back one thread">a frost</button>
+    <button id="bHold">hold it still</button>
+    <button id="bNew">a new spore</button>
+  </div>
+  <div class="soil">
+    <div><label for="sCarry">how far a pulse carries <b id="vCarry"></b></label><input type="range" id="sCarry" min="0.5" max="10" step="0.1" value="3"></div>
+    <div><label for="sDamp">how wet the soil is <b id="vDamp"></b></label><input type="range" id="sDamp" min="0" max="0.7" step="0.01" value="0.25"></div>
+    <div><label for="sDry">the sound itself, beside the dish <b id="vDry"></b></label><input type="range" id="sDry" min="0" max="1" step="0.01" value="0.6"></div>
+  </div>
+  <p class="note" id="msg">Nothing sounds until you click. Your own sound stays in this page; it is not sent anywhere.</p>
+
+  <h2>What is the fungus, and what is the instrument</h2>
+  <p>The instrument borrows how a mycelium is built. It does not model sound moving through one: I looked for a measurement of that and found none. Here is which is which.</p>
+  <div class="two">
+    <div class="fact"><div class="k m">measured, in fungi</div><p>Hyphae lengthen at the tip, branch, and fuse with one another, and that is how a colony becomes a network and not a tree.</p><p class="src">Fricker, Heaton, Jones &amp; Boddy, “The Mycelium as a Network”, Microbiology Spectrum, 2017. <a href="https://orca.cardiff.ac.uk/id/eprint/102028/" target="_blank" rel="noopener">orca.cardiff.ac.uk/id/eprint/102028</a></p></div>
+    <div class="fact"><div class="k x">in the instrument</div><p>Tips extend, branch and fuse by simple rules with a seeded dice. The shapes look fungal. The angles, lengths and odds are mine, fitted to nothing.</p></div>
+
+    <div class="fact"><div class="k m">measured, in fungi</div><p>The woodland fungus <i>Phanerochaete velutina</i> thickens the routes it uses and recycles the rest, and its network gets better at carrying and harder to cut as it grows.</p><p class="src">Bebber, Hynes, Darrah, Boddy &amp; Fricker, Proc. R. Soc. B 274:2307–2315, 2007. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2288531" target="_blank" rel="noopener">pmc.ncbi.nlm.nih.gov/articles/PMC2288531</a></p></div>
+    <div class="fact"><div class="k x">in the instrument</div><p>A thread that carries more of the sound thickens and takes a larger share at each junction. The frost stands in for recycling: it is a button, and a fungus has no such season switch.</p></div>
+
+    <div class="fact"><div class="k m">measured, in fungi</div><p>Growth draws material through the network toward the tips: water taken up behind the front has to go somewhere, and it goes to where the colony is getting bigger.</p><p class="src">Heaton, López, Maini, Fricker &amp; Jones, “Growth-induced mass flows in fungal networks”, Proc. R. Soc. B 277:3265–3274, 2010. <a href="https://arxiv.org/abs/1005.5305" target="_blank" rel="noopener">arxiv.org/abs/1005.5305</a></p></div>
+    <div class="fact"><div class="k x">in the instrument</div><p>A tip keeps a fifth of every pulse that reaches it and grows on what it gets. That sound is food is the metaphor the whole piece stands on. It is not a finding.</p></div>
+
+    <div class="fact"><div class="k m">measured, once</div><p>One lab study played an 8 kHz tone at 80 dB to <i>Trichoderma harzianum</i> for five days and found more biomass and more spore activity than in silence. One fungus, one tone, dishes.</p><p class="src">Robinson, Annells, Cando-Dumancela &amp; Breed, Biology Letters 20:20240295, 2024. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11444772" target="_blank" rel="noopener">pmc.ncbi.nlm.nih.gov/articles/PMC11444772</a></p></div>
+    <div class="fact"><div class="k x">in the instrument</div><p>Growth here follows the sound thread by thread, within seconds. Nothing in that study says a tip grows toward a sound. Don't read the dish as a model of it.</p></div>
+
+    <div class="fact"><div class="k m">measured, and argued over</div><p>Electrical pulses have been recorded in hyphae since 1995. A 2022 paper read spikes lasting 1 to 21 hours as something like words; a 2024 reply says the recordings may be artefacts and are no language.</p><p class="src">Olsson &amp; Hansson, Naturwissenschaften 82:30–31, 1995. Adamatzky, R. Soc. Open Sci. 9:211926, 2022, <a href="https://arxiv.org/abs/2112.09907" target="_blank" rel="noopener">arxiv.org/abs/2112.09907</a>. Blatt et al., Fungal Ecology 68:101326, 2024.</p></div>
+    <div class="fact"><div class="k x">in the instrument</div><p>A pulse crosses this dish in a third of a second. Whatever the hours-long signals in a real fungus are, the glow you see here is audio, not that.</p></div>
+
+    <div class="fact"><div class="k m">measured, in fungi</div><p>Fruiting is set off by conditions: less nitrogen and carbon to eat, a drop in temperature, and in some species light.</p><p class="src">Sakamoto, Fungal Biology Reviews 32(4):236, 2018. doi:10.1016/j.fbr.2018.02.003</p></div>
+    <div class="fact"><div class="k x">in the instrument</div><p>A fruiting body comes up at the busiest junction that has room. That is a rule for where to listen, not how a fungus decides.</p></div>
+
+    <div class="fact"><div class="k m">measured, in physics</div><p>Delay lines joined at junctions that share out what arrives are a digital waveguide network, the standard way to model strings and tubes, and a known kind of reverb.</p><p class="src">Smith, “Physical Audio Signal Processing”, online book, CCRMA, Stanford. <a href="https://ccrma.stanford.edu/~jos/pasp/" target="_blank" rel="noopener">ccrma.stanford.edu/~jos/pasp</a></p></div>
+    <div class="fact"><div class="k x">in the instrument</div><p>This part is exact, and checked: the echo spacing, the third that comes back from a fork, and the energy that never rises are the engine's own numbers (see 4 · growing).</p></div>
+  </div>
+</div>
+
+<script id="mycel-engine">
+// ───────────────────────────────────────────────────────────────────────────
+// The engine. No DOM, no AudioContext: node loads this block alone (check.mjs),
+// the page runs it for the colony, and the worklet runs it for the sound.
+//
+// MycelNet   the sound. Every hypha is a pair of delay lines, one each way.
+//            Every meeting of hyphae is a junction that shares out what arrives
+//            and never adds any: out = 2u(u·in) − in, u = √y / √Σy, a Householder
+//            reflection. It keeps length, so with no sound going in, the
+//            energy held in the network can only fall.
+// MycelColony the growth. Tips extend, branch and fuse; a tip grows only while
+//            sound is reaching it.
+// ───────────────────────────────────────────────────────────────────────────
+function MycelNet(sr, maxSegs) {
+  this.sr = sr; this.maxSegs = maxSegs; var M = maxSegs, MN = maxSegs + 16;
+  this.maxNodes = MN;
+  this.segA = new Int32Array(M); this.segB = new Int32Array(M);
+  this.len = new Int32Array(M); this.pos = new Int32Array(M);
+  this.alive = new Uint8Array(M);
+  this.y = new Float64Array(M); this.w = new Float64Array(M); this.g = new Float64Array(M);
+  this.slot = Math.ceil(0.35 * 300 * sr / 1000) + 8; this.pool = new Float32Array(2 * M * this.slot); this.lp = new Float64Array(2 * M); this.inB = new Float64Array(2 * M * 32); this.acc = new Float64Array(32); this.kkA = new Float64Array(32);
+  this.en = new Float32Array(M);
+  this.tapL = new Float32Array(MN); this.tapR = new Float32Array(MN);
+  this.inNode = 0; this.rt = 3; this.damp = 0.25; this.tip = 0.8;
+  this.list = new Int32Array(M); this.ns = 0;
+  this.nodes = new Int32Array(MN); this.off = new Int32Array(MN + 1); this.half = new Int32Array(2 * M);
+  this.invY = new Float64Array(MN); this.rootY = new Float64Array(MN); this.nn = 0;
+  this.qW = new Float64Array(2 * M); this.qOut = new Int32Array(2 * M); this.qSeg = new Int32Array(2 * M);
+}
+MycelNet.prototype.lineGain = function (L) { return Math.pow(10, -3 * L / (this.rt * this.sr)); };
+MycelNet.prototype.plan = function () {
+  var M = this.maxSegs, MN = this.maxNodes, s, n, ns = 0, deg = new Int32Array(MN);
+  for (s = 0; s < M; s++) if (this.alive[s]) { this.list[ns++] = s; deg[this.segA[s]]++; deg[this.segB[s]]++; }
+  this.ns = ns;
+  var nn = 0, where = new Int32Array(MN).fill(-1), o = 0;
+  for (n = 0; n < MN; n++) if (deg[n]) { where[n] = nn; this.nodes[nn] = n; this.off[nn] = o; o += deg[n]; nn++; }
+  this.off[nn] = o; this.nn = nn;
+  var fill = new Int32Array(nn), sumY = new Float64Array(nn), j, k;
+  for (j = 0; j < ns; j++) {
+    s = this.list[j];
+    k = where[this.segB[s]]; this.half[this.off[k] + fill[k]++] = 2 * s;      // travels A→B, arrives at B
+    sumY[k] += this.y[s];
+    k = where[this.segA[s]]; this.half[this.off[k] + fill[k]++] = 2 * s + 1;  // travels B→A, arrives at A
+    sumY[k] += this.y[s];
+  }
+  for (k = 0; k < nn; k++) { this.invY[k] = 1 / sumY[k]; this.rootY[k] = Math.sqrt(1 / sumY[k]); }
+  var q, h;
+  for (q = 0; q < o; q++) { h = this.half[q]; this.qW[q] = this.w[h >> 1]; this.qSeg[q] = h >> 1; this.qOut[q] = (h ^ 1) * this.slot; }   // what leaves goes back down the same thread, the other way
+};
+MycelNet.prototype.msg = function (m) {
+  var s, i;
+  if (m.t === 'add') {
+    s = m.s; this.segA[s] = m.a; this.segB[s] = m.b; this.len[s] = m.L; this.pos[s] = 0; this.alive[s] = 1;
+    this.y[s] = 1; this.w[s] = 1; this.g[s] = this.lineGain(m.L);
+    if (m.L > this.slot) m.L = this.slot; if (m.L < 32) m.L = 32; this.len[s] = m.L; this.g[s] = this.lineGain(m.L);
+    this.pool.fill(0, 2 * s * this.slot, (2 * s + 2) * this.slot);   // a new hypha is born silent
+    this.lp[2 * s] = 0; this.lp[2 * s + 1] = 0; this.plan();
+  } else if (m.t === 'del') {
+    s = m.s; this.alive[s] = 0; this.en[s] = 0; this.plan();
+  } else if (m.t === 'ys') {
+    for (i = 0; i < m.list.length; i += 2) { s = m.list[i]; if (this.alive[s]) { this.y[s] = m.list[i + 1]; this.w[s] = Math.sqrt(this.y[s]); } }
+    this.plan();
+  } else if (m.t === 'in') { this.inNode = m.n;
+  } else if (m.t === 'taps') {
+    this.tapL.fill(0); this.tapR.fill(0);
+    for (i = 0; i < m.list.length; i++) { this.tapL[m.list[i].n] = m.list[i].l; this.tapR[m.list[i].n] = m.list[i].r; }
+  } else if (m.t === 'par') {
+    if (m.rt != null) this.rt = Math.min(12, Math.max(0.2, m.rt));
+    if (m.damp != null) this.damp = Math.min(0.9, Math.max(0, m.damp));
+    if (m.tip != null) this.tip = Math.min(1, Math.max(0, m.tip));
+    for (s = 0; s < this.maxSegs; s++) if (this.alive[s]) this.g[s] = this.lineGain(this.len[s]);
+  } else if (m.t === 'reset') {
+    this.alive.fill(0); this.en.fill(0); this.tapL.fill(0); this.tapR.fill(0); this.inNode = 0;
+    this.plan();
+  }
+};
+// x: mono in (or null). oL, oR: out. Reads every line, then scatters at every junction, then steps.
+// It works 32 samples at a time. No line is shorter than 32 samples, so nothing written in a chunk is
+// read in the same chunk, and the answer is the same as going sample by sample.
+MycelNet.prototype.process = function (x, oL, oR, N) {
+  var list = this.list, ns = this.ns, nodes = this.nodes, nn = this.nn, off = this.off, CH = 32;
+  var pool = this.pool, slot = this.slot, pos = this.pos, len = this.len, lp = this.lp, inB = this.inB, g = this.g, en = this.en;
+  var qW = this.qW, qOut = this.qOut, qSeg = this.qSeg, qIn = this.half, rootY = this.rootY, invY = this.invY, acc = this.acc, kkA = this.kkA;
+  var tapL = this.tapL, tapR = this.tapR, inNode = this.inNode, tip = this.tip, hasX = !!x;
+  var d = this.damp, omd = 1 - d, i = 0, j = 0, k = 0, q = 0, s = 0, p = 0, h = 0, c = 0, f = 0, v = 0, e = 0, st = 0, end = 0, ws = 0, n = 0, gs = 0, L = 0, B = 0, o = 0, base = 0, ib = 0, iy = 0, ry = 0, tl = 0, tr = 0;
+  for (i = 0; i < N; i++) { oL[i] = 0; oR[i] = 0; }
+  while (o < N) {
+    B = N - o; if (B > CH) B = CH;
+    for (j = 0; j < ns; j++) {
+      s = list[j]; L = len[s]; gs = g[s]; e = 0;
+      for (c = 0; c < 2; c++) {
+        h = 2 * s + c; base = h * slot; p = pos[s]; f = lp[h]; ib = h * CH;
+        for (i = 0; i < B; i++) { f = omd * pool[base + p] + d * f; if (f < 1e-18 && f > -1e-18) f = 0; v = gs * f; inB[ib + i] = v; e += v * v; if (++p === L) p = 0; }
+        lp[h] = f;
+      }
+      en[s] += e;
+    }
+    for (k = 0; k < nn; k++) {
+      n = nodes[k]; st = off[k]; end = off[k + 1];
+      if (end - st === 1) {                       // a tip: the pulse turns round, and the tip keeps some
+        ib = qIn[st] * CH; base = qOut[st]; s = qSeg[st]; p = pos[s]; L = len[s];
+        if (n === inNode && hasX) for (i = 0; i < B; i++) { v = inB[ib + i]; acc[i] = v; pool[base + p] = tip * v + x[o + i]; if (++p === L) p = 0; }
+        else for (i = 0; i < B; i++) { v = inB[ib + i]; acc[i] = v; pool[base + p] = tip * v; if (++p === L) p = 0; }
+      } else {                                    // a junction: out = 2u(u·in) − in
+        for (i = 0; i < B; i++) acc[i] = 0;
+        for (q = st; q < end; q++) { ws = qW[q]; ib = qIn[q] * CH; for (i = 0; i < B; i++) acc[i] += ws * inB[ib + i]; }
+        iy = 2 * invY[k]; ry = rootY[k];
+        if (n === inNode && hasX) for (i = 0; i < B; i++) kkA[i] = acc[i] * iy + x[o + i] * ry;
+        else for (i = 0; i < B; i++) kkA[i] = acc[i] * iy;
+        for (q = st; q < end; q++) {
+          ws = qW[q]; ib = qIn[q] * CH; base = qOut[q]; s = qSeg[q]; p = pos[s]; L = len[s];
+          for (i = 0; i < B; i++) { pool[base + p] = kkA[i] * ws - inB[ib + i]; if (++p === L) p = 0; }
+        }
+        for (i = 0; i < B; i++) acc[i] *= ry;
+      }
+      tl = tapL[n]; tr = tapR[n];
+      if (tl !== 0 || tr !== 0) for (i = 0; i < B; i++) { oL[o + i] += acc[i] * tl; oR[o + i] += acc[i] * tr; }
+    }
+    for (j = 0; j < ns; j++) { s = list[j]; p = pos[s] + B; L = len[s]; pos[s] = p >= L ? p - L : p; }
+    o += B;
+  }
+};
+// Everything the network holds, as energy: the lines, and what each damping filter is keeping back.
+MycelNet.prototype.stored = function () {
+  var E = 0, j, s, h, b, i, c = this.damp / (1 - this.damp);
+  for (j = 0; j < this.ns; j++) {
+    s = this.list[j];
+    for (h = 2 * s; h < 2 * s + 2; h++) { b = h * this.slot; for (i = 0; i < this.len[s]; i++) E += this.pool[b + i] * this.pool[b + i]; E += c * this.lp[h] * this.lp[h]; }
+  }
+  return E;
+};
+
+function mycelRng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+function MycelColony(o) {
+  this.sr = o.sr; this.maxSegs = o.maxSegs || 170; this.emit = o.emit || function () {};
+  this.block = o.block || 512; this.msPerPx = 0.35;
+  this.reset(o.seed || 1, o.W || 1000, o.H || 600);
+}
+MycelColony.prototype.reset = function (seed, W, H, preset, arg) {
+  this.rng = mycelRng(seed); this.seed = seed; this.W = W; this.H = H; this.time = 0;
+  this.nodes = []; this.segs = []; this.freeS = []; this.freeN = []; this.nseg = 0;
+  this.fruit = []; this.inNode = 0; this.hold = !!preset; this.preset = preset || null;
+  this.latCredit = 0; this.tThick = 0; this.tFruit = 0; this.lastFruit = -9; this.events = [];
+  this.emit({ t: 'reset' });
+  var cx = W / 2, cy = H / 2, i, a, n;
+  if (!preset) {
+    this.newNode(cx, cy);
+    var a0 = this.rng() * 6.283;
+    for (i = 0; i < 3; i++) {
+      a = a0 + i * 2.094 + (this.rng() - 0.5) * 0.6;
+      n = this.newNode(cx + Math.cos(a) * 26, cy + Math.sin(a) * 26); this.nodes[n].tip = true; this.nodes[n].ang = a; this.nodes[n].credit = 0.5; this.addSeg(0, n);
+    }
+  } else if (preset === 'thread') {
+    var px = arg || 286; this.newNode(cx - px / 2, cy); n = this.newNode(cx + px / 2, cy); this.addSeg(0, n);
+  } else if (preset === 'fork') {
+    this.newNode(cx - 230, cy); var jn = this.newNode(cx - 30, cy); this.addSeg(0, jn);
+    n = this.newNode(cx + 150, cy - 110); this.addSeg(jn, n); n = this.newNode(cx + 250, cy + 120); this.addSeg(jn, n);
+  } else if (preset === 'loop') {
+    this.newNode(cx - 230, cy); var j1 = this.newNode(cx - 60, cy); this.addSeg(0, j1);
+    var j2 = this.newNode(cx + 110, cy - 120), j3 = this.newNode(cx + 190, cy + 90);
+    this.addSeg(j1, j2); this.addSeg(j2, j3); this.addSeg(j3, j1);
+  }
+  this.emit({ t: 'in', n: 0 }); this.sendTaps();
+};
+MycelColony.prototype.newNode = function (x, y) {
+  var id = this.freeN.length ? this.freeN.pop() : this.nodes.length;
+  this.nodes[id] = { x: x, y: y, segs: [], tip: false, ang: 0, credit: 0, dormant: false }; return id;
+};
+MycelColony.prototype.addSeg = function (a, b) {
+  var A = this.nodes[a], B = this.nodes[b], px = Math.hypot(A.x - B.x, A.y - B.y);
+  var id = this.freeS.length ? this.freeS.pop() : this.segs.length;
+  var L = Math.max(32, Math.round(px * this.msPerPx * this.sr / 1000));
+  this.segs[id] = { a: a, b: b, px: px, L: L, y: 1, e: 0, born: this.time };
+  A.segs.push(id); B.segs.push(id); this.nseg++;
+  this.emit({ t: 'add', s: id, a: a, b: b, L: L }); return id;
+};
+MycelColony.prototype.delSeg = function (id) {
+  var s = this.segs[id], A = this.nodes[s.a], B = this.nodes[s.b];
+  A.segs.splice(A.segs.indexOf(id), 1); B.segs.splice(B.segs.indexOf(id), 1);
+  this.segs[id] = null; this.freeS.push(id); this.nseg--; this.emit({ t: 'del', s: id });
+};
+MycelColony.prototype.other = function (sid, n) { var s = this.segs[sid]; return s.a === n ? s.b : s.a; };
+MycelColony.prototype.joined = function (a, b) { var A = this.nodes[a], i; for (i = 0; i < A.segs.length; i++) if (this.other(A.segs[i], a) === b) return true; return false; };
+MycelColony.prototype.counts = function () {
+  var v = 0, tips = 0, ends = 0, i, n;
+  for (i = 0; i < this.nodes.length; i++) { n = this.nodes[i]; if (n && n.segs.length) { v++; if (n.segs.length === 1) { ends++; if (n.tip && !n.dormant) tips++; } } }
+  return { threads: this.nseg, joins: v, loops: this.nseg - v + 1, tips: tips, ends: ends, fruit: this.fruit.length };
+};
+// One hypha tries to grow from `from` at angle `ang`. It may fuse into the network instead (anastomosis).
+MycelColony.prototype.extend = function (from, ang) {
+  var F = this.nodes[from], r = this.rng, len = 16 + r() * 22, a, tx, ty, ok = false, k, m = 14;
+  var sign = r() < 0.5 ? -1 : 1;
+  for (k = 0; k < 4 && !ok; k++) {
+    a = ang + (r() - 0.5) * 0.7 + k * 0.9 * sign; tx = F.x + Math.cos(a) * len; ty = F.y + Math.sin(a) * len;
+    ok = tx > m && tx < this.W - m && ty > m && ty < this.H - m;
+  }
+  if (!ok) return -1;
+  var i, n, best = -1, bd = 20 * 20, dd;
+  for (i = 0; i < this.nodes.length; i++) {
+    n = this.nodes[i]; if (!n || i === from || !n.segs.length || this.joined(from, i)) continue;
+    dd = (n.x - tx) * (n.x - tx) + (n.y - ty) * (n.y - ty); if (dd < bd) { bd = dd; best = i; }
+  }
+  if (best < 0) {                                  // does the new thread cross an old one? then it fuses there
+    var bt = 2, s, P, Q, den, t, u, c;
+    for (i = 0; i < this.segs.length; i++) {
+      s = this.segs[i]; if (!s || s.a === from || s.b === from) continue;
+      P = this.nodes[s.a]; Q = this.nodes[s.b];
+      den = (tx - F.x) * (Q.y - P.y) - (ty - F.y) * (Q.x - P.x); if (Math.abs(den) < 1e-9) continue;
+      t = ((P.x - F.x) * (Q.y - P.y) - (P.y - F.y) * (Q.x - P.x)) / den;
+      u = ((P.x - F.x) * (ty - F.y) - (P.y - F.y) * (tx - F.x)) / den;
+      if (t > 0 && t < 1 && u > 0 && u < 1 && t < bt) { c = u < 0.5 ? s.a : s.b; if (this.joined(from, c)) c = u < 0.5 ? s.b : s.a; if (!this.joined(from, c) && c !== from) { bt = t; best = c; } else { bt = t; best = -2; } }
+    }
+    if (best === -2) return -1;
+  }
+  if (best >= 0) { this.addSeg(from, best); this.nodes[best].tip = false; this.events.push({ k: 'fuse', n: best, t: this.time }); return -2; }
+  n = this.newNode(tx, ty); this.nodes[n].tip = true; this.nodes[n].ang = a; this.addSeg(from, n); return n;
+};
+MycelColony.prototype.drive = function (e) { var v = (Math.log(e + 1e-14) / 2.302585 + 8) / 5.5; return v < 0 ? 0 : v > 1 ? 1 : v; };
+// Called once per block of sound, with the energy that block left in every hypha.
+MycelColony.prototype.feed = function (en) {
+  var dt = this.block / this.sr, i, s, n, sid, d, got, norm = 1 / (2 * this.block), emax = 0;
+  this.time += dt;
+  for (i = 0; i < this.segs.length; i++) { s = this.segs[i]; if (s) { s.e += (en[i] * norm - s.e) * 0.25; if (s.e > emax) emax = s.e; } }
+  this.emax = emax;
+  if (!this.hold) {
+    var tips = 0, N = this.nodes.length;
+    for (i = 0; i < N; i++) {
+      n = this.nodes[i]; if (!n || !n.tip || n.dormant || n.segs.length !== 1) continue;
+      tips++; sid = n.segs[0]; d = this.drive(this.segs[sid].e); n.credit += dt * (0.5 + 2.6 * Math.exp(-this.nseg / 10)) * d;   // a young colony is quick, so one knock is enough to see it move
+      if (n.credit >= 1 && this.nseg < this.maxSegs) {
+        n.credit -= 1; got = this.extend(i, n.ang);
+        if (got === -1) { n.dormant = true; continue; }
+        n.tip = false;
+        if (got >= 0 && this.nseg < this.maxSegs && this.rng() < 0.33) this.extend(i, n.ang + (this.rng() < 0.5 ? -1 : 1) * (0.6 + this.rng() * 0.6));
+      }
+    }
+    if (tips < 3 && this.nseg < this.maxSegs) {   // a side branch from behind the front, so a colony is never sealed shut
+      this.latCredit += dt * 1.2 * this.drive(emax);
+      if (this.latCredit >= 1) {
+        this.latCredit = 0; var tries = 12, c;
+        while (tries--) {
+          c = Math.floor(this.rng() * N); n = this.nodes[c];
+          if (n && n.segs.length >= 2 && n.segs.length <= 3) { if (this.extend(c, this.rng() * 6.283) !== -1) break; }
+        }
+      }
+    }
+    this.tFruit += dt; if (this.tFruit > 0.5) { this.tFruit = 0; this.fruiting(); }
+  }
+  this.tThick += dt;
+  if (this.tThick > 0.25) {                       // threads that carry more of the sound thicken; the rest thin back
+    this.tThick = 0; var list = [], yT, y1;
+    for (i = 0; i < this.segs.length; i++) {
+      s = this.segs[i]; if (!s) continue;
+      yT = emax > 1e-9 && !this.hold ? 1 + 3 * Math.sqrt(s.e / emax) : 1; y1 = s.y + (yT - s.y) * 0.12;
+      if (Math.abs(y1 - s.sent || 0) > 0.03 || s.sent == null) { s.sent = y1; list.push(i, y1); }
+      s.y = y1;
+    }
+    if (list.length) this.emit({ t: 'ys', list: list });
+  }
+};
+MycelColony.prototype.fruiting = function () {
+  if (this.nseg < 14 || this.fruit.length >= 5 || this.time - this.lastFruit < 2.5) return;
+  var i, j, n, sc, best = -1, bs = 1e-9, ok, f, S = this.nodes[0];
+  for (i = 1; i < this.nodes.length; i++) {
+    n = this.nodes[i]; if (!n || n.segs.length < 3) continue;
+    if (Math.hypot(n.x - S.x, n.y - S.y) < 70) continue;
+    ok = true; for (j = 0; j < this.fruit.length; j++) { f = this.nodes[this.fruit[j].n]; if (Math.hypot(n.x - f.x, n.y - f.y) < 150) ok = false; }
+    if (!ok) continue;
+    sc = 0; for (j = 0; j < n.segs.length; j++) sc += this.segs[n.segs[j]].e;
+    if (sc > bs) { bs = sc; best = i; }
+  }
+  if (best >= 0) { this.fruit.push({ n: best, born: this.time }); this.lastFruit = this.time; this.events.push({ k: 'fruit', n: best, t: this.time }); this.sendTaps(); }
+};
+MycelColony.prototype.sendTaps = function () {
+  var M = this.fruit.length, list = [], i, n, th, g0 = M ? 0.45 : 1, gm = M ? 1 / Math.sqrt(M) : 0;
+  list.push({ n: 0, l: g0 * 0.7071, r: g0 * 0.7071 });
+  for (i = 0; i < M; i++) { n = this.nodes[this.fruit[i].n]; th = (0.12 + 0.76 * n.x / this.W) * 1.5708; list.push({ n: this.fruit[i].n, l: gm * Math.cos(th), r: gm * Math.sin(th) }); }
+  this.emit({ t: 'taps', list: list });
+};
+MycelColony.prototype.setIn = function (n) { this.inNode = n; this.emit({ t: 'in', n: n }); };
+MycelColony.prototype.nearest = function (x, y) {
+  var i, n, best = 0, bd = 1e18, d;
+  for (i = 0; i < this.nodes.length; i++) { n = this.nodes[i]; if (!n || !n.segs.length) continue; d = (n.x - x) * (n.x - x) + (n.y - y) * (n.y - y); if (d < bd) { bd = d; best = i; } }
+  return best;
+};
+// A frost: every dead end dies back one thread. What is left is what was joined up.
+MycelColony.prototype.frost = function () {
+  var i, n, kill = [], sid, o, killed = 0;
+  for (i = 1; i < this.nodes.length; i++) { n = this.nodes[i]; if (n && n.segs.length === 1) kill.push(i); }
+  for (i = 0; i < kill.length; i++) {
+    n = this.nodes[kill[i]]; if (!n || n.segs.length !== 1 || this.nseg <= 1) continue;
+    sid = n.segs[0]; o = this.other(sid, kill[i]); if (o === 0 && this.nodes[0].segs.length === 1) continue;
+    this.delSeg(sid); this.nodes[kill[i]] = null; this.freeN.push(kill[i]); killed++;
+    if (this.inNode === kill[i]) this.setIn(0);
+  }
+  for (i = 1; i < this.nodes.length; i++) {
+    n = this.nodes[i]; if (!n || n.segs.length !== 1 || kill.indexOf(i) >= 0) continue;
+    o = this.nodes[this.other(n.segs[0], i)]; n.tip = true; n.dormant = false; n.credit = 0; n.ang = Math.atan2(n.y - o.y, n.x - o.x);
+  }
+  var before = this.fruit.length, self = this;
+  this.fruit = this.fruit.filter(function (f) { return self.nodes[f.n] && self.nodes[f.n].segs.length >= 2; });
+  if (this.fruit.length !== before || killed) this.sendTaps();
+  return killed;
+};
+</script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var cv = $('dish'), ctx = cv.getContext('2d'), MAXS = 170;
+  var ac = null, node = null, srcBus = null, wet = null, dry = null, cur = null, curName = '', bufs = {};
+  var col = null, seed = 1 + Math.floor(Math.random() * 9000), W = 1000, H = 600, sc = 1, dpr = 1;
+  var tab = 'alive', touched = false, rings = [], seen = {}, fruitSeen = {}, hover = -1, soilCv = null, queue = [];
+  if (/[?&]seed=(\d+)/.test(location.search)) seed = +RegExp.$1;
+
+  function emit(m) { if (node) node.port.postMessage(m); else queue.push(m); }
+  function par() { return { t: 'par', rt: +$('sCarry').value, damp: +$('sDamp').value, tip: 0.8 }; }
+  function fresh(preset, arg) {
+    seen = {}; fruitSeen = {}; rings = [];
+    if (!col) col = new MycelColony({ sr: ac ? ac.sampleRate : 48000, maxSegs: MAXS, block: 512, seed: seed, W: W, H: H, emit: emit });
+    col.sr = ac ? ac.sampleRate : 48000; col.maxSegs = W < 1000 ? 110 : MAXS;
+    col.reset(seed, W, H, preset, arg); emit(par());
+    col.hold = !!preset || held;
+  }
+  var held = false;
+
+  // ── sound ────────────────────────────────────────────────────────────────
+  function knockBuf() {
+    var n = Math.round(0.09 * ac.sampleRate), b = ac.createBuffer(1, n, ac.sampleRate), d = b.getChannelData(0), i, t;
+    for (i = 0; i < n; i++) { t = i / ac.sampleRate; d[i] = 0.55 * Math.sin(6.283 * 640 * t) * Math.exp(-t * 70) + 0.3 * Math.sin(6.283 * 1510 * t) * Math.exp(-t * 110) + (i < 96 ? (Math.random() * 2 - 1) * 0.5 * (1 - i / 96) : 0); }
+    return b;
+  }
+  function stringsBuf() {
+    var sr = ac.sampleRate, secs = 7.2, n = Math.round(secs * sr), b = ac.createBuffer(1, n, sr), x = b.getChannelData(0), r = mycelRng(4);
+    var notes = [146.8, 220, 174.6, 293.7, 196, 261.6, 220, 146.8, 349.2], when = [0, 0.6, 1.2, 1.5, 2.4, 3.0, 3.3, 4.2, 4.8], k, i;
+    for (k = 0; k < notes.length; k++) {
+      var P = Math.round(sr / notes[k]), dl = new Float32Array(P), p = 0, prev = 0, o = Math.round(when[k] * sr), m = Math.min(n - o, Math.round(1.1 * sr)), v;
+      for (i = 0; i < P; i++) dl[i] = r() * 2 - 1;
+      for (i = 0; i < m; i++) { v = dl[p]; dl[p] = 0.994 * 0.5 * (v + prev); prev = v; p = (p + 1) % P; x[o + i] += 0.38 * v * Math.min(1, (m - i) / 2000); }
+    }
+    return b;
+  }
+  function rainBuf() {
+    var sr = ac.sampleRate, secs = 8, n = Math.round(secs * sr), b = ac.createBuffer(1, n, sr), x = b.getChannelData(0), r = mycelRng(9), k, i;
+    for (k = 0; k < 64; k++) {
+      var o = Math.floor(r() * (n - 3000)), f = 900 + r() * r() * 5200, a = 0.12 + r() * r() * 0.5, len = Math.round(sr * (0.006 + r() * 0.02)), t;
+      for (i = 0; i < len; i++) { t = i / sr; x[o + i] += a * Math.sin(6.283 * f * t * (1 + 6 * t)) * Math.exp(-t * 260); }
+    }
+    return b;
+  }
+  var startP = null;
+  function start() {
+    if (startP) { if (ac.state !== 'running') ac.resume(); return startP; }
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC || !window.AudioWorkletNode) { $('msg').textContent = 'This browser has no AudioWorklet, so the dish cannot sound here.'; return Promise.reject(); }
+    ac = new AC();
+    var code = $('mycel-engine').textContent + '\nclass MycelProc extends AudioWorkletProcessor{constructor(){super();this.net=new MycelNet(sampleRate,' + MAXS + ');this.n=0;this.sp=new Float32Array(128);var s=this;this.port.onmessage=function(e){s.net.msg(e.data)};}' +
+      'process(i,o){var x=i[0]&&i[0][0]?i[0][0]:null,L=o[0][0],R=o[0][1]||this.sp;this.net.process(x,L,R,L.length);this.n+=L.length;if(this.n>=512){this.n=0;var e=this.net.en.slice();this.net.en.fill(0);this.port.postMessage(e,[e.buffer]);}return true;}}registerProcessor("mycel",MycelProc);';
+    var url = URL.createObjectURL(new Blob([code], { type: 'application/javascript' }));
+    startP = ac.audioWorklet.addModule(url).then(function () {
+      node = new AudioWorkletNode(ac, 'mycel', { numberOfInputs: 1, numberOfOutputs: 1, outputChannelCount: [2], channelCount: 1, channelCountMode: 'explicit' });
+      node.port.onmessage = function (e) { if (col) { col.feed(e.data); onEvents(); } };
+      var comp = ac.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 12; comp.attack.value = 0.003; comp.release.value = 0.2;
+      srcBus = ac.createGain(); wet = ac.createGain(); dry = ac.createGain();
+      srcBus.connect(node); node.connect(wet); wet.connect(comp); srcBus.connect(dry); dry.connect(comp); comp.connect(ac.destination);
+      queue = []; var p = tab === 'alive' ? null : tab; fresh(p === 'grow' ? null : p, p === 'thread' ? +$('sLen').value : undefined); gains();
+      if (ac.state !== 'running') ac.resume();
+      $('msg').textContent = 'Your own sound stays in this page; it is not sent anywhere.';
+    }, function () { $('msg').textContent = 'The sound engine did not load in this browser.'; });
+    return startP;
+  }
+  function gains() {
+    if (!ac) return; var rt = +$('sCarry').value, g = (col && col.preset ? 1.2 : 3.5) / Math.sqrt(rt / 3); g = Math.max(0.8, Math.min(6, g));
+    wet.gain.setTargetAtTime(g, ac.currentTime, 0.03); dry.gain.setTargetAtTime(+$('sDry').value, ac.currentTime, 0.03);
+  }
+  function knock(at) {
+    start().then(function () {
+      if (at != null) col.setIn(at);
+      if (!bufs.knock) bufs.knock = knockBuf();
+      var s = ac.createBufferSource(); s.buffer = bufs.knock; s.connect(srcBus); s.start();
+      var n = col.nodes[col.inNode]; if (n) rings.push({ x: n.x, y: n.y, t: performance.now() });
+    }, function () {});
+  }
+  function quiet() { if (cur) { try { cur.stop(); } catch (e) {} cur = null; } curName = ''; marks(); }
+  function loop(name, make) {
+    start().then(function () {
+      var same = curName === name; quiet(); if (same) return;
+      if (!bufs[name]) bufs[name] = make();
+      cur = ac.createBufferSource(); cur.buffer = bufs[name]; cur.loop = true; cur.connect(srcBus); cur.start(); curName = name; marks();
+    }, function () {});
+  }
+  function marks() { $('bStrings').classList.toggle('on', curName === 'strings'); $('bRain').classList.toggle('on', curName === 'rain'); $('lFile').classList.toggle('on', curName === 'file'); }
+  function onEvents() {
+    var ev = col.events, i, n; if (!ev.length) return;
+    for (i = 0; i < ev.length; i++) { n = col.nodes[ev[i].n]; if (n && ev[i].k === 'fuse') rings.push({ x: n.x, y: n.y, t: performance.now(), fuse: true }); }
+    col.events = [];
+  }
+
+  // ── the dish ─────────────────────────────────────────────────────────────
+  function size() {
+    var cw = cv.parentNode.clientWidth; dpr = Math.min(2, window.devicePixelRatio || 1);
+    var narrow = cw < 560, nW = narrow ? 720 : 1000, nH = narrow ? 760 : 600;
+    var changed = nW !== W || nH !== H; W = nW; H = nH; sc = cw / W;
+    cv.style.height = Math.round(cw * H / W) + 'px'; cv.width = Math.round(cw * dpr); cv.height = Math.round(cw * H / W * dpr);
+    soilCv = document.createElement('canvas'); soilCv.width = cv.width; soilCv.height = cv.height;
+    var g = soilCv.getContext('2d'), r = mycelRng(77), i, x, y, a;
+    g.fillStyle = '#08080c'; g.fillRect(0, 0, soilCv.width, soilCv.height);
+    for (i = 0; i < soilCv.width * soilCv.height / 260; i++) { x = r() * soilCv.width; y = r() * soilCv.height; a = r(); g.fillStyle = a < 0.5 ? 'rgba(120,96,70,' + (0.05 + a * 0.14) + ')' : 'rgba(60,60,84,' + (0.05 + a * 0.1) + ')'; g.fillRect(x, y, 1 + r() * 2.2 * dpr, 1 + r() * 2.2 * dpr); }
+    var vg = g.createRadialGradient(soilCv.width / 2, soilCv.height / 2, soilCv.height * 0.2, soilCv.width / 2, soilCv.height / 2, soilCv.width * 0.75);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.55)'); g.fillStyle = vg; g.fillRect(0, 0, soilCv.width, soilCv.height);
+    return changed;
+  }
+  function lvl(e) { var v = (Math.log(e + 1e-14) / 2.302585 + 6.5) / 5; return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function bend(id) { var h = Math.sin(id * 12.9898) * 43758.5453; return (h - Math.floor(h) - 0.5) * 0.36; }
+  function draw() {
+    requestAnimationFrame(draw);
+    if (!col) return;
+    var now = performance.now(), k = sc * dpr, i, s, A, B, gi, mx, my, bx, by, ex, ey, lv, wd, n;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(soilCv, 0, 0); ctx.lineCap = 'round';
+    for (var pass = 0; pass < 2; pass++) {
+      ctx.globalCompositeOperation = pass ? 'lighter' : 'source-over';
+      for (i = 0; i < col.segs.length; i++) {
+        s = col.segs[i]; if (!s) { seen[i] = 0; continue; }
+        if (!seen[i] || seen[i].b !== s.born) seen[i] = { b: s.born, t: col.time < 0.05 && !touched ? now - 1000 : now };
+        gi = Math.min(1, (now - seen[i].t) / 420); A = col.nodes[s.a]; B = col.nodes[s.b]; if (!A || !B) continue;
+        bx = A.x * k; by = A.y * k; ex = (A.x + (B.x - A.x) * gi) * k; ey = (A.y + (B.y - A.y) * gi) * k;
+        mx = (bx + ex) / 2 - (ey - by) * bend(i); my = (by + ey) / 2 + (ex - bx) * bend(i);
+        wd = Math.max(0.9, (0.55 + 0.7 * s.y) * k * 1.15);
+        if (!pass) { ctx.strokeStyle = 'rgba(217,211,192,' + (0.42 + 0.1 * s.y) + ')'; ctx.lineWidth = wd; }
+        else { lv = lvl(s.e); if (lv < 0.03) continue; ctx.strokeStyle = 'rgba(232,170,74,' + (0.75 * lv * lv) + ')'; ctx.lineWidth = wd * (1.6 + 2.6 * lv); }
+        ctx.beginPath(); ctx.moveTo(bx, by); ctx.quadraticCurveTo(mx, my, ex, ey); ctx.stroke();
+      }
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    for (i = 0; i < col.nodes.length; i++) {            // growing tips: a wet bead
+      n = col.nodes[i]; if (!n || n.segs.length !== 1 || !n.tip || n.dormant || col.hold) continue;
+      if (seen[n.segs[0]] && now - seen[n.segs[0]].t < 420) continue;
+      ctx.fillStyle = 'rgba(240,236,220,' + (0.55 + 0.35 * Math.sin(now / 300 + i)) + ')'; ctx.beginPath(); ctx.arc(n.x * k, n.y * k, 2.1 * k * 1.2, 0, 6.283); ctx.fill();
+    }
+    n = col.nodes[0];                                   // the spore
+    if (n) { var sg = ctx.createRadialGradient(n.x * k, n.y * k, 0, n.x * k, n.y * k, 11 * k); sg.addColorStop(0, 'rgba(244,238,220,.95)'); sg.addColorStop(0.55, 'rgba(214,196,160,.75)'); sg.addColorStop(1, 'rgba(214,196,160,0)'); ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(n.x * k, n.y * k, 11 * k, 0, 6.283); ctx.fill(); }
+    for (i = 0; i < col.fruit.length; i++) {            // fruiting bodies, seen from the side, swelling with what they give out
+      var f = col.fruit[i]; n = col.nodes[f.n]; if (!n) continue; if (!fruitSeen[f.n + ':' + f.born]) fruitSeen[f.n + ':' + f.born] = now;
+      var age = Math.min(1, (now - fruitSeen[f.n + ':' + f.born]) / 1500), e = 0, j; for (j = 0; j < n.segs.length; j++) if (col.segs[n.segs[j]]) e += col.segs[n.segs[j]].e;
+      lv = lvl(e / Math.max(1, n.segs.length)); var u = age * (1 + 0.22 * lv) * k * 1.25, x = n.x * k, y = n.y * k;
+      var hg = ctx.createRadialGradient(x, y - 18 * u, 2 * u, x, y - 18 * u, 30 * u); hg.addColorStop(0, 'rgba(232,170,74,' + (0.05 + 0.5 * lv) + ')'); hg.addColorStop(1, 'rgba(232,170,74,0)'); ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(x, y - 18 * u, 30 * u, 0, 6.283); ctx.fill();
+      ctx.strokeStyle = 'rgba(230,214,196,.95)'; ctx.lineWidth = 4.2 * u; ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + 2.5 * u, y - 9 * u, x, y - 18 * u); ctx.stroke();
+      ctx.fillStyle = '#e6c9b8'; ctx.beginPath(); ctx.moveTo(x - 14 * u, y - 16 * u); ctx.bezierCurveTo(x - 13 * u, y - 31 * u, x + 13 * u, y - 31 * u, x + 14 * u, y - 16 * u); ctx.quadraticCurveTo(x, y - 12.5 * u, x - 14 * u, y - 16 * u); ctx.fill();
+      ctx.strokeStyle = 'rgba(194,50,74,.75)'; ctx.lineWidth = 1 * u; for (j = -3; j <= 3; j++) { ctx.beginPath(); ctx.moveTo(x + j * 3.6 * u, y - 15.6 * u); ctx.lineTo(x + j * 2.4 * u, y - 13.6 * u); ctx.stroke(); }
+    }
+    n = col.nodes[col.inNode];                           // where the sound goes in
+    if (n) { ctx.strokeStyle = 'rgba(232,184,74,.95)'; ctx.lineWidth = 1.6 * dpr; ctx.beginPath(); ctx.arc(n.x * k, n.y * k, (12 + 1.5 * Math.sin(now / 400)) * Math.max(k, dpr * 0.8), 0, 6.283); ctx.stroke(); }
+    if (hover >= 0 && col.nodes[hover] && hover !== col.inNode) { n = col.nodes[hover]; ctx.strokeStyle = 'rgba(232,184,74,.4)'; ctx.lineWidth = 1 * dpr; ctx.beginPath(); ctx.arc(n.x * k, n.y * k, 9 * Math.max(k, dpr * 0.8), 0, 6.283); ctx.stroke(); }
+    for (i = rings.length - 1; i >= 0; i--) {
+      var rg = rings[i], a = (now - rg.t) / (rg.fuse ? 700 : 900); if (a > 1) { rings.splice(i, 1); continue; }
+      ctx.strokeStyle = rg.fuse ? 'rgba(160,130,255,' + (1 - a) + ')' : 'rgba(232,184,74,' + (1 - a) + ')'; ctx.lineWidth = (rg.fuse ? 1.4 : 2) * dpr; ctx.beginPath(); ctx.arc(rg.x * k, rg.y * k, (rg.fuse ? 6 + 16 * a : 10 + 70 * a) * k, 0, 6.283); ctx.stroke();
+    }
+    if (!touched) { ctx.fillStyle = 'rgba(232,232,240,.92)'; ctx.font = Math.round(Math.max(17, 24 * sc) * dpr) + 'px Georgia, serif'; ctx.textAlign = 'center'; ctx.fillText('Knock on it. Anywhere.', cv.width / 2, cv.height - 30 * dpr); }
+    if (now - lastStatus > 200) { lastStatus = now; status(); }
+  }
+  var lastStatus = 0;
+  function status() {
+    var c = col.counts(), tot = 0, i; for (i = 0; i < col.segs.length; i++) if (col.segs[i]) tot += col.segs[i].px;
+    var t = '<b>' + c.threads + '</b> thread' + (c.threads === 1 ? '' : 's') + ' · <b>' + c.loops + '</b> loop' + (c.loops === 1 ? '' : 's') + ' · <b>' + c.ends + '</b> dead end' + (c.ends === 1 ? '' : 's');
+    if (!col.preset) t += ' · <b>' + c.tips + '</b> still growing · <b>' + c.fruit + '</b> fruiting bod' + (c.fruit === 1 ? 'y' : 'ies');
+    t += ' · end to end, <b>' + (tot * col.msPerPx / 1000).toFixed(2) + ' s</b> of thread';
+    if (!col.preset && c.threads >= col.maxSegs) t += ' · the dish is full';
+    $('status').innerHTML = t;
+  }
+
+  // ── hands ────────────────────────────────────────────────────────────────
+  function at(ev) { var r = cv.getBoundingClientRect(); return col.nearest((ev.clientX - r.left) / sc, (ev.clientY - r.top) / sc); }
+  cv.addEventListener('click', function (ev) { touched = true; var n = at(ev); knock(n); });
+  cv.addEventListener('pointermove', function (ev) { hover = ev.pointerType === 'mouse' ? at(ev) : -1; });
+  cv.addEventListener('pointerleave', function () { hover = -1; });
+  $('bKnock').onclick = function () { touched = true; knock(null); };
+  $('bStrings').onclick = function () { touched = true; loop('strings', stringsBuf); };
+  $('bRain').onclick = function () { touched = true; loop('rain', rainBuf); };
+  $('bQuiet').onclick = quiet;
+  $('fFile').onchange = function () {
+    var f = this.files && this.files[0]; if (!f) return; touched = true;
+    start().then(function () { return f.arrayBuffer(); }).then(function (ab) { return ac.decodeAudioData(ab); }).then(function (b) {
+      bufs.file = b; curName = ''; loop('file', function () { return b; }); $('msg').textContent = 'Feeding it “' + f.name + '”, round and round. It stays in this page.';
+    }).catch(function () { $('msg').textContent = 'That file would not open as sound here.'; });
+  };
+  $('bFrost').onclick = function () { if (col.preset) return; var k = col.frost(); $('msg').textContent = k ? 'A frost: ' + k + ' dead end' + (k === 1 ? '' : 's') + ' died back. Knock, and hear what is left.' : 'Nothing left to kill: no dead ends.'; };
+  $('bHold').onclick = function () { held = !held; if (!col.preset) col.hold = held; this.classList.toggle('on', held); this.textContent = held ? 'let it grow' : 'hold it still'; };
+  $('bNew').onclick = function () { seed = 1 + Math.floor(Math.random() * 9000); setTab('alive', true); };
+  function sliders() {
+    $('vCarry').textContent = (+$('sCarry').value).toFixed(1) + ' s'; var d = +$('sDamp').value; $('vDamp').textContent = d < 0.1 ? 'dry' : d < 0.35 ? 'damp' : d < 0.55 ? 'wet' : 'sodden';
+    var y = +$('sDry').value; $('vDry').textContent = y < 0.02 ? 'off' : Math.round(y * 100) + '%';
+    emit(par()); gains();
+  }
+  ['sCarry', 'sDamp', 'sDry'].forEach(function (id) { $(id).addEventListener('input', sliders); });
+  function lenText() { var px = +$('sLen').value, sr = ac ? ac.sampleRate : 48000, L = Math.max(32, Math.round(px * 0.35 * sr / 1000)), ms = 2000 * L / sr; $('vLen').textContent = 'round trip ' + ms.toFixed(1) + ' ms · ' + (ms > 25 ? (1000 / ms).toFixed(1) + ' echoes a second' : 'a note near ' + Math.round(1000 / ms) + ' Hz'); }
+  var lenT = 0;
+  $('sLen').addEventListener('input', function () { lenText(); fresh('thread', +this.value); clearTimeout(lenT); if (ac) lenT = setTimeout(function () { knock(null); }, 120); });
+  function setTab(t, force) {
+    if (t === tab && !force) return; tab = t;
+    Array.prototype.forEach.call($('rail').children, function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === t); });
+    Array.prototype.forEach.call(document.querySelectorAll('.panel'), function (p) { p.hidden = p.getAttribute('data-panel') !== t; });
+    $('msg').textContent = 'Your own sound stays in this page; it is not sent anywhere.';
+    if (t === 'grow') { if (col.preset) fresh(null); return; }
+    fresh(t === 'alive' ? null : t, t === 'thread' ? +$('sLen').value : undefined);
+    if (t !== 'alive' && ac) setTimeout(function () { knock(null); }, 150);
+  }
+  $('rail').addEventListener('click', function (ev) { var t = ev.target.getAttribute && ev.target.getAttribute('data-tab'); if (t) { if (t !== 'alive' && t !== 'grow') touched = true; setTab(t, t === 'alive' && !!col.preset); } });
+
+  size(); fresh(null); sliders(); lenText(); requestAnimationFrame(draw);
+  var rsT = 0; window.addEventListener('resize', function () { clearTimeout(rsT); rsT = setTimeout(function () { if (size()) fresh(col.preset, col.preset === 'thread' ? +$('sLen').value : undefined); }, 150); });
+  window.__mycel = { col: function () { return col; }, seed: function () { return seed; } };
+})();
+</script>
+</body>
+</html>
