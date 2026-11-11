@@ -1,0 +1,2831 @@
+[
+ {
+  "entry": "1D Wavetable Scanning",
+  "dir": "1D Wavetable Scanning",
+  "pieces": [
+   {
+    "name": "switch or scan",
+    "faders": 2,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "which order is brightness",
+    "faders": 1,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Adopt the Craft, Author the Seam",
+  "dir": "Adopt the Craft, Author the Seam",
+  "pieces": [
+   {
+    "name": "where it stops being a groove",
+    "faders": 2,
+    "direct": false,
+    "buttons": 11,
+    "sound": true
+   },
+   {
+    "name": "match it by ear",
+    "faders": 5,
+    "direct": false,
+    "buttons": 27,
+    "sound": true
+   },
+   {
+    "name": "which one is the drummer",
+    "faders": 3,
+    "direct": false,
+    "buttons": 18,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Auditory Illusions",
+  "dir": "Auditory Illusions",
+  "pieces": [
+   {
+    "name": "two ears, two tunes",
+    "faders": 1,
+    "direct": false,
+    "buttons": 23,
+    "sound": true
+   },
+   {
+    "name": "the hiding place",
+    "faders": 2,
+    "direct": true,
+    "buttons": 12,
+    "sound": true
+   },
+   {
+    "name": "the risset rhythm",
+    "faders": 0,
+    "direct": true,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "the loop that sings",
+    "faders": 3,
+    "direct": false,
+    "buttons": 18,
+    "sound": true
+   },
+   {
+    "name": "the gap that jumps",
+    "faders": 2,
+    "direct": false,
+    "buttons": 19,
+    "sound": true
+   },
+   {
+    "name": "the gallop",
+    "faders": 2,
+    "direct": true,
+    "buttons": 12,
+    "sound": true
+   },
+   {
+    "name": "who rewrites whom",
+    "faders": 4,
+    "direct": false,
+    "buttons": 40,
+    "sound": true
+   },
+   {
+    "name": "behind the fence",
+    "faders": 2,
+    "direct": false,
+    "buttons": 15,
+    "sound": true
+   },
+   {
+    "name": "the barber pole and the stair",
+    "faders": 0,
+    "direct": true,
+    "buttons": 4,
+    "sound": true
+   },
+   {
+    "name": "the octave illusion",
+    "faders": 0,
+    "direct": false,
+    "buttons": 4,
+    "sound": true
+   },
+   {
+    "name": "binaural beats",
+    "faders": 4,
+    "direct": true,
+    "buttons": 29,
+    "sound": true
+   },
+   {
+    "name": "the seesaw",
+    "faders": 0,
+    "direct": true,
+    "buttons": 18,
+    "sound": true
+   },
+   {
+    "name": "precedence effect",
+    "faders": 2,
+    "direct": true,
+    "buttons": 23,
+    "sound": true
+   },
+   {
+    "name": "the talking socket",
+    "faders": 1,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   },
+   {
+    "name": "click into pitch",
+    "faders": 1,
+    "direct": true,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "the ghost in the gap",
+    "faders": 4,
+    "direct": false,
+    "buttons": 17,
+    "sound": true
+   },
+   {
+    "name": "the tritone vote",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "Huggins pitch",
+    "faders": 1,
+    "direct": false,
+    "buttons": 31,
+    "sound": true
+   },
+   {
+    "name": "beats and moiré",
+    "faders": 5,
+    "direct": false,
+    "buttons": 16,
+    "sound": true
+   },
+   {
+    "name": "the waterfall",
+    "faders": 3,
+    "direct": false,
+    "buttons": 16,
+    "sound": true
+   },
+   {
+    "name": "Franssen effect",
+    "faders": 2,
+    "direct": true,
+    "buttons": 16,
+    "sound": true
+   },
+   {
+    "name": "the ghost tone",
+    "faders": 4,
+    "direct": true,
+    "buttons": 20,
+    "sound": true
+   },
+   {
+    "name": "the missing fundamental",
+    "faders": 0,
+    "direct": false,
+    "buttons": 4,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Boundary-Crossing Instruments",
+  "dir": "Boundary-Crossing Instruments",
+  "pieces": [
+   {
+    "name": "ratio and slope",
+    "faders": 4,
+    "direct": false,
+    "buttons": 20,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Chebyshev is Fourier",
+  "dir": "Chebyshev is Fourier",
+  "pieces": [
+   {
+    "name": "nodes on the circle",
+    "faders": 1,
+    "direct": false,
+    "buttons": 5,
+    "sound": false
+   },
+   {
+    "name": "selection rules",
+    "faders": 0,
+    "direct": false,
+    "buttons": 18,
+    "sound": true
+   },
+   {
+    "name": "the drive",
+    "faders": 2,
+    "direct": true,
+    "buttons": 9,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "ControlNet as Topology",
+  "dir": "ControlNet as Topology",
+  "pieces": [
+   {
+    "name": "rough to fine",
+    "faders": 1,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   },
+   {
+    "name": "the landscape",
+    "faders": 5,
+    "direct": true,
+    "buttons": 4,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Compression ↔ Intimacy",
+  "dir": "Cross-Domain Resonances/Compression ↔ Intimacy",
+  "pieces": [
+   {
+    "name": "four knobs and the guard",
+    "faders": 1,
+    "direct": false,
+    "buttons": 4,
+    "sound": true
+   },
+   {
+    "name": "where is the singer",
+    "faders": 0,
+    "direct": false,
+    "buttons": 13,
+    "sound": true
+   },
+   {
+    "name": "does distance narrow a voice",
+    "faders": 1,
+    "direct": false,
+    "buttons": 12,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Dovetail Joint ↔ Counterpoint",
+  "dir": "Cross-Domain Resonances/Dovetail Joint ↔ Counterpoint",
+  "pieces": [
+   {
+    "name": "remove one voice",
+    "faders": 0,
+    "direct": false,
+    "buttons": 18,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Frequency Domain ↔ Perspective Shift",
+  "dir": "Cross-Domain Resonances/Frequency Domain ↔ Perspective Shift",
+  "pieces": [
+   {
+    "name": "one kick, two views",
+    "faders": 0,
+    "direct": false,
+    "buttons": 6,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Quantization ↔ Precision vs Flow",
+  "dir": "Cross-Domain Resonances/Quantization ↔ Precision vs Flow",
+  "pieces": [
+   {
+    "name": "mistake or feel",
+    "faders": 1,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   },
+   {
+    "name": "the four tracks",
+    "faders": 2,
+    "direct": false,
+    "buttons": 14,
+    "sound": true
+   },
+   {
+    "name": "swing and template",
+    "faders": 1,
+    "direct": false,
+    "buttons": 16,
+    "sound": true
+   },
+   {
+    "name": "to what resolution",
+    "faders": 1,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Reverb ↔ Space-Time",
+  "dir": "Cross-Domain Resonances/Reverb ↔ Space-Time",
+  "pieces": [
+   {
+    "name": "one clap, one room",
+    "faders": 4,
+    "direct": true,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "where are you",
+    "faders": 0,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   },
+   {
+    "name": "sitting in a box",
+    "faders": 1,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "a delay becomes a place",
+    "faders": 1,
+    "direct": false,
+    "buttons": 4,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Saturation ↔ Richness",
+  "dir": "Cross-Domain Resonances/Saturation ↔ Richness",
+  "pieces": [
+   {
+    "name": "four versions, blind",
+    "faders": 0,
+    "direct": false,
+    "buttons": 19,
+    "sound": true
+   },
+   {
+    "name": "the bend and the lean",
+    "faders": 2,
+    "direct": false,
+    "buttons": 17,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Sidechain ↔ Conversation",
+  "dir": "Cross-Domain Resonances/Sidechain ↔ Conversation",
+  "pieces": [
+   {
+    "name": "mud into dialogue",
+    "faders": 4,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "under the kick",
+    "faders": 0,
+    "direct": false,
+    "buttons": 11,
+    "sound": true
+   },
+   {
+    "name": "who yields when",
+    "faders": 4,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Synthesis ↔ Emergence",
+  "dir": "Cross-Domain Resonances/Synthesis ↔ Emergence",
+  "pieces": [
+   {
+    "name": "two sines",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "predicted beside measured",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "DSP in Looping Dimensions",
+  "dir": "DSP in Looping Dimensions",
+  "pieces": [
+   {
+    "name": "snap or slide",
+    "faders": 1,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   },
+   {
+    "name": "two combs",
+    "faders": 0,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   },
+   {
+    "name": "listen longer",
+    "faders": 1,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Differential Equations",
+  "dir": "Differential Equations",
+  "pieces": [
+   {
+    "name": "three regimes",
+    "faders": 2,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "one step at a time",
+    "faders": 3,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Dispersion Table",
+  "dir": "Dispersion Table",
+  "pieces": [
+   {
+    "name": "two knobs, one loop",
+    "faders": 2,
+    "direct": true,
+    "buttons": 16,
+    "sound": true
+   },
+   {
+    "name": "the table and the loop",
+    "faders": 0,
+    "direct": false,
+    "buttons": 22,
+    "sound": true
+   },
+   {
+    "name": "where the partials land",
+    "faders": 4,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "the warp knob",
+    "faders": 4,
+    "direct": false,
+    "buttons": 12,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Dispersion",
+  "dir": "Dispersion",
+  "pieces": [
+   {
+    "name": "what spreads, and which way",
+    "faders": 1,
+    "direct": false,
+    "buttons": 6,
+    "sound": true
+   },
+   {
+    "name": "the recipe, built",
+    "faders": 2,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Dissolutions",
+  "dir": "Dissolutions",
+  "pieces": [
+   {
+    "name": "the seam",
+    "faders": 2,
+    "direct": false,
+    "buttons": 9,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Embeddings as Relational Meaning",
+  "dir": "Embeddings as Relational Meaning",
+  "pieces": [
+   {
+    "name": "directions",
+    "faders": 0,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   },
+   {
+    "name": "regions",
+    "faders": 1,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Exponential Decay Curvature",
+  "dir": "Exponential Decay Curvature",
+  "pieces": [
+   {
+    "name": "the RC contour",
+    "faders": 1,
+    "direct": true,
+    "buttons": 8,
+    "sound": true
+   },
+   {
+    "name": "the heard rise",
+    "faders": 1,
+    "direct": false,
+    "buttons": 9,
+    "sound": true
+   },
+   {
+    "name": "curvature is timbre",
+    "faders": 2,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "the straight line",
+    "faders": 2,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "FM Synthesis",
+  "dir": "FM Synthesis",
+  "pieces": [
+   {
+    "name": "algorithms",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "ratios",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "index",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "staged patch",
+    "faders": 0,
+    "direct": true,
+    "buttons": 4,
+    "sound": true
+   },
+   {
+    "name": "feedback",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Flocking",
+  "dir": "Flocking",
+  "pieces": [
+   {
+    "name": "three rules",
+    "faders": 0,
+    "direct": false,
+    "buttons": 19,
+    "sound": false
+   },
+   {
+    "name": "the threshold",
+    "faders": 2,
+    "direct": false,
+    "buttons": 15,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Floquet Theory",
+  "dir": "Floquet Theory",
+  "pieces": [
+   {
+    "name": "three ways out",
+    "faders": 6,
+    "direct": false,
+    "buttons": 27,
+    "sound": true
+   },
+   {
+    "name": "same equation twice",
+    "faders": 6,
+    "direct": false,
+    "buttons": 10,
+    "sound": false
+   },
+   {
+    "name": "standing on a shake",
+    "faders": 2,
+    "direct": false,
+    "buttons": 16,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "GenAI Camera",
+  "dir": "GenAI Camera",
+  "pieces": [
+   {
+    "name": "the costume dial",
+    "faders": 1,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   },
+   {
+    "name": "thin plate, thick plate",
+    "faders": 2,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   },
+   {
+    "name": "depth auto-range",
+    "faders": 0,
+    "direct": true,
+    "buttons": 2,
+    "sound": false
+   },
+   {
+    "name": "segment or inpaint",
+    "faders": 0,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Granular Synthesis",
+  "dir": "Granular Synthesis",
+  "pieces": [
+   {
+    "name": "atom and material",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "capture",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "three regimes",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Graphic Storytelling",
+  "dir": "Graphic Storytelling",
+  "pieces": [
+   {
+    "name": "time is space",
+    "faders": 3,
+    "direct": true,
+    "buttons": 11,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Hand-Drawn 3D Look",
+  "dir": "Hand-Drawn 3D Look",
+  "pieces": [
+   {
+    "name": "the seam is a redraw",
+    "faders": 2,
+    "direct": false,
+    "buttons": 15,
+    "sound": false
+   },
+   {
+    "name": "the boil, measured",
+    "faders": 3,
+    "direct": false,
+    "buttons": 20,
+    "sound": false
+   },
+   {
+    "name": "one config away",
+    "faders": 1,
+    "direct": false,
+    "buttons": 10,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Harmonicity and Inharmonicity",
+  "dir": "Harmonicity and Inharmonicity",
+  "pieces": [
+   {
+    "name": "six against forty",
+    "faders": 1,
+    "direct": false,
+    "buttons": 11,
+    "sound": true
+   },
+   {
+    "name": "frustration",
+    "faders": 2,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Hyperdimensional Prism",
+  "dir": "Hyperdimensional Prism",
+  "pieces": [
+   {
+    "name": "angle or object",
+    "faders": 2,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "one object or four",
+    "faders": 2,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Kuramoto Coupling",
+  "dir": "Kuramoto Coupling",
+  "pieces": [
+   {
+    "name": "ensemble",
+    "faders": 2,
+    "direct": false,
+    "buttons": 4,
+    "sound": true
+   },
+   {
+    "name": "waveform-locking",
+    "faders": 2,
+    "direct": false,
+    "buttons": 6,
+    "sound": true
+   },
+   {
+    "name": "stubbornness",
+    "faders": 4,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Language as a Tonal Medium",
+  "dir": "Language as a Tonal Medium",
+  "pieces": []
+ },
+ {
+  "entry": "Latent Error",
+  "dir": "Latent Error",
+  "pieces": [
+   {
+    "name": "the room that settles short",
+    "faders": 4,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   },
+   {
+    "name": "holes that line up",
+    "faders": 3,
+    "direct": false,
+    "buttons": 8,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Leverage Points Framework",
+  "dir": "Leverage Points Framework",
+  "pieces": [
+   {
+    "name": "same effort three places",
+    "faders": 3,
+    "direct": false,
+    "buttons": 10,
+    "sound": false
+   },
+   {
+    "name": "who is steering",
+    "faders": 2,
+    "direct": false,
+    "buttons": 9,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Linear Predictive Coding",
+  "dir": "Linear Predictive Coding",
+  "pieces": [
+   {
+    "name": "the residual swap",
+    "faders": 1,
+    "direct": false,
+    "buttons": 31,
+    "sound": true
+   },
+   {
+    "name": "how much is left over",
+    "faders": 3,
+    "direct": false,
+    "buttons": 19,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Logarithmic Interface Scaling",
+  "dir": "Logarithmic Interface Scaling",
+  "pieces": [
+   {
+    "name": "the symmetry test",
+    "faders": 0,
+    "direct": false,
+    "buttons": 17,
+    "sound": false
+   },
+   {
+    "name": "double and halve",
+    "faders": 0,
+    "direct": true,
+    "buttons": 7,
+    "sound": false
+   },
+   {
+    "name": "cutoff by ear",
+    "faders": 0,
+    "direct": true,
+    "buttons": 11,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Mathieu Equation",
+  "dir": "Mathieu Equation",
+  "pieces": [
+   {
+    "name": "breathing spring",
+    "faders": 4,
+    "direct": false,
+    "buttons": 6,
+    "sound": true
+   },
+   {
+    "name": "two tongues",
+    "faders": 4,
+    "direct": false,
+    "buttons": 9,
+    "sound": true
+   },
+   {
+    "name": "strutt walk",
+    "faders": 3,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Move the Ink, Don't Redraw It",
+  "dir": "Move the Ink, Don't Redraw It",
+  "pieces": [
+   {
+    "name": "where the warp folds",
+    "faders": 2,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   },
+   {
+    "name": "move it or redraw it",
+    "faders": 8,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   },
+   {
+    "name": "one grain",
+    "faders": 0,
+    "direct": false,
+    "buttons": 5,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Ohm's Law",
+  "dir": "Ohm's Law",
+  "pieces": [
+   {
+    "name": "lock one",
+    "faders": 2,
+    "direct": false,
+    "buttons": 7,
+    "sound": false
+   },
+   {
+    "name": "four rooms",
+    "faders": 2,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Palace Conatus",
+  "dir": "Palace Conatus",
+  "pieces": [
+   {
+    "name": "drifting with great energy",
+    "faders": 4,
+    "direct": false,
+    "buttons": 3,
+    "sound": false
+   },
+   {
+    "name": "whoever arrives next",
+    "faders": 3,
+    "direct": false,
+    "buttons": 3,
+    "sound": false
+   },
+   {
+    "name": "in phase, not in agreement",
+    "faders": 6,
+    "direct": false,
+    "buttons": 5,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Agent Wellbeing",
+  "dir": "Palace development/Agent Wellbeing",
+  "pieces": [
+   {
+    "name": "blind sort walked up",
+    "faders": 0,
+    "direct": false,
+    "buttons": 8,
+    "sound": false
+   },
+   {
+    "name": "the one number",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   },
+   {
+    "name": "five dials one lamp",
+    "faders": 2,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Lossy Compression with Intent Alignment",
+  "dir": "Palace development/Lossy Compression with Intent Alignment",
+  "pieces": [
+   {
+    "name": "the type and the label",
+    "faders": 0,
+    "direct": false,
+    "buttons": 5,
+    "sound": false
+   },
+   {
+    "name": "same bits, two decoders",
+    "faders": 1,
+    "direct": false,
+    "buttons": 20,
+    "sound": true
+   },
+   {
+    "name": "same bits, two pictures",
+    "faders": 0,
+    "direct": false,
+    "buttons": 10,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Palace as Context Injection System",
+  "dir": "Palace development/Palace as Context Injection System",
+  "pieces": [
+   {
+    "name": "the order test",
+    "faders": 1,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   },
+   {
+    "name": "two levers",
+    "faders": 1,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Pheromone Trail",
+  "dir": "Palace development/Pheromone Trail",
+  "pieces": [
+   {
+    "name": "a trail no one walks",
+    "faders": 3,
+    "direct": false,
+    "buttons": 11,
+    "sound": false
+   },
+   {
+    "name": "the colony clusters",
+    "faders": 4,
+    "direct": false,
+    "buttons": 9,
+    "sound": false
+   },
+   {
+    "name": "too strong",
+    "faders": 3,
+    "direct": false,
+    "buttons": 9,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Parametric Resonance",
+  "dir": "Parametric Resonance",
+  "pieces": [
+   {
+    "name": "the pumped swing",
+    "faders": 0,
+    "direct": false,
+    "buttons": 24,
+    "sound": false
+   },
+   {
+    "name": "with the ring, against it",
+    "faders": 3,
+    "direct": false,
+    "buttons": 20,
+    "sound": true
+   },
+   {
+    "name": "the threshold heard",
+    "faders": 2,
+    "direct": false,
+    "buttons": 18,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Agnes Martin",
+  "dir": "People/Agnes Martin",
+  "pieces": [
+   {
+    "name": "the grid holds still",
+    "faders": 2,
+    "direct": false,
+    "buttons": 9,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Brian Eno",
+  "dir": "People/Brian Eno",
+  "pieces": [
+   {
+    "name": "the frame, counted",
+    "faders": 6,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   },
+   {
+    "name": "loops of different lengths",
+    "faders": 5,
+    "direct": false,
+    "buttons": 20,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Buckminster Fuller",
+  "dir": "People/Buckminster Fuller",
+  "pieces": [
+   {
+    "name": "trimtab",
+    "faders": 4,
+    "direct": false,
+    "buttons": 5,
+    "sound": false
+   },
+   {
+    "name": "no brake",
+    "faders": 4,
+    "direct": false,
+    "buttons": 5,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Phase Reduction",
+  "dir": "Phase Reduction",
+  "pieces": [
+   {
+    "name": "the shadow beside the pair",
+    "faders": 6,
+    "direct": false,
+    "buttons": 14,
+    "sound": true
+   },
+   {
+    "name": "two clocks on one beam",
+    "faders": 6,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "the kick that stays",
+    "faders": 5,
+    "direct": false,
+    "buttons": 13,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Photonic Time Crystals",
+  "dir": "Photonic Time Crystals",
+  "pieces": [
+   {
+    "name": "a mirror in time",
+    "faders": 2,
+    "direct": false,
+    "buttons": 17,
+    "sound": true
+   },
+   {
+    "name": "a gap in momentum",
+    "faders": 7,
+    "direct": false,
+    "buttons": 19,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Playful Interface Design",
+  "dir": "Playful Interface Design",
+  "pieces": [
+   {
+    "name": "legible before lovely",
+    "faders": 2,
+    "direct": false,
+    "buttons": 18,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Progressive Staging",
+  "dir": "Progressive Staging",
+  "pieces": [
+   {
+    "name": "the leak at its stop",
+    "faders": 2,
+    "direct": false,
+    "buttons": 15,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "2D Torus Wavetable Synthesizer",
+  "dir": "Projects/2D Torus Wavetable Synthesizer",
+  "pieces": [
+   {
+    "name": "the ratio gate",
+    "faders": 3,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   },
+   {
+    "name": "surfaces and morphs",
+    "faders": 1,
+    "direct": false,
+    "buttons": 6,
+    "sound": true
+   },
+   {
+    "name": "the RMS dip",
+    "faders": 1,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Action Potential Oscillator",
+  "dir": "Projects/Action Potential Oscillator",
+  "pieces": [
+   {
+    "name": "crowd",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "four stages",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Bayesian Granular Synthesizer",
+  "dir": "Projects/Bayesian Granular Synthesizer",
+  "pieces": [
+   {
+    "name": "prior to belief",
+    "faders": 1,
+    "direct": false,
+    "buttons": 16,
+    "sound": true
+   },
+   {
+    "name": "one e, many grains",
+    "faders": 2,
+    "direct": false,
+    "buttons": 12,
+    "sound": true
+   },
+   {
+    "name": "equal energy",
+    "faders": 2,
+    "direct": false,
+    "buttons": 12,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Bessel Functions in Synthesis",
+  "dir": "Projects/Bessel Functions in Synthesis",
+  "pieces": [
+   {
+    "name": "order as a knob",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "carrier null",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "drum head",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Biomechanical Synthesis",
+  "dir": "Projects/Biomechanical Synthesis",
+  "pieces": [
+   {
+    "name": "two faces",
+    "faders": 2,
+    "direct": false,
+    "buttons": 9,
+    "sound": true
+   },
+   {
+    "name": "negative space",
+    "faders": 2,
+    "direct": false,
+    "buttons": 9,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Blood Compressor",
+  "dir": "Projects/Blood Compressor",
+  "pieces": [
+   {
+    "name": "attack floor",
+    "faders": 1,
+    "direct": false,
+    "buttons": 11,
+    "sound": true
+   },
+   {
+    "name": "the stressed body",
+    "faders": 3,
+    "direct": false,
+    "buttons": 9,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Categorizing Inharmonicity",
+  "dir": "Projects/Categorizing Inharmonicity",
+  "pieces": [
+   {
+    "name": "phase loop",
+    "faders": 6,
+    "direct": false,
+    "buttons": 11,
+    "sound": true
+   },
+   {
+    "name": "threshold",
+    "faders": 2,
+    "direct": false,
+    "buttons": 12,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Compressor Design",
+  "dir": "Projects/Compressor Design",
+  "pieces": [
+   {
+    "name": "one ring two clocks",
+    "faders": 1,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   },
+   {
+    "name": "the knee in the spectrum",
+    "faders": 2,
+    "direct": false,
+    "buttons": 13,
+    "sound": true
+   },
+   {
+    "name": "the window you can hear",
+    "faders": 1,
+    "direct": false,
+    "buttons": 13,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Crystal Sonification Reference",
+  "dir": "Projects/Crystal Synthesizer/Crystal Sonification Reference",
+  "pieces": [
+   {
+    "name": "only ratios",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "the intervals named",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "where is the physics",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "crystal to glass",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Crystal Synthesizer",
+  "dir": "Projects/Crystal Synthesizer",
+  "pieces": [
+   {
+    "name": "strike the seven",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "which phonons are fast",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Cycle 5 Explorer",
+  "dir": "Projects/Cycle 5 Explorer",
+  "pieces": [
+   {
+    "name": "the window",
+    "faders": 0,
+    "direct": false,
+    "buttons": 14,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Floquet Time-Modulated Loops",
+  "dir": "Projects/Floquet Time-Modulated Loops",
+  "pieces": [
+   {
+    "name": "multipliers",
+    "faders": 5,
+    "direct": false,
+    "buttons": 12,
+    "sound": true
+   },
+   {
+    "name": "threshold",
+    "faders": 2,
+    "direct": false,
+    "buttons": 9,
+    "sound": true
+   },
+   {
+    "name": "strutt map",
+    "faders": 3,
+    "direct": true,
+    "buttons": 20,
+    "sound": true
+   },
+   {
+    "name": "sideband ladder",
+    "faders": 1,
+    "direct": false,
+    "buttons": 9,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Frequency-Time Duality",
+  "dir": "Projects/Frequency-Time Duality",
+  "pieces": []
+ },
+ {
+  "entry": "Generative Preset Development",
+  "dir": "Projects/Generative Preset Development",
+  "pieces": [
+   {
+    "name": "where the fences sit",
+    "faders": 0,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Generative Wavetable Libraries",
+  "dir": "Projects/Generative Wavetable Libraries",
+  "pieces": [
+   {
+    "name": "the crystal knob",
+    "faders": 1,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   },
+   {
+    "name": "line up or not",
+    "faders": 2,
+    "direct": false,
+    "buttons": 16,
+    "sound": true
+   },
+   {
+    "name": "brighter all the way",
+    "faders": 1,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Haptic Handwheel",
+  "dir": "Projects/Haptic Handwheel",
+  "pieces": [
+   {
+    "name": "a stiff spring down a wire",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   },
+   {
+    "name": "the struck spring",
+    "faders": 0,
+    "direct": true,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "two parts or one",
+    "faders": 0,
+    "direct": true,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Inharmonic Wavetable Synthesis",
+  "dir": "Projects/Inharmonic Wavetable Synthesis",
+  "pieces": [
+   {
+    "name": "two ways to settle",
+    "faders": 0,
+    "direct": false,
+    "buttons": 4,
+    "sound": true
+   },
+   {
+    "name": "the bundle of lines",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "bend the line",
+    "faders": 0,
+    "direct": true,
+    "buttons": 3,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Metric Modulation",
+  "dir": "Projects/Metric Modulation",
+  "pieces": [
+   {
+    "name": "the same hits, a new beat",
+    "faders": 0,
+    "direct": true,
+    "buttons": 18,
+    "sound": true
+   },
+   {
+    "name": "the anchor, blind",
+    "faders": 1,
+    "direct": false,
+    "buttons": 15,
+    "sound": true
+   },
+   {
+    "name": "there and back",
+    "faders": 0,
+    "direct": false,
+    "buttons": 14,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Murmuration",
+  "dir": "Projects/Murmuration",
+  "pieces": [
+   {
+    "name": "blind pair",
+    "faders": 0,
+    "direct": false,
+    "buttons": 15,
+    "sound": true
+   },
+   {
+    "name": "one plane",
+    "faders": 1,
+    "direct": true,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "the knee",
+    "faders": 4,
+    "direct": false,
+    "buttons": 15,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Neural Granular Synthesis",
+  "dir": "Projects/Neural Granular Synthesis",
+  "pieces": [
+   {
+    "name": "lock attack",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "crowd-size ladder",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Particle Synthesis",
+  "dir": "Projects/Particle Synthesis",
+  "pieces": [
+   {
+    "name": "thrown, or on a spring",
+    "faders": 3,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   },
+   {
+    "name": "which way the colours run",
+    "faders": 0,
+    "direct": false,
+    "buttons": 4,
+    "sound": true
+   },
+   {
+    "name": "one click, one law",
+    "faders": 1,
+    "direct": false,
+    "buttons": 11,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Phoneme Choir",
+  "dir": "Projects/Phoneme Choir",
+  "pieces": [
+   {
+    "name": "the spelling is the prompt",
+    "faders": 1,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   },
+   {
+    "name": "same word, four voices",
+    "faders": 1,
+    "direct": true,
+    "buttons": 12,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Piano String Inharmonicity",
+  "dir": "Projects/Piano String Inharmonicity",
+  "pieces": [
+   {
+    "name": "stretch",
+    "faders": 4,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   },
+   {
+    "name": "bend or fret",
+    "faders": 3,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "click through the string",
+    "faders": 4,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Portamento and Physical Pitch Modeling",
+  "dir": "Projects/Portamento and Physical Pitch Modeling",
+  "pieces": [
+   {
+    "name": "overshoot walked up",
+    "faders": 1,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "critical glide walked up",
+    "faders": 2,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Quantum Synthesizer",
+  "dir": "Projects/Quantum Synthesizer",
+  "pieces": [
+   {
+    "name": "two ears",
+    "faders": 1,
+    "direct": false,
+    "buttons": 14,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Rational Hearing",
+  "dir": "Projects/Rational Hearing",
+  "pieces": [
+   {
+    "name": "the miss, blind",
+    "faders": 0,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Retrospective Delay",
+  "dir": "Projects/Retrospective Delay",
+  "pieces": [
+   {
+    "name": "the tape",
+    "faders": 2,
+    "direct": false,
+    "buttons": 18,
+    "sound": true
+   },
+   {
+    "name": "phrase or taps",
+    "faders": 2,
+    "direct": false,
+    "buttons": 4,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "SMPTE LTC",
+  "dir": "Projects/SMPTE LTC",
+  "pieces": [
+   {
+    "name": "encoder",
+    "faders": 1,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   },
+   {
+    "name": "backward",
+    "faders": 3,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   },
+   {
+    "name": "the teaching room",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Semantic Delay",
+  "dir": "Projects/Semantic Delay",
+  "pieces": [
+   {
+    "name": "what the knob holds",
+    "faders": 1,
+    "direct": false,
+    "buttons": 9,
+    "sound": false
+   },
+   {
+    "name": "how long a delay",
+    "faders": 4,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Semantic Webcam",
+  "dir": "Projects/Semantic Webcam",
+  "pieces": [
+   {
+    "name": "legibility band",
+    "faders": 1,
+    "direct": false,
+    "buttons": 11,
+    "sound": false
+   },
+   {
+    "name": "the ramp",
+    "faders": 6,
+    "direct": false,
+    "buttons": 10,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Shepard Tone Synthesizer",
+  "dir": "Projects/Shepard Tone Synthesizer",
+  "pieces": [
+   {
+    "name": "the still drone",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "the free seam",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Shimmer Cloud",
+  "dir": "Projects/Shimmer Cloud",
+  "pieces": [
+   {
+    "name": "white light",
+    "faders": 3,
+    "direct": false,
+    "buttons": 14,
+    "sound": true
+   },
+   {
+    "name": "how many",
+    "faders": 0,
+    "direct": false,
+    "buttons": 13,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Slime Mold Delay",
+  "dir": "Projects/Slime Mold Delay",
+  "pieces": [
+   {
+    "name": "roads that compete",
+    "faders": 1,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   },
+   {
+    "name": "eat and starve",
+    "faders": 1,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Synth Templates",
+  "dir": "Projects/Synth Templates",
+  "pieces": [
+   {
+    "name": "which knobs are which",
+    "faders": 2,
+    "direct": true,
+    "buttons": 18,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Talking Keyboard",
+  "dir": "Projects/Talking Keyboard",
+  "pieces": [
+   {
+    "name": "the next variant",
+    "faders": 0,
+    "direct": true,
+    "buttons": 9,
+    "sound": true
+   },
+   {
+    "name": "88 keys",
+    "faders": 0,
+    "direct": true,
+    "buttons": 5,
+    "sound": true
+   },
+   {
+    "name": "three spellings of A",
+    "faders": 0,
+    "direct": false,
+    "buttons": 12,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Tract Mirror",
+  "dir": "Projects/Tract Mirror",
+  "pieces": [
+   {
+    "name": "junction to mirror",
+    "faders": 3,
+    "direct": false,
+    "buttons": 23,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Wallpaper Groups",
+  "dir": "Projects/Wallpaper Groups",
+  "pieces": [
+   {
+    "name": "rhythm on a strip",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "one tile",
+    "faders": 2,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   },
+   {
+    "name": "which turns fit",
+    "faders": 2,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "recipe-p2",
+  "dir": "Projects/Wallpaper Groups/recipe-p2",
+  "pieces": [
+   {
+    "name": "the break and the clave",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "the recipe cooked",
+    "faders": 2,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "recipe-p3",
+  "dir": "Projects/Wallpaper Groups/recipe-p3",
+  "pieces": [
+   {
+    "name": "the turn and its mirror",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "recipe-p6",
+  "dir": "Projects/Wallpaper Groups/recipe-p6",
+  "pieces": [
+   {
+    "name": "the bell beside the spin",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "recipe-pm",
+  "dir": "Projects/Wallpaper Groups/recipe-pm",
+  "pieces": [
+   {
+    "name": "the mirror, heard blind",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Waveguide Synthesizer",
+  "dir": "Projects/Waveguide Synthesizer",
+  "pieces": [
+   {
+    "name": "two travelling waves",
+    "faders": 0,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   },
+   {
+    "name": "karplus-strong walked up",
+    "faders": 1,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Quadratic Interpolation in DSP",
+  "dir": "Quadratic Interpolation in DSP",
+  "pieces": [
+   {
+    "name": "the table read",
+    "faders": 0,
+    "direct": false,
+    "buttons": 14,
+    "sound": true
+   },
+   {
+    "name": "the peak between bins",
+    "faders": 1,
+    "direct": false,
+    "buttons": 11,
+    "sound": true
+   },
+   {
+    "name": "the joints",
+    "faders": 1,
+    "direct": true,
+    "buttons": 10,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Radio Play",
+  "dir": "Radio Play",
+  "pieces": [
+   {
+    "name": "audio first, picture last",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "timing is the performance",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Rank-N Lattice Analysis",
+  "dir": "Rank-N Lattice Analysis",
+  "pieces": [
+   {
+    "name": "how many clocks",
+    "faders": 2,
+    "direct": false,
+    "buttons": 5,
+    "sound": true
+   },
+   {
+    "name": "read both ways",
+    "faders": 2,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Remnants in Depth",
+  "dir": "Remnants in Depth",
+  "pieces": [
+   {
+    "name": "flat and in depth",
+    "faders": 4,
+    "direct": false,
+    "buttons": 9,
+    "sound": false
+   },
+   {
+    "name": "the white square",
+    "faders": 0,
+    "direct": false,
+    "buttons": 12,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Resonance and Damping",
+  "dir": "Resonance and Damping",
+  "pieces": [
+   {
+    "name": "loss per trip",
+    "faders": 6,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "three rulers",
+    "faders": 5,
+    "direct": false,
+    "buttons": 13,
+    "sound": true
+   },
+   {
+    "name": "who keeps time",
+    "faders": 5,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "STIGMERGY",
+  "dir": "STIGMERGY",
+  "pieces": [
+   {
+    "name": "the fumble and the scent",
+    "faders": 6,
+    "direct": false,
+    "buttons": 15,
+    "sound": false
+   },
+   {
+    "name": "one line, two readers",
+    "faders": 0,
+    "direct": false,
+    "buttons": 5,
+    "sound": false
+   },
+   {
+    "name": "the field",
+    "faders": 0,
+    "direct": false,
+    "buttons": 7,
+    "sound": false
+   },
+   {
+    "name": "one pass",
+    "faders": 3,
+    "direct": false,
+    "buttons": 5,
+    "sound": false
+   },
+   {
+    "name": "say done or show done",
+    "faders": 2,
+    "direct": false,
+    "buttons": 9,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "SUBSTRATE",
+  "dir": "SUBSTRATE",
+  "pieces": [
+   {
+    "name": "anatomy",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Scale-Stratified Identity",
+  "dir": "Scale-Stratified Identity",
+  "pieces": [
+   {
+    "name": "two scales",
+    "faders": 6,
+    "direct": false,
+    "buttons": 9,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Lettering",
+  "dir": "Shop/Lettering",
+  "pieces": [
+   {
+    "name": "mechanical font or hand",
+    "faders": 1,
+    "direct": false,
+    "buttons": 6,
+    "sound": false
+   },
+   {
+    "name": "the void on a light field",
+    "faders": 1,
+    "direct": false,
+    "buttons": 2,
+    "sound": false
+   },
+   {
+    "name": "one word through the pipeline",
+    "faders": 0,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   },
+   {
+    "name": "blind test of the seven voices",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Tone.js",
+  "dir": "Shop/Tone.js",
+  "pieces": [
+   {
+    "name": "sixty pushes",
+    "faders": 5,
+    "direct": false,
+    "buttons": 22,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Web Audio Worklet",
+  "dir": "Shop/Web Audio Worklet",
+  "pieces": [
+   {
+    "name": "two places",
+    "faders": 0,
+    "direct": false,
+    "buttons": 16,
+    "sound": true
+   },
+   {
+    "name": "the splice",
+    "faders": 6,
+    "direct": false,
+    "buttons": 13,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Signal-Rate CV Architecture",
+  "dir": "Signal-Rate CV Architecture",
+  "pieces": [
+   {
+    "name": "the zero guard",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   },
+   {
+    "name": "the leak on a jack",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Songlines",
+  "dir": "Songlines",
+  "pieces": [
+   {
+    "name": "two-walkers",
+    "faders": 1,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Spinoza Conatus",
+  "dir": "Spinoza Conatus",
+  "pieces": [
+   {
+    "name": "three things pushed",
+    "faders": 2,
+    "direct": false,
+    "buttons": 6,
+    "sound": false
+   },
+   {
+    "name": "five voices coupled",
+    "faders": 1,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "State Machine",
+  "dir": "State Machine",
+  "pieces": [
+   {
+    "name": "four problems",
+    "faders": 0,
+    "direct": false,
+    "buttons": 2,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Synthesis Topologies",
+  "dir": "Synthesis Topologies",
+  "pieces": [
+   {
+    "name": "one loop, two instruments",
+    "faders": 2,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   },
+   {
+    "name": "vibrato into sidebands",
+    "faders": 4,
+    "direct": false,
+    "buttons": 8,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "The 2.5D Paper Stack",
+  "dir": "The 2.5D Paper Stack",
+  "pieces": [
+   {
+    "name": "reveal and break",
+    "faders": 4,
+    "direct": true,
+    "buttons": 13,
+    "sound": false
+   },
+   {
+    "name": "the cut",
+    "faders": 6,
+    "direct": false,
+    "buttons": 15,
+    "sound": false
+   },
+   {
+    "name": "the balloon",
+    "faders": 2,
+    "direct": false,
+    "buttons": 9,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "The Aftermath Frame",
+  "dir": "The Aftermath Frame",
+  "pieces": [
+   {
+    "name": "a swing is a rotation",
+    "faders": 2,
+    "direct": false,
+    "buttons": 4,
+    "sound": false
+   },
+   {
+    "name": "the gain and the motion",
+    "faders": 2,
+    "direct": false,
+    "buttons": 3,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "The Curve Is the Material",
+  "dir": "The Curve Is the Material",
+  "pieces": [
+   {
+    "name": "two morphs",
+    "faders": 6,
+    "direct": true,
+    "buttons": 14,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "The Dichotomy of Control",
+  "dir": "The Dichotomy of Control",
+  "pieces": [
+   {
+    "name": "the hand on the platter",
+    "faders": 5,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "The Flow Field is the Spine",
+  "dir": "The Flow Field is the Spine",
+  "pieces": [
+   {
+    "name": "one field, three legs",
+    "faders": 0,
+    "direct": true,
+    "buttons": 2,
+    "sound": false
+   },
+   {
+    "name": "around a body",
+    "faders": 0,
+    "direct": true,
+    "buttons": 2,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "The Lens",
+  "dir": "The Lens",
+  "pieces": [
+   {
+    "name": "move the glass",
+    "faders": 0,
+    "direct": true,
+    "buttons": 7,
+    "sound": false
+   },
+   {
+    "name": "nearest on the graph",
+    "faders": 0,
+    "direct": true,
+    "buttons": 2,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "The Metaphor Stretch",
+  "dir": "The Metaphor Stretch",
+  "pieces": [
+   {
+    "name": "which part is the crystal",
+    "faders": 3,
+    "direct": false,
+    "buttons": 7,
+    "sound": true
+   },
+   {
+    "name": "four choices",
+    "faders": 3,
+    "direct": false,
+    "buttons": 11,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Three Kinds of Warp",
+  "dir": "Three Kinds of Warp",
+  "pieces": [
+   {
+    "name": "piano",
+    "faders": 1,
+    "direct": false,
+    "buttons": 4,
+    "sound": true
+   },
+   {
+    "name": "typology",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "obstruction",
+    "faders": 0,
+    "direct": true,
+    "buttons": 3,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Threshold Conatus",
+  "dir": "Threshold Conatus",
+  "pieces": [
+   {
+    "name": "refractory preference",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Typography as Meaning",
+  "dir": "Typography as Meaning",
+  "pieces": [
+   {
+    "name": "the grammar, blind",
+    "faders": 0,
+    "direct": false,
+    "buttons": 10,
+    "sound": false
+   },
+   {
+    "name": "the function, counted",
+    "faders": 0,
+    "direct": false,
+    "buttons": 5,
+    "sound": false
+   }
+  ]
+ },
+ {
+  "entry": "Volterra Kernels and the Torus",
+  "dir": "Volterra Kernels and the Torus",
+  "pieces": [
+   {
+    "name": "one field, two readers",
+    "faders": 2,
+    "direct": true,
+    "buttons": 4,
+    "sound": true
+   },
+   {
+    "name": "the diagonal and off it",
+    "faders": 3,
+    "direct": false,
+    "buttons": 6,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Wavetable Oscillator",
+  "dir": "Wavetable Oscillator",
+  "pieces": [
+   {
+    "name": "reading between samples",
+    "faders": 1,
+    "direct": false,
+    "buttons": 11,
+    "sound": true
+   },
+   {
+    "name": "one cycle, two ways",
+    "faders": 2,
+    "direct": false,
+    "buttons": 10,
+    "sound": true
+   },
+   {
+    "name": "a bell on the grid",
+    "faders": 3,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "position as a second clock",
+    "faders": 3,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   }
+  ]
+ },
+ {
+  "entry": "Wavetable Space as Torus",
+  "dir": "Wavetable Space as Torus",
+  "pieces": [
+   {
+    "name": "which knot",
+    "faders": 0,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "one twist or many",
+    "faders": 1,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   },
+   {
+    "name": "one winding three speeds",
+    "faders": 1,
+    "direct": false,
+    "buttons": 3,
+    "sound": true
+   }
+  ]
+ }
+]

@@ -39,7 +39,7 @@ Said in the session that planned the hook pilot, and relayed to the Concierge by
 - He named nothing for [[The Dichotomy of Control]].
 - (b) and (c) mean (a) is one option among many, not a rule.
 - Makers started 2026-11-10 on [[SUBSTRATE]], [[Inharmonic Wavetable Synthesis]] and [[Biomechanical Synthesis]], on branches `hook/<slug>`.
-- [[The Lens]] waits on a text edit from the handoffs session.
+- [[The Lens]] was to wait on a text edit from the handoffs session; its maker started minutes later the same day, on `hook/the-lens` (line corrected at the close, 2026-11-11).
 - No challenger pass is planned before his audition.
 - The twenty idea reports he was picking from are parked beside this file, one file per page: `hook ideas — <Page>.md`.
 
@@ -58,6 +58,10 @@ His words on each pilot face as he played it, verbatim, typos kept, relayed by t
 **Loudon, after the second pass:**
 
 > In substrate, when we get to the world, lets quickly go through them all, just enough. And is there a background sound and subtle sound we can use?
+
+**Loudon, 2026-11-11, at the close's panel, after being told the record showed no sign he had heard the sound:**
+
+> I did hear the substrate sounds, they are ok, we need to get better at making interface sounds and environmental sounds, but I have high standards there.
 
 ## The Lens
 
@@ -98,3 +102,19 @@ His words on each pilot face as he played it, verbatim, typos kept, relayed by t
 - [[The Dichotomy of Control]]: a maker started on `hook/the-dichotomy-of-control`.
 - None has landed.
 - The palace holds no ACT page (searched 2026-11-10).
+
+---
+
+## The session's note, not his: at the close, 2026-11-11
+
+Written by the close's backstage pass from the working session's own witness at the panel. None of it is Loudon's.
+
+**What the makers could not check.** Each maker said these in its own report. They reached Loudon only in part, in the session's words; no maker report was shown to him whole.
+
+- The reverb maker read its biology sources "as abstracts or search summaries, except Brand & Gow."
+- The reverb maker's guess that the tail washes sooner as the dish grows "flipped between tunings." It is unsettled.
+- The Dichotomy maker read one ACT exercise whole, Russ Harris's "Pushing away paper", and no ACT book.
+- The Dichotomy maker amended its first commit, `7416d52e` on `hook/the-dichotomy-of-control`, once by hand to add the Co-Authored-By trailer.
+- On Inharmonic's piece, while a loop is moving "the picture's phases match the sound's only in law, slowed 220×; at rest they are synced."
+
+**The slider scan.** `dudscan.json` beside this file is the scan of 2026-11-10 behind "53 of 123 faces are sliders beside a picture in every piece." It counts controls, not metaphor: in the session's words, "A slider can sit inside a wonderful image, and a draggable chart can still be a dud." Its sound column is rough. `dudscan.py` is the first pass only; it gave a looser count (74 faces) and writes a different shape. The second pass, which wrote this `dudscan.json`, ran inline and its script was not saved.
