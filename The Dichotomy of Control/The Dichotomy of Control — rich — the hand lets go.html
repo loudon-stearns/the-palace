@@ -1,0 +1,569 @@
+<!doctype html>
+<!--
+  title: The Dichotomy of Control — rich — the hand lets go
+  born: 2026-11-10
+  links: [[The Dichotomy of Control]] (connects-to · rich-face-piece) · listed in [[The Dichotomy of Control — rich.json]] · opens the face, beside the page's first paragraph
+  forward_vector: I am a short practice for a reader who arrives gripped. A stone stands between the reader and a lit room; the reader holds a press to push it away, and the room goes dark around the pushing; the reader lets go, and the stone lands in the lap, still there, with the room open and the hand free. Then three small invitations to stay with it, and the page's two columns with the feeling in the second. I test nothing and I measure nobody. I am adapted from Russ Harris's "Pushing away paper", an exercise from Acceptance and Commitment Therapy, and I say so on my face. I change when Loudon has sat with me and says what was wrong.
+  sound: off until a click. A quiet room noise and two soft tones a fifth apart; while the press is held the room closes and a third tone beats against the first; on release it opens again and the tones stay. Made in a worklet from a Blob URL; no file, no loop.
+  check: The Dichotomy of Control/The Dichotomy of Control — rich — the hand lets go — check.mjs renders this page's worklet in Node and prints its levels.
+  privacy: what the reader types is held in one variable in this page and nowhere else. No storage, no request.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- needs nothing of its host: no device, no storage, no file, no host -->
+<meta name="piece:needs" content="">
+<title>The hand lets go · a short practice</title>
+<meta name="theme-color" content="#0a0a0f">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=JetBrains+Mono:wght@400&family=Manrope:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0f; --bg-1:#12121a; --bg-2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,0.07);
+    --fg-1:#e8e8f0; --fg-2:#c8c8d8; --fg-3:#9a9ab0; --accent:#e8b84a;
+    --serif:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    --sans:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg-1);font-family:var(--sans);font-weight:300}
+  body{padding:0}
+  .lg-wrap{max-width:1130px;margin:0 auto;padding:0}
+
+  /* the stage: the picture fills it, the words lie over its top */
+  .lg-stage{position:relative;min-height:470px;overflow:hidden;background:var(--bg);border-bottom:1px solid var(--soft);
+            display:flex;flex-direction:column;user-select:none;-webkit-user-select:none}
+  .lg-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .lg-over{position:relative;z-index:2;padding:30px 28px 190px;text-align:center;pointer-events:none}
+  .lg-head{font-family:var(--serif);font-weight:400;font-size:34px;line-height:1.16;margin:0 auto;max-width:21em;
+           color:var(--fg-1);text-shadow:0 0 18px #0a0a0f,0 0 6px #0a0a0f;transition:opacity .5s ease;min-height:1.16em}
+  .lg-head.lg-dim{opacity:0}
+
+  /* the two columns, laid over the open room */
+  .lg-cols{display:none;max-width:660px;margin:22px auto 0;grid-template-columns:1fr 1fr;gap:0;text-align:left}
+  .lg-cols.lg-show{display:grid}
+  .lg-col{padding:2px 20px 4px}
+  .lg-col + .lg-col{border-left:1px solid rgba(232,232,240,.22)}
+  .lg-col h3{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);margin:0 0 10px}
+  .lg-col.lg-mine h3{color:var(--accent)}
+  .lg-col p{font-family:var(--serif);font-size:20px;line-height:1.25;margin:0 0 9px;color:var(--fg-2);text-shadow:0 0 12px #0a0a0f,0 0 4px #0a0a0f}
+  .lg-col.lg-mine p{color:var(--fg-1)}
+  .lg-col p.lg-own{font-style:italic;color:var(--accent)}
+
+  /* the panel under the picture */
+  .lg-panel{padding:20px 28px 8px;max-width:760px;margin:0 auto}
+  .lg-sub{font-size:16px;line-height:1.6;color:var(--fg-2);margin:0 0 6px;min-height:5.2em}
+  .lg-sub p{margin:0 0 .6em}
+  .lg-sub .lg-quiet{color:var(--fg-3);font-size:13.5px;line-height:1.55}
+  .lg-field{display:none;margin:2px 0 14px}
+  .lg-field.lg-show{display:block}
+  .lg-field input{width:100%;max-width:420px;background:var(--bg-1);color:var(--fg-1);border:1px solid var(--border);border-radius:3px;
+                  padding:11px 13px;font-family:var(--serif);font-style:italic;font-size:19px}
+  .lg-field input::placeholder{color:#77778c;font-style:italic}
+  .lg-field input:focus-visible{outline:1px solid var(--accent);outline-offset:2px}
+  .lg-field .lg-quiet{display:block;margin-top:7px;color:var(--fg-3);font-size:13px;line-height:1.5}
+
+  .lg-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:6px 0 4px}
+  .lg-btn{font-family:var(--sans);font-weight:400;font-size:14.5px;color:var(--fg-1);background:var(--bg-2);border:1px solid var(--border);
+          border-radius:3px;padding:11px 18px;cursor:pointer;min-height:44px}
+  .lg-btn:hover{border-color:rgba(232,184,74,.6)}
+  .lg-btn:focus-visible{outline:1px solid var(--accent);outline-offset:2px}
+  .lg-btn.lg-go{background:rgba(232,184,74,.12);border-color:rgba(232,184,74,.5)}
+  .lg-btn.lg-plain{background:transparent;border-color:transparent;color:var(--fg-3);padding:11px 8px}
+  .lg-btn.lg-plain:hover{color:var(--fg-1)}
+  .lg-btn[hidden]{display:none}
+  .lg-spacer{flex:1 1 auto;order:3}
+  #next{order:1} #back{order:2} #snd{order:4} /* sound sits last for the eye, first in the markup */
+
+  /* the hold pad: the one place a hand works */
+  .lg-pad{display:none;width:100%;margin:4px 0 10px;min-height:76px;border-radius:5px;border:1px solid rgba(232,232,240,.3);
+          background:linear-gradient(180deg,#191924,#12121a);color:var(--fg-1);font-family:var(--serif);font-size:22px;cursor:pointer;
+          touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;transition:background .3s ease,border-color .3s ease}
+  .lg-pad.lg-show{display:block}
+  .lg-pad small{display:block;font-family:var(--sans);font-size:12.5px;color:var(--fg-3);margin-top:3px}
+  .lg-pad.lg-held{background:linear-gradient(180deg,#22222f,#1a1a28);border-color:var(--fg-1)}
+  .lg-pad:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+  .lg-tap{display:none;font-size:13px;color:var(--fg-3);margin:0 0 8px}
+  .lg-tap.lg-show{display:block}
+  .lg-tap label{cursor:pointer}
+  .lg-tap input{accent-color:#e8b84a;margin-right:6px;vertical-align:-1px}
+
+  /* what this is, said plainly */
+  .lg-note{max-width:760px;margin:10px auto 0;padding:14px 28px 22px;border-top:1px solid var(--soft);color:var(--fg-3);font-size:13px;line-height:1.6}
+  .lg-note p{margin:0 0 .55em}
+  .lg-note details{margin-top:4px}
+  .lg-note summary{cursor:pointer;color:var(--fg-2)}
+  .lg-note summary:focus-visible{outline:1px solid var(--accent);outline-offset:2px}
+  .lg-note a{color:var(--fg-2)}
+  .lg-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+  @media (max-width:560px){
+    .lg-stage{min-height:430px}
+    .lg-over{padding:22px 16px 170px}
+    .lg-head{font-size:26px}
+    .lg-col{padding:2px 10px 4px}
+    .lg-col p{font-size:17px}
+    .lg-col h3{font-size:10px;letter-spacing:.1em}
+    .lg-panel{padding:16px 16px 6px}
+    .lg-sub{font-size:15.5px;min-height:7.6em}
+    .lg-note{padding:14px 16px 20px}
+    .lg-btn{flex:1 1 auto}
+    .lg-spacer{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .lg-head,.lg-pad{transition:none}
+  }
+</style>
+</head>
+<body>
+<div class="lg-wrap">
+
+  <div class="lg-stage" id="stage">
+    <canvas id="cv" aria-hidden="true"></canvas>
+    <div class="lg-over">
+      <h2 class="lg-head" id="head" aria-live="polite">Is something gripping you just now?</h2>
+      <div class="lg-cols" id="cols">
+        <div class="lg-col">
+          <h3>not up to me</h3>
+          <p id="c-came">that it came</p>
+          <p>how long it stays</p>
+          <p>what anyone else feels, or does</p>
+        </div>
+        <div class="lg-col lg-mine">
+          <h3>up to me</h3>
+          <p>whether I keep pushing</p>
+          <p>whether I take its story for the whole truth</p>
+          <p>what my hands do next</p>
+          <p class="lg-own" id="c-own" hidden></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lg-panel">
+    <div class="lg-sub" id="sub"></div>
+
+    <div class="lg-field" id="f-word">
+      <label class="lg-vh" for="word">A word or two for it (optional)</label>
+      <input id="word" type="text" maxlength="36" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="a word or two, or leave it empty">
+      <span class="lg-quiet">It stays on this page. Nothing you type is sent or saved, and closing the page forgets it.</span>
+    </div>
+    <div class="lg-field" id="f-act">
+      <label class="lg-vh" for="act">One small thing that is yours to do next (optional)</label>
+      <input id="act" type="text" maxlength="60" autocomplete="off" spellcheck="false" placeholder="one small thing that is yours to do next, if you like">
+      <span class="lg-quiet">This stays on the page too. Nobody reads it but you.</span>
+    </div>
+
+    <button class="lg-pad" id="pad" type="button" aria-pressed="false"><span id="pad-t">press and hold</span><small id="pad-s">here, or the space bar. Let go whenever you like.</small></button>
+    <div class="lg-tap" id="tap"><label><input type="checkbox" id="tapmode">Holding a press is hard on my hand: let one tap push and the next let go.</label></div>
+
+    <div class="lg-row">
+      <button class="lg-btn lg-plain" id="snd" type="button" aria-pressed="false">sound is off</button>
+      <button class="lg-btn lg-go" id="next" type="button">begin</button>
+      <button class="lg-btn lg-plain" id="back" type="button" hidden>back</button>
+      <span class="lg-spacer"></span>
+    </div>
+  </div>
+
+  <div class="lg-note">
+    <p>A short practice on an artist's page. It is not therapy or treatment, and it promises nothing about how you will feel. You can stop at any point; nothing is counted and nothing is kept.</p>
+    <details>
+      <summary>Where it comes from, and what it can't do</summary>
+      <p>The push and the letting go are adapted from <strong>“Pushing away paper”</strong> by Russ Harris (2017; first “pushing the clipboard” in <em>ACT Made Simple</em>, 2009), an exercise from Acceptance and Commitment Therapy, the work of Steven C. Hayes, Kirk Strosahl and Kelly Wilson. In the original two people sit side by side and hold a sheet of paper at arm's length; here it is a press held on a screen, which is a much smaller thing. It is kin to their “tug-of-war with a monster”, where the move is to drop the rope. Harris says of his own exercise that it is only a metaphor and does not by itself teach acceptance. The same is true of this.</p>
+      <p>The listening line is Pauline Oliveros's. The coming back is how Shunryu Suzuki taught sitting. The two columns are Epictetus's; putting the feeling's arrival in the second one follows his own account, that an impression comes unasked and what is ours begins after it.</p>
+      <p>The Stoics and ACT part ways on what to do next with the thought: the Stoic examines it and may argue with it; ACT leaves it unargued and asks what you want your hands to do. This piece stops before that fork.</p>
+      <p>It was made by an AI model that cannot hear its sound and does not know what a hard day feels like from inside. If you are in real trouble, please reach a person: someone you trust, a doctor, or your local crisis line.</p>
+    </details>
+  </div>
+</div>
+
+<script id="lg-worklet" type="text/plain">
+// The sound, whole. One processor; two messages steer it: { on, hold, lap }.
+// Nothing here is a recording: seeded noise through two one-pole lowpasses is the room,
+// two sines a fifth apart are the stone, and a third sine beats against the first while the press is held.
+class LetGoProcessor extends AudioWorkletProcessor {
+  constructor() {
+    super();
+    this.sr = sampleRate;
+    this.onT = 0; this.holdT = 0; this.lapT = 0;       // targets, from the page
+    this.g = 0; this.t = 0; this.f = 0; this.o = 0.4;   // gain, tension, tiredness, how open the room is
+    this.p1 = 0; this.p2 = 0; this.p3 = 0; this.ps = 0; // phases
+    this.s = 0x2545F491 | 0;                            // noise seed
+    this.l1 = 0; this.l2 = 0; this.r1 = 0; this.r2 = 0; // lowpass state
+    this.port.onmessage = (e) => {
+      const d = e.data || {};
+      if ('on' in d) this.onT = d.on ? 1 : 0;
+      if ('hold' in d) this.holdT = d.hold ? 1 : 0;
+      if ('lap' in d) this.lapT = d.lap ? 1 : 0;
+    };
+  }
+  rnd() { let s = this.s; s ^= s << 13; s ^= s >>> 17; s ^= s << 5; this.s = s | 0; return (s | 0) / 2147483648; }
+  process(inputs, outputs) {
+    const out = outputs[0], L = out[0], R = out[1] || out[0];
+    const sr = this.sr, dt = 1 / sr, TAU = 6.283185307179586;
+    const kOn = 1 - Math.exp(-dt / 0.6), kOff = 1 - Math.exp(-dt / 0.12);
+    const kUp = 1 - Math.exp(-dt / 2.3), kDn = 1 - Math.exp(-dt / 1.6), kO = 1 - Math.exp(-dt / 1.5), kShut = 1 - Math.exp(-dt / 2.3); // 2.3 s: 95% there in 7 s, the stone's own pace
+    for (let i = 0; i < L.length; i++) {
+      this.g += (this.onT - this.g) * (this.onT > this.g ? kOn : kOff);
+      this.t += (this.holdT - this.t) * (this.holdT > this.t ? kUp : kDn);
+      this.f += this.holdT ? dt / 35 : -dt / 6; if (this.f < 0) this.f = 0; else if (this.f > 1) this.f = 1;
+      const oT = this.holdT ? 0.06 : (this.lapT ? 1 : 0.4);
+      this.o += (oT - this.o) * (this.holdT ? kShut : kO);
+      const t = this.t, o = this.o;
+
+      // the room: noise, lowpassed twice, opening and closing
+      const a = 1 - Math.exp(-TAU * (150 + 1150 * o) * dt);
+      const nl = this.rnd(), nr = this.rnd();
+      this.l1 += (nl - this.l1) * a; this.l2 += (this.l1 - this.l2) * a;
+      this.r1 += (nr - this.r1) * a; this.r2 += (this.r1 - this.r2) * a;
+      this.ps += 0.07 * dt; if (this.ps > 1) this.ps -= 1;
+      const swell = 1 + 0.2 * Math.sin(TAU * this.ps);
+      const rg = (0.05 + 0.22 * o) * swell;
+
+      // the stone: 196 and 294 Hz, each with a little octave; a third tone beats against the first while held
+      const a1 = 0.022 + 0.040 * t;
+      const beat = 1.2 + 5.5 * this.f;
+      this.p1 += 196 * dt; if (this.p1 > 1) this.p1 -= 1;
+      this.p2 += 294 * dt; if (this.p2 > 1) this.p2 -= 1;
+      this.p3 += (196 + beat) * dt; if (this.p3 > 1) this.p3 -= 1;
+      const v1 = Math.sin(TAU * this.p1) + 0.2 * Math.sin(2 * TAU * this.p1);
+      const v2 = Math.sin(TAU * this.p2) + 0.2 * Math.sin(2 * TAU * this.p2);
+      const v3 = Math.sin(TAU * this.p3) + 0.2 * Math.sin(2 * TAU * this.p3);
+      const tone = a1 * v1 + a1 * (0.6 - 0.3 * t) * v2 + a1 * t * v3;
+
+      L[i] = this.g * (rg * this.l2 + tone);
+      if (R !== L) R[i] = this.g * (rg * this.r2 + tone);
+    }
+    return true;
+  }
+}
+registerProcessor('let-go', LetGoProcessor);
+</script>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var stage = $('stage'), cv = $('cv'), ctx = cv.getContext('2d');
+  var head = $('head'), sub = $('sub'), cols = $('cols');
+  var pad = $('pad'), padT = $('pad-t'), padS = $('pad-s'), tap = $('tap'), tapmode = $('tapmode');
+  var next = $('next'), back = $('back'), snd = $('snd');
+  var fWord = $('f-word'), word = $('word'), fAct = $('f-act'), act = $('act');
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // What the reader has typed lives here and nowhere else.
+  var S = { step: 0, hold: false, p: 0, f: 0, lap: 0, lapT: 0, pushed: false, holdAt: 0, lastHold: 0, word: '', act: '', sound: false };
+
+  var STEPS = [
+    { id: 'ask', head: 'Is something gripping you just now?',
+      sub: '<p>You don\'t have to say what. If you\'d like, give it a word or two, and it will be written on the stone.</p><p class="lg-quiet">If nothing is, try it with something small.</p>',
+      go: 'begin', field: 'word' },
+    { id: 'push', head: 'Now push it away.',
+      sub: '<p>Past the stone is the room: the people and things you care about, and whatever needs doing today. Press and hold, and keep the stone as far from you as you can. It is what we are mostly told to do with a feeling.</p>',
+      go: '', pad: true },
+    { id: 'landed', head: 'It\'s still here.',
+      sub: '<p>Letting go didn\'t remove it; that was never the offer. It is in your lap now, and your hand is free. Look at the room.</p><p class="lg-quiet">Hold again whenever you like, to feel the difference come back.</p>',
+      go: 'go on', pad: true },
+    { id: 'stay1', head: 'Leave it where it landed.',
+      sub: '<p>It may sit somewhere in the body: chest, throat, stomach, hands. You don\'t have to like it, want it or understand it. Let it take the room it is already taking.</p>',
+      go: 'go on', pad: true },
+    { id: 'stay2', head: 'Now widen.',
+      sub: '<p>Listen to the room you are really in. The nearest sound, the farthest, whatever lies between. The stone in your lap is one sound among them.</p><p class="lg-quiet">Pauline Oliveros: “Listen to everything all the time and remind yourself when you are not listening.”</p>',
+      go: 'go on', pad: true },
+    { id: 'stay3', head: 'You\'ll drift, or find you\'re pushing again.',
+      sub: '<p>Neither is a mistake. Notice it, and come back. Stay as long as you like; there is nothing to get.</p>',
+      go: 'go on', pad: true },
+    { id: 'hands', head: 'Your hands are free.',
+      sub: '<p>It goes the same way across a table. Another person\'s feeling isn\'t yours to push away either; listening is yours.</p>',
+      go: 'go on', field: 'act', cols: true },
+    { id: 'end', head: 'That is the whole practice.',
+      sub: '<p>It is short on purpose. The stone may still be there when you close this; removing it was never up to you. What your hands do next is. Come back when the grip does.</p>',
+      go: 'start again', cols: true }
+  ];
+  var HOLD_LINES = [
+    [0, 'Push. As far away as you can.'],
+    [10, 'Notice what this takes.'],
+    [19, 'Notice how much of the room you can still see.'],
+    [28, 'Notice what else this hand could be doing.'],
+    [38, 'It hasn\'t gone anywhere. Keep pushing, or let go. Both are allowed.']
+  ];
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  var headNow = '';
+  function setHead(text) {
+    if (text === headNow) return; headNow = text;
+    if (still) { head.textContent = text; return; }
+    head.classList.add('lg-dim');
+    setTimeout(function () { if (headNow === text) { head.textContent = text; head.classList.remove('lg-dim'); } }, 260);
+  }
+
+  function show() {
+    var st = STEPS[S.step];
+    setHead(st.head);
+    var html = st.sub;
+    if (st.id === 'landed' && S.lastHold > 0 && S.lastHold < 3) {
+      html = '<p>Letting go didn\'t remove it; that was never the offer. It is in your lap now, and your hand is free. Look at the room.</p><p class="lg-quiet">That was a short push. Hold again, for longer, if you\'d like to feel what it takes; or go on.</p>';
+    }
+    sub.innerHTML = html;
+    fWord.classList.toggle('lg-show', st.field === 'word');
+    fAct.classList.toggle('lg-show', st.field === 'act');
+    cols.classList.toggle('lg-show', !!st.cols);
+    pad.classList.toggle('lg-show', !!st.pad);
+    tap.classList.toggle('lg-show', !!st.pad);
+    next.hidden = !st.go; next.textContent = st.go || '';
+    back.hidden = S.step === 0 || st.id === 'end';
+    if (st.cols) {
+      $('c-came').textContent = S.word ? 'that “' + S.word + '” came' : 'that it came';
+      var own = $('c-own'); own.hidden = !S.act; own.textContent = S.act;
+    }
+    padLabel();
+  }
+  function padLabel() {
+    var st = STEPS[S.step];
+    if (S.hold) { padT.textContent = 'pushing'; padS.textContent = tapmode.checked ? 'tap again to let go' : 'let go whenever you like'; }
+    else if (st.id === 'push') { padT.textContent = tapmode.checked ? 'tap to push' : 'press and hold'; padS.textContent = tapmode.checked ? 'tap again to let go' : 'here, or the space bar. Let go whenever you like.'; }
+    else { padT.textContent = tapmode.checked ? 'tap to push again' : 'hold to push again'; padS.textContent = 'or leave it in your lap'; }
+    pad.classList.toggle('lg-held', S.hold);
+    pad.setAttribute('aria-pressed', S.hold ? 'true' : 'false');
+  }
+
+  function go(n) {
+    if (S.hold) setHold(false);
+    var st = STEPS[S.step];
+    if (st.id === 'ask') S.word = word.value.trim().slice(0, 36);
+    if (st.id === 'hands') S.act = act.value.trim().slice(0, 60);
+    if (n >= STEPS.length) { reset(); return; }
+    S.step = Math.max(0, n);
+    var id = STEPS[S.step].id;
+    if (id === 'ask' || id === 'push') { S.lapT = 0; S.pushed = false; }
+    else S.lapT = 1;
+    tell();
+    show();
+  }
+  function reset() {
+    S.step = 0; S.word = ''; S.act = ''; word.value = ''; act.value = ''; S.lapT = 0; S.pushed = false; S.lastHold = 0;
+    tell(); show();
+  }
+
+  // ---- the press ----
+  function canHold() { return !!STEPS[S.step].pad; }
+  function setHold(on) {
+    on = !!on && canHold();
+    if (on === S.hold) return;
+    S.hold = on;
+    if (on) { S.holdAt = performance.now(); S.pushed = true; }
+    else {
+      S.lastHold = (performance.now() - S.holdAt) / 1000;
+      S.lapT = 1;
+      if (STEPS[S.step].id === 'push') { S.step += 1; show(); }
+      else setHead(STEPS[S.step].head);
+    }
+    padLabel(); tell();
+  }
+  pad.addEventListener('pointerdown', function (e) {
+    if (tapmode.checked) return;
+    e.preventDefault(); try { pad.setPointerCapture(e.pointerId); } catch (_) {}
+    setHold(true);
+  });
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (ev) {
+    pad.addEventListener(ev, function () { if (!tapmode.checked) setHold(false); });
+  });
+  pad.addEventListener('click', function (e) { if (tapmode.checked) setHold(!S.hold); else e.preventDefault(); });
+  pad.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+  // a mouse may also press on the picture itself
+  stage.addEventListener('pointerdown', function (e) {
+    if (e.pointerType !== 'mouse' || e.button !== 0 || tapmode.checked || !canHold()) return;
+    e.preventDefault(); setHold(true);
+  });
+  window.addEventListener('pointerup', function (e) { if (e.pointerType === 'mouse' && !tapmode.checked) setHold(false); });
+  var keyHeld = false;
+  window.addEventListener('keydown', function (e) {
+    if (e.key !== ' ' && e.code !== 'Space') return;
+    var t = e.target, tag = t && t.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SUMMARY' || (tag === 'BUTTON' && t !== pad)) return;
+    if (!canHold()) return;
+    e.preventDefault();
+    if (e.repeat || keyHeld) return;
+    keyHeld = true;
+    if (tapmode.checked) setHold(!S.hold); else setHold(true);
+  });
+  window.addEventListener('keyup', function (e) {
+    if (e.key !== ' ' && e.code !== 'Space') return;
+    if (!keyHeld) return; keyHeld = false;
+    if (!tapmode.checked) setHold(false);
+  });
+  window.addEventListener('blur', function () { keyHeld = false; if (!tapmode.checked) setHold(false); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) { keyHeld = false; setHold(false); } });
+  tapmode.addEventListener('change', function () { setHold(false); padLabel(); });
+
+  next.addEventListener('click', function () { go(S.step + 1); });
+  back.addEventListener('click', function () { go(S.step - 1); });
+  word.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(S.step + 1); });
+  act.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(S.step + 1); });
+  act.addEventListener('input', function () { var own = $('c-own'), v = act.value.trim().slice(0, 60); own.hidden = !v; own.textContent = v; });
+
+  // ---- the sound: off until asked for ----
+  var ac = null, node = null, loading = false;
+  function tell() { if (node) node.port.postMessage({ on: S.sound ? 1 : 0, hold: S.hold ? 1 : 0, lap: S.lapT ? 1 : 0 }); }
+  snd.addEventListener('click', function () {
+    S.sound = !S.sound;
+    snd.textContent = S.sound ? 'sound is on, quietly' : 'sound is off';
+    snd.setAttribute('aria-pressed', S.sound ? 'true' : 'false');
+    if (!S.sound) { tell(); setTimeout(function () { if (!S.sound && ac && ac.state === 'running') ac.suspend(); }, 700); return; }
+    if (ac) { ac.resume().then(tell); return; }
+    if (loading) return; loading = true;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      ac = new AC();
+      var url = URL.createObjectURL(new Blob([$('lg-worklet').textContent], { type: 'application/javascript' }));
+      ac.audioWorklet.addModule(url).then(function () {
+        node = new AudioWorkletNode(ac, 'let-go', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
+        node.connect(ac.destination);
+        // the practice asks for stillness, so the sound may stand six minutes untouched before the kit stops it
+        if (window.RichPiece && window.RichPiece.capAfter) window.RichPiece.capAfter(360);
+        loading = false; ac.resume(); tell();
+      }).catch(function () { loading = false; S.sound = false; snd.textContent = 'sound could not start'; });
+    } catch (_) { loading = false; S.sound = false; snd.textContent = 'sound could not start'; }
+  });
+
+  // ---- the picture ----
+  var W = 0, H = 0, dpr = 1;
+  function size() {
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    W = stage.clientWidth; H = stage.clientHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  }
+  if (window.ResizeObserver) new ResizeObserver(size).observe(stage); else window.addEventListener('resize', size);
+  size();
+
+  var seed = 20261110;
+  function rnd() { seed ^= seed << 13; seed ^= seed >>> 17; seed ^= seed << 5; return ((seed >>> 0) % 100000) / 100000; }
+  var lights = [];
+  for (var i = 0; i < 64; i++) {
+    lights.push({ x: 0.03 + 0.94 * rnd(), y: 0.05 + 0.80 * rnd(), r: 0.7 + 1.9 * Math.pow(rnd(), 2.2), a: 0.35 + 0.65 * rnd(),
+                  late: rnd(), ph: rnd() * 6.283, sp: 0.15 + 0.5 * rnd(), warm: rnd(), lamp: i < 7 });
+  }
+  function mix(a, b, t) { return a + (b - a) * t; }
+  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function ease(x) { x = clamp01(x); return x * x * (3 - 2 * x); }
+
+  var PUSH_S = 7;
+  var last = performance.now(), T = 0;
+  function frame(now) {
+    var dt = Math.min(0.05, (now - last) / 1000); last = now; T += dt;
+    var kp = still ? 1 : 1 - Math.exp(-dt / 0.42), kl = still ? 1 : 1 - Math.exp(-dt / 0.9);
+    // the push out is slow and even, PUSH_S seconds from rest to the far point; the way back is as quick as it was
+    if (S.hold) S.p = still ? 1 : Math.min(1, S.p + dt / PUSH_S); else S.p += (0 - S.p) * kp;
+    S.lap += (S.lapT - S.lap) * kl;
+    S.f += S.hold ? dt / 35 : -dt / 6; S.f = clamp01(S.f);
+    if (S.hold) {
+      var el = (now - S.holdAt) / 1000, line = HOLD_LINES[0][1];
+      if (STEPS[S.step].id === 'push') { for (var j = 0; j < HOLD_LINES.length; j++) if (el >= HOLD_LINES[j][0]) line = HOLD_LINES[j][1]; }
+      else line = el < 12 ? 'Pushing again.' : 'Pushing again. Let go when you like.';
+      setHead(line);
+    }
+    draw();
+    requestAnimationFrame(frame);
+  }
+
+  function draw() {
+    var m = Math.min(W, H), p = ease(S.p), lap = ease(S.lap) * (1 - p), f = S.f;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // the room's dark, a shade lighter toward the lap
+    var bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#0a0a0f'); bg.addColorStop(1, '#13131c');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    // where the stone is
+    var lapY = H - Math.max(66, 0.15 * H);
+    var ax = 0.5 * W, ay = 0.56 * H, ar = 0.23 * m;                 // arriving: close, in the way
+    var px = 0.5 * W, py = 0.50 * H + 0.05 * H * f, pr = (0.105 + 0.05 * f) * m; // pushed: far, and creeping back
+    var lx = 0.5 * W, ly = lapY, lr = Math.min(0.105 * m, 54);      // let go: in the lap
+    var open0 = ease(S.lap);
+    var bx = mix(ax, lx, open0), by = mix(ay, ly, open0), br = mix(ar, lr, open0);
+    var x = mix(bx, px, p), y = mix(by, py, p), r = mix(br, pr, p);
+    var shake = still ? 0 : p * (0.25 + f) * 0.0045 * m;
+    x += shake * (Math.sin(T * 61) * 0.6 + Math.sin(T * 83.3) * 0.4);
+    y += shake * (Math.sin(T * 71.7) * 0.6 + Math.sin(T * 47.1) * 0.4);
+
+    // the room's lights: more of them, and brighter, once the hand is free
+    var seen = 0.38 + 0.62 * open0;
+    var bright = mix(0.5, 1, open0) * (1 - 0.93 * p) * (STEPS[S.step].cols ? 0.6 : 1); // quieter behind the columns' words
+    for (var i = 0; i < lights.length; i++) {
+      var L = lights[i];
+      var vis = clamp01((seen - L.late * 0.62) / 0.3);
+      if (vis <= 0) continue;
+      var tw = still ? 1 : 0.8 + 0.2 * Math.sin(T * L.sp + L.ph);
+      var a = L.a * vis * bright * tw;
+      var lx2 = L.x * W + (still ? 0 : Math.sin(T * 0.11 + L.ph) * 3), ly2 = L.y * (H - 40);
+      var col = L.warm > 0.35 ? '232,184,74' : '243,227,190';
+      if (L.lamp) {
+        var gr = ctx.createRadialGradient(lx2, ly2, 0, lx2, ly2, 26 + L.r * 9);
+        gr.addColorStop(0, 'rgba(' + col + ',' + (0.42 * a).toFixed(3) + ')'); gr.addColorStop(1, 'rgba(' + col + ',0)');
+        ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(lx2, ly2, 26 + L.r * 9, 0, 6.2832); ctx.fill();
+      }
+      ctx.fillStyle = 'rgba(' + col + ',' + a.toFixed(3) + ')';
+      ctx.beginPath(); ctx.arc(lx2, ly2, L.lamp ? L.r + 1.2 : L.r, 0, 6.2832); ctx.fill();
+    }
+
+    // what pushing does to the view: the dark closes round the stone
+    if (p > 0.004 || open0 < 0.996) {
+      var diag = Math.sqrt(W * W + H * H);
+      var openR = mix(0.50 * diag, 1.4 * diag, open0), inner = mix(openR, r * 1.25, p), outer = mix(openR * 1.9, r * 2.7, p);
+      var vg = ctx.createRadialGradient(x, y, inner, x, y, outer);
+      vg.addColorStop(0, 'rgba(6,6,10,0)'); vg.addColorStop(1, 'rgba(6,6,10,' + mix(0.82, 0.97, p).toFixed(3) + ')');
+      ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+    }
+
+    // the arms: only while pushing
+    if (p > 0.02) {
+      for (var s = -1; s <= 1; s += 2) {
+        var sx = 0.5 * W + s * Math.min(0.2 * W, 190), sy = H + 14;
+        var ex = x + s * r * 0.62, ey = y + r * 0.72;
+        var wb = Math.max(20, 0.07 * m), wt = Math.max(7, 0.022 * m);
+        var g2 = ctx.createLinearGradient(sx, sy, ex, ey);
+        g2.addColorStop(0, 'rgba(200,180,165,' + (0.30 * p).toFixed(3) + ')'); g2.addColorStop(1, 'rgba(200,180,165,' + (0.10 * p).toFixed(3) + ')');
+        ctx.fillStyle = g2; ctx.beginPath();
+        ctx.moveTo(sx - wb / 2, sy); ctx.lineTo(ex - wt / 2, ey); ctx.lineTo(ex + wt / 2, ey); ctx.lineTo(sx + wb / 2, sy); ctx.closePath(); ctx.fill();
+      }
+    }
+
+    // the stone
+    if (lap > 0.05) { // its shadow in the lap
+      var sh = ctx.createRadialGradient(x, y + r * 0.9, 0, x, y + r * 0.9, r * 1.7);
+      sh.addColorStop(0, 'rgba(0,0,0,' + (0.5 * lap).toFixed(3) + ')'); sh.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = sh; ctx.beginPath(); ctx.ellipse(x, y + r * 0.9, r * 1.7, r * 0.5, 0, 0, 6.2832); ctx.fill();
+    }
+    ctx.beginPath();
+    var breathe = still ? 0 : 0.012 * Math.sin(T * 0.7);
+    for (var k = 0; k <= 72; k++) {
+      var th = k / 72 * 6.2832;
+      var rr = r * (1 + breathe + 0.055 * Math.sin(3 * th + 0.6) + 0.035 * Math.sin(5 * th + 2.1) + 0.02 * Math.sin(7 * th + 4.4));
+      var qx = x + rr * Math.cos(th), qy = y + rr * 0.9 * Math.sin(th);
+      if (k === 0) ctx.moveTo(qx, qy); else ctx.lineTo(qx, qy);
+    }
+    ctx.closePath();
+    var sg = ctx.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.1, x, y, r * 1.1);
+    sg.addColorStop(0, '#4a4a5e'); sg.addColorStop(0.55, '#2a2a3a'); sg.addColorStop(1, '#181822');
+    ctx.fillStyle = sg; ctx.fill();
+    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = lap > 0.5 ? 'rgba(232,184,74,' + (0.45 * lap).toFixed(3) + ')' : 'rgba(232,232,240,' + mix(0.28, 0.6, p).toFixed(3) + ')';
+    ctx.stroke();
+
+    var shown = STEPS[S.step].id === 'ask' ? word.value.trim().slice(0, 36) : S.word;
+    if (shown) {
+      var fs = Math.max(11, r * 0.36);
+      ctx.font = 'italic 500 ' + fs + 'px "Cormorant Garamond", Georgia, serif';
+      var tw2 = ctx.measureText(shown).width, maxw = r * 1.62;
+      if (tw2 > maxw) { fs = Math.max(10, fs * maxw / tw2); ctx.font = 'italic 500 ' + fs + 'px "Cormorant Garamond", Georgia, serif'; }
+      ctx.fillStyle = 'rgba(232,232,240,0.9)'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(shown, x, y + fs * 0.05);
+    }
+  }
+
+  show();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
