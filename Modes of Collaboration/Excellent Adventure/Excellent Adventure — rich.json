@@ -38,10 +38,21 @@
           "title": "Who you can bring into the room",
           "caption": "The palace's twenty-five people in the order they were born, from Lao Tzu to Rick Rubin, and one empty chair marked 'you, now'. *What is real and what is a choice:* Birth years are from general reference, not all from the pages. Lao Tzu's is traditional and uncertain. *Leaking in:* All twenty-five People pages.",
           "near": "Bring a figure, event, or tradition into direct dialogue",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch C (sheets built from heroes and avatars) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Excellent Adventure — rich — who you can bring into the room.png",
+            "verdict": "remake",
+            "why": "The years are right; the sentence about them is wrong. The foot says birth years are \"not from the pages, which give most but not all of them\", and the honesty line says \"not all from the pages\": every one of the 25 People pages carries `born_year` in frontmatter, and 24 match the picture exactly. Re-render with the years read from frontmatter and say so."
+          }
+        ]
+      }
     }
   ]
 }

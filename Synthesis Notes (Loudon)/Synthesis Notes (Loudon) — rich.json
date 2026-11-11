@@ -36,21 +36,37 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Marble, then the chisel",
-          "caption": "Five seconds of raw sawtooth on a low E, every harmonic present: the block. Then a resonant low-pass closes over it and starts cutting figures. Nothing is added after second five. Everything you hear from there is something taken away. *What is real and what is a choice:* Your sentence from the notes: 'Think of the oscillator like marble and the filter a sculptor's chisel.'",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* Your sentence from the notes: 'Think of the oscillator like marble and the filter a sculptor's chisel.'",
           "near": "Think of the oscillator like marble",
-          "place": "margin"
+          "place": "band"
         },
         {
           "file": "Synthesis Notes (Loudon) — rich — marble, then the chisel — picture.png",
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Marble, then the chisel · drawn",
-          "caption": "The same sound, drawn.",
+          "caption": "Five seconds of raw sawtooth on a low E, every harmonic present: the block. Then a resonant low-pass closes over it and starts cutting figures. Nothing is added after second five. Everything you hear from there is something taken away.",
           "near": "Think of the oscillator like marble",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch A (the ten sounds) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Synthesis Notes (Loudon) — rich — marble, then the chisel.m4a",
+            "verdict": "remake",
+            "why": "\"Everything you hear from there is something taken away\" is false by measurement, and Loudon's own notes say why: \"resonance is a boost at the cutoff frequency.\" The honest line only quotes him and owns no choice (the resonance, the sweep, the tanh)."
+          },
+          {
+            "file": "Synthesis Notes (Loudon) — rich — marble, then the chisel — picture.png",
+            "verdict": "remake",
+            "why": "With its sound: \"Everything you hear from there is something taken away\" is false by measurement, and Loudon's own notes say why: \"resonance is a boost at the cutoff frequency.\" The honest line only quotes him and owns no choice (the resonance, the sweep, the tanh)."
+          }
+        ]
+      }
     }
   ]
 }

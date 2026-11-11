@@ -108,10 +108,21 @@
           "title": "Four shadows of one thing",
           "caption": "Every page sorted by which pillars it names. Fifty-two carry all four. Only four pages carry just one. *What is real and what is a choice:* Read from each page's own frontmatter; thirty-six pages name no pillars and are left out. *Leaking in:* FOUR PILLARS, whose four names sort the sheet.",
           "near": "seeing the same object from four angles",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch C (sheets built from heroes and avatars) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Hyperdimensional Prism — rich — four shadows of one thing.png",
+            "verdict": "remake",
+            "why": "Three numbers are off by one. Substrate Skill names tools + practice and the maker's parser missed it, so it was counted as naming none. Fix the parse (read the whole frontmatter as YAML) and re-render. While there: mark where the Prism page itself sits, and place it as a band, because at 440 px the avatars are 10 px and the labels 4.5 px, and what is left is a bar chart of specks. As it stands it is only a chart."
+          }
+        ]
+      }
     }
   ],
   "offers": [

@@ -36,21 +36,37 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "The coins decide",
-          "caption": "Sixteen sounds. For each, three coins were thrown six times, as for the I Ching, and the six lines chose the pitch, the length, the loudness, and whether the string is prepared. Two of the sixteen came up silence. *What is real and what is a choice:* Thrown once from the computer's random source and kept as thrown. The mapping from lines to sounds is mine; the result is not. *Leaking in:* Brian Eno, by the link labelled 'coins-and-tape-loops'.",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* Thrown once from the computer's random source and kept as thrown. The mapping from lines to sounds is mine; the result is not. *Leaking in:* Brian Eno, by the link labelled 'coins-and-tape-loops'.",
           "near": "coins",
-          "place": "margin"
+          "place": "band"
         },
         {
           "file": "John Cage — rich — the coins decide — picture.svg",
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "The coins decide · drawn",
-          "caption": "The same sound, drawn.",
+          "caption": "Sixteen sounds. For each, three coins were thrown six times, as for the I Ching, and the six lines chose the pitch, the length, the loudness, and whether the string is prepared. Two of the sixteen came up silence.",
           "near": "coins",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch A (the ten sounds) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "John Cage — rich — the coins decide.m4a",
+            "verdict": "keep",
+            "why": "Faithful to \"throw the coins, consult the I Ching, accept the result without editing\", and the honest line draws the right boundary: the mapping is the maker's, the result is not. Notes: the piece opens on a thrown silence, and the Eno leak is a label only."
+          },
+          {
+            "file": "John Cage — rich — the coins decide — picture.svg",
+            "verdict": "keep",
+            "why": "With its sound: Faithful to \"throw the coins, consult the I Ching, accept the result without editing\", and the honest line draws the right boundary: the mapping is the maker's, the result is not. Notes: the piece opens on a thrown silence, and the Eno leak is a label only."
+          }
+        ]
+      }
     }
   ]
 }

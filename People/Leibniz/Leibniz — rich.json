@@ -36,18 +36,18 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Two clocks, no wire",
-          "caption": "First, two clocks set once and never touching: a wooden tock in the left ear, a metal tick in the right. They stay together because each keeps its own time. Then a wired pair: they start apart, plainly at different rates, and as the wire tightens they pull into step. Both pairs end in unison. Only the second needed a wire. *What is real and what is a choice:* The first half is Leibniz's pre-established harmony; the second is two Kuramoto phases with rising coupling.",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* The first half is Leibniz's pre-established harmony; the second is two Kuramoto phases with rising coupling.",
           "near": "the way two clocks set once keep the same time",
-          "place": "margin"
+          "place": "band"
         },
         {
           "file": "Leibniz — rich — two clocks, no wire — picture.svg",
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Two clocks, no wire · drawn",
-          "caption": "The same sound, drawn.",
+          "caption": "First, two clocks set once and never touching: a wooden tock in the left ear, a metal tick in the right. They stay together because each keeps its own time. Then a wired pair: they start apart, plainly at different rates, and as the wire tightens they pull into step. Both pairs end in unison. Only the second needed a wire.",
           "near": "the way two clocks set once keep the same time",
-          "place": "margin"
+          "place": "band"
         },
         {
           "file": "Leibniz — rich — every jewel reflects every other.png",
@@ -56,10 +56,31 @@
           "title": "Every jewel reflects every other",
           "caption": "The picture at the top of Leibniz's page, rebuilt from the avatars of the other pages. Step back and it is his; step in and it is everyone else's. *What is real and what is a choice:* 1,848 tiles from 123 avatars, each picked for its colour, softened, and tinted most of the way to the colour needed. The tinting is what makes it read. *Leaking in:* Every page in the palace; Indra's Net is the page's own image.",
           "near": "a jewel at every knot reflecting every other jewel",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch A (the ten sounds) · read-only dispatch + challenger · light round, batch C (sheets built from heroes and avatars) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Leibniz — rich — two clocks, no wire.m4a",
+            "verdict": "keep",
+            "why": "The first half is the page's sentence exactly, and the wired half is the contrast that makes \"no wire\" mean something. Note: the wired half is Kuramoto, which the Leibniz page never names or links, so it is a leak recorded as \"leak: null\"."
+          },
+          {
+            "file": "Leibniz — rich — two clocks, no wire — picture.svg",
+            "verdict": "keep",
+            "why": "With its sound: The first half is the page's sentence exactly, and the wired half is the contrast that makes \"no wire\" mean something. Note: the wired half is Kuramoto, which the Leibniz page never names or links, so it is a leak recorded as \"leak: null\"."
+          },
+          {
+            "file": "Leibniz — rich — every jewel reflects every other.png",
+            "verdict": "remake",
+            "why": "The honesty line is false in the humble direction: \"The tinting is what makes it read.\" I rebuilt it with the tint and softening removed and the picture reads as well, and crisper, with every avatar recognisable; the real avatars do all the work and the tint only muddies them. Remake by deleting the tint term and the softening (one line, `make-icon-pieces.py:51`), fix the line, and place it as a band: at 440 px each tile is 6.7 px and \"step in and it is everyone else's\" cannot happen."
+          }
+        ]
+      }
     }
   ]
 }

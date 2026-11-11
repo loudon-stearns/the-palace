@@ -32,6 +32,14 @@ Relayed to the Concierge by the working session. His, whole, typos kept.
 
 > Because they are going into rich faces and we have the review layer, I can explore and review in the palace itself, particularly when we come upon them with the daily page. when useful, relate to metaphors and imagery that is in neighboring linked pages, allow nearby pages and concepts to "leak" into the rich faces, like the pages are trying to speak to each other through how we design the light enrichments.
 
+## The fifth and sixth, on the offers
+
+Asked "Convert the ten sounds to m4a and commit the forty proposals?":
+
+> Convert and commit
+
+> do the challenger pass and the workshop commit, and 30 more light enrichments
+
 ## What is in this folder
 
 - The forty pieces as the child made them, the scripts that make them (`make-*.py`, `lib.py`, `count-voice-history.py`), their data (`sound-traces.json`, `voice-history.json`, `cage-throws.json`), the captions (`captions.md`, `captions-2.md`, `placements.json`), and two contact sheets shown to Loudon in chat.
@@ -41,6 +49,8 @@ Relayed to the Concierge by the working session. His, whole, typos kept.
 
 On 2026-11-10 the Concierge copied all forty into their pages' rich faces, 38 pages, every section at `status: proposal`: each file in its page's bundle as `[Entry] — rich — <what>.<ext>`, named by that page's `— rich.json`. `placements.json` says which page and which sentence. Five placements were the Concierge's choice, not the record's: Synthesis Notes (Loudon), Meaning and the Link, Songlines and Dub Lineage sit in the section the page's title opens, because their sentence is above the first `##`; Hyperdimensional Prism's sits in Cross-Pillar Connections; How the Palace Commits' sits beside "committed through one door", since the sentence first chosen is a figure's caption and a piece cannot anchor to one.
 
-No challenger read any of them. Nobody has heard the ten sounds; they were checked by measurement. Loudon has approved none. Whether a light piece needs a challenger is not written anywhere and is his to say.
+The forty were committed at `72e4b9ac`, the ten sounds as m4a; the wav sources stay here. Four challengers then read them: 16 keep, 24 remake, 0 retire. The record is `challenge/README.md`, with the four reports whole beside it. Nobody has heard the ten sounds; they were checked by measurement. Loudon has approved none.
+
+A third batch of thirty (`placements-3.json`, `captions-3.md`, the `-3` makers) was placed the same day on thirty more pages, as proposals, in the band, with no challenger.
 
 Written by hand; nothing here is read by the renderer or the ceremony's scripts.

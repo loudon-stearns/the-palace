@@ -38,10 +38,21 @@
           "title": "Growth rings",
           "caption": "The palace cut across like a trunk. Each dot is a page, oldest at the heart, coloured by its type; each ring is a month of 2026. March is the widest ring, 105 pages. *What is real and what is a choice:* 328 of the map's 329 pages, placed by the birth date each gives itself (one gives none). Map build of 2026-11-09.",
           "near": "pages and",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch B (counts from the map and git) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Palace Map — rich — growth rings.svg",
+            "verdict": "keep",
+            "why": "True to its data and the trunk is a real metaphor, not only a chart; legible at margin width (dots and ring labels hold, the footer is small). Two notes: the sentence beside it is about the map's size, and the page never talks about when pages were born, so the piece adds a claim the page does not make; and the in-image line \"A wide ring was a fat month\" is loose, because count is drawn as ring area, not width (June's 49 pages make a ring about as wide as January's 11)."
+          }
+        ]
+      }
     }
   ]
 }

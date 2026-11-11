@@ -38,10 +38,21 @@
           "title": "Cast skins",
           "caption": "Three pages and the face each one shed. The old hero is faded on the left, the one worn now on the right. The old ones are still whole, in git. *What is real and what is a choice:* Read from git history. Only a handful of pages have ever changed their hero; these are three of them. *Leaking in:* Leverage Points Framework, Blocked Not Prompted and Manim CE lend their old faces.",
           "near": "A public archive is a trail of cast skins",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch C (sheets built from heroes and avatars) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Identity Molting — rich — cast skins.png",
+            "verdict": "remake",
+            "why": "The three \"shed\" faces were not shed. All three were stripped one day after they were made by `ca12f632` (2026-06-26, \"strip heroes+icons from 16 working-doc entries — per Loudon review ... should not carry a decorative hero\"), then given new faces later; Blocked, Not Prompted went faceless for three months in between. That is a removal on review, not a form outgrown, and the picture's \"first worn 2026-06-25 → worn now since …\" hides the gap."
+          }
+        ]
+      }
     }
   ]
 }

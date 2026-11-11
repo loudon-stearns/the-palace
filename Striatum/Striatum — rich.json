@@ -38,10 +38,21 @@
           "title": "What dopamine reports",
           "caption": "Three trials. A reward nobody predicted: a burst. A reward the cue predicted: the burst moves to the cue and the reward itself passes in silence. A predicted reward withheld: the cell goes quiet at the moment it should have come. *What is real and what is a choice:* Schematic, not data. The pattern is Schultz, Dayan and Montague's (1997), which the page describes and does not cite.",
           "near": "the difference between what was expected and what actually happened",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch D (drawn diagrams) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Striatum — rich — what dopamine reports.svg",
+            "verdict": "remake",
+            "why": "The three-trial pattern is right and the citation is right, but two things want one pass. (1) The caption says the predicted reward \"passes in silence\", while the drawing shows the cell firing on at its usual rate, and \"silence\" is the label on row 3's pause; say \"draws no burst\" or \"passes without a change\". (2) The bursts are placed by a random walk, so row 3's cue burst is 4 ticks starting about 28 px after the cue and row 2's is 10 ticks starting at the cue;"
+          }
+        ]
+      }
     }
   ]
 }

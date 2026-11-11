@@ -36,21 +36,37 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "One occasion, then the society",
-          "caption": "One grain, alone. It arises and is gone. Again. Then they arrive faster, until near twelve seconds you stop hearing grains and hear a tone. Nothing in that tone persists: no grain lasts a tenth of a second. The tone is the pattern they hold together. *What is real and what is a choice:* The page's claim that the grain is the actual occasion and the cloud the society.",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* The page's claim that the grain is the actual occasion and the cloud the society.",
           "near": "the grain is the actual occasion",
-          "place": "margin"
+          "place": "band"
         },
         {
           "file": "Whitehead — rich — one occasion, then the society — picture.svg",
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "One occasion, then the society · drawn",
-          "caption": "The same sound, drawn.",
+          "caption": "One grain, alone. It arises and is gone. Again. Then they arrive faster, until near twelve seconds you stop hearing grains and hear a tone. Nothing in that tone persists: no grain lasts a tenth of a second. The tone is the pattern they hold together.",
           "near": "the grain is the actual occasion",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch A (the ten sounds) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Whitehead — rich — one occasion, then the society.m4a",
+            "verdict": "keep",
+            "why": "A near-literal staging of the page's \"the grain is the actual occasion, the cloud is the society\", and the fifth and octave give \"the inherited pattern\" something to hold. Note: \"near twelve seconds\" looks early by measurement."
+          },
+          {
+            "file": "Whitehead — rich — one occasion, then the society — picture.svg",
+            "verdict": "keep",
+            "why": "With its sound: A near-literal staging of the page's \"the grain is the actual occasion, the cloud is the society\", and the fifth and octave give \"the inherited pattern\" something to hold. Note: \"near twelve seconds\" looks early by measurement."
+          }
+        ]
+      }
     },
     {
       "heading": "Core Concepts",
@@ -70,10 +86,21 @@
           "title": "A page is built of what it takes up",
           "caption": "Whitehead's avatar in the middle of every page it holds a link with. Red for the six it takes up, grey for the seven that take it up in turn, each line naming the link. *What is real and what is a choice:* All thirteen links are real, map build of 2026-11-09. *Leaking in:* Its thirteen neighbours, Leibniz among them on a 'contradicts'.",
           "near": "built out of its relations",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch B (counts from the map and git) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Whitehead — rich — a page is built of what it takes up.png",
+            "verdict": "remake",
+            "why": "Faithful and worth having: the page says \"A typed link is a prehension\" and the ring makes that visible with Whitehead's own neighbours; legible at margin width. But two stated counts are off by one: the page declares 7 links, not 6. The seventh, `mirrors` → STIGMERGY v1.0 — Palace Front-End, is a bundle file outside the map, and the page gives it a whole section."
+          }
+        ]
+      }
     }
   ]
 }

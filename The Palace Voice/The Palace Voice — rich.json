@@ -38,10 +38,21 @@
           "title": "The dial that drifted",
           "caption": "Em-dashes and bold per thousand words, month by month. Em-dashes climb from 14 to 22 by midsummer, then fall to 15 after the August gate. *What is real and what is a choice:* Counted across every .md at each month's last commit. In this count bold did not rise; the page's 41 and 53 percent were measured some other way. *Leaking in:* Drift and Consolidation: drift, then the day it got tracked.",
           "near": "em-dashes rose 41 percent",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch B (counts from the map and git) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "The Palace Voice — rich — the dial that drifted.svg",
+            "verdict": "remake",
+            "why": "The series is reproduced, but the chart answers a different question from the page and then leans on it: it pools every tracked .md, and the fall \"to 15 once the gate was in\" is mostly dilution. All-.md words went from 0.99M in August to 2.34M in November while canon-entry prose stayed near 450K;"
+          }
+        ]
+      }
     }
   ]
 }

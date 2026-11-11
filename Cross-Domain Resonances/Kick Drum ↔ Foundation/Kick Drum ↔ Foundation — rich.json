@@ -36,21 +36,37 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Who was there first",
-          "caption": "The same four bars mixed twice. First the chords and bass are set and the kick is squeezed in last, thin. Then the kick goes in first, whole, and the bass steps back each time it speaks. *What is real and what is a choice:* One arrangement, two orders of decision, both synthesized here. The picture shows only what is below 140 Hz. *Leaking in:* Sidechain ↔ Conversation: the bass ducking is that bridge at work.",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* One arrangement, two orders of decision, both synthesized here. The picture shows only what is below 140 Hz. *Leaking in:* Sidechain ↔ Conversation: the bass ducking is that bridge at work.",
           "near": "early foundational decisions constrain all subsequent options",
-          "place": "margin"
+          "place": "band"
         },
         {
           "file": "Kick Drum ↔ Foundation — rich — who was there first — picture.svg",
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Who was there first · drawn",
-          "caption": "The same sound, drawn.",
+          "caption": "The same four bars mixed twice. First the chords and bass are set and the kick is squeezed in last, thin. Then the kick goes in first, whole, and the bass steps back each time it speaks.",
           "near": "early foundational decisions constrain all subsequent options",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch A (the ten sounds) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Kick Drum ↔ Foundation — rich — who was there first.m4a",
+            "verdict": "remake",
+            "why": "The sound does what the caption says, but \"one arrangement, two orders of decision\" claims more than was made. No order is modelled: these are two fixed mixes, and the thin kick is the maker's EQ choice, not a result."
+          },
+          {
+            "file": "Kick Drum ↔ Foundation — rich — who was there first — picture.svg",
+            "verdict": "remake",
+            "why": "With its sound: The sound does what the caption says, but \"one arrangement, two orders of decision\" claims more than was made. No order is modelled: these are two fixed mixes, and the thin kick is the maker's EQ choice, not a result."
+          }
+        ]
+      }
     }
   ]
 }

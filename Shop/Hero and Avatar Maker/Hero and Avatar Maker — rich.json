@@ -38,10 +38,21 @@
           "title": "What survives at 24 pixels",
           "caption": "Crystal Synthesizer's hero and its avatar, each shrunk to 48 and 24 pixels and shown both at true size and enlarged. The hero turns to a smear of colour; the avatar is still a ring with a red stone in it. *What is real and what is a choice:* Both are the palace's real files, resized. Nothing was redrawn. *Leaking in:* Crystal Synthesizer, the page's own example of an engraving.",
           "near": "Engravings vanish at 24–48px",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch C (sheets built from heroes and avatars) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Hero and Avatar Maker — rich — what survives at 24 pixels.png",
+            "verdict": "remake",
+            "why": "Three things. (1) \"24 px, actual size\" is only true when the 1840-px sheet is shown at 1840; in a 440-px margin that thumbnail is about 6 px, and the renderer has no click-to-enlarge (`rich.html`: `.fig img {width:100%}`, plain `<img>` in `rich.js:336`). (2) \"Both are the palace's real files, resized."
+          }
+        ]
+      }
     }
   ]
 }

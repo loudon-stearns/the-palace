@@ -38,10 +38,21 @@
           "title": "The bathtub",
           "caption": "One tub filled two ways, with a four-second lag between hand and water. Small turns settle on the line. Yanking the taps swings past it, over the rim, and back to empty. *What is real and what is a choice:* A small simulation written for this figure, not a measurement.",
           "near": "bathtub",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch D (drawn diagrams) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Donella Meadows — rich — the bathtub.svg",
+            "verdict": "remake",
+            "why": "The simulation does what the caption says and tests the page's sentence instead of illustrating it, but the drawing has faults. The water stands above the rim: the level is capped at 1.2 with the rim at 1.0, so the red line runs flat-topped over the rim for seconds at a time, which a tub cannot do; cap it at the rim and mark the spill. Both labels are printed across their own curves (\"yanking the taps: over the rim...\" is struck through twice by the red plateaus;"
+          }
+        ]
+      }
     }
   ]
 }

@@ -38,10 +38,21 @@
           "title": "The quiet ones",
           "caption": "The sixteen pages with the fewest links, each with its count in and out. A missing connection is an invitation. *What is real and what is a choice:* The map's own counts, build of 2026-11-09. *Leaking in:* The sixteen themselves; the line is the Jewel's.",
           "near": "entries with no typed links in either direction",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch B (counts from the map and git) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Weave Ceremony — rich — the quiet ones.png",
+            "verdict": "remake",
+            "why": "It sits beside \"Orphans: entries with no typed links in either direction\" and shows none: the map has zero orphans and every page shown has at least two links out. \"The sixteen with the fewest links\" is not a defined set (1 page has 3 links, 9 have 4, 19 tie at 5; six of the 19 were taken alphabetically, unowned). And \"quiet\" is already this page's word for the opposite thing (Step 6.6: \"high degree, no use in the window\")."
+          }
+        ]
+      }
     }
   ]
 }

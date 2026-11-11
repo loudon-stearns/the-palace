@@ -36,21 +36,37 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Clear away what hides it",
-          "caption": "Eight layers at once. One leaves each bar: shaker, arpeggio, pad, second guitar, drums, bass. What is left is a voice and one guitar, which were playing the whole time. *What is real and what is a choice:* Synthesized, including the 'voice', which is a buzz through two formants. Nothing is added after bar one. *Leaking in:* Dub Lineage: subtraction again, but only ever in one direction.",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* Synthesized, including the 'voice', which is a buzz through two formants. Nothing is added after bar one. *Leaking in:* Dub Lineage: subtraction again, but only ever in one direction.",
           "near": "Rubin's whole method is removal",
-          "place": "margin"
+          "place": "band"
         },
         {
           "file": "Rick Rubin — rich — clear away what hides it — picture.svg",
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Clear away what hides it · drawn",
-          "caption": "The same sound, drawn.",
+          "caption": "Eight layers at once. One leaves each bar: shaker, arpeggio, pad, second guitar, drums, bass. What is left is a voice and one guitar, which were playing the whole time.",
           "near": "Rubin's whole method is removal",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch A (the ten sounds) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Rick Rubin — rich — clear away what hides it.m4a",
+            "verdict": "remake",
+            "why": "The title's claim fails by measurement: nothing hides the song. The voice is the loudest thing from bar one, and two of the six removals are too quiet to notice. The order, the bars and \"nothing is added\" are all true; this is a levels fix."
+          },
+          {
+            "file": "Rick Rubin — rich — clear away what hides it — picture.svg",
+            "verdict": "remake",
+            "why": "With its sound: The title's claim fails by measurement: nothing hides the song. The voice is the loudest thing from bar one, and two of the six removals are too quiet to notice. The order, the bars and \"nothing is added\" are all true; this is a levels fix."
+          }
+        ]
+      }
     }
   ]
 }

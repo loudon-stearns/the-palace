@@ -38,10 +38,21 @@
           "title": "A chain cannot go back",
           "caption": "A chain of five thoughts that went wrong at the second and cannot return to it, beside a tree that drops five dead ends, backs up once, and arrives. *What is real and what is a choice:* A schematic. No model was run.",
           "near": "replaces the chain with a tree",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch D (drawn diagrams) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Tree of Thoughts — rich — a chain cannot go back.svg",
+            "verdict": "remake",
+            "why": "Faithful to the page (several children, scored, pruned, backtracking native) and its counts are right; the one defect is that the top dead-end node is drawn on top of the subtitle \"several continuations, scored, and the weak ones dropped\". Move the tree down about 20 px. Notes: it is the standard schematic, close to the paper's own Figure 1, so nothing out of the ordinary; the node whose two children both died is left unmarked. The honest line is true. Caption states a claim. At 440 px the shapes read."
+          }
+        ]
+      }
     }
   ]
 }

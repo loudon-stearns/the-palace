@@ -38,10 +38,21 @@
           "title": "Every link, and whether it says how",
           "caption": "One square for each of the 2,323 links between pages, coloured by type. Filled squares carry a label saying how the two pages meet; hollow ones only say that they do. 93 percent are filled. *What is real and what is a choice:* Map build of 2026-11-09, links between pages only, so the total differs from the page's 2,940.",
           "near": "typed links carrying a resonant label",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch B (counts from the map and git) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Resonant Link Labels — rich — every link, and whether it says how.svg",
+            "verdict": "keep",
+            "why": "Right, and it does what the sentence cannot: one glance shows the second register in use. One required addition to the honesty line: it explains why the total differs from the page's 2,940 but not why the share is 93 where the sentence beside it says 67."
+          }
+        ]
+      }
     }
   ]
 }

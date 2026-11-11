@@ -36,21 +36,37 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "You cannot un-salt it",
-          "caption": "A plucked phrase three times: dry, with reverb, and after an honest try at taking the reverb back out. The third is choppier and still wet. *What is real and what is a choice:* The 'taking out' is a simple gate. Better tools exist and they do not get the dry phrase back either. *Leaking in:* Reverb ↔ Space-Time, the sibling bridge whose effect is the salt.",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* The 'taking out' is a simple gate. Better tools exist and they do not get the dry phrase back either. *Leaking in:* Reverb ↔ Space-Time, the sibling bridge whose effect is the salt.",
           "near": "You can always add reverb",
-          "place": "margin"
+          "place": "band"
         },
         {
           "file": "Cooking ↔ Mixing — rich — you cannot un-salt it — picture.svg",
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "You cannot un-salt it · drawn",
-          "caption": "The same sound, drawn.",
+          "caption": "A plucked phrase three times: dry, with reverb, and after an honest try at taking the reverb back out. The third is choppier and still wet.",
           "near": "You can always add reverb",
-          "place": "margin"
+          "place": "band"
         }
       ],
-      "stamped": "2026-11-10"
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-10",
+        "by": "challenger · light round, batch A (the ten sounds) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Cooking ↔ Mixing — rich — you cannot un-salt it.m4a",
+            "verdict": "keep",
+            "why": "It demonstrates the anchored sentence, and the honest line owns the gate. The leak is thin: Reverb ↔ Space-Time is not linked from this page and says nothing about irreversibility; it is named only because its subject is reverb."
+          },
+          {
+            "file": "Cooking ↔ Mixing — rich — you cannot un-salt it — picture.svg",
+            "verdict": "keep",
+            "why": "With its sound: It demonstrates the anchored sentence, and the honest line owns the gate. The leak is thin: Reverb ↔ Space-Time is not linked from this page and says nothing about irreversibility; it is named only because its subject is reverb."
+          }
+        ]
+      }
     }
   ]
 }
