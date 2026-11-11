@@ -118,3 +118,13 @@ Written by the close's backstage pass from the working session's own witness at 
 - On Inharmonic's piece, while a loop is moving "the picture's phases match the sound's only in law, slowed 220×; at rest they are synced."
 
 **The slider scan.** `dudscan.json` beside this file is the scan of 2026-11-10 behind "53 of 123 faces are sliders beside a picture in every piece." It counts controls, not metaphor: in the session's words, "A slider can sit inside a wonderful image, and a draggable chart can still be a dud." Its sound column is rough. `dudscan.py` is the first pass only; it gave a looser count (74 faces) and writes a different shape. The second pass, which wrote this `dudscan.json`, ran inline and its script was not saved.
+
+---
+
+# After the close
+
+**Loudon, 2026-11-11, replying to the session's last words:**
+
+> I agree, I think for these playful interactions, brainstorming together is the best practice, the development of them should be related to modes of collaboration more than a prompt or a process you run alone.
+
+The session's note, not his: Said after the session was closed well. Not yet written into Enrichment or Modes of Collaboration; whether it becomes a line there, or a named mode, is his to say.

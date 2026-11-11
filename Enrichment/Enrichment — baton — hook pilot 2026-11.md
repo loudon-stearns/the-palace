@@ -49,7 +49,7 @@ The open rulings. None is answered:
 3. Whether the three maker-written readings on The Lens's page two get woken through the real lens.
 4. "A face opens on a hook" (Enrichment step 2, v2.10) and "No hook is a remake" (the challenger brief) are rules, written the morning he asked for fewer. Does one want loosening? Unasked.
 5. The split with the handoffs session: DSP in Looping Dimensions, the five nominated faces (Enrichment's other baton), and Playful Interface Design's baton, open on the board.
-6. Is the wide pass still wanted? Unasked.
+6. Is the wide pass still wanted? Unasked; and, by his word of 2026-11-11, any further making of these is brainstormed with him, as a mode of collaboration, not run alone.
 
 Said to him at the close and not answered, so open and not agreed: the Concierge wrote and checked every house write that day. And the five makers were briefed and sent by a session that was a child; they were not told to read ELDER.
 
@@ -65,6 +65,7 @@ The work is on main. Five worktrees still stand, about 2.7 GB each, all merged, 
 
 ## Calibrations from this session
 
+- Loudon, 2026-11-11, after the close: "I agree, I think for these playful interactions, brainstorming together is the best practice, the development of them should be related to modes of collaboration more than a prompt or a process you run alone."
 - Options, not rules. A way of looking he offers joins the deck; it is not a first step, a gate or a ranking.
 - Read what comes back for spread, not agreement. If a wave clusters, the brief was too tight.
 - No shared form. Different makers get different briefs, and some get no card at all.
