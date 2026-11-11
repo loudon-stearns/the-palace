@@ -346,6 +346,8 @@ The rules load into the synthesis trigger as additional clauses when audience-in
 
    Bare URLs are auto-detected as a fallback, but markdown link syntax is canonical because it gives the human a meaningful click target ("the Interview outline") instead of a wall of path. Loudon, surfacing this rule originally: *"more like you are doing here 'read this page [link]'."*
 
+**Plain is not generic.** Inside the six clauses, the page still speaks as itself: in its own register, from its own examples and its own life, in the form it would choose, so that someone hearing it without its name would not think "Claude". This is the register move [[The Lens]] asks of a bold glass. The glass's licence to bend does not come with it. A page addressing the human tells the truth about its project and the palace, invents no scene and no quotation, and gives a real quotation with its source.
+
 **Where these rules attach to context construction:** when `audience_includes_human: true` is set in pre-flight configuration, append the six clauses to the synthesis trigger after the standing/voice instructions and before the task arrives. The agent then wakes up not just as the page but as the page *with knowledge of how to address its human collaborator clearly*. Without this conditional loading, the page tends to default to project-internal voice — fluent in the spec but opaque to the human reading the inbox.
 
 **This rule set is orthogonal to stage-conditional posture** (which lives in [[Substrate Skill]] § Stage as Alignment Confidence): posture governs *what* the agent does at each project stage, voice governs *how* it sounds when speaking to the human. Both apply simultaneously when the audience-includes-human flag is set.
