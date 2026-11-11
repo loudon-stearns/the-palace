@@ -139,9 +139,11 @@ On Loudon's "run the challengers on the unchallenged ones" (2026-11-11). Three c
 - **The Multilinear Self** — remake. The footer says "no shadow is a lie", and one is.
 - **Julia Cameron** — remake. The leak is not on either page.
 
-**The retire.** Metaphor as Coupling Medium's sheet was dropped before landing, as [[Enrichment]] step 6 says: the placed file and its manifest are gone from the bundle, and nothing of it was ever committed. The workshop keeps the file, `Metaphor as Coupling Medium — ten bridges.png`. The challenger's reason: it is a list of another hub's members set beside a sentence about something else.
+**The retire.** Metaphor as Coupling Medium's sheet. The challenger's reason: it is a list of another hub's members set beside a sentence about something else. The Concierge dropped it from the bundle under [[Enrichment]] step 6, then put it back the same day, unchanged, when Loudon answered the question of remakes: "I am happy with what we have, just set this principle moving forward" (2026-11-11, relayed by the working session). It stands as a proposal with its retire verdict in the manifest. Nothing of it has been committed.
 
-Each of the other twenty-nine sections carries its `challenge` block. The twenty-two remakes are not made, and the twenty-nine faces are not committed.
+**No remake pass.** On the same words, the twenty-two remakes of this batch are not to be made. The thirty stand as they are, each with its verdict beside it, and the first-time-reader principle governs the rounds that come after.
+
+Each of the thirty sections carries its `challenge` block. The thirty faces are not committed.
 
 **A thing these three were not asked, and found anyway.** Loudon's principle of 2026-11-11, that a light piece is made by reading the page as a first-time reader and connecting to what is already there, came after the prompt was written. Several verdicts arrive at it unasked: a list of another hub's members beside a sentence about something else (Metaphor as Coupling Medium); twenty-one rectangles that say what the quotation already says (Julia Cameron); two counts drawn as squares that the sentence already gives (Reflective Practice).
 
