@@ -11,6 +11,9 @@ stage: growing
 status: active
 forward_vector: "I want to become a playable browser instrument whose interface IS the physics — a string you can see vibrate, pluck, and damp, with the traveling wave on screen being the same delay-line state you hear. I want to prove that a digital waveguide rendered in 3D teaches the synthesis better than any knob panel could, and to demand the question every Loudon Live instrument eventually demands: does this earn a stage, or is it a test bed?"
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[The Shop]]"
     type: connects-to
     label: first-3d-brief
@@ -84,7 +87,7 @@ Rendered by [[Three.js]] (R3F + drei default; raw r128 for a single-file artifac
 - **Tune** pitch (delay length), brightness/decay (loop filter + gain), inharmonicity (dispersion allpass), and termination character (reflection filters)
 - **Orbit** the scene to read the wave from any angle
 
-The teaching claim the project is built to prove: a learner who watches the wave reflect and lose its highs *understands* why a plucked string decays bright-to-dark in a way no decay-knob ever conveys.
+The teaching claim the project is built to prove: a learner who watches the wave reflect and lose its highs *understands* why a plucked string decays bright-to-dark in a way no decay-knob ever conveys. It is an object to think with in Papert's sense ([[Objects to Think With]]): the delay line is the string you pluck, at the point you click, so the synthesis is handled with a gesture the hand already knows.
 
 ## Tiers Toward Loudon Live
 

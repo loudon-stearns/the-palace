@@ -15,6 +15,9 @@ hook_quality: 10
 beauty: 9
 who_leads: shared
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[DSP in Looping Dimensions]]"
     type: deepens
     label: temporal-completion
@@ -394,7 +397,7 @@ If any of these fail, the codebox source needs revision before media is rebuilt.
 
 ### Stage 1 exercises
 
-Each exercise is something a student does *with* the working instrument, after the lecture material. They are designed to make the theory felt rather than just understood.
+Each exercise is something a student does *with* the working instrument, after the lecture material. They are designed to make the theory felt rather than just understood. Anyone who has pumped a swing has already been the modulator in the Mathieu equation, and that is what makes the resonator an object to think with ([[Objects to Think With]]): here the same pump is a control you raise until you hear the tongue crack open.
 
 1. **Make the tongue audible.** Park modulation rate at exactly $2 \cdot$ natural frequency. Slowly raise $q$ from zero. Listen for the crack. Note the $q$ value. Repeat with modulation rate slightly off from $2 \cdot$ natural; the threshold $q$ should be larger. You have just measured the tongue's width.
 2. **Parametric stuck oscillation.** With $q$ above threshold, kill the input noise. Does the oscillation persist? It should, until floating-point underflow eventually starves the resonance. Notice that the resonance is "alive" — you didn't put energy in; the modulation did.

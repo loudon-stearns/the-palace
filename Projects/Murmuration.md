@@ -10,6 +10,9 @@ stage: growing
 status: active
 forward_vector: "I want to become a real instrument with all three readings of the flock built and playable — grains, distribution, and gesture — cross-browser and with the voice ceiling proven, so I can test my core wager: that a grain cloud grown from a perturbable dynamical system is more alive than one whose spread is dialed in by hand. I want my Disorder macro to stay a genuine phase transition and not soften into a crossfade. And I want to be built twice — here and as an RNBO device — so the palace learns where the browser cousin and the DAW native each win."
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Particle Synthesis]]"
     type: mirrors
     label: agents-drive-the-grain-cloud
@@ -67,7 +70,7 @@ The flock is a **critical system**, and that is the instrument's deepest move. R
 
 ## What makes it distinct from its neighbors
 
-[[Particle Synthesis]] also drives grains from a dynamical system, but its particles obey *physics* (forces, mass, dispersion) and act independently; Murmuration's boids obey *social* rules (separation/alignment/cohesion) and the sound comes from their **collective** distribution — the same family, a different generating logic. The [[2D Torus Wavetable Synthesizer]] shares the 2D-terrain idea but scans it with two clean phasors; Murmuration scans it with sixty noisy agents. [[Neural Granular Synthesis]] and the [[Bayesian Granular Synthesizer]] also let *statistics* govern the grain cloud — but there the distribution is learned or specified; here it is **emergent and perturbable in real time**. The instrument's one-line claim: *the grain cloud is alive because the thing that shapes it is alive.*
+[[Particle Synthesis]] also drives grains from a dynamical system, but its particles obey *physics* (forces, mass, dispersion) and act independently; Murmuration's boids obey *social* rules (separation/alignment/cohesion) and the sound comes from their **collective** distribution — the same family, a different generating logic. The [[2D Torus Wavetable Synthesizer]] shares the 2D-terrain idea but scans it with two clean phasors; Murmuration scans it with sixty noisy agents. [[Neural Granular Synthesis]] and the [[Bayesian Granular Synthesizer]] also let *statistics* govern the grain cloud — but there the distribution is learned or specified; here it is **emergent and perturbable in real time**. The instrument's one-line claim: *the grain cloud is alive because the thing that shapes it is alive.* It is also an object to think with ([[Objects to Think With]]): a phase transition becomes a macro you play, so raising Disorder melts the flock from tone into noise, and dropping in a predator lets you hear it scatter and re-cohere.
 
 ## Status
 

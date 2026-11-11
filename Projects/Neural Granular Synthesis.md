@@ -7,6 +7,9 @@ stage: growing
 status: active
 forward_vector: "I want to become the architecture where stable timbres emerge from populations rather than individual grains — a shader-parallel neuron model where statistical emergence and biological constraint meet, making the crowd's coherence the primary control surface."
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Granular Synthesis]]"
     type: deepens
   - target: "[[Harmonicity and Inharmonicity]]"
@@ -115,4 +118,4 @@ The raster plot is itself a teaching tool. It externalizes what is otherwise inv
 
 ## Signature Insight
 
-The miracle is not in any one neuron. It is in the statistics of the crowd. This is where biology and synthesis meet: build the right constraints and let emergence do the work.
+The miracle is not in any one neuron. It is in the statistics of the crowd. This is where biology and synthesis meet: build the right constraints and let emergence do the work. That is the idea it carries as an object to think with ([[Objects to Think With]]): order that lives in the crowd and not the cell, seen on the raster plot when scattered spikes line up into stripes, and heard as noisy whispers becoming one stable timbre.

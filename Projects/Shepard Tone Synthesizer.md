@@ -11,6 +11,9 @@ hook_quality: 8
 beauty: 9
 who_leads: loudon
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Portamento and Physical Pitch Modeling]]"
     type: deepens
     label: glide-the-whole-stack
@@ -135,7 +138,7 @@ This design teaches three foundational synthesis concepts simultaneously:
 2. **Pitch interpolation (glide/portamento)**: How smooth motion between pitches feels and behaves polyphonically
 3. **Voice management and timbre**: Per-voice filtering and how each voice contributes to the global sound
 
-It also reinforces an important psychoacoustic insight: the Shepard tone proves that human perception of pitch isn't absolute, but *relative*. Context and frequency content matter as much as fundamental frequency.
+It also reinforces an important psychoacoustic insight: the Shepard tone proves that human perception of pitch isn't absolute, but *relative*. Context and frequency content matter as much as fundamental frequency. That is why it is an object to think with ([[Objects to Think With]]): octave equivalence lives in the stack, and the proof of it happens in the listener's own ear, which hears a climb the frequencies never make.
 
 ## Design Challenges
 

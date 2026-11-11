@@ -12,6 +12,9 @@ beauty: 9
 who_leads: loudon
 forward_vector: "I will become the delay that thinks — a feedback delay topology where the routing is grown, not designed. The plasmodium of *Physarum polycephalum* foraging across a nutrient field is the algorithm: pulses propagate, paths optimize, dead branches prune themselves. The user does not patch a delay network; the user feeds the slime mold and watches the routing emerge."
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Retrospective Delay]]"
     type: contrasts-with
     label: thinking-vs-remembering
@@ -107,7 +110,7 @@ Implementation needs a real graph evolving in real time over an audio engine.
 
 The lesson is about **emergent routing**. In a Patchbook delay design class, students learn that 2 taps + feedback is a comb filter, 3 taps make rhythm, etc. — designed structures with predicted output.
 
-Slime Mold Delay teaches the opposite: *give the system constraints and food, let routing emerge*. The moment of recognition arrives around second fifty-eight of a first session — *([[proofs/2026-05-05-moment-of-aha|the first lesson, sixty seconds]])*. Sometimes the routing is musical. Sometimes it's wrong. The student learns to *seed the conditions for good routing* rather than to *specify routing*.
+Slime Mold Delay teaches the opposite: *give the system constraints and food, let routing emerge*. The moment of recognition arrives around second fifty-eight of a first session — *([[proofs/2026-05-05-moment-of-aha|the first lesson, sixty seconds]])*. Sometimes the routing is musical. Sometimes it's wrong. The student learns to *seed the conditions for good routing* rather than to *specify routing*. That makes the dish an object to think with ([[Objects to Think With]]): emergent routing is not drawn by the student but watched, as the audio's pulses run along the tubes the mold kept and the unused ones thin away.
 
 This is also a lesson about feedback systems generally. Negative feedback (pruning) and positive feedback (reinforcement) coexist. The colony is stable not because it doesn't change but because change is locally regulated. Stability through process, not stasis.
 

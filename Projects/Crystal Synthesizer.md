@@ -11,6 +11,9 @@ hook_quality: 9
 beauty: 10
 who_leads: loudon
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Wallpaper Groups]]"
     type: deepens
   - target: "[[Quantum Synthesizer]]"
@@ -148,7 +151,7 @@ Every synthesizer embodies a physical model—either explicitly or implicitly.
 - FM synthesis: *partials obey Bessel function weighting*, reflecting phase-space rotation. The physics constrains which spectra are reachable.
 - Wavetable synthesis: *partials obey a stored waveform's Fourier series*. Again, constraint through physics (the waveform's geometry).
 
-A crystal synthesizer inverts the paradigm: instead of "what spectrum can I make," it asks "what spectrum does Nature make in this material?" The crystal becomes the *specification* for which sounds are possible. You do not choose the partials arbitrarily; the crystal's symmetry and physics choose them for you.
+A crystal synthesizer inverts the paradigm: instead of "what spectrum can I make," it asks "what spectrum does Nature make in this material?" The crystal becomes the *specification* for which sounds are possible. You do not choose the partials arbitrarily; the crystal's symmetry and physics choose them for you. That makes it an object to think with ([[Objects to Think With]]): a crystal's symmetry is heard rather than drawn, as when ruby's two polarization families beat against each other and the plugin's Axis angle knob turns them apart.
 
 This connects to [[Hyperdimensional Prism]]: the crystal is a prism machine. Its periodicity multiplies a single atom's vibrational mode through 230 possible symmetries, generating all the possible collective phonon modes. The timbre emerges not from design but from the symmetry group's projection.
 

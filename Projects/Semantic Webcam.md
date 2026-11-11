@@ -9,6 +9,9 @@ confidence: working
 energy: high
 forward_vector: "I render you as language — your light choosing the characters, whole words typeset into your mid-tones, your highlights inverted to black-on-white. I started as one facet and refused to stay one. My next moves: compose real lines that fit each tonal blob (grammar, not just length), and follow true eyes and fingers. The question I carry: is legibility just another band of light — is language a tonal medium?"
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Enrichment]]"
     type: emerged-from
     label: spawned-by-the-flock-facet
@@ -43,7 +46,9 @@ A live camera that renders you as typeset language. Your luminance chooses the
 character in each cell of a fixed grid; whole words typeset themselves into your
 mid-tones; your brightest highlights become white tiles with black letters punched
 into them. The picture is drawn in the white space of the letters. It runs entirely
-in-page from your webcam — nothing is recorded.
+in-page from your webcam — nothing is recorded. It is an object to think with
+([[Objects to Think With]]) as much as a portrait: the idea that a letter's ink can
+carry a tone is met in your own face, drawn in characters and moving when you move.
 
 ## The line of iterations
 

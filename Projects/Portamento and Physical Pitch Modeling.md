@@ -11,6 +11,9 @@ hook_quality: 8
 beauty: 8
 who_leads: shared
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Frequency-Time Duality]]"
     type: deepens
   - target: "[[Kuramoto Coupling]]"
@@ -210,7 +213,7 @@ The bundle holds:
 - `multi-mode/` — the multi-mode study: a bowed string whose partials lock or slip during a glide, with renders and listening pages for mode locking, bow strength and tone colour.
 - `model-fitter/` — the model run backward: it recovers ζ and ωₙ from a recorded glide, validated on the twelve ear-set examples.
 
-**Usage note:** These tools are designed for *teaching*. They make the physics tangible and audible. They are not synthesis plugins; they are exploratory instruments.
+**Usage note:** These tools are designed for *teaching*. They make the physics tangible and audible. They are not synthesis plugins; they are exploratory instruments. That makes the page's model an object to think with ([[Objects to Think With]]): a mass on a spring with friction is something you hear ring or arrive clean, and a singer already carries one in the larynx.
 
 ## Open Questions
 
