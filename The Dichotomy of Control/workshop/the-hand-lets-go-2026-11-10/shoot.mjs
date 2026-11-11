@@ -23,13 +23,14 @@ for (const [name, vw, vh, touch] of [['desk', 1130, 900, false], ['phone', 390, 
   await page.click('#next'); await page.waitForTimeout(1300); await shot('2 before the push');
   const pad = await page.locator('#pad').boundingBox();
   await page.mouse.move(pad.x + pad.width / 2, pad.y + pad.height / 2);
-  await page.mouse.down(); await page.waitForTimeout(6500); await shot('3 pushing, six seconds');
-  await page.waitForTimeout(13000); await shot('4 pushing, nineteen seconds');
+  await page.mouse.down(); await page.waitForTimeout(3000); await shot('3 pushing, three seconds');
+  await page.waitForTimeout(5000); await shot('4 pushing, eight seconds');
+  await page.waitForTimeout(13000); await shot('4b pushing, twenty-one seconds');
   await page.mouse.up(); await page.waitForTimeout(4200); await shot('5 let go');
   await page.click('#next'); await page.waitForTimeout(900);
   await page.click('#next'); await page.waitForTimeout(900); await shot('6 widen');
   await page.mouse.move(pad.x + pad.width / 2, (await page.locator('#pad').boundingBox()).y + 20);
-  await page.mouse.down(); await page.waitForTimeout(2600); await shot('7 pushing again');
+  await page.mouse.down(); await page.waitForTimeout(4000); await shot('7 pushing again, four seconds');
   await page.mouse.up(); await page.waitForTimeout(3000);
   await page.click('#next'); await page.waitForTimeout(700);
   await page.click('#next'); await page.waitForTimeout(900);

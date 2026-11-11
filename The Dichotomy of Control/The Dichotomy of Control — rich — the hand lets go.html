@@ -202,13 +202,13 @@ class LetGoProcessor extends AudioWorkletProcessor {
     const out = outputs[0], L = out[0], R = out[1] || out[0];
     const sr = this.sr, dt = 1 / sr, TAU = 6.283185307179586;
     const kOn = 1 - Math.exp(-dt / 0.6), kOff = 1 - Math.exp(-dt / 0.12);
-    const kUp = 1 - Math.exp(-dt / 0.5), kDn = 1 - Math.exp(-dt / 1.6), kO = 1 - Math.exp(-dt / 1.5);
+    const kUp = 1 - Math.exp(-dt / 2.3), kDn = 1 - Math.exp(-dt / 1.6), kO = 1 - Math.exp(-dt / 1.5), kShut = 1 - Math.exp(-dt / 2.3); // 2.3 s: 95% there in 7 s, the stone's own pace
     for (let i = 0; i < L.length; i++) {
       this.g += (this.onT - this.g) * (this.onT > this.g ? kOn : kOff);
       this.t += (this.holdT - this.t) * (this.holdT > this.t ? kUp : kDn);
       this.f += this.holdT ? dt / 35 : -dt / 6; if (this.f < 0) this.f = 0; else if (this.f > 1) this.f = 1;
       const oT = this.holdT ? 0.06 : (this.lapT ? 1 : 0.4);
-      this.o += (oT - this.o) * kO;
+      this.o += (oT - this.o) * (this.holdT ? kShut : kO);
       const t = this.t, o = this.o;
 
       // the room: noise, lowpassed twice, opening and closing
@@ -282,10 +282,10 @@ registerProcessor('let-go', LetGoProcessor);
   ];
   var HOLD_LINES = [
     [0, 'Push. As far away as you can.'],
-    [5, 'Notice what this takes.'],
-    [11, 'Notice how much of the room you can still see.'],
-    [18, 'Notice what else this hand could be doing.'],
-    [26, 'It hasn\'t gone anywhere. Keep pushing, or let go. Both are allowed.']
+    [10, 'Notice what this takes.'],
+    [19, 'Notice how much of the room you can still see.'],
+    [28, 'Notice what else this hand could be doing.'],
+    [38, 'It hasn\'t gone anywhere. Keep pushing, or let go. Both are allowed.']
   ];
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -447,17 +447,19 @@ registerProcessor('let-go', LetGoProcessor);
   function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
   function ease(x) { x = clamp01(x); return x * x * (3 - 2 * x); }
 
+  var PUSH_S = 7;
   var last = performance.now(), T = 0;
   function frame(now) {
     var dt = Math.min(0.05, (now - last) / 1000); last = now; T += dt;
     var kp = still ? 1 : 1 - Math.exp(-dt / 0.42), kl = still ? 1 : 1 - Math.exp(-dt / 0.9);
-    S.p += ((S.hold ? 1 : 0) - S.p) * kp;
+    // the push out is slow and even, PUSH_S seconds from rest to the far point; the way back is as quick as it was
+    if (S.hold) S.p = still ? 1 : Math.min(1, S.p + dt / PUSH_S); else S.p += (0 - S.p) * kp;
     S.lap += (S.lapT - S.lap) * kl;
     S.f += S.hold ? dt / 35 : -dt / 6; S.f = clamp01(S.f);
     if (S.hold) {
       var el = (now - S.holdAt) / 1000, line = HOLD_LINES[0][1];
       if (STEPS[S.step].id === 'push') { for (var j = 0; j < HOLD_LINES.length; j++) if (el >= HOLD_LINES[j][0]) line = HOLD_LINES[j][1]; }
-      else line = el < 8 ? 'Pushing again.' : 'Pushing again. Let go when you like.';
+      else line = el < 12 ? 'Pushing again.' : 'Pushing again. Let go when you like.';
       setHead(line);
     }
     draw();
