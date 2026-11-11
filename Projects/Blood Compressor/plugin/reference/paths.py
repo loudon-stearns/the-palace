@@ -89,9 +89,11 @@ PATHS = [
     dict(name="sidechain-hpf", secs=7.2, inputs=bass_and_hats,
          values={"threshold": -30.0, "ratio": 8.0, "sc_hpf": lambda t: 1.0 * (500.0 ** (t / 7.2))},
          gate=dict(exact_until=None)),
+    # makeup climbs 0 to 3 dB: at 12 dB the loop clipped (+5.8 dBFS), at 5 dB still +0.2, sketch and plugin alike,
+    # and the template's gate refuses a clipping path (changed 2026-11-11, after seeing it fail)
     dict(name="detector-makeup-bypass", secs=6.0, inputs=drums,
          values={"threshold": -28.0, "ratio": 4.0, "detector": lambda t: 0.001 * (100.0 ** (t / 6.0)),
-                 "makeup": lambda t: 2.0 * t, "bypass": lambda t: ((t > 2.0) & (t < 3.0)).astype(float)},
+                 "makeup": lambda t: 3.0 * t / 6.0, "bypass": lambda t: ((t > 2.0) & (t < 3.0)).astype(float)},
          gate=dict(exact_until=None)),
     # the body (cycle 11): each one moved alone over a source that shows it
     dict(name="release-curve", secs=8.0, inputs=drums,

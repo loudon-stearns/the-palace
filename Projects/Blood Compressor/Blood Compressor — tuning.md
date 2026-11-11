@@ -29,7 +29,7 @@ What Blood Compressor's steward cycles taught the page, and the changes to the h
    Why: The paragraph promises a lunge at attack zero that the design rules out. The October port measured what the fixed nerve delay really does.
    Path: `Projects/Blood Compressor.md`
    > Attack can't go to zero here: the body always has 5 ms of nerve conduction before the vessel can respond. So the front of every hit gets through before the reflex closes. On a drum loop, heavy compression *raises* the peak-to-average ratio (14.7 dB in bypass to 26.3 dB at the fastest attack, October 2026). This is a compressor that keeps the punch, and that is the lesson. At 5 ms the vessel clamps the body of the hit as soon as it can, and the beat goes flat behind its transients. At 200 ms the body notices before it acts, and the hit's weight gets through too. What students feel is not a compressor lunging but a body that cannot see the future.
-3. **Proposed for canon** · 2026-10-24 · [[Blood Compressor]] · § What This Entry Is and Isn't, the 'Isn't' line · canon change owed *(proposed by the steward, cycle 10)*
+3. **Proposed for canon** · 2026-10-24 · [[Blood Compressor]] · § What This Entry Is and Isn't, the 'Isn't' line · superseded by item 7 *(proposed by the steward, cycle 10)*
    Why: The line still says Stage 1 → a Max prototype is next. The product path is now the VST, by Loudon's standing order of 2026-10-21.
    Path: `Projects/Blood Compressor.md`
    > **Isn't**: a finished plugin yet. The compressor lives in the browser vessel (stage2-vessel-prototype-v3.html), an RNBO codebox and two Max for Live devices (set aside as teaching tools). Since October 2026 it has also been in VST Template's shape in `plugin/`, checked sample for sample against its sketch, with a face whose centre screen shows the artery from inside. It becomes a VST3/AU when the template can build from a project's own folder.
@@ -47,3 +47,13 @@ What Blood Compressor's steward cycles taught the page, and the changes to the h
    > - **Vessel age**: a stiffer wall. The ratio rises (up to double) and the knee loses most of its give (up to 80 %). Older walls give less and cinch harder.
 
 - run · 2026-10-24 · cycle 11 · taught item 4, proposed item 5 for canon
+
+## From cycle 12 — 2026-11-11
+
+6. Before blaming the code when an older test path fails a newly added check, render the sketch through the same path: here the path itself drove makeup past full scale, so the fix belonged in the path, and it was written down as changed after failing. *(offered by the steward, cycle 12)*
+7. **Proposed for canon** · 2026-11-11 · [[Blood Compressor]] · § What This Entry Is and Isn't, the 'Isn't' line · canon change owed *(proposed by the steward, cycle 12)*
+   Why: My earlier words for this line said it becomes a plugin when the template can build here; it now has, so the line should say what it is.
+   Path: `Projects/Blood Compressor.md`
+   > **Isn't**: finished. Since 11 November 2026 it is a VST3/AU built with [[VST Template]] (`plugin/` in this bundle), installed and passing pluginval, auval and the host check, with the artery seen from inside on its centre screen. It hasn't been played in Live yet, and the lesson isn't written. The browser vessel (stage2-vessel-prototype-v3.html) stays as the reference; the RNBO codebox and the two Max for Live devices wait as teaching tools.
+
+- run · 2026-11-11 · cycle 12 · taught item 6, proposed item 7 for canon

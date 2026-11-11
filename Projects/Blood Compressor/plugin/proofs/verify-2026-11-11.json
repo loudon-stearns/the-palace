@@ -1,0 +1,448 @@
+{
+ "plugin": "Blood Compressor",
+ "sr": 44100,
+ "quick": null,
+ "passed": true,
+ "paths": [
+  {
+   "name": "threshold-sweep",
+   "secs": 8.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 8.4e-08 of peak over 8 s (tol 1e-06)",
+     "max_err": 8.358184142075486e-08,
+     "seconds": 8.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.102 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.10189702332932171,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -3.6 dBFS, rms -24.1 dBFS",
+     "source": "engine",
+     "peak": 0.6614654660224915,
+     "rms": 0.06270935660041439,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -3.6 dBFS, rms -24.1 dBFS",
+     "source": "plugin",
+     "peak": 0.6607016324996948,
+     "rms": 0.062487668907908925,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "attack-sweep",
+   "secs": 8.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 5.7e-08 of peak over 8 s (tol 1e-06)",
+     "max_err": 5.672294197330267e-08,
+     "seconds": 8.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.00162 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.001617887493075898,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -1.0 dBFS, rms -26.0 dBFS",
+     "source": "engine",
+     "peak": 0.8944978713989258,
+     "rms": 0.04990987419403285,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -1.0 dBFS, rms -26.0 dBFS",
+     "source": "plugin",
+     "peak": 0.8944978713989258,
+     "rms": 0.04990541618411999,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "release-sweep",
+   "secs": 8.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 6.2e-08 of peak over 8 s (tol 1e-06)",
+     "max_err": 6.190182340871216e-08,
+     "seconds": 8.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.00157 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.001565008967975956,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -0.9 dBFS, rms -24.4 dBFS",
+     "source": "engine",
+     "peak": 0.9051377773284912,
+     "rms": 0.060533768365757135,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -0.9 dBFS, rms -24.4 dBFS",
+     "source": "plugin",
+     "peak": 0.9051399827003479,
+     "rms": 0.06053743854659618,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "knee",
+   "secs": 6.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 8.3e-08 of peak over 6 s (tol 1e-06)",
+     "max_err": 8.28888462493798e-08,
+     "seconds": 6.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.00574 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.005737462537982907,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -3.3 dBFS, rms -20.7 dBFS",
+     "source": "engine",
+     "peak": 0.6819652318954468,
+     "rms": 0.09202861313589218,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -3.3 dBFS, rms -20.7 dBFS",
+     "source": "plugin",
+     "peak": 0.6819719672203064,
+     "rms": 0.09204839450583109,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "stereo-link",
+   "secs": 4.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 5.8e-08 of peak over 4 s (tol 1e-06)",
+     "max_err": 5.84375903327465e-08,
+     "seconds": 4.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 1.53e-06 dB of the sketch (tol 0.5)",
+     "max_db_diff": 1.528676921935812e-06,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -0.9 dBFS, rms -25.6 dBFS",
+     "source": "engine",
+     "peak": 0.8999943137168884,
+     "rms": 0.05223718014026149,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -0.9 dBFS, rms -25.6 dBFS",
+     "source": "plugin",
+     "peak": 0.8999943137168884,
+     "rms": 0.052237188029386296,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "sidechain-hpf",
+   "secs": 7.2,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 6.2e-08 of peak over 7.2 s (tol 1e-06)",
+     "max_err": 6.212973068522193e-08,
+     "seconds": 7.2,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.129 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.12935999672776433,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -1.2 dBFS, rms -22.3 dBFS",
+     "source": "engine",
+     "peak": 0.8727024793624878,
+     "rms": 0.07676286509219508,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -1.2 dBFS, rms -22.3 dBFS",
+     "source": "plugin",
+     "peak": 0.8727024793624878,
+     "rms": 0.07633757105549406,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "detector-makeup-bypass",
+   "secs": 6.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 6.2e-08 of peak over 6 s (tol 1e-06)",
+     "max_err": 6.195551915299078e-08,
+     "seconds": 6.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.307 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.3073394486945098,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -0.7 dBFS, rms -20.0 dBFS",
+     "source": "engine",
+     "peak": 0.9227744936943054,
+     "rms": 0.10037489963152454,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -0.7 dBFS, rms -20.0 dBFS",
+     "source": "plugin",
+     "peak": 0.9227744936943054,
+     "rms": 0.10037230047390792,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "release-curve",
+   "secs": 8.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 5.9e-08 of peak over 8 s (tol 1e-06)",
+     "max_err": 5.895996073446568e-08,
+     "seconds": 8.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.000719 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.0007187103181109933,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -1.0 dBFS, rms -26.3 dBFS",
+     "source": "engine",
+     "peak": 0.8944978713989258,
+     "rms": 0.04827537516605905,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -1.0 dBFS, rms -26.3 dBFS",
+     "source": "plugin",
+     "peak": 0.8944978713989258,
+     "rms": 0.048274219146907944,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "sympathetic",
+   "secs": 8.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 8.9e-08 of peak over 8 s (tol 1e-06)",
+     "max_err": 8.851929462602507e-08,
+     "seconds": 8.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.0222 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.022216399849675383,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -3.8 dBFS, rms -23.6 dBFS",
+     "source": "engine",
+     "peak": 0.6453198790550232,
+     "rms": 0.06642958836778731,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -3.8 dBFS, rms -23.5 dBFS",
+     "source": "plugin",
+     "peak": 0.6454618573188782,
+     "rms": 0.06648934081025538,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "hrv",
+   "secs": 12.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 8.3e-08 of peak over 12 s (tol 1e-06)",
+     "max_err": 8.308629309543614e-08,
+     "seconds": 12.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.000244 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.0002438289925379422,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -4.2 dBFS, rms -24.0 dBFS",
+     "source": "engine",
+     "peak": 0.6165323853492737,
+     "rms": 0.06342123334156052,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -4.2 dBFS, rms -24.0 dBFS",
+     "source": "plugin",
+     "peak": 0.6165323853492737,
+     "rms": 0.06342109641139958,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "vessel-age",
+   "secs": 6.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 8.5e-08 of peak over 6 s (tol 1e-06)",
+     "max_err": 8.486432646054112e-08,
+     "seconds": 6.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.00154 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.0015402380128008986,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -3.4 dBFS, rms -20.8 dBFS",
+     "source": "engine",
+     "peak": 0.6734689474105835,
+     "rms": 0.09079218601533355,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -3.4 dBFS, rms -20.8 dBFS",
+     "source": "plugin",
+     "peak": 0.6734830737113953,
+     "rms": 0.0908014298593732,
+     "finite": true
+    }
+   ],
+   "passed": true
+  }
+ ]
+}

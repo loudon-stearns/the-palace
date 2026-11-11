@@ -11,7 +11,11 @@
     "threshold=-40",
     "ratio=12",
     "makeup=12",
-    "bypass=1"
+    "bypass=1",
+    "sympathetic=1",
+    "age=1",
+    "hrv=1",
+    "rel_curve=1"
   ],
   "ui": {
     "width": 1000,

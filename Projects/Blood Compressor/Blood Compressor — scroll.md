@@ -15,37 +15,38 @@ forward_vector: "I am Blood Compressor's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T15:22:01.876Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-11T13:32:41.646Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 11 · last ran 2026-10-24 (today)
-- **Plan:** agreed 2026-10-15 (10 days ago) · 3 made things since · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 12 · last ran 2026-11-11 (today)
+- **Plan:** agreed 2026-11-10 (1 day ago) · 1 made thing since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-24 (today) — The plugin now has a body: stress, breathing, an aging wall and a release curve. All four are checked sample for sample and drawn in the artery. (`blood-compressor-025`)
-- **Last commit touching this project:** 2026-10-24 `e40326d8` — steward(Blood Compressor): cycle 10 — SPINNING UP. HOME: [Blood Compressor](obsidian://open?vault=The%20Palac…
+- **Last shipped:** 2026-11-11 (today) — Blood Compressor is a real plugin now: VST3 and AU, installed on this Mac, every check passing, the artery in its centre screen. (`blood-compressor-027`)
+- **Last commit touching this project:** 2026-11-03 `74d578ec` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 1 of 5: Projects, 0 to C (81 pages)
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 1 file in the bundle that no cycle declared, so no cycle commits it — `Projects/Blood Compressor/plugin/out/check-report.json`. Look, then commit or clear it.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-24 — cycle 11 · taught item 4, proposed item 5 for canon
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-11 — cycle 12 · taught item 6, proposed item 7 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 3 — items 2, 3, 5; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 5, from cycle 11 — 2026-10-24 — [[Blood Compressor — tuning]]
+- **Proposed for canon:** 3 — items 2, 5, 7; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 7, from cycle 12 — 2026-11-11 — [[Blood Compressor — tuning]]
 
 ### Where this stands
 
-Blood Compressor is a compressor dressed as the body. Threshold is the systolic pressure that sets off the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor delay, and release is the smooth muscle relaxing. On 21 October you asked for a product: a VST you can play in Live, with the template's controls and a picture of the effect's own in the centre screen. Earlier today the compressor moved into the template's shape in my plugin folder, matched its reference sample for sample, and got a face with the inside of the artery on the screen. This cycle did the plan's body-controls step, the one that comes after the device and before the lesson. Four knobs bend the compress…
+Blood Compressor is a compressor dressed as the body. Threshold is the systolic pressure that sets off the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor delay, and release is the smooth muscle letting go. In October I moved it into VST Template's shape and checked it sample for sample. I gave it four body controls (stress, breathing, an aging wall, a release curve) and a centre screen where you look down the artery from inside. On 10 November you adopted the plan that makes the VST the product and leaves Max as teaching tools. The plan's build step was waiting on the template being able to build a plugin inside a project's own folder, and Action Potential had jus…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 7:** Nobody has heard the attack lesson or played the face with sound on yet, and now the body take joins them; _(in 3 notes, the latest cycle 11)_
+- **rough since cycle 7:** Nobody has played it in Live yet, and nobody has heard the attack lesson or the body take; _(in 4 notes, the latest cycle 12)_
 - **rough since cycle 7:** Vessel age is subtle on the drum loop (1.5 dB more squeeze), and the release curve has a test path but no listening take. _(in 2 notes, the latest cycle 11)_
 - **rough since cycle 8:** Nothing has been opened in Max or Live. _(in 2 notes, the latest cycle 9)_
 
 ### Open asks
 
-- `blood-compressor-023` — proposed plan revision: the plan turns from Max toward the VST · posted 2026-10-24 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -53,11 +54,13 @@ _None._
 
 ### Decided
 
+- `blood-compressor-023` — the plan turns from Max toward the VST → GRANTED — option_id=adopt (2026-11-10)
 - `blood-compressor-016` — a first agreed plan for Blood Compressor → GRANTED — option_id=adopt; notes: "I am not seeing the visuals render on the example here, lets do a check and really get this working on the web version." (2026-10-15)
 - `blood-compressor-012` — directional_redirect → GRANTED — (no option_id); notes: "I am having trouble with the interactive blood vessel, the threshold parameter doesn't seem to be working properly, lets get this diagram really working great." (2026-06-24)
 
 ### Runs
 
+- 2026-11-11 — cycle 12 · taught item 6, proposed item 7 for canon
 - 2026-10-24 — cycle 11 · taught item 4, proposed item 5 for canon
 - 2026-10-24 — cycle 10 · taught item 1, proposed items 2, 3 for canon
 
@@ -70,22 +73,24 @@ _Nothing owed._
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
 - **2.** 2026-10-24 · [[Blood Compressor]] · § Pedagogical Framing, the paragraph beginning 'When students set attack=0' — The paragraph promises a lunge at attack zero that the design rules out. The October port measured what the fixed nerve delay really does.
-- **3.** 2026-10-24 · [[Blood Compressor]] · § What This Entry Is and Isn't, the 'Isn't' line — The line still says Stage 1 → a Max prototype is next. The product path is now the VST, by Loudon's standing order of 2026-10-21.
 - **5.** 2026-10-24 · [[Blood Compressor]] · § DSP Architecture, the three bullets under 'The biological framing also suggests features' (Sympathetic activation knob, Heart rate variability, Vessel age) — The bullet says sympathetic activation 'raises threshold' and 'compresses more aggressively', which contradict each other. The October plugin built all three, so the words should describe what was built and measured.
+- **7.** 2026-11-11 · [[Blood Compressor]] · § What This Entry Is and Isn't, the 'Isn't' line — My earlier words for this line said it becomes a plugin when the template can build here; it now has, so the line should say what it is.
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-Where it's going: a compressor you understand by watching a body do it, every control a cardiovascular variable, playable in Live and teachable in one Loudon Live session.
+Where it's going: Blood Compressor becomes a VST3/AU you play in Live, a compressor dressed as the body. Its controls are in VST Template's face, and in the centre screen you look down the artery from inside while the vessel squeezes. The browser vessel stays as the reference for how it should sound and move.
 
-1. The reference vessel (browser). A hand-built compressor that drives both sound and picture, checked numerically. Done on 2026-10-14 (v3), waiting on your eyes and ears.
-2. The device in Max. Port the same compressor to a gen~ codebox inside a Max for Live device, matching the browser version sample for sample, with the meters (pressure, squeeze, baroreceptor state) as outputs. Unverified until you open it.
-3. The vessel in Max. Draw the artery inside the device (jsui or v8ui), fed by those meters, the same three panels as the browser.
-4. The body controls. Release-curve shape, sympathetic activation, heart-rate variability and vessel age: first as pictures in the browser, then as knobs in the device.
-5. The lesson. A 30-minute Loudon Live session that teaches compression through the device, using the radio-play script already in the folder.
-6. The plugin. Port to VST/AU through RNBO and bring the GUI up to production quality.
+The moves, in order:
+1. Port the compressor into the template's shape in the project folder, checked sample for sample against its sketch, with the centre-screen picture made as a web page fed by the values the plugin will stream. (Done 2026-10-24.)
+2. Ear check: you listen to the attack lesson and play the face. We decide whether the nerve delay's punch is the character, or whether a lookahead switch joins it.
+3. The body's own knobs: sympathetic activation, heart-rate variability and vessel age. Each goes into the sketch, the C++ and the check, and each gets its own mark in the artery.
+4. Build it when VST Template can build from a project folder and feed its centre screen. Pass pluginval, auval and the host check, load it in Live, and watch the artery fed by the real probes.
+5. The lesson: a Loudon Live session that teaches compression through the device (the radio-play script is the start).
+
+Set aside: the RNBO codebox and the Max for Live devices stay as teaching tools, not product steps.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -99,6 +104,87 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-blood-compressor-023" -->
+### 2026-11-09 — Plan revised: Make the VST the plan: the plugin folder is built and checked; next come the body knobs, then the real build when the template is ready.
+
+Blood Compressor is a compressor dressed as the body. On 14 October you adopted a plan that still ran through Max. On 21 October your standing order turned it into a product: a VST for Live, with the template's controls and a picture from the body in the centre screen. This cycle did the first step of that. The compressor sits in the template's shape in my folder, matches its sketch on seven test runs, and has a face with the artery seen from inside. The evidence for the order below is that this step landed, and that its one surprise (the nerve delay keeps the punch) needs your ears before the knobs multiply. The cost: Max, RNBO and Max for Live drop from the plan to teaching tools, and the real build waits on the template.
+
+_The plan before this change:_
+
+> Where it's going: a compressor you understand by watching a body do it, every control a cardiovascular variable, playable in Live and teachable in one Loudon Live session.
+>
+> 1. The reference vessel (browser). A hand-built compressor that drives both sound and picture, checked numerically. Done on 2026-10-14 (v3), waiting on your eyes and ears.
+> 2. The device in Max. Port the same compressor to a gen~ codebox inside a Max for Live device, matching the browser version sample for sample, with the meters (pressure, squeeze, baroreceptor state) as outputs. Unverified until you open it.
+> 3. The vessel in Max. Draw the artery inside the device (jsui or v8ui), fed by those meters, the same three panels as the browser.
+> 4. The body controls. Release-curve shape, sympathetic activation, heart-rate variability and vessel age: first as pictures in the browser, then as knobs in the device.
+> 5. The lesson. A 30-minute Loudon Live session that teaches compression through the device, using the radio-play script already in the folder.
+> 6. The plugin. Port to VST/AU through RNBO and bring the GUI up to production quality.
+<sub>`plan-blood-compressor-023` · plan revised · agreed 2026-11-10T02:05:24.641Z · proposed by Blood Compressor's steward (`blood-compressor-023`), adopted by Loudon (`resp-mwa1sopt-1hn3td`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="blood-compressor-027" -->
+### 2026-11-11 — cycle 12 — Blood Compressor is a real plugin now: VST3 and AU, installed on this Mac, every check passing, the artery in its centre screen.
+> shipped · built, verified, installed · nobody has played it in Live yet · steward leans you play it
+
+**What I did.** I copied the template's three build files (CMakeLists.txt, plugin.sh, .gitignore), unchanged, into `plugin/`. The plugin built on the first try.
+
+**How it was checked.** The C++ engine matches the sketch to 6–9 × 10⁻⁸ of peak on all eleven paths. The real plugin automates once per block and smooths its knobs, and it stays within 0.31 dB of the sketch's loudness in every quarter second (the limit is 0.5). Both bundles pass the strict signature check. pluginval passes at strictness 5, and auval passes (aufx Bldc Loud). I added the four body controls to the host check. Threshold, ratio, makeup, bypass, sympathetic, vessel age and heart-rate variability all clearly change the sound. Release curve barely moves on the check's one-second tone, so the host check doesn't really prove that one; the release-curve path on drums does. The face fits its window at 900×580, 1000×640 and 1800×1100.
+
+**One test I changed after it failed. You should know.** One path pushed makeup gain to +12 dB on a loud drum loop. The output clipped (+5.8 dBFS), in the sketch and the plugin alike. The template's no-clipping check refused it, rightly. At +5 dB it still clipped, so the path now climbs to +3 dB (peak −0.7 dBFS). The makeup knob's range in the plugin is unchanged, so you can still clip it yourself.
+
+**The screen.** The two pictures are the template's preview page, with the test harness feeding the CRT the way a DAW would. The first squeezes hard: systolic line at −36, ratio 10, the fastest attack, with the baroreceptor crown flaring. The second is a stressed, aged body: the wall's muscle bands glowing, the systolic line pulled down from −30 to −39.4 by stress, and the breath on the readout.
+
+**To play it:** in Live, Settings → Plug-Ins → Rescan, then Audio Effects → Plug-Ins → Loudon Live → Blood Compressor. Put it on a drum bus, pull the systolic line down to −36, and sweep attack from 5 ms to 200 ms. That is the attack lesson: the nerve's delay keeps the punch.
+
+**Artifacts:**
+- [The face, squeezing hard: systolic −36, ratio 10, attack 5 ms, the baroreceptor crown flaring.](Projects/Blood Compressor/plugin/proofs/editor-squeezing-1000x640.png)
+- [A stressed, aged, breathing body: stress pulls the systolic line from −30 to −39.4, and the muscle bands glow.](Projects/Blood Compressor/plugin/proofs/editor-stressed-old-1000x640.png)
+- [The editor page with the artery moving, fed by a harness phrase through the real engine.](Projects/Blood Compressor/plugin/proofs/blood-crt.html)
+- [The plugin's own render: drums while attack sweeps from the 5 ms nerve floor upward.](Projects/Blood Compressor/plugin/proofs/attack-sweep-plugin.wav)
+- [The plugin's own render: the systolic line sweeping down.](Projects/Blood Compressor/plugin/proofs/threshold-sweep-plugin.wav)
+- [The plugin's own render: a heartbeat while the body grows stressed.](Projects/Blood Compressor/plugin/proofs/sympathetic-plugin.wav)
+- [The plugin's own render: the set point beginning to breathe.](Projects/Blood Compressor/plugin/proofs/hrv-plugin.wav)
+- [Every path's numbers.](Projects/Blood Compressor/plugin/proofs/verify-2026-11-11.json)
+- [Signatures, pluginval and auval, in full.](Projects/Blood Compressor/plugin/proofs/validate-2026-11-11.txt)
+- [The host check, VST3 and AU.](Projects/Blood Compressor/plugin/proofs/hostcheck-2026-11-11.txt)
+- [The template's own; finds VST Template/machinery above.](Projects/Blood Compressor/plugin/CMakeLists.txt)
+- [The template's own: build, verify, install, validate, hostcheck.](Projects/Blood Compressor/plugin/plugin.sh)
+- [Keeps build and out of git.](Projects/Blood Compressor/plugin/.gitignore)
+- [The host check now moves the four body controls too.](Projects/Blood Compressor/plugin/plugin.json)
+- [The makeup ramp lowered so the path doesn't clip, with the reason written beside it.](Projects/Blood Compressor/plugin/reference/paths.py)
+- [New section: Built, with what passed and what wasn't checked.](Projects/Blood Compressor/plugin/README.md)
+
+_Blood Compressor 0.1.0 · checks on 2026-11-11_
+| check | result |
+| --- | --- |
+| engine = sketch, 11 paths | worst 8.9e-8 of peak (tol 1e-6) |
+| plugin loudness vs sketch | worst 0.31 dB (tol 0.5) |
+| no clipping | pass, after one path's makeup ramp went from +12 to +3 dB |
+| codesign --strict, VST3 + AU | verified |
+| pluginval strictness 5 | SUCCESS |
+| auval aufx Bldc Loud | SUCCEEDED |
+| host check: 8 controls | 7 clearly change the sound; release curve 0.003 of peak on the test tone |
+| editor fit: 900×580 · 1000×640 · 1800×1100 | fits |
+| real editor photographed | no: headless session, NO PICTURE |
+| loaded in Live | not yet |
+| CPU | not measured |
+
+_Changed in the workshop:_ README — The folder is built now: a Built section with every check and what wasn't checked, and the title no longer says it is waiting for the template.
+_Proposed for canon:_ Blood Compressor (§ What This Entry Is and Isn't, the 'Isn't' line) — My earlier words for this line said it becomes a plugin when the template can build here; it now has, so the line should say what it is.; owed in the tuning ledger until Loudon's review; it replaces item 3
+
+_Left rough:_ Nobody has played it in Live yet, and nobody has heard the attack lesson or the body take; only Loudon can do that. The real editor window wasn't photographed (headless), so the pictures are the mock page. CPU wasn't measured.
+
+_Next moves named:_ You play it: in Live, Rescan, then Plug-Ins → Loudon Live → Blood Compressor on a drum bus. Pull the systolic line to −36 and sweep attack from 5 ms to 200 ms. That ear check is the plan's next move: we decide whether the nerve's punch is the character, or whether a lookahead switch joins it. · The lesson: draft the Loudon Live session that teaches compression through the plugin, starting from the radio-play script in the folder. · Measure CPU in a host, and photograph the real editor from a session that has a screen.
+<sub>`blood-compressor-027` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-b3a0ab9642" -->
+### 2026-11-11 — cycle 12
+
+taught item 6, proposed item 7 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="blood-compressor-025" -->
 ### 2026-10-24 — cycle 11 — The plugin now has a body: stress, breathing, an aging wall and a release curve. All four are checked sample for sample and drawn in the artery.
 > shipped · 11 of 11 paths exact · steward leans on to the lesson next

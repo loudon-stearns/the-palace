@@ -1,4 +1,4 @@
-# Blood Compressor: the plugin folder, waiting for the template
+# Blood Compressor: the plugin folder
 
 The compressor dressed as the body, in VST Template's shape, so it can become a
 VST3/AU the day the template can build a plugin whose folder lives in a steward's
@@ -90,7 +90,7 @@ then 80 ms, then 80 ms with a 40 ms release, each section matched to the same lo
 
 This check doesn't cover the template's plugin gate (smoothing, block-wise
 automation through processBlock), pluginval, auval or the host check. Those need the
-template's build, which can't run from here yet.
+template's build: see Built, below.
 
 **What the numbers showed: this compressor lets the front of every hit through.**
 The 5 ms nerve delay sits on the control path only. By the time the vessel closes,
@@ -136,7 +136,38 @@ It carries Belief Cloud's patch for Drafting Table's knobs, which draw their fir
 value from the default instead of the binding (its tuning ledger holds the fix for
 the house).
 
-## When the template is ready
+## Built (cycle 12, 2026-11-11)
+
+The template now builds a plugin whose folder lives in a bundle, so this one is a
+real VST3 and AU, installed on this Mac. CMakeLists.txt, plugin.sh and .gitignore
+are the template's own, unchanged; they find `VST Template/machinery` above.
+
+    ./plugin.sh all        build, verify, install, validate, hostcheck
+
+What passed on 2026-11-11 (logs and numbers in `proofs/`):
+
+- **verify**: all eleven paths. The C++ engine matches the sketch to 6–9 × 10⁻⁸ of
+  peak; the real plugin, with its smoothing and block-wise automation, stays within
+  0.31 dB of the sketch's loudness in every quarter second (gate 0.5 dB).
+- **One path changed after it failed.** `detector-makeup-bypass` climbed makeup to
+  +12 dB, and the loop clipped (+5.8 dBFS) in the sketch and the plugin alike, so the
+  template's no-clipping gate refused it. It now climbs to +3 dB (peak −0.7 dBFS).
+  The makeup knob's range is unchanged; a player can still clip it.
+- **codesign --strict** on both bundles, **pluginval** at strictness 5, **auval** (aufx Bldc Loud).
+- **host check**: threshold, ratio, makeup, bypass and the four body controls all
+  change the sound. Release curve barely moves on the one-second test tone (0.003 of
+  peak); it shows on drums (the release-curve path).
+- **fit**: 900×580, 1000×640, 1800×1100.
+
+Not done: the real editor window couldn't be photographed from a headless session
+(`./plugin.sh editor` says NO PICTURE), so the pictures in `proofs/` are the template's
+mock page with the harness feeding the CRT (`ui.py shot --feed`). Nobody has loaded it
+in Live yet. CPU not measured.
+
+In Live: Settings → Plug-Ins → Rescan, then Audio Effects → Plug-Ins → Loudon Live →
+Blood Compressor.
+
+## How it was carried here (kept for the record)
 
 1. Copy CMakeLists.txt and plugin.sh from any plugin in VST Template/plugins (or let
    new-plugin.py make them here), then `./plugin.sh all`.

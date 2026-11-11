@@ -1,0 +1,55 @@
+loaded Blood Compressor (VST3, Loudon Live) from /Users/loudonstearns/Library/Audio/Plug-Ins/VST3/Blood Compressor.vst3
+parameters:
+  Threshold          -20.00 dB        automatable
+  Ratio              4 :1             automatable
+  Knee               6.00 dB          automatable
+  Attack             0.06 s           automatable
+  Release            0.3 s            automatable
+  Detector           0.01 s           automatable
+  Sidechain HPF      80 Hz            automatable
+  Makeup             0.00 dB          automatable
+  Bypass             Off              automatable
+  Release curve      0.00             automatable
+  Sympathetic        0.00             automatable
+  Heart-rate var     0.00             automatable
+  Vessel age         0.00             automatable
+  Bypass             Off              automatable
+render (one second each, from a fresh start):
+  defaults                   rms  -20.4 dBFS  peak  -12.0 dBFS  centroid   4739 Hz  
+  defaults again             rms  -20.4 dBFS  peak  -12.0 dBFS  centroid   4739 Hz  (same as the first)
+  threshold -> -40.00        rms  -31.0 dBFS  peak  -12.0 dBFS  centroid   4699 Hz  differs from defaults by 0.54 of peak
+  ratio -> 12                rms  -21.1 dBFS  peak  -12.0 dBFS  centroid   4737 Hz  differs from defaults by 0.062 of peak
+  makeup -> 12.00            rms   -8.4 dBFS  peak   -0.0 dBFS  centroid   4739 Hz  differs from defaults by 3 of peak
+  bypass -> On               rms  -16.8 dBFS  peak  -12.0 dBFS  centroid   4745 Hz  differs from defaults by 0.37 of peak
+  sympathetic -> 1.00        rms  -28.2 dBFS  peak  -12.0 dBFS  centroid   4728 Hz  differs from defaults by 0.5 of peak
+  age -> 1.00                rms  -20.9 dBFS  peak  -12.0 dBFS  centroid   4738 Hz  differs from defaults by 0.047 of peak
+  hrv -> 1.00                rms  -19.5 dBFS  peak  -12.0 dBFS  centroid   4740 Hz  differs from defaults by 0.14 of peak
+  rel_curve -> 1.00          rms  -20.4 dBFS  peak  -12.0 dBFS  centroid   4739 Hz  differs from defaults by 0.0029 of peak
+HOST CHECK PASSED
+loaded Blood Compressor (AudioUnit, Loudon Live) from /Users/loudonstearns/Library/Audio/Plug-Ins/Components/Blood Compressor.component
+parameters:
+  Vessel age         0.00             automatable
+  Heart-rate var     0.00             automatable
+  Knee               6.00             automatable
+  Ratio              4                automatable
+  Threshold          -20.00           automatable
+  Attack             0.06             automatable
+  Bypass             Off              automatable
+  Detector           0.01             automatable
+  Makeup             0.00             automatable
+  Release            0.3              automatable
+  Sympathetic        0.00             automatable
+  Sidechain HPF      80               automatable
+  Release curve      0.00             automatable
+render (one second each, from a fresh start):
+  defaults                   rms  -20.4 dBFS  peak  -12.0 dBFS  centroid   4739 Hz  
+  defaults again             rms  -20.4 dBFS  peak  -12.0 dBFS  centroid   4739 Hz  (same as the first)
+  threshold -> -40.00        rms  -31.0 dBFS  peak  -12.0 dBFS  centroid   4699 Hz  differs from defaults by 0.54 of peak
+  ratio -> 12                rms  -21.1 dBFS  peak  -12.0 dBFS  centroid   4737 Hz  differs from defaults by 0.062 of peak
+  makeup -> 12.00            rms   -8.4 dBFS  peak   -0.0 dBFS  centroid   4739 Hz  differs from defaults by 3 of peak
+  bypass -> On               rms  -16.8 dBFS  peak  -12.0 dBFS  centroid   4745 Hz  differs from defaults by 0.37 of peak
+  sympathetic -> 1.00        rms  -28.2 dBFS  peak  -12.0 dBFS  centroid   4728 Hz  differs from defaults by 0.5 of peak
+  age -> 1.00                rms  -20.9 dBFS  peak  -12.0 dBFS  centroid   4738 Hz  differs from defaults by 0.047 of peak
+  hrv -> 1.00                rms  -19.5 dBFS  peak  -12.0 dBFS  centroid   4740 Hz  differs from defaults by 0.14 of peak
+  rel_curve -> 1.00          rms  -20.4 dBFS  peak  -12.0 dBFS  centroid   4739 Hz  differs from defaults by 0.0029 of peak
+HOST CHECK PASSED
