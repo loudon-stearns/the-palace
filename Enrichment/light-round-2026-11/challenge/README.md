@@ -88,8 +88,12 @@ Changed, in the manifests only, as form:
 - Every piece moved from `place: margin` to `place: band`. All four reports found the sheets' and diagrams' lettering at 4 to 6 px in a 440 px margin. One field, no file touched, and it goes back the same way.
 - On the ten sounds, the claim now sits under the picture and the sound's own line carries "what is real and what is a choice". Batch A found every picture captioned "The same sound, drawn.", which claims nothing; that caption was the Concierge's, not the maker's.
 
-Not changed: no piece, no caption's words as the maker wrote them, no page's text. The twenty-four remakes are the working session's to make, on Loudon's yes. The offers the challengers wrote for the pages themselves are not in any manifest's `offers` list yet.
+## The remakes
+
+On Loudon's "Yes, remake them" (2026-11-10), the working session remade the twenty-four and the Concierge put them into the faces (`ac657a6b`): twenty files rebuilt, one piece withdrawn and replaced (Weave Ceremony), three corrected in words only. Five kept pieces also had a caption corrected on a challenger's note. By piece, then: eleven stand as made, twenty-one were rebuilt or replaced, eight were reworded. Each section's challenge block carries a `remade` record. `remakes.json` in the workshop says what changed in each.
+
+No remake has had a second verdict, which [[Enrichment]] step 6 asks for. No page's text was touched. The offers the challengers wrote for the pages themselves are not in any manifest's `offers` list yet.
 
 ## The third batch
 
-Thirty more pieces (placements-3.json) were made before these reports came back and have had no challenger.
+Thirty more pieces (`placements-3.json`) were made before these reports came back. On Loudon's "run the challengers on the unchallenged ones" (2026-11-11) three challengers are reading them; their reports will sit here as `batch-E.md` to `batch-G.md`.
