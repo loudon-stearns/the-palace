@@ -54,7 +54,7 @@
 
 import { tsCompare, tsToEpoch } from './format.js';
 import { normalizeApplyOp } from './weave-apply-op.js';
-import { retractedIds, isWithdrawn, liveAnswers } from '../../../live-answers.mjs';
+import { retractedIds, isWithdrawn, liveAnswers, liveAnswerFor, askKey } from '../../../live-answers.mjs';
 
 // ── Build the open queue from board messages ─────────────────────────────────
 
@@ -122,9 +122,12 @@ export function buildQueue(messages) {
     if (isRetracted(m)) continue;
     const p = m.payload || {};
 
-    if (m.type === 'RESOURCE_REQUEST' && !responded.has(m.request_id)) {
+    // A request is keyed and answered as every reader keys it (askKey,
+    // liveAnswerFor): by its request_id, else its own id, and settled by a live
+    // answer naming either, so a request with no request_id still clears.
+    if (m.type === 'RESOURCE_REQUEST' && !liveAnswerFor(m, answers)) {
       items.push({
-        id: m.request_id ?? m.id,
+        id: askKey(m),
         sourceId: m.id,
         kind: 'resource_request',
         from: m.from,

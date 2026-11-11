@@ -84,4 +84,23 @@ describe('the deck: inbox.js and buildQueue through the shared helper', () => {
     expect(cards([prop, grant('vp1', 'g1'), retract('g1', 'x1')])).toEqual(['vp1']);
     expect(cards([prop, grant('vp1', 'g1'), retract('g1', 'x1'), retract('x1', 'x2')])).toEqual(['vp1']);
   });
+
+  test('buildQueue keys a request card by askKey and settles it with liveAnswerFor', () => {
+    const requests = (msgs) => buildQueue(msgs).filter((c) => c.kind === 'resource_request').map((c) => c.id).sort();
+    // With a request_id and no RETRACT: as before.
+    expect(requests([req])).toEqual(['q1']);
+    expect(requests([req, grant('q1', 'g1')])).toEqual([]);
+    // No request_id: keyed by its own id, and an answer naming that id clears it.
+    const bare = { ...req, id: 'm2' }; delete bare.request_id;
+    expect(requests([bare])).toEqual(['m2']);
+    expect(requests([bare, grant('m2', 'g2')])).toEqual([]);
+    // A request_id that differs from its id: answered by either name.
+    const split = { ...req, id: 'm3', request_id: 'r3' };
+    expect(requests([split])).toEqual(['r3']);
+    expect(requests([split, grant('r3', 'g3')])).toEqual([]);
+    expect(requests([split, grant('m3', 'g3')])).toEqual([]);
+    // A retracted answer settles nothing; a retracted request is no card.
+    expect(requests([bare, grant('m2', 'g2'), retract('g2', 'x1')])).toEqual(['m2']);
+    expect(requests([bare, retract('m2', 'x1')])).toEqual([]);
+  });
 });

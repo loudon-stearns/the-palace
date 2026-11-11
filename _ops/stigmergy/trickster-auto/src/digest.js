@@ -67,13 +67,19 @@ function compareEscalations(a, b) {
 /**
  * Build the digest data object from evaluator results.
  *
+ * `meta.returned` is the inbox's `returned` list: asks whose answer was
+ * withdrawn, which go back to Loudon and are never evaluated (inbox.js). They
+ * are counted apart from `pending` and listed, so the digest shows the engine
+ * is leaving them for him.
+ *
  * @param {Array<{request: object, verdict: object}>} results — from evaluateAll
- * @param {{ mode?: string, generatedAt?: string, board?: string }} [meta]
+ * @param {{ mode?: string, generatedAt?: string, board?: string, returned?: Array<object> }} [meta]
  */
 export function buildDigest(results, meta = {}) {
   const escalations = [];
   const autoDecisions = [];
-  const counts = { pending: results.length, escalate: 0, auto_grant: 0, auto_deny: 0, two_paths_eligible: 0 };
+  const returnedIn = Array.isArray(meta.returned) ? meta.returned : [];
+  const counts = { pending: results.length, escalate: 0, auto_grant: 0, auto_deny: 0, two_paths_eligible: 0, returned: returnedIn.length };
 
   for (const { request, verdict } of results) {
     if (verdict.verb === 'escalate') {
@@ -130,6 +136,11 @@ export function buildDigest(results, meta = {}) {
   escalations.sort(compareEscalations);
   const ranked_escalations = escalations.map((e, i) => ({ rank: i + 1, ...e }));
 
+  // Oldest first, as the escalations are within a tier.
+  const returned = returnedIn
+    .map((r) => ({ request_id: r.request_id, from: r.from, resource: r.resource, headline: headlineOf(r), age_ts: r.ts }))
+    .sort((a, b) => compareEscalations({ tier: 0, ...a }, { tier: 0, ...b }));
+
   return {
     schema: 'trickster-auto-digest/0.1',
     generated_at: meta.generatedAt || null,
@@ -138,6 +149,7 @@ export function buildDigest(results, meta = {}) {
     counts,
     ranked_escalations,
     auto_decisions: autoDecisions,
+    returned,
   };
 }
 
@@ -154,6 +166,22 @@ export function renderDigestMarkdown(digest) {
   const tpReady = c.two_paths_eligible ? ` · ${c.two_paths_eligible} **Two Paths–ready**` : '';
   L.push(`**${c.pending} pending** → ${c.escalate} for you, ${c.auto_grant} auto-grant${digest.mode === 'shadow' ? ' (proposed)' : ''}, ${c.auto_deny} auto-deny${digest.mode === 'shadow' ? ' (proposed)' : ''}${tpReady}.`);
   L.push('');
+  // Asks whose answer was withdrawn: back with Loudon, never evaluated (inbox.js).
+  // Shown only when there are some, so a board with no RETRACT reads as before.
+  const returned = Array.isArray(digest.returned) ? digest.returned : [];
+  if (returned.length) {
+    L.push('---');
+    L.push('');
+    L.push(`## Back with you — ${returned.length} answer${returned.length === 1 ? ' was' : 's were'} withdrawn`);
+    L.push('');
+    L.push('_The engine leaves these alone; only you answer them again._');
+    L.push('');
+    for (const r of returned) {
+      L.push(`- [${r.from}] ${r.headline}`);
+      L.push(`  \`${r.request_id}\` · ${r.resource}`);
+    }
+    L.push('');
+  }
   L.push('---');
   L.push('');
   L.push('## For you — ranked by how far out of phase');
