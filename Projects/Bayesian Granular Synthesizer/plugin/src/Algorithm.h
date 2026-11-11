@@ -24,13 +24,14 @@ namespace algo
         Spread, Level,
         PriorShape, PriorTone, HillWidth, Register, RegisterWidth,
         PcC, PcCs, PcD, PcDs, PcE, PcF, PcFs, PcG, PcGs, PcA, PcAs, PcB,
-        FarHush,
+        FarHush, Entrain,
         kNumParams
     };
 
     // Doubt, Velocity, Grain rate and Spread are read only when a grain is born or the
     // belief ticks, so they cannot zipper: they are not smoothed, and the plugin then
     // draws exactly the grains the sketch draws. Level is per sample and keeps its 20 ms.
+    // Entrain is read only when a grain is born, so it is not smoothed either.
     inline constexpr ParamSpec kParams[kNumParams] = {
         //  id                 name                   unit    min     max     default  taper          smooth choices auto   group           hero
         { "doubt",           "Doubt",               "",     0.02,   4.0,    0.25,    Taper::Log,    0.0,   "",     true,  "Belief",       true },
@@ -65,6 +66,7 @@ namespace algo
         { "pc_as",           "Prior A#",            "",     0.0,    1.0,    1.0,     Taper::Linear, 0.0,   "",     true,  "Prior notes" },
         { "pc_b",            "Prior B",             "",     0.0,    1.0,    1.0,     Taper::Linear, 0.0,   "",     true,  "Prior notes" },
         { "far_hush",        "Far hush",            "dB",   0.0,    40.0,   18.0,    Taper::Linear, 0.0,   "",     true,  "Belief" },
+        { "entrain",         "Entrain",             "",     0.0,    1.0,    0.0,     Taper::Linear, 0.0,   "",     true,  "Belief" },
     };
 
     // ── 2. Audio in and out, and probes ────────────────────────────────────────
@@ -117,6 +119,7 @@ namespace algo
         int ctl = 0;
         long dropped = 0;
         double meanCycles = 4.0, grainNote = 0.0, grainCycles = 0.0;
+        long n = 0;   // samples since reset: the notes' clocks run on it
         double probes[kNumProbes] {};
 
         double rand()
@@ -143,7 +146,7 @@ namespace algo
             sumW = 0.0; priorShare = 1.0; certainty = 0.0;
             lastLw = std::log (v[WidthStart]); lastSig = v[WidthStart];
             nv = 0; next = 0.0; ctl = 0; dropped = 0;
-            meanCycles = 4.0; grainNote = 0.0; grainCycles = 0.0;
+            meanCycles = 4.0; grainNote = 0.0; grainCycles = 0.0; n = 0;
             buildPrior (v);
         }
 
@@ -268,7 +271,7 @@ namespace algo
             return std::sqrt (-2.0 * std::log (u)) * std::cos (2.0 * M_PI * rand());
         }
 
-        void draw (const double* v, double& outMidi, double& outCycles, double& outHush)
+        void draw (const double* v, double& outMidi, double& outCycles, double& outHush, double& outLock, int& outLockJ)
         {
             const double doubt = v[Doubt];
             const double z = doubt + sumW;
@@ -300,7 +303,8 @@ namespace algo
                 }
                 m = midi[(size_t) pick] + gauss() * sig[(size_t) pick] / 100.0;
             }
-            double best = 0.0, close = 0.0;
+            double best = 0.0, close = 0.0, lock = 0.0;
+            int lockJ = -1;
             const double near = v[Near];
             for (size_t j = 0; j < (size_t) kMaxNotes; ++j)
             {
@@ -310,7 +314,9 @@ namespace algo
                 if (x > close) close = x;
                 const double g = x * w[j] * conv[j];
                 if (g > best) best = g;
+                if (g > lock) { lock = g; lockJ = (int) j; }
             }
+            outLock = lock; outLockJ = lockJ;
             const int bi = (int) std::floor ((m - kLo) * 100.0 / kBinC);
             if (bi >= 0 && bi < kBins)
             {
@@ -327,14 +333,29 @@ namespace algo
 
         void spawn (const double* v)
         {
-            double m, cycles, hush;
-            draw (v, m, cycles, hush);
+            double m, cycles, hush, lock;
+            int lockJ;
+            draw (v, m, cycles, hush, lock, lockJ);
             if (nv >= kMaxVoices) { ++dropped; return; }
             const double f = 440.0 * std::pow (2.0, (m - 69.0) / 12.0);
             if (f > sr * 0.45) return;
             const double cyc = sr / f;
             const auto k = (size_t) nv++;
-            vPh[k] = rand();
+            // entrain: pull the random start phase toward the clock of the note it is nearest in belief
+            double ph = rand();
+            const double pull = v[Entrain] * lock;
+            if (pull > 0.0)
+            {
+                const double fj = 440.0 * std::pow (2.0, (midi[(size_t) lockJ] - 69.0) / 12.0);
+                double ref = fj * (double) n / sr;
+                ref -= std::floor (ref);
+                double d = ref - ph;
+                d -= std::floor (d + 0.5);
+                ph += pull * d;
+                ph -= std::floor (ph);
+                if (ph >= 1.0) ph -= 1.0;
+            }
+            vPh[k] = ph;
             vInc[k] = f / sr;
             vPos[k] = 0;
             vFade[k] = std::max (2L, (long) std::floor (cyc + 0.5));
@@ -393,6 +414,7 @@ namespace algo
             const double g = std::pow (10.0, v[Level] / 20.0);
             ctl -= 1;
             next -= 1.0;
+            n += 1;
             out[0] = (float) std::tanh (left * g);
             out[1] = (float) std::tanh (right * g);
 

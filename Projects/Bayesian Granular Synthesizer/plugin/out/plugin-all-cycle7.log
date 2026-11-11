@@ -1,0 +1,693 @@
+[  1%] Generating juce_binarydata_BeliefCloud_EditorData/JuceLibraryCode/BinaryData1.cpp, juce_binarydata_BeliefCloud_EditorData/JuceLibraryCode/EditorData.h
+[  3%] Built target BeliefCloud_vst3_helper
+[  3%] Generating juce_binarydata_BeliefCloud_EditorData/JuceLibraryCode/BinaryData1.cpp, juce_binarydata_BeliefCloud_EditorData/JuceLibraryCode/EditorData.h
+[  5%] Built target BeliefCloud_EditorData
+[  7%] Building CXX object CMakeFiles/BeliefCloudHarness.dir/Users/loudonstearns/Documents/The_Palace/Projects/VST_Template/machinery/src/Harness.cpp.o
+[  7%] Building CXX object CMakeFiles/BeliefCloudHarness.dir/Users/loudonstearns/Documents/The_Palace/Projects/VST_Template/machinery/src/PluginProcessor.cpp.o
+[ 26%] Built target BeliefCloudHostCheck
+[ 27%] Building CXX object CMakeFiles/BeliefCloud.dir/Users/loudonstearns/Documents/The_Palace/Projects/VST_Template/machinery/src/PluginProcessor.cpp.o
+[ 27%] Building CXX object CMakeFiles/BeliefCloud.dir/Users/loudonstearns/Documents/The_Palace/Projects/VST_Template/machinery/src/PluginEditor.cpp.o
+In file included from /Users/loudonstearns/Documents/The Palace/Projects/VST Template/machinery/src/PluginProcessor.cpp:6:
+In file included from /Users/loudonstearns/Documents/The Palace/Projects/VST Template/machinery/src/PluginProcessor.h:7:
+/Users/loudonstearns/Documents/The Palace/Projects/Bayesian Granular Synthesizer/plugin/src/Algorithm.h:157:91: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
+In file included from /Users/loudonstearns/Documents/The Palace/Projects/VST Template/machinery/src/Harness.cpp:20:
+In file included from /Users/loudonstearns/Documents/The Palace/Projects/VST Template/machinery/src/PluginProcessor.h:7:
+/Users/loudonstearns/Documents/The Palace/Projects/Bayesian Granular Synthesizer/plugin/src/Algorithm.h:157:91: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
+  157 |             for (int k =  157 |         0; k < kNumPriorParams && same; ++k) same = priorKey[(si     for (int k = 0; k < kNumPriorParams && same; ++k) same = priorKey[(size_tze_t) k] == v[kPriorParams[k]];
+      |                                                                      ~~~~~~~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~
+) k] == v[kPriorParams[k]];
+      |                                                                      ~~~~~~~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~
+In file included from /Users/loudonstearns/Documents/The Palace/Projects/VST Template/machinery/src/PluginProcessor.cpp:6:
+In file included from /Users/loudonstearns/Documents/The Palace/Projects/VST Template/machinery/src/PluginProcessor.h:7:
+/Users/loudonstearns/Documents/The Palace/Projects/Bayesian Granular Synthesizer/plugin/src/Algorithm.h:157:91: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
+  157 |             for (int k = 0; k < kNumPriorParams && same; ++k) same = priorKey[(size_t) k] == v[kPriorParams[k]];
+      |                                                                      ~~~~~~~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~
+In file included from /Users/loudonstearns/Documents/The Palace/Projects/VST Template/machinery/src/PluginEditor.cpp:15:
+In file included from /Users/loudonstearns/Documents/The Palace/Projects/VST Template/machinery/src/PluginEditor.h:7:
+In file included from /Users/loudonstearns/Documents/The Palace/Projects/VST Template/machinery/src/PluginProcessor.h:7:
+/Users/loudonstearns/Documents/The Palace/Projects/Bayesian Granular Synthesizer/plugin/src/Algorithm.h:157:91: warning: comparing floating point with == or != is unsafe [-Wfloat-equal]
+  157 |             for (int k = 0; k < kNumPriorParams && same; ++k) same = priorKey[(size_t) k] == v[kPriorParams[k]];
+      |                                                                      ~~~~~~~~~~~~~~~~~~~~ ^  ~~~~~~~~~~~~~~~~~~
+1 warning generated.
+1 warning generated.
+[ 28%] Linking CXX executable BeliefCloudHarness_artefacts/Release/BeliefCloudHarness
+1 warning generated.
+[ 44%] Built target BeliefCloudHarness
+1 warning generated.
+[ 45%] Linking CXX static library "BeliefCloud_artefacts/Release/libBelief Cloud_SharedCode.a"
+[ 62%] Built target BeliefCloud
+[ 63%] Linking CXX executable "BeliefCloud_artefacts/Release/Standalone/Belief Cloud.app/Contents/MacOS/Belief Cloud"
+[ 64%] Linking CXX CFBundle shared module "BeliefCloud_artefacts/Release/VST3/Belief Cloud.vst3/Contents/MacOS/Belief Cloud"
+[ 65%] Linking CXX CFBundle shared module "BeliefCloud_artefacts/Release/AU/Belief Cloud.component/Contents/MacOS/Belief Cloud"
+/Users/loudonstearns/Documents/The Palace/Projects/Bayesian Granular Synthesizer/plugin/build/BeliefCloud_artefacts/Release/VST3/Belief Cloud.vst3: code has no resources but signature indicates they must be present
+-- Replacing invalid signature with ad-hoc signature
+/Users/loudonstearns/Documents/The Palace/Projects/Bayesian Granular Synthesizer/plugin/build/BeliefCloud_artefacts/Release/VST3/Belief Cloud.vst3: replacing existing signature
+removing moduleinfo.json
+creating /Users/loudonstearns/Documents/The Palace/Projects/Bayesian Granular Synthesizer/plugin/build/BeliefCloud_artefacts/Release/VST3/Belief Cloud.vst3
+[ 77%] Built target BeliefCloud_VST3
+[ 89%] Built target BeliefCloud_AU
+[100%] Built target BeliefCloud_Standalone
+built: /Users/loudonstearns/Documents/The Palace/Projects/Bayesian Granular Synthesizer/plugin/build/BeliefCloud_artefacts/Release/VST3/Belief Cloud.vst3
+built: /Users/loudonstearns/Documents/The Palace/Projects/Bayesian Granular Synthesizer/plugin/build/BeliefCloud_artefacts/Release/AU/Belief Cloud.component
+Belief Cloud: 33 parameters, 6 paths, 44100 Hz, harness build/BeliefCloudHarness_artefacts/Release/BeliefCloudHarness
+
+chord-belief (5 s)
+  sketch     cached
+  exact      engine = sketch to 3.5e-08 of peak over 5 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 0.0134 dB of the sketch (tol 0.5)           PASS
+  sanity     engine finite=True, peak -7.3 dBFS, rms -21.8 dBFS                         PASS
+  sanity     plugin finite=True, peak -7.3 dBFS, rms -21.8 dBFS                         PASS
+
+painted-prior (4 s)
+  sketch     cached
+  exact      engine = sketch to 3.5e-08 of peak over 4 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 0.0354 dB of the sketch (tol 0.5)           PASS
+  sanity     engine finite=True, peak -7.4 dBFS, rms -21.1 dBFS                         PASS
+  sanity     plugin finite=True, peak -7.4 dBFS, rms -21.1 dBFS                         PASS
+
+sweeps (4 s)
+  sketch     cached
+  exact      engine = sketch to 3e-08 of peak over 4 s (tol 1e-06)                      PASS
+  plugin     loudness of each 0.25 s within 0.186 dB of the sketch (tol 0.5)            PASS
+  sanity     engine finite=True, peak -5.9 dBFS, rms -21.8 dBFS                         PASS
+  sanity     plugin finite=True, peak -5.9 dBFS, rms -21.8 dBFS                         PASS
+
+far-hush (4 s)
+  sketch     cached
+  exact      engine = sketch to 3.6e-08 of peak over 4 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 0.0353 dB of the sketch (tol 0.5)           PASS
+  sanity     engine finite=True, peak -7.6 dBFS, rms -21.5 dBFS                         PASS
+  sanity     plugin finite=True, peak -7.6 dBFS, rms -21.5 dBFS                         PASS
+
+entrain (4 s)
+  sketch     cached
+  exact      engine = sketch to 4.6e-08 of peak over 4 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 0.0115 dB of the sketch (tol 0.5)           PASS
+  sanity     engine finite=True, peak -3.8 dBFS, rms -16.1 dBFS                         PASS
+  sanity     plugin finite=True, peak -3.8 dBFS, rms -16.1 dBFS                         PASS
+
+crowded (3 s)
+  sketch     cached
+  exact      engine = sketch to 3.7e-08 of peak over 3 s (tol 1e-06)                    PASS
+  plugin     loudness of each 0.25 s within 0.00574 dB of the sketch (tol 0.5)          PASS
+  sanity     engine finite=True, peak -7.8 dBFS, rms -21.0 dBFS                         PASS
+  sanity     plugin finite=True, peak -7.8 dBFS, rms -21.0 dBFS                         PASS
+
+ALL GATES PASSED  (numbers in out/report.json, renders in out/)
+installed: /Users/loudonstearns/Library/Audio/Plug-Ins/VST3/Belief Cloud.vst3
+installed: /Users/loudonstearns/Library/Audio/Plug-Ins/Components/Belief Cloud.component
+signature verified (strict): /Users/loudonstearns/Library/Audio/Plug-Ins/VST3/Belief Cloud.vst3
+signature verified (strict): /Users/loudonstearns/Library/Audio/Plug-Ins/Components/Belief Cloud.component
+Started validating: /Users/loudonstearns/Library/Audio/Plug-Ins/VST3/Belief Cloud.vst3
+Random seed: 0x2399ab1
+Validation started
+Strictness level: 5
+-----------------------------------------------------------------
+Starting tests in: pluginval / Scan for plugins located in: /Users/loudonstearns/Library/Audio/Plug-Ins/VST3/Belief Cloud.vst3...
+Num plugins found: 1
+
+Testing plugin: VST3-Belief Cloud-541c70d8-d253ac0a
+Loudon Live: Belief Cloud v0.2.0
+Completed tests in pluginval / Scan for plugins located in: /Users/loudonstearns/Library/Audio/Plug-Ins/VST3/Belief Cloud.vst3
+-----------------------------------------------------------------
+Starting tests in: pluginval / Open plugin (cold)...
+Completed tests in pluginval / Open plugin (cold)
+-----------------------------------------------------------------
+Starting tests in: pluginval / Open plugin (warm)...
+Running tests 1 times
+Completed tests in pluginval / Open plugin (warm)
+-----------------------------------------------------------------
+Starting tests in: pluginval / Plugin info...
+
+Plugin name: Belief Cloud
+Alternative names: Belief Cloud
+SupportsDoublePrecision: no
+Reported latency: 0
+Reported taillength: 0
+Completed tests in pluginval / Plugin info
+-----------------------------------------------------------------
+Starting tests in: pluginval / Plugin programs...
+Num programs: 0
+All program names checked
+Completed tests in pluginval / Plugin programs
+-----------------------------------------------------------------
+Starting tests in: pluginval / Editor...
+Completed tests in pluginval / Editor
+-----------------------------------------------------------------
+Starting tests in: pluginval / Open editor whilst processing...
+Completed tests in pluginval / Open editor whilst processing
+-----------------------------------------------------------------
+Starting tests in: pluginval / Audio processing...
+Testing with sample rate [44100] and block size [64]
+Testing with sample rate [44100] and block size [128]
+Testing with sample rate [44100] and block size [256]
+Testing with sample rate [44100] and block size [512]
+Testing with sample rate [44100] and block size [1024]
+Testing with sample rate [48000] and block size [64]
+Testing with sample rate [48000] and block size [128]
+Testing with sample rate [48000] and block size [256]
+Testing with sample rate [48000] and block size [512]
+Testing with sample rate [48000] and block size [1024]
+Testing with sample rate [96000] and block size [64]
+Testing with sample rate [96000] and block size [128]
+Testing with sample rate [96000] and block size [256]
+Testing with sample rate [96000] and block size [512]
+Testing with sample rate [96000] and block size [1024]
+Completed tests in pluginval / Audio processing
+-----------------------------------------------------------------
+Starting tests in: pluginval / Plugin state...
+Completed tests in pluginval / Plugin state
+-----------------------------------------------------------------
+Starting tests in: pluginval / Automation...
+Testing with sample rate [44100] and block size [64] and sub-block size [32]
+Testing with sample rate [44100] and block size [128] and sub-block size [32]
+Testing with sample rate [44100] and block size [256] and sub-block size [32]
+Testing with sample rate [44100] and block size [512] and sub-block size [32]
+Testing with sample rate [44100] and block size [1024] and sub-block size [32]
+Testing with sample rate [48000] and block size [64] and sub-block size [32]
+Testing with sample rate [48000] and block size [128] and sub-block size [32]
+Testing with sample rate [48000] and block size [256] and sub-block size [32]
+Testing with sample rate [48000] and block size [512] and sub-block size [32]
+Testing with sample rate [48000] and block size [1024] and sub-block size [32]
+Testing with sample rate [96000] and block size [64] and sub-block size [32]
+Testing with sample rate [96000] and block size [128] and sub-block size [32]
+Testing with sample rate [96000] and block size [256] and sub-block size [32]
+Testing with sample rate [96000] and block size [512] and sub-block size [32]
+Testing with sample rate [96000] and block size [1024] and sub-block size [32]
+Completed tests in pluginval / Automation
+-----------------------------------------------------------------
+Starting tests in: pluginval / Editor Automation...
+Completed tests in pluginval / Editor Automation
+-----------------------------------------------------------------
+Starting tests in: pluginval / Automatable Parameters...
+Completed tests in pluginval / Automatable Parameters
+-----------------------------------------------------------------
+Starting tests in: pluginval / auval...
+Completed tests in pluginval / auval
+-----------------------------------------------------------------
+Starting tests in: pluginval / vst3 validator...
+INFO: Skipping vst3 validator as validator path hasn't been set
+Completed tests in pluginval / vst3 validator
+-----------------------------------------------------------------
+Starting tests in: pluginval / Basic bus...
+Completed tests in pluginval / Basic bus
+-----------------------------------------------------------------
+Starting tests in: pluginval / Listing available buses...
+Inputs:
+	Named layouts: None
+	Discrete layouts: None
+Outputs:
+	Named layouts: Mono, Stereo
+	Discrete layouts: Discrete #1
+Main bus num input channels: 0
+Main bus num output channels: 2
+Completed tests in pluginval / Listing available buses
+-----------------------------------------------------------------
+Starting tests in: pluginval / Enabling all buses...
+Completed tests in pluginval / Enabling all buses
+-----------------------------------------------------------------
+Starting tests in: pluginval / Disabling non-main busses...
+Completed tests in pluginval / Disabling non-main busses
+-----------------------------------------------------------------
+Starting tests in: pluginval / Restoring default layout...
+Main bus num input channels: 0
+Main bus num output channels: 2
+Completed tests in pluginval / Restoring default layout
+SUCCESS
+
+    AU Validation Tool
+    Version: 1.10.0 
+    Copyright 2003-2019, Apple Inc. All Rights Reserved.
+    Specify -h (-help) for command options
+
+--------------------------------------------------
+VALIDATING AUDIO UNIT: 'aumu' - 'Blcd' - 'Loud'
+--------------------------------------------------
+Manufacturer String: Loudon Live
+AudioUnit Name: Belief Cloud
+Component Version: 0.2.0 (0x200)
+
+* * PASS
+--------------------------------------------------
+TESTING OPEN TIMES:
+COLD:
+Time to open AudioUnit:         12.716 ms
+WARM:
+Time to open AudioUnit:         0.526  ms
+This AudioUnit is a version 2 implementation.
+FIRST TIME:
+Time for initialization:        0.019 ms
+
+* * PASS
+--------------------------------------------------
+VERIFYING DEFAULT SCOPE FORMATS:
+Input Scope Bus Configuration:
+ Default Bus Count:0
+
+Output Scope Bus Configuration:
+ Default Bus Count:1
+    Bus Name: Output
+    Default Format: AudioStreamBasicDescription:  2 ch,  44100 Hz, Float32, deinterleaved
+    Has Channel Layouts: 0x640001 0x650002 0x660002 0x670002 0x6A0002 
+    Default Layout:
+	Tag=0x650002, Num Chan Descs=0
+
+* * PASS
+--------------------------------------------------
+VERIFYING REQUIRED PROPERTIES:
+
+* * PASS
+--------------------------------------------------
+VERIFYING RECOMMENDED PROPERTIES:
+  VERIFYING PROPERTY: Latency
+    PASS
+
+* * PASS
+--------------------------------------------------
+VERIFYING OPTIONAL PROPERTIES:
+  VERIFYING PROPERTY: Tail Time
+    PASS
+  VERIFYING PROPERTY: Bypass Effect
+    PASS
+
+* * PASS
+--------------------------------------------------
+VERIFYING SPECIAL PROPERTIES:
+
+VERIFYING CUSTOM UI
+Cocoa Views Available: 1
+  JUCE_AUCocoaViewClass_94609e27a78f22f7
+    PASS
+
+HAS FACTORY PRESETS
+    ID:   0    Name: Untitled
+
+VERIFYING CLASS INFO
+    PASS
+
+TESTING HOST CALLBACKS
+    PASS
+
+* * PASS
+--------------------------------------------------
+PUBLISHED PARAMETER INFO:
+
+# # # 33 Global Scope Parameters:
+Parameter ID:3377192
+Name: Grain near
+Parameter Type: Generic
+Values: Minimum = 5, Default = 35, Maximum = 200
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:3434773
+Name: Prior A
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:3434774
+Name: Prior B
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:3434775
+Name: Prior C
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:3434776
+Name: Prior D
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:3434777
+Name: Prior E
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:3434778
+Name: Prior F
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:3434779
+Name: Prior G
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:3493088
+Name: Grain rate
+Parameter Type: Generic
+Values: Minimum = 10, Default = 160, Maximum = 800
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:95774492
+Name: Doubt
+Parameter Type: Generic
+Values: Minimum = 0.02, Default = 0.25, Maximum = 4
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:102865796
+Name: Level
+Parameter Type: Generic
+Values: Minimum = -60.00, Default = -2.00, Maximum = 6.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:106478078
+Name: Prior A#
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:106478140
+Name: Prior C#
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:106478171
+Name: Prior D#
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:106478233
+Name: Prior F#
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:106478264
+Name: Prior G#
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 1.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:106931267
+Name: Press
+Parameter Type: Generic
+Values: Minimum = 0.005, Default = 0.08, Maximum = 1
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:178702419
+Name: Width floor
+Parameter Type: Generic
+Values: Minimum = 1, Default = 5, Maximum = 25
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:190933161
+Name: Width at press
+Parameter Type: Generic
+Values: Minimum = 30, Default = 120, Maximum = 600
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:348742026
+Name: Grain longest
+Parameter Type: Generic
+Values: Minimum = 8, Default = 128, Maximum = 512
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:555902719
+Name: Entrain
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 0.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:759467970
+Name: Time to believe
+Parameter Type: Generic
+Values: Minimum = 0.05, Default = 1.6, Maximum = 10
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+WARNING: retrievedValue = 0.000000 (was 0.000000), Parameter did not retain minimum value when set
+  -parameter PASS
+
+Parameter ID:878698989
+Name: Forget
+Parameter Type: Generic
+Values: Minimum = 0.05, Default = 0.7, Maximum = 10
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+WARNING: retrievedValue = 0.000000 (was 0.000000), Parameter did not retain minimum value when set
+  -parameter PASS
+
+Parameter ID:921210954
+Name: Far hush
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 18.00, Maximum = 40.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:969121223
+Name: Prior tone
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 0.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:1041290636
+Name: Let go
+Parameter Type: Generic
+Values: Minimum = 0.05, Default = 1.4, Maximum = 20
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+WARNING: retrievedValue = 0.000000 (was 0.000000), Parameter did not retain minimum value when set
+  -parameter PASS
+
+Parameter ID:1251799411
+Name: Spread
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 0.70, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:1457270435
+Name: Prior register
+Parameter Type: Generic
+Values: Minimum = 33.00, Default = 64.00, Maximum = 96.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:1524759112
+Name: Prior hill width
+Parameter Type: Generic
+Values: Minimum = 5, Default = 20, Maximum = 100
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:1804985226
+Name: Grain shortest
+Parameter Type: Generic
+Values: Minimum = 1, Default = 4, Maximum = 32
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:2012477738
+Name: Prior register width
+Parameter Type: Generic
+Values: Minimum = 0.5, Default = 8, Maximum = 8
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:2124326380
+Name: Prior shape
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 0.00, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Parameter ID:2134260957
+Name: Velocity
+Parameter Type: Generic
+Values: Minimum = 0.00, Default = 0.30, Maximum = 1.00
+Flags: Values Have Strings, High Resolution, Can Ramp, Readable, Writable 
+  -parameter PASS
+
+Testing that parameters retain value across reset and initialization
+  PASS
+
+* * PASS
+--------------------------------------------------
+FORMAT TESTS:
+
+Reported Channel Capabilities (explicit):
+      [0, 1]  [0, 2]  
+
+No Input, Output Chans:
+0-1   0-2   0-4   0-5   0-6   0-7   0-8
+X     X                                   
+
+# # AudioChannelLayouts (5), Output Scope:
+ChannelLayout is Writable: T
+The Unit publishes the following Channel Layouts:
+  0x640001, 0x650002, 0x660002, 0x670002, 0x6A0002, 
+
+Is Audio Channel Layout Available:
+Mono    Stereo  Binau.  AU_4    Ambi.   AU_5    AU_5_0  AU_6    AU_6_0  AU_7_0  AU_7_0F AU_8    AU_5_1  AU_6_1  AU_7_1  AU_7_1F 
+X       X       X                                                                                                               
+
+Current Format:AudioStreamBasicDescription:  2 ch,  44100 Hz, Float32, deinterleaved
+Current Format Tag = 0x650002, New Format Tag = 0x640001, Success - did not reset format with mis-matched layout
+
+Current Format:AudioStreamBasicDescription:  2 ch,  44100 Hz, Float32, deinterleaved
+Current Format Tag = 0x650002, New Format Tag = 0x650002, Successsful
+
+Current Format:AudioStreamBasicDescription:  2 ch,  44100 Hz, Float32, deinterleaved
+Current Format Tag = 0x650002, New Format Tag = 0x6A0002, Successsful
+
+* * PASS
+--------------------------------------------------
+RENDER TESTS:
+
+Output Format: AudioStreamBasicDescription:  2 ch,  44100 Hz, Float32, deinterleaved
+Render Test at 512 frames
+Slicing Render Test at 64 frames
+  PASS
+
+
+Render Test at 64 frames, sample rate: 22050 Hz
+Render Test at 137 frames, sample rate: 96000 Hz
+Render Test at 4096 frames, sample rate: 48000 Hz
+Render Test at 4096 frames, sample rate: 192000 Hz
+Render Test at 4096 frames, sample rate: 11025 Hz
+Render Test at 512 frames, sample rate: 44100 Hz
+  PASS
+
+1 Channel Test:
+Render Test at 512 frames
+  PASS
+
+Bad Max Frames - Render should fail
+  PASS
+
+Checking parameter setting
+Using AudioUnitSetParameter
+Using AudioUnitScheduleParameter
+  PASS
+
+Checking ramped parameter scheduling
+  PASS
+
+Test MIDI
+  PASS
+
+* * PASS
+--------------------------------------------------
+AU VALIDATION SUCCEEDED.
+--------------------------------------------------
+loaded Belief Cloud (VST3, Loudon Live) from /Users/loudonstearns/Library/Audio/Plug-Ins/VST3/Belief Cloud.vst3
+parameters:
+  Doubt              0.25             automatable
+  Time to believe    1.6 s            automatable
+  Press              0.08 s           automatable
+  Let go             1.4 s            automatable
+  Forget             0.7 s            automatable
+  Velocity           0.30             automatable
+  Width at press     120 ct           automatable
+  Width floor        5 ct             automatable
+  Grain near         35 ct            automatable
+  Grain rate         160 /s           automatable
+  Grain shortest     4 cyc            automatable
+  Grain longest      128 cyc          automatable
+  Spread             0.70             automatable
+  Level              -2.00 dB         automatable
+  Prior shape        0.00             automatable
+  Prior tone         0.00             automatable
+  Prior hill width   20 ct            automatable
+  Prior register     64.00            automatable
+  Prior register width 8 oct            automatable
+  Prior C            1.00             automatable
+  Prior C#           1.00             automatable
+  Prior D            1.00             automatable
+  Prior D#           1.00             automatable
+  Prior E            1.00             automatable
+  Prior F            1.00             automatable
+  Prior F#           1.00             automatable
+  Prior G            1.00             automatable
+  Prior G#           1.00             automatable
+  Prior A            1.00             automatable
+  Prior A#           1.00             automatable
+  Prior B            1.00             automatable
+  Far hush           18.00 dB         automatable
+  Entrain            0.00             automatable
+  Bypass             Off              automatable
+  (and 2080 MIDI CC proxies the VST3 wrapper adds)
+render (one second each, from a fresh start):
+  defaults                   rms  -22.4 dBFS  peak   -9.8 dBFS  centroid    538 Hz  
+  defaults again             rms  -22.4 dBFS  peak   -9.8 dBFS  centroid    538 Hz  (same as the first)
+  doubt -> 0.05              rms  -21.8 dBFS  peak   -9.8 dBFS  centroid    323 Hz  differs from defaults by 0.8 of peak
+  prior_shape -> 1.00        rms  -22.4 dBFS  peak   -9.8 dBFS  centroid    537 Hz  differs from defaults by 0.14 of peak
+  near -> 200                rms  -21.2 dBFS  peak   -8.4 dBFS  centroid    520 Hz  differs from defaults by 0.42 of peak
+  longest -> 400             rms  -22.4 dBFS  peak  -10.6 dBFS  centroid    547 Hz  differs from defaults by 0.35 of peak
+  far_hush -> 40.00          rms  -24.0 dBFS  peak  -11.1 dBFS  centroid    498 Hz  differs from defaults by 0.29 of peak
+  entrain -> 1.00            rms  -22.2 dBFS  peak  -10.4 dBFS  centroid    538 Hz  differs from defaults by 0.48 of peak
+HOST CHECK PASSED
+loaded Belief Cloud (AudioUnit, Loudon Live) from /Users/loudonstearns/Library/Audio/Plug-Ins/Components/Belief Cloud.component
+parameters:
+  Grain near         35               automatable
+  Prior A            1.00             automatable
+  Prior B            1.00             automatable
+  Prior C            1.00             automatable
+  Prior D            1.00             automatable
+  Prior E            1.00             automatable
+  Prior F            1.00             automatable
+  Prior G            1.00             automatable
+  Grain rate         160              automatable
+  Doubt              0.25             automatable
+  Level              -2.00            automatable
+  Prior A#           1.00             automatable
+  Prior C#           1.00             automatable
+  Prior D#           1.00             automatable
+  Prior F#           1.00             automatable
+  Prior G#           1.00             automatable
+  Press              0.08             automatable
+  Width floor        5                automatable
+  Width at press     120              automatable
+  Grain longest      128              automatable
+  Entrain            0.00             automatable
+  Time to believe    1.6              automatable
+  Forget             0.7              automatable
+  Far hush           18.00            automatable
+  Prior tone         0.00             automatable
+  Let go             1.4              automatable
+  Spread             0.70             automatable
+  Prior register     64.00            automatable
+  Prior hill width   20               automatable
+  Grain shortest     4                automatable
+  Prior register width 8                automatable
+  Prior shape        0.00             automatable
+  Velocity           0.30             automatable
+render (one second each, from a fresh start):
+  defaults                   rms  -22.4 dBFS  peak   -9.8 dBFS  centroid    538 Hz  
+  defaults again             rms  -22.4 dBFS  peak   -9.8 dBFS  centroid    538 Hz  (same as the first)
+  doubt -> 0.05              rms  -21.8 dBFS  peak   -9.8 dBFS  centroid    323 Hz  differs from defaults by 0.8 of peak
+  prior_shape -> 1.00        rms  -22.4 dBFS  peak   -9.8 dBFS  centroid    537 Hz  differs from defaults by 0.14 of peak
+  near -> 200                rms  -21.2 dBFS  peak   -8.4 dBFS  centroid    520 Hz  differs from defaults by 0.42 of peak
+  longest -> 400             rms  -22.4 dBFS  peak  -10.6 dBFS  centroid    547 Hz  differs from defaults by 0.35 of peak
+  far_hush -> 40.00          rms  -24.0 dBFS  peak  -11.1 dBFS  centroid    498 Hz  differs from defaults by 0.29 of peak
+  entrain -> 1.00            rms  -22.2 dBFS  peak  -10.4 dBFS  centroid    538 Hz  differs from defaults by 0.48 of peak
+HOST CHECK PASSED

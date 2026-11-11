@@ -6,20 +6,21 @@
   "manufacturer_code": "Loud",
   "plugin_code": "Blcd",
   "kind": "instrument",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "hostcheck": [
     "doubt=0.05",
     "prior_shape=1",
     "near=200",
     "longest=400",
-    "far_hush=40"
+    "far_hush=40",
+    "entrain=1"
   ],
   "ui": {
     "width": 1180,
     "height": 760,
     "min": [
-      1080,
-      700
+      1120,
+      720
     ],
     "max": [
       1800,

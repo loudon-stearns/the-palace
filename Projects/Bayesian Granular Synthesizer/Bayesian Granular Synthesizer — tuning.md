@@ -59,3 +59,13 @@ What Bayesian Granular Synthesizer's steward cycles taught the page, and the cha
    > - **Far hush:** once a chord is believed, a grain landing far from every held note is turned down: up to 18 dB by default, scaled by how sure the cloud is. Equal-energy scaling had made each stray short grain a spike, its median peak 14 dB above the chord's grains (Loudon, 2026-11-10: "distant slow random blips far from the beautiful note intended"). With the hush, the strays carry 0.3 % of the energy instead of 12.5 %.
 
 - run · 2026-11-11 · cycle 6 · taught item 6, proposed items 7, 8 for canon
+
+## From cycle 7 — 2026-11-11
+
+9. A new parameter that only touches grains' start phases, appended at the end of the table with a default that changes nothing, keeps every older path matching exactly, so a plugin feature can go in without re-deriving any earlier proof. *(offered by the steward, cycle 7)*
+10. **Proposed for canon** · 2026-11-11 · [[Bayesian Granular Synthesizer]] · § Forward Vectors, a sub-bullet under 'Wire the optional grain-entrainment coupling…' · canon change owed *(proposed by the steward, cycle 7)*
+    Why: This forward vector has now been built and measured. The page should say how far it got and what is still open.
+    Path: `Projects/Bayesian Granular Synthesizer.md`
+    >   - Progressed (2026-11-11, [[Bayesian Granular Synthesizer — scroll]]): Belief Cloud has an Entrain knob, off by default. Grains near a believed note start on that note's clock, and at full strength the held chord is 7.5 dB louder and shimmers about 40 % less: fog traded for focus. Each note's clock runs steady, so grains don't yet pull on one another. Whether it adds or muddies is waiting on Loudon's ears.
+
+- run · 2026-11-11 · cycle 7 · taught item 9, proposed item 10 for canon

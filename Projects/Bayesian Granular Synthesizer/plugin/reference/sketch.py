@@ -37,6 +37,16 @@ evidence, and every grain draws its pitch from what the cloud currently believes
              around its notes drop back (Loudon, 2026-11-10: "distant slow
              random blips far from the beautiful note intended, we need to
              de-emphasize those"). It changes no random draw.
+  entrain    grains near a believed note line up in phase (plan: try grain
+             entrainment, judge by ear). Each note keeps a clock at its own
+             pitch, frac(f * n / sr), n the sample count since reset. A new
+             grain's random start phase is pulled toward the clock of the note
+             it is nearest in belief, by `entrain` * closeness * w * conviction:
+             0 leaves it random, 1 starts it on the clock. Coherent grains add
+             in amplitude, not in power, so the condensed chord gets louder and
+             purer as they lock. It is the Kuramoto picture with the mean field
+             held steady (the clock), not grains pulling on one another, and it
+             changes no random draw: at 0 the cloud is exactly as before.
   grain      1-cycle Hann in, sustain, 1-cycle Hann out; amplitude
              sqrt(0.06/rate) * sqrt(f/(cycles+1)) (equal energy) * hush; random phase;
              equal-power pan inside `spread`. Up to 640 sound at once.
@@ -107,6 +117,7 @@ class Cloud:
         self.ctl = 0
         self.dropped = 0
         self.mean_cycles = 4.0
+        self.n = 0
         self.grain_note, self.grain_cycles = 0.0, 0.0
         self.build_prior(v0)
 
@@ -241,6 +252,7 @@ class Cloud:
             midi = self.midi[pick] + self.gauss() * self.sig[pick] / 100.0
         best = 0.0
         close = 0.0
+        lock, lock_j = 0.0, -1
         near = v["near"]
         for j in range(MAX_NOTES):
             if not self.active[j]:
@@ -252,6 +264,8 @@ class Cloud:
             g = x * self.w[j] * self.conv[j]
             if g > best:
                 best = g
+            if g > lock:
+                lock, lock_j = g, j
         bi = int(math.floor((midi - LO) * 100.0 / BIN_C))
         if 0 <= bi < B:
             tt = v["prior_tone"] * self.tone[bi]
@@ -260,10 +274,10 @@ class Cloud:
         n_min = v["shortest"]
         cycles = n_min * math.pow(v["longest"] / n_min, best)
         far = self.certainty * (1.0 - close)
-        return midi, cycles, math.pow(10.0, -v["far_hush"] * far / 20.0)
+        return midi, cycles, math.pow(10.0, -v["far_hush"] * far / 20.0), lock, lock_j
 
     def spawn(self, v):
-        midi, cycles, hush = self.draw(v)
+        midi, cycles, hush, lock, lock_j = self.draw(v)
         if self.nv >= MAX_VOICES:
             self.dropped += 1
             return
@@ -274,7 +288,19 @@ class Cloud:
         cyc = sr / f
         k = self.nv
         self.nv += 1
-        self.v_ph[k] = self.rng.next()
+        ph = self.rng.next()
+        pull = v["entrain"] * lock
+        if pull > 0.0:
+            fj = 440.0 * math.pow(2.0, (self.midi[lock_j] - 69.0) / 12.0)
+            ref = fj * self.n / sr
+            ref -= math.floor(ref)
+            d = ref - ph
+            d -= math.floor(d + 0.5)
+            ph += pull * d
+            ph -= math.floor(ph)
+            if ph >= 1.0:
+                ph -= 1.0
+        self.v_ph[k] = ph
         self.v_inc[k] = f / sr
         self.v_pos[k] = 0
         self.v_fade[k] = max(2, int(math.floor(cyc + 0.5)))
@@ -335,6 +361,7 @@ class Cloud:
         g = math.pow(10.0, v["level"] / 20.0)
         self.ctl -= 1
         self.next -= 1.0
+        self.n += 1
         return math.tanh(left * g), math.tanh(right * g)
 
 

@@ -1,0 +1,61 @@
+[
+ {
+  "take": "off",
+  "held_rms_db": -20.0,
+  "held_peak_db": -7.8,
+  "within_60_cents": 0.974,
+  "within_6_cents": 0.538,
+  "shimmer_C_E_G": [
+   0.56,
+   0.57,
+   0.46
+  ]
+ },
+ {
+  "take": "on",
+  "held_rms_db": -12.5,
+  "held_peak_db": -2.7,
+  "within_60_cents": 0.996,
+  "within_6_cents": 0.797,
+  "shimmer_C_E_G": [
+   0.35,
+   0.26,
+   0.37
+  ]
+ },
+ {
+  "take": "on-matched",
+  "held_rms_db": -19.6,
+  "held_peak_db": -8.6,
+  "within_60_cents": 0.996,
+  "within_6_cents": 0.797,
+  "shimmer_C_E_G": [
+   0.35,
+   0.26,
+   0.38
+  ]
+ },
+ {
+  "take": "sweep 2-4 s, entrain 0",
+  "held_rms_db": -21.3,
+  "within_6_cents": 0.199
+ },
+ {
+  "take": "sweep 5-7 s, entrain 0.1-0.4",
+  "held_rms_db": -18.7,
+  "within_6_cents": 0.604
+ },
+ {
+  "take": "sweep 8-10 s, entrain 0.5-0.75",
+  "held_rms_db": -14.5,
+  "within_6_cents": 0.795
+ },
+ {
+  "take": "sweep 12-14 s, entrain 1",
+  "held_rms_db": -12.1,
+  "within_6_cents": 0.831
+ },
+ {
+  "matched_gain_db": -7.5
+ }
+]

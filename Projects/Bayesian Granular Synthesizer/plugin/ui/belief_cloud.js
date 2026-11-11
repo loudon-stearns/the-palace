@@ -9,11 +9,11 @@ const BC = (() => {
   const IDS = ["doubt", "time_to_believe", "press", "let_go", "forget", "velocity",
     "width_start", "width_floor", "near", "rate", "shortest", "longest", "spread", "level",
     "prior_shape", "prior_tone", "hill_width", "register", "register_width",
-    "pc_c", "pc_cs", "pc_d", "pc_ds", "pc_e", "pc_f", "pc_fs", "pc_g", "pc_gs", "pc_a", "pc_as", "pc_b", "far_hush"];
+    "pc_c", "pc_cs", "pc_d", "pc_ds", "pc_e", "pc_f", "pc_fs", "pc_g", "pc_gs", "pc_a", "pc_as", "pc_b", "far_hush", "entrain"];
   const P = {}; IDS.forEach((id, i) => { P[id] = i; });
   const PRIOR = ["prior_shape", "hill_width", "register", "register_width",
     "pc_c", "pc_cs", "pc_d", "pc_ds", "pc_e", "pc_f", "pc_fs", "pc_g", "pc_gs", "pc_a", "pc_as", "pc_b"].map(k => P[k]);
-  const DEFAULTS = [0.25, 1.6, 0.08, 1.4, 0.7, 0.3, 120, 5, 35, 160, 4, 128, 0.7, -2, 0, 0, 20, 64, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 18];
+  const DEFAULTS = [0.25, 1.6, 0.08, 1.4, 0.7, 0.3, 120, 5, 35, 160, 4, 128, 0.7, -2, 0, 0, 20, 64, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 18, 0];
   const NUM_PROBES = 5 + 3 * MAX_NOTES;
 
   class Cloud {
@@ -46,7 +46,7 @@ const BC = (() => {
       this.sumW = 0; this.priorShare = 1; this.certainty = 0;
       this.lastLw = Math.log(v[P.width_start]); this.lastSig = v[P.width_start];
       this.nv = 0; this.next = 0; this.ctl = 0; this.dropped = 0;
-      this.meanCycles = 4; this.grainNote = 0; this.grainCycles = 0;
+      this.meanCycles = 4; this.grainNote = 0; this.grainCycles = 0; this.n = 0;
       this.buildPrior(v);
     }
     buildPrior(v) {
@@ -134,13 +134,14 @@ const BC = (() => {
         for (let j = 0; j < MAX_NOTES; j++) { if (!this.active[j]) continue; pick = j; if (u < this.w[j]) break; u -= this.w[j]; }
         m = this.midi[pick] + this.gauss() * this.sig[pick] / 100.0;
       }
-      let best = 0, close = 0; const near = v[P.near];
+      let best = 0, close = 0, lock = 0, lockJ = -1; const near = v[P.near];
       for (let j = 0; j < MAX_NOTES; j++) {
         if (!this.active[j]) continue;
         const d = (m - this.midi[j]) * 100.0 / near;
         const x = Math.exp(-0.5 * d * d); if (x > close) close = x;
         const g = x * this.w[j] * this.conv[j];
         if (g > best) best = g;
+        if (g > lock) { lock = g; lockJ = j; }
       }
       const bi = Math.floor((m - LO) * 100.0 / BIN_C);
       if (bi >= 0 && bi < B) { const tt = v[P.prior_tone] * this.tone[bi]; if (tt > best) best = tt; }
@@ -149,7 +150,15 @@ const BC = (() => {
       const sr = this.sr, f = 440.0 * Math.pow(2.0, (m - 69.0) / 12.0);
       if (f > sr * 0.45) return;
       const cyc = sr / f, k = this.nv++;
-      this.vPh[k] = this.rand(); this.vInc[k] = f / sr; this.vPos[k] = 0;
+      let ph = this.rand();
+      const pull = v[P.entrain] * lock;
+      if (pull > 0) {
+        const fj = 440.0 * Math.pow(2.0, (this.midi[lockJ] - 69.0) / 12.0);
+        let ref = fj * this.n / sr; ref -= Math.floor(ref);
+        let d = ref - ph; d -= Math.floor(d + 0.5);
+        ph += pull * d; ph -= Math.floor(ph); if (ph >= 1.0) ph -= 1.0;
+      }
+      this.vPh[k] = ph; this.vInc[k] = f / sr; this.vPos[k] = 0;
       this.vFade[k] = Math.max(2, Math.floor(cyc + 0.5));
       this.vLen[k] = Math.floor(cyc * (cycles + 2.0) + 0.5);
       const hush = Math.pow(10.0, -v[P.far_hush] * this.certainty * (1.0 - close) / 20.0);
@@ -189,7 +198,7 @@ const BC = (() => {
         } else k++;
       }
       const g = Math.pow(10.0, v[P.level] / 20.0);
-      this.ctl -= 1; this.next -= 1.0;
+      this.ctl -= 1; this.next -= 1.0; this.n += 1;
       this.out[0] = Math.tanh(left * g); this.out[1] = Math.tanh(right * g);
       return this.out;
     }

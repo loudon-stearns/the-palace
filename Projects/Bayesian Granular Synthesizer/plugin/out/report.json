@@ -165,6 +165,46 @@
    "passed": true
   },
   {
+   "name": "entrain",
+   "secs": 4.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 4.6e-08 of peak over 4 s (tol 1e-06)",
+     "max_err": 4.61212462515638e-08,
+     "seconds": 4.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.0115 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.011506103307350912,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -3.8 dBFS, rms -16.1 dBFS",
+     "source": "engine",
+     "peak": 0.6461484432220459,
+     "rms": 0.15689849352775012,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -3.8 dBFS, rms -16.1 dBFS",
+     "source": "plugin",
+     "peak": 0.6461219191551208,
+     "rms": 0.15685686652322595,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
    "name": "crowded",
    "secs": 3.0,
    "gates": [

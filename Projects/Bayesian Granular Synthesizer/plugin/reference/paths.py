@@ -29,6 +29,11 @@ PATHS = [
          values=dict(far_hush=lambda t: 9.0 * t, doubt=0.4),
          notes=[(0.2, 3.7, 60, 100), (0.2, 3.7, 64, 100), (0.2, 3.7, 67, 100)],
          gate=dict(exact_until=None)),
+    # entrain swept 0 -> 1 while C E G is believed: near grains start on their note's clock
+    dict(name="entrain", secs=4.0,
+         values=dict(entrain=lambda t: np.clip((t - 1.0) / 2.5, 0.0, 1.0), time_to_believe=0.5),
+         notes=[(0.1, 3.8, 60, 100), (0.1, 3.8, 64, 100), (0.1, 3.8, 67, 100)],
+         gate=dict(exact_until=None)),
     # twenty quick notes with a long let-go: more than sixteen beliefs, so slots are evicted
     dict(name="crowded", secs=3.0,
          values=dict(let_go=8.0, press=0.02),

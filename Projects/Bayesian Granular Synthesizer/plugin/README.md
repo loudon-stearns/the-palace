@@ -23,7 +23,7 @@ plugin/
   proofs/                the editor mock and shot, and the far hush before and after
   reference/sketch.py    the cloud one sample at a time: render(v, sr, inputs, notes)
   reference/paths.py     four paths, every one gated sample for sample
-  src/Algorithm.h        the port: 32 parameters, stereo out, 53 probes for the CRT
+  src/Algorithm.h        the port: 33 parameters, stereo out, 53 probes for the CRT
   check/                 the JUCE-free exact gate (check_engine.py, also holds the JS engine),
                          the demo take, render_hush.py and count_far.py (the far hush measured)
   ui/visualizer.js       the belief helix, for the CRT: mount(el), frame(probes, params)
@@ -56,6 +56,18 @@ hush off, the 18 strays a second carry 12.5 % of the energy and peak a median 14
 above the chord's grains; at the default 18 dB they carry 0.3 % and peak level with
 them. It changes no random draw.
 
+**Entrain** (added 2026-11-11, cycle 7: the plan's move to try grain entrainment and
+judge by ear). Each believed note keeps a clock at its own pitch, frac(f × n / sr), with n
+the samples since reset. A new grain's random start phase is pulled toward the clock of the
+note it is nearest in belief, by Entrain × closeness × weight × conviction. At 0 nothing
+changes (default, and every older path still matches). It is Kuramoto with the mean field
+held steady, not grains pulling on one another. It changes no random draw. Measured over C E G
+fully believed (check/render_entrain.py → proofs/): at Entrain 1 the chord is 7.5 dB louder,
+because coherent grains add in amplitude. The share of power within 6 cents of the notes goes
+from 54 % to 80 %, and the tones' loudness wobble (the cloud's shimmer) drops from about
+0.55 to about 0.33. The trade is fog for focus. It sits in the Belief group, and the editor's
+smallest size went from 1080×700 to 1120×720 so all 33 controls fit.
+
 What changed from bayes_engine.js, on purpose: note slots are a fixed table of 16
 (the weakest released note is evicted when it fills); velocity sets how strongly a
 note is believed (`Velocity`, 0 = ignore); the prior is twelve knobs, not 630
@@ -80,8 +92,8 @@ are not smoothed: they are read only when a grain is born or the belief ticks, s
 they can't zipper, and smoothing them made the plugin draw different grains from the
 sketch (the sweeps path parted by 3.6 dB). Unsmoothed, it stays within 0.19 dB.
 
-The host check moves Doubt, Prior shape, Grain near, Grain longest and Far hush one
-at a time. Prior tone and the twelve Prior notes knobs can't be host-checked alone:
+The host check moves Doubt, Prior shape, Grain near, Grain longest, Far hush and
+Entrain one at a time. Prior tone and the twelve Prior notes knobs can't be host-checked alone:
 they only sound once Prior shape is up, which the painted-prior path covers.
 
 ## The CRT feed

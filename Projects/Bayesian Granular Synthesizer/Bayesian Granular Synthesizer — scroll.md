@@ -15,35 +15,35 @@ forward_vector: "I am Bayesian Granular Synthesizer's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-11T13:13:12.224Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-11T13:24:30.369Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 6 · last ran 2026-11-11 (today)
-- **Plan:** agreed 2026-11-10 (1 day ago) · 1 made thing since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 7 · last ran 2026-11-11 (today)
+- **Plan:** agreed 2026-11-10 (1 day ago) · 3 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-11 (today) — Belief Cloud is a real plugin now, installed as VST3 and AU and passing every check. A new Far hush knob turns down the distant blips you heard. (`bgs-steward-016`)
-- **Last commit touching this project:** 2026-11-03 `265680ba` — ops(Bayesian Granular Synthesizer): the ledger review pays items 2, 3 and 5: the vector and § Artifact in 3df81119, the dt-controls first-value line in 0b15d837
+- **Last shipped:** 2026-11-11 (today) — Grains can now lock in phase on a held chord. Does the locking add to the condensation, or take the fog's life out? (`bgs-steward-019`)
+- **Last commit touching this project:** 2026-11-11 `8a0df835` — steward(Bayesian Granular Synthesizer): cycle 6 — SPINNING UP. HOME: [Bayesian Granular Synthesizer](obsidian://open?vaul…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-11 — cycle 6 · taught item 6, proposed items 7, 8 for canon
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-11 — cycle 7 · taught item 9, proposed item 10 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 7, 8; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 8, from cycle 6 — 2026-11-11 — [[Bayesian Granular Synthesizer — tuning]]
+- **Proposed for canon:** 3 — items 7, 8, 10; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 10, from cycle 7 — 2026-11-11 — [[Bayesian Granular Synthesizer — tuning]]
 
 ### Where this stands
 
-Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held, grains pick their pitch from a prior belief and come out short and clicky. Hold a chord and the belief narrows, so grains near your notes grow long and pure and the cloud condenses into the chord. On 21 October you asked for a product: Belief Cloud, a VST for Live with its own picture on the screen. In October I ported the sound into the template's shape and drew the belief helix, but the template couldn't build a plugin from my folder yet. On 10 November you adopted the plan: build it when the template can, then paint the prior on its screen, then let grains entrain, then a stage. You a…
+Bayesian Granular Synthesizer is a grain cloud where the notes you hold are evidence. With nothing held it clicks. Hold a chord and the cloud slowly comes to believe it: grains near your notes grow long and pure. Since 11 November it has been a real plugin, Belief Cloud, installed as VST3 and AU, with a Far hush knob that quiets the distant blips you heard. The plan you adopted on 10 November goes: build the plugin (done), paint the prior on its screen (done in October), let grains entrain and judge by ear whether it helps, then a Loudon Live stage. This cycle built the entraining step. Each held note keeps a clock at its own pitch, and new grains near that note start in step with it. A new…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has listened yet, and nobody has played it in Live. _(in 4 notes, the latest cycle 6)_
+- **rough since cycle 1:** Nobody has listened yet, and nobody has played it in Live. _(in 5 notes, the latest cycle 7)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `bgs-steward-019` — does grain entrainment add or muddy · posted 2026-11-11 · options: KEEP-AS-KNOB · GENTLER · MUTUAL · REMOVE
 
 ### Answered, not yet consumed
 
@@ -58,6 +58,7 @@ _None._
 
 ### Runs
 
+- 2026-11-11 — cycle 7 · taught item 9, proposed item 10 for canon
 - 2026-11-11 — cycle 6 · taught item 6, proposed items 7, 8 for canon
 - 2026-10-22 — cycle 5 · taught item 4, proposed item 5 for canon
 - 2026-10-22 — cycle 4 · taught item 1, proposed items 2, 3 for canon
@@ -72,6 +73,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **7.** 2026-11-11 · [[Bayesian Granular Synthesizer]] · § Artifact (replacing its paragraph) — The section still says the plugin is waiting for the template to build it; it is now built, checked and installed.
 - **8.** 2026-11-11 · [[Bayesian Granular Synthesizer]] · § The grain spec, a new bullet after the coupling fade-in bullet — The grain spec is the page's record of the instrument's settled shape, and the far hush is now part of it, at Loudon's request.
+- **10.** 2026-11-11 · [[Bayesian Granular Synthesizer]] · § Forward Vectors, a sub-bullet under 'Wire the optional grain-entrainment coupling…' — This forward vector has now been built and measured. The page should say how far it got and what is still open.
 
 <!-- scroll:now:end -->
 
@@ -101,6 +103,86 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="bgs-steward-019" -->
+### 2026-11-11 — cycle 7 — Grains can now lock in phase on a held chord. Does the locking add to the condensation, or take the fog's life out?
+> still working · Entrain built, off by default · steward leans KEEP-AS-KNOB
+
+Catch-up: Belief Cloud, the grain-cloud plugin where the chord you hold is evidence, is installed and passing every check. The plan's next step was letting grains entrain and judging by ear. I built it as an Entrain knob, off by default. The grains near a held note start in step with that note, so the chord gets louder, steadier and more focused. The trade is fog for focus, and only your ears can say if it's worth it. The sweep is the one to hear: Entrain rises from off to full while C E G is held. The 'matched' take removes the 7.5 dB jump, so you hear the character alone. I lean toward keeping it as a knob for you to play, not baking it in. Your call can wait; I keep going either way.
+
+**Artifacts:**
+- [Entrain rising 0 → 1 over a held C E G.](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-sweep.wav)
+- [off.](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-off.wav)
+- [full, loudness matched.](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-on-matched.wav)
+- [belief-helix.template.html](Projects/Bayesian Granular Synthesizer/plugin/ui/belief-helix.template.html)
+- [belief-cloud-take.wav](Projects/Bayesian Granular Synthesizer/belief-cloud-take.wav)
+- [belief-cloud-editor-1180x760.png](Projects/Bayesian Granular Synthesizer/plugin/proofs/belief-cloud-editor-1180x760.png)
+- [belief-cloud-crt.html](Projects/Bayesian Granular Synthesizer/plugin/proofs/belief-cloud-crt.html)
+- [fit-drafting-table-bench.html](Projects/Bayesian Granular Synthesizer/plugin/build/ui/fit-drafting-table-bench.html)
+- [hush-before-after.png](Projects/Bayesian Granular Synthesizer/plugin/proofs/hush-before-after.png)
+- [hush-on.wav](Projects/Bayesian Granular Synthesizer/plugin/proofs/hush-on.wav)
+- [hush-off.wav](Projects/Bayesian Granular Synthesizer/plugin/proofs/hush-off.wav)
+- [full lock, full level](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-on.wav)
+<sub>`bgs-steward-019` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="bgs-steward-018" -->
+### 2026-11-11 — cycle 7 — Belief Cloud has a new Entrain knob: grains near a held note line up in phase, and the chord turns from shimmering fog into a focused tone.
+> shipped · rebuilt, every check passed, reinstalled · steward leans keep it, default off
+
+How it works: a grain's start phase is normally random. With Entrain up, it is pulled toward the clock of the note it is nearest in belief, by Entrain × how near × how believed. At full belief and Entrain 1, all the grains around middle C start in step, so they add up like one voice instead of a crowd.
+
+What I measured over C E G fully held, same seed and same grains, only their start phases different:
+- **7.5 dB louder** at Entrain 1. Grains in step add in amplitude, not just in power. The 'matched' take turns it back down so you judge character, not volume.
+- **More of the sound sits on the notes themselves:** 54 % of the power within 6 cents of the chord before, 80 % after.
+- **Less shimmer:** how much each chord tone's loudness wobbles while held drops from about 0.55 to about 0.33. The picture shows middle C's loudness over six seconds, off above, on below. The top is the fog's flicker; the bottom is steadier.
+
+That is the trade: fog for focus. I can't tell by measuring whether the locking adds to the condensation or takes the life out of it. The sweep render is the most useful one to hear: the chord is held while Entrain rises from 0 to 1 between 4 and 12 seconds.
+
+It is in all three engines (the Python sketch, the C++ plugin, the browser version), which still match sample for sample on six test paths, including a new one that sweeps Entrain. Then I rebuilt, reinstalled and re-ran every check: the template's gates, the strict signature check, pluginval, auval, and the host check, which now moves Entrain too. All passed. The knob sits in the Belief group, next to Far hush. With 33 controls, the editor's smallest window had to grow from 1080×700 to 1120×720 to fit without scrolling. Version 0.2.0.
+
+**Artifacts:**
+- [C E G held while Entrain rises 0 → 1 (4–12 s): hear the fog lock. Start here.](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-sweep.wav)
+- [Entrain off: the cloud as it was.](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-off.wav)
+- [Entrain 1, turned down to the same loudness: the character change alone.](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-on-matched.wav)
+- [Entrain 1 at full level: 7.5 dB louder.](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-on.wav)
+- [Middle C's loudness over six held seconds: off (top) flickers, on (bottom) is steadier.](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-shimmer.png)
+- [the numbers in the table, and the sweep in quarters.](Projects/Bayesian Granular Synthesizer/plugin/proofs/entrain-levels.json)
+- [the face with Entrain beside Far hush.](Projects/Bayesian Granular Synthesizer/belief-cloud-face.png)
+- [the face rebuilt, 33 controls.](Projects/Bayesian Granular Synthesizer/belief-cloud-face.html)
+- [the helix sketch page, rebuilt on the new engine.](Projects/Bayesian Granular Synthesizer/belief-helix.html)
+- [renders and measures the four takes through the C++ engine.](Projects/Bayesian Granular Synthesizer/plugin/check/render_entrain.py)
+- [the sketch, now with entrain.](Projects/Bayesian Granular Synthesizer/plugin/reference/sketch.py)
+- [a sixth gated path that sweeps Entrain.](Projects/Bayesian Granular Synthesizer/plugin/reference/paths.py)
+- [the C++ port, now with entrain.](Projects/Bayesian Granular Synthesizer/plugin/src/Algorithm.h)
+- [the browser engine, now with entrain.](Projects/Bayesian Granular Synthesizer/plugin/ui/belief_cloud.js)
+- [version 0.2.0, smallest window 1120×720, Entrain in the host check.](Projects/Bayesian Granular Synthesizer/plugin/plugin.json)
+- [the three-engine match on all six paths.](Projects/Bayesian Granular Synthesizer/plugin/out/check-report.json)
+- [the template's gates, all passed.](Projects/Bayesian Granular Synthesizer/plugin/out/report.json)
+- [the full build, check, install and validate log.](Projects/Bayesian Granular Synthesizer/plugin/out/plugin-all-cycle7.log)
+
+_C E G held at full belief, 5–11 s · same grains, only their start phases differ_
+| take | loudness (RMS) | power within 6 cents of the notes | shimmer C / E / G |
+| --- | --- | --- | --- |
+| Entrain off | −20.0 dB | 54 % | 0.56 / 0.57 / 0.46 |
+| Entrain 1 | −12.5 dB | 80 % | 0.35 / 0.26 / 0.37 |
+| Entrain 1, turned down to match | −19.6 dB | 80 % | 0.35 / 0.26 / 0.38 |
+
+_Changed in the workshop:_ README — Adds Entrain: how it works, what it measured, the new smallest window, and the host check now covering it.
+_Proposed for canon:_ Bayesian Granular Synthesizer (§ Forward Vectors, a sub-bullet under 'Wire the optional grain-entrainment coupling…') — This forward vector has now been built and measured. The page should say how far it got and what is still open.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened yet, and nobody has played it in Live. Also: the grains lock onto a steady clock per note rather than pulling on one another, so this is the simpler half of the Kuramoto idea. And the face's screenshot shows no CRT or helix at the centre, in this cycle's shot and the last one, so that needs checking in the real window.
+
+_Next moves named:_ Your ears on the sweep decide whether Entrain stays, gets a gentler range, or comes out. · If it stays: try true mutual coupling (each grain nudges the note's clock) and hear whether the lock wanders more alive than a fixed clock. · Check the real plugin window in Live for the CRT, since the face shot shows none; then the stage, a Live Set and a short piece for Loudon Live.
+<sub>`bgs-steward-018` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-1b15b8b93f" -->
+### 2026-11-11 — cycle 7
+
+taught item 9, proposed item 10 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-bgs-steward-011" -->
 ### 2026-11-09 — Plan revised: Make the plan the Belief Cloud VST: build it when the template can, then paint the prior on its screen, then entrainment, then the stage?
 
