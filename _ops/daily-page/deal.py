@@ -7,14 +7,13 @@ today's — and keeps the only record a fresh session needs to answer it tomorro
 
 How the deal works
 
-  The deck    Every canon entry, by the same rule the map uses (`_entries` in
-              _ops/swarm/entry-use.py — a .md carrying a canon `type:`, symlinks, tool
-              folders and proofs folders set aside). A lap's deck is the entries born on or before the day the
-              lap began; pages born later wait for the next lap, so a lap has a finish line.
-              Set aside: anything under a `tests`, `fixtures` or `experiments` folder. The
-              map's rule counts a few such files as entries (two test fixtures and two
-              experiment notes, 2026-10-13); they are not pages, and a morning is not spent
-              on them. The map itself is left as it is.
+  The deck    The map's nodes: every page the newest build in _ops/maps/ counts, by the Map
+              Build Ceremony's rule (`_ops/Map Build Ceremony.md:74`), read from the build the
+              prep makes just before the deal. With no map the dealer stops and says to build
+              one. Not entry-use's `_entries`: it has drifted from the map (it has no `_ops`
+              clause), which let gitignored roughs into the deck on 2026-11-11. A lap's deck is
+              the pages born on or before the day the lap began; pages born later wait for the
+              next lap, so a lap has a finish line.
   Siblings    The brief's siblings come from the ring: the newest map in _ops/maps/, read by
               palace-map.py's loader, so the dealer and `near` answer from one graph. With no
               map it falls back to scanning frontmatter, and the brief says which it used.
@@ -33,8 +32,8 @@ checkout — the trunk — even when the script is run from a worktree, the way 
 appends to the trunk's one board (Worktree Practice § How the ceremonies live here). They ride
 the morning's commit on main, when the morning closes (The Daily Page § The close).
 
-The deck and the pages are read from the trunk as well. Canon is main; and `_entries` sees
-nothing at all from a root under .claude/, where app-made worktrees live.
+The deck and the pages are read from the trunk as well: the map in the trunk's _ops/maps/, and
+each page's text from the trunk. Canon is main.
 
 If the main checkout is not on `main`, a deal or a --sat refuses and says why: the record
 there is a branch's copy, and writing to it would fork the lap. --peek and --status still
@@ -86,8 +85,6 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 VERDICTS = ["keep", "trim", "tune", "fold", "compost", "revive", "open"]
-# Folders whose files are never pages, whatever frontmatter they carry (see "Set aside" above).
-SET_ASIDE_PARTS = {"tests", "fixtures", "experiments"}
 # The stages a page may be revived from; a `type: spore` is asleep at any stage (Revival Ceremony v2.1).
 ASLEEP = {"dormant", "composting"}
 
@@ -226,15 +223,29 @@ def append_visit(state: Path, event: dict):
         os.close(fd)
 
 
+def newest_map(root: Path):
+    """The newest full build in root/_ops/maps/, or None."""
+    maps = sorted((root / "_ops" / "maps").glob("palace-map-full-*.json"))
+    return maps[-1] if maps else None
+
+
+def map_pages(root: Path) -> dict:
+    """title -> relative path for every node of the newest map: the deck's pages, by the Map
+    Build Ceremony's rule (`_ops/Map Build Ceremony.md:74`), not a copy of it."""
+    m = newest_map(root)
+    if m is None:
+        sys.exit(f"deal.py: no map in {root / '_ops' / 'maps'}. The deck is the map's pages: run "
+                 f"python3 \"{root / '_ops' / 'swarm' / 'build-map.py'}\" first. Nothing was dealt.")
+    d = json.loads(m.read_text(encoding="utf-8"))
+    return {n["id"]: n["path"] for n in d.get("nodes", []) if n.get("id") and n.get("path")}
+
+
 def build(root: Path, state: Path, today: str, write: bool) -> dict:
     """Everything the deal knows: the lap, its deck, what has been dealt and sat."""
-    mod = entry_use(root)
-    found = mod._entries(root)   # title -> relative path, by the map's node rule (adopted, not rewritten)
-    if not found:        # before the lap is read, so a wrong root never draws a seed
-        sys.exit(f"deal.py: found no canon entries under {root}. Wrong root?")
-    entries = {t: rel for t, rel in found.items()
-               if not (SET_ASIDE_PARTS & set(Path(rel).parts))}
-    set_aside = sorted(t for t in found if t not in entries)
+    mod = entry_use(root)        # for its link rule and system folders only; the deck is the map's
+    entries = map_pages(root)
+    if not entries:      # before the lap is read, so a wrong root never draws a seed
+        sys.exit(f"deal.py: the newest map under {root} has no pages. Wrong root?")
     lap = read_lap(state, today, write)
     born = {}
     for title, rel in entries.items():
@@ -251,7 +262,7 @@ def build(root: Path, state: Path, today: str, write: bool) -> dict:
     missed = {v["entry"] for v in visits
               if v.get("event") == "dealt" and v.get("date", "") < today and v["entry"] not in sat}
     return {"lap": lap, "entries": entries, "deck": deck, "visits": visits,
-            "sat": sat, "dealt_count": dealt_count, "missed": missed, "set_aside": set_aside,
+            "sat": sat, "dealt_count": dealt_count, "missed": missed,
             "waiting": sorted(t for t in entries if t not in deck),
             "files": load_files(root, mod), "link_rule": mod._target}
 
@@ -296,12 +307,12 @@ def siblings(root: Path, s: dict, title: str, fm: str):
     palace-map.py's own loader — so the dealer and `near` answer from one graph (The Daily
     Page § Step 1). Falls back to the frontmatter scan when there is no map, and says so."""
     tool = root / "_ops" / "swarm" / "palace-map.py"
-    maps = sorted((root / "_ops" / "maps").glob("palace-map-full-*.json"))
-    if tool.exists() and maps:
+    m = newest_map(root)
+    if tool.exists() and m:
         spec = importlib.util.spec_from_file_location("palace_map", tool)
         pm = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(pm)
-        d = pm.load(str(maps[-1]))
+        d = pm.load(str(m))
         if title in d["_nodes"]:
             out = [{"target": e["target"], "type": e["type"], "label": e.get("label") or ""}
                    for way, e in d["_adj"].get(title, []) if way == "out"]
@@ -392,7 +403,7 @@ def rich_face_waiting(manifest: Path):
 
 def standing(s: dict) -> dict:
     return {"deck": len(s["deck"]), "sat": len([t for t in s["sat"] if t in s["deck"]]),
-            "missed": len(s["missed"]), "set_aside": len(s["set_aside"]),
+            "missed": len(s["missed"]),
             "waiting_for_next_lap": len(s["waiting"]), "started": s["lap"]["started"]}
 
 
@@ -781,8 +792,7 @@ def main():
             print(json.dumps(st, indent=2))
         else:
             print(f"lap {s['lap']['lap']}, begun {st['started']}: {st['sat']} sat of {st['deck']} · "
-                  f"{st['missed']} dealt and missed · {st['waiting_for_next_lap']} waiting for the next lap"
-                  f" · {st['set_aside']} set aside as not pages")
+                  f"{st['missed']} dealt and missed · {st['waiting_for_next_lap']} waiting for the next lap")
             for v in sorted(s["sat"].values(), key=lambda v: v["date"], reverse=True)[:10]:
                 print(f"  {v['date']}  {v['entry']}  — {v.get('verdict', '')}"
                       + (f" into {v['into']}" if v.get("into") else ""))

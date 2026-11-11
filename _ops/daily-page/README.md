@@ -6,7 +6,7 @@ The practice itself is a page: **[[The Daily Page]]**, `_ops/The Daily Page.md`.
 
 ## Files
 
-- `deal.py` — the dealer. One page a day, by a shuffle made once; its header explains the deck, the lap, a missed day, and what it sets aside.
+- `deal.py` — the dealer. One page a day, by a shuffle made once; its header explains the deck, the lap and a missed day. The deck is the map's nodes, by [[Map Build Ceremony]]'s rule (`_ops/Map Build Ceremony.md:74`), read from the build the prep makes just before the deal; with no map the dealer stops and asks for one. It does not use entry-use's `_entries`, which has drifted from the map (no `_ops` clause) and let gitignored roughs into the deck on 2026-11-11.
 - `check-links.py` — checks the dealer's link lookup against the links it once called forward ghosts, and counts ghosts over the newest map. Reads only.
 - `wake.mjs` — prints the prompt that wakes the day's page, built on the deck's own Enchant prompt; with `--out <file>` it writes the prompt there instead. It reads the page from the main checkout; `--root <palace>` reads it from another checkout, so a page made true on a branch wakes from that branch's text.
 - `lap.json`, `visits.jsonl` — the dealer's state. Written by `deal.py`, never by hand. Tracked.
