@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 const f = process.argv[2] || fileURLToPath(new URL('../../Inharmonic Wavetable Synthesis — rich — each partial is a loop.html', import.meta.url));
 const html = fs.readFileSync(f, 'utf8');
 const eng = html.split('/*ENGINE-START*/')[1].split('/*ENGINE-END*/')[0];
-const E = new Function(eng + '; return { NP, AXIS, BASE_NOTE, HOMES, makeBody, setHome, place, level, bodyCents, bodyAmps, makeGrip, pull, relax, makeBank, centsOf, closed, missOf, PUTTY, PRESETS, puttyFromPad, padFromPutty, tauOf, stepOsc, throwBody, G_MAX, R_MIN, R_MAX };')();
+const E = new Function(eng + '; return { NP, AXIS, BASE_NOTE, HOMES, makeBody, setHome, place, level, bodyCents, bodyAmps, makeGrip, pull, relax, makeBank, centsOf, closed, missOf, PUTTY, PRESETS, puttyFromPad, padFromPutty, tauOf, stepOsc, throwBody, G_MAX, R_MIN, R_MAX, waveAt, repeats };')();
 
 const SR = 48000, N = 1 << 18, TWO_PI = 2 * Math.PI;
 function fft(re, im) {
@@ -206,6 +206,38 @@ for (const [mode, limit] of [['ooze', 40], ['spring', 12]]) {
   let worst = 0; for (let i = 0; i < E.NP; i++) { const hz = E.place(S, i) * f0; let best = found[0]; for (const q of found) if (Math.abs(q.hz - hz) < Math.abs(best.hz - hz)) best = q; const e = 1200 * Math.log2(best.hz / hz); if (Math.abs(e) > Math.abs(worst)) worst = e; }
   const pass = Math.abs(worst) < 1 && found.length === E.NP; if (!pass) allPass = false;
   lines.push(`${pass ? 'PASS' : 'FAIL'}  a fifth up (E3, ${f0.toFixed(2)} Hz), loop 3 pulled 0.4 flat`, `      ${found.length} peaks · worst miss ${worst.toFixed(3)} cents`); }
+
+// 8 · the summed waveform, lap against lap. A wavetable is one stored cycle; that only holds if each lap of the fundamental
+// is the same as the last. Rendered at 56320 Hz so a lap of 110 Hz is exactly 512 samples, 64 laps compared after 1 s.
+// Failure would be: with every loop home, a lap-to-lap difference above 1e-9 of the peak (it must be zero to rounding);
+// with loop 7 nudged 75 cents, a difference more than 2 % from 2 · a7 · |sin(π · miss)|, which is what one partial that
+// misses by `miss` of a turn each lap must make; or the picture's own sum (waveAt, the corner trace) more than 1e-6 of
+// the peak from the lap the bank actually played.
+{ const SR2 = 110 * 512, LAP = 512;
+  const run = (home, nudge) => { const S = E.makeBody(home), bank = E.makeBank(SR2, E.NP);
+    if (nudge) { const grip = E.makeGrip(S, 'one', 6); E.pull(S, grip, 7 * (Math.pow(2, 75 / 1200) - 1), 0); }
+    bank.set(E.bodyCents(S), E.bodyAmps(S)); bank.noteOn(E.BASE_NOTE, 1);
+    const n = SR2 + 66 * LAP, y = new Float64Array(n); for (let t = 0; t < n; t++) y[t] = bank.step();
+    const k0 = 110;                                    // lap 110 begins exactly 1 s in
+    let peak = 0, d = 0; for (let t = k0 * LAP; t < (k0 + 64) * LAP; t++) { peak = Math.max(peak, Math.abs(y[t])); d = Math.max(d, Math.abs(y[t + LAP] - y[t])); }
+    // the picture: the corner trace for lap k0, each partial's phase being where r · k0 laps leave it
+    const ph = new Float64Array(E.NP); for (let i = 0; i < E.NP; i++) { const q = E.place(S, i) * k0; ph[i] = q - Math.floor(q); }
+    let pic = 0; for (let j = 0; j < LAP; j++) pic = Math.max(pic, Math.abs(E.waveAt(S, ph, (j + 1) / LAP) - y[k0 * LAP + j]));   // the bank steps each phase, then sounds it: sample j is the lap at (j + 1) / 512
+    // and the picture's own next lap, phases moved on by one lap's miss, as the page's clock moves them
+    const ph2 = Float64Array.from(ph, (v, i) => v + (E.place(S, i) - Math.round(E.place(S, i)))); let dpic = 0;
+    for (let j = 0; j < LAP; j++) dpic = Math.max(dpic, Math.abs(E.waveAt(S, ph2, j / LAP) - E.waveAt(S, ph, j / LAP)));
+    return { S, peak, d: d / peak, pic: pic / peak, dpic: dpic / peak }; };
+  const h = run('flat', false), nd = run('flat', true), st = run('string', false), bl = run('bell', false);
+  const r7 = E.place(nd.S, 6), miss = E.missOf(r7), want = 2 * E.level(nd.S, 6) * Math.abs(Math.sin(Math.PI * miss)) / nd.peak;
+  const p1 = h.d < 1e-9 && E.repeats(h.S) && h.pic < 1e-6 && h.dpic < 1e-12;
+  const p2 = Math.abs(nd.d / want - 1) < 0.02 && !E.repeats(nd.S) && nd.pic < 1e-6 && Math.abs(nd.dpic / want - 1) < 0.02;
+  const p3 = st.d > 1e-3 && bl.d > 1e-3 && !E.repeats(st.S) && !E.repeats(bl.S);
+  if (!(p1 && p2 && p3)) allPass = false;
+  lines.push(`${p1 ? 'PASS' : 'FAIL'}  the summed wave, every loop home · lap-to-lap difference ${h.d.toExponential(2)} of the peak (zero to rounding; failure above 1e-9)`,
+    `      the corner trace against the lap the bank played: ${h.pic.toExponential(2)} of the peak · the trace's own next lap differs by ${h.dpic.toExponential(2)} · the piece says "repeats exactly": ${E.repeats(h.S)}`);
+  lines.push(`${p2 ? 'PASS' : 'FAIL'}  the summed wave, loop 7 nudged 75 cents (to ${r7.toFixed(4)} × f0, missing ${miss.toFixed(4)} of a turn a lap) · lap-to-lap difference ${(nd.d * 100).toFixed(3)} % of the peak`,
+    `      what one such partial must make: ${(want * 100).toFixed(3)} % · the corner trace against the bank's lap: ${nd.pic.toExponential(2)} · the trace's own next lap differs by ${(nd.dpic * 100).toFixed(3)} % · the piece says "repeats exactly": ${E.repeats(nd.S)}`);
+  lines.push(`${p3 ? 'PASS' : 'FAIL'}  the other homes do not pretend · stiff string, untouched: laps differ by ${(st.d * 100).toFixed(1)} % of the peak · measured bell: ${(bl.d * 100).toFixed(1)} % · the piece says "repeats exactly": ${E.repeats(st.S)}, ${E.repeats(bl.S)}`); }
 
 lines.push('', allPass ? 'ALL PASS · failure would have been any miss over 1 cent, a peak with no loop, a loop with no peak, or a body not home' : 'SOMETHING FAILED');
 console.log(lines.join('\n'));

@@ -53,7 +53,7 @@ label {user-select: none; -webkit-user-select: none;}
   .stage { position: relative; border: 1px solid var(--soft); border-radius: 2px; background: radial-gradient(120% 90% at 30% 45%, #14141f 0%, #0c0c13 60%, #0a0a0f 100%); overflow: hidden; }
   canvas#obj { display: block; width: 100%; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
   canvas#obj.grabbing { cursor: grabbing; }
-  .wake { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); font-size: 12px; padding: 12px 20px; background: rgba(10,10,15,.82); white-space: nowrap; }
+  .wake { position: absolute; left: 32%; top: 14px; transform: translateX(-50%); font-size: 12px; padding: 12px 20px; background: rgba(10,10,15,.82); white-space: nowrap; }
   .wake[hidden] { display: none; }
   .tell { font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; line-height: 1.6; color: var(--fg3); margin: 10px 0 0; min-height: 3.2em; }
   .tell b { color: var(--fg1); font-weight: 500; }
@@ -85,14 +85,14 @@ label {user-select: none; -webkit-user-select: none;}
   .words { font-size: 13px; line-height: 1.55; color: var(--fg2); margin: 2px 0 10px; max-width: 86ch; }
   .foot { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-family: var(--mono); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--fg4); }
   .foot svg { width: 22px; height: 22px; }
-  @media (max-width: 560px) { .piece { padding: 16px 12px 12px; } .title { font-size: 24px; } button { padding: 9px 8px; letter-spacing: .05em; } .keys button i { display: none; } .controls { gap: 12px 14px; } }
+  @media (max-width: 560px) { .wake { left: 50%; top: auto; bottom: 30px; } .piece { padding: 16px 12px 12px; } .title { font-size: 24px; } button { padding: 9px 8px; letter-spacing: .05em; } .keys button i { display: none; } .controls { gap: 12px 14px; } }
 </style>
 </head>
 <body>
 <div class="piece">
   <div class="kicker">made · Web Audio Worklet · an instrument</div>
   <h3 class="title">Each partial is a loop</h3>
-  <p class="sub">From the side a spectrum is a row of bars. Turn it, and each bar is a loop: one partial, going round. A loop that closes after one lap of the fundamental stands still. Push a loop off its place and it stops closing. It crawls, and you hear it leave the chord. Take hold of it.</p>
+  <p class="sub">From the side a spectrum is a row of bars. Turn it, and each bar is a loop: one partial, going round. A loop that closes after one lap of the fundamental stands still. Push a loop off its place and it stops closing. It crawls, and you hear it leave the chord. Take hold of it. The trace in the corner is their sum over that one lap: the single cycle a wavetable stores. It holds still only while every loop closes; after that no one cycle is the sound.</p>
 
   <div class="stage">
     <canvas id="obj" aria-label="The spectrum as a row of loops. Drag a loop sideways to move that partial; drag up or down to change how loud it is."></canvas>
@@ -112,7 +112,7 @@ label {user-select: none; -webkit-user-select: none;}
 
   <div class="keys" id="keys" role="group" aria-label="notes"></div>
 
-  <div class="hint">Sideways moves a partial; the stem under each loop still stands on the harmonic it was filed under, so a leaning stem is a partial out of place. Up and down is how loud. Shift-drag swaps your grip. The pad under “when you let go” is the return itself: left to right is how long it takes (0.05 s to 20 s, and the last strip is “stays”), bottom to top is how fast it wobbles on the way (none, then 0.3 to 12 Hz); the trace in it is the path a loop will take. Let go while your hand is still moving and the body is thrown: it carries on, then comes back. The keys play notes; with “held” they latch, so build a chord and then pull on it. The crawl is what a strobe tuner shows: the loop lit once per lap of the fundamental, slowed so the eye can follow.</div>
+  <div class="hint">Sideways moves a partial; the stem under each loop still stands on the harmonic it was filed under, so a leaning stem is a partial out of place. Up and down is how loud. Shift-drag swaps your grip. The pad under “when you let go” is the return itself: left to right is how long it takes (0.05 s to 20 s, and the last strip is “stays”), bottom to top is how fast it wobbles on the way (none, then 0.3 to 12 Hz); the trace in it is the path a loop will take. Let go while your hand is still moving and the body is thrown: it carries on, then comes back. The keys play notes; with “held” they latch, so build a chord and then pull on it. The corner trace is drawn from the same places, levels and phases as the loops, for the first sounding voice. The crawl is what a strobe tuner shows: the loop lit once per lap of the fundamental, slowed so the eye can follow.</div>
 
   <p class="further"><b>Further down this face.</b> What you just did by hand, the sections below take apart. <b>The Architecture</b> measures the flat line: the same bank of sines, with the energy between the harmonics counted. <b>What This Sounds Like</b> sets this putty's return beside a measured piano string, whose bend holds still after the strike while its loudness fades. <b>The Cube Architecture</b> lays several of these bodies side by side as unison voices. <b>At the Coupling Edge</b> lets voices pull on the loops until the tone tears.</p>
 
@@ -169,6 +169,12 @@ function place(S, i) { return Math.min(R_MAX, Math.max(R_MIN, S.R0[i] + S.u[i]))
 function level(S, i) { return S.A0[i] * Math.pow(10, Math.min(G_MAX, Math.max(G_MIN, S.g[i])) / 20); }   // a ringing level never passes the top the hand is allowed
 function bodyCents(S) { const c = new Float64Array(NP); for (let i = 0; i < NP; i++) c[i] = centsOf(i + 1, place(S, i)); return c; }
 function bodyAmps(S) { const a = new Float64Array(NP); for (let i = 0; i < NP; i++) a[i] = level(S, i); return a; }
+
+// The sum of the loops over one lap of the fundamental: the single cycle a wavetable would store.
+// x runs 0 to 1 across the lap; phase[i] is where partial i stands, in turns, when the lap begins. It is the same
+// r, level and phase each loop's ripple is drawn with, and the same sum the voice bank plays: a_i · sin(2π (r_i x + phase_i)).
+function waveAt(S, phase, x) { let y = 0; for (let i = 0; i < NP; i++) y += level(S, i) * Math.sin(6.283185307179586 * (place(S, i) * x + phase[i])); return y; }
+function repeats(S) { for (let i = 0; i < NP; i++) if (level(S, i) > 0 && Math.abs(missOf(place(S, i))) > 1e-9) return false; return true; }   // exactly periodic at f0: every loop on a whole number
 
 // a grip: which loops come with the hand, and how much. 'one' is a fingertip on one loop.
 // 'body' takes the whole thing like putty stuck to the wall at zero: loops near the hand come along,
@@ -316,7 +322,8 @@ function makeBank(sr, NPART) {
     return y * P.gain;
   }
   function sounding() {      // what the first sounding voice is playing right now, in Hz, and its fundamental
-    for (const vo of voices) if (vo.active) return { f0: vo.f0, f: Array.from(vo.inc, (x) => x * sr) };
+    for (const vo of voices) if (vo.active) { const lap = vo.age * vo.f0 / sr;      // ph: where each partial stood when the fundamental's present lap began, in turns
+      return { f0: vo.f0, f: Array.from(vo.inc, (x) => x * sr), ph: Array.from(vo.ph, (p, k) => { const q = p - vo.inc[k] * sr / vo.f0 * (lap - Math.floor(lap)); return q - Math.floor(q); }) }; }
     return null;
   }
   return { P, set, noteOn, noteOff, allOff, step, sounding };
@@ -328,7 +335,7 @@ function makeBank(sr, NPART) {
 const $ = (id) => document.getElementById(id);
 const TWO_PI = 2 * Math.PI;
 const S = makeBody('flat');
-const UI = { grip: 'body', putty: { tau: PRESETS.ooze.tau, hz: PRESETS.ooze.hz, tilt: 0 }, ring: 'held', turn: 32, awake: false, sounding: false, notes: new Set(), lastNote: BASE_NOTE, hover: -1, drag: null, touched: false };
+const UI = { ghosts: [], ghostAt: 0, clock: 0, wref: 1, restFor: 0, asked: false, grip: 'body', putty: { tau: PRESETS.ooze.tau, hz: PRESETS.ooze.hz, tilt: 0 }, ring: 'held', turn: 32, awake: false, sounding: false, notes: new Set(), lastNote: BASE_NOTE, hover: -1, drag: null, touched: false };
 const phase = new Float64Array(NP);      // each loop's strobe phase, in turns
 const STROBE = 0.5;                      // a loop one whole harmonic off its place crawls this many ripples a second
 const view = { w: 300, h: 300, cx: 0, cy: 0, S: 1, D: 1, psi: 0, phi: 12 * Math.PI / 180, Rmax: 1, F: 1 };
@@ -352,10 +359,11 @@ function radiusOf(i) { const a = level(S, i) / UI.aref; return view.Rmax * (0.15
 
 function fit() {
   const c = $('obj'), w = c.clientWidth || 300, d = Math.min(2, devicePixelRatio || 1);
-  const h = Math.round(Math.max(290, Math.min(540, w * 0.5)));
+  const narrow = w < 520, h = narrow ? 350 : Math.round(Math.min(540, w * 0.5));
   if (c.width !== Math.round(w * d) || c.height !== Math.round(h * d)) { c.width = Math.round(w * d); c.height = Math.round(h * d); c.style.height = h + 'px'; }
   const g = c.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0);
-  view.w = w; view.h = h; view.cx = w * 0.53; view.cy = h * 0.40; view.S = w * 0.90 / AXIS; view.D = w * 2.2; view.Rmax = h * 0.27; view.F = h * 0.33;
+  view.w = w; view.h = h; view.cx = w * 0.53; view.cy = h * (narrow ? 0.52 : 0.40); view.S = w * 0.90 / AXIS; view.D = w * 2.2; view.Rmax = h * (narrow ? 0.23 : 0.27); view.F = h * (narrow ? 0.28 : 0.33);
+  view.scope = narrow ? { x: w * 0.34, y: 8, w: w * 0.66 - 8, h: 74 } : { x: w * 0.60, y: 12, w: w * 0.40 - 14, h: Math.round(h * 0.2) };
   return g;
 }
 
@@ -419,6 +427,20 @@ function draw(g) {
     drawn.loops.push({ n: i + 1, x: c[0], y: c[1], r, top: proj(X, rho, 0)[1], bottom: proj(X, -rho, 0)[1] });
   });
   drawn.loops.sort((a, b) => a.n - b.n);
+  // the sum: one lap of the fundamental, the cycle a wavetable would store. Its last few moments stay behind it as ghosts:
+  // when every loop closes they lie on one line; when one does not, they fan out, and the cycle never comes round the same.
+  { const q = view.scope, same = repeats(S), NX = 200, mid = q.y + q.h / 2, sc = (q.h / 2 - 12) / (UI.wref * 1.15);
+    g.fillStyle = 'rgba(10,10,15,.55)'; g.fillRect(q.x, q.y, q.w, q.h); g.strokeStyle = 'rgba(255,255,255,.07)'; g.lineWidth = 1; g.strokeRect(q.x + 0.5, q.y + 0.5, q.w - 1, q.h - 1);
+    g.strokeStyle = '#22222e'; g.beginPath(); g.moveTo(q.x, mid); g.lineTo(q.x + q.w, mid); g.stroke();
+    const now = new Float32Array(NX + 1); for (let j = 0; j <= NX; j++) now[j] = waveAt(S, phase, j / NX);
+    const trace = (arr, style, lw) => { g.strokeStyle = style; g.lineWidth = lw; g.beginPath(); for (let j = 0; j <= NX; j++) { const X = q.x + q.w * j / NX, Y = Math.max(q.y + 2, Math.min(q.y + q.h - 2, mid - arr[j] * sc)); j ? g.lineTo(X, Y) : g.moveTo(X, Y); } g.stroke(); };
+    UI.ghosts.forEach((gh, k) => trace(gh, same ? `rgba(232,184,74,${0.10 + 0.06 * k})` : `rgba(255,155,74,${0.10 + 0.07 * k})`, 1));
+    trace(now, same ? '#e8b84a' : '#ffb070', 1.6);
+    if (UI.clock - UI.ghostAt > 0.16) { UI.ghostAt = UI.clock; UI.ghosts.push(now); if (UI.ghosts.length > 6) UI.ghosts.shift(); }
+    g.font = '9.5px JetBrains Mono, monospace'; g.textAlign = 'left'; g.fillStyle = same ? '#e8b84a' : '#ff9b4a';
+    g.fillText(q.w > 300 ? (same ? 'one lap, summed · repeats exactly: a wavetable holds it' : 'one lap, summed · never the same twice: no one cycle holds it') : (same ? 'one lap · repeats exactly' : 'one lap · never the same twice'), q.x + 6, q.y + q.h - 5);
+    drawn.wave = { same, now: Array.from(now), ghosts: UI.ghosts.length, box: q };
+  }
   // a word in the corner
   g.textAlign = 'left'; g.fillStyle = '#6a6a80';
   const f0 = 440 * Math.pow(2, (UI.lastNote - 69) / 12);
@@ -515,7 +537,7 @@ function drawPad() {
 })();
 seg('rest', [['harmonic', 'flat'], ['stiff string', 'string'], ['bell', 'bell']], () => S.home, (v) => { setHome(S, v, true); UI.aref = aref(); });
 seg('ring', [['held', 'held'], ['struck', 'struck']], () => UI.ring, (v) => { UI.ring = v; post({ t: 'par', held: v === 'held' }); if (v === 'struck') { post({ t: 'alloff' }); UI.notes.clear(); paintKeys(); } });
-function aref() { let m = 0; for (let i = 0; i < NP; i++) m = Math.max(m, S.A0[i]); return m; }
+function aref() { let m = 0, sum = 0; for (let i = 0; i < NP; i++) { m = Math.max(m, S.A0[i]); sum += S.A0[i]; } UI.wref = sum * 0.62; return m; }
 UI.aref = aref();
 $('turn').oninput = (e) => { UI.turn = +e.target.value; UI.touched = true; };
 $('home').onclick = () => { S.homing = 1; };
@@ -573,7 +595,7 @@ async function start() {
     node = new AudioWorkletNode(ctx, 'iws-loops', { numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [2] });
     const comp = ctx.createDynamicsCompressor(); comp.threshold.value = -14; comp.ratio.value = 4;
     node.connect(comp).connect(ctx.destination);
-    node.port.onmessage = (e) => { if (e.data.t === 'probe') window.__loops.probed = e.data; };
+    node.port.onmessage = (e) => { if (e.data.t === 'probe') { window.__loops.probed = e.data; if (UI.asked && e.data.now && UI.restFor > 0.6) UI.truth = e.data.now.ph; } };
     ctx.onstatechange = () => { if (ctx.state !== 'running' && UI.sounding) { UI.sounding = false; $('sound').textContent = '▸ sound'; } };
     post({ t: 'par', held: UI.ring === 'held' });
   }
@@ -598,7 +620,15 @@ let last = performance.now(), t0 = last;
 function frame(now) {
   const dt = Math.min(0.05, (now - last) / 1000); last = now;
   for (let k = 0; k < 2; k++) relax(S, dt / 2, UI.putty, UI.drag && UI.drag.grip);
-  for (let i = 0; i < NP; i++) { const r = place(S, i); phase[i] = closed(r) ? phase[i] : (phase[i] + missOf(r) * STROBE * dt) % 1; }
+  UI.clock += dt;
+  // every loop's phase moves by what it misses each lap, at the slowed rate: the ripple on the loop and the sum in the corner read the same number
+  let still = !UI.drag; for (let i = 0; i < NP; i++) { const m = missOf(place(S, i)); if (m !== 0) { phase[i] = (phase[i] + m * STROBE * dt) % 1; still = false; } if (S.u[i] !== 0) still = false; }
+  // The picture's clock is slowed, so a partial that has been away comes back at another point of its swing in the picture than in the sound.
+  // Once everything stands still on the harmonic series, ask the worklet where each partial really stands and ease the picture onto it,
+  // so the cycle at rest is the cycle being played.
+  UI.restFor = still ? UI.restFor + dt : 0; if (!still) { UI.asked = false; UI.truth = null; }
+  if (still && UI.sounding && UI.restFor > 0.6 && !UI.asked) { UI.asked = true; post({ t: 'probe' }); }
+  if (still && UI.truth) for (let i = 0; i < NP; i++) { let d = UI.truth[i] - phase[i]; d -= Math.round(d); phase[i] = Math.abs(d) < 1e-4 ? UI.truth[i] : phase[i] + d * Math.min(1, dt * 7); }
   // before the first touch the object sways from bars to loops and back, so the eye sees they are one thing
   const want = (!UI.touched && !UI.awake && !reduced) ? 17 + 17 * Math.sin((now - t0) / 1000 * TWO_PI / 9 - Math.PI / 2) : UI.turn;
   const psiNow = view.psi * 180 / Math.PI; view.psi = (psiNow + (want - psiNow) * Math.min(1, dt * 5)) * Math.PI / 180;
@@ -607,7 +637,7 @@ function frame(now) {
 }
 view.psi = (reduced ? UI.turn : 0) * Math.PI / 180;
 drawPad(); addEventListener('resize', drawPad);
-window.__loops = { S, UI, view, drawn, probed: null, probe: () => post({ t: 'probe' }), freeze: (deg) => { UI.touched = true; UI.turn = deg; view.psi = deg * Math.PI / 180; } };
+window.__loops = { phase, S, UI, view, drawn, probed: null, probe: () => post({ t: 'probe' }), freeze: (deg) => { UI.touched = true; UI.turn = deg; view.psi = deg * Math.PI / 180; } };
 requestAnimationFrame(frame);
 addEventListener('resize', () => { const g = fit(); draw(g); });
 

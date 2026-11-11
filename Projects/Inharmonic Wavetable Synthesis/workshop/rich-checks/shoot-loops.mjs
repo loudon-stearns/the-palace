@@ -56,6 +56,13 @@ async function chain(page, label) {           // picture against the running wor
   say(`   ${ok ? 'PASS' : 'FAIL'} ${label}: picture (read off the ruler) against the worklet · worst ${worstC.toFixed(2)} c at loop ${at} · worst ${worstPx.toFixed(3)} px · context ${pr.sr} Hz`);
   return { st, pr };
 }
+async function waveMoves(page, label, wantStill) {     // the corner trace, read twice half a second apart
+  const a = await page.evaluate(() => window.__loops.drawn.wave); await page.waitForTimeout(500);
+  const b = await page.evaluate(() => window.__loops.drawn.wave);
+  let d = 0, pk = 0; for (let j = 0; j < a.now.length; j++) { d = Math.max(d, Math.abs(a.now[j] - b.now[j])); pk = Math.max(pk, Math.abs(a.now[j])); }
+  const ok = wantStill ? (d / pk < 1e-9 && b.same) : (d / pk > 0.01 && !b.same); if (!ok) fail = true;
+  say(`   ${ok ? 'PASS' : 'FAIL'} corner trace, ${label}: over half a second it changed by ${(100 * d / pk).toFixed(4)} % of its peak · it says ${b.same ? '"repeats exactly"' : '"never the same twice"'} · box ${Math.round(b.box.w)} × ${Math.round(b.box.h)} px`);
+}
 async function drag(page, n, dx, dy, opts = {}) {
   await page.evaluate(() => scrollTo(0, 0));          // a click on a control below the fold scrolls the page; the hand needs the object on screen
   const st = await state(page), L = st.loops[n - 1];
@@ -82,11 +89,13 @@ say('desktop 1130 × 900');
   await page.click('#wake'); await page.waitForTimeout(900);
   say(`   after the wake click, sounding: ${await page.evaluate(() => window.__loops.UI.sounding)}`);
   await chain(page, 'woken, untouched');
+  await page.waitForTimeout(1500); await waveMoves(page, 'woken, every loop home', true);
   await shot(page, '03-woken-harmonic');
   // one loop nudged
   await pick(page, 'grip', 'one'); await pick(page, 'putty', 'stay');
   await drag(page, 7, 40, 0);
   const one = await chain(page, 'one loop nudged, hand still on it');
+  await waveMoves(page, 'one loop nudged', false);
   { const L = one.st.loops; let others = 0; for (const l of L) if (l.n !== 7 && Math.abs(l.r - l.n) > 1e-9) others++; say(`   other loops moved: ${others} · tell line: ${(await page.textContent('#tell')).replace(/\s+/g, ' ').slice(0, 200)}`); if (others) fail = true; }
   await shot(page, '04-one-loop-nudged');
   await page.mouse.up(); await page.click('#home'); await page.waitForTimeout(2500);
@@ -94,6 +103,7 @@ say('desktop 1130 × 900');
   await pick(page, 'grip', 'body');
   await drag(page, 16, 110, -40);
   await chain(page, 'whole body pulled, hand still on it');
+  await waveMoves(page, 'whole body pulled', false);
   await shot(page, '05-whole-body-pulled');
   await pick(page, 'putty', 'ooze'); await page.mouse.up();
   await page.mouse.move(40, 40); await page.waitForTimeout(1800);
@@ -112,6 +122,7 @@ say('desktop 1130 × 900');
   await shot(page, '09-bell-home');
   await pick(page, 'rest', 'string'); await page.waitForTimeout(3000);
   await chain(page, 'home is the stiff string');
+  await waveMoves(page, 'stiff string, untouched', false);
   await shot(page, '10-string-home');
   // a chord, then quiet
   await pick(page, 'rest', 'flat'); await page.waitForTimeout(2500);
@@ -125,10 +136,12 @@ say('desktop 1130 × 900');
 say('phone 390 × 844 @2x');
 { const page = await open(390, 844, 2);
   await page.waitForTimeout(4000); await shot(page, '11-phone-untouched');
+  await waveMoves(page, 'phone, untouched', true);
   await page.click('#wake'); await page.waitForTimeout(900);
   await pick(page, 'putty', 'stay');
   await drag(page, 12, 46, 0);
   await chain(page, 'phone, whole body pulled');
+  await waveMoves(page, 'phone, whole body pulled', false);
   await shot(page, '12-phone-body-pulled');
   await page.mouse.up();
   await pick(page, 'grip', 'one'); await page.click('#home'); await page.waitForTimeout(2500);
