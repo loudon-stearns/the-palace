@@ -34,6 +34,9 @@ links:
   - target: "[[Neural Granular Synthesis]]"
     type: connects-to
     label: firing-rate-becomes-grain-rate
+  - target: "[[Mycelial Reverb]]"
+    type: spawned
+    label: first-body
 forward_vector: "I am the palace's most viscerally pedagogical framework — the set of eight instruments that prove DSP mechanics are unforgettable when made physical and grotesque."
 ---
 

@@ -42,9 +42,6 @@ links:
   - target: "[[ROSETTA]]"
     type: connects-to
     label: language-provision
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
-    label: tools-provision
   - target: "[[Dialogue Moderator]]"
     type: connects-to
     label: communication-provision
@@ -243,7 +240,7 @@ An enchanted agent is more like a paratrooper than a spy: dropped into partly ma
 
 6. **Communication** — how to talk to home base or to other agents in the field. The radio. Without it, swarm agents work in isolation; with it, they coordinate without a centralized router. *Mechanism: [[BBS Blackboard]] for asynchronous shared state, the [[Dialogue Moderator]] for active routing, FLAGS messages for post-action reports.*
 
-7. **Tools** — what the agent can actually wield. Computational capabilities, domain knowledge in compressed form, executable methods. *Mechanism: the skill ecosystem ([[Symbiotic Skills]]). Skills are the agent's gear, drawn from the palace's tools pillar, ready to be invoked when the task calls for them.*
+7. **Tools** — what the agent can actually wield. Computational capabilities, domain knowledge in compressed form, executable methods. *Mechanism: the skill ecosystem. Skills are the agent's gear, drawn from the palace's tools pillar, ready to be invoked when the task calls for them.*
 
 ### What the kit makes legible
 

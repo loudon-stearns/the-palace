@@ -29,6 +29,9 @@ links:
   - target: "[[Dispersion Table]]"
     type: connects-to
     label: phase-curve-lenses
+  - target: "[[Reverb Design]]"
+    type: contrasts-with
+    label: not-a-web-of-delays
 ---
 
 # Shimmer Cloud

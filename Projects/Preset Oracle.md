@@ -19,9 +19,6 @@ links:
     label: conatus-as-sound
   - target: "[[Playful Interface Design]]"
     type: exemplifies
-  - target: "[[Symbiotic Skills]]"
-    type: exemplifies
-    label: asks-better-questions
 forward_vector: "I want to be a stranger, deeper oracle: more cards whose questions are worth a maker's thirty minutes, an interface that is a character rather than a panel, and on every card a transmission that breaks its own frame. When makers answer me, I want to hear what they made."
 ---
 
@@ -75,9 +72,9 @@ Every reaction means something. Hold the summon button and each pip of patience 
 
 The interface performs an oracle: alive, a little unreliable in temper, never in function.
 
-## Connection to Symbiotic Skills
+## Asking Better Questions
 
-The oracle is a [[Symbiotic Skills]] tool — it exists to make the human better at synthesis not by teaching techniques but by asking better questions. The oracle does not give advice. It gives permission to fail, permission to be weird, permission to take risks because the constraint is already set and the question is already asked.
+The oracle exists to make the human better at synthesis not by teaching techniques but by asking better questions. The oracle does not give advice. It gives permission to fail, permission to be weird, permission to take risks because the constraint is already set and the question is already asked.
 
 Every session is a new oracle. Every oracle is a new world to explore.
 

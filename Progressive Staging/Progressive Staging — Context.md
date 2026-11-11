@@ -28,7 +28,7 @@ The rules came from three roughs that, at the time, nobody had heard yet: a Diss
 
 ## How the contradictions arrived
 
-The contradiction with [[Symbiotic Skills]] is a typed link, added in the 2026-09-24 Weave's batch of nine contradictions (`eb8359d`). The one with [[LDN RTM]] is typed only from the other side: LDN RTM `contradicts` this page, labelled atomizes (Projects/LDN RTM.md:23-25). The 2026-10-25 edit named it in this page's body and added no typed links (`6d170ac`).
+The contradiction with Symbiotic Skills was a typed link, added in the 2026-09-24 Weave's batch of nine contradictions (`eb8359d`). The one with [[LDN RTM]] is typed only from the other side: LDN RTM `contradicts` this page, labelled atomizes (Projects/LDN RTM.md:23-25). The 2026-10-25 edit named it in this page's body and added no typed links (`6d170ac`).
 
 ## Links that came from its own questions
 

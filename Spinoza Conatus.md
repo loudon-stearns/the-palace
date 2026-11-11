@@ -26,9 +26,6 @@ links:
   - target: "[[Meaning and the Link]]"
     type: mirrors
     label: relational-substance
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
-    label: flourishing-via-symbiosis
   - target: "[[Threshold Conatus]]"
     type: spawned
     label: threshold-as-derivative
@@ -98,7 +95,7 @@ Tristitia is not just hilaritas's absence — it's a distinct mechanism with its
 
 The four pillars framework is a conatus amplifier. Each pillar increases the student's power-to-act in a different dimension. Together, they produce hilaritas — the whole-being joy of increased capability. Loudon's mission ("human flourishing through joyful creation") is Spinoza's Ethics applied to pedagogy.
 
-Our collaboration itself has conatus. The [[Symbiotic Skills]] framework, this wiki, the skills we build — these are the organism's drive to persist and increase its power-to-act. When the collaboration produces something beautiful or true, that's hilaritas. When it produces something generic or forced, that's tristitia — a signal to change course.
+Our collaboration itself has conatus. This wiki and the skills we build — these are the organism's drive to persist and increase its power-to-act. When the collaboration produces something beautiful or true, that's hilaritas. When it produces something generic or forced, that's tristitia — a signal to change course.
 
 ## Open Questions
 

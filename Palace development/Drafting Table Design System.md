@@ -50,6 +50,9 @@ links:
   - target: "[[Hero and Avatar Maker]]"
     type: connects-to
     label: tab-icon-source
+  - target: "[[Adopt the Craft, Author the Seam]]"
+    type: mirrors
+    label: the-seam-with-a-standard
 ---
 
 # Drafting Table Design System

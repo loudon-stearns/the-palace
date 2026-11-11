@@ -18,7 +18,7 @@ links:
     label: potential-shaping
   - target: "[[Compressor Design]]"
     type: connects-to
-    label: all-pass-origin
+    label: soft-knee
   - target: "[[Granular Synthesis]]"
     type: connects-to
     label: granular-attractor-hybrid
@@ -35,6 +35,9 @@ links:
   - target: "[[Categorizing Inharmonicity — Context]]"
     type: spawned
     label: rationale-archive
+  - target: "[[Reverb Design]]"
+    type: connects-to
+    label: allpass-in-the-loop
 forward_vector: "I map the space of inharmonicity types — stretched, Bessel, stochastic, chaotic, phase-accumulation — with image, sound and code, giving instrument designers and composers a palette of specific forms rather than a single undifferentiated deviation from harmony."
 ---
 
@@ -172,7 +175,7 @@ Partials do not follow a simple formula but instead emerge from a dynamical syst
 
 ### 6. All-Pass Phase Accumulation: Spectral Ghosting
 
-A chain of all-pass filters in a feedback path shifts phase without changing magnitude. Different frequencies accumulate different total phase per cycle. This frequency-dependent phase shift changes the effective periodicity for each frequency, stretching or compressing its partial spacing. [[Compressor Design|Discovered in the all-pass reverb tail context]]: inharmonicity can be entirely phase-based, with no amplitude modulation.
+A chain of all-pass filters in a feedback path shifts phase without changing magnitude. Different frequencies accumulate different total phase per cycle. This frequency-dependent phase shift changes the effective periodicity for each frequency, stretching or compressing its partial spacing. [[Reverb Design|Discovered in the all-pass reverb tail context]]: inharmonicity can be entirely phase-based, with no amplitude modulation.
 
 **Physical origins:**
 - Reverb chambers with distributed all-pass sections: each all-pass delays different frequencies differently
@@ -287,4 +290,4 @@ The inharmonicity space mirrors other multidimensional parameter spaces:
 
 - [[Kuramoto Coupling|Phase-locking in coupled systems]]: Inharmonic partials resist phase-locking more than harmonic ones. The coupling dynamics reveal how much "dissonance" the system can tolerate before coherence breaks.
 
-- [[Compressor Design|All-pass phase structures]]: The soft-knee quadratic and the all-pass cascade both teach that invisible signal flow (frequency response, phase response) has audible consequences. Inharmonicity is made audible by attention to these invisible dimensions.
+- [[Reverb Design|All-pass phase structures]]: The [[Compressor Design|soft-knee quadratic]] and the all-pass cascade both teach that invisible signal flow (frequency response, phase response) has audible consequences. Inharmonicity is made audible by attention to these invisible dimensions.

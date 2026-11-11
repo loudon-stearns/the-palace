@@ -70,6 +70,8 @@ The Weave is monthly. More frequent and it becomes overhead. Less frequent and t
 
 The single-agent protocol was the original design. The palace crossed the single-agent threshold (~50 entries) during the spring 2026 growth period. The Swarm Weave was introduced to keep execution time reasonable and to model the ceremony's own metaphor: parallel workers doing distributed routing, a coordinator synthesizing the whole. Single-agent protocol remains valid for palaces under ~20 entries or when sub-agent orchestration is unavailable.
 
+A Weave that moves like a Walk was asked once as a third ceremony (*Walk That Weaves*, composted 2026-11). It became a lens instead: the lifecycle lens starts from the newcomers and walks outward along typed links, and Step 0b puts that catch-up into every run.
+
 ## Rate Limit Rationale — New Introductions
 
 **Softened to a guideline (2026-07).** The former hard caps ("no more than 15 / 10 / 8") are now *guidelines for a deliberate pace*, not quotas — part of the values-primary turn (see The Weave's Widened Charter, below). The rationale they served still holds: a new introduction should feel earned, not automatic; a typed link is a permanent claim about the structure of knowledge; the palace and its gardener both benefit from a slow metabolism. What changed is the register — the number now orients judgment rather than gating it. The one exception is a Weave welcoming new entries, where the guideline *widens* by roughly a fifth to fund their catch-up (Step 0b). (This edit also dissolved a standing drift: the card's postcondition read "no more than 5" while Step 3b and this section read 15 — softening to a guideline retired the contradiction rather than picking a number.)

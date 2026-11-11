@@ -7,9 +7,6 @@ stage: mature
 links:
   - target: "[[Cooperation Yields Agency]]"
     type: mirrors
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
-    label: skills-as-experts
   - target: "[[Weave Ceremony]]"
     type: mirrors
     label: load-balancing-audit
@@ -100,14 +97,11 @@ Climbing the ladder trades focus for breadth and control for emergence: one voic
 
 **[[Cooperation Yields Agency]]** mirrors MoE at the system level: planner + executor is a form of cooperation — two specialized entities with complementary capabilities, aligned on shared intent, producing capability neither has alone. The gate doesn't overpower the expert; the expert doesn't ignore the gate. Shared intent creates the routing.
 
-**[[Symbiotic Skills]]** is the practical implementation: the skill ecosystem IS a system-level MoE, with the palace as planner layer and individual skills as executor specialists.
-
 **[[Excellent Adventure]] / [[Dialectic]]** — the embodied substrate. See § The Three Substrates → Embodied.
 
 ## Open Questions
 
 - The load-balancing problem in neural MoE (expert collapse) has a direct palace equivalent: hub nodes attracting all traffic while seeds atrophy. The Weave ceremony addresses this — but is there a more continuous mechanism, closer to the online load-balancing algorithms being developed for neural MoE?
-- The hybrid neural/symbolic expert vision — formally specified experts alongside learned ones — connects to TLA+ and formal specification thinking. Is this a design principle for the Symbiotic Skills framework?
 - At what granularity should palace entries operate? Fine-grained entries (many specialists, narrow domains) versus coarse-grained entries (fewer generalists, broader domains) is exactly the parameter-space tradeoff in MoE architecture. Current palace is coarse. Should it get finer?
 - **Embodied substrate — does load balancing apply?** "I keep reaching for Spinoza on every question" is expert collapse in human cognition. The Dialectic's deliberate selection of *competing* voices is already a manual rebalancing move. Could it be made more systematic — a personal-Weave-equivalent that audits which voices a thinker has overused recently and proposes underactivated ones?
 - **Cross-substrate routing.** Can a single gate route across substrates — neural model, palace entry, embodied voice — as appropriate to the question? The skill ecosystem hints at this. The full version would be a unified router that decides whether to invoke a learned model, traverse the palace, or initiate an Excellent Adventure based on the question's character.

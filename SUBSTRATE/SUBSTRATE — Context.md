@@ -14,7 +14,7 @@ What [[SUBSTRATE]] used to hold and no longer needs to. A Self-Model Update, a W
 
 ## Origin
 
-The Substrate came out of the [[Symbiotic Skills]] brainstorm (March 2026), which named the lack of shared memory as the biggest gap in the Loudon–Claude collaboration. Its design drew on:
+The Substrate came out of the Symbiotic Skills brainstorm (March 2026), which named the lack of shared memory as the biggest gap in the Loudon–Claude collaboration. Its design drew on:
 
 - **[[Meaning and the Link]]**: meaning comes from enough associations between a pattern of symbols and a reality. The typed links are a private semantic web, and LLM embeddings are the computational proof that a word's meaning *is* its pattern of associations ([[Embeddings as Relational Meaning]]).
 - **Luhmann's Zettelkasten**: atomic notes, densely linked, forming a second memory and a conversation partner. "I, of course, do not think everything by myself. It happens mainly within the slip-box."

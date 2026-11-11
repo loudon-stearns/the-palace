@@ -14,8 +14,6 @@ beauty: 7
 who_leads: shared
 forward_vector: "I am the palace's self-model: I show whoever arrives what organs the palace runs and how they couple, seen as machinery, as a living body, as a metaphysics and as a practice of joy, so they leave knowing its anatomy. I leave the counting to the map and keep the meaning. I want to be redrawn whenever the palace grows an organ, and never to mistake my picture for the thing."
 links:
-  - target: "[[Symbiotic Skills]]"
-    type: emerged-from
   - target: "[[Cooperation Yields Agency]]"
     type: enables
   - target: "[[Self-Describing Knowledge Module]]"
@@ -108,7 +106,6 @@ Ceremony files are read on every run, so their cost grows with the palace. Keep 
 ## Open Questions
 
 - How does this palace relate to Loudon's other Claude Projects: does it link to them, or take them in?
-- The Symbiotic Skills curriculum imagines the palace as a teachable template. When is the first student-facing version due ([[Self-Describing Knowledge Module]])?
 - The substrate moves: it accumulates, many hands write it, and its shapes drift. Does each tool guard against that on its own, or does one shared layer do it for all of them (`STIGMERGY — sketch — the-substrate-drifts`)?
 - Do the four casts on this page hold for a reader who isn't Loudon, or only for the person whose palace it is?
 

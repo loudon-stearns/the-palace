@@ -167,3 +167,9 @@ What each weave taught the ceremony, appended after the run. Each entry names th
 ## From the deck fix — 2026-11-10, filed 2026-11-11
 
 68. **A deck fix is checked against a past moment by replaying that moment's board.** To pay item 59 the builder took the board as it was committed that night (`0bc78194`, 171 flags), clipped git to 2026-10-25T06:00-04:00, and ran the deck's fold and `lint-weave-flags.py` on the same board and the same clip, before the fix and after: deck 164 items, then 168; linter 168 (body of `0d6b1d44`, landed in `045b460a`). This is the gist. The replay ran in a scratch folder that is gone, and how git was clipped is not on record. No spec change. Filed by the Concierge from the commit body, on Loudon's "Yes, send them" of 2026-11-11 as the session relayed it.
+
+## From the quick weave — 2026-11-11 (v2.3)
+
+69. **A composting page can promise a fold that never lands.** Walk That Weaves, composting since 2026-10-24, ended on "what stands here folds into [[Weave Ceremony — Context]]"; two weaves later the Context had no word of it, and Symbiotic Skills was marked composting with no composting note at all. The fold was written before the deletion this run. When a weave confirms a deletion, it reads the page's last lines for each fold it promises and checks that it landed. No spec change: Step 2's composting line already says confirm or revive, and this is how to confirm.
+
+- run · 2026-11-11 · v2.3 · weave-2026-11-11, a quick run on Loudon's word: new-entry induction, the open flags, two pages composted · taught item 69

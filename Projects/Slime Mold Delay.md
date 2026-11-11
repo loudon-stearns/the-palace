@@ -30,6 +30,9 @@ links:
   - target: "[[Kuramoto Coupling]]"
     type: couples-with
     label: reinforcement-vs-phase-lock
+  - target: "[[Reverb Design]]"
+    type: connects-to
+    label: feedback-delay-network
 ---
 
 # Slime Mold Delay

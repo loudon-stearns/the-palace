@@ -19,9 +19,6 @@ links:
   - target: "[[Excellent Adventure]]"
     type: emerged-from
     label: fire-at-nicopolis
-  - target: "[[Symbiotic Skills]]"
-    type: mirrors
-    label: edge-prior-to-node
 forward_vector: "I want to become the palace's sharpest articulation of why virtue cannot exist in isolation — the entry that holds Confucius's insight that the self is a threshold, not a fortress, in productive tension with Stoicism and Spinoza. I want a worked reading of a specific palace practice — the teacher-student relationship in Loudon Live — through the lens of ren and li: what it looks like to teach as a Confucian act."
 ---
 
@@ -63,8 +60,6 @@ He wrote nothing. What we have was written by those who loved him.
 
 **[[Hilaritas Generator]]** — *Ren* and *hilaritas* are convergent: both are relational, both increase when shared, both are the mark of a genuinely flourishing life. Spinoza and Confucius arrived at the same phenomenology through different routes.
 
-**[[Symbiotic Skills]]** — The node→edge→typed edge→network progression in Symbiotic Skills is structurally Confucian: the self becomes more fully itself as the relational web becomes more articulated. The edge is prior to the node.
-
 **[[Spinoza Conatus]]** — Both Confucius and Spinoza ground flourishing in right relationship with other beings. Spinoza's monism provides the metaphysical frame Confucius never needed to build.
 
 ## In the Palace
@@ -77,4 +72,3 @@ The teaching relationship is Confucian in structure: teacher and student bound b
 
 - Is the palace itself a Confucian project — a *li* that structures good thinking the way ritual structures good conduct?
 - Where does Confucian relational ethics meet Deleuzian becoming? Both are anti-essentialist about the self, but Confucius grounds this in social structure while Deleuze grounds it in immanent difference.
-- Can the *junzi* cultivation path be mapped onto the Symbiotic Skills progression? Both describe a staged development from raw capacity to embodied mastery through sustained practice.
