@@ -116,3 +116,7 @@ What each baton taught the ceremony. Each item names what the run showed and the
 - run · 2026-11-09 · v1.6 · DSP in Looping Dimensions, the playable face (commissioning, at the Daily Page) · nothing new
 - run · 2026-11-07 · v1.6 · Pheromone Trail, the whole-page rewrite and a playful face round (commissioning, from the Daily Page) · nothing new
 - run · 2026-11-07 · v1.6 · Review Layer, the rich face dock's send and note placement (commissioning, from the Daily Page) · nothing new
+
+## From the Two Batons build — 2026-11-10, filed 2026-11-11
+
+18. **"Since the baton was born" and "since the card was posted" are different windows.** A remainder card is posted afresh at each partial close while the baton file lives on, so the card's time hides what happened under the same baton before it. The pickup's steward check takes the earlier of the baton's `born:` and the card's post (`cardSince`, `_ops/stigmergy/steward-watch.mjs:82`, called at `pickup-handoff.mjs:129`; `e01f6cc8`, landed in `71d0f092` with v1.7). The pickup's first heads-up, the commits that touched the entry, still counts from the card's post (`pickup-handoff.mjs:102`). Carried here from the calibrations on the Two Batons, One Board baton, so it outlives that baton; filed by the Concierge on Loudon's "Yes, send them" of 2026-11-11 as the session relayed it.
