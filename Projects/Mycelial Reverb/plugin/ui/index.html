@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" data-theme="phosphor">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mycelial Reverb</title>
+<!--
+  The plugin's editor: one page, embedded in the plugin, fetching nothing.
+  It keeps no colony. The processor sends the colony as a "frame" event about 30 times a
+  second and this page draws it; the hands here go back as "dish" events.
+  The dish is drawn the way the piece draws it ("Biomechanical Synthesis — rich — mycelial
+  reverb.html", the draw() there). The frame around it wears Drafting Table's Phosphor
+  tokens (_ops/drafting-table/design-system/colors_and_type.css), copied here by value.
+  Nothing waits on an animation frame: WebKit stops those in a plugin window it thinks is
+  covered, so every frame from the processor is drawn as it arrives.
+-->
+<style>
+  :root { --ground-000:#050a06; --ground-100:#0b2a14; --ink:#33ff66; --ink-2:#1f8a3c; --ink-3:#0f5024; --ink-bright:#d7f6dc; --rule:#1f8a3c; --rule-soft:#133d20; --slab-face:#141c16; --slab-light:#233029; --accent:#33ff66; --on-accent:#050a06; --red:#ff4136; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--ground-000); color: var(--ink); font: 12px/1.35 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, Menlo, monospace; display: flex; flex-direction: column; overflow: hidden; user-select: none; -webkit-user-select: none; cursor: default; }
+  .title { display: grid; grid-template-columns: 1.4fr 1fr 1.3fr 1.3fr; border-bottom: 1px solid var(--rule); flex: none; }
+  .title > div { padding: 6px 10px; border-right: 1px solid var(--rule-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .title > div:last-child { border-right: 0; }
+  .title .k { color: var(--ink-2); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; display: block; }
+  .title .name { color: var(--ink-bright); font-size: 14px; }
+  .title .tier { color: var(--red); }
+  #stage { flex: 1 1 auto; min-height: 0; position: relative; }
+  #dish { position: absolute; left: 0; top: 0; display: block; }
+  #status { flex: none; padding: 5px 10px; border-top: 1px solid var(--rule-soft); color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #status b { color: var(--ink-bright); font-weight: normal; }
+  .hands { flex: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 10px; border-top: 1px solid var(--rule); align-items: center; }
+  button { font: inherit; color: var(--ink); background: var(--slab-face); border: 1px solid var(--ink-2); padding: 6px 12px; border-radius: 0; cursor: pointer; }
+  button:hover { background: var(--slab-light); }
+  button:active, button.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  button.big { border-color: var(--ink); }
+  .soil { flex: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px 16px; padding: 8px 10px 10px; border-top: 1px solid var(--rule-soft); }
+  .soil label { display: flex; justify-content: space-between; gap: 8px; color: var(--ink-2); white-space: nowrap; }
+  .soil label b { color: var(--ink-bright); font-weight: normal; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 18px; background: transparent; margin: 2px 0 0; }
+  input[type=range]::-webkit-slider-runnable-track { height: 4px; background: var(--ground-100); border: 1px solid var(--rule); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 16px; margin-top: -7px; background: var(--accent); border: 0; border-radius: 0; }
+  @media (max-width: 820px) { .soil { grid-template-columns: repeat(2, 1fr); } .title { grid-template-columns: 1.4fr 1fr; } .title .wide { display: none; } }
+</style>
+</head>
+<body>
+<div class="title">
+  <div><span class="k">plugin</span><span class="name" id="tName">Mycelial Reverb</span></div>
+  <div><span class="k">version</span><span id="tVer">0.1.0</span> · <span class="tier" id="tTier">SKETCH</span></div>
+  <div class="wide"><span class="k">drawn</span>Algorithm.h · a waveguide network</div>
+  <div class="wide"><span class="k">maker</span>Loudon Live · JUCE 8 · WebView</div>
+</div>
+<div id="stage"><canvas id="dish"></canvas></div>
+<div id="status">waiting for the dish</div>
+<div class="hands">
+  <button class="big" id="bKnock" title="A knock where the sound goes in. Click the dish to knock, and send the sound in, anywhere else.">knock</button>
+  <button id="bFrost" title="Every dead end dies back one thread">a frost</button>
+  <button id="bHold" title="Stop the growing. The dish goes on sounding.">hold it still</button>
+  <button id="bNew" title="Throw this dish away and start from a new spore">a new spore</button>
+</div>
+<div class="soil">
+  <div><label for="s_carry">how far a pulse carries <b id="v_carry"></b></label><input type="range" id="s_carry" min="0" max="1" step="0.001"></div>
+  <div><label for="s_wetness">how wet the soil is <b id="v_wetness"></b></label><input type="range" id="s_wetness" min="0" max="0.9" step="0.01"></div>
+  <div><label for="s_dry">the sound itself, beside the dish <b id="v_dry"></b></label><input type="range" id="s_dry" min="0" max="1" step="0.01"></div>
+  <div><label for="s_level">how loud the dish is <b id="v_level"></b></label><input type="range" id="s_level" min="-24" max="12" step="0.1"></div>
+</div>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var cv = $('dish'), ctx = cv.getContext('2d'), stage = $('stage');
+  var W = 1000, H = 600, sc = 1, dpr = 1, soilCv = null, F = null;
+  var seen = {}, fruitSeen = {}, rings = [], lastEv = -1, lastSeed = null, hover = -1, touched = false, armed = false, drag = {};
+  var backend = window.__JUCE__ && window.__JUCE__.backend;
+  function send(o) { if (backend) backend.emitEvent('dish', o); }
+  function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+  // ── the dish ───────────────────────────────────────────────────────────────
+  function size() {
+    var aw = stage.clientWidth, ah = stage.clientHeight; if (aw < 10 || ah < 10) return;
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    var cw = Math.min(aw, ah * W / H), ch = cw * H / W; sc = cw / W;
+    cv.style.width = Math.round(cw) + 'px'; cv.style.height = Math.round(ch) + 'px';
+    cv.style.left = Math.round((aw - cw) / 2) + 'px'; cv.style.top = Math.round((ah - ch) / 2) + 'px';
+    cv.width = Math.round(cw * dpr); cv.height = Math.round(ch * dpr);
+    soilCv = document.createElement('canvas'); soilCv.width = cv.width; soilCv.height = cv.height;
+    var g = soilCv.getContext('2d'), r = rng(77), i, x, y, a;
+    g.fillStyle = '#08080c'; g.fillRect(0, 0, soilCv.width, soilCv.height);
+    for (i = 0; i < soilCv.width * soilCv.height / 260; i++) { x = r() * soilCv.width; y = r() * soilCv.height; a = r(); g.fillStyle = a < 0.5 ? 'rgba(120,96,70,' + (0.05 + a * 0.14) + ')' : 'rgba(60,60,84,' + (0.05 + a * 0.1) + ')'; g.fillRect(x, y, 1 + r() * 2.2 * dpr, 1 + r() * 2.2 * dpr); }
+    var vg = g.createRadialGradient(soilCv.width / 2, soilCv.height / 2, soilCv.height * 0.2, soilCv.width / 2, soilCv.height / 2, soilCv.width * 0.75);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,0.55)'); g.fillStyle = vg; g.fillRect(0, 0, soilCv.width, soilCv.height);
+  }
+  function lvl(e) { var v = (Math.log(e + 1e-14) / 2.302585 + 6.5) / 5; return v < 0 ? 0 : v > 1 ? 1 : v; }
+  function bend(id) { var h = Math.sin(id * 12.9898) * 43758.5453; return (h - Math.floor(h) - 0.5) * 0.36; }
+  function draw() {
+    if (!F || !soilCv) return;
+    var now = performance.now(), k = sc * dpr, i, s, A, B, gi, mx, my, bx, by, ex, ey, lv, wd, n, j, hold = F.par.hold > 0.5;
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'source-over'; ctx.drawImage(soilCv, 0, 0); ctx.lineCap = 'round';
+    for (var pass = 0; pass < 2; pass++) {
+      ctx.globalCompositeOperation = pass ? 'lighter' : 'source-over';
+      for (i = 0; i < F.segs.length; i++) {
+        s = F.segs[i]; if (!s) { seen[i] = 0; continue; }
+        if (!seen[i] || seen[i].b !== s[4]) seen[i] = { b: s[4], t: armed ? now : now - 1000 };   // a dish reopened is drawn grown, not growing
+        gi = Math.min(1, (now - seen[i].t) / 420); A = F.nodes[s[0]]; B = F.nodes[s[1]]; if (!A || !B) continue;
+        bx = A[0] * k; by = A[1] * k; ex = (A[0] + (B[0] - A[0]) * gi) * k; ey = (A[1] + (B[1] - A[1]) * gi) * k;
+        mx = (bx + ex) / 2 - (ey - by) * bend(i); my = (by + ey) / 2 + (ex - bx) * bend(i);
+        wd = Math.max(0.9, (0.55 + 0.7 * s[2]) * k * 1.15);
+        if (!pass) { ctx.strokeStyle = 'rgba(217,211,192,' + (0.42 + 0.1 * s[2]) + ')'; ctx.lineWidth = wd; }
+        else { lv = lvl(s[3]); if (lv < 0.03) continue; ctx.strokeStyle = 'rgba(232,170,74,' + (0.75 * lv * lv) + ')'; ctx.lineWidth = wd * (1.6 + 2.6 * lv); }
+        ctx.beginPath(); ctx.moveTo(bx, by); ctx.quadraticCurveTo(mx, my, ex, ey); ctx.stroke();
+      }
+    }
+    ctx.globalCompositeOperation = 'source-over';
+    var tipSeg = {}; for (i = 0; i < F.segs.length; i++) { s = F.segs[i]; if (s) { tipSeg[s[0]] = i; tipSeg[s[1]] = i; } }
+    for (i = 0; i < F.nodes.length; i++) {              // growing tips: a wet bead
+      n = F.nodes[i]; if (!n || n[2] !== 1 || !n[3] || hold) continue;
+      if (seen[tipSeg[i]] && now - seen[tipSeg[i]].t < 420) continue;
+      ctx.fillStyle = 'rgba(240,236,220,' + (0.55 + 0.35 * Math.sin(now / 300 + i)) + ')'; ctx.beginPath(); ctx.arc(n[0] * k, n[1] * k, 2.1 * k * 1.2, 0, 6.283); ctx.fill();
+    }
+    n = F.nodes[0];                                       // the spore
+    if (n) { var sg = ctx.createRadialGradient(n[0] * k, n[1] * k, 0, n[0] * k, n[1] * k, 11 * k); sg.addColorStop(0, 'rgba(244,238,220,.95)'); sg.addColorStop(0.55, 'rgba(214,196,160,.75)'); sg.addColorStop(1, 'rgba(214,196,160,0)'); ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(n[0] * k, n[1] * k, 11 * k, 0, 6.283); ctx.fill(); }
+    for (i = 0; i < F.fruit.length; i++) {                // fruiting bodies, seen from the side, swelling with what they give out
+      var f = F.fruit[i], key = f[0] + ':' + f[1]; n = F.nodes[f[0]]; if (!n) continue; if (!fruitSeen[key]) fruitSeen[key] = armed ? now : now - 2000;
+      var age = Math.min(1, (now - fruitSeen[key]) / 1500), e = 0, cnt = 0; for (j = 0; j < F.segs.length; j++) { s = F.segs[j]; if (s && (s[0] === f[0] || s[1] === f[0])) { e += s[3]; cnt++; } }
+      lv = lvl(e / Math.max(1, cnt)); var u = age * (1 + 0.22 * lv) * k * 1.25, x = n[0] * k, y = n[1] * k;
+      var hg = ctx.createRadialGradient(x, y - 18 * u, 2 * u, x, y - 18 * u, 30 * u); hg.addColorStop(0, 'rgba(232,170,74,' + (0.05 + 0.5 * lv) + ')'); hg.addColorStop(1, 'rgba(232,170,74,0)'); ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(x, y - 18 * u, 30 * u, 0, 6.283); ctx.fill();
+      ctx.strokeStyle = 'rgba(230,214,196,.95)'; ctx.lineWidth = 4.2 * u; ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + 2.5 * u, y - 9 * u, x, y - 18 * u); ctx.stroke();
+      ctx.fillStyle = '#e6c9b8'; ctx.beginPath(); ctx.moveTo(x - 14 * u, y - 16 * u); ctx.bezierCurveTo(x - 13 * u, y - 31 * u, x + 13 * u, y - 31 * u, x + 14 * u, y - 16 * u); ctx.quadraticCurveTo(x, y - 12.5 * u, x - 14 * u, y - 16 * u); ctx.fill();
+      ctx.strokeStyle = 'rgba(194,50,74,.75)'; ctx.lineWidth = 1 * u; for (j = -3; j <= 3; j++) { ctx.beginPath(); ctx.moveTo(x + j * 3.6 * u, y - 15.6 * u); ctx.lineTo(x + j * 2.4 * u, y - 13.6 * u); ctx.stroke(); }
+    }
+    n = F.nodes[F.in];                                    // where the sound goes in
+    if (n) { ctx.strokeStyle = 'rgba(232,184,74,.95)'; ctx.lineWidth = 1.6 * dpr; ctx.beginPath(); ctx.arc(n[0] * k, n[1] * k, (12 + 1.5 * Math.sin(now / 400)) * Math.max(k, dpr * 0.8), 0, 6.283); ctx.stroke(); }
+    if (hover >= 0 && F.nodes[hover] && hover !== F.in) { n = F.nodes[hover]; ctx.strokeStyle = 'rgba(232,184,74,.4)'; ctx.lineWidth = 1 * dpr; ctx.beginPath(); ctx.arc(n[0] * k, n[1] * k, 9 * Math.max(k, dpr * 0.8), 0, 6.283); ctx.stroke(); }
+    for (i = rings.length - 1; i >= 0; i--) {
+      var rg = rings[i], a = (now - rg.t) / (rg.fuse ? 700 : 900); if (a > 1) { rings.splice(i, 1); continue; }
+      ctx.strokeStyle = rg.fuse ? 'rgba(160,130,255,' + (1 - a) + ')' : 'rgba(232,184,74,' + (1 - a) + ')'; ctx.lineWidth = (rg.fuse ? 1.4 : 2) * dpr; ctx.beginPath(); ctx.arc(rg.x * k, rg.y * k, (rg.fuse ? 6 + 16 * a : 10 + 70 * a) * k, 0, 6.283); ctx.stroke();
+    }
+    if (!touched && F.segs.length <= 3 && F.time < 0.5) { ctx.fillStyle = 'rgba(232,232,240,.92)'; ctx.font = Math.round(Math.max(15, 22 * sc) * dpr) + 'px Georgia, serif'; ctx.textAlign = 'center'; ctx.fillText('Play sound into it, or knock. Anywhere.', cv.width / 2, cv.height - 26 * dpr); }
+  }
+  function status() {
+    var threads = 0, v = 0, ends = 0, tips = 0, tot = 0, i, n, s;
+    for (i = 0; i < F.segs.length; i++) { s = F.segs[i]; if (s) { threads++; tot += s[5]; } }
+    for (i = 0; i < F.nodes.length; i++) { n = F.nodes[i]; if (n && n[2]) { v++; if (n[2] === 1) { ends++; if (n[3]) tips++; } } }
+    var loops = threads - v + 1, fr = F.fruit.length;
+    var t = '<b>' + threads + '</b> thread' + (threads === 1 ? '' : 's') + ' · <b>' + loops + '</b> loop' + (loops === 1 ? '' : 's') + ' · <b>' + ends + '</b> dead end' + (ends === 1 ? '' : 's') +
+      ' · <b>' + (F.par.hold > 0.5 ? 0 : tips) + '</b> still growing · <b>' + fr + '</b> fruiting bod' + (fr === 1 ? 'y' : 'ies') + ' · end to end, <b>' + (tot * 0.35 / 1000).toFixed(2) + ' s</b> of thread';
+    if (threads >= F.max) t += ' · the dish is full';
+    if (F.par.hold > 0.5) t += ' · held still';
+    if (F.par.guard < -0.5) t += ' · the guard is holding it back <b>' + (-F.par.guard).toFixed(0) + ' dB</b>';
+    $('status').innerHTML = t;
+  }
+
+  // ── the knobs: each shows what the processor holds, unless a hand is on it ──
+  var CARRY_LO = 0.2, CARRY_HI = 12;
+  var knobs = {
+    carry:   { to: function (v) { return Math.log(v / CARRY_LO) / Math.log(CARRY_HI / CARRY_LO); }, from: function (p) { return CARRY_LO * Math.pow(CARRY_HI / CARRY_LO, p); }, text: function (v) { return v.toFixed(1) + ' s'; } },
+    wetness: { text: function (d) { return d < 0.1 ? 'dry' : d < 0.35 ? 'damp' : d < 0.55 ? 'wet' : 'sodden'; } },
+    dry:     { text: function (y) { return y < 0.02 ? 'off' : Math.round(y * 100) + '%'; } },
+    level:   { text: function (v) { return (v > 0 ? '+' : '') + v.toFixed(1) + ' dB'; } }
+  };
+  Object.keys(knobs).forEach(function (id) {
+    var el = $('s_' + id), kb = knobs[id];
+    function val() { return kb.from ? kb.from(+el.value) : +el.value; }
+    el.addEventListener('pointerdown', function () { drag[id] = true; send({ t: 'begin', id: id }); });
+    el.addEventListener('input', function () { $('v_' + id).textContent = kb.text(val()); send({ t: 'set', id: id, v: val() }); });
+    var done = function () { if (drag[id]) { drag[id] = false; send({ t: 'end', id: id }); } };
+    el.addEventListener('pointerup', done); el.addEventListener('pointercancel', done); el.addEventListener('change', done);
+  });
+  function showKnobs() {
+    Object.keys(knobs).forEach(function (id) {
+      if (drag[id]) return; var v = F.par[id], kb = knobs[id];
+      $('s_' + id).value = kb.to ? kb.to(v) : v; $('v_' + id).textContent = kb.text(v);
+    });
+    var held = F.par.hold > 0.5; $('bHold').classList.toggle('on', held); $('bHold').textContent = held ? 'let it grow' : 'hold it still';
+  }
+
+  // ── hands ──────────────────────────────────────────────────────────────────
+  function nearest(ev) {
+    if (!F) return -1; var r = cv.getBoundingClientRect(), x = (ev.clientX - r.left) / sc, y = (ev.clientY - r.top) / sc, i, n, best = 0, bd = 1e18, d;
+    for (i = 0; i < F.nodes.length; i++) { n = F.nodes[i]; if (!n || !n[2]) continue; d = (n[0] - x) * (n[0] - x) + (n[1] - y) * (n[1] - y); if (d < bd) { bd = d; best = i; } }
+    return best;
+  }
+  function ring(i) { var n = F && F.nodes[i]; if (n) rings.push({ x: n[0], y: n[1], t: performance.now() }); }
+  cv.addEventListener('click', function (ev) { var n = nearest(ev); if (n < 0) return; touched = true; send({ t: 'knock', n: n }); ring(n); });
+  cv.addEventListener('pointermove', function (ev) { hover = ev.pointerType === 'mouse' ? nearest(ev) : -1; });
+  cv.addEventListener('pointerleave', function () { hover = -1; });
+  $('bKnock').onclick = function () { touched = true; send({ t: 'knock' }); if (F) ring(F.in); };
+  $('bFrost').onclick = function () { send({ t: 'frost' }); };
+  $('bNew').onclick = function () { send({ t: 'spore' }); };
+  $('bHold').onclick = function () { var to = F && F.par.hold > 0.5 ? 0 : 1; send({ t: 'begin', id: 'hold' }); send({ t: 'set', id: 'hold', v: to }); send({ t: 'end', id: 'hold' }); };
+
+  // ── frames from the processor ──────────────────────────────────────────────
+  function onFrame(text) {
+    var f = typeof text === 'string' ? JSON.parse(text) : text, i, e, n;
+    if (lastSeed !== null && f.seed !== lastSeed) { seen = {}; fruitSeen = {}; rings = []; touched = false; lastEv = -1; }   // a new spore
+    if (lastSeed === null) { $('tName').textContent = f.name; $('tVer').textContent = f.version; $('tTier').textContent = String(f.tier).toUpperCase(); }
+    lastSeed = f.seed; F = f;
+    for (i = 0; i < f.events.length; i++) {
+      e = f.events[i]; if (e[0] <= lastEv) continue;
+      if (armed && e[1] === 0 && (n = f.nodes[e[2]])) rings.push({ x: n[0], y: n[1], t: performance.now(), fuse: true });
+    }
+    lastEv = f.ev - 1;
+    showKnobs(); draw(); status();
+    armed = true;
+  }
+  if (backend) backend.addEventListener('frame', onFrame);
+  else $('status').textContent = 'This page is the plugin\'s editor. It draws only what the plugin sends it; opened on its own, there is no dish to show.';
+  window.addEventListener('resize', function () { size(); draw(); });
+  size();
+  window.__mycelFrame = onFrame;   // for looking at the page without a host
+})();
+</script>
+</body>
+</html>
