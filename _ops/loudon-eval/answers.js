@@ -40,15 +40,40 @@
     return head + body + '\n';
   }
 
+  // The panel's ink and paper: the page's own where it sets both. A page that
+  // sets only one gets the other chosen to contrast with it: the Pheromone Trail
+  // rough once set a light --ink and no --paper, and the panel drew light text
+  // on its light default paper.
+  var INK = '#1a1916', PAPER = '#f0eee5';
+  function isLight(c) {
+    var probe = el('span', 'display:none;color:' + c);
+    document.body.appendChild(probe);
+    var m = getComputedStyle(probe).color.match(/[\d.]+/g);
+    probe.remove();
+    if (!m || (m.length > 3 && +m[3] === 0)) return null;   // not a colour the browser could read
+    var lin = function (v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    return 0.2126 * lin(+m[0]) + 0.7152 * lin(+m[1]) + 0.0722 * lin(+m[2]) > 0.4;
+  }
+  function colours() {
+    var cs = getComputedStyle(document.body);
+    var ink = cs.getPropertyValue('--ink').trim(), paper = cs.getPropertyValue('--paper').trim();
+    if (ink && paper) return { ink: ink, paper: paper };
+    if (ink) { var li = isLight(ink); if (li !== null) return { ink: ink, paper: li ? INK : PAPER }; }
+    if (paper) { var lp = isLight(paper); if (lp !== null) return { ink: lp ? INK : PAPER, paper: paper }; }
+    return { ink: INK, paper: PAPER };
+  }
+
   // The panel: fixed at the foot of the page, in the page's own ink and paper where it has them.
   function panel() {
     var old = document.getElementById(BOX);
     if (old) old.remove();
+    var c = colours();
     var box = el('div', 'position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:2147483647;'
       + 'width:min(680px,calc(100vw - 32px));max-height:60vh;overflow:auto;box-sizing:border-box;'
-      + 'background:var(--paper,#f0eee5);color:var(--ink,#1a1916);border:1px solid var(--ink,#1a1916);'
+      + 'background:' + c.paper + ';color:' + c.ink + ';border:1px solid ' + c.ink + ';'
       + 'padding:14px 16px;font:14px/1.45 system-ui,-apple-system,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.18)');
     box.id = BOX;
+    box._colours = c;
     box.setAttribute('role', 'status');
     var close = el('button', 'float:right;margin:-4px -6px 0 8px;background:none;border:0;font:inherit;font-size:18px;cursor:pointer;color:inherit', '×');
     close.setAttribute('aria-label', 'close');
@@ -89,7 +114,7 @@
     ta.value = text;
     box.appendChild(ta);
     var row = el('div', 'margin-top:8px;display:flex;gap:10px;align-items:center');
-    var btn = el('button', 'font:inherit;padding:4px 12px;cursor:pointer;background:var(--ink,#1a1916);color:var(--paper,#f0eee5);border:0', 'Copy all');
+    var btn = el('button', 'font:inherit;padding:4px 12px;cursor:pointer;background:' + box._colours.ink + ';color:' + box._colours.paper + ';border:0', 'Copy all');
     var status = el('span', 'font-size:13px');
     btn.onclick = function () { copyText(ta, status); };
     row.appendChild(btn); row.appendChild(status);
@@ -100,7 +125,7 @@
   function showHanded() {
     var box = panel();
     box.appendChild(el('b', 'display:block;margin-bottom:4px', 'Handed to the rich face.'));
-    box.appendChild(el('div', '', 'Your answers are in the note box at the foot of this section. The face’s Send to STIGMERGY, at the bottom right, sends them with your other notes.'));
+    box.appendChild(el('div', '', 'Your answers are in the note box beside this section. The face’s Send to STIGMERGY, at the bottom right, sends them with your other notes.'));
   }
 
   // Framed in a rich face, the page hands its answers to the face, which keeps
