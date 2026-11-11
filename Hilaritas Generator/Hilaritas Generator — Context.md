@@ -26,8 +26,6 @@ Loudon's mission — serving autodidacts and polymaths globally with "learn for 
 
 **[[Spinoza Conatus]]** — hilaritas is conatus succeeding: the drive to persist and grow, meeting conditions that support growth, produces joy. The generator creates those conditions deliberately.
 
-**[[Symbiotic Skills]]** — the skill sequence is designed to produce hilaritas at each stage. If a session produces tristitia (frustration, confusion, boredom without resolution), something is wrong with the design.
-
 ## Leverage Points as Hilaritas Infrastructure (from PP05, January 2026)
 
 Two Loudon-authored extensions of Donella Meadows' leverage points framework, illustrating how the generator works at different levels:

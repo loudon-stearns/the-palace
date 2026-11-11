@@ -22,9 +22,6 @@ links:
   - target: "[[Kuramoto Coupling]]"
     type: connects-to
     label: physics-of-firing
-  - target: "[[Symbiotic Skills]]"
-    type: enables
-    label: skill-via-joy
   - target: "[[Excellent Adventure]]"
     type: spawned
     label: hilaritas-in-practice

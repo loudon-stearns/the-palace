@@ -24,7 +24,7 @@ That rewrite dropped three things (`c4f30b5`).
 
 **"Learned" from the gate.** The opening once said the gating mechanism was learned. It became just a gating mechanism, which the curated palace gate and the human gate both need.
 
-**The hybrid frontier as a claim.** The 2024 section went on to say that production MoE still used uniformly neural experts, that the hybrid neural and symbolic MoE was unrealized at scale, and that this was "where the most interesting territory lies": AI reasoning, human judgment, formal specification (TLA+) and code, all experts routed by shared intent, tied to [[Symbiotic Skills]]. The claim went. The TLA+ open question that came with it stayed. If the hybrid vision is still live, that open question is its only trace.
+**The hybrid frontier as a claim.** The 2024 section went on to say that production MoE still used uniformly neural experts, that the hybrid neural and symbolic MoE was unrealized at scale, and that this was "where the most interesting territory lies": AI reasoning, human judgment, formal specification (TLA+) and code, all experts routed by shared intent, tied to Symbiotic Skills. The claim went. The TLA+ open question that came with it stayed. If the hybrid vision is still live, that open question is its only trace.
 
 **The prism as the headline.** The second paragraph once called MoE "a precise architectural mirror of both the [[Hyperdimensional Prism]] and the palace itself." It now names substrate indifference instead, and the prism is down to one cross-pillar line.
 

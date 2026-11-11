@@ -70,6 +70,7 @@ In [[STIGMERGY]] the face switch at the right of an entry's top bar offers it on
 - **Made pieces live in the bundle** as `[Entry] — rich — <what>.<ext>`, self-describing like any bundle file; a coherent set of files gets one folder named for what the set is. Gathered pieces keep their names. A piece's `near` places it beside the paragraph or figure it clarifies, not at the bottom.
 - **The review is built in.** Every section has a note (◇); the dock sends them to the board as a `human_eval` from TRICKSTER ([[Review Layer]]).
 - **Sibling of [[The Scroll]].** The scroll shows what a page has *made*, newest first; the rich face shows the page's *idea*, in the order of the idea.
+- **Sibling of [[Light Enrichment]].** One small picture, diagram or sound set beside one sentence, asking nothing of the reader; what this page says about the rich face holds there too.
 
 The renderer, its server and the fingerprint tool are `_ops/rich-face/` (README there: the manifest format, the piece gotchas). A rich face is a whole page — not STIGMERGY's *inline rich content*, the artifacts a single board message can carry.
 

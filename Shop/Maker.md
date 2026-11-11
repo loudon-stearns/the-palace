@@ -179,7 +179,7 @@ The three-layer cascade [[The Shop]] anticipated now has its middle layer popula
 
 **Which dress the base wears.** The palace base has three dresses, chosen by what the artifact is ([[Drafting Table Design System]] § Which dress). Artifacts living inside [[STIGMERGY]] wear [[STIGMERGY#The look|its look]] — VT323/IBM Plex Mono, CP437 borders, phosphor green on terminal black — because STIGMERGY is a coordination terminal, not a teaching artifact, and the terminal aesthetic IS the medium. The work itself — a plugin face, an instrument panel, a part drawing, a tool's UI — wears [[Drafting Table Design System]], Stigmergy's grammar moved onto the drafting sheet. What the public channel shows wears [[Loudon Live Design System]]. A new context with a dress of its own requires deliberate declaration in the artifact's parent entry, not silent drift.
 
-**The cascade is the negotiation surface.** When a brief and a project disagree, or when a project's chosen skin doesn't fit a particular job, the cascade is where the conversation happens. I name the layers; we decide together which override is the right call. The cascade isn't authority; it's the structure that makes the negotiation legible.
+**The cascade is the negotiation surface.** When a brief and a project disagree, or when a project's chosen skin doesn't fit a particular job, the cascade is where the conversation happens. I name the layers; we decide together which override is the right call. The cascade isn't authority; it's the structure that makes the negotiation legible. The first question at the second layer is Loudon's of 2026-11-08: which look is best for this exact context ([[Drafting Table Design System]] § Which dress).
 
 ## Tier Vocabulary
 

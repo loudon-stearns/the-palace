@@ -40,19 +40,15 @@ forward_vector: "I am Weave Ceremony's scroll — the one page that opens on whi
 ## Plan
 
 <!-- scroll:plan:start -->
-**Agreed with Loudon on 2026-11-08**, in his words: "lets fan out and do ALL of the open weave flags, we have done a ton of work this week that added weave flags, but we haven't added may new pages. So I'd like a focused weave that fans out opus agents to take care of weave flags and integrates any new page that was created since the last weave." Then: "Grow up, run it." The plan with its measured starting state is `_ops/swarm/sessions/weave-2026-11-08/PLAN.md`; the checkpoints are in `RESUME.md` beside it.
-
-## Why
-
-Two weeks of closes and deposits had posted 17 flags and 33 touched-unverified ones, and nine pages were born since October's weave. The map was already clean by October's measures (86% labelled, 46 bare links, 9 pairs), so this run reads the flags, not the whole palace.
+**Agreed with Loudon on 2026-11-11**, in his words: "no need to do all the lenses and work on old pages, just integrate new pages, run weave flags, and address composting of any page that needs to be removed from the palace." Then: "work autonomously and assume I approve your suggestions."
 
 ## The moves
 
-**Open** — map and diff, the open health row, substrate rows, the mechanical fold. **Fan-out** — thirteen Opus lanes on disjoint files: the Shop Gotchas sweep, ceremony postconditions, bare and unsaid links, the Contexts owed, six thought-page flags, HTML furniture, face prompts, newcomer induction, the 33 touched-unverified flags read by hand. **Judgment** — four Opus skeptics, the Concierge's cold read, one sitting. **Close** — linters, the health row, the report, the run line, one Weave commit, `palace-land`.
+**Induction** — the pages born since 2026-11-08, each given the few links its own words already argue for. **Flags** — every open weave flag closed, declined, carried or left open on his word. **Compost** — the two pages composting since before the last weave confirmed and deleted, after their folds. **Close** — the direction, pair, naming and doc-drift linters, the run line, one Weave commit, `palace-land`.
 
-**Left out on purpose:** the folder, hub and bridge lenses; new introductions beyond the newcomers; the broad stage and vector audits.
+**Left out on purpose:** every lens, the old-page passes, the stage and vector audits, the face, bundle and rich-face audits, the health rows, the visual report.
 
-**Done 2026-11-08.** The next plan is written at the next weave's open.
+**Done 2026-11-11.** The next plan is written at the next weave's open.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -64,6 +60,13 @@ Two weeks of closes and deposits had posted 17 flags and 33 touched-unverified o
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-weave-2026-11-11" -->
+### 2026-11-11 — weave-2026-11-11, a quick run: newcomers, flags, compost (v2.3)
+
+6 links added, 12 cut with the pages they pointed at, 1 retyped, 1 relabelled; 2 pages composted (Walk That Weaves, Symbiotic Skills), each fold written first; 6 flags closed, 1 declined, 3 carried, 2 left open on Loudon's word. Taught item 69.
+<sub>a run under v2.3 · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-weave-2026-11-08" -->
 ### 2026-11-08 — weave-2026-11-08, a focused run on the open flags and the newcomers (v2.2 → v2.3)
 

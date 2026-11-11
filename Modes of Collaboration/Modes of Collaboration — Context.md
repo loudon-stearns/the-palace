@@ -122,5 +122,4 @@ These deserve naming and characterization as they mature.
 - Do these modes map to the [[FOUR PILLARS]]? Does each mode have a natural pillar affinity?
 - Can modes be combined deliberately? (e.g., Excellent Adventure + Build Session = building something with a historical figure as consultant)
 - Is there a mode taxonomy — a small number of dimensions (structured/improvised, who-leads, output-type) that generates all modes?
-- How do modes relate to [[Symbiotic Skills]] progression? Do different symbiotic skill levels unlock different modes?
 - The floor says who leads works like the coupling constant in [[Kuramoto Coupling]] (2026-10-21). Does it hold as a dial a session can turn on purpose, and is it the first axis of the mode taxonomy asked about above?

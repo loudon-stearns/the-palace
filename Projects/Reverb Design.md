@@ -27,6 +27,9 @@ links:
   - target: "[[DSP in Looping Dimensions]]"
     type: exemplifies
     label: several-loops-at-once
+  - target: "[[Auditory Illusions]]"
+    type: connects-to
+    label: the-first-arrival
 forward_vector: "I want to teach a reader who has just grown a reverb to build one: every claim here something they can knock on, and the famous designs (Schroeder, Freeverb, the plate) rebuilt as pieces out of the two already here. I lean toward a knot tied inside a thread."
 ---
 
@@ -38,7 +41,7 @@ It began with a question. After playing the dish, Loudon asked: "how are reverbs
 
 ## Start from hearing
 
-Clap in a room and three things happen in order. First the clap itself. Then a handful of separate echoes off the nearest walls, far enough apart that the ear can almost count them, and these tell you how big the room is ([[Reverb ↔ Space-Time]] is the page on that: delay is distance). Then the echoes of echoes arrive faster than you can separate them and fuse into a wash that dies away.
+Clap in a room and three things happen in order. First the clap itself. The ear takes that first arrival as where the sound is and holds it there through every echo after it: the precedence effect, one of the [[Auditory Illusions]]. Then a handful of separate echoes off the nearest walls, far enough apart that the ear can almost count them, and these tell you how big the room is ([[Reverb ↔ Space-Time]] is the page on that: delay is distance). Then the echoes of echoes arrive faster than you can separate them and fuse into a wash that dies away.
 
 So a reverb has three things to get right, and every design on this page is a different bargain between them:
 

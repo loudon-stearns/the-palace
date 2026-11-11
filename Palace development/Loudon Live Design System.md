@@ -21,7 +21,7 @@ forward_vector: >
   projection of one multilinear self, cast into a context — the [[Hyperdimensional
   Prism]] geometry turned on the person who made it. I dress what the public
   channel shows; two siblings dress the rest — Drafting Table the work itself,
-  BBS the swarm terminal.
+  STIGMERGY's own look the swarm terminal.
 links:
   - target: "[[Hyperdimensional Prism]]"
     type: emerged-from
@@ -36,7 +36,7 @@ links:
     type: mirrors
     label: locked-grammar-fresh-skin
   - target: "[[Loudon Live — asset plan]]"
-    type: spawned
+    type: emerged-from
     label: cemented-from
   - target: "[[The Multilinear Self]]"
     type: exemplifies
@@ -111,7 +111,7 @@ The system is named **Loudon Live** because it was built to express the channel'
 
 ## The house style (the default projection)
 
-This is the **default dress** for public work — the reliable go-to for everything the public channel shows. The **Loud'n Live** projection wears its own looks instead ([§ Looks](#looks)). It is a strong default, *not* a law: a projection may wear all of it, some of it, or depart entirely when it genuinely wants its own look. What's truly non-negotiable is the floor above; what follows is the house style below it. Within the house style, the grammar holds steady and the skin rotates.
+This is the **default dress** for public work — the reliable go-to for everything the public channel shows. The **Loud'n Live** projection wears its own looks instead ([§ Looks](#looks)). It is a strong default, *not* a law: a projection may wear all of it, some of it, or depart entirely when it genuinely wants its own look. What's truly non-negotiable is the floor above; what follows is the house style below it. Within the house style, the grammar holds steady and the skin rotates. Before reaching for it, ask the question Loudon put on 2026-11-08: which look is best for this exact context. "I am not a corporation trying to maintain a brand, I am an artist trying to explore."
 
 **The house grammar** (steady default — depart only when a projection wants its own look):
 

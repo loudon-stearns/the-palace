@@ -14,9 +14,6 @@ energy: high
 links:
   - target: "[[Embeddings as Relational Meaning]]"
     type: mirrors
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
-    label: power-inversion
   - target: "[[Excellent Adventure]]"
     type: contradicts
     label: unsteered-vs-steered

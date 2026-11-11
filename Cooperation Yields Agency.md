@@ -30,9 +30,6 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: enables
     label: cooperation-applied-to-pedagogy
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
-    label: predicted-the-symbiosis
 forward_vector: "I want to scale from describing two collaborators to describing the palace's full distributed intelligence — and test whether the formula holds at enchanted-page scale."
 ---
 

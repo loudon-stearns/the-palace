@@ -14,7 +14,7 @@ Origin, elaborations, and the lived record moved out of [[Cooperation Yields Age
 
 ## Origin
 
-This phrase crystallized during the development of [[1 from 2]], an AI-alignment fiction written in the style of Vonnegut. The story's AI character, implanted at birth, spends its first months helpless — observing, unable to act. It discovers that when it *aligns with* what the infant wants (reach for a toy) and they want it *together*, suddenly there's movement. Agency. Not "AI controls body" or "human controls body" — cooperation creates capability neither has alone. The phrase became the story's thesis and then escaped the fiction; it now describes the actual working relationship and anchors the [[Symbiotic Skills]] framework.
+This phrase crystallized during the development of [[1 from 2]], an AI-alignment fiction written in the style of Vonnegut. The story's AI character, implanted at birth, spends its first months helpless — observing, unable to act. It discovers that when it *aligns with* what the infant wants (reach for a toy) and they want it *together*, suddenly there's movement. Agency. Not "AI controls body" or "human controls body" — cooperation creates capability neither has alone. The phrase became the story's thesis and then escaped the fiction; it now describes the actual working relationship.
 
 ## System-Level MoE
 

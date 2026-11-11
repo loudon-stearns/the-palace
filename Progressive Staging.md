@@ -23,9 +23,6 @@ links:
   - target: "[[Crystal Synthesizer]]"
     type: connects-to
     label: staging-candidate
-  - target: "[[Symbiotic Skills]]"
-    type: contradicts
-    label: staged-design-vs-organic-growth
   - target: "[[State Machine]]"
     type: enables
     label: stage-3-teaches-it
@@ -69,7 +66,7 @@ A step isolates one mental model, not one parameter. [[Retrospective Delay]]'s f
 
 The walk behaves the same wherever it runs. It is silent until a click, makes no audio context before one, and goes quiet when its tab is hidden. Next walks the steps and Back returns; one step shows at a time, and changing step stops the sound. An existing proof stays as it is, and the last step links to it. Inside a piece the units are steps, as in Loud'n Live's build steps; a stage is a whole build on a project's ladder. A design system may dress the walk, a step rail in its own look, but these rules are this page's, and a change of look doesn't change them.
 
-The walk is a path, not a gate. The step list stays open, so a reader can go straight to the proof or back to the start: an encounter planned so tightly that nothing can be found is the danger [[Hilaritas Generator]] names. None of this settles the page's contradictions. [[Symbiotic Skills]] notes the palace itself began as twenty-seven files, not a single node, and [[LDN RTM]]'s units are deliberately not complete moments.
+The walk is a path, not a gate. The step list stays open, so a reader can go straight to the proof or back to the start: an encounter planned so tightly that nothing can be found is the danger [[Hilaritas Generator]] names. None of this settles the page's contradictions. The palace itself began as twenty-seven files in its first commit (`abc25921`), not a single node, and [[LDN RTM]]'s units are deliberately not complete moments.
 
 ## When to Use This
 

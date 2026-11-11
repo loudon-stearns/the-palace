@@ -24,9 +24,6 @@ links:
   - target: "[[Hilaritas Generator]]"
     type: connects-to
     label: pedagogical-application
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
-    label: framework-scaled-outward
   - target: "[[SUBSTRATE]]"
     type: deepens
   - target: "[[Modes of Collaboration]]"
@@ -38,11 +35,11 @@ forward_vector: "I want to become the palace's most-walked named songline — th
 
 ![[The Cooperation Path — hero.png]]
 
-A named songline through the palace, tracing how a story became a principle, grounded in biology, rooted in philosophy, expressed as pedagogy, and scaled into a framework.
+A named songline through the palace, tracing how a story became a principle, grounded in biology, rooted in philosophy, and expressed as pedagogy.
 
 ## The Path
 
-[[1 from 2]] → [[Cooperation Yields Agency]] → [[Endosymbiosis]] → [[Spinoza Conatus]] → [[Hilaritas Generator]] → [[Symbiotic Skills]]
+[[1 from 2]] → [[Cooperation Yields Agency]] → [[Endosymbiosis]] → [[Spinoza Conatus]] → [[Hilaritas Generator]]
 
 ## What It Traces
 
@@ -56,11 +53,9 @@ A named songline through the palace, tracing how a story became a principle, gro
 
 **[[Hilaritas Generator]]** — The pedagogical application. The classroom reconceived as a machine for producing whole-being joy through simultaneous activation of all four pillars. Cooperation between teacher and student, yielding the student's increased agency.
 
-**[[Symbiotic Skills]]** — The framework scaled outward. Designed to teach others to grow the same kind of cooperation, starting from a single wiki page and building toward a living knowledge organism.
-
 ## How to Walk It
 
-Start at [[1 from 2]] and ask: what is this story's thesis? Follow the link to [[Cooperation Yields Agency]] and ask: where does this principle appear in nature? Follow to [[Endosymbiosis]] and ask: what does biology tell us about why this works? Follow to [[Spinoza Conatus]] and ask: what does the philosophy say about what drives it? Follow to [[Hilaritas Generator]] and ask: how does this become pedagogy? Arrive at [[Symbiotic Skills]] and ask: how do we teach it to others?
+Start at [[1 from 2]] and ask: what is this story's thesis? Follow the link to [[Cooperation Yields Agency]] and ask: where does this principle appear in nature? Follow to [[Endosymbiosis]] and ask: what does biology tell us about why this works? Follow to [[Spinoza Conatus]] and ask: what does the philosophy say about what drives it? Follow to [[Hilaritas Generator]] and ask: how does this become pedagogy?
 
 Each stop answers the previous question and opens the next.
 
@@ -72,5 +67,5 @@ Named at the first Weave (2026-03-17).
 
 - Is this the palace's primary songline, or one of several peers?
 - Should the path extend further — to [[SUBSTRATE]] as the knowledge organism that the cooperation built?
-- Can it be walked in reverse? What does the reverse reading reveal? (Starting at Symbiotic Skills and working backward toward fiction.)
-- The path currently covers creation → biology → philosophy → pedagogy → framework. Is there a version that runs through tools and instruments instead?
+- Can it be walked in reverse? What does the reverse reading reveal? (Starting at Hilaritas Generator and working backward toward fiction.)
+- The path currently covers creation → biology → philosophy → pedagogy. Is there a version that runs through tools and instruments instead?

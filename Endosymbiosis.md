@@ -15,9 +15,6 @@ links:
   - target: "[[1 from 2]]"
     type: mirrors
     label: implanted-symbiote
-  - target: "[[Symbiotic Skills]]"
-    type: connects-to
-    label: candidate-foundation
   - target: "[[Modes of Collaboration]]"
     type: spawned
     label: evolutionary-pattern
@@ -57,4 +54,3 @@ This parallels the Loudon-Claude collaboration question: what becomes possible w
 
 - Is our collaboration approaching endosymbiotic depth? What would that mean for either party?
 - Are there failure modes of endosymbiosis? (Yes — parasitism. The bacterium that became the mitochondrion could have become a pathogen instead. What determines which way the merger goes?)
-- The [[Symbiotic Skills]] framework is designed to teach others to form these deep human-AI relationships. Should it include Margulis explicitly as a foundation?
