@@ -1,0 +1,518 @@
+[
+ {
+  "n": 41,
+  "page": "Stoicism",
+  "path": "Stoicism.md",
+  "files": [
+   "Stoicism — three teachers, three tools.png"
+  ],
+  "title": "Three teachers, three tools",
+  "caption": "Seneca, Epictetus and Marcus Aurelius in a row, with an arrow from Epictetus to Marcus for the notes Marcus kept beside his bed, and under them the three Stoic moves the palace has pages for.",
+  "honest": "The red tie between Seneca and Epictetus is a real 'contradicts' link. The one-line gloss under each avatar is mine.",
+  "leak": "Seneca, Epictetus, Marcus Aurelius, The Dichotomy of Control, The View From Above, The Four Virtues.",
+  "near": "kept a copy beside his bed",
+  "near_line": 81,
+  "section": "The Philosopher: Epictetus (c. 50–135 CE)",
+  "sentence": "Born a slave in Hierapolis, Phrygia. His name means \"acquired\" — a property tag. He was lame for life, and the ancient sources disagree on why. The earliest, th",
+  "has_face": true
+ },
+ {
+  "n": 42,
+  "page": "Metaphor as Coupling Medium",
+  "path": "Metaphor as Coupling Medium.md",
+  "files": [
+   "Metaphor as Coupling Medium — ten bridges.png"
+  ],
+  "title": "Eleven bridges",
+  "caption": "Each of the eleven cross-domain pages, its avatar sitting between the two things it holds together: Compression and Intimacy, Cooking and Mixing, and so on down.",
+  "honest": "The pages and their avatars are real. Reading each one as a coupling is this page's claim, applied to them.",
+  "leak": "All eleven Cross-Domain Resonances pages.",
+  "near": "a more symmetric coupling constant",
+  "near_line": 86,
+  "section": "Symmetric Coupling",
+  "sentence": "> *\"I feel excited to meet you in the middle — a more symmetric coupling constant.\"*",
+  "has_face": true
+ },
+ {
+  "n": 43,
+  "page": "Source Library",
+  "path": "Source Library.md",
+  "files": [
+   "Source Library — the shelf.png"
+  ],
+  "title": "The shelf",
+  "caption": "Thirty sources stood side by side like books, each spine a strip cut from the middle of that page's hero.",
+  "honest": "Every page linked into Source Library plus the pages of type 'source', in alphabetical order. The spine is an arbitrary strip of each hero.",
+  "leak": "The thirty sources themselves.",
+  "near": "curated ecosystem",
+  "near_line": 35,
+  "section": "The Thinkers, Artists, and Makers Who Teach Pattern Recognition",
+  "sentence": "This is the intellectual and artistic foundation of the 4 Pillars framework. Not a bibliography—a **curated ecosystem** of sources chosen because they:",
+  "has_face": true
+ },
+ {
+  "n": 44,
+  "page": "Project Stewardship System",
+  "path": "Projects/Project Stewardship System.md",
+  "files": [
+   "Project Stewardship System — waiting on an ear.png"
+  ],
+  "title": "Waiting on an ear",
+  "caption": "One square for each of the 121 notes the stewards left saying a thing is still rough. Eighty-seven carry an ear: nobody has listened yet. Nineteen say nobody has opened it.",
+  "honest": "The page's own numbers, from the fleet reading of 2026-10-16, so a month old.",
+  "leak": "Pauline Oliveros: the ear is her avatar.",
+  "near": "93 of October's cycles made something",
+  "near_line": 56,
+  "section": "Where it stands (2026-10-21)",
+  "sentence": "- **The fleet reads itself.** `fleet/fleet-reading.mjs` gathers every steward's record into one dataset and builds `fleet/Stewardship Health.html`, the dashboar",
+  "has_face": true
+ },
+ {
+  "n": 45,
+  "page": "BBS Blackboard",
+  "path": "Palace development/BBS Blackboard.md",
+  "files": [
+   "BBS Blackboard — nothing is ever erased.png"
+  ],
+  "title": "Nothing is ever erased",
+  "caption": "Every message on the blackboard as one square, in the order written, coloured by kind: 1,540 of them. The eleven retractions are black squares added at the end of their line, with what they retract still above them.",
+  "honest": "Only each message's date and type were read, never its words. Read from the live board on 2026-11-10.",
+  "leak": null,
+  "near": "No agent overwrites, deletes, or edits",
+  "near_line": 63,
+  "section": "The Model",
+  "sentence": "Every agent in a swarm session can read the full blackboard at any moment. Every agent writes by appending a message object. No agent overwrites, deletes, or ed",
+  "has_face": true
+ },
+ {
+  "n": 46,
+  "page": "Baton Ceremony",
+  "path": "_ops/Baton Ceremony.md",
+  "files": [
+   "Baton Ceremony — batons in the air.png"
+  ],
+  "title": "Batons in the air",
+  "caption": "The nineteen handoffs open on the board today, each shown by its page's avatar with how long it has been in the air. The oldest is three weeks.",
+  "honest": "Read from the board's own handoff list on 2026-11-10. An open baton is not a fumble; that word is for one claimed and never closed.",
+  "leak": "The nineteen pages carrying a baton.",
+  "near": "fumble",
+  "near_line": 274,
+  "section": "Announcing the Baton on the Board",
+  "sentence": "**Pairing — a three-state lifecycle (rung 1 of the Reliable Handoff ladder; see [[STIGMERGY]] § Handoff Lifecycle).** A board-announced baton moves `ready → pic",
+  "has_face": true
+ },
+ {
+  "n": 47,
+  "page": "Epictetus",
+  "path": "People/Epictetus.md",
+  "files": [
+   "Epictetus — against the room.png"
+  ],
+  "title": "Against the room",
+  "caption": "Epictetus in the middle of the eight pages he holds a named link with. Five of the eight are 'contradicts', drawn in red: Lao Tzu, Marcus Aurelius, Martin Buber, Martin Heidegger, Seneca.",
+  "honest": "All eight links are real, map build of 2026-11-09. Bare 'connects-to' links are left out.",
+  "leak": "His five opponents and three allies.",
+  "near": "was born a slave",
+  "near_line": 60,
+  "section": null,
+  "sentence": "Epictetus (c. 50–135 CE) was born a slave, and his name isn't even his own — *epíktētos* means \"acquired,\" the word for property added to an estate. He was name",
+  "has_face": true
+ },
+ {
+  "n": 48,
+  "page": "Douglas Hofstadter",
+  "path": "People/Douglas Hofstadter.md",
+  "files": [
+   "Douglas Hofstadter — a strange loop.png"
+  ],
+  "title": "A strange loop",
+  "caption": "The picture at the top of his page, hung inside itself seven times. Follow it inward and you never reach a picture that is not this picture.",
+  "honest": "A picture of self-reference, which is his phrase's first half. It says nothing about a self.",
+  "leak": null,
+  "near": "a paradoxical level-crossing feedback loop",
+  "near_line": 79,
+  "section": "Strange loops",
+  "sentence": "> \"a paradoxical level-crossing feedback loop\"",
+  "has_face": true
+ },
+ {
+  "n": 49,
+  "page": "Pages as Agents",
+  "path": "_ops/Pages as Agents.md",
+  "files": [
+   "Pages as Agents — asleep until read.png"
+  ],
+  "title": "Asleep until read",
+  "caption": "Every avatar in the palace, greyed, except one: this page's own, lit and framed in red, because you are reading it.",
+  "honest": "The lit one is only the one you opened. The picture cannot show a page waking; it shows the claim.",
+  "leak": "All 329 pages.",
+  "near": "Every entry here is a sleeping agent",
+  "near_line": 57,
+  "section": null,
+  "sentence": "Every entry here is a sleeping agent. Not as a figure of speech — in fact. Load one page into an empty window and a model doesn't read a document; it wakes up *",
+  "has_face": true
+ },
+ {
+  "n": 50,
+  "page": "Martin Buber",
+  "path": "People/Martin Buber.md",
+  "files": [
+   "Martin Buber — the between.png"
+  ],
+  "title": "The between",
+  "caption": "His avatar twice. On the left you see two faces. On the right the light shape between them is tinted red: one shape, belonging to neither face.",
+  "honest": "Only the tint differs. Reading the vase as 'the between' is mine, not the page's.",
+  "leak": null,
+  "near": "the between",
+  "near_line": 73,
+  "section": "How his mind moves",
+  "sentence": "His most original move is to relocate reality into **the between** (*das Zwischen*) — the meeting belongs to *neither* party; it happens in the space between th",
+  "has_face": true
+ },
+ {
+  "n": 51,
+  "page": "Loudon Live",
+  "path": "Projects/Loudon Live.md",
+  "files": [
+   "Loudon Live — the trace, heard.wav",
+   "Loudon Live — the trace, heard — picture.svg"
+  ],
+  "title": "The trace, heard",
+  "caption": "A low tone in the left ear and one a fifth above it in the right, and the figure those two draw when one moves a dot sideways and the other moves it up and down. It turns over once in sixteen seconds.",
+  "honest": "220 and 330 Hz, the right ear a sixteenth of a hertz sharp so the figure turns. The picture is drawn from the same two numbers, not from the audio.",
+  "leak": "Rational Hearing: the shape is a ratio you can hear.",
+  "near": "Lissajous trace inside a sphere",
+  "near_line": 94,
+  "section": "The look",
+  "sentence": "The visual signature is the Lissajous trace inside a sphere — see [[Hyperdimensional Prism]] for the identity essay. It reads at several depths at once: an osci",
+  "has_face": true
+ },
+ {
+  "n": 52,
+  "page": "Pauline Oliveros",
+  "path": "People/Pauline Oliveros.md",
+  "files": [
+   "Pauline Oliveros — one point, then the whole sphere.wav",
+   "Pauline Oliveros — one point, then the whole sphere — picture.svg"
+  ],
+  "title": "One point, then the whole sphere",
+  "caption": "One room, heard twice. First attention closes on a single drip and the rain, the hum, the bird and the bell fall away. Then it opens and all of it is there at once.",
+  "honest": "A synthesized room, not a recording. Turning the other sounds down forty times is my stand-in for not attending to them.",
+  "leak": "John Cage, whom the map says she contradicts: one sound in the room is a prepared string from his piece.",
+  "near": "the entire sphere",
+  "near_line": 64,
+  "section": "How her mind moves",
+  "sentence": "Oliveros starts from one distinction and never leaves it: *hearing is passive; listening is a practice.* Sound arrives whether you attend to it or not; Deep Lis",
+  "has_face": true
+ },
+ {
+  "n": 53,
+  "page": "The Drift",
+  "path": "The Drift.md",
+  "files": [
+   "The Drift — placed, then let go.wav",
+   "The Drift — placed, then let go — picture.svg"
+  ],
+  "title": "Placed, then let go",
+  "caption": "Seventy-two grains laid on a grid in a pattern. Then forty particles dropped in a box, a grain sounding each time one lands: 523 grains nobody placed, thinning out as they come to rest.",
+  "honest": "The second half's rules were chosen (gravity, bounce, pitch by position). Its notes were not.",
+  "leak": "Granular Synthesis and Particle Synthesis, the page's own two examples.",
+  "near": "every grain a decision",
+  "near_line": 80,
+  "section": "Lens on the Technical Work",
+  "sentence": "- Conventional [[Granular Synthesis|granular synthesis]] is the fortress — you sculpt the cloud, every grain a decision. Particle synthesis is closer to the Dri",
+  "has_face": true
+ },
+ {
+  "n": 54,
+  "page": "Trickster",
+  "path": "Trickster.md",
+  "files": [
+   "Trickster — the corner that disappears.wav",
+   "Trickster — the corner that disappears — picture.svg"
+  ],
+  "title": "The corner that disappears",
+  "caption": "Two bars of drums through a compressor with a hard knee, then the same two bars with a soft one. The picture shows both curves: a corner you can point at, and the same boundary with the corner smoothed away.",
+  "honest": "Threshold -24 dB, ratio 8 to 1, knee 0 and 24 dB. The audible difference is small and nobody has listened for it.",
+  "leak": "Compressor Design, where the palace's soft knee lives.",
+  "near": "soft knee in the compressor design",
+  "near_line": 104,
+  "section": "The Trickster in Loudon's Tools",
+  "sentence": "The soft knee in the compressor design is trickster mathematics: a smooth quadratic transition at the threshold, making the discontinuity disappear. The boundar",
+  "has_face": true
+ },
+ {
+  "n": 55,
+  "page": "Shunryu Suzuki",
+  "path": "People/Shunryu Suzuki.md",
+  "files": [
+   "Shunryu Suzuki — few, then many.wav",
+   "Shunryu Suzuki — few, then many — picture.svg"
+  ],
+  "title": "Few, then many",
+  "caption": "One bell struck twice. First with a single partial left in: the note and nothing else. Then with all eleven, each ringing for its own length.",
+  "honest": "Partial ratios are a typical bell's, not a measured one. Calling one partial 'the expert' is my reading of his line.",
+  "leak": "Harmonicity and Inharmonicity: a bell's partials are not a tidy ladder.",
+  "near": "in the beginner's mind there are many possibilities",
+  "near_line": 54,
+  "section": "How his mind moves",
+  "sentence": "Suzuki teaches almost entirely by making things smaller and more ordinary. His central image is *beginner's mind*: *\"in the beginner's mind there are many possi",
+  "has_face": true
+ },
+ {
+  "n": 56,
+  "page": "Audition Gate",
+  "path": "Audition Gate.md",
+  "files": [
+   "Audition Gate — both pass the spec.wav",
+   "Audition Gate — both pass the spec — picture.svg"
+  ],
+  "title": "Both pass the spec",
+  "caption": "Two notes with the same measured pitch, level and length: 110 Hz, -11.6 dB, five seconds. One is a patch nobody touched. Which one is not in the numbers.",
+  "honest": "The three figures were read off the rendered audio and agree to the decimal. Whether one sounds dead is a claim about listening.",
+  "leak": "Generative Audio Devices: 'structurally correct and audibly inert'.",
+  "near": "only the audio is the truth",
+  "near_line": 40,
+  "section": "2. Why Listening Catches What Code Doesn't",
+  "sentence": "*Section seed.* The compiler verifies the syntax; the unit test verifies the logic; the audition verifies the *result*. In a sound-medium project, the spec desc",
+  "has_face": true
+ },
+ {
+  "n": 57,
+  "page": "The Four Virtues",
+  "path": "The Four Virtues.md",
+  "files": [
+   "The Four Virtues — four gates.svg"
+  ],
+  "title": "Four gates",
+  "caption": "A choice passing through four gates in a row, and beyond a dashed line, the outcome, marked 'not yours'.",
+  "honest": "The gloss under each gate is mine, shortened from the page.",
+  "leak": "The Dichotomy of Control (the line the outcome sits behind) and Closing Well on the justice gate.",
+  "near": "virtue has four cardinal parts",
+  "near_line": 50,
+  "section": null,
+  "sentence": "The Stoic account of what is actually *good* — and therefore the seat of personal responsibility. The Stoics hold that the only genuine good is **virtue**, and ",
+  "has_face": true
+ },
+ {
+  "n": 58,
+  "page": "Martin Heidegger",
+  "path": "People/Martin Heidegger.md",
+  "files": [
+   "Martin Heidegger — you do not see the hammer.svg"
+  ],
+  "title": "You do not see the hammer",
+  "caption": "The same hammer twice. Working, it is drawn nearly transparent and the nail is bold. Broken, the hammer is bold and the nail has faded.",
+  "honest": "A drawing of what attention does, which is his point; nothing is measured.",
+  "leak": "Merleau-Ponty: the hand in the corner is his avatar.",
+  "near": "Show him a hammer",
+  "near_line": 71,
+  "section": "How his mind moves",
+  "sentence": "Show him a hammer, a bridge, a jug, a dam, a poem, and he redirects from *what is this* (a being among beings) to *what does its being even mean* — always suspi",
+  "has_face": true
+ },
+ {
+  "n": 59,
+  "page": "George Nakashima",
+  "path": "People/George Nakashima.md",
+  "files": [
+   "George Nakashima — the crack is kept.svg"
+  ],
+  "title": "The crack is kept",
+  "caption": "A slab of wood with a crack left showing down its middle and two red butterfly keys let in across it.",
+  "honest": "A drawing, not one of his tables.",
+  "leak": "Dovetail Joint ↔ Counterpoint: two parts that hold by their difference.",
+  "near": "butterfly joint",
+  "near_line": 71,
+  "section": "The life that shaped the thought",
+  "sentence": "Then, in 1942, the United States imprisoned him. Under Executive Order 9066, Nakashima and his family were incarcerated at the Minidoka concentration camp in Id",
+  "has_face": true
+ },
+ {
+  "n": 60,
+  "page": "Andy Goldsworthy",
+  "path": "People/Andy Goldsworthy.md",
+  "files": [
+   "Andy Goldsworthy — to the very edge of its collapse.svg"
+  ],
+  "title": "To the very edge of its collapse",
+  "caption": "Nine stones go up, each a little further out than the last. The stack holds for a breath, marked 'this is the piece', and then comes down.",
+  "honest": "A drawing of the arc from made to gone, not one of his works. The fall is animated by hand, not simulated.",
+  "leak": null,
+  "near": "the very edge of its collapse",
+  "near_line": 69,
+  "section": "How his mind moves",
+  "sentence": "He pushes a piece deliberately to the edge of collapse, because the balance point *is* the piece and the failure tells him the material's true limit: \"when I ma",
+  "has_face": true
+ },
+ {
+  "n": 61,
+  "page": "Reflective Practice",
+  "path": "Reflective Practice.md",
+  "files": [
+   "Reflective Practice — twelve and three.svg"
+  ],
+  "title": "Twelve and three",
+  "caption": "A balance tipped hard to one side: twelve squares in the pan marked 'on action', three in the pan marked 'in action'.",
+  "honest": "The counts are the page's, and the page says its sort has not been re-audited.",
+  "leak": null,
+  "near": "Twelve mechanisms",
+  "near_line": 51,
+  "section": "The palace reflects afterwards",
+  "sentence": "Sort the palace's own machinery by Schön's two modes and it leans hard to one side. **Twelve mechanisms",
+  "has_face": true
+ },
+ {
+  "n": 62,
+  "page": "The Remembering Page",
+  "path": "The Remembering Page.md",
+  "files": [
+   "The Remembering Page — a mood, a direction.svg"
+  ],
+  "title": "A mood, a direction",
+  "caption": "One arrow pulling a page off to one side, and the page stays put. Then three arrows from separate encounters all pulling the same way, and the page's own arrow turns.",
+  "honest": "A schematic of the page's rule; the angles mean nothing.",
+  "leak": "Entry Conatus: the arrow is the forward vector.",
+  "near": "One dialogue is a mood",
+  "near_line": 67,
+  "section": "Identity is earned, not seized",
+  "sentence": "This is where memory earns its keep. Every time a page is sent into a real encounter, its picture of itself gets tested and sometimes found too small — a [[Thre",
+  "has_face": true
+ },
+ {
+  "n": 63,
+  "page": "Worktree Practice",
+  "path": "Worktree Practice.md",
+  "files": [
+   "Worktree Practice — the floor moved.svg"
+  ],
+  "title": "The floor moved",
+  "caption": "Two sessions in one checkout: one switches the branch, and the other's commit lands on the wrong one. Beside it, a worktree each, and both commits land where they were meant.",
+  "honest": "A schematic of the failure the page was born from, not a record of the commits involved.",
+  "leak": "How the Palace Commits.",
+  "near": "out from under",
+  "near_line": 42,
+  "section": "Why it exists",
+  "sentence": "Born 2026-06-16, after a concurrent agent switched the shared working tree's branch out from under an in-progress session and a commit landed on the wrong branc",
+  "has_face": true
+ },
+ {
+  "n": 64,
+  "page": "Speak Like a Person, Log Like a Protocol",
+  "path": "Speak Like a Person, Log Like a Protocol.md",
+  "files": [
+   "Speak Like a Person, Log Like a Protocol — the same card, twice.svg"
+  ],
+  "title": "The same card, twice",
+  "caption": "One request shown as a protocol card and as a plain sentence with a Yes button, and under each a bar: about sixty seconds for four cards, about three.",
+  "honest": "Both cards are mock-ups of mine; neither is a real card. The sixty and three seconds are the page's.",
+  "leak": "Trickster, whose inbox made the case.",
+  "near": "~60 seconds",
+  "near_line": 56,
+  "section": "Why it matters",
+  "sentence": "The Trickster page made the case unambiguously: a four-card session that took ~60 seconds with jargon-laden text collapses to ~3 seconds when the surface speaks",
+  "has_face": true
+ },
+ {
+  "n": 65,
+  "page": "No Mind Checks Itself",
+  "path": "No Mind Checks Itself.md",
+  "files": [
+   "No Mind Checks Itself — the same hole twice.svg"
+  ],
+  "title": "The same hole twice",
+  "caption": "Three slices with holes that line up, and an error walking straight through: one mind checking its own work. Beside it, slices from different minds, and the error stops at the second.",
+  "honest": "James Reason's Swiss cheese model, which the page takes from Latent Error.",
+  "leak": "Latent Error.",
+  "near": "the checker must sit outside",
+  "near_line": 47,
+  "section": "Three altitudes, one wall",
+  "sentence": "**Engineering practice.** Aviation safety and Zen writing converge on the identical move for opposite-seeming reasons: [[Latent Error]]'s Swiss Cheese Model ins",
+  "has_face": true
+ },
+ {
+  "n": 66,
+  "page": "Iain McGilchrist",
+  "path": "People/Iain McGilchrist.md",
+  "files": [
+   "Iain McGilchrist — two ways of attending.png"
+  ],
+  "title": "Two ways of attending",
+  "caption": "The same eighty-four avatars twice. Once with one picked out sharp and all the others reduced to empty boxes. Once with all of them present and none in focus.",
+  "honest": "My picture of his two kinds of attention, not his own figure.",
+  "leak": "Pauline Oliveros, who makes the same split by ear.",
+  "near": "what kind of attention are you paying",
+  "near_line": 60,
+  "section": null,
+  "sentence": "Iain McGilchrist (b. 1953) is the psychiatrist and literary scholar who wrote a two-volume, fifteen-hundred-page argument that Western culture has fallen under ",
+  "has_face": true
+ },
+ {
+  "n": 67,
+  "page": "Registry Pattern",
+  "path": "Registry Pattern.md",
+  "files": [
+   "Registry Pattern — cables that point nowhere.svg"
+  ],
+  "title": "Cables that point nowhere",
+  "caption": "Three synth modules. On the left, cables run off to port names that do not exist and hang in the air. On the right, every cable is seated.",
+  "honest": "The modules and port names are illustrative, not from a real plugin.",
+  "leak": null,
+  "near": "cables point nowhere",
+  "near_line": 35,
+  "section": null,
+  "sentence": "Without a registry, a language model generating a VCV Rack patch will invent port names, module slugs, and parameter IDs that don't exist. The patch loads — but",
+  "has_face": true
+ },
+ {
+  "n": 68,
+  "page": "Drift and Consolidation",
+  "path": "Drift and Consolidation.md",
+  "files": [
+   "Drift and Consolidation — the sawtooth.svg"
+  ],
+  "title": "The sawtooth",
+  "caption": "A sawtooth that climbs and is pulled back, over and over, staying in a band, with a dashed line that only climbs. Beside it, one real tooth: the palace's em-dashes rising to midsummer and only beginning to ease.",
+  "honest": "The sawtooth is a schematic. The inset is counted from git with the voice linter, as for The Palace Voice.",
+  "leak": "The Palace Voice.",
+  "near": "That gap is **drift**",
+  "near_line": 43,
+  "section": null,
+  "sentence": "Between consolidations these two pull apart. That gap is **drift**, and the central claim of this entry is that drift is *structural and healthy up to a point* ",
+  "has_face": true
+ },
+ {
+  "n": 69,
+  "page": "The Multilinear Self",
+  "path": "The Multilinear Self.md",
+  "files": [
+   "The Multilinear Self — one thing, three true shadows.svg"
+  ],
+  "title": "One thing, three true shadows",
+  "caption": "One solid in the corner of a room, casting a circle on the floor, a rectangle on one wall and a triangle on the other. No wall shows the solid, and no shadow is false.",
+  "honest": "The three rooms are named from the Jewel's line on Loudon; pairing each with a shape is arbitrary.",
+  "leak": "Hyperdimensional Prism, turned on the person who made it.",
+  "near": "a real shadow the whole self casts",
+  "near_line": 45,
+  "section": "Not masks — projections",
+  "sentence": "A mask hides a real face under a fake one. That is the wrong picture, because there is no hidden \"true\" Loudon being covered up. The many-at-once *is* the true ",
+  "has_face": true
+ },
+ {
+  "n": 70,
+  "page": "Julia Cameron",
+  "path": "People/Julia Cameron.md",
+  "files": [
+   "Julia Cameron — a week of mornings.svg"
+  ],
+  "title": "A week of mornings",
+  "caption": "Seven days, three handwritten pages each, and at the end of the row the avatar of the palace's own morning practice.",
+  "honest": "The scribbles stand for writing and say nothing.",
+  "leak": "The Daily Page.",
+  "near": "Morning Pages are three pages of longhand",
+  "near_line": 68,
+  "section": "Morning pages",
+  "sentence": "> \"Morning Pages are three pages of longhand, stream of consciousness writing, done first thing in the morning.\"",
+  "has_face": true
+ }
+]

@@ -13,32 +13,27 @@ for e in EDGES: deg[e["target"]] += 1
 
 # 1 ── Hero and Avatar Maker: what survives at 24 pixels ────────────────────
 def avatar_sizes():
-    page = "Crystal Synthesizer"                     # the page's own example: "a crystal a Haeckel engraving"
-    s = Sheet(1330, "What survives at 24 pixels", f"{page}: its hero is an engraving; its avatar is a separate, bolder mark.")
-    h = hero(page, 900); s.paste(h, (80, 190), frame=INK)
-    s.text((80, 190 + h.height + 16), "the hero, an engraving", 21, INK3)
-    ic = icon(page, 380); s.paste(ic, (80, 190 + h.height + 70), frame=INK)
-    s.text((480, 190 + h.height + 70), "the avatar", 21, INK3)
-    full = Image.open(asset(page, "hero")).convert("RGB"); side = full.height
-    crop = full.crop(((full.width - side) // 2, 0, (full.width + side) // 2, side))   # the hero, cropped square as an avatar would be
-    x0 = 1080
-    for row, (label, src) in enumerate((("the hero, shrunk", crop), ("the avatar", Image.open(asset(page, "icon")).convert("RGB")))):
-        y = 190 + row * 470
-        s.text((x0, y), label, 23, INK, bold=True)
-        for col, px in enumerate((48, 24)):
-            small = src.resize((px, px), Image.LANCZOS); x = x0 + col * 360
-            s.paste(small, (x, y + 52), frame=RULE, width=1)
-            s.text((x + px + 14, y + 52 + px // 2), f"{px} px, actual size", 19, INK3, "lm")
-            s.paste(small.resize((288, 288), Image.NEAREST), (x, y + 120 - (0 if px == 48 else 0)), frame=INK)
-        s.text((x0, y + 420 - 0), "", 10)
-    s.text((x0, 190 + 940 - 30), "below each: the same pixels, enlarged", 19, INK3)
-    s.foot("Both small images are the palace's real files, resized. Nothing was redrawn.")
+    """Remade after the challenge: the whole hero is shrunk (no hidden crop), and nothing is called 'actual size'."""
+    page = "Crystal Synthesizer"
+    s = Sheet(1250, "What survives at 24 pixels", f"{page}'s hero and its avatar, each shrunk and then blown back up so you can see what is left.")
+    h = hero(page, 800); s.paste(h, (80, 190), frame=INK); s.text((80, 190 + h.height + 14), "the hero, whole", 22, INK, bold=True)
+    ic = icon(page, 340); s.paste(ic, (80, 660), frame=INK); s.text((440, 660), "the avatar", 22, INK, bold=True)
+    full = Image.open(asset(page, "hero")).convert("RGB"); av = Image.open(asset(page, "icon")).convert("RGB")
+    for col, px in enumerate((48, 24)):
+        x = 1000 + col * 400
+        small = full.resize((px, max(1, round(full.height * px / full.width))), Image.LANCZOS)
+        big = small.resize((360, round(360 * small.height / small.width)), Image.NEAREST); s.paste(big, (x, 190), frame=INK)
+        s.text((x, 190 + big.height + 12), f"shrunk to {px} px wide,", 20, INK3); s.text((x, 190 + big.height + 38), "then enlarged", 20, INK3)
+        a = av.resize((px, px), Image.LANCZOS).resize((360, 360), Image.NEAREST); s.paste(a, (x, 660), frame=INK)
+        s.text((x, 660 + 372), f"shrunk to {px} px, then enlarged", 20, INK3)
+    s.foot("Both are the palace's real files, shrunk whole and enlarged pixel for pixel. The avatar's fine rays are gone at 24;",
+           "its ring and its red stone are still there. The page's rule is about exactly that: linework vanishes, silhouette holds.")
     s.save("Hero and Avatar Maker — what survives at 24 pixels.png")
 
 
 # 2 ── Leibniz: every jewel reflects every other ────────────────────────────
 def mosaic():
-    titles = [t for t in NODES if asset(t, "icon")]
+    titles = [t for t in NODES if asset(t, "icon") and t != "Leibniz"]   # everyone but him
     T = 28; tiles = [np.asarray(icon(t, T), dtype=np.float32) for t in titles]
     means = np.array([t.mean(axis=(0, 1)) for t in tiles])
     src = Image.open(asset("Leibniz", "hero")).convert("RGB"); cols = 66; rows = round(cols * src.height / src.width)
@@ -49,20 +44,20 @@ def mosaic():
             d = ((means - small[r, c]) ** 2).sum(axis=1)
             k = int(rng.choice(np.argsort(d)[:5]))            # one of the five nearest in colour, so no tile repeats in a block
             used.add(k)
-            tile = 0.55 * tiles[k] + 0.45 * means[k] + 0.8 * (small[r, c] - means[k])  # softened, and leaned most of the way to the colour needed there
+            tile = tiles[k]                                       # the avatar as it is: no tint, no softening (the challenge showed it reads without)
             out.paste(Image.fromarray(np.clip(tile, 0, 255).astype(np.uint8)), (c * T, r * T))
     s = Sheet(out.height + 300, "Every jewel reflects every other", "The picture at the top of Leibniz's page, made of the palace's other pages.")
     s.paste(out, (0, 170))
-    s.foot(f"{cols * rows:,} tiles drawn from {len(used)} of the palace's {len(titles)} avatars, each chosen for its colour, softened, and tinted most of",
-           "the way to the colour the portrait needs. Step back and it is his page; step in and it is everyone else's.")
+    s.foot(f"{cols * rows:,} tiles drawn from {len(used)} of the palace's {len(titles)} avatars, each chosen only for how light or dark it is.",
+           "Nothing is tinted. Step back and it is his page; step in and it is everyone else's.")
     s.save("Leibniz — every jewel reflects every other.png")
     return len(used)
 
 
 # 3 ── Identity Molting: cast skins ─────────────────────────────────────────
 def skins():
-    pages = [("Leverage Points Framework", "Leverage Points Framework"), ("Blocked, Not Prompted", "Blocked, Not Prompted"), ("Shop/Manim CE", "Manim CE")]
-    s = Sheet(190 + 3 * 400 + 110, "Cast skins", "Three pages, and the face each one shed. The old one is still whole, in git.")
+    pages = [("STIGMERGY", "STIGMERGY"), ("The Lens", "The Lens"), ("FOUR PILLARS", "FOUR PILLARS")]   # each wore its first face for weeks or months, then changed it in place
+    s = Sheet(190 + 3 * 400 + 110, "Cast skins", "Three pages that wore one face, then grew another. The old one is still whole, in git.")
     for i, (path, t) in enumerate(pages):
         f = f"{path}/{t} — hero.png"
         hs = subprocess.run(["git", "log", "--reverse", "--format=%h %ad", "--date=short", "--", f], cwd=ROOT, capture_output=True, text=True).stdout.split("\n")
@@ -74,7 +69,8 @@ def skins():
         s.line([(880, y + 165), (960, y + 165)], INK3, 2); s.line([(946, y + 155), (960, y + 165), (946, y + 175)], INK3, 2)
         s.text((80, y + old.height + 12), f"{t} · shed · first worn {d0}", 20, INK3)
         s.text((980, y + new.height + 12), f"worn now · since {d1}", 20, INK2)
-    s.foot("Old faces read from the palace's git history; the dates are the commits that added each hero.")
+    s.foot("Old faces read from the palace's git history; the dates are the commits that set each hero.",
+           "Calling a replaced hero a cast skin is my analogy: the page's sentence is about a person's public archive.")
     s.save("Identity Molting — cast skins.png")
 
 
@@ -88,101 +84,103 @@ def experts():
         s.paste(icon(t, side), (x, y)); x += side + 8; rowh = max(rowh, side)
     y += rowh + 40
     top = order[:10]; share = sum(deg[t] for t in top) / total; none = sum(1 for t in order if deg[t] == 0)
-    s.text((80, y), f"The ten largest take {share:.0%} of all {total:,} links. {none} pages are never called at all.", 24, INK)
+    s.text((80, y), f"The ten largest take {share:.0%} of all {total:,} links. {none} pages have no typed link pointing at them.", 24, INK)
     s.text((80, y + 36), "Largest: " + ", ".join(f"{t} ({deg[t]})" for t in order[:5]) + ".", 21, INK3)
-    s.text((80, y + 68), f"Links between pages only, map build of {MAPDATE}. Whether this is the 'expert collapse' the page warns of is a reading, not a count.", 21, INK3)
+    s.text((80, y + 68), f"Typed links between pages, map build of {MAPDATE}. This is the shape the page warns of, not yet the thing: its 'collapse' is one or two experts doing all the work, and the top two here take {(deg[order[0]] + deg[order[1]]) / total:.0%}.", 21, INK3)
     s.im = s.im.crop((0, 0, W, y + 130)); s.save("Mixture of Experts — who gets called.png")
     return round(share, 3), none
 
 
 # 5 ── The Fortress and the Threshold: four poles ───────────────────────────
 def poles():
-    P = {"Stoicism": ((920, 170), "THE FORTRESS"), "Confucianism": ((1380, 640), "THE THRESHOLD"),
-         "Spinoza Conatus": ((920, 1110), "THE STRIVING"), "The Drift": ((460, 640), "NO ARCHITECTURE")}
-    s = Sheet(1680, "Four poles, none of them wrong"); S = 300
-    pairs = {(e["source"], e["target"]) for e in EDGES if e["type"] == "contradicts"}
-    drawn = []
+    """Remade after the challenge: no line runs through a centre mark, and the words say only what the page says."""
+    P = {"Stoicism": ((920, 230), "THE FORTRESS"), "Confucianism": ((1400, 660), "THE THRESHOLD"),
+         "Spinoza Conatus": ((920, 1090), "THE STRIVING"), "The Drift": ((440, 660), "NO ARCHITECTURE")}
+    s = Sheet(1640, "Four poles", "The fortress and the threshold, the striving between them, and a fourth this page has only begun to hold."); S = 290
+    pairs = {(e["source"], e["target"]) for e in EDGES if e["type"] == "contradicts"}; drawn = []
     for a in P:
         for b in P:
             if (a, b) in pairs:
-                (ax, ay), (bx, by) = P[a][0], P[b][0]
-                s.line([(ax, ay + S // 2), (bx, by + S // 2)], RED, 4); drawn.append((a, b))
+                (ax, ay), (bx, by) = P[a][0], P[b][0]; s.line([(ax, ay + S // 2), (bx, by + S // 2)], RED, 4); drawn.append((a, b))
     for t, ((x, y), name) in P.items():
-        s.paste(icon(t, S), (x - S // 2, y), frame=INK, width=3)
-        s.text((x, y + S + 14), name, 24, INK, "ma", True); s.text((x, y + S + 48), t, 21, INK3, "ma")
-    c = "The Fortress and the Threshold"; s.paste(icon(c, 150), (920 - 75, 715), frame=INK)
-    s.foot(f"Each red line is a real 'contradicts' link in the map ({len(drawn)} among these four). The page in the middle holds all four at once.",
-           f"Pole names: fortress and threshold are the page's; 'the striving' and 'no architecture' paraphrase it. Map build of {MAPDATE}.")
+        s.paste(icon(t, S), (x - S // 2, y), frame=INK, width=3); s.text((x, y + S + 14), name, 24, INK, "ma", True); s.text((x, y + S + 48), t, 21, INK3, "ma")
+    s.paste(icon("The Fortress and the Threshold", 130), (80, 190), frame=INK); s.text((226, 214), "this page", 21, INK2); s.text((226, 244), "names the first two", 19, INK3)
+    s.foot(f"Each red line is a real 'contradicts' link in the map build of {MAPDATE}: {len(drawn)} among these four. Only the Drift contradicts the striving.",
+           "'The striving' and 'no architecture' paraphrase the page. Palace Philosophies calls the site a quadruple; this page says the fourth is not yet on its map.")
     s.save("The Fortress and the Threshold — four poles.png")
     return drawn
 
 
 # 6 ── Excellent Adventure: who you can bring into the room ─────────────────
 def guests():
-    born = {"Lao Tzu": (-570, "6th c. BCE?"), "Seneca": (-4, "c. 4 BCE"), "Epictetus": (50, "c. 50"), "Marcus Aurelius": (121, "121"),
-            "Spinoza": (1632, "1632"), "Leibniz": (1646, "1646"), "Martin Buber": (1878, "1878"), "Martin Heidegger": (1889, "1889"),
-            "Buckminster Fuller": (1895, "1895"), "Yasujirō Ozu": (1903, "1903"), "Shunryu Suzuki": (1904, "1904"),
-            "George Nakashima": (1905, "1905"), "Agnes Martin": (1912.1, "1912"), "John Cage": (1912.7, "1912"),
-            "Pauline Oliveros": (1932, "1932"), "Christopher Alexander": (1936, "1936"), "Donella Meadows": (1941, "1941"),
-            "James Turrell": (1943, "1943"), "Annie Dillard": (1945.3, "1945"), "Douglas Hofstadter": (1945.1, "1945"),
-            "Julia Cameron": (1948.2, "1948"), "Brian Eno": (1948.4, "1948"), "Iain McGilchrist": (1953, "1953"),
-            "Andy Goldsworthy": (1956, "1956"), "Rick Rubin": (1963, "1963")}
-    people = [t for t, n in NODES.items() if n["type"] == "person"]
-    missing = [t for t in people if t not in born]; order = sorted((t for t in people if t in born), key=lambda t: born[t][0])
-    s = Sheet(1150, "Who you can bring into the room", f"The palace's {len(people)} people, in the order they were born. Pull up a chair.")
+    """Remade after the challenge: the years are read from each page's own frontmatter, and names are not cut."""
+    import yaml
+    people = [t for t, n in NODES.items() if n["type"] == "person"]; born = {}
+    for t in people:
+        fm = frontmatter(t, 20000); y = yaml.safe_load(fm.split("\n---")[0].lstrip("-")).get("born_year")
+        born[t] = y
+    tie = {"Agnes Martin": .1, "John Cage": .7, "Douglas Hofstadter": .1, "Annie Dillard": .3, "Julia Cameron": .2, "Brian Eno": .4}   # same-year pairs, by birthday
+    order = sorted((t for t in people if born[t] is not None), key=lambda t: born[t] + tie.get(t, 0)); missing = [t for t in people if born[t] is None]
+    show = lambda t: ("c. 600 BCE?" if t == "Lao Tzu" else f"{-born[t]} BCE" if born[t] < 0 else str(born[t]))
+    s = Sheet(1190, "Who you can bring into the room", f"The {len(people)} people the palace has a page for, in the order they were born. Pull up a chair.")
     S, per = 170, 9
     for i, t in enumerate(order):
-        r, c = divmod(i, per); x = 80 + c * 190; y = 200 + r * 290
-        s.paste(icon(t, S), (x, y), frame=INK); s.text((x + S // 2, y + S + 10), born[t][1], 21, RED, "ma", True)
-        s.text((x + S // 2, y + S + 38), short(t, 14), 18, INK3, "ma")
-    i = len(order); r, c = divmod(i, per); x = 80 + c * 190; y = 200 + r * 290
-    s.d.rectangle([x, y, x + S, y + S], outline=rgb(RED), width=3)
-    s.text((x + S // 2, y + S // 2), "you", 30, RED, "mm", True); s.text((x + S // 2, y + S + 10), "now", 21, RED, "ma", True)
-    s.foot("Birth years are from general reference, not from the pages, which give most but not all of them.", "Lao Tzu's is traditional and uncertain." + (f" Not shown: {missing}." if missing else ""))
+        r, c = divmod(i, per); x = 80 + c * 190; y = 200 + r * 300
+        s.paste(icon(t, S), (x, y), frame=INK); s.text((x + S // 2, y + S + 10), show(t), 21, RED, "ma", True)
+        w = t.split(); a = " ".join(w[:-1]) if len(t) > 14 and len(w) > 1 else t; b = w[-1] if a != t else ""
+        s.text((x + S // 2, y + S + 38), a, 17, INK3, "ma"); s.text((x + S // 2, y + S + 60), b, 17, INK3, "ma")
+    i = len(order); r, c = divmod(i, per); x = 80 + c * 190; y = 200 + r * 300
+    s.d.rectangle([x, y, x + S, y + S], outline=rgb(RED), width=3); s.text((x + S // 2, y + S // 2), "you", 30, RED, "mm", True); s.text((x + S // 2, y + S + 10), "now", 21, RED, "ma", True)
+    s.foot("Birth years are each page's own. Lao Tzu's is traditional and uncertain, which his page does not mark.",
+           "These are the guests who have a page. The mode invites any figure, event or tradition: a place to start, not the limit." + (f" No year: {missing}." if missing else ""))
     s.save("Excellent Adventure — who you can bring into the room.png")
-    return missing
+    return {t: born[t] for t in order[:4]}, missing
 
 
 # 7 ── Dialectic: every contradiction in the palace ─────────────────────────
 def contradictions():
+    """Remade after the challenge: the subhead says what a 'contradicts' link is, and the names are whole."""
     pairs = [(e["source"], e["target"]) for e in EDGES if e["type"] == "contradicts"]
-    cols, S, cw, ch = 5, 120, 344, 210; rows = math.ceil(len(pairs) / cols)
-    s = Sheet(200 + rows * ch + 90, "Every contradiction in the palace", f"{len(pairs)} pairs of pages that say the other is wrong, and are both kept.")
+    cols, S, cw, ch = 4, 140, 430, 232; rows = math.ceil(len(pairs) / cols)
+    s = Sheet(200 + rows * ch + 110, "Every contradiction in the palace", f"{len(pairs)} pairs the map holds in contradiction, both kept.")
     for i, (a, b) in enumerate(pairs):
         r, c = divmod(i, cols); x = 80 + c * cw; y = 190 + r * ch
-        s.paste(icon(a, S), (x, y), frame=INK); s.paste(icon(b, S), (x + S + 44, y), frame=INK)
-        s.text((x + S + 22, y + S // 2), "≠", 34, RED, "mm", True)
-        s.text((x + S // 2, y + S + 8), short(a, 11), 16, INK3, "ma"); s.text((x + S + 44 + S // 2, y + S + 8), short(b, 11), 16, INK3, "ma")
-    s.foot(f"Every 'contradicts' link between two pages in the map build of {MAPDATE}. Any pair can be put in a room as a Dialectic.")
+        s.paste(icon(a, S), (x, y), frame=INK); s.paste(icon(b, S), (x + S + 50, y), frame=INK); s.text((x + S + 25, y + S // 2), "≠", 36, RED, "mm", True)
+        s.text((x + S // 2, y + S + 8), short(a, 15), 16, INK3, "ma"); s.text((x + S + 50 + S // 2, y + S + 8), short(b, 15), 16, INK3, "ma")
+    s.foot(f"Every 'contradicts' link between two pages in the map build of {MAPDATE}. One page declares each; here it means a tension worth keeping, not an error.",
+           "Palace Philosophies: 'Contradictions are dispatchable as Dialectics.' The pairs of people and traditions are the ones ready to be put in a room.")
     s.save("Dialectic — every contradiction in the palace.png")
     return len(pairs)
 
 
 # 8 ── Hyperdimensional Prism: where the pillars cross ──────────────────────
 def pillars():
-    order = ["creation", "tools", "philosophy", "practice"]; groups = collections.defaultdict(list); none = 0
+    """Remade after the challenge: frontmatter is read as YAML (the first parser missed a page), and this page is marked."""
+    import yaml
+    order = ["creation", "tools", "philosophy", "practice"]; groups = collections.defaultdict(list); none = []
     for t in NODES:
-        fm = frontmatter(t, 3000); m = re.search(r"^pillars:\s*\[(.*?)\]", fm, re.M)
-        ps = [p.strip().strip("\"'").lower() for p in m.group(1).split(",")] if m else re.findall(r"^\s+-\s*(creation|tools|philosophy|practice)\s*$", fm.split("pillars:")[1].split("\n\n")[0] if "pillars:" in fm and not m else "", re.M)
+        try: fm = yaml.safe_load(frontmatter(t, 40000).split("\n---")[0].lstrip("-")) or {}
+        except Exception: fm = {}
+        ps = fm.get("pillars") or []; ps = [str(p).lower() for p in (ps if isinstance(ps, list) else [ps])]
         key = tuple(p for p in order if p in ps)
-        if key: groups[key].append(t)
-        else: none += 1
-    s = Sheet(3000, "Four shadows of one thing", "Every page, sorted by which of the four pillars it carries."); y = 190; S = 44
+        (groups[key].append(t) if key else none.append(t))
+    me = "Hyperdimensional Prism"
+    s = Sheet(3000, "Four shadows of one thing", "Every page, sorted by which of the four pillars it names. The red frame is this page."); y = 190; S = 44
     for k in (4, 3, 2, 1):
         keys = sorted((g for g in groups if len(g) == k), key=lambda g: -len(groups[g]))
         s.text((80, y), {4: "ALL FOUR", 3: "THREE", 2: "TWO", 1: "ONE"}[k] + f"  ·  {sum(len(groups[g]) for g in keys)} pages", 24, RED if k == 4 else INK, bold=True); y += 44
         for g in keys:
-            s.text((80, y + 10), " + ".join(g) if k < 4 else "creation + tools + philosophy + practice", 19, INK3)
-            x = 620; n = 0
+            s.text((80, y + 10), " + ".join(g), 19, INK3); x = 620
             for t in sorted(groups[g]):
                 if x + S > 1760: x = 620; y += S + 5
-                s.paste(icon(t, S), (x, y)); x += S + 5; n += 1
+                s.paste(icon(t, S), (x, y), frame=RED if t == me else None, width=4); x += S + 5
             s.text((1770, y + 10), str(len(groups[g])), 19, INK2, "la"); y += S + 16
         y += 22
-    all4 = len(groups.get(tuple(order), []))
-    s.text((80, y), f"{all4} pages carry all four. {none} name no pillars. Read from each page's own frontmatter, {MAPDATE}.", 21, INK3)
-    s.im = s.im.crop((0, 0, 1840, y + 70)); s.save("Hyperdimensional Prism — four shadows of one thing.png")
-    return all4, none, {" + ".join(k): len(v) for k, v in groups.items()}
+    all4 = len(groups.get(tuple(order), [])); kinds = collections.Counter(NODES[t]["type"] for t in none)
+    s.text((80, y), f"{all4} pages name all four. {len(none)} name none ({', '.join(f'{v} {k}s' for k, v in kinds.most_common())}), which the schema does not ask of them.", 21, INK3)
+    s.text((80, y + 30), f"A census of how each page's author tagged it, read from frontmatter on 2026-11-10. It shows the tagging, not whether the tags are right.", 21, INK3)
+    s.im = s.im.crop((0, 0, 1840, y + 90)); s.save("Hyperdimensional Prism — four shadows of one thing.png")
+    return all4, len(none), {" + ".join(k): len(v) for k, v in groups.items()}, [k for k, v in groups.items() if me in v]
 
 
 # 9 ── Four Pillars of Enchanted Agency: what a page wants at each age ──────
@@ -288,23 +286,23 @@ def lattice():
 
 # 13 ── Weave Ceremony: the quiet ones ──────────────────────────────────────
 def quiet():
-    tot = lambda t: NODES[t]["inbound_count"] + NODES[t]["outbound_count"]
-    q = sorted(NODES, key=lambda t: (tot(t), t))[:16]; S = 180
-    s = Sheet(840, "The quiet ones", "The sixteen pages with the fewest links. A missing connection is an invitation.")
-    for i, t in enumerate(q):
-        r, c = divmod(i, 8); x = 80 + c * 212; y = 200 + r * 290
-        s.paste(icon(t, S), (x, y), frame=INK); n = NODES[t]
-        s.text((x + S // 2, y + S + 10), short(t, 15), 18, INK2, "ma")
-        s.text((x + S // 2, y + S + 36), f"{n['inbound_count']} in · {n['outbound_count']} out", 18, RED, "ma", True)
-    s.foot(f"Link counts are the map's own, build of {MAPDATE}: 'in' is how many pages point here, 'out' how many this page points to.")
-    s.save("Weave Ceremony — the quiet ones.png")
-    return q
+    """Remade after the challenge as the page's own category: 'Isolated entries — entries no one links to.'"""
+    iso = sorted(t for t in NODES if deg[t] == 0); S = 170; per = 9; rows = math.ceil(len(iso) / per)
+    s = Sheet(200 + rows * 270 + 110, "No one links here", f"The {len(iso)} pages no other page points to. Each may be a root, or may be forgotten.")
+    for i, t in enumerate(iso):
+        r, c = divmod(i, per); x = 80 + c * 190; y = 200 + r * 270
+        s.paste(icon(t, S), (x, y), frame=INK); s.text((x + S // 2, y + S + 10), short(t, 15), 17, INK2, "ma")
+        s.text((x + S // 2, y + S + 36), f"{NODES[t]['outbound_count']} out", 17, RED, "ma", True)
+    s.foot(f"No typed link from another page in the map build of {MAPDATE}. Every one of them links outward, so the palace has no orphans by the page's meaning.",
+           "Being unlinked is not being unused: some of these are read every session. The number under each is how many pages it points to.")
+    s.save("Weave Ceremony — no one links here.png")
+    return iso
 
 
 # 14 ── Whitehead: a page is built of what it takes up ──────────────────────
 def prehension():
     c = "Whitehead"; out = [(e["target"], e["type"]) for e in EDGES if e["source"] == c]; inn = [(e["source"], e["type"]) for e in EDGES if e["target"] == c]
-    s = Sheet(1500, "A page is built of what it takes up", "Whitehead's own page, and every page it holds a link with."); cx, cy = 920, 780; S = 130
+    s = Sheet(1500, "A page is built of what it takes up", "Whitehead's own page, and every page in the map it holds a link with."); cx, cy = 920, 780; S = 130
     ring = [(t, ty, True) for t, ty in out] + [(t, ty, False) for t, ty in inn]; n = len(ring)
     for i, (t, ty, o) in enumerate(ring):
         a = -math.pi / 2 + 2 * math.pi * i / n; x, y = cx + 520 * math.cos(a), cy + 520 * math.sin(a)
@@ -314,7 +312,7 @@ def prehension():
         s.text((mx, my), ty, 17, RED if o else INK3, "mm", True)
         s.paste(icon(t, S), (x - S / 2, y - S / 2), frame=INK); s.text((x, y + S / 2 + 8), short(t, 16), 17, INK2, "ma")
     h = icon(c, 230); s.paste(h, (cx - 115, cy - 115), frame=INK, width=4)
-    s.foot(f"Red: the {len(out)} links Whitehead's page declares, what it takes up. Grey: the {len(inn)} pages that take it up in turn.",
+    s.foot(f"Red: the {len(out)} of its seven declared links that land on a page in the map, what it takes up. Grey: the {len(inn)} pages that take it up in turn.",
            f"Take the ring away and there is nothing left for the middle to mean. Map build of {MAPDATE}.")
     s.save("Whitehead — a page is built of what it takes up.png")
     return len(out), len(inn)

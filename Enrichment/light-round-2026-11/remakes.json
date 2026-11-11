@@ -1,0 +1,386 @@
+[
+ {
+  "page": "Mixture of Experts",
+  "kind": "remade",
+  "files": [
+   "Mixture of Experts — who gets called.png"
+  ],
+  "title": "Who gets called",
+  "caption": "Every page's avatar, sized by how many other pages link to it. Ten pages take a fifth of all the typed links. Eighteen have no typed link pointing at them.",
+  "honest": "Typed links stand in for 'being called'; the map's use counts would be closer. This is the shape the page warns of, not yet the thing: its 'collapse' is one or two experts doing all the work, and the top two here take about 6 percent.",
+  "leak": "Weave Ceremony, which defines hubs as the top inbound decile.",
+  "changed": "'Never called at all' was false: the eighteen include Return Ceremony and The Palace Voice, which every session reads. The words now say what was counted.",
+  "near": null
+ },
+ {
+  "page": "Dialectic",
+  "kind": "remade",
+  "files": [
+   "Dialectic — every contradiction in the palace.png"
+  ],
+  "title": "Every contradiction in the palace",
+  "caption": "All sixty-one pairs the map holds in contradiction, face to face, both kept. The pairs of people and traditions are the ones ready to be put in a room.",
+  "honest": "Every 'contradicts' link between two pages, each declared by one side only. Here the word means a tension worth keeping, not that either page calls the other wrong.",
+  "leak": "Palace Philosophies: 'Contradictions are dispatchable as Dialectics.'",
+  "changed": "The subhead said the pages 'say the other is wrong', which no pair does. 'Any pair can be put in a room' overreached the page. Four columns now, so names are not cut to eleven letters.",
+  "near": null
+ },
+ {
+  "page": "Christopher Alexander",
+  "kind": "words",
+  "files": [
+   "Christopher Alexander — a palace is not a tree.png"
+  ],
+  "title": "A palace is not a tree",
+  "caption": "Three hubs and eighteen pages, drawn twice. On the left each page is filed under one parent. On the right every real tie between a page and a hub is kept, and the red pages belong to more than one.",
+  "honest": "Eighteen of the hubs' 123 neighbours, ten of them picked from the 24 that touch more than one hub, so overlap is over-shown: about one page in five really overlaps. Which hub keeps a page on the left is the drawing's choice. Ties among the eighteen are left out. The title is the piece's claim; the page says cities are semi-lattices.",
+  "leak": "The three hubs are the palace's biggest, not his neighbours: none of them links his page.",
+  "changed": "The caption said 'every real tie is kept'; only page-to-hub ties are. The honesty line now owns how the eighteen were picked.",
+  "near": null
+ },
+ {
+  "page": "Synthesis Notes (Loudon)",
+  "kind": "words",
+  "files": [
+   "Synthesis Notes (Loudon) — marble, then the chisel.wav",
+   "Synthesis Notes (Loudon) — marble, then the chisel — picture.png"
+  ],
+  "title": "Marble, then the chisel",
+  "caption": "Five seconds of raw sawtooth on a low E, every harmonic present: the block. Then a resonant low-pass closes over it and starts cutting figures. No new sound comes in after second five. The filter cuts, and its resonance leans on whatever harmonics sit at the edge of the cut.",
+  "honest": "Your sentence from the notes, and your notes also say resonance is a boost at the cutoff: the harmonic at the edge runs 8 to 12 dB louder than it was in the raw block (the challenger's measurement). The resonance, the sweep and a soft clip are my choices.",
+  "leak": null,
+  "changed": "'Everything you hear from there is something taken away' was false by measurement. The sound is unchanged; the words now say what a resonant filter does.",
+  "near": null
+ },
+ {
+  "page": "Kick Drum ↔ Foundation",
+  "kind": "words",
+  "files": [
+   "Kick Drum ↔ Foundation — who was there first.wav",
+   "Kick Drum ↔ Foundation — who was there first — picture.svg"
+  ],
+  "title": "Who was there first",
+  "caption": "The same four bars mixed twice. First the chords and bass are set and the kick is squeezed in last, thin. Then the kick goes in first, whole, and the bass steps back each time it speaks.",
+  "honest": "Two mixes of one arrangement, set by hand to stand for the two orders; the thin kick is my choice of what a late kick gets, not a result. The picture shows only what is below 140 Hz.",
+  "leak": "Sidechain ↔ Conversation: the bass ducking is that bridge at work.",
+  "changed": "The honesty line claimed 'two orders of decision'. No order was modelled.",
+  "near": null
+ },
+ {
+  "page": "How the Palace Commits",
+  "kind": "remade",
+  "files": [
+   "How the Palace Commits — one door in, one gate out.svg"
+  ],
+  "title": "One door in, one gate out",
+  "caption": "Many branches funnel through one lock onto main, which only moves forward. At the far end stands a gate with the Sentry's avatar on it, and a dashed arrow out to GitHub that only Loudon's word draws.",
+  "honest": "A second drawing of a sentence the page already diagrams; what it adds is the funnel of many branches into one lock. It leaves out the board and the ear.",
+  "leak": "Sentry at the gate; Worktree Practice in the branches.",
+  "changed": "The footer said everything left of the gate stays on this Mac, under a box labelled 'a cloud session's branch'; the page says a cloud session is not on this Mac. The box and the footer are fixed, and 'one commit' is now 'a tip'.",
+  "near": null
+ },
+ {
+  "page": "Striatum",
+  "kind": "remade",
+  "files": [
+   "Striatum — what dopamine reports.svg"
+  ],
+  "title": "What dopamine reports",
+  "caption": "Three trials. A reward nobody predicted: a burst. A reward the cue predicted: the burst moves to the cue, and the reward itself draws no burst. A predicted reward withheld: the cell pauses at the moment it should have come.",
+  "honest": "Schematic, not data. The page gives only the definition of prediction error; the three-trial pattern is Schultz, Dayan and Montague's (Science, 1997), and the cells are midbrain dopamine neurons that project to the striatum.",
+  "leak": null,
+  "changed": "'Passes in silence' was wrong: the cell keeps its usual rate. Bursts were placed by chance and differed row to row; each now starts at its marker with the same ten ticks.",
+  "near": null
+ },
+ {
+  "page": "Excellent Adventure",
+  "kind": "remade",
+  "files": [
+   "Excellent Adventure — who you can bring into the room.png"
+  ],
+  "title": "Who you can bring into the room",
+  "caption": "The twenty-five people the palace has a page for, in the order they were born, from Lao Tzu to Rick Rubin, and one empty chair marked 'you, now'. They are where to start, not the limit: the mode invites any figure, event or tradition.",
+  "honest": "Birth years are each page's own. Lao Tzu's is traditional and uncertain, which his page does not mark.",
+  "leak": "All twenty-five People pages.",
+  "changed": "I said the years were not all on the pages. Every page carries one; they are now read from there. Names are no longer cut.",
+  "near": null
+ },
+ {
+  "page": "Whitehead",
+  "kind": "remade",
+  "files": [
+   "Whitehead — a page is built of what it takes up.png"
+  ],
+  "title": "A page is built of what it takes up",
+  "caption": "Whitehead's avatar in the middle of every map page it holds a link with. Red for the six of its seven declared links that land on a page in the map, grey for the seven pages that take it up in turn, each line naming the link.",
+  "honest": "All thirteen are real, map build of 2026-11-09. Its seventh declared link goes to a STIGMERGY file outside the map and is not drawn.",
+  "leak": "Its thirteen neighbours, Leibniz among them on a 'contradicts'.",
+  "changed": "The piece said the page declares six links; it declares seven.",
+  "near": null
+ },
+ {
+  "page": "Entry Conatus",
+  "kind": "remade",
+  "files": [
+   "Entry Conatus — how the pages begin their wish.svg"
+  ],
+  "title": "How the pages begin their wish",
+  "caption": "The opening words of 311 forward vectors. A hundred begin 'I want to'. Sixty-nine begin 'I am', the opening the page calls a stasis-verb.",
+  "honest": "A count of openings, not a judgment of any page: many 'I am' vectors go on to want something.",
+  "leak": null,
+  "changed": "The count of 'I am' was 67; it is 69. The first reader could not read a forward vector written as a block, and missed two.",
+  "near": null
+ },
+ {
+  "page": "Hyperdimensional Prism",
+  "kind": "remade",
+  "files": [
+   "Hyperdimensional Prism — four shadows of one thing.png"
+  ],
+  "title": "Four shadows of one thing",
+  "caption": "Every page sorted by which pillars it names, with this page framed in red. Fifty-two name all four. This page names three.",
+  "honest": "A census of how each page's author tagged it, read from frontmatter on 2026-11-10; it shows the tagging, not whether the tags are right. Thirty-five name none: specialists and makers, which the schema does not ask.",
+  "leak": "FOUR PILLARS, whose four names sort the sheet.",
+  "changed": "Three numbers were off by one: the first parser missed a page. This page is now marked, which shows it sitting among the threes (its frontmatter names philosophy, creation and tools).",
+  "near": null
+ },
+ {
+  "page": "Objects to Think With",
+  "kind": "remade",
+  "files": [
+   "Objects to Think With — the lit ones.png"
+  ],
+  "title": "The lit ones",
+  "caption": "Every page in Projects/ by its own icon. Twenty-three are lit as objects to think with; the five framed in red say so on their own page. Three with dotted frames were born after the count and have not been judged.",
+  "honest": "The lit set is the 2026-10-25 recount's twenty-two on its looser bar, plus Cycle 5 Explorer, which declares itself. The page's text still says twenty-two of fifty-one.",
+  "leak": null,
+  "changed": "Cycle 5 Explorer declares itself an object to think with and was drawn dimmed. Three pages born after the recount were dimmed as if judged 'no'.",
+  "near": null
+ },
+ {
+  "page": "Weave Ceremony",
+  "kind": "moved",
+  "files": [
+   "Weave Ceremony — no one links here.png"
+  ],
+  "title": "No one links here",
+  "caption": "The eighteen pages no other page points to. Each may be a root or may be forgotten; the Weave is where that gets asked. By the page's own meaning the palace has no orphans: every one of these links outward.",
+  "honest": "No typed link from another page, map build of 2026-11-09. Being unlinked is not being unused: Return Ceremony is on this sheet.",
+  "leak": null,
+  "changed": "The old piece ('the quiet ones') sat beside the definition of orphans and showed none, used an undefined cut of sixteen, and borrowed 'quiet', which this page uses for something else. Remade as the page's next category, isolated entries. Replaces 'Weave Ceremony — the quiet ones.png'.",
+  "near": "Isolated entries"
+ },
+ {
+  "page": "The Palace Voice",
+  "kind": "remade",
+  "files": [
+   "The Palace Voice — the dial that drifted.svg"
+  ],
+  "title": "The dial that drifted",
+  "caption": "Em-dashes and bold per thousand words of entry prose, month by month. Em-dashes climb from 14 to 20 by July, hold through September, and have eased to 17. Bold falls the whole way, from 24.5 to 15.4.",
+  "honest": "Counted with the page's own linter on the palace's entries at each month's last commit. The page's 41 and 53 percent compare entries by birth month, a different question, and a challenger's rerun of that gave about 18 and 20. August is marked because the dial was named then; the chart does not show the gate causing anything.",
+  "leak": null,
+  "changed": "The first chart pooled every .md file, so the palace doubling in size looked like the voice recovering. Recounted the linter's way; the axis now starts at zero; the fall is no longer credited to the August gate.",
+  "near": null
+ },
+ {
+  "page": "Identity Molting",
+  "kind": "remade",
+  "files": [
+   "Identity Molting — cast skins.png"
+  ],
+  "title": "Cast skins",
+  "caption": "Three pages that wore one face for weeks or months and then grew another: STIGMERGY, The Lens, FOUR PILLARS. The old hero is faded on the left, the one worn now on the right. The old ones are still whole, in git.",
+  "honest": "Read from git history. A challenger counted 26 hero files that have ever changed; I picked three that changed in place after a long wear. Calling a replaced hero a cast skin is my analogy: the page's sentence is about a person's public archive.",
+  "leak": "STIGMERGY, The Lens and FOUR PILLARS lend their old faces.",
+  "changed": "The first three were not shed: they were stripped on Loudon's review a day after they were made, then replaced later. These three really changed in place.",
+  "near": null
+ },
+ {
+  "page": "Leibniz",
+  "kind": "remade",
+  "files": [
+   "Leibniz — every jewel reflects every other.png"
+  ],
+  "title": "Every jewel reflects every other",
+  "caption": "The picture at the top of Leibniz's page, rebuilt from the avatars of other pages. Step back and it is his; step in and it is everyone else's.",
+  "honest": "1,848 tiles from 123 of the other 328 pages' avatars, each chosen only for how light or dark it is. Nothing is tinted.",
+  "leak": "A third of the palace's pages; Indra's Net is the page's own image.",
+  "changed": "I said the tinting was what made it read. A challenger rebuilt it without and it read as well and crisper, so the tint and the softening are gone. Leibniz's own avatar is no longer in the pool.",
+  "near": null
+ },
+ {
+  "page": "Hero and Avatar Maker",
+  "kind": "remade",
+  "files": [
+   "Hero and Avatar Maker — what survives at 24 pixels.png"
+  ],
+  "title": "What survives at 24 pixels",
+  "caption": "Crystal Synthesizer's hero and its avatar, each shrunk to 48 and 24 pixels and enlarged again. The hero keeps only its colours. The avatar loses its fine rays and keeps its ring and its red stone: linework vanishes, silhouette holds.",
+  "honest": "Both are the palace's real files, shrunk whole. The page says 'a crystal a Haeckel engraving' without naming this page; pairing them is my inference.",
+  "leak": "Crystal Synthesizer.",
+  "changed": "The first version cropped the hero to its middle before shrinking, which cut the crystal out, and labelled thumbnails 'actual size', which is untrue once the sheet is scaled. The caption now states the page's claim.",
+  "near": null
+ },
+ {
+  "page": "The Fortress and the Threshold",
+  "kind": "remade",
+  "files": [
+   "The Fortress and the Threshold — four poles.png"
+  ],
+  "title": "Four poles",
+  "caption": "Stoicism, Confucianism, Spinoza Conatus and The Drift at four corners, wearing their own avatars, with a red line wherever the map says one contradicts another. Only the Drift contradicts the striving.",
+  "honest": "The four red lines are real 'contradicts' links. 'The striving' and 'no architecture' paraphrase the page. Palace Philosophies calls this site a quadruple; this page names the fourth pole and says it is not yet on its map.",
+  "leak": "Stoicism, Confucianism, Spinoza Conatus, The Drift.",
+  "changed": "One line ran through the centre icon, so it read as this page joined to two poles. The caption claimed this page 'holds all four', which is Palace Philosophies' claim, not the page's.",
+  "near": "A fourth pole"
+ },
+ {
+  "page": "Simondon",
+  "kind": "remade",
+  "files": [
+   "Simondon — a bag of parts, or one part doing several jobs.svg"
+  ],
+  "title": "One to move and one to read, or one that does both",
+  "caption": "A knob with a light beside it: one part to move and one to read. Against it, one motor that both senses and pushes, so the state comes back through the hand already on it. Fewer parts doing more is what Simondon calls a better-made object.",
+  "honest": "The before and after are the palace's own, from Palace Philosophies and the Haptic Handwheel page; Simondon's page does not mention the handwheel. Nothing is built yet.",
+  "leak": "Haptic Handwheel.",
+  "changed": "The left side was a four-part machine neither page describes, with a 'buzzer' that pushes back and 'three joints to fail'. Redrawn as the palace's own two parts, with text large enough to read.",
+  "near": null
+ },
+ {
+  "page": "James Turrell",
+  "kind": "remade",
+  "files": [
+   "James Turrell — it is moving.svg"
+  ],
+  "title": "It is moving",
+  "caption": "A window of colour that drifts from dusk-orange to deep blue over ten minutes and back over ten more, too slowly to see. Two fixed swatches beside it show where it began and where it is going.",
+  "honest": "Ten minutes is the page's own figure for a Turrell fade. Whether you can see it move at that rate is still untested by eye.",
+  "leak": null,
+  "changed": "At ninety seconds the fade was probably visible, and a red progress bar marched under a piece that said nothing moves. Now ten minutes, no bar, and the unlabelled hourglass is gone.",
+  "near": null
+ },
+ {
+  "page": "Donella Meadows",
+  "kind": "remade",
+  "files": [
+   "Donella Meadows — the bathtub.svg"
+  ],
+  "title": "The bathtub",
+  "caption": "One tub filled two ways, with a four-second lag between hand and water. Small turns settle on the line. Yanking the taps spills over the rim, drains to empty, and goes round again without ever settling.",
+  "honest": "A small simulation written for this figure. The yanking hand turns eleven times harder, tap and drain share one top speed, and the drain is as strong as the tap: all my choices.",
+  "leak": null,
+  "changed": "The water stood above the rim, which a tub cannot do; it now spills. Labels sat on their own curves. A tub is drawn, and the choices are owned.",
+  "near": null
+ },
+ {
+  "page": "p5.js",
+  "kind": "remade",
+  "files": [
+   "p5.js — veil, don't clear.png"
+  ],
+  "title": "Veil, don't clear",
+  "caption": "One flock at one moment, drawn two ways. Cleared each frame you see where the birds are. Veiled each frame you also see where they have just been.",
+  "honest": "A boids flock of its own, built to the Flocking sketch's numbers (80 birds, a veil of 14 on an alpha range of 100), simulated in numpy and drawn on paper where the sketch is near-black. Not the same birds.",
+  "leak": "Flocking, the page's second p5 job.",
+  "changed": "The veil was 14 in 255 where the palace's sketch uses 14 in 100, so trails faded nearly three times too slowly. I called it the same flock and the page's first job; it is neither. Panels are stacked and larger.",
+  "near": null
+ },
+ {
+  "page": "Tree of Thoughts",
+  "kind": "remade",
+  "files": [
+   "Tree of Thoughts — a chain cannot go back.svg"
+  ],
+  "title": "A chain cannot go back",
+  "caption": "A chain of five thoughts that went wrong at the second and cannot return to it, beside a tree that drops five dead ends, backs up once, and arrives.",
+  "honest": "A schematic. No model was run.",
+  "leak": null,
+  "changed": "A dead-end node was drawn on top of the subtitle. The tree is moved down.",
+  "near": null
+ },
+ {
+  "page": "Rick Rubin",
+  "kind": "remade",
+  "files": [
+   "Rick Rubin — clear away what hides it.wav",
+   "Rick Rubin — clear away what hides it — picture.svg"
+  ],
+  "title": "Clear away what hides it",
+  "caption": "Eight layers at once, a voice and one guitar buried under the other six. One layer leaves each bar: shaker, arpeggio, pad, second guitar, drums, bass. What is left was playing the whole time, at the level it ends on.",
+  "honest": "Synthesized, including the 'voice', a buzz through two formants. The full mix sits about 10 dB over the two that remain, so the whole thing gets much quieter as it clears. Nothing is added after bar one. The page also holds the objection that the song may not have been there to find.",
+  "leak": "Dub Lineage: subtraction again, but only ever in one direction.",
+  "changed": "Nothing hid the song: the voice was the loudest thing from bar one, and two of the six exits could not be heard. A levels fix; the order and the bars are unchanged.",
+  "near": null
+ },
+ {
+  "page": "Leibniz",
+  "kind": "words",
+  "files": [
+   "Leibniz — two clocks, no wire.wav",
+   "Leibniz — two clocks, no wire — picture.svg"
+  ],
+  "title": "Two clocks, no wire",
+  "caption": "First, two clocks set once and never touching: a wooden tock in the left ear, a metal tick in the right. They stay together because each keeps its own time. Then a wired pair: they start apart, plainly at different rates, and as the wire tightens they pull into step. The first pair is exactly together; the wired pair ends within a hundredth of a second. Only the second needed a wire.",
+  "honest": "The first half is Leibniz's pre-established harmony. The second is two Kuramoto phases with rising coupling, which his page does not name: a neighbour leaking in.",
+  "leak": "Kuramoto Coupling, in the wired half.",
+  "changed": "Kept. 'Both pairs end in unison' was 8 ms off for the wired pair, and the Kuramoto leak was not owned.",
+  "near": null
+ },
+ {
+  "page": "Whitehead",
+  "kind": "words",
+  "files": [
+   "Whitehead — one occasion, then the society.wav",
+   "Whitehead — one occasion, then the society — picture.svg"
+  ],
+  "title": "One occasion, then the society",
+  "caption": "One grain, alone. It arises and is gone. Again. Then they arrive faster, until somewhere between twelve and fourteen seconds you stop hearing grains and hear a tone. Nothing in that tone persists: no grain lasts a tenth of a second. The tone is the pattern they hold together.",
+  "honest": "The page's claim that the grain is the actual occasion and the cloud the society. In the picture the dots' small vertical scatter is only to keep them apart; it is not data.",
+  "leak": null,
+  "changed": "Kept. 'Near twelve seconds' was early by measurement: gaps persist until about fourteen.",
+  "near": null
+ },
+ {
+  "page": "John Cage",
+  "kind": "words",
+  "files": [
+   "John Cage — the coins decide.wav",
+   "John Cage — the coins decide — picture.svg"
+  ],
+  "title": "The coins decide",
+  "caption": "Sixteen sounds. For each, three coins were thrown six times, as for the I Ching, and the six lines chose the pitch, the length, the loudness, and whether the string is prepared. It opens on two and a half seconds of silence, because that was the first throw. One more of the sixteen came up silence too.",
+  "honest": "Thrown once from the computer's random source and kept as thrown. The mapping from lines to sounds is mine; the result is not.",
+  "leak": "Brian Eno, by a link label only: nothing of his is in the sound.",
+  "changed": "Kept. The opening silence reads as a broken file unless the caption says it was thrown.",
+  "near": null
+ },
+ {
+  "page": "Yasujirō Ozu",
+  "kind": "words",
+  "files": [
+   "Yasujirō Ozu — the 180-degree rule and the 360-degree room.svg"
+  ],
+  "title": "The 180-degree rule and the 360-degree room",
+  "caption": "Two people at a low table, seen from above. Hollywood keeps every camera on one side of the line between them. Ozu puts the camera on either side of it.",
+  "honest": "The eight positions are a drawing choice; the page claims only that he crosses the axis routinely.",
+  "leak": null,
+  "changed": "Kept. 'Anywhere in the room' said more than the page does.",
+  "near": null
+ },
+ {
+  "page": "Dub Lineage",
+  "kind": "words",
+  "files": [
+   "Dub Lineage — the engineer plays.wav",
+   "Dub Lineage — the engineer plays — picture.svg"
+  ],
+  "title": "The engineer plays",
+  "caption": "Two bars of a full riddim. Then parts are pulled: drum and bass alone, then bass alone while an echo goes on repeating a rim shot that is no longer there. In bar seven the bass and kick drop out too, leaving hat and skank. Everything returns in the last bar.",
+  "honest": "Synthesized here from nothing; the picture is drawn from the mix's own parts. The echo is a plain tap echo, which the Retrospective Delay page says its own delay is not.",
+  "leak": "Retrospective Delay: the echo as memory of what was pulled.",
+  "changed": "Kept. The caption skipped bar seven, and the leak borrowed more than the neighbour grants.",
+  "near": null
+ }
+]

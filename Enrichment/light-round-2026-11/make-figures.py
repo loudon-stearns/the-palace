@@ -81,10 +81,11 @@ def ozu():
 
 # ── Striatum: the prediction-error trace ────────────────────────────────────
 def striatum():
+    """Remade after the challenge: every burst starts at its marker with the same ten ticks; 'silence' is only the pause."""
     W, H = 920, 560
     x0, x1, cue, rew = 340, 880, 470, 730
     rows = [("A reward out of nowhere", "better than expected", None, +1),
-            ("A cue promises it, and it comes", "exactly as expected: nothing to learn", +1, 0),
+            ("A cue promises it, and it comes", "as expected: no burst", +1, 0),
             ("A cue promises it, and it doesn't", "worse than expected", +1, -1)]
     out = [text(40, 44, "WHAT DOPAMINE REPORTS", 15, INK, weight=700, extra='letter-spacing="3"'),
            text(40, 64, "not the reward, but the surprise", 12, INK3)]
@@ -94,25 +95,24 @@ def striatum():
         out.append(text(40, base - 34, title, 13, INK, weight=700))
         out.append(text(40, base - 14, verdict, 12, RED if rew_k else INK3))
         out.append(f'<line x1="{x0}" y1="{base}" x2="{x1}" y2="{base}" stroke="{RULE}" stroke-width="1"/>')
-        # spikes: a steady background rate, a burst where things go better than predicted, a gap where worse
+        bursts = ([cue] if cue_k else []) + ([rew] if rew_k > 0 else [])
+        blocked = [(b - 8, b + 52) for b in bursts] + ([(rew - 6, rew + 72)] if rew_k < 0 else [])
         x = x0 + 6
-        while x < x1 - 4:
-            in_cue = bool(cue_k) and 0 <= x - cue < 46
-            in_rew = rew_k > 0 and 0 <= x - rew < 46
-            if rew_k < 0 and -4 <= x - rew < 70:
-                x += 4; continue                              # the pause
-            hot = in_cue or in_rew
-            out.append(f'<line x1="{x:.1f}" y1="{base}" x2="{x:.1f}" y2="{base-44}" stroke="{RED if hot else INK}" stroke-width="1.5"/>')
-            x += rng.uniform(3.2, 5.5) if hot else rng.uniform(15, 31)   # burst, or the steady background rate
+        while x < x1 - 4:                                           # the steady background rate
+            if not any(a <= x <= b for a, b in blocked):
+                out.append(f'<line x1="{x:.1f}" y1="{base}" x2="{x:.1f}" y2="{base-44}" stroke="{INK}" stroke-width="1.5"/>')
+            x += rng.uniform(15, 31)
+        for b in bursts:                                            # a burst: ten ticks, starting at its marker, the same everywhere
+            for k in range(10): out.append(f'<line x1="{b + k*4.6:.1f}" y1="{base}" x2="{b + k*4.6:.1f}" y2="{base-44}" stroke="{RED}" stroke-width="1.5"/>')
         if rew_k < 0:
             out.append(f'<rect x="{rew}" y="{base-48}" width="70" height="48" fill="none" stroke="{RED}" stroke-width="1" stroke-dasharray="3 3"/>')
-            out.append(text(rew + 35, base - 54, "silence", 11, RED, "middle"))
+            out.append(text(rew + 35, base - 54, "a pause", 11, RED, "middle"))
         for mx, label, show in ((cue, "cue", cue_k is not None), (rew, "reward" if rew_k >= 0 else "no reward", True)):
             if show:
                 out.append(f'<path d="M{mx},{base+5} l-5,9 l10,0 Z" fill="{INK}"/>')
                 out.append(text(mx, base + 30, label, 11, INK2, "middle"))
-    out.append(text(x1, 64, "each tick is one firing of a dopamine cell; time runs left to right", 11, INK3, "end"))
-    out.append(text(40, H - 22, "Schematic, not data. The pattern is the one Schultz, Dayan and Montague reported in 1997.", 11, INK3))
+    out.append(text(x1, 64, "each tick is one firing of a midbrain dopamine cell; time runs left to right", 11, INK3, "end"))
+    out.append(text(40, H - 22, "Schematic, not data. The three-trial pattern is Schultz, Dayan and Montague's (Science, 1997).", 11, INK3))
     write("Striatum — what dopamine reports.svg", "".join(out), W, H)
 
 
@@ -199,7 +199,8 @@ def links():
 # ── Objects to Think With: the field of projects, the lit ones ──────────────
 def objects():
     from PIL import Image, ImageDraw, ImageFont, ImageOps
-    declared = ["Blood Compressor", "Compressor Design", "2D Torus Wavetable Synthesizer", "Action Potential Oscillator"]
+    declared = ["Blood Compressor", "Compressor Design", "2D Torus Wavetable Synthesizer", "Action Potential Oscillator", "Cycle 5 Explorer"]
+    unjudged = ["Rational Hearing", "Synth Templates", "The Gallery"]      # born after the 2026-10-25 recount: nobody has asked the question of them
     waiting = ["Haptic Handwheel", "Portamento and Physical Pitch Modeling", "Floquet Time-Modulated Loops", "Waveguide Synthesizer",
                "Tract Mirror", "Murmuration", "Frequency-Time Duality", "Shepard Tone Synthesizer", "Retrospective Delay",
                "Semantic Webcam", "Quantum Synthesizer", "Inharmonic Wavetable Synthesis", "Neural Granular Synthesis",
@@ -227,9 +228,13 @@ def objects():
         else:
             grey = ImageOps.grayscale(ic).convert("RGB")
             im.paste(Image.blend(grey, Image.new("RGB", (S, S), paper), 0.78), (x, y))
+            if t in unjudged:
+                for k in range(0, S, 12):                               # a dotted frame: not yet counted
+                    for (a, b, c, d) in ((x + k, y - 3, x + k + 6, y - 3), (x + k, y + S + 2, x + k + 6, y + S + 2), (x - 3, y + k, x - 3, y + k + 6), (x + S + 2, y + k, x + S + 2, y + k + 6)):
+                        dr.line([a, b, c, d], fill=ink, width=2)
     y = 84 + rows * (S + G) + 8
     dr.text((20 + G, y), f"{lit_n} of the {len(have)} pages in Projects/ are lit: each one is an idea given a body you can handle.", font=font(15), fill=ink)
-    dr.text((20 + G, y + 24), "Red frame: the four whose own page already says so. Counted 2026-10-25, on the looser bar.", font=font(13), fill=(106, 104, 98))
+    dr.text((20 + G, y + 24), f"Red frame: the {len(declared)} whose own page already says so. Dotted frame: {len(unjudged)} born since the 2026-10-25 count, not yet judged.", font=font(13), fill=(106, 104, 98))
     im.save(os.path.join(HERE, "Objects to Think With — the lit ones.png"), optimize=True)
     print("objects:", len(have), "icons,", lit_n, "lit, missing:", missing, "no icon:", [t for t in titles if t not in have])
 

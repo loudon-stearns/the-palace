@@ -48,42 +48,44 @@ def arrow(x1, y1, x2, y2, color=INK, w=1.4, dash=""):
 
 # 1 ── Simondon: a bag of parts, or one part doing several jobs ─────────────
 def simondon():
-    """Leak: Haptic Handwheel, the crossing Palace Philosophies tells: 'one part to move, one to read', until the motor does both."""
-    out = [head("A BAG OF PARTS, OR ONE PART DOING SEVERAL JOBS")]
-    out += [text(40, 100, "ABSTRACT", 12, INK, weight=700, extra='letter-spacing="2"'), text(40, 118, "each part does one job, and they are bolted together", 11, INK3)]
-    parts = [("a knob", "to turn"), ("a sensor", "to read it"), ("a light", "to show it"), ("a buzzer", "to push back")]
-    for i, (a, b) in enumerate(parts):
-        x = 40 + i * 104; out.append(box(x, 150, 92, 70, a, b))
-        if i: out.append(f'<line x1="{x-12}" y1="185" x2="{x}" y2="185" stroke="{INK3}" stroke-width="3" stroke-dasharray="2 2"/>')
-    out.append(text(40, 256, "four parts · four jobs · three joints to fail", 11, INK3))
-    out += [text(500, 100, "CONCRETE", 12, RED, weight=700, extra='letter-spacing="2"'), text(500, 118, "one part serves several functions at once", 11, INK3)]
-    cx, cy = 680, 215; out.append(av("Haptic Handwheel", cx - 55, cy - 55, 110, RED))
-    for k, (lab, ang) in enumerate((("turns", 215), ("reads the turn", 325), ("shows the state", 35), ("pushes back", 145))):
-        a = math.radians(ang); x, y = cx + 112 * math.cos(a), cy - 96 * math.sin(a)
-        out.append(arrow(x, y, cx + 64 * math.cos(a), cy - 62 * math.sin(a), RED)); out.append(text(x + (12 if math.cos(a) > 0 else -12), y + 4, lab, 11, INK2, "start" if math.cos(a) > 0 else "end"))
-    out.append(text(500, 340, "one motor · four jobs · the hand never leaves it", 11, INK3))
-    out.append(f'<line x1="470" y1="84" x2="470" y2="350" stroke="{RULE}"/>')
-    out.append(text(40, 386, "The right-hand part wears the Haptic Handwheel's own avatar: the palace's worked case of Simondon's idea.", 11, INK3))
-    write("Simondon — a bag of parts, or one part doing several jobs.svg", "".join(out), 404)
+    """Remade after the challenge: the left side is the palace's own before-picture (a knob with a light beside it), not an
+    invented machine. Leak: Haptic Handwheel, which is planned and not yet built."""
+    out = [head("ONE TO MOVE AND ONE TO READ, OR ONE THAT DOES BOTH")]
+    out += [text(60, 104, "ABSTRACT", 13, INK, weight=700, extra='letter-spacing="2"'), text(60, 124, "separate parts, each doing one job", 12, INK3)]
+    out += [f'<circle cx="170" cy="230" r="58" fill="{FILL}" stroke="{INK}" stroke-width="2"/><line x1="170" y1="230" x2="170" y2="180" stroke="{INK}" stroke-width="4"/>',
+            text(170, 318, "a knob", 14, INK, "middle", 700), text(170, 338, "to move", 12, INK3, "middle"),
+            f'<circle cx="340" cy="230" r="20" fill="{RED}" stroke="{INK}" stroke-width="2"/>' + "".join(f'<line x1="{340 + 30*math.cos(a):.0f}" y1="{230 + 30*math.sin(a):.0f}" x2="{340 + 42*math.cos(a):.0f}" y2="{230 + 42*math.sin(a):.0f}" stroke="{RED}" stroke-width="2"/>' for a in [k * math.pi / 4 for k in range(8)]),
+            text(340, 318, "a light", 14, INK, "middle", 700), text(340, 338, "to read", 12, INK3, "middle"),
+            f'<line x1="232" y1="230" x2="294" y2="230" stroke="{INK3}" stroke-width="2" stroke-dasharray="3 4"/>', text(263, 216, "beside", 11, INK3, "middle")]
+    out += [text(520, 104, "CONCRETE", 13, RED, weight=700, extra='letter-spacing="2"'), text(520, 124, "one part serving several functions at once", 12, INK3)]
+    cx, cy = 690, 230; out.append(av("Haptic Handwheel", cx - 62, cy - 62, 124, RED))
+    out += [arrow(cx - 190, cy - 30, cx - 70, cy - 30, INK, 2), text(cx - 190, cy - 40, "the hand pushes", 12, INK2), arrow(cx - 70, cy + 30, cx - 190, cy + 30, RED, 2), text(cx - 190, cy + 50, "and it pushes back", 12, RED),
+            text(cx, 318, "one motor", 14, INK, "middle", 700), text(cx, 338, "senses and pushes", 12, INK3, "middle")]
+    out.append(f'<line x1="460" y1="84" x2="460" y2="350" stroke="{RULE}"/>')
+    out += [text(40, 384, "The palace's own case: a knob with a light beside it, against a motor that both senses and pushes,", 12, INK3),
+            text(40, 402, "so what the synth is doing comes back through the thing already in the hand.", 12, INK3),
+            text(40, 420, "The right-hand part wears the Haptic Handwheel's avatar. Nothing is built yet.", 12, INK3)]
+    write("Simondon — a bag of parts, or one part doing several jobs.svg", "".join(out), 442)
 
 
 # 2 ── How the Palace Commits: one door in, one gate out ────────────────────
 def road():
     """Leak: the Sentry stands at the gate (its avatar), and Worktree Practice supplies the many branches."""
     out = [head("ONE DOOR IN, ONE GATE OUT")]
-    for i, lab in enumerate(("a session's branch", "another session's branch", "a steward's branch", "a cloud session's branch")):
+    for i, lab in enumerate(("a session's branch", "another session's branch", "a steward's branch", "a worktree's branch")):
         y = 96 + i * 46; out += [box(40, y, 190, 32, lab, stroke=INK3, bold=False), f'<path d="M230,{y+16} C285,{y+16} 285,181 330,181" fill="none" stroke="{INK3}" stroke-width="1.3"/>']
     out += [text(135, 290, "many hands, each on its own branch", 10, INK3, "middle")]
     out += [f'<rect x="330" y="120" width="74" height="122" fill="{PAPER}" stroke="{INK}" stroke-width="2.2"/><circle cx="392" cy="182" r="3" fill="{INK}"/>',
             text(367, 110, "THE DOOR", 11, INK, "middle", 700), text(367, 262, "one lock,", 10, INK3, "middle"), text(367, 276, "one writer at a time", 10, INK3, "middle")]
     out += [arrow(404, 181, 470, 181, INK, 2), f'<line x1="470" y1="181" x2="668" y2="181" stroke="{INK}" stroke-width="7"/>',
-            text(569, 166, "MAIN", 11, INK, "middle", 700), text(569, 204, "one honest history", 10, INK3, "middle")]
+            text(569, 166, "MAIN", 11, INK, "middle", 700), text(569, 204, "only moves forward", 10, INK3, "middle")]
     for k in range(7): out.append(f'<circle cx="{486 + k*28}" cy="181" r="5.5" fill="{PAPER}" stroke="{INK}" stroke-width="1.6"/>')
     out += [f'<line x1="690" y1="118" x2="690" y2="244" stroke="{RED}" stroke-width="5"/>', av("Sentry", 668, 196 - 14, 44, RED),
             text(690, 108, "THE GATE", 11, RED, "middle", 700), text(690, 262, "the Sentry checks;", 10, INK3, "middle"), text(690, 276, "only Loudon's word opens it", 10, RED, "middle")]
     out += [arrow(716, 150, 800, 150, RED, 2, "5 4"), box(804, 128, 84, 44, "GitHub", "the world", stroke=INK3)]
-    out.append(text(40, 326, "Everything left of the gate stays on this Mac. Nothing crosses it but one commit he was shown, sent on his say.", 11, INK3))
-    write("How the Palace Commits — one door in, one gate out.svg", "".join(out), 344)
+    out.append(text(40, 326, "Many branches, one lock: that funnel is what the page's own diagram does not show. Past the gate, nothing reaches GitHub's main", 11, INK3))
+    out.append(text(40, 344, "but a tip Loudon was shown, sent on his say. Left out here: the board and the ear that counts moves around the door.", 11, INK3))
+    write("How the Palace Commits — one door in, one gate out.svg", "".join(out), 362)
 
 
 # 3 ── The Reader's Context Window: where the eye has to go ─────────────────
@@ -109,17 +111,15 @@ def eye():
 
 # 4 ── James Turrell: it is moving ──────────────────────────────────────────
 def turrell():
-    """Leak: Seneca, whom the map says he contradicts, and whose avatar is an hourglass: the only clock in the picture."""
+    """Remade after the challenge: ten minutes each way (the page's own figure), no clock anywhere in the picture."""
     c0, c1 = "#f2b28a", "#3b4f8c"
-    style = (f"@keyframes sky{{0%{{fill:{c0}}}100%{{fill:{c1}}}}}.sky{{animation:sky 90s linear infinite alternate}}"
-             "@keyframes bar{0%{width:0}100%{width:520px}}.bar{animation:bar 90s linear infinite alternate}")
+    style = f"@keyframes sky{{0%{{fill:{c0}}}100%{{fill:{c1}}}}}.sky{{animation:sky 600s linear infinite alternate}}"
     out = [head("IT IS MOVING"), f'<rect class="sky" x="200" y="90" width="520" height="330" fill="{c0}"/>',
            f'<rect x="200" y="90" width="520" height="330" fill="none" stroke="{INK}" stroke-width="1.5"/>',
-           f'<rect x="200" y="436" width="520" height="3" fill="{RULE}"/><rect class="bar" x="200" y="436" width="0" height="3" fill="{RED}"/>',
            f'<rect x="60" y="90" width="90" height="150" fill="{c0}" stroke="{INK}"/>', text(105, 258, "where it began", 10, INK3, "middle"),
            f'<rect x="770" y="90" width="90" height="150" fill="{c1}" stroke="{INK}"/>', text(815, 258, "where it is going", 10, INK3, "middle"),
-           av("Seneca", 793, 330, 44, INK3), text(815, 392, "ninety seconds", 10, INK3, "middle"), text(815, 406, "each way", 10, INK3, "middle"),
-           text(40, 474, "Watch the window and nothing happens. Look away, look back, and it has changed. The two swatches never move.", 11, INK3)]
+           text(40, 456, "The window takes ten minutes to cross from the left swatch to the right, and ten to come back. Watch it and nothing happens.", 11, INK3),
+           text(40, 474, "Read the page, look again, and it has changed. Nothing in the picture tells you how far along it is.", 11, INK3)]
     write("James Turrell — it is moving.svg", "".join(out), 492, style)
 
 
@@ -145,55 +145,63 @@ def above():
 
 # 6 ── Donella Meadows: the bathtub ─────────────────────────────────────────
 def bathtub():
-    """A real little simulation: a tub you fill toward a line, where the tap answers your hand a few seconds late."""
+    """Remade after the challenge: the water cannot stand above the rim (it spills), an actual tub is drawn, labels sit off
+    the curves, and the caption owns the choices."""
     def run(gain, delay=4.0, T=60, dt=0.05):
-        n = int(T / dt); k = int(delay / dt); level = np.zeros(n); want = 0.7
+        n = int(T / dt); k = int(delay / dt); level = np.zeros(n); spill = np.zeros(n); want = 0.7
         for i in range(1, n):
             seen = level[i - 1 - k] if i - 1 - k >= 0 else 0.0                 # what your hand acted on, four seconds ago
             flow = float(np.clip(gain * (want - seen), -0.25, 0.25))            # the tap, and the drain, have a top speed
-            level[i] = min(1.2, max(0.0, level[i - 1] + flow * dt))
-        return level
-    x0, x1, yb, yt = 120, 880, 330, 96; X = lambda t: x0 + t / 60 * (x1 - x0); Y = lambda v: yb - v / 1.1 * (yb - yt)
-    out = [head("THE BATHTUB"), f'<line x1="{x0}" y1="{Y(0)}" x2="{x1}" y2="{Y(0)}" stroke="{RULE}"/>',
-           f'<line x1="{x0}" y1="{Y(0.7):.1f}" x2="{x1}" y2="{Y(0.7):.1f}" stroke="{INK3}" stroke-dasharray="3 4"/>', text(x0 - 8, Y(0.7) + 4, "where you want it", 10, INK3, "end"),
-           f'<line x1="{x0}" y1="{Y(1.0):.1f}" x2="{x1}" y2="{Y(1.0):.1f}" stroke="{RED}" stroke-width="1.5"/>', text(x0 - 8, Y(1.0) + 4, "the rim", 10, RED, "end"),
-           text(x0 - 8, Y(0) + 4, "empty", 10, INK3, "end")]
+            v = level[i - 1] + flow * dt; spill[i] = max(0.0, v - 1.0); level[i] = min(1.0, max(0.0, v))
+        return level, spill
+    x0, x1, yb, yt = 250, 880, 330, 120; X = lambda t: x0 + t / 60 * (x1 - x0); Y = lambda v: yb - v * (yb - yt)
+    out = [head("THE BATHTUB"), f'<path d="M60,{Y(1.0):.0f} L60,{yb} Q60,{yb+14} 76,{yb+14} L176,{yb+14} Q192,{yb+14} 192,{yb} L192,{Y(1.0):.0f}" fill="none" stroke="{INK}" stroke-width="3"/>',
+           f'<rect x="62" y="{Y(0.7):.0f}" width="128" height="{yb + 12 - Y(0.7):.0f}" fill="#9db6c9" fill-opacity="0.55"/>', f'<line x1="48" y1="{Y(0.7):.0f}" x2="204" y2="{Y(0.7):.0f}" stroke="{INK3}" stroke-dasharray="3 4"/>',
+           f'<path d="M120,{Y(1.0)-44:.0f} l0,20 M108,{Y(1.0)-44:.0f} l24,0" stroke="{INK}" stroke-width="3"/>', text(126, yb + 36, "the tub", 11, INK2, "middle"),
+           f'<line x1="{x0}" y1="{Y(0)}" x2="{x1}" y2="{Y(0)}" stroke="{RULE}"/>', f'<line x1="{x0}" y1="{Y(0.7):.1f}" x2="{x1}" y2="{Y(0.7):.1f}" stroke="{INK3}" stroke-dasharray="3 4"/>',
+           f'<line x1="{x0}" y1="{Y(1.0):.1f}" x2="{x1}" y2="{Y(1.0):.1f}" stroke="{INK}" stroke-width="1.5"/>', text(x0 - 8, Y(1.0) + 4, "the rim", 10, INK2, "end"),
+           text(x0 - 8, Y(0.7) + 4, "want", 10, INK3, "end"), text(x0 - 8, Y(0) + 4, "empty", 10, INK3, "end")]
     res = {}
-    for name, gain, color, wd in (("patient", 0.08, INK, 2.2), ("yanking the taps", 0.9, RED, 2.2)):
-        lv = run(gain); res[name] = float(lv.max()); t = np.arange(len(lv)) * 0.05
-        out.append(f'<path d="M' + " L".join(f"{X(a):.1f},{Y(b):.1f}" for a, b in zip(t[::4], lv[::4])) + f'" fill="none" stroke="{color}" stroke-width="{wd}"/>')
-    over = res["yanking the taps"] >= 1.0
-    out += [text(x1, Y(0.7) + 18, "patient: small turns, then wait", 11, INK, "end"), text(x1, 78, "yanking the taps" + (": over the rim, onto the floor, and back to empty" if over else ""), 11, RED, "end")]
+    for name, gain, color in (("patient", 0.08, INK), ("yanking", 0.9, RED)):
+        lv, sp = run(gain); t = np.arange(len(lv)) * 0.05; res[name] = (float(lv.max()), float((sp > 0).sum() * 0.05))
+        out.append(f'<path d="M' + " L".join(f"{X(a):.1f},{Y(b):.1f}" for a, b in zip(t[::4], lv[::4])) + f'" fill="none" stroke="{color}" stroke-width="2.2"/>')
+        on = np.where(sp > 0)[0]
+        for i in on[::18]: out.append(f'<path d="M{X(t[i]):.1f},{Y(1.0)-6:.1f} q-3,-8 0,-14 q3,6 0,14" fill="{RED}"/>')       # water over the rim
+    out += [text(x0, 92, "yanking the taps: over the rim, back to empty, round again", 11, RED), text(x1, 92, "patient: small turns, then wait", 11, INK, "end")]
     for t in range(0, 61, 10): out += [f'<line x1="{X(t):.1f}" y1="{yb}" x2="{X(t):.1f}" y2="{yb+5}" stroke="{RULE}"/>', text(X(t), yb + 18, f"{t}s", 10, INK3, "middle")]
-    out.append(text(40, 372, "Same tub, same tap, same four-second lag between your hand and the water. Only how hard you turn it differs.", 11, INK3))
-    out.append(text(40, 390, "A small simulation written for this figure, not a measurement. You can't set the level, only the flow, and the flow answers late.", 11, INK3))
-    write("Donella Meadows — the bathtub.svg", "".join(out), 408)
+    out += [text(40, 392, "Same tub, same four-second lag between your hand and the water. The patient hand settles on the line. The other never does:", 11, INK3),
+            text(40, 410, f"it spills for {res['yanking'][1]:.0f} of the sixty seconds. A simulation written for this figure. My choices: the yanking hand turns eleven times", 11, INK3),
+            text(40, 428, "harder than the patient one, the tap and the drain have the same top speed, and the drain is as strong as the tap.", 11, INK3)]
+    write("Donella Meadows — the bathtub.svg", "".join(out), 446)
     return res
 
 
 # 7 ── p5.js: veil, don't clear ─────────────────────────────────────────────
 def veil():
-    """Leak: Flocking, the page's own first job here. The same seed-7 flock, drawn two ways."""
-    r = np.random.default_rng(7); n = 90; Wp, Hp = 860, 560
+    """Remade after the challenge to the palace sketch's own numbers (Flocking/flocking-p5-expressive.html): 80 boids, 960 by 540,
+    neighbour radius 50, and a veil of 14 on an alpha range of 100. It is still a flock of its own, simulated in numpy:
+    the sketch's random generator is not this one, so the birds are not in the same places."""
+    r = np.random.default_rng(7); n = 80; Wp, Hp = 960, 540; ALPHA = 14 / 100
     pos = r.uniform(0, 1, (n, 2)) * (Wp, Hp); vel = r.normal(0, 1, (n, 2)); vel = vel / np.linalg.norm(vel, axis=1)[:, None] * 3.2
-    paper = np.array(rgb(PAPER), dtype=np.float32); canv = np.tile(paper, (Hp, Wp, 1)).copy(); last = None
-    def stamp(img, p, v):
+    paper = np.array(rgb(PAPER), dtype=np.float32); canv = np.tile(paper, (Hp, Wp, 1)).copy()
+    def stamp(img, p, v, rad=3):
         for (x, y), (vx, vy) in zip(p, v):
             hue = (math.atan2(vy, vx) + math.pi) / (2 * math.pi); col = np.array([200 - 160 * hue, 38 + 60 * hue, 26 + 150 * hue], dtype=np.float32)
-            xi, yi = int(x) % Wp, int(y) % Hp; img[max(0, yi - 2):yi + 3, max(0, xi - 2):xi + 3] = col
+            xi, yi = int(x) % Wp, int(y) % Hp; img[max(0, yi - rad):yi + rad + 1, max(0, xi - rad):xi + rad + 1] = col
     for f in range(260):
-        d = pos[None] - pos[:, None]; d -= np.round(d / (Wp, Hp)) * (Wp, Hp); dist = np.linalg.norm(d, axis=2) + 1e-9; near = (dist < 70) & (dist > 0)
+        d = pos[None] - pos[:, None]; d -= np.round(d / (Wp, Hp)) * (Wp, Hp); dist = np.linalg.norm(d, axis=2) + 1e-9; near = (dist < 50) & (dist > 0)
         coh = (d * near[..., None]).sum(1) / np.maximum(1, near.sum(1))[:, None]; ali = (vel[None] * near[..., None]).sum(1) / np.maximum(1, near.sum(1))[:, None]
-        close = dist < 22; sep = -(d / dist[..., None] ** 2 * close[..., None]).sum(1)
+        close = dist < 20; sep = -(d / dist[..., None] ** 2 * close[..., None]).sum(1)
         vel += 0.004 * coh + 0.05 * (ali - vel) + 1.6 * sep; vel = vel / np.linalg.norm(vel, axis=1)[:, None] * 3.2; pos = (pos + vel) % (Wp, Hp)
-        canv += (paper - canv) * (14 / 255)                                   # the veil: one low-alpha wash of the ground, every frame
+        canv += (paper - canv) * ALPHA                                         # the veil: one wash of the ground at 14 in 100, every frame
         stamp(canv, pos, vel)
-    clear = np.tile(paper, (Hp, Wp, 1)).copy(); stamp(clear, pos, vel)         # cleared: only the last frame survives
-    s = Sheet(900, "Veil, don't clear", "One flock, frame 260, drawn two ways.")
-    for i, (img, lab, sub) in enumerate(((clear, "background() every frame", "where they are"), (canv, "a 14-alpha veil every frame", "where they are, and where they have been"))):
-        x = 60 + i * 880; s.paste(Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)), (x, 190), frame=INK)
-        s.text((x, 190 + Hp + 14), lab, 23, RED if i else INK, bold=True); s.text((x, 190 + Hp + 46), sub, 20, INK3)
-    s.foot("A boids flock, seed 7, as on the Flocking page; colour is heading. Simulated here in numpy, not rendered in p5.")
+    clear = np.tile(paper, (Hp, Wp, 1)).copy(); stamp(clear, pos, vel, rad=5)     # cleared: only the last frame survives (drawn larger so it can be seen)
+    s = Sheet(1560, "Veil, don't clear", "One flock at one moment, drawn two ways.")
+    for i, (img, lab, sub) in enumerate(((clear, "background() every frame", "where they are"), (canv, "a veil of 14 in 100, every frame", "where they are, and where they have just been"))):
+        y = 190 + i * 650; im = Image.fromarray(np.clip(img, 0, 255).astype(np.uint8)); s.paste(im, (80, y), frame=INK)
+        s.text((1080, y + 20), lab, 26, RED if i else INK, bold=True); s.text((1080, y + 60), sub, 21, INK3)
+    s.foot("A boids flock of its own, built to the Flocking sketch's numbers; not the same birds, and on paper where the sketch is near-black.",
+           "Colour is heading. Simulated in numpy, not rendered in p5. The cleared panel's dots are drawn larger so they survive being shrunk.")
     s.save("p5.js — veil, don't clear.png")
 
 
@@ -214,50 +222,54 @@ def tree():
     ox = 490; out += [text(ox, 96, "TREE OF THOUGHTS", 12, RED, weight=700, extra='letter-spacing="2"'), text(ox, 114, "several continuations, scored, and the weak ones dropped", 11, INK3)]
     L = {0: [(ox + 20, 220)], 1: [(ox + 110, 150), (ox + 110, 220), (ox + 110, 290)], 2: [(ox + 200, 120), (ox + 200, 180), (ox + 200, 260), (ox + 200, 320)], 3: [(ox + 290, 230), (ox + 290, 290)], 4: [(ox + 380, 230)]}
     E = [((0, 0), (1, 0), 0), ((0, 0), (1, 1), 0), ((0, 0), (1, 2), 1), ((1, 0), (2, 0), 0), ((1, 0), (2, 1), 0), ((1, 2), (2, 2), 1), ((1, 2), (2, 3), 0), ((2, 2), (3, 0), 1), ((2, 2), (3, 1), 0), ((3, 0), (4, 0), 1)]
+    L = {k: [(x, y + 34) for x, y in v] for k, v in L.items()}        # the tree sits clear of its subtitle
     for (a, b, win) in E:
         (x1, y1), (x2, y2) = L[a[0]][a[1]], L[b[0]][b[1]]; out.append(f'<line x1="{x1+9}" y1="{y1}" x2="{x2-9}" y2="{y2}" stroke="{RED if win else INK3}" stroke-width="{2.2 if win else 1.2}"/>')
     dead = {(2, 0), (2, 1), (1, 1), (2, 3), (3, 1)}; win = {(0, 0), (1, 2), (2, 2), (3, 0)}
     for lv, pts in L.items():
         for i, (x, y) in enumerate(pts): out.append(node(x, y, "x" if (lv, i) in dead else ("win" if (lv, i) == (4, 0) else "o")))
-    out.append(f'<path d="M{ox+192},{126} C{ox+150},{138} {ox+50},{140} {ox+24},{206}" fill="none" stroke="{INK}" stroke-width="1.3" stroke-dasharray="4 4"/>')
-    out += [arrow(ox + 27, 196, ox + 23, 209, INK), text(ox + 52, 150, "backtrack", 10, INK2, "middle"), text(ox + 380, 258, "found", 10, RED, "middle")]
-    out.append(f'<line x1="440" y1="84" x2="440" y2="340" stroke="{RULE}"/>')
-    out.append(text(40, 372, "Same problem, same first step. The chain cannot revisit its second thought; the tree can, and does.", 11, INK3))
-    write("Tree of Thoughts — a chain cannot go back.svg", "".join(out), 390)
+    out.append(f'<path d="M{ox+192},{160} C{ox+150},{172} {ox+50},{174} {ox+24},{240}" fill="none" stroke="{INK}" stroke-width="1.3" stroke-dasharray="4 4"/>')
+    out += [arrow(ox + 27, 230, ox + 23, 243, INK), text(ox + 52, 184, "backtrack", 10, INK2, "middle"), text(ox + 380, 292, "found", 10, RED, "middle")]
+    out.append(f'<line x1="440" y1="84" x2="440" y2="380" stroke="{RULE}"/>')
+    out.append(text(40, 410, "Same problem, same first step. The chain cannot revisit its second thought; the tree can, and does.", 11, INK3))
+    write("Tree of Thoughts — a chain cannot go back.svg", "".join(out), 428)
 
 
 # 9 ── The Palace Voice: the dial that drifted ──────────────────────────────
 def voice():
-    """Leak: Drift and Consolidation. 'The bug is never drift', only drift nobody is tracking; here is the drift, and the day it got a gate."""
-    d = json.load(open(os.path.join(HERE, "voice-history.json")))
-    x0, x1, yb, yt = 100, 790, 330, 100; X = lambda i: x0 + i / (len(d) - 1) * (x1 - x0); Y = lambda v: yb - (v - 10) / 15 * (yb - yt)
+    """Remade after the challenge: counted the linter's way (canon entries, body prose) so the palace's growth cannot dilute
+    it; the axis starts at zero; August is marked as the month the dial was named and is not credited with the fall."""
+    d = json.load(open(os.path.join(HERE, "voice-history-canon.json")))
+    x0, x1, yb, yt = 100, 780, 340, 100; X = lambda i: x0 + i / (len(d) - 1) * (x1 - x0); Y = lambda v: yb - v / 25 * (yb - yt)
     out = [head("THE DIAL THAT DRIFTED")]
-    for v in (10, 15, 20, 25): out += [f'<line x1="{x0}" y1="{Y(v)}" x2="{x1}" y2="{Y(v)}" stroke="{RULE}" stroke-width="0.6"/>', text(x0 - 8, Y(v) + 4, str(v), 10, INK3, "end")]
+    for v in (0, 5, 10, 15, 20, 25): out += [f'<line x1="{x0}" y1="{Y(v)}" x2="{x1}" y2="{Y(v)}" stroke="{RULE}" stroke-width="0.6"/>', text(x0 - 8, Y(v) + 4, str(v), 10, INK3, "end")]
     names = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
     for i, r in enumerate(d): out.append(text(X(i), yb + 20, names[int(r["month"][5:]) - 1], 10, INK3, "middle"))
     g = [i for i, r in enumerate(d) if r["month"] == "2026-08"][0]
-    out += [f'<line x1="{X(g)}" y1="{yt-10}" x2="{X(g)}" y2="{yb}" stroke="{INK}" stroke-dasharray="4 4"/>', text(X(g) + 6, yt - 2, "August: the dial is named, and given a gate", 10, INK2)]
+    out += [f'<line x1="{X(g)}" y1="{yt-10}" x2="{X(g)}" y2="{yb}" stroke="{INK}" stroke-dasharray="4 4"/>', text(X(g) + 6, yt - 2, "August: the dial is named", 10, INK2)]
     for key, color, lab in (("emdash_per_k", RED, "em-dashes"), ("bold_per_k", INK, "bold")):
         pts = [(X(i), Y(r[key])) for i, r in enumerate(d)]
         out.append(f'<path d="M' + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts) + f'" fill="none" stroke="{color}" stroke-width="2.2"/>')
         for x, y in pts: out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.5" fill="{PAPER}" stroke="{color}" stroke-width="1.8"/>')
         out.append(text(pts[-1][0] + 8, pts[-1][1] + 4, lab, 11, color, weight=700))
     e = [r["emdash_per_k"] for r in d]; b = [r["bold_per_k"] for r in d]
-    out += [text(x0 - 60, yt - 18, "per thousand words", 10, INK3),
-            text(40, 376, f"Em-dashes climbed {e[0]:.0f} to {max(e):.0f} per thousand words by midsummer ({(max(e)/e[0]-1):.0%}), then fell to {e[-1]:.0f} once the gate was in.", 11, INK3),
-            text(40, 394, f"Bold did not rise in this count ({b[0]:.0f} to {b[-1]:.0f}). The page's 41 and 53 percent were measured some other way;", 11, INK3),
-            text(40, 412, "this is every .md file, month by month, from git.", 11, INK3)]
-    write("The Palace Voice — the dial that drifted.svg", "".join(out), 430)
+    out += [text(x0 - 60, yt - 18, "per thousand words of entry prose", 10, INK3),
+            text(40, 386, f"Em-dashes climbed from {e[0]:.0f} to {max(e):.0f} per thousand words by July, held through September, and have eased to {e[-1]:.0f} since.", 11, INK3),
+            text(40, 404, f"Bold fell the whole way, {b[0]:.1f} to {b[-1]:.1f}. Counted with the page's own linter on the palace's entries at each month's last commit.", 11, INK3),
+            text(40, 422, "The page's '41 and 53 percent' compare entries by the month they were born: a different question.", 11, INK3)]
+    write("The Palace Voice — the dial that drifted.svg", "".join(out), 440)
     return e, b
 
 
 # 10 ── Entry Conatus: how the pages begin their wish ───────────────────────
 def verbs():
+    import yaml
     c = collections.Counter(); n = 0; ex = {}
     for t in NODES:
-        m = re.search(r'^forward_vector:\s*["\']?(.+)', frontmatter(t, 8000), re.M)
-        if not m: continue
-        s = m.group(1).strip(); n += 1; w = re.findall(r"[A-Za-z']+", s)[:6]
+        try: fv = (yaml.safe_load(frontmatter(t, 40000).split("\n---")[0].lstrip("-")) or {}).get("forward_vector")   # YAML, so block scalars are read too
+        except Exception: fv = None
+        if not fv: continue
+        s = str(fv).strip(); n += 1; w = re.findall(r"[A-Za-z']+", s)[:6]
         if not w: continue
         key = " ".join(w[:3]).lower() if w[0].lower() == "i" else ("As a palace citizen …" if w[0].lower() == "as" else w[0].lower() + " …")
         key = {"i want to": "I want to …", "i am the": "I am …", "i am a": "I am …", "i am not": "I am …"}.get(key, ("I " + w[1].lower() + " …") if w[0].lower() == "i" and len(w) > 1 else key)

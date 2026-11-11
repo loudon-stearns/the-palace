@@ -214,7 +214,7 @@ def rubin():
     leave = {"shaker": 2, "arpeggio": 3, "pad": 4, "second guitar": 5, "drums": 6, "bass": 7}    # the bar each layer is taken away at
     parts = {k: st[k] * gate(n, [(0, leave.get(k, 99) * bar)], 0.05) for k in st}
     for k in parts: parts[k] /= max(1e-9, np.abs(st[k]).max())
-    lev = {"shaker": 0.35, "arpeggio": 0.45, "pad": 0.5, "second guitar": 0.45, "drums": 0.9, "bass": 0.7, "the guitar": 0.6, "the voice": 0.6}
+    lev = {"shaker": 0.55, "arpeggio": 0.5, "pad": 0.5, "second guitar": 0.8, "drums": 1.0, "bass": 0.7, "the guitar": 0.28, "the voice": 0.22}   # remade: the six sit well over the two
     mix = sum(parts[k] * lev[k] for k in parts); mix += 0.12 * reverb(parts["the voice"] * lev["the voice"] + parts["the guitar"] * 0.4, 1.8)
     save("Rick Rubin — clear away what hides it.wav", np.tanh(mix * 0.9))
     x0, x1 = 130, 880; rows = [(k, env(parts[k]), RED if k.startswith("the ") else INK) for k in st]
