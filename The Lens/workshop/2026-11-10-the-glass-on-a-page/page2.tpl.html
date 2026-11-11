@@ -1,0 +1,193 @@
+<!doctype html>
+<!--
+  title: The Lens — rich — the glass on a page
+  born: 2026-11-10
+  links: [[The Lens]] (connects-to · rich-face-piece) · listed in [[The Lens — rich.json]] · page two after [[The Lens — rich — many eyes.html]] · [[Haptic Handwheel]] (connects-to · the subject under the glass, its text word for word) · [[Merleau-Ponty]], [[Spinoza]], [[Simondon]], [[Deleuze]] (connects-to · the four glasses) · [[STIGMERGY]] (connects-to · wears its look; ends on the trace a lensing leaves)
+  forward_vector: I am page two of The Lens's hook. The same four eyes as the picture, now over four real paragraphs of Haptic Handwheel. Move the glass, change the eye, and the same words are read in four voices; then I show what a lensing reports, how it runs here, and what the record does and does not support. Merleau-Ponty's readings are excerpts of a real woken lensing; the other three are this maker's own run and say so. I change when a real [L]ens run exists for the other three glasses, and they should replace mine.
+  checked: The Lens — rich — the glass on a page — check.mjs holds every passage and every Merleau-Ponty excerpt to its source file, word for word.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lens — the glass on a page</title>
+<meta name="theme-color" content="#050a06">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --phosphor:#33ff66; --bright:#7fff9b; --dim:#1f8a3c; --deep:#0b2a14; --white:#d7f6dc; --bg:#050a06; --amber:#ffb000; --cyan:#7fdbff; --red:#ff4136;
+    --display:'VT323','Menlo',monospace; --body:'IBM Plex Mono','Menlo','Consolas',monospace; --serif:'IBM Plex Serif',Georgia,serif; }
+  * { box-sizing: border-box; border-radius: 0; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; background: var(--bg); }
+  body { font-family: var(--body); font-size: 14px; line-height: 1.55; color: var(--phosphor); }
+  .piece { max-width: 860px; margin: 0 auto; padding: 18px 18px 26px; }
+  .kick { color: var(--dim); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+  .banner { font-family: var(--display); font-size: 38px; line-height: 1; color: var(--phosphor); text-shadow: 0 0 6px currentColor; margin: 4px 0 8px; }
+  .lede { color: var(--white); max-width: 78ch; margin: 0 0 14px; }
+  h3 { font-family: var(--display); font-weight: 400; font-size: 27px; line-height: 1; color: var(--phosphor); text-shadow: 0 0 6px currentColor; margin: 30px 0 6px; }
+  .say { color: var(--white); max-width: 78ch; margin: 0 0 10px; }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 12px; }
+  .lbl { color: var(--dim); font-size: 10.5px; letter-spacing: 2px; text-transform: uppercase; margin-right: 4px; }
+  button { font-family: var(--body); font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--dim); background: none; border: 1px solid var(--dim); padding: 7px 10px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+  button:hover { color: var(--phosphor); border-color: var(--phosphor); }
+  button[aria-pressed="true"] { background: var(--phosphor); color: var(--bg); border-color: var(--phosphor); }
+  button:focus-visible, .para:focus-visible { outline: 1px solid var(--amber); outline-offset: 2px; }
+  .sw { width: 12px; height: 12px; border-radius: 50%; border: 2px solid #14121a; display: inline-block; }
+  .state { border: 3px double var(--dim); padding: 12px 14px 6px; }
+  .shead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 14px; color: var(--dim); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; border-bottom: 1px solid var(--dim); padding-bottom: 6px; margin-bottom: 10px; }
+  .shead b { color: var(--phosphor); font-weight: 400; }
+  .para { margin: 0 0 12px; padding: 6px 10px; border: 1px solid transparent; border-left: 2px solid var(--deep); cursor: pointer; color: var(--white); }
+  .para:hover { border-left-color: var(--phosphor); }
+  .para .sec { display: block; color: var(--dim); font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2px; }
+  .para .txt b { color: #fff; font-weight: 600; }
+  /* the glass: each eye keeps the paper and ink it had over the picture */
+  .glass { --paper:#f6e2cf; --ink:#5a2a1c; --acc:#d9482b; --soft:rgba(90,42,28,.62);
+    margin: 0 -6px 14px; border: 3px double var(--acc); background: var(--paper); color: var(--ink); cursor: default; box-shadow: 0 0 12px color-mix(in srgb, var(--acc) 55%, transparent); padding: 0; }
+  .glass.eye-spinoza { --paper:#e3f0ee; --ink:#1d5778; --acc:#c98d0e; --soft:rgba(29,87,120,.7); background-image: repeating-linear-gradient(0deg, transparent 0 21px, rgba(44,111,150,.13) 21px 22px); }
+  .glass.eye-simondon { --paper:#0f3158; --ink:#d7e8ff; --acc:#ffc04a; --soft:rgba(215,232,255,.68); background-image: linear-gradient(rgba(159,196,240,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(159,196,240,.12) 1px, transparent 1px); background-size: 22px 22px; }
+  .glass.eye-deleuze { --paper:#fff3cf; --ink:#2b1650; --acc:#ff2d8a; --soft:rgba(43,22,80,.66); background-image: radial-gradient(rgba(255,45,138,.2) 1.4px, transparent 1.6px); background-size: 10px 10px; }
+  .ghead { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; padding: 6px 12px; border-bottom: 1px solid var(--acc); font-size: 10.5px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--ink); }
+  .ghead .not { color: var(--soft); }
+  .under { padding: 9px 12px 8px; font-size: 12.5px; color: var(--soft); border-bottom: 1px dashed var(--soft); }
+  .under .sec { display: block; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; }
+  .under b { font-weight: 600; }
+  .reading { padding: 12px 14px 4px; font-size: 15px; line-height: 1.6; }
+  .reading p { margin: 0 0 10px; }
+  .reading .gap { color: var(--soft); font-size: 12px; }
+  .eye-mp .reading { font-family: var(--serif); font-size: 16.5px; line-height: 1.62; }
+  .eye-spinoza .reading p { padding-left: 2ch; text-indent: -2ch; }
+  .eye-spinoza .reading .cap { font-weight: 600; letter-spacing: 1.5px; font-size: 12px; color: var(--acc); }
+  .eye-simondon .reading { font-size: 14px; }
+  .eye-simondon .reading p { border-left: 2px solid var(--acc); padding-left: 12px; }
+  .eye-deleuze .reading { text-shadow: -1.4px .8px 0 rgba(255,45,138,.55), 1.5px -.8px 0 rgba(0,166,214,.55); font-weight: 600; transform: rotate(-.35deg); }
+  .flag { margin: 0 14px 10px; padding: 6px 10px; border: 1px solid var(--ink); font-size: 12px; background: color-mix(in srgb, var(--paper) 80%, #ffb000); color: var(--ink); text-shadow: none; }
+  .flag b { letter-spacing: 1px; }
+  .run { padding: 7px 12px 8px; border-top: 1px solid var(--acc); font-size: 11px; line-height: 1.5; color: var(--soft); }
+  .card { border: 1px solid var(--amber); padding: 10px 14px; color: var(--white); max-width: 80ch; }
+  .card .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 14px; color: var(--amber); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .card dl { margin: 0; display: grid; grid-template-columns: 13ch 1fr; gap: 5px 10px; font-size: 13px; }
+  .card dt { color: var(--dim); text-transform: uppercase; font-size: 11px; letter-spacing: 1px; padding-top: 2px; }
+  .card dd { margin: 0; }
+  .card .meter { font-family: var(--display); font-size: 21px; line-height: 1; color: var(--amber); letter-spacing: 2px; }
+  .card .stamp { margin-top: 9px; color: var(--cyan); font-size: 11.5px; }
+  .card .aft { margin-top: 6px; color: var(--amber); font-size: 12px; }
+  ol.trace { list-style: none; margin: 0; padding: 0; border: 3px double var(--dim); max-width: 80ch; }
+  ol.trace li { display: grid; grid-template-columns: 8ch 1fr; gap: 0 10px; padding: 7px 12px; border-bottom: 1px solid var(--deep); color: var(--white); font-size: 13px; }
+  ol.trace li:last-child { border-bottom: 0; }
+  ol.trace .k { font-family: var(--display); font-size: 21px; line-height: 1.1; color: var(--phosphor); }
+  ol.trace .src { display: block; color: var(--dim); font-size: 11px; }
+  ol.trace em { font-style: normal; color: var(--cyan); }
+  ul.good { list-style: none; margin: 0; padding: 0; max-width: 80ch; }
+  ul.good li { padding: 8px 0 8px 0; border-bottom: 1px solid var(--deep); color: var(--white); font-size: 13px; }
+  ul.good .tag { display: inline-block; font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; padding: 0 6px; margin-right: 8px; border: 1px solid; }
+  ul.good .rec { color: var(--phosphor); } ul.good .cost { color: var(--amber); } ul.good .unp { color: var(--red); }
+  ul.good .src { display: block; color: var(--dim); font-size: 11px; margin-top: 2px; }
+  .fine { color: var(--dim); font-size: 11.5px; max-width: 86ch; margin: 18px 0 0; }
+  @media (max-width: 560px) {
+    .piece { padding: 12px 8px 20px; } .banner { font-size: 30px; } body { font-size: 13px; }
+    .state { padding: 8px 8px 2px; } .glass { margin: 0 -3px 12px; } .reading { font-size: 14px; padding: 10px 10px 2px; } .eye-mp .reading { font-size: 15.5px; }
+    .card dl { grid-template-columns: 1fr; gap: 0; } .card dd { margin-bottom: 7px; } ol.trace li { grid-template-columns: 7ch 1fr; padding: 7px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="kick">the lens -- page two -- from the picture to the page</div>
+  <div class="banner">NOW THE GLASS IS OVER WORDS</div>
+  <p class="lede">The same four eyes. Under the glass this time is a real palace page, Haptic Handwheel: one knob that is a motor and a sensor at once, a hand on a machine. Click a paragraph to move the glass. Change whose eye is in it. Around the glass the page stays as written.</p>
+
+  <div class="row" id="eyes" role="group" aria-label="Whose eye is in the glass">
+    <span class="lbl">whose eye</span>
+    <button data-eye="mp"><i class="sw" style="background:#e8906c"></i>Merleau-Ponty</button>
+    <button data-eye="spinoza"><i class="sw" style="background:#8fc0d4"></i>Spinoza</button>
+    <button data-eye="simondon"><i class="sw" style="background:#174574"></i>Simondon</button>
+    <button data-eye="deleuze"><i class="sw" style="background:#ff2d8a"></i>Deleuze</button>
+    <button id="lift" aria-pressed="false">lift it off</button>
+  </div>
+
+  <div class="state">
+    <div class="shead"><span>STATE -- <b id="subj"></b></span><span id="commit"></span></div>
+    <div id="paras"></div>
+  </div>
+
+  <h3>WHAT THE GLASS REPORTS</h3>
+  <p class="say">A lensing does not end as prose. It ends as one report with a fixed shape, and the report is the trace it leaves for whoever comes next. This is the report for the eye now in the glass.</p>
+  <div class="card" id="card"></div>
+
+  <h3>HOW IT RUNS HERE</h3>
+  <p class="say">No glass and no filter. An agent wakes as one page and is handed another.</p>
+  <ol class="trace" id="trace"></ol>
+
+  <h3>WHAT IT IS GOOD FOR, ON THE RECORD</h3>
+  <ul class="good">
+    <li><span class="tag rec">on record</span>Learning both pages at once. Loudon, 2026-10-23: "a true use of Lens … is for me the user to learn more about both the lens and the subject."<span class="src">The Lens.md, the downstream loops</span></li>
+    <li><span class="tag rec">on record</span>A glass that reads in its own voice finds more. Ten lensings were woken on 2026-11-03, five glasses each careful and bold. A cold judge reading blind picked bold in five of five, and found bold had found more in four of five. Loudon played four of the pairs and "MUCH preferred the bold".<span class="src">The Lens -- scroll, 2026-11-03 · The Lens -- tuning, item 8 · proofs/2026-11-03-bold-mandate/judge-blind.md</span></li>
+    <li><span class="tag cost">on record, a cost</span>The glass bends things and does not catch all of it. A fact-check found every bold reading's own distortion check had missed a small bend. One of them is on this page: put Merleau-Ponty over the first paragraph.<span class="src">The Lens -- tuning, item 9 · proofs/2026-11-03-bold-mandate/fact-check.md</span></li>
+    <li><span class="tag unp">unproven</span>Finding the palace's missing links. This is the page's design claim, and the record has not shown it yet: in the ten woken lensings every payoff came back as a deposit, none as a link. The deposit Merleau-Ponty proposed above is not in Haptic Handwheel's text at this commit, and this maker found no lens proposal that went on to be committed.<span class="src">The Lens -- tuning, item 11 · checked 2026-11-10 by reading Projects/Haptic Handwheel.md; not an audit of the whole palace</span></li>
+    <li><span class="tag unp">unproven</span>The spark score. Nine of the ten scored 4 or more, and the fact-check would lower several. The page's own note says the score is not yet one to trust.<span class="src">The Lens -- tuning, item 10</span></li>
+  </ul>
+
+  <p class="fine">whose voice is this. none of the readings is a philosopher's own words and none is a quotation of one. each is an agent reading Haptic Handwheel with that person's palace page loaded: the palace's reading through the page. merleau-ponty's are excerpts from a real woken lensing of 2026-11-03, shown word for word, a gap marked [...]. the other three were written for this piece on 2026-11-10 by the maker session, and each says so under its reading. the four paragraphs of Haptic Handwheel are the file's own text; ** is shown as bold and [[ ]] is left as written.</p>
+</div>
+
+<script type="application/json" id="data">/*DATA*/</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('data').textContent);
+  const $ = id => document.getElementById(id);
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  const q = new URLSearchParams(location.search);
+  const S = { eye: D.eyes[q.get('eye')] ? q.get('eye') : 'mp', p: D.passages.some(p => p.id === q.get('p')) ? q.get('p') : 'p1', lift: q.get('lift') === '1' };
+
+  $('subj').textContent = D.subject;
+  $('commit').textContent = 'text as committed at ' + D.subject_commit;
+
+  function readingHtml(e, pid) {
+    const parts = e.r[pid];
+    return parts.map((part, i) => (i ? '<p class="gap">[...]</p>' : '') + part.split('\n').map(line => {
+      const m = /^(DEFINITION|PROPOSITION|DEMONSTRATION|COROLLARY|SCHOLIUM)\. (.*)$/.exec(line);
+      return m ? `<p><span class="cap">${m[1]}.</span> ${esc(m[2])}</p>` : `<p>${esc(line)}</p>`;
+    }).join('')).join('');
+  }
+  function draw() {
+    const e = D.eyes[S.eye];
+    $('paras').innerHTML = D.passages.map(p => {
+      if (S.lift || p.id !== S.p) return `<div class="para" tabindex="0" role="button" data-p="${p.id}" aria-label="Move the glass to this paragraph"><span class="sec">§ ${esc(p.sec)}</span><span class="txt">${md(p.text)}</span></div>`;
+      const flag = e.flags[p.id] ? `<div class="flag"><b>BENT, AND NOT CAUGHT.</b> ${esc(e.flags[p.id])}</div>` : '';
+      return `<div class="glass eye-${S.eye}" data-p="${p.id}">
+        <div class="ghead"><span>under the glass -- read through ${esc(e.page)}</span><span class="not">not ${esc(e.name)}'s words</span></div>
+        <div class="under"><span class="sec">§ ${esc(p.sec)} -- the page, as written</span>${md(p.text)}</div>
+        <div class="reading">${readingHtml(e, p.id)}</div>${flag}
+        <div class="run">${esc(e.run)}</div></div>`;
+    }).join('');
+    document.querySelectorAll('#eyes button[data-eye]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.eye === S.eye && !S.lift)));
+    $('lift').setAttribute('aria-pressed', String(S.lift)); $('lift').textContent = S.lift ? 'put it back' : 'lift it off';
+
+    const meter = '[' + '#'.repeat(e.spark) + '-'.repeat(5 - e.spark) + '] ' + e.spark + ' / 5';
+    const flagNote = e.spark >= 4 ? 'at 4 or more the post becomes a weave flag: a card waiting in QUEUE for Loudon’s yes or no.' : 'under 4: a plain post on the WEAVE board, no card in QUEUE.';
+    $('card').innerHTML = `<div class="top"><span>WEAVE -- lensing report -- ${esc(e.name)} over Haptic Handwheel</span><span>${e.real ? 'real run, 2026-11-03' : 'this piece’s run, 2026-11-10'}</span></div>
+      <dl><dt>spark</dt><dd><span class="meter">${meter}</span><br>${flagNote}</dd>
+      <dt>payoff</dt><dd><b>${esc(e.payoff)}</b> -- ${esc(e.detail)}</dd>
+      <dt>distortion</dt><dd>${esc(e.distortion)}</dd>
+      <dt>doorway</dt><dd>${esc(e.doorway)}</dd></dl>
+      <div class="stamp">NOT POSTED. ${e.real ? 'the run was a test with no board posts; its own note says nothing was posted to WEAVE.' : 'written for this piece; nothing was sent to the board.'} nothing was written to either page.</div>
+      ${e.after ? `<div class="aft">CHECKED AFTERWARDS. ${esc(e.after)}</div>` : ''}`;
+
+    $('trace').innerHTML = [
+      ['PICK', `On a page in STATE, press <em>[L]ens</em> and choose a glass. The nearest pages on the typed-link graph are offered first.`, 'The Lens.md · _ops/stigmergy/app/src/lib/lens-suggest.js'],
+      ['WAKE', `An agent wakes as the glass page itself: <em>${esc(e.page)}</em> becomes who it is.`, '_ops/stigmergy/orchestrator/src/ephemeral-prompt.js · buildEphemeralPrompt'],
+      ['HAND', `It is handed the subject whole, <em>${esc(D.subject)}</em>, as the thing it reads and not who it is.`, '_ops/stigmergy/orchestrator/src/lens-mandate.js · buildLensMandate'],
+      ['READ', `Two attempts. It picks the passage its own ideas bite on and reads it in its own voice. Then it checks itself: what did I bring, would the reading change with the passage, is this my voice.`, 'lens-mandate.js · The Lens.md'],
+      ['REPORT', `A spark from 1 to 5 with words quoted from both pages; a payoff, one of link, deposit, learn or none; a distortion check; a doorway into its own page.`, 'lens-mandate.js'],
+      ['POST', `One message to the WEAVE board. A spark of 4 or more makes it a card in QUEUE.`, 'lens-mandate.js · LENS_BOARD, LENS_CONFIRM_THRESHOLD'],
+      ['WAIT', `Looking writes nothing. No link and no sentence reaches either page until Loudon says yes, and then it is committed through git like any other change.`, 'The Lens.md · STIGMERGY.md, the honesty discipline'],
+    ].map(([k, t, s]) => `<li><span class="k">${k}</span><span>${t}<span class="src">${s}</span></span></li>`).join('');
+  }
+  $('paras').addEventListener('click', ev => { const d = ev.target.closest('.para'); if (!d) return; S.p = d.dataset.p; S.lift = false; draw(); });
+  $('paras').addEventListener('keydown', ev => { if (ev.key !== 'Enter' && ev.key !== ' ') return; const d = ev.target.closest('.para'); if (!d) return; ev.preventDefault(); S.p = d.dataset.p; S.lift = false; draw(); });
+  $('eyes').addEventListener('click', ev => { const b = ev.target.closest('button'); if (!b) return; if (b.dataset.eye) { S.eye = b.dataset.eye; S.lift = false; } else S.lift = !S.lift; draw(); });
+  draw();
+})();
+</script>
+</body>
+</html>
