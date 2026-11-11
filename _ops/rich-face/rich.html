@@ -52,7 +52,19 @@
   .head .ledger span + span::before { content: ' · '; color: var(--fg-4); }
 
   /* ── sections ── */
-  section.sec { margin-bottom: 84px; }
+  section.sec { margin-bottom: 64px; }
+  /* With the review shown, each section is its body plus a rail on the right
+     that holds the section's note and approve; the rail stays in view while
+     the section scrolls past. Below 1180px it falls to the section's foot. */
+  .page:has(.rf-rail) { max-width: 1440px; }
+  @media (min-width: 1180px) {
+    section.sec.has-rail { display: grid; grid-template-columns: minmax(0, 1fr) 220px; column-gap: 36px; align-items: stretch; }
+    .rf-rail { border-left: 1px dashed var(--border); padding-left: 18px; }
+    .rf-rail-in { position: sticky; top: 58px; }
+    .rf-rail .rf-foot { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 0; padding-top: 2px; border-top: 0; }
+    .rf-rail .pin { text-align: left; line-height: 1.5; }
+    .rf-rail .rf-note textarea { min-height: 160px; font-size: 13.5px; }
+  }
   .sec-label { font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--fg-3);
     padding-bottom: 12px; border-bottom: 1.5px solid var(--border); margin-bottom: 26px; display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
   .sec-label .flags { display: flex; gap: 14px; align-items: baseline; }
@@ -207,7 +219,7 @@
     <div style="margin-bottom:6px;text-transform:uppercase">The whole page</div>
     <textarea id="overall" placeholder="How does the page land as a whole?"></textarea>
     <div class="actions"><button class="send" id="send">Send to STIGMERGY</button><button id="copy">Copy</button></div>
-    <div class="msg" id="dock-msg">Leave a note at the foot of any section, with its ◇. Notes save as you type.</div>
+    <div class="msg" id="dock-msg">Leave a note beside any section, with its ◇. Notes save as you type.</div>
   </div>
 </div>
 

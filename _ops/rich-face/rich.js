@@ -397,10 +397,14 @@ async function manifestFigure(p, sec) {
 // ── lay one section: prose rows, margin figures, band figures ──
 async function laySection(s, idx) {
   const el = h('section', { class: 'sec', id: 's-' + idx, 'data-key': s.key });
+  // The section's words and pieces go in its body; the review, when shown,
+  // rides in a rail beside it rather than below it (Loudon, 2026-11-11).
+  const body = h('div', { class: 'sec-body' });
+  el.append(body);
   const flags = h('span', { class: 'flags' });
   const label = h('div', { class: 'sec-label' }, h('span', {}, s.level === 1 ? 'Opening' : `§ ${String(idx).padStart(2, '0')}`), flags);
-  el.append(label);
-  if (s.level > 1) el.append(h('h2', { html: mdToHtml(s.heading, true) }));
+  body.append(label);
+  if (s.level > 1) body.append(h('h2', { html: mdToHtml(s.heading, true) }));
 
   const rows = [];
   let cur = null;
@@ -443,12 +447,13 @@ async function laySection(s, idx) {
   await placePieces(atEnd);
 
   for (const r of rows) {
-    if (r.prose.childElementCount || r.margin.childElementCount) el.append(h('div', { class: 'row' }, r.prose, r.margin));
-    if (r.band.childElementCount) el.append(r.band);
+    if (r.prose.childElementCount || r.margin.childElementCount) body.append(h('div', { class: 'row' }, r.prose, r.margin));
+    if (r.band.childElementCount) body.append(r.band);
   }
 
-  // The note sits at the section's foot, in the reader's order: you read a
-  // section, then you review it (Loudon, 2026-11-07).
+  // The note sits beside the section, in a rail on its right, so the review
+  // no longer breaks the flow down the page (Loudon, 2026-11-11; it sat at the
+  // section's foot from 2026-11-07). On a narrow screen the rail falls to the foot.
   if (REVIEW) {
     const k = noteKey(s.key);
     const ta = h('textarea', { placeholder: `A note on “${s.heading}” — the words, the pieces, or both.` });
@@ -480,7 +485,8 @@ async function laySection(s, idx) {
     };
     // After a send clears what went, each section re-reads its box from storage.
     noteViews.push(() => { ta.value = localStorage.getItem(k) || ''; if (!ta.value) box.classList.remove('open'); paint(); paintAp(); });
-    el.append(foot, box);
+    el.classList.add('has-rail');
+    el.append(h('aside', { class: 'rf-rail' }, h('div', { class: 'rf-rail-in' }, foot, box)));
   }
   return el;
 }
@@ -555,7 +561,7 @@ function mountDock() {
     if (send.disabled) return;
     const d = collectNotes();
     if (!countNotes()) {
-      $('#dock-msg').textContent = $('#dock-msg').title ? 'Nothing new to send — your last send is on the board.' : 'Nothing to send yet — leave a note at the foot of any section.';
+      $('#dock-msg').textContent = $('#dock-msg').title ? 'Nothing new to send — your last send is on the board.' : 'Nothing to send yet — leave a note beside any section.';
       return;
     }
     send.disabled = true; send.textContent = 'Sending…';
