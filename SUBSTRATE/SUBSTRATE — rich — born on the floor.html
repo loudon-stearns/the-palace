@@ -18,6 +18,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="flow">
 <title>Born on the floor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap">
@@ -31,7 +32,7 @@
   .bf-bar { display:flex; align-items:center; gap:12px; padding:10px 14px; border-top:2px solid var(--ink); flex-wrap:wrap; }
   .bf-bar button { font:inherit; font-size:14px; letter-spacing:.06em; text-transform:uppercase; padding:8px 18px;
      background:var(--paper); color:var(--ink); border:1.5px solid var(--ink); border-radius:0; cursor:pointer; }
-  .bf-bar button.bf-go { background:var(--ink); color:var(--paper); }
+  .bf-bar button.bf-step { background:var(--ink); color:var(--paper); }
   .bf-bar button:disabled { opacity:.35; cursor:default; }
   .bf-bar button:focus-visible { outline:1px dashed var(--ink); outline-offset:3px; }
   .bf-count { font-size:13px; color:var(--ink3); margin-left:auto; }
@@ -52,7 +53,7 @@
   <svg class="bf-stage" id="stage" viewBox="0 0 1200 760" role="img" aria-labelledby="bf-live"></svg>
   <div class="bf-bar">
     <button id="back" type="button">back</button>
-    <button id="go" class="bf-go" type="button">step</button>
+    <button id="next" class="bf-step" type="button">step</button>
     <button id="snd" type="button" aria-pressed="false">sound: off</button>
     <span class="bf-hint" id="hint">click the page, or press the right arrow</span>
     <span class="bf-count" id="count"></span>
@@ -547,7 +548,7 @@ function render() {
   const turned = fwd && n === pg[0] && n > 0;
   stage.innerHTML = DEFS + `<g class="${turned ? 'bf-new' : ''}">` + pg[2]() + '</g>';
   document.getElementById('back').disabled = n === 0;
-  const go = document.getElementById('go'); go.textContent = n === N - 1 ? 'be born again' : 'step';
+  const go = document.getElementById('next'); go.textContent = n === N - 1 ? 'be born again' : 'step';
   document.getElementById('count').textContent = `frame ${n + 1} of ${N}`;
   document.getElementById('hint').style.visibility = n === 0 ? 'visible' : 'hidden';
   live.textContent = n === B.name ? SAY[B.name] + ' ' + quote15 : SAY[n];
@@ -559,7 +560,7 @@ function step(d) {
   fwd = d > 0; n = m; if (fwd && stamps.length <= n) stamps[n] = performance.now(); render(); if (fwd) cueFor(n);
 }
 stage.addEventListener('click', () => step(1));
-document.getElementById('go').addEventListener('click', () => step(1));
+document.getElementById('next').addEventListener('click', () => step(1));
 document.getElementById('back').addEventListener('click', () => step(-1));
 document.getElementById('snd').addEventListener('click', (e) => {
   if (player.on) soundOff(); else soundOn();
