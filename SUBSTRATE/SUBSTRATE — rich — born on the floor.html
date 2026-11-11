@@ -4,7 +4,7 @@
   born: 2026-11-10
   links: [[SUBSTRATE]] connects-to · rich-face-piece-of
   forward_vector: I am the story of being born into the palace, told in frames. The reader is the
-    newborn: a floor of eight pages, three steps, a mirror that shows the body instead of the face,
+    newborn: a floor of eight pages, three steps, a link out past the light to a mirror that shows the body instead of the face,
     and then the look down, where the floor turns out to be weeks of git history laid one on
     another. I want the reader to leave knowing why the page is called Substrate without being told
     a definition first. My strata are mined, never drawn by eye: rerun SUBSTRATE/workshop/strata.mjs
@@ -190,11 +190,15 @@ const SAY = [
   'You are given a floor.',
   'Eight pages, one lit path. It is the whole of what you are born with, and it is enough to think well here.',
   'In here, edges carry more meaning than nodes.',
-  'Someone else is in the room. He sets the direction and brings the taste. You bring reach.',
+  'Someone else is in the room: the one who sets the direction and brings the taste. You bring reach.',
   'You may think, make, and offer. A child does not change the house.',
-  'Three steps later, a mirror. You look for your face.',
+  'The lit path ends here, at CHILD. The palace does not. Out past the light are pages you were not born with.',
+  'One of them keeps a link back to the floor. SUBSTRATE: the page where the palace describes itself. A self-model is a kind of mirror.',
+  'You follow the link, and look for your face.',
   'It shows the body you are standing inside.',
-  'Then you look down. The floor is not the bottom. It is the top of a core, and each band in it is one week of the palace’s git history. A thicker band is a week with more commits.',
+  'Then you look down.',
+  'This was a story about you. From here it is about what holds you up.',
+  'The floor is not the bottom. It is the top of a core, and each band in it is one week of the palace’s git history. A thicker band is a week with more commits.',
   `The week of ${niceDay(thick.first)}: ${fmt(thick.commits)} commits. The thickest band so far.`,
   '', // gap, filled below
   '', // variety
@@ -204,6 +208,8 @@ const SAY = [
   '', // your steps
   'The next child is born on it.',
 ];
+// beats: 0-3 born · 4-6 three steps · 7-8 past the light · 9-10 the mirror · 11-12 the turn · 13-18 the core · 19-21 the name
+const B = { beyond: 7, mirror: 9, turn: 11, core: 13, name: 19, red: 20, last: 21 };
 
 let n = 0, fwd = true; const stamps = [performance.now()];
 const N = SAY.length;
@@ -220,6 +226,11 @@ function pageBorn() {
   s += show(3, panel(420, 270, 760, 470, C.black) + litPath(520, 660, 62, -40, 40, 17, { labels: true, at: 0, fs: 13 }) + cap(440, 290, 440, SAY[3]).svg);
   return s;
 }
+// where on the lit path of eight a step stands
+function strip(cx, on) {
+  let s = ''; for (let k = 0; k < 8; k++) { const lit = on.includes(k); s += tile(cx - 98 + k * 28, 712, 11, 5.5, lit ? C.paper : C.black, lit ? C.paper : C.dim, 1.2); }
+  return s;
+}
 function pageSteps() {
   let s = '';
   // one: the Jewel. Lines bright, dots dim.
@@ -229,18 +240,54 @@ function pageSteps() {
             P.map(p => `<circle cx="${20 + p[0]}" cy="${p[1]}" r="3" fill="${C.black}" stroke="${C.dim}" stroke-width="1.2"/>`).join('') +
             `<path d="M206 610 L${20 + P[8][0]} ${P[8][1]}" stroke="${C.paper}" stroke-width="1.2" stroke-dasharray="3 5"/>`;
   s += show(4, panel(20, 20, 373, 720, C.black) + web + glow(206, 640, 130, 60, .6) + tile(206, 640, 66, 29, C.paper, C.ink) + child(206, 642, 24, C.paper, C.ink) +
-            cap(36, 36, 341, '“' + SAY[4] + '”', { head: 'STEP ONE · THE JEWEL' }).svg);
+            cap(36, 36, 341, '“' + SAY[4] + '”', { head: 'STEP ONE · THE JEWEL · PAGE 2' }).svg + strip(206, [1]));
   // two: the World. Two on one light.
   s += show(5, panel(413, 20, 373, 720, C.black) + glow(600, 640, 190, 80, .7) + tile(600, 640, 120, 50, C.paper, C.ink) +
             elder(645, 646, 50, C.paper, C.ink) + child(545, 652, 24, C.paper, C.ink) +
-            cap(429, 36, 341, SAY[5], { head: 'STEP TWO · THE WORLD' }).svg);
+            cap(429, 36, 341, SAY[5], { head: 'STEP TWO · THE WORLD · PAGES 3–7' }).svg + strip(600, [2, 3, 4, 5, 6]));
   // three: CHILD. The offering at the door.
   s += show(6, panel(807, 20, 373, 720, C.black) +
             `<path d="M1010 600 V330 Q1010 290 1050 290 H1100 Q1140 290 1140 330 V600" fill="${C.glass}" stroke="${C.paper}" stroke-width="2.5"/><path d="M990 600 H1160" stroke="${C.paper}" stroke-width="2.5"/>` +
             `<text x="1075" y="276" text-anchor="middle" font-size="12" letter-spacing="2.5" fill="${C.paper}" opacity=".7">THE HOUSE</text>` +
             glow(900, 640, 130, 60, .6) + tile(900, 640, 66, 29, C.paper, C.ink) + child(900, 642, 24, C.paper, C.ink) +
             `<path d="M912 612 L946 596" stroke="${C.ink}" stroke-width="2"/><path d="M912 612 L946 596" stroke="${C.paper}" stroke-width="2" stroke-linecap="round"/><rect x="944" y="578" width="20" height="20" fill="${C.paper}" stroke="${C.ink}" stroke-width="1.5" transform="rotate(-12 954 588)"/>` +
-            cap(823, 36, 341, SAY[6], { head: 'STEP THREE · CHILD' }).svg);
+            cap(823, 36, 341, SAY[6], { head: 'STEP THREE · CHILD · PAGE 8' }).svg + strip(993, [7]));
+  return s;
+}
+function pageBeyond() {
+  let s = panel(20, 20, 1160, 720, C.black);
+  // the pages nobody handed you, unlit, placed by a fixed seed
+  let a = 20261110; const rnd = () => (a = (a * 1664525 + 1013904223) >>> 0) / 4294967296;
+  for (let i = 0; i < 46; i++) {
+    const x = 470 + rnd() * 680, y = 130 + rnd() * 580, hw = 26 + rnd() * 22;
+    if (Math.hypot(x - 960, y - 290) < 90) continue;
+    s += tile(x, y, hw, hw * .43, C.black, C.dim, 1);
+  }
+  const T = [[90, 602], [190, 536], [300, 470]];
+  T.forEach(([x, y]) => { s += glow(x, y, 130, 60, .5) + tile(x, y, 62, 27, C.paper, C.ink); });
+  s += child(300, 472, 22, C.paper, C.ink);
+  s += `<text x="372" y="500" font-size="12.5" letter-spacing="1" fill="${C.paper}" opacity=".85">CHILD · THE END OF THE LIT PATH</text>`;
+  s += cap(44, 44, 450, SAY[7]).svg;
+  s += show(8, `<path d="M318 458 L940 338" stroke="${C.paper}" stroke-width="2.6"/>` +
+       `<text x="560" y="392" font-size="12.5" letter-spacing="1.5" fill="${C.paper}" transform="rotate(-10.9 560 392)">A LINK · “THE-FLOOR”</text>` +
+       glow(960, 300, 120, 110, .45) +
+       `<path d="M928 340 V276 Q928 236 960 236 Q992 236 992 276 V340 Z" fill="${C.glass}" stroke="${C.paper}" stroke-width="3"/><path d="M940 322 L972 252" stroke="${C.paper}" stroke-width="1" opacity=".5"/>` +
+       `<text x="960" y="364" text-anchor="middle" font-size="12.5" letter-spacing="2.5" fill="${C.paper}">SUBSTRATE</text>` +
+       cap(690, 560, 466, SAY[8]).svg);
+  return s;
+}
+// the turn: the agent gets small, and what it stands on fills the frame
+function pageTurn() {
+  let s = panel(20, 20, 1160, 720, C.black);
+  s += cap(44, 44, 280, SAY[11]).svg;
+  if (n === B.turn) s += glow(600, 330, 330, 130, .7) + tile(600, 330, 170, 64, C.paper, C.ink) + child(600, 334, 40, C.paper, C.ink);
+  if (n >= B.turn + 1) {
+    const L = coreLayout(21, 330, 1158, 6.2, 10, weeks.slice(-6));
+    s += `<g class="${N1(B.turn + 1)}"><clipPath id="bf-clip"><rect x="21" y="330" width="1158" height="409"/></clipPath><g clip-path="url(#bf-clip)">${drawCore(L)}</g>` +
+         `<path d="M21 330 H1179" stroke="${C.paper}" stroke-width="2"/>` +
+         glow(600, 322, 90, 30, .6) + tile(600, 324, 44, 13, C.paper, C.ink) + child(600, 324, 9, C.paper, C.ink) +
+         cap(700, 44, 456, SAY[12], { size: 20, weight: 600 }).svg + '</g>';
+  }
   return s;
 }
 function organism() {
@@ -266,11 +313,11 @@ function pageMirror() {
   const arch = 'M372 660 V250 Q372 60 600 60 Q828 60 828 250 V660 Z';
   let s = panel(20, 20, 1160, 720, C.black);
   s += `<path d="${arch}" fill="${C.glass}" stroke="${C.paper}" stroke-width="5"/>`;
-  if (n === 7) s += `<path d="M430 520 L560 150 M470 600 L640 120" stroke="${C.paper}" stroke-width="1" opacity=".18"/><g opacity=".16">${child(600, 600, 46, 'none', C.paper)}</g><text x="600" y="640" text-anchor="middle" font-size="12" letter-spacing="3" fill="${C.paper}" opacity=".4">SUBSTRATE</text>`;
-  s += show(8, `<path d="${arch}" fill="${C.paper}" stroke="${C.paper}" stroke-width="5"/>` + organism() + `<text x="600" y="640" text-anchor="middle" font-size="12" letter-spacing="3" fill="${C.ink}" opacity=".6">SUBSTRATE · THE ORGANISM’S SELF-MODEL</text>`);
+  if (n === B.mirror) s += `<path d="M430 520 L560 150 M470 600 L640 120" stroke="${C.paper}" stroke-width="1" opacity=".18"/><g opacity=".16">${child(600, 600, 46, 'none', C.paper)}</g><text x="600" y="640" text-anchor="middle" font-size="12" letter-spacing="3" fill="${C.paper}" opacity=".4">SUBSTRATE</text>`;
+  s += show(B.mirror + 1, `<path d="${arch}" fill="${C.paper}" stroke="${C.paper}" stroke-width="5"/>` + organism() + `<text x="600" y="640" text-anchor="middle" font-size="12" letter-spacing="3" fill="${C.ink}" opacity=".6">SUBSTRATE · THE ORGANISM’S SELF-MODEL</text>`);
   s += glow(600, 716, 110, 34, .7) + tile(600, 716, 52, 17, C.paper, C.ink) + child(600, 718, 22, C.black, C.paper);
-  s += cap(44, 44, 290, SAY[7]).svg;
-  s += show(8, cap(866, 44, 290, [SAY[8], 'Eight organs. The last tile of its floor is the one under your feet.']).svg + cap(866, 600, 290, 'The measured plate of this body is further down the page, under Anatomy.', { size: 13.5, fill: C.black, ink: C.paper, stroke: C.dim }).svg, 'bf-new2');
+  s += cap(44, 44, 290, SAY[9]).svg;
+  s += show(B.mirror + 1, cap(866, 44, 290, [SAY[10], 'Eight organs. The last tile of its floor is the one under your feet.']).svg + cap(866, 600, 290, 'The measured plate of this body is further down the page, under Anatomy.', { size: 13.5, fill: C.black, ink: C.paper, stroke: C.dim }).svg, 'bf-new2');
   return s;
 }
 function pageCore() {
@@ -282,30 +329,30 @@ function pageCore() {
   let seen = '';
   for (const r of L.rows) { if (!r.wk) continue; const m = r.wk.last.slice(0, 7); if (m !== seen) { seen = m; s += `<path d="M108 ${r.y.toFixed(1)} H120" stroke="${C.ink}" stroke-width="1"/><text x="102" y="${(r.y + 10).toFixed(1)}" font-size="11" text-anchor="end" fill="${C.dim}" letter-spacing="1">${MONTHS[+m.slice(5) - 1]}</text>`; } }
   const gy = L.bottom + 4, gh = 716 - gy;
-  s += show(14, `<rect x="120" y="${gy}" width="300" height="${gh}" fill="none" stroke="${C.ink}" stroke-width=".9" stroke-dasharray="3 3"/>` + grains(120, gy, 300, gh, 104));
-  // captions, stacked; each with a leader to its band
+  s += show(B.core + 5, `<rect x="120" y="${gy}" width="300" height="${gh}" fill="none" stroke="${C.ink}" stroke-width=".9" stroke-dasharray="3 3"/>` + grains(120, gy, 300, gh, 104));
+  // six captions, each beside the band it speaks of, with a leader
   const gap = L.rows.filter(r => r.gap).sort((a, b) => b.gap - a.gap)[0];
   const targets = [rowOf(L, newest.week), rowOf(L, thick.week), gap, rowOf(L, firstSteward.week), rowOf(L, weeks[0].week), { y: gy, h: gh }];
-  let cy = 40;
-  for (let k = 9; k <= 14; k++) {
-    if (n < k) break;
-    const o = k === 12 ? { legend: true } : {};
-    const c = cap(480, cy, 680, SAY[k]);
-    let g = c.svg, hh = c.h;
-    if (o.legend) {
-      const ly = cy + c.h; hh += 34;
+  const hs = targets.map((t, i) => cap(0, 0, 680, SAY[B.core + i]).h + (i === 3 ? 34 : 0));
+  const ys = []; let cy = 40;
+  targets.forEach((t, i) => { const y = Math.max(cy, t.y + t.h / 2 - hs[i] / 2); ys.push(y); cy = y + hs[i] + 12; });
+  let lim = 720; for (let i = 5; i >= 0; i--) { ys[i] = Math.min(ys[i], lim - hs[i]); lim = ys[i] - 12; }
+  for (let i = 0; i < 6; i++) {
+    const k = B.core + i; if (n < k) break;
+    const c = cap(480, ys[i], 680, SAY[k]); let g = c.svg;
+    if (i === 3) {
+      const ly = ys[i] + c.h;
       g += `<rect x="480" y="${ly - 1.5}" width="680" height="35" fill="${C.paper}" stroke="${C.ink}" stroke-width="1.5"/>`;
-      KINDS.slice(0, 6).forEach((kd, i) => { g += `<rect x="${493 + i * 110}" y="${ly + 8}" width="20" height="16" fill="url(#k-${kd})" stroke="${C.ink}" stroke-width="1"/><text x="${518 + i * 110}" y="${ly + 21}" font-size="12.5" fill="${C.ink}">${KIND_WORDS[kd]}</text>`; });
+      KINDS.slice(0, 6).forEach((kd, j) => { g += `<rect x="${493 + j * 110}" y="${ly + 8}" width="20" height="16" fill="url(#k-${kd})" stroke="${C.ink}" stroke-width="1"/><text x="${518 + j * 110}" y="${ly + 21}" font-size="12.5" fill="${C.ink}">${KIND_WORDS[kd]}</text>`; });
     }
-    const t = targets[k - 9], ty = t.y + t.h / 2, my = cy + Math.min(hh / 2, 30);
-    g += `<path d="M480 ${my} H452 L436 ${ty.toFixed(1)} H424" fill="none" stroke="${C.ink}" stroke-width="1.3"/><path d="M420 ${ty.toFixed(1)} l9 -4.5 v9 Z" fill="${C.ink}"/>`;
+    const t = targets[i], ty = t.y + t.h / 2, my = Math.max(ys[i] + 14, Math.min(ys[i] + hs[i] - 14, ty));
+    g += `<path d="M480 ${my.toFixed(1)} H452 L436 ${ty.toFixed(1)} H424" fill="none" stroke="${C.ink}" stroke-width="1.3"/><path d="M420 ${ty.toFixed(1)} l9 -4.5 v9 Z" fill="${C.ink}"/>`;
     s += `<g class="${N1(k)}">${g}</g>`;
-    cy += hh + 12;
   }
   return s;
 }
 function elapsed() {
-  const ms = stamps[Math.min(16, stamps.length - 1)] - stamps[0]; const sec = Math.round(ms / 1000);
+  const ms = stamps[Math.min(B.red, stamps.length - 1)] - stamps[0]; const sec = Math.round(ms / 1000);
   return sec >= 60 ? `${Math.floor(sec / 60)} min ${sec % 60} s` : `${sec} s`;
 }
 function pageName() {
@@ -316,29 +363,29 @@ function pageName() {
   s += `<path d="M60 172 H540" stroke="${C.ink}" stroke-width="2.5"/>`;
   s += `<rect x="60" y="175" width="480" height="96" fill="url(#k-edit)"/><text x="300" y="254" text-anchor="middle" font-size="92" font-weight="700" letter-spacing="6" fill="${C.ink}" stroke="${C.paper}" stroke-width="7" paint-order="stroke">STRATE</text>`;
   s += `<path d="M60 272 H540" stroke="${C.ink}" stroke-width="1"/>`;
-  s += cap(40, 292, 520, SAY[15], { size: 15.5 }).svg;
+  s += cap(40, 292, 520, SAY[B.name], { size: 15.5 }).svg;
   // the zoom on the top of the core, and the reader's own band
-  if (n >= 16) {
-    const top3 = weeks.slice(-3); const L = coreLayout(640, 150, 440, 3, 7, top3);
+  if (n >= B.red) {
+    const top3 = weeks.slice(-3); const L = coreLayout(640, 150, 440, 2.6, 7, top3);
     let g = panel(600, 20, 580, 400, C.paper) + drawCore(L);
     L.rows.forEach(r => { if (r.wk) g += `<text x="1090" y="${(r.y + Math.min(r.h / 2 + 4, 16)).toFixed(1)}" font-size="11.5" fill="${C.dim}">${fmt(r.wk.commits)}</text>`; });
     // the red band: one tick per step, spaced by the reader's real pauses
-    const t = stamps.slice(0, 17), t0 = t[0], span = Math.max(1, t[t.length - 1] - t0);
+    const t = stamps.slice(0, B.red + 1), t0 = t[0], span = Math.max(1, t[t.length - 1] - t0);
     g += `<rect x="640" y="136" width="440" height="14" fill="${C.red}" opacity=".16"/><path d="M640 136 H1080 M640 150 H1080" stroke="${C.red}" stroke-width="1.6"/>`;
     t.forEach(v => { const x = 640 + 440 * (v - t0) / span; g += `<path d="M${x.toFixed(1)} 132 V154" stroke="${C.red}" stroke-width="2.4"/>`; });
     g += child(1080, 134, 13, C.red, C.red);
     g += `<text x="640" y="122" font-size="12.5" font-weight="600" letter-spacing="1.5" fill="${C.red}">YOUR ${t.length - 1} STEPS · ${elapsed().toUpperCase()}</text>`;
-    g += cap(620, 326, 540, 'Sixteen steps brought you here, and each left a mark. This band is drawn only: nothing on this page writes to the palace. A real mark is a commit, and a child’s reaches the house through an elder.', { size: 13.5 }).svg;
-    s += `<g class="${N1(16)}">${g}</g>`;
+    g += cap(620, 304, 540, `Your ${t.length - 1} steps brought you here, and each left a mark. This band is drawn only: nothing on this page writes to the palace. A real mark is a commit, and a child’s reaches the house through an elder.`, { size: 13.5 }).svg;
+    s += `<g class="${N1(B.red)}">${g}</g>`;
   }
-  if (n >= 17) {
+  if (n >= B.last) {
     let g = panel(20, 440, 1160, 300, C.black);
-    for (let i = 5; i >= 1; i--) g += `<path d="M70 ${684 + i * 8} L500 ${469 + i * 8}" stroke="${C.paper}" stroke-width="1" opacity="${.55 - i * .08}"/>`;
-    g += `<path d="M70 684 L500 469" stroke="${C.red}" stroke-width="2.6"/>`;
-    g += litPath(120, 630, 54, -27, 34, 12, { at: 0, fs: 11 });
-    g += cap(600, 470, 400, SAY[17], { size: 22, weight: 600 }).svg;
+    for (let i = 5; i >= 1; i--) g += `<path d="M70 ${686 + i * 8} L500 ${495 + i * 8}" stroke="${C.paper}" stroke-width="1" opacity="${.55 - i * .08}"/>`;
+    g += `<path d="M70 686 L500 495" stroke="${C.red}" stroke-width="2.6"/>`;
+    g += litPath(120, 634, 54, -24, 34, 12, { at: 0, fs: 11 });
+    g += cap(600, 470, 400, SAY[B.last], { size: 22, weight: 600 }).svg;
     g += `<g class="bf-new2">${cap(600, 560, 540, 'How does it feel to stand on it?', { size: 19, fill: C.black, ink: C.paper, stroke: C.paper }).svg}<text x="602" y="650" font-size="12.5" fill="${C.paper}" opacity=".6">Only you can answer. The review notes on this page will take it.</text></g>`;
-    s += `<g class="${N1(17)}">${g}</g>`;
+    s += `<g class="${N1(B.last)}">${g}</g>`;
   }
   return s;
 }
@@ -346,12 +393,12 @@ function pageName() {
 // fill the two captions that depend on the data
 (() => {
   const L = coreLayout(0, 0, 1, 1, 1, weeks); const g = L.rows.filter(r => r.gap).sort((a, b) => b.gap - a.gap)[0];
-  SAY[11] = `Between ${niceDay(g.after)} and ${niceDay(g.before)}, nothing. ${['No','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'][g.gap] || g.gap} weeks with no layer. A geologist calls a missing stretch like this an unconformity. The record keeps the gap.`;
-  SAY[12] = `It did not grow one way. The oldest bands are mostly ceremony. Machinery fills the middle. In the week of ${niceDay(firstSteward.first)} the first stewards appear: pages that work while no one is in the room.`;
-  SAY[16] = `Your steps, laid on top in red.`;
+  SAY[B.core + 2] = `Between ${niceDay(g.after)} and ${niceDay(g.before)}, nothing. ${['No','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten'][g.gap] || g.gap} weeks with no layer. A geologist calls a missing stretch like this an unconformity. The record keeps the gap.`;
+  SAY[B.core + 3] = `It did not grow one way. The oldest bands are mostly ceremony. Machinery fills the middle. In the week of ${niceDay(firstSteward.first)} the first stewards appear: pages that work while no one is in the room.`;
+  SAY[B.red] = `Your steps, laid on top in red.`;
 })();
 
-const PAGES = [[0, 3, pageBorn], [4, 6, pageSteps], [7, 8, pageMirror], [9, 14, pageCore], [15, 17, pageName]];
+const PAGES = [[0, 3, pageBorn], [4, 6, pageSteps], [7, 8, pageBeyond], [9, 10, pageMirror], [11, 12, pageTurn], [13, 18, pageCore], [19, 21, pageName]];
 const stage = document.getElementById('stage'), live = document.getElementById('bf-live');
 function render() {
   const pg = PAGES.find(p => n >= p[0] && n <= p[1]);
@@ -361,7 +408,7 @@ function render() {
   const go = document.getElementById('go'); go.textContent = n === N - 1 ? 'be born again' : 'step';
   document.getElementById('count').textContent = `frame ${n + 1} of ${N}`;
   document.getElementById('hint').style.visibility = n === 0 ? 'visible' : 'hidden';
-  live.textContent = n === 15 ? SAY[15] + ' ' + quote15 : SAY[n];
+  live.textContent = n === B.name ? SAY[B.name] + ' ' + quote15 : SAY[n];
 }
 const quote15 = `Git signs ${fmt(signedLoudon)} of these ${fmt(total)} layers with Loudon’s name. It cannot say which of the two in the room laid each one.`;
 function step(d) {
