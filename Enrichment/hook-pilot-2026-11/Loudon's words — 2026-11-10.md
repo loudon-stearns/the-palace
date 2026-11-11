@@ -42,3 +42,59 @@ Said in the session that planned the hook pilot, and relayed to the Concierge by
 - [[The Lens]] waits on a text edit from the handoffs session.
 - No challenger pass is planned before his audition.
 - The twenty idea reports he was picking from are parked beside this file, one file per page: `hook ideas — <Page>.md`.
+
+---
+
+# Later the same day, auditioning the proposals
+
+His words on each pilot face as he played it, verbatim, typos kept, relayed by the working session.
+
+## SUBSTRATE
+
+**Loudon, after the first pass:**
+
+> The Substrate story, I love it, there is drama and a nice mixture of palace and comic storytelling! The story is fantastic, thank you! This is lovely in how abstract it is, at first it is about the "agent" and then it is about the substrate, be more clear in that shift in the story. Avoid the "he" pronoun, usually it is me loudon a he, but it won't always be that. the "three steps later" frame is a bit leap and a little confusing, could use more details there.
+
+**Loudon, after the second pass:**
+
+> In substrate, when we get to the world, lets quickly go through them all, just enough. And is there a background sound and subtle sound we can use?
+
+## The Lens
+
+**Loudon:**
+
+> The lens is great, lets move from visual to text now, a page 2.. using the same lenses, have them all look at a page in the palace that somehow relates to the image you made maybe something about synthesis to relate to the robot arm and machine, and show how they speak differently about the same information, try to use a similar interface but get closer to stigmergy, so we are stepping from the creative metaphor into how the lens actually works, and what the benifits are in the palace.
+
+## Inharmonic Wavetable Synthesis
+
+**Loudon:**
+
+> Inharmonic is FANTASTIC! This is a wild new way to work with an oscillator that I haven't seen before, give me more control over the spring and ooze. This is exactly what gives me the inspiration to dig into the more complex topics that are lower on the rich face.
+
+**Loudon, later:**
+
+> Yes, show the summed waveform beside the loops
+
+## Biomechanical Synthesis
+
+**Loudon:**
+
+> OK, so Biomechanical is, as I undertsand it now, a generator of hooks. For instance, the mycelial reverb is fantastic as we have made it, and it inspires me to understand how reverbs are designed, how do all pass filters and delays function in here, what are the most used reverb algorithms, the reverb we designed in the petri dish, how would that be described as an algorithm and as a network of delays and all pass filters? It is clear to me that the clear output of this experiment is a "reverb design" palace page, with mycelial reverb as the first portion of the rich face, and as a project/vst all to its own. So the VST is a hook I could even market and sell or give away, then a user could come to the palace to learn about reverb design and more. The blood compressor, is the same structure, we already have a compressor design page that is getting better, but it needs the "hook" of the blood compressor. I am not sure where to go from here with this, but I feel we are on to something here, and I am curious how it would be all connected in the palace.. A project VST who's web front end exists in the rich face of a teaching concept page.
+
+## The Dichotomy of Control
+
+**Loudon:**
+
+> We also are not in control of feelings, when we try to control or avoid feelings our suffering also happens. So acceptance of our own feelings and truly feeling them without judgement reflects how we must relate to other people, accept them listen fully, do not try to change that which we cannot control. I'd like this dichotomoy of control to also connect deeply with ACT therapy, and the many exercises that are there. I see this page as desiring to help the person reading, it is attempting to have the reader experience a very deep and powerful concept, more than read it, the rich face can be helping to experience the letting go of control, through meditation perhaps..
+
+---
+
+## The session's note, not his: where each stands tonight
+
+- [[SUBSTRATE]]: `b85fff6c` on `hook/substrate` (26 frames, the World walk, a sound layer).
+- [[The Lens]]: `7061de01` on `hook/the-lens` (two pieces).
+- [[Inharmonic Wavetable Synthesis]]: `31f15740` on `hook/inharmonic-wavetable-synthesis` (return pad, tilt, throw, summed waveform).
+- [[Biomechanical Synthesis]]: `3b26c1df` on `hook/biomechanical-synthesis` (the mycelial reverb). A separate session family is building a Mycelial Reverb project and a Reverb Design page from it.
+- [[The Dichotomy of Control]]: a maker started on `hook/the-dichotomy-of-control`.
+- None has landed.
+- The palace holds no ACT page (searched 2026-11-10).
