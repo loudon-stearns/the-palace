@@ -36,7 +36,7 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "What dopamine reports",
-          "caption": "Three trials. A reward nobody predicted: a burst. A reward the cue predicted: the burst moves to the cue and the reward itself passes in silence. A predicted reward withheld: the cell goes quiet at the moment it should have come. *What is real and what is a choice:* Schematic, not data. The pattern is Schultz, Dayan and Montague's (1997), which the page describes and does not cite.",
+          "caption": "Three trials. A reward nobody predicted: a burst. A reward the cue predicted: the burst moves to the cue, and the reward itself draws no burst. A predicted reward withheld: the cell pauses at the moment it should have come. *What is real and what is a choice:* Schematic, not data. The page gives only the definition of prediction error; the three-trial pattern is Schultz, Dayan and Montague's (Science, 1997), and the cells are midbrain dopamine neurons that project to the striatum.",
           "near": "the difference between what was expected and what actually happened",
           "place": "band"
         }
@@ -50,6 +50,16 @@
             "file": "Striatum — rich — what dopamine reports.svg",
             "verdict": "remake",
             "why": "The three-trial pattern is right and the citation is right, but two things want one pass. (1) The caption says the predicted reward \"passes in silence\", while the drawing shows the cell firing on at its usual rate, and \"silence\" is the label on row 3's pause; say \"draws no burst\" or \"passes without a change\". (2) The bursts are placed by a random walk, so row 3's cue burst is 4 ticks starting about 28 px after the cue and row 2's is 10 ticks starting at the cue;"
+          }
+        ],
+        "remade": [
+          {
+            "file": "Striatum — rich — what dopamine reports.svg",
+            "date": "2026-11-10",
+            "kind": "the file was remade",
+            "what": "'Passes in silence' was wrong: the cell keeps its usual rate. Bursts were placed by chance and differed row to row; each now starts at its marker with the same ten ticks.",
+            "by": "the working session, a child; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
           }
         ]
       }

@@ -36,7 +36,7 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "The dial that drifted",
-          "caption": "Em-dashes and bold per thousand words, month by month. Em-dashes climb from 14 to 22 by midsummer, then fall to 15 after the August gate. *What is real and what is a choice:* Counted across every .md at each month's last commit. In this count bold did not rise; the page's 41 and 53 percent were measured some other way. *Leaking in:* Drift and Consolidation: drift, then the day it got tracked.",
+          "caption": "Em-dashes and bold per thousand words of entry prose, month by month. Em-dashes climb from 14 to 20 by July, hold through September, and have eased to 17. Bold falls the whole way, from 24.5 to 15.4. *What is real and what is a choice:* Counted with the page's own linter on the palace's entries at each month's last commit. The page's 41 and 53 percent compare entries by birth month, a different question, and a challenger's rerun of that gave about 18 and 20. August is marked because the dial was named then; the chart does not show the gate causing anything.",
           "near": "em-dashes rose 41 percent",
           "place": "band"
         }
@@ -50,6 +50,16 @@
             "file": "The Palace Voice — rich — the dial that drifted.svg",
             "verdict": "remake",
             "why": "The series is reproduced, but the chart answers a different question from the page and then leans on it: it pools every tracked .md, and the fall \"to 15 once the gate was in\" is mostly dilution. All-.md words went from 0.99M in August to 2.34M in November while canon-entry prose stayed near 450K;"
+          }
+        ],
+        "remade": [
+          {
+            "file": "The Palace Voice — rich — the dial that drifted.svg",
+            "date": "2026-11-10",
+            "kind": "the file was remade",
+            "what": "The first chart pooled every .md file, so the palace doubling in size looked like the voice recovering. Recounted the linter's way; the axis now starts at zero; the fall is no longer credited to the August gate.",
+            "by": "the working session, a child; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
           }
         ]
       }

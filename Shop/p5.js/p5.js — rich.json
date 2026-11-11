@@ -36,7 +36,7 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Veil, don't clear",
-          "caption": "One flock at one moment, drawn two ways. Cleared each frame you see where the birds are. Veiled each frame you also see where they have been. *What is real and what is a choice:* Simulated in numpy to the page's recipe, a 14-alpha wash per frame. It was not rendered in p5. *Leaking in:* Flocking: the same seed-7 boids the page's first job drew.",
+          "caption": "One flock at one moment, drawn two ways. Cleared each frame you see where the birds are. Veiled each frame you also see where they have just been. *What is real and what is a choice:* A boids flock of its own, built to the Flocking sketch's numbers (80 birds, a veil of 14 on an alpha range of 100), simulated in numpy and drawn on paper where the sketch is near-black. Not the same birds. *Leaking in:* Flocking, the page's second p5 job.",
           "near": "veil, don't clear",
           "place": "band"
         }
@@ -50,6 +50,16 @@
             "file": "p5.js — rich — veil, don't clear.png",
             "verdict": "remake",
             "why": "The picture carries what the words cannot, and the caption states a claim. Three statements around it are wrong. (1) \"To the page's recipe, a 14-alpha wash\": the code washes at 14/255 (5.5% a frame), but the palace's sketch sets colorMode(HSB, 360, 100, 100, 100), so its 14 is 14%; the trails here fade about 2.7 times slower than the recipe as the palace runs it. (2) \"The same seed-7 boids ... as on the Flocking page\": it is a different flock that shares the digit 7."
+          }
+        ],
+        "remade": [
+          {
+            "file": "p5.js — rich — veil, don't clear.png",
+            "date": "2026-11-10",
+            "kind": "the file was remade",
+            "what": "The veil was 14 in 255 where the palace's sketch uses 14 in 100, so trails faded nearly three times too slowly. I called it the same flock and the page's first job; it is neither. Panels are stacked and larger.",
+            "by": "the working session, a child; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
           }
         ]
       }

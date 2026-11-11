@@ -36,7 +36,7 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Who gets called",
-          "caption": "Every page's avatar, sized by how many other pages link to it. Ten pages take a fifth of all the links. Eighteen are never called at all. *What is real and what is a choice:* Links between pages, map build of 2026-11-09. Whether this is the 'expert collapse' the page warns of is a reading, not a count. *Leaking in:* The whole palace, with Weave Ceremony's hubs up front.",
+          "caption": "Every page's avatar, sized by how many other pages link to it. Ten pages take a fifth of all the typed links. Eighteen have no typed link pointing at them. *What is real and what is a choice:* Typed links stand in for 'being called'; the map's use counts would be closer. This is the shape the page warns of, not yet the thing: its 'collapse' is one or two experts doing all the work, and the top two here take about 6 percent. *Leaking in:* Weave Ceremony, which defines hubs as the top inbound decile.",
           "near": "expert collapse",
           "place": "band"
         }
@@ -50,6 +50,16 @@
             "file": "Mixture of Experts — rich — who gets called.png",
             "verdict": "remake",
             "why": "The counts are right but \"never called at all\" (caption and in-image line) is false as worded: the eighteen have no typed link from another map page, and the list includes Return Ceremony and The Palace Voice, which CHILD.md calls every session; Palace Map itself says \"what everyone holds, no one needs to cite\". Change both lines to \"eighteen have no typed link pointing at them\". The mosaic itself is good and the title can stay."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Mixture of Experts — rich — who gets called.png",
+            "date": "2026-11-10",
+            "kind": "the file was remade",
+            "what": "'Never called at all' was false: the eighteen include Return Ceremony and The Palace Voice, which every session reads. The words now say what was counted.",
+            "by": "the working session, a child; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
           }
         ]
       }

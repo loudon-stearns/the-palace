@@ -36,7 +36,7 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "What survives at 24 pixels",
-          "caption": "Crystal Synthesizer's hero and its avatar, each shrunk to 48 and 24 pixels and shown both at true size and enlarged. The hero turns to a smear of colour; the avatar is still a ring with a red stone in it. *What is real and what is a choice:* Both are the palace's real files, resized. Nothing was redrawn. *Leaking in:* Crystal Synthesizer, the page's own example of an engraving.",
+          "caption": "Crystal Synthesizer's hero and its avatar, each shrunk to 48 and 24 pixels and enlarged again. The hero keeps only its colours. The avatar loses its fine rays and keeps its ring and its red stone: linework vanishes, silhouette holds. *What is real and what is a choice:* Both are the palace's real files, shrunk whole. The page says 'a crystal a Haeckel engraving' without naming this page; pairing them is my inference. *Leaking in:* Crystal Synthesizer.",
           "near": "Engravings vanish at 24–48px",
           "place": "band"
         }
@@ -50,6 +50,16 @@
             "file": "Hero and Avatar Maker — rich — what survives at 24 pixels.png",
             "verdict": "remake",
             "why": "Three things. (1) \"24 px, actual size\" is only true when the 1840-px sheet is shown at 1840; in a 440-px margin that thumbnail is about 6 px, and the renderer has no click-to-enlarge (`rich.html`: `.fig img {width:100%}`, plain `<img>` in `rich.js:336`). (2) \"Both are the palace's real files, resized."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Hero and Avatar Maker — rich — what survives at 24 pixels.png",
+            "date": "2026-11-10",
+            "kind": "the file was remade",
+            "what": "The first version cropped the hero to its middle before shrinking, which cut the crystal out, and labelled thumbnails 'actual size', which is untrue once the sheet is scaled. The caption now states the page's claim.",
+            "by": "the working session, a child; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
           }
         ]
       }

@@ -36,7 +36,7 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "A palace is not a tree",
-          "caption": "Three hubs and eighteen pages, drawn twice. On the left each page is filed under one parent. On the right every real tie is kept, and the red pages belong to more than one. *What is real and what is a choice:* The right-hand ties are all real links. The left is the same pages with every tie but one thrown away. *Leaking in:* Kuramoto Coupling, Spinoza Conatus, STIGMERGY and their shared neighbours.",
+          "caption": "Three hubs and eighteen pages, drawn twice. On the left each page is filed under one parent. On the right every real tie between a page and a hub is kept, and the red pages belong to more than one. *What is real and what is a choice:* Eighteen of the hubs' 123 neighbours, ten of them picked from the 24 that touch more than one hub, so overlap is over-shown: about one page in five really overlaps. Which hub keeps a page on the left is the drawing's choice. Ties among the eighteen are left out. The title is the piece's claim; the page says cities are semi-lattices. *Leaking in:* The three hubs are the palace's biggest, not his neighbours: none of them links his page.",
           "near": "semi-lattices",
           "place": "band"
         }
@@ -50,6 +50,16 @@
             "file": "Christopher Alexander — rich — a palace is not a tree.png",
             "verdict": "remake",
             "why": "Words only; the picture can stay. The caption's \"every real tie is kept\" is not so: only page-to-hub ties are drawn (the hub-to-hub link Spinoza Conatus → Kuramoto Coupling and all ties among the eighteen are left out; the in-image footer says it correctly). And the honesty line does not own the pick: the eighteen are ten of the 24 overlapping pages plus eight single-hub ones, chosen from 123 neighbours, so 56 percent of what is shown overlaps where 20 percent really does."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Christopher Alexander — rich — a palace is not a tree.png",
+            "date": "2026-11-10",
+            "kind": "words only; the file is unchanged",
+            "what": "The caption said 'every real tie is kept'; only page-to-hub ties are. The honesty line now owns how the eighteen were picked.",
+            "by": "the working session, a child; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
           }
         ]
       }

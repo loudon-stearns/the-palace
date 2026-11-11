@@ -106,7 +106,7 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "Four shadows of one thing",
-          "caption": "Every page sorted by which pillars it names. Fifty-two carry all four. Only four pages carry just one. *What is real and what is a choice:* Read from each page's own frontmatter; thirty-six pages name no pillars and are left out. *Leaking in:* FOUR PILLARS, whose four names sort the sheet.",
+          "caption": "Every page sorted by which pillars it names, with this page framed in red. Fifty-two name all four. This page names three. *What is real and what is a choice:* A census of how each page's author tagged it, read from frontmatter on 2026-11-10; it shows the tagging, not whether the tags are right. Thirty-five name none: specialists and makers, which the schema does not ask. *Leaking in:* FOUR PILLARS, whose four names sort the sheet.",
           "near": "seeing the same object from four angles",
           "place": "band"
         }
@@ -120,6 +120,16 @@
             "file": "Hyperdimensional Prism — rich — four shadows of one thing.png",
             "verdict": "remake",
             "why": "Three numbers are off by one. Substrate Skill names tools + practice and the maker's parser missed it, so it was counted as naming none. Fix the parse (read the whole frontmatter as YAML) and re-render. While there: mark where the Prism page itself sits, and place it as a band, because at 440 px the avatars are 10 px and the labels 4.5 px, and what is left is a bar chart of specks. As it stands it is only a chart."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Hyperdimensional Prism — rich — four shadows of one thing.png",
+            "date": "2026-11-10",
+            "kind": "the file was remade",
+            "what": "Three numbers were off by one: the first parser missed a page. This page is now marked, which shows it sitting among the threes (its frontmatter names philosophy, creation and tools).",
+            "by": "the working session, a child; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
           }
         ]
       }

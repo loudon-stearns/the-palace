@@ -36,7 +36,7 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "The bathtub",
-          "caption": "One tub filled two ways, with a four-second lag between hand and water. Small turns settle on the line. Yanking the taps swings past it, over the rim, and back to empty. *What is real and what is a choice:* A small simulation written for this figure, not a measurement.",
+          "caption": "One tub filled two ways, with a four-second lag between hand and water. Small turns settle on the line. Yanking the taps spills over the rim, drains to empty, and goes round again without ever settling. *What is real and what is a choice:* A small simulation written for this figure. The yanking hand turns eleven times harder, tap and drain share one top speed, and the drain is as strong as the tap: all my choices.",
           "near": "bathtub",
           "place": "band"
         }
@@ -50,6 +50,16 @@
             "file": "Donella Meadows — rich — the bathtub.svg",
             "verdict": "remake",
             "why": "The simulation does what the caption says and tests the page's sentence instead of illustrating it, but the drawing has faults. The water stands above the rim: the level is capped at 1.2 with the rim at 1.0, so the red line runs flat-topped over the rim for seconds at a time, which a tub cannot do; cap it at the rim and mark the spill. Both labels are printed across their own curves (\"yanking the taps: over the rim...\" is struck through twice by the red plateaus;"
+          }
+        ],
+        "remade": [
+          {
+            "file": "Donella Meadows — rich — the bathtub.svg",
+            "date": "2026-11-10",
+            "kind": "the file was remade",
+            "what": "The water stood above the rim, which a tub cannot do; it now spills. Labels sat on their own curves. A tub is drawn, and the choices are owned.",
+            "by": "the working session, a child; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
           }
         ]
       }

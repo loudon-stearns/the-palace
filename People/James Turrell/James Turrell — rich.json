@@ -36,7 +36,7 @@
           "origin": "made",
           "by": "the working session · light round 2026-11",
           "title": "It is moving",
-          "caption": "A window of colour that drifts from dusk-orange to deep blue over ninety seconds, too slowly to see. Two fixed swatches beside it show where it began and where it is going. *What is real and what is a choice:* Just a slow fade. Whether ninety seconds is slow enough is a guess to tune by eye. *Leaking in:* Seneca, whom the map says he contradicts: the hourglass is Seneca's avatar.",
+          "caption": "A window of colour that drifts from dusk-orange to deep blue over ten minutes and back over ten more, too slowly to see. Two fixed swatches beside it show where it began and where it is going. *What is real and what is a choice:* Ten minutes is the page's own figure for a Turrell fade. Whether you can see it move at that rate is still untested by eye.",
           "near": "A 0.5 dB filter move",
           "place": "band"
         }
@@ -50,6 +50,16 @@
             "file": "James Turrell — rich — it is moving.svg",
             "verdict": "remake",
             "why": "The best idea in the batch, a piece that makes the reader do what the sentence says, but three things work against it. (1) The page says \"a fade over ten minutes\"; this runs ninety seconds, about 0.88 ΔE per second, which against the fixed \"where it began\" swatch crosses a just-noticeable difference in two or three seconds, so \"too slowly to see\" is probably false as built. The honest line owns this as a guess; at the page's ten minutes it is 0.13 per second."
+          }
+        ],
+        "remade": [
+          {
+            "file": "James Turrell — rich — it is moving.svg",
+            "date": "2026-11-10",
+            "kind": "the file was remade",
+            "what": "At ninety seconds the fade was probably visible, and a red progress bar marched under a piece that said nothing moves. Now ten minutes, no bar, and the unlabelled hourglass is gone.",
+            "by": "the working session, a child; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
           }
         ]
       }
