@@ -1,0 +1,281 @@
+{
+  "date": "2026-11-11",
+  "checks": {
+    "mirror_collide1": {
+      "grains_thrown": [
+        52,
+        52
+      ],
+      "strikes": [
+        245,
+        245
+      ],
+      "meetings": [
+        39,
+        39
+      ],
+      "corr_L": 0.94613,
+      "corr_R": 0.94968,
+      "engine": "apple metal-3"
+    },
+    "mirror_collide0": {
+      "grains_thrown": [
+        52,
+        52
+      ],
+      "strikes": [
+        252,
+        252
+      ],
+      "meetings": [
+        0,
+        0
+      ],
+      "corr_L": 0.99975,
+      "corr_R": 0.99975,
+      "engine": "apple metal-3"
+    },
+    "landing": [
+      {
+        "zone": "L",
+        "key": 0,
+        "speed": 4.2,
+        "lands_at": 8.148,
+        "formula_no_drag": 8.165,
+        "flight_s": 0.787,
+        "formula_flight_s": 0.793
+      },
+      {
+        "zone": "R",
+        "key": 0,
+        "speed": 4.2,
+        "lands_at": 7.848,
+        "formula_no_drag": 7.835,
+        "flight_s": 0.787,
+        "formula_flight_s": 0.793
+      },
+      {
+        "zone": "L",
+        "key": 1,
+        "speed": 4.51,
+        "lands_at": 8.348,
+        "formula_no_drag": 8.406,
+        "flight_s": 0.837,
+        "formula_flight_s": 0.845
+      },
+      {
+        "zone": "R",
+        "key": 1,
+        "speed": 4.51,
+        "lands_at": 7.622,
+        "formula_no_drag": 7.594,
+        "flight_s": 0.839,
+        "formula_flight_s": 0.845
+      },
+      {
+        "zone": "L",
+        "key": 2,
+        "speed": 4.85,
+        "lands_at": 8.63,
+        "formula_no_drag": 8.683,
+        "flight_s": 0.893,
+        "formula_flight_s": 0.901
+      },
+      {
+        "zone": "R",
+        "key": 2,
+        "speed": 4.85,
+        "lands_at": 7.344,
+        "formula_no_drag": 7.317,
+        "flight_s": 0.895,
+        "formula_flight_s": 0.901
+      },
+      {
+        "zone": "L",
+        "key": 3,
+        "speed": 5.21,
+        "lands_at": 8.948,
+        "formula_no_drag": 9.003,
+        "flight_s": 0.954,
+        "formula_flight_s": 0.962
+      },
+      {
+        "zone": "R",
+        "key": 3,
+        "speed": 5.21,
+        "lands_at": 7.042,
+        "formula_no_drag": 6.997,
+        "flight_s": 0.955,
+        "formula_flight_s": 0.962
+      },
+      {
+        "zone": "L",
+        "key": 4,
+        "speed": 5.59,
+        "lands_at": 9.303,
+        "formula_no_drag": 9.372,
+        "flight_s": 1.019,
+        "formula_flight_s": 1.027
+      },
+      {
+        "zone": "R",
+        "key": 4,
+        "speed": 5.59,
+        "lands_at": 6.666,
+        "formula_no_drag": 6.628,
+        "flight_s": 1.02,
+        "formula_flight_s": 1.027
+      },
+      {
+        "zone": "L",
+        "key": 5,
+        "speed": 6.01,
+        "lands_at": 9.757,
+        "formula_no_drag": 9.798,
+        "flight_s": 1.091,
+        "formula_flight_s": 1.098
+      },
+      {
+        "zone": "R",
+        "key": 5,
+        "speed": 6.01,
+        "lands_at": 6.397,
+        "formula_no_drag": 6.202,
+        "flight_s": 1.079,
+        "formula_flight_s": 1.098
+      },
+      {
+        "zone": "L",
+        "key": 6,
+        "speed": 6.45,
+        "lands_at": 10.24,
+        "formula_no_drag": 10.289,
+        "flight_s": 1.167,
+        "formula_flight_s": 1.174
+      },
+      {
+        "zone": "R",
+        "key": 6,
+        "speed": 6.45,
+        "lands_at": 5.764,
+        "formula_no_drag": 5.711,
+        "flight_s": 1.168,
+        "formula_flight_s": 1.174
+      },
+      {
+        "zone": "L",
+        "key": 7,
+        "speed": 6.93,
+        "lands_at": 10.641,
+        "formula_no_drag": 10.855,
+        "flight_s": 1.238,
+        "formula_flight_s": 1.256
+      },
+      {
+        "zone": "R",
+        "key": 7,
+        "speed": 6.93,
+        "lands_at": 5.2,
+        "formula_no_drag": 5.145,
+        "flight_s": 1.25,
+        "formula_flight_s": 1.256
+      },
+      {
+        "zone": "L",
+        "key": 8,
+        "speed": 7.45,
+        "lands_at": 11.167,
+        "formula_no_drag": 11.509,
+        "flight_s": 1.318,
+        "formula_flight_s": 1.345
+      },
+      {
+        "zone": "R",
+        "key": 8,
+        "speed": 7.45,
+        "lands_at": 4.639,
+        "formula_no_drag": 4.491,
+        "flight_s": 1.333,
+        "formula_flight_s": 1.345
+      },
+      {
+        "zone": "L",
+        "key": 9,
+        "speed": 8,
+        "lands_at": 11.736,
+        "formula_no_drag": 12.263,
+        "flight_s": 1.402,
+        "formula_flight_s": 1.441
+      },
+      {
+        "zone": "R",
+        "key": 9,
+        "speed": 8,
+        "lands_at": 3.907,
+        "formula_no_drag": 3.737,
+        "flight_s": 1.427,
+        "formula_flight_s": 1.441
+      }
+    ],
+    "throw_on_its_sample": {
+      "worst_offset_samples": 0,
+      "throws": 20
+    },
+    "meeting_window": [
+      {
+        "offset_ms": 0,
+        "pairs": 24,
+        "meetings": 24
+      },
+      {
+        "offset_ms": 0.5,
+        "pairs": 24,
+        "meetings": 24
+      },
+      {
+        "offset_ms": 1,
+        "pairs": 24,
+        "meetings": 25
+      },
+      {
+        "offset_ms": 2,
+        "pairs": 24,
+        "meetings": 24
+      },
+      {
+        "offset_ms": 3,
+        "pairs": 24,
+        "meetings": 25
+      },
+      {
+        "offset_ms": 5,
+        "pairs": 24,
+        "meetings": 23
+      },
+      {
+        "offset_ms": 10,
+        "pairs": 24,
+        "meetings": 20
+      },
+      {
+        "offset_ms": 20,
+        "pairs": 24,
+        "meetings": 12
+      }
+    ]
+  },
+  "etude": {
+    "seconds": 44,
+    "notes": 45,
+    "throws": 143,
+    "grains_thrown": 304,
+    "strikes": 1534,
+    "meetings": 156,
+    "ms": 15569,
+    "share_of_realtime": 0.354,
+    "engine": "apple metal-3",
+    "scale": 4.063,
+    "what_it_is": "a written score played by the harness through the same hands a player uses; not a human performance"
+  },
+  "console": []
+}

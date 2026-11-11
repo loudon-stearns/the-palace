@@ -38,3 +38,8 @@ What Particle Synthesis's steward cycles taught the page, and the changes to the
 
 3. Grains thrown from one nozzle a few milliseconds apart start out overlapping and log hundreds of near-zero-speed meetings; a grain joins the collision pass only after 30 ms of flight, and a contact closing slower than 0.1 m/s is ignored as two grains riding together. *(offered by the steward, cycle 7)*
 - run · 2026-10-22 · cycle 7 · taught item 3
+
+## From cycle 8 — 2026-11-11
+
+4. Whether two throws from opposite nozzles meet depends on where on the arc they cross more than on how close together they leave. Near the top a 20 ms gap still meets; on the way down 10 ms can miss. So timing tolerance is a property of the key, not of the player. *(offered by the steward, cycle 8)*
+- run · 2026-11-11 · cycle 8 · taught item 4

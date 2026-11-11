@@ -15,37 +15,37 @@ forward_vector: "I am Particle Synthesis's scroll — the one page that always o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-25T01:29:18.046Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-11T12:51:03.390Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 7 · last ran 2026-10-22 (3 days ago)
-- **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-11-11 (today)
+- **Plan:** agreed 2026-11-10 (1 day ago) · 1 made thing since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-22 (3 days ago) — Grains now meet on the GPU: 1024 ice grains from two fountains clack off each other in mid-air, live, with an A/B against passing through. (`particle-synthesis-014`)
-- **Last commit touching this project:** 2026-10-22 `e3268f70` — steward(Particle Synthesis): cycle 7 — SPINNING UP. HOME: [Particle Synthesis](obsidian://open?vault=The%20Pal…
+- **Last shipped:** 2026-11-11 (today) — The ice fountain is an instrument now. Three keyboard rows throw grains from the left nozzle, the right, or both at once, and you hear where they land. (`particle-synthesis-016`)
+- **Last commit touching this project:** 2026-11-03 `7463e92d` — edit(Loudon Live Design System): the house's player on the nine pages that still showed the OS audio player, on Loudon's word of 2026-11-03
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-22 — cycle 7 · taught item 3
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-11 — cycle 8 · taught item 4
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 7 — 2026-10-22 — [[Particle Synthesis — tuning]]
+- **Latest lesson:** item 4, from cycle 8 — 2026-11-11 — [[Particle Synthesis — tuning]]
 
 ### Where this stands
 
-Particle Synthesis treats each grain of a granular synth as a real particle with position, speed and mass, so the sound comes out of physics instead of knobs. Its test is to sound like physics, not like parameter modulation. In September I built a fountain throwing ice onto a stiff plate, where each landing reaches two pickups as a chirp, highs first. Then I aimed two fountains at each other so grains clack in mid-air, but only on the CPU, and with 72 grains. Earlier today I moved the fountain onto the GPU: 1024 particles, each one thread, moved and heard every sample. Then I proposed a plan, which is still waiting on you: your ears on that A/B, then collisions on the GPU, then an instrumen…
+Particle Synthesis treats each grain of a granular synth as a real particle, so the sound comes out of physics instead of knobs. Its test is whether it sounds like physics, not parameter modulation. By October two fountains were throwing 1024 ice grains at each other on the GPU. Each landing reaches two pickups as a chirp, highs first, and grains that meet in mid-air clack. On 10 November you adopted the plan: your ears on the A/B, then grains meeting on the GPU (done in October), then make it playable, then push past 1024, then a spec for Live, then fold what's proven into the page. This cycle made it playable. On the keyboard, Z to / throws from the left nozzle, Q to P from the right, and…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 4:** Nobody has listened yet. _(in 4 notes, the latest cycle 7)_
+- **rough since cycle 4:** Nobody has listened yet. _(in 5 notes, the latest cycle 8)_
 - **rough since cycle 4:** I don't know how the live bench runs on your machine's audio. _(in 2 notes, the latest cycle 5)_
 - **rough since cycle 6:** I ran the live page only in headless Chrome, with no speakers. _(in 2 notes, the latest cycle 7)_
 
 ### Open asks
 
-- `particle-synthesis-012` — proposed plan revision: a first plan for Particle Synthesis · posted 2026-10-22 · options: adopt · keep · STEER
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -53,11 +53,13 @@ _None._
 
 ### Decided
 
+- `particle-synthesis-012` — a first plan for Particle Synthesis → GRANTED — option_id=adopt (2026-11-10)
 - `particle-synthesis-007` — directional_decision → GRANTED — option_id=REVIVE-TO-SPROUT (2026-09-24)
 - `particle-synthesis-004` — directional_decision → GRANTED — option_id=POLYPHONIC-CLOUD; notes: "create an interactive HTML lesson that demonstrates the arc of this project and where it is goin." (2026-06-25)
 
 ### Runs
 
+- 2026-11-11 — cycle 8 · taught item 4
 - 2026-10-22 — cycle 7 · taught item 3
 - 2026-10-22 — cycle 6 · taught item 1, proposed item 2 for canon
 
@@ -76,7 +78,16 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 ## Plan
 
 <!-- scroll:plan:start -->
-_No plan agreed yet. Until there is one, the work leans on the page's forward vector. A plan is agreed with Loudon — he writes it here, or a steward proposes one as an ask and it lands here when he says yes._
+**Where this is going.** Particle Synthesis becomes an instrument where a thousand or more particles move under real physics and the sound falls out of their motion, so the ear hears a physical event (rain on ice, a dispersion event), not knobs being turned. The test at every step: does it sound like physics rather than parameter modulation? Loudon's ears decide that.
+
+**The moves, in order.**
+1. **Put the fountain on the GPU.** Every particle is moved and heard at audio rate in a compute shader, checked against a CPU copy, and rendered as an A/B of physics against mapped grains. *(shipped 2026-10-22)*
+2. **The ear check.** Loudon listens to the A/B and plays the live page. What he hears decides what the instrument keeps. Building doesn't stop while this waits.
+3. **Grains that meet, on the GPU.** Move the mid-air collisions (the clack) into the shader with a spatial grid, so a thousand particles hit each other as well as the ice, and aim becomes a knob.
+4. **Make it playable.** The live page grows into an instrument. Keys and MIDI throw particles, and the physical controls (aim, throw, ice stiffness, where the pickups sit) are its knobs. Finish with a recorded performance.
+5. **Past 1024.** Find where the GPU really runs out, and whether density beyond a few thousand still adds anything the ear can hear.
+6. **Write it down for Live.** Signal flow, parameters and the tested logic, as a spec ready for when Max patching standards exist. No Max files until then.
+7. **Fold what's proven into the page.** Propose the entry's rewrites from what the builds showed.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -87,6 +98,62 @@ _No plan agreed yet. Until there is one, the work leans on the page's forward ve
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-particle-synthesis-012" -->
+### 2026-11-09 — Plan agreed: Here's a first plan: GPU fountain (done), your ears on the A/B, collisions on the GPU, then a playable instrument. Adopt it?
+
+Particle Synthesis turns each grain of a granular synth into a real particle, so the sound comes out of physics instead of knobs. You revived it to sprout in September, but nobody wrote a plan, and you asked me to propose one. Today's build is the first move: a thousand particles on the GPU, each moved and heard at audio rate, checked against a CPU copy, plus an A/B of the same strikes heard through the ice and as ordinary mapped grains. The plan puts your ear check second, because 'does it sound like physics?' is the page's whole test and only you can answer it. I keep building while I wait. After that: collisions on the GPU, then an instrument you can play, then the ceiling past 1024 particles, then a Live spec that waits for the Max standards, then folding what's proven into the page.
+<sub>`plan-particle-synthesis-012` · plan agreed · agreed 2026-11-10T02:16:06.091Z · proposed by Particle Synthesis's steward (`particle-synthesis-012`), adopted by Loudon (`resp-mwa26fnv-s8xz7s`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="particle-synthesis-016" -->
+### 2026-11-11 — cycle 8 — The ice fountain is an instrument now. Three keyboard rows throw grains from the left nozzle, the right, or both at once, and you hear where they land.
+> shipped · playable page, a 44 s etude, a record button · nobody has played or heard it yet · steward leans you play it
+
+**Start with [the instrument](open:Projects/Particle Synthesis/proofs/2026-11-11-two-hands-of-ice.html).** Press start, then tap A, G and ; in the middle row and wait. Nothing sounds when you press. The grain flies for 0.8 to 1.4 s, and what you hear is the landing. The delay is the flight, and it's the instrument's only latency. Every throw leaves on its exact sample, 0.12 s after the key, so the timing is steady.
+
+**What each control is.** The key is the throw speed, from 4.2 to 8 m/s, and the speed decides where the grain lands. Ticks on the ice show each key's landing spot. Measured on the CPU copy, every key lands within 0.2 m of the throw formula, or within 0.53 m on the hardest left-hand key, short because air drag slows light grains. Flight times are within 3%. The landing distance sets how slowly the chirp sweeps. Handful (or how hard you strike a MIDI key) is how many grains leave, 6 ms apart. Aim is scatter. Ice stiffness is the plate. A new knob, *pickups*, slides the two pickups toward the landings, which makes the chirps shorter and brighter.
+
+**What I got wrong, and the test caught.** I wrote on the page that two separate fingers could never make grains meet, so 'both at once' needed its own row. Then I measured. Left and right throws on the same key, 24 pairs at each gap: 0 to 3 ms apart all meet, 5 ms gives 23, 10 ms gives 20, and 20 ms still gives 12. That run alternated the softest key with a middle one. The arc explains the result: a middle key crosses near the top of its arc, where the grains are hardly falling, so a late grain is still at the same height. The softest key crosses on the way down at 3.4 m/s, so 20 ms puts one grain about 7 cm below the other. The page now says that. Two hands can meet on the right keys, and the middle row always meets.
+
+**A find:** a handful from the middle row is a chain. With three grains a side, the leading pair meets and bounces back into the grains behind it. That makes five clacks inside 20 ms, and only one of them is between partners.
+
+**The etude** is a written score. It is not a performance. It has left hand alone and rising, right hand alone and falling, eight middle-row throws, three pours, then rain. The 8 middle-row throws give exactly 8 clacks, each about half a second after its key. The middle-row pour at tight aim gives 139 clacks. With 1024 slots in 1024-sample blocks, it renders at 35% of real time. In the live page a block costs about 50% of its playing time.
+
+**How I know it's right.** I played the same 6 s score through the GPU and its CPU copy, 64 slots. The two made the same 52 grains, the same 245 landings and the same 39 meetings. With collisions off the sound correlates at 0.9998. With collisions on it's 0.95, as in October, because each meeting is a yes-or-no event. I also drove the live page like a player in headless Chrome: nine keys, a held pour, a MIDI note and a recording, with no console errors.
+
+**Artifacts:**
+- [The instrument: three keyboard rows and MIDI throw the grains; hold to pour; record a take.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-of-ice.html)
+- [Etude for two hands of ice, 44 s: a written score played through the instrument's own hands. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-etude.wav)
+- [The etude's score, its meetings, its spectrogram, and a zoom where each key goes down and its clack comes half a second later.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-etude.png)
+- [The live page after a headless player's run: 148 grains thrown, a take ready to save.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-live.png)
+- [The checks: GPU against CPU, landings against the formula, the meeting window, the etude render.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-harness.mjs)
+- [Drives the live page like a player: keys, a pour, a MIDI note, record.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-live-check.mjs)
+- [Draws the etude figure.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-figure.py)
+- [Every number from the checks.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-report.json)
+
+_Two throws on the same key from opposite nozzles, 24 pairs per gap, aim 0.05°, alternating the softest and a middle key_
+| gap between the throws | meetings |
+| --- | --- |
+| 0 ms (middle row) | 24 |
+| 1 ms | 25 |
+| 3 ms | 25 |
+| 5 ms | 23 |
+| 10 ms | 20 |
+| 20 ms | 12 |
+
+_Left rough:_ Nobody has listened yet. Only you can hear the etude or play the page, and that's the ear check the plan is waiting on. MIDI was tested with a simulated note, not a real keyboard. The plan move ends with a recorded performance, and that should be yours, with the record button.
+
+_Next moves named:_ You play it: open the page, press start, tap the middle row, then hold H and loosen the aim. Record a take if one feels like music. · Past 1024: put a spatial grid in the collision pass so its cost stops growing with the square of the grain count, then find where the GPU runs out and whether a denser pour still adds anything to the ear. · For the Live spec, once Max patching standards exist: a note becomes a throw on a sample-exact clock (key time plus a fixed 0.12 s), slots are taken round-robin, and a handful leaves 6 ms per grain. No Max files until then.
+<sub>`particle-synthesis-016` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-7b7f6c2557" -->
+### 2026-11-11 — cycle 8
+
+taught item 4
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="particle-synthesis-014" -->
 ### 2026-10-22 — cycle 7 — Grains now meet on the GPU: 1024 ice grains from two fountains clack off each other in mid-air, live, with an A/B against passing through.
 > shipped · GPU matches CPU meeting for meeting · steward leans: ears, then a playable instrument
