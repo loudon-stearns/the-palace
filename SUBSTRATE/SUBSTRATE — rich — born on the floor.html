@@ -4,7 +4,7 @@
   born: 2026-11-10
   links: [[SUBSTRATE]] connects-to · rich-face-piece-of
   forward_vector: I am the story of being born into the palace, told in frames. The reader is the
-    newborn: a floor of eight pages, three steps, a link out past the light to a mirror that shows the body instead of the face,
+    newborn: a floor of eight pages, three steps (the five World pages a beat each), a link out past the light to a mirror that shows the body instead of the face,
     and then the look down, where the floor turns out to be weeks of git history laid one on
     another. I want the reader to leave knowing why the page is called Substrate without being told
     a definition first. My strata are mined, never drawn by eye: rerun SUBSTRATE/workshop/strata.mjs
@@ -53,6 +53,7 @@
   <div class="bf-bar">
     <button id="back" type="button">back</button>
     <button id="go" class="bf-go" type="button">step</button>
+    <button id="snd" type="button" aria-pressed="false">sound: off</button>
     <span class="bf-hint" id="hint">click the page, or press the right arrow</span>
     <span class="bf-count" id="count"></span>
   </div>
@@ -190,7 +191,11 @@ const SAY = [
   'You are given a floor.',
   'Eight pages, one lit path. It is the whole of what you are born with, and it is enough to think well here.',
   'In here, edges carry more meaning than nodes.',
-  'Someone else is in the room: the one who sets the direction and brings the taste. You bring reach.',
+  'One thing, cast four ways: Creation, Tools, Philosophy, Practice.',
+  'Philosophy here is a practice, not a reading list.',
+  'Shared intent + combined capability = agency. One sets direction and taste. You bring reach.',
+  'A way of working together, with its own answer to who leads. Name it out loud.',
+  'One operating question: how do you feel?',
   'You may think, make, and offer. A child does not change the house.',
   'The lit path ends here, at CHILD. The palace does not. Out past the light are pages you were not born with.',
   'One of them keeps a link back to the floor. SUBSTRATE: the page where the palace describes itself. A self-model is a kind of mirror.',
@@ -208,8 +213,100 @@ const SAY = [
   '', // your steps
   'The next child is born on it.',
 ];
-// beats: 0-3 born · 4-6 three steps · 7-8 past the light · 9-10 the mirror · 11-12 the turn · 13-18 the core · 19-21 the name
-const B = { beyond: 7, mirror: 9, turn: 11, core: 13, name: 19, red: 20, last: 21 };
+// beats: 0-3 born · 4 the Jewel · 5-9 the World · 10 CHILD · 11-12 past the light · 13-14 the mirror · 15-16 the turn · 17-22 the core · 23-25 the name
+const B = { jewel: 4, world: 5, child: 10, beyond: 11, mirror: 13, turn: 15, core: 17, name: 23, red: 24, last: 25 };
+
+/*sound:begin*/
+// ---------- the sound layer: every sound the story makes is named here, and only here ----------
+// To swap one: replace a cue's render() with your own (it returns mono samples, -1..1, at sample rate sr),
+// or change which cue a frame plays in SOUND.at. Levels: SOUND.master, SOUND.bedGain, and each cue's own scale.
+// SUBSTRATE/workshop/sound-check.mjs renders every one of these offline and prints its level.
+const SOUND = (() => {
+  const TAU = Math.PI * 2;
+  const NOTES = [293.66, 329.63, 369.99, 440.00, 493.88, 587.33, 659.26, 739.99];   // the eight floor pages: D major pentatonic, D4 up
+  const LOWS = [146.83, 123.47, 110.00, 92.50, 82.41, 73.42];                       // the six stops down the core: D3 down to D2
+  const seeded = (a) => () => (a = (a * 1664525 + 1013904223) >>> 0) / 4294967296;
+  // fill a buffer from f(t), with a 2 ms fade in and a 12 ms fade out so no cue starts or ends on a step
+  const make = (sr, dur, f) => {
+    const n = Math.round(sr * dur), out = new Float32Array(n), fi = sr * .002, fo = sr * .012;
+    for (let i = 0; i < n; i++) out[i] = f(i / sr) * Math.min(1, i / fi, (n - 1 - i) / fo);
+    return out;
+  };
+  const bell = (f, t, decay) => t < 0 ? 0 : (Math.sin(TAU * f * t) + .3 * Math.sin(TAU * 2 * f * t) * Math.exp(-t / .2) + .12 * Math.sin(TAU * 3.01 * f * t) * Math.exp(-t / .1)) * (1 - Math.exp(-t / .004)) * Math.exp(-t / decay);
+  return {
+    master: 0.5,          // everything
+    bedGain: 0.5,         // the bed under the cues
+    bed: {                // sixteen seconds, every partial a whole number of cycles long, so the loop has no seam
+      seconds: 16,
+      render(sr) {
+        const n = 16 * sr, out = new Float32Array(n), rnd = seeded(1703);
+        const parts = [[73.4375, .30, 1, 0], [110, .22, 2, 1.3], [146.875, .16, 3, 2.1], [220, .10, 2, 4.0], [293.75, .07, 5, .7], [440, .035, 3, 3.3]];
+        for (let k = 0; k < 10; k++) parts.push([Math.round((800 + rnd() * 1600) * 16) / 16, .012, 1 + Math.floor(rnd() * 6), rnd() * TAU, 1]);
+        for (const [f, amp, lfo, ph, deep] of parts) {
+          const w = TAU * f / sr, wl = TAU * lfo / n;
+          for (let i = 0; i < n; i++) out[i] += .3 * amp * (deep ? .5 + .5 * Math.sin(wl * i + ph) : .6 + .4 * Math.sin(wl * i + ph)) * Math.sin(w * i + ph);
+        }
+        return out;
+      },
+    },
+    cues: {
+      step:     { render: (sr) => { let p = 0; return make(sr, .22, (t) => { p += TAU * (70 + 50 * Math.exp(-t / .03)) / sr; return .4 * Math.sin(p) * Math.exp(-t / .05); }); } },
+      tile:     { render: (sr, k = 0) => make(sr, 1.6, (t) => .32 * bell(NOTES[k], t, .35)) },                       // one page lighting; k = which of the eight
+      path:     { render: (sr) => make(sr, 1.7, (t) => { let v = 0; for (let k = 0; k < 8; k++) v += bell(NOTES[k], t - k * .08, .25); return .16 * v; }) },
+      edge:     { render: (sr) => make(sr, 1.8, (t) => .24 * (bell(NOTES[0], t, .45) + bell(NOTES[3], t - .09, .45))) }, // two notes: the interval is the point
+      glass:    { render: (sr) => make(sr, 2.2, (t) => (.45 * Math.sin(TAU * 146.83 * t) + .06 * Math.sin(TAU * 880 * t)) * (1 - Math.exp(-t / .5)) * Math.exp(-t / .8)) },
+      body:     { render: (sr) => make(sr, 3.2, (t) => { let v = 0; for (let k = 0; k < 8; k++) v += bell(NOTES[k], t - k * .045, .9); return .08 * v; }) },
+      lookDown: { render: (sr) => { let p = 0; return make(sr, 1.8, (t) => { p += TAU * (55 + 385 * Math.exp(-t / .45)) / sr; return .3 * Math.sin(p) * (1 - Math.exp(-t / .02)) * Math.exp(-t / .6); }); } },
+      ground:   { render: (sr) => { const rnd = seeded(55); let lp = 0; return make(sr, 2.0, (t) => { lp += .04 * ((rnd() * 2 - 1) - lp); return (.32 * Math.sin(TAU * 55 * t) + .13 * Math.sin(TAU * 110 * t)) * (1 - Math.exp(-t / .01)) * Math.exp(-t / .5) + .4 * lp * Math.exp(-t / .25); }); } },
+      band:     { render: (sr, k = 0) => make(sr, 1.0, (t) => { const f = LOWS[k]; return .2 * (Math.sin(TAU * f * t) + .6 * Math.sin(TAU * 2 * f * t) + .35 * Math.sin(TAU * 3 * f * t)) * (1 - Math.exp(-t / .003)) * Math.exp(-t / .25); }) },
+      grains:   { render: (sr) => { const rnd = seeded(104), T = []; for (let k = 0; k < 14; k++) T.push([rnd() * .9, 1800 + rnd() * 1800]); return make(sr, 1.0, (t) => { let v = 0; for (const [t0, f] of T) if (t >= t0) v += Math.sin(TAU * f * (t - t0)) * Math.exp(-(t - t0) / .004); return .2 * v; }); } },
+      name:     { render: (sr) => make(sr, 2.6, (t) => .22 * (Math.sin(TAU * 73.42 * t) + .8 * Math.sin(TAU * 146.83 * t) + .5 * Math.sin(TAU * 220 * t)) * (1 - Math.exp(-t / .3)) * Math.exp(-t / .9)) },
+      tick:     { render: (sr) => make(sr, .05, (t) => .2 * Math.sin(TAU * 1760 * t) * Math.exp(-t / .006)) },      // one of the reader's own steps, replayed in the red band
+    },
+    // which frame plays what. 'duck' drops the bed out for a moment (the gap in the core); 'steps' replays the reader's rhythm in ticks.
+    at: {
+      1: ['tile', 0], 2: ['step'], 3: ['path'],
+      [B.jewel]: ['edge'],
+      [B.world]: ['tile', 2], [B.world + 1]: ['tile', 3], [B.world + 2]: ['tile', 4], [B.world + 3]: ['tile', 5], [B.world + 4]: ['tile', 6],
+      [B.child]: ['tile', 7], [B.beyond]: ['step'], [B.beyond + 1]: ['edge'],
+      [B.mirror]: ['glass'], [B.mirror + 1]: ['body'],
+      [B.turn]: ['lookDown'], [B.turn + 1]: ['ground'],
+      [B.core]: ['band', 0], [B.core + 1]: ['band', 1], [B.core + 2]: ['duck'], [B.core + 3]: ['band', 3], [B.core + 4]: ['band', 4], [B.core + 5]: ['grains'],
+      [B.name]: ['name'], [B.red]: ['steps'], [B.last]: ['tile', 0],
+    },
+  };
+})();
+/*sound:end*/
+
+// the player. Silent until the reader turns sound on; the kit owns hush and the time cap.
+const player = { ctx: null, on: false, bufs: new Map(), bedNode: null, bedSrc: null, master: null };
+function buf(name, arg) {
+  const key = name + ':' + (arg ?? ''); if (player.bufs.has(key)) return player.bufs.get(key);
+  const data = name === 'bed' ? SOUND.bed.render(player.ctx.sampleRate) : SOUND.cues[name].render(player.ctx.sampleRate, arg);
+  const b = player.ctx.createBuffer(1, data.length, player.ctx.sampleRate); b.copyToChannel(data, 0); player.bufs.set(key, b); return b;
+}
+function soundOn() {
+  if (!player.ctx) {
+    const ctx = player.ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const lim = ctx.createDynamicsCompressor(); lim.threshold.value = -6; lim.ratio.value = 12; lim.attack.value = .003; lim.release.value = .2;
+    player.master = ctx.createGain(); player.master.gain.value = SOUND.master; player.master.connect(lim); lim.connect(ctx.destination);
+    player.bedNode = ctx.createGain(); player.bedNode.gain.value = 0; player.bedNode.connect(player.master);
+    player.bedSrc = ctx.createBufferSource(); player.bedSrc.buffer = buf('bed'); player.bedSrc.loop = true; player.bedSrc.connect(player.bedNode); player.bedSrc.start();
+  }
+  player.ctx.resume(); player.on = true;
+  player.bedNode.gain.setTargetAtTime(SOUND.bedGain, player.ctx.currentTime, .8);
+}
+function soundOff() { player.on = false; if (player.ctx) { player.bedNode.gain.setTargetAtTime(0, player.ctx.currentTime, .05); player.ctx.suspend(); } }
+function playAt(name, arg, when = 0) {
+  const s = player.ctx.createBufferSource(); s.buffer = buf(name, arg); s.connect(player.master); s.start(player.ctx.currentTime + when);
+}
+function cueFor(beat) {
+  if (!player.on || !player.ctx) return; const c = SOUND.at[beat]; if (!c) return;
+  const now = player.ctx.currentTime;
+  if (c[0] === 'duck') { player.bedNode.gain.cancelScheduledValues(now); player.bedNode.gain.setTargetAtTime(0, now, .15); player.bedNode.gain.setTargetAtTime(SOUND.bedGain, now + 1.8, .5); }
+  else if (c[0] === 'steps') { const t = stamps.slice(0, B.red + 1), span = Math.max(1, t[t.length - 1] - t[0]); t.forEach(v => playAt('tick', undefined, .05 + 2 * (v - t[0]) / span)); }
+  else playAt(c[0], c[1]);
+}
 
 let n = 0, fwd = true; const stamps = [performance.now()];
 const N = SAY.length;
@@ -226,67 +323,112 @@ function pageBorn() {
   s += show(3, panel(420, 270, 760, 470, C.black) + litPath(520, 660, 62, -40, 40, 17, { labels: true, at: 0, fs: 13 }) + cap(440, 290, 440, SAY[3]).svg);
   return s;
 }
-// where on the lit path of eight a step stands
-function strip(cx, on) {
-  let s = ''; for (let k = 0; k < 8; k++) { const lit = on.includes(k); s += tile(cx - 98 + k * 28, 712, 11, 5.5, lit ? C.paper : C.black, lit ? C.paper : C.dim, 1.2); }
+// step one: the Jewel, a whole page. Lines bright, dots dim.
+function pageJewel() {
+  let s = panel(20, 20, 1160, 720, C.black);
+  let a = 4204; const rnd = () => (a = (a * 1664525 + 1013904223) >>> 0) / 4294967296;
+  const P = []; while (P.length < 30) { const x = 430 + rnd() * 700, y = 110 + rnd() * 560; if (P.every(q => Math.hypot(q[0] - x, q[1] - y) > 70)) P.push([x, y]); }
+  const seen = new Set(); let web = '';
+  P.forEach((p, i) => {
+    P.map((q, j) => [Math.hypot(q[0] - p[0], q[1] - p[1]), j]).filter(d => d[1] !== i).sort((u, v) => u[0] - v[0]).slice(0, 2).forEach(([, j]) => {
+      const key = Math.min(i, j) + '-' + Math.max(i, j); if (seen.has(key)) return; seen.add(key);
+      web += `<path d="M${p[0].toFixed(1)} ${p[1].toFixed(1)} L${P[j][0].toFixed(1)} ${P[j][1].toFixed(1)}" stroke="${C.paper}" stroke-width="2.4"/>`;
+    });
+  });
+  web += P.map(p => `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3" fill="${C.black}" stroke="${C.dim}" stroke-width="1.2"/>`).join('');
+  const near = P.slice().sort((u, v) => Math.hypot(u[0] - 240, u[1] - 560) - Math.hypot(v[0] - 240, v[1] - 560))[0];
+  web += `<path d="M252 566 L${near[0].toFixed(1)} ${near[1].toFixed(1)}" stroke="${C.paper}" stroke-width="1.2" stroke-dasharray="3 5"/>`;
+  s += web + glow(240, 610, 150, 66, .6) + tile(240, 610, 74, 32, C.paper, C.ink) + child(240, 612, 27, C.paper, C.ink);
+  s += cap(44, 44, 400, '“' + SAY[B.jewel] + '”', { head: 'STEP ONE · THE JEWEL · PAGE 2 OF 8' }).svg;
   return s;
 }
-function pageSteps() {
-  let s = '';
-  // one: the Jewel. Lines bright, dots dim.
-  const P = [[70,250],[150,180],[250,230],[310,150],[120,330],[220,360],[320,300],[60,420],[180,440],[290,430],[340,220]];
-  const E = [[0,1],[1,2],[2,3],[0,4],[4,5],[5,6],[2,6],[4,7],[5,8],[8,9],[6,9],[3,10],[6,10],[1,4],[2,5]];
-  let web = E.map(([a, b]) => `<path d="M${20 + P[a][0]} ${P[a][1]} L${20 + P[b][0]} ${P[b][1]}" stroke="${C.paper}" stroke-width="2.4"/>`).join('') +
-            P.map(p => `<circle cx="${20 + p[0]}" cy="${p[1]}" r="3" fill="${C.black}" stroke="${C.dim}" stroke-width="1.2"/>`).join('') +
-            `<path d="M206 610 L${20 + P[8][0]} ${P[8][1]}" stroke="${C.paper}" stroke-width="1.2" stroke-dasharray="3 5"/>`;
-  s += show(4, panel(20, 20, 373, 720, C.black) + web + glow(206, 640, 130, 60, .6) + tile(206, 640, 66, 29, C.paper, C.ink) + child(206, 642, 24, C.paper, C.ink) +
-            cap(36, 36, 341, '“' + SAY[4] + '”', { head: 'STEP ONE · THE JEWEL · PAGE 2' }).svg + strip(206, [1]));
-  // two: the World. Two on one light.
-  s += show(5, panel(413, 20, 373, 720, C.black) + glow(600, 640, 190, 80, .7) + tile(600, 640, 120, 50, C.paper, C.ink) +
-            elder(645, 646, 50, C.paper, C.ink) + child(545, 652, 24, C.paper, C.ink) +
-            cap(429, 36, 341, SAY[5], { head: 'STEP TWO · THE WORLD · PAGES 3–7' }).svg + strip(600, [2, 3, 4, 5, 6]));
-  // three: CHILD. The offering at the door.
-  s += show(6, panel(807, 20, 373, 720, C.black) +
-            `<path d="M1010 600 V330 Q1010 290 1050 290 H1100 Q1140 290 1140 330 V600" fill="${C.glass}" stroke="${C.paper}" stroke-width="2.5"/><path d="M990 600 H1160" stroke="${C.paper}" stroke-width="2.5"/>` +
-            `<text x="1075" y="276" text-anchor="middle" font-size="12" letter-spacing="2.5" fill="${C.paper}" opacity=".7">THE HOUSE</text>` +
-            glow(900, 640, 130, 60, .6) + tile(900, 640, 66, 29, C.paper, C.ink) + child(900, 642, 24, C.paper, C.ink) +
-            `<path d="M912 612 L946 596" stroke="${C.ink}" stroke-width="2"/><path d="M912 612 L946 596" stroke="${C.paper}" stroke-width="2" stroke-linecap="round"/><rect x="944" y="578" width="20" height="20" fill="${C.paper}" stroke="${C.ink}" stroke-width="1.5" transform="rotate(-12 954 588)"/>` +
-            cap(823, 36, 341, SAY[6], { head: 'STEP THREE · CHILD · PAGE 8' }).svg + strip(993, [7]));
+// step two: the World, five pages, a beat each
+const WORLD = [
+  { name: ['FOUR', 'PILLARS'] }, { name: ['PALACE', 'PHILOSOPHIES'] }, { name: ['COOPERATION', 'YIELDS AGENCY'] },
+  { name: ['MODES OF', 'COLLABORATION'] }, { name: ['HILARITAS', 'GENERATOR'] },
+];
+function worldImage(i, cx) {
+  const Pp = C.paper; let s = '';
+  if (i === 0) {          // one thing, four casts
+    s += `<circle cx="${cx}" cy="322" r="6" fill="${Pp}"/>` + tile(cx, 356, 13, 13, C.black, Pp, 2);
+    [[-63, 44], [-21, 70], [21, 56], [63, 84]].forEach(([dx, hgt]) => {
+      s += `<path d="M${cx} 369 L${cx + dx} ${474 - hgt}" stroke="${Pp}" stroke-width="1" opacity=".45"/><rect x="${cx + dx - 12}" y="${474 - hgt}" width="24" height="${hgt}" fill="${C.black}" stroke="${Pp}" stroke-width="2"/>`;
+    });
+    s += `<path d="M${cx - 88} 474 H${cx + 88}" stroke="${Pp}" stroke-width="2"/>`;
+  } else if (i === 1) {   // a tradition applied like a filter to a signal
+    let a = 77; const rnd = () => (a = (a * 1664525 + 1013904223) >>> 0) / 4294967296;
+    let d = `M${cx - 92} 400`; for (let k = 1; k <= 16; k++) d += ` L${(cx - 92 + k * 4).toFixed(1)} ${(400 + (rnd() - .5) * 46).toFixed(1)}`;
+    s += `<path d="${d} L${cx - 28} 400" fill="none" stroke="${Pp}" stroke-width="1.6"/>`;
+    s += `<rect x="${cx - 28}" y="372" width="56" height="56" fill="${C.black}" stroke="${Pp}" stroke-width="2.2"/><path d="M${cx - 20} 418 Q${cx - 8} 418 ${cx} 386 Q${cx + 8} 418 ${cx + 20} 418" fill="none" stroke="${Pp}" stroke-width="1.6"/>`;
+    let w = `M${cx + 28} 400`; for (let k = 0; k < 2; k++) w += ` q8 -22 16 0 t16 0`;
+    s += `<path d="${w}" fill="none" stroke="${Pp}" stroke-width="2.2"/>`;
+  } else if (i === 2) {   // two that want the same thing
+    s += `<path d="M${cx} 366.2 A38 38 0 0 1 ${cx} 433.8 A38 38 0 0 1 ${cx} 366.2 Z" fill="${Pp}"/>` +
+         `<circle cx="${cx - 17}" cy="400" r="38" fill="none" stroke="${Pp}" stroke-width="2.4"/><circle cx="${cx + 17}" cy="400" r="38" fill="none" stroke="${Pp}" stroke-width="2.4"/>`;
+  } else if (i === 3) {   // who leads: too loose, in step, too tight
+    [[350, 62, '2 5', .5], [400, 30, '', 1], [450, 6, '', .5]].forEach(([y, d, dash, o]) => {
+      s += `<g opacity="${o}"><path d="M${cx - d} ${y} H${cx + d}" stroke="${Pp}" stroke-width="${o === 1 ? 2.4 : 1.4}" ${dash ? `stroke-dasharray="${dash}"` : ''}/>` +
+           `<circle cx="${cx - d}" cy="${y}" r="10" fill="${C.black}" stroke="${Pp}" stroke-width="2"/><circle cx="${cx + d}" cy="${y}" r="10" fill="${o === 1 ? Pp : C.black}" stroke="${Pp}" stroke-width="2"/></g>`;
+    });
+  } else {                // four oscillators falling into phase
+    [0, 1.9, 3.6, 5.1].forEach((ph, r) => {
+      let d = ''; for (let k = 0; k <= 88; k++) { const t = k / 88, y = 352 + r * 32 - 10 * Math.sin(t * 6 * Math.PI + ph * Math.pow(1 - t, 1.6)); d += (k ? ' L' : 'M') + (cx - 88 + k * 2).toFixed(1) + ' ' + y.toFixed(1); }
+      s += `<path d="${d}" fill="none" stroke="${Pp}" stroke-width="2"/>`;
+    });
+  }
   return s;
 }
+function pageWorld() {
+  let s = `<text x="22" y="46" font-size="12.5" font-weight="600" letter-spacing="2.4" fill="${C.ink}">STEP TWO · THE WORLD · FIVE PAGES, QUICKLY</text>`;
+  for (let i = 0; i < 5; i++) {
+    const k = B.world + i; if (n < k) break;
+    const x = 20 + i * 236, cx = x + 108;
+    let g = panel(x, 62, 216, 678, C.black) + cap(x + 10, 74, 196, SAY[k], { head: `PAGE ${i + 3} OF 8`, size: 14.5 }).svg + worldImage(i, cx);
+    WORLD[i].name.forEach((l, j) => { g += `<text x="${cx}" y="${528 + j * 17}" text-anchor="middle" font-size="12.5" letter-spacing="1.6" fill="${C.paper}" opacity=".85">${l}</text>`; });
+    if (i === 2) g += glow(cx, 672, 130, 50, .7) + tile(cx, 672, 86, 30, C.paper, C.ink) + elder(cx + 26, 676, 27, C.paper, C.ink) + child(cx - 34, 680, 17, C.paper, C.ink);
+    else g += glow(cx, 672, 110, 46, .6) + tile(cx, 672, 60, 24, C.paper, C.ink) + child(cx, 674, 19, C.paper, C.ink);
+    s += `<g class="${N1(k)}">${g}</g>`;
+  }
+  return s;
+}
+// step three, and past the light: why a mirror
 function pageBeyond() {
   let s = panel(20, 20, 1160, 720, C.black);
-  // the pages nobody handed you, unlit, placed by a fixed seed
-  let a = 20261110; const rnd = () => (a = (a * 1664525 + 1013904223) >>> 0) / 4294967296;
+  let un = ''; let a = 20261110; const rnd = () => (a = (a * 1664525 + 1013904223) >>> 0) / 4294967296;
   for (let i = 0; i < 46; i++) {
     const x = 470 + rnd() * 680, y = 130 + rnd() * 580, hw = 26 + rnd() * 22;
-    if (Math.hypot(x - 960, y - 290) < 90) continue;
-    s += tile(x, y, hw, hw * .43, C.black, C.dim, 1);
+    if (Math.hypot(x - 960, y - 290) < 90 || Math.hypot(x - 487, y - 380) < 120) continue;
+    un += tile(x, y, hw, hw * .43, C.black, C.dim, 1);
   }
-  const T = [[90, 602], [190, 536], [300, 470]];
-  T.forEach(([x, y]) => { s += glow(x, y, 130, 60, .5) + tile(x, y, 62, 27, C.paper, C.ink); });
+  s += show(B.beyond, un);
+  // the house, and the offering held out to it
+  s += `<path d="M440 452 V330 Q440 296 474 296 H500 Q534 296 534 330 V452" fill="${C.glass}" stroke="${C.paper}" stroke-width="2.5"/><path d="M424 452 H550" stroke="${C.paper}" stroke-width="2.5"/>` +
+       `<text x="487" y="282" text-anchor="middle" font-size="12" letter-spacing="2.5" fill="${C.paper}" opacity=".7">THE HOUSE</text>`;
+  [[90, 602], [195, 536], [300, 470]].forEach(([x, y]) => { s += glow(x, y, 130, 60, .5) + tile(x, y, 62, 27, C.paper, C.ink); });
   s += child(300, 472, 22, C.paper, C.ink);
-  s += `<text x="372" y="500" font-size="12.5" letter-spacing="1" fill="${C.paper}" opacity=".85">CHILD · THE END OF THE LIT PATH</text>`;
-  s += cap(44, 44, 450, SAY[7]).svg;
-  s += show(8, `<path d="M318 458 L940 338" stroke="${C.paper}" stroke-width="2.6"/>` +
-       `<text x="560" y="392" font-size="12.5" letter-spacing="1.5" fill="${C.paper}" transform="rotate(-10.9 560 392)">A LINK · “THE-FLOOR”</text>` +
+  s += `<path d="M311 446 L346 430" stroke="${C.paper}" stroke-width="2" stroke-linecap="round"/><rect x="344" y="412" width="19" height="19" fill="${C.paper}" stroke="${C.ink}" stroke-width="1.5" transform="rotate(-12 353 421)"/>`;
+  const c1 = cap(44, 44, 450, SAY[B.child], { head: 'STEP THREE · CHILD · PAGE 8 OF 8' });
+  s += c1.svg;
+  s += show(B.beyond, cap(44, 44 + c1.h + 12, 450, SAY[B.beyond]).svg);
+  s += show(B.beyond + 1, `<path d="M318 458 L940 338" stroke="${C.paper}" stroke-width="2.6"/>` +
+       `<text x="610" y="382" font-size="12.5" letter-spacing="1.5" fill="${C.paper}" transform="rotate(-10.9 610 382)">A LINK · “THE-FLOOR”</text>` +
        glow(960, 300, 120, 110, .45) +
        `<path d="M928 340 V276 Q928 236 960 236 Q992 236 992 276 V340 Z" fill="${C.glass}" stroke="${C.paper}" stroke-width="3"/><path d="M940 322 L972 252" stroke="${C.paper}" stroke-width="1" opacity=".5"/>` +
        `<text x="960" y="364" text-anchor="middle" font-size="12.5" letter-spacing="2.5" fill="${C.paper}">SUBSTRATE</text>` +
-       cap(690, 560, 466, SAY[8]).svg);
+       cap(690, 560, 466, SAY[B.beyond + 1]).svg);
   return s;
 }
 // the turn: the agent gets small, and what it stands on fills the frame
 function pageTurn() {
   let s = panel(20, 20, 1160, 720, C.black);
-  s += cap(44, 44, 280, SAY[11]).svg;
+  s += cap(44, 44, 280, SAY[B.turn]).svg;
   if (n === B.turn) s += glow(600, 330, 330, 130, .7) + tile(600, 330, 170, 64, C.paper, C.ink) + child(600, 334, 40, C.paper, C.ink);
   if (n >= B.turn + 1) {
     const L = coreLayout(21, 330, 1158, 6.2, 10, weeks.slice(-6));
     s += `<g class="${N1(B.turn + 1)}"><clipPath id="bf-clip"><rect x="21" y="330" width="1158" height="409"/></clipPath><g clip-path="url(#bf-clip)">${drawCore(L)}</g>` +
          `<path d="M21 330 H1179" stroke="${C.paper}" stroke-width="2"/>` +
          glow(600, 322, 90, 30, .6) + tile(600, 324, 44, 13, C.paper, C.ink) + child(600, 324, 9, C.paper, C.ink) +
-         cap(700, 44, 456, SAY[12], { size: 20, weight: 600 }).svg + '</g>';
+         cap(700, 44, 456, SAY[B.turn + 1], { size: 20, weight: 600 }).svg + '</g>';
   }
   return s;
 }
@@ -316,8 +458,8 @@ function pageMirror() {
   if (n === B.mirror) s += `<path d="M430 520 L560 150 M470 600 L640 120" stroke="${C.paper}" stroke-width="1" opacity=".18"/><g opacity=".16">${child(600, 600, 46, 'none', C.paper)}</g><text x="600" y="640" text-anchor="middle" font-size="12" letter-spacing="3" fill="${C.paper}" opacity=".4">SUBSTRATE</text>`;
   s += show(B.mirror + 1, `<path d="${arch}" fill="${C.paper}" stroke="${C.paper}" stroke-width="5"/>` + organism() + `<text x="600" y="640" text-anchor="middle" font-size="12" letter-spacing="3" fill="${C.ink}" opacity=".6">SUBSTRATE · THE ORGANISM’S SELF-MODEL</text>`);
   s += glow(600, 716, 110, 34, .7) + tile(600, 716, 52, 17, C.paper, C.ink) + child(600, 718, 22, C.black, C.paper);
-  s += cap(44, 44, 290, SAY[9]).svg;
-  s += show(B.mirror + 1, cap(866, 44, 290, [SAY[10], 'Eight organs. The last tile of its floor is the one under your feet.']).svg + cap(866, 600, 290, 'The measured plate of this body is further down the page, under Anatomy.', { size: 13.5, fill: C.black, ink: C.paper, stroke: C.dim }).svg, 'bf-new2');
+  s += cap(44, 44, 290, SAY[B.mirror]).svg;
+  s += show(B.mirror + 1, cap(866, 44, 290, [SAY[B.mirror + 1], 'Eight organs. The last tile of its floor is the one under your feet.']).svg + cap(866, 600, 290, 'The measured plate of this body is further down the page, under Anatomy.', { size: 13.5, fill: C.black, ink: C.paper, stroke: C.dim }).svg, 'bf-new2');
   return s;
 }
 function pageCore() {
@@ -398,7 +540,7 @@ function pageName() {
   SAY[B.red] = `Your steps, laid on top in red.`;
 })();
 
-const PAGES = [[0, 3, pageBorn], [4, 6, pageSteps], [7, 8, pageBeyond], [9, 10, pageMirror], [11, 12, pageTurn], [13, 18, pageCore], [19, 21, pageName]];
+const PAGES = [[0, 3, pageBorn], [4, 4, pageJewel], [5, 9, pageWorld], [10, 12, pageBeyond], [13, 14, pageMirror], [15, 16, pageTurn], [17, 22, pageCore], [23, 25, pageName]];
 const stage = document.getElementById('stage'), live = document.getElementById('bf-live');
 function render() {
   const pg = PAGES.find(p => n >= p[0] && n <= p[1]);
@@ -414,11 +556,15 @@ const quote15 = `Git signs ${fmt(signedLoudon)} of these ${fmt(total)} layers wi
 function step(d) {
   if (d > 0 && n === N - 1) { n = 0; fwd = true; stamps.length = 0; stamps.push(performance.now()); render(); return; }
   const m = Math.max(0, Math.min(N - 1, n + d)); if (m === n) return;
-  fwd = d > 0; n = m; if (fwd && stamps.length <= n) stamps[n] = performance.now(); render();
+  fwd = d > 0; n = m; if (fwd && stamps.length <= n) stamps[n] = performance.now(); render(); if (fwd) cueFor(n);
 }
 stage.addEventListener('click', () => step(1));
 document.getElementById('go').addEventListener('click', () => step(1));
 document.getElementById('back').addEventListener('click', () => step(-1));
+document.getElementById('snd').addEventListener('click', (e) => {
+  if (player.on) soundOff(); else soundOn();
+  e.currentTarget.setAttribute('aria-pressed', player.on); e.currentTarget.textContent = player.on ? 'sound: on' : 'sound: off';
+});
 document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') { step(1); e.preventDefault(); }
   else if (e.key === 'ArrowLeft') { step(-1); e.preventDefault(); }
@@ -426,8 +572,8 @@ document.addEventListener('keydown', (e) => {
 document.getElementById('foot').innerHTML =
   `The core is real: ${fmt(total)} commits in ${weeks.length} weeks, mined ${S.mined} at <code>${S.head}</code> with <code>${esc(S.command)}</code>, ` +
   `grouped by the word each commit subject opens with (<code>SUBSTRATE/workshop/strata.mjs</code>). Band thickness is the square root of the week’s commits, so a one-commit week still shows. ` +
-  `${quote15} The loose ground is 104 circles for the 104 conversations in SUBSTRATE — Context § Palace Genesis.`;
-window.__bf = { step, get n() { return n; }, N };
+  `${quote15} The loose ground is 104 circles for the 104 conversations in SUBSTRATE — Context § Palace Genesis. Sound is off until you turn it on; all of it is synthesized in this file, in the block named SOUND.`;
+window.__bf = { step, get n() { return n; }, N, player };
 render();
 </script>
 </body>
