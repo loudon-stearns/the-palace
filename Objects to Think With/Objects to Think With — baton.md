@@ -10,7 +10,7 @@ forward_vector: "I carry the in-progress move on [[Objects to Think With]] acros
 
 ## Move
 
-Add `exemplifies` → [[Objects to Think With]] (label `object-to-think-with`) from the instance side on the eighteen qualifying projects, each with the sentence in its own body that says it — for a Weave, not a deposit. Smaller, beside it: at `Objects to Think With.md:33–34`, replace the unverified list with Papert & Harel's own words (1991) and name *cultural presence* beside body-syntonic.
+Add `exemplifies` → [[Objects to Think With]] (label `object-to-think-with`) from the instance side on the eighteen qualifying projects, each with the sentence in its own body that says it — for a Weave, not a deposit. Smaller, beside it: at `Objects to Think With.md:33–36`, replace the unverified list with Papert & Harel's own words (1991), give each of his two terms its own book, and name *cultural presence* beside identification, where Papert puts it.
 
 ## Why this move matters
 
@@ -31,7 +31,14 @@ On 2026-10-26 Loudon placed the page's loose-bar forward vector and its Forward 
        label: object-to-think-with
    ```
    Strict qualifies (10): [[Haptic Handwheel]] · [[Portamento and Physical Pitch Modeling]] · [[Floquet Time-Modulated Loops]] · [[Waveguide Synthesizer]] · [[Tract Mirror]] · [[Murmuration]] · [[Frequency-Time Duality]] · [[Shepard Tone Synthesizer]] · [[Retrospective Delay]] · [[Semantic Webcam]]. Loose-bar additions (8): [[Quantum Synthesizer]] · [[Inharmonic Wavetable Synthesis]] · [[Neural Granular Synthesis]] · [[Piano String Inharmonicity]] · [[Crystal Synthesizer]] · [[Particle Synthesis]] · [[Slime Mold Delay]] · [[Bayesian Granular Synthesizer]].
-2. **`:33–34`**: Papert & Harel, "Situating Constructionism" (1991) — *"constructing a public entity, whether it's a sand castle on the beach or a theory of the universe"* — in place of the unverified list, and *cultural presence* named beside body-syntonic (recount, item at its line 104). Show Loudon the words first.
+2. **`:33–36` and `:62`**, checked 2026-11-10 against the 1991 text, read whole at dailypapert.com/?p=1737. Show Loudon the words first.
+   - "Public entity" is Papert & Harel's ("Situating Constructionism", 1991). Their words: *"constructing a public entity, whether it's a sand castle on the beach or a theory of the universe."* The page's quoted list ("a sand castle, a machine, a computer program, a book") is not in that text. It is a paraphrase that gained quotation marks.
+   - The two terms come from two books: *constructionism* from 1991, *objects-to-think-with* from *Mindstorms* (1980). The page's sentence reads as one source.
+   - *Cultural presence* sits one level up from where this baton first put it. Papert's phrase (*Mindstorms* p. 11, per the recount, item at its line 104) is "an intersection of cultural presence, embedded knowledge, and the possibility for personal identification." Body-syntonic and ego-syntonic are two kinds of that identification (p. 63). So cultural presence stands beside identification, not beside body-syntonic.
+   - "Culturally syntonic" was found only in course notes, never in Papert. Leave it off the page.
+   - Not opened: *Mindstorms* itself. The scan did not render, so pp. 11 and 63 rest on the recount's reading.
+   - Offered for `:33–36`: Seymour Papert's claim, building on Piaget: learning goes deepest when you are building a **public entity**, *"whether it's a sand castle on the beach or a theory of the universe"* (Papert & Harel, 1991). Not because building is engaging, but because an abstract idea becomes manipulable once it has a body. The object exists so the idea can be handled, and the idea is the point. He called this **constructionism**. Years earlier, in *Mindstorms*, he had called the objects **objects-to-think-with**: things where cultural presence, embedded knowledge and the chance to identify with them meet.
+   - Offered for `:62`: Papert's word for the identification is **body-syntonic**: the Logo turtle worked because a child could imagine *being* it.
 
 ## Calibrations
 
