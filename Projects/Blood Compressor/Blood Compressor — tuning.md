@@ -57,3 +57,8 @@ What Blood Compressor's steward cycles taught the page, and the changes to the h
    > **Isn't**: finished. Since 11 November 2026 it is a VST3/AU built with [[VST Template]] (`plugin/` in this bundle), installed and passing pluginval, auval and the host check, with the artery seen from inside on its centre screen. It hasn't been played in Live yet, and the lesson isn't written. The browser vessel (stage2-vessel-prototype-v3.html) stays as the reference; the RNBO codebox and the two Max for Live devices wait as teaching tools.
 
 - run · 2026-11-11 · cycle 12 · taught item 6, proposed item 7 for canon
+
+## From cycle 13 — 2026-11-11
+
+8. When an ear check feeds a compressor through Live's Sampler, set the Sampler from its default −12 dB to unity, and move the threshold by the same amount the loop is turned down, or the squeeze in Live won't match the preview that was measured. *(offered by the steward, cycle 13)*
+- run · 2026-11-11 · cycle 13 · taught item 8

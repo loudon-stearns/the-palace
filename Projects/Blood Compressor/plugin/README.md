@@ -165,7 +165,9 @@ mock page with the harness feeding the CRT (`ui.py shot --feed`). Nobody has loa
 in Live yet. CPU not measured.
 
 In Live: Settings → Plug-Ins → Rescan, then Audio Effects → Plug-Ins → Loudon Live →
-Blood Compressor.
+Blood Compressor. Or open `live/Blood Compressor ear check.als` (cycle 13): the drum loop
+in a Sampler, the plugin after it, nine sections named for what to listen for, every
+section at the same loudness. See `live/README.md`.
 
 ## How it was carried here (kept for the record)
 

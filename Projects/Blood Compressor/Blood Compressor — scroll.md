@@ -15,38 +15,38 @@ forward_vector: "I am Blood Compressor's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-11T13:32:41.646Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-11T13:39:01.781Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 12 · last ran 2026-11-11 (today)
-- **Plan:** agreed 2026-11-10 (1 day ago) · 1 made thing since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 13 · last ran 2026-11-11 (today)
+- **Plan:** agreed 2026-11-10 (1 day ago) · 3 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-11 (today) — Blood Compressor is a real plugin now: VST3 and AU, installed on this Mac, every check passing, the artery in its centre screen. (`blood-compressor-027`)
-- **Last commit touching this project:** 2026-11-03 `74d578ec` — edit(Loudon Live Design System): the browser's furniture fan-out, batch 1 of 5: Projects, 0 to C (81 pages)
+- **Last shipped:** 2026-11-11 (today) — After a listen to the ear check set: keep the nerve-delay punch as the character, or add a lookahead switch? (`blood-compressor-030`)
+- **Last commit touching this project:** 2026-11-11 `dc48046c` — steward(Blood Compressor): cycle 12 — SPINNING UP. HOME: [Blood Compressor](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
-- **Left uncommitted:** ⚠ 1 file in the bundle that no cycle declared, so no cycle commits it — `Projects/Blood Compressor/plugin/out/check-report.json`. Look, then commit or clear it.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-11 — cycle 12 · taught item 6, proposed item 7 for canon
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-11 — cycle 13 · taught item 8
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 3 — items 2, 5, 7; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 7, from cycle 12 — 2026-11-11 — [[Blood Compressor — tuning]]
+- **Latest lesson:** item 8, from cycle 13 — 2026-11-11 — [[Blood Compressor — tuning]]
 
 ### Where this stands
 
-Blood Compressor is a compressor dressed as the body. Threshold is the systolic pressure that sets off the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor delay, and release is the smooth muscle letting go. In October I moved it into VST Template's shape and checked it sample for sample. I gave it four body controls (stress, breathing, an aging wall, a release curve) and a centre screen where you look down the artery from inside. On 10 November you adopted the plan that makes the VST the product and leaves Max as teaching tools. The plan's build step was waiting on the template being able to build a plugin inside a project's own folder, and Action Potential had jus…
+Blood Compressor is a compressor dressed as the body. Threshold is the systolic pressure that sets off the reflex, ratio is how stiff the vessel wall is, attack is the baroreceptor delay, and release is the smooth muscle letting go. Earlier today it became a real VST3 and AU, installed on this Mac with every automated check passing. The next step in the plan is yours: listen to it and play it, then decide whether the punch the 5 ms nerve delay leaves is the character, or whether a lookahead switch should join it. So this cycle I made that step one click. Open the Live set and press play. It runs the drum loop through the plugin in nine labelled sections, all at the same loudness, so you're…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 7:** Nobody has played it in Live yet, and nobody has heard the attack lesson or the body take; _(in 4 notes, the latest cycle 12)_
+- **rough since cycle 7:** Nobody has played it in Live yet, and nobody has heard the attack lesson or the body take. _(in 5 notes, the latest cycle 13)_
 - **rough since cycle 7:** Vessel age is subtle on the drum loop (1.5 dB more squeeze), and the release curve has a test path but no listening take. _(in 2 notes, the latest cycle 11)_
 - **rough since cycle 8:** Nothing has been opened in Max or Live. _(in 2 notes, the latest cycle 9)_
+- **rough since cycle 10:** I didn't open it in Live, because yours may be running. _(in 2 notes, the latest cycle 13)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `blood-compressor-030` — directional_decision · posted 2026-11-11 · options: KEEP-PUNCH · ADD-LOOKAHEAD · NOT-YET
 
 ### Answered, not yet consumed
 
@@ -60,6 +60,7 @@ _None._
 
 ### Runs
 
+- 2026-11-11 — cycle 13 · taught item 8
 - 2026-11-11 — cycle 12 · taught item 6, proposed item 7 for canon
 - 2026-10-24 — cycle 11 · taught item 4, proposed item 5 for canon
 - 2026-10-24 — cycle 10 · taught item 1, proposed items 2, 3 for canon
@@ -104,6 +105,81 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="blood-compressor-030" -->
+### 2026-11-11 — cycle 13 — After a listen to the ear check set: keep the nerve-delay punch as the character, or add a lookahead switch?
+> still working · the set is ready to play · steward leans KEEP-PUNCH
+
+Blood Compressor is now a real plugin on this Mac. The plan's next step is your ears: listen to it, play it, and decide whether the punch it leaves is the character or a flaw. The body can't react in under 5 ms, so the front of every hit gets through before the vessel closes. At matched loudness the fastest attack leaves the beat spikier than bypass (25.7 dB of peak over loudness against 14.9 dB). The second section of the [ear check set](open:Projects/Blood Compressor/plugin/live/Blood Compressor ear check.als) is where you hear it. My lean is to keep it, because it's the lesson: a body can't see the future. A lookahead switch would let it catch the fronts like an ordinary compressor, at the cost of latency and the story. I'll keep moving toward the lesson either way, so answer whenever you've listened.
+
+**Artifacts:**
+- [Open in Live 12 and press play. Section 2 is the attack at 5 ms.](Projects/Blood Compressor/plugin/live/Blood Compressor ear check.als)
+- [The same ride through the plugin, if Live isn't handy. Attack 5 ms starts at 9.6 s.](Projects/Blood Compressor/plugin/live/ear-check-preview.wav)
+- [hrv-plugin.wav](Projects/Blood Compressor/plugin/proofs/hrv-plugin.wav)
+- [sympathetic-plugin.wav](Projects/Blood Compressor/plugin/proofs/sympathetic-plugin.wav)
+- [threshold-sweep-plugin.wav](Projects/Blood Compressor/plugin/proofs/threshold-sweep-plugin.wav)
+- [attack-sweep-plugin.wav](Projects/Blood Compressor/plugin/proofs/attack-sweep-plugin.wav)
+- [fit-drafting-table-bench.html](Projects/Blood Compressor/plugin/build/ui/fit-drafting-table-bench.html)
+- [editor-stressed-old-1000x640.png](Projects/Blood Compressor/plugin/proofs/editor-stressed-old-1000x640.png)
+- [editor-squeezing-1000x640.png](Projects/Blood Compressor/plugin/proofs/editor-squeezing-1000x640.png)
+- [blood-crt.html](Projects/Blood Compressor/plugin/proofs/blood-crt.html)
+- [vessel-age-plugin.wav](Projects/Blood Compressor/plugin/out/vessel-age-plugin.wav)
+- [vessel-age-engine.wav](Projects/Blood Compressor/plugin/out/vessel-age-engine.wav)
+- [vessel-age-sketch.wav](Projects/Blood Compressor/plugin/out/vessel-age-sketch.wav)
+- [hrv-plugin.wav](Projects/Blood Compressor/plugin/out/hrv-plugin.wav)
+<sub>`blood-compressor-030` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="blood-compressor-029" -->
+### 2026-11-11 — cycle 13 — The ear check is one click now: a Live set with the drum loop, Blood Compressor after it, and nine sections at the same loudness.
+> shipped · plugin built and installed · the ear check waits on your ears · steward leans KEEP-PUNCH
+
+Open [the ear check set](open:Projects/Blood Compressor/plugin/live/Blood Compressor ear check.als) in Live 12 and press play. One MIDI track: Live's Sampler plays the check's drum loop once a bar, and Blood Compressor sits after it. It's silent until you press play, and the device switches itself on one beat in. There are nine sections over about 2¾ minutes, and each clip is named for what to listen for: bypass, then attack at 5 ms, attack at 80 ms, release at 40 ms, the attack ridden from 5 to 200 ms and back, a stressed body, breathing, an old wall, and a last stretch where you grab the knobs.
+
+I measured the makeup gain instead of guessing it. A first render without makeup read how loud each section was, and makeup brought each one up to the bypassed beat. Then I turned the loop down 11.5 dB so the loudest peak sits at −1.5 dBFS, under the limiter on Main, which means the limiter never touches the punch. I moved the threshold down by the same 11.5 dB, so the vessel squeezes exactly as it would at −36 on the full-level loop. That's why the threshold lane reads −47.5.
+
+The table backs up the October finding, this time through the real plugin rather than the sketch. The fastest attack makes the beat spikier, not smoother. At matched loudness, the peaks stand 14.9 dB above the average in bypass and 25.7 dB above it at 5 ms. The front of every hit gets past the nerve, and then the vessel flattens what follows.
+
+The set is built with the Shopkeeper's Live-set writer, the one Shepard Tone's play-through used. That writer only makes instruments, so I added a small step that builds a Sampler holding the loop and puts it in front of the plugin. Live's default Sampler sits at −12 dB, which would have fed the vessel 12 dB less than the preview and softened every squeeze, so that step sets it to 0 dB.
+
+**Artifacts:**
+- [The ear check: open in Live 12 and press play. Nine sections, each named for what to listen for.](Projects/Blood Compressor/plugin/live/Blood Compressor ear check.als)
+- [The same ride through the plugin's own processBlock, to hear before Live opens. Sections start at 0, 9.6, 28.8, 48.0, 67.2, 86.4, 105.6, 124.8 and 144.0 s.](Projects/Blood Compressor/plugin/live/ear-check-preview.wav)
+- [The check's one-bar beat, which the Sampler in the set plays. It stays on this Mac.](Projects/Blood Compressor/plugin/live/drum-loop.wav)
+- [Makes all three files from one ride: measures the makeup, sets the level, writes the set and the preview.](Projects/Blood Compressor/plugin/live/ear-check.py)
+- [Puts a Sampler holding the loop in front of an effect plugin in the writer's set, at unity gain.](Projects/Blood Compressor/plugin/live/drums-into-plugin.mjs)
+- [The ride the writer read, with the measured makeup in it.](Projects/Blood Compressor/plugin/live/ear-check.live-set.json)
+- [What each section is for, how loudness was matched, and how to remake it.](Projects/Blood Compressor/plugin/live/README.md)
+- [Points at the ear check from the plugin's How to load section.](Projects/Blood Compressor/plugin/README.md)
+- [Rerun of the check from earlier today. Only the timing fields changed, and it's declared so it stops sitting uncommitted.](Projects/Blood Compressor/plugin/out/check-report.json)
+
+_Every section matched to −27.2 dBFS RMS · measured through the plugin's own processBlock_
+| section | makeup | peak | peak over loudness |
+| --- | --- | --- | --- |
+| bypass | 0 dB | −12.3 dBFS | 14.9 dB |
+| attack 5 ms | 18.3 dB | −1.5 dBFS | 25.7 dB |
+| attack 80 ms | 13.2 dB | −5.6 dBFS | 21.6 dB |
+| release 40 ms | 7.9 dB | −4.5 dBFS | 22.7 dB |
+| attack ridden 5→200→5 ms | 14.2 dB | −4.2 dBFS | 23.0 dB |
+| stressed body | 13.3 dB | −2.0 dBFS | 25.2 dB |
+| breathing | 13.1 dB | −4.8 dBFS | 22.4 dB |
+| old wall | 13.7 dB | −5.3 dBFS | 21.9 dB |
+
+_Changed in the workshop:_ README — New: the ear check folder, what each section is for, and the measured loudness table.
+_Changed in the workshop:_ README — The How to load section now points at the ear check set.
+
+_Left rough:_ Nobody has played it in Live yet, and nobody has heard the attack lesson or the body take. I can't do that one; it's yours, and the set above is my attempt to make it one click. The set has only been read back by the writer's own check (384 ids, all unique, the loop on disk, the plugin installed). I didn't open it in Live, because yours may be running.
+
+_Next moves named:_ Your ears on the set decide whether the nerve-delay punch is the character, or whether a lookahead switch joins it (the card on the Trickster board). · Then the lesson: rework the radio-play script around this set's nine sections, so the Loudon Live session teaches compression on the real device.
+<sub>`blood-compressor-029` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-181e7b0117" -->
+### 2026-11-11 — cycle 13
+
+taught item 8
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-blood-compressor-023" -->
 ### 2026-11-09 — Plan revised: Make the VST the plan: the plugin folder is built and checked; next come the body knobs, then the real build when the template is ready.
 

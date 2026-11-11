@@ -1,0 +1,149 @@
+{
+  "_about": "Blood Compressor's ear check, made by plugin/live/ear-check.py: the check's drum loop, nine sections, each named for what to listen for; makeup measured so every section sits at the bypassed beat's loudness. Values in the plugin's units.",
+  "tempo": 100,
+  "configure": [
+    "threshold",
+    "ratio",
+    "knee",
+    "attack",
+    "release",
+    "makeup",
+    "bypass",
+    "sympathetic",
+    "hrv",
+    "age"
+  ],
+  "silentOnOpen": true,
+  "sections": [
+    {
+      "bypass": 1.0,
+      "threshold": -47.45,
+      "ratio": 10.0,
+      "attack": 0.08,
+      "release": 0.3,
+      "sympathetic": 0.0,
+      "hrv": 0.0,
+      "age": 0.0,
+      "name": "1 Bypass: the beat as it arrives",
+      "bars": 4,
+      "makeup": 0.0
+    },
+    {
+      "bypass": 0.0,
+      "threshold": -47.45,
+      "ratio": 10.0,
+      "attack": 0.005,
+      "release": 0.3,
+      "sympathetic": 0.0,
+      "hrv": 0.0,
+      "age": 0.0,
+      "name": "2 Attack at its floor, 5 ms: the front of each hit slips past the nerve, then the vessel clamps and the beat goes flat behind it",
+      "bars": 8,
+      "makeup": 18.29
+    },
+    {
+      "bypass": 0.0,
+      "threshold": -47.45,
+      "ratio": 10.0,
+      "attack": 0.08,
+      "release": 0.3,
+      "sympathetic": 0.0,
+      "hrv": 0.0,
+      "age": 0.0,
+      "name": "3 Attack 80 ms: the body notices, then acts, and the kick's weight comes back",
+      "bars": 8,
+      "makeup": 13.19
+    },
+    {
+      "bypass": 0.0,
+      "threshold": -47.45,
+      "ratio": 10.0,
+      "attack": 0.08,
+      "release": 0.04,
+      "sympathetic": 0.0,
+      "hrv": 0.0,
+      "age": 0.0,
+      "name": "4 Release 40 ms: the muscle lets go before the next hit, and the vessel pumps with the beat",
+      "bars": 8,
+      "makeup": 7.89
+    },
+    {
+      "bypass": 0.0,
+      "threshold": -47.45,
+      "ratio": 10.0,
+      "attack": [
+        0.005,
+        0.2,
+        0.005
+      ],
+      "release": 0.3,
+      "sympathetic": 0.0,
+      "hrv": 0.0,
+      "age": 0.0,
+      "name": "5 Attack ridden 5 to 200 ms and back: hear the punch open and close",
+      "bars": 8,
+      "makeup": 14.16
+    },
+    {
+      "bypass": 0.0,
+      "threshold": -47.45,
+      "ratio": 10.0,
+      "attack": 0.08,
+      "release": 0.3,
+      "sympathetic": [
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "hrv": 0.0,
+      "age": 0.0,
+      "name": "6 A stressed body: Sympathetic rises, the systolic line drops and the reflex quickens",
+      "bars": 8,
+      "makeup": 13.28
+    },
+    {
+      "bypass": 0.0,
+      "threshold": -47.45,
+      "ratio": 10.0,
+      "attack": 0.08,
+      "release": 0.3,
+      "sympathetic": 0.0,
+      "hrv": 1.0,
+      "age": 0.0,
+      "name": "7 Breathing: heart-rate variability on, the squeeze swells and ebbs across the bars",
+      "bars": 8,
+      "makeup": 13.09
+    },
+    {
+      "bypass": 0.0,
+      "threshold": -47.45,
+      "ratio": 10.0,
+      "attack": 0.08,
+      "release": 0.3,
+      "sympathetic": 0.0,
+      "hrv": 0.0,
+      "age": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "name": "8 An old wall: Vessel age rises, the ratio climbs and the knee loses its give",
+      "bars": 8,
+      "makeup": 13.69
+    },
+    {
+      "bypass": 0.0,
+      "threshold": -47.45,
+      "ratio": 10.0,
+      "attack": 0.08,
+      "release": 0.3,
+      "sympathetic": 0.0,
+      "hrv": 0.0,
+      "age": 0.0,
+      "name": "9 Your turn: the lesson's settings, the lanes let go when you grab a knob",
+      "bars": 8,
+      "makeup": 13.19
+    }
+  ]
+}
