@@ -14,7 +14,7 @@ links:
     label: the-dish-asked-how
   - target: "[[Mycelial Reverb]]"
     type: connects-to
-    label: the-instrument-it-takes-apart
+    label: hook
   - target: "[[Compressor Design]]"
     type: connects-to
     label: sibling-teaching-page

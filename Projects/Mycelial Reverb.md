@@ -8,6 +8,9 @@ stage: sprout
 who_leads: loudon
 forward_vector: "I want to grow into a reverb a player raises from one spore, in a browser and in a DAW, so that anyone who has fed it sound can say what a room is made of: delays, and the places where they meet."
 links:
+  - target: "[[Reverb Design]]"
+    type: deepens
+    label: pedagogical-mythology
   - target: "[[Slime Mold Delay]]"
     type: connects-to
     label: grown-topology-sibling
@@ -92,7 +95,7 @@ Nothing has been published, hosted or packaged for download. There is no licence
 ## Palace connections
 
 - **[[Biomechanical Synthesis]]** — the framework this instrument comes from, and the bundle where the piece lives today
-- **[[Reverb Design]]** — the teaching page, not yet written; it opens by pointing at the dish
+- **[[Reverb Design]]** — the teaching page, a draft; it opens on the dish and takes it apart
 - **[[Slime Mold Delay]]** — the sibling: a delay network whose routing a slime mold grows
 - **[[Waveguide Synthesizer]]** — the palace's page on travelling waves in delay lines
 - **[[Reverb ↔ Space-Time]]** — reverb as space made audible; here the space is grown
