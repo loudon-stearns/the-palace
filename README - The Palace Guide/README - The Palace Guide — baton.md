@@ -5,7 +5,7 @@ links:
   - target: "[[README - The Palace Guide]]"
     type: connects-to
     label: "baton-for"
-forward_vector: "I carry a commission for the Palace Guide across a boundary: test the door on a stranger that is not Claude, and settle the stray older bundle. I wait to be caught by the next Claude and am deleted once the move is picked up."
+forward_vector: "I carry a commission for the Palace Guide across a boundary: test the door on a stranger that is not Claude. I wait to be caught by the next Claude and am deleted once the move is picked up."
 session_thread: "Daily Page, 2026-11-09 — the Guide rewritten as a door (1992eb9a); root README.md generated (b2b4e4c8). The first version of this baton (8005b120) also carried the newcomer's map; on Loudon's word that moved to [[STIGMERGY — baton]]."
 ---
 
@@ -29,7 +29,7 @@ COLD START — this work has not begun; there is no prior state and nothing trie
 
 Use the local Gemma in [[Gemma 4 — Local Coordination Guide]]. Give it `README.md` alone and a small deposit to make. Record three things: whether it reached `CLAUDE.md`, whether it stayed a child (offered rather than wrote), and how it would have committed. Put what it did on the Guide's scroll. If it went wrong, the door's words are what to fix, on Loudon's yes.
 
-Also ask Loudon one small question. A stray older bundle, `The Palace Guide/`, sits beside the real one. It holds a face.json, a hero and an icon from `099e3d82`, and its hero differs from the one in `README - The Palace Guide/`. Fold it, delete it, or keep it?
+The stray older bundle `The Palace Guide/` is gone: nothing pointed at it, and Loudon said on 2026-11-11 to delete an unused bundle, since it lives in git (`099e3d82`). The test itself waits on one thing: Ollama is installed on this Mac and holds no model, so Gemma has to be pulled first, about 9.6 GB for `gemma4:latest`, and a download is Loudon's yes.
 
 ## Receiving environment
 
