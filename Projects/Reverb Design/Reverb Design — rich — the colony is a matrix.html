@@ -1,0 +1,357 @@
+<!doctype html>
+<!--
+  title: Reverb Design — rich — the colony is a matrix
+  born: 2026-11-10
+  links: [[Reverb Design]] (connects-to · rich-face-piece) · listed in [[Reverb Design — rich.json]] · borrows the engine of "Biomechanical Synthesis — rich — mycelial reverb.html" (read at run time, not copied) · checked by "Reverb Design — rich — check.mjs"
+  forward_vector: I put the dish beside the diagram a reverb textbook would draw of it, and let a reader knock on each and on one minus the other. The spore is three delay lines and a three-by-three matrix. A star of eight is the feedback delay network of the papers. A grown colony is the same diagram with hundreds of lines and a matrix made of small squares, one for every fork. I change when the dish's engine does, because I run it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reverb Design — the colony is a matrix</title>
+<meta name="theme-color" content="#0a0a0f">
+<meta name="piece:needs" content="">
+<meta name="piece:files" content="/Projects/Biomechanical%20Synthesis/Biomechanical%20Synthesis%20%E2%80%94%20rich%20%E2%80%94%20mycelial%20reverb.html">
+<style>
+  /* Dressed as the dish is (dark soil, amber sound): this piece sits under the dish on the same face and runs its engine. */
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; --serif:Georgia,'Times New Roman',serif; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); }
+  .piece { padding: 22px 22px 26px; max-width: 1100px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  h1 { font-family: var(--serif); font-size: 29px; font-weight: 400; color: var(--fg1); margin: 0 0 8px; }
+  p { font-size: 14.5px; line-height: 1.6; max-width: 74ch; margin: 0 0 12px; }
+  .lead { font-size: 16px; color: var(--fg1); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 9px 12px; cursor: pointer; min-height: 36px; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button.on { border-color: var(--amber); color: var(--amber); background: rgba(232,184,74,.08); }
+  button.big { font-size: 12px; padding: 11px 16px; border-color: var(--amberline); color: var(--amber); }
+  button:disabled { opacity: .35; cursor: default; }
+  .rail { display: flex; flex-wrap: wrap; align-items: center; margin: 14px 0 0; }
+  .rail button { border-radius: 0; margin-right: -1px; margin-bottom: -1px; }
+  .lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-right: 8px; min-width: 62px; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 14px 18px 6px; margin-bottom: 12px; }
+  .eq { font-family: var(--serif); font-size: 18px; color: var(--fg1); margin: 2px 0 6px; overflow-x: auto; white-space: nowrap; }
+  .words { font-size: 13.5px; color: var(--fg3); max-width: 74ch; line-height: 1.55; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .wrap { border: 1px solid var(--soft); background: #07070b; }
+  canvas { display: block; width: 100%; }
+  canvas.click { cursor: pointer; }
+  .cap { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin: 0 0 6px; }
+  .status { font-family: var(--mono); font-size: 11.5px; color: var(--fg3); margin: 10px 0 2px; min-height: 16px; font-variant-numeric: tabular-nums; line-height: 1.6; }
+  .status b { color: var(--fg1); font-weight: 400; } .status .am { color: var(--amber); }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; max-width: 360px; height: 3px; background: var(--fg4); margin: 14px 0 8px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  label { font-size: 13px; color: var(--fg2); display: block; }
+  label b { font-family: var(--mono); font-weight: 400; color: var(--amber); font-size: 12px; margin-left: 6px; }
+  .note { font-size: 12.5px; color: var(--fg3); }
+  [hidden] { display: none !important; }
+  @media (max-width: 760px) { .pair { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) { .piece { padding: 16px 12px 22px; } h1 { font-size: 24px; } .lab { min-width: 100%; margin-bottom: 6px; } button { padding: 10px 11px; min-height: 40px; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="eyebrow">Reverb Design · the dish and the textbook</div>
+  <h1>The colony is a matrix</h1>
+  <p class="lead">On the left, the dish. On the right, the drawing a reverb engineer would make of it: delay lines in a row, and a square of numbers that says how much of each line's sound is fed back into every other. They look like different machines. Knock on one, then the other, then on one minus the other.</p>
+
+  <div class="rail" id="rail">
+    <span class="lab">walk</span>
+    <button data-step="1" class="on">1 · the spore</button>
+    <button data-step="2">2 · a star</button>
+    <button data-step="3">3 · let it grow</button>
+  </div>
+  <div class="panel">
+    <div id="t1">
+      <div class="eq">A = 2·u·uᵀ − I &nbsp;=&nbsp; ⅓ · [ −1 2 2 ; 2 −1 2 ; 2 2 −1 ]</div>
+      <p class="words">The newborn dish: one spore, three short threads, three dead ends. Fold each thread at its tip and it is one delay line as long as the round trip. The spore is where the three lines meet, and what it does to them is the square of numbers: a third of each line comes back down itself upside down, two thirds of it goes down each of the others. Three delay lines and a matrix is a feedback delay network. The dish was one before it grew a single thread.</p>
+    </div>
+    <div id="t2" hidden>
+      <p class="words">Give the spore more threads and make them longer, each a different length so their echoes do not land on the same instants. The square grows a row and a column for each. This shape, a ring of delay lines fed back through one matrix that loses nothing, is the feedback delay network of the reverb papers, and this particular matrix, the same number everywhere except down the diagonal, is the one Jot proposed. Rocchesso and Smith showed in 1997 that such a network and a star of waveguides are the same thing. Here you can hear that they are.</p>
+      <label for="sN">threads from the spore <b id="vN"></b></label><input type="range" id="sN" min="3" max="8" step="1" value="5">
+    </div>
+    <div id="t3" hidden>
+      <p class="words">Now let the spore grow. Every thread is two delay lines, one each way, so the row of lines gets long. The matrix gets large and almost empty: sorted so that the lines arriving at one place sit together, it is a string of small squares down the diagonal, one for every fork, each the same kind of square as the spore's, and a lone dot for every dead end. The threads do the rest: each carries what leaves one square to another. A textbook network has every line talking to every other. A colony's lines talk only to their neighbours. That is the whole difference, and it is why the colony takes a fifth of a second to blur.</p>
+    </div>
+  </div>
+
+  <div class="pair">
+    <div><div class="cap">the dish</div><div class="wrap"><canvas id="dish" class="click" aria-label="The dish. Click to knock on it."></canvas></div></div>
+    <div><div class="cap" id="capDia">the diagram</div><div class="wrap"><canvas id="dia" class="click" aria-label="The same network drawn as delay lines and a feedback matrix. Click to knock on it."></canvas></div></div>
+  </div>
+  <div class="status" id="status">&nbsp;</div>
+  <div class="row">
+    <button class="big" id="bDish">knock the dish</button>
+    <button class="big" id="bDia">knock the diagram</button>
+    <button class="big" id="bDiff">one minus the other</button>
+  </div>
+  <div class="row">
+    <button id="bBack">back</button><button id="bNext">next</button>
+    <button id="bFeed" hidden>feed it</button><button id="bNew" hidden>a new spore</button>
+  </div>
+  <p class="note" id="msg">Nothing sounds until you click.</p>
+  <p class="note">The diagram's network is written in this piece from the colony's wiring alone: which thread meets which, how long, how thick. It never calls the dish's sound code. Both are rendered before they play, and the difference is played at the same volume as the other two, so if you hear nothing, that is the result. Here the colony grows on plucked strings fed in silence when you press; the dish at the top of the page is where it grows on what you play it.</p>
+</div>
+
+<script id="rd-dsp">
+// The helpers shared with "tie a knot": no DOM. Need MycelNet, MycelColony, mycelRng in scope (the dish's engine, not copied here).
+function rdRig(sr, seed, maxSegs) {
+  var net = new MycelNet(sr, maxSegs), col = new MycelColony({ sr: sr, maxSegs: maxSegs, block: 512, seed: seed, emit: function (m) { net.msg(m); } });
+  return { net: net, col: col };
+}
+function rdClone(col, par, sr, maxSegs) {
+  var net = new MycelNet(sr, maxSegs), ys = [], i, s, save;
+  if (par) net.msg({ t: 'par', rt: par.rt, damp: par.damp, tip: par.tip });
+  for (i = 0; i < col.segs.length; i++) { s = col.segs[i]; if (s) { net.msg({ t: 'add', s: i, a: s.a, b: s.b, L: s.L }); ys.push(i, s.y); } }
+  net.msg({ t: 'ys', list: ys }); net.msg({ t: 'in', n: col.inNode });
+  save = col.emit; col.emit = function (m) { net.msg(m); }; col.sendTaps(); col.emit = save;
+  return net;
+}
+function rdRun(net, x, N) {
+  var B = 512, L = new Float32Array(N), R = new Float32Array(N), l = new Float32Array(B), r = new Float32Array(B), xb = new Float32Array(B), o, n, i;
+  for (o = 0; o < N; o += B) { n = Math.min(B, N - o); for (i = 0; i < B; i++) xb[i] = o + i < x.length && i < n ? x[o + i] : 0; net.process(xb, l, r, n); L.set(l.subarray(0, n), o); R.set(r.subarray(0, n), o); }
+  return { L: L, R: R };
+}
+function rdPhrase(seconds, seed, sr) {
+  var N = Math.round(seconds * sr), x = new Float32Array(N), r = mycelRng(seed), notes = [146.8, 174.6, 196, 220, 261.6, 293.7], t, f, P, d, i, o, p, prev, n, v;
+  for (t = 0; t < seconds; t += 0.6) {
+    f = notes[Math.floor(r() * notes.length)]; P = Math.round(sr / f); d = new Float32Array(P); for (i = 0; i < P; i++) d[i] = r() * 2 - 1;
+    o = Math.round(t * sr); p = 0; prev = 0; n = Math.min(N - o, Math.round(0.5 * sr));
+    for (i = 0; i < n; i++) { v = d[p]; d[p] = 0.996 * 0.5 * (v + prev); prev = v; p = (p + 1) % P; x[o + i] += 0.4 * v; }
+  }
+  return x;
+}
+function rdFeed(rg, food, st, blocks, target) {
+  var B = 512, l = new Float32Array(B), r = new Float32Array(B), k;
+  for (k = 0; k < blocks && rg.col.nseg < target; k++) {
+    rg.net.process(food.subarray(st.o, st.o + B), l, r, B); rg.col.feed(rg.net.en); rg.net.en.fill(0);
+    st.o += B; if (st.o + B > food.length) st.o = 0; st.t += B / rg.col.sr;
+  }
+  return rg.col.nseg >= target;
+}
+// A star: one spore, n threads of the given lengths (in dish pixels), every one a dead end. Built with the colony's own newNode and addSeg.
+var RD_STAR = [61, 83, 107, 131, 157, 181, 211, 239];
+function rdStar(rg, n, W, H) {
+  var col = rg.col, i, a, k; col.reset(1, W, H, 'star'); col.newNode(W / 2, H / 2);
+  for (i = 0; i < n; i++) { a = -1.5708 + i * 6.2832 / n; k = col.newNode(W / 2 + Math.cos(a) * RD_STAR[i], H / 2 + Math.sin(a) * RD_STAR[i]); col.addSeg(0, k); }
+  col.setIn(0); col.sendTaps(); return rg;
+}
+</script>
+<script id="fdn-dsp">
+// ───────────────────────────────────────────────────────────────────────────
+// The textbook side. A feedback delay network: K delay lines, a K×K feedback matrix A, an input
+// vector b and output vectors c.   s = what comes out of the lines now;   into the lines goes  A·s + b·x;   out goes  c·s.
+// Built from a colony's wiring (which thread joins which node, its length, its thickness) and the three
+// settings. It reads no sound code of the dish's: MycelNet is not called anywhere in this block.
+// ───────────────────────────────────────────────────────────────────────────
+function fdnTaps(col) {                                   // where the colony is heard from: its own list
+  var got = [], save = col.emit, l = {}, r = {}; col.emit = function (m) { if (m.t === 'taps') got = m.list; }; col.sendTaps(); col.emit = save;
+  got.forEach(function (t) { l[t.n] = t.l; r[t.n] = t.r; }); return { l: l, r: r };
+}
+function fdnLineGain(L, rt, sr) { return Math.pow(10, -3 * L / (rt * sr)); }   // a line loses in proportion to its length, so the whole decays 60 dB in rt seconds of travel
+function fdnEmpty(K) { var rows = [], i; for (i = 0; i < K; i++) rows.push({ c: [], v: [] }); return { K: K, D: new Int32Array(K), g: new Float64Array(K), passes: new Uint8Array(K), rows: rows, b: new Float64Array(K), cL: new Float64Array(K), cR: new Float64Array(K), seg: new Int32Array(K), blocks: [] }; }
+// Every thread as two lines, one each way. Lines are numbered in the order they ARRIVE: all the lines
+// arriving at one node sit together, so the matrix comes out as one small square per node.
+function fdnFromColony(col, par, sr) {
+  var arr = {}, order = [], i, s, n, K = 0, idx = {}, tap = fdnTaps(col);
+  function put(node, h) { if (!arr[node]) { arr[node] = []; order.push(node); } arr[node].push(h); }
+  for (i = 0; i < col.segs.length; i++) { s = col.segs[i]; if (!s) continue; put(s.b, 2 * i); put(s.a, 2 * i + 1); K += 2; }   // line 2i runs a→b and arrives at b
+  order.sort(function (p, q) { return p - q; });
+  var f = fdnEmpty(K), k = 0, a, j, sumY, w, out;
+  order.forEach(function (node) { arr[node].forEach(function (h) { idx[h] = k; s = col.segs[h >> 1]; f.D[k] = s.L; f.g[k] = fdnLineGain(s.L, par.rt, sr); f.passes[k] = 1; f.seg[k] = h >> 1; k++; }); });
+  order.forEach(function (node) {
+    a = arr[node]; f.blocks.push({ node: node, at: idx[a[0]], n: a.length });
+    if (a.length === 1) {                                   // a dead end: what arrives goes back down the same thread, less what the tip keeps
+      j = idx[a[0]]; out = idx[a[0] ^ 1]; f.rows[out].c.push(j); f.rows[out].v.push(par.tip);
+      if (node === col.inNode) f.b[out] = 1; f.cL[j] = tap.l[node] || 0; f.cR[j] = tap.r[node] || 0; return;
+    }
+    sumY = 0; a.forEach(function (h) { sumY += col.segs[h >> 1].y; });
+    a.forEach(function (hi) {                               // a junction: the square 2·u·uᵀ − I, u = √thickness / √(sum of thicknesses)
+      w = Math.sqrt(col.segs[hi >> 1].y); out = idx[hi ^ 1];
+      a.forEach(function (hj) { f.rows[out].c.push(idx[hj]); f.rows[out].v.push(2 * w * Math.sqrt(col.segs[hj >> 1].y) / sumY - (hi === hj ? 1 : 0)); });
+      if (node === col.inNode) f.b[out] = w / Math.sqrt(sumY);
+      f.cL[idx[hi]] = (tap.l[node] || 0) * w / Math.sqrt(sumY); f.cR[idx[hi]] = (tap.r[node] || 0) * w / Math.sqrt(sumY);
+    });
+  });
+  f.tip = par.tip; return f;
+}
+// A star, folded: each dead-end thread becomes ONE line as long as its round trip, and the matrix is the spore's square alone.
+function fdnStar(col, par, sr) {
+  var segs = [], i, s, sumY = 0, tap = fdnTaps(col), c = col.inNode;
+  for (i = 0; i < col.segs.length; i++) { s = col.segs[i]; if (!s) continue; if ((s.a !== c && s.b !== c) || col.nodes[s.a === c ? s.b : s.a].segs.length !== 1) return null; segs.push(i); sumY += s.y; }
+  var K = segs.length, f = fdnEmpty(K), j, wi;
+  for (i = 0; i < K; i++) {
+    s = col.segs[segs[i]]; wi = Math.sqrt(s.y); f.D[i] = 2 * s.L; f.g[i] = fdnLineGain(s.L, par.rt, sr); f.passes[i] = 2; f.seg[i] = segs[i];
+    for (j = 0; j < K; j++) { f.rows[i].c.push(j); f.rows[i].v.push(2 * wi * Math.sqrt(col.segs[segs[j]].y) / sumY - (i === j ? 1 : 0)); }
+    f.b[i] = wi / Math.sqrt(sumY); f.cL[i] = (tap.l[c] || 0) * wi / Math.sqrt(sumY); f.cR[i] = (tap.r[c] || 0) * wi / Math.sqrt(sumY);
+  }
+  f.blocks.push({ node: c, at: 0, n: K }); f.tip = par.tip; return f;
+}
+function fdnDense(f) { var A = [], i, k; for (i = 0; i < f.K; i++) { A.push(new Float64Array(f.K)); for (k = 0; k < f.rows[i].c.length; k++) A[i][f.rows[i].c[k]] = f.rows[i].v[k]; } return A; }
+// Run it. Each line: a delay, then the soil (a one-pole lowpass) and the line's loss. A folded line does that twice, with the tip in between.
+function fdnRun(f, par, x, N) {
+  var K = f.K, d = par.damp, omd = 1 - d, buf = [], pos = new Int32Array(K), f1 = new Float64Array(K), f2 = new Float64Array(K), s = new Float64Array(K), q = new Float64Array(K);
+  var L = new Float32Array(N), R = new Float32Array(N), n, i, k, a, row, xn, yl, yr, t;
+  for (i = 0; i < K; i++) buf.push(new Float32Array(f.D[i]));       // 32-bit storage, as the dish stores its lines
+  for (n = 0; n < N; n++) {
+    yl = 0; yr = 0;
+    for (i = 0; i < K; i++) {
+      t = omd * buf[i][pos[i]] + d * f1[i]; if (t < 1e-18 && t > -1e-18) t = 0; f1[i] = t; a = f.g[i] * t;
+      if (f.passes[i] === 2) { a = Math.fround(f.tip * a); t = omd * a + d * f2[i]; if (t < 1e-18 && t > -1e-18) t = 0; f2[i] = t; a = f.g[i] * t; }
+      s[i] = a; yl += f.cL[i] * a; yr += f.cR[i] * a;
+    }
+    xn = n < x.length ? x[n] : 0;
+    for (i = 0; i < K; i++) { row = f.rows[i]; a = f.b[i] * xn; for (k = 0; k < row.c.length; k++) a += row.v[k] * s[row.c[k]]; q[i] = a; }
+    for (i = 0; i < K; i++) { buf[i][pos[i]] = q[i]; if (++pos[i] === f.D[i]) pos[i] = 0; }
+    L[n] = yl; R[n] = yr;
+  }
+  return { L: L, R: R };
+}
+</script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var ENGINE = '../Biomechanical%20Synthesis/Biomechanical%20Synthesis%20%E2%80%94%20rich%20%E2%80%94%20mycelial%20reverb.html';
+  var SR = 48000, MAXS = 170, HOUSE = { rt: 3, damp: 0.25, tip: 0.8 }, CW = 700, CH = 600;
+  var HUES = ['#e8b84a', '#9c84ff', '#7fd4a0', '#e6866a', '#6ab8e6', '#e6c9b8', '#d46ab0', '#b8d46a'];
+  var step = 1, ready = false, ac = null, comp = null, voice = null, t0 = -1, which = '';
+  var rg = null, grown = null, gst = null, food = null, seed = 1 + Math.floor(Math.random() * 9000), fdn = null, snd = null, diffDb = NaN, busy = false;
+  var dish = $('dish'), dia = $('dia'), dpr = 1;
+
+  fetch(ENGINE).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (html) {
+    var m = html.match(/<script id="mycel-engine">([\s\S]*?)<\/script>/); if (!m) throw 0;
+    var s = document.createElement('script'); s.textContent = m[1]; document.head.appendChild(s);
+    if (typeof MycelNet !== 'function') throw 0; ready = true; build();
+  }).catch(function () { $('msg').textContent = 'This piece runs the dish’s own engine and could not read it from the dish’s page. Open it inside Reverb Design’s rich face, where that page is served beside it.'; });
+
+  function knockSig() {
+    var n = Math.round(0.09 * SR), d = new Float64Array(n), i, t, r = mycelRng(3);
+    for (i = 0; i < n; i++) { t = i / SR; d[i] = 0.55 * Math.sin(6.283 * 640 * t) * Math.exp(-t * 70) + 0.3 * Math.sin(6.283 * 1510 * t) * Math.exp(-t * 110) + (i < 96 ? (r() * 2 - 1) * 0.5 * (1 - i / 96) : 0); }
+    return d;
+  }
+  function build() {
+    stop(); snd = null; fdn = null; diffDb = NaN; if (!ready) return;
+    if (step === 1) { rg = rdRig(SR, seed, MAXS); rg.col.reset(seed, CW, CH); rg.col.hold = true; }
+    else if (step === 2) { rg = rdStar(rdRig(SR, 1, MAXS), +$('sN').value, CW, CH); }
+    else { if (!grown) { grown = rdRig(SR, seed, MAXS); grown.col.reset(seed, CW, CH); gst = { o: 0, t: 0 }; food = food || rdPhrase(40, 3, SR); } rg = grown; }
+    fdn = step === 3 ? fdnFromColony(rg.col, HOUSE, SR) : fdnStar(rg.col, HOUSE, SR);
+    status(); draw();
+  }
+  function render() {
+    if (snd || !fdn) return;
+    var N = Math.round(2.6 * SR), k = knockSig(), a = rdRun(rdClone(rg.col, HOUSE, SR, MAXS), k, N), b = fdnRun(fdn, HOUSE, k, N), d = new Float32Array(N), i, pk = 0, pd = 0;
+    for (i = 0; i < N; i++) { d[i] = a.L[i] - b.L[i]; pk = Math.max(pk, Math.abs(a.L[i])); pd = Math.max(pd, Math.abs(d[i])); }
+    snd = { dish: a.L, dia: b.L, diff: d, k: k }; diffDb = pd === 0 ? -Infinity : 20 * Math.log10(pd / pk); status();
+  }
+  function status() {
+    var c = rg.col.counts(), s = '<b>' + c.threads + '</b> thread' + (c.threads === 1 ? '' : 's') + ' in the dish · <b>' + fdn.K + '</b> delay line' + (fdn.K === 1 ? '' : 's') + ' and a <b>' + fdn.K + ' × ' + fdn.K + '</b> matrix in the diagram';
+    if (step === 3) { var sq = 0, dots = 0; fdn.blocks.forEach(function (b) { if (b.n > 1) sq++; else dots++; }); var nz = 0; fdn.rows.forEach(function (r) { nz += r.c.length; }); s += ' · <b>' + sq + '</b> square' + (sq === 1 ? '' : 's') + ', <b>' + dots + '</b> lone dot' + (dots === 1 ? '' : 's') + ' · <b>' + (100 * nz / (fdn.K * fdn.K)).toFixed(1) + '%</b> of the matrix is not zero'; }
+    if (!isNaN(diffDb)) s += ' · one minus the other: <span class="am">' + (diffDb === -Infinity ? 'exactly nothing' : Math.round(diffDb) + ' dB under the knock’s loudest echo') + '</span>';
+    $('status').innerHTML = s;
+  }
+  function stop() { if (voice) { try { voice.stop(); } catch (e) {} } voice = null; t0 = -1; which = ''; ['bDish', 'bDia', 'bDiff'].forEach(function (id) { $(id).classList.remove('on'); }); }
+  function play(w) {
+    if (!ready || !fdn || busy) return;
+    if (!ac) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) { $('msg').textContent = 'This browser has no Web Audio, so nothing can sound here.'; return; }
+      ac = new AC(); comp = ac.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 12; comp.attack.value = 0.003; comp.release.value = 0.2; comp.connect(ac.destination);
+      document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); }); }
+    if (ac.state !== 'running') ac.resume();
+    stop(); render();
+    var x = snd[w], N = x.length, b = ac.createBuffer(1, N, SR), d = b.getChannelData(0), i, wet = step === 3 && rg.col.nseg > 20 ? 2.4 : 1.2;
+    for (i = 0; i < N; i++) d[i] = wet * x[i] + (w === 'diff' ? 0 : i < snd.k.length ? 0.5 * snd.k[i] : 0);
+    voice = ac.createBufferSource(); voice.buffer = b; voice.connect(comp); voice.start(); t0 = ac.currentTime; which = w;
+    $(w === 'dish' ? 'bDish' : w === 'dia' ? 'bDia' : 'bDiff').classList.add('on');
+    var v = voice; v.onended = function () { if (voice === v) stop(); };
+    $('msg').textContent = w === 'diff' ? 'That was the dish minus the diagram, at the same volume.' : 'Rendered before it plays. A compressor sits after it, for your ears.';
+  }
+
+  // ── drawing ──────────────────────────────────────────────────────────────
+  function fit(cv) { var w = cv.parentNode.clientWidth, h = Math.round(w * CH / CW); dpr = Math.min(2, window.devicePixelRatio || 1); cv.style.height = h + 'px'; if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); } return cv.getContext('2d'); }
+  function env(x, t) { if (!x || t < 0) return 0; var a = Math.round(t * SR), e = 0, i; for (i = a; i < a + 600 && i < x.length; i++) e = Math.max(e, Math.abs(x[i])); return Math.min(1, Math.sqrt(e) * 2.4); }
+  function hueOf(i) { return step === 3 ? '#d9d3c0' : HUES[i % HUES.length]; }
+  function drawDish() {
+    var g = fit(dish), W = dish.width, H = dish.height, k = W / CW, col = rg.col, i, s, A, B, n = 0, lv = which === 'dish' && ac ? env(snd && snd.dish, ac.currentTime - t0) : 0, z = step === 1 ? 4.5 : 1;
+    g.fillStyle = '#08080c'; g.fillRect(0, 0, W, H); g.lineCap = 'round';
+    g.save(); g.translate(W / 2, H / 2); g.scale(z, z); g.translate(-W / 2, -H / 2);
+    for (i = 0; i < col.segs.length; i++) { s = col.segs[i]; if (!s) continue; A = col.nodes[s.a]; B = col.nodes[s.b];
+      g.globalAlpha = step === 3 ? 0.45 + 0.1 * s.y + 0.35 * lv : 0.75 + 0.25 * lv; g.strokeStyle = step === 3 && lv > 0.02 ? '#e8b84a' : hueOf(n); g.lineWidth = Math.max(1, (step === 3 ? (0.5 + 0.7 * s.y) : 3 / z + 0.6) * k * (1 + 0.6 * lv));
+      g.beginPath(); g.moveTo(A.x * k, A.y * k); g.lineTo(B.x * k, B.y * k); g.stroke(); n++; }
+    g.globalAlpha = 1; A = col.nodes[0]; g.fillStyle = 'rgba(244,238,220,.95)'; g.beginPath(); g.arc(A.x * k, A.y * k, 7 * k / Math.sqrt(z), 0, 6.283); g.fill();
+    g.restore();
+    if (step === 1) { g.fillStyle = 'rgba(138,138,160,.9)'; g.font = 10.5 * dpr + 'px ui-monospace, Menlo, monospace'; g.textAlign = 'left'; g.fillText('the newborn dish, enlarged ' + z + ' times', 10 * dpr, H - 10 * dpr); }
+  }
+  function cell(g, v, x, y, w, h) { g.fillStyle = v < 0 ? 'rgba(156,132,255,' + Math.min(1, 0.25 + Math.abs(v)) + ')' : 'rgba(232,184,74,' + Math.min(1, 0.2 + Math.abs(v)) + ')'; g.fillRect(x, y, w, h); }
+  function drawDia() {
+    var g = fit(dia), W = dia.width, H = dia.height, K = fdn.K, i, j, k, lv = which === 'dia' && ac ? env(snd && snd.dia, ac.currentTime - t0) : 0;
+    g.fillStyle = '#08080c'; g.fillRect(0, 0, W, H); g.lineCap = 'butt'; g.textBaseline = 'middle';
+    if (step === 3) {                                       // the whole matrix, one pixel-square per number that is not zero
+      var S = Math.min(W, H) - 46 * dpr, x0 = (W - S) / 2, y0 = 14 * dpr, c = S / K, cs = Math.max(1, c);
+      g.strokeStyle = 'rgba(255,255,255,.12)'; g.lineWidth = 1; g.strokeRect(x0 - 0.5, y0 - 0.5, S + 1, S + 1);
+      // row r is drawn where line r ARRIVES, so each node's lines make one square (the thread then carries the row's sum to its other end)
+      var rowOf = new Int32Array(K), bySeg = {}; for (i = 0; i < K; i++) { if (bySeg[fdn.seg[i]] == null) bySeg[fdn.seg[i]] = i; else { rowOf[i] = bySeg[fdn.seg[i]]; rowOf[bySeg[fdn.seg[i]]] = i; } }
+      for (i = 0; i < K; i++) { var row = fdn.rows[i], r = rowOf[i]; for (k = 0; k < row.c.length; k++) cell(g, row.v[k] * (1 + lv), x0 + row.c[k] * c, y0 + r * c, cs, cs); }
+      g.fillStyle = 'rgba(138,138,160,.9)'; g.font = 10.5 * dpr + 'px ui-monospace, Menlo, monospace'; g.textAlign = 'center';
+      g.fillText('amber: fed forward · violet: sent back upside down · black: nothing', W / 2, H - 14 * dpr);
+      return;
+    }
+    // the textbook drawing: a matrix on the left, a delay line per row, the bus coming back round underneath
+    var m = Math.min(H * 0.62, W * 0.36), mx = 30 * dpr, my = (H - m) / 2 - 10 * dpr, cw = m / K, A = fdnDense(fdn), maxD = 0, x1 = mx + m + 34 * dpr, x2 = W - 30 * dpr, y;
+    for (i = 0; i < K; i++) maxD = Math.max(maxD, fdn.D[i]);
+    g.font = (K <= 4 ? 12 : K <= 6 ? 9.5 : 8) * dpr + 'px ui-monospace, Menlo, monospace'; g.textAlign = 'center';
+    for (i = 0; i < K; i++) for (j = 0; j < K; j++) { cell(g, A[i][j], mx + j * cw + 1, my + i * cw + 1, cw - 2, cw - 2); if (K <= 6) { g.fillStyle = '#0a0a0f'; g.fillText((A[i][j] < 0 ? '−' : '') + Math.abs(A[i][j]).toFixed(2).replace(/^0/, ''), mx + (j + 0.5) * cw, my + (i + 0.5) * cw); } }
+    g.strokeStyle = 'rgba(200,200,216,.6)'; g.lineWidth = 1 * dpr; g.strokeRect(mx, my, m, m);
+    g.font = 10 * dpr + 'px ui-monospace, Menlo, monospace';
+    for (i = 0; i < K; i++) {
+      y = my + (i + 0.5) * cw; var bw = (x2 - x1 - 60 * dpr) * (0.35 + 0.65 * fdn.D[i] / maxD), bh = Math.min(cw * 0.7, 26 * dpr);
+      g.strokeStyle = HUES[i % 8]; g.globalAlpha = 0.85 + 0.15 * lv; g.lineWidth = (1.4 + 2 * lv) * dpr; g.beginPath(); g.moveTo(mx + m, y); g.lineTo(x1, y); g.moveTo(x1 + bw, y); g.lineTo(x2, y); g.stroke();
+      g.fillStyle = 'rgba(18,18,26,1)'; g.fillRect(x1, y - bh / 2, bw, bh); g.strokeRect(x1, y - bh / 2, bw, bh);
+      g.fillStyle = HUES[i % 8]; g.textAlign = 'center'; g.fillText((1000 * fdn.D[i] / SR).toFixed(1) + ' ms', x1 + bw / 2, y); g.globalAlpha = 1;
+    }
+    var yb = my + m + 34 * dpr; g.strokeStyle = 'rgba(200,200,216,.7)'; g.lineWidth = 1.4 * dpr;
+    g.beginPath(); g.moveTo(x2, my + 0.5 * cw); g.lineTo(x2, yb); g.lineTo(mx + m / 2, yb); g.lineTo(mx + m / 2, my + m); g.stroke();
+    g.beginPath(); g.moveTo(mx + m / 2, my + m); g.lineTo(mx + m / 2 - 5 * dpr, my + m + 8 * dpr); g.moveTo(mx + m / 2, my + m); g.lineTo(mx + m / 2 + 5 * dpr, my + m + 8 * dpr); g.stroke();
+    g.fillStyle = 'rgba(138,138,160,.95)'; g.textAlign = 'center';
+    g.fillText('what comes out of every line goes back in through the matrix', (mx + x2) / 2, yb + 14 * dpr);
+    g.fillText('feedback matrix A', mx + m / 2, my - 12 * dpr); g.textAlign = 'left'; g.fillText('delay lines · a round trip each', x1, my - 12 * dpr);
+    g.textAlign = 'left'; g.fillText('knock → every line', mx, H - 12 * dpr); g.textAlign = 'right'; g.fillText('every line → you', x2, H - 12 * dpr);
+  }
+  function draw() { if (!ready || !rg || !fdn) return; drawDish(); drawDia(); $('capDia').textContent = step === 3 ? 'the diagram · its feedback matrix, ' + fdn.K + ' × ' + fdn.K : 'the diagram'; }
+  (function loop() { requestAnimationFrame(loop); if (which && which !== 'diff') draw(); })();
+
+  // ── hands ────────────────────────────────────────────────────────────────
+  function setStep(n) {
+    step = Math.max(1, Math.min(3, n));
+    Array.prototype.forEach.call($('rail').querySelectorAll('button'), function (b) { b.classList.toggle('on', +b.getAttribute('data-step') === step); });
+    for (var i = 1; i <= 3; i++) $('t' + i).hidden = i !== step;
+    $('bFeed').hidden = $('bNew').hidden = step !== 3; $('bBack').disabled = step === 1; $('bNext').disabled = step === 3;
+    $('vN').textContent = $('sN').value; build();
+  }
+  $('rail').addEventListener('click', function (ev) { var s = ev.target.getAttribute && ev.target.getAttribute('data-step'); if (s) setStep(+s); });
+  $('bBack').onclick = function () { setStep(step - 1); }; $('bNext').onclick = function () { setStep(step + 1); };
+  $('bDish').onclick = function () { play('dish'); }; $('bDia').onclick = function () { play('dia'); }; $('bDiff').onclick = function () { play('diff'); };
+  dish.addEventListener('click', function () { play('dish'); }); dia.addEventListener('click', function () { play('dia'); });
+  $('sN').addEventListener('input', function () { $('vN').textContent = this.value; build(); });
+  $('bFeed').onclick = function () {
+    if (!ready || busy || step !== 3) return; stop(); busy = true; var target = Math.min(MAXS, grown.col.nseg + 14), t = gst.t;
+    grown.col.hold = false; $('msg').textContent = 'Feeding it plucked strings, in silence…';
+    (function tick() {
+      var full = rdFeed(grown, food, gst, 40, target);
+      if (full || gst.t - t > 60 || step !== 3) { busy = false; grown.col.hold = true; $('msg').textContent = grown.col.nseg >= MAXS ? 'The dish is full: ' + MAXS + ' threads.' : 'Fed. Knock on both again.'; if (step === 3) build(); return; }
+      fdn = fdnFromColony(grown.col, HOUSE, SR); snd = null; diffDb = NaN; status(); draw(); setTimeout(tick, 0);
+    })();
+  };
+  $('bNew').onclick = function () { if (busy) return; seed = 1 + Math.floor(Math.random() * 9000); grown = null; build(); };
+  var rs = 0; window.addEventListener('resize', function () { clearTimeout(rs); rs = setTimeout(draw, 120); });
+  setStep(1);
+  window.__matrix = { state: function () { return { step: step, ready: ready, K: fdn ? fdn.K : 0, threads: rg ? rg.col.nseg : 0, diffDb: diffDb, busy: busy }; }, render: function () { render(); return diffDb; } };
+})();
+</script>
+</body>
+</html>

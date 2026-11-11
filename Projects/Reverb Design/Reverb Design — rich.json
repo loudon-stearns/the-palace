@@ -1,0 +1,147 @@
+{
+  "title": "Reverb Design — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Reverb Design]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    },
+    {
+      "target": "[[Biomechanical Synthesis]]",
+      "type": "connects-to",
+      "label": "points-at-its-dish-and-runs-its-engine"
+    },
+    {
+      "target": "[[Reverb ↔ Space-Time]]",
+      "type": "connects-to",
+      "label": "points-at-its-face"
+    },
+    {
+      "target": "[[Progressive Staging]]",
+      "type": "connects-to",
+      "label": "the-test-is-the-last-step"
+    }
+  ],
+  "forward_vector": "I am the manifest of Reverb Design's rich face, its first round, a Sketch and a proposal. I open on a living thing that is not mine, the dish a reader grows by feeding it sound, pointed at where it lives. Then I dig: a real room's echoes thickening, gathered from Reverb ↔ Space-Time; a knot tied in the thread, which is the allpass the dish does not have, walked up to a test on twelve colonies; and the dish set beside the textbook network built from its wiring, with one minus the other to listen to. Schroeder's plan, Freeverb, and Dattorro's plate are prose on the page and not yet pieces here. I grow when one of them is built, or when a knot is tied inside a thread. I never hold the entry's words.",
+  "entry": "Reverb Design",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "grain": "By the page's own ## sections. Four carry pieces: the opening (the dish, gathered), Start from hearing (a room's echoes, gathered), The knot the dish lacks (made), The dish as an algorithm (made). One thread is a comb has no piece of its own: the dish's panel '1 · one thread' and step 1 of the knot piece both play it. The reverbs everyone uses and Reading a block diagram are prose only this round.",
+  "offers": [
+    {
+      "section": "→ Biomechanical Synthesis",
+      "kind": "claim-change",
+      "what": "To the dish (Biomechanical Synthesis — rich — mycelial reverb.html, panel '1 · one thread'), for its maker: the panel prints y(t) = x(t) + r · g² · y(t − 2L). Its own check shows the first echo at r·g² (0.5045) and the second at 0.4036 of the first, which is r²·g²: after the first echo, a pulse turns at both ends before you hear it again. So the loop keeps r²·g² a round trip, and the comb's teeth (7.4 dB, measured in this face's check) agree with that and not with r·g². The sound is right; the printed line understates the loss per trip. Not edited here: that piece is the pilot's.",
+      "status": "open"
+    },
+    {
+      "section": "→ Biomechanical Synthesis",
+      "kind": "no-claim-edit",
+      "what": "To the dish, a caution rather than a fault: this face's two made pieces read the mycel-engine block out of the dish's page at run time and fail with a plain message if it moves. If the dish goes to Mycelial Reverb's bundle, the path in each piece (one constant, ENGINE, and one piece:files line) and in the check (DISH) moves with it.",
+      "status": "open"
+    }
+  ],
+  "sections": [
+    {
+      "heading": "Reverb Design",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · fable · side session from the hook pilot",
+        "round": "reverb-design-2026-11"
+      },
+      "made": "2026-11-10",
+      "pieces": [
+        {
+          "file": "/Projects/Biomechanical Synthesis/Biomechanical Synthesis — rich — mycelial reverb.html",
+          "origin": "gathered",
+          "place": "band",
+          "height": 2300,
+          "near": "A reverb is a machine for turning one sound",
+          "title": "a reverb you grow · from Biomechanical Synthesis's bundle",
+          "caption": "**Start here: knock on it.** A spore in a dish. Feed it sound and it grows, and the dry knock you began with comes back from a room that was not there a minute ago. This is the piece the page's question was asked about, shown from where it lives and not copied (the hook pilot's, 2026-11-10, itself still a proposal). Play with it before reading on. Everything below is this dish taken apart: its one thread, the part it lacks, and the diagram an engineer would draw of it. No agent has heard it."
+        }
+      ],
+      "made_against": "a5717ddd8cac",
+      "stamped": "2026-11-10"
+    },
+    {
+      "heading": "Start from hearing",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · fable · side session from the hook pilot",
+        "round": "reverb-design-2026-11"
+      },
+      "made": "2026-11-10",
+      "pieces": [
+        {
+          "file": "/Cross-Domain Resonances/Reverb ↔ Space-Time/Reverb ↔ Space-Time — rich — one clap, one room.html",
+          "origin": "gathered",
+          "place": "band",
+          "height": 1500,
+          "near": "Clap in a room and three things happen in order",
+          "title": "one clap, one room · from Reverb ↔ Space-Time's bundle",
+          "caption": "**What the machine is imitating.** A clap in a modelled shoebox room, built up from one wall: one echo, then six, then every echo of the room. Watch how fast they crowd together. Gathered from Reverb ↔ Space-Time's face, where it answers a different question (how a room's dimensions and its size work together); here it is the thing a reverb has to fake with a few delay lines. That face is a proposal too, and its own caption says what it checks."
+        }
+      ],
+      "made_against": "20e605bf1ff6",
+      "stamped": "2026-11-10"
+    },
+    {
+      "heading": "The knot the dish lacks",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · fable · side session from the hook pilot",
+        "round": "reverb-design-2026-11"
+      },
+      "made": "2026-11-10",
+      "pieces": [
+        {
+          "file": "Reverb Design — rich — tie a knot.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, rendered before it plays · sketch",
+          "place": "band",
+          "height": 1150,
+          "near": "The classic fix is the **allpass filter**",
+          "title": "tie a knot in the thread · four steps",
+          "caption": "**The allpass, as a knot you tie.** Four steps. One thread alone: echoes you can count. One knot alone: a knock goes in, a small cloud comes out. Knots in front of the thread. Then the test: a colony grown on the dish's own engine, with a line drawn where its echoes become a wash, and knots you tie in front of it by clicking. **What is exact** (checked without a browser): a knot gives back the energy it is given, to twelve decimal places, and passes 64 pitches from 20 Hz to 20 kHz at the level they came in, where the one thread differs by 7.4 dB between a tooth and a gap. **What the test found**, on 12 colonies of 170 threads at the dish's house settings: a wash from a median 175 ms with no knots, 133, 90, 63 and 55 ms with one to four; sooner with four in 12 of 12, and under half the time in 12 of 12, which was the guess written before the run. The tail's length did not move (2.30 s, 2.28 s). Failure would have been sooner in half the colonies or fewer. **What is mine and not a published design:** the four loops' lengths and gains. The measure of a wash is the dish's. In the face the colony you knock on is one colony, grown as you watch; the twelve are in the check. No agent has heard it."
+        }
+      ],
+      "made_against": "28b038b5a3ab",
+      "stamped": "2026-11-10"
+    },
+    {
+      "heading": "The dish as an algorithm",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · fable · side session from the hook pilot",
+        "round": "reverb-design-2026-11"
+      },
+      "made": "2026-11-10",
+      "pieces": [
+        {
+          "file": "Reverb Design — rich — the colony is a matrix.html",
+          "origin": "made",
+          "by": "the Maker · Web Audio, rendered before it plays · sketch",
+          "place": "band",
+          "height": 1050,
+          "near": "As a **network of delays**",
+          "title": "the colony is a matrix · the dish beside its diagram",
+          "caption": "**Knock on the dish, on the diagram, and on one minus the other.** Left, the dish. Right, the feedback delay network a textbook would draw of it, built in this piece from the colony's wiring alone and run by separate code. Three steps: the newborn spore, which is three delay lines and the matrix ⅓·[−1 2 2; 2 −1 2; 2 2 −1]; a star of three to eight threads, the network of the papers; then feed it and watch the matrix grow into a diagonal of small squares, one per fork. **Checked without a browser:** the dish and the diagram agree to −134 dB or better under the loudest sample, for the spore, seven stars (one with unequal threads at other settings), and 12 colonies at three sizes and again after a frost; failure would have been any difference above −100 dB. The star's matrix loses nothing (Aᵀ·A is the identity to 2e-16); the grown one loses only the 0.8 at each dead end. A full dish is 340 delay lines and 0.7% of its matrix is not zero. Here the colony grows on strings fed in silence when you press, not on what you play. The equivalence is Rocchesso and Smith's, 1997; this piece only lets you hear it. No agent has heard it."
+        }
+      ],
+      "made_against": "3b75f8325690",
+      "stamped": "2026-11-10"
+    }
+  ]
+}
