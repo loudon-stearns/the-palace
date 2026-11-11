@@ -84,11 +84,11 @@ const BC = (() => {
   const IDS = ["doubt", "time_to_believe", "press", "let_go", "forget", "velocity",
     "width_start", "width_floor", "near", "rate", "shortest", "longest", "spread", "level",
     "prior_shape", "prior_tone", "hill_width", "register", "register_width",
-    "pc_c", "pc_cs", "pc_d", "pc_ds", "pc_e", "pc_f", "pc_fs", "pc_g", "pc_gs", "pc_a", "pc_as", "pc_b"];
+    "pc_c", "pc_cs", "pc_d", "pc_ds", "pc_e", "pc_f", "pc_fs", "pc_g", "pc_gs", "pc_a", "pc_as", "pc_b", "far_hush"];
   const P = {}; IDS.forEach((id, i) => { P[id] = i; });
   const PRIOR = ["prior_shape", "hill_width", "register", "register_width",
     "pc_c", "pc_cs", "pc_d", "pc_ds", "pc_e", "pc_f", "pc_fs", "pc_g", "pc_gs", "pc_a", "pc_as", "pc_b"].map(k => P[k]);
-  const DEFAULTS = [0.25, 1.6, 0.08, 1.4, 0.7, 0.3, 120, 5, 35, 160, 4, 128, 0.7, -2, 0, 0, 20, 64, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+  const DEFAULTS = [0.25, 1.6, 0.08, 1.4, 0.7, 0.3, 120, 5, 35, 160, 4, 128, 0.7, -2, 0, 0, 20, 64, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 18];
   const NUM_PROBES = 5 + 3 * MAX_NOTES;
 
   class Cloud {
@@ -118,7 +118,7 @@ const BC = (() => {
       this.s = SEED; this.havePrior = false;
       this.active.fill(0); this.held.fill(0); this.midi.fill(0);
       this.vel.fill(0); this.w.fill(0); this.ls.fill(0); this.sig.fill(0); this.conv.fill(0);
-      this.sumW = 0; this.priorShare = 1;
+      this.sumW = 0; this.priorShare = 1; this.certainty = 0;
       this.lastLw = Math.log(v[P.width_start]); this.lastSig = v[P.width_start];
       this.nv = 0; this.next = 0; this.ctl = 0; this.dropped = 0;
       this.meanCycles = 4; this.grainNote = 0; this.grainCycles = 0;
@@ -176,7 +176,7 @@ const BC = (() => {
       const kF = 1.0 - Math.exp(-dt / v[P.time_to_believe]), kB = 1.0 - Math.exp(-dt / v[P.forget]);
       const lw = Math.log(v[P.width_start]), lf = Math.log(v[P.width_floor]), vs = v[P.velocity];
       this.lastLw = lw; this.lastSig = v[P.width_start];
-      let sum = 0;
+      let sum = 0, cert = 0;
       for (let j = 0; j < MAX_NOTES; j++) {
         if (!this.active[j]) continue;
         if (this.held[j]) {
@@ -190,8 +190,9 @@ const BC = (() => {
         const c = (lw - this.ls[j]) / (lw - lf);
         this.conv[j] = c < 0 ? 0 : (c > 1 ? 1 : c);
         sum += this.w[j];
+        if (this.w[j] * this.conv[j] > cert) cert = this.w[j] * this.conv[j];
       }
-      this.sumW = sum;
+      this.sumW = sum; this.certainty = cert;
       this.priorShare = v[P.doubt] / (v[P.doubt] + sum);
     }
     gauss() { let u = 0; while (u === 0) u = this.rand(); return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * this.rand()); }
@@ -208,11 +209,12 @@ const BC = (() => {
         for (let j = 0; j < MAX_NOTES; j++) { if (!this.active[j]) continue; pick = j; if (u < this.w[j]) break; u -= this.w[j]; }
         m = this.midi[pick] + this.gauss() * this.sig[pick] / 100.0;
       }
-      let best = 0; const near = v[P.near];
+      let best = 0, close = 0; const near = v[P.near];
       for (let j = 0; j < MAX_NOTES; j++) {
         if (!this.active[j]) continue;
         const d = (m - this.midi[j]) * 100.0 / near;
-        const g = Math.exp(-0.5 * d * d) * this.w[j] * this.conv[j];
+        const x = Math.exp(-0.5 * d * d); if (x > close) close = x;
+        const g = x * this.w[j] * this.conv[j];
         if (g > best) best = g;
       }
       const bi = Math.floor((m - LO) * 100.0 / BIN_C);
@@ -225,7 +227,8 @@ const BC = (() => {
       this.vPh[k] = this.rand(); this.vInc[k] = f / sr; this.vPos[k] = 0;
       this.vFade[k] = Math.max(2, Math.floor(cyc + 0.5));
       this.vLen[k] = Math.floor(cyc * (cycles + 2.0) + 0.5);
-      const amp = Math.sqrt(0.06 / v[P.rate]) * Math.sqrt(f / (cycles + 1.0));
+      const hush = Math.pow(10.0, -v[P.far_hush] * this.certainty * (1.0 - close) / 20.0);
+      const amp = Math.sqrt(0.06 / v[P.rate]) * Math.sqrt(f / (cycles + 1.0)) * hush;
       const p = 0.5 + v[P.spread] * (this.rand() - 0.5);
       this.vL[k] = amp * Math.cos(p * Math.PI / 2.0); this.vR[k] = amp * Math.sin(p * Math.PI / 2.0);
       this.grainNote = m; this.grainCycles = cycles;

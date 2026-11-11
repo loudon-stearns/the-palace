@@ -10,8 +10,9 @@
   "hostcheck": [
     "doubt=0.05",
     "prior_shape=1",
-    "prior_tone=0.8",
-    "longest=400"
+    "near=200",
+    "longest=400",
+    "far_hush=40"
   ],
   "ui": {
     "width": 1180,

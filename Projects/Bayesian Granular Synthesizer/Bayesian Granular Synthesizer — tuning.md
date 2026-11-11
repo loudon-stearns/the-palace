@@ -45,3 +45,17 @@ What Bayesian Granular Synthesizer's steward cycles taught the page, and the cha
    > apply(toNorm(o.binding ? o.binding.get() : (o.value == null ? spec.def : o.value), spec), false);
 
 - run · 2026-10-22 · cycle 5 · taught item 4, proposed item 5 for canon
+
+## From cycle 6 — 2026-11-11
+
+6. A parameter the engine reads only when a grain is born or the belief ticks must not be smoothed in the plugin: smoothing makes the plugin draw different grains from the sketch (3.6 dB apart on the sweeps path), and unsmoothed it stays within 0.19 dB. *(offered by the steward, cycle 6)*
+7. **Proposed for canon** · 2026-11-11 · [[Bayesian Granular Synthesizer]] · § Artifact (replacing its paragraph) · canon change owed *(proposed by the steward, cycle 6)*
+   Why: The section still says the plugin is waiting for the template to build it; it is now built, checked and installed.
+   Path: `Projects/Bayesian Granular Synthesizer.md`
+   > The V8 code from the 2026-05-08 chat was never recovered. The cloud was rebuilt from this spec in October 2026 (bundle: bayes_engine.js, belief-instrument.html). On Loudon's order of 2026-10-21 it became a VST, Belief Cloud. It was built with [[VST Template]] in the bundle's plugin/ folder and installed as VST3 and AU on 2026-11-11. Its C++ matches the sketch sample for sample, and the belief helix is on its screen. Nobody has played it in Live yet.
+8. **Proposed for canon** · 2026-11-11 · [[Bayesian Granular Synthesizer]] · § The grain spec, a new bullet after the coupling fade-in bullet · canon change owed *(proposed by the steward, cycle 6)*
+   Why: The grain spec is the page's record of the instrument's settled shape, and the far hush is now part of it, at Loudon's request.
+   Path: `Projects/Bayesian Granular Synthesizer.md`
+   > - **Far hush:** once a chord is believed, a grain landing far from every held note is turned down: up to 18 dB by default, scaled by how sure the cloud is. Equal-energy scaling had made each stray short grain a spike, its median peak 14 dB above the chord's grains (Loudon, 2026-11-10: "distant slow random blips far from the beautiful note intended"). With the hush, the strays carry 0.3 % of the energy instead of 12.5 %.
+
+- run · 2026-11-11 · cycle 6 · taught item 6, proposed items 7, 8 for canon

@@ -1,17 +1,31 @@
-# Belief Cloud — the plugin folder, waiting for the template
+# Belief Cloud — the plugin folder
 
-The Bayesian grain cloud in VST Template's shape, so it can become a VST3/AU the
-day the template can build a plugin whose folder lives in a steward's bundle.
-Built 2026-10-22 (steward cycle 4) on Loudon's standing order of 2026-10-21:
-"lets make them products now."
+The Bayesian grain cloud as a VST3/AU instrument, made with VST Template. Begun
+2026-10-22 (steward cycle 4) on Loudon's standing order of 2026-10-21, "lets make
+them products now"; built, checked and installed on this Mac 2026-11-11 (cycle 6).
+
+To play it: in Live, Settings → Plug-Ins → Rescan, then Plug-Ins → Loudon Live →
+Belief Cloud. Hold a chord for a few seconds and let the cloud come to believe it.
+
+`./plugin.sh all` builds, verifies, installs, validates and host-checks it (the
+template's machinery, found as VST Template/machinery above this folder). On
+2026-11-11 every gate passed: the engine matches the sketch to 3–4 × 10⁻⁸ of peak on
+all five paths, the real plugin keeps the sketch's loudness within 0.19 dB in every
+quarter second, both bundles pass the strict signature check, pluginval at strictness
+5, auval, and the host check on VST3 and AU. `./plugin.sh editor` can't photograph
+the real window from here ("NO PICTURE"); proofs/ holds the template's mock of the
+editor page with the real engine's probes replayed on the CRT.
 
 ```
 plugin/
   plugin.json            name Belief Cloud, code Blcd, instrument, CRT on ("screen": true)
+  CMakeLists.txt, plugin.sh   from new-plugin.py's shape: find the template's machinery
+  proofs/                the editor mock and shot, and the far hush before and after
   reference/sketch.py    the cloud one sample at a time: render(v, sr, inputs, notes)
   reference/paths.py     four paths, every one gated sample for sample
-  src/Algorithm.h        the port: 31 parameters, stereo out, 53 probes for the CRT
-  check/                 the exact gate, run from here (see below)
+  src/Algorithm.h        the port: 32 parameters, stereo out, 53 probes for the CRT
+  check/                 the JUCE-free exact gate (check_engine.py, also holds the JS engine),
+                         the demo take, render_hush.py and count_far.py (the far hush measured)
   ui/visualizer.js       the belief helix, for the CRT: mount(el), frame(probes, params)
   ui/belief_cloud.js     the engine in JavaScript, for the sketch page only
   ui/belief-helix.template.html, ui/build_helix.js   → ../belief-helix.html
@@ -28,6 +42,19 @@ much mass the prior keeps against each fully believed note. The prior is the fla
 line bent by a register hill and, by `Prior shape`, twelve pitch-class weights
 (`Prior C` … `Prior B`), the VST form of the painted prior; `Prior tone` lets its
 own peaks lengthen grains, so a painted belief can hum with nothing held.
+
+**Far hush** (added 2026-11-11, on Loudon's note of 2026-11-10: "distant slow random
+blips far from the beautiful note intended, we need to de-emphasize those"). A grain
+that lands far from every believed note is turned down by `Far hush` dB × far, where
+far = certainty × (1 − closeness): certainty is the largest weight × conviction of any
+note, closeness the largest exp(−d²/2) to any note in units of `Grain near`. Nothing is
+hushed until the cloud believes something, so the flat prior's clicks and the painted
+prior's hum with nothing held are as they were. The cause it answers: equal-energy
+scaling gives a 4-cycle grain about 15 dB more peak than a 128-cycle one, so each stray
+was a spike. Counted grain by grain over C E G at full belief (check/count_far.py):
+hush off, the 18 strays a second carry 12.5 % of the energy and peak a median 14 dB
+above the chord's grains; at the default 18 dB they carry 0.3 % and peak level with
+them. It changes no random draw.
 
 What changed from bayes_engine.js, on purpose: note slots are a fixed table of 16
 (the weakest released note is evicted when it fills); velocity sets how strongly a
@@ -46,9 +73,16 @@ peak (float32 output rounding) on all four paths; numbers in out/check-report.js
 `python3 check/render_take.py` renders the 36-second demo performance through the
 C++ engine into ../belief-cloud-take.wav.
 
-What this check does not cover: the template's plugin gate (smoothing, block-wise
-automation, MIDI through processBlock), pluginval, auval, the host check, and the
-editor's fit. Those need the template's build, which can't yet run from here.
+`./plugin.sh verify` is the template's own gate on top of this: the same exact match
+for the engine, plus the real plugin (smoothing, block-wise automation, MIDI through
+processBlock) held to the sketch's loudness. Doubt, Velocity, Grain rate and Spread
+are not smoothed: they are read only when a grain is born or the belief ticks, so
+they can't zipper, and smoothing them made the plugin draw different grains from the
+sketch (the sweeps path parted by 3.6 dB). Unsmoothed, it stays within 0.19 dB.
+
+The host check moves Doubt, Prior shape, Grain near, Grain longest and Far hush one
+at a time. Prior tone and the twelve Prior notes knobs can't be host-checked alone:
+they only sound once Prior shape is up, which the painted-prior path covers.
 
 ## The CRT feed
 
@@ -90,15 +124,3 @@ Two things the face taught about the template:
 - **The editor stretches every child of the glass to fill it** (`.screen .glass > *`).
   A visualizer that adds its own overlay must undo that (`inset:auto; width:auto;
   height:auto`).
-
-## When the template is ready
-
-1. Copy CMakeLists.txt and plugin.sh from any plugin in VST Template/plugins (or
-   let new-plugin.py make them here), then `./plugin.sh all`.
-2. Add a `behaviour` or loudness-only gate if the plugin gate's smoothing moves
-   `doubt` or `rate` enough to change which grains are drawn: the engine and the
-   processBlock run will part, since smoothing changes the per-sample values that
-   steer the draws. Expect the exact gate to hold for `engine` and the 0.5 dB
-   loudness gate to be the test for `plugin`.
-3. `ui.py fit`: 31 controls under two heroes and a CRT. The ui block's minimum
-   (1080 × 700) is a guess until fit says otherwise.

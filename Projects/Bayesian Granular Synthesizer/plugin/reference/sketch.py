@@ -28,8 +28,17 @@ evidence, and every grain draws its pitch from what the cloud currently believes
              * w * conviction, and prior_tone * tone(bin) (the prior's own
              peaks, cycle 3's prior tone). Conviction = how far the width has
              come from start to floor, in log-cents, 0..1.
+  far hush   a grain far from every believed note is turned down, by how
+             sure the cloud is: far = certainty * (1 - closeness), certainty
+             the largest w * conviction of any note, closeness the largest
+             exp(-d²/2) (d in units of `near` cents) to any note. The grain's
+             gain is -`far_hush` dB * far. With nothing believed nothing is
+             hushed; once a chord is believed, the stray clicks between and
+             around its notes drop back (Loudon, 2026-11-10: "distant slow
+             random blips far from the beautiful note intended, we need to
+             de-emphasize those"). It changes no random draw.
   grain      1-cycle Hann in, sustain, 1-cycle Hann out; amplitude
-             sqrt(0.06/rate) * sqrt(f/(cycles+1)) (equal energy); random phase;
+             sqrt(0.06/rate) * sqrt(f/(cycles+1)) (equal energy) * hush; random phase;
              equal-power pan inside `spread`. Up to 640 sound at once.
   timing     Poisson onsets at `rate` per second; the belief evolves every 64
              samples (a control tick), the grains every sample.
@@ -86,6 +95,7 @@ class Cloud:
         self.conv = [0.0] * MAX_NOTES
         self.sum_w = 0.0
         self.prior_share = 1.0
+        self.certainty = 0.0
         self.last_lw = math.log(v0["width_start"])
         self.last_sig = v0["width_start"]
         # voices
@@ -172,6 +182,7 @@ class Cloud:
         vs = v["velocity"]
         self.last_lw, self.last_sig = lw, v["width_start"]
         s = 0.0
+        cert = 0.0
         for j in range(MAX_NOTES):
             if not self.active[j]:
                 continue
@@ -189,7 +200,10 @@ class Cloud:
             c = (lw - self.ls[j]) / (lw - lf)
             self.conv[j] = 0.0 if c < 0.0 else (1.0 if c > 1.0 else c)
             s += self.w[j]
+            if self.w[j] * self.conv[j] > cert:
+                cert = self.w[j] * self.conv[j]
         self.sum_w = s
+        self.certainty = cert
         self.prior_share = v["doubt"] / (v["doubt"] + s)
 
     # ---- one grain
@@ -226,12 +240,16 @@ class Cloud:
                 u -= self.w[j]
             midi = self.midi[pick] + self.gauss() * self.sig[pick] / 100.0
         best = 0.0
+        close = 0.0
         near = v["near"]
         for j in range(MAX_NOTES):
             if not self.active[j]:
                 continue
             d = (midi - self.midi[j]) * 100.0 / near
-            g = math.exp(-0.5 * d * d) * self.w[j] * self.conv[j]
+            x = math.exp(-0.5 * d * d)
+            if x > close:
+                close = x
+            g = x * self.w[j] * self.conv[j]
             if g > best:
                 best = g
         bi = int(math.floor((midi - LO) * 100.0 / BIN_C))
@@ -241,10 +259,11 @@ class Cloud:
                 best = tt
         n_min = v["shortest"]
         cycles = n_min * math.pow(v["longest"] / n_min, best)
-        return midi, cycles
+        far = self.certainty * (1.0 - close)
+        return midi, cycles, math.pow(10.0, -v["far_hush"] * far / 20.0)
 
     def spawn(self, v):
-        midi, cycles = self.draw(v)
+        midi, cycles, hush = self.draw(v)
         if self.nv >= MAX_VOICES:
             self.dropped += 1
             return
@@ -260,7 +279,7 @@ class Cloud:
         self.v_pos[k] = 0
         self.v_fade[k] = max(2, int(math.floor(cyc + 0.5)))
         self.v_len[k] = int(math.floor(cyc * (cycles + 2.0) + 0.5))
-        amp = math.sqrt(0.06 / v["rate"]) * math.sqrt(f / (cycles + 1.0))
+        amp = math.sqrt(0.06 / v["rate"]) * math.sqrt(f / (cycles + 1.0)) * hush
         p = 0.5 + v["spread"] * (self.rng.next() - 0.5)
         self.v_l[k] = amp * math.cos(p * math.pi / 2.0)
         self.v_r[k] = amp * math.sin(p * math.pi / 2.0)

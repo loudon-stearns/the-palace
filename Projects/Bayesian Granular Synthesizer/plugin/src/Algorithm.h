@@ -24,24 +24,28 @@ namespace algo
         Spread, Level,
         PriorShape, PriorTone, HillWidth, Register, RegisterWidth,
         PcC, PcCs, PcD, PcDs, PcE, PcF, PcFs, PcG, PcGs, PcA, PcAs, PcB,
+        FarHush,
         kNumParams
     };
 
+    // Doubt, Velocity, Grain rate and Spread are read only when a grain is born or the
+    // belief ticks, so they cannot zipper: they are not smoothed, and the plugin then
+    // draws exactly the grains the sketch draws. Level is per sample and keeps its 20 ms.
     inline constexpr ParamSpec kParams[kNumParams] = {
         //  id                 name                   unit    min     max     default  taper          smooth choices auto   group           hero
-        { "doubt",           "Doubt",               "",     0.02,   4.0,    0.25,    Taper::Log,    20.0,  "",     true,  "Belief",       true },
+        { "doubt",           "Doubt",               "",     0.02,   4.0,    0.25,    Taper::Log,    0.0,   "",     true,  "Belief",       true },
         { "time_to_believe", "Time to believe",     "s",    0.05,   10.0,   1.6,     Taper::Log,    0.0,   "",     true,  "Belief",       true },
         { "press",           "Press",               "s",    0.005,  1.0,    0.08,    Taper::Log,    0.0,   "",     true,  "Evidence" },
         { "let_go",          "Let go",              "s",    0.05,   20.0,   1.4,     Taper::Log,    0.0,   "",     true,  "Evidence" },
         { "forget",          "Forget",              "s",    0.05,   10.0,   0.7,     Taper::Log,    0.0,   "",     true,  "Evidence" },
-        { "velocity",        "Velocity",            "",     0.0,    1.0,    0.3,     Taper::Linear, 20.0,  "",     true,  "Evidence" },
+        { "velocity",        "Velocity",            "",     0.0,    1.0,    0.3,     Taper::Linear, 0.0,   "",     true,  "Evidence" },
         { "width_start",     "Width at press",      "ct",   30.0,   600.0,  120.0,   Taper::Log,    0.0,   "",     true,  "Width" },
         { "width_floor",     "Width floor",         "ct",   1.0,    25.0,   5.0,     Taper::Log,    0.0,   "",     true,  "Width" },
         { "near",            "Grain near",          "ct",   5.0,    200.0,  35.0,    Taper::Log,    0.0,   "",     true,  "Grains" },
-        { "rate",            "Grain rate",          "/s",   10.0,   800.0,  160.0,   Taper::Log,    20.0,  "",     true,  "Grains" },
+        { "rate",            "Grain rate",          "/s",   10.0,   800.0,  160.0,   Taper::Log,    0.0,   "",     true,  "Grains" },
         { "shortest",        "Grain shortest",      "cyc",  1.0,    32.0,   4.0,     Taper::Log,    0.0,   "",     true,  "Grains" },
         { "longest",         "Grain longest",       "cyc",  8.0,    512.0,  128.0,   Taper::Log,    0.0,   "",     true,  "Grains" },
-        { "spread",          "Spread",              "",     0.0,    1.0,    0.7,     Taper::Linear, 20.0,  "",     true,  "Output" },
+        { "spread",          "Spread",              "",     0.0,    1.0,    0.7,     Taper::Linear, 0.0,   "",     true,  "Output" },
         { "level",           "Level",               "dB",   -60.0,  6.0,    -2.0,    Taper::Linear, 20.0,  "",     true,  "Output" },
         { "prior_shape",     "Prior shape",         "",     0.0,    1.0,    0.0,     Taper::Linear, 0.0,   "",     true,  "Prior" },
         { "prior_tone",      "Prior tone",          "",     0.0,    1.0,    0.0,     Taper::Linear, 0.0,   "",     true,  "Prior" },
@@ -60,6 +64,7 @@ namespace algo
         { "pc_a",            "Prior A",             "",     0.0,    1.0,    1.0,     Taper::Linear, 0.0,   "",     true,  "Prior notes" },
         { "pc_as",           "Prior A#",            "",     0.0,    1.0,    1.0,     Taper::Linear, 0.0,   "",     true,  "Prior notes" },
         { "pc_b",            "Prior B",             "",     0.0,    1.0,    1.0,     Taper::Linear, 0.0,   "",     true,  "Prior notes" },
+        { "far_hush",        "Far hush",            "dB",   0.0,    40.0,   18.0,    Taper::Linear, 0.0,   "",     true,  "Belief" },
     };
 
     // ── 2. Audio in and out, and probes ────────────────────────────────────────
@@ -103,7 +108,7 @@ namespace algo
         std::array<bool, kMaxNotes> active {}, held {};
         std::array<int, kMaxNotes> midi {};
         std::array<double, kMaxNotes> vel {}, w {}, ls {}, sig {}, conv {};
-        double sumW = 0.0, priorShare = 1.0, lastLw = 0.0, lastSig = 0.0;
+        double sumW = 0.0, priorShare = 1.0, certainty = 0.0, lastLw = 0.0, lastSig = 0.0;
 
         std::array<double, kMaxVoices> vPh {}, vInc {}, vL {}, vR {};
         std::array<long, kMaxVoices> vPos {}, vLen {}, vFade {};
@@ -135,7 +140,7 @@ namespace algo
             havePrior = false;
             active.fill (false); held.fill (false); midi.fill (0);
             vel.fill (0.0); w.fill (0.0); ls.fill (0.0); sig.fill (0.0); conv.fill (0.0);
-            sumW = 0.0; priorShare = 1.0;
+            sumW = 0.0; priorShare = 1.0; certainty = 0.0;
             lastLw = std::log (v[WidthStart]); lastSig = v[WidthStart];
             nv = 0; next = 0.0; ctl = 0; dropped = 0;
             meanCycles = 4.0; grainNote = 0.0; grainCycles = 0.0;
@@ -228,7 +233,7 @@ namespace algo
             const double lw = std::log (v[WidthStart]), lf = std::log (v[WidthFloor]);
             const double vs = v[Velocity];
             lastLw = lw; lastSig = v[WidthStart];
-            double sum = 0.0;
+            double sum = 0.0, cert = 0.0;
             for (size_t j = 0; j < (size_t) kMaxNotes; ++j)
             {
                 if (! active[j]) continue;
@@ -248,8 +253,10 @@ namespace algo
                 const double c = (lw - ls[j]) / (lw - lf);
                 conv[j] = c < 0.0 ? 0.0 : (c > 1.0 ? 1.0 : c);
                 sum += w[j];
+                if (w[j] * conv[j] > cert) cert = w[j] * conv[j];
             }
             sumW = sum;
+            certainty = cert;
             priorShare = v[Doubt] / (v[Doubt] + sum);
         }
 
@@ -261,7 +268,7 @@ namespace algo
             return std::sqrt (-2.0 * std::log (u)) * std::cos (2.0 * M_PI * rand());
         }
 
-        void draw (const double* v, double& outMidi, double& outCycles)
+        void draw (const double* v, double& outMidi, double& outCycles, double& outHush)
         {
             const double doubt = v[Doubt];
             const double z = doubt + sumW;
@@ -293,13 +300,15 @@ namespace algo
                 }
                 m = midi[(size_t) pick] + gauss() * sig[(size_t) pick] / 100.0;
             }
-            double best = 0.0;
+            double best = 0.0, close = 0.0;
             const double near = v[Near];
             for (size_t j = 0; j < (size_t) kMaxNotes; ++j)
             {
                 if (! active[j]) continue;
                 const double d = (m - midi[j]) * 100.0 / near;
-                const double g = std::exp (-0.5 * d * d) * w[j] * conv[j];
+                const double x = std::exp (-0.5 * d * d);
+                if (x > close) close = x;
+                const double g = x * w[j] * conv[j];
                 if (g > best) best = g;
             }
             const int bi = (int) std::floor ((m - kLo) * 100.0 / kBinC);
@@ -311,12 +320,15 @@ namespace algo
             const double nMin = v[Shortest];
             outMidi = m;
             outCycles = nMin * std::pow (v[Longest] / nMin, best);
+            // far hush: a grain far from every believed note drops back, by how sure the cloud is
+            const double far = certainty * (1.0 - close);
+            outHush = std::pow (10.0, -v[FarHush] * far / 20.0);
         }
 
         void spawn (const double* v)
         {
-            double m, cycles;
-            draw (v, m, cycles);
+            double m, cycles, hush;
+            draw (v, m, cycles, hush);
             if (nv >= kMaxVoices) { ++dropped; return; }
             const double f = 440.0 * std::pow (2.0, (m - 69.0) / 12.0);
             if (f > sr * 0.45) return;
@@ -327,7 +339,7 @@ namespace algo
             vPos[k] = 0;
             vFade[k] = std::max (2L, (long) std::floor (cyc + 0.5));
             vLen[k] = (long) std::floor (cyc * (cycles + 2.0) + 0.5);
-            const double amp = std::sqrt (0.06 / v[Rate]) * std::sqrt (f / (cycles + 1.0));
+            const double amp = std::sqrt (0.06 / v[Rate]) * std::sqrt (f / (cycles + 1.0)) * hush;
             const double p = 0.5 + v[Spread] * (rand() - 0.5);
             vL[k] = amp * std::cos (p * M_PI / 2.0);
             vR[k] = amp * std::sin (p * M_PI / 2.0);

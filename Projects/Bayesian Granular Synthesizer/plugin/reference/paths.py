@@ -24,6 +24,11 @@ PATHS = [
                      prior_shape=lambda t: np.where(t < 2.0, 0.0, 0.6)),
          notes=[(0.2, 3.6, 55, 30), (0.2, 3.6, 62, 127)],
          gate=dict(exact_until=None)),
+    # the far hush swept 0 -> 36 dB while C E G is believed: the stray clicks drop back
+    dict(name="far-hush", secs=4.0,
+         values=dict(far_hush=lambda t: 9.0 * t, doubt=0.4),
+         notes=[(0.2, 3.7, 60, 100), (0.2, 3.7, 64, 100), (0.2, 3.7, 67, 100)],
+         gate=dict(exact_until=None)),
     # twenty quick notes with a long let-go: more than sixteen beliefs, so slots are evicted
     dict(name="crowded", secs=3.0,
          values=dict(let_go=8.0, press=0.02),

@@ -1,0 +1,208 @@
+{
+ "plugin": "Belief Cloud",
+ "sr": 44100,
+ "quick": null,
+ "passed": true,
+ "paths": [
+  {
+   "name": "chord-belief",
+   "secs": 5.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 3.5e-08 of peak over 5 s (tol 1e-06)",
+     "max_err": 3.454883700039872e-08,
+     "seconds": 5.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.0134 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.013382647923300794,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -7.3 dBFS, rms -21.8 dBFS",
+     "source": "engine",
+     "peak": 0.43098685145378113,
+     "rms": 0.08119130963809383,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -7.3 dBFS, rms -21.8 dBFS",
+     "source": "plugin",
+     "peak": 0.43098682165145874,
+     "rms": 0.08119859288415134,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "painted-prior",
+   "secs": 4.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 3.5e-08 of peak over 4 s (tol 1e-06)",
+     "max_err": 3.494621843700826e-08,
+     "seconds": 4.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.0354 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.035403369407529084,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -7.4 dBFS, rms -21.1 dBFS",
+     "source": "engine",
+     "peak": 0.42621487379074097,
+     "rms": 0.08860069803389409,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -7.4 dBFS, rms -21.1 dBFS",
+     "source": "plugin",
+     "peak": 0.4262148439884186,
+     "rms": 0.08861241747856853,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "sweeps",
+   "secs": 4.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 3e-08 of peak over 4 s (tol 1e-06)",
+     "max_err": 2.951674307188888e-08,
+     "seconds": 4.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.186 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.1859084718174593,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -5.9 dBFS, rms -21.8 dBFS",
+     "source": "engine",
+     "peak": 0.5042456984519958,
+     "rms": 0.08170937070332895,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -5.9 dBFS, rms -21.8 dBFS",
+     "source": "plugin",
+     "peak": 0.5043080449104309,
+     "rms": 0.0813850491799547,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "far-hush",
+   "secs": 4.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 3.6e-08 of peak over 4 s (tol 1e-06)",
+     "max_err": 3.569551884553953e-08,
+     "seconds": 4.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.0353 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.03528109323544015,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -7.6 dBFS, rms -21.5 dBFS",
+     "source": "engine",
+     "peak": 0.4174254536628723,
+     "rms": 0.08426995218263512,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -7.6 dBFS, rms -21.5 dBFS",
+     "source": "plugin",
+     "peak": 0.41742610931396484,
+     "rms": 0.08427415514286772,
+     "finite": true
+    }
+   ],
+   "passed": true
+  },
+  {
+   "name": "crowded",
+   "secs": 3.0,
+   "gates": [
+    {
+     "gate": "exact",
+     "passed": true,
+     "text": "engine = sketch to 3.7e-08 of peak over 3 s (tol 1e-06)",
+     "max_err": 3.6719206383673876e-08,
+     "seconds": 3.0,
+     "tol": 1e-06
+    },
+    {
+     "gate": "plugin",
+     "passed": true,
+     "text": "loudness of each 0.25 s within 0.00574 dB of the sketch (tol 0.5)",
+     "max_db_diff": 0.005737096626926785,
+     "tol_db": 0.5
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "engine finite=True, peak -7.8 dBFS, rms -21.0 dBFS",
+     "source": "engine",
+     "peak": 0.4057474136352539,
+     "rms": 0.08905635708826555,
+     "finite": true
+    },
+    {
+     "gate": "sanity",
+     "passed": true,
+     "text": "plugin finite=True, peak -7.8 dBFS, rms -21.0 dBFS",
+     "source": "plugin",
+     "peak": 0.4057473838329315,
+     "rms": 0.08905025818771484,
+     "finite": true
+    }
+   ],
+   "passed": true
+  }
+ ]
+}

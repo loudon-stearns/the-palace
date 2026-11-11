@@ -5,69 +5,86 @@
   {
    "name": "chord-belief",
    "secs": 5.0,
-   "max_err_of_peak": 3.1922529972548076e-08,
+   "max_err_of_peak": 3.454883700039872e-08,
    "probe_err": {
     "voices": 0.0,
     "mean_cycles": 4.263256414560601e-14,
     "grain_note": 1.4210854715202004e-14
    },
-   "peak": 0.4667472506345404,
-   "rms": 0.0940062948423113,
+   "peak": 0.43098684211857674,
+   "rms": 0.08119130963456431,
    "max_voices": 30,
    "sketch_s": 2.2,
-   "engine_s": 0.11,
-   "js_err_of_peak": 3.1922529972548076e-08,
+   "engine_s": 0.12,
+   "js_err_of_peak": 3.454883700039872e-08,
    "passed": true
   },
   {
    "name": "painted-prior",
    "secs": 4.0,
-   "max_err_of_peak": 3.4959857136422876e-08,
+   "max_err_of_peak": 3.494621843700826e-08,
    "probe_err": {
     "voices": 0.0,
     "mean_cycles": 1.0658141036401503e-14,
     "grain_note": 7.105427357601002e-15
    },
    "peak": 0.42621488735254176,
-   "rms": 0.0956220586907986,
+   "rms": 0.08860069803492801,
    "max_voices": 40,
    "sketch_s": 2.1,
-   "engine_s": 0.09,
-   "js_err_of_peak": 3.4959857136422876e-08,
+   "engine_s": 0.1,
+   "js_err_of_peak": 3.494621843700826e-08,
    "passed": true
   },
   {
    "name": "sweeps",
    "secs": 4.0,
-   "max_err_of_peak": 5.713406077212493e-08,
+   "max_err_of_peak": 2.951674307188888e-08,
    "probe_err": {
     "voices": 0.0,
     "mean_cycles": 1.4210854715202004e-14,
     "grain_note": 0.0
    },
-   "peak": 0.5174071669981762,
-   "rms": 0.0957021460154847,
+   "peak": 0.5042457096688955,
+   "rms": 0.08170937070246691,
    "max_voices": 77,
-   "sketch_s": 2.8,
+   "sketch_s": 3.2,
+   "engine_s": 0.13,
+   "js_err_of_peak": 2.951674307188888e-08,
+   "passed": true
+  },
+  {
+   "name": "far-hush",
+   "secs": 4.0,
+   "max_err_of_peak": 3.569551884553953e-08,
+   "probe_err": {
+    "voices": 0.0,
+    "mean_cycles": 3.552713678800501e-14,
+    "grain_note": 1.4210854715202004e-14
+   },
+   "peak": 0.4174254574056921,
+   "rms": 0.08426995218046515,
+   "max_voices": 39,
+   "sketch_s": 2.1,
    "engine_s": 0.09,
-   "js_err_of_peak": 5.713406077212493e-08,
+   "js_err_of_peak": 3.569551884553953e-08,
    "passed": true
   },
   {
    "name": "crowded",
    "secs": 3.0,
-   "max_err_of_peak": 3.394677906337932e-08,
+   "max_err_of_peak": 3.6719206383673876e-08,
    "probe_err": {
     "voices": 0.0,
     "mean_cycles": 8.881784197001252e-16,
     "grain_note": 0.0
    },
-   "peak": 0.43894449518428014,
-   "rms": 0.0939859839879345,
+   "peak": 0.4057474048954569,
+   "rms": 0.08905635708242267,
    "max_voices": 12,
-   "sketch_s": 1.1,
-   "engine_s": 0.07,
-   "js_err_of_peak": 3.394677906337932e-08,
+   "sketch_s": 1.2,
+   "engine_s": 0.09,
+   "js_err_of_peak": 3.6719206383673876e-08,
    "passed": true
   }
  ]
