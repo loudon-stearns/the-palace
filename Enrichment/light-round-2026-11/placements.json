@@ -1,0 +1,692 @@
+[
+ {
+  "n": 1,
+  "page": "Leibniz",
+  "path": "People/Leibniz.md",
+  "files": [
+   "Leibniz — two clocks, no wire.wav",
+   "Leibniz — two clocks, no wire — picture.svg"
+  ],
+  "title": "Two clocks, no wire",
+  "caption": "First, two clocks set once and never touching: a wooden tock in the left ear, a metal tick in the right. They stay together because each keeps its own time. Then a wired pair: they start apart, plainly at different rates, and as the wire tightens they pull into step. Both pairs end in unison. Only the second needed a wire.",
+  "honest": "The first half is Leibniz's pre-established harmony; the second is two Kuramoto phases with rising coupling.",
+  "leak": null,
+  "near": "the way two clocks set once keep the same time",
+  "near_line": 55,
+  "section": "How his mind moves",
+  "sentence": "Leibniz sees wholes reflecting wholes. His universe is made of *monads* — simple, indivisible centers of perception, each one a complete world that contains the",
+  "has_face": false
+ },
+ {
+  "n": 2,
+  "page": "Endosymbiosis",
+  "path": "Endosymbiosis.md",
+  "files": [
+   "Endosymbiosis — two rhythms become one.wav",
+   "Endosymbiosis — two rhythms become one — picture.svg"
+  ],
+  "title": "Two rhythms become one",
+  "caption": "Two tones seven hertz apart, beating against each other. From four seconds the coupling between them rises: the beat slows, lurches, and near nine seconds they lock onto one pitch that neither started on. Each keeps its own timbre to the end, hollow in the left ear and round in the right.",
+  "honest": "A two-oscillator Kuramoto model, the page's own image. It is not a model of a cell.",
+  "leak": null,
+  "near": "two oscillators (two metabolic rhythms)",
+  "near_line": 48,
+  "section": "Why This Matters Here",
+  "sentence": "**[[Kuramoto Coupling]]** at the evolutionary scale: two oscillators (two metabolic rhythms) coupled so strongly that they became one system with a new natural ",
+  "has_face": false
+ },
+ {
+  "n": 3,
+  "page": "Two Batons, One Board",
+  "path": "Palace development/Two Batons, One Board.md",
+  "files": [
+   "Two Batons, One Board — an impulse, then the impulse looped.wav",
+   "Two Batons, One Board — an impulse, then the impulse looped — picture.svg"
+  ],
+  "title": "An impulse, then the impulse looped",
+  "caption": "One click, then silence: a baton, carried once and gone. At five seconds the same click is dropped into a loop. Each pass catches what the last one left, rounds it a little, and drops it back: a steward.",
+  "honest": "The page's two sentences, 'A baton is an impulse' and 'A steward is that impulse looped', taken literally.",
+  "leak": null,
+  "near": "A baton is an impulse",
+  "near_line": 48,
+  "section": "The two batons are one atom",
+  "sentence": "- **A baton is an impulse** — mint the artifact, carry it, delete it on catch. One crossing, then gone.",
+  "has_face": false
+ },
+ {
+  "n": 4,
+  "page": "Synthesis Notes (Loudon)",
+  "path": "Synthesis Notes (Loudon).md",
+  "files": [
+   "Synthesis Notes (Loudon) — marble, then the chisel.wav",
+   "Synthesis Notes (Loudon) — marble, then the chisel — picture.png"
+  ],
+  "title": "Marble, then the chisel",
+  "caption": "Five seconds of raw sawtooth on a low E, every harmonic present: the block. Then a resonant low-pass closes over it and starts cutting figures. Nothing is added after second five. Everything you hear from there is something taken away.",
+  "honest": "Your sentence from the notes: 'Think of the oscillator like marble and the filter a sculptor's chisel.'",
+  "leak": null,
+  "near": "Think of the oscillator like marble",
+  "near_line": 33,
+  "section": null,
+  "sentence": "Loudon's teaching notes on synthesis, written for students and undated. \"Think of the oscillator like marble and the filter a sculptor's chisel\": that is the re",
+  "has_face": false
+ },
+ {
+  "n": 5,
+  "page": "Whitehead",
+  "path": "Whitehead.md",
+  "files": [
+   "Whitehead — one occasion, then the society.wav",
+   "Whitehead — one occasion, then the society — picture.svg"
+  ],
+  "title": "One occasion, then the society",
+  "caption": "One grain, alone. It arises and is gone. Again. Then they arrive faster, until near twelve seconds you stop hearing grains and hear a tone. Nothing in that tone persists: no grain lasts a tenth of a second. The tone is the pattern they hold together.",
+  "honest": "The page's claim that the grain is the actual occasion and the cloud the society.",
+  "leak": null,
+  "near": "the grain is the actual occasion",
+  "near_line": 58,
+  "section": "Lens on the Technical Work",
+  "sentence": "- **Sound is occasions, not objects.** A tone is not a thing that persists; it is a society of actual occasions (cycles, grains, samples) holding a pattern. [[G",
+  "has_face": false
+ },
+ {
+  "n": 6,
+  "page": "Yasujirō Ozu",
+  "path": "People/Yasujirō Ozu.md",
+  "files": [
+   "Yasujirō Ozu — the 180-degree rule and the 360-degree room.svg"
+  ],
+  "title": "The 180-degree rule and the 360-degree room",
+  "caption": "Two people at a low table, seen from above. Hollywood keeps every camera on one side of the line between them. Ozu sets the camera anywhere in the room.",
+  "honest": "The eight positions are a drawing choice; the page claims only that he crosses the axis routinely.",
+  "leak": null,
+  "near": "180-degree axis",
+  "near_line": 70,
+  "section": "How his mind moves",
+  "sentence": "His method *is* his mind: the low, static **tatami-mat** camera, set at the eye-level of someone kneeling — a guest's view of a family, not a director's — that ",
+  "has_face": false
+ },
+ {
+  "n": 7,
+  "page": "Striatum",
+  "path": "Striatum.md",
+  "files": [
+   "Striatum — what dopamine reports.svg"
+  ],
+  "title": "What dopamine reports",
+  "caption": "Three trials. A reward nobody predicted: a burst. A reward the cue predicted: the burst moves to the cue and the reward itself passes in silence. A predicted reward withheld: the cell goes quiet at the moment it should have come.",
+  "honest": "Schematic, not data. The pattern is Schultz, Dayan and Montague's (1997), which the page describes and does not cite.",
+  "leak": null,
+  "near": "the difference between what was expected and what actually happened",
+  "near_line": 37,
+  "section": "Structure",
+  "sentence": "**Ventral striatum** (including the nucleus accumbens) — the reward hub. Processes dopamine signals encoding reward prediction errors: the difference between wh",
+  "has_face": false
+ },
+ {
+  "n": 8,
+  "page": "Palace Map",
+  "path": "_ops/Palace Map.md",
+  "files": [
+   "Palace Map — growth rings.svg"
+  ],
+  "title": "Growth rings",
+  "caption": "The palace cut across like a trunk. Each dot is a page, oldest at the heart, coloured by its type; each ring is a month of 2026. March is the widest ring, 105 pages.",
+  "honest": "328 of the map's 329 pages, placed by the birth date each gives itself (one gives none). Map build of 2026-11-09.",
+  "leak": null,
+  "near": "pages and",
+  "near_line": 102,
+  "section": "What the Map Is",
+  "sentence": "Three tokens per edge, about fifty characters a line. The build of 2026-10-23 holds 324 pages and 2,933 edges: 144 KB as an edge list, about 38K tokens; the JSO",
+  "has_face": false
+ },
+ {
+  "n": 9,
+  "page": "Objects to Think With",
+  "path": "Objects to Think With.md",
+  "files": [
+   "Objects to Think With — the lit ones.png"
+  ],
+  "title": "The lit ones",
+  "caption": "Every page in Projects/ by its own icon. The twenty-two the recount named as objects to think with are lit; the rest are dimmed.",
+  "honest": "The page says twenty-two of fifty-one; Projects/ holds fifty-five pages today, and the twenty-two are the 2026-10-25 recount's, on its looser bar.",
+  "leak": null,
+  "near": "Twenty-two of the fifty-one",
+  "near_line": 43,
+  "section": "The palace named this three times before it had the name",
+  "sentence": "Twenty-two of the fifty-one entries in `Projects/` are objects-to-think-with by Papert's criterion,",
+  "has_face": false
+ },
+ {
+  "n": 10,
+  "page": "Meaning and the Link",
+  "path": "Meaning and the Link.md",
+  "files": [
+   "Meaning and the Link — the nodes fade, the links stay.svg"
+  ],
+  "title": "The nodes fade, the links stay",
+  "caption": "The palace's own map. The pages fade out and only the links are left, and you can still see where every page was.",
+  "honest": "329 pages and the 2,323 links that run between two of them, map build of 2026-11-09. Where a page sits is the layout's choice.",
+  "leak": null,
+  "near": "The node is a convenience",
+  "near_line": 27,
+  "section": null,
+  "sentence": "The paper argued this in the technical language of web architecture: RDF predicates (edges, links) are more fundamental than RDF subjects and objects (nodes). T",
+  "has_face": false
+ },
+ {
+  "n": 11,
+  "page": "Hero and Avatar Maker",
+  "path": "Shop/Hero and Avatar Maker.md",
+  "files": [
+   "Hero and Avatar Maker — what survives at 24 pixels.png"
+  ],
+  "title": "What survives at 24 pixels",
+  "caption": "Crystal Synthesizer's hero and its avatar, each shrunk to 48 and 24 pixels and shown both at true size and enlarged. The hero turns to a smear of colour; the avatar is still a ring with a red stone in it.",
+  "honest": "Both are the palace's real files, resized. Nothing was redrawn.",
+  "leak": "Crystal Synthesizer, the page's own example of an engraving.",
+  "near": "Engravings vanish at 24–48px",
+  "near_line": 90,
+  "section": "Gotchas",
+  "sentence": "- **Bold, high-contrast silhouette**, with no fine linework, even when the hero idiom is delicate. Engravings vanish at 24–48px.",
+  "has_face": false
+ },
+ {
+  "n": 12,
+  "page": "Leibniz",
+  "path": "People/Leibniz.md",
+  "files": [
+   "Leibniz — every jewel reflects every other.png"
+  ],
+  "title": "Every jewel reflects every other",
+  "caption": "The picture at the top of Leibniz's page, rebuilt from the avatars of the other pages. Step back and it is his; step in and it is everyone else's.",
+  "honest": "1,848 tiles from 123 avatars, each picked for its colour, softened, and tinted most of the way to the colour needed. The tinting is what makes it read.",
+  "leak": "Every page in the palace; Indra's Net is the page's own image.",
+  "near": "a jewel at every knot reflecting every other jewel",
+  "near_line": 55,
+  "section": "How his mind moves",
+  "sentence": "Leibniz sees wholes reflecting wholes. His universe is made of *monads* — simple, indivisible centers of perception, each one a complete world that contains the",
+  "has_face": false
+ },
+ {
+  "n": 13,
+  "page": "Identity Molting",
+  "path": "Identity Molting.md",
+  "files": [
+   "Identity Molting — cast skins.png"
+  ],
+  "title": "Cast skins",
+  "caption": "Three pages and the face each one shed. The old hero is faded on the left, the one worn now on the right. The old ones are still whole, in git.",
+  "honest": "Read from git history. Only a handful of pages have ever changed their hero; these are three of them.",
+  "leak": "Leverage Points Framework, Blocked Not Prompted and Manim CE lend their old faces.",
+  "near": "A public archive is a trail of cast skins",
+  "near_line": 84,
+  "section": "Molting in Public",
+  "sentence": "a molt happened at all. A public archive is a trail of cast skins.",
+  "has_face": false
+ },
+ {
+  "n": 14,
+  "page": "Mixture of Experts",
+  "path": "Mixture of Experts.md",
+  "files": [
+   "Mixture of Experts — who gets called.png"
+  ],
+  "title": "Who gets called",
+  "caption": "Every page's avatar, sized by how many other pages link to it. Ten pages take a fifth of all the links. Eighteen are never called at all.",
+  "honest": "Links between pages, map build of 2026-11-09. Whether this is the 'expert collapse' the page warns of is a reading, not a count.",
+  "leak": "The whole palace, with Weave Ceremony's hubs up front.",
+  "near": "expert collapse",
+  "near_line": 43,
+  "section": "Current State (2026) — The Neural Substrate",
+  "sentence": "The current research frontier has shifted from scale (more parameters, more experts) to routing reliability: how to ensure the gating mechanism distributes load",
+  "has_face": false
+ },
+ {
+  "n": 15,
+  "page": "The Fortress and the Threshold",
+  "path": "The Fortress and the Threshold.md",
+  "files": [
+   "The Fortress and the Threshold — four poles.png"
+  ],
+  "title": "Four poles, none of them wrong",
+  "caption": "Stoicism, Confucianism, Spinoza Conatus and The Drift at four corners, wearing their own avatars, with a red line wherever the map says one contradicts another. This page sits in the middle holding all four.",
+  "honest": "The four red lines are real 'contradicts' links. 'The striving' and 'no architecture' are my paraphrases of the page.",
+  "leak": "Stoicism, Confucianism, Spinoza Conatus, The Drift.",
+  "near": "The fortress is necessary for survival",
+  "near_line": 69,
+  "section": "The Resolution That Isn't",
+  "sentence": "Both are right about different things. The fortress is necessary for survival. The threshold is necessary for flourishing. A life lived only in the fortress sur",
+  "has_face": false
+ },
+ {
+  "n": 16,
+  "page": "Excellent Adventure",
+  "path": "Modes of Collaboration/Excellent Adventure.md",
+  "files": [
+   "Excellent Adventure — who you can bring into the room.png"
+  ],
+  "title": "Who you can bring into the room",
+  "caption": "The palace's twenty-five people in the order they were born, from Lao Tzu to Rick Rubin, and one empty chair marked 'you, now'.",
+  "honest": "Birth years are from general reference, not all from the pages. Lao Tzu's is traditional and uncertain.",
+  "leak": "All twenty-five People pages.",
+  "near": "Bring a figure, event, or tradition into direct dialogue",
+  "near_line": 48,
+  "section": "The Method",
+  "sentence": "Bring a figure, event, or tradition into direct dialogue. Not \"explain Spinoza's conatus\" but \"Spinoza, I am building a synthesizer patch and I want to understa",
+  "has_face": false
+ },
+ {
+  "n": 17,
+  "page": "Dialectic",
+  "path": "Modes of Collaboration/Dialectic.md",
+  "files": [
+   "Dialectic — every contradiction in the palace.png"
+  ],
+  "title": "Every contradiction in the palace",
+  "caption": "All sixty-one pairs of pages that the map says contradict each other, face to face. Any pair can be put in a room.",
+  "honest": "Every 'contradicts' link between two pages, map build of 2026-11-09.",
+  "leak": "Sixty-one pairs of neighbours.",
+  "near": "Two voices produce tension",
+  "near_line": 70,
+  "section": "What Makes It Different From a Summary",
+  "sentence": "The council is not fixed in size. Two voices produce tension. Three produce triangulation. Voices can enter and exit as the dialogue develops — Plato and Socrat",
+  "has_face": false
+ },
+ {
+  "n": 18,
+  "page": "Hyperdimensional Prism",
+  "path": "Hyperdimensional Prism.md",
+  "files": [
+   "Hyperdimensional Prism — four shadows of one thing.png"
+  ],
+  "title": "Four shadows of one thing",
+  "caption": "Every page sorted by which pillars it names. Fifty-two carry all four. Only four pages carry just one.",
+  "honest": "Read from each page's own frontmatter; thirty-six pages name no pillars and are left out.",
+  "leak": "FOUR PILLARS, whose four names sort the sheet.",
+  "near": null,
+  "near_line": null,
+  "section": null,
+  "sentence": null,
+  "has_face": true
+ },
+ {
+  "n": 19,
+  "page": "Four Pillars of Enchanted Agency",
+  "path": "Palace development/Four Pillars of Enchanted Agency.md",
+  "files": [
+   "Four Pillars of Enchanted Agency — what a page wants at each age.png"
+  ],
+  "title": "What a page wants at each age",
+  "caption": "The page's table drawn as an arc from seed to dormant, each stage showing how many pages live there today and nine of their faces.",
+  "honest": "Stage, pillar and wish are the page's own table, the wishes shortened. Counts from the map build of 2026-11-09.",
+  "leak": "SCHEMA's lifecycle, and the pages living each stage.",
+  "near": "I want to come fully into being",
+  "near_line": 238,
+  "section": "Stage-Pillar Arc",
+  "sentence": "| Seed | **Creation** | *I want to come fully into being* |",
+  "has_face": false
+ },
+ {
+  "n": 20,
+  "page": "Revival Ceremony",
+  "path": "_ops/Revival Ceremony.md",
+  "files": [
+   "Revival Ceremony — the sleepers.png"
+  ],
+  "title": "The sleepers",
+  "caption": "The four pages asleep in the palace today, their heroes greyed, and the four ways in that can wake one.",
+  "honest": "Asleep by the rite's own precondition: stage dormant or composting, or type spore. Map build of 2026-11-09.",
+  "leak": "1 from 2, JSUI, Symbiotic Skills, Walk That Weaves.",
+  "near": "nothing else revives a page",
+  "near_line": 46,
+  "section": "Contract",
+  "sentence": "| **Ways in** | Four, and nothing else revives a page: Loudon says \"revive [entry]\"; a Spore Check decides *revive*; a Daily Page morning decides *revive*; Loud",
+  "has_face": false
+ },
+ {
+  "n": 21,
+  "page": "Songlines",
+  "path": "Songlines.md",
+  "files": [
+   "Songlines — one line, sung.png"
+  ],
+  "title": "One line, sung",
+  "caption": "The longest shortest walk in the palace, seven steps from The Commons to Synthesis Notes, each step labelled with the link that makes it.",
+  "honest": "Named links only; bare 'connects-to' links were left out. One walk of many that long.",
+  "leak": "The eight pages on the walk, FOUR PILLARS at its middle.",
+  "near": "to walk a songline is to re-enact",
+  "near_line": 34,
+  "section": null,
+  "sentence": "Ancestors sang the world into existence; to walk a songline is to re-enact",
+  "has_face": true
+ },
+ {
+  "n": 22,
+  "page": "Christopher Alexander",
+  "path": "People/Christopher Alexander.md",
+  "files": [
+   "Christopher Alexander — a palace is not a tree.png"
+  ],
+  "title": "A palace is not a tree",
+  "caption": "Three hubs and eighteen pages, drawn twice. On the left each page is filed under one parent. On the right every real tie is kept, and the red pages belong to more than one.",
+  "honest": "The right-hand ties are all real links. The left is the same pages with every tie but one thrown away.",
+  "leak": "Kuramoto Coupling, Spinoza Conatus, STIGMERGY and their shared neighbours.",
+  "near": "semi-lattices",
+  "near_line": 69,
+  "section": "The life that shaped the thought",
+  "sentence": "Vienna-born, raised in England, he came to Cambridge on a science scholarship and left with degrees in *both* architecture and mathematics — he never fully left",
+  "has_face": false
+ },
+ {
+  "n": 23,
+  "page": "Weave Ceremony",
+  "path": "_ops/Weave Ceremony.md",
+  "files": [
+   "Weave Ceremony — the quiet ones.png"
+  ],
+  "title": "The quiet ones",
+  "caption": "The sixteen pages with the fewest links, each with its count in and out. A missing connection is an invitation.",
+  "honest": "The map's own counts, build of 2026-11-09.",
+  "leak": "The sixteen themselves; the line is the Jewel's.",
+  "near": "entries with no typed links in either direction",
+  "near_line": 174,
+  "section": "Protocol",
+  "sentence": "- **Orphans** — entries with no typed links in either direction. Flag for connection or composting.",
+  "has_face": false
+ },
+ {
+  "n": 24,
+  "page": "Whitehead",
+  "path": "Whitehead.md",
+  "files": [
+   "Whitehead — a page is built of what it takes up.png"
+  ],
+  "title": "A page is built of what it takes up",
+  "caption": "Whitehead's avatar in the middle of every page it holds a link with. Red for the six it takes up, grey for the seven that take it up in turn, each line naming the link.",
+  "honest": "All thirteen links are real, map build of 2026-11-09.",
+  "leak": "Its thirteen neighbours, Leibniz among them on a 'contradicts'.",
+  "near": "built out of its relations",
+  "near_line": 47,
+  "section": "Core Concepts",
+  "sentence": "**Prehension.** How each occasion takes up the others: it *prehends* (grasps, feels, includes) the occasions in its past and makes them constituents of itself. ",
+  "has_face": false
+ },
+ {
+  "n": 25,
+  "page": "Dub Lineage",
+  "path": "Dub Lineage.md",
+  "files": [
+   "Dub Lineage — the engineer plays.wav",
+   "Dub Lineage — the engineer plays — picture.svg"
+  ],
+  "title": "The engineer plays",
+  "caption": "Two bars of a full riddim. Then parts are pulled: drum and bass alone, then bass alone while an echo goes on repeating a rim shot that is no longer there. Everything returns in the last bar.",
+  "honest": "Synthesized here from nothing; the picture is drawn from the mix's own parts.",
+  "leak": "Retrospective Delay: the echo as memory of what was pulled.",
+  "near": "Subtraction is composition",
+  "near_line": 21,
+  "section": null,
+  "sentence": "> At twelve words ([[Dub Lineage — enrichment — twelve-word-compression|the compression]]): *Subtraction is composition. The mixing board is the instrument. The",
+  "has_face": false
+ },
+ {
+  "n": 26,
+  "page": "Cooking ↔ Mixing",
+  "path": "Cross-Domain Resonances/Cooking ↔ Mixing.md",
+  "files": [
+   "Cooking ↔ Mixing — you cannot un-salt it.wav",
+   "Cooking ↔ Mixing — you cannot un-salt it — picture.svg"
+  ],
+  "title": "You cannot un-salt it",
+  "caption": "A plucked phrase three times: dry, with reverb, and after an honest try at taking the reverb back out. The third is choppier and still wet.",
+  "honest": "The 'taking out' is a simple gate. Better tools exist and they do not get the dry phrase back either.",
+  "leak": "Reverb ↔ Space-Time, the sibling bridge whose effect is the salt.",
+  "near": "You can always add reverb",
+  "near_line": 47,
+  "section": "Irreversible Processes and Subtraction-First Thinking",
+  "sentence": "**In mixing:** You can always add reverb. You cannot perfectly remove it. Experienced engineers process conservatively, listen, adjust.",
+  "has_face": false
+ },
+ {
+  "n": 27,
+  "page": "Rick Rubin",
+  "path": "People/Rick Rubin.md",
+  "files": [
+   "Rick Rubin — clear away what hides it.wav",
+   "Rick Rubin — clear away what hides it — picture.svg"
+  ],
+  "title": "Clear away what hides it",
+  "caption": "Eight layers at once. One leaves each bar: shaker, arpeggio, pad, second guitar, drums, bass. What is left is a voice and one guitar, which were playing the whole time.",
+  "honest": "Synthesized, including the 'voice', which is a buzz through two formants. Nothing is added after bar one.",
+  "leak": "Dub Lineage: subtraction again, but only ever in one direction.",
+  "near": "Rubin's whole method is removal",
+  "near_line": 69,
+  "section": "How his mind moves",
+  "sentence": "Rubin's whole method is removal. The song, he believes, is already finished — it exists, and the work is to clear away everything hiding it, not to add what mig",
+  "has_face": false
+ },
+ {
+  "n": 28,
+  "page": "John Cage",
+  "path": "People/John Cage.md",
+  "files": [
+   "John Cage — the coins decide.wav",
+   "John Cage — the coins decide — picture.svg"
+  ],
+  "title": "The coins decide",
+  "caption": "Sixteen sounds. For each, three coins were thrown six times, as for the I Ching, and the six lines chose the pitch, the length, the loudness, and whether the string is prepared. Two of the sixteen came up silence.",
+  "honest": "Thrown once from the computer's random source and kept as thrown. The mapping from lines to sounds is mine; the result is not.",
+  "leak": "Brian Eno, by the link labelled 'coins-and-tape-loops'.",
+  "near": "coins",
+  "near_line": 66,
+  "section": "How his mind moves",
+  "sentence": "Cage doesn't argue; he re-frames until the problem dissolves and you're laughing. His basic instrument is the flipped question. Not \"is this beautiful?\" but \"wh",
+  "has_face": false
+ },
+ {
+  "n": 29,
+  "page": "Kick Drum ↔ Foundation",
+  "path": "Cross-Domain Resonances/Kick Drum ↔ Foundation.md",
+  "files": [
+   "Kick Drum ↔ Foundation — who was there first.wav",
+   "Kick Drum ↔ Foundation — who was there first — picture.svg"
+  ],
+  "title": "Who was there first",
+  "caption": "The same four bars mixed twice. First the chords and bass are set and the kick is squeezed in last, thin. Then the kick goes in first, whole, and the bass steps back each time it speaks.",
+  "honest": "One arrangement, two orders of decision, both synthesized here. The picture shows only what is below 140 Hz.",
+  "leak": "Sidechain ↔ Conversation: the bass ducking is that bridge at work.",
+  "near": "early foundational decisions constrain all subsequent options",
+  "near_line": 40,
+  "section": "Early Structural Choices Constrain Everything After",
+  "sentence": "**Pattern:** In any complex system, early foundational decisions constrain all subsequent options. The foundation isn't just first—it defines what's possible.",
+  "has_face": false
+ },
+ {
+  "n": 30,
+  "page": "Simondon",
+  "path": "Simondon.md",
+  "files": [
+   "Simondon — a bag of parts, or one part doing several jobs.svg"
+  ],
+  "title": "A bag of parts, or one part doing several jobs",
+  "caption": "Left, four parts with one job each, bolted in a row. Right, one part with four arrows into it, wearing the Haptic Handwheel's avatar.",
+  "honest": "A schematic of the page's sentence. The four jobs are the handwheel's as Palace Philosophies tells them.",
+  "leak": "Haptic Handwheel, the palace's worked case.",
+  "near": "is a bag of separate parts",
+  "near_line": 52,
+  "section": "Core Concepts",
+  "sentence": "**Concretization.** The key evaluative concept. An *abstract* technical object is a bag of separate parts, each doing one job, bolted together. A *concrete* one",
+  "has_face": false
+ },
+ {
+  "n": 31,
+  "page": "How the Palace Commits",
+  "path": "How the Palace Commits.md",
+  "files": [
+   "How the Palace Commits — one door in, one gate out.svg"
+  ],
+  "title": "One door in, one gate out",
+  "caption": "Four branches funnel through one door onto main. At the far end stands a gate with the Sentry's avatar on it, and a dashed arrow out to GitHub that only Loudon's word draws.",
+  "honest": "A drawing of the page's own summary sentence. Nothing is measured.",
+  "leak": "Sentry at the gate; Worktree Practice in the branches.",
+  "near": "The road has one door in and one gate out",
+  "near_line": 50,
+  "section": "The path",
+  "sentence": "*The road has one door in and one gate out: the committer and the lander keep the writing orderly, and only Loudon's word opens the gate to GitHub.*",
+  "has_face": false
+ },
+ {
+  "n": 32,
+  "page": "The Reader's Context Window",
+  "path": "The Reader's Context Window.md",
+  "files": [
+   "The Reader's Context Window — where the eye has to go.svg"
+  ],
+  "title": "Where the eye has to go",
+  "caption": "The same three blocks stacked two ways. With context wedged between question and answers the eye loops back up; with context on top it reads down once.",
+  "honest": "The eye paths are illustrative, not eye-tracking.",
+  "leak": null,
+  "near": "Context above the question",
+  "near_line": 49,
+  "section": "The order",
+  "sentence": "Context above the question, never wedged between the question and its answers — otherwise the eye jumps up for the ask and down for the answer, and the surface ",
+  "has_face": false
+ },
+ {
+  "n": 33,
+  "page": "James Turrell",
+  "path": "People/James Turrell.md",
+  "files": [
+   "James Turrell — it is moving.svg"
+  ],
+  "title": "It is moving",
+  "caption": "A window of colour that drifts from dusk-orange to deep blue over ninety seconds, too slowly to see. Two fixed swatches beside it show where it began and where it is going.",
+  "honest": "Just a slow fade. Whether ninety seconds is slow enough is a guess to tune by eye.",
+  "leak": "Seneca, whom the map says he contradicts: the hourglass is Seneca's avatar.",
+  "near": "A 0.5 dB filter move",
+  "near_line": 74,
+  "section": "Patience as the actual technique",
+  "sentence": "Turrell's changes are engineered to be almost invisible — a degree of color temperature, a fade over ten minutes — and his projects run on decades, not sessions",
+  "has_face": false
+ },
+ {
+  "n": 34,
+  "page": "The View From Above",
+  "path": "The View From Above.md",
+  "files": [
+   "The View From Above — the concern, now a speck.svg"
+  ],
+  "title": "The concern, now a speck",
+  "caption": "One avatar fills the frame. The view pulls back to its neighbours, then to all 329 pages at once, and the red square that marked it has not moved.",
+  "honest": "Avatars in alphabetical order, so who sits beside whom means nothing. The page in the red square is Stoicism.",
+  "leak": "Palace Map: 'the view from above is the Palace Map', so the pull-back ends on the palace.",
+  "near": "Zoom out in space",
+  "near_line": 47,
+  "section": "The Life Face",
+  "sentence": "When a concern has swollen — a setback, a slight, a fixation that has eaten the day — the move is to *change altitude.* Zoom out in space: this room, this city,",
+  "has_face": false
+ },
+ {
+  "n": 35,
+  "page": "Donella Meadows",
+  "path": "People/Donella Meadows.md",
+  "files": [
+   "Donella Meadows — the bathtub.svg"
+  ],
+  "title": "The bathtub",
+  "caption": "One tub filled two ways, with a four-second lag between hand and water. Small turns settle on the line. Yanking the taps swings past it, over the rim, and back to empty.",
+  "honest": "A small simulation written for this figure, not a measurement.",
+  "leak": null,
+  "near": "bathtub",
+  "near_line": 79,
+  "section": "How her mind moves",
+  "sentence": "Show Meadows anything — a company, a fishery, a mix, a marriage, a country — and she stops seeing objects and starts seeing a *system*: stocks (what accumulates",
+  "has_face": false
+ },
+ {
+  "n": 36,
+  "page": "p5.js",
+  "path": "Shop/p5.js.md",
+  "files": [
+   "p5.js — veil, don't clear.png"
+  ],
+  "title": "Veil, don't clear",
+  "caption": "One flock at one moment, drawn two ways. Cleared each frame you see where the birds are. Veiled each frame you also see where they have been.",
+  "honest": "Simulated in numpy to the page's recipe, a 14-alpha wash per frame. It was not rendered in p5.",
+  "leak": "Flocking: the same seed-7 boids the page's first job drew.",
+  "near": "veil, don't clear",
+  "near_line": 142,
+  "section": "Gotchas",
+  "sentence": "- **Fading trails: veil, don't clear.** Draw a low-alpha full-canvas `rect` each frame (`fill(h,s,b,14)` in HSB); `background()` or `clear()` each frame destroy",
+  "has_face": false
+ },
+ {
+  "n": 37,
+  "page": "Tree of Thoughts",
+  "path": "Palace development/Tree of Thoughts.md",
+  "files": [
+   "Tree of Thoughts — a chain cannot go back.svg"
+  ],
+  "title": "A chain cannot go back",
+  "caption": "A chain of five thoughts that went wrong at the second and cannot return to it, beside a tree that drops five dead ends, backs up once, and arrives.",
+  "honest": "A schematic. No model was run.",
+  "leak": null,
+  "near": "replaces the chain with a tree",
+  "near_line": 45,
+  "section": "The Core Argument",
+  "sentence": "Tree of Thoughts replaces the chain with a tree. Each node in the tree is a \"thought\" — a coherent unit of language that represents an intermediate step in reas",
+  "has_face": false
+ },
+ {
+  "n": 38,
+  "page": "The Palace Voice",
+  "path": "The Palace Voice.md",
+  "files": [
+   "The Palace Voice — the dial that drifted.svg"
+  ],
+  "title": "The dial that drifted",
+  "caption": "Em-dashes and bold per thousand words, month by month. Em-dashes climb from 14 to 22 by midsummer, then fall to 15 after the August gate.",
+  "honest": "Counted across every .md at each month's last commit. In this count bold did not rise; the page's 41 and 53 percent were measured some other way.",
+  "leak": "Drift and Consolidation: drift, then the day it got tracked.",
+  "near": "em-dashes rose 41 percent",
+  "near_line": 97,
+  "section": "The dial nobody named, and what it cost",
+  "sentence": "Typography drifted because no dial named it. Against the founding months, em-dashes rose 41 percent and bold 53 percent — a language model's house style, not Lo",
+  "has_face": false
+ },
+ {
+  "n": 39,
+  "page": "Entry Conatus",
+  "path": "Entry Conatus.md",
+  "files": [
+   "Entry Conatus — how the pages begin their wish.svg"
+  ],
+  "title": "How the pages begin their wish",
+  "caption": "The opening words of 311 forward vectors. A hundred begin 'I want to'. Sixty-seven begin 'I am', the opening the page calls a stasis-verb.",
+  "honest": "A count of openings, not a judgment of any page: many 'I am' vectors go on to want something.",
+  "leak": null,
+  "near": "a stasis-verb at the front",
+  "near_line": 52,
+  "section": "The death sentence",
+  "sentence": "These verbs describe a state, not a striving. They give the entry no place to grow into. Even when the *content* of the sentence describes activity, a stasis-ve",
+  "has_face": false
+ },
+ {
+  "n": 40,
+  "page": "Resonant Link Labels",
+  "path": "Palace development/Resonant Link Labels.md",
+  "files": [
+   "Resonant Link Labels — every link, and whether it says how.svg"
+  ],
+  "title": "Every link, and whether it says how",
+  "caption": "One square for each of the 2,323 links between pages, coloured by type. Filled squares carry a label saying how the two pages meet; hollow ones only say that they do. 93 percent are filled.",
+  "honest": "Map build of 2026-11-09, links between pages only, so the total differs from the page's 2,940.",
+  "leak": null,
+  "near": "typed links carrying a resonant label",
+  "near_line": 105,
+  "section": "Forward Vectors",
+  "sentence": "- What label vocabulary do entries that are already in the palace want? — **half answered.** *How much* is measured: the [[Palace Map]] built 2026-10-24 has 67%",
+  "has_face": false
+ }
+]
