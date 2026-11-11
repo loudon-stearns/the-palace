@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 const f = process.argv[2] || fileURLToPath(new URL('../../Inharmonic Wavetable Synthesis — rich — each partial is a loop.html', import.meta.url));
 const html = fs.readFileSync(f, 'utf8');
 const eng = html.split('/*ENGINE-START*/')[1].split('/*ENGINE-END*/')[0];
-const E = new Function(eng + '; return { NP, AXIS, BASE_NOTE, HOMES, makeBody, setHome, place, level, bodyCents, bodyAmps, makeGrip, pull, relax, makeBank, centsOf, closed, missOf };')();
+const E = new Function(eng + '; return { NP, AXIS, BASE_NOTE, HOMES, makeBody, setHome, place, level, bodyCents, bodyAmps, makeGrip, pull, relax, makeBank, centsOf, closed, missOf, PUTTY, PRESETS, puttyFromPad, padFromPutty, tauOf, stepOsc, throwBody, G_MAX, R_MIN, R_MAX };')();
 
 const SR = 48000, N = 1 << 18, TWO_PI = 2 * Math.PI;
 function fft(re, im) {
@@ -94,30 +94,101 @@ let pulledPlaces = null;
   let shut = 0; for (let i = 0; i < E.NP; i++) if (E.closed(E.place(S, i))) shut++;
   lines.push(`      loops still closing: ${shut} of ${E.NP} · the fundamental moved ${E.centsOf(1, rows[0].r).toFixed(2)} c`); }
 
-// 4 · let go: the putty comes home. Run the page's own clock (60 steps a second) through the bank and time it.
-for (const [mode, limit] of [['ooze', 30], ['spring', 12]]) {
+// 4 · let go: the putty comes home. Run the page's own clock (60 frames a second, two steps a frame) through the bank and time it.
+const P = (name, tilt = 0) => ({ tau: E.PRESETS[name].tau, hz: E.PRESETS[name].hz, tilt });
+for (const [mode, limit] of [['ooze', 40], ['spring', 12]]) {
   const { S, bank } = fresh('flat');
   const grip = E.makeGrip(S, 'body', 15); E.pull(S, grip, 3, 0); sound(S, bank);
   render(bank, 0.5);
-  let homeAt = null, peak16 = 0, crossings = 0, lastSign = 1;
+  let homeAt = null, crossings = 0, lastSign = 1;
   render(bank, limit, (t) => {
-    for (let k = 0; k < 2; k++) E.relax(S, 1 / 120, mode, null);
+    for (let k = 0; k < 2; k++) E.relax(S, 1 / 120, P(mode), null);
     sound(S, bank);
     const u = S.u[15]; if (Math.sign(u) && Math.sign(u) !== lastSign) { crossings++; lastSign = Math.sign(u); }
     let home = true; for (let i = 0; i < E.NP; i++) if (S.u[i] !== 0) home = false;
     if (home && homeAt === null) homeAt = t;
   });
-  const rows = compare(`let go · ${mode === 'ooze' ? 'oozes home' : 'springs home'}`, S, bank, homeAt === null ? `NOT home after ${limit} s` : `home, exactly, ${homeAt.toFixed(1)} s after letting go${mode === 'spring' ? ` · swung through home ${crossings} times on the way` : ''}`);
+  const rows = compare(`let go · the "${mode}" preset (τ ${E.PRESETS[mode].tau} s, ${E.PRESETS[mode].hz} Hz)`, S, bank, homeAt === null ? `NOT home after ${limit} s` : `home, exactly, ${homeAt.toFixed(1)} s after letting go${mode === 'spring' ? ` · swung through home ${crossings} times on the way` : ''}`);
   if (homeAt === null) { allPass = false; lines[lines.length - 2] = lines[lines.length - 2].replace('PASS', 'FAIL'); }
   lines.push(...show(rows, [16, 24])); }
 
-// 5 · "stays" keeps the shape
+// 5 · "stays" keeps the shape, thrown or not
 { const { S, bank } = fresh('flat');
   const grip = E.makeGrip(S, 'body', 15); E.pull(S, grip, 3, 0);
-  for (let k = 0; k < 600; k++) E.relax(S, 1 / 60, 'stay', null);
+  for (let k = 0; k < 600; k++) E.relax(S, 1 / 60, P('stay'), null);
   sound(S, bank);
   const rows = compare('let go · stays (10 s later)', S, bank);
   const same = rows.every((r, i) => r.r === pulledPlaces[i]); lines.push(`      shape unchanged after 10 s: ${same}`); if (!same) allPass = false; }
+
+// 5b · the new controls at their extremes: nothing blows up, nothing sticks, everything comes home when the numbers say.
+// Each case: the whole body pulled +3 harmonics and 12 dB down at loop 16, let go (some thrown at the fastest speed the hand is
+// allowed, either way), then the page's clock run at 120 steps a second and again at 20 (a badly dropped frame rate).
+// Failure would be: a value that is not a number; a loop further from home than the spring's own envelope allows
+// (u0 and the throw set it: e^(−t/τ) · √(u0² + ((v0 + u0/τ)/w)²), or (|u0| + |v0 + u0/τ| t) e^(−t/τ) with no wobble);
+// a loop carried more than 3 + 6 harmonics from home by a throw (the pull plus the throw's reach);
+// a drawn place outside the object; a level above the +12 dB the hand is allowed; or a loop not exactly home by
+// 1.2 · τ · (ln(first swing in cents / 0.25) + 3) + 0.5 s, its own loop's τ after tilt.
+{ const X = E.PUTTY; let cases = 0, bad = 0, worstRatio = 0, worstLate = -1e9, worstWhat = '', longest = 0, longestWhat = '', topLevel = -1e9, farthest = 0;
+  let stepErr = 0;
+  for (const tau of [X.T_MIN, 0.8, 2.5, X.T_MAX]) for (const hz of [0, X.F_MIN, 2.2, X.F_MAX]) for (const tilt of [-1, 0, 1]) for (const thr of [0, X.THROW_MAX * 4, -X.THROW_MAX * 4]) for (const dt of [1 / 120, 1 / 20]) {
+    cases++;
+    const S = E.makeBody('flat'), Pp = { tau, hz, tilt };
+    const grip = E.makeGrip(S, 'body', 15); E.pull(S, grip, 3, -12); E.throwBody(S, grip, thr, Pp);
+    const u0 = Float64Array.from(S.u), v0 = Float64Array.from(S.v);
+    const due = [], env = [];
+    for (let m = 0; m < E.NP; m++) { const tm = E.tauOf(Pp, m), a = 1 / tm, wd = 2 * Math.PI * hz, k = v0[m] + a * u0[m];
+      env.push(wd > 0 ? (t) => Math.exp(-a * t) * Math.hypot(u0[m], k / wd) : (t) => Math.exp(-a * t) * (Math.abs(u0[m]) + Math.abs(k) * t));
+      const first = Math.max(Math.abs(u0[m]), Math.abs(k) / Math.hypot(a, wd), Math.abs(v0[m]) * tm), c0 = 1200 * Math.log2((S.R0[m] + first) / S.R0[m]);
+      const g0 = 12 * grip.w[m];
+      due.push(1.2 * tm * (Math.log(Math.max(1, c0 / 0.25, g0 / 0.05)) + 3) + 0.5); }
+    const end = Math.max(...due) + 1; let t = 0, ok = true; const homeAt = new Array(E.NP).fill(null);
+    for (let m = 0; m < E.NP; m++) if (S.u[m] === 0 && S.g[m] === 0) homeAt[m] = 0;
+    while (t < end) {
+      E.relax(S, dt, Pp, null); t += dt;
+      for (let m = 0; m < E.NP; m++) {
+        const u = S.u[m];
+        if (!Number.isFinite(u) || !Number.isFinite(S.v[m]) || !Number.isFinite(S.g[m]) || !Number.isFinite(S.gv[m])) ok = false;
+        const lim = env[m](t); if (Math.abs(u) > lim * (1 + 1e-9) + 1e-12) { ok = false; }
+        if (lim > 1e-9) worstRatio = Math.max(worstRatio, Math.abs(u) / lim);
+        const r = E.place(S, m); if (!(r >= E.R_MIN && r <= E.R_MAX)) ok = false; farthest = Math.max(farthest, Math.abs(u));
+        topLevel = Math.max(topLevel, 20 * Math.log10(E.level(S, m) / S.A0[m]));
+        if (homeAt[m] === null && S.u[m] === 0 && S.g[m] === 0) homeAt[m] = t;
+      }
+    }
+    for (let m = 0; m < E.NP; m++) {
+      if (homeAt[m] === null) { ok = false; worstLate = Infinity; worstWhat = `τ ${tau} hz ${hz} tilt ${tilt} throw ${thr} dt ${dt.toFixed(4)} loop ${m + 1} never home`; continue; }
+      const late = homeAt[m] - due[m]; if (late > worstLate) { worstLate = late; worstWhat = `τ ${tau} s, ${hz} Hz, tilt ${tilt}, throw ${thr}, loop ${m + 1}: home at ${homeAt[m].toFixed(2)} s, due by ${due[m].toFixed(2)} s`; }
+      if (late > 0) ok = false;
+      if (homeAt[m] > longest) { longest = homeAt[m]; longestWhat = `τ ${tau} s, ${hz} Hz, tilt ${tilt}, throw ${thr}, loop ${m + 1}`; }
+    }
+    if (topLevel > E.G_MAX + 1e-9 || farthest > 9.001) ok = false;
+    if (!ok) bad++;
+  }
+  // the step is the exact solution: 600 small steps must land where one big step does
+  for (const [a, wd] of [[20, 0], [20, 75.4], [0.05, 0], [0.05, 75.4], [1.25, 13.8]]) { let u = 3, v = -40; for (let k = 0; k < 600; k++) [u, v] = E.stepOsc(u, v, a, wd, 1 / 120); const one = E.stepOsc(3, -40, a, wd, 5); stepErr = Math.max(stepErr, Math.abs(u - one[0]), Math.abs(v - one[1])); }
+  const pass = bad === 0 && stepErr < 1e-9; if (!pass) allPass = false;
+  lines.push(`${pass ? 'PASS' : 'FAIL'}  the pad, the tilt and the throw at their extremes · ${cases} cases (τ ${X.T_MIN}–${X.T_MAX} s × wobble 0–${X.F_MAX} Hz × tilt −1, 0, +1 × thrown or not × 120 and 20 steps a second), ${bad} failed`);
+  lines.push(`      furthest any loop got from home: ${farthest.toFixed(2)} harmonics (drawn and played clamped to ${E.R_MIN}–${E.R_MAX}) · most of its allowed envelope any loop used: ${(worstRatio * 100).toFixed(4)} %`);
+  lines.push(`      highest level on the way: ${topLevel >= 0 ? '+' : ''}${topLevel.toFixed(2)} dB (the hand's ceiling is +${E.G_MAX})`);
+  lines.push(`      nearest to late: ${worstWhat} (${worstLate.toFixed(2)} s)`);
+  lines.push(`      slowest home: ${longest.toFixed(1)} s · ${longestWhat}`);
+  lines.push(`      600 small steps against one 5 s step: differ by ${stepErr.toExponential(1)}`);
+  // pad round trip and its corners
+  const corners = [[0, 0], [1, 1], [0.94 - 1e-9, 1], [0.5, 0.5]].map(([x, y]) => { const p = E.puttyFromPad(x, y), b = E.padFromPutty(p), q = E.puttyFromPad(b.x, b.y); return `(${x.toFixed(2)}, ${y.toFixed(2)}) → τ ${p.tau === Infinity ? 'stays' : p.tau.toFixed(3) + ' s'}, ${p.hz.toFixed(2)} Hz${(q.tau === p.tau || Math.abs(q.tau - p.tau) < 1e-9 * p.tau) && Math.abs(q.hz - p.hz) < 1e-9 ? '' : ' ROUND TRIP FAILS'}`; });
+  lines.push('      pad corners: ' + corners.join(' · ')); if (corners.join('').includes('FAILS')) allPass = false; }
+
+// 5c · the fastest, wildest return, heard: τ 20 s with a 12 Hz wobble, top 4× later, thrown as hard as the hand can; then quick home.
+{ const { S, bank } = fresh('flat');
+  const Pp = { tau: E.PUTTY.T_MAX, hz: E.PUTTY.F_MAX, tilt: -1 };
+  const grip = E.makeGrip(S, 'body', 15); E.pull(S, grip, 3, 12); E.throwBody(S, grip, E.PUTTY.THROW_MAX, Pp); sound(S, bank);
+  let peak = 0, finite = true;
+  const y1 = render(bank, 8, () => { for (let k = 0; k < 2; k++) E.relax(S, 1 / 120, Pp, null); sound(S, bank); });
+  for (const v of y1) { if (!Number.isFinite(v)) finite = false; peak = Math.max(peak, Math.abs(v)); }
+  S.homing = 1;
+  render(bank, 4, () => { for (let k = 0; k < 2; k++) E.relax(S, 1 / 120, Pp, null); sound(S, bank); });
+  const rows = compare('wildest setting, thrown, 8 s of it rendered, then sent home', S, bank, `output finite: ${finite} · peak ${peak.toFixed(3)} of full scale before the compressor`);
+  if (!finite || peak > 1) { allPass = false; lines[lines.length - 2] = lines[lines.length - 2].replace('PASS', 'FAIL'); }
+  lines.push('      failure would have been a sample that is not a number, a peak over 1.0, or any loop not back on its harmonic'); }
 
 // 6 · the other two homes, untouched, and the bell with a hand on it
 { const { S, bank } = fresh('string');

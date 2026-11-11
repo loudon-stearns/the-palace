@@ -57,6 +57,7 @@ async function chain(page, label) {           // picture against the running wor
   return { st, pr };
 }
 async function drag(page, n, dx, dy, opts = {}) {
+  await page.evaluate(() => scrollTo(0, 0));          // a click on a control below the fold scrolls the page; the hand needs the object on screen
   const st = await state(page), L = st.loops[n - 1];
   const x0 = st.box.x + L.x, y0 = st.box.vy + (opts.below ? L.bottom + 6 : L.top - 6);
   if (opts.shift) await page.keyboard.down('Shift');
@@ -136,6 +137,52 @@ say('phone 390 × 844 @2x');
   await shot(page, '13-phone-one-loop-nudged', false);
   await page.mouse.up();
   await page.context().close(); }
+
+// ── the return, held in the hand: the pad, the tilt, a throw ──
+async function padPlay(page, tag) {
+  await page.click('#wake'); await page.waitForTimeout(700);
+  await page.locator('#pad').scrollIntoViewIfNeeded();
+  await shot(page, tag + '-pad-at-rest');
+  const b = await page.locator('#pad').boundingBox();
+  await page.mouse.move(b.x + b.width * 0.2, b.y + b.height * 0.9); await page.mouse.down();   // (screen y runs down: 0.9 is near the bottom, little wobble)
+  for (let k = 1; k <= 10; k++) { await page.mouse.move(b.x + b.width * (0.2 + 0.35 * k / 10), b.y + b.height * (0.9 - 0.55 * k / 10)); await page.waitForTimeout(16); }
+  await page.mouse.up();
+  await page.evaluate(() => { const t = document.getElementById('tilt'); t.value = 1; t.dispatchEvent(new Event('input')); });
+  const set = await page.evaluate(() => ({ ...window.__loops.UI.putty, say: document.getElementById('puttysay').textContent }));
+  say(`   pad dragged to (0.55, 0.65), tilt +1: τ ${set.tau.toFixed(3)} s · ${set.hz.toFixed(2)} Hz · tilt ${set.tilt} · it says "${set.say}"`);
+  if (!(set.tau > 0.05 && set.tau < 20 && set.hz > 0.3 && set.hz < 12)) fail = true;
+  // a throw: grab loop 14 and let go mid-flight
+  await page.evaluate(() => scrollTo(0, 0));
+  const st = await state(page), L = st.loops[13], x0 = st.box.x + L.x, y0 = st.box.vy + L.top - 6;
+  await page.mouse.move(x0, y0); await page.mouse.down();
+  for (let k = 1; k <= 6; k++) { await page.mouse.move(x0 + 10 * k, y0); await page.waitForTimeout(16); }
+  const held = (await state(page)).loops[13].r;
+  await page.mouse.up();
+  let far = held; for (let k = 0; k < 12; k++) { await page.waitForTimeout(16); far = Math.max(far, (await state(page)).loops[13].r); }
+  const thrown = await page.evaluate(() => window.__loops.UI.lastThrow);
+  const ok = thrown > 1 && far > held + 0.05; if (!ok) fail = true;
+  say(`   ${ok ? 'PASS' : 'FAIL'} a throw: let go at ${held.toFixed(2)} × f0 moving ${thrown.toFixed(1)} harmonics a second; the loop carried on to ${far.toFixed(2)} before turning back`);
+  await shot(page, tag + '-pad-in-use-thrown');
+  await page.waitForTimeout(14000);
+  const home = await page.evaluate(() => { let n = 0; for (const u of window.__loops.S.u) if (u === 0) n++; return n; });
+  say(`   14 s later, loops exactly home: ${home} of 24`); if (home !== 24) fail = true;
+  await chain(page, tag + ', home after the throw');
+  // the corners of the pad, each with a pull and a release: nothing may stick or go wild
+  for (const [px, py, name] of [[0.01, 0.99, 'quickest, no wobble'], [0.01, 0.02, 'quickest, fastest wobble'], [0.93, 0.02, 'slowest, fastest wobble'], [0.99, 0.5, 'stays']]) {
+    await page.locator('#pad').scrollIntoViewIfNeeded(); const bb = await page.locator('#pad').boundingBox();
+    await page.mouse.click(bb.x + bb.width * px, bb.y + bb.height * py);
+    await drag(page, 10, 30, 0); await page.mouse.up(); await page.waitForTimeout(700);
+    const v = await page.evaluate(() => { const S = window.__loops.S; let worst = 0, bad = false; for (let i = 0; i < 24; i++) { if (!Number.isFinite(S.u[i]) || !Number.isFinite(S.v[i])) bad = true; worst = Math.max(worst, Math.abs(S.u[i])); } return { worst, bad, say: document.getElementById('puttysay').textContent }; });
+    const good = !v.bad && v.worst < 12; if (!good) fail = true;
+    say(`   ${good ? 'PASS' : 'FAIL'} pad corner · ${name} ("${v.say}"): 0.7 s after letting go the furthest loop is ${v.worst.toFixed(3)} harmonics from home`);
+    await page.click('#home'); await page.waitForTimeout(1800);
+  }
+  await page.locator('#pad').scrollIntoViewIfNeeded();
+}
+say('the pad, desktop');
+{ const page = await open(1130, 900); await padPlay(page, '15-desk'); await page.context().close(); }
+say('the pad, phone');
+{ const page = await open(390, 844, 2); await padPlay(page, '17-phone'); await page.context().close(); }
 
 // ── in the face ──
 say('in the face, 1280 × 900');
