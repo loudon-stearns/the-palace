@@ -55,3 +55,11 @@ Nothing below has been written to any page. A change to what a page says goes ho
 25. **[[Metaphor as Coupling Medium]]**. Its forward vector asks for a catalogue of metaphors that did real work in sessions; the page already holds the first (the ant colony, then pheromone trails, then the Swarm Weave's second phase). That is the piece that belongs there. (E)
 26. **[[Cross-Domain Resonances]]**. The sheet retired from Metaphor as Coupling Medium, the eleven bridges with their avatars, is a fair face for this hub, which has none. It is on the nominations baton for full enrichment; the workshop keeps the file. (E)
 27. **[[Leibniz]]**. Unchecked, from a challenger's memory: his own clock analogy may give mutual influence as one of three ways two clocks agree. If so, the page could say it in a clause. (A)
+
+## Found by the third batch's remakers
+
+Three more, from the two dispatched makers who remade the third batch, as relayed by the working session. Unchecked here.
+
+28. **[[Epictetus]]**. The page quotes Marcus's line with an elision that is not marked.
+29. **[[Source Library]]**. Its forward vector names Schafer, one of the sixteen voices with no page; and one of its 36 "voices" is a film.
+30. **[[BBS Blackboard]]**. The board's file also lost 113 lines on 2026-05-04, before the re-seed of 2026-06-16.

@@ -13,24 +13,43 @@ for e in EDGES: links[e["source"]].append((e["target"], e["type"], True)); links
 def has(a, b, typ): return any(t == b and ty == typ for t, ty, _ in links[a])
 
 
+def footw(s, *lines, width=130):
+    """A local footer for the remakes: wraps at 130 characters so nothing runs off the 1,840 px sheet."""
+    import textwrap
+    ws = [w for l in lines for w in textwrap.wrap(l, width)]
+    for i, w in enumerate(ws): s.d.text((80, s.h - 48 - 30 * (len(ws) - 1 - i)), w, font=font(21), fill=rgb(INK3))
+    return len(ws)
+
+
 # 1 ── Stoicism: three teachers, three tools ────────────────────────────────
 def stoa():
-    s = Sheet(1120, "Three teachers, three tools", "Stoicism as the palace holds it: the people who taught it, and the moves it left behind."); S = 250
-    T = [("Seneca", "the statesman"), ("Epictetus", "born a slave"), ("Marcus Aurelius", "the emperor")]; xs = [330, 795, 1260]
+    # Remade after challenge E: each discipline sits under the teacher the page ties it to, and only those two ties are drawn.
+    s = Sheet(1150, "Three teachers, three tools", "Which teacher the page ties to which of its three disciplines."); S = 250
+    T = [("Seneca", "a statesman"), ("Epictetus", "a slave"), ("Marcus Aurelius", "an emperor")]; xs = [330, 795, 1260]
     for (t, sub), x in zip(T, xs):
-        s.paste(icon(t, S), (x, 200), frame=INK, width=3); s.text((x + S / 2, 200 + S + 12), t, 24, INK, "ma", True); s.text((x + S / 2, 200 + S + 44), sub, 20, INK3, "ma")
-    s.line([(xs[1] + S + 14, 325), (xs[2] - 14, 325)], INK, 3); s.line([(xs[2] - 30, 313), (xs[2] - 14, 325), (xs[2] - 30, 337)], INK, 3)
-    s.text(((xs[1] + S + xs[2]) / 2, 286), "kept his words", 19, INK2, "ma"); s.text(((xs[1] + S + xs[2]) / 2, 340), "beside his bed", 19, INK2, "ma")
-    if has("Seneca", "Epictetus", "contradicts"):
-        s.line([(xs[0] + S + 14, 325), (xs[1] - 14, 325)], RED, 3); s.text(((xs[0] + S + xs[1]) / 2, 290), "contradicts", 19, RED, "ma", True)
-    tools = [("The Dichotomy of Control", "what is yours to move"), ("The View From Above", "change altitude"), ("The Four Virtues", "what a good choice passes")]
-    for (t, sub), x in zip(tools, xs):
-        s.line([(x + S / 2, 200 + S + 80), (x + S / 2, 640)], RULE, 2)
-        s.paste(icon(t, 200), (x + 25, 640), frame=INK); s.text((x + S / 2, 852), t, 22, INK, "ma", True); s.text((x + S / 2, 882), sub, 19, INK3, "ma")
-    s.text((80, 590), "THE MOVES", 22, RED, bold=True); s.text((80, 200), "THE PEOPLE", 22, RED, bold=True)
-    s.foot("Epictetus wrote nothing; Marcus kept a copy of his student's notes beside his bed on campaign, as the page tells it.",
-           f"The red tie is a 'contradicts' link in the map build of {MAPDATE}. The one-line glosses under each avatar are mine.")
+        s.paste(icon(t, S), (x, 200), frame=INK, width=3); s.text((x + S / 2, 200 + S + 12), t, 24, INK, "ma", True); s.text((x + S / 2, 200 + S + 46), sub, 22, INK3, "ma")
+    mid = (xs[1] + S + xs[2]) / 2                                # between Epictetus and Marcus: the copy by the bed, and the contradiction
+    s.line([(xs[1] + S + 14, 262), (xs[2] - 14, 262)], INK, 3); s.line([(xs[2] - 30, 250), (xs[2] - 14, 262), (xs[2] - 30, 274)], INK, 3)
+    s.text((mid, 222), "kept his words", 22, INK2, "ma"); s.text((mid, 272), "beside his bed", 22, INK2, "ma")
+    ties = [(a, b) for a, b in (("Seneca", "Epictetus"), ("Epictetus", "Marcus Aurelius")) if has(a, b, "contradicts")]
+    for a, b in ties:
+        i = [t for t, _ in T].index(a); y = 325 if i == 0 else 392
+        s.line([(xs[i] + S + 14, y), (xs[i + 1] - 14, y)], RED, 3); s.text(((xs[i] + S + xs[i + 1]) / 2, y + (-36 if i == 0 else 8)), "contradicts", 22, RED, "ma", True)
+    tools = [("The Four Virtues", "wisdom, justice, courage, temperance", None),
+             ("The Dichotomy of Control", "some things are up to us", ("discovered the fortress,", "the seed of this")),
+             ("The View From Above", "the empire itself looks small", ("practices", "looking down"))]
+    for (t, sub, why), x in zip(tools, xs):
+        if why:
+            s.line([(x + S / 2, 200 + S + 88), (x + S / 2, 660)], INK, 3)
+            s.text((x + S / 2 + 18, 566), why[0], 22, INK2); s.text((x + S / 2 + 18, 596), why[1], 22, INK2)
+        else:
+            s.text((x + S / 2, 566), "the page names", 22, INK3, "ma"); s.text((x + S / 2, 596), "no one teacher", 22, INK3, "ma")
+        s.paste(icon(t, 200), (x + 25, 660), frame=INK); s.text((x + S / 2, 872), t, 24, INK, "ma", True); s.text((x + S / 2, 906), sub, 21, INK3, "ma")
+    s.text((80, 200), "THE", 22, RED, bold=True); s.text((80, 228), "PEOPLE", 22, RED, bold=True); s.text((80, 660), "THE", 22, RED, bold=True); s.text((80, 688), "DISCIPLINES", 22, RED, bold=True)
+    footw(s, "Each gloss under a name is the page's own wording. The two black rules are the page's ties: the fortress Epictetus discovered is 'the seed of' the dichotomy, and 'Marcus practices looking down'.",
+          f"The two red ties are 'contradicts' links in the map build of {MAPDATE}. They are declared on the people's pages, not in this page's text.")
     s.save("Stoicism — three teachers, three tools.png")
+    return ties
 
 
 # 2 ── Metaphor as Coupling Medium: ten bridges ─────────────────────────────
@@ -48,18 +67,45 @@ def bridges():
 
 # 3 ── Source Library: the shelf ────────────────────────────────────────────
 def shelf():
-    mem = sorted({t for t, ty, out in links["Source Library"] if not out} | {t for t, n in NODES.items() if n["type"] == "source"})
-    mem = [t for t in mem if asset(t, "hero")]; sw, sh = 54, 640
-    s = Sheet(960, "The shelf", f"{len(mem)} sources, each shown as the spine of its own hero.")
-    x = (1840 - len(mem) * (sw + 4)) // 2
-    for t in mem:
-        h = Image.open(asset(t, "hero")).convert("RGB"); h = h.resize((round(h.width * sh / h.height), sh), Image.LANCZOS)
-        cx = h.width // 2; s.paste(h.crop((cx - sw // 2, 0, cx + sw // 2, sh)), (x, 200), frame=INK, width=1)
-        x += sw + 4
-    s.d.rectangle([60, 200 + sh + 2, 1780, 200 + sh + 6], fill=rgb(INK))
-    s.foot("Every page linked into Source Library, plus the pages of type 'source', in alphabetical order.", f"Each spine is a strip cut from the middle of that page's hero. Map build of {MAPDATE}.")
+    """Remade after challenge E: the page's own role list, 36 names, each a lettered spine; a name with no page is a blank spine."""
+    body = open(os.path.join(ROOT, "Source Library.md")).read().split("## Organization by Role")[1].split("## How Sources Connect")[0]
+    short_role = {"Systems Thinkers": "SYSTEMS", "Philosophers of Practice": "PRACTICE", "Musicians & Sound Thinkers": "SOUND", "Artists & Makers": "MAKERS",
+                  "Writers on Craft & Creativity": "WRITERS", "Filmmakers": "FILM", "Scientists & Classical Sources": "SCIENCE"}
+    groups = []
+    for l in body.splitlines():
+        if l.startswith("### "): groups.append((l[4:].strip(), []))
+        m = re.match(r"- \*+(.+?)\*+", l)
+        if m: groups[-1][1].append(m.group(1).split(",")[0].strip("* "))
+    names = [n for _, g in groups for n in g]; paged = [n for n in names if n in NODES and os.path.exists(os.path.join(ROOT, NODES[n]["path"]))]
+    assert len(paged) == sum(os.path.exists(os.path.join(ROOT, "People", n + ".md")) for n in names)      # counted a second way, from the People folder
+    sw, gap, ggap, sh, top, strip = 40, 4, 26, 510, 190, 170
+    s = Sheet(920, "The shelf", f"The {len(names)} names in the page's role list. {len(paged)} have a page in the palace; {len(names) - len(paged)} are still only a name.")
+    x = (1840 - (len(names) * (sw + gap) - gap + (len(groups) - 1) * ggap)) // 2
+    def spine_label(name, col, bold):
+        f = font(22, bold); w = int(s.d.textlength(name, font=f)) + 8; im = Image.new("RGB", (w, 30), rgb(PAPER)); ImageDraw.Draw(im).text((4, 15), name, font=f, fill=rgb(col), anchor="lm")
+        return im.rotate(270, expand=True)
+    for role, g in groups:
+        x0 = x
+        for n in g:
+            has_page = n in paged
+            if has_page:
+                h = Image.open(asset(n, "hero")).convert("RGB"); h = h.resize((round(h.width * strip / h.height), strip), Image.LANCZOS); cx = h.width // 2
+                s.im.paste(h.crop((cx - sw // 2, 0, cx + sw // 2, strip)), (x, top)); s.d.line([(x, top + strip), (x + sw - 1, top + strip)], fill=rgb(INK), width=2)
+                s.d.rectangle([x - 1, top - 1, x + sw, top + sh], outline=rgb(INK), width=2)
+            else:
+                for yy in range(top, top + sh, 14):                                   # a dashed outline: the place is kept, the book is not there
+                    s.d.line([(x - 1, yy), (x - 1, min(top + sh, yy + 7))], fill=rgb(INK3), width=2); s.d.line([(x + sw, yy), (x + sw, min(top + sh, yy + 7))], fill=rgb(INK3), width=2)
+                s.d.line([(x - 1, top - 1), (x + sw, top - 1)], fill=rgb(INK3), width=2)
+            lab = spine_label(n, INK if has_page else INK3, has_page); s.im.paste(lab, (x + (sw - lab.width) // 2, top + strip + 16))
+            x += sw + gap
+        x1 = x - gap; k = sum(n in paged for n in g)
+        s.text(((x0 + x1) / 2, top + sh + 24), short_role[role], 21, INK, "ma", True); s.text(((x0 + x1) / 2, top + sh + 54), f"{k} of {len(g)}", 22, RED if k < len(g) else INK2, "ma", True)
+        x += ggap - gap
+    s.d.rectangle([60, top + sh + 2, 1780, top + sh + 7], fill=rgb(INK))
+    footw(s, "Each spine is one bullet of 'Organization by Role', in the page's order. A solid spine carries a strip cut from the middle of that page's hero; a dashed one has no page yet.",
+          f"Map build of {MAPDATE}. The shelf labels shorten the page's seven headings. The red counts are the shelves with gaps.")
     s.save("Source Library — the shelf.png")
-    return len(mem)
+    return len(names), len(paged), [(short_role[r], sum(n in paged for n in g), len(g)) for r, g in groups]
 
 
 # 4 ── Project Stewardship System: waiting on an ear ────────────────────────
@@ -81,24 +127,38 @@ def ears():
 
 # 5 ── BBS Blackboard: nothing is ever erased ───────────────────────────────
 def board():
-    rows = []
+    """Remade after challenge E: squares in true time order. Reads only each line's `ts` and `type`; no message text is read, kept or drawn."""
+    import datetime
+    UTC = datetime.timezone.utc; cut = datetime.datetime(2026, 11, 11, tzinfo=UTC); rows = []
     for l in open(os.path.join(ROOT, "_ops/swarm/persistent/blackboard.jsonl")):
-        try: o = json.loads(l); rows.append((str(o.get("ts", ""))[:10], o.get("type") or "?"))
-        except ValueError: pass
-    rows.sort(); pal = {"BROADCAST": INK3, "REPLY": "#2b5fb0", "RESOURCE_REQUEST": RED, "RESOURCE_GRANT": "#3a7d2c", "FLAG": "#a8730a", "PROOF": "#6a47b8", "RETRACT": INK}
-    cols, c = 70, 24; nrows = math.ceil(len(rows) / cols); s = Sheet(210 + nrows * c + 190, "Nothing is ever erased", f"Every message on the palace's blackboard, in the order it was written: {len(rows):,} of them.")
-    last = None
-    for i, (d, ty) in enumerate(rows):
-        r, col = divmod(i, cols); x, y = 150 + col * c, 200 + r * c
-        s.d.rectangle([x, y, x + c - 5, y + c - 5], fill=rgb(pal.get(ty, RULE)))
-        if d[:7] != last and col < cols: s.text((140, y + 9), d[:7], 17, INK2, "rm"); last = d[:7]
-    y = 200 + nrows * c + 24; x = 150; cnt = collections.Counter(t for _, t in rows)
-    for ty, n in cnt.most_common(7):
-        s.d.rectangle([x, y, x + 20, y + 20], fill=rgb(pal.get(ty, RULE))); lab = f"{ty.lower().replace('_', ' ')} {n}"; s.text((x + 28, y - 1), lab, 19, INK2); x += 50 + 11.5 * len(lab)
-    s.foot("One square per message; only its date and type were read, never its words. The month label marks where each month begins.",
-           f"Read from the live board on 2026-11-10. A retraction is a new black square: the thing it retracts is still there above it.")
+        if not l.strip(): continue
+        try: o = json.loads(l)
+        except ValueError: continue
+        ts, ty = o.get("ts"), o.get("type") or "?"; del o
+        try: t = datetime.datetime.fromisoformat(str(ts).replace("Z", "+00:00")).astimezone(UTC)   # the board mixes -04:00 and Z stamps
+        except ValueError: continue
+        if t < cut: rows.append((t, ty))
+    rows.sort(key=lambda r: r[0])
+    pal = {"BROADCAST": RULE, "REPLY": "#2b5fb0", "RESOURCE_REQUEST": RED, "RESOURCE_GRANT": "#3a7d2c", "FLAG": "#d08a00", "PROOF": "#6a47b8", "RETRACT": INK, "SESSION_INIT": "#17a3a3", "SESSION_CLOSE": "#17a3a3"}
+    cols, c = 70, 23; nrows = math.ceil(len(rows) / cols); top = 200
+    s = Sheet(top + nrows * c + 300, "Appended, never edited", f"The {len(rows):,} messages on the palace's blackboard since it was re-seeded on 2026-06-16, in the order of their time stamps.")
+    marks = collections.OrderedDict()
+    for i, (t, ty) in enumerate(rows):
+        r, col = divmod(i, cols); x, y = 190 + col * c, top + r * c
+        s.d.rectangle([x, y, x + c - 5, y + c - 5], fill=rgb(pal.get(ty, FILL)))
+        m = t.strftime("%b")
+        if m not in [v for vs in marks.values() for v in vs]:
+            marks.setdefault(r, []).append(m); s.d.rectangle([x - 4, y - 2, x - 2, y + c - 3], fill=rgb(INK))      # a black bar where a month begins
+    for r, ms in marks.items(): s.text((176, top + r * c + 9), ", ".join(ms), 21, INK2, "rm")
+    cnt = collections.Counter(t for _, t in rows); y = top + nrows * c + 26; x = 190
+    for k, (ty, n) in enumerate(cnt.most_common()):
+        lab = f"{ty.lower().replace('_', ' ')} {n:,}"; w = 34 + s.d.textlength(lab, font=font(21)) + 40
+        if x + w > 1800: x = 190; y += 36
+        s.d.rectangle([x, y, x + 22, y + 22], fill=rgb(pal.get(ty, FILL))); s.text((x + 32, y - 1), lab, 21, INK2); x += w
+    footw(s, "One square per message. Only each message's time and kind were read, never its words. Read 2026-11-11, messages stamped before that day (UTC). The colours are the maker's.",
+          f"The {cnt['RETRACT']} black squares are retractions. A retraction is a new message; the challenger found all {cnt['RETRACT']} retracted messages still on the board. 'Never edited' is the page's rule for agents. Git shows the file itself re-seeded on 2026-06-16, one malformed line removed on 2026-07-08, and 54 lines rewritten on 2026-09-25.")
     s.save("BBS Blackboard — nothing is ever erased.png")
-    return len(rows), dict(cnt)
+    return len(rows), dict(cnt), {r: m for r, m in marks.items()}
 
 
 # 6 ── Baton Ceremony: batons in the air ────────────────────────────────────
@@ -122,23 +182,35 @@ def batons():
 
 # 7 ── Epictetus: against the room ──────────────────────────────────────────
 def epictetus():
-    c = "Epictetus"; ring = [(t, ty, o) for t, ty, o in links[c] if ty != "connects-to"]
-    ring.sort(key=lambda r: (r[1] != "contradicts", r[1], r[0])); n = len(ring)
-    s = Sheet(1420, "Against the room", "Epictetus and every page that holds a named link with him."); cx, cy, S = 920, 740, 140
-    for i, (t, ty, o) in enumerate(ring):
-        a = -math.pi / 2 + 2 * math.pi * i / n; x, y = cx + 500 * math.cos(a), cy + 480 * math.sin(a); red = ty == "contradicts"
-        s.line([(cx, cy), (x, y)], RED if red else INK3, 4 if red else 2)
-        mx, my = cx + 290 * math.cos(a), cy + 280 * math.sin(a); tw = s.d.textlength(ty, font=font(17, True))
-        s.d.rectangle([mx - tw / 2 - 6, my - 13, mx + tw / 2 + 6, my + 13], fill=rgb(PAPER)); s.text((mx, my), ty, 17, RED if red else INK3, "mm", True)
-        s.paste(icon(t, S), (x - S / 2, y - S / 2), frame=RED if red else INK, width=3 if red else 2); s.text((x, y + S / 2 + 8), short(t, 16), 17, INK2, "ma")
-    s.paste(icon(c, 240), (cx - 120, cy - 120), frame=INK, width=4)
-    k = sum(1 for r in ring if r[1] == "contradicts")
-    q = collections.Counter(); [q.update([a, b]) for a, b in ((e["source"], e["target"]) for e in EDGES if e["type"] == "contradicts")]
-    rank = [t for t, _ in q.most_common() if NODES[t]["type"] == "person"]; top = rank[0] == c and q[rank[0]] > q[rank[1]]
-    s.foot(f"{k} of his {n} named links are 'contradicts'" + (": more quarrels than any other person in the palace." if top else f" (the most among the people is {rank[0]}, with {q[rank[0]]}).") + f" Map build of {MAPDATE}.",
-           "He was owned, lame, and exiled, and taught that none of it could touch what was his. The room has objections.")
+    """Remade after challenge E: all ten links drawn, each with the name its page gives it; the tie with Heidegger said plainly."""
+    import textwrap
+    c = "Epictetus"; mine = [(e["target"], e["type"], e.get("label") or "", True) for e in EDGES if e["source"] == c] + [(e["source"], e["type"], e.get("label") or "", False) for e in EDGES if e["target"] == c]
+    assert len(mine) == len(links[c])                                                         # counted a second way, from the adjacency built at the top
+    red = [m for m in mine if m[1] == "contradicts"]; rest = [m for m in mine if m[1] != "contradicts"]
+    red.sort(key=lambda m: (m[0] != "Marcus Aurelius", not m[3], m[0])); rest.sort(key=lambda m: (m[1] != "connects-to", m[1], m[0]))
+    rowsn = max(len(red), len(rest)); S, pitch, top = 130, 185, 215; cx, cy = 920, top + ((rowsn - 1) * pitch + S) / 2
+    s = Sheet(top + (rowsn - 1) * pitch + S + 215, "Pressed from five sides", f"Epictetus and all {len(mine)} of his links. {len(red)} are contradictions, each named here as its link names it.")
+    s.text((1350, 172), f"CONTRADICTS · {len(red)}", 22, RED, "ra", True); s.text((490, 172), f"EVERY OTHER LINK · {len(rest)}", 22, INK, "la", True)
+    for side, col in ((rest, 0), (red, 1)):
+        for k, (t, ty, lab, out) in enumerate(side):
+            y = top + k * pitch; ix = 1220 if col else 490; isred = ty == "contradicts"
+            s.line([(cx, cy), (ix + S / 2, y + S / 2)], RED if isred else INK3, 4 if isred else 2)
+    for side, col in ((rest, 0), (red, 1)):
+        for k, (t, ty, lab, out) in enumerate(side):
+            y = top + k * pitch; ix = 1220 if col else 490; isred = ty == "contradicts"; tx, an = (ix + S + 22, "la") if col else (ix - 22, "ra")
+            s.paste(icon(t, S), (ix, y), frame=RED if isred else INK, width=4 if isred else 2)
+            s.text((tx, y - 4), t, 23, INK, an, True)
+            s.text((tx, y + 28), ty if out else f"{ty}, from {t.split()[0]}'s page", 21, RED if isred else INK3, an)
+            for n, w in enumerate(textwrap.wrap(lab.replace("-", " "), 30)): s.text((tx, y + 58 + 28 * n), w, 21, INK2, an)
+    s.paste(icon(c, 260), (cx - 130, cy - 130), frame=INK, width=4)
+    q = collections.Counter(); [q.update([e["source"], e["target"]]) for e in EDGES if e["type"] == "contradicts"]
+    people = [t for t in NODES if NODES[t]["type"] == "person"]; level = sorted(t for t in people if t != c and q[t] == q[c]); more = [t for t in people if q[t] > q[c]]
+    rank = ("No other person page has as many." if not level and not more else
+            f"Among the {len(people)} person pages only {' and '.join(level)} has as many." if level and not more else f"{' and '.join(more)} has more.")
+    footw(s, f"All {len(mine)} links that touch Epictetus in the map build of {MAPDATE}; none left out. {len(red)} of {len(mine)} are 'contradicts'. {rank}",
+          "The small words under each name are the link's label, hyphens taken out. The page's text names only Marcus among the five; three more are in its links and Seneca's is on Seneca's page. Left and right, and the order down each side, are the maker's.")
     s.save("Epictetus — against the room.png")
-    return k, n
+    return len(red), len(mine), level, more
 
 
 # 8 ── Douglas Hofstadter: a strange loop ───────────────────────────────────
@@ -170,17 +242,18 @@ def asleep():
 
 # 10 ── Martin Buber: the between ───────────────────────────────────────────
 def between():
+    """Remade after challenge E: the I-It / I-Thou labels are gone (the page never ties its two modes to this picture); the tint is owned as the maker's act."""
     ic = Image.open(asset("Martin Buber", "icon")).convert("RGB").resize((620, 620), Image.LANCZOS)
-    s = Sheet(1010, "The between", "Buber's avatar is two faces and the shape that is neither of them.")
-    for i, (x, lab, sub) in enumerate(((110, "I — IT", "look at the faces: two things, each with an edge, facing a gap"), (1110, "I — THOU", "look at the gap: one shape, and it belongs to neither face"))):
+    s = Sheet(1040, "The between", "'The meeting belongs to neither party; it happens in the space between them.'")
+    for i, (x, lab) in enumerate(((110, "the avatar, untouched"), (1110, "the light between, tinted red"))):
         im = ic.copy()
         if i == 1:
             a = np.asarray(im).astype(np.float32); lum = a.mean(axis=2, keepdims=True); mask = (lum > 150).astype(np.float32)   # the light middle shape
             red = np.array(rgb(RED), dtype=np.float32); a = a * (1 - 0.55 * mask) + red * 0.55 * mask; im = Image.fromarray(a.astype(np.uint8))
-        s.paste(im, (x, 190), frame=INK, width=3); s.text((x, 830), lab, 28, RED if i else INK, bold=True); s.text((x, 870), sub, 20, INK3)
+        s.paste(im, (x, 190), frame=INK, width=3); s.text((x + 310, 828), lab, 24, RED if i else INK, "ma", True)
     s.text((920, 500), "same picture", 22, INK3, "mm")
-    s.foot("The right-hand copy tints the avatar's light region red and changes nothing else. Reading the vase as 'the between'",
-           "is mine; the page says the meeting 'belongs to neither party; it happens in the space between them'.")
+    footw(s, "Only the tint differs: every pixel lighter than a set level is blended 55 percent toward red. The avatar was drawn to a brief that asks for 'a bright vertical GAP of light held between them'.",
+          "The tint is the maker's. It gives the between an edge and makes it a thing. The page says the meeting 'relapses into a thing the instant you try' to store it.")
     s.save("Martin Buber — the between.png")
 
 

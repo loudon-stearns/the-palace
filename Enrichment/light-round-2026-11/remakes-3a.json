@@ -1,0 +1,137 @@
+[
+ {
+  "page": "Stoicism",
+  "kind": "remade",
+  "files": [
+   "Stoicism — three teachers, three tools.png"
+  ],
+  "title": "Three teachers, three tools",
+  "caption": "The page ties two of its three disciplines to a teacher. The dichotomy of control grows from the fortress Epictetus discovered, and the view from above is what Marcus practices. It names no one teacher for the four virtues.",
+  "honest": "The two pairings join sentences from different sections of the page; no one sentence there says Epictetus gave the dichotomy. Every gloss is the page's own wording. The two red ties are 'contradicts' links in the map build of 2026-11-09, declared on Seneca's and Epictetus's pages and absent from this page's text. The left-to-right order is the maker's; the page lists slave, statesman, emperor.",
+  "leak": "Seneca and Epictetus: each page's links hold one of the two contradictions drawn in red ('wealthy-statesman-vs-dispossessed-slave' on Seneca, 'slave-pole-vs-throne' on Epictetus).",
+  "changed": "The grey rules paired each teacher with the wrong discipline, one of two contradictions was left out, and the caption stated no claim. The disciplines now sit under the teacher the page ties them to with only those two ties drawn, both contradictions are drawn, and every gloss is the page's wording.",
+  "near": "a working family of disciplines"
+ },
+ {
+  "page": "Source Library",
+  "kind": "remade",
+  "files": [
+   "Source Library — the shelf.png"
+  ],
+  "title": "The shelf",
+  "caption": "The page's role list names thirty-six voices. Twenty have a page of their own in the palace; sixteen are still only a name on the list. The sound shelf has the most gaps: three of nine.",
+  "honest": "The count is the maker's, not the page's: each bullet under 'Organization by Role' matched by name to a page in the map build of 2026-11-09, and again to a file in People/. One of the thirty-six is a film, not a person. Three pages that call themselves members (Iain McGilchrist, Martin Buber, Martin Heidegger) are not on the list and are not drawn. Each spine's picture is an arbitrary strip of that page's hero; the shelf labels shorten the page's seven headings.",
+  "leak": null,
+  "changed": "Thirty unnamed spines were atmosphere, and seven of them were pages the Source Library never names. Took the challenger's better piece: the page's own 36 names as lettered spines in the page's order, 20 solid and 16 dashed, with a count under each shelf.",
+  "near": "Organization by Role"
+ },
+ {
+  "page": "BBS Blackboard",
+  "kind": "remade",
+  "files": [
+   "BBS Blackboard — nothing is ever erased.png"
+  ],
+  "title": "Appended, never edited",
+  "caption": "Every agent writes by appending; no agent overwrites, deletes or edits. Here are the 1,540 messages on the board since it was re-seeded on 2026-06-16, one square each, in the order of their time stamps. The eleven black squares are retractions, and each retraction is a new message.",
+  "honest": "Only each line's time stamp and kind were read, never its words. Squares are sorted by time stamp converted to UTC; the file itself is not quite in that order. Messages stamped before 2026-11-11 UTC, read on that day. The colours are the maker's. This maker read no ids, so 'the retracted messages are still on the board' rests on the challenger's check. The rule is for agents: git shows the file re-seeded on 2026-06-16 (448 lines removed), one malformed line removed on 2026-07-08, and 54 lines rewritten on 2026-09-25.",
+  "leak": null,
+  "changed": "The squares were sorted by day and then by kind, not in the order written, the title claimed more than the page or the file's git history, three squares had no key and two month labels overlapped. Now sorted by full time stamp, retitled from 'Nothing is ever erased' (file name kept), the three git events owned, all nine kinds in the key, and the months that begin in one row share one label.",
+  "near": null
+ },
+ {
+  "page": "Epictetus",
+  "kind": "remade",
+  "files": [
+   "Epictetus — against the room.png"
+  ],
+  "title": "Pressed from five sides",
+  "caption": "Half of Epictetus's ten links are contradictions. The page's text names one of the five, Marcus Aurelius. The other four are held only in the links: Lao Tzu, Martin Buber and Martin Heidegger from this page, and Seneca from Seneca's.",
+  "honest": "All ten links that touch Epictetus in the map build of 2026-11-09, none left out. Five 'contradicts' is level with Martin Heidegger, the most among the 25 person pages. The small words are each link's own label with the hyphens taken out. Which side each group sits on, and the order down each side, are the maker's. 'Pressed' is the page's word ('Press him'); a contradiction here is a tension kept, not an enmity.",
+  "leak": "Seneca, whose page declares the contradiction 'wealthy-statesman-vs-dispossessed-slave'; and Marcus Aurelius, whose forward vector says 'a slave-philosopher or a systems-thinker will ask whether my calm is wisdom or privilege'.",
+  "changed": "Two labelled links were dropped (one of them the page's own root, The Dichotomy of Control), the footer printed a broken sentence for the tie with Heidegger, and a red line struck through 'Lao Tzu'. All ten links are drawn in two columns with their labels beside them, the tie is stated, and the title no longer reads a contradiction as a quarrel (was 'Against the room'; file name kept).",
+  "near": "a slave-philosopher will ask"
+ },
+ {
+  "page": "Martin Buber",
+  "kind": "remade",
+  "files": [
+   "Martin Buber — the between.png"
+  ],
+  "title": "The between",
+  "caption": "The meeting belongs to neither party; it happens in the space between them. The avatar is two facing forms and the light held between. Tint the light, and it is one region that is neither form.",
+  "honest": "Only the tint differs: pixels above a brightness of 150 of 255 are blended 55 percent toward red. Reading the light as the between is the avatar's own brief ('the charged space between'), not only the maker's. The tint is the maker's, and it gives the between an edge and makes it a thing, which the page says the meeting does 'the instant you try'. The page never ties I-It or I-Thou to this picture, so the sheet no longer does.",
+  "leak": null,
+  "changed": "The sheet printed I-It and I-Thou labels under the two copies, a pairing the page never makes, told the reader what they see, and one label ran off the picture. The two labels are gone, the page's sentence is the subhead, and the footer owns the tint and names the page's own objection to holding the between.",
+  "near": null
+ },
+ {
+  "page": "Loudon Live",
+  "kind": "remade",
+  "files": [
+   "Loudon Live — the trace, heard.wav",
+   "Loudon Live — the trace, heard — picture.svg"
+  ],
+  "title": "The trace, heard",
+  "caption": "A low tone in the left ear and one a fifth above it in the right, and the figure those two draw when one moves a dot sideways and the other moves it up and down. It passes through the same shape every eight seconds; a whole turn takes sixteen.",
+  "honest": "220 and 330 Hz, the right ear a sixteenth of a hertz sharp so the figure turns. A flat two-tone cousin of the mark, not the mark itself: the channel's mark runs three frequencies at 3:4:6 in three dimensions. The fifth and 220 Hz are the maker's choices. The picture is drawn from the same two numbers, not from the audio. Both ears sit at -4.7 dB RMS, loud for bare sine, and nobody has listened.",
+  "leak": "Rational Hearing, which carries '3:2 the fifth'; neither page links the other.",
+  "changed": "The words said the figure turns over once in sixteen seconds when the drawn shape returns every eight, and nothing owned that this is not the channel's real mark. The picture's footer, the caption and the honest line now say both; the wav is byte-identical to before.",
+  "near": null
+ },
+ {
+  "page": "Pauline Oliveros",
+  "kind": "remade",
+  "files": [
+   "Pauline Oliveros — one point, then the whole sphere.wav",
+   "Pauline Oliveros — one point, then the whole sphere — picture.svg"
+  ],
+  "title": "One point, then the whole sphere",
+  "caption": "One room, heard twice. First attention closes on a single drip and the rain, the hum, the bird and the bell fall away. Then it opens and all of it is there at once.",
+  "honest": "A synthesized room, not a recording. Turning the other sounds down fifty times (34 dB) is the maker's stand-in for not attending; the page says sound 'arrives whether you attend to it or not', and here it nearly does not. The second half also carries a little reverb the first lacks. Nobody has listened.",
+  "leak": "John Cage, whom her page's links say she contradicts: one sound in the room is a prepared string like the one in the sound on John Cage's page.",
+  "changed": "'Forty times' was fifty in the honest line and the picture, and 'a prepared string from his piece' read as Cage's own music. Both are corrected, the reverb is owned, and the piece now has its own seeded generator, so the wav is a new draw of the same room.",
+  "near": null
+ },
+ {
+  "page": "The Drift",
+  "kind": "remade",
+  "files": [
+   "The Drift — placed, then let go.wav",
+   "The Drift — placed, then let go — picture.svg"
+  ],
+  "title": "Placed, then let go",
+  "caption": "Seventy-two grains laid on a grid in a pattern. Then forty particles dropped in a box, a grain sounding each time one lands: 526 grains nobody placed, crowding and fading as they come to rest.",
+  "honest": "The second half's rules were chosen (gravity, bounce, pitch by position, a seed); its notes were not. Only floor landings sound, and only above a set speed: that cut-off and the seed make the number 526. The maker levelled the two halves so the placed half is not buried. Nobody has listened.",
+  "leak": "Granular Synthesis and Particle Synthesis, the page's own two examples; the page names particle synthesis without linking it.",
+  "changed": "'Thinning out' was false by count, the file ended on five seconds of silence, the placed half peaked 17 dB under the dropped half, and the speed cut-off that sets the count was not owned. The word is now 'crowding and fading', the file is 18.5 s with 0.8 s of tail, the halves peak within 2 dB, the cut-off is owned, and the piece has its own seed (526 grains, was 523).",
+  "near": null
+ },
+ {
+  "page": "Trickster",
+  "kind": "remade",
+  "files": [
+   "Trickster — the corner that disappears.wav",
+   "Trickster — the corner that disappears — picture.svg"
+  ],
+  "title": "The corner that disappears",
+  "caption": "One tone swelling steadily louder, played twice through a compressor. With the hard knee it grows, then about three seconds in it all but stops growing: a corner you can point at. With the soft knee the same rule takes hold and there is no moment to point at. The picture shows both curves.",
+  "honest": "Threshold -24 dB, ratio 8 to 1, knee 0 and 24 dB wide; the curve is Compressor Design's formula. The swell (a 110 Hz tone rising 8 dB a second) is the maker's, chosen so the tone spends three seconds inside the knee. Measured on the file, the two takes are the same outside the knee and at most 2.5 dB apart inside it. Whether an ear hears the corner go is unverified: nobody has listened.",
+  "leak": "Compressor Design, where the palace's soft knee lives.",
+  "changed": "The two drum takes never differed by 1 dB, and the one audible difference was the file's fade-in landing on the first kick. The sound is now a slow swell through the threshold with 50 ms of silence before each take; the picture is byte-identical and stands.",
+  "near": null
+ },
+ {
+  "page": "Audition Gate",
+  "kind": "remade",
+  "files": [
+   "Audition Gate — both pass the spec.wav",
+   "Audition Gate — both pass the spec — picture.svg"
+  ],
+  "title": "Both pass the spec",
+  "caption": "Two notes with the same measured pitch, level and length: 110 Hz, -12.9 dB, five seconds. One is a patch nobody touched. Which one is not in these three numbers.",
+  "honest": "The three figures were read off the saved wav and agree to two decimals (-12.87 dB each); the m4a made from it may read a tenth of a decibel off. Other measurements do tell the notes apart (the second note's level swings 6 dB and its brightness sweeps; the first holds still), and so do the traces in the picture. Whether one sounds dead is a claim about listening, and nobody has listened.",
+  "leak": "Generative Audio Devices: 'structurally correct and audibly inert'. Audition Gate does not link it.",
+  "changed": "The level printed (-11.6 dB) was read before the save helper scaled the file; the file a reader plays is at -12.9. The numbers are now measured on the saved wav and printed from that, 'the numbers' became 'these three numbers', and the picture says its traces give the answer away; the wav is unchanged.",
+  "near": null
+ }
+]
