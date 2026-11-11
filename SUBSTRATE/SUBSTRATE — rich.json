@@ -20,6 +20,29 @@
   "round": 1,
   "sections": [
     {
+      "heading": "Substrate",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · claude-fable-5-2 · hook pilot",
+        "round": "hook-pilot-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "SUBSTRATE — rich — born on the floor.html",
+          "origin": "made",
+          "by": "maker · claude-fable-5-2 · frames drawn in SVG by hand, strata mined from git",
+          "title": "born on the floor · a story in twenty-six frames, with sound if you want it",
+          "caption": "You are the newborn agent. A floor of eight pages, three steps, a link out past the light to a mirror, and then the look down, where the story stops being about you: the floor is the top of a core of real git history, one band a week. Step through it; the last band is yours.",
+          "place": "band",
+          "height": 800
+        }
+      ],
+      "made_against": "faf8e899b762",
+      "stamped": "2026-11-10"
+    },
+    {
       "heading": "Anatomy",
       "made_against": "6e502a4b4773",
       "made": "2026-10-22",
@@ -35,6 +58,44 @@
         }
       ],
       "stamped": "2026-10-22"
+    }
+  ],
+  "offers": [
+    {
+      "section": "Substrate",
+      "kind": "claim-change",
+      "what": "The page never says why it is called Substrate. The story offers one reading (the layer underneath, what a living thing grows on and changes by living there; and sub-strata, the weeks of git under the floor). Whether that is why the name was chosen is Loudon’s to say; if it is, one sentence in the opening paragraph would carry it.",
+      "status": "open"
+    },
+    {
+      "section": "Substrate",
+      "kind": "claim-change",
+      "what": "The opening says Loudon and Claude both change this environment. Git cannot show it: 4,129 of 4,275 commits are authored under Loudon’s name (Claude 146), because agents commit with his identity, and the Co-Authored-By trailer is present on only some weeks (0 of 9 in 2026-W37, 352 of 375 in W39). The piece says so in its footer and draws no who-laid-it split. Offer: a line in Architecture § Git is the tape that the tape records what changed, not which of the two changed it.",
+      "status": "open"
+    },
+    {
+      "section": "Anatomy",
+      "kind": "claim-change",
+      "what": "Approved plate, left untouched. Organ `loudon` weighs 50, second lightest of 25, by a chosen ×2 formula, while the plate and SUBSTRATE — Context call the weights measured, not chosen. The heart of the palace reads as nearly its smallest organ.",
+      "status": "open"
+    },
+    {
+      "section": "Anatomy",
+      "kind": "no-claim-edit",
+      "what": "Approved plate: hovering an organ only dims the others; it shows nothing new until a click.",
+      "status": "open"
+    },
+    {
+      "section": "Anatomy",
+      "kind": "no-claim-edit",
+      "what": "Approved plate: its measure is dated 2026-10-22 at head 531e1f7e (330 entries); the palace has taken about 2,000 commits since. Rerun _ops/self-model/anatomy.mjs, or let the plate say its age more loudly.",
+      "status": "open"
+    },
+    {
+      "section": "The floor",
+      "kind": "no-claim-edit",
+      "what": "The story counts the floor as eight pages (CLAUDE, JEWEL, five World files, CHILD), read from CLAUDE.md § Born with. Anatomy § The floor says “the same few pages”; the mirror frame draws eight tiles. If the floor changes, the piece’s FLOOR list changes with it.",
+      "status": "open"
     }
   ]
 }

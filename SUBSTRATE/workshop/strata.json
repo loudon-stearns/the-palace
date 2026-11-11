@@ -1,0 +1,377 @@
+{
+ "command": "git log --format='%h%x09%ad%x09%an%x09%s' --date=format:'%G-W%V %Y-%m-%d'",
+ "mined": "2026-11-10",
+ "head": "4b9f1b8f",
+ "total": 4275,
+ "first": {
+  "hash": "abc25921",
+  "date": "2026-03-17",
+  "subject": "Initial commit — The Palace as it stands"
+ },
+ "authors": {
+  "Loudon Stearns": 4107,
+  "Claude (weave)": 1,
+  "Claude": 145,
+  "Loudon Yukon Stearns": 22
+ },
+ "groups": {
+  "ceremony": "/^(deposit|weave|weave-apply|schema|harvest|closing-well|baton|handoff|stage|walk|spore|revival|self-model|map|return|pre-weave|pre-schema|token)/i",
+  "edit": "/^(edit|docs|palace|citizen)/i",
+  "machinery": "/^(ops|feat|fix|chore|stigmergy|board|refactor|test|build)/i",
+  "making": "/^(enrich|proof|blueline|shop|art|render|hero)/i",
+  "steward": "/^steward/i",
+  "landing": "/^merge/i"
+ },
+ "weeks": [
+  {
+   "week": "2026-W12",
+   "commits": 51,
+   "first": "2026-03-17",
+   "last": "2026-03-22",
+   "kinds": {
+    "ceremony": 31,
+    "other": 16,
+    "edit": 4
+   }
+  },
+  {
+   "week": "2026-W13",
+   "commits": 15,
+   "first": "2026-03-24",
+   "last": "2026-03-27",
+   "kinds": {
+    "ceremony": 6,
+    "other": 6,
+    "landing": 1,
+    "edit": 2
+   }
+  },
+  {
+   "week": "2026-W14",
+   "commits": 15,
+   "first": "2026-03-30",
+   "last": "2026-04-03",
+   "kinds": {
+    "ceremony": 5,
+    "other": 10
+   }
+  },
+  {
+   "week": "2026-W15",
+   "commits": 4,
+   "first": "2026-04-07",
+   "last": "2026-04-09",
+   "kinds": {
+    "ceremony": 3,
+    "other": 1
+   }
+  },
+  {
+   "week": "2026-W16",
+   "commits": 1,
+   "first": "2026-04-19",
+   "last": "2026-04-19",
+   "kinds": {
+    "other": 1
+   }
+  },
+  {
+   "week": "2026-W17",
+   "commits": 5,
+   "first": "2026-04-20",
+   "last": "2026-04-21",
+   "kinds": {
+    "ceremony": 1,
+    "other": 4
+   }
+  },
+  {
+   "week": "2026-W18",
+   "commits": 17,
+   "first": "2026-04-27",
+   "last": "2026-05-02",
+   "kinds": {
+    "machinery": 9,
+    "landing": 1,
+    "edit": 1,
+    "making": 1,
+    "other": 2,
+    "ceremony": 3
+   }
+  },
+  {
+   "week": "2026-W19",
+   "commits": 51,
+   "first": "2026-05-04",
+   "last": "2026-05-10",
+   "kinds": {
+    "making": 33,
+    "landing": 2,
+    "other": 7,
+    "ceremony": 2,
+    "machinery": 7
+   }
+  },
+  {
+   "week": "2026-W20",
+   "commits": 6,
+   "first": "2026-05-14",
+   "last": "2026-05-16",
+   "kinds": {
+    "ceremony": 6
+   }
+  },
+  {
+   "week": "2026-W22",
+   "commits": 126,
+   "first": "2026-05-26",
+   "last": "2026-05-31",
+   "kinds": {
+    "machinery": 25,
+    "other": 46,
+    "ceremony": 19,
+    "making": 23,
+    "edit": 9,
+    "steward": 4
+   }
+  },
+  {
+   "week": "2026-W23",
+   "commits": 104,
+   "first": "2026-06-01",
+   "last": "2026-06-07",
+   "kinds": {
+    "steward": 2,
+    "ceremony": 14,
+    "machinery": 46,
+    "edit": 33,
+    "making": 2,
+    "other": 6,
+    "landing": 1
+   }
+  },
+  {
+   "week": "2026-W24",
+   "commits": 93,
+   "first": "2026-06-08",
+   "last": "2026-06-14",
+   "kinds": {
+    "edit": 28,
+    "ceremony": 9,
+    "other": 5,
+    "machinery": 47,
+    "making": 1,
+    "steward": 2,
+    "landing": 1
+   }
+  },
+  {
+   "week": "2026-W25",
+   "commits": 127,
+   "first": "2026-06-16",
+   "last": "2026-06-21",
+   "kinds": {
+    "machinery": 79,
+    "ceremony": 24,
+    "edit": 9,
+    "other": 6,
+    "landing": 8,
+    "making": 1
+   }
+  },
+  {
+   "week": "2026-W26",
+   "commits": 214,
+   "first": "2026-06-22",
+   "last": "2026-06-27",
+   "kinds": {
+    "edit": 19,
+    "ceremony": 28,
+    "machinery": 67,
+    "making": 85,
+    "other": 7,
+    "landing": 7,
+    "steward": 1
+   }
+  },
+  {
+   "week": "2026-W27",
+   "commits": 275,
+   "first": "2026-06-30",
+   "last": "2026-07-05",
+   "kinds": {
+    "ceremony": 89,
+    "other": 29,
+    "machinery": 74,
+    "edit": 19,
+    "making": 35,
+    "landing": 29
+   }
+  },
+  {
+   "week": "2026-W28",
+   "commits": 108,
+   "first": "2026-07-06",
+   "last": "2026-07-09",
+   "kinds": {
+    "edit": 25,
+    "ceremony": 37,
+    "making": 2,
+    "other": 19,
+    "machinery": 24,
+    "landing": 1
+   }
+  },
+  {
+   "week": "2026-W35",
+   "commits": 25,
+   "first": "2026-08-25",
+   "last": "2026-08-29",
+   "kinds": {
+    "steward": 2,
+    "machinery": 6,
+    "other": 1,
+    "edit": 7,
+    "ceremony": 7,
+    "landing": 2
+   }
+  },
+  {
+   "week": "2026-W36",
+   "commits": 16,
+   "first": "2026-09-02",
+   "last": "2026-09-04",
+   "kinds": {
+    "ceremony": 5,
+    "edit": 9,
+    "machinery": 2
+   }
+  },
+  {
+   "week": "2026-W37",
+   "commits": 9,
+   "first": "2026-09-07",
+   "last": "2026-09-12",
+   "kinds": {
+    "machinery": 1,
+    "edit": 8
+   }
+  },
+  {
+   "week": "2026-W38",
+   "commits": 1,
+   "first": "2026-09-15",
+   "last": "2026-09-15",
+   "kinds": {
+    "machinery": 1
+   }
+  },
+  {
+   "week": "2026-W39",
+   "commits": 375,
+   "first": "2026-09-21",
+   "last": "2026-09-27",
+   "kinds": {
+    "edit": 134,
+    "making": 7,
+    "other": 4,
+    "machinery": 116,
+    "landing": 49,
+    "ceremony": 48,
+    "steward": 17
+   }
+  },
+  {
+   "week": "2026-W40",
+   "commits": 4,
+   "first": "2026-09-28",
+   "last": "2026-10-03",
+   "kinds": {
+    "steward": 4
+   }
+  },
+  {
+   "week": "2026-W41",
+   "commits": 12,
+   "first": "2026-10-05",
+   "last": "2026-10-09",
+   "kinds": {
+    "steward": 1,
+    "machinery": 4,
+    "edit": 4,
+    "ceremony": 2,
+    "making": 1
+   }
+  },
+  {
+   "week": "2026-W42",
+   "commits": 652,
+   "first": "2026-10-12",
+   "last": "2026-10-18",
+   "kinds": {
+    "edit": 159,
+    "machinery": 222,
+    "landing": 113,
+    "ceremony": 54,
+    "steward": 101,
+    "making": 3
+   }
+  },
+  {
+   "week": "2026-W43",
+   "commits": 659,
+   "first": "2026-10-19",
+   "last": "2026-10-25",
+   "kinds": {
+    "edit": 284,
+    "machinery": 197,
+    "ceremony": 73,
+    "landing": 83,
+    "making": 1,
+    "steward": 20,
+    "other": 1
+   }
+  },
+  {
+   "week": "2026-W44",
+   "commits": 99,
+   "first": "2026-10-26",
+   "last": "2026-11-01",
+   "kinds": {
+    "edit": 37,
+    "steward": 25,
+    "landing": 24,
+    "machinery": 9,
+    "ceremony": 4
+   }
+  },
+  {
+   "week": "2026-W45",
+   "commits": 1082,
+   "first": "2026-11-02",
+   "last": "2026-11-08",
+   "kinds": {
+    "landing": 212,
+    "edit": 204,
+    "machinery": 145,
+    "ceremony": 52,
+    "making": 390,
+    "steward": 78,
+    "other": 1
+   }
+  },
+  {
+   "week": "2026-W46",
+   "commits": 129,
+   "first": "2026-11-09",
+   "last": "2026-11-10",
+   "kinds": {
+    "landing": 26,
+    "machinery": 53,
+    "ceremony": 10,
+    "edit": 31,
+    "steward": 9
+   }
+  }
+ ]
+}
