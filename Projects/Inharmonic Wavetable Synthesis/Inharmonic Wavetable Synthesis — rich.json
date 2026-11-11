@@ -25,6 +25,31 @@
   "round": 1,
   "sections": [
     {
+      "heading": "Inharmonic Wavetable Synthesis",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · claude-fable-5-2 · hook pilot",
+        "round": "hook-pilot-2026-11"
+      },
+      "note": "The face's hook, on Loudon's two sentences of 2026-11-10. A new section at the page's own first grain (the H1). It replaces no piece: every piece below stays as it was. Its picture answers the fault in 'bend the line', whose spectrum draws its yellow bars only on the harmonic bins. Second pass, 2026-11-10, on Loudon's word after playing it: \"give me more control over the spring and ooze.\" Third pass, same day, on Loudon's \"Yes, show the summed waveform beside the loops\".",
+      "pieces": [
+        {
+          "file": "Inharmonic Wavetable Synthesis — rich — each partial is a loop.html",
+          "origin": "made",
+          "by": "Web Audio Worklet",
+          "place": "band",
+          "height": 1800,
+          "title": "each partial is a loop · an instrument",
+          "caption": "**Take hold of the spectrum.** From the side it is a row of bars; turned, each bar is a loop, one partial going round. A loop that closes after one lap of the fundamental stands still. Drag one sideways and it stops closing: it crawls, its stem leans off its harmonic slot, and the partial sounds where the loop now sits. Take the whole body and it stretches like putty stuck to the wall at zero. How it comes home is a pad held in the hand: left to right is how long (0.05 to 20 s, then “stays”), bottom to top is how fast it wobbles on the way (none, then 0.3 to 12 Hz); a slider lets the top come home up to four times sooner or later than the bottom; and a loop let go while the hand is moving is thrown. In the corner is the sum of the loops over one lap of the fundamental, the single cycle a wavetable stores, with its last moments ghosted behind it: with every loop home it holds still, and with one loop off it fans out and never comes round the same. Rendered offline through the piece's own engine and FFT'd, every partial lands within 0.01 cents of where its loop is drawn; a picture that kept a nudged partial on its slot would have been 75 cents out. Loudon played it on 2026-11-10 and asked for the control over the spring and the ooze; the pad, the tilt and the throw are unheard.",
+          "near": "two independent wavetables"
+        }
+      ],
+      "made_against": "f7d3f05c98c3",
+      "stamped": "2026-11-10"
+    },
+    {
       "heading": "The Architecture",
       "made": "2026-11-03",
       "status": "proposal",
@@ -421,6 +446,24 @@
       "section": "The Architecture",
       "kind": "no-claim-edit",
       "what": "'B' names two things. It is the depth knob (§ The B Depth Scalar; fₙ = n · f₀ · 2^(B · Δfₙ / 1200); 'B=0 bypasses Wavetable B'; 'B=1.5' in § What This Sounds Like). It is also the string's stiffness coefficient (§ Wavetable B's 'the B coefficient formula'; 'B ≈ 0.002 at partial 20'; 'B ≈ 0.001–0.002' in § Physical Trajectory Library; f_n = n·f₀·√(1+B·n²) in § Cross-Domain Resonance). The plugin already calls the depth knob Bend, and the pieces here call it D. Suggest renaming the depth scalar wherever it means depth, B Depth → Bend depth, and leaving B for stiffness.",
+      "status": "open"
+    },
+    {
+      "section": "Inharmonic Wavetable Synthesis",
+      "kind": "claim-change",
+      "what": "The page has no sentence for the loop. Loudon, 2026-11-10: \"each partial is a loop\" is a really great way to think about harmonics and inharmonicity. Suggest one sentence beside the flat line: each partial is a loop; a harmonic closes after one lap of the fundamental, an inharmonic partial misses by (its place in harmonics minus the nearest whole number) of a turn each lap. The loop piece draws exactly that, and its engine lands every partial within 0.01 cents of its drawn loop (workshop/rich-checks/check-loops.mjs). One thing the loop shows that the flat line does not: a partial is harmonic when it lands on any whole number, not only its own slot, so a loop pushed from slot 7 to 8.00 closes again.",
+      "status": "open"
+    },
+    {
+      "section": "The Architecture",
+      "kind": "no-claim-edit",
+      "what": "A fault in the piece 'bend the line', not in the text: its spectrum draws the yellow bars only at the harmonic bins (the loop over k drawing pw[k * P] at X(k)), so a bent partial's bar shrinks and an orange trace rises beside it, but no bar moves. Suggest a remake that draws each bar at cur.rat[i], where the partial is. Not changed here; the loop piece replaces nothing.",
+      "status": "open"
+    },
+    {
+      "section": "→ Enrichment",
+      "kind": "no-claim-edit",
+      "what": "The hook now ends on a short 'Further down this face' paragraph naming the four sections it leads to, in words only, because a piece cannot scroll the page that frames it. If the kit carried one more message (a piece asks the page to scroll to a heading), those four names could be links. Not built; the kit is not this page's to change.",
       "status": "open"
     }
   ]
