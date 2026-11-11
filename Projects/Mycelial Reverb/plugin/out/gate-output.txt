@@ -1,0 +1,23 @@
+pass · one thread echo: the C++ impulse response against the JavaScript one, half a second
+       got: largest difference 0 (0 of peak); 24000 of 24000 left samples identical. In the C++ alone: first echo 0.504524 (want 0.504524), second 0.203635 (want 0.203635), between the echoes 0
+       failure would have been: a difference over 1e-6 of peak, an echo off by more than 1e-6, or any sound between round trips
+pass · fork of three: the C++ impulse response against the JavaScript one
+       got: largest difference 0 (0 of peak); 9600 of 9600 identical. In the C++ alone: came back -0.241479 (want -0.241479)
+       failure would have been: a difference over 1e-6 of peak, or a return other than −1/3 of what arrived
+pass · junction energy: 2,000 random junctions of 2 to 6 threads, energy out over energy in
+       got: the rule as arithmetic: C++ largest error 1.22e-15, JavaScript 1.22e-15, largest difference between the two 0 (2000 of 2000 identical). The same junctions through the C++ engine itself, one chunk of noise on every thread: largest error 2.80e-8 (the lines hold float32, so about 1e-7 is rounding)
+       failure would have been: the rule off by more than 1e-12 in either language, or the engine's junction off by more than 1e-5
+pass · energy never rises: 10 colonies grown in both engines to 3, 20, 80 and 170 threads on the same 40 s of plucked notes, then 160 impulse runs at four control corners
+       got: the grown colonies, thread for thread (ends, length in samples, thickness, energy): largest difference 0 over 13998 numbers, 13998 identical. The held energy, read every 64 samples: largest difference 0 of its own size over 720160 readings, 720160 identical. Largest step ratio in the C++ 1.000000000 (JavaScript 1.000000000)
+       failure would have been: the two engines growing different colonies (any thread differing by more than 1e-9), held energy differing by more than 1e-5 of itself, or a step ratio above 1.000001 in the C++
+pass · the torture: 60 s of full-scale noise while it grows, is frosted, and every control jumps four times a second, then silence
+       got: the two outputs, sample for sample: largest difference 0 (0 of peak 1.51); 5761024 of 5761024 samples identical. Colony at the end: 87 threads in the C++, 87 in the JavaScript, largest difference thread for thread 0. In the silence after, the C++ held energy fell 100.0 dB and its largest step was 0.988050500; against the JavaScript, largest difference 0 of its own size
+       failure would have been: a difference over 1e-6 of peak, different colonies, a sample that is not a number, or held energy rising once the input stops
+pass · plugin only (no JavaScript side): a colony of 60 threads saved as text, loaded, and fed 20 s more beside the one it was saved from
+       got: loaded: true; saved again, the same text: true (11945 bytes); after 20 s more food both have 128 and 128 threads and the largest difference between their outputs is 0; cut-off and foreign text refused: true
+       failure would have been: a reload that changes one sample or one thread, or damaged text accepted
+pass · plugin only: the host's block size. The same 10 s through the dish in blocks of 512 and in ragged blocks of 1 to 700 samples
+       got: held still (40 threads): largest difference 0. Growing: largest difference 9.31e-9, ending with 47 and 47 threads (reported, not gated: a ragged block changes how each thread's energy is rounded on its way to the colony, which may or may not move a growth decision)
+       failure would have been: a held dish sounding different because the host cut its blocks differently
+
+C++ side ran in 87.1 s · all gates pass

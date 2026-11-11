@@ -1,0 +1,358 @@
+<!doctype html>
+<!--
+  title: Reverb Design — rich — tie a knot
+  born: 2026-11-10
+  links: [[Reverb Design]] (connects-to · rich-face-piece) · listed in [[Reverb Design — rich.json]] · borrows the engine of "Biomechanical Synthesis — rich — mycelial reverb.html" (read at run time, not copied) · checked by "Reverb Design — rich — check.mjs"
+  forward_vector: I am the part the dish does not have. A knot tied in the thread the knock comes in on: one knock goes in, a small cloud comes out, and nothing is lost on the way. I walk from one thread, to one knot, to knots on a thread, to knots in front of a grown colony, where the wash that took a fifth of a second arrives in a fraction of that. I change when the dish's engine does, because I run it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reverb Design — tie a knot</title>
+<meta name="theme-color" content="#0a0a0f">
+<meta name="piece:needs" content="">
+<meta name="piece:files" content="/Projects/Biomechanical%20Synthesis/Biomechanical%20Synthesis%20%E2%80%94%20rich%20%E2%80%94%20mycelial%20reverb.html">
+<style>
+  /* Dressed as the dish is (dark soil, amber sound), not in Drafting Table paper: this piece sits under the dish on the same face and runs its engine. */
+  :root { --bg:#0a0a0f; --e1:#12121a; --border:#4a4a5e; --soft:rgba(255,255,255,.07); --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a;
+    --amber:#e8b84a; --amberline:rgba(232,184,74,.5); --hypha:#d9d3c0; --vein:#9c84ff;
+    --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace; --sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif; --serif:Georgia,'Times New Roman',serif; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--fg2); font-family: var(--sans); }
+  .piece { padding: 22px 22px 26px; max-width: 1100px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--fg3); margin-bottom: 6px; }
+  h1 { font-family: var(--serif); font-size: 29px; font-weight: 400; color: var(--fg1); margin: 0 0 8px; }
+  p { font-size: 14.5px; line-height: 1.6; max-width: 74ch; margin: 0 0 12px; }
+  .lead { font-size: 16px; color: var(--fg1); }
+  button { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--fg2); background: var(--bg); border: 1px solid var(--border); border-radius: 2px; padding: 9px 12px; cursor: pointer; min-height: 36px; }
+  button:hover { border-color: var(--amberline); color: var(--fg1); }
+  button.on { border-color: var(--amber); color: var(--amber); background: rgba(232,184,74,.08); }
+  button.big { font-size: 12px; padding: 11px 16px; border-color: var(--amberline); color: var(--amber); }
+  button:disabled { opacity: .35; cursor: default; }
+  .rail { display: flex; flex-wrap: wrap; align-items: center; margin: 14px 0 0; }
+  .rail button { border-radius: 0; margin-right: -1px; margin-bottom: -1px; }
+  .lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--fg3); margin-right: 8px; min-width: 62px; }
+  .panel { border: 1px solid var(--soft); background: var(--e1); padding: 14px 18px 6px; margin-bottom: 12px; }
+  .eq { font-family: var(--serif); font-size: 18px; color: var(--fg1); margin: 2px 0 6px; overflow-x: auto; white-space: nowrap; }
+  .words { font-size: 13.5px; color: var(--fg3); max-width: 74ch; line-height: 1.55; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 10px 0; }
+  .wrap { border: 1px solid var(--soft); background: #07070b; margin: 8px 0 0; }
+  canvas { display: block; width: 100%; }
+  canvas.click { cursor: pointer; }
+  .cap { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--fg3); margin: 12px 0 0; }
+  .status { font-family: var(--mono); font-size: 11.5px; color: var(--fg3); margin: 8px 0 2px; min-height: 16px; font-variant-numeric: tabular-nums; line-height: 1.6; }
+  .status b { color: var(--fg1); font-weight: 400; }
+  .status .am { color: var(--amber); }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; max-width: 520px; height: 3px; background: var(--fg4); margin: 14px 0 8px; outline: none; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border: 0; border-radius: 50%; background: var(--amber); cursor: pointer; }
+  label { font-size: 13px; color: var(--fg2); display: block; }
+  label b { font-family: var(--mono); font-weight: 400; color: var(--amber); font-size: 12px; margin-left: 6px; }
+  .note { font-size: 12.5px; color: var(--fg3); }
+  [hidden] { display: none !important; }
+  @media (max-width: 640px) { .piece { padding: 16px 12px 22px; } h1 { font-size: 24px; } .lab { min-width: 100%; margin-bottom: 6px; } button { padding: 10px 11px; min-height: 40px; } }
+</style>
+</head>
+<body>
+<div class="piece">
+  <div class="eyebrow">Reverb Design · the part the dish does not have</div>
+  <h1>Tie a knot in the thread</h1>
+  <p class="lead">Knock on a grown dish and for the first fifth of a second you can still pick out single echoes. Then it blurs. A room does not make you wait that long. The fix dates from 1961 and it is a knot: a place where the sound goes round a small loop and leaks out a little each time. One knock goes in. A cloud comes out. Nothing is lost.</p>
+
+  <div class="rail" id="rail">
+    <span class="lab">walk</span>
+    <button data-step="1" class="on">1 · one thread</button>
+    <button data-step="2">2 · one knot</button>
+    <button data-step="3">3 · knots on a thread</button>
+    <button data-step="4">4 · knots before a colony</button>
+  </div>
+  <div class="panel">
+    <div id="t1">
+      <div class="eq">y(t) = x(t) + r² · g² · y(t − 2L)</div>
+      <p class="words">Start where the dish starts. One hypha, two ends: the knock runs down, turns, comes back. What you hear now is the knock plus what you heard one round trip ago (2L), made smaller by the two ends it turned at (r, twice: each end keeps a fifth) and by the way there and back (g). Every echo is a copy of the one before, the same shape, a fixed time later. Engineers call this a comb, because drawn against pitch its response has teeth. You can count every echo, and that is the trouble with it.</p>
+      <label for="sLen">the length of the thread <b id="vLen"></b></label><input type="range" id="sLen" min="40" max="286" step="1" value="286">
+    </div>
+    <div id="t2" hidden>
+      <div class="eq">y(t) = −g · x(t) + x(t − D) + g · y(t − D)</div>
+      <p class="words">Now the knot, alone, with no thread after it. What comes out is a little of the knock upside down at once (−g), then most of it one turn of the loop later (D), then what is still going round, smaller each turn. Schroeder and Logan's trick, 1961, is that first upside-down piece: it is sized so that every pitch comes out exactly as loud as it went in. A comb colours the sound. A knot only smears it in time. That is why it is called an allpass.</p>
+    </div>
+    <div id="t3" hidden>
+      <p class="words">Put the knots on the thread the knock comes in on, then let it into the thread from step 1. The echoes still come every round trip, but each one is now a small cloud, and four knots turn one knock into dozens of pulses. Each knot multiplies what the one before it made. Untie them and it is step 1 again.</p>
+    </div>
+    <div id="t4" hidden>
+      <p class="words">The test. This is a colony grown by the dish's own engine, fed the same plucked strings its check uses. With no knots, find the moment its echoes become a wash. Then tie knots in front of it. The dish's check already showed that growing the colony does not move that moment much. Here you move it by hand.</p>
+    </div>
+  </div>
+
+  <div class="cap" id="capFeed">the thread the knock comes in on · click a place to tie a knot, click a knot to untie it</div>
+  <div class="wrap" id="wFeed"><canvas id="feed" class="click" height="110" aria-label="The incoming thread. Click to tie or untie knots."></canvas></div>
+  <div class="wrap" id="wScene"><canvas id="scene" class="click" aria-label="The thread or the colony. Click to knock."></canvas></div>
+  <div class="cap">what arrives, from the knock onward</div>
+  <div class="wrap"><canvas id="strip" height="150" aria-label="Every echo that arrives, laid out in time."></canvas></div>
+  <div class="status" id="status">&nbsp;</div>
+  <div class="row">
+    <button class="big" id="bKnock">knock</button>
+    <button id="bBack">back</button><button id="bNext">next</button>
+    <button id="bNew" hidden>another colony</button>
+  </div>
+  <p class="note" id="msg">Nothing sounds until you click.</p>
+  <p class="note">The knots here are four loops of 4.8, 3.6, 12.8 and 9.4 ms that keep 0.7, 0.7, 0.6 and 0.6 of what goes round. Those numbers are this piece's own, picked so the loops share no common beat; they are not taken from any published reverb. The moment of “a wash” is the dish's own measure: in each 20 ms window, the share of samples louder than the window's own average, against the share noise would give (its check names Abel and Huang, 2006, as the source of that measure; this piece did not re-check the paper). The engine is the dish's, read from its page when this one opens.</p>
+</div>
+
+<script id="rd-dsp">
+// ───────────────────────────────────────────────────────────────────────────
+// No DOM, no AudioContext. Node loads this block after the dish's engine (check.mjs); the page runs the same code.
+// Needs MycelNet, MycelColony and mycelRng in scope: they are the dish's, not copied here.
+// ───────────────────────────────────────────────────────────────────────────
+var RD_KNOTS = [[229, 0.7], [173, 0.7], [613, 0.6], [449, 0.6]];   // loop length in samples at 48 kHz, and what the loop keeps. This piece's own numbers.
+// One knot: a Schroeder allpass. y[n] = −g·x[n] + x[n−D] + g·y[n−D]
+function rdKnot(x, D, g) {
+  var N = x.length, y = new Float64Array(N), n;
+  for (n = 0; n < N; n++) y[n] = -g * x[n] + (n >= D ? x[n - D] + g * y[n - D] : 0);
+  return y;
+}
+function rdKnotLen(j, sr) { return Math.max(1, Math.round(RD_KNOTS[j][0] * sr / 48000)); }
+function rdTie(x, k, sr) { for (var j = 0; j < k; j++) x = rdKnot(x, rdKnotLen(j, sr), RD_KNOTS[j][1]); return x; }
+function rdImpulse(N) { var x = new Float64Array(N); x[0] = 1; return x; }
+function rdRig(sr, seed, maxSegs) {
+  var net = new MycelNet(sr, maxSegs), col = new MycelColony({ sr: sr, maxSegs: maxSegs, block: 512, seed: seed, emit: function (m) { net.msg(m); } });
+  return { net: net, col: col };
+}
+// The same network, silent, at chosen settings: a clean thing to knock on.
+function rdClone(col, par, sr, maxSegs) {
+  var net = new MycelNet(sr, maxSegs), ys = [], i, s, save;
+  if (par) net.msg({ t: 'par', rt: par.rt, damp: par.damp, tip: par.tip });
+  for (i = 0; i < col.segs.length; i++) { s = col.segs[i]; if (s) { net.msg({ t: 'add', s: i, a: s.a, b: s.b, L: s.L }); ys.push(i, s.y); } }
+  net.msg({ t: 'ys', list: ys }); net.msg({ t: 'in', n: col.inNode });
+  save = col.emit; col.emit = function (m) { net.msg(m); }; col.sendTaps(); col.emit = save;
+  return net;
+}
+function rdRun(net, x, N) {
+  var B = 512, L = new Float32Array(N), R = new Float32Array(N), l = new Float32Array(B), r = new Float32Array(B), xb = new Float32Array(B), o, n, i;
+  for (o = 0; o < N; o += B) { n = Math.min(B, N - o); for (i = 0; i < B; i++) xb[i] = o + i < x.length && i < n ? x[o + i] : 0; net.process(xb, l, r, n); L.set(l.subarray(0, n), o); R.set(r.subarray(0, n), o); }
+  return { L: L, R: R };
+}
+// Plucked notes with gaps: the food the dish's own check grows its colonies on (same recipe, same seed gives the same notes).
+function rdPhrase(seconds, seed, sr) {
+  var N = Math.round(seconds * sr), x = new Float32Array(N), r = mycelRng(seed), notes = [146.8, 174.6, 196, 220, 261.6, 293.7], t, f, P, d, i, o, p, prev, n, v;
+  for (t = 0; t < seconds; t += 0.6) {
+    f = notes[Math.floor(r() * notes.length)]; P = Math.round(sr / f); d = new Float32Array(P); for (i = 0; i < P; i++) d[i] = r() * 2 - 1;
+    o = Math.round(t * sr); p = 0; prev = 0; n = Math.min(N - o, Math.round(0.5 * sr));
+    for (i = 0; i < n; i++) { v = d[p]; d[p] = 0.996 * 0.5 * (v + prev); prev = v; p = (p + 1) % P; x[o + i] += 0.4 * v; }
+  }
+  return x;
+}
+// Feed a growing colony some blocks of sound. st = { o: where in the food, t: seconds fed }.
+function rdFeed(rg, food, st, blocks, target) {
+  var B = 512, l = new Float32Array(B), r = new Float32Array(B), k;
+  for (k = 0; k < blocks && rg.col.nseg < target; k++) {
+    rg.net.process(food.subarray(st.o, st.o + B), l, r, B); rg.col.feed(rg.net.en); rg.net.en.fill(0);
+    st.o += B; if (st.o + B > food.length) st.o = 0; st.t += B / rg.col.sr;
+  }
+  return rg.col.nseg >= target;
+}
+// When do the echoes become a wash? The dish's measure, unchanged: echo density in 20 ms windows; "at" is the first window at 0.9 of what noise gives.
+function rdMixing(x, sr) {
+  var W = Math.round(0.02 * sr), N = x.length, first = 0, i, k, sd, c, ned, peak = 0, at = NaN, sq = new Float64Array(N + 1);
+  for (i = 0; i < N; i++) if (x[i] !== 0) { first = i; break; }
+  for (i = 0; i < N; i++) sq[i + 1] = sq[i] + x[i] * x[i];
+  for (i = first; i + W < N; i += Math.round(W / 4)) {
+    sd = Math.sqrt((sq[i + W] - sq[i]) / W); if (sd < 1e-7) break; c = 0; for (k = i; k < i + W; k++) if (Math.abs(x[k]) > sd) c++;
+    ned = c / W / 0.3173; if (ned > peak) peak = ned; if (isNaN(at) && ned >= 0.9) at = (i - first) / sr;
+  }
+  return { at: at, peak: peak };
+}
+</script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var ENGINE = '../Biomechanical%20Synthesis/Biomechanical%20Synthesis%20%E2%80%94%20rich%20%E2%80%94%20mycelial%20reverb.html';
+  var SR = 48000, MAXS = 170, HOUSE = { rt: 3, damp: 0.25, tip: 0.8 };
+  var step = 1, knots = 0, ready = false, ac = null, comp = null, voice = [], t0 = -1, playing = false;
+  var ir = null, sound = null, win = 1, wash = NaN, wash0 = NaN, taps = [], threadL = 0, threadG = 0;
+  var grow = null, seed = 11, colW = 1000, colH = 600;
+  var feed = $('feed'), scene = $('scene'), strip = $('strip'), dpr = 1;
+
+  // ── the dish's engine, read from the dish's page ─────────────────────────
+  fetch(ENGINE).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (html) {
+    var m = html.match(/<script id="mycel-engine">([\s\S]*?)<\/script>/); if (!m) throw 0;
+    var s = document.createElement('script'); s.textContent = m[1]; document.head.appendChild(s);
+    if (typeof MycelNet !== 'function') throw 0;
+    ready = true; build();
+  }).catch(function () {
+    $('msg').textContent = 'This piece runs the dish’s own engine and could not read it from the dish’s page. Open it inside Reverb Design’s rich face, where that page is served beside it. Step 2, the knot alone, works without it.';
+    if (step !== 2) setStep(2);
+  });
+
+  // ── making the sound: everything is rendered before it plays ─────────────
+  function knockSig() {
+    var n = Math.round(0.09 * SR), d = new Float64Array(n), i, t, r = mycelRngSafe(3);
+    for (i = 0; i < n; i++) { t = i / SR; d[i] = 0.55 * Math.sin(6.283 * 640 * t) * Math.exp(-t * 70) + 0.3 * Math.sin(6.283 * 1510 * t) * Math.exp(-t * 110) + (i < 96 ? (r() * 2 - 1) * 0.5 * (1 - i / 96) : 0); }
+    return d;
+  }
+  function mycelRngSafe(a) { return typeof mycelRng === 'function' ? mycelRng(a) : function () { a = (a * 16807) % 2147483647; return a / 2147483647; }; }
+  function pad(x, N) { var y = new Float64Array(N); y.set(x.subarray(0, Math.min(N, x.length))); return y; }
+  function threadNet() {
+    var rg = rdRig(SR, 1, 8); rg.col.reset(1, 1000, 600, 'thread', +$('sLen').value); rg.net.msg({ t: 'par', rt: 3, damp: 0.1, tip: 0.8 });
+    threadL = rg.col.segs[0].L; threadG = rg.net.lineGain(threadL); return rg.net;
+  }
+  function through(sig, N) {            // sig → knots → thread or colony. Returns {L,R}.
+    var x = rdTie(pad(sig, N), step === 1 ? 0 : knots, SR), o;
+    if (step === 2) { o = new Float32Array(N); o.set(x); return { L: o, R: o }; }
+    if (step === 4) return rdRun(rdClone(grow.rg.col, HOUSE, SR, MAXS), x, N);
+    return rdRun(threadNet(), x, N);
+  }
+  function build() {
+    stop(); ir = null; sound = null; wash = NaN;
+    if (step !== 2 && !ready) { drawAll(); return; }
+    if (step === 4 && (!grow || !grow.done)) { startGrow(); drawAll(); return; }
+    win = step === 2 ? 0.2 : step === 4 ? 0.5 : 1.0;
+    var N = Math.round((step === 2 ? 0.6 : step === 4 ? 3.2 : 2.6) * SR);
+    ir = through(rdImpulse(8), N); sound = null;
+    if (step === 4) { wash = rdMixing(ir.L, SR).at; if (knots === 0) wash0 = wash; else if (isNaN(wash0)) { var k = knots; knots = 0; wash0 = rdMixing(through(rdImpulse(8), N).L, SR).at; knots = k; } }
+    var kn = rdTie(rdImpulse(Math.round(0.12 * SR)), step === 1 ? 0 : knots, SR), i, list = [];
+    for (i = 0; i < kn.length; i++) if (Math.abs(kn[i]) > 0.03) list.push({ t: i / SR, a: kn[i] });
+    list.sort(function (a, b) { return Math.abs(b.a) - Math.abs(a.a); }); taps = list.slice(0, 40);
+    status(); drawAll();
+  }
+  function status() {
+    var s = '', i, n = 0, last = 0, e = 0, ms;
+    if (!ir) { $('status').innerHTML = '&nbsp;'; return; }
+    if (step === 1 || step === 3) { ms = 2000 * threadL / SR; s = 'round trip <b>' + ms.toFixed(1) + ' ms</b> · ' + (ms > 25 ? '<b>' + (1000 / ms).toFixed(1) + '</b> echoes a second' : 'a note near <b>' + Math.round(1000 / ms) + ' Hz</b>') + ' · each echo <b>' + (0.64 * threadG * threadG).toFixed(2) + '</b> of the last'; }
+    if (step === 2 || step === 3) {
+      var kn = rdTie(rdImpulse(SR * 2), knots, SR); for (i = 0; i < kn.length; i++) { e += kn[i] * kn[i]; if (Math.abs(kn[i]) > 0.001) { n++; last = i; } }
+      s += (s ? ' · ' : '') + '<b>' + knots + '</b> knot' + (knots === 1 ? '' : 's') + ': one knock in, <span class="am">' + n + ' pulse' + (n === 1 ? '' : 's') + '</span> out above a thousandth of it, over <b>' + (1000 * last / SR).toFixed(0) + ' ms</b> · energy out ÷ energy in <b>' + e.toFixed(6) + '</b>';
+    }
+    if (step === 4) {
+      var c = grow.rg.col.counts();
+      s = '<b>' + c.threads + '</b> threads · <b>' + c.loops + '</b> loops · <b>' + knots + '</b> knot' + (knots === 1 ? '' : 's') + ' in front · a wash from <span class="am">' + (isNaN(wash) ? 'never' : Math.round(wash * 1000) + ' ms') + '</span>' + (knots ? ' (with none: <b>' + (isNaN(wash0) ? 'never' : Math.round(wash0 * 1000) + ' ms') + '</b>)' : '');
+    }
+    $('status').innerHTML = s;
+  }
+  function stop() { voice.forEach(function (v) { try { v.stop(); } catch (e) {} }); voice = []; playing = false; t0 = -1; }
+  function knock() {
+    if (!ir) return;
+    if (!ac) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) { $('msg').textContent = 'This browser has no Web Audio, so nothing can sound here.'; return; }
+      ac = new AC(); comp = ac.createDynamicsCompressor(); comp.threshold.value = -10; comp.ratio.value = 12; comp.attack.value = 0.003; comp.release.value = 0.2; comp.connect(ac.destination);
+      document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); }); }
+    if (ac.state !== 'running') ac.resume();
+    stop();
+    var N = ir.L.length, k = knockSig(), i;
+    if (!sound) sound = through(k, N);
+    var b = ac.createBuffer(2, N, SR), wetG = step === 2 ? 0.9 : step === 4 ? 2.6 : 1.1, dryG = step === 2 ? 0 : 0.5, L = b.getChannelData(0), R = b.getChannelData(1);
+    for (i = 0; i < N; i++) { var d = i < k.length ? dryG * k[i] : 0; L[i] = wetG * sound.L[i] + d; R[i] = wetG * sound.R[i] + d; }
+    var s = ac.createBufferSource(); s.buffer = b; s.connect(comp); s.start(); voice.push(s); t0 = ac.currentTime; playing = true;
+    s.onended = function () { if (voice.indexOf(s) >= 0) { playing = false; } };
+    $('msg').textContent = 'Rendered before it plays, by the same code the check runs. A compressor sits after it, for your ears.';
+  }
+
+  // ── step 4: grow a colony, on the dish's engine, where you can watch ─────
+  function startGrow() {
+    if (grow && !grow.done) return;
+    var rg = rdRig(SR, seed, MAXS); grow = { rg: rg, st: { o: 0, t: 0 }, food: rdPhrase(40, 3, SR), done: false, target: scene.clientWidth < 560 ? 110 : MAXS };
+    wash0 = NaN; $('msg').textContent = 'Growing a colony on plucked strings, silently, faster than you could hear it…';
+    (function tick() {
+      if (!grow || grow.rg !== rg) return;
+      var full = rdFeed(rg, grow.food, grow.st, 60, grow.target);
+      if (full || grow.st.t > 240) { grow.done = true; $('msg').textContent = 'Grown: fed for ' + Math.round(grow.st.t) + ' s of strings. Knock on it.'; if (step === 4) build(); return; }
+      if (step === 4) drawScene(); setTimeout(tick, 0);
+    })();
+  }
+
+  // ── drawing ──────────────────────────────────────────────────────────────
+  function fit(cv, hCss) { var w = cv.parentNode.clientWidth; dpr = Math.min(2, window.devicePixelRatio || 1); cv.style.height = hCss + 'px'; if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(hCss * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(hCss * dpr); } return cv.getContext('2d'); }
+  var slots = [];
+  function drawFeed() {
+    var g = fit(feed, 110), W = feed.width, H = feed.height, y = H * 0.66, i, x, r, on;
+    g.clearRect(0, 0, W, H); slots = [];
+    g.strokeStyle = 'rgba(217,211,192,.6)'; g.lineWidth = 2 * dpr; g.lineCap = 'round'; g.beginPath(); g.moveTo(14 * dpr, y); g.lineTo(W - 20 * dpr, y); g.stroke();
+    g.beginPath(); g.moveTo(W - 20 * dpr, y); g.lineTo(W - 30 * dpr, y - 6 * dpr); g.moveTo(W - 20 * dpr, y); g.lineTo(W - 30 * dpr, y + 6 * dpr); g.stroke();
+    g.font = 10.5 * dpr + 'px ui-monospace, Menlo, monospace'; g.textAlign = 'center';
+    for (i = 0; i < 4; i++) {
+      x = W * (0.16 + 0.2 * i); r = (9 + 22 * Math.sqrt(RD_KNOTS[i][0] / 613)) * dpr; on = i < knots; slots.push({ x: x / dpr, r: r / dpr + 10 });
+      g.beginPath(); g.arc(x, y - r, r, 0, 6.283);
+      if (on) { g.strokeStyle = 'rgba(232,184,74,.95)'; g.lineWidth = 2.2 * dpr; g.setLineDash([]); } else { g.strokeStyle = 'rgba(138,138,160,.45)'; g.lineWidth = 1 * dpr; g.setLineDash([3 * dpr, 4 * dpr]); }
+      g.stroke(); g.setLineDash([]);
+      g.fillStyle = on ? 'rgba(232,184,74,.95)' : 'rgba(138,138,160,.7)';
+      g.fillText(on ? (RD_KNOTS[i][0] / 48).toFixed(1) + ' ms · keeps ' + RD_KNOTS[i][1] : 'tie one here', x, H - 6 * dpr);
+    }
+    g.textAlign = 'left'; g.fillStyle = 'rgba(138,138,160,.8)'; g.fillText('knock in', 14 * dpr, 16 * dpr);
+  }
+  function drawScene() {
+    var hide = step === 2; $('wScene').hidden = hide; $('capFeed').hidden = $('wFeed').hidden = step === 1; if (hide) return;
+    var cw = scene.parentNode.clientWidth, hCss = step === 4 ? Math.round(cw * 0.6) : 120, g = fit(scene, hCss), W = scene.width, H = scene.height, i, s, A, B, k, t;
+    g.fillStyle = '#08080c'; g.fillRect(0, 0, W, H); g.lineCap = 'round';
+    t = playing && ac ? ac.currentTime - t0 : -1;
+    if (step === 4) {
+      if (!grow) return; var col = grow.rg.col; k = W / colW;
+      var lv = 0; if (t >= 0 && ir) { var a = Math.round(t * SR), e = 0; for (i = a; i < a + 480 && i < ir.L.length; i++) e = Math.max(e, Math.abs(ir.L[i])); lv = Math.min(1, Math.sqrt(e) * 2.2); }
+      for (i = 0; i < col.segs.length; i++) { s = col.segs[i]; if (!s) continue; A = col.nodes[s.a]; B = col.nodes[s.b]; if (!A || !B) continue;
+        g.strokeStyle = 'rgba(' + Math.round(217 + 15 * lv) + ',' + Math.round(211 - 30 * lv) + ',' + Math.round(192 - 110 * lv) + ',' + (0.4 + 0.1 * s.y + 0.3 * lv) + ')'; g.lineWidth = Math.max(0.9, (0.5 + 0.7 * s.y) * k * (1 + 0.8 * lv));
+        g.beginPath(); g.moveTo(A.x * k, A.y * k); g.lineTo(B.x * k, B.y * k); g.stroke(); }
+      A = col.nodes[0]; g.fillStyle = 'rgba(244,238,220,.95)'; g.beginPath(); g.arc(A.x * k, A.y * k, 6 * k, 0, 6.283); g.fill();
+      for (i = 0; i < col.fruit.length; i++) { A = col.nodes[col.fruit[i].n]; if (!A) continue; g.fillStyle = '#e6c9b8'; g.beginPath(); g.arc(A.x * k, A.y * k - 8 * k, 8 * k, 3.1416, 0); g.fill(); }
+      if (!grow.done) { g.fillStyle = 'rgba(232,232,240,.9)'; g.font = 16 * dpr + 'px Georgia, serif'; g.textAlign = 'center'; g.fillText('growing… ' + col.nseg + ' threads', W / 2, H - 18 * dpr); }
+      return;
+    }
+    var x0 = W * 0.08, x1 = x0 + (W * 0.84) * (+$('sLen').value / 286), y = H / 2;
+    g.strokeStyle = 'rgba(217,211,192,.6)'; g.lineWidth = 2.4 * dpr; g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
+    g.fillStyle = 'rgba(217,211,192,.9)'; g.beginPath(); g.arc(x0, y, 4 * dpr, 0, 6.283); g.arc(x1, y, 4 * dpr, 0, 6.283); g.fill();
+    if (t >= 0 && threadL) {
+      for (i = 0; i < taps.length; i++) {
+        var tt = t - taps[i].t; if (tt < 0) continue; var trips = tt * SR / (2 * threadL), ph = trips % 1, amp = Math.abs(taps[i].a) * Math.pow(0.64 * threadG * threadG, Math.floor(trips));
+        if (amp < 0.01) continue; var px = x0 + (x1 - x0) * (ph < 0.5 ? ph * 2 : 2 - ph * 2);
+        g.fillStyle = (taps[i].a < 0 ? 'rgba(156,132,255,' : 'rgba(232,184,74,') + Math.min(1, 0.25 + amp) + ')'; g.beginPath(); g.arc(px, y, (3 + 7 * Math.sqrt(amp)) * dpr, 0, 6.283); g.fill();
+      }
+    }
+  }
+  function drawStrip() {
+    var g = fit(strip, 150), W = strip.width, H = strip.height, i, j, mid = H * 0.5, m = 0, a, b, v, neg, x;
+    g.fillStyle = '#08080c'; g.fillRect(0, 0, W, H);
+    g.strokeStyle = 'rgba(255,255,255,.08)'; g.lineWidth = 1; g.beginPath(); g.moveTo(0, mid); g.lineTo(W, mid); g.stroke();
+    g.font = 10 * dpr + 'px ui-monospace, Menlo, monospace'; g.fillStyle = 'rgba(138,138,160,.8)'; g.textAlign = 'left';
+    var tick = win <= 0.2 ? 0.02 : win <= 0.5 ? 0.05 : 0.1;
+    for (v = 0; v < win + 1e-9; v += tick) { x = v / win * W; g.fillStyle = 'rgba(255,255,255,.06)'; g.fillRect(x, 0, 1, H); g.fillStyle = 'rgba(138,138,160,.8)'; g.fillText(Math.round(v * 1000) + (v === 0 ? ' ms' : ''), x + 3 * dpr, H - 5 * dpr); }
+    if (!ir) return;
+    var n = Math.min(ir.L.length, Math.round(win * SR)); for (i = 0; i < n; i++) m = Math.max(m, Math.abs(ir.L[i])); if (!m) return;
+    if (step === 4) {
+      if (!isNaN(wash)) { x = wash / win * W; g.fillStyle = 'rgba(232,184,74,.07)'; g.fillRect(0, 0, x, H); g.fillStyle = 'rgba(232,184,74,.9)'; g.fillRect(x, 0, 1.5 * dpr, H); g.textAlign = x > W * 0.7 ? 'right' : 'left'; g.fillText('a wash from ' + Math.round(wash * 1000) + ' ms', x + (x > W * 0.7 ? -5 : 5) * dpr, 12 * dpr); g.textAlign = 'left'; g.fillStyle = 'rgba(232,184,74,.6)'; if (x > 150 * dpr) g.fillText('still single echoes', 5 * dpr, 26 * dpr); }
+      if (knots && !isNaN(wash0)) { x = wash0 / win * W; g.strokeStyle = 'rgba(200,200,216,.6)'; g.setLineDash([4 * dpr, 4 * dpr]); g.beginPath(); g.moveTo(x, 0); g.lineTo(x, H); g.stroke(); g.setLineDash([]); g.fillStyle = 'rgba(200,200,216,.8)'; g.fillText('with no knots: ' + Math.round(wash0 * 1000) + ' ms', x + 5 * dpr, 40 * dpr); }
+    }
+    for (j = 0; j < W; j++) {
+      a = Math.floor(j / W * n); b = Math.max(a + 1, Math.floor((j + 1) / W * n)); v = 0; neg = false; for (i = a; i < b; i++) if (Math.abs(ir.L[i]) > Math.abs(v)) v = ir.L[i];
+      if (!v) continue; var h = Math.sqrt(Math.abs(v) / m) * (mid - 16 * dpr); g.fillStyle = v < 0 ? 'rgba(156,132,255,.9)' : 'rgba(232,184,74,.9)'; g.fillRect(j, v < 0 ? mid : mid - h, 1, h);
+    }
+    if (playing && ac) { x = (ac.currentTime - t0) / win * W; if (x < W) { g.fillStyle = 'rgba(232,232,240,.9)'; g.fillRect(x, 0, 1.5 * dpr, H); } }
+  }
+  function drawAll() { drawFeed(); drawScene(); drawStrip(); }
+  (function loop() { requestAnimationFrame(loop); if (playing || (step === 4 && grow && !grow.done)) { drawScene(); drawStrip(); if (playing && ac && ac.currentTime - t0 > 3.4) playing = false; } })();
+
+  // ── hands ────────────────────────────────────────────────────────────────
+  function lenText() { var L = Math.max(32, Math.round(+$('sLen').value * 0.35 * SR / 1000)), ms = 2000 * L / SR; $('vLen').textContent = 'round trip ' + ms.toFixed(1) + ' ms'; }
+  function setStep(n) {
+    step = Math.max(1, Math.min(4, n)); stop();
+    if (step === 1) knots = 0; else if (step === 2 && knots === 0) knots = 1; else if (step === 3 && knots === 0) knots = 4;
+    if (step === 4) knots = 0;
+    Array.prototype.forEach.call($('rail').querySelectorAll('button'), function (b) { b.classList.toggle('on', +b.getAttribute('data-step') === step); });
+    for (var i = 1; i <= 4; i++) $('t' + i).hidden = i !== step;
+    $('bNew').hidden = step !== 4; $('bBack').disabled = step === 1; $('bNext').disabled = step === 4;
+    build();
+  }
+  $('rail').addEventListener('click', function (ev) { var s = ev.target.getAttribute && ev.target.getAttribute('data-step'); if (s) setStep(+s); });
+  $('bBack').onclick = function () { setStep(step - 1); }; $('bNext').onclick = function () { setStep(step + 1); };
+  $('bKnock').onclick = knock; scene.addEventListener('click', knock);
+  $('bNew').onclick = function () { seed = 11 + Math.floor(Math.random() * 9000); grow = null; build(); };
+  feed.addEventListener('click', function (ev) {
+    var r = feed.getBoundingClientRect(), x = ev.clientX - r.left, i, hit = -1; for (i = 0; i < slots.length; i++) if (Math.abs(x - slots[i].x) < Math.max(40, slots[i].r)) hit = i;
+    if (hit < 0) return; knots = hit < knots ? hit : hit + 1; if (step === 2 && knots === 0) knots = 1; build(); if (ac) knock();
+  });
+  var lt = 0; $('sLen').addEventListener('input', function () { lenText(); clearTimeout(lt); lt = setTimeout(function () { build(); if (ac) knock(); }, 90); });
+  var rs = 0; window.addEventListener('resize', function () { clearTimeout(rs); rs = setTimeout(drawAll, 120); });
+  lenText(); setStep(1);
+  window.__knot = { state: function () { return { step: step, knots: knots, ready: ready, wash: wash, wash0: wash0, grown: !!(grow && grow.done), threads: grow ? grow.rg.col.nseg : 0, hasIr: !!ir }; } };
+})();
+</script>
+</body>
+</html>
