@@ -442,7 +442,7 @@ function makeHands(seed, n) {
         launch[o] = Math.max(0, p.at - s0); launch[o + 1] = p.v[0]; launch[o + 2] = p.v[1]; launch[o + 3] = p.v[2];
         launch[o + 4] = p.m; launch[o + 5] = p.x0;
       }
-      pending.length = 0; pending.push(...keep);
+      pending.length = 0; for (const q of keep) pending.push(q);   /* a loop, not a spread: a flood of waiting grains overflowed the call stack */
       for (let k = notes.length - 1; k >= 0; k--) if (notes[k].next > notes[k].end && notes[k].end < s1) notes.splice(k, 1);
     },
   };

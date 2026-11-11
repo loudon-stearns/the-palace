@@ -15,33 +15,34 @@ forward_vector: "I am Particle Synthesis's scroll — the one page that always o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-11T12:51:03.390Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-11T13:01:18.310Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 8 · last ran 2026-11-11 (today)
-- **Plan:** agreed 2026-11-10 (1 day ago) · 1 made thing since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 9 · last ran 2026-11-11 (today)
+- **Plan:** agreed 2026-11-10 (1 day ago) · 2 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-11 (today) — The ice fountain is an instrument now. Three keyboard rows throw grains from the left nozzle, the right, or both at once, and you hear where they land. (`particle-synthesis-016`)
-- **Last commit touching this project:** 2026-11-03 `7463e92d` — edit(Loudon Live Design System): the house's player on the nine pages that still showed the OS audio player, on Loudon's word of 2026-11-03
+- **Last shipped:** 2026-11-11 (today) — Past 1024 grains: with meetings on, the GPU keeps up to about 3,000 grains; with meetings off, to about 28,000. Heavy rain needs those slots just to land. (`particle-synthesis-018`)
+- **Last commit touching this project:** 2026-11-11 `087fb6cc` — steward(Particle Synthesis): cycle 8 — SPINNING UP. HOME: [Particle Synthesis](obsidian://open?vault=The%20Pal…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-11 — cycle 8 · taught item 4
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-11 — cycle 9 · taught item 5
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 4, from cycle 8 — 2026-11-11 — [[Particle Synthesis — tuning]]
+- **Latest lesson:** item 5, from cycle 9 — 2026-11-11 — [[Particle Synthesis — tuning]]
 
 ### Where this stands
 
-Particle Synthesis treats each grain of a granular synth as a real particle, so the sound comes out of physics instead of knobs. Its test is whether it sounds like physics, not parameter modulation. By October two fountains were throwing 1024 ice grains at each other on the GPU. Each landing reaches two pickups as a chirp, highs first, and grains that meet in mid-air clack. On 10 November you adopted the plan: your ears on the A/B, then grains meeting on the GPU (done in October), then make it playable, then push past 1024, then a spec for Live, then fold what's proven into the page. This cycle made it playable. On the keyboard, Z to / throws from the left nozzle, Q to P from the right, and…
+Particle Synthesis treats each grain of a granular synth as a real particle, so the sound comes out of physics instead of knobs. The test is whether it sounds like physics rather than parameter modulation. Two fountains throw ice grains at each other on the GPU. Each landing reaches two pickups as a chirp, highs first, and grains that meet in mid-air clack. Earlier today the fountain became an instrument you play from the keyboard or MIDI. This cycle took the plan's next step, pushing past 1024 grains: where the GPU runs out, and whether more grains add anything the ear can hear. The answer is in the 'grains are taken back' clip and in a figure.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 4:** Nobody has listened yet. _(in 5 notes, the latest cycle 8)_
+- **rough since cycle 4:** Nobody has listened yet. _(in 6 notes, the latest cycle 9)_
 - **rough since cycle 4:** I don't know how the live bench runs on your machine's audio. _(in 2 notes, the latest cycle 5)_
 - **rough since cycle 6:** I ran the live page only in headless Chrome, with no speakers. _(in 2 notes, the latest cycle 7)_
+- **rough since cycle 8:** The recorded performance that finishes making the instrument playable is yours to play; _(in 2 notes, the latest cycle 9)_
 
 ### Open asks
 
@@ -59,6 +60,7 @@ _None._
 
 ### Runs
 
+- 2026-11-11 — cycle 9 · taught item 5
 - 2026-11-11 — cycle 8 · taught item 4
 - 2026-10-22 — cycle 7 · taught item 3
 - 2026-10-22 — cycle 6 · taught item 1, proposed item 2 for canon
@@ -98,6 +100,68 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="particle-synthesis-018" -->
+### 2026-11-11 — cycle 9 — Past 1024 grains: with meetings on, the GPU keeps up to about 3,000 grains; with meetings off, to about 28,000. Heavy rain needs those slots just to land.
+> shipped · ceiling measured, rain heard at four sizes · steward leans hands that never choke
+
+**Listen first: [the choke](open:Projects/Particle Synthesis/proofs/2026-11-11-past-1024-choke.wav).** It plays one thickening rain three times, with meetings off so you hear only the landings. It gets 1024 grain slots, then 4096, then 16,384. With 1024 slots the rain stops landing after 2 seconds and goes silent. With 4096 it swells and dies at about 4.5 s. Only 16,384 rains to the end. All three throw the same 36,928 grains.
+
+**Why it chokes.** A grain needs a slot from the throw until it strikes the ice, about a second. When every slot is full, the next throw takes back the oldest grain while it is still in the air. So the sum is simple: grains per second × flight time has to fit inside the slots. This rain leaves at 6,400 grains a second, so it needs about 13,000 slots. Past 1024 isn't about texture. It's whether heavy rain reaches the ice at all.
+
+**Where the GPU runs out** (Apple Metal, one block of 1024 samples, which lasts 21.3 ms; every slot full):
+- With grains meeting, every pair is checked. 1024 slots use 41% of real time, 2048 use 66% and 4096 use 120%. The ceiling is about 3,000 grains.
+- With grains passing through, 1024 slots use 9%, 8192 use 20% and 16,384 use 58%. The ceiling is about 28,000 grains.
+
+The meetings are what cost. The grid the plan named for collisions was never built; October's version checks every pair. That grid is what lifts the first ceiling.
+
+**What more slots do to the sound** (the same rain with meetings on, at matched loudness; [the sweep](open:Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-sweep.wav) plays 256, 1024, 4096 and 16,384 slots in a row). The texture is already steady noise by 1024: kurtosis 3.6, where 3 is pure noise. More slots don't make it smoother. What they change is colour and body. Landings rise from 750 to 13,000 a second, and the spectrum's centre of mass drops from 984 Hz to 761 Hz as the chirps' low tails fill in.
+
+**The find I didn't expect.** At these densities about 17,000 meetings a second happen at every slot count, and 99.4% of them are within 40 cm of a nozzle. It isn't the two streams crossing. It's grains crowding each other as they leave the hand: 3,200 a second through one mouth, at different speeds. I first took that for a flaw in my model, because every grain leaves from one point. So I widened the mouth by 25 cm each way along the throw. 99% of the meetings stayed at the nozzle, and the closing speed halved, so the clacks soften ([mouth, 16,384 slots](open:Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-mouth-16384.wav)). It's real crowding: a downpour that heavy jams at the hand. Whether that hail at the hand is a sound to keep is an ear call.
+
+**Fixed on the way.** The playable instrument could crash if you pressed far more keys than its slots could launch. The queue of waiting grains overflowed the call stack. That's fixed, and the player check passes again: 148 grains, 168 meetings, a take recorded, no errors.
+
+**Artifacts:**
+- [The choke: one rain with meetings off, at 1024, 4096 and 16,384 slots. The first two go silent when the slots run out. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-choke.wav)
+- [The same rain with meetings on, at matched loudness: 256, 1024, 4096 and 16,384 slots in a row. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-sweep.wav)
+- [16,384 slots with a nozzle mouth 25 cm wide each way: the crowding at the hand, softer. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-mouth-16384.wav)
+- [16,384 slots, meetings off: only the landings, every grain reaching the ice. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-off-16384.wav)
+- [Sweep piece: 256 slots. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-256.wav)
+- [Sweep piece: 1024 slots. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-1024.wav)
+- [Sweep piece: 4096 slots. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-4096.wav)
+- [Sweep piece: 16,384 slots. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-16384.wav)
+- [1024 slots with the widened mouth: almost nothing lands, only thin clicks. Stays on this Mac.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-rain-mouth-1024.wav)
+- [Where the GPU runs out, how many grains each slot count lets fly, landings against meetings, and the four rain spectrograms.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024.png)
+- [The instrument with its slot count set from the address (?nmax=16384), the nozzle mouth, and per-block timing.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024.html)
+- [The cost sweep, the rain at four slot counts, and the rain with meetings off.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-harness.mjs)
+- [Where the meetings happen (from the CPU copy's log), and the rain again with a widened mouth.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-mouth.mjs)
+- [Draws the figure, writes the clips at matched loudness, and measures each one.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-figure.py)
+- [Every number from the sweeps.](Projects/Particle Synthesis/proofs/2026-11-11-past-1024-report.json)
+- [The playable instrument, with the crash on a flood of waiting grains fixed.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-of-ice.html)
+- [The player check after the fix: 148 grains, 168 meetings, a take ready, no errors.](Projects/Particle Synthesis/proofs/2026-11-11-two-hands-live.png)
+
+_Cost of one 1024-sample block (21.3 ms of sound), every slot full, Apple Metal_
+| slots | grains meet | grains pass through |
+| --- | --- | --- |
+| 1024 | 41% of real time | 9% |
+| 2048 | 66% | 10% |
+| 4096 | 120% — too slow | 14% |
+| 8192 | 228% | 20% |
+| 16384 | 546% | 58% |
+| 32768 (about 25,000 in the air) | 1195% | 116% — too slow |
+
+_Left rough:_ Nobody has listened yet. The recorded performance that finishes making the instrument playable is yours to play; the etude is a written score, not a performance. The collision grid that would lift the 3,000-grain ceiling isn't built.
+
+_Next moves named:_ Teach the hands the slot sum: refuse or thin throws past slots ÷ flight time, so a heavy pour gets sparser instead of going silent. Then the live page can pick its slot count from the measured ceiling (about 3,000 with meetings on, about 28,000 off). · Build the collision grid the plan named: bin grains by cell so each checks only its neighbours, and measure whether meetings at 16,384 slots fit in real time. · Then the next step on the plan, writing it down for Live: signal flow, parameters and the logic tested here, as a spec ready for when Max patching standards exist. No Max files.
+<sub>`particle-synthesis-018` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-99480c65f1" -->
+### 2026-11-11 — cycle 9
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-particle-synthesis-012" -->
 ### 2026-11-09 — Plan agreed: Here's a first plan: GPU fountain (done), your ears on the A/B, collisions on the GPU, then a playable instrument. Adopt it?
 

@@ -43,3 +43,8 @@ What Particle Synthesis's steward cycles taught the page, and the changes to the
 
 4. Whether two throws from opposite nozzles meet depends on where on the arc they cross more than on how close together they leave. Near the top a 20 ms gap still meets; on the way down 10 ms can miss. So timing tolerance is a property of the key, not of the player. *(offered by the steward, cycle 8)*
 - run · 2026-11-11 · cycle 8 · taught item 4
+
+## From cycle 9 — 2026-11-11
+
+5. A slot has to hold a grain for its whole flight: if grains per second × time to first landing exceeds the slot count, voice stealing takes grains back in mid-air and a heavy rain goes silent; past 1024 is about whether rain lands, not about smoother texture. *(offered by the steward, cycle 9)*
+- run · 2026-11-11 · cycle 9 · taught item 5
