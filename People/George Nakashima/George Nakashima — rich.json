@@ -1,0 +1,69 @@
+{
+  "title": "George Nakashima — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[George Nakashima]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of George Nakashima's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "George Nakashima",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "The butterfly joint",
+      "made_against": "b6ea7f5f659b",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "George Nakashima — rich — the crack is kept.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "The crack is kept",
+          "caption": "When a board split, Nakashima “didn't hide the crack”: he cut a bowtie-shaped inlay across it and left it visible, “proof of the repair, not a cover for it”. And the page says who “decided which split earned a butterfly joint and exactly where it sat”. *What is real and what is a choice:* A drawing, not one of his tables. The slab, both splits, the places of the keys and the choice to leave the small split bare are mine. The dark keys stand for a contrasting wood. Setting a key's grain across the board's follows common woodworking practice, not a source about his shop.",
+          "near": "He cut a bowtie-shaped inlay across it",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-11",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch G (ten drawn diagrams and loops) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "George Nakashima — rich — the crack is kept.svg",
+            "verdict": "remake",
+            "why": "Two faults. (1) It is placed beside the wrong paragraph: the anchor \"butterfly joint\" first matches the Minidoka paragraph, so a pretty slab sits next to \"the United States imprisoned him\". Anchor it in \"The butterfly joint\", at \"He cut a bowtie-shaped inlay across it\". (2) The wood is drawn wrong: the grain runs left to right and the crack runs top to bottom, straight across the grain, with the keys lying along the grain."
+          }
+        ],
+        "remade": [
+          {
+            "file": "George Nakashima — rich — the crack is kept.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "The crack ran across the grain from edge to edge with red keys lying along it, and the piece sat beside the Minidoka paragraph. The split now runs with the grain in from one end, two dark keys stand across it, a second small split is left without a key for the page's point that he chose, the Dovetail avatar is dropped, and the anchor moves to the butterfly-joint section.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      },
+      "note": "moved on 2026-11-11 from the section \"The life that shaped the thought\" with its remake, to sit beside \"He cut a bowtie-shaped inlay across it\""
+    }
+  ]
+}

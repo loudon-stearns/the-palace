@@ -1,0 +1,68 @@
+{
+  "title": "Reflective Practice — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Reflective Practice]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Reflective Practice's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Reflective Practice",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "The palace reflects afterwards",
+      "made_against": "f02071bb4850",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Reflective Practice — rich — twelve and three.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Twelve, three, and one on the border",
+          "caption": "“Sort the palace's own machinery by Schön's two modes and it leans hard to one side.” Twelve mechanisms reflect on action, three in action, and the Audition Gate sits on the border. *What is real and what is a choice:* The names and the sort are the page's, and the page says the sort was made in one session (2026-09-06) and has not been re-audited. The balance is my picture: it gives every mechanism the same weight, and the page weighs none of them.",
+          "near": "Twelve mechanisms",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch F (six sounds and four diagrams with numbers) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Reflective Practice — rich — twelve and three.svg",
+            "verdict": "remake",
+            "why": "Nothing in it is false and the honest line is exact. But as it stands it is two counts drawn as squares, which the sentence beside it already gives, with the names besides; and it leaves out the one mechanism the page puts on the border."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Reflective Practice — rich — twelve and three.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "It was two counts drawn as squares, with the border case left out. Each mechanism is now named on its own weight in the page's order, and the sixteenth, the Audition Gate, sits on the pivot.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

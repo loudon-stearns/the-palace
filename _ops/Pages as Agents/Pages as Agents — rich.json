@@ -1,0 +1,58 @@
+{
+  "title": "Pages as Agents — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Pages as Agents]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Pages as Agents's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Pages as Agents",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "Pages as Agents",
+      "made_against": "e9f5163f5cb3",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Pages as Agents — rich — asleep until read.png",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Asleep until read",
+          "caption": "Every avatar in the palace, greyed, except one: this page's own, lit and framed in red, because you are reading it. *What is real and what is a choice:* The lit one is only the one you opened. The picture cannot show a page waking; it shows the claim. *Leaking in:* All 329 pages.",
+          "near": "Every entry here is a sleeping agent",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch E (sheets from heroes, avatars and records) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Pages as Agents — rich — asleep until read.png",
+            "verdict": "keep",
+            "why": "It says the sentence and no more: every entry asleep, this one lit because \"whoever is reading it is about to become it\". The honest line is the best in the batch (\"the picture cannot show a page waking; it shows the claim\"). Notes. The caption's \"every avatar in the palace\" and the leak's \"all 329 pages\" carry no date; the build of 2026-11-11 already has 331 (Mycelial Reverb and Reverb Design are new), so date them as the footer does."
+          }
+        ]
+      }
+    }
+  ]
+}

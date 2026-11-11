@@ -1,0 +1,72 @@
+{
+  "title": "Shunryu Suzuki — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Shunryu Suzuki]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Shunryu Suzuki's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Shunryu Suzuki",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "How his mind moves",
+      "made_against": "93b25c16984f",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Shunryu Suzuki — rich — few, then many.m4a",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Few, then many",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* Partial ratios are a typical bell's, not a measured one. Calling one partial 'the expert' is my reading of his line. *Leaking in:* Harmonicity and Inharmonicity: a bell's partials are not a tidy ladder.",
+          "near": "in the beginner's mind there are many possibilities",
+          "place": "band"
+        },
+        {
+          "file": "Shunryu Suzuki — rich — few, then many — picture.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Few, then many · drawn",
+          "caption": "One bell struck twice. First with a single partial left in: the note and nothing else. Then with all eleven, each ringing for its own length.",
+          "near": "in the beginner's mind there are many possibilities",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch F (six sounds and four diagrams with numbers) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Shunryu Suzuki — rich — few, then many.m4a",
+            "verdict": "keep",
+            "why": "It does what it says, and the honest line owns the one real leap, that a single partial stands for the expert. A bell losing ten of its eleven voices is a little out of the ordinary and the text cannot give it."
+          },
+          {
+            "file": "Shunryu Suzuki — rich — few, then many — picture.svg",
+            "verdict": "keep",
+            "why": "With its sound: It does what it says, and the honest line owns the one real leap, that a single partial stands for the expert. A bell losing ten of its eleven voices is a little out of the ordinary and the text cannot give it."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "title": "Trickster — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Trickster]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Trickster's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Trickster",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "The Trickster in Loudon's Tools",
+      "made_against": "623e31ca23a3",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Trickster — rich — the corner that disappears.m4a",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "The corner that disappears",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* Threshold -24 dB, ratio 8 to 1, knee 0 and 24 dB wide; the curve is Compressor Design's formula. The swell (a 110 Hz tone rising 8 dB a second) is the maker's, chosen so the tone spends three seconds inside the knee. Measured on the file, the two takes are the same outside the knee and at most 2.5 dB apart inside it. Whether an ear hears the corner go is unverified: nobody has listened. *Leaking in:* Compressor Design, where the palace's soft knee lives.",
+          "near": "soft knee in the compressor design",
+          "place": "band"
+        },
+        {
+          "file": "Trickster — rich — the corner that disappears — picture.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "The corner that disappears · drawn",
+          "caption": "One tone swelling steadily louder, played twice through a compressor. With the hard knee it grows, then about three seconds in it all but stops growing: a corner you can point at. With the soft knee the same rule takes hold and there is no moment to point at. The picture shows both curves.",
+          "near": "soft knee in the compressor design",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch F (six sounds and four diagrams with numbers) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Trickster — rich — the corner that disappears.m4a",
+            "verdict": "remake",
+            "why": "The picture is the page's sentence and the page's formula, and should stay. The sound shows nothing: the two takes never differ by as much as 1 dB, and the largest difference between them is an accident of the file's fade-in, not the knee."
+          },
+          {
+            "file": "Trickster — rich — the corner that disappears — picture.svg",
+            "verdict": "keep",
+            "why": "The picture stands; the remake is the sound's. The picture is the page's sentence and the page's formula, and should stay. The sound shows nothing: the two takes never differ by as much as 1 dB, and the largest difference between them is an accident of the file's fade-in, not the knee."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Trickster — rich — the corner that disappears.m4a",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "The two drum takes never differed by 1 dB, and the one audible difference was the file's fade-in landing on the first kick. The sound is now a slow swell through the threshold with 50 ms of silence before each take; the picture is byte-identical and stands.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          },
+          {
+            "file": "Trickster — rich — the corner that disappears — picture.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "The two drum takes never differed by 1 dB, and the one audible difference was the file's fade-in landing on the first kick. The sound is now a slow swell through the threshold with 50 ms of silence before each take; the picture is byte-identical and stands.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

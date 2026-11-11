@@ -1,0 +1,90 @@
+{
+  "title": "Pauline Oliveros — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Pauline Oliveros]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Pauline Oliveros's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Pauline Oliveros",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "How her mind moves",
+      "made_against": "3263ac6da154",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Pauline Oliveros — rich — one point, then the whole sphere.m4a",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "One point, then the whole sphere",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* A synthesized room, not a recording. Turning the other sounds down fifty times (34 dB) is the maker's stand-in for not attending; the page says sound 'arrives whether you attend to it or not', and here it nearly does not. The second half also carries a little reverb the first lacks. Nobody has listened. *Leaking in:* John Cage, whom her page's links say she contradicts: one sound in the room is a prepared string like the one in the sound on John Cage's page.",
+          "near": "the entire sphere",
+          "place": "band"
+        },
+        {
+          "file": "Pauline Oliveros — rich — one point, then the whole sphere — picture.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "One point, then the whole sphere · drawn",
+          "caption": "One room, heard twice. First attention closes on a single drip and the rain, the hum, the bird and the bell fall away. Then it opens and all of it is there at once.",
+          "near": "the entire sphere",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch F (six sounds and four diagrams with numbers) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Pauline Oliveros — rich — one point, then the whole sphere.m4a",
+            "verdict": "remake",
+            "why": "Faithful to the page's focal and global, and the honest line owns the big choice. But \"forty times\" is fifty, in the honest line and in the picture's footer, and \"a prepared string from his piece\" reads as Cage's own piece when it is the maker's synthesized pluck from the sound on the Cage page."
+          },
+          {
+            "file": "Pauline Oliveros — rich — one point, then the whole sphere — picture.svg",
+            "verdict": "remake",
+            "why": "With its sound: Faithful to the page's focal and global, and the honest line owns the big choice. But \"forty times\" is fifty, in the honest line and in the picture's footer, and \"a prepared string from his piece\" reads as Cage's own piece when it is the maker's synthesized pluck from the sound on the Cage page."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Pauline Oliveros — rich — one point, then the whole sphere.m4a",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "'Forty times' was fifty in the honest line and the picture, and 'a prepared string from his piece' read as Cage's own music. Both are corrected, the reverb is owned, and the piece now has its own seeded generator, so the wav is a new draw of the same room.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          },
+          {
+            "file": "Pauline Oliveros — rich — one point, then the whole sphere — picture.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "'Forty times' was fifty in the honest line and the picture, and 'a prepared string from his piece' read as Cage's own music. Both are corrected, the reverb is owned, and the piece now has its own seeded generator, so the wav is a new draw of the same room.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

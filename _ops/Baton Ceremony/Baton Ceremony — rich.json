@@ -1,0 +1,58 @@
+{
+  "title": "Baton Ceremony — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Baton Ceremony]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Baton Ceremony's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Baton Ceremony",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "Announcing the Baton on the Board",
+      "made_against": "c7f7fca499bd",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Baton Ceremony — rich — batons in the air.png",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Batons in the air",
+          "caption": "The nineteen handoffs open on the board today, each shown by its page's avatar with how long it has been in the air. The oldest is three weeks. *What is real and what is a choice:* Read from the board's own handoff list on 2026-11-10. An open baton is not a fumble; that word is for one claimed and never closed. *Leaking in:* The nineteen pages carrying a baton.",
+          "near": "fumble",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch E (sheets from heroes, avatars and records) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Baton Ceremony — rich — batons in the air.png",
+            "verdict": "keep",
+            "why": "True to the board, alive, and the honest line draws the page's own distinction correctly: all nineteen are open and unclaimed, so none is a fumble. Notes. Subtitle and caption say \"today\"; it is a still of 2026-11-10 on a spec page, so write the date where \"today\" stands. It will age within days, and the page already gives the command for the live list, so this piece is a snapshot by nature."
+          }
+        ]
+      }
+    }
+  ]
+}

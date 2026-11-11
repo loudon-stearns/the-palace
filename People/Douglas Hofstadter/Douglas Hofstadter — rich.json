@@ -1,0 +1,58 @@
+{
+  "title": "Douglas Hofstadter — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Douglas Hofstadter]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Douglas Hofstadter's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Douglas Hofstadter",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "Strange loops",
+      "made_against": "9e451e1c7b04",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Douglas Hofstadter — rich — a strange loop.png",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "A strange loop",
+          "caption": "The picture at the top of his page, hung inside itself seven times. Follow it inward and you never reach a picture that is not this picture. *What is real and what is a choice:* A picture of self-reference, which is his phrase's first half. It says nothing about a self.",
+          "near": "a paradoxical level-crossing feedback loop",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch E (sheets from heroes, avatars and records) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Douglas Hofstadter — rich — a strange loop.png",
+            "verdict": "keep",
+            "why": "The one piece in the batch that is a little out of the ordinary and needs no key: his own hero, the man asleep on the book, falling into itself. It matches the page's third example, a feedback patch that turns its output back into its input. Notes for the words, not the picture. The title calls it a strange loop; a picture inside itself goes down and never comes back to the top, and the \"paradoxical level-crossing\" in the quoted line is the part it lacks."
+          }
+        ]
+      }
+    }
+  ]
+}

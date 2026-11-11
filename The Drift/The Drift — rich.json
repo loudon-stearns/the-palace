@@ -1,0 +1,90 @@
+{
+  "title": "The Drift — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[The Drift]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of The Drift's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "The Drift",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "Lens on the Technical Work",
+      "made_against": "734e0d380e11",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "The Drift — rich — placed, then let go.m4a",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Placed, then let go",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* The second half's rules were chosen (gravity, bounce, pitch by position, a seed); its notes were not. Only floor landings sound, and only above a set speed: that cut-off and the seed make the number 526. The maker levelled the two halves so the placed half is not buried. Nobody has listened. *Leaking in:* Granular Synthesis and Particle Synthesis, the page's own two examples; the page names particle synthesis without linking it.",
+          "near": "every grain a decision",
+          "place": "band"
+        },
+        {
+          "file": "The Drift — rich — placed, then let go — picture.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Placed, then let go · drawn",
+          "caption": "Seventy-two grains laid on a grid in a pattern. Then forty particles dropped in a box, a grain sounding each time one lands: 526 grains nobody placed, crowding and fading as they come to rest.",
+          "near": "every grain a decision",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch F (six sounds and four diagrams with numbers) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "The Drift — rich — placed, then let go.m4a",
+            "verdict": "remake",
+            "why": "The page's sentence staged literally, and the counts are right. But the second half does not thin out: it crowds and fades, then stops, and the file ends on more than five seconds of digital silence."
+          },
+          {
+            "file": "The Drift — rich — placed, then let go — picture.svg",
+            "verdict": "remake",
+            "why": "With its sound: The page's sentence staged literally, and the counts are right. But the second half does not thin out: it crowds and fades, then stops, and the file ends on more than five seconds of digital silence."
+          }
+        ],
+        "remade": [
+          {
+            "file": "The Drift — rich — placed, then let go.m4a",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "'Thinning out' was false by count, the file ended on five seconds of silence, the placed half peaked 17 dB under the dropped half, and the speed cut-off that sets the count was not owned. The word is now 'crowding and fading', the file is 18.5 s with 0.8 s of tail, the halves peak within 2 dB, the cut-off is owned, and the piece has its own seed (526 grains, was 523).",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          },
+          {
+            "file": "The Drift — rich — placed, then let go — picture.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "'Thinning out' was false by count, the file ended on five seconds of silence, the placed half peaked 17 dB under the dropped half, and the speed cut-off that sets the count was not owned. The word is now 'crowding and fading', the file is 18.5 s with 0.8 s of tail, the halves peak within 2 dB, the cut-off is owned, and the piece has its own seed (526 grains, was 523).",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

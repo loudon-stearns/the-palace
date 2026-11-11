@@ -1,0 +1,58 @@
+{
+  "title": "The Four Virtues — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[The Four Virtues]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of The Four Virtues's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "The Four Virtues",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "The Four Virtues",
+      "made_against": "d5324585a078",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "The Four Virtues — rich — four gates.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Four gates",
+          "caption": "A choice passing through four gates in a row, and beyond a dashed line, the outcome, marked 'not yours'. *What is real and what is a choice:* The gloss under each gate is mine, shortened from the page. *Leaking in:* The Dichotomy of Control (the line the outcome sits behind) and Closing Well on the justice gate.",
+          "near": "virtue has four cardinal parts",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch G (ten drawn diagrams and loops) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "The Four Virtues — rich — four gates.svg",
+            "verdict": "keep",
+            "why": "It draws the Life Face paragraph faithfully: a choice run through four, and the outcome set past a line because \"how it turns out was never the thing you were responsible for\". Nothing in it is false, and the dashed line gives the paragraph a shape the bullets do not have. Notes: (1) the anchor is the opening paragraph (\"virtue has four cardinal parts\") but the picture is of the Life Face sentence \"A choice that passes all four is a virtuous response regardless of how it turns out\"; it would sit truer there."
+          }
+        ]
+      }
+    }
+  ]
+}

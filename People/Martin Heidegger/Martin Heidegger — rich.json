@@ -1,0 +1,68 @@
+{
+  "title": "Martin Heidegger — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Martin Heidegger]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Martin Heidegger's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Martin Heidegger",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "How his mind moves",
+      "made_against": "1025224e2386",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Martin Heidegger — rich — you do not see the hammer.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "You do not see the hammer",
+          "caption": "A tool in use is ready-to-hand: “you don't notice the hammer, you notice the nail going in”. It becomes present-at-hand, an object staring back, “only when it breaks”. *What is real and what is a choice:* Drawing the two by fading is my way in; the page's claim is about two ways a tool can be, not about eyesight. The hammer, nail and bench are a drawing.",
+          "near": "Show him a hammer",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch G (ten drawn diagrams and loops) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Martin Heidegger — rich — you do not see the hammer.svg",
+            "verdict": "remake",
+            "why": "The idea is right and it is the page's own move, nearly word for word (\"you don't notice the hammer, you notice the nail going in\"; present-at-hand \"only when it breaks\"), and drawing by opacity is a real idea, not words in boxes. The drawing has a fault: in the WORKING panel the hammer's handle runs down through the workbench and out the bottom, ending just above the footer text, so the hand that swings it would be under the board."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Martin Heidegger — rich — you do not see the hammer.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "The working hammer's handle ran down through the bench, the broken one read as a block and a stick, and the honest line claimed more than the page. The hammer is now held above the bench with its face on the nail, the broken one lies on the bench with its handle snapped and still joined, the labels use the page's two terms, and the Merleau-Ponty avatar is dropped.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "title": "Registry Pattern — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Registry Pattern]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Registry Pattern's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Registry Pattern",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "Registry Pattern",
+      "made_against": "d4a451d2605c",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Registry Pattern — rich — cables that point nowhere.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Cables that point nowhere",
+          "caption": "Without a registry a model “will invent port names, module slugs, and parameter IDs that don't exist. The patch loads — but cables point nowhere.” With one, only what exists can be written. *What is real and what is a choice:* The three modules, their ports and the two invented names are my examples; the page lists none. A real registry gives ports integer indices as well as names, which the picture leaves out.",
+          "near": "cables point nowhere",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch G (ten drawn diagrams and loops) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Registry Pattern — rich — cables that point nowhere.svg",
+            "verdict": "remake",
+            "why": "It draws the page's own best image and nothing else, which is right for a light piece. One pass of fixes. The cables are drawn over the port labels they leave from (SAW, IN and OUT are struck on both sides), and each dashed red cable ends on top of the invented name it points to, so \"FILTER_INPUT\"? and \"AMP_AUDIO\"?, the point of the picture, are the hardest words in it to read. Route the cables clear and end them short of the labels."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Registry Pattern — rich — cables that point nowhere.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "Cables were drawn over the port labels and ended on top of the invented names, and the footer said the patch plays silence, which the page does not say. Outputs now sit on a module's right edge and inputs on its left so cables cross only the gaps, the loose cables end short of the names, labels are 11 units or more, and the footer quotes the page.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

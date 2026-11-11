@@ -1,0 +1,68 @@
+{
+  "title": "Andy Goldsworthy — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Andy Goldsworthy]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Andy Goldsworthy's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Andy Goldsworthy",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "How his mind moves",
+      "made_against": "346519202f03",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Andy Goldsworthy — rich — to the very edge of its collapse.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "To the very edge of its collapse",
+          "caption": "He takes a piece “to the very edge of its collapse”, because the balance point is the piece; and “the real work is the change”, the whole arc from made to gone. *What is real and what is a choice:* A drawing of that arc, moved by hand and not simulated, and not one of his works. The stones' lean was set by eye; the challenger's sum, not mine, found the stack sits at its tipping point. Where the stones come to rest is placed by hand. A 24-second loop.",
+          "near": "the very edge of its collapse",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch G (ten drawn diagrams and loops) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Andy Goldsworthy — rich — to the very edge of its collapse.svg",
+            "verdict": "remake",
+            "why": "The best of the ten: it moves, it is one image, and it does what the sentence says. Two small fixes, one pass. (1) The ground line stops at x = 720 and the top three stones land at about x = 740, 795 and 853, so for the four seconds of rubble they lie in mid-air past the end of the ground. Extend the line. (2) \"here / this is the piece\" is at full strength for 1.2 seconds of a 20-second loop (11.2 to 12.4 s, with 0.8 s fades);"
+          }
+        ],
+        "remade": [
+          {
+            "file": "Andy Goldsworthy — rich — to the very edge of its collapse.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "Three fallen stones lay past the end of the ground line and the label was readable for 1.2 seconds. The ground now runs under everything, the base stone stays put, the others rest on the ground or on each other, and “the balance point is the piece” holds at full strength for 3.8 seconds in larger type.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

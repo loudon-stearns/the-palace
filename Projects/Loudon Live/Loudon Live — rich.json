@@ -1,0 +1,90 @@
+{
+  "title": "Loudon Live — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Loudon Live]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Loudon Live's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Loudon Live",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "The look",
+      "made_against": "23376e15fe05",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Loudon Live — rich — the trace, heard.m4a",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "The trace, heard",
+          "caption": "Press play; the picture beneath says what you are hearing. *What is real and what is a choice:* 220 and 330 Hz, the right ear a sixteenth of a hertz sharp so the figure turns. A flat two-tone cousin of the mark, not the mark itself: the channel's mark runs three frequencies at 3:4:6 in three dimensions. The fifth and 220 Hz are the maker's choices. The picture is drawn from the same two numbers, not from the audio. Both ears sit at -4.7 dB RMS, loud for bare sine, and nobody has listened. *Leaking in:* Rational Hearing, which carries '3:2 the fifth'; neither page links the other.",
+          "near": "Lissajous trace inside a sphere",
+          "place": "band"
+        },
+        {
+          "file": "Loudon Live — rich — the trace, heard — picture.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "The trace, heard · drawn",
+          "caption": "A low tone in the left ear and one a fifth above it in the right, and the figure those two draw when one moves a dot sideways and the other moves it up and down. It passes through the same shape every eight seconds; a whole turn takes sixteen.",
+          "near": "Lissajous trace inside a sphere",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch F (six sounds and four diagrams with numbers) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Loudon Live — rich — the trace, heard.m4a",
+            "verdict": "remake",
+            "why": "The sound and the figure are exactly what they say, and hearing the channel's mark as an interval is a real hook. Two words are off: the drawn shape comes home every eight seconds, not sixteen, and the honest line does not own that this is not the channel's mark, which runs three frequencies at 3:4:6 in three dimensions (`_ops/loudon-live/design-system/assets/logo-lissajous.live.html`), where this is two at 2:3 on a flat disc."
+          },
+          {
+            "file": "Loudon Live — rich — the trace, heard — picture.svg",
+            "verdict": "remake",
+            "why": "With its sound: The sound and the figure are exactly what they say, and hearing the channel's mark as an interval is a real hook. Two words are off: the drawn shape comes home every eight seconds, not sixteen, and the honest line does not own that this is not the channel's mark, which runs three frequencies at 3:4:6 in three dimensions (`_ops/loudon-live/design-system/assets/logo-lissajous.live.html`), where this is two at 2:3 on a flat disc."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Loudon Live — rich — the trace, heard.m4a",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "The words said the figure turns over once in sixteen seconds when the drawn shape returns every eight, and nothing owned that this is not the channel's real mark. The picture's footer, the caption and the honest line now say both; the wav is byte-identical to before.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          },
+          {
+            "file": "Loudon Live — rich — the trace, heard — picture.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "The words said the figure turns over once in sixteen seconds when the drawn shape returns every eight, and nothing owned that this is not the channel's real mark. The picture's footer, the caption and the honest line now say both; the wav is byte-identical to before.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

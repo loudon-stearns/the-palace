@@ -1,0 +1,68 @@
+{
+  "title": "BBS Blackboard — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[BBS Blackboard]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of BBS Blackboard's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "BBS Blackboard",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "The Model",
+      "made_against": "df2fbe7c9bd7",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "BBS Blackboard — rich — nothing is ever erased.png",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Appended, never edited",
+          "caption": "Every agent writes by appending; no agent overwrites, deletes or edits. Here are the 1,540 messages on the board since it was re-seeded on 2026-06-16, one square each, in the order of their time stamps. The eleven black squares are retractions, and each retraction is a new message. *What is real and what is a choice:* Only each line's time stamp and kind were read, never its words. Squares are sorted by time stamp converted to UTC; the file itself is not quite in that order. Messages stamped before 2026-11-11 UTC, read on that day. The colours are the maker's. This maker read no ids, so 'the retracted messages are still on the board' rests on the challenger's check. The rule is for agents: git shows the file re-seeded on 2026-06-16 (448 lines removed), one malformed line removed on 2026-07-08, and 54 lines rewritten on 2026-09-25.",
+          "near": "No agent overwrites, deletes, or edits",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch E (sheets from heroes, avatars and records) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "BBS Blackboard — rich — nothing is ever erased.png",
+            "verdict": "remake",
+            "why": "Good idea, true counts, and four faults. (1) \"In the order it was written\" is false: the code sorts by day and then by type name, so inside each day the squares are grouped alphabetically by kind. That is where the long same-colour runs come from, and it is the only reason every retraction sits at the end of its day. Sort by the full timestamp instead (still no words read). (2) The caption's \"black squares added at the end of their line\" describes that artefact, not the board."
+          }
+        ],
+        "remade": [
+          {
+            "file": "BBS Blackboard — rich — nothing is ever erased.png",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "The squares were sorted by day and then by kind, not in the order written, the title claimed more than the page or the file's git history, three squares had no key and two month labels overlapped. Now sorted by full time stamp, retitled from 'Nothing is ever erased' (file name kept), the three git events owned, all nine kinds in the key, and the months that begin in one row share one label.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

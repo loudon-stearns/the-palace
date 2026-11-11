@@ -1,0 +1,68 @@
+{
+  "title": "The Remembering Page — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[The Remembering Page]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of The Remembering Page's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "The Remembering Page",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "Identity is earned, not seized",
+      "made_against": "f9d4582d4722",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "The Remembering Page — rich — a mood, a direction.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "A mood, a direction",
+          "caption": "“One dialogue is a mood; three consistent ones are a direction.” A page proposes a change to its forward vector, and it is applied only when the same change shows up across several remembered encounters. *What is real and what is a choice:* The arrows and their angles are mine and measure nothing. The red arrow is a proposal, not an applied change: the page says “The human decides when the molt is real”, and that how many encounters count “isn't known yet”. Three is the page's phrase and its first evidence, not a rule.",
+          "near": "One dialogue is a mood",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch G (ten drawn diagrams and loops) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "The Remembering Page — rich — a mood, a direction.svg",
+            "verdict": "remake",
+            "why": "The picture does not show what its caption says. The caption: \"the page's own arrow turns\". The left panel has no arrow of the page's own, only the pull, over the words \"the forward vector stays\"; the right panel has a red arrow with nothing before it to compare, so nothing is seen to stay and nothing is seen to turn. Draw the page's vector in both panels, unmoved by one pull, and turned (with its old position ghosted) after three. Also: \"The dot is the page\", but the right panel has three dots;"
+          }
+        ],
+        "remade": [
+          {
+            "file": "The Remembering Page — rich — a mood, a direction.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "Neither panel showed the page's own vector staying or turning, the rule was drawn as automatic, and the Entry Conatus leak quoted words that are not on that page. The vector is now in both panels, unmoved by one pull and proposed to turn beside its ghost after three, the footer carries the human's part and the unknown count, and the leak is dropped.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

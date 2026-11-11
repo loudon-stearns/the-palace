@@ -1,0 +1,69 @@
+{
+  "title": "Source Library — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Source Library]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Source Library's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Source Library",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "Organization by Role",
+      "made_against": "f9f35bb3a67c",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Source Library — rich — the shelf.png",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "The shelf",
+          "caption": "The page's role list names thirty-six voices. Twenty have a page of their own in the palace; sixteen are still only a name on the list. The sound shelf has the most gaps: three of nine. *What is real and what is a choice:* The count is the maker's, not the page's: each bullet under 'Organization by Role' matched by name to a page in the map build of 2026-11-09, and again to a file in People/. One of the thirty-six is a film, not a person. Three pages that call themselves members (Iain McGilchrist, Martin Buber, Martin Heidegger) are not on the list and are not drawn. Each spine's picture is an arbitrary strip of that page's hero; the shelf labels shorten the page's seven headings.",
+          "near": "Teach how to see structure, feedback loops",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-11",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch E (sheets from heroes, avatars and records) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Source Library — rich — the shelf.png",
+            "verdict": "remake",
+            "why": "Thirty spines with no names is atmosphere: a reader cannot tell one source from another, and the count is not the library's. Seven of the thirty are pages of type \"source\" that the Source Library page never names and that are not thinkers, artists or makers (two design systems, a Gemma guide, Tree of Thoughts, Meaning and the Link, Synthesis Notes, Meadows and Music). Drop the seven and letter each spine with its name."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Source Library — rich — the shelf.png",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "Thirty unnamed spines were atmosphere, and seven of them were pages the Source Library never names. Took the challenger's better piece: the page's own 36 names as lettered spines in the page's order, 20 solid and 16 dashed, with a count under each shelf.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      },
+      "note": "moved on 2026-11-11 from the section \"The Thinkers, Artists, and Makers Who Teach Pattern Recognition\" with its remake, to the section the maker named, \"Organization by Role\"; a heading cannot be an anchor, so the piece sits after that section's first lines"
+    }
+  ]
+}

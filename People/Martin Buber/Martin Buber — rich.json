@@ -1,0 +1,68 @@
+{
+  "title": "Martin Buber — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Martin Buber]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Martin Buber's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Martin Buber",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "How his mind moves",
+      "made_against": "a74215f76d81",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Martin Buber — rich — the between.png",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "The between",
+          "caption": "The meeting belongs to neither party; it happens in the space between them. The avatar is two facing forms and the light held between. Tint the light, and it is one region that is neither form. *What is real and what is a choice:* Only the tint differs: pixels above a brightness of 150 of 255 are blended 55 percent toward red. Reading the light as the between is the avatar's own brief ('the charged space between'), not only the maker's. The tint is the maker's, and it gives the between an edge and makes it a thing, which the page says the meeting does 'the instant you try'. The page never ties I-It or I-Thou to this picture, so the sheet no longer does.",
+          "near": "the between",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-10",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch E (sheets from heroes, avatars and records) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Martin Buber — rich — the between.png",
+            "verdict": "remake",
+            "why": "The flip is real and the reader does it with their own eyes, which is worth keeping. What is wrong is in the labels. The sheet prints \"I — IT\" under one way of looking and \"I — THOU\" under the other; the page never ties its two modes to this picture, and neither the footer nor the manifest's honest line owns that, only the vase."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Martin Buber — rich — the between.png",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "The sheet printed I-It and I-Thou labels under the two copies, a pairing the page never makes, told the reader what they see, and one label ran off the picture. The two labels are gone, the page's sentence is the subhead, and the footer owns the tint and names the page's own objection to holding the between.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      }
+    }
+  ]
+}

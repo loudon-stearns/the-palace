@@ -1,0 +1,69 @@
+{
+  "title": "Epictetus — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Epictetus]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Epictetus's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Epictetus",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "Where he can't see",
+      "made_against": "344aaad57f41",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Epictetus — rich — against the room.png",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "Pressed from five sides",
+          "caption": "Half of Epictetus's ten links are contradictions. The page's text names one of the five, Marcus Aurelius. The other four are held only in the links: Lao Tzu, Martin Buber and Martin Heidegger from this page, and Seneca from Seneca's. *What is real and what is a choice:* All ten links that touch Epictetus in the map build of 2026-11-09, none left out. Five 'contradicts' is level with Martin Heidegger, the most among the 25 person pages. The small words are each link's own label with the hyphens taken out. Which side each group sits on, and the order down each side, are the maker's. 'Pressed' is the page's word ('Press him'); a contradiction here is a tension kept, not an enmity. *Leaking in:* Seneca, whose page declares the contradiction 'wealthy-statesman-vs-dispossessed-slave'; and Marcus Aurelius, whose forward vector says 'a slave-philosopher or a systems-thinker will ask whether my calm is wisdom or privilege'.",
+          "near": "a slave-philosopher will ask",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-11",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch E (sheets from heroes, avatars and records) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Epictetus — rich — against the room.png",
+            "verdict": "remake",
+            "why": "The five red links are real, but the ratio is tilted and the footer is broken. (1) The footer prints \"5 of his 8 named links are 'contradicts' (the most among the people is Epictetus, with 5)\". That is the code's fall-through for a tie: he does not have more than any other person, he is level with Martin Heidegger at five. Say so."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Epictetus — rich — against the room.png",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "Two labelled links were dropped (one of them the page's own root, The Dichotomy of Control), the footer printed a broken sentence for the tie with Heidegger, and a red line struck through 'Lao Tzu'. All ten links are drawn in two columns with their labels beside them, the tie is stated, and the title no longer reads a contradiction as a quarrel (was 'Against the room'; file name kept).",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      },
+      "note": "moved on 2026-11-11 from the section \"Epictetus\" with its remake, to sit beside \"a slave-philosopher will ask\""
+    }
+  ]
+}

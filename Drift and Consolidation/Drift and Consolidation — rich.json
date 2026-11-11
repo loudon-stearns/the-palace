@@ -1,0 +1,69 @@
+{
+  "title": "Drift and Consolidation — rich",
+  "born": "2026-11-10",
+  "links": [
+    {
+      "target": "[[Drift and Consolidation]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Drift and Consolidation's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Drift and Consolidation",
+  "tier": "sketch",
+  "made": "2026-11-10",
+  "round": 1,
+  "note": "A light face, from the light round of 2026-11, third batch: one small thing beside one sentence, not a walk up to a test. Made by the working session (a child) in Enrichment/light-round-2026-11/, where the makers and data stay; placed here by the Concierge. A challenger has now read this piece (2026-11-11); its verdict is in the section's challenge block. It was made before the challenge of the first forty came back (16 keep, 24 remake), so it likely carries the same kinds of fault that challenge found: a caption that reads more into the page than the page says, a 'what is real' line that owns too little, a count off by one where a parser was naive. Every section is a proposal until Loudon approves it.",
+  "sections": [
+    {
+      "heading": "The mechanism: continuous awareness, milestone consolidation",
+      "made_against": "fcccd3a80c93",
+      "made": "2026-11-10",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-10",
+        "by": "maker · the working session, a child · light round, third batch; placed by the Concierge",
+        "round": "light-round-2026-11"
+      },
+      "pieces": [
+        {
+          "file": "Drift and Consolidation — rich — the sawtooth.svg",
+          "origin": "made",
+          "by": "the working session · light round 2026-11",
+          "title": "The sawtooth, and one real steward",
+          "caption": "“The bug is never drift. The bug is unbounded, untracked drift”. Drift that is folded back at milestones stays in a band; beside the sketch is the page's own number for one steward, which folded once and has since climbed eleven cycles with no fold. *What is real and what is a choice:* The left side is my sketch, and the sawtooth is my picture of the page's two tiers. The right side is counted, not read off a screen: the steward's history gives the cycles, and the entry's footer has named two consolidation cycles (3, then 9). The scroll has shown this number only since 2026-09-23; earlier points are counted back the same way. It is spaced by cycle, not by day: the last eleven cycles ran from June to October. The scroll's Now zone read 11 on 2026-11-11. *Leaking in:* Generative Wavetable Libraries: its footer carries “As of last consolidation: cycle 9” and says “See [[Drift and Consolidation]]”. The link runs from that page to this one; this page does not name it.",
+          "near": "reports how many cycles and decisions have landed since",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-11",
+      "challenge": {
+        "date": "2026-11-11",
+        "by": "challenger · light round, batch F (six sounds and four diagrams with numbers) · read-only dispatch",
+        "verdicts": [
+          {
+            "file": "Drift and Consolidation — rich — the sawtooth.svg",
+            "verdict": "remake",
+            "why": "The schematic is a fair picture of the page's central claim. The inset is not: it is real data for a different drift. The page's drift is the gap between a steward's log and its entry; em-dashes per thousand words is the voice's drift, which this page never mentions, and calling it \"one real tooth\" is a claim the page does not make."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Drift and Consolidation — rich — the sawtooth.svg",
+            "date": "2026-11-11",
+            "kind": "the file was remade",
+            "what": "The inset was a different drift (the voice's em-dashes), the dashed line climbed slower than the teeth, and lines struck two labels. The dashed line now carries on at the teeth's slope, labels sit clear, and the inset is the page's own number for one steward with 0, 6 and 11 printed on an axis from zero (count-drift-gwl.py, drift-gwl.json); The Palace Voice's avatar is gone.",
+            "by": "a dispatched workshop maker, a child, from the challenger's report; looked over by the working session; placed by the Concierge",
+            "second_verdict": "none: the remake has not been challenged again"
+          }
+        ]
+      },
+      "note": "moved on 2026-11-11 from the section \"Drift and Consolidation\" with its remake, to sit beside \"reports how many cycles and decisions have landed since\""
+    }
+  ]
+}
