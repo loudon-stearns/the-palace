@@ -94,6 +94,57 @@ On Loudon's "Yes, remake them" (2026-11-10), the working session remade the twen
 
 No remake has had a second verdict, which [[Enrichment]] step 6 asks for. No page's text was touched. The offers the challengers wrote for the pages themselves are not in any manifest's `offers` list yet.
 
-## The third batch
+## The third batch — 2026-11-11
 
-Thirty more pieces (`placements-3.json`) were made before these reports came back. On Loudon's "run the challengers on the unchallenged ones" (2026-11-11) three challengers are reading them; their reports will sit here as `batch-E.md` to `batch-G.md`.
+On Loudon's "run the challengers on the unchallenged ones" (2026-11-11). Three challengers, ten pieces each, the same prompt with two additions by the working session: the first reports as a model, and a check for a piece calling the person in the room "he" (none did). Their reports are `batch-E.md` to `batch-G.md`, verbatim. This time the pieces were challenged before any was committed.
+
+7 keep, 22 remake, 1 retire.
+
+### Batch E — sheets from heroes, avatars and records
+
+- **Stoicism** — remake. The top row is the page's sentence and is right, but the three grey rules that drop from each teacher to a "move" pair them wrongly: Seneca over The Dichotomy of Control, Epictetus over The View From Above, Marcus over The Four Virtues.
+- **Metaphor as Coupling Medium** — retire. It is a list of another hub's members set beside a sentence about something else.
+- **Source Library** — remake. Thirty spines with no names is atmosphere: a reader cannot tell one source from another, and the count is not the library's.
+- **Project Stewardship System** — keep. The numbers are the page's and they check against the record; the wall of ears makes "short of Loudon's senses" visible at a glance, and the ear is a small step past a plain unit chart.
+- **BBS Blackboard** — remake. Good idea, true counts, and four faults.
+- **Baton Ceremony** — keep. True to the board, alive, and the honest line draws the page's own distinction correctly: all nineteen are open and unclaimed, so none is a fumble.
+- **Epictetus** — remake. The five red links are real, but the ratio is tilted and the footer is broken.
+- **Douglas Hofstadter** — keep. The one piece in the batch that is a little out of the ordinary and needs no key: his own hero, the man asleep on the book, falling into itself.
+- **Pages as Agents** — keep. It says the sentence and no more: every entry asleep, this one lit because "whoever is reading it is about to become it".
+- **Martin Buber** — remake. The flip is real and the reader does it with their own eyes, which is worth keeping.
+
+### Batch F — six sounds and four diagrams with numbers
+
+- **Loudon Live** — remake. The sound and the figure are exactly what they say, and hearing the channel's mark as an interval is a real hook.
+- **Pauline Oliveros** — remake. Faithful to the page's focal and global, and the honest line owns the big choice.
+- **The Drift** — remake. The page's sentence staged literally, and the counts are right.
+- **Trickster** — remake. The picture is the page's sentence and the page's formula, and should stay.
+- **Shunryu Suzuki** — keep. It does what it says, and the honest line owns the one real leap, that a single partial stands for the expert.
+- **Audition Gate** — remake. The best idea in the batch: it tests the page's claim that "only the audio is the truth" and leaves the verdict to the ear.
+- **Reflective Practice** — remake. Nothing in it is false and the honest line is exact.
+- **Worktree Practice** — keep. It matches the page's own account move for move: one session switches the shared checkout, the other's commit lands on the wrong branch, and a worktree each ends it.
+- **Speak Like a Person, Log Like a Protocol** — remake. Seeing the two registers side by side is worth having, and the honest line owns the mock-ups plainly.
+- **Drift and Consolidation** — remake. The schematic is a fair picture of the page's central claim.
+
+### Batch G — ten drawn diagrams and loops
+
+- **The Four Virtues** — keep. It draws the Life Face paragraph faithfully: a choice run through four, and the outcome set past a line because "how it turns out was never the thing you were responsible for".
+- **Martin Heidegger** — remake. The idea is right and it is the page's own move, nearly word for word ("you don't notice the hammer, you notice the nail going in"; present-at-hand "only when it breaks"), and drawing by opacity is a real idea, not words in boxes.
+- **George Nakashima** — remake. Two faults.
+- **Andy Goldsworthy** — remake. The best of the ten: it moves, it is one image, and it does what the sentence says.
+- **The Remembering Page** — remake. The picture does not show what its caption says.
+- **No Mind Checks Itself** — remake. A good picture of the page's sentence, and "one layer drawn three times" is a real thought.
+- **Iain McGilchrist** — remake. The left panel is good and is the page's: one thing lifted out, the rest turned to empty boxes, is "re-presents ...
+- **Registry Pattern** — remake. It draws the page's own best image and nothing else, which is right for a light piece.
+- **The Multilinear Self** — remake. The footer says "no shadow is a lie", and one is.
+- **Julia Cameron** — remake. The leak is not on either page.
+
+**The retire.** Metaphor as Coupling Medium's sheet was dropped before landing, as [[Enrichment]] step 6 says: the placed file and its manifest are gone from the bundle, and nothing of it was ever committed. The workshop keeps the file, `Metaphor as Coupling Medium — ten bridges.png`. The challenger's reason: it is a list of another hub's members set beside a sentence about something else.
+
+Each of the other twenty-nine sections carries its `challenge` block. The twenty-two remakes are not made, and the twenty-nine faces are not committed.
+
+**A thing these three were not asked, and found anyway.** Loudon's principle of 2026-11-11, that a light piece is made by reading the page as a first-time reader and connecting to what is already there, came after the prompt was written. Several verdicts arrive at it unasked: a list of another hub's members beside a sentence about something else (Metaphor as Coupling Medium); twenty-one rectangles that say what the quotation already says (Julia Cameron); two counts drawn as squares that the sentence already gives (Reflective Practice).
+
+## The offers for the pages
+
+Gathered from all seven reports into one file beside the workshop README: `offers for the pages.md`.
