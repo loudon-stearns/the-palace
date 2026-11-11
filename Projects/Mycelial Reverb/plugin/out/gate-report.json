@@ -1,0 +1,184 @@
+{
+ "date": "2026-11-10",
+ "quick": false,
+ "piece": "Projects/Biomechanical Synthesis/Biomechanical Synthesis — rich — mycelial reverb.html",
+ "cppMs": 87101,
+ "gates": {
+  "thread": {
+   "L": 4805,
+   "cppL": 4805,
+   "dL": {
+    "n": 24000,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 0.3567487597465515,
+    "same": 24000
+   },
+   "dR": {
+    "n": 24000,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 0.3567487597465515,
+    "same": 24000
+   },
+   "e1": 0.5045237727995355,
+   "w1": 0.5045237948232142,
+   "e2": 0.2036353786836974,
+   "w2": 0.20363540763425345,
+   "stray": 0,
+   "gainDiff": 0
+  },
+  "fork": {
+   "L": 3360,
+   "dL": {
+    "n": 9600,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 0.17074955999851227,
+    "same": 9600
+   },
+   "dR": {
+    "n": 9600,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 0.17074955999851227,
+    "same": 9600
+   },
+   "e1": -0.24147865931058166,
+   "w1": -0.24147865335833
+  },
+  "junction": {
+   "worstJs": 1.2212453270876722e-15,
+   "worstCpp": 1.2212453270876722e-15,
+   "d": {
+    "n": 2000,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 1.000000000000001,
+    "same": 2000
+   },
+   "engineWorst": 2.8036858057411962e-8
+  },
+  "passive": {
+   "runs": 160,
+   "colonies": 10,
+   "food": {
+    "n": 1920000,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 0.3999735116958618,
+    "same": 1920000
+   },
+   "graph": {
+    "n": 13998,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 900,
+    "same": 13998
+   },
+   "energy": {
+    "n": 720160,
+    "max": 0,
+    "same": 720160
+   },
+   "worstStepJs": 1,
+   "worstStepCpp": 1
+  },
+  "torture": {
+   "seconds": 60,
+   "dL": {
+    "n": 2880512,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 1.2767413854599,
+    "same": 2880512
+   },
+   "dR": {
+    "n": 2880512,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 1.5139275789260864,
+    "same": 2880512
+   },
+   "graph": {
+    "n": 447,
+    "max": 0,
+    "rel": 0,
+    "at": -1,
+    "peak": 816,
+    "same": 447
+   },
+   "energy": {
+    "n": 1876,
+    "max": 0,
+    "same": 1876
+   },
+   "peakJs": 1.5139275789260864,
+   "peakCpp": 1.5139275789260864,
+   "threads": 87,
+   "threadsCpp": 87,
+   "afterDbCpp": -100.0003074769163,
+   "riseCpp": 0.9880505000845596
+  },
+  "state": {
+   "loads": true,
+   "textSame": true,
+   "bytes": 11945,
+   "threadsAfter": [
+    128,
+    128
+   ],
+   "maxDiff": 0,
+   "refusesDamaged": true
+  },
+  "block": {
+   "held": 0,
+   "growing": 9.313225746154785e-9,
+   "growingThreads": [
+    47,
+    47
+   ]
+  }
+ },
+ "cpp": {
+  "threadL": 4805,
+  "threadGain": 0.7941377358676628,
+  "forkL": 3360,
+  "forkGain": 0.8511380382023764,
+  "junctionWorst": 1.2212453270876722e-15,
+  "junctionEngineWorst": 2.8036858057411962e-8,
+  "passiveRuns": 160,
+  "passiveWorstStep": 1,
+  "torturePeak": 1.5139275789260864,
+  "tortureFinite": true,
+  "tortureThreads": 87,
+  "tortureAfterDb": -100.0003074769163,
+  "tortureRise": 0.9880505000845596,
+  "stateLoads": true,
+  "stateTextSame": true,
+  "stateBytes": 11945,
+  "stateThreadsAtSave": 60,
+  "stateThreadsAfter20s": [
+   128,
+   128
+  ],
+  "stateMaxDiffAfterReload": 0,
+  "stateRefusesDamaged": true,
+  "blockHeldMaxDiff": 0,
+  "blockGrowingMaxDiff": 9.313225746154785e-9,
+  "blockGrowingThreads": [
+   47,
+   47
+  ]
+ },
+ "failed": 0
+}

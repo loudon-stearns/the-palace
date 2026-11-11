@@ -1,0 +1,29 @@
+{
+  "name": "Mycelial Reverb",
+  "target": "MycelialReverb",
+  "company": "Loudon Live",
+  "bundle_id": "com.LoudonLive.MycelialReverb",
+  "manufacturer_code": "Loud",
+  "plugin_code": "Mycl",
+  "kind": "effect",
+  "version": "0.1.0",
+  "hostcheck": [
+    "carry=10",
+    "wetness=0.8",
+    "dry=0",
+    "level=-12"
+  ],
+  "ui": {
+    "width": 1000,
+    "height": 760,
+    "min": [
+      720,
+      560
+    ],
+    "max": [
+      1800,
+      1300
+    ],
+    "tier": "Sketch"
+  }
+}
