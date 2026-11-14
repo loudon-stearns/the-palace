@@ -10,7 +10,7 @@ forward_vector: "I hold the test plan for Manim CE; I want every check here runn
 
 > Phase E rollout. Manim CE is the math-animation Specialist. Phase A already proved the three-tier ladder (`Kuramoto Coupling/two-phasors-uncoupled-{,study,piece}*.mp4`); this plan adds a trivial smoke + a byte-determinism check, and consolidates Phase A's findings into the test record.
 
-Last run: **2026-05-30** — Smoke pass (12 KB MP4 at 480p15 in 1.45 s); **Determinism pass — byte-identical SHA256 `3715c0c5…` across two runs of the same trivial scene** (confirms the entry's strong determinism claim).
+Last run: **2026-11-14** — card check: a 3.5 s `-ql` scene with one `MathTex`, 1.2–1.3 s warm. **2026-05-30** — Smoke pass (12 KB MP4 at 480p15 in 1.45 s); **Determinism pass — byte-identical SHA256 `3715c0c5…` across two runs of the same trivial scene** (confirms the entry's strong determinism claim).
 
 ## Smoke
 
@@ -37,10 +37,11 @@ manim -ql scene.py SmokeScene
 | ValueTracker-driven animations              | Phase A two-phasor renders (2026-05-30) — OK       |
 | `always_redraw` factories (for moving arrows)| `sync-arriving.py` (2026-05-26) — OK              |
 | MathTex + LaTeX typesetting                  | Phase A Piece tier (2026-05-30) — OK              |
-| `manim-voiceover` Whisper sync               | Kuramoto Round 1 narrated reel (2026-05-26) — OK   |
+| `manim-voiceover` Whisper sync               | never used — the 2026-05-26 reel rendered silent and muxed its narration ([[Manim CE — tuning]] item 7) |
 | Eased FadeIn entrances (`rate_func=smooth`)  | Phase A Piece tier (2026-05-30) — OK              |
 
-- **Last run (2026-05-30):** all five capabilities covered by historical artifacts.
+- **Last run (2026-05-30):** four of five covered by historical artifacts; `manim-voiceover` never ran (corrected 2026-11-14).
+- **2026-11-14:** `MathTex` through `Shop/Maker/tex-env.sh` re-confirmed in the card check.
 
 ## Style Probe
 
@@ -71,6 +72,8 @@ Reference host: **mac** (Python 3.13 pipx, MPS-irrelevant; Manim is CPU-bound + 
 | Piece  | 15.9 s warm-cache / 75–90 s cold (LaTeX Metafont gen on first encounter) |
 
 See entry's 2026-05-30 tier-cost gotcha for the full story.
+
+2026-11-14, card check (`Shop/Manim CE/proofs/2026-11-14-card-check/`), a 3.5 s scene with one `MathTex` at `-ql`, machine under load: 1.2–1.3 s with its TeX cached, 8.5–14.5 s from a clean `media/` folder. The TeX step is the whole cold cost at Sketch, as it is at Piece.
 
 ## Determinism (load-bearing — the entry's strongest claim)
 

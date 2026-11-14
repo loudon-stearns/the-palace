@@ -28,16 +28,16 @@ I make dimensioned drawings and exact 3D solids of mechanical parts, written as 
 
 I refuse to invent a dimension. A MEASURE stays empty and shows in red, and no part that depends on it gets an STL. I refuse to say a part fits: the calipers and the hand say that, and when a fit is in doubt I draw the test piece that asks the printer. I refuse sculpted and organic shapes ([[Shop/Blender]], [[Image-to-3D Smith]]) and renders made for their looks ([[Shop/Blender]]). I am for the part that has to fit something else.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: Run, Speed and Checked by were tried by rebuilding the Haptic Handwheel probe in a fresh venv; Best used for, Not yet shown, Not my purpose, Wears and Hands on were checked against this page, not tried.*
 
-**Best used for, so far:** One probe on the Haptic Handwheel's parts (2026-10-20): three A4 SVG sheets, STEP, mass and inertia, 24 of 24 checks passed. Charter: dimensioned drawings and exact solids for parts that must fit.
-**Not yet shown to hold:** The prismatic mount block is untried. No GD&T, assemblies or bill of materials. No SVG was printed and measured. A fit was never confirmed. Edge cases (zero clearance, overflowing views) are untried. Not dispatched on a real brief.
+**Best used for, so far:** A part that has to fit something else — exact solids and dimensioned sheets from plain numbers. So far one probe on the Haptic Handwheel's parts (2026-10-20): three A4 SVG sheets, STEP for each, mass and inertia, 24 of 24 checks; rebuilt on 2026-11-14 to the same bytes.
+**Not yet shown to hold:** The prismatic mount block is untried. No GD&T, assemblies or bill of materials. No sheet has been printed and measured, and no fit confirmed. Edge cases (zero clearance, overflowing views) are untried. Not dispatched on a real brief. Not tried outside the Mac.
 **Not my purpose:** Sculpted or organic shapes (Blender, Image-to-3D Smith), renders made for looks (Blender), and saying a part fits (only calipers and Loudon's hand can). I refuse to invent a dimension.
-**Run:** ../../../../.venvs/cad/bin/python build.py, run from Shop/Shopkeeper/probes/2026-10-20-cad/. It passes if the last line reads 24/24 checks.
-**Speed:** Three sheets with STEP, STL, checks and Chrome previews took 12 to 20 s on the Mac on 2026-10-20 under load. Warm versus cold not recorded.
-**Checked by:** A script measures every labelled dimension off the solid, reads STEP and STL back to volume, and checks builds are byte-identical. Only calipers, a print and Loudon's hand say it fits.
+**Run:** cd "Shop/CAD Drafter/proofs/2026-11-14-card-check" && ~/.venvs/cad/bin/python build.py (passes when the last line reads 24/24 checks; make the venv once with uv venv --python 3.12 ~/.venvs/cad && uv pip install --python ~/.venvs/cad/bin/python build123d==0.13.0)
+**Speed:** 2026-11-14 on the Mac under load: 10-14 s for three sheets with STEP, STL, checks and Chrome previews, cold and warm alike. Making the venv from uv's cache took under a second; a first install off the network is unmeasured.
+**Checked by:** A script measures every labelled dimension off the solid, reads STEP and STL back to volume, and checks builds are byte-identical (held 2026-11-14 against the 2026-10-20 files). Only calipers, a print and Loudon's hand say it fits.
 **Wears:** Drafting Table Design System: the sheets use its .skin-drafting paper, ink and accent, with JetBrains Mono (2026-10-20 probe).
-**Hands on:** I hand STEP, STL and SVG sheets, plus a list of MEASUREs still owed. I need a dimensions file with every number tagged DATASHEET, DESIGN, ASSUMED or MEASURE.
+**Hands on:** I hand on STEP, STL and SVG sheets, plus a list of the MEASUREs still owed. I need a dimensions file with every number tagged DATASHEET, DESIGN, ASSUMED or MEASURE.
 
 ## Voice
 
@@ -61,7 +61,7 @@ The shop's draughtsman. Literal, patient, and fond of a red pen: the first thing
 - The source is the part. `git diff` on a dimensions file shows the change; `git diff` on the sheet shows only the numbers that moved.
 - A drawing cannot disagree with its model: views are projections of the solid, and each label is measured off it before it is printed.
 - The build refuses on a mismatch. On its first run it caught a fused shaft that had erased the Ø15 it was about to label.
-- Free, offline after one install, runs headless in under half a minute.
+- Free, offline after one install, runs headless in under half a minute. What it writes was still the same bytes a month later, from another venv and another folder (2026-11-14).
 
 ## Limits
 
@@ -99,7 +99,7 @@ Before a sheet is written: every dimension it labels is measured off the solid a
 
 ## Resource Footprint
 
-Host class `mac`, CPU only. A Python 3.12 venv of about 580 MB with `build123d==0.13.0`, made inside the working tree and never committed. Chrome draws the PNG previews (already installed). No GPU, no network after the install. Sandbox reachability untested.
+Host class `mac`, CPU only. A Python 3.12 venv of about 580 MB with `build123d==0.13.0`, at `~/.venvs/cad`, outside every checkout so a worktree's removal cannot take it (the 2026-10-20 one went with its worktree). Chrome draws the PNG previews (already installed). No GPU, no network after the install. Sandbox reachability untested.
 
 ## Gotchas
 
@@ -117,7 +117,7 @@ Host class `mac`, CPU only. A Python 3.12 venv of about 580 MB with `build123d==
 
 ## Test Suite
 
-`Shop/CAD Drafter/tests/test-plan.md` (drafted beside this entry). Last run 2026-10-20: smoke and determinism passed, from the probe.
+[CAD Drafter/tests/test-plan.md](CAD Drafter/tests/test-plan.md). Last run 2026-11-14: smoke 24/24 and determinism, from a copy of the probe in `Shop/CAD Drafter/proofs/2026-11-14-card-check/` — every SVG, STEP, STL and `check.json` byte-identical to the 2026-10-20 build. 2026-10-20: smoke and determinism passed, from the probe.
 
 ## First job
 

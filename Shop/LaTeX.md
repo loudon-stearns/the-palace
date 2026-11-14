@@ -34,16 +34,16 @@ I typeset documents and mathematical notation. Papers, problem sets, handouts, C
 
 I refuse jobs where the math should **move** (route to [[Shop/Manim CE|Manim CE]] — animation is its charter, not mine) and jobs that are a **chart of data arrays** (route to [[Shop/Matplotlib|Matplotlib]] — though its `text.usetex` rides *my* install). I refuse quick system diagrams where precision isn't the point (route to [[Shop/Mermaid|Mermaid]]). I am for the case where the deliverable is a *typeset document*, or a diagram/notation where exact mathematical typography **is** the subject. When in doubt, the boundary is: does this go in a paper, a slide, or a printout? Then it's mine.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: Run, Speed, Checked by and Wears were tried by rebuilding one real figure; Best used for, Not yet shown, Not my purpose and Hands on were checked against this page and my ledger, not tried.*
 
-**Best used for, so far:** Nothing yet on a real brief. The charter says it typesets papers, problem sets, beamer decks and standalone SVG cutouts. Only a capability probe (2026-06-09) ran: a minimal amsmath PDF compiled, and an SVG cutout worked with the TEXPSHEADERS bridge.
-**Not yet shown to hold:** No palace brief has run; the page is a stub. The fontspec/xelatex Loudon Live stack, SOURCE_DATE_EPOCH determinism, pdf2svg and the palace.sty preamble are all untested. The SVG cutout fails bare (ledger item 1).
-**Not my purpose:** Math that moves goes to Manim CE. Charts of data arrays go to Matplotlib. Quick system diagrams where precision does not matter go to Mermaid.
-**Run:** No command on the page yet. For a cutout, run any latex-to-dvisvgm command through Shop/Maker/tex-env.sh from the palace root: Shop/Maker/tex-env.sh <cmd>. The PDF path needs only pdflatex or latexmk.
-**Speed:** Not recorded. The page's Limits cite 60-90 s Metafont generation on a cold first encounter, undated and not measured on a run.
-**Checked by:** A script can check compile exit 0, a non-empty PDF or SVG, no unresolved ?? in the log, and fonts embedded via pdffonts. An eye must judge typography, overfull boxes and the proof pass.
-**Wears:** Not yet wired to a design system. The fontspec Loudon Live stack is a plan only.
-**Hands on:** Takes a .tex source, an engine and a tier; hands back a PDF or SVG/PNG cutout with the .tex kept. Its TeX tree is what Matplotlib's usetex and Manim's MathTex ride on.
+**Best used for, so far:** Exact technical figures and typeset math — signal flow, plotted curves with real math type, papers. So far: one DSP in Looping Dimensions figure (one-loop-harmonic-series) rebuilt through me byte for byte on 2026-11-14; its nine siblings were drawn on 2026-11-09 straight from the Technical Diagram Standard, not through me, and a 2026-06-09 probe compiled an amsmath PDF.
+**Not yet shown to hold:** No brief has come to me through the Maker. Untried: a whole document, beamer, biblatex, the Loudon Live type stack, a shared palace.sty, SOURCE_DATE_EPOCH on the PDF itself, pdf2svg. The Technical Diagram Standard's own route (pdflatex, then dvisvgm --pdf) fails here on both steps (ledger item 2).
+**Not my purpose:** Math that moves goes to Manim CE. Charts of data arrays go to Matplotlib. Quick relationship diagrams go to Mermaid.
+**Run:** cd "Shop/LaTeX/proofs/2026-11-14-card-check" && bash render.sh one-loop-harmonic-series.tex (lualatex, then PyMuPDF writes the SVG; for any figure, run render.sh from the folder holding its .tex and .dat files)
+**Speed:** 1.5 s for one standalone TikZ and pgfplots figure, .tex to SVG, three runs on the Mac under load, 2026-11-14. A fresh TEXMFVAR did not slow it, so a truly cold font cache is still unmeasured.
+**Checked by:** A script checks the compile's exit, that the SVG holds no image or data:image element (true vector), and byte identity with the last render (held on 2026-11-14 against the 2026-11-09 SVG). Only an eye judges the typography, overfull boxes and whether the figure reads.
+**Wears:** Drafting Table Design System: the DSP figures copy its paper and ink tokens into the .tex as xcolor definitions and set JetBrains Mono through fontspec. No shared palace.sty yet.
+**Hands on:** I take a .tex with its .dat files and hand back a PDF and a true-vector SVG beside them, the .tex kept as the source. My TeX tree also carries Matplotlib's usetex and Manim's MathTex.
 
 ## Voice
 
@@ -73,7 +73,7 @@ The shop's typesetter — the one who cares that the en-dash isn't a hyphen and 
 - Cold first-run pays Metafont font generation (60–90 s on the first encounter of each glyph family); shared cost with Manim
 - Not interactive, not animated, not a data-exploration surface
 - The package ecosystem is vast and inconsistently documented; some tasks have three solutions, two abandoned
-- The SVG-cutout path is fragile on this host — see the `dvisvgm` bridge under Gotchas; the PDF path is clean
+- The SVG path is fragile on this host — `dvisvgm` cannot read a PDF here at all, and its DVI route needs the bridge under Gotchas; the PDF path is clean, and PyMuPDF turns the PDF into SVG
 
 ## Tiers
 
@@ -148,11 +148,13 @@ export TEXPSHEADERS="$(kpsewhich -var-value=TEXMFDIST)/dvips/base:$(kpsewhich -v
 
 ## Recipes
 
-None yet — no palace brief has run through me. Today's capability probe (2026-06-09) is recorded under Test Suite, not here; per the Shop status taxonomy a Recipe names a real *brief* with a bundle path, and I am a **stub** until one lands.
+**2026-11-14 — A technical figure, .tex to true-vector SVG** (the house figure recipe). `Shop/LaTeX/proofs/2026-11-14-card-check/render.sh figure.tex`, run from the folder holding the figure's `.tex` and `.dat` files: `lualatex` writes the PDF, `pdf2svg.py` (PyMuPDF, text as paths) writes the SVG, and the script refuses an SVG with a raster inside. Why not the Standard's `render.sh`, and what failed on the way, is [[LaTeX — tuning]] item 2, owed a review. Tried on `one-loop-harmonic-series`, one of the nine TikZ and pgfplots figures of [[DSP in Looping Dimensions]] (`DSP in Looping Dimensions/figures/`): 1.5 s, and the SVG came out byte-identical to the one committed on 2026-11-09. Those nine were drawn from [[Technical Diagram Standard]] by the deposit that wrote the page, not dispatched to me, and their `.tex` headers already name this route. This is a card check, not a brief: it shows the recipe holds, and it does not promote me.
 
 ## Test Suite
 
-Smoke / Capability Probe / Math Probe / Cutout Probe / Determinism — to be defined in `Shop/LaTeX/tests/test-plan.md` (TODO).
+Smoke / Capability Probe / Cutout Probe / Edge Probe / Speed Bench / Determinism — in [LaTeX/tests/test-plan.md](LaTeX/tests/test-plan.md), written 2026-11-14.
+
+Card check, **2026-11-14**: the figure recipe above, run three times; byte-identical to the committed SVG each time.
 
 Capability probe, **2026-06-09**: (1) **PDF path PASS** — minimal `amsmath` document → 55 KB PDF, first compile, no environment tweaks. (2) **SVG-cutout path CONDITIONAL PASS** — fails bare, succeeds with the `TEXPSHEADERS` bridge (15 KB SVG); the bare-failure root cause is the shared `dvisvgm` gotcha. (3) Determinism: not yet run (needs the `SOURCE_DATE_EPOCH` check above). This is a capability probe, not a job — the Specialist stays **stub** until a real brief lands.
 

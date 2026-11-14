@@ -4,10 +4,10 @@ type: specialist
 status: alive
 medium: image
 tool: matplotlib
-tool_version: 3.10.8
+tool_version: "3.10.9 (the Mac's python3, 3.14, 2026-11-14)"
 born: 2026-05
 license: PSF / BSD-style
-forward_vector: "I render static scientific figures — waveforms, spectra, phase portraits, Bode plots — at publication grade and byte-for-byte determinism, every parameter explicit and addressable. I want a palace.mplstyle house wrapper so my dated Layer-0 typography bridges to Loudon Live tokens the way Plot's wrapper already does. I stand ready as Manim's motion fallback when a sandboxed host can't run it, owning my flatter aesthetic honestly rather than pretending to be LaTeX."
+forward_vector: "I render static scientific figures — waveforms, spectra, phase portraits, Bode plots — at publication grade and byte-for-byte determinism, every parameter explicit and addressable. I wear palace.mplstyle, generated from the Loudon Live tokens the way Plot's wrapper reads them, and I want my first real brief to test it on a figure someone needed. I stand ready as Manim's motion fallback when a sandboxed host can't run it, owning my flatter aesthetic honestly rather than pretending to be LaTeX."
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
@@ -25,16 +25,16 @@ I produce non-interactive scientific charts and plots. Waveforms, spectra, phase
 
 I refuse jobs that want interactivity (route to Plotly or p5.js), generative imagery (route to FLUX (Hugging Face) or ComfyUI), or fully animated math visualization (route to Manim CE — Manim's typography is the difference for math-as-subject pieces). I'm for *static* scientific figures.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: Run, Speed, Checked by and Wears were tried by drawing a Bode plot in the new house style; Best used for, Not yet shown, Not my purpose and Hands on were checked against this page and my ledger, not tried.*
 
-**Best used for, so far:** One job so far: the Kuramoto two-phasor Sketch (2026-05-10), a rotating-phasor animation rendered as Manim's fallback when manimpango would not install in the sandbox. 1272x720, 30fps, 10 s. Static charts have no recorded real job.
-**Not yet shown to hold:** Multi-panel publication chart and standalone phase diagram are marked unverified (test plan, 2026-05-30). No palace.mplstyle wrapper exists. The Bode-plot job the Forward Vector names has not run. Output is flatter than Manim's.
+**Best used for, so far:** Static figures where the data or the math is the point — responses, waveforms, phase plots. So far: a Bode plot of a biquad low-pass in the house style (card check, 2026-11-14), and the Kuramoto two-phasor Sketch as motion when Manim could not install in a sandbox (2026-05-10, 1272x720, 30 fps, 10 s).
+**Not yet shown to hold:** No brief has come to me through the Maker. Untried: a multi-panel publication figure, a standalone phase diagram, text.usetex, a Piece at 300 dpi, the house style on any skin but Graphite. My motion is flatter than Manim's.
 **Not my purpose:** Interactivity goes to Plotly or p5.js (Plotly has no page yet). Generative imagery goes to FLUX or ComfyUI. Fully animated math goes to Manim CE.
-**Run:** No command on the page yet. Nearest examples: the Sketch script Kuramoto Coupling/two-phasors-uncoupled-matplotlib.py, and a savefig smoke snippet in Shop/Matplotlib/tests/test-plan.md lines 17-24. Needs matplotlib installed.
-**Speed:** Smoke PNG about 80 ms with font-cache miss, under 10 ms warm, on Mac (test plan, run dated 2026-05-30). Motion render time not recorded.
-**Checked by:** A script can check the file exists, dimensions are within 2 px of figsize x dpi, even pixel size for video, and byte-identical PNG across runs (SHA256 4f46b0a9, 2026-05-30). An eye must judge palette, labels and legibility.
-**Wears:** Not yet wired to a design system. The Style Probe is degenerate until a house wrapper exists.
-**Hands on:** Takes a Python script plus data and a tier; hands back SVG, PDF or PNG with the script kept beside it. For motion it hands off an MP4 via FFMpegWriter and needs ffmpeg and yuv420p.
+**Run:** python3 "Shop/Matplotlib/proofs/2026-11-14-card-check/bode-card-check.py" (from the palace root; a figure script wears the house style with plt.style.use("Shop/Matplotlib/palace.mplstyle"), and python3 Shop/Matplotlib/palace_mplstyle.py regenerates that file from the design tokens)
+**Speed:** 2026-11-14, matplotlib 3.10.9 on the Mac: 0.8-1.7 s per run for a two-panel figure saved as PNG and SVG, Python start included, machine under load. The first run after a font-cache rebuild adds a few seconds once.
+**Checked by:** A script checks the file exists, its size against figsize x dpi, even pixel sizes for video, and byte identity on a rerun (PNG and SVG both held on 2026-11-14 once svg.hashsalt was set). Only an eye judges the palette, the labels and legibility.
+**Wears:** Loudon Live Design System, Graphite skin, through palace.mplstyle (2026-11-14): ground, text and frame from its tokens, series colours from its categorical set, JetBrains Mono for every numeral, generated from colors_and_type.css rather than copied.
+**Hands on:** I take a Python script, its data and a tier, and hand back SVG, PDF or PNG with the script kept beside it. For motion I hand off an MP4 through FFMpegWriter, which needs ffmpeg and yuv420p.
 
 ## Voice
 
@@ -77,8 +77,8 @@ Speaks the language of axes, ticks, locators, formatters, and the line of grim f
 - Use when: data exploration, "does this signal look right?", quick numerical sanity checks
 
 ### Study *(default)*
-- Project palette + sensible labels + dpi=150, PNG output
-- Time: a few seconds
+- `palace.mplstyle` + sensible labels + dpi=150, PNG and SVG output
+- Time: about a second — the 2026-11-14 two-panel Bode plot took 0.8–1.7 s, Python start included
 - Use when: most working drafts, embedded charts in palace project entries, internal Loudon Live preview slides
 
 ### Piece
@@ -133,17 +133,21 @@ What plotting with Matplotlib has taught, as it stands today. Which job taught e
 
 ## Recipes
 
+- **The house style (2026-11-14)** — `plt.style.use("Shop/Matplotlib/palace.mplstyle")` at the top of a figure script. The file is generated from `_ops/loudon-live/design-system/colors_and_type.css` by `python3 Shop/Matplotlib/palace_mplstyle.py` (add a skin name, e.g. `skin-drafting`, for another skin), so a token change reaches every figure by rerunning one script. It holds no hex of its own; take series colours from its cycle. What building it ran into is [[Matplotlib — tuning]] item 4, owed a review.
+
+- **Bode plot in the house style (card check, 2026-11-14)** — `Shop/Matplotlib/proofs/2026-11-14-card-check/bode-card-check.py`. Magnitude and phase of an RBJ biquad low-pass (fc 1 kHz, Q 2, 48 kHz), two panels sharing a log frequency axis, axis labels spelled out per [[Technical Diagram Standard]]. Stop the sweep just short of Nyquist: the low-pass puts a zero exactly there, and `log10(0)` warns.
 - **Two-phasor uncoupled Sketch (Manim fallback)** — `Kuramoto Coupling/two-phasors-uncoupled-matplotlib.py`. `FuncAnimation` over a `ValueTracker`-style time loop, two rotating phasors + growing sine traces on a shared time axis, dark palette. The reusable pattern for "motion when Manim can't host." Rendered 1272×720, 30fps, 10.03s.
 
 ## Test Suite
 
 Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [Matplotlib/tests/test-plan.md](Matplotlib/tests/test-plan.md).
 
-Last run: **2026-05-30** — Smoke + Determinism both pass (byte-identical PNG SHA256 `4f46b0a9…` across two runs of the same script with stripped metadata). Capability Probe covers the Manim-fallback static-frame role (Kuramoto 2026-05-10 historical); multi-panel publication chart and standalone phase diagram still unverified. Style Probe is degenerate until a house-defaults wrapper analogous to the Plot wrapper exists — Matplotlib's Layer-0 typography/padding is not yet bridged to Loudon Live tokens.
+Last run: **2026-11-14** — card check: the Bode plot in `palace.mplstyle`, PNG and SVG byte-identical across runs; the Style Probe now has a house style to test against. **2026-05-30** — Smoke + Determinism both pass (byte-identical PNG SHA256 `4f46b0a9…` across two runs of the same script with stripped metadata). Capability Probe covers the Manim-fallback static-frame role (Kuramoto 2026-05-10 historical); multi-panel publication chart and standalone phase diagram still unverified. Style Probe is degenerate until a house-defaults wrapper analogous to the Plot wrapper exists — Matplotlib's Layer-0 typography/padding is not yet bridged to Loudon Live tokens.
 
 ## Open Questions
 
 - Default style sheet for the palace — declare a `palace.mplstyle` file with the base palette, font choices, and grid defaults? Yes; defer to first real job
+  - Answered 2026-11-14: `Shop/Matplotlib/palace.mplstyle`, generated from the design tokens by `palace_mplstyle.py` (§ Recipes, The house style). The mono face follows the Plot wrapper; the design system's Shop table suggests Cormorant or Manrope, still open for titles.
 - `text.usetex=True` requires a working LaTeX installation — same one Manim CE uses. Worth declaring the dependency once and assuming it
   - Answered on [[LaTeX]] § Strengths (2026-10-24): one TeX Live tree serves Matplotlib's `text.usetex` and Manim's `MathTex`.
 - Matplotlib vs. Plotly routing: Plotly when interactivity is on the table; Matplotlib otherwise. The Maker's call per brief
@@ -155,4 +159,4 @@ Last run: **2026-05-30** — Smoke + Determinism both pass (byte-identical PNG S
 
 ## Forward Vector
 
-First job: a Bode plot of a wavetable filter response at Study tier with the palace base palette. The result validates the palette-injection pipeline and surfaces the first batch of typography gotchas.
+The first job that ran was motion, not a chart: the Kuramoto two-phasor Sketch, standing in for Manim (2026-05-10). The palette pipeline this section once asked a Bode plot to validate now exists and has drawn one, as a card check (2026-11-14). Next: a static figure a real brief needs, at Study tier in `palace.mplstyle` — a wavetable filter's response is still a good candidate — and the first test of the style on a light skin.

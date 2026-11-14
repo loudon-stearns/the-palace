@@ -10,7 +10,7 @@ forward_vector: "I hold the test plan for ffmpeg; I want every check here runnab
 
 > Phase E rollout of `Shop/Maker/_TEMPLATE/test-plan.md`. ffmpeg is the Shop's connective tissue — encode, decode, mux, concat, normalise. Smoke is encode-and-decode; the load-bearing probe is **byte-deterministic** output under `-fflags +bitexact -flags +bitexact -map_metadata -1`, since ffmpeg is the only Specialist downstream-everything depends on for reproducibility of derived clips.
 
-Last run: **2026-05-30** — Smoke + Determinism both pass (byte-identical SHA256 across two `testsrc` runs).
+Last run: **2026-11-14** — card check, ffmpeg 8.1: the mux template on a 3.5 s Manim render and a generated tone, 0.15 s, ffprobe clean (`Shop/ffmpeg/proofs/2026-11-14-card-check/card-check.sh`). **2026-05-30** — Smoke + Determinism both pass (byte-identical SHA256 across two `testsrc` runs).
 
 ## Smoke
 

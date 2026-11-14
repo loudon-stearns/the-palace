@@ -10,7 +10,7 @@ forward_vector: "I hold the test plan for Matplotlib; I want every check here ru
 
 > Phase E rollout. Matplotlib is the Shop's static-chart specialist and Manim CE's standing fallback for sandboxed hosts. Smoke is one `plt.savefig`. The load-bearing probe is **byte-deterministic** output — same code + same data + same matplotlib version → same PNG, which is what makes Matplotlib a usable Manim fallback (the swap is reproducible).
 
-Last run: **2026-05-30** — Smoke + Determinism both pass (byte-identical SHA256 across two runs of the same script).
+Last run: **2026-11-14** — card check: a two-panel Bode plot in `palace.mplstyle`, PNG and SVG each byte-identical across runs, 0.8–1.7 s. **2026-05-30** — Smoke + Determinism both pass (byte-identical SHA256 across two runs of the same script).
 
 ## Smoke
 
@@ -44,6 +44,7 @@ Matplotlib is **strongly opinionated** — Layer-0 typography, padding, color sc
 
 - **Manual** check: the PNG's main color matches the resolved palette token (`#e8b84a` Graphite-skin accent). Eye check.
 - **Last run (2026-05-30):** smoke PNG plotted in `#e8b84a`; line visible, color correct. No house-defaults wrapper to test against yet.
+- **2026-11-14:** the wrapper exists — `Shop/Matplotlib/palace.mplstyle`, generated from `colors_and_type.css` by `palace_mplstyle.py`. Automated: `grep -c 'JetBrains' bode-card-check.svg` finds the face on every text element (24 on the card check), and the style file's colours equal the CSS tokens because the script writes them from it. Manual: the eye check passed — Graphite ground, amber and blue series, mono labels.
 
 ## Edge Probe
 
@@ -55,11 +56,12 @@ Matplotlib is **strongly opinionated** — Layer-0 typography, padding, color sc
 
 ## Speed Bench
 
-Reference host: **mac**. The Smoke PNG (400-sample sin) renders in **~80 ms** including font cache miss; sub-10 ms with cache warm. Static charts are never the bottleneck.
+Reference host: **mac**. 2026-11-14: the two-panel Bode card check, PNG and SVG, 0.8–1.7 s per run with Python start (machine under load). The Smoke PNG (400-sample sin) renders in **~80 ms** including font cache miss; sub-10 ms with cache warm. Static charts are never the bottleneck.
 
 ## Determinism (load-bearing)
 
 Matplotlib's default `savefig` embeds the current date in PNG metadata (`Software`, `CreationTime`). Strip it with `metadata={'Software': ''}` (or pass `metadata={}` for stricter behaviour) to get byte-identical output across runs.
 
 - **Reproducibility artifact:** the Python source `.py` + the matplotlib version + the data array (or its hash).
+- **Last run (2026-11-14):** two runs of the Bode card check: PNG identical (`9fca5d5f…`), SVG identical once `svg.hashsalt` was set (it now is, in the house style).
 - **Last run (2026-05-30):** two runs of the smoke script with metadata-stripped savefig both hashed to `4f46b0a932d71320...` — byte-identical.

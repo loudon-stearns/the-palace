@@ -31,3 +31,4 @@ What each job taught the ffmpeg page. Each item names what the job showed and wh
 ## From the Shop's test harness — 2026-06-16
 
 - run · 2026-06-16 · `Shop/Maker/run-tests.mjs` encode + decode smoke, probe · nothing new
+- run · 2026-11-14 · card check, narration mux on a Manim render (ffmpeg 8.1), probe · nothing new

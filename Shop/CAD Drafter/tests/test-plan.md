@@ -8,12 +8,12 @@ forward_vector: "I am the CAD Drafter's test plan; I want every claim on its pag
 
 # CAD Drafter — Test Plan
 
-> Copied from the Maker's template (`Shop/Maker/_TEMPLATE/test-plan.md`) and filled from the probe of 2026-10-20. Until the Specialist's own job folder exists, every probe runs against the probe's worked example, `Shop/Shopkeeper/probes/2026-10-20-cad/`, from that folder, with the venv at the worktree's root.
+> Copied from the Maker's template (`Shop/Maker/_TEMPLATE/test-plan.md`) and filled from the probe of 2026-10-20. Until the Specialist's own job folder exists, every probe runs against a copy of the probe's worked example in `Shop/CAD Drafter/proofs/2026-11-14-card-check/` (the original stays in `Shop/Shopkeeper/probes/2026-10-20-cad/`), from that folder, with the venv at `~/.venvs/cad` — `uv venv --python 3.12 ~/.venvs/cad && uv pip install --python ~/.venvs/cad/bin/python build123d==0.13.0`.
 
-Last run: **2026-10-20** — smoke 24/24 checks; determinism byte-identical across two builds.
+Last run: **2026-11-14** — smoke 24/24 checks in 10–14 s; every SVG, STL, STEP and `check.json` byte-identical to the 2026-10-20 build. **2026-10-20** — smoke 24/24 checks; determinism byte-identical across two builds.
 
 ## Smoke
-One command: `../../../../.venvs/cad/bin/python build.py`. It passes when it exits 0 and its last line reads `24/24 checks: model = source, files = model`, with three SVG sheets in `out/`.
+One command: `~/.venvs/cad/bin/python build.py`. It passes when it exits 0 and its last line reads `24/24 checks: model = source, files = model`, with three SVG sheets in `out/`.
 - **Automated.**
 
 ## Capability Probe
