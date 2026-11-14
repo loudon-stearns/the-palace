@@ -46,6 +46,18 @@ Then, from this folder:
   longer than the init state is cut short and silently refused. It masqueraded as several
   other bugs first. Fixed in `vital_host._write`.
 
+- **Osc 2 and 3 skip Filter 1 by default.** Vital's init sends them to Filter 2, which is off,
+  so they pass unfiltered and a "dark" cutoff never reaches them (Pressure measured 4 kHz bright
+  until this was found). `generate_vital.py` now routes every oscillator that's on through Filter 1
+  when only Filter 1 is on, unless the recipe sets `osc_N_destination` itself.
+
+## The prompt test
+
+`recipes/light-through-deep-water.json` holds three takes on "a pad that sounds like light through
+deep water" (Caustics, Pressure, Shafts). `generate_vital.py <recipe> --render` writes the presets,
+renders a held chord of each beside Vital's init, and writes `prompt-test.json` with the feature
+distances. First run 2026-11-13: every take is 5.6 to 7.0 from init and 1.8 to 5.3 from each other.
+
 ## Not yet
 
 - Nobody has listened to any of it. The measurements say what changed, not what it sounds like.

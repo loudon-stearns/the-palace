@@ -1,0 +1,62 @@
+{
+ "features": {
+  "init": {
+   "level_db": -11.0,
+   "centroid_hz": 4125.0,
+   "motion": 0.032,
+   "rise_s": 0.184,
+   "width": 0.0,
+   "tail_s": 0.06
+  },
+  "Caustics": {
+   "level_db": -21.3,
+   "centroid_hz": 413.0,
+   "motion": 0.264,
+   "rise_s": 1.354,
+   "width": 0.761,
+   "tail_s": 2.06
+  },
+  "Pressure": {
+   "level_db": -19.7,
+   "centroid_hz": 241.0,
+   "motion": 0.137,
+   "rise_s": 0.067,
+   "width": 0.526,
+   "tail_s": 4.0
+  },
+  "Shafts": {
+   "level_db": -18.4,
+   "centroid_hz": 1101.0,
+   "motion": 0.201,
+   "rise_s": 1.78,
+   "width": 0.456,
+   "tail_s": 1.27
+  }
+ },
+ "distance": {
+  "init": {
+   "init": 0.0,
+   "Caustics": 6.78,
+   "Pressure": 7.01,
+   "Shafts": 5.6
+  },
+  "Caustics": {
+   "init": 6.78,
+   "Caustics": 0.0,
+   "Pressure": 4.52,
+   "Shafts": 1.83
+  },
+  "Pressure": {
+   "init": 7.01,
+   "Caustics": 4.52,
+   "Pressure": 0.0,
+   "Shafts": 5.34
+  },
+  "Shafts": {
+   "init": 5.6,
+   "Caustics": 1.83,
+   "Pressure": 5.34,
+   "Shafts": 0.0
+  }
+ }
+}

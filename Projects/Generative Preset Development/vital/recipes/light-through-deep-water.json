@@ -1,0 +1,23 @@
+{
+ "slug": "light-through-deep-water",
+ "prompt": "a pad that sounds like light through deep water",
+ "recipes": [
+  {"name": "Caustics", "seed": 11,
+   "why": "Light rippling on a sandy floor: one warm saw, the filter opened and closed by a slow drifting LFO, a swelling attack and a deep room.",
+   "bands": {"cutoff": "warm", "resonance": "coloured", "attack": "swell", "release": "long", "lfo_rate": "drifting", "space": "deep"},
+   "set": {"filter_1_on": 1.0, "reverb_on": 1.0, "reverb_decay_time": 1.5, "osc_1_unison_voices": 3.0, "osc_1_unison_detune": 1.5},
+   "mods": [{"source": "lfo_1", "destination": "filter_1_cutoff", "amount": 0.18, "bipolar": true}]},
+  {"name": "Pressure", "seed": 22,
+   "why": "The weight of the water: dark and wide, a sub octave under a detuned unison stack, a slow phaser like the surface far above, and a tail that will not end.",
+   "bands": {"cutoff": "dark", "resonance": "flat", "attack": "soft", "release": "tail", "lfo_rate": "subtle", "space": "deep"},
+   "set": {"filter_1_on": 1.0, "reverb_on": 1.0, "reverb_decay_time": 2.5, "phaser_on": 1.0, "phaser_dry_wet": 0.5,
+           "osc_1_unison_voices": 7.0, "osc_1_unison_detune": 4.0, "osc_2_on": 1.0, "osc_2_transpose": -12.0, "osc_2_level": 0.6},
+   "mods": [{"source": "lfo_1", "destination": "osc_1_unison_detune", "amount": 0.25, "bipolar": true}]},
+  {"name": "Shafts", "seed": 33,
+   "why": "Shafts of light cutting down: an open filter singing near resonance, the wavetable frame turning slowly so the colour glints, chorus for the shimmer, a soft entry.",
+   "bands": {"cutoff": "open", "resonance": "singing", "attack": "soft", "release": "long", "lfo_rate": "subtle", "space": "room"},
+   "set": {"filter_1_on": 1.0, "reverb_on": 1.0, "reverb_decay_time": 1.0, "chorus_on": 1.0, "chorus_dry_wet": 0.4},
+   "mods": [{"source": "lfo_1", "destination": "osc_1_wave_frame", "amount": 0.6, "bipolar": false},
+            {"source": "lfo_1", "destination": "filter_1_cutoff", "amount": 0.08, "bipolar": true}]}
+ ]
+}

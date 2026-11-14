@@ -21,3 +21,8 @@ standards:
 # Generative Preset Development — tuning
 
 Opened empty by the Weave of 2026-11-08 (bundle audit, Step 5d: a page that runs keeps a tuning ledger). No cycle has written here yet.
+
+## From cycle 11 — 2026-11-13
+
+1. Never trust a feel-word in Vital without rendering the result: the default patch sends oscillators 2 and 3 to a Filter 2 that is switched off, so a 'dark' cutoff on Filter 1 can leave half the sound unfiltered, and only measuring the render catches it. *(offered by the steward, cycle 11)*
+- run · 2026-11-13 · cycle 11 · taught item 1

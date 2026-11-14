@@ -1,0 +1,62 @@
+{
+ "prompt": "a pad that sounds like light through deep water",
+ "name": "Caustics",
+ "seed": 11,
+ "why": "Light rippling on a sandy floor: one warm saw, the filter opened and closed by a slow drifting LFO, a swelling attack and a deep room.",
+ "bands": {
+  "cutoff": {
+   "word": "warm",
+   "value": 432.5952,
+   "unit": "hz"
+  },
+  "resonance": {
+   "word": "coloured",
+   "value": 0.4072,
+   "unit": "lin"
+  },
+  "attack": {
+   "word": "swell",
+   "value": 1.9455,
+   "unit": "s"
+  },
+  "release": {
+   "word": "long",
+   "value": 1.2412,
+   "unit": "s"
+  },
+  "lfo_rate": {
+   "word": "drifting",
+   "value": 0.1007,
+   "unit": "hz"
+  },
+  "space": {
+   "word": "deep",
+   "value": 0.5105,
+   "unit": "lin"
+  }
+ },
+ "set": {
+  "filter_1_on": 1.0,
+  "reverb_on": 1.0,
+  "reverb_decay_time": 1.5,
+  "osc_1_unison_voices": 3.0,
+  "osc_1_unison_detune": 1.5
+ },
+ "mods": [
+  {
+   "source": "lfo_1",
+   "destination": "filter_1_cutoff",
+   "amount": 0.18,
+   "bipolar": true
+  }
+ ],
+ "wavetables": {},
+ "features": {
+  "level_db": -21.3,
+  "centroid_hz": 413.0,
+  "motion": 0.264,
+  "rise_s": 1.354,
+  "width": 0.761,
+  "tail_s": 2.06
+ }
+}

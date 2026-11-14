@@ -83,6 +83,14 @@ def build(recipe, base):
         chosen[fam] = {"word": word, "value": round(human, 4), "unit": BANDS[fam]["unit"]}
     for k, v in recipe.get("set", {}).items():
         s[k] = v
+    # Vital's init sends osc 2 and 3 to Filter 2, which is off, so they pass unfiltered:
+    # a "dark" cutoff on Filter 1 never reaches them. Unless the recipe routes an
+    # oscillator itself, send every one that's on through Filter 1 when only it is on.
+    if s.get("filter_1_on") and not s.get("filter_2_on"):
+        for n in (1, 2, 3):
+            key = "osc_%d_destination" % n
+            if s.get("osc_%d_on" % n) and key not in recipe.get("set", {}):
+                s[key] = 0.0
     for slot, ref in recipe.get("wavetables", {}).items():
         s["wavetables"][int(slot) - 1] = borrowed_wavetable(ref)
     mods = [{"source": "", "destination": ""} for _ in range(len(s["modulations"]))]

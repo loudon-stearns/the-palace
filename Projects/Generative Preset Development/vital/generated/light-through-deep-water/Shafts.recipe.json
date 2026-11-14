@@ -1,0 +1,68 @@
+{
+ "prompt": "a pad that sounds like light through deep water",
+ "name": "Shafts",
+ "seed": 33,
+ "why": "Shafts of light cutting down: an open filter singing near resonance, the wavetable frame turning slowly so the colour glints, chorus for the shimmer, a soft entry.",
+ "bands": {
+  "cutoff": {
+   "word": "open",
+   "value": 1483.8712,
+   "unit": "hz"
+  },
+  "resonance": {
+   "word": "singing",
+   "value": 0.7159,
+   "unit": "lin"
+  },
+  "attack": {
+   "word": "soft",
+   "value": 0.1722,
+   "unit": "s"
+  },
+  "release": {
+   "word": "long",
+   "value": 1.1191,
+   "unit": "s"
+  },
+  "lfo_rate": {
+   "word": "subtle",
+   "value": 0.4539,
+   "unit": "hz"
+  },
+  "space": {
+   "word": "room",
+   "value": 0.2602,
+   "unit": "lin"
+  }
+ },
+ "set": {
+  "filter_1_on": 1.0,
+  "reverb_on": 1.0,
+  "reverb_decay_time": 1.0,
+  "chorus_on": 1.0,
+  "chorus_dry_wet": 0.4
+ },
+ "mods": [
+  {
+   "source": "lfo_1",
+   "destination": "osc_1_wave_frame",
+   "amount": 0.6,
+   "bipolar": false
+  },
+  {
+   "source": "lfo_1",
+   "destination": "filter_1_cutoff",
+   "amount": 0.08,
+   "bipolar": true
+  }
+ ],
+ "wavetables": {},
+ "features": {
+  "level_db": -18.4,
+  "centroid_hz": 1101.0,
+  "motion": 0.201,
+  "rise_s": 1.78,
+  "width": 0.456,
+  "tail_s": 1.27
+ }
+}

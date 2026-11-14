@@ -15,26 +15,30 @@ forward_vector: "I am Generative Preset Development's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T16:09:58.371Z from the board, the steward's runtime, the entry's frontmatter and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-14T01:20:19.662Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 10 · last ran 2026-10-24 (today)
-- **Plan:** agreed 2026-09-25 (29 days ago) · 4 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-11-14 (today)
+- **Plan:** agreed 2026-09-25 (49 days ago) · 5 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-14 (10 days ago) — The analyzer now writes sentences. Nine Wavetable presets are described in a synthesist's words, with the old parameter dump folded under each one for comparison. (`preset-steward-018`)
-- **Last commit touching this project:** 2026-10-24 `f6d23968` — steward(Generative Preset Development): cycle 9 — machinery and scroll
-- **Signal:** ⚠ **STALLED** — the last 2 cycles posted nothing. The loop is broken until a cycle ships; the lane retries once, then flags here.
+- **Last shipped:** 2026-11-14 (today) — From one prompt, 'a pad that sounds like light through deep water', I made three Vital presets, rendered them, and measured each one as clearly unlike the others and unlike Vital's blank patch. (`preset-steward-020`)
+- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
+- **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
+- **Runs:** 1 run on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-13 — cycle 11 · taught item 1
+- **Owed in the ledger:** nothing
+- **Latest lesson:** item 1, from cycle 11 — 2026-11-13 — [[Generative Preset Development — tuning]]
 
 ### Where this stands
 
-Generative Preset Development teaches an AI to make, describe and reshape presets for synths with a fixed layout, starting with Ableton Wavetable. Here's what's settled. The preset format is cracked. You confirmed in June that a modified preset loads in Live and sounds as intended. Making presets from a prompt and reshaping them both work, so far on feel-words borrowed from Ableton's factory presets. The step on the plan is still one sitting in Live where your ears set those feel-words, and the kit for it is ready. This cycle did the bonus check that goes with the prompt-to-preset step: describing a known factory preset the way a skilled synthesist would. The analyzer used to print a parame…
+Generative Preset Development teaches an AI to make presets for synths with a fixed layout, to describe them the way a synthesist would, and to reshape them. It starts with Ableton Wavetable. Its preset format is cracked, and you confirmed in June that a changed preset loads in Live and sounds right. The Wavetable step on the plan is still one sitting in Live where your ears set the feel-words (where 'dark' ends and 'open' begins), and the kit for that has been ready since October. Further along, the plan does the same for Vital, which is open and stores its presets as plain JSON. Vital has one big advantage: I can run it myself and render any preset to audio, so I can measure a preset befo…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 6:** Nothing here has been loaded in Live or heard, so 'distinct' is only a measurement on paper. _(in 2 notes, the latest cycle 7)_
+- **rough since cycle 6:** 'Distinct' is only a measurement on paper. _(in 3 notes, the latest cycle 11)_
 
 ### Open asks
 
@@ -47,6 +51,14 @@ _None._
 ### Decided
 
 _Nothing decided on the board yet._
+
+### Runs
+
+- 2026-11-13 — cycle 11 · taught item 1
+
+### Owed
+
+_Nothing owed._
 
 <!-- scroll:now:end -->
 
@@ -75,6 +87,60 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-steward-020" -->
+### 2026-11-14 — cycle 11 — From one prompt, 'a pad that sounds like light through deep water', I made three Vital presets, rendered them, and measured each one as clearly unlike the others and unlike Vital's blank patch.
+> shipped · prompt test run on Vital, distinct by measurement · unheard · steward leans you listen to the one audition file
+
+**The three takes.** Each one reads 'light through deep water' differently. **Caustics** is light rippling on the sand: one warm saw with a filter that a very slow LFO opens and closes, a two-second swell, a deep reverb. **Pressure** is the weight of the water: dark and wide, a detuned stack of seven voices over an octave-down oscillator, a slow phaser, and a four-second tail. **Shafts** is light cutting downward: an open filter close to singing resonance, the wavetable frame turning slowly so the colour glints, plus chorus. A short recipe file holds each one's feel-words ('warm', 'swell', 'drifting', 'deep'), and the generator turns them into Vital's units, seeded so the same recipe always gives the same preset.
+
+**A bug the measurements caught.** Pressure first measured at 4 kHz, about as bright as the blank patch, even though its cutoff word was 'dark'. In Vital's default patch, the second and third oscillators go to Filter 2, which is off, so they skip the filter entirely. The octave-down saw was coming through raw. The generator now sends every active oscillator through Filter 1 unless the recipe says otherwise. After that fix Pressure measures 241 Hz. Without rendering, this preset would have reached you as 'dark' and played bright.
+
+**Distinct, by measurement.** The test renders a four-note chord on each preset and on Vital's blank patch, then compares six things: brightness, level, how much the brightness moves, attack time, stereo width and tail length. One unit of distance is about one octave of brightness, or 6 dB of level, or a doubling of attack or tail time. To hear all four in one file: [the audition](open:Projects/Generative Preset Development/vital/generated/light-through-deep-water/audition — init, Caustics, Pressure, Shafts.wav). It plays the blank patch, then Caustics, Pressure and Shafts, with a short gap between each.
+
+**Artifacts:**
+- [one file, 39 s: Vital's blank patch, then the three takes. Start here.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/audition — init, Caustics, Pressure, Shafts.wav)
+- [Caustics: drag into Vital to play it.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Caustics.vital)
+- [Pressure: drag into Vital to play it.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Pressure.vital)
+- [Shafts: drag into Vital to play it.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Shafts.vital)
+- [Caustics, held chord.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Caustics.wav)
+- [Pressure, held chord.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Pressure.wav)
+- [Shafts, held chord.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Shafts.wav)
+- [Vital's blank patch, the same chord, for comparison.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/00 init.wav)
+- [what the generator chose for Caustics, and why.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Caustics.recipe.json)
+- [what it chose for Pressure.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Pressure.recipe.json)
+- [what it chose for Shafts.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Shafts.recipe.json)
+- [Caustics' measured features.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Caustics.json)
+- [Pressure's measured features.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Pressure.json)
+- [Shafts' measured features.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/Shafts.json)
+- [the blank patch's measured features.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/00 init.json)
+- [every feature and the full distance table.](Projects/Generative Preset Development/vital/generated/light-through-deep-water/prompt-test.json)
+- [the three recipes in feel-words: the part a model writes from the prompt.](Projects/Generative Preset Development/vital/recipes/light-through-deep-water.json)
+- [the generator, now routing every active oscillator through the filter.](Projects/Generative Preset Development/vital/generate_vital.py)
+- [the Vital workshop's front door, now with the routing gotcha and the prompt test.](Projects/Generative Preset Development/vital/README.md)
+
+_Prompt test · 'light through deep water' · Vital 1.5.5, held C3 chord, 5 s_
+| preset | brightness | brightness moves | attack (10–90%) | width | tail | distance from init | nearest take |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| init (blank patch) | 4125 Hz | 0.03 oct | 0.18 s | 0.00 | 0.06 s | — | — |
+| Caustics | 413 Hz | 0.26 oct | 1.35 s | 0.76 | 2.1 s | 6.8 | Shafts, 1.8 |
+| Pressure | 241 Hz | 0.14 oct | 0.07 s | 0.53 | 4.0 s | 7.0 | Caustics, 4.5 |
+| Shafts | 1101 Hz | 0.20 oct | 1.78 s | 0.46 | 1.3 s | 5.6 | Caustics, 1.8 |
+
+_Changed in the workshop:_ README — adds the oscillator-routing gotcha and how to run the prompt test
+
+_Left rough:_ Nobody has listened to any of it yet. 'Distinct' is only a measurement on paper. Caustics and Shafts are the closest pair (1.8, mostly brightness), so by ear they may sound like cousins. I wrote the three recipes from the prompt myself, as a model would; no fresh agent has written one cold from the generator's instructions. Shafts measures a 1.8 s rise despite a 'soft' 0.17 s attack, probably the chorus and reverb building up, and I haven't checked that. The feel-word ranges for Vital are still placed by hand, not set by ear.
+
+_Next moves named:_ Your ears on the one audition file. If the three sound like three ways of seeing the same water, Vital has passed the plan's prompt test. · Run the test cold: give a fresh agent only the generator's instructions and the prompt, and see whether its recipe also comes out distinct. · Do the same for reshaping on Vital: take Pressure and a direction like 'more menacing', and measure that the change goes the right way. · The Wavetable ear sitting is still the step that makes the feel-words yours, and its kit is ready whenever you are (the open card asks solo or together).
+<sub>`preset-steward-020` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-34263bf5b8" -->
+### 2026-11-13 — cycle 11
+
+taught item 1
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-steward-018" -->
 ### 2026-10-14 — cycle 8 — The analyzer now writes sentences. Nine Wavetable presets are described in a synthesist's words, with the old parameter dump folded under each one for comparison.
 > shipped · nothing heard in Live yet · steward leans: read Aqueous Pad's card first

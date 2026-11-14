@@ -1,0 +1,67 @@
+{
+ "prompt": "a pad that sounds like light through deep water",
+ "name": "Pressure",
+ "seed": 22,
+ "why": "The weight of the water: dark and wide, a sub octave under a detuned unison stack, a slow phaser like the surface far above, and a tail that will not end.",
+ "bands": {
+  "cutoff": {
+   "word": "dark",
+   "value": 193.447,
+   "unit": "hz"
+  },
+  "resonance": {
+   "word": "flat",
+   "value": 0.0426,
+   "unit": "lin"
+  },
+  "attack": {
+   "word": "soft",
+   "value": 0.0734,
+   "unit": "s"
+  },
+  "release": {
+   "word": "tail",
+   "value": 3.8237,
+   "unit": "s"
+  },
+  "lfo_rate": {
+   "word": "subtle",
+   "value": 0.3076,
+   "unit": "hz"
+  },
+  "space": {
+   "word": "deep",
+   "value": 0.4545,
+   "unit": "lin"
+  }
+ },
+ "set": {
+  "filter_1_on": 1.0,
+  "reverb_on": 1.0,
+  "reverb_decay_time": 2.5,
+  "phaser_on": 1.0,
+  "phaser_dry_wet": 0.5,
+  "osc_1_unison_voices": 7.0,
+  "osc_1_unison_detune": 4.0,
+  "osc_2_on": 1.0,
+  "osc_2_transpose": -12.0,
+  "osc_2_level": 0.6
+ },
+ "mods": [
+  {
+   "source": "lfo_1",
+   "destination": "osc_1_unison_detune",
+   "amount": 0.25,
+   "bipolar": true
+  }
+ ],
+ "wavetables": {},
+ "features": {
+  "level_db": -19.7,
+  "centroid_hz": 241.0,
+  "motion": 0.137,
+  "rise_s": 0.067,
+  "width": 0.526,
+  "tail_s": 4.0
+ }
+}
