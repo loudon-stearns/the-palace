@@ -76,7 +76,7 @@ if (verb === 'check') {
 // every sample file a recipe names, with its Splice id when the recipe or a manifest beside it keeps one
 const recipeSamples = (r, d) => {
   const out = [];
-  if (r.kind === 'kit') for (const p of r.pads || []) out.push({ file: p.file, uuid: p.uuid, who: p.name });
+  if (r.kind === 'kit') for (const p of r.pads || []) for (const x of p.layers || [p]) out.push({ file: x.file, uuid: x.uuid, who: p.name });
   else if (r.kind === 'stack') for (const l of r.layers || []) for (const x of [l, ...(l.alternates || [])]) out.push({ file: x.file, uuid: x.uuid, who: l.role });
   else if (r.kind === 'instrument') {
     const m = path.join(d, 'manifest.json');

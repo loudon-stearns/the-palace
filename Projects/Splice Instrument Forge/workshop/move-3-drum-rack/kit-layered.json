@@ -1,0 +1,102 @@
+{
+  "kind": "kit",
+  "name": "Spoiler Kit Layered",
+  "tempo": 140,
+  "pads": [
+    {
+      "note": 36,
+      "name": "Kick",
+      "file": "samples/BOS_DBN_Drum_Kick_One_Shot_Punchy_Spoiler.wav",
+      "uuid": "160c813b-e86c-4882-ae3a-6e6cbcbe8a1a"
+    },
+    {
+      "note": 37,
+      "name": "808 C",
+      "file": "samples/RKU_HD_bass_808_one_shot_perfect_blue_C.wav",
+      "uuid": "e9d946a4-c56e-47ad-bdc3-b835291646d5"
+    },
+    {
+      "note": 38,
+      "name": "Snare",
+      "layers": [
+        {
+          "file": "samples/LEX_FT_one_shot_snare_ghost_soft.wav",
+          "uuid": "6fef76bb-dcbc-47e9-be23-2d714a71d89c",
+          "vel": [
+            1,
+            80
+          ]
+        },
+        {
+          "file": "samples/DS_DSP_snare_one_shot_crack.wav",
+          "uuid": "e2c4fe7b-9246-45b5-a62f-3bfb81ce9e9e",
+          "vel": [
+            81,
+            127
+          ]
+        }
+      ]
+    },
+    {
+      "note": 39,
+      "name": "Clap",
+      "file": "samples/STCR2_EV_Clap_One_Shot_layered.wav",
+      "uuid": "8997fe8e-5a5b-4464-819a-ff35adf706df"
+    },
+    {
+      "note": 40,
+      "name": "Tom",
+      "file": "samples/BOS_DXXL_Percussion_Tom_One_Shot_Tomdeepest.wav",
+      "uuid": "475e6d9e-631a-44ea-8aa1-3f9f3f2ec23c"
+    },
+    {
+      "note": 41,
+      "name": "Crash",
+      "file": "samples/fec_cymbal_crash_one_shot_high_bright_big.wav",
+      "uuid": "41bf7b45-53d0-4e0d-911f-2d37cba83641"
+    },
+    {
+      "note": 42,
+      "name": "Closed Hat",
+      "choke": 1,
+      "layers": [
+        {
+          "file": "samples/DD_Folk_Hi_Hats_One_Shot_light_closed_soft.wav",
+          "uuid": "99256336-4eca-4408-b609-36995a7a34bb",
+          "vel": [
+            1,
+            80
+          ]
+        },
+        {
+          "file": "samples/ZEN_JDB_hi_hat_closed_one_shot_tight.wav",
+          "uuid": "58ba5e2f-e157-4407-b2a3-b3c346c4f7b4",
+          "vel": [
+            81,
+            127
+          ]
+        }
+      ]
+    },
+    {
+      "note": 46,
+      "name": "Open Hat",
+      "file": "samples/ZEN_ECL_open_hi_hat_sustaino.wav",
+      "choke": 1,
+      "uuid": "fe67ec43-5a1c-450f-a634-18659a3a84ca"
+    }
+  ],
+  "pattern": {
+    "bars": 4,
+    "steps": {
+      "Kick": "X...x...X...x...X...x...X...x...X...x...X...x...X...x...X...x.x.",
+      "808 C": "x.......x.......x.......x.......x.......x.......x.......x.......",
+      "Snare": "....X......o.o......X.o.....o.......X......o.o......X..o..o.X.oX",
+      "Clap": "....x.......x.......x.......x.......x.......x.......x.......x...",
+      "Closed Hat": "x.ooX.oox.ooX.oox.ooX.oox.ooX.oox.ooX.oox.ooX.oox.ooX.oox.oXX.XX",
+      "Open Hat": "..............x...............x...............x...............x.",
+      "Tom": ".............................................................x.x",
+      "Crash": "x..............................................................."
+    }
+  }
+}

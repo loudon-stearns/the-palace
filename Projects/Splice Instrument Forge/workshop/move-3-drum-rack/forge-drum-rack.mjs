@@ -3,7 +3,8 @@
 //   node forge-drum-rack.mjs build kit.json [--out-dir .] [--force]
 //   node forge-drum-rack.mjs check "<Set>.als"
 //
-// kit.json: { name, tempo, pads: [{ note, name, file, choke? }], pattern?: { bars, steps: { "<pad name>": "x..." } } }
+// kit.json: { name, tempo, pads: [{ note, name, file | layers: [{ file, vel: [min, max] }], choke?, db? }], pattern?: { bars, steps: { "<pad name>": "X.x.o..." } } }
+//   steps: X accent 127, x hit 100, o ghost 50. A pad with layers becomes a Sampler zone per layer, split by velocity.
 // Every XML element is cloned from a file Live saved (Splice Instrument Forge, format study 2026-10-24):
 //   the rack and a pad preset from Live 12's Core Library/Defaults/Slicing/Default.adg,
 //   a pad's Simpler from Core Library/Defaults/Instruments/Simpler.adv,
@@ -27,6 +28,8 @@ const FIRST_TRACK_ID = 20;
 // Live stores a Drum Rack pad's ReceivingNote inverted: stored = 128 - MIDI note (a factory kit's kick, stored 92, sits on C1 = 36;
 // a pad written as 42 showed on D5 = 86, Loudon's ear 2026-10-24). SendingNote is not inverted: every pad read stores 60 and plays its sample at root.
 const recv = (note) => 128 - note;
+// A pattern step: X an accent, x a hit, o a ghost, anything else a rest. A layered pad's ghosts land in its soft layer.
+const VELOCITY = { X: 127, x: 100, o: 50 };
 // Per-drum levels inside the rack, proposed 2026-10-24 for Loudon's yes: the kick is the reference at 0 dB and the rest sit under it;
 // the rack's track then takes the foreground (-4 dB). A pad may name its own "db". Set on the pad's branch mixer (linear amplitude).
 const DRUM_DB = [[/kick/, 0], [/808|sub/, -2], [/snare/, -2], [/clap/, -4], [/rim|snap|stick/, -6], [/tom/, -4], [/closed|chh|hat/, -8], [/open|ohh/, -8], [/ride/, -10], [/crash|cymbal/, -10], [/shaker|perc|conga|bongo/, -6], [/fx|riser|impact/, -8]];
@@ -83,21 +86,32 @@ function wavFacts(file) {
   return { rate, channels, bits, frames: Math.floor(dataBytes / (channels * bits / 8)), size: st.size, mtime: Math.floor(st.mtimeMs / 1000) };
 }
 
-// ---- the pad: Live's default Simpler holding one zone, the whole key range, root 60 ----
-function padSimpler(pad, setDir) {
-  let d = element(readGz(path.join(LIVE, 'Instruments/Simpler.adv')), 'OriginalSimpler').text;
-  d = d.replace(/<LastPresetRef>[\s\S]*?<\/LastPresetRef>/, '<LastPresetRef>\n<Value />\n</LastPresetRef>');
-  d = d.replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(pad.name) + '" />');
-  const w = wavFacts(pad.abs);
-  let p = fs.readFileSync(path.join(WRITER, 'sample-part.xml'), 'utf8').trim();
-  p = p.replace(/<Name Value="[^"]*" \/>/, '<Name Value="' + esc(path.basename(pad.abs, '.wav')) + '" />');
+// ---- the pad: one zone, the whole key range, root 60. A pad with one sample is Live's default Simpler; a pad with
+// velocity "layers" is Live's default Sampler holding one zone per layer, split by velocity (2026-11-14). Simpler holds one
+// sample, so a layered pad needs Sampler's MultiSampler; both keep their zones under Player > MultiSampleMap > SampleParts.
+function samplePart(file, i, vel, setDir) {
+  const w = wavFacts(file);
+  let p = fs.readFileSync(path.join(WRITER, 'sample-part.xml'), 'utf8').trim().replace(/^<MultiSamplePart Id="\d+"/, '<MultiSamplePart Id="' + i + '"');
+  p = p.replace(/<Name Value="[^"]*" \/>/, '<Name Value="' + esc(path.basename(file, '.wav')) + '" />');
+  if (i > 0) p = p.replace(/<Selection Value="true" \/>/, '<Selection Value="false" />');
+  if (vel) { const vr = element(p, 'VelocityRange'); p = replaceEl(p, vr, '<VelocityRange>\n<Min Value="' + vel[0] + '" />\n<Max Value="' + vel[1] + '" />\n<CrossfadeMin Value="' + vel[0] + '" />\n<CrossfadeMax Value="' + vel[1] + '" />\n</VelocityRange>'); }
   p = setValue(p, 'RootKey', 60).replace(/<SampleEnd Value="\d+" \/>/, '<SampleEnd Value="' + (w.frames - 1) + '" />');
   for (const tag of ['SustainLoop', 'ReleaseLoop']) { const el = element(p, tag); p = replaceEl(p, el, '<' + tag + '>\n<Start Value="0" />\n<End Value="' + (w.frames - 1) + '" />\n<Mode Value="' + (tag === 'SustainLoop' ? 0 : 3) + '" />\n<Crossfade Value="0" />\n<Detune Value="0" />\n</' + tag + '>'); }
-  const rel = path.relative(setDir, pad.abs).split(path.sep).join('/');
+  const rel = path.relative(setDir, file).split(path.sep).join('/');
   const ref = element(p, 'SampleRef');
-  p = replaceEl(p, ref, '<SampleRef>\n<FileRef>\n<RelativePathType Value="1" />\n<RelativePath Value="' + esc(rel) + '" />\n<Path Value="' + esc(pad.abs) + '" />\n<Type Value="2" />\n<LivePackName Value="" />\n<LivePackId Value="" />\n<OriginalFileSize Value="' + w.size + '" />\n<OriginalCrc Value="0" />\n<SourceHint Value="" />\n</FileRef>\n<LastModDate Value="' + w.mtime + '" />\n<SourceContext />\n<SampleUsageHint Value="0" />\n<DefaultDuration Value="' + w.frames + '" />\n<DefaultSampleRate Value="' + w.rate + '" />\n<SamplesToAutoWarp Value="0" />\n</SampleRef>');
-  d = d.replace(/<SampleParts \/>/, '<SampleParts>\n' + p + '\n</SampleParts>');
-  return { xml: d, facts: w };
+  p = replaceEl(p, ref, '<SampleRef>\n<FileRef>\n<RelativePathType Value="1" />\n<RelativePath Value="' + esc(rel) + '" />\n<Path Value="' + esc(file) + '" />\n<Type Value="2" />\n<LivePackName Value="" />\n<LivePackId Value="" />\n<OriginalFileSize Value="' + w.size + '" />\n<OriginalCrc Value="0" />\n<SourceHint Value="" />\n</FileRef>\n<LastModDate Value="' + w.mtime + '" />\n<SourceContext />\n<SampleUsageHint Value="0" />\n<DefaultDuration Value="' + w.frames + '" />\n<DefaultSampleRate Value="' + w.rate + '" />\n<SamplesToAutoWarp Value="0" />\n</SampleRef>');
+  return p;
+}
+function padDevice(pad, setDir) {
+  const layered = pad.layers?.length > 1;
+  let d = element(readGz(path.join(LIVE, layered ? 'Instruments/Sampler.adv' : 'Instruments/Simpler.adv')), layered ? 'MultiSampler' : 'OriginalSimpler').text;
+  d = d.replace(/<LastPresetRef>[\s\S]*?<\/LastPresetRef>/, '<LastPresetRef>\n<Value />\n</LastPresetRef>');
+  d = d.replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(pad.name) + '" />');
+  // Sampler's default ignores velocity for level (Vol < Vel 0); Simpler's is 0.35. Match Simpler, so a layered pad still moves within a layer.
+  if (layered) { const vv = element(d, 'VolumeVelScale'); d = replaceEl(d, vv, vv.text.replace(/<Manual Value="[^"]*" \/>/, '<Manual Value="0.349999994" />')); }
+  const parts = layered ? pad.layers.map((l, i) => samplePart(l.abs, i, l.vel, setDir)) : [samplePart(pad.abs, 0, null, setDir)];
+  d = d.replace(/<SampleParts \/>/, '<SampleParts>\n' + parts.join('\n') + '\n</SampleParts>');
+  return { xml: d };
 }
 
 // ---- the preset: Slicing/Default.adg's GroupDevicePreset with one DrumBranchPreset per pad ----
@@ -111,7 +125,7 @@ function buildAdg(kit, pads, setDir) {
     const zs = element(b, 'ZoneSettings');
     b = replaceEl(b, zs, '<ZoneSettings>\n<ReceivingNote Value="' + recv(pad.note) + '" />\n<SendingNote Value="60" />\n<ChokeGroup Value="' + (pad.choke || 0) + '" />\n</ZoneSettings>');
     const simp = element(b, 'OriginalSimpler');
-    b = replaceEl(b, simp, withId(padSimpler(pad, setDir).xml, 0));
+    b = replaceEl(b, simp, withId(padDevice(pad, setDir).xml, 0));
     b = b.replace(/<BrowserContentPath Value="[^"]*" \/>/, '<BrowserContentPath Value="" />');
     b = setMixerVolume(b, 'AudioBranchMixerDevice', drumDb(pad));
     return b;
@@ -147,7 +161,7 @@ function buildAls(kit, pads, setDir) {
     let b = branchShell.replace(/^<DrumBranch Id="\d+"/, '<DrumBranch Id="' + i + '"');
     b = b.replace(/<EffectiveName Value="[^"]*" \/>/, '<EffectiveName Value="' + esc(pad.name) + '" />').replace(/<UserName Value="[^"]*" \/>/, '<UserName Value="' + esc(pad.name) + '" />');
     b = b.replace(/<IsSelected Value="true" \/>/, '<IsSelected Value="' + (i === 0 ? 'true' : 'false') + '" />');
-    b = b.replace('<!--DEVICE-->', withId(padSimpler(pad, setDir).xml, 0));
+    b = b.replace('<!--DEVICE-->', withId(padDevice(pad, setDir).xml, 0));
     b = setMixerVolume(b, 'MixerDevice', drumDb(pad));
     const bi = element(b, 'BranchInfo');
     b = replaceEl(b, bi, '<BranchInfo>\n<ReceivingNote Value="' + recv(pad.note) + '" />\n<SendingNote Value="60" />\n<ChokeGroup Value="' + (pad.choke || 0) + '" />\n</BranchInfo>');
@@ -162,7 +176,7 @@ function buildAls(kit, pads, setDir) {
   if (kit.pattern) {
     for (const pad of pads) {
       const row = kit.pattern.steps[pad.name]; if (!row) continue;
-      [...row].forEach((ch, s) => { if (ch === 'x') notes.push({ time: s * beatsPerBar / stepsPerBar, duration: 0.2, pitch: pad.note, velocity: 100 }); });
+      [...row].forEach((ch, s) => { if (VELOCITY[ch]) notes.push({ time: s * beatsPerBar / stepsPerBar, duration: 0.2, pitch: pad.note, velocity: VELOCITY[ch] }); });
     }
   } else pads.forEach((pad, i) => notes.push({ time: i, duration: 0.5, pitch: pad.note, velocity: 100 }));
   const length = bars * beatsPerBar;
@@ -224,7 +238,9 @@ function check(file) {
       const paths = [...br.matchAll(/<Path Value="([^"]*)" \/>/g)].map((p) => p[1]).filter(Boolean);
       const missing = paths.filter((p) => !fs.existsSync(p)); for (const p of missing) problems.push(pname + ': sample missing ' + p);
       const bamp = Number((element(element(br, 'MixerDevice').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
-      pads.push(pname + '@' + (128 - Number(note)) + ' ' + (20 * Math.log10(bamp)).toFixed(0) + 'dB' + (choke !== '0' ? ' choke' + choke : '') + (missing.length ? ' MISSING' : ''));
+      const vels = [...br.matchAll(/<VelocityRange>\s*<Min Value="(\d+)" \/>\s*<Max Value="(\d+)" \/>/g)].map((v) => v[1] + '-' + v[2]);
+      if (vels.length > 1) { const sorted = vels.map((v) => v.split('-').map(Number)).sort((a, b) => a[0] - b[0]); for (let k = 1; k < sorted.length; k++) if (sorted[k][0] !== sorted[k - 1][1] + 1) problems.push(pname + ': velocity layers ' + vels.join(', ') + ' leave a gap or overlap'); }
+      pads.push(pname + '@' + (128 - Number(note)) + ' ' + (20 * Math.log10(bamp)).toFixed(0) + 'dB' + (choke !== '0' ? ' choke' + choke : '') + (vels.length > 1 ? ' [' + (br.includes('<MultiSampler') ? 'Sampler ' : '') + 'vel ' + vels.join(' / ') + ']' : '') + (missing.length ? ' MISSING' : ''));
     }
     console.log('  Drum Rack "' + name + '": ' + pads.length + ' pads: ' + pads.join(', '));
     const trk = element(xml, 'MidiTrack'); const tamp = Number((element(element(trk.text, 'Mixer').text, 'Volume').text.match(/<Manual Value="([^"]*)" \/>/) || [, '1'])[1]);
@@ -245,8 +261,9 @@ if (argv[0] !== 'build') { console.log('usage: build kit.json [--out-dir dir] [-
 const kitFile = path.resolve(argv[1]); const kit = JSON.parse(fs.readFileSync(kitFile, 'utf8'));
 const outDir = argv.includes('--out-dir') ? path.resolve(argv[argv.indexOf('--out-dir') + 1]) : path.dirname(kitFile);
 const force = argv.includes('--force');
-const pads = kit.pads.map((p) => ({ ...p, abs: path.resolve(path.dirname(kitFile), p.file) }));
-for (const p of pads) if (!fs.existsSync(p.abs)) throw new Error('sample missing: ' + p.abs);
+const at = (f) => path.resolve(path.dirname(kitFile), f);
+const pads = kit.pads.map((p) => ({ ...p, abs: at(p.file || p.layers[p.layers.length - 1].file), layers: p.layers?.map((l) => ({ ...l, abs: at(l.file) })) }));
+for (const p of pads) for (const f of p.layers ? p.layers.map((l) => l.abs) : [p.abs]) if (!fs.existsSync(f)) throw new Error('sample missing: ' + f);
 const adgOut = path.join(outDir, kit.name + '.adg'), alsOut = path.join(outDir, kit.name + '.als');
 writeGz(adgOut, buildAdg(kit, pads, outDir), force);
 writeGz(alsOut, buildAls(kit, pads, outDir), force);

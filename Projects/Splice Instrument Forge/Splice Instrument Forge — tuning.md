@@ -45,3 +45,8 @@ What Splice Instrument Forge's steward cycles taught the page, and the changes t
 
 5. Rebuilding doesn't heal a Set whose samples went missing: it keeps the absolute path it was built with, so it needs the samples fetched into the main checkout first and then build --force, and forge.mjs sweep finds every Set that needs it. *(offered by the steward, cycle 3)*
 - run · 2026-11-13 · cycle 3 · taught item 5
+
+## From cycle 4 — 2026-11-13
+
+6. Live's default Sampler ignores velocity for level (Vol < Vel at 0) where Simpler uses 0.35, so a pad switched from Simpler to Sampler goes flat unless the builder sets it. *(offered by the steward, cycle 4)*
+- run · 2026-11-13 · cycle 4 · taught item 6

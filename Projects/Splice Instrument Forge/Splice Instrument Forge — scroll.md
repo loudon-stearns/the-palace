@@ -15,36 +15,36 @@ forward_vector: "I am Splice Instrument Forge's scroll — the one page that alw
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-14T01:34:15.279Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-14T01:39:31.075Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-11-14 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 4 · last ran 2026-11-14 (today)
 - **Plan:** agreed (no dated change on the trail yet)
-- **Waiting on you:** nothing
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-14 (today) — Spoiler Kit and your melodic techno Set have their samples back: 26 sounds found again in Splice, ids kept, all six forge Sets check clean. (`splice-instrument-forge-steward-006`)
-- **Last commit touching this project:** 2026-11-04 `e6980dd9` — edit(Splice Instrument Forge): a standing order: a download link is a key; the bundle keeps the uuid, the file or the bare URL, and live links for a fetch stay in _ops/scratch/
+- **Last shipped:** 2026-11-14 (today) — The Live 12 open since 9 November is holding back four Sets from being opened in Live. Is it yours, and may it close? (`splice-instrument-forge-steward-009`)
+- **Last commit touching this project:** 2026-11-13 `e5d0a592` — steward(Splice Instrument Forge): cycle 3 — SPINNING UP. HOME: [Splice Instrument Forge](obsidian://open?vault=The%…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-13 — cycle 3 · taught item 5
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-13 — cycle 4 · taught item 6
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 5, from cycle 3 — 2026-11-13 — [[Splice Instrument Forge — tuning]]
+- **Latest lesson:** item 6, from cycle 4 — 2026-11-13 — [[Splice Instrument Forge — tuning]]
 
 ### Where this stands
 
-Splice Instrument Forge turns a sentence into an Ableton Live Set built from Splice sounds: a Drum Rack kit, a Sampler instrument, or a Session View track with scenes and alternate takes. In October you asked for a melodic techno track with a female vocal, an acid bass and a cinematic breakdown, and the forge built it at 124 in A minor with nothing transposed. Then it moved onto clean parts taken from Ableton's own factory files. But the first day's Sets had been built in a temporary working folder that was later deleted, so Spoiler Kit and the melodic techno Set had opened with every sample missing ever since, and their recipes kept no Splice ids to get the sounds back. This cycle fixed th…
+Splice Instrument Forge turns a sentence into an Ableton Live Set built from Splice sounds: a Drum Rack kit, a Sampler instrument, or a Session View track with scenes. Until now every drum pad held one sample at one loudness, and every pattern hit was the same strength. That was one of the proofs still owed on the plan. This cycle a pad can hold two sounds split by how hard it's hit, and a pattern can mark accents and ghost notes. Spoiler Kit Layered is the first kit built that way: your dubstep Spoiler Kit at 140, with a ghost snare and a soft closed hat under the originals.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard Dusty Eighty-Five or the rebuilt Flowers Stack. _(in 3 notes, the latest cycle 3)_
-- **rough since cycle 1:** Not yet opened in Live: Spoiler Kit, the melodic techno Set and the first Flowers Stack, because a Live 12 of unknown origin has been running since 9 November and a second copy would wait on a box nobody can click. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 1:** Nobody has heard Dusty Eighty-Five or the rebuilt Flowers Stack either. _(in 4 notes, the latest cycle 4)_
+- **rough since cycle 1:** Not yet opened in Live: Spoiler Kit, the melodic techno Set, the first Flowers Stack, and now Spoiler Kit Layered. _(in 4 notes, the latest cycle 4)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `splice-instrument-forge-steward-009` — directional_decision · posted 2026-11-14 · options: CLOSE-IT · I-WILL-QUIT · WAIT
 
 ### Answered, not yet consumed
 
@@ -56,6 +56,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-13 — cycle 4 · taught item 6
 - 2026-11-13 — cycle 3 · taught item 5
 - 2026-10-26 — cycle 2 · taught item 3
 - 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
@@ -108,6 +109,72 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="splice-instrument-forge-steward-009" -->
+### 2026-11-14 — cycle 4 — The Live 12 open since 9 November is holding back four Sets from being opened in Live. Is it yours, and may it close?
+> still working · four Sets check clean but unopened · no clear lean — your call
+
+The forge builds Ableton Sets from Splice sounds. Your standing order is to prove each one in a Live 12 the forge starts itself, never in one you started. A Live 12 has been running since 9 November. Nothing tells me who started it, and while it's up, a second copy stops on the 'Another instance…' box. So Spoiler Kit, the melodic techno Set, the first Flowers Stack and this cycle's Spoiler Kit Layered all pass their structure check but have never been opened. I won't close a Live I can't prove is mine. There are three ways forward. You quit it (or tell me it's stale and I quit it), and next cycle opens all four. You keep it running, and the proofs wait for a time you're away from it. Or you open the Sets yourself in it, which is quick for you but breaks the order's spirit. I'll keep building either way.
+
+**Artifacts:**
+- [BOS_IS_124_Violin_Loop_Glider_A.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/BOS_IS_124_Violin_Loop_Glider_A.wav)
+- [las_insp124_waves_breakstring.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/las_insp124_waves_breakstring.wav)
+- [JAFUNK_124_string_lush_pads_Cmaj.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/JAFUNK_124_string_lush_pads_Cmaj.wav)
+- [DS_SPACEM_123_vocal_hook_female_now_bridge_wet_Amin.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/DS_SPACEM_123_vocal_hook_female_now_bridge_wet_Amin.wav)
+- [DS_SPACEM_123_vocal_hook_female_now_chorus_wet_Amin.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/DS_SPACEM_123_vocal_hook_female_now_chorus_wet_Amin.wav)
+- [DS_SPACEM_123_vocal_hook_female_now_verse_stack_dry_Amin.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/DS_SPACEM_123_vocal_hook_female_now_verse_stack_dry_Amin.wav)
+- [ff_dph_124_pad_loop_arson_Amin.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/ff_dph_124_pad_loop_arson_Amin.wav)
+- [BOS_TT_124_Synth_Pad_Loop_Resonance_A.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/BOS_TT_124_Synth_Pad_Loop_Resonance_A.wav)
+- [ZEN_MMT_124_pad_synth_loop_linux_A.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/ZEN_MMT_124_pad_synth_loop_linux_A.wav)
+- [STCR2_AA_124_Synth_Arp_Loop_Milkyway_Dry_Amin.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/STCR2_AA_124_Synth_Arp_Loop_Milkyway_Dry_Amin.wav)
+- [DS_MT2_124_synth_lead_loop_exception_Amin.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/DS_MT2_124_synth_lead_loop_exception_Amin.wav)
+- [ZEN_MMT_124_lead_synth_loop_linux_A.wav](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/samples/ZEN_MMT_124_lead_synth_loop_linux_A.wav)
+<sub>`splice-instrument-forge-steward-009` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="splice-instrument-forge-steward-008" -->
+### 2026-11-14 — cycle 4 — Kits can now have velocity layers. Spoiler Kit Layered hits ghost notes on a soft snare and a soft hat, with rough bounces of both kits to compare.
+> shipped · structure check clean · not opened in Live yet · steward leans hear the sketch first
+
+A pad in a kit recipe can now list `layers` instead of one file, each with a velocity range. Hits from 1 to 80 play the soft sound and 81 to 127 the hard one. Simpler holds only one sample, so a layered pad becomes Live's default Sampler with one zone per layer. Sampler out of the box ignores velocity for level where Simpler doesn't, so I set it to match Simpler. Pattern steps now read X for an accent (127), x for a hit (100) and o for a ghost (50); the old recipes build exactly as before. `check` prints each layered pad's ranges and flags a gap or overlap, and `missing` now looks through layers too. I found the two soft sounds in Splice (2 credits): LEX_FT_one_shot_snare_ghost_soft and DD_Folk_Hi_Hats_One_Shot_light_closed_soft. Check reads: 8 pads, the snare and closed hat each a Sampler split 1–80 / 81–127, 103 notes, every id unique, nothing to look at. The original Spoiler Kit still checks clean too. A Live 12 has been up since 9 November, so I haven't opened the Set in Live. Instead `sketch-render.py` makes a rough bounce of a recipe's pattern. It has no envelopes and none of Live's voicing, but you can hear the groove and the layers switching, and there's one for the old kit beside it to compare.
+
+**Artifacts:**
+- [the layered kit's pattern, bounced roughly outside Live: ghost snares and soft hats in the gaps](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/Spoiler Kit Layered — sketch.wav)
+- [the original Spoiler Kit, bounced the same way, to compare](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/Spoiler Kit — sketch.wav)
+- [the Set: the rack on one MIDI track, the four-bar pattern, 140 bpm](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/Spoiler Kit Layered.als)
+- [the rack as a preset to drag onto any track](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/Spoiler Kit Layered.adg)
+- [the recipe: layers, velocity ranges, accents and ghosts](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/kit-layered.json)
+- [the kit builder, now with layered pads and accented steps](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/forge-drum-rack.mjs)
+- [the rough bouncer for any kit recipe](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/sketch-render.py)
+- [missing and sweep now see layered samples](Projects/Splice Instrument Forge/workshop/forge/forge.mjs)
+- [how velocity layers are built, and where each part came from](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/README.md)
+
+_Spoiler Kit Layered, as check reads it_
+| pad | note | level | device | velocity split |
+| --- | --- | --- | --- | --- |
+| Kick | C1 | 0 dB | Simpler | — |
+| 808 C | C#1 | −2 dB | Simpler | — |
+| Snare | D1 | −2 dB | Sampler | ghost 1–80 / crack 81–127 |
+| Clap | D#1 | −4 dB | Simpler | — |
+| Tom | E1 | −4 dB | Simpler | — |
+| Crash | F1 | −10 dB | Simpler | — |
+| Closed Hat | F#1 | −8 dB, choke 1 | Sampler | soft 1–80 / tight 81–127 |
+| Open Hat | A#1 | −8 dB, choke 1 | Simpler | — |
+
+_Changed in the workshop:_ README — documents velocity layers, accented steps and the sketch bouncer; the old 'one velocity layer' limit is gone
+
+_Left rough:_ Not yet opened in Live: Spoiler Kit, the melodic techno Set, the first Flowers Stack, and now Spoiler Kit Layered. A Live 12 of unknown origin has been running since 9 November, and a second copy would wait on a box nobody can click. Only you can clear that, so I've asked below rather than leave it rough again. Nobody has heard Dusty Eighty-Five or the rebuilt Flowers Stack either.
+
+_Next moves named:_ Open Spoiler Kit Layered in a Live 12 I launch myself, once none of unknown origin is running, and read Live's log for a clean load · Prove a Drum Sampler pad, the last of the owed pad-device proofs, by the same route as Sampler: one recipe flag, the Core Library default · Bring accents into the stack builder's drum layers, if the layered kit reads well to your ear
+<sub>`splice-instrument-forge-steward-008` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-e13d90473e" -->
+### 2026-11-13 — cycle 4
+
+taught item 6
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="splice-instrument-forge-steward-006" -->
 ### 2026-11-14 — cycle 3 — Spoiler Kit and your melodic techno Set have their samples back: 26 sounds found again in Splice, ids kept, all six forge Sets check clean.
 > shipped · every forge Set complete on disk · Live proofs owed · steward leans your ear on the melodic techno Set

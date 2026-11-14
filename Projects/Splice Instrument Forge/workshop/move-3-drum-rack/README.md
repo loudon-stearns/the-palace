@@ -38,8 +38,12 @@ node forge-drum-rack.mjs check "Spoiler Kit.als"
 - A cloned branch shell carries the saving user's `LastPresetRef` paths. Blank every `LastPresetRef` in anything cloned, device or mixer, or `check` will chase a stranger's desktop.
 - `OverwriteProtectionNumber` 2819 (Live 11) inside a 12.4.6 Set: Live 12 did not mind; it loaded the Set and saved it back as its own.
 
+## Velocity layers and accents (2026-11-14)
+
+A pad may carry `layers` instead of `file`: `[{ "file", "uuid", "vel": [1, 80] }, { "file", "uuid", "vel": [81, 127] }]`. Such a pad is Live's default **Sampler** (`MultiSampler`, from `Core Library/Defaults/Instruments/Sampler.adv`) with one zone per layer, its `VelocityRange` set and crossfades off; a one-sample pad stays Simpler, because Simpler holds one sample. Both keep zones under `Player > MultiSampleMap > SampleParts`, so the zone shell is the same. Sampler's default `VolumeVelScale` is 0 (velocity does not change level) where Simpler's is 0.35; a layered pad is set to 0.35 so it matches its neighbours. Pattern steps now read `X` accent 127, `x` hit 100, `o` ghost 50; the old all-`x` recipes build as before. `check` prints each layered pad's ranges and flags a gap or overlap. `kit-layered.json` (**Spoiler Kit Layered**) is the first: a ghost snare and a soft closed hat under the originals, ghost notes in the snare and hat rows. `sketch-render.py` bounces a recipe's pattern roughly (no envelopes, no Live voicing) so the groove can be heard before a Live is free to open the Set.
+
 ## Known limits
 
-- One velocity layer per pad; no pad-level volume or pan set (the mixer shell's defaults).
-- The pattern is sixteenths only, 4/4, fixed velocity 100.
+- Pan is not set per pad (the mixer shell's default); level is, by the per-drum rule.
+- The pattern is sixteenths only, 4/4.
 - Pads are Simpler in Classic mode as the factory kits are; a Drum Sampler pad is the smaller, more idiomatic Live 12 choice and the next thing to prove.
