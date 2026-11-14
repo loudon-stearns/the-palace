@@ -24,9 +24,9 @@ So the design is judged by use, not by visibility: the Shop is used constantly, 
 
 The gap is real and it's showing up as work. Makers keep building sound, images and motion by hand while a Specialist that does it better sits unused. One morning turned up one example of this. It isn't the whole problem, and it isn't the design.
 
-## Cold start
+## The first example, and the candidate ideas
 
-COLD START: this work has not begun. Nothing has been built and nothing has been tried and rejected. What follows is one example and some candidate ideas, carried so they aren't re-derived. None of it is decided.
+The walk is done and nothing is designed or built. What follows is the first example and the candidate ideas, carried so they aren't re-derived. None of it is decided.
 
 **The one example: the Daily Page of 2026-11-14, Stable Audio Open.** Stable Audio 3 renders 20 s of sound locally in about a second. Loudon was impressed by the quality and said many small interactions should have used it. Record: `Shop/Stable Audio Open/Stable Audio Open — scroll.md` (trail entry `daily-2026-11-14-arc-or-texture`), the morning's commit `ops(The Daily Page): 2026-11-14 · Stable Audio Open`, and Loudon's earlier direction at `Light Enrichment.md:97-104`.
 
@@ -53,22 +53,27 @@ Pieces they named as worse for it: the Pauline Oliveros room; the Dub Lineage ri
 - **The hand as a Specialist.** Loudon, 2026-11-14: "I am curious if 'hand built' is really just another needed specialist, like a general purpose sound creator or general purpose svg creator, because even when you are building by hand you can get better at that, right, a ledger could still be useful, and there are some specifics about how we make things here that might help focus your hand built." Then nothing is made outside the Shop and the fallback keeps a ledger. Bears on `Shop/Maker.md:116`, which rejected raw Web Audio as a Specialist, and on where the p5 alpha mistake was recorded (Light Enrichment's Context, where no later sound-maker looks). Open: one page per material (sound from code, SVG from code) or one page for the hand.
 - **Brainstorm cards.** The Shop as cards in brainstorms with Loudon.
 
+## What the walk found
+
+The eleven situations were walked on 2026-11-14 by read-only readers. Their reports, with file and line, are in [[The Shop — sketch — discovery walk 2026-11-14]]. Read as a whole:
+
+**The Shop is missed in four different ways.**
+1. **Silence.** The chooser's reading names no Shop: the stewards' prompts (`steward.md:150` says "Default to making" and names no tool), the Concierge's prompts, [[Search Before You Build]], `Projects/Loudon Live.md`, the Palace Guide, the app. Loudon has no trigger phrase for making.
+2. **A spec that routes around it.** Light Enrichment step 4 is "Make it with a script that stays" (`Light Enrichment.md:66`). The Daily Page prep may build by hand alone, but "a Shop making waits for his yes" (`_ops/The Daily Page.md:100`). The Technical Diagram Standard sends figures straight to TikZ. The VST Template says "Sketch in numpy". The Concierge's gatherer is told to skip `_tools/`.
+3. **The tool is used and the Specialist is bypassed.** Nine TikZ figures for DSP in Looping Dimensions (2026-11-09) while the LaTeX Specialist is a stub last run in June. ComfyUI plates for the Loudon Live looks (2026-10-25) with no line in ComfyUI's ledger; the recipes sit in the Design System's ledger, items 12–14. Matplotlib called directly in the Haptic Handwheel's feel-lab.
+4. **Named and never run.** Blood Compressor and Retrospective Delay carry spec sheets that name a Specialist per row and say "not a dispatch order". The Loudon Live Design System's per-Specialist table is "held until first invocation". Four stubs have never had a real brief.
+
+**Where it works, the Shop is in the path by construction.** The [[Hero and Avatar Maker]]'s Regen lane is a button that writes its own run line; its ledger holds 28 lessons. BLUELINE's steward manifest lists Shop pages in its neighborhood, and it uses Blender through [[Figure Rig]]. Wavetable Scanner lifted its gotchas into Web Audio Worklet and Three.js the same day. None of these rests on a maker remembering a sentence.
+
+**Lessons land where the work was, not where the tool is.** Every situation's lessons went to its own ledger. A steward may not edit a Shop page at all (`shared.md:321-356`). So even real use has not been improving the Shop.
+
+**The front door is not ready for traffic.** Fourteen of 32 Specialists have no route in the Maker's Selection Heuristics, Stable Audio Open among them: "I need a sound effect or a music bed" has no answer there. Six are missing from `host-capability.json`. The Maker's ledger has no run; its last Recipe is 2026-06-19. Most Specialist pages give no command a maker could paste.
+
+**Availability is narrower than "the Mac has everything".** About ten Specialists run anywhere (the browser ones, Matplotlib, Mermaid, ffmpeg, Whisper). The rest need `_tools/`, a venv or a pod, and the app's own worktrees link none of them. Stable Audio's first render of a session took 334 s, then about 3 s.
+
 ## Next move
 
-Look before designing. Walk the situations below the way the example was walked: read the record, ask the makers or the pages, and name where the Shop was or wasn't in front of the one choosing the tool. These still need looking at:
-- Daily Page roughs
-- steward cycles and the permanent stewards
-- Deposit figures
-- Loudon Live production and the [[Loudon Live Post-producer]]
-- VST, plugin and project builds
-- the public site
-- the [[Maker]]'s own dispatch
-- the Concierge's gatherer index
-- cloud and unattended sessions without `_tools/`
-- Shop stubs, and Specialists that have gone quiet
-- what Loudon himself sees when he starts a making session
-
-Then draft one zoomed-out design that covers them all, and show it to Loudon. He leads from there.
+Draft one zoomed-out design from the walk and show it to Loudon. He leads from there. The design answers the four ways of missing, not one of them; it holds his goal (use, and use that improves the Shop) and his calibrations below. Before leaning on any one report, open the file it cites.
 
 **Done looks like:** a design that covers these situations, shown to Loudon before anything foundational moves.
 
