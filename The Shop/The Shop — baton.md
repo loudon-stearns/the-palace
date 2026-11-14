@@ -18,6 +18,10 @@ Find out what would make the Shop's full capabilities visible and available at t
 
 Loudon, 2026-11-14: "create a handoff 'shop specialist discovery' with the broad mandate to make sure that whenever anything is being made in or with the palace the full capabilities of the shop are easily visible and available. give our current situation as a single example, but be clear that there are other situations to consider. We have identified a clear gap in the palace/shop, but have not considered enough situations to come up with a full zoomed out solution."
 
+**The goal, set at pickup.** Loudon, 2026-11-14: "We are building a shop mechanism so that the shop GETS USED! Our goal should be the constant use and development of the shop, these are our tools and though it may be inefficient to use these tools initially, we design them to improve themselves, so with more use they will get very good. We need to make it our easy default to know what the shop [is], how to use it, and encourage all making in the palace to leverage the shop, even when it seems inefficient because we have a goal of improving the palace and improving the shop that is equal to the work at hand."
+
+So the design is judged by use, not by visibility: the Shop is used constantly, and each use leaves the Shop better. A job that goes through a Specialist and teaches it nothing has done half its work.
+
 The gap is real and it's showing up as work. Makers keep building sound, images and motion by hand while a Specialist that does it better sits unused. One morning turned up one example of this. It isn't the whole problem, and it isn't the design.
 
 ## Cold start
@@ -70,6 +74,7 @@ Then draft one zoomed-out design that covers them all, and show it to Loudon. He
 ## Calibrations from this session
 
 - Loudon, 2026-11-14: "I don't want to settle this question in this session." The morning stopped at the example on purpose. Treat the candidate ideas as found, not chosen.
+- Loudon, 2026-11-14, at pickup: improving the Shop is a goal "equal to the work at hand". Use the Shop "even when it seems inefficient". Efficiency is not a reason to go around a Specialist; a design that leaves the hand-built route as the easy one has missed.
 - The example is one case. Don't fit the design to Stable Audio Open or to Light Enrichment.
 - A CHILD edit is foundational: only on his yes, and only after the roster can actually answer what a maker would ask it.
 - What a Specialist can't do is part of being visible. The morning's probe found small-sfx drops an arc it is told about, and small-music fades every clip. See the gotchas on [[Stable Audio Open]].
