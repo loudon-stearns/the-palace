@@ -90,7 +90,7 @@ function specialists() {
     if (!t.startsWith('---')) return [];
     const fm = t.slice(3, t.indexOf('\n---', 3));
     if (!/^type:[ \t]*specialist[ \t]*$/m.test(fm)) return [];
-    return [{ file: f, title: (fm.match(/^title:[ \t]*(.+)$/m) || [, f.replace(/\.md$/, '')])[1].trim(),
+    return [{ file: f, title: (fm.match(/^title:[ \t]*(.+)$/m) || [, f.replace(/\.md$/, '')])[1].trim().replace(/^["']|["']$/g, ''),   // a quoted title (Lettering's) is the same title
               status: (fm.match(/^status:[ \t]*(.+)$/m) || [, '?'])[1].trim() }];
   });
 }
