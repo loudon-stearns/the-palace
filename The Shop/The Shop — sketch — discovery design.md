@@ -20,6 +20,20 @@ A draft for Loudon, 2026-11-14. Nothing here is decided and nothing is built. It
 
 The second draft moved its weight. The first put the Shop in front of a maker at the start of a session. Both makers said the tool is not chosen there.
 
+## Where this stands, end of 2026-11-14
+
+Built and on main, on Loudon's word at each step:
+- **Stage 0.** A proposal line and a brief say what makes each part ([[Light Enrichment]] steps 3–4; [[Enrichment]] step 3, v2.11). A Daily Page Sketch no longer waits (v1.11). Two comparisons made: the Oliveros room in three versions, heard, the third "the best of the group"; SUBSTRATE's bed and four cues, unheard.
+- **Stage 1.** A card on every Specialist, `node Shop/shop.mjs menu | card | missing`, the host file complete.
+- **A fix-up of the Shop** by five sessions: every card tried where it could be, rewritten need-first; 22 of 26 alive Specialists ran that day; pages corrected from evidence; lessons left in ledgers, owed a review.
+- **Stage 2.** `shop workshop | run | heard | check`: a workshop born with the bench, jobs with chains, provenance with hashes, one ledger line per batch.
+
+Drafted for him, not adopted: the decision tree ([[The Shop — sketch — decision tree]]) and the hand's two pages ([[The Shop — sketch — the hand's pages]]).
+
+Not started, each waiting on him: the floor (§ 7), the door's trailer and the counts (§ 8), the audition loop beyond `shop heard` (§ 6), the rich-face kit as a Specialist (§ 4), the Shopkeeper's demand side.
+
+What the day changed in the design, beyond what is written below: the ledger line is written in the checkout where the job ran and lands with the work, not on the trunk from afar; and a Specialist's page changes only at a review, so a run's lesson waits in its ledger.
+
 ## The one idea
 
 **Making passes through a page that remembers.**

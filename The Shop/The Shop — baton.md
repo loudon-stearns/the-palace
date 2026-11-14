@@ -73,9 +73,26 @@ The eleven situations were walked on 2026-11-14 by read-only readers. Their repo
 
 ## Next move
 
-Stage 1 of the design is built and on main (2026-11-14): a card at the top of every Specialist's page, `node Shop/shop.mjs menu [need]` and `card "<Specialist>"`, and the host file completed. The cards are readers' drafts, placed by an elder and not yet tried line by line; each says so on its page. Stage 0 is half done: one comparison made and heard in three versions (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`), two not made (SUBSTRATE's bed and cues, Rick Rubin's voice).
+Loudon stepped away on 2026-11-14 with "work autonomously to do all of our work as best as you can", and a debrief was owed on his return. Read the design's § Where this stands first ([[The Shop — sketch — discovery design]]); stages 0, 1 and 2 are built and on main, and a five-session fix-up of every Specialist page has landed. Nothing is pushed.
 
-What is next, in the design's order ([[The Shop — sketch — discovery design]]): stage 2, `shop workshop` and `shop run` with chained provenance and the automatic run line, starting with Stable Audio Open, the hand's sound page and Kokoro. Before it: Loudon's two open calls (the session-start hook; the names and number of the hand's pages), and the decision tree written once on the Maker from BLUELINE's table and the comparisons. Owed beside it: the tool line in Enrichment's own maker brief; the third Oliveros room offered to her rich face as a proposal; a review of Stable Audio Open's ledger items 13–17.
+**Waiting on his ear or eye** (none of these has been heard or seen by anyone):
+- SUBSTRATE's bed and four cues, hand against Shop: `Shop/Maker/comparisons/2026-11-14-substrate-sounds/README.md` plays the ten.
+- From the fix-up: `Shop/Kokoro/proofs/2026-11-14-card-check/af_bella — study.m4a` (the Study voice, never heard); `Shop/Stable Audio Open/proofs/2026-11-14-card-check/small-music — wide pad.m4a`; `Shop/AuK/proofs/2026-11-14-card-check/word swap — small to large.m4a`; `Shop/Ableton Session Writer/proofs/2026-11-14-card-check/Tear and Heal.als` to open in Live; Lettering's "NO"; the Matplotlib Bode plot and Mermaid flowchart in the house style.
+
+**Waiting on his ruling:**
+1. The decision tree, onto the Maker or not ([[The Shop — sketch — decision tree]]).
+2. The hand's pages: names, and one per material or one ([[The Shop — sketch — the hand's pages]]).
+3. The session-start hook. Recommended: hold it.
+4. The CHILD line (design § 7), now that the menu answers.
+5. The rich-face kit as a Specialist, or as a Maker-level page; the web fix-up session argues yes.
+6. LaTeX from stub to alive, and the Technical Diagram Standard's toolchain, which no longer works as written on this Mac (pdflatex cannot load fontspec; the route that works is lualatex then PyMuPDF). Proposed words are in the motion session's report.
+7. ComfyUI's page says "byte-exact" in five places and the same seed gave different bytes on this Mac.
+8. FLUX was not run: no one could confirm a call is free on his plan.
+9. The third Oliveros room offered to her rich face as a proposal, with the hum brought down.
+
+**Owed a review**, about thirty ledger items across the Shop, each marked so; `node Shop/shop.mjs card "<Specialist>"` counts them. A Specialist's page changes at the review, not before. SCHEMA — Reference §6 does not yet say how a review settles an "owed a review" line.
+
+**Smaller, found on the way:** Remotion's installed version drifted from its pin; Run lines on several cards point at scripts in dated proof folders that are now working tools; `Shop/Maker/run-tests.mjs` has no smoke for Three.js or Web Audio Worklet; the Maker's Forward Vector still plans a test that ran in May; the Loudon Live Design System's ledger has no pointer to the ComfyUI items carried home.
 
 **Done looks like:** a design that covers these situations, shown to Loudon before anything foundational moves.
 

@@ -17,6 +17,8 @@ When every Specialist got a card (stage 1 of [[The Shop — sketch — discovery
 
 Loudon, 2026-11-14: "lets make it our goal to fix up the shop as we go through this."
 
+**Worked through the same day** by five sessions, one per group below and one for the Maker's pages (landed as `f77855c6`, `eefdf48b`, `a9958d53`, `cb1e5c73`, `00ea5bfc`). Each checked its flags against the files, tried the Run lines it could, and corrected its pages from evidence. This list is kept as the record of what was flagged, not as open work. What they left open is on each card's dated line, in each ledger's owed items, and gathered in [[The Shop — baton]].
+
 The same pass showed three things that hold across the Shop, for every group:
 
 - **The cards read as work histories.** "Best used for, so far" should open with the need in a few words (Stable Audio Open's does: "sound beds; sounds made to run filters or effects on"), then the evidence.
