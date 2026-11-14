@@ -1,0 +1,283 @@
+{
+  "note": "Written by Shop/shop.mjs run. What made each piece here, and who has heard or seen it.",
+  "jobs": {
+    "hand-bed": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its bed",
+      "claim": "the sound exactly as the page makes it today, rendered offline from the page's own code",
+      "chain": [
+        "hand: the hook's own Web Audio code, rendered offline"
+      ],
+      "run": "node hand.mjs bed",
+      "seed": 1703,
+      "inputs": {
+        "hand.mjs": "aab317bbcba1fa29"
+      },
+      "outputs": {
+        "substrate-sounds — hand — bed.m4a": "194b88b826905d9f"
+      },
+      "made": "2026-11-14T15:40:57.928Z",
+      "seconds": 0.5,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "hand-step": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its 'step' cue",
+      "claim": "the sound exactly as the page makes it today, rendered offline from the page's own code",
+      "chain": [
+        "hand: the hook's own Web Audio code, rendered offline"
+      ],
+      "run": "node hand.mjs step",
+      "seed": null,
+      "inputs": {
+        "hand.mjs": "aab317bbcba1fa29"
+      },
+      "outputs": {
+        "substrate-sounds — hand — step.m4a": "a91906f1f1c0cb8d"
+      },
+      "made": "2026-11-14T15:40:58.084Z",
+      "seconds": 0.2,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "hand-glass": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its 'glass' cue",
+      "claim": "the sound exactly as the page makes it today, rendered offline from the page's own code",
+      "chain": [
+        "hand: the hook's own Web Audio code, rendered offline"
+      ],
+      "run": "node hand.mjs glass",
+      "seed": null,
+      "inputs": {
+        "hand.mjs": "aab317bbcba1fa29"
+      },
+      "outputs": {
+        "substrate-sounds — hand — glass.m4a": "89d9488bb91c851e"
+      },
+      "made": "2026-11-14T15:40:58.245Z",
+      "seconds": 0.2,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "hand-ground": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its 'ground' cue",
+      "claim": "the sound exactly as the page makes it today, rendered offline from the page's own code",
+      "chain": [
+        "hand: the hook's own Web Audio code, rendered offline"
+      ],
+      "run": "node hand.mjs ground",
+      "seed": null,
+      "inputs": {
+        "hand.mjs": "aab317bbcba1fa29"
+      },
+      "outputs": {
+        "substrate-sounds — hand — ground.m4a": "cc8e47b4b492cc67"
+      },
+      "made": "2026-11-14T15:40:58.410Z",
+      "seconds": 0.2,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "hand-grains": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its 'grains' cue",
+      "claim": "the sound exactly as the page makes it today, rendered offline from the page's own code",
+      "chain": [
+        "hand: the hook's own Web Audio code, rendered offline"
+      ],
+      "run": "node hand.mjs grains",
+      "seed": null,
+      "inputs": {
+        "hand.mjs": "aab317bbcba1fa29"
+      },
+      "outputs": {
+        "substrate-sounds — hand — grains.m4a": "11b78a9efc6d8e25"
+      },
+      "made": "2026-11-14T15:40:58.580Z",
+      "seconds": 0.2,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "shop-bed": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its bed",
+      "claim": "the same sound made from generated material: would it have been recorded? then generate it, and cut it by hand to the hook's length and level",
+      "chain": [
+        "Stable Audio Open (small-sfx, four seeds)",
+        "hand: choose a take by measurement, cut, loop, set level"
+      ],
+      "run": "\"$SHOP_TOOLS/stable-audio-3/.venv/bin/python\" make.py bed",
+      "seed": 1703,
+      "inputs": {
+        "make.py": "a12b07821a0029b6",
+        "substrate-sounds — hand — bed.m4a": "194b88b826905d9f"
+      },
+      "outputs": {
+        "substrate-sounds — shop — bed.m4a": "2c565ceaeb2c21e7"
+      },
+      "made": "2026-11-14T15:42:31.734Z",
+      "seconds": 14.7,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "shop-step": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its 'step' cue",
+      "claim": "the same sound made from generated material: would it have been recorded? then generate it, and cut it by hand to the hook's length and level",
+      "chain": [
+        "Stable Audio Open (small-sfx, four seeds)",
+        "hand: choose a take by measurement, cut, fade, set level"
+      ],
+      "run": "\"$SHOP_TOOLS/stable-audio-3/.venv/bin/python\" make.py step",
+      "seed": 1703,
+      "inputs": {
+        "make.py": "a12b07821a0029b6",
+        "substrate-sounds — hand — step.m4a": "a91906f1f1c0cb8d"
+      },
+      "outputs": {
+        "substrate-sounds — shop — step.m4a": "b176b1fc5f0d24a9"
+      },
+      "made": "2026-11-14T15:42:43.655Z",
+      "seconds": 11.9,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "shop-glass": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its 'glass' cue",
+      "claim": "the same sound made from generated material: would it have been recorded? then generate it, and cut it by hand to the hook's length and level",
+      "chain": [
+        "Stable Audio Open (small-sfx, four seeds)",
+        "hand: choose a take by measurement, cut, fade, set level"
+      ],
+      "run": "\"$SHOP_TOOLS/stable-audio-3/.venv/bin/python\" make.py glass",
+      "seed": 1703,
+      "inputs": {
+        "make.py": "a12b07821a0029b6",
+        "substrate-sounds — hand — glass.m4a": "89d9488bb91c851e"
+      },
+      "outputs": {
+        "substrate-sounds — shop — glass.m4a": "e1580a43122b58a1"
+      },
+      "made": "2026-11-14T15:42:55.867Z",
+      "seconds": 12.2,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "shop-ground": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its 'ground' cue",
+      "claim": "the same sound made from generated material: would it have been recorded? then generate it, and cut it by hand to the hook's length and level",
+      "chain": [
+        "Stable Audio Open (small-sfx, four seeds)",
+        "hand: choose a take by measurement, cut, fade, set level"
+      ],
+      "run": "\"$SHOP_TOOLS/stable-audio-3/.venv/bin/python\" make.py ground",
+      "seed": 1703,
+      "inputs": {
+        "make.py": "a12b07821a0029b6",
+        "substrate-sounds — hand — ground.m4a": "cc8e47b4b492cc67"
+      },
+      "outputs": {
+        "substrate-sounds — shop — ground.m4a": "76a346827b80a761"
+      },
+      "made": "2026-11-14T15:43:08.350Z",
+      "seconds": 12.5,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "shop-grains": {
+      "page": "SUBSTRATE",
+      "sentence": "the hook 'born on the floor': its 'grains' cue",
+      "claim": "the same sound made from generated material: would it have been recorded? then generate it, and cut it by hand to the hook's length and level",
+      "chain": [
+        "Stable Audio Open (small-sfx, four seeds)",
+        "hand: choose a take by measurement, cut, fade, set level"
+      ],
+      "run": "\"$SHOP_TOOLS/stable-audio-3/.venv/bin/python\" make.py grains",
+      "seed": 1703,
+      "inputs": {
+        "make.py": "a12b07821a0029b6",
+        "substrate-sounds — hand — grains.m4a": "11b78a9efc6d8e25"
+      },
+      "outputs": {
+        "substrate-sounds — shop — grains.m4a": "161eb9cb05613100"
+      },
+      "made": "2026-11-14T15:43:20.499Z",
+      "seconds": 12.1,
+      "host": "mac",
+      "commit_at_run": "6b38be1b",
+      "by": "the catching session",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    }
+  },
+  "batches": [
+    {
+      "at": "2026-11-14T15:40:58.581Z",
+      "jobs": [
+        "hand-bed",
+        "hand-step",
+        "hand-glass",
+        "hand-ground",
+        "hand-grains"
+      ],
+      "by": "the catching session",
+      "ledgers": {}
+    },
+    {
+      "at": "2026-11-14T15:43:20.501Z",
+      "jobs": [
+        "shop-bed",
+        "shop-step",
+        "shop-glass",
+        "shop-ground",
+        "shop-grains"
+      ],
+      "by": "the catching session",
+      "ledgers": {
+        "Stable Audio Open": "one line on Shop/Stable Audio Open/Stable Audio Open — tuning.md"
+      }
+    }
+  ]
+}
