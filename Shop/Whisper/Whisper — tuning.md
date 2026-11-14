@@ -29,3 +29,11 @@ What each job taught the Whisper page. Each item names what the job showed and w
 3. **`base` was enough for clean Kokoro narration sync**, deciding the page's open question on the Study model. On a 24 kHz mono Kokoro WAV (no noise, no accent, no reverb), `base` (~150 MB) gave monotonic word timing, a mean segment avg_logprob of −0.15, and end-of-audio within 1 s of true duration; word timing sat well inside the ±10 ms `manim-voiceover` needs at that length. Changed: `base` for clean text-to-speech round trips, `small` for accented or low-SNR sources, `large-v3` for Piece-tier published work and technical-vocabulary recovery.
 
 - run · 2026-05-26 · Kokoro → Whisper round trip on the Kuramoto narration, study · taught items 1–3
+
+## From the card check — 2026-11-14 — Kokoro's af_bella check read back, `base`, probe
+
+Written by the session fixing the card; owed a review.
+
+4. **Item 1's override example was ARPABET-style, and the IPA one round-trips.** Item 1 suggested `[Kuramoto](/k uw r ah m oh t oh/)`; Kokoro's ledger (item 6) found ARPABET garbles. With `[Kuramoto](/kˌuɹəmˈOtO/)` on the Kokoro side, `base` heard "Kuramoto" right; unoverridden, it heard "Kokoro" as "Kakoro" and "RNBO" as "R&B O". Two runs gave byte-identical JSON, 5.1 and 5.0 s for 13.5 s of audio. Changed: the round-trip gotcha's example, the determinism strength, and the card (`proofs/2026-11-14-card-check/`).
+
+- run · 2026-11-14 · card check, Kokoro's af_bella check read back twice, probe · taught item 4

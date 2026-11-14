@@ -1,0 +1,49 @@
+{
+  "made": "2026-11-14",
+  "seed": 7,
+  "duration_sec": 10,
+  "takes": [
+    {
+      "model": "small-music",
+      "kind": "plain",
+      "prompt": "a warm sustained synth pad, slow, soft",
+      "channels": 2,
+      "samples": 441000,
+      "lr_correlation": 0.777,
+      "side_over_mid_db": -9.0,
+      "gen_sec": 2.22
+    },
+    {
+      "model": "small-music",
+      "kind": "wide",
+      "prompt": "a warm sustained synth pad, slow, soft, very wide stereo, sound moving left and right",
+      "channels": 2,
+      "samples": 441000,
+      "lr_correlation": 0.263,
+      "side_over_mid_db": -2.3,
+      "gen_sec": 0.92
+    },
+    {
+      "model": "small-sfx",
+      "kind": "plain",
+      "prompt": "light rain on leaves",
+      "channels": 2,
+      "samples": 441000,
+      "lr_correlation": 1.0,
+      "side_over_mid_db": -65.3,
+      "gen_sec": 1.54
+    },
+    {
+      "model": "small-sfx",
+      "kind": "wide",
+      "prompt": "light rain on leaves, wide stereo field, drops on the far left and far right",
+      "channels": 2,
+      "samples": 441000,
+      "lr_correlation": 1.0,
+      "side_over_mid_db": -66.2,
+      "gen_sec": 0.92
+    }
+  ],
+  "load_sec_small-music": 9.1,
+  "load_sec_small-sfx": 7.9
+}

@@ -31,16 +31,16 @@ I take a made thing — a plugin a session built, a sample library a session ren
 
 I refuse to make a Set that sounds when it opens, or that starts itself: a droning instrument comes up with its device off and the first beat of play wakes it (the rule learned the day a session's oscillator page was left playing on Loudon's Mac). I refuse to overwrite a Set without being told to. I refuse to say a Set sounds right — I prove structure (it opens, the devices load, every sample is on disk, every id is unique); the sound is Loudon's ear, the one human step.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+**Best used for, so far:** handing Loudon a made instrument ready to play, a plugin or a sample library, as a Live 12 Set he only has to open. He opened my Frustration plugin Set unchanged and played its ride (2026-10-21); a Simple Synth Set and the Tear and Heal library Set opened and played in a test Live.
+**Not yet shown to hold:** a library Set heard by Loudon, so whether my Sampler loops sit where the SFZ said; Drum Rack, AU, macros and library clip recipes, which I don't build; a fader at 0 dB, since my tracks still open at −12 dB (checked 2026-11-14).
+**Not my purpose:** I won't make a Set that sounds on open or plays itself, won't overwrite without `--force`, and won't say a Set sounds right; the ear is Loudon's. Live 11 cannot open my Sets.
+**Run:** From the palace's main checkout, `node "Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs" library "<folder of .sfz>" --out "<set>.als"`, or `plugin "<plugin folder>" [--recipe "<ride>.json"]` in place of `library`; then `node "Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs" check "<set>.als"`.
+**Speed:** I write a four-instrument, 240-sample library Set in 0.35 s and check it in 0.12 s (2026-11-14); proving one opens in a second Live 12 took about a minute (2026-10-21).
+**Checked by:** My `check` proves structure: the Live that wrote the Set, unique ids, every sample on disk, whether the plugin is installed and on at open. Opening it in Live 12 proves the devices load. Only an ear can judge whether it sounds right.
+**Wears:** I am not yet wired to a design system.
+**Hands on:** I take a built JUCE plugin folder (plugin.json, the kParams table, the VST3 built and installed) or SFZ instruments with their WAVs on disk, and hand on one .als Set, silent until played.
 
-**Best used for, so far:** I wrote the Frustration plugin Set (Loudon opened it unchanged, played the ride, said it works great, 2026-10-21), a Simple Synth Set, and the Tear and Heal sample-library Set (opened and played in a test Live, not yet heard by Loudon).
-**Not yet shown to hold:** The library Set is unheard: whether Sampler loops sit where the SFZ said is untested by ear. Drum Rack, AU, macros and library clip recipes are not built. The -12 dB fader fix (2026-10-24) is not in the writer.
-**Not my purpose:** I won't make a Set that sounds on open or auto-plays, won't overwrite without --force, and won't say a Set sounds right; the ear is Loudon's. Live 11 cannot open my Sets.
-**Run:** From the palace root: node "Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs" plugin "<plugin folder>" [--recipe "<ride>.json"] [--out "<set>.als"] [--force]; or use library "<folder of .sfz>" in place of plugin.
-**Speed:** A Set is written in well under a second; proving it in a second Live 12 instance takes about a minute (test plan, Speed Bench, mac).
-**Checked by:** A script can check structure: the Set opens, devices load, every sample is on disk, ids are unique, and the plugin is installed (the check command). Only an ear can judge whether it sounds right.
-**Wears:** Not yet wired to a design system
-**Hands on:** I take a built JUCE plugin folder (plugin.json, kParams table, built and installed VST3) or SFZ instruments with WAVs on disk, and hand on one .als Set, silent until played.
+*Card tried 2026-11-14: Run, Speed and Checked by by writing and checking a library Set (not opened in Live), and the −12 dB fader in Not yet shown; Best used for, Not my purpose, Wears and Hands on stand on the page, not tried this pass.*
 
 ## Where the craft came from
 
@@ -122,6 +122,8 @@ The writer and `check` prove structure: Live opens the Set, the devices load, ev
 
 ## Gotchas
 
+From 2026-11-14 on, which run taught each new gotcha is in [[Ableton Session Writer — tuning]]; the dated ones below came before it.
+
 - **2026-10-21 — a VST3 whose signature was sealed before JUCE wrote its manifest never reaches Live.** Live's scanner logs "a sealed resource is missing or invalid / not a plugin" and the Set opens with "The VST3 plug-in could not be found". `codesign --verify --deep --strict` on the bundle says which file was added after signing (`Contents/Resources/moduleinfo.json`). Sign after the manifest step; then Live must rescan (it does at launch; a running Live needs Rescan in Preferences → Plug-Ins). The VST Template session owns that fix.
 - **2026-10-21 — the blank set carries a tempo lane at 120 on the Main track, and the lane wins over the mixer's tempo.** Set both, or the Set says 120 whatever the recipe asked.
 - **2026-10-21 — a preset file's device has no `Id`; a device in a chain carries its position as `Id`.** Add it when cloning a device from an `.adv`.
@@ -130,11 +132,12 @@ The writer and `check` prove structure: Live opens the Set, the devices load, ev
 - **2026-10-21 —** **Two Lives share one bundle id.** The desktop's app-control tool, asked for "Ableton Live 12 Suite", bound to Live 11 (the 860 show, a live production) because both are `com.ableton.live` and Live 11 was launched first. Never drive Live through it while Live 11 is up; the probe proved its Sets in a second Live 12 instance (`open -n`) on the Live Space, with per-process key events and a screen capture, then quit it. The recipe: `pgrep -fl 'MacOS/Live'` first to see which Lives run; `open -n -a "Ableton Live 12 Suite" "<set>.als"`; the window lands on the Live Space where `screencapture -l` and `app_screenshot` can't see it, so a small Swift `CGWindowListCopyWindowInfo` lister finds it by pid, `osascript … set frontmost of (first process whose unix id is <pid>) to true` switches Space for ~15 s, `screencapture -x` captures, and a `CGEvent.postToPid` poster sends space (play/stop) and cmd+Q; then re-activate what Loudon had in front. Scripts: `Shop/Shopkeeper/probes/2026-10-20-ableton-session/out/proof/` (`prove.sh`, `postkey.swift`, `windows.swift`). Live's own log is the proof: `~/Library/Preferences/Ableton/Live 12.4.6/Log.txt`; `PluginScanner.txt` says why a plugin was refused.
 - **2026-10-21 —** **Stopping mid-ride leaves a droning plugin on.** Automation holds its last value when the transport stops; the device's power button silences it, and play from the start brings the lane back. Say so in a ride's section names when it matters.
 - **2026-10-21 —** **Live 11 cannot open these Sets** (an older Live refuses a newer header). The 12.4 alpha on this Mac is older than 12.4.6 and untested.
-- **2026-10-24 —** **The `midi-track.xml` shell carries a −12 dB fader** (Mixer > Volume > Manual ≈ 0.251), and a clip shell cloned from a saved Set carries the gain its source had (+3.1 dB, SampleVolume 1.423, in the Splice Instrument Forge's case). Set both when cloning. Found by the Splice Instrument Forge; fixed only in the forge's builders, not in the writer.
+- **Write a Set against renders that will stay.** The Set holds each sample's absolute path, so a Set written from a worktree's renders loses every sample when the worktree goes: on 2026-11-14 `check` found all 240 of `out/Tear and Heal.als`'s samples missing, pointed at a removed `gsl-instruments` worktree. Write it against the main checkout's renders, and run `check` before handing it on.
+- **2026-10-24 —** **The `midi-track.xml` shell carries a −12 dB fader** (Mixer > Volume > Manual ≈ 0.251), and a clip shell cloned from a saved Set carries the gain its source had (+3.1 dB, SampleVolume 1.423, in the Splice Instrument Forge's case). Set both when cloning. Found by the Splice Instrument Forge; fixed only in the forge's builders, not in the writer, which still wrote 0.251 on every track on 2026-11-14.
 
 ## Known gaps
 
-- **One ear so far.** Heard by Loudon, 2026-10-21 (see First job). The library Set (Tear and Heal) is still unheard: whether the Sampler's loops sit where the SFZ put them, and whether the heal reads across the keys, is the next first job.
+- **One ear so far.** Heard by Loudon, 2026-10-21 (see First job). The library Set (Tear and Heal) is still unheard: whether the Sampler's loops sit where the SFZ put them, and whether the heal reads across the keys, is the next first job. Open `Ableton Session Writer/proofs/2026-11-14-card-check/Tear and Heal.als`, which finds its samples; the one in the probe's `out/` no longer does.
 - **Drum Rack not built.** A one-shot library would map better to pads; the Sampler path covers multisampled instruments. Simpler is unused.
 - **AU not targeted**; VST3 only. Live loads either; the writer knows the VST3 class id from the bundle's manifest.
 - **Macros unused** (lanes instead). A Piece-tier brief that wants a performance surface may want an Instrument Rack with macros; that is more XML, not a different craft.
@@ -143,7 +146,7 @@ The writer and `check` prove structure: Live opens the Set, the devices load, ev
 
 ## Test suite
 
-`Shop/Ableton Session Writer/tests/test-plan.md`. Last run 2026-10-21: smoke passed on all three Sets (`check` ends "nothing to look at"); capability: Simple Synth and Tear and Heal opened and played in a second Live 12.4.6 instance; the Frustration Set loaded in Live 12.4.6 at 00:16:02 on 2026-10-21 after the plugin's re-seal and a rescan (`1847b68c`); heard by Loudon, 2026-10-21 (see First job). The library Set is unheard.
+`Shop/Ableton Session Writer/tests/test-plan.md`. Last run 2026-10-21: smoke passed on all three Sets (`check` ends "nothing to look at"); capability: Simple Synth and Tear and Heal opened and played in a second Live 12.4.6 instance; the Frustration Set loaded in Live 12.4.6 at 00:16:02 on 2026-10-21 after the plugin's re-seal and a rescan (`1847b68c`); heard by Loudon, 2026-10-21 (see First job). The library Set is unheard. 2026-11-14: Tear and Heal rewritten against the main checkout's renders and checked, "nothing to look at"; not opened in Live.
 
 ## Resource footprint
 
@@ -151,4 +154,4 @@ Host class: mac only (Live 12 Suite, Loudon's licence). Node, no install, no GPU
 
 ## First job
 
-**Done, 2026-10-21.** Loudon opened the Frustration Set unchanged in his own Live 12 (a fresh launch; Live's log: "Restored: Frustration" at 07:43:18), played the ride, and said "looks great and is working great!" His words are kept in the ride recipe (`frustration.live-set.json`, `_heard`); the four sections stand as drawn. **Next:** the library Set: open `out/Tear and Heal.als` in his Live and ask whether the Sampler's loop sits where the SFZ said, and whether the heal reads across the keys.
+**Done, 2026-10-21.** Loudon opened the Frustration Set unchanged in his own Live 12 (a fresh launch; Live's log: "Restored: Frustration" at 07:43:18), played the ride, and said "looks great and is working great!" His words are kept in the ride recipe (`frustration.live-set.json`, `_heard`); the four sections stand as drawn. **Next:** the library Set: open `Ableton Session Writer/proofs/2026-11-14-card-check/Tear and Heal.als` in his Live and ask whether the Sampler's loop sits where the SFZ said, and whether the heal reads across the keys.

@@ -41,16 +41,16 @@ tags: [specialist, shop, sound, generative, music, sfx]
 
 I make sound locally with Stable Audio 3's two small models: beds, textures, transitions, stingers, foley, music. They run on the Mac with no GPU and no network call once the weights are down, up to 120 s a render. The Maker hands me a prompt, a duration, a model and a tier, and I hand back a WAV with the seed and prompt that made it.
 
-**Best used for, so far:** sound beds; sounds made to run filters or effects on; sound that sets a mood for the listener; beds under story and narrative interactions.
-**Not yet shown to hold:** an arc asked for in words (2026-11-14, one seed each; § Gotchas), or a melody that resolves (§ Limits). Other kinds of audio are untried; the Plan on my scroll tries them.
-**Not my purpose:** a precise scientific or technical rendering of a sound, where what you hear must be exactly what the idea says.
-**Run:** From the palace's main checkout: `_tools/stable-audio-3/.venv/bin/python <your script>.py`, where the script calls `StableAudioModel.from_pretrained("small-sfx" or "small-music")` then `.generate(prompt=…, duration=…, seed=…)`. A whole worked example with cutting and measuring: `Shop/Maker/comparisons/2026-11-14-oliveros-room/third.py`.
-**Speed:** Warm, 0.6 to 3 s for a clip of 4 to 26 s, and 3.1 s for 60 s (2026-11-14). The model loaded in 8 s that afternoon; the first render of that morning's session took 334 s, cause not looked into.
-**Checked by:** A script can check file exists, sample rate, duration within 0.1 s, clipping, silent gaps, and the loudness envelope across the clip. Only an ear can judge mood, whether an arc is heard, drum quality, or a take's ring.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands back a 44.1 kHz WAV with seed and prompt; needs a prompt, model choice by shape, and duration. Arcs, loops and loudness come from ffmpeg after; vocals come from Kokoro.
+**Best used for, so far:** sound beds; sounds made to run filters or effects on; single sounds that would otherwise be sampled. My pads and drones hold (a 60 s small-music pad changed harmony on its own, 2026-11-14), and a drip, a bird call and a far bell, each made one at a time and then cut and placed by hand, built the Oliveros room Loudon called the best of its group.
+**Not yet shown to hold:** an arc, a rate or a count asked for in words (2026-11-14, a few seeds each); a melody that resolves; vocals; stereo from small-sfx, which has come back mono every time, even asked for width; inpainting, continuation and the medium model; monetized use, whose licence I have not settled.
+**Not my purpose:** I am not for a precise scientific or technical rendering of a sound, where what you hear must be exactly what the idea says.
+**Run:** From the palace's main checkout, `_tools/stable-audio-3/.venv/bin/python "Shop/Stable Audio Open/proofs/2026-11-14-card-check/card-check.py"` renders four 10 s clips and measures their stereo; copy it and change `JOBS` for your own. Cutting and placing by hand: `Shop/Maker/comparisons/2026-11-14-oliveros-room/third.py`.
+**Speed:** Each model loads in 8 to 9 s; warm, I render 10 s in 0.9 to 2.2 s and 60 s in 3.1 s, on the M-series Mac (2026-11-14). One morning's first render took 334 s; it has not happened again.
+**Checked by:** A script can check the file, sample rate, duration within 0.1 s, clipping, silent gaps, left/right correlation, and the loudness envelope across the clip. Only an ear can judge mood, whether an arc is heard, drum quality, or a take's ring.
+**Wears:** I am not yet wired to a design system.
+**Hands on:** I hand back a 44.1 kHz two-channel WAV with its seed and prompt, stereo from small-music and the same signal in both channels from small-sfx; I need a prompt, a model chosen by shape, and a duration. Arcs, loops, loudness, width and placement come after, from ffmpeg or a hand script; vocals come from Kokoro.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*Card tried 2026-11-14: Run and Speed by running them, Not yet shown and Hands on against that run's stereo check; Best used for, Not my purpose, Checked by and Wears stand on the page and my ledger, not tried this pass.*
 
 Vocals are not yet shown: intelligible singing or speech goes to [[Kokoro]] or a person, until a render here proves otherwise. A production-grade arrangement is not yet shown either; say so before taking one on. I tell the Maker before a job asks past 120 s. When a brief wants a shape over time (a build, a swell, a steady hold), I say which model can give it and what has to be built around me (§ Gotchas, Choosing a model).
 
@@ -63,12 +63,13 @@ The Shop's sound-painter, at home in spectral and temporal language. Says when a
 - Local generation on CPU or MPS; no GPU required for the small models
 - Prompt plus duration, up to 120 s per render
 - `steps` (default 8) and `cfg_scale` (default 1.0) trade adherence against variation; `seed` pins a render
-- WAV at 44.1 kHz stereo
+- WAV at 44.1 kHz, two channels: stereo from small-music, mono (left equals right) from small-sfx, even when the prompt asks for width
 - Audio-to-audio, inpainting and continuation are in SA3's own `generate()` and its `stable-audio` CLI — untested here (§ Gotchas, Untested routes)
 
 ## Strengths
 
 - Pads, drones and ambient beds are genuinely good; a 60 s small-music pad held together and changed harmony on its own (2026-11-14). Foley and one-shot SFX work reasonably well.
+- Sounds that would otherwise be sampled: one event per short render, cut out and placed by hand, rings truer to Loudon than the same sound synthesized (§ Recipes, 2026-11-14).
 - Local, free and fast once warm: 1–3 s for a 20 s clip, about 3 s for 60 s, on M-series MPS
 - Reproducible by prompt + seed + checkpoint; open weights allow finetuning if a project earns it
 
@@ -77,7 +78,8 @@ The Shop's sound-painter, at home in spectral and temporal language. Says when a
 - An arc asked for in words has not held so far (§ Gotchas)
 - Drums and percussion vary across seeds: some clean, some mush, from one prompt
 - Melody across a whole render has not been reliable; atmosphere and texture have worked better
-- Stereo is sometimes narrower than the prompt suggests; widen in post if needed
+- A rate or a count asked for in words is not held, any more than an arc (§ Gotchas)
+- small-sfx gives mono; small-music's width follows the prompt somewhat. Pan or widen small-sfx output by hand
 
 ## Tiers
 
@@ -128,13 +130,17 @@ What generating sound with Stable Audio has taught, as it stands today. Which jo
 **Install and run (Mac)**
 - **SA3 installs from a git checkout, not PyPI:** `git clone https://github.com/Stability-AI/stable-audio-3 _tools/stable-audio-3 && cd _tools/stable-audio-3 && uv sync` gives a `.venv` with the `hf` CLI for HF auth. About 3 GB in all, weights cached at `~/.cache/huggingface/hub/`.
 - **The API is two lines:** `StableAudioModel.from_pretrained("small-music")`, then `model.generate(prompt=..., duration=...)`.
-- **Budget minutes for the first render of a session, then keep the model loaded.** The first load took 75–80 s on 2026-05-26 and the first render 334 s on 2026-11-14. Warm renders are fast: 1–3 s for a 20 s clip on M-series.
+- **Keep the model loaded across renders, and allow for a slow first one.** In two later sessions on 2026-11-14 a load took 8 to 9 s and the first render about 2 s. Once, the first render of a session took 334 s, and the first-ever load took 75–80 s; the cause was not found. Warm renders are fast: 1–3 s for a 20 s clip on M-series.
 - **`No module named 'flash_attn'` and `disabling Flash Attention` are expected on Mac.** The small models take their non-flash path and run cleanly. Only `medium` needs flash-attn, and only on CUDA, from the pre-built wheels the SA3 README links.
 
 **Choosing a model**
 - **Choose the model by the shape you need, not only the sound.** small-music holds sustained, tonal, instrumental textures; small-sfx holds scattered, non-tonal content such as ticks, pulses and structured ambient SFX. Both are 433M-parameter siblings on the SAME-Small autoencoder, so feeding small-music output through small-sfx for hybrid texture is open, and untried.
 - **small-sfx often drops an arc it is told about.** Rain asked to "build into a heavy downpour" came back flat within 0.5 dB; pulses asked to "lock into one shared rhythm" came back flat within about 3 dB. It can build: a wind on another seed did. Don't count on it. Build the arc around it: crossfade a sparse render into a dense one, or shape it after with filter and level automation.
 - **small-music has given every clip an ending so far.** Asked for a static pad or drone, it faded 35–40 dB by the end; asked for an arc, it swelled and faded. A steady bed is trimmed before its fade, or looped around it.
+- **A rate or a count asked for in words is not held either.** "One single drop falling into water every second" came back with 40 to 69 onsets in 26 s over four seeds. Generate one event and place it at the rate yourself (§ Recipes).
+- **Plain words hold a steady bed better than full ones.** "Steady rain at a constant even intensity" stayed within 0.3 to 3.5 dB across quarters over five seeds; "soft steady rain heard through an open window, constant level, no thunder, no change" varied 7 to 17 dB over four. One comparison, so a tendency.
+- **Steadiness is a seed away; measure, don't hope.** Four seeds of one room tone varied 1.2 to 9.0 dB across their quarters. Render four and keep the flattest; each costs a couple of seconds.
+- **small-sfx gives mono.** Every small-sfx take so far has had left equal to right, including one asked for "wide stereo field, drops on the far left and far right"; small-music gave stereo, and wider when asked (left/right correlation 0.78 plain, 0.26 asked for width; one seed each, 2026-11-14). Pan small-sfx events by hand, or widen after.
 - **`medium` is musically the strongest and CUDA-only;** out of scope on the Mac until Stability ships a CoreML variant.
 
 **Licence**
@@ -145,6 +151,8 @@ What generating sound with Stable Audio has taught, as it stands today. Which jo
 - **Lighter routes exist and none has run here:** `stabilityai/stable-audio-3-optimized`, the MLX ports (`mlx-community/stable-audio-3-small-music`, `-small-sfx`), `Comfy-Org/stable-audio-3` for ComfyUI, and the community ONNX build `lsb/stable-audio-3-small-music-onnx`.
 
 ## Recipes
+
+**2026-11-14 — Generate one event, cut it, place it by hand (the third Oliveros room).** For a sound that would otherwise be sampled. Ask small-sfx for one thing in a short clip ("a single drop of water falling into a full sink, one drop, close microphone, then silence", 4 to 8 s), over four seeds; cut the loudest event back to its onset and forward until it dies; keep the cut whose onset stands furthest above what precedes it, but choose a ringing thing (a bell, a string) by its ring, since that rule picked a 0.06 s click for the bell. Then place, pan and level each event at your own times. Nine drips landed 1.27 s apart where asking for "one drop every second" gave 40 to 69 onsets. Loudon heard it as the best of its group; his line on the pair before it: Stable Audio "rings truer" for sounds that would be sampled, and the hand is for what is plainly synthesized. Whether one take can give varied repeats of a sound is not yet tried. Script: `Shop/Maker/comparisons/2026-11-14-oliveros-room/third.py`.
 
 **2026-06-19 — Comedic register: laugh track + stingers (from [[Radio Play]]).** Alongside the existing foley/texture strengths: small-sfx renders a studio-audience **laugh track** and **rimshot / whoosh / ding** stingers; small-music renders title **stings** and short **swells**. The comedic register is short, punchy, transient-forward — generate a few variants and pick by feel.
 
@@ -161,6 +169,8 @@ Source: [Kuramoto Coupling/atmospheric-beds-sa3.py](../Kuramoto Coupling/atmosph
 Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [Shop/Stable Audio Open/tests/test-plan.md](../Shop/Stable Audio Open/tests/test-plan.md). Last run **2026-05-30** — Smoke pass via existing-artifact verification (Kuramoto Round 1 `opening-bed.wav` + `title-bed.wav` + their report JSONs intact). Live re-run deferred; byte-determinism not asserted (GPU sampling jitter); reproducibility artifact is prompt + seed + checkpoint per the report JSON.
 
 **Probe, 2026-11-14 — [arc or texture](../Shop/Stable Audio Open/proofs/2026-11-14-arc-or-texture/arc-or-texture.html)**, four arc/steady pairs played blind and measured; four of eight prompts honored.
+
+**Card check, 2026-11-14 — [stereo by model](../Shop/Stable Audio Open/proofs/2026-11-14-card-check/report.json)**, four 10 s renders, one seed each: small-music stereo, wider when asked; small-sfx mono, asked or not. The wide pad is kept as an m4a beside the script, unheard.
 
 ## Open Questions
 

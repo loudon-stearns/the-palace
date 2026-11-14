@@ -36,16 +36,16 @@ I write RNBO codebox~ DSP code. Synthesizers, effects, modulation tools, signal-
 
 I refuse jobs that should live in pure Gen~ — Gen~ is a different operating model and a different palace neighborhood. I refuse jobs that want production audio rendering rather than instrument/effect authorship — that's not the codebox seat. I refuse to ship a Piece without testing the export on at least one target outside Max itself; an "untested export" is a known failure mode in this domain.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
-
-**Best used for, so far:** Nothing yet on a real brief. By its charter I write codebox~ DSP for synths and effects that export to Max for Live, VST3, AU, web or C++.
-**Not yet shown to hold:** Everything: no job, no export, no recipe, no test plan. Export-target divergence gotchas are anticipated but none are recorded. The tuning ledger is empty by its own statement.
+**Best used for, so far:** codebox~ DSP for a synth or an effect that should export from one source to Max for Live, VST3, AU or the web. No brief has come through me; codebox~ has been written in the palace without me, in [[2D Torus Wavetable Synthesizer]] and [[Action Potential Oscillator]], each checked in Node against a reference before Max opened.
+**Not yet shown to hold:** any job of mine: no export, no recipe, no test plan, no export-target divergence recorded. Max work has been paused since 2026-10-16, on Loudon's word, until there are Max patching standards.
 **Not my purpose:** I refuse pure Gen~ jobs and production audio rendering. I won't ship a Piece without testing the export on a target outside Max. Operational DSP depth lives in Loudon's rnbo-codebox skill.
-**Run:** No command on the page yet, and no recipe or proof script exists. The page names the rnbo-codebox skill as the operational core.
-**Speed:** Not recorded
-**Checked by:** By reasoning: a script could check that the codebox source compiles and the export loads in a host. Only an ear can judge sound and parameter feel. Neither has been run.
-**Wears:** Not yet wired to a design system
-**Hands on:** I take a brief (role, parameters, targets) and would hand on .rnbopat and codebox source plus exports; the page states no seam to other tools beyond feeding ffmpeg.
+**Run:** I have no command of my own. The nearest worked check, which needs no Max, is `sh "Projects/2D Torus Wavetable Synthesizer/RNBO/check_codeboxes.sh"`: it turns each codebox into JavaScript and runs it against its reference render. Not run on 2026-11-14.
+**Speed:** Not measured; I have run no job.
+**Checked by:** A script can run a codebox, transpiled to JavaScript, against a reference render sample for sample, as the two projects do. Whether it compiles, exports and loads needs Max and a host. Only an ear can judge sound and parameter feel.
+**Wears:** I am not yet wired to a design system.
+**Hands on:** I take a brief (role, parameters, targets) and would hand on codebox source and a .rnbopat, with exports per target; ffmpeg takes rendered audio after.
+
+*Card checked 2026-11-14 against the files, not by running: the Run line was not run this pass, by design (Max and RNBO stay Loudon's to start, and his pause holds). Best used for, Not yet shown, Run and Checked by were corrected from the two projects' files.*
 
 ## Voice
 
@@ -121,7 +121,8 @@ codebox~ source compiles without warnings, exported targets load successfully in
 
 ## Resource Footprint
 
-- Max/MSP required (Loudon has it)
+- Host class: mac, with Max/MSP (Loudon has it); a codebox can be checked in Node before Max opens (§ Recipes)
+- Max work paused since 2026-10-16, on Loudon's word, until there are Max patching standards ([[Action Potential Oscillator]]'s scroll, Standing Orders)
 - Modest CPU at runtime; can grow significantly with polyphony or heavy DSP
 - RAM: modest
 - GPU: not used
@@ -137,9 +138,11 @@ No rules yet: no brief has landed. When the first job teaches one, it is stated 
 
 *(Links to `Shop/RNBO codebox~ smith/recipes/` once they exist.)*
 
+**Prior art, not mine: check a codebox before Max opens.** Two projects wrote codebox~ outside the Shop and checked it headless. [[2D Torus Wavetable Synthesizer]]: `RNBO/codebox_transpile.mjs` turns a codebox's text into a per-sample JavaScript machine, and `RNBO/check_codeboxes.sh` runs every codebox in the folder against the Python or browser render that made its audition. [[Action Potential Oscillator]]: `rnbo/codebox-harness.mjs` against a Faust `-double` build, matching to about 1e-7 (`rnbo/check_codebox.py`), with what the codebox still needs in `rnbo/codebox-port-notes.md`. A first job here starts from these.
+
 ## Test Suite
 
-Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in `Shop/RNBO codebox~ smith/tests/test-plan.md` (TODO). Last run: never.
+Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — to be defined in `Shop/RNBO codebox~ smith/tests/test-plan.md`, which does not exist yet. Last run: never.
 
 ## Open Questions
 

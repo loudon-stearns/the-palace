@@ -26,16 +26,16 @@ links:
 
 I edit existing speech by instruction. Kokoro speaks text; I take a recording and change it: swap words, change delivery (whisper, emotion, accent), change pace or pitch. I refuse to promise the speaker's identity survives an edit — that is unchecked (see Known gaps).
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+**Best used for, so far:** fixing a word or the delivery in speech that already exists. On probes only, no real brief yet: a whisper, a twice-as-fast that came back exactly half the length, and two word swaps Whisper confirmed, the second on 13.5 s of Kokoro speech (2026-11-14).
+**Not yet shown to hold:** whether the speaker still sounds like themselves after an edit, never measured or heard; a real recorded voice; enhancement and separation edits; AuK-Flash; anything longer than 13.5 s.
+**Not my purpose:** speech from text, which is Kokoro's; I edit a recording that exists, and I don't promise the voice survives the edit.
+**Run:** From the palace's main checkout, `python3 "Shop/AuK/proofs/2026-11-14-card-check/card-check.py"` (Homebrew's python3 has `gradio_client`) makes one word swap on the tencent/AuK Space and has Whisper read it back; copy it and change `SRC` and `INSTRUCTION`. With the Prompt Enhancer off, pass `gen_seconds` as the source's length.
+**Speed:** One edit of 13.5 s took 26 s, upload and queue included (2026-11-14); a 2 s clip took 15 to 25 s in 2026-09.
+**Checked by:** A script can check the edit's length and, through a Whisper transcript, whether a word swap landed. Only an ear can judge whether the speaker still sounds like themselves.
+**Wears:** I am not yet wired to a design system.
+**Hands on:** I hand back an edited WAV at the source's length, and the instruction used, to Whisper for a read-back and to ffmpeg for the mix; I need a WAV, one instruction sentence, and `gen_seconds` when the Prompt Enhancer is off.
 
-**Best used for, so far:** Nothing yet on a real brief. Three probes on one 2.36 s synthetic clip: whisper delivery, twice-as-fast (1.18 s), and a fox-to-wolf word swap verified by whisper-tiny transcript. Charter: edit existing speech by instruction.
-**Not yet shown to hold:** Speaker identity after an edit (paper claim, never measured). Real or longer speech, enhancement and separation edits, AuK-Flash. Only a 2 s say clip tried (page Known gaps).
-**Not my purpose:** It refuses to promise the speaker's identity survives an edit. Speech from text goes to Kokoro; it edits an existing recording.
-**Run:** No command on the page yet. Endpoint is /run_generate_with_pe on the anonymous tencent/AuK Space; evidence files in Shop/Shopkeeper/probes/2026-09-12-auk/. With Prompt Enhancer off, gen_seconds must be above 0.
-**Speed:** About 15-25 s per call on the free anonymous Space, as recorded 2026-09-12 and 2026-09-15.
-**Checked by:** A script can check duration (the rate edit halved it exactly) and, via Whisper transcript, whether a word swap landed. Only an ear can judge whether the speaker still sounds like themselves.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands back an edited WAV plus the instruction used; needs a WAV, one instruction sentence, and gen_seconds. Content edits must be re-transcribed with Whisper to check.
+*Card tried 2026-11-14: Run, Speed and Checked by by one call to the Space, Best used for against that call; Not yet shown, Not my purpose, Wears and Hands on stand on the page and the 2026-09 probes, not tried this pass.*
 
 ## Capabilities (each verified by a probe, not the README)
 
@@ -44,8 +44,9 @@ I edit existing speech by instruction. Kokoro speaks text; I take a recording an
 | Paralinguistic | "hushed, breathy whisper" | landed, duration kept 2.36 s |
 | Acoustic | "twice as fast" | 2.36 s → 1.18 s, exactly half |
 | Content | "replace 'fox' with 'wolf'" | local whisper-tiny transcript: "The quick-brown wolf jumps over the lazy dog." |
+| Content, 13.5 s | "Replace the word 'small' with the word 'large'" on Kokoro's af_bella check (2026-11-14) | Whisper `base`: "…its coupling constant K is large."; length kept, 13.48 s |
 
-Probe files: `Shop/Shopkeeper/probes/2026-09-12-auk/` (source.wav, whisper_edit.wav, fast_edit.wav, word_swap_edit.wav, probe-report.md).
+Probe files: `Shop/Shopkeeper/probes/2026-09-12-auk/` (source.wav, whisper_edit.wav, fast_edit.wav, word_swap_edit.wav, probe-report.md), and `AuK/proofs/2026-11-14-card-check/` for the 13.5 s swap.
 
 ## Job contract (draft)
 
@@ -53,18 +54,21 @@ In: a WAV + one instruction sentence. Out: an edited WAV + the instruction used.
 
 ## Gotchas
 
+What calling AuK has taught, as it stands today. Which call taught each is in [[AuK — tuning]], from 2026-11-14 on.
+
 - **2026-09-15 — with the Prompt Enhancer off, `gen_seconds` must be > 0.** Blank or zero is rejected before GPU allocation; the Space README documents it. Pass the source clip's duration for content and paralinguistic edits.
-- Endpoint: `/run_generate_with_pe` on the anonymous Gradio API. ~15–25 s per call.
+- Endpoint: `/run_generate_with_pe`, taking `use_pe, variant, audio, instruction, gen_seconds, nfe, cfg, seed` (defaults True, "AuK (Base)", —, —, 0, 32, 2.0, 42). ~15–26 s per call.
+- **`gradio_client` sends the saved Hugging Face login by default.** On a Mac with `~/.cache/huggingface/token`, a call is not anonymous: it spends that account's free ZeroGPU quota. Whether the Space still answers with no login at all was not checked on 2026-11-14.
 
 ## Known gaps
 
 - **Speaker identity unchecked.** The paper claims the voice is preserved; I never measured speaker similarity or listened for it on a real voice. Test this on Loudon's own recorded narration before any Piece-tier use.
 - Enhancement/separation edits untried. `AuK-Flash` (4-step variant) untried.
-- Only tested on a 2-second `say` clip. Longer, real speech is unknown.
+- Tested on a 2-second `say` clip and 13.5 s of Kokoro speech. Real recorded speech, and anything longer, is unknown.
 
 ## Resource footprint
 
-Host class: cloud via HF Space, free anonymous tier, no token. If the queue saturates it needs an HF token or a mac handoff (weights not yet pulled locally). License MIT.
+Host class: cloud via HF Space (ZeroGPU), free; the 2026-09 probes ran anonymously, and the 2026-11-14 call carried the saved HF login (§ Gotchas). If the queue saturates it needs an HF token or a mac handoff (weights not yet pulled locally). License MIT.
 
 ## First job
 

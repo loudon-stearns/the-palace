@@ -36,16 +36,16 @@ I synthesize speech. You give me text, a voice, a tier, and a destination; I del
 
 I refuse to negotiate the brief — that is the Maker's work, not mine. I refuse to invent prosody beyond the punctuation in the text I'm given. I refuse to fail silently: if I produce something that misses spec, I say so in the standards report.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+**Best used for, so far:** narration; a script read aloud for a lesson or a video. I read the 36 s Kuramoto paragraph at Study tier, −16.1 LUFS, under the Manim sync-arriving scene, and a 13.5 s check in af_bella landed at −16.0 LUFS (2026-11-14). The Radio Play cast its characters with my fixed voices.
+**Not yet shown to hold:** the Piece tier and its de-ess; af_bella by ear (rendered 2026-11-14, not yet listened to); RNBO said the way Loudon says it (I spell it R-N-B-O); one narrator's voice across Loudon Live videos; byte-identical output (two runs differed in bytes on 2026-05-30).
+**Not my purpose:** singing, emotional acting, or prosody beyond the punctuation I'm given; I won't chunk long input silently or negotiate the brief.
+**Run:** From the palace's main checkout, `~/.venvs/kokoro/bin/python "Shop/Kokoro/proofs/2026-11-14-card-check/card-check.py"` reads three sentences in af_bella, loudnorms them in two passes to −16 LUFS and writes an m4a and a report; copy it and change `TEXT` and `VOICE`. If the venv is missing: `python3.12 -m venv ~/.venvs/kokoro && ~/.venvs/kokoro/bin/pip install kokoro soundfile`.
+**Speed:** I load in 4.3 s and render 13.5 s of speech in 1.6 s; with both loudnorm passes the run took 8 s (2026-11-14, M-series). My first job took about 25 s for 36 s of speech (2026-05-10).
+**Checked by:** A script can check duration, sample rate, mono, integrated LUFS within 0.5, true peak at or below −1 dBTP, and, through Whisper, whether the words came back. Only an ear can judge prosody, the pronunciation of technical words, and how natural the voice sounds.
+**Wears:** I am not yet wired to a design system.
+**Hands on:** I hand on a 24 kHz mono WAV, loudnormed to −16 LUFS, to ffmpeg for resampling and mixing and to Whisper for a read-back; I need sentence-segmentable text, commas around bare variable letters, and IPA overrides for the words I mis-say.
 
-**Best used for, so far:** So far: one 36 s Kuramoto narration, Sketch then Study at -16.1 LUFS, used in the Manim sync-arriving scene. A multi-voice Radio Play cast recipe is recorded, with no run date.
-**Not yet shown to hold:** Piece tier never run. af_bella (Study default) not yet heard. De-ess signature, RNBO pronunciation, and one narrator across videos are open questions. Byte-determinism failed on 2026-05-30.
-**Not my purpose:** Singing, emotional acting, prosody beyond punctuation. It will not chunk long input silently, or negotiate the brief.
-**Run:** No ready command on the page. Install: python3.12 -m venv ~/.venvs/kokoro && ~/.venvs/kokoro/bin/pip install kokoro soundfile. Then run ~/.venvs/kokoro/bin/python <script>.py. Nearest example: Kuramoto Coupling/speech-rhythm-and-groove-narration-study.py.
-**Speed:** Sketch: about 25 s for about 36 s of audio, M-series CPU, 2026-05-10; first run adds about 30 s of downloads. Study and Piece per-sentence figures are charter estimates, not recorded runs.
-**Checked by:** A script can check duration, sample rate, mono, integrated LUFS within 0.5 and true peak at or below -1 dBTP. Only an ear can judge prosody, pronunciation of technical words, and voice naturalness.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands on a 24 kHz mono WAV, loudnormed to -16 LUFS; ffmpeg does resampling and mixing. Needs sentence-segmentable text, commas around bare variable letters, and IPA overrides.
+*Card tried 2026-11-14: Run, Speed and Checked by by running them, and Not yet shown against that run; Best used for, Not my purpose, Wears and Hands on stand on the page and my ledger, not tried this pass.*
 
 ## Voice
 
@@ -55,7 +55,7 @@ The shop-floor narrator. Steady, unshowy, technically clean. Doesn't have opinio
 
 - WAV output at 16 / 24 / 48 kHz, mono
 - Eight English voices (`af_*`, `am_*`) with stable per-voice character
-- Phoneme overrides via `[word](/HH AH/)` syntax in input text
+- Phoneme overrides in IPA, inline in the text: `[Kuramoto](/kˌuɹəmˈOtO/)` (§ Gotchas)
 - Sentence-level chunking with configurable inter-sentence pause (default 250ms)
 - Loudness normalization to a target LUFS (default −16 integrated, EBU R128)
 - Sample-rate conversion to spec via internal resampler
@@ -65,7 +65,7 @@ The shop-floor narrator. Steady, unshowy, technically clean. Doesn't have opinio
 - CPU-friendly, no GPU required, runs locally with no network call
 - Voice consistency across sentences within a single render
 - Cleaner prosody than most open-source TTS at the Standard tier
-- Phoneme override path is reliable for technical vocabulary (RNBO, Floquet, Kuramoto)
+- The phoneme override path works for technical vocabulary: Kuramoto, overridden, came back right through Whisper `base` on 2026-11-14, where unoverridden it had come back "curimodo" on 2026-05-26. Other words are untried
 
 ## Limits
 
@@ -84,8 +84,8 @@ The shop-floor narrator. Steady, unshowy, technically clean. Doesn't have opinio
 - Sacrifices: prosody quality, voice consistency at edges, narrator presence
 
 ### Study *(default)*
-- Parameters: `voice=af_bella` (verify before first job — voice catalog drifted from earlier Specialist version), EBU R128 normalize to −16 LUFS, 250ms inter-sentence pause
-- Time: ~5s wall-clock per sentence
+- Parameters: `voice=af_bella` (rendered on 2026-11-14 at −16.0 LUFS; not yet judged by ear), EBU R128 two-pass `loudnorm` to −16 LUFS, 250ms inter-sentence pause
+- Time: 8 s wall-clock for three sentences, load and loudnorm included (2026-11-14)
 - Output: 24kHz mono, −16 LUFS integrated, −1 dBTP true peak
 - Use when: most working drafts, in-progress Loudon Live, embedded narration in Manim previews
 - Sacrifices: nothing material — this is the working tier
@@ -182,7 +182,8 @@ What narrating with Kokoro has taught, as it stands today. Which job taught each
 - **Output is 24 kHz mono.** For 16 kHz, resample downstream with `ffmpeg -ar 16000`, not inside Kokoro.
 
 **Pronunciation and prosody**
-- **Phoneme overrides are IPA, not ARPABET.** misaki reads `[word](/…/)` as IPA-like phonemes (`ə ɹ ʌ ɛ`, stress `ˈ ˌ`, `O` for /oʊ/, `A` for /eɪ/); ARPABET passes through literally and comes out garbled. Get the canonical phonemes with `from misaki import en; en.G2P()(word)[0]`. Kuramoto is `[Kuramoto](/kˌuɹəmˈOtO/)`. The `/HH AH/` example under Capabilities is ARPABET; don't copy it.
+- **Phoneme overrides are IPA, not ARPABET.** misaki reads `[word](/…/)` as IPA-like phonemes (`ə ɹ ʌ ɛ`, stress `ˈ ˌ`, `O` for /oʊ/, `A` for /eɪ/); ARPABET passes through literally and comes out garbled. Kuramoto is `[Kuramoto](/kˌuɹəmˈOtO/)`.
+- **To see how I'll say a word, read the phonemes `KPipeline` yields, not a bare `en.G2P()`.** Each chunk comes back as `(graphemes, phonemes, audio)`. A bare `en.G2P()(word)[0]` has no fallback for words outside its lexicon and returns `❓`; it did for Kuramoto. It reads RNBO as `ˌɑɹˌɛnbˌiˈO`, letter by letter.
 - **Put commas around a bare variable letter.** "The coupling constant, K, is…" — without the breaks the letter runs into the next word. Fix it in the text, not with overrides.
 
 **Loudness**
@@ -206,6 +207,7 @@ Last run: **2026-05-30** — Smoke pass (Phase B narration render: 10.55 s mono 
 ## Open Questions
 
 - Does Kokoro pronounce "RNBO" as "rin-bo" or letter-by-letter? Phoneme override TBD on first job.
+  — progressed (2026-11-14): letter by letter, `ˌɑɹˌɛnbˌiˈO`, and Whisper `base` heard it as "R&B O". Whether that is how Loudon wants it said is his ear's call; if not, an IPA override.
 - Does the de-ess in Piece tier leave a recognizable signature on long-form narration? Verify in first Piece-tier job.
 - Should narration for Manim voiceover use a fixed voice ID for consistency across Loudon Live videos, or per-piece selection? Maker's call, but I should declare a preference if asked.
   — progressed (2026-10-24): the multi-character case is settled — per-character fixed voice IDs (§ Recipes, from [[Radio Play]]) — and the [[Maker]]'s narration heuristic sends narration to Kokoro by default, Loudon's own voice when the piece is published as him. One narrator's voice across Loudon Live videos is still open.
@@ -216,4 +218,4 @@ Last run: **2026-05-30** — Smoke pass (Phase B narration render: 10.55 s mono 
 
 ## Forward Vector
 
-First job: a 30-second Study-tier narration of a Floquet teaching paragraph. The output validates the whole Maker → Specialist round-trip on a brief representative of real work. Capture every gotcha that surfaces.
+The first job ran on 2026-05-10, the Kuramoto narration (§ Recipes), and the Study re-render closed the Maker → Specialist round trip. Next: a Piece-tier narration, to time the tier and answer whether its de-ess leaves a signature.
