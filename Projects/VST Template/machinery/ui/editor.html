@@ -420,31 +420,44 @@ function crt() {
 // h (every frame, ~480 a second, since the last event) and rate. In a browser, the mock's feed
 // (ui.py mock --feed) stands in, replayed from a harness render. ──
 const PROBES = window.editorProbes = { names: [], p: [], out: 0, h: [], rate: 0 };
+const PROBE_LISTENERS = [];   // others the feed reaches besides the CRT: the pad's trail
+const PAD_TRAILS = {};
 function binding(p) { return p.taper === "choice" ? bindChoice(p) : p.taper === "toggle" ? bindToggle(p) : bindSlider(p); }
 function startScreen(info) {
   const vis = window.editorVisualizer, ui = info.ui || {};
-  if (!vis || !ui.screen || !SCREEN) return;
+  const screen = !!(vis && ui.screen && SCREEN);
+  if (!screen && !PROBE_LISTENERS.length) return;
   PROBES.names = info.probes || [];
   PROBES.p = PROBES.names.map(() => 0);
   const byId = new Map(info.params.map(p => [p.id, binding(p)]));
   const call = (id, k, ...a) => { const b = byId.get(id); return b ? b[k](...a) : undefined; };
   const hooks = { get: id => call(id, "get"), set: (id, v) => call(id, "set", v), begin: id => call(id, "begin"), end: id => call(id, "end") };
   const values = () => { const v = {}; byId.forEach((b, id) => { v[id] = b.get(); }); return v; };
-  try { vis.mount(SCREEN.glass, hooks); } catch (err) { console.error("visualizer mount:", err); return; }
+  let showing = screen;
+  if (screen) try { vis.mount(SCREEN.glass, hooks); } catch (err) { console.error("visualizer mount:", err); showing = false; }
   let last = performance.now();
   const tick = ev => {
     if (ev) Object.assign(PROBES, ev);
     const now = performance.now(), dt = Math.min(0.1, (now - last) / 1000); last = now;
-    try { vis.frame(PROBES.p, values(), dt); } catch (err) { console.error("visualizer frame:", err); }
+    for (const f of PROBE_LISTENERS) try { f(PROBES, dt); } catch (err) { console.error("probe listener:", err); }
+    if (showing) try { vis.frame(PROBES.p, values(), dt); } catch (err) { console.error("visualizer frame:", err); }
   };
   if (window.__IN_PLUGIN__) { window.__JUCE__.backend.addEventListener("probes", tick); tick(); return; }
   const feed = info.feed, n = PROBES.names.length;   // the mock: a harness render, replayed in a loop
+  // Each tick hands over every frame real time says is due, as the plugin does, and the replay starts
+  // feed.lead seconds in, delivered at once: a screenshot is taken as the page loads, before any timer.
+  const t0 = performance.now() - 1000 * ((feed && feed.lead) || 0);
   let i = 0;
-  setInterval(() => {
+  const run = () => {
     if (!feed || !feed.frames.length) return tick();
-    const f = feed.frames[i++ % feed.frames.length];
-    tick({ p: f.slice(0, n), out: f[n], h: [f], rate: feed.rate });
-  }, 1000 / 60);
+    const due = Math.floor((performance.now() - t0) / 1000 * feed.rate), h = [];
+    while (i <= due && h.length < 4 * feed.rate) h.push(feed.frames[i++ % feed.frames.length]);
+    i = Math.max(i, due + 1);
+    if (!h.length) return;
+    const f = h[h.length - 1];
+    tick({ p: f.slice(0, n), out: f[n], h, rate: feed.rate });
+  };
+  run(); setInterval(run, 1000 / 60);
 }
 
 // ── XY pad: two heroes on one surface, x first, y second; an optional backdrop (ui.backdrop), and the
@@ -454,6 +467,7 @@ function pad(px, py, backdrop, screen) {
   const wrap = document.createElement("div"); wrap.className = "pad-wrap"; wrap.dataset.moment = "heroes";
   const el = document.createElement("div"); el.className = "pad";
   const cv = document.createElement("canvas"); el.append(cv);
+  const tv = document.createElement("canvas"); el.append(tv);   // the trail, over the field: redrawn per feed, the field per knob move
   const ax = document.createElement("div"); ax.className = "axis"; ax.style.right = "8px"; ax.style.bottom = "6px"; ax.textContent = px.name + (px.taper === "log" ? " (log) →" : " →");
   const ay = document.createElement("div"); ay.className = "axis"; ay.style.left = "8px"; ay.style.top = "6px"; ay.textContent = "↑ " + py.name;
   el.append(ax, ay);
@@ -509,6 +523,38 @@ function pad(px, py, backdrop, screen) {
     el.addEventListener("pointermove", at); el.addEventListener("pointerup", up);
   });
   sx.on(draw); sy.on(draw); new ResizeObserver(draw).observe(el); requestAnimationFrame(draw);
+
+  // The trail: when the plugin sends probes named for the pad's two parameters (Frustration's B and K,
+  // the point after its envelopes and orbit move it), the pad draws where the sound actually is, its
+  // last TRAIL seconds fading behind it. The knob's dot stays where the point rests.
+  // The history lives outside the pad, so a rebuild (a resize) keeps it.
+  const TRAIL = 2.5, T = PAD_TRAILS[px.id + "|" + py.id] = PAD_TRAILS[px.id + "|" + py.id] || { trail: [], clock: 0 }, trail = T.trail;
+  PROBE_LISTENERS.push((ev, dt) => {
+    const ix = ev.names.indexOf(px.id), iy = ev.names.indexOf(py.id);
+    if (ix < 0 || iy < 0) return;
+    const h = Array.isArray(ev.h) && ev.h.length && ev.rate > 0 ? ev.h : [ev.p];
+    const step = h === ev.h ? 1 / ev.rate : dt;
+    for (const f of h) { T.clock += step; trail.push([T.clock, +f[ix], +f[iy]]); }
+    const clock = T.clock;
+    while (trail.length && trail[0][0] < clock - TRAIL) trail.shift();
+    const dpr = window.devicePixelRatio || 1, W = el.clientWidth, H = el.clientHeight;
+    if (!W || !H) return;
+    if (tv.width !== Math.round(W * dpr) || tv.height !== Math.round(H * dpr)) { tv.width = Math.round(W * dpr); tv.height = Math.round(H * dpr); }
+    const g = tv.getContext("2d"); g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+    const P = ([, x, y]) => [Math.min(1, Math.max(0, toPos(px, x))) * W, (1 - Math.min(1, Math.max(0, toPos(py, y)))) * H];
+    const ink = css.getPropertyValue(DRESS_DT() ? "--ink-1" : "--accent").trim() || "#7cffb2";
+    g.strokeStyle = ink; g.lineWidth = 2.5; g.lineCap = "round";
+    for (let k = 1; k < trail.length; ++k) {
+      g.globalAlpha = 0.85 * (1 - (clock - trail[k][0]) / TRAIL);
+      const [x0, y0] = P(trail[k - 1]), [x1, y1] = P(trail[k]);
+      g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke();
+    }
+    g.globalAlpha = 1;
+    if (trail.length) {
+      const [x, y] = P(trail[trail.length - 1]);
+      g.beginPath(); g.arc(x, y, 4, 0, 2 * Math.PI); g.fillStyle = ink; g.fill();
+    }
+  });
   return wrap;
 }
 
@@ -543,6 +589,7 @@ function control(p, big, direction) {
 function build(info) {
   const ui = info.ui || {}, direction = ui.direction || "bench";
   BINDINGS.forEach(b => b.clear());   // the old drawing stops listening
+  PROBE_LISTENERS.length = 0;         // and so does the old pad's trail
   document.documentElement.dataset.direction = direction;
   if (ui.dress === "drafting-table" && window.DT) {
     document.documentElement.className = "dress-dt";

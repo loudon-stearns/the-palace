@@ -11,16 +11,19 @@
     "B=6e-5",
     "K=18",
     "inertia=10",
-    "f0=220",
+    "play=drone",
     "voices=0.5",
-    "source=bright"
+    "source=bright",
+    "g_stretch=-1.5",
+    "a_attack=0.5",
+    "o_rate=5"
   ],
   "ui": {
-    "width": 1040,
-    "height": 600,
+    "width": 1120,
+    "height": 700,
     "min": [
-      900,
-      540
+      1000,
+      640
     ],
     "max": [
       1600,

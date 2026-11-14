@@ -228,6 +228,7 @@ def harness(plugin_dir):
 # The mock's feed: a phrase through the real processor, its probes read at 60 Hz. An instrument plays a
 # rising figure, held and short notes; an effect hears the same figure as plucked saws.
 FEED_SR, FEED_FPS, FEED_SECONDS = 48000, 60, 8.0
+FEED_LEAD = 3.6   # where the mock's replay starts, in s: inside the long held note, with history behind it
 FEED_NOTES = [(0.0, 0.9, 48), (1.0, 0.25, 55), (1.4, 0.25, 60), (1.8, 0.25, 63), (2.2, 1.6, 67),
               (4.2, 0.12, 72), (4.5, 0.12, 70), (4.8, 0.12, 67), (5.1, 2.2, 43)]
 
@@ -264,8 +265,8 @@ def feed(plugin_dir, table, params):
     frames = []
     for k in range(steps // hop):
         a, b = k * hop, (k + 1) * hop
-        frames.append([round(float(v), 6) for v in probes[:, b - 1]] + [round(float(np.abs(out[a:b]).max()), 6)])
-    return dict(rate=FEED_FPS, frames=frames)
+        frames.append([float(f"{v:.6g}") for v in probes[:, b - 1]] + [round(float(np.abs(out[a:b]).max()), 6)])   # six figures, not places: Frustration's B is 1e-5
+    return dict(rate=FEED_FPS, frames=frames, lead=FEED_LEAD)
 
 
 def mock_info(plugin_dir, direction, sets, dress_name=None, screen=False, with_feed=False):
@@ -311,9 +312,11 @@ def shot(html_path, png, size, live=False):
     png.unlink(missing_ok=True)
     # Headless Chrome sometimes exits non-zero while shutting down after writing the file, so the
     # file is the test, not the exit code.
-    # A page with a visualizer is shot after 3.5 s of real time: under virtual time a heavy picture,
-    # called 60 times a simulated second, starves the compositor and the glass comes out black
-    # (Crystal Synthesizer's, 2026-10-28).
+    # A page with a visualizer is shot in real time: under virtual time a heavy picture, called 60
+    # times a simulated second, starves the compositor and the glass comes out black (Crystal
+    # Synthesizer's, 2026-10-28). Headless Chrome takes the picture as the page loads, whatever
+    # --timeout says (measured 2026-11-14: 0.7 s), so no timer runs; a fed mock starts FEED_LEAD
+    # seconds into its phrase so the still shows that much history.
     clock = "--timeout=3500" if live else "--virtual-time-budget=3000"
     r = chrome(["--force-device-scale-factor=2", f"--window-size={w},{h}", clock,
                 f"--screenshot={png}", Path(html_path).resolve().as_uri()])

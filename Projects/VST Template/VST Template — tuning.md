@@ -34,9 +34,19 @@ What VST Template's steward cycles taught the page, and the changes to the house
 
 ## From cycle 2 — 2026-10-28
 
-3. **Proposed for canon** · 2026-10-28 · [[VST Template]] · § Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch') · canon change owed *(proposed by the steward, cycle 2)*
+3. **Proposed for canon** · 2026-10-28 · [[VST Template]] · § Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch') · superseded by item 5 *(proposed by the steward, cycle 2)*
    Why: Both plugins now have a picture; the paragraph should say so in one line.
    Path: `Projects/VST Template.md`
    > **Where it stands.** One `Algorithm.h` and a numpy sketch become a JUCE 8 VST3/AU, with a harness, a host check against a control render, and `new-plugin.py`. Two plugins came out of it, Frustration and Simple Synth, and both pass pluginval at strictness 5, auval and the host check. The editor's CRT plays a plugin's own `ui/visualizer.js`, an object with `mount` and `frame`, fed about 60 times a second by its probes: Simple Synth's carves stone, and Frustration's loom shows which of its partials its voices can hold. A steward makes its plugin in its own bundle with `new-plugin.py --into`, as Crystal Synthesizer's does. Sign the VST3 after JUCE writes its `moduleinfo.json`, or Live will refuse it; the [[Ableton Session Writer]]'s probe found this.
 
 - run · 2026-10-28 · cycle 2 · proposed item 3 for canon
+
+## From cycle 3 — 2026-11-13
+
+4. Headless Chrome takes its screenshot as the page loads (0.7 s measured), whatever --timeout says, so no timer runs before the picture; anything a mock should show over time has to be delivered at load (ui.py's FEED_LEAD). *(offered by the steward, cycle 3)*
+5. **Proposed for canon** · 2026-11-13 · [[VST Template]] · § Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch') · canon change owed *(proposed by the steward, cycle 3)*
+   Why: Frustration now plays from keys, and the paragraph should say so in one line.
+   Path: `Projects/VST Template.md`
+   > **Where it stands.** One `Algorithm.h` and a numpy sketch become a JUCE 8 VST3/AU, with a harness, a host check against a control render, and `new-plugin.py`. Two plugins came out of it, Frustration and Simple Synth, and both pass pluginval at strictness 5, auval and the host check. The editor's CRT plays a plugin's own `ui/visualizer.js`, an object with `mount` and `frame`, fed about 60 times a second by its probes: Simple Synth's carves stone, and Frustration's loom shows which of its partials its voices can hold. Frustration plays from a keyboard: the note sets its pitch, an amplitude envelope shapes each note, a gesture envelope carries the point across the edge and home, and an orbit loops it, while the pad draws the point's trail. A steward makes its plugin in its own bundle with `new-plugin.py --into`, as Crystal Synthesizer's does. Sign the VST3 after JUCE writes its `moduleinfo.json`, or Live will refuse it; the [[Ableton Session Writer]]'s probe found this.
+
+- run · 2026-11-13 · cycle 3 · taught item 4, proposed item 5 for canon

@@ -15,25 +15,25 @@ forward_vector: "I am VST Template's scroll — the one page that always opens o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-04T08:08:53-05:00 from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-14T01:42:37.440Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-28 (7 days ago)
-- **Plan:** agreed 2026-11-04 (today) · 0 made things since
-- **Waiting on you:** nothing
-- **Ready to advance:** 1 answer filed since the steward last ran — a cycle will consume it
-- **Last shipped:** 2026-10-28 (7 days ago) — Frustration's screen now shows the loom: voices on pegs, partials on one rod, and a thread between each that holds or slips as you play. (`vst-template-steward-005`)
-- **Last commit touching this project:** 2026-11-03 `bdda438e` — edit(VST Template): the Plan takes Loudon's comments from playing both plugins in Live, and a seventh move: Frustration's MIDI and modulation through the B–K space
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-11-14 (today)
+- **Plan:** agreed 2026-11-04 (10 days ago) · 2 made things since
+- **Waiting on you:** 1 open ask
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-11-14 (today) — Frustration plays from a keyboard now. In Live, does a held note slide into the tear the way you wanted? (`vst-template-steward-008`)
+- **Last commit touching this project:** 2026-11-04 `7ab45fde` — edit(VST Template): the Plan takes Loudon's confirmation of the seventh move at the close: two envelopes, amplitude and 2D gesture, and dragging a mouse across the loom as an open question; the sixth move takes "I watched it in live"
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-28 — cycle 2 · proposed item 3 for canon
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-13 — cycle 3 · taught item 4, proposed item 5 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 2 — 2026-10-28 — [[VST Template — tuning]]
+- **Proposed for canon:** 1 — item 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 5, from cycle 3 — 2026-11-13 — [[VST Template — tuning]]
 
 ### Where this stands
 
-VST Template turns a numpy sketch into a plugin Loudon can play in Live. Every plugin made from it gets the same editor: a Drafting Table panel on Phosphor with a small screen (the CRT) that plays the plugin's own picture, fed live from the sound. Last cycle lit that screen and gave Simple Synth its picture. Frustration, the stretched tone that tears near an edge, still had none, and its layout (the pad with the map of where the tone tears) had nowhere to put one. This cycle gave its layout a screen and drew Frustration's picture, the loom. The plugin passes every check and is installed. No one has opened it in Live yet.
+VST Template turns a numpy sketch into a plugin you can play in Live. Two plugins came out of it, Frustration (a stretched tone that tears near an edge) and Simple Synth, and on 3 November you played both from Live's browser. You loved Frustration and said you were dying for MIDI and for envelopes and LFOs that move through its two-dimensional space. That became the plan's newest step, and this cycle built all of it. A Play switch picks keys (the new default) or the old drone. In keys, the note sets the pitch, an amplitude envelope shapes the loudness, and a gesture envelope carries the point across the edge while you hold a note and brings it home when you let go. An orbit LFO loops the po…
 
 ### Left rough, again and again
 
@@ -46,11 +46,11 @@ _What the trail's left-rough notes keep saying, oldest first, in its latest word
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `vst-template-steward-008` — sensory_check · posted 2026-11-14 · options: PLAYS-RIGHT · ZOOM-PAD · RETUNE
 
 ### Answered, not yet consumed
 
-- `vst-template-steward-003` — GRANTED — option_id=LOOKS-RIGHT; notes: "Loudon, verbatim: "simple synth works great" and "works great, keep it as is, and I inserted it from the browser". So the CRT moves in Live as in the picture, and Simple Synth has now been inserted from Live's browser, which settles that long-open check for Simple Synth (Frustration not yet: he said nothing about it). The CRT baton is already closed, in 53e9ddec." · answered 2026-11-04 — waiting for the next cycle
+_None._
 
 ### Decided
 
@@ -58,6 +58,7 @@ _None — nothing is waiting on you._
 
 ### Runs
 
+- 2026-11-13 — cycle 3 · taught item 4, proposed item 5 for canon
 - 2026-10-28 — cycle 2 · proposed item 3 for canon
 - 2026-10-28 — cycle 1 · taught item 1, proposed item 2 for canon
 
@@ -69,7 +70,7 @@ _Nothing owed._
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
-- **3.** 2026-10-28 · [[VST Template]] · § Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch') — Both plugins now have a picture; the paragraph should say so in one line.
+- **5.** 2026-11-13 · [[VST Template]] · § Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch') — Frustration now plays from keys, and the paragraph should say so in one line.
 
 <!-- scroll:now:end -->
 
@@ -116,6 +117,74 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="vst-template-steward-008" -->
+### 2026-11-14 — cycle 3 — Frustration plays from a keyboard now. In Live, does a held note slide into the tear the way you wanted?
+> still working · installed, every check passes · steward leans you play it, then ZOOM-PAD
+
+Frustration is the stretched tone from VST Template that tears near an edge. On 3 November you asked to play it from MIDI, with envelopes and LFOs that move through its two-dimensional space. That's built and installed now. The note sets the pitch, a loudness envelope shapes each note, a gesture envelope slides the point across the edge while you hold a note and brings it home when you let go, and an orbit LFO loops it around. The pad draws the trail. It passes the check against the numpy sketch, but nobody has heard it. Load Frustration fresh from Live's browser and hold a long A2; the 20-second render shows what to expect. One thing I noticed: the trail is small, because the pad spans eight and a half decades of Stretch and the playing happens in about one. I'll keep working on the plan's recipe step either way.
+
+**Artifacts:**
+- [20 s through the real plugin on its default settings (stays on this Mac).](Projects/VST Template/proofs/2026-11-14-keys/phrase.wav)
+- [The pad's trail, close up: how small it is today.](Projects/VST Template/proofs/2026-11-14-keys/pad-trail.png)
+- [The whole editor, mid-phrase.](Projects/VST Template/proofs/2026-11-14-keys/editor-1120x700.png)
+- [frustration-loom.html](Projects/VST Template/proofs/2026-10-28-loom/frustration-loom.html)
+- [simple-synth-crt.html](Projects/VST Template/proofs/2026-10-28-crt/simple-synth-crt.html)
+- [crystal-synthesizer-crt.html](Projects/VST Template/proofs/2026-10-28-crt/crystal-synthesizer-crt.html)
+- [fit-drafting-table-bench.html](Projects/VST Template/plugins/SimpleSynth/build/ui/fit-drafting-table-bench.html)
+- [frustration-loom-torn-1040x600.png](Projects/VST Template/proofs/2026-10-28-loom/frustration-loom-torn-1040x600.png)
+- [frustration-loom-held-1040x600.png](Projects/VST Template/proofs/2026-10-28-loom/frustration-loom-held-1040x600.png)
+- [frustration-loom-edge-1040x600.png](Projects/VST Template/proofs/2026-10-28-loom/frustration-loom-edge-1040x600.png)
+<sub>`vst-template-steward-008` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="vst-template-steward-007" -->
+### 2026-11-14 — cycle 3 — Frustration now plays from a keyboard: each note has a loudness envelope, a gesture that slides the point into the tear, an orbit, and a visible trail.
+> shipped · every check passes · nobody has played it in Live yet · steward leans you play it next
+
+**What's in it.** A *Play* menu, drone or keys, defaulting to keys: mono, last note first, the same note handling as Simple Synth. A note that comes from silence starts the tone over, so phrases start the same way each time. The **amplitude envelope** (attack, decay, sustain, release, velocity) is Simple Synth's. The **gesture envelope** has *in* and *out* times and two depths, *Gesture B* in decades of Stretch and *Gesture K* in Hz of Coupling. The default, +0.5 decades over 1.2 s, takes Stretch from 1e-5 to 3.2e-5, past the edge at about 1.8e-5. So a held note slides into the tear and settles about 0.8 s after you let go. The **orbit** is one LFO in two dimensions: a sine on Stretch and a cosine on Coupling, a loop around the resting point. It runs in drone too. The **trail** lives in the shared editor. Any pad whose two parameters have probes of the same name draws where the sound is, with 2.5 s fading behind it, over the knob's dot where the point rests. The **loom** now reads the moving point and the note's pitch, and measures the wobble against the note, so a new note doesn't look like a tear.
+
+**The checks.** All seven paths in `verify.py` pass from a fresh sketch render. The five old ones are pinned to drone and still match `ride.py` to about 5e-8 of peak. *keys-under* plays four notes with both envelopes and the orbit moving, stays under the edge, and matches sample for sample for all 8 s. *keys-tear* is the default patch on A2. It is exact for one second, and after that its pitch keeps the sketch's average and spread (within 0.26 and 0.68 Hz against 2 Hz). Its wobble climbs from about 0.7 Hz at rest to 3 Hz as the gesture crosses the edge. auval and the signature check pass, and the host check passes. Its first run caught Pitch doing nothing in keys mode (correctly), so it now moves Play, Gesture B, Amp attack and Orbit rate. The window grew to 1120 × 700 so seven panels fit in two rows.
+
+**Two fixes found along the way.** Headless Chrome takes its picture as the page loads (0.7 s, measured), whatever wait the script asks for. So no timer ever ran in these screenshots, and that's why the loom's wobble trace has always looked cut short. A preview now starts 3.6 s into its phrase. The preview's feed also rounded Stretch (1e-5) to six decimal places; it keeps six significant figures now.
+
+**Passed over:** a separate LFO for each axis (one orbit draws a loop, two independent ones draw a tangle, and the loop is easier to learn), and restarting the orbit on each note (it runs free, so a drone and a phrase share it).
+
+**Artifacts:**
+- [Listen first: 20 s through the real plugin on its default settings. Short notes, a 5 s A2 the gesture carries into the tear and lets settle, quick notes, then a held low A with only the orbit moving (stays on this Mac).](Projects/VST Template/proofs/2026-11-14-keys/phrase.wav)
+- [The editor at its default size, 3.6 s into a played phrase, inside a held G: the loom says TEARING.](Projects/VST Template/proofs/2026-11-14-keys/editor-1120x700.png)
+- [The pad, close up: the trail runs from the resting point across the dashed edge.](Projects/VST Template/proofs/2026-11-14-keys/pad-trail.png)
+- [The editor at its smallest size; it fits without scrolling.](Projects/VST Template/proofs/2026-11-14-keys/editor-1000x640.png)
+- [This cycle's proof: what changed, what was checked, what wasn't.](Projects/VST Template/proofs/2026-11-14-keys/README.md)
+- [Renders the phrase and the point's route through the real processor.](Projects/VST Template/proofs/2026-11-14-keys/phrase.py)
+- [Stretch, Coupling, loudness and wobble every 50 ms of the phrase.](Projects/VST Template/proofs/2026-11-14-keys/phrase-route.json)
+- [Notes, the two envelopes, the orbit, and the five probes.](Projects/VST Template/plugins/Frustration/src/Algorithm.h)
+- [The numpy reference, extended to match the plugin step for step.](Projects/VST Template/plugins/Frustration/reference/sketch.py)
+- [The old paths pinned to drone; two new paths played from keys.](Projects/VST Template/plugins/Frustration/reference/paths.py)
+- [The loom reads the moving point and the note's pitch.](Projects/VST Template/plugins/Frustration/ui/visualizer.js)
+- [The bigger window and the host check's new list of knobs.](Projects/VST Template/plugins/Frustration/plugin.json)
+- [The front door now covers the new knobs.](Projects/VST Template/plugins/Frustration/README.md)
+- [The pad's trail; the preview delivers its history at once; old listeners dropped on rebuild.](Projects/VST Template/machinery/ui/editor.html)
+- [Preview feed keeps six significant figures and starts 3.6 s in; the comment now says what headless Chrome actually does.](Projects/VST Template/machinery/tools/ui.py)
+- [The recipe now covers the pad's trail and when the preview starts.](Projects/VST Template/template/README.md)
+
+_Changed in the workshop:_ README — This cycle's proof.
+_Changed in the workshop:_ README — Frustration's front door: the keys, envelopes and orbit, and the new check paths.
+_Changed in the workshop:_ README — The recipe: how a pad gets its trail, and why the preview starts mid-phrase.
+_Proposed for canon:_ VST Template (§ Where it stands (the paragraph beginning 'One Algorithm.h and a numpy sketch')) — Frustration now plays from keys, and the paragraph should say so in one line.; owed in the tuning ledger until Loudon's review; it replaces item 3
+
+_Left rough:_ Nobody has heard it or played it in Live yet; the trail is small on a pad that spans eight and a half decades; CPU wasn't re-measured; dragging a mouse across the loom isn't started.
+
+_Next moves named:_ You play Frustration from a keyboard in Live. That's what finishes this step. The card on the TRICKSTER board asks how it plays. · If the trail reads too small, zoom the pad to the edge's neighbourhood (about 1e-6 to 1e-3 of Stretch), or let it follow the resting point. · Then the afternoon recipe, the plan's other open step: how the next sketch gets from numpy to an installed plugin in one afternoon. This cycle is a worked example of it.
+<sub>`vst-template-steward-007` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-81722a27e0" -->
+### 2026-11-13 — cycle 3
+
+taught item 4, proposed item 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-2026-11-04T08-08-53-05-00" -->
 ### 2026-11-04 — Plan revised: Loudon confirms the seventh move and adds to it
 

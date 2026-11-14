@@ -27,8 +27,11 @@
 //
 // Contract with the editor (VST Template machinery/ui/editor.html, § the CRT's picture):
 //   FrustrationLoom.mount(el)                 draws into el (window.editorScreen)
-//   FrustrationLoom.frame(probes, params, dt) probes: [fundamental] (kProbes);
+//   FrustrationLoom.frame(probes, params, dt) probes: [fundamental, B, K, f0, amp] (kProbes);
 //                                             params: { id: value }, a menu as its index
+// B, K and f0 come from the probes, not the knobs: played from keys, the note sets f0 and the
+// gesture and orbit move the point, so the loom draws the tone that is sounding. The wobble is
+// measured on the fundamental less f0, so a new note is not mistaken for a tear.
 // Reads window.editorProbes.h (every frame since the last event) for the wobble when the
 // plugin sends it. Nothing is fetched.
 const FrustrationLoom = (() => {
@@ -58,11 +61,13 @@ const FrustrationLoom = (() => {
     fit();
   }
 
-  function listen(probes, dt) {   // keep the fundamental's last few seconds
+  const at = name => { const ev = window.editorProbes; return ev && ev.names ? ev.names.indexOf(name) : -1; };
+  const less = f => { const j = at("f0"); return j >= 0 && isFinite(+f[j]) ? +f[0] - +f[j] : +f[0]; };
+  function listen(probes, dt) {   // keep the fundamental's last few seconds, less the note's own pitch
     const ev = window.editorProbes, h = ev && Array.isArray(ev.h) ? ev.h : null;
     if (h && h.length && ev.rate > 0) {
-      for (const f of h) { clock += 1 / ev.rate; hist.push({ t: clock, v: +f[0] }); }
-    } else { clock += dt; hist.push({ t: clock, v: +probes[0] }); }
+      for (const f of h) { clock += 1 / ev.rate; hist.push({ t: clock, v: less(f) }); }
+    } else { clock += dt; hist.push({ t: clock, v: less(probes) }); }
     while (hist.length && hist[0].t < clock - SPAN) hist.shift();
   }
   function wobble() {             // standard deviation over the last 2 s, as edgemap.py measures it
@@ -79,7 +84,8 @@ const FrustrationLoom = (() => {
     lastF = F;
     listen(probes, dt);
     const N = NS[Math.max(0, Math.min(2, Math.round(params.partials || 0)))];
-    const B = +params.B, K = Math.max(0, +params.K), f0 = +params.f0 || 110;
+    const heard = (name, knob) => { const j = at(name); return j >= 0 && isFinite(+probes[j]) && +probes[j] > 0 ? +probes[j] : knob; };
+    const B = heard("B", +params.B), K = Math.max(0, at("K") >= 0 ? +probes[at("K")] : +params.K), f0 = heard("f0", +params.f0 || 110);
     const denom = params.pinned > 0.5 ? 1 + B : 1;
     const amp = k => params.source >= 0.5 ? (1 / k) * Math.min(1, 4 / k) : Math.pow(k, -0.7);
 
@@ -168,7 +174,9 @@ const FrustrationLoom = (() => {
     const label = `${word}  ±${sd < 0.01 ? sd.toFixed(3) : sd.toFixed(2)} Hz`;
     g.fillText(label, X(N + 0.5) - g.measureText(label).width, y1 + fs + 2);
     g.fillStyle = rgba(INK, 0.7);
-    g.fillText(`${F.toFixed(2)} Hz · ${held}/${live} threads held${cut ? ` · ${cut} cut` : ""}`, X(0.5), y1 + fs + 2);
+    let info = `${F.toFixed(2)} Hz · ${held}/${live} threads held${cut ? ` · ${cut} cut` : ""}`;   // shortened when it would run into the label
+    if (X(0.5) + g.measureText(info).width + fs > X(N + 0.5) - g.measureText(label).width) info = `${F.toFixed(1)} Hz · ${held}/${live}`;
+    g.fillText(info, X(0.5), y1 + fs + 2);
   }
 
   return { mount, frame };
