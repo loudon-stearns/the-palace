@@ -73,7 +73,7 @@ The eleven situations were walked on 2026-11-14 by read-only readers. Their repo
 
 ## Next move
 
-Draft one zoomed-out design from the walk and show it to Loudon. He leads from there. The design answers the four ways of missing, not one of them; it holds his goal (use, and use that improves the Shop) and his calibrations below. Before leaning on any one report, open the file it cites.
+A first draft of the design is in [[The Shop — sketch — discovery design]], shown to Loudon on 2026-11-14. Take his cuts and rulings (five are listed at its end), revise the draft, and build nothing until he adopts a stage. Stage 1 is cards on the Specialists and a read-only `shop menu`; the floor moves only after the menu can answer. Before leaning on any one walk report, open the file it cites.
 
 **Done looks like:** a design that covers these situations, shown to Loudon before anything foundational moves.
 
