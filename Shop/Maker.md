@@ -39,7 +39,7 @@ links:
 tags: [maker, shop, foreman, studio]
 ---
 
-<!-- The per-Specialist roster is no longer hand-listed in this frontmatter: each Specialist declares `member-of [[The Shop]]`, so The Shop hub is the single source of truth for membership and the Maker connects to each Specialist via that Specialist's own `directed-by [[Maker]]` edge. The human-readable Roster (below) becomes generated in Phase 2. -->
+<!-- The per-Specialist roster is not hand-listed in this frontmatter: each Specialist declares `member-of [[The Shop]]`, so The Shop is the single source of truth for membership, and the Maker connects to each Specialist through that Specialist's own `directed-by [[Maker]]` edge. The human-readable roster is generated into [[The Shop]] § Roster by `Shop/Maker/build-roster.mjs` (see § Roster below). -->
 
 
 # Maker
@@ -88,9 +88,9 @@ The house taste, codified.
 
 **Math content** → Manim CE, always. Manim's typesetting is the difference. Even a still frame for a chart can come from Manim if the math is the subject.
 
-**Diagrams of systems** → Mermaid or Graphviz. They produce clean, version-controlled, palette-aware output. I do not use generative image tools for system diagrams — the result is always wrong in some hard-to-articulate way.
+**Diagrams of systems** → Mermaid, or Graphviz (no Specialist yet: there is no Graphviz page or host row). They produce clean, version-controlled, palette-aware output. I do not use generative image tools for system diagrams — the result is always wrong in some hard-to-articulate way.
 
-**Charts of data** → Matplotlib for static / publication-quality; [[Observable Plot]] for browser-deployable analytical charts (grammar of graphics, faceting, beautiful defaults); Plotly only when a brief needs its specific built-in interaction widgets.
+**Charts of data** → Matplotlib for static / publication-quality; [[Observable Plot]] for browser-deployable analytical charts (grammar of graphics, faceting, beautiful defaults); Plotly only when a brief needs its specific built-in interaction widgets (no Specialist yet: there is no Plotly page or host row).
 
 **Typeset documents, papers, problem sets, beamer slides, publication-grade `tikz`/`pgfplots` diagrams, standalone equation cards** → **[[LaTeX]]**. The boundary against the three tools that look adjacent: Manim for math that *moves*; Matplotlib for charts from *data arrays*; Mermaid for *quick* system diagrams. LaTeX wins when the deliverable is a *typeset document* (it goes in a paper, a slide, or a printout) or a diagram/notation where exact mathematical typography **is** the subject. Worth knowing the dependency runs the other way too: Matplotlib's `text.usetex` and Manim's `MathTex` both ride LaTeX's TeX install — one tree, three Specialists. Host caveat: the PDF path runs clean on mac; the SVG-cutout path needs the `TEXPSHEADERS` bridge (see the [[LaTeX]] / [[Shop/Manim CE|Manim CE]] 2026-06-09 gotcha).
 
@@ -113,11 +113,12 @@ The house taste, codified.
 
 **Browser / interactive audio** → routed by *what kind of audio it is*, not by "it's on the web":
 - *Instruments, sequencers, effects, audio-reactive music software* built on standard synthesis (subtractive, FM, sampler, musical scheduling) → **[[Tone.js]]**. Musical time is first-class; this is the default for browser-deployable music software.
-- *Custom sample-accurate DSP in the browser* (a novel filter, a physical model, anything that wants an `AudioWorklet`) → **[[RNBO codebox~ smith]]** web export. Caveat learned-by-reasoning, not yet by a job: RNBO authoring is mac/Max-only and the web-export path is **unproven** — flag it for a test before committing a Piece to it. Until proven, treat RNBO-web as provisional and confirm the export actually runs in-browser.
+- *Custom sample-accurate DSP in the browser*, where the DSP itself is the differentiator (granular, custom or 2D wavetable, a physical model, a novel filter — anything that wants a per-sample `process()` loop) → **[[Shop/Web Audio Worklet]]**. Codified by the Murmuration build (2026-05-30), which Tone.js's charter refuses; it has made two Sketch-tier instruments, Murmuration and the Wavetable Scanner (2026-05-31). The grey zone — a custom voice inside an otherwise Tone-shaped instrument — is a Worklet node dropped into a Tone graph.
+  - *The alternative:* the **[[Shop/RNBO codebox~ smith]]** web export, when the same instrument should also ship to a DAW. Then pair the two against a single spec (a live probe of [[Diversity of Thought in Many-Agent Systems]]). RNBO authoring is mac/Max-only, its page records no real brief yet, and its web-export path is **unproven** — test that the export runs in a browser before committing a Piece to it.
 - *Incidental audio decoration on a visual sketch* (a blip when a particle bounces) → `p5.sound` **inside** the p5.js sketch, not a separate dispatch.
-- *Raw Web Audio API, no library* → **not a Specialist.** This was considered and rejected (Tone.js's value is the abstraction over manual graph wiring); drop down to raw Web Audio *inside* a Tone.js job when a built-in won't do.
+- *A raw Web Audio graph of built-in nodes, no library* → no Specialist of its own. Tone.js's value is the abstraction over manual graph wiring, so drop down to raw Web Audio *inside* a Tone.js job when a built-in won't do. Raw per-sample DSP is the Web Audio Worklet's, above.
 
-**Interactive teaching pieces, generative sketches, parameter explorers** → p5.js for fast-authored web-deployable sketches; HTML/React Artifact Smith when claude.ai artifact polish or shadcn/ui components are needed.
+**Interactive teaching pieces, generative sketches, parameter explorers** → p5.js for fast-authored web-deployable sketches; an HTML/React Artifact Smith when claude.ai artifact polish or shadcn/ui components are needed (no Specialist yet: there is no such page or host row).
 
 **Real-time 3D** → **[[Three.js]]** (R3F + drei default; raw r128 for a single-file artifact). Route here only when the third dimension earns itself — spatial/relational structure 2D can't show, geometry driven by data/input/audio, instruments whose interface *is* a moving object. Do *not* route 2D-in-perspective here: that's [[p5.js]] (expressive) or [[D3.js]] (data-bound). Three.js renders state; it is never the audio engine — when 3D drives sound, the DSP lives in an AudioWorklet or [[Tone.js]] and Three.js reads its state (the [[Waveguide Synthesizer]] pattern).
 
@@ -125,9 +126,9 @@ The house taste, codified.
 
 **Offline 3D · blocking · conditioning passes** → **[[Shop/Blender]]** (alive 2026-06-13). Route here for hand-authored/offline 3D that real-time can't hold: frame-by-frame blocking, depth-correct compositing, geometry-nodes math worlds, offline Cycles/EEVEE render, and — the keystone — turning a posed scene into clean multi-ControlNet conditioning ([[Blocked, Not Prompted]]: posed Blender scene → OpenPose/depth/canny → ComfyUI fill). Blender authors the *structure*; [[Shop/ComfyUI]] fills the *skin*. Three.js is its real-time/browser complement, not a substitute.
 
-**Browser-deployable instruments · web audio** → **[[Shop/Tone.js]]** when the synth is a *composition of primitives* (subtractive / FM / sampler / effect chains / musical-time sequencing); **[[Shop/Web Audio Worklet]]** when the *DSP itself is the differentiator* (granular, custom or 2D wavetable, physical models — anything that wants a per-sample `process()` loop). Codified by the Murmuration build (2026-05-30), which Tone.js's charter explicitly refuses. The grey zone — a custom voice inside an otherwise Tone-shaped instrument — is a Worklet node dropped into a Tone graph. When one instrument should ship to **both** web and a DAW, pair Web Audio Worklet with **[[Shop/RNBO codebox~ smith]]** against a single spec (a live probe of [[Diversity of Thought in Many-Agent Systems]]).
-
 When two routes are both reasonable, I tell you and propose Comparison Mode rather than guessing.
+
+**Not routed here.** This section names no route for Depth Anything, Figure Rig, LaMa, Lettering, LoRA Trainer, OBS, SAM, AuK, Image-to-3D Smith, LightOnOCR-3, VCV Patch Generator, Whisper or Stable Audio Open, and names ffmpeg only as a step inside a pipeline; Whisper and Stable Audio Open appear on this page only inside pipelines, in How I Work, House Standards and the Recipes. `node Shop/shop.mjs menu [need]` covers all of them from their cards; for these fourteen, the card is the only route today.
 
 ## House Standards
 
@@ -212,7 +213,7 @@ If the frontmatter is silent, defaults apply. Project teams may override per-med
 
 ## Comparison Mode
 
-When the brief is exploratory or the choice between specialists is genuinely close, I run two (rarely three) candidates in parallel rather than picking. The candidates must be **meaningfully different** — not two seeds of the same approach. *Manim vs. Remotion for a UI segment. Kokoro vs. your recorded voice for narration. Midjourney vs. ComfyUI for a header.* I deliver the candidates with a written recommendation and the reasons. Comparison without taste is just two outputs; the recommendation is the work.
+When the brief is exploratory or the choice between specialists is genuinely close, I run two (rarely three) candidates in parallel rather than picking. The candidates must be **meaningfully different** — not two seeds of the same approach. *Manim vs. Remotion for a UI segment. Kokoro vs. your recorded voice for narration. FLUX vs. ComfyUI for a header.* I deliver the candidates with a written recommendation and the reasons. Comparison without taste is just two outputs; the recommendation is the work.
 
 **First complete execution: the [[Flocking]] shoot-out (2026-05-29).** Three Specialists (D3.js, Observable Plot, p5.js) on one identical seeded Reynolds model — the Round-1 Midjourney↔ComfyUI Comparison never finished, so this was the first that ran all candidates to completion and produced the actual recommendation. The lesson that generalizes: when the brief is "same content, which medium," the **shared, seeded, byte-identical core** is what makes the candidates legible *as* the same thing — without it you're comparing three different simulations, not three lenses on one. The recommendation lives at [[Flocking — Maker's Comparison Recommendation]] and fed the new particle/agent-systems Selection Heuristic above.
 
@@ -245,7 +246,7 @@ The lesson of the 2026-05-10 Manim failure, made into a step: a brief can be per
 
 **Resolution rule.** If the chosen Specialist is reachable, dispatch. If not and a fallback exists, I name the substitution in the brief response and proceed at the fallback's quality (flagging the sacrifice), and when the canonical Specialist later runs too, I keep both renders and let the brief's author choose — a fallback is often a different piece, not a lesser one. If not and no fallback exists, I stop before any work and surface the choice: defer to a mac handoff, or change the brief. The check is cheap; the wasted intake it prevents is not.
 
-The machine-readable manifest is `Shop/Maker/host-capability.json`. The lookup itself is implemented in `Shop/Maker/host-capability-check.js` (Node ESM module; CLI: `node Shop/Maker/host-capability-check.js "<Specialist Name>"` — exits 0 reachable, 1 unreachable). Smoke tests in `Shop/Maker/host-capability-check.test.js` (run: `node --test Shop/Maker/host-capability-check.test.js`). Implemented 2026-05-30, last run 2026-05-30 — 8/8 pass. The check is now real, not a promise.
+The machine-readable manifest is `Shop/Maker/host-capability.json`. The lookup itself is implemented in `Shop/Maker/host-capability-check.js` (Node ESM module; CLI: `node Shop/Maker/host-capability-check.js "<Specialist Name>"` — exits 0 reachable, 1 unreachable). Smoke tests in `Shop/Maker/host-capability-check.test.js` (run: `node --test Shop/Maker/host-capability-check.test.js`). Implemented 2026-05-30 with 8 tests; 10 today, all passing on 2026-11-14. The check is real, not a promise.
 
 ## Resource Scheduling
 
@@ -293,9 +294,12 @@ Future recipes added as briefs finish.
 
 ## Test Suite
 
-Brief Decoding / Routing / Comparison / Cross-Specialist Coherence / Wrong-Medium Handoff / Style Adherence — defined in `Shop/Maker/tests/test-plan.md` (TODO).
+The Maker's own routing tests — Brief Decoding / Routing / Comparison / Cross-Specialist Coherence / Wrong-Medium Handoff / Style Adherence — are named but not written: `Shop/Maker/tests/test-plan.md` does not exist, and none of them has run.
 
-Last run: never.
+What does run is the bench under the Shop:
+
+- `node --test Shop/Maker/host-capability-check.test.js` — the host check's own tests. First run 2026-05-30 (8 of 8); last run 2026-11-14, 10 of 10 pass.
+- `node Shop/Maker/run-tests.mjs` — every Specialist: the host check, then a smoke test where one is wired (p5.js, D3.js, Observable Plot, Tone.js, ffmpeg, Matplotlib), then the host check's tests. Built 2026-06-16 (`d43c398d`). Last run 2026-11-14 on mac: 6 pass, 0 fail, 5 skipped as unreachable, 21 reachable with no smoke wired, of 32. One of the five skips is the runner's own error: it reads Lettering's quoted title with its quotes, and `node Shop/Maker/host-capability-check.js Lettering` reports Lettering reachable. Each run overwrites `Shop/Maker/test-results.json`; the committed copy is from 2026-06-16. The runner takes no `--help` — any call runs the suite. `--write-back --date YYYY-MM-DD` also marks a run line in each passing Specialist's tuning ledger.
 
 ## Gotchas
 
