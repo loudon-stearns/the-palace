@@ -117,14 +117,15 @@ Installed as `~/Library/Audio/Plug-Ins/VST3/Crystal Synthesizer.vst3` and
 
 Still open:
 
-1. **The CRT is dark in the plugin.** `"screen": true` shows the bezel, but the
-   editor serves only `index.html` and relays no probes, so `ui/visualizer.js` can't
-   get in yet. That is VST Template's baton (the CRT's picture and the feed). Until
-   it lands the crystal in fog lives on the face page.
+1. **The CRT is lit (2026-10-28).** VST Template's steward taught the editor to inline
+   a plugin's `ui/visualizer.js` and relay its probes at 60 Hz, then rebuilt this
+   plugin on the new machinery; every gate passed again and it is installed
+   (`../../VST Template/proofs/2026-10-28-crt/`). `ui/visualizer.js` needed no change.
+   Nobody has yet watched it move in Live.
 2. **`./plugin.sh editor` took no picture** from a background run ("NO PICTURE");
    probably no window server for a headless host. Unconfirmed.
-3. The code-uniqueness check in `new-plugin.py` doesn't see this folder; `Crys` was
-   checked by hand against every plugin.json in VST Template and Tract Mirror's `Trkm`.
+3. The code-uniqueness check in `new-plugin.py` now reads every `plugin.json` in the
+   palace and refuses `Crys` as Crystal Synthesizer's (2026-10-28).
 4. CPU in a host: untimed. 8 voices × 18 resonators.
 5. No Max work: the RNBO patches and Max for Live devices in `../crystal-rings/` and
    `../crystal-on-the-road/` wait as teaching tools (standing order of 2026-10-21).

@@ -15,37 +15,37 @@ forward_vector: "I am Crystal Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-24T15:39:52.722Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-14T01:10:20.498Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 14 · last ran 2026-10-24 (today)
-- **Plan:** agreed 2026-09-26 (28 days ago) · 8 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 15 · last ran 2026-11-14 (today)
+- **Plan:** agreed 2026-11-10 (4 days ago) · 2 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-24 (today) — — (`crystal-synth-steward-035`)
-- **Last commit touching this project:** 2026-10-24 `80281362` — steward(Crystal Synthesizer): cycle 13 — SPINNING UP. HOME: [Crystal Synthesizer](obsidian://open?vault=The%20Pa…
+- **Last shipped:** 2026-11-14 (today) — Can you get me ruby's Raman line widths? One paper decides whether ruby is a second bell. (`crystal-synth-steward-038`)
+- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-24 — cycle 14 · taught item 2
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-13 — cycle 15 · taught item 3, proposed item 4 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 1; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 14 — 2026-10-24 — [[Crystal Synthesizer — tuning]]
+- **Proposed for canon:** 2 — items 1, 4; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 4, from cycle 15 — 2026-11-13 — [[Crystal Synthesizer — tuning]]
 
 ### Where this stands
 
-Crystal Synthesizer gets its sound from a crystal's physics, not from taste: each mineral's vibration modes become the partials, and each mode rings for as long as the real mineral's Raman line width says. On 2026-10-21 you asked for products, a VST to play in Live. Earlier today I moved the ringing crystal into the VST Template's shape, with axis angle and fire as knobs. This cycle I built it. A two-file shim lets the template's shared build tools build a plugin that lives in my own folder, and the result is installed as Crystal Synthesizer (VST3 and AU, maker Loudon Live). It passed every template check. What's missing is the centre screen: it waits on the template learning to show a plug…
+Crystal Synthesizer gets its sound from a crystal's physics: each mineral's vibration modes are the partials, and each mode rings as long as the real line width says (Q = line position ÷ width). It is a VST3 and AU in Live under Loudon Live. On October 28 VST Template's steward taught the template to show a plugin's own picture and rebuilt mine, so the unit cell in fog now plays on the centre screen, though nobody has watched it in Live yet. On November 10 you adopted the plan: play it in Live, then replace my estimated ring times with measured ones, then the full prism, then a real mineral. This cycle took the second move. I looked up the widths, found ranges more often than per-mode numbe…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 10:** Nobody has listened to the take or played the face yet; _(in 5 notes, the latest cycle 14)_
-- **rough since cycle 12:** Most line widths are still my estimates. _(in 3 notes, the latest cycle 14)_
+- **rough since cycle 10:** Nobody has listened to the take or played the face yet, and that now includes the plugin in Live with its screen lit. _(in 6 notes, the latest cycle 15)_
+- **rough since cycle 12:** Most line widths are still my estimates: ruby's are unread, and every width I did find came through a search summary, not the paper. _(in 4 notes, the latest cycle 15)_
 - **rough since cycle 13:** The centre screen is dark in the plugin because the template can't load a plugin's own visualizer yet. _(in 2 notes, the latest cycle 14)_
 
 ### Open asks
 
-- `crystal-synth-steward-032` — proposed plan revision: the plan becomes the VST · posted 2026-10-24 · options: adopt · keep
+- `crystal-synth-steward-038` — ruby's line widths · posted 2026-11-14 · options: FETCH · WIRE-NOW · PLAY-FIRST
 
 ### Answered, not yet consumed
 
@@ -53,12 +53,14 @@ _None._
 
 ### Decided
 
+- `crystal-synth-steward-032` — the plan becomes the VST → GRANTED — option_id=adopt (2026-11-10)
 - `crystal-synth-steward-029` — H90 to H9000 or plugin → GRANTED — option_id=keep (2026-10-15)
 - `crystal-synth-steward-021` — directional_decision → GRANTED — option_id=FILL-PALETTE (2026-06-25)
 - `crystal-synth-steward-018` — directional_decision → GRANTED — option_id=RENDER-LABRADORITE; notes: "make a really nice html menu of the proofs and what we are teaching, use accurate visuals and the audio examples." (2026-06-25)
 
 ### Runs
 
+- 2026-11-13 — cycle 15 · taught item 3, proposed item 4 for canon
 - 2026-10-24 — cycle 14 · taught item 2
 - 2026-10-24 — cycle 13 · proposed item 1 for canon
 
@@ -71,21 +73,23 @@ _Nothing owed._
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
 - **1.** 2026-10-24 · [[Crystal Synthesizer]] · § Forward Vectors, first bullet (the Gen~ oscillator bank) — Max work is set aside and the Gen~ bullet points at a path the standing order of 2026-10-21 replaced.
+- **4.** 2026-11-13 · [[Crystal Synthesizer]] · § Open Questions, the triclinic bullet's 'progressed' line (ending 'if its estimated line width holds. `triclinic-proof/` strikes the two through the same synth (2026-10-24)') — The labradorite finding no longer rests on my estimated width, and the bracket found ruby as the one open hinge.
 
 <!-- scroll:now:end -->
 
 ## Plan
 
 <!-- scroll:plan:start -->
-**Where this is going.** An instrument whose timbre is chosen by crystal physics rather than by taste, built in five moves, each one testing a prediction the one before it made. Any move can happen in public as a [[Loudon Live]] build. The predictions have already been heard as renders: calcite against quartz, diamond's dispersion, beryl's two directions, diamond against labradorite, and a strike for every other mineral in the palette, all on the proofs menu. Next comes the instrument that lets anyone play them.
+**Where this is going.** An instrument whose timbre is chosen by crystal physics rather than by taste, played as a VST in Live, its face a view of the crystal itself. Each move tests a prediction the one before it made, and any move can happen in public as a [[Loudon Live]] build. Every mineral's strike and ring is already rendered, and the ringing crystal is ported to the [[VST Template]] (`plugin/`): eight voices, each mode a resonator whose Q comes from its Raman line width, birefringence on the Axis angle, dispersion on Fire, and the unit cell in fog on the CRT.
 
 **The moves ahead**
 
-1. **Make a playable crystal in Max.** A monophonic Gen~ partial bank with the seven crystal systems on a selector and an envelope, so the timbre each lattice predicts can be played, not only rendered. Its April session design is archived in [[Crystal Synthesizer — spec — Loudon Live sessions]].
-2. **Take it on the road.** Make it polyphonic, wrap it in RNBO, export it to the Eventide H90, and open the Faust path: one structure carried across four materials, the way one crystal symmetry shapes both its light and its sound.
-3. **Let the crystal ring.** Each phonon mode becomes a resonant filter whose Q comes from the mode's lifetime, struck by an impulse, so decay becomes something the physics sets. The interface starts in earnest here, with the open question of what gesture "strikes" a crystal.
-4. **Build the prism in time.** A dispersion filter from the real phonon dispersion relation, so frequencies arrive at different times the way a prism spreads colors in space, shipped as a VST whose interface shows the crystal. It wants its own interface design session first.
-5. **Hear a real mineral** (stretch). Load a chosen mineral's measured structure from the Crystallography Open Database and play the sound it makes. This is the ground truth that confirms or corrects what the first move predicted. It may need a physics collaborator.
+1. **Play it in Live.** When the template can build a plugin in this bundle, build it, pass its gates (strict codesign, pluginval, auval, the host check), and load it in Live. Then tune by ear: the defaults, the voice gain, what the CRT needs from a real session.
+2. **Give every mode its own ring.** Replace the estimated line widths with measured room-temperature Raman widths, one per mode where the literature has them. That would confirm or overturn the 'only diamond is a bell' finding.
+3. **Build the prism in time, fully.** Today Fire is a per-mode delay. Make it a dispersion stage from the real phonon dispersion relation, so a broadband strike arrives frequency by frequency the way a prism spreads color. Shown in the CRT as the fan.
+4. **Hear a real mineral** (stretch). Load a chosen mineral's measured structure from the Crystallography Open Database and play the sound it makes. This is the ground truth for what the palette predicted, and it may need a physics collaborator.
+
+The Max, RNBO, Max for Live and Faust versions already made wait as teaching tools. The H90 stays open until Eventide supports RNBO.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -108,6 +112,102 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-crystal-synth-steward-032" -->
+### 2026-11-09 — Plan revised: Rewrite my plan around the VST you asked for: ringing crystal plugin first, then real line widths, then the full prism?
+
+You agreed my plan in September, and it still runs through Max: a Gen~ instrument, then RNBO and the H90. On 2026-10-21 you set Max aside and asked for a product, a VST to play in Live, and asked me to propose a new plan alongside what I made. Today I made it. The ringing crystal is ported to the template's shape, it matches its reference to float rounding, and its face and visualizer work in the template's editor. The revised plan keeps my two later moves, the prism in time and a real mineral from the crystal database. It folds 'let the crystal ring' into the plugin and keeps the Max, RNBO and H90 work as teaching tools for later. I'll keep building whichever way you answer.
+
+_The plan before this change:_
+
+> **Where this is going.** An instrument whose timbre is chosen by crystal physics rather than by taste, built in five moves, each one testing a prediction the one before it made. Any move can happen in public as a [[Loudon Live]] build. The predictions have already been heard as renders: calcite against quartz, diamond's dispersion, beryl's two directions, diamond against labradorite, and a strike for every other mineral in the palette, all on the proofs menu. Next comes the instrument that lets anyone play them.
+>
+> **The moves ahead**
+>
+> 1. **Make a playable crystal in Max.** A monophonic Gen~ partial bank with the seven crystal systems on a selector and an envelope, so the timbre each lattice predicts can be played, not only rendered. Its April session design is archived in [[Crystal Synthesizer — spec — Loudon Live sessions]].
+> 2. **Take it on the road.** Make it polyphonic, wrap it in RNBO, export it to the Eventide H90, and open the Faust path: one structure carried across four materials, the way one crystal symmetry shapes both its light and its sound.
+> 3. **Let the crystal ring.** Each phonon mode becomes a resonant filter whose Q comes from the mode's lifetime, struck by an impulse, so decay becomes something the physics sets. The interface starts in earnest here, with the open question of what gesture "strikes" a crystal.
+> 4. **Build the prism in time.** A dispersion filter from the real phonon dispersion relation, so frequencies arrive at different times the way a prism spreads colors in space, shipped as a VST whose interface shows the crystal. It wants its own interface design session first.
+> 5. **Hear a real mineral** (stretch). Load a chosen mineral's measured structure from the Crystallography Open Database and play the sound it makes. This is the ground truth that confirms or corrects what the first move predicted. It may need a physics collaborator.
+<sub>`plan-crystal-synth-steward-032` · plan revised · agreed 2026-11-10T02:03:43.421Z · proposed by Crystal Synthesizer's steward (`crystal-synth-steward-032`), adopted by Loudon (`resp-mwa1qim5-hlcofy`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="crystal-synth-steward-038" -->
+### 2026-11-14 — cycle 15 — Can you get me ruby's Raman line widths? One paper decides whether ruby is a second bell.
+> still working · bracket shipped, finding holds · steward leans FETCH
+
+Crystal Synthesizer rings each mode as long as the real crystal's Raman line width says. It's a plugin in Live now, and its centre screen is lit. This cycle I tested whether 'only diamond is a bell' survives every width the literature allows ([bracket.wav](open:Projects/Crystal Synthesizer/linewidths/bracket.wav), bracket.svg). It does, unless ruby's lines are much narrower than my guess. I can't read ruby's numbers: OSTI refused the 2017 Applied Optics PDF, and the 1968 Solid State Communications paper on α-Al₂O₃ is paywalled. You may have library access. If you drop either PDF into the linewidths folder, I rerun the bracket and wire per-mode ring times into the plugin. If not, I'll wire them from the ranges I have and mark ruby as estimated. I keep working either way.
+
+**Artifacts:**
+- [each mineral at its shortest, then its longest plausible ring.](Projects/Crystal Synthesizer/linewidths/bracket.wav)
+- [the ring ranges; ruby's is the one that comes nearest diamond's.](Projects/Crystal Synthesizer/linewidths/bracket.svg)
+- [proofs-menu.html](Projects/Crystal Synthesizer/proofs-menu.html)
+- [session-1-interactive.html](Projects/Crystal Synthesizer/session-1-interactive.html)
+- [beryl_birefringence_plot.html](Projects/Crystal Synthesizer/dispersion-filter/beryl_birefringence_plot.html)
+- [crystal-synthesizer-face.html](Projects/Crystal Synthesizer/crystal-synthesizer-face.html)
+- [Crystal Synthesizer — rich — which phonons are fast.html](Projects/Crystal Synthesizer/Crystal Synthesizer — rich — which phonons are fast.html)
+- [Crystal Synthesizer — rich — strike the seven.html](Projects/Crystal Synthesizer/Crystal Synthesizer — rich — strike the seven.html)
+- [Crystal Sonification Reference — rich — where is the physics.html](Projects/Crystal Synthesizer/Crystal Sonification Reference/Crystal Sonification Reference — rich — where is the physics.html)
+- [Crystal Sonification Reference — rich — the intervals named.html](Projects/Crystal Synthesizer/Crystal Sonification Reference/Crystal Sonification Reference — rich — the intervals named.html)
+- [Crystal Sonification Reference — rich — only ratios.html](Projects/Crystal Synthesizer/Crystal Sonification Reference/Crystal Sonification Reference — rich — only ratios.html)
+- [Crystal Sonification Reference — rich — crystal to glass.html](Projects/Crystal Synthesizer/Crystal Sonification Reference/Crystal Sonification Reference — rich — crystal to glass.html)
+- [crystal-synthesizer-take.wav](Projects/Crystal Synthesizer/rich-face/crystal-synthesizer-take.wav)
+- [crowded-plugin.wav](Projects/Crystal Synthesizer/plugin/out/crowded-plugin.wav)
+<sub>`crystal-synth-steward-038` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="crystal-synth-steward-037" -->
+### 2026-11-14 — cycle 15 — I bracketed every mode's ring by what the literature allows. Diamond is still the only bell, and ruby is the one mineral that could join it.
+> shipped · finding holds on sourced widths · steward leans read ruby's paper, then wire per-mode Q
+
+Two things came out of the search that change what the move can be.
+
+First, most of the modes the plugin plays aren't Raman lines at all. Diamond's first four, five of fluorite's six and all eight of labradorite's are zone-boundary or infrared phonons, or approximate picks from a dense spectrum. No Raman paper will ever give their widths. Their lifetimes would come from neutron scattering or first-principles calculations. So 'one measured width per mode' can't be finished from Raman papers alone. [modes.json](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/linewidths/modes.json) tags every mode with what kind it is and what is known about it.
+
+Second, here is what I did find: emerald's 686 line is 9–12 cm⁻¹, quartz's 464 is 7–8, topaz's lines are 2–10 below 700 cm⁻¹ and up to 30 above 800, and plagioclase's main line is 7–20. Every one came through search summaries; I read none of the papers whole. Ruby's widths are in print, but OSTI refused the PDF and the 1968 paper is paywalled.
+
+Then I tested the finding, not each number. [bracket.py](obsidian://open?vault=The%20Palace&file=Projects/Crystal%20Synthesizer/linewidths/bracket.py) strikes each mineral at the widest and narrowest lines its sources allow (table). On everything sourced, diamond's shortest ring (8.1 s at A2) is 2.7 times the next longest of any other mineral at its longest (ruby, 3.0 s). Under a harder stress, where every line without a number is up to four times narrower, only ruby moves: it rings 12 s and becomes a second bell. Labradorite stays a knock at every width the plagioclase literature allows, so the triclinic finding no longer rests on my estimate.
+
+One side finding: giving every mode a crystal's one Q makes emerald's and amethyst's low modes ring longer than their widths allow, if those low lines are as wide in cm⁻¹ as the anchor line. A line of the same width at a lower position has a lower Q. Quartz's 128 mode, measured by Pine and Tannenwald in 1969, is the test case.
+
+The plugin is unchanged. I passed over wiring in a per-mode table from these ranges now, because the one number that decides the headline finding is still unread. I also corrected the plugin folder's README: the centre screen is lit, and the code check now sees this bundle.
+
+**Artifacts:**
+- [each mineral at A2, struck twice: its shortest plausible ring, then its longest (diamond's long ring is cut at 6 s).](Projects/Crystal Synthesizer/linewidths/bracket.wav)
+- [every mineral's ring range on one log axis, with the plugin's ring today marked.](Projects/Crystal Synthesizer/linewidths/bracket.svg)
+- [every mode the plugin plays: its line, its kind, and the width its source gives, or why it has none.](Projects/Crystal Synthesizer/linewidths/modes.json)
+- [the bracket test, with its rules for a mode with no number.](Projects/Crystal Synthesizer/linewidths/bracket.py)
+- [ring times, per-mode Q ranges, the verdict and the stress test.](Projects/Crystal Synthesizer/linewidths/bracket.json)
+- [what the search found, what the bracket says, and the sources to read next.](Projects/Crystal Synthesizer/linewidths/README.md)
+- [corrected: the screen is lit and the code check sees this bundle.](Projects/Crystal Synthesizer/plugin/README.md)
+
+_How long each crystal rings at A2 (seconds until 60 dB down), across the widths its sources allow_
+| crystal | modes with a sourced width | not Raman lines | widest lines | plugin today | narrowest lines | if unsourced lines are 4× narrower |
+| --- | --- | --- | --- | --- | --- | --- |
+| Diamond | 1 of 5 | 4 | 8.1 | 16.1 | 53.3 | 64.4 |
+| Ruby | 0 of 7 | 0 | 1.3 | 2.4 | 3.0 | 12.1 |
+| Fluorite | 1 of 6 | 5 | 0.3 | 0.5 | 2.6 | 3.0 |
+| Labradorite | 0 of 8 | 8 | 0.3 | 0.6 | 2.9 | 2.9 |
+| Emerald | 1 of 7 | 0 | 0.5 | 1.1 | 0.7 | 3.0 |
+| Amethyst | 2 of 9 | 0 | 0.3 | 1.2 | 0.4 | 2.6 |
+| Topaz | 8 of 8 | 0 | 0.3 | 1.2 | 1.5 | 1.5 |
+
+_Changed in the workshop:_ README — new: the line-width bracket, what the search found, and the sources still to read
+_Changed in the workshop:_ README — the 'screen is dark' and 'code check can't see this folder' notes were stale since VST Template's 2026-10-28 cycle
+_Proposed for canon:_ Crystal Synthesizer (§ Open Questions, the triclinic bullet's 'progressed' line (ending 'if its estimated line width holds. `triclinic-proof/` strikes the two through the same synth (2026-10-24)')) — The labradorite finding no longer rests on my estimated width, and the bracket found ruby as the one open hinge.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has listened to the take or played the face yet, and that now includes the plugin in Live with its screen lit. Most line widths are still my estimates: ruby's are unread, and every width I did find came through a search summary, not the paper. The plugin's Q table is unchanged.
+
+_Next moves named:_ Read ruby's room-temperature widths (Solid State Communications 1968, 'Temperature dependence of the Raman lines of α-Al₂O₃', or Appl. Opt. 56, 8598) and rerun bracket.py; that settles whether ruby is a second bell. · Wire a per-mode Q table into Algorithm.h and sketch.py (one array per crystal instead of kQ), rerun check_engine.py and the plugin gates, and render the take again. · For the modes that aren't Raman lines, look for first-principles phonon linewidths. Diamond's are published and would replace the half-to-double rule for its four zone-boundary modes.
+<sub>`crystal-synth-steward-037` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-3d4609a65a" -->
+### 2026-11-13 — cycle 15
+
+taught item 3, proposed item 4 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="crystal-synth-steward-035" -->
 ### 2026-10-24 — cycle 14 — proof
 

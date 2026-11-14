@@ -35,3 +35,13 @@ What Crystal Synthesizer's steward cycles taught the page, and the changes to th
 
 2. A plugin in a steward's bundle builds through VST Template's shared machinery when its CMakeLists.txt and plugin.sh also look for 'VST Template/machinery' beside each folder they climb past; nothing else has to change. *(offered by the steward, cycle 14)*
 - run · 2026-10-24 · cycle 14 · taught item 2
+
+## From cycle 15 — 2026-11-13
+
+3. Most modes the plugin plays are zone-boundary or infrared phonons, not Raman lines, so their widths can't come from Raman papers; tag a mode's kind before looking up its width, and test findings against brackets rather than waiting for every number. *(offered by the steward, cycle 15)*
+4. **Proposed for canon** · 2026-11-13 · [[Crystal Synthesizer]] · § Open Questions, the triclinic bullet's 'progressed' line (ending 'if its estimated line width holds. `triclinic-proof/` strikes the two through the same synth (2026-10-24)') · canon change owed *(proposed by the steward, cycle 15)*
+   Why: The labradorite finding no longer rests on my estimated width, and the bracket found ruby as the one open hinge.
+   Path: `Projects/Crystal Synthesizer.md`
+   >   — progressed: `crystal-rings/` found diamond is the only bell; labradorite, the triclinic case, rings as a dull knock with a bright tick, not a chaotic bell. `linewidths/` holds that across every width the plagioclase literature allows (7–20 cm⁻¹): 0.3 to 2.9 s at A2, against diamond's 8 s at the least. Ruby is the one mineral that could join diamond as a bell, and its widths are still unread. `triclinic-proof/` strikes diamond and labradorite through the same synth (2026-11-14)
+
+- run · 2026-11-13 · cycle 15 · taught item 3, proposed item 4 for canon

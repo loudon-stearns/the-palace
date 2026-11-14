@@ -1,0 +1,83 @@
+{
+ "what": "Every mode the plugin plays, with what is actually known about how wide its line is at room temperature, as a bracket (narrowest and widest plausible width, cm^-1). Q = line / width; a narrow line is a long ring. Built 2026-11-14, steward cycle 15, for the plan's move 'give every mode its own ring'.",
+ "kinds": {
+  "raman_measured": "a Raman line whose room-temperature width I found a source for, this cycle or cycle 12",
+  "raman_range": "a Raman line where I found only a range for the mineral's lines (or its family), not this line",
+  "raman_unread": "a Raman line whose width exists in the literature but I could not read it this cycle (rate-limited or paywalled)",
+  "not_raman": "not a Raman line at all: a zone-boundary or infrared phonon, or an approximate pick from a dense spectrum. No Raman width exists to look up. Bracketed by the rule: half to double the crystal's anchor Q range."
+ },
+ "unknown_rule": "anchor Q range x [0.5, 2]",
+ "crystals": [
+  {"name": "Diamond", "anchor": [1332, 1.0, 1.65], "anchor_note": "first-order Raman line, 1.65 +/- 0.02 (Prawer & Nemanich 2004); other sources 1.0-1.5",
+   "modes": [
+    {"r": 1.00, "cm": 805, "label": "TA (zone boundary)", "kind": "not_raman"},
+    {"r": 1.32, "cm": 1060, "label": "TO (zone boundary)", "kind": "not_raman"},
+    {"r": 1.48, "cm": 1190, "label": "LA (zone boundary)", "kind": "not_raman"},
+    {"r": 1.57, "cm": 1265, "label": "LO (zone boundary)", "kind": "not_raman"},
+    {"r": 1.65, "cm": 1332, "label": "Raman line", "kind": "raman_measured", "w": [1.0, 1.65]}
+   ]},
+  {"name": "Fluorite", "anchor": [322, 5, 12], "anchor_note": "T2g 322: 12 for a powder standard (Caries Res. 27:445); a clear single crystal is likely narrower, 5 is my guess at the floor",
+   "modes": [
+    {"r": 1.00, "cm": 190, "label": "TA (zone boundary)", "kind": "not_raman"},
+    {"r": 1.00, "cm": 190, "label": "TA (degenerate)", "kind": "not_raman"},
+    {"r": 1.35, "cm": 257, "label": "TO (infrared)", "kind": "not_raman"},
+    {"r": 1.47, "cm": 280, "label": "LA (zone boundary)", "kind": "not_raman"},
+    {"r": 1.69, "cm": 322, "label": "T2g Raman line", "kind": "raman_measured", "w": [5, 12]},
+    {"r": 2.48, "cm": 471, "label": "LO (infrared)", "kind": "not_raman"}
+   ]},
+  {"name": "Emerald", "anchor": [686, 9, 12], "anchor_note": "beryl/emerald ring line near 686: FWHM 9-12 across localities, Colombian lowest (Raman microspectroscopy of emeralds from various deposits)",
+   "modes": [
+    {"r": 1.00, "cm": 320, "label": "Al-O bend", "kind": "raman_unread"},
+    {"r": 1.23, "cm": 395, "label": "ring", "kind": "raman_unread"},
+    {"r": 1.47, "cm": 470, "label": "ring", "kind": "raman_unread"},
+    {"r": 1.68, "cm": 536, "label": "ring breath", "kind": "raman_unread"},
+    {"r": 2.13, "cm": 680, "label": "Si-O-Si (the 686 line)", "kind": "raman_measured", "w": [9, 12]},
+    {"r": 2.30, "cm": 736, "label": "Si-O", "kind": "raman_unread"},
+    {"r": 3.33, "cm": 1066, "label": "Si-O stretch", "kind": "raman_unread"}
+   ]},
+  {"name": "Ruby", "anchor": [418, 2.5, 6], "anchor_note": "corundum A1g 418; the room-temperature width is in Appl. Opt. 56, 8598 (2017) but OSTI refused the PDF this cycle (HTTP 429). 2.5-6 is my bracket for a clean oxide single crystal, not a reading",
+   "modes": [
+    {"r": 1.00, "cm": 378, "label": "Eg", "kind": "raman_unread"},
+    {"r": 1.10, "cm": 417, "label": "A1g", "kind": "raman_unread", "w": [2.5, 6]},
+    {"r": 1.14, "cm": 430, "label": "Eg", "kind": "raman_unread"},
+    {"r": 1.19, "cm": 448, "label": "Eg", "kind": "raman_unread"},
+    {"r": 1.52, "cm": 576, "label": "Eg", "kind": "raman_unread"},
+    {"r": 1.70, "cm": 644, "label": "A1g", "kind": "raman_unread"},
+    {"r": 1.98, "cm": 748, "label": "Eg", "kind": "raman_unread"}
+   ]},
+  {"name": "Amethyst", "anchor": [464, 7, 8], "anchor_note": "alpha-quartz 464: 7-8 at 300 K (Schmidt & Ziemann, Am. Mineral. 85:1725, via summaries); a second summary gives about 8",
+   "modes": [
+    {"r": 1.00, "cm": 128, "label": "cage (E)", "kind": "raman_unread", "note": "Pine & Tannenwald, Phys. Rev. 178:1424 (1969) measured it 5-300 K; ADS refused the abstract"},
+    {"r": 1.62, "cm": 207, "label": "soft mode", "kind": "raman_range", "w": [8, 20], "note": "known broad and fast-broadening; no number read"},
+    {"r": 2.07, "cm": 265, "label": "cage", "kind": "raman_unread"},
+    {"r": 2.77, "cm": 355, "label": "ring", "kind": "raman_unread"},
+    {"r": 3.13, "cm": 401, "label": "ring", "kind": "raman_unread"},
+    {"r": 3.63, "cm": 464, "label": "ring (strongest)", "kind": "raman_measured", "w": [7, 8]},
+    {"r": 5.45, "cm": 697, "label": "Si-O stretch", "kind": "raman_unread"},
+    {"r": 6.21, "cm": 795, "label": "Si-O stretch", "kind": "raman_unread"},
+    {"r": 8.32, "cm": 1065, "label": "Si-O stretch", "kind": "raman_unread"}
+   ]},
+  {"name": "Topaz", "anchor": [404, 2, 10], "anchor_note": "topaz: 'bands below 700 cm-1 are sharp, typical FWHM 2-10; above 800 broader, up to 30' (Am. Mineral. 111:1046, fluorine in topaz, via summary)",
+   "modes": [
+    {"r": 1.00, "cm": 152, "label": "Ag", "kind": "raman_range", "w": [2, 10]},
+    {"r": 1.45, "cm": 220, "label": "B2g", "kind": "raman_range", "w": [2, 10]},
+    {"r": 1.91, "cm": 290, "label": "B1g", "kind": "raman_range", "w": [2, 10]},
+    {"r": 2.37, "cm": 360, "label": "Ag", "kind": "raman_range", "w": [2, 10]},
+    {"r": 2.96, "cm": 450, "label": "B3g", "kind": "raman_range", "w": [2, 10]},
+    {"r": 3.68, "cm": 560, "label": "Ag", "kind": "raman_range", "w": [2, 10]},
+    {"r": 4.80, "cm": 730, "label": "B1g", "kind": "raman_range", "w": [2, 30], "note": "between the two regimes"},
+    {"r": 6.05, "cm": 920, "label": "Ag", "kind": "raman_range", "w": [10, 30]}
+   ]},
+  {"name": "Labradorite", "anchor": [508, 7, 20], "anchor_note": "plagioclase's strongest line 506-508: FWHM 7-20 in crystalline plagioclase; albite 7.9, anorthite 10.7 (shock study, Mistastin Lake; Freeman et al. Can. Mineral. 46:1477)",
+   "modes": [
+    {"r": 1.00, "cm": 60, "label": "approximate pick", "kind": "not_raman"},
+    {"r": 1.83, "cm": 110, "label": "approximate pick", "kind": "not_raman"},
+    {"r": 3.17, "cm": 190, "label": "approximate pick", "kind": "not_raman"},
+    {"r": 4.67, "cm": 280, "label": "approximate pick", "kind": "not_raman"},
+    {"r": 7.00, "cm": 420, "label": "approximate pick", "kind": "not_raman"},
+    {"r": 9.50, "cm": 570, "label": "approximate pick", "kind": "not_raman"},
+    {"r": 13.3, "cm": 800, "label": "approximate pick", "kind": "not_raman"},
+    {"r": 17.5, "cm": 1050, "label": "approximate pick", "kind": "not_raman"}
+   ]}
+ ]
+}
