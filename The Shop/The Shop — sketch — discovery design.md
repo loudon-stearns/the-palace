@@ -79,7 +79,7 @@ A block in the body, read by its labels; no new frontmatter and no Schema Ceremo
 
 Loudon's thought, adopted: building by hand is a craft that gets better, so it gets pages and ledgers.
 
-- **Sound from code.** Measurements you listen to. It refuses mood and routes it to Stable Audio Open. It opens with what the light round learned the hard way: measure the file you saved, not the array you built; one seed per piece; two identical sources left and right are mono to the ear; a kept helper set, "so the fourth maker doesn't write a fourth kick drum".
+- **Sound from code.** Sounds that are plainly synthesized, and measurements you listen to. The split is Loudon's, from the first comparison (2026-11-14): "perhaps it is choosing to use stable to generate pieces that would be \"sampled\" and by hand for sounds that are clearly \"synthesized\"". So a room, a drip, rain, a bird go to Stable Audio Open as sources, and the hand cuts, places and mixes them; a tone, a pulse, a filter sweep, a clock stay with the hand. The first draft's split, mood against measurement, was mine and is replaced by his. It opens with what the light round learned the hard way: measure the file you saved, not the array you built; one seed per piece; two identical sources left and right are mono to the ear; a kept helper set, "so the fourth maker doesn't write a fourth kick drum".
 - **Drawn SVG.** The Drafting Table's tokens as values, minimum text size at the width shown, escaping, which animation plays in the rich face.
 - **LaTeX comes alive**, with the Technical Diagram Standard as its house recipe.
 - **Raw Web Audio** folds into the Web Audio Worklet page.
@@ -161,11 +161,18 @@ The Shop belongs on the floor, but the floor is not where the tool gets fixed, s
 - Whether `palace-commit` can take the provenance trailer cleanly. I have read its header, not its body.
 - The two sessions' accounts of their own transcripts, and the walk's reports beyond the seven claims checked.
 
-## For Loudon to rule
+## The first comparison, heard
 
-1. May a steward, or a child's `shop run`, write an owed line on a Specialist's ledger?
-2. Does a local Sketch on the Daily Page still wait for your yes?
-3. How many comparisons per round are you willing to sit for?
-4. The hook on every session, or only the line in CHILD?
-5. Names for the hand's pages, and one page per material or one for the hand.
-6. Does stage 0 start now?
+The Pauline Oliveros room, by hand and through Stable Audio Open (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`). Loudon heard both. The hand's "sounds like \"musique contrete\" a collection of precise crafted sounds assembled together"; the Stable Audio side, "while not as good by my ear, rings \"truer\" to me and doesn't feel artificially collected". Neither won. What came of it is the sampled-or-synthesized split in § 3, and a method: generate the pieces, edit them together by hand. It also showed the loop working once end to end: a pair made in minutes, a verdict in his words, and a line owed on the Specialist's ledger.
+
+## Loudon's rulings, 2026-11-14
+
+1. **A steward, or a child's `shop run`, may write an owed line on a Specialist's ledger.** "Yes, but flagged and reviewed later when we decide to update the specialist based on the ledger." So the line is marked as unreviewed, and the Specialist's page changes only at a review.
+2. **A Sketch on the Daily Page does not wait.** "Sketches can use anything, just go."
+3. **Comparisons per round:** "a few if needed".
+4. **Stage 0 starts now.**
+
+## Still open
+
+- The hook on every session, or only the line in CHILD. He asked for the tradeoffs.
+- Names for the hand's pages, and one page per material or one for the hand. He asked for more context.

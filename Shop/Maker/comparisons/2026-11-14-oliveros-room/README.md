@@ -39,4 +39,8 @@ The first comparison of stage 0 of the Shop discovery design ([[The Shop — ske
 
 **What only an ear can say.** Whether the Shop's room reads as a room where the hand's does not. Whether the drip reads as one point of attention when it is not one drop a second. Whether the piece's claim survives the trade: a room that sounds real but cannot be drawn, against a room that can be drawn and does not sound real.
 
-**Heard by:** nobody yet.
+**Heard by:** Loudon, 2026-11-14, both files. His verdict, whole:
+
+> the " by hand" version sounds like "musique contrete" a collection of precise crafted sounds assembled together. The stable audio version, while not as good by my ear, rings "truer" to me and doesn't feel artificially collected. I feel for this example you had some very specific sonic goals, and stable couldn't meet them, but you are getting good at editing pieces together, and perhaps it is choosing to use stable to generate pieces that would be "sampled" and by hand for sounds that are clearly "synthesized".
+
+So neither side won. The hand's is better made and reads as assembled; the Shop's is worse and reads as true. What he offers from it is a split by kind of sound, not by tool: generate what would have been sampled, build by hand what is plainly synthesized, and edit the two together.
