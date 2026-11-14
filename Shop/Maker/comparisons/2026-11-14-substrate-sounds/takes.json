@@ -1,0 +1,175 @@
+{
+  "bed": {
+    "prompt": "the quiet air inside a large empty stone hall at night, soft low room tone, steady",
+    "chosen_seed": 1706,
+    "chosen_by": "flattest level across quarters",
+    "takes": [
+      {
+        "seed": 1703,
+        "quarter_spread_db": 18.3,
+        "gen_sec": 2.25
+      },
+      {
+        "seed": 1704,
+        "quarter_spread_db": 22.3,
+        "gen_sec": 1.41
+      },
+      {
+        "seed": 1705,
+        "quarter_spread_db": 22.9,
+        "gen_sec": 1.4
+      },
+      {
+        "seed": 1706,
+        "quarter_spread_db": 3.5,
+        "gen_sec": 1.41
+      }
+    ],
+    "loop": "16 s, a 4 s crossfade folds the tail over the head",
+    "step_at_the_seam": 0.0001
+  },
+  "step": {
+    "prompt": "a single soft footstep on a stone floor, close, then silence",
+    "chosen_seed": 1705,
+    "chosen_by": "the onset furthest above the 0.3 s before it, among takes long enough to fill the cue",
+    "cut_sec": 0.22,
+    "takes": [
+      {
+        "seed": 1703,
+        "onset_sec": 1.82,
+        "isolation_db": 56.7,
+        "second_half_vs_first_db": -20.0,
+        "gen_sec": 1.55
+      },
+      {
+        "seed": 1704,
+        "onset_sec": 1.77,
+        "isolation_db": 43.4,
+        "second_half_vs_first_db": -14.4,
+        "gen_sec": 0.77
+      },
+      {
+        "seed": 1705,
+        "onset_sec": 1.82,
+        "isolation_db": 58.7,
+        "second_half_vs_first_db": -21.5,
+        "gen_sec": 0.77
+      },
+      {
+        "seed": 1706,
+        "onset_sec": 0.5,
+        "isolation_db": 50.0,
+        "second_half_vs_first_db": -21.7,
+        "gen_sec": 0.77
+      }
+    ]
+  },
+  "glass": {
+    "prompt": "a single soft knock on a large pane of glass, a low ring, then silence",
+    "chosen_seed": 1706,
+    "chosen_by": "the onset furthest above the 0.3 s before it, among takes long enough to fill the cue",
+    "cut_sec": 2.2,
+    "takes": [
+      {
+        "seed": 1703,
+        "onset_sec": 0.08,
+        "isolation_db": 63.9,
+        "second_half_vs_first_db": -18.5,
+        "gen_sec": 1.65
+      },
+      {
+        "seed": 1704,
+        "onset_sec": 0.11,
+        "isolation_db": 56.6,
+        "second_half_vs_first_db": -18.5,
+        "gen_sec": 0.77
+      },
+      {
+        "seed": 1705,
+        "onset_sec": 0.08,
+        "isolation_db": 56.4,
+        "second_half_vs_first_db": -19.3,
+        "gen_sec": 0.77
+      },
+      {
+        "seed": 1706,
+        "onset_sec": 0.1,
+        "isolation_db": 64.2,
+        "second_half_vs_first_db": -18.2,
+        "gen_sec": 0.77
+      }
+    ]
+  },
+  "ground": {
+    "prompt": "a single heavy low thud on packed earth, then silence",
+    "chosen_seed": 1706,
+    "chosen_by": "the onset furthest above the 0.3 s before it, among takes long enough to fill the cue",
+    "cut_sec": 2.0,
+    "takes": [
+      {
+        "seed": 1703,
+        "onset_sec": 0.66,
+        "isolation_db": 22.8,
+        "second_half_vs_first_db": -20.9,
+        "gen_sec": 1.64
+      },
+      {
+        "seed": 1704,
+        "onset_sec": 0.12,
+        "isolation_db": 33.6,
+        "second_half_vs_first_db": -18.2,
+        "gen_sec": 0.78
+      },
+      {
+        "seed": 1705,
+        "onset_sec": 0.15,
+        "isolation_db": 45.3,
+        "second_half_vs_first_db": -8.5,
+        "gen_sec": 0.77
+      },
+      {
+        "seed": 1706,
+        "onset_sec": 0.12,
+        "isolation_db": 48.8,
+        "second_half_vs_first_db": -14.4,
+        "gen_sec": 0.77
+      }
+    ]
+  },
+  "grains": {
+    "prompt": "a handful of dry sand grains scattering across a hard floor, brief, then silence",
+    "chosen_seed": 1705,
+    "chosen_by": "the onset furthest above the 0.3 s before it, among takes long enough to fill the cue",
+    "cut_sec": 1.0,
+    "takes": [
+      {
+        "seed": 1703,
+        "onset_sec": 0.64,
+        "isolation_db": 28.2,
+        "second_half_vs_first_db": -10.0,
+        "gen_sec": 1.65
+      },
+      {
+        "seed": 1704,
+        "onset_sec": 0.66,
+        "isolation_db": 23.2,
+        "second_half_vs_first_db": -0.2,
+        "gen_sec": 0.77
+      },
+      {
+        "seed": 1705,
+        "onset_sec": 1.36,
+        "isolation_db": 36.7,
+        "second_half_vs_first_db": -14.0,
+        "gen_sec": 0.77
+      },
+      {
+        "seed": 1706,
+        "onset_sec": 0.64,
+        "isolation_db": 21.3,
+        "second_half_vs_first_db": -5.3,
+        "gen_sec": 0.77
+      }
+    ]
+  }
+}
