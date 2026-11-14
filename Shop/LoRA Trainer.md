@@ -31,18 +31,20 @@ links:
 
 **Charter.** Take a small image set (8+) of one character or subject and train a diffusion **LoRA** on a rented RunPod GPU that reproduces that identity in new scenes — then grade it honestly. Bound to two trainers wrapped as cost/quality **Tiers**; rides [[Shop/RunPod GPU Backend]] for the compute.
 
-The reason this entry exists as operational anatomy and not a paragraph: the first four LoRAs cost **six dependency walls** to train. Each is now solved and recorded below, so the *next* run is first-try (proven: after hardening, two DreamBooth-control LoRAs trained clean on the first attempt).
+I refuse to ship a weight ungraded, to grade identity with whole-image similarity, or to blame the recipe before a DreamBooth control has run. Every run of mine rents a pod, so none starts without Loudon's yes.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+The reason this entry exists as operational anatomy and not a paragraph: the first four LoRAs cost **six dependency walls** to train. Each is now solved and recorded below, so the *next* run is first-try (proven: after hardening, two DreamBooth-control LoRAs, a dog and a toy duck, trained clean on the first attempt on 2026-06-15; logs in `Projects/BLUELINE/proofs/track-II-lora/dbgrade/`. The duck's render then hit Gotcha 6 and ran out of memory, so only the dog was graded).
 
-**Best used for, so far:** Nothing yet on a real brief that held. Two DreamBooth-control LoRAs trained clean first-try after hardening. The BLUELINE r4ng3r LoRA was a net negative from a narrow, hooded 8-image set. I take 8+ images of one subject and train a LoRA on a rented GPU.
-**Not yet shown to hold:** The r4ng3r LoRA graded DINO 0.317, below baseline. A rebuilt dataset, the SDXL-to-FLUX base-swap question and whether the Study tier ever beats Piece are all unanswered. No run date is recorded.
-**Not my purpose:** Not stated on the page
-**Run:** No single command on the page. Recipe is pod, install, train, reap. Nearest examples: Projects/BLUELINE/proofs/track-II-lora/run_flux.sh and run_sdxl.sh, graded with grade_render.py.
-**Speed:** A few hours of pod time per LoRA end to end; Piece about 1200 steps, Study about 1500. No per-step or dated timing recorded.
-**Checked by:** A script can check the weight loads in the renderer and score DINO, ArcFace and CLIP-T. Only a person's in-context rating shows whether the face and look hold.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands on a .safetensors weight plus a graded verdict. Needs a folder of PNGs with matching captions, a trigger word and a 48GB GPU pod (24GB on Piece).
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Not run on 2026-11-14: every line of mine rents a GPU pod, which waits for Loudon. Each line was checked against BLUELINE's Track II logs and report (`Projects/BLUELINE/proofs/track-II-lora/`) that day instead.*
+
+**Best used for, so far:** Teaching a model one character or subject from 8+ images, so it holds that identity in new scenes. Evidence: a DreamBooth-control dog LoRA lifted DINO from 0.422 to 0.776 across four new contexts (2026-06-15/16); BLUELINE's own character LoRA did not hold (below).
+**Not yet shown to hold:** A real brief: BLUELINE's r4ng3r LoRA graded DINO 0.317 against a text-only baseline of 0.475 (2026-06-16), from a narrow, hooded 8-image set. A rebuilt dataset, the SDXL-to-FLUX base-swap question, and whether the Study tier ever beats Piece are unanswered.
+**Not my purpose:** A style, palette or look: I have trained identity only, and a style LoRA is untried. I don't render the finished images (ComfyUI or the RunPod backend does) and I don't fix a dataset by adding steps.
+**Run:** Not run this pass: it rents a pod, which waits for Loudon. On a pod his yes started, with `Projects/BLUELINE/proofs/track-II-lora/` copied to `/workspace`: `bash dreambooth_control.sh dog sks dog` is the one self-contained script (it installs, trains a FLUX LoRA and renders a grading set); for your own subject, follow that folder's `TRAIN.md`, since `run_flux.sh` and `run_sdxl.sh` are re-runs that assume its install. The pod is [[RunPod GPU Backend — runbook]] § Renting a pod.
+**Speed:** On a 48 GB RTX 6000 Ada (2026-06-15): FLUX LoRA, 1000 steps, 41 min of training; 46 min end to end for the dog control with install and render. Not measured this pass.
+**Checked by:** A script checks the weight loads in the renderer and scores DINO, ArcFace and CLIP-T against a no-LoRA baseline (`grade_render.py`, `grade_score_v2.py`, `db_score.py`). Only a person's in-context rating says whether the face and look hold.
+**Wears:** No design system; a LoRA wears whatever the dataset teaches it.
+**Hands on:** I hand on a `.safetensors` weight and a graded verdict, which ComfyUI or the RunPod backend loads to render the character; Frame Designer and BLUELINE's boards are where it would show. I take a folder of PNGs with matching captions, a trigger word, and a 48 GB pod (24 GB on Piece with quantize).
 
 ## Tiers
 
@@ -81,13 +83,13 @@ Render the subject across **new contexts × different seeds** (where seed-lockin
 - **CLIP-T** — context adherence (catches overfit-ignores-prompt).
 - Scripts: `grade_render.py`, `grade_score_v2.py`, `db_score.py`, `consistency_ruler.py` (in `Projects/BLUELINE/proofs/track-II-lora/`).
 
-**The DreamBooth-control move** (the decisive one): when a LoRA grades badly, run a *known-good* DreamBooth subject through the same pipeline. If it scores high (a corgi hit DINO **0.776** vs 0.42 baseline), the **pipeline is sound and the dataset is the problem** — don't debug the recipe. This separated the two cleanly on BLUELINE's `r4ng3r`: same recipe, DINO 0.317 (the LoRA, *below* baseline) vs 0.776 (the control).
+**The DreamBooth-control move** (the decisive one): when a LoRA grades badly, run a *known-good* DreamBooth subject through the same pipeline. If it scores high (a corgi hit DINO **0.776** vs 0.422 baseline, trained 2026-06-15 and graded 2026-06-16, `dbgrade/db-dino-scores.txt`), the **pipeline is sound and the dataset is the problem** — don't debug the recipe. This separated the two cleanly on BLUELINE's `r4ng3r`: same recipe, DINO 0.317 (the LoRA, *below* baseline) vs 0.776 (the control).
 
 **The lesson, human-confirmed.** Loudon's in-context rating ([[Review Layer]] → [[STIGMERGY]]) matched the metrics and sharpened them: a good *description* locks the **brief** (costume) but not the **person** (face/age drift). So the lever is **a dataset that teaches a consistent face** — visible faces, varied lighting/distance/angle, more images — not more steps. As-trained from a narrow, hooded, 8-image AI-generated set, the LoRA was a *net negative*.
 
 ## Resource Footprint
 
-A 48GB secure card, a few hours of pod time per LoRA end to end. Terminate on completion; an idle pod keeps billing. The key, and everything else Runpod: [[RunPod GPU Backend — runbook]].
+A 48GB secure card. Training a FLUX LoRA took 41 min for 1000 steps on an RTX 6000 Ada (2026-06-15); a pod session with install, training, a grading render and reaping is about an hour, and a few hours once you count stock-outs and the second tier. Terminate on completion; an idle pod keeps billing. The key, and everything else Runpod: [[RunPod GPU Backend — runbook]].
 
 ## Self-Check
 

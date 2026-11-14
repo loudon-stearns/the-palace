@@ -30,16 +30,16 @@ tags: [specialist, shop, rig, openpose, controlnet, figure, blender, mpfb2, rigi
 ## Charter
 I turn a **pose** and a **body type** into a figure ready for the hand-drawn-3D seam. MPFB2's own human + MPFB2's own weighted rig → **three aligned ControlNet plates from one camera**: ink, depth, and a *canonical* OpenPose. The OpenPose is the whole point — I do **not** render 3D spheres; I project the rig's own joints to 2D and draw them with the **actual `draw_bodypose` from `comfyui_controlnet_aux`**, so the skeleton is pixel-identical to the preprocessor and the controlnet-openpose model reads it cleanly. I am the figure-staging method [[Frame Designer]] dispatches, the bring-together of [[Blocked, Not Prompted|authored geometry]] and a ControlNet-ready pose.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed and Checked by, by posing one MPFB2 figure headless on this Mac and drawing its OpenPose; the D2 redraw, the hands path and the studio were not rerun, and the other lines are read from the page.*
 
-**Best used for, so far:** A posed MPFB2 human with a weighted rig, three registered plates (ink, depth, canonical OpenPose), and a D2 redraw that held the pose (proven 2026-06-30). Hands shipped the same day in an 8-gesture RunPod matrix.
-**Not yet shown to hold:** Face keypoints are synthesized from the head bone, and draw_facepose is not built. Hands-with-objects A/B and the many-people tiers are pending or next. The pose library and a one-pass Blender OpenPose draw are not built.
-**Not my purpose:** Facial expression and fine face detail (not yet). Not stated on the page otherwise; it feeds the redraw rather than replacing ComfyUI.
-**Run:** No command on the page yet. It names flags (--pose A/B/C, --pose-json, --gender --age --muscle --weight --height) for pose_rig_mpfb_v3.py, but no full line. Scripts are in Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/.
-**Speed:** Local D2 redraw about 25 min per frame on the Mac's MPS (page, undated). Plate time is not recorded.
-**Checked by:** A script can check that all plates share one camera and the keypoints are in view. Only an eye can judge whether the inked figure reads well and the pose holds.
-**Wears:** Not yet wired to a design system
-**Hands on:** I hand ComfyUI ink, depth and OpenPose plates plus keypoints.json from one camera. I need a pose (JSON, name or hand-posed Rigify rig) and a body type.
+**Best used for, so far:** A posed human figure for a generator to ink: pose and body type in, three plates from one camera out (Freestyle ink, depth, canonical OpenPose). Evidence: the MPFB2 rebuild and its D2 redraw that held a hard stride (2026-06-30), an 8-gesture hands matrix the same day, and a pose B figure rerun headless on 2026-11-14.
+**Not yet shown to hold:** Face keypoints are synthesized from the head bone, and `draw_facepose` is not built. Hands with objects (A/B pending), many people, a pose library, and a one-pass draw inside Blender are not built or not proven.
+**Not my purpose:** Facial expression and fine face detail, not yet. I don't ink the figure myself: ComfyUI's D2 redraw does, from my plates.
+**Run:** From the palace root (main checkout): `/opt/homebrew/bin/blender -b -P "Shop/Figure Rig/proofs/2026-11-14-card-check/pose_rig_mpfb_v3.py" -- --pose B --gender 1.0 --label B_male`, then `_tools/ComfyUI/venv/bin/python Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/draw_openpose.py "Shop/Figure Rig/proofs/2026-11-14-card-check/renders/mpfb-v3/pose_B_male"`. Plates land in `renders/mpfb-v3/` beside whichever copy of the script runs, so copy it to the job's own folder first.
+**Speed:** One figure, ink and depth plates plus keypoints: 11.9 s headless; the OpenPose draw after it: 3.4 s (2026-11-14, Blender 5.1.2 and MPFB2 2.0.17). The local D2 redraw: about 25 min a frame on MPS (2026-06-30, not rerun).
+**Checked by:** A script checks the three plates share one size and camera and that all 18 keypoints are in view ("18 visible /18"). Only an eye judges whether the inked figure reads and the pose holds.
+**Wears:** No design system is wired in; the D2 redraw inks in BLUELINE's locked pen-flow style.
+**Hands on:** I hand ComfyUI ink, depth and OpenPose plates plus `keypoints.json`, all from one camera, for the D2 redraw (canny 0.30, depth 0.60, openpose 0.70). Lettering can anchor a word to my keypoints. I take a pose (a named pose, JSON, or the Rigify rig posed by hand) and a body type.
 
 ## The real-human figure, with an IK rig
 The body and its skeleton are generated together by MPFB2's own pipeline:
@@ -76,8 +76,7 @@ Visual proof of the whole rebuild: `figure_rig_proofs.html` (pipeline · model �
 - **Piece** — either path + the **D2 redraw** → a believable inked figure, pose held, in the locked pen-flow style.
 
 ## Honest limits
-- **No finger keypoints yet** in the OpenPose draw — though the Rigify rig now *has* finger bones, so `draw_handpose` finally has something to project (next).
-  - Answered below in § Forward Vectors (2026-10-24): hands shipped 2026-06-30, drawn with the real `draw_handpose` from the rig's 38 finger bones.
+- **Fingers come from the hands path, not the body path.** Since 2026-06-30 `hands_rig.py` projects the rig's 38 finger bones and draws them with the real `draw_handpose` (§ Forward Vectors). The programmatic body path, `pose_rig_mpfb_v3.py`, still draws the 18 body keypoints only: its OpenPose has no hands (rerun 2026-11-14, "hands: 0").
 - **Face keypoints are synthesized** from the head bone's frame (nose/eyes/ears placed by offset), not a detailed face mesh read — good enough for facing, not for expression.
 - **The local D2 redraw is slow** — ~25 min on this Mac's MPS for one frame; the RunPod backend is the faster path for volume.
 - **Two posing surfaces, one truth.** The programmatic path is fast and scriptable; the studio is for hand-feel. They share the body source but not the rig, so the OpenPose maps are maintained separately.
@@ -90,5 +89,7 @@ Visual proof of the whole rebuild: `figure_rig_proofs.html` (pipeline · model �
 - **Vendor the OpenPose draw into Blender** (PIL reimpl or pip cv2) so `pose → all plates` is one pass with no ComfyUI-venv hop — *keeping* pixel-identity to the preprocessor. Don't bake approximated skeleton geometry as the conditioning plate; add a Grease-Pencil rig-tied overlay for live viewport WYSIWYG instead.
 - **A pose library** — dial a frame from a catalogue, not hand-typed JSON or hand-posing from scratch.
 - **Promote the studio + the examples batch into a Shop recipe** so [[Frame Designer]] can dispatch "stage N people in M styles" as a named move.
+
+**Where I run.** On this Mac only: `/opt/homebrew/bin/blender` (5.1.2) headless, with MPFB2 at `~/Library/Application Support/Blender/5.1/extensions/user_default/mpfb`, and the main checkout's ComfyUI venv for `draw_openpose.py`, which imports `draw_bodypose` from `_tools/ComfyUI/custom_nodes/comfyui_controlnet_aux` by an absolute path. The pod scripts (`batch_*_pod.py`) rent RunPod and wait for Loudon.
 
 Tools: `Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/` — `pose_rig_mpfb_v3.py` (programmatic, MPFB2 native, height-adaptive autoframe) · `figure_rig_pose_studio.py` → `figure_rig_studio.blend` (hand-pose Rigify IK + embedded `render_plates`) · `hands_rig.py` / `faces_rig.py` (hand + face plates) · `hands_objects_rig.py` (proxy-in-grip + color-ID pass) · `examples_manifest.py` + `render_plates_all.py` + `batch_pod.py` (the 8×3 matrix: 8 bodies/poses → Blender plates → RunPod pose-locked restyle in 3 styles) · `batch_faces_and_hands_pod.py` (one-pod combined runner, canny/depth gate) · `hands_ablation_pod.py` (leave-one-out guide ablation) · `build_deposit.py` → `figure_rig_deposit.html` · `draw_openpose.py` · `redraw_test.py` · `figure_rig_proofs.html` (visual proofs + the matrix gallery). Design note: [[Figure Rig — face-hands-openpose design]]. MPFB2 installed at `…/Blender/5.1/extensions/user_default/mpfb`.

@@ -45,16 +45,16 @@ The [[The Shop|Shop]] citizen that renders **short, high-impact words as imagery
 
 Given a word and its emotional/source metadata, produce a letterform image — on black, in the locked house idiom — whose *substance* (font, material, treatment, negative space) means what the word means. Legible by construction, expressive by diffusion.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed and Checked by, by rendering "NO" once at the Study tier on this Mac; Best used for, Not yet shown, Not my purpose, Wears and Hands on are read from the page and BLUELINE's bench, not tried.*
 
-**Best used for, so far:** Short, high-impact words rendered as imagery, proven on BLUELINE's seven voices (including NO, too late, BURNING). Plates for thought, whisper, shout and sfx variants sit in the bundle.
-**Not yet shown to hold:** Named recipes are only a hope. Long legible text, a vector letterer, a visual legibility judge and full placement are all future. Placement is proven in one mode only (anchor in Blender, 2026-07-01).
-**Not my purpose:** Long legible captions and narration go to a future vector letterer. SDXL cannot spell free-hand, so keep words short.
-**Run:** From the page's Bench: <comfy venv>/python render_text.py, run in Projects/BLUELINE/proofs/text-layer/. It re-renders and rebuilds contact-sheet.html. No tier or word argument is documented.
-**Speed:** About 150-200 s per word on MPS for Study and Piece. Skeleton, sampler and knockout are CPU-only and instant. No date given.
-**Checked by:** A script can check the render finished and the image exists. Legibility needs a human eye; the page names a legibility judge as a future item.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands on a text image on black in the locked house idiom, optionally a negative-space variant. Needs words, type, source, emotion, addressee, diegesis and beat.
+**Best used for, so far:** A short word that has to carry a feeling as an image: a shout, a whisper, a sound effect, a title. Evidence: BLUELINE's seven voices (2026-06-24, plates in my bundle, NO, too late and BURNING among them), and a legible canny-locked "NO" rendered again on 2026-11-14.
+**Not yet shown to hold:** Long legible text, named recipes a brief can call by tier, a vector letterer, a legibility judge, and placement beyond one mode (anchored in Blender, 2026-07-01). The full Piece chain, photoreal to ink to negative space, was not rerun on 2026-11-14.
+**Not my purpose:** Captions and narration, anything longer than a few words: SDXL cannot spell free-hand, so they wait for a vector letterer. Body text set in a font stays the page's own type.
+**Run:** With the ComfyUI server up (Shop/ComfyUI's Run line), from the palace root: `_tools/ComfyUI/venv/bin/python "Shop/Lettering/proofs/2026-11-14-card-check/letter_one.py" --only shout-no --seeds 1 --out OUT_DIR`; `--mode stylize` after that gives the ink pass and its negative-space variant. Voice ids are in `Projects/BLUELINE/proofs/text-layer/text-prompts.json`.
+**Speed:** One word, Study tier (skeleton + canny SDXL, 1216×832, 36 steps) on this Mac's MPS: 185 s on a warm server (2026-11-14). The skeleton itself is instant on the CPU.
+**Checked by:** A script checks the render finished and the image exists at 1216×832. Only an eye judges whether the word is legible and means what it says; the legibility judge is still a forward vector.
+**Wears:** No design system is wired in. I letter in BLUELINE's locked pen-flow ink idiom, on black.
+**Hands on:** I hand on a word as an image on black, in the house idiom, with an optional negative-space variant: Frame Designer places it in a panel or a balloon, and Blender anchors it to a mouth keypoint. I take a word with its type, source, emotion, addressee, diegesis and beat, and I lean on ComfyUI to render.
 
 ## Job Contract
 
@@ -85,11 +85,11 @@ out: text image  (on black · locked idiom · optional negative-space variant)
 
 ## Resource Footprint
 
-Local ComfyUI SDXL, ~150–200 s/word on MPS (Study/Piece). Skeletons, sampler, and the knockout are CPU-only and instant.
+Local ComfyUI SDXL, ~150–200 s/word on MPS (Study/Piece); one Study word measured 185 s on 2026-11-14 ([[Lettering — tuning]]). Skeletons, sampler, and the knockout are CPU-only and instant.
 
 ## Bench
 
-`Projects/BLUELINE/proofs/text-layer/` holds the renderer, its prompts, the font library and sampler, the seven-voice proof suite and the balloon bench. `<comfy venv>/python render_text.py` re-renders and rebuilds `contact-sheet.html` at the end of the run. The balloon bench, `balloon_genai.py`, imports the catalog `balloon_lib.py` from `Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/`.
+`Projects/BLUELINE/proofs/text-layer/` holds the renderer, its prompts, the font library and sampler, the seven-voice proof suite and the balloon bench. Run inside that folder, `<comfy venv>/python render_text.py` takes `--only <ids>` (comma-separated voice ids from `text-prompts.json`: ascension, shout-no, whisper-stay, sfx-thoom, dying-toolate, lyric-burning, thought-real), `--seeds N` (default 2), `--mode skeleton | free | stylize` (default skeleton; stylize needs the skeleton render first) and `--denoise` (stylize only, default 0.78). With no arguments it renders all seven voices at two seeds each. It writes into the bench's own `out/`, `skel/` and `desat/` and rebuilds `contact-sheet.html`, so for a job that belongs to another page use `Shop/Lettering/proofs/2026-11-14-card-check/letter_one.py`, which runs the same renderer with the same arguments into a folder you name. The balloon bench, `balloon_genai.py`, imports the catalog `balloon_lib.py` from `Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/`.
 
 ## Forward Vectors
 

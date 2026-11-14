@@ -28,3 +28,8 @@ What each job taught the SAM page. Each item names what the job showed and what 
 2. **On the same compositions re-rendered to photoreal or flat-cel (SDXL/FLUX + canny ControlNet), SAM segmented sharply:** 30/26/22 distinct object regions on photoreal, 44/47/25 on flat-cel, across three test scenes. Changed: flat cel-shaded became the page's best input and its Recipe converts first; SAM's training domain became the intermediate domain the convert-first reframe in [[Animate the Background]]'s N-layer case converts to.
 
 - run · 2026-06-25 · layer-decomposition session, BLUELINE shot 02 and three test scenes, probe · taught items 1, 2
+
+## From the card check — 2026-11-14 — a figure in fog, prompted and auto
+
+3. **On this Mac I run on the CPU, and auto mode is the slow one.** At 768×1024, a prompted ViT-B cut (`sam_b.pt`, one point) took 3.8 s and auto MobileSAM (`mobile_sam.pt`) took 28.5 s, ten masks; ultralytics chose the CPU, not MPS. The page had said seconds for MobileSAM and tens of seconds for ViT-B auto. Changed: the card's Speed line gives the measured times; the Job Contract's cost line waits for the review. Whether passing `device="mps"` is faster was not tried. Owed a review: written by the card-check session, outside a ledger review.
+- run · 2026-11-14 · card check: Blender's prompt_only_sdxl_seed7 render, one point prompt and auto, probe · taught item 3

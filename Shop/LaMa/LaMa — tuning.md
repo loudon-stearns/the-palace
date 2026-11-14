@@ -28,3 +28,7 @@ What each job taught the LaMa page. Each item names what the job showed and what
 2. **Mask quality decides the plate.** A mask that leaks past the object's edge leaves a halo of the original foreground; one too tight leaves a fringe to fill. Changed: dilate the mask a few pixels past the silhouette (~5–10 px in the Recipe) before handing it over, whether it came from [[SAM]], keypoints or the depth silhouette.
 3. **Very large holes drift:** the bigger the missing region against the frame, the more LaMa guesses. Changed: best on holes that are a minority of the frame, with context on most sides.
 - run · 2026-06-25 · BLUELINE shot 02, plate · taught items 1, 2, 3
+
+## From the card check — 2026-11-14 — a figure filled out of a fog scene
+
+- run · 2026-11-14 · card check: Blender's prompt_only_sdxl_seed7 render with SAM's figure mask, dilated 9 px, plate · nothing new

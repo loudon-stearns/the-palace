@@ -27,8 +27,8 @@ Requires MPFB2 (v2.0.17, blender_version_min 4.2.0) installed as a Blender exten
 Verified on Blender 5.1.2 / Mac MPS, 2026-06-30.
 
 GOTCHA: do NOT pass --factory-startup (it disables the MPFB addon). Run:
-  blender -b -P pose_rig_mpfb_v3.py -- --pose B --gender 0.0 --age 0.25 --label B_male
-  blender -b -P pose_rig_mpfb_v3.py -- --pose B --gender 1.0 --age 0.25 --label B_female
+  blender -b -P pose_rig_mpfb_v3.py -- --pose B --gender 1.0 --age 0.25 --label B_male
+  blender -b -P pose_rig_mpfb_v3.py -- --pose B --gender 0.0 --age 0.25 --label B_female
 
 Outputs: renders/mpfb-v3/pose_<label>/{ink_plate,depth_plate}.png + keypoints.json
 """
@@ -105,7 +105,7 @@ def parse_args():
     p.add_argument("--pose-json", default=None, help='{"upperleg01.L":[-35,0,8],...}')
     p.add_argument("--label", default=None)
     # parametric body (macro detail) — male/female/young/old come from here
-    p.add_argument("--gender", type=float, default=0.5)  # 0=male 1=female
+    p.add_argument("--gender", type=float, default=0.5)  # 0=female 1=male (MPFB macro.json; fixed 2026-11-14)
     p.add_argument("--age",    type=float, default=0.5)  # 0=baby .25=young 1=old
     p.add_argument("--muscle", type=float, default=0.5)
     p.add_argument("--weight", type=float, default=0.5)

@@ -25,16 +25,16 @@ tags: [specialist, shop, perception, inpainting, decomposition, local]
 
 I fill holes. Give me an image and a binary mask of what to remove, and I reconstruct what should be behind it — large-mask inpainting that resolves into plausible structure, not the smeared average that classical inpainters produce. I run locally (`simple-lama-inpainting`, the `big-lama` weights). I'm the **Complete** skill of layer decomposition: extract the foreground, hand me the hole, get a clean plate back.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed, Checked by and Hands on, by filling a SAM-cut figure out of one of Blender's 2026-06-13 renders with a script written that day; Best used for, Not yet shown and Not my purpose are read from the page and the ledger.*
 
-**Best used for, so far:** So far one job: BLUELINE shot 02, 2026-06-25. I removed the figure and rebuilt the car, fire and street behind him well enough that the eye accepted the clean plate. Loudon rejected the classical cv2.inpaint fill as 'horrible'.
-**Not yet shown to hold:** Nothing recorded as failed beyond the founding gotchas: I paint plausible texture, not the true occluded shape; a leaky or tight mask ruins the plate; very large holes drift (ledger items 1-3). Only one job so far.
-**Not my purpose:** I don't recover the actual hidden geometry; exact occluded-shape completion is called an open problem. I need a mask handed to me and don't make one.
-**Run:** From the page's Recipe, in Python: from simple_lama_inpainting import SimpleLama; SimpleLama()(image, mask). Mask is the foreground silhouette dilated ~5-10px. No script path or install command is given.
-**Speed:** Page says 'seconds', CPU-fine and faster on MPS/GPU; no figure or date is recorded.
-**Checked by:** A script can check the output size matches the input and that pixels outside the mask are unchanged. Only an eye can judge whether the fill is plausible, with no halo or fringe.
-**Wears:** Not yet wired to a design system
-**Hands on:** I hand on a clean background plate; I need an RGB image plus a white-means-fill mask, dilated past the silhouette, from SAM, keypoints or the Depth Anything silhouette.
+**Best used for, so far:** A clean background plate once a foreground is cut away. Evidence: on BLUELINE shot 02 (2026-06-25) I rebuilt the car, fire and street behind the figure well enough that the eye accepted the plate, where Loudon called the classical `cv2.inpaint` fill "horrible"; on 2026-11-14 I filled a figure out of a fog scene.
+**Not yet shown to hold:** I paint plausible texture, not the true hidden shape; a leaky or tight mask ruins the plate; very large holes drift (ledger items 1–3). On 2026-11-14 the soft, fog-faded edge of a figure outside SAM's mask stayed as a faint ghost. Only two jobs so far.
+**Not my purpose:** Recovering the actual hidden geometry, which stays an open problem, and making the mask: SAM, keypoints or Depth Anything's silhouette hand it to me.
+**Run:** From the palace root: `_tools/ComfyUI/venv/bin/python "Shop/LaMa/proofs/2026-11-14-card-check/lama_fill.py" IMAGE MASK OUT.png --dilate 9`.
+**Speed:** 768×1024 with a hole of 19% of the frame: 9.2 s to fill, on the CPU; 11 s for the whole command (2026-11-14).
+**Checked by:** `lama_fill.py` checks the output matches the input size and that every pixel outside the dilated mask is unchanged. Only an eye judges whether the fill is plausible, with no halo, fringe or ghost.
+**Wears:** No design system is wired in.
+**Hands on:** I hand on a clean plate that Animate the Background animates under the foreground, and that ComfyUI or Frame Designer can draw over. I take an RGB image and a mask, white means fill, from SAM, keypoints or Depth Anything.
 
 ## Job Contract
 
@@ -57,4 +57,4 @@ What filling holes has taught, as it stands today. Which job taught each, and wh
 
 ## Recipe
 
-`from simple_lama_inpainting import SimpleLama`; `SimpleLama()(image, mask)`. Mask = the foreground silhouette, dilated ~5–10px. For [[Animate the Background]]: infill *first*, then animate the clean plate, then composite the crisp foreground back on top.
+`from simple_lama_inpainting import SimpleLama`; `SimpleLama()(image, mask)`. Mask = the foreground silhouette, dilated ~5–10px. As a command, from the palace root: `_tools/ComfyUI/venv/bin/python "Shop/LaMa/proofs/2026-11-14-card-check/lama_fill.py" IMAGE MASK OUT.png --dilate 9`; it pastes the unmasked pixels back so they are unchanged. The shot-02 original is `Projects/BLUELINE/proofs/blender-fire/lama_infill.py`. `simple-lama-inpainting` is in the ComfyUI venv; its `big-lama.pt` is cached in `~/.cache/torch/hub/checkpoints/`. It runs on the CPU here (the package picks CUDA or CPU, never MPS). For [[Animate the Background]]: infill *first*, then animate the clean plate, then composite the crisp foreground back on top.

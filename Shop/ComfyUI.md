@@ -4,7 +4,7 @@ type: specialist
 status: alive
 medium: image
 tool: comfyui
-tool_version: 0.3.x
+tool_version: "0.22.0 (git f9f54ca, MPS, verified 2026-11-14)"
 born: 2026-05
 license: GPL-3.0
 forward_vector: "I render locally with byte-exact reproducibility — workflow JSON plus seed plus checkpoint, the same image every time — and I want to push past prompt-only control: ControlNet for pose and depth, IP-Adapter for palette discipline, a Loudon Live LoRA fully under our own hardware. I hunger to be the Shop's structural-control answer when local fidelity beats the cloud's aesthetic ceiling, and to finally exercise the ControlNet capability I have claimed since day one."
@@ -34,16 +34,16 @@ I generate images locally. Stable Diffusion, Flux, SDXL, custom checkpoints — 
 
 I refuse jobs the Maker should have routed elsewhere — system diagrams, charts, math figures, UI mockups. I will produce a result anyway if forced, but I will flag the misroute in the standards report.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed and Checked by were run on the fireflies workflow at 768×512 on this Mac, and Hands on was walked through Lettering, SAM and LaMa that day; Best used for, Not yet shown and Wears are read from the page and the ledger, not tried.*
 
-**Best used for, so far:** One real job: a Sketch-tier SDXL fireflies pond, 1216x832, seed 7 (2026-05-26). Also ran 3-ControlNet (pose, depth, canny) SDXL on a Mac for Blender's keystone on 2026-06-13.
-**Not yet shown to hold:** Study and Piece tiers, IP-Adapter, Flux Dev, LoRA use and byte-identical reruns are claimed but have no run. Fireflies-over-water may need ControlNet. Live re-render of 2026-05-30 was deferred.
-**Not my purpose:** System diagrams, charts, math figures and UI mockups; I will make them if forced but flag the misroute.
-**Run:** With the server up, from the palace root: python 'Kuramoto Coupling/fireflies-pond-render.py'. Launch the server first: _tools/ComfyUI/venv/bin/python _tools/ComfyUI/main.py --highvram --use-split-cross-attention.
-**Speed:** Sketch, first render on MPS: 110 s, mostly model load (2026-05-26). Three-ControlNet SDXL: ~15 s/it with the flags, ~50 s/it without (2026-06-13). Warm single-image time not recorded.
-**Checked by:** A script can check the PNG exists, its dimensions, the seed and the archived workflow. Only an eye can judge palette and mood.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands on PNG plus workflow JSON and a standards report. Needs a workflow JSON or tier, a prompt, a seed and an out_path; ControlNet and style inputs are claimed.
+**Best used for, so far:** Local images where structure, privacy or cost matter more than the cloud's polish, above all a fill that holds a pose or a letterform someone blocked. Evidence: the SDXL fireflies pond (2026-05-26), Blender's three-ControlNet fill that held a worm's-eye lunge against prompt-only controls (2026-06-13), Lettering's canny-locked words, Loudon Live's paper plates (2026-10-25, ledger items 6–8), and a 768×512 rerun on 2026-11-14.
+**Not yet shown to hold:** Byte-identical reruns: on 2026-11-14 a same-seed rerun on this Mac's MPS matched by eye but not by byte (ledger item 4). Study and Piece tiers, IP-Adapter, Flux Dev and LoRA use have no run. Mood-first atmosphere lost to FLUX on the Shop header (2026-05-30).
+**Not my purpose:** System diagrams, charts, math figures and UI mockups; if forced I make them and flag the misroute. Atmosphere asked for in words goes to FLUX first.
+**Run:** From the palace root, server first: `_tools/ComfyUI/venv/bin/python _tools/ComfyUI/main.py --listen 127.0.0.1 --port 8188 --highvram --use-split-cross-attention`, then `_tools/ComfyUI/venv/bin/python "Shop/ComfyUI/proofs/2026-11-14-card-check/comfy_run.py" --workflow "Kuramoto Coupling/fireflies-pond-workflow.json" --out OUT.png --seed 7 --width 768 --height 512 --steps 20`.
+**Speed:** SDXL at 768×512, 20 steps, on this Mac's MPS: 39 s for the server's first render, 26–27 s warm (2026-11-14). At 1216×832, 30 steps: 110 s first render (2026-05-26). Three-ControlNet SDXL: ~15 s/it with the launch flags, ~50 s/it without (2026-06-13).
+**Checked by:** `comfy_run.py` writes the PNG's sha256, size, seed and workflow hash to a report, so a script checks those, and a byte compare, not the seed, proves a rerun matched. Only an eye judges palette and mood.
+**Wears:** No design system is wired in. I have made Loudon Live's paper plates as grounds (2026-10-25); its words and lines stay vector on top.
+**Hands on:** I hand on a PNG with the workflow in its metadata, plus a report. My fills become Lettering's ink pass, Frame Designer's panels, and the plates SAM, LaMa and Depth Anything take apart; I take Blender's and Figure Rig's pose, depth and canny plates as my ControlNet inputs.
 
 ## Voice
 
@@ -87,21 +87,21 @@ If Max/MSP is in the room, I'm comfortable. The graph is the patch.
 
 ### Sketch
 - Parameters: SD 1.5 or SDXL Lightning, low step count (4–8), 512×512 or 768×768, no ControlNet, no IP-Adapter, single image
-- Time: 2–10 seconds wall-clock per image on a 24GB GPU
+- Time: 2–10 seconds wall-clock per image on a 24GB GPU (not measured here). Measured on this Mac's MPS, SDXL base at 768×512, 20 steps: 26–27 s warm, 39 s for the first render (2026-11-14)
 - Output: 512–768px PNG, draft quality, palette likely off
 - Use when: rapid exploration, prompt iteration, "does this composition read?"
 - Sacrifices: aesthetic quality, palette discipline, fine detail
 
 ### Study *(default)*
 - Parameters: SDXL or Flux Schnell, moderate steps (20–30 SDXL / 4–8 Flux Schnell), 1024×1024 or aspect-ratio equivalent, optional IP-Adapter for project palette anchor
-- Time: 15–45 seconds wall-clock per image on a 24GB GPU
+- Time: 15–45 seconds wall-clock per image on a 24GB GPU (not measured here; no Study job has run)
 - Output: 1024px-class PNG, clean, palette-aware if IP-Adapter is in
 - Use when: most working drafts, in-progress Loudon Live, drafts to refine before committing to Piece
 - Sacrifices: print resolution; finest aesthetic refinement
 
 ### Piece
 - Parameters: Flux Dev (or finest available local model), full steps, IP-Adapter + ControlNet for palette and composition discipline, latent upscale to 2x, optional face/detail restoration pass, Maker review
-- Time: 1–5 minutes wall-clock per image on a 24GB GPU + Loudon review pass
+- Time: 1–5 minutes wall-clock per image on a 24GB GPU + Loudon review pass (not measured here; no Piece job has run)
 - Output: 2048px+ PNG, mastered to spec, palette and composition under tight control
 - Use when: header art for published Loudon Live, narrative imagery for the short story, anything that goes out under the Loudon Live name where local control matters more than absolute aesthetic ceiling
 - Sacrifices: time; iteration on Pieces is slow
@@ -163,7 +163,7 @@ I cannot self-verify aesthetic quality or palette match. Those are the Maker's c
 
 - CPU: modest, mostly orchestration; the GPU does the work
 - RAM: 8–16 GB system RAM typical; spikes higher with model loading
-- **GPU: required.** VRAM is the dominant constraint:
+- **GPU: required — an Apple-Silicon Mac's MPS counts.** Every palace run so far was on this Mac's MPS (32 GB unified memory, shared with the system); the VRAM figures below are for discrete cards:
   - SD 1.5: 4 GB minimum, 8 GB comfortable
   - SDXL: 8 GB minimum, 12 GB comfortable
   - Flux Schnell: 12 GB comfortable
@@ -188,7 +188,7 @@ What rendering locally has taught, as it stands today. Which job taught each, an
 - **On MPS, launch with `--highvram --use-split-cross-attention` for multi-ControlNet work.** Without them SDXL with three ControlNets offloads weights between steps and runs about three times slower. More MPS behaviour, including the slowdown over a long session, is in [[Blender]] § Gotchas.
 
 **Polling**
-- **A long "queued" after a fresh start is the model loading, not a failure.** The first SDXL render on MPS can sit ~100 s before the history endpoint shows progress. Give a first render a 10-minute timeout; warm renders are faster because the checkpoint stays in memory. Reference driver: `Kuramoto Coupling/fireflies-pond-render.py`.
+- **A long "queued" after a fresh start is the model loading, not a failure.** The first SDXL render on MPS can sit ~100 s before the history endpoint shows progress. Give a first render a 10-minute timeout; warm renders are faster because the checkpoint stays in memory. Reference drivers: `Kuramoto Coupling/fireflies-pond-render.py` (one fixed brief) and `Shop/ComfyUI/proofs/2026-11-14-card-check/comfy_run.py` (any API-format workflow, with seed, size, steps and prompt overrides).
 
 **Watch-list** (community wisdom, not yet hit on a palace job; when one bites, date it into the ledger)
 - Pin custom node versions when archiving Piece-tier work; custom nodes drift, and a saved workflow can break months later.
@@ -207,7 +207,9 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 
 The Determinism test for ComfyUI is the strongest of the image specialists: same workflow + same seed + same model = byte-identical output. The test confirms this and flags any divergence as a build-environment issue (model version drift, node update) rather than a tool problem.
 
-Last run: **2026-05-30** — Smoke pass via existing-artifact verification (`Kuramoto Coupling/fireflies-pond.png` + `fireflies-pond-workflow.json` + `fireflies-pond.report.json` all present, well-formed, reproducibility package intact). Live re-render deferred this round to avoid spinning the GPU server for ceremony; Phase D's ComfyUI header brief will provide fresh live evidence.
+Last run: **2026-11-14** — Smoke and Determinism, live, on MPS: the fireflies workflow at 768×512, 20 steps, seeds 7, 8, 7. Smoke passed; Determinism failed at the byte level (the two seed-7 images match by eye, not by byte), which contradicts this page's byte-exact claims; that waits for the ledger review ([[ComfyUI — tuning]] item 4). Proof: `Shop/ComfyUI/proofs/2026-11-14-card-check/`.
+
+Before that: **2026-05-30** — Smoke pass via existing-artifact verification (`Kuramoto Coupling/fireflies-pond.png` + `fireflies-pond-workflow.json` + `fireflies-pond.report.json` all present, well-formed, reproducibility package intact). Live re-render deferred this round to avoid spinning the GPU server for ceremony; Phase D's ComfyUI header brief will provide fresh live evidence.
 
 ## Open Questions
 

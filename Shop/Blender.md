@@ -29,16 +29,16 @@ My reason to exist over [[Shop/Three.js]] is **hand authorship and offline fidel
 
 I refuse to be a real-time interactive deliverable — that's a Three.js job. I refuse to fake a pose I was handed badly; I'll flag a brief that asks for contact or motion the proxy can't honestly hold. I do not invent identity or skin — I hand structure to [[Shop/ComfyUI]] and let the render-AI fill it.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed and Checked by, by rerunning the keystone's blocking scripts headless on this Mac; the ComfyUI fill that follows was not rerun, and Best used for, Not yet shown, Wears and Hands on are read from the page and the ledger.*
 
-**Best used for, so far:** One job so far: a posed worm's-eye lunge blocked by hand, six registered conditioning passes emitted, then a ComfyUI multi-ControlNet SDXL fill that held the pose against prompt-only controls (2026-06-13, Study tier).
-**Not yet shown to hold:** Offline Cycles Piece render and geometry-nodes math worlds are unexercised. A ControlNet-Union arm is still owed (ledger item 4). Mixamo locomotion, pose blending and environment kits are listed but no run shows them.
-**Not my purpose:** Real-time or browser deliverables (Three.js). Animals and quadrupeds (humanoid only). Inventing identity or skin; I hand structure to ComfyUI.
-**Run:** /opt/homebrew/bin/blender --background --python pose_and_emit.py, run from Shop/Blender/tests/blocking/. It writes rgb, depth, normal, keypoints and a .blend. The draw_passes.py and run_comfy.py steps follow, with no command given.
-**Speed:** Pose plus passes about 8 s on the Mac with EEVEE; blocked two-pass ComfyUI fill about 9 min (555 s) on the Mac (2026-06-13).
-**Checked by:** A script can check the .blend opens, the passes exist and are named, and all are 832x1216 from one camera. Only an eye can judge whether the drama and staging land.
-**Wears:** Not yet wired to a design system
-**Hands on:** I hand ComfyUI a registered pose, depth, canny and normal set plus an editable .blend. I need a brief, tier and out_path; staging may come from MCP, SceneCraft or Three.js export.
+**Best used for, so far:** Blocking a scene by hand so a generator fills a composition someone chose: a posed figure, a camera, and registered pose, depth, normal and canny passes. Evidence: the worm's-eye lunge whose blocked fill beat two prompt-only seeds (2026-06-13); the same scripts rerun headless on 2026-11-14 gave pixel-identical passes.
+**Not yet shown to hold:** An offline Cycles Piece render and geometry-nodes math worlds are unexercised. The ControlNet-Union arm is owed (ledger item 4). Mixamo locomotion, pose blending and environment kits are listed, but no run shows them. The blocked fill, `run_comfy.py`, was not rerun on 2026-11-14.
+**Not my purpose:** Real-time or browser deliverables (Three.js). Animals and quadrupeds (humanoid only). Inventing identity or skin: I hand structure to ComfyUI.
+**Run:** From `Shop/Blender/tests/blocking/`: `/opt/homebrew/bin/blender --background --python pose_and_emit.py`, then `../../../../_tools/ComfyUI/venv/bin/python draw_passes.py` (main checkout). Both overwrite `../passes/` and the `.blend` beside them, so copy the two scripts to your own folder first, as `Shop/Blender/proofs/2026-11-14-card-check/blocking/` did.
+**Speed:** Pose plus rgb, depth and normal passes: 3.3 s headless; OpenPose, canny and lineart drawn after: 0.4 s (2026-11-14, Blender 5.1.2, EEVEE). The blocked two-pass ComfyUI fill: about 9 min (555 s) on MPS (2026-06-13), not rerun.
+**Checked by:** A script checks the `.blend` opens and the passes exist, are named, are all 832×1216 from one camera, and match an earlier run pixel for pixel. Only an eye judges whether the drama and the staging land.
+**Wears:** No design system is wired in.
+**Hands on:** I hand ComfyUI a registered pose, depth and canny set (normal and lineart are emitted but not fed) plus a `.blend` Loudon can open. Figure Rig builds its MPFB2 figures on me, and Lettering anchors words in my scenes. I take a brief, a tier and an out path.
 
 ## Voice
 
@@ -159,4 +159,7 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 Last run **2026-06-13** — Smoke + capability PASS (Blender 5.1.2 on MPS emits all passes; the
 multi-ControlNet fill defeats the front-on default). Speed bench: pose+passes ~8 s; blocked two-pass
 ~9 min on this Mac.
+Rerun **2026-11-14**, headless, of `pose_and_emit.py` and `draw_passes.py` only: Determinism PASS (every pass
+pixel-identical to the 2026-06-13 set, though the PNG files differ in bytes), pose+passes 3.3 s, drawn passes 0.4 s.
+The fill was not rerun. Proof: `Shop/Blender/proofs/2026-11-14-card-check/`.
 
