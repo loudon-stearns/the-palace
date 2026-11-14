@@ -24,16 +24,16 @@ links:
 
 I read a page image and give it back as Markdown: headings at their levels, paragraphs, lists, tables as HTML. In grounding mode every block also comes back with a label (`title`, `text`, `table`, `list`, `image`, `chart`, …) and a bounding box in 0–1000 page coordinates. The Roster had no OCR at all; I am the door from picture to text. I refuse to promise accuracy on pages that don't look like clean digital renders — that is untested (see Known gaps).
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: no line was tried — a run rents a GPU pod, which waits for Loudon; the Run line was read from the runner's own usage, the rest from this page and the 2026-11-04 probe files.*
 
-**Best used for, so far:** Nothing yet on a real brief. The one probe (2026-11-04) read a synthetic page and a vendor docs page word for word, in transcribe and grounding modes. I turn page images into Markdown, with boxed blocks in grounding mode.
-**Not yet shown to hold:** Untested: phone photos, skewed scans, low light, handwriting, dense multi-column PDFs, math, non-English, charts and image blocks, and the 4B model. Three rentals failed on 2026-11-04 before the working run.
-**Not my purpose:** I won't promise accuracy on pages that aren't clean digital renders. Only the empty (transcribe) prompt and grounding prompt are in distribution; other prompts are out of the model's training.
-**Run:** No command on the page yet. The working runner is Shop/Shopkeeper/probes/lightonocr-3/lightonocr_pod.py, but the page gives no invocation. Recipe and traps are in RunPod GPU Backend — runbook.
-**Speed:** 1.3-3.9 s per page on an A40 once up; about 3 minutes pod boot (page, 2026-11-04). The probe cost about 4 cents.
-**Checked by:** A script can diff the output against a known text and check that boxes sit inside 0-1000 coordinates. Only an eye can judge hard pages against a hand transcription.
-**Wears:** Not yet wired to a design system
-**Hands on:** I hand on one .md per page per mode, with block labels and boxes in grounding mode; I need page images (PDFs pre-rendered at 400 DPI, longest edge 2048) and a rented GPU pod.
+**Best used for, so far:** Turning a picture of a page back into text — Markdown with headings and tables, and a box round every block. So far one probe (2026-11-04): a synthetic page and a vendor docs page, both read word for word in transcribe and grounding modes. Nothing on a real brief.
+**Not yet shown to hold:** Untested: phone photos, skewed scans, low light, handwriting, dense multi-column PDFs, math, non-English, charts and image blocks, and the 4B model. Three rentals failed on 2026-11-04 on the runner's own config before the working run.
+**Not my purpose:** I won't promise accuracy on pages that aren't clean digital renders. Only the empty (transcribe) prompt and the grounding prompt are in distribution; other prompts are out of the model's training.
+**Run:** cd "Shop/Shopkeeper/probes/lightonocr-3" && python3 lightonocr_pod.py --dry-run (prints the pod request and the GPU it would pick, renting nothing; without --dry-run it rents a Runpod pod for every PNG in inputs/, which costs money and waits for Loudon's yes. Not run 2026-11-14.)
+**Speed:** From the 2026-11-04 probe, not re-measured: about 3 minutes of pod boot, then 1.3-3.9 s a page on an A40; about 4 cents for four pages at $0.59 an hour.
+**Checked by:** A script can diff the output against a known text and check that every box sits inside 0-1000 page coordinates. Only an eye judges a hard page against a hand transcription.
+**Wears:** No design system: I hand back plain Markdown, which wears none.
+**Hands on:** I hand on one .md per page per mode, with block labels and boxes in grounding mode. I need page images (PDFs rendered first at 400 DPI, longest edge 2048 px) and a rented GPU pod.
 
 ## Capabilities (each verified by a probe, not the model card)
 
@@ -51,7 +51,7 @@ In: one or more page images (PNG/JPEG; PDFs rendered first at 400 DPI, longest e
 
 ## How it runs
 
-On a rented Runpod pod through the Shop's one Runpod module — recipe and traps in [[RunPod GPU Backend — runbook]]. `lightonocr_pod.py` is the working runner: it asks the catalog for a GPU with stock under a CUDA ≥ 13 floor (Community, then Secure), serves `lightonai/LightOnOCR-3-0.8B` with `vllm/vllm-openai:v0.33.0` and the model card's flags (`--trust-remote-code --default-chat-template-kwargs '{"enable_thinking": false}'`), streams the pod's logs while it waits for `/health`, runs the pages, and terminates — with a local watchdog that kills the pod at 30 minutes if the script dies. Boot is ~3 minutes; batch many pages per pod.
+On a rented Runpod pod through the Shop's one Runpod module — recipe and traps in [[RunPod GPU Backend — runbook]]. `lightonocr_pod.py` is the working runner, run from its folder (`python3 lightonocr_pod.py`, or `--dry-run` to rent nothing): it asks the catalog for a GPU with stock under a CUDA ≥ 13 floor (Community, then Secure), serves `lightonai/LightOnOCR-3-0.8B` with `vllm/vllm-openai:v0.33.0` and the model card's flags (`--trust-remote-code --default-chat-template-kwargs '{"enable_thinking": false}'`), streams the pod's logs while it waits for `/health`, runs the pages, and terminates — with a local watchdog that kills the pod at 30 minutes if the script dies. Boot is ~3 minutes; batch many pages per pod.
 
 ## Gotchas
 

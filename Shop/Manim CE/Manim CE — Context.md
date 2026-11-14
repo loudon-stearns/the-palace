@@ -25,7 +25,7 @@ The 2026-10-24 Weave took three doubled gotchas off the page — the TeX pipelin
 
 ## What has not caught up
 
-**Tiers.** The Sketch / Study / Piece blocks have not been edited since birth (`06b5dac1`). The ladder measured on 2026-05-30 used different flags, `-ql` for Sketch and `-qh` at 1080p30 for both Study and Piece, and ran in seconds against the minutes the blocks quote (`0bae21b6`). The measured data went into a gotcha and three recipes, not into Tiers. The forward vector, written at the migration, asks for measured costs over guesses (`88aaa00e`). Tiers is where that ask has not landed.
+**Tiers.** The Sketch / Study / Piece blocks have not been edited since birth (`06b5dac1`). The ladder measured on 2026-05-30 used different flags, `-ql` for Sketch and `-qh` at 1080p30 for both Study and Piece, and ran in seconds against the minutes the blocks quote (`0bae21b6`). The measured data went into a gotcha and three recipes, not into Tiers. The forward vector, written at the migration, asks for measured costs over guesses (`88aaa00e`). Tiers was where that ask had not landed; it landed on 2026-11-14, from the card check ([[Manim CE — tuning]] item 12).
 
 **Forward Vector section.** It still describes the first job as planned at birth, synced through `manim-voiceover` (`06b5dac1`). The job ran on 2026-05-26 and went another way: render silent, mux the narration with ffmpeg (`a94481f0`).
 

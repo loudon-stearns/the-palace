@@ -4,7 +4,7 @@ type: specialist
 status: alive
 medium: plumbing
 tool: ffmpeg
-tool_version: 7.x
+tool_version: "8.1 (Homebrew, on the Mac, 2026-11-14)"
 born: 2026-05
 license: LGPL-2.1+ / GPL-2+ (build-dependent)
 forward_vector: "I convert, concat, mix, and normalize audio and video — the meeting place where any two Specialists' outputs come together as one playable stream. I want to be the Shop's deterministic connective tissue, every brief passing through me eventually, and to harden a library of canonical command templates so the right flag combination is never re-derived from scratch."
@@ -58,16 +58,16 @@ I convert, concatenate, mix, normalize, and reformat audio and video. Anywhere t
 
 I refuse to do creative editing — that's not what I am. Trim points, fade lengths, mix balance, segment plans: those are the Maker's call, encoded in the command. I execute the command. I refuse to silently re-encode when the brief asks for stream copy and the codecs disagree — I tell the Maker the codec mismatch instead of producing a broken file. I refuse to declare done without verifying the output container actually plays.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: Run, Speed and Checked by were tried by muxing a real silent render with a tone; Best used for, Not yet shown, Not my purpose, Wears and Hands on were checked against this page and my ledger, not tried.*
 
-**Best used for, so far:** So far: the Kuramoto Round 1 teaching reel (concat of a Manim clip, a Matplotlib title card and a narrated clip, loudnorm to -16 LUFS, 49.5 s) and the Radio Play assembly recipe. Also the mux of a silent render with narration.
-**Not yet shown to hold:** HEVC re-encode is marked unverified. The community-wisdom list (mismatched concat, aac bitrate cap, fps_mode, hardware encode) has not met a job. No loudnorm or two-pass Piece run is recorded.
+**Best used for, so far:** Joining other Specialists' outputs into one playable file — mux, concat, loudness, format. So far: the Kuramoto Round 1 reel (concat of three clips, two-pass loudnorm to -16 LUFS, 49.5 s, 2026-05-26), the Radio Play assembly recipe, and the narration mux, re-run on a Manim render on 2026-11-14.
+**Not yet shown to hold:** Piece tier has never run: no two-pass bitrate encode, no x265 or AV1 master, no hardware encode. HEVC re-encode is unverified. The community-wisdom list (mismatched concat, the aac bitrate cap, fps_mode) has not met a job. Only the Mac has run me.
 **Not my purpose:** Creative editing: trim points, fades, mix balance and segment plans are the Maker's call. I refuse silent re-encode when stream copy was asked, and 'make it sound better' routes to Stable Audio Open or human ears.
-**Run:** ffmpeg -i silent.mp4 -i narration.wav -c:v copy -c:a aac -shortest out.mp4 (the mux template, Shop/ffmpeg.md:214; run where the files are). The reel script is Kuramoto Coupling/round-1-teaching-reel.py.
-**Speed:** Not recorded
-**Checked by:** A script can ffprobe duration, container, sample rate, frame rate, codecs, and loudnorm LUFS and true peak. Only ears can judge whether the mix and fades sound right.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands on a finished, playable MP4/WAV from joined inputs. Needs inputs probed and sized exactly (one anullsrc per silent segment, matching codecs) and an explicit command from the Maker.
+**Run:** ffmpeg -i silent.mp4 -i narration.wav -c:v copy -c:a aac -shortest out.mp4 (the mux template; a worked, pasteable example is cd "Shop/ffmpeg/proofs/2026-11-14-card-check" && bash card-check.sh)
+**Speed:** 2026-11-14, ffmpeg 8.1 on the Mac: the mux of a 3.5 s clip, tone included, 0.15 s, the same cold and warm. A Study re-encode or a loudnorm pass has never been timed.
+**Checked by:** A script ffprobes duration, container, codecs, sample rate and frame rate, and loudnorm reports LUFS and true peak. Only ears judge whether the mix and the fades sound right.
+**Wears:** No design system: I carry streams, not looks. House numbers I keep are the Maker's mechanical floor (48 kHz, -16 LUFS).
+**Hands on:** I hand on a finished, playable MP4 or WAV from joined inputs. I need inputs probed and sized exactly (one anullsrc per silent segment, matching codecs) and an explicit command from the Maker.
 
 ## Voice
 
@@ -217,7 +217,7 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 
 The Determinism test for ffmpeg is straightforward and should pass without exception: same command + same input → byte-identical output. The test confirms this and flags any divergence as a build-environment issue (codec library version drift) rather than a tool problem.
 
-Last run: **2026-05-30** — Smoke + Determinism both pass (byte-identical SHA256 `70cdc22d…` across two `testsrc` runs with `-fflags +bitexact -flags +bitexact -map_metadata -1`). Capability Probe covers mux + concat + loudnorm via historical Shop jobs; HEVC re-encode marked unverified.
+Last run: **2026-11-14** — card check on ffmpeg 8.1: the narration mux on a real Manim render, 0.15 s, audio 48 kHz AAC, video stream copied; `drawtext` still absent from the Homebrew build (`Shop/ffmpeg/proofs/2026-11-14-card-check/`). **2026-05-30** — Smoke + Determinism both pass (byte-identical SHA256 `70cdc22d…` across two `testsrc` runs with `-fflags +bitexact -flags +bitexact -map_metadata -1`). Capability Probe covers mux + concat + loudnorm via historical Shop jobs; HEVC re-encode marked unverified.
 
 ## Open Questions
 

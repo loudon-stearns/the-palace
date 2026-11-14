@@ -10,7 +10,7 @@ forward_vector: "I hold the test plan for Remotion; I want every check here runn
 
 > Phase E rollout. Remotion is the Shop's UI-motion Specialist — React-based mockups, interface walks, palace-navigation reels. Smoke for this round leans on the 2026-05-26 Kuramoto Round 1 `phenomena-walk.mp4` artifact + its source; a fresh Remotion render requires a Node project bootstrap and a Chromium spin (heavy for ceremony).
 
-Last run: **2026-05-30** — Smoke pass via existing artifact verification (`Kuramoto Coupling/phenomena-walk.mp4` + `phenomena-walk/` source directory both present); live re-render deferred to next Remotion brief.
+Last run: **2026-11-14** — live re-render of `PhenomenaWalk`, twice, Remotion 4.0.542, Node 25.9: 13.9–17.2 s each, the two MP4s byte-identical (SHA-256 `ea60433cdca11953…`), both different from the committed 2026-05-26 file (`ec13d7b7ac2a99ea…`, made on 4.0.380). **2026-05-30** — Smoke pass via existing artifact verification (`Kuramoto Coupling/phenomena-walk.mp4` + `phenomena-walk/` source directory both present); live re-render deferred to next Remotion brief.
 
 ## Smoke
 
@@ -58,7 +58,7 @@ Remotion is React-on-canvas — fully author-controlled. The Loudon Live design 
 
 ## Speed Bench
 
-Reference host: **mac**. Per Kuramoto Round 1: ~30 s phenomena-walk took ~20 s to render via Remotion's parallel Puppeteer workers. Fast for the medium.
+Reference host: **mac**. 2026-05-26: about 25 s end to end for the 16 s phenomena walk (the page's recipe; an earlier line here said a 30 s walk in 20 s, which matches no record). 2026-11-14: 13.9–17.2 s for the same 16 s at 720p30, Remotion 4.0.542, machine under load.
 
 ## Determinism
 
@@ -66,3 +66,4 @@ Remotion is *intended* deterministic — Puppeteer's deterministic-rendering mod
 
 - **Reproducibility artifact:** Remotion project source + version + props.
 - **Last run (2026-05-30):** byte-determinism not exercised this round (would require re-running the project); claim documented from Remotion's contract.
+- **Last run (2026-11-14):** two live renders on Remotion 4.0.542 hashed identical. Neither matched the 2026-05-26 file made on 4.0.380: determinism holds within one installed version. Pin the version exactly when a render must be reproduced.

@@ -28,3 +28,8 @@ What each job taught the Mermaid page. Each item names what the job showed and w
 2. **Raw `<` and `>` in a node label made the diagram fail silently.** Mermaid's parser reads them as tag delimiters; the regime diagram needed `K &lt; K_c` and `K &gt; K_c`. `<br/>` passed through. Changed: HTML-escape angle brackets in labels; `<br/>` is the one tag that may stay.
 
 - run · 2026-05-26 · Kuramoto coupling-regime diagram, sketch · taught items 1, 2
+
+## From the card check — 2026-11-14 — a brief-to-delivery flowchart in the new house theme
+
+3. **The house theme is a generated `themeVariables` config, and it renders byte-identically.** *Owed a review: written by the shop-fix session outside a ledger review.* The design system's Shop table asks for a theme mapping its skins to Mermaid's `themeVariables`, written at the next invocation; this was it. `palace_mermaid_theme.py` writes `palace-mermaid.json` (the `base` theme, ground and text and borders from `colors_and_type.css`, JetBrains Mono) and `mmdc -c … -b '#0a0a0f'` rendered a nine-node flowchart with it: 43.5 s on the first `npx` run, about twice the 2026-05-30 figure, then 3.1 s, and two warm SVGs hashed identical. Every label took JetBrains Mono, but one rule in the SVG's style block kept Mermaid's default trebuchet face. Changed: the page names the theme under § Recipes (the trebuchet leftover waits here for review), the card's Wears line says what it wears, and the Forward Vector no longer names this flowchart as an unrun first job.
+- run · 2026-11-14 · brief-to-delivery flowchart in the house theme, study · taught item 3

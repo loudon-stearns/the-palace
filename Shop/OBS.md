@@ -46,16 +46,16 @@ I record the screen and the camera while a human works, and I composite them liv
 
 I refuse to be trusted about my own state. Ask me and I will answer; the answer is cheap.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: no line was tried — OBS is Loudon's recording rig and was not launched or driven; the Run line was read from `Projects/LDN RTM/obs/rtm.py`, and the rest from this page and my ledger.*
 
-**Best used for, so far:** So far: one recorded rig, the LDN RTM recording setup (Application Capture of Ableton plus a camera, with levels checked), built 2026-09-02 and level-checked 2026-09-07. Streaming has no run behind it.
-**Not yet shown to hold:** The whole streaming half is read from the protocol, not tried: no broadcast, no dropped-frame sampling, no stream scars. Page says the first real stream is the test. Whether it is motion or plumbing is also unsettled.
+**Best used for, so far:** Recording a person at work — screen and camera, framed and level-checked. So far one rig: LDN RTM, Application Capture of Ableton plus a camera, built 2026-09-02 and level-checked 2026-09-07. Streaming has no run behind it.
+**Not yet shown to hold:** The whole streaming half is read from the protocol, not tried: no broadcast, no dropped-frame sampling, no stream scars. The first real stream is the test. Whether I am motion or plumbing is still open.
 **Not my purpose:** I make nothing unattended, cannot drive the app I capture, judge content, monitor chat, or screenshot arbitrary screen regions. I never see the stream key, and I do not edit scene JSON.
-**Run:** No command on the page yet. Nearest working example: the levels script and socket tooling in Projects/LDN RTM/obs/ (named in tuning item 5, not read for this card).
-**Speed:** Not recorded
-**Checked by:** A script can read back canvas settings, every item transform, audio peak levels and (streaming) dropped frames over the socket. Only an eye can judge the program-scene screenshot for occlusion, fallback fonts and spilling bounds.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands on a recording file path; ffmpeg batches it (audio only if a tail card is held). Needs an operator, a running OBS with obs-websocket v5, and a performing human.
+**Run:** python3 "Projects/LDN RTM/obs/rtm.py" check (preflight: reads the whole rig over obs-websocket and changes nothing; needs OBS running with its WebSocket server on 127.0.0.1:4455 and authentication off. Not run 2026-11-14.)
+**Speed:** Not measured. The preflight has never been timed, and a take runs as long as the person does.
+**Checked by:** A script reads back canvas settings, every item's transform, audio peak levels and, when streaming, dropped frames, over the socket. Only an eye judges the program-scene screenshot for occlusion, fallback fonts and spilling bounds.
+**Wears:** Loudon Live Design System, Graphite skin, on the cards I show: LDN RTM's title and end cards (Projects/LDN RTM/obs/cards.py) copy its hex by hand and set Anton and JetBrains Mono; one grey there, #7a7a8e, is not a token. The capture itself wears nothing.
+**Hands on:** I hand on a recording file path; ffmpeg batches it (audio only, when a tail card was held). I need an operator, a running OBS with obs-websocket v5, and a performing human.
 
 ## Two modes
 

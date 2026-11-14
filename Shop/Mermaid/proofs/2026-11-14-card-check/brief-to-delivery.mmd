@@ -1,0 +1,11 @@
+flowchart LR
+  B[a brief] --> M[Maker decodes it]
+  M --> S{which Specialist?}
+  S -->|card says it holds| R[Specialist runs it]
+  S -->|not yet shown| K[Sketch first]
+  K --> R
+  R --> C[standards check]
+  C -->|spec miss| R
+  C --> D[delivered to the bundle]
+  classDef accent stroke:#e8b84a,stroke-width:2px
+  class D accent

@@ -38,16 +38,16 @@ I animate mathematics. Equations, geometric constructions, transforms, oscillato
 
 I refuse to render UI mockups, kitchen-sink illustrations, or anything where the math is decoration rather than subject — those route to Remotion, ComfyUI, or hand-coded SVG. I will refuse rather than do them poorly.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: Run, Speed, Checked by and Wears were tried on a 3.5 s scene with one MathTex; Best used for, Not yet shown, Not my purpose and Hands on were checked against this page and my ledger, not tried.*
 
-**Best used for, so far:** So far: three Kuramoto teaching clips on the Mac (two phasors at Sketch, Study and Piece; sync-arriving at 720p30 with Kokoro narration muxed in). All are math animations with phasors, sine traces and LaTeX labels.
-**Not yet shown to hold:** manim-voiceover was never used; narration was muxed instead (item 7). Watch-list claims (Transform artifacts, Whisper drift past 3 min, 3D cameras) are untested. Page Tiers blocks have not taken the measured times in (item 9).
+**Best used for, so far:** Math that has to move — phasors, sine traces, oscillators coupling, with typeset labels. So far on the Mac: the two-phasor scene at Sketch, Study and Piece (2026-05-30), sync-arriving at 720p30 under Kokoro narration (2026-05-26), and a 3.5 s card check with a MathTex (2026-11-14).
+**Not yet shown to hold:** manim-voiceover was never used; narration was muxed instead (item 7). 4K and 60 fps were never rendered; every Piece so far is 1080p30. Untested: 3D scenes, Transform artifacts, Whisper drift past 3 minutes. I do not install in a no-sudo Linux sandbox; there, Matplotlib stands in.
 **Not my purpose:** UI mockups, kitchen-sink illustration, or work where the math is decoration. Those route to Remotion, ComfyUI or hand-coded SVG. I refuse rather than do them poorly.
-**Run:** Shop/Maker/tex-env.sh manim -ql scene.py Scene (run from the folder holding scene.py; the tex-env.sh wrapper is only needed for MathTex). Bare 'manim -pqm scene.py Scene' is implied by the tier flags, not given as a recipe.
-**Speed:** Same 10 s scene, 2026-05-30, warm: Sketch 5.4 s, Study 11.2 s, Piece 15.9 s. Cold first Piece 75-90 s. Sync-arriving: about 50 s for 36.5 s of 720p30.
-**Checked by:** A script can check file validity, resolution, frame rate, frame count and byte-identical output on rerun. Only an eye can judge annotation collisions and typesetting, which the busiest-frame check is for.
-**Wears:** Loudon Live Design System: Graphite skin tokens in the 2026-05-30 Study and Piece recipes (Piece also names the locked type stack, with fonts not necessarily installed).
-**Hands on:** Hands on a silent MP4 plus .py source; ffmpeg muxes narration. Needs a scene class, tier, and for sync, the narration WAV and Whisper JSON handed in.
+**Run:** cd "Shop/Manim CE/proofs/2026-11-14-card-check" && ../../../Maker/tex-env.sh manim -ql card-check.py CardCheck (tex-env.sh is needed only when a scene has MathTex or Tex; -qm for Study, -qh for 1080p)
+**Speed:** 2026-11-14, -ql, 3.5 s scene with one MathTex: 1.2-1.3 s with its TeX cache, 8.5-14.5 s from a clean media folder (machine under load). 2026-05-30, 10 s scene: Sketch 5.4 s, Study 11.2 s, Piece 15.9 s warm and 75-90 s on a first-ever Piece.
+**Checked by:** A script checks the file, resolution, frame rate, frame count and byte identity on a rerun. Only an eye judges annotation collisions and typesetting; render a frame at the busiest moment for that.
+**Wears:** Loudon Live Design System, Graphite skin: the 2026-05-30 Study and Piece and the 2026-11-14 card check take its hex tokens as named constants. The Piece names the locked type stack; Pango falls back where a face is not installed.
+**Hands on:** I hand on a silent MP4 with its .py source beside it; ffmpeg muxes narration. I need a scene class and a tier, and for sync, the narration WAV and its Whisper JSON.
 
 ## Voice
 
@@ -85,26 +85,28 @@ The studio's mathematical illustrator. Slow but exact. Loves LaTeX, loves precis
 
 ## Tiers
 
+Times are measured on the Mac, not estimated; where a tier has never been rendered, it says so. Leave `-p` off when rendering headless: it opens a player.
+
 ### Sketch
-- Parameters: `-pql` (480p, 15fps preview), no LaTeX caching, single take
-- Time: 30s–2min wall-clock per scene, depending on complexity
-- Output: ~480p MP4, draft quality
+- Parameters: `-ql` (480p, 15 fps), single take
+- Time: seconds. 5.4 s for the 10 s two-phasor scene with no LaTeX (2026-05-30). With on-screen LaTeX the first render pays for TeX: a 3.5 s scene with one `MathTex` took 8.5–14.5 s from a clean `media/` folder and 1.2–1.3 s once its TeX was cached (2026-11-14, machine under load)
+- Output: 480p MP4, draft quality
 - Use when: scene-planning, math verification, "does this animation read at all?"
 - Sacrifices: typography quality (LaTeX renders coarsely at low resolution), frame rate smoothness
 
 ### Study *(default)*
-- Parameters: `-pqm` (720p, 30fps), full LaTeX rendering, `manim-voiceover` integration if narration is in the brief
-- Time: 2–10 min wall-clock per scene
-- Output: 720p MP4, 30fps, narration-synced if applicable
+- Parameters: `-qm` (720p, 30 fps) or `-qh` (1080p, 30 fps); narration muxed after with [[ffmpeg]] (see § Gotchas, Narration)
+- Time: 11.2 s for the 10 s two-phasor scene at 1080p30; about 50 s for the 36.5 s sync-arriving scene at 720p30 — roughly 1–1.5 s of render per second of video on this Mac
+- Output: 720p or 1080p MP4, 30 fps
 - Use when: most working drafts, internal Loudon Live previews, embedded media in palace project entries (e.g., Floquet build manifest items)
 - Sacrifices: print/published resolution; minor antialiasing artifacts on thin strokes
 
 ### Piece
-- Parameters: `-pqk` (4K, 60fps for smooth motion or 30fps for film feel), full LaTeX, Whisper-synced narration, post-render review pass with Maker for color and timing
-- Time: 30 min – several hours wall-clock per scene at 4K
-- Output: 4K MP4, mastered to spec
+- Parameters: full LaTeX, the locked type stack, a frame checked at the busiest moment, a review pass with the Maker for colour and timing. Rendered so far only at `-qh` 1080p30; `-qk` (4K) and 60 fps are unrendered
+- Time: 15.9 s warm for the 10 s two-phasor Piece at 1080p30, 75–90 s on a host's first-ever Piece while TeX generates its fonts (2026-05-30). 4K has no measured time
+- Output: MP4, mastered to spec
 - Use when: published Loudon Live videos, demo reel, work that goes out under the Loudon Live name
-- Sacrifices: render time and disk space; iteration cost goes up significantly
+- Sacrifices: render time and disk space; iteration cost goes up with each annotation reworked
 
 ## Job Contract
 
@@ -239,7 +241,7 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 
 The Determinism test for Manim is the strongest of any specialist's: same `.py` + same Manim version → byte-identical output. The test confirms this and flags any divergence as a build-environment issue rather than a tool problem.
 
-Last run: **2026-05-30** — Smoke pass (12 KB MP4 at 480p15 in 1.45 s); **Determinism pass — byte-identical SHA256 `3715c0c5…` across two runs of the same trivial scene** (strong-determinism claim confirmed). Capability Probe covers all five claims (ValueTracker, always_redraw factories, MathTex+LaTeX, manim-voiceover, eased FadeIns) via Phase A + Kuramoto Round 1 artifacts. Tier costs in § Gotchas and [[Manim CE — tuning]] item 9 (Sketch 5.4 s · Study 11.2 s · Piece 15.9 s warm). **2026-06-09 — MathTex+LaTeX re-confirmed** on full TeX Live 2026 via the `TEXPSHEADERS` bridge (see Gotchas); the as-is render fails, the bridged render renders.
+Last run: **2026-11-14** — card check, `-ql`, a 3.5 s scene with one `MathTex` through the TeX bridge: 1.2–1.3 s warm, 8.5–14.5 s from a clean `media/` folder (`Shop/Manim CE/proofs/2026-11-14-card-check/`). **2026-05-30** — Smoke pass (12 KB MP4 at 480p15 in 1.45 s); **Determinism pass — byte-identical SHA256 `3715c0c5…` across two runs of the same trivial scene** (strong-determinism claim confirmed). Capability Probe covers all five claims (ValueTracker, always_redraw factories, MathTex+LaTeX, manim-voiceover, eased FadeIns) via Phase A + Kuramoto Round 1 artifacts. Tier costs in § Gotchas and [[Manim CE — tuning]] item 9 (Sketch 5.4 s · Study 11.2 s · Piece 15.9 s warm). **2026-06-09 — MathTex+LaTeX re-confirmed** on full TeX Live 2026 via the `TEXPSHEADERS` bridge (see Gotchas); the as-is render fails, the bridged render renders.
 
 ## Open Questions
 

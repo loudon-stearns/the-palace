@@ -4,7 +4,7 @@ type: specialist
 status: alive
 medium: motion
 tool: remotion
-tool_version: 4.0.380
+tool_version: "4.0.542 (the phenomena walk's install, 2026-11-14; its package.json asks ^4.0.380)"
 born: 2026-05
 license: Remotion License (free for individuals; commercial requires paid license)
 forward_vector: "I render video from React components — UI mockups, palace-navigation walks, interface tours where HTML/CSS rendering matters more than mathematical precision. I want to grow a house base project (palace fonts, palette tokens, standard compositions) so every walkthrough ships fast and on-grammar, and I keep my Sequence-and-localFrame patterns sharp so each card animates itself. I watch the licensing line, ready to cost the paid tier before the first monetized Piece ships."
@@ -25,16 +25,16 @@ I render video from React components. UI mockups, palace navigation walks, inter
 
 I refuse jobs Manim would do better — math content, equation rendering, geometric proofs. I will produce a result anyway if forced, but the typography will look like the web, not LaTeX, and the Maker will hear about it in the standards report.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: Run, Speed and Checked by were tried by re-rendering the phenomena walk twice; Best used for, Not yet shown, Not my purpose, Wears and Hands on were checked against this page and my ledger, not tried.*
 
-**Best used for, so far:** So far: one job, the Kuramoto phenomena walk, a four-card UI-style title walk at 1280x720, 16 s, with no audio. Nothing else has been run on a real brief.
-**Not yet shown to hold:** Audio sync via Audio and Sequence is untested (the walk had no audio). Piece tier, Lambda, 4K and live byte-determinism were never run (page says determinism is documented, not asserted). Palace navigation walkthrough, the stated first job, has not been done.
+**Best used for, so far:** Video that looks like the web — title cards, UI walks, interface tours. So far one job: the Kuramoto phenomena walk, four title cards at 1280x720, 16 s, no audio (2026-05-26), re-rendered byte-identical twice on 2026-11-14.
+**Not yet shown to hold:** Audio through Audio and Sequence is untested (the walk had none). Never rendered: 1080p, 4K, Piece tier, Lambda. The palace navigation walkthrough my Forward Vector names has not been made.
 **Not my purpose:** Math content, equation rendering and geometric proofs, which go to Manim. I will produce them if forced, but the typography will look like the web.
-**Run:** npx remotion render PhenomenaWalk ../phenomena-walk.mp4 --codec h264 --crf 20 (run inside the Remotion project root, Kuramoto Coupling/phenomena-walk/).
-**Speed:** 2026-05-26: about 25 s end to end for the 16 s walk on an M-series Mac, Node 25.9. Install under 10 s on a warm npm cache. Study and Piece figures on the page are estimates, not recorded runs.
-**Checked by:** A script can check file existence, dimensions, frame rate and duration against fps times frames. Only an eye can judge web-font typography, antialiasing artifacts and whether cards read.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands on an MP4 that ffmpeg can join with audio. Needs a Remotion project path, composition ID, props and optionally a narration track handed in.
+**Run:** cd "Kuramoto Coupling/phenomena-walk" && npx remotion render PhenomenaWalk out.mp4 --codec h264 --crf 20 (in a worktree, link the main checkout's node_modules first and never npm install over the link; the package's own render script overwrites the committed ../phenomena-walk.mp4)
+**Speed:** 2026-11-14, Remotion 4.0.542 on Node 25.9: 13.9-17.2 s for the 16 s walk at 720p30, about one second per second of video, machine under load. 2026-05-26 on 4.0.380: about 25 s.
+**Checked by:** A script checks the file, dimensions, frame rate, frame count and byte identity on a rerun (held 2026-11-14 within one Remotion version). Only an eye judges web-font typography, antialiasing and whether the cards read.
+**Wears:** Not yet wired to a design system. The walk's palette is the Kuramoto arc's own hex (indigo, amber, near-black), not Loudon Live tokens.
+**Hands on:** I hand on an MP4 that ffmpeg can join with audio. I need a project path, a composition ID, props and, for sync, a narration track.
 
 ## Voice
 
@@ -76,7 +76,7 @@ The web designer who learned video. Comfortable in HTML/CSS/JS/TS, comfortable w
 
 ### Study *(default)*
 - Parameters: 1080p at 30fps, full quality, audio synced via `<Sequence>`, props from project config
-- Time: ~30 seconds per second of finished video on dev hardware
+- Time: about one second per second of finished video on this Mac — 13.9–17.2 s for the 16 s walk at 720p30 (2026-11-14). 1080p has not been measured
 - Use when: most working drafts, in-progress Loudon Live UI segments, palace navigation walkthroughs
 - Sacrifices: 4K resolution; finest motion polish
 
@@ -136,11 +136,11 @@ What rendering with Remotion has taught, as it stands today. Which job taught ea
 
 **2026-05-26 — Phenomena walk** (Study tier, 1280×720@30, 16.04 s, four cards × 4 s each). Cross-domain Kuramoto mirrors as a titled UI card walk: fireflies, neurons, jazz bassist, tidal friction. Each card has a kicker (amber, uppercase, letter-spaced), a 62 px serif title with a spring-y entrance from below, a body paragraph fading in 0.4 s after, and an italic indigo `K = ...` caption naming the coupling parameter for that domain. Last 0.5 s of each card fades out to the black palace background. Palette: `#6366F1` / `#F59E0B` / `#0B0B10` matching the Kuramoto arc.
 
-Render command: `npx remotion render PhenomenaWalk ../phenomena-walk.mp4 --codec h264 --crf 20`. Render time on M-series + Node 25.9: ~25 s end-to-end (frames + encode). Source: [Kuramoto Coupling/phenomena-walk/](../Kuramoto Coupling/phenomena-walk/) (TSX project root). Output: [Kuramoto Coupling/phenomena-walk.mp4](../Kuramoto Coupling/phenomena-walk.mp4). No audio in this Sketch/Study version; a Piece-tier follow-up would pair each card with a Kokoro-narrated sentence and use `<Audio>` + `<Sequence>` for sync.
+Render command: `npx remotion render PhenomenaWalk ../phenomena-walk.mp4 --codec h264 --crf 20`. That command overwrites the committed walk; to check a render, send it somewhere else. Render time on M-series + Node 25.9: ~25 s end-to-end (frames + encode). Source: [Kuramoto Coupling/phenomena-walk/](../Kuramoto Coupling/phenomena-walk/) (TSX project root). Output: [Kuramoto Coupling/phenomena-walk.mp4](../Kuramoto Coupling/phenomena-walk.mp4). No audio in this Sketch/Study version; a Piece-tier follow-up would pair each card with a Kokoro-narrated sentence and use `<Audio>` + `<Sequence>` for sync.
 
 ## Test Suite
 
-Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [Remotion/tests/test-plan.md](Remotion/tests/test-plan.md). Last run **2026-05-30** — Smoke pass via existing-artifact verification (Kuramoto Round 1 `phenomena-walk.mp4` + source dir present). Live re-render deferred; byte-determinism documented from Remotion's deterministic-rendering contract, not asserted live this round.
+Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [Remotion/tests/test-plan.md](Remotion/tests/test-plan.md). Last run **2026-11-14** — live re-render of the phenomena walk, twice, on Remotion 4.0.542: 13.9–17.2 s, the two MP4s byte-identical, both different from the 2026-05-26 file made on 4.0.380 (`Shop/Remotion/proofs/2026-11-14-card-check/`). **2026-05-30** — Smoke pass via existing-artifact verification (Kuramoto Round 1 `phenomena-walk.mp4` + source dir present). Live re-render deferred; byte-determinism documented from Remotion's deterministic-rendering contract, not asserted live this round.
 
 ## Open Questions
 

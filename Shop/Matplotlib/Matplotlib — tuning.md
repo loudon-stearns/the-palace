@@ -29,3 +29,8 @@ What each job taught the Matplotlib page. Each item names what the job showed an
 3. **`figsize` × `dpi` did not land on a standard resolution.** 10.6 in × 120 dpi gave 1272 px, not 1280, and yuv420p needs even width and height. The Sketch shipped at 1272×720, fine for a draft. Changed: for video, set `figsize = target_px / dpi` and confirm even pixel dimensions; Study and Piece motion target exact resolutions.
 
 - run · 2026-06-16 · smoke test on mac · nothing new
+
+## From the card check — 2026-11-14 — a Bode plot in the new house style
+
+4. **The house style is built, and two quiet traps sat in its way.** *Owed a review: written by the shop-fix session outside a ledger review.* The design system's Shop table asks for an rcParams recipe from the active skin, written at the next invocation; this was it. `palace_mplstyle.py` writes `palace.mplstyle` from `colors_and_type.css` (ground, text, frame, the categorical cycle, JetBrains Mono, after the Plot wrapper), and a two-panel Bode plot of a biquad low-pass wore it. First trap: Matplotlib could not find JetBrains Mono, Manrope or Cormorant Garamond though all three sit in `~/Library/Fonts`; its font-list cache predated them, and lookup falls back to DejaVu silently. Rebuilding the cache found all three. Second: the SVG differed between identical runs until `svg.hashsalt` was set; the PNG was identical from the start. Changed: the style sets the salt, the page names the style under § Recipes (the two traps wait here for review before they become Gotchas), the card's Wears line says what it wears, and the Forward Vector no longer names the Bode plot as an unrun first job.
+- run · 2026-11-14 · Bode plot in palace.mplstyle, sketch · taught item 4
