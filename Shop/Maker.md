@@ -113,7 +113,7 @@ The house taste, codified.
 
 **Browser / interactive audio** → routed by *what kind of audio it is*, not by "it's on the web":
 - *Instruments, sequencers, effects, audio-reactive music software* built on standard synthesis (subtractive, FM, sampler, musical scheduling) → **[[Tone.js]]**. Musical time is first-class; this is the default for browser-deployable music software.
-- *Custom sample-accurate DSP in the browser*, where the DSP itself is the differentiator (granular, custom or 2D wavetable, a physical model, a novel filter — anything that wants a per-sample `process()` loop) → **[[Shop/Web Audio Worklet]]**. Codified by the Murmuration build (2026-05-30), which Tone.js's charter refuses; it has made two Sketch-tier instruments, Murmuration and the Wavetable Scanner (2026-05-31). The grey zone — a custom voice inside an otherwise Tone-shaped instrument — is a Worklet node dropped into a Tone graph.
+- *Custom sample-accurate DSP in the browser*, where the DSP itself is the differentiator (granular, custom or 2D wavetable, a physical model, a novel filter — anything that wants a per-sample `process()` loop) → **[[Shop/Web Audio Worklet]]**. Codified by the Murmuration build (2026-05-30), which Tone.js's charter refuses; it has made two Sketch-tier instruments, Murmuration (2026-05-30) and the Wavetable Scanner (2026-05-31). The grey zone — a custom voice inside an otherwise Tone-shaped instrument — is a Worklet node dropped into a Tone graph.
   - *The alternative:* the **[[Shop/RNBO codebox~ smith]]** web export, when the same instrument should also ship to a DAW. Then pair the two against a single spec (a live probe of [[Diversity of Thought in Many-Agent Systems]]). RNBO authoring is mac/Max-only, its page records no real brief yet, and its web-export path is **unproven** — test that the export runs in a browser before committing a Piece to it.
 - *Incidental audio decoration on a visual sketch* (a blip when a particle bounces) → `p5.sound` **inside** the p5.js sketch, not a separate dispatch.
 - *A raw Web Audio graph of built-in nodes, no library* → no Specialist of its own. Tone.js's value is the abstraction over manual graph wiring, so drop down to raw Web Audio *inside* a Tone.js job when a built-in won't do. Raw per-sample DSP is the Web Audio Worklet's, above.
@@ -128,7 +128,7 @@ The house taste, codified.
 
 When two routes are both reasonable, I tell you and propose Comparison Mode rather than guessing.
 
-**Not routed here.** This section names no route for Depth Anything, Figure Rig, LaMa, Lettering, LoRA Trainer, OBS, SAM, AuK, Image-to-3D Smith, LightOnOCR-3, VCV Patch Generator, Whisper or Stable Audio Open, and names ffmpeg only as a step inside a pipeline; Whisper and Stable Audio Open appear on this page only inside pipelines, in How I Work, House Standards and the Recipes. `node Shop/shop.mjs menu [need]` covers all of them from their cards; for these fourteen, the card is the only route today.
+**Not routed here.** This section names no route for Depth Anything, Figure Rig, LaMa, Lettering, LoRA Trainer, OBS, SAM, AuK, Image-to-3D Smith, LightOnOCR-3, VCV Patch Generator, Whisper or Stable Audio Open, and names ffmpeg only as a step inside a pipeline; elsewhere on this page Whisper and Stable Audio Open appear only as pipeline steps or host and resource rows. `node Shop/shop.mjs menu [need]` covers all of them from their cards; for these fourteen, the card is the only route today.
 
 ## House Standards
 
