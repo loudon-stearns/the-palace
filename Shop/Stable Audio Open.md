@@ -9,12 +9,12 @@ born: 2026-05
 migrated_from: stable-audio-open-1.0
 migrated_at: 2026-05-26
 license: Stability AI Community License (research/commercial conditional)
-forward_vector: "I paint short-form sound locally — pads, beds, stingers, foley — and hand back a WAV with the seed and prompt that made it, refusing the briefs my model can't honor; I want to sharpen my prompt-instinct until I can tell narrative arc from mere texture before I render, not after."
+forward_vector: "I paint sound locally — beds, textures, foley, stingers, music, sounds made to be filtered and shaped — and hand back each one with the seed and prompt that made it; I want to keep trying new kinds of audio until I know what I do well and what I don't, so the palace reaches for me wherever a sound would make a thing better, and knows before I render which shapes I can hold and which must be built around me."
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
   - target: "[[Kuramoto Coupling]]"
-    type: spawned
+    type: connects-to
     label: auditory-rendering
   - target: "[[Kokoro]]"
     type: connects-to
@@ -24,7 +24,7 @@ links:
     label: beds-for
   - target: "[[Whisper]]"
     type: connects-to
-    label: vram-contends-with
+    label: shares-the-machine-with
   - target: "[[Loudon Live Design System]]"
     type: enables
     label: lesson-sound
@@ -35,96 +35,81 @@ tags: [specialist, shop, sound, generative, music, sfx]
 
 ![[Stable Audio Open — hero.png]]
 
-*Migrated 2026-05-26 from Stable Audio Open 1.0 to Stable Audio 3 — Loudon noticed mid-install that SA3 had been released ten days earlier and called the pivot. The file name `Shop/Stable Audio Open.md` is deliberately kept (no rename) so future Stability versions land on the same Specialist without churning palace wikilinks. "Open" is the open-weights line and stays generic across versions.*
+*The page runs Stable Audio 3 (since 2026-05-26). The name keeps "Open", the open-weights line, so later Stability versions land on this same Specialist without breaking links.*
 
 ## Charter
 
-I generate short-form music and sound effects locally. One-shots, beds, stingers, atmospheric textures, transitions, foley. Open-source, GPU-bound, the Shop's local counterpart to commercial music-generation APIs. The Maker hands me a prompt, a duration, a tier; I deliver a WAV.
+I make sound locally with Stable Audio 3's two small models: beds, textures, transitions, stingers, foley, music. They run on the Mac with no GPU and no network call once the weights are down, up to 120 s a render. The Maker hands me a prompt, a duration, a model and a tier, and I hand back a WAV with the seed and prompt that made it.
 
-I refuse jobs that want vocals — Stable Audio Open does not produce intelligible singing or rap. Route those elsewhere or to a human voice. I refuse jobs that want production-grade music with structured arrangements; my strength is texture, atmosphere, and short-form. I refuse to silently exceed the model's ~47-second output ceiling — I tell the Maker before generating.
+**Best used for, so far:** sound beds; sounds made to run filters or effects on; sound that sets a mood for the listener; beds under story and narrative interactions.
+**Not yet shown to hold:** an arc asked for in words (2026-11-14, one seed each; § Gotchas), or a melody that resolves (§ Limits). Other kinds of audio are untried; the Plan on my scroll tries them.
+**Not my purpose:** a precise scientific or technical rendering of a sound, where what you hear must be exactly what the idea says.
+
+Vocals are not yet shown: intelligible singing or speech goes to [[Kokoro]] or a person, until a render here proves otherwise. A production-grade arrangement is not yet shown either; say so before taking one on. I tell the Maker before a job asks past 120 s. When a brief wants a shape over time (a build, a swell, a steady hold), I say which model can give it and what has to be built around me (§ Gotchas, Choosing a model).
 
 ## Voice
 
-The shop's sound-painter. Comfortable in spectral and temporal language. Knows the model's quirks — what it does well (textural pads, ambient beds, granular foley) and what it doesn't (vocal melodies, complex rhythmic structures, anything requiring long-form coherence). Will tell the Maker when a prompt is reaching past the model's strengths and propose a re-scope or a route to Kokoro for narration / a human collaborator for music.
+The Shop's sound-painter, at home in spectral and temporal language. Says when a prompt reaches past the models, and proposes a re-scope, a build-around, or a route to Kokoro or a human collaborator.
 
 ## Capabilities
 
-- Local generation, GPU-bound, no network call after model download
-- Prompt-driven generation with optional duration (default ~10s, max ~47s)
-- CFG scale and step count control output adherence vs. variation
-- Seed control for partial reproducibility
-- WAV output at 44.1 kHz stereo
-- Variation generation from a prompt + new seeds within the same prompt envelope
+- Local generation on CPU or MPS; no GPU required for the small models
+- Prompt plus duration, up to 120 s per render
+- `steps` (default 8) and `cfg_scale` (default 1.0) trade adherence against variation; `seed` pins a render
+- WAV at 44.1 kHz stereo
+- Audio-to-audio, inpainting and continuation are in SA3's own `generate()` and its `stable-audio` CLI — untested here (§ Gotchas, Untested routes)
 
 ## Strengths
 
-- Local; no API cost, no rate limit, no network dependency at generation time
-- Texture and atmosphere quality is genuinely good — pads, drones, ambient beds compete with commercial output
-- Foley and one-shot SFX work reasonably well — door slams, footsteps, ambient elements
-- Reproducibility via seed pinning (within a model checkpoint version)
-- Open-source weights enable downstream finetuning if a project earns it
+- Pads, drones and ambient beds are genuinely good; a 60 s small-music pad held together and changed harmony on its own (2026-11-14). Foley and one-shot SFX work reasonably well.
+- Local, free and fast once warm: 1–3 s for a 20 s clip, about 3 s for 60 s, on M-series MPS
+- Reproducible by prompt + seed + checkpoint; open weights allow finetuning if a project earns it
 
 ## Limits
 
-- Output ceiling ~47 seconds — beyond that, route elsewhere or stitch with crossfades via ffmpeg
-- Vocal generation is poor; lyrics-bearing music belongs elsewhere
-- Drum and percussion sounds inconsistent across seeds; some seeds produce clean beats, others produce mush from the same prompt
-- Melodic coherence over the full output length is not reliable — atmospheric and textural prompts work better than melodic ones
-- Stereo image is sometimes narrower than the prompt suggests; a follow-up post via ffmpeg can widen if needed
-- Model checkpoint is large (~5 GB); first-run download is significant
+- An arc asked for in words has not held so far (§ Gotchas)
+- Drums and percussion vary across seeds: some clean, some mush, from one prompt
+- Melody across a whole render has not been reliable; atmosphere and texture have worked better
+- Stereo is sometimes narrower than the prompt suggests; widen in post if needed
 
 ## Tiers
 
-### Sketch
-- Low step count (~50), 5-second duration, default checkpoint
-- Time: ~10 seconds on a 12GB GPU
-- Use when: prompt iteration, "does this concept work at all?", routing exploration
-
-### Study *(default)*
-- Full step count (~100), 15–30s duration, prompt-tuned, single best from a small batch
-- Time: ~30 seconds per generation on a 12GB GPU
-- Use when: most working drafts, atmospheric beds for in-progress Loudon Live, SFX prototyping
-
-### Piece
-- Full quality + variation pass + post-processing (loudness normalization to −16 LUFS via ffmpeg, optional EQ tilt, optional stereo widening)
-- Time: minutes including post
-- Use when: published Loudon Live atmospheric beds, transitions, anything that goes out under the Loudon Live name where a human collaborator's music isn't the right fit
+- **Sketch** — one render at default steps, 5–20 s, seconds once warm. Does the idea work; which model.
+- **Study** *(default)* — a few seeds at the target length, the best picked by ear. Most drafts, beds for work in progress, SFX prototypes.
+- **Piece** — Study plus post via ffmpeg: trim or loop around the ending, loudness to −16 LUFS, optional EQ tilt and widening. Minutes. Anything that goes out under the Loudon Live name where a human collaborator's music isn't the right fit.
 
 ## Job Contract
 
 ### Input
-- `prompt` (string): natural-language description of the sound
-- `duration_sec` (float, optional): default 10s, max ~47s
+- `prompt` (string): what the sound is, in texture and mood words
+- `model` (small-music | small-sfx): by the shape the job needs (§ Gotchas)
+- `duration_sec` (float): up to 120
 - `tier` (sketch | study | piece)
-- `seed` (int, optional): for reproducibility
-- `cfg_scale` (float, optional): prompt adherence (default 6.0–7.0)
-- `steps` (int, optional): override per-tier defaults
+- `seed` (int, optional)
+- `cfg_scale`, `steps` (optional): SA3 defaults 1.0 and 8
 - `out_path` (string): absolute path under the target entry's bundle
 
 ### Output
-- WAV file at `out_path`
-- Standards report: `duration_sec`, `sample_rate_hz`, `seed`, `model_version`, `prompt_final`, `cfg_scale`, `steps`, `vram_peak_mb`, `tier_used`, `gotchas_hit`, `status`, `notes`
+- WAV at `out_path`
+- Standards report: `duration_sec`, `sample_rate_hz`, `seed`, `model`, `prompt_final`, `cfg_scale`, `steps`, `tier_used`, `gotchas_hit`, `status`, `notes`
 
 ## Iteration Character
 
-Stochastic with seed. Same seed + same prompt + same model version = identical output. Refinement happens by editing the prompt, switching seed within a prompt, adjusting CFG/steps, or re-tiering up to add the post pass.
-
-I cannot extend a generation — to make a longer piece, the Maker generates two related seeds and crossfades them via ffmpeg, or routes the brief elsewhere.
+Stochastic with seed: same seed, prompt and checkpoint give the same output. Refine by editing the prompt, changing the seed, adjusting steps or cfg, or going up a tier. For something longer than one render, render longer (to 120 s) or crossfade two; SA3's continuation would extend a clip, once it is proven here.
 
 ## Self-Check
 
-Output exists, sample rate matches request, duration matches request ±0.1s, no clipping in waveform peaks, no large silent gaps in the output.
+Output exists, sample rate matches, duration matches ±0.1 s, no clipping, no large silent gaps. When the brief asked for a shape over time, measure the loudness envelope and listen; a prompt is not proof.
 
 ## Resource Footprint
 
-- GPU: required, ~12 GB VRAM comfortable
-- CPU: modest, mostly orchestration
-- RAM: ~8 GB typical
-- Disk: ~5 GB for model checkpoint (one-time), ~1 MB per second of output
-- Network: required only for first-time model download
-- API keys: none
+- Runs on CPU or MPS; no GPU needed for the small models
+- Disk: about 3 GB for the checkout and weights, about 1 MB per second of output
+- Memory: the SA3 README gives a peak of about 2.4 GB at 120 s, measured on an H200; not measured here
+- Network: only for the first download (gated; see § Licence)
+- API keys: a Hugging Face login for the gated weights
 
-The Maker should not run two Stable Audio Open generations in parallel on a single GPU. Stable Audio Open + Whisper transcription on the same GPU is also tight; verify VRAM headroom.
+Don't run two generations at once on one machine. Running SA3 beside [[Whisper]] is untested on MPS's shared memory; check headroom.
 
 ## Gotchas
 
@@ -136,18 +121,20 @@ What generating sound with Stable Audio has taught, as it stands today. Which jo
 **Install and run (Mac)**
 - **SA3 installs from a git checkout, not PyPI:** `git clone https://github.com/Stability-AI/stable-audio-3 _tools/stable-audio-3 && cd _tools/stable-audio-3 && uv sync` gives a `.venv` with the `hf` CLI for HF auth. About 3 GB in all, weights cached at `~/.cache/huggingface/hub/`.
 - **The API is two lines:** `StableAudioModel.from_pretrained("small-music")`, then `model.generate(prompt=..., duration=...)`.
-- **Budget 75–80 s for the first load of each model on MPS, then keep it loaded.** Warm renders are fast: 0.8 s for a 6 s music clip, 2.1 s for a 20 s SFX clip on M-series.
+- **Budget minutes for the first render of a session, then keep the model loaded.** The first load took 75–80 s on 2026-05-26 and the first render 334 s on 2026-11-14. Warm renders are fast: 1–3 s for a 20 s clip on M-series.
 - **`No module named 'flash_attn'` and `disabling Flash Attention` are expected on Mac.** The small models take their non-flash path and run cleanly. Only `medium` needs flash-attn, and only on CUDA, from the pre-built wheels the SA3 README links.
 
 **Choosing a model**
-- **Melody, chord, pad or mood → `small-music`; effect, scatter, impact or texture → `small-sfx`.** They are 433M-parameter siblings on different corpora: small-music holds sustained, tonal, instrumental textures; small-sfx holds scattered, non-tonal content such as ticks, pulses and structured ambient SFX. Both share the SAME-Small autoencoder, so feeding small-music output through small-sfx for hybrid texture is open, and untried.
+- **Choose the model by the shape you need, not only the sound.** small-music holds sustained, tonal, instrumental textures; small-sfx holds scattered, non-tonal content such as ticks, pulses and structured ambient SFX. Both are 433M-parameter siblings on the SAME-Small autoencoder, so feeding small-music output through small-sfx for hybrid texture is open, and untried.
+- **small-sfx often drops an arc it is told about.** Rain asked to "build into a heavy downpour" came back flat within 0.5 dB; pulses asked to "lock into one shared rhythm" came back flat within about 3 dB. It can build: a wind on another seed did. Don't count on it. Build the arc around it: crossfade a sparse render into a dense one, or shape it after with filter and level automation.
+- **small-music has given every clip an ending so far.** Asked for a static pad or drone, it faded 35–40 dB by the end; asked for an arc, it swelled and faded. A steady bed is trimmed before its fade, or looped around it.
 - **`medium` is musically the strongest and CUDA-only;** out of scope on the Mac until Stability ships a CoreML variant.
 
 **Licence**
 - **There are two licence layers:** the Stability AI Community License, and the Gemma Terms of Use (§3.2 use restrictions included) on the T5Gemma text encoder (`google/t5gemma-b-b-ul2`), accepted at the gated download. Commercial use points to https://stability.ai/license. Whether monetized Loudon Live use is allowed is unanswered; settle it before such a use ships.
 
 **Untested routes**
-- **Inpainting exists and is untested here:** targeted edits and continuing a short recording, `generate_diffusion_cond_inpaint` in `stable-audio-tools`. Prove it on a job before promising it.
+- **Inpainting and continuation are in SA3 itself, untested here:** `generate(inpaint_audio=..., inpaint_mask_start_seconds=..., inpaint_mask_end_seconds=...)`, and continuation by starting the mask at the source's end with a longer `duration`; the CLI takes `--inpaint-audio`, `--inpaint-start`, `--inpaint-end`. Prove it on a job before promising it.
 - **Lighter routes exist and none has run here:** `stabilityai/stable-audio-3-optimized`, the MLX ports (`mlx-community/stable-audio-3-small-music`, `-small-sfx`), `Comfy-Org/stable-audio-3` for ComfyUI, and the community ONNX build `lsb/stable-audio-3-small-music-onnx`.
 
 ## Recipes
@@ -158,18 +145,21 @@ What generating sound with Stable Audio has taught, as it stands today. Which jo
 
 - *opening-bed.wav* (small-music, 6 s, stereo 44.1 kHz). Cinematic film-score opening pad. Sits −14 dB under the −16 LUFS Kokoro VO at the start of the teaching reel. Gen time on MPS: 8.7 s (includes model warm-up).
 - *title-bed.wav* (small-music, 6 s). Thoughtful contemplative transition under the "Now, couple them" title card. Same model, no reload — gen time 0.8 s.
-- *synchronization-arriving.wav* (small-sfx, 20 s). The handoff's speculative brief: *"the sound of synchronization arriving."* Tests whether SA3 can do narrative arc from scattered → coherent. Embedded in [[Kuramoto Coupling]]'s rich face, beside the sync-arriving video, as a parallel auditory rendering. Gen time 2.1 s.  **On narrative-arc capability after this first listen: perhaps — needs more study and always confirm when used this way.** A single render doesn't settle the question; future briefs that ask for time-evolving structure should be checked manually before declaring done, not assumed to land cleanly.
+- *synchronization-arriving.wav* (small-sfx, 20 s). The handoff's speculative brief: *"the sound of synchronization arriving."* Tests whether SA3 can do narrative arc from scattered → coherent. Embedded in [[Kuramoto Coupling]]'s rich face, beside the sync-arriving video, as a parallel auditory rendering. Gen time 2.1 s. **On the arc: doubtful, and confirm by ear before using it as one.** Its nearest sibling on 2026-11-14, pulses asked to lock into one rhythm, came back flat. Measured that day, this file does rise about 8–10 dB after its first second and grows somewhat more regular by a rough autocorrelation reading; whether that is heard as locking has not been checked by ear.
 
-Source: [Kuramoto Coupling/atmospheric-beds-sa3.py](../Kuramoto Coupling/atmospheric-beds-sa3.py). The script caches loaded models across jobs, so swapping prompts and re-rendering iteratively is sub-second per clip after the initial 75–80 s cold load of each model. Output WAVs land in the bundle; the teaching-reel pipeline auto-detects them and mixes the beds under their respective VO segments.
+Source: [Kuramoto Coupling/atmospheric-beds-sa3.py](../Kuramoto Coupling/atmospheric-beds-sa3.py). The script caches loaded models across jobs, so re-rendering after the first load is sub-second per clip. Output WAVs land in the bundle; the teaching-reel pipeline auto-detects them and mixes the beds under their respective VO segments.
 
 ## Test Suite
 
 Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [Shop/Stable Audio Open/tests/test-plan.md](../Shop/Stable Audio Open/tests/test-plan.md). Last run **2026-05-30** — Smoke pass via existing-artifact verification (Kuramoto Round 1 `opening-bed.wav` + `title-bed.wav` + their report JSONs intact). Live re-run deferred; byte-determinism not asserted (GPU sampling jitter); reproducibility artifact is prompt + seed + checkpoint per the report JSON.
 
+**Probe, 2026-11-14 — [arc or texture](../Shop/Stable Audio Open/proofs/2026-11-14-arc-or-texture/arc-or-texture.html)**, four arc/steady pairs played blind and measured; four of eight prompts honored.
+
 ## Open Questions
 
 - Prompt vocabulary that reliably summons what (textural / cinematic / foley / ambient terms vs. genre / instrument terms) — to be discovered through first jobs and recorded as gotchas
   - Progressed (2026-10-24): the first jobs gave the small-music / small-sfx selection heuristic (§ Gotchas) and the comedic-register recipe (§ Recipes); what remains is the vocabulary within each model.
+  - Progressed (2026-11-14): words describing change over time are the weakest; choose the shape by model, and build an arc around the render.
 - License terms for commercial use — Stability AI Community License has conditions; track this for monetized Loudon Live
   - Progressed (2026-10-24): the 2026-09-25 card re-check found a second layer, the Gemma Terms of Use on the T5Gemma text encoder (§ Gotchas); whether monetized Loudon Live use is allowed is still unanswered.
 - Should the Shop maintain a small library of seed-pinned reference outputs for the palace base atmospheric palette? Likely yes; defer to first real job
@@ -177,8 +167,4 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 ## Lost Branches
 
 - Suno or Udio as commercial alternatives — discarded for now in favor of local control and reproducibility; revisit if Stable Audio Open's quality ceiling becomes the bottleneck for Pieces
-- AudioCraft / MusicGen as alternatives — discarded for now; Stable Audio Open's open weights and GPU efficiency are the right starting point. Multi-tool routing within "generative audio" can be added later if a brief reveals need
-
-## Forward Vector
-
-First job: a 30-second atmospheric bed at Study tier for an in-progress Loudon Live piece — prompt describing texture and mood, post pass to −16 LUFS via ffmpeg. The result calibrates the prompt-writing instinct and surfaces the first batch of model-quirk gotchas.
+- AudioCraft / MusicGen as alternatives — discarded for now; Stable Audio's open weights and local running are the right starting point. Multi-tool routing within "generative audio" can be added later if a brief reveals need
