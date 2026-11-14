@@ -50,6 +50,7 @@ Pieces they named as worse for it: the Pauline Oliveros room; the Dub Lineage ri
 - **Honest captions.** The rich-face README and [[Light Enrichment]] would say generated material is welcome with an honest caption ("sets a mood, proves nothing"), with Loudon as the audition.
 - **Per-piece checks.** A one-line tool note on each piece, and a challenger question: "was a Specialist passed over?"
 - **Self-demonstration.** A piece on each Shop page, made with that page's own tool.
+- **The hand as a Specialist.** Loudon, 2026-11-14: "I am curious if 'hand built' is really just another needed specialist, like a general purpose sound creator or general purpose svg creator, because even when you are building by hand you can get better at that, right, a ledger could still be useful, and there are some specifics about how we make things here that might help focus your hand built." Then nothing is made outside the Shop and the fallback keeps a ledger. Bears on `Shop/Maker.md:116`, which rejected raw Web Audio as a Specialist, and on where the p5 alpha mistake was recorded (Light Enrichment's Context, where no later sound-maker looks). Open: one page per material (sound from code, SVG from code) or one page for the hand.
 - **Brainstorm cards.** The Shop as cards in brainstorms with Loudon.
 
 ## Next move
