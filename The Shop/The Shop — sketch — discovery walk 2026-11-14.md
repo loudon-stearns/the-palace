@@ -475,3 +475,37 @@ SITUATION: what Loudon sees when he starts a making session. All paths relative 
 - The roster is generated, and the generated page (about 150 lines) is the first thing a human sees under "The Shop". It is a catalogue, not a menu of asks.
 
 Not read: Shop/*/ tuning ledgers, the Light Enrichment — Context file, the Enrichment.md body beyond its grep hits, the _tools/.venvs/GPU state, Palace Ceremonies.md before line 84, the app's tests and the rest of its README, the Enrichment/light-round-2026-11/ files, Maker.md lines 1-50 and 115+.
+
+## From the light round's own session — condensed by the catching session
+
+The session "Light enrichment proposals" read the design draft and answered six questions on 2026-11-14. It made nothing for this. What follows is a condensation, not its words, except where quoted. Its full answer is in that session's transcript and in the catching session's.
+
+**How the round really went.** No brief per piece existed for the seventy. The session wrote Loudon a list, one line each: page, sentence, and a medium word (sound, diagram, count, loop, sheet). It named a medium, never a tool. The main session made all seventy itself. The tool was fixed "at the first piece of the first ten, by me, without a decision": it opened `make-sounds.py` and wrote numpy, and every later sound inherited the helpers. `make-sounds-2.py` loads from the first, `-3` from the second. "After that the choice was made by import statements."
+
+**Three things fix the tool, in order of force:** a script already in the workshop; the brief's "where the makers are" paragraph, which handed a dispatched maker the function to edit; and the first file a maker opens. The proposal list and the process page "had no force at all". The makers were told to read Light Enrichment whole, which leaned toward the Shop, "and it changed nothing, because the brief's concrete paths beat the page's direction."
+
+**Nobody downstream asked about tools.** Seven challenger batches recomputed numbers. The Concierge placed, converted wav to m4a with afconvert, and never asked what made a piece.
+
+**Where it would still go around the bench.**
+- The second edit: after one `shop run`, fixes get made by running the bare script twenty times, and the provenance file then describes a run that did not make the file on disk. It asks for a hash of the output in the provenance, checked by `shop check`.
+- A sound and its picture are drawn from the same arrays in one process. Two Specialists would split one act.
+- Chains: a generated bed, then cut and shaped by hand. Provenance has to be a short chain, not one tool name.
+- Small transformations on the way to the bundle (afconvert, a PIL downscale).
+- Makers it spawns itself are plain agents, not the orchestrator's, so an orchestrator-injected menu misses them.
+- Thirty "nothing new" lines from one batch: "I would stop using the wrapper for iteration within a day." One line per batch.
+
+**What a jobs file must hold.** The script is the unit and a job is a function in it: page and anchor sentence; Specialist, script path, function, the script's git hash; one seed per piece; kept input data; for a generated source its prompt, seed, duration, model version and kept path; the chain; outputs as one group (wav, picture, trace); house rules and the values measured after saving; a claim line and a what-is-a-choice line; and "heard: by whom, when", empty on all sixteen today.
+
+**What the hand's pages should carry.** For sound: the house numbers and the fade that avoids clicks; "measure the file you saved, not the array you built"; one seed per piece; two identical sources left and right are mono to the ear; a resonant filter boosts; a kept helper set "so the fourth maker doesn't write a fourth kick drum"; and a negative result, that filtered noise with sine blips does not read as a room. For SVG: the Drafting Table tokens as values; minimum text size at band width; escape `&` and `<`; which animation plays in the rich face; parse frontmatter with yaml; a count names its source and date.
+
+**What the design gets wrong, in its view.**
+- It aims at the moment before making. A menu at session start would have reached it once, days before it knew what it was making. The bench belongs in the workshop's first script and the brief template: a round's workshop born with a jobs-file skeleton and the menu in its README.
+- The proposal stage is the cheapest place to choose. One more word per line, the Specialist, and Loudon would have seen "numpy" thirty times on day one.
+- "Verifiability is the real reason I stayed with the hand, more than speed." A challenger can recompute a 440 Hz sine and cannot check a generated bed. Each card could say what can be measured about its output and what only an ear can judge.
+- "Heard by" should be as automatic as "made with".
+- Renaming the hand as Specialists risks being true on paper: all seventy would count as Shop work. The counts should split hand from not-hand, and comparisons should be planned, a few per round chosen at proposal time, "since a maker who never tried it has no expectation either way."
+- `shop run` appending to a trunk ledger is a house write by a child's command. It thinks that is right, as the Regen button does it, and wants it said aloud as an exception.
+
+**Offered as trial ground:** Pauline Oliveros's room, the Dub Lineage and Rick Rubin source material, and Rubin's voice. The hand version of each exists with its seed and picture, so each is a ready comparison.
+
+**Its guesses, marked as such:** whether warm Stable Audio is fast enough inside a thirty-piece loop, whether SMIL plays everywhere in the rich face, and what a dispatched maker would do with a menu in its prompt.
