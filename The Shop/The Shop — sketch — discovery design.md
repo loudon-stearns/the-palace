@@ -163,7 +163,7 @@ The Shop belongs on the floor, but the floor is not where the tool gets fixed, s
 
 ## The first comparison, heard
 
-The Pauline Oliveros room, by hand and through Stable Audio Open (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`). Loudon heard both. The hand's "sounds like \"musique contrete\" a collection of precise crafted sounds assembled together"; the Stable Audio side, "while not as good by my ear, rings \"truer\" to me and doesn't feel artificially collected". Neither won. What came of it is the sampled-or-synthesized split in § 3, and a method: generate the pieces, edit them together by hand. It also showed the loop working once end to end: a pair made in minutes, a verdict in his words, and a line owed on the Specialist's ledger.
+The Pauline Oliveros room, by hand and through Stable Audio Open (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`). Loudon heard both. The hand's "sounds like \"musique contrete\" a collection of precise crafted sounds assembled together"; the Stable Audio side, "while not as good by my ear, rings \"truer\" to me and doesn't feel artificially collected". Neither won. What came of it is the sampled-or-synthesized split in § 3, and a method: generate the pieces, edit them together by hand. A third version made that way he called "the best of the group", with the hum too loud and one question left for later: variations for a sound that repeats. It also showed the loop working once end to end: a pair made in minutes, a verdict in his words, and a line owed on the Specialist's ledger.
 
 ## The method the comparison turned up — choose, collect, edit
 

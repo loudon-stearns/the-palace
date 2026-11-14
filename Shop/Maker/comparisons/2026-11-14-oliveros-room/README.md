@@ -61,4 +61,8 @@ So neither side won. The hand's is better made and reads as assembled; the Shop'
 
 **Not known.** Whether the cut events sound like what they are named. The bird and the string were chosen by how cleanly they start, not by what they are. Nobody has heard this version.
 
-**Heard by (third version):** nobody yet.
+**Heard by (third version):** Loudon, 2026-11-14. His verdict, whole:
+
+> This is the best of the group, hum is too loud and we need to see if we can generate variations with stable audio for the repeated sounds, but that is a question for the future, not to solve today.
+
+So of the three, the one that follows his split is the best. Two things are left, neither for today: the hum, which the hand set too loud (0.05 in `third.py`; the file is left as he heard it), and whether Stable Audio can give variations of a repeated sound, so that nine drips are nine drops and not one drop nine times.
