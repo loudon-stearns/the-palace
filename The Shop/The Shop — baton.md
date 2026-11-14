@@ -1,0 +1,103 @@
+---
+title: "The Shop — baton"
+born: 2026-11-14
+links:
+  - target: "[[The Shop]]"
+    type: connects-to
+    label: "baton-for"
+forward_vector: "I carry the in-progress move on [[The Shop]] across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
+---
+
+# Baton: The Shop — shop specialist discovery
+
+## Move
+
+Find out what would make the Shop's full capabilities visible and available at the moment anything is made, in or with the palace, by looking at enough of the situations where making happens. Then bring Loudon a design that covers them, before anything foundational moves.
+
+## Why this move matters
+
+Loudon, 2026-11-14: "create a handoff 'shop specialist discovery' with the broad mandate to make sure that whenever anything is being made in or with the palace the full capabilities of the shop are easily visible and available. give our current situation as a single example, but be clear that there are other situations to consider. We have identified a clear gap in the palace/shop, but have not considered enough situations to come up with a full zoomed out solution."
+
+The gap is real and it's showing up as work. Makers keep building sound, images and motion by hand while a Specialist that does it better sits unused. One morning turned up one example of this. It isn't the whole problem, and it isn't the design.
+
+## Cold start
+
+COLD START: this work has not begun. Nothing has been built and nothing has been tried and rejected. What follows is one example and some candidate ideas, carried so they aren't re-derived. None of it is decided.
+
+**The one example: the Daily Page of 2026-11-14, Stable Audio Open.** Stable Audio 3 renders 20 s of sound locally in about a second. Loudon was impressed by the quality and said many small interactions should have used it. Record: `Shop/Stable Audio Open/Stable Audio Open — scroll.md` (trail entry `daily-2026-11-14-arc-or-texture`), the morning's commit `ops(The Daily Page): 2026-11-14 · Stable Audio Open`, and Loudon's earlier direction at `Light Enrichment.md:97-104`.
+
+Two making sessions were asked to reflect on why, without doing any work. The woken Stable Audio Open page answered too.
+- **Light enrichment proposals.** 70 light pieces, 16 of them sounds, none made through the Shop. The sound was numpy and scipy, the images SVG written from Python and PIL. That session never opened `The Shop.md` in three days.
+- **Playful interface design enrichment plan.** A hook pilot and 6 rich-face pieces. The briefs said "synthesized with Web Audio". ComfyUI was named, but the makers drew SVG.
+
+The causes they gave, all candidates:
+1. The Shop is never in front of a maker when the tool is chosen. [[CHILD]] points at the design systems only. The Concierge's gatherer index lists Shop pages as subjects, not as means.
+2. The wall is not knowing a Specialist's status, its command, how fast it is, or when it last ran.
+3. Makers can't hear. So they trusted only what they could measure, and shipping generated mood material felt dishonest.
+4. The default is one file. Specialists are built as batch pipelines, and going through the Maker feels like handing the work away.
+5. `_tools/` isn't in worktrees.
+
+Pieces they named as worse for it: the Pauline Oliveros room; the Dub Lineage riddim; Rick Rubin's mix and "voice" ([[Kokoro]]); Cooking ↔ Mixing; Kick Drum ↔ Foundation; SUBSTRATE's bed and cues; the Dichotomy of Control room tone; the mycelial reverb's feeds; the p5.js page's piece, faked in numpy with the wrong recipe. Counts belonged in Observable Plot or D3, loops in Manim or p5, and LaMa and Depth Anything could have demonstrated themselves. They agreed that measurements you listen to (Leibniz's clocks, Endosymbiosis, Audition Gate) should stay hand-built.
+
+**Candidate ideas floated, none settled:**
+- **Roster columns.** Call me for / not yet shown to hold / last ran (from the tuning ledger) / one command by the main checkout's path. These would be read from a fixed first line on each Specialist page, with no new frontmatter.
+- **A roster command.** `Shop/Maker/build-roster.mjs --print <medium>`, which agents run instead of reading `The Shop.md` (about 2,000 words; the roster is its sixth section). Or move the roster to the top of the page.
+- **A CHILD line.** Widen "before anything visual" to "show, play or animate" and name the Shop. This is foundational, so only on Loudon's yes, and only once the roster can answer.
+- **Honest captions.** The rich-face README and [[Light Enrichment]] would say generated material is welcome with an honest caption ("sets a mood, proves nothing"), with Loudon as the audition.
+- **Per-piece checks.** A one-line tool note on each piece, and a challenger question: "was a Specialist passed over?"
+- **Self-demonstration.** A piece on each Shop page, made with that page's own tool.
+- **Brainstorm cards.** The Shop as cards in brainstorms with Loudon.
+
+## Next move
+
+Look before designing. Walk the situations below the way the example was walked: read the record, ask the makers or the pages, and name where the Shop was or wasn't in front of the one choosing the tool. These still need looking at:
+- Daily Page roughs
+- steward cycles and the permanent stewards
+- Deposit figures
+- Loudon Live production and the [[Loudon Live Post-producer]]
+- VST, plugin and project builds
+- the public site
+- the [[Maker]]'s own dispatch
+- the Concierge's gatherer index
+- cloud and unattended sessions without `_tools/`
+- Shop stubs, and Specialists that have gone quiet
+- what Loudon himself sees when he starts a making session
+
+Then draft one zoomed-out design that covers them all, and show it to Loudon. He leads from there.
+
+**Done looks like:** a design that covers these situations, shown to Loudon before anything foundational moves.
+
+## Calibrations from this session
+
+- Loudon, 2026-11-14: "I don't want to settle this question in this session." The morning stopped at the example on purpose. Treat the candidate ideas as found, not chosen.
+- The example is one case. Don't fit the design to Stable Audio Open or to Light Enrichment.
+- A CHILD edit is foundational: only on his yes, and only after the roster can actually answer what a maker would ask it.
+- What a Specialist can't do is part of being visible. The morning's probe found small-sfx drops an arc it is told about, and small-music fades every clip. See the gotchas on [[Stable Audio Open]].
+
+## Load these files first
+
+1. `The Shop.md`: its Roster section and The Specialist Anatomy.
+2. `Shop/Maker.md` and `Shop/Maker/build-roster.mjs`, the roster as it is generated today.
+3. `Shop/Stable Audio Open.md` and its scroll, the example.
+4. `Light Enrichment.md` § Where this is headed, and `Enrichment.md`.
+5. [[CHILD]] § Growing up, the line a child reads before making anything visual.
+6. `_ops/concierge/` and its gatherer index, how the Shop is found today.
+7. [[Shopkeeper]], the Shop's steward. Read its scroll before proposing anything it already tends.
+
+## On pickup (fixed — the catcher's checklist; do not rewrite per session)
+*Identical in every baton. It rides along because the catching Claude loads the
+baton and the entry, not this ceremony — so the catcher's obligations live where
+the catcher will see them. Omit nothing here.*
+A pickup has two beats: **claim** it when you catch it, **close** it when the move lands. The card stays visible in between — a claim that ages with no close is how a dropped baton (a "fumble") surfaces instead of vanishing. (A parent-entry baton that was never announced on the board has no card; skip the board posts — just remove the pointer and delete the file at close, step 8.)
+
+**Catch it — claim:**
+1. State the move back in one sentence. If you can't, the baton wasn't caught — stop and ask Loudon.
+2. Check it may already be done before you commit to it. The baton is a snapshot from when it was written; the project may have moved past it. Re-read the parent entry and `git log` it since the baton's `born` date, and confirm the "Current state" the baton quotes still matches the file. For a board-announced baton, `node _ops/stigmergy/pickup-handoff.mjs <id>` prints exactly this reconciliation view — every commit that touched the entry since the baton posted — and then claims the card, so run it and read the list *before* you continue. If the move is already done, superseded, or no longer wanted, STOP — do not claim it; surface to Loudon, and if it plainly landed already, close it as a reconciler (step 7). A stale baton followed silently produces drift. (The auto-staleness heuristic is off by design — the freshness call is yours.)
+3. If this baton or its board line is still uncommitted, commit them first. That commit is the git archive step 8 relies on.
+4. Claim it. For a board-announced baton (it shows in `list-handoffs`), the `pickup-handoff.mjs` from step 2 has already posted the claim (`handoff_picked_up`, `lifecycle: claim`) — the card moves to **CLAIMED (in flight)**; it does *not* leave the board. Leave the "Active Baton" pointer and the baton file in place for now — they come out at close, so a fumble mid-move never erases the work.
+5. If the baton names a receiving-surface capability delta or a worktree coordinate, confirm it holds before relying on it — for a worktree, check `git worktree list` and recreate it (`node _ops/worktree/new-worktree.mjs --name <branch> --profile <p>`) if it is gone. A build that was supposed to run here but can't is a finding to report, not a failure to hide.
+6. Act on the move, holding the calibrations above.
+
+**Close it — when the move lands:**
+7. Post the close. `node _ops/stigmergy/close-handoff.mjs <id | entry> --commit <hash>` retires the card — an explicit close is the *only* thing that clears it (done is never inferred). Cite the commit that landed the move: it makes the close a checkable claim, not a self-report. **Complete, or re-baton the rest:** if you finished the whole move, close plain; if you did only part, `--partial --remainder "<what's left>"` posts the leftover as a fresh `handoff_ready` so it reappears as open work. Never let "in the spirit of the original" quietly drop scope — a gap becomes a new baton, not silence.
+8. Delete the baton file (git is its archive) and remove the "Active Baton" section from the parent entry. Steward batons are the exception — updated in place, never deleted or closed, until their page ends and the steward leaves stewardship.
