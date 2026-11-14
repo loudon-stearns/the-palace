@@ -342,3 +342,7 @@ What each morning taught the practice. Each item names what the morning showed a
 119. **Makers don't meet the Shop.** Two making sessions said, when asked, that they never opened [[The Shop]]. Prep step 5's "look to The Shop's roster" depends on that roster being in front of whoever chooses the tool. Nothing forced here. The question went to the shop specialist discovery baton.
 
 - run · 2026-11-14 · v1.10 · Stable Audio Open, trim + tune · taught items 116–119
+
+## From Loudon's ruling on the Shop, 2026-11-14
+
+120. **The prep could build by hand alone, but a Shop making waited for his yes, so the Shop was the slow path by rule.** The walk for the shop specialist discovery baton found it ([[The Shop — sketch — discovery walk 2026-11-14]]). Asked whether a local Sketch should still wait, Loudon answered: "Sketches can use anything, just go." Changed: the prep paragraph now lets a Sketch use any Specialist that runs on this machine without waiting; money and pods still wait for him. v1.11. Pays the cause under items 25 and 119 in part: the roster is still not in front of the prep until the Shop's menu exists.

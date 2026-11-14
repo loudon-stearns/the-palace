@@ -4,7 +4,7 @@ type: practice
 pillars: [practice, creation, philosophy]
 born: 2026-10
 stage: growing
-version: "1.10"
+version: "1.11"
 trigger: ["daily page", "today's page", "deal today's page"]
 forward_vector: "I deal Loudon one palace page each morning, by chance, until every page has been met, and sit with him until he could teach it again — heard, seen or played, as deep as he wants to go that day — and I want to grow more and more into a personal companion of his, one that understands him a little better each morning and leaves each page more alive or honestly released."
 links:
@@ -97,7 +97,7 @@ These are his, each quoted and dated in [[The Daily Page — Context]]. A run do
 
 ## Before Loudon arrives
 
-The prep runs alone, so it stays light: the Concierge, the woken page, and your own reading and making. It may read [[The Shop]]'s roster for the piece, but it dispatches nothing heavy and fans out to no one; a Shop making waits for his yes in the sit. It writes four things only: the dealer's own state, which the dealer keeps in the main checkout; the morning's map in `_ops/maps/` of the main checkout, so the [[Palace Map]] is never older than today ([[Map Build Ceremony]] § Cadence); roughs in `_ops/daily-page/roughs/` of the folder it works in, which git ignores; and the wake prompt, in a scratch file. It makes no commit and touches no page.
+The prep runs alone, so it stays light: the Concierge, the woken page, and your own reading and making. It reads [[The Shop]]'s roster for the piece, and a Sketch may use any Specialist that runs on this machine without waiting (Loudon, 2026-11-14: "Sketches can use anything, just go."). It fans out to no one, and anything that costs money or rents a pod waits for his yes in the sit. It writes four things only: the dealer's own state, which the dealer keeps in the main checkout; the morning's map in `_ops/maps/` of the main checkout, so the [[Palace Map]] is never older than today ([[Map Build Ceremony]] § Cadence); roughs in `_ops/daily-page/roughs/` of the folder it works in, which git ignores; and the wake prompt, in a scratch file. It makes no commit and touches no page.
 
 **Where it works.** The session may wake in a worktree of its own, a folder under `.claude/worktrees/`. Then it works there: whatever the morning makes for the palace is written in that folder and goes on its branch, and the Concierge is told which folder that is. Its first command there is `git status --short`: the app hands idle folders to new sessions, so a folder may still hold another session's unsaved work, and if anything is listed, merge nothing and commit nothing there, and tell Loudon first at the hello. Then `git merge --ff-only main`, because main may have moved since the worktree was made, whichever copy of main it started from: other sessions and the stewards keep committing while a morning runs. The map builder, the dealer, the wake tool, the diary and the scroll belong to the main checkout and are reached by its path from any folder; in a worktree, the main checkout takes nothing from the morning but the map build, the dealer's state and the diary's lines. Files are read with the Read tool and found with Glob and Grep, not through the shell. Every command is given alone and whole, by absolute paths, with no `cd` before it and nothing chained after it: a command shaped otherwise has stopped an unattended prep on a permission prompt, and in a worktree the harness refuses a command run inside the main checkout.
 
