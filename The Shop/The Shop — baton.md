@@ -73,7 +73,7 @@ The eleven situations were walked on 2026-11-14 by read-only readers. Their repo
 
 ## Next move
 
-A first draft of the design is in [[The Shop — sketch — discovery design]], shown to Loudon on 2026-11-14. Take his cuts and rulings (five are listed at its end), revise the draft, and build nothing until he adopts a stage. Stage 1 is cards on the Specialists and a read-only `shop menu`; the floor moves only after the menu can answer. Before leaning on any one walk report, open the file it cites.
+The design is at its second draft in [[The Shop — sketch — discovery design]], revised on 2026-11-14 from the accounts of the two making sessions (both condensed at the end of the walk file). Its weight moved from the session floor to the five places the tool actually gets fixed: the proposal, the brief, the follow-up, the workshop's first script, the placing. Take Loudon's cuts and his six rulings, and build nothing until he adopts a stage. Stage 0 needs no code: a Specialist word on every proposal line, a tool line in every brief, and three comparisons whose hand version exists (SUBSTRATE's bed and cues, the Pauline Oliveros room, Rick Rubin's voice).
 
 **Done looks like:** a design that covers these situations, shown to Loudon before anything foundational moves.
 

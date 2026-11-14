@@ -509,3 +509,38 @@ The session "Light enrichment proposals" read the design draft and answered six 
 **Offered as trial ground:** Pauline Oliveros's room, the Dub Lineage and Rick Rubin source material, and Rubin's voice. The hand version of each exists with its seed and picture, so each is a ready comparison.
 
 **Its guesses, marked as such:** whether warm Stable Audio is fast enough inside a thirty-piece loop, whether SMIL plays everywhere in the rich face, and what a dispatched maker would do with a menu in its prompt.
+
+## From the hook pilot's own session — condensed by the catching session
+
+The session "Playful interface design enrichment plan" read the design draft and answered six questions on 2026-11-14. It made nothing for this. A condensation, not its words, except where quoted. It says its quotes come from its transcript and marks what is from memory.
+
+**The briefs are in no file.** It wrote them as the prompt text of Agent calls, and they live only in its transcript. "The place where the tool got fixed leaves no trace in the palace."
+
+**How it went.** Twenty idea agents returned hook ideas. Loudon chose directions in his own images ("a single comic book image", "a playable synthesizer", "comic book frames"). The session wrote one brief per maker and spawned five makers in worktrees. Each maker chose its medium there. Loudon auditioned, and makers were resumed with change requests.
+
+**When the tool was fixed.**
+- Pictures: the brief left it open and the maker chose. The SUBSTRATE brief: "Frames: your call how. Drawn in SVG or canvas by you, or generated: the palace has local image generation (see … ComfyUI under the owner's _tools/). If you generate, say so and with what." Its own reading: "drawn by you" comes first, ComfyUI is a path in someone else's checkout with no command, and the Lens brief asked for live distortion, which favours layered SVG. Both makers drew.
+- Sound: fixed in the brief, and mostly in a follow-up. The one "Web Audio" line is a resume to the SUBSTRATE maker after Loudon asked for background sound: "synthesized in the piece with Web Audio unless a palace sound truly fits; no licensed samples." So the baton's "the briefs said synthesized with Web Audio" is one line to one maker. The two instruments are synths, where Web Audio is the piece and not a choice against the Shop.
+
+**Where a brief would still route around the Shop.**
+- The brief is written by a planner who makes nothing and so never meets the menu. A brief that names a medium should have to name its Specialist or say "maker chooses at the bench".
+- Loudon says "comic book frames" and the planner hears a medium. That translation is silent.
+- Makers work in worktrees without `_tools/`, and the isolation guard may refuse a worktree agent's append to a trunk ledger. Untested.
+- Most tool-fixing happened in one-sentence resumes ("add a bed"), which skip every ceremony. A resumed agent sees no hook and no floor line again.
+- Makers cannot hear, so briefs ask for checks by number, and a generated bed fails that kind of check by nature. The brief-writer needs it said as permission: mood sound's check is Loudon's ear.
+- The kit asks for one self-contained HTML file. A generated wav or png is a second file to declare and get through conform, so a maker synthesizes in the page to stay inside the rule.
+
+**Does a Specialist fit a playable face?** Partly. A hook has two layers: the instrument, code that runs in the reader's browser, and its materials (beds, cues, a panel image, impulse responses, source sounds). Materials fit `shop run` exactly. The instrument has no output file and no single run; for it the Specialist is "a starting point and a memory, not a renderer". What the interactive Specialists' pages would have had to offer: a starter that already passes conform, the gotchas that cost passes, an offline render harness so a maker who cannot hear can measure ("each of my makers wrote its own check.mjs from nothing, five times"), the design tokens applied, and one worked piece. Makers got those from MAKER-BRIEF and the rich-face README. "Right now the kit is the real Specialist for playable faces and it is not in the Shop."
+
+**Card and design system.** Right for file-making Specialists. For a playable face the dress has to hold across several materials, so that coherence belongs with whoever composes the piece. It would put the meeting point on [[Playful Interface Design]]: the page names the materials a hook is built from, by need, each pointing at the menu. And the menu belongs on the table during the brainstorm with Loudon, before any brief exists. It marks that last as its reading of Loudon's sentence that hooks "should be related to modes of collaboration more than a prompt or a process you run alone".
+
+**What the design gets wrong, in its view.**
+- It treats making as one act by one maker. It has no line for the brief-writer or the follow-up.
+- "Nothing is made outside the Shop" reads oddly for an instrument. Say that an interactive piece is composed: its materials go through Specialists and its code through a scaffold.
+- The rich-face kit is missing. It is where every face maker already passes and it already has a door that checks. `shop check` and conform should be one pass.
+- The audition is not in the loop. Loudon's verdict is the only real quality signal for mood sound and has no path back to a card. His sentence on SUBSTRATE's sounds: "they are ok, we need to get better at making interface sounds and environmental sounds, but I have high standards there".
+- Comparisons can only be judged by Loudon, so `shop compare` makes a queue for him. "Thirty makers comparing freely could bury him."
+- It dispatched with the plain Agent tool, so an orchestrator-injected menu would have missed its makers.
+- "The cost that mattered to me was not speed but not knowing what was installed and working." It thinks "available here · last ran today" is the one line that would have changed its briefs.
+
+**Offered as trial ground:** SUBSTRATE's bed and cues, where the hand's version exists and has Loudon's verdict on it; a room tone for the Dichotomy practice; possibly the Lens's one panel. A guess, marked as one: the Mycelial Reverb's dry feeds.
