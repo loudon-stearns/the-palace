@@ -73,7 +73,9 @@ The eleven situations were walked on 2026-11-14 by read-only readers. Their repo
 
 ## Next move
 
-The design is at its second draft in [[The Shop — sketch — discovery design]], revised on 2026-11-14 from the accounts of the two making sessions (both condensed at the end of the walk file). Its weight moved from the session floor to the five places the tool actually gets fixed: the proposal, the brief, the follow-up, the workshop's first script, the placing. Take Loudon's cuts and his six rulings, and build nothing until he adopts a stage. Stage 0 needs no code: a Specialist word on every proposal line, a tool line in every brief, and three comparisons whose hand version exists (SUBSTRATE's bed and cues, the Pauline Oliveros room, Rick Rubin's voice).
+Stage 1 of the design is built and on main (2026-11-14): a card at the top of every Specialist's page, `node Shop/shop.mjs menu [need]` and `card "<Specialist>"`, and the host file completed. The cards are readers' drafts, placed by an elder and not yet tried line by line; each says so on its page. Stage 0 is half done: one comparison made and heard in three versions (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`), two not made (SUBSTRATE's bed and cues, Rick Rubin's voice).
+
+What is next, in the design's order ([[The Shop — sketch — discovery design]]): stage 2, `shop workshop` and `shop run` with chained provenance and the automatic run line, starting with Stable Audio Open, the hand's sound page and Kokoro. Before it: Loudon's two open calls (the session-start hook; the names and number of the hand's pages), and the decision tree written once on the Maker from BLUELINE's table and the comparisons. Owed beside it: the tool line in Enrichment's own maker brief; the third Oliveros room offered to her rich face as a proposal; a review of Stable Audio Open's ledger items 13–17.
 
 **Done looks like:** a design that covers these situations, shown to Loudon before anything foundational moves.
 
