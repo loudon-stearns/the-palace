@@ -1,0 +1,95 @@
+{
+  "made": "2026-11-14",
+  "chain": [
+    "Stable Audio Open (stable-audio-3 3.0, small-sfx, steps 8, cfg 1.0)",
+    "chosen by measurement from four seeds each (takes.py)",
+    "gated and mixed by hand (mix.py)"
+  ],
+  "prompts": {
+    "drip": "slow water drip, one single drop falling into water every second, silence between the drops, close and dry, no rain, no stream",
+    "room": "room tone, quiet interior with an open window, soft steady rain outside, faint electrical hum, occasional distant bird, constant level, no change"
+  },
+  "chosen": {
+    "drip_seed": 1935,
+    "room_seed": 1932
+  },
+  "takes": [
+    {
+      "source": "drip",
+      "seed": 1932,
+      "onsets": 63,
+      "quarter_spread_db": 3.6,
+      "lr_corr": 1.0,
+      "gen_sec": 2.44
+    },
+    {
+      "source": "drip",
+      "seed": 1933,
+      "onsets": 56,
+      "quarter_spread_db": 6.4,
+      "lr_corr": 1.0,
+      "gen_sec": 1.6
+    },
+    {
+      "source": "drip",
+      "seed": 1934,
+      "onsets": 69,
+      "quarter_spread_db": 2.4,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    },
+    {
+      "source": "drip",
+      "seed": 1935,
+      "onsets": 40,
+      "quarter_spread_db": 6.4,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    },
+    {
+      "source": "room",
+      "seed": 1932,
+      "onsets": 1,
+      "quarter_spread_db": 1.2,
+      "lr_corr": 1.0,
+      "gen_sec": 1.6
+    },
+    {
+      "source": "room",
+      "seed": 1933,
+      "onsets": 1,
+      "quarter_spread_db": 2.3,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    },
+    {
+      "source": "room",
+      "seed": 1934,
+      "onsets": 10,
+      "quarter_spread_db": 9.0,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    },
+    {
+      "source": "room",
+      "seed": 1935,
+      "onsets": 5,
+      "quarter_spread_db": 5.0,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    }
+  ],
+  "first_take": "seed 1932 with the first prompts (make.py): the drip ran about four onsets a second and fell 9 dB across the clip; the room rose 8 dB at 15 s. Set aside.",
+  "measured_on_saved_file": {
+    "focal_half_rms_db": -34.1,
+    "global_half_rms_db": -18.6,
+    "peak_dbfs": -1.0
+  },
+  "stereo": "every take came back with left and right identical (correlation 1.00): the Shop side is mono; the hand's side pans its sources",
+  "sha256": {
+    "shop — one point, then the whole sphere.m4a": "0948bbe5ad170581",
+    "source — drip.m4a": "b8c60f4cb1788b47",
+    "source — room.m4a": "b52be1f22de271d0"
+  },
+  "heard_by": "nobody yet"
+}

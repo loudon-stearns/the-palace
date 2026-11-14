@@ -50,3 +50,13 @@ Four matched pairs, an arc prompt and a steady twin on one model, seed and lengt
 12. **The Kuramoto recipe's arc is doubtful but not disproved.** Its nearest sibling here (item 7's pulses) came back flat. Measured the same day, `Kuramoto Coupling/synchronization-arriving.wav` rises about 8–10 dB after its first second and grows somewhat more regular by a rough autocorrelation reading (0.32 to 0.46, first quarter to last); whether it is heard as locking was not checked by ear. Changed: the recipe's note. Not changed: the caption on [[Kuramoto Coupling]]'s rich face, which still says the pulses "pull into a shared rhythm and lock together"; that is another page's.
 
 - run · 2026-11-14 · arc or texture (Daily Page blind probe), small-music + small-sfx, probe · taught items 7–12
+
+## From the Oliveros room comparison — 2026-11-14 — small-sfx, Sketch
+
+Written by the session that made the comparison, not at a review. Loudon, 2026-11-14, on such lines: "flagged and reviewed later when we decide to update the specialist based on the ledger." The page is unchanged by these three; each is owed a review.
+
+13. **Every take came back mono.** Ten 26 s renders on small-sfx (two prompts, five seeds between them) each had left and right identical, correlation 1.00. The page's Capabilities say "WAV at 44.1 kHz stereo". Whether that is small-sfx, these prompts, or the default settings was not looked into. Owed: a check with small-music and a prompt that asks for width, then the Capabilities line.
+14. **A count asked for in words was not held.** "One single drop falling into water every second" came back at about 40 to 69 onsets in 26 s over four seeds, by a rough detector that may count a drop and its ring as two. A sibling of item 7: a rate, like an arc, is a shape over time. Owed: a gotcha that an event placed at a rate is built around the model, one generated drop repeated by hand.
+15. **Steady is a seed away, and choosing by measurement is cheap.** Four seeds of one room-tone prompt varied 1.2, 2.3, 5.0 and 9.0 dB across their quarters. The model loaded in 8 s and each render took 1.6 to 3.1 s, against item 11's 334 s first render the same morning. Owed: a recipe line, "take four seeds and keep the flattest", and a second look at item 11's warm-up.
+
+- run · 2026-11-14 · Oliveros room, hand against Shop (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`), small-sfx, sketch · taught items 13–15, each owed a review

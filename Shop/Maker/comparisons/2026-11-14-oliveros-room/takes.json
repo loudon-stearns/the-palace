@@ -1,0 +1,72 @@
+{
+  "prompts": {
+    "drip": "slow water drip, one single drop falling into water every second, silence between the drops, close and dry, no rain, no stream",
+    "room": "room tone, quiet interior with an open window, soft steady rain outside, faint electrical hum, occasional distant bird, constant level, no change"
+  },
+  "takes": [
+    {
+      "source": "drip",
+      "seed": 1932,
+      "onsets": 63,
+      "quarter_spread_db": 3.6,
+      "lr_corr": 1.0,
+      "gen_sec": 2.44
+    },
+    {
+      "source": "drip",
+      "seed": 1933,
+      "onsets": 56,
+      "quarter_spread_db": 6.4,
+      "lr_corr": 1.0,
+      "gen_sec": 1.6
+    },
+    {
+      "source": "drip",
+      "seed": 1934,
+      "onsets": 69,
+      "quarter_spread_db": 2.4,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    },
+    {
+      "source": "drip",
+      "seed": 1935,
+      "onsets": 40,
+      "quarter_spread_db": 6.4,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    },
+    {
+      "source": "room",
+      "seed": 1932,
+      "onsets": 1,
+      "quarter_spread_db": 1.2,
+      "lr_corr": 1.0,
+      "gen_sec": 1.6
+    },
+    {
+      "source": "room",
+      "seed": 1933,
+      "onsets": 1,
+      "quarter_spread_db": 2.3,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    },
+    {
+      "source": "room",
+      "seed": 1934,
+      "onsets": 10,
+      "quarter_spread_db": 9.0,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    },
+    {
+      "source": "room",
+      "seed": 1935,
+      "onsets": 5,
+      "quarter_spread_db": 5.0,
+      "lr_corr": 1.0,
+      "gen_sec": 1.59
+    }
+  ]
+}
