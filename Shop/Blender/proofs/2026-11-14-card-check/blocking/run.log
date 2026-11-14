@@ -1,0 +1,21 @@
+/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Blender/proofs/2026-11-14-card-check/blocking/pose_and_emit.py:148: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  world = bpy.data.worlds.new("W"); scene.world = world; world.use_nodes = True
+/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Blender/proofs/2026-11-14-card-check/blocking/pose_and_emit.py:158: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m = bpy.data.materials.new("clay"); m.use_nodes = True
+00:01.882  render           | Saved: '/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Blender/proofs/2026-11-14-card-check/passes/rgb.png'
+WROTE rgb.png
+/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Blender/proofs/2026-11-14-card-check/blocking/pose_and_emit.py:165: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m = bpy.data.materials.new("normal"); m.use_nodes = True
+00:02.522  render           | Saved: '/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Blender/proofs/2026-11-14-card-check/passes/normal.png'
+WROTE normal.png
+/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Blender/proofs/2026-11-14-card-check/blocking/pose_and_emit.py:181: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m = bpy.data.materials.new("depth"); m.use_nodes = True
+00:03.021  render           | Saved: '/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Blender/proofs/2026-11-14-card-check/passes/depth.png'
+WROTE depth.png
+WROTE pose_keypoints.json
+Info: Saved as "dramatic-lunge.blend"
+WROTE dramatic-lunge.blend
+DONE_POSE_AND_EMIT
+Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)
+
+Blender quit

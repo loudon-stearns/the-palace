@@ -28,3 +28,8 @@ What each job taught the Depth Anything page. Each item names what the job showe
 2. **Depth gives a surface, not the geometry hidden behind a foreground element.** Changed: texture behind the figure goes to [[LaMa]]; true occluded shape stays an open problem.
 3. **Depth is smooth, so band boundaries are soft** and shimmer when animated unless treated. Changed: dilate or feather each band mask a few pixels before use (the Recipe carries it).
 - run · 2026-06-25 · BLUELINE shot 02, depth + bands · taught items 1, 2, 3
+
+## From the card check — 2026-11-14 — two of Blender's 2026-06-13 renders
+
+4. **On a figure against a flat, fogged backdrop, the 33rd and 66th percentiles landed on the same value (22), and the middle band came out empty.** Most of that frame is one far depth, so the percentile split cannot make three bands; on the blocked fill, a scene with spread depth, the same split gave 63 / 83 and three bands. Changed: `depth_map.py` still splits by percentile and prints the thresholds, so a collapse shows. Proposed for the Recipe at the review: on a frame that is mostly one depth, take thresholds from the histogram's valleys. Owed a review: written by the card-check session, outside a ledger review.
+- run · 2026-11-14 · card check: Blender's prompt_only_sdxl_seed7 and blocked_sdxl_fill renders, depth + bands · taught item 4

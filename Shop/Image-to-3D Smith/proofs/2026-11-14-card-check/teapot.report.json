@@ -1,0 +1,46 @@
+{
+  "space": "tencent/Hunyuan3D-2",
+  "endpoint": "/shape_generation",
+  "seed": 1234,
+  "steps": 30,
+  "seconds": 9.4,
+  "glb_bytes": 7762512,
+  "vertices": 139119,
+  "faces": 507652,
+  "watertight": false,
+  "bounds": [
+    [
+      -1.002,
+      -0.792,
+      -0.625
+    ],
+    [
+      0.963,
+      0.747,
+      0.585
+    ]
+  ],
+  "space_stats": {
+    "model": {
+      "shapegen": "tencent/Hunyuan3D-2/hunyuan3d-dit-v2-0",
+      "texgen": "tencent/Hunyuan3D-2"
+    },
+    "params": {
+      "caption": null,
+      "steps": 30,
+      "guidance_scale": 5.0,
+      "seed": 1234,
+      "octree_resolution": 256,
+      "check_box_rembg": true,
+      "num_chunks": 8000
+    },
+    "number_of_faces": 507652,
+    "number_of_vertices": 139119,
+    "time": {
+      "remove background": 0.9656648635864258,
+      "shape generation": 5.888523578643799,
+      "export to trimesh": 0.06926774978637695,
+      "total": 6.926257848739624
+    }
+  }
+}

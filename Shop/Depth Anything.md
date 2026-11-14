@@ -26,16 +26,16 @@ tags: [specialist, shop, perception, depth, decomposition, local]
 
 I turn one image into a depth map — a grayscale field where `0 = far` and `255 = near`. Hand me a photo, a render, or even a flat ink drawing, and I tell you what's in front of what. I run locally on this Mac (MPS), via `transformers`, in a few seconds. The Maker sends me an image and a tier; I deliver a depth PNG and, if asked, a coarse depth-banded split.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed and Checked by, on two of Blender's 2026-06-13 renders with a script written that day; Best used for, Not yet shown, Not my purpose and Hands on are read from the page and the ledger, not tried.*
 
-**Best used for, so far:** So far one job: BLUELINE shot 02, 2026-06-25. I ordered a pen drawing front to back, gave a clean figure silhouette, and split it into three usable depth bands (person+street, cars+buildings, fire+sky) with no segmentation.
-**Not yet shown to hold:** Nothing recorded as failed beyond the three founding gotchas: same-depth objects share a band, no hidden geometry, soft band edges (ledger items 1-3). Only one job so far; photos and renders are claimed, not run.
-**Not my purpose:** I don't isolate individual objects at the same depth (send to SAM or keypoints), and I don't rebuild what is hidden behind a foreground (send to LaMa).
-**Run:** No command on the page yet. The Recipe names the pipeline only: transformers, depth-anything/Depth-Anything-V2-Small-hf, on MPS. Resize long edge to ~1024, normalize to 0-255, save PNG. No proof script path is given.
-**Speed:** Page says 'a few seconds' on MPS; no figure or date is recorded.
-**Checked by:** A script can check the output is single-channel, matches input size, and spans 0-255. Only an eye can judge whether the front-to-back order is right and whether band edges shimmer.
-**Wears:** Not yet wired to a design system
-**Hands on:** I hand on a depth map and optional FRONT/MID/BACK band masks, which need a small dilate or feather; I need one RGB image, and I leave object separation to SAM and hidden texture to LaMa.
+**Best used for, so far:** Knowing what is in front of what, in one image of any kind. Evidence: on BLUELINE shot 02 (2026-06-25) I ordered a pen drawing front to back, gave a clean figure silhouette, and split it into three usable bands with no segmentation; on 2026-11-14 I read a blocked SDXL fill and a figure in fog.
+**Not yet shown to hold:** Same-depth objects share a band, I give no hidden geometry, and band edges are soft (ledger items 1–3). Percentile bands collapse on a flat backdrop (item 4). Photos and long animated sequences are claimed, not run.
+**Not my purpose:** Isolating objects at one depth (SAM or keypoints do) and rebuilding what is hidden behind a foreground (LaMa does).
+**Run:** From the palace root: `_tools/ComfyUI/venv/bin/python "Shop/Depth Anything/proofs/2026-11-14-card-check/depth_map.py" IMAGE OUT_DIR --bands`.
+**Speed:** On this Mac's MPS at 768×1024: model load about 1 s; inference 3.1 s for the first image of a process and 0.25 s for the next; 6.5–11 s for the whole command with Python's start (2026-11-14).
+**Checked by:** A script checks the depth PNG is single-channel, matches the input size, spans 0–255, and that each band mask is non-empty. Only an eye judges whether the front-to-back order is right and whether band edges shimmer.
+**Wears:** No design system is wired in.
+**Hands on:** I hand on a depth map, 0 far and 255 near, and optional FRONT / MID / BACK band masks: ComfyUI takes the depth as a ControlNet channel, LaMa and SAM take the bands and the silhouette as masks, and Animate the Background stacks the cels. I take one RGB image.
 
 ## Job Contract
 
@@ -60,3 +60,5 @@ What reading depth has taught, as it stands today. Which job taught each, and wh
 ## Recipe
 
 `transformers` pipeline, `depth-anything/Depth-Anything-V2-Small-hf`, MPS. Resize the long edge to ~1024, run, normalize to 0–255, save PNG. Band split = two thresholds on the histogram (e.g. 33rd / 66th percentile), each band dilated a few px before use as a cel mask.
+
+As a command, from the palace root: `_tools/ComfyUI/venv/bin/python "Shop/Depth Anything/proofs/2026-11-14-card-check/depth_map.py" IMAGE OUT_DIR --bands`. Its shot-specific ancestor, which also measures each region's mean depth, is `Projects/BLUELINE/proofs/blender-fire/depth_test.py`; the band split there is `depth_bands.py`.

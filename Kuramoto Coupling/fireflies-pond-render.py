@@ -15,7 +15,12 @@ Prerequisites:
   - ComfyUI cloned at _tools/ComfyUI/ with its venv populated.
   - sd_xl_base_1.0.safetensors in _tools/ComfyUI/models/checkpoints/.
   - ComfyUI server running on 127.0.0.1:8188 (start via
-    `python _tools/ComfyUI/main.py --listen 127.0.0.1 --port 8188`).
+    `_tools/ComfyUI/venv/bin/python _tools/ComfyUI/main.py --listen 127.0.0.1 --port 8188
+    --highvram --use-split-cross-attention`; the two flags are the MPS launch line in
+    Shop/ComfyUI/ComfyUI — local-install.md).
+  - Run from the main checkout: COMFY_OUTPUT_DIR is a path into _tools/, which a worktree
+    lacks. For any other workflow, or from a worktree, use
+    Shop/ComfyUI/proofs/2026-11-14-card-check/comfy_run.py, which fetches over HTTP.
 """
 
 from __future__ import annotations

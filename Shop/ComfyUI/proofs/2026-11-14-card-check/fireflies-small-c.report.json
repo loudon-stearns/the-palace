@@ -1,0 +1,14 @@
+{
+  "out": "fireflies-small-c.png",
+  "sha256": "42a3c0c63ddd66a68770b39830c7b5fe08a8844524a4e02dfa7ca87d63afd4f4",
+  "render_time_sec": 27.3,
+  "seed": 7,
+  "steps": 20,
+  "width": 768,
+  "height": 512,
+  "workflow": "Kuramoto Coupling/fireflies-pond-workflow.json",
+  "comfyui_version": "0.22.0",
+  "device": "mps",
+  "workflow_hash": "d30903e2f22288de",
+  "status": "ok"
+}

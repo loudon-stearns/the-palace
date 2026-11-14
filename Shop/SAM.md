@@ -24,16 +24,16 @@ tags: [specialist, shop, perception, segmentation, decomposition, local]
 
 I cut an image into its constituent objects — a mask per thing. Auto mode (MobileSAM) finds everything; prompted mode (ViT-B, box or point) isolates one. I'm the **Segment** skill of layer decomposition. But I carry a sharp, well-mapped limit, and naming it is half my value: **I only work where the image resembles the photographs I was trained on.**
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed, Checked by and Hands on, by cutting a figure out of one of Blender's 2026-06-13 renders, prompted and auto, with a script written that day and handing the mask to LaMa; Best used for, Not yet shown and Not my purpose are read from the page and the ledger.*
 
-**Best used for, so far:** So far one session, 2026-06-25: on photoreal or flat-cel versions of three test scenes I cut sharp object masks (30/26/22 regions photoreal, 44/47/25 flat-cel). Flat cel-shaded is my best input.
-**Not yet shown to hold:** On line art I failed: on BLUELINE shot 02 I never isolated the car and over-segmented into fragments (ledger item 1). Thin or glassy objects and busy auto-mode scenes are claimed to fail on the page; no run is recorded for them.
-**Not my purpose:** I don't work on line art or other images unlike my training photos; convert to photoreal or flat-cel first. I don't order layers front to back; Depth Anything does that.
-**Run:** No command on the page yet. The Recipe names only ultralytics SAM, with mobile_sam.pt for auto and sam_b.pt for prompted, after converting the drawing to flat cel with a canny ControlNet. No script path is given.
-**Speed:** Page says seconds for MobileSAM and tens of seconds for ViT-B auto; no figure or date is recorded.
-**Checked by:** A script can count regions and check the masks are binary and match the image size. Only an eye can judge whether the cuts follow real objects instead of fragments.
-**Wears:** Not yet wired to a design system
-**Hands on:** I hand on one binary mask per object, which LaMa and Depth Anything then consume; I need an image already in a photographic or flat-cel domain, optionally with box or point prompts.
+**Best used for, so far:** Cutting one object, or every object, out of an image as masks, once the image looks like a photo or flat cel. Evidence: on photoreal and flat-cel versions of three scenes I cut 30/26/22 and 44/47/25 regions (2026-06-25); on 2026-11-14 one point prompt cut a figure in fog cleanly, minus its sword.
+**Not yet shown to hold:** Line art: on BLUELINE shot 02 I never isolated the car and broke it into fragments (ledger item 1). Thin or glassy objects and busy auto-mode scenes are said to fail, with no run recorded; a point prompt on a figure left its thin sword out (2026-11-14).
+**Not my purpose:** Line art or anything unlike my training photos: convert it to photoreal or flat cel first. Ordering layers front to back: Depth Anything does that.
+**Run:** From the palace root: `_tools/ComfyUI/venv/bin/python "Shop/SAM/proofs/2026-11-14-card-check/sam_cut.py" IMAGE OUT_DIR --point 0.5,0.45` (or `--box x0,y0,x1,y1`, or `--auto`).
+**Speed:** At 768×1024 on the CPU (2026-11-14): prompted ViT-B, 3.8 s, 7 s for the whole command; auto MobileSAM, 28.5 s, 31.5 s for the whole command (ledger item 3).
+**Checked by:** `sam_cut.py` counts the masks and their coverage of the frame, and writes binary masks at the image's size with an overlay. Only an eye judges whether the cuts follow real objects or fragments.
+**Wears:** No design system is wired in.
+**Hands on:** I hand on one binary mask per object: LaMa fills behind it, and with Depth Anything's order the masks stack into cels. I take an image already in a photographic or flat-cel domain, often ComfyUI's canny conversion, with a point or box prompt or none.
 
 ## Job Contract
 
@@ -57,4 +57,4 @@ What segmenting has taught, as it stands today, beside § The wall. Which job ta
 
 ## Recipe
 
-`ultralytics` SAM (`mobile_sam.pt` for auto, `sam_b.pt` for prompted). Best results: convert the drawing to **flat cel-shaded** first (canny ControlNet, low strength / posterized), then auto-segment, then [[LaMa]]-infill behind each cel and [[Depth Anything]] to stack them.
+`ultralytics` SAM (`mobile_sam.pt` for auto, `sam_b.pt` for prompted; both sit in `Projects/BLUELINE/proofs/blender-fire/` in the main checkout, gitignored). As a command, from the palace root: `_tools/ComfyUI/venv/bin/python "Shop/SAM/proofs/2026-11-14-card-check/sam_cut.py" IMAGE OUT_DIR --point 0.5,0.45` (or `--box x0,y0,x1,y1`, or `--auto`), fractions of the frame. The 2026-06-25 scripts it grew from are `photoreal_segment.py` and `photoreal_multi_segment.py` in that folder. The convert step is ComfyUI with canny, as in [[Animate the Background]]'s N-layer case; it is not one command yet. Best results: convert the drawing to **flat cel-shaded** first (canny ControlNet, low strength / posterized), then auto-segment, then [[LaMa]]-infill behind each cel and [[Depth Anything]] to stack them.

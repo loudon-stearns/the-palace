@@ -38,3 +38,7 @@ What each job taught the Blender page. Each item names what the job showed and w
 ## From operator memory, moved into canon — 2026-07-03
 
 10. **ComfyUI's install layout and MPS session drift** were added to the 2026-06-13 report from operator memory (`83222581`). The checkout is at `_tools/ComfyUI/` directly, not nested; a long-idle server often holds :8188, and a second instance on another port with its own `--database-url "sqlite:////tmp/<name>.db"` dodges the database lock. Over a long session MPS slows: single-ControlNet SDXL drifted from ~3 s/it to 12–37 s/it and blew a 900 s render timeout after a few dozen renders in one server lifetime. Killing and relaunching the process restored ~3 s/it at once. Changed: relaunch between long batch sessions.
+
+## From the card check — 2026-11-14 — the keystone's blocking scripts, headless
+
+- run · 2026-11-14 · card check: the keystone's pose_and_emit.py and draw_passes.py rerun headless, passes pixel-identical to 2026-06-13, probe · nothing new

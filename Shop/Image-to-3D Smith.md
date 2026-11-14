@@ -20,7 +20,7 @@ links:
 
 ![[Image-to-3D Smith — hero.png]]
 
-**Status: STUB** — drafted by the [[Shopkeeper]] from a calibration probe. Not yet dispatched on a real brief. First job should be a Study-tier Sketch → Three.js display chain or a Sketch → Blender import test.
+**Status: STUB** — drafted by the [[Shopkeeper]] from a calibration probe. Not yet dispatched on a real brief; the 2026-11-14 card check reran the Sketch tier as a probe, which does not change that. First job should be a Study-tier Sketch → Three.js display chain or a Sketch → Blender import test.
 
 ## Charter
 
@@ -33,16 +33,16 @@ I carry four engines because they have genuinely different output types and appr
 - **TRELLIS.2** (display-optimized) — textured lightweight GLB, 4.6MB, ~47s (two-step), best for Three.js
 - **TripoSplat** (splat lane) — Gaussian splat PLY, novel-view synthesis, not a triangle mesh
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed and Checked by, on the Sketch tier only (Hunyuan3D-2, anonymous, the 2026-06-08 teapot). Hi3DGen, TRELLIS.2 and TripoSplat were not rerun, and the other lines are read from the page and the 2026-06-23 probe.*
 
-**Best used for, so far:** Nothing yet on a real brief. Only a 2026-06-23 probe of four engines on one image. Charter: turn one image into a Blender-ready mesh (Hi3DGen), Three.js GLB (TRELLIS.2, Hunyuan3D-2), or a splat (TripoSplat).
-**Not yet shown to hold:** No real job has run, so the stub status stands. Texture generation was never run; the Piece chain through Blender and FLUX is unproven. Open questions: the first job and whether TripoSplat gets its own page.
-**Not my purpose:** Measured parts that must fit (CAD Drafter, plausible versus measured). TripoSplat splats are not editable geometry in Blender. Sculpted modelling is not stated.
-**Run:** No command on the page yet. Nearest working example is the probe folder Shop/Shopkeeper/probes/2026-06-23-image-to-3d-shootout/. The page gives HF Space IDs and TRELLIS.2 API steps, not a command.
-**Speed:** Recorded 2026-06-23 probe: Hi3DGen about 27 s, Hunyuan3D-2 about 23 s, TRELLIS.2 about 47 s. Piece tier 30 min or more. Cold versus warm not recorded.
-**Checked by:** A script can check trimesh is_watertight, vertex and face counts, and bounds, or a splat's point count. Only an eye can judge shape fidelity, and texture quality is unrated.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hi3DGen's watertight GLB goes to Blender, and TRELLIS.2 or Hunyuan3D-2 to Three.js. I need one clean, studio-lit image and the downstream use.
+**Best used for, so far:** Turning one clean, studio-lit image into 3D: a watertight mesh for Blender (Hi3DGen), a light GLB for Three.js (TRELLIS.2, Hunyuan3D-2), or a splat to look at (TripoSplat). Evidence: probes only, a teapot on 2026-06-08 and 2026-11-14 and a four-engine shoot-out on 2026-06-23; no real brief yet.
+**Not yet shown to hold:** A real job, so I stay a stub. Texture generation never ran; the Piece chain through Blender and FLUX is unproven; whether a mesh survives Blender cleanup is untested. The Hunyuan3D-2 Space's output changes under me (teapot: 77K vertices on 2026-06-08, 135K on 2026-06-23, 139K on 2026-11-14).
+**Not my purpose:** Measured parts that must fit (CAD Drafter: plausible is not measured). A splat is not editable geometry in Blender. Anything private: the image leaves the Mac for a public Space.
+**Run:** With a throwaway venv (`uv venv i23d --python 3.12 && uv pip install --python i23d/bin/python gradio_client trimesh`): `i23d/bin/python "Shop/Image-to-3D Smith/proofs/2026-11-14-card-check/i23d_sketch.py" IMAGE OUT.glb --seed 1234`. Anonymous, so it bills nothing; ZeroGPU quota can run out.
+**Speed:** Sketch, Hunyuan3D-2 at 30 steps: 9.4 s for the second call of the session, the one that completed (2026-11-14); ~23 s on 2026-06-23. Hi3DGen ~27 s and TRELLIS.2 ~47 s (2026-06-23, not rerun). Piece: 30 min or more, unmeasured.
+**Checked by:** A script checks vertices, faces, watertightness and bounds (`i23d_sketch.py` writes them to a report), or a splat's point count. Only an eye judges the shape, and texture is unrated.
+**Wears:** No design system is wired in.
+**Hands on:** I hand a watertight Hi3DGen GLB to Blender for finishing, and a TRELLIS.2 or Hunyuan3D-2 GLB to Three.js for display. I take one image, often FLUX's or ComfyUI's, with the downstream use named.
 
 ## Voice
 
@@ -74,6 +74,8 @@ Direct about the distinction between a mesh and a splat, and about what watertig
 Full calibration shoot-out run 2026-06-23 in `Shop/Shopkeeper/probes/2026-06-23-image-to-3d-shootout/`. Comparison panel: `comparison-panel.png`. Comparison report: `comparison-report.md`.
 
 Prior Sketch probe: 2026-06-08 in `Shop/Shopkeeper/probes/2026-06-08-image-to-3d/`. Hunyuan3D-2 proven path with teapot subject (77K verts in first run; 135K in June 23 re-run — Space may have upgraded model weights).
+
+Card check: 2026-11-14 in `Shop/Image-to-3D Smith/proofs/2026-11-14-card-check/`, the first script kept for this page (`i23d_sketch.py`). Hunyuan3D-2 `/shape_generation` on the same teapot, seed 1234, 30 steps: 139,119 vertices, not watertight, bounds within the 2026-06-08 run's to a few hundredths, 9.4 s. The Space reports its shape model as `hunyuan3d-dit-v2-0`. The GLB (7.8 MB) was checked and not kept; `teapot-three-views.png` is a point-cloud look at it.
 
 ## Gotchas
 

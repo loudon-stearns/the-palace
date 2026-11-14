@@ -1,0 +1,21 @@
+/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Figure Rig/proofs/2026-11-14-card-check/pose_rig_mpfb_v3.py:189: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m = bpy.data.materials.new("toon"); m.use_nodes = True
+/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Figure Rig/proofs/2026-11-14-card-check/pose_rig_mpfb_v3.py:183: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  w = bpy.data.worlds.new('W'); bpy.context.scene.world = w; w.use_nodes = True
+00:11.285  render           | Saved: '/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Figure Rig/proofs/2026-11-14-card-check/renders/mpfb-v3/pose_B_male/ink_plate.png'
+/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Figure Rig/proofs/2026-11-14-card-check/pose_rig_mpfb_v3.py:206: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m = bpy.data.materials.new("depth"); m.use_nodes = True
+00:11.509  render           | Saved: '/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Figure Rig/proofs/2026-11-14-card-check/renders/mpfb-v3/pose_B_male/depth_plate.png'
+[INFO ] services.locationservice ...............: Not adding link to MakeHuman user data, since neither explicit path nor auto-discovery is set in preferences.
+[INFO ] mpfb.init ..............................: Build info FROM_SOURCE
+[INFO ] mpfb.init ..............................: MPFB initialization has finished.
+=== POSE B_male (MPFB2 NATIVE v3) -> /Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Figure Rig/proofs/2026-11-14-card-check/renders/mpfb-v3/pose_B_male ===
+  human: 19158 verts | rig: 163 bones | gender=1.0 age=0.5
+  wrote /Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Figure Rig/proofs/2026-11-14-card-check/renders/mpfb-v3/pose_B_male/ink_plate.png
+  wrote /Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-fix-image-12f41d/Shop/Figure Rig/proofs/2026-11-14-card-check/renders/mpfb-v3/pose_B_male/depth_plate.png
+  wrote keypoints.json: 18 visible /18
+=== POSE B_male DONE ===
+Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)
+OBJ import of 'base.obj' took 11.08 ms
+
+Blender quit
