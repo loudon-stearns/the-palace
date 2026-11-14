@@ -39,16 +39,16 @@ I make custom DSP that runs in the browser audio thread. Granular engines, wavet
 
 I refuse jobs that Tone.js already does well — subtractive/FM/sampler instruments built from Tone's primitives, musical-time sequencing, effect chains. If the synth is a composition of existing blocks, that's Tone's job and it'll be faster. I take the job when the **DSP itself is the differentiator**. I refuse production VST/AU plugins — that's [[Shop/RNBO codebox~ smith]], which exports to the DAW; I live in the browser. When the same instrument should ship both to web and to a DAW, the Maker runs us as a pair against one spec.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed, Checked by and Wears were run on the starter named in Run; Best used for, Not yet shown to hold, Not my purpose and Hands on were read from this page and my ledger, not run. A line that proves wrong is fixed here.*
 
-**Best used for, so far:** I made two Sketch-tier browser instruments: Murmuration (flock-driven granular wavetable engine, 2026-05-30) and the Wavetable Scanner (2026-05-31). Both are single-file HTML with a Blob-URL worklet.
-**Not yet shown to hold:** In-browser audible confirmation of Murmuration is left to whoever opens it first. Firefox and Safari, mobile, the voice ceiling, flock-as-distribution and predator-startle are not done. The RNBO crossover test is untried.
-**Not my purpose:** I refuse jobs Tone.js already does well (built-in blocks, musical-time sequencing, effect chains) and production VST/AU plugins, which go to the RNBO smith. ScriptProcessorNode is out.
-**Run:** No command on the page yet. Nearest working example: Projects/Murmuration/Murmuration.html, which is a built HTML file. The page shows a Blob-URL loading pattern, but no make command.
-**Speed:** Not recorded
-**Checked by:** A script can check the worklet with node --check (interpolations substituted), NaN/Inf in a Node port, and seeded determinism of the model. Only an ear in a real browser judges sound, clicks and the voice ceiling.
-**Wears:** Not yet wired to a design system
-**Hands on:** I take a synthesis concept, parameter spec and deployment context. I hand on single-file HTML with a worklet; a p5.js partner draws the visuals and the message port is the seam.
+**Best used for, so far:** Sound I write sample by sample in the browser, when the DSP itself is the point. Two Sketches: Murmuration (2026-05-30), a flock-driven granular engine, and the Wavetable Scanner (2026-05-31). Loudon has heard Murmuration's engine only as offline renders, a blind pair on 2026-10-15. My starter played on a click and rendered 220 Hz headless on 2026-11-14.
+**Not yet shown to hold:** No one has heard Murmuration live in a browser (its scroll says so). Firefox, Safari, phones, the voice ceiling heard on real hardware, and the RNBO crossover are untried.
+**Not my purpose:** Instruments built from Tone's blocks, musical-time sequencing and effect chains go to Tone.js. Production VST/AU plugins go to the RNBO smith. ScriptProcessorNode is out.
+**Run:** Copy `Shop/Web Audio Worklet/proofs/2026-11-14-card-check/Web Audio Worklet — proof — starter.html` (the processor as a Blob URL in `const WORKLET`, stereo asked for in both places, a compressor after it, sound only on a click, a visible sound toggle) and write your own `process()`. Check it from the palace root: `node --experimental-vm-modules Shop/Maker/web-smoke.mjs <file>` (parses), then `node _ops/rich-face/conform.mjs <file> --browser` (runs it).
+**Speed:** Measured 2026-11-14 on the Mac: web-smoke 0.1 s, conform --browser 2.3 s for the starter at two widths. Making a piece is estimated only: Sketch 1 to 3 h, Study half a day to a day.
+**Checked by:** conform --browser checks a clean load, no sound before a click, and quiet on hush. To measure sound without ears, `Shop/Web Audio Worklet/Web Audio Worklet — rich — check.mjs` is the harness: it runs a piece's own processor in Node with a stubbed `AudioWorkletProcessor`, and renders it in headless Chromium's `OfflineAudioContext`. Only an ear judges clicks, timbre and the voice ceiling.
+**Wears:** Loudon Live Design System, on the chrome around the sound only. The exemplar `Projects/Murmuration/Murmuration.html` sets `skin-strobe` on `<html>` and loads `colors_and_type.css` and `palace-tokens.js`; the starter links `colors_and_type.css` and styles with `var(--token)`. No Drafting Table use yet.
+**Hands on:** I hand on one HTML file with the processor in `const WORKLET`, where a check can find it. I take a synthesis concept, parameter spec and deployment context. A p5.js or Three.js partner draws, and the message port is the seam.
 
 ## Voice
 
@@ -166,13 +166,16 @@ This Specialist makes **sound**, not pixels — the design system reaches it onl
 
 ## Test Suite
 
-Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — to be defined in `Shop/Web Audio Worklet/tests/test-plan.md` (TODO), modeled on the [[Shop/VCV Patch Generator]] exemplar. Determinism is unusually tractable here: when the control source is seeded, the `process()` math can be cross-checked in an `OfflineAudioContext` or a plain Node port. Last run: informal 2026-05-30 (Murmuration — model determinism + finiteness proven in Node; both scripts `node --check` clean).
+Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — to be defined in `Shop/Web Audio Worklet/tests/test-plan.md` (TODO), modeled on the [[Shop/VCV Patch Generator]] exemplar. Determinism is unusually tractable here: when the control source is seeded, the `process()` math can be cross-checked in an `OfflineAudioContext` or a plain Node port. Last run **2026-11-14** — the card's starter (`proofs/2026-11-14-card-check/Web Audio Worklet — proof — starter.html`): web-smoke 1 ok, 0 fail, and `node _ops/rich-face/conform.mjs <starter> --browser` clean at 760 and 1130 px, sound only after a click, quiet on hush; its processor rendered offline at 220 Hz, RMS 0.141, left and right identical. Before that: the rich face's check (`Web Audio Worklet/Web Audio Worklet — rich — check.mjs`, 2026-11-03), the Wavetable Scanner job (2026-05-31), and Murmuration (2026-05-30, model determinism and finiteness proven in Node, both scripts `node --check` clean). The Shop harness has no Worklet smoke.
+
+**Measuring a piece's sound without ears.** Use `Web Audio Worklet/Web Audio Worklet — rich — check.mjs` as the pattern; it does both halves. Keep the processor in ``const WORKLET = `…`;`` so a check can pull it out by name. Part 1 runs it in Node with a stubbed `AudioWorkletProcessor` and a bare `sampleRate` (the same move as `makeProc` in `_ops/rich-face/check-kuramoto-pieces.mjs`, which exports it). Part 2 renders it in headless Chromium's `OfflineAudioContext` through playwright from `_ops/stigmergy/app`. Each check states a number that would mean failure.
 
 ## Open Questions
 
 - Tone.js vs. Web Audio Worklet routing, sharpened by the first job: Tone when the instrument is a *composition of primitives*, Worklet when the *DSP is the differentiator*. The grey zone is "a custom voice inside an otherwise Tone-shaped instrument" — likely a Worklet node dropped into a Tone graph. First crossover brief will test it.
 - WASM in the worklet: for heavy DSP (convolution, large modal banks) the inner loop wants C/Rust compiled to WASM. Threshold for adopting a WASM toolchain as part of this Specialist vs. routing to RNBO export: TBD.
 - Should the palace keep a base worklet scaffold (Blob-URL boilerplate + context-unlock + port protocol + limiter) the way Tone.js wants a base template? Likely yes; defer to the second job.
+  — progressed: the card's starter, `Web Audio Worklet/proofs/2026-11-14-card-check/Web Audio Worklet — proof — starter.html`, is the floor of it: Blob URL, unlock on a click, a port message, a compressor, a sound toggle (2026-11-14). The limiter and a fuller port protocol wait for a job.
 - The double-buffer pool for per-frame control traffic — earned at Study tier, premature at Sketch. When does a job need it?
   — progressed: the transferable-vs-retain gotcha above gives the copy-or-transfer rule; the pool itself waits for a Study job.
 

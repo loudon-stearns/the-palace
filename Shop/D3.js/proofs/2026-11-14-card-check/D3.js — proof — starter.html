@@ -1,0 +1,63 @@
+<!doctype html>
+<!--
+  title: D3.js — proof — starter
+  born: 2026-11-14
+  links: [[D3.js]] (connects-to · card-starter)
+  forward_vector: I am the smallest working D3 piece, the Run line on my Specialist's card: d3 from the shelf, an SVG that
+    redraws with selection.join(), colours read from palaceTokens() at render time, one control. Copy me, rename me,
+    bind your own data.
+  Copying me: the four ../ in the two design-system lines is my depth below the palace root; set it for where you put me.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>     the inline script parses
+    node _ops/rich-face/conform.mjs <this file> --browser                   loads clean and reports a height
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D3.js — starter</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-3); font-family: var(--mono); }
+  main { padding: var(--s-5); display: grid; gap: var(--s-3); max-width: 48rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  label { display: flex; gap: var(--s-3); align-items: center; }
+  input[type=range] { flex: 1; accent-color: var(--accent); }
+  svg { display: block; width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>D3.js starter — points on a curve</h1>
+  <label>points <input id="n" type="range" min="5" max="80" value="24"> <output id="nOut">24</output></label>
+  <svg id="chart" viewBox="0 0 640 320" role="img" aria-label="points on a sine curve"></svg>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script>
+const W = 640, H = 320, M = { t: 16, r: 16, b: 28, l: 36 };
+const svg = d3.select('#chart');
+const x = d3.scaleLinear().domain([0, 1]).range([M.l, W - M.r]);
+const y = d3.scaleLinear().domain([-1, 1]).range([H - M.b, M.t]);
+const gx = svg.append('g').attr('transform', `translate(0,${H - M.b})`);
+const gy = svg.append('g').attr('transform', `translate(${M.l},0)`);
+const dots = svg.append('g');
+
+function render(n) {
+  const T = palaceTokens();                                // at call time, so a skin swap re-colours
+  const data = d3.range(n).map((i) => ({ i, t: i / (n - 1), v: Math.sin(2 * Math.PI * i / (n - 1)) }));
+  gx.call(d3.axisBottom(x).ticks(5)).attr('color', T.fg3);
+  gy.call(d3.axisLeft(y).ticks(5)).attr('color', T.fg3);
+  dots.selectAll('circle').data(data, (d) => d.i)
+    .join('circle')
+      .attr('cx', (d) => x(d.t)).attr('cy', (d) => y(d.v)).attr('r', 4)
+      .attr('fill', T.accent);
+}
+
+const n = document.getElementById('n'), nOut = document.getElementById('nOut');
+n.addEventListener('input', () => { nOut.textContent = n.value; render(+n.value); });
+render(+n.value);
+</script>
+</body>
+</html>

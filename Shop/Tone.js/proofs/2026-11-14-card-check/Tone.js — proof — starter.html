@@ -1,0 +1,75 @@
+<!doctype html>
+<!--
+  title: Tone.js — proof — starter
+  born: 2026-11-14
+  links: [[Tone.js]] (connects-to · card-starter)
+  forward_vector: I am the smallest working Tone.js piece, the Run line on my Specialist's card: one voice, sound only after a
+    click, a visible sound toggle, Loudon Live tokens, Tone from the shelf. Copy me, rename me, change the voice.
+  Copying me: the four ../ in the design-system link is my depth below the palace root; set it for where you put me.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>     the inline script parses
+    node _ops/rich-face/conform.mjs <this file> --browser                   loads clean, no sound before a click, quiet on hush
+  Hearing without ears: build the voice inside Tone.Offline and measure the buffer, e.g.
+    const buf = await Tone.Offline(() => STARTER.voice(220).osc.start(0), 1);   // in headless Chromium (playwright)
+  The worked harness is Shop/Tone.js/Tone.js — proof — rich checks.mjs.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tone.js — starter</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-2); font-family: var(--mono); }
+  main { padding: var(--s-5) var(--s-5) var(--s-6); display: grid; gap: var(--s-4); max-width: 40rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  button { justify-self: start; font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-sm); padding: var(--s-2) var(--s-4); cursor: pointer; }
+  button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  label { display: flex; gap: var(--s-3); align-items: center; color: var(--fg-3); }
+  input[type=range] { flex: 1; accent-color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Tone.js starter — one voice</h1>
+  <button id="sound" aria-pressed="false">Sound: off</button>
+  <label>pitch <input id="pitch" type="range" min="110" max="440" step="1" value="220"> <output id="hz">220 Hz</output></label>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/tone@15.0.4/build/Tone.js" integrity="sha384-42gWnBr2Y4rlMy2jxjddYshP4nyV5xDDAi+roXFrK7tUpQlSWw7b/RgK4Qj7ozxW" crossorigin="anonymous"></script>
+<script>
+// The voice is built into whatever Tone context is current, so the same code plays live and renders offline.
+function voice(hz) {
+  const amp = new Tone.Gain(0.15).toDestination();      // about -16 dB: room for more voices
+  const osc = new Tone.Oscillator(hz, 'triangle').connect(amp);
+  return { osc, amp, stop() { osc.stop(); osc.dispose(); amp.dispose(); } };
+}
+
+const btn = document.getElementById('sound');
+const pitch = document.getElementById('pitch');
+const hz = document.getElementById('hz');
+let live = null;
+
+btn.addEventListener('click', async () => {
+  if (!live) {
+    await Tone.start();                                   // the context starts suspended; a click resumes it
+    live = voice(+pitch.value);
+    live.osc.start();
+  } else {
+    live.stop();
+    live = null;
+  }
+  btn.setAttribute('aria-pressed', String(!!live));
+  btn.textContent = live ? 'Sound: on' : 'Sound: off';
+});
+
+pitch.addEventListener('input', () => {
+  hz.textContent = pitch.value + ' Hz';
+  // UI-rate writes on the audio clock are enough (Tone.js page, Gotchas: Clocks).
+  if (live) live.osc.frequency.setValueAtTime(+pitch.value, Tone.now());
+});
+
+window.STARTER = { voice };
+</script>
+</body>
+</html>

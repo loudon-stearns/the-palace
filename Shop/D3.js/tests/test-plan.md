@@ -10,7 +10,7 @@ forward_vector: "I hold the test plan for D3.js; I want every check here runnabl
 
 > Phase E rollout. D3.js is the interactive-control lens of the data-viz triad — sliders, draggable agents, live regime read-outs. Smoke is a syntax-parse via the shared `web-smoke.mjs` helper; the load-bearing probe is the Determinism cross-check that the integrator (handwritten, NOT `d3-force` for kinematic sims) produces the same trajectory as the other triad Specialists.
 
-Last run: **2026-05-30** — Smoke pass on `Flocking/flocking-d3-interactive-control.html`; Determinism informally verified 2026-05-29 (Node cross-check at seed 7 vs. p5.js + Observable Plot Specimens).
+Last run: **2026-11-14** — the card's starter (`Shop/D3.js/proofs/2026-11-14-card-check/D3.js — proof — starter.html`) passed web-smoke and `conform.mjs --browser`. The Shop harness smoked the canonical artifact on 2026-06-16. Earlier: **2026-05-30** — Smoke pass on `Flocking/flocking-d3-interactive-control.html`; Determinism informally verified 2026-05-29 (Node cross-check at seed 7 vs. p5.js + Observable Plot Specimens).
 
 ## Smoke
 

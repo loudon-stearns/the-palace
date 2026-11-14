@@ -1,0 +1,60 @@
+<!doctype html>
+<!--
+  title: p5.js — proof — starter
+  born: 2026-11-14
+  links: [[p5.js]] (connects-to · card-starter)
+  forward_vector: I am the smallest working p5.js piece, the Run line on my Specialist's card: instance mode, a canvas sized
+    by its column, colours read from palaceTokens() in setup, a fading trail by veil, and the redraw seam a headless
+    check needs. Copy me, rename me, change draw().
+  Copying me: the four ../ in the two design-system lines is my depth below the palace root; set it for where you put me.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>     the inline script parses
+    node _ops/rich-face/conform.mjs <this file> --browser                   loads clean and reports a height
+  Headless frames: rAF may never fire in a harness; call window.__sketch.redraw() to step (p5.js page, Gotchas).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>p5.js — starter</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-3); font-family: var(--mono); }
+  main { padding: var(--s-5); display: grid; gap: var(--s-3); }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  #stage canvas { display: block; width: 100%; height: auto; border: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<main>
+  <h1>p5.js starter — a dot that leaves a trail</h1>
+  <div id="stage"></div>
+  <p>Move over the canvas. Motion needs a focused tab.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.10.0/lib/p5.min.js" integrity="sha384-iY8W5W1XLvt2e9XipUFTSogZoBMHq7jqa+kirliG8+eQlwsLA2crnG7Op0ifDniT" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script>
+new p5((p) => {
+  let T, veil, x = 0, y = 0;
+  const stage = document.getElementById('stage');
+  p.setup = () => {
+    window.__sketch = p;                                   // the headless seam: __sketch.redraw()
+    const w = stage.clientWidth || 640;
+    p.createCanvas(w, Math.round(w * 9 / 16)).parent(stage);
+    T = palaceTokens();                                    // read once the CSS is applied; no hex literals
+    veil = p.color(T.bg); veil.setAlpha(24);
+    p.background(T.bg);
+    x = p.width / 2; y = p.height / 2;
+  };
+  p.draw = () => {
+    p.noStroke(); p.fill(veil); p.rect(0, 0, p.width, p.height);   // veil, don't clear: the trail fades
+    const tx = p.mouseX || p.width / 2 + p.width / 3 * Math.cos(p.frameCount / 40);
+    const ty = p.mouseY || p.height / 2 + p.height / 3 * Math.sin(p.frameCount / 30);
+    x += (tx - x) * 0.1; y += (ty - y) * 0.1;
+    p.fill(T.accent); p.circle(x, y, 14);
+  };
+});
+</script>
+</body>
+</html>

@@ -32,3 +32,9 @@ The first three were anticipated while the page was a stub; this build confirmed
 4. **`LineBasicMaterial.linewidth` draws 1px on most platforms whatever the declared width.** Cosmetic, not silent: the line draws, just thin. Changed: carry contrast with colour at Sketch tier; thickness goes to `LineMaterial` + `LineGeometry` + `Line2` from `examples/jsm/lines/` (needs a bundler, so Study or Piece) or to an extruded ribbon.
 
 - run · 2026-05-31 · Wavetable Scanner, sketch · taught items 1–4
+
+## From the card check — 2026-11-14 — the card's starter, a probe
+
+5. **THREE.Color drops the alpha of an `rgba()` colour string, so a translucent token draws opaque.** `palaceTokens().borderSoft` is `rgba(255,255,255,0.06)` in Graphite; handed to `GridHelper`, the grid drew pure white. Seen in a headless screenshot of the starter (`proofs/2026-11-14-card-check/Three.js — proof — starter.html`); fixed by giving THREE solid tokens (`border`, `fg4`). Changed: the starter and its comment, which are workshop; the page waits for the review. Written by the session that fixed the card, not at a review; the page is unchanged by it until a review. Owed a review.
+
+- run · 2026-11-14 · the card's starter: web-smoke, conform --browser, a WebGL frame screenshotted headless, probe · taught item 5, owed a review

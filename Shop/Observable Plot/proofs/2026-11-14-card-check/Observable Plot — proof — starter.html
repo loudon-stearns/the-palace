@@ -1,0 +1,51 @@
+<!doctype html>
+<!--
+  title: Observable Plot — proof — starter
+  born: 2026-11-14
+  links: [[Observable Plot]] (connects-to · card-starter)
+  forward_vector: I am the smallest working Plot piece, the Run line on my Specialist's card: d3 then Plot from the shelf
+    (that order, or window.Plot is silently empty), palace-tokens.js then palace-plot-defaults.js, and one palacePlot()
+    call. Copy me, rename me, swap the marks.
+  Copying me: the four ../ in the three design-system lines is my depth below the palace root; set it for where you put me.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>     the inline script parses
+    node _ops/rich-face/conform.mjs <this file> --browser                   loads clean and reports a height
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Observable Plot — starter</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-3); font-family: var(--mono); }
+  main { padding: var(--s-5); display: grid; gap: var(--s-3); max-width: 48rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  #chart svg { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Observable Plot starter — three ramps on one shared scale</h1>
+  <div id="chart"></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.17/dist/plot.umd.min.js" integrity="sha384-JUpn2GgRr0gxU0xOBd8D8P634jhRCwobtG8G2MMEkX1RnGJ7/FJNnuukpfT+H2w1" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-plot-defaults.js"></script>
+<script>
+// Three series of a saturating curve, one per rate k: an ordered set, so palaceSeries() (dim -> accent -> light).
+const rates = [0.5, 1, 2];
+const data = rates.flatMap((k) => d3.range(0, 5.01, 0.1).map((t) => ({ k: `k = ${k}`, t, v: 1 - Math.exp(-k * t) })));
+const el = document.getElementById('chart');
+el.replaceChildren(palacePlot({
+  width: Math.min(el.clientWidth || 640, 760),
+  height: 280,
+  y: { domain: [0, 1], grid: true },                     // explicit domain: comparisons stay honest
+  color: { domain: rates.map((k) => `k = ${k}`), range: palaceSeries(), legend: true },
+  marks: [ Plot.lineY(data, { x: 't', y: 'v', stroke: 'k', strokeWidth: 1.5 }) ],
+}));
+</script>
+</body>
+</html>

@@ -40,3 +40,7 @@ What each job taught the Web Audio Worklet page. Each item names what the job sh
 11. **A wavetable scanner wants drone by default; a synth voice wants gated.** The deciding question is whether the user is exploring the timbre or playing a melody. Changed: the question lives in [[1D Wavetable Scanning]].
 
 - run · 2026-05-31 · Wavetable Scanner, sketch · taught items 7–11
+
+## From the card check — 2026-11-14 — the card's starter, a probe
+
+- run · 2026-11-14 · the card's starter: web-smoke, conform --browser, an OfflineAudioContext render (220 Hz, RMS 0.141, L = R), probe · nothing new
