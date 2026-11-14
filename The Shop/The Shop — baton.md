@@ -34,7 +34,7 @@ The causes they gave, all candidates:
 1. The Shop is never in front of a maker when the tool is chosen. [[CHILD]] points at the design systems only. The Concierge's gatherer index lists Shop pages as subjects, not as means.
 2. The wall is not knowing a Specialist's status, its command, how fast it is, or when it last ran.
 3. Makers can't hear. So they trusted only what they could measure, and shipping generated mood material felt dishonest.
-4. The default is one file. Specialists are built as batch pipelines, and going through the Maker feels like handing the work away.
+4. The default is one file of your own; a batch of thirty rewards one uniform script, and going through the Maker feels like handing the work away.
 5. `_tools/` isn't in worktrees.
 
 Pieces they named as worse for it: the Pauline Oliveros room; the Dub Lineage riddim; Rick Rubin's mix and "voice" ([[Kokoro]]); Cooking ↔ Mixing; Kick Drum ↔ Foundation; SUBSTRATE's bed and cues; the Dichotomy of Control room tone; the mycelial reverb's feeds; the p5.js page's piece, faked in numpy with the wrong recipe. Counts belonged in Observable Plot or D3, loops in Manim or p5, and LaMa and Depth Anything could have demonstrated themselves. They agreed that measurements you listen to (Leibniz's clocks, Endosymbiosis, Audition Gate) should stay hand-built.
