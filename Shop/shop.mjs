@@ -101,7 +101,7 @@ export function load() {
 function days(date) { return date ? Math.floor((Date.now() - new Date(date + 'T12:00:00').getTime()) / 864e5) : null; }
 function ran(s) {
   if (!s.ledger) return 'no ledger';
-  if (!s.date) return 'never run';
+  if (!s.date) return 'no run line in its ledger';
   const d = days(s.date);
   return d <= 0 ? 'last ran today' : d === 1 ? 'last ran yesterday' : `last ran ${s.date} (${d} days)`;
 }
