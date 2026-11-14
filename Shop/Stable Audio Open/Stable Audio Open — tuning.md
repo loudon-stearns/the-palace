@@ -61,3 +61,12 @@ Written by the session that made the comparison, not at a review. Loudon, 2026-1
 
 - run · 2026-11-14 · Oliveros room, hand against Shop (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`), small-sfx, sketch · taught items 13–15, each owed a review
 - from Loudon · 2026-11-14 · on the Oliveros room pair: the Stable Audio side, "while not as good by my ear, rings \"truer\" to me and doesn't feel artificially collected"; "perhaps it is choosing to use stable to generate pieces that would be \"sampled\" and by hand for sounds that are clearly \"synthesized\"" · a candidate line for Best used for: sources that would otherwise be sampled, then cut and placed by hand · owed a review with items 13–15
+
+## From the third Oliveros room — 2026-11-14 — small-sfx, Sketch
+
+Written by the making session; owed a review with items 13–15.
+
+16. **One thing at a time, then cut, is the use that held its measurements.** Asked for a single drop, a single call, a single pluck, each in a 4 to 8 s clip, small-sfx gave events that could be cut out and placed by hand: nine drips landed 1.27 s apart where the model alone gave 40 to 69 onsets in 26 s (item 14). Choosing a take by how sharply it starts picked a 0.06 s click for a bell; a ringing thing has to be chosen for its ring. Owed: a recipe, "generate one event, cut it, place it by hand", and Loudon's line that this is the model's use for what would otherwise be sampled.
+17. **Plain wording held a steady bed where a fuller one did not.** "Steady rain at a constant even intensity" came back within 0.3 to 3.5 dB across quarters over five seeds; "soft steady rain heard through an open window, constant level, no thunder, no change" varied 7 to 17 dB over four. One comparison, so a tendency. Owed: a line under Choosing a model.
+
+- run · 2026-11-14 · the third Oliveros room, sources cut and placed by hand (`Shop/Maker/comparisons/2026-11-14-oliveros-room/third.py`), small-sfx, sketch · taught items 16–17, each owed a review

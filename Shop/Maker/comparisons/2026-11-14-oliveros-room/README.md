@@ -44,3 +44,21 @@ The first comparison of stage 0 of the Shop discovery design ([[The Shop — ske
 > the " by hand" version sounds like "musique contrete" a collection of precise crafted sounds assembled together. The stable audio version, while not as good by my ear, rings "truer" to me and doesn't feel artificially collected. I feel for this example you had some very specific sonic goals, and stable couldn't meet them, but you are getting good at editing pieces together, and perhaps it is choosing to use stable to generate pieces that would be "sampled" and by hand for sounds that are clearly "synthesized".
 
 So neither side won. The hand's is better made and reads as assembled; the Shop's is worse and reads as true. What he offers from it is a split by kind of sound, not by tool: generate what would have been sampled, build by hand what is plainly synthesized, and edit the two together.
+
+## The third room — his split, tried
+
+`third — one point, then the whole sphere.m4a`, with its picture, made the same day on his "Make the third" (`third.py`, `third-report.json`).
+
+**How it is made.** Stable Audio Open generates each sampled thing on its own, four seeds each: one drop, a bird call, a far bell, a low plucked string, a bed of rain. The hand keeps the mains hum, which is plainly synthesized. Then the hand cuts one event out of each chosen take and places, pans, gates and mixes them at the first piece's own times. The picture is drawn from the same arrays, so it shows what was placed.
+
+**Measured on the saved file.** Nine drips in the first 11 s, 1.27 s apart on average (the hand's are 1.3 s). Left and right now differ (correlation 0.78; the second version was 1.00). The focal half sits 8.7 dB under the global half.
+
+**What went wrong on the way, and was fixed by measurement.**
+- The bell was first chosen as a 0.06 s click, because the choosing rule rewarded a sharp onset. Now a ringing thing must keep its ring. The bell that was kept stands only 6 dB above what came before it in its take, so it may arrive with noise or an earlier ring under it. An ear has to say.
+- The rain's first wording ("soft steady rain heard through an open window, constant level…") varied 7 to 17 dB over four seeds. The plain wording from the morning's probe, "steady rain at a constant even intensity", came back within 0.3 dB.
+
+**Cost.** Twenty-one renders, each 0.6 to 2.4 s.
+
+**Not known.** Whether the cut events sound like what they are named. The bird and the string were chosen by how cleanly they start, not by what they are. Nobody has heard this version.
+
+**Heard by (third version):** nobody yet.

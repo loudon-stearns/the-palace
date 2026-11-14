@@ -165,6 +165,18 @@ The Shop belongs on the floor, but the floor is not where the tool gets fixed, s
 
 The Pauline Oliveros room, by hand and through Stable Audio Open (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`). Loudon heard both. The hand's "sounds like \"musique contrete\" a collection of precise crafted sounds assembled together"; the Stable Audio side, "while not as good by my ear, rings \"truer\" to me and doesn't feel artificially collected". Neither won. What came of it is the sampled-or-synthesized split in § 3, and a method: generate the pieces, edit them together by hand. It also showed the loop working once end to end: a pair made in minutes, a verdict in his words, and a line owed on the Specialist's ledger.
 
+## The method the comparison turned up — choose, collect, edit
+
+Loudon, 2026-11-14, while the third room was being made: "The same kind of process will be done with visuals, and this indicates how we should be approaching using tools, choose each tool for what it does best, then collect and edit together. We were doing very similar processes in blueline. Same kind of decision-tree."
+
+So a made thing is usually several Specialists and an editor, and the question at the bench is asked per part, not per piece: what is this part, and which tool is best at that?
+
+- **Sound:** what would have been sampled is generated (Stable Audio Open, one thing at a time); what is plainly synthesized is built by hand; a voice is [[Kokoro]]; the hand cuts, places and mixes.
+- **Visuals, by the same tree, as a guess to be tried:** what would have been photographed or painted is generated ([[FLUX (Hugging Face)]], [[ComfyUI]]); what is a diagram, a count or a curve is drawn ([[Matplotlib]], LaTeX, drawn SVG); what moves by a rule is animated ([[Manim CE]], [[p5.js]]); the hand composes.
+- **BLUELINE already works this way.** Its pipeline is a table of stages, each with one tool, and it names the joins: "the two seams" ([[BLUELINE — Production Pipeline]]). Its archived design page says "the seams ARE the contract". A seam is where one Specialist's output becomes the next one's input, and that is where a chain of provenance has its links.
+
+What this changes here: the menu answers by part; a job in a jobs file is a chain by default; and each Specialist's card says what it hands on well and what it needs handed to it. The decision tree itself wants writing down once, on the Maker, from BLUELINE's table and these comparisons.
+
 ## Loudon's rulings, 2026-11-14
 
 1. **A steward, or a child's `shop run`, may write an owed line on a Specialist's ledger.** "Yes, but flagged and reviewed later when we decide to update the specialist based on the ledger." So the line is marked as unreviewed, and the Specialist's page changes only at a review.
