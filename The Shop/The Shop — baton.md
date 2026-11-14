@@ -20,7 +20,7 @@ Loudon, 2026-11-14: "create a handoff 'shop specialist discovery' with the broad
 
 **The goal, set at pickup.** Loudon, 2026-11-14: "We are building a shop mechanism so that the shop GETS USED! Our goal should be the constant use and development of the shop, these are our tools and though it may be inefficient to use these tools initially, we design them to improve themselves, so with more use they will get very good. We need to make it our easy default to know what the shop [is], how to use it, and encourage all making in the palace to leverage the shop, even when it seems inefficient because we have a goal of improving the palace and improving the shop that is equal to the work at hand."
 
-So the design is judged by use, not by visibility: the Shop is used constantly, and each use leaves the Shop better. A job that goes through a Specialist and teaches it nothing has done half its work.
+So the design is judged by use, not by visibility: the Shop is used constantly, and use is what improves it. The bias is toward self-improvement, not a duty on every job. If a job worked really well, saying so is all that is owed; a rule that every job must leave a lesson would fill the ledgers with garbage.
 
 The gap is real and it's showing up as work. Makers keep building sound, images and motion by hand while a Specialist that does it better sits unused. One morning turned up one example of this. It isn't the whole problem, and it isn't the design.
 
@@ -75,6 +75,8 @@ Then draft one zoomed-out design that covers them all, and show it to Loudon. He
 
 - Loudon, 2026-11-14: "I don't want to settle this question in this session." The morning stopped at the example on purpose. Treat the candidate ideas as found, not chosen.
 - Loudon, 2026-11-14, at pickup: improving the Shop is a goal "equal to the work at hand". Use the Shop "even when it seems inefficient". Efficiency is not a reason to go around a Specialist; a design that leaves the hand-built route as the easy one has missed.
+- Loudon, 2026-11-14: "When we think that the shop will be worse we make through the shop and make handbuilt and compare and contrast and use that info help us in future decisions." A doubt about a Specialist is settled by making both and comparing, and the comparison is kept. The Maker's Comparison Mode (`Shop/Maker.md:211`) is the nearest existing form; it compares Specialist against Specialist, not Specialist against the hand.
+- Loudon, 2026-11-14, on "every job owes": "'every' establishes a rule and encourages garbage. we want to bias ourselves toward self improvement, but if it worked really well, that is all that needs to be said."
 - The example is one case. Don't fit the design to Stable Audio Open or to Light Enrichment.
 - A CHILD edit is foundational: only on his yes, and only after the roster can actually answer what a maker would ask it.
 - What a Specialist can't do is part of being visible. The morning's probe found small-sfx drops an arc it is told about, and small-music fades every clip. See the gotchas on [[Stable Audio Open]].
