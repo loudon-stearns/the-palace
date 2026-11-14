@@ -45,7 +45,9 @@ Keep the `uuid`: the WAVs are gitignored and live only on this Mac, so the asset
 node forge/forge.mjs fetch "<folder>/manifest.json"
 ```
 
-A FAILED line means an expired URL: call `download_asset` again for that one and re-run fetch. A repeat download may spend a credit again: on 2026-10-26 Splice reported "Credit Spent: yes" for five sounds first downloaded two days earlier.
+A FAILED line means an expired URL: call `download_asset` again for that one and re-run fetch. A repeat download may spend a credit again: on 2026-10-26 Splice reported "Credit Spent: yes" for five sounds first downloaded two days earlier, and on 2026-11-14 for all 26 sounds re-fetched for Spoiler Kit and the melodic techno Set.
+
+**When a Set's samples go missing.** `node forge/forge.mjs sweep .` from `workshop/` checks every Set and names any with a missing sample. `node forge/forge.mjs missing <recipe>` lists the recipe's absent files, each with the `download_asset` id to fetch it again (or, for a recipe without ids, a note to search Splice by its filename and add the uuid). Fetch into the recipe's `samples/`, then `build --force`. The live links go only in the shell command or in `_ops/scratch/`, never in a bundle file. `build` warns when it runs inside a worktree.
 
 ## 4. Write the recipe
 
@@ -61,7 +63,7 @@ node forge/forge.mjs check "<folder>/<Name>.als"
 node forge/forge.mjs open  "<folder>/<Name>.als"
 ```
 
-`check` must end "nothing to look at", and its last column says what had to bend: aim for every layer "native" and "untransposed" (the build's own report says whether an untransposed vocal is in the Set's key); each "stretched" or transposed layer is one the search should have replaced. `open` starts a new Live 12 of its own (`open -n`), so Loudon's own Live is never touched. Prove a Set only in a Live started this way, never in one he started, and never hand a Set to a running Live with `open -a`: `open` keeps no record of the Live it launched, so nothing tells yours from his. If a Live 12 is already running, the new one stops on a message box ("Another instance…") that only a click clears. When the screen is locked (`lsappinfo front` says loginwindow) no click can land: leave the proof owed, and say so in the hand-off. A Set Live calls corrupt leaves a modal error too, and the instance must then be quit. Then read Live's log for "Loading command-line document: done" without a warning, and hand the Set to Loudon with the Set's name and where it is. The sound is his call; never say it sounds right.
+`check` must end "nothing to look at", and its last column says what had to bend: aim for every layer "native" and "untransposed" (the build's own report says whether an untransposed vocal is in the Set's key); each "stretched" or transposed layer is one the search should have replaced. `open` starts a new Live 12 of its own (`open -n`), so Loudon's own Live is never touched. Prove a Set only in a Live started this way, never in one he started, and never hand a Set to a running Live with `open -a`: `open` keeps no record of the Live it launched, so nothing tells yours from his. If a Live 12 is already running, the new one stops on a message box ("Another instance…") that only a click clears. `open` now refuses when a Live 12 is running and says the proof stays owed; pass `--anyway` only when someone is there to click. When the screen is locked (`lsappinfo front` says loginwindow) no click can land: leave the proof owed, and say so in the hand-off. A Set Live calls corrupt leaves a modal error too, and the instance must then be quit. Then read Live's log for "Loading command-line document: done" without a warning, and hand the Set to Loudon with the Set's name and where it is. The sound is his call; never say it sounds right.
 
 ## 6. Leave the trail
 

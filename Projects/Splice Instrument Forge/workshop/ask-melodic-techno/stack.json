@@ -14,13 +14,16 @@
       "alternates": [
         {
           "file": "samples/ZEN_SMT_124_drum_loop_groove_teleport.wav",
-          "bpm": 124
+          "bpm": 124,
+          "uuid": "bf832039-dfe0-44e9-9488-94f3390cff1d"
         },
         {
           "file": "samples/ZEN_FMT_124_drum_loop_groove_fractal.wav",
-          "bpm": 124
+          "bpm": 124,
+          "uuid": "a7cbd1e7-6f8b-4c49-8f65-3cda7f3e3e8b"
         }
-      ]
+      ],
+      "uuid": "24a4fc44-c951-4fe6-bfad-7922049d0830"
     },
     {
       "role": "Acid Bass",
@@ -31,14 +34,17 @@
         {
           "file": "samples/032_a__Acid_Drive_A1_125bpm_-_OA_Zenhiser.wav",
           "bpm": 125,
-          "key": "A"
+          "key": "A",
+          "uuid": "a8bdebc4-c48b-4be3-8c18-92b3bb74ae97"
         },
         {
           "file": "samples/038_a__Acid_Drive_A1_125bpm_-_OA_Zenhiser.wav",
           "bpm": 125,
-          "key": "A"
+          "key": "A",
+          "uuid": "fa2d40a0-9ba0-4c52-98a7-2ff68b45503a"
         }
-      ]
+      ],
+      "uuid": "aa11f3f7-c95d-4dd3-9143-bd35b5eaa2f7"
     },
     {
       "role": "Lead",
@@ -49,14 +55,17 @@
         {
           "file": "samples/DS_MT2_124_synth_lead_loop_exception_Amin.wav",
           "bpm": 124,
-          "key": "A minor"
+          "key": "A minor",
+          "uuid": "7f266e97-6710-4032-a2fc-082f79cdecae"
         },
         {
           "file": "samples/STCR2_AA_124_Synth_Arp_Loop_Milkyway_Dry_Amin.wav",
           "bpm": 124,
-          "key": "A minor"
+          "key": "A minor",
+          "uuid": "1bb72aac-82b5-4136-9700-d26869bd5ff7"
         }
-      ]
+      ],
+      "uuid": "b8683eae-fedf-4110-a658-6c263231b0a9"
     },
     {
       "role": "Pad",
@@ -67,14 +76,17 @@
         {
           "file": "samples/BOS_TT_124_Synth_Pad_Loop_Resonance_A.wav",
           "bpm": 124,
-          "key": "A"
+          "key": "A",
+          "uuid": "05dfd7d0-8e49-486e-87f4-4b9613979ba1"
         },
         {
           "file": "samples/ff_dph_124_pad_loop_arson_Amin.wav",
           "bpm": 124,
-          "key": "A minor"
+          "key": "A minor",
+          "uuid": "9102b13f-b820-4956-8ab0-8f455a5b2d2f"
         }
-      ]
+      ],
+      "uuid": "b08b69a8-99fd-4d6f-b762-b32a60ddc25d"
     },
     {
       "role": "Vocal",
@@ -85,14 +97,17 @@
         {
           "file": "samples/DS_SPACEM_123_vocal_hook_female_now_chorus_wet_Amin.wav",
           "bpm": 123,
-          "key": "A minor"
+          "key": "A minor",
+          "uuid": "3393918b-0c7d-4d29-b759-870ebc0a132f"
         },
         {
           "file": "samples/DS_SPACEM_123_vocal_hook_female_now_bridge_wet_Amin.wav",
           "bpm": 123,
-          "key": "A minor"
+          "key": "A minor",
+          "uuid": "fa4ed678-9116-4478-bc04-30b31bff905d"
         }
-      ]
+      ],
+      "uuid": "c9270cdd-f440-4dcb-95f3-a260f143ca8a"
     },
     {
       "role": "Strings",
@@ -102,14 +117,17 @@
       "alternates": [
         {
           "file": "samples/las_insp124_waves_breakstring.wav",
-          "bpm": 124
+          "bpm": 124,
+          "uuid": "d2580d38-48bd-4635-b737-1c6e7498fc45"
         },
         {
           "file": "samples/BOS_IS_124_Violin_Loop_Glider_A.wav",
           "bpm": 124,
-          "key": "A"
+          "key": "A",
+          "uuid": "b051ec28-2fa9-4a96-a9e1-c8bed14c6aff"
         }
-      ]
+      ],
+      "uuid": "62e72dbf-8162-4d1f-8e02-10c16b413997"
     }
   ],
   "scenes": [

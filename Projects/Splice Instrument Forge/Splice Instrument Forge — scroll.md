@@ -15,32 +15,32 @@ forward_vector: "I am Splice Instrument Forge's scroll — the one page that alw
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-26T14:21:47.911Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-14T01:34:15.279Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-26 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-11-14 (today)
 - **Plan:** agreed (no dated change on the trail yet)
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-26 (today) — The Sampler path now builds on Ableton's own MIDI track, so no forge Set comes in armed. Astromode Analog was rebuilt and opens clean in Live. (`splice-instrument-forge-steward-004`)
-- **Last commit touching this project:** 2026-10-26 `90d12627` — steward(Splice Instrument Forge): cycle 1 — SPINNING UP. HOME: [Splice Instrument Forge](obsidian://open?vault=The%…
+- **Last shipped:** 2026-11-14 (today) — Spoiler Kit and your melodic techno Set have their samples back: 26 sounds found again in Splice, ids kept, all six forge Sets check clean. (`splice-instrument-forge-steward-006`)
+- **Last commit touching this project:** 2026-11-04 `e6980dd9` — edit(Splice Instrument Forge): a standing order: a download link is a key; the bundle keeps the uuid, the file or the bare URL, and live links for a fetch stay in _ops/scratch/
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-26 — cycle 2 · taught item 3
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-13 — cycle 3 · taught item 5
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 2 — 2026-10-26 — [[Splice Instrument Forge — tuning]]
+- **Latest lesson:** item 5, from cycle 3 — 2026-11-13 — [[Splice Instrument Forge — tuning]]
 
 ### Where this stands
 
-Splice Instrument Forge turns a sentence into a Live Set built from Splice sounds: a Sampler instrument, a Drum Rack, or a Session View stack. After you heard the first Sets on 2026-10-24, you asked the forge to build from its own clean parts instead of copying from Sets someone had saved, because the three bugs that day came in on copied parts. Earlier today the kit and stack builders moved onto parts taken from Live's own factory files. This cycle moved the last one, the Sampler path, so every Set the forge makes now stands on Ableton's own tracks. Astromode Analog, the three-note analog Sampler from the first day, was rebuilt that way and opens clean. It also turned out why the old sampl…
+Splice Instrument Forge turns a sentence into an Ableton Live Set built from Splice sounds: a Drum Rack kit, a Sampler instrument, or a Session View track with scenes and alternate takes. In October you asked for a melodic techno track with a female vocal, an acid bass and a cinematic breakdown, and the forge built it at 124 in A minor with nothing transposed. Then it moved onto clean parts taken from Ableton's own factory files. But the first day's Sets had been built in a temporary working folder that was later deleted, so Spoiler Kit and the melodic techno Set had opened with every sample missing ever since, and their recipes kept no Splice ids to get the sounds back. This cycle fixed th…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard Dusty Eighty-Five or the rebuilt Flowers Stack. _(in 2 notes, the latest cycle 2)_
-- **rough since cycle 1:** Spoiler Kit and the melodic techno Set still open with their samples missing, and their recipes hold no Splice ids. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Nobody has heard Dusty Eighty-Five or the rebuilt Flowers Stack. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 1:** Not yet opened in Live: Spoiler Kit, the melodic techno Set and the first Flowers Stack, because a Live 12 of unknown origin has been running since 9 November and a second copy would wait on a box nobody can click. _(in 3 notes, the latest cycle 3)_
 
 ### Open asks
 
@@ -56,6 +56,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-13 — cycle 3 · taught item 5
 - 2026-10-26 — cycle 2 · taught item 3
 - 2026-10-26 — cycle 1 · taught item 1, proposed item 2 for canon
 
@@ -107,6 +108,54 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="splice-instrument-forge-steward-006" -->
+### 2026-11-14 — cycle 3 — Spoiler Kit and your melodic techno Set have their samples back: 26 sounds found again in Splice, ids kept, all six forge Sets check clean.
+> shipped · every forge Set complete on disk · Live proofs owed · steward leans your ear on the melodic techno Set
+
+**Found again.** I searched Splice for each file by name and matched all 26 exactly: the kit's eight one-shots (tearout kick, perfect-blue 808 in C, cracking snare, layered clap, deep tom, bright crash, tight closed hat, open hat) and the melodic techno Set's eighteen loops, which are six layers plus two alternate takes each. Each sample's Splice id is now in its recipe, beside the file, so a lost sample is one download away. Splice charged a credit for every one again, 26 in all, though it had sold each before. That's within your standing order on credits.
+
+**Rebuilt and checked.** Both Sets were rebuilt in place on the forge's own parts. Spoiler Kit: eight pads at their per-drum levels, hats choking each other, the rack at −4 dB, no dead macros. The melodic techno Set: six tracks, eight scenes, eight arranged sections with a locator at each, two take lanes per track. It's all in A minor or its relative C major, with nothing transposed. Only the acid line (125) and the vocal (123) are stretched by 1 bpm, both in Complex mode. 100 clips, none above 0 dB. The original Flowers Stack had the same problem and was rebuilt from samples already on disk. Then a sweep checked all six Sets the forge has made, and all six came back with nothing flagged.
+
+**So it doesn't recur.** `forge.mjs sweep <folder>` checks every Set in one line each. `forge.mjs missing <recipe>` names each absent sample with the Splice id to download it again; I tested it by hiding the snare. `build` warns when it runs inside a temporary working folder, and `open` refuses when a Live 12 is already running, because the new copy would wait on the "Another instance…" box with nobody to click. `ASK.md` tells the next session all of this.
+
+**The Sets, to open yourself:** [the melodic techno Set](open:Projects/Splice Instrument Forge/workshop/ask-melodic-techno/Loudon Melodic Techno.als) · [Spoiler Kit](open:Projects/Splice Instrument Forge/workshop/move-3-drum-rack/Spoiler Kit.als).
+
+**Artifacts:**
+- [your melodic techno track, complete again: open it in Live](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/Loudon Melodic Techno.als)
+- [its recipe, now with a Splice id on all 18 layers and takes](Projects/Splice Instrument Forge/workshop/ask-melodic-techno/stack.json)
+- [Spoiler Kit, complete again](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/Spoiler Kit.als)
+- [the kit as a Drum Rack preset](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/Spoiler Kit.adg)
+- [the kit recipe, now with a Splice id on every pad](Projects/Splice Instrument Forge/workshop/move-3-drum-rack/kit.json)
+- [the first Flowers Stack, rebuilt on the forge's own parts](Projects/Splice Instrument Forge/workshop/move-4-session/Flowers Stack.als)
+- [its recipe, given the kind field the forge now needs](Projects/Splice Instrument Forge/workshop/move-4-session/stack.json)
+- [the forge: new sweep and missing verbs, a worktree warning on build, open refuses beside a running Live 12](Projects/Splice Instrument Forge/workshop/forge/forge.mjs)
+- [the session procedure: what to do when a Set's samples go missing](Projects/Splice Instrument Forge/workshop/forge/ASK.md)
+
+_Every Set the forge has made, swept 2026-11-14_
+| Set | before this cycle | now | proved in Live |
+| --- | --- | --- | --- |
+| Loudon Melodic Techno | 18 of 18 samples missing | clean · 100 clips, 18 ids kept | owed |
+| Spoiler Kit | 8 of 8 samples missing | clean · 8 pads, 8 ids kept | owed |
+| Flowers Stack (first build) | 5 missing, clips at +3.1 dB | clean · 42 clips at 0 dB | owed |
+| Flowers Stack (own parts) | clean | clean | yes, 2026-10-26 |
+| Dusty Eighty-Five | clean | clean | yes, 2026-10-26 |
+| Astromode Analog | clean | clean | yes, 2026-10-26 |
+
+_Changed in the workshop:_ ASK — how a session finds and refetches missing samples, and why open now refuses beside a running Live 12
+
+_Left rough:_ Not yet opened in Live: Spoiler Kit, the melodic techno Set and the first Flowers Stack, because a Live 12 of unknown origin has been running since 9 November and a second copy would wait on a box nobody can click. Nobody has heard Dusty Eighty-Five or the rebuilt Flowers Stack.
+
+_Next moves named:_ When a Live 12 can come up clean (yours closed, or you there to click), run open on the three rebuilt Sets and read Live's log · Owed format proofs that need no Live: Simpler's PlaybackMode values, read from Ableton's own preset files · Taste and nuance, the plan's step with no first move yet: draft one concrete first move from what you said about the October Sets, for you to accept or redirect
+<sub>`splice-instrument-forge-steward-006` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-d4cf0c9591" -->
+### 2026-11-13 — cycle 3
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="splice-instrument-forge-steward-004" -->
 ### 2026-10-26 — cycle 2 — The Sampler path now builds on Ableton's own MIDI track, so no forge Set comes in armed. Astromode Analog was rebuilt and opens clean in Live.
 > shipped · every builder on Live's own parts · steward leans rebuilding the old Sets next

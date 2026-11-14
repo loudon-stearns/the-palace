@@ -40,3 +40,8 @@ What Splice Instrument Forge's steward cycles taught the page, and the changes t
 ## From Loudon's word — 2026-10-29
 
 4. **A presigned URL is a key.** A Splice download link carries the account's AWS access-key id in its query string (everything from `?X-Amz-` on), and whatever goes into a file in the bundle is committed and, at the next push, public. Twice a manifest kept those links: the three `ask-melodic-techno/manifest*.json` commits of 2026-10-24, and `move-2-sampler/manifest.json` and `move-7-shells/proof/lofi-kit/manifest.json` in cycles 1 and 2 of 2026-10-26. Each time the Sentry refused the push, and each time main had to be rewritten to take them out (2026-10-25, then 2026-10-29). So never write a presigned URL, or anything with an `X-Amz-` query string, into a file in the bundle. Record the sample's `uuid` and `file`, or the bare object URL with everything from `?` cut off. When `forge.mjs fetch` needs the live links, put that list outside the bundle, in `_ops/scratch/` (which git ignores), with `into` set to the bundle's samples folder as an absolute path. The links expire in about two minutes, so keeping them saves nothing. *(from Loudon, 2026-10-29: "use the same fix as before and place a note in the appropriate tuning ledger that will avoid this issue in the future.")*
+
+## From cycle 3 — 2026-11-13
+
+5. Rebuilding doesn't heal a Set whose samples went missing: it keeps the absolute path it was built with, so it needs the samples fetched into the main checkout first and then build --force, and forge.mjs sweep finds every Set that needs it. *(offered by the steward, cycle 3)*
+- run · 2026-11-13 · cycle 3 · taught item 5
