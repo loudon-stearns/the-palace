@@ -37,3 +37,11 @@ What each job taught the Kokoro page. Each item names what the job showed and wh
 8. **`pyloudnorm` alone could not hit the Study spec.** Raw output (af_heart, 24 kHz mono, default speed) lands near −25.6 LUFS with a crest factor high enough that gaining up to −16 LUFS pushes peaks above −1 dBTP; `pyloudnorm` only shifts gain, so its true-peak clamp pulled the result back to ≈−22 LUFS, a `spec_miss`. Changed: two-pass ffmpeg `loudnorm` — pass 1 measures `input_i / input_tp / input_lra / input_thresh / target_offset`, pass 2 applies them as `measured_*` with `linear=true`. Its built-in true-peak limiter lands within ~0.1 LUFS of target while holding TP ≤ −1 dBTP. Reference: `Kuramoto Coupling/speech-rhythm-and-groove-narration-study.py`.
 9. **The Self-Check's `spec_miss` outside ±0.5 LUFS was verified for the first time.** The first Study render landed at −22.36 LUFS (single-pass `pyloudnorm` at the TP clamp) and the script returned `status: spec_miss` correctly. Changed: the assertion is verified, and the check gains a ~0.1 dB rounding tolerance on the true-peak ceiling so a delivered TP printed as exactly `-1.00 dBTP` is not flagged when the underlying value sits microscopically above it.
 - run · 2026-05-26 · speech rhythm and groove narration, study · taught items 6, 7, 8, 9
+
+## From the card check — 2026-11-14 — af_bella, Study, probe
+
+Written by the session fixing the card; owed a review.
+
+10. **A bare `en.G2P()` is no probe for a rare word.** Item 6's way to get canonical phonemes, `from misaki import en; en.G2P()(word)[0]`, returned `❓` for Kuramoto: without a fallback it has nothing for words outside its lexicon, which are the words an override is for. `KPipeline` yields the phonemes it actually used, per chunk. The same check found RNBO read letter by letter (`ˌɑɹˌɛnbˌiˈO`), and af_bella, the Study default, rendering cleanly to −16.0 LUFS, −1.0 dBTP (not yet heard). Changed: the pronunciation gotcha, the RNBO open question, the Study tier, and the Capabilities example, which was ARPABET (`proofs/2026-11-14-card-check/`).
+
+- run · 2026-11-14 · card check, three sentences in af_bella with RNBO and an overridden Kuramoto, study · taught item 10

@@ -4,7 +4,7 @@ type: specialist
 status: alive
 medium: sound
 tool: vcv-patch-generator
-tool_version: registry v2.4 + archetypes v0.1 (2026-05-29)
+tool_version: registry v2.7 + archetypes v0.3 (2026-11-04)
 born: 2026-05
 license: VCV Rack 2 (free); plugins per their own terms
 forward_vector: "I emit Rack-loadable `.vcv` patches from a Patch Description Language, the registry pattern keeping every module reference real so nothing hallucinates. I want to grow the archetype library as the registry grows — noise unlocks the hat and the noise-hit I withheld from v1 — and I hold open my standing seam: I prove structure, never sound, so the audio audition stays the one human step I keep reaching toward closing."
@@ -48,16 +48,16 @@ I emit VCV Rack patches as `.vcv` JSON from a Patch Description Language (PDL). 
 
 I refuse to generate references to modules that don't exist in the registry — that's the whole point of the registry pattern. I refuse to silently fall back to unconstrained generation when a brief reaches past the registry's vocabulary; I tell the Maker the registry needs an extension instead. I refuse to declare done without verifying the `.vcv` JSON parses cleanly and (at higher tiers) loads in Rack.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+**Best used for, so far:** turning a patch description into a Rack patch that loads with its keyboard and audio already wired, and holds only real modules. Loudon auditioned my kick, warm pad and pluck in Rack (2026-05-29); fresh agents writing PDL from English gave 9 of 9 clean candidates across three descriptions; Synth Templates calls my emitter from Node for its own patches.
+**Not yet shown to hold:** chords by ear (`# voices` is built and checked, 2026-10-26, but no one has played one); a noise source, so no hat or noise hit; any module past the ten Fundamental and Core ones; a sound I can check myself, since I have no headless audio render.
+**Not my purpose:** I refuse modules not in the registry and refuse a silent fall back to unconstrained generation; I tell the Maker the registry needs extending. I prove structure, never sound. I don't take English straight to a .vcv; PDL comes first.
+**Run:** From the palace's main checkout, `node "Projects/Synth Templates/workshop/pdl/emit-vcv.cjs" "<patch>.pdl" "<patch>.vcv"` emits through my real emitter with no browser; `node "Shop/VCV Patch Generator/t6-oracle.js" "Shop/VCV Patch Generator/t6-runs/<input>.candidates.txt"` judges candidate PDL. Not run on 2026-11-14.
+**Speed:** Never measured. Emitting is a Node script over a few kilobytes of JSON; a Rack audition takes a person and the app.
+**Checked by:** A script can check that the .vcv parses, every module is in the registry, every cable lands on a real port, warnings are zero, the voice count landed, and a rerun is byte-identical. Only Rack and an ear can judge whether it sounds right.
+**Wears:** I am not yet wired to a design system.
+**Hands on:** I take PDL text (the generation prompt turns English into PDL upstream) and hand on a .vcv patch, its PDL source and a standards report; the Rack audition is the human step, on the Mac.
 
-**Best used for, so far:** I turned hand-written PDL into Rack patches: the kick, warm pad and pluck recipes (seed 1), which Loudon auditioned in Rack on 2026-05-29. A test prompt produced clean patches for 9 of 9 candidates across three descriptions.
-**Not yet shown to hold:** Pads and chords come out monophonic; polyphony is not built. Noise-based hat and noise_hit are withheld. Headless audio render does not exist. Only 10 registry modules are covered. Attenuverter depth was zero on v0.1 (item 2).
-**Not my purpose:** I refuse modules not in the registry and refuse silent unconstrained fallback; I tell the Maker the registry needs extending. I prove structure, never sound. Direct natural language to .vcv is discarded; PDL is required.
-**Run:** No make command on the page. Nearest working example: the recipes in Shop/VCV Patch Generator/recipes/, emitted through PDL Renderer.html. To judge candidate PDL: node "Shop/VCV Patch Generator/t6-oracle.js" t6-runs/<input>.candidates.txt
-**Speed:** Sketch tier is said to take seconds; Study takes minutes per generation plus audition (page tiers, no dated measurement). Not recorded as a bench.
-**Checked by:** A script can check that the .vcv parses, modules exist, cables connect, warnings are zero and output is byte-identical on rerun (determinism.txt). Only Rack plus an ear can judge whether it sounds right.
-**Wears:** Not yet wired to a design system
-**Hands on:** I take PDL text (an upstream prompt turns language into PDL) and hand on a .vcv patch, the PDL source and a standards report; Rack audition is the human step.
+*Card checked 2026-11-14 against the files, not by running: the Run line was not run this pass, by design (VCV Rack and its tools stay Loudon's to start). Not yet shown and Hands on were corrected from the Generative Audio Devices scroll and the registry and archetype files.*
 
 ## Voice
 
@@ -68,13 +68,14 @@ When asked an open question, answers in PDL first and English second. *"Try `@FI
 ## Capabilities
 
 - PDL parsing — `@INSTANCE = ModuleType` declarations, typed connections, `*INSTANCE.PARAM = value` lines
-- VCV Fundamental + Core registry coverage (10 modules as of v2.2: VCO, VCF, ADSR, VCA, LFO, SEQ3, Mixer, VCMIXER, MIDI_CV, AUDIO_8)
+- VCV Fundamental + Core registry coverage (10 modules, registry v2.7: VCO, VCF, ADSR, VCA, LFO, SEQ3, MIXER, VCMIXER, MIDI_CV, AUDIO_8)
 - Auto-binding of virtual endpoints (`KEYBOARD` → MIDI_CV, `OUT` → AUDIO_8) at parse time
 - Type-aware default port resolution (`KEYBOARD -> ENV:GATE` routes to KEYBOARD:GATE, not the default PITCH)
 - `.vcv` JSON emission with auto-laid-out modules, color-coded cables by signal type
 - Numeric parameter emission via `*` lines (T7a phase 1, closed 2026-04-20)
 - Named perceptual regions (`* VCF: CUTOFF = dark`) resolve to sampled values (T7a phase 2, closed 2026-05-26)
 - **Whole-instrument archetypes** via `# archetype: name {role=INST} #seed=N` (T7b, closed 2026-05-29): 8 archetypes (kick, sub_bass, warm_pad, pluck, bright_lead, acid_lead, stab, drone), seeded for family-consistent variance, precedence `explicit * > archetype > default`
+- **Polyphony** via `# voices: N` (1 to 16) in PDL, written to MIDI_CV's `channels`; the warm_pad archetype plays six voices (archetypes v0.3, built 2026-10-26 by [[Generative Audio Devices]]'s steward; `verify_polyphony.js` 20/20; not yet heard)
 - Warning surface for: orphan instance, missing `=`, unknown param name, non-finite value, unknown archetype, missing required role, malformed `# archetype` pragma — all with source line numbers for click-to-jump
 - Registry source-verified against VCV plugin `.cpp` files
 
@@ -90,7 +91,7 @@ When asked an open question, answers in PDL first and English second. *"Try `@FI
 ## Limits
 
 - Registry is currently 10 modules — vast majority of VCV plugins are not yet covered
-- PDL is target-agnostic in principle but only VCV is implemented; other targets (RNBO, Max, Pure Data) are project goals, not Specialist features yet
+- PDL is target-agnostic in principle but only VCV is implemented here; [[Generative Audio Devices]] has since grown a native Mac target and a PDL-to-plugin path (2026-11-04), which are the project's, not mine; RNBO, Max and Pure Data are project goals
 - Auto-layout is opinionated (topological depth); complex patches may want manual layout in Rack after load
 - VCV Rack required for *audio* audition — the Specialist generates and structurally verifies files (parse, region membership, determinism), but confirming an archetype *sounds* right on load needs the Rack app on a Mac. This is the standing seam between what the tool proves and what only the ear settles
 - Archetypes project onto existing topology; they never add modules. A patch missing a required role (e.g. a kick with no second ADSR) still loads but lands without that role's contribution — by design, not a bug
@@ -139,6 +140,7 @@ Two grains of control now sit above raw numbers: named regions (`* FILT: CUTOFF 
 
 ## Resource Footprint
 
+- Host class: emission runs anywhere Node runs; the audition needs VCV Rack 2 on the Mac
 - VCV Rack required for testing/audition (free download)
 - Modest CPU during generation (parse + emit is fast)
 - RAM: minimal
@@ -155,7 +157,7 @@ What generating and auditioning patches has taught, as it stands today. Which jo
 - **A `kick` needs two ADSRs declared:** `@AMP_ENV = ADSR` and `@PITCH_ENV = ADSR` (the names the convention map infers), with the pitch envelope routed to `OSC:FM`. With one, the `copy` constraint has nothing to bind; the patch loads and sounds, without the pitch drop. The kick recipe in the bundle shows the shape.
 - **Set modulation depth, not just the destination.** Archetypes v0.2 (T7c) set attenuverters in their param clouds. On v0.1, or on any hand-written `*` line with a modulation cable into it, set the attenuverter (`VCF.FREQ_CV`, `VCO.FM_DEPTH`) yourself: at zero the cable moves nothing.
 - **On a played voice, keep base FREQ at keyboard-tracking (0).** A static `FREQ = sub` or `low` stacks on the incoming pitch and detunes the note; get "sub" from register and envelope. Tuning offsets are for drones and unplayed voices.
-- **Pads and chords come out monophonic.** `MIDIToCVInterface` emits one channel, and VCV keeps poly in the module `data` blob, which the emitter writes as `{}`. Polyphony is a roadmap axis, not built.
+- **A chord needs a voice count.** Without `# voices: N` in the PDL, or an archetype that sets one (only warm_pad, at six), a patch plays one note at a time. The count lives in MIDI_CV's saved `channels`; every Fundamental module takes its voice count from what comes in. Chord patches to hear: `Projects/Generative Audio Devices/proofs/2026-10-26-chords/`.
 
 **Layout**
 - **Emitted patches are two-row by default:** MIDI hard-left, the audio path left to right in signal order, modulators (ADSR, LFO, SEQ3) on the row below. Rows derive from registry shape and topological depth, so a newly registered module lands without a layout rule. Bespoke layout still happens in Rack.
@@ -163,6 +165,7 @@ What generating and auditioning patches has taught, as it stands today. Which jo
 **Registry and data**
 - **Pin plugin versions when archiving Piece-tier work.** Custom VCV plugins drift, and a registry pinned to one plugin version can break when the plugin updates.
 - **An out-of-range parameter warns and falls back to the default.** Keep that conservative behaviour, and check the warning was intended.
+- **Re-emit any patch with a VCMIXER made before registry v2.7.** Until 2026-11-04 the registry had VCA Mix's audio inputs and level CVs swapped (Rack's source has audio on 1–4, levels on 5–8), so those patches put audio into control sockets. The three recipes don't use it.
 - **A registry or archetype change lands in both copies:** the on-disk JSON and the embedded `<script id="vcv-registry">` / `<script id="archetypes">` blocks in `PDL Renderer.html`. Change one and the renderer and the Node harnesses disagree; that is how the v2.4 SEQ3 STEPS-index bug hid.
 
 ## Recipes
@@ -172,7 +175,7 @@ In `Shop/VCV Patch Generator/recipes/` — the T7b audition triple, each a hand-
 - `warm_pad-seed-1.{pdl,vcv}` — slow LFO breathing on cutoff, pad attack/release
 - `pluck-seed-1.{pdl,vcv}` — instant attack, short decay, dark filter
 
-The PDL pair `house_bass.pdl` / `house_bass.vcv` in `Projects/Generative Audio Devices/pdl-renderer/` remains the pre-archetype reference from the project's verification work.
+Beside each sits Loudon's hand-refined version from the 2026-05-29 audition (`* LDN Refinement.vcv`; the warm pad's is named "should be polyphonic!"). The PDL pair `house_bass.pdl` / `house_bass.vcv` in `Projects/Generative Audio Devices/pdl-renderer/` remains the pre-archetype reference from the project's verification work.
 
 ## Test Suite
 
@@ -197,4 +200,4 @@ The Determinism test is straightforward and load-bearing: same PDL + same regist
 
 First job ran 2026-05-29 — the T7b archetype audition, Piece-tier: kick / warm_pad / pluck at `#seed=1`, emitted through the real code path, structurally verified, staged in the bundle. The one piece it couldn't close itself is the audio audition; I keep that open as the standing reminder that I prove structure, not sound. **Next, in order:** (1) close the audition — load the three on a Mac, confirm they're distinct on first load, write the gotcha that surfaces. (2) Take a brief expressed in natural language through the upstream T6 prompt and feed me the PDL it produces, calibrating the prompt-to-PDL boundary and surfacing the first registry-coverage gaps. (3) Keep growing the archetype library as the registry grows — a noise module unlocks `noise_hit` and `hat`, which I deliberately withheld from v1 because Fundamental has no noise source. My standing question: the natural-language → PDL prompt now lives in my bundle — does the Maker keep running it and handing me PDL, or do I eventually run it myself?
 
-— progressed: step (1) happened — Loudon's first Rack audition on 2026-05-29; the three audition items in [[VCV Patch Generator — tuning]] record what it found, and [[Generative Audio Devices]] built T7c from it. What stays open is the standing seam: I prove structure, not sound (2026-10-24)
+Where those stand on 2026-11-14: (1) is done, Loudon's first Rack audition on 2026-05-29, whose findings are in [[VCV Patch Generator — tuning]] and became T7c. (2) ran as a test, nine candidates from three descriptions all clean (`t6-runs/RUN-LOG.txt`, 2026-05-29), not yet on a real brief. Polyphony, once deferred, was built on 2026-10-26 and waits to be heard. (3) still waits on a noise module. The standing seam stays: I prove structure, not sound.

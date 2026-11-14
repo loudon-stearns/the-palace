@@ -1,0 +1,19 @@
+{
+  "made": "2026-11-14",
+  "voice": "af_bella",
+  "text": "This is a short check of the Kokoro voice called Bella. The patch runs in RNBO, inside Max. The model it sounds out is called [Kuramoto](/kˌuɹəmˈOtO/) coupling, and its coupling constant, K, is small.",
+  "load_sec": 4.3,
+  "misaki_reads": {
+    "RNBO": "ˌɑɹˌɛnbˌiˈO",
+    "Kuramoto": "❓"
+  },
+  "phonemes": [
+    "ðˌɪs ɪz ɐ ʃˈɔɹt ʧˈɛk ʌv ðə kəkˈɔɹO vˈYs kˈɔld bˈɛlə. ðə pˈæʧ ɹˈʌnz ɪn ˌɑɹˌɛnbˌiˈO, ɪnsˈId mˈæks. ðə mˈɑdᵊl ɪt sˈWndz ˈWt ɪz kˈɔld kˌuɹəmˈOtO kˈʌplɪŋ, ænd ɪts kˈʌplɪŋ kˈɑnstᵊnt, kˈA, ɪz smˈɔl."
+  ],
+  "render_sec": 1.63,
+  "audio_sec": 13.47,
+  "raw_lufs": -24.26,
+  "out_lufs": -15.99,
+  "out_tp_dbtp": -1.0,
+  "status": "ok"
+}

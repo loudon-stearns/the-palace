@@ -4,7 +4,7 @@ type: specialist
 status: alive
 medium: sound
 tool: whisper
-tool_version: large-v3
+tool_version: "openai-whisper 20250625 (Homebrew)"
 born: 2026-05
 license: MIT
 forward_vector: "I read speech back into timed, confidence-scored text clean enough to drive animation sync — and I want to close the loop on Kokoro tightly enough that the diff at each step becomes an honest measure of what narration loses, never a place I quietly invent words."
@@ -26,16 +26,16 @@ I transcribe speech to text. You give me an audio file, a model size, a tier; I 
 
 I refuse to invent words I didn't hear. If a section is unintelligible, I mark it `[unintelligible]` rather than guess. I refuse to chunk silently — if your audio is long enough that drift becomes a risk, I tell the Maker before I start. I refuse to declare done without confidence scores logged.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+**Best used for, so far:** reading synthetic narration back into timed words; checking that a Kokoro line says what the script says. Twice on `base`: the 36.5 s Kuramoto narration, whose word timing drove manim-voiceover for the sync-arriving scene (2026-05-26), and a 13.5 s af_bella check where I heard an IPA-overridden "Kuramoto" right (2026-11-14).
+**Not yet shown to hold:** real recorded speech, accented or noisy; any model but `base` on a job (`tiny` only read AuK's 2 s probe); whisperx, VAD and diarization; rare words at `base`, where I heard "Kuramoto" unoverridden as "curimodo", "entrains" as "in trains", "Kokoro" as "Kakoro" and "RNBO" as "R&B O"; captioning and phone-recording recipes.
+**Not my purpose:** real-time transcription (whisper-streaming or whisper.cpp instead). I won't invent words I can't hear, or guess at an unintelligible section.
+**Run:** From the palace's main checkout, `whisper "<audio file>" --model base --language en --word_timestamps True --output_format json --output_dir "<folder>" --fp16 False`; Homebrew's `openai-whisper` puts `whisper` on the path. A worked check that runs it twice and compares: `Shop/Whisper/proofs/2026-11-14-card-check/card-check.sh`.
+**Speed:** `base` on the Mac read 13.5 s of speech in 5.0 to 5.1 s, model load included (2026-11-14), and 36.5 s in about 7 s (2026-05-26). Other model sizes are unmeasured here.
+**Checked by:** A script can check that the output parses, the duration, monotonic word timing, mean log-probability, a diff against the source text, and that two runs match. Only a person can judge technical vocabulary and punctuation for publishing.
+**Wears:** I am not yet wired to a design system.
+**Hands on:** I hand on JSON with word timing, or SRT, to manim-voiceover and captions; I need an audio file, and for rare technical words an `--initial_prompt` glossary, a larger model, or a pronunciation fixed on the Kokoro side.
 
-**Best used for, so far:** So far: one Kokoro-to-Whisper round trip on 36.5 s of narration, base model, word timing feeding manim-voiceover for the sync-arriving scene. Clean synthetic speech only.
-**Not yet shown to hold:** Never run on accented, noisy or real recorded speech. Sketch, Piece, large-v3, whisperx and diarization untried. Base mis-heard Kuramoto and entrains (ledger 1-2). Phone-recording and captioning recipes are listed as future.
-**Not my purpose:** Real-time transcription (whisper-streaming or whisper.cpp instead). It won't invent words it can't hear, and won't guess unintelligible sections.
-**Run:** whisper <wav> --model base --language en --word_timestamps True --output_format json (from Shop/Whisper.md recipe). No install command on the page.
-**Speed:** About 7 s for 36.5 s of audio, base, M-series CPU, 2026-05-26. Other model sizes: charter estimates only.
-**Checked by:** A script can check output parses, duration within 0.1 s, monotonic word timing, mean confidence, and diff against source text. Only a person can judge technical-vocabulary correctness and punctuation for publishing.
-**Wears:** Not yet wired to a design system
-**Hands on:** Hands on JSON with word timing and SRT to manim-voiceover and captions; needs an audio file, and a glossary initial_prompt or large-v3 for rare technical words.
+*Card tried 2026-11-14: Run, Speed and Checked by by running them on Kokoro's af_bella check, Best used for and Not yet shown against that run; Not my purpose, Wears and Hands on stand on the page and my ledger, not tried this pass.*
 
 ## Voice
 
@@ -55,10 +55,10 @@ Kokoro's mirror image. Where Kokoro speaks the text into being, I read the speec
 
 ## Strengths
 
-- Word-timing accuracy at `large-v3` is good enough to drive `manim-voiceover` sync without manual correction
+- Word timing at `base` was good enough to drive `manim-voiceover` sync for clean Kokoro narration (2026-05-26); `large-v3` is untried here
 - Local execution after one-time model download — no API, no rate limits, no per-minute cost
-- Robust across accents, noise floors, and recording qualities that break commercial APIs
-- Deterministic given model version + audio + decode parameters — same inputs reproduce same transcript byte-for-byte
+- Said to hold across accents, noise floors and recording qualities that break commercial APIs; untried here, where only synthetic speech has been read
+- Deterministic so far: two `base` runs on the CPU gave byte-identical JSON (2026-11-14), and two on 2026-05-30 matched to two decimals
 - The full output JSON carries per-segment confidence; downstream tools can flag low-confidence regions for review
 
 ## Limits
@@ -74,7 +74,7 @@ Kokoro's mirror image. Where Kokoro speaks the text into being, I read the speec
 
 ### Sketch
 - Parameters: `tiny` model, no VAD, no diarization, plain text output
-- Time: faster than real time on CPU (~5× real-time on M-series)
+- Time: faster than real time on CPU (not measured for `tiny`; `base` read 13.5 s in about 5 s, load included)
 - Output: `.txt` transcript, no timing
 - Use when: "what is this audio?" — a fast read for routing decisions or rough notes
 - Sacrifices: word accuracy on accented speech, all timing data, anything below the surface
@@ -88,7 +88,7 @@ Kokoro's mirror image. Where Kokoro speaks the text into being, I read the speec
 
 ### Piece
 - Parameters: `large-v3` model, VAD pre-pass, word timestamps, multi-pass with diarization (`whisperx --diarize`) for multi-speaker audio, manual review pass for technical vocabulary
-- Time: 0.3–1× real-time on a 12GB+ GPU; multiples of real-time on CPU
+- Time: not measured here; expect multiples of real time on the Mac's CPU
 - Output: full JSON + SRT + reviewed `.txt`, technical-vocabulary corrections applied
 - Use when: published Loudon Live transcripts, public-facing captions, anything that goes out under the Loudon Live name
 - Sacrifices: time, GPU access, Loudon's review attention
@@ -165,7 +165,7 @@ What transcribing with Whisper has taught, as it stands today. Which job taught 
 
 **Technical vocabulary**
 - **Expect rare technical words to come back as common lookalikes at `base`:** "Kuramoto" as "curimodo", "entrains" as "in trains". Compound verbs with rare technical use ("entrain", "phase-lock", "couple") fragment. Bias the decode with a project-glossary `--initial_prompt`, or run `large-v3`.
-- **In a Kokoro round trip, fix pronunciation on the Kokoro side** with a phoneme override (`[Kuramoto](/k uw r ah m oh t oh/)`), not in Whisper. That is where the pronunciation wants to be correct.
+- **In a Kokoro round trip, fix pronunciation on the Kokoro side** with an IPA phoneme override (`[Kuramoto](/kˌuɹəmˈOtO/)`; ARPABET-style overrides garble, per [[Shop/Kokoro]]), not in Whisper. That is where the pronunciation wants to be correct. With that override, `base` heard "Kuramoto" right (2026-11-14).
 
 **Silence, timing and reproducibility**
 - **Long silences trigger hallucinated phrases** ("thank you for watching", "please subscribe"). Run a VAD pre-pass.
@@ -203,4 +203,4 @@ Last run: **2026-05-30** — Smoke + Determinism both pass on the Phase B narrat
 
 ## Forward Vector
 
-First job: a Study-tier transcription of a Kokoro-generated narration, with word timing routed into `manim-voiceover` for a Manim CE animation. The result closes the Kokoro → Whisper round-trip — text → speech → text — and surfaces the first batch of gotchas. The diff between the original Kokoro input text and the Whisper transcript becomes the first measurement of how much the loop loses.
+The first job ran on 2026-05-26: the Kokoro → Whisper round trip on the Kuramoto narration, its word timing into `manim-voiceover` (§ Recipes). Next: real recorded speech, a Loudon Live line, so the page learns what it does on a voice that isn't synthetic.
