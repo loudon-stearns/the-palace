@@ -10,37 +10,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Editor</title>
-<meta name="theme-color" content="#f0eee5">
-<link rel="icon" href="Crystal%20Synthesizer%20%E2%80%94%20icon.png">
-<style data-furniture="_ops/drafting-table/design-system/controls.css 2026-11-03">
-/* The browser's furniture, re-dressed: inlined from _ops/drafting-table/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
-   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, code, dialog, focus, link, mark, selection. */
+<meta name="theme-color" content="#0a0a0f">
+<link rel="icon" href="../../VST%20Template%20%E2%80%94%20icon.png">
+<style data-furniture="_ops/loudon-live/design-system/controls.css 2026-11-03">
+/* The browser's furniture, re-dressed: inlined from _ops/loudon-live/design-system/controls.css on 2026-11-03 (_ops/furniture-fanout/furnish.py).
+   In a layer, so every rule this page writes wins. Left out, because the page dresses it: button, link, mark. */
 @layer furniture {
-:where(*) { --fx-ground-000: var(--ground-000, #050a06); --fx-ground-100: var(--ground-100, #0b2a14); --fx-ground-200: var(--ground-200, #10361d); --fx-ink: var(--ink, #33ff66); --fx-ink-2: var(--ink-2, #1f8a3c); --fx-ink-3: var(--ink-3, #0f5024); --fx-rule: var(--rule, #1f8a3c); --fx-slab-face: var(--slab-face, #141c16); --fx-slab-light: var(--slab-light, #233029); --fx-accent: var(--accent, #33ff66); --fx-selection: var(--selection, #33ff66); --fx-on-selection: var(--on-selection, #050a06); --fx-source-measure: var(--source-measure, #ff4136); --fx-source-datasheet: var(--source-datasheet, #4f8cff); --fx-shadow-slab: var(--shadow-slab, inset 0 1px 0 #233029, 0 1px 0 #000000, 0 2px 4px rgba(0,0,0,0.60)); --fx-shadow-recess: var(--shadow-recess, inset 0 1px 3px rgba(0,0,0,0.80), inset 0 0 0 1px #1f8a3c); --fx-font-mono: var(--font-mono, var(--mono, 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace)); --fx-space-1: 4px; --fx-space-2: 8px; --fx-space-3: 12px; --fx-space-4: 16px; --fx-space-5: 24px; --fx-radius-0: 0; --fx-radius-bevel: 2px; --fx-radius-round: 999px; --fx-stroke-frame: 2px; --fx-stroke-rule: 1px; }
+:where(*) { --fx-bg: #0a0a0f; --fx-bg-elev-1: #12121a; --fx-bg-elev-2: #1a1a28; --fx-bg-elev-3: #22222e; --fx-fg-1: #e8e8f0; --fx-fg-2: #c8c8d8; --fx-fg-3: #8a8aa0; --fx-fg-4: #4a4a5a; --fx-fg-on-accent: #0a0a0f; --fx-border: #4a4a5e; --fx-border-soft: rgba(255,255,255,0.06); --fx-border-hover: rgba(232,184,74,0.55); --fx-accent: #e8b84a; --fx-accent-soft: rgba(232,184,74,0.10); --fx-accent-line: rgba(232,184,74,0.50); --fx-danger: #ff2a2a; --fx-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace; --fx-r-xs: 1px; --fx-r-sm: 2px; --fx-r-md: 4px; --fx-r-pill: 999px; --fx-s-1: 4px; --fx-s-2: 8px; --fx-s-3: 12px; --fx-s-4: 16px; --fx-s-5: 20px; --fx-s-6: 24px; --fx-t-fast: 120ms; --fx-ease: cubic-bezier(.4, 0, .2, 1); --fx-lh-normal: 1.5; --fx-t-eyebrow: 11px; --fx-tr-eyebrow: 0.18em; --fx-t-caption: 13px; --fx-shadow-2: inset 0 1px 0 rgba(255,255,255,0.07), 0 6px 16px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.50); --fx-shadow-3: inset 0 1px 0 rgba(255,255,255,0.10), 0 18px 40px -8px rgba(0,0,0,0.70), 0 4px 10px rgba(0,0,0,0.45); }
 :root { color-scheme: dark; }
 ::-webkit-scrollbar {width: 11px; height: 11px;}
-::-webkit-scrollbar-track {background: var(--fx-ground-100); border-left: var(--fx-stroke-rule) solid var(--fx-rule);}
-::-webkit-scrollbar-track:horizontal {border-left: 0; border-top: var(--fx-stroke-rule) solid var(--fx-rule);}
-::-webkit-scrollbar-thumb {background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-0); box-shadow: inset 0 1px 0 var(--fx-slab-light);}
-::-webkit-scrollbar-thumb:hover {background: var(--fx-slab-light);}
-::-webkit-scrollbar-thumb:active {background: var(--fx-slab-light); border-color: var(--fx-accent);}
-::-webkit-scrollbar-corner {background: var(--fx-ground-100);}
+::-webkit-scrollbar-track {background: linear-gradient(to right, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-track:horizontal {background: linear-gradient(to bottom, transparent calc(50% - .5px), var(--fx-border-soft) calc(50% - .5px), var(--fx-border-soft) calc(50% + .5px), transparent calc(50% + .5px));}
+::-webkit-scrollbar-thumb {background: var(--fx-fg-4); border: 0 solid transparent; border-width: 0 2.5px; background-clip: padding-box; border-radius: 0;}
+::-webkit-scrollbar-thumb:horizontal {border-width: 2.5px 0;}
+::-webkit-scrollbar-thumb:hover {background-color: var(--fx-fg-3);}
+::-webkit-scrollbar-thumb:active {background-color: var(--fx-accent);}
+::-webkit-scrollbar-corner {background: transparent;}
 ::-webkit-scrollbar-button {display: none; width: 0; height: 0;}
-@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-rule) var(--fx-ground-100);}
-*:hover {scrollbar-color: var(--fx-ink-2) var(--fx-ground-100);}}
+@supports not selector(::-webkit-scrollbar) {* {scrollbar-width: thin; scrollbar-color: var(--fx-fg-4) transparent;}
+*:hover {scrollbar-color: var(--fx-fg-3) transparent;}}
+::selection {background: var(--fx-accent); color: var(--fx-fg-on-accent); text-shadow: none;}
+:focus {outline: none;}
+:focus-visible {outline: 1px solid var(--fx-accent); outline-offset: 2px; border-radius: var(--fx-r-xs);}
 input[type="number"] {-moz-appearance: textfield;}
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {-webkit-appearance: none; margin: 0;}
-input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 18px; margin: 0; padding: 0; background: transparent; border: 0; cursor: ew-resize;}
+input[type="range"] {appearance: none; -webkit-appearance: none; width: 100%; height: 14px; margin: 0; padding: 0; background: transparent; border: 0; border-radius: 0; cursor: ew-resize;}
 input[type="range"]:focus {outline: none;}
-input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-rule);}
-input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-rule);}
-input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-ink-2);}
-input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 10px; height: 16px; margin-top: -7px; background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-bevel); box-shadow: var(--fx-shadow-slab);}
-input[type="range"]::-moz-range-thumb {width: 8px; height: 14px; background: var(--fx-slab-face); border: var(--fx-stroke-rule) solid var(--fx-ink); border-radius: var(--fx-radius-bevel); box-shadow: var(--fx-shadow-slab);}
-input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-slab-light); border-color: var(--fx-accent);}
-input[type="range"]:active::-moz-range-thumb {background: var(--fx-slab-light); border-color: var(--fx-accent);}
-input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 18px; height: 100%; cursor: ns-resize;}
-.sheet-dim {font-variant-numeric: tabular-nums;}
+input[type="range"]::-webkit-slider-runnable-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-track {height: 2px; background: var(--fx-border); border-radius: 0;}
+input[type="range"]::-moz-range-progress {height: 2px; background: var(--fx-fg-2);}
+input[type="range"]::-webkit-slider-thumb {-webkit-appearance: none; width: 12px; height: 12px; margin-top: -5px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs); transition: background-color var(--fx-t-fast) var(--fx-ease);}
+input[type="range"]::-moz-range-thumb {width: 10px; height: 10px; background: var(--fx-fg-1); border: 1px solid var(--fx-bg); border-radius: var(--fx-r-xs);}
+input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:active::-webkit-slider-thumb, input[type="range"]:focus-visible::-webkit-slider-thumb {background: var(--fx-accent);}
+input[type="range"]:hover::-moz-range-thumb, input[type="range"]:active::-moz-range-thumb {background: var(--fx-accent);}
+input[type="range"][orient="vertical"] {writing-mode: vertical-lr; direction: rtl; width: 14px; height: 100%; cursor: ns-resize;}
 [style*="overflow"], .scroll, .scroller {overscroll-behavior: contain; scrollbar-gutter: stable;}
 * {-webkit-tap-highlight-color: transparent;}
 label, input[type="range"] {user-select: none; -webkit-user-select: none;}
@@ -469,6 +472,28 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
 .dt-scope__screen { position: relative; background: var(--scope-ground); border: 1.5px solid var(--ink); box-shadow: inset 0 0 0 1px #0b2a14, var(--shadow-glow); }
 .dt-scope canvas { display: block; }
 .dt-scope__label { font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-2); display: flex; justify-content: space-between; gap: var(--space-3); }
+
+/* ── Transport ──────────────────────────────────────────────────────── */
+/* The thirteenth: a play/stop button with a scrub, drawn by transport.js beside an <audio>, so a proof never shows
+   the OS player (2026-11-03). The button is a slab that inverts while playing, as a latched Button does; the track is
+   a fader slot (a recess) whose played run is hatching, as a Meter's fill is; the head is a cap outlined in ink; the
+   time is a sheet-dim readout, said twice. A file that will not load writes HOLD in source-measure. */
+.dt-transport { display: flex; align-items: center; gap: var(--space-3); min-height: 28px; margin: var(--space-2) 0; font-family: var(--font-mono); font-size: 12px; line-height: 16px; color: var(--ink-2); }
+.dt-transport__btn { flex: none; width: 32px; height: 24px; padding: 0 0 1px; font: inherit; font-size: 14px; line-height: 1; color: var(--ink); background: var(--slab-face); border: 1.5px solid var(--ink); border-radius: var(--radius-bevel); box-shadow: var(--shadow-slab); cursor: pointer; position: relative; top: 0; }
+.dt-transport__btn:hover { background: var(--slab-light); }
+.dt-transport__btn:active { top: 1px; box-shadow: var(--shadow-recess); background: var(--ground-100); }
+.dt-transport__btn:focus-visible { outline: 1px dashed var(--ink); outline-offset: 2px; }
+.dt-transport[data-state="playing"] .dt-transport__btn { background: var(--ink); color: var(--ground-000); }
+.dt-transport__track { position: relative; flex: 1 1 120px; min-width: 80px; height: 10px; background: var(--ground-100); box-shadow: var(--shadow-recess); cursor: ew-resize; touch-action: none; }
+.dt-transport__played { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background-color: var(--ground-200); background-image: repeating-linear-gradient(45deg, var(--ink) 0, var(--ink) 1px, transparent 1px, transparent 5px); }
+.dt-transport__head { position: absolute; top: -4px; left: 0; width: 10px; height: 18px; margin-left: -5px; box-sizing: border-box; background: var(--slab-face); border: 1.5px solid var(--ink); border-radius: var(--radius-bevel); box-shadow: var(--shadow-slab); }
+.dt-transport[data-state="playing"] .dt-transport__head { border-color: var(--accent); }
+.dt-transport__track:focus-visible { outline: 1px dashed var(--ink); outline-offset: 3px; }
+.dt-transport__time { flex: none; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink-2); }
+.dt-transport__now { color: var(--ink); }
+.dt-transport[data-state="hold"] .dt-transport__dur { color: var(--source-measure); font-weight: 600; }
+.dt-transport[data-state="hold"] .dt-transport__track { opacity: .5; cursor: default; }
+.dt-transport__name { flex: none; max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-2); }
 </style>
 <style>
   * { box-sizing: border-box; }
@@ -524,7 +549,7 @@ label, input[type="range"] {user-select: none; -webkit-user-select: none;}
   .heroes { flex: 1; min-height: calc(var(--hero) + 64px); display: flex; gap: var(--s-8); align-items: center; justify-content: center; padding: var(--s-2) 0; }
   .heroes .ctl { --knob: var(--hero); }
   /* ── the CRT (screen): a bezel drawn as an elevation around a screen the plugin owns ── */
-  .heroes .screen { flex: 1 1 0; align-self: stretch; min-width: 0; position: relative; }
+  .heroes .screen, .pad-wrap .screen { flex: 1 1 0; align-self: stretch; min-width: 0; position: relative; }
   .screen .casing { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
   .screen .casing * { fill: none; stroke: var(--ink-3, var(--fg-3)); stroke-width: 1; vector-effect: non-scaling-stroke; }
   .screen .casing .outline { stroke: var(--ink-2, var(--fg-2)); }
@@ -1682,6 +1707,7 @@ window.Juce = {
 </script>
 <script>window.MOCK_INFO = {"name": "Crystal Synthesizer", "version": "0.1.0", "company": "Loudon Live", "params": [{"id": "crystal", "name": "Crystal", "unit": "", "min": 0, "max": 8, "default": 4, "taper": "choice", "smooth_ms": 0, "choices": "Diamond|Fluorite|Tetragonal|Emerald|Ruby|Amethyst|Topaz|Monoclinic|Labradorite", "group": "Crystal", "hero": false, "automatable": true}, {"id": "hardness", "name": "Hardness", "unit": "ms", "min": 0.05, "max": 50, "default": 1, "taper": "log", "smooth_ms": 0, "choices": "", "group": "Strike", "hero": false, "automatable": true}, {"id": "vel_bright", "name": "Vel to hardness", "unit": "", "min": 0, "max": 1, "default": 0.5, "taper": "linear", "smooth_ms": 0, "choices": "", "group": "Strike", "hero": false, "automatable": true}, {"id": "velocity", "name": "Velocity", "unit": "", "min": 0, "max": 1, "default": 0.6, "taper": "linear", "smooth_ms": 0, "choices": "", "group": "Strike", "hero": false, "automatable": true}, {"id": "lifetime", "name": "Lifetime", "unit": "x", "min": 0.1, "max": 50, "default": 1, "taper": "log", "smooth_ms": 0, "choices": "", "group": "Ring", "hero": false, "automatable": true}, {"id": "rolloff", "name": "Rolloff", "unit": "", "min": 0.3, "max": 1, "default": 0.7, "taper": "linear", "smooth_ms": 0, "choices": "", "group": "Ring", "hero": false, "automatable": true}, {"id": "release", "name": "Release", "unit": "s", "min": 0.05, "max": 30, "default": 4, "taper": "log", "smooth_ms": 0, "choices": "", "group": "Ring", "hero": false, "automatable": true}, {"id": "angle", "name": "Axis angle", "unit": "deg", "min": 0, "max": 90, "default": 90, "taper": "linear", "smooth_ms": 0, "choices": "", "group": "Light", "hero": true, "automatable": true}, {"id": "spread", "name": "Birefringence", "unit": "x", "min": 0.25, "max": 64, "default": 1, "taper": "log", "smooth_ms": 0, "choices": "", "group": "Light", "hero": false, "automatable": true}, {"id": "fire", "name": "Fire", "unit": "ms", "min": 0, "max": 400, "default": 40, "taper": "linear", "smooth_ms": 0, "choices": "", "group": "Light", "hero": true, "automatable": true}, {"id": "width", "name": "Width", "unit": "", "min": 0, "max": 1, "default": 0.7, "taper": "linear", "smooth_ms": 20, "choices": "", "group": "Output", "hero": false, "automatable": true}, {"id": "level", "name": "Level", "unit": "dB", "min": -60, "max": 6, "default": -6, "taper": "linear", "smooth_ms": 20, "choices": "", "group": "Output", "hero": false, "automatable": true}], "ui": {"width": 1100, "height": 700, "min": [980, 640], "max": [1800, 1100], "direction": "bench", "dress": "drafting-table", "tier": "Sketch", "screen": true, "kind": "instrument"}};</script>
 <script></script>
+<script></script>
 <script>
 "use strict";
 // ── the trace: a 3:2 Lissajous, the channel's mark, drawn rather than embedded ──
@@ -1909,8 +1935,46 @@ function crt() {
   return SCREEN = { el, glass, draw };
 }
 
-// ── XY pad: two heroes on one surface, x first, y second; an optional backdrop (ui.backdrop) ──
-function pad(px, py, backdrop) {
+// ── the CRT's picture: the plugin's own ui/visualizer.js, which ui.py inlines and names as
+// window.editorVisualizer, an object { mount(el, hooks), frame(probes, params, dt) }. mount gets the
+// glass and hooks { get, set, begin, end } by parameter id (the editor's own relays, so a drag on the
+// picture is the knob moving). frame runs on each "probes" event the plugin sends, about 60 Hz, with
+// the latest probes in kProbes order and every parameter in natural units (a menu's index). It is
+// driven by the plugin's timer, not by animation frames, which WebKit stops in a plugin window it
+// thinks is covered. window.editorProbes holds the whole event: names, p, out (the output's peak),
+// h (every frame, ~480 a second, since the last event) and rate. In a browser, the mock's feed
+// (ui.py mock --feed) stands in, replayed from a harness render. ──
+const PROBES = window.editorProbes = { names: [], p: [], out: 0, h: [], rate: 0 };
+function binding(p) { return p.taper === "choice" ? bindChoice(p) : p.taper === "toggle" ? bindToggle(p) : bindSlider(p); }
+function startScreen(info) {
+  const vis = window.editorVisualizer, ui = info.ui || {};
+  if (!vis || !ui.screen || !SCREEN) return;
+  PROBES.names = info.probes || [];
+  PROBES.p = PROBES.names.map(() => 0);
+  const byId = new Map(info.params.map(p => [p.id, binding(p)]));
+  const call = (id, k, ...a) => { const b = byId.get(id); return b ? b[k](...a) : undefined; };
+  const hooks = { get: id => call(id, "get"), set: (id, v) => call(id, "set", v), begin: id => call(id, "begin"), end: id => call(id, "end") };
+  const values = () => { const v = {}; byId.forEach((b, id) => { v[id] = b.get(); }); return v; };
+  try { vis.mount(SCREEN.glass, hooks); } catch (err) { console.error("visualizer mount:", err); return; }
+  let last = performance.now();
+  const tick = ev => {
+    if (ev) Object.assign(PROBES, ev);
+    const now = performance.now(), dt = Math.min(0.1, (now - last) / 1000); last = now;
+    try { vis.frame(PROBES.p, values(), dt); } catch (err) { console.error("visualizer frame:", err); }
+  };
+  if (window.__IN_PLUGIN__) { window.__JUCE__.backend.addEventListener("probes", tick); tick(); return; }
+  const feed = info.feed, n = PROBES.names.length;   // the mock: a harness render, replayed in a loop
+  let i = 0;
+  setInterval(() => {
+    if (!feed || !feed.frames.length) return tick();
+    const f = feed.frames[i++ % feed.frames.length];
+    tick({ p: f.slice(0, n), out: f[n], h: [f], rate: feed.rate });
+  }, 1000 / 60);
+}
+
+// ── XY pad: two heroes on one surface, x first, y second; an optional backdrop (ui.backdrop), and the
+// CRT beside it when the plugin has a picture (the edge direction's screen sits between pad and readouts) ──
+function pad(px, py, backdrop, screen) {
   const sx = bindSlider(px), sy = bindSlider(py);
   const wrap = document.createElement("div"); wrap.className = "pad-wrap"; wrap.dataset.moment = "heroes";
   const el = document.createElement("div"); el.className = "pad";
@@ -1922,7 +1986,7 @@ function pad(px, py, backdrop) {
   const side = document.createElement("div"); side.className = "pad-side";
   const ro = (p) => { const r = document.createElement("div"); r.className = "readout"; r.innerHTML = `<div class="label">${p.name}</div><div class="value"></div><div class="range">${rangeText(p)}</div>`; return r; };
   const rx = ro(px), ry = ro(py); side.append(rx, ry);
-  wrap.append(el, side);
+  wrap.append(el, ...(screen ? [screen] : []), side);
   const css = getComputedStyle(document.documentElement);
   const draw = () => {
     const dpr = window.devicePixelRatio || 1, W = el.clientWidth, H = el.clientHeight;
@@ -2024,12 +2088,16 @@ function build(info) {
   }
   const main = document.getElementById("main"); main.innerHTML = "";
   const params = info.params, heroes = direction === "flow" ? [] : params.filter(p => p.hero);
-  if (heroes.length === 2 && direction === "edge") main.append(pad(heroes[0], heroes[1], ui.backdrop));
+  const wantsScreen = !!(ui.screen && (window.editorVisualizer || ui.screen === "test-card"));
+  if (heroes.length === 2 && direction === "edge") {
+    const screen = crt().el; screen.hidden = !wantsScreen;
+    main.append(pad(heroes[0], heroes[1], ui.backdrop, screen));
+  }
   else if (heroes.length) {
     const h = document.createElement("div"); h.className = "heroes"; h.dataset.moment = "heroes";
     // The CRT sits between the heroes, hidden unless ui.screen is set. Shown, it stretches into the row's
     // spare width, so nothing else moves (design standard § The CRT).
-    const screen = crt().el; screen.hidden = !ui.screen;
+    const screen = crt().el; screen.hidden = !wantsScreen;
     heroes.forEach((p, i) => { if (i === 1) h.append(screen); h.append(control(p, true, direction)); });
     if (heroes.length === 1) h.append(screen);
     main.append(h);
@@ -2080,6 +2148,7 @@ function fitWindow(info) {
   if (q.get("direction")) info.ui = Object.assign({}, info.ui, { direction: q.get("direction"), skin: q.get("skin") || undefined });
   build(info);
   fitWindow(info);
+  startScreen(info);
   if (window.__onEditorBuilt) window.__onEditorBuilt(info);   // the mock's review surface, if it has one
   document.fonts.ready.then(() => fitWindow(info));   // the faces change every width
   // Fitted again in the resize event itself, not on a later frame: WebKit stops animation frames in a
@@ -2111,11 +2180,21 @@ const CE = (() => {
     [1.00, 1.37, 1.71, 1.94, 2.23, 2.61],
     [1.00, 1.83, 3.17, 4.67, 7.00, 9.50, 13.3, 17.5],
   ];
-  const QS = [807.0, 27.0, 100.0, 57.0, 120.0, 62.0, 58.0, 100.0, 30.0];
+  const QM = [   // Q per mode (../linewidths/per_mode.json)
+    [1037.0, 1037.0, 1037.0, 1037.0, 1037.0, 100.0, 100.0, 100.0, 100.0],
+    [42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 100.0, 100.0, 100.0],
+    [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0],
+    [31.0, 38.0, 45.0, 52.0, 65.0, 71.0, 103.0, 100.0, 100.0],
+    [98.0, 108.0, 111.0, 116.0, 149.0, 166.0, 193.0, 100.0, 100.0],
+    [17.0, 16.0, 35.0, 47.0, 54.0, 62.0, 93.0, 106.0, 142.0],
+    [34.0, 49.0, 65.0, 80.0, 101.0, 125.0, 94.0, 53.0, 100.0],
+    [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0],
+    [43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 100.0],
+  ];
   const DN = [0.0, 0.0, 0.059, 0.006, 0.008, 0.009, 0.010, 0.006, 0.009];
   const DISP = [0.044, 0.007, 0.039, 0.014, 0.018, 0.013, 0.014, 0.012, 0.012];
   const ratio = (c, k) => (k < RATIOS[c].length ? RATIOS[c][k] : 0.0);
-  const qual = (c, k) => (c === 5 && k === 1 ? 17.0 : QS[c]);
+  const qual = (c, k) => QM[c][k];
   const NUM_PROBES = 1 + 3 * V + K;
 
   function voice() {
@@ -2221,7 +2300,7 @@ const CE = (() => {
     }
     readProbes() { return this.probes; }
   }
-  return { Engine, IDS, P, DEFAULTS, RATIOS, QS, DN, DISP, V, K, NUM_PROBES };
+  return { Engine, IDS, P, DEFAULTS, RATIOS, QM, DN, DISP, V, K, NUM_PROBES };
 })();
 
 // visualizer.js — Crystal Synthesizer's picture for the CRT: light through fog.
@@ -2261,7 +2340,7 @@ const CrystalScope = (() => {
     [1.00, 1.62, 2.07, 2.77, 3.13, 3.63, 5.45, 6.21, 8.32], [1.00, 1.45, 1.91, 2.37, 2.96, 3.68, 4.80, 6.05],
     [1.00, 1.37, 1.71, 1.94, 2.23, 2.61], [1.00, 1.83, 3.17, 4.67, 7.00, 9.50, 13.3, 17.5],
   ];
-  const QS = [807, 27, 100, 57, 120, 62, 58, 100, 30];
+  const QR = [[1037, 1037], [42, 42], [100, 100], [31, 103], [98, 193], [16, 142], [34, 125], [100, 100], [43, 43]];   // Q per mode, lowest and highest (../linewidths/per_mode.json)
   const DN = [0.0, 0.0, 0.059, 0.006, 0.008, 0.009, 0.010, 0.006, 0.009];
   const DISP = [0.044, 0.007, 0.039, 0.014, 0.018, 0.013, 0.014, 0.012, 0.012];
   // name, formula, system · group, cell (a b c α β γ, Å and degrees), shape, gem colour, atoms
@@ -2568,9 +2647,9 @@ const CrystalScope = (() => {
     cx.fillStyle = "rgba(200,208,235,0.72)";
     cx.fillText(`${m.name.toUpperCase()} · ${m.sys}`, W * 0.46, H * 0.84 + big * 0.62);
     const cents = split > 0 ? (1200 * Math.log2(1 + split)).toFixed(1) + " ¢ between the rays" : (DN[c] > 0 ? "one ray: on the axis" : "one ray: isotropic");
-    const lf = (params.lifetime || 1) * QS[c];
+    const lf = (params.lifetime || 1), qlo = Math.round(lf * QR[c][0]), qhi = Math.round(lf * QR[c][1]);
     cx.fillStyle = "rgba(160,170,205,0.6)";
-    cx.fillText(`Q ${Math.round(lf)} · Δn ${DN[c].toFixed(3)} · dispersion ${DISP[c].toFixed(3)} · ${cents}`, W * 0.46, H * 0.84 + big * 1.1);
+    cx.fillText(`Q ${qlo === qhi ? qlo : qlo + "–" + qhi} · Δn ${DN[c].toFixed(3)} · dispersion ${DISP[c].toFixed(3)} · ${cents}`, W * 0.46, H * 0.84 + big * 1.1);
     // the ringing notes, top right, brightest the loudest
     cx.textAlign = "right";
     voices.sort((a, b) => a.hz - b.hz).forEach((vo, i) => {

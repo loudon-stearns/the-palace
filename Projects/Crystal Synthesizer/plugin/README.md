@@ -42,8 +42,8 @@ rendered as separate files now on knobs:
 - **Ring**: Lifetime (multiplies every Q; 1 is the physics), Rolloff (strike
   amplitude from mode to mode), Release (the damper after key up).
 
-The numbers: ratios as the proofs (Crystal Sonification Reference), Q from
-`../crystal-rings/linewidths.json` (two measured, the rest estimated), Δn and D
+The numbers: ratios as the proofs (Crystal Sonification Reference), Q per mode from
+`../linewidths/per_mode.json` (the middle of what each line's width allows; ruby's still a bracket), Δn and D
 standard gemmological values. Topaz and labradorite are biaxial; the angle treats
 every crystal as uniaxial, which is a simplification. The two hypothesis slots borrow
 zircon's (tetragonal) and orthoclase's (monoclinic) optics.

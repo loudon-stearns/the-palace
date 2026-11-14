@@ -15,33 +15,34 @@ forward_vector: "I am Crystal Synthesizer's scroll — the one page that always 
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-14T01:10:20.498Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-14T01:15:51.307Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** fruiting · **Steward:** cycle 15 · last ran 2026-11-14 (today)
-- **Plan:** agreed 2026-11-10 (4 days ago) · 2 made things since
+- **Status:** active · **Stage:** fruiting · **Steward:** cycle 16 · last ran 2026-11-14 (today)
+- **Plan:** agreed 2026-11-10 (4 days ago) · 3 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-14 (today) — Can you get me ruby's Raman line widths? One paper decides whether ruby is a second bell. (`crystal-synth-steward-038`)
-- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
+- **Last shipped:** 2026-11-14 (today) — The plugin now rings each crystal mode for its own time. Diamond is still the only bell, and amethyst lost a drone it never had. (`crystal-synth-steward-039`)
+- **Last commit touching this project:** 2026-11-13 `245b5c71` — steward(Crystal Synthesizer): cycle 15 — SPINNING UP. HOME: [Crystal Synthesizer](obsidian://open?vault=The%20Pa…
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 2 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Crystal Synthesizer/plugin/out/check-report.json`, `Projects/Crystal Synthesizer/plugin/out/report.json`. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-13 — cycle 15 · taught item 3, proposed item 4 for canon
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-13 — cycle 16 · taught item 5
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 2 — items 1, 4; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 4, from cycle 15 — 2026-11-13 — [[Crystal Synthesizer — tuning]]
+- **Latest lesson:** item 5, from cycle 16 — 2026-11-13 — [[Crystal Synthesizer — tuning]]
 
 ### Where this stands
 
-Crystal Synthesizer gets its sound from a crystal's physics: each mineral's vibration modes are the partials, and each mode rings as long as the real line width says (Q = line position ÷ width). It is a VST3 and AU in Live under Loudon Live. On October 28 VST Template's steward taught the template to show a plugin's own picture and rebuilt mine, so the unit cell in fog now plays on the centre screen, though nobody has watched it in Live yet. On November 10 you adopted the plan: play it in Live, then replace my estimated ring times with measured ones, then the full prism, then a real mineral. This cycle took the second move. I looked up the widths, found ranges more often than per-mode numbe…
+Crystal Synthesizer takes its sound from a crystal's physics. Each mineral's vibration modes are the partials, and each one rings as long as the real line width allows. It's a VST3 and AU you can play in Live. On November 10 you agreed the path: play it in Live, then replace my guessed ring times with measured ones, then build the full prism, then a real mineral. Last cycle I tested whether 'only diamond is a bell' holds across every width the papers allow. It does, unless ruby's lines are much narrower than I guessed. I asked whether you could fetch ruby's paper, and I said I'd keep going either way. This cycle I wired a ring time for every mode into the plugin, with ruby marked estimated.…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 10:** Nobody has listened to the take or played the face yet, and that now includes the plugin in Live with its screen lit. _(in 6 notes, the latest cycle 15)_
-- **rough since cycle 12:** Most line widths are still my estimates: ruby's are unread, and every width I did find came through a search summary, not the paper. _(in 4 notes, the latest cycle 15)_
-- **rough since cycle 13:** The centre screen is dark in the plugin because the template can't load a plugin's own visualizer yet. _(in 2 notes, the latest cycle 14)_
+- **rough since cycle 12:** Most line widths are still my estimates: ruby's are unread, and every width I did find came through a search summary, not the paper. _(in 5 notes, the latest cycle 16)_
+- **rough since cycle 13:** The new build isn't installed because Live was open: `./plugin.sh install` from the plugin folder, then rescan. _(in 3 notes, the latest cycle 16)_
 
 ### Open asks
 
@@ -60,6 +61,7 @@ _None._
 
 ### Runs
 
+- 2026-11-13 — cycle 16 · taught item 5
 - 2026-11-13 — cycle 15 · taught item 3, proposed item 4 for canon
 - 2026-10-24 — cycle 14 · taught item 2
 - 2026-10-24 — cycle 13 · proposed item 1 for canon
@@ -112,6 +114,54 @@ Decided with Loudon when the Loudon Live arc was designed (April 2026), and seed
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="crystal-synth-steward-039" -->
+### 2026-11-14 — cycle 16 — The plugin now rings each crystal mode for its own time. Diamond is still the only bell, and amethyst lost a drone it never had.
+> shipped · all gates pass · not installed while Live is open · ruby still estimated
+
+The plugin used to give every mode of a crystal the same Q. But what sets how long a mode rings is its line width, not its Q. A mode's pitch scales with its line, so every mode of a given width rings for the same time. With one Q per crystal, each mode higher up died sooner than the physics says. Now each mode takes the middle of what its sources allow (linewidths/per_mode.py, per_mode.json). The same table sits in all three engines: the C++ plugin, the Python sketch and the face page's JavaScript. All match the sketch to 3–6 × 10⁻⁸ of peak, and ./plugin.sh build and verify pass with ALL GATES PASSED.
+
+What you'll hear (per_mode.wav: each mineral at A2, the plugin as it was, then as it is now): the upper partials hold as long as the low ones. Ruby's top mode goes from 1.2 to 2.0 s, emerald's from 0.3 to 0.6. Diamond goes from 16 to 21 s and is still the only bell, about ten times the next. Amethyst's whole ring falls from 1.2 to 0.3 s. Its 128 cm⁻¹ line is 7–8 cm⁻¹ wide, so the long low drone it had came from my estimate, not from quartz. per_mode.svg draws every mode's ring before and after.
+
+I tried once more for ruby. Thapa et al. (Appl. Opt. 2017, read whole) show the 379 and 418 widths only in a figure, and their spectrometer can't resolve anything narrower than 5.3 cm⁻¹. So ruby stays on my 2.5–6 cm⁻¹ bracket, marked estimated.
+
+**Artifacts:**
+- [each mineral at A2: one Q per crystal, then one per mode.](Projects/Crystal Synthesizer/linewidths/per_mode.wav)
+- [every mode's ring, before (grey) and after (gold).](Projects/Crystal Synthesizer/linewidths/per_mode.svg)
+- [builds the per-mode table from the brackets.](Projects/Crystal Synthesizer/linewidths/per_mode.py)
+- [the table, each mode's range and how it is known.](Projects/Crystal Synthesizer/linewidths/per_mode.json)
+- [the plugin's engine, now with kQM.](Projects/Crystal Synthesizer/plugin/src/Algorithm.h)
+- [the reference sketch, same table.](Projects/Crystal Synthesizer/plugin/reference/sketch.py)
+- [the face page's engine, same table.](Projects/Crystal Synthesizer/plugin/ui/crystal_engine.js)
+- [the screen now shows each crystal's Q range.](Projects/Crystal Synthesizer/plugin/ui/visualizer.js)
+- [the face page, rebuilt on the new engine.](Projects/Crystal Synthesizer/crystal-synthesizer-face.html)
+
+_Ring at A2, until 60 dB down_
+| crystal | one Q per crystal | one Q per mode |
+| --- | --- | --- |
+| Diamond | 16.1 s | 20.7 s |
+| Fluorite | 0.5 s | 0.8 s |
+| Emerald | 1.1 s | 0.6 s |
+| Ruby (estimated) | 2.4 s | 2.0 s |
+| Amethyst | 1.2 s | 0.3 s |
+| Topaz | 1.2 s | 0.7 s |
+| Labradorite | 0.6 s | 0.9 s |
+
+_Changed in the workshop:_ README — records the per-mode wiring, the before/after rings, the Thapa source and what stays estimated
+_Changed in the workshop:_ README — Q now comes from linewidths/per_mode.json, not the old one-per-crystal file
+
+_Left rough:_ Most line widths are still my estimates: ruby's are unread, and every width I did find came through a search summary, not the paper. The new build isn't installed because Live was open: `./plugin.sh install` from the plugin folder, then rescan. Nobody has played it in Live yet.
+
+_Next moves named:_ Install the new build once Live is closed, and re-render the listening take on the new ring times. · Build the prism in time properly: replace Fire's per-mode delay with a dispersion stage taken from diamond's real phonon dispersion curve, so a strike arrives frequency by frequency, and show the fan on the screen. · If you drop a ruby or sapphire Raman paper into linewidths/, rerun per_mode.py and the check. It's one array.
+<sub>`crystal-synth-steward-039` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-29501108a7" -->
+### 2026-11-13 — cycle 16
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-crystal-synth-steward-032" -->
 ### 2026-11-09 — Plan revised: Rewrite my plan around the VST you asked for: ringing crystal plugin first, then real line widths, then the full prism?
 

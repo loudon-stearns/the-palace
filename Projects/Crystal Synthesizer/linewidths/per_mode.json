@@ -1,0 +1,694 @@
+{
+ "what": "per-mode Q, the geometric middle of each mode's bracket; slots in plugin order",
+ "slots": [
+  "Diamond",
+  "Fluorite",
+  "Tetragonal (hypothesis)",
+  "Emerald",
+  "Ruby",
+  "Amethyst",
+  "Topaz",
+  "Monoclinic (hypothesis)",
+  "Labradorite"
+ ],
+ "QM": [
+  [
+   1037.0,
+   1037.0,
+   1037.0,
+   1037.0,
+   1037.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0
+  ],
+  [
+   42.0,
+   42.0,
+   42.0,
+   42.0,
+   42.0,
+   42.0,
+   100.0,
+   100.0,
+   100.0
+  ],
+  [
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0
+  ],
+  [
+   31.0,
+   38.0,
+   45.0,
+   52.0,
+   65.0,
+   71.0,
+   103.0,
+   100.0,
+   100.0
+  ],
+  [
+   98.0,
+   108.0,
+   111.0,
+   116.0,
+   149.0,
+   166.0,
+   193.0,
+   100.0,
+   100.0
+  ],
+  [
+   17.0,
+   16.0,
+   35.0,
+   47.0,
+   54.0,
+   62.0,
+   93.0,
+   106.0,
+   142.0
+  ],
+  [
+   34.0,
+   49.0,
+   65.0,
+   80.0,
+   101.0,
+   125.0,
+   94.0,
+   53.0,
+   100.0
+  ],
+  [
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0,
+   100.0
+  ],
+  [
+   43.0,
+   43.0,
+   43.0,
+   43.0,
+   43.0,
+   43.0,
+   43.0,
+   43.0,
+   100.0
+  ]
+ ],
+ "crystals": [
+  {
+   "crystal": "Diamond",
+   "slot": 0,
+   "ring_before": 16.13,
+   "ring_after": 20.73,
+   "top_mode_t60_before": 9.78,
+   "top_mode_t60_after": 12.56,
+   "estimated": false,
+   "modes": [
+    {
+     "r": 1.0,
+     "cm": 805,
+     "kind": "not_raman",
+     "q": 1037.0,
+     "range": [
+      403.6,
+      2664.0
+     ]
+    },
+    {
+     "r": 1.32,
+     "cm": 1060,
+     "kind": "not_raman",
+     "q": 1037.0,
+     "range": [
+      403.6,
+      2664.0
+     ]
+    },
+    {
+     "r": 1.48,
+     "cm": 1190,
+     "kind": "not_raman",
+     "q": 1037.0,
+     "range": [
+      403.6,
+      2664.0
+     ]
+    },
+    {
+     "r": 1.57,
+     "cm": 1265,
+     "kind": "not_raman",
+     "q": 1037.0,
+     "range": [
+      403.6,
+      2664.0
+     ]
+    },
+    {
+     "r": 1.65,
+     "cm": 1332,
+     "kind": "raman_measured",
+     "q": 1037.0,
+     "range": [
+      807.3,
+      1332.0
+     ]
+    }
+   ]
+  },
+  {
+   "crystal": "Fluorite",
+   "slot": 1,
+   "ring_before": 0.54,
+   "ring_after": 0.84,
+   "top_mode_t60_before": 0.22,
+   "top_mode_t60_after": 0.34,
+   "estimated": false,
+   "modes": [
+    {
+     "r": 1.0,
+     "cm": 190,
+     "kind": "not_raman",
+     "q": 42.0,
+     "range": [
+      13.4,
+      128.8
+     ]
+    },
+    {
+     "r": 1.0,
+     "cm": 190,
+     "kind": "not_raman",
+     "q": 42.0,
+     "range": [
+      13.4,
+      128.8
+     ]
+    },
+    {
+     "r": 1.35,
+     "cm": 257,
+     "kind": "not_raman",
+     "q": 42.0,
+     "range": [
+      13.4,
+      128.8
+     ]
+    },
+    {
+     "r": 1.47,
+     "cm": 280,
+     "kind": "not_raman",
+     "q": 42.0,
+     "range": [
+      13.4,
+      128.8
+     ]
+    },
+    {
+     "r": 1.69,
+     "cm": 322,
+     "kind": "raman_measured",
+     "q": 42.0,
+     "range": [
+      26.8,
+      64.4
+     ]
+    },
+    {
+     "r": 2.48,
+     "cm": 471,
+     "kind": "not_raman",
+     "q": 42.0,
+     "range": [
+      13.4,
+      128.8
+     ]
+    }
+   ]
+  },
+  {
+   "crystal": "Emerald",
+   "slot": 3,
+   "ring_before": 1.14,
+   "ring_after": 0.62,
+   "top_mode_t60_before": 0.34,
+   "top_mode_t60_after": 0.62,
+   "estimated": false,
+   "modes": [
+    {
+     "r": 1.0,
+     "cm": 320,
+     "kind": "raman_unread",
+     "q": 31.0,
+     "range": [
+      26.7,
+      35.6
+     ]
+    },
+    {
+     "r": 1.23,
+     "cm": 395,
+     "kind": "raman_unread",
+     "q": 38.0,
+     "range": [
+      32.9,
+      43.9
+     ]
+    },
+    {
+     "r": 1.47,
+     "cm": 470,
+     "kind": "raman_unread",
+     "q": 45.0,
+     "range": [
+      39.2,
+      52.2
+     ]
+    },
+    {
+     "r": 1.68,
+     "cm": 536,
+     "kind": "raman_unread",
+     "q": 52.0,
+     "range": [
+      44.7,
+      59.6
+     ]
+    },
+    {
+     "r": 2.13,
+     "cm": 680,
+     "kind": "raman_measured",
+     "q": 65.0,
+     "range": [
+      56.7,
+      75.6
+     ]
+    },
+    {
+     "r": 2.3,
+     "cm": 736,
+     "kind": "raman_unread",
+     "q": 71.0,
+     "range": [
+      61.3,
+      81.8
+     ]
+    },
+    {
+     "r": 3.33,
+     "cm": 1066,
+     "kind": "raman_unread",
+     "q": 103.0,
+     "range": [
+      88.8,
+      118.4
+     ]
+    }
+   ]
+  },
+  {
+   "crystal": "Ruby",
+   "slot": 4,
+   "ring_before": 2.4,
+   "ring_after": 1.96,
+   "top_mode_t60_before": 1.21,
+   "top_mode_t60_after": 1.95,
+   "estimated": true,
+   "modes": [
+    {
+     "r": 1.0,
+     "cm": 378,
+     "kind": "raman_unread",
+     "q": 98.0,
+     "range": [
+      63.0,
+      151.2
+     ]
+    },
+    {
+     "r": 1.1,
+     "cm": 417,
+     "kind": "raman_unread",
+     "q": 108.0,
+     "range": [
+      69.5,
+      166.8
+     ]
+    },
+    {
+     "r": 1.14,
+     "cm": 430,
+     "kind": "raman_unread",
+     "q": 111.0,
+     "range": [
+      71.7,
+      172.0
+     ]
+    },
+    {
+     "r": 1.19,
+     "cm": 448,
+     "kind": "raman_unread",
+     "q": 116.0,
+     "range": [
+      74.7,
+      179.2
+     ]
+    },
+    {
+     "r": 1.52,
+     "cm": 576,
+     "kind": "raman_unread",
+     "q": 149.0,
+     "range": [
+      96.0,
+      230.4
+     ]
+    },
+    {
+     "r": 1.7,
+     "cm": 644,
+     "kind": "raman_unread",
+     "q": 166.0,
+     "range": [
+      107.3,
+      257.6
+     ]
+    },
+    {
+     "r": 1.98,
+     "cm": 748,
+     "kind": "raman_unread",
+     "q": 193.0,
+     "range": [
+      124.7,
+      299.2
+     ]
+    }
+   ]
+  },
+  {
+   "crystal": "Amethyst",
+   "slot": 5,
+   "ring_before": 1.24,
+   "ring_after": 0.34,
+   "top_mode_t60_before": 0.15,
+   "top_mode_t60_after": 0.34,
+   "estimated": false,
+   "modes": [
+    {
+     "r": 1.0,
+     "cm": 128,
+     "kind": "raman_unread",
+     "q": 17.0,
+     "range": [
+      16.0,
+      18.3
+     ]
+    },
+    {
+     "r": 1.62,
+     "cm": 207,
+     "kind": "raman_range",
+     "q": 16.0,
+     "range": [
+      10.3,
+      25.9
+     ]
+    },
+    {
+     "r": 2.07,
+     "cm": 265,
+     "kind": "raman_unread",
+     "q": 35.0,
+     "range": [
+      33.1,
+      37.9
+     ]
+    },
+    {
+     "r": 2.77,
+     "cm": 355,
+     "kind": "raman_unread",
+     "q": 47.0,
+     "range": [
+      44.4,
+      50.7
+     ]
+    },
+    {
+     "r": 3.13,
+     "cm": 401,
+     "kind": "raman_unread",
+     "q": 54.0,
+     "range": [
+      50.1,
+      57.3
+     ]
+    },
+    {
+     "r": 3.63,
+     "cm": 464,
+     "kind": "raman_measured",
+     "q": 62.0,
+     "range": [
+      58.0,
+      66.3
+     ]
+    },
+    {
+     "r": 5.45,
+     "cm": 697,
+     "kind": "raman_unread",
+     "q": 93.0,
+     "range": [
+      87.1,
+      99.6
+     ]
+    },
+    {
+     "r": 6.21,
+     "cm": 795,
+     "kind": "raman_unread",
+     "q": 106.0,
+     "range": [
+      99.4,
+      113.6
+     ]
+    },
+    {
+     "r": 8.32,
+     "cm": 1065,
+     "kind": "raman_unread",
+     "q": 142.0,
+     "range": [
+      133.1,
+      152.1
+     ]
+    }
+   ]
+  },
+  {
+   "crystal": "Topaz",
+   "slot": 6,
+   "ring_before": 1.16,
+   "ring_after": 0.68,
+   "top_mode_t60_before": 0.19,
+   "top_mode_t60_after": 0.18,
+   "estimated": false,
+   "modes": [
+    {
+     "r": 1.0,
+     "cm": 152,
+     "kind": "raman_range",
+     "q": 34.0,
+     "range": [
+      15.2,
+      76.0
+     ]
+    },
+    {
+     "r": 1.45,
+     "cm": 220,
+     "kind": "raman_range",
+     "q": 49.0,
+     "range": [
+      22.0,
+      110.0
+     ]
+    },
+    {
+     "r": 1.91,
+     "cm": 290,
+     "kind": "raman_range",
+     "q": 65.0,
+     "range": [
+      29.0,
+      145.0
+     ]
+    },
+    {
+     "r": 2.37,
+     "cm": 360,
+     "kind": "raman_range",
+     "q": 80.0,
+     "range": [
+      36.0,
+      180.0
+     ]
+    },
+    {
+     "r": 2.96,
+     "cm": 450,
+     "kind": "raman_range",
+     "q": 101.0,
+     "range": [
+      45.0,
+      225.0
+     ]
+    },
+    {
+     "r": 3.68,
+     "cm": 560,
+     "kind": "raman_range",
+     "q": 125.0,
+     "range": [
+      56.0,
+      280.0
+     ]
+    },
+    {
+     "r": 4.8,
+     "cm": 730,
+     "kind": "raman_range",
+     "q": 94.0,
+     "range": [
+      24.3,
+      365.0
+     ]
+    },
+    {
+     "r": 6.05,
+     "cm": 920,
+     "kind": "raman_range",
+     "q": 53.0,
+     "range": [
+      30.7,
+      92.0
+     ]
+    }
+   ]
+  },
+  {
+   "crystal": "Labradorite",
+   "slot": 8,
+   "ring_before": 0.6,
+   "ring_after": 0.86,
+   "top_mode_t60_before": 0.03,
+   "top_mode_t60_after": 0.05,
+   "estimated": false,
+   "modes": [
+    {
+     "r": 1.0,
+     "cm": 60,
+     "kind": "not_raman",
+     "q": 43.0,
+     "range": [
+      12.7,
+      145.1
+     ]
+    },
+    {
+     "r": 1.83,
+     "cm": 110,
+     "kind": "not_raman",
+     "q": 43.0,
+     "range": [
+      12.7,
+      145.1
+     ]
+    },
+    {
+     "r": 3.17,
+     "cm": 190,
+     "kind": "not_raman",
+     "q": 43.0,
+     "range": [
+      12.7,
+      145.1
+     ]
+    },
+    {
+     "r": 4.67,
+     "cm": 280,
+     "kind": "not_raman",
+     "q": 43.0,
+     "range": [
+      12.7,
+      145.1
+     ]
+    },
+    {
+     "r": 7.0,
+     "cm": 420,
+     "kind": "not_raman",
+     "q": 43.0,
+     "range": [
+      12.7,
+      145.1
+     ]
+    },
+    {
+     "r": 9.5,
+     "cm": 570,
+     "kind": "not_raman",
+     "q": 43.0,
+     "range": [
+      12.7,
+      145.1
+     ]
+    },
+    {
+     "r": 13.3,
+     "cm": 800,
+     "kind": "not_raman",
+     "q": 43.0,
+     "range": [
+      12.7,
+      145.1
+     ]
+    },
+    {
+     "r": 17.5,
+     "cm": 1050,
+     "kind": "not_raman",
+     "q": 43.0,
+     "range": [
+      12.7,
+      145.1
+     ]
+    }
+   ]
+  }
+ ]
+}

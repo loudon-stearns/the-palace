@@ -12,6 +12,7 @@ estimated. This folder asks how much of that finding the estimates were carrying
 | `bracket.json` | ring times, the Q ranges per mode, the verdict and the stress test |
 | `bracket.wav` | at A2, each mineral twice: shortest plausible ring, then longest (diamond's long one is cut at 6 s) |
 | `bracket.svg` | the ranges on one log axis, with the plugin's ring today marked |
+| `per_mode.py` | the plugin's per-mode Q table, the middle of each bracket; writes `per_mode.json`, `.wav`, `.svg` |
 
 ## What the search found
 
@@ -65,8 +66,40 @@ estimated. This folder asks how much of that finding the estimates were carrying
 - The stress column lets every unsourced line be up to four times narrower than
   the anchor's narrowest.
 
-## Not done
+## Wired: one Q per mode (cycle 16, 2026-11-14)
 
-The plugin is unchanged. Its Q table (`plugin/src/Algorithm.h` `kQ`, and
-`reference/sketch.py`) moves to a per-mode table once ruby's widths are read.
-That is one array per crystal and a rerun of `check/check_engine.py`.
+`per_mode.py` takes the geometric middle of each mode's bracket and writes the table
+the plugin's three engines now carry (`kQM` in `plugin/src/Algorithm.h`, `QM` in
+`reference/sketch.py` and `ui/crystal_engine.js`). `per_mode.wav` strikes each
+mineral at A2 twice, as the plugin was (one Q) and as it is (one per mode);
+`per_mode.svg` draws every mode's ring before and after.
+
+**A width, not a Q, sets the ring.** Q = line / width, and a mode plays at a pitch
+in proportion to its line, so tau = Q / (pi f) is the same for every mode of one
+width. One Q per crystal made each mode higher up die sooner than the physics says.
+Per mode, the upper partials hold as long as the lower ones: ruby's top mode goes
+1.2 → 2.0 s, emerald's 0.3 → 0.6, amethyst's 0.15 → 0.34.
+
+| crystal | ring before | ring now |
+|---|---|---|
+| Diamond | 16.1 s | 20.7 s |
+| Fluorite | 0.5 | 0.8 |
+| Emerald | 1.1 | 0.6 |
+| Ruby (estimated) | 2.4 | 2.0 |
+| Amethyst | 1.2 | 0.3 |
+| Topaz | 1.2 | 0.7 |
+| Labradorite | 0.6 | 0.9 |
+
+Diamond is still the only bell, 10× the next. Amethyst lost most of its ring: its
+128 cm⁻¹ line is 7–8 cm⁻¹ wide, Q 17, so the long low drone the flat Q gave it was
+my estimate's, not quartz's.
+
+Ruby's widths are still unread. One more source this cycle: Thapa et al.,
+*Raman scattering in single-crystal sapphire at elevated temperatures* (Appl. Opt.
+56, 8598, 2017; read whole, OSTI 1406891). It gives the 379 and 418 widths only in a
+figure, and its spectrometer resolves 5.33 cm⁻¹, so it can't narrow a line below
+that. Ruby stays at my 2.5–6 cm⁻¹ bracket, marked estimated in the code.
+
+The two hypothesis slots (tetragonal, monoclinic) have no mineral and keep Q 100.
+`check/check_engine.py` and `./plugin.sh verify` pass on the new table; the built
+plugin is not installed yet (Live was open).

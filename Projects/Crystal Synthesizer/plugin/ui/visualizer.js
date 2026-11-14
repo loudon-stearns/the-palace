@@ -35,7 +35,7 @@ const CrystalScope = (() => {
     [1.00, 1.62, 2.07, 2.77, 3.13, 3.63, 5.45, 6.21, 8.32], [1.00, 1.45, 1.91, 2.37, 2.96, 3.68, 4.80, 6.05],
     [1.00, 1.37, 1.71, 1.94, 2.23, 2.61], [1.00, 1.83, 3.17, 4.67, 7.00, 9.50, 13.3, 17.5],
   ];
-  const QS = [807, 27, 100, 57, 120, 62, 58, 100, 30];
+  const QR = [[1037, 1037], [42, 42], [100, 100], [31, 103], [98, 193], [16, 142], [34, 125], [100, 100], [43, 43]];   // Q per mode, lowest and highest (../linewidths/per_mode.json)
   const DN = [0.0, 0.0, 0.059, 0.006, 0.008, 0.009, 0.010, 0.006, 0.009];
   const DISP = [0.044, 0.007, 0.039, 0.014, 0.018, 0.013, 0.014, 0.012, 0.012];
   // name, formula, system · group, cell (a b c α β γ, Å and degrees), shape, gem colour, atoms
@@ -342,9 +342,9 @@ const CrystalScope = (() => {
     cx.fillStyle = "rgba(200,208,235,0.72)";
     cx.fillText(`${m.name.toUpperCase()} · ${m.sys}`, W * 0.46, H * 0.84 + big * 0.62);
     const cents = split > 0 ? (1200 * Math.log2(1 + split)).toFixed(1) + " ¢ between the rays" : (DN[c] > 0 ? "one ray: on the axis" : "one ray: isotropic");
-    const lf = (params.lifetime || 1) * QS[c];
+    const lf = (params.lifetime || 1), qlo = Math.round(lf * QR[c][0]), qhi = Math.round(lf * QR[c][1]);
     cx.fillStyle = "rgba(160,170,205,0.6)";
-    cx.fillText(`Q ${Math.round(lf)} · Δn ${DN[c].toFixed(3)} · dispersion ${DISP[c].toFixed(3)} · ${cents}`, W * 0.46, H * 0.84 + big * 1.1);
+    cx.fillText(`Q ${qlo === qhi ? qlo : qlo + "–" + qhi} · Δn ${DN[c].toFixed(3)} · dispersion ${DISP[c].toFixed(3)} · ${cents}`, W * 0.46, H * 0.84 + big * 1.1);
     // the ringing notes, top right, brightest the loudest
     cx.textAlign = "right";
     voices.sort((a, b) => a.hz - b.hz).forEach((vo, i) => {

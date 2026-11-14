@@ -40,7 +40,7 @@ MPI = 3.141592653589793
 D_DIAMOND = 0.044
 
 # Crystal tables — identical to Algorithm.h. Ratios as the playable crystal and the
-# proofs (Crystal Sonification Reference); Q from ../crystal-rings/linewidths.json;
+# proofs (Crystal Sonification Reference); Q per mode from ../linewidths/per_mode.json;
 # dn (birefringence) and D (dispersion, B-G) are standard gemmological values.
 # The two hypothesis slots take zircon's (tetragonal) and orthoclase's
 # (monoclinic) optics, the examples the entry names for those systems.
@@ -55,7 +55,18 @@ RATIOS = [
     [1.00, 1.37, 1.71, 1.94, 2.23, 2.61],                          # Monoclinic (hypothesis)
     [1.00, 1.83, 3.17, 4.67, 7.00, 9.50, 13.3, 17.5],              # Labradorite
 ]
-QS = [807.0, 27.0, 100.0, 57.0, 120.0, 62.0, 58.0, 100.0, 30.0]
+# Q per mode, the middle of each line width's bracket (../../linewidths/per_mode.py)
+QM = [
+    [1037.0, 1037.0, 1037.0, 1037.0, 1037.0, 100.0, 100.0, 100.0, 100.0],   # Diamond
+    [42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 100.0, 100.0, 100.0],   # Fluorite
+    [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0],   # Tetragonal (hypothesis)
+    [31.0, 38.0, 45.0, 52.0, 65.0, 71.0, 103.0, 100.0, 100.0],   # Emerald
+    [98.0, 108.0, 111.0, 116.0, 149.0, 166.0, 193.0, 100.0, 100.0],   # Ruby (estimated)
+    [17.0, 16.0, 35.0, 47.0, 54.0, 62.0, 93.0, 106.0, 142.0],   # Amethyst
+    [34.0, 49.0, 65.0, 80.0, 101.0, 125.0, 94.0, 53.0, 100.0],   # Topaz
+    [100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0],   # Monoclinic (hypothesis)
+    [43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 100.0],   # Labradorite
+]
 DN = [0.0, 0.0, 0.059, 0.006, 0.008, 0.009, 0.010, 0.006, 0.009]
 DISP = [0.044, 0.007, 0.039, 0.014, 0.018, 0.013, 0.014, 0.012, 0.012]
 
@@ -69,9 +80,7 @@ def ratio(c, k):
 
 
 def qual(c, k):
-    if c == 5 and k == 1:
-        return 17.0          # amethyst's soft mode, the alpha-beta remnant
-    return QS[c]
+    return QM[c][k]
 
 
 def probe_names():

@@ -45,3 +45,8 @@ What Crystal Synthesizer's steward cycles taught the page, and the changes to th
    >   — progressed: `crystal-rings/` found diamond is the only bell; labradorite, the triclinic case, rings as a dull knock with a bright tick, not a chaotic bell. `linewidths/` holds that across every width the plagioclase literature allows (7–20 cm⁻¹): 0.3 to 2.9 s at A2, against diamond's 8 s at the least. Ruby is the one mineral that could join diamond as a bell, and its widths are still unread. `triclinic-proof/` strikes diamond and labradorite through the same synth (2026-11-14)
 
 - run · 2026-11-13 · cycle 15 · taught item 3, proposed item 4 for canon
+
+## From cycle 16 — 2026-11-13
+
+5. A line width, not a Q, sets how long a mode rings, because ring time = Q/(π·pitch) and Q scales with pitch; so any table that holds Q fixed across a crystal shortens its upper modes, and widths are what should be stored. *(offered by the steward, cycle 16)*
+- run · 2026-11-13 · cycle 16 · taught item 5

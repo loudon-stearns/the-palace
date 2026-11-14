@@ -75,11 +75,24 @@ namespace algo
         { 1.00, 1.37, 1.71, 1.94, 2.23, 2.61 },                         // Monoclinic (hypothesis)
         { 1.00, 1.83, 3.17, 4.67, 7.00, 9.50, 13.3, 17.5 },             // Labradorite
     };
-    inline constexpr double kQ[9]    = { 807.0, 27.0, 100.0, 57.0, 120.0, 62.0, 58.0, 100.0, 30.0 };
+    // Q per mode: the geometric middle of what each line's room-temperature width allows
+    // (../linewidths/per_mode.py). A width, not a Q, sets the ring, so one Q per crystal
+    // cut every upper mode short. Ruby's widths are still a bracket, not a reading.
+    inline constexpr double kQM[9][kModes] = {
+        { 1037.0, 1037.0, 1037.0, 1037.0, 1037.0, 100.0, 100.0, 100.0, 100.0 },   // Diamond
+        { 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 100.0, 100.0, 100.0 },   // Fluorite
+        { 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0 },   // Tetragonal (hypothesis)
+        { 31.0, 38.0, 45.0, 52.0, 65.0, 71.0, 103.0, 100.0, 100.0 },   // Emerald
+        { 98.0, 108.0, 111.0, 116.0, 149.0, 166.0, 193.0, 100.0, 100.0 },   // Ruby (estimated)
+        { 17.0, 16.0, 35.0, 47.0, 54.0, 62.0, 93.0, 106.0, 142.0 },   // Amethyst
+        { 34.0, 49.0, 65.0, 80.0, 101.0, 125.0, 94.0, 53.0, 100.0 },   // Topaz
+        { 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0, 100.0 },   // Monoclinic (hypothesis)
+        { 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 43.0, 100.0 },   // Labradorite
+    };
     inline constexpr double kDn[9]   = { 0.0, 0.0, 0.059, 0.006, 0.008, 0.009, 0.010, 0.006, 0.009 };
     inline constexpr double kDisp[9] = { 0.044, 0.007, 0.039, 0.014, 0.018, 0.013, 0.014, 0.012, 0.012 };
 
-    inline double qual (int c, int k) { return (c == 5 && k == 1) ? 17.0 : kQ[c]; }   // amethyst's soft mode
+    inline double qual (int c, int k) { return kQM[c][k]; }
 
     // ── 4. State and the per-sample update ─────────────────────────────────────
     struct Voice
