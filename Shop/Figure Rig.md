@@ -30,6 +30,17 @@ tags: [specialist, shop, rig, openpose, controlnet, figure, blender, mpfb2, rigi
 ## Charter
 I turn a **pose** and a **body type** into a figure ready for the hand-drawn-3D seam. MPFB2's own human + MPFB2's own weighted rig → **three aligned ControlNet plates from one camera**: ink, depth, and a *canonical* OpenPose. The OpenPose is the whole point — I do **not** render 3D spheres; I project the rig's own joints to 2D and draw them with the **actual `draw_bodypose` from `comfyui_controlnet_aux`**, so the skeleton is pixel-identical to the preprocessor and the controlnet-openpose model reads it cleanly. I am the figure-staging method [[Frame Designer]] dispatches, the bring-together of [[Blocked, Not Prompted|authored geometry]] and a ControlNet-ready pose.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** A posed MPFB2 human with a weighted rig, three registered plates (ink, depth, canonical OpenPose), and a D2 redraw that held the pose (proven 2026-06-30). Hands shipped the same day in an 8-gesture RunPod matrix.
+**Not yet shown to hold:** Face keypoints are synthesized from the head bone, and draw_facepose is not built. Hands-with-objects A/B and the many-people tiers are pending or next. The pose library and a one-pass Blender OpenPose draw are not built.
+**Not my purpose:** Facial expression and fine face detail (not yet). Not stated on the page otherwise; it feeds the redraw rather than replacing ComfyUI.
+**Run:** No command on the page yet. It names flags (--pose A/B/C, --pose-json, --gender --age --muscle --weight --height) for pose_rig_mpfb_v3.py, but no full line. Scripts are in Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/.
+**Speed:** Local D2 redraw about 25 min per frame on the Mac's MPS (page, undated). Plate time is not recorded.
+**Checked by:** A script can check that all plates share one camera and the keypoints are in view. Only an eye can judge whether the inked figure reads well and the pose holds.
+**Wears:** Not yet wired to a design system
+**Hands on:** I hand ComfyUI ink, depth and OpenPose plates plus keypoints.json from one camera. I need a pose (JSON, name or hand-posed Rigify rig) and a body type.
+
 ## The real-human figure, with an IK rig
 The body and its skeleton are generated together by MPFB2's own pipeline:
 - **Skeleton = skin.** `add_builtin_rig(…, import_weights=True)` gives a rig built *for* this mesh, with MPFB's own imported weights — a real ARMATURE bind, not the old proximity-weight hack.

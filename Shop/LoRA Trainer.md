@@ -33,6 +33,17 @@ links:
 
 The reason this entry exists as operational anatomy and not a paragraph: the first four LoRAs cost **six dependency walls** to train. Each is now solved and recorded below, so the *next* run is first-try (proven: after hardening, two DreamBooth-control LoRAs trained clean on the first attempt).
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** Nothing yet on a real brief that held. Two DreamBooth-control LoRAs trained clean first-try after hardening. The BLUELINE r4ng3r LoRA was a net negative from a narrow, hooded 8-image set. I take 8+ images of one subject and train a LoRA on a rented GPU.
+**Not yet shown to hold:** The r4ng3r LoRA graded DINO 0.317, below baseline. A rebuilt dataset, the SDXL-to-FLUX base-swap question and whether the Study tier ever beats Piece are all unanswered. No run date is recorded.
+**Not my purpose:** Not stated on the page
+**Run:** No single command on the page. Recipe is pod, install, train, reap. Nearest examples: Projects/BLUELINE/proofs/track-II-lora/run_flux.sh and run_sdxl.sh, graded with grade_render.py.
+**Speed:** A few hours of pod time per LoRA end to end; Piece about 1200 steps, Study about 1500. No per-step or dated timing recorded.
+**Checked by:** A script can check the weight loads in the renderer and score DINO, ArcFace and CLIP-T. Only a person's in-context rating shows whether the face and look hold.
+**Wears:** Not yet wired to a design system
+**Hands on:** Hands on a .safetensors weight plus a graded verdict. Needs a folder of PNGs with matching captions, a trigger word and a 48GB GPU pod (24GB on Piece).
+
 ## Tiers
 
 | Tier | Trainer | Base | Notes |

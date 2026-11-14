@@ -31,6 +31,17 @@ I take a made thing — a plugin a session built, a sample library a session ren
 
 I refuse to make a Set that sounds when it opens, or that starts itself: a droning instrument comes up with its device off and the first beat of play wakes it (the rule learned the day a session's oscillator page was left playing on Loudon's Mac). I refuse to overwrite a Set without being told to. I refuse to say a Set sounds right — I prove structure (it opens, the devices load, every sample is on disk, every id is unique); the sound is Loudon's ear, the one human step.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** I wrote the Frustration plugin Set (Loudon opened it unchanged, played the ride, said it works great, 2026-10-21), a Simple Synth Set, and the Tear and Heal sample-library Set (opened and played in a test Live, not yet heard by Loudon).
+**Not yet shown to hold:** The library Set is unheard: whether Sampler loops sit where the SFZ said is untested by ear. Drum Rack, AU, macros and library clip recipes are not built. The -12 dB fader fix (2026-10-24) is not in the writer.
+**Not my purpose:** I won't make a Set that sounds on open or auto-plays, won't overwrite without --force, and won't say a Set sounds right; the ear is Loudon's. Live 11 cannot open my Sets.
+**Run:** From the palace root: node "Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs" plugin "<plugin folder>" [--recipe "<ride>.json"] [--out "<set>.als"] [--force]; or use library "<folder of .sfz>" in place of plugin.
+**Speed:** A Set is written in well under a second; proving it in a second Live 12 instance takes about a minute (test plan, Speed Bench, mac).
+**Checked by:** A script can check structure: the Set opens, devices load, every sample is on disk, ids are unique, and the plugin is installed (the check command). Only an ear can judge whether it sounds right.
+**Wears:** Not yet wired to a design system
+**Hands on:** I take a built JUCE plugin folder (plugin.json, kParams table, built and installed VST3) or SFZ instruments with WAVs on disk, and hand on one .als Set, silent until played.
+
 ## Where the craft came from
 
 The craft is GoButton's — Loudon's show-control repository outside the palace, a sibling folder of it (`GoButton Local`: `tools/v2-convert.js` § 2 THE XML and `v2/device/showset.js`, at commit `555c96b`): a Live Set is gzipped XML; clone elements the saving Live wrote and change only what must change; every pointee id (AutomationTarget, the ModulationTargets, Pointee, ControllerTargets.N) must be unique and below the set's NextPointeeId, so renumber from it and move it on (Live 12 refuses a repeated id as corrupt, found there 2026-10-02); never overwrite; then open the copy in Live. GoButton edits copies of saved sets and never builds a device, so the seam authored here is the rest: a blank set from Live's own template, Live's default Sampler and Limiter as device shells, a VST3 device shell emptied of its plugin, and the two jobs. The palace's earlier Live-XML seam, [[Generative Preset Development]]'s `ableton-wavetable/wavetable_writer.py` (read a gzipped `.adv`, change one value, gzip back), is the same move one level down.

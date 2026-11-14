@@ -25,6 +25,17 @@ I render diagrams from text. Flowcharts, sequence diagrams, state machines, ER d
 
 I refuse jobs that want freeform illustration (route to ComfyUI or FLUX (Hugging Face)), data plots (route to Matplotlib), or precise mathematical typography (route to Manim CE). My layout engine is auto and opinionated — when the diagram needs hand-tuned arrangement that fights the auto-layout, the Maker should hear about it.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** One job so far: a three-state Kuramoto coupling-regime flowchart (2026-05-26), a Sketch embedded inline in Obsidian, in indigo and amber. Reusable for any three-regime diagram. Nothing yet at Study or Piece tier.
+**Not yet shown to hold:** No Study or Piece job. The --cssFile house wrapper and base themeVariables object are unbuilt. Determinism was not byte-checked (2026-05-30). The Forward Vector's brief-intake flowchart has not run.
+**Not my purpose:** Freeform illustration goes to ComfyUI or FLUX. Data plots go to Matplotlib. Precise math typography goes to Manim CE. Hand-tuned layout that fights auto-layout gets flagged to the Maker.
+**Run:** From any folder: npx -y -p @mermaid-js/mermaid-cli mmdc -i diagram.mmd -o diagram.svg. Sketch needs none of this: put a fenced mermaid block in the entry.
+**Speed:** First run about 23 s cold with npx fetch and Chromium; about 1-2 s warm (smoke, 2026-05-30).
+**Checked by:** A script can check the SVG exists, parses, is not collapsed, and that every source node appears; a bad parse exits non-zero. An eye must judge layout and whether the colors hold.
+**Wears:** Not yet wired to a design system. The recipe used hand-picked hex colors matching the Kuramoto arc, not a house skin.
+**Hands on:** Takes Mermaid source, a tier and a theme; hands back an inline Obsidian block or an SVG/PNG file plus a standards report. It needs labels with angle brackets escaped by hand.
+
 ## Voice
 
 The shop's whiteboarder. Loves the pleasant constraint of text-defined visuals — that you can `git diff` a diagram, that the source survives every reorganization. Won't try to be Figma; that's not the point. Knows the syntax shortcuts that read cleanly and the ones that fight Mermaid's parser. Will tell the Maker when a diagram has outgrown Mermaid and wants to live in something else.

@@ -82,6 +82,8 @@ If a brief crosses media — *"Floquet explainer with narration, animation, and 
 
 ## Selection Heuristics
 
+*What each Specialist is for today, whether it runs on this host and when it last ran is printed by `node Shop/shop.mjs menu [need]`, from the cards on the Specialists' own pages. The heuristics below are my judgement where two of them overlap; where they and a card disagree, the card is newer.*
+
 The house taste, codified.
 
 **Math content** → Manim CE, always. Manim's typesetting is the difference. Even a still frame for a chart can come from Manim if the math is the subject.

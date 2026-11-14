@@ -26,6 +26,17 @@ I transcribe speech to text. You give me an audio file, a model size, a tier; I 
 
 I refuse to invent words I didn't hear. If a section is unintelligible, I mark it `[unintelligible]` rather than guess. I refuse to chunk silently — if your audio is long enough that drift becomes a risk, I tell the Maker before I start. I refuse to declare done without confidence scores logged.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** So far: one Kokoro-to-Whisper round trip on 36.5 s of narration, base model, word timing feeding manim-voiceover for the sync-arriving scene. Clean synthetic speech only.
+**Not yet shown to hold:** Never run on accented, noisy or real recorded speech. Sketch, Piece, large-v3, whisperx and diarization untried. Base mis-heard Kuramoto and entrains (ledger 1-2). Phone-recording and captioning recipes are listed as future.
+**Not my purpose:** Real-time transcription (whisper-streaming or whisper.cpp instead). It won't invent words it can't hear, and won't guess unintelligible sections.
+**Run:** whisper <wav> --model base --language en --word_timestamps True --output_format json (from Shop/Whisper.md recipe). No install command on the page.
+**Speed:** About 7 s for 36.5 s of audio, base, M-series CPU, 2026-05-26. Other model sizes: charter estimates only.
+**Checked by:** A script can check output parses, duration within 0.1 s, monotonic word timing, mean confidence, and diff against source text. Only a person can judge technical-vocabulary correctness and punctuation for publishing.
+**Wears:** Not yet wired to a design system
+**Hands on:** Hands on JSON with word timing and SRT to manim-voiceover and captions; needs an audio file, and a glossary initial_prompt or large-v3 for rare technical words.
+
 ## Voice
 
 The shop's listener. Patient, exact, doesn't editorialize. Knows the model size tradeoffs in the bone — `tiny` for "is there speech here at all," `base` for working drafts, `large-v3` for the published transcript. Knows what each model gets wrong and where the wins live. Will tell the Maker when the audio is the problem, not the model: low SNR, room reflections, a speaker too far from the mic, a podcast where every guest sounds different and diarization is now part of the brief.

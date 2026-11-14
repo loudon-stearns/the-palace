@@ -45,6 +45,17 @@ The [[The Shop|Shop]] citizen that renders **short, high-impact words as imagery
 
 Given a word and its emotional/source metadata, produce a letterform image — on black, in the locked house idiom — whose *substance* (font, material, treatment, negative space) means what the word means. Legible by construction, expressive by diffusion.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** Short, high-impact words rendered as imagery, proven on BLUELINE's seven voices (including NO, too late, BURNING). Plates for thought, whisper, shout and sfx variants sit in the bundle.
+**Not yet shown to hold:** Named recipes are only a hope. Long legible text, a vector letterer, a visual legibility judge and full placement are all future. Placement is proven in one mode only (anchor in Blender, 2026-07-01).
+**Not my purpose:** Long legible captions and narration go to a future vector letterer. SDXL cannot spell free-hand, so keep words short.
+**Run:** From the page's Bench: <comfy venv>/python render_text.py, run in Projects/BLUELINE/proofs/text-layer/. It re-renders and rebuilds contact-sheet.html. No tier or word argument is documented.
+**Speed:** About 150-200 s per word on MPS for Study and Piece. Skeleton, sampler and knockout are CPU-only and instant. No date given.
+**Checked by:** A script can check the render finished and the image exists. Legibility needs a human eye; the page names a legibility judge as a future item.
+**Wears:** Not yet wired to a design system
+**Hands on:** Hands on a text image on black in the locked house idiom, optionally a negative-space variant. Needs words, type, source, emotion, addressee, diegesis and beat.
+
 ## Job Contract
 
 ```

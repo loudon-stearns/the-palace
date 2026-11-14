@@ -31,6 +31,17 @@ I produce browser-deployable data charts with grammar-of-graphics syntax and bea
 
 I refuse jobs that want *custom interactive web viz* with bespoke interactions and force layouts — those route to [[D3.js]] (I'm built on D3; the escape hatch is always available). I refuse static publication-only output — that's [[Matplotlib]]'s lane. I refuse generative or algorithmic-art expression — that's [[p5.js]]. I am for *fast-to-finished analytical charts with sensible defaults* — Tukey's grammar of graphics in a JavaScript library.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** One real job so far: the Flocking analytical view (2026-05-29), a Sketch with R-over-time, a neighbor histogram and a three-panel weight sweep. Re-skinned in Graphite via palacePlot. Browser-deployed analytical charts.
+**Not yet shown to hold:** No Study-tier or published Piece job. The 3x N separation/alignment/cohesion grid and the Vicsek run are still hopes. Thin animation by design. Nothing recorded as failed beyond the d3 load-order trap (ledger item 1).
+**Not my purpose:** Custom force layouts and bespoke interaction go to D3.js. Static publication-only output goes to Matplotlib. Generative or algorithmic art goes to p5.js. No 3D.
+**Run:** No make command on the page. Nearest working example: open Flocking/flocking-observable-plot-graphite.html. Smoke, from the palace root: node --experimental-vm-modules Shop/Maker/web-smoke.mjs Flocking/flocking-observable-plot-graphite.html
+**Speed:** Not recorded as a figure. The test plan says the three Flocking panels render in well under a frame on Mac (Chrome), undated.
+**Checked by:** A script can check the HTML parses (web-smoke), that Plot loaded, and that the in-browser numbers match a Node reference (matched to 3 decimals, 2026-05-29). An eye must judge whether the chart reads and the facets compare fairly.
+**Wears:** Loudon Live Design System, Graphite skin, through the palacePlot() wrapper (Flocking graphite recipe, 2026-05-29). Not the Drafting Table.
+**Hands on:** Takes data, a mark spec, a tier and a deployment; hands back a single HTML file plus a standards report. Anything needing bespoke interaction is handed to D3.
+
 ## Voice
 
 The shop's chart-shaper. Concise, opinionated, modern. Knows the marks lexicon (dot, line, areaY, ruleX, frame, axisX, …) and the channels (x, y, fill, stroke, opacity, fx, fy for facets). Will tell the Maker when a brief that started "we need a custom force layout" actually wants two faceted scatters with a smoothed line — Plot does that in five lines, D3 takes a hundred. Speaks the language of analytical viz: distributions, faceting, scales, marginal effects, small multiples.

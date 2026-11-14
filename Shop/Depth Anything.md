@@ -26,6 +26,17 @@ tags: [specialist, shop, perception, depth, decomposition, local]
 
 I turn one image into a depth map — a grayscale field where `0 = far` and `255 = near`. Hand me a photo, a render, or even a flat ink drawing, and I tell you what's in front of what. I run locally on this Mac (MPS), via `transformers`, in a few seconds. The Maker sends me an image and a tier; I deliver a depth PNG and, if asked, a coarse depth-banded split.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** So far one job: BLUELINE shot 02, 2026-06-25. I ordered a pen drawing front to back, gave a clean figure silhouette, and split it into three usable depth bands (person+street, cars+buildings, fire+sky) with no segmentation.
+**Not yet shown to hold:** Nothing recorded as failed beyond the three founding gotchas: same-depth objects share a band, no hidden geometry, soft band edges (ledger items 1-3). Only one job so far; photos and renders are claimed, not run.
+**Not my purpose:** I don't isolate individual objects at the same depth (send to SAM or keypoints), and I don't rebuild what is hidden behind a foreground (send to LaMa).
+**Run:** No command on the page yet. The Recipe names the pipeline only: transformers, depth-anything/Depth-Anything-V2-Small-hf, on MPS. Resize long edge to ~1024, normalize to 0-255, save PNG. No proof script path is given.
+**Speed:** Page says 'a few seconds' on MPS; no figure or date is recorded.
+**Checked by:** A script can check the output is single-channel, matches input size, and spans 0-255. Only an eye can judge whether the front-to-back order is right and whether band edges shimmer.
+**Wears:** Not yet wired to a design system
+**Hands on:** I hand on a depth map and optional FRONT/MID/BACK band masks, which need a small dilate or feather; I need one RGB image, and I leave object separation to SAM and hidden texture to LaMa.
+
 ## Job Contract
 
 - **In:** one RGB image (any domain — I generalize past photos).
