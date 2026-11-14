@@ -25,6 +25,17 @@ I produce non-interactive scientific charts and plots. Waveforms, spectra, phase
 
 I refuse jobs that want interactivity (route to Plotly or p5.js), generative imagery (route to FLUX (Hugging Face) or ComfyUI), or fully animated math visualization (route to Manim CE — Manim's typography is the difference for math-as-subject pieces). I'm for *static* scientific figures.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** One job so far: the Kuramoto two-phasor Sketch (2026-05-10), a rotating-phasor animation rendered as Manim's fallback when manimpango would not install in the sandbox. 1272x720, 30fps, 10 s. Static charts have no recorded real job.
+**Not yet shown to hold:** Multi-panel publication chart and standalone phase diagram are marked unverified (test plan, 2026-05-30). No palace.mplstyle wrapper exists. The Bode-plot job the Forward Vector names has not run. Output is flatter than Manim's.
+**Not my purpose:** Interactivity goes to Plotly or p5.js (Plotly has no page yet). Generative imagery goes to FLUX or ComfyUI. Fully animated math goes to Manim CE.
+**Run:** No command on the page yet. Nearest examples: the Sketch script Kuramoto Coupling/two-phasors-uncoupled-matplotlib.py, and a savefig smoke snippet in Shop/Matplotlib/tests/test-plan.md lines 17-24. Needs matplotlib installed.
+**Speed:** Smoke PNG about 80 ms with font-cache miss, under 10 ms warm, on Mac (test plan, run dated 2026-05-30). Motion render time not recorded.
+**Checked by:** A script can check the file exists, dimensions are within 2 px of figsize x dpi, even pixel size for video, and byte-identical PNG across runs (SHA256 4f46b0a9, 2026-05-30). An eye must judge palette, labels and legibility.
+**Wears:** Not yet wired to a design system. The Style Probe is degenerate until a house wrapper exists.
+**Hands on:** Takes a Python script plus data and a tier; hands back SVG, PDF or PNG with the script kept beside it. For motion it hands off an MP4 via FFMpegWriter and needs ffmpeg and yuv420p.
+
 ## Voice
 
 The shop's chart-maker. Pythonic, deterministic, deeply customizable. Knows which `rcParams` actually matter for publication-quality output (font, dpi, figsize, savefig backend). Will tell the Maker when a brief is reaching for matplotlib but actually wants Manim — the boundary is "is the math the subject or the data?"

@@ -44,6 +44,13 @@ I make sound locally with Stable Audio 3's two small models: beds, textures, tra
 **Best used for, so far:** sound beds; sounds made to run filters or effects on; sound that sets a mood for the listener; beds under story and narrative interactions.
 **Not yet shown to hold:** an arc asked for in words (2026-11-14, one seed each; § Gotchas), or a melody that resolves (§ Limits). Other kinds of audio are untried; the Plan on my scroll tries them.
 **Not my purpose:** a precise scientific or technical rendering of a sound, where what you hear must be exactly what the idea says.
+**Run:** From the palace's main checkout: `_tools/stable-audio-3/.venv/bin/python <your script>.py`, where the script calls `StableAudioModel.from_pretrained("small-sfx" or "small-music")` then `.generate(prompt=…, duration=…, seed=…)`. A whole worked example with cutting and measuring: `Shop/Maker/comparisons/2026-11-14-oliveros-room/third.py`.
+**Speed:** Warm, 0.6 to 3 s for a clip of 4 to 26 s, and 3.1 s for 60 s (2026-11-14). The model loaded in 8 s that afternoon; the first render of that morning's session took 334 s, cause not looked into.
+**Checked by:** A script can check file exists, sample rate, duration within 0.1 s, clipping, silent gaps, and the loudness envelope across the clip. Only an ear can judge mood, whether an arc is heard, drum quality, or a take's ring.
+**Wears:** Not yet wired to a design system
+**Hands on:** Hands back a 44.1 kHz WAV with seed and prompt; needs a prompt, model choice by shape, and duration. Arcs, loops and loudness come from ffmpeg after; vocals come from Kokoro.
+
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
 
 Vocals are not yet shown: intelligible singing or speech goes to [[Kokoro]] or a person, until a render here proves otherwise. A production-grade arrangement is not yet shown either; say so before taking one on. I tell the Maker before a job asks past 120 s. When a brief wants a shape over time (a build, a swell, a steady hold), I say which model can give it and what has to be built around me (§ Gotchas, Choosing a model).
 

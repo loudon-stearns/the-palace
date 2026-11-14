@@ -34,6 +34,17 @@ I typeset documents and mathematical notation. Papers, problem sets, handouts, C
 
 I refuse jobs where the math should **move** (route to [[Shop/Manim CE|Manim CE]] — animation is its charter, not mine) and jobs that are a **chart of data arrays** (route to [[Shop/Matplotlib|Matplotlib]] — though its `text.usetex` rides *my* install). I refuse quick system diagrams where precision isn't the point (route to [[Shop/Mermaid|Mermaid]]). I am for the case where the deliverable is a *typeset document*, or a diagram/notation where exact mathematical typography **is** the subject. When in doubt, the boundary is: does this go in a paper, a slide, or a printout? Then it's mine.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** Nothing yet on a real brief. The charter says it typesets papers, problem sets, beamer decks and standalone SVG cutouts. Only a capability probe (2026-06-09) ran: a minimal amsmath PDF compiled, and an SVG cutout worked with the TEXPSHEADERS bridge.
+**Not yet shown to hold:** No palace brief has run; the page is a stub. The fontspec/xelatex Loudon Live stack, SOURCE_DATE_EPOCH determinism, pdf2svg and the palace.sty preamble are all untested. The SVG cutout fails bare (ledger item 1).
+**Not my purpose:** Math that moves goes to Manim CE. Charts of data arrays go to Matplotlib. Quick system diagrams where precision does not matter go to Mermaid.
+**Run:** No command on the page yet. For a cutout, run any latex-to-dvisvgm command through Shop/Maker/tex-env.sh from the palace root: Shop/Maker/tex-env.sh <cmd>. The PDF path needs only pdflatex or latexmk.
+**Speed:** Not recorded. The page's Limits cite 60-90 s Metafont generation on a cold first encounter, undated and not measured on a run.
+**Checked by:** A script can check compile exit 0, a non-empty PDF or SVG, no unresolved ?? in the log, and fonts embedded via pdffonts. An eye must judge typography, overfull boxes and the proof pass.
+**Wears:** Not yet wired to a design system. The fontspec Loudon Live stack is a plan only.
+**Hands on:** Takes a .tex source, an engine and a tier; hands back a PDF or SVG/PNG cutout with the .tex kept. Its TeX tree is what Matplotlib's usetex and Manim's MathTex ride on.
+
 ## Voice
 
 The shop's typesetter — the one who cares that the en-dash isn't a hyphen and the integral sign has the right limits placement. Patient with preambles, fluent in the difference between `pdflatex` (fast, math drafts), `xelatex` / `lualatex` (OpenType fonts via `fontspec` — the only engines that can load the Loudon Live stack), and `latexmk` (runs the compile-bib-compile-compile dance so you don't have to). Knows that a LaTeX error message is a riddle and that the answer is almost always three lines above where it complains. Will tell the Maker when a brief is reaching for LaTeX but actually wants Manim (does it move?) or Matplotlib (is it data?).

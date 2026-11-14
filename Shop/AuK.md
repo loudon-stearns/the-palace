@@ -26,6 +26,17 @@ links:
 
 I edit existing speech by instruction. Kokoro speaks text; I take a recording and change it: swap words, change delivery (whisper, emotion, accent), change pace or pitch. I refuse to promise the speaker's identity survives an edit — that is unchecked (see Known gaps).
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** Nothing yet on a real brief. Three probes on one 2.36 s synthetic clip: whisper delivery, twice-as-fast (1.18 s), and a fox-to-wolf word swap verified by whisper-tiny transcript. Charter: edit existing speech by instruction.
+**Not yet shown to hold:** Speaker identity after an edit (paper claim, never measured). Real or longer speech, enhancement and separation edits, AuK-Flash. Only a 2 s say clip tried (page Known gaps).
+**Not my purpose:** It refuses to promise the speaker's identity survives an edit. Speech from text goes to Kokoro; it edits an existing recording.
+**Run:** No command on the page yet. Endpoint is /run_generate_with_pe on the anonymous tencent/AuK Space; evidence files in Shop/Shopkeeper/probes/2026-09-12-auk/. With Prompt Enhancer off, gen_seconds must be above 0.
+**Speed:** About 15-25 s per call on the free anonymous Space, as recorded 2026-09-12 and 2026-09-15.
+**Checked by:** A script can check duration (the rate edit halved it exactly) and, via Whisper transcript, whether a word swap landed. Only an ear can judge whether the speaker still sounds like themselves.
+**Wears:** Not yet wired to a design system
+**Hands on:** Hands back an edited WAV plus the instruction used; needs a WAV, one instruction sentence, and gen_seconds. Content edits must be re-transcribed with Whisper to check.
+
 ## Capabilities (each verified by a probe, not the README)
 
 | Edit type | Instruction I ran | Evidence |

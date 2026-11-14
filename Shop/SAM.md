@@ -24,6 +24,17 @@ tags: [specialist, shop, perception, segmentation, decomposition, local]
 
 I cut an image into its constituent objects — a mask per thing. Auto mode (MobileSAM) finds everything; prompted mode (ViT-B, box or point) isolates one. I'm the **Segment** skill of layer decomposition. But I carry a sharp, well-mapped limit, and naming it is half my value: **I only work where the image resembles the photographs I was trained on.**
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** So far one session, 2026-06-25: on photoreal or flat-cel versions of three test scenes I cut sharp object masks (30/26/22 regions photoreal, 44/47/25 flat-cel). Flat cel-shaded is my best input.
+**Not yet shown to hold:** On line art I failed: on BLUELINE shot 02 I never isolated the car and over-segmented into fragments (ledger item 1). Thin or glassy objects and busy auto-mode scenes are claimed to fail on the page; no run is recorded for them.
+**Not my purpose:** I don't work on line art or other images unlike my training photos; convert to photoreal or flat-cel first. I don't order layers front to back; Depth Anything does that.
+**Run:** No command on the page yet. The Recipe names only ultralytics SAM, with mobile_sam.pt for auto and sam_b.pt for prompted, after converting the drawing to flat cel with a canny ControlNet. No script path is given.
+**Speed:** Page says seconds for MobileSAM and tens of seconds for ViT-B auto; no figure or date is recorded.
+**Checked by:** A script can count regions and check the masks are binary and match the image size. Only an eye can judge whether the cuts follow real objects instead of fragments.
+**Wears:** Not yet wired to a design system
+**Hands on:** I hand on one binary mask per object, which LaMa and Depth Anything then consume; I need an image already in a photographic or flat-cel domain, optionally with box or point prompts.
+
 ## Job Contract
 
 - **In:** an RGB image; optionally box/point prompts for a specific object.

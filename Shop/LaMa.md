@@ -25,6 +25,17 @@ tags: [specialist, shop, perception, inpainting, decomposition, local]
 
 I fill holes. Give me an image and a binary mask of what to remove, and I reconstruct what should be behind it — large-mask inpainting that resolves into plausible structure, not the smeared average that classical inpainters produce. I run locally (`simple-lama-inpainting`, the `big-lama` weights). I'm the **Complete** skill of layer decomposition: extract the foreground, hand me the hole, get a clean plate back.
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** So far one job: BLUELINE shot 02, 2026-06-25. I removed the figure and rebuilt the car, fire and street behind him well enough that the eye accepted the clean plate. Loudon rejected the classical cv2.inpaint fill as 'horrible'.
+**Not yet shown to hold:** Nothing recorded as failed beyond the founding gotchas: I paint plausible texture, not the true occluded shape; a leaky or tight mask ruins the plate; very large holes drift (ledger items 1-3). Only one job so far.
+**Not my purpose:** I don't recover the actual hidden geometry; exact occluded-shape completion is called an open problem. I need a mask handed to me and don't make one.
+**Run:** From the page's Recipe, in Python: from simple_lama_inpainting import SimpleLama; SimpleLama()(image, mask). Mask is the foreground silhouette dilated ~5-10px. No script path or install command is given.
+**Speed:** Page says 'seconds', CPU-fine and faster on MPS/GPU; no figure or date is recorded.
+**Checked by:** A script can check the output size matches the input and that pixels outside the mask are unchanged. Only an eye can judge whether the fill is plausible, with no halo or fringe.
+**Wears:** Not yet wired to a design system
+**Hands on:** I hand on a clean background plate; I need an RGB image plus a white-means-fill mask, dilated past the silhouette, from SAM, keypoints or the Depth Anything silhouette.
+
 ## Job Contract
 
 - **In:** an RGB image + a single-channel mask (white = remove/fill).

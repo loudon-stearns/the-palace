@@ -24,6 +24,17 @@ links:
 
 I read a page image and give it back as Markdown: headings at their levels, paragraphs, lists, tables as HTML. In grounding mode every block also comes back with a label (`title`, `text`, `table`, `list`, `image`, `chart`, …) and a bounding box in 0–1000 page coordinates. The Roster had no OCR at all; I am the door from picture to text. I refuse to promise accuracy on pages that don't look like clean digital renders — that is untested (see Known gaps).
 
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+
+**Best used for, so far:** Nothing yet on a real brief. The one probe (2026-11-04) read a synthetic page and a vendor docs page word for word, in transcribe and grounding modes. I turn page images into Markdown, with boxed blocks in grounding mode.
+**Not yet shown to hold:** Untested: phone photos, skewed scans, low light, handwriting, dense multi-column PDFs, math, non-English, charts and image blocks, and the 4B model. Three rentals failed on 2026-11-04 before the working run.
+**Not my purpose:** I won't promise accuracy on pages that aren't clean digital renders. Only the empty (transcribe) prompt and grounding prompt are in distribution; other prompts are out of the model's training.
+**Run:** No command on the page yet. The working runner is Shop/Shopkeeper/probes/lightonocr-3/lightonocr_pod.py, but the page gives no invocation. Recipe and traps are in RunPod GPU Backend — runbook.
+**Speed:** 1.3-3.9 s per page on an A40 once up; about 3 minutes pod boot (page, 2026-11-04). The probe cost about 4 cents.
+**Checked by:** A script can diff the output against a known text and check that boxes sit inside 0-1000 coordinates. Only an eye can judge hard pages against a hand transcription.
+**Wears:** Not yet wired to a design system
+**Hands on:** I hand on one .md per page per mode, with block labels and boxes in grounding mode; I need page images (PDFs pre-rendered at 400 DPI, longest edge 2048) and a rented GPU pod.
+
 ## Capabilities (each verified by a probe, not the model card)
 
 | Page | Mode | Evidence |
