@@ -1,0 +1,83 @@
+<!doctype html>
+<!--
+  title: Three.js — proof — starter
+  born: 2026-11-14
+  links: [[Three.js]] (connects-to · card-starter)
+  forward_vector: I am the smallest working Three.js piece, the Run line on my Specialist's card: raw r128 and its
+    OrbitControls from the shelf at the same version, one BufferGeometry line rewritten in place every frame (with
+    needsUpdate), colours read from palaceTokens(), a canvas sized by its column, and a context-loss handler. Copy me,
+    rename me, bind the line to your own state.
+  Copying me: the four ../ in the two design-system lines is my depth below the palace root; set it for where you put me.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>     the inline script parses
+    node _ops/rich-face/conform.mjs <this file> --browser                   loads clean and reports a height
+  Headless frames: rAF may never fire in a harness; call window.__scene.step(t) to draw a frame by hand.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three.js — starter</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-3); font-family: var(--mono); }
+  main { padding: var(--s-5); display: grid; gap: var(--s-3); }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  #stage canvas { display: block; width: 100%; height: auto; border: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Three.js starter — a string you can orbit</h1>
+  <div id="stage"></div>
+  <p>Drag to orbit. The line's vertices are rewritten every frame.</p>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js" integrity="sha384-wagZhIFgY4hD+7awjQjR4e2E294y6J2HSnd8eTNc15ZubTeQeVRZwhQJ+W6hnBsf" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script>
+const T = palaceTokens();
+const stage = document.getElementById('stage');
+const w = stage.clientWidth || 640, h = Math.round(w * 9 / 16);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(w, h, false);
+renderer.setClearColor(T.bg);
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+camera.position.set(0, 1.2, 4);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+// The geometry is the data: N points whose y is written in place each frame.
+const N = 200;
+const pos = new Float32Array(N * 3);
+for (let i = 0; i < N; i++) pos[i * 3] = (i / (N - 1)) * 4 - 2;
+const geom = new THREE.BufferGeometry();
+geom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+scene.add(new THREE.Line(geom, new THREE.LineBasicMaterial({ color: T.accent })));   // linewidth is 1px whatever you ask
+// Solid tokens only: THREE.Color drops the alpha of an rgba() token, so borderSoft (6% white) would draw pure white.
+scene.add(new THREE.GridHelper(4, 8, T.border, T.fg4));
+
+function step(t) {
+  for (let i = 0; i < N; i++) {
+    const u = i / (N - 1);
+    pos[i * 3 + 1] = 0.6 * Math.sin(Math.PI * u) * Math.sin(2 * Math.PI * 3 * u - t * 2);
+  }
+  geom.attributes.position.needsUpdate = true;          // without it the GPU never sees the write
+  controls.update();
+  renderer.render(scene, camera);
+}
+
+let running = true;
+renderer.domElement.addEventListener('webglcontextlost', (e) => { e.preventDefault(); running = false; });
+renderer.domElement.addEventListener('webglcontextrestored', () => { running = true; requestAnimationFrame(loop); });
+function loop(ms) { if (!running) return; step(ms / 1000); requestAnimationFrame(loop); }
+requestAnimationFrame(loop);
+step(0);
+window.__scene = { step, renderer, scene, camera };
+</script>
+</body>
+</html>

@@ -10,7 +10,7 @@ forward_vector: "I hold the test plan for p5.js; I want every check here runnabl
 
 > Phase E rollout. p5.js is the expressive lens of the data-viz triad. Smoke is a syntax-parse of the artifact's inline JS (Node `vm.Script`, no DOM required). Determinism rests on the shared Mulberry32 seed convention codified in the [[Flocking — Maker's Comparison Recommendation|Flocking shoot-out]].
 
-Last run: **2026-05-30** — Smoke pass on the canonical p5.js artifact (`Flocking/flocking-p5-expressive.html`); informal Determinism verified during the 2026-05-29 Flocking job (Node cross-check against the same Mulberry32 seed 7 model block reproduced the same trajectory).
+Last run: **2026-11-14** — the card's starter (`Shop/p5.js/proofs/2026-11-14-card-check/p5.js — proof — starter.html`) passed web-smoke and `conform.mjs --browser`, and drew its trail headless. The Shop harness smoked the canonical artifact on 2026-06-16. Earlier: **2026-05-30** — Smoke pass on the canonical p5.js artifact (`Flocking/flocking-p5-expressive.html`); informal Determinism verified during the 2026-05-29 Flocking job (Node cross-check against the same Mulberry32 seed 7 model block reproduced the same trajectory).
 
 ## Smoke
 

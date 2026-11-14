@@ -29,3 +29,7 @@ What each job taught the Observable Plot page. Each item names what the job show
 3. **Faceted small multiples lied without a shared y-domain.** The three R(t) sweep panels needed `y: {domain: [0,1]}` to be comparable; without it each facet auto-scaled on its own. Changed: the watch-list item on consistent facet domains went from a caution to a confirmed, load-bearing rule.
 
 - run · 2026-06-16 · smoke test on mac · nothing new
+
+## From the card check — 2026-11-14 — the card's starter, a probe
+
+- run · 2026-11-14 · the card's starter, web-smoke and conform --browser on mac · nothing new

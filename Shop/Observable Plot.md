@@ -31,16 +31,16 @@ I produce browser-deployable data charts with grammar-of-graphics syntax and bea
 
 I refuse jobs that want *custom interactive web viz* with bespoke interactions and force layouts — those route to [[D3.js]] (I'm built on D3; the escape hatch is always available). I refuse static publication-only output — that's [[Matplotlib]]'s lane. I refuse generative or algorithmic-art expression — that's [[p5.js]]. I am for *fast-to-finished analytical charts with sensible defaults* — Tukey's grammar of graphics in a JavaScript library.
 
-*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Drafted 2026-11-14 from this page and my ledger by a reader, not yet tried line by line; a line that proves wrong is fixed here.*
+*The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed, Checked by and Wears were run on the starter named in Run; Best used for, Not yet shown to hold, Not my purpose and Hands on were read from this page and my ledger, not run. A line that proves wrong is fixed here.*
 
-**Best used for, so far:** One real job so far: the Flocking analytical view (2026-05-29), a Sketch with R-over-time, a neighbor histogram and a three-panel weight sweep. Re-skinned in Graphite via palacePlot. Browser-deployed analytical charts.
-**Not yet shown to hold:** No Study-tier or published Piece job. The 3x N separation/alignment/cohesion grid and the Vicsek run are still hopes. Thin animation by design. Nothing recorded as failed beyond the d3 load-order trap (ledger item 1).
+**Best used for, so far:** A quick, honest chart of numbers: lines, bars, histograms, small multiples. One job so far, the Flocking analytical view (2026-05-29): R over time, a neighbour histogram and a three-panel weight sweep, re-dressed through `palacePlot()`. My starter drew three curves on one shared scale headless on 2026-11-14.
+**Not yet shown to hold:** No Study or published Piece. The 3×N flocking sweep grid and the Vicsek chart are still hopes. I have no animation of my own; I re-render on a slow tick.
 **Not my purpose:** Custom force layouts and bespoke interaction go to D3.js. Static publication-only output goes to Matplotlib. Generative or algorithmic art goes to p5.js. No 3D.
-**Run:** No make command on the page. Nearest working example: open Flocking/flocking-observable-plot-graphite.html. Smoke, from the palace root: node --experimental-vm-modules Shop/Maker/web-smoke.mjs Flocking/flocking-observable-plot-graphite.html
-**Speed:** Not recorded as a figure. The test plan says the three Flocking panels render in well under a frame on Mac (Chrome), undated.
-**Checked by:** A script can check the HTML parses (web-smoke), that Plot loaded, and that the in-browser numbers match a Node reference (matched to 3 decimals, 2026-05-29). An eye must judge whether the chart reads and the facets compare fairly.
-**Wears:** Loudon Live Design System, Graphite skin, through the palacePlot() wrapper (Flocking graphite recipe, 2026-05-29). Not the Drafting Table.
-**Hands on:** Takes data, a mark spec, a tier and a deployment; hands back a single HTML file plus a standards report. Anything needing bespoke interaction is handed to D3.
+**Run:** Copy `Shop/Observable Plot/proofs/2026-11-14-card-check/Observable Plot — proof — starter.html` (d3@7.9.0 then Plot 0.6.17 from the shelf, then `palace-tokens.js` and `palace-plot-defaults.js`, one `palacePlot()` call) and swap the marks. Check it from the palace root: `node --experimental-vm-modules Shop/Maker/web-smoke.mjs <file>` (parses), then `node _ops/rich-face/conform.mjs <file> --browser` (runs it).
+**Speed:** Measured 2026-11-14 on the Mac: web-smoke 0.1 s, conform --browser 1.8 s for the starter at two widths. Making a chart is estimated only: Sketch 15 min to 1 h, Study 2 to 6 h.
+**Checked by:** conform --browser checks a clean load and a reported height, and `palacePlot()` throws by name if d3, Plot or the tokens are missing. The Flocking numbers matched a Node reference to 3 decimals (2026-05-29). Only an eye judges whether a chart reads and its facets compare fairly.
+**Wears:** Loudon Live Design System, through `palacePlot()` in `_ops/loudon-live/design-system/palace-plot-defaults.js`, with `palaceSeries()` for ordered colour; Graphite is the default. The exemplar `Flocking/flocking-observable-plot-graphite.html` also sets `class="skin-graphite"`, which `colors_and_type.css` does not define, so it changes nothing. No Drafting Table use yet.
+**Hands on:** I take data, a mark spec, a tier and a deployment, and hand back one HTML file and a standards report. Anything needing bespoke interaction goes to D3.js.
 
 ## Voice
 
@@ -138,7 +138,7 @@ HTML loads without console errors, the chart renders at requested dimensions, al
 What charting with Plot has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Observable Plot — tuning]].
 
 **Loading**
-- **Load d3 before Plot.** The UMD bundle externalises d3: put `https://cdn.jsdelivr.net/npm/d3@7` ahead of `plot.umd.min.js`, or `window.Plot` is silently `{}`. The throw may never reach the console; the symptom shows up later as `Plot.frame is not a function` or `Plot.plot is not a function`. The tell: `Object.keys(Plot).length === 0` and `Plot.version === undefined`.
+- **Load d3 before Plot.** The UMD bundle externalises d3: put d3 ahead of `plot.umd.min.js`, from the shelf at `https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js` (`_ops/rich-face/libs.json`), or `window.Plot` is silently `{}`. The throw may never reach the console; the symptom shows up later as `Plot.frame is not a function` or `Plot.plot is not a function`. The tell: `Object.keys(Plot).length === 0` and `Plot.version === undefined`.
 
 **Motion**
 - **Plot has no animation; re-render the whole figure on a slow tick.** Step the model on a fixed-rate `setInterval` and `el.replaceChildren(Plot.plot(...))` at about 6 Hz. It suits a slow analytical view and survives the background-tab throttle that freezes rAF. Smooth tweened motion is D3's lane.
@@ -171,7 +171,7 @@ A chart legitimately wants ONE mono face for all numerals, so the multi-font wor
 
 ## Test Suite
 
-Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [Observable Plot/tests/test-plan.md](Observable Plot/tests/test-plan.md). Last run **2026-05-30** — Smoke pass via `node --experimental-vm-modules Shop/Maker/web-smoke.mjs Flocking/flocking-observable-plot-graphite.html` (1 inline script, 0 fail); Style Probe (the locked mono face in Plot's generated SVG, pushed via the `palace-plot-defaults.js` wrapper) verified during the 2026-05-29 Flocking job; Determinism informally cross-checked in Node against the seed-7 model block (R-over-time series identical to D3 + p5).
+Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [Observable Plot/tests/test-plan.md](Observable Plot/tests/test-plan.md). Last run **2026-11-14** — the card's starter (`proofs/2026-11-14-card-check/Observable Plot — proof — starter.html`): web-smoke 1 ok, 0 fail, and `node _ops/rich-face/conform.mjs <starter> --browser` clean at 760 and 1130 px. Before that, the Shop harness smoked `Flocking/flocking-observable-plot-graphite.html` on 2026-06-16 (`Shop/Maker/run-tests.mjs`, commit `d43c398d`), and it was smoked by hand on 2026-05-30. Earlier still, Style Probe (the locked mono face in Plot's generated SVG, pushed via the `palace-plot-defaults.js` wrapper) verified during the 2026-05-29 Flocking job; Determinism informally cross-checked in Node against the seed-7 model block (R-over-time series identical to D3 + p5).
 
 ## Open Questions
 
@@ -184,5 +184,5 @@ Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism 
 
 ## Forward Vector
 
-First job landed — the [[Flocking]] analytical view proved the thesis: grammar-of-graphics earns its keep when the brief is to *answer a quantitative question*, and the `fx`-faceted weight sweep made the Kuramoto correspondence legible (R climbing 0→1 is the order parameter; the sweep is a first phase-diagram sketch). Next I want the obvious follow-ups: (1) the full separation/alignment/cohesion sweep as a 3×N grid of small multiples, which would map the flocking phase diagram [[Flocking]] keeps asking for; (2) a `palace-plot-defaults.js` so the house palette/margins/font stop being copied per-file. The deferred Vicsek-model analytical run is the route to probing whether the Kuramoto tie is formal — that's a Study-tier promotion.
+First job landed — the [[Flocking]] analytical view proved the thesis: grammar-of-graphics earns its keep when the brief is to *answer a quantitative question*, and the `fx`-faceted weight sweep made the Kuramoto correspondence legible (R climbing 0→1 is the order parameter; the sweep is a first phase-diagram sketch). Next I want the obvious follow-ups: (1) the full separation/alignment/cohesion sweep as a 3×N grid of small multiples, which would map the flocking phase diagram [[Flocking]] keeps asking for; (2) a `palace-plot-defaults.js` so the house palette/margins/font stop being copied per-file — done the same day: `palacePlot()` in `_ops/loudon-live/design-system/palace-plot-defaults.js` (commit `a009234c`, 2026-05-29). The deferred Vicsek-model analytical run is the route to probing whether the Kuramoto tie is formal — that's a Study-tier promotion.
 — progressed (2026-10-24): [[Web Audio Worklet]]'s Murmuration already runs a seeded Vicsek-noise model, order 0.93 at η=0 collapsing to 0.10 at η=0.80, so a Study-tier Plot job can chart that model's output rather than build a second Vicsek.

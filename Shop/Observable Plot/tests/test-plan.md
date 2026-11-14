@@ -10,7 +10,7 @@ forward_vector: "I hold the test plan for Observable Plot; I want every check he
 
 > Phase E rollout. Observable Plot is the analytical lens of the data-viz triad — grammar of graphics, faceting, beautiful defaults. The Specialist has a strong Layer-0 (its own typography + colour scheme baked in); the Maker's house-defaults wrapper at `_ops/loudon-live/design-system/palace-plot-defaults.js` is the bridge, and the Style Probe checks the wrapper pushed the locked grammar through to the generated SVG.
 
-Last run: **2026-05-30** — Smoke pass on `Flocking/flocking-observable-plot-graphite.html`; Style Probe (mono face in generated SVG) verified during the 2026-05-29 Flocking job; Determinism informally verified by the same shared-model cross-check.
+Last run: **2026-11-14** — the card's starter (`Shop/Observable Plot/proofs/2026-11-14-card-check/Observable Plot — proof — starter.html`) passed web-smoke and `conform.mjs --browser`. The Shop harness smoked the canonical artifact on 2026-06-16. Earlier: **2026-05-30** — Smoke pass on `Flocking/flocking-observable-plot-graphite.html`; Style Probe (mono face in generated SVG) verified during the 2026-05-29 Flocking job; Determinism informally verified by the same shared-model cross-check.
 
 ## Smoke
 

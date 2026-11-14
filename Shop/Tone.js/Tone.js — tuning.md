@@ -30,3 +30,9 @@ What each job taught the Tone.js page. Each item names what the job showed and w
 ## From the Shop's test harness — 2026-06-16
 
 - run · 2026-06-16 · `Shop/Maker/run-tests.mjs` web-smoke, probe · nothing new
+
+## From the card check — 2026-11-14 — the card's starter, a probe
+
+3. **Loading `tone@15.0.4` makes one `AudioContext` straight away, in `suspended` state, before any click.** Counted in headless Chromium by wrapping the `AudioContext` constructor on the starter (`proofs/2026-11-14-card-check/Tone.js — proof — starter.html`): one context, `suspended`, before the click; `await Tone.start()` in the click resumes it, and nothing sounds before then (conform's browser pass agrees). So a check that demands zero contexts before a click, as `Tone.js — proof — rich checks.mjs` does for the sixty-pushes piece (which does not load Tone), would fail every Tone piece; the right question is whether anything sounds before a click. Changed: nothing on the page yet; the review decides whether the community-wisdom line "the audio context starts suspended" becomes a met gotcha. Written by the session that fixed the card, not at a review; the page is unchanged by it until a review. Owed a review.
+
+- run · 2026-11-14 · the card's starter: web-smoke, conform --browser, a Tone.Offline render (220 Hz, RMS 0.087), probe · taught item 3, owed a review

@@ -10,7 +10,7 @@ forward_vector: "I hold the test plan for Tone.js; I want every check here to be
 
 > Phase E rollout. Tone.js is the Shop's browser-deployable music-software Specialist — instruments, sequencers, effects with first-class musical time. Smoke is the same syntax-parse helper used by the data-viz triad; the *audio* side requires a human ear (browser playback) — that's the Specialist's standing seam between what code can verify and what the eye-or-ear settles.
 
-Last run: **2026-05-30** — Smoke pass on the canonical Tone artifact (`Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html`). Audible-correctness check is human-only and was confirmed during the 2026-05-26 Kuramoto Round 1 (lock criterion at K_c = |f_B − f_A|/2 audibly held — drift / pulling-in / lock all distinguishable by ear).
+Last run: **2026-11-14** — the card's starter (`Shop/Tone.js/proofs/2026-11-14-card-check/Tone.js — proof — starter.html`) passed web-smoke and `conform.mjs --browser` (sound only after a click, quiet on hush). The Shop harness smoked the canonical artifact on 2026-06-16. Earlier: **2026-05-30** — Smoke pass on the canonical Tone artifact (`Kuramoto Coupling/two-oscillators-coupling-explorer-audio.html`). Audible-correctness check is human-only and was confirmed during the 2026-05-26 Kuramoto Round 1 (lock criterion at K_c = |f_B − f_A|/2 audibly held — drift / pulling-in / lock all distinguishable by ear).
 
 ## Smoke
 
