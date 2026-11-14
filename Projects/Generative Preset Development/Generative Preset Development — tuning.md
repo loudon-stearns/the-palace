@@ -26,3 +26,8 @@ Opened empty by the Weave of 2026-11-08 (bundle audit, Step 5d: a page that runs
 
 1. Never trust a feel-word in Vital without rendering the result: the default patch sends oscillators 2 and 3 to a Filter 2 that is switched off, so a 'dark' cutoff on Filter 1 can leave half the sound unfiltered, and only measuring the render catches it. *(offered by the steward, cycle 11)*
 - run · 2026-11-13 · cycle 11 · taught item 1
+
+## From cycle 12 — 2026-11-13
+
+2. In Vital a switch being on doesn't mean you can hear it, and a knob's value isn't where the sound sits (a distortion can be on with its mix at zero, and a cutoff at 13 Hz can be opened by modulation), so a move has to be judged by its render, never by the setting it wrote. *(offered by the steward, cycle 12)*
+- run · 2026-11-13 · cycle 12 · taught item 2

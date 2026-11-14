@@ -1,0 +1,592 @@
+[
+ {
+  "preset": "Pad Of Exile",
+  "direction": "darker",
+  "move": "darker",
+  "promise": "brightness falls at least 1/3 octave",
+  "kept": true,
+  "before": {
+   "level_db": -23.5,
+   "centroid_hz": 2679.0,
+   "motion": 0.155,
+   "rise_s": 0.569,
+   "width": 0.978,
+   "tail_s": 3.0,
+   "low_share": 0.009,
+   "flatness": 0.0227,
+   "crest_db": 15.82,
+   "level_swing_db": 3.05,
+   "onset_db": -19.11
+  },
+  "after": {
+   "level_db": -26.7,
+   "centroid_hz": 1416.0,
+   "motion": 0.231,
+   "rise_s": 0.588,
+   "width": 0.889,
+   "tail_s": 3.0,
+   "low_share": 0.049,
+   "flatness": 0.001,
+   "crest_db": 16.01,
+   "level_swing_db": 5.41,
+   "onset_db": -17.54
+  },
+  "changes": [
+   {
+    "param": "filter_1_cutoff",
+    "move": "cutoff -1 band",
+    "before": "warm (417 Hz)",
+    "after": "dark (132 Hz)"
+   }
+  ]
+ },
+ {
+  "preset": "Pad Of Exile",
+  "direction": "menacing",
+  "move": "menacing",
+  "promise": "more energy under 150 Hz, and driven (crest falls 1 dB)",
+  "kept": false,
+  "before": {
+   "level_db": -23.8,
+   "centroid_hz": 2722.0,
+   "motion": 0.162,
+   "rise_s": 0.494,
+   "width": 1.04,
+   "tail_s": 3.0,
+   "low_share": 0.012,
+   "flatness": 0.0237,
+   "crest_db": 15.26,
+   "level_swing_db": 3.22,
+   "onset_db": -24.04
+  },
+  "after": {
+   "level_db": -20.5,
+   "centroid_hz": 3035.0,
+   "motion": 0.184,
+   "rise_s": 0.478,
+   "width": 0.992,
+   "tail_s": 3.0,
+   "low_share": 0.001,
+   "flatness": 0.0402,
+   "crest_db": 14.28,
+   "level_swing_db": 2.62,
+   "onset_db": -23.38
+  },
+  "changes": [
+   {
+    "param": "filter_1_resonance",
+    "move": "resonance +1 band",
+    "before": "flat (0.16)",
+    "after": "coloured (0.46)"
+   },
+   {
+    "param": "filter_1_drive",
+    "move": "filter drive +8 dB",
+    "before": "0.5",
+    "after": "8.5"
+   },
+   {
+    "param": "distortion_on",
+    "move": "distortion on",
+    "before": "1",
+    "after": "1"
+   },
+   {
+    "param": "distortion_drive",
+    "move": "distortion drive to 8 dB",
+    "before": "0",
+    "after": "8"
+   },
+   {
+    "param": "distortion_mix",
+    "move": "distortion mix up, it was dry",
+    "before": "0",
+    "after": "0.6"
+   },
+   {
+    "param": "osc",
+    "move": "sub",
+    "before": "all three oscillators in use",
+    "after": "no sub added"
+   }
+  ]
+ },
+ {
+  "preset": "Pad Of Exile",
+  "direction": "darker and more menacing",
+  "move": "darker",
+  "promise": "brightness falls at least 1/3 octave",
+  "kept": true,
+  "before": {
+   "level_db": -23.4,
+   "centroid_hz": 2630.0,
+   "motion": 0.143,
+   "rise_s": 0.561,
+   "width": 0.922,
+   "tail_s": 3.0,
+   "low_share": 0.015,
+   "flatness": 0.0222,
+   "crest_db": 15.49,
+   "level_swing_db": 2.86,
+   "onset_db": -19.37
+  },
+  "after": {
+   "level_db": -23.6,
+   "centroid_hz": 1613.0,
+   "motion": 0.241,
+   "rise_s": 0.482,
+   "width": 0.973,
+   "tail_s": 3.0,
+   "low_share": 0.002,
+   "flatness": 0.0019,
+   "crest_db": 14.74,
+   "level_swing_db": 3.74,
+   "onset_db": -24.85
+  },
+  "changes": [
+   {
+    "param": "filter_1_cutoff",
+    "move": "cutoff -1 band",
+    "before": "warm (417 Hz)",
+    "after": "dark (132 Hz)"
+   },
+   {
+    "param": "filter_1_resonance",
+    "move": "resonance +1 band",
+    "before": "flat (0.16)",
+    "after": "coloured (0.46)"
+   },
+   {
+    "param": "filter_1_drive",
+    "move": "filter drive +8 dB",
+    "before": "0.5",
+    "after": "8.5"
+   },
+   {
+    "param": "distortion_on",
+    "move": "distortion on",
+    "before": "1",
+    "after": "1"
+   },
+   {
+    "param": "distortion_drive",
+    "move": "distortion drive to 8 dB",
+    "before": "0",
+    "after": "8"
+   },
+   {
+    "param": "distortion_mix",
+    "move": "distortion mix up, it was dry",
+    "before": "0",
+    "after": "0.6"
+   },
+   {
+    "param": "osc",
+    "move": "sub",
+    "before": "all three oscillators in use",
+    "after": "no sub added"
+   }
+  ]
+ },
+ {
+  "preset": "Pad Of Exile",
+  "direction": "darker and more menacing",
+  "move": "menacing",
+  "promise": "more energy under 150 Hz, and driven (crest falls 1 dB)",
+  "kept": false,
+  "before": {
+   "level_db": -23.4,
+   "centroid_hz": 2630.0,
+   "motion": 0.143,
+   "rise_s": 0.561,
+   "width": 0.922,
+   "tail_s": 3.0,
+   "low_share": 0.015,
+   "flatness": 0.0222,
+   "crest_db": 15.49,
+   "level_swing_db": 2.86,
+   "onset_db": -19.37
+  },
+  "after": {
+   "level_db": -23.6,
+   "centroid_hz": 1613.0,
+   "motion": 0.241,
+   "rise_s": 0.482,
+   "width": 0.973,
+   "tail_s": 3.0,
+   "low_share": 0.002,
+   "flatness": 0.0019,
+   "crest_db": 14.74,
+   "level_swing_db": 3.74,
+   "onset_db": -24.85
+  },
+  "changes": [
+   {
+    "param": "filter_1_cutoff",
+    "move": "cutoff -1 band",
+    "before": "warm (417 Hz)",
+    "after": "dark (132 Hz)"
+   },
+   {
+    "param": "filter_1_resonance",
+    "move": "resonance +1 band",
+    "before": "flat (0.16)",
+    "after": "coloured (0.46)"
+   },
+   {
+    "param": "filter_1_drive",
+    "move": "filter drive +8 dB",
+    "before": "0.5",
+    "after": "8.5"
+   },
+   {
+    "param": "distortion_on",
+    "move": "distortion on",
+    "before": "1",
+    "after": "1"
+   },
+   {
+    "param": "distortion_drive",
+    "move": "distortion drive to 8 dB",
+    "before": "0",
+    "after": "8"
+   },
+   {
+    "param": "distortion_mix",
+    "move": "distortion mix up, it was dry",
+    "before": "0",
+    "after": "0.6"
+   },
+   {
+    "param": "osc",
+    "move": "sub",
+    "before": "all three oscillators in use",
+    "after": "no sub added"
+   }
+  ]
+ },
+ {
+  "preset": "Sparkly pad",
+  "direction": "darker",
+  "move": "darker",
+  "promise": "brightness falls at least 1/3 octave",
+  "kept": true,
+  "before": {
+   "level_db": -26.1,
+   "centroid_hz": 491.0,
+   "motion": 0.338,
+   "rise_s": 1.153,
+   "width": 0.89,
+   "tail_s": 2.05,
+   "low_share": 0.17,
+   "flatness": 0.0,
+   "crest_db": 15.0,
+   "level_swing_db": 9.59,
+   "onset_db": -3.97
+  },
+  "after": {
+   "level_db": -28.8,
+   "centroid_hz": 376.0,
+   "motion": 0.271,
+   "rise_s": 0.142,
+   "width": 0.988,
+   "tail_s": 1.5,
+   "low_share": 0.196,
+   "flatness": 0.0,
+   "crest_db": 13.34,
+   "level_swing_db": 7.78,
+   "onset_db": 3.38
+  },
+  "changes": [
+   {
+    "param": "eq_high_gain",
+    "move": "no low-pass the sound passes through; high shelf at its brightness, 491 Hz, instead",
+    "before": "0",
+    "after": "-15"
+   }
+  ]
+ },
+ {
+  "preset": "Sparkly pad",
+  "direction": "breathe",
+  "move": "breathe",
+  "promise": "moves more while held, and enters softer (first 150 ms down 3 dB)",
+  "kept": false,
+  "before": {
+   "level_db": -26.6,
+   "centroid_hz": 479.0,
+   "motion": 0.304,
+   "rise_s": 0.988,
+   "width": 0.987,
+   "tail_s": 1.77,
+   "low_share": 0.254,
+   "flatness": 0.0,
+   "crest_db": 14.09,
+   "level_swing_db": 6.25,
+   "onset_db": -2.26
+  },
+  "after": {
+   "level_db": -31.4,
+   "centroid_hz": 563.0,
+   "motion": 0.403,
+   "rise_s": 2.342,
+   "width": 1.063,
+   "tail_s": 2.01,
+   "low_share": 0.24,
+   "flatness": 0.0,
+   "crest_db": 16.95,
+   "level_swing_db": 9.33,
+   "onset_db": 1.73
+  },
+  "changes": [
+   {
+    "param": "env_1_attack",
+    "move": "attack +1 band",
+    "before": "punchy (0.0005 s)",
+    "after": "soft (0.0715 s)"
+   },
+   {
+    "param": "lfo_4_sync",
+    "move": "LFO 4 free-running (seconds, not tempo)",
+    "before": "1",
+    "after": "0"
+   },
+   {
+    "param": "lfo_4_frequency",
+    "move": "LFO 4 to 'drifting', 0.12 Hz",
+    "before": "1",
+    "after": "-3.059"
+   },
+   {
+    "param": "modulation 2",
+    "move": "route",
+    "before": "empty",
+    "after": "lfo_4 -> osc_1_level at -0.25"
+   },
+   {
+    "param": "modulation 13",
+    "move": "route",
+    "before": "empty",
+    "after": "lfo_4 -> filter_2_cutoff at +0.12"
+   }
+  ]
+ },
+ {
+  "preset": "Stringpad 1",
+  "direction": "darker",
+  "move": "darker",
+  "promise": "brightness falls at least 1/3 octave",
+  "kept": true,
+  "before": {
+   "level_db": -15.7,
+   "centroid_hz": 2459.0,
+   "motion": 0.132,
+   "rise_s": 3.586,
+   "width": 0.665,
+   "tail_s": 3.0,
+   "low_share": 0.305,
+   "flatness": 0.012,
+   "crest_db": 14.06,
+   "level_swing_db": 7.06,
+   "onset_db": -52.08
+  },
+  "after": {
+   "level_db": -18.0,
+   "centroid_hz": 567.0,
+   "motion": 0.169,
+   "rise_s": 3.214,
+   "width": 0.619,
+   "tail_s": 3.0,
+   "low_share": 0.48,
+   "flatness": 0.0,
+   "crest_db": 13.72,
+   "level_swing_db": 8.05,
+   "onset_db": -52.16
+  },
+  "changes": [
+   {
+    "param": "modulation_4_amount",
+    "move": "cutoff knob already dark; lfo_1's push on it cut to 40%",
+    "before": "0.4067",
+    "after": "0.1627"
+   },
+   {
+    "param": "modulation_5_amount",
+    "move": "cutoff knob already dark; macro_control_2's push on it cut to 40%",
+    "before": "1",
+    "after": "0.4"
+   },
+   {
+    "param": "filter_2_cutoff",
+    "move": "cutoff -1 band",
+    "before": "bright (21096 Hz)",
+    "after": "open (1991 Hz)"
+   }
+  ]
+ },
+ {
+  "preset": "Stringpad 1",
+  "direction": "strip",
+  "move": "strip",
+  "promise": "width falls by at least a third",
+  "kept": true,
+  "before": {
+   "level_db": -14.7,
+   "centroid_hz": 2658.0,
+   "motion": 0.106,
+   "rise_s": 2.946,
+   "width": 0.631,
+   "tail_s": 3.0,
+   "low_share": 0.216,
+   "flatness": 0.0163,
+   "crest_db": 14.34,
+   "level_swing_db": 8.51,
+   "onset_db": -52.34
+  },
+  "after": {
+   "level_db": -18.1,
+   "centroid_hz": 3078.0,
+   "motion": 0.121,
+   "rise_s": 3.359,
+   "width": 0.225,
+   "tail_s": 3.0,
+   "low_share": 0.0,
+   "flatness": 0.0075,
+   "crest_db": 13.88,
+   "level_swing_db": 12.03,
+   "onset_db": -49.76
+  },
+  "changes": [
+   {
+    "param": "osc_2_on",
+    "move": "strip",
+    "before": "1",
+    "after": "0"
+   },
+   {
+    "param": "osc_1_unison_voices",
+    "move": "strip to one voice",
+    "before": "4",
+    "after": "1"
+   },
+   {
+    "param": "chorus_on",
+    "move": "strip",
+    "before": "1",
+    "after": "0"
+   }
+  ]
+ },
+ {
+  "preset": "Caustics",
+  "direction": "brighter",
+  "move": "brighter",
+  "promise": "brightness rises at least 1/3 octave",
+  "kept": true,
+  "before": {
+   "level_db": -20.8,
+   "centroid_hz": 425.0,
+   "motion": 0.328,
+   "rise_s": 1.285,
+   "width": 0.701,
+   "tail_s": 2.21,
+   "low_share": 0.156,
+   "flatness": 0.0,
+   "crest_db": 12.69,
+   "level_swing_db": 7.06,
+   "onset_db": -52.47
+  },
+  "after": {
+   "level_db": -20.8,
+   "centroid_hz": 947.0,
+   "motion": 0.304,
+   "rise_s": 3.156,
+   "width": 0.67,
+   "tail_s": 1.97,
+   "low_share": 0.143,
+   "flatness": 0.0,
+   "crest_db": 13.42,
+   "level_swing_db": 5.57,
+   "onset_db": -51.34
+  },
+  "changes": [
+   {
+    "param": "filter_1_cutoff",
+    "move": "cutoff +1 band",
+    "before": "warm (433 Hz)",
+    "after": "open (1369 Hz)"
+   }
+  ]
+ },
+ {
+  "preset": "Pressure",
+  "direction": "breathe",
+  "move": "breathe",
+  "promise": "moves more while held, and enters softer (first 150 ms down 3 dB)",
+  "kept": true,
+  "before": {
+   "level_db": -18.8,
+   "centroid_hz": 239.0,
+   "motion": 0.123,
+   "rise_s": 2.017,
+   "width": 0.53,
+   "tail_s": 3.0,
+   "low_share": 0.522,
+   "flatness": 0.0,
+   "crest_db": 11.16,
+   "level_swing_db": 4.6,
+   "onset_db": 1.44
+  },
+  "after": {
+   "level_db": -23.4,
+   "centroid_hz": 252.0,
+   "motion": 0.266,
+   "rise_s": 1.648,
+   "width": 0.489,
+   "tail_s": 3.0,
+   "low_share": 0.492,
+   "flatness": 0.0,
+   "crest_db": 11.26,
+   "level_swing_db": 5.13,
+   "onset_db": -37.71
+  },
+  "changes": [
+   {
+    "param": "env_1_attack",
+    "move": "attack +1 band",
+    "before": "soft (0.0734 s)",
+    "after": "swell (1.12 s)"
+   },
+   {
+    "param": "lfo_4_sync",
+    "move": "LFO 4 free-running (seconds, not tempo)",
+    "before": "1",
+    "after": "0"
+   },
+   {
+    "param": "lfo_4_frequency",
+    "move": "LFO 4 to 'drifting', 0.12 Hz",
+    "before": "1",
+    "after": "-3.059"
+   },
+   {
+    "param": "modulation 2",
+    "move": "route",
+    "before": "empty",
+    "after": "lfo_4 -> osc_1_level at -0.25"
+   },
+   {
+    "param": "modulation 3",
+    "move": "route",
+    "before": "empty",
+    "after": "lfo_4 -> osc_2_level at -0.25"
+   },
+   {
+    "param": "modulation 4",
+    "move": "route",
+    "before": "empty",
+    "after": "lfo_4 -> filter_1_cutoff at +0.12"
+   }
+  ]
+ }
+]

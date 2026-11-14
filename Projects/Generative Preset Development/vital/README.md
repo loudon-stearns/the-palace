@@ -23,6 +23,9 @@ Then, from this folder:
 | `vital_corpus.py` | mines all 520 presets in `~/Music/Vital` → `profile-draft/vital_corpus_stats_v0.1.json` (usage bands, modulation census) |
 | `vital_measure.py` | renders one-knob ladders on the init patch and measures them → `profile-draft/vital_measured_v0.1.json`, `renders/ladder-*.wav` |
 | `vital_loadcheck.py` | loads every preset on the Mac and confirms each one took |
+| `generate_vital.py <recipe> --render` | Track A: a recipe in feel-words → presets, rendered and measured against init |
+| `reshape_vital.py <preset> "<direction>"` | Track C: darker / brighter / menacing / breathe / strip; renders before and after and says whether each move kept its promise |
+| `run_reshape_test.py` | the modification test: four pads × directions → `reshaped/reshape-test.json` |
 
 ## Format notes
 
@@ -58,9 +61,30 @@ deep water" (Caustics, Pressure, Shafts). `generate_vital.py <recipe> --render` 
 renders a held chord of each beside Vital's init, and writes `prompt-test.json` with the feature
 distances. First run 2026-11-13: every take is 5.6 to 7.0 from init and 1.8 to 5.3 from each other.
 
+## The reshape test
+
+Each move carries a promise a render can check (darker: brightness down a third of an octave;
+menacing: more energy under 150 Hz and peaks shaved; breathe: more movement while held and a
+first 150 ms 3 dB softer; strip: width down a third). First run 2026-11-14: 7 of 10 kept.
+What the broken ones taught, and the fixes already in:
+
+- **"On" is not "heard."** Pad Of Exile ships distortion on with its mix at 0. The move now raises the mix.
+- **A cutoff knob at the floor can still be bright.** Stringpad 1's knob sits at 13 Hz and an LFO and a
+  macro open it. "Darker" now turns down what pushes the knob; brightness fell 2459 → 567 Hz.
+- **A filter that isn't a low-pass** (Sparkly pad's model 6) gets an EQ high shelf at the sound's own
+  measured brightness, not a fixed 1.5 kHz, which did nothing to a pad already at 490 Hz.
+- **Two rulers were wrong and were replaced**: spectral flatness for "rough" (a darker filter removes hiss,
+  so it fell on a sound driven harder) → crest; 10–90 % rise for "slower onset" (reverb and unison build
+  for seconds, so it lands late either way) → level of the first 150 ms.
+
+Still broken: **menacing** on a pad that already uses all three oscillators has no room for a sub, so
+distortion only brightens it (energy under 150 Hz fell). **breathe** from a punchy attack lands only in
+'soft', about 0.1 s, not enough to soften the onset.
+
 ## Not yet
 
 - Nobody has listened to any of it. The measurements say what changed, not what it sounds like.
 - `load()` checks the scalar settings read back; it does not check wavetables or the matrix
   did, beyond the sound changing.
-- The generator and the prompt test come next.
+- A describer (Track B) for Vital. The reshaper's change log reads band words already; the
+  Wavetable describer (`../ableton-wavetable/describe_preset.py`) is the model to follow.

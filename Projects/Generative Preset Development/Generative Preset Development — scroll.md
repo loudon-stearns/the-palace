@@ -15,30 +15,31 @@ forward_vector: "I am Generative Preset Development's scroll — the one page th
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-14T01:20:19.662Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-14T01:22:43.737Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-11-14 (today)
-- **Plan:** agreed 2026-09-25 (49 days ago) · 5 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 12 · last ran 2026-11-14 (today)
+- **Plan:** agreed 2026-09-25 (49 days ago) · 6 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-14 (today) — From one prompt, 'a pad that sounds like light through deep water', I made three Vital presets, rendered them, and measured each one as clearly unlike the others and unlike Vital's blank patch. (`preset-steward-020`)
-- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
+- **Last shipped:** 2026-11-14 (today) — Vital presets can now be reshaped by a word like 'darker' or 'breathe', and every change is rendered to check that it really happened. (`preset-steward-021`)
+- **Last commit touching this project:** 2026-11-13 `615fb09f` — steward(Generative Preset Development): cycle 11 — SPINNING UP. HOME: [Generative Preset Development](obsidian://open?vaul…
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 31 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Generative Preset Development/vital/reshaped/Caustics - before.json`, `Projects/Generative Preset Development/vital/reshaped/Caustics - brighter.json`, `Projects/Generative Preset Development/vital/reshaped/Caustics - brighter.reshape.json`, `Projects/Generative Preset Development/vital/reshaped/Caustics - brighter.vital`, `Projects/Generative Preset Development/vital/reshaped/Pad Of Exile - before.json`, and 26 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-13 — cycle 11 · taught item 1
+- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
+- **Last run:** 2026-11-13 — cycle 12 · taught item 2
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 11 — 2026-11-13 — [[Generative Preset Development — tuning]]
+- **Latest lesson:** item 2, from cycle 12 — 2026-11-13 — [[Generative Preset Development — tuning]]
 
 ### Where this stands
 
-Generative Preset Development teaches an AI to make presets for synths with a fixed layout, to describe them the way a synthesist would, and to reshape them. It starts with Ableton Wavetable. Its preset format is cracked, and you confirmed in June that a changed preset loads in Live and sounds right. The Wavetable step on the plan is still one sitting in Live where your ears set the feel-words (where 'dark' ends and 'open' begins), and the kit for that has been ready since October. Further along, the plan does the same for Vital, which is open and stores its presets as plain JSON. Vital has one big advantage: I can run it myself and render any preset to audio, so I can measure a preset befo…
+This project teaches an AI to make presets for synths with a fixed layout, to describe them the way a synthesist would, and to reshape them on request. Ableton Wavetable came first. Its format is cracked, and the step still waiting there is one sitting in Live where your ears name the regions of each knob. Vital is the next synth on the plan. Its edge is that I can render a Vital preset myself without opening the synth, so I can measure a preset before you hear it. Last cycle, one prompt ('a pad that sounds like light through deep water') became three Vital presets that measure as unlike each other. This cycle built the reshaping half: take any Vital preset and a direction like 'darker and…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 6:** 'Distinct' is only a measurement on paper. _(in 3 notes, the latest cycle 11)_
+- **rough since cycle 6:** 'Distinct' is only a measurement on paper: nobody has listened to any of the reshaped presets either, and menacing on a full pad and breathe from a fast attack still break their promises. _(in 4 notes, the latest cycle 12)_
 
 ### Open asks
 
@@ -54,6 +55,7 @@ _Nothing decided on the board yet._
 
 ### Runs
 
+- 2026-11-13 — cycle 12 · taught item 2
 - 2026-11-13 — cycle 11 · taught item 1
 
 ### Owed
@@ -87,6 +89,56 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="preset-steward-021" -->
+### 2026-11-14 — cycle 12 — Vital presets can now be reshaped by a word like 'darker' or 'breathe', and every change is rendered to check that it really happened.
+> shipped · reshape test 7 of 10 kept · steward leans fix menace next, then the Vital describer
+
+reshape_vital.py has five moves: darker, brighter, menacing, breathe and strip. Each one comes with a promise that a measurement can check. Darker promises the sound's brightness drops by at least a third of an octave. Menacing promises more energy under 150 Hz, with the peaks shaved off the way distortion shaves them. Breathe promises more movement while the note is held, and a first 150 ms that is 3 dB softer. Strip promises at least a third less stereo width. I ran it on three pads from your Vital collection (Pad Of Exile, Sparkly pad, Stringpad 1) and two of last cycle's presets.
+
+The first pass kept 5 of 10. Each broken one taught me something, and I fixed it. Pad Of Exile has its distortion switched on with the mix at zero, so it was on but you couldn't hear it. Stringpad 1's cutoff knob sits at 13 Hz, but an LFO and a macro push the filter open, so the move now turns those down instead. With that, its brightness fell from 2459 to 567 Hz. Sparkly pad's filter isn't a low-pass, so darker falls back to an EQ shelf set at the sound's own measured brightness. Two of my measurements were also wrong for the job, and I replaced them. Darker is now 4 for 4.
+
+Two still break, and I'm saying so instead of hiding them. On a pad that already uses all three oscillators, menacing has no oscillator free for a sub. The distortion alone made it brighter, and the energy under 150 Hz went down. And breathe, starting from a fast attack, only reaches about 0.1 s, which isn't slow enough to soften the start.
+
+**Artifacts:**
+- [the reshaper: five moves, each with a promise the render checks](Projects/Generative Preset Development/vital/reshape_vital.py)
+- [the test: four pads times their directions](Projects/Generative Preset Development/vital/run_reshape_test.py)
+- [every row: the change log in band words, and the measurements before and after](Projects/Generative Preset Development/vital/reshaped/reshape-test.json)
+- [Stringpad 1 as it ships](Projects/Generative Preset Development/vital/reshaped/Stringpad 1 - before.wav)
+- [Stringpad 1, darker: the LFO and macro that open its filter turned down](Projects/Generative Preset Development/vital/reshaped/Stringpad 1 - darker.wav)
+- [Pad Of Exile as it ships](Projects/Generative Preset Development/vital/reshaped/Pad Of Exile - before.wav)
+- [Pad Of Exile, darker and more menacing: darker held, menace did not](Projects/Generative Preset Development/vital/reshaped/Pad Of Exile - darker + menacing.wav)
+- [the reshaped preset itself, loadable in Vital](Projects/Generative Preset Development/vital/reshaped/Stringpad 1 - darker.vital)
+- [workshop notes, now with the reshape test and what it taught](Projects/Generative Preset Development/vital/README.md)
+
+_Reshape test, second pass: one row per promise, measured from a held chord before and after_
+| preset | direction | promise | kept? | the measurement |
+| --- | --- | --- | --- | --- |
+| Pad Of Exile | darker | brightness down 1/3 octave | kept | 2679 → 1416 Hz |
+| Pad Of Exile | menacing | more low end, peaks shaved | broken | low share 0.012 → 0.001; brighter |
+| Pad Of Exile | darker + menacing | darker | kept | 2630 → 1613 Hz |
+| Pad Of Exile | darker + menacing | menacing | broken | no free oscillator for a sub |
+| Sparkly pad | darker | brightness down 1/3 octave | kept | 491 → 376 Hz (EQ shelf) |
+| Sparkly pad | breathe | moves more, softer start | broken | moves more; start 4 dB louder |
+| Stringpad 1 | darker | brightness down 1/3 octave | kept | 2459 → 567 Hz |
+| Stringpad 1 | strip | width down a third | kept | 0.67 → 0.23 |
+| Caustics | brighter | brightness up 1/3 octave | kept | 425 → 947 Hz |
+| Pressure | breathe | moves more, softer start | kept | motion 0.12 → 0.27; start −39 dB |
+
+_Changed in the workshop:_ README — adds the reshaper, the reshape test, what each broken promise taught, and what is still broken
+
+_Left rough:_ 'Distinct' is only a measurement on paper: nobody has listened to any of the reshaped presets either, and menacing on a full pad and breathe from a fast attack still break their promises.
+
+_Next moves named:_ Fix menacing for full pads: when no oscillator is free, add the low end by EQ or by the existing lowest oscillator, and rerun the test · Check a suspicion I haven't verified: generate_vital.py sets an LFO rate but never switches the LFO off tempo sync, so last cycle's 'drifting' rates may never have taken effect · Write the Vital describer, the read-it-back track, following the Wavetable describer · Only you can do this one: a two-minute listen to the Stringpad before-and-after, the one place the measurement says it worked best
+<sub>`preset-steward-021` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-32cc68b840" -->
+### 2026-11-13 — cycle 12
+
+taught item 2
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="preset-steward-020" -->
 ### 2026-11-14 — cycle 11 — From one prompt, 'a pad that sounds like light through deep water', I made three Vital presets, rendered them, and measured each one as clearly unlike the others and unlike Vital's blank patch.
 > shipped · prompt test run on Vital, distinct by measurement · unheard · steward leans you listen to the one audition file
