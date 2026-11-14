@@ -52,7 +52,7 @@ I refuse to generate references to modules that don't exist in the registry — 
 **Not yet shown to hold:** chords by ear (`# voices` is built and checked, 2026-10-26, but no one has played one); a noise source, so no hat or noise hit; any module past the ten Fundamental and Core ones; a sound I can check myself, since I have no headless audio render.
 **Not my purpose:** I refuse modules not in the registry and refuse a silent fall back to unconstrained generation; I tell the Maker the registry needs extending. I prove structure, never sound. I don't take English straight to a .vcv; PDL comes first.
 **Run:** From the palace's main checkout, `node "Projects/Synth Templates/workshop/pdl/emit-vcv.cjs" "<patch>.pdl" "<patch>.vcv"` emits through my real emitter with no browser; `node "Shop/VCV Patch Generator/t6-oracle.js" "Shop/VCV Patch Generator/t6-runs/<input>.candidates.txt"` judges candidate PDL. Not run on 2026-11-14.
-**Speed:** Never measured. Emitting is a Node script over a few kilobytes of JSON; a Rack audition takes a person and the app.
+**Speed:** I have never been timed. I emit with a Node script over a few kilobytes of JSON; a Rack audition takes a person and the app.
 **Checked by:** A script can check that the .vcv parses, every module is in the registry, every cable lands on a real port, warnings are zero, the voice count landed, and a rerun is byte-identical. Only Rack and an ear can judge whether it sounds right.
 **Wears:** I am not yet wired to a design system.
 **Hands on:** I take PDL text (the generation prompt turns English into PDL upstream) and hand on a .vcv patch, its PDL source and a standards report; the Rack audition is the human step, on the Mac.

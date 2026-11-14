@@ -13,5 +13,27 @@
   "seed": 42,
   "call_sec_incl_upload_and_queue": 25.9,
   "edit_sec": 13.48,
-  "whisper_base_heard": "This is a short check of the Kakoro voice called Bella. The patch runs in RNBO inside Max.\nThe model it sounds out is called Kuramoto coupling, and its coupling constant K is large."
+  "whisper_base_heard": "This is a short check of the Kakoro voice called Bella. The patch runs in RNBO inside Max.\nThe model it sounds out is called Kuramoto coupling, and its coupling constant K is large.",
+  "endpoint_signature_from_view_api": {
+    "api_name": "/run_generate_with_pe",
+    "params": [
+      "use_pe",
+      "variant",
+      "audio",
+      "instruction",
+      "gen_seconds",
+      "nfe",
+      "cfg",
+      "seed"
+    ],
+    "defaults": {
+      "use_pe": true,
+      "variant": "AuK (Base)",
+      "gen_seconds": 0,
+      "nfe": 32,
+      "cfg": 2.0,
+      "seed": 42
+    },
+    "read": "2026-11-14, gradio_client Client('tencent/AuK').view_api()"
+  }
 }

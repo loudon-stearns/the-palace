@@ -15,5 +15,7 @@
   "raw_lufs": -24.26,
   "out_lufs": -15.99,
   "out_tp_dbtp": -1.0,
-  "status": "ok"
+  "status": "ok",
+  "wall_sec_whole_script": 8,
+  "wall_sec_note": "measured by the shell around the run, whole seconds; load, render, both loudnorm passes and the m4a"
 }
