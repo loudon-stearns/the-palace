@@ -1,0 +1,230 @@
+{
+  "events": {
+    "a drip": {
+      "prompt": "a single drop of water falling into a full sink, one drop, close microphone, then silence",
+      "chosen_seed": 1935,
+      "chosen_by": "the cut whose onset stands furthest above the 0.3 s before it",
+      "takes": [
+        {
+          "seed": 1932,
+          "cut_sec": 0.25,
+          "isolation_db": 52.7,
+          "gen_sec": 5.42
+        },
+        {
+          "seed": 1933,
+          "cut_sec": 0.49,
+          "isolation_db": 29.9,
+          "gen_sec": 3.94
+        },
+        {
+          "seed": 1934,
+          "cut_sec": 0.22,
+          "isolation_db": 54.4,
+          "gen_sec": 2.04
+        },
+        {
+          "seed": 1935,
+          "cut_sec": 0.42,
+          "isolation_db": 58.1,
+          "gen_sec": 1.45
+        }
+      ]
+    },
+    "a bird": {
+      "prompt": "one small songbird, a single short call, outdoors, then silence",
+      "chosen_seed": 1935,
+      "chosen_by": "the cut whose onset stands furthest above the 0.3 s before it",
+      "takes": [
+        {
+          "seed": 1932,
+          "cut_sec": 0.72,
+          "isolation_db": 18.5,
+          "gen_sec": 1.53
+        },
+        {
+          "seed": 1933,
+          "cut_sec": 0.82,
+          "isolation_db": 18.3,
+          "gen_sec": 1.8
+        },
+        {
+          "seed": 1934,
+          "cut_sec": 0.64,
+          "isolation_db": 17.8,
+          "gen_sec": 1.58
+        },
+        {
+          "seed": 1935,
+          "cut_sec": 0.71,
+          "isolation_db": 27.3,
+          "gen_sec": 2.56
+        }
+      ]
+    },
+    "a far bell": {
+      "prompt": "one single strike of a distant church bell, far away, ringing out slowly, nothing else",
+      "chosen_seed": 1932,
+      "chosen_by": "the cut whose onset stands furthest above the 0.3 s before it",
+      "takes": [
+        {
+          "seed": 1932,
+          "cut_sec": 5.01,
+          "isolation_db": 6.3,
+          "gen_sec": 1.94
+        },
+        {
+          "seed": 1933,
+          "cut_sec": 5.01,
+          "isolation_db": 4.9,
+          "gen_sec": 1.52
+        },
+        {
+          "seed": 1934,
+          "cut_sec": 0.06,
+          "isolation_db": 15.2,
+          "gen_sec": 1.41
+        },
+        {
+          "seed": 1935,
+          "cut_sec": 5.01,
+          "isolation_db": 5.5,
+          "gen_sec": 1.5
+        }
+      ]
+    },
+    "a prepared string": {
+      "prompt": "one single low piano string plucked by hand inside the piano, muted and buzzing, ringing out, nothing else",
+      "chosen_seed": 1932,
+      "chosen_by": "the cut whose onset stands furthest above the 0.3 s before it",
+      "takes": [
+        {
+          "seed": 1932,
+          "cut_sec": 3.01,
+          "isolation_db": 68.4,
+          "gen_sec": 1.95
+        },
+        {
+          "seed": 1933,
+          "cut_sec": 3.01,
+          "isolation_db": 47.0,
+          "gen_sec": 1.37
+        },
+        {
+          "seed": 1934,
+          "cut_sec": 3.01,
+          "isolation_db": 6.9,
+          "gen_sec": 1.37
+        },
+        {
+          "seed": 1935,
+          "cut_sec": 3.01,
+          "isolation_db": 45.9,
+          "gen_sec": 1.51
+        }
+      ]
+    }
+  },
+  "rain": {
+    "prompt": "steady rain at a constant even intensity",
+    "chosen_seed": 41,
+    "chosen_by": "the flattest level across quarters",
+    "takes": [
+      {
+        "seed": 1932,
+        "quarter_spread_db": 3.5,
+        "gen_sec": 3.14
+      },
+      {
+        "seed": 1933,
+        "quarter_spread_db": 0.5,
+        "gen_sec": 2.85
+      },
+      {
+        "seed": 1934,
+        "quarter_spread_db": 1.0,
+        "gen_sec": 2.73
+      },
+      {
+        "seed": 1935,
+        "quarter_spread_db": 1.8,
+        "gen_sec": 2.7
+      },
+      {
+        "seed": 41,
+        "quarter_spread_db": 0.3,
+        "gen_sec": 2.71
+      }
+    ]
+  },
+  "made": "2026-11-14",
+  "chain": [
+    "Stable Audio Open (stable-audio-3 3.0, small-sfx): five sampled things, four seeds each",
+    "one event cut from each chosen take, by hand (cut())",
+    "mains hum synthesized by hand, 12 dB lower than on 2026-11-14",
+    "placed, panned, gated and mixed by hand at the hand piece's own times"
+  ],
+  "placed_at_sec": {
+    "a drip": [
+      0.658,
+      1.735,
+      3.198,
+      4.603,
+      5.866,
+      7.147,
+      8.475,
+      9.724,
+      10.838,
+      12.299,
+      13.687,
+      14.919,
+      16.24,
+      17.555,
+      18.727,
+      19.891,
+      21.341,
+      22.767,
+      24.005
+    ],
+    "a bird": [
+      2.2,
+      7.9,
+      13.4,
+      16.1,
+      20.3,
+      23.0
+    ],
+    "a far bell": [
+      4.5,
+      15.0,
+      22.0
+    ],
+    "a prepared string": [
+      9.0,
+      18.5
+    ]
+  },
+  "pans": {
+    "a drip": 0.5,
+    "a bird": 0.85,
+    "a far bell": 0.2,
+    "a prepared string": 0.7,
+    "rain": 0.5,
+    "mains hum": 0.35
+  },
+  "measured_on_saved_file": {
+    "focal_half_rms_db": -28.7,
+    "global_half_rms_db": -20.9,
+    "peak_dbfs": -1.0,
+    "lr_correlation": 0.74,
+    "drips_found_in_first_11s": 9,
+    "drip_gap_sec_mean": 1.27,
+    "drip_gap_sec_sd": 0.12
+  },
+  "sha256": {
+    "third-hum-lowered-picture.svg": "528ed940e02d2768",
+    "third-hum-lowered.m4a": "1861f96d4edf9f5d",
+    "third-hum-lowered.py": "0fb323f48b0887fe"
+  },
+  "heard_by": "nobody yet"
+}

@@ -1,0 +1,47 @@
+{
+  "made": "2026-11-15",
+  "voice": "af_bella",
+  "load_sec": 20.1,
+  "takes": {
+    "letters": {
+      "text": "The patch is written in RNBO, then exported from RNBO to a plugin.",
+      "phonemes": [
+        "ðə pˈæʧ ɪz ɹˈɪtn ɪn ˌɑɹˌɛnbˌiˈO, ðˈɛn ˈɛkspˌɔɹTᵻd fɹʌm ˌɑɹˌɛnbˌiˈO tə ɐ plˈʌɡɪn."
+      ],
+      "render_sec": 8.46,
+      "audio_sec": 5.83,
+      "lufs": -16.0,
+      "true_peak_dbtp": -1.0
+    },
+    "ren-bo": {
+      "text": "The patch is written in [RNBO](/ɹˈɛnbO/), then exported from [RNBO](/ɹˈɛnbO/) to a plugin.",
+      "phonemes": [
+        "ðə pˈæʧ ɪz ɹˈɪtn ɪn ɹˈɛnbO, ðˈɛn ˈɛkspˌɔɹTᵻd fɹʌm ɹˈɛnbO tə ɐ plˈʌɡɪn."
+      ],
+      "render_sec": 6.06,
+      "audio_sec": 5.03,
+      "lufs": -16.01,
+      "true_peak_dbtp": -1.0
+    },
+    "rin-bo": {
+      "text": "The patch is written in [RNBO](/ɹˈɪnbO/), then exported from [RNBO](/ɹˈɪnbO/) to a plugin.",
+      "phonemes": [
+        "ðə pˈæʧ ɪz ɹˈɪtn ɪn ɹˈɪnbO, ðˈɛn ˈɛkspˌɔɹTᵻd fɹʌm ɹˈɪnbO tə ɐ plˈʌɡɪn."
+      ],
+      "render_sec": 7.89,
+      "audio_sec": 4.95,
+      "lufs": -16.0,
+      "true_peak_dbtp": -1.0
+    }
+  },
+  "determinism": {
+    "same_length": true,
+    "byte_identical": false,
+    "max_abs_diff": 0.12045043706893921,
+    "sha256": [
+      "7ea53677ea888d4d",
+      "e9a4eabd7b149384"
+    ]
+  },
+  "heard_by": "nobody yet"
+}

@@ -1,0 +1,315 @@
+{
+  "made": "2026-11-15",
+  "device": "mps (M1 Max, 32 GB)",
+  "sounds": {
+    "step": {
+      "model": "small-sfx",
+      "prompt": "a single soft footstep on a stone floor, close, then silence",
+      "seconds": 4,
+      "seed": 1703,
+      "variants": {
+        "a-default": {
+          "settings": "steps 8, cfg 1.0, pingpong (the defaults)",
+          "gen_sec": 2.8,
+          "floor_db": 73.9,
+          "flatness": 0.347,
+          "rolloff99_hz": 1550,
+          "hf_8k_db": -27.7,
+          "quiet_hf_db": -2.5,
+          "peak_dbfs": -8.0
+        },
+        "b-steps32": {
+          "settings": {
+            "steps": 32
+          },
+          "gen_sec": 3.76,
+          "floor_db": 77.4,
+          "flatness": 0.335,
+          "rolloff99_hz": 1300,
+          "hf_8k_db": -35.1,
+          "quiet_hf_db": -2.3,
+          "peak_dbfs": -5.7
+        },
+        "c-euler32": {
+          "settings": {
+            "steps": 32,
+            "sampler_type": "euler"
+          },
+          "gen_sec": 4.41,
+          "floor_db": 78.8,
+          "flatness": 0.014,
+          "rolloff99_hz": 950,
+          "hf_8k_db": -29.9,
+          "quiet_hf_db": -5.9,
+          "peak_dbfs": -8.0
+        },
+        "d-dpmpp32": {
+          "settings": {
+            "steps": 32,
+            "sampler_type": "dpmpp"
+          },
+          "gen_sec": 6.44,
+          "floor_db": 79.4,
+          "flatness": 0.012,
+          "rolloff99_hz": 1000,
+          "hf_8k_db": -29.9,
+          "quiet_hf_db": -7.9,
+          "peak_dbfs": -7.5
+        },
+        "e-cfg3": {
+          "settings": {
+            "cfg_scale": 3.0
+          },
+          "gen_sec": 2.31,
+          "floor_db": 91.3,
+          "flatness": 0.073,
+          "rolloff99_hz": 19700,
+          "hf_8k_db": -6.2,
+          "quiet_hf_db": -6.1,
+          "peak_dbfs": 0.0
+        },
+        "f-cleanup": {
+          "settings": "the default render, then ffmpeg afftdn=nr=18:nf=-60:tn=1",
+          "floor_db": 72.9,
+          "flatness": 0.224,
+          "rolloff99_hz": 1450,
+          "hf_8k_db": -36.1,
+          "quiet_hf_db": -4.8,
+          "peak_dbfs": -8.0
+        },
+        "g-medium": {
+          "settings": "medium (1.4B) + SAME-L decoder, MLX port, steps 8, cfg 1.0, DiT fp16",
+          "gen_sec_incl_load": 7.1,
+          "channels": 2,
+          "sample_rate": 44100,
+          "floor_db": 209.0,
+          "flatness": 0.015,
+          "rolloff99_hz": 2000,
+          "hf_8k_db": -29.0,
+          "quiet_hf_db": -18.3,
+          "peak_dbfs": -25.0
+        }
+      }
+    },
+    "hall": {
+      "model": "small-sfx",
+      "prompt": "the quiet air inside a large empty stone hall at night, soft low room tone, steady",
+      "seconds": 10,
+      "seed": 1703,
+      "variants": {
+        "a-default": {
+          "settings": "steps 8, cfg 1.0, pingpong (the defaults)",
+          "gen_sec": 1.35,
+          "floor_db": 47.4,
+          "flatness": 0.004,
+          "rolloff99_hz": 350,
+          "hf_8k_db": -40.2,
+          "quiet_hf_db": -13.3,
+          "peak_dbfs": -16.1
+        },
+        "b-steps32": {
+          "settings": {
+            "steps": 32
+          },
+          "gen_sec": 3.09,
+          "floor_db": 33.1,
+          "flatness": 0.0,
+          "rolloff99_hz": 450,
+          "hf_8k_db": -43.6,
+          "quiet_hf_db": -28.1,
+          "peak_dbfs": -11.2
+        },
+        "c-euler32": {
+          "settings": {
+            "steps": 32,
+            "sampler_type": "euler"
+          },
+          "gen_sec": 3.61,
+          "floor_db": 32.5,
+          "flatness": 0.0,
+          "rolloff99_hz": 1350,
+          "hf_8k_db": -38.7,
+          "quiet_hf_db": -27.7,
+          "peak_dbfs": -5.7
+        },
+        "d-dpmpp32": {
+          "settings": {
+            "steps": 32,
+            "sampler_type": "dpmpp"
+          },
+          "gen_sec": 3.8,
+          "floor_db": 31.9,
+          "flatness": 0.0,
+          "rolloff99_hz": 1400,
+          "hf_8k_db": -37.4,
+          "quiet_hf_db": -28.5,
+          "peak_dbfs": -4.2
+        },
+        "e-cfg3": {
+          "settings": {
+            "cfg_scale": 3.0
+          },
+          "gen_sec": 1.63,
+          "floor_db": 46.1,
+          "flatness": 0.001,
+          "rolloff99_hz": 350,
+          "hf_8k_db": -40.6,
+          "quiet_hf_db": -20.1,
+          "peak_dbfs": -9.4
+        },
+        "f-cleanup": {
+          "settings": "the default render, then ffmpeg afftdn=nr=18:nf=-60:tn=1",
+          "floor_db": 48.5,
+          "flatness": 0.0,
+          "rolloff99_hz": 350,
+          "hf_8k_db": -57.3,
+          "quiet_hf_db": -29.1,
+          "peak_dbfs": -16.1
+        },
+        "g-medium": {
+          "settings": "medium (1.4B) + SAME-L decoder, MLX port, steps 8, cfg 1.0, DiT fp16",
+          "gen_sec_incl_load": 3.5,
+          "channels": 2,
+          "sample_rate": 44100,
+          "floor_db": 90.7,
+          "flatness": 0.0,
+          "rolloff99_hz": 150,
+          "hf_8k_db": -42.4,
+          "quiet_hf_db": -35.3,
+          "peak_dbfs": -23.0
+        }
+      }
+    },
+    "pad": {
+      "model": "small-music",
+      "prompt": "a warm sustained synth pad, slow, soft",
+      "seconds": 10,
+      "seed": 7,
+      "variants": {
+        "a-default": {
+          "settings": "steps 8, cfg 1.0, pingpong (the defaults)",
+          "gen_sec": 4.81,
+          "floor_db": 48.7,
+          "flatness": 0.0,
+          "rolloff99_hz": 1400,
+          "hf_8k_db": -64.1,
+          "quiet_hf_db": -60.3,
+          "peak_dbfs": -4.5
+        },
+        "b-steps32": {
+          "settings": {
+            "steps": 32
+          },
+          "gen_sec": 5.0,
+          "floor_db": 80.7,
+          "flatness": 0.0,
+          "rolloff99_hz": 1100,
+          "hf_8k_db": -68.5,
+          "quiet_hf_db": -64.0,
+          "peak_dbfs": -2.9
+        },
+        "c-euler32": {
+          "settings": {
+            "steps": 32,
+            "sampler_type": "euler"
+          },
+          "gen_sec": 6.37,
+          "floor_db": 81.4,
+          "flatness": 0.0,
+          "rolloff99_hz": 1450,
+          "hf_8k_db": -54.1,
+          "quiet_hf_db": -46.9,
+          "peak_dbfs": -0.2
+        },
+        "d-dpmpp32": {
+          "settings": {
+            "steps": 32,
+            "sampler_type": "dpmpp"
+          },
+          "gen_sec": 8.72,
+          "floor_db": 82.1,
+          "flatness": 0.0,
+          "rolloff99_hz": 1500,
+          "hf_8k_db": -51.3,
+          "quiet_hf_db": -44.7,
+          "peak_dbfs": 0.0
+        },
+        "e-cfg3": {
+          "settings": {
+            "cfg_scale": 3.0
+          },
+          "gen_sec": 1.92,
+          "floor_db": 83.0,
+          "flatness": 0.0,
+          "rolloff99_hz": 750,
+          "hf_8k_db": -67.3,
+          "quiet_hf_db": -67.2,
+          "peak_dbfs": -2.3
+        },
+        "f-cleanup": {
+          "settings": "the default render, then ffmpeg afftdn=nr=18:nf=-60:tn=1",
+          "floor_db": 47.7,
+          "flatness": 0.0,
+          "rolloff99_hz": 1400,
+          "hf_8k_db": -74.7,
+          "quiet_hf_db": -72.7,
+          "peak_dbfs": -4.5
+        },
+        "g-medium": {
+          "settings": "medium (1.4B) + SAME-L decoder, MLX port, steps 8, cfg 1.0, DiT fp16",
+          "gen_sec_incl_load": 3.8,
+          "channels": 2,
+          "sample_rate": 44100,
+          "floor_db": 62.8,
+          "flatness": 0.0,
+          "rolloff99_hz": 700,
+          "hf_8k_db": -64.2,
+          "quiet_hf_db": -60.3,
+          "peak_dbfs": -2.3
+        }
+      }
+    }
+  },
+  "ceiling": {
+    "step": {
+      "hand": {
+        "floor_db": 33.3,
+        "flatness": 0.0,
+        "rolloff99_hz": 150,
+        "hf_8k_db": -76.5,
+        "quiet_hf_db": -54.2,
+        "peak_dbfs": -14.3
+      },
+      "through_same_small": {
+        "floor_db": 42.8,
+        "flatness": 0.0,
+        "rolloff99_hz": 150,
+        "hf_8k_db": -68.2,
+        "quiet_hf_db": -51.9,
+        "peak_dbfs": -14.4
+      },
+      "reconstruction_snr_db": 22.8
+    },
+    "bed": {
+      "hand": {
+        "floor_db": 8.3,
+        "flatness": 0.0,
+        "rolloff99_hz": 450,
+        "hf_8k_db": -66.6,
+        "quiet_hf_db": -61.9,
+        "peak_dbfs": -26.3
+      },
+      "through_same_small": {
+        "floor_db": 8.4,
+        "flatness": 0.0,
+        "rolloff99_hz": 400,
+        "hf_8k_db": -61.7,
+        "quiet_hf_db": -57.4,
+        "peak_dbfs": -26.3
+      },
+      "reconstruction_snr_db": 20.0
+    }
+  },
+  "load_sec_small-sfx": 13.0,
+  "load_sec_small-music": 22.8
+}
