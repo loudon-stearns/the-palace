@@ -1,0 +1,130 @@
+{
+  "measured": "2026-11-15T14:00:59.315Z",
+  "host": "headless Chromium (playwright), SwiftShader WebGL; desktop 1130 x 900; phone 390 x 844 at 2x, touch and mobile emulated, touches sent by CDP Input.dispatchTouchEvent",
+  "p5": "1.10.0",
+  "desktop": {
+    "mouse_at": {
+      "fx": 0.3,
+      "fy": 0.55
+    },
+    "probe": {
+      "mouseMoved": 6,
+      "mousePressed": 0,
+      "touchStarted": 0,
+      "touchMoved": 0,
+      "touchEnded": 0,
+      "maxTouches": 0,
+      "pressed": 26,
+      "sources": [
+        {
+          "kind": "mouse",
+          "fx": 0.3,
+          "fy": 0.552
+        }
+      ],
+      "webgl": "webgl2"
+    },
+    "warm": {
+      "warm_share": 0.017263888888888888,
+      "fx": 0.30262721238938056,
+      "fy": 0.5034218289085546,
+      "xs_gap": 0.012500000000000011
+    }
+  },
+  "phone": {
+    "one_tap_fired": {
+      "mouseMoved": 1,
+      "mousePressed": 0,
+      "touchStarted": 1,
+      "touchMoved": 0,
+      "touchEnded": 1
+    },
+    "two_fingers_at": [
+      {
+        "fx": 0.2,
+        "fy": 0.5
+      },
+      {
+        "fx": 0.8,
+        "fy": 0.5
+      }
+    ],
+    "probe_two": {
+      "mouseMoved": 1,
+      "mousePressed": 0,
+      "touchStarted": 3,
+      "touchMoved": 1,
+      "touchEnded": 1,
+      "maxTouches": 2,
+      "pressed": 49,
+      "sources": [
+        {
+          "kind": "touch",
+          "fx": 0.211,
+          "fy": 0.505
+        },
+        {
+          "kind": "touch",
+          "fx": 0.795,
+          "fy": 0.505
+        }
+      ],
+      "webgl": "webgl2"
+    },
+    "warm_two": {
+      "warm_share": 0.032041748206131766,
+      "fx": 0.5268217775709633,
+      "fy": 0.46687638510850327,
+      "xs_gap": 0.46285714285714286
+    },
+    "pressed_after_lift": 0,
+    "scrollY_after_drag_on_field": 0,
+    "scrollY_after_drag_on_text": 404
+  },
+  "console_errors": [],
+  "page_errors": [],
+  "rules": [
+    {
+      "name": "the canvas is WebGL2",
+      "ok": true
+    },
+    {
+      "name": "no page errors",
+      "ok": true
+    },
+    {
+      "name": "no console errors",
+      "ok": true
+    },
+    {
+      "name": "the mouse presses boxes",
+      "ok": true
+    },
+    {
+      "name": "the pressed boxes sit under the mouse (centroid within 0.12)",
+      "ok": true
+    },
+    {
+      "name": "two fingers seen at once in p5 touches",
+      "ok": true
+    },
+    {
+      "name": "two fingers press two separate places (a gap of 0.25 across the warm pixels)",
+      "ok": true
+    },
+    {
+      "name": "the field springs back when the fingers lift",
+      "ok": true
+    },
+    {
+      "name": "a finger dragged on the field does not scroll the page",
+      "ok": true
+    },
+    {
+      "name": "the same drag on the text does scroll it (control)",
+      "ok": true
+    }
+  ],
+  "pass": true,
+  "not_measured": "a real phone or tablet, a real finger, and how pressing feels; frame rate on a real GPU"
+}

@@ -1,0 +1,148 @@
+<!doctype html>
+<!--
+  title: p5.js — proof — a WebGL field that a mouse or a finger can press
+  born: 2026-11-15
+  links: [[p5.js]] (connects-to · test-proof)
+  forward_vector: I am the first p5 job in WebGL mode and the first to answer touch: a lit field of boxes, seen from
+    above at a tilt, that sinks and warms under the mouse, or under each finger at once on a phone, and springs back.
+    I test two items on the card's "Not yet shown to hold" line (WebGL mode; touch and a phone) and I want to become
+    the starter a touch-first p5 piece is copied from.
+  How it answers: p5 1.10.0's own touches array (one entry per finger) and mouseX/mouseY, with the canvas set to
+    touch-action: none so a finger on the field presses it instead of scrolling the page. Nothing returns false from
+    p5's touch handlers: in 1.x they listen on the whole window, so that would also swallow taps on the start button.
+  This is one way to build it, the one tried first. A maker who can do better another way does so, and leaves the
+    comparison on the Specialist's scroll.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs "<this file>"
+    node _ops/rich-face/conform.mjs "<this file>" --browser
+    node Shop/p5.js/proofs/2026-11-15-webgl-touch/check.mjs     WebGL2, mouse and two-finger presses, the page holds still
+  Headless frames: rAF may never fire in a harness; window.__sketch.redraw() steps it. window.__probe holds the counts.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>p5.js — a WebGL field for mouse and finger</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-2); font-family: var(--mono); font-size: 13px; line-height: 1.5; }
+  main { padding: var(--s-5); display: grid; gap: var(--s-4); max-width: 60rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; max-width: 46rem; }
+  .ask { border-left: 2px solid var(--accent); padding: var(--s-2) var(--s-3); color: var(--fg-1); background: var(--bg-elev-1); }
+  .controls { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 2px; padding: 6px 12px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  #stage canvas { display: block; width: 100% !important; height: auto !important; border: 1px solid var(--border); touch-action: none; }
+  .read { color: var(--fg-3); font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>A field you press — WebGL mode, mouse and finger alike</h1>
+  <p>Press start, then move the mouse over the field, or put one or more fingers on it on a phone or tablet. The boxes
+    under you sink and warm, and spring back when you leave.</p>
+  <p class="ask"><strong>The question:</strong> does a finger press the field the way the mouse does, the same weight
+    and no lag, with the page holding still under your finger? (On the Mac, the mouse half alone is still worth a look.)</p>
+  <div class="controls">
+    <button id="go" type="button">start</button>
+    <span class="read" id="read">still. One frame drawn.</span>
+  </div>
+  <div id="stage"></div>
+  <p class="read">Measured headless by check.mjs (measured.json and screenshots beside this file): that the canvas is
+    WebGL2, that the mouse presses the boxes under it, that two fingers press two places at once, and that a finger
+    dragged on the field does not scroll the page while one dragged on this text does. How it feels in the hand is yours.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.10.0/lib/p5.min.js" integrity="sha384-iY8W5W1XLvt2e9XipUFTSogZoBMHq7jqa+kirliG8+eQlwsLA2crnG7Op0ifDniT" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script>
+new p5((p) => {
+  const COLS = 16, ROWS = 10, TILT = 0.75;          // the field, and how far it leans away from the eye
+  const stage = document.getElementById('stage'), read = document.getElementById('read');
+  let T, cBase, cHot, cell, depth = [], vel = [];
+  let lastType = 'none', overCanvas = false;
+  const probe = window.__probe = { mouseMoved: 0, mousePressed: 0, touchStarted: 0, touchMoved: 0, touchEnded: 0, maxTouches: 0, pressed: 0, sources: [] };
+
+  p.setup = () => {
+    window.__sketch = p;                              // the headless seam: __sketch.redraw()
+    const w = stage.clientWidth || 640;
+    p.createCanvas(w, Math.round(w * 5 / 8), p.WEBGL).parent(stage);
+    p.noLoop();
+    T = palaceTokens();                               // read once the CSS is applied; no hex literals
+    cBase = p.color(T.bgElev2 || T.fg4); cHot = p.color(T.accent);
+    cell = Math.min(p.width * 0.9 / COLS, p.height * 0.9 / (ROWS * Math.cos(TILT)));
+    for (let i = 0; i < COLS * ROWS; i++) { depth.push(0); vel.push(0); }
+    probe.webgl = p._renderer.webglVersion;
+    const el = p.canvas;                              // which kind of pointer spoke last, read natively
+    el.addEventListener('pointermove', (e) => { lastType = e.pointerType; overCanvas = true; });
+    el.addEventListener('pointerdown', (e) => { lastType = e.pointerType; overCanvas = true; });
+    el.addEventListener('pointerleave', () => { overCanvas = false; });
+    p.redraw();
+  };
+
+  p.mouseMoved = () => { probe.mouseMoved++; };
+  p.mousePressed = () => { probe.mousePressed++; };
+  p.touchStarted = () => { probe.touchStarted++; };
+  p.touchMoved = () => { probe.touchMoved++; };
+  p.touchEnded = () => { probe.touchEnded++; };
+
+  // Screen point to field units: centre origin, y stretched back by the tilt (ortho camera, so this is exact).
+  // The field is drawn shifted down by `lift`, so the boxes' standing height doesn't leave an empty band below it.
+  const lift = () => cell * 1.6 * Math.sin(TILT) / 2;
+  const toField = (sx, sy) => [sx - p.width / 2, (sy - p.height / 2 - lift()) / Math.cos(TILT)];
+
+  function sources() {
+    const inside = (x, y) => x >= 0 && y >= 0 && x <= p.width && y <= p.height;
+    const fingers = p.touches.filter(t => inside(t.x, t.y));
+    if (p.touches.length) return fingers.map(t => ({ kind: 'touch', x: t.x, y: t.y }));
+    if (overCanvas && lastType === 'mouse' && inside(p.mouseX, p.mouseY)) return [{ kind: 'mouse', x: p.mouseX, y: p.mouseY }];
+    return [];
+  }
+
+  p.draw = () => {
+    const src = sources();
+    probe.maxTouches = Math.max(probe.maxTouches, p.touches.length);
+    probe.sources = src.map(s => ({ kind: s.kind, fx: +(s.x / p.width).toFixed(3), fy: +(s.y / p.height).toFixed(3) }));
+    const pts = src.map(s => toField(s.x, s.y)), reach = cell * 2.2;
+    let pressed = 0;
+    for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++) {
+      const k = j * COLS + i, x = (i - (COLS - 1) / 2) * cell, y = (j - (ROWS - 1) / 2) * cell;
+      let push = 0;
+      for (const [px, py] of pts) push = Math.max(push, Math.exp(-((x - px) ** 2 + (y - py) ** 2) / (reach * reach)));
+      vel[k] = (vel[k] + (push - depth[k]) * 0.25) * 0.6;      // a damped spring toward the push
+      depth[k] += vel[k];
+      if (depth[k] > 0.2) pressed++;
+    }
+    probe.pressed = pressed;
+
+    p.background(T.bg);
+    p.ortho(-p.width / 2, p.width / 2, -p.height / 2, p.height / 2, -2000, 2000);
+    p.ambientLight(90);
+    p.directionalLight(255, 255, 255, 0.3, 0.6, -1);
+    p.translate(0, lift(), 0);
+    p.rotateX(TILT);
+    p.noStroke();
+    for (let j = 0; j < ROWS; j++) for (let i = 0; i < COLS; i++) {
+      const k = j * COLS + i, d = Math.max(0, Math.min(1, depth[k]));
+      const h = cell * (1.6 - 1.3 * d);
+      p.push();
+      p.translate((i - (COLS - 1) / 2) * cell, (j - (ROWS - 1) / 2) * cell, h / 2);
+      p.ambientMaterial(p.lerpColor(cBase, cHot, d));
+      p.fill(p.lerpColor(cBase, cHot, d));
+      p.box(cell * 0.82, cell * 0.82, h);
+      p.pop();
+    }
+    if (p.frameCount % 10 === 1) read.textContent = `${probe.webgl} · ${src.length ? src.length + ' ' + src[0].kind + (src.length > 1 ? 'es' : '') : 'nothing'} pressing · ${pressed} boxes down`;
+  };
+});
+
+const go = document.getElementById('go');
+go.addEventListener('click', () => {
+  const p = window.__sketch, on = go.textContent === 'start';
+  on ? p.loop() : p.noLoop();
+  go.textContent = on ? 'stop' : 'start';
+});
+</script>
+</body>
+</html>
