@@ -98,7 +98,7 @@ def main():
         sp = catmull_rom(t, max(256, len(t)))
         spline = {"frames": len(sp), "offnote_db": round(offnote_db(sp, dur=a.dur), 1)}
         fr = blur(t, a.sigma); fr = fr - fr.mean(axis=1, keepdims=True)
-        files = su.emit(f"{stem}_smooth", fr, a.out, a.dur)
+        files = su.emit(f"{stem}_smooth", fr, a.out, a.dur, sigma=0)   # already blurred
         # A/B: the shipped sweep, a second of silence, the smoothed sweep
         abl0 = su.to_ableton(t / np.max(np.abs(t)) * 0.99)
         abl1 = su.to_ableton(fr / np.max(np.abs(fr)) * 0.99)

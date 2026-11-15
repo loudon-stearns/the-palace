@@ -34,3 +34,25 @@ The full dial (sigma 0 to 2) is in `smoothing.json` and the left of `smoothing.p
 ## Not verified
 
 Nobody has listened. "Buzz" here is the measured band 4 to 15 Hz off the harmonics in a 24 s sweep. It is my reading of Loudon's word, and it scales with sweep speed. "Changed" is a spectral measure of loudness-free harmonic magnitudes, not a listening test. Only the three family chains are smoothed. The centroid, walk, tilted and per-family tables are not.
+
+---
+
+## Cycle 21, 2026-11-15: the blur is the default, every table rebuilt
+
+Loudon heard the A/B and answered **KEEP-SIGMA-1** (2026-11-10): "the buzz is gone and nothing went washed. Make a one-frame blur the default and rebuild every table."
+
+**Where the default lives.** `smooth_along_position()` and `SMOOTH_SIGMA = 1.0` are in `akwf-import-pipeline/pack_wavetable.py`, the lowest module, so the interview's default packer and every scale-up packer share one copy. It rotates frames into line, then blurs. `scale_up.emit()` smooths every table it writes. Every packer takes `--sigma` (`0` = off): `pack_wavetable.py`, `scale_up.py`, `scale_up_folder.py`, `pack_ai_tables.py`. `smooth_tables.py` passes `sigma=0` to `emit`, because its frames are already blurred.
+
+**Proof the change only does what it says.** Before touching anything, every table was copied aside. With `--sigma 0`, all 87 table files came back within one least-significant bit of 16-bit (worst sample difference 3 × 10⁻⁵). That's the same tables, so the switch changes nothing else.
+
+**What the rebuild did** (`rebuild_report.py`, `rebuild_report.json`, `rebuild_report.png`). There are 30 tables across the FM, organ and AI sets: the centroid, walk, family chain, tilted chain, every family table and every by-instrument table. The buzz fell in every one, by 8 to 27 dB. Each frame changed by 8 to 24 dB below its own level. The worst mid-morph dip is now −1.0 dB or better everywhere.
+
+The biggest change is **the AI centroid table**: −5.6 → −32.1 dB buzz, and its worst dip went from −19.8 to −0.7 dB. The centroid tables were never rotated into line, and the default now does that before the blur. Without it the blur would cancel. The AI cycles' neighbours were the most misaligned.
+
+**Not rebuilt, on purpose:** crystal, Floquet and Shepard. They are synthesized as smooth interpolations, and their buzz is −59 to −72 dB, 20 to 40 dB below the smoothed AKWF tables. Blurring would change them by −46 to −78 dB, which you couldn't hear. They are the files Loudon heard and accepted, and the single-cycle exporter reads Floquet and Shepard from them. So they stay byte for byte.
+
+**The organ set is still the same 142 cycles.** The 12 that Dropbox wouldn't download in October download now. Leaving them out kept this rebuild to one change. `scale_up_folder.py` without `--src` would now take all 154 and re-cluster.
+
+### Open this
+
+`tables/ai_cycles_centroid_AB_before_then_default.wav` is the AI cycles in plain dull-to-bright order: 24 s as packed before, a second of silence, then 24 s as rebuilt. **Listen for** the first half's rough, fluttering grain and its hollow dips, and whether the second half glides. This one was never A/B'd. The three family chains are what you already heard, and they're now the default files in each set's `tables/` folder.

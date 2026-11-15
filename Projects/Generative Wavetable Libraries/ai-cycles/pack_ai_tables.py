@@ -74,6 +74,8 @@ def rand_index_adjusted(a, b):
 
 
 def main():
+    if "--sigma" in sys.argv:              # blur along Position, in frames (0 = off)
+        su.pack_wavetable.SMOOTH_SIGMA = float(sys.argv[sys.argv.index("--sigma") + 1])
     z = np.load(HERE / "cycles.npz")
     F_all = z["frames"]
     R_all = json.loads(str(z["recs"]))

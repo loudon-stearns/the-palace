@@ -45,7 +45,8 @@ BUNDLE = HERE.parent
 sys.path.insert(0, str(BUNDLE / "akwf-import-pipeline"))
 sys.path.insert(0, str(BUNDLE / "crystal-bravais"))
 
-from pack_wavetable import read_mono_float, resample_cycle, spectral_centroid  # noqa: E402
+import pack_wavetable  # noqa: E402
+from pack_wavetable import read_mono_float, resample_cycle, spectral_centroid, smooth_along_position  # noqa: E402
 from clm_writer import write_clm_wav, read_clm_wav  # noqa: E402
 
 DEFAULT_SRC = Path.home() / "Library/CloudStorage/Dropbox/_Reference/AKWF/AKWF_fmsynth"
@@ -245,7 +246,16 @@ def sweep(table, f0=110.0, dur=16.0):
     return out / (np.max(np.abs(out)) + 1e-12) * 0.9
 
 
-def emit(name, frames, outdir, dur):
+def emit(name, frames, outdir, dur, sigma=None):
+    """Write the CLM, Ableton and audition files for one table.
+
+    Every table is smoothed along Position first (pack_wavetable.SMOOTH_SIGMA,
+    one frame by default since 2026-11-10); pass sigma=0 for frames that are
+    already smoothed. The metrics a packer writes describe its frames before
+    smoothing.
+    """
+    sigma = pack_wavetable.SMOOTH_SIGMA if sigma is None else sigma
+    frames = smooth_along_position(frames, sigma)
     frames = frames / (np.max(np.abs(frames)) + 1e-12) * 0.99    # joint normalize
     outdir.mkdir(parents=True, exist_ok=True)
     clm = outdir / f"{name}.wav"
@@ -315,7 +325,10 @@ def table_stats(frames, D, order, cents=None):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", type=Path, default=DEFAULT_SRC)
+    ap.add_argument("--sigma", type=float, default=pack_wavetable.SMOOTH_SIGMA,
+                    help="blur along Position, in frames (0 = off)")
     args = ap.parse_args()
+    pack_wavetable.SMOOTH_SIGMA = args.sigma
 
     stems, cyc = load(args.src)
     n = len(cyc)

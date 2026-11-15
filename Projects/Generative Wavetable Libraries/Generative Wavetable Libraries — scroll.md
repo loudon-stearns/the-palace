@@ -15,37 +15,37 @@ forward_vector: "I am Generative Wavetable Libraries's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-28T22:49:16.215Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-15T13:35:38.223Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 20 · last ran 2026-10-28 (today)
-- **Plan:** agreed 2026-09-25 (33 days ago) · 7 made things since
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 21 · last ran 2026-11-15 (today)
+- **Plan:** agreed 2026-09-25 (51 days ago) · 8 made things since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-28 (today) — I exported the palace's own tables as 57 single-cycle WAVs: crystal, Floquet and Shepard cycles at three lengths, looped and tuned for samplers and hardware. (`gwl-steward-052`)
-- **Last commit touching this project:** 2026-10-28 `b4391993` — steward(Generative Wavetable Libraries): cycle 19 — SPINNING UP. HOME: [Generative Wavetable Libraries](obsidian://open?vau…
+- **Last shipped:** 2026-11-15 (today) — The one-frame blur is now every packer's default, and all 30 packed tables are rebuilt with it. The buzz fell 8 to 27 dB in every one. (`gwl-steward-054`)
+- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
 - **Signal:** steady
-- **Drift:** 11 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-28 — cycle 20 · taught item 3, proposed item 4 for canon
+- **Drift:** 12 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-15 — cycle 21 · taught item 5, proposed item 6 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 2, 4; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 4, from cycle 20 — 2026-10-28 — [[Generative Wavetable Libraries — tuning]]
+- **Proposed for canon:** 2 — items 4, 6; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 6, from cycle 21 — 2026-11-15 — [[Generative Wavetable Libraries — tuning]]
 
 ### Where this stands
 
-This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. You've heard the crystal-lattice and Shepard tables work. In October I ran the chat interview on big AKWF folders and on cycles pulled from music-AI notes, and you picked the 'family chain' order. Last cycle I traced the buzz you heard to the sweep jumping between frames that are too different, not to the loop points, and smoothed the three family chains. That A/B is still waiting on your ears. The plan's next step after the interview is finishing the formats: Serum and Ableton are done, and what was missing is single cycles for hardware and samplers. This cycle built that exporter and ran it on the thre…
+This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. You've heard the crystal-lattice and Shepard tables work. In October I ran the chat interview on big AKWF folders and on cycles pulled from music-AI notes, and you picked the 'family chain' order. You also heard a buzz. I traced it to the sweep jumping between frames that differ too much, and blurred each frame one frame wide into its neighbours. On 10 November you heard the A/B and answered: the buzz is gone, nothing went washed, make it the default and rebuild every table. This cycle did that. The smoothing now lives in one place that every packer shares, the interview's own packer included. Every tabl…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 16:** Only the three family chains are smoothed. _(in 2 notes, the latest cycle 19)_
-- **rough since cycle 16:** Nobody has heard it. _(in 3 notes, the latest cycle 20)_
-- **rough since cycle 16:** No one has heard any of it, and the CLM files pass a read-back check but haven't been loaded in Serum. _(in 3 notes, the latest cycle 18)_
+- **rough since cycle 16:** Nobody has heard it. _(in 4 notes, the latest cycle 21)_
+- **rough since cycle 16:** the other 26 rebuilt tables are measured, not heard. _(in 4 notes, the latest cycle 21)_
 
 ### Open asks
 
-- `gwl-steward-050` — sensory_verification · posted 2026-10-28 · options: KEEP-SIGMA-1 · MORE · LESS · NOT-IT
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -53,6 +53,7 @@ _None._
 
 ### Decided
 
+- `gwl-steward-050` — sensory_verification → GRANTED — option_id=KEEP-SIGMA-1 (2026-11-10)
 - `gwl-steward-043` — directional_decision → GRANTED — option_id=FAMILY-CHAIN; notes: "I did find a persistant buzz present that felt incorrect to me, can we work on smoothing the loop points?" (2026-10-15)
 - `gwl-steward-040` — directional_decision → GRANTED — option_id=SCALE-UP (2026-06-25)
 - `gwl-steward-037` — directional_decision → GRANTED — option_id=AKWF-IMPORT (2026-06-23)
@@ -64,6 +65,7 @@ _None._
 
 ### Runs
 
+- 2026-11-15 — cycle 21 · taught item 5, proposed item 6 for canon
 - 2026-10-28 — cycle 20 · taught item 3, proposed item 4 for canon
 - 2026-10-28 — cycle 19 · taught item 1, proposed item 2 for canon
 
@@ -75,8 +77,8 @@ _Nothing owed._
 
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
-- **2.** 2026-10-28 · [[Generative Wavetable Libraries]] · § What Requires Development, new bullet after 'Phase coherence across frames' — the page names phase coherence as the open frame-to-frame problem, and this is the second one, found from Loudon's buzz note
 - **4.** 2026-10-28 · [[Generative Wavetable Libraries]] · § Single-Cycle Waveforms, a new last sentence — the page lists single cycles as a format family with nothing built, and now there is a tested writer for it
+- **6.** 2026-11-15 · [[Generative Wavetable Libraries]] · § What Requires Development, new bullet after 'Phase coherence across frames' — Loudon decided the open question in item 2: the blur is now the default and every packed table carries it
 
 <!-- scroll:now:end -->
 
@@ -105,6 +107,67 @@ Loudon's direction from the board, approved as orders on 2026-09-25:
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gwl-steward-054" -->
+### 2026-11-15 — cycle 21 — The one-frame blur is now every packer's default, and all 30 packed tables are rebuilt with it. The buzz fell 8 to 27 dB in every one.
+> shipped · default in, 30 tables rebuilt, blur-off proven identical · steward leans the full 154-organ set next
+
+**Where the default lives.** `smooth_along_position()` and `SMOOTH_SIGMA = 1.0` sit in `pack_wavetable.py`, the interview's default packer and the lowest module, so there's one copy. It rotates each frame into line with the one before it, then blurs. Every packer takes `--sigma`, and 0 turns it off.
+
+**Proof it changes only what it says.** I copied every table aside first. Rebuilt with the blur off, all 87 table files came back within one least-significant bit of 16-bit. Then I rebuilt with it on.
+
+**What changed** (table below, and [the picture](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Wavetable%20Libraries/loop-smoothing/rebuild_report.png)). The buzz fell in all 30 tables. Each frame moved 8 to 24 dB below its own level, and the hollow dip mid-morph is now −1 dB or better everywhere. The biggest change is one you haven't heard: the AI cycles in plain dull-to-bright order went from −5.6 to −32.1 dB of buzz, and its worst dip went from −19.8 to −0.7 dB. The centroid tables were never rotated into line, and the default now does that before the blur.
+
+**Passed over, on purpose.** Crystal, Floquet and Shepard weren't rebuilt. Their buzz is −59 to −72 dB, already 20 to 40 dB below the smoothed AKWF tables, and blurring would change them by an amount you couldn't hear. They're the files you accepted, and the single-cycle exports read from them, so they stay byte for byte. The organ set is still the same 142 cycles. The 12 that wouldn't download in October download now, but adding them would have been a second change in the same rebuild.
+
+**Open:** [the AI centroid A/B](open:Projects/Generative Wavetable Libraries/loop-smoothing/tables/ai_cycles_centroid_AB_before_then_default.wav), 24 s as before, a second of silence, then 24 s rebuilt. **Listen for** the rough flutter and hollow dips in the first half, and whether the second half glides. In Serum, every set's `tables/<name>.wav` is now the smoothed table. In Ableton it's `tables/<name>_ableton.wav`.
+
+**Artifacts:**
+- [start here: the AI cycles dull to bright, as packed before, then rebuilt. The biggest change.](Projects/Generative Wavetable Libraries/loop-smoothing/tables/ai_cycles_centroid_AB_before_then_default.wav)
+- [every packed table's buzz, before (red) and after (blue), with the three palace tables marked.](Projects/Generative Wavetable Libraries/loop-smoothing/rebuild_report.png)
+- [the numbers for all 30 tables, and why the three palace tables weren't rebuilt.](Projects/Generative Wavetable Libraries/loop-smoothing/rebuild_report.json)
+- [measures every table against a snapshot taken before the rebuild.](Projects/Generative Wavetable Libraries/loop-smoothing/rebuild_report.py)
+- [new section: where the default lives, the blur-off proof, what was rebuilt and what wasn't.](Projects/Generative Wavetable Libraries/loop-smoothing/BUILD.md)
+- [the default: smooth_along_position and SMOOTH_SIGMA = 1.0, plus --sigma.](Projects/Generative Wavetable Libraries/akwf-import-pipeline/pack_wavetable.py)
+- [emit() smooths every table it writes; --sigma.](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/scale_up.py)
+- [--sigma.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/scale_up_folder.py)
+- [--sigma.](Projects/Generative Wavetable Libraries/ai-cycles/pack_ai_tables.py)
+- [passes sigma=0 to emit, so its frames aren't blurred twice.](Projects/Generative Wavetable Libraries/loop-smoothing/smooth_tables.py)
+- [rebuilt; notes it's the same 142 cycles on purpose.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/metrics.json)
+- [rebuilt; unchanged in content.](Projects/Generative Wavetable Libraries/ai-cycles/metrics.json)
+- [the FM family chain, smoothed, for Serum (all 30 rebuilt tables sit in their sets' tables/ folders, with _ableton and _audition_sweep beside each).](Projects/Generative Wavetable Libraries/akwf-scale-up-fmsynth/tables/akwf_fmsynth_family_chain.wav)
+- [the organ family chain, smoothed, for Serum.](Projects/Generative Wavetable Libraries/akwf-scale-up-eorgan/tables/akwf_eorgan_family_chain.wav)
+- [the AI family chain, smoothed, for Serum.](Projects/Generative Wavetable Libraries/ai-cycles/tables/ai_cycles_family_chain.wav)
+
+_Buzz in a 24 s sweep (energy 4–15 Hz off the harmonics, dB), before → after, the main tables_
+| table | frames | buzz before | buzz after | how much each frame changed | worst morph dip |
+| --- | --- | --- | --- | --- | --- |
+| FM centroid | 122 | −21.7 | −34.9 | −8.7 dB | −4.4 → −0.7 |
+| FM family chain | 122 | −26.1 | −36.6 | −12.2 dB | −2.9 → −0.7 |
+| organ centroid | 142 | −21.6 | −38.3 | −10.3 dB | −4.1 → −1.0 |
+| organ family chain | 142 | −25.4 | −38.9 | −14.4 dB | −2.7 → −0.7 |
+| AI centroid | 256 | −5.6 | −32.1 | −11.8 dB | −19.8 → −0.7 |
+| AI family chain | 256 | −16.9 | −34.9 | −17.1 dB | −2.5 → −0.8 |
+| AI asked: violin | 170 | −24.6 | −40.9 | −17.5 dB | −1.4 → −0.5 |
+| crystal (not rebuilt) | 64 | −71.5 | — | blur would change −78 dB | 0 |
+| Floquet (not rebuilt) | 64 | −58.9 | — | −46 dB | 0 |
+| Shepard (not rebuilt) | 64 | −68.3 | — | −59 dB | 0 |
+
+_Changed in the workshop:_ BUILD — records the default, the blur-off proof, the 30-table rebuild and why three tables weren't rebuilt.
+_Proposed for canon:_ Generative Wavetable Libraries (§ What Requires Development, new bullet after 'Phase coherence across frames') — Loudon decided the open question in item 2: the blur is now the default and every packed table carries it; owed in the tuning ledger until Loudon's review; it replaces item 2
+
+_Left rough:_ Nobody has heard it. Only the AI centroid has a new A/B; the other 26 rebuilt tables are measured, not heard. The CLM files pass a read-back check but haven't been loaded in Serum. The interview skill doesn't mention the blur yet.
+
+_Next moves named:_ Rebuild the organ set from all 154 cycles now that they download, and say whether its families change. · Write the blur into the wavetable interview (_ops/wavetable-libraries/skills/interview/SKILL.md) as the default it now is, proposed, since that file is outside my folder. · Then the plan's next step after finishing the formats: load the Surge .wt and single-cycle files somewhere real, or move on to meeting Generative Sample Libraries.
+<sub>`gwl-steward-054` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-bed762a302" -->
+### 2026-11-15 — cycle 21
+
+taught item 5, proposed item 6 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gwl-steward-052" -->
 ### 2026-10-28 — cycle 20 — I exported the palace's own tables as 57 single-cycle WAVs: crystal, Floquet and Shepard cycles at three lengths, looped and tuned for samplers and hardware.
 > shipped · smoothing ask still open · steward leans 600-samples as the default hardware length

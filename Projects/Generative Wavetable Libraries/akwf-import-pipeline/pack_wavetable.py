@@ -53,6 +53,12 @@ OUTPUT_SR = 44100
 # and append a summary suffix instead.
 MAX_FILENAME_CHARS = 200
 
+# Smoothing along Position, in frames. Loudon heard the one-frame blur take
+# the buzz out of the family chains without washing them, and made it the
+# default (KEEP-SIGMA-1, 2026-11-10). 0 turns it off and gives back the
+# tables exactly as they were packed before.
+SMOOTH_SIGMA = 1.0
+
 
 # ---------------------------------------------------------------------------
 # File I/O
@@ -186,12 +192,53 @@ def spectral_centroid(cycle: np.ndarray, sample_rate: int) -> float:
 
 
 # ---------------------------------------------------------------------------
+# Smoothing along Position
+# ---------------------------------------------------------------------------
+
+def align_rotations(frames: np.ndarray) -> np.ndarray:
+    """Rotate each frame (circularly) to best match the frame before it.
+
+    A held note can't hear a rotation, but the crossfade between two frames
+    can: misaligned neighbours cancel halfway. A table already in line comes
+    back unchanged.
+    """
+    out = [frames[0]]
+    for f in frames[1:]:
+        prev = out[-1]
+        xc = np.fft.irfft(np.fft.rfft(prev) * np.conj(np.fft.rfft(f)), n=len(f))
+        out.append(np.roll(f, int(np.argmax(xc))))
+    return np.array(out)
+
+
+def smooth_along_position(frames: np.ndarray, sigma: float = SMOOTH_SIGMA) -> np.ndarray:
+    """Blur each frame gently into its neighbours, so a sweep glides.
+
+    A sweep crossfades frame to frame. When neighbours differ a lot, each
+    boundary is a corner, and the corners repeat at the sweep's frame rate:
+    a flutter-buzz 4 to 15 Hz either side of every harmonic. A Gaussian
+    across neighbouring frames (sigma in frames) makes each jump smaller.
+    Frames are rotated into line first, so the blend never cancels.
+    """
+    frames = np.asarray(frames, dtype=np.float64)
+    if sigma <= 0 or len(frames) < 2:
+        return frames
+    frames = align_rotations(frames)
+    r = int(np.ceil(3 * sigma))
+    k = np.exp(-0.5 * (np.arange(-r, r + 1) / sigma) ** 2)
+    k /= k.sum()
+    pad = np.concatenate([frames[:1].repeat(r, 0), frames, frames[-1:].repeat(r, 0)])
+    out = np.array([np.tensordot(k, pad[j:j + 2 * r + 1], 1) for j in range(len(frames))])
+    return out - out.mean(axis=1, keepdims=True)
+
+
+# ---------------------------------------------------------------------------
 # Main pipeline
 # ---------------------------------------------------------------------------
 
 def build_wavetable(input_folder: Path,
                     output_dir: Path,
-                    cycle_length: int) -> Path:
+                    cycle_length: int,
+                    sigma: float = SMOOTH_SIGMA) -> Path:
     """Read every .wav in a folder, sort by centroid, write one combined WAV."""
 
     # Collect every .wav (case-insensitive) and sort alphabetically. The
@@ -234,6 +281,9 @@ def build_wavetable(input_folder: Path,
     # Concatenate every cycle end-to-end. Ableton reads a 2048-sample file
     # as 2 frames of 1024, a 4096-sample file as 4 frames, and so on. No
     # header flag is needed — the frame count is inferred from total length.
+    if sigma > 0:
+        ordered_cycles = list(smooth_along_position(np.array(ordered_cycles), sigma))
+        print(f"\nSmoothed along Position (sigma {sigma} frames).")
     wavetable = np.concatenate(ordered_cycles).astype(np.float32)
 
     # JOINT normalization: scale ONCE across the whole table so each frame's
@@ -286,12 +336,16 @@ def main():
         "--cycle-length", type=int, default=DEFAULT_CYCLE_LENGTH,
         help=f"Samples per frame in the output (default: {DEFAULT_CYCLE_LENGTH})."
     )
+    parser.add_argument(
+        "--sigma", type=float, default=SMOOTH_SIGMA,
+        help=f"Blur along Position, in frames (default: {SMOOTH_SIGMA}; 0 = off)."
+    )
     args = parser.parse_args()
 
     if not args.input_folder.is_dir():
         sys.exit(f"Not a folder: {args.input_folder}")
 
-    build_wavetable(args.input_folder, args.output_dir, args.cycle_length)
+    build_wavetable(args.input_folder, args.output_dir, args.cycle_length, args.sigma)
 
 
 if __name__ == "__main__":

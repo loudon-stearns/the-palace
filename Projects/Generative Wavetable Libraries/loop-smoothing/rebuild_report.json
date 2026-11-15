@@ -1,0 +1,317 @@
+{
+ "rebuilt": [
+  {
+   "set": "akwf-scale-up-fmsynth",
+   "table": "akwf_fmsynth_centroid",
+   "frames": 122,
+   "buzz_before_db": -21.7,
+   "buzz_after_db": -34.9,
+   "changed_db": -8.7,
+   "dip_before_db": -4.4,
+   "dip_after_db": -0.7
+  },
+  {
+   "set": "akwf-scale-up-fmsynth",
+   "table": "akwf_fmsynth_family_chain",
+   "frames": 122,
+   "buzz_before_db": -26.1,
+   "buzz_after_db": -36.6,
+   "changed_db": -12.2,
+   "dip_before_db": -2.9,
+   "dip_after_db": -0.7
+  },
+  {
+   "set": "akwf-scale-up-fmsynth",
+   "table": "akwf_fmsynth_walk",
+   "frames": 122,
+   "buzz_before_db": -26.4,
+   "buzz_after_db": -36.9,
+   "changed_db": -11.9,
+   "dip_before_db": -2.2,
+   "dip_after_db": -0.5
+  },
+  {
+   "set": "akwf-scale-up-fmsynth",
+   "table": "families/akwf_fmsynth_family1_round-full",
+   "frames": 54,
+   "buzz_before_db": -38.3,
+   "buzz_after_db": -49.9,
+   "changed_db": -14.1,
+   "dip_before_db": -2.0,
+   "dip_after_db": -0.4
+  },
+  {
+   "set": "akwf-scale-up-fmsynth",
+   "table": "families/akwf_fmsynth_family2_bright-full",
+   "frames": 36,
+   "buzz_before_db": -29.2,
+   "buzz_after_db": -37.7,
+   "changed_db": -10.8,
+   "dip_before_db": -2.1,
+   "dip_after_db": -0.5
+  },
+  {
+   "set": "akwf-scale-up-fmsynth",
+   "table": "families/akwf_fmsynth_family3_warm-nasal",
+   "frames": 10,
+   "buzz_before_db": -42.5,
+   "buzz_after_db": -55.1,
+   "changed_db": -13.1,
+   "dip_before_db": -1.3,
+   "dip_after_db": -0.2
+  },
+  {
+   "set": "akwf-scale-up-fmsynth",
+   "table": "families/akwf_fmsynth_family4_bright-hollow",
+   "frames": 10,
+   "buzz_before_db": -38.3,
+   "buzz_after_db": -49.2,
+   "changed_db": -8.2,
+   "dip_before_db": -1.7,
+   "dip_after_db": -0.4
+  },
+  {
+   "set": "akwf-scale-up-fmsynth",
+   "table": "families/akwf_fmsynth_family5_glassy-full",
+   "frames": 12,
+   "buzz_before_db": -35.6,
+   "buzz_after_db": -44.9,
+   "changed_db": -8.8,
+   "dip_before_db": -2.2,
+   "dip_after_db": -0.5
+  },
+  {
+   "set": "akwf-scale-up-eorgan",
+   "table": "akwf_eorgan_centroid",
+   "frames": 142,
+   "buzz_before_db": -21.6,
+   "buzz_after_db": -38.3,
+   "changed_db": -10.3,
+   "dip_before_db": -4.1,
+   "dip_after_db": -1.0
+  },
+  {
+   "set": "akwf-scale-up-eorgan",
+   "table": "akwf_eorgan_family_chain",
+   "frames": 142,
+   "buzz_before_db": -25.4,
+   "buzz_after_db": -38.9,
+   "changed_db": -14.4,
+   "dip_before_db": -2.7,
+   "dip_after_db": -0.7
+  },
+  {
+   "set": "akwf-scale-up-eorgan",
+   "table": "akwf_eorgan_family_chain_tilted",
+   "frames": 142,
+   "buzz_before_db": -25.4,
+   "buzz_after_db": -39.5,
+   "changed_db": -14.7,
+   "dip_before_db": -2.7,
+   "dip_after_db": -0.7
+  },
+  {
+   "set": "akwf-scale-up-eorgan",
+   "table": "akwf_eorgan_walk",
+   "frames": 142,
+   "buzz_before_db": -26.2,
+   "buzz_after_db": -39.4,
+   "changed_db": -15.0,
+   "dip_before_db": -2.7,
+   "dip_after_db": -0.6
+  },
+  {
+   "set": "akwf-scale-up-eorgan",
+   "table": "families/akwf_eorgan_family1_round-full",
+   "frames": 72,
+   "buzz_before_db": -36.5,
+   "buzz_after_db": -47.7,
+   "changed_db": -17.1,
+   "dip_before_db": -1.8,
+   "dip_after_db": -0.4
+  },
+  {
+   "set": "akwf-scale-up-eorgan",
+   "table": "families/akwf_eorgan_family2_warm-full",
+   "frames": 58,
+   "buzz_before_db": -36.8,
+   "buzz_after_db": -48.0,
+   "changed_db": -13.5,
+   "dip_before_db": -2.7,
+   "dip_after_db": -0.4
+  },
+  {
+   "set": "akwf-scale-up-eorgan",
+   "table": "families/akwf_eorgan_family3_bright-nasal",
+   "frames": 12,
+   "buzz_before_db": -37.6,
+   "buzz_after_db": -46.9,
+   "changed_db": -11.3,
+   "dip_before_db": -1.8,
+   "dip_after_db": -0.4
+  },
+  {
+   "set": "ai-cycles",
+   "table": "ai_cycles_centroid",
+   "frames": 256,
+   "buzz_before_db": -5.6,
+   "buzz_after_db": -32.1,
+   "changed_db": -11.8,
+   "dip_before_db": -19.8,
+   "dip_after_db": -0.7
+  },
+  {
+   "set": "ai-cycles",
+   "table": "ai_cycles_family_chain",
+   "frames": 256,
+   "buzz_before_db": -16.9,
+   "buzz_after_db": -34.9,
+   "changed_db": -17.1,
+   "dip_before_db": -2.5,
+   "dip_after_db": -0.8
+  },
+  {
+   "set": "ai-cycles",
+   "table": "ai_cycles_family_chain_tilted",
+   "frames": 256,
+   "buzz_before_db": -16.7,
+   "buzz_after_db": -34.8,
+   "changed_db": -16.8,
+   "dip_before_db": -2.5,
+   "dip_after_db": -0.8
+  },
+  {
+   "set": "ai-cycles",
+   "table": "ai_cycles_walk",
+   "frames": 256,
+   "buzz_before_db": -17.4,
+   "buzz_after_db": -35.2,
+   "changed_db": -16.8,
+   "dip_before_db": -2.5,
+   "dip_after_db": -0.7
+  },
+  {
+   "set": "ai-cycles",
+   "table": "by-instrument/ai_cycles_asked_bass",
+   "frames": 40,
+   "buzz_before_db": -35.7,
+   "buzz_after_db": -44.2,
+   "changed_db": -20.6,
+   "dip_before_db": -1.9,
+   "dip_after_db": -0.5
+  },
+  {
+   "set": "ai-cycles",
+   "table": "by-instrument/ai_cycles_asked_choir",
+   "frames": 56,
+   "buzz_before_db": -38.8,
+   "buzz_after_db": -50.6,
+   "changed_db": -18.2,
+   "dip_before_db": -1.7,
+   "dip_after_db": -0.5
+  },
+  {
+   "set": "ai-cycles",
+   "table": "by-instrument/ai_cycles_asked_flute",
+   "frames": 93,
+   "buzz_before_db": -38.8,
+   "buzz_after_db": -47.6,
+   "changed_db": -23.7,
+   "dip_before_db": -1.7,
+   "dip_after_db": -0.4
+  },
+  {
+   "set": "ai-cycles",
+   "table": "by-instrument/ai_cycles_asked_marimba",
+   "frames": 56,
+   "buzz_before_db": -41.3,
+   "buzz_after_db": -51.2,
+   "changed_db": -23.6,
+   "dip_before_db": -2.1,
+   "dip_after_db": -0.7
+  },
+  {
+   "set": "ai-cycles",
+   "table": "by-instrument/ai_cycles_asked_marimba_hit",
+   "frames": 56,
+   "buzz_before_db": -42.4,
+   "buzz_after_db": -52.2,
+   "changed_db": -24.1,
+   "dip_before_db": -1.7,
+   "dip_after_db": -0.5
+  },
+  {
+   "set": "ai-cycles",
+   "table": "by-instrument/ai_cycles_asked_piano",
+   "frames": 37,
+   "buzz_before_db": -31.8,
+   "buzz_after_db": -41.4,
+   "changed_db": -14.2,
+   "dip_before_db": -2.1,
+   "dip_after_db": -0.5
+  },
+  {
+   "set": "ai-cycles",
+   "table": "by-instrument/ai_cycles_asked_violin",
+   "frames": 170,
+   "buzz_before_db": -24.6,
+   "buzz_after_db": -40.9,
+   "changed_db": -17.5,
+   "dip_before_db": -1.4,
+   "dip_after_db": -0.5
+  },
+  {
+   "set": "ai-cycles",
+   "table": "families/ai_cycles_family1_round-hollow",
+   "frames": 104,
+   "buzz_before_db": -35.1,
+   "buzz_after_db": -45.2,
+   "changed_db": -20.3,
+   "dip_before_db": -1.4,
+   "dip_after_db": -0.5
+  },
+  {
+   "set": "ai-cycles",
+   "table": "families/ai_cycles_family2_round-full",
+   "frames": 77,
+   "buzz_before_db": -35.0,
+   "buzz_after_db": -44.4,
+   "changed_db": -16.1,
+   "dip_before_db": -2.5,
+   "dip_after_db": -0.8
+  },
+  {
+   "set": "ai-cycles",
+   "table": "families/ai_cycles_family3_warm-nasal",
+   "frames": 75,
+   "buzz_before_db": -35.3,
+   "buzz_after_db": -45.3,
+   "changed_db": -15.8,
+   "dip_before_db": -1.7,
+   "dip_after_db": -0.5
+  }
+ ],
+ "not_rebuilt": [
+  {
+   "table": "crystal-bravais/crystal_bravais.wav",
+   "frames": 64,
+   "buzz_db": -71.5,
+   "buzz_if_blurred_db": -72.1,
+   "blur_would_change_db": -78.4
+  },
+  {
+   "table": "floquet-modes/floquet_modes.wav",
+   "frames": 64,
+   "buzz_db": -58.9,
+   "buzz_if_blurred_db": -60.2,
+   "blur_would_change_db": -46.0
+  },
+  {
+   "table": "shepard-centroid/shepard_centroid.wav",
+   "frames": 64,
+   "buzz_db": -68.3,
+   "buzz_if_blurred_db": -68.3,
+   "blur_would_change_db": -59.0
+  }
+ ]
+}

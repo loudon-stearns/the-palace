@@ -66,7 +66,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="eorgan")
     ap.add_argument("--src", type=Path, default=None)
+    ap.add_argument("--sigma", type=float, default=su.pack_wavetable.SMOOTH_SIGMA,
+                    help="blur along Position, in frames (0 = off)")
     args = ap.parse_args()
+    su.pack_wavetable.SMOOTH_SIGMA = args.sigma
     tag = args.tag
     src = args.src or AKWF / f"AKWF_{tag}"
     pre = f"akwf_{tag}"
