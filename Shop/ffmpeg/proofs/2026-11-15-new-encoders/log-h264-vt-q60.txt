@@ -1,0 +1,28 @@
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '../../../Manim CE/proofs/2026-11-15-beats-teaching-clip/beats-silent-1080p30.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf62.3.100
+    comment         : Rendered with Manim Community v0.20.1
+  Duration: 00:00:17.00, start: 0.000000, bitrate: 567 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080, 564 kb/s, 30 fps, 30 tbr, 90k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> h264 (h264_videotoolbox))
+Press [q] to stop, [?] for help
+Output #0, mp4, to 'h264-vt-q60.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    comment         : Rendered with Manim Community v0.20.1
+    encoder         : Lavf62.12.100
+  Stream #0:0(und): Video: h264 (avc1 / 0x31637661), yuv420p(progressive), 1920x1080, q=2-31, 30 fps, 15360 tbn (default)
+    Metadata:
+      encoder         : Lavc62.28.100 h264_videotoolbox
+      handler_name    : VideoHandler
+[h264_videotoolbox @ 0xadac3ca80] Color range not set for yuv420p. Using MPEG range.
+[out#0/mp4 @ 0xadb420240] video:2385KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.128114%
+frame=  510 fps=306 q=-0.0 Lsize=    2388KiB time=00:00:16.96 bitrate=1153.1kbits/s speed=10.2x elapsed=0:00:01.66    

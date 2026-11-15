@@ -1,0 +1,63 @@
+{
+  "made": "2026-11-15",
+  "ffmpeg": "8.1",
+  "host": "M1 Max, 10 cores",
+  "inputs": {
+    "A": "Kuramoto Coupling/sync-arriving.mp4",
+    "B": "Shop/Manim CE/proofs/2026-11-15-4k60/beats-silent-2160p60.mp4"
+  },
+  "input_sec": {
+    "A": 36.375,
+    "B": 16.966667
+  },
+  "steps": [
+    {
+      "step": "A-loudnorm-pass1",
+      "sec": 1.0,
+      "rc": 0,
+      "load_1min_at_start": 88.01,
+      "x_realtime": 36.4
+    },
+    {
+      "step": "A-loudnorm-pass2-audio",
+      "sec": 2.21,
+      "rc": 0,
+      "load_1min_at_start": 88.01,
+      "x_realtime": 16.5
+    },
+    {
+      "step": "A-x264-crf23-video",
+      "sec": 7.03,
+      "rc": 0,
+      "load_1min_at_start": 88.01,
+      "x_realtime": 5.2
+    },
+    {
+      "step": "A-study-whole",
+      "sec": 3.63,
+      "rc": 0,
+      "load_1min_at_start": 93.56,
+      "x_realtime": 10.0
+    },
+    {
+      "step": "B-x264-crf23-video",
+      "sec": 28.04,
+      "rc": 0,
+      "load_1min_at_start": 92.96,
+      "x_realtime": 0.6
+    },
+    {
+      "step": "B-x264-crf23-to-1080p30",
+      "sec": 5.98,
+      "rc": 0,
+      "load_1min_at_start": 100.05,
+      "x_realtime": 2.8
+    }
+  ],
+  "A_study_loudness": "I: -16.0 LUFS Peak: -1.0 dBFS",
+  "sizes_bytes": {
+    "A-study.mp4": 1237273,
+    "B-study.mp4": 1410250,
+    "B-study-1080p30.mp4": 401162
+  }
+}
