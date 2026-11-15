@@ -1,0 +1,31 @@
+{
+  "made": "2026-11-15",
+  "script": "Kuramoto coupling entrains the oscillators until they move as one. Kokoro reads the script aloud, and Whisper writes it back down. The patch is written in RNBO, then exported to a plugin.",
+  "routes": {
+    "openai-whisper base": {
+      "text": "Curimodo coupling entrains the oscillators until they move as one. Kakoro reads the script aloud and Whisper writes it back down. The patch is written in RNBO, then exported to a plugin.",
+      "sec": 18.3,
+      "wer": 0.062,
+      "rare_words_heard": {
+        "kuramoto": false,
+        "entrains": true,
+        "kokoro": false,
+        "whisper": true,
+        "rnbo": true
+      }
+    },
+    "mlx-whisper whisper-large-v3-turbo": {
+      "text": "Kurimoto Coupling entrains the oscillators until they move as one. Kokoro reads the script aloud, and Whisper writes it back down. The patch is written in RNBO, then exported to a plugin.",
+      "sec": 8.3,
+      "note": "includes model load",
+      "wer": 0.031,
+      "rare_words_heard": {
+        "kuramoto": false,
+        "entrains": true,
+        "kokoro": true,
+        "whisper": true,
+        "rnbo": true
+      }
+    }
+  }
+}

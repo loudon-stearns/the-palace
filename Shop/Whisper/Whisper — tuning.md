@@ -37,3 +37,13 @@ Written by the session fixing the card; owed a review.
 4. **Item 1's override example was ARPABET-style, and the IPA one round-trips.** Item 1 suggested `[Kuramoto](/k uw r ah m oh t oh/)`; Kokoro's ledger (item 6) found ARPABET garbles. With `[Kuramoto](/kˌuɹəmˈOtO/)` on the Kokoro side, `base` heard "Kuramoto" right; unoverridden, it heard "Kokoro" as "Kakoro" and "RNBO" as "R&B O". Two runs gave byte-identical JSON, 5.1 and 5.0 s for 13.5 s of audio. Changed: the round-trip gotcha's example, the determinism strength, and the card (`proofs/2026-11-14-card-check/`).
 
 - run · 2026-11-14 · card check, Kokoro's af_bella check read back twice, probe · taught item 4
+
+## From the test scroll — 2026-11-15 — rare words, base against large-v3-turbo, probe
+
+Written by the session giving the sound Specialists their test scrolls; owed a review.
+
+5. **large-v3-turbo through mlx-whisper heard what `base` did not.** On one 13.6 s Kokoro sentence with no overrides, `base` heard "Curimodo" and "Kakoro" (2 of 32 words wrong, 18 s with load); turbo heard "Kurimoto" from the 64 kbps m4a (1 of 32, 8 s with load) and all 32 from the wav. Install: `uv venv --python 3.11 ~/.venvs/mlx-whisper && VIRTUAL_ENV=~/.venvs/mlx-whisper uv pip install mlx-whisper`, model `mlx-community/whisper-large-v3-turbo` (about 1.6 GB). Changed: nothing on the page yet; owed a review: whether turbo becomes the page's default, and whether a read-back should be done on the wav, not the m4a.
+6. **The audio's encoding moves a rare word.** The same take read "Kuramoto" from the wav and "Kurimoto" from the m4a. A read-back that checks a pronunciation reads the uncompressed file. Changed: nothing yet.
+
+- run · 2026-11-15 · rare words, base against large-v3-turbo (`proofs/2026-11-15-rare-words/`), probe · taught items 5–6
+- from the zoom-out · 2026-11-15 · mlx-whisper with large-v3-turbo (tried, item 5); parakeet-mlx, default `mlx-community/parakeet-tdt-0.6b-v3`, `pip install -U parakeet-mlx` (https://pypi.org/project/parakeet-mlx/), reported fastest on an M4 by one third-party single run (https://github.com/anvanvan/mac-whisper-speedtest) · not tried · the Open ASR Leaderboard of 2026-11-09 per one secondary blog (https://thinkscribe.ai/en/blog/open-speech-recognition-models-2026): Nemotron 3.5 Transcribe, Qwen3-ASR 1.7B (MLX route exists), Granite Speech 5.0 · not checked against the leaderboard itself · not tried
