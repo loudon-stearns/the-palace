@@ -180,6 +180,11 @@ canvas{width:100%;height:230px;display:block}
 .col .bar{fill:var(--ink)}
 .col:hover .bar{fill:var(--lit)}
 .col.playing .bar{fill:var(--lit)}
+.send-banner{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:20;display:flex;gap:16px;align-items:center;background:var(--slab-face);border:var(--stroke-outline) solid var(--ink);box-shadow:var(--shadow-slab);padding:14px 18px;max-width:min(92vw,620px)}
+.send-banner[hidden]{display:none}
+.send-banner p{margin:0;font-size:15px;line-height:22px}
+.send-banner .btn{font-size:14px;padding:10px 16px;white-space:nowrap}
+.send-banner .x{border:0;background:none;font-size:20px;cursor:pointer;color:var(--ink-2);padding:0 4px}
 .status{min-height:20px;font-size:13px;line-height:20px;color:var(--ink-2);margin:var(--space-2) 0 0}
 .eq{font-size:13px;line-height:20px;color:var(--ink-2);margin:var(--space-2) 0 0;font-variant-numeric:tabular-nums}
 .eq b{color:var(--ink);font-weight:600}
@@ -225,7 +230,7 @@ canvas{width:100%;height:230px;display:block}
   .print-notes .eyebrow{color:#000}
   .print-notes .line{border-bottom:1px solid #b8b09a;height:8mm}
   header{grid-column:1 / span 2;border-bottom:2px solid #000}
-  .controls,.row,.btn,.seg,.seg-label,.status,.bodies-foot button,.temper-wrap + .status{display:none!important}
+  .controls,.row,.btn,.seg,.seg-label,.status,.send-banner,.link-status,.bodies-foot button,.temper-wrap + .status{display:none!important}
   .series{grid-template-columns:minmax(0,1fr)}
   .panel,.readout,figure,.temper-wrap,.title-block{border-color:#000;break-inside:avoid}
   .ratio{font-size:40pt}
@@ -256,7 +261,9 @@ canvas{width:100%;height:230px;display:block}
       </div>
       <button class="btn" id="presentBtn" aria-pressed="false">Projector</button>
       <button class="btn" id="themeBtn" aria-pressed="false">Phosphor</button>
+      <button class="btn" id="linkBtn" title="Copy a link that opens this page on exactly what is sounding now, for the class chat">Link for students</button>
     </div>
+    <p class="status link-status" id="linkStatus" aria-live="polite"></p>
   </header>
 
   <aside class="print-notes" aria-hidden="true">
@@ -338,8 +345,14 @@ canvas{width:100%;height:230px;display:block}
     <div><span class="k">Status</span><span class="v tier">SKETCH</span></div>
     <div><span class="k">Source</span><span class="v">Loudon Stearns, handout v1, redrawn</span></div>
     <div><span class="k">Drawn</span><span class="v">2026-10-28</span></div>
-    <div><span class="k">Build</span><span class="v">0.2.0 · Drafting Table</span></div>
+    <div><span class="k">Build</span><span class="v">0.3.0 · Drafting Table</span></div>
   </footer>
+</div>
+
+<div class="send-banner" id="sendBanner" hidden role="dialog" aria-label="Sent from class">
+  <p id="sendText"></p>
+  <button class="btn lit" id="sendPlay">▸ Tap to hear</button>
+  <button class="x" id="sendClose" aria-label="Close">×</button>
 </div>
 
 <script>
@@ -638,6 +651,7 @@ function frame(ts){
 /* ---------- temper: just bars against the piano's twelve. The ET lines are DATASHEET blue (read from the piano); the just bars are DESIGN ink. ---------- */
 const tsvg=$('temper');
 const tx=c=>52+c*(856/1200);
+const colEls={};
 function buildTemper(){
   tsvg.textContent='';
   const pc=FUND[fundKey].pc;
@@ -662,6 +676,7 @@ function buildTemper(){
     el('rect',{class:'bar', x:xj-4, y:60, width:8, height:78},g);
     const d=el('text',{class:'dev', x:xe, y:166, 'text-anchor':'middle'},g);
     d.textContent=Math.abs(dev)<0.05?'0':(dev>0?'+':'−')+Math.abs(dev).toFixed(1)+'¢';
+    colEls[short]=g;
     g.addEventListener('click',()=>playCompare(i, g));
     g.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); playCompare(i, g); } });
   });
@@ -671,9 +686,11 @@ function buildTemper(){
   lg.textContent='SOLID: JUST RATIO · DASHED: 12-TET';
 }
 let compareTimer=null;
+let lastCompare=null; // the just/equal column last played, carried in a student link until the sound changes
 function playCompare(i, g){
   const [short,name,num,den,cls,semi]=i;
   const dev=cents(num/den)-semi*100;
+  lastCompare=short;
   if(!soundOn){ $('temperStatus').textContent='Turn sound on (top of the page) to hear '+name+'.'; return; }
   ensureAudio(); A.ctx.resume();
   document.querySelectorAll('.col.playing').forEach(x=>x.classList.remove('playing'));
@@ -723,9 +740,51 @@ function render(){
     b.nt.textContent=noteOf(n); b.g.setAttribute('aria-label','Partial '+n+(on?', on':', off')); b.g.setAttribute('aria-pressed', String(on)); }
   $('specAxis').textContent='n × '+f.toFixed(2)+' Hz';
   if(active.size===2){ const a=[...active].sort((x,y)=>y-x); pair=a; }
+  lastCompare=null;
   renderReadout(); renderBodies(); applyAudio();
   if(reduceMotion) requestAnimationFrame(frame);
 }
+
+/* ---------- online class: a link that opens a student's copy on what is sounding now ----------
+   The sound is made on the student's own machine, so it never passes through the call's audio.
+   ?p=partials  ?f=A  ?mag=5  ?ab=column (plays just, then equal)  ?theme ?present are kept as they are. */
+const RATIO_NAMES=()=>{ const arr=[...active].sort((a,b)=>b-a);
+  if(arr.length===2){ const [p,q]=arr, g=gcd(p,q); return (p/g)+' : '+(q/g)+', '+describePair(p,q).name; }
+  if(arr.length===1) return 'partial '+arr[0]+' alone';
+  if(arr.length>2){ const asc=[...arr].reverse(), g=asc.reduce(gcd), red=asc.map(n=>n/g).join(':'); return red.split(':').join(' : ')+(CHORDS[red]?', '+CHORDS[red]:''); }
+  return ''; };
+function studentLink(){
+  const u=new URL(location.href), q=u.searchParams;
+  ['p','f','mag','ab'].forEach(k=>q.delete(k));
+  if(active.size) q.set('p',[...active].sort((a,b)=>a-b).join('-'));
+  if(fundKey==='A') q.set('f','A');
+  if(magnify>1) q.set('mag','5');
+  if(lastCompare) q.set('ab', lastCompare);
+  u.hash=''; return u.toString().replace(/%2C/g,',');
+}
+$('linkBtn').addEventListener('click',()=>{
+  const url=studentLink(), what=lastCompare?BY_SHORT[lastCompare][1]+', just then equal':RATIO_NAMES()||'the page, silent';
+  const local=location.protocol==='file:';
+  const done=ok=>{ $('linkStatus').textContent=(ok?'Copied for the chat: ':'Copy this for the chat: ')+what+' · '+url+(local?'  ·  This copy is opened from your own disk, so the link works only on this computer. Open the page from its web address and the link will work for students.':''); };
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(()=>done(true),()=>done(false)); else done(false);
+});
+(function readLink(){
+  const q=new URLSearchParams(location.search);
+  if(q.get('f')==='A'){ fundKey='A'; $('fundC').setAttribute('aria-pressed','false'); $('fundA').setAttribute('aria-pressed','true'); }
+  if(q.get('mag')==='5'){ magnify=5; $('magBtn').setAttribute('aria-pressed','true'); }
+  let sent=false;
+  if(q.has('p')){ const ns=q.get('p').split(/[-,\s]+/).map(Number).filter(n=>Number.isInteger(n)&&n>=1&&n<=16); active=new Set(ns); sent=true; }
+  const ab=q.get('ab'); const abOk=ab&&BY_SHORT[ab];
+  if(!sent&&!abOk) return;
+  const words=abOk?'the '+BY_SHORT[ab][1]+', '+BY_SHORT[ab][2]+':'+BY_SHORT[ab][3]+' just, then on the piano':(active.size?RATIO_NAMES():'');
+  $('sendText').innerHTML='<b>Sent from class:</b> '+words+'. Your browser needs one tap before it can play.';
+  $('sendBanner').hidden=false;
+  $('sendPlay').addEventListener('click',()=>{
+    $('sendBanner').hidden=true; setSound(true);
+    if(abOk){ const i=BY_SHORT[ab]; playCompare(i, colEls[ab]); colEls[ab].scrollIntoView({behavior:reduceMotion?'auto':'smooth', block:'center'}); }
+  });
+  $('sendClose').addEventListener('click',()=>{ $('sendBanner').hidden=true; });
+})();
 
 buildLadder(); buildSpectrum(); buildChips(); buildTemper(); render();
 requestAnimationFrame(frame);
