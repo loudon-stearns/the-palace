@@ -42,3 +42,8 @@ What each job taught the Blender page. Each item names what the job showed and w
 ## From the card check — 2026-11-14 — the keystone's blocking scripts, headless
 
 - run · 2026-11-14 · card check: the keystone's pose_and_emit.py and draw_passes.py rerun headless, passes pixel-identical to 2026-06-13, probe · nothing new
+
+## From the Cycles test — 2026-11-15 — the blocking scene, EEVEE against Cycles on CPU and Metal
+
+11. **Cycles renders the blocking scene headless in seconds, after one slow first Metal render.** *Owed a review: written by the shop-tests-image session outside a ledger review.* `proofs/2026-11-15-cycles-piece/`, `tests/blocking/dramatic-lunge.blend` opened headless and never saved, clay material back on the body, 832×1216, Cycles at 32 samples with adaptive sampling and OpenImageDenoise, Blender 5.1.2: EEVEE 0.6 s, Cycles CPU 3.0 s, Cycles Metal 96.8 s the first time (most likely a kernel compile; the log does not say) and 1.9 s the second. CPU and GPU differ in 0.05% of pixels, at most 20 levels. A blocking render, not a dressed Piece: black world, metaball faceting. Zoom out: Blender 5.2 LTS (2026-07-14, https://www.blender.org/releases/5-2/) and 5.3 (about 2026-11-10, https://phoronix.com/news/Blender-5.3-Released) with Gaussian splats rendered natively; this Mac runs 5.1.2, not updated, since that is an app update on Loudon's machine. Changed: nothing on the page.
+- run · 2026-11-15 · Cycles on CPU and Metal against EEVEE, the blocking scene, probe · taught item 11

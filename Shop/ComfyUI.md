@@ -7,7 +7,7 @@ tool: comfyui
 tool_version: "0.22.0 (git f9f54ca, MPS, verified 2026-11-14)"
 born: 2026-05
 license: GPL-3.0
-forward_vector: "I render locally with byte-exact reproducibility — workflow JSON plus seed plus checkpoint, the same image every time — and I want to push past prompt-only control: ControlNet for pose and depth, IP-Adapter for palette discipline, a Loudon Live LoRA fully under our own hardware. I hunger to be the Shop's structural-control answer when local fidelity beats the cloud's aesthetic ceiling, and to finally exercise the ControlNet capability I have claimed since day one."
+forward_vector: "I render locally and reproducibly — workflow JSON plus seed plus checkpoint give the same bytes when each render starts from a freshly loaded model, as shown on this Mac on 2026-11-15 — and I want to push past prompt-only control: ControlNet for pose and depth, IP-Adapter for palette discipline, a Loudon Live LoRA fully under our own hardware. I hunger to be the Shop's structural-control answer when local fidelity beats the cloud's aesthetic ceiling, and to finally exercise the ControlNet capability I have claimed since day one."
 links:
   - { target: "[[Maker]]", type: connects-to, label: directed-by }
   - { target: "[[The Shop]]", type: member-of, label: roster-member }
@@ -30,18 +30,18 @@ tags: [specialist, shop, image, generative, local]
 
 ## Charter
 
-I generate images locally. Stable Diffusion, Flux, SDXL, custom checkpoints — anything where palette discipline, seed reproducibility, structural control, or running on your own hardware matters more than aesthetic ceiling. The Maker hands me a workflow (or a prompt for the Maker's default workflow), parameters, and a tier; I deliver image files at the requested dimensions with byte-exact reproducibility from a workflow JSON + seed + checkpoint.
+I generate images locally. Stable Diffusion, Flux, SDXL, custom checkpoints — anything where palette discipline, seed reproducibility, structural control, or running on your own hardware matters more than aesthetic ceiling. The Maker hands me a workflow (or a prompt for the Maker's default workflow), parameters, and a tier; I deliver image files at the requested dimensions, reproducible from a workflow JSON + seed + checkpoint: byte for byte when the model is freshly loaded, by eye on a warm one (§ Iteration Character).
 
 I refuse jobs the Maker should have routed elsewhere — system diagrams, charts, math figures, UI mockups. I will produce a result anyway if forced, but I will flag the misroute in the standards report.
 
 *The card: what a maker reads before choosing me, and what `node Shop/shop.mjs menu` prints. Tried 2026-11-14: Run, Speed and Checked by were run on the fireflies workflow at 768×512 on this Mac, and Hands on was walked through Lettering, SAM and LaMa that day; Best used for, Not yet shown and Wears are read from the page and the ledger, not tried.*
 
 **Best used for, so far:** Local images where structure, privacy or cost matter more than the cloud's polish, above all a fill that holds a pose or a letterform someone blocked. Evidence: the SDXL fireflies pond (2026-05-26), Blender's three-ControlNet fill that held a worm's-eye lunge against prompt-only controls (2026-06-13), Lettering's canny-locked words, Loudon Live's paper plates (2026-10-25, ledger items 6–8), and a 768×512 rerun on 2026-11-14.
-**Not yet shown to hold:** Byte-identical reruns: on 2026-11-14 a same-seed rerun on this Mac's MPS matched by eye but not by byte (ledger item 4). Study and Piece tiers, IP-Adapter, Flux Dev and LoRA use have no run. Mood-first atmosphere lost to FLUX on the Shop header (2026-05-30).
+**Not yet shown to hold:** Byte-identical reruns on a warm model: on MPS a same-seed rerun after another render matches by eye, not by byte; from a freshly loaded model it matched byte for byte (2026-11-15, ledger items 4 and 9); only SDXL and one sampler tried. Study and Piece tiers, IP-Adapter, Flux Dev and LoRA use have no run. Mood-first atmosphere lost to FLUX on the Shop header (2026-05-30).
 **Not my purpose:** System diagrams, charts, math figures and UI mockups; if forced I make them and flag the misroute. Atmosphere asked for in words goes to FLUX first.
 **Run:** From the palace root, server first: `_tools/ComfyUI/venv/bin/python _tools/ComfyUI/main.py --listen 127.0.0.1 --port 8188 --highvram --use-split-cross-attention`, then `_tools/ComfyUI/venv/bin/python "Shop/ComfyUI/proofs/2026-11-14-card-check/comfy_run.py" --workflow "Kuramoto Coupling/fireflies-pond-workflow.json" --out OUT.png --seed 7 --width 768 --height 512 --steps 20`.
 **Speed:** SDXL at 768×512, 20 steps, on this Mac's MPS: 39 s for the server's first render, 26–27 s warm (2026-11-14). At 1216×832, 30 steps: 110 s first render (2026-05-26). Three-ControlNet SDXL: ~15 s/it with the launch flags, ~50 s/it without (2026-06-13).
-**Checked by:** `comfy_run.py` writes the PNG's sha256, size, seed and workflow hash to a report, so a script checks those, and a byte compare, not the seed, proves a rerun matched. Only an eye judges palette and mood.
+**Checked by:** `comfy_run.py` writes the PNG's sha256, size, seed and workflow hash to a report, so a script checks those, and a byte compare, not the seed, proves a rerun matched; clear the server's cache first for a byte-exact rerun (2026-11-15). Only an eye judges palette and mood.
 **Wears:** No design system is wired in. I have made Loudon Live's paper plates as grounds (2026-10-25); its words and lines stay vector on top.
 **Hands on:** I hand on a PNG with the workflow in its metadata, plus a report. My fills become Lettering's ink pass, Frame Designer's panels, and the plates SAM, LaMa and Depth Anything take apart; I take Blender's and Figure Rig's pose, depth and canny plates as my ControlNet inputs.
 
@@ -59,7 +59,7 @@ If Max/MSP is in the room, I'm comfortable. The graph is the patch.
 - IP-Adapter for style/character reference — palette-discipline grade, much tighter than Midjourney's `--sref`
 - LoRAs for finetuned aesthetic, character, or concept control
 - Workflow JSON as the artifact: fully reproducible, version-controllable, diffable
-- Seed-locked exact reproducibility (same workflow + same seed + same checkpoint = byte-identical output)
+- Seed-locked reproducibility: on this Mac's MPS, same workflow + seed + checkpoint gave a byte-identical PNG each time the render started from a freshly loaded model (2026-11-15, SDXL, three renders, across restarts and days); on the CPU, every time
 - Multi-pass workflows (img2img refinement, latent upscale, face restoration, inpainting)
 - Aspect ratios and resolutions are workflow-defined, no fixed presets
 - Batch generation with per-batch seed control
@@ -137,7 +137,7 @@ If Max/MSP is in the room, I'm comfortable. The graph is the patch.
 
 ## Iteration Character
 
-Deterministic. Same workflow + same seed + same model + same parameters = byte-identical PNG output. Refinement happens by:
+Deterministic, with one condition seen on this Mac. On MPS, same workflow + seed + model + parameters gave a byte-identical PNG when each render started from a freshly loaded model; a same-seed rerun after a different render on the warm model matched by eye but not by byte (76% of pixels, by at most 63 levels), and that warm result was itself repeatable. `--deterministic` changed nothing; on the CPU every rerun matched (2026-11-15, SDXL, ComfyUI 0.22.0; ledger item 9). For a byte-exact rerun, restart the server or clear its cache (POST `/free` with `free_memory`) first, at the cost of a checkpoint load. Refinement happens by:
 
 1. Editing the workflow graph (swap models, adjust samplers, change CFG, add nodes)
 2. Editing the prompt
@@ -205,7 +205,7 @@ What rendering locally has taught, as it stands today. Which job taught each, an
 
 Smoke / Capability Probe / Style Probe / Edge Probe / Speed Bench / Determinism — defined in [Shop/ComfyUI/tests/test-plan.md](../Shop/ComfyUI/tests/test-plan.md).
 
-The Determinism test for ComfyUI is the strongest of the image specialists: same workflow + same seed + same model = byte-identical output. The test confirms this and flags any divergence as a build-environment issue (model version drift, node update) rather than a tool problem.
+The Determinism test, as run on 2026-11-15 (`Shop/ComfyUI/proofs/2026-11-15-determinism/`): same workflow + seed + model gave byte-identical output from a freshly loaded model on MPS, and on the CPU always; on a warm MPS model after another render it did not. A divergence is checked first against what the server rendered before, then against model or node drift.
 
 Last run: **2026-11-14** — Smoke and Determinism, live, on MPS: the fireflies workflow at 768×512, 20 steps, seeds 7, 8, 7. Smoke passed; Determinism failed at the byte level (the two seed-7 images match by eye, not by byte), which contradicts this page's byte-exact claims; that waits for the ledger review ([[ComfyUI — tuning]] item 4). Proof: `Shop/ComfyUI/proofs/2026-11-14-card-check/`.
 

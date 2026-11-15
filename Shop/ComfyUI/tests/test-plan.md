@@ -67,7 +67,7 @@ Reference host: **mac** (MPS GPU via PyTorch). Per the 2026-05-26 fireflies job'
 
 ## Determinism (load-bearing for Comparison Mode)
 
-ComfyUI is deterministic given (fixed seed, fixed sampler, fixed checkpoint, fixed scheduler, fixed workflow JSON). The reproducibility artifact is the workflow JSON + the checkpoint identity (filename + SHA, ideally), not the image bytes — though the image bytes WILL be identical given the same hardware (different MPS / CUDA paths can produce different last-bit outputs).
+ComfyUI is deterministic given (fixed seed, fixed sampler, fixed checkpoint, fixed scheduler, fixed workflow JSON). The reproducibility artifact is the workflow JSON + the checkpoint identity (filename + SHA, ideally), not the image bytes — and the image bytes matched on this Mac only from a freshly loaded model (2026-11-15: a warm MPS model after another render matched by eye, not by byte; the CPU matched always; different MPS / CUDA paths can also differ in the last bits).
 
 - **Reproducibility artifact:** `fireflies-pond-workflow.json` + `fireflies-pond.report.json` (which captures seed, checkpoint, steps, CFG, sampler).
 - **Last run (2026-05-30):** reproducibility package intact; live re-run not exercised this session. When the Phase D ComfyUI header brief runs, repeat-render at the same seed will provide live byte-determinism evidence.

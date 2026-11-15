@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-15",
+  "blender": "5.1.2",
+  "blend": "dramatic-lunge.blend",
+  "resolution": [
+    832,
+    1216
+  ],
+  "samples": 32,
+  "runs": {
+    "first (fresh Blender process, first Cycles-on-Metal use this session)": [
+      {
+        "out": "renders/eevee-clay.png",
+        "seconds": 0.88,
+        "engine": "BLENDER_EEVEE"
+      },
+      {
+        "out": "renders/cycles-cpu-32spp.png",
+        "seconds": 2.76,
+        "engine": "CYCLES",
+        "device": "CPU"
+      },
+      {
+        "out": "renders/cycles-gpu-32spp.png",
+        "seconds": 96.82,
+        "engine": "CYCLES",
+        "device": "GPU (Metal)",
+        "gpu": [
+          "Apple M1 Max (GPU - 24 cores)"
+        ]
+      }
+    ],
+    "second (same command again)": [
+      {
+        "out": "renders/eevee-clay.png",
+        "seconds": 0.61,
+        "engine": "BLENDER_EEVEE"
+      },
+      {
+        "out": "renders/cycles-cpu-32spp.png",
+        "seconds": 3.03,
+        "engine": "CYCLES",
+        "device": "CPU"
+      },
+      {
+        "out": "renders/cycles-gpu-32spp.png",
+        "seconds": 1.9,
+        "engine": "CYCLES",
+        "device": "GPU (Metal)",
+        "gpu": [
+          "Apple M1 Max (GPU - 24 cores)"
+        ]
+      }
+    ]
+  },
+  "wall_seconds": {
+    "first": 102.03,
+    "second": 6.36
+  },
+  "reading": "The first GPU render took 96.8 s and the second 1.9 s; the gap is most likely Cycles compiling and caching its Metal kernels on first use. That is inferred: the log does not name a kernel compile.",
+  "scene": "Shop/Blender/tests/blocking/dramatic-lunge.blend as saved (Sun 3.2 + area Fill 300 W, black world, metaball body), clay Principled BSDF put back on the body, 832x1216, Cycles 32 samples adaptive, OpenImageDenoise; the .blend was not saved",
+  "device": "Apple M1 Max 32 GB, macOS (Darwin 25.6.0)",
+  "cpu_vs_gpu_second_run": {
+    "pct_pixels_differing": 0.05,
+    "max_abs_diff": 20,
+    "mean_abs_diff": 0.0
+  },
+  "not_a_piece": "this is the blocking scene rendered in Cycles, not a dressed Piece: no environment, no textures, black world; the metaball body's faceting shows in all three"
+}

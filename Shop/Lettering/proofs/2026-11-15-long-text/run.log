@@ -1,0 +1,13 @@
+rendering 1 prompt(s) x 1 seed(s) [skeleton] on 127.0.0.1:8188
+  [probe-dontletgo] "DON'T LET GO" skeleton seed=1111 (262s) -> probe-dontletgo_skeleton_s1111.png
+TEXT_RENDER_DONE — 1 images this run -> out/  ·  open contact-sheet.html
+{
+  "engine": "sdxl+canny skeleton (local, MPS)",
+  "seconds": 262.3,
+  "out": "out/probe-dontletgo_skeleton_s1111.png",
+  "skeleton": "skel/probe-dontletgo.png",
+  "words": "DON'T LET GO",
+  "prompt": "the words \"DON'T LET GO\" cried out in desperate pleading, three short hand-lettered words straining and stretching as if held by a slipping grip, strokes fraying and dripping at their ends, bone-white ink struck hard, hand-lettered expressive lettering as illustration, gestural pen-and-ink calligraphy, the letterforms themselves carrying the emotion, stark high-contrast, on a pure solid black background, generous black negative space, NOT a clean typeface",
+  "seed": 1111,
+  "date": "2026-11-15"
+}

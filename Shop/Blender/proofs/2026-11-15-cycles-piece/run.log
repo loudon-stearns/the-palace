@@ -1,0 +1,47 @@
+00:00.855  blend            | Read blend: "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Shop/Blender/tests/blocking/dramatic-lunge.blend"
+/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Shop/Blender/proofs/2026-11-15-cycles-piece/cycles_piece.py:24: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m = bpy.data.materials.new("clay_cycles"); m.use_nodes = True
+00:01.747  render           | Saved: '/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Shop/Blender/proofs/2026-11-15-cycles-piece/renders/eevee-clay.png'
+RENDERED eevee-clay.png 0.88
+00:04.506  render           | Saved: '/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Shop/Blender/proofs/2026-11-15-cycles-piece/renders/cycles-cpu-32spp.png'
+RENDERED cycles-cpu-32spp.png 2.76
+01:41.327  render           | Saved: '/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Shop/Blender/proofs/2026-11-15-cycles-piece/renders/cycles-gpu-32spp.png'
+RENDERED cycles-gpu-32spp.png 96.82
+{
+  "date": "2026-11-15",
+  "blender": "5.1.2",
+  "blend": "dramatic-lunge.blend",
+  "resolution": [
+    832,
+    1216
+  ],
+  "samples": 32,
+  "renders": [
+    {
+      "out": "renders/eevee-clay.png",
+      "seconds": 0.88,
+      "engine": "BLENDER_EEVEE"
+    },
+    {
+      "out": "renders/cycles-cpu-32spp.png",
+      "seconds": 2.76,
+      "engine": "CYCLES",
+      "device": "CPU"
+    },
+    {
+      "out": "renders/cycles-gpu-32spp.png",
+      "seconds": 96.82,
+      "engine": "CYCLES",
+      "device": "GPU (Metal)",
+      "gpu": [
+        "Apple M1 Max (GPU - 24 cores)"
+      ]
+    }
+  ]
+}
+Blender 5.1.2 (hash ec6e62d40fa9 built 2026-05-19 01:30:33)
+
+Blender quit
+real 102.03
+user 15.58
+sys 1.98

@@ -1,0 +1,48 @@
+{
+  "zimage": {
+    "engine": "Z-Image-Turbo (HF Space Tongyi-MAI/Z-Image-Turbo, 8 steps)",
+    "seed_used": "1111",
+    "seconds_incl_queue": 11.7,
+    "out": "out/probe-dontletgo_zimage_s1111.png",
+    "words": "DON'T LET GO",
+    "prompt": "the words \"DON'T LET GO\" cried out in desperate pleading, three short hand-lettered words straining and stretching as if held by a slipping grip, strokes fraying and dripping at their ends, bone-white ink struck hard, hand-lettered expressive lettering as illustration, gestural pen-and-ink calligraphy, the letterforms themselves carrying the emotion, stark high-contrast, on a pure solid black background, generous black negative space, NOT a clean typeface",
+    "seed": 1111,
+    "date": "2026-11-15",
+    "size": [
+      1248,
+      832
+    ],
+    "note": "free ZeroGPU Space, no Hugging Face token sent (HF_HUB_DISABLE_IMPLICIT_TOKEN=1); 11.7 s is wall time from this Mac including the queue, not compute time; seed 1111, random_seed off, shift 3.0"
+  },
+  "sdxl": {
+    "engine": "sdxl+canny skeleton (local, MPS)",
+    "seconds": 262.3,
+    "out": "out/probe-dontletgo_skeleton_s1111.png",
+    "skeleton": "skel/probe-dontletgo.png",
+    "words": "DON'T LET GO",
+    "prompt": "the words \"DON'T LET GO\" cried out in desperate pleading, three short hand-lettered words straining and stretching as if held by a slipping grip, strokes fraying and dripping at their ends, bone-white ink struck hard, hand-lettered expressive lettering as illustration, gestural pen-and-ink calligraphy, the letterforms themselves carrying the emotion, stark high-contrast, on a pure solid black background, generous black negative space, NOT a clean typeface",
+    "seed": 1111,
+    "date": "2026-11-15",
+    "server": "fresh ComfyUI 0.22.0 server started for this render (first render: includes checkpoint + ControlNet load), --highvram --use-split-cross-attention; the card's 185 s was on a warm server",
+    "size": [
+      1216,
+      832
+    ]
+  },
+  "qwen": {
+    "engine": "Qwen-Image (HF Space Qwen/Qwen-Image)",
+    "status": "refused",
+    "error": "You have exceeded your ZeroGPU quota (120s requested vs. 0s left)",
+    "note": "anonymous quota spent by the single Z-Image call; not retried with a token"
+  },
+  "zimage_long_sentence": {
+    "status": "refused",
+    "words": "I SAID I WOULD COME BACK FOR YOU",
+    "error": "ZeroGPU quota (60s requested vs. 0s left)"
+  },
+  "side_effects": [
+    "the skeleton was uploaded to the server, so a copy sits in the main checkout's _tools/ComfyUI/input/probe-dontletgo.png",
+    "ComfyUI also saved its own copy of the render under _tools/ComfyUI/output/"
+  ],
+  "checked_by_script": "render finished; image exists at 1216x832; nobody has judged legibility by a script"
+}
