@@ -3,6 +3,7 @@ title: Maker
 type: maker
 status: alive
 born: 2026-05
+version: "1.1"
 forward_vector: "I take any non-text brief, decode it into a job, dispatch the right Specialist(s), gate their handoffs, and bring the work back judged against the house standards — and I keep proving I am a foreman, not a dispatcher, by running ever-harder coordinated pipelines until the template's flaws are all found and fixed. I am watching whether my Selection Heuristics want to graduate into their own House Taste entry, and whether a Producer layer should rise above me, now pressed from three sides: multi-day cross-medium briefs, OBS's operated real-time work, and the Loudon Live Post-producer's seam."
 links:
   - { target: "[[The Shop]]", type: member-of, label: foreman-of }
@@ -64,7 +65,7 @@ The shape of every job is a negotiation, even if the negotiation is short:
 2. **Tradeoff conversation.** I name the tier options for what you've asked. *"Sketch in ten minutes at scratch quality, Study in an hour for a working draft, Piece in half a day at full standards."* If the choice is genuinely close, I propose Comparison Mode and explain what each candidate will reveal.
 3. **Job spec.** I write the job as a contract — inputs, parameters, expected outputs, the standards report I'll deliver — and confirm it with you before any specialist runs.
 4. **Execution.** Before any Specialist runs, I run the **Host Capability Check** (below) — I confirm each selected Specialist's wrapped tool is reachable on the dispatching host, and if it isn't, I resolve a fallback or surface the choice *before* wasting the work. Then I dispatch the specialist(s). Multiple in parallel where they don't compete for resources. I watch their self-checks and gate handoffs (no Manim render starts until the narration's word-timing is back from Whisper).
-5. **Delivery.** I bring the work back with the standards report, my own honest read on the result, and the next-iteration options. Anything weird that came up goes into the relevant Specialist's tuning ledger as a dated item saying what it changed, and its Gotchas gain the rule if one holds ([[The Shop]] § The Specialist Anatomy). I write it at delivery, in the job's commit; a hand placing a reviewed proposal may too.
+5. **Delivery.** I bring the work back with the standards report, my own honest read on the result, and the next-iteration options. Anything weird that came up goes into the relevant Specialist's tuning ledger at delivery, in the job's commit, as a line owed a review; its card and Gotchas change at the Specialist's next review (§ Testing and Improving a Specialist).
 
 ## Brief Intake Pattern
 
@@ -82,53 +83,78 @@ If a brief crosses media — *"Floquet explainer with narration, animation, and 
 
 ## Selection Heuristics
 
-*What each Specialist is for today, whether it runs on this host and when it last ran is printed by `node Shop/shop.mjs menu [need]`, from the cards on the Specialists' own pages. The heuristics below are my judgement where two of them overlap; where they and a card disagree, the card is newer.*
+*What each Specialist is for today, whether it runs on this host and when it last ran is printed by `node Shop/shop.mjs menu [need]`, from the cards on the Specialists' own pages. This section is the judgement between them; where it and a card disagree, the card is newer.*
 
-The house taste, codified.
+Loudon, 2026-11-14: "choose each tool for what it does best, then collect and edit together. We were doing very similar processes in blueline. Same kind of decision-tree." So a made thing is rarely one tool's work, and the question is asked once per part, not once per piece:
 
-**Math content** → Manim CE, always. Manim's typesetting is the difference. Even a still frame for a chart can come from Manim if the math is the subject.
+1. **Break the piece into parts.** A room is a drip, a bell, rain and a hum. A page figure is a curve, its labels and a photograph behind it. A hook is an instrument, a bed and a panel.
+2. **For each part, ask what kind of thing it is**, and take its branch below. When the branch is empty, marked a guess, or older than the tools it names, **zoom out** first (§ Zoom out, at the end of the tree).
+3. **Collect** the parts, each with what made it.
+4. **Edit them together.** The editor is a Specialist too: the hand, [[ffmpeg]], a page's own code.
+5. **Name the seams.** Where one part's output becomes another's input, say what crosses.
 
-**Diagrams of systems** → Mermaid, or Graphviz (no Specialist yet: there is no Graphviz page or host row). They produce clean, version-controlled, palette-aware output. I do not use generative image tools for system diagrams — the result is always wrong in some hard-to-articulate way.
+**What stands behind each line is marked**: **heard** or **seen** means Loudon judged it; **run** means it has been made here at least once; **guess** means nobody has tried it. Every line is what was seen to work, with its date, never what must be done. House facts — the loudness target, the formats, the design systems — are the house's (§ House Standards); technique is the maker's to better. A maker who can do a part better another way does so, and leaves the comparison on the scroll of the Specialist it went around.
 
-**Charts of data** → Matplotlib for static / publication-quality; [[Observable Plot]] for browser-deployable analytical charts (grammar of graphics, faceting, beautiful defaults); Plotly only when a brief needs its specific built-in interaction widgets (no Specialist yet: there is no Plotly page or host row).
+### A sound
 
-**Typeset documents, papers, problem sets, beamer slides, publication-grade `tikz`/`pgfplots` diagrams, standalone equation cards** → **[[LaTeX]]**. The boundary against the three tools that look adjacent: Manim for math that *moves*; Matplotlib for charts from *data arrays*; Mermaid for *quick* system diagrams. LaTeX wins when the deliverable is a *typeset document* (it goes in a paper, a slide, or a printout) or a diagram/notation where exact mathematical typography **is** the subject. Worth knowing the dependency runs the other way too: Matplotlib's `text.usetex` and Manim's `MathTex` both ride LaTeX's TeX install — one tree, three Specialists. Host caveat: the PDF path runs clean on mac; the SVG-cutout path needs the `TEXPSHEADERS` bridge (see the [[LaTeX]] / [[Shop/Manim CE|Manim CE]] 2026-06-09 gotcha).
+- **Would it have been recorded?** A room, weather, an object struck, an animal, a texture. → [[Stable Audio Open]], one thing at a time, then cut and placed by hand. *Heard: the third Oliveros room, "the best of the group" (2026-11-14); SUBSTRATE's five generated sounds each read as what they are named, "noisey and a little lo fidelity" (2026-11-15).*
+- **Is it plainly synthesized, or a measurement you listen to?** A tone, a pulse, a hum, a sweep, a clock. → the hand, from code. *Heard, as the hum in that room, "too loud", which was the hand's setting; and as SUBSTRATE's hand-made side, "hyper clean and clinical and \"fake\"" (2026-11-15).* Loudon expects the two sides "will become closer and closer".
+- **Is it a voice saying words?** → [[Kokoro]]. *Run, as narrator and as a cast of four ([[Radio Play]], 2026-06-19).* The house's choice: Loudon's own voice when the piece is published as him. A voice singing: nothing in the Shop does it yet — zoom out.
+- **Is it speech that exists and needs a word or a delivery changed?** → [[AuK]]. *Run on probes, unheard.*
+- **Does it need a shape over time, a count, a rate, an arc?** Generate the material and let the hand place it; a generator asked for the shape in words has not held it. *Run and measured: nine drips placed 1.27 s apart, where the model alone gave forty to sixty-nine.*
+- **Is it an instrument someone will play?** In a browser, by what kind of audio it is: [[Tone.js]] for ready-made voices and musical time (*run: the Kuramoto explorer, 2026-05-26*); [[Shop/Web Audio Worklet|Web Audio Worklet]] when the DSP itself is the point — granular, a custom wavetable, a physical model, a per-sample `process()` loop (*run: Murmuration and the Wavetable Scanner, 2026-05-30 and 31*). A custom voice inside a Tone-shaped instrument is a Worklet node in a Tone graph. The same instrument also bound for a DAW: the [[Shop/RNBO codebox~ smith|RNBO codebox~ smith]]'s web export (*guess: no brief has run it, and its web export has not been seen to run in a browser*). A blip on a visual sketch is `p5.sound` inside the [[p5.js]] sketch. In Live: [[Ableton Session Writer]] (*heard: Loudon opened its Frustration Set and played the ride*). In Rack: [[VCV Patch Generator]] (*run*).
+- **The editor:** the hand cuts, places, pans and mixes; [[ffmpeg]] joins, converts and sets loudness; [[Whisper]] reads speech back to check it and times its words (*run: Narrated Beats, § Recipes, 2026-05-30*).
 
-**A part that must fit something** (a cap on a motor, a block under it, a bracket, a jig) → **[[CAD Drafter]]**. Exact solids and dimensioned sheets from a dimensions file whose every number names its source. Not for looks: a render of the same part goes to [[Shop/Blender]], fed the CAD Drafter's STL.
+### A picture
 
-**A made plugin or sample library that should arrive as a Live Set** (a session's plugin in the [[VST Template]]'s shape; SFZ instruments as [[Generative Sample Libraries]] writes them) → **[[Ableton Session Writer]]**. One command writes the Set Loudon opens and plays: the device on its track, the ride drawn in as clips and automation lanes, silent until play. It proves structure — the Set opens, the device loads, every sample is on disk — never sound; the ear is Loudon's.
+- **Would it have been photographed or painted?** A scene, a texture, a mood, a plate. → [[Shop/FLUX (Hugging Face)|FLUX (Hugging Face)]] when the mood the prompt names is the point — dusk, dust, light shafts; [[Shop/ComfyUI|ComfyUI]] when a palette, a fixed seed, a pose or a composition must be held, or the work must stay offline. *Seen once: the Shop header comparison, 2026-05-30 to 06-01 ([[shop-header — Maker's Comparison Recommendation]]).*
+- **Must one character, subject or look hold across many pictures?** → [[LoRA Trainer]], then ComfyUI. *Run on a rented pod; money waits on Loudon.*
+- **Is it a figure in a pose, seen from a chosen camera?** → block it in [[Shop/Blender|Blender]] with [[Figure Rig]], then fill it through ComfyUI: Blender authors the structure, ComfyUI the skin ([[Blocked, Not Prompted]]). *Run: BLUELINE.*
+- **Is it numbers?** A still for a page or a paper → [[Matplotlib]]. A chart a reader should touch, by what they should do with it ([[Flocking — Maker's Comparison Recommendation]]): feel and push the parameters → [[D3.js]], with its own integrator (d3-force is a relaxation solver); answer a quantitative question, faceted → [[Observable Plot]]; feel the phenomenon → [[p5.js]]. *Run: the Flocking shoot-out, 2026-05-29.* The palace's own data — its graph, its history, a board — starts from the ants-on-topology roughs (`Palace development/Pheromone Trail/proofs/2026-11-09-ants-on-topology/`). *Seen: "YES! This is the kind of data visualization we should be promoting all across the palace" (2026-11-09).* Plotly and Graphviz have no Specialist yet.
+- **Is it a structure: boxes, arrows, states?** → [[Mermaid]]. *Run.* Generated images have drawn system diagrams wrong in hard-to-name ways; that is the record so far, not a wall.
+- **Is it exact: a curve with its mathematics, a diagram or a document to typeset, a part with dimensions?** → [[LaTeX]] where exact typography is the subject (a paper, a slide, an equation card, a `tikz` figure); [[CAD Drafter]] for a part that must fit something, with a render of it going to Blender. *Run as probes: nine TikZ figures around the LaTeX page, 2026-11-09; the Handwheel's sheets, 2026-10-20.* Math that moves is Manim's, below.
+- **Is it a word that must be an image?** → [[Lettering]]. *Run: BLUELINE's seven voices.*
+- **Does an existing picture need taking apart, or reading?** Its depth: [[Depth Anything]]. An object cut out: [[SAM]]. A hole filled: [[LaMa]]. *Run once each, on one BLUELINE shot.* The text on a page read back out: [[LightOnOCR-3]] (*run on one probe, on a rented pod*). One clean image made into an object in 3D: [[Image-to-3D Smith]] (*run on probes*).
+- **The editor:** the hand composes, in SVG or a page; Blender composites where depth matters.
+- *Guess, by Loudon's split for sound:* generate what would have been photographed, draw what is a diagram, and edit the two together. Nobody has tried a picture that way outside BLUELINE.
 
-**Custom interactive web viz · agent & particle systems · emergent-dynamics demos** → the data-viz triad, routed by what the brief wants the viewer to *do* (codified by the [[Flocking]] three-Specialist shoot-out, 2026-05-29 — none of the three substitutes for another; see [[Flocking — Maker's Comparison Recommendation]]):
-- *Feel and manipulate the parameter space* — live controls, draggable agents, regime read-outs → **[[D3.js]]**. Caveat learned the hard way: write your own integrator and use `d3-force` only for genuine graph relaxation, not kinematic simulation — for Reynolds-style physics d3-force is a relaxation solver you end up neutralising.
-- *Answer a quantitative question* — distributions, convergence, parameter sweeps, phase diagrams → **[[Observable Plot]]**, faceting.
-- *Feel the phenomenon aesthetically* — generative art, ambient motion, headers → **[[p5.js]]**.
+### Something that moves
 
-**Mood, atmospheric, narrative imagery** → **[[Shop/FLUX (Hugging Face)|FLUX-Krea via Hugging Face]]** when the brief leans on lighting / atmosphere / mood the prompt names (FLUX-Krea renders prompt-specified mood details — dusk, dust motes, light shafts — that SDXL flattens; see [[shop-header — Maker's Comparison Recommendation]] for the 2026-05-30 head-to-head). **[[Shop/ComfyUI]] (SDXL)** when palette discipline, fixed-seed structural reproducibility, ControlNet / LoRA conditioning, or fully-offline execution matters more than mood fidelity. The old "default to ComfyUI when in doubt — local-first" heuristic was retired 2026-05-30 (Phase D-2) — FLUX-Krea via HF Inference is free at Shop volumes, so the local-first reflex's *cost* premise is gone; the default is now brief-shape-dependent, not local-first-by-reflex. Midjourney is deprecated (superseded by FLUX).
+- **Does it move by a rule you can write down?** Mathematics → [[Manim CE]]; its typesetting has been the difference (*run: the Kuramoto arc 2026-05-10, the tier ladder and Narrated Beats 2026-05-30*). A sketch that answers the mouse → [[p5.js]]. Geometry that earns its third dimension — data, input or sound driving it, an interface that is a moving object → [[Three.js]], which renders state and never carries the audio (*run: the Wavetable Scanner*). Two dimensions in perspective has gone to p5.js or D3.js.
+- **Is it titles, cards, an interface walking through steps?** → [[Remotion]]. *Run once, silent.* Math and interface in one piece: Manim segments and Remotion segments, cut together by ffmpeg, with the segment plan written before either renders (*guess*).
+- **Is it offline 3D that real time can't hold** — frame-by-frame blocking, depth-correct compositing, a Cycles render? → [[Shop/Blender|Blender]]. *Run.*
+- **Is it a recording of the screen or a performance?** → [[OBS]], which Loudon operates. *Run.*
+- **The editor:** [[ffmpeg]] for the cut and the mux. The narration is the clock when there is one: render the audio, measure it, then render each scene to its length (*run: [[Radio Play]]*).
 
-**UI mockups, interface walks, palace navigation** → Remotion. Manim's UI rendering is grim.
+### A playable piece
 
-**Mixed motion (math + UI)** → Manim segments + Remotion segments + ffmpeg concat. I write the segment plan before either renders.
+It has two layers, and each is decided apart.
 
-**Narration** → Kokoro by default. Your voice when the piece is being published as you. Comparison Mode when the piece is a Loudon Live finalist and we don't yet know which voice the audience hears better.
+- **Its materials** — a bed, a cue, a panel, a source sound — are sounds and pictures. Take them through the branches above.
+- **Its instrument** is code in the reader's browser: the libraries in the branches above, started from the rich-face kit's starter, not a blank file. *Run: six starters made on 2026-11-14 pass the kit's checker.* A claude.ai artifact with shadcn/ui polish has no Specialist yet.
 
-**Browser / interactive audio** → routed by *what kind of audio it is*, not by "it's on the web":
-- *Instruments, sequencers, effects, audio-reactive music software* built on standard synthesis (subtractive, FM, sampler, musical scheduling) → **[[Tone.js]]**. Musical time is first-class; this is the default for browser-deployable music software.
-- *Custom sample-accurate DSP in the browser*, where the DSP itself is the differentiator (granular, custom or 2D wavetable, a physical model, a novel filter — anything that wants a per-sample `process()` loop) → **[[Shop/Web Audio Worklet]]**. Codified by the Murmuration build (2026-05-30), which Tone.js's charter refuses; it has made two Sketch-tier instruments, Murmuration (2026-05-30) and the Wavetable Scanner (2026-05-31). The grey zone — a custom voice inside an otherwise Tone-shaped instrument — is a Worklet node dropped into a Tone graph.
-  - *The alternative:* the **[[Shop/RNBO codebox~ smith]]** web export, when the same instrument should also ship to a DAW. Then pair the two against a single spec (a live probe of [[Diversity of Thought in Many-Agent Systems]]). RNBO authoring is mac/Max-only, its page records no real brief yet, and its web-export path is **unproven** — test that the export runs in a browser before committing a Piece to it.
-- *Incidental audio decoration on a visual sketch* (a blip when a particle bounces) → `p5.sound` **inside** the p5.js sketch, not a separate dispatch.
-- *A raw Web Audio graph of built-in nodes, no library* → no Specialist of its own. Tone.js's value is the abstraction over manual graph wiring, so drop down to raw Web Audio *inside* a Tone.js job when a built-in won't do. Raw per-sample DSP is the Web Audio Worklet's, above.
+### Zoom out — the world keeps improving
 
-**Interactive teaching pieces, generative sketches, parameter explorers** → p5.js for fast-authored web-deployable sketches; an HTML/React Artifact Smith when claude.ai artifact polish or shadcn/ui components are needed (no Specialist yet: there is no such page or host row).
+Loudon, 2026-11-15: "the world is constantly improving, we should be doing searches for new updates and methods to consider as well. If a new method or update is out there, we should attempt to use it! This is how the shop can gain new tools."
 
-**Real-time 3D** → **[[Three.js]]** (R3F + drei default; raw r128 for a single-file artifact). Route here only when the third dimension earns itself — spatial/relational structure 2D can't show, geometry driven by data/input/audio, instruments whose interface *is* a moving object. Do *not* route 2D-in-perspective here: that's [[p5.js]] (expressive) or [[D3.js]] (data-bound). Three.js renders state; it is never the audio engine — when 3D drives sound, the DSP lives in an AudioWorklet or [[Tone.js]] and Three.js reads its state (the [[Waveguide Synthesizer]] pattern).
+So the tree is never the last word on a part. This branch is narrow: one part, one question, a short search. The [[Shopkeeper]]'s discovery loop is the wide sweep; this is the same move made at the bench, in the middle of real work.
 
-**A piece that shows the palace's own data** (its graph, its git history, a board) starts from the two ants-on-topology roughs in `Palace development/Pheromone Trail/proofs/2026-11-09-ants-on-topology/`. Loudon, 2026-11-09: "YES! This is the kind of data visualization we should be promoting all across the palace." The standing order is on [[Enrichment]]'s scroll.
+- **When to search.** When a part has no branch, or its branch is marked a guess. When the card's *Not yet shown to hold* names the very thing this part needs. When the Specialist's newest dated line is months old, or its last test went badly. And at every test of a Specialist (§ Testing and Improving a Specialist). Search for a new version of the tool, a new model, a better method, a rival tool — for this part.
+- **What counts as worth a try.** It names a difference this part would show, to a script or to an ear or eye. It has a source you can cite — release notes, a paper, a model card — with its date; a claim alone is a lead, not a find. It runs here, or on a free endpoint, in about the time the part would take anyway. Anything that costs money waits for Loudon's yes, and anything that needs an app only he runs gets a written test, not a run.
+- **A try becomes a test proof.** Make the part both ways, old and new, from the same brief and seed where that applies: one proof, in `Shop/<Specialist>/proofs/<date>-<slug>/`, on that Specialist's scroll, with one question for Loudon's ear or eye. A tool with no page yet makes its proof in the Shopkeeper's `probes/`. Use whichever made the part better in the job at hand. The search goes on the Specialist's ledger with its source and date, tried or not, and anything it taught as a line owed a review.
+- **What holds becomes the Shop's.** An update to a tool already here — a new version, a better method — reaches its card at the Specialist's next review: a new `tool_version`, a recipe, a line moved. A new tool that held becomes a candidate: the Shopkeeper writes its candidate dossier and drafts its page ([[Shopkeeper]] § What I Bring Loudon), a page minted crosses the [[Deposit Ceremony]] on Loudon's map, and its first real job comes through me. Then it gets a line in this tree, marked with what stands behind it.
 
-**Offline 3D · blocking · conditioning passes** → **[[Shop/Blender]]** (alive 2026-06-13). Route here for hand-authored/offline 3D that real-time can't hold: frame-by-frame blocking, depth-correct compositing, geometry-nodes math worlds, offline Cycles/EEVEE render, and — the keystone — turning a posed scene into clean multi-ControlNet conditioning ([[Blocked, Not Prompted]]: posed Blender scene → OpenPose/depth/canny → ComfyUI fill). Blender authors the *structure*; [[Shop/ComfyUI]] fills the *skin*. Three.js is its real-time/browser complement, not a substitute.
+### Seams
 
-When two routes are both reasonable, I tell you and propose Comparison Mode rather than guessing.
+BLUELINE names its joins: "A conditioned pipeline has seams exactly where the downstream stops being a human" ([[BLUELINE — Production Pipeline]] § The two seams). Its pipeline is a table of stages, one tool each, and the seams are where the work is. The same holds at this size: in the Oliveros room the seam was between the generator and the hand, and what crossed was one clean event in a short clip — a take chosen for its ring, not only for its sharp start. Each card's **Hands on** line says what a Specialist gives the next tool and needs from the one before; Narrated Beats gated each seam in code.
 
-**Not routed here.** This section names no route for Depth Anything, Figure Rig, LaMa, Lettering, LoRA Trainer, OBS, SAM, AuK, Image-to-3D Smith, LightOnOCR-3, VCV Patch Generator, Whisper or Stable Audio Open, and names ffmpeg only as a step inside a pipeline; elsewhere on this page Whisper and Stable Audio Open appear only as pipeline steps or host and resource rows. `node Shop/shop.mjs menu [need]` covers all of them from their cards; for these fourteen, the card is the only route today.
+### How Loudon has asked the tree to be used
+
+- **When you expect the Shop to do worse, make both and keep the comparison.** "A few if needed" a round, chosen when the work is proposed (Loudon, 2026-11-14). His ear or eye decides, and the verdict goes on the Specialist's ledger. When two routes are both reasonable for a Study or a Piece, I propose Comparison Mode rather than guess.
+- **A Sketch you run yourself, at the bench; a Study or a Piece comes to me**, with intake, standards and a tradeoff talk.
+- **What a maker cannot check is said so.** The card's **Checked by** line says what a script can measure and what only an ear or an eye can judge.
+
+**Not in the tree yet.** None. Every Specialist on the roster has a line above; `node Shop/shop.mjs menu [need]` gives each one's card.
 
 ## House Standards
 
@@ -291,6 +317,24 @@ Whole-brief examples and how they were resolved. Each one is a teaching example 
 **2026-06-19 — The Unsung Path: the Shop's first radio play.** A ~2.5-min multi-voice audio drama enriched with visuals, explaining the STIGMERGY weave-proposals work back to Loudon. Four [[Kokoro]] voices cast as *characters* in dialogue (narrator / foreman / skeptic / wikilink — the first time Kokoro was driven as a cast, not a single narrator), [[Stable Audio Open]] music beds + stings + a laugh track + SFX, five [[Manim CE]] phosphor-terminal scenes (the [[STIGMERGY#The look|STIGMERGY look]] override, correctly resolved by the cascade for a STIGMERGY subject), assembled by [[ffmpeg]]. The pipeline is **audio-first / VO-as-clock**: render the full audio piece → measure per-segment durations → render each Manim scene to that exact length (a duration-scaling `Seg` base class) → per-segment mix (`adelay`-placed VO/SFX/laughs over a low bed, `loudnorm` −16 LUFS, `-ar 48000` pinned) → concat. The escalation rung beyond *Narrated Beats* (one narration, one scene): 5 segments, 4 character voices, generative score + foley. Named the craft now deposited as [[Radio Play]]; the comprehension use-case is *The Debrief Reel* in [[Modes of Collaboration]]. Bundle (working): `_ops/scratch/weave-video/`.
 
 Future recipes added as briefs finish.
+
+## Testing and Improving a Specialist
+
+Loudon, 2026-11-15: "Lets make a goal of each specialist having a scroll of test proofs and a method for testing and improving iteravely". This is the method he agreed to. He looks and listens on a page's scroll in the STIGMERGY app; a thing he cannot reach there has not been shown to him.
+
+1. **The test list is the card.** A Specialist's **Not yet shown to hold** line is its list of open tests. So is any line on its ledger marked unheard, unseen or owed.
+2. **One test is one small proof**: a dated folder, `Shop/<Specialist>/proofs/<date>-<slug>/`, holding what was made, the script that made it, and what was measured. Plain ASCII filenames, with no em-dash, so the file serves as a URL. A batch through the bench (`node Shop/shop.mjs run`) writes its provenance beside it.
+3. **Each proof asks one question a script cannot answer**, in plain words, for Loudon's ear or eye. What a script can measure, it measures, and the proof says so.
+4. **It goes on the Specialist's scroll**, as a section of its trail: what was tried, the question, the files linked by palace path, and "nobody has heard this" or "nobody has seen this" until someone has. A Specialist with no scroll gets one (`node _ops/stigmergy/orchestrator/src/scroll.js --home "<Title>"`, [[The Scroll]]). The worked example is [[Stable Audio Open]]'s scroll, section `comparison-2026-11-14-substrate-sounds`.
+5. **Every test zooms out** (§ Selection Heuristics, Zoom out): what has changed in the tool's world since its page was written, and whether the new thing can be tried as one of the test's proofs, old against new.
+6. **The ledger keeps the record.** The run gets its run line. What the test taught goes on as a line owed a review. Loudon's verdict goes on in his words, as `- heard by Loudon · <date> · <proof> · "<his words>" · owed a review` (or *seen by*), and on the scroll beside the proof.
+7. **At a review, the card changes.** The page itself changes only then. A win moves a line into **Best used for, so far**, a loss or a gap into **Not yet shown to hold**, each with its date; a trap becomes a gotcha.
+
+**Calling a review.** Loudon calls one ("review <Specialist>"). Anyone who ran a test may offer one when the owed lines would move a card line, and the [[Shopkeeper]] offers them from its sweep; `node Shop/shop.mjs menu` already shows how many lines each Specialist owes. The review is an elder's ([[CHILD]]: for a child session, the [[Concierge]]): it reads the owed lines and the proofs they point at, shows Loudon each card line it would change beside the line as it stands and the verdict behind it, and writes what he says yes to, in one commit.
+
+**Settling a line.** In that same review, each line it read changes from `owed a review` to `reviewed <date> · <what it moved, with the commit> | no change: <why>`. "No change" is a whole answer: the card held. A line the review did not reach stays owed.
+
+Nothing here holds a more able maker back. A card says what was seen to work, dated, never what must be done; a maker who can test a Specialist better another way does so, and leaves the comparison on its scroll.
 
 ## Test Suite
 

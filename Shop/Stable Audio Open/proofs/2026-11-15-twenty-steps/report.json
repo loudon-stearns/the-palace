@@ -1,0 +1,263 @@
+{
+  "made": "2026-11-15",
+  "prompt": "a single footstep on a stone floor, close, then silence",
+  "model": "small-sfx",
+  "settings": "steps 8, cfg 1.0, pingpong (defaults)",
+  "load_sec": 18.5,
+  "takes": [
+    {
+      "seed": 2001,
+      "cut_sec": 0.202,
+      "isolation_db": 48.5,
+      "gen_sec": 5.33
+    },
+    {
+      "seed": 2002,
+      "cut_sec": 0.221,
+      "isolation_db": 52.8,
+      "gen_sec": 1.09
+    },
+    {
+      "seed": 2003,
+      "cut_sec": 0.117,
+      "isolation_db": 57.9,
+      "gen_sec": 1.19
+    },
+    {
+      "seed": 2004,
+      "cut_sec": 0.142,
+      "isolation_db": 52.0,
+      "gen_sec": 2.34
+    },
+    {
+      "seed": 2005,
+      "cut_sec": 0.441,
+      "isolation_db": 49.0,
+      "gen_sec": 1.79
+    },
+    {
+      "seed": 2006,
+      "cut_sec": 0.047,
+      "isolation_db": 39.1,
+      "gen_sec": 1.63
+    },
+    {
+      "seed": 2007,
+      "cut_sec": 0.336,
+      "isolation_db": 60.5,
+      "gen_sec": 1.97
+    },
+    {
+      "seed": 2008,
+      "cut_sec": 0.212,
+      "isolation_db": 47.1,
+      "gen_sec": 1.4
+    },
+    {
+      "seed": 2009,
+      "cut_sec": 0.536,
+      "isolation_db": 44.5,
+      "gen_sec": 1.72
+    },
+    {
+      "seed": 2010,
+      "cut_sec": 0.197,
+      "isolation_db": 53.5,
+      "gen_sec": 1.46
+    },
+    {
+      "seed": 2011,
+      "cut_sec": 0.231,
+      "isolation_db": 51.4,
+      "gen_sec": 1.67
+    },
+    {
+      "seed": 2012,
+      "cut_sec": 0.501,
+      "isolation_db": 41.1,
+      "gen_sec": 1.84
+    },
+    {
+      "seed": 2013,
+      "cut_sec": 0.172,
+      "isolation_db": 46.1,
+      "gen_sec": 1.58
+    },
+    {
+      "seed": 2014,
+      "cut_sec": 0.182,
+      "isolation_db": 53.5,
+      "gen_sec": 2.22
+    },
+    {
+      "seed": 2015,
+      "cut_sec": 0.231,
+      "isolation_db": 52.3,
+      "gen_sec": 2.41
+    },
+    {
+      "seed": 2016,
+      "cut_sec": 0.182,
+      "isolation_db": 47.4,
+      "gen_sec": 1.78
+    },
+    {
+      "seed": 2017,
+      "cut_sec": 0.167,
+      "isolation_db": 56.6,
+      "gen_sec": 1.51
+    },
+    {
+      "seed": 2018,
+      "cut_sec": 0.311,
+      "isolation_db": 42.6,
+      "gen_sec": 1.71
+    },
+    {
+      "seed": 2019,
+      "cut_sec": 0.336,
+      "isolation_db": 55.9,
+      "gen_sec": 1.54
+    },
+    {
+      "seed": 2020,
+      "cut_sec": 0.112,
+      "isolation_db": 52.8,
+      "gen_sec": 2.08
+    },
+    {
+      "seed": 2021,
+      "cut_sec": 0.281,
+      "isolation_db": 53.2,
+      "gen_sec": 1.74
+    },
+    {
+      "seed": 2022,
+      "cut_sec": 0.172,
+      "isolation_db": 53.3,
+      "gen_sec": 2.56
+    },
+    {
+      "seed": 2023,
+      "cut_sec": 0.152,
+      "isolation_db": 46.0,
+      "gen_sec": 1.88
+    },
+    {
+      "seed": 2024,
+      "cut_sec": 0.057,
+      "isolation_db": 48.2,
+      "gen_sec": 1.75
+    }
+  ],
+  "kept_seeds": [
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023
+  ],
+  "repeated_seed": 2001,
+  "kept_by": "cut between 0.08 and 0.6 s, then the twenty whose onset stands furthest above the 0.3 s before it",
+  "spectral_correlation_between_kept_steps": {
+    "min": 0.631,
+    "median": 0.897,
+    "max": 0.981
+  },
+  "placement": {
+    "step_at_sec": [
+      0.394,
+      0.939,
+      1.502,
+      2.01,
+      2.561,
+      3.095,
+      3.642,
+      4.183,
+      4.714,
+      5.257,
+      5.797,
+      6.344,
+      6.867,
+      7.434,
+      7.963,
+      8.485,
+      9.045,
+      9.563,
+      10.116,
+      10.662
+    ],
+    "level": [
+      0.764,
+      0.69,
+      0.839,
+      0.857,
+      0.793,
+      0.674,
+      0.623,
+      0.789,
+      0.644,
+      0.736,
+      0.795,
+      0.831,
+      0.925,
+      0.841,
+      0.745,
+      0.688,
+      0.787,
+      0.566,
+      0.897,
+      0.58
+    ],
+    "pan_0_left_1_right": [
+      0.375,
+      0.642,
+      0.351,
+      0.674,
+      0.34,
+      0.663,
+      0.375,
+      0.605,
+      0.398,
+      0.606,
+      0.365,
+      0.619,
+      0.37,
+      0.592,
+      0.363,
+      0.639,
+      0.395,
+      0.606,
+      0.371,
+      0.632
+    ]
+  },
+  "files": {
+    "walk-twenty-steps.m4a": {
+      "seconds": 11.86,
+      "peak_dbfs": -1.0,
+      "rms_dbfs": -30.3
+    },
+    "walk-one-step-repeated.m4a": {
+      "seconds": 11.86,
+      "peak_dbfs": -1.0,
+      "rms_dbfs": -30.2
+    }
+  },
+  "heard_by": "nobody yet"
+}

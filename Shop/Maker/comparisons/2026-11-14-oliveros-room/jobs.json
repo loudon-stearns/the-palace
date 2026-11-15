@@ -1,0 +1,76 @@
+{
+  "made_for": "Hand against Shop — the Pauline Oliveros room: the same room played twice, beside \"How her mind moves\". First attention closes on one drip and everything else falls away; then it opens and nothing is left out. Then a third, on Loudon's split: generate what would have been sampled, build by hand what is plainly synthesized, and edit the two together.",
+  "headline": "The Oliveros room, three ways: the hand, the Shop, and his split",
+  "notes": "This jobs file was written on 2026-11-15, after the making, so the bench could present the round; none of these was run through the bench, so no hash ties a file to the verdict. The verdicts are Loudon's words of 2026-11-14 as the folder's README keeps them. Held the same across the pieces: length (26 s), the gate times (focal to 11.5 s, global from 13 s), the depth and the peak level. Different: the materials, and the stereo (every Stable Audio take came back mono).",
+  "question": "whether the Shop's room reads as a room where the hand's does not; whether the drip reads as one point of attention when it is not one drop a second; whether the third, cut and placed from generated sources, holds both.",
+  "tier": "sketch",
+  "scroll_id": "comparison-2026-11-14-oliveros-room",
+  "artifacts": [
+    {
+      "path": "third — one point, then the whole sphere — picture.svg",
+      "caption": "the third room's picture, drawn from what was placed"
+    },
+    {
+      "path": "report.json",
+      "caption": "the Shop side's prompts, seeds and every take's numbers"
+    },
+    {
+      "path": "third-report.json",
+      "caption": "the third room's measurements"
+    }
+  ],
+  "jobs": [
+    {
+      "name": "hand",
+      "page": "Pauline Oliveros",
+      "sentence": "\"How her mind moves\": one point, then the whole sphere",
+      "claim": "the light round's piece as it sits on her rich face: a room synthesized from noise, sines and plucks",
+      "caption": "the hand's room",
+      "chain": [
+        "hand: Enrichment/light-round-2026-11/make-sounds-3.py, listening()"
+      ],
+      "run": "made in the light round, not through the bench",
+      "outputs": [
+        "hand — one point, then the whole sphere.m4a"
+      ],
+      "heard_by": "Loudon, 2026-11-14",
+      "verdict": "\"the \" by hand\" version sounds like \"musique contrete\" a collection of precise crafted sounds assembled together.\""
+    },
+    {
+      "name": "shop",
+      "page": "Pauline Oliveros",
+      "sentence": "\"How her mind moves\": one point, then the whole sphere",
+      "claim": "the same shape from generated materials: Stable Audio Open makes a drip and a room, the hand gates and mixes them",
+      "caption": "the Shop's room",
+      "chain": [
+        "Stable Audio Open (small-sfx, four seeds each; drip 1935, room 1932)",
+        "hand: chosen by measurement (takes.py), gated and mixed (mix.py)"
+      ],
+      "run": "python3 takes.py && python3 mix.py, not through the bench",
+      "outputs": [
+        "shop — one point, then the whole sphere.m4a",
+        "source — drip.m4a",
+        "source — room.m4a"
+      ],
+      "heard_by": "Loudon, 2026-11-14",
+      "verdict": "\"The stable audio version, while not as good by my ear, rings \"truer\" to me and doesn't feel artificially collected.\""
+    },
+    {
+      "name": "third",
+      "page": "Pauline Oliveros",
+      "sentence": "\"How her mind moves\": one point, then the whole sphere",
+      "claim": "his split, tried: each sampled thing generated on its own (drop, bird, bell, string, rain), the hum kept by hand, then cut, placed, panned, gated and mixed at the first piece's own times",
+      "caption": "the third room, his split",
+      "chain": [
+        "Stable Audio Open (small-sfx, four seeds each of five sources)",
+        "hand: cut one event from each take, place, pan, gate and mix; the hum synthesized (third.py)"
+      ],
+      "run": "python3 third.py, not through the bench",
+      "outputs": [
+        "third — one point, then the whole sphere.m4a"
+      ],
+      "heard_by": "Loudon, 2026-11-14",
+      "verdict": "\"This is the best of the group, hum is too loud and we need to see if we can generate variations with stable audio for the repeated sounds, but that is a question for the future, not to solve today.\""
+    }
+  ]
+}

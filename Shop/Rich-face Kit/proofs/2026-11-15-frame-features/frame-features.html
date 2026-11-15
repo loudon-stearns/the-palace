@@ -1,0 +1,84 @@
+<!doctype html>
+<!--
+  title: Rich-face Kit — proof — what a framed piece can reach
+  born: 2026-11-15
+  links: [[Rich-face Kit]] (connects-to · test-proof)
+  forward_vector: I am the kit's zoom-out. The starters were written against what browsers did in 2023-2024; I ask the
+    browser in front of me which newer features a piece can reach from inside its frame (WebGPU, import maps, workers
+    from a Blob, OffscreenCanvas, WebCodecs, View Transitions, anchor positioning, a chosen audio render size, and
+    more), so a maker knows the frame is not the ceiling, and the kit learns which features its rules don't yet name.
+  Checked by: check.mjs (headless Chromium, framed opaque as a declared-nothing piece and same-origin as a declared
+    one, and alone). From the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>
+    node _ops/rich-face/conform.mjs <this file> --browser
+    node "Shop/Rich-face Kit/proofs/2026-11-15-frame-features/check.mjs"
+  The list is a starting point, not a fence: a maker who finds a feature that works in the frame and isn't here uses it,
+  and leaves the comparison on the kit's scroll.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rich-face Kit — what a framed piece can reach</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-2); font-family: var(--mono); }
+  main { padding: var(--s-5) var(--s-5) var(--s-6); display: grid; gap: var(--s-4); max-width: 46rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; line-height: 1.5; }
+  button { justify-self: start; font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-sm); padding: var(--s-2) var(--s-4); cursor: pointer; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+  td, th { text-align: left; padding: var(--s-1) var(--s-2); border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--fg-3); font-weight: 400; }
+  td.yes { color: var(--accent); }
+  td.no { color: var(--fg-3); }
+  .q { color: var(--fg-1); border-left: 2px solid var(--accent); padding-left: var(--s-3); }
+</style>
+</head>
+<body>
+<main>
+  <h1>What a piece can reach from inside its frame</h1>
+  <p>Press the button and this page asks the browser it runs in, from inside whatever frame holds it, for each newer feature below. Nothing sounds; one feature makes a silent audio context to read its render size, and closes it.</p>
+  <button id="go">Ask this frame</button>
+  <p id="where"></p>
+  <table id="t" hidden><thead><tr><th>feature</th><th>here</th><th>what it would give a piece</th></tr></thead><tbody></tbody></table>
+  <p class="q">Of the features your own browser says yes to here, which one would you most like to see a piece try next?</p>
+</main>
+<script>
+const FEATURES = [
+  ['WebGPU (navigator.gpu, an adapter)', async () => { if (!('gpu' in navigator)) return 'no API'; try { const a = await navigator.gpu.requestAdapter(); return a ? 'adapter' : 'API, no adapter'; } catch (e) { return 'API, refused: ' + e.message; } }, 'compute and rendering past WebGL: big particle fields, audio-rate analysis on the GPU'],
+  ['Import maps', async () => (HTMLScriptElement.supports && HTMLScriptElement.supports('importmap')) ? 'yes' : 'no', 'modern three.js and other ES-module libraries without a build'],
+  ['Module worker from a Blob', async () => { const u = URL.createObjectURL(new Blob(['postMessage(6*7)'], { type: 'text/javascript' })); try { const w = new Worker(u, { type: 'module' }); const v = await new Promise((ok, no) => { w.onmessage = (e) => ok(e.data); w.onerror = () => no(new Error('error')); setTimeout(() => no(new Error('timeout')), 2000); }); w.terminate(); return v === 42 ? 'yes' : 'odd answer'; } catch (e) { return 'no: ' + e.message; } finally { URL.revokeObjectURL(u); } }, 'heavy work off the main thread, inside one file'],
+  ['OffscreenCanvas with WebGL2', async () => { try { return new OffscreenCanvas(4, 4).getContext('webgl2') ? 'yes' : 'no context'; } catch (e) { return 'no: ' + e.message; } }, 'drawing in a worker'],
+  ['SharedArrayBuffer (cross-origin isolated)', async () => (typeof SharedArrayBuffer !== 'undefined' && self.crossOriginIsolated) ? 'yes' : (self.crossOriginIsolated ? 'isolated, no SAB' : 'not isolated'), 'lock-free audio rings between a worklet and the page, WASM threads'],
+  ['WebAssembly SIMD', async () => { try { return WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,0,0,1,5,1,96,0,1,123,3,2,1,0,10,10,1,8,0,65,0,253,15,253,98,11])) ? 'yes' : 'no'; } catch { return 'no'; } }, 'fast DSP compiled from C or Rust'],
+  ['WebCodecs (AudioEncoder)', async () => ('AudioEncoder' in self) ? 'yes' : 'no', 'encode what a piece makes to a file in the page'],
+  ['AudioContext render size hint', async () => { try { const c = new AudioContext({ renderSizeHint: 256 }); const q = c.renderQuantumSize; await c.close(); return q ? 'quantum ' + q : 'option ignored (128)'; } catch (e) { return 'no: ' + e.message; } }, 'bigger audio blocks for heavy worklets, smaller for latency'],
+  ['AudioContext playback stats (playbackStats, once playoutStats)', async () => { try { const c = new AudioContext(); const has = ('playbackStats' in c) || ('playoutStats' in c); await c.close(); return has ? 'yes' : 'no'; } catch (e) { return 'no: ' + e.message; } }, 'a piece that can see its own glitches'],
+  ['View Transitions', async () => ('startViewTransition' in document) ? 'yes' : 'no', 'animated changes between states of a page'],
+  ['CSS anchor positioning', async () => CSS.supports('anchor-name: --a') ? 'yes' : 'no', 'labels that follow a moving thing without script'],
+  ['Popover', async () => ('popover' in HTMLElement.prototype) ? 'yes' : 'no', 'menus and notes with no library'],
+  ['Web MIDI API present', async () => ('requestMIDIAccess' in navigator) ? 'API present (not asked)' : 'no', 'hardware control; needs a grant line, never asked here'],
+];
+
+document.getElementById('go').addEventListener('click', async () => {
+  const where = window.top === window ? 'alone, not framed' : 'inside a frame';
+  document.getElementById('where').textContent = `This page is ${where}, at origin ${location.origin}. ${navigator.userAgent.match(/(Chrome|Firefox|Version)\/[\d.]+/)?.[0] || ''}`;
+  const body = document.querySelector('#t tbody'); body.textContent = '';
+  const results = {};
+  for (const [name, probe, why] of FEATURES) {
+    let v; try { v = await probe(); } catch (e) { v = 'no: ' + e.message; }
+    results[name] = v;
+    const tr = document.createElement('tr');
+    const yes = /^(yes|adapter|quantum|API present)/.test(v);
+    tr.innerHTML = `<td></td><td class="${yes ? 'yes' : 'no'}"></td><td></td>`;
+    tr.children[0].textContent = name; tr.children[1].textContent = v; tr.children[2].textContent = why;
+    body.append(tr);
+  }
+  document.getElementById('t').hidden = false;
+  window.FRAME_FEATURES = { where, origin: location.origin, results };
+});
+</script>
+</body>
+</html>

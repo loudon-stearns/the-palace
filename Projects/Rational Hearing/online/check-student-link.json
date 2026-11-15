@@ -1,0 +1,111 @@
+{
+  "ran": "2026-11-15T14:12:27.200Z",
+  "results": [
+    {
+      "name": "plain page shows no banner",
+      "ok": true,
+      "got": null
+    },
+    {
+      "name": "fifth on the ladder: link carries the state",
+      "ok": true,
+      "got": {
+        "p": "2-3"
+      }
+    },
+    {
+      "name": "fifth on the ladder: student sees the banner",
+      "ok": true,
+      "got": "Sent from class: 3 : 2, perfect 5th (P5). Your browser needs one tap before it can play."
+    },
+    {
+      "name": "fifth on the ladder: student readout matches teacher's",
+      "ok": true,
+      "got": "NOW SOUNDING · PARTIALS 3 AND 2 /  / 3:2"
+    },
+    {
+      "name": "fifth on the ladder: one tap starts the sound",
+      "ok": true,
+      "got": {
+        "sound": "true",
+        "banner": true,
+        "playing": 0
+      }
+    },
+    {
+      "name": "major triad, A, magnified: link carries the state",
+      "ok": true,
+      "got": {
+        "p": "4-5-6",
+        "f": "A",
+        "mag": "5"
+      }
+    },
+    {
+      "name": "major triad, A, magnified: student sees the banner",
+      "ok": true,
+      "got": "Sent from class: 4 : 5 : 6, major triad. Your browser needs one tap before it can play."
+    },
+    {
+      "name": "major triad, A, magnified: student readout matches teacher's",
+      "ok": true,
+      "got": "NOW SOUNDING · 3 PARTIALS /  / 4:5:6"
+    },
+    {
+      "name": "major triad, A, magnified: magnify carried",
+      "ok": true,
+      "got": null
+    },
+    {
+      "name": "major triad, A, magnified: fundamental carried",
+      "ok": true,
+      "got": null
+    },
+    {
+      "name": "major triad, A, magnified: one tap starts the sound",
+      "ok": true,
+      "got": {
+        "sound": "true",
+        "banner": true,
+        "playing": 0
+      }
+    },
+    {
+      "name": "major third, just then equal: link carries the state",
+      "ok": true,
+      "got": {
+        "p": "4-5",
+        "ab": "M3"
+      }
+    },
+    {
+      "name": "major third, just then equal: student sees the banner",
+      "ok": true,
+      "got": "Sent from class: the major 3rd, 5:4 just, then on the piano. Your browser needs one tap before it can play."
+    },
+    {
+      "name": "major third, just then equal: student readout matches teacher's",
+      "ok": true,
+      "got": "NOW SOUNDING · PARTIALS 5 AND 4 /  / 5:4"
+    },
+    {
+      "name": "major third, just then equal: one tap starts the sound",
+      "ok": true,
+      "got": {
+        "sound": "true",
+        "banner": true,
+        "playing": 1
+      }
+    },
+    {
+      "name": "major third, just then equal: the A/B plays on its own",
+      "ok": true,
+      "got": 1
+    },
+    {
+      "name": "no page errors",
+      "ok": true,
+      "got": []
+    }
+  ]
+}

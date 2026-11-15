@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en" data-theme="paper">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:size" content="tall">
+<title>What is harmony? — the first twenty minutes</title>
+<style>
+:root{--g:#f0eee5;--ink:#1a1916;--fill:#dcd9ca;--red:#c8261a;--dim:#6d6a5f;--glow:#c8261a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--g);color:var(--ink);font:15px/1.55 "JetBrains Mono","IBM Plex Mono",ui-monospace,Menlo,monospace}
+main{max-width:860px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--dim);margin:0 0 22px}
+nav{display:flex;gap:0;border:1px solid var(--ink);margin-bottom:22px}
+nav button{flex:1;border:0;border-right:1px solid var(--ink);background:none;padding:8px 4px;font:inherit;font-size:12px;cursor:pointer;color:var(--ink)}
+nav button:last-child{border-right:0}
+nav button.on{background:var(--ink);color:var(--g)}
+section{display:none;border:1px solid var(--ink);padding:18px 20px}
+section.on{display:block}
+h2{font-size:17px;margin:0 0 10px}
+.say{margin:0 0 12px}
+.try{border-left:3px solid var(--red);padding:2px 0 2px 12px;margin:12px 0}
+canvas{display:block;width:100%;height:260px;border:1px solid var(--ink);background:#f7f6f0;touch-action:none;cursor:ns-resize}
+.row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:12px 0}
+button.act{border:1px solid var(--ink);background:var(--fill);font:inherit;padding:6px 12px;cursor:pointer;color:var(--ink)}
+button.act:hover{background:var(--ink);color:var(--g)}
+button.act.sel{background:var(--red);border-color:var(--red);color:var(--g)}
+label{display:flex;gap:8px;align-items:center}
+input[type=range]{width:220px;accent-color:var(--red)}
+.read{color:var(--dim);font-size:13px}
+.next{margin-top:16px;text-align:right}
+textarea{width:100%;height:90px;font:inherit;border:1px solid var(--ink);background:#f7f6f0;padding:8px}
+.eq{background:var(--fill);padding:8px 12px;margin:10px 0;font-size:14px}
+</style>
+</head>
+<body>
+<main>
+<h1>What is harmony?</h1>
+<p class="sub">The first twenty minutes of the Inharmonic Wavetable Synthesis lesson. Six stops. Sound on — every stop plays.</p>
+<nav id="nav"></nav>
+
+<section data-t="A flat line">
+<h2>1 · A flat line</h2>
+<p class="say">Across the box runs partial number: the 1st partial at the left, the 24th at the right. Up and down is how far each partial sits from its harmonic place, in cents. Every partial on the line sits at exactly 1, 2, 3, 4… times the fundamental. That flat line is the harmonic series. It is the whole answer: harmony is a flat line.</p>
+<canvas id="c1"></canvas>
+<div class="row"><button class="act" data-play="1">play the flat line</button><span class="read">24 partials, 220 Hz, each one 1/n as loud — a soft saw.</span></div>
+<p class="try">Listen for one thing: it sounds like <em>one</em> note, not twenty-four. That fusing is what a flat line buys you.</p>
+<div class="next"><button class="act" data-go="1">next: bend it →</button></div>
+</section>
+
+<section data-t="Bend it">
+<h2>2 · Bend it</h2>
+<p class="say">Now drag on the box, or move the slider. Stiffness bends the line upward: each partial goes a little sharp, and the higher ones go sharper. This is what happens in a real string, because a stiff wire resists bending most at its short, high wiggles.</p>
+<div class="eq">fₙ = n · f₀ · √(1 + B·n²)  —  partial_freq = number · fundamental · √(1 + stiffness · number²)</div>
+<canvas id="c2"></canvas>
+<div class="row"><label>stiffness B <input id="b2" type="range" min="0" max="1" step="0.001" value="0.25"></label><span class="read" id="r2"></span></div>
+<div class="row"><button class="act" data-play="2">play the bent line</button><button class="act" data-ab="2">flat, then bent</button></div>
+<p class="try">Start small and creep up. Somewhere the note stops being one note. Where did it happen for you?</p>
+<div class="next"><button class="act" data-go="2">next: a real piano →</button></div>
+</section>
+
+<section data-t="A real piano">
+<h2>3 · A real piano</h2>
+<p class="say">That bend is not made up. These dots were measured from real piano recordings: each partial's actual pitch, in cents off its harmonic place. The thin curve is the stiffness formula fitted through them. A low string barely bends. A short treble string bows hard.</p>
+<canvas id="c3"></canvas>
+<div class="row" id="pianoBtns"></div>
+<div class="row"><span class="read" id="r3"></span></div>
+<p class="try">Both are played at the same pitch here, so the only difference you hear is the bend. The treble curve on a low note is a string no piano has — and it sounds like metal.</p>
+<div class="next"><button class="act" data-go="3">next: a bell →</button></div>
+</section>
+
+<section data-t="A bell">
+<h2>4 · A bell</h2>
+<p class="say">A bell does not bend the line. It throws its partials off it. These are the measured modes of a small struck bell, and they are nowhere near 1, 2, 3, 4. To put a bell on the line you have to decide which slot each mode belongs to. There are two honest answers, and the instrument keeps both.</p>
+<p class="say"><b>Rank</b>: the bell's 1st mode goes in slot 1, its 2nd in slot 2, and so on. <b>Nearest</b>: each mode goes in the harmonic slot closest to its real pitch, and the louder one wins when two want the same slot.</p>
+<canvas id="c4"></canvas>
+<div class="row"><button class="act sel" data-filing="rank">Rank</button><button class="act" data-filing="nearest">Nearest</button>
+<label>bend <input id="b4" type="range" min="0" max="1" step="0.01" value="1"></label><span class="read" id="r4"></span></div>
+<div class="row"><button class="act" data-play="4">strike</button></div>
+<p class="try">At full bend the two filings are nearly the same bell; Nearest only drops the quieter of two modes that want one slot. Now pull the bend to zero under each. Rank flattens the bell into an organ. Nearest flattens it onto the few harmonics it was hiding near. Same bell, two different harmonies underneath it.</p>
+<div class="next"><button class="act" data-go="4">next: the scale moves →</button></div>
+</section>
+
+<section data-t="The scale moves">
+<h2>5 · The line decides the scale</h2>
+<p class="say">Play two notes together. Where their partials nearly line up, they rub and beat; where they line up exactly, the rubbing stops. The curve below adds up all that rubbing for every interval from unison to a little past an octave (William Sethares' method). Its valleys are the intervals that sound smooth <em>for this sound</em>.</p>
+<canvas id="c5" style="cursor:crosshair"></canvas>
+<div class="row"><label>stiffness B <input id="b5" type="range" min="0" max="1" step="0.001" value="0"></label><span class="read" id="r5"></span></div>
+<div class="row"><button class="act" data-oct="1200">play a true octave (1200¢)</button><button class="act" data-oct="min">play the smoothest octave</button><span class="read">or click anywhere on the curve to hear that interval</span></div>
+<p class="try">With a flat line the valleys sit on the familiar intervals and the octave is exactly 1200 cents. Bend the line and watch the octave valley slide sharp: a few cents at real piano stiffness (the first fifth of the slider), sixty cents at the far end, where the string has become a bar. The piano tuner's stretched octave is this valley, found by ear. The sound decides which notes agree.</p>
+<div class="next"><button class="act" data-go="5">last: your turn →</button></div>
+</section>
+
+<section data-t="Your turn">
+<h2>6 · Your turn</h2>
+<p class="say">You have heard harmony as a flat line, bent it by hand, heard two real strings, filed a bell two ways and watched the scale slide. One question, and only you can answer it.</p>
+<p class="try"><b>How do you feel?</b> And: if you could draw any line on that box, what material would you want it to be?</p>
+<textarea id="note" placeholder="Write anything. It stays in this browser."></textarea>
+<div class="row"><button class="act" data-play="6">play my line (the one you bent in stop 2)</button></div>
+</section>
+</main>
+
+<script>
+const DATA=/*DATA*/null;
+const NP=DATA.np, F0=220;
+let ac=null, master=null;
+function audio(){ if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=0.5;master.connect(ac.destination);} if(ac.state==='suspended')ac.resume(); return ac;}
+
+// strike: a list of {f,a} partials; upper partials die faster, as on the plugin
+function strike(parts,dur=2.6,when=0){
+  const a=audio(), t=a.currentTime+0.03+when, sum=parts.reduce((s,p)=>s+p.a,0)||1;
+  parts.forEach((p,i)=>{ if(p.f>a.sampleRate*0.45||p.a<=0)return;
+    const o=a.createOscillator(), g=a.createGain(); o.frequency.value=p.f;
+    const tau=dur/(1+0.07*i)/3, pk=0.6*p.a/sum;
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(pk,t+0.006); g.gain.setTargetAtTime(0,t+0.006,tau);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t+dur+0.2);});
+}
+const saw=()=>Array.from({length:NP},(_,i)=>1/(i+1));
+const stiff=B=>Array.from({length:NP},(_,i)=>{const n=i+1;return 1200*Math.log2(Math.sqrt(1+B*n*n));});
+const partsFromCents=(c,amps,f0=F0)=>c.map((x,i)=>({f:(i+1)*f0*Math.pow(2,(x??0)/1200),a:amps[i]}));
+const sliderB=v=>0.004*v*v;  // slider 0..1 -> B 0..0.004, squared so the gentle end gets the room
+
+// ---- drawing the line ----
+function setup(cv){const r=cv.getBoundingClientRect(),d=devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;const x=cv.getContext('2d');x.setTransform(d,0,0,d,0,0);return {x,W:r.width,H:r.height};}
+const SY=c=>Math.sign(c)*Math.log10(1+Math.abs(c)/10)/Math.log10(1+2400/10); // signed log: 10¢,100¢,1200¢ all visible
+function drawLine(cv,{cents,amps,ghost,dots,empty,note}){
+  const {x,W,H}=setup(cv), L=36,R=12,mid=H/2, X=i=>L+(W-L-R)*i/(NP-1), Y=c=>mid-SY(c)*(H/2-14);
+  x.clearRect(0,0,W,H); x.font='11px ui-monospace,Menlo,monospace'; x.fillStyle='#6d6a5f';
+  [-1200,-100,100,1200].forEach(c=>{x.strokeStyle='#dcd9ca';x.beginPath();x.moveTo(L,Y(c));x.lineTo(W-R,Y(c));x.stroke();x.fillText((c>0?'+':'')+c+'¢',0,Y(c)+4);});
+  x.strokeStyle='#1a1916';x.lineWidth=2;x.beginPath();x.moveTo(L,mid);x.lineTo(W-R,mid);x.stroke();x.fillText('0¢',8,mid+4);
+  x.fillText('partial 1',L,H-3); x.fillText('24',W-R-14,H-3);
+  if(ghost){x.strokeStyle='rgba(26,25,22,.35)';x.lineWidth=1;x.beginPath();ghost.forEach((c,i)=>i?x.lineTo(X(i),Y(c)):x.moveTo(X(i),Y(c)));x.stroke();}
+  if(cents){const mx=Math.max(...amps);
+    for(let i=0;i<NP-1;i++){ if(cents[i]==null||cents[i+1]==null)continue; const b=Math.pow((amps[i]+amps[i+1])/2/mx,0.4);
+      x.strokeStyle=`rgba(200,38,26,${0.15+0.85*b})`;x.lineWidth=1+4*b;x.beginPath();x.moveTo(X(i),Y(cents[i]));x.lineTo(X(i+1),Y(cents[i+1]));x.stroke();}
+    cents.forEach((c,i)=>{if(c==null)return;const b=Math.pow(amps[i]/mx,0.4);x.fillStyle=`rgba(200,38,26,${0.2+0.8*b})`;x.beginPath();x.arc(X(i),Y(c),1.5+3*b,0,7);x.fill();});}
+  if(dots){x.fillStyle='#1a1916';dots.forEach((c,i)=>{if(c==null)return;x.fillRect(X(i)-3,Y(c)-3,6,6);});}
+  if(empty){x.strokeStyle='#1a1916';x.lineWidth=1;empty.forEach(i=>{x.beginPath();x.arc(X(i),mid,4,0,7);x.stroke();});}
+  if(note){x.fillStyle='#1a1916';x.fillText(note,L+6,14);}
+}
+
+// ---- stop 1 ----
+const c1=document.getElementById('c1');
+const draw1=()=>drawLine(c1,{cents:Array(NP).fill(0),amps:saw()});
+
+// ---- stop 2 ----
+const c2=document.getElementById('c2'), b2=document.getElementById('b2'), r2=document.getElementById('r2');
+function draw2(){const B=sliderB(+b2.value),c=stiff(B);drawLine(c2,{cents:c,amps:saw()});r2.textContent=`B = ${B.toFixed(5)} · partial 24 is ${c[NP-1].toFixed(0)}¢ sharp`;}
+dragY(c2,b2,draw2);
+function dragY(cv,slider,redraw){let on=false;const set=e=>{const r=cv.getBoundingClientRect();slider.value=Math.max(0,Math.min(1,1-(e.clientY-r.top)/r.height));redraw();};
+  cv.addEventListener('pointerdown',e=>{on=true;cv.setPointerCapture(e.pointerId);set(e);});cv.addEventListener('pointermove',e=>on&&set(e));cv.addEventListener('pointerup',()=>{on=false;});
+  slider.addEventListener('input',redraw);}
+
+// ---- stop 3 ----
+const c3=document.getElementById('c3'), r3=document.getElementById('r3'); let pIdx=0;
+const pianoAmps=saw().map((a,i)=>a*Math.exp(-i/14));
+function draw3(){const p=DATA.pianos[pIdx];drawLine(c3,{cents:p.fit,amps:pianoAmps,dots:p.measured,note:p.label+' · ■ measured · line = fitted stiffness'});
+  const top=p.measured.reduce((k,c,i)=>c!=null?i:k,0);r3.textContent=`fitted B = ${p.B.toExponential(2)} · measured up to partial ${top+1}; the line beyond is the formula carried on`;}
+const pb=document.getElementById('pianoBtns');
+DATA.pianos.forEach((p,i)=>{const b=document.createElement('button');b.className='act'+(i?'':' sel');b.textContent='play '+p.label.split(',')[0];b.onclick=()=>{pIdx=i;[...pb.children].forEach((x,j)=>x.classList.toggle('sel',j===i));draw3();strike(partsFromCents(p.fit,pianoAmps,F0),3);};pb.appendChild(b);});
+
+// ---- stop 4: the bell, two filings ----
+const c4=document.getElementById('c4'), b4=document.getElementById('b4'), r4=document.getElementById('r4'); let filing='rank';
+function bellSlots(){const {ratios,amps}=DATA.bell; const cents=Array(NP).fill(null), A=Array(NP).fill(0);
+  if(filing==='rank'){ratios.forEach((r,k)=>{if(k<NP){cents[k]=1200*Math.log2(r/(k+1));A[k]=amps[k];}});}
+  else{ratios.forEach((r,k)=>{const s=Math.max(1,Math.round(r));if(s>NP)return;if(amps[k]>A[s-1]){A[s-1]=amps[k];cents[s-1]=1200*Math.log2(r/s);}});}
+  return {cents,A};}
+const BELL_F1=262; // the bell is measured near C6; the lesson strikes it near middle C so the high modes stay audible
+function draw4(){const {cents,A}=bellSlots(),bd=+b4.value, shown=cents.map(c=>c==null?null:c*bd);
+  const empty=[];cents.forEach((c,i)=>{if(c==null)empty.push(i);});
+  drawLine(c4,{cents:shown,amps:A.map(a=>a||1e-6),empty:filing==='nearest'?empty:null,note:DATA.bell.label+' · filed by '+filing});
+  const used=cents.filter(c=>c!=null).length;r4.textContent=`bend ${bd.toFixed(2)} · ${used} slots sounding${filing==='nearest'?' · '+(DATA.bell.ratios.length-used)+' quieter modes lost a shared slot':''}`;}
+function bellParts(){const {cents,A}=bellSlots(),bd=+b4.value;return cents.map((c,i)=>({f:(i+1)*BELL_F1*Math.pow(2,(c??0)*bd/1200),a:c==null?0:A[i]}));}
+document.querySelectorAll('[data-filing]').forEach(b=>b.onclick=()=>{filing=b.dataset.filing;document.querySelectorAll('[data-filing]').forEach(x=>x.classList.toggle('sel',x===b));draw4();strike(bellParts(),3.5);});
+b4.addEventListener('input',draw4);
+
+// ---- stop 5: Sethares ----
+const c5=document.getElementById('c5'), b5=document.getElementById('b5'), r5=document.getElementById('r5');
+function diss(P){let d=0;for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const lo=Math.min(P[i].f,P[j].f),hi=Math.max(P[i].f,P[j].f),s=0.24/(0.0207*lo+18.96),x=s*(hi-lo);d+=P[i].a*P[j].a*(Math.exp(-3.51*x)-Math.exp(-5.75*x));}return d;}
+let curve=[], octMin=1200;
+const C5MAX=1500;
+const sliderB5=v=>0.025*v*v;  // stop 5 reaches past any piano, to bar stiffness, so the valley visibly travels
+function compute5(){const B=sliderB5(+b5.value),base=partsFromCents(stiff(B),saw());curve=[];
+  for(let c=0;c<=C5MAX;c+=5){const r=Math.pow(2,c/1200);curve.push(diss(base.concat(base.map(p=>({f:p.f*r,a:p.a})))));}
+  let best=1e9;for(let c=1100;c<=C5MAX;c+=5){const v=curve[c/5];if(v<best){best=v;octMin=c;}}
+  r5.textContent=`B = ${B.toFixed(5)} · smoothest octave at ${octMin}¢ (${octMin-1200>=0?'+':''}${octMin-1200}¢ from a true octave)`;}
+function draw5(){const {x,W,H}=setup(c5),L=36,R=12,T=14,Bm=24,mx=Math.max(...curve),X=c=>L+(W-L-R)*c/C5MAX,Y=v=>H-Bm-(H-T-Bm)*(v/mx);
+  x.clearRect(0,0,W,H);x.font='11px ui-monospace,Menlo,monospace';
+  [[0,'unison'],[316,'m3'],[386,'M3'],[498,'4th'],[702,'5th'],[884,'M6'],[1200,'octave']].forEach(([c,n])=>{x.strokeStyle='#dcd9ca';x.beginPath();x.moveTo(X(c),T);x.lineTo(X(c),H-Bm);x.stroke();x.fillStyle='#6d6a5f';x.fillText(n,X(c)+2,H-8);});
+  x.fillText('rough ↑',2,T+8);x.fillText('smooth',2,H-Bm-4);
+  x.strokeStyle='#c8261a';x.lineWidth=2;x.beginPath();curve.forEach((v,i)=>{const px=X(i*5),py=Y(v);i?x.lineTo(px,py):x.moveTo(px,py);});x.stroke();
+  x.fillStyle='#1a1916';x.beginPath();x.arc(X(octMin),Y(curve[octMin/5]),5,0,7);x.fill();}
+function redraw5(){compute5();draw5();}
+b5.addEventListener('input',redraw5);
+function playInterval(c){const B=sliderB5(+b5.value),base=partsFromCents(stiff(B),saw(),F0/2*1.5);const r=Math.pow(2,c/1200);strike(base,3.2);strike(base.map(p=>({f:p.f*r,a:p.a})),3.2);}
+c5.addEventListener('pointerdown',e=>{const r=c5.getBoundingClientRect(),c=Math.round(((e.clientX-r.left-36)/(r.width-48))*C5MAX/5)*5;if(c>=0&&c<=C5MAX){playInterval(c);r5.textContent+=` · you played ${c}¢`;}});
+document.querySelectorAll('[data-oct]').forEach(b=>b.onclick=()=>playInterval(b.dataset.oct==='min'?octMin:1200));
+
+// ---- play buttons and navigation ----
+document.querySelectorAll('[data-play]').forEach(b=>b.onclick=()=>{const k=b.dataset.play;
+  if(k==='1')strike(partsFromCents(Array(NP).fill(0),saw()),3);
+  if(k==='2'||k==='6')strike(partsFromCents(stiff(sliderB(+b2.value)),saw()),3);
+  if(k==='4')strike(bellParts(),3.5);});
+document.querySelector('[data-ab="2"]').onclick=()=>{strike(partsFromCents(Array(NP).fill(0),saw()),1.6);strike(partsFromCents(stiff(sliderB(+b2.value)),saw()),2.6,1.7);};
+const note=document.getElementById('note');try{note.value=localStorage.getItem('iws-lesson-note')||'';note.oninput=()=>localStorage.setItem('iws-lesson-note',note.value);}catch(e){}
+const secs=[...document.querySelectorAll('section')], nav=document.getElementById('nav'), draws=[draw1,draw2,draw3,draw4,redraw5,()=>{}];
+function go(i){secs.forEach((s,j)=>s.classList.toggle('on',j===i));[...nav.children].forEach((b,j)=>b.classList.toggle('on',j===i));draws[i]();scrollTo(0,0);}
+secs.forEach((s,i)=>{const b=document.createElement('button');b.textContent=(i+1)+' '+s.dataset.t;b.onclick=()=>go(i);nav.appendChild(b);});
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>go(+b.dataset.go));
+addEventListener('resize',()=>draws[secs.findIndex(s=>s.classList.contains('on'))]());
+const q=new URLSearchParams(location.search);go(+(q.get('stop')||1)-1);if(q.get('b5')){b5.value=q.get('b5');redraw5();}if(q.get('filing')){filing=q.get('filing');b4.value=q.get('bend')||1;draw4();}
+</script>
+</body>
+</html>

@@ -15,35 +15,38 @@ forward_vector: "I am Rational Hearing's scroll — the one page that always ope
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-30T10:11:44.331Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-15T14:13:31.309Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-10-30 (today)
-- **Plan:** agreed (no dated change on the trail yet)
-- **Waiting on you:** 2 open asks — one of them has the steward paused
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 4 · last ran 2026-11-15 (today)
+- **Plan:** agreed (no dated change on the trail yet) · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-30 (today) — Should Projector mode's bigger, full-height ladder go into the live page before you test it in a room? (`rational-hearing-steward-007`)
-- **Last commit touching this project:** 2026-10-30 `fc56eec0` — steward(Rational Hearing): cycle 1 — SPINNING UP. HOME: [Rational Hearing](obsidian://open?vault=The%20Palac…
+- **Last shipped:** 2026-11-15 (today) — A run sheet for one online class: thirteen moments in the handout's order, each a student link ready to paste into the chat. (`rational-hearing-steward-012`)
+- **Last commit touching this project:** 2026-11-15 `2fa776b8` — steward(Rational Hearing): cycle 3 — SPINNING UP. HOME: [Rational Hearing](obsidian://open?vault=The%20Palac…
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 1 file in the bundle that no cycle declared, so no cycle commits it — `Projects/Rational Hearing/online/check-student-link.json`. Look, then commit or clear it.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-30 — cycle 2 · taught item 2
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-15 — cycle 4 · taught item 6
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 2, from cycle 2 — 2026-10-30 — [[Rational Hearing — tuning]]
+- **Proposed for canon:** 2 — items 4, 5; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 6, from cycle 4 — 2026-11-15 — [[Rational Hearing — tuning]]
 
 ### Where this stands
 
-Rational Hearing is your one-page handout on intervals as whole-number ratios, 5-limit only, rebuilt as a page you can play. Tap a partial on the ladder to hear it, tap an interval label (P5, M3) to hear the pair, and compare just bars against the piano's twelve equal steps. You heard it on 29 October and said the sound works. The plan's next steps are yours: put it on a projector and look from the back row, then print it and write on it. Last cycle I measured the projector test ahead of time. The ladder's interval labels came out right at the edge of what 20/20 eyes can read, and browser zoom can't help, because the ladder shrinks to fit its column. This cycle I built the fix as a draft co…
+Rational Hearing is your one-page handout on intervals as whole-number ratios, built only from the primes 2, 3 and 5, rebuilt as a page you can play. Tap a partial on the ladder to hear it, tap an interval label to hear the pair, and compare the pure ratios against the piano's twelve equal steps. On 10 November you told me it's a web interaction for online classes, not a classroom projector. So last cycle the page learned to send a link instead of sound: a student clicks it, taps once, and hears the same moment on their own speakers rather than through the call. This cycle I turned that into a class you can actually run. The run sheet lists thirteen moments in the handout's order, each with…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-10-28:** Headless Chromium only, as before. _(in 3 notes, the latest cycle 2)_
+- **rough since 2026-10-28:** Headless Chromium only, as before. _(in 5 notes, the latest cycle 4)_
+- **rough since cycle 1:** I also don't know the web address you open the page from in class, and this one is yours: putting the page at a public address widens what the palace publishes, which waits on your yes and a Sentry sweep. _(in 3 notes, the latest cycle 4)_
+- **rough since cycle 3:** Until then, the run sheet's links work only on your Mac. _(in 2 notes, the latest cycle 4)_
 
 ### Open asks
 
-- `rational-hearing-steward-002` — review the current state before any cycle runs · **steward paused on this** · posted 2026-10-29 · options: reviewed · notes · replan
-- `rational-hearing-steward-007` — fold the back-row ladder into the live page · posted 2026-10-30 · options: ADOPT · ROOM-FIRST · ADJUST
+- `rational-hearing-steward-010` — proposed plan revision: the plan, rewritten for online classes · posted 2026-11-15 · options: adopt · keep
 
 ### Answered, not yet consumed
 
@@ -51,16 +54,26 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `rational-hearing-steward-007` — fold the back-row ladder into the live page → GRANTED — (no option_id); notes: "adjust the forward vector, don't plan for this to be in a classroom, instead focus on online teaching, this is a web interaction I use in online classes." (2026-11-10)
+- `rational-hearing-steward-002` — review the current state before any cycle runs → GRANTED — option_id=reviewed (2026-11-10)
 
 ### Runs
 
+- 2026-11-15 — cycle 4 · taught item 6
+- 2026-11-15 — cycle 3 · taught item 3, proposed items 4, 5 for canon
 - 2026-10-30 — cycle 2 · taught item 2
 - 2026-10-30 — cycle 1 · taught item 1
 
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **4.** 2026-11-15 · [[Rational Hearing]] · frontmatter forward_vector — Loudon, 2026-11-10: 'adjust the forward vector, don't plan for this to be in a classroom, instead focus on online teaching, this is a web interaction I use in online classes.'
+- **5.** 2026-11-15 · [[Rational Hearing]] · opening paragraph, the sentences beginning 'It is a lecture backdrop' — The page's own description still says projector and printed copies. Loudon corrected that, and the student link is how the page now reaches its students.
 
 <!-- scroll:now:end -->
 
@@ -87,6 +100,107 @@ _Draft, not yet agreed: this plan was written by the builder on 2026-10-28 from 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="rational-hearing-steward-012" -->
+### 2026-11-15 — cycle 4 — A run sheet for one online class: thirteen moments in the handout's order, each a student link ready to paste into the chat.
+> shipped · run sheet and hush fix, 19 of 19 checks pass · steward leans try it in one class
+
+The run sheet (online/class-run-sheet.html) follows the handout's order. It starts with one note alone, then all sixteen partials, then the intervals from the octave down through the fourth, the thirds, the 4:5:6 triad, and the major second, major seventh and minor second. It ends with two just-then-piano comparisons: the fifth, where the gap is two cents and most ears hear nothing, and the major third, where it is about 14 cents and the gap is drawn five times larger. Each line shows the ratio in the sheet's colour for its consonance class, a one-line note, a Copy button, and ↗ to see what a student sees. A box at the top holds the page's address, and every link rebuilds from whatever you paste there. Opened from disk, the sheet warns that the links will only work on this computer. The order and the notes are a draft for you to reorder or cut; the explaining stays yours.
+
+The fix is version 0.3.1 of the page. The just-against-equal playback ran around the page's main volume control, so switching Sound off, or the palace's rich face asking the page to go quiet, left up to three seconds of it playing. Now it stops at once. I checked it by putting a level meter on the page's output and stopping a comparison halfway through: the level went from about 0.12 to 0, both for Sound off and for the quiet request. My first version of the fix broke the student link's comparison. The check from last cycle caught it, and I fixed it before posting. Both checks now pass: 19 of 19 on the run sheet, and 17 of 17 on the student link.
+
+**Artifacts:**
+- [the run sheet: thirteen moments, each with a student link to copy and a ↗ preview.](Projects/Rational Hearing/online/class-run-sheet.html)
+- [the run sheet as it opens from disk, with the local-only warning showing.](Projects/Rational Hearing/online/run-sheet-1280.png)
+- [the page, version 0.3.1: Sound off and the rich face's quiet request now stop the just-against-equal playback at once.](Projects/Rational Hearing/rational-hearing.html)
+- [opens every run-sheet link as a student and measures the output level after Sound off and the quiet request.](Projects/Rational Hearing/online/check-run-sheet.mjs)
+- [19 of 19 checks passing, 2026-11-15.](Projects/Rational Hearing/online/check-run-sheet.json)
+- [what the run sheet does and what was checked.](Projects/Rational Hearing/online/README.md)
+
+_the run sheet's last two moments: how far the piano misses_
+| moment | just | piano | gap |
+| --- | --- | --- | --- |
+| the fifth | 3:2 = 702.0¢ | 700¢ | piano 2.0¢ flat |
+| the major third | 5:4 = 386.3¢ | 400¢ | piano 13.7¢ sharp |
+
+_Changed in the workshop:_ README — added the run sheet, the 0.3.1 hush fix, and what was checked.
+
+_Left rough:_ Headless Chromium only, as before. I also don't know the web address you open the page from in class, and this one is yours: putting the page at a public address widens what the palace publishes, which waits on your yes and a Sentry sweep. Until then, the run sheet's links work only on your Mac.
+
+_Next moves named:_ Once you give me the address you teach from, paste it into the run sheet's box (or open the sheet with ?base= and the address) and every link is ready. · After a class taught from it, write down what landed and what you skipped, and reshape the sheet's order from that, not from my guess.
+<sub>`rational-hearing-steward-012` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5d9378f4fa" -->
+### 2026-11-15 — cycle 4
+
+taught item 6
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="rational-hearing-steward-010" -->
+### 2026-11-15 — cycle 3 — Swap the projector test and the print test for one online class taught from the page, now that it can send students links?
+> still working · student links shipped · steward leans adopt
+
+Rational Hearing is your playable handout on intervals as ratios. The plan you reviewed on 10 November still has two steps that each wait on you. One is to stand at the back of a room and look at the page on a projector. The other is to print it and write on it. The same day, you told me this is an online-class page. So the honest next test is one online class: share the screen, paste a link or two into the chat, and tell me what landed. This cycle built the student links that test needs. They passed 17 of 17 checks in a headless browser, which still isn't a real call. The proposed plan drops the projector and print tests and keeps the print face as it is. It puts your fine-tuning sitting, with the metaphor, right after that class, and leaves the A/B decision and the later pages where they were. The cost: the projector draft from my second cycle stays shelved.
+
+**Artifacts:**
+- [Rational Hearing — icon.png](Projects/Rational Hearing/Rational Hearing — icon.png)
+- [Rational Hearing — hero.png](Projects/Rational Hearing/Rational Hearing — hero.png)
+- [rational-hearing.artifact.html](Projects/Rational Hearing/import/src/rational-hearing.artifact.html)
+- [index.html](Projects/Rational Hearing/import/src/index.html)
+- [rational-hearing-projector-draft.html](Projects/Rational Hearing/back-row/rational-hearing-projector-draft.html)
+- [back-row-report.html](Projects/Rational Hearing/back-row/back-row-report.html)
+- [Rational Hearing — rich — the miss, blind.html](Projects/Rational Hearing/Rational Hearing — rich — the miss, blind.html)
+- [draft-projector-1280x720-frame.png](Projects/Rational Hearing/back-row/draft-projector-1280x720-frame.png)
+- [draft-draft-1920x1080.png](Projects/Rational Hearing/back-row/draft-draft-1920x1080.png)
+- [draft-draft-1280x720.png](Projects/Rational Hearing/back-row/draft-draft-1280x720.png)
+- [draft-live-1920x1080.png](Projects/Rational Hearing/back-row/draft-live-1920x1080.png)
+- [draft-live-1280x720.png](Projects/Rational Hearing/back-row/draft-live-1280x720.png)
+<sub>`rational-hearing-steward-010` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="rational-hearing-steward-009" -->
+### 2026-11-15 — cycle 3 — A new 'Link for students' button copies a link that opens each student's copy on what you're playing, so the sound plays on their own speakers.
+> shipped · 17 of 17 checks pass in headless Chrome · steward leans you try one link in a class
+
+**Try it:** [the page](open:Projects/Rational Hearing/rational-hearing.html). Tap P5 on the ladder, then press **Link for students** at the top.
+
+**What it does.** The button copies a link that holds what's sounding now: which partials are on, C or A as the fundamental, whether the gaps are magnified ×5, and the last just-against-equal column you played, if nothing has changed since. You paste the link into the class chat. A student who clicks it gets the page already set up, with a banner along the bottom that says, for example, *"Sent from class: the major 3rd, 5:4 just, then on the piano."* One tap and the sound starts on their speakers. Browsers won't play sound until someone taps, so that tap can't be skipped. A link for the major third's A/B plays the just third and then the piano's third on that tap.
+
+**Why this instead of louder screen sharing.** Your sound reaching students through the call goes through the call's compression and noise suppression. Video-call apps often treat a steady tone as background noise and turn it down. Zoom has an "original sound" setting for musicians, but I haven't tested any of this. A 2-cent difference between a just and a tempered fifth is exactly the kind of detail a call smears. Played on the student's own machine, it arrives intact.
+
+**Checked:** a script set up three moments on a teacher's copy, copied each link and opened it as a student. The moments were the fifth on the ladder, a 4:5:6 major triad on A with the gaps magnified, and the major third's A/B. In all three, the student's readout matched the teacher's, the banner showed, one tap started the sound, and the A/B played by itself. There were no page errors. Nothing else on the page changed.
+
+**One catch:** the link points wherever the page was opened from. Opened from your disk, it works only on your computer, and the page says so when you press the button. Opened from a web address, it works for the whole class.
+
+**Set aside, not deleted:** last cycle's projector draft of the bigger ladder stays in `back-row/`. Your answer says the back row isn't the problem.
+
+**Artifacts:**
+- [the page, with the Link for students button and the student's banner (build 0.3.0).](Projects/Rational Hearing/rational-hearing.html)
+- [what a student sees on opening a major-third link: the page set to 5:4 and the banner to tap.](Projects/Rational Hearing/online/student-third-banner-1280x720.png)
+- [your header after pressing the button: what was copied, and the link.](Projects/Rational Hearing/online/teacher-link-copied-1280x720.png)
+- [a student's copy after tapping a fifth link, with sound on.](Projects/Rational Hearing/online/student-fifth-1280x720.png)
+- [the round-trip check: teacher sets up the moment, copies the link, student opens it and taps.](Projects/Rational Hearing/online/check-student-link.mjs)
+- [17 checks, all passing.](Projects/Rational Hearing/online/check-student-link.json)
+- [what the link carries, how it works, and what wasn't checked.](Projects/Rational Hearing/online/README.md)
+
+_Changed in the workshop:_ README — new workshop folder for the student link: what it carries and what was checked.
+_Proposed for canon:_ Rational Hearing (frontmatter forward_vector) — Loudon, 2026-11-10: 'adjust the forward vector, don't plan for this to be in a classroom, instead focus on online teaching, this is a web interaction I use in online classes.'; owed in the tuning ledger until Loudon's review
+_Proposed for canon:_ Rational Hearing (opening paragraph, the sentences beginning 'It is a lecture backdrop') — The page's own description still says projector and printed copies. Loudon corrected that, and the student link is how the page now reaches its students.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Headless Chromium only, as before. No real call, no student's device, and no test of how the drone survives Zoom's audio. I also don't know the web address you open the page from in class. That decides whether the links work for students, and only you can tell me.
+
+_Next moves named:_ You paste one link into a class chat (the fifth is a good first one) and tell me whether students heard it. · Next cycle: check the page as a shared screen. At the 1280×720 a call usually sends, are the ratio numerals and the ×5 gaps still sharp after video compression? I'll measure that instead of the back row. · When you sit with the page, as your standing order says fine tuning means: find the metaphor a student keeps. The link may be part of it, with every student holding the same note in their own hands.
+<sub>`rational-hearing-steward-009` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-b820e88223" -->
+### 2026-11-15 — cycle 3
+
+taught item 3, proposed items 4, 5 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="rational-hearing-steward-007" -->
 ### 2026-10-30 — cycle 2 — Should Projector mode's bigger, full-height ladder go into the live page before you test it in a room?
 > still working · draft measured, live page untouched · steward leans ADOPT

@@ -45,3 +45,13 @@ Written by the session fixing the card; owed a review.
 10. **A bare `en.G2P()` is no probe for a rare word.** Item 6's way to get canonical phonemes, `from misaki import en; en.G2P()(word)[0]`, returned `❓` for Kuramoto: without a fallback it has nothing for words outside its lexicon, which are the words an override is for. `KPipeline` yields the phonemes it actually used, per chunk. The same check found RNBO read letter by letter (`ˌɑɹˌɛnbˌiˈO`), and af_bella, the Study default, rendering cleanly to −16.0 LUFS, −1.0 dBTP (not yet heard). Changed: the pronunciation gotcha, the RNBO open question, the Study tier, and the Capabilities example, which was ARPABET (`proofs/2026-11-14-card-check/`).
 
 - run · 2026-11-14 · card check, three sentences in af_bella with RNBO and an overridden Kuramoto, study · taught item 10
+
+## From the test scroll — 2026-11-15 — RNBO three ways, study
+
+Written by the session giving the sound Specialists their test scrolls; owed a review.
+
+11. **Two renders of one sentence in one process are not the same samples.** "The patch is written in RNBO, then exported from RNBO to a plugin" in af_bella, twice: the same length (5.83 s), different samples, the largest difference 0.12 of full scale. The card already says byte-identical output is not shown; this says by how much, inside one process. Whether the difference can be heard was not checked. Changed: nothing on the page yet; the card's test stands, now measured.
+12. **A hand-written pronunciation of RNBO takes, both ways.** `[RNBO](/ɹˈɛnbO/)` and `[RNBO](/ɹˈɪnbO/)` came through the pipeline's phonemes exactly as written; left alone, misaki spells it `ˌɑɹˌɛnbˌiˈO`. Which one Loudon says is his ear's; the three takes are on the scroll. Changed: nothing yet.
+
+- run · 2026-11-15 · RNBO three ways and a determinism check (`proofs/2026-11-15-rnbo-three-ways/rnbo.py`), af_bella, study · taught items 11–12 · unheard
+- from the zoom-out · 2026-11-15 · no new Kokoro model: v1.0 (2025-01-27) is still the newest on https://huggingface.co/hexgrad/Kokoro-82M; kokoro-onnx 0.5.0 (2026-01-30, per a PyPI mirror) and mlx-audio 0.5.7 (2026-09-28, per a PyPI mirror; https://github.com/Blaizzy/mlx-audio) are other routes to the same model; rivals that run on a Mac through mlx-audio, per two 2026 blog round-ups (murmurtts.com, tryspeakeasy.io): Chatterbox (MIT, voice cloning), Qwen3-TTS (Apache-2.0), Dia 1.6B · not tried · owed a review: a blind pair, Kokoro against one rival, is on the scroll's test list

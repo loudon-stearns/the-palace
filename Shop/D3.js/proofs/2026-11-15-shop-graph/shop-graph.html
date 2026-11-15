@@ -1,0 +1,314 @@
+<!doctype html>
+<!--
+  title: D3.js — proof — the Shop as a relaxed graph
+  born: 2026-11-15
+  links: [[D3.js]] (connects-to · test-proof), [[The Shop]] (connects-to · data-from)
+  forward_vector: I am the first time D3.js drew palace data, and the first time d3-force did the job it was
+    built for: relaxing a graph, not driving boids. The Shop's pages and their typed frontmatter links settle
+    into a layout you can read with a mouse, with the keyboard alone, or as a list with a screen reader.
+    I want to become the pattern for any entry-graph view the palace wants next.
+  The data: shop-graph.json beside me, written by extract.mjs from Shop/*.md frontmatter. Re-run it to refresh.
+  This is how it was done on 2026-11-15, not how it must be done. A maker who can do better another way
+  (another layout, a canvas path, a better keyboard model) does so, and leaves the comparison on the scroll.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>     the inline script parses
+    node _ops/rich-face/conform.mjs <this file> --browser                   loads clean and reports a height
+    node Shop/D3.js/proofs/2026-11-15-shop-graph/check.mjs                  layout, keyboard and labels, headless
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D3.js — the Shop as a relaxed graph</title>
+<meta name="piece:needs" content="">
+<meta name="piece:files" content="shop-graph.json">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-3); font-family: var(--mono); font-size: 13px; }
+  main { padding: var(--s-5); display: grid; gap: var(--s-3); max-width: 72rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; line-height: 1.5; max-width: 62rem; }
+  .ask { color: var(--fg-1); border-left: 2px solid var(--accent); padding-left: var(--s-3); }
+  .bar { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border);
+           border-radius: var(--r-sm); padding: var(--s-1) var(--s-3); cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #status { color: var(--fg-2); }
+  .frame { border: 1px solid var(--border); }
+  svg { display: block; width: 100%; height: auto; }
+  svg g.node { cursor: pointer; }
+  svg g.node:focus { outline: none; }
+  .legend { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-4); }
+  .legend span::before { content: ''; display: inline-block; width: 18px; height: 0; margin-right: var(--s-1);
+                         vertical-align: middle; border-top: 2px solid var(--sw); }
+  .keys { color: var(--fg-3); }
+  kbd { font: inherit; color: var(--fg-1); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 0 3px; }
+  details { border-top: 1px solid var(--border); padding-top: var(--s-2); }
+  summary { cursor: pointer; color: var(--fg-2); }
+  details ul { margin: var(--s-1) 0; padding-left: var(--s-5); }
+  .measured { color: var(--fg-3); }
+</style>
+</head>
+<body>
+<main>
+  <h1>The Shop as a relaxed graph — d3-force doing its own job</h1>
+  <p>Every page in the Shop folder, and every page its frontmatter links to, joined by the typed links the
+    pages declare (<span id="counts">…</span>). Nothing moves until you press <b>Relax</b>. Then d3-force lets the
+    graph settle: links pull, nodes push apart, and the layout cools to rest. Drag a node and it settles again.</p>
+  <p class="ask"><b>The question for you:</b> once it has settled, can you find your way round the Shop by eye?
+    Pick one Specialist you know and say whether its neighbours sit where you would expect them.</p>
+  <div class="bar">
+    <button id="relax" type="button">Relax</button>
+    <button id="reset" type="button">Back to the start</button>
+    <span id="status" aria-live="polite">still: nodes at d3-force's starting spiral</span>
+  </div>
+  <div class="frame">
+    <svg id="graph" viewBox="0 0 960 700" tabindex="-1" role="group" aria-roledescription="graph"
+         aria-label="The Shop's pages and their typed links. Arrow keys move between nodes; Enter shows a node's links."
+         aria-describedby="keys"></svg>
+  </div>
+  <div class="legend" id="legend" aria-hidden="true"></div>
+  <p class="keys" id="keys">Keyboard: <kbd>Tab</kbd> into the graph, <kbd>←</kbd><kbd>↑</kbd><kbd>→</kbd><kbd>↓</kbd> move to
+    the nearest node that way, <kbd>Enter</kbd> or <kbd>Space</kbd> shows its links, <kbd>]</kbd> and <kbd>[</kbd> walk
+    through its neighbours, a letter jumps to the next name starting with it, <kbd>Esc</kbd> lets go.</p>
+  <div id="announce" class="visually-hidden" aria-live="polite"
+       style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap"></div>
+  <details id="aslist">
+    <summary>The same graph as a list</summary>
+    <ul id="list"></ul>
+  </details>
+  <p class="measured" id="measured">Measured headless by check.mjs on 2026-11-15: see measured.json beside this file.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script>
+const W = 960, H = 700;
+const svg = d3.select('#graph');
+const gLinks = svg.append('g').attr('aria-hidden', 'true');
+const gNodes = svg.append('g');
+let graph = null, sim = null, nodeSel = null, linkSel = null;
+let focused = null, selected = null, neighbourIx = -1;
+
+// Edge types the pages use most get a colour; the rest stay quiet.
+const TYPE_SLOT = { 'couples-with': 1, 'enables': 2, 'exemplifies': 3, 'mirrors': 4, 'contrasts-with': 5, 'contradicts': 5 };
+function edgeColour(T, type) {
+  const s = TYPE_SLOT[type];
+  if (s !== undefined && T.categorical[s]) return T.categorical[s];
+  return type === 'member-of' ? T.fg4 : T.border;
+}
+const radius = (d) => d.kind === 'outside' ? 3 + Math.min(d.degree, 8) * 0.6 : 5 + Math.min(d.degree, 40) * 0.25;
+const HUB_DEGREE = 25;
+const isHubLink = (l) => l.source.degree > HUB_DEGREE || l.target.degree > HUB_DEGREE;
+const showLabel =(d) => d.kind !== 'outside' || d.degree >= 3;
+const kindWord = { specialist: 'Specialist', shop: 'Shop page', outside: 'page outside the Shop' };
+
+function describe(d) {
+  return `${d.id}, ${kindWord[d.kind]}${d.status ? ', ' + d.status : ''}, ${d.degree} link${d.degree === 1 ? '' : 's'}`;
+}
+function linksOf(d) {
+  return graph.links.filter((l) => l.source === d || l.target === d).map((l) => {
+    const out = l.source === d;
+    const other = out ? l.target : l.source;
+    return { other, text: out ? `${l.type} ${other.id}${l.label ? ' (' + l.label + ')' : ''}`
+                              : `${other.id} ${l.type} this${l.label ? ' (' + l.label + ')' : ''}` };
+  });
+}
+
+function build(data) {
+  const byId = new Map(data.nodes.map((n) => [n.id, { ...n, degree: 0 }]));
+  const links = data.links.map((l) => ({ ...l, source: byId.get(l.source), target: byId.get(l.target) }));
+  for (const l of links) { l.source.degree++; l.target.degree++; }
+  const nodes = [...byId.values()].sort((a, b) => d3.ascending(a.id.toLowerCase(), b.id.toLowerCase()));
+  graph = { nodes, links };
+  document.getElementById('counts').textContent =
+    `${data.counts.pages} Shop pages, ${nodes.length} nodes, ${links.length} links, read ${data.extracted}`;
+
+  sim = d3.forceSimulation(nodes)
+    // Nearly every page links The Shop and the Maker. Pulled at full strength, those two hubs drag the
+    // whole Shop into one knot; held loosely, each Specialist settles by the links that tell it apart.
+    .force('link', d3.forceLink(links)
+      .distance((l) => isHubLink(l) ? 200 : 50)
+      .strength((l) => isHubLink(l) ? 0.02 : 1 / Math.min(l.source.degree, l.target.degree)))
+    .force('charge', d3.forceManyBody().strength(-180).distanceMax(480))
+    .force('collide', d3.forceCollide((d) => radius(d) + 4))
+    .force('x', d3.forceX(W / 2).strength(0.04))
+    .force('y', d3.forceY(H / 2).strength(0.07))
+    .force('frame', () => {                    // a wall at the frame's edge, so a loose leaf stays in view
+      for (const d of nodes) {
+        const r = radius(d) + 2;
+        d.x = Math.max(r, Math.min(W - r, d.x)); d.y = Math.max(r, Math.min(H - r, d.y));
+      }
+    })
+    .stop();                                   // still until a click
+  sim.on('tick', draw).on('end', () => setStatus(`settled after ${sim.ticks} ticks`));
+  sim.ticks = 0;
+  sim.on('tick.count', () => { sim.ticks++; });
+
+  linkSel = gLinks.selectAll('line').data(links).join('line');
+  nodeSel = gNodes.selectAll('g.node').data(nodes, (d) => d.id)
+    .join((enter) => {
+      const g = enter.append('g').attr('class', 'node')
+        .attr('role', 'button').attr('tabindex', -1)
+        .attr('aria-label', describe).attr('aria-pressed', 'false');
+      g.append('circle').attr('class', 'ring');
+      g.append('circle').attr('class', 'dot');
+      g.append('text').attr('class', 'label').attr('text-anchor', 'start').attr('dominant-baseline', 'middle')
+        .attr('aria-hidden', 'true').text((d) => d.id);
+      return g;
+    });
+  nodeSel.on('click', (e, d) => { focusNode(d); toggleSelect(d); })
+    .on('focus', (e, d) => { if (focused !== d) focusNode(d, false); })
+    .on('keydown', onKey)
+    .on('pointerenter', (e, d) => { if (!selected) highlight(d); })
+    .on('pointerleave', () => { if (!selected) highlight(null); })
+    .call(d3.drag()
+      .on('start', (e, d) => { d.dragged = false; })
+      .on('drag', (e, d) => {                  // a click is not a drag: heat the graph only once it moves
+        if (!d.dragged) { d.dragged = true; sim.alphaTarget(0.25).restart(); setStatus('relaxing'); }
+        d.fx = e.x; d.fy = e.y;
+      })
+      .on('end', (e, d) => { if (d.dragged) sim.alphaTarget(0); d.fx = null; d.fy = null; d.dragged = false; }));
+
+  // The list: the same graph for a screen reader or a reader who wants words.
+  d3.select('#list').selectAll('li').data(nodes.filter((d) => d.kind !== 'outside'))
+    .join('li').text((d) => `${describe(d)}: ` + linksOf(d).map((x) => x.text).join('; '));
+
+  const T = palaceTokens();
+  const used = [...new Set(links.map((l) => l.type))].sort();
+  d3.select('#legend').selectAll('span').data(used).join('span')
+    .style('--sw', (t) => edgeColour(T, t)).text((t) => t);
+
+  focusNode(nodes.find((d) => d.id === 'D3.js') ?? nodes[0], false, false);
+  draw();
+}
+
+function draw() {
+  const T = palaceTokens();                                  // at call time, so a skin swap re-colours
+  const hl = (selected || hovered);
+  const near = hl ? new Set([hl, ...linksOf(hl).map((x) => x.other)]) : null;
+  linkSel
+    .attr('x1', (l) => l.source.x).attr('y1', (l) => l.source.y)
+    .attr('x2', (l) => l.target.x).attr('y2', (l) => l.target.y)
+    .attr('stroke', (l) => edgeColour(T, l.type))
+    .attr('stroke-width', (l) => hl && (l.source === hl || l.target === hl) ? 2 : 1)
+    .attr('stroke-dasharray', (l) => l.type === 'member-of' ? '3 3' : null)
+    .attr('stroke-opacity', (l) => !hl ? (isHubLink(l) ? 0.18 : 0.6) : (l.source === hl || l.target === hl) ? 1 : 0.06);
+  nodeSel.attr('transform', (d) => `translate(${d.x},${d.y})`)
+    .attr('opacity', (d) => !near || near.has(d) ? 1 : 0.25);
+  nodeSel.select('circle.dot').attr('r', radius)
+    .attr('fill', (d) => d.kind === 'specialist' ? T.accent : d.kind === 'shop' ? T.fg1 : T.bg)
+    .attr('stroke', (d) => d.kind === 'outside' ? T.fg3 : T.bg).attr('stroke-width', 1.2);
+  nodeSel.select('circle.ring').attr('r', (d) => radius(d) + 4).attr('fill', 'none')
+    .attr('stroke', T.accent).attr('stroke-width', 2)
+    .attr('display', (d) => d === focused && focusVisible ? null : 'none');
+  nodeSel.select('text.label').attr('x', (d) => radius(d) + 4).attr('y', 0)
+    .attr('fill', (d) => d.kind === 'outside' ? T.fg3 : T.fg1)
+    .attr('font-family', T.mono).attr('font-size', 10)
+    .attr('display', (d) => showLabel(d) || (near && near.has(d)) || d === focused ? null : 'none');
+}
+
+let hovered = null, focusVisible = false;
+function highlight(d) { hovered = d; draw(); }
+function setStatus(s) { document.getElementById('status').textContent = s; }
+function announce(s) { document.getElementById('announce').textContent = s; }
+
+function focusNode(d, move = true, visible = true) {
+  focused = d;
+  focusVisible = visible;
+  nodeSel.attr('tabindex', (n) => n === d ? 0 : -1);       // one tab stop: a roving tabindex
+  if (move) nodeSel.filter((n) => n === d).node().focus();
+  draw();
+}
+function toggleSelect(d) {
+  if (selected === d) return clearSelect();
+  selected = d; neighbourIx = -1;
+  nodeSel.attr('aria-pressed', (n) => n === d ? 'true' : 'false');
+  const ls = linksOf(d);
+  announce(`${describe(d)}. ` + ls.map((x) => x.text).join('; ') + '.');
+  draw();
+}
+function clearSelect() {
+  selected = null; neighbourIx = -1;
+  nodeSel.attr('aria-pressed', 'false');
+  announce('Let go.');
+  draw();
+}
+// Arrow keys: the nearest node within 60 degrees of the direction, angle-weighted.
+function nearestToward(d, dx, dy) {
+  let best = null, bestScore = Infinity;
+  for (const n of graph.nodes) {
+    if (n === d) continue;
+    const vx = n.x - d.x, vy = n.y - d.y, dist = Math.hypot(vx, vy);
+    if (dist === 0) continue;
+    const cos = (vx * dx + vy * dy) / dist;
+    if (cos < 0.5) continue;
+    const score = dist * (1 + 2 * (1 - cos));
+    if (score < bestScore) { bestScore = score; best = n; }
+  }
+  return best;
+}
+function onKey(e, d) {
+  const dirs = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] };
+  if (dirs[e.key]) {
+    e.preventDefault();
+    const n = nearestToward(d, ...dirs[e.key]);
+    if (n) focusNode(n); else announce('Nothing further that way.');
+  } else if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault(); toggleSelect(d);
+  } else if (e.key === ']' || e.key === '[') {
+    const hub = selected ?? d;
+    if (!selected) toggleSelect(d);
+    const ls = linksOf(hub);
+    if (!ls.length) return;
+    neighbourIx = (neighbourIx + (e.key === ']' ? 1 : ls.length - 1)) % ls.length;
+    const x = ls[neighbourIx];
+    focusNode(x.other);
+    announce(`${neighbourIx + 1} of ${ls.length} from ${hub.id}: ${x.text}. ${describe(x.other)}.`);
+  } else if (e.key === 'Escape') {
+    clearSelect();
+  } else if (/^[a-z0-9]$/i.test(e.key) && !e.metaKey && !e.ctrlKey) {
+    const k = e.key.toLowerCase(), ns = graph.nodes, i = ns.indexOf(d);
+    for (let j = 1; j <= ns.length; j++) {
+      const n = ns[(i + j) % ns.length];
+      if (n.id.toLowerCase().startsWith(k)) { focusNode(n); break; }
+    }
+  }
+}
+
+// Relax: the simulation's own timer runs it; reduced motion settles at once.
+function relax() {
+  sim.ticks = 0;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return settle();
+  setStatus('relaxing');
+  sim.alpha(1).restart();
+}
+function settle(n = 300) {                     // headless and reduced-motion path: tick without a timer
+  sim.stop(); sim.alpha(1);
+  for (let i = 0; i < n; i++) sim.tick();
+  sim.ticks = n; draw(); setStatus(`settled after ${n} ticks`);
+}
+function reset() {
+  sim.stop();
+  for (const d of graph.nodes) { delete d.x; delete d.y; d.vx = d.vy = 0; }
+  sim.nodes(graph.nodes);                      // re-initialises to the starting spiral
+  for (const d of graph.nodes) { d.x += W / 2; d.y += H / 2; }
+  draw(); setStatus('still: nodes at d3-force\'s starting spiral');
+}
+document.getElementById('relax').addEventListener('click', relax);
+document.getElementById('reset').addEventListener('click', reset);
+svg.on('focusin', () => { focusVisible = true; draw(); }).on('focusout', () => { focusVisible = false; draw(); });
+
+fetch('shop-graph.json').then((r) => {
+  if (!r.ok) throw new Error(`shop-graph.json: ${r.status}`);
+  return r.json();
+}).then((data) => {
+  build(data);
+  for (const d of graph.nodes) { d.x += W / 2; d.y += H / 2; }   // the spiral, centred in the frame
+  draw();
+}).catch((err) => {
+  setStatus(`could not read shop-graph.json (${err.message}); open me from the palace or its rich face`);
+});
+</script>
+</body>
+</html>

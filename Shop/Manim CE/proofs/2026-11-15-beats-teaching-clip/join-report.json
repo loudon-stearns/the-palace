@@ -1,0 +1,26 @@
+{
+  "made": "2026-11-15",
+  "ffmpeg": "8.1",
+  "pass1_sec": 0.57,
+  "pass2_and_mux_sec": 0.88,
+  "narration_raw_lufs": -25.5,
+  "out_lufs_loudnorm": -16.07,
+  "out_tp_dbtp": -1.0,
+  "ebur128_on_final_file": "I: -16.1 LUFS  Peak: -1.0 dBFS",
+  "streams": [
+    {
+      "codec_name": "h264",
+      "width": 1920,
+      "height": 1080,
+      "r_frame_rate": "30/1",
+      "duration": "17.000000"
+    },
+    {
+      "codec_name": "aac",
+      "sample_rate": "48000",
+      "r_frame_rate": "0/0",
+      "duration": "17.000000"
+    }
+  ],
+  "status": "ok"
+}

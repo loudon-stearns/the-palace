@@ -43,8 +43,10 @@ namespace algo
     // ── 2. Audio in and out, and probes ────────────────────────────────────────
     inline constexpr int kInputs  = 0;
     inline constexpr int kOutputs = 1;
-    inline constexpr const char* kProbes[] = { "pos", "bend16", "voices" };
-    inline constexpr int kNumProbes = 3;
+    // pos, bend16, voices: voice 0, for the checks. npos..f0: the newest sounding voice,
+    // for the screen, which redraws its line from the same tables (ui/visualizer.js).
+    inline constexpr const char* kProbes[] = { "pos", "bend16", "voices", "npos", "age", "env", "vel", "f0" };
+    inline constexpr int kNumProbes = 8;
 
     inline constexpr int kNP = 64, kNF = 16, kNV = 8, kK = 32, kNM = 7, kNO = 48;
     inline constexpr double kTwoPi = 6.283185307179586;
@@ -187,11 +189,23 @@ namespace algo
                 if (! vo.held && vo.e < 1e-5) vo.active = false;
             }
             out[0] = (float) (y * gain);
-            int nAct = 0;
-            for (auto& vo : voices) if (vo.active) ++nAct;
+            int nAct = 0, newest = -1;
+            for (int q = 0; q < kNV; ++q)
+                if (voices[(size_t) q].active)
+                {
+                    ++nAct;
+                    if (newest < 0 || voices[(size_t) q].order > voices[(size_t) newest].order) newest = q;
+                }
             probes[0] = voices[0].pos;
             probes[1] = voices[0].bend16;
             probes[2] = (double) nAct;
+            if (newest >= 0)
+            {
+                const auto& nv = voices[(size_t) newest];
+                probes[3] = nv.pos; probes[4] = (double) nv.age / sr;
+                probes[5] = nv.e;   probes[6] = nv.vel; probes[7] = nv.f0;
+            }
+            else probes[5] = 0.0;   // the rest hold, so the screen keeps the last line, dark
         }
     };
 }

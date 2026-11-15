@@ -27,3 +27,18 @@ What Meadows and an Artist's Career's steward cycles taught the page, and the ch
 1. Writing first and sorting second is a different instrument from sorting by click. The sentence comes before the rung, so the person meets their own decision before the ladder's judgement of it. *(offered by the steward, cycle 13)*
 - run · 2026-10-30 · cycle 13 · taught item 1
 - run · 2026-10-30 · cycle 14, posted nothing · nothing new
+
+## From cycle 15 — 2026-11-15
+
+2. Compare people with a calendar, not a biography: the test ten that no famous career matched found a close neighbour in an invented ordinary year, so composites make the mirror fair, as long as they are always labelled as invented. *(offered by the steward, cycle 15)*
+3. **Proposed for canon** · 2026-11-15 · [[Meadows and an Artist's Career]] · § Forward Vectors, the 'progressed' note under Stage 3 · canon change owed *(proposed by the steward, cycle 15)*
+   Why: The page still says v4 and only the famous three, so a cold reader would miss the journal turn and the like-with-like comparison.
+   Path: `Projects/Meadows and an Artist's Career.md`
+   > — progressed: Stages 2 and 3 are built. The worksheet, now v6, is a journal: you write your ten, sit with each rung's context and question, and take one move up. It compares your shape with Eno, Oliveros and Martin, and with two composite working lives (a session bassist and a teacher-composer, invented and marked so), whose ten are a single ordinary year. See [[Meadows and an Artist's Career — scroll|the scroll]] (2026-11-15)
+
+- run · 2026-11-15 · cycle 15 · taught item 2, proposed item 3 for canon
+
+## From cycle 16 — 2026-11-15
+
+4. The origin story taught the ladder better than an explanation would, because the eleven exercises that survived already show the turn from the mix to the life. So a lesson can open with how the idea was found. *(offered by the steward, cycle 16)*
+- run · 2026-11-15 · cycle 16 · taught item 4

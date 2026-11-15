@@ -1,0 +1,227 @@
+<!doctype html>
+<!--
+  title: p5.js — proof — the same sketch in p5 1.10.0 and p5 2.4.0
+  born: 2026-11-15
+  links: [[p5.js]] (connects-to · test-proof, zoom-out)
+  forward_vector: I am one sketch written twice, once for the shelf's p5 1.10.0 and once for p5 2.4.0 (npm latest,
+    2026-11-11), running side by side in one page: a closed curve that leans toward the pointer, put through a
+    warp filter shader. I show what 2.x changed by what had to change in the code, and I want to be the evidence
+    for whether the Shop's pin moves to 2.x, and to which version.
+  What differs between the two halves is only what 2.x made differ: setup may be async; a closed smooth curve is
+    splineVertex + endShape(CLOSE) instead of curveVertex with three points repeated; the filter shader is written
+    in JavaScript with p5.strands (buildFilterShader) instead of a GLSL string; mouse and touch are one pointer.
+  Both libraries load in one page, each captured as it arrives (P5v1, P5v2). That works here; it is not a pattern
+    to copy into a piece that only needs one.
+  This is one way to compare them, the one tried first. A maker who can do better another way does so, and leaves
+    the comparison on the Specialist's scroll.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs "<this file>"
+    node _ops/rich-face/conform.mjs "<this file>" --browser
+    node Shop/p5.js/proofs/2026-11-15-p5-1-vs-2/check.mjs          both versions draw, the warp bites, timing, pixel diff
+  Headless frames: window.__sketches.v1 / .v2 .redraw(); window.__drive(x, y) puts a pointer at a fraction of each canvas.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>p5.js — the same sketch in 1.10.0 and 2.4.0</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-2); font-family: var(--mono); font-size: 13px; line-height: 1.5; }
+  main { padding: var(--s-5); display: grid; gap: var(--s-4); max-width: 64rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  h2 { margin: 0 0 var(--s-2); font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-3); }
+  p { margin: 0; max-width: 48rem; }
+  .ask { border-left: 2px solid var(--accent); padding: var(--s-2) var(--s-3); color: var(--fg-1); background: var(--bg-elev-1); }
+  .controls { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 2px; padding: 6px 12px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: var(--s-4); }
+  .panel { background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: 2px; padding: var(--s-3); display: grid; gap: var(--s-2); }
+  .stage canvas { display: block; width: 100% !important; height: auto !important; touch-action: none; }
+  .read { color: var(--fg-3); font-size: 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 12px; }
+  th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-top: 1px solid var(--border-soft); }
+  th { color: var(--fg-3); font-weight: 500; }
+  td code { color: var(--fg-1); }
+</style>
+</head>
+<body>
+<main>
+  <h1>One sketch, two p5s: 1.10.0 (the shelf) beside 2.4.0 (npm latest)</h1>
+  <p>A closed curve leans toward your pointer, then a warp shader ripples it by how far right the pointer is. Each panel
+    runs the same idea in its own version's words. Both are still until you press start.</p>
+  <p class="ask"><strong>The question:</strong> do the two panels look and move the same to you, and if one is better,
+    which one, and what do you see?</p>
+  <div class="controls">
+    <button id="go" type="button">start both</button>
+    <span class="read" id="status">still. One frame drawn in each.</span>
+  </div>
+  <div class="pair">
+    <section class="panel">
+      <h2>p5 1.10.0 — the shelf</h2>
+      <div class="stage" id="stage-v1"></div>
+      <div class="read" id="read-v1">—</div>
+    </section>
+    <section class="panel">
+      <h2>p5 2.4.0 — npm latest</h2>
+      <div class="stage" id="stage-v2"></div>
+      <div class="read" id="read-v2">—</div>
+    </section>
+  </div>
+  <section class="panel">
+    <h2>What had to change in the code</h2>
+    <table>
+      <tr><th>Part</th><th>1.10.0</th><th>2.4.0</th></tr>
+      <tr><td>setup</td><td><code>p.setup = () =&gt; {…}</code>, loading in <code>preload()</code></td><td><code>p.setup = async () =&gt; {…}</code>; a load is <code>await loadX()</code>, and <code>preload()</code> is gone (an add-on brings it back)</td></tr>
+      <tr><td>closed smooth curve</td><td><code>curveVertex</code> for every point, then the first three again, <code>endShape()</code></td><td><code>splineVertex</code> for every point, <code>endShape(CLOSE)</code> joins it smoothly</td></tr>
+      <tr><td>filter shader</td><td>a GLSL string to <code>createFilterShader()</code>: precision, varyings, <code>texture2D</code></td><td>a JavaScript function to <code>buildFilterShader()</code> (p5.strands, marked experimental); in instance mode the sketch is handed in as <code>{ p }</code></td></tr>
+      <tr><td>pointer</td><td>mouse and touch are separate events; a touch also moves <code>mouseX</code></td><td>one pointer API: <code>mouseX</code> follows mouse, pen and finger; <code>touches</code> lists fingers; <code>mouseButton</code> is an object</td></tr>
+      <tr><td>unchanged</td><td colspan="2">instance mode, <code>WEBGL</code>, <code>createCanvas</code>, <code>background</code>, <code>fill</code>, <code>beginShape</code>, <code>filter(shader)</code>, <code>setUniform</code>, <code>redraw</code>, <code>noLoop</code></td></tr>
+    </table>
+  </section>
+  <p class="read">Measured headless by check.mjs (measured.json beside this file): that both versions load in one page and
+    draw, that the warp changes pixels in each, the time a forced frame takes in each, and how many pixels differ between
+    the two at the same pointer. Whether they look and move alike is yours.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.10.0/lib/p5.min.js" integrity="sha384-iY8W5W1XLvt2e9XipUFTSogZoBMHq7jqa+kirliG8+eQlwsLA2crnG7Op0ifDniT" crossorigin="anonymous"></script>
+<script>
+  window.P5v1 = window.p5; delete window.p5;   // 2.x registers itself onto any p5 it finds; give it a clean global
+  // p5 2.4.0 fetches "./<language>.json" beside the page as it loads, for its friendly-error translations, then a
+  // jsDelivr path that 404s for en-US. Both fail here and print two console errors. Answer the local one with an
+  // empty table (its English messages are built in), for the moment the script loads, then put fetch back.
+  window.__fetch = window.fetch;
+  window.fetch = (u, o) => (typeof u === 'string' && /^\.\/[A-Za-z-]+\.json$/.test(u))
+    ? Promise.resolve(new Response('{}', { headers: { 'content-type': 'application/json' } }))
+    : window.__fetch(u, o);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/p5@2.4.0/lib/p5.min.js" integrity="sha384-rcP1CPdkMPs3RfZNrF0DgxdaFM1t5rcIw5CmGbe+Y/2EVHpXRuKoaRqnjQfkg8/a" crossorigin="anonymous"></script>
+<script>window.P5v2 = window.p5; window.fetch = window.__fetch; delete window.__fetch;</script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script>
+(() => {
+  const N = 18;                       // points on the ring
+  const drive = { on: false, fx: 0.5, fy: 0.5 };
+  window.__sketches = {};
+  window.__ready = { v1: false, v2: false };
+  window.__drive = (fx, fy) => { drive.on = fx != null; drive.fx = fx; drive.fy = fy; };
+  window.__amt = null;                // a headless check may hold the warp amount; null leaves it to the pointer
+  const over = { v1: false, v2: false };
+  for (const v of ['v1', 'v2']) {     // is a pointer over this panel? Read natively, the same way for both versions
+    const el = document.getElementById('stage-' + v);
+    el.addEventListener('pointermove', () => { over[v] = true; });
+    el.addEventListener('pointerleave', () => { over[v] = false; });
+  }
+
+  // The shared idea: the ring's points, given the pointer. Same numbers for both versions.
+  function ring(p, t, px, py) {
+    const R = Math.min(p.width, p.height) * 0.30, pts = [];
+    for (let i = 0; i < N; i++) {
+      const a = i / N * Math.PI * 2;
+      const r = R * (1 + 0.10 * Math.sin(3 * a + t * 0.03));
+      let x = Math.cos(a) * r, y = Math.sin(a) * r;
+      if (px != null) {               // lean toward the pointer, more for the near points
+        const dx = px - x, dy = py - y, d = Math.hypot(dx, dy) || 1;
+        const k = 0.45 * Math.exp(-d / (R * 0.9));
+        x += dx * k; y += dy * k;
+      }
+      pts.push([x, y]);
+    }
+    return pts;
+  }
+  // The pointer in centre-origin canvas units, or null when it is off this canvas.
+  function pointer(p, version) {
+    if (drive.on) return [(drive.fx - 0.5) * p.width, (drive.fy - 0.5) * p.height, drive.fx];
+    const mx = p.mouseX, my = p.mouseY;
+    if (!over[version] || !(mx >= 0 && my >= 0 && mx <= p.width && my <= p.height)) return [null, null, 0];
+    return [mx - p.width / 2, my - p.height / 2, mx / p.width];
+  }
+
+  function sketch(version) {
+    return (p) => {
+      let T, warp, t = 0, ms = 0;
+      const stage = document.getElementById('stage-' + version);
+      const read = document.getElementById('read-' + version);
+
+      function prepare() {
+        window.__sketches[version] = p;
+        const w = stage.clientWidth || 480;
+        p.createCanvas(w, Math.round(w * 3 / 4), p.WEBGL).parent(stage);
+        T = palaceTokens();
+        p.noLoop();
+      }
+
+      if (version === 'v1') {
+        p.setup = () => {
+          prepare();
+          // 1.x: the filter shader is a GLSL fragment string.
+          warp = p.createFilterShader(`
+            precision highp float;
+            varying vec2 vTexCoord;
+            uniform sampler2D tex0;
+            uniform float amt;
+            void main() {
+              vec2 uv = vTexCoord;
+              uv.y += sin(uv.x * 24.0) * amt;
+              gl_FragColor = texture2D(tex0, uv);
+            }`);
+          window.__ready.v1 = true;
+          p.redraw();
+        };
+      } else {
+        p.setup = async () => {
+          prepare();
+          // 2.x: the same filter written in JavaScript; p5.strands turns it into a shader.
+          warp = p.buildFilterShader(({ p }) => {
+            const amt = p.uniformFloat('amt');
+            p.filterColor.begin();
+            const uv = p.filterColor.texCoord;
+            uv.y += p.sin(uv.x * 24) * amt;
+            p.filterColor.set(p.getTexture(p.filterColor.canvasContent, uv));
+            p.filterColor.end();
+          }, { p });
+          window.__ready.v2 = true;
+          p.redraw();
+        };
+      }
+
+      p.draw = () => {
+        const t0 = performance.now();
+        if (p.isLooping()) t++;
+        const [px, py, fx] = pointer(p, version);
+        const pts = ring(p, t, px, py);
+        p.background(T.bg);
+        p.strokeWeight(2); p.stroke(T.fg1);
+        const c = p.color(T.accent); c.setAlpha(200); p.fill(c);
+        p.beginShape();
+        if (version === 'v1') {
+          for (const [x, y] of pts) p.curveVertex(x, y);
+          for (let i = 0; i < 3; i++) p.curveVertex(pts[i][0], pts[i][1]);   // close it by repeating three
+          p.endShape();
+        } else {
+          for (const [x, y] of pts) p.splineVertex(x, y);
+          p.endShape(p.CLOSE);                                                 // 2.x closes it smoothly
+        }
+        warp.setUniform('amt', window.__amt ?? 0.05 * fx);
+        p.filter(warp);
+        if (p.frameCount > 2) ms = ms ? ms * 0.9 + (performance.now() - t0) * 0.1 : performance.now() - t0;   // the first frames compile the shader
+        if (p.frameCount % 15 === 1) read.textContent = `p5 ${p.VERSION || (version === 'v1' ? window.P5v1.prototype.VERSION : window.P5v2.VERSION)} · ${ms ? ms.toFixed(2) + ' ms a frame' : 'timing after a few frames'} · pointer ${px == null ? 'off' : 'on'}`;
+      };
+    };
+  }
+
+  new window.P5v1(sketch('v1'));
+  new window.P5v2(sketch('v2'));
+
+  const go = document.getElementById('go');
+  go.addEventListener('click', () => {
+    const on = go.textContent === 'start both';
+    for (const p of Object.values(window.__sketches)) on ? p.loop() : p.noLoop();
+    go.textContent = on ? 'stop both' : 'start both';
+    document.getElementById('status').textContent = on ? 'running. Move over either panel; a focused tab is needed.' : 'stopped.';
+  });
+})();
+</script>
+</body>
+</html>

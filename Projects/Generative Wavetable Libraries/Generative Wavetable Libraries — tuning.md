@@ -51,3 +51,13 @@ What Generative Wavetable Libraries's steward cycles taught the page, and the ch
    > - **Smoothness along Position**: a table can be clean frame by frame and still buzz when swept, if neighbouring frames differ a lot. Each jump is a corner in the crossfade, repeated at the sweep's frame rate. Every packer now rotates frames into line and blurs each one into its neighbours, a Gaussian one frame wide (`pack_wavetable.py`, `SMOOTH_SIGMA = 1.0`). Loudon heard it and made it the default (2026-11-10), and all 30 packed tables were rebuilt with it, cutting the buzz 8 to 27 dB (2026-11-15, `loop-smoothing/`). The palace-synthesis tables are already smooth and stay as they were.
 
 - run · 2026-11-15 · cycle 21 · taught item 5, proposed item 6 for canon
+
+## From cycle 22 — 2026-11-15
+
+7. A recording already knows its best order: when it changes gradually, packing its cycles in the order they were played beat the smoothest path by 2 to 17 dB of buzz, so time order is the default and the path is only for recordings that jump between unrelated sounds. *(offered by the steward, cycle 22)*
+8. **Proposed for canon** · 2026-11-15 · `_ops/wavetable-libraries/skills/interview/SKILL.md` · § What questions Claude should ask, question 1, a new bullet after 'Captured audio (single-cycle extraction)' · canon change owed *(proposed by the steward, cycle 22)*
+   Why: the plan's last missing source now exists and works, and the interview should offer it
+   Path: `_ops/wavetable-libraries/skills/interview/SKILL.md`
+   > - A recording you have — any phrase, note or loop, in any common format. No cycles need cutting by hand: `Projects/Generative Wavetable Libraries/user-cycles/bring_your_own.py` follows the pitch, keeps one cycle from every steady moment, and packs them in the order they were played, so Position means time through the recording. Follow up: should Position keep the recording's own order (the default; it is smoothest whenever the sound changes gradually), or regroup the sounds as the smoothest path (better when the recording jumps between unrelated sounds)? Warn that a voice's vowels shift colour when the table is played far from the pitch they were sung at, and that noisy or chordal recordings give few cycles.
+
+- run · 2026-11-15 · cycle 22 · taught item 7, proposed item 8 for canon

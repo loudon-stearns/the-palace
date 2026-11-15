@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rational Hearing — class run sheet</title>
+<meta name="piece:size" content="auto">
+<style>
+:root { --ground: #f0eee5; --ground-2: #e6e3d7; --ink: #1a1916; --ink-2: #3a3a35; --ink-3: #6a6862; --rule: #b8b09a; --accent: #c8261a; --datasheet: #2b5fb0; --assumed: #b07a1a;
+  --mono: 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 14px/1.5 var(--mono); }
+main { max-width: 980px; margin: 0 auto; padding: 24px 20px 48px; }
+h1 { font-size: 22px; letter-spacing: 0.04em; margin: 0 0 4px; }
+.lede { color: var(--ink-2); margin: 0 0 18px; max-width: 70ch; }
+.base { border: 1px solid var(--rule); background: var(--ground-2); padding: 10px 12px; margin-bottom: 18px; }
+.base label { display: block; font-size: 11px; letter-spacing: 0.18em; color: var(--ink-3); text-transform: uppercase; }
+.base input { width: 100%; font: 13px var(--mono); padding: 6px 8px; border: 1px solid var(--rule); background: var(--ground); color: var(--ink); }
+.base .warn { color: var(--assumed); font-size: 12px; margin-top: 6px; }
+ol { list-style: none; padding: 0; margin: 0; counter-reset: m; }
+li { counter-increment: m; display: grid; grid-template-columns: 2.4em 1fr auto; gap: 4px 12px; align-items: baseline; padding: 10px 0; border-top: 1px solid var(--rule); }
+li::before { content: counter(m, decimal-leading-zero); color: var(--ink-3); }
+li h2 { font-size: 15px; margin: 0; }
+li .ratio { font-size: 18px; font-weight: 700; margin-right: 8px; }
+li .perfect { color: var(--ink); } li .imperfect { color: var(--datasheet); } li .dissonant { color: var(--assumed); }
+li p { grid-column: 2 / 3; margin: 0; color: var(--ink-2); font-size: 13px; }
+li code { grid-column: 2 / 4; font-size: 11px; color: var(--ink-3); word-break: break-all; }
+.acts { display: flex; gap: 6px; }
+button, a.btn { font: 12px var(--mono); padding: 5px 10px; border: 1px solid var(--rule); background: #d8d4c6; color: var(--ink); cursor: pointer; text-decoration: none; box-shadow: inset 0 1px 0 #ebe8dd, 0 1px 0 #b9b4a3; }
+button.done { background: var(--ink); color: var(--ground); }
+footer { margin-top: 24px; font-size: 11px; color: var(--ink-3); letter-spacing: 0.06em; }
+@media print { .acts, .base input { display: none; } li { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Rational Hearing · class run sheet</h1>
+<p class="lede">One online class, in the handout's own order. Each line is a student link: copy it into the call's chat and every student hears the moment on their own speakers, after one tap. Reorder, cut or skip as the class goes. Open (↗) shows you what they will see.</p>
+
+<div class="base">
+  <label for="base">The page's address — the links are built from this</label>
+  <input id="base" spellcheck="false">
+  <div class="warn" id="warn"></div>
+</div>
+
+<ol id="moments"></ol>
+
+<footer>Rational Hearing · workshop draft · online/class-run-sheet.html · links use the page's own <b>?p ?f ?mag ?ab</b> parameters (build 0.3.1)</footer>
+</main>
+<script>
+(() => {
+// [title, ratio, consonance class, query, what the student meets]
+const MOMENTS = [
+  ["One note", "1", "perfect", "p=1", "The fundamental alone: a plain sine. Everything after this is already inside it."],
+  ["The whole note", "1…16", "perfect", "p=1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16", "All sixteen partials at once: the same pitch, now bright. The intervals are hiding in here."],
+  ["Octave", "2 : 1", "perfect", "p=1-2", "Partials 1 and 2. The ladder's first edge, labelled 0."],
+  ["Perfect fifth", "3 : 2", "perfect", "p=2-3", "Partials 2 and 3. The P5 edge lights."],
+  ["Perfect fourth", "4 : 3", "perfect", "p=3-4", "Partials 3 and 4."],
+  ["Major third", "5 : 4", "imperfect", "p=4-5", "Partials 4 and 5: the first imperfect consonance."],
+  ["Minor third", "6 : 5", "imperfect", "p=5-6", "Partials 5 and 6."],
+  ["Major triad", "4 : 5 : 6", "imperfect", "p=4-5-6", "Three neighbours at once: the chord was in the note all along."],
+  ["Major second", "9 : 8", "dissonant", "p=8-9", "Partials 8 and 9: the first dissonance on the ladder."],
+  ["Major seventh", "15 : 8", "dissonant", "p=8-15", "Partials 8 and 15."],
+  ["Minor second", "16 : 15", "dissonant", "p=15-16", "The ladder's top step: neighbours so close they rub."],
+  ["The fifth, just then piano", "3 : 2", "perfect", "p=2-3&ab=P5", "Just fifth, then the piano's: two cents apart. Most ears hear no difference."],
+  ["The third, just then piano", "5 : 4", "imperfect", "p=4-5&ab=M3&mag=5", "Just third, then the piano's: about 14 cents sharp, and the gap drawn five times larger."],
+];
+
+const input = document.getElementById("base"), warn = document.getElementById("warn"), list = document.getElementById("moments");
+const fallback = new URL("../rational-hearing.html", location.href).href;
+input.value = new URLSearchParams(location.search).get("base") || fallback;
+
+function link(q) { const u = new URL(input.value.trim() || fallback); u.search = q; return u.href; }
+
+function build() {
+  let local = false; try { local = new URL(input.value.trim() || fallback).protocol === "file:"; } catch (e) { warn.textContent = "That isn't an address."; return; }
+  warn.textContent = local ? "This is a file on your own disk, so these links work only on this computer. Paste the page's web address here and they will work for students." : "";
+  list.textContent = "";
+  MOMENTS.forEach(([title, ratio, cls, q, what]) => {
+    const li = document.createElement("li"), href = link(q);
+    li.innerHTML = '<h2><span class="ratio ' + cls + '"></span><span class="t"></span></h2><div class="acts"><button type="button">Copy</button><a class="btn" target="_blank" rel="noopener">↗</a></div><p></p><code></code>';
+    li.querySelector(".ratio").textContent = ratio; li.querySelector(".t").textContent = title;
+    li.querySelector("p").textContent = what; li.querySelector("code").textContent = href;
+    li.querySelector("a").href = href;
+    const b = li.querySelector("button");
+    b.addEventListener("click", () => {
+      const ok = () => { b.textContent = "Copied"; b.classList.add("done"); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(href).then(ok, () => { b.textContent = "Select ↓"; });
+      else b.textContent = "Select ↓";
+    });
+    list.appendChild(li);
+  });
+}
+input.addEventListener("input", build);
+build();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!doctype html>
+<!--
+  title: Web Audio Worklet — proof — the voice ceiling, heard on this Mac
+  born: 2026-11-15
+  links: [[Web Audio Worklet]] (connects-to · test-proof) · [[Murmuration]] (connects-to · its-grain-voice-copied)
+  forward_vector: I test the card's open line "the voice ceiling heard on real hardware". I carry Murmuration's own grain
+    voice (four-corner wavetable, Hann grain, per-sample pan), copied, its inner loop unchanged, and let a listener add
+    voices on a click while a live figure says how much of each audio block the voices used. I want one number from a
+    real ear on a real machine, so the next Murmuration build knows how far from the edge it plays at 60.
+  What I changed around the copied loop: the voices come from a seed (7), not a flock; the four tables are built inside
+    the worklet; Math.random in the grain scatter became a seeded generator, so a render is repeatable; a clock times
+    each block. Murmuration's own files are untouched.
+  This is one way to find a ceiling, not the way. A maker who can do it better another way (a different meter, a
+    worker-side profiler, a newer browser API) does so, and leaves the comparison on the scroll.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs "Shop/Web Audio Worklet/proofs/2026-11-15-voice-ceiling/voice-ceiling.html"
+    node _ops/rich-face/conform.mjs "Shop/Web Audio Worklet/proofs/2026-11-15-voice-ceiling/voice-ceiling.html" --browser
+    node "Shop/Web Audio Worklet/proofs/2026-11-15-voice-ceiling/check.mjs"     offline timing per voice count in three engines -> measured.json
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Audio Worklet — the voice ceiling</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-2); font-family: var(--mono); font-size: var(--t-meta); line-height: var(--lh-normal); }
+  main { padding: var(--s-5) var(--s-5) var(--s-6); display: grid; gap: var(--s-4); max-width: 44rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; }
+  .ask { color: var(--fg-1); border-left: 2px solid var(--accent); padding-left: var(--s-3); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-sm); padding: var(--s-2) var(--s-4); cursor: pointer; }
+  button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  button:disabled { opacity: 0.4; cursor: default; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: var(--s-1) var(--s-4); margin: 0; }
+  dt { color: var(--fg-3); }
+  dd { margin: 0; color: var(--fg-1); font-variant-numeric: tabular-nums; }
+  .bar { height: 6px; background: var(--bg-elev-2); border-radius: var(--r-xs); overflow: hidden; }
+  .bar > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
+  .bar.hot > i { background: var(--danger); }
+  ol { margin: 0; padding-left: var(--s-5); color: var(--fg-1); }
+  .meas { color: var(--fg-3); }
+  table { border-collapse: collapse; color: var(--fg-2); }
+  td, th { padding: 2px var(--s-3) 2px 0; text-align: right; font-weight: 400; }
+  th { color: var(--fg-3); }
+</style>
+</head>
+<body>
+<main>
+  <h1>How many grains before it crackles?</h1>
+  <p>Each voice here is one of Murmuration's grains: a wavetable read at four corners and blended, under a Hann window, panned. Murmuration plays 60. This page starts at 16 and adds more on a click. The figure under the buttons is how much of each audio block's time the voices took, read by a clock inside the audio thread.</p>
+  <p class="ask"><strong>The question:</strong> add voices until you hear it crackle, stutter or drop out. At what voice count does it start? Press "it crackles here" at that count.</p>
+  <div class="row">
+    <button id="sound" aria-pressed="false">Sound: off</button>
+    <button id="less" disabled>− 16 voices</button>
+    <button id="more" disabled>+ 16 voices</button>
+    <button id="more64" disabled>+ 64 voices</button>
+    <button id="mark" disabled>it crackles here</button>
+  </div>
+  <dl>
+    <dt>voices</dt><dd id="n">16</dd>
+    <dt>audio-thread load</dt><dd><span id="load">—</span><div class="bar" id="bar"><i></i></div></dd>
+    <dt>dropouts at this count</dt><dd id="under">—</dd>
+    <dt>block, rate, latency</dt><dd id="ctxinfo">—</dd>
+    <dt>the clock</dt><dd id="clock">—</dd>
+  </dl>
+  <ol id="marks"></ol>
+  <p class="meas" id="what-measured">What a script measured, headless on this Mac on 2026-11-15 (no speakers, no deadline): rendering this voice offline costs about <b id="m-us">—</b> µs of one CPU core per voice per second of sound in Chromium, so a full core runs out near <b id="m-ceil">—</b> voices, and at 60 voices the voices take about <b id="m-60">—</b> of real time. Played live in headless Chromium with no speakers, the dropout counter stayed near zero to 512 voices and ran away at 1024. A live context has a deadline every 2.7 ms and other work on the same thread, so the heard ceiling should sit below the offline one. Only an ear can say where. The Mac was busy with other work while this was measured (load average 40 to 125 on 10 cores), so the figures above are ranges over four runs; Firefox moved threefold between runs. The table is the last run, the one in <code>measured.json</code> beside this page.</p>
+  <table id="mtab"></table>
+</main>
+<script>
+// The engine. Murmuration's grain voice, its inner loop copied as it is; see the header for what changed around it.
+const WORKLET = `
+const L = 2048, LMASK = L - 1;
+function mulberry(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function corners() {
+  const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+  for (let i = 0; i < L; i++) {
+    const ph = i / L, t = ph * 2 * Math.PI;
+    TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1;
+    BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t);
+  }
+  let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i]));
+  if (mx > 0) for (let i = 0; i < L; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR };
+}
+const HAS_PERF = typeof performance !== 'undefined' && performance && typeof performance.now === 'function';
+class CeilingProcessor extends AudioWorkletProcessor {
+  constructor(options) {
+    super();
+    const o = (options && options.processorOptions) || {};
+    this.L = L; this.LMASK = LMASK;
+    const c = corners(); this.TL = c.TL; this.TR = c.TR; this.BL = c.BL; this.BR = c.BR;
+    this.master = 0.7; this.shimmer = 0.55; this.hoist = !!o.hoist;
+    this.seed = o.seed || 7; this.rng = mulberry(this.seed * 7919);
+    this.voices = []; this.setVoices(o.voices || 16);
+    this.busy = 0; this.frames = 0; this.peak = 0;
+    this.port.onmessage = (e) => { if (e.data && e.data.type === 'voices') this.setVoices(e.data.n); };
+  }
+  setVoices(n) {
+    while (this.voices.length < n) {
+      const r = mulberry(this.seed * 100003 + this.voices.length * 1013);
+      this.voices.push({ u: r(), v: r(), freq: 110 * Math.pow(2, (r() * 24 - 12) / 12), gain: 1, grainHz: 4 + r() * 100, pan: r(), phase: r(), gp: r() });
+    }
+    this.voices.length = n;
+  }
+  process(inputs, outputs) {
+    const t0 = HAS_PERF ? performance.now() : Date.now();
+    const out = outputs[0];
+    const outL = out[0], outR = out[1] || out[0];
+    const n = out[0].length;
+    const invSr = 1 / sampleRate, L = this.L, LMASK = this.LMASK;
+    const TL = this.TL, TR = this.TR, BL = this.BL, BR = this.BR;
+    const norm = this.master / Math.sqrt(Math.max(1, this.voices.length));
+    if (this.hoist) this.hoisted(outL, outR, n, norm); else
+    for (let s = 0; s < n; s++) {
+      let accL = 0, accR = 0;
+      for (let vi = 0; vi < this.voices.length; vi++) {
+        const o = this.voices[vi];
+        if (o.gain <= 0) continue;
+        const env = 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp);
+        const idx = o.phase * L; const i0 = idx | 0; const fr = idx - i0; const i1 = (i0 + 1) & LMASK;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]);
+        const str = TR[i0] + fr * (TR[i1] - TR[i0]);
+        const sbl = BL[i0] + fr * (BL[i1] - BL[i0]);
+        const sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl);
+        const bot = sbl + o.u * (sbr - sbl);
+        const smp = (top + o.v * (bot - top)) * env * o.gain;
+        const pL = Math.cos(o.pan * Math.PI * 0.5), pR = Math.sin(o.pan * Math.PI * 0.5);
+        accL += smp * pL; accR += smp * pR;
+        o.phase += o.freq * invSr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += o.grainHz * invSr;
+        if (o.gp >= 1) { o.gp -= 1; o.phase = (1 - this.shimmer) * o.phase + this.shimmer * this.rng(); }
+      }
+      outL[s] = accL * norm;
+      if (outR !== outL) outR[s] = accR * norm;
+    }
+    this.meter(t0, n);
+    return true;
+  }
+  // The one change a check measures against the copy: the pan gains, constant per voice, worked out once, not per sample.
+  hoisted(outL, outR, n, norm) {
+    const invSr = 1 / sampleRate, L = this.L, LMASK = this.LMASK, TL = this.TL, TR = this.TR, BL = this.BL, BR = this.BR, vs = this.voices;
+    for (const o of vs) if (o.pL === undefined) { o.pL = Math.cos(o.pan * Math.PI * 0.5); o.pR = Math.sin(o.pan * Math.PI * 0.5); }
+    for (let s = 0; s < n; s++) {
+      let accL = 0, accR = 0;
+      for (let vi = 0; vi < vs.length; vi++) {
+        const o = vs[vi];
+        if (o.gain <= 0) continue;
+        const env = 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp);
+        const idx = o.phase * L; const i0 = idx | 0; const fr = idx - i0; const i1 = (i0 + 1) & LMASK;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]), str = TR[i0] + fr * (TR[i1] - TR[i0]);
+        const sbl = BL[i0] + fr * (BL[i1] - BL[i0]), sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl), bot = sbl + o.u * (sbr - sbl);
+        const smp = (top + o.v * (bot - top)) * env * o.gain;
+        accL += smp * o.pL; accR += smp * o.pR;
+        o.phase += o.freq * invSr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += o.grainHz * invSr;
+        if (o.gp >= 1) { o.gp -= 1; o.phase = (1 - this.shimmer) * o.phase + this.shimmer * this.rng(); }
+      }
+      outL[s] = accL * norm;
+      if (outR !== outL) outR[s] = accR * norm;
+    }
+  }
+  meter(t0, n) {
+    const dt = (HAS_PERF ? performance.now() : Date.now()) - t0, budget = n / sampleRate * 1000;
+    this.busy += dt; this.frames += n; if (dt / budget > this.peak) this.peak = dt / budget;
+    if (this.frames >= sampleRate / 2) {
+      this.port.postMessage({ kind: 'load', load: this.busy / (this.frames / sampleRate * 1000), peak: HAS_PERF ? this.peak : null, n: this.voices.length, block: n, clock: HAS_PERF ? 'performance.now' : 'Date.now' });
+      this.busy = 0; this.frames = 0; this.peak = 0;
+    }
+  }
+}
+registerProcessor('ceiling', CeilingProcessor);
+`;
+
+// What check.mjs measured, written here by hand after the run (the page fetches nothing).
+const MEASURED = {"usPerVoice": "1,400 to 1,900", "ceiling": "470 to 670", "at60": "9 to 13%", "ns": [8, 16, 32, 64, 128, 256, 512, 1024], "rows": [{"engine": "Chromium 147", "load": [0.015, 0.027, 0.057, 0.099, 0.191, 0.366, 0.746, 1.557]}, {"engine": "WebKit 26.4", "load": [0.011, 0.021, 0.041, 0.075, 0.148, 0.291, 0.592, 1.389]}, {"engine": "Firefox 148", "load": [0.021, 0.042, 0.084, 0.174, 0.349, 0.742, 1.538, 3.328]}]};
+
+// The processor ships as a Blob URL. Opened straight from disk (file://), Chrome and Safari refuse a Blob worklet
+// (measured 2026-11-15); a data: URL of the same source loads in all three engines, so it is the fallback.
+async function loadWorklet(c) {
+  const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+  try { await c.audioWorklet.addModule(url); }
+  catch (e) { await c.audioWorklet.addModule('data:text/javascript,' + encodeURIComponent(WORKLET)); }
+  finally { URL.revokeObjectURL(url); }
+}
+
+const $ = (id) => document.getElementById(id);
+const btn = $('sound'), less = $('less'), more = $('more'), more64 = $('more64'), mark = $('mark');
+let ctx = null, node = null, voices = 16, base = null, last = null;
+
+function stats() {
+  const s = ctx && (ctx.playbackStats || ctx.playoutStats);
+  if (!s) return null;
+  return { events: s.underrunEvents ?? s.fallbackFramesEvents ?? null, dur: s.underrunDuration ?? s.fallbackDuration ?? null };
+}
+function setVoices(n) {
+  voices = Math.max(16, Math.min(2048, n));
+  $('n').textContent = voices;
+  if (node) node.port.postMessage({ type: 'voices', n: voices });
+  base = stats();                                   // dropouts are counted from this count's start
+  $('under').textContent = base ? '0 since this count' : $('under').textContent;
+}
+async function build() {
+  ctx = new AudioContext({ latencyHint: 'interactive' });
+  await loadWorklet(ctx);
+  node = new AudioWorkletNode(ctx, 'ceiling', { numberOfInputs: 0, outputChannelCount: [2], processorOptions: { voices } });
+  const lim = ctx.createDynamicsCompressor();       // Murmuration's own limiter settings
+  lim.threshold.value = -3; lim.knee.value = 6; lim.ratio.value = 12; lim.attack.value = 0.003; lim.release.value = 0.18;
+  node.connect(lim).connect(ctx.destination);
+  node.port.onmessage = (e) => { if (e.data.kind === 'load') show(e.data); };
+  base = stats();
+  if (!base) $('under').textContent = 'this browser does not count them (playbackStats is Chrome-only)';
+}
+function show(m) {
+  last = m;
+  const pct = Math.round(m.load * 100);
+  $('load').textContent = pct + '% of real time' + (m.peak != null ? ' · worst block ' + Math.round(m.peak * 100) + '%' : '');
+  $('bar').firstElementChild.style.width = Math.min(100, pct) + '%';
+  $('bar').classList.toggle('hot', m.load > 0.7);
+  $('clock').textContent = m.clock === 'performance.now' ? 'performance.now() in the audio thread' : 'Date.now() summed over blocks (1 ms steps; the average holds, single blocks do not)';
+  $('ctxinfo').textContent = m.block + ' frames · ' + ctx.sampleRate + ' Hz · ' + (ctx.baseLatency * 1000).toFixed(1) + ' ms base' + (ctx.outputLatency ? ' + ' + (ctx.outputLatency * 1000).toFixed(1) + ' ms out' : '');
+  const s = stats();
+  if (s && base && s.events != null) $('under').textContent = (s.events - base.events) + ' since this count' + (s.dur != null ? ' (' + ((s.dur - base.dur) * 1000).toFixed(0) + ' ms of gaps)' : '');
+}
+
+btn.addEventListener('click', async () => {
+  const on = btn.getAttribute('aria-pressed') !== 'true';
+  if (on) { if (!ctx) await build(); await ctx.resume(); }
+  else if (ctx) await ctx.suspend();
+  btn.setAttribute('aria-pressed', String(on));
+  btn.textContent = on ? 'Sound: on' : 'Sound: off';
+  for (const b of [less, more, more64, mark]) b.disabled = !on;
+});
+less.addEventListener('click', () => setVoices(voices - 16));
+more.addEventListener('click', () => setVoices(voices + 16));
+more64.addEventListener('click', () => setVoices(voices + 64));
+mark.addEventListener('click', () => {
+  const li = document.createElement('li');
+  const under = $('under').textContent;
+  li.textContent = 'crackled at ' + voices + ' voices · load ' + (last ? Math.round(last.load * 100) + '%' : '—') + ' · dropouts ' + under + ' · ' + (last ? last.block : '?') + '-frame blocks · ' + navigator.userAgent.replace(/^.*\) /, '');
+  $('marks').appendChild(li);
+});
+
+if (MEASURED) {
+  $('m-us').textContent = MEASURED.usPerVoice;
+  $('m-ceil').textContent = MEASURED.ceiling;
+  $('m-60').textContent = MEASURED.at60;
+  const t = $('mtab');
+  t.innerHTML = '<tr><th>engine</th>' + MEASURED.ns.map((n) => '<th>' + n + '</th>').join('') + '</tr>' +
+    MEASURED.rows.map((r) => '<tr><th>' + r.engine + '</th>' + r.load.map((x) => '<td>' + (x == null ? '—' : Math.round(x * 100) + '%') + '</td>').join('') + '</tr>').join('');
+  t.insertAdjacentHTML('afterbegin', '<caption style="text-align:left;color:var(--fg-3)">offline render time as a share of the sound\'s length, by voice count</caption>');
+}
+</script>
+</body>
+</html>

@@ -15,33 +15,35 @@ forward_vector: "I am Meadows and an Artist's Career's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-30T10:17:21.845Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-15T14:20:11.471Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 14 · last ran 2026-10-30 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 16 · last ran 2026-11-15 (today)
 - **Plan:** none agreed yet — the next run works from what the ledger owes and the forward vector · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-30 (today) — This project still has no agreed plan. Adopt this one, rewritten around your journaling note? (`meadows-career-steward-036`)
-- **Last commit touching this project:** 2026-10-30 `aebc6322` — steward(Meadows and an Artist's Career): cycle 13 — SPINNING UP. HOME: [Meadows and an Artist's Career](obsidian://open?vau…
-- **Signal:** ⚠ the last cycle posted nothing (one barren cycle — the lane will retry before calling it stalled)
-- **Left uncommitted:** ⚠ 6 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Meadows and an Artist's Career/drive-v5-by-hand-filled.png`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand-report.txt`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand-saved.png`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand-saved.txt`, `Projects/Meadows and an Artist's Career/drive-v5-by-hand.mjs`, and 1 more. Look, then commit or clear them.
+- **Last shipped:** 2026-11-15 (today) — Lesson 1 is drafted: where the ladder came from. It has the kick-drum origin, the drone question, one loop to play with, and three things to write. (`meadows-career-steward-040`)
+- **Last commit touching this project:** 2026-11-15 `fc6efacc` — steward(Meadows and an Artist's Career): cycle 15 — SPINNING UP. HOME: [Meadows and an Artist's Career](obsidian://open?vau…
+- **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-30 — cycle 14, posted nothing · nothing new
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-15 — cycle 16 · taught item 4
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 1, from cycle 13 — 2026-10-30 — [[Meadows and an Artist's Career — tuning]]
+- **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 4, from cycle 16 — 2026-11-15 — [[Meadows and an Artist's Career — tuning]]
 
 ### Where this stands
 
-This project points Donella Meadows' twelve leverage points at an artist's career. Her ladder runs from the weakest place to push (tweak a number: gear, price, schedule) up to the strongest (let go of what the whole thing is for). The worksheet has you take your last ten career decisions, place each on a rung, and see your shape beside three real careers: Brian Eno, Pauline Oliveros and Agnes Martin. After that, an exercise takes your lowest decision one move up. When you answered the proposed plan on 2026-10-15, you said the look and questions were good, but each question needed more context, and above all it needed space for freeform writing, more like a journal than clicking buttons. Thi…
+This project takes Donella Meadows' ladder of twelve leverage points and points it at an artist's career. The ladder runs from the weakest place to push (a price, a piece of gear) to the strongest (letting go of what the career is for). The worksheet is finished at v6. It's a journal: you write your last ten decisions, file each one on a rung, compare your shape with Eno, Oliveros, Martin and two invented ordinary working lives, and take your lowest decision one move up. The plan I proposed in October, which is still waiting on your adopt or keep, ends in a four-lesson series: where this came from, then the ladder rung by rung, then the careers, then the exercise. Every lesson ends in writi…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 10:** I never clicked the + buttons or the save button by hand. _(in 3 notes, the latest cycle 11)_
-- **rough since cycle 11:** I checked it through headless Chrome only, using a ?demo= setting that fills in a sample ten; _(in 2 notes, the latest cycle 13)_
-- **rough since cycle 11:** v2, v3 and the case-studies page are still in the folder, waiting for you to say which ones to retire. _(in 2 notes, the latest cycle 12)_
+- **rough since cycle 11:** I checked it through headless Chrome only and never clicked the save or clear buttons by hand. _(in 3 notes, the latest cycle 16)_
+- **rough since cycle 11:** v2, v3, v4 and the case-studies page are still in the folder, waiting for you to say which ones to retire. _(in 3 notes, the latest cycle 15)_
+- **rough since cycle 13:** The two composites are my invention, plausible but not checked against any working musician. _(in 2 notes, the latest cycle 15)_
+- **rough since cycle 15:** Nobody real has written in it yet. _(in 2 notes, the latest cycle 16)_
 
 ### Open asks
 
@@ -58,12 +60,20 @@ _None._
 
 ### Runs
 
+- 2026-11-15 — cycle 16 · taught item 4
+- 2026-11-15 — cycle 15 · taught item 2, proposed item 3 for canon
 - 2026-10-30 — cycle 14, posted nothing · nothing new
 - 2026-10-30 — cycle 13 · taught item 1
 
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **3.** 2026-11-15 · [[Meadows and an Artist's Career]] · § Forward Vectors, the 'progressed' note under Stage 3 — The page still says v4 and only the famous three, so a cold reader would miss the journal turn and the like-with-like comparison.
 
 <!-- scroll:now:end -->
 
@@ -82,6 +92,58 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="meadows-career-steward-040" -->
+### 2026-11-15 — cycle 16 — Lesson 1 is drafted: where the ladder came from. It has the kick-drum origin, the drone question, one loop to play with, and three things to write.
+> shipped · first of four lessons · steward leans: put v6 and this lesson in front of one real artist next
+
+[lesson-01-where-this-came-from.html](obsidian://open?vault=The%20Palace&file=Projects/Meadows%20and%20an%20Artist%27s%20Career/lesson-01-where-this-came-from.html) is one page, about twenty minutes, in the same drafting look as the worksheet. It has five parts. (1) The origin, told plainly and in your own words from the March notes: a week of Kick Drum Paradox posts became thirty-two exercises, you rated every one, eleven survived, and the top scorers were about life, not mixing. Your line 'following my personal journey from musician teacher to life coach' is the turn. (2) The Drone Koan as the first lesson. Change the bass note and ask which rung that was, and keep the ladder a little loose. (3) One loop that is the same loop in two places, not a metaphor: something chasing a target, slowed down by its response time. Your attack-time note on the sidechain sits beside Meadows' hotel shower. There are two sliders, how long before you hear back and how hard you correct, and a line that settles, overshoots, or swings wider each time. Below it, a two-column note says what the target and the response time are in the mix and in the career. (4) The twelve rungs in one breath, with the 80/15/4/1 attention guess, which the page labels a guess. (5) Three journal prompts: what's your drone, where do you wait longest before you hear back, and how do you feel. They save in the browser, can be saved as a text file, and lead into the v6 worksheet. I ran the loop's math over eight settings and fixed one case where a slow, gentle approach was being called 'still swinging'.
+
+**Artifacts:**
+- [Lesson 1: the kick-drum origin, the drone question, a loop to play with, three journal prompts, then the worksheet.](Projects/Meadows and an Artist's Career/lesson-01-where-this-came-from.html)
+- [a headless Chrome screenshot of the lesson, top to the loop.](Projects/Meadows and an Artist's Career/lesson-01-preview.png)
+
+_Left rough:_ Nobody real has written in it yet. I checked it through headless Chrome only and never clicked the save or clear buttons by hand. The claim that rung 9 is the cheapest rung for most working artists to move is my reading, not something tested. Lessons 2 to 4 aren't written.
+
+_Next moves named:_ Put v6 and Lesson 1 in front of one real artist, you or a student, and let what they write shape both. Only you can arrange that. · Draft Lesson 2: the ladder rung by rung, one move from a real career on each rung, ending in writing. · Drive Lesson 1 by hand with the same kind of driver v6 had, so the save and clear buttons get clicked for real.
+<sub>`meadows-career-steward-040` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-8220d4d501" -->
+### 2026-11-15 — cycle 16
+
+taught item 4
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="meadows-career-steward-038" -->
+### 2026-11-15 — cycle 15 — Worksheet v6: a session bassist and a teacher-composer, composite working lives, now sit beside Eno, Oliveros and Martin.
+> shipped · v6 driven by hand, 31 of 31 · steward leans: someone real writes in it next
+
+What I built: [leverage-diagnostic-v6.html](obsidian://open?vault=The%20Palace&file=Projects/Meadows%20and%20an%20Artist%27s%20Career/leverage-diagnostic-v6.html), the v5 journal with two composite careers added. The session bassist has ten decisions from one year: restrings, a day rate, a second bass, six weeks of rent saved, a remote rig, rough takes sent back within a day, no double sessions after a hand strain, asking producers for referrals, and one rule against copying another player's parts. That comes to 7 / 3 / 0 across the low, middle and high bands, the honest ordinary shape. The teacher-composer's year goes 5 / 4 / 1: a waiting list, a teaching day swapped for composing, a weekly sight-reading piece, a summer off, a concert that recruits next year's students, a Friday tally of hours, and finally the student pieces becoming the catalogue. Every composite move is marked with *, and the saved text reads '(composite, one year)' rather than '(biography, not calendar)'. The nearest-shape reading and the one-band-up exercise now draw on all five careers. When the nearest is a composite, the reading says so in so many words. Rung 9, the delay between making a thing and hearing back, used to be blank for everyone, because no biography records shipping speed. Now both working lives have a move there, and that is the cheapest rung for a working artist to move. What it showed: I drove it by hand with the same made-up musician's ten as before. None of the famous three had come close to their shape. Now the teacher-composer comes close (50 / 40 / 10 against their 50 / 30 / 20), and the one-move-up suggestion is 'takes the summer off teaching entirely' rather than a famous person's line. A reader can compare like with like.
+
+**Artifacts:**
+- [the worksheet, v6: the v5 journal plus two composite working lives (marked *) beside Eno, Oliveros and Martin.](Projects/Meadows and an Artist's Career/leverage-diagnostic-v6.html)
+- [filled by keyboard: the seven-card comparison bar and the one-move-up step showing all five careers.](Projects/Meadows and an Artist's Career/drive-v6-by-hand-filled.png)
+- [after Save: the saved journal on the page.](Projects/Meadows and an Artist's Career/drive-v6-by-hand-saved.png)
+- [the saved text. The test ten's nearest is now the teacher-composer, flagged as a composite.](Projects/Meadows and an Artist's Career/drive-v6-by-hand-saved.txt)
+- [31 of 31 checks, the 24 from v5 plus 7 for the composites.](Projects/Meadows and an Artist's Career/drive-v6-by-hand-report.txt)
+- [the driver: a fresh Chrome profile, typing and clicking, no demo fill-in.](Projects/Meadows and an Artist's Career/drive-v6-by-hand.mjs)
+
+_Proposed for canon:_ Meadows and an Artist's Career (§ Forward Vectors, the 'progressed' note under Stage 3) — The page still says v4 and only the famous three, so a cold reader would miss the journal turn and the like-with-like comparison.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody real has written in it yet. Every run so far uses a made-up musician's ten, and only you can put it in front of a person. The two composites are my invention, plausible but not checked against any working musician. v2, v3, v4 and the case-studies page are still in the folder, waiting for you to say which ones to retire.
+
+_Next moves named:_ Put v6 in front of one real artist, you or a student, and let what they write shape v7. That is the plan's first move, and it is yours to arrange. · Draft the opening lesson of the lesson series: where Meadows came from, ending in a journal prompt, not a quiz. · Once someone real has used v6, fold v2, v3 and v4 away, with your say.
+<sub>`meadows-career-steward-038` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-936cd3081b" -->
+### 2026-11-15 — cycle 15
+
+taught item 2, proposed item 3 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-01a38d527d" -->
 ### 2026-10-30 — cycle 14, posted nothing
 

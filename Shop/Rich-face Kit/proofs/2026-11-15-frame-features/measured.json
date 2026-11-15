@@ -1,0 +1,76 @@
+{
+  "checked": "2026-11-15T14:10:42.332Z",
+  "piece": "Shop/Rich-face Kit/proofs/2026-11-15-frame-features/frame-features.html",
+  "browser": "147.0.7727.15",
+  "plan": {
+    "sameOrigin": false,
+    "allow": "autoplay"
+  },
+  "runs": {
+    "alone": {
+      "where": "alone, not framed",
+      "origin": "http://127.0.0.1:56524",
+      "results": {
+        "WebGPU (navigator.gpu, an adapter)": "adapter",
+        "Import maps": "yes",
+        "Module worker from a Blob": "yes",
+        "OffscreenCanvas with WebGL2": "yes",
+        "SharedArrayBuffer (cross-origin isolated)": "not isolated",
+        "WebAssembly SIMD": "yes",
+        "WebCodecs (AudioEncoder)": "yes",
+        "AudioContext render size hint": "option ignored (128)",
+        "AudioContext playback stats (playbackStats, once playoutStats)": "yes",
+        "View Transitions": "yes",
+        "CSS anchor positioning": "yes",
+        "Popover": "yes",
+        "Web MIDI API present": "API present (not asked)"
+      }
+    },
+    "framed opaque": {
+      "where": "inside a frame",
+      "origin": "http://127.0.0.1:56524",
+      "results": {
+        "WebGPU (navigator.gpu, an adapter)": "adapter",
+        "Import maps": "yes",
+        "Module worker from a Blob": "no: error",
+        "OffscreenCanvas with WebGL2": "yes",
+        "SharedArrayBuffer (cross-origin isolated)": "not isolated",
+        "WebAssembly SIMD": "yes",
+        "WebCodecs (AudioEncoder)": "yes",
+        "AudioContext render size hint": "option ignored (128)",
+        "AudioContext playback stats (playbackStats, once playoutStats)": "yes",
+        "View Transitions": "yes",
+        "CSS anchor positioning": "yes",
+        "Popover": "yes",
+        "Web MIDI API present": "API present (not asked)"
+      }
+    },
+    "framed same-origin": {
+      "where": "inside a frame",
+      "origin": "http://127.0.0.1:56524",
+      "results": {
+        "WebGPU (navigator.gpu, an adapter)": "adapter",
+        "Import maps": "yes",
+        "Module worker from a Blob": "yes",
+        "OffscreenCanvas with WebGL2": "yes",
+        "SharedArrayBuffer (cross-origin isolated)": "not isolated",
+        "WebAssembly SIMD": "yes",
+        "WebCodecs (AudioEncoder)": "yes",
+        "AudioContext render size hint": "option ignored (128)",
+        "AudioContext playback stats (playbackStats, once playoutStats)": "yes",
+        "View Transitions": "yes",
+        "CSS anchor positioning": "yes",
+        "Popover": "yes",
+        "Web MIDI API present": "API present (not asked)"
+      }
+    }
+  },
+  "differs": [
+    {
+      "feature": "Module worker from a Blob",
+      "alone": "yes",
+      "framed opaque": "no: error",
+      "framed same-origin": "yes"
+    }
+  ]
+}

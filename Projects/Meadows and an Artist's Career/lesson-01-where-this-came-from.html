@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<!-- Loudon Live Design System · Drafting skin (schematic / build-instructions register) -->
+<!-- Meadows and an Artist's Career — Lesson 1 of the lesson series: where the ladder came from.
+     The proposed plan's fourth move: "the lesson series: where this came from (Meadows and Music), then the ladder,
+     then the three careers, then the exercise. Every lesson ends in a journal prompt, not a quiz."
+     Drafted by the steward, cycle 16 (2026-11-15). Sources: Meadows and Music — Leverage Points — Context (the origin,
+     the reflection tool, Loudon's quotes, the Drone Koan, the attack-time note) and Meadows' 1999 paper (the shower).
+     One small loop to play with, three journal prompts that save in this browser only, and a door into the worksheet. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="storage">
+<meta name="theme-color" content="#f0eee5">
+<title>Lesson 1 — Where the ladder came from</title>
+<link rel="icon" href="Meadows%20and%20an%20Artist%27s%20Career%20%E2%80%94%20icon.png">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root{
+    --bg:#f0eee5; --paper:#f7f5ee; --fg-1:#1a1814; --fg-2:#3d3a32; --fg-3:#8a857a;
+    --rule:#cbc6b8; --accent:#c8261a; --accent-soft:#e8d3cd; --grid:#ddd8ca; --ink2:#2f4a63;
+    color-scheme: light;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--bg)}
+  .lv{color:var(--fg-1); font-family:'Cormorant Garamond',Georgia,serif; font-size:19px; line-height:1.55;
+    padding:36px 26px 48px; max-width:820px; margin:0 auto;
+    background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:24px 24px; background-position:-1px -1px;}
+  .eyebrow{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 6px}
+  h1{font-family:'Anton',sans-serif; font-weight:400; font-size:44px; line-height:.98; margin:0 0 10px}
+  h2{font-family:'Anton',sans-serif; font-weight:400; font-size:24px; line-height:1.05; margin:34px 0 8px; letter-spacing:.01em}
+  h2 .n{color:var(--accent); margin-right:10px}
+  .sub{font-family:'Manrope',sans-serif; font-size:14.5px; color:var(--fg-2); max-width:64ch; margin:0}
+  .meta{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--fg-3); margin:10px 0 18px; letter-spacing:.04em}
+  p{margin:0 0 12px; max-width:66ch}
+  blockquote{margin:14px 0; padding:10px 16px; background:var(--paper); border-left:2px solid var(--accent); font-style:italic; max-width:62ch}
+  blockquote cite{display:block; font-style:normal; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--fg-3); margin-top:6px}
+  .card{background:var(--paper); border:1px solid var(--rule); padding:14px 16px; margin:14px 0}
+  .lab{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); display:block; margin:0 0 6px; font-weight:500}
+  .ladder{display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--rule); background:var(--paper); font-family:'Manrope',sans-serif; font-size:13px; margin:12px 0}
+  .ladder div{padding:6px 10px; border-bottom:1px solid var(--rule)}
+  .ladder div:nth-child(odd){border-right:1px solid var(--rule)}
+  .ladder b{font-family:'Anton',sans-serif; font-weight:400; color:var(--accent); font-size:16px; margin-right:8px}
+  .ladder .hi{background:rgba(200,38,26,.06)}
+  .bands{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:10px 0 4px; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--fg-3)}
+  .bands .bar{height:10px; background:#fffdf7; border:1px solid var(--rule); position:relative; margin:4px 0}
+  .bands .bar i{position:absolute; left:0; top:0; bottom:0; background:var(--accent); opacity:.85}
+
+  .sim canvas{width:100%; height:220px; display:block; background:#fffdf7; border:1px solid var(--rule)}
+  .controls{display:grid; grid-template-columns:1fr 1fr; gap:14px 22px; margin:12px 0 6px; font-family:'Manrope',sans-serif; font-size:13px}
+  .controls label{display:block; color:var(--fg-2)}
+  .controls output{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--ink2); float:right}
+  input[type=range]{width:100%; accent-color:var(--accent)}
+  .verdict{font-family:'Manrope',sans-serif; font-size:13.5px; color:var(--fg-1); margin:8px 0 0; min-height:2.6em}
+  .verdict b{color:var(--accent)}
+  .twoway{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px; font-family:'Manrope',sans-serif; font-size:12.5px; color:var(--fg-2)}
+  .twoway div{border-top:1px dashed var(--rule); padding-top:6px}
+  .twoway b{display:block; font-family:'JetBrains Mono',monospace; font-weight:500; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink2); margin-bottom:3px}
+
+  .journal{background:var(--paper); border:1px solid var(--rule); border-top:2px solid var(--accent); padding:16px 18px; margin:16px 0}
+  .journal .q{font-style:italic; font-size:19px; margin:0 0 4px}
+  .journal .hint{font-family:'Manrope',sans-serif; font-size:12.5px; color:var(--fg-3); margin:0 0 8px}
+  textarea{width:100%; min-height:6.5em; font-family:'Cormorant Garamond',Georgia,serif; font-size:18px; line-height:1.5;
+    background:#fffdf7; color:var(--fg-1); border:1px solid var(--rule); padding:10px 12px; resize:vertical}
+  textarea:focus{outline:1px solid var(--accent); outline-offset:1px}
+  .saved{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--fg-3); letter-spacing:.06em; margin-top:4px; min-height:1.2em}
+  .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+  button,.btn{font-family:'JetBrains Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; padding:8px 12px; cursor:pointer;
+    background:var(--paper); color:var(--fg-1); border:1px solid var(--fg-2); border-radius:2px; text-decoration:none}
+  button:hover,.btn:hover{background:var(--accent-soft); border-color:var(--accent)}
+  .btn.primary{background:var(--accent); color:#f7f5ee; border-color:var(--accent)}
+  .foot{font-family:'Manrope',sans-serif; font-size:12px; color:var(--fg-3); margin-top:30px; border-top:1px solid var(--rule); padding-top:10px; max-width:70ch}
+  @media (max-width:640px){ .controls,.twoway,.ladder{grid-template-columns:1fr} .ladder div{border-right:none!important} h1{font-size:34px} }
+</style>
+</head>
+<body>
+<main class="lv">
+  <p class="eyebrow">Meadows and an Artist's Career · Lesson 1 of 4</p>
+  <h1>Where the ladder came from</h1>
+  <p class="sub">A ladder for deciding where to push in your own working life started as a week of posts about a kick drum. This lesson tells that story, lets you play with one loop that lives both in a mix and in a career, and ends with three things to write.</p>
+  <p class="meta">about 20 minutes · one loop to play with · three journal prompts · nothing leaves this browser</p>
+
+  <h2><span class="n">1</span>A kick drum, and then thirty-two exercises</h2>
+  <p>In March 2026 Loudon was planning a week of social posts called <i>The Kick Drum Paradox: small decisions, infinite implications.</i> The idea was Donella Meadows' 1999 essay <i>Leverage Points: Places to Intervene in a System</i>. Meadows was a systems scientist. She listed twelve places to push on any system, from the weakest (change a number) to the strongest (change the way of seeing that the whole system grew out of).</p>
+  <p>Partway through, the plan stopped being a plan:</p>
+  <blockquote>I found many more connections between her essay and music production. I am curious if you can find more connections…<cite>Loudon, March 2026</cite></blockquote>
+  <p>Thirty-two exercises came out of that, across composition, production and wellbeing. Then came the honest part. Loudon rated every one of them on four questions: does it ring true, would I teach it, is it deep, is it how I actually work. Eleven survived.</p>
+  <p>The ones that scored highest weren't about mixing. They were a weekly review, a deadline told to three friends, a rule that frees you by closing a door, journaling. Loudon noticed it while it was happening:</p>
+  <blockquote>I feel these questions following my personal journey from musician teacher to life coach, is it possible for me to make that shift?<cite>Loudon, March 2026</cite></blockquote>
+  <p>That's where this project comes from. The ladder that worked on a mix worked better on the life that makes the mix. This series points it there.</p>
+
+  <h2><span class="n">2</span>The first lesson was a question</h2>
+  <p>The exercise that opened the eleven is a koan, not a rule. Hold a drone and change the bass note under everything. What kind of change was that? Meadows would call the note a number, the weakest kind of push. But change it and the whole piece moves. Loudon put it like this:</p>
+  <blockquote>Changing the bass note is the most powerful of a parameter that there is… But even changing the bass note has a limited impact compared to other changes, like changing the rules of the music.<cite>Loudon, on the Drone Koan</cite></blockquote>
+  <p>Keep that in your pocket for the whole series. The ladder is useful, and it is also too neat. Make the change first, feel what it did, and only then ask which rung it was on. A decision can sit on two rungs, and the honest answer is sometimes "I'm not sure."</p>
+
+  <h2><span class="n">3</span>One loop, two places</h2>
+  <p>Some connections between a mix and a career are only metaphors. This one is the same loop. A loop that keeps something near a target — a compressor holding a level, an artist checking whether the work is landing — only works as well as its <b>response time</b>. Loudon's note on the sidechain compressor's attack:</p>
+  <blockquote>If that is too high (slow response) the benefits go away, but if too fast we get unwanted artifacts.<cite>Loudon, on the sidechain exercise</cite></blockquote>
+  <p>Meadows' own picture is a hotel shower. You turn the tap, the hot water takes a few seconds to reach you, so you turn it further, and then you're scalded. In a career the delay is the time between making something and hearing back. Play with it:</p>
+
+  <div class="card sim">
+    <span class="lab">a loop chasing a target</span>
+    <canvas id="cv" width="1520" height="440" aria-label="A line chasing a target line over 60 weeks"></canvas>
+    <div class="controls">
+      <label>How long before you hear back <output id="dOut"></output>
+        <input id="d" type="range" min="0" max="10" step="1" value="1"></label>
+      <label>How hard you correct each time <output id="kOut"></output>
+        <input id="k" type="range" min="5" max="90" step="5" value="30"></label>
+    </div>
+    <p class="verdict" id="verdict"></p>
+    <div class="twoway">
+      <div><b>in the mix</b>The target is the level you want. The response time is the attack. Slow, and the kick has passed before the compressor moves.</div>
+      <div><b>in the career</b>The target is where you want the work to be. The response time is weeks between finishing something and anyone hearing it.</div>
+    </div>
+  </div>
+  <p>Try it with a long wait and a hard correction. The line swings past the target and back, wider each time. That's an artist who releases once every few years and then changes everything at once. Now cut the wait to one week and correct gently. It settles. Shortening the wait is rung 9 on the ladder, and for most working artists it's the cheapest rung there is to move.</p>
+
+  <h2><span class="n">4</span>The ladder, in one breath</h2>
+  <p>Here are the twelve rungs, weakest to strongest, in career words. Lesson 2 walks them one at a time.</p>
+  <div class="ladder">
+    <div><b>12</b>numbers — price, gear, schedule</div><div class="hi"><b>6</b>who tells you the truth</div>
+    <div><b>11</b>buffers — savings, songs in the can</div><div class="hi"><b>5</b>your rules — what you say no to</div>
+    <div><b>10</b>the plumbing — what funds what</div><div class="hi"><b>4</b>redesigning yourself</div>
+    <div><b>9</b>delays — how long to hear back</div><div class="hi"><b>3</b>what the career is for</div>
+    <div><b>8</b>what pulls you back from too far</div><div class="hi"><b>2</b>what you think an artist is</div>
+    <div><b>7</b>what builds on itself</div><div class="hi"><b>1</b>holding any answer loosely</div>
+  </div>
+  <p>The project's guess about where most artists' attention goes, rung by rung:</p>
+  <div class="bands">
+    <div>rung 12<div class="bar"><i style="width:80%"></i></div>80%</div>
+    <div>rungs 8–11<div class="bar"><i style="width:15%"></i></div>15%</div>
+    <div>rungs 5–7<div class="bar"><i style="width:4%"></i></div>4%</div>
+    <div>rungs 1–4<div class="bar"><i style="width:1%"></i></div>1%</div>
+  </div>
+  <p>Those numbers are a guess, not a survey. The worksheet is where you find your own.</p>
+
+  <h2><span class="n">5</span>Write</h2>
+  <p>Not a quiz. Write a few sentences for each, or a page. It stays in this browser, and you can save it as a text file.</p>
+
+  <div class="journal">
+    <p class="q">What's your drone?</p>
+    <p class="hint">The one thing under everything you make that you've never thought of changing. An instrument, a city, a day job, a genre, a sentence about who you are. Is it a number or a rule?</p>
+    <textarea id="j1" aria-label="What's your drone?"></textarea>
+  </div>
+  <div class="journal">
+    <p class="q">Where do you wait longest before you hear back?</p>
+    <p class="hint">Name the thing, and roughly how many weeks. Then name one way that wait could be cut in half.</p>
+    <textarea id="j2" aria-label="Where do you wait longest before you hear back?"></textarea>
+  </div>
+  <div class="journal">
+    <p class="q">How do you feel?</p>
+    <p class="hint">After reading and writing this. Only you can answer it, and there's no wrong answer.</p>
+    <textarea id="j3" aria-label="How do you feel?"></textarea>
+    <div class="saved" id="saved"></div>
+    <div class="row">
+      <button id="save" type="button">Save as text</button>
+      <button id="clear" type="button">Clear my writing</button>
+      <a class="btn primary" href="leverage-diagnostic-v6.html">Next: place your last ten decisions →</a>
+    </div>
+  </div>
+
+  <p class="foot">Lesson 1 of a planned four: where it came from · the ladder, rung by rung · three careers, and two ordinary ones · the exercise. The quotes are Loudon's, from the March 2026 notes behind <i>Meadows and Music — Leverage Points</i>. The shower is from Meadows' 1999 essay. The loop is a toy: a target, a delay, a correction, and nothing else.</p>
+</main>
+
+<script>
+(function(){
+  // ---- the loop: stock x chases goal g, correcting on information d weeks old ----
+  var cv=document.getElementById('cv'), cx=cv.getContext('2d');
+  var dI=document.getElementById('d'), kI=document.getElementById('k');
+  var dOut=document.getElementById('dOut'), kOut=document.getElementById('kOut'), verdict=document.getElementById('verdict');
+  var N=60;
+  function run(d,k){
+    var x=[0], g=[];
+    for(var t=0;t<N;t++){ g.push(t<4?0:1); }
+    for(var t=0;t<N-1;t++){ var seen=x[Math.max(0,t-d)]; x.push(x[t]+k*(g[t]-seen)); }
+    return {x:x,g:g};
+  }
+  function classify(r){
+    var tail=r.x.slice(40), late=0, peak=0;
+    for(var i=0;i<tail.length;i++) late=Math.max(late,Math.abs(tail[i]-1));
+    for(var i=4;i<N;i++) peak=Math.max(peak,r.x[i]);
+    if(late>0.6) return '<b>Swings wider and wider.</b> Every correction lands after the moment it was meant for, and makes the next one bigger.';
+    if(late>0.08 && peak>1.02) return '<b>Still swinging after a year.</b> It overshoots to '+Math.round(peak*100)+'% and keeps circling the target.';
+    if(peak>1.08) return '<b>Overshoots, then settles.</b> It goes to '+Math.round(peak*100)+'% of the target before it calms down.';
+    var hit=N; for(var i=4;i<N;i++){ if(r.x[i]>0.9){hit=i-4;break;} }
+    return hit<N ? '<b>Settles</b> in about '+hit+' weeks without overshooting.' : '<b>Too gentle to get there</b> inside a year.';
+  }
+  function draw(){
+    var d=+dI.value, k=+kI.value/100;
+    dOut.textContent=d===0?'right away':d+(d===1?' week':' weeks');
+    kOut.textContent=Math.round(k*100)+'% of the gap';
+    var r=run(d,k), W=cv.width, H=cv.height, pad=40;
+    cx.clearRect(0,0,W,H);
+    function X(t){return pad+(W-2*pad)*t/(N-1);} function Y(v){v=Math.max(-0.6,Math.min(2.4,v)); return H-pad-(H-2*pad)*(v+0.6)/3;}
+    cx.strokeStyle='#ddd8ca'; cx.lineWidth=1;
+    for(var v=-0.5;v<=2.4;v+=0.5){cx.beginPath();cx.moveTo(pad,Y(v));cx.lineTo(W-pad,Y(v));cx.stroke();}
+    cx.fillStyle='#8a857a'; cx.font='22px JetBrains Mono, monospace';
+    cx.fillText('target',W-pad-90,Y(1)-10); cx.fillText('weeks →',W-pad-110,H-10);
+    cx.strokeStyle='#8a857a'; cx.setLineDash([10,8]); cx.lineWidth=2; cx.beginPath();
+    for(var t=0;t<N;t++){ t?cx.lineTo(X(t),Y(r.g[t])):cx.moveTo(X(t),Y(r.g[t])); } cx.stroke(); cx.setLineDash([]);
+    cx.strokeStyle='#c8261a'; cx.lineWidth=4; cx.beginPath();
+    for(var t=0;t<N;t++){ t?cx.lineTo(X(t),Y(r.x[t])):cx.moveTo(X(t),Y(r.x[t])); } cx.stroke();
+    verdict.innerHTML=classify(r);
+  }
+  dI.addEventListener('input',draw); kI.addEventListener('input',draw); draw();
+
+  // ---- the journal: saves in this browser only ----
+  var KEY='meadows-career-lesson-01', ids=['j1','j2','j3'], saved=document.getElementById('saved'), tmr;
+  try{ var d=JSON.parse(localStorage.getItem(KEY)||'{}'); ids.forEach(function(i){ if(d[i]) document.getElementById(i).value=d[i]; }); }catch(e){}
+  function persist(){ var d={}; ids.forEach(function(i){ d[i]=document.getElementById(i).value; });
+    try{ localStorage.setItem(KEY,JSON.stringify(d)); saved.textContent='kept in this browser · '+new Date().toLocaleTimeString(); }catch(e){ saved.textContent='this browser won\'t keep it; use Save as text'; } }
+  ids.forEach(function(i){ document.getElementById(i).addEventListener('input',function(){ clearTimeout(tmr); tmr=setTimeout(persist,400); }); });
+  document.getElementById('save').addEventListener('click',function(){
+    var qs=['What\'s your drone?','Where do you wait longest before you hear back?','How do you feel?'];
+    var txt='Meadows and an Artist\'s Career — Lesson 1, where the ladder came from\n'+new Date().toDateString()+'\n\n'+
+      ids.map(function(i,n){ return qs[n]+'\n'+(document.getElementById(i).value.trim()||'(nothing written)'); }).join('\n\n')+'\n';
+    var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));
+    a.download='lesson-1-journal.txt'; document.body.appendChild(a); a.click(); a.remove();
+  });
+  document.getElementById('clear').addEventListener('click',function(){
+    if(!confirm('Clear what you wrote in this lesson?')) return;
+    ids.forEach(function(i){ document.getElementById(i).value=''; }); try{ localStorage.removeItem(KEY); }catch(e){} saved.textContent='cleared';
+  });
+})();
+</script>
+</body>
+</html>

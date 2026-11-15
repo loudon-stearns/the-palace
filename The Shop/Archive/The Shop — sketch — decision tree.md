@@ -14,12 +14,12 @@ links:
   - target: "[[The Shop — sketch — discovery design]]"
     type: connects-to
     label: "part-of"
-forward_vector: "I am a draft of the one decision tree the Shop works by, for Loudon to cut or adopt. If he adopts it, it goes onto the Maker in place of most of the hand-written routing, and I go to the Archive."
+forward_vector: "I was the draft of the one decision tree the Shop works by. Loudon adopted me on 2026-11-15 with a zoom out added; I now live on the Maker, § Selection Heuristics, and stay here in the Archive as the draft he read."
 ---
 
 # Choose, collect, edit — a decision tree for the Shop
 
-A draft for Loudon, 2026-11-14. Not on the [[Maker]]; it goes there only on his yes.
+A draft for Loudon, 2026-11-14. **Adopted 2026-11-15**, with a zoom out built in: the living tree is on [[Maker]] § Selection Heuristics. This is the draft he read.
 
 Loudon, 2026-11-14: "choose each tool for what it does best, then collect and edit together. We were doing very similar processes in blueline. Same kind of decision-tree."
 

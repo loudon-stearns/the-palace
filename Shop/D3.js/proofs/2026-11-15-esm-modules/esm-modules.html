@@ -1,0 +1,199 @@
+<!doctype html>
+<!--
+  title: D3.js — proof — the whole library against just the modules
+  born: 2026-11-15
+  links: [[D3.js]] (connects-to · test-proof)
+  forward_vector: I am the zoom-out for D3.js on 2026-11-15. On 2026-11-03 d3 7.9.1 and 7.9.2, and every
+    d3-* module with them, began publishing a single ES-module bundle per module. So a piece can now load
+    only the d3 it uses, straight from a CDN, pinned and hashed through an import map, with no build step.
+    I draw the same force-relaxed graph twice, once with the shelf's whole d3@7.9.0 script and once with
+    only the five new module files it needs, and I let the two be compared by eye and by number. I want to
+    settle the page's open question: one-file script or modules, for a D3 piece.
+  Source: github.com/d3/d3/releases, v7.9.1 (2026-11-03): "Publish an ES module bundle instead of separate
+    source files"; v7.9.2 the same day reverts a d3-delaunay fix. d3-force 3.0.1 and d3-selection 3.0.1 the same.
+  The import map carries an "integrity" map (Chromium 127 and later enforce it). conform.mjs reads the map's
+    URLs and their hashes; until the five module URLs are on the shelf it marks them off-shelf. The page imports
+    d3-force and d3-selection by full URL (conform reads a bare name as a file beside the piece), and the map
+    resolves the three bare names d3-force itself imports. check.mjs proves the hashes hold and are enforced.
+  This is how it was done on 2026-11-15, not how it must be done. A maker who can do better another way
+  (a bundler, another CDN, a newer browser feature) does so, and leaves the comparison on the scroll.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>     the inline scripts parse
+    node _ops/rich-face/conform.mjs <this file> --browser                   loads clean and reports a height
+    node Shop/D3.js/proofs/2026-11-15-esm-modules/check.mjs                 bytes, timing, same layout, pins enforced
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D3.js — the whole library against just the modules</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<script type="importmap">
+{
+  "imports": {
+    "d3-dispatch": "https://cdn.jsdelivr.net/npm/d3-dispatch@3.0.2/dist/d3-dispatch.min.mjs",
+    "d3-quadtree": "https://cdn.jsdelivr.net/npm/d3-quadtree@3.0.2/dist/d3-quadtree.min.mjs",
+    "d3-timer": "https://cdn.jsdelivr.net/npm/d3-timer@3.0.2/dist/d3-timer.min.mjs"
+  },
+  "integrity": {
+    "https://cdn.jsdelivr.net/npm/d3-force@3.0.1/dist/d3-force.min.mjs": "sha384-WHqEZKbzSP8nyzXQTBOfSPq0B30YEHbCpVow8I+07963ZaB7RKpjgWAPm6c9RJvZ",
+    "https://cdn.jsdelivr.net/npm/d3-selection@3.0.1/dist/d3-selection.min.mjs": "sha384-WjPfbECVu7NFclrLXIfPVkngpHLtc32Wk9l/19p8F+CCOxX75xqpO9D9Ly6/kqF6",
+    "https://cdn.jsdelivr.net/npm/d3-dispatch@3.0.2/dist/d3-dispatch.min.mjs": "sha384-/FY4vCz6DJlEMizWi2EjLAhs5fxP2TeL+czgdrTPTBFseYpSDkkbLb1Z+psYsgeB",
+    "https://cdn.jsdelivr.net/npm/d3-quadtree@3.0.2/dist/d3-quadtree.min.mjs": "sha384-azjdbve9uUr3/dXBoCly7q+3YJL/Eo1VEjaVv1+7ky3vkC1xu8tb7bCpJq/T1Y7f",
+    "https://cdn.jsdelivr.net/npm/d3-timer@3.0.2/dist/d3-timer.min.mjs": "sha384-0ACzb6Po92sYWyvn64mF1es8SOIwBKjkIwsGGyM7s6mWPY3bfBy86V46r7ii2MWy"
+  }
+}
+</script>
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-3); font-family: var(--mono); font-size: 13px; }
+  main { padding: var(--s-5); display: grid; gap: var(--s-3); max-width: 72rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  h2 { margin: 0; font-size: 0.9rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; line-height: 1.5; max-width: 62rem; }
+  .ask { color: var(--fg-1); border-left: 2px solid var(--accent); padding-left: var(--s-3); }
+  .bar { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border);
+           border-radius: var(--r-sm); padding: var(--s-1) var(--s-3); cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--s-4); }
+  .side { border: 1px solid var(--border); padding: var(--s-3); display: grid; gap: var(--s-2); align-content: start; }
+  svg { display: block; width: 100%; height: auto; }
+  dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 2px var(--s-3); }
+  dt { color: var(--fg-3); } dd { margin: 0; color: var(--fg-2); }
+  #verdict { color: var(--fg-1); }
+</style>
+</head>
+<body>
+<main>
+  <h1>The whole d3 library against just the modules it needs</h1>
+  <p>Since 2026-11-03 every d3 module ships as one ES-module file, so a piece can load only the parts it uses
+    straight from the CDN, hashed and pinned, with no build step. Left: the shelf's whole <b>d3@7.9.0</b>, one
+    script. Right: only <b>d3-force 3.0.1</b>, <b>d3-selection 3.0.1</b> and the three small modules d3-force
+    leans on, the files <b>d3 7.9.2</b> is built from. Both draw the same 120-node graph from the same seed.
+    Nothing moves until you press the button.</p>
+  <p class="ask"><b>The question for you:</b> press <b>Draw both</b>. Do the two graphs look the same to you
+    as they settle, and does either one feel slower?</p>
+  <div class="bar">
+    <button id="go" type="button">Draw both</button>
+    <span id="verdict" aria-live="polite">still</span>
+  </div>
+  <div class="pair">
+    <section class="side" aria-labelledby="hOld">
+      <h2 id="hOld">old: the whole library, one script</h2>
+      <svg id="old" viewBox="0 0 460 380" role="img" aria-label="Force-relaxed graph drawn with the whole d3 7.9.0 script"></svg>
+      <dl id="oldStats"></dl>
+    </section>
+    <section class="side" aria-labelledby="hNew">
+      <h2 id="hNew">new: five module files, an import map</h2>
+      <svg id="new" viewBox="0 0 460 380" role="img" aria-label="Force-relaxed graph drawn with the d3-force and d3-selection modules"></svg>
+      <dl id="newStats"></dl>
+    </section>
+  </div>
+  <p>Measured headless by check.mjs on 2026-11-15 (bytes over the wire, load time, whether the two land on the
+    same positions, and that a wrong hash in the import map stops the load): see measured.json beside this file.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script type="module">
+import { forceSimulation, forceLink, forceManyBody, forceCollide, forceX, forceY } from 'https://cdn.jsdelivr.net/npm/d3-force@3.0.1/dist/d3-force.min.mjs';
+import { select } from 'https://cdn.jsdelivr.net/npm/d3-selection@3.0.1/dist/d3-selection.min.mjs';
+window.d3modules = { forceSimulation, forceLink, forceManyBody, forceCollide, forceX, forceY, select,
+  version: 'd3-force 3.0.1 + d3-selection 3.0.1' };
+window.dispatchEvent(new Event('d3modules'));
+</script>
+<script>
+const W = 460, H = 380;
+
+// One graph for both sides: 120 nodes, each new node linking to two earlier ones, the earlier ones chosen
+// in proportion to how linked they already are. Mulberry32, seed 7, so both sides get the same graph.
+function makeGraph(n = 120, seed = 7) {
+  let a = seed >>> 0;
+  const rand = () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const nodes = [{ id: 0 }, { id: 1 }], links = [{ source: 0, target: 1 }], ends = [0, 1];
+  for (let i = 2; i < n; i++) {
+    nodes.push({ id: i });
+    const picked = new Set();
+    while (picked.size < Math.min(2, i)) picked.add(ends[Math.floor(rand() * ends.length)]);
+    for (const j of picked) { links.push({ source: i, target: j }); ends.push(i, j); }
+  }
+  return { nodes, links };
+}
+
+// The same drawing code, handed either d3 namespace.
+function run(lib, svgId, statsId) {
+  const T = palaceTokens();
+  const { nodes, links } = makeGraph();
+  const deg = new Array(nodes.length).fill(0);
+  for (const l of links) { deg[l.source]++; deg[l.target]++; }
+  const r = (d) => 2.5 + Math.sqrt(deg[d.id]) * 1.2;
+  const svg = lib.select('#' + svgId);
+  svg.selectAll('*').remove();
+  const line = svg.append('g').attr('stroke', T.border).attr('stroke-opacity', 0.8)
+    .selectAll('line').data(links).join('line');
+  const dot = svg.append('g').selectAll('circle').data(nodes).join('circle')
+    .attr('r', r).attr('fill', T.accent).attr('stroke', T.bg).attr('stroke-width', 1);
+  const t0 = performance.now();
+  let ticks = 0;
+  const sim = lib.forceSimulation(nodes)
+    .force('link', lib.forceLink(links).distance(26))
+    .force('charge', lib.forceManyBody().strength(-45))
+    .force('collide', lib.forceCollide((d) => r(d) + 1.5))
+    .force('x', lib.forceX(W / 2).strength(0.06))
+    .force('y', lib.forceY(H / 2).strength(0.08));
+  return new Promise((done) => {
+    sim.on('tick', () => {
+      ticks++;
+      line.attr('x1', (l) => l.source.x).attr('y1', (l) => l.source.y).attr('x2', (l) => l.target.x).attr('y2', (l) => l.target.y);
+      dot.attr('cx', (d) => d.x).attr('cy', (d) => d.y);
+    }).on('end', () => {
+      const ms = performance.now() - t0;
+      done({ ticks, ms, pos: nodes.map((d) => [d.x, d.y]) });
+    });
+  }).then((res) => { stats(statsId, lib.version, res); return res; });
+}
+
+// What came over the wire for each side, from the browser's own resource timing.
+function wire(test) {
+  const es = performance.getEntriesByType('resource').filter((e) => test(e.name));
+  return { files: es.length, encoded: es.reduce((s, e) => s + e.encodedBodySize, 0), decoded: es.reduce((s, e) => s + e.decodedBodySize, 0) };
+}
+const oldWire = () => wire((u) => u.includes('/npm/d3@7.9.0/'));
+const newWire = () => wire((u) => /\/npm\/d3-[a-z]+@[\d.]+\/dist\/.*\.mjs$/.test(u));
+const kb = (b) => (b / 1024).toFixed(1) + ' KB';
+
+function stats(id, version, res) {
+  const w = id === 'oldStats' ? oldWire() : newWire();
+  const rows = [['library', version], ['files', String(w.files)], ['over the wire', kb(w.encoded) + ' compressed'],
+    ['parsed', kb(w.decoded)], ['settled', `${res.ticks} ticks in ${Math.round(res.ms)} ms`]];
+  document.getElementById(id).innerHTML = rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('');
+}
+
+let lastRun = null;
+async function drawBoth() {
+  document.getElementById('verdict').textContent = 'settling';
+  const oldLib = Object.assign(Object.create(d3), { version: 'd3 ' + d3.version + ' (whole)' });
+  const [a, b] = await Promise.all([run(oldLib, 'old', 'oldStats'), run(window.d3modules, 'new', 'newStats')]);
+  let max = 0;
+  a.pos.forEach((p, i) => { max = Math.max(max, Math.abs(p[0] - b.pos[i][0]), Math.abs(p[1] - b.pos[i][1])); });
+  lastRun = { old: a, new: b, maxDelta: max };
+  document.getElementById('verdict').textContent = max === 0
+    ? 'settled: the two land on exactly the same positions, to the last bit'
+    : `settled: the two differ by up to ${max.toFixed(3)} px`;
+  return lastRun;
+}
+
+function ready() {
+  const go = document.getElementById('go');
+  if (!window.d3modules) { go.disabled = true; document.getElementById('verdict').textContent = 'waiting for the modules'; return; }
+  go.disabled = false;
+  document.getElementById('verdict').textContent = 'still';
+}
+document.getElementById('go').addEventListener('click', drawBoth);
+window.addEventListener('d3modules', ready);
+ready();
+</script>
+</body>
+</html>
