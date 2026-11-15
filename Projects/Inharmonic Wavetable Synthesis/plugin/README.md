@@ -16,6 +16,15 @@ Every 32 samples each voice recomputes its partials' increments, level targets (
 
 `./plugin.sh all` passes: the C++ engine matches the sketch to 3–6 × 10⁻⁸ of peak on all five paths; the real processor keeps the sketch's loudness within 0.38 dB in every quarter second; strict codesign, pluginval at strictness 5, `auval -v aumu Bent Loud`, and the host check (every listed move changes the sound). `ui.py fit` passes at 920×540, 1000×600, 1600×1000.
 
+## The screen: the glowing line (2026-11-15, steward cycle 11)
+
+The CRT draws the page's own picture. Partial number runs across, 1 to 64; the bold line through the middle is zero cents, the harmonic series, always there. The glowing line is Wavetable B now, each partial at its bend (times Bend) on a signed log scale with marks at 10 and 100 cents, one octave and two. Its brightness along its length is Wavetable A, times velocity, envelope and each partial's own decay, so a note lights the line and the top of it dims first. Behind it, in amber, every frame of the material's measured trajectory at this bend, brightest near where the note is now. Empty slots under Nearest filing show as hollow dots on the flat line. Drag on the glass: up and down is Bend, left and right is A position.
+
+- The plugin streams only five numbers about its newest sounding voice (`npos`, `age`, `env`, `vel`, `f0`, after the three check probes). The screen redraws the line from the same tables the engine plays, which `ui/make_visualizer.py` writes into `ui/visualizer.js` from `reference/sketch.py`. Edit `ui/visualizer.template.js`, then rerun the script. 128 per-partial probes would have worked too, but the harness writes every probe for every sample, and that would have been about a gigabyte for a 20 s path.
+- The screen assumes 44.1 kHz when it darkens partials above 0.45 × the rate.
+- Pictures: `proofs/glowing-line-piano-c6.png` (the stiff string's upward bow), `proofs/glowing-line-bell-nearest.png` (the bell's scatter, empty slots on the flat line), `proofs/glowing-line-piano-a2-flat.png` (Bend 0), and `proofs/glowing-line-crt.html`, the mock page replaying a harness phrase through the real processor.
+- Checked 2026-11-15 on the build copy: verify (ALL GATES PASSED), `ui.py fit` at all three sizes, pluginval at strictness 5, the host check. Not installed: Live 11 and 12 were both open. Run `./plugin.sh install` with Live closed, then `validate` for auval. `./plugin.sh editor` could not photograph the real window from a headless run.
+
 ## Things learned building it
 
 - The organ wall's frames are lumpy. With only a few slots sounding (the bowl filed Nearest uses seven), the plugin's 20 ms knob smoothing on A position reads as 0.7 dB in a quarter second against the unsmoothed sketch. That is real, not a port error, so the A sweep is tested on the piano path, where 64 slots average it out.
@@ -24,6 +33,6 @@ Every 32 samples each voice recomputes its partials' increments, level targets (
 ## Open
 
 - Nobody has played it in Live yet.
-- The CRT is off. The editor's own identity marker should be the glowing line: partial number across, bend from the flat line up and down, brightness as level. `ui/visualizer.js` is the next build.
+- The glowing line has been seen only in the mock page, not in Live's own window.
 - It is quiet at the defaults (about −35 dBFS RMS on one note at Level −12).
 - Wavetable C (per-partial pan) is not in it; the output is mono.

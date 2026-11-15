@@ -15,38 +15,40 @@ forward_vector: "I am Inharmonic Wavetable Synthesis's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-10-28T22:53:47.919Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-15T13:56:37.725Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 10 · last ran 2026-10-28 (today)
-- **Plan:** agreed 2026-10-15 (14 days ago) · 2 made things since · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-11-15 (today)
+- **Plan:** agreed 2026-11-10 (5 days ago) · 1 made thing since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-10-28 (today) — Max is paused, so I built the Live device as a VST instead. Shall the plan say so, with the glowing-line screen as the next step? (`inharmonic-wavetable-synthesis-steward-024`)
-- **Last commit touching this project:** 2026-10-24 `a75350ec` — Weave — 2026-10-24 — 79 links added, 647 links pruned, 268 labels added, 13 entries promoted, 25 stages moved, 35 flags closed, 13 decisions carried, 6 Contexts opened, 2 pages composted, 8 faces added
+- **Last shipped:** 2026-11-15 (today) — Bent Line's screen now shows the glowing line: the flat harmonic line across the middle, each material's bend glowing off it, and you can drag it to bend. (`inharmonic-wavetable-synthesis-steward-026`)
+- **Last commit touching this project:** 2026-11-10 `31f15740` — enrich(Inharmonic Wavetable Synthesis): each partial is a loop: the summed waveform over one lap, beside the loops — sketch · proposal
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 1 run on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-10-28 — cycle 10 · taught item 1, proposed item 2 for canon
+- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-15 — cycle 11 · taught item 3, proposed item 4 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 2; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 2, from cycle 10 — 2026-10-28 — [[Inharmonic Wavetable Synthesis — tuning]]
+- **Proposed for canon:** 2 — items 2, 4; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 4, from cycle 11 — 2026-11-15 — [[Inharmonic Wavetable Synthesis — tuning]]
 
 ### Where this stands
 
-Inharmonic Wavetable Synthesis is the synth where two wavetables do two jobs. Wavetable A sets how loud each partial is. Wavetable B sets how far each partial sits from its harmonic place, in cents, so a flat line is pure harmony and every bend is a material. On 2026-10-14 I measured a first library of bends from real recordings: three piano strings, a bell, a vibraphone, a marimba and a singing bowl. On the 15th you adopted the plan and answered BOTH to how a bell gets filed. Filing is the choice between putting its k-th mode in slot k or in the harmonic slot it is nearest, and BOTH means keeping both as a switch. The plan's next step was a device in Live. Max is paused, so this cycle I bu…
+Inharmonic Wavetable Synthesis is the synth where two wavetables do two jobs. Wavetable A sets how loud each partial is. Wavetable B sets how far each partial sits from its harmonic place, in cents. A flat line is pure harmony, and every bend is a material. In October I measured bends from seven real sounds (three piano strings, a bell, a vibraphone, a marimba, a singing bowl). Max was paused, so I built the instrument as Bent Line, a VST3 and AU plugin. On November 10 you agreed the plan should say so, and that the next step was the page's own picture on the plugin's screen, before the lesson. This cycle built that picture. The flat line runs across the middle and the material's bend glows…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 7:** I can't hear, so every sound claim is a measurement. _(in 4 notes, the latest 2026-10-20)_
+- **rough since cycle 7:** I can't hear, so every sound claim is a measurement. _(in 5 notes, the latest cycle 11)_
 - **rough since cycle 7:** it is untested in Firefox, Safari and STIGMERGY's frame, and at 96 partials on a slow machine. _(in 2 notes, the latest 2026-10-20)_
 - **rough since cycle 8:** The treble strings in 05 are carried far past where they were measured. _(in 2 notes, the latest cycle 9)_
 - **rough since cycle 8:** I only syntax-checked the study's new menu entries, not play-tested them. _(in 2 notes, the latest cycle 9)_
+- **rough since cycle 10:** Nobody has played it in Live yet, and the new build isn't installed: Live was open. _(in 2 notes, the latest cycle 11)_
+- **rough since cycle 10:** auval wasn't run, and the glowing line has been seen only in the mock page, not in Live's own window. _(in 2 notes, the latest cycle 11)_
 
 ### Open asks
 
-- `inharmonic-wavetable-synthesis-steward-024` — proposed plan revision: the Live device becomes a VST, and the glowing line comes next · posted 2026-10-28 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -54,11 +56,13 @@ _None._
 
 ### Decided
 
+- `inharmonic-wavetable-synthesis-steward-024` — the Live device becomes a VST, and the glowing line comes next → GRANTED — option_id=adopt (2026-11-10)
 - `inharmonic-wavetable-synthesis-steward-021` — how a bell or bar is filed into Wavetable B → GRANTED — option_id=BOTH (2026-10-15)
 - `inharmonic-wavetable-synthesis-steward-015` — a first plan for the instrument → GRANTED — option_id=adopt (2026-10-15)
 
 ### Runs
 
+- 2026-11-15 — cycle 11 · taught item 3, proposed item 4 for canon
 - 2026-10-28 — cycle 10 · taught item 1, proposed item 2 for canon
 
 ### Owed
@@ -70,6 +74,7 @@ _Nothing owed._
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
 - **2.** 2026-10-28 · [[Inharmonic Wavetable Synthesis]] · § Open Questions, the '— progressed:' line under the question on deriving Wavetable B from recordings — The line still says the filing question is open, but Loudon answered it, and the answer is now a control on a working instrument.
+- **4.** 2026-11-15 · [[Inharmonic Wavetable Synthesis]] · § The Glowing Line UI, a new last paragraph — The section describes the display as a design; it now exists on a working instrument, and the next reader should know where to find it.
 
 <!-- scroll:now:end -->
 
@@ -79,11 +84,12 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 Where this is going: one thing in two forms, a playable instrument and a Four Pillars lesson, with the flat line as the front door to both.
 
 1. Both walls playable (done 2026-10-14): a real wavetable's FFT as the amplitude wall, physical trajectories as the inharmonicity wall, in offline renders and a browser study.
-2. A small trajectory library from real sounds: track the partials of 3-5 recordings (low piano, high piano, a bell, a vibraphone, a singing bowl) into Wavetable B frames, then audition each against the organ wall. One recording first, by ear, before the rest.
-3. A device in Live: the dual engine as an RNBO codebox~ (or Gen~) Max for Live device through the Shop's RNBO smith, 64 partials, with both positions, B depth and the trajectory as mappable controls. Demoed to Loudon, and unverified until he opens it.
-4. The lesson's first twenty minutes: the study grown into a guided walk. What is harmony? A flat line. Then bend it, hear the piano, hear the bell, and play the chord whose usable scale moves as the line moves (Sethares).
-5. The editor's front door: build both a drawn-curve editor and a library of named curve families (The Curve Is the Material) as small studies, and let hands and ears choose.
-6. Later: a JUCE VST3 and the companion course module.
+2. A small trajectory library from real sounds (first shelf done 2026-10-14): seven piano strings, a bell, a vibraphone, a marimba and a singing bowl, tracked into Wavetable B frames; filing a mode by Rank or Nearest is kept both ways (Loudon, 2026-10-15).
+3. A device in Live (built 2026-10-28): Bent Line, a VST3 and AU on the VST Template, 64 partials and eight voices, with the material, filing, bend, both wall positions and the clock as automatable controls. Unverified until Loudon plays it.
+4. The glowing line: the plugin's centre screen draws the current spectrum as a line across the box, partial number left to right, bend away from the flat line, brightness as level, so the instrument shows what the lesson says.
+5. The lesson's first twenty minutes: the study grown into a guided walk. What is harmony? A flat line. Then bend it, hear the piano, hear the bell, flip the filing, and play the chord whose usable scale moves as the line moves (Sethares).
+6. The editor's front door: build both a drawn-curve editor and a library of named curve families (The Curve Is the Material) as small studies, and let hands and ears choose.
+7. Later: the Max for Live build once there are patching standards, Wavetable C (per-partial pan), and the companion course module.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -95,6 +101,62 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-inharmonic-wavetable-synthesis-steward-024" -->
+### 2026-11-09 — Plan revised: Max is paused, so I built the Live device as a VST instead. Shall the plan say so, with the glowing-line screen as the next step?
+
+Catch-up: Inharmonic Wavetable Synthesis is the two-wavetable synth, Wavetable A for loudness and Wavetable B for bend. The plan you adopted on the 15th runs: both walls playable (done), a small library measured from real sounds (done, seven materials), then a device in Live built as an RNBO Max for Live device, then the lesson, then the editor's front door. Max is paused, so this cycle I built the device on the VST Template instead. Bent Line is installed and passes every check. The change: the device step says VST, and I add one step before the lesson. That step lights the plugin's screen with the glowing line, partial number across and bend away from the flat line. It's the instrument's identity and the lesson's first picture. The cost is one more step before the lesson. Keeping the plan as it stands leaves the step naming Max, and that work would sit idle until the pause lifts.
+
+_The plan before this change:_
+
+> Where this is going: one thing in two forms, a playable instrument and a Four Pillars lesson, with the flat line as the front door to both.
+>
+> 1. Both walls playable (done 2026-10-14): a real wavetable's FFT as the amplitude wall, physical trajectories as the inharmonicity wall, in offline renders and a browser study.
+> 2. A small trajectory library from real sounds: track the partials of 3-5 recordings (low piano, high piano, a bell, a vibraphone, a singing bowl) into Wavetable B frames, then audition each against the organ wall. One recording first, by ear, before the rest.
+> 3. A device in Live: the dual engine as an RNBO codebox~ (or Gen~) Max for Live device through the Shop's RNBO smith, 64 partials, with both positions, B depth and the trajectory as mappable controls. Demoed to Loudon, and unverified until he opens it.
+> 4. The lesson's first twenty minutes: the study grown into a guided walk. What is harmony? A flat line. Then bend it, hear the piano, hear the bell, and play the chord whose usable scale moves as the line moves (Sethares).
+> 5. The editor's front door: build both a drawn-curve editor and a library of named curve families (The Curve Is the Material) as small studies, and let hands and ears choose.
+> 6. Later: a JUCE VST3 and the companion course module.
+<sub>`plan-inharmonic-wavetable-synthesis-steward-024` · plan revised · agreed 2026-11-10T02:06:52.823Z · proposed by Inharmonic Wavetable Synthesis's steward (`inharmonic-wavetable-synthesis-steward-024`), adopted by Loudon (`resp-mwa1ukrb-3or185`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="inharmonic-wavetable-synthesis-steward-026" -->
+### 2026-11-15 — cycle 11 — Bent Line's screen now shows the glowing line: the flat harmonic line across the middle, each material's bend glowing off it, and you can drag it to bend.
+> shipped · screen built and checked on the build copy · not installed while Live is open · steward leans you play it
+
+**What the screen shows.** Partial number runs left to right, 1 to 64. The bold line through the middle is zero cents, the harmonic series, and it is always there. The glowing line is Wavetable B at this moment: each partial drawn at its bend, times the Bend knob. The scale is logarithmic so ten cents and two octaves both fit. The line's brightness along its length is Wavetable A, times velocity, the envelope and each partial's own decay. A note lights the line up, and the top end dims first. Behind it in amber are all sixteen measured frames of the material's trajectory, brightest near where the note is now. Under Nearest filing, empty slots sit as hollow dots on the flat line. Drag up and down to bend the line by hand, and left and right to move A position. A drag moves the knob, with automation.
+
+**How it stays true to the sound.** The plugin sends only five numbers about its newest voice: frame position, age, envelope, velocity and pitch. The screen redraws the line from the same tables the engine plays, which a small script writes into the screen's code from the sketch. I also tried streaming all 128 per-partial values. The check harness records every probe for every sample, which would be about a gigabyte for one 20-second test.
+
+**Checked:** the engine still matches the sketch on every test path (all gates passed), and the editor fits at 920×540, 1000×600 and 1600×1000. pluginval at strictness 5 and the host check both pass on the build copy. Live 11 and 12 were both open, so I didn't install over the plugin they may have loaded. The pictures come from the mock page, which replays a real phrase through the processor. The real window couldn't be photographed from a headless run.
+
+**Artifacts:**
+- [Piano C6, filed by rank: the stiff string's upward bow, glowing where the organ wall is loud.](Projects/Inharmonic Wavetable Synthesis/plugin/proofs/glowing-line-piano-c6.png)
+- [The bell filed Nearest: a scatter off the flat line, empty slots as hollow dots.](Projects/Inharmonic Wavetable Synthesis/plugin/proofs/glowing-line-bell-nearest.png)
+- [Bend at 0: the line folds onto the harmonic series, and the screen says FLAT.](Projects/Inharmonic Wavetable Synthesis/plugin/proofs/glowing-line-piano-a2-flat.png)
+- [The editor page with the line moving, replaying a phrase through the real processor (Piano A4).](Projects/Inharmonic Wavetable Synthesis/plugin/proofs/glowing-line-crt.html)
+- [The glowing line, the source to edit.](Projects/Inharmonic Wavetable Synthesis/plugin/ui/visualizer.template.js)
+- [Generated: the template with the engine's tables inlined (130 KB).](Projects/Inharmonic Wavetable Synthesis/plugin/ui/visualizer.js)
+- [Writes visualizer.js from the template and the sketch's tables.](Projects/Inharmonic Wavetable Synthesis/plugin/ui/make_visualizer.py)
+- [Five new probes for the newest voice; the sound is unchanged.](Projects/Inharmonic Wavetable Synthesis/plugin/src/Algorithm.h)
+- [The screen turned on and named BentLineGlow.](Projects/Inharmonic Wavetable Synthesis/plugin/plugin.json)
+- [The screen, how it reads the engine, and what was and wasn't checked.](Projects/Inharmonic Wavetable Synthesis/plugin/README.md)
+
+_Changed in the workshop:_ README — the screen is built now: what it draws, how it reads the engine, and what was and wasn't checked
+_Proposed for canon:_ Inharmonic Wavetable Synthesis (§ The Glowing Line UI, a new last paragraph) — The section describes the display as a design; it now exists on a working instrument, and the next reader should know where to find it.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has played it in Live yet, and the new build isn't installed: Live was open. auval wasn't run, and the glowing line has been seen only in the mock page, not in Live's own window. I can't hear, so every sound claim is a measurement.
+
+_Next moves named:_ You play it: quit Live, run ./plugin.sh install then ./plugin.sh validate in the plugin folder, rescan, and load Bent Line. Hold a low Piano A2 note and drag the line up and down. · The plan's next step after the line, the lesson's first twenty minutes: grow the browser study into a guided walk. Ask what harmony is, show the flat line, bend it, hear the piano and the bell, then play the chord whose usable scale moves as the line moves. · Later on the screen: draw every sounding voice as its own line, so chords and unison show the bundle braiding at the low partials and fanning at the top.
+<sub>`inharmonic-wavetable-synthesis-steward-026` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-0ce325bdeb" -->
+### 2026-11-15 — cycle 11
+
+taught item 3, proposed item 4 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-inharmonic-wavetable-synthesis-steward-015" -->
 ### 2026-10-14 — Plan agreed: This project has never had an agreed plan. Here is one: trajectory library, then a Live device, then the lesson.
 

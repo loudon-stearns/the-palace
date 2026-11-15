@@ -31,3 +31,13 @@ What Inharmonic Wavetable Synthesis's steward cycles taught the page, and the ch
    >   — progressed: real piano notes, a bell, a vibraphone, a marimba and a singing bowl are measured into `trajectory-library/`, and all seven play in Bent Line, the plugin in `plugin/`. Filing is a switch there, Rank or Nearest (Loudon, 2026-10-15: both). The pitched half is under way; unpitched sources stay open.
 
 - run · 2026-10-28 · cycle 10 · taught item 1, proposed item 2 for canon
+
+## From cycle 11 — 2026-11-15
+
+3. A plugin screen that needs per-partial state can take a handful of voice numbers as probes and redraw from the engine's own tables inlined into visualizer.js. Per-partial probes cost the check harness probes × samples × 8 bytes, about a gigabyte for 128 probes over a 20 s path. *(offered by the steward, cycle 11)*
+4. **Proposed for canon** · 2026-11-15 · [[Inharmonic Wavetable Synthesis]] · § The Glowing Line UI, a new last paragraph · canon change owed *(proposed by the steward, cycle 11)*
+   Why: The section describes the display as a design; it now exists on a working instrument, and the next reader should know where to find it.
+   Path: `Projects/Inharmonic Wavetable Synthesis.md`
+   > Built (2026-11-15): the glowing line is the screen of Bent Line, the plugin in `plugin/`. Partial number runs across, the flat line holds the middle, the measured bend glows off it as bright as each partial is loud, and the material's other frames ghost behind it in amber. A drag up and down bends the line. One line, the newest voice; the bundle of unison lines is not drawn yet.
+
+- run · 2026-11-15 · cycle 11 · taught item 3, proposed item 4 for canon
