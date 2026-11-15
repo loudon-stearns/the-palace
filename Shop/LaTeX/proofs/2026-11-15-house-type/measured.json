@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-15",
+  "test": "the Loudon Live type stack through fontspec (untried on the card) and SOURCE_DATE_EPOCH on the PDF itself (untried)",
+  "route": "lualatex, then PyMuPDF (pdf2svg.py, text as paths); make.sh compiles four times",
+  "fonts": "Anton, Cormorant Garamond, Manrope, JetBrains Mono found by name from ~/Library/Fonts; Latin Modern Math through unicode-math. Giving a /Library/Fonts Path failed: the faces are in the user's font folder.",
+  "variable_font_note": "Manrope and Cormorant Garamond are variable fonts; with no axis set, lualatex takes their default instance, which for Manrope looks light. Not fixed in this card.",
+  "determinism": {
+    "pdf_plain": "two compiles, two different PDFs (sha256 0f9901d0.. and 872e3865..)",
+    "pdf_with_SOURCE_DATE_EPOCH=0 FORCE_SOURCE_DATE=1": "two compiles, the same PDF (a7a6495c..)",
+    "svg": "the same SVG all four times (37d86f8b..): PyMuPDF's SVG carries no date"
+  },
+  "seconds_per_compile_and_svg": [13.6, 14.7, 12.9, 24.5],
+  "seconds_note": "measured with three other sessions' renders running on the Mac; the card loads unicode-math and five faces, against 1.5 s for the JetBrains-only figure on 2026-11-14",
+  "overfull_or_missing_glyphs": "none in the log",
+  "raster_inside_svg": false,
+  "question_for_loudon": "Does the card read as Loudon Live (Anton over Cormorant, the gloss in Manrope), and is the gloss too light at this weight?"
+}
