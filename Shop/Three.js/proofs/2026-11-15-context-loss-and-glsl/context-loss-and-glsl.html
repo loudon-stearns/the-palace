@@ -1,0 +1,246 @@
+<!doctype html>
+<!--
+  title: Three.js — proof — a lost context and a broken shader
+  born: 2026-11-15
+  links: [[Three.js]] (connects-to · test-proof)
+  forward_vector: I test the card's line "No job has met a lost WebGL context or a silent GLSL failure." On the
+    shelf's r128 I draw a shader-striped plane, the starter's string and a grid; then I lose the WebGL context on
+    purpose (WEBGL_lose_context) and bring it back, and I break the plane's fragment shader on purpose and say
+    what the compiler said, at the line in my own source, instead of going black. I want to become the two
+    handlers every long-lived Three.js piece copies.
+  How it is done here is one way, not the way: a maker who can do better another way does so, and leaves the
+  comparison on the Three.js scroll.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>     the inline script parses
+    node _ops/rich-face/conform.mjs <this file> --browser                   loads clean and reports a height
+    node Shop/Three.js/proofs/2026-11-15-context-loss-and-glsl/check.mjs     loses and restores, breaks and mends, measures
+  Headless frames: window.__probe.frame() draws one frame and returns a small pixel signature.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three.js — a lost context and a broken shader</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-3); font-family: var(--mono); font-size: 13px; }
+  main { padding: 20px; display: grid; gap: 12px; max-width: 1100px; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; line-height: 1.5; }
+  #stage canvas { display: block; width: 100%; height: auto; border: 1px solid var(--border); }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border);
+           border-radius: 2px; padding: 6px 10px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  #status { color: var(--fg-2); white-space: pre-wrap; }
+  #glsl { display: none; border: 1px solid var(--danger); background: var(--bg-elev-1); padding: 10px; }
+  #glsl.on { display: block; }
+  #glsl-where { white-space: pre-wrap; }
+  #glsl h2 { margin: 0 0 6px; font-size: 13px; font-weight: 500; color: var(--danger); }
+  #glsl pre { margin: 6px 0 0; white-space: pre-wrap; color: var(--fg-1); font-family: var(--mono); }
+  label { display: flex; align-items: center; gap: 6px; color: var(--fg-2); }
+  .ask { color: var(--fg-1); border-left: 2px solid var(--accent); padding-left: 10px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>A lost context and a broken shader — three r128, the shelf's</h1>
+  <p class="ask"><b>The question for you:</b> press "break the shader". Does the box that appears tell you plainly
+    enough what went wrong, and where in the source, that you would know where to look?</p>
+  <div id="stage"></div>
+  <div class="row">
+    <button id="play">play</button>
+    <button id="lose">lose the context</button>
+    <button id="break">break the shader</button>
+    <button id="mend">mend the shader</button>
+    <label><input type="checkbox" id="reclear" checked> set the background colour again after a restore</label>
+  </div>
+  <div id="status"></div>
+  <div id="glsl"><h2>The plane's shader did not compile. It is drawn flat red until it is mended.</h2>
+    <div id="glsl-where"></div><pre id="glsl-log"></pre></div>
+  <p>What a script measured (check.mjs, headless Chromium on its software WebGL, 2026-11-15). After a forced
+    loss and restore, r128 brought back the texture, the string and the grid by itself, but drew the background
+    black: it forgets the clear colour. With the box above ticked, the page sets it again, and the restored frame
+    matched the one before it to the pixel. With the broken shader, three's own diagnostics said the program would
+    not run; the page named the line in its own source and drew the plane red instead of nothing. The numbers
+    are in measured.json beside this file. Nobody has seen this yet.</p>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script>
+const T = palaceTokens();
+const stage = document.getElementById('stage');
+const statusEl = document.getElementById('status');
+const w = stage.clientWidth || 640, h = Math.round(w * 9 / 16);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(w, h, false);
+renderer.setClearColor(T.bg);
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
+camera.position.set(0, 1.6, 4.2);
+camera.lookAt(0, 0.2, 0);
+
+// A texture is the thing most likely not to come back after a restore, so the plane samples one.
+const STRIPES = 8;
+const texData = new Uint8Array(STRIPES * 4);
+for (let i = 0; i < STRIPES; i++) { const v = i % 2 ? 255 : 70; texData.set([v, v, v, 255], i * 4); }
+const tex = new THREE.DataTexture(texData, STRIPES, 1, THREE.RGBAFormat);
+tex.magFilter = THREE.NearestFilter;
+tex.needsUpdate = true;
+
+const VERT = `
+varying vec2 vUv;
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}`;
+const FRAG_GOOD = `
+uniform sampler2D uTex;
+uniform vec3 uColor;
+uniform float uTime;
+varying vec2 vUv;
+void main() {
+  float stripe = texture2D(uTex, vec2(vUv.x, 0.5)).r;
+  float glow = 0.75 + 0.25 * sin(6.2831 * vUv.y * 2.0 - uTime * 2.0);
+  gl_FragColor = vec4(uColor * stripe * glow, 1.0);
+}`;
+// The break is the commonest real one: a misspelt uniform, which the compiler names and three does not show.
+const FRAG_BROKEN = FRAG_GOOD.replace('uColor * stripe', 'uColour * stripe');
+
+const uniforms = { uTex: { value: tex }, uColor: { value: new THREE.Color(T.accent) }, uTime: { value: 0 } };
+const goodMat = new THREE.ShaderMaterial({ vertexShader: VERT, fragmentShader: FRAG_GOOD, uniforms });
+const fallbackMat = new THREE.MeshBasicMaterial({ color: T.danger, transparent: true, opacity: 0.55 });
+const plane = new THREE.Mesh(new THREE.PlaneGeometry(3, 1.2, 12, 4), goodMat);
+plane.rotation.x = -0.55;
+plane.position.y = -0.1;
+scene.add(plane);
+
+const N = 200;
+const pos = new Float32Array(N * 3);
+for (let i = 0; i < N; i++) { pos[i * 3] = (i / (N - 1)) * 4 - 2; pos[i * 3 + 2] = 0.6; }
+const geom = new THREE.BufferGeometry();
+geom.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+scene.add(new THREE.Line(geom, new THREE.LineBasicMaterial({ color: T.fg1 })));
+scene.add(new THREE.GridHelper(4, 8, T.border, T.fg4));
+
+const state = { reapplyClear: true, context: 'live', losses: 0, restores: 0, shader: 'compiles', playing: false, t: 0, glsl: null };
+function showStatus() {
+  statusEl.textContent =
+    `context: ${state.context} · lost ${state.losses} · restored ${state.restores}\n` +
+    `shader: ${state.shader}${state.playing ? ' · playing' : ' · still'}`;
+}
+
+function step(t) {
+  state.t = t;
+  for (let i = 0; i < N; i++) {
+    const u = i / (N - 1);
+    pos[i * 3 + 1] = 0.5 + 0.4 * Math.sin(Math.PI * u) * Math.sin(2 * Math.PI * 3 * u - t * 2);
+  }
+  geom.attributes.position.needsUpdate = true;
+  uniforms.uTime.value = t;
+  if (state.context !== 'lost') renderer.render(scene, camera);
+}
+
+// ── the shader check: three r128 keeps the compiler's words on the program; read them, never trust a black frame
+function linesOf(s) { return s.split('\n').length; }
+function checkShader(mat) {
+  renderer.compile(scene, camera);
+  const prog = renderer.properties.get(mat).currentProgram;
+  const d = prog && prog.diagnostics;
+  if (!d || d.runnable) return null;
+  const which = d.fragmentShader.log ? 'fragment' : 'vertex';
+  const log = (d[which + 'Shader'].log || d.programLog || '').trim();
+  // three puts its own prefix (and, on WebGL2, a #version line) before my source; take them off the compiler's line number.
+  const prefixLines = linesOf(d[which + 'Shader'].prefix) - 1 + (renderer.capabilities.isWebGL2 ? 1 : 0);
+  const src = which === 'fragment' ? mat.fragmentShader : mat.vertexShader;
+  const m = /ERROR:\s*\d+:(\d+):/.exec(log);
+  let line = null, text = null;
+  if (m) { line = Number(m[1]) - prefixLines; text = (src.split('\n')[line - 1] || '').trim(); }
+  return { which, log, line, text, compilerLine: m ? Number(m[1]) : null, prefixLines };
+}
+
+function useShader(fragmentShader) {
+  goodMat.fragmentShader = fragmentShader;
+  goodMat.needsUpdate = true;
+  plane.material = goodMat;
+  const fail = checkShader(goodMat);
+  const box = document.getElementById('glsl');
+  state.glsl = fail;
+  if (fail) {
+    plane.material = fallbackMat;
+    state.shader = 'failed to compile — drawn flat red';
+    document.getElementById('glsl-where').textContent = fail.line
+      ? `The ${fail.which} shader, line ${fail.line} of the source in this file: ${fail.text}\n` +
+        `(The compiler says line ${fail.compilerLine} because three puts ${fail.prefixLines} lines of its own first.)`
+      : `The ${fail.which} shader; the compiler gave no line.`;
+    document.getElementById('glsl-log').textContent = fail.log;
+    box.classList.add('on');
+  } else {
+    state.shader = 'compiles';
+    box.classList.remove('on');
+  }
+  showStatus();
+  step(state.t);
+  return fail;
+}
+
+// ── the context: three r128 prevents the default on loss and rebuilds on restore; the page stops and restarts its loop
+const canvas = renderer.domElement;
+canvas.addEventListener('webglcontextlost', (e) => {
+  e.preventDefault();
+  state.context = 'lost'; state.losses++; showStatus();
+});
+canvas.addEventListener('webglcontextrestored', () => {
+  state.context = 'restored'; state.restores++; showStatus();
+  // r128 rebuilds its background on restore with a black clear colour; set ours again.
+  if (state.reapplyClear) renderer.setClearColor(T.bg);
+  step(state.t);
+  if (state.playing) requestAnimationFrame(loop);
+});
+const loseExt = renderer.getContext().getExtension('WEBGL_lose_context');
+function loseContext(ms = 1200) {
+  if (!loseExt || state.context === 'lost') return false;
+  loseExt.loseContext();
+  setTimeout(() => loseExt.restoreContext(), ms);
+  return true;
+}
+
+let start = 0;
+function loop(ms) {
+  if (!state.playing || state.context === 'lost') return;
+  if (!start) start = ms - state.t * 1000;
+  step((ms - start) / 1000);
+  requestAnimationFrame(loop);
+}
+document.getElementById('play').addEventListener('click', (e) => {
+  state.playing = !state.playing; start = 0;
+  e.target.textContent = state.playing ? 'pause' : 'play';
+  showStatus();
+  if (state.playing) requestAnimationFrame(loop);
+});
+document.getElementById('lose').addEventListener('click', () => loseContext());
+document.getElementById('break').addEventListener('click', () => useShader(FRAG_BROKEN));
+document.getElementById('mend').addEventListener('click', () => useShader(FRAG_GOOD));
+document.getElementById('reclear').addEventListener('change', (e) => { state.reapplyClear = e.target.checked; });
+
+// A small signature of the frame: 32 x 18 cells of mean RGB, read in the same task as the draw.
+const sig = document.createElement('canvas'); sig.width = 32; sig.height = 18;
+const sctx = sig.getContext('2d', { willReadFrequently: true });
+function frame(t = state.t) {
+  step(t);
+  sctx.clearRect(0, 0, 32, 18);
+  sctx.drawImage(canvas, 0, 0, 32, 18);
+  return Array.from(sctx.getImageData(0, 0, 32, 18).data);
+}
+
+showStatus();
+step(0);
+window.__probe = { frame, loseContext, useShader, state, FRAG_GOOD, FRAG_BROKEN, gl: () => renderer.getContext(), hasLoseExt: !!loseExt };
+window.__scene = { step, renderer, scene, camera };
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!doctype html>
+<!--
+  title: Observable Plot — proof — the flocking sweep grid
+  born: 2026-11-15
+  links: [[Observable Plot]] (connects-to · test-proof) · [[Flocking]] (connects-to · analytical-lens)
+  forward_vector: I am the 3 x 4 sweep grid the Observable Plot card called a hope: the seed-7 flocking model run
+    twelve times (separation down the rows, alignment across the columns, cohesion chosen above), drawn as faceted
+    small multiples on one shared scale, and folded into a phase square of how aligned each flock ends. I want to
+    become the first page of the flocking phase diagram, and then the place a Vicsek run gets laid beside it.
+  The model block is copied byte for byte from Flocking/flocking-observable-plot-analytical.html (that file is not
+    edited); check.mjs proves the copy is exact and runs the same model in Node.
+  This is one way to draw it, the one tried first. A maker who can do better another way does so, and leaves the
+    comparison on the Specialist's scroll.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs "<this file>"
+    node _ops/rich-face/conform.mjs "<this file>" --browser
+    node "Shop/Observable Plot/proofs/2026-11-15-sweep-grid/check.mjs"     browser numbers against a Node run
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Observable Plot — the flocking sweep grid</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-2); font-family: var(--mono); font-size: 13px; line-height: 1.5; }
+  main { padding: var(--s-5); display: grid; gap: var(--s-4); max-width: 60rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  h2 { margin: 0 0 var(--s-2); font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--fg-3); }
+  p { margin: 0; max-width: 46rem; }
+  .ask { border-left: 2px solid var(--accent); padding: var(--s-2) var(--s-3); color: var(--fg-1); background: var(--bg-elev-1); }
+  .controls { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
+  button, select { font: inherit; color: var(--fg-1); background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 2px; padding: 6px 12px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button:disabled { opacity: .5; cursor: default; }
+  #status { color: var(--fg-3); }
+  .panel { background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: 2px; padding: var(--s-3); overflow-x: auto; }
+  .panel svg { max-width: 100%; height: auto; }
+  .empty { color: var(--fg-4); padding: var(--s-6) 0; text-align: center; }
+  #measured { white-space: pre-wrap; color: var(--fg-3); font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Flocking sweep grid — separation by alignment, seed 7</h1>
+  <p>Twelve flocks of 80 boids, all starting from the same seed-7 positions and differing only in two rule weights:
+    separation down the rows (0.5, 1.5, 3.0), alignment across the columns (0, 0.3, 1.0, 2.0). Cohesion is held at the
+    value chosen below. Each small panel is the flock's polarization R over 30 simulated seconds: 0 is boids heading
+    every which way, 1 is all of them heading the same way. Every panel shares the same 0 to 1 scale, so heights
+    compare. The square below folds each run to one number, its mean R over the last 5 seconds.</p>
+  <p class="ask"><strong>One question:</strong> looking at the grid, can you see where the flock tips from scattered
+    to moving together, and does the square below say the same thing more plainly, or does it hide something the
+    curves show?</p>
+  <div class="controls">
+    <label>cohesion <select id="coh"><option value="0.5">0.5</option><option value="1" selected>1.0</option><option value="2">2.0</option></select></label>
+    <button id="go">run the sweep</button>
+    <span id="status">nothing has run yet · a few seconds of work once you press it</span>
+  </div>
+  <div class="panel"><h2>R(t), one panel per weight pair</h2><div id="grid"><div class="empty">press run the sweep</div></div></div>
+  <div class="panel"><h2>the phase square — mean R over the last 5 s</h2><div id="square"><div class="empty">appears when the sweep finishes</div></div></div>
+  <div class="panel"><h2>measured</h2><div id="measured">nothing yet</div></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.17/dist/plot.umd.min.js" integrity="sha384-JUpn2GgRr0gxU0xOBd8D8P634jhRCwobtG8G2MMEkX1RnGJ7/FJNnuukpfT+H2w1" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-plot-defaults.js"></script>
+<script>
+/* ===== SHARED FLOCKING MODEL — identical across D3 / Observable Plot / p5.js ===== */
+const SEED = 7;
+const N = 80;
+const WIDTH = 960, HEIGHT = 540;
+const NEIGHBOR_R = 50, NEIGHBOR_R2 = NEIGHBOR_R * NEIGHBOR_R;
+const MAX_SPEED = 3, MAX_FORCE = 0.05;
+
+function mulberry32(a) {
+  return function () {
+    a |= 0; a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function initBoids() {
+  const rng = mulberry32(SEED);
+  const boids = [];
+  for (let i = 0; i < N; i++) {
+    const x = rng() * WIDTH;
+    const y = rng() * HEIGHT;
+    const angle = rng() * Math.PI * 2;
+    const sp = 0.5 * MAX_SPEED + rng() * 0.5 * MAX_SPEED; // [1.5, 3]
+    boids.push({ x, y, vx: Math.cos(angle) * sp, vy: Math.sin(angle) * sp, steerX: 0, steerY: 0 });
+  }
+  return boids;
+}
+function toroidalDelta(ax, ay, bx, by) {
+  let dx = bx - ax, dy = by - ay;
+  if (dx > WIDTH * 0.5) dx -= WIDTH; else if (dx < -WIDTH * 0.5) dx += WIDTH;
+  if (dy > HEIGHT * 0.5) dy -= HEIGHT; else if (dy < -HEIGHT * 0.5) dy += HEIGHT;
+  return [dx, dy];
+}
+function setMag(x, y, mag) { const m = Math.hypot(x, y); return m > 0 ? [x / m * mag, y / m * mag] : [0, 0]; }
+function limitMag(x, y, max) { const m = Math.hypot(x, y); return (m > max && m > 0) ? [x / m * max, y / m * max] : [x, y]; }
+function computeVelocities(boids, w) {
+  const nvx = new Float64Array(N), nvy = new Float64Array(N);
+  const sxA = new Float64Array(N), syA = new Float64Array(N);
+  for (let i = 0; i < N; i++) {
+    const b = boids[i];
+    let sepX = 0, sepY = 0, sepN = 0, aliX = 0, aliY = 0, aliN = 0, cohX = 0, cohY = 0, cohN = 0;
+    for (let j = 0; j < N; j++) {
+      if (i === j) continue;
+      const o = boids[j];
+      const [dx, dy] = toroidalDelta(b.x, b.y, o.x, o.y);
+      const d2 = dx * dx + dy * dy;
+      if (d2 > 0 && d2 < NEIGHBOR_R2) {
+        sepX -= dx / d2; sepY -= dy / d2; sepN++;
+        aliX += o.vx; aliY += o.vy; aliN++;
+        cohX += dx; cohY += dy; cohN++;
+      }
+    }
+    let fx = 0, fy = 0;
+    if (sepN > 0) { const [dx, dy] = setMag(sepX, sepY, MAX_SPEED); const [sx, sy] = limitMag(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.sep * sx; fy += w.sep * sy; }
+    if (aliN > 0) { const [dx, dy] = setMag(aliX / aliN, aliY / aliN, MAX_SPEED); const [sx, sy] = limitMag(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.ali * sx; fy += w.ali * sy; }
+    if (cohN > 0) { const [dx, dy] = setMag(cohX / cohN, cohY / cohN, MAX_SPEED); const [sx, sy] = limitMag(dx - b.vx, dy - b.vy, MAX_FORCE); fx += w.coh * sx; fy += w.coh * sy; }
+    let vx = b.vx + fx, vy = b.vy + fy;
+    [vx, vy] = limitMag(vx, vy, MAX_SPEED);
+    nvx[i] = vx; nvy[i] = vy; sxA[i] = fx; syA[i] = fy;
+  }
+  return { nvx, nvy, sxA, syA };
+}
+function commit(boids, v) {
+  for (let i = 0; i < N; i++) {
+    const b = boids[i];
+    b.vx = v.nvx[i]; b.vy = v.nvy[i]; b.steerX = v.sxA[i]; b.steerY = v.syA[i];
+    b.x = (b.x + b.vx + WIDTH) % WIDTH;
+    b.y = (b.y + b.vy + HEIGHT) % HEIGHT;
+  }
+}
+function stepBoids(boids, w) { commit(boids, computeVelocities(boids, w)); }
+function polarization(boids) {
+  let sx = 0, sy = 0;
+  for (const b of boids) { const m = Math.hypot(b.vx, b.vy); if (m > 0) { sx += b.vx / m; sy += b.vy / m; } }
+  return Math.hypot(sx, sy) / N;
+}
+function neighborCounts(boids) {
+  const counts = new Array(N).fill(0);
+  for (let i = 0; i < N; i++)
+    for (let j = 0; j < N; j++) {
+      if (i === j) continue;
+      const [dx, dy] = toroidalDelta(boids[i].x, boids[i].y, boids[j].x, boids[j].y);
+      if (dx * dx + dy * dy < NEIGHBOR_R2) counts[i]++;
+    }
+  return counts;
+}
+/* ===== END SHARED MODEL ===== */
+
+// The sweep. Rows: separation; columns: alignment; cohesion from the select.
+const SEPS = [0.5, 1.5, 3.0];
+const ALIS = [0, 0.3, 1.0, 2.0];
+const STEPS = 1800;          // 30 s at 60 steps a second
+const SAMPLE_EVERY = 10;
+const TAIL_STEPS = 300;      // the last 5 s make the phase square
+const fmt = (v) => v.toFixed(1);
+
+let runs = [], step = 0, busy = false, lastDraw = 0, t0 = 0;
+const el = (id) => document.getElementById(id);
+
+function makeRuns(coh) {
+  const out = [];
+  for (const sep of SEPS) for (const ali of ALIS) {
+    out.push({ sep, ali, coh, boids: initBoids(), w: { sep, ali, coh }, series: [] });
+  }
+  return out;
+}
+function sample() {
+  for (const r of runs) r.series.push({ t: step / 60, R: polarization(r.boids), sep: 'sep ' + fmt(r.sep), ali: 'align ' + fmt(r.ali) });
+}
+function tailMean(r) {
+  const from = (STEPS - TAIL_STEPS) / 60;
+  const xs = r.series.filter((d) => d.t > from - 1e-9).map((d) => d.R);
+  return xs.reduce((a, b) => a + b, 0) / xs.length;
+}
+function drawGrid() {
+  const t = palaceTokens();
+  const data = runs.flatMap((r) => r.series);
+  const box = el('grid');
+  box.replaceChildren(palacePlot({
+    width: Math.max(640, Math.min(box.clientWidth || 900, 900)),
+    height: 420, marginLeft: 44, marginRight: 64, marginBottom: 36,
+    fx: { domain: ALIS.map((a) => 'align ' + fmt(a)), label: null },
+    fy: { domain: SEPS.map((s) => 'sep ' + fmt(s)), label: null },
+    x: { domain: [0, STEPS / 60], label: 'seconds' },
+    y: { domain: [0, 1], label: 'R', grid: true, ticks: [0, 0.5, 1] },
+    marks: [
+      Plot.frame({ stroke: t.border }),
+      Plot.ruleX([(STEPS - TAIL_STEPS) / 60], { stroke: t.fg4, strokeDasharray: '2,3' }),
+      Plot.lineY(data, { fx: 'ali', fy: 'sep', x: 't', y: 'R', stroke: t.accent, strokeWidth: 1.25 }),
+    ],
+  }));
+}
+function drawSquare() {
+  const t = palaceTokens();
+  const cells = runs.map((r) => ({ sep: 'sep ' + fmt(r.sep), ali: 'align ' + fmt(r.ali), m: tailMean(r) }));
+  const box = el('square');
+  box.replaceChildren(palacePlot({
+    width: Math.min(box.clientWidth || 560, 560), height: 230, marginLeft: 64, marginBottom: 36,
+    x: { domain: ALIS.map((a) => 'align ' + fmt(a)), label: null },
+    y: { domain: SEPS.map((s) => 'sep ' + fmt(s)), label: null },
+    color: { type: 'linear', domain: [0, 1], range: [t.bgElev2, t.accent], legend: true, label: 'mean R, last 5 s' },
+    marks: [
+      Plot.cell(cells, { x: 'ali', y: 'sep', fill: 'm', inset: 1 }),
+      Plot.text(cells, { x: 'ali', y: 'sep', text: (d) => d.m.toFixed(3), fill: (d) => d.m > 0.6 ? t.bg : t.fg1 }),
+    ],
+  }));
+}
+function report() {
+  const cells = runs.map((r) => ({ sep: r.sep, ali: r.ali, coh: r.coh, meanTailR: +tailMean(r).toFixed(6), finalR: +polarization(r.boids).toFixed(6) }));
+  const ms = Math.round(performance.now() - t0);
+  window.__sweep = { cohesion: runs[0].coh, steps: STEPS, cells, ms, plotVersion: Plot.version };
+  const lines = cells.map((c) => `sep ${fmt(c.sep)} · align ${fmt(c.ali)} · mean R ${c.meanTailR.toFixed(3)} · final R ${c.finalR.toFixed(3)}`);
+  el('measured').textContent = `cohesion ${fmt(runs[0].coh)} · ${STEPS} steps per run · 12 runs · ${ms} ms in this browser · Plot ${Plot.version}\n` + lines.join('\n') +
+    `\n\nchecked 2026-11-15 by check.mjs (measured.json beside this page): these numbers equal the bare model run again in the same browser. Node starts the same seed 1 bit apart (4 of the 320 starting numbers differ in their last bit, from Math.sin and Math.cos), and the flock grows that: at cohesion 1.0, seven cells agree to 3 decimals and the sep 0.5 row differs by up to 0.09 in mean R.`;
+}
+function chunk() {
+  const until = Math.min(STEPS, step + 20);
+  while (step < until) {
+    for (const r of runs) stepBoids(r.boids, r.w);
+    step++;
+    if (step % SAMPLE_EVERY === 0) sample();
+  }
+  const now = performance.now();
+  if (now - lastDraw > 160 || step >= STEPS) { drawGrid(); lastDraw = now; el('status').textContent = `running · ${step} of ${STEPS} steps`; }
+  if (step < STEPS) setTimeout(chunk, 0);
+  else { drawSquare(); report(); busy = false; el('go').disabled = false; el('status').textContent = `done · cohesion ${fmt(runs[0].coh)}`; window.__done = true; }
+}
+el('go').addEventListener('click', () => {
+  if (busy) return;
+  busy = true; window.__done = false; el('go').disabled = true;
+  runs = makeRuns(+el('coh').value); step = 0; t0 = performance.now(); lastDraw = 0;
+  sample();
+  setTimeout(chunk, 0);
+});
+</script>
+</body>
+</html>

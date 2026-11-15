@@ -55,3 +55,17 @@ Tone.js's audio output is *not* byte-deterministic — Web Audio's internal sche
 
 - **Reproducibility artifact:** Tone version (pinned `tone@15.0.4`), source `.html`, any algorithmic seed.
 - **Last run (2026-05-30):** Determinism in the byte sense N/A by design. Audible behaviour reproduces by hand (load the file in two browsers, same lock-criterion text, same K_c, same audible drift→pulling-in→lock progression).
+
+## Open tests — from the card, 2026-11-15
+
+One line per item on the card's **Not yet shown to hold** line and per item the ledger still owes. How each would be tested is how it looked on 2026-11-15; a maker who sees a better test runs that one and leaves both on the scroll.
+
+- **Transport sequencing.** A looping `Tone.Part` on the Transport, rendered in `Tone.Offline` and played on the live clock, with every trigger time checked against its bar position. Script-measurable; the feel of it needs Loudon's ear. **Proof made:** [2026-11-15-polysynth-transport](../proofs/2026-11-15-polysynth-transport/), all 16 triggers on their bar positions, offline and live. Waiting on his ear.
+- **PolySynth.** Four-note chords and top notes from one `PolySynth`, checked by whether all four chord tones sound at once and whether each new chord's pitches rise where they should. Script-measurable; whether a repeated chord reads as a new strike is for the ear. **Proof made:** the same folder. All chord tones sound together, each 31 to 53 dB over its semitone neighbours. Restrikes of a chord still sounding rise only 2 to 4 dB.
+- **Effect chain.** Delay, reverb and limiter after the PolySynth. Checked by the tail it leaves, the peak, and whether a Reverb works inside `Tone.Offline` (it does, when the callback awaits `reverb.ready`). The balance is for the ear. **Proof made:** the same folder. The tail is 46 dB over dry. The peak is -5 dBFS, so the limiter is in the chain but never acted; a louder patch would test it. Partly open.
+- **Samples.** A `Tone.Sampler` or `Tone.Player` loading a few short files declared in `piece:files`, triggered by a Part. Check that it loads (`onload`), that its onsets land where the Part sends them, and the pitch of a repitched note. The `next` line adds looping to `Sampler` (#1310); worth trying there. Needs a small sample set and his ear for quality. **Open.**
+- **A phone (iOS unlock).** Load a proof on his iPhone from the STIGMERGY scroll, then check: no sound before a touch, sound after one, and quiet when the screen locks. Only he can run it. **Open.**
+- **Polyphony limits on a phone.** The same phrase with more voices stacked (8, 16, 32), listened to on the phone for dropouts. Voice stealing at `maxPolyphony` can be rendered offline on the desktop first. The phone part is his to run. **Open.**
+- **A Piece tier.** Needs a real job, plus the phone test above. **Open.**
+- **Ledger item 3 (a suspended context at load).** Re-measured 2026-11-15. Proof A made one context at load, `suspended`, as on 2026-11-14. Proof B made three, one per Tone build, all `suspended`; 15.5.72 still makes one at load. Script-measurable. **Owed a review**, not a test.
+- **Ledger item 5 (the periodic-wave pitch bug in 15.0.4).** Render a `triangle8` voice at two sample rates, one after the other, and read the pitch. **Proof made:** [2026-11-15-version-switch](../proofs/2026-11-15-version-switch/), which measures it every run. Whether it is heard without being told is for his ear. The pin decision is owed a review.

@@ -1,0 +1,75 @@
+{
+  "measured": "2026-11-15T14:02:07.344Z",
+  "host": "headless Chromium (playwright), SwiftShader WebGL, 1130 x 1000",
+  "pointer": "driven at 0.75, 0.35 of each canvas; warp held at 0 then 0.05",
+  "versions": {
+    "v1": "1.10.0",
+    "v2": "2.4.0",
+    "renderer_v1": "webgl2",
+    "renderer_v2": "webgl2"
+  },
+  "per_version": {
+    "v1": {
+      "canvas": [
+        478,
+        359
+      ],
+      "accent_share_flat": 0.1885,
+      "warp_changed_share": 0.0406,
+      "ms_per_forced_frame_median": 19.6,
+      "ms_per_forced_frame_p95": 66.2
+    },
+    "v2": {
+      "canvas": [
+        478,
+        359
+      ],
+      "accent_share_flat": 0.1885,
+      "warp_changed_share": 0.0406,
+      "ms_per_forced_frame_median": 3,
+      "ms_per_forced_frame_p95": 18.3
+    }
+  },
+  "findings": {
+    "pixels_differing_v1_v2_unwarped": 0.0006,
+    "pixels_differing_v1_v2_warped": 0.0006,
+    "renders_alike_within_2pct": true
+  },
+  "console_errors": [],
+  "page_errors": [],
+  "p5_notes": [
+    "🌸 p5.js says: p5.strands shaders are experimental, so functions for building shaders and the hooks available within them may change in future versions. You can get involved by giving feedback to help"
+  ],
+  "rules": [
+    {
+      "name": "both versions load in one page",
+      "ok": true
+    },
+    {
+      "name": "no page errors",
+      "ok": true
+    },
+    {
+      "name": "no console errors",
+      "ok": true
+    },
+    {
+      "name": "1.10.0 draws the curve (accent share > 2%)",
+      "ok": true
+    },
+    {
+      "name": "2.4.0 draws the curve (accent share > 2%)",
+      "ok": true
+    },
+    {
+      "name": "1.10.0 warp changes > 1% of pixels",
+      "ok": true
+    },
+    {
+      "name": "2.4.0 warp changes > 1% of pixels",
+      "ok": true
+    }
+  ],
+  "pass": true,
+  "not_measured": "whether the two look and move alike on a real screen; frame time on a real GPU"
+}

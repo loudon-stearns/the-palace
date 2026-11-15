@@ -1,0 +1,268 @@
+<!doctype html>
+<!--
+  title: Three.js — proof — r128 against r187
+  born: 2026-11-15
+  links: [[Three.js]] (connects-to · test-proof · zoom-out)
+  forward_vector: I put the shelf's three r128 (a classic script, the claude.ai-artifact path) beside current three,
+    r187 (published 2026-10-30), loaded as an ES module through an import map, twice: its WebGLRenderer, and its
+    WebGPURenderer, which runs on WebGPU where the browser has it and on WebGL 2 where it does not. One function
+    builds the same scene in all three. A box switches r187 between how it lights the scene by default and the
+    four settings that make it light the scene as r128 did. I want to become the evidence for when the Shop's
+    Sketch path moves off r128.
+  How it is done here is one way, not the way: a maker who can do better another way does so, and leaves the
+  comparison on the Three.js scroll.
+  The import map pins every r187 file with an integrity hash; conform reads the map's own imports, not the files
+  they import in turn (three.core.js, three.tsl.js), which the map's integrity list pins too.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>     the inline scripts parse
+    node _ops/rich-face/conform.mjs <this file> --browser                   loads clean and reports a height
+    node Shop/Three.js/proofs/2026-11-15-r128-against-r187/check.mjs         draws all three, compares the frames
+  Headless frames: await window.__compare.frames() draws one frame in each pane and returns small pixel signatures.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three.js — r128 against r187</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-3); font-family: var(--mono); font-size: 13px; }
+  main { padding: 20px; display: grid; gap: 12px; max-width: 1200px; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; line-height: 1.5; }
+  .panes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+  .pane h2 { margin: 0 0 4px; font-size: 12px; font-weight: 500; color: var(--fg-1); }
+  .pane canvas { display: block; width: 100%; height: auto; border: 1px solid var(--border); touch-action: none; }
+  .pane .read { margin-top: 4px; color: var(--fg-3); white-space: pre-wrap; font-size: 11px; }
+  .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border);
+           border-radius: 2px; padding: 6px 10px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  label { display: flex; align-items: center; gap: 6px; color: var(--fg-2); }
+  .ask { color: var(--fg-1); border-left: 2px solid var(--accent); padding-left: 10px; }
+  ol { margin: 0; padding-left: 20px; line-height: 1.5; }
+  code { color: var(--fg-1); }
+</style>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js",
+    "three/webgpu": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.webgpu.js",
+    "three/addons/controls/OrbitControls.js": "https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/controls/OrbitControls.js"
+  },
+  "integrity": {
+    "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js": "sha384-T/E3B9AvPtLn5PKD7aTSFqizQcA4kHDfU0lub7u0fvM4w9BMGcSb3yI7r5LqMAMn",
+    "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.core.js": "sha384-drH6BueSlcvoXCwAqWkNJvXwu2Ax3mnGOmZnIXaomedIw+uXSP9Bf/XIUINgLUW+",
+    "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.webgpu.js": "sha384-2xmYbH9fbsINy+3rUsoPqRaykPGm6eGvkAiAwQylRpZeoFwW05f3h0oWei5h9z9w",
+    "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.tsl.js": "sha384-VyVcUhUk57PM9xoXF/Ah2vOgQJAIYkTbSYzDikHPYtV2DQciYNXwBA47hvbClb4n",
+    "https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/controls/OrbitControls.js": "sha384-ZVBN/wmVxgX0mUGjFJXakzzdZrAF4g4aHfKyusbjoF0WsVXSoGpeM/qRaVnXtaFo"
+  }
+}
+</script>
+</head>
+<body>
+<main>
+  <h1>three r128 against three r187 — one scene, three renderers</h1>
+  <p class="ask"><b>The question for you:</b> tick the box under the panes. Can you see any difference between the
+    three now, in the knot, the white line or the grid? If you can't, the Shop's quick scenes can move to r187
+    without their look changing.</p>
+  <div class="panes">
+    <div class="pane"><h2>r128 · WebGLRenderer · classic script (the shelf)</h2><div id="p0"></div><div class="read" id="r0">loading</div></div>
+    <div class="pane"><h2>r187 · WebGLRenderer · ES module</h2><div id="p1"></div><div class="read" id="r1">loading</div></div>
+    <div class="pane"><h2>r187 · WebGPURenderer</h2><div id="p2"></div><div class="read" id="r2">loading</div></div>
+  </div>
+  <div class="row">
+    <button id="play">play</button>
+    <label><input type="checkbox" id="match"> make r187 light it as r128 did</label>
+    <span>Drag any pane to orbit; the other two follow.</span>
+  </div>
+  <p>What had to change to move the same scene from r128 to r187:</p>
+  <ol>
+    <li>The loading. There is no classic script any more: <code>examples/js</code> went in r148 and
+      <code>build/three.min.js</code> in r161. r187 comes in as an ES module through an import map, and
+      <code>THREE.OrbitControls</code> becomes an import from <code>three/addons/</code>.</li>
+    <li>Nothing in the scene code. The function that builds the scene is the same text for all three panes.</li>
+    <li>The look, unless you ask for the old one. Since r152 three manages colour (a hex is read as sRGB and written
+      back as sRGB) and since r155 its lights are physical (a point light falls off with distance). The box sets the
+      four things that undo it: <code>ColorManagement.enabled = false</code>, <code>outputColorSpace =
+      LinearSRGBColorSpace</code>, every light's intensity times pi, and the point light's <code>decay = 0</code>.
+      Unticked, you see what happens when an r128 recipe's light numbers are copied into r187: the knot goes dark.</li>
+    <li>The WebGPU pane also waits for <code>await renderer.init()</code> before its first frame, and turns the
+      materials into node materials by itself.</li>
+  </ol>
+  <p id="measured">What a script measured (check.mjs, headless Chromium, 2026-11-15, where WebGPU found no adapter,
+    so the third pane ran on its WebGL 2 fallback): unticked, the knot in r187 was less than half as bright as in
+    r128 (mean luma 33 against 71 of 255); ticked, the three frames agreed to within 2 of 255 on average, compared
+    as 32 by 24 cells, too coarse to see a thin line drawn differently. The numbers are in measured.json beside this
+    file. On a Mac with WebGPU the third pane runs on WebGPU itself, and nobody has looked at that, or at any of
+    this, yet.</p>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js" integrity="sha384-wagZhIFgY4hD+7awjQjR4e2E294y6J2HSnd8eTNc15ZubTeQeVRZwhQJ+W6hnBsf" crossorigin="anonymous"></script>
+<script src="../../../../_ops/loudon-live/design-system/palace-tokens.js"></script>
+<script>
+// The scene, written once. NS is whichever three it is handed; nothing here knows which version it is.
+window.buildScene = function buildScene(NS, T, matchOld) {
+  const scene = new NS.Scene();
+  const k = matchOld ? Math.PI : 1;                       // r128's lights were pi times brighter for the same number
+  scene.add(new NS.AmbientLight(0xffffff, 0.25 * k));
+  const point = new NS.PointLight(0xffffff, 1.0 * k);
+  point.position.set(2.2, 2.6, 2.0);
+  if (matchOld) point.decay = 0;                          // r128 did not fall off with distance unless told to
+  scene.add(point);
+  const knot = new NS.Mesh(new NS.TorusKnotGeometry(0.5, 0.16, 160, 24),
+    new NS.MeshStandardMaterial({ color: T.accent, roughness: 0.45, metalness: 0.1 }));
+  knot.position.y = 0.7;
+  scene.add(knot);
+  const N = 200, pos = new Float32Array(N * 3);
+  for (let i = 0; i < N; i++) { pos[i * 3] = (i / (N - 1)) * 4 - 2; pos[i * 3 + 2] = 1.0; }
+  const geom = new NS.BufferGeometry();
+  geom.setAttribute('position', new NS.BufferAttribute(pos, 3));
+  scene.add(new NS.Line(geom, new NS.LineBasicMaterial({ color: T.fg1 })));
+  scene.add(new NS.GridHelper(4, 8, T.border, T.fg4));
+  function step(t) {
+    for (let i = 0; i < N; i++) {
+      const u = i / (N - 1);
+      pos[i * 3 + 1] = 0.15 + 0.3 * Math.sin(Math.PI * u) * Math.sin(2 * Math.PI * 3 * u - t * 2);
+    }
+    geom.attributes.position.needsUpdate = true;
+    knot.rotation.y = t * 0.4;
+  }
+  return { scene, step };
+};
+</script>
+<script type="module">
+// Full URLs here, the same ones the import map names, so a static reader sees the pins; the map is there for
+// OrbitControls, which imports 'three' by its bare name. Same URL, same module: one three, not two.
+import * as R187 from 'https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/controls/OrbitControls.js';
+import { WebGPURenderer } from 'https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.webgpu.js';
+
+const T = palaceTokens();
+const R128 = window.THREE;
+const holder = (i) => document.getElementById('p' + i);
+const W = holder(0).clientWidth || 320, H = Math.round(W * 3 / 4);
+const state = { t: 0, playing: false, matchOld: false, ready: false };
+
+function makeCamera(NS) {
+  const c = new NS.PerspectiveCamera(45, W / H, 0.1, 100);
+  c.position.set(0, 1.5, 4.6);
+  return c;
+}
+
+// Pane 0: r128 as the shelf has it.
+const p0 = { NS: R128, name: 'r128 WebGLRenderer', renderer: new R128.WebGLRenderer({ antialias: true }) };
+// Pane 1: r187's WebGLRenderer.
+const p1 = { NS: R187, name: 'r187 WebGLRenderer', renderer: new R187.WebGLRenderer({ antialias: true }) };
+// Pane 2: r187's WebGPURenderer; it chooses WebGPU or WebGL 2 at init.
+const p2 = { NS: R187, name: 'r187 WebGPURenderer', renderer: new WebGPURenderer({ antialias: true }) };
+const panes = [p0, p1, p2];
+
+const t0 = performance.now();
+await p2.renderer.init();
+p2.initMs = Math.round(performance.now() - t0);
+
+panes.forEach((p, i) => {
+  p.renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  p.renderer.setSize(W, H, false);
+  holder(i).appendChild(p.renderer.domElement);
+  p.camera = makeCamera(p.NS);
+  p.controls = i === 0 ? new R128.OrbitControls(p.camera, p.renderer.domElement)
+                       : new OrbitControls(p.camera, p.renderer.domElement);
+  p.controls.target.set(0, 0.4, 0);
+  p.controls.update();
+  p.controls.addEventListener('change', () => follow(p));
+});
+
+function backendOf(p) {
+  if (p === p2) return p2.renderer.backend && p2.renderer.backend.isWebGPUBackend ? 'WebGPU' : 'WebGL 2 (fallback)';
+  return p.renderer.capabilities.isWebGL2 ? 'WebGL 2' : 'WebGL 1';
+}
+
+function build() {
+  // ColorManagement is one switch shared by both r187 panes; it must be set before their colours are made.
+  R187.ColorManagement.enabled = !state.matchOld;
+  for (const p of panes) {
+    const old = p === p0;
+    p.built = window.buildScene(p.NS, T, old ? false : state.matchOld);
+    if (!old) p.renderer.outputColorSpace = state.matchOld ? R187.LinearSRGBColorSpace : R187.SRGBColorSpace;
+    p.renderer.setClearColor(T.bg);
+  }
+}
+
+let following = false;
+function follow(src) {
+  if (following) return;
+  following = true;
+  for (const p of panes) if (p !== src) {
+    p.camera.position.copy(src.camera.position);
+    p.controls.target.copy(src.controls.target);
+    p.controls.update();
+  }
+  following = false;
+  if (!state.playing) drawAll();
+}
+
+function readout(p, i, ms) {
+  const info = p.renderer.info.render;
+  const calls = info.calls ?? info.drawCalls;
+  document.getElementById('r' + i).textContent =
+    `three ${p === p0 ? 'r' + R128.REVISION : 'r' + R187.REVISION} · ${backendOf(p)}\n` +
+    `draw calls ${calls} · triangles ${info.triangles}` + (ms != null ? ` · first frame ${ms} ms` : '') +
+    (p === p2 ? ` · init ${p2.initMs} ms` : '');
+}
+
+function drawAll(firstFrame) {
+  panes.forEach((p, i) => {
+    p.built.step(state.t);
+    const s = performance.now();
+    p.renderer.render(p.built.scene, p.camera);
+    if (firstFrame) p.firstMs = Math.round(performance.now() - s);
+    readout(p, i, p.firstMs);
+  });
+}
+
+let start = 0;
+function loop(ms) {
+  if (!state.playing) return;
+  if (!start) start = ms - state.t * 1000;
+  state.t = (ms - start) / 1000;
+  drawAll();
+  requestAnimationFrame(loop);
+}
+document.getElementById('play').addEventListener('click', (e) => {
+  state.playing = !state.playing; start = 0;
+  e.target.textContent = state.playing ? 'pause' : 'play';
+  if (state.playing) requestAnimationFrame(loop);
+});
+document.getElementById('match').addEventListener('change', (e) => {
+  state.matchOld = e.target.checked;
+  build();
+  if (!state.playing) drawAll();
+});
+
+build();
+drawAll(true);
+state.ready = true;
+
+// Small signatures of each pane's frame, 32 x 24 cells of mean RGB, read in the same task as each draw.
+const sig = document.createElement('canvas'); sig.width = 32; sig.height = 24;
+const sctx = sig.getContext('2d', { willReadFrequently: true });
+async function frames(t = state.t, matchOld = state.matchOld) {
+  if (matchOld !== state.matchOld) { state.matchOld = matchOld; document.getElementById('match').checked = matchOld; build(); }
+  state.t = t;
+  const out = [];
+  for (const p of panes) {
+    p.built.step(t);
+    p.renderer.render(p.built.scene, p.camera);
+    sctx.clearRect(0, 0, 32, 24);
+    sctx.drawImage(p.renderer.domElement, 0, 0, 32, 24);
+    out.push({ name: p.name, backend: backendOf(p), px: Array.from(sctx.getImageData(0, 0, 32, 24).data) });
+  }
+  return out;
+}
+window.__compare = { frames, state, panes, revisions: { old: R128.REVISION, now: R187.REVISION } };
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+{
+  "page": "Shop/Three.js/proofs/2026-11-15-r128-against-r187/r128-against-r187.html",
+  "ran": "2026-11-15T13:56:49.613Z",
+  "host": "headless Chromium (playwright), software rendering",
+  "t": 0.9,
+  "revisions": {
+    "old": "128",
+    "now": "187"
+  },
+  "navigatorGpu": "navigator.gpu present, no adapter",
+  "readouts": [
+    "three r128 · WebGL 2\ndraw calls 3 · triangles 7680 · first frame 28 ms",
+    "three r187 · WebGL 2\ndraw calls 3 · triangles 7680 · first frame 34 ms",
+    "three r187 · WebGL 2 (fallback)\ndraw calls 2 · triangles 7681 · first frame 52 ms · init 12 ms"
+  ],
+  "r187OwnLight": {
+    "backends": [
+      "r128 WebGLRenderer: WebGL 2",
+      "r187 WebGLRenderer: WebGL 2",
+      "r187 WebGPURenderer: WebGL 2 (fallback)"
+    ],
+    "knotLuma": {
+      "r128": 71.1,
+      "r187gl": 32.95,
+      "r187gpu": 33.06
+    },
+    "backgroundLuma": {
+      "r128": 10.36,
+      "r187gl": 10.36,
+      "r187gpu": 10.36
+    },
+    "diff": {
+      "r128_vs_r187gl": 6.51,
+      "r128_vs_r187gpu": 7.152,
+      "r187gl_vs_r187gpu": 0.77
+    }
+  },
+  "r187MatchedToR128": {
+    "backends": [
+      "r128 WebGLRenderer: WebGL 2",
+      "r187 WebGLRenderer: WebGL 2",
+      "r187 WebGPURenderer: WebGL 2 (fallback)"
+    ],
+    "knotLuma": {
+      "r128": 71.1,
+      "r187gl": 68.86,
+      "r187gpu": 69.34
+    },
+    "backgroundLuma": {
+      "r128": 10.36,
+      "r187gl": 10.36,
+      "r187gpu": 10.36
+    },
+    "diff": {
+      "r128_vs_r187gl": 0.376,
+      "r128_vs_r187gpu": 1.592,
+      "r187gl_vs_r187gpu": 1.266
+    }
+  },
+  "console": [
+    {
+      "type": "warning",
+      "text": "THREE.WARNING: Multiple instances of Three.js being imported."
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x10c00430800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x10c00432000]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "No available adapters."
+    },
+    {
+      "type": "warning",
+      "text": "THREE.WebGPURenderer: WebGPU is not available, running under WebGL2 backend."
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x10c00424200]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x10c00430800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    },
+    {
+      "type": "warning",
+      "text": "No available adapters."
+    }
+  ],
+  "rules": [
+    {
+      "name": "three revisions are 128 and 187",
+      "pass": true,
+      "detail": {
+        "old": "128",
+        "now": "187"
+      }
+    },
+    {
+      "name": "every pane drew its knot (knot luma above the background by 10, both modes)",
+      "pass": true,
+      "detail": {
+        "own": {
+          "r128": 71.1,
+          "r187gl": 32.95,
+          "r187gpu": 33.06
+        },
+        "matched": {
+          "r128": 71.1,
+          "r187gl": 68.86,
+          "r187gpu": 69.34
+        }
+      }
+    },
+    {
+      "name": "the background is the same token in every pane (luma within 1)",
+      "pass": true,
+      "detail": {
+        "r128": 10.36,
+        "r187gl": 10.36,
+        "r187gpu": 10.36
+      }
+    },
+    {
+      "name": "left to itself, r187 lights the knot differently from r128 (mean |diff| over 3)",
+      "pass": true,
+      "detail": {
+        "r128_vs_r187gl": 6.51,
+        "r128_vs_r187gpu": 7.152,
+        "r187gl_vs_r187gpu": 0.77
+      }
+    },
+    {
+      "name": "told to, r187 WebGL lights it as r128 did (mean |diff| under 3)",
+      "pass": true,
+      "detail": {
+        "r128_vs_r187gl": 0.376,
+        "r128_vs_r187gpu": 1.592,
+        "r187gl_vs_r187gpu": 1.266
+      }
+    },
+    {
+      "name": "r187's two renderers agree with each other (mean |diff| under 3, both modes)",
+      "pass": true,
+      "detail": {
+        "own": 0.77,
+        "matched": 1.266
+      }
+    },
+    {
+      "name": "no console error",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": true
+}

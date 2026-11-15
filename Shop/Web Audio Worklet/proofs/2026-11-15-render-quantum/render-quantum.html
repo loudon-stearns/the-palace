@@ -1,0 +1,250 @@
+<!doctype html>
+<!--
+  title: Web Audio Worklet — proof — the block size, 128 against a bigger one
+  born: 2026-11-15
+  links: [[Web Audio Worklet]] (connects-to · test-proof-zoom-out) · [[Murmuration]] (connects-to · its-grain-voice-copied)
+  forward_vector: I test the newest change to the platform this Specialist stands on. Since Web Audio began, process()
+    has been handed 128 frames at a time, fixed. Chrome's renderSizeHint (an origin trial from Chrome 145, an intent to
+    ship in Chrome 153, LGTM'd July 2026) lets a page ask for bigger blocks. I play the same seeded cloud of
+    Murmuration's grains at the old 128 or at 256, 512 or 1024, switchable, so an ear can say whether bigger blocks buy
+    voices before the crackle. If the browser ignores the hint I say so, and every block stays 128.
+  The engine is the voice-ceiling proof's, copied whole (proofs/2026-11-15-voice-ceiling/voice-ceiling.html); its
+    process() reads the block length from the buffer, never assumes 128, as Murmuration's own does.
+  One way to compare, not the way. A maker who can do it better (a newer API, a WASM inner loop, another meter) does so,
+    and leaves the comparison on the scroll.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs "Shop/Web Audio Worklet/proofs/2026-11-15-render-quantum/render-quantum.html"
+    node _ops/rich-face/conform.mjs "Shop/Web Audio Worklet/proofs/2026-11-15-render-quantum/render-quantum.html" --browser
+    node "Shop/Web Audio Worklet/proofs/2026-11-15-render-quantum/check.mjs"     old against new, offline and live -> measured.json
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Audio Worklet — block size, old and new</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-2); font-family: var(--mono); font-size: var(--t-meta); line-height: var(--lh-normal); }
+  main { padding: var(--s-5) var(--s-5) var(--s-6); display: grid; gap: var(--s-4); max-width: 44rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; }
+  .ask { color: var(--fg-1); border-left: 2px solid var(--accent); padding-left: var(--s-3); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center; }
+  .row > span { color: var(--fg-3); min-width: 6rem; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-sm); padding: var(--s-2) var(--s-4); cursor: pointer; }
+  button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  button:disabled { opacity: 0.4; cursor: default; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: var(--s-1) var(--s-4); margin: 0; }
+  dt { color: var(--fg-3); }
+  dd { margin: 0; color: var(--fg-1); font-variant-numeric: tabular-nums; }
+  .warn { color: var(--warn); }
+  .meas { color: var(--fg-3); }
+</style>
+</head>
+<body>
+<main>
+  <h1>The same grains, in blocks of 128 or bigger</h1>
+  <p>The audio thread has always handed <code>process()</code> 128 frames at a time. A newer Chrome lets a page ask for bigger blocks: fewer wake-ups for the same sound, at the cost of a little more delay. Here is one seeded cloud of Murmuration's grains, the old way (128) or a new way (256, 512, 1024). Changing the block size restarts the sound from the same seed.</p>
+  <p class="ask"><strong>The question:</strong> raise the voices until 128 crackles. Then, at that same count, switch to 512. Does the crackle stop?</p>
+  <div class="row">
+    <button id="sound" aria-pressed="false">Sound: off</button>
+  </div>
+  <div class="row" id="blocks"><span>block size</span>
+    <button data-q="128" aria-pressed="true">128 · the old way</button>
+    <button data-q="256" aria-pressed="false">256</button>
+    <button data-q="512" aria-pressed="false">512</button>
+    <button data-q="1024" aria-pressed="false">1024</button>
+  </div>
+  <div class="row"><span>voices</span>
+    <button id="less" disabled>− 32</button>
+    <button id="more" disabled>+ 32</button>
+    <button id="more128" disabled>+ 128</button>
+    <b id="n">128</b>
+  </div>
+  <dl>
+    <dt>block asked · given</dt><dd id="given">—</dd>
+    <dt>audio-thread load</dt><dd id="load">—</dd>
+    <dt>dropouts at this setting</dt><dd id="under">—</dd>
+    <dt>rate, latency</dt><dd id="ctxinfo">—</dd>
+  </dl>
+  <p class="meas" id="what-measured">What a script measured, headless, is in <code>measured.json</code> beside this page.</p>
+</main>
+<script>
+const WORKLET = `
+const L = 2048, LMASK = L - 1;
+function mulberry(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function corners() {
+  const TL = new Float32Array(L), TR = new Float32Array(L), BL = new Float32Array(L), BR = new Float32Array(L);
+  for (let i = 0; i < L; i++) {
+    const ph = i / L, t = ph * 2 * Math.PI;
+    TL[i] = Math.sin(t); TR[i] = 2 * ph - 1; BL[i] = ph < 0.5 ? 1 : -1;
+    BR[i] = 0.6 * Math.sin(t) + 0.4 * Math.sin(2.76 * t) + 0.28 * Math.sin(5.4 * t) + 0.18 * Math.sin(8.93 * t);
+  }
+  let mx = 0; for (let i = 0; i < L; i++) mx = Math.max(mx, Math.abs(BR[i]));
+  if (mx > 0) for (let i = 0; i < L; i++) BR[i] /= mx;
+  return { TL, TR, BL, BR };
+}
+const HAS_PERF = typeof performance !== 'undefined' && performance && typeof performance.now === 'function';
+class CeilingProcessor extends AudioWorkletProcessor {
+  constructor(options) {
+    super();
+    const o = (options && options.processorOptions) || {};
+    this.L = L; this.LMASK = LMASK;
+    const c = corners(); this.TL = c.TL; this.TR = c.TR; this.BL = c.BL; this.BR = c.BR;
+    this.master = 0.7; this.shimmer = 0.55; this.hoist = !!o.hoist;
+    this.seed = o.seed || 7; this.rng = mulberry(this.seed * 7919);
+    this.voices = []; this.setVoices(o.voices || 16);
+    this.busy = 0; this.frames = 0; this.peak = 0;
+    this.port.onmessage = (e) => { if (e.data && e.data.type === 'voices') this.setVoices(e.data.n); };
+  }
+  setVoices(n) {
+    while (this.voices.length < n) {
+      const r = mulberry(this.seed * 100003 + this.voices.length * 1013);
+      this.voices.push({ u: r(), v: r(), freq: 110 * Math.pow(2, (r() * 24 - 12) / 12), gain: 1, grainHz: 4 + r() * 100, pan: r(), phase: r(), gp: r() });
+    }
+    this.voices.length = n;
+  }
+  process(inputs, outputs) {
+    const t0 = HAS_PERF ? performance.now() : Date.now();
+    const out = outputs[0];
+    const outL = out[0], outR = out[1] || out[0];
+    const n = out[0].length;
+    const invSr = 1 / sampleRate, L = this.L, LMASK = this.LMASK;
+    const TL = this.TL, TR = this.TR, BL = this.BL, BR = this.BR;
+    const norm = this.master / Math.sqrt(Math.max(1, this.voices.length));
+    if (this.hoist) this.hoisted(outL, outR, n, norm); else
+    for (let s = 0; s < n; s++) {
+      let accL = 0, accR = 0;
+      for (let vi = 0; vi < this.voices.length; vi++) {
+        const o = this.voices[vi];
+        if (o.gain <= 0) continue;
+        const env = 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp);
+        const idx = o.phase * L; const i0 = idx | 0; const fr = idx - i0; const i1 = (i0 + 1) & LMASK;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]);
+        const str = TR[i0] + fr * (TR[i1] - TR[i0]);
+        const sbl = BL[i0] + fr * (BL[i1] - BL[i0]);
+        const sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl);
+        const bot = sbl + o.u * (sbr - sbl);
+        const smp = (top + o.v * (bot - top)) * env * o.gain;
+        const pL = Math.cos(o.pan * Math.PI * 0.5), pR = Math.sin(o.pan * Math.PI * 0.5);
+        accL += smp * pL; accR += smp * pR;
+        o.phase += o.freq * invSr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += o.grainHz * invSr;
+        if (o.gp >= 1) { o.gp -= 1; o.phase = (1 - this.shimmer) * o.phase + this.shimmer * this.rng(); }
+      }
+      outL[s] = accL * norm;
+      if (outR !== outL) outR[s] = accR * norm;
+    }
+    this.meter(t0, n);
+    return true;
+  }
+  // The one change a check measures against the copy: the pan gains, constant per voice, worked out once, not per sample.
+  hoisted(outL, outR, n, norm) {
+    const invSr = 1 / sampleRate, L = this.L, LMASK = this.LMASK, TL = this.TL, TR = this.TR, BL = this.BL, BR = this.BR, vs = this.voices;
+    for (const o of vs) if (o.pL === undefined) { o.pL = Math.cos(o.pan * Math.PI * 0.5); o.pR = Math.sin(o.pan * Math.PI * 0.5); }
+    for (let s = 0; s < n; s++) {
+      let accL = 0, accR = 0;
+      for (let vi = 0; vi < vs.length; vi++) {
+        const o = vs[vi];
+        if (o.gain <= 0) continue;
+        const env = 0.5 - 0.5 * Math.cos(2 * Math.PI * o.gp);
+        const idx = o.phase * L; const i0 = idx | 0; const fr = idx - i0; const i1 = (i0 + 1) & LMASK;
+        const stl = TL[i0] + fr * (TL[i1] - TL[i0]), str = TR[i0] + fr * (TR[i1] - TR[i0]);
+        const sbl = BL[i0] + fr * (BL[i1] - BL[i0]), sbr = BR[i0] + fr * (BR[i1] - BR[i0]);
+        const top = stl + o.u * (str - stl), bot = sbl + o.u * (sbr - sbl);
+        const smp = (top + o.v * (bot - top)) * env * o.gain;
+        accL += smp * o.pL; accR += smp * o.pR;
+        o.phase += o.freq * invSr; if (o.phase >= 1) o.phase -= 1;
+        o.gp += o.grainHz * invSr;
+        if (o.gp >= 1) { o.gp -= 1; o.phase = (1 - this.shimmer) * o.phase + this.shimmer * this.rng(); }
+      }
+      outL[s] = accL * norm;
+      if (outR !== outL) outR[s] = accR * norm;
+    }
+  }
+  meter(t0, n) {
+    const dt = (HAS_PERF ? performance.now() : Date.now()) - t0, budget = n / sampleRate * 1000;
+    this.busy += dt; this.frames += n; if (dt / budget > this.peak) this.peak = dt / budget;
+    if (this.frames >= sampleRate / 2) {
+      this.port.postMessage({ kind: 'load', load: this.busy / (this.frames / sampleRate * 1000), peak: HAS_PERF ? this.peak : null, n: this.voices.length, block: n, clock: HAS_PERF ? 'performance.now' : 'Date.now' });
+      this.busy = 0; this.frames = 0; this.peak = 0;
+    }
+  }
+}
+registerProcessor('ceiling', CeilingProcessor);
+`;
+
+const MEASURED = 'What a script measured, headless Chromium 147 with the feature switched on by a flag, 2026-11-15: every block size asked was given, process() saw exactly that many frames, and the sound at 256, 512 and 1024 was the sound at 128, sample for sample. Offline, bigger blocks gave this engine no steady saving: across two runs on a busy Mac they came out anywhere from 20% slower to 14% faster, with no direction. That fits the engine: nearly all its cost is per voice per sample, and a block only saves the fixed cost of waking the thread. Live, with no speakers, 512-frame blocks did not hold off the dropouts either. Chromium 147 as shipped ignores the hint and keeps 128; Chrome 153 was the release named to ship it, so the label next to the block size says which your Chrome does. Numbers in measured.json beside this page.';
+
+// The processor ships as a Blob URL. Opened straight from disk (file://), Chrome and Safari refuse a Blob worklet
+// (measured 2026-11-15); a data: URL of the same source loads in all three engines, so it is the fallback.
+async function loadWorklet(c) {
+  const url = URL.createObjectURL(new Blob([WORKLET], { type: 'application/javascript' }));
+  try { await c.audioWorklet.addModule(url); }
+  catch (e) { await c.audioWorklet.addModule('data:text/javascript,' + encodeURIComponent(WORKLET)); }
+  finally { URL.revokeObjectURL(url); }
+}
+
+const $ = (id) => document.getElementById(id);
+const btn = $('sound'), less = $('less'), more = $('more'), more128 = $('more128');
+let ctx = null, node = null, voices = 128, quantum = 128, base = null, last = null, building = null;
+
+function stats() {
+  const s = ctx && (ctx.playbackStats || ctx.playoutStats);
+  if (!s) return null;
+  return { events: s.underrunEvents ?? null, dur: s.underrunDuration ?? null };
+}
+function zero() { base = stats(); $('under').textContent = base ? '0 since this setting' : 'this browser does not count them (playbackStats is Chrome-only)'; }
+function setVoices(n) {
+  voices = Math.max(32, Math.min(2048, n));
+  $('n').textContent = voices;
+  if (node) node.port.postMessage({ type: 'voices', n: voices });
+  if (ctx) zero();
+}
+async function build() {
+  if (ctx) { const old = ctx; ctx = null; node = null; await old.close(); }
+  const c = new AudioContext({ latencyHint: 'interactive', renderSizeHint: quantum });   // an older browser ignores the hint
+  await loadWorklet(c);
+  const nd = new AudioWorkletNode(c, 'ceiling', { numberOfInputs: 0, outputChannelCount: [2], processorOptions: { voices } });
+  const lim = c.createDynamicsCompressor();
+  lim.threshold.value = -3; lim.knee.value = 6; lim.ratio.value = 12; lim.attack.value = 0.003; lim.release.value = 0.18;
+  nd.connect(lim).connect(c.destination);
+  nd.port.onmessage = (e) => { if (e.data.kind === 'load') show(e.data); };
+  ctx = c; node = nd; last = null;
+  const g = c.renderQuantumSize;
+  $('given').innerHTML = '';
+  $('given').textContent = quantum + ' · ' + (g === undefined ? 'not offered: this browser ignores the hint, every block is 128' : g);
+  $('given').className = g === undefined && quantum !== 128 ? 'warn' : '';
+  zero();
+}
+function show(m) {
+  last = m;
+  $('load').textContent = Math.round(m.load * 100) + '% of real time · process() saw ' + m.block + '-frame blocks';
+  $('ctxinfo').textContent = ctx.sampleRate + ' Hz · ' + (ctx.baseLatency * 1000).toFixed(1) + ' ms base' + (ctx.outputLatency ? ' + ' + (ctx.outputLatency * 1000).toFixed(1) + ' ms out' : '');
+  const s = stats();
+  if (s && base && s.events != null) $('under').textContent = (s.events - base.events) + ' since this setting' + (s.dur != null ? ' (' + ((s.dur - base.dur) * 1000).toFixed(0) + ' ms of gaps)' : '');
+}
+async function play(on) {
+  if (on) { if (!ctx) await (building = build()); await ctx.resume(); }
+  else if (ctx) await ctx.suspend();
+  btn.setAttribute('aria-pressed', String(on));
+  btn.textContent = on ? 'Sound: on' : 'Sound: off';
+  for (const b of [less, more, more128]) b.disabled = !on;
+}
+btn.addEventListener('click', () => play(btn.getAttribute('aria-pressed') !== 'true'));
+for (const b of document.querySelectorAll('#blocks button')) b.addEventListener('click', async () => {
+  quantum = +b.dataset.q;
+  for (const o of document.querySelectorAll('#blocks button')) o.setAttribute('aria-pressed', String(o === b));
+  if (btn.getAttribute('aria-pressed') === 'true') { await (building = build()); await ctx.resume(); }
+  else if (ctx) { const old = ctx; ctx = null; node = null; await old.close(); }
+});
+less.addEventListener('click', () => setVoices(voices - 32));
+more.addEventListener('click', () => setVoices(voices + 32));
+more128.addEventListener('click', () => setVoices(voices + 128));
+
+if (MEASURED) $('what-measured').textContent = MEASURED;
+</script>
+</body>
+</html>

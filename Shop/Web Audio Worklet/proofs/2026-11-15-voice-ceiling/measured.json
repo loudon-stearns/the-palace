@@ -1,0 +1,297 @@
+{
+  "date": "2026-11-15",
+  "host": "darwin arm64 · 10 cores · Apple M1 Max",
+  "loadavgAtStart": [
+    59.9267578125,
+    77.4111328125,
+    66.0263671875
+  ],
+  "sampleRate": 48000,
+  "seconds": 2,
+  "ns": [
+    8,
+    16,
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024
+  ],
+  "timing": "best of 3 renders after one warm-up; the Mac was shared with other work, see loadavg",
+  "node": {
+    "rms60": 0.16556521625060117,
+    "peak60": 0.6668781042098999
+  },
+  "engines": {
+    "chromium": {
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.7727.15 Safari/537.36",
+      "rows": [
+        {
+          "n": 8,
+          "ms": 30.299999952316284,
+          "load": 0.015149999976158141,
+          "rms": 0.19894384184246744,
+          "nonfinite": 0
+        },
+        {
+          "n": 16,
+          "ms": 54.299999952316284,
+          "load": 0.02714999997615814,
+          "rms": 0.174455469064454,
+          "nonfinite": 0
+        },
+        {
+          "n": 32,
+          "ms": 113.89999997615814,
+          "load": 0.05694999998807907,
+          "rms": 0.17111626222885415,
+          "nonfinite": 0
+        },
+        {
+          "n": 64,
+          "ms": 198,
+          "load": 0.099,
+          "rms": 0.16950232884961466,
+          "nonfinite": 0
+        },
+        {
+          "n": 128,
+          "ms": 381.2000000476837,
+          "load": 0.19060000002384186,
+          "rms": 0.1526388175036,
+          "nonfinite": 0
+        },
+        {
+          "n": 256,
+          "ms": 732.3999999761581,
+          "load": 0.36619999998807906,
+          "rms": 0.14884597266283459,
+          "nonfinite": 0
+        },
+        {
+          "n": 512,
+          "ms": 1491,
+          "load": 0.7455,
+          "rms": 0.1634306989164992,
+          "nonfinite": 0
+        },
+        {
+          "n": 1024,
+          "ms": 3113.899999976158,
+          "load": 1.5569499999880791,
+          "rms": 0.16848890947358422,
+          "nonfinite": 0
+        }
+      ],
+      "usPerVoice": 1408.8885928183138,
+      "ceilingFullCore": 673,
+      "at60": 0.09202834043107985,
+      "r2To256": 0.9993979326737487,
+      "tail512to1024": 2.088464118025592,
+      "hoisted": [
+        {
+          "n": 256,
+          "original": 732.3999999761581,
+          "hoisted": 526.0999999046326,
+          "ratio": 1.39213077382422
+        },
+        {
+          "n": 1024,
+          "original": 3113.899999976158,
+          "hoisted": 2272.2000000476837,
+          "ratio": 1.3704339406349841
+        }
+      ],
+      "nodeVsChromiumMaxDiff": 0
+    },
+    "firefox": {
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:148.0) Gecko/20100101 Firefox/148.0",
+      "rows": [
+        {
+          "n": 8,
+          "ms": 43,
+          "load": 0.0215,
+          "rms": 0.19894384184246744,
+          "nonfinite": 0
+        },
+        {
+          "n": 16,
+          "ms": 84,
+          "load": 0.042,
+          "rms": 0.174455469064454,
+          "nonfinite": 0
+        },
+        {
+          "n": 32,
+          "ms": 168,
+          "load": 0.084,
+          "rms": 0.17111626222885415,
+          "nonfinite": 0
+        },
+        {
+          "n": 64,
+          "ms": 348,
+          "load": 0.174,
+          "rms": 0.16950232884961466,
+          "nonfinite": 0
+        },
+        {
+          "n": 128,
+          "ms": 699,
+          "load": 0.3495,
+          "rms": 0.1526388175036,
+          "nonfinite": 0
+        },
+        {
+          "n": 256,
+          "ms": 1483,
+          "load": 0.7415,
+          "rms": 0.14884597266283459,
+          "nonfinite": 0
+        },
+        {
+          "n": 512,
+          "ms": 3076,
+          "load": 1.538,
+          "rms": 0.1634306989164992,
+          "nonfinite": 0
+        },
+        {
+          "n": 1024,
+          "ms": 6656,
+          "load": 3.328,
+          "rms": 0.16848890947358422,
+          "nonfinite": 0
+        }
+      ],
+      "usPerVoice": 2900.1865671641795,
+      "ceilingFullCore": 339,
+      "at60": 0.16581218905472642,
+      "r2To256": 0.9991975119055734,
+      "tail512to1024": 2.1638491547464236
+    },
+    "webkit": {
+      "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.4 Safari/605.1.15",
+      "rows": [
+        {
+          "n": 8,
+          "ms": 23,
+          "load": 0.0115,
+          "rms": 0.19894384184246744,
+          "nonfinite": 0
+        },
+        {
+          "n": 16,
+          "ms": 41,
+          "load": 0.0205,
+          "rms": 0.174455469064454,
+          "nonfinite": 0
+        },
+        {
+          "n": 32,
+          "ms": 81.99999999999989,
+          "load": 0.040999999999999946,
+          "rms": 0.17111626222885415,
+          "nonfinite": 0
+        },
+        {
+          "n": 64,
+          "ms": 150,
+          "load": 0.075,
+          "rms": 0.16950232884961466,
+          "nonfinite": 0
+        },
+        {
+          "n": 128,
+          "ms": 296,
+          "load": 0.148,
+          "rms": 0.1526388175036,
+          "nonfinite": 0
+        },
+        {
+          "n": 256,
+          "ms": 582,
+          "load": 0.291,
+          "rms": 0.14884597266283459,
+          "nonfinite": 0
+        },
+        {
+          "n": 512,
+          "ms": 1184.000000000001,
+          "load": 0.5920000000000004,
+          "rms": 0.1634306989164992,
+          "nonfinite": 0
+        },
+        {
+          "n": 1024,
+          "ms": 2779,
+          "load": 1.3895,
+          "rms": 0.16848890947358422,
+          "nonfinite": 0
+        }
+      ],
+      "usPerVoice": 1125.266524520256,
+      "ceilingFullCore": 774,
+      "at60": 0.07082693674484718,
+      "r2To256": 0.9999152835780011,
+      "tail512to1024": 2.3471283783783767
+    }
+  },
+  "live": {
+    "note": "headless Chromium, fake audio output, no speakers: the meter works; its numbers are not the Mac's heard ceiling",
+    "rows": [
+      {
+        "n": 64,
+        "load": 0.07766889450867052,
+        "peak": null,
+        "clock": "Date.now",
+        "block": 128,
+        "under": "0 since this count (0 ms of gaps)",
+        "info": "128 frames · 44100 Hz · 5.8 ms base + 32.0 ms out"
+      },
+      {
+        "n": 256,
+        "load": 0.314658598265896,
+        "peak": null,
+        "clock": "Date.now",
+        "block": 128,
+        "under": "0 since this count (0 ms of gaps)",
+        "info": "128 frames · 44100 Hz · 5.8 ms base + 32.0 ms out"
+      },
+      {
+        "n": 384,
+        "load": 0.45008128612716763,
+        "peak": null,
+        "clock": "Date.now",
+        "block": 128,
+        "under": "0 since this count (0 ms of gaps)",
+        "info": "128 frames · 44100 Hz · 5.8 ms base + 32.0 ms out"
+      },
+      {
+        "n": 512,
+        "load": 0.5994445447976879,
+        "peak": null,
+        "clock": "Date.now",
+        "block": 128,
+        "under": "0 since this count (0 ms of gaps)",
+        "info": "128 frames · 44100 Hz · 5.8 ms base + 32.0 ms out"
+      },
+      {
+        "n": 1024,
+        "load": 1.2685919436416186,
+        "peak": null,
+        "clock": "Date.now",
+        "block": 128,
+        "under": "350 since this count (2031 ms of gaps)",
+        "info": "128 frames · 44100 Hz · 5.8 ms base + 32.0 ms out"
+      }
+    ]
+  },
+  "fails": 0,
+  "loadavgAtEnd": [
+    38.8251953125,
+    64.28173828125,
+    62.236328125
+  ]
+}
