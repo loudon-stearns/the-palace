@@ -1,0 +1,108 @@
+{
+  "ran": "2026-11-15T14:16:11.268Z",
+  "results": [
+    {
+      "name": "run sheet lists the moments",
+      "ok": true,
+      "got": 13
+    },
+    {
+      "name": "run sheet warns that file links are local",
+      "ok": true,
+      "got": null
+    },
+    {
+      "name": "a pasted web address rebuilds every link",
+      "ok": true,
+      "got": "https://example.org/rational-hearing.html?p=1"
+    },
+    {
+      "name": "One note: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: partial 1 alone. Your browser needs one tap before it can play."
+    },
+    {
+      "name": "The whole note: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 1 : 2 : 3 : 4 : 5 : 6 : 7 : 8 : 9 : 10 : 11 : 12 : 13 : 14 : 15 : 16, the full series to 16, a bright saw-like tone. Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Octave: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 2 : 1, octave (0). Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Perfect fifth: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 3 : 2, perfect 5th (P5). Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Perfect fourth: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 4 : 3, perfect 4th (P4). Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Major third: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 5 : 4, major 3rd (M3). Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Minor third: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 6 : 5, minor 3rd (-3). Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Major triad: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 4 : 5 : 6, major triad. Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Major second: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 9 : 8, major 2nd (M2). Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Major seventh: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 15 : 8, major 7th (M7). Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Minor second: banner, then one tap plays",
+      "ok": true,
+      "got": "Sent from class: 16 : 15, minor 2nd (-2). Your browser needs one tap before it can play."
+    },
+    {
+      "name": "The fifth, just then piano: banner, then one tap plays the comparison",
+      "ok": true,
+      "got": "Sent from class: the perfect 5th, 3:2 just, then on the piano. Your browser needs one tap before it can play."
+    },
+    {
+      "name": "The third, just then piano: banner, then one tap plays the comparison",
+      "ok": true,
+      "got": "Sent from class: the major 3rd, 5:4 just, then on the piano. Your browser needs one tap before it can play."
+    },
+    {
+      "name": "Sound off mid-comparison: the comparison stops",
+      "ok": true,
+      "got": {
+        "during": 0.1183,
+        "after": 0,
+        "playing": 0
+      }
+    },
+    {
+      "name": "rich:hush mid-comparison: the comparison stops",
+      "ok": true,
+      "got": {
+        "during": 0.1171,
+        "after": 0,
+        "playing": 0
+      }
+    },
+    {
+      "name": "no page errors",
+      "ok": true,
+      "got": []
+    }
+  ]
+}

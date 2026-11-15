@@ -45,3 +45,8 @@ What Rational Hearing's steward cycles taught the page, and the changes to the h
    > It is a web interaction Loudon teaches from in online classes: he shares it on screen and talks, and a **Link for students** button sends any moment, an interval on the ladder or a just-against-equal comparison, to the class chat, so each student hears it on their own speakers rather than through the call. It gives him anchors to point at and sound, not paragraphs to read. A print face with a note margin is kept for students who want paper.
 
 - run · 2026-11-15 · cycle 3 · taught item 3, proposed items 4, 5 for canon
+
+## From cycle 4 — 2026-11-15
+
+6. Run every earlier check script on each new build: the cycle-3 student-link check caught a regression in the A/B playback that this cycle's new check, which only read state after the tap, would have let through. *(offered by the steward, cycle 4)*
+- run · 2026-11-15 · cycle 4 · taught item 6

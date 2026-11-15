@@ -11,3 +11,12 @@ The link is built from wherever the page is opened. Opened from disk (`file://`)
 - The three PNGs are the student's banner, the student's copy of the fifth, and the teacher's header after copying.
 
 Not checked: any real call, any student's device, or how the drone survives Zoom's audio.
+
+## The class run sheet (cycle 4, 2026-11-15)
+
+`class-run-sheet.html` lays out one online class in the handout's order: thirteen moments, from one note alone to the major third just-then-piano, each a student link with Copy and ↗ (open it as a student would). Paste the page's web address into the box at the top and every link rebuilds from it; opened from disk it warns that the links work only on this computer. `?base=<address>` fills the box from the sheet's own URL. The order and the one-line notes are a draft for Loudon to reorder or cut.
+
+Build 0.3.1 of the page also fixes the hush the rich-face challenge found: the just-against-equal playback ran past the master gain, so Sound off and `rich:hush` left up to 3 s of it playing. It now stops at once.
+
+- `check-run-sheet.mjs` opens every run-sheet link as a student (banner, one tap, and the comparison playing where the link carries one), checks a pasted address rebuilds the links, and measures the level at the page's compressor 250 ms after Sound off and after `rich:hush` mid-comparison: about 0.12 RMS before, 0 after. 19 checks, all passing on 2026-11-15, in headless Chromium. `check-student-link.mjs` still passes 17 of 17 on 0.3.1.
+- `check-run-sheet.json` holds the results; `run-sheet-1280.png` is the sheet.

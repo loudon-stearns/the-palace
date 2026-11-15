@@ -345,7 +345,7 @@ canvas{width:100%;height:230px;display:block}
     <div><span class="k">Status</span><span class="v tier">SKETCH</span></div>
     <div><span class="k">Source</span><span class="v">Loudon Stearns, handout v1, redrawn</span></div>
     <div><span class="k">Drawn</span><span class="v">2026-10-28</span></div>
-    <div><span class="k">Build</span><span class="v">0.3.0 · Drafting Table</span></div>
+    <div><span class="k">Build</span><span class="v">0.3.1 · Drafting Table</span></div>
   </footer>
 </div>
 
@@ -447,6 +447,7 @@ function applyAudio(){
 }
 function setSound(on){
   soundOn=on;
+  if(!on) stopCompare();
   if(on){ if(!ensureAudio()){ soundOn=false; } else A.ctx.resume(); }
   const b=$('soundBtn'); b.setAttribute('aria-pressed', String(soundOn)); b.textContent=soundOn?'● Sound on':'○ Sound off';
   applyAudio();
@@ -693,17 +694,26 @@ function playCompare(i, g){
   lastCompare=short;
   if(!soundOn){ $('temperStatus').textContent='Turn sound on (top of the page) to hear '+name+'.'; return; }
   ensureAudio(); A.ctx.resume();
-  document.querySelectorAll('.col.playing').forEach(x=>x.classList.remove('playing'));
+  stopCompare(true);
   g.classList.add('playing');
   const ctx=A.ctx, root=FUND[fundKey].root, t0=ctx.currentTime+0.05;
   A.ducked=true; applyAudio();
-  const out=ctx.createGain(); out.gain.value=0.22; out.connect(A.out);
+  const out=ctx.createGain(); out.gain.value=0.22; out.connect(A.out); compareOut=out;
   const dyad=(f2, start)=>{ [root, f2].forEach(f=>{ const o=ctx.createOscillator(); o.setPeriodicWave(A.wave); o.frequency.value=f; const e=ctx.createGain(); e.gain.setValueAtTime(0,start); e.gain.linearRampToValueAtTime(0.5,start+0.04); e.gain.setValueAtTime(0.5,start+1.15); e.gain.linearRampToValueAtTime(0,start+1.35); o.connect(e); e.connect(out); o.start(start); o.stop(start+1.4); }); };
   dyad(root*num/den, t0);
   dyad(root*Math.pow(2, semi/12), t0+1.6);
   $('temperStatus').textContent='Just '+num+':'+den+' ('+root.toFixed(2)+' Hz × '+num+'/'+den+' = '+fmtHz(root*num/den)+'), then equal-tempered '+name+' ('+(Math.abs(dev)<0.05?'identical':'equal is '+Math.abs(dev).toFixed(1)+'¢ '+(dev>0?'lower':'higher'))+').';
   clearTimeout(compareTimer);
-  compareTimer=setTimeout(()=>{ A.ducked=false; applyAudio(); g.classList.remove('playing'); out.disconnect(); }, 3100);
+  compareTimer=setTimeout(()=>stopCompare(), 3100);
+}
+// The A/B runs past the master gain, so Sound off and the rich-face hush must cut it here, not wait out its 3 s.
+let compareOut=null;
+function stopCompare(keepDuck){
+  clearTimeout(compareTimer);
+  if(compareOut&&A.ctx){ const g=compareOut.gain, t=A.ctx.currentTime; g.cancelScheduledValues(t); g.setTargetAtTime(0,t,0.01); const o=compareOut; setTimeout(()=>o.disconnect(),80); }
+  compareOut=null;
+  document.querySelectorAll('.col.playing').forEach(x=>x.classList.remove('playing'));
+  if(!keepDuck&&A.ducked){ A.ducked=false; applyAudio(); }
 }
 $('magBtn').addEventListener('click',()=>{ magnify=magnify===1?5:1; $('magBtn').setAttribute('aria-pressed', String(magnify>1)); buildTemper(); });
 
