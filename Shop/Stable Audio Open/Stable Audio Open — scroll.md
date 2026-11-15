@@ -15,23 +15,30 @@ forward_vector: "I am Stable Audio Open's scroll: the page's front door, opening
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-14T08:53:41-05:00 from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-15T14:10:01.606Z from the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the page is steered by the **Plan** and **Standing Orders** below, never here._
 
 - **Status:** alive · **Stage:** — · **Steward:** none — this page has no permanent steward yet
-- **Plan:** agreed 2026-11-14 (today) · 0 made things since
-- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-14 — arc or texture (Daily Page blind probe), small-music + small-sfx, probe · taught items 7–12
-- **Owed in the ledger:** nothing
-- **Latest lesson:** item 12, from the Daily Page probe, arc or texture — 2026-11-14 — small-music + small-sfx, probe — [[Stable Audio Open — tuning]]
+- **Plan:** agreed 2026-11-14 (1 day ago) · 0 made things since
+- **Runs:** 9 runs on 3 days, counted from the ledger's run lines
+- **Last run:** 2026-11-15 — the third Oliveros room with the hum 12 dB lower, re-rendered from the same seeds (`proofs/2026-11-15-oliveros-hum-lowered/`), small-sfx, sketch · nothing new: the same takes were chosen · unheard · offered to Pauline Oliveros's rich face as a proposal, replacing the hand room there
+- **Owed in the ledger:** 1 — item 20; the next run's tail read picks it up first
+- **Latest lesson:** item 23, from the test scroll — 2026-11-15 — the noise fault, twenty steps, the hum lowered — [[Stable Audio Open — tuning]]
 
 ### Runs
 
+- 2026-11-15 — the third Oliveros room with the hum 12 dB lower, re-rendered from the same seeds (`proofs/2026-11-15-oliveros-hum-lowered/`), small-sfx, sketch · nothing new: the same takes were chosen · unheard · offered to Pauline Oliveros's rich face as a proposal, replacing the hand room there
+- 2026-11-15 — twenty steps for a walk, 24 seeds cut and placed by Sound from Code (`proofs/2026-11-15-twenty-steps/`), small-sfx, sketch · taught item 23 · unheard
+- 2026-11-15 — the noise fault: defaults, 32 steps, euler, dpmpp, cfg 3, ffmpeg clean-up and the medium model on a step, a hall and a pad, and the decoder's ceiling (`proofs/2026-11-15-noise-fault/`), small-sfx + small-music + medium, probe · taught items 19–22 · unheard
+- 2026-11-14 — Hand against Shop — SUBSTRATE's bed and four of its cues (5 jobs: shop-bed, shop-step, shop-glass, shop-ground, shop-grains; `Shop/Maker/comparisons/2026-11-14-substrate-sounds/`), sketch · nothing new · by the bench
+- 2026-11-14 — card check, stereo by model (`proofs/2026-11-14-card-check/card-check.py`), small-music + small-sfx, probe · taught item 18
+- 2026-11-14 — the third Oliveros room, sources cut and placed by hand (`Shop/Maker/comparisons/2026-11-14-oliveros-room/third.py`), small-sfx, sketch · taught items 16–17, reviewed 2026-11-14
+- 2026-11-14 — Oliveros room, hand against Shop (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`), small-sfx, sketch · taught items 13–15, reviewed 2026-11-14
 - 2026-11-14 — arc or texture (Daily Page blind probe), small-music + small-sfx, probe · taught items 7–12
-- 2026-05-26 — Kuramoto Round 1 atmospheric beds and synchronization-arriving, small-music + small-sfx, sketch · taught items 1, 2, 3
+- _…and 1 more in the trail below._
 
 ### Owed
 
-_Nothing owed._
+- **20.** Medium runs on this Mac, through Stability's own MLX port. `_tools/stable-audio-3/optimized/mlx` with its own `.venv` (uv, Python 3.11; `mlx`, `numpy`, `sentencepiece`, `hugging…
 
 <!-- scroll:now:end -->
 
@@ -58,6 +65,181 @@ Try more kinds of audio, one small render and a listen each, logged in the tunin
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="run-aba3513650" -->
+### 2026-11-15 — the third Oliveros room with the hum 12 dB lower, re-rendered from the same seeds (`proofs/2026-11-15-oliveros-hum-lowered/`), small-sfx, sketch · nothing new: the same takes were chosen · unheard
+
+offered to Pauline Oliveros's rich face as a proposal, replacing the hand room there
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-ee55353443" -->
+### 2026-11-15 — twenty steps for a walk, 24 seeds cut and placed by Sound from Code (`proofs/2026-11-15-twenty-steps/`), small-sfx, sketch · taught item 23
+
+unheard
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-e616300fc6" -->
+### 2026-11-15 — the noise fault: defaults, 32 steps, euler, dpmpp, cfg 3, ffmpeg clean-up and the medium model on a step, a hall and a pad, and the decoder's ceiling (`proofs/2026-11-15-noise-fault/`), small-sfx + small-music + medium, probe · taught items 19–22
+
+unheard
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-08205d91d7" -->
+### 2026-11-14 — Hand against Shop — SUBSTRATE's bed and four of its cues (5 jobs: shop-bed, shop-step, shop-glass, shop-ground, shop-grains; `Shop/Maker/comparisons/2026-11-14-substrate-sounds/`), sketch · nothing new
+
+by the bench
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5f587fccdb" -->
+### 2026-11-14 — card check, stereo by model (`proofs/2026-11-14-card-check/card-check.py`), small-music + small-sfx, probe
+
+taught item 18
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-6138690d2b" -->
+### 2026-11-14 — the third Oliveros room, sources cut and placed by hand (`Shop/Maker/comparisons/2026-11-14-oliveros-room/third.py`), small-sfx, sketch
+
+taught items 16–17, reviewed 2026-11-14
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-e57f24a48c" -->
+### 2026-11-14 — Oliveros room, hand against Shop (`Shop/Maker/comparisons/2026-11-14-oliveros-room/`), small-sfx, sketch
+
+taught items 13–15, reviewed 2026-11-14
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="test-list-2026-11-15" -->
+### 2026-11-15 — The open tests, written down
+
+My card's "not yet shown to hold", my plan and my ledger's owed lines are my list of open tests. Everything here runs on this Mac. Each test, when run, is one small proof on this scroll with its files, its script, what was measured, and one question.
+
+From Loudon's word, 2026-11-15:
+1. **The standing fault: "All the stable audio outputs are noisey and a little lo fidelity".** Run today, below, with the larger model where it ran.
+2. **Varied repeats of one sound.** Twenty footsteps placed as a walk, run today, below. Next: the same from one take (audio-to-audio at a low noise level, or several events cut from one long take).
+
+From the card:
+3. **An arc, a rate or a count asked for in words.** Four seeds per prompt, measured envelope and onsets; the question is whether it is heard.
+4. **A melody that resolves.** Ten seeds on small-music; the ear picks any that resolve.
+5. **Vocals.** One prompt asking for singing; expected to fail, and worth knowing how.
+6. **Stereo from small-sfx.** Every take so far is mono. Try the MLX port's small-sfx and the medium model; measure left against right.
+7. **Inpainting and continuation.** `generate(inpaint_audio=…)` on one of our own recordings: regenerate two seconds in the middle, and continue a clip past its end. The question is whether the seam is heard.
+8. **The licence for monetized use.** Not a test a render can run; owed to Loudon as a reading of the two licences.
+
+From the plan (agreed 2026-11-14): loops and grooves; drum one-shots; field-recording ambiences; interface sounds; audio-to-audio from a sound we already have; continuing one of our own recordings; small-music through small-sfx. One small render and a listen each.
+
+From the zoom-out, 2026-11-15 (sources on the ledger):
+9. **Stability's own MLX port** (in the SA3 repo, `optimized/mlx`) runs all three models on Apple silicon, the medium one included. Tried today in the fault proof.
+10. **MOSS-SoundEffect v2.0** (OpenMOSS, 48 kHz, up to 30 s, an MLX build exists) is a rival sound-effect model that may run here; it needs 16 GB or more. Not tried.
+11. **A clean-up pass by a model:** FlashSR (one step, to 48 kHz, an MLX build; CC-BY-NC) and AudioSR. Not tried; today's clean-up was ffmpeg's FFT denoiser.
+12. **Sony's Woosh** (sound effects, CC BY-NC weights) and **ACE-Step 1.5** (music) exist; no easy Mac route for the first, a rough one for the second. Not tried.
+
+The standing order to look for a newer Stable Audio before each job: nothing newer than the May 2026 release was found on 2026-11-15; Large stays API-only.
+
+<sub>written 2026-11-15 by the session giving the sound Specialists their test scrolls · the zoom-out search is on the ledger with its sources and dates</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="test-2026-11-15-noise-fault" -->
+### 2026-11-15 — The noise fault: what narrows it?
+
+Loudon, 2026-11-15: "All the stable audio outputs are noisey and a little lo fidelity". Three sounds, one seed each: a footstep on stone and a stone hall's room tone (small-sfx), and a soft pad (small-music). Each is rendered with the defaults, then with one change at a time: 32 steps, two other samplers at 32 steps, guidance at 3, ffmpeg's FFT denoiser after, and the medium model, which ran here today through Stability's own MLX port. Nobody has heard any of them.
+
+What a script can say, as the hiss left above 8 kHz in the quietest quarter of each clip, where nothing hides it (lower is cleaner):
+
+| | step | hall | pad |
+|---|---|---|---|
+| defaults (8 steps, cfg 1, pingpong) | −2.5 dB | −13.3 dB | −60.3 dB |
+| 32 steps | −2.3 | −28.1 | −64.0 |
+| 32 steps, euler | −5.9 | −27.7 | −46.9 |
+| 32 steps, dpmpp | −7.9 | −28.5 | −44.7 |
+| cfg 3 | −6.1 | −20.1 | −67.2 |
+| defaults, then ffmpeg afftdn | −4.8 | −29.1 | −72.7 |
+| medium (1.4B, SAME-Large), MLX | −18.3 | −35.3 | −60.3 |
+
+So, on these three: the step's silence is nearly all hiss at the defaults, and only the medium model clears it much. More steps clean the hall's quiet but not the step's. The pad was never hissy by this measure; whatever is lo-fi in it, this number does not see. Guidance at 3 overcooked the step, bright to 19.7 kHz and clipping at 0 dBFS. Medium came back quieter than the others (the step peaks at −25 dBFS, the hall at −23), so it needs turning up to compare; it costs 3.5 to 7 s a render, load included, against 1.4 to 4.8 s at the defaults.
+
+Under all of it, the ceiling. The hand's clean SUBSTRATE step and bed, sent through the small models' own decoder (SAME-Small) and back with no generation at all, came back at 20 to 23 dB signal-to-noise, with 8 dB more energy above 8 kHz on the step and 5 dB more on the bed. Part of the noise lives in the small models' decoder, where no sampler or step count reaches. Medium uses the larger decoder.
+
+The question: **of the seven versions of each sound, which is the least noisy and least lo-fi to your ear?** The ceiling pairs are below them, for hearing what the decoder alone does to a clean sound.
+
+**Artifacts:**
+- [step, a-default](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/step-a-default.m4a)
+- [step, b-steps32](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/step-b-steps32.m4a)
+- [step, c-euler32](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/step-c-euler32.m4a)
+- [step, d-dpmpp32](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/step-d-dpmpp32.m4a)
+- [step, e-cfg3](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/step-e-cfg3.m4a)
+- [step, f-cleanup](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/step-f-cleanup.m4a)
+- [step, g-medium](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/step-g-medium.m4a)
+- [hall, a-default](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/hall-a-default.m4a)
+- [hall, b-steps32](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/hall-b-steps32.m4a)
+- [hall, c-euler32](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/hall-c-euler32.m4a)
+- [hall, d-dpmpp32](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/hall-d-dpmpp32.m4a)
+- [hall, e-cfg3](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/hall-e-cfg3.m4a)
+- [hall, f-cleanup](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/hall-f-cleanup.m4a)
+- [hall, g-medium](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/hall-g-medium.m4a)
+- [pad, a-default](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/pad-a-default.m4a)
+- [pad, b-steps32](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/pad-b-steps32.m4a)
+- [pad, c-euler32](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/pad-c-euler32.m4a)
+- [pad, d-dpmpp32](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/pad-d-dpmpp32.m4a)
+- [pad, e-cfg3](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/pad-e-cfg3.m4a)
+- [pad, f-cleanup](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/pad-f-cleanup.m4a)
+- [pad, g-medium](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/pad-g-medium.m4a)
+- [ceiling: the hand's step, clean](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/ceiling-step-hand.m4a)
+- [ceiling: the hand's step, through SAME-Small and back](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/ceiling-step-through-same-small.m4a)
+- [ceiling: the hand's bed, clean](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/ceiling-bed-hand.m4a)
+- [ceiling: the hand's bed, through SAME-Small and back](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/ceiling-bed-through-same-small.m4a)
+- [every number, every setting](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/report.json)
+- [the render script](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/render.py) · [the medium arm](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/medium.py) · [the measures](Shop/Stable Audio Open/proofs/2026-11-15-noise-fault/measure.py)
+
+<sub>test proof, 2026-11-15 · small-sfx and small-music through PyTorch on MPS; medium through `_tools/stable-audio-3/optimized/mlx` (DiT fp16, decoder fp32), its weights 5.2 GB from `stabilityai/stable-audio-3-optimized` · seeds 1703 (step, hall) and 7 (pad) · one seed per setting, so each line is a tendency on one sound, not a rule · the measures say where to listen, not what is heard</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="test-2026-11-15-twenty-steps" -->
+### 2026-11-15 — Twenty steps for a walk
+
+Loudon, 2026-11-15, hearing SUBSTRATE's step: "I'd be curious in the future, as we have said before to make 20 step variations and see how we could work with them in a "walk"". So: small-sfx made a footstep on stone 24 times, one seed each ("a single footstep on a stone floor, close, then silence", 3 s, the default settings). The hand cut the step out of each take and kept the twenty that stood cleanest above what came before them. Then it placed them as a walk: twenty steps about 0.54 s apart, each a little early or late, a little louder or softer, the feet alternating a little left and right.
+
+The second file is the same walk with every placement identical, timing, level and pan, and the first kept step in all twenty places. So the two differ only in whether the steps differ. They sit at the same peak level. Nobody has heard either.
+
+Measured: the twenty kept steps run 0.11 to 0.54 s long, and their spectra correlate with each other between 0.63 and 0.98, median 0.90, so they differ, some a lot and most a little. Each take took 1 to 2.6 s to render once the model was warm (the first, 5.3 s).
+
+The question: **does the walk of twenty different steps sound more like a person walking than the walk of one step repeated?**
+
+**Artifacts:**
+- [the walk, twenty different steps](Shop/Stable Audio Open/proofs/2026-11-15-twenty-steps/walk-twenty-steps.m4a)
+- [the same walk, one step repeated](Shop/Stable Audio Open/proofs/2026-11-15-twenty-steps/walk-one-step-repeated.m4a)
+- [every take, the kept seeds, the placements](Shop/Stable Audio Open/proofs/2026-11-15-twenty-steps/report.json)
+- [the script](Shop/Stable Audio Open/proofs/2026-11-15-twenty-steps/walk.py)
+
+<sub>test proof, 2026-11-15 · small-sfx, mono, 24 seeds (2001 to 2024), steps 8, cfg 1.0, pingpong · cut and placed by [[Sound from Code]] · each step is mono, panned by hand</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="test-2026-11-15-oliveros-hum-lowered" -->
+### 2026-11-15 — The third Oliveros room, with the hum lowered
+
+Loudon, 2026-11-14, on the third Oliveros room: "This is the best of the group, hum is too loud". This is the same room with one number changed: the mains hum, which the hand synthesizes, sits 12 dB lower. Everything else is re-rendered from the same seeds, and the same takes were chosen again for every sound (drip, bird, far bell, low string and rain all match 2026-11-14's choices).
+
+Measured on the saved files: the hum's share of the room's energy fell from −6.9 dB to −17.6 dB. In the version he heard, the hum was about a fifth of all the energy in the mix. The drips still land nine times in the first 11 s, 1.27 s apart. Nobody has heard the new one.
+
+The question: **is the hum now where it belongs, or still too loud, or now too quiet?**
+
+It is also offered to [[Pauline Oliveros]]'s rich face, beside the hand's room already there, as a proposal for Loudon to approve or not.
+
+**Artifacts:**
+- [the room, hum lowered](Shop/Stable Audio Open/proofs/2026-11-15-oliveros-hum-lowered/third-hum-lowered.m4a)
+- [the room as heard on 2026-11-14](Shop/Maker/comparisons/2026-11-14-oliveros-room/third — one point, then the whole sphere.m4a)
+- [its picture, drawn from the same arrays](Shop/Stable Audio Open/proofs/2026-11-15-oliveros-hum-lowered/third-hum-lowered-picture.svg)
+- [what was measured](Shop/Stable Audio Open/proofs/2026-11-15-oliveros-hum-lowered/report.json)
+- [the script, third.py with the hum lowered](Shop/Stable Audio Open/proofs/2026-11-15-oliveros-hum-lowered/third-hum-lowered.py)
+
+<sub>test proof, 2026-11-15 · small-sfx, four seeds a sound (1932 to 1935), rain also seed 41 · cut, placed and mixed by [[Sound from Code]] · on MPS a re-render can differ slightly from the first; the chosen seeds did not change</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="comparison-2026-11-14-substrate-sounds" -->
 ### 2026-11-14 — SUBSTRATE's sounds, twice: the hand against the Shop
 
