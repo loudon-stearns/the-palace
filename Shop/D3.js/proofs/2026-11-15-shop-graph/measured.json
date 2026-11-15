@@ -1,0 +1,96 @@
+{
+ "checked": "2026-11-15T13:55:25.212Z",
+ "url_path": "Shop/D3.js/proofs/2026-11-15-shop-graph/shop-graph.html",
+ "viewport": "1130x1100",
+ "d3_version": "7.9.0",
+ "rules": {
+  "every_node_and_link_drawn": true,
+  "still_before_click": true,
+  "reset_returns_to_start": true,
+  "timer_and_sync_same_layout": true,
+  "crossings_at_least_halved": true,
+  "no_node_overlaps_after": true,
+  "all_nodes_in_frame_after": true,
+  "tab_enters_at_one_node": true,
+  "arrows_move_focus": true,
+  "enter_selects_and_announces": true,
+  "bracket_walks_to_a_neighbour": true,
+  "escape_lets_go": true,
+  "letter_jumps": true,
+  "tab_leaves_graph": true,
+  "every_node_labelled_one_tab_stop": true,
+  "svg_text_anchor_and_baseline_set": true,
+  "clean_console": true,
+  "declared_file_reaches_framed_piece": true
+ },
+ "graph": {
+  "nodes": 111,
+  "links": 266,
+  "drawnNodes": 111,
+  "drawnLinks": 266
+ },
+ "relax": {
+  "button_ms_wall": 2574,
+  "ticks": 300,
+  "sync_settle_ms": 215.9
+ },
+ "layout": {
+  "before": {
+   "crossings": 7902,
+   "overlaps": 3,
+   "outOfFrame": 0,
+   "meanEdge": 100.1,
+   "edgeLengthCV": 0.45
+  },
+  "after": {
+   "crossings": 1383,
+   "overlaps": 0,
+   "outOfFrame": 0,
+   "meanEdge": 180.8,
+   "edgeLengthCV": 0.833
+  }
+ },
+ "determinism": {
+  "max_position_delta_timer_vs_sync": 0
+ },
+ "keyboard": {
+  "tab_lands_on": "D3.js, Specialist, alive, 7 links",
+  "arrow_walk": [
+   "D3.js, Specialist, alive, 7 links",
+   "RNBO codebox~ smith, Specialist, stub, 6 links",
+   "Playful Interface Design, page outside the Shop, 1 link",
+   "p5.js, Specialist, alive, 11 links",
+   "D3.js, Specialist, alive, 7 links",
+   "RNBO codebox~ smith, Specialist, stub, 6 links"
+  ],
+  "enter_pressed": "true",
+  "announced_after_enter": "RNBO codebox~ smith, Specialist, stub, 6 links. connects-to Maker (directed-by); member-of The Shop (roster-member); enables ffmpeg (feeds); connects-to Generative Audio Devices (stage-2-pipeline); Tone.js contrasts-with this (alternative-to); Web Audio Worklet connects-to this (browser-cousin-of).",
+  "bracket_lands_on": "Maker, Shop page, alive, 50 links",
+  "bracket_is_neighbour": true,
+  "pressed_after_escape": 0,
+  "letter_m_lands_on": "Maker — Context, page outside the Shop, 1 link",
+  "tab_leaves_graph": true,
+  "aria_snapshot_head": [
+   "- group \"The Shop's pages and their typed links. Arrow keys move between nodes; Enter shows a node's links.\":",
+   "  - button \"1D Wavetable Scanning, page outside the Shop, 1 link\"",
+   "  - button \"2D Torus Wavetable Synthesizer, page outside the Shop, 1 link\"",
+   "  - button \"Ableton Session Writer, Specialist, alive, 10 links\"",
+   "  - button \"Adopt the Craft, Author the Seam, page outside the Shop, 2 links\"",
+   "  - button \"Animate the Background, page outside the Shop, 3 links\""
+  ]
+ },
+ "a11y": {
+  "nodes": 111,
+  "with_role_button": 111,
+  "with_label": 111,
+  "tab_stops": 1,
+  "list_items": 39,
+  "text_has_anchor_and_baseline": true
+ },
+ "console_errors": [],
+ "framed": {
+  "sameOrigin": true,
+  "nodes_drawn": 111,
+  "status": "still: nodes at d3-force's starting spiral"
+ }
+}
