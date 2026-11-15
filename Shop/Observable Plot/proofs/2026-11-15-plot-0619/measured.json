@@ -1,0 +1,58 @@
+{
+  "checked": "2026-11-15T13:58:43.504Z",
+  "page": "Shop/Observable Plot/proofs/2026-11-15-plot-0619/plot-0617-vs-0619.html",
+  "loaded": {
+    "v17": "0.6.17",
+    "v19": "0.6.19",
+    "separate_objects": true,
+    "exports_0617": 167,
+    "exports_0619": 167
+  },
+  "data": {
+    "samples": 543,
+    "max_abs_diff_vs_flocking_source_same_browser": 0
+  },
+  "by_version": {
+    "0.6.17": {
+      "version": "0.6.17",
+      "ridge_mark": "area",
+      "ridge_mark_paths": 3,
+      "tips_legend_swatches": 0,
+      "tips_figure": "svg",
+      "self_line_paths": 181,
+      "self_line_path_length": 0,
+      "tips_shown": [
+        "label align 0.3 ■ seconds 25 R 0.835",
+        "label align 1.0 ■ seconds 25 R 0.962",
+        "label align 2.0 ■ seconds 25 R 0.987"
+      ]
+    },
+    "0.6.19": {
+      "version": "0.6.19",
+      "ridge_mark": "area-line",
+      "ridge_mark_paths": 6,
+      "tips_legend_swatches": 3,
+      "tips_figure": "figure",
+      "self_line_paths": 92,
+      "self_line_path_length": 813.886969089508,
+      "tips_shown": [
+        "label align 1.0 ■ seconds 25 R 0.962"
+      ]
+    }
+  },
+  "console": [
+    {
+      "phase": "load",
+      "type": "warning",
+      "text": "Warning: the implicit z channel has high cardinality. This may occur when the fill or stroke channel is associated with quantitative data rather than ordinal or categorical data. You can suppress this"
+    },
+    {
+      "phase": "0.6.17",
+      "type": "warning",
+      "text": "Warning: the implicit z channel has high cardinality. This may occur when the fill or stroke channel is associated with quantitative data rather than ordinal or categorical data. You can suppress this"
+    }
+  ],
+  "rules": "see the header of check.mjs",
+  "pass": true,
+  "fails": []
+}
