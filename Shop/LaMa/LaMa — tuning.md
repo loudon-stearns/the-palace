@@ -32,3 +32,8 @@ What each job taught the LaMa page. Each item names what the job showed and what
 ## From the card check — 2026-11-14 — a figure filled out of a fog scene
 
 - run · 2026-11-14 · card check: Blender's prompt_only_sdxl_seed7 render with SAM's figure mask, dilated 9 px, plate · nothing new
+
+## From the dilate sweep — 2026-11-15 — the fog figure at three dilations, one very large hole, and Moebius
+
+4. **A wider dilation lifts the haze, up to a point; a very large hole drifts; Moebius runs here and invents.** *Owed a review: written by the shop-tests-image session outside a ledger review.* `proofs/2026-11-15-dilate-sweep/`, the 2026-11-14 fog render and SAM's mask. Every pixel outside the hole was unchanged in every run. A proxy for the ghost (mean colour distance from a per-row fog model, 0 to 48 px outside SAM's mask; the untouched input scores 3.04): dilate 9, 1.67; 21, 1.41; 41, 1.41; fills of 5.3 to 8.7 s on the CPU. A box hole of 56.8% of the frame came back a grey smear (28.0), bearing out item 3. The proxy is blind to invented content. One agent's look, not Loudon's: a soft figure-shaped smudge stays inside the fill at every dilation. Moebius (hustvl, ECCV 2026, weights 2026-06-18, code Apache-2.0, weights MIT, 0.22B, https://github.com/hustvl/Moebius) ran on MPS in about 33 s after four minutes of setup, with its teacher import commented out (it needs triton), at 512×512 only; it scored 1.28 at dilate 21 but painted a dark object into the hole, and invented a building in the big one. Changed: nothing on the page; dilate 21 over 9 is a proposal for the Run line, at this item's review.
+- run · 2026-11-15 · dilate sweep 9/21/41, a 57% hole, Moebius against LaMa, probe · taught item 4

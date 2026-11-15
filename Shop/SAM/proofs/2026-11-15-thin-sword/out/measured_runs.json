@@ -1,0 +1,180 @@
+{
+ "image": "prompt_only_sdxl_seed7.png",
+ "size": [
+  768,
+  1024
+ ],
+ "centreline_px": 193,
+ "runs": [
+  {
+   "model": "sam_b.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 2.95,
+   "infer_s": 18.61,
+   "masks_returned": 1,
+   "coverage_pct": 3.73,
+   "thin_hit_pct": 1.0
+  },
+  {
+   "model": "sam_b.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 2.95,
+   "infer_s": 8.9,
+   "masks_returned": 1,
+   "coverage_pct": 21.93,
+   "thin_hit_pct": 0.0
+  },
+  {
+   "model": "mobile_sam.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 0.43,
+   "infer_s": 1.18,
+   "masks_returned": 1,
+   "coverage_pct": 0.39,
+   "thin_hit_pct": 94.8
+  },
+  {
+   "model": "mobile_sam.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 0.43,
+   "infer_s": 1.14,
+   "masks_returned": 1,
+   "coverage_pct": 17.74,
+   "thin_hit_pct": 10.9
+  },
+  {
+   "model": "sam2.1_t.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 98.02,
+   "infer_s": 2.84,
+   "masks_returned": 1,
+   "coverage_pct": 0.47,
+   "thin_hit_pct": 99.5
+  },
+  {
+   "model": "sam2.1_t.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 98.02,
+   "infer_s": 1.63,
+   "masks_returned": 1,
+   "coverage_pct": 18.13,
+   "thin_hit_pct": 99.5
+  },
+  {
+   "model": "sam2.1_b.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 183.07,
+   "infer_s": 2.7,
+   "masks_returned": 1,
+   "coverage_pct": 0.45,
+   "thin_hit_pct": 97.9
+  },
+  {
+   "model": "sam2.1_b.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 183.07,
+   "infer_s": 2.44,
+   "masks_returned": 1,
+   "coverage_pct": 18.18,
+   "thin_hit_pct": 99.5
+  },
+  {
+   "model": "sam2.1_l.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 51.95,
+   "infer_s": 5.7,
+   "masks_returned": 1,
+   "coverage_pct": 0.41,
+   "thin_hit_pct": 97.4
+  },
+  {
+   "model": "sam2.1_l.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "load_s": 51.95,
+   "infer_s": 6.23,
+   "masks_returned": 1,
+   "coverage_pct": 18.05,
+   "thin_hit_pct": 99.0
+  }
+ ]
+}

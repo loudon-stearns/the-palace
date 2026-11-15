@@ -1,0 +1,94 @@
+{
+ "date": "2026-11-15",
+ "device": "mps",
+ "timings_load_infer_s": {
+  "v2_small": {
+   "portmeirion": [
+    3.2,
+    5.54
+   ],
+   "hopper": [
+    2.5,
+    0.98
+   ],
+   "whole_command_s": [
+    34.8,
+    18.0
+   ]
+  },
+  "da3_small": {
+   "portmeirion": [
+    25.8,
+    3.83
+   ],
+   "hopper": [
+    0.93,
+    0.86
+   ]
+  },
+  "da3mono_large": {
+   "portmeirion": [
+    118.95,
+    2.33
+   ],
+   "hopper": [
+    12.23,
+    2.32
+   ]
+  }
+ },
+ "photos": {
+  "portmeirion": {
+   "source": "JUCE examples/Assets/portmeirion.jpg (a real photograph; licence not checked)",
+   "size": [
+    640,
+    480
+   ],
+   "v2_checks": {
+    "single_channel": true,
+    "input_size": true,
+    "range": [
+     0,
+     255
+    ]
+   },
+   "v2_band_thresholds": [
+    23,
+    75
+   ],
+   "v2_band_coverage_pct": {
+    "back": 37.1,
+    "mid": 34.8,
+    "front": 35.8
+   },
+   "spearman_v2_vs_da3-small": 0.723,
+   "spearman_v2_vs_da3mono-large": 0.973
+  },
+  "hopper": {
+   "source": "matplotlib sample_data/grace_hopper.jpg (US Navy portrait, public domain)",
+   "size": [
+    512,
+    600
+   ],
+   "v2_checks": {
+    "single_channel": true,
+    "input_size": true,
+    "range": [
+     0,
+     255
+    ]
+   },
+   "v2_band_thresholds": [
+    93,
+    203
+   ],
+   "v2_band_coverage_pct": {
+    "back": 38.1,
+    "mid": 32.4,
+    "front": 35.4
+   },
+   "spearman_v2_vs_da3-small": 0.787,
+   "spearman_v2_vs_da3mono-large": 0.894
+  }
+ }
+}

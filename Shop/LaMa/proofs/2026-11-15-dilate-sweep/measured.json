@@ -1,0 +1,67 @@
+{
+ "date": "2026-11-15",
+ "device": "cpu",
+ "image": "Shop/Blender/tests/renders/prompt_only_sdxl_seed7.png",
+ "mask": "Shop/SAM/proofs/2026-11-14-card-check/prompted/mask.png",
+ "size": [
+  768,
+  1024
+ ],
+ "load_s": 0.3,
+ "input_fixed_band_vs_fog_mad": 3.04,
+ "runs": [
+  {
+   "name": "dilate09",
+   "hole_pct": 18.7,
+   "fill_s": 5.33,
+   "outside_unchanged": true,
+   "ring_ghost_mad": 1.89,
+   "fixed_band_vs_fog_mad": 1.67
+  },
+  {
+   "name": "dilate21",
+   "hole_pct": 20.7,
+   "fill_s": 6.7,
+   "outside_unchanged": true,
+   "ring_ghost_mad": 1.76,
+   "fixed_band_vs_fog_mad": 1.41
+  },
+  {
+   "name": "dilate41",
+   "hole_pct": 24.1,
+   "fill_s": 8.7,
+   "outside_unchanged": true,
+   "ring_ghost_mad": 1.55,
+   "fixed_band_vs_fog_mad": 1.41
+  },
+  {
+   "name": "bighole",
+   "hole_pct": 56.8,
+   "fill_s": 6.78,
+   "outside_unchanged": true,
+   "ring_ghost_mad": 0.29,
+   "fixed_band_vs_fog_mad": 28.01
+  }
+ ],
+ "moebius": {
+  "what": "hustvl/Moebius ft_places2, 0.22B, ECCV 2026; run at 512x512 (the CLI squares the 768x1024 input), 20 DDIM steps, cfg 2.0, MPS, from a throwaway venv; resized back with the outside pasted from the input",
+  "runs": [
+   {
+    "name": "moebius_dilate21",
+    "hole_pct": 20.7,
+    "fill_s_per_image_mps_512": "about 33 (two images, 92.6 s for the whole command incl. load)",
+    "outside_unchanged": true,
+    "ring_ghost_mad": 1.7,
+    "fixed_band_vs_fog_mad": 1.28
+   },
+   {
+    "name": "moebius_bighole",
+    "hole_pct": 56.8,
+    "fill_s_per_image_mps_512": "about 33 (two images, 92.6 s for the whole command incl. load)",
+    "outside_unchanged": true,
+    "ring_ghost_mad": 0.24,
+    "fixed_band_vs_fog_mad": 36.88
+   }
+  ]
+ }
+}

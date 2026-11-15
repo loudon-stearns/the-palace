@@ -1,0 +1,246 @@
+{
+ "image": "prompt_only_sdxl_seed7.png",
+ "size": [
+  768,
+  1024
+ ],
+ "centreline_px": 193,
+ "runs": [
+  {
+   "model": "sam_b.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 3.73,
+   "thin_hit_pct": 1.0,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    2.95,
+    18.61
+   ],
+   "clean_load_infer_s": [
+    0.41,
+    1.67
+   ]
+  },
+  {
+   "model": "sam_b.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 21.93,
+   "thin_hit_pct": 0.0,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    2.95,
+    8.9
+   ],
+   "clean_load_infer_s": [
+    0.41,
+    1.76
+   ]
+  },
+  {
+   "model": "mobile_sam.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 0.39,
+   "thin_hit_pct": 94.8,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    0.43,
+    1.18
+   ],
+   "clean_load_infer_s": [
+    0.17,
+    0.43
+   ]
+  },
+  {
+   "model": "mobile_sam.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 17.74,
+   "thin_hit_pct": 10.9,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    0.43,
+    1.14
+   ],
+   "clean_load_infer_s": [
+    0.17,
+    0.38
+   ]
+  },
+  {
+   "model": "sam2.1_t.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 0.47,
+   "thin_hit_pct": 99.5,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    98.02,
+    2.84
+   ],
+   "clean_load_infer_s": [
+    0.19,
+    0.55
+   ]
+  },
+  {
+   "model": "sam2.1_t.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 18.13,
+   "thin_hit_pct": 99.5,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    98.02,
+    1.63
+   ],
+   "clean_load_infer_s": [
+    0.19,
+    0.44
+   ]
+  },
+  {
+   "model": "sam2.1_b.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 0.45,
+   "thin_hit_pct": 97.9,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    183.07,
+    2.7
+   ],
+   "clean_load_infer_s": [
+    0.36,
+    0.89
+   ]
+  },
+  {
+   "model": "sam2.1_b.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 18.18,
+   "thin_hit_pct": 99.5,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    183.07,
+    2.44
+   ],
+   "clean_load_infer_s": [
+    0.36,
+    0.86
+   ]
+  },
+  {
+   "model": "sam2.1_l.pt",
+   "prompt": "sword",
+   "points": [
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 0.41,
+   "thin_hit_pct": 97.4,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    51.95,
+    5.7
+   ],
+   "clean_load_infer_s": [
+    0.86,
+    1.98
+   ]
+  },
+  {
+   "model": "sam2.1_l.pt",
+   "prompt": "figure-and-sword",
+   "points": [
+    [
+     384,
+     461
+    ],
+    [
+     560,
+     658
+    ]
+   ],
+   "masks_returned": 1,
+   "coverage_pct": 18.05,
+   "thin_hit_pct": 99.0,
+   "first_run_load_infer_s_incl_download_and_cpu_contention": [
+    51.95,
+    6.23
+   ],
+   "clean_load_infer_s": [
+    0.86,
+    1.97
+   ]
+  }
+ ],
+ "date": "2026-11-15",
+ "device": "cpu (ultralytics' choice)",
+ "ultralytics": "8.4.78",
+ "input": "Shop/Blender/tests/renders/prompt_only_sdxl_seed7.png",
+ "thin_hit_pct_means": "share of the blade's 193-px centreline (darkest pixel per column near the line 470,606-662,720) inside the mask",
+ "sam3": "not run: facebook/sam3 and facebook/sam3.1 are gated (manual approval) on Hugging Face"
+}
