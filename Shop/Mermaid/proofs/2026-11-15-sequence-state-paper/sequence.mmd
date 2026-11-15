@@ -1,0 +1,15 @@
+sequenceDiagram
+    autonumber
+    actor L as Loudon
+    participant S as Session
+    participant M as Maker
+    participant X as Specialist
+    participant R as Scroll
+    L->>S: a brief, in plain words
+    S->>M: the job, with tier and theme
+    M->>X: source, tier, out path
+    X-->>M: SVG + standards report
+    Note over M,X: a script measures: parses, not collapsed, same bytes twice
+    M->>R: the proof, dated, with its one question
+    R-->>L: shown in STIGMERGY
+    L->>S: what the eye says

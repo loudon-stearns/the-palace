@@ -1,0 +1,173 @@
+{
+ "build123d": "0.13.0",
+ "mount_block": {
+  "seconds_model_sheet_step": 0.28,
+  "volume_mm3": 49082.567,
+  "mass_g_at_1_24": 60.9,
+  "stl_written": false,
+  "stl_withheld_because": "MOTOR stator_bolts is MEASURE (None)",
+  "motor_base_pattern_known": false,
+  "overflow": [],
+  "svg_size": [
+   "297.0mm",
+   "210.0mm"
+  ]
+ },
+ "clearance_edges": {
+  "+0.00": {
+   "built": true,
+   "bore_d": 63.0,
+   "motor_od": 63.0,
+   "notches": 0,
+   "volume_mm3": 1633.628,
+   "guard_says": "HOLD: zero clearance; the rotor may be up to +0.05 over nominal, so this can bind",
+   "refused_by_the_drafter": false,
+   "seconds": 0.0
+  },
+  "-0.05": {
+   "built": true,
+   "bore_d": 62.9,
+   "motor_od": 63.0,
+   "notches": 0,
+   "volume_mm3": 1631.115,
+   "guard_says": "HOLD: interference, the bore is under the rotor's nominal OD",
+   "refused_by_the_drafter": false,
+   "seconds": 0.0
+  }
+ },
+ "overflow_edge": {
+  "seconds": 0.01,
+  "drawing_py_raised": false,
+  "hits": 21,
+  "shape_hits": 21,
+  "text_hits": 0,
+  "first": [
+   {
+    "kind": "shape",
+    "layer": "center",
+    "box": [
+     150.0,
+     -27.0,
+     150.0,
+     237.0
+    ],
+    "why": "outside the frame"
+   },
+   {
+    "kind": "shape",
+    "layer": "hidden",
+    "box": [
+     30.0,
+     -15.0,
+     270.0,
+     225.0
+    ],
+    "why": "outside the frame"
+   },
+   {
+    "kind": "shape",
+    "layer": "visible",
+    "box": [
+     30.0,
+     -15.0,
+     270.0,
+     225.0
+    ],
+    "why": "outside the frame"
+   },
+   {
+    "kind": "shape",
+    "layer": "dim",
+    "box": [
+     30.0,
+     226.5,
+     30.0,
+     234.5
+    ],
+    "why": "outside the frame"
+   },
+   {
+    "kind": "shape",
+    "layer": "dim",
+    "box": [
+     270.0,
+     226.5,
+     270.0,
+     234.5
+    ],
+    "why": "outside the frame"
+   },
+   {
+    "kind": "shape",
+    "layer": "dim",
+    "box": [
+     30.0,
+     233.0,
+     270.0,
+     233.0
+    ],
+    "why": "outside the frame"
+   }
+  ],
+  "svg_size": [
+   "297.0mm",
+   "264.0mm"
+  ]
+ },
+ "previews": [
+  "hh-mnt-01-mount-block.png",
+  "edge-overflow-3to1.png"
+ ],
+ "checks": [
+  {
+   "what": "bore radius",
+   "measured": 8.0,
+   "spec": 8.0,
+   "ok": true
+  },
+  {
+   "what": "screw holes found (2 circles each)",
+   "measured": 8,
+   "spec": 8,
+   "ok": true
+  },
+  {
+   "what": "screw radius",
+   "measured": 2.25,
+   "spec": 2.25,
+   "ok": true
+  },
+  {
+   "what": "side",
+   "measured": 80.0,
+   "spec": 80.0,
+   "ok": true
+  },
+  {
+   "what": "thickness",
+   "measured": 8.0,
+   "spec": 8.0,
+   "ok": true
+  },
+  {
+   "what": "STEP volume read back",
+   "measured": 49082.567,
+   "spec": 49082.567,
+   "ok": true
+  }
+ ],
+ "seconds_total": 1.27,
+ "seconds_rerun": 6.29,
+ "byte_identical_on_rerun": {
+  "edge-overflow-3to1.svg": true,
+  "hh-mnt-01-mount-block.step": true,
+  "hh-mnt-01-mount-block.svg": true
+ },
+ "files": {
+  "edge-overflow-3to1.png": 35495,
+  "edge-overflow-3to1.svg": 6466,
+  "hh-mnt-01-mount-block.png": 72248,
+  "hh-mnt-01-mount-block.step": 33578,
+  "hh-mnt-01-mount-block.svg": 12734
+ }
+}

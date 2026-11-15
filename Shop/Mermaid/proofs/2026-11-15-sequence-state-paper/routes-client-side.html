@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-theme="paper"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mermaid in the browser</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{--ground-000:#f0eee5;--ground-100:#e6e3d7;--ink:#1a1916;--ink-2:#3a3a35;--ink-3:#6a6862;--rule:#b8b09a;--accent:#c8261a}
+html{color-scheme:light} body{margin:0;background:var(--ground-000);color:var(--ink);
+font:15px/1.5 'JetBrains Mono','IBM Plex Mono',monospace}
+main{max-width:1100px;margin:0 auto;padding:24px 16px}
+.eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+h1{font-size:22px;font-weight:600;margin:4px 0 12px}
+p{max-width:80ch;color:var(--ink-2);font-size:13px}
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
+figure{margin:0;border:1px solid var(--rule);padding:12px}
+figure.dark{background:#0a0a0f}
+figure svg{max-width:100%;height:auto;display:block;margin:0 auto}
+figcaption{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);margin-top:8px}
+figure.dark figcaption{color:#8a8aa0}
+.block{border-top:2px solid var(--ink);margin-top:24px;padding-top:6px;font-size:11px;color:var(--ink-2)}
+</style>
+</head><body><main>
+<div class="eyebrow">Mermaid · route B · text rendered in the reader's browser</div>
+<h1>The same two diagrams, drawn here from their text</h1>
+<p>This page carries the Mermaid source and loads mermaid 12.3.0 from jsdelivr, pinned by its hash. It waits for JetBrains Mono before it lays out, so the boxes are measured in the face they show.</p>
+<div class="grid">
+<figure data-name="client-sequence"><pre class="mermaid">sequenceDiagram
+    autonumber
+    actor L as Loudon
+    participant S as Session
+    participant M as Maker
+    participant X as Specialist
+    participant R as Scroll
+    L-&gt;&gt;S: a brief, in plain words
+    S-&gt;&gt;M: the job, with tier and theme
+    M-&gt;&gt;X: source, tier, out path
+    X--&gt;&gt;M: SVG + standards report
+    Note over M,X: a script measures: parses, not collapsed, same bytes twice
+    M-&gt;&gt;R: the proof, dated, with its one question
+    R--&gt;&gt;L: shown in STIGMERGY
+    L-&gt;&gt;S: what the eye says
+</pre><figcaption>sequence · rendered in this browser · paper + note tokens · ELK default</figcaption></figure>
+<figure data-name="client-state"><pre class="mermaid">stateDiagram-v2
+    direction LR
+    [*] --&gt; Made
+    Made --&gt; Measured: script runs
+    Measured --&gt; Made: a check fails
+    Measured --&gt; OnScroll: dated section
+    OnScroll --&gt; Seen: Loudon looks
+    Seen --&gt; Ruled: his words
+    Seen --&gt; Made: try again
+    Ruled --&gt; [*]
+    state OnScroll {
+        [*] --&gt; Waiting
+        Waiting --&gt; Framed: html piece
+        Waiting --&gt; Inline: png or svg
+    }
+</pre><figcaption>state · rendered in this browser · paper + note tokens · ELK default</figcaption></figure>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@12.3.0/dist/mermaid.min.js" integrity="sha384-HHW54r639fK42Ip0coGF3mz8oSiGn0eEoWNTLs75X7H63pLSDBa0Tqs0RwGmLlXE" crossorigin="anonymous"></script>
+<script>
+const cfg = {"theme": "base", "themeVariables": {"background": "#f0eee5", "fontFamily": "JetBrains Mono, monospace", "fontSize": "14px", "primaryColor": "#dcd9ca", "mainBkg": "#dcd9ca", "primaryTextColor": "#1a1916", "textColor": "#1a1916", "nodeTextColor": "#1a1916", "primaryBorderColor": "#b8b09a", "nodeBorder": "#b8b09a", "secondaryColor": "#e6e3d7", "tertiaryColor": "#e6e3d7", "clusterBkg": "#e6e3d7", "clusterBorder": "#b8b09a", "lineColor": "#6a6862", "edgeLabelBackground": "#f0eee5", "titleColor": "#3a3a35", "noteBkgColor": "#e6e3d7", "noteTextColor": "#1a1916", "noteBorderColor": "#b8b09a", "stateLabelColor": "#1a1916"}, "sequence": {"noteFontFamily": "JetBrains Mono, monospace", "actorFontFamily": "JetBrains Mono, monospace", "messageFontFamily": "JetBrains Mono, monospace", "wrap": true}};
+window.__mermaid = {done:false, error:null};
+mermaid.initialize(Object.assign({startOnLoad:false, securityLevel:'strict'}, cfg));
+document.fonts.ready.then(() => mermaid.run({querySelector:'pre.mermaid'}))
+  .then(() => { window.__mermaid.done = true; })
+  .catch(e => { window.__mermaid.error = String(e); document.body.dataset.err = String(e); });
+</script>
+<div class="block">MERMAID · TEST PROOF · 2026-11-15 · STUDY · route B: client-side, CDN<br>
+source Shop/Mermaid/proofs/2026-11-15-sequence-state-paper/ · made by make.py · nobody has seen this yet</div>
+</main></body></html>

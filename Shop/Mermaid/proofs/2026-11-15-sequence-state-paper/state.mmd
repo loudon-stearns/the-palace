@@ -1,0 +1,15 @@
+stateDiagram-v2
+    direction LR
+    [*] --> Made
+    Made --> Measured: script runs
+    Measured --> Made: a check fails
+    Measured --> OnScroll: dated section
+    OnScroll --> Seen: Loudon looks
+    Seen --> Ruled: his words
+    Seen --> Made: try again
+    Ruled --> [*]
+    state OnScroll {
+        [*] --> Waiting
+        Waiting --> Framed: html piece
+        Waiting --> Inline: png or svg
+    }

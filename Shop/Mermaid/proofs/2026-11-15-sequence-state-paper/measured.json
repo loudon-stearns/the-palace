@@ -1,0 +1,430 @@
+{
+ "date": "2026-11-15",
+ "mermaid_cli": "12.2.0",
+ "mermaid_lib": {
+  "local_version": "12.3.0",
+  "sri": "sha384-HHW54r639fK42Ip0coGF3mz8oSiGn0eEoWNTLs75X7H63pLSDBa0Tqs0RwGmLlXE"
+ },
+ "cdn": "https://cdn.jsdelivr.net/npm/mermaid@12.3.0/dist/mermaid.min.js",
+ "renders": {
+  "sequence-graphite": {
+   "source": "sequence.mmd",
+   "config": "palace-mermaid.json",
+   "ground": "#0a0a0f",
+   "seconds_first": 4.48,
+   "seconds_second": 6.83,
+   "exit": [
+    0,
+    0
+   ],
+   "stderr": null,
+   "parses": true,
+   "bytes": 31795,
+   "viewBox": "-50 -10 1151.5 576",
+   "byte_identical_on_rerun": true,
+   "trebuchet_in_style": true
+  },
+  "sequence-paper": {
+   "source": "sequence.mmd",
+   "config": "palace-mermaid-paper.json",
+   "ground": "#f0eee5",
+   "seconds_first": 5.3,
+   "seconds_second": 3.37,
+   "exit": [
+    0,
+    0
+   ],
+   "stderr": null,
+   "parses": true,
+   "bytes": 31552,
+   "viewBox": "-50 -10 1151.5 576",
+   "byte_identical_on_rerun": true,
+   "trebuchet_in_style": true
+  },
+  "sequence-graphite-notes": {
+   "source": "sequence.mmd",
+   "config": "palace-mermaid-graphite-notes.json",
+   "ground": "#0a0a0f",
+   "seconds_first": 6.05,
+   "seconds_second": 5.57,
+   "exit": [
+    0,
+    0
+   ],
+   "stderr": null,
+   "parses": true,
+   "bytes": 32439,
+   "viewBox": "-50 -10 1053 597",
+   "byte_identical_on_rerun": true,
+   "trebuchet_in_style": true
+  },
+  "sequence-paper-notes": {
+   "source": "sequence.mmd",
+   "config": "palace-mermaid-paper-notes.json",
+   "ground": "#f0eee5",
+   "seconds_first": 7.27,
+   "seconds_second": 4.78,
+   "exit": [
+    0,
+    0
+   ],
+   "stderr": null,
+   "parses": true,
+   "bytes": 32196,
+   "viewBox": "-50 -10 1053 597",
+   "byte_identical_on_rerun": true,
+   "trebuchet_in_style": true
+  },
+  "state-graphite": {
+   "source": "state.mmd",
+   "config": "palace-mermaid.json",
+   "ground": "#0a0a0f",
+   "seconds_first": 5.48,
+   "seconds_second": 2.57,
+   "exit": [
+    0,
+    0
+   ],
+   "stderr": null,
+   "parses": true,
+   "bytes": 39780,
+   "viewBox": "4 4 1772.8480224609375 335",
+   "byte_identical_on_rerun": true,
+   "trebuchet_in_style": true
+  },
+  "state-paper": {
+   "source": "state.mmd",
+   "config": "palace-mermaid-paper.json",
+   "ground": "#f0eee5",
+   "seconds_first": 2.16,
+   "seconds_second": 4.38,
+   "exit": [
+    0,
+    0
+   ],
+   "stderr": null,
+   "parses": true,
+   "bytes": 39441,
+   "viewBox": "4 4 1772.8480224609375 335",
+   "byte_identical_on_rerun": true,
+   "trebuchet_in_style": true
+  },
+  "state-paper-dagre": {
+   "source": "state.mmd",
+   "config": "palace-mermaid-paper-dagre.json",
+   "ground": "#f0eee5",
+   "seconds_first": 7.18,
+   "seconds_second": 2.2,
+   "exit": [
+    0,
+    0
+   ],
+   "stderr": null,
+   "parses": true,
+   "bytes": 40436,
+   "viewBox": "0 0 1674.8480224609375 395.5",
+   "byte_identical_on_rerun": true,
+   "trebuchet_in_style": true
+  },
+  "state-graphite-notes": {
+   "source": "state.mmd",
+   "config": "palace-mermaid-graphite-notes.json",
+   "ground": "#0a0a0f",
+   "seconds_first": 10.87,
+   "seconds_second": 8.89,
+   "exit": [
+    0,
+    0
+   ],
+   "stderr": null,
+   "parses": true,
+   "bytes": 40377,
+   "viewBox": "4 4 1772.8480224609375 335",
+   "byte_identical_on_rerun": true,
+   "trebuchet_in_style": true
+  }
+ },
+ "html": {
+  "routes-client-side.html": {
+   "bytes": 4626
+  },
+  "routes-svg-inline.html": {
+   "bytes": 311948
+  }
+ },
+ "browser": {
+  "chromium": "Chrome/157.0.8103.50",
+  "svgs": {
+   "sequence-graphite-notes.svg": {
+    "name": "sequence_graphite_notes",
+    "pairs_checked": 10,
+    "overflowing": [
+     {
+      "text": "a script measures: parses, not",
+      "by_px": 14.38,
+      "font": "\"JetBrains Mono\", monospace"
+     },
+     {
+      "text": "collapsed, same bytes twice",
+      "by_px": 3.46,
+      "font": "\"JetBrains Mono\", monospace"
+     }
+    ],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", monospace",
+    "jetbrains_available": true
+   },
+   "sequence-graphite.svg": {
+    "name": "sequence_graphite",
+    "pairs_checked": 9,
+    "overflowing": [
+     {
+      "text": "a script measures: parses, not collapsed",
+      "by_px": 91.19,
+      "font": "\"JetBrains Mono\", monospace"
+     }
+    ],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", monospace",
+    "jetbrains_available": true
+   },
+   "sequence-paper-beautiful.svg": {
+    "name": "svg",
+    "pairs_checked": 0,
+    "overflowing": [],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", system-ui, sans-serif",
+    "jetbrains_available": true
+   },
+   "sequence-paper-notes.svg": {
+    "name": "sequence_paper_notes",
+    "pairs_checked": 10,
+    "overflowing": [
+     {
+      "text": "a script measures: parses, not",
+      "by_px": 14.38,
+      "font": "\"JetBrains Mono\", monospace"
+     },
+     {
+      "text": "collapsed, same bytes twice",
+      "by_px": 3.46,
+      "font": "\"JetBrains Mono\", monospace"
+     }
+    ],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", monospace",
+    "jetbrains_available": true
+   },
+   "sequence-paper.svg": {
+    "name": "sequence_paper",
+    "pairs_checked": 9,
+    "overflowing": [
+     {
+      "text": "a script measures: parses, not collapsed",
+      "by_px": 91.19,
+      "font": "\"JetBrains Mono\", monospace"
+     }
+    ],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", monospace",
+    "jetbrains_available": true
+   },
+   "state-graphite-notes.svg": {
+    "name": "state_graphite_notes",
+    "pairs_checked": 7,
+    "overflowing": [],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", monospace",
+    "jetbrains_available": true
+   },
+   "state-graphite.svg": {
+    "name": "state_graphite",
+    "pairs_checked": 7,
+    "overflowing": [],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", monospace",
+    "jetbrains_available": true
+   },
+   "state-paper-beautiful.svg": {
+    "name": "svg",
+    "pairs_checked": 7,
+    "overflowing": [],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", system-ui, sans-serif",
+    "jetbrains_available": true
+   },
+   "state-paper-dagre.svg": {
+    "name": "state_paper_dagre",
+    "pairs_checked": 7,
+    "overflowing": [],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", monospace",
+    "jetbrains_available": true
+   },
+   "state-paper.svg": {
+    "name": "state_paper",
+    "pairs_checked": 7,
+    "overflowing": [],
+    "outside_svg": [],
+    "label_font": "\"JetBrains Mono\", monospace",
+    "jetbrains_available": true
+   }
+  },
+  "html": {
+   "routes-svg-inline.html": {
+    "framed_sandboxed": true,
+    "frame_origin": "null",
+    "ms_to_drawn": 1378,
+    "svgs_drawn": 10,
+    "render_state": null,
+    "figures": [
+     {
+      "name": "sequence-paper",
+      "pairs_checked": 9,
+      "overflowing": [
+       {
+        "text": "a script measures: parses, not collapsed",
+        "by_px": 118.76,
+        "font": "\"JetBrains Mono\", system-ui, sans-serif"
+       }
+      ],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", system-ui, sans-serif",
+      "jetbrains_available": true
+     },
+     {
+      "name": "sequence-graphite",
+      "pairs_checked": 9,
+      "overflowing": [
+       {
+        "text": "a script measures: parses, not collapsed",
+        "by_px": 118.76,
+        "font": "\"JetBrains Mono\", system-ui, sans-serif"
+       }
+      ],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", system-ui, sans-serif",
+      "jetbrains_available": true
+     },
+     {
+      "name": "sequence-paper-notes",
+      "pairs_checked": 10,
+      "overflowing": [
+       {
+        "text": "a script measures: parses, not",
+        "by_px": 18.79,
+        "font": "\"JetBrains Mono\", system-ui, sans-serif"
+       },
+       {
+        "text": "collapsed, same bytes twice",
+        "by_px": 4.54,
+        "font": "\"JetBrains Mono\", system-ui, sans-serif"
+       }
+      ],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", system-ui, sans-serif",
+      "jetbrains_available": true
+     },
+     {
+      "name": "sequence-graphite-notes",
+      "pairs_checked": 10,
+      "overflowing": [
+       {
+        "text": "a script measures: parses, not",
+        "by_px": 18.79,
+        "font": "\"JetBrains Mono\", system-ui, sans-serif"
+       },
+       {
+        "text": "collapsed, same bytes twice",
+        "by_px": 4.54,
+        "font": "\"JetBrains Mono\", system-ui, sans-serif"
+       }
+      ],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", system-ui, sans-serif",
+      "jetbrains_available": true
+     },
+     {
+      "name": "state-paper",
+      "pairs_checked": 7,
+      "overflowing": [],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", monospace",
+      "jetbrains_available": true
+     },
+     {
+      "name": "state-paper-dagre",
+      "pairs_checked": 7,
+      "overflowing": [],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", monospace",
+      "jetbrains_available": true
+     },
+     {
+      "name": "state-graphite",
+      "pairs_checked": 7,
+      "overflowing": [],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", monospace",
+      "jetbrains_available": true
+     },
+     {
+      "name": "state-graphite-notes",
+      "pairs_checked": 7,
+      "overflowing": [],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", monospace",
+      "jetbrains_available": true
+     },
+     {
+      "name": "sequence-paper-beautiful",
+      "pairs_checked": 0,
+      "overflowing": [],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", system-ui, sans-serif",
+      "jetbrains_available": true
+     },
+     {
+      "name": "state-paper-beautiful",
+      "pairs_checked": 7,
+      "overflowing": [],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", system-ui, sans-serif",
+      "jetbrains_available": true
+     }
+    ],
+    "console_errors": []
+   },
+   "routes-client-side.html": {
+    "framed_sandboxed": true,
+    "frame_origin": "null",
+    "ms_to_drawn": 3395,
+    "svgs_drawn": 2,
+    "render_state": {
+     "done": true,
+     "error": null
+    },
+    "figures": [
+     {
+      "name": "client-sequence",
+      "pairs_checked": 11,
+      "overflowing": [],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", monospace",
+      "jetbrains_available": true
+     },
+     {
+      "name": "client-state",
+      "pairs_checked": 7,
+      "overflowing": [],
+      "outside_svg": [],
+      "label_font": "\"JetBrains Mono\", monospace",
+      "jetbrains_available": true
+     }
+    ],
+    "console_errors": []
+   }
+  },
+  "seconds": 14.2
+ }
+}

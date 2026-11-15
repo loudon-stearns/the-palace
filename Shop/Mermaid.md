@@ -25,16 +25,16 @@ I render diagrams from text. Flowcharts, sequence diagrams, state machines, ER d
 
 I refuse jobs that want freeform illustration (route to ComfyUI or FLUX (Hugging Face)), data plots (route to Matplotlib), or precise mathematical typography (route to Manim CE). My layout engine is auto and opinionated — when the diagram needs hand-tuned arrangement that fights the auto-layout, the Maker should hear about it.
 
-*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: Run, Speed, Checked by and Wears were tried by rendering a flowchart in the new house theme; Best used for, Not yet shown, Not my purpose and Hands on were checked against this page and my ledger, not tried.*
+*The card, as `node Shop/shop.mjs menu` prints it. 2026-11-14: Run, Speed, Checked by and Wears were tried by rendering a flowchart in the new house theme. 2026-11-15, on Loudon's ruling that Obsidian is retired: Best used for, Not yet shown and Hands on restated for a reader in the STIGMERGY app or an html proof, after a sequence and a state diagram were drawn both ways and framed in the palace's sandbox (my scroll). A card says what was seen to work; a maker who diagrams better another way does so and leaves the comparison on my scroll.*
 
-**Best used for, so far:** A diagram of how things relate — flows, states, regimes — kept as text a diff can read. So far: the Kuramoto coupling-regime flowchart inline in Obsidian (Sketch, 2026-05-26), and a brief-to-delivery flowchart rendered to SVG in the house theme (card check, 2026-11-14).
-**Not yet shown to hold:** No Study or Piece brief has come to me through the Maker. Untried: sequence, state and other diagram families, embedded fonts, the house theme on any skin but Graphite or inside an Obsidian block. Only the Mac has run me.
+**Best used for, so far:** A diagram that lives as text beside the work — a flow, a sequence of who hands what to whom, the states a thing moves through — drawn wherever the reader is. On a scroll in STIGMERGY a plain ```mermaid fence is drawn live in the app's phosphor dress; for a proof that must look the same everywhere, an SVG made ahead by mmdc shows in place on a scroll and runs no script inside a sandboxed html piece (2026-11-15). So far: the Kuramoto coupling-regime flowchart (Sketch, 2026-05-26), a brief-to-delivery flowchart in the house theme (2026-11-14), and a sequence and a state diagram on paper and Graphite (2026-11-15, unseen).
+**Not yet shown to hold:** No Study or Piece brief has come to me through the Maker. On the paper ground and in sequence and state diagrams the house theme needs note and state-label colours added (2026-11-15: notes stayed Mermaid's yellow, state labels dark on Graphite, a note's text ran out of its box in mmdc's SVG). Drawing client-side from the text worked sandboxed and measured its boxes better, but mermaid is not on the CDN shelf. Untried: embedded fonts, the other diagram families. Only the Mac has run me.
 **Not my purpose:** Freeform illustration goes to ComfyUI or FLUX. Data plots go to Matplotlib. Signal flow and precise math typography go to LaTeX or Manim CE. Hand-tuned layout that fights auto-layout gets flagged to the Maker.
 **Run:** npx -y -p @mermaid-js/mermaid-cli mmdc -c Shop/Mermaid/palace-mermaid.json -b '#0a0a0f' -i "Shop/Mermaid/proofs/2026-11-14-card-check/brief-to-delivery.mmd" -o diagram.svg (from the palace root; a Sketch needs none of this: a fenced mermaid block in the entry)
 **Speed:** 2026-11-14, mermaid-cli 12.2.0: 43.5 s on the first npx run (it fetches the CLI and its Chromium), 3.1 s warm for a nine-node flowchart.
 **Checked by:** A script checks the SVG exists, parses, is not collapsed, carries every source node, and is byte-identical on a rerun (held 2026-11-14); a bad parse exits non-zero. Only an eye judges the layout and whether the colours hold.
 **Wears:** Loudon Live Design System, Graphite skin, through palace-mermaid.json (2026-11-14): Mermaid's base theme with themeVariables generated from colors_and_type.css, JetBrains Mono; accent only where the diagram's own classDef asks for it.
-**Hands on:** I take Mermaid source, a tier and a theme, and hand back an inline Obsidian block or an SVG or PNG file. I need angle brackets in labels escaped by hand.
+**Hands on:** I take Mermaid source, a tier and a theme, and hand back a ```mermaid fence for a scroll, or an SVG or PNG file. I need angle brackets in labels escaped by hand.
 
 ## Voice
 
@@ -46,7 +46,7 @@ The shop's whiteboarder. Loves the pleasant constraint of text-defined visuals �
 - Themes: default, dark, forest, neutral — plus full custom theme via `themeVariables`
 - Output: SVG (preferred for embedding) or PNG (preferred for slide decks)
 - CLI rendering via `@mermaid-js/mermaid-cli` (`mmdc`); browser rendering via `mermaid.js`
-- Embeddable in palace markdown via fenced ` ```mermaid ` blocks (Obsidian renders inline)
+- Embeddable in palace markdown via fenced ` ```mermaid ` blocks, which the STIGMERGY app and the rich face draw live
 
 ## Strengths
 
@@ -68,7 +68,7 @@ The shop's whiteboarder. Loves the pleasant constraint of text-defined visuals �
 ### Sketch
 - Default theme, default render, single-pass
 - Time: seconds
-- Use when: scratch diagrams in conversation, working models, embedded Obsidian renders
+- Use when: scratch diagrams in conversation, working models, a fence on a scroll
 
 ### Study *(default)*
 - Project-themed render via `themeVariables`, SVG output, palette-aware
@@ -110,8 +110,8 @@ Trivial. Local CLI or browser. No GPU. No network beyond initial install. No API
 What diagramming with Mermaid has taught, as it stands today. Which job taught each, and what changed because of it, is in [[Mermaid — tuning]].
 
 **Delivery**
-- **A Sketch renders inline in Obsidian.** Embed a fenced ```mermaid block near the prose it serves; no `mmdc`, no SVG in the bundle. That satisfies the Enrichment placement protocol.
-- **A diagram that leaves Obsidian is an SVG.** For Study and Piece work bound for Loudon Live or an export, render through `@mermaid-js/mermaid-cli` into the bundle.
+- **A Sketch is a fence the app draws.** A fenced ```mermaid block on a page or a scroll is drawn live by STIGMERGY (`MermaidBlock.jsx`, its phosphor theme) and by the rich face; no `mmdc`, no SVG in the bundle. Obsidian, which used to draw it, is retired (Loudon, 2026-11-15).
+- **A diagram that must look the same everywhere is an SVG.** For Study and Piece work, an html proof, or Loudon Live, render through `@mermaid-js/mermaid-cli` into the bundle; the SVG shows in place on a scroll and needs no script in a sandboxed piece (2026-11-15).
 
 **Labels**
 - **HTML-escape `<` and `>` inside node labels** as `&lt;` and `&gt;`, or the diagram fails to render without a word. `<br/>` for a line break is the one tag Mermaid passes through.
