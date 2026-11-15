@@ -1,0 +1,65 @@
+[
+ {
+  "job": "plate-krea",
+  "route": "space",
+  "model": "black-forest-labs/FLUX.1-Krea-dev",
+  "seed": 1975,
+  "width": 1344,
+  "height": 768,
+  "prompt": "a photograph of fireflies over a still pond at dusk, long exposure, dark treeline on the far bank, the last blue light in the sky, many small warm yellow points of light above the water and their reflections, reeds in the foreground, quiet, no people, no text",
+  "returned_seed": 1975,
+  "status": "ok",
+  "bytes": 808013,
+  "seconds": 40.7
+ },
+ {
+  "job": "plate-klein",
+  "route": "space",
+  "model": "black-forest-labs/flux-3-image-klein",
+  "seed": 1975,
+  "width": 1344,
+  "height": 768,
+  "prompt": "a photograph of fireflies over a still pond at dusk, long exposure, dark treeline on the far bank, the last blue light in the sky, many small warm yellow points of light above the water and their reflections, reeds in the foreground, quiet, no people, no text",
+  "returned_seed": 1975,
+  "status": "ok",
+  "bytes": 1630889,
+  "seconds": 34.2
+ },
+ {
+  "job": "whole-krea",
+  "route": "space",
+  "model": "black-forest-labs/FLUX.1-Krea-dev",
+  "seed": 1975,
+  "width": 1344,
+  "height": 768,
+  "prompt": "an explainer image about fireflies falling into synchrony: a photograph of fireflies over a still pond at dusk, with a clean diagram drawn over it in thin cream ink: five small circles each with an arrow showing a firefly's phase, scattered on the left labelled 'OUT OF PHASE', all pointing the same way on the right labelled 'IN PHASE', a curved arrow between them labelled 'COUPLING K', small monospace labels",
+  "returned_seed": 1975,
+  "status": "ok",
+  "bytes": 467598,
+  "seconds": 25.1
+ },
+ {
+  "job": "whole-klein",
+  "route": "space",
+  "model": "black-forest-labs/flux-3-image-klein",
+  "seed": 1975,
+  "width": 1344,
+  "height": 768,
+  "prompt": "an explainer image about fireflies falling into synchrony: a photograph of fireflies over a still pond at dusk, with a clean diagram drawn over it in thin cream ink: five small circles each with an arrow showing a firefly's phase, scattered on the left labelled 'OUT OF PHASE', all pointing the same way on the right labelled 'IN PHASE', a curved arrow between them labelled 'COUPLING K', small monospace labels",
+  "returned_seed": 1975,
+  "status": "ok",
+  "bytes": 1408275,
+  "seconds": 15.6
+ },
+ {
+  "job": "plate-krea-api",
+  "route": "api",
+  "model": "black-forest-labs/FLUX.1-Krea-dev",
+  "seed": 1975,
+  "width": 1344,
+  "height": 768,
+  "prompt": "a photograph of fireflies over a still pond at dusk, long exposure, dark treeline on the far bank, the last blue light in the sky, many small warm yellow points of light above the water and their reflections, reeds in the foreground, quiet, no people, no text",
+  "status": "failed: HfHubHTTPError: Client error '402 Payment Required' for url 'https://router.huggingface.co/fal-ai/fal-ai/flux/krea' (Request ID: Root=1-6af9b88c-2c0ccfd0564967f411616adb;925a67c1-441e-478d-85f7-5f3dac89cb94)\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402\n\nPurchase pre-paid credits to continue using Inference Providers. Alternatively, subscribe to PRO to get monthly includ",
+  "seconds": 0.5
+ }
+]

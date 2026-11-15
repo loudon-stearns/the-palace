@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-15",
+  "question_for_loudon": "Of the four, which would you put on the Kuramoto page: the split, the all-drawn, or one of the all-generated? And does the generated pond under the drawn diagram help the diagram, or fight it?",
+  "renders": "renders.json (route, model, seed, size, seconds, status for each call)",
+  "route_findings": {
+    "inference_api_pinned_route": "402 Payment Required from router.huggingface.co/fal-ai (FLUX.1-Krea-dev is served only by the providers fal-ai and wavespeed now). On the free account, the page's pinned Run path is not free today.",
+    "spaces_route": "black-forest-labs/FLUX.1-Krea-dev and black-forest-labs/flux-3-image-klein Spaces both answered with the account's token, on its free ZeroGPU quota: 25-41 s and 16-34 s a 1344x768 image, seed honoured (randomize_seed=false)."
+  },
+  "split_way": {
+    "diagram_source": "simulation.json: 7 Kuramoto oscillators, K=2, 12 s, r from 0.19 to 0.99; every dot on the two dials and the r(t) line is drawn from it",
+    "split_build": "split.py, 6 s with Chrome rasterising both PNGs",
+    "whole_generated_checked_against_the_claim": {
+      "whole-klein": "spells OUT OF PHASE, COUPLING K and IN PHASE correctly; but five of its six 'out of phase' dials point the same way, so the diagram says the opposite of its label",
+      "whole-krea": "draws mayflies, not fireflies; 'IN PHASE' appears twice and 'OUT OF PHASE' sits beside fireflies with no phase shown; nothing in it can be checked against a number"
+    }
+  },
+  "money_spent": 0
+}
