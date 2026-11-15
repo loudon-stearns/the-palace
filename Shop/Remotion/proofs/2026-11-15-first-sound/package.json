@@ -1,0 +1,13 @@
+{
+  "name": "remotion-first-sound",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Remotion's first composition with sound, 2026-11-15: a caption card lit word by word under Kokoro's sentence. node_modules is a link to the phenomena walk's (main checkout); never npm install over it.",
+  "dependencies": {
+    "@remotion/cli": "4.0.542",
+    "@remotion/media": "4.0.542",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "4.0.542"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "made": "2026-11-15",
+  "remotion": "4.0.542",
+  "audio_path": "media",
+  "render_sec": 10.8,
+  "sound_starts_sec": 0.824604,
+  "expected_start_sec": 0.813,
+  "ebur128": "I: -22.5 LUFS  Peak: -7.0 dBFS",
+  "streams": [
+    {
+      "codec_name": "h264",
+      "width": 1920,
+      "height": 1080,
+      "r_frame_rate": "30/1",
+      "duration": "9.766667",
+      "nb_frames": "293"
+    },
+    {
+      "codec_name": "aac",
+      "sample_rate": "48000",
+      "channels": 2,
+      "r_frame_rate": "0/0",
+      "duration": "9.771000",
+      "nb_frames": "460"
+    }
+  ],
+  "start_error_ms": 12
+}
