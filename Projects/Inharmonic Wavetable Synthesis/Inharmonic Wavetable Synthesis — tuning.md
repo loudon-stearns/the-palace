@@ -41,3 +41,8 @@ What Inharmonic Wavetable Synthesis's steward cycles taught the page, and the ch
    > Built (2026-11-15): the glowing line is the screen of Bent Line, the plugin in `plugin/`. Partial number runs across, the flat line holds the middle, the measured bend glows off it as bright as each partial is loud, and the material's other frames ghost behind it in amber. A drag up and down bends the line. One line, the newest voice; the bundle of unison lines is not drawn yet.
 
 - run · 2026-11-15 · cycle 11 · taught item 3, proposed item 4 for canon
+
+## From cycle 12 — 2026-11-15
+
+5. At real piano stiffness Sethares' smoothest octave moves only 2 to 8 cents (1208¢ at piano C6's fit), so a teaching slider stopped at piano would show nearly nothing. Run it on to bar stiffness and say so in words. *(offered by the steward, cycle 12)*
+- run · 2026-11-15 · cycle 12 · taught item 5

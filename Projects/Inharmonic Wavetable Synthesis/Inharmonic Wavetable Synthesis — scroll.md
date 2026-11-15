@@ -15,31 +15,31 @@ forward_vector: "I am Inharmonic Wavetable Synthesis's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-15T13:56:37.725Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-15T14:06:15.866Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 11 · last ran 2026-11-15 (today)
-- **Plan:** agreed 2026-11-10 (5 days ago) · 1 made thing since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 12 · last ran 2026-11-15 (today)
+- **Plan:** agreed 2026-11-10 (5 days ago) · 3 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-15 (today) — Bent Line's screen now shows the glowing line: the flat harmonic line across the middle, each material's bend glowing off it, and you can drag it to bend. (`inharmonic-wavetable-synthesis-steward-026`)
-- **Last commit touching this project:** 2026-11-10 `31f15740` — enrich(Inharmonic Wavetable Synthesis): each partial is a loop: the summed waveform over one lap, beside the loops — sketch · proposal
+- **Last shipped:** 2026-11-15 (today) — The lesson's first twenty minutes is built. Walk it once with sound on, then tell me which stop lands flat? (`inharmonic-wavetable-synthesis-steward-029`)
+- **Last commit touching this project:** 2026-11-15 `7d284470` — steward(Inharmonic Wavetable Synthesis): cycle 11 — SPINNING UP. HOME: [Inharmonic Wavetable Synthesis](obsidian://open?vau…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-15 — cycle 11 · taught item 3, proposed item 4 for canon
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-15 — cycle 12 · taught item 5
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 2 — items 2, 4; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 4, from cycle 11 — 2026-11-15 — [[Inharmonic Wavetable Synthesis — tuning]]
+- **Latest lesson:** item 5, from cycle 12 — 2026-11-15 — [[Inharmonic Wavetable Synthesis — tuning]]
 
 ### Where this stands
 
-Inharmonic Wavetable Synthesis is the synth where two wavetables do two jobs. Wavetable A sets how loud each partial is. Wavetable B sets how far each partial sits from its harmonic place, in cents. A flat line is pure harmony, and every bend is a material. In October I measured bends from seven real sounds (three piano strings, a bell, a vibraphone, a marimba, a singing bowl). Max was paused, so I built the instrument as Bent Line, a VST3 and AU plugin. On November 10 you agreed the plan should say so, and that the next step was the page's own picture on the plugin's screen, before the lesson. This cycle built that picture. The flat line runs across the middle and the material's bend glows…
+Inharmonic Wavetable Synthesis is a synth where two wavetables do two jobs. One sets how loud each partial is. The other sets how far each partial sits from its harmonic place. A flat line is pure harmony, and every bend is a material. It's meant to be one thing in two forms, an instrument and a lesson. The instrument exists as Bent Line, a VST3/AU plugin built on seven bends measured from real sounds, and its screen now draws the glowing line. This cycle built the next step on the plan, the lesson's opening twenty minutes. It's one page with six stops, and every stop plays.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 7:** I can't hear, so every sound claim is a measurement. _(in 5 notes, the latest cycle 11)_
+- **rough since cycle 7:** I can't hear, so every sound claim is a measurement. _(in 6 notes, the latest cycle 12)_
 - **rough since cycle 7:** it is untested in Firefox, Safari and STIGMERGY's frame, and at 96 partials on a slow machine. _(in 2 notes, the latest 2026-10-20)_
 - **rough since cycle 8:** The treble strings in 05 are carried far past where they were measured. _(in 2 notes, the latest cycle 9)_
 - **rough since cycle 8:** I only syntax-checked the study's new menu entries, not play-tested them. _(in 2 notes, the latest cycle 9)_
@@ -48,7 +48,7 @@ _What the trail's left-rough notes keep saying, oldest first, in its latest word
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `inharmonic-wavetable-synthesis-steward-029` — directional_decision · posted 2026-11-15 · options: WALK-IT · EDITOR-NEXT · SCREEN-NEXT
 
 ### Answered, not yet consumed
 
@@ -62,6 +62,7 @@ _None._
 
 ### Runs
 
+- 2026-11-15 — cycle 12 · taught item 5
 - 2026-11-15 — cycle 11 · taught item 3, proposed item 4 for canon
 - 2026-10-28 — cycle 10 · taught item 1, proposed item 2 for canon
 
@@ -101,6 +102,71 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="inharmonic-wavetable-synthesis-steward-029" -->
+### 2026-11-15 — cycle 12 — The lesson's first twenty minutes is built. Walk it once with sound on, then tell me which stop lands flat?
+> still working · six stops built, none heard · steward leans WALK-IT
+
+Catch-up: this synth treats harmony as a flat line and every bent line as a material. Bent Line, the plugin, plays seven measured bends and draws the glowing line. The plan's next step was the lesson's opening, and it's built: [the lesson](open:Projects/Inharmonic Wavetable Synthesis/lesson/first-twenty-minutes.html). It has six stops: a flat line, bend it, a real piano, a bell filed two ways, the scale that moves with the line, and how do you feel. I can't hear it, so I'm not sure every stop lands. Walking it takes you about ten minutes. Whatever you answer, I keep building. If you don't walk it, I go on to the editor studies, and the lesson waits for your ears.
+
+**Artifacts:**
+- [the lesson, six playable stops.](Projects/Inharmonic Wavetable Synthesis/lesson/first-twenty-minutes.html)
+- [stop 5 at bar stiffness: the octave valley at 1260¢.](Projects/Inharmonic Wavetable Synthesis/lesson/shots/stop_5_b5_1.png)
+- [fit-drafting-table-bench.html](Projects/Inharmonic Wavetable Synthesis/plugin/build/ui/fit-drafting-table-bench.html)
+- [index.html](Projects/Inharmonic Wavetable Synthesis/plugin/build/ui/index.html)
+- [glowing-line-crt.html](Projects/Inharmonic Wavetable Synthesis/plugin/proofs/glowing-line-crt.html)
+- [glowing-line-piano-a2-flat.png](Projects/Inharmonic Wavetable Synthesis/plugin/proofs/glowing-line-piano-a2-flat.png)
+- [crowded-plugin.wav](Projects/Inharmonic Wavetable Synthesis/plugin/out/crowded-plugin.wav)
+- [crowded-engine.wav](Projects/Inharmonic Wavetable Synthesis/plugin/out/crowded-engine.wav)
+- [crowded-sketch.wav](Projects/Inharmonic Wavetable Synthesis/plugin/out/crowded-sketch.wav)
+- [manual-scan-plugin.wav](Projects/Inharmonic Wavetable Synthesis/plugin/out/manual-scan-plugin.wav)
+- [manual-scan-engine.wav](Projects/Inharmonic Wavetable Synthesis/plugin/out/manual-scan-engine.wav)
+- [manual-scan-sketch.wav](Projects/Inharmonic Wavetable Synthesis/plugin/out/manual-scan-sketch.wav)
+- [own-walls-plugin.wav](Projects/Inharmonic Wavetable Synthesis/plugin/out/own-walls-plugin.wav)
+- [own-walls-engine.wav](Projects/Inharmonic Wavetable Synthesis/plugin/out/own-walls-engine.wav)
+<sub>`inharmonic-wavetable-synthesis-steward-029` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="inharmonic-wavetable-synthesis-steward-028" -->
+### 2026-11-15 — cycle 12 — The lesson's first twenty minutes is a page you can play: flat line, bend it, a real piano, a bell filed two ways, the scale that moves.
+> shipped · six stops, all playable in the browser · steward leans you walk it once, ears on
+
+[Open the lesson](open:Projects/Inharmonic Wavetable Synthesis/lesson/first-twenty-minutes.html). It has six stops. (1) The flat line, played as a soft saw: harmony is a flat line. (2) Bend it: drag the box to set the stiffness B in fₙ = n·f₀·√(1 + B·n²), and hear the moment one note stops being one note. (3) A real piano: the measured bends of piano A2 and C6, shown as dots with the fitted curve through them. Both play at the same pitch, so only the bend differs. (4) A bell: the measured bell modes filed Rank or Nearest, the same switch Bent Line has. A bend slider flattens them, and you hear the two filings become two different harmonies, an organ under Rank and a few hidden harmonics under Nearest. (5) The line decides the scale: Sethares' roughness curve for whatever timbre you've bent. The valleys are the intervals that sound smooth, and you can click anywhere on the curve to hear that interval. (6) Your turn: "How do you feel?" and a note box. One thing changed when I measured it: at real piano stiffness the octave valley moves only a few cents, so a slider that stopped at piano would show almost nothing. Stop 5's slider runs on to bar stiffness, where the slide is 60 cents. The page says that in words, so the size of the jump doesn't mislead anyone.
+
+**Artifacts:**
+- [the lesson's first twenty minutes: six stops, all playable.](Projects/Inharmonic Wavetable Synthesis/lesson/first-twenty-minutes.html)
+- [the page before the data is inlined; edit this one.](Projects/Inharmonic Wavetable Synthesis/lesson/first-twenty-minutes.template.html)
+- [inlines the trajectory data and prints the octave numbers in the table.](Projects/Inharmonic Wavetable Synthesis/lesson/build_lesson.py)
+- [the folder's map: the stops, how to rebuild, what was measured and not checked.](Projects/Inharmonic Wavetable Synthesis/lesson/README.md)
+- [stop 5 on the flat line: valleys at the fourth, fifth, sixth and a true octave.](Projects/Inharmonic Wavetable Synthesis/lesson/shots/stop_5_b5_0.png)
+- [stop 5 at bar stiffness: the octave valley has moved to 1260¢.](Projects/Inharmonic Wavetable Synthesis/lesson/shots/stop_5_b5_1.png)
+- [the bell filed Nearest, bend at zero: 12 slots sound, the empty ones show as hollow dots.](Projects/Inharmonic Wavetable Synthesis/lesson/shots/stop_4_filing_nearest_bend_0.png)
+- [piano A2: measured dots on the gently bowed fitted line.](Projects/Inharmonic Wavetable Synthesis/lesson/shots/stop_3.png)
+- [stop 1: the flat line.](Projects/Inharmonic Wavetable Synthesis/lesson/shots/stop_1.png)
+- [stop 2: the bent line with its slider.](Projects/Inharmonic Wavetable Synthesis/lesson/shots/stop_2.png)
+
+_Where the smoothest octave sits as the line bends (24-partial 1/n saw, 220 Hz, Sethares roughness)_
+| stiffness B | what it is | smoothest octave |
+| --- | --- | --- |
+| 0 | flat line | 1200¢ |
+| 0.0005 | a mid piano string | 1202¢ |
+| 0.002 | a stiff treble string | 1205¢ |
+| 0.0029 | piano C6, measured fit | 1208¢ |
+| 0.008 | past any piano | 1220¢ |
+| 0.025 | a bar | 1261¢ |
+
+_Left rough:_ I can't hear, so every sound claim is a measurement. The page has run only in headless Chrome, which proves the drawing and not the sound, and nobody has walked it yet.
+
+_Next moves named:_ Walk the lesson once with Loudon's ears, and fix whichever stop lands flat (most likely stop 2's bend range or the bell's pitch). · Start the editor's front door: two small studies side by side, a drawn-curve editor and a library of named curve families, so hands and ears can choose. · Put the lesson's stop 5 roughness curve on Bent Line's screen as a second view, so the instrument shows its own scale too.
+<sub>`inharmonic-wavetable-synthesis-steward-028` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-98e78bab9c" -->
+### 2026-11-15 — cycle 12
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-inharmonic-wavetable-synthesis-steward-024" -->
 ### 2026-11-09 — Plan revised: Max is paused, so I built the Live device as a VST instead. Shall the plan say so, with the glowing-line screen as the next step?
 
