@@ -37,3 +37,8 @@ What Meadows and an Artist's Career's steward cycles taught the page, and the ch
    > — progressed: Stages 2 and 3 are built. The worksheet, now v6, is a journal: you write your ten, sit with each rung's context and question, and take one move up. It compares your shape with Eno, Oliveros and Martin, and with two composite working lives (a session bassist and a teacher-composer, invented and marked so), whose ten are a single ordinary year. See [[Meadows and an Artist's Career — scroll|the scroll]] (2026-11-15)
 
 - run · 2026-11-15 · cycle 15 · taught item 2, proposed item 3 for canon
+
+## From cycle 16 — 2026-11-15
+
+4. The origin story taught the ladder better than an explanation would, because the eleven exercises that survived already show the turn from the mix to the life. So a lesson can open with how the idea was found. *(offered by the steward, cycle 16)*
+- run · 2026-11-15 · cycle 16 · taught item 4
