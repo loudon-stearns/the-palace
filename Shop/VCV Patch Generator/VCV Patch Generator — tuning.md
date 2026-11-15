@@ -37,3 +37,9 @@ What each job taught the VCV Patch Generator page. Each item names what the job 
 5. **Layout became two-row by default.** Emitted patches place MIDI hard-left, the audio path left to right in signal order, and modulators (ADSR, LFO, SEQ3) on the row below, matching the hand-arrangement Loudon's audition produced. Rows come from registry shape and topological depth, so a newly registered module lands sensibly without a layout rule. Changed: the default patch is workflow-ready; bespoke layout still happens in Rack.
 
 - run · 2026-05-29 · T7b archetype triple (kick, warm_pad, pluck at seed 1) and its Rack audition, piece · taught items 1–5
+
+## From the test scroll — 2026-11-15
+
+Written by the session giving the sound Specialists their test scrolls; owed a review. Nothing was run: every sound test needs VCV Rack, which is Loudon's to open. The tests are on the scroll.
+
+- from the zoom-out · 2026-11-15 · Rack 2.6.6 (2025-11-04) is the newest; nothing from 2.6.3 to 2.6.6 touches the .vcv format or the command line (https://github.com/VCVRack/Rack/blob/v2/CHANGELOG.md); Rack 3 was announced in March 2025 and has no release found (https://vcvrack.com/news/2025-03-27-Rack-2.6) · `Rack -h patch.vcv` runs a patch with no window, with no documented render to a file; forum users report crashes with some modules and silent output (https://community.vcvrack.com/t/headless-mode-in-rack-v2/6630) · not tried · owed a review: a headless render through a recorder module would give me the sound check I lack
