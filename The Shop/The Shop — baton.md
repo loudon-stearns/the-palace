@@ -122,6 +122,27 @@ Loudon listened to the SUBSTRATE pairs on Stable Audio Open's scroll (all five g
 
 **A future probe he named, not owed:** twenty variations of one step, worked into a walk.
 
+## Where this stands, end of 2026-11-15
+
+Six Opus sessions worked from `The Shop/The Shop — sketch — test scroll brief.md`; all six branches are on main (`eee2aa66` bench, `b5831801` Maker, `ce2400cc` motion, `387ca017` browser, `ee7c069c` sound, `ae74cce5` image). 35 Specialists have whole cards; 36 pages in `Shop/` keep a scroll. Spend: nothing; no pod was started.
+
+**Now true.**
+- The bench presents its own work: `shop.mjs run` writes a section on each chained Specialist's scroll, `heard` refreshes it, `present` re-does it, `tests "<Specialist>"` lists what is open.
+- The decision tree is on the Maker (v1.1), keyed by part, with zoom out as a branch and a section on how a Specialist is tested and improved.
+- Three Specialists were born: Sound from Code, Drawn SVG, Rich-face Kit. LaTeX is alive. ComfyUI's byte-exact claims and Mermaid's card are restated from runs.
+- CHILD names the Shop (`2ea49f98`), in words Loudon approved.
+
+**Waiting on Loudon's ear or eye:** every new proof. Each scroll's section ends in its one question. Nothing made on 2026-11-15 has been heard or seen by him except the SUBSTRATE pairs.
+
+**Waiting on his ruling.**
+- The Obsidian deposit, drafted and not landed: `The Shop/The Shop — sketch — Obsidian retired, draft deposit.md`. Open in it: whether wikilinks and `![[…]]` stay as the file format, what happens to the tracked `.obsidian/` folder.
+- The Oliveros room with the hum 12 dB lower sits as an Enrichment proposal on her page; approving it is his step.
+- A proposed rule for settling "owed a review" lines (on the Maker's testing section); SCHEMA — Reference §6 is not edited.
+- Whether the bench may make a scroll on a page a piece is for (SUBSTRATE, Pauline Oliveros have none): `present --page-scrolls`.
+- Finds that would change a card or a pin, each owed a review: Stable Audio's medium model runs here through MLX and cut hiss 16 to 22 dB; tone 15.0.4 renders sharp at a second sample rate and 15.5.72 fixes it; Manim 0.22's Typst math set equations in 3 s against 58 s; Whisper large-v3-turbo caught words `base` missed; Z-Image may change Lettering's route; LightOnOCR-3 read a page on the Mac with no pod; FLUX's old paid route answers 402 and free Spaces work.
+
+**Known faults, not fixed.** The app serves mp4 with no video type (one line in `http.js`; Safari may refuse it). The rich-face kit's checker cannot check a piece that declares a file and misreads import maps. `shop.mjs` logs nothing for a chain's `hand: …` step though Sound from Code and Drawn SVG now exist. The Depth Anything proof uses a photo from JUCE's examples whose licence is unchecked.
+
 ## Calibrations from this session
 
 - Loudon, 2026-11-14: "I don't want to settle this question in this session." The morning stopped at the example on purpose. Treat the candidate ideas as found, not chosen.
