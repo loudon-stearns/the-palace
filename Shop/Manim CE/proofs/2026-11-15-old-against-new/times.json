@@ -1,0 +1,41 @@
+{
+  "made": "2026-11-15",
+  "old": "manim 0.20.1 (pipx, Python 3.13.2)",
+  "new": "manim 0.22.1 (venv, Python 3.13, manim[typst])",
+  "runs": {
+    "beats-old-cold": {
+      "sec": 114.88,
+      "rc": 0
+    },
+    "beats-old-warm": {
+      "sec": 6.03,
+      "rc": 0
+    },
+    "beats-new-cold": {
+      "sec": 179.62,
+      "rc": 0
+    },
+    "beats-new-warm": {
+      "sec": 10.75,
+      "rc": 0
+    },
+    "still-tex-cold": {
+      "sec": 57.77,
+      "rc": 0
+    },
+    "still-typst-cold": {
+      "sec": 3.0,
+      "rc": 0
+    },
+    "still-both": {
+      "sec": 2.97,
+      "rc": 0
+    }
+  },
+  "sha256_12": {
+    "old": "24c8e82f4430",
+    "new": "025058412f31"
+  },
+  "byte_identical": false,
+  "ssim_old_vs_new": "All:0.999537"
+}
