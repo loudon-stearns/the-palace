@@ -26,7 +26,9 @@ SUBSTRATE's hook, "born on the floor", makes every sound in the page from code. 
 
 **Left by hand on purpose:** the tuned cues (the eight floor pages as a pentatonic scale, the six stops down the core). Those are notes, plainly synthesized, and their pitches carry the story.
 
-**Measured, not heard.** Nobody has listened to any of the ten.
+**Heard, 2026-11-15.** Loudon, 2026-11-15: "Bed, I didn't hear a crossfade in either. Step, the step reads as one(I'd be curious in the future, as we have said before to make 20 step variations and see how we could work with them in a "walk"). Glass reads as glass, OK, not perfect, but OK. The thud works, And the sand works. All the stable audio outputs are noisey and a little lo fidelity, the work you are building by hand is hyper clean and clinical and "fake" so we have an extreme range of "synthesized vs sampled" and over time the two will become closer and closer. I am happy we are doing this work and we can keep pusing forward. Clearly this is a great path as stable audio will keep getting better." He listened on Stable Audio Open's scroll in STIGMERGY; the embeds in the table above are from before Obsidian was retired, and `listen.html` beside this file plays the same ten.
+
+**What was measured before he listened:**
 - The bed: three of four seeds wandered 18 to 23 dB across the clip; the one kept varies 3.5 dB. The loop's seam is a 4 s crossfade, and whether it can be heard is unknown.
 - Each cue was chosen as the take whose start stands furthest above what came before it. That rule once picked a click for a bell, so each wants an ear: is the step a step?
 - Every Stable Audio take here is mono (small-sfx).
