@@ -1,0 +1,31 @@
+% The Kuramoto equation as a card, set in the Loudon Live type stack through fontspec (lualatex).
+% 2026-11-15 test of the LaTeX Specialist: Anton for the title, Cormorant Garamond for prose,
+% Manrope for the gloss, JetBrains Mono for the numbers, Latin Modern Math for the mathematics.
+% Colours: Drafting Table paper ground (_ops/drafting-table/design-system/colors_and_type.css).
+% Compile: bash make.sh   (lualatex, then PyMuPDF for the SVG). A maker who sets this better another way does so.
+\documentclass[border=14pt]{standalone}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{Cormorant Garamond}
+\newfontfamily\anton{Anton}
+\newfontfamily\manrope{Manrope}
+\setmonofont{JetBrains Mono}
+\setmathfont{Latin Modern Math}
+\usepackage{xcolor}
+\definecolor{paper}{HTML}{F0EEE5}\definecolor{ink}{HTML}{1A1916}
+\definecolor{ink3}{HTML}{6A6862}\definecolor{red}{HTML}{C8261A}
+\pagecolor{paper}\color{ink}
+\begin{document}
+\begin{minipage}{118mm}
+{\anton\fontsize{26}{28}\selectfont FIREFLIES FALLING INTO STEP}\par\vspace{6pt}
+{\large Each firefly keeps its own pace, and leans toward the crowd's.}\par\vspace{10pt}
+\[
+  \frac{d\theta_i}{dt} \;=\; \omega_i \;+\; \frac{K}{N}\sum_{j=1}^{N} \sin\!\left(\theta_j-\theta_i\right)
+  \qquad\qquad
+  r\,e^{i\psi} \;=\; \frac{1}{N}\sum_{j=1}^{N} e^{i\theta_j}
+\]
+\vspace{4pt}
+{\manrope\small\color{ink3} $\theta_i$ the phase of firefly $i$ \quad $\omega_i$ its own pace \quad $K$ how hard they pull \quad $r$ how in step}\par\vspace{8pt}
+{\ttfamily\footnotesize\color{red} N = 7 \quad K = 2 \quad r: 0.19 → 0.99 in 12 s}\par{\ttfamily\scriptsize\color{ink3} from the simulation in Shop/FLUX (Hugging Face)/proofs/2026-11-15-split-way}
+\end{minipage}
+\end{document}

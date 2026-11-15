@@ -1,0 +1,55 @@
+{
+ "helpers": "0.15.5",
+ "build123d": "0.13.0",
+ "seconds": 0.05,
+ "holes": [
+  {
+   "axis": "(0.0, 0.0, -1.0)",
+   "location": "(-33.0, -33.0, 8.0)",
+   "diameter": 4.5,
+   "depth": 8.0,
+   "bottom": "through",
+   "cbore": "None",
+   "spotface": "None"
+  },
+  {
+   "axis": "(0.0, 0.0, -1.0)",
+   "location": "(33.0, -33.0, 8.0)",
+   "diameter": 4.5,
+   "depth": 8.0,
+   "bottom": "through",
+   "cbore": "None",
+   "spotface": "None"
+  },
+  {
+   "axis": "(0.0, 0.0, -1.0)",
+   "location": "(-33.0, 33.0, 8.0)",
+   "diameter": 4.5,
+   "depth": 8.0,
+   "bottom": "through",
+   "cbore": "None",
+   "spotface": "None"
+  },
+  {
+   "axis": "(0.0, 0.0, -1.0)",
+   "location": "(0.0, 0.0, 8.0)",
+   "diameter": 16.0,
+   "depth": 8.0,
+   "bottom": "through",
+   "cbore": "None",
+   "spotface": "None"
+  },
+  {
+   "axis": "(0.0, 0.0, -1.0)",
+   "location": "(33.0, 33.0, 8.0)",
+   "diameter": 4.5,
+   "depth": 8.0,
+   "bottom": "through",
+   "cbore": "None",
+   "spotface": "None"
+  }
+ ],
+ "patterns": [
+  "BoltCircle(holes=(HoleFeature(axis=(0.0, 0.0, -1.0), location=(-33.0, -33.0, 8.0), diameter=4.5, depth=8.0, bottom='through', cbore=None, spotface=None), HoleFeature(axis=(0.0, 0.0, -1.0), location=(33.0, -33.0, 8.0), diameter=4.5, depth=8.0, bottom='through', cbore=None, spotface=None), HoleFeature(axis=(0.0, 0.0, -1.0), location=(-33.0, 33.0, 8.0), diameter=4.5, depth=8.0, bottom='through', cbore=None, spotface=None), HoleFeature(axis=(0.0, 0.0, -1.0), location=(33.0, 33.0, 8.0), diameter=4.5, depth=8.0, bottom='through', cbore=None, spotface=None)), center=(0.0, 0.0, 8.0), diameter=93.34)"
+ ]
+}

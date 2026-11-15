@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-15",
+  "blender": "5.1.2",
+  "mpfb": "2.0.17 (installed)",
+  "script": "pose_rig_mpfb_v3.py copied from 2026-11-14-card-check; run_probe.sh drives it",
+  "pose_json": "reach: spine03 [6,0,0], spine02 [4,0,0], upperleg01.L [-40,0,6], lowerleg01.L [55,0,0], foot.L [-14,0,0], upperleg01.R [22,0,-8], lowerleg01.R [18,0,0], foot.R [-8,0,0], upperarm01.R [0,0,-120], lowerarm01.R [-10,0,0], upperarm01.L [0,0,-30], lowerarm01.L [-40,0,0]",
+  "bodies": {
+    "reach_B_male": {
+      "gender": 1.0,
+      "age": 0.5,
+      "weight": 0.5,
+      "plates_sec": 10.84,
+      "openpose_sec": 2.52,
+      "keypoints_visible": "18/18"
+    },
+    "reach_female_older_heavier": {
+      "gender": 0.0,
+      "age": 0.875,
+      "weight": 0.85,
+      "plates_sec": 10.18,
+      "openpose_sec": 2.51,
+      "keypoints_visible": "18/18"
+    }
+  },
+  "attempt1": {
+    "what": "same pose with upperarm01.R [0,0,+120], following POSE_A's '+95 raises the right arm' pattern",
+    "result": "18/18 keypoints in view, but the right wrist landed at shoulder height and across the body (wrist y 0.371 vs shoulder y 0.345, normalized), so the arm swung forward, not up. Plates were deleted; keypoints and ink plates kept in attempt1/.",
+    "times_sec": {
+      "male": [
+        10.8,
+        3.35
+      ],
+      "female_older_heavier": [
+        10.27,
+        2.46
+      ]
+    }
+  },
+  "arm_sign_probe": {
+    "what": "upperarm01.R alone, male, three rotations; keypoints in arm_sign_probe/",
+    "wrist_vs_nose_y (smaller = higher)": {
+      "z -120": [
+        0.28207,
+        0.32365
+      ],
+      "x -120": [
+        0.34775,
+        0.25672
+      ],
+      "x +120": [
+        0.27168,
+        0.3037
+      ]
+    },
+    "reading": "on this rig, local Z -120 on upperarm01.R raises the right arm above the head; Z +120 swings it forward and across. POSE_A's right arm at Z +95 is labelled 'raised' in the script; whether A's arms actually rise was not checked"
+  },
+  "checked_by_script": "three plates per body, 18/18 keypoints in view; the arm direction was read from keypoint coordinates",
+  "not_checked": "whether the second body reads as older and heavier; no D2 redraw was run"
+}

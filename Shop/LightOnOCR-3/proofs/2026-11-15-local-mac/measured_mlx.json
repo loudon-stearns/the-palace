@@ -1,0 +1,19 @@
+{
+ "date": "2026-11-15",
+ "model": "lightonai/LightOnOCR-3-0.8B",
+ "backend": "mlx",
+ "device": "mlx-metal",
+ "machine": "Apple M1 Max, 32 GB",
+ "python": "3.12.13",
+ "prompt": "\"\" (transcribe mode)",
+ "decoding": "greedy, max_new_tokens 1024",
+ "load_s": 23.0,
+ "generate_s": 16.9,
+ "output_tokens": 230,
+ "cer": 0.0,
+ "ref_chars": 293,
+ "table_cells_found": 12,
+ "table_cells_total": 12,
+ "table_as_html": true,
+ "note": "CER on whitespace-normalised text with markdown/HTML markup stripped; first run includes weight download in load_s"
+}

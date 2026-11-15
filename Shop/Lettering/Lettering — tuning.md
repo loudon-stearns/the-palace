@@ -25,3 +25,8 @@ What each job taught the Lettering page. Opened on 2026-11-14 with the first run
 ## From the card check — 2026-11-14 — "NO", Study tier
 
 - run · 2026-11-14 · card check: shout-no ("NO"), skeleton, one seed, study · nothing new
+
+## From the long-text test — 2026-11-15 — "DON'T LET GO", the house route against Z-Image-Turbo
+
+1. **A model that spells free-hand wrote the phrase in a few seconds; the house route wrote it, and a misspelled ghost line with it.** *Owed a review: written by the shop-tests-image session outside a ledger review.* `proofs/2026-11-15-long-text/`, seed 1111, the BLUELINE style suffix. The house route (Bangers skeleton, canny-locked SDXL, Study tier, 36 steps) took 262 s on a fresh server and kept the letters, but drew them black on a grey smudged slab and added a small misspelled script line. Z-Image-Turbo (6B, Apache-2.0, 8 steps, https://docs.comfy.org/tutorials/image/z-image/z-image-turbo) through its free Space `Tongyi-MAI/Z-Image-Turbo`, no token sent, wrote all three words right in rough white brush on black, with no skeleton, in 11.7 s. Qwen-Image's Space, and a second Z-Image call with an eight-word sentence, were refused: the anonymous GPU quota was spent. One phrase is not a pattern. Locally Z-Image needs roughly 20 GB of weights (an estimate) and a ComfyUI newer than 0.22. Side effect: the skeleton upload left `_tools/ComfyUI/input/probe-dontletgo.png` in the main checkout, and ComfyUI's `output/` holds copies of the day's renders. Changed: nothing on the page; whether Lettering's route changes is Loudon's call after he sees the pair.
+- run · 2026-11-15 · long text, "DON'T LET GO", skeleton SDXL against Z-Image-Turbo, study · taught item 1

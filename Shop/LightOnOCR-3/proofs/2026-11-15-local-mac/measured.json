@@ -1,0 +1,52 @@
+{
+ "date": "2026-11-15",
+ "question": "Does lightonai/LightOnOCR-3-0.8B run locally on this Mac, free, no pod?",
+ "answer": "yes, both backends; mlx-vlm is the usable one",
+ "machine": "Apple M1 Max, 32 GB",
+ "venv": "throwaway uv venv, Python 3.12: transformers 5.23.0, torch 2.15.0, mlx-vlm 0.7.12",
+ "input": "page.png, 1240x1754, rendered by make_page.py (title, 3-line paragraph, 4x3 ruled table); truth in page_truth.json",
+ "mode": "transcribe (empty prompt) only; grounding mode not tried",
+ "runs": {
+  "transformers_mps": {
+   "date": "2026-11-15",
+   "model": "lightonai/LightOnOCR-3-0.8B",
+   "backend": "transformers",
+   "device": "mps",
+   "torch": "2.15.0",
+   "machine": "Apple M1 Max, 32 GB",
+   "python": "3.12.13",
+   "prompt": "\"\" (transcribe mode)",
+   "decoding": "greedy, max_new_tokens 1024",
+   "load_s": 179.1,
+   "generate_s": 481.0,
+   "output_tokens": 230,
+   "cer": 0.0,
+   "ref_chars": 293,
+   "table_cells_found": 12,
+   "table_cells_total": 12,
+   "table_as_html": true,
+   "note": "CER on whitespace-normalised text with markdown/HTML markup stripped; first run includes weight download in load_s"
+  },
+  "mlx_vlm": {
+   "date": "2026-11-15",
+   "model": "lightonai/LightOnOCR-3-0.8B",
+   "backend": "mlx",
+   "device": "mlx-metal",
+   "machine": "Apple M1 Max, 32 GB",
+   "python": "3.12.13",
+   "prompt": "\"\" (transcribe mode)",
+   "decoding": "greedy, max_new_tokens 1024",
+   "load_s": 23.0,
+   "generate_s": 16.9,
+   "output_tokens": 230,
+   "cer": 0.0,
+   "ref_chars": 293,
+   "table_cells_found": 12,
+   "table_cells_total": 12,
+   "table_as_html": true,
+   "note": "CER on whitespace-normalised text with markdown/HTML markup stripped; first run includes weight download in load_s"
+  }
+ },
+ "summary": "Both read the page exactly: CER 0.0 on 293 chars, 12/12 table cells, table as HTML. transformers on MPS took 481 s to generate 230 tokens (~2 s/token, unusable); mlx-vlm took 16.9 s for the same 230 tokens after a 23 s load from cache. transformers load_s includes the 1.7 GB first download.",
+ "caveat": "one clean synthetic page, one run each, not timed warm; says nothing about hard pages"
+}

@@ -1,0 +1,468 @@
+{
+  "date": "2026-11-15",
+  "configs": {
+    "mps": {
+      "flags": [
+        "--highvram",
+        "--use-split-cross-attention"
+      ],
+      "width": 768,
+      "height": 512,
+      "steps": 20,
+      "seed": 7,
+      "renders": [
+        {
+          "out": "mps-run1.png",
+          "sha256": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+          "render_time_sec": 56.2,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 57.4
+        },
+        {
+          "out": "mps-run2.png",
+          "sha256": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+          "render_time_sec": 76.8,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 77.0
+        },
+        {
+          "out": "mps-run3.png",
+          "sha256": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+          "render_time_sec": 47.7,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 47.8
+        }
+      ],
+      "server_up_sec": 20.4,
+      "pairs": [
+        {
+          "a": "mps-run1.png",
+          "b": "mps-run2.png",
+          "sha_equal": true,
+          "pixels_equal": true,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "pct_pixels_differing": 0.0
+        },
+        {
+          "a": "mps-run1.png",
+          "b": "mps-run3.png",
+          "sha_equal": true,
+          "pixels_equal": true,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "pct_pixels_differing": 0.0
+        },
+        {
+          "a": "mps-run2.png",
+          "b": "mps-run3.png",
+          "sha_equal": true,
+          "pixels_equal": true,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "pct_pixels_differing": 0.0
+        }
+      ]
+    },
+    "mps_det": {
+      "flags": [
+        "--highvram",
+        "--use-split-cross-attention",
+        "--deterministic"
+      ],
+      "width": 768,
+      "height": 512,
+      "steps": 20,
+      "seed": 7,
+      "renders": [
+        {
+          "out": "mps_det-run1.png",
+          "sha256": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+          "render_time_sec": 72.6,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 72.8
+        },
+        {
+          "out": "mps_det-run2.png",
+          "sha256": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+          "render_time_sec": 109.1,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 109.6
+        },
+        {
+          "out": "mps_det-run3.png",
+          "sha256": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+          "render_time_sec": 86.1,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 86.2
+        }
+      ],
+      "server_up_sec": 11.0,
+      "pairs": [
+        {
+          "a": "mps_det-run1.png",
+          "b": "mps_det-run2.png",
+          "sha_equal": true,
+          "pixels_equal": true,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "pct_pixels_differing": 0.0
+        },
+        {
+          "a": "mps_det-run1.png",
+          "b": "mps_det-run3.png",
+          "sha_equal": true,
+          "pixels_equal": true,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "pct_pixels_differing": 0.0
+        },
+        {
+          "a": "mps_det-run2.png",
+          "b": "mps_det-run3.png",
+          "sha_equal": true,
+          "pixels_equal": true,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "pct_pixels_differing": 0.0
+        }
+      ]
+    },
+    "mps_warm": {
+      "between_renders": "seed8",
+      "flags": [
+        "--highvram",
+        "--use-split-cross-attention"
+      ],
+      "width": 768,
+      "height": 512,
+      "steps": 20,
+      "seed": 7,
+      "renders": [
+        {
+          "out": "mps_warm-run1.png",
+          "sha256": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+          "render_time_sec": 78.7,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 78.8
+        },
+        {
+          "out": "mps_warm-run2.png",
+          "sha256": "42a3c0c63ddd66a68770b39830c7b5fe08a8844524a4e02dfa7ca87d63afd4f4",
+          "render_time_sec": 58.5,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 58.8
+        }
+      ],
+      "server_up_sec": 16.2,
+      "pairs": [
+        {
+          "a": "mps_warm-run1.png",
+          "b": "mps_warm-run2.png",
+          "sha_equal": false,
+          "pixels_equal": false,
+          "max_abs_diff": 63,
+          "mean_abs_diff": 0.6797,
+          "pct_pixels_differing": 75.56
+        }
+      ]
+    },
+    "mps_det_warm": {
+      "between_renders": "seed8",
+      "flags": [
+        "--highvram",
+        "--use-split-cross-attention",
+        "--deterministic"
+      ],
+      "width": 768,
+      "height": 512,
+      "steps": 20,
+      "seed": 7,
+      "renders": [
+        {
+          "out": "mps_det_warm-run1.png",
+          "sha256": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+          "render_time_sec": 62.4,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 62.5
+        },
+        {
+          "out": "mps_det_warm-run2.png",
+          "sha256": "42a3c0c63ddd66a68770b39830c7b5fe08a8844524a4e02dfa7ca87d63afd4f4",
+          "render_time_sec": 32.2,
+          "seed": 7,
+          "steps": 20,
+          "width": 768,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "mps",
+          "workflow_hash": "d30903e2f22288de",
+          "status": "ok",
+          "wall_sec": 32.4
+        }
+      ],
+      "server_up_sec": 10.0,
+      "pairs": [
+        {
+          "a": "mps_det_warm-run1.png",
+          "b": "mps_det_warm-run2.png",
+          "sha_equal": false,
+          "pixels_equal": false,
+          "max_abs_diff": 63,
+          "mean_abs_diff": 0.6797,
+          "pct_pixels_differing": 75.56
+        }
+      ]
+    },
+    "cpu": {
+      "between_renders": "free",
+      "flags": [
+        "--cpu",
+        "--deterministic"
+      ],
+      "width": 512,
+      "height": 512,
+      "steps": 6,
+      "seed": 7,
+      "renders": [
+        {
+          "out": "cpu-run1.png",
+          "sha256": "2daa6d5127ed876afeb42d0fe82c282d3314036e47f302080925d440a1487c6c",
+          "render_time_sec": 123.0,
+          "seed": 7,
+          "steps": 6,
+          "width": 512,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "cpu",
+          "workflow_hash": "a38bd7ade02f179e",
+          "status": "ok",
+          "wall_sec": 123.1
+        },
+        {
+          "out": "cpu-run2.png",
+          "sha256": "2daa6d5127ed876afeb42d0fe82c282d3314036e47f302080925d440a1487c6c",
+          "render_time_sec": 56.8,
+          "seed": 7,
+          "steps": 6,
+          "width": 512,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "cpu",
+          "workflow_hash": "a38bd7ade02f179e",
+          "status": "ok",
+          "wall_sec": 57.0
+        }
+      ],
+      "server_up_sec": 13.1,
+      "pairs": [
+        {
+          "a": "cpu-run1.png",
+          "b": "cpu-run2.png",
+          "sha_equal": true,
+          "pixels_equal": true,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "pct_pixels_differing": 0.0
+        }
+      ]
+    },
+    "cpu_warm": {
+      "between_renders": "seed8",
+      "flags": [
+        "--cpu",
+        "--deterministic"
+      ],
+      "width": 512,
+      "height": 512,
+      "steps": 6,
+      "seed": 7,
+      "renders": [
+        {
+          "out": "cpu_warm-run1.png",
+          "sha256": "2daa6d5127ed876afeb42d0fe82c282d3314036e47f302080925d440a1487c6c",
+          "render_time_sec": 71.0,
+          "seed": 7,
+          "steps": 6,
+          "width": 512,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "cpu",
+          "workflow_hash": "a38bd7ade02f179e",
+          "status": "ok",
+          "wall_sec": 71.1
+        },
+        {
+          "out": "cpu_warm-run2.png",
+          "sha256": "2daa6d5127ed876afeb42d0fe82c282d3314036e47f302080925d440a1487c6c",
+          "render_time_sec": 38.3,
+          "seed": 7,
+          "steps": 6,
+          "width": 512,
+          "height": 512,
+          "workflow": "/Users/loudonstearns/Documents/The Palace/.claude/worktrees/shop-tests-image-71a12f/Kuramoto Coupling/fireflies-pond-workflow.json",
+          "comfyui_version": "0.22.0",
+          "device": "cpu",
+          "workflow_hash": "a38bd7ade02f179e",
+          "status": "ok",
+          "wall_sec": 38.4
+        }
+      ],
+      "server_up_sec": 16.2,
+      "pairs": [
+        {
+          "a": "cpu_warm-run1.png",
+          "b": "cpu_warm-run2.png",
+          "sha_equal": true,
+          "pixels_equal": true,
+          "max_abs_diff": 0,
+          "mean_abs_diff": 0.0,
+          "pct_pixels_differing": 0.0
+        }
+      ]
+    }
+  },
+  "cross": [
+    {
+      "a": "mps-run1.png",
+      "b": "mps_det-run1.png",
+      "sha_equal": true,
+      "pixels_equal": true,
+      "max_abs_diff": 0,
+      "mean_abs_diff": 0.0,
+      "pct_pixels_differing": 0.0
+    }
+  ],
+  "png_sha256_all_renders": {
+    "cpu-run1.png": "2daa6d5127ed876afeb42d0fe82c282d3314036e47f302080925d440a1487c6c",
+    "cpu-run2.png": "2daa6d5127ed876afeb42d0fe82c282d3314036e47f302080925d440a1487c6c",
+    "cpu_warm-between-seed8.png": "d5ce6a705680d20b0f23ce3c6f5c9bfb8aecfd9cd83d3bbe57d61c278b71156e",
+    "cpu_warm-run1.png": "2daa6d5127ed876afeb42d0fe82c282d3314036e47f302080925d440a1487c6c",
+    "cpu_warm-run2.png": "2daa6d5127ed876afeb42d0fe82c282d3314036e47f302080925d440a1487c6c",
+    "mps-run1.png": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+    "mps-run2.png": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+    "mps-run3.png": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+    "mps_det-run1.png": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+    "mps_det-run2.png": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+    "mps_det-run3.png": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+    "mps_det_warm-between-seed8.png": "8bee7114b5dbb965eb5cf1ebcb28fe6c167ae6140eb9409a8c2921630910651f",
+    "mps_det_warm-run1.png": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+    "mps_det_warm-run2.png": "42a3c0c63ddd66a68770b39830c7b5fe08a8844524a4e02dfa7ca87d63afd4f4",
+    "mps_warm-between-seed8.png": "8bee7114b5dbb965eb5cf1ebcb28fe6c167ae6140eb9409a8c2921630910651f",
+    "mps_warm-run1.png": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+    "mps_warm-run2.png": "42a3c0c63ddd66a68770b39830c7b5fe08a8844524a4e02dfa7ca87d63afd4f4"
+  },
+  "pruned": {
+    "note": "byte-duplicate PNGs and the seed-8 in-between renders were deleted after hashing to keep the folder small; every hash is in png_sha256_all_renders and each config's renders list",
+    "deleted": [
+      "cpu-run2.png",
+      "cpu_warm-between-seed8.png",
+      "cpu_warm-run1.png",
+      "mps-run2.png",
+      "mps_det-run2.png",
+      "mps_det-run3.png",
+      "mps_det_warm-between-seed8.png",
+      "mps_det_warm-run1.png",
+      "mps_det_warm-run2.png",
+      "mps_warm-between-seed8.png",
+      "mps_warm-run1.png"
+    ]
+  },
+  "cross_day": {
+    "2026-11-14 card-check fireflies-small-a.png (first render in a fresh server)": "5d27a1ce1a5b021e6644a065bc9d096df795c94d0194baafe905b227c46e04df",
+    "2026-11-14 card-check fireflies-small-c.png (seed 7 after a seed-8 render, model warm)": "42a3c0c63ddd66a68770b39830c7b5fe08a8844524a4e02dfa7ca87d63afd4f4",
+    "matches": "every 2026-11-15 fresh-model MPS render (mps, mps_det, run1 of both warm configs) has sha 5d27a1ce..., byte-identical to 2026-11-14 render a; both 2026-11-15 warm reruns have sha 42a3c0c6..., byte-identical to 2026-11-14 render c"
+  },
+  "summary": {
+    "byte_identical": [
+      "MPS, fresh model per render (node cache cleared, checkpoint reloaded): 3/3 identical, with or without --deterministic, and identical across server restarts and across days (2026-11-14 to 2026-11-15)",
+      "CPU (--cpu, 512x512, 6 steps): identical fresh and warm, across two server lifetimes"
+    ],
+    "not_byte_identical": [
+      "MPS, warm model: seed 7 rendered again after a seed-8 render in the same server lifetime differs from the first seed-7 render (75.56% of pixels, max 63 levels, mean 0.68). It is itself reproducible: the same history gives the same bytes (matches 2026-11-14)."
+    ],
+    "deterministic_flag": "--deterministic made no byte difference on MPS in either pattern (same sha as without it)",
+    "untested": [
+      "a third warm render",
+      "other models, samplers, ControlNet graphs",
+      "a CUDA host",
+      "other torch/macOS versions (torch 2.12.0, macOS 26.6 / Darwin 25.6.0, Apple M1 Max 32 GB)"
+    ]
+  }
+}
