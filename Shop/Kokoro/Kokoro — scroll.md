@@ -51,6 +51,33 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="test-2026-11-15-beats-teaching-clip" -->
+### 2026-11-15 — Beats: a teaching clip made by three Specialists, each for what it does best
+
+Seventeen seconds. Manim draws the mathematics: two waves a little apart in pitch (2.00 and 2.25 Hz), their sum swelling and fading inside a dashed envelope, a brace over one beat, then the identity that explains it. Kokoro reads one sentence in af_heart: *"Add two waves a little apart in pitch, and their sum swells and fades: it beats exactly as often as their frequencies differ."* ffmpeg joins them at the house loudness. Nobody has watched or heard it.
+
+**The seams, named.**
+- *Kokoro → Manim: the narration is the clock.* Kokoro hands back its own word timings, and every Manim cue is read from them (`cue("sum")`, `cue("swells")`…), so a new sentence re-times the drawing with no hand edits. No Whisper pass: these are the timings Kokoro planned, not measured ones. Measured afterwards on the joined file, the voice starts at 1.51 s; planned was 1.2 s of lead plus Kokoro's own 0.31 s breath before "Add". The seam held.
+- *Manim → ffmpeg: a silent render, copied untouched.* 1920×1080, 30 fps, 17.000 s, the video stream copied, not re-encoded.
+- *Kokoro → ffmpeg: loudness once, at the end.* Kokoro's raw 24 kHz read (−25.5 LUFS) is delayed 1.2 s, padded to the video's length, resampled to 48 kHz, and two-pass loudnormed **on the joined track**, not per Specialist, so nothing is normalized twice: −16.1 LUFS, −1.0 dBTP, both inside the house's numbers.
+- *A trap at the Manim seam.* Manim's `-qh` renders 1080p at **60** fps, not the 30 its card says; the clip is rendered `-qh --frame_rate 30`. Owed a review on [[Manim CE — tuning]].
+
+**Measured.** Kokoro: 6.0 s to load, 1.3 s to read 8.25 s of speech. Manim at Study (1080p30, TeX warm): 21 s for 17 s of video. ffmpeg: 0.6 s to measure, 0.9 s to apply and mux. Load average on the machine was near 100 on 10 cores: other sessions were rendering, so the times are upper bounds.
+
+**A question for your eye and ear.** Watch it with the sound on: does each wave arrive on its word ("two waves", "sum", "swells"), or does the drawing feel early or late against the voice?
+
+**Artifacts:**
+- [the clip, 1080p30, with the voice](Shop/Manim CE/proofs/2026-11-15-beats-teaching-clip/beats-teaching-clip.mp4)
+- [the same clip at 4K60, Manim's first](Shop/Manim CE/proofs/2026-11-15-4k60/beats-teaching-clip-2160p60.mp4)
+- [Manim's scene, cued from Kokoro's timings](Shop/Manim CE/proofs/2026-11-15-beats-teaching-clip/beats.py)
+- [Kokoro's read, and its word timings](Shop/Manim CE/proofs/2026-11-15-beats-teaching-clip/narrate.py)
+- [the word timings](Shop/Manim CE/proofs/2026-11-15-beats-teaching-clip/narration.json)
+- [ffmpeg's join](Shop/Manim CE/proofs/2026-11-15-beats-teaching-clip/join.sh)
+- [what the join measured](Shop/Manim CE/proofs/2026-11-15-beats-teaching-clip/join-report.json)
+
+<sub>Shop crossing, 2026-11-15 · Manim CE 0.20.1 (Study, 1080p30) · Kokoro af_heart, its card-check script copied with TEXT and VOICE changed, plus its word timings kept · ffmpeg 8.1 · made by the shop-tests-motion session; the same section stands on Manim CE's and ffmpeg's scrolls</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-14aa07d823" -->
 ### 2026-11-15 — RNBO three ways and a determinism check (`proofs/2026-11-15-rnbo-three-ways/rnbo.py`), af_bella, study · taught items 11–12
 
