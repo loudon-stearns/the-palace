@@ -1,0 +1,56 @@
+{
+  "made": "2026-11-15",
+  "ffmpeg": "8.1 (Homebrew)",
+  "host": "M1 Max, 10 cores",
+  "source": "beats-silent-1080p30.mp4 (Manim 0.20.1, 17 s)",
+  "encoders": [
+    {
+      "encoder": "x264-crf23",
+      "sec": 2.69,
+      "rc": "0",
+      "bytes": 542089,
+      "vmaf": 96.671532,
+      "ssim": 0.999093,
+      "byte_identical_rerun": "yes",
+      "load_1min_at_start": "98.88",
+      "kbps": 255,
+      "x_realtime": 6.3
+    },
+    {
+      "encoder": "svtav1-crf35",
+      "sec": 3.26,
+      "rc": "0",
+      "bytes": 728048,
+      "vmaf": 97.01931,
+      "ssim": 0.999481,
+      "byte_identical_rerun": "yes",
+      "load_1min_at_start": "69.46",
+      "kbps": 343,
+      "x_realtime": 5.2
+    },
+    {
+      "encoder": "h264-vt-q60",
+      "sec": 1.74,
+      "rc": "0",
+      "bytes": 2445479,
+      "vmaf": 95.288815,
+      "ssim": 0.997802,
+      "byte_identical_rerun": "no",
+      "load_1min_at_start": "63.64",
+      "kbps": 1151,
+      "x_realtime": 9.8
+    },
+    {
+      "encoder": "hevc-vt-q60",
+      "sec": 2.03,
+      "rc": "0",
+      "bytes": 1828443,
+      "vmaf": 94.265773,
+      "ssim": 0.997971,
+      "byte_identical_rerun": "no",
+      "load_1min_at_start": "83.44",
+      "kbps": 860,
+      "x_realtime": 8.4
+    }
+  ]
+}

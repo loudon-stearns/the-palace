@@ -1,6 +1,19 @@
 {
   "made_for": "Hand against Shop — SUBSTRATE's bed and four of its cues. The hand's are the ones in the hook; the Shop's follow Loudon's split: what would have been recorded is generated, one thing at a time, then cut by hand.",
+  "headline": "SUBSTRATE's sounds, twice: the hand against the Shop",
+  "question": "whether the bed's loop seam can be heard (a 4 s crossfade), and whether each cue reads as what it is named: is the step a step at 0.22 s, does the knock read as glass, the thud as earth, the scatter as sand? Each cue was chosen as the take whose start stands furthest above what came before it, a rule that once picked a click for a bell.",
+  "notes": "Each Shop sound is cut by hand to the hook's own length and peak level, so a pair differs only in what the sound is made of.",
   "tier": "sketch",
+  "artifacts": [
+    {
+      "path": "listen.html",
+      "caption": "all five pairs on one page, playable"
+    },
+    {
+      "path": "takes.json",
+      "caption": "every seed's numbers"
+    }
+  ],
   "jobs": [
     {
       "name": "hand-bed",
@@ -18,7 +31,8 @@
       "inputs": [
         "hand.mjs"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "bed, the hand's"
     },
     {
       "name": "hand-step",
@@ -36,7 +50,8 @@
       "inputs": [
         "hand.mjs"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "step, the hand's"
     },
     {
       "name": "hand-glass",
@@ -54,7 +69,8 @@
       "inputs": [
         "hand.mjs"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "glass, the hand's"
     },
     {
       "name": "hand-ground",
@@ -72,7 +88,8 @@
       "inputs": [
         "hand.mjs"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "ground, the hand's"
     },
     {
       "name": "hand-grains",
@@ -90,7 +107,8 @@
       "inputs": [
         "hand.mjs"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "grains, the hand's"
     },
     {
       "name": "shop-bed",
@@ -110,7 +128,8 @@
         "make.py",
         "substrate-sounds — hand — bed.m4a"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "bed, through the Shop"
     },
     {
       "name": "shop-step",
@@ -130,7 +149,8 @@
         "make.py",
         "substrate-sounds — hand — step.m4a"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "step, through the Shop"
     },
     {
       "name": "shop-glass",
@@ -150,7 +170,8 @@
         "make.py",
         "substrate-sounds — hand — glass.m4a"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "glass, through the Shop"
     },
     {
       "name": "shop-ground",
@@ -170,7 +191,8 @@
         "make.py",
         "substrate-sounds — hand — ground.m4a"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "ground, through the Shop"
     },
     {
       "name": "shop-grains",
@@ -190,7 +212,8 @@
         "make.py",
         "substrate-sounds — hand — grains.m4a"
       ],
-      "heard_by": null
+      "heard_by": null,
+      "caption": "grains, through the Shop"
     }
   ]
 }

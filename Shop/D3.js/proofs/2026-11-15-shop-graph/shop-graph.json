@@ -1,0 +1,2132 @@
+{
+ "about": "The Shop pages and their typed frontmatter links, read by extract.mjs on the date below. A node is a page; an edge is one link in a page's frontmatter, typed as the page typed it.",
+ "extracted": "2026-11-15",
+ "from": "Shop/*.md frontmatter `links:`",
+ "counts": {
+  "pages": 39,
+  "nodes": 111,
+  "links": 266
+ },
+ "nodes": [
+  {
+   "id": "Ableton Session Writer",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "sound"
+  },
+  {
+   "id": "The Shop",
+   "kind": "outside"
+  },
+  {
+   "id": "Maker",
+   "kind": "shop",
+   "status": "alive",
+   "medium": null
+  },
+  {
+   "id": "VST Template",
+   "kind": "outside"
+  },
+  {
+   "id": "Generative Sample Libraries",
+   "kind": "outside"
+  },
+  {
+   "id": "Audition Gate",
+   "kind": "outside"
+  },
+  {
+   "id": "Adopt the Craft, Author the Seam",
+   "kind": "outside"
+  },
+  {
+   "id": "Search Before You Build",
+   "kind": "outside"
+  },
+  {
+   "id": "Generative Preset Development",
+   "kind": "outside"
+  },
+  {
+   "id": "VCV Patch Generator",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "sound"
+  },
+  {
+   "id": "AuK",
+   "kind": "specialist",
+   "status": "stub",
+   "medium": "sound"
+  },
+  {
+   "id": "Kokoro",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "sound"
+  },
+  {
+   "id": "Whisper",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "sound"
+  },
+  {
+   "id": "ffmpeg",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "plumbing"
+  },
+  {
+   "id": "Blender",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "image"
+  },
+  {
+   "id": "ComfyUI",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "image"
+  },
+  {
+   "id": "Three.js",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "interactive"
+  },
+  {
+   "id": "toyxyz-conditioning-recipe",
+   "kind": "outside"
+  },
+  {
+   "id": "CAD Drafter",
+   "kind": "specialist",
+   "status": "stub",
+   "medium": "other"
+  },
+  {
+   "id": "Haptic Handwheel",
+   "kind": "outside"
+  },
+  {
+   "id": "Technical Diagram Standard",
+   "kind": "outside"
+  },
+  {
+   "id": "Kuramoto Coupling",
+   "kind": "outside"
+  },
+  {
+   "id": "Loudon Live",
+   "kind": "outside"
+  },
+  {
+   "id": "Loudon Live Design System",
+   "kind": "outside"
+  },
+  {
+   "id": "Frame Designer",
+   "kind": "shop",
+   "status": "alive",
+   "medium": null
+  },
+  {
+   "id": "D3.js",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "interactive"
+  },
+  {
+   "id": "Flocking",
+   "kind": "outside"
+  },
+  {
+   "id": "Matplotlib",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "image"
+  },
+  {
+   "id": "p5.js",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "interactive"
+  },
+  {
+   "id": "Depth Anything",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "other"
+  },
+  {
+   "id": "Animate the Background",
+   "kind": "outside"
+  },
+  {
+   "id": "LaMa",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "other"
+  },
+  {
+   "id": "FLUX (Hugging Face)",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "image"
+  },
+  {
+   "id": "shop-header — Maker's Comparison Recommendation",
+   "kind": "outside"
+  },
+  {
+   "id": "Figure Rig",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "image"
+  },
+  {
+   "id": "Hand-Drawn 3D Look",
+   "kind": "outside"
+  },
+  {
+   "id": "Blocked, Not Prompted",
+   "kind": "outside"
+  },
+  {
+   "id": "BLUELINE",
+   "kind": "outside"
+  },
+  {
+   "id": "ControlNet as Topology",
+   "kind": "outside"
+  },
+  {
+   "id": "GenAI Camera",
+   "kind": "outside"
+  },
+  {
+   "id": "BLUELINE — Board Record Schema",
+   "kind": "outside"
+  },
+  {
+   "id": "BLUELINE — Production Pipeline",
+   "kind": "outside"
+  },
+  {
+   "id": "Graphic Storytelling",
+   "kind": "outside"
+  },
+  {
+   "id": "Comic and Cinema — Two Ways of Seeing",
+   "kind": "outside"
+  },
+  {
+   "id": "The 2.5D Paper Stack",
+   "kind": "outside"
+  },
+  {
+   "id": "assume multi-agent",
+   "kind": "outside"
+  },
+  {
+   "id": "The Commons",
+   "kind": "outside"
+  },
+  {
+   "id": "Block It in Blender, Ink It in genAI",
+   "kind": "outside"
+  },
+  {
+   "id": "Steer the Generator",
+   "kind": "outside"
+  },
+  {
+   "id": "Remnants in Depth",
+   "kind": "outside"
+  },
+  {
+   "id": "Hero and Avatar Maker",
+   "kind": "shop",
+   "status": "alive",
+   "medium": "image"
+  },
+  {
+   "id": "RunPod GPU Backend",
+   "kind": "shop",
+   "status": null,
+   "medium": null
+  },
+  {
+   "id": "STIGMERGY",
+   "kind": "outside"
+  },
+  {
+   "id": "Enrichment",
+   "kind": "outside"
+  },
+  {
+   "id": "Retrospective Delay",
+   "kind": "outside"
+  },
+  {
+   "id": "Loudon's Toolkit",
+   "kind": "outside"
+  },
+  {
+   "id": "Image-to-3D Smith",
+   "kind": "specialist",
+   "status": "stub",
+   "medium": "image"
+  },
+  {
+   "id": "SAM",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "other"
+  },
+  {
+   "id": "Pauline Oliveros",
+   "kind": "outside"
+  },
+  {
+   "id": "LaTeX",
+   "kind": "specialist",
+   "status": "stub",
+   "medium": "other"
+  },
+  {
+   "id": "Manim CE",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "motion"
+  },
+  {
+   "id": "Lettering",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "image"
+  },
+  {
+   "id": "Typography as Meaning",
+   "kind": "outside"
+  },
+  {
+   "id": "BLUELINE — Text Layer",
+   "kind": "outside"
+  },
+  {
+   "id": "LightOnOCR-3",
+   "kind": "specialist",
+   "status": "stub",
+   "medium": "other"
+  },
+  {
+   "id": "LoRA Trainer",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "image"
+  },
+  {
+   "id": "Capability-first prototyping",
+   "kind": "outside"
+  },
+  {
+   "id": "Review Layer",
+   "kind": "outside"
+  },
+  {
+   "id": "The Practice Rediscovers Its Philosophy",
+   "kind": "outside"
+  },
+  {
+   "id": "Loudon Live Post-producer",
+   "kind": "shop",
+   "status": "stub",
+   "medium": null
+  },
+  {
+   "id": "Quality Manifesto",
+   "kind": "outside"
+  },
+  {
+   "id": "Leverage Points Framework",
+   "kind": "outside"
+  },
+  {
+   "id": "Loudon Live Post-producer — Log",
+   "kind": "outside"
+  },
+  {
+   "id": "OBS",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "motion"
+  },
+  {
+   "id": "Trickster",
+   "kind": "outside"
+  },
+  {
+   "id": "Lateral Access",
+   "kind": "outside"
+  },
+  {
+   "id": "Radio Play",
+   "kind": "outside"
+  },
+  {
+   "id": "Waveguide Synthesizer",
+   "kind": "outside"
+  },
+  {
+   "id": "Diversity of Thought in Many-Agent Systems",
+   "kind": "outside"
+  },
+  {
+   "id": "Modes of Collaboration",
+   "kind": "outside"
+  },
+  {
+   "id": "Murmuration",
+   "kind": "outside"
+  },
+  {
+   "id": "Maker — Context",
+   "kind": "outside"
+  },
+  {
+   "id": "Frequency-Time Duality",
+   "kind": "outside"
+  },
+  {
+   "id": "Manim CE — Context",
+   "kind": "outside"
+  },
+  {
+   "id": "Plotly",
+   "kind": "outside"
+  },
+  {
+   "id": "Mermaid",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "image"
+  },
+  {
+   "id": "Graphviz",
+   "kind": "outside"
+  },
+  {
+   "id": "LDN RTM",
+   "kind": "outside"
+  },
+  {
+   "id": "Closing Well",
+   "kind": "outside"
+  },
+  {
+   "id": "Observable Plot",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "interactive"
+  },
+  {
+   "id": "RNBO codebox~ smith",
+   "kind": "specialist",
+   "status": "stub",
+   "medium": "sound"
+  },
+  {
+   "id": "Generative Audio Devices",
+   "kind": "outside"
+  },
+  {
+   "id": "Remotion",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "motion"
+  },
+  {
+   "id": "Rich-face Kit",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "interactive"
+  },
+  {
+   "id": "Web Audio Worklet",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "interactive"
+  },
+  {
+   "id": "Tone.js",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "interactive"
+  },
+  {
+   "id": "The Scroll",
+   "kind": "outside"
+  },
+  {
+   "id": "Shopkeeper",
+   "kind": "shop",
+   "status": "alive",
+   "medium": null
+  },
+  {
+   "id": "Palace Enchantment",
+   "kind": "outside"
+  },
+  {
+   "id": "Project Stewardship System",
+   "kind": "outside"
+  },
+  {
+   "id": "Stable Audio Open",
+   "kind": "specialist",
+   "status": "alive",
+   "medium": "sound"
+  },
+  {
+   "id": "1D Wavetable Scanning",
+   "kind": "outside"
+  },
+  {
+   "id": "Particle Synthesis",
+   "kind": "outside"
+  },
+  {
+   "id": "Shimmer Cloud",
+   "kind": "outside"
+  },
+  {
+   "id": "Lossy Compression with Intent Alignment",
+   "kind": "outside"
+  },
+  {
+   "id": "VCV Patch Generator — spec — PDL generation prompt",
+   "kind": "outside"
+  },
+  {
+   "id": "Registry Pattern",
+   "kind": "outside"
+  },
+  {
+   "id": "2D Torus Wavetable Synthesizer",
+   "kind": "outside"
+  },
+  {
+   "id": "Zoom Out to the Structure",
+   "kind": "outside"
+  },
+  {
+   "id": "Endosymbiosis",
+   "kind": "outside"
+  },
+  {
+   "id": "Playful Interface Design",
+   "kind": "outside"
+  }
+ ],
+ "links": [
+  {
+   "source": "Ableton Session Writer",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Ableton Session Writer",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Ableton Session Writer",
+   "target": "VST Template",
+   "type": "connects-to",
+   "label": "hands-me-plugins"
+  },
+  {
+   "source": "Ableton Session Writer",
+   "target": "Generative Sample Libraries",
+   "type": "connects-to",
+   "label": "hands-me-libraries"
+  },
+  {
+   "source": "Ableton Session Writer",
+   "target": "Audition Gate",
+   "type": "exemplifies",
+   "label": "proves-structure-not-sound"
+  },
+  {
+   "source": "Ableton Session Writer",
+   "target": "Adopt the Craft, Author the Seam",
+   "type": "exemplifies",
+   "label": "craft-from-gobutton"
+  },
+  {
+   "source": "Ableton Session Writer",
+   "target": "Search Before You Build",
+   "type": "connects-to",
+   "label": "prior-art-pass-first"
+  },
+  {
+   "source": "Ableton Session Writer",
+   "target": "Generative Preset Development",
+   "type": "connects-to",
+   "label": "earlier-live-xml-seam"
+  },
+  {
+   "source": "Ableton Session Writer",
+   "target": "VCV Patch Generator",
+   "type": "mirrors",
+   "label": "emits-a-host-file"
+  },
+  {
+   "source": "AuK",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "AuK",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "AuK",
+   "target": "Kokoro",
+   "type": "couples-with",
+   "label": "makes-the-line-I-fix"
+  },
+  {
+   "source": "AuK",
+   "target": "Whisper",
+   "type": "couples-with",
+   "label": "checks-my-word-swaps"
+  },
+  {
+   "source": "AuK",
+   "target": "ffmpeg",
+   "type": "couples-with",
+   "label": "post-chain"
+  },
+  {
+   "source": "Blender",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Blender",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Blender",
+   "target": "ComfyUI",
+   "type": "enables",
+   "label": "feeds"
+  },
+  {
+   "source": "Blender",
+   "target": "Three.js",
+   "type": "connects-to",
+   "label": "complement-to"
+  },
+  {
+   "source": "Blender",
+   "target": "toyxyz-conditioning-recipe",
+   "type": "connects-to",
+   "label": "recipe"
+  },
+  {
+   "source": "CAD Drafter",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "CAD Drafter",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "CAD Drafter",
+   "target": "Haptic Handwheel",
+   "type": "connects-to",
+   "label": "first-job-for"
+  },
+  {
+   "source": "CAD Drafter",
+   "target": "Blender",
+   "type": "couples-with",
+   "label": "renders-what-I-dimension"
+  },
+  {
+   "source": "CAD Drafter",
+   "target": "Technical Diagram Standard",
+   "type": "connects-to",
+   "label": "same-text-first-test"
+  },
+  {
+   "source": "ComfyUI",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "ComfyUI",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "ComfyUI",
+   "target": "Kuramoto Coupling",
+   "type": "connects-to",
+   "label": "first-brief"
+  },
+  {
+   "source": "ComfyUI",
+   "target": "Loudon Live",
+   "type": "enables",
+   "label": "image-engine"
+  },
+  {
+   "source": "ComfyUI",
+   "target": "Loudon Live Design System",
+   "type": "enables",
+   "label": "renders-the-lesson-art"
+  },
+  {
+   "source": "ComfyUI",
+   "target": "Frame Designer",
+   "type": "connects-to",
+   "label": "render-backend"
+  },
+  {
+   "source": "D3.js",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "D3.js",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "D3.js",
+   "target": "Flocking",
+   "type": "connects-to",
+   "label": "first-job"
+  },
+  {
+   "source": "D3.js",
+   "target": "Matplotlib",
+   "type": "contrasts-with",
+   "label": "interactive-vs-static"
+  },
+  {
+   "source": "D3.js",
+   "target": "p5.js",
+   "type": "contrasts-with",
+   "label": "control-vs-expression"
+  },
+  {
+   "source": "Depth Anything",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Depth Anything",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Depth Anything",
+   "target": "Animate the Background",
+   "type": "connects-to",
+   "label": "the-surprise-win"
+  },
+  {
+   "source": "Depth Anything",
+   "target": "LaMa",
+   "type": "connects-to",
+   "label": "fills-what-i-cannot-see"
+  },
+  {
+   "source": "FLUX (Hugging Face)",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "FLUX (Hugging Face)",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "FLUX (Hugging Face)",
+   "target": "shop-header — Maker's Comparison Recommendation",
+   "type": "connects-to",
+   "label": "founding-job"
+  },
+  {
+   "source": "FLUX (Hugging Face)",
+   "target": "Loudon Live",
+   "type": "enables",
+   "label": "header-painter"
+  },
+  {
+   "source": "FLUX (Hugging Face)",
+   "target": "Loudon Live Design System",
+   "type": "enables",
+   "label": "artifact-substrate"
+  },
+  {
+   "source": "FLUX (Hugging Face)",
+   "target": "ComfyUI",
+   "type": "connects-to",
+   "label": "comparison-mode-pair"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "Blender",
+   "type": "connects-to",
+   "label": "built-on"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "ComfyUI",
+   "type": "enables",
+   "label": "feeds-the-redraw"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "Hand-Drawn 3D Look",
+   "type": "couples-with",
+   "label": "figure-staging"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "Blocked, Not Prompted",
+   "type": "exemplifies",
+   "label": "author-the-geometry"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "BLUELINE",
+   "type": "connects-to",
+   "label": "commissioned-by"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "ControlNet as Topology",
+   "type": "exemplifies",
+   "label": "armature-in-the-flesh"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "GenAI Camera",
+   "type": "connects-to",
+   "label": "org-bone-projection"
+  },
+  {
+   "source": "Figure Rig",
+   "target": "Frame Designer",
+   "type": "connects-to",
+   "label": "figure-staging-method"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "designer-split"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "frame-designer"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "BLUELINE",
+   "type": "emerged-from",
+   "label": "proving-ground"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "BLUELINE — Board Record Schema",
+   "type": "connects-to",
+   "label": "spine"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Blocked, Not Prompted",
+   "type": "connects-to",
+   "label": "applies"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Adopt the Craft, Author the Seam",
+   "type": "exemplifies",
+   "label": "comp-as-craft"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "BLUELINE — Production Pipeline",
+   "type": "connects-to",
+   "label": "realizes-stages-4-5"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Graphic Storytelling",
+   "type": "deepens",
+   "label": "applies-the-craft"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Comic and Cinema — Two Ways of Seeing",
+   "type": "exemplifies",
+   "label": "stages-the-seam"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "The 2.5D Paper Stack",
+   "type": "emerged-from",
+   "label": "born-from-the-stack"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "assume multi-agent",
+   "type": "connects-to",
+   "label": "scoped-cleanup"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "The Commons",
+   "type": "connects-to",
+   "label": "provisioning"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Block It in Blender, Ink It in genAI",
+   "type": "connects-to",
+   "label": "staging-runbook"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Steer the Generator",
+   "type": "exemplifies",
+   "label": "render-discipline"
+  },
+  {
+   "source": "Frame Designer",
+   "target": "Remnants in Depth",
+   "type": "connects-to",
+   "label": "ink-that-moves-with-the-camera"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "hero+avatar line"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "Maker",
+   "type": "couples-with",
+   "label": "Sketch-tier dispatch"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "RunPod GPU Backend",
+   "type": "connects-to",
+   "label": "render substrate"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "FLUX (Hugging Face)",
+   "type": "connects-to",
+   "label": "diffusion idiom"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "ComfyUI",
+   "type": "connects-to",
+   "label": "controlled/local path"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "STIGMERGY",
+   "type": "connects-to",
+   "label": "display + request door"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "Enrichment",
+   "type": "couples-with",
+   "label": "uniform-enrichment cousin"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "Retrospective Delay",
+   "type": "connects-to",
+   "label": "proving-subject"
+  },
+  {
+   "source": "Hero and Avatar Maker",
+   "target": "Loudon's Toolkit",
+   "type": "connects-to",
+   "label": "cautionary-subject"
+  },
+  {
+   "source": "Image-to-3D Smith",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "asset-creation-lane"
+  },
+  {
+   "source": "Image-to-3D Smith",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "dispatched-by"
+  },
+  {
+   "source": "Image-to-3D Smith",
+   "target": "Three.js",
+   "type": "enables",
+   "label": "feeds-display"
+  },
+  {
+   "source": "Image-to-3D Smith",
+   "target": "Blender",
+   "type": "enables",
+   "label": "feeds-finishing"
+  },
+  {
+   "source": "Image-to-3D Smith",
+   "target": "FLUX (Hugging Face)",
+   "type": "connects-to",
+   "label": "image-source-upstream"
+  },
+  {
+   "source": "Image-to-3D Smith",
+   "target": "CAD Drafter",
+   "type": "contrasts-with",
+   "label": "plausible-vs-measured"
+  },
+  {
+   "source": "Kokoro",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Kokoro",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Kokoro",
+   "target": "Kuramoto Coupling",
+   "type": "connects-to",
+   "label": "phoneme-tested-on"
+  },
+  {
+   "source": "Kokoro",
+   "target": "ffmpeg",
+   "type": "couples-with",
+   "label": "post-chain"
+  },
+  {
+   "source": "Kokoro",
+   "target": "Loudon Live",
+   "type": "enables",
+   "label": "voices"
+  },
+  {
+   "source": "Kokoro",
+   "target": "Loudon Live Design System",
+   "type": "enables",
+   "label": "the-lesson-voice"
+  },
+  {
+   "source": "LaMa",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "LaMa",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "LaMa",
+   "target": "Animate the Background",
+   "type": "connects-to",
+   "label": "fills-the-extracted-hole"
+  },
+  {
+   "source": "LaMa",
+   "target": "SAM",
+   "type": "connects-to",
+   "label": "consumes-its-mask"
+  },
+  {
+   "source": "LaMa",
+   "target": "Pauline Oliveros",
+   "type": "contradicts",
+   "label": "fill-the-silence-vs-listen-to-it"
+  },
+  {
+   "source": "LaTeX",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "LaTeX",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "LaTeX",
+   "target": "Manim CE",
+   "type": "couples-with",
+   "label": "shares-tex-pipeline-with"
+  },
+  {
+   "source": "LaTeX",
+   "target": "Matplotlib",
+   "type": "enables",
+   "label": "underpins"
+  },
+  {
+   "source": "Lettering",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": null
+  },
+  {
+   "source": "Lettering",
+   "target": "BLUELINE",
+   "type": "emerged-from",
+   "label": "proving-ground"
+  },
+  {
+   "source": "Lettering",
+   "target": "Frame Designer",
+   "type": "connects-to",
+   "label": "letters-what-it-draws"
+  },
+  {
+   "source": "Lettering",
+   "target": "Typography as Meaning",
+   "type": "exemplifies",
+   "label": null
+  },
+  {
+   "source": "Lettering",
+   "target": "Blocked, Not Prompted",
+   "type": "exemplifies",
+   "label": "for-text"
+  },
+  {
+   "source": "Lettering",
+   "target": "BLUELINE — Text Layer",
+   "type": "connects-to",
+   "label": "the-spec"
+  },
+  {
+   "source": "Lettering",
+   "target": "Steer the Generator",
+   "type": "exemplifies",
+   "label": "control-not-prompt"
+  },
+  {
+   "source": "Lettering",
+   "target": "Graphic Storytelling",
+   "type": "enables",
+   "label": "letters-the-voices"
+  },
+  {
+   "source": "Lettering",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "LightOnOCR-3",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "LightOnOCR-3",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "LightOnOCR-3",
+   "target": "RunPod GPU Backend",
+   "type": "connects-to",
+   "label": "runs-on"
+  },
+  {
+   "source": "LoRA Trainer",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "LoRA Trainer",
+   "target": "BLUELINE",
+   "type": "connects-to",
+   "label": "track-II-trainer"
+  },
+  {
+   "source": "LoRA Trainer",
+   "target": "Capability-first prototyping",
+   "type": "exemplifies",
+   "label": "prove-then-optimize"
+  },
+  {
+   "source": "LoRA Trainer",
+   "target": "Review Layer",
+   "type": "connects-to",
+   "label": "in-context-rating"
+  },
+  {
+   "source": "LoRA Trainer",
+   "target": "The Practice Rediscovers Its Philosophy",
+   "type": "connects-to",
+   "label": "authored-passivity"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "Quality Manifesto",
+   "type": "exemplifies",
+   "label": "protect-peace"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "Leverage Points Framework",
+   "type": "exemplifies",
+   "label": "leverage-applied"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "dispatches-through"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "Loudon Live",
+   "type": "connects-to",
+   "label": "serves-the-stream"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "producer-layer"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "Loudon Live Post-producer — Log",
+   "type": "connects-to",
+   "label": "apprenticeship-ledger"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "Whisper",
+   "type": "connects-to",
+   "label": "transcript-engine"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "ffmpeg",
+   "type": "connects-to",
+   "label": "cut-and-normalize"
+  },
+  {
+   "source": "Loudon Live Post-producer",
+   "target": "OBS",
+   "type": "connects-to",
+   "label": "not-a-chat-tool"
+  },
+  {
+   "source": "Maker",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "foreman-of"
+  },
+  {
+   "source": "Maker",
+   "target": "Trickster",
+   "type": "connects-to",
+   "label": "answers-to"
+  },
+  {
+   "source": "Maker",
+   "target": "Lateral Access",
+   "type": "mirrors",
+   "label": "taste-as-laterality"
+  },
+  {
+   "source": "Maker",
+   "target": "Radio Play",
+   "type": "spawned",
+   "label": "forged-in-job"
+  },
+  {
+   "source": "Maker",
+   "target": "Review Layer",
+   "type": "connects-to",
+   "label": "inherits-rule"
+  },
+  {
+   "source": "Maker",
+   "target": "Flocking",
+   "type": "connects-to",
+   "label": "proof-of-comparison"
+  },
+  {
+   "source": "Maker",
+   "target": "Blocked, Not Prompted",
+   "type": "enables",
+   "label": "conditions-the-fill"
+  },
+  {
+   "source": "Maker",
+   "target": "Waveguide Synthesizer",
+   "type": "connects-to",
+   "label": "architectural-pattern"
+  },
+  {
+   "source": "Maker",
+   "target": "Diversity of Thought in Many-Agent Systems",
+   "type": "connects-to",
+   "label": "tested-by"
+  },
+  {
+   "source": "Maker",
+   "target": "STIGMERGY",
+   "type": "connects-to",
+   "label": "dress-for-stigmergy-artifacts"
+  },
+  {
+   "source": "Maker",
+   "target": "Modes of Collaboration",
+   "type": "connects-to",
+   "label": "names-mode"
+  },
+  {
+   "source": "Maker",
+   "target": "Murmuration",
+   "type": "connects-to",
+   "label": "born-from"
+  },
+  {
+   "source": "Maker",
+   "target": "Maker — Context",
+   "type": "spawned",
+   "label": "rationale-archive"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Manim CE",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Kuramoto Coupling",
+   "type": "connects-to",
+   "label": "round-1-test-bed"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Frequency-Time Duality",
+   "type": "mirrors",
+   "label": "visual-temporal-duality"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Loudon Live Design System",
+   "type": "enables",
+   "label": "skin-token-source"
+  },
+  {
+   "source": "Manim CE",
+   "target": "ffmpeg",
+   "type": "couples-with",
+   "label": "mux-partner"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Matplotlib",
+   "type": "connects-to",
+   "label": "sandboxed-fallback"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Radio Play",
+   "type": "connects-to",
+   "label": "vo-as-clock"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Kokoro",
+   "type": "couples-with",
+   "label": "narration-it-renders-under"
+  },
+  {
+   "source": "Manim CE",
+   "target": "Manim CE — Context",
+   "type": "spawned",
+   "label": "rationale-archive"
+  },
+  {
+   "source": "Matplotlib",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Matplotlib",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Matplotlib",
+   "target": "Plotly",
+   "type": "contrasts-with",
+   "label": "alternative-to"
+  },
+  {
+   "source": "Mermaid",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Mermaid",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Mermaid",
+   "target": "Graphviz",
+   "type": "contrasts-with",
+   "label": "alternative-to"
+  },
+  {
+   "source": "OBS",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "OBS",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "operated-not-dispatched"
+  },
+  {
+   "source": "OBS",
+   "target": "ffmpeg",
+   "type": "couples-with",
+   "label": "capture-to-batch"
+  },
+  {
+   "source": "OBS",
+   "target": "LDN RTM",
+   "type": "connects-to",
+   "label": "first-job"
+  },
+  {
+   "source": "OBS",
+   "target": "Loudon Live",
+   "type": "connects-to",
+   "label": "runs-the-stream"
+  },
+  {
+   "source": "OBS",
+   "target": "Closing Well",
+   "type": "connects-to",
+   "label": "screenshot-is-the-verify"
+  },
+  {
+   "source": "OBS",
+   "target": "Loudon Live Design System",
+   "type": "connects-to",
+   "label": "house-style"
+  },
+  {
+   "source": "Observable Plot",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Observable Plot",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Observable Plot",
+   "target": "D3.js",
+   "type": "enables",
+   "label": "built-on"
+  },
+  {
+   "source": "Observable Plot",
+   "target": "Flocking",
+   "type": "connects-to",
+   "label": "analytical-lens"
+  },
+  {
+   "source": "Observable Plot",
+   "target": "Matplotlib",
+   "type": "contrasts-with",
+   "label": "browser-vs-static"
+  },
+  {
+   "source": "RNBO codebox~ smith",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "RNBO codebox~ smith",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "RNBO codebox~ smith",
+   "target": "ffmpeg",
+   "type": "enables",
+   "label": "feeds"
+  },
+  {
+   "source": "RNBO codebox~ smith",
+   "target": "Generative Audio Devices",
+   "type": "connects-to",
+   "label": "stage-2-pipeline"
+  },
+  {
+   "source": "Remotion",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Remotion",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Remotion",
+   "target": "Manim CE",
+   "type": "contrasts-with",
+   "label": "alternative-to"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "Enrichment",
+   "type": "connects-to",
+   "label": "every-face-maker-starts-here"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "Web Audio Worklet",
+   "type": "connects-to",
+   "label": "starter-for"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "Tone.js",
+   "type": "connects-to",
+   "label": "starter-for"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "p5.js",
+   "type": "connects-to",
+   "label": "starter-for"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "D3.js",
+   "type": "connects-to",
+   "label": "starter-for"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "Observable Plot",
+   "type": "connects-to",
+   "label": "starter-for"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "Three.js",
+   "type": "connects-to",
+   "label": "starter-for"
+  },
+  {
+   "source": "Rich-face Kit",
+   "target": "The Scroll",
+   "type": "connects-to",
+   "label": "frames-on"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "The Shop",
+   "type": "enables",
+   "label": "gpu-substrate"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "Maker",
+   "type": "couples-with",
+   "label": "routes-to"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "ComfyUI",
+   "type": "connects-to",
+   "label": "runs"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "FLUX (Hugging Face)",
+   "type": "connects-to",
+   "label": "hosts-locally"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "Quality Manifesto",
+   "type": "connects-to",
+   "label": "tier-as-routing"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "Capability-first prototyping",
+   "type": "connects-to",
+   "label": "capability-not-censorship"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "BLUELINE",
+   "type": "enables",
+   "label": "render-substrate-for"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "Image-to-3D Smith",
+   "type": "enables",
+   "label": "original-commission"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "assume multi-agent",
+   "type": "emerged-from",
+   "label": "the-outage-that-forged-the-rule"
+  },
+  {
+   "source": "RunPod GPU Backend",
+   "target": "LoRA Trainer",
+   "type": "enables",
+   "label": "trains-on"
+  },
+  {
+   "source": "SAM",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "SAM",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "SAM",
+   "target": "Animate the Background",
+   "type": "connects-to",
+   "label": "the-Segment-skill-and-its-wall"
+  },
+  {
+   "source": "SAM",
+   "target": "Depth Anything",
+   "type": "connects-to",
+   "label": "orders-what-I-isolate"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "tends"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "Maker",
+   "type": "couples-with",
+   "label": "stocks-what-it-dispatches"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "Diversity of Thought in Many-Agent Systems",
+   "type": "connects-to",
+   "label": "temperamental-complement"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "Quality Manifesto",
+   "type": "connects-to",
+   "label": "the-bar"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "Palace Enchantment",
+   "type": "mirrors",
+   "label": "enchanted-tool-citizen"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "Loudon Live Post-producer",
+   "type": "connects-to",
+   "label": "earns-autonomy"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "Project Stewardship System",
+   "type": "connects-to",
+   "label": "first-service-steward"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "CAD Drafter",
+   "type": "spawned",
+   "label": "drafted-from-a-probe"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "Ableton Session Writer",
+   "type": "spawned",
+   "label": "drafted-in-the-workshop"
+  },
+  {
+   "source": "Shopkeeper",
+   "target": "LightOnOCR-3",
+   "type": "spawned",
+   "label": "drafted-from-a-probe"
+  },
+  {
+   "source": "Stable Audio Open",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Stable Audio Open",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Stable Audio Open",
+   "target": "Kuramoto Coupling",
+   "type": "connects-to",
+   "label": "auditory-rendering"
+  },
+  {
+   "source": "Stable Audio Open",
+   "target": "Kokoro",
+   "type": "connects-to",
+   "label": "routes-vocals-to"
+  },
+  {
+   "source": "Stable Audio Open",
+   "target": "Loudon Live",
+   "type": "enables",
+   "label": "beds-for"
+  },
+  {
+   "source": "Stable Audio Open",
+   "target": "Whisper",
+   "type": "connects-to",
+   "label": "shares-the-machine-with"
+  },
+  {
+   "source": "Stable Audio Open",
+   "target": "Loudon Live Design System",
+   "type": "enables",
+   "label": "lesson-sound"
+  },
+  {
+   "source": "Three.js",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Three.js",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Three.js",
+   "target": "Tone.js",
+   "type": "couples-with",
+   "label": "pairs-with"
+  },
+  {
+   "source": "Three.js",
+   "target": "Web Audio Worklet",
+   "type": "couples-with",
+   "label": "pairs-with"
+  },
+  {
+   "source": "Three.js",
+   "target": "p5.js",
+   "type": "couples-with",
+   "label": "pairs-with"
+  },
+  {
+   "source": "Three.js",
+   "target": "1D Wavetable Scanning",
+   "type": "connects-to",
+   "label": "job-deposit"
+  },
+  {
+   "source": "Three.js",
+   "target": "Particle Synthesis",
+   "type": "connects-to",
+   "label": "particle-interface"
+  },
+  {
+   "source": "Three.js",
+   "target": "Shimmer Cloud",
+   "type": "connects-to",
+   "label": "particle-interface"
+  },
+  {
+   "source": "Tone.js",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Tone.js",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Tone.js",
+   "target": "p5.js",
+   "type": "couples-with",
+   "label": "pairs-with"
+  },
+  {
+   "source": "Tone.js",
+   "target": "RNBO codebox~ smith",
+   "type": "contrasts-with",
+   "label": "alternative-to"
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "Generative Audio Devices",
+   "type": "connects-to",
+   "label": "stage-of"
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "Lossy Compression with Intent Alignment",
+   "type": "mirrors",
+   "label": "pdl-as-intent-compression"
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "VCV Patch Generator — spec — PDL generation prompt",
+   "type": "connects-to",
+   "label": "generation-prompt"
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "Web Audio Worklet",
+   "type": "connects-to",
+   "label": "test-plan-exemplar"
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "Audition Gate",
+   "type": "exemplifies",
+   "label": "proves-structure-not-feel"
+  },
+  {
+   "source": "VCV Patch Generator",
+   "target": "Registry Pattern",
+   "type": "exemplifies",
+   "label": "first-registry"
+  },
+  {
+   "source": "Web Audio Worklet",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Web Audio Worklet",
+   "target": "p5.js",
+   "type": "couples-with",
+   "label": "pairs-with"
+  },
+  {
+   "source": "Web Audio Worklet",
+   "target": "Tone.js",
+   "type": "connects-to",
+   "label": "sibling-of"
+  },
+  {
+   "source": "Web Audio Worklet",
+   "target": "RNBO codebox~ smith",
+   "type": "connects-to",
+   "label": "browser-cousin-of"
+  },
+  {
+   "source": "Web Audio Worklet",
+   "target": "2D Torus Wavetable Synthesizer",
+   "type": "connects-to",
+   "label": "browser-incarnation"
+  },
+  {
+   "source": "Web Audio Worklet",
+   "target": "Flocking",
+   "type": "connects-to",
+   "label": "sonifies"
+  },
+  {
+   "source": "Web Audio Worklet",
+   "target": "Diversity of Thought in Many-Agent Systems",
+   "type": "connects-to",
+   "label": "same-medium-second-mind"
+  },
+  {
+   "source": "Web Audio Worklet",
+   "target": "Zoom Out to the Structure",
+   "type": "exemplifies",
+   "label": "gotcha-becomes-concept"
+  },
+  {
+   "source": "Web Audio Worklet",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "earned-by-a-different-operating-model"
+  },
+  {
+   "source": "Whisper",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "Whisper",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "Whisper",
+   "target": "Kokoro",
+   "type": "couples-with",
+   "label": "round-trip"
+  },
+  {
+   "source": "Whisper",
+   "target": "Manim CE",
+   "type": "couples-with",
+   "label": "pairs-with"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Endosymbiosis",
+   "type": "enables",
+   "label": "symbiotic-infrastructure"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "ComfyUI",
+   "type": "couples-with",
+   "label": "stills-pipe"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Remotion",
+   "type": "couples-with",
+   "label": "timeline-pipe"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Stable Audio Open",
+   "type": "couples-with",
+   "label": "post-processes"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Whisper",
+   "type": "couples-with",
+   "label": "caption-pipe"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Matplotlib",
+   "type": "couples-with",
+   "label": "title-card-fallback"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Kuramoto Coupling",
+   "type": "connects-to",
+   "label": "first-recipe-testbed"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Loudon Live",
+   "type": "enables",
+   "label": "finishing-pipeline"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Loudon Live Design System",
+   "type": "enables",
+   "label": "assembles-the-reel"
+  },
+  {
+   "source": "ffmpeg",
+   "target": "Radio Play",
+   "type": "enables",
+   "label": "assembles-the-play"
+  },
+  {
+   "source": "p5.js",
+   "target": "Maker",
+   "type": "connects-to",
+   "label": "directed-by"
+  },
+  {
+   "source": "p5.js",
+   "target": "The Shop",
+   "type": "member-of",
+   "label": "roster-member"
+  },
+  {
+   "source": "p5.js",
+   "target": "Kuramoto Coupling",
+   "type": "connects-to",
+   "label": "phasor-explorer-test"
+  },
+  {
+   "source": "p5.js",
+   "target": "Flocking",
+   "type": "connects-to",
+   "label": "expressive-boids-lens"
+  },
+  {
+   "source": "p5.js",
+   "target": "Playful Interface Design",
+   "type": "enables",
+   "label": "immediate-feedback-loop"
+  },
+  {
+   "source": "p5.js",
+   "target": "Observable Plot",
+   "type": "connects-to",
+   "label": "sibling-lens"
+  }
+ ]
+}

@@ -11,6 +11,42 @@
       ]
     },
     {
+      "name": "@observablehq/plot",
+      "version": "0.6.19",
+      "url": "https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.19/dist/plot.umd.min.js",
+      "integrity": "sha384-oSrbEzGlxR3UPW38YN678j8grQ0aSZjwvA8kBxHdv09D4qTPDbptkmF9eND5PviV"
+    },
+    {
+      "name": "d3-dispatch",
+      "version": "3.0.2",
+      "url": "https://cdn.jsdelivr.net/npm/d3-dispatch@3.0.2/dist/d3-dispatch.min.mjs",
+      "integrity": "sha384-/FY4vCz6DJlEMizWi2EjLAhs5fxP2TeL+czgdrTPTBFseYpSDkkbLb1Z+psYsgeB"
+    },
+    {
+      "name": "d3-force",
+      "version": "3.0.1",
+      "url": "https://cdn.jsdelivr.net/npm/d3-force@3.0.1/dist/d3-force.min.mjs",
+      "integrity": "sha384-WHqEZKbzSP8nyzXQTBOfSPq0B30YEHbCpVow8I+07963ZaB7RKpjgWAPm6c9RJvZ"
+    },
+    {
+      "name": "d3-quadtree",
+      "version": "3.0.2",
+      "url": "https://cdn.jsdelivr.net/npm/d3-quadtree@3.0.2/dist/d3-quadtree.min.mjs",
+      "integrity": "sha384-azjdbve9uUr3/dXBoCly7q+3YJL/Eo1VEjaVv1+7ky3vkC1xu8tb7bCpJq/T1Y7f"
+    },
+    {
+      "name": "d3-selection",
+      "version": "3.0.1",
+      "url": "https://cdn.jsdelivr.net/npm/d3-selection@3.0.1/dist/d3-selection.min.mjs",
+      "integrity": "sha384-WjPfbECVu7NFclrLXIfPVkngpHLtc32Wk9l/19p8F+CCOxX75xqpO9D9Ly6/kqF6"
+    },
+    {
+      "name": "d3-timer",
+      "version": "3.0.2",
+      "url": "https://cdn.jsdelivr.net/npm/d3-timer@3.0.2/dist/d3-timer.min.mjs",
+      "integrity": "sha384-0ACzb6Po92sYWyvn64mF1es8SOIwBKjkIwsGGyM7s6mWPY3bfBy86V46r7ii2MWy"
+    },
+    {
       "name": "d3",
       "version": "7.9.0",
       "url": "https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js",
@@ -32,16 +68,64 @@
       "integrity": "sha384-6Twx1hAeKnwfOYJAHtYeJETRiGD5pRPkjjh0pVbG1QoesncjOpw5e75Y1kOkXeRI"
     },
     {
+      "name": "p5",
+      "version": "2.4.0",
+      "url": "https://cdn.jsdelivr.net/npm/p5@2.4.0/lib/p5.min.js",
+      "integrity": "sha384-rcP1CPdkMPs3RfZNrF0DgxdaFM1t5rcIw5CmGbe+Y/2EVHpXRuKoaRqnjQfkg8/a"
+    },
+    {
       "name": "three",
       "version": "0.128.0",
       "url": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js",
       "integrity": "sha384-wagZhIFgY4hD+7awjQjR4e2E294y6J2HSnd8eTNc15ZubTeQeVRZwhQJ+W6hnBsf"
     },
     {
+      "name": "three",
+      "version": "0.187.0",
+      "url": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.core.js",
+      "integrity": "sha384-drH6BueSlcvoXCwAqWkNJvXwu2Ax3mnGOmZnIXaomedIw+uXSP9Bf/XIUINgLUW+"
+    },
+    {
+      "name": "three",
+      "version": "0.187.0",
+      "url": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js",
+      "integrity": "sha384-T/E3B9AvPtLn5PKD7aTSFqizQcA4kHDfU0lub7u0fvM4w9BMGcSb3yI7r5LqMAMn"
+    },
+    {
+      "name": "three",
+      "version": "0.187.0",
+      "url": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.tsl.js",
+      "integrity": "sha384-VyVcUhUk57PM9xoXF/Ah2vOgQJAIYkTbSYzDikHPYtV2DQciYNXwBA47hvbClb4n"
+    },
+    {
+      "name": "three",
+      "version": "0.187.0",
+      "url": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.webgpu.js",
+      "integrity": "sha384-2xmYbH9fbsINy+3rUsoPqRaykPGm6eGvkAiAwQylRpZeoFwW05f3h0oWei5h9z9w"
+    },
+    {
+      "name": "three",
+      "version": "0.187.0",
+      "url": "https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/controls/OrbitControls.js",
+      "integrity": "sha384-ZVBN/wmVxgX0mUGjFJXakzzdZrAF4g4aHfKyusbjoF0WsVXSoGpeM/qRaVnXtaFo"
+    },
+    {
       "name": "tone",
       "version": "15.0.4",
       "url": "https://cdn.jsdelivr.net/npm/tone@15.0.4/build/Tone.js",
       "integrity": "sha384-42gWnBr2Y4rlMy2jxjddYshP4nyV5xDDAi+roXFrK7tUpQlSWw7b/RgK4Qj7ozxW"
+    },
+    {
+      "name": "tone",
+      "version": "15.1.22",
+      "url": "https://cdn.jsdelivr.net/npm/tone@15.1.22/build/Tone.js",
+      "integrity": "sha384-NWoslxaf/3dYwQk+uGziDYJFdsjBpVlU1WpFRexuDFcIk/5PJpCbpVXia2Uikeix"
+    },
+    {
+      "name": "tone",
+      "version": "15.5.72",
+      "url": "https://cdn.jsdelivr.net/npm/tone@15.5.72/build/Tone.js",
+      "integrity": "sha384-O1NZK4vDUX8lAJpVu0Rcj0HBci4TbxDnL/WYJoNhCAOdqd0QzPJgq3AbYkdtX5Bk"
     },
     {
       "name": "babel-standalone",

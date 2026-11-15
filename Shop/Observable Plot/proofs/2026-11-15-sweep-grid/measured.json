@@ -1,0 +1,231 @@
+{
+  "checked": "2026-11-15T14:02:10.830Z",
+  "page": "Shop/Observable Plot/proofs/2026-11-15-sweep-grid/sweep-grid.html",
+  "plotVersion": "0.6.17",
+  "engines": {
+    "node": "v25.9.0 (V8 14.1.146.11-node.25)",
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.7727.15 Safari/537.36"
+  },
+  "model_block_identical_to_flocking_source": true,
+  "nothing_drawn_before_click": true,
+  "browser": {
+    "cohesion": 1,
+    "steps": 1800,
+    "ms": 2641,
+    "gridLinePaths": 12,
+    "squareCells": 12,
+    "squareLabels": [
+      "0.168",
+      "0.864",
+      "0.727",
+      "0.958",
+      "0.114",
+      "0.849",
+      "0.964",
+      "0.989",
+      "0.039",
+      "0.295",
+      "0.972",
+      "0.992"
+    ]
+  },
+  "page_vs_bare_model_same_browser_max_abs_diff": 4.76776938485024e-7,
+  "rules": [
+    "model block byte-identical to the Flocking source",
+    "no svg before the click; 12 line paths in the grid and 12 cells in the square after it",
+    "page's numbers within 5e-7 of the bare model in the same browser (the page rounds to 6 decimals)",
+    "Node and browser seed-7 start states differ by at most 1 ulp",
+    "no console errors or warnings"
+  ],
+  "cross_engine": {
+    "start_values_differing": 4,
+    "of": 320,
+    "worst_ulps": 1,
+    "note": "Math.sin / Math.cos give a different last bit for some starting headings in Node and Chromium. The flock amplifies it; cells still wandering at the end of the run come out different, settled cells agree.",
+    "cohesion_1_cells": [
+      {
+        "sep": 0.5,
+        "ali": 0,
+        "browser_meanR": 0.168,
+        "node_meanR": 0.203,
+        "diff": 0.0348
+      },
+      {
+        "sep": 0.5,
+        "ali": 0.3,
+        "browser_meanR": 0.864,
+        "node_meanR": 0.885,
+        "diff": 0.0215
+      },
+      {
+        "sep": 0.5,
+        "ali": 1,
+        "browser_meanR": 0.727,
+        "node_meanR": 0.64,
+        "diff": 0.0862
+      },
+      {
+        "sep": 0.5,
+        "ali": 2,
+        "browser_meanR": 0.958,
+        "node_meanR": 0.958,
+        "diff": 0
+      },
+      {
+        "sep": 1.5,
+        "ali": 0,
+        "browser_meanR": 0.114,
+        "node_meanR": 0.114,
+        "diff": 0
+      },
+      {
+        "sep": 1.5,
+        "ali": 0.3,
+        "browser_meanR": 0.849,
+        "node_meanR": 0.849,
+        "diff": 0
+      },
+      {
+        "sep": 1.5,
+        "ali": 1,
+        "browser_meanR": 0.964,
+        "node_meanR": 0.961,
+        "diff": 0.0027
+      },
+      {
+        "sep": 1.5,
+        "ali": 2,
+        "browser_meanR": 0.989,
+        "node_meanR": 0.994,
+        "diff": 0.0057
+      },
+      {
+        "sep": 3,
+        "ali": 0,
+        "browser_meanR": 0.039,
+        "node_meanR": 0.039,
+        "diff": 0
+      },
+      {
+        "sep": 3,
+        "ali": 0.3,
+        "browser_meanR": 0.295,
+        "node_meanR": 0.295,
+        "diff": 0
+      },
+      {
+        "sep": 3,
+        "ali": 1,
+        "browser_meanR": 0.972,
+        "node_meanR": 0.972,
+        "diff": 0
+      },
+      {
+        "sep": 3,
+        "ali": 2,
+        "browser_meanR": 0.992,
+        "node_meanR": 0.992,
+        "diff": 0
+      }
+    ]
+  },
+  "node_ms_for_36_runs": 69090,
+  "phase_table_mean_R_last_5s": {
+    "cohesion 1.0 (browser)": {
+      "sep 0.5": {
+        "align 0": 0.168,
+        "align 0.3": 0.864,
+        "align 1": 0.727,
+        "align 2": 0.958
+      },
+      "sep 1.5": {
+        "align 0": 0.114,
+        "align 0.3": 0.849,
+        "align 1": 0.964,
+        "align 2": 0.989
+      },
+      "sep 3": {
+        "align 0": 0.039,
+        "align 0.3": 0.295,
+        "align 1": 0.972,
+        "align 2": 0.992
+      }
+    },
+    "cohesion 0.5 (node)": {
+      "sep 0.5": {
+        "align 0": 0.204,
+        "align 0.3": 0.949,
+        "align 1": 0.995,
+        "align 2": 1
+      },
+      "sep 1.5": {
+        "align 0": 0.035,
+        "align 0.3": 0.946,
+        "align 1": 0.991,
+        "align 2": 0.976
+      },
+      "sep 3": {
+        "align 0": 0.053,
+        "align 0.3": 0.243,
+        "align 1": 0.912,
+        "align 2": 0.964
+      }
+    },
+    "cohesion 1.0 (node)": {
+      "sep 0.5": {
+        "align 0": 0.203,
+        "align 0.3": 0.885,
+        "align 1": 0.64,
+        "align 2": 0.958
+      },
+      "sep 1.5": {
+        "align 0": 0.114,
+        "align 0.3": 0.849,
+        "align 1": 0.961,
+        "align 2": 0.994
+      },
+      "sep 3": {
+        "align 0": 0.039,
+        "align 0.3": 0.295,
+        "align 1": 0.972,
+        "align 2": 0.992
+      }
+    },
+    "cohesion 2.0 (node)": {
+      "sep 0.5": {
+        "align 0": 0.235,
+        "align 0.3": 0.593,
+        "align 1": 0.779,
+        "align 2": 0.987
+      },
+      "sep 1.5": {
+        "align 0": 0.224,
+        "align 0.3": 0.556,
+        "align 1": 0.767,
+        "align 2": 0.863
+      },
+      "sep 3": {
+        "align 0": 0.086,
+        "align 0.3": 0.234,
+        "align 1": 0.819,
+        "align 2": 0.922
+      }
+    }
+  },
+  "recipe_2026_05_29_recheck": {
+    "note": "final R at exactly step 900, sep 1.5, coh 1.0. The 2026-05-29 report gave browser 0.583 / 0.953 / 0.995 and Node 0.579 / 0.953 / 0.995.",
+    "node_now": {
+      "1": 0.953,
+      "2": 0.995,
+      "0.3": 0.579
+    },
+    "browser_now": {
+      "1": 0.953,
+      "2": 0.995,
+      "0.3": 0.579
+    }
+  },
+  "console": [],
+  "pass": true,
+  "fails": []
+}

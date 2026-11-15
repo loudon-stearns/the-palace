@@ -62,7 +62,7 @@ links:
 
 The Shop is the part of the palace where things get made — anything that isn't text. Sound, image, motion, interactive media. The pattern that holds it together: every creative tool we use is wrapped as its own palace entry — a Specialist — with charter, voice, tiers, gotchas, recipes. The wrap turns a CLI tool with man-pages into an artisan-with-memory whose accumulated wisdom belongs to the palace, not to whichever conversation last invoked it.
 
-A single Maker entry sits above the Specialists as foreman. The Maker holds house standards, brief intake patterns, selection heuristics ("math content → Manim CE, always"), tier vocabulary, comparison-mode logic, and resource scheduling. Loudon brings the Maker a brief; the Maker decodes it through medium-specific intake questions, names the tier options, dispatches Specialists, gates handoffs, and brings back the work with a standards report. The Maker is the front door to the Shop.
+A single Maker entry sits above the Specialists as foreman. The Maker holds house standards, brief intake patterns, a decision tree that asks, part by part, what each part of a made thing is and which tool is best at it, with a zoom out for what is new ([[Maker]] § Selection Heuristics), tier vocabulary, comparison-mode logic, and resource scheduling. Loudon brings the Maker a brief; the Maker decodes it through medium-specific intake questions, names the tier options, dispatches Specialists, gates handoffs, and brings back the work with a standards report. The Maker is the front door to the Shop.
 
 Three layers, with override semantics: the Maker's house standards are the universal floor; an optional palace-base spec sits between the floor and project specs; project-level Design Specs override everything for one project. A given brief inherits from the deepest layer that speaks to each parameter — the Maker resolves the chain before dispatch, Specialists only see the resolved values. CSS-style cascade, applied to design tokens.
 
@@ -84,7 +84,7 @@ This is a working hypothesis, not a verdict. The full question — including axe
 
 ## The Specialist Anatomy
 
-A Specialist entry holds: **Charter** (in voice — what they make and refuse), **Voice** (the enchantment), **Capabilities**, **Strengths**, **Limits**, **Tiers** (with parameters / time / output / sacrifices per tier), **Job Contract** (input/output spec for the Maker to dispatch against), **Iteration Character** (one-shot vs. iterative vs. seed-locked), **Self-Check** (what the Specialist verifies before declaring done), **Resource Footprint** (CPU/RAM/GPU/disk/network/credits), **Gotchas** (today's rules; the dated history moves to a tuning ledger once they outgrow the page), **Recipes** (working examples), **Test Suite** (link to a test plan and last run), and palace closers.
+A Specialist entry holds: **Charter** (in voice — what they make and refuse), **Voice** (the enchantment), **Capabilities**, **Strengths**, **Limits**, **Tiers** (with parameters / time / output / sacrifices per tier), **Job Contract** (input/output spec for the Maker to dispatch against), **Iteration Character** (one-shot vs. iterative vs. seed-locked), **Self-Check** (what the Specialist verifies before declaring done), **Resource Footprint** (CPU/RAM/GPU/disk/network/credits), **Gotchas** (today's rules; the dated history moves to a tuning ledger once they outgrow the page), **Recipes** (working examples), **Test Suite** (what runs and when; its open tests are the card's *Not yet shown to hold*, each one a small proof on the Specialist's scroll — the method is [[Maker]] § Testing and Improving a Specialist), and palace closers.
 
 The structural innovation is that **gotchas accumulate in the entry, not in any single conversation**. The first time we discover that Kokoro mispronounces "RNBO," that knowledge becomes part of the Kokoro entry forever. Every subsequent invocation benefits. The Specialist is the persistent memory the conversations don't have. The entry states today's gotchas as rules for the next job. They have outgrown it the moment the section reads as a diary of dated events rather than as rules; then a tuning ledger in its bundle holds their history, item by item with what each changed, and the section becomes present-tense rules by topic, opening with a link to the ledger. [[Hero and Avatar Maker]] and [[FLUX (Hugging Face)]] keep theirs this way ([[SCHEMA — Reference]] §6).
 
@@ -96,12 +96,12 @@ Operational entries (`Shop/Maker.md`, `Shop/Kokoro.md`, `Shop/FLUX (Hugging Face
 
 ## Roster
 
-To see what the Shop can do on the machine you are at, run `node Shop/shop.mjs menu` (add a need: `menu sound`), and `node Shop/shop.mjs card "<Specialist>"` for one Specialist whole. Both read the card at the top of each Specialist's page, the host manifest, and each ledger's last run. The table below is membership; the menu is what to reach for.
+To see what the Shop can do on the machine you are at, run `node Shop/shop.mjs menu` (add a need: `menu sound`), and `node Shop/shop.mjs card "<Specialist>"` for one Specialist whole. Both read the card at the top of each Specialist's page, the host manifest, and each ledger's last run. The judgement between them is the Maker's tree ([[Maker]] § Selection Heuristics). The table below is membership; the menu is what to reach for.
 
 <!-- ROSTER:START — generated by Shop/Maker/build-roster.mjs; do not edit by hand -->
 *Generated read-model — the roster is each Specialist's `member-of [[The Shop]]` declaration, computed by `Shop/Maker/build-roster.mjs`. Do not hand-edit; re-run the script. (This replaced a hand-maintained list that had drifted 3+ Specialists stale.)*
 
-**33 Specialists** — 27 alive · 6 stub. **Makers:** [[Frame Designer]] (alive) · [[Hero and Avatar Maker]] (alive) · [[Loudon Live Post-producer]] (stub) · [[Maker]] (alive) · [[Shopkeeper]] (alive).
+**34 Specialists** — 28 alive · 6 stub. **Makers:** [[Frame Designer]] (alive) · [[Hero and Avatar Maker]] (alive) · [[Loudon Live Post-producer]] (stub) · [[Maker]] (alive) · [[Shopkeeper]] (alive).
 
 | Specialist | Status | Medium | Tool |
 |---|---|---|---|
@@ -124,6 +124,7 @@ To see what the Shop can do on the machine you are at, run `node Shop/shop.mjs m
 | [[Shop/Observable Plot\|Observable Plot]] | alive | interactive | observable-plot |
 | [[Shop/p5.js\|p5.js]] | alive | interactive | p5.js |
 | [[Shop/Remotion\|Remotion]] | alive | motion | remotion |
+| [[Shop/Rich-face Kit\|Rich-face Kit]] | alive | interactive | piece kit · conform.mjs · the shelf (_ops/rich-face/), and the web Specialists' starters |
 | [[Shop/SAM\|SAM]] | alive | other | Segment Anything (ultralytics) |
 | [[Shop/Sound from Code\|Sound from Code]] | alive | sound | numpy (or the Web Audio API rendered offline) |
 | [[Shop/Stable Audio Open\|Stable Audio Open]] | alive | sound | stable-audio-3 |

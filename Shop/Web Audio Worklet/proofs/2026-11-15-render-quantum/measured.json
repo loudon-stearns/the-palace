@@ -1,0 +1,207 @@
+{
+  "date": "2026-11-15",
+  "host": "darwin arm64 · 10 cores",
+  "loadavgAtStart": [
+    78.05322265625,
+    83.0439453125,
+    66.921875
+  ],
+  "sampleRate": 48000,
+  "seconds": 2,
+  "timing": "best of 3 renders after one warm-up; the Mac was shared with other work, see loadavg",
+  "unflagged": {
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/147.0.7727.15 Safari/537.36",
+    "given": null,
+    "blocks": [
+      128
+    ]
+  },
+  "offline": [
+    {
+      "128": {
+        "ms": 193.5,
+        "load": 0.09675,
+        "given": 128,
+        "blocks": [
+          128
+        ]
+      },
+      "256": {
+        "ms": 196.89999997615814,
+        "load": 0.09844999998807907,
+        "given": 256,
+        "blocks": [
+          256
+        ]
+      },
+      "512": {
+        "ms": 187.89999997615814,
+        "load": 0.09394999998807907,
+        "given": 512,
+        "blocks": [
+          512
+        ]
+      },
+      "1024": {
+        "ms": 189.89999997615814,
+        "load": 0.09494999998807907,
+        "given": 1024,
+        "blocks": [
+          1024
+        ]
+      },
+      "voices": 64,
+      "saving512": 0.028940568598665894,
+      "saving1024": 0.018604651286004414
+    },
+    {
+      "128": {
+        "ms": 752.5,
+        "load": 0.37625,
+        "given": 128,
+        "blocks": [
+          128
+        ]
+      },
+      "256": {
+        "ms": 777.5,
+        "load": 0.38875,
+        "given": 256,
+        "blocks": [
+          256
+        ],
+        "maxDiffFrom128": 0
+      },
+      "512": {
+        "ms": 900.1999999284744,
+        "load": 0.4500999999642372,
+        "given": 512,
+        "blocks": [
+          512
+        ],
+        "maxDiffFrom128": 0
+      },
+      "1024": {
+        "ms": 810.8999999761581,
+        "load": 0.40544999998807907,
+        "given": 1024,
+        "blocks": [
+          1024
+        ],
+        "maxDiffFrom128": 0
+      },
+      "voices": 256,
+      "saving512": -0.19627906967239128,
+      "saving1024": -0.07760797339024328
+    },
+    {
+      "128": {
+        "ms": 1772.2999999523163,
+        "load": 0.8861499999761582,
+        "given": 128,
+        "blocks": [
+          128
+        ]
+      },
+      "256": {
+        "ms": 1416.7000000476837,
+        "load": 0.7083500000238419,
+        "given": 256,
+        "blocks": [
+          256
+        ]
+      },
+      "512": {
+        "ms": 1608.3000000715256,
+        "load": 0.8041500000357628,
+        "given": 512,
+        "blocks": [
+          512
+        ]
+      },
+      "1024": {
+        "ms": 1531.3000000715256,
+        "load": 0.7656500000357628,
+        "given": 1024,
+        "blocks": [
+          1024
+        ]
+      },
+      "voices": 512,
+      "saving512": 0.09253512378559114,
+      "saving1024": 0.13598149291162598
+    }
+  ],
+  "live": {
+    "note": "headless Chromium, fake audio output: whether the page asks and reads right; its numbers are not the Mac's heard ceiling",
+    "rows": [
+      {
+        "n": 256,
+        "q": 128,
+        "given": 128,
+        "block": 128,
+        "load": 0.3325821893063584,
+        "under": "1 since this setting (6 ms of gaps)",
+        "info": "44100 Hz · 5.8 ms base + 32.0 ms out",
+        "givenText": "128 · 128"
+      },
+      {
+        "n": 256,
+        "q": 512,
+        "given": 512,
+        "block": 512,
+        "load": 0.3171253551136363,
+        "under": "0 since this setting (0 ms of gaps)",
+        "info": "44100 Hz · 5.8 ms base + 32.0 ms out",
+        "givenText": "512 · 512"
+      },
+      {
+        "n": 512,
+        "q": 128,
+        "given": 128,
+        "block": 128,
+        "load": 0.6611813583815029,
+        "under": "0 since this setting (0 ms of gaps)",
+        "info": "44100 Hz · 5.8 ms base + 32.0 ms out",
+        "givenText": "128 · 128"
+      },
+      {
+        "n": 512,
+        "q": 512,
+        "given": 512,
+        "block": 512,
+        "load": 0.692977627840909,
+        "under": "5 since this setting (29 ms of gaps)",
+        "info": "44100 Hz · 5.8 ms base + 32.0 ms out",
+        "givenText": "512 · 512"
+      },
+      {
+        "n": 768,
+        "q": 128,
+        "given": 128,
+        "block": 128,
+        "load": 1.0833815028901734,
+        "under": "344 since this setting (1997 ms of gaps)",
+        "info": "44100 Hz · 5.8 ms base + 32.0 ms out",
+        "givenText": "128 · 128"
+      },
+      {
+        "n": 768,
+        "q": 512,
+        "given": 512,
+        "block": 512,
+        "load": 1.019890802556818,
+        "under": "342 since this setting (1985 ms of gaps)",
+        "info": "44100 Hz · 5.8 ms base + 32.0 ms out",
+        "givenText": "512 · 512"
+      }
+    ],
+    "info": "44100 Hz · 5.8 ms base + 32.0 ms out"
+  },
+  "fails": 0,
+  "loadavgAtEnd": [
+    59.9267578125,
+    77.4111328125,
+    66.0263671875
+  ]
+}

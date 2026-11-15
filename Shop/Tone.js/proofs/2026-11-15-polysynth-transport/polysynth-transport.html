@@ -1,0 +1,148 @@
+<!doctype html>
+<!--
+  title: Tone.js — proof — a phrase on the Transport, through a PolySynth and an effect chain
+  born: 2026-11-15
+  links: [[Tone.js]] (connects-to · test-proof)
+  forward_vector: I am the first time the Tone.js Specialist's Transport, PolySynth and effect chain were used together:
+    a two-bar phrase of chords and two top notes at 96 bpm, looping on the Transport, played by one PolySynth through a
+    dotted-eighth delay, a reverb and a limiter. I want to be the floor the first sequenced Study is copied from.
+  What I test: the card's "No job has used Transport sequencing, PolySynth, samples or an effect chain". Samples stay
+    open; nothing here loads a sound file.
+  The patch is built by patch(T, opts) into whatever Tone context is current, so the same code plays live and renders
+    inside Tone.Offline. PROOF.render() is that render; check.mjs beside me calls it.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>
+    node _ops/rich-face/conform.mjs <this file> --browser
+    node "Shop/Tone.js/proofs/2026-11-15-polysynth-transport/check.mjs"   onsets, chord pitches, peak, tail, live count
+  This is how it was done on 2026-11-15, not how it must be done. A maker who can do it better another way (a different
+  scheduler, a different chain, a newer Tone) does so, and leaves the two side by side on the Tone.js scroll.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tone.js — a phrase on the Transport</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-2); font-family: var(--mono); }
+  main { padding: var(--s-5) var(--s-5) var(--s-6); display: grid; gap: var(--s-4); max-width: 44rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; line-height: 1.5; }
+  .ask { color: var(--fg-1); border-left: 2px solid var(--accent); padding-left: var(--s-3); }
+  .row { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: center; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-sm); padding: var(--s-2) var(--s-4); cursor: pointer; }
+  button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  output { color: var(--fg-1); min-width: 6ch; }
+  .small { color: var(--fg-3); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>A phrase on the Transport — PolySynth, delay, reverb, limiter</h1>
+  <p>Two bars at 96 bpm, looping: four chords, two top notes, one PolySynth. The chain is a dotted-eighth delay, a reverb and a limiter. The effects button takes the delay and reverb out, so you hear the chords dry.</p>
+  <div class="row">
+    <button id="play" aria-pressed="false">Play</button>
+    <button id="fx" aria-pressed="true">Effects: on</button>
+    <output id="pos">0:0:0</output>
+  </div>
+  <p class="ask">Does every chord sound like a new strike, in time and without a click, including the quick repeat on the "and" of beat two?</p>
+  <p class="small">Measured headless with Tone.Offline (check.mjs beside this page): all 16 notes over two loops were scheduled exactly on their bar positions; each chord or note that brings new pitches rises 7 dB or more where it should, and nothing rises anywhere else; all four tones of a chord sound together; the peak is about -5 dBFS, so the limiter never acts; the effects leave a tail 46 dB above the dry one. The repeat on the "and" of two is the same chord struck while the first is still releasing, and it rises only 2 to 4 dB. Whether that reads as a strike, and the clicks, balance and feel, are for the ear.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/tone@15.0.4/build/Tone.js" integrity="sha384-42gWnBr2Y4rlMy2jxjddYshP4nyV5xDDAi+roXFrK7tUpQlSWw7b/RgK4Qj7ozxW" crossorigin="anonymous"></script>
+<script>
+const BPM = 96;
+const LOOP = '2m';
+// [bars:quarters:sixteenths, notes, duration]
+const EVENTS = [
+  ['0:0:0', ['A3', 'C4', 'E4', 'G4'], '4n.'],
+  ['0:1:2', ['A3', 'C4', 'E4', 'G4'], '8n'],
+  ['0:2:0', ['F3', 'A3', 'C4', 'E4'], '2n'],
+  ['0:3:2', ['E5'], '8n'],
+  ['1:0:0', ['C4', 'E4', 'G4', 'B4'], '4n.'],
+  ['1:1:2', ['C4', 'E4', 'G4'], '8n'],
+  ['1:2:0', ['G3', 'B3', 'D4', 'F4'], '2n'],
+  ['1:3:2', ['D5'], '8n'],
+];
+
+// Built into whatever Tone context is current: the live one, or an Offline one.
+function patch(T, { wet = true, log = null } = {}) {
+  const limiter = new T.Limiter(-1).toDestination();
+  const reverb = new T.Reverb({ decay: 2.4, preDelay: 0.02, wet: wet ? 0.25 : 0 }).connect(limiter);
+  const delay = new T.FeedbackDelay({ delayTime: '8n.', feedback: 0.3, wet: wet ? 0.22 : 0 }).connect(reverb);
+  const poly = new T.PolySynth(T.Synth, {
+    oscillator: { type: 'triangle8' },
+    envelope: { attack: 0.01, decay: 0.2, sustain: 0.5, release: 0.6 },
+    volume: -14,
+  }).connect(delay);
+  const part = new T.Part((time, ev) => {
+    poly.triggerAttackRelease(ev.notes, ev.dur, time);
+    if (log) log.push({ at: ev.time, time, notes: ev.notes.length });
+  }, EVENTS.map(([time, notes, dur]) => ({ time, notes, dur })));
+  part.loop = true;
+  part.loopEnd = LOOP;
+  part.start(0);
+  return {
+    poly, delay, reverb, limiter, part,
+    ready: reverb.ready,
+    setWet(on) { reverb.wet.value = on ? 0.25 : 0; delay.wet.value = on ? 0.22 : 0; },
+    dispose() { part.dispose(); poly.dispose(); delay.dispose(); reverb.dispose(); limiter.dispose(); },
+  };
+}
+
+// Render `loops` passes of the phrase plus a tail, offline. Returns the buffer and the scheduling log.
+async function render(T, { wet = true, loops = 2, tail = 2.5, sampleRate = 44100 } = {}) {
+  const log = [];
+  const seconds = loops * 8 * 60 / BPM + tail;
+  const buf = await T.Offline(async ({ transport }) => {
+    transport.bpm.value = BPM;
+    const p = patch(T, { wet, log });
+    await p.ready;
+    transport.start(0);
+    transport.stop(loops * 8 * 60 / BPM - 0.001);
+  }, seconds, 2, sampleRate);
+  return { buf: buf.get(), log, seconds };
+}
+
+const play = document.getElementById('play');
+const fx = document.getElementById('fx');
+const pos = document.getElementById('pos');
+let live = null, wet = true, raf = 0;
+
+function show() {
+  pos.textContent = Tone.getTransport().position.split('.')[0];
+  raf = requestAnimationFrame(show);
+}
+
+play.addEventListener('click', async () => {
+  const transport = Tone.getTransport();
+  if (!live) {
+    await Tone.start();                          // the context starts suspended; the click resumes it
+    transport.bpm.value = BPM;
+    live = patch(Tone, { wet });
+    await live.ready;
+    transport.start('+0.05');
+    show();
+  } else {
+    transport.stop();
+    live.poly.releaseAll();
+    const old = live; live = null;
+    setTimeout(() => old.dispose(), 3000);       // let the tail ring out, then free it
+    cancelAnimationFrame(raf);
+    pos.textContent = '0:0:0';
+  }
+  play.setAttribute('aria-pressed', String(!!live));
+  play.textContent = live ? 'Stop' : 'Play';
+});
+
+fx.addEventListener('click', () => {
+  wet = !wet;
+  if (live) live.setWet(wet);
+  fx.setAttribute('aria-pressed', String(wet));
+  fx.textContent = wet ? 'Effects: on' : 'Effects: off';
+});
+
+window.PROOF = { patch, render, BPM, EVENTS, LOOP };
+</script>
+</body>
+</html>

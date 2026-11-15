@@ -1,0 +1,185 @@
+<!doctype html>
+<!--
+  title: Tone.js — proof — three versions, one patch
+  born: 2026-11-15
+  links: [[Tone.js]] (connects-to · test-proof)
+  forward_vector: I hold the same patch under three Tone.js builds, the shelf's 15.0.4, npm latest 15.1.22 and the next
+    line 15.5.72 (published 2026-11-14), so a change to the pin can be heard before it is made. I want to be the page
+    the next pin change is decided on.
+  What I test: the zoom-out. Tone's next line carries a fix (#1528, 2026-10-22) for oscillators with a partial count,
+    like triangle8: a waveform cached at one sample rate was reused at another and played at the wrong pitch. The
+    patch is the phrase from ../2026-11-15-polysynth-transport/, which uses triangle8. Each version renders it twice
+    with Tone.Offline, first at 44.1 kHz and then at 48 kHz, as a page with both a live voice and an export would.
+  Three Tone builds load one after another; each one's global Tone is kept under its version before the next replaces it.
+  Checks, from the palace root:
+    node --experimental-vm-modules Shop/Maker/web-smoke.mjs <this file>
+    node _ops/rich-face/conform.mjs <this file> --browser
+    node "Shop/Tone.js/proofs/2026-11-15-version-switch/check.mjs"   pitch of both renders per version, the same-rate
+                                                                       renders compared, the position readout, the Transport
+  This is how it was done on 2026-11-15, not how it must be done. A maker who can do it better another way (an import
+  map, a newer build, a different test of the change) does so, and leaves the two side by side on the Tone.js scroll.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tone.js — three versions, one patch</title>
+<meta name="piece:needs" content="">
+<link rel="stylesheet" href="../../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  body { margin: 0; background: var(--bg); color: var(--fg-2); font-family: var(--mono); }
+  main { padding: var(--s-5) var(--s-5) var(--s-6); display: grid; gap: var(--s-4); max-width: 46rem; }
+  h1 { margin: 0; font-size: 1rem; font-weight: 500; color: var(--fg-1); }
+  p { margin: 0; line-height: 1.5; }
+  .ask { color: var(--fg-1); border-left: 2px solid var(--accent); padding-left: var(--s-3); }
+  .row { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: center; }
+  button { font: inherit; color: var(--fg-1); background: var(--bg-elev-1); border: 1px solid var(--border); border-radius: var(--r-sm); padding: var(--s-2) var(--s-4); cursor: pointer; }
+  button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  button:disabled { opacity: 0.5; cursor: progress; }
+  table { border-collapse: collapse; font-size: 0.9rem; }
+  td, th { padding: var(--s-1) var(--s-3); border-bottom: 1px solid var(--border); text-align: left; font-weight: 400; }
+  th { color: var(--fg-3); }
+  .off { color: var(--accent); }
+  .small { color: var(--fg-3); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Three versions of Tone.js, one patch</h1>
+  <p>The phrase from the Transport proof: four chords on a <code>triangle8</code> PolySynth through a delay, reverb and limiter. Pick a version, then play its two renders. Each version renders the phrase first at 44.1 kHz, then at 48 kHz.</p>
+  <div class="row" role="group" aria-label="version">
+    <button data-v="15.0.4" aria-pressed="true">15.0.4 · the shelf</button>
+    <button data-v="15.1.22" aria-pressed="false">15.1.22 · npm latest</button>
+    <button data-v="15.5.72" aria-pressed="false">15.5.72 · next</button>
+  </div>
+  <div class="row">
+    <button id="first">First render · 44.1 kHz</button>
+    <button id="second">Second render · 48 kHz</button>
+    <button id="stop">Stop</button>
+  </div>
+  <table>
+    <thead><tr><th>version</th><th>first render, A3 at</th><th>second render, A3 at</th></tr></thead>
+    <tbody id="hz"></tbody>
+  </table>
+  <p class="ask">Play 15.0.4's first render, then its second. Without the numbers, would you have heard that the second one is out of tune?</p>
+  <p class="small">Measured headless (check.mjs beside this page), and again here each time you play a render: the pitch of the first chord's A3, which should be 220 Hz. In 15.0.4 and 15.1.22 the 48 kHz render plays at about 240 Hz, 1.5 semitones sharp. In 15.5.72 both renders are at 220 Hz. Rendered at the same rate, with the reverb's noise seeded alike, the three versions make the same sound: they differ by -140 dB, rounding error. The table fills in as you play.</p>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/tone@15.0.4/build/Tone.js" integrity="sha384-42gWnBr2Y4rlMy2jxjddYshP4nyV5xDDAi+roXFrK7tUpQlSWw7b/RgK4Qj7ozxW" crossorigin="anonymous"></script>
+<script>window.TONES = { '15.0.4': window.Tone };</script>
+<script src="https://cdn.jsdelivr.net/npm/tone@15.1.22/build/Tone.js" integrity="sha384-NWoslxaf/3dYwQk+uGziDYJFdsjBpVlU1WpFRexuDFcIk/5PJpCbpVXia2Uikeix" crossorigin="anonymous"></script>
+<script>window.TONES['15.1.22'] = window.Tone;</script>
+<script src="https://cdn.jsdelivr.net/npm/tone@15.5.72/build/Tone.js" integrity="sha384-O1NZK4vDUX8lAJpVu0Rcj0HBci4TbxDnL/WYJoNhCAOdqd0QzPJgq3AbYkdtX5Bk" crossorigin="anonymous"></script>
+<script>window.TONES['15.5.72'] = window.Tone;</script>
+<script>
+const BPM = 96;
+const EVENTS = [
+  ['0:0:0', ['A3', 'C4', 'E4', 'G4'], '4n.'],
+  ['0:1:2', ['A3', 'C4', 'E4', 'G4'], '8n'],
+  ['0:2:0', ['F3', 'A3', 'C4', 'E4'], '2n'],
+  ['0:3:2', ['E5'], '8n'],
+  ['1:0:0', ['C4', 'E4', 'G4', 'B4'], '4n.'],
+  ['1:1:2', ['C4', 'E4', 'G4'], '8n'],
+  ['1:2:0', ['G3', 'B3', 'D4', 'F4'], '2n'],
+  ['1:3:2', ['D5'], '8n'],
+];
+
+// The patch from the Transport proof, unchanged: built into whatever context of library T is current.
+function patch(T, { log = null } = {}) {
+  const limiter = new T.Limiter(-1).toDestination();
+  const reverb = new T.Reverb({ decay: 2.4, preDelay: 0.02, wet: 0.25 }).connect(limiter);
+  const delay = new T.FeedbackDelay({ delayTime: '8n.', feedback: 0.3, wet: 0.22 }).connect(reverb);
+  const poly = new T.PolySynth(T.Synth, {
+    oscillator: { type: 'triangle8' },
+    envelope: { attack: 0.01, decay: 0.2, sustain: 0.5, release: 0.6 },
+    volume: -14,
+  }).connect(delay);
+  const part = new T.Part((time, ev) => {
+    poly.triggerAttackRelease(ev.notes, ev.dur, time);
+    if (log) log.push({ at: ev.time, time });
+  }, EVENTS.map(([time, notes, dur]) => ({ time, notes, dur })));
+  part.loop = true;
+  part.loopEnd = '2m';
+  part.start(0);
+  return { ready: reverb.ready };
+}
+
+// One pass of the phrase and a tail, offline, with library T at a sample rate.
+async function render(T, sampleRate, log = null) {
+  const pass = 8 * 60 / BPM;
+  return T.Offline(async ({ transport }) => {
+    transport.bpm.value = BPM;
+    const p = patch(T, { log });
+    await p.ready;
+    transport.start(0);
+    transport.stop(pass - 0.001);
+  }, pass + 2, 2, sampleRate);
+}
+
+// Where A3 is in the first chord: the strongest DFT bin from 200 to 260 Hz, 0.05 to 0.85 s, channel 0.
+function a3(buf) {
+  const d = buf.getChannelData(0), sr = buf.sampleRate, a = Math.round(0.05 * sr), n = Math.round(0.8 * sr);
+  let best = 0, at = 0;
+  for (let f = 200; f <= 260; f += 0.5) {
+    let re = 0, im = 0;
+    for (let i = 0; i < n; i++) { const w = 0.5 - 0.5 * Math.cos(2 * Math.PI * i / n); re += w * d[a + i] * Math.cos(2 * Math.PI * f * i / sr); im += w * d[a + i] * Math.sin(2 * Math.PI * f * i / sr); }
+    const m = Math.hypot(re, im); if (m > best) { best = m; at = f; }
+  }
+  return at;
+}
+
+// Each version keeps its own two renders, made in order: 44.1 kHz first, then 48 kHz.
+const made = {};
+async function renders(v) {
+  if (!made[v]) {
+    const T = window.TONES[v];
+    const first = await render(T, 44100);
+    const second = await render(T, 48000);
+    made[v] = { first, second, hz: [a3(first), a3(second)] };
+  }
+  return made[v];
+}
+
+let version = '15.0.4', player = null;
+const vButtons = [...document.querySelectorAll('[data-v]')];
+const first = document.getElementById('first'), second = document.getElementById('second');
+
+function table() {
+  document.getElementById('hz').innerHTML = Object.keys(window.TONES).map(v => {
+    const m = made[v]; const cell = hz => hz == null ? '—' : `<span class="${Math.abs(hz - 220) > 2 ? 'off' : ''}">${hz.toFixed(1)} Hz</span>`;
+    return `<tr><td>${v}</td><td>${cell(m && m.hz[0])}</td><td>${cell(m && m.hz[1])}</td></tr>`;
+  }).join('');
+}
+table();
+
+function stop() {
+  if (player) { player.stop(); player.dispose(); player = null; }
+}
+
+async function playRender(which) {
+  stop();
+  first.disabled = second.disabled = true;
+  try {
+    const T = window.TONES[version];
+    await T.start();                                  // this version's context starts suspended; the click resumes it
+    const m = await renders(version);
+    table();
+    player = new T.Player(m[which]).toDestination();
+    player.start();
+  } finally {
+    first.disabled = second.disabled = false;
+  }
+}
+
+vButtons.forEach(b => b.addEventListener('click', () => {
+  stop();
+  version = b.dataset.v;
+  vButtons.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+}));
+first.addEventListener('click', () => playRender('first'));
+second.addEventListener('click', () => playRender('second'));
+document.getElementById('stop').addEventListener('click', stop);
+
+window.PROOF = { patch, render, a3, renders, BPM, EVENTS };
+</script>
+</body>
+</html>

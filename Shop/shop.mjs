@@ -14,6 +14,9 @@
 //                                               (a medium, a name, or any word on a card)
 //        node Shop/shop.mjs card "<Specialist>" one Specialist's whole card
 //        node Shop/shop.mjs missing            Specialists with no card, or a card with holes
+//        node Shop/shop.mjs tests "<Specialist>" its open tests: the card's "Not yet shown to hold"
+//                                               items, its ledger's owed lines, and its proofs
+//                                               with who has heard or seen each
 //        add --json for the data, --host mac|sandbox|cloud|runpod to ask about another host,
 //        --all to include stubs in the menu.
 //
@@ -21,14 +24,27 @@
 //        node Shop/shop.mjs workshop <folder> [--for "<what this round is>"]
 //            start a workshop with the bench already in it: a jobs.json skeleton and a
 //            README carrying today's menu, so the first file a maker opens is the Shop's.
-//        node Shop/shop.mjs run <jobs.json> [job …] [--by <who>] [--taught "<a lesson>"] [--dry-run]
+//        node Shop/shop.mjs run <jobs.json> [job …] [--by <who>] [--taught "<a lesson>"] [--dry-run] [--no-present]
 //            run jobs. A job is whatever command makes one piece — usually a function in the
 //            maker's own script — plus the chain of Specialists it passes through. The bench
 //            times it, checks its outputs exist, hashes them, and writes provenance.json beside
 //            the jobs file. For each Specialist in a chain it appends ONE run line per batch to
-//            that Specialist's ledger in this checkout, so the line lands with the work.
+//            that Specialist's ledger in this checkout, so the line lands with the work. Then it
+//            presents the folder (below) unless --no-present.
+//        node Shop/shop.mjs present <jobs.json> [--page-scrolls] [--dry-run]
+//            put the folder's work where Loudon looks and listens: one section on the scroll of
+//            every Specialist in its chains (the scroll is made if missing), and a short link on
+//            the scroll of each `page` a piece is for, when that page has a scroll (--page-scrolls
+//            makes one). The section says what each piece claims, who has heard or seen it and
+//            what they said, and links every file by palace path so STIGMERGY plays it in place.
+//            Keyed on the folder, so presenting again replaces the section, never doubles it.
+//            Optional jobs.json fields it reads: "headline", "notes", "question" (what only an
+//            ear or eye can say), "artifacts": [{ "path", "caption" }] listed first, a job's
+//            "caption", and "scroll_id". A job never run through the bench may carry its own
+//            "heard_by" and "verdict"; the section says the bench did not record it.
 //        node Shop/shop.mjs heard <jobs.json> <job> --by <who> [--verdict "<their words>"]
-//            record who has heard or seen a piece, and what they said.
+//            record who has heard or seen a piece, and what they said; --round instead of a job
+//            records a verdict on the whole round. Then presents again, so the verdict shows.
 //        node Shop/shop.mjs check <path …> [--strict]
 //            for every sound, image and video under a path: what made it, whether the file
 //            still matches its provenance, and who has heard or seen it — or that nothing says.
@@ -235,6 +251,10 @@ node Shop/shop.mjs card "<Specialist>"          # one Specialist whole: its comm
 
 Your own script is welcome. Name it in the chain as \`hand: …\`, and let a job be one function in it. A brief you hand another maker says what makes the piece, or that the maker chooses from the menu below.
 
+## Where it is heard
+
+Loudon looks and listens on a page's scroll in STIGMERGY. A run presents this folder there by itself: a section on the scroll of each Specialist in the chain, and a link on the scroll of the page a piece is for. Again by hand: \`node Shop/shop.mjs present "${rel(jobs)}"\`. Link any file by its palace path, as \`[caption](${rel(dir)}/file.m4a)\`; the app plays sound, shows images and frames a web page from such a link. Plain ASCII filenames with no em-dash keep a web page's URL whole. Presenting another way is welcome when it shows the work better; leave both on the scroll to compare.
+
 ## The menu on ${today()}, on this host (${cls})
 
 \`\`\`
@@ -291,20 +311,251 @@ function run(rest, o, list, host) {
     prov.batches.push({ at: new Date().toISOString(), jobs: done, by: o.by || null, ledgers: lines });
     writeJson(J.prov, prov);
     console.log(`\nprovenance: ${rel(J.prov)}`); for (const [n, l] of Object.entries(lines)) console.log(`${n}: ${l}`);
-    console.log(`Commit the ledger line(s) with the work. Nobody has heard or seen these until someone has: node Shop/shop.mjs heard "${rel(J.abs)}" <job> --by <who>`);
+    if (!o.noPresent) present(J.abs, { pageScrolls: o.pageScrolls }, list, host);
+    console.log(`Commit the ledger line(s)${o.noPresent ? '' : ' and the scroll section(s)'} with the work. Nobody has heard or seen these until someone has: node Shop/shop.mjs heard "${rel(J.abs)}" <job> --by <who>`);
   }
   if (failed) process.exitCode = 1;
 }
 
-function heard(rest, by, verdict) {
+function heard(rest, by, verdict, o, list, host) {
   const J = readJobs(rest[0]); const name = rest[1];
-  if (!name || !by) { console.error('Usage: node Shop/shop.mjs heard <jobs.json> <job> --by <who> [--verdict "<their words>"]'); process.exit(1); }
-  const prov = readProv(J.prov); const p = prov.jobs[name];
+  if ((!name && !o.round) || !by) { console.error('Usage: node Shop/shop.mjs heard <jobs.json> <job> --by <who> [--verdict "<their words>"]   (or --round for the whole round)'); process.exit(1); }
+  const prov = readProv(J.prov);
+  if (o.round) {
+    if (!Object.keys(prov.jobs).length) { console.error(`${rel(J.prov)} records no jobs; nothing has been run through the bench to have heard.`); process.exit(1); }
+    prov.round = { heard_by: `${by}, ${today()}`, verdict: verdict || null }; writeJson(J.prov, prov);
+    console.log(`the round: heard by ${prov.round.heard_by}${verdict ? ` — "${verdict}"` : ''}.`);
+    if (!o.noPresent) present(J.abs, { pageScrolls: o.pageScrolls }, list, host);
+    return;
+  }
+  const p = prov.jobs[name];
   if (!p) { console.error(`No provenance for "${name}" in ${rel(J.prov)}; it has not been run through the bench.`); process.exit(1); }
   const changed = Object.entries(p.outputs).filter(([f, h]) => !fs.existsSync(path.join(J.dir, f)) || sha(path.join(J.dir, f)) !== h).map(([f]) => f);
   if (changed.length) { console.error(`${changed.join(', ')} no longer match what the bench recorded, so this would record a verdict on a different file. Re-run the job first.`); process.exit(1); }
   p.heard_by = `${by}, ${today()}`; if (verdict) p.verdict = verdict; writeJson(J.prov, prov);
-  console.log(`${name}: heard by ${p.heard_by}${verdict ? ` — "${verdict}"` : ''}. The verdict belongs on the Specialist's page too: node Shop/shop.mjs card "<Specialist>" shows where.`);
+  console.log(`${name}: heard by ${p.heard_by}${verdict ? ` — "${verdict}"` : ''}. What it teaches belongs on the Specialist's page too: node Shop/shop.mjs tests "<Specialist>" shows what is still open.`);
+  if (!o.noPresent) present(J.abs, { pageScrolls: o.pageScrolls }, list, host);
+}
+
+// ── presenting: the bench puts its own work on a scroll (2026-11-15) ────────────────────
+// Loudon looks and listens on a page's scroll in STIGMERGY, not in Obsidian, so a made
+// thing that is not on a scroll has not been shown to him. `present` writes one hand
+// section per jobs folder, in the shape the app plays (The Scroll.md § The making; the
+// worked example is Stable Audio Open's `comparison-2026-11-14-substrate-sounds`), on
+// the scroll of every Specialist in the chains, and a short link on the scroll of the
+// page a piece is for. A section is keyed on an id from its folder, so presenting again
+// replaces it in place. The materializer only rewrites Now and inserts new sections
+// after `scroll:making:start`, so a section written here survives every re-materialize.
+// This is one way to present; a maker who can show the work better another way does,
+// and leaves both on the scroll to compare.
+const AUDIO = /\.(wav|m4a|mp3|aiff?|flac|ogg)$/i, VISUAL = /\.(png|jpe?g|gif|webp|svg|mp4|mov|webm|pdf|html?|glb)$/i;
+const PLACEHOLDER = /^_(No run in the ledger yet|Nothing made yet)[^\n]*_\s*$/m;
+const MAKING_START = '<!-- scroll:making:start -->';
+
+export function sectionId(dir, data = {}) {
+  if (data.scroll_id) return data.scroll_id;
+  const base = path.basename(dir).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const parent = path.basename(path.dirname(dir));
+  return `${parent === 'comparisons' ? 'comparison' : parent === 'proofs' ? 'test' : 'shop'}-${base}`;
+}
+const linkTo = (p) => (/[()<>]/.test(p) ? `<${p}>` : p);
+// A verdict as kept: a leading date is dropped (the heard line carries it), escaped quotes
+// are unescaped. A verdict with no quote mark in it is taken as the hearer's own words and
+// quoted; one with quote marks already says which words were theirs, and is left as kept.
+export function quote(v) {
+  const t = String(v).replace(/^\d{4}-\d{2}-\d{2}:\s*/, '').replace(/\\"/g, '"').trim();
+  return t.includes('"') ? t : `"${t}"`;
+}
+function senseOf(files) {
+  const a = files.some((f) => AUDIO.test(f)), v = files.some((f) => VISUAL.test(f));
+  return a && v ? 'heard or seen' : v ? 'seen' : 'heard';
+}
+function headlineOf(data, dir) {
+  if (data.headline) return data.headline;
+  return (data.made_for || path.basename(dir)).split(/(?<=[.:;])\s/)[0].replace(/[.:;]$/, '').slice(0, 110);
+}
+function dayOf(dir, prov) {
+  const m = path.basename(dir).match(/^\d{4}-\d{2}-\d{2}/); if (m) return m[0];
+  return prov.batches?.[0]?.at?.slice(0, 10) || today();
+}
+
+/** Each job as the section tells it: the jobs file's words, the bench's record over them. */
+export function jobRows(data, prov) {
+  return data.jobs.map((j) => {
+    const p = prov.jobs?.[j.name];
+    const outputs = p ? Object.keys(p.outputs || {}) : (j.outputs || []);
+    return { name: j.name, page: j.page || null, sentence: j.sentence || null, claim: j.claim || null, chain: j.chain || [], outputs, caption: j.caption || null,
+      ran: !!p, heard_by: p ? p.heard_by : (j.heard_by || null), verdict: p ? p.verdict : (j.verdict || null), remade: p?.remade_after_heard || null };
+  });
+}
+function heardSummary(rows) {
+  const sense = senseOf(rows.flatMap((r) => r.outputs)); const heard = rows.filter((r) => r.heard_by);
+  if (!heard.length) return `Nobody has ${sense} ${rows.length === 1 ? 'this' : 'any of these'} yet.`;
+  const who = [...new Set(heard.map((r) => r.heard_by))].join('; ');
+  if (heard.length === rows.length) return `${rows.length === 1 ? 'It has' : `All ${rows.length} have`} been ${sense}: ${who}.`;
+  return `${heard.length} of ${rows.length} have been ${sense} (${who}); nobody has ${sense} ${heard.length === rows.length - 1 ? 'the other' : `the other ${rows.length - heard.length}`}: ${rows.filter((r) => !r.heard_by).map((r) => r.name).join(', ')}.`;
+}
+function artifactLines(J, rows) {
+  const out = []; const seen = new Set();
+  const add = (f, caption) => { const p = rel(path.join(J.dir, f)); if (seen.has(p)) return; seen.add(p); out.push(`- [${caption}](${linkTo(p)})`); };
+  for (const a of J.data.artifacts || []) add(a.path, a.caption || a.path);
+  for (const r of rows) for (const f of r.outputs) add(f, r.outputs.length > 1 || !r.caption ? `${r.caption || r.name}: ${f}` : r.caption);
+  return { lines: out, add };
+}
+
+/** The section on a Specialist's scroll: the whole round. */
+export function renderSection(J, prov, { id, specialist = null, presented = today() } = {}) {
+  const rows = jobRows(J.data, prov); const sense = senseOf(rows.flatMap((r) => r.outputs));
+  const L = [`<!-- scroll:entry id="${id}" -->`, `### ${dayOf(J.dir, prov)} — ${headlineOf(J.data, J.dir)}`, ''];
+  if (J.data.made_for) L.push(J.data.made_for, '');
+  if (J.data.notes) L.push(J.data.notes, '');
+  if (J.data.question) L.push(`What only ${sense === 'seen' ? 'an eye' : sense === 'heard' ? 'an ear' : 'an ear or an eye'} can say: ${J.data.question}`, '');
+  const claims = new Map();
+  for (const r of rows) if (r.claim) claims.set(r.claim, [...(claims.get(r.claim) || []), r.name]);
+  if (claims.size) {
+    L.push('**What each piece claims, written before it was made:**');
+    for (const [c, names] of claims) L.push(`- ${names.join(', ')}: ${c}`);
+    L.push('');
+  }
+  L.push(`**Each piece, and who has ${sense} it:**`);
+  for (const r of rows) {
+    const chain = r.chain.join(' → ');
+    const said = r.heard_by ? `${r.heard_by}${r.verdict ? `: ${quote(r.verdict)}` : ''}` : `nobody has ${senseOf(r.outputs)} this yet${r.remade ? ` (${r.remade})` : ''}`;
+    L.push(`- **${r.name}**${r.sentence ? `, ${r.page ? `for ${r.page}, ` : ''}${r.sentence}` : ''} · ${chain || 'no chain'}${r.ran ? '' : ' · not run through the bench'} · ${said}`);
+  }
+  L.push('', heardSummary(rows), '');
+  if (prov.round?.heard_by) L.push(`**${sense === 'seen' ? 'Seen' : 'Heard'}.** ${prov.round.heard_by}${prov.round.verdict ? `: ${quote(prov.round.verdict)}` : ''}`, '');
+  const art = artifactLines(J, rows);
+  if (fs.existsSync(J.prov)) art.add('provenance.json', 'what made each file, and who has heard or seen it');
+  art.add(path.basename(J.abs), 'the jobs as written');
+  L.push('**Artifacts:**', ...art.lines, '');
+  L.push(`<sub>${footer(J, prov, rows, presented, specialist)}</sub>`, '<!-- /scroll:entry -->');
+  return L.join('\n');
+}
+function footer(J, prov, rows, presented, specialist) {
+  const ran = rows.filter((r) => r.ran).length; const b = prov.batches || [];
+  const parts = [`${J.data.tier || 'sketch'}, ${rows.length} job${rows.length === 1 ? '' : 's'}`];
+  if (ran) {
+    const by = [...new Set(b.map((x) => x.by).filter(Boolean))].join(', '); const commits = [...new Set(Object.values(prov.jobs || {}).map((j) => j.commit_at_run).filter(Boolean))].join(', ');
+    parts.push(`${ran === rows.length ? 'every job' : `${ran} of ${rows.length} jobs`} made through the bench${b.length ? `, ${b.length} batch${b.length === 1 ? '' : 'es'} from ${b[0].at.slice(0, 10)}` : ''}${by ? ` by ${by}` : ''}${commits ? ` at ${commits}` : ''}`);
+  }
+  if (ran < rows.length) parts.push(`${ran ? 'the rest were' : 'nothing here was'} run through the bench, so no hash checks these files against what was ${senseOf(rows.flatMap((r) => r.outputs))}; their jobs file was written after the making`);
+  parts.push(`folder ${rel(J.dir)}/`, `presented ${presented} by the bench (Shop/shop.mjs present)${specialist ? ` on ${specialist}'s scroll` : ''}`);
+  return parts.join(' · ');
+}
+
+/** The short section on the scroll of the page a piece is for: what was made for it, and where the round is. */
+export function renderPageSection(J, prov, { id, page, specialists, presented = today() }) {
+  const rows = jobRows(J.data, prov).filter((r) => r.page === page);
+  const L = [`<!-- scroll:entry id="${id}" -->`, `### ${dayOf(J.dir, prov)} — ${headlineOf(J.data, J.dir)}`, ''];
+  const sentences = [...new Set(rows.map((r) => r.sentence).filter(Boolean))];
+  L.push(`Made for this page through the Shop${sentences.length ? `, beside: ${sentences.join('; ')}` : ''}. Nothing here is wired into the page; that is still the page's call.`, '');
+  L.push(`The whole round, with what each piece claims and who has ${senseOf(rows.flatMap((r) => r.outputs))} it, is on ${specialists.map((s) => `[${s}'s scroll](${linkTo(`Shop/${s}/${s} — scroll.md`)})`).join(' and ')}. ${heardSummary(rows)}`, '');
+  const art = artifactLines(J, rows);
+  L.push('**Artifacts:**', ...art.lines, '', `<sub>a link from the Shop · ${rows.length} piece${rows.length === 1 ? '' : 's'} for ${page} · folder ${rel(J.dir)}/ · presented ${presented} by the bench (Shop/shop.mjs present)</sub>`, '<!-- /scroll:entry -->');
+  return L.join('\n');
+}
+
+/** Put a section into a scroll's making trail: replace its own id in place, or add it at the top. */
+export function upsertSection(text, id, section) {
+  const esc = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(`<!--\\s*scroll:entry id="${esc}"\\s*-->[\\s\\S]*?<!--\\s*\\/scroll:entry\\s*-->`);
+  if (re.test(text)) return { text: text.replace(re, () => section), how: 'replaced' };
+  const at = text.indexOf(MAKING_START);
+  if (at < 0) return { text, how: null };
+  const head = text.slice(0, at + MAKING_START.length); let tail = text.slice(at + MAKING_START.length);
+  const end = tail.indexOf('<!-- scroll:making:end -->');
+  if (end >= 0 && PLACEHOLDER.test(tail.slice(0, end)) && !/scroll:entry/.test(tail.slice(0, end))) tail = tail.replace(PLACEHOLDER, '').replace(/^\n+/, '\n');
+  return { text: `${head}\n${section}\n${tail.startsWith('\n') ? '' : '\n'}${tail}`, how: 'added' };
+}
+
+function pageFile(title) {
+  const hits = (git(['ls-files', '--', `${title}.md`, `*/${title}.md`]) || '').split('\n').filter(Boolean);
+  return hits.length ? path.join(PALACE, hits[0]) : null;
+}
+function scrollOf(title) {
+  const f = pageFile(title); if (!f) return null;
+  return path.join(path.dirname(f), title, `${title} — scroll.md`);
+}
+function makeScroll(title, host) {
+  // The materializer needs the orchestrator's packages; a worktree may not have them,
+  // so the main checkout's copy is asked to write into this checkout (--root).
+  for (const root of [...new Set([PALACE, host.main])]) {
+    const r = spawnSync(process.execPath, [path.join(root, '_ops/stigmergy/orchestrator/src/scroll.js'), '--root', PALACE, '--home', title], { encoding: 'utf8' });
+    if (r.status === 0) return true;
+  }
+  return false;
+}
+
+export function present(file, o, list, host, say = console.log) {
+  const J = readJobs(file); const prov = readProv(J.prov); const id = sectionId(J.dir, J.data); const notes = [];
+  const specs = [...new Set(J.data.jobs.flatMap((j) => (j.chain || []).filter((l) => !isHand(l)).map((l) => specialistOf(l, list)?.name).filter(Boolean)))];
+  const write = (title, section, { create }) => {
+    const sp = scrollOf(title);
+    if (!sp) return notes.push(`${title}: no page by that title; nothing written.`);
+    if (!fs.existsSync(sp)) {
+      if (!create) return notes.push(`${title}: has no scroll, so nothing is linked from it. Making one is the page's call: node _ops/stigmergy/orchestrator/src/scroll.js --home "${title}", then present again (or present --page-scrolls).`);
+      if (o.dry || !makeScroll(title, host) || !fs.existsSync(sp)) return notes.push(`${title}: has no scroll${o.dry ? '; one would be made' : ' and the materializer could not make one'}.`);
+      notes.push(`${title}: scroll made.`);
+    }
+    const r = upsertSection(fs.readFileSync(sp, 'utf8'), id, section);
+    if (!r.how) return notes.push(`${rel(sp)}: no scroll:making:start marker; nothing written.`);
+    if (!o.dry) fs.writeFileSync(sp, r.text);
+    notes.push(`${o.dry ? 'would have ' : ''}${r.how} \`${id}\` on ${rel(sp)}`);
+  };
+  if (!specs.length) notes.push('No Specialist in any chain, so no Specialist scroll to present on.');
+  for (const s of specs) write(s, renderSection(J, prov, { id, specialist: s }), { create: true });
+  const pages = [...new Set(J.data.jobs.map((j) => j.page).filter((p) => p && !/^the entry this piece is for$/.test(p)))];
+  for (const p of pages) if (specs.length) write(p, renderPageSection(J, prov, { id, page: p, specialists: specs }), { create: !!o.pageScrolls });
+  if (!o.quiet) { say(`present ${rel(J.abs)}:`); for (const n of notes) say(`  ${n}`); }
+  return notes;
+}
+
+// ── a Specialist's open tests ───────────────────────────────────────────────────────
+export function splitNotYet(line) {
+  if (!line) return [];
+  const parts = line.includes(';') ? line.split(/;\s+/) : line.split(/(?<=\.)\s+(?=[A-Z(`])/);
+  return parts.map((s) => s.trim().replace(/[.;]$/, '')).filter(Boolean);
+}
+function scrollSays(scrollText, folderRel) {
+  const re = /<!--\s*scroll:entry id="([^"]+)"\s*-->([\s\S]*?)<!--\s*\/scroll:entry\s*-->/g; let m;
+  while ((m = re.exec(scrollText)) !== null) {
+    if (!m[2].includes(folderRel + '/')) continue;
+    const nobody = m[2].match(/[^.\n]*\bnobody has (heard|seen)[^.\n]*/i);
+    const heard = m[2].match(/\*\*(Heard|Seen)\.?\*\*[^\n]{0,80}|\b(Heard|Seen) by[^\n]{0,80}|\bLoudon (heard|saw|listened|looked)[^.\n]{0,60}|\b(heard|saw|seen)[^.\n]{0,40}\b\d{4}-\d{2}-\d{2}/);
+    return `its scroll section \`${m[1]}\` says: ${heard ? heard[0].trim().replace(/\s+\S*$/, '…') : nobody ? nobody[0].trim() : 'nothing about who has heard or seen it'}`;
+  }
+  return 'not on its scroll';
+}
+export function openTests(s) {
+  const dir = path.join(SHOP, s.name); const ledgerP = path.join(dir, `${s.name} — tuning.md`);
+  const owed = fs.existsSync(ledgerP) ? fs.readFileSync(ledgerP, 'utf8').split('\n').filter((l) => /\bowed\b/i.test(l)).map((l) => l.trim()) : [];
+  const scrollP = path.join(dir, `${s.name} — scroll.md`); const scrollText = fs.existsSync(scrollP) ? fs.readFileSync(scrollP, 'utf8') : '';
+  const folders = new Set();
+  const proofs = path.join(dir, 'proofs');
+  if (fs.existsSync(proofs)) for (const f of fs.readdirSync(proofs)) if (fs.statSync(path.join(proofs, f)).isDirectory()) folders.add(path.join(proofs, f));
+  const findProv = (p, depth = 0) => { if (depth > 4 || !fs.existsSync(p)) return; for (const f of fs.readdirSync(p)) { const q = path.join(p, f); if (f === 'provenance.json') { try { const v = JSON.parse(fs.readFileSync(q, 'utf8')); if (Object.values(v.jobs || {}).some((j) => (j.chain || []).some((l) => !isHand(l) && specialistOf(l, [s])))) folders.add(p); } catch { /* not the bench's */ } } else if (!f.startsWith('.') && fs.statSync(q).isDirectory()) findProv(q, depth + 1); } };
+  findProv(SHOP);
+  const rows = [...folders].sort((x, y) => path.basename(y).localeCompare(path.basename(x))).map((f) => {
+    const pf = path.join(f, 'provenance.json');
+    if (fs.existsSync(pf)) {
+      const v = readProv(pf); const js = Object.entries(v.jobs || {});
+      const heardN = js.filter(([, j]) => j.heard_by).length;
+      return { folder: rel(f), heard: js.length ? `${heardN} of ${js.length} job(s) heard or seen${heardN ? ` (${[...new Set(js.map(([, j]) => j.heard_by).filter(Boolean))].join('; ')})` : ''}, from its provenance` : 'provenance holds no jobs', scroll: scrollSays(scrollText, rel(f)) };
+    }
+    return { folder: rel(f), heard: 'no provenance', scroll: scrollSays(scrollText, rel(f)) };
+  });
+  const plan = path.join(dir, 'tests', 'test-plan.md');
+  return { name: s.name, notYet: splitNotYet(s.card.notYet), owed, proofs: rows, testPlan: fs.existsSync(plan) ? rel(plan) : null, scroll: scrollText ? rel(scrollP) : null };
+}
+function testsText(t) {
+  const out = [`${t.name} — open tests`, '', 'Not yet shown to hold (its card):'];
+  out.push(...(t.notYet.length ? t.notYet.map((x) => wrap(`- ${x}`, '  ')) : ['  — the card has no such line']));
+  out.push('', 'Owed in its ledger:', ...(t.owed.length ? t.owed.map((x) => wrap(x.replace(/^- /, '- '), '  ')) : ['  — nothing owed']));
+  out.push('', 'Proofs, newest first, and who has heard or seen each:');
+  out.push(...(t.proofs.length ? t.proofs.flatMap((p) => [`  ${p.folder}/`, wrap(`${p.heard}; ${p.scroll}`, '      ')]) : ['  — no proof folders yet']));
+  out.push('', `${t.scroll ? `Its scroll: ${t.scroll}` : 'No scroll yet: node _ops/stigmergy/orchestrator/src/scroll.js --home "' + t.name + '"'}${t.testPlan ? `   ·   its test plan: ${t.testPlan}` : ''}`);
+  return out.join('\n');
 }
 
 function walk(p, out = []) {
@@ -339,7 +590,7 @@ function main() {
   const json = flag('--json'), all = flag('--all'); const host = thisHost(); const cls = opt('--host') || host.cls;
   const pre = { for: null, by: null, taught: null, verdict: null };
   for (const k of Object.keys(pre)) pre[k] = opt('--' + k);
-  const dry = flag('--dry-run'), strict = flag('--strict');
+  const dry = flag('--dry-run'), strict = flag('--strict'), noPresent = flag('--no-present'), pageScrolls = flag('--page-scrolls'), round = flag('--round');
   const [cmd, ...rest] = args; const list = load();
   if (cmd === 'menu' || !cmd) {
     const need = rest.join(' ').trim() || null;
@@ -361,10 +612,17 @@ function main() {
     process.exitCode = 1; return;
   }
   if (cmd === 'workshop') return workshop(rest, pre.for, list, cls);
-  if (cmd === 'run') return run(rest, { by: pre.by, taught: pre.taught, dry }, list, host);
-  if (cmd === 'heard') return heard(rest, pre.by, pre.verdict);
+  if (cmd === 'run') return run(rest, { by: pre.by, taught: pre.taught, dry, noPresent, pageScrolls }, list, host);
+  if (cmd === 'heard') return heard(rest, pre.by, pre.verdict, { noPresent, pageScrolls, round }, list, host);
+  if (cmd === 'present') { if (!rest[0]) { console.error('Usage: node Shop/shop.mjs present <jobs.json> [--page-scrolls] [--dry-run]'); process.exit(1); } present(rest[0], { dry, pageScrolls }, list, host); return; }
+  if (cmd === 'tests') {
+    const q = rest.join(' ').trim().toLowerCase();
+    const s = list.find((x) => x.name.toLowerCase() === q) || list.find((x) => x.name.toLowerCase().includes(q));
+    if (!q || !s) { console.error(`No Specialist matches "${rest.join(' ')}". Names: ${list.map((x) => x.name).join(', ')}`); process.exit(1); }
+    const t = openTests(s); return console.log(json ? JSON.stringify(t, null, 2) : testsText(t));
+  }
   if (cmd === 'check') return check(rest, strict, json);
-  console.error('Usage: node Shop/shop.mjs menu [need] | card "<Specialist>" | missing | workshop <folder> | run <jobs.json> [job…] | heard <jobs.json> <job> --by <who> | check <path…>');
+  console.error('Usage: node Shop/shop.mjs menu [need] | card "<Specialist>" | tests "<Specialist>" | missing | workshop <folder> | run <jobs.json> [job…] | present <jobs.json> | heard <jobs.json> <job> --by <who> | check <path…>');
   process.exit(1);
 }
 

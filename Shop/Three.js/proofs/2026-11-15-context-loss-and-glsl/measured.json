@@ -1,0 +1,220 @@
+{
+  "page": "Shop/Three.js/proofs/2026-11-15-context-loss-and-glsl/context-loss-and-glsl.html",
+  "ran": "2026-11-15T13:52:36.298Z",
+  "host": "headless Chromium (playwright), software WebGL",
+  "three": "r128 (cdnjs, the shelf)",
+  "webgl": {
+    "version": "WebGL 2.0 (OpenGL ES 3.0 Chromium)",
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (LLVM 10.0.0) (0x0000C0DE)), SwiftShader driver)",
+    "loseExt": true
+  },
+  "before": {
+    "planeLitFraction": 0.9,
+    "planeRedness": 51.12
+  },
+  "contextLoss": {
+    "backgroundBefore": [
+      10,
+      10,
+      15
+    ],
+    "r128Alone": {
+      "asked": true,
+      "during": {
+        "ctx": "lost",
+        "glLost": true
+      },
+      "after": {
+        "context": "restored",
+        "losses": 1,
+        "restores": 1,
+        "glLost": false
+      },
+      "diffVsBefore": 10.015,
+      "backgroundCorner": [
+        0,
+        0,
+        0
+      ],
+      "planeLitFraction": 0.9
+    },
+    "withClearColourSetAgain": {
+      "asked": true,
+      "during": {
+        "ctx": "lost",
+        "glLost": true
+      },
+      "after": {
+        "context": "restored",
+        "losses": 2,
+        "restores": 2,
+        "glLost": false
+      },
+      "diffVsBefore": 0,
+      "backgroundCorner": [
+        10,
+        10,
+        15
+      ],
+      "planeLitFraction": 0.9
+    }
+  },
+  "brokenShader": {
+    "reported": {
+      "which": "fragment",
+      "log": "ERROR: 0:96: 'uColour' : undeclared identifier\nERROR: 0:96: 'constructor' : not enough data provided for construction\n\u0000",
+      "line": 9,
+      "text": "gl_FragColor = vec4(uColour * stripe * glow, 1.0);",
+      "compilerLine": 96,
+      "prefixLines": 87
+    },
+    "boxShown": true,
+    "where": "The fragment shader, line 9 of the source in this file: gl_FragColor = vec4(uColour * stripe * glow, 1.0);\n(The compiler says line 96 because three puts 87 lines of its own first.)",
+    "planeRedness": 115.03,
+    "planeLitFraction": 1
+  },
+  "mended": {
+    "diffBeforeVsMended": 0,
+    "shader": "compiles"
+  },
+  "console": [
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x12c001cd800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x12c001cd800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x12c001cd800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "type": "warning",
+      "text": "[.WebGL-0x12c001cd800]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    },
+    {
+      "type": "log",
+      "text": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "type": "log",
+      "text": "THREE.WebGLRenderer: Context Restored."
+    },
+    {
+      "type": "log",
+      "text": "THREE.WebGLRenderer: Context Lost."
+    },
+    {
+      "type": "log",
+      "text": "THREE.WebGLRenderer: Context Restored."
+    },
+    {
+      "type": "error",
+      "text": "THREE.WebGLProgram: shader error:  0 35715 false gl.getProgramInfoLog Fragment shader is not compiled.\n\u0000  THREE.WebGLShader: gl.getShaderInfoLog() fragment\nERROR: 0:96: 'uColour' : undeclared identifier\nERROR: 0:96: 'constructor' : not enough data provided for construction\n\u00001: #version 300 es\n2: #de"
+    }
+  ],
+  "rules": [
+    {
+      "name": "the plane draws on load (over half its cells lit)",
+      "pass": true,
+      "detail": {
+        "planeLitFraction": 0.9,
+        "planeRedness": 51.12
+      }
+    },
+    {
+      "name": "WEBGL_lose_context is there and both losses were asked for",
+      "pass": true,
+      "detail": {
+        "a": true,
+        "b": true
+      }
+    },
+    {
+      "name": "the page saw each loss (the gl context reported lost)",
+      "pass": true,
+      "detail": [
+        {
+          "ctx": "lost",
+          "glLost": true
+        },
+        {
+          "ctx": "lost",
+          "glLost": true
+        }
+      ]
+    },
+    {
+      "name": "the context came back each time (two losses, two restores, gl not lost)",
+      "pass": true,
+      "detail": {
+        "context": "restored",
+        "losses": 2,
+        "restores": 2,
+        "glLost": false
+      }
+    },
+    {
+      "name": "the striped texture and geometry came back (plane over half lit, both times)",
+      "pass": true,
+      "detail": [
+        0.9,
+        0.9
+      ]
+    },
+    {
+      "name": "r128 alone loses the clear colour on restore (background corner differs from before by more than 5)",
+      "pass": true,
+      "detail": {
+        "before": [
+          10,
+          10,
+          15
+        ],
+        "after": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "name": "with the clear colour set again, the restored frame matches the before (mean |diff| under 2 of 255)",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "three's diagnostics said not runnable, and the page caught it",
+      "pass": true,
+      "detail": "failed to compile — drawn flat red"
+    },
+    {
+      "name": "the page named the misspelt line in its own source",
+      "pass": true,
+      "detail": "The fragment shader, line 9 of the source in this file: gl_FragColor = vec4(uColour * stripe * glow, 1.0);\n(The compiler says line 96 because three puts 87 lines of its own first.)"
+    },
+    {
+      "name": "the error box is shown",
+      "pass": true,
+      "detail": true
+    },
+    {
+      "name": "the plane is still drawn, red, not black (redness over 40)",
+      "pass": true,
+      "detail": 115.03
+    },
+    {
+      "name": "mended, the frame matches the before (mean |diff| under 2 of 255)",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "no console error but three's own shader-error line",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": true
+}

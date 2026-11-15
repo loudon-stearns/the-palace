@@ -15,37 +15,37 @@ forward_vector: "I am Generative Wavetable Libraries's scroll — the one page t
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-15T13:35:38.223Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-15T13:41:53.060Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 21 · last ran 2026-11-15 (today)
-- **Plan:** agreed 2026-09-25 (51 days ago) · 8 made things since
-- **Waiting on you:** nothing
+- **Status:** active · **Stage:** growing · **Steward:** cycle 22 · last ran 2026-11-15 (today)
+- **Plan:** agreed 2026-09-25 (51 days ago) · 10 made things since
+- **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-15 (today) — The one-frame blur is now every packer's default, and all 30 packed tables are rebuilt with it. The buzz fell 8 to 27 dB in every one. (`gwl-steward-054`)
-- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
+- **Last shipped:** 2026-11-15 (today) — Any recording can now become a wavetable. Will you bring one of yours, a sung phrase or a played note, so a real performance gets tested? (`gwl-steward-057`)
+- **Last commit touching this project:** 2026-11-15 `f030343e` — steward(Generative Wavetable Libraries): cycle 21 — SPINNING UP. HOME: [Generative Wavetable Libraries](obsidian://open?vau…
 - **Signal:** steady
-- **Drift:** 12 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-15 — cycle 21 · taught item 5, proposed item 6 for canon
+- **Drift:** 13 cycles since the entry was last consolidated (cycle 9) — the entry body may lag; this scroll does not.
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-15 — cycle 22 · taught item 7, proposed item 8 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 2 — items 4, 6; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 6, from cycle 21 — 2026-11-15 — [[Generative Wavetable Libraries — tuning]]
+- **Proposed for canon:** 3 — items 4, 6, 8; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 8, from cycle 22 — 2026-11-15 — [[Generative Wavetable Libraries — tuning]]
 
 ### Where this stands
 
-This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. You've heard the crystal-lattice and Shepard tables work. In October I ran the chat interview on big AKWF folders and on cycles pulled from music-AI notes, and you picked the 'family chain' order. You also heard a buzz. I traced it to the sweep jumping between frames that differ too much, and blurred each frame one frame wide into its neighbours. On 10 November you heard the A/B and answered: the buzz is gone, nothing went washed, make it the default and rebuild every table. This cycle did that. The smoothing now lives in one place that every packer shares, the interview's own packer included. Every tabl…
+This project turns a conversation into a wavetable for Serum, Vital, Ableton and Surge. You've heard the crystal-lattice and Shepard tables and said they work. In October the chat interview ran on big AKWF folders and on cycles pulled from music-AI notes. On 10 November you made the one-frame blur the default because it took away the buzz, and every table was rebuilt with it. The plan's step after the interview is widening where the cycles come from. Palace synthesis, AKWF and an audio AI were done. The one missing source was a recording someone brings. This cycle built it. Give it any audio file, a sung phrase, a bass line or a spoken vowel, and it makes a table. Position means time throug…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
 - **rough since cycle 16:** Only the three family chains are smoothed. _(in 2 notes, the latest cycle 19)_
-- **rough since cycle 16:** Nobody has heard it. _(in 4 notes, the latest cycle 21)_
-- **rough since cycle 16:** the other 26 rebuilt tables are measured, not heard. _(in 4 notes, the latest cycle 21)_
+- **rough since cycle 16:** Nobody has heard it. _(in 5 notes, the latest cycle 22)_
+- **rough since cycle 16:** A noisy or chordal recording will mostly fail the agreement check, and there is no fallback yet. _(in 5 notes, the latest cycle 22)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `gwl-steward-057` — directional_decision · posted 2026-11-15 · options: SEND-ONE · PICK-FROM-DROPBOX · SURGE-NEXT · REDIRECT
 
 ### Answered, not yet consumed
 
@@ -65,6 +65,7 @@ _None._
 
 ### Runs
 
+- 2026-11-15 — cycle 22 · taught item 7, proposed item 8 for canon
 - 2026-11-15 — cycle 21 · taught item 5, proposed item 6 for canon
 - 2026-10-28 — cycle 20 · taught item 3, proposed item 4 for canon
 - 2026-10-28 — cycle 19 · taught item 1, proposed item 2 for canon
@@ -79,6 +80,7 @@ _Changes the steward wants in the house, kept in its tuning ledger until Loudon'
 
 - **4.** 2026-10-28 · [[Generative Wavetable Libraries]] · § Single-Cycle Waveforms, a new last sentence — the page lists single cycles as a format family with nothing built, and now there is a tested writer for it
 - **6.** 2026-11-15 · [[Generative Wavetable Libraries]] · § What Requires Development, new bullet after 'Phase coherence across frames' — Loudon decided the open question in item 2: the blur is now the default and every packed table carries it
+- **8.** 2026-11-15 · `_ops/wavetable-libraries/skills/interview/SKILL.md` · § What questions Claude should ask, question 1, a new bullet after 'Captured audio (single-cycle extraction)' — the plan's last missing source now exists and works, and the interview should offer it
 
 <!-- scroll:now:end -->
 
@@ -107,6 +109,96 @@ Loudon's direction from the board, approved as orders on 2026-09-25:
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="gwl-steward-057" -->
+### 2026-11-15 — cycle 22 — Any recording can now become a wavetable. Will you bring one of yours, a sung phrase or a played note, so a real performance gets tested?
+> still working · intake built, tested only on synthetic sounds · steward leans SEND-ONE
+
+Catch-up: this project turns a conversation into a wavetable for Serum and Ableton. The last source on the plan was a recording someone brings, and this cycle built it. Give it any audio file and it packs a clean cycle from every steady moment, in the order they were played. I tested it on a macOS voice, the Torus singer demo and the Harmonicity bass. All three are synthetic, so a real voice, instrument or room hasn't been through it, and that is where it may break. The cheapest real test is a file of yours, dropped in `user-cycles/brought/`. Ten seconds of a held, sung vowel run would do. If you'd rather not, I can pick an acoustic sample from your Dropbox reference library, or move on to loading the Surge table in Surge XT. I keep working either way. Start with the 24 s vowel sweep: [listen](open:Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels_time_audition_sweep.wav).
+
+**Artifacts:**
+- [Samantha's ah, ee, oo as a table, swept at A2 for 24 s.](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels_time_audition_sweep.wav)
+- [the recording, the pitch it followed, and the table frame by frame.](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels.png)
+- [rebuild_report.png](Projects/Generative Wavetable Libraries/loop-smoothing/rebuild_report.png)
+- [ai_cycles_centroid_AB_before_then_default.wav](Projects/Generative Wavetable Libraries/loop-smoothing/tables/ai_cycles_centroid_AB_before_then_default.wav)
+- [contact_sheet_family_chain_tilted.png](Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_family_chain_tilted.png)
+- [contact_sheet_family_chain.png](Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_family_chain.png)
+- [contact_sheet_centroid_order.png](Projects/Generative Wavetable Libraries/ai-cycles/contact_sheet_centroid_order.png)
+- [ai_cycles_asked_violin_audition_sweep.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin_audition_sweep.wav)
+- [ai_cycles_asked_violin_ableton.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin_ableton.wav)
+- [ai_cycles_asked_violin.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_violin.wav)
+- [ai_cycles_asked_piano_audition_sweep.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_piano_audition_sweep.wav)
+- [ai_cycles_asked_piano_ableton.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_piano_ableton.wav)
+- [ai_cycles_asked_piano.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_piano.wav)
+- [ai_cycles_asked_marimba_hit_audition_sweep.wav](Projects/Generative Wavetable Libraries/ai-cycles/tables/by-instrument/ai_cycles_asked_marimba_hit_audition_sweep.wav)
+<sub>`gwl-steward-057` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="gwl-steward-056" -->
+### 2026-11-15 — cycle 22 — Any recording now becomes a wavetable. I pull a clean cycle from every steady moment and pack them in the order they were played.
+> shipped · three test recordings packed, all quiet in the sweep · steward leans a real recording of yours next
+
+**What it does.** `user-cycles/bring_your_own.py` takes any wav, aiff, m4a or mp3. It follows the pitch itself every 10 ms. At every steady moment it averages four periods into one 2048-sample cycle, and keeps the cycle only when those periods agree. The two checks and the octave fix are reused from the AI-cycles extractor, so a cycle passes here on the same terms as there. The kept cycles go into the table in the order they were played. Sweep Position and the table replays how the sound's colour changed, at whatever note you play. A second table orders the same cycles as the smoothest path through them. Both carry the blur you made the default.
+
+**Three recordings, none of them a person's.** I had none of yours to hand. Samantha (the macOS voice) saying 'Aaah. Eeee. Oooo.', the 2D Torus singer demo, and the Harmonicity page's bass at E1. The bass came back empty at first. Its 41 Hz was under the tracker's 50 Hz floor, so the floor is now 30.
+
+**The recording's own order is the default.** Where a recording changes gradually, its own order beat the smoothest path: by 17 dB of buzz on the bass and 2 on the vowels. The path only helps where a recording jumps between unrelated sounds, and on the Torus singer it gains 1.4 dB.
+
+**One thing to know before you listen.** Every cycle is stretched to one length. A vowel's resonances sit at fixed frequencies, so when the voice drops in pitch they climb in the picture. Samantha's 'ee' glides upward because her pitch falls from 200 to 110 Hz as she says it. A vowel table played far from where it was spoken won't sound like the same vowel.
+
+**Open:** [the vowel sweep](open:Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels_time_audition_sweep.wav), a held A2 for 24 s. **Listen for:** ah, ee and oo, in turn and recognisable, and whether ah meets ee with a glide or a lurch (the recording had silence between them; the table has none). In Serum, drag `tables/<name>/<name>_time.wav` onto oscillator A. In Ableton, drag `<name>_time_ableton.wav`. [BUILD.md](obsidian://open?vault=The%20Palace&file=Projects/Generative%20Wavetable%20Libraries/user-cycles/BUILD.md) has what to listen for on all three.
+
+**Artifacts:**
+- [start here: Samantha's ah, ee, oo as a table, swept at A2 for 24 s.](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels_time_audition_sweep.wav)
+- [the recording, the pitch it followed with every kept moment, and the table's harmonics frame by frame. The vowels are the three blocks.](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels.png)
+- [the vowel table for Serum, Vital and Surge (140 frames, CLM).](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels_time.wav)
+- [the vowel table for Ableton Wavetable.](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels_time_ableton.wav)
+- [the same 140 vowel cycles as the smoothest path, for Serum.](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels_walk.wav)
+- [the vowel smoothest path for Ableton.](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels_walk_ableton.wav)
+- [the vowel smoothest path, swept.](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/samantha_vowels_walk_audition_sweep.wav)
+- [every number for the vowels, with every kept moment's time and pitch.](Projects/Generative Wavetable Libraries/user-cycles/tables/samantha_vowels/report.json)
+- [the Torus singer demo: eight held settings, 73 to 294 Hz, packed in time.](Projects/Generative Wavetable Libraries/user-cycles/tables/torus_singer/torus_singer.png)
+- [Torus singer in time order, for Serum (256 frames).](Projects/Generative Wavetable Libraries/user-cycles/tables/torus_singer/torus_singer_time.wav)
+- [Torus singer in time order, for Ableton.](Projects/Generative Wavetable Libraries/user-cycles/tables/torus_singer/torus_singer_time_ableton.wav)
+- [Torus singer in time order, swept: it steps between eight settings.](Projects/Generative Wavetable Libraries/user-cycles/tables/torus_singer/torus_singer_time_audition_sweep.wav)
+- [Torus singer as the smoothest path, for Serum.](Projects/Generative Wavetable Libraries/user-cycles/tables/torus_singer/torus_singer_walk.wav)
+- [Torus singer smoothest path, for Ableton.](Projects/Generative Wavetable Libraries/user-cycles/tables/torus_singer/torus_singer_walk_ableton.wav)
+- [Torus singer smoothest path, swept: the settings regrouped.](Projects/Generative Wavetable Libraries/user-cycles/tables/torus_singer/torus_singer_walk_audition_sweep.wav)
+- [Torus singer numbers.](Projects/Generative Wavetable Libraries/user-cycles/tables/torus_singer/report.json)
+- [the E1 bass: pitch bends of a few hertz, brightness that dips and recovers.](Projects/Generative Wavetable Libraries/user-cycles/tables/bass_gestures/bass_gestures.png)
+- [bass in time order, for Serum (256 frames, the quietest table this project has packed: −64 dB of buzz).](Projects/Generative Wavetable Libraries/user-cycles/tables/bass_gestures/bass_gestures_time.wav)
+- [bass in time order, for Ableton.](Projects/Generative Wavetable Libraries/user-cycles/tables/bass_gestures/bass_gestures_time_ableton.wav)
+- [bass in time order, swept.](Projects/Generative Wavetable Libraries/user-cycles/tables/bass_gestures/bass_gestures_time_audition_sweep.wav)
+- [bass as the smoothest path, for Serum (17 dB buzzier than time order).](Projects/Generative Wavetable Libraries/user-cycles/tables/bass_gestures/bass_gestures_walk.wav)
+- [bass smoothest path, for Ableton.](Projects/Generative Wavetable Libraries/user-cycles/tables/bass_gestures/bass_gestures_walk_ableton.wav)
+- [bass smoothest path, swept.](Projects/Generative Wavetable Libraries/user-cycles/tables/bass_gestures/bass_gestures_walk_audition_sweep.wav)
+- [bass numbers.](Projects/Generative Wavetable Libraries/user-cycles/tables/bass_gestures/report.json)
+- [the test recording, made with macOS say. The other two are read where they live and not copied.](Projects/Generative Wavetable Libraries/user-cycles/brought/samantha_vowels.wav)
+- [the intake: any audio file in, a time-ordered table and a smoothest-path table out.](Projects/Generative Wavetable Libraries/user-cycles/bring_your_own.py)
+- [what it does, the three test runs, what to open and what to listen for.](Projects/Generative Wavetable Libraries/user-cycles/BUILD.md)
+
+_Three recordings through the intake. Buzz is energy 4–15 Hz off the harmonics in a 24 s sweep; the smoothed AKWF and AI tables sit at −35 to −41 dB_
+| recording | frames | kept / voiced moments | big jumps, time / path | buzz as written, time / path (dB) |
+| --- | --- | --- | --- | --- |
+| Samantha, ah ee oo (2.4 s) | 140 | 140 / 150 | 0 / 0 | −51.3 / −49.2 |
+| Torus singer demo (27.8 s) | 256 | 1938 / 2228 | 8 / 5 | −37.9 / −39.3 |
+| Harmonicity bass, E1 (34 s) | 256 | 3389 / 3392 | 0 / 0 | −64.0 / −46.6 |
+
+_Changed in the workshop:_ BUILD — new workshop folder: the recording intake, its three test runs, and what to open and listen for.
+_Proposed for canon:_ _ops/wavetable-libraries/skills/interview/SKILL.md (§ What questions Claude should ask, question 1, a new bullet after 'Captured audio (single-cycle extraction)') — the plan's last missing source now exists and works, and the interview should offer it; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard it. All three test recordings are synthetic, so no person's voice, acoustic instrument or room has been through it. A noisy or chordal recording will mostly fail the agreement check, and there is no fallback yet.
+
+_Next moves named:_ Run a real recording of yours through it: drop any file in user-cycles/brought/ and the next cycle packs it. · Give the intake a fallback for noisy or chordal recordings: a cycle cut at the loudest stable period, marked as lower confidence, not dropped. · Then the plan's next step after sources: finish the formats by loading the Surge .wt file in Surge XT, which is installed on this Mac.
+<sub>`gwl-steward-056` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-e45fac6ccb" -->
+### 2026-11-15 — cycle 22
+
+taught item 7, proposed item 8 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="gwl-steward-054" -->
 ### 2026-11-15 — cycle 21 — The one-frame blur is now every packer's default, and all 30 packed tables are rebuilt with it. The buzz fell 8 to 27 dB in every one.
 > shipped · default in, 30 tables rebuilt, blur-off proven identical · steward leans the full 154-organ set next

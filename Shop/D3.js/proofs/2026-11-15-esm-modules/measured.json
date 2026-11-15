@@ -1,0 +1,89 @@
+{
+ "checked": "2026-11-15T13:59:26.317Z",
+ "page": "Shop/D3.js/proofs/2026-11-15-esm-modules/esm-modules.html",
+ "rules": {
+  "every_pin_matches_the_cdn": true,
+  "every_module_url_hashed": true,
+  "still_before_click": true,
+  "same_positions_to_the_bit": true,
+  "modules_under_a_quarter_of_the_bytes": true,
+  "five_module_files_loaded": true,
+  "clean_console": true,
+  "wrong_hash_is_refused": true
+ },
+ "pins": {
+  "https://cdn.jsdelivr.net/npm/d3-force@3.0.1/dist/d3-force.min.mjs": {
+   "bytes": 7996,
+   "matches": true
+  },
+  "https://cdn.jsdelivr.net/npm/d3-selection@3.0.1/dist/d3-selection.min.mjs": {
+   "bytes": 13227,
+   "matches": true
+  },
+  "https://cdn.jsdelivr.net/npm/d3-dispatch@3.0.2/dist/d3-dispatch.min.mjs": {
+   "bytes": 1596,
+   "matches": true
+  },
+  "https://cdn.jsdelivr.net/npm/d3-quadtree@3.0.2/dist/d3-quadtree.min.mjs": {
+   "bytes": 5055,
+   "matches": true
+  },
+  "https://cdn.jsdelivr.net/npm/d3-timer@3.0.2/dist/d3-timer.min.mjs": {
+   "bytes": 1683,
+   "matches": true
+  },
+  "https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js": {
+   "bytes": 279706,
+   "matches": true
+  }
+ },
+ "chromium": "147.0.7727.15",
+ "draw": {
+  "maxDelta": 0,
+  "oldTicks": 300,
+  "newTicks": 300,
+  "oldMs": 2552,
+  "newMs": 2551,
+  "verdict": "settled: the two land on exactly the same positions, to the last bit",
+  "oldWire": {
+   "files": 1,
+   "encoded": 92057,
+   "decoded": 279706
+  },
+  "newWire": {
+   "files": 5,
+   "encoded": 9557,
+   "decoded": 29557
+  },
+  "oldVersion": "7.9.0"
+ },
+ "console_errors": [],
+ "alone": {
+  "old": {
+   "ready_ms": [
+    263,
+    121,
+    343,
+    353,
+    377
+   ],
+   "median_ms": 343
+  },
+  "new": {
+   "ready_ms": [
+    370,
+    293,
+    291,
+    867,
+    394
+   ],
+   "median_ms": 370
+  }
+ },
+ "tampered": {
+  "modules_loaded": false,
+  "errors": [
+   "Failed to find a valid digest in the 'integrity' attribute for resource 'https://cdn.jsdelivr.net/npm/d3-force@3.0.1/dist/d3-force.min.mjs' with computed SHA-384 integrity 'WHqEZKbzSP8nyzXQTBOfSPq0B30YEHbCpVow8I+07963ZaB7RKpjgWAPm6c9RJvZ'. The resource has been blocked."
+  ]
+ }
+}
