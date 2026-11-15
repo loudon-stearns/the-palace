@@ -1,0 +1,29 @@
+{
+  "checked": "2026-11-15T13:49:37.399Z",
+  "piece": "Shop/Rich-face Kit/proofs/2026-11-15-second-file/second-file.html",
+  "plan": {
+    "sameOrigin": true,
+    "allow": "autoplay",
+    "chips": [
+      "files · 1",
+      "files · 1 only on this Mac"
+    ]
+  },
+  "origin": "http://127.0.0.1:51281",
+  "status": 200,
+  "bytes": 132344,
+  "samples": {
+    "file": 66150,
+    "page": 66150
+  },
+  "peak": 0.49678897857666016,
+  "maxDiff": 0.000026524066925048828,
+  "residual_dbfs": -91.52719769909234,
+  "undeclared_status": 404,
+  "button_says": "Played from pluck.wav.",
+  "console": [
+    "error: Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "pass": true,
+  "fails": []
+}
