@@ -96,6 +96,32 @@ Loudon stepped away on 2026-11-14 with "work autonomously to do all of our work 
 
 **Done looks like:** a design that covers these situations, shown to Loudon before anything foundational moves.
 
+## Rulings and the new goal, 2026-11-15
+
+Loudon listened to the SUBSTRATE pairs on Stable Audio Open's scroll (all five generated sounds read as named; his words are on that scroll and ledger), then set a goal and ruled.
+
+**What changed the ground.** Loudon: "I don't use obsidian anymore, we have other ways to view all of this work, and obsidian is struggling with the size of the palace." And: "We have been depreciating OBSIDIAN, now we create proofs like you did here, as html files, often these are presented on a page's scroll so I can view them in STIGMERGY." So a made thing is put in front of him on a scroll, never as an Obsidian embed.
+
+**The goal.** Loudon: "Lets make a goal of each specialist having a scroll of test proofs and a method for testing and improving iteravely".
+
+**The method he agreed to** (my words, his "agreed on all your points"): the bench writes the scroll section itself after a run; a made thing lands on the Specialist's scroll as its test record, with a link on the scroll of the page the piece is for; a Specialist's "Not yet shown to hold" line is its list of tests; each test is one small proof on the scroll with a question only his ear or eye can answer; his verdict goes on the ledger, and at a review the card changes. Every Specialist that runs here gets a scroll; the cheap local ones get a first test proof now.
+
+**His rulings, in his words.**
+- The decision tree: "I like your tree, I'd like to build in a \"zoom out\" though, the world is constantly improving, we should be doing searches for new updates and methods to consider as well. If a new method or update is out there, we should attempt to use it! This is how the shop can gain new tools."
+- The hand's two pages: "I like your two pages, how do we make sure these don't constrain new models as you gain skills I want to make sure using the pages don't hold back new model skills."
+- "Line in CHILD approved." He is owed the words before it lands.
+- The session-start hook: he approved my recommendation, which was to hold it.
+- The rich-face kit as a Specialist page: "yes, again using this must not constrain what a future model does, we must keep open the ability to use new features!"
+- LaTeX to alive, with the route as it really works here: "yes".
+- ComfyUI's "byte-exact" claims reworded to what was run: "agreed."
+- FLUX: "yes lets see what happens, and if it is better to run on runpod, go for it! you can spend up to my entire prepaid budget on runpod."
+- The third Oliveros room offered to her page with the hum lowered, through Enrichment: "agreed."
+- Obsidian's retirement drafted as a deposit and shown to him: "agreed".
+- Workshop READMEs link by palace path, no `![[…]]` embeds: "yes."
+- On how to work: "feel free to run multiple opus agents on each and compare results with another opus agent if that kind of process is an efficient way to get good results, we have lots of budget for opus, as you noted it is only fable that is constrained. use opus liberally."
+
+**A future probe he named, not owed:** twenty variations of one step, worked into a walk.
+
 ## Calibrations from this session
 
 - Loudon, 2026-11-14: "I don't want to settle this question in this session." The morning stopped at the example on purpose. Treat the candidate ideas as found, not chosen.
