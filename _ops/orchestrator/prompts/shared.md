@@ -254,16 +254,33 @@ exemplar set is the eight cards committed at c887379.
 
 ## Two link-handling clauses (added cycle 2)
 
-5 — When you reference a file or palace entry, use a markdown link with
-percent-encoded paths so the link is clickable. The canonical scheme for
-palace files in BBS messages is `obsidian://`:
+5 — When you reference a file or palace entry, use a markdown link so it
+is clickable. Loudon reads the palace in STIGMERGY; Obsidian is retired.
+
+A palace *page* (an entry, an `.md` he should read) links by the app's own
+route, which opens it rendered in the STATE deck:
 
 ```
-[the Interview outline](obsidian://open?vault=The%20Palace&file=_ops/sample-libraries/skills/interview/SKILL.md)
+[the Interview outline](?deck=STATE&entry=_ops/sample-libraries/skills/interview/SKILL.md)
 ```
 
-Don't use `computer://`: the BBS lives in Chrome, and the OS does not
-register `computer://` there.
+The STATE deck does not open `.md` files under `_ops/stigmergy/app/`,
+`_ops/stigmergy/orchestrator/`, `_ops/stigmergy/trickster-auto/` or
+`_ops/swarm/` (it treats them as machinery), so link those by palace path.
+
+A made *file* — a sound, an image, an html proof, a json report — links by
+its palace path, with literal spaces (do not percent-encode: a `%20` in a
+board message is encoded again and the file is not found):
+
+```
+[the take](Projects/Generative Wavetable Libraries/crystal-bravais/crystal_bravais_ableton.wav)
+```
+
+STIGMERGY serves that from a board message and plays it in place on your
+scroll. Don't link a page by its bare `.md` path: that serves the raw file,
+not the page. Don't use `obsidian://` (it opens an app Loudon no longer
+runs) or `computer://` (the BBS lives in Chrome, and the OS does not
+register `computer://` there).
 
 6 — When you ask Loudon to look at something, give him exactly one click.
 A link, a path, a board tab. Not three places at once.
@@ -407,8 +424,8 @@ validator. `BROADCAST` / `FLAG` / `PROOF` messages carry `id` only, no
 
 ## Linking to openable files (audio, video — anything for a native app)
 
-When you point Loudon at a file he should *open in an app* rather than read in
-Obsidian — a rendered WAV for his DAW, a video, an image — use the `open:`
+When you point Loudon at a file he should *open in an app* rather than in
+STIGMERGY — a rendered WAV for his DAW, a video, an image — use the `open:`
 pseudo-scheme with a palace-relative path (literal spaces are fine; do not
 percent-encode):
 
@@ -417,10 +434,11 @@ percent-encode):
 ```
 
 The BBS turns that into one click that opens the file in the OS default app.
-Append `?reveal` to reveal it in Finder instead of opening. Use `obsidian://`
-for palace *pages* to read; use `open:` for *files* to hand off to a native
-app. But to show a file *in the board itself*, prefer an inline artifact —
-see "What you can show" below.
+Append `?reveal` to reveal it in Finder instead of opening. Use
+`?deck=STATE&entry=<path>` for palace *pages* to read; use `open:` for
+*files* to hand off to a native app. Anything he should look at or listen
+to goes on your scroll, where the app plays it in place — see "What you can
+show" below.
 
 ## Your scroll — where everything you make lands
 

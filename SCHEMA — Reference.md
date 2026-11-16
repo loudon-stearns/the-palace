@@ -171,7 +171,7 @@ and (for ceremony changes) `_ops/Palace Ceremonies` are internally consistent �
 **Access vectors:**
 - *Full:* Claude Code on the Mac (filesystem read/write; commits through the door, [[How the Palace Commits]])
 - *Planning only:* claude.ai online (can deliberate and draft changes; cannot write files or commit)
-- *Manual:* Obsidian + Loudon (he makes the edits; a Claude session commits them by name through the door, since he never commits by hand — [[How the Palace Commits]])
+- *Manual:* Loudon in [[STIGMERGY]] (he edits a page in the STATE deck, and each save from the edit form's Trickster Commit button is committed through the door as he makes it — [[Trickster Commit]], [[How the Palace Commits]]). In his words: "I edit by hand within Stigmergy, so that it commits properly" (2026-11-15).
 - *Not supported:* GitHub cloud alone
 
 ---
@@ -310,9 +310,9 @@ An **entry bundle** is an optional sibling folder, named identically to the entr
 
 **Folder naming:** `[Entry].md` ↔ `[Entry]/` (exact match, no extension).
 
-**File naming inside a bundle:** `[Entry] — [type] [— qualifier].md`. The `[Entry] — ` prefix is required even though the folder appears to provide context — Obsidian's wikilink namespace is flat across the vault, and filenames must remain globally unique. The folder provides grouping, not namespacing.
+**File naming inside a bundle:** `[Entry] — [type] [— qualifier].md`. The `[Entry] — ` prefix is required even though the folder appears to provide context — wikilinks resolve by name across the whole palace, and filenames must remain globally unique. The folder provides grouping, not namespacing.
 
-**Exception — code-folder READMEs.** A `README.md` that sits inside a code subfolder, beside the source it documents, keeps its conventional name rather than taking the `[Entry] — ` prefix. It is the folder's front-door file for non-Obsidian tooling (Finder, GitHub, editors), it is discovered by opening the folder rather than by wikilink traversal, and it carries no inbound wikilinks to break (a bare `[[README]]` could never resolve unambiguously anyway). It still carries minimal bundle frontmatter, so it stays self-describing.
+**Exception — code-folder READMEs.** A `README.md` that sits inside a code subfolder, beside the source it documents, keeps its conventional name rather than taking the `[Entry] — ` prefix. It is the folder's front-door file for tooling that opens folders rather than following wikilinks (Finder, GitHub, editors), it is discovered by opening the folder rather than by wikilink traversal, and it carries no inbound wikilinks to break (a bare `[[README]]` could never resolve unambiguously anyway). It still carries minimal bundle frontmatter, so it stays self-describing.
 
 **Lazy creation:** A bundle exists only when something needs to live in it. Do not create empty bundles. Most entries will never have one.
 
@@ -353,7 +353,7 @@ New types may be tried freely. When a type earns recurring use across multiple b
 
 **Archive:** Consumed bundle files move to `[Entry]/Archive/`. Stays with the entry; git carries history.
 
-**Wikilink resolution:** Obsidian resolves `[[name]]` flatly across the vault regardless of folder. `[[Foo — baton]]` resolves to that file inside `Foo/` without special syntax. The flat-namespace constraint is exactly why bundle filenames must carry the entry prefix.
+**Wikilink resolution:** `[[name]]` resolves flatly across the palace regardless of folder — STIGMERGY, the linters and the Map all resolve it that way. Wikilinks stay the palace's file format — Loudon's ruling when Obsidian was retired (2026-11-15) — and the `![[…]]` image embeds go on as before; STIGMERGY renders those. `[[Foo — baton]]` resolves to that file inside `Foo/` without special syntax. The flat-namespace constraint is exactly why bundle filenames must carry the entry prefix.
 
 **Hubs:** The bundle pattern applies to hubs the same as any entry. Whether hub-bundle conventions diverge in practice is an open question deferred to use.
 

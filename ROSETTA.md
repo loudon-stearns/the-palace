@@ -284,7 +284,7 @@ These conditions must always be true, regardless of which ceremony is running or
 
 | Dependency | What it enables | Risk if lost | Mitigation |
 |---|---|---|---|
-| Obsidian | Graph visualization, local editing | Low — palace is plain markdown | Any markdown editor works |
+| Obsidian (retired 2026-11-15) | Was graph view and local editing | None now — palace is plain markdown | STIGMERGY reads and edits the palace |
 | Google Drive | Cloud sync | Medium — primary cloud store | Git/GitHub is the canonical backup |
 | Git / GitHub | Version control, history | Low | Regular pushes; local clone always current |
 | Claude (AI) | Ceremony execution, reasoning | Medium | All ceremony protocols written in plain language; a human can run them |

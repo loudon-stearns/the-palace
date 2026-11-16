@@ -162,3 +162,8 @@ A mint that closed a ghost the 2026-10-24 Weave had ruled an invitation: Shepard
 A fold that rewrote a page from a Daily Page sit and its face's challenge, with nine figures in the body. Loudon read the words and figures in a reading copy before the map's yes; two cold readers then found fixes in turn, each applied on his yes, and two links and a scroll joined after the map on his word.
 33. **One cold read was not enough for a large fold.** The second reader of D-2026-11-09-DSPLOOP found five fixes the first passed, all claims stated a shade past their evidence. The spec asks for one reader; this run used two. No spec change yet; owed: whether a fold above some size, or with figures, wants a second cold read.
 - run · 2026-11-09 · v2.9 · D-2026-11-09-DSPLOOP · taught item 33
+
+## From the Obsidian retirement — 2026-11-15
+
+A fold across twelve pages from a draft deposit in [[The Shop]]'s bundle. Loudon approved the map; two rulings came after it (wikilinks stay, `.obsidian/` untouched) and one fact he gave (he edits by hand in STIGMERGY for clean commits), and the placer carried all three into the words.
+- run · 2026-11-15 · v2.9 · D-2026-11-15-OBSIDIAN-RETIRED · nothing new

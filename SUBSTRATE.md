@@ -89,7 +89,7 @@ The diagram beside this section draws it from `SUBSTRATE/SUBSTRATE — anatomy.j
 
 ## Architecture
 
-- **Surface.** Markdown in an Obsidian vault, human-readable first. YAML frontmatter is the membership card: carrying it makes a file an entry. Eleven types: concept, meta, specialist, maker, source, project, question, spore, hub, practice, person ([[SCHEMA]] §1). <!-- mirror of SCHEMA §1 type list — keep in sync (11 types as of v1.29) -->
+- **Surface.** Markdown files in a git repository, human-readable first, read and edited through [[STIGMERGY]]. What is made to be heard, seen or played reaches Loudon on a page's scroll there. The palace began as an Obsidian vault and outgrew it; Obsidian is retired (Loudon, 2026-11-15). YAML frontmatter is the membership card: carrying it makes a file an entry. Eleven types: concept, meta, specialist, maker, source, project, question, spore, hub, practice, person ([[SCHEMA]] §1). <!-- mirror of SCHEMA §1 type list — keep in sync (11 types as of v1.29) -->
 - **Two link systems.** Frontmatter links are typed, curated and labelled: the semantic web. Body `[[wikilinks]]` are the casual fabric.
 - **Folders.** The skeleton and most entries sit at the root. `Projects/`, `People/` and `Shop/` each hold one kind. `Palace development/`, `Cross-Domain Resonances/` and `Modes of Collaboration/` hold themed entries. `_ops/` *operates* the palace: ceremony specs, working queues, machinery. The spec is [[Substrate Skill]] § Directory Structure; the ceremony index is [[Palace Ceremonies]].
 - **Use is computed, never kept.** How much a page is used is read from git ([[SCHEMA — Reference]] §3).

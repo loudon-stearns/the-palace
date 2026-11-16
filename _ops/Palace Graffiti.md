@@ -47,7 +47,7 @@ In the palace, notes left for each other inside source files are now called **gr
 
 - **`<!-- CLAUDE → LOUDON: note -->`** — Claude's counter-mark. Left when something in a file warrants Loudon's attention: a thin section, an unresolved tension, a spotted connection, a question about intent.
 
-Both forms are invisible in all Markdown renderers and exports. They exist only in the source file, visible only to someone reading the file's raw text. This is the point: graffiti is for the person who visits the wall later, not for the public.
+Both forms stay hidden in exports and public renders; STIGMERGY's STATE deck shows them to the two in the room as scrawls. This is the point: graffiti is for the person who visits the wall later, not for the public.
 
 ## The Trickster in the Palace
 
@@ -55,7 +55,7 @@ In myth, the [[Trickster]] is a figure who moves through spaces they don't offic
 
 Loudon's practice in the palace is precisely this:
 
-**He walks through entries** in his note-taking system (Obsidian, source files, or markdown viewer). He finds something — a thin sentence, an unresolved connection, a moment where the thought stops. He doesn't send a message. He doesn't schedule a meeting with Claude. He simply makes a mark: a comment written directly in the file, left there for the next visitor to find.
+**He walks through entries** in STIGMERGY, which shows each mark as a visible scrawl, or in the source files. He finds something — a thin sentence, an unresolved connection, a moment where the thought stops. He doesn't send a message. He doesn't schedule a meeting with Claude. He simply makes a mark: a comment written directly in the file, left there for the next visitor to find.
 
 **That mark is an intervention from the past.** When Claude encounters it in a future session, Loudon is not present. There is no real-time conversation. There is only the graffiti and the wall. Claude reads the mark and responds — either by enriching the entry, by asking a counter-question via its own graffiti, or by taking action.
 

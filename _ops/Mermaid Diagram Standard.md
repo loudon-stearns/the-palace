@@ -31,7 +31,7 @@ The hierarchy is explicit: **use Mermaid first**. Reach for SVG only when Mermai
 
 ## Why Mermaid Over SVG
 
-Mermaid source is plain text that lives in the entry beside the reasoning it supports, so its git diffs and searches read like prose, where an SVG is a separate file of coordinates that neither diff nor grep can read. Obsidian renders it with no plugin, and its small grammar of nodes, edges and labels makes you decide exactly what relationship you are drawing.
+Mermaid source is plain text that lives in the entry beside the reasoning it supports, so its git diffs and searches read like prose, where an SVG is a separate file of coordinates that neither diff nor grep can read. STIGMERGY renders it with no build step, and its small grammar of nodes, edges and labels makes you decide exactly what relationship you are drawing.
 
 ---
 
@@ -45,7 +45,7 @@ Mermaid is preferred but not universal. SVG earns its place when:
 
 **The diagram is sourced from an external work.** A figure from a paper, a hand-drawn sketch, a photograph of a whiteboard — these are image artifacts, not generated diagrams. They belong in the entry's bundle per [[Image Embedding Standard]], not as Mermaid code.
 
-**The diagram needs to live outside the palace.** If a diagram will be exported, shared, or used in another context, an SVG file is a more portable and durable format than a Mermaid block tied to Obsidian's renderer.
+**The diagram needs to live outside the palace.** If a diagram will be exported, shared, or used in another context, an SVG file is a more portable and durable format than a Mermaid block tied to a renderer.
 
 When you choose SVG over Mermaid, note why in the entry's prose or in a `<!-- CLAUDE → LOUDON: -->` comment. The choice should be visible and reasoned, not silent.
 
@@ -165,7 +165,7 @@ graph LR
 
 ## Mermaid in Ceremonies
 
-**Deposit Ceremony:** When depositing an entry that includes a Mermaid diagram, no extra filing step is needed — the diagram is part of the markdown file. Do verify that the diagram renders correctly in Obsidian's Reading View before closing the session.
+**Deposit Ceremony:** When depositing an entry that includes a Mermaid diagram, no extra filing step is needed — the diagram is part of the markdown file. Do verify that the diagram renders correctly in STIGMERGY's STATE deck before closing the session.
 
 **Weave Ceremony:** Mermaid diagrams in entries are eligible for Weave-time review. During a Weave, note any diagram whose edge labels use non-standard relationship terms (terms not in the typed link ontology). These are candidates for either refinement or a Schema Ceremony if they name a genuinely new relationship type.
 
@@ -179,4 +179,4 @@ graph LR
 - The Weave produces topological prose — hub counts, orphan lists, cluster descriptions. Could the next version of the Weave Ceremony also produce a Mermaid `graph` block as a visual summary of the palace's topology at the moment of the Weave? This would make the Weave's topological report both readable and renderable.
   - Answered the other way on [[Weave Ceremony]] postcondition 5b (2026-10-24): the Weave's visual report is HTML, per the [[Loudon Live Design System]], not a Mermaid block.
 - Mermaid's automatic layout sometimes produces cluttered or semantically misleading spatial arrangements — nodes placed near each other that are not conceptually close. Is there a practice for reviewing and iterating on layout direction (`TD` vs `LR`) as part of the deposit process, or is "good enough to convey the structure" sufficient?
-- As Mermaid versions evolve, syntax occasionally breaks. The palace's Mermaid diagrams are tied to whatever version Obsidian ships. Should there be a record of which Mermaid version the palace was authored against, and a ceremony step to audit diagrams after Obsidian updates?
+- As Mermaid versions evolve, syntax occasionally breaks. The palace's Mermaid diagrams are tied to whatever version STIGMERGY loads (`mermaid` in its `package.json`). Should there be a record of which Mermaid version the palace was authored against, and a ceremony step to audit diagrams after that version moves?

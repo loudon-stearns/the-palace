@@ -98,7 +98,7 @@ A knowledge entry may have a sibling folder of the same name (no extension) hold
 
 When a ceremony (Baton, Deposit, Enrichment) needs a file to live somewhere entry-owned, create the bundle on demand. The bundle is plumbing, not a thing you ritually invoke.
 
-File naming inside the bundle: `[Entry] — [type] [— qualifier].md`. The entry-prefix is required because Obsidian's wikilink namespace is flat across the vault.
+File naming inside the bundle: `[Entry] — [type] [— qualifier].md`. The entry-prefix is required because the palace's wikilink namespace is flat.
 
 When a bundle file is consumed (e.g., a superseded source or a spent sketch), move it to `[Entry]/Archive/` rather than deleting. Git carries history; archive preserves locality. (Batons are the exception — deleted when their move lands, with git as their archive; see [[Baton Ceremony]].)
 
@@ -224,7 +224,7 @@ The palace root holds two things: **foundational skeleton files** (CLAUDE, ELDER
 
 Not every ceremony spec lives in `_ops/`. Two are exceptions to the convention: [[Enrichment]] (`Enrichment.md`) and its bundle live in the **palace root** alongside the skeleton files, and [[Sentry]] (`Palace development/Sentry.md`) and its bundle live in `Palace development/`.
 
-Obsidian resolves `[[wikilinks]]` by filename regardless of folder — agents must do the same. When resolving a wikilink to a file path, search recursively through the entire palace directory. Exclude `.git/`, `.claude/`, and `.obsidian/` — these contain system files, not knowledge entries. Any other subdirectory may contain valid entries. When loading files by path (e.g., in tiered context loading), use paths relative to the palace root.
+`[[wikilinks]]` resolve by filename regardless of folder — STIGMERGY and the linters do, and agents must do the same. When resolving a wikilink to a file path, search recursively through the entire palace directory. Exclude `.git/`, `.claude/`, and `.obsidian/` — these contain system files, not knowledge entries. (Obsidian is retired, but `.obsidian/` stays as it is: Loudon ruled on 2026-11-15 that it is left untouched.) Any other subdirectory may contain valid entries. When loading files by path (e.g., in tiered context loading), use paths relative to the palace root.
 
 Knowledge entries may also have **entry bundles** — optional sibling folders named identically to the entry (e.g., `Foo.md` ↔ `Foo/`) holding the entry's owned files: batons, context companions, sources, sketches, enrichments. Bundles are lazy: they appear only when something needs to live in them. Most entries never grow one. See [[SCHEMA — Reference]] §8 for the full spec.
 
@@ -232,7 +232,7 @@ Knowledge entries may also have **entry bundles** — optional sibling folders n
 
 ### In-File Comments
 
-HTML comments carry asynchronous notes between Loudon and Claude inside palace files — invisible in every renderer, source-readable only:
+HTML comments carry asynchronous notes between Loudon and Claude inside palace files — hidden in exports and public renders; shown as scrawls in STIGMERGY's STATE deck:
 
 - `<!-- note -->` — Loudon → Claude. An instruction or question to address this session.
 - `<!-- CLAUDE → LOUDON: note -->` — Claude → Loudon. Flags something warranting attention: a thin section, an unresolved tension, a spotted connection, a question about intent.

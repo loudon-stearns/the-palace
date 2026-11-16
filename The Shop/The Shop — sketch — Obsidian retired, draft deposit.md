@@ -121,10 +121,12 @@ History told as history: [[README - The Palace Guide]] and `README.md` ("The pal
 
 ## Not settled — Loudon's to say
 
-- **Do wikilinks and `![[…]]` stay as the file format?** My lean is yes: STIGMERGY renders both, the linters and the Map depend on wikilinks, and every page carries a hero by `![[…]]`. Retiring Obsidian the viewer need not retire its syntax. He has already ruled that workshop READMEs link by palace path with no `![[…]]` embeds; this draft does not widen that to pages.
-- **What happens to `.obsidian/`?** Keep it tracked (harmless, 20 files), untrack it, or delete it. Deleting is irreversible for anyone who still opens the vault; it is his call.
-- **How does he edit a page by hand now?** SCHEMA's "Manual" access vector named Obsidian. If he edits in STIGMERGY, another editor, or not at all, the line should say which.
-- **Should a page's link in a board message open it rendered?** A palace path to an `.md` is served by `/api/file`; whether that shows the page or its raw text I have not tested. `?deck=STATE&entry=<path>` is the app's route to a rendered page.
+*Answered 2026-11-15, after the map's approval:* wikilinks stay and `.obsidian/` is left untouched (Loudon: ".obsidian is uncouched, wikilinks stay" — he means untouched); he edits by hand in STIGMERGY (Loudon: "I edit by hand within Stigmergy, so that it commits properly, this is one main reason I don't want to use obsidian, committing becomes really sloppy"); and a bare `.md` path in a board message serves the raw file, so pages link by `?deck=STATE&entry=<path>` (checked by the placing elder). He did not rule on `![[…]]` embeds; they go on as before.
+
+- **Do wikilinks and `![[…]]` stay as the file format?** *Answered for wikilinks: they stay.* My lean is yes: STIGMERGY renders both, the linters and the Map depend on wikilinks, and every page carries a hero by `![[…]]`. Retiring Obsidian the viewer need not retire its syntax. He has already ruled that workshop READMEs link by palace path with no `![[…]]` embeds; this draft does not widen that to pages.
+- **What happens to `.obsidian/`?** *Answered: untouched.* Keep it tracked (harmless, 20 files), untrack it, or delete it. Deleting is irreversible for anyone who still opens the vault; it is his call.
+- **How does he edit a page by hand now?** *Answered: in STIGMERGY.* SCHEMA's "Manual" access vector named Obsidian. If he edits in STIGMERGY, another editor, or not at all, the line should say which.
+- **Should a page's link in a board message open it rendered?** *Settled by test, not by Loudon: a bare `.md` serves the raw file.* A palace path to an `.md` is served by `/api/file`; whether that shows the page or its raw text I have not tested. `?deck=STATE&entry=<path>` is the app's route to a rendered page.
 - **The bundle-prefix rule.** It stands on flat wikilink resolution, which the palace's own tools now provide. If wikilinks ever give way to paths, that rule loses its reason; nothing here proposes it.
 
 ## Not verified

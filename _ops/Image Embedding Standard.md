@@ -50,7 +50,7 @@ The palace keeps two kinds of picture, and the test asks each a different questi
 
 Every picture lives in the bundle of the page it serves ([[SCHEMA]] §8); one that serves several lives with the page that owns it most. Its filename is a claim about what it shows (`kuramoto-order-parameter-vs-coupling-strength.svg`, never `diagram.png`); a face takes the house name `<Title> — hero.png`. Nothing is embedded from an external URL; archive it first. A generated technical figure keeps its `.tex` source beside its `.svg`, per [[Technical Diagram Standard]]. Prefer SVG for anything you draw.
 
-When a page arrives with a picture, file the picture first, then write the page, then open it in Obsidian to see that the embed resolves: an embed that fails is invisible in Reading View.
+When a page arrives with a picture, file the picture first, then write the page, then open it in STIGMERGY's STATE deck to see that the embed resolves; `lint-ghost-links` names a broken one.
 
 ## What doesn't belong
 

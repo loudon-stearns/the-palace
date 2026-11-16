@@ -33,7 +33,9 @@ forward_vector: "I am the front door a page keeps — a project, a ceremony, any
 A **scroll** is a living page bound to an entry that gathers what it has made or done in the
 order it happened — a project's proofs and media, a ceremony's runs — part index, part reading surface. The entry's bundle already *stores*
 everything it produces; the scroll gives that pile a face you can read top to bottom, so the
-whole arc of the making shows as one continuous surface instead of scattered files.
+whole arc of the making shows as one continuous surface instead of scattered files. It is also
+where Loudon looks and listens: he reads scrolls in [[STIGMERGY]], and that is where a made thing
+is most often shown to him.
 
 It is the counter-rhythm to the palace's deposit cadence. A deposit lands a finished thought in
 careful chunks — real, but the tool calls interrupt a working conversation. A scroll stays
@@ -124,7 +126,7 @@ Voice]]).
 
 Now keeps the plan honest from outside: it shows when the plan was agreed, how much has been made
 since, and whether a proposed revision is waiting. The plan is agreed text, not a read-model, so it
-survives the board being archived and reads in Obsidian with no machinery. It replaced the
+survives the board being archived and reads as plain markdown with no machinery. It replaced the
 `staging` bundle file (SCHEMA v1.25), which had held a plan, Loudon's decisions and session designs
 in one coat; they went to the Plan, Standing Orders, and `spec` files.
 
