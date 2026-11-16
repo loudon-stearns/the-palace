@@ -346,3 +346,9 @@ What each morning taught the practice. Each item names what the morning showed a
 ## From Loudon's ruling on the Shop, 2026-11-14
 
 120. **The prep could build by hand alone, but a Shop making waited for his yes, so the Shop was the slow path by rule.** The walk for the shop specialist discovery baton found it ([[The Shop — sketch — discovery walk 2026-11-14]]). Asked whether a local Sketch should still wait, Loudon answered: "Sketches can use anything, just go." Changed: the prep paragraph now lets a Sketch use any Specialist that runs on this machine without waiting; money and pods still wait for him. v1.11. Pays the cause under items 25 and 119 in part: the roster is still not in front of the prep until the Shop's menu exists.
+
+## From the morning of 2026-11-15 — Entry Conatus (sat 11-16)
+
+121. **The rough's draw leaned one way, and the page said so.** The game drew nine pairs by a seeded shuffle, each one an "I am" vector against one that names a want, same type, use differing by at least 1.8×. In seven of the eight scored pairs the "I am" page was the more used, while the whole-palace table, within type, showed no lean. The 1.8× gap favoured the big working pages, which mostly open "I am". The game still held, because the table carried the finding and the page called the draw luck. A game's draw is worth checking for balance against the claim it tests before the hello. Nothing forced.
+
+- run · 2026-11-15 · v1.11 · Entry Conatus, trim + tune · taught item 121
