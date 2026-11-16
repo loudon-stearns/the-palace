@@ -1,15 +1,15 @@
 {
   "meta": {
-    "generated": "2026-11-11",
+    "generated": "2026-11-15",
     "scope": "full",
-    "node_count": 331,
+    "node_count": 330,
     "use": {
-      "head": "719b5de2",
+      "head": "c3d02c23",
       "window_days": 90,
-      "window_since": "2026-08-13",
+      "window_since": "2026-08-17",
       "sweep_threshold": 10
     },
-    "edge_count": 2483,
+    "edge_count": 2472,
     "yaml_errors": [],
     "ghost_taxonomy": {
       "error_ghosts": [],
@@ -207,7 +207,7 @@
         }
       },
       "outbound_count": 1,
-      "inbound_count": 6,
+      "inbound_count": 5,
       "ops_card": false
     },
     {
@@ -239,17 +239,17 @@
       "type": "project",
       "stage": "fruiting",
       "has_forward_vector": true,
-      "last_used": "2026-11-07",
+      "last_used": "2026-11-14",
       "use": {
         "page": 6,
         "bundle": 12,
-        "linked": 38,
-        "use": 56,
+        "linked": 39,
+        "use": 57,
         "recent": {
           "page": 3,
           "bundle": 9,
-          "linked": 10,
-          "use": 22
+          "linked": 11,
+          "use": 23
         }
       },
       "outbound_count": 9,
@@ -308,17 +308,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 3,
-        "bundle": 1,
-        "linked": 36,
-        "use": 40,
+        "page": 4,
+        "bundle": 2,
+        "linked": 37,
+        "use": 43,
         "recent": {
-          "page": 3,
-          "bundle": 1,
-          "linked": 36,
-          "use": 40
+          "page": 4,
+          "bundle": 2,
+          "linked": 37,
+          "use": 43
         }
       },
       "outbound_count": 9,
@@ -331,17 +331,17 @@
       "type": "project",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-11-09",
+      "last_used": "2026-11-14",
       "use": {
         "page": 8,
         "bundle": 12,
-        "linked": 44,
-        "use": 64,
+        "linked": 45,
+        "use": 65,
         "recent": {
           "page": 1,
           "bundle": 9,
-          "linked": 8,
-          "use": 18
+          "linked": 9,
+          "use": 19
         }
       },
       "outbound_count": 5,
@@ -368,7 +368,7 @@
         }
       },
       "outbound_count": 4,
-      "inbound_count": 11,
+      "inbound_count": 12,
       "ops_card": false
     },
     {
@@ -515,17 +515,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 1,
-        "bundle": 0,
-        "linked": 33,
-        "use": 34,
+        "page": 2,
+        "bundle": 1,
+        "linked": 34,
+        "use": 37,
         "recent": {
-          "page": 1,
-          "bundle": 0,
-          "linked": 33,
-          "use": 34
+          "page": 2,
+          "bundle": 1,
+          "linked": 34,
+          "use": 37
         }
       },
       "outbound_count": 5,
@@ -538,17 +538,17 @@
       "type": "practice",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-10-29",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 9,
-        "use": 10,
+        "linked": 10,
+        "use": 11,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 9,
-          "use": 9
+          "linked": 10,
+          "use": 10
         }
       },
       "outbound_count": 6,
@@ -561,21 +561,21 @@
       "type": "concept",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-11",
       "use": {
         "page": 2,
         "bundle": 2,
-        "linked": 4,
-        "use": 8,
+        "linked": 5,
+        "use": 9,
         "recent": {
           "page": 2,
           "bundle": 2,
-          "linked": 4,
-          "use": 8
+          "linked": 5,
+          "use": 9
         }
       },
       "outbound_count": 5,
-      "inbound_count": 0,
+      "inbound_count": 1,
       "ops_card": false
     },
     {
@@ -607,17 +607,17 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-11-02",
+      "last_used": "2026-11-11",
       "use": {
         "page": 7,
         "bundle": 2,
-        "linked": 45,
-        "use": 54,
+        "linked": 46,
+        "use": 55,
         "recent": {
           "page": 2,
           "bundle": 1,
-          "linked": 2,
-          "use": 5
+          "linked": 3,
+          "use": 6
         }
       },
       "outbound_count": 8,
@@ -653,17 +653,17 @@
       "type": "practice",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-14",
       "use": {
         "page": 17,
-        "bundle": 18,
+        "bundle": 20,
         "linked": 39,
-        "use": 74,
+        "use": 76,
         "recent": {
           "page": 9,
-          "bundle": 15,
+          "bundle": 17,
           "linked": 18,
-          "use": 42
+          "use": 44
         }
       },
       "outbound_count": 5,
@@ -676,17 +676,17 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-11",
       "use": {
         "page": 5,
-        "bundle": 5,
+        "bundle": 6,
         "linked": 8,
-        "use": 18,
+        "use": 19,
         "recent": {
           "page": 2,
-          "bundle": 4,
+          "bundle": 5,
           "linked": 4,
-          "use": 10
+          "use": 11
         }
       },
       "outbound_count": 5,
@@ -735,7 +735,7 @@
           "use": 9
         }
       },
-      "outbound_count": 10,
+      "outbound_count": 11,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -745,17 +745,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-14",
       "use": {
         "page": 2,
         "bundle": 4,
-        "linked": 19,
-        "use": 25,
+        "linked": 21,
+        "use": 27,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 5,
-          "use": 5
+          "linked": 7,
+          "use": 7
         }
       },
       "outbound_count": 4,
@@ -814,17 +814,17 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
-        "bundle": 8,
+        "bundle": 9,
         "linked": 6,
-        "use": 15,
+        "use": 16,
         "recent": {
           "page": 0,
-          "bundle": 6,
+          "bundle": 7,
           "linked": 5,
-          "use": 11
+          "use": 12
         }
       },
       "outbound_count": 5,
@@ -929,17 +929,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 1,
-        "bundle": 1,
-        "linked": 40,
-        "use": 42,
+        "page": 2,
+        "bundle": 2,
+        "linked": 41,
+        "use": 45,
         "recent": {
-          "page": 1,
-          "bundle": 1,
-          "linked": 40,
-          "use": 42
+          "page": 2,
+          "bundle": 2,
+          "linked": 41,
+          "use": 45
         }
       },
       "outbound_count": 5,
@@ -952,17 +952,17 @@
       "type": "meta",
       "stage": "foundational",
       "has_forward_vector": true,
-      "last_used": "2026-11-09",
+      "last_used": "2026-11-14",
       "use": {
         "page": 4,
         "bundle": 0,
-        "linked": 68,
-        "use": 72,
+        "linked": 69,
+        "use": 73,
         "recent": {
           "page": 4,
           "bundle": 0,
-          "linked": 68,
-          "use": 72
+          "linked": 69,
+          "use": 73
         }
       },
       "outbound_count": 7,
@@ -1034,7 +1034,7 @@
           "use": 7
         }
       },
-      "outbound_count": 8,
+      "outbound_count": 9,
       "inbound_count": 10,
       "ops_card": false
     },
@@ -1090,17 +1090,17 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-11",
       "use": {
         "page": 20,
-        "bundle": 32,
+        "bundle": 33,
         "linked": 72,
-        "use": 124,
+        "use": 125,
         "recent": {
           "page": 14,
-          "bundle": 24,
+          "bundle": 25,
           "linked": 30,
-          "use": 68
+          "use": 69
         }
       },
       "outbound_count": 15,
@@ -1136,17 +1136,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-09-26",
+      "last_used": "2026-11-14",
       "use": {
         "page": 3,
         "bundle": 1,
-        "linked": 18,
-        "use": 22,
+        "linked": 20,
+        "use": 24,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 2,
-          "use": 3
+          "linked": 4,
+          "use": 5
         }
       },
       "outbound_count": 6,
@@ -1228,17 +1228,17 @@
       "type": "meta",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-14",
       "use": {
         "page": 11,
         "bundle": 7,
-        "linked": 48,
-        "use": 66,
+        "linked": 49,
+        "use": 67,
         "recent": {
           "page": 7,
           "bundle": 4,
-          "linked": 35,
-          "use": 46
+          "linked": 36,
+          "use": 47
         }
       },
       "outbound_count": 9,
@@ -1264,7 +1264,7 @@
           "use": 4
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 14,
       "ops_card": false
     },
@@ -1333,7 +1333,7 @@
           "use": 12
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 5,
       "inbound_count": 41,
       "ops_card": false
     },
@@ -1389,17 +1389,17 @@
       "type": "project",
       "stage": "fruiting",
       "has_forward_vector": true,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-13",
       "use": {
         "page": 4,
-        "bundle": 11,
+        "bundle": 12,
         "linked": 36,
-        "use": 51,
+        "use": 52,
         "recent": {
           "page": 0,
-          "bundle": 8,
+          "bundle": 9,
           "linked": 11,
-          "use": 19
+          "use": 20
         }
       },
       "outbound_count": 8,
@@ -1435,17 +1435,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-06-16",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 2,
-        "bundle": 0,
-        "linked": 4,
-        "use": 6,
+        "page": 3,
+        "bundle": 1,
+        "linked": 5,
+        "use": 9,
         "recent": {
-          "page": 0,
-          "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "page": 1,
+          "bundle": 1,
+          "linked": 1,
+          "use": 3
         }
       },
       "outbound_count": 5,
@@ -1481,17 +1481,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-14",
       "use": {
         "page": 2,
         "bundle": 3,
-        "linked": 22,
-        "use": 27,
+        "linked": 23,
+        "use": 28,
         "recent": {
           "page": 1,
           "bundle": 2,
-          "linked": 5,
-          "use": 8
+          "linked": 6,
+          "use": 9
         }
       },
       "outbound_count": 10,
@@ -1527,17 +1527,17 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-14",
       "use": {
         "page": 29,
         "bundle": 22,
-        "linked": 85,
-        "use": 136,
+        "linked": 86,
+        "use": 137,
         "recent": {
           "page": 16,
           "bundle": 21,
-          "linked": 34,
-          "use": 71
+          "linked": 35,
+          "use": 72
         }
       },
       "outbound_count": 4,
@@ -1550,17 +1550,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-06-26",
+      "last_used": "2026-11-14",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 1,
-        "use": 2,
+        "linked": 3,
+        "use": 4,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 4,
@@ -1780,17 +1780,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-07-08",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 2,
-        "use": 4,
+        "linked": 3,
+        "use": 5,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 10,
@@ -1826,20 +1826,20 @@
       "type": "source",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-14",
       "use": {
         "page": 5,
         "bundle": 1,
-        "linked": 21,
-        "use": 27,
+        "linked": 23,
+        "use": 29,
         "recent": {
           "page": 5,
           "bundle": 1,
-          "linked": 21,
-          "use": 27
+          "linked": 23,
+          "use": 29
         }
       },
-      "outbound_count": 10,
+      "outbound_count": 11,
       "inbound_count": 4,
       "ops_card": false
     },
@@ -2000,7 +2000,7 @@
           "use": 5
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 5,
       "inbound_count": 10,
       "ops_card": false
     },
@@ -2010,21 +2010,21 @@
       "type": "meta",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 17,
-        "bundle": 21,
-        "linked": 65,
-        "use": 103,
+        "page": 19,
+        "bundle": 23,
+        "linked": 67,
+        "use": 109,
         "recent": {
-          "page": 14,
-          "bundle": 14,
-          "linked": 48,
-          "use": 76
+          "page": 16,
+          "bundle": 16,
+          "linked": 50,
+          "use": 82
         }
       },
       "outbound_count": 12,
-      "inbound_count": 11,
+      "inbound_count": 12,
       "ops_card": false
     },
     {
@@ -2033,17 +2033,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-02",
+      "last_used": "2026-11-11",
       "use": {
         "page": 3,
         "bundle": 1,
-        "linked": 19,
-        "use": 23,
+        "linked": 20,
+        "use": 24,
         "recent": {
           "page": 2,
           "bundle": 0,
-          "linked": 6,
-          "use": 8
+          "linked": 7,
+          "use": 9
         }
       },
       "outbound_count": 7,
@@ -2056,17 +2056,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-07-07",
+      "last_used": "2026-11-11",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 4,
-        "use": 7,
+        "linked": 5,
+        "use": 8,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 9,
@@ -2175,8 +2175,8 @@
       "use": {
         "page": 10,
         "bundle": 3,
-        "linked": 219,
-        "use": 232,
+        "linked": 220,
+        "use": 233,
         "recent": {
           "page": 3,
           "bundle": 1,
@@ -2185,7 +2185,7 @@
         }
       },
       "outbound_count": 8,
-      "inbound_count": 78,
+      "inbound_count": 77,
       "ops_card": false
     },
     {
@@ -2194,17 +2194,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-14",
       "use": {
         "page": 5,
         "bundle": 4,
-        "linked": 9,
-        "use": 18,
+        "linked": 11,
+        "use": 20,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 3,
+          "use": 3
         }
       },
       "outbound_count": 10,
@@ -2493,17 +2493,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-13",
       "use": {
         "page": 4,
-        "bundle": 9,
+        "bundle": 10,
         "linked": 14,
-        "use": 27,
+        "use": 28,
         "recent": {
           "page": 3,
-          "bundle": 7,
+          "bundle": 8,
           "linked": 7,
-          "use": 17
+          "use": 18
         }
       },
       "outbound_count": 10,
@@ -2654,17 +2654,17 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-11",
       "use": {
         "page": 5,
         "bundle": 8,
-        "linked": 16,
-        "use": 29,
+        "linked": 17,
+        "use": 30,
         "recent": {
           "page": 5,
           "bundle": 8,
-          "linked": 16,
-          "use": 29
+          "linked": 17,
+          "use": 30
         }
       },
       "outbound_count": 17,
@@ -2723,21 +2723,21 @@
       "type": "maker",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-11",
       "use": {
         "page": 9,
         "bundle": 12,
-        "linked": 16,
-        "use": 37,
+        "linked": 17,
+        "use": 38,
         "recent": {
           "page": 5,
           "bundle": 6,
-          "linked": 10,
-          "use": 21
+          "linked": 11,
+          "use": 22
         }
       },
       "outbound_count": 9,
-      "inbound_count": 5,
+      "inbound_count": 6,
       "ops_card": false
     },
     {
@@ -2750,8 +2750,8 @@
       "use": {
         "page": 7,
         "bundle": 2,
-        "linked": 97,
-        "use": 106,
+        "linked": 98,
+        "use": 107,
         "recent": {
           "page": 2,
           "bundle": 1,
@@ -2759,7 +2759,7 @@
           "use": 20
         }
       },
-      "outbound_count": 10,
+      "outbound_count": 9,
       "inbound_count": 45,
       "ops_card": false
     },
@@ -2815,17 +2815,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-11-02",
+      "last_used": "2026-11-11",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 8,
-        "use": 11,
+        "linked": 9,
+        "use": 12,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 4,
-          "use": 5
+          "linked": 5,
+          "use": 6
         }
       },
       "outbound_count": 9,
@@ -2861,21 +2861,21 @@
       "type": "meta",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-11-09",
+      "last_used": "2026-11-14",
       "use": {
         "page": 3,
         "bundle": 0,
-        "linked": 9,
-        "use": 12,
+        "linked": 11,
+        "use": 14,
         "recent": {
           "page": 1,
           "bundle": 0,
-          "linked": 4,
-          "use": 5
+          "linked": 6,
+          "use": 7
         }
       },
       "outbound_count": 5,
-      "inbound_count": 2,
+      "inbound_count": 3,
       "ops_card": true
     },
     {
@@ -2884,17 +2884,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-11-14",
       "use": {
         "page": 0,
         "bundle": 0,
-        "linked": 3,
-        "use": 3,
+        "linked": 4,
+        "use": 4,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 6,
@@ -2944,7 +2944,7 @@
         }
       },
       "outbound_count": 5,
-      "inbound_count": 5,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -3022,17 +3022,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-10-22",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 4,
-        "use": 6,
+        "linked": 5,
+        "use": 7,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 8,
@@ -3045,17 +3045,17 @@
       "type": "concept",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 8,
-        "use": 10,
+        "linked": 9,
+        "use": 11,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 5,
@@ -3068,17 +3068,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-18",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 4,
-        "bundle": 0,
+        "page": 5,
+        "bundle": 1,
         "linked": 17,
-        "use": 21,
+        "use": 23,
         "recent": {
-          "page": 0,
-          "bundle": 0,
+          "page": 1,
+          "bundle": 1,
           "linked": 5,
-          "use": 5
+          "use": 7
         }
       },
       "outbound_count": 6,
@@ -3095,8 +3095,8 @@
       "use": {
         "page": 13,
         "bundle": 12,
-        "linked": 97,
-        "use": 122,
+        "linked": 98,
+        "use": 123,
         "recent": {
           "page": 4,
           "bundle": 6,
@@ -3137,17 +3137,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-09-24",
+      "last_used": "2026-11-14",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 5,
-        "use": 6,
+        "linked": 7,
+        "use": 8,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 3,
+          "use": 3
         }
       },
       "outbound_count": 5,
@@ -3160,17 +3160,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 1,
-        "bundle": 0,
-        "linked": 4,
-        "use": 5,
+        "page": 2,
+        "bundle": 1,
+        "linked": 5,
+        "use": 8,
         "recent": {
-          "page": 0,
-          "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "page": 1,
+          "bundle": 1,
+          "linked": 2,
+          "use": 4
         }
       },
       "outbound_count": 4,
@@ -3206,17 +3206,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-11",
       "use": {
         "page": 2,
         "bundle": 2,
-        "linked": 10,
-        "use": 14,
+        "linked": 11,
+        "use": 15,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 5,
@@ -3266,7 +3266,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 19,
+      "inbound_count": 18,
       "ops_card": false
     },
     {
@@ -3275,17 +3275,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-11",
       "use": {
         "page": 4,
         "bundle": 2,
-        "linked": 8,
-        "use": 14,
+        "linked": 9,
+        "use": 15,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 3,
-          "use": 5
+          "linked": 4,
+          "use": 6
         }
       },
       "outbound_count": 7,
@@ -3298,17 +3298,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-14",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 5,
-        "use": 8,
+        "linked": 7,
+        "use": 10,
         "recent": {
           "page": 0,
           "bundle": 1,
-          "linked": 3,
-          "use": 4
+          "linked": 5,
+          "use": 6
         }
       },
       "outbound_count": 8,
@@ -3339,22 +3339,45 @@
       "ops_card": false
     },
     {
+      "id": "Light Enrichment",
+      "path": "Light Enrichment.md",
+      "type": "practice",
+      "stage": "sprout",
+      "has_forward_vector": true,
+      "last_used": "2026-11-14",
+      "use": {
+        "page": 2,
+        "bundle": 1,
+        "linked": 2,
+        "use": 5,
+        "recent": {
+          "page": 2,
+          "bundle": 1,
+          "linked": 2,
+          "use": 5
+        }
+      },
+      "outbound_count": 7,
+      "inbound_count": 0,
+      "ops_card": false
+    },
+    {
       "id": "LightOnOCR-3",
       "path": "Shop/LightOnOCR-3.md",
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-07",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 1,
+        "page": 2,
         "bundle": 1,
         "linked": 2,
-        "use": 4,
+        "use": 5,
         "recent": {
-          "page": 1,
+          "page": 2,
           "bundle": 1,
           "linked": 2,
-          "use": 4
+          "use": 5
         }
       },
       "outbound_count": 3,
@@ -3482,17 +3505,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-11",
       "use": {
         "page": 11,
         "bundle": 5,
-        "linked": 61,
-        "use": 77,
+        "linked": 62,
+        "use": 78,
         "recent": {
           "page": 7,
           "bundle": 3,
-          "linked": 22,
-          "use": 32
+          "linked": 23,
+          "use": 33
         }
       },
       "outbound_count": 11,
@@ -3574,17 +3597,17 @@
       "type": "maker",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-09",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 24,
-        "bundle": 10,
+        "page": 25,
+        "bundle": 11,
         "linked": 65,
-        "use": 99,
+        "use": 101,
         "recent": {
-          "page": 8,
-          "bundle": 6,
+          "page": 9,
+          "bundle": 7,
           "linked": 13,
-          "use": 27
+          "use": 29
         }
       },
       "outbound_count": 12,
@@ -3620,17 +3643,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-02",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 9,
-        "bundle": 3,
+        "page": 10,
+        "bundle": 4,
         "linked": 10,
-        "use": 22,
+        "use": 24,
         "recent": {
-          "page": 1,
-          "bundle": 1,
+          "page": 2,
+          "bundle": 2,
           "linked": 0,
-          "use": 2
+          "use": 4
         }
       },
       "outbound_count": 9,
@@ -3643,17 +3666,17 @@
       "type": "meta",
       "stage": "growing",
       "has_forward_vector": false,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-11",
       "use": {
         "page": 8,
         "bundle": 5,
-        "linked": 18,
-        "use": 31,
+        "linked": 19,
+        "use": 32,
         "recent": {
           "page": 5,
           "bundle": 4,
-          "linked": 6,
-          "use": 15
+          "linked": 7,
+          "use": 16
         }
       },
       "outbound_count": 3,
@@ -3712,17 +3735,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-09-24",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 8,
-        "use": 10,
+        "linked": 9,
+        "use": 11,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 3,
-          "use": 3
+          "linked": 4,
+          "use": 4
         }
       },
       "outbound_count": 8,
@@ -3758,17 +3781,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-09-26",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 3,
-        "bundle": 1,
-        "linked": 6,
-        "use": 10,
+        "page": 4,
+        "bundle": 2,
+        "linked": 7,
+        "use": 13,
         "recent": {
-          "page": 1,
-          "bundle": 1,
-          "linked": 0,
-          "use": 2
+          "page": 2,
+          "bundle": 2,
+          "linked": 1,
+          "use": 5
         }
       },
       "outbound_count": 2,
@@ -3873,17 +3896,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-09-26",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 2,
-        "bundle": 0,
-        "linked": 2,
-        "use": 4,
+        "page": 3,
+        "bundle": 1,
+        "linked": 3,
+        "use": 7,
         "recent": {
-          "page": 1,
-          "bundle": 0,
-          "linked": 0,
-          "use": 1
+          "page": 2,
+          "bundle": 1,
+          "linked": 1,
+          "use": 4
         }
       },
       "outbound_count": 2,
@@ -3919,17 +3942,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-21",
+      "last_used": "2026-11-11",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 9,
-        "use": 12,
+        "linked": 10,
+        "use": 13,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 4,
-          "use": 4
+          "linked": 5,
+          "use": 5
         }
       },
       "outbound_count": 3,
@@ -3969,8 +3992,8 @@
       "use": {
         "page": 4,
         "bundle": 2,
-        "linked": 26,
-        "use": 32,
+        "linked": 27,
+        "use": 33,
         "recent": {
           "page": 1,
           "bundle": 1,
@@ -3978,7 +4001,7 @@
           "use": 4
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 5,
       "inbound_count": 12,
       "ops_card": false
     },
@@ -4057,21 +4080,21 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 1,
-        "use": 3,
+        "linked": 2,
+        "use": 4,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 1,
-          "use": 3
+          "linked": 2,
+          "use": 4
         }
       },
       "outbound_count": 5,
-      "inbound_count": 1,
+      "inbound_count": 2,
       "ops_card": false
     },
     {
@@ -4103,21 +4126,21 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-04",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 16,
-        "use": 18,
+        "linked": 18,
+        "use": 20,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 16,
-          "use": 18
+          "linked": 18,
+          "use": 20
         }
       },
       "outbound_count": 7,
-      "inbound_count": 6,
+      "inbound_count": 7,
       "ops_card": false
     },
     {
@@ -4126,17 +4149,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-13",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 2,
+        "page": 3,
         "bundle": 0,
-        "linked": 7,
-        "use": 9,
+        "linked": 8,
+        "use": 11,
         "recent": {
-          "page": 2,
+          "page": 3,
           "bundle": 0,
-          "linked": 7,
-          "use": 9
+          "linked": 8,
+          "use": 11
         }
       },
       "outbound_count": 7,
@@ -4153,13 +4176,13 @@
       "use": {
         "page": 2,
         "bundle": 3,
-        "linked": 9,
-        "use": 14,
+        "linked": 10,
+        "use": 15,
         "recent": {
           "page": 2,
           "bundle": 3,
-          "linked": 9,
-          "use": 14
+          "linked": 10,
+          "use": 15
         }
       },
       "outbound_count": 5,
@@ -4185,7 +4208,7 @@
           "use": 5
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 11,
       "ops_card": false
     },
@@ -4195,17 +4218,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 2,
-        "bundle": 0,
-        "linked": 7,
-        "use": 9,
+        "page": 3,
+        "bundle": 1,
+        "linked": 8,
+        "use": 12,
         "recent": {
-          "page": 0,
-          "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "page": 1,
+          "bundle": 1,
+          "linked": 2,
+          "use": 4
         }
       },
       "outbound_count": 5,
@@ -4278,7 +4301,7 @@
         }
       },
       "outbound_count": 10,
-      "inbound_count": 31,
+      "inbound_count": 30,
       "ops_card": true
     },
     {
@@ -4347,7 +4370,7 @@
         }
       },
       "outbound_count": 13,
-      "inbound_count": 25,
+      "inbound_count": 24,
       "ops_card": false
     },
     {
@@ -4392,7 +4415,7 @@
           "use": 34
         }
       },
-      "outbound_count": 22,
+      "outbound_count": 21,
       "inbound_count": 7,
       "ops_card": true
     },
@@ -4425,17 +4448,17 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-11-09",
+      "last_used": "2026-11-11",
       "use": {
         "page": 8,
         "bundle": 4,
-        "linked": 40,
-        "use": 52,
+        "linked": 41,
+        "use": 53,
         "recent": {
           "page": 2,
           "bundle": 3,
-          "linked": 14,
-          "use": 19
+          "linked": 15,
+          "use": 20
         }
       },
       "outbound_count": 31,
@@ -4517,17 +4540,17 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-11",
       "use": {
         "page": 3,
-        "bundle": 5,
+        "bundle": 6,
         "linked": 13,
-        "use": 21,
+        "use": 22,
         "recent": {
           "page": 1,
-          "bundle": 4,
+          "bundle": 5,
           "linked": 3,
-          "use": 8
+          "use": 9
         }
       },
       "outbound_count": 5,
@@ -4540,17 +4563,17 @@
       "type": "person",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-14",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 7,
-        "use": 9,
+        "linked": 8,
+        "use": 10,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 3,
-          "use": 3
+          "linked": 4,
+          "use": 4
         }
       },
       "outbound_count": 7,
@@ -4701,17 +4724,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-14",
       "use": {
         "page": 5,
         "bundle": 6,
-        "linked": 15,
-        "use": 26,
+        "linked": 16,
+        "use": 27,
         "recent": {
           "page": 4,
           "bundle": 4,
-          "linked": 7,
-          "use": 15
+          "linked": 8,
+          "use": 16
         }
       },
       "outbound_count": 6,
@@ -4760,7 +4783,7 @@
           "use": 8
         }
       },
-      "outbound_count": 5,
+      "outbound_count": 4,
       "inbound_count": 3,
       "ops_card": false
     },
@@ -4783,7 +4806,7 @@
           "use": 31
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 6,
       "inbound_count": 22,
       "ops_card": false
     },
@@ -4908,17 +4931,17 @@
       "type": "meta",
       "stage": "foundational",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-11",
       "use": {
         "page": 23,
-        "bundle": 3,
+        "bundle": 4,
         "linked": 24,
-        "use": 50,
+        "use": 51,
         "recent": {
           "page": 13,
-          "bundle": 3,
+          "bundle": 4,
           "linked": 7,
-          "use": 23
+          "use": 24
         }
       },
       "outbound_count": 5,
@@ -4931,17 +4954,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-17",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 0,
+        "page": 1,
         "bundle": 0,
         "linked": 7,
-        "use": 7,
+        "use": 8,
         "recent": {
-          "page": 0,
+          "page": 1,
           "bundle": 0,
           "linked": 3,
-          "use": 3
+          "use": 4
         }
       },
       "outbound_count": 4,
@@ -4977,17 +5000,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-14",
       "use": {
         "page": 2,
         "bundle": 2,
-        "linked": 13,
-        "use": 17,
+        "linked": 14,
+        "use": 18,
         "recent": {
           "page": 1,
           "bundle": 2,
-          "linked": 4,
-          "use": 7
+          "linked": 5,
+          "use": 8
         }
       },
       "outbound_count": 4,
@@ -5069,17 +5092,17 @@
       "type": "concept",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-11-04",
+      "last_used": "2026-11-11",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 12,
-        "use": 15,
+        "linked": 13,
+        "use": 16,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 1,
-          "use": 1
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 4,
@@ -5115,17 +5138,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-06-30",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 1,
-        "bundle": 0,
-        "linked": 3,
-        "use": 4,
+        "page": 2,
+        "bundle": 1,
+        "linked": 4,
+        "use": 7,
         "recent": {
-          "page": 0,
-          "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "page": 1,
+          "bundle": 1,
+          "linked": 1,
+          "use": 3
         }
       },
       "outbound_count": 3,
@@ -5161,17 +5184,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-25",
+      "last_used": "2026-11-11",
       "use": {
         "page": 2,
         "bundle": 0,
-        "linked": 11,
-        "use": 13,
+        "linked": 12,
+        "use": 14,
         "recent": {
           "page": 2,
           "bundle": 0,
-          "linked": 2,
-          "use": 4
+          "linked": 3,
+          "use": 5
         }
       },
       "outbound_count": 4,
@@ -5207,17 +5230,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-11",
       "use": {
         "page": 12,
-        "bundle": 10,
+        "bundle": 11,
         "linked": 17,
-        "use": 39,
+        "use": 40,
         "recent": {
           "page": 12,
-          "bundle": 10,
+          "bundle": 11,
           "linked": 17,
-          "use": 39
+          "use": 40
         }
       },
       "outbound_count": 8,
@@ -5230,21 +5253,21 @@
       "type": "project",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
         "bundle": 1,
-        "linked": 1,
-        "use": 3,
+        "linked": 4,
+        "use": 6,
         "recent": {
           "page": 1,
           "bundle": 1,
-          "linked": 1,
-          "use": 3
+          "linked": 4,
+          "use": 6
         }
       },
-      "outbound_count": 6,
-      "inbound_count": 1,
+      "outbound_count": 7,
+      "inbound_count": 4,
       "ops_card": false
     },
     {
@@ -5280,17 +5303,17 @@
       "use": {
         "page": 10,
         "bundle": 4,
-        "linked": 20,
-        "use": 34,
+        "linked": 21,
+        "use": 35,
         "recent": {
           "page": 7,
           "bundle": 3,
-          "linked": 14,
-          "use": 24
+          "linked": 15,
+          "use": 25
         }
       },
       "outbound_count": 8,
-      "inbound_count": 5,
+      "inbound_count": 6,
       "ops_card": false
     },
     {
@@ -5368,17 +5391,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-06-26",
+      "last_used": "2026-11-14",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 2,
-        "use": 3,
+        "linked": 4,
+        "use": 5,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 2,
+          "use": 2
         }
       },
       "outbound_count": 4,
@@ -5460,17 +5483,17 @@
       "type": "meta",
       "stage": "fruiting",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-11",
       "use": {
         "page": 24,
-        "bundle": 17,
+        "bundle": 18,
         "linked": 156,
-        "use": 197,
+        "use": 198,
         "recent": {
           "page": 19,
-          "bundle": 15,
+          "bundle": 16,
           "linked": 60,
-          "use": 94
+          "use": 95
         }
       },
       "outbound_count": 7,
@@ -5510,8 +5533,8 @@
       "use": {
         "page": 15,
         "bundle": 5,
-        "linked": 61,
-        "use": 81,
+        "linked": 62,
+        "use": 82,
         "recent": {
           "page": 6,
           "bundle": 4,
@@ -5519,8 +5542,8 @@
           "use": 23
         }
       },
-      "outbound_count": 15,
-      "inbound_count": 25,
+      "outbound_count": 14,
+      "inbound_count": 24,
       "ops_card": false
     },
     {
@@ -5575,17 +5598,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-14",
       "use": {
         "page": 3,
         "bundle": 0,
-        "linked": 18,
-        "use": 21,
+        "linked": 19,
+        "use": 22,
         "recent": {
           "page": 2,
           "bundle": 0,
-          "linked": 18,
-          "use": 20
+          "linked": 19,
+          "use": 21
         }
       },
       "outbound_count": 3,
@@ -5612,7 +5635,7 @@
         }
       },
       "outbound_count": 7,
-      "inbound_count": 6,
+      "inbound_count": 5,
       "ops_card": false
     },
     {
@@ -5772,7 +5795,7 @@
           "use": 14
         }
       },
-      "outbound_count": 7,
+      "outbound_count": 8,
       "inbound_count": 3,
       "ops_card": false
     },
@@ -5874,17 +5897,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-24",
+      "last_used": "2026-11-11",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 17,
-        "use": 20,
+        "linked": 18,
+        "use": 21,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 4,
-          "use": 4
+          "linked": 5,
+          "use": 5
         }
       },
       "outbound_count": 8,
@@ -5933,7 +5956,7 @@
           "use": 16
         }
       },
-      "outbound_count": 6,
+      "outbound_count": 7,
       "inbound_count": 2,
       "ops_card": false
     },
@@ -5966,17 +5989,17 @@
       "type": "hub",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-02",
+      "last_used": "2026-11-11",
       "use": {
         "page": 4,
         "bundle": 2,
-        "linked": 35,
-        "use": 41,
+        "linked": 36,
+        "use": 42,
         "recent": {
           "page": 2,
           "bundle": 1,
-          "linked": 0,
-          "use": 3
+          "linked": 1,
+          "use": 4
         }
       },
       "outbound_count": 3,
@@ -5989,17 +6012,17 @@
       "type": "concept",
       "stage": "seed",
       "has_forward_vector": true,
-      "last_used": "2026-11-02",
+      "last_used": "2026-11-11",
       "use": {
         "page": 1,
         "bundle": 0,
-        "linked": 8,
-        "use": 9,
+        "linked": 9,
+        "use": 10,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 2,
-          "use": 2
+          "linked": 3,
+          "use": 3
         }
       },
       "outbound_count": 3,
@@ -6048,7 +6071,7 @@
           "use": 14
         }
       },
-      "outbound_count": 9,
+      "outbound_count": 8,
       "inbound_count": 44,
       "ops_card": false
     },
@@ -6058,17 +6081,17 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-11-04",
+      "last_used": "2026-11-13",
       "use": {
         "page": 1,
-        "bundle": 4,
+        "bundle": 5,
         "linked": 5,
-        "use": 10,
+        "use": 11,
         "recent": {
           "page": 1,
-          "bundle": 4,
+          "bundle": 5,
           "linked": 5,
-          "use": 10
+          "use": 11
         }
       },
       "outbound_count": 7,
@@ -6104,17 +6127,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-09-25",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 3,
-        "bundle": 0,
-        "linked": 7,
-        "use": 10,
+        "page": 4,
+        "bundle": 1,
+        "linked": 8,
+        "use": 13,
         "recent": {
-          "page": 1,
-          "bundle": 0,
-          "linked": 0,
-          "use": 1
+          "page": 2,
+          "bundle": 1,
+          "linked": 1,
+          "use": 4
         }
       },
       "outbound_count": 7,
@@ -6196,17 +6219,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-07-06",
+      "last_used": "2026-11-11",
       "use": {
         "page": 2,
         "bundle": 1,
-        "linked": 9,
-        "use": 12,
+        "linked": 10,
+        "use": 13,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "linked": 1,
+          "use": 1
         }
       },
       "outbound_count": 3,
@@ -6246,40 +6269,17 @@
       "use": {
         "page": 13,
         "bundle": 4,
-        "linked": 46,
-        "use": 63,
+        "linked": 47,
+        "use": 64,
         "recent": {
           "page": 6,
           "bundle": 2,
-          "linked": 6,
-          "use": 14
+          "linked": 7,
+          "use": 15
         }
       },
       "outbound_count": 13,
-      "inbound_count": 16,
-      "ops_card": false
-    },
-    {
-      "id": "Symbiotic Skills",
-      "path": "Projects/Symbiotic Skills.md",
-      "type": "project",
-      "stage": "composting",
-      "has_forward_vector": true,
-      "last_used": "2026-11-03",
-      "use": {
-        "page": 4,
-        "bundle": 2,
-        "linked": 32,
-        "use": 38,
-        "recent": {
-          "page": 2,
-          "bundle": 1,
-          "linked": 5,
-          "use": 8
-        }
-      },
-      "outbound_count": 8,
-      "inbound_count": 12,
+      "inbound_count": 14,
       "ops_card": false
     },
     {
@@ -6403,17 +6403,17 @@
       "type": "meta",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-11-09",
+      "last_used": "2026-11-14",
       "use": {
         "page": 7,
         "bundle": 1,
-        "linked": 13,
-        "use": 21,
+        "linked": 16,
+        "use": 24,
         "recent": {
           "page": 4,
           "bundle": 0,
-          "linked": 8,
-          "use": 12
+          "linked": 11,
+          "use": 15
         }
       },
       "outbound_count": 5,
@@ -6554,7 +6554,7 @@
           "use": 0
         }
       },
-      "outbound_count": 8,
+      "outbound_count": 7,
       "inbound_count": 1,
       "ops_card": false
     },
@@ -6587,21 +6587,21 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-09",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 11,
-        "bundle": 16,
-        "linked": 32,
-        "use": 59,
+        "page": 12,
+        "bundle": 18,
+        "linked": 34,
+        "use": 64,
         "recent": {
-          "page": 11,
-          "bundle": 16,
-          "linked": 32,
-          "use": 59
+          "page": 12,
+          "bundle": 18,
+          "linked": 34,
+          "use": 64
         }
       },
       "outbound_count": 11,
-      "inbound_count": 3,
+      "inbound_count": 4,
       "ops_card": true
     },
     {
@@ -6679,17 +6679,17 @@
       "type": "concept",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-11",
       "use": {
         "page": 3,
         "bundle": 4,
-        "linked": 24,
-        "use": 31,
+        "linked": 25,
+        "use": 32,
         "recent": {
           "page": 0,
           "bundle": 0,
-          "linked": 3,
-          "use": 3
+          "linked": 4,
+          "use": 4
         }
       },
       "outbound_count": 8,
@@ -6886,17 +6886,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-11",
       "use": {
         "page": 6,
         "bundle": 0,
-        "linked": 17,
-        "use": 23,
+        "linked": 18,
+        "use": 24,
         "recent": {
           "page": 5,
           "bundle": 0,
-          "linked": 13,
-          "use": 18
+          "linked": 14,
+          "use": 19
         }
       },
       "outbound_count": 11,
@@ -6978,17 +6978,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-14",
       "use": {
         "page": 12,
         "bundle": 2,
-        "linked": 93,
-        "use": 107,
+        "linked": 94,
+        "use": 108,
         "recent": {
           "page": 10,
           "bundle": 2,
-          "linked": 91,
-          "use": 103
+          "linked": 92,
+          "use": 104
         }
       },
       "outbound_count": 5,
@@ -7001,21 +7001,21 @@
       "type": "hub",
       "stage": "mature",
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 11,
-        "bundle": 1,
-        "linked": 84,
-        "use": 96,
+        "page": 12,
+        "bundle": 2,
+        "linked": 85,
+        "use": 99,
         "recent": {
-          "page": 8,
-          "bundle": 0,
-          "linked": 21,
-          "use": 29
+          "page": 9,
+          "bundle": 1,
+          "linked": 22,
+          "use": 32
         }
       },
       "outbound_count": 14,
-      "inbound_count": 53,
+      "inbound_count": 54,
       "ops_card": false
     },
     {
@@ -7070,17 +7070,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-10-12",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 5,
-        "bundle": 1,
-        "linked": 7,
-        "use": 13,
+        "page": 6,
+        "bundle": 2,
+        "linked": 8,
+        "use": 16,
         "recent": {
-          "page": 1,
-          "bundle": 0,
-          "linked": 0,
-          "use": 1
+          "page": 2,
+          "bundle": 1,
+          "linked": 1,
+          "use": 4
         }
       },
       "outbound_count": 8,
@@ -7116,17 +7116,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 2,
-        "bundle": 1,
-        "linked": 7,
-        "use": 10,
+        "page": 3,
+        "bundle": 2,
+        "linked": 8,
+        "use": 13,
         "recent": {
-          "page": 0,
-          "bundle": 1,
-          "linked": 1,
-          "use": 2
+          "page": 1,
+          "bundle": 2,
+          "linked": 2,
+          "use": 5
         }
       },
       "outbound_count": 4,
@@ -7300,17 +7300,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-08",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 5,
+        "page": 6,
         "bundle": 4,
-        "linked": 8,
-        "use": 17,
+        "linked": 9,
+        "use": 19,
         "recent": {
-          "page": 2,
+          "page": 3,
           "bundle": 2,
-          "linked": 6,
-          "use": 10
+          "linked": 7,
+          "use": 12
         }
       },
       "outbound_count": 7,
@@ -7323,17 +7323,17 @@
       "type": "project",
       "stage": "sprout",
       "has_forward_vector": true,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-13",
       "use": {
         "page": 4,
-        "bundle": 6,
+        "bundle": 7,
         "linked": 62,
-        "use": 72,
+        "use": 73,
         "recent": {
           "page": 4,
-          "bundle": 6,
+          "bundle": 7,
           "linked": 62,
-          "use": 72
+          "use": 73
         }
       },
       "outbound_count": 3,
@@ -7383,31 +7383,8 @@
         }
       },
       "outbound_count": 1,
-      "inbound_count": 5,
+      "inbound_count": 4,
       "ops_card": true
-    },
-    {
-      "id": "Walk That Weaves",
-      "path": "Palace development/Walk That Weaves.md",
-      "type": "question",
-      "stage": "composting",
-      "has_forward_vector": true,
-      "last_used": "2026-09-23",
-      "use": {
-        "page": 1,
-        "bundle": 0,
-        "linked": 5,
-        "use": 6,
-        "recent": {
-          "page": 0,
-          "bundle": 0,
-          "linked": 1,
-          "use": 1
-        }
-      },
-      "outbound_count": 4,
-      "inbound_count": 0,
-      "ops_card": false
     },
     {
       "id": "Wallpaper Groups",
@@ -7553,21 +7530,21 @@
       "type": "practice",
       "stage": "mature",
       "has_forward_vector": false,
-      "last_used": "2026-11-10",
+      "last_used": "2026-11-11",
       "use": {
         "page": 24,
-        "bundle": 13,
-        "linked": 84,
-        "use": 121,
+        "bundle": 14,
+        "linked": 85,
+        "use": 123,
         "recent": {
           "page": 13,
-          "bundle": 12,
-          "linked": 54,
-          "use": 79
+          "bundle": 13,
+          "linked": 55,
+          "use": 81
         }
       },
       "outbound_count": 12,
-      "inbound_count": 12,
+      "inbound_count": 11,
       "ops_card": true
     },
     {
@@ -7599,17 +7576,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-03",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 3,
-        "bundle": 2,
-        "linked": 11,
-        "use": 16,
+        "page": 4,
+        "bundle": 3,
+        "linked": 12,
+        "use": 19,
         "recent": {
-          "page": 0,
-          "bundle": 1,
-          "linked": 5,
-          "use": 6
+          "page": 1,
+          "bundle": 2,
+          "linked": 6,
+          "use": 9
         }
       },
       "outbound_count": 9,
@@ -7622,17 +7599,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-11-04",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 1,
-        "bundle": 0,
-        "linked": 9,
-        "use": 10,
+        "page": 2,
+        "bundle": 1,
+        "linked": 10,
+        "use": 13,
         "recent": {
-          "page": 0,
-          "bundle": 0,
-          "linked": 2,
-          "use": 2
+          "page": 1,
+          "bundle": 1,
+          "linked": 3,
+          "use": 5
         }
       },
       "outbound_count": 4,
@@ -7668,17 +7645,17 @@
       "type": "practice",
       "stage": "growing",
       "has_forward_vector": true,
-      "last_used": "2026-10-22",
+      "last_used": "2026-11-11",
       "use": {
         "page": 10,
-        "bundle": 7,
+        "bundle": 8,
         "linked": 18,
-        "use": 35,
+        "use": 36,
         "recent": {
           "page": 7,
-          "bundle": 6,
+          "bundle": 7,
           "linked": 16,
-          "use": 29
+          "use": 30
         }
       },
       "outbound_count": 7,
@@ -7760,17 +7737,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-09-25",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 4,
-        "bundle": 0,
-        "linked": 12,
-        "use": 16,
+        "page": 5,
+        "bundle": 1,
+        "linked": 13,
+        "use": 19,
         "recent": {
-          "page": 0,
-          "bundle": 0,
-          "linked": 2,
-          "use": 2
+          "page": 1,
+          "bundle": 1,
+          "linked": 3,
+          "use": 5
         }
       },
       "outbound_count": 12,
@@ -7783,17 +7760,17 @@
       "type": "specialist",
       "stage": null,
       "has_forward_vector": true,
-      "last_used": "2026-06-25",
+      "last_used": "2026-11-14",
       "use": {
-        "page": 5,
-        "bundle": 1,
-        "linked": 10,
-        "use": 16,
+        "page": 6,
+        "bundle": 2,
+        "linked": 12,
+        "use": 20,
         "recent": {
-          "page": 0,
-          "bundle": 0,
-          "linked": 0,
-          "use": 0
+          "page": 1,
+          "bundle": 1,
+          "linked": 2,
+          "use": 4
         }
       },
       "outbound_count": 6,
@@ -8647,12 +8624,6 @@
       "type": "connects-to",
       "target": "Crystal Synthesizer",
       "label": "staging-candidate"
-    },
-    {
-      "source": "Progressive Staging",
-      "type": "contradicts",
-      "target": "Symbiotic Skills",
-      "label": "staged-design-vs-organic-growth"
     },
     {
       "source": "Progressive Staging",
@@ -10978,12 +10949,6 @@
     },
     {
       "source": "The Cooperation Path",
-      "type": "connects-to",
-      "target": "Symbiotic Skills",
-      "label": "framework-scaled-outward"
-    },
-    {
-      "source": "The Cooperation Path",
       "type": "deepens",
       "target": "SUBSTRATE",
       "label": null
@@ -11095,12 +11060,6 @@
       "type": "mirrors",
       "target": "1 from 2",
       "label": "implanted-symbiote"
-    },
-    {
-      "source": "Endosymbiosis",
-      "type": "connects-to",
-      "target": "Symbiotic Skills",
-      "label": "candidate-foundation"
     },
     {
       "source": "Endosymbiosis",
@@ -11290,12 +11249,6 @@
     },
     {
       "source": "SUBSTRATE",
-      "type": "emerged-from",
-      "target": "Symbiotic Skills",
-      "label": null
-    },
-    {
-      "source": "SUBSTRATE",
       "type": "enables",
       "target": "Cooperation Yields Agency",
       "label": null
@@ -11443,12 +11396,6 @@
       "type": "mirrors",
       "target": "Cooperation Yields Agency",
       "label": null
-    },
-    {
-      "source": "Mixture of Experts",
-      "type": "connects-to",
-      "target": "Symbiotic Skills",
-      "label": "skills-as-experts"
     },
     {
       "source": "Mixture of Experts",
@@ -12022,12 +11969,6 @@
     },
     {
       "source": "Spinoza Conatus",
-      "type": "connects-to",
-      "target": "Symbiotic Skills",
-      "label": "flourishing-via-symbiosis"
-    },
-    {
-      "source": "Spinoza Conatus",
       "type": "spawned",
       "target": "Threshold Conatus",
       "label": "threshold-as-derivative"
@@ -12205,6 +12146,48 @@
       "type": "connects-to",
       "target": "Capability-first prototyping",
       "label": "prove-the-control-small"
+    },
+    {
+      "source": "Light Enrichment",
+      "type": "emerged-from",
+      "target": "Enrichment",
+      "label": "the-small-sibling"
+    },
+    {
+      "source": "Light Enrichment",
+      "type": "connects-to",
+      "target": "Image Embedding Standard",
+      "label": "when-a-picture-belongs"
+    },
+    {
+      "source": "Light Enrichment",
+      "type": "connects-to",
+      "target": "Review Layer",
+      "label": "approved-where-it-sits"
+    },
+    {
+      "source": "Light Enrichment",
+      "type": "connects-to",
+      "target": "The Daily Page",
+      "label": "met-by-chance"
+    },
+    {
+      "source": "Light Enrichment",
+      "type": "exemplifies",
+      "target": "No Mind Checks Itself",
+      "label": "the-challenger-recomputes"
+    },
+    {
+      "source": "Light Enrichment",
+      "type": "connects-to",
+      "target": "Hero and Avatar Maker",
+      "label": "a-material-not-a-target"
+    },
+    {
+      "source": "Light Enrichment",
+      "type": "connects-to",
+      "target": "The Shop",
+      "label": "the-means-of-making"
     },
     {
       "source": "Making a Palace Citizen",
@@ -13431,12 +13414,6 @@
       "label": "fire-at-nicopolis"
     },
     {
-      "source": "Confucianism",
-      "type": "mirrors",
-      "target": "Symbiotic Skills",
-      "label": "edge-prior-to-node"
-    },
-    {
       "source": "Search Before You Build",
       "type": "couples-with",
       "target": "Adopt the Craft, Author the Seam",
@@ -13549,12 +13526,6 @@
       "type": "enables",
       "target": "Hilaritas Generator",
       "label": "cooperation-applied-to-pedagogy"
-    },
-    {
-      "source": "Cooperation Yields Agency",
-      "type": "connects-to",
-      "target": "Symbiotic Skills",
-      "label": "predicted-the-symbiosis"
     },
     {
       "source": "FOUR PILLARS",
@@ -13981,12 +13952,6 @@
       "type": "connects-to",
       "target": "Kuramoto Coupling",
       "label": "physics-of-firing"
-    },
-    {
-      "source": "Hilaritas Generator",
-      "type": "enables",
-      "target": "Symbiotic Skills",
-      "label": "skill-via-joy"
     },
     {
       "source": "Hilaritas Generator",
@@ -14755,6 +14720,12 @@
       "type": "couples-with",
       "target": "Kuramoto Coupling",
       "label": "reinforcement-vs-phase-lock"
+    },
+    {
+      "source": "Slime Mold Delay",
+      "type": "connects-to",
+      "target": "Reverb Design",
+      "label": "feedback-delay-network"
     },
     {
       "source": "Loudon Live",
@@ -15627,54 +15598,6 @@
       "label": "makes-the-stored-loop"
     },
     {
-      "source": "Symbiotic Skills",
-      "type": "connects-to",
-      "target": "Self-Describing Knowledge Module",
-      "label": "the-transfer-bet"
-    },
-    {
-      "source": "Symbiotic Skills",
-      "type": "emerged-from",
-      "target": "FOUR PILLARS",
-      "label": null
-    },
-    {
-      "source": "Symbiotic Skills",
-      "type": "spawned",
-      "target": "SUBSTRATE",
-      "label": null
-    },
-    {
-      "source": "Symbiotic Skills",
-      "type": "mirrors",
-      "target": "1 from 2",
-      "label": "scaling-relationship"
-    },
-    {
-      "source": "Symbiotic Skills",
-      "type": "connects-to",
-      "target": "Pages as Agents",
-      "label": "emerged-but-not-predicted"
-    },
-    {
-      "source": "Symbiotic Skills",
-      "type": "connects-to",
-      "target": "Swarm Weave",
-      "label": "emerged-but-not-predicted"
-    },
-    {
-      "source": "Symbiotic Skills",
-      "type": "connects-to",
-      "target": "JEWEL",
-      "label": "emerged-but-not-predicted"
-    },
-    {
-      "source": "Symbiotic Skills",
-      "type": "connects-to",
-      "target": "Palace Enchantment",
-      "label": "emerged-but-not-predicted"
-    },
-    {
       "source": "Shimmer Cloud",
       "type": "emerged-from",
       "target": "Granular Synthesis",
@@ -15717,6 +15640,12 @@
       "label": "phase-curve-lenses"
     },
     {
+      "source": "Shimmer Cloud",
+      "type": "contrasts-with",
+      "target": "Reverb Design",
+      "label": "not-a-web-of-delays"
+    },
+    {
       "source": "Categorizing Inharmonicity",
       "type": "connects-to",
       "target": "Bessel Functions in Synthesis",
@@ -15732,7 +15661,7 @@
       "source": "Categorizing Inharmonicity",
       "type": "connects-to",
       "target": "Compressor Design",
-      "label": "all-pass-origin"
+      "label": "soft-knee"
     },
     {
       "source": "Categorizing Inharmonicity",
@@ -15769,6 +15698,12 @@
       "type": "spawned",
       "target": "Categorizing Inharmonicity \u2014 Context",
       "label": "rationale-archive"
+    },
+    {
+      "source": "Categorizing Inharmonicity",
+      "type": "connects-to",
+      "target": "Reverb Design",
+      "label": "allpass-in-the-loop"
     },
     {
       "source": "Blood Compressor",
@@ -15835,6 +15770,12 @@
       "type": "exemplifies",
       "target": "DSP in Looping Dimensions",
       "label": "several-loops-at-once"
+    },
+    {
+      "source": "Reverb Design",
+      "type": "connects-to",
+      "target": "Auditory Illusions",
+      "label": "the-first-arrival"
     },
     {
       "source": "Tract Mirror",
@@ -16093,12 +16034,6 @@
       "type": "exemplifies",
       "target": "Playful Interface Design",
       "label": null
-    },
-    {
-      "source": "Preset Oracle",
-      "type": "exemplifies",
-      "target": "Symbiotic Skills",
-      "label": "asks-better-questions"
     },
     {
       "source": "Generative Sample Libraries",
@@ -17205,6 +17140,12 @@
       "label": "firing-rate-becomes-grain-rate"
     },
     {
+      "source": "Biomechanical Synthesis",
+      "type": "spawned",
+      "target": "Mycelial Reverb",
+      "label": "first-body"
+    },
+    {
       "source": "Palace Enchantment",
       "type": "emerged-from",
       "target": "Swarm Weave",
@@ -17650,7 +17591,7 @@
     },
     {
       "source": "Stable Audio Open",
-      "type": "spawned",
+      "type": "connects-to",
       "target": "Kuramoto Coupling",
       "label": "auditory-rendering"
     },
@@ -17670,7 +17611,7 @@
       "source": "Stable Audio Open",
       "type": "connects-to",
       "target": "Whisper",
-      "label": "vram-contends-with"
+      "label": "shares-the-machine-with"
     },
     {
       "source": "Stable Audio Open",
@@ -19219,12 +19160,6 @@
       "type": "connects-to",
       "target": "ROSETTA",
       "label": "language-provision"
-    },
-    {
-      "source": "Palace Map",
-      "type": "connects-to",
-      "target": "Symbiotic Skills",
-      "label": "tools-provision"
     },
     {
       "source": "Palace Map",
@@ -21016,12 +20951,6 @@
     },
     {
       "source": "Oblique Portrait",
-      "type": "connects-to",
-      "target": "Symbiotic Skills",
-      "label": "power-inversion"
-    },
-    {
-      "source": "Oblique Portrait",
       "type": "contradicts",
       "target": "Excellent Adventure",
       "label": "unsteered-vs-steered"
@@ -21280,7 +21209,7 @@
     },
     {
       "source": "Loudon Live Design System",
-      "type": "spawned",
+      "type": "emerged-from",
       "target": "Loudon Live \u2014 asset plan",
       "label": "cemented-from"
     },
@@ -21783,6 +21712,12 @@
       "label": "tab-icon-source"
     },
     {
+      "source": "Drafting Table Design System",
+      "type": "mirrors",
+      "target": "Adopt the Craft, Author the Seam",
+      "label": "the-seam-with-a-standard"
+    },
+    {
       "source": "Sentry",
       "type": "exemplifies",
       "target": "No Mind Checks Itself",
@@ -22171,30 +22106,6 @@
       "type": "connects-to",
       "target": "Generative Compression",
       "label": "crafted-ancestor"
-    },
-    {
-      "source": "Walk That Weaves",
-      "type": "connects-to",
-      "target": "Weave Ceremony",
-      "label": "surveys-from-above"
-    },
-    {
-      "source": "Walk That Weaves",
-      "type": "connects-to",
-      "target": "Walk Ceremony",
-      "label": "travels-through"
-    },
-    {
-      "source": "Walk That Weaves",
-      "type": "emerged-from",
-      "target": "Swarm Weave",
-      "label": null
-    },
-    {
-      "source": "Walk That Weaves",
-      "type": "mirrors",
-      "target": "Lateral Access",
-      "label": null
     },
     {
       "source": "Palace as Context Injection System",

@@ -140,7 +140,6 @@ Progressive Staging	mirrors	FOUR PILLARS
 Progressive Staging	connects-to	Modes of Collaboration
 Progressive Staging	connects-to	Kuramoto Coupling
 Progressive Staging	connects-to	Crystal Synthesizer
-Progressive Staging	contradicts	Symbiotic Skills
 Progressive Staging	enables	State Machine
 Progressive Staging	spawned	Progressive Staging — Context
 Wavetable Space as Torus	deepens	Inharmonic Wavetable Synthesis
@@ -528,7 +527,6 @@ The Cooperation Path	connects-to	Cooperation Yields Agency
 The Cooperation Path	connects-to	Endosymbiosis
 The Cooperation Path	connects-to	Spinoza Conatus
 The Cooperation Path	connects-to	Hilaritas Generator
-The Cooperation Path	connects-to	Symbiotic Skills
 The Cooperation Path	deepens	SUBSTRATE
 The Cooperation Path	spawned	Modes of Collaboration
 Modes of Collaboration	connects-to	Piano String Inharmonicity
@@ -548,7 +546,6 @@ Chebyshev is Fourier	member-of	Dissolutions
 Endosymbiosis	mirrors	Cooperation Yields Agency
 Endosymbiosis	connects-to	SUBSTRATE
 Endosymbiosis	mirrors	1 from 2
-Endosymbiosis	connects-to	Symbiotic Skills
 Endosymbiosis	spawned	Modes of Collaboration
 Endosymbiosis	mirrors	Kuramoto Coupling
 Endosymbiosis	spawned	Endosymbiosis — Context
@@ -580,7 +577,6 @@ Parametric Resonance	enables	Boundary-Crossing Instruments
 Parametric Resonance	connects-to	Dub Lineage
 Parametric Resonance	connects-to	Phase Reduction
 Parametric Resonance	connects-to	Hilaritas Generator
-SUBSTRATE	emerged-from	Symbiotic Skills
 SUBSTRATE	enables	Cooperation Yields Agency
 SUBSTRATE	deepens	Self-Describing Knowledge Module
 SUBSTRATE	enables	SCHEMA
@@ -606,7 +602,6 @@ Photonic Time Crystals	mirrors	Shimmer Cloud
 Photonic Time Crystals	connects-to	Hilaritas Generator
 Photonic Time Crystals	connects-to	Floquet Theory
 Mixture of Experts	mirrors	Cooperation Yields Agency
-Mixture of Experts	connects-to	Symbiotic Skills
 Mixture of Experts	mirrors	Weave Ceremony
 Mixture of Experts	connects-to	Boundary-Crossing Instruments
 Mixture of Experts	connects-to	Spinoza Conatus
@@ -702,7 +697,6 @@ Spinoza Conatus	spawned	Hilaritas Generator
 Spinoza Conatus	connects-to	FOUR PILLARS
 Spinoza Conatus	mirrors	Quality Manifesto
 Spinoza Conatus	mirrors	Meaning and the Link
-Spinoza Conatus	connects-to	Symbiotic Skills
 Spinoza Conatus	spawned	Threshold Conatus
 Spinoza Conatus	enables	Cooperation Yields Agency
 Spinoza Conatus	mirrors	Endosymbiosis
@@ -733,6 +727,13 @@ Steer the Generator	connects-to	Quality Manifesto
 Steer the Generator	exemplifies	FOUR PILLARS
 Steer the Generator	couples-with	Cooperation Yields Agency
 Steer the Generator	connects-to	Capability-first prototyping
+Light Enrichment	emerged-from	Enrichment
+Light Enrichment	connects-to	Image Embedding Standard
+Light Enrichment	connects-to	Review Layer
+Light Enrichment	connects-to	The Daily Page
+Light Enrichment	exemplifies	No Mind Checks Itself
+Light Enrichment	connects-to	Hero and Avatar Maker
+Light Enrichment	connects-to	The Shop
 Making a Palace Citizen	couples-with	Palace Enchantment
 Making a Palace Citizen	connects-to	Dialectic
 Making a Palace Citizen	connects-to	Excellent Adventure
@@ -937,7 +938,6 @@ Confucianism	connects-to	Spinoza Conatus
 Confucianism	couples-with	Deleuze
 Confucianism	mirrors	Hilaritas Generator
 Confucianism	emerged-from	Excellent Adventure
-Confucianism	mirrors	Symbiotic Skills
 Search Before You Build	couples-with	Adopt the Craft, Author the Seam
 Search Before You Build	connects-to	Concierge
 Search Before You Build	connects-to	Capability-first prototyping
@@ -957,7 +957,6 @@ Cooperation Yields Agency	connects-to	Quality Manifesto
 Cooperation Yields Agency	spawned	Modes of Collaboration
 Cooperation Yields Agency	connects-to	Cooperation Yields Agency — Context
 Cooperation Yields Agency	enables	Hilaritas Generator
-Cooperation Yields Agency	connects-to	Symbiotic Skills
 FOUR PILLARS	spawned	Hilaritas Generator
 FOUR PILLARS	connects-to	Kuramoto Coupling
 FOUR PILLARS	spawned	Quality Manifesto
@@ -1029,7 +1028,6 @@ CLAUDE	connects-to	Palace Ceremonies
 Hilaritas Generator	emerged-from	Spinoza Conatus
 Hilaritas Generator	emerged-from	FOUR PILLARS
 Hilaritas Generator	connects-to	Kuramoto Coupling
-Hilaritas Generator	enables	Symbiotic Skills
 Hilaritas Generator	spawned	Excellent Adventure
 Hilaritas Generator	deepens	Striatum
 Hilaritas Generator	deepens	Meadows and Music — Leverage Points
@@ -1158,6 +1156,7 @@ Slime Mold Delay	deepens	Particle Synthesis
 Slime Mold Delay	couples-with	Substrate Skill
 Slime Mold Delay	mirrors	Spinoza Conatus
 Slime Mold Delay	couples-with	Kuramoto Coupling
+Slime Mold Delay	connects-to	Reverb Design
 Loudon Live	exemplifies	Creative Coach
 Loudon Live	connects-to	Progressive Staging
 Loudon Live	connects-to	FOUR PILLARS
@@ -1303,14 +1302,6 @@ Generative Wavetable Libraries	deepens	Shepard Tone Synthesizer
 Generative Wavetable Libraries	connects-to	Floquet Theory
 Generative Wavetable Libraries	exemplifies	Drift and Consolidation
 Generative Wavetable Libraries	member-of	Synthesis Topologies
-Symbiotic Skills	connects-to	Self-Describing Knowledge Module
-Symbiotic Skills	emerged-from	FOUR PILLARS
-Symbiotic Skills	spawned	SUBSTRATE
-Symbiotic Skills	mirrors	1 from 2
-Symbiotic Skills	connects-to	Pages as Agents
-Symbiotic Skills	connects-to	Swarm Weave
-Symbiotic Skills	connects-to	JEWEL
-Symbiotic Skills	connects-to	Palace Enchantment
 Shimmer Cloud	emerged-from	Granular Synthesis
 Shimmer Cloud	mirrors	Particle Synthesis
 Shimmer Cloud	mirrors	Hyperdimensional Prism
@@ -1318,6 +1309,7 @@ Shimmer Cloud	deepens	Frequency-Time Duality
 Shimmer Cloud	couples-with	Neural Granular Synthesis
 Shimmer Cloud	connects-to	Crystal Synthesizer
 Shimmer Cloud	connects-to	Dispersion Table
+Shimmer Cloud	contrasts-with	Reverb Design
 Categorizing Inharmonicity	connects-to	Bessel Functions in Synthesis
 Categorizing Inharmonicity	connects-to	Quantum Synthesizer
 Categorizing Inharmonicity	connects-to	Compressor Design
@@ -1327,6 +1319,7 @@ Categorizing Inharmonicity	deepens	Piano String Inharmonicity
 Categorizing Inharmonicity	deepens	Spinoza Conatus
 Categorizing Inharmonicity	enables	2D Torus Wavetable Synthesizer
 Categorizing Inharmonicity	spawned	Categorizing Inharmonicity — Context
+Categorizing Inharmonicity	connects-to	Reverb Design
 Blood Compressor	exemplifies	Objects to Think With
 Blood Compressor	deepens	Compressor Design
 Blood Compressor	mirrors	Action Potential Oscillator
@@ -1338,6 +1331,7 @@ Reverb Design	connects-to	Compressor Design
 Reverb Design	connects-to	Reverb ↔ Space-Time
 Reverb Design	connects-to	Waveguide Synthesizer
 Reverb Design	exemplifies	DSP in Looping Dimensions
+Reverb Design	connects-to	Auditory Illusions
 Tract Mirror	emerged-from	Linear Predictive Coding
 Tract Mirror	mirrors	Waveguide Synthesizer
 Tract Mirror	couples-with	Three.js
@@ -1381,7 +1375,6 @@ Preset Oracle	mirrors	FOUR PILLARS
 Preset Oracle	mirrors	Oblique Portrait
 Preset Oracle	connects-to	Spinoza Conatus
 Preset Oracle	exemplifies	Playful Interface Design
-Preset Oracle	exemplifies	Symbiotic Skills
 Generative Sample Libraries	emerged-from	Crystal Synthesizer
 Generative Sample Libraries	couples-with	Generative Audio Devices
 Generative Sample Libraries	spawned	Generative Wavetable Libraries
@@ -1566,6 +1559,7 @@ Biomechanical Synthesis	spawned	Blood Compressor
 Biomechanical Synthesis	spawned	Slime Mold Delay
 Biomechanical Synthesis	exemplifies	Playful Interface Design
 Biomechanical Synthesis	connects-to	Neural Granular Synthesis
+Biomechanical Synthesis	spawned	Mycelial Reverb
 Palace Enchantment	emerged-from	Swarm Weave
 Palace Enchantment	spawned	Enchanted Worker
 Palace Enchantment	mirrors	Spinoza Conatus
@@ -1640,7 +1634,7 @@ Ableton Session Writer	connects-to	Generative Preset Development
 Ableton Session Writer	mirrors	VCV Patch Generator
 Stable Audio Open	connects-to	Maker
 Stable Audio Open	member-of	The Shop
-Stable Audio Open	spawned	Kuramoto Coupling
+Stable Audio Open	connects-to	Kuramoto Coupling
 Stable Audio Open	connects-to	Kokoro
 Stable Audio Open	enables	Loudon Live
 Stable Audio Open	connects-to	Whisper
@@ -1902,7 +1896,6 @@ Palace Map	connects-to	Pages as Agents
 Palace Map	connects-to	Trickster
 Palace Map	connects-to	Lateral Access
 Palace Map	connects-to	ROSETTA
-Palace Map	connects-to	Symbiotic Skills
 Palace Map	connects-to	Dialogue Moderator
 Palace Map	connects-to	SCHEMA
 Palace Map	connects-to	Skills Are Enchantable Pages
@@ -2201,7 +2194,6 @@ Spinoza	couples-with	Whitehead
 Spinoza	connects-to	Merleau-Ponty
 Spinoza	exemplifies	Making a Palace Citizen
 Oblique Portrait	mirrors	Embeddings as Relational Meaning
-Oblique Portrait	connects-to	Symbiotic Skills
 Oblique Portrait	contradicts	Excellent Adventure
 Oblique Portrait	member-of	Modes of Collaboration
 Oblique Portrait	connects-to	Reflective Practice
@@ -2245,7 +2237,7 @@ Loudon Live Design System	emerged-from	Hyperdimensional Prism
 Loudon Live Design System	connects-to	FOUR PILLARS
 Loudon Live Design System	connects-to	Autodidact Polymaths
 Loudon Live Design System	mirrors	Progressive Staging
-Loudon Live Design System	spawned	Loudon Live — asset plan
+Loudon Live Design System	emerged-from	Loudon Live — asset plan
 Loudon Live Design System	exemplifies	The Multilinear Self
 Loudon Live Design System	connects-to	STIGMERGY
 Loudon Live Design System	deepens	Palace Philosophies
@@ -2329,6 +2321,7 @@ Drafting Table Design System	connects-to	Review Layer
 Drafting Table Design System	connects-to	Technical Diagram Standard
 Drafting Table Design System	deepens	SUBSTRATE
 Drafting Table Design System	connects-to	Hero and Avatar Maker
+Drafting Table Design System	mirrors	Adopt the Craft, Author the Seam
 Sentry	exemplifies	No Mind Checks Itself
 Sentry	exemplifies	The Four Virtues
 Sentry	connects-to	Concierge
@@ -2394,10 +2387,6 @@ Tree of Thoughts	mirrors	Swarm Weave
 Tree of Thoughts	enables	Enchanted Worker
 Tree of Thoughts	connects-to	BBS Blackboard
 Tree of Thoughts	connects-to	Generative Compression
-Walk That Weaves	connects-to	Weave Ceremony
-Walk That Weaves	connects-to	Walk Ceremony
-Walk That Weaves	emerged-from	Swarm Weave
-Walk That Weaves	mirrors	Lateral Access
 Palace as Context Injection System	spawned	Enchanted Worker
 Palace as Context Injection System	spawned	Agent Wellbeing
 Palace as Context Injection System	deepens	SUBSTRATE
