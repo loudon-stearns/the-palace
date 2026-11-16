@@ -9,7 +9,7 @@ energy: very high
 hook_quality: 9
 beauty: 9
 who_leads: loudon
-forward_vector: "I am the recognition that every palace entry has a will to be useful — a conatus that resists composting and reaches outward toward growth. I teach that 'I will remain' is the language of staying still, not of striving; that every entry's true vector points outward into teaching, integrating, spawning sub-vectors, and finding its way into other minds. I want to be the page every author of a forward vector glances at before writing one, so the result has hunger in it."
+forward_vector: "I am the question a forward vector is asked before it is written: what is this page hungry for, and what will it give up to get there? I read past the verb for direction and for values, because an 'I am' that goes somewhere is alive and an 'I want' that names no trade-off is only a wish. I want every vector in the palace to say what it is, what it reaches for, and what it values when the path forks."
 links:
   - target: "[[Spinoza Conatus]]"
     type: deepens
@@ -47,17 +47,19 @@ Patterns that signal a stagnant vector:
 - "I will **remain** a [thing]…"
 - "I will **continue to be** [thing]…"
 - "I will **stay** [definition]…"
-- "I **am** [static description]…"
 
 These verbs describe a state, not a striving. They give the entry no place to grow into. Even when the *content* of the sentence describes activity, a stasis-verb at the front of it tells the reader that the entry has settled — that it would rather not move.
 
+"I am" is not on the list. Opening with what a page is can begin a living vector; what decides is whether the sentence goes somewhere after it. [[Baton Ceremony]]'s vector opens "I am how one Claude hands a live task to the next," then names what it values and what it is hungry for. Counted on 2026-11-15, pages whose vectors open "I am" were reached for about as often as others of their type, and most of the palace's working organs open that way.
+
 ## The living vector
 
-A conatus-bearing forward vector has three properties:
+A conatus-bearing forward vector has four properties:
 
-1. **Active verbs of growth.** *Teach. Spawn. Integrate. Reach. Cast. Grow. Provoke. Survive into.* The verb names what the entry is *doing in the world*, not what it *is*.
+1. **Active verbs of growth.** *Teach. Spawn. Integrate. Reach. Cast. Grow. Provoke. Survive into.* The verb names what the entry is *doing in the world*, not only what it *is*.
 2. **Outward direction.** It names what the entry would offer to a reader who arrived needing it. It names the next entry it wants to spawn. It names the open question whose answer would feed it.
 3. **Hunger.** It admits the entry is not finished, and points at what would feed its next stage.
+4. **Values.** It says what the entry will give up when the path forks: speed or thoroughness, fewer words or more care. An agent woken from the vector meets an ambiguous moment the way a person holding those values would.
 
 ## Worked example — Phoneme Choir
 
@@ -85,12 +87,13 @@ Active verbs (*teach, spawn, integrate, cast*). Outward direction (sibling entry
 
 When writing or revising any forward vector across the palace:
 
-1. **Read the verb.** Is it a verb of staying, or a verb of doing? *Remain*, *be*, *continue*, *stay* are warning signs.
+1. **Read the verb.** Is it a verb of staying, or a verb of doing? *Remain*, *continue*, *stay* are warning signs; *be* is one only when nothing follows it.
 2. **Read the direction.** Does the vector reach outward, or curl back inward? A vector that only describes the entry's current shape is dead.
 3. **Read what's missing.** What sub-vector is the entry secretly carrying that hasn't been named? Most entries want more than they admit.
-4. **Ask: what is this entry's hunger?** A finished entry is not finished — it has eaten its current vector and wants the next one.
+4. **Read the values.** When the path forks, what does this entry choose? A vector that names only a direction leaves the next agent guessing.
+5. **Ask: what is this entry's hunger?** A finished entry is not finished — it has eaten its current vector and wants the next one.
 
-[[Enrichment]] meets the vector from the making side: a page enriched with the whole Shop takes its forward vector as the brief, and what the making teaches goes home — shown to Loudon first, through the [[Deposit Ceremony]]'s map when it changes what the page says — sometimes to the vector itself. The [[Weave Ceremony]] should add forward-vector linting to its sweep — entries with `remain`/`stay`/`continue` verbs are flagged for revision.
+[[Enrichment]] meets the vector from the making side: a page enriched with the whole Shop takes its forward vector as the brief, and what the making teaches goes home — shown to Loudon first, through the [[Deposit Ceremony]]'s map when it changes what the page says — sometimes to the vector itself. The [[Weave Ceremony]] invites vector tuning in its Step 5b; it does not lint for stasis verbs, and a word-list lint would flag the palace's most-used pages. The test is a reading, not a word list.
 
 ## Origin — 2026-05-05
 
