@@ -922,6 +922,12 @@ route();
 
 out = HERE / "site"; out.mkdir(exist_ok=True)
 html = (HTML.replace("__CATALOG__", json.dumps(catalog)).replace("__CARDS__", json.dumps(cards)).replace("__SVGS__", json.dumps(svgs)).replace("__VOCAB__", json.dumps(vocab)))
+# carry the furniture across a rebuild: _ops/furniture-fanout/furnish.py inlined the design system's controls CSS after <title>
+# (2026-11-03); this build doesn't write it, so lift the block from the page it replaces and set it back in the same place
+prev = (out / "index.html").read_text() if (out / "index.html").exists() else ""
+furn = re.search(r'\n\n<meta name="theme-color"[^\n]*>\n<style data-furniture=.*?</style>', prev, re.S)
+if furn and "data-furniture" not in html: html = html.replace("<title>Synth Templates</title>", "<title>Synth Templates</title>" + furn.group(0), 1)
+elif not furn: print("note: no furniture in the old page to carry; run _ops/furniture-fanout/furnish.py on site/index.html")
 (out / "index.html").write_text(html)
 (out / "voice.js").write_text(VOICE)
 (out / "compare.js").write_text(COMPARE)

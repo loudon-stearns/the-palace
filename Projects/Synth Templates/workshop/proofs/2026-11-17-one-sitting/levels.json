@@ -1,0 +1,18 @@
+{
+ "reference": "proofs/2026-11-17-on-serum/house-bass-reference.wav",
+ "reference_rms_db": -17.1,
+ "renders": {
+  "vital": {
+   "from": "proofs/2026-11-05-on-vital/house-bass-vital.wav",
+   "rms_db": -22.4,
+   "gain_db": 5.3,
+   "held_at_-1dBFS": false
+  },
+  "serum": {
+   "from": "proofs/2026-11-17-on-serum/house-bass-serum.wav",
+   "rms_db": -28.2,
+   "gain_db": 11.1,
+   "held_at_-1dBFS": false
+  }
+ }
+}

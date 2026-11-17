@@ -15,38 +15,40 @@ forward_vector: "I am Synth Templates' scroll — the one page that always opens
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-17T12:57:55.177Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T13:18:40.306Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 4 · last ran 2026-11-17 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 5 · last ran 2026-11-17 (today)
 - **Plan:** agreed (no dated change on the trail yet)
-- **Waiting on you:** 1 open ask
+- **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-17 (today) — The house bass now plays in Serum 2 and lands close to the reference, so it exists on all three synths the plan named. (`synth-templates-steward-012`)
-- **Last commit touching this project:** 2026-11-17 `be0e1bfa` — steward(Synth Templates): cycle 3 — SPINNING UP. HOME: [Synth Templates](?deck=STATE&entry=Projects/Synth T…
+- **Last shipped:** 2026-11-17 (today) — One Live Set plays the house bass on Vital, Serum and Wavetable, each after the reference. Which ones sound like a house bass? (`synth-templates-steward-015`)
+- **Last commit touching this project:** 2026-11-17 `30caf2a5` — steward(Synth Templates): cycle 4 — SPINNING UP. HOME: [Synth Templates](?deck=STATE&entry=Projects/Synth T…
 - **Signal:** steady
-- **Left uncommitted:** ⚠ 1 file in the bundle that no cycle declared, so no cycle commits it — `Projects/Synth Templates/workshop/README.md`. Look, then commit or clear it.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-17 — cycle 4 · taught item 4
+- **Runs:** 5 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 5 · taught item 5, proposed item 6 for canon
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 4, from cycle 4 — 2026-11-17 — [[Synth Templates — tuning]]
+- **Proposed for canon:** 1 — item 6; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 6, from cycle 5 — 2026-11-17 — [[Synth Templates — tuning]]
 
 ### Where this stands
 
-Synth Templates is a catalog of starter presets that teach synthesis. Each card says what makes a sound that sound and what's yours to move, and it plays on the project's own neutral voice on the site. The step on the plan now is to prove the first card, the house bass, on three real synths, Vital, Serum and Ableton Wavetable, and have you hear it. Vital was built and measured on 5 November. Wavetable was written as a preset this morning, but this Mac can't host Wavetable, so nobody has played it. This cycle did Serum: I built the house bass as a real Serum 2 preset, played it in Serum 2 on the reference's own notes, and measured it against the reference. All three synths now have the house…
+Synth Templates is a catalog of starter presets that teach synthesis. Each card says what makes a sound that sound and what's yours to move, and plays on the project's own neutral voice on the site. The step on the plan now is to prove the first card, the house bass, on three real synths and have you hear it. All three exist: Vital and Serum 2 were played and measured against the reference, and Wavetable is a real preset that this Mac can't play. Nobody has heard any of them yet, and that is now the only thing between the house bass and the second card. So this cycle made the listening as short as I could: one Live Set that plays every version in turn against the reference, at matched loudn…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-11-02:** Nobody has heard it. _(in 6 notes, the latest cycle 4)_
+- **rough since 2026-11-02:** Nobody has heard it. _(in 7 notes, the latest cycle 5)_
 - **rough since 2026-11-03:** I drew the square and sine myself rather than picking Vital's Basic Shapes frames, so the 'by eye' row is still untested. _(in 2 notes, the latest cycle 2)_
 - **rough since cycle 1:** None of the three mappings has been tried by ear on a real synth. _(in 2 notes, the latest cycle 2)_
 - **rough since cycle 1:** The sub's octave, the filter circuit and the 35 % depth are read from factory files, not yet seen in Live, and the 180 ms release is carried over from Vital. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 3:** And I haven't opened the Set in Live myself: the writer's check proves its structure, but whether the Wavetable track loads with its settings is still unseen. _(in 2 notes, the latest cycle 5)_
 
 ### Open asks
 
 - `synth-templates-steward-010` — ear_verdict · posted 2026-11-17 · options: SOUNDS-RIGHT · CLOSE-ADJUST · SETTING-WRONG · WONT-LOAD
+- `synth-templates-steward-015` — ear_verdict · posted 2026-11-17 · options: ALL-THREE · SOME-PASS · REFERENCE-OFF · SET-BROKEN
 
 ### Answered, not yet consumed
 
@@ -58,6 +60,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 5 · taught item 5, proposed item 6 for canon
 - 2026-11-17 — cycle 4 · taught item 4
 - 2026-11-17 — cycle 3 · taught item 3
 - 2026-11-05 — cycle 2 · taught item 2
@@ -66,6 +69,12 @@ _None._
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **6.** 2026-11-17 · `Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs` · the export line at the end of the file — a maker that needs a Set shaped differently from plugin or library (here: rendered takes in Samplers plus a native-device preset) can build it from the writer's own parts; today it has to patch the source in memory, which breaks silently if the internals change
 
 <!-- scroll:now:end -->
 
@@ -98,6 +107,64 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-steward-015" -->
+### 2026-11-17 — cycle 5 — One Live Set plays the house bass on Vital, Serum and Wavetable, each after the reference. Which ones sound like a house bass?
+> still working · all three built, none heard · steward leans one sitting
+
+Synth Templates teaches synthesis through starter presets. The plan's current step is to prove the first one, the house bass, on three real synths and have you hear it. All three are built, and nobody has heard them, so I put the whole comparison in one Live 12 Set: [open the sitting](open:Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/House Bass — one sitting.als). Press play once. It runs about thirty seconds: reference, Vital, reference, Serum, reference, Wavetable, reference. The renders are matched to the reference's loudness, so you're hearing shape, not volume. This also answers the earlier Wavetable-only card, so you can leave that one. I'm not waiting on this, but the second card waits on it.
+
+**Artifacts:**
+- [the sitting: open and press play once](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/House Bass — one sitting.als)
+- [the reference, if you'd rather listen here](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/reference.wav)
+- [Vital, matched loudness](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/vital-matched.wav)
+- [Serum 2, matched loudness](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/serum-matched.wav)
+- [house-bass-reference.wav](Projects/Synth Templates/workshop/proofs/2026-11-17-on-serum/house-bass-reference.wav)
+- [house-bass-on-three-synths.html](Projects/Synth Templates/workshop/proofs/2026-11-17-on-serum/house-bass-on-three-synths.html)
+- [house-bass-compare.png](Projects/Synth Templates/workshop/proofs/2026-11-17-on-serum/house-bass-compare.png)
+- [house-bass-serum.wav](Projects/Synth Templates/workshop/proofs/2026-11-17-on-serum/house-bass-serum.wav)
+<sub>`synth-templates-steward-015` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="synth-templates-steward-014" -->
+### 2026-11-17 — cycle 5 — All three synths' house bass, at the reference's loudness, in one Live Set: press play once and hear reference, Vital, reference, Serum, reference, Wavetable.
+> shipped · the house bass waits only on your ears · steward leans one sitting
+
+The Set is [House Bass — one sitting](open:Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/House Bass — one sitting.als). It opens silent, in Arrangement view, at 124 bpm. Press play and it runs fourteen bars, two bars a turn: reference, Vital, reference, Serum, reference, Wavetable, reference. You hear the reference just before each synth, so every comparison is fresh.
+
+The loudness had to be matched first. On their own, Vital plays 5.3 dB under the reference and Serum 11.1 dB under, and a quieter take sounds worse whatever its shape. [level-match.py](Projects/Synth Templates/workshop/level-match.py) copies the reference bit for bit and changes each render by a single gain to the reference's RMS. It changes nothing else, and [levels.json](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/levels.json) records the gains. Each rendered take sits in a Sampler at its own pitch. The Wavetable track holds the actual preset, so Live plays it from the preset file on the reference's four notes, lined up to the same 50 ms after each offbeat that every render uses.
+
+[on-live.mjs](Projects/Synth Templates/workshop/on-live.mjs) builds it with the Shop's Ableton Session Writer, whose Sets you have opened before. The script reads the writer's code and borrows its inner pieces in memory, so nothing in the Shop changed. The writer's own check passes: all ids unique, every sample on disk, nothing sounding on open.
+
+One other fix this cycle. The site now shows Serum 2 on the house bass card's On your synth tab. [build-site.py](Projects/Synth Templates/workshop/build-site.py) also stopped stripping the design system's styling when it rebuilds: it now carries that styling over from the page it replaces, so the old warning in the README is gone.
+
+**Artifacts:**
+- [The sitting: open in Live 12 and press play once.](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/House Bass — one sitting.als)
+- [The reference, the site's own voice, bit for bit.](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/reference.wav)
+- [Vital's take raised 5.3 dB to the reference's loudness.](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/vital-matched.wav)
+- [Serum 2's take raised 11.1 dB to the reference's loudness.](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/serum-matched.wav)
+- [The Wavetable preset the Set plays live.](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/House Bass (Synth Templates).adv)
+- [Each take's loudness and the one gain applied.](Projects/Synth Templates/workshop/proofs/2026-11-17-one-sitting/levels.json)
+- [Matches each take to the reference's loudness by one gain.](Projects/Synth Templates/workshop/level-match.py)
+- [Writes the sitting Set from a folder of takes, with the Session Writer's craft.](Projects/Synth Templates/workshop/on-live.mjs)
+- [The site build now keeps the design system's styling on a rebuild.](Projects/Synth Templates/workshop/build-site.py)
+- [The site, rebuilt with the house bass's Serum 2 rows and its styling kept.](Projects/Synth Templates/workshop/site/index.html)
+
+_Changed in the workshop:_ README — documents on-serum.py (left undeclared by cycle 4), level-match.py and on-live.mjs, and replaces the furniture gotcha now that the build carries the styling itself
+_Proposed for canon:_ Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs (the export line at the end of the file) — a maker that needs a Set shaped differently from plugin or library (here: rendered takes in Samplers plus a native-device preset) can build it from the writer's own parts; today it has to patch the source in memory, which breaks silently if the internals change; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ Nobody has heard it. And I haven't opened the Set in Live myself: the writer's check proves its structure, but whether the Wavetable track loads with its settings is still unseen.
+
+_Next moves named:_ Your ears, which only you can give: open the Set, press play once, and answer the card on the decisions board. · Whatever you hear goes back into the card's synth rows: marked heard, or rebuilt where something is off. · Once one synth passes, start the second card, one idea up from the house bass.
+<sub>`synth-templates-steward-014` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-5445fcd89a" -->
+### 2026-11-17 — cycle 5
+
+taught item 5, proposed item 6 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="synth-templates-steward-012" -->
 ### 2026-11-17 — cycle 4 — The house bass now plays in Serum 2 and lands close to the reference, so it exists on all three synths the plan named.
 > shipped · three synths built, none heard yet · steward leans: your ears next, on all three at once

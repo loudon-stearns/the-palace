@@ -41,3 +41,13 @@ What Synth Templates's steward cycles taught the page, and the changes to the ho
 
 4. Serum 2's state is readable CBOR, so a routing can be written as data and proved by rendering; Serum 1's routing is opaque, and borrowing a factory preset's slot by guesswork found the wrong slot twice. *(offered by the steward, cycle 4)*
 - run · 2026-11-17 · cycle 4 · taught item 4
+
+## From cycle 5 — 2026-11-17
+
+5. Match every take to the reference's loudness before an ear A/B, by one gain and nothing else; our Serum take ran 11 dB under, and a quieter take reads as a worse sound whatever its shape. *(offered by the steward, cycle 5)*
+6. **Proposed for canon** · 2026-11-17 · `Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs` · the export line at the end of the file · canon change owed *(proposed by the steward, cycle 5)*
+   Why: a maker that needs a Set shaped differently from plugin or library (here: rendered takes in Samplers plus a native-device preset) can build it from the writer's own parts; today it has to patch the source in memory, which breaks silently if the internals change
+   Path: `Shop/Shopkeeper/probes/2026-10-20-ableton-session/live-set.mjs`
+   > export { pluginJob, libraryJob, check, parseSfz, wavFacts, juceParamId, vst3Uid, normalise, ridePoints, juceState, blankSet, finishSet, midiTrack, samplerDevice, limiterDevice, midiClip, element, readSet, writeSet, renumber };
+
+- run · 2026-11-17 · cycle 5 · taught item 5, proposed item 6 for canon
