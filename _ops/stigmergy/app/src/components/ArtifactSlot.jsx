@@ -291,7 +291,9 @@ function OpenExternalChip({ path, type }) {
 // The artifact slot: renders alongside (not inside) the type-specific payload
 // rendering, for any message type. Keyed on artifact presence in the payload,
 // per BBS Production Plan v0.3.
-export default function ArtifactSlot({ payload, frameHeight }) {
+// `under(artifact)` lets the host lay something beneath each artifact, inside
+// its box: the scroll's pick · flag · note row (projects/SectionReview.jsx).
+export default function ArtifactSlot({ payload, frameHeight, under }) {
   const artifacts = artifactsFromPayload(payload);
   if (artifacts.length === 0) return null;
 
@@ -337,6 +339,7 @@ export default function ArtifactSlot({ payload, frameHeight }) {
                 {a.caption}
               </div>
             ) : null}
+            {under ? under(a) : null}
           </div>
         );
       })}

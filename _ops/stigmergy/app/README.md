@@ -194,6 +194,48 @@ link, or a palace-absolute `/path`. A web address is never lifted.
 - `PUT /api/projects/orders` `{ home, orders, kind? }` — an order from Loudon: `standing` (the default) to the scroll's Standing Orders, `once` to the tuning ledger as owed.
 - `PUT /api/projects/plan` `{ home, plan, why }` — write the agreed Plan, any page; the change is logged on the trail.
 - `POST /api/steward/advance` `{ name, max_cycles? }` — start a run.
+- `POST /api/projects/answer` `{ home, section, words, marks }` — Loudon's answer to one trail section (below).
+
+### Answering in the scroll (2026-11-17)
+
+Loudon, 2026-11-17: "the best place for me to review would be in stigmergy in the scroll itself". A
+trail section that shows him something takes his answer where he reads it. Under each player, image or
+frame the section's own text links there is a small row, **pick · flag · note**; at the section's foot the
+question it asks, a box, and one **send**. One send is one answer to the section, and the marks ride
+inside it.
+
+- **The answer is kept in the scroll section**, as a marked block before the section's `<sub>` footer
+  (`src/lib/scroll-answers.js`). That block is the one source of truth:
+
+  ```
+  <!-- scroll:answer by="Loudon" date="2026-11-17" at="<iso>" files="<palace path>=<sha12>;…" -->
+  **Heard.** Loudon, 2026-11-17: "his words"
+  - pick · `walk-twenty-steps.m4a`
+  - flag · `walk-one-step-repeated.m4a` — "his note on that file"
+  <!-- /scroll:answer -->
+  ```
+
+  `**Heard.**`, `**Seen.**` or `**Heard and seen.**` follows what the files are. A second answer is a
+  second block; the newest counts and nothing is deleted. The line is the one `Shop/shop.mjs tests`
+  already reads from a section.
+- **Delivered from it, in the same send** (`server/scroll-answer.js`): one line on the page's tuning
+  ledger in the Maker's form, `- heard by Loudon · <date> · <proof> · "<his words>" · owed a review`,
+  when the page keeps a ledger; one `human_eval` note on the board naming the page (`payload.entry`,
+  task `scroll:<Entry>:<section id>`, the section and its files under `payload.scroll`), so the QUEUE
+  shows it and `node _ops/loudon-eval/read-answers.mjs --page "<Entry>"` reads it; and one Trickster
+  Commit of the scroll and the ledger. A delivery that fails is named in the reply and under the box,
+  and never undoes the answer.
+- **The question is found by reading**, in the forms the palace writes: `The question: …`, `The question
+  for your eye: …`, `**A question for your eye and ear.** …`, the bench's `What only an ear can say: …`,
+  or a paragraph that is all bold and ends in a question mark. To write one a reader will find, begin a
+  line with `The question:`. A section with media and no question still takes an answer.
+- **What waits on him.** A section with media counts as waiting while it asks a question or says nobody
+  has heard or seen it, and he has not answered. A verdict already in the prose (`**Heard.** …`, "All 3
+  have been heard") counts as answered. The scroll's head and its PROJECTS row show `N waiting on you`.
+- **A file remade after an answer.** `files` holds the first 12 hex of each file's SHA-256 as it was. When
+  one changes, the answer stays and reads "about an earlier file", and the section waits again.
+- His unsent words are kept in the browser (`localStorage`, `scrollreview:<Entry>:<section>`) until a send
+  lands. The public read view shows none of this.
 
 ## Run
 

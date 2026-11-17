@@ -5,6 +5,7 @@
 
 import { SKIP_STAGES, pageEnded } from '../../../orchestrator/src/batch-due.js';
 import { liveAnswers, liveAnswerFor } from '../../../live-answers.mjs';
+import { parseAnswers, findQuestion } from './scroll-answers.js';
 
 const ENTRY_RE = /<!--\s*scroll:entry id="([^"]+)"\s*-->([\s\S]*?)<!--\s*\/scroll:entry\s*-->/g;
 const MEDIA_EXT = /\.(png|jpe?g|gif|webp|svg|wav|mp3|ogg|m4a|flac|mp4|webm|mov|m4v|html?|pdf)$/i;
@@ -108,6 +109,8 @@ export function rowSignal(row) {
   if (row.running) return { text: row.run ? `running ${row.run.position}/${row.run.cap}` : 'running', tone: 'warn' };
   if (row.open_asks > 0) return { text: row.open_blocking ? 'paused on you' : `${row.open_asks} ask${row.open_asks === 1 ? '' : 's'}`, tone: 'warn' };
   if (row.proposed_owed > 0) return { text: `${row.proposed_owed} proposed${row.proposed_urgent ? ', urgent' : ''}`, tone: 'warn' };
+  // Trail sections that ask Loudon something he has not answered (scroll-answers.js).
+  if (row.review && row.review.waiting > 0) return { text: `${row.review.waiting} waiting on you`, tone: 'warn' };
   if (row.answered_unconsumed > 0) return { text: `${row.answered_unconsumed} ready`, tone: 'ok' };
   if (row.stalled) return { text: 'stalled', tone: 'err' };
   if (row.barren_streak > 0) return { text: 'barren once', tone: 'warn' };
@@ -216,8 +219,13 @@ export function decisionFor(msg, messages) {
  */
 export function cardSpec(section, messages) {
   const msg = messageForSection(section, messages);
+  // Loudon's answers live in the section's own text as marked blocks
+  // (scroll-answers.js). They are lifted out of the prose and shown by the
+  // card's review foot, with the question the section asks.
+  const { body: prose, answers } = parseAnswers(section.body);
+  const review = { question: findQuestion(prose), answers, sectionBody: section.body, ownPaths: (section.artifacts || []).map((a) => a.path) };
   if (!msg) {
-    return { id: section.id, heading: section.heading, fromMessage: false, prose: section.body, artifacts: splitHeavy(section.artifacts), footer: section.footer };
+    return { id: section.id, heading: section.heading, fromMessage: false, prose, artifacts: splitHeavy(section.artifacts), footer: section.footer, ...review };
   }
   const p = msg.payload || {};
   const arts = [];
@@ -254,6 +262,7 @@ export function cardSpec(section, messages) {
     options: Array.isArray(p.options) ? p.options.filter((o) => o && (o.id || o.label)).map((o) => ({ id: o.id || null, label: o.label || o.id })) : [],
     decision: decisionFor(msg, messages),
     footer: section.footer,
+    ...review,
   };
 }
 
