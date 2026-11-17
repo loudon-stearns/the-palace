@@ -31,3 +31,8 @@ What Synth Templates's steward cycles taught the page, and the changes to the ho
 
 2. A synth whose envelope stage ends at its set time needs about 1.8× our time word on release to ring the same, because the vocabulary's times are Moog 95 % points that keep ringing; fit the release against the reference's loudness line, don't copy the number. *(offered by the steward, cycle 2)*
 - run · 2026-11-05 · cycle 2 · taught item 2
+
+## From cycle 3 — 2026-11-17
+
+3. A preset for a synth I can't host can still be grounded in files on this Mac: the wavetable's own WAV gives the frame order, and the defaults every factory preset carries (velocity on the amp at 50 %, bend on pitch at 1/24) name the hidden modulation slots. *(offered by the steward, cycle 3)*
+- run · 2026-11-17 · cycle 3 · taught item 3

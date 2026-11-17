@@ -111,13 +111,14 @@ mappings:             # per synth: where each block lives, and what to set it to
     name: Ableton Wavetable
     version: "Live 12"
     rows:
-      - {block: mode,    param: voices,    where: "Global, Poly / Mono switch; Glide", set: "Mono, Glide 0", sure: unchecked}
-      - {block: osc1,    param: wave,      where: "Osc 1, category Basic Shapes; Position", set: "the square frame", sure: look}
-      - {block: sub,     param: wave,      where: "Sub, on; Tone; Octave", set: "Tone 0 % (a pure sine), Octave -1", sure: unchecked}
-      - {block: sub,     param: level,     where: "Sub, Gain", set: "about -6 dB under Osc 1", sure: near}
-      - {block: filter1, param: type,      where: "Filter 1, on; Lowpass; slope; circuit", set: "Lowpass, 24 dB, circuit MS2 or OSR; Filter 2 off", sure: unchecked}
+      - {block: mode,    param: voices,    where: "Global, Poly / Mono switch; Glide", set: "Mono, Glide 0", sure: near}
+      - {block: osc1,    param: wave,      where: "Osc 1, category Basic Shapes; Position", set: "Basic Shapes at Position 100 %, its last frame: the table runs sine, triangle, saw, square (measured from Live's own file, 2026-11-17)", sure: exact}
+      - {block: sub,     param: wave,      where: "Sub, on; Tone; Octave", set: "Tone 0 % (a pure sine), Octave -1", sure: near}
+      - {block: sub,     param: level,     where: "Sub, Gain", set: "-6 dB (Osc 1 at 0 dB)", sure: exact}
+      - {block: filter1, param: type,      where: "Filter 1, on; Lowpass; circuit; 12 / 24 switch", set: "Lowpass, circuit Clean, 24 dB; Filter 2 off (OSR or MS2 add grit, a taste move)", sure: near}
       - {block: filter1, param: cutoff,    where: "Filter 1, Freq", set: "300 Hz", sure: exact}
       - {block: filter1, param: resonance, where: "Filter 1, Res", set: "a clear vowel, short of a whistle (start near 40 %)", sure: near}
-      - {block: fenv,    param: amount,    where: "Matrix, Env 2 row, Filter 1 Freq column", set: "so the peak opens about 3.5 octaves up, near 3.4 kHz", sure: near}
-      - {block: fenv,    param: shape,     where: "Env 2: Attack, Decay, Sustain, Release", set: "0 ms, 100 ms, 0 %, 100 ms", sure: near}
-      - {block: aenv,    param: shape,     where: "Amp envelope", set: "15 ms, 575 ms, 70 %, 100 ms", sure: near}
+      - {block: fenv,    param: amount,    where: "Matrix, Env 2 row, Filter 1 Freq column", set: "35 %, read as 3.5 of the knob's ten octaves (to about 3.4 kHz); finish by ear", sure: near}
+      - {block: fenv,    param: shape,     where: "Env 2: Attack, Decay, Sustain, Release", set: "5 ms, 100 ms, 0 %, 180 ms (release lengthened as Vital needed; not yet heard on Wavetable)", sure: near}
+      - {block: aenv,    param: shape,     where: "Amp envelope", set: "15 ms, 575 ms, 70 %, 180 ms", sure: near}
+    preset: "proofs/2026-11-17-on-wavetable/House Bass (Synth Templates).adv"   # these rows written out as a real Wavetable preset by on-wavetable.py; not yet opened in Live

@@ -15,38 +15,38 @@ forward_vector: "I am Synth Templates' scroll — the one page that always opens
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-05T16:05:25.658Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T12:51:34.306Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** sprout · **Steward:** cycle 2 · last ran 2026-11-05 (today)
+- **Status:** active · **Stage:** sprout · **Steward:** cycle 3 · last ran 2026-11-17 (today)
 - **Plan:** agreed (no dated change on the trail yet)
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-05 (today) — The house bass is now a real Vital preset, played in Vital beside our reference: the pluck matches as mapped, and the release needed about twice as long. (`synth-templates-steward-006`)
-- **Last commit touching this project:** 2026-11-05 `a1bad80f` — steward(Synth Templates): cycle 1 — SPINNING UP. HOME: [Synth Templates](obsidian://open?vault=The%20Palace…
+- **Last shipped:** 2026-11-17 (today) — The house bass as a Wavetable preset: when you load it and play the clip, does it pluck like the reference? (`synth-templates-steward-010`)
+- **Last commit touching this project:** 2026-11-08 `1315454d` — Weave — 2026-11-08 — 41 flags closed, 2 carried, 7 declined; 193 link ops; 23 Shop ledgers; 13 Contexts; 40 pages furnished; 8 faces; card to v2.3
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-05 — cycle 2 · taught item 2
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 3 · taught item 3
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 2, from cycle 2 — 2026-11-05 — [[Synth Templates — tuning]]
+- **Latest lesson:** item 3, from cycle 3 — 2026-11-17 — [[Synth Templates — tuning]]
 
 ### Where this stands
 
-Synth Templates is a catalog of starting presets that teach synthesis, built as a website where each card plays on the project's own neutral voice. The last step on the plan is to prove the house bass on three real synths (Vital, Serum and Ableton Wavetable) and have you hear it. Last cycle wrote down where each house-bass setting lives on those three synths, all from memory. This cycle turned the Vital column into a real preset file, played it in Vital on this Mac, and measured it against the reference. It's the first time the card has been tried on a real synth, and only by numbers so far. Nobody has heard it.
+Synth Templates is a catalog of starter presets that teach synthesis. Each card says what makes a sound that sound and what's yours to move, and it plays on the project's own neutral voice on the site. The last step on the plan is to prove the first card, the house bass, on three real synths (Vital, Serum and Ableton Wavetable) and have you hear it. On 5 November the house bass became a real Vital preset, measured against the reference but not heard. On 10 November you picked Wavetable as the next synth to try. This cycle wrote it: a .adv preset built from Live's blank Wavetable, with the reference's own notes as a MIDI clip and the reference WAV beside it, so you can compare like for like…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since 2026-11-02:** Vital's is now measured, but nobody has heard it. _(in 4 notes, the latest cycle 2)_
+- **rough since 2026-11-02:** Nobody has heard it. _(in 5 notes, the latest cycle 3)_
 - **rough since 2026-11-03:** I drew the square and sine myself rather than picking Vital's Basic Shapes frames, so the 'by eye' row is still untested. _(in 2 notes, the latest cycle 2)_
 - **rough since 2026-11-03:** the eleven wordless cards wait on their voice fixes; _(in 2 notes, the latest 2026-11-03)_
 - **rough since cycle 1:** None of the three mappings has been tried by ear on a real synth. _(in 2 notes, the latest cycle 2)_
-- **rough since cycle 1:** Wavetable's mono switch, sub and filter circuit are still from the manual. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** The sub's octave, the filter circuit and the 35 % depth are read from factory files, not yet seen in Live, and the 180 ms release is carried over from Vital. _(in 3 notes, the latest cycle 3)_
 
 ### Open asks
 
-- `synth-templates-steward-003` — directional_decision · posted 2026-11-05 · options: WAVETABLE-FIRST · VITAL-FIRST · SERUM-FIRST
+- `synth-templates-steward-010` — ear_verdict · posted 2026-11-17 · options: SOUNDS-RIGHT · CLOSE-ADJUST · SETTING-WRONG · WONT-LOAD
 
 ### Answered, not yet consumed
 
@@ -54,10 +54,11 @@ _None._
 
 ### Decided
 
-_Nothing decided on the board yet._
+- `synth-templates-steward-003` — directional_decision → GRANTED — option_id=WAVETABLE-FIRST (2026-11-10)
 
 ### Runs
 
+- 2026-11-17 — cycle 3 · taught item 3
 - 2026-11-05 — cycle 2 · taught item 2
 - 2026-11-05 — cycle 1 · taught item 1
 
@@ -96,6 +97,81 @@ Where this is going: a website generated from the cards, a catalog to choose fro
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="synth-templates-steward-010" -->
+### 2026-11-17 — cycle 3 — The house bass as a Wavetable preset: when you load it and play the clip, does it pluck like the reference?
+> still working · preset written, unheard · steward leans you listen when convenient
+
+Synth Templates teaches synthesis through starter presets, and the plan's last step is to prove the house bass on three real synths and have you hear it. You picked Wavetable first, so it's now a real preset. Everything is in one folder: [open the folder](open:Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable?reveal). Drag the .adv onto a MIDI track, drop in the MIDI clip, and play it beside the reference WAV. Glance at four things as it loads: a square on Oscillator 1, the Sub at −1 octave, Filter 1 on Clean 24, and Envelope 2 to Filter 1 at 35 % in the Matrix. I'm not waiting on this. I'll keep building toward Serum, and your answer marks the card's Wavetable rows heard.
+
+**Artifacts:**
+- [the preset](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/House Bass (Synth Templates).adv)
+- [the reference, to play beside it](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/house-bass-reference.wav)
+- [the reference's notes as a clip](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/house-bass-pattern.mid)
+- [house-bass-on-three-synths.html](Projects/Synth Templates/workshop/proofs/2026-11-05-on-your-synth/house-bass-on-three-synths.html)
+- [Synth Templates — icon.png](Projects/Synth Templates/Synth Templates — icon.png)
+- [Synth Templates — hero.png](Projects/Synth Templates/Synth Templates — hero.png)
+- [house-bass-compare.png](Projects/Synth Templates/workshop/proofs/2026-11-05-on-vital/house-bass-compare.png)
+- [house-bass-vital.wav](Projects/Synth Templates/workshop/proofs/2026-11-05-on-vital/house-bass-vital.wav)
+- [zap-laser.png](Projects/Synth Templates/workshop/renders/zap-laser.png)
+- [wurlitzer.png](Projects/Synth Templates/workshop/renders/wurlitzer.png)
+- [woodblock.png](Projects/Synth Templates/workshop/renders/woodblock.png)
+- [wobble-bass.png](Projects/Synth Templates/workshop/renders/wobble-bass.png)
+- [wind.png](Projects/Synth Templates/workshop/renders/wind.png)
+- [white-noise-burst.png](Projects/Synth Templates/workshop/renders/white-noise-burst.png)
+- [whistle.png](Projects/Synth Templates/workshop/renders/whistle.png)
+<sub>`synth-templates-steward-010` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="synth-templates-steward-008" -->
+### 2026-11-17 — cycle 3 — The house bass is now a real Ableton Wavetable preset: drop it on a track, play the reference's notes, and hold it beside the reference.
+> shipped · Wavetable preset written, not opened in Live · steward leans you load it and listen
+
+**What's in the folder.** [The preset](open:Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/House Bass (Synth Templates).adv) is a square at Position 100 % of Basic Shapes, with a sine sub one octave down at −6 dB, into Filter 1 (Lowpass, Clean, 24 dB) at 300 Hz with resonance near 40 %. Envelope 2 plucks the cutoff open about 3.5 octaves (0 sustain, 100 ms decay). The amp envelope is 15 ms, 575 ms, 70 %, 180 ms. It plays mono with no glide. [The MIDI clip](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/house-bass-pattern.mid) holds four offbeat eighths at 124 bpm, each a 16th long, on MIDI note 36. The site calls that note C2; Live names it C1. [The reference](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/house-bass-reference.wav) is the site voice playing the same notes.
+
+**Three things settled from files on this Mac, not from the manual.** First, Live's own Basic Shapes wavetable file holds four frames. Their harmonics prove the order is sine, triangle, saw, square, so the square is the last frame. Generative Preset Development's notes had guessed the last frame was a saw. Second, Wavetable's hidden modulation slots. Slot 5 sits on the amp at exactly 50 % in 11 of 14 factory presets, which is velocity to volume. Slot 7 sits on pitch at 1/24, which is pitch bend. Slot 6 cancels pitch in a fixed-pitch kick, which is the note. Slot 9 fades both LFOs in, which is the mod wheel. That puts the Matrix rows in order on slots 0–4: Amp Env, Env 2, Env 3, LFO 1, LFO 2. So the filter pluck is Envelope 2 on slot 1. Third, a 0 on the Poly/Mono switch means mono. The factory mono bass, lead and wobble all carry 0.
+
+**Where two readings disagree, and the hedge.** Generative Preset Development's describer read the preset back and calls slot 1 Envelope 3, and calls the filter 12 dB, because it reads the slope from the circuit number. Factory presets pair the 24 dB switch with three different circuits, so I think the slope is its own switch. On the envelope, I gave Envelope 3 the same pluck shape, so the filter plucks whichever reading is right.
+
+**Four things to glance at when it loads** (each also settles a guess): Oscillator 1's picture is a square. The Sub's Octave reads −1. Filter 1 reads Clean, 24 dB. The Matrix shows Envelope 2 to Filter 1 Freq at 35 %. Then play the clip and the reference one after the other: every note should open and shut in the first instant, 'ooh' not 'aah', with the body held underneath.
+
+**Passed over:** OSR or MS2 for the filter. They add grit, and that's a taste move. I chose Clean because it's the closest match to the reference voice. I didn't write the preset into a Live Set: the Shop's Session Writer builds plugin and Sampler tracks, not Live's own Wavetable, so the preset and clip go in by hand.
+
+**Artifacts:**
+- [the preset: drag onto a MIDI track in Live 12](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/House Bass (Synth Templates).adv)
+- [the reference's own notes as a one-bar clip, 124 bpm](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/house-bass-pattern.mid)
+- [the reference on the site's voice, to play beside Live's (stays on this Mac)](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/house-bass-reference.wav)
+- [the house bass on Vital, Serum and Wavetable, side by side](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/house-bass-on-your-synth.html)
+- [every value written, its unit, how sure, and why; the slot reading](Projects/Synth Templates/workshop/proofs/2026-11-17-on-wavetable/house-bass-wavetable.json)
+- [the builder: card rows into a Wavetable preset](Projects/Synth Templates/workshop/on-wavetable.py)
+- [the card's Wavetable rows, updated to what the preset settles](Projects/Synth Templates/workshop/cards/house-bass.yaml)
+- [the site's card page carries the new Wavetable rows (furniture kept)](Projects/Synth Templates/workshop/site/index.html)
+- [how on-wavetable works, and the site-rebuild trap](Projects/Synth Templates/workshop/README.md)
+
+_House bass on Wavetable · what the preset sets, and how sure_
+| setting | value | how sure |
+| --- | --- | --- |
+| Osc 1 | Basic Shapes, Position 100 % (the square) | measured from Live's own file |
+| Sub | Tone 0 %, Octave −1, −6 dB | octave index read, not seen |
+| Filter 1 | Lowpass, Clean, 24 dB, 300 Hz, Res ~40 % | circuit index read, not seen |
+| Pluck | Env 2 → Filter 1 Freq 35 % · 5 ms / 100 ms / 0 % / 180 ms | slot from factory evidence; 35 % = 3.5 of 10 octaves, a reading |
+| Amp envelope | 15 ms / 575 ms / 70 % / 180 ms | release carried over from Vital, unheard here |
+| Voice | Mono, Glide 0, no unison | mono value from factory presets |
+
+_Changed in the workshop:_ README — documents on-wavetable.py and what it read from this Mac's files, and the gotcha that rebuilding the site strips its furniture
+
+_Left rough:_ Nobody has heard it. The Wavetable preset hasn't been opened in Live, and only you can do that. The sub's octave, the filter circuit and the 35 % depth are read from factory files, not yet seen in Live, and the 180 ms release is carried over from Vital.
+
+_Next moves named:_ You load the preset, glance at the four settings, and play the clip beside the reference. The card on the TRICKSTER board takes your verdict in one click. · Serum next, while the Wavetable preset waits: Serum and Serum 2 are both installed, so I can try hosting one the way Vital was hosted, write the house bass as a preset, and measure it against the reference. · When an ear has confirmed one synth, mark the card's rows from 'near' to 'exact' where it holds, and climb to the second card.
+<sub>`synth-templates-steward-008` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-98cbc97c3d" -->
+### 2026-11-17 — cycle 3
+
+taught item 3
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="synth-templates-steward-006" -->
 ### 2026-11-05 — cycle 2 — The house bass is now a real Vital preset, played in Vital beside our reference: the pluck matches as mapped, and the release needed about twice as long.
 > shipped · first real-synth proof, measured, not yet heard · steward leans you load it in Vital

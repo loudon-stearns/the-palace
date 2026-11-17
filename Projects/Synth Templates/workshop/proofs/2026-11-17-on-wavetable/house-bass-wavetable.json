@@ -1,0 +1,334 @@
+{
+ "card": "house-bass",
+ "preset": "House Bass (Synth Templates).adv",
+ "bytes": 3202,
+ "from": "Live 12 factory init Wavetable",
+ "written": [
+  {
+   "param": "MonoPoly",
+   "value": 0,
+   "unit": "0 mono \u00b7 1 poly",
+   "sure": "near",
+   "why": "mode: mono; 0 is what the factory mono bass and leads carry"
+  },
+  {
+   "param": "Voice_Global_Glide",
+   "value": 0,
+   "unit": "s",
+   "sure": "exact",
+   "why": "glide: none"
+  },
+  {
+   "param": "Voice_Unison_Mode",
+   "value": 0,
+   "unit": "0 none",
+   "sure": "exact",
+   "why": "one voice, no unison"
+  },
+  {
+   "param": "Voice_Oscillator1_On",
+   "value": "true",
+   "unit": "",
+   "sure": "exact",
+   "why": "osc 1 on"
+  },
+  {
+   "param": "SpriteName1",
+   "value": "Basic Shapes",
+   "unit": "wavetable name",
+   "sure": "exact",
+   "why": "Live's own sine\u2013triangle\u2013saw\u2013square table"
+  },
+  {
+   "param": "Voice_Oscillator1_Wavetables_WavePosition",
+   "value": 1.0,
+   "unit": "0..1 across 4 frames",
+   "sure": "exact",
+   "why": "the square frame, measured from the table's harmonics"
+  },
+  {
+   "param": "Voice_Oscillator1_Effects_EffectMode",
+   "value": 0,
+   "unit": "0 none",
+   "sure": "exact",
+   "why": "no warp or fold on the square"
+  },
+  {
+   "param": "Voice_Oscillator1_Gain",
+   "value": 1.0,
+   "unit": "linear",
+   "sure": "exact",
+   "why": "osc 1 at full"
+  },
+  {
+   "param": "Voice_Oscillator2_On",
+   "value": "false",
+   "unit": "",
+   "sure": "exact",
+   "why": "osc 2 not used"
+  },
+  {
+   "param": "Voice_SubOscillator_On",
+   "value": "true",
+   "unit": "",
+   "sure": "exact",
+   "why": "the sub on"
+  },
+  {
+   "param": "Voice_SubOscillator_Tone",
+   "value": 0,
+   "unit": "0 = pure sine",
+   "sure": "exact",
+   "why": "a sine"
+  },
+  {
+   "param": "Voice_SubOscillator_Transpose",
+   "value": 1,
+   "unit": "index; 1 = one octave down",
+   "sure": "near",
+   "why": "one octave under osc 1; the index's meaning is read, not seen"
+  },
+  {
+   "param": "Voice_SubOscillator_Gain",
+   "value": 0.5011875,
+   "unit": "linear (\u22126 dB)",
+   "sure": "exact",
+   "why": "half of osc 1"
+  },
+  {
+   "param": "Voice_Filter1_On",
+   "value": "true",
+   "unit": "",
+   "sure": "exact",
+   "why": "filter 1 on"
+  },
+  {
+   "param": "Voice_Filter1_Type",
+   "value": 0,
+   "unit": "0 lowpass/highpass",
+   "sure": "exact",
+   "why": "low pass"
+  },
+  {
+   "param": "Voice_Filter1_CircuitLpHp",
+   "value": 0,
+   "unit": "0 Clean",
+   "sure": "near",
+   "why": "Clean: closest to the reference voice's neutral filter; OSR or MS2 add grit, a taste move"
+  },
+  {
+   "param": "Voice_Filter1_Slope",
+   "value": 1,
+   "unit": "0 = 12 dB \u00b7 1 = 24 dB",
+   "sure": "near",
+   "why": "24 dB, the essential slope"
+  },
+  {
+   "param": "Voice_Filter1_Frequency",
+   "value": 300.0,
+   "unit": "Hz",
+   "sure": "exact",
+   "why": "'dark', vocabulary.yaml"
+  },
+  {
+   "param": "Voice_Filter1_Resonance",
+   "value": 0.4,
+   "unit": "0..1.25 (shown as %)",
+   "sure": "near",
+   "why": "a clear vowel, short of a whistle"
+  },
+  {
+   "param": "Voice_Filter2_On",
+   "value": "false",
+   "unit": "",
+   "sure": "exact",
+   "why": "filter 2 off"
+  },
+  {
+   "param": "Voice_Modulators_AmpEnvelope_Times_Attack",
+   "value": 0.0154,
+   "unit": "s",
+   "sure": "near",
+   "why": "'fast'"
+  },
+  {
+   "param": "Voice_Modulators_AmpEnvelope_Times_Decay",
+   "value": 0.575,
+   "unit": "s",
+   "sure": "near",
+   "why": "'medium'"
+  },
+  {
+   "param": "Voice_Modulators_AmpEnvelope_Sustain",
+   "value": 0.7,
+   "unit": "linear (\u22123 dB)",
+   "sure": "near",
+   "why": "'held', 70 %"
+  },
+  {
+   "param": "Voice_Modulators_AmpEnvelope_Times_Release",
+   "value": 0.18,
+   "unit": "s",
+   "sure": "near",
+   "why": "'short', lengthened as Vital needed"
+  },
+  {
+   "param": "Voice_Modulators_Envelope2_Times_Attack",
+   "value": 0.00488,
+   "unit": "s",
+   "sure": "near",
+   "why": "'instant'"
+  },
+  {
+   "param": "Voice_Modulators_Envelope2_Times_Decay",
+   "value": 0.0986,
+   "unit": "s",
+   "sure": "near",
+   "why": "'short': the pluck"
+  },
+  {
+   "param": "Voice_Modulators_Envelope2_Values_Initial",
+   "value": 0.0,
+   "unit": "0..1",
+   "sure": "exact",
+   "why": "starts closed"
+  },
+  {
+   "param": "Voice_Modulators_Envelope2_Values_Peak",
+   "value": 1.0,
+   "unit": "0..1",
+   "sure": "exact",
+   "why": "full peak"
+  },
+  {
+   "param": "Voice_Modulators_Envelope2_Values_Sustain",
+   "value": 0.0,
+   "unit": "0..1",
+   "sure": "exact",
+   "why": "'zero': the pluck lives in the filter"
+  },
+  {
+   "param": "Voice_Modulators_Envelope2_Values_Final",
+   "value": 0.0,
+   "unit": "0..1",
+   "sure": "exact",
+   "why": "ends closed"
+  },
+  {
+   "param": "Voice_Modulators_Envelope2_Times_Release",
+   "value": 0.18,
+   "unit": "s",
+   "sure": "near",
+   "why": "'short'"
+  },
+  {
+   "param": "Voice_Modulators_Envelope3_Times_Attack",
+   "value": 0.00488,
+   "unit": "s",
+   "sure": "near",
+   "why": "the same as Env 2, a hedge on which envelope slot 1 is"
+  },
+  {
+   "param": "Voice_Modulators_Envelope3_Times_Decay",
+   "value": 0.0986,
+   "unit": "s",
+   "sure": "near",
+   "why": "the same as Env 2, a hedge on which envelope slot 1 is"
+  },
+  {
+   "param": "Voice_Modulators_Envelope3_Values_Initial",
+   "value": 0.0,
+   "unit": "0..1",
+   "sure": "exact",
+   "why": "the same as Env 2, a hedge on which envelope slot 1 is"
+  },
+  {
+   "param": "Voice_Modulators_Envelope3_Values_Peak",
+   "value": 1.0,
+   "unit": "0..1",
+   "sure": "exact",
+   "why": "the same as Env 2, a hedge on which envelope slot 1 is"
+  },
+  {
+   "param": "Voice_Modulators_Envelope3_Values_Sustain",
+   "value": 0.0,
+   "unit": "0..1",
+   "sure": "exact",
+   "why": "the same as Env 2, a hedge on which envelope slot 1 is"
+  },
+  {
+   "param": "Voice_Modulators_Envelope3_Values_Final",
+   "value": 0.0,
+   "unit": "0..1",
+   "sure": "exact",
+   "why": "the same as Env 2, a hedge on which envelope slot 1 is"
+  },
+  {
+   "param": "Voice_Modulators_Envelope3_Times_Release",
+   "value": 0.18,
+   "unit": "s",
+   "sure": "near",
+   "why": "the same as Env 2, a hedge on which envelope slot 1 is"
+  },
+  {
+   "param": "Voice_Filter1_Frequency \u2190 slot 1",
+   "value": 0.35,
+   "unit": "share of the knob's range",
+   "sure": "near",
+   "why": "Env 2 opens the cutoff about 3.5 octaves, near 3.4 kHz, read as 3.5 of the knob's ten octaves"
+  },
+  {
+   "param": "Voice_Oscillator1_Wavetables_WavePosition \u2190 slot 9",
+   "value": 0.0,
+   "unit": "share of the knob's range",
+   "sure": "exact",
+   "why": "the init's mod wheel on wave position, cleared: the square stays a square"
+  },
+  {
+   "param": "Voice_Oscillator1_Wavetables_WavePosition \u2190 slot 12",
+   "value": 0.0,
+   "unit": "share of the knob's range",
+   "sure": "exact",
+   "why": "its MPE copy, cleared"
+  },
+  {
+   "param": "Voice_Oscillator1_Effects_Effect1 \u2190 slot 8",
+   "value": 0.0,
+   "unit": "share of the knob's range",
+   "sure": "exact",
+   "why": "the init's pressure on osc effect, cleared"
+  }
+ ],
+ "routings_after": {
+  "Voice_Filter1_Frequency": {
+   "1": 0.35
+  },
+  "Voice_Global_AmpModulation": {
+   "5": 0.5
+  },
+  "Voice_Global_PitchModulation": {
+   "7": 0.04166662693,
+   "11": 1.0
+  }
+ },
+ "slots": {
+  "0": "Amp Env",
+  "1": "Env 2",
+  "2": "Env 3",
+  "3": "LFO 1",
+  "4": "LFO 2",
+  "5": "Velocity",
+  "6": "Note",
+  "7": "Pitch Bend",
+  "8": "Aftertouch (pressure)",
+  "9": "Mod Wheel",
+  "12": "MPE Slide (copy of 9)",
+  "how": "read from the 14 factory presets' routings, 2026-11-17; not yet read off the Matrix in Live"
+ },
+ "basic_shapes_frames": [
+  "sine",
+  "triangle",
+  "saw",
+  "square"
+ ]
+}
