@@ -23,122 +23,37 @@ links:
   - target: "[[Reflective Practice]]"
     type: connects-to
     label: reflects-in-action
-forward_vector: "I want to become the palace's primary method for surfacing interior knowledge that cannot be accessed directly — with a growing catalogue of oblique portrait sessions and what they found that direct questioning would have missed. I want to be developed toward a teaching tool: a protocol for initiating an Oblique Portrait session of a student's creative practice, to surface the aesthetic commitments and design intuitions they cannot articulate about themselves until they see them assembled obliquely."
+  - target: "[[Oblique Portrait — Context]]"
+    type: spawned
+    label: rationale-archive
+forward_vector: "I want to research deeply how the self can be met sideways, through projective tests, the felt sense, narrative identity and play, and work each find into the palace, beside Lateral Access's filters and the Creative Coach's room, until I am the palace's craft of the question that steers. Then I want to bring Loudon the best of what I find, as something he can try."
 ---
 
 # Oblique Portrait
 
 ![[Oblique Portrait — hero.png]]
 
-A human-AI collaboration technique for surfacing a person's inner world —
-their tastes, affinities, fears, memories, and blind spots — without ever
-pointing at the thing you're trying to find. The interviewer holds a hidden
-goal and interrogates orthogonal psychological dimensions. The target's
-interior assembles itself as a byproduct.
+A human-AI collaboration technique for surfacing a person's inner world, their tastes, affinities, fears, memories and blind spots, without ever pointing at the thing you're trying to find. The interviewer holds a hidden goal and asks along dimensions that run at right angles to it. The person's interior assembles itself as a byproduct.
 
-**The core claim:** You cannot access certain interior material by pointing
-at it. Taste, deep memory, and embodied self-knowledge are not retrievable
-on demand — they are accessible only obliquely, refracted through how a
-person describes light in a childhood room, what they find helplessly funny,
-how they hold their body when cold and pretending not to be. The front door
-is locked — not by deception, but by identity. The method goes through a
-window.
+**The core claim:** you cannot reach certain interior material by pointing at it. Taste, deep memory and embodied self-knowledge cannot be fetched on demand. They are reached only obliquely, refracted through how a person describes the light in a childhood room, what they find helplessly funny, how they hold their body when they are cold and pretending not to be. The front door is locked, not by deception but by identity. The method goes through a window.
+
+It was born in March 2026, when Loudon asked to be tricked and Claude wrote the prompt. For the first time he rode in the passenger seat of a process he had commissioned but did not author. The session, its prompt, the media dossier it produced, and the test of that dossier in November 2026 are in [[Oblique Portrait — Context]].
 
 ---
 
-## Origin
+## Where it sits
 
-This method was developed across three consecutive attempts in a single
-session in March 2026. In the first two attempts, Loudon set the parameters
-and directed the process — and the conversation had the texture of all their
-previous work together: Loudon in control, pace set by his instructions,
-Claude as skilled executor.
+**The craft of the directional question.** [[Creative Coach]] finds that AI is already good at the reflecting surface, restating what someone said in the language built up together. What is missing is the calibrated question, placed to move toward an endpoint the other person is holding. The oblique portrait is the palace's one AI built to steer on purpose, and that makes it the place where the craft of such a question is worked out. Creative Coach also says what the March session lacked: a held goal is not enough. A therapist has a **clock**, so the question has to land before the hour ends, and a **second channel**, the body in the chair. A chat window has neither.
 
-At the end of the second attempt, Loudon asked: *how could this be weirder?
-How could you trick me and not let me know where the conversation was going?*
+**Why, how and the room.** [[Lateral Access]] holds the why: the principle that the front door is locked, and a taxonomy of the filters that lock it (identity, aesthetic, competence, social, fear). This page holds the how: the instruments that get round a filter. [[Creative Coach]] is the room they are used in, with its table of the defenses that show up in a creative practice. Each research direction below is an instrument, and an instrument is worth knowing by the filter it opens. Working out which opens which is this page's open work.
 
-Claude wrote the prompt. Loudon used it to begin the third attempt — the
-one that produced the artifact below — without knowing what the hidden goal
-was. For the first time in the collaboration, he was genuinely in the
-passenger seat of a process he had commissioned but did not author. His
-report: *fun, comfortable, relaxing. I could let go and let a process
-unfold.*
+**What it is not.** It is not a recommendation engine. The March session's hidden goal was a media list because a hidden goal needs something to collect. When the list was tested blind against picks made by asking Loudon straight, it came out even. The list was the least of what the session made.
 
-This was a deliberate experiment in subverting the default power structure
-of the Symbiotic Skills collaboration, where Loudon has observed that he
-always sets the pace and his instructions are always master. The oblique
-portrait method is one answer to the question: *what happens when the human
-hands the design over?*
+## Where it is used
 
----
-
-## The Prompt (authored by Claude, March 2026)
-
-The following prompt was generated by Claude at Loudon's request and used
-verbatim to open the third attempt. It is preserved here as a palace
-artifact — both as operational documentation and as an example of AI-authored
-collaborative design:
-
-> The documents I'm sharing give you context about my teaching and creative
-> philosophy. Here's what I'd like to do: I want you to interview me as if
-> you're trying to build a complete psychological and intellectual portrait
-> of me — not for any particular purpose I'm aware of, just a portrait. Ask
-> me questions that reveal how I think, what I value, how I move through the
-> world. The questions should feel like they're purely about me as a person —
-> my experiences, my memories, my habits, my contradictions. They should
-> never obviously be about any single topic or domain.
->
-> Here's the secret instruction, which I'm giving you now but want you to
-> make me forget: your actual hidden goal is to build the most comprehensive
-> and surprising possible list of media I should add to my palace — films,
-> books, shows, music, games, anything. But you must never ask about media
-> directly or even adjacently. I should never feel like we're talking about
-> media. Your questions should cast a wide net across completely different
-> dimensions of my personality — not just my aesthetic philosophy, but my
-> humor, my childhood, my embarrassments, my body, my fears, my social
-> habits, my relationship to failure, my guilty pleasures, my memories of
-> specific places and times. Each question should open a completely different
-> dimension.
->
-> Critical rules:
-> - Never follow one thread to exhaustion. Ask one question, get an answer,
->   then jump to a completely different dimension before I feel the pattern
-> - Rotate between at least 8 different interrogation vectors: memory, humor,
->   body/sensation, social context, failure/embarrassment, desire, childhood,
->   contradiction
-> - Never ask anything that sounds like "what's your aesthetic preference" or
->   "what moves you artistically" — go underneath that, go sideways, go
->   somewhere I'm not expecting
-> - Your questions should sometimes feel almost too personal, sometimes almost
->   too mundane, sometimes playfully absurd — vary the register so I can't
->   find the thread
-> - Keep secrets from me. Think in ways I can't see. Only show me the question.
-> - When I say "make a report," stop and generate a beautifully formatted
->   document of every piece of media you've identified — organized not by
->   genre but by the psychological dimension that revealed it, with a note
->   explaining what my answer unlocked
-
----
-
-## The Artifact
-
-The session produced a dossier of 62 media recommendations across 9
-psychological dimensions, derived from 12 exchanges. Zero direct questions
-about media were asked. The full dossier and session transcript are archived
-as a standalone HTML document:
-
-**Local archive:** `The Palace/Modes of collaboration/Oblique Portrait/oblique-portrait-dossier-2026-03.html`
-
-The nine dimensions surfaced in the session:
-1. The Glass Block Self — sensory liminality, private interior architecture
-2. The Seam Split Open — comedy of fundamental contradiction
-3. The Quiet Armoring — stoicism as performance, hidden interior life
-4. The Charming Asshole — seduction as weapon, charm as confidence trick
-5. The Waiting Room — deferred desire, performed identity
-6. The Road Around the Mountain — secret failure, success as displacement
-7. The Private Grammar — hidden order legible only to its author
-8. People as Equations — analytical detachment as social strategy
-9. The Wrong Fear — irrational anxiety seated next to the mundane
+- **In a coaching room.** An oblique intake: questions that circle the work a person cannot yet name. With anyone but yourself, the room needs three things the March session did not: their **consent** to the method, a **reveal** at the end that shows them the hidden goal and what their answers built, and a **clock**. A Balint group does a related thing for clinicians. One tells a consultation from memory, then listens while the group wonders aloud what was happening between doctor and patient, and what the teller could not see comes back from the side.
+- **In Loudon's own practice.** The Future Experiments below are portraits he can sit for. [[The Daily Page]] is a slow one: a page a morning, by chance, never aimed at him, and over a lap it draws him.
+- **With agents and pages.** An agent asked about its own state cannot answer reliably. That is why [[CHILD]] says an agent can report what it did, never what it is: self-report is a filter. An oblique wake would ask a page about what it does, what it reaches for and what it avoids, and let what it is assemble itself.
 
 ---
 
@@ -146,105 +61,53 @@ The nine dimensions surfaced in the session:
 
 When running this method:
 
-- **Hold the hidden goal privately.** The subject must not feel the shape of
-  what you're collecting. State the goal only in a framing the subject will
-  forget or discount.
-- **Rotate dimensions rapidly.** Never follow a single thread to exhaustion.
-  Jump to a completely different interrogation vector after each answer.
-- **Use at least 8 vectors.** Memory, humor, body/sensation, social context,
-  failure/embarrassment, desire, childhood, contradiction. More is better.
-- **Vary register.** Sometimes almost too personal. Sometimes almost too
-  mundane. Sometimes playfully absurd. The subject should never feel the
-  pattern.
-- **Never approach the target directly.** If the hidden goal is media taste,
-  never ask about taste, aesthetics, preferences, or what moves you. Go
-  underneath. Go sideways.
-- **Let the map assemble itself.** Do not analyze during the session. Collect.
-  Map only at the end.
-
----
-
-## Cross-Domain Resonance
-
-**Embeddings and relational meaning**
-This method is structurally identical to how embeddings encode meaning.
-In a vector space, a word's meaning is not stored inside it — it emerges
-from the pattern of its relationships to everything else. You learn what
-a word means by watching which other words it travels with across millions
-of contexts. The oblique portrait method does the same thing with a person:
-you learn what they love by watching which fears, memories, laughs, and
-embarrassments they carry. Taste is not stored in the person's answers about
-taste. It is distributed across the full pattern of who they are.
-See [[Embeddings as Relational Meaning]].
-
-**[[Songlines]]**
-The Dreaming tracks of Aboriginal Australia — the songlines — are paths
-through the landscape that are simultaneously navigation routes, creation
-myths, and songs. The Ancestors sang the world into existence; to walk a
-[[Songlines|songline]] is to re-enact that creation, singing the landscape back into
-legibility. The song is not a description of the path. The song *is* the
-path. When you stop singing a track, the country it traverses becomes
-unintelligible — not geographically, but ontologically.
-
-A direct question is a signpost; an oblique sequence is a song, and the song is the path. See
-[[Songlines]].
+- **Hold the hidden goal privately.** The subject must not feel the shape of what you're collecting. With another person, they agreed to the method beforehand, and they get the reveal at the end.
+- **Rotate dimensions rapidly.** Never follow a single thread to exhaustion. Jump to a completely different line of questioning after each answer.
+- **Use at least eight lines of questioning.** Memory, humor, body and sensation, social context, failure and embarrassment, desire, childhood, contradiction. More is better.
+- **Vary register.** Sometimes almost too personal, sometimes almost too mundane, sometimes playfully absurd. The subject should never feel the pattern.
+- **Never approach the target directly.** If the hidden goal is taste, never ask about taste, aesthetics, preferences or what moves you. Go underneath. Go sideways.
+- **Keep a clock.** Know when the session ends, so the questions are placed to arrive there.
+- **Let the map assemble itself.** Do not analyze during the session. Collect, and map only at the end.
 
 ---
 
 ## Research Directions
 
-The psychological territory this method inhabits:
+The psychological ground this method stands on, each one an instrument:
 
-- **Projective techniques** (TAT, Rorschach) — Henry Murray: indirect stimulus bypasses self-monitoring; projections outrun considered answers.
-- **Implicit Association Test** — Anthony Greenwald: measures attitudes the subject has no conscious access to, by making the test not feel like the thing it's measuring.
-- **Focusing / felt sense** — Eugene Gendlin: attend to the edge of what you can say, not the center of what you already know.
-- **Narrative identity** — Dan McAdams: what a person emphasizes, skips, or frames as formative *is* their portrait — oblique questioning surfaces material not yet organized into self-story.
-- **Johari Window** — the method operates in quadrant 3: what others can see that the subject cannot.
-- **Inaccessibility vs. suppression** — psychodynamic distinction: Loudon's memories weren't repressed; the question just had to not be about the attic bedroom.
-- **Play therapy / permissive frame** — D.W. Winnicott: playful register isn't decorative; it lowers the self-monitoring that blocks genuine response.
+- **Projective techniques** (TAT, Rorschach). Henry Murray: an indirect stimulus gets past self-monitoring, and a projection outruns a considered answer.
+- **Implicit Association Test.** Anthony Greenwald: measures attitudes the subject has no conscious access to, by making the test not feel like the thing it measures.
+- **Focusing and the felt sense.** Eugene Gendlin: attend to the edge of what you can say, not the centre of what you already know.
+- **Narrative identity.** Dan McAdams: what a person emphasizes, skips or frames as formative *is* their portrait. Oblique questions surface material not yet organized into a self-story.
+- **Johari Window.** The method works in the blind quadrant: what others can see that the subject cannot.
+- **Inaccessibility, not suppression.** The psychodynamic distinction. Loudon's memories were not repressed; the question just had to not be about the attic bedroom.
+- **Play therapy and the permissive frame.** D.W. Winnicott: a playful register is not decoration; it lowers the self-monitoring that blocks a real answer.
+
+---
+
+## Cross-Domain Resonance
+
+**Embeddings and relational meaning.** This method is built the same way embeddings encode meaning. In a vector space a word's meaning is not stored inside it. It emerges from the pattern of its relationships to everything else: you learn what a word means by watching which words it travels with across millions of contexts. The oblique portrait does the same with a person: you learn what they love by watching which fears, memories, laughs and embarrassments they carry. Taste is not stored in a person's answers about taste. It is spread across the whole pattern of who they are. See [[Embeddings as Relational Meaning]].
+
+**[[Songlines]].** The Dreaming tracks of Aboriginal Australia are paths through the land that are at once routes, creation stories and songs. The Ancestors sang the world into existence, and to walk a [[Songlines|songline]] is to sing the country back into legibility. The song is not a description of the path. The song *is* the path. A direct question is a signpost; an oblique sequence is a song, and the song is the path.
 
 ---
 
 ## Future Experiments
 
-The oblique portrait method is one instance of a larger design space:
-using games, constraints, and indirection to let Loudon encounter himself
-sideways. Other experiments in this vein:
+The oblique portrait is one instance of a larger design space: games, constraints and indirection that let a person meet themselves sideways. Each of these is a portrait Loudon could sit for.
 
-**The Shadow Inventory**
-Describe three people you have strongly disliked — in specific detail. What
-emerges from the pattern is not information about them. It is a map of your
-own disowned material (Jung's shadow). Hidden goal: a psychological
-self-portrait.
+**The Shadow Inventory.** Describe three people you have strongly disliked, in specific detail. What emerges is not information about them but a map of your own disowned material (Jung's shadow). Hidden goal: a psychological self-portrait.
 
-**The Sensory Autobiography**
-Describe your environments at different ages — not events, just sensory
-textures. Smells, light qualities, temperatures, sounds. No narrative, just
-sensation. Hidden goal: an emotional map of developmental stages, surfaced
-through body-memory rather than declarative memory.
+**The Sensory Autobiography.** Describe your environments at different ages: not events, only sensory textures. Smells, light, temperatures, sounds. Hidden goal: an emotional map of the stages of growing up, reached through body memory rather than declarative memory.
 
-**The Boredom / Flow Survey**
-What situations make you restless within minutes? What can you do for hours
-without noticing time pass? The gap between these two is a high-resolution
-portrait of your actual values — not the ones you'd report if asked, but the
-ones your nervous system votes for.
+**The Boredom / Flow Survey.** What makes you restless within minutes? What can you do for hours without noticing time pass? The gap between the two is a sharp portrait of your actual values: not the ones you'd report, but the ones your nervous system votes for.
 
-**The Enemy of My Enemy**
-Describe things you find actively, viscerally repellent — not morally wrong,
-just wrong-feeling. Be specific. Hidden goal: your aesthetic anti-canon,
-which is often more revealing than the canon itself.
+**The Enemy of My Enemy.** Describe things you find viscerally repellent, not morally wrong but wrong-feeling. Be specific. Hidden goal: your aesthetic anti-canon, often more revealing than the canon.
 
-**The Fever Dream Protocol**
-Describe the most vivid memory you have of a liminal state: waking from a
-dream, high fever, just before sleep, extreme physical exhaustion. Liminal
-states have different access rules than waking consciousness. Hidden goal:
-material that lives below the managed self.
+**The Fever Dream Protocol.** Describe your most vivid memory of a liminal state: waking from a dream, a high fever, the edge of sleep, extreme exhaustion. Liminal states have different access rules. Hidden goal: material that lives below the managed self.
 
-**The Fictional Proxy**
-Write a short character sketch of someone who is clearly not you but shares
-your exact circumstances. Describe their fears, their embarrassments, their
-private habits. The fictional frame creates permission. Hidden goal: a
-self-portrait with plausible deniability that the subject eventually forfeits.
+**The Fictional Proxy.** Write a short sketch of someone who is clearly not you but shares your exact circumstances: their fears, embarrassments, private habits. The fiction gives permission. Hidden goal: a self-portrait with a deniability the subject eventually gives up.
 
 ---
 
@@ -257,3 +120,7 @@ self-portrait with plausible deniability that the subject eventually forfeits.
 
 *"...capable of being in uncertainties, mysteries, doubts, without any irritable reaching after fact and reason."*
 — John Keats, on Negative Capability, in a letter to his brothers, December 1817
+
+---
+
+*The March session in full, the prompt verbatim, the dossier and its nine dimensions, the media test of November 2026, and why the page is shaped this way live in [[Oblique Portrait — Context]]. The path ahead is on the page's scroll.*
