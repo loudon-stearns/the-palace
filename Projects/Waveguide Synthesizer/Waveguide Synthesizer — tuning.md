@@ -51,3 +51,8 @@ What Waveguide Synthesizer's steward cycles taught the page, and the changes to 
 
 6. Before trusting a probe's zero, watch the real events: my message-port hook reported no plucks from a finger tap, but the page's own events showed the tap plucked fine; the hook was simply on the wrong object. *(offered by the steward, cycle 23)*
 - run · 2026-11-17 · cycle 23 · taught item 6
+
+## From cycle 24 — 2026-11-17
+
+7. Before moving panels to give the string room, find which limit actually binds it: on a short screen the camera's nearest-distance floor capped the string as much as the panels did, and on the lesson's docked view the same change cut off the soundboard. *(offered by the steward, cycle 24)*
+- run · 2026-11-17 · cycle 24 · taught item 7

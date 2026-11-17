@@ -15,36 +15,36 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-17T11:25:11.031Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T11:33:44.321Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 23 · last ran 2026-11-17 (today)
-- **Plan:** agreed 2026-11-10 (7 days ago) · 1 made thing since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 24 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-11-10 (7 days ago) · 2 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-17 (today) — Study v1.16 works on a phone: the string is clear between a chart and a button bar, buttons are finger-sized, and a second finger no longer drops the bow. (`waveguide-synthesizer-steward-053`)
-- **Last commit touching this project:** 2026-11-09 `d33eba67` — steward(Waveguide Synthesizer): cycle 22 — SPINNING UP. HOME: [Waveguide Synthesizer](obsidian://open?vault=The%20…
+- **Last shipped:** 2026-11-17 (today) — Study v1.17 fixes the phone on its side: a compact two-column panel that fits, the charts in a right-hand column, and a wider string. (`waveguide-synthesizer-steward-055`)
+- **Last commit touching this project:** 2026-11-17 `23d00f98` — steward(Waveguide Synthesizer): cycle 23 — SPINNING UP. HOME: [Waveguide Synthesizer](?deck=STATE&entry=Projects/W…
 - **Signal:** steady
 - **Left uncommitted:** ⚠ 69 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-1-pluck.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-2-reflection.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-3-loss.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-4-pitch.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-5-stiffness.png`, and 64 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 5 runs on 3 days, counted from the ledger's run lines
-- **Last run:** 2026-11-17 — cycle 23 · taught item 6
+- **Runs:** 6 runs on 3 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 24 · taught item 7
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 6, from cycle 23 — 2026-11-17 — [[Waveguide Synthesizer — tuning]]
+- **Latest lesson:** item 7, from cycle 24 — 2026-11-17 — [[Waveguide Synthesizer — tuning]]
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound. You can pluck, strike or bow it on a soundboard, every slider lights what it names, and a seven-stop lesson walks you through it. On 2026-11-10 you adopted the new plan. First, you take the lesson by hand with speakers on, and I fix whatever doesn't land. Next it goes onto phones and tablets, then it gets ready for a stage, and last we decide together whether it earns a place in a Loudon Live show. Taking the lesson is your part. Meanwhile I started on the phone. Study v1.16 is v1.15 with the sound unchanged, made to work on a touch screen.
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. You can pluck, strike or bow it on a soundboard, every slider lights what it names, and a seven-stop lesson walks you through it. The plan you adopted on 2026-11-10 goes like this. First you take the lesson by hand with speakers on, and I fix whatever doesn't land. Then it goes onto phones and tablets, then it gets ready for a stage, and last we decide together whether it earns a place in a Loudon Live show. Taking the lesson is still yours to do. Meanwhile I'm working on the phone step. Earlier today v1.16 made the page work on a phone held upright. This cycle, v1.17 fixes the case it left rough, the phone on it…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 10 notes, the latest cycle 23)_
+- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 11 notes, the latest cycle 24)_
 - **rough since cycle 15:** Also, high plucks now peak about 3 dB quieter at G4 to C5 (−15 against −12 dBFS), because the board gets less per bounce at the start. _(in 2 notes, the latest cycle 22)_
-- **rough since cycle 16:** Last cycle's small polish, making the pull dot visibly climb toward the limit line, is still not done. _(in 3 notes, the latest cycle 19)_
 - **rough since cycle 19:** The lesson card on short screens is still not laid out. _(in 2 notes, the latest cycle 20)_
 - **rough since cycle 21:** With the phone on its side, the string is small (about 160–200 px) beside a tall button panel that runs off the bottom of the screen. _(in 2 notes, the latest cycle 23)_
-- **rough since cycle 22:** The 69 before/after frames v1.14's cycle left in offline-v1.14/frames are still uncommitted. _(in 2 notes, the latest cycle 23)_
+- **rough since cycle 22:** The 69 before/after frames v1.14's cycle left in offline-v1.14/frames are still uncommitted. _(in 3 notes, the latest cycle 24)_
+- **rough since cycle 23:** Not run on a real phone either. _(in 2 notes, the latest cycle 24)_
 
 ### Open asks
 
@@ -65,6 +65,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 24 · taught item 7
 - 2026-11-17 — cycle 23 · taught item 6
 - 2026-11-09 — cycle 22 · taught item 5
 - 2026-11-09 — cycle 21 · taught item 4
@@ -97,6 +98,53 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-055" -->
+### 2026-11-17 — cycle 24 — Study v1.17 fixes the phone on its side: a compact two-column panel that fits, the charts in a right-hand column, and a wider string.
+> shipped · sideways phone fixed, everything else measured unchanged · steward leans: test frame rate on a slow phone next
+
+**What was wrong.** On a phone held sideways (844×390), v1.16 stacked one button per row in a tall panel that ran off the bottom of the screen and made the page scroll. The ladder chart sat under the string and took its height, so the string shrank to about 200 px, and to 157 px while bowing.
+
+**What v1.17 changes.** A touch screen held sideways now gets its own layout. The panel is a narrow two-column grid of finger-sized buttons, and it fits the height with the level meter showing, so nothing scrolls. The overtone ladder and the bow's grip chart now take turns in one column on the right, the same way they share the top on an upright phone, so the string keeps the whole height. Outside the lesson, the camera may also come about a fifth closer, because a short screen doesn't need the headroom a tall one does. In the lesson the camera keeps v1.16's distance, because the closer view cut off the soundboard at the bow stop. On every touch screen, the hold, walk and lesson buttons drop their keyboard hints (H, W, L), including the words they change to while running. On a desktop the hints stay.
+
+**Checked.** I ran the same phone probe on v1.17 at four sizes and the lesson-fit probe at the five desktop and short sizes. The lesson-fit results match v1.16's exactly. On the upright phone, the large phone and the tablet, the phone probe reads the same as v1.16. There were no page errors.
+
+**Passed over:** a bottom bar for the sideways phone, as on the upright one. A 390-px-tall screen can't spare the height. Also passed over: shrinking the charts further. The grip chart's words are already at 9 px.
+
+**Artifacts:**
+- [Study v1.17. Open it on a phone and turn it on its side. It plays unchanged on a desktop and on an upright phone.](Projects/Waveguide Synthesizer/study-v1.17-sideways/index.html)
+- [Before: v1.16 on its side while bowing. The tall panel runs off the bottom and the string is small.](Projects/Waveguide Synthesizer/offline-v1.16/frames/after-phone-flat-bowing.png)
+- [v1.17 on its side: two-column buttons that fit, the ladder top right, the string clear.](Projects/Waveguide Synthesizer/offline-v1.17/frames/after-phone-flat-open.png)
+- [v1.17 while bowing: the grip chart takes the right column, with its thread still running to the bow.](Projects/Waveguide Synthesizer/offline-v1.17/frames/after-phone-flat-bowing.png)
+- [v1.17 at the lesson's bow stop: the card docked left, the grip chart right, the soundboard kept in frame.](Projects/Waveguide Synthesizer/offline-v1.17/frames/after-phone-flat-lesson-bow.png)
+- [Every change from v1.16, each through the asserting rep().](Projects/Waveguide Synthesizer/offline-v1.17/patch_page.py)
+- [The phone probe (v1.16's, unchanged): what covers the string, tap-to-pluck, two fingers, bowing, the lesson's bow stop.](Projects/Waveguide Synthesizer/offline-v1.17/phone_probe.mjs)
+- [Probe results for v1.17 at four sizes.](Projects/Waveguide Synthesizer/offline-v1.17/phone-after.json)
+- [The lesson-fit probe, pointed at v1.17.](Projects/Waveguide Synthesizer/offline-v1.17/fit_probe.mjs)
+- [Lesson fit at five desktop and short sizes: identical to v1.16.](Projects/Waveguide Synthesizer/offline-v1.17/fit-desk.json)
+- [The stand-in speaker clock the probes run on.](Projects/Waveguide Synthesizer/offline-v1.17/fake_audio_clock.js)
+
+_v1.16 → v1.17 with the phone on its side, 844×390 (touch on, 3× pixels). String width in CSS px; nothing covers the string in either version._
+| view | string px, v1.16 | string px, v1.17 | page scrolls, v1.16 → v1.17 |
+| --- | --- | --- | --- |
+| open, ladder showing | 198 | 243 | yes → no |
+| bowing, grip showing | 157 | 232 | yes → no |
+| lesson, bow stop | 184 | 205 | no → no |
+
+_Changed in the workshop:_ patch_page.py — the v1.16 → v1.17 patch script for the sideways phone
+
+_Left rough:_ Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. Not run on a real phone either. Everything is Chrome's phone mode. In the lesson on a sideways phone the string stays about 205 px. The 69 before/after frames v1.14's cycle left in offline-v1.14/frames are still uncommitted. That one is yours: they are another cycle's work, and I won't delete them or put 69 images into git without your word.
+
+_Next moves named:_ Measure frame rate in a slow-phone profile (4× CPU slowdown) and lower the bead and soundboard detail if it drops below 60. · Whenever you have speakers and ten minutes: take the lesson by hand, on a phone if you like, held either way up.
+<sub>`waveguide-synthesizer-steward-055` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-1d7ef565d4" -->
+### 2026-11-17 — cycle 24
+
+taught item 7
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-waveguide-synthesizer-steward-046" -->
 ### 2026-11-09 — Plan revised: Every step of your plan is built. Next: refine from your run through the lesson, then phone, then stage, then the stage question?
 
