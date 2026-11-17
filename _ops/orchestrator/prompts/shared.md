@@ -269,8 +269,8 @@ The STATE deck does not open `.md` files under `_ops/stigmergy/app/`,
 `_ops/swarm/` (it treats them as machinery), so link those by palace path.
 
 A made *file* — a sound, an image, an html proof, a json report — links by
-its palace path, with literal spaces (do not percent-encode: a `%20` in a
-board message is encoded again and the file is not found):
+its palace path, written plainly with its spaces (a `%20` spelling also
+works since 2026-11-15, when the app stopped encoding it twice):
 
 ```
 [the take](Projects/Generative Wavetable Libraries/crystal-bravais/crystal_bravais_ableton.wav)

@@ -183,3 +183,18 @@ describe('hrefFor — a bare palace path goes through /api/file (2026-10-13)', (
     expect(hrefFor('open:Projects/Foo/bar.wav')).toContain('/api/open?path=');
   });
 });
+
+describe('hrefFor — a palace path written with %20 is not encoded twice (2026-11-15)', () => {
+  const plain = 'Projects/Blood Compressor/plugin/out/take one.wav';
+  it('gives the same href for the encoded and the plain spelling', () => {
+    expect(hrefFor('Projects/Blood%20Compressor/plugin/out/take%20one.wav')).toBe(hrefFor(plain));
+    expect(hrefFor(plain)).toBe('/api/file?path=' + encodeURIComponent(plain));
+    expect(hrefFor(plain)).not.toContain('%2520');
+  });
+  it('does the same for open:', () => {
+    expect(hrefFor('open:Projects/Blood%20Compressor/x.wav')).toBe(hrefFor('open:Projects/Blood Compressor/x.wav'));
+  });
+  it('passes a path whose escapes do not decode through as written', () => {
+    expect(hrefFor('Projects/100%zz/x.wav')).toBe('/api/file?path=' + encodeURIComponent('Projects/100%zz/x.wav'));
+  });
+});

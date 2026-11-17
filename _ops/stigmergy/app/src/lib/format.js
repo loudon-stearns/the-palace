@@ -168,8 +168,18 @@ export function isPalacePath(url) {
   return /\.[a-z0-9]{1,8}(?:[?#]|$)/i.test(url);         // ends in a file extension
 }
 
+// A palace path written percent-encoded (`Projects/Blood%20Compressor/x.wav`)
+// is decoded once before it is handed on: fileUrl and openUrl encode the path
+// themselves, so an already-encoded one went out as `%2520` and the server
+// answered 404 (found 2026-11-15, the Obsidian deposit's link test). A path
+// whose escapes do not decode is passed through as written.
+export function plainPalacePath(path) {
+  if (typeof path !== 'string' || !/%[0-9a-f]{2}/i.test(path)) return path;
+  try { return decodeURIComponent(path); } catch { return path; }
+}
+
 export function hrefFor(url) {
-  if (isPalacePath(url)) return fileUrl(url);
+  if (isPalacePath(url)) return fileUrl(plainPalacePath(url));
   if (typeof url !== 'string' || !url.startsWith('open:')) return url;
   let rel = url.slice('open:'.length);
   let reveal = false;
@@ -179,5 +189,5 @@ export function hrefFor(url) {
     reveal = /(^|[?&])reveal(=1|=true)?($|&)/.test(rel.slice(q));
     rel = rel.slice(0, q);
   }
-  return openUrl(rel, { reveal });
+  return openUrl(plainPalacePath(rel), { reveal });
 }
