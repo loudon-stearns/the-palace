@@ -88,6 +88,8 @@ The zoom out. The shelf's three is r128, from 2021; three is now r187 (published
 
 What had to change: the loading only (no classic script since r161; an import map, with an integrity hash on every file). The scene code ran unchanged. What changes on screen: with r128's light numbers, r187's knot is less than half as bright (mean luma 33 against 71 of 255), because since r152 and r155 three manages colour and its lights are physical. Four settings undo it, and then r187 matched r128 within 0.4 of 255 on average. Headless had no WebGPU adapter, so the third pane ran on its WebGL 2 fallback and agreed with r187 WebGL within 1.3. The comparison is coarse (32 by 24 cells), too coarse to see a thin line drawn differently.
 
+**The question:** with the box ticked, can you see any difference between the three panes, in the knot, the white line or the grid?
+
 **Tick the box. Can you see any difference between the three panes now, in the knot, the white line or the grid?** If not, the Shop's quick scenes can move to r187 without their look changing. On a Mac with WebGPU the third pane runs on WebGPU itself. Nobody has seen this.
 
 **Artifacts:**

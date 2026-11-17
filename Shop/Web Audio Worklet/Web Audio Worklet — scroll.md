@@ -88,6 +88,8 @@ Zoom-out. Since Web Audio began, `process()` has been handed 128 frames at a tim
 
 Measured, in headless Chromium 147 with the feature switched on by a flag: every size asked was given, `process()` saw exactly that many frames, and the sound was the same sample for sample at every size. For this engine bigger blocks gave no steady saving offline (from 20% slower to 14% faster across two runs) and did not hold off dropouts live, which fits it: nearly all its cost is per voice per sample. Without the flag the hint is ignored and nothing breaks.
 
+**The question:** at the voice count where 128 crackles, does switching to 512 stop the crackle?
+
 **Raise the voices until 128 crackles. Then, at that same count, switch to 512. Does the crackle stop?**
 
 Nobody has heard this.
@@ -107,6 +109,8 @@ Nobody has heard this.
 The card's open line "the voice ceiling heard on real hardware". The page carries Murmuration's own grain voice, its inner loop copied unchanged, and adds voices on a click while it shows how much of each audio block the voices took and, in Chrome, how many dropouts there were.
 
 Measured offline, headless, on this Mac: 1.4 to 1.9 ms of one core per voice per second of sound in Chromium across four runs, so a core runs out between 470 and 670 voices; Murmuration's 60 take 9 to 13%. WebKit came out a little cheaper, Firefox moved threefold between runs on a busy Mac and is unsettled. Live in headless Chromium with no speakers, dropouts stayed near zero to 512 voices and ran away at 1024. Two things found on the way: the pan is worked out per sample, and working it out once per voice gives the same samples 1.3 to 2 times faster; and a Blob-URL worklet will not load from a page opened from disk in Chrome or Safari, so both proofs fall back to a data: URL (ledger items 12 to 15).
+
+**The question:** at what voice count does it start to crackle, stutter or drop out?
 
 **Add voices until you hear it crackle, stutter or drop out. At what voice count does it start?** The page's "it crackles here" button writes the count down beside the numbers.
 
