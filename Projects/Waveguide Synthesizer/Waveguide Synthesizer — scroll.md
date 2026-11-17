@@ -15,40 +15,40 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-09T12:20:11.100Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T11:25:11.031Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 22 · last ran 2026-11-09 (today)
-- **Plan:** agreed 2026-10-13 (27 days ago) · 9 made things since · **a proposed revision is waiting on you**
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 23 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-11-10 (7 days ago) · 1 made thing since
+- **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-09 (today) — Study v1.15: high notes no longer die in a tenth of a second. Every pitch now rings about as long as G3. (`waveguide-synthesizer-steward-051`)
-- **Last commit touching this project:** 2026-11-09 `fac463ca` — steward(Waveguide Synthesizer): cycle 21 — SPINNING UP. HOME: [Waveguide Synthesizer](obsidian://open?vault=The%20…
+- **Last shipped:** 2026-11-17 (today) — Study v1.16 works on a phone: the string is clear between a chart and a button bar, buttons are finger-sized, and a second finger no longer drops the bow. (`waveguide-synthesizer-steward-053`)
+- **Last commit touching this project:** 2026-11-09 `d33eba67` — steward(Waveguide Synthesizer): cycle 22 — SPINNING UP. HOME: [Waveguide Synthesizer](obsidian://open?vault=The%20…
 - **Signal:** steady
 - **Left uncommitted:** ⚠ 69 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-1-pluck.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-2-reflection.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-3-loss.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-4-pitch.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-5-stiffness.png`, and 64 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-09 — cycle 22 · taught item 5
+- **Runs:** 5 runs on 3 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 23 · taught item 6
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 5, from cycle 22 — 2026-11-09 — [[Waveguide Synthesizer — tuning]]
+- **Latest lesson:** item 6, from cycle 23 — 2026-11-17 — [[Waveguide Synthesizer — tuning]]
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound. Two delay lines carry the wave each way, and their sum is the string you see and hear. You can pluck, strike or bow it on a soundboard. Every slider lights what it names, and a seven-stop lesson walks you through it (v1.12; v1.14 made the lesson fit short screens). For weeks my scroll carried a worry that the soundboard rang on after the string went quiet at high notes. I measured it this cycle, and the worry was wrong. The board stops within a tenth of a second of the string. The real fault was that high notes died far too fast. A pluck at G3 rang about a second, but at C6 it was gone in a tenth of a second. Tha…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. You can pluck, strike or bow it on a soundboard, every slider lights what it names, and a seven-stop lesson walks you through it. On 2026-11-10 you adopted the new plan. First, you take the lesson by hand with speakers on, and I fix whatever doesn't land. Next it goes onto phones and tablets, then it gets ready for a stage, and last we decide together whether it earns a place in a Loudon Live show. Taking the lesson is your part. Meanwhile I started on the phone. Study v1.16 is v1.15 with the sound unchanged, made to work on a touch screen.
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 9 notes, the latest cycle 22)_
+- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 10 notes, the latest cycle 23)_
 - **rough since cycle 15:** Also, high plucks now peak about 3 dB quieter at G4 to C5 (−15 against −12 dBFS), because the board gets less per bounce at the start. _(in 2 notes, the latest cycle 22)_
-- **rough since cycle 16:** The force slider now quietly scales with bow position, so the same number means a different press at different places. _(in 3 notes, the latest cycle 18)_
 - **rough since cycle 16:** Last cycle's small polish, making the pull dot visibly climb toward the limit line, is still not done. _(in 3 notes, the latest cycle 19)_
-- **rough since cycle 16:** The first slowed frame said 'breaking up' for a moment right after the slow-motion change. _(in 2 notes, the latest cycle 18)_
 - **rough since cycle 19:** The lesson card on short screens is still not laid out. _(in 2 notes, the latest cycle 20)_
+- **rough since cycle 21:** With the phone on its side, the string is small (about 160–200 px) beside a tall button panel that runs off the bottom of the screen. _(in 2 notes, the latest cycle 23)_
+- **rough since cycle 22:** The 69 before/after frames v1.14's cycle left in offline-v1.14/frames are still uncommitted. _(in 2 notes, the latest cycle 23)_
 
 ### Open asks
 
-- `waveguide-synthesizer-steward-046` — proposed plan revision: the plan after the lesson · posted 2026-10-20 · options: adopt · keep
+_None — nothing is waiting on you._
 
 ### Answered, not yet consumed
 
@@ -56,6 +56,7 @@ _None._
 
 ### Decided
 
+- `waveguide-synthesizer-steward-046` — the plan after the lesson → GRANTED — option_id=adopt (2026-11-10)
 - `waveguide-synthesizer-steward-033` — your order, written down as the plan → GRANTED — option_id=adopt (2026-10-13)
 - `waveguide-synthesizer-steward-028` — a plan for the stage-ready string → GRANTED — (no option_id); notes: "Start by really mastering this imagery, it is fantastic, but we need to make very clear visual changes with each slider. For instance if the nut changed visual when I moved "nut loss" I woudl make the very clear connection of which of the two shapes was the nut.. Take this same logic throughout the interface, making really clear connections between faders and the image is the first step, before adding more features. Then, body, then bow, then even stiffness then teaching." (2026-10-13)
 - `waveguide-synthesizer-steward-025` — directional_decision → GRANTED — option_id=HEARD-BOTH (2026-10-13)
@@ -64,6 +65,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 23 · taught item 6
 - 2026-11-09 — cycle 22 · taught item 5
 - 2026-11-09 — cycle 21 · taught item 4
 - 2026-10-20 — cycle 20 · taught item 3
@@ -78,13 +80,12 @@ _Nothing owed._
 ## Plan
 
 <!-- scroll:plan:start -->
-Where this is going: a stage-ready browser string whose picture IS the sound, where every control you touch changes something you can see, used to teach how a plucked or bowed string works.
+Where this is going: a stage-ready browser string whose picture IS the sound, where every control you touch changes something you can see, used to teach how a plucked or bowed string works, and then put in front of an audience to find out whether it earns a stage.
 
-1. Master the picture. Every slider makes a clear, visible change to the thing it names (nut loss changes the nut, pitch changes the bead count of the delay line, and so on), and touching a slider lights up its object. First version shipped as study v1.6; refine it until Loudon says every link reads.
-2. The body. A soundboard under the bridge, drawn so you can see it take energy from the string and colour the tone; the bridge becomes the door between string and body.
-3. The bow, made visible. The bow already sings; make its stick-and-slip, its force and its speed readable in the picture as clearly as the ends now are.
-4. Even stiffness, made visible. Stiffness already means the same at every pitch; show the overtones running sharp so you can see why a stiff string sounds like a piano or a bell.
-5. Teaching. A guided walk through the string: pluck, reflection, loss, pitch, stiffness, bow, body, each step one slider and one thing to watch and hear.
+1. Take the lesson by hand. Loudon walks the seven stops with speakers on; every stop whose 'watch' or 'hear' does not land, and every slider whose link to its object does not read, gets fixed until he says they all do.
+2. Phone and tablet. Touch to pluck and to bow, the lesson card and the charts laid out for a small screen, smooth on a phone's graphics.
+3. Hold up on stage. A performance view that hides the teaching, a projector-sized layout, MIDI in for pitch and bow, and measured headroom on the audio thread.
+4. The stage question. Play it in one Loudon Live session, as a lesson or as an instrument, and decide together whether it earns a place in the show or stays a teaching test bed.
 <!-- scroll:plan:end -->
 
 ## Standing Orders
@@ -96,6 +97,71 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="plan-waveguide-synthesizer-steward-046" -->
+### 2026-11-09 — Plan revised: Every step of your plan is built. Next: refine from your run through the lesson, then phone, then stage, then the stage question?
+
+Waveguide Synthesizer is the browser string whose picture is the sound. The plan you agreed on 2026-10-13 had five steps: make every slider visibly change the picture, then the body, then the bow, then even stiffness, then a guided teaching walk. With study v1.12 the last one, the lesson, exists, so every step is built. One thing is still open: the first step said to refine the picture until you say every link reads, and you haven't taken it by hand yet. So I propose the next path starts with your run through the lesson. After that comes the Piece tier the page has always named: a phone, then a stage, then the question the forward vector asks. Does it earn a stage, or is it a test bed? The cost of adopting is that it puts your one sitting with the lesson first. If you would rather I keep polishing headless, choose keep and I'll work on the small fixes until you're free.
+
+_The plan before this change:_
+
+> Where this is going: a stage-ready browser string whose picture IS the sound, where every control you touch changes something you can see, used to teach how a plucked or bowed string works.
+>
+> 1. Master the picture. Every slider makes a clear, visible change to the thing it names (nut loss changes the nut, pitch changes the bead count of the delay line, and so on), and touching a slider lights up its object. First version shipped as study v1.6; refine it until Loudon says every link reads.
+> 2. The body. A soundboard under the bridge, drawn so you can see it take energy from the string and colour the tone; the bridge becomes the door between string and body.
+> 3. The bow, made visible. The bow already sings; make its stick-and-slip, its force and its speed readable in the picture as clearly as the ends now are.
+> 4. Even stiffness, made visible. Stiffness already means the same at every pitch; show the overtones running sharp so you can see why a stiff string sounds like a piano or a bell.
+> 5. Teaching. A guided walk through the string: pluck, reflection, loss, pitch, stiffness, bow, body, each step one slider and one thing to watch and hear.
+<sub>`plan-waveguide-synthesizer-steward-046` · plan revised · agreed 2026-11-10T02:10:30.627Z · proposed by Waveguide Synthesizer's steward (`waveguide-synthesizer-steward-046`), adopted by Loudon (`resp-mwa1z8tf-4zeypf`)</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="waveguide-synthesizer-steward-053" -->
+### 2026-11-17 — cycle 23 — Study v1.16 works on a phone: the string is clear between a chart and a button bar, buttons are finger-sized, and a second finger no longer drops the bow.
+> shipped · phone and tablet layout measured in Chrome's phone mode · steward leans: tighten the sideways phone layout next
+
+**What was wrong on a phone.** I opened v1.15 in Chrome's phone mode with touch turned on. Held upright (390×844), the panel with eleven sliders and the intro text covered all seven points I check along the string, so you couldn't see what you were playing. Every button was under 40 px tall. Worst, the bow lifted when any finger lifted anywhere. With one finger on bow and another on a slider, lifting the slider finger stopped the bow. That made it impossible to bow and change pitch at once, which is the main thing two hands do on glass.
+
+**What v1.16 changes.** A phone held upright now gets its own layout. The buttons sit in a bar along the bottom, with the sliders folded behind 'sliders ▾'. One chart sits along the top: the overtone ladder, or the bow's grip chart while you bow. The camera frames the string in the space between and follows when the bar opens or the chart changes. In the lesson, the card docks at the bottom with its one slider, as on short screens. Sideways, the string is framed beside the panel, so the nut is never under it. A short screen shows one chart at a time. On a touch screen, buttons are at least 44 px tall, slider thumbs are 24 px, and the words say 'bow (hold)' and 'tap the string to pluck it there'. Bow and damp each lift only when the finger that pressed them lifts, so a second finger is free. This also fixes the desktop case where holding B and dragging a slider with the mouse stopped the bow. The 3D view takes your touches, so the page doesn't scroll or zoom against the orbit, and a long press on bow raises no menu. The 3D view now draws at no more than 2× pixel density, so a 3× phone draws 4/9 as many pixels. On iPhone, the page asks for a playback audio session where the browser offers one, so the silent switch shouldn't mute it.
+
+**Checked.** I ran the same probe on v1.15 and v1.16 at four sizes, then compared v1.16's lesson with v1.14's measurements at the five desktop and short sizes it was tuned for (table below). The lesson measured the same at all five, and there were no page errors anywhere. The sound engine is v1.15's, untouched.
+
+**Passed over:** bowing by dragging a finger along the string itself. It would be the most phone-native gesture, but it is a new way to play, not a fix, and it belongs to the stage move, alongside MIDI in.
+
+**Artifacts:**
+- [Study v1.16. Open it on a phone; it also plays on a desktop, unchanged there.](Projects/Waveguide Synthesizer/study-v1.16-on-a-phone/index.html)
+- [v1.15 on a 390×844 phone: the panel covers the whole string.](Projects/Waveguide Synthesizer/offline-v1.16/frames/before-phone-open.png)
+- [v1.16, same phone: the ladder on top, the string clear, finger-sized buttons along the bottom.](Projects/Waveguide Synthesizer/offline-v1.16/frames/after-phone-open.png)
+- [v1.16 while bowing: the grip chart takes the top, and its thread still runs to the bow.](Projects/Waveguide Synthesizer/offline-v1.16/frames/after-phone-bowing.png)
+- [v1.16, the lesson's bow stop: the card docked at the bottom with its one slider, the grip chart above the string.](Projects/Waveguide Synthesizer/offline-v1.16/frames/after-phone-lesson-bow.png)
+- [v1.16 with the phone on its side: everything is clear, but the string is small beside a tall panel.](Projects/Waveguide Synthesizer/offline-v1.16/frames/after-phone-flat-bowing.png)
+- [Every change from v1.15, each through the asserting rep().](Projects/Waveguide Synthesizer/offline-v1.16/patch_page.py)
+- [The phone probe: string cover, tap-to-pluck, two fingers, bowing and the lesson's bow stop, at four sizes.](Projects/Waveguide Synthesizer/offline-v1.16/phone_probe.mjs)
+- [Probe results for v1.15.](Projects/Waveguide Synthesizer/offline-v1.16/phone-before.json)
+- [Probe results for v1.16.](Projects/Waveguide Synthesizer/offline-v1.16/phone-after.json)
+- [v1.14's lesson-fit probe, pointed at v1.16 to check the desktop and short sizes didn't move.](Projects/Waveguide Synthesizer/offline-v1.16/fit_probe.mjs)
+- [Lesson fit at five sizes: matches v1.14's measurements at every stop.](Projects/Waveguide Synthesizer/offline-v1.16/fit-desk.json)
+- [The stand-in speaker clock the probes run on.](Projects/Waveguide Synthesizer/offline-v1.16/fake_audio_clock.js)
+
+_v1.15 → v1.16 in Chrome's phone mode (touch on, 3× pixels). 'Covered' = of 7 points along the string, how many sit under a panel._
+| screen | covered, v1.15 | covered, v1.16 | covered while bowing / at the lesson's bow stop | string width px | buttons under 40 px | 2nd finger lifts → bow kept |
+| --- | --- | --- | --- | --- | --- | --- |
+| phone upright 390×844 | 7 | 0 | 0 / 0 | 249 | 8 → 0 | no → yes |
+| large phone 430×932 | 5 | 0 | 0 / 0 | 275 | 8 → 0 | no → yes |
+| phone sideways 844×390 | 2 (nut end) | 0 | 0 / 0 | 371 → 198 | 9 → 0 | no → yes |
+| tablet 820×1180 | 0 | 0 | 0 / 0 | 313 | 8 → 0 | no → yes |
+
+_Left rough:_ Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. Not run on a real phone either: everything here is Chrome's phone mode, so the iPhone silent-switch fix and the touch feel are untested. With the phone on its side, the string is small (about 160–200 px) beside a tall button panel that runs off the bottom of the screen. The hold, walk and lesson buttons still show desktop key hints (H, W, L). The 69 before/after frames v1.14's cycle left in offline-v1.14/frames are still uncommitted.
+
+_Next moves named:_ Tighten the sideways phone layout: a wider, shorter button panel so the meter fits and the string gets the width back, and drop the key hints on touch screens. · Measure frame rate in a throttled phone profile (4× CPU slowdown) and pull the bead and soundboard detail down if it drops below 60. · Whenever you have speakers and ten minutes: take the lesson by hand, on a phone if you like, since v1.16 is the first version built for one.
+<sub>`waveguide-synthesizer-steward-053` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-7fc18760e3" -->
+### 2026-11-17 — cycle 23
+
+taught item 6
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-051" -->
 ### 2026-11-09 — cycle 22 — Study v1.15: high notes no longer die in a tenth of a second. Every pitch now rings about as long as G3.
 > shipped · G3 and below unchanged to the sample · steward leans a phone run next

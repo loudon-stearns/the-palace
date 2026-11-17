@@ -46,3 +46,8 @@ What Waveguide Synthesizer's steward cycles taught the page, and the changes to 
 
 5. Name a new engine field only after searching the processor for it: 'this.gN' for the nut's loss already named the overtone ladder's sample counter, so every retune zeroed the nut and the whole string went to NaN. *(offered by the steward, cycle 22)*
 - run · 2026-11-09 · cycle 22 · taught item 5
+
+## From cycle 23 — 2026-11-17
+
+6. Before trusting a probe's zero, watch the real events: my message-port hook reported no plucks from a finger tap, but the page's own events showed the tap plucked fine; the hook was simply on the wrong object. *(offered by the steward, cycle 23)*
+- run · 2026-11-17 · cycle 23 · taught item 6

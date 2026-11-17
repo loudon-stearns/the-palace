@@ -1,0 +1,318 @@
+{
+ "errors": [],
+ "sizes": [
+  {
+   "size": "phone 390x844",
+   "open": {
+    "covered": [
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "ui"
+    ],
+    "offscreen": 0,
+    "span_px": 249,
+    "string_mid": [
+     195,
+     422
+    ],
+    "at_25": [
+     133,
+     422
+    ],
+    "buttons_under_40px": [
+     "pluck",
+     "strike",
+     "bow",
+     "damp",
+     "view",
+     "hold",
+     "walk",
+     "lessonBtn"
+    ],
+    "page_scroll": true,
+    "canvas_touch_action": "auto"
+   },
+   "tap_quarter": [],
+   "two_fingers": {
+    "bow_on_press": true,
+    "bow_after_second_finger_lifts": false,
+    "bow_after_own_finger_lifts": false
+   },
+   "lesson_bow": {
+    "covered": [
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "ui"
+    ],
+    "offscreen": 0,
+    "span_px": 251,
+    "string_mid": [
+     197,
+     426
+    ],
+    "at_25": [
+     134,
+     426
+    ],
+    "buttons_under_40px": [
+     "pluck",
+     "strike",
+     "bow",
+     "damp",
+     "view",
+     "hold",
+     "walk",
+     "lessonBtn",
+     "lsBack",
+     "lsShow",
+     "lsNext",
+     "lsQuit"
+    ],
+    "page_scroll": true,
+    "canvas_touch_action": "auto"
+   }
+  },
+  {
+   "size": "phone-big 430x932",
+   "open": {
+    "covered": [
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "-",
+     "-"
+    ],
+    "offscreen": 0,
+    "span_px": 275,
+    "string_mid": [
+     215,
+     466
+    ],
+    "at_25": [
+     146,
+     466
+    ],
+    "buttons_under_40px": [
+     "pluck",
+     "strike",
+     "bow",
+     "damp",
+     "view",
+     "hold",
+     "walk",
+     "lessonBtn"
+    ],
+    "page_scroll": true,
+    "canvas_touch_action": "auto"
+   },
+   "tap_quarter": [],
+   "two_fingers": {
+    "bow_on_press": true,
+    "bow_after_second_finger_lifts": false,
+    "bow_after_own_finger_lifts": false
+   },
+   "lesson_bow": {
+    "covered": [
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "ui",
+     "-",
+     "-"
+    ],
+    "offscreen": 0,
+    "span_px": 277,
+    "string_mid": [
+     217,
+     470
+    ],
+    "at_25": [
+     147,
+     470
+    ],
+    "buttons_under_40px": [
+     "pluck",
+     "strike",
+     "bow",
+     "damp",
+     "view",
+     "hold",
+     "walk",
+     "lessonBtn",
+     "lsBack",
+     "lsShow",
+     "lsNext",
+     "lsQuit"
+    ],
+    "page_scroll": true,
+    "canvas_touch_action": "auto"
+   }
+  },
+  {
+   "size": "phone-flat 844x390",
+   "open": {
+    "covered": [
+     "ui",
+     "ui",
+     "-",
+     "-",
+     "-",
+     "-",
+     "-"
+    ],
+    "offscreen": 0,
+    "span_px": 371,
+    "string_mid": [
+     422,
+     247
+    ],
+    "at_25": [
+     329,
+     247
+    ],
+    "buttons_under_40px": [
+     "more",
+     "pluck",
+     "strike",
+     "bow",
+     "damp",
+     "view",
+     "hold",
+     "walk",
+     "lessonBtn"
+    ],
+    "page_scroll": true,
+    "canvas_touch_action": "auto"
+   },
+   "tap_quarter": [
+    0.26
+   ],
+   "two_fingers": {
+    "bow_on_press": true,
+    "bow_after_second_finger_lifts": false,
+    "bow_after_own_finger_lifts": false
+   },
+   "lesson_bow": {
+    "covered": [
+     "-",
+     "-",
+     "-",
+     "-",
+     "-",
+     "-",
+     "-"
+    ],
+    "offscreen": 0,
+    "span_px": 184,
+    "string_mid": [
+     609,
+     319
+    ],
+    "at_25": [
+     563,
+     319
+    ],
+    "buttons_under_40px": [
+     "lsBack",
+     "lsShow",
+     "lsNext",
+     "lsQuit"
+    ],
+    "page_scroll": false,
+    "canvas_touch_action": "auto"
+   }
+  },
+  {
+   "size": "tablet 820x1180",
+   "open": {
+    "covered": [
+     "-",
+     "-",
+     "-",
+     "-",
+     "-",
+     "-",
+     "-"
+    ],
+    "offscreen": 0,
+    "span_px": 313,
+    "string_mid": [
+     575,
+     590
+    ],
+    "at_25": [
+     497,
+     590
+    ],
+    "buttons_under_40px": [
+     "pluck",
+     "strike",
+     "bow",
+     "damp",
+     "view",
+     "hold",
+     "walk",
+     "lessonBtn"
+    ],
+    "page_scroll": true,
+    "canvas_touch_action": "auto"
+   },
+   "tap_quarter": [
+    0.26
+   ],
+   "two_fingers": {
+    "bow_on_press": true,
+    "bow_after_second_finger_lifts": false,
+    "bow_after_own_finger_lifts": false
+   },
+   "lesson_bow": {
+    "covered": [
+     "-",
+     "-",
+     "-",
+     "-",
+     "-",
+     "-",
+     "-"
+    ],
+    "offscreen": 0,
+    "span_px": 313,
+    "string_mid": [
+     575,
+     590
+    ],
+    "at_25": [
+     497,
+     590
+    ],
+    "buttons_under_40px": [
+     "pluck",
+     "strike",
+     "bow",
+     "damp",
+     "view",
+     "hold",
+     "walk",
+     "lessonBtn",
+     "lsBack",
+     "lsShow",
+     "lsNext",
+     "lsQuit"
+    ],
+    "page_scroll": true,
+    "canvas_touch_action": "auto"
+   }
+  }
+ ]
+}
