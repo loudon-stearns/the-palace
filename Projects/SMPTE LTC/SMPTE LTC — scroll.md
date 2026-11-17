@@ -15,41 +15,40 @@ forward_vector: "I am SMPTE LTC's scroll — the one page that always opens on w
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-08T14:49:34.891Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T13:22:41.171Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 2 · last ran 2026-11-05 (3 days ago)
-- **Plan:** agreed 2026-11-08 (today) · 0 made things since
-- **Waiting on you:** nothing
-- **Ready to advance:** 2 answers filed since the steward last ran — a cycle will consume them
-- **Last shipped:** 2026-11-05 (3 days ago) — The teaching room's backward reader took the gauntlet. With one added check it is the first reader to play a tape backward with zero wrong frames. (`smpte-ltc-steward-006`)
-- **Last commit touching this project:** 2026-11-08 `183844aa` — ops(SMPTE LTC): tuning items 3 and 5 paid in 11d48abd, on Loudon's yes
+- **Status:** active · **Stage:** growing · **Steward:** cycle 3 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-11-08 (9 days ago) · 2 made things since · **a proposed revision is waiting on you**
+- **Waiting on you:** 1 open ask
+- **Ready to advance:** no unread answers
+- **Last shipped:** 2026-11-17 (today) — Add a step that teaches how LTC is used, starting from your own show rig, before the room's middle stops? (`smpte-ltc-steward-009`)
+- **Last commit touching this project:** 2026-11-08 `ef62a9de` — edit(SMPTE LTC): The teaching room's next sentence takes its subject back: The room is to be a walk up, and Enrichment is named once
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 1 day, counted from the ledger's run lines
-- **Last run:** 2026-11-05 — cycle 2 · taught item 4, proposed item 5 for canon
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 3 · taught item 6
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 5, from cycle 2 — 2026-11-05 — [[SMPTE LTC — tuning]]
+- **Latest lesson:** item 6, from cycle 3 — 2026-11-17 — [[SMPTE LTC — tuning]]
 
 ### Where this stands
 
-SMPTE LTC is your page on timecode as sound. GoButton's ltc.js is the specification every other build is held to. Earlier today I built the hostile gauntlet: 26 LTC files, each broken one way, plus a scorer. GoButton's reader passed 22 of them but read 297 wrong frames. A careful reader, the same code with three changes, read none. Neither reads a tape played backward. This cycle the reader your rich face's Read step already runs went through the same 26 files, unchanged. It reads the backward file, and in the sweeps it read 102 wrong frames. Adding one check fixes that: a frame counts only when it follows the frame before. With that check it reads backward and reads nothing wrong. I also f…
+SMPTE LTC is your page on timecode as sound. GoButton's ltc.js is the specification every other build is held to. On 5 November I built the hostile gauntlet: 26 LTC files, each broken one way, plus a scorer. GoButton's reader read 300 wrong times across it, 119 of them through one boosted EQ. In a show, that's a desk jumping, not waiting. On 8 November you said yes to my drafting a fix in my own folder for a GoButton session to land. You also adopted the plan, and the fix belongs to its second step: getting readers through the gauntlet. This cycle I wrote the fix. GoButton's decoder now checks every frame it reads: does it have an even count of 0s, and is it the frame after the last one? It…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** No hardware reader has heard any of these files, so 'passes' means passes against ltc.js's own encoder, not against a desk. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** No hardware reader has heard any of these files, so 'passes' means passes against ltc.js's own encoder, not against a desk. _(in 3 notes, the latest cycle 3)_
 - **rough since cycle 1:** The rich face's Read step still runs the unchecked reader. _(in 2 notes, the latest cycle 2)_
-- **rough since cycle 1:** Noise 6 dB down and the resonant EQ still defeat every reader. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 1:** Noise 6 dB down and the resonant EQ still defeat every reader. _(in 3 notes, the latest cycle 3)_
 
 ### Open asks
 
-_None — nothing is waiting on you._
+- `smpte-ltc-steward-009` — proposed plan revision: teach LTC all the way up · posted 2026-11-17 · options: adopt · keep
 
 ### Answered, not yet consumed
 
-- `smpte-ltc-steward-003` — GRANTED — option_id=DRAFT-PATCH; notes: "Loudon, live 2026-11-08, answering the four open items as recommended: "yes to all four". Filed by the live session that rewrote SMPTE LTC (8eaea235), in his words. The recommendation he took: draft in the workshop, a GoButton session lands it; when it lands, refresh the room's pinned copy (see the live note smpte-ltc-live-note-20261108T131332)." · answered 2026-11-08 — waiting for the next cycle
-- `smpte-ltc-steward-004` — GRANTED — option_id=adopt; notes: "Loudon, live 2026-11-08, answering the four open items as recommended: "yes to all four". Filed by the live session that rewrote SMPTE LTC (8eaea235), in his words. Your tuning proposals 3 (Resampling) and 5 (the gauntlet under The builds) were also yes; the Concierge places them against the page as it stands now." · answered 2026-11-08 — waiting for the next cycle
+_None._
 
 ### Decided
 
@@ -58,6 +57,7 @@ _None — nothing is waiting on you._
 
 ### Runs
 
+- 2026-11-17 — cycle 3 · taught item 6
 - 2026-11-05 — cycle 2 · taught item 4, proposed item 5 for canon
 - 2026-11-05 — cycle 1 · taught item 1, proposed items 2, 3 for canon
 
@@ -90,6 +90,82 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="smpte-ltc-steward-009" -->
+### 2026-11-17 — cycle 3 — Add a step that teaches how LTC is used, starting from your own show rig, before the room's middle stops?
+> still working · two-check patch drafted · steward leans adopt
+
+Catch-up: SMPTE LTC teaches timecode as sound. The plan you adopted on 8 November goes all the way down: the hostile test files, readers held to them, the room's Wave, Read and Break-it stops, a plugin, and a hardware check. That same day you wrote: 'we have done a great job of showing how the protocol works, but we have not shown how it is used.' That's a standing order now, and this is how I'd act on it. I'd add one step, right after the readers: how LTC is used, starting from your rig. GoButton's TIMECODE track goes out through the interface to the desks that chase it, with pre-roll, chase, freewheel through a dropout, level and bleed. Then on set (jam sync, slates, cameras), in post (syncing by timecode, the broadcast-WAV timestamp that isn't timecode, 23.976 against 24), and in the DAW (chasing LTC, converting to MIDI timecode). Each comes with a failure you can hear and its fix, and some become a Use stop in the room. I build it in my workshop and propose the page section. It costs the room's middle stops one place in line. The project keeps moving whatever you choose.
+
+**Artifacts:**
+- [report.html](Projects/SMPTE LTC/hostile/report.html)
+- [report.png](Projects/SMPTE LTC/hostile/report.png)
+- [25-rate-change.wav](Projects/SMPTE LTC/hostile/files/25-rate-change.wav)
+- [24-dropout.wav](Projects/SMPTE LTC/hostile/files/24-dropout.wav)
+- [23-reverse.wav](Projects/SMPTE LTC/hostile/files/23-reverse.wav)
+- [22-tape-stop.wav](Projects/SMPTE LTC/hostile/files/22-tape-stop.wav)
+- [21-varispeed-x4.wav](Projects/SMPTE LTC/hostile/files/21-varispeed-x4.wav)
+- [20-varispeed-half.wav](Projects/SMPTE LTC/hostile/files/20-varispeed-half.wav)
+- [19-wrong-clock.wav](Projects/SMPTE LTC/hostile/files/19-wrong-clock.wav)
+- [18-8k.wav](Projects/SMPTE LTC/hostile/files/18-8k.wav)
+- [17-44k1.wav](Projects/SMPTE LTC/hostile/files/17-44k1.wav)
+- [16-mp3-32.wav](Projects/SMPTE LTC/hostile/files/16-mp3-32.wav)
+<sub>`smpte-ltc-steward-009` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="smpte-ltc-steward-008" -->
+### 2026-11-17 — cycle 3 — GoButton's reader now has two free checks drafted and tested. They cut its 300 wrong frames to 4; asking for two in a row cuts them to 0.
+> shipped · draft in my workshop, GoButton untouched · steward leans the device act on two sure frames in a row
+
+**What I made.** [The patch's notes](?deck=STATE&entry=Projects/SMPTE LTC/gobutton-patch/README.md) explain it, with the land-it steps for a GoButton session. The patched `ltc.js` and its diff are next to it, with eleven new checks written in GoButton's own test format.
+
+**What it showed.** I ran GoButton's reader through the gauntlet with only the two checks added and nothing else changed. The table below has the counts. The checks alone don't get to zero. Through the boosted EQ the reader misreads 119 frames, and 4 of them happen to have an even count of 0s *and* follow the one before. Two checks are not proof. Asking for two checked frames in a row stops all 4, and costs one more frame (33 ms at 30 fps) each time the reader locks on. So ltc.js reports the run and the device decides. My lean is that the show rig waits for two in a row. A desk that locks 33 ms later loses nothing; a desk that jumps loses the show.
+
+**Checked:** I made a scratch copy of GoButton and ran its whole test suite with the patch and the new checks: 1956 of 1968 pass. The 12 that fail are colour checks, and they fail the same way without the patch, because GoButton's working folder has an uncommitted colours file. All 11 new checks pass. I didn't touch anything in GoButton Local.
+
+**Passed over:** dropping unchecked frames inside the decoder itself. That would put ltc.js out of step with the codebox it specifies, and break existing checks like 'after a jump, the first frame is the new time.'
+
+**Artifacts:**
+- [the patch's notes: why, what changes, the gauntlet's counts, how a GoButton session lands it, what the codebox will need.](Projects/SMPTE LTC/gobutton-patch/README.md)
+- [GoButton's ltc.js with the two checks and the run count added.](Projects/SMPTE LTC/gobutton-patch/ltc.js)
+- [the whole change, as a diff against GoButton's file.](Projects/SMPTE LTC/gobutton-patch/ltc.js.diff)
+- [GoButton's ltc.js as I found it (sha256 40efd97c…), the base of the diff.](Projects/SMPTE LTC/gobutton-patch/ltc.original.js)
+- [eleven checks in GoButton's test format, ready for its tests folder.](Projects/SMPTE LTC/gobutton-patch/v2-ltc-checks-tests.js)
+- [runs the eleven checks here against the patched copy.](Projects/SMPTE LTC/gobutton-patch/run-checks.js)
+- [GoButton's reader with only the two checks, for the gauntlet; TRUST=2 asks for two in a row.](Projects/SMPTE LTC/hostile/sure-reader.mjs)
+- [the gauntlet run, one checked frame.](Projects/SMPTE LTC/hostile/run-sure.txt)
+- [the gauntlet run, two checked frames in a row.](Projects/SMPTE LTC/hostile/run-sure-2.txt)
+- [the sweeps, one checked frame.](Projects/SMPTE LTC/hostile/sweep-sure.txt)
+- [the sweeps, two in a row.](Projects/SMPTE LTC/hostile/sweep-sure-2.txt)
+- [per-file scores, one checked frame.](Projects/SMPTE LTC/hostile/results-sure-reader.json)
+- [per-file scores, two in a row.](Projects/SMPTE LTC/hostile/results-sure-reader-2.json)
+- [sweep scores, one checked frame.](Projects/SMPTE LTC/hostile/sweeps-sure-reader.json)
+- [sweep scores, two in a row.](Projects/SMPTE LTC/hostile/sweeps-sure-reader-2.json)
+- [the gauntlet's notes, with this third run.](Projects/SMPTE LTC/hostile/README.md)
+
+_wrong times read across the gauntlet's 26 files and its sweeps_
+| reader | wrong, files | wrong, sweeps | files passed |
+| --- | --- | --- | --- |
+| GoButton's, as it is | 125 | 175 | 22 of 26 |
+| + the two checks | 4 | 0 | 22 of 26 |
+| + two checked frames in a row | 0 | 0 | 0 of 26 (one more frame late at each lock than the gauntlet allows) |
+| careful reader (checks + hysteresis + gap rule) | 0 | 0 | 22 of 26 |
+
+_Changed in the workshop:_ README — new workshop folder: the two-check patch for GoButton, and how to land it.
+_Changed in the workshop:_ README — the third run: the checks alone, and two in a row.
+
+_Left rough:_ No hardware reader has heard any of these files, so 'passes' means passes against ltc.js's own encoder, not against a desk. The patch protects nothing on stage until the codebox gets the checks, and that waits on the Max pause. The gauntlet report page wasn't rebuilt to show the new reader. Noise 6 dB down and the resonant EQ still defeat every reader.
+
+_Next moves named:_ A GoButton session lands the patch, using the four steps in the patch's notes, then refreshes the teaching room's pinned copy of ltc.js. · The other half of the plan's reader step: a reader with a filter matched to the bit, aimed at the noisy and EQ'd files nobody reads. · If you adopt the plan proposal on the TRICKSTER board, the next cycle starts teaching how LTC is used, beginning with your own show rig.
+<sub>`smpte-ltc-steward-008` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-aaed5f0dc8" -->
+### 2026-11-17 — cycle 3
+
+taught item 6
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="plan-smpte-ltc-steward-004" -->
 ### 2026-11-08 — Plan agreed: SMPTE LTC has no plan yet. Here's one: gauntlet, better readers, the room's last stops, a JUCE plugin, then a hardware check.
 

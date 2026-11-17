@@ -1,0 +1,99 @@
+--- ltc.original.js	2026-11-17 08:23:41
++++ ltc.js	2026-11-17 08:27:48
+@@ -20,7 +20,8 @@
+ //   2. COUNTING         a timecode ↔ a frame number, with drop-frame
+ //   3. THE FRAME        one timecode as 80 bits
+ //   4. THE ENCODER      frame numbers in, audio samples out, at any sample rate
+-//   5. THE DECODER      audio samples in, timecodes out, with no rate setting
++//   5. THE DECODER      audio samples in, timecodes out, with no rate setting,
++//                       each checked (THE TWO CHECKS)
+ //   6. CLIPS            the TIMECODE track: which timecode a place in the set has
+ 
+ (function (root, factory) {
+@@ -285,16 +286,21 @@
+   //             (a frame is only read when all 80 are: never half a frame)
+   //   since     samples since the last sync word
+   //   frameLen  the running measure of one frame, in samples (0 = not known)
++  //   prev      the last frame read whose 0s were even, to check the next
++  //             one against (null = none yet)
++  //   run       how many sure frames in a row, up to the last one
+   const SMOOTH_BIT = 0.25;     // how fast the bit measure follows (1 = at once)
+   const SMOOTH_FRAME = 0.2;    // how fast the frame measure follows
+   const LOCK_FRAMES = 3;       // no sync word for this many frames: not locked
+ 
+   function newDecoder(sampleRate) {
+-    return { sampleRate, last: 0, count: 0, bit: 0, half: 0, bits: new Array(80).fill(0), fresh: 0, since: 0, frameLen: 0, frames: 0, out: null };
++    return { sampleRate, last: 0, count: 0, bit: 0, half: 0, bits: new Array(80).fill(0), fresh: 0, since: 0, frameLen: 0, frames: 0, out: null, prev: null, run: 0 };
+   }
+ 
+   // One sample in. Returns a frame when this sample completed one:
+-  //   { h, m, s, f, drop, fps, rate, now }   (rate = the standard rate's name, or '')
++  //   { h, m, s, f, drop, fps, rate, now, even, follows, sure, run }
++  //   (rate = the standard rate's name, or ''; even, follows and sure are
++  //   THE TWO CHECKS, below)
+   // and null otherwise. h, m, s, f is the frame that was just READ; now is
+   // the time it is at this sample: the frame after it (THE TIME NOW, below).
+   function decodeSample(d, x) {
+@@ -346,8 +352,45 @@
+     tc.fps = d.frameLen > 0 ? d.sampleRate / d.frameLen : d.sampleRate / (d.bit * 80);
+     tc.rate = nameRate(tc.fps, tc.drop);
+     tc.now = nextFrame(tc, countFor(tc.fps), tc.drop);
++    check(d, tc);
+     d.out = tc;
+     return tc;
++  }
++
++  // THE TWO CHECKS. LTC carries no checksum, and a reader that finds a sync
++  // word will read whatever bits sit before it. Through a boosted EQ, heavy
++  // noise or too low a sample rate, a reader finds sync words in a damaged
++  // signal and reads a wrong time from every one (SMPTE LTC's hostile files,
++  // 2026-11-05: 119 frames through +12 dB at 2 kHz, every one wrong). Two
++  // things a reader can check, for nothing:
++  //   even     the polarity bit makes every frame's count of 0 bits even
++  //            (section 3). An odd count is a frame misread.
++  //   follows  every frame is the one after the frame before. Asked at all
++  //            three counts, not the measured rate's: a tape at half speed
++  //            measures 12.5 frames a second and still counts 25.
++  //   sure     both. A wrong time is worse than none (a desk that jumps the
++  //            show, where one that waits is safe), so whatever acts on a
++  //            frame should act only on a sure one. It costs one frame at
++  //            the start, and one after every jump or dropout.
++  //   run      how many sure frames in a row, this one included (0 = not
++  //            sure). Two checks are not proof: a reader misreading every
++  //            frame through +12 dB at 2 kHz read 119 wrong ones, and 4 of
++  //            them passed both checks by chance. None passed with run 2.
++  //            So run says how far to trust it, and whatever acts on a frame
++  //            chooses: run 1 costs one frame at the start, run 2 costs two.
++  // A misread frame can have even 0s (at 7 kHz, 98 wrong frames did), so
++  // "even" alone is not enough; "follows" is the check that holds.
++  function check(d, tc) {
++    let zeros = 0;
++    for (let i = 0; i < 80; i++) if (d.bits[i] === 0) zeros += 1;
++    tc.even = zeros % 2 === 0;
++    const p = d.prev;
++    tc.follows = !!p && p.drop === tc.drop &&
++      [24, 25, 30].some((count) => packTime(nextFrame(p, count, tc.drop)) === packTime(tc));
++    tc.sure = tc.even && tc.follows;
++    tc.run = tc.sure ? d.run + 1 : 0;
++    d.run = tc.run;
++    d.prev = tc.even ? { h: tc.h, m: tc.m, s: tc.s, f: tc.f, drop: tc.drop } : null;
+   }
+ 
+   // THE TIME NOW. A frame's number belongs to the START of the frame: the
+@@ -412,12 +455,13 @@
+     return '';
+   }
+ 
+-  // Every frame in a block of samples (for the tests).
+-  function decode(d, samples) {
++  // Every frame in a block of samples (for the tests). trust: only the
++  // frames with at least that run of sure frames (0 or none = every frame).
++  function decode(d, samples, trust) {
+     const out = [];
+     for (let i = 0; i < samples.length; i++) {
+       const tc = decodeSample(d, samples[i]);
+-      if (tc) out.push(Object.assign({ at: i }, tc));
++      if (tc && tc.run >= (trust || 0)) out.push(Object.assign({ at: i }, tc));
+     }
+     return out;
+   }

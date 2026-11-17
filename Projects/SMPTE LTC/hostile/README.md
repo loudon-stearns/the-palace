@@ -19,8 +19,17 @@ first two readers held to it. Workshop, not an entry.
   `SMPTE LTC — rich — backward.html` as it stands (not copied), so the score is the reader a class sees.
 - `checked-backward-reader.mjs` is the room's reader with one change: a frame counts only when it
   follows the frame before, in the direction the tape runs.
+- `sure-reader.mjs` is GoButton's reader with only the two checks, through the patch drafted in
+  `../gobutton-patch/`: nothing else changed. `TRUST=2` asks for two sure frames in a row.
 - `report.py` builds `report.html`, one standalone page: the scores, six milliseconds of every file,
   five clips to hear, the sweeps.
+
+Third run, 2026-11-17: are the two checks enough by themselves? GoButton's reader with only the checks
+reads 4 wrong frames, all in `13-eq-peak`, down from 300 (119 misread frames there, and 4 of them had
+even 0s and followed the one before by chance). Asking for two sure frames in a row reads none, files
+or sweeps, and costs one more frame at every lock, which the slack of three counts as a miss: 0 of 26
+pass on that rule alone. With one sure frame it passes 22, as GoButton's does. Hysteresis is what took
+the careful reader to zero with one.
 
 Second run, 2026-11-05: the 32 kbps MP3 file was wrong. lame drops to 22.05 kHz at that bitrate and the
 file was read back at 44.1, so it played at double speed. `--resample` now holds the rate; only that

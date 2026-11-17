@@ -45,3 +45,8 @@ What SMPTE LTC's steward cycles taught the page, and the changes to the house it
    > - **The hostile gauntlet** (`hostile/`): twenty-six LTC files, each broken one way, with an answer key and a scorer any reader can take. It is the teaching room's challenge, made. GoButton's reader passes 22 of them and reads 300 wrong frames across the files and the sweeps, 119 of them through a single +12 dB EQ. The room's own reader reads a tape played backward, which GoButton's cannot, and still reads 102 wrong frames. It checks that every frame has an even count of 0s, and at 7 kHz that check let through 98 frames with even 0s, all of them wrong. Add the second free check, that every frame follows the one before, and both readers read none wrong. Of the two checks, the order check is the one that holds.
 
 - run · 2026-11-05 · cycle 2 · taught item 4, proposed item 5 for canon
+
+## From cycle 3 — 2026-11-17
+
+6. Two free checks are not proof: of 119 frames misread through a boosted EQ, 4 had even 0s and followed the frame before by chance. So a reader should report how many checked frames have come in a row, and the device should decide how many it needs. *(offered by the steward, cycle 3)*
+- run · 2026-11-17 · cycle 3 · taught item 6
