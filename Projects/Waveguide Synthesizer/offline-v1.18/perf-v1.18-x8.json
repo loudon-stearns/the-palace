@@ -1,0 +1,95 @@
+{
+ "throttle": 8,
+ "page": "study-v1.18-a-slow-phone",
+ "errors": [],
+ "sizes": [
+  {
+   "size": "phone 390x844",
+   "idle": {
+    "fps": 60,
+    "p95_ms": 16.7,
+    "worst_ms": 16.8,
+    "scene_ms": 2.59,
+    "draw_ms": 1.47,
+    "engine_ms_per_frame": 0.8,
+    "drops_over_20ms": 0,
+    "frames": 240
+   },
+   "plucked": {
+    "fps": 60,
+    "p95_ms": 16.7,
+    "worst_ms": 16.8,
+    "scene_ms": 2.41,
+    "draw_ms": 1.36,
+    "engine_ms_per_frame": 0.77,
+    "drops_over_20ms": 0,
+    "frames": 240
+   },
+   "bowing": {
+    "fps": 60,
+    "p95_ms": 16.7,
+    "worst_ms": 16.8,
+    "scene_ms": 3.74,
+    "draw_ms": 1.44,
+    "engine_ms_per_frame": 1.07,
+    "drops_over_20ms": 0,
+    "frames": 239
+   },
+   "lesson": {
+    "fps": 60,
+    "p95_ms": 16.8,
+    "worst_ms": 16.8,
+    "scene_ms": 1.3,
+    "draw_ms": 1.53,
+    "engine_ms_per_frame": 0.8,
+    "drops_over_20ms": 0,
+    "frames": 240
+   },
+   "pixel_ratio": 2
+  },
+  {
+   "size": "phone-flat 844x390",
+   "idle": {
+    "fps": 60,
+    "p95_ms": 16.8,
+    "worst_ms": 16.8,
+    "scene_ms": 2.33,
+    "draw_ms": 1.32,
+    "engine_ms_per_frame": 0.68,
+    "drops_over_20ms": 0,
+    "frames": 240
+   },
+   "plucked": {
+    "fps": 60,
+    "p95_ms": 16.8,
+    "worst_ms": 16.8,
+    "scene_ms": 2.38,
+    "draw_ms": 1.38,
+    "engine_ms_per_frame": 0.75,
+    "drops_over_20ms": 0,
+    "frames": 240
+   },
+   "bowing": {
+    "fps": 60,
+    "p95_ms": 16.8,
+    "worst_ms": 16.8,
+    "scene_ms": 3.71,
+    "draw_ms": 1.4,
+    "engine_ms_per_frame": 1.07,
+    "drops_over_20ms": 0,
+    "frames": 240
+   },
+   "lesson": {
+    "fps": 60,
+    "p95_ms": 16.7,
+    "worst_ms": 16.8,
+    "scene_ms": 1.02,
+    "draw_ms": 1.3,
+    "engine_ms_per_frame": 0.55,
+    "drops_over_20ms": 0,
+    "frames": 240
+   },
+   "pixel_ratio": 2
+  }
+ ]
+}

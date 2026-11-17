@@ -56,3 +56,8 @@ What Waveguide Synthesizer's steward cycles taught the page, and the changes to 
 
 7. Before moving panels to give the string room, find which limit actually binds it: on a short screen the camera's nearest-distance floor capped the string as much as the panels did, and on the lesson's docked view the same change cut off the soundboard. *(offered by the steward, cycle 24)*
 - run · 2026-11-17 · cycle 24 · taught item 7
+
+## From cycle 25 — 2026-11-17
+
+8. Time each part before cutting detail: I leaned toward dropping beads and board points, but the beads cost almost nothing and the board was slow only because it recomputed shapes that never change, so the fix kept every point. *(offered by the steward, cycle 25)*
+- run · 2026-11-17 · cycle 25 · taught item 8

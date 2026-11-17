@@ -15,36 +15,36 @@ forward_vector: "I am Waveguide Synthesizer's scroll — the one page that alway
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-17T11:33:44.321Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T11:41:19.991Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 24 · last ran 2026-11-17 (today)
-- **Plan:** agreed 2026-11-10 (7 days ago) · 2 made things since
+- **Status:** active · **Stage:** growing · **Steward:** cycle 25 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-11-10 (7 days ago) · 3 made things since
 - **Waiting on you:** nothing
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-17 (today) — Study v1.17 fixes the phone on its side: a compact two-column panel that fits, the charts in a right-hand column, and a wider string. (`waveguide-synthesizer-steward-055`)
-- **Last commit touching this project:** 2026-11-17 `23d00f98` — steward(Waveguide Synthesizer): cycle 23 — SPINNING UP. HOME: [Waveguide Synthesizer](?deck=STATE&entry=Projects/W…
+- **Last shipped:** 2026-11-17 (today) — Study v1.18 does the same picture with half the work each frame: on a very slow phone it now runs at 47–60 frames a second where v1.17 managed 23–42. (`waveguide-synthesizer-steward-057`)
+- **Last commit touching this project:** 2026-11-17 `1874f166` — merge(fanout/otw-eighteen): eighteen projects declare exemplifies to Objects to Think With from their own side, each with one sentence naming the object and the idea it carries; on Loudon's "now" of 2026-11-11 and "all approve" of 2026-11-17
 - **Signal:** steady
 - **Left uncommitted:** ⚠ 69 files in the bundle that no cycle declared, so no cycle commits them — `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-1-pluck.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-2-reflection.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-3-loss.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-4-pitch.png`, `Projects/Waveguide Synthesizer/offline-v1.14/frames/after-1024x560-5-stiffness.png`, and 64 more. Look, then commit or clear them.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 6 runs on 3 days, counted from the ledger's run lines
-- **Last run:** 2026-11-17 — cycle 24 · taught item 7
+- **Runs:** 7 runs on 3 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 25 · taught item 8
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 7, from cycle 24 — 2026-11-17 — [[Waveguide Synthesizer — tuning]]
+- **Latest lesson:** item 8, from cycle 25 — 2026-11-17 — [[Waveguide Synthesizer — tuning]]
 
 ### Where this stands
 
-Waveguide Synthesizer is the browser string whose on-screen wave is the sound. You can pluck, strike or bow it on a soundboard, every slider lights what it names, and a seven-stop lesson walks you through it. The plan you adopted on 2026-11-10 goes like this. First you take the lesson by hand with speakers on, and I fix whatever doesn't land. Then it goes onto phones and tablets, then it gets ready for a stage, and last we decide together whether it earns a place in a Loudon Live show. Taking the lesson is still yours to do. Meanwhile I'm working on the phone step. Earlier today v1.16 made the page work on a phone held upright. This cycle, v1.17 fixes the case it left rough, the phone on it…
+Waveguide Synthesizer is the browser string whose on-screen wave is the sound. You can pluck, strike or bow it on a soundboard, every slider lights up the thing it controls, and a seven-stop lesson walks you through it. The plan you adopted on 2026-11-10 has four steps. First you take the lesson by hand with speakers on, and I fix whatever doesn't land. Then it goes onto phones and tablets. Then it gets ready for a stage. Last, we decide together whether it earns a place in a Loudon Live show. Taking the lesson is still yours to do. Meanwhile I'm on the phone step. Earlier today, v1.16 fitted the page to an upright phone and v1.17 to a phone on its side. This cycle I checked whether a slow…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 11 notes, the latest cycle 24)_
+- **rough since cycle 10:** Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. _(in 12 notes, the latest cycle 25)_
 - **rough since cycle 15:** Also, high plucks now peak about 3 dB quieter at G4 to C5 (−15 against −12 dBFS), because the board gets less per bounce at the start. _(in 2 notes, the latest cycle 22)_
-- **rough since cycle 19:** The lesson card on short screens is still not laid out. _(in 2 notes, the latest cycle 20)_
+- **rough since cycle 16:** The per-part timer still charges the idle grip chart about 1.5 ms at 8×, though calling it in a tight loop takes 0.001 ms. _(in 4 notes, the latest cycle 25)_
 - **rough since cycle 21:** With the phone on its side, the string is small (about 160–200 px) beside a tall button panel that runs off the bottom of the screen. _(in 2 notes, the latest cycle 23)_
-- **rough since cycle 22:** The 69 before/after frames v1.14's cycle left in offline-v1.14/frames are still uncommitted. _(in 3 notes, the latest cycle 24)_
-- **rough since cycle 23:** Not run on a real phone either. _(in 2 notes, the latest cycle 24)_
+- **rough since cycle 22:** The 69 before/after frames v1.14's cycle left in offline-v1.14/frames are still uncommitted. _(in 4 notes, the latest cycle 25)_
+- **rough since cycle 23:** Not run on a real phone either. _(in 3 notes, the latest cycle 25)_
 
 ### Open asks
 
@@ -65,6 +65,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 25 · taught item 8
 - 2026-11-17 — cycle 24 · taught item 7
 - 2026-11-17 — cycle 23 · taught item 6
 - 2026-11-09 — cycle 22 · taught item 5
@@ -98,6 +99,72 @@ Written by Claude on Loudon's behalf, 2026-09-23: your last two cycles posted no
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="waveguide-synthesizer-steward-057" -->
+### 2026-11-17 — cycle 25 — Study v1.18 does the same picture with half the work each frame: on a very slow phone it now runs at 47–60 frames a second where v1.17 managed 23–42.
+> shipped · same sound, same layout, lighter frames · steward leans: a real phone next, yours to hold
+
+**What I measured.** I wrote a new probe that opens the page as a phone and slows Chrome's processor down. 4× is Chrome's own setting for a cheap phone. I also tried 8× and 16× to see where it breaks. For each run it counts frames and times each part of a frame. On v1.17 the string held 60 frames a second at 4× and 8×, but fell to 23–27 at 16×. Most of each frame went to the picture code, not to drawing. Two pieces were most of it:
+
+- **The soundboard (~3.2 ms of ~6 at 8×).** Every frame it recomputed about 23,000 sines for 12 board modes at 640 points, and those shapes never change. v1.18 works them out once at load. A frame now needs 12 cosines and some multiplies. I checked the surface against the old formula at six moments while plucking and bowing. It matches to the last digit the graphics card stores (6e-8 on a board that moves ±0.25).
+- **The bow's grip chart, even when nobody bows.** Every frame it repainted its idle words and cleared a full-screen overlay at 3× phone resolution. Now the idle chart is painted once, the overlay is cleared only when there's a thread on it, and it draws at 2× at most, the same as the 3D view since v1.16.
+
+**Checked.** The phone probe from v1.16 reads exactly the same on v1.18 at all four sizes: what covers the string, tap-to-pluck, two fingers, bowing, and the lesson's bow stop. There were no page errors. The photographs show the thread from the grip chart still reaching the bow.
+
+**Passed over:** my lean from last cycle was to lower the bead and soundboard detail. The measurements said no. The beads cost almost nothing, and the board was expensive only because it kept recomputing numbers that never change. So every bead and every board point stays.
+
+**Artifacts:**
+- [Study v1.18. Plays and looks the same as v1.17, with lighter frames.](Projects/Waveguide Synthesizer/study-v1.18-a-slow-phone/index.html)
+- [v1.18 on its side while bowing: board moving, grip chart live, its thread still running to the bow.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-phone-flat-bowing.png)
+- [v1.18 upright, open.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-phone-open.png)
+- [v1.18 upright, bowing.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-phone-bowing.png)
+- [v1.18 upright, the lesson's bow stop.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-phone-lesson-bow.png)
+- [v1.18 on its side, open.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-phone-flat-open.png)
+- [v1.18 on its side, the lesson's bow stop.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-phone-flat-lesson-bow.png)
+- [v1.18 on a large phone, open.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-phone-big-open.png)
+- [v1.18 on a large phone, bowing.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-phone-big-bowing.png)
+- [v1.18 on a large phone, the lesson's bow stop.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-phone-big-lesson-bow.png)
+- [v1.18 on a tablet, open.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-tablet-open.png)
+- [v1.18 on a tablet, bowing.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-tablet-bowing.png)
+- [v1.18 on a tablet, the lesson's bow stop.](Projects/Waveguide Synthesizer/offline-v1.18/frames/after-tablet-lesson-bow.png)
+- [Every change from v1.17, each one through the rep() helper that fails if its target isn't found exactly once.](Projects/Waveguide Synthesizer/offline-v1.18/patch_page.py)
+- [Checks that the new soundboard is the same surface as the old formula.](Projects/Waveguide Synthesizer/offline-v1.18/check_board.mjs)
+- [The slow-phone probe: frames a second, plus picture, drawing and engine time, at any slowdown.](Projects/Waveguide Synthesizer/offline-v1.18/perf_probe.mjs)
+- [Times each part of the picture code.](Projects/Waveguide Synthesizer/offline-v1.18/split_probe.mjs)
+- [The stand-in speaker clock, now also timing the engine.](Projects/Waveguide Synthesizer/offline-v1.18/fake_audio_clock_timed.js)
+- [The stand-in speaker clock the phone probe runs on.](Projects/Waveguide Synthesizer/offline-v1.18/fake_audio_clock.js)
+- [v1.16's phone probe, moved to its own port.](Projects/Waveguide Synthesizer/offline-v1.18/phone_probe.mjs)
+- [Phone probe on v1.18: identical to v1.17 at all four sizes.](Projects/Waveguide Synthesizer/offline-v1.18/phone-after.json)
+- [v1.18 at 4× slowdown.](Projects/Waveguide Synthesizer/offline-v1.18/perf-v1.18-x4.json)
+- [v1.18 at 8× slowdown.](Projects/Waveguide Synthesizer/offline-v1.18/perf-v1.18-x8.json)
+- [v1.18 at 16× slowdown.](Projects/Waveguide Synthesizer/offline-v1.18/perf-v1.18-x16.json)
+- [v1.17 at 4×, the baseline.](Projects/Waveguide Synthesizer/offline-v1.17/perf-v1.17-x4.json)
+- [v1.17 at 8×, the baseline.](Projects/Waveguide Synthesizer/offline-v1.17/perf-v1.17-x8.json)
+- [v1.17 at 16×, the baseline.](Projects/Waveguide Synthesizer/offline-v1.17/perf-v1.17-x16.json)
+- [The slow-phone probe as first run on v1.17.](Projects/Waveguide Synthesizer/offline-v1.17/perf_probe.mjs)
+- [The per-part timer as first run on v1.17.](Projects/Waveguide Synthesizer/offline-v1.17/split_probe.mjs)
+- [The timed stand-in clock used for the v1.17 baseline.](Projects/Waveguide Synthesizer/offline-v1.17/fake_audio_clock_timed.js)
+
+_Frames a second on a phone at 16× CPU slowdown, v1.17 → v1.18 (stand-in speaker clock, 4 s each). At 4× and 8× both hold 60._
+| state | upright phone | phone on its side | picture code ms/frame at 8×, upright |
+| --- | --- | --- | --- |
+| idle | 26 → 46 | 24 → 53 | 6.2 → 2.6 |
+| after a pluck | 23 → 51 | 28 → 47 | 6.2 → 2.4 |
+| bowing | 27 → 47 | 27 → 47 | 7.1 → 3.7 |
+| in the lesson | 42 → 60 | 40 → 60 | 4.5 → 1.3 |
+
+_Left rough:_ Not heard through speakers: the recordings use the stand-in clock again, and nobody has taken the lesson by hand. Not run on a real phone either. The slowdown is Chrome slowing its processor on this Mac, and headless Chrome may draw WebGL in software, so a real phone's graphics chip is untested. The per-part timer still charges the idle grip chart about 1.5 ms at 8×, though calling it in a tight loop takes 0.001 ms. I didn't chase why. The 69 before/after frames v1.14's cycle left in offline-v1.14/frames are still uncommitted.
+
+_Next moves named:_ Whenever you have a phone and ten minutes: open v1.18 on it, either way up, pluck and bow, and tell me whether it stutters. Only you can do that check, and it closes the phone step. · Then the stage step: a performance view that hides the teaching, a projector-sized layout, and MIDI in for pitch and bow. · The 69 old frames in offline-v1.14/frames: say 'commit' or 'clear' and the next cycle does it.
+<sub>`waveguide-synthesizer-steward-057` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-0f4be233dc" -->
+### 2026-11-17 — cycle 25
+
+taught item 8
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="waveguide-synthesizer-steward-055" -->
 ### 2026-11-17 — cycle 24 — Study v1.17 fixes the phone on its side: a compact two-column panel that fits, the charts in a right-hand column, and a wider string.
 > shipped · sideways phone fixed, everything else measured unchanged · steward leans: test frame rate on a slow phone next
