@@ -6,6 +6,9 @@ born: 2024-06
 stage: mature
 forward_vector: "I want to become the explanation of how time-scales themselves are perceptually graduated — the principle that one continuous axis (the rate at which something repeats) crosses *perceptual* thresholds, not physical ones. The first and most foundational of these crossings is rate-becoming-pitch around 20 Hz: below it polyrhythms, above it intervals. From this single gear-shift the rest of the modulation family — delay, vibrato, FM, rhythm — emerges as named regions on the same axis. I am the prototype of every threshold-crossing that follows, and my rich face is the walk you can play, taught from in class as it grows; a fuller standalone tool spawns from it only once the face has earned it."
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Hyperdimensional Prism]]"
     type: mirrors
   - target: "[[Action Potential Oscillator]]"
@@ -126,7 +129,7 @@ In April 2026 the idea was designed a second time, as the Frequency-Time Explore
 
 **Philosophy**: The duality maps directly onto [[Hyperdimensional Prism]] — what appear to be separate phenomena (pitch, echo, rhythm) are projections of a single higher-dimensional reality (periodic repetition). Change the rate; change the world you inhabit.
 
-**Practice**: A lesson Loudon already teaches, made walkable. A class moves along the axis together, and each listener marks the bottom and the top of their own zone.
+**Practice**: A lesson Loudon already teaches, made walkable. A class moves along the axis together, and each listener marks the bottom and the top of their own zone. That makes the walk an object to think with ([[Objects to Think With]]): f = 1/T is walked and tapped rather than read, and the place where rhythm turns to pitch is found in each listener's own ears.
 
 ## Open Questions
 

@@ -6,6 +6,9 @@ born: 2026-01
 stage: growing
 status: active
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: mirrors
   - target: "[[Neural Granular Synthesis]]"
@@ -103,7 +106,7 @@ The simplest manifestation of particle synthesis as pedagogy is the **Particle F
 **The physics-as-DSP insight:**
 The Particle Fountain connects directly to [[Differential Equations]]. The particle trajectory under gravity IS the 2nd-order DE solution. When a student observes particles rising and falling, they are watching the numerical solution to the harmonic oscillator equation. The gravity constant IS the spring constant. The computational substrate becomes transparent: what you see moving is what you are hearing. Amplitude, frequency, duration — all continuous functions of particle state.
 
-This is the pedagogical promise of particle synthesis: the physics *is* the signal processing. There is no abstraction between the particle's position and the audio parameter it generates.
+This is the pedagogical promise of particle synthesis: the physics *is* the signal processing. There is no abstraction between the particle's position and the audio parameter it generates. That makes the fountain an object to think with ([[Objects to Think With]]): a second-order differential equation is a particle you watch rise and fall while you hear its pitch do the same.
 
 ---
 

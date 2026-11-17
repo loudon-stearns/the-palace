@@ -14,6 +14,9 @@ hook_quality: 9
 beauty: 9
 who_leads: shared
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Categorizing Inharmonicity]]"
     type: deepens
     label: instrument-form
@@ -258,7 +261,7 @@ Each entry can be loaded into Wavetable B and applied to any Wavetable A timbre.
 
 The instrument is intrinsically pedagogical. The lesson writes itself from the architecture.
 
-**The hook**: "What is harmony?" A flat line. Put that on screen, let students draw curves away from it, and make the synthesizer play those curves. In twenty minutes, students understand the B coefficient formula, the Railsback stretch, Bessel eigenmodes, and Sethares' tuning-timbre relationship — not because they read about them, but because they heard the answer to "what happens if I bend this curve in this specific way."
+**The hook**: "What is harmony?" A flat line. Put that on screen, let students draw curves away from it, and make the synthesizer play those curves. In twenty minutes, students understand the B coefficient formula, the Railsback stretch, Bessel eigenmodes, and Sethares' tuning-timbre relationship — not because they read about them, but because they heard the answer to "what happens if I bend this curve in this specific way." That makes the instrument an object to think with ([[Objects to Think With]]): harmony stops being a definition and becomes a flat line a student bends and hears.
 
 **Creation pillar**: Build a sound that starts metallic and settles into harmony. The assignment: design a Wavetable B trajectory that tells a physical story. Inspired by what instrument? What does settling sound like to you?
 

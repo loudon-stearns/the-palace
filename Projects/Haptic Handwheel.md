@@ -12,6 +12,9 @@ status: active
 confidence: hypothesis
 forward_vector: "I want to give the hand what acoustic instruments have always given it, and I am unbuilt: I want a first prototype in Loudon's hand so the seven feels on my page get judged by touch, which no agent can do for him. I am research reaching toward a product: the instrument is the research, a simple knob that knows the parameter under the mouse is the nearer product, and I want to learn which feels carry from one to the other. I am the first step toward digital controllers that look and feel like vintage instruments and respond in musical ways."
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Portamento and Physical Pitch Modeling]]"
     type: mirrors
     label: the-same-spring-felt
@@ -82,7 +85,7 @@ The idea is old, and it comes from three things his hands already know:
 
 > "The idea comes from working with turntables and how they feel when they are moving, and from bending guitar strings: there is a force feedback which very much helps bend to the exact right pitch. Also playing bass, I can feel the frets under my fingers and know where they are. When I move pitchbend on a controller I go over many octaves but have a hard time locking into a specific pitch, and the spring pressure back doesn't change based on how far I am from the pitch."
 
-That last sentence is the fault being fixed. A pitch wheel's spring knows one thing, which is where centre is. It pushes back the same way whatever note the hand is reaching for, so the hand learns nothing about how far it is from the pitch. A string tells you. [[Piano String Inharmonicity]] has the physics: tension sets pitch, so the force in a bend is pitch information.
+That last sentence is the fault being fixed. A pitch wheel's spring knows one thing, which is where centre is. It pushes back the same way whatever note the hand is reaching for, so the hand learns nothing about how far it is from the pitch. A string tells you. [[Piano String Inharmonicity]] has the physics: tension sets pitch, so the force in a bend is pitch information. Built, the knob would be an object to think with in Papert's sense ([[Objects to Think With]]): the physics of a bent string would live inside it, and the player's own hand would be the part that bends.
 
 ## What the hand should feel
 

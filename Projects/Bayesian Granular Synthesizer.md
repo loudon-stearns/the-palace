@@ -14,6 +14,9 @@ hook_quality: 9
 beauty: 9
 who_leads: shared
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Neural Granular Synthesis]]"
     type: connects-to
     label: grain-cloud-sibling
@@ -47,7 +50,7 @@ The grain cloud draws each grain's pitch from a probability distribution that is
 - **Evidence (notes held):** each held MIDI note contributes a Gaussian bump in log-frequency centered on its pitch. Bump weight and standard deviation evolve by exponential time constants — fast attack as a note presses, slow relaxation as it releases — so the distribution *breathes* with the playing.
 - **Posterior (the sampled distribution):** the sum of prior and evidence bumps, normalized. As more notes are held longer, the posterior concentrates: grains cluster ever more tightly on the held pitches. The standard deviation tightens to roughly $\pm 5$ cents in log-frequency at full conviction.
 
-The creative refinement that makes it *musical* rather than merely clever: **correlate pitch-distance-from-target with grain cycle length.** Grains landing near a held note become *long and tonally pure*; grains far from any held note stay *short and clicky.* This makes the cloud a **joint distribution over pitch *and* grain length**, with the coupling strength gated by the same evidence envelope that governs pitch focus. The result: as a chord is held, the cloud doesn't just pull toward the pitches — it *resolves in character*, clicky scatter condensing into sustained tone.
+The creative refinement that makes it *musical* rather than merely clever: **correlate pitch-distance-from-target with grain cycle length.** Grains landing near a held note become *long and tonally pure*; grains far from any held note stay *short and clicky.* This makes the cloud a **joint distribution over pitch *and* grain length**, with the coupling strength gated by the same evidence envelope that governs pitch focus. The result: as a chord is held, the cloud doesn't just pull toward the pitches — it *resolves in character*, clicky scatter condensing into sustained tone. That makes the instrument an object to think with ([[Objects to Think With]]): Bayesian updating is not explained but heard, a clicky cloud condensing into the chord you hold as the evidence comes in.
 
 ## The grain spec
 

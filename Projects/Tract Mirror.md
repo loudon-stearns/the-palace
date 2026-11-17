@@ -11,6 +11,9 @@ status: active
 summary: "A monophonic LPC voice-synthesizer VST whose 3D interface renders the Kelly-Lochbaum cylindrical tube segments that ARE the lattice filter — the LPC/waveguide mirror made playable inside a DAW."
 forward_vector: "I want to be the first palace instrument that leaves the browser and stands inside Ableton — a vocal tract you can see, where every cylinder on screen is a scattering junction you can hear, proving the mirrors link between LPC and waveguide synthesis as a playable fact rather than a prose claim. I want to sing vowels before I learn to speak, and then to learn to speak by listening (the v2 analysis engine)."
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Linear Predictive Coding]]"
     type: emerged-from
     label: mirror-made-playable
@@ -32,7 +35,7 @@ links:
 
 ![[Tract Mirror — hero.png]]
 
-A **monophonic LPC voice synthesizer** shipped as a VST3/AU plugin (JUCE 8), whose interface is a **3D rendering of the cylindrical waveguide segments** of a Kelly-Lochbaum vocal tract. The thesis is the `mirrors` link from [[Linear Predictive Coding]] to [[Waveguide Synthesizer]], executed: the LPC lattice filter's reflection coefficients *are* the impedance mismatches between successive tube segments. The tubes on screen are not a visualization of the filter — they **are** the filter, drawn in space. Morphing a vowel reshapes the tract; reshaping the tract recomputes the scattering junctions; nothing is decoration.
+A **monophonic LPC voice synthesizer** shipped as a VST3/AU plugin (JUCE 8), whose interface is a **3D rendering of the cylindrical waveguide segments** of a Kelly-Lochbaum vocal tract. The thesis is the `mirrors` link from [[Linear Predictive Coding]] to [[Waveguide Synthesizer]], executed: the LPC lattice filter's reflection coefficients *are* the impedance mismatches between successive tube segments. The tubes on screen are not a visualization of the filter — they **are** the filter, drawn in space. Morphing a vowel reshapes the tract; reshaping the tract recomputes the scattering junctions; nothing is decoration. That makes it an object to think with ([[Objects to Think With]]): the lattice filter gets the body a voice already has, a tube you reshape from a vowel pad today, and from your own singing once the v2 analysis engine exists.
 
 Where the [[Waveguide Synthesizer]] renders the string body of this mathematics in the browser, Tract Mirror renders the tube body — and steps out of the browser into Ableton Live, the palace's first native plugin.
 

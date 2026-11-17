@@ -11,6 +11,9 @@ hook_quality: 9
 beauty: 8
 who_leads: loudon
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Semantic Delay]]"
     type: connects-to
     label: contrasts-with
@@ -44,7 +47,7 @@ The device operates on a **1-measure circular buffer** that is **always recordin
 
 **The gain knob**: The only parameter exposed to the performer. This multiplies the write amplitude, controlling how loudly the *past phrase* re-enters the mix. Gain 0 = silence (the past is gone). Gain rising = the ghost emerges.
 
-The elegance: as you play new material into the measure, it *overwrites* the oldest material in the buffer. The past phrase is played back while being gradually erased by the present.
+The elegance: as you play new material into the measure, it *overwrites* the oldest material in the buffer. The past phrase is played back while being gradually erased by the present. That makes the device an object to think with ([[Objects to Think With]]): a circular buffer, where the present overwrites the past, is heard happening to a phrase the performer just played.
 
 ## How It Differs From Standard Delay
 

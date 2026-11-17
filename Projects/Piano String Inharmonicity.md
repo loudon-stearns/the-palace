@@ -5,6 +5,9 @@ pillars: [creation, tools]
 born: 2026-03
 stage: growing
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Boundary-Crossing Instruments]]"
     type: deepens
   - target: "[[Frequency-Time Duality]]"
@@ -144,7 +147,7 @@ The string bending explorer makes inharmonicity tangible through:
 
 The demo is designed for teaching: it shows *what is happening* (partials moving toward integer ratios) rather than just *what you hear* (timbre change).
 
-**Pedagogical design choice:** The fixed harmonic positions make it immediately clear that inharmonicity is a *deviation from* the harmonic series, not an independent phenomenon. The partials chase the gray circles but never catch them.
+**Pedagogical design choice:** The fixed harmonic positions make it immediately clear that inharmonicity is a *deviation from* the harmonic series, not an independent phenomenon. The partials chase the gray circles but never catch them. That makes the explorer an object to think with ([[Objects to Think With]]): B ∝ 1/T stops being a formula when the slider tightens the string and the partials close in on the gray circles.
 
 The bend slider uses [[Logarithmic Interface Scaling]]: it moves in equal steps of pitch, 0 to 600 cents, so equal travel bends the string by an equal amount to the ear, and the readout still shows the tension multiplier, 1.0 to 2.0.
 

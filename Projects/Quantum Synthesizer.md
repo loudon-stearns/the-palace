@@ -10,6 +10,9 @@ stage: growing
 status: active
 forward_vector: "I will keep proving — through audio and video artifacts, not only prose — that the Schrödinger equation IS a synthesis system: testing boundary conditions as harmonic content with actual sound, testing potential shape as anharmonicity with actual visualization, until monism is something the ear has heard rather than something the page has claimed."
 links:
+  - target: "[[Objects to Think With]]"
+    type: exemplifies
+    label: object-to-think-with
   - target: "[[Spinoza Conatus]]"
     type: deepens
   - target: "[[Boundary-Crossing Instruments]]"
@@ -100,7 +103,7 @@ In a 2026-01 conversation, the Spinoza connection was articulated precisely:
 
 The Schrödinger equation makes this monism precise. There is one object: $\psi(x, t)$, the wavefunction. There are multiple attributes: its energy content (interpreted as pitch), its spatial extent (interpreted as filtering and envelope), its temporal evolution (interpreted as rhythm and decay). None of these attributes is more fundamental; all emerge from the single underlying wave equation.
 
-[[Boundary-Crossing Instruments|A synthesizer built on quantum principles]] is not a "simulation" of quantum mechanics applied to sound. It is recognition that the physics is the same. The boundary conditions you choose (the potential well shape, the resonant geometry) *determine* what sounds are possible, just as they determine what quantum states are possible.
+[[Boundary-Crossing Instruments|A synthesizer built on quantum principles]] is not a "simulation" of quantum mechanics applied to sound. It is recognition that the physics is the same. The boundary conditions you choose (the potential well shape, the resonant geometry) *determine* what sounds are possible, just as they determine what quantum states are possible. That is what makes it an object to think with ([[Objects to Think With]]): the rule that turns a shape into a ladder of pitches becomes two knobs, the equation and the well, and the ear hears what each one does.
 
 ## The Interactive Artifact
 
