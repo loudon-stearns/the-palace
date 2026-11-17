@@ -10,7 +10,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { renderSection, renderPageSection, upsertSection, sectionId, splitNotYet, quote, jobRows } from './shop.mjs';
+import { renderSection, renderPageSection, upsertSection, carryAnswers, sectionId, splitNotYet, quote, jobRows } from './shop.mjs';
 import { parseMakingSections } from '../_ops/stigmergy/app/src/lib/scroll-view.js';
 
 const SHOP = path.dirname(fileURLToPath(import.meta.url));
@@ -145,4 +145,22 @@ test('a re-materialize keeps the bench sections byte for byte', async (t) => {
   const grab = (text, id) => text.match(new RegExp(`<!-- scroll:entry id="${id}" -->[\\s\\S]*?<!-- /scroll:entry -->`))?.[0];
   for (const id of IDS) assert.equal(grab(r.text, id), grab(before, id), `${id} unchanged`);
   assert.equal(fs.readFileSync(SAO, 'utf8'), before, 'dry run wrote nothing');
+});
+
+test('a rewrite of a section carries Loudon\'s scroll:answer blocks across, in order, before the footer', () => {
+  const a1 = '<!-- scroll:answer by="Loudon" date="2026-11-17" files="a.m4a=abc" -->\n**Heard.** Loudon, 2026-11-17: "the second one $1"\n- pick · `a.m4a`\n<!-- /scroll:answer -->';
+  const a2 = '<!-- scroll:answer by="Loudon" date="2026-11-18" files="" -->\n**Heard.** Loudon, 2026-11-18: "still that one"\n<!-- /scroll:answer -->';
+  const old = `<!-- scroll:entry id="t" -->\n### old\n\nprose\n\n${a1}\n\n${a2}\n\n<sub>old foot</sub>\n<!-- /scroll:entry -->`;
+  const fresh = '<!-- scroll:entry id="t" -->\n### new\n\nnew prose\n\n<sub>new foot</sub>\n<!-- /scroll:entry -->';
+  const scroll = `# x\n\n${old}\n\n<!-- scroll:entry id="u" -->\n### other\n<!-- /scroll:entry -->\n`;
+  const out = upsertSection(scroll, 't', fresh).text;
+  assert.ok(out.includes('### new') && !out.includes('### old'));
+  assert.ok(out.indexOf(a1) > out.indexOf('new prose') && out.indexOf(a1) < out.indexOf(a2) && out.indexOf(a2) < out.indexOf('<sub>new foot</sub>'));
+  assert.equal(out.split('scroll:answer by=').length - 1, 2);
+  const again = upsertSection(out, 't', carryAnswers(old, fresh)).text;
+  assert.equal(again.split('scroll:answer by=').length - 1, 2);
+  assert.ok(out.includes('### other'));
+  const bare = '<!-- scroll:entry id="t" -->\n### nofoot\n<!-- /scroll:entry -->';
+  const nf = carryAnswers(old, bare);
+  assert.ok(nf.indexOf(a2) < nf.indexOf('<!-- /scroll:entry -->') && nf.endsWith('<!-- /scroll:entry -->'));
 });

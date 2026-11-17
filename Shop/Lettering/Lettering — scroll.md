@@ -69,6 +69,8 @@ My card says I cannot hold long text. Three words, "DON'T LET GO", the same prom
 
 **Artifacts:**
 - [skeleton, house route, Z-Image side by side](<Shop/Lettering/proofs/2026-11-15-long-text/side-by-side.png>)
+- [the Z-Image version alone](<Shop/Lettering/proofs/2026-11-15-long-text/out/probe-dontletgo_zimage_s1111.png>)
+- [the skeleton alone](<Shop/Lettering/proofs/2026-11-15-long-text/out/probe-dontletgo_skeleton_s1111.png>)
 - [what was measured](<Shop/Lettering/proofs/2026-11-15-long-text/measured.json>)
 
 <sub>test proof, 2026-11-15 · SDXL + canny on MPS, Z-Image-Turbo on its Space with no token, letter_phrase.py beside the files · ledger item 1 · shop-tests-image session's agent</sub>

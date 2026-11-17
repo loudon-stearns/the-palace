@@ -456,11 +456,25 @@ export function renderPageSection(J, prov, { id, page, specialists, presented = 
   return L.join('\n');
 }
 
+/** Loudon's answers, given in the scroll itself (STIGMERGY's review writes them as scroll:answer blocks),
+ *  outlive a rewrite of the section: each block is carried across verbatim and in order, after the new
+ *  section's prose and before its <sub> footer. A block the new section already holds is not doubled. */
+export function carryAnswers(oldSection, section) {
+  const blocks = (oldSection.match(/<!--\s*scroll:answer\b[\s\S]*?<!--\s*\/scroll:answer\s*-->/g) || []).filter(b => !section.includes(b));
+  if (!blocks.length) return section;
+  const kept = blocks.join('\n\n') + '\n\n';
+  const sub = section.lastIndexOf('\n<sub>');
+  const end = section.search(/<!--\s*\/scroll:entry\s*-->\s*$/);
+  const at = sub >= 0 ? sub + 1 : end;
+  return at < 0 ? section : section.slice(0, at) + kept + section.slice(at);
+}
+
 /** Put a section into a scroll's making trail: replace its own id in place, or add it at the top. */
 export function upsertSection(text, id, section) {
   const esc = id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const re = new RegExp(`<!--\\s*scroll:entry id="${esc}"\\s*-->[\\s\\S]*?<!--\\s*\\/scroll:entry\\s*-->`);
-  if (re.test(text)) return { text: text.replace(re, () => section), how: 'replaced' };
+  const old = text.match(re);
+  if (old) return { text: text.replace(re, () => carryAnswers(old[0], section)), how: 'replaced' };
   const at = text.indexOf(MAKING_START);
   if (at < 0) return { text, how: null };
   const head = text.slice(0, at + MAKING_START.length); let tail = text.slice(at + MAKING_START.length);
