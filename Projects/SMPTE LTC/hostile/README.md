@@ -21,8 +21,22 @@ first two readers held to it. Workshop, not an entry.
   follows the frame before, in the direction the tape runs.
 - `sure-reader.mjs` is GoButton's reader with only the two checks, through the patch drafted in
   `../gobutton-patch/`: nothing else changed. `TRUST=2` asks for two sure frames in a row.
-- `report.py` builds `report.html`, one standalone page: the scores, six milliseconds of every file,
+- `matched-reader.mjs` times no crossing. It keeps a clock that ticks every half bit, sums the signal
+  over each half bit (the filter matched to the bit), nudges the clock from the quarter bits either side
+  of each flip, and pairs halves into bits the way that keeps a flip at every bit boundary. The careful
+  reader's two checks guard its frames. Forward only.
+- `report.py` builds `report.html`, one standalone page: five readers' scores, six milliseconds of every file,
   five clips to hear, the sweeps.
+
+Fourth run, 2026-11-17: the matched reader. It passes 23 of 26, more than any reader yet, and reads
+no wrong frame in the files or the sweeps. It takes `08-noise-6dB`, which nothing had: in the noise
+sweep it reads 97% at 4 dB and 57% at 1 dB, where the careful reader is gone by 10. It holds 8 kHz to
+96 kHz, every DC offset, a 2 kHz high-pass under noise, and speeds from 0.05× to 4×. It goes deaf
+through a 1.5 kHz low-pass at 30 fps (its clock needs the 1s' flips) and at 8× shuttle. Still beaten:
+`13-eq-peak`, where it locks and lets go (the ringing puts a half bit's weight just after each flip and
+the clock settles a quarter bit early), and `16-mp3-32`, read 90 of 100, misses in pairs. A
+decision-taught equalizer in front of the clock was tried and taken out: it and the clock walked off
+together and the clean files began to miss.
 
 Third run, 2026-11-17: are the two checks enough by themselves? GoButton's reader with only the checks
 reads 4 wrong frames, all in `13-eq-peak`, down from 300 (119 misread frames there, and 4 of them had

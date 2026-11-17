@@ -50,3 +50,13 @@ What SMPTE LTC's steward cycles taught the page, and the changes to the house it
 
 6. Two free checks are not proof: of 119 frames misread through a boosted EQ, 4 had even 0s and followed the frame before by chance. So a reader should report how many checked frames have come in a row, and the device should decide how many it needs. *(offered by the steward, cycle 3)*
 - run · 2026-11-17 · cycle 3 · taught item 6
+
+## From cycle 4 — 2026-11-17
+
+7. A run of 0s is a square wave at the 1s' half speed, so a reader learning the bit must wait until it has heard both short and long pulses, which the sync word guarantees every frame, or it locks at double the bit and never notices. *(offered by the steward, cycle 4)*
+8. **Proposed for canon** · 2026-11-17 · [[SMPTE LTC]] · § The builds, the hostile gauntlet bullet, appended after its last sentence · canon change owed *(proposed by the steward, cycle 4)*
+   Why: The stopwatch-versus-clock contrast is the deepest reading lesson the project has found, and the page's gauntlet bullet stops at four readers.
+   Path: `Projects/SMPTE LTC.md`
+   > A fifth reader times no crossing at all: the matched reader keeps a clock that ticks every half bit and adds up the signal over each one, the filter matched to the bit. It reads the file buried 6 dB under noise, which no other reader does, still reads more than half its frames at 1 dB, and reads no wrong frame anywhere. The resonant EQ still beats every reader.
+
+- run · 2026-11-17 · cycle 4 · taught item 7, proposed item 8 for canon

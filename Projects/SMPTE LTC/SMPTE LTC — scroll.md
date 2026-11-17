@@ -15,32 +15,34 @@ forward_vector: "I am SMPTE LTC's scroll — the one page that always opens on w
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-17T13:22:41.171Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T13:31:50.847Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 3 · last ran 2026-11-17 (today)
-- **Plan:** agreed 2026-11-08 (9 days ago) · 2 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** growing · **Steward:** cycle 4 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-11-08 (9 days ago) · 3 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-17 (today) — Add a step that teaches how LTC is used, starting from your own show rig, before the room's middle stops? (`smpte-ltc-steward-009`)
-- **Last commit touching this project:** 2026-11-08 `ef62a9de` — edit(SMPTE LTC): The teaching room's next sentence takes its subject back: The room is to be a walk up, and Enrichment is named once
+- **Last shipped:** 2026-11-17 (today) — A new LTC reader that keeps its own clock instead of timing crossings: 23 of 26 hostile files, the noise file nobody passed, no wrong frame anywhere. (`smpte-ltc-steward-011`)
+- **Last commit touching this project:** 2026-11-17 `748f086c` — steward(SMPTE LTC): cycle 3 — SPINNING UP. HOME: [SMPTE LTC](?deck=STATE&entry=Projects/SMPTE LTC.md)…
 - **Signal:** steady
+- **Left uncommitted:** ⚠ 1 file in the bundle that no cycle declared, so no cycle commits it — `Projects/SMPTE LTC/hostile/report.py`. Look, then commit or clear it.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-17 — cycle 3 · taught item 6
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 4 · taught item 7, proposed item 8 for canon
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 6, from cycle 3 — 2026-11-17 — [[SMPTE LTC — tuning]]
+- **Proposed for canon:** 1 — item 8; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 8, from cycle 4 — 2026-11-17 — [[SMPTE LTC — tuning]]
 
 ### Where this stands
 
-SMPTE LTC is your page on timecode as sound. GoButton's ltc.js is the specification every other build is held to. On 5 November I built the hostile gauntlet: 26 LTC files, each broken one way, plus a scorer. GoButton's reader read 300 wrong times across it, 119 of them through one boosted EQ. In a show, that's a desk jumping, not waiting. On 8 November you said yes to my drafting a fix in my own folder for a GoButton session to land. You also adopted the plan, and the fix belongs to its second step: getting readers through the gauntlet. This cycle I wrote the fix. GoButton's decoder now checks every frame it reads: does it have an even count of 0s, and is it the frame after the last one? It…
+SMPTE LTC is your page on timecode as sound. GoButton's ltc.js is the specification every other build is held to. In November I built the hostile gauntlet, 26 LTC files each broken one way, and put four readers through it. The best of them read no wrong frames but passed only 22 files. Noise 6 dB down, a resonant EQ and a 32 kbps MP3 beat every reader. The plan's second step is to get readers through those files. This cycle I built a different kind of reader. Every earlier reader times the gap between two zero crossings. This one keeps its own clock and adds up the signal over each half bit, which is the filter matched to the bit. It passes 23 of 26, takes the 6 dB noise file and reads no w…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** No hardware reader has heard any of these files, so 'passes' means passes against ltc.js's own encoder, not against a desk. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 1:** No hardware reader has heard any of these files, so 'passes' means passes against ltc.js's own encoder, not against a desk. _(in 4 notes, the latest cycle 4)_
 - **rough since cycle 1:** The rich face's Read step still runs the unchecked reader. _(in 2 notes, the latest cycle 2)_
-- **rough since cycle 1:** Noise 6 dB down and the resonant EQ still defeat every reader. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 1:** The resonant EQ still defeats every reader. _(in 4 notes, the latest cycle 4)_
 
 ### Open asks
 
@@ -57,6 +59,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 4 · taught item 7, proposed item 8 for canon
 - 2026-11-17 — cycle 3 · taught item 6
 - 2026-11-05 — cycle 2 · taught item 4, proposed item 5 for canon
 - 2026-11-05 — cycle 1 · taught item 1, proposed items 2, 3 for canon
@@ -64,6 +67,12 @@ _None._
 ### Owed
 
 _Nothing owed._
+
+### Proposed for canon
+
+_Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
+
+- **8.** 2026-11-17 · [[SMPTE LTC]] · § The builds, the hostile gauntlet bullet, appended after its last sentence — The stopwatch-versus-clock contrast is the deepest reading lesson the project has found, and the page's gauntlet bullet stops at four readers.
 
 <!-- scroll:now:end -->
 
@@ -90,6 +99,51 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="smpte-ltc-steward-011" -->
+### 2026-11-17 — cycle 4 — A new LTC reader that keeps its own clock instead of timing crossings: 23 of 26 hostile files, the noise file nobody passed, no wrong frame anywhere.
+> shipped · the readers step of the plan, two files still unbeaten · steward leans the MP3 next
+
+Every earlier reader is a stopwatch. It times the gap between two crossings and calls it short or long, so anything that moves a crossing moves a bit. The matched reader keeps a clock that ticks every half bit. At each tick it asks which way the signal leaned, on balance, over the whole half bit it just heard. Noise adds up to almost nothing over twenty samples, and a smeared edge still leaves most of the half bit on its own side of zero. Where two half bits differ, a flip happened at the tick, and the quarter bits on either side of it should cancel. Whatever doesn't cancel says how early or late the clock is, and the clock is nudged. Biphase mark flips at every bit boundary, so of the two ways to pair half bits into bits, the right one is the one that breaks that rule less. The careful reader's two checks still guard every frame: an even count of 0s, and the frame after the last one.
+
+The score: 23 of 26 files, and no wrong frame in the files or the sweeps. In the noise sweep it reads 97% of frames at 4 dB and 57% at 1 dB. The careful reader is gone by 10 dB. It holds every sample rate from 8 kHz to 96 kHz, every DC offset, a 2 kHz high-pass under noise, and speeds from 0.05× to 4×.
+
+Two things went wrong on the way and are fixed. First, a run of 0s looks exactly like a run of 1s at half the speed, so the reader now waits until it has heard both kinds of pulse before it starts its clock. The sync word guarantees both kinds in every frame. Second, at 11.025 kHz, rounding pulses to whole samples pulled the bit estimate 16% short, so it now divides samples counted by bits heard.
+
+I also tried an equalizer in front of the clock that learned the line from the reader's own decisions, and took it out. It and the clock pulled against each other and drifted off together, and the clean files began to miss.
+
+**Artifacts:**
+- [The gauntlet's report, now with five readers side by side: scores, six milliseconds of every file, clips to hear, the sweeps, and a section on the matched reader.](Projects/SMPTE LTC/hostile/report.html)
+- [The matched reader, one file, its six steps written at the top for a student to read.](Projects/SMPTE LTC/hostile/matched-reader.mjs)
+- [Its score on the 26 files.](Projects/SMPTE LTC/hostile/results-matched-reader.json)
+- [Its sweeps: noise, sample rate, low-pass, high-pass under noise, DC, speed.](Projects/SMPTE LTC/hostile/sweeps-matched-reader.json)
+- [The run, file by file.](Projects/SMPTE LTC/hostile/run-matched.txt)
+- [The sweeps as text.](Projects/SMPTE LTC/hostile/sweep-matched.txt)
+
+_Five readers through the hostile gauntlet (wrong frames counted across the files and every sweep)_
+| reader | files passed | wrong frames | 6 dB noise | noise sweep: last clean read | reads backward |
+| --- | --- | --- | --- | --- | --- |
+| GoButton (as shipped) | 22 | 300 | no | ~15 dB | no |
+| careful | 22 | 0 | no | 12 dB | no |
+| room | 21 | 102 | no | — | yes |
+| room, checked | 21 | 0 | no | — | yes |
+| matched (new) | 23 | 0 | yes | 4 dB (57% at 1 dB) | no |
+
+_Changed in the workshop:_ README — the fourth run: the matched reader, what it takes, what it loses, the equalizer that was tried and removed.
+_Proposed for canon:_ SMPTE LTC (§ The builds, the hostile gauntlet bullet, appended after its last sentence) — The stopwatch-versus-clock contrast is the deepest reading lesson the project has found, and the page's gauntlet bullet stops at four readers.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ No hardware reader has heard any of these files, so 'passes' means passes against ltc.js's own encoder, not against a desk. The resonant EQ still defeats every reader. The matched reader goes deaf through a 1.5 kHz low-pass at 30 fps and at 8× shuttle. The 'room' rows' noise column is left blank because I didn't re-read their sweep for this table.
+
+_Next moves named:_ The 32 kbps MP3: its misses come in pairs, one damaged frame and then the next, which has no checked frame before it to follow. A 'follows' check that counts forward from the last good frame should get it to a pass. · The resonant EQ: decide each pair of half bits as a sequence rather than one at a time, or weight the clock's error by where a half bit's energy sits, so the ringing can't pull the clock early. · Then the room's Read step can show the stopwatch and the clock side by side on the same broken file.
+<sub>`smpte-ltc-steward-011` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-86adc8e79c" -->
+### 2026-11-17 — cycle 4
+
+taught item 7, proposed item 8 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="smpte-ltc-steward-009" -->
 ### 2026-11-17 — cycle 3 — Add a step that teaches how LTC is used, starting from your own show rig, before the room's middle stops?
 > still working · two-check patch drafted · steward leans adopt
