@@ -1,0 +1,427 @@
+{
+ "card": "house-bass",
+ "synth": "Serum 2 (VST3, hosted in pedalboard)",
+ "schedule": [
+  [
+   0.29193548387096774,
+   0.4129032258064516
+  ],
+  [
+   0.7758064516129033,
+   0.8967741935483872
+  ],
+  [
+   1.2596774193548388,
+   1.3806451612903228
+  ],
+  [
+   1.7435483870967743,
+   1.8645161290322583
+  ]
+ ],
+ "velocity": 100,
+ "checks": {
+  "osc_a_frame": "5",
+  "even_vs_3rd_db": -101.2,
+  "3rd_vs_1st_db": -9.6,
+  "slot_off_hz": [
+   135.3,
+   76.7
+  ],
+  "slot_on_hz": [
+   211.4,
+   76.7
+  ],
+  "slot_on_env2_decay_600ms_hz": [
+   255.9,
+   98.5
+  ],
+  "filter_open_off_on_hz": [
+   [
+    331.9,
+    140.4
+   ],
+   [
+    331.9,
+    140.4
+   ]
+  ],
+  "slot_is_env2_to_cutoff": true
+ },
+ "as_mapped": {
+  "chose": {
+   "cutoff_hz": 300.0,
+   "fenv_decay_s": 0.0986,
+   "fenv_depth_oct": 3.5,
+   "resonance": 0.4,
+   "aenv_s": [
+    0.0154,
+    0.575,
+    0.7,
+    0.0986
+   ],
+   "as_serum_shows": {
+    "mono_toggle": "On",
+    "a_wt_pos": "5",
+    "sub_shape": "Sine",
+    "sub_octave_oct": "-1",
+    "sub_level": "53% [-11.0 dB]",
+    "a_level": "75% [-5.0 dB]",
+    "filter_1_type": "MG Low 24",
+    "filter_1_freq_hz": "304",
+    "filter_1_res": "40",
+    "env_1_attack": "15 ms",
+    "env_1_decay": "575 ms",
+    "env_1_sustain": "-3.1 dB",
+    "env_1_release": "99 ms",
+    "env_2_attack": "0.0 ms",
+    "env_2_decay": "99 ms",
+    "env_2_sustain": "--",
+    "env_2_release": "99 ms",
+    "mod_1_amount": "31%"
+   }
+  },
+  "err": [
+   0.4537916641241675,
+   8.500927925109863
+  ]
+ },
+ "fitted": {
+  "chose": {
+   "cutoff_hz": 300.0,
+   "fenv_decay_s": 0.0986,
+   "fenv_depth_oct": 3.5,
+   "resonance": 0.4,
+   "aenv_s": [
+    0.0154,
+    0.575,
+    0.7,
+    0.15
+   ],
+   "as_serum_shows": {
+    "mono_toggle": "On",
+    "a_wt_pos": "5",
+    "sub_shape": "Sine",
+    "sub_octave_oct": "-1",
+    "sub_level": "53% [-11.0 dB]",
+    "a_level": "75% [-5.0 dB]",
+    "filter_1_type": "MG Low 24",
+    "filter_1_freq_hz": "304",
+    "filter_1_res": "40",
+    "env_1_attack": "15 ms",
+    "env_1_decay": "575 ms",
+    "env_1_sustain": "-3.1 dB",
+    "env_1_release": "150 ms",
+    "env_2_attack": "0.0 ms",
+    "env_2_decay": "99 ms",
+    "env_2_sustain": "--",
+    "env_2_release": "150 ms",
+    "mod_1_amount": "31%"
+   }
+  },
+  "err": [
+   0.4587047049189295,
+   3.234309196472168
+  ],
+  "pluck_grid": [
+   {
+    "fenv_decay_s": 0.05,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.535
+   },
+   {
+    "fenv_decay_s": 0.05,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.526
+   },
+   {
+    "fenv_decay_s": 0.05,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.518
+   },
+   {
+    "fenv_decay_s": 0.05,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.51
+   },
+   {
+    "fenv_decay_s": 0.05,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.504
+   },
+   {
+    "fenv_decay_s": 0.05,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.499
+   },
+   {
+    "fenv_decay_s": 0.05,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.495
+   },
+   {
+    "fenv_decay_s": 0.07,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.515
+   },
+   {
+    "fenv_decay_s": 0.07,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.502
+   },
+   {
+    "fenv_decay_s": 0.07,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.492
+   },
+   {
+    "fenv_decay_s": 0.07,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.483
+   },
+   {
+    "fenv_decay_s": 0.07,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.476
+   },
+   {
+    "fenv_decay_s": 0.07,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.471
+   },
+   {
+    "fenv_decay_s": 0.07,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.466
+   },
+   {
+    "fenv_decay_s": 0.0986,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.491
+   },
+   {
+    "fenv_decay_s": 0.0986,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.477
+   },
+   {
+    "fenv_decay_s": 0.0986,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.464
+   },
+   {
+    "fenv_decay_s": 0.0986,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.454
+   },
+   {
+    "fenv_decay_s": 0.0986,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.446
+   },
+   {
+    "fenv_decay_s": 0.0986,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.439
+   },
+   {
+    "fenv_decay_s": 0.0986,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.434
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.473
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.456
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.444
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.435
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.428
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.424
+   },
+   {
+    "fenv_decay_s": 0.13,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.421
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.464
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.45
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.44
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.434
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.432
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.432
+   },
+   {
+    "fenv_decay_s": 0.16,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.434
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.464
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.455
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.45
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.45
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.452
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.456
+   },
+   {
+    "fenv_decay_s": 0.2,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.464
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 2.0,
+    "brightness_oct": 0.472
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 2.5,
+    "brightness_oct": 0.467
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 3.0,
+    "brightness_oct": 0.467
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 3.5,
+    "brightness_oct": 0.472
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 4.0,
+    "brightness_oct": 0.481
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 4.5,
+    "brightness_oct": 0.492
+   },
+   {
+    "fenv_decay_s": 0.25,
+    "fenv_depth_oct": 5.0,
+    "brightness_oct": 0.505
+   }
+  ],
+  "release_grid": [
+   {
+    "release_s": 0.0986,
+    "loudness_db": 8.5
+   },
+   {
+    "release_s": 0.12,
+    "loudness_db": 6.01
+   },
+   {
+    "release_s": 0.15,
+    "loudness_db": 3.23
+   },
+   {
+    "release_s": 0.18,
+    "loudness_db": 4.1
+   },
+   {
+    "release_s": 0.22,
+    "loudness_db": 7.94
+   },
+   {
+    "release_s": 0.27,
+    "loudness_db": 11.64
+   },
+   {
+    "release_s": 0.33,
+    "loudness_db": 14.65
+   }
+  ]
+ },
+ "read_back": {
+  "filter_1_type": "MG Low 24",
+  "filter_1_freq_hz": "304",
+  "env_2_decay": "99 ms",
+  "env_2_sustain": "--",
+  "mod_1_amount": "31%",
+  "a_wt_pos": "5",
+  "mono_toggle": "On",
+  "same_sound_rms_diff_db": -240.0
+ },
+ "features": {
+  "reference": {
+   "peak_dbfs": -3.62,
+   "rms_dbfs": -15.14,
+   "centroid_hz": 105.4
+  },
+  "serum": {
+   "peak_dbfs": -14.06,
+   "rms_dbfs": -24.47,
+   "centroid_hz": 91.7
+  }
+ },
+ "err_units": "brightness: RMS octaves between the two centroid lines; loudness: RMS dB between the two level lines (each against its own peak)"
+}

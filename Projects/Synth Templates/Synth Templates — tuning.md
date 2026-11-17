@@ -36,3 +36,8 @@ What Synth Templates's steward cycles taught the page, and the changes to the ho
 
 3. A preset for a synth I can't host can still be grounded in files on this Mac: the wavetable's own WAV gives the frame order, and the defaults every factory preset carries (velocity on the amp at 50 %, bend on pitch at 1/24) name the hidden modulation slots. *(offered by the steward, cycle 3)*
 - run · 2026-11-17 · cycle 3 · taught item 3
+
+## From cycle 4 — 2026-11-17
+
+4. Serum 2's state is readable CBOR, so a routing can be written as data and proved by rendering; Serum 1's routing is opaque, and borrowing a factory preset's slot by guesswork found the wrong slot twice. *(offered by the steward, cycle 4)*
+- run · 2026-11-17 · cycle 4 · taught item 4
