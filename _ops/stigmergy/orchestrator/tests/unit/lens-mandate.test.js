@@ -125,12 +125,32 @@ describe('buildLensMandate — read SUBJECT through GLASS', () => {
     expect(r.full).toContain("doorway: '");
   });
 
+  test('words put in a real person\'s mouth are marked where they stand, and a real quotation keeps its source', () => {
+    // Loudon, 2026-11-11, on whether a glass for a living person may invent a
+    // scene or a quotation: "yes with attribution" ([[The Lens — tuning]] item 13).
+    makePalace();
+    const r = buildLensMandate({ palaceRoot: root, glassTitle: 'Glass Page', subjectTitle: 'Subject Page' });
+    expect(r.full).toMatch(/Words in a real person's mouth, only with attribution/);
+    expect(r.full).toMatch(/living or dead/);
+    expect(r.full).toMatch(/Mark each invented line as yours where it stands/);
+    expect(r.full).toMatch(/A real quotation keeps its source/);
+    expect(r.full).toMatch(/An invented line left unmarked is a fabricated quote/);
+    // the rule sits inside the voice section, before the procedure
+    const voiceAt = r.full.indexOf('## Your voice');
+    const ruleAt = r.full.indexOf("Words in a real person's mouth");
+    const procAt = r.full.indexOf('## The procedure');
+    expect(voiceAt).toBeGreaterThan(-1);
+    expect(ruleAt).toBeGreaterThan(voiceAt);
+    expect(procAt).toBeGreaterThan(ruleAt);
+  });
+
   test('voice: false keeps the careful read: no voice section, no distortion field', () => {
     makePalace();
     const r = buildLensMandate({ palaceRoot: root, glassTitle: 'Glass Page', subjectTitle: 'Subject Page', voice: false });
     expect(r.ok).toBe(true);
     expect(r.full).not.toContain('## Your voice');
     expect(r.full).not.toContain('distortion_check');
+    expect(r.full).not.toMatch(/Words in a real person's mouth/);
     expect(r.full).toMatch(/Attempt 2 — the fidelity self-check/);
     expect(r.full).toMatch(/would my reading actually change/);
     expect(r.full).not.toContain('**doorway**');
