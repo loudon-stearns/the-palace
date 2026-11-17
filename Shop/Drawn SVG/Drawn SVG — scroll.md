@@ -50,6 +50,117 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shop-stable-audio-open" -->
+### 2026-11-17 — the second light enrichment round, fifty pieces
+
+the second light enrichment round, fifty pieces
+
+Placed on 2026-11-17 as a proposal in Stable Audio Open's rich face, the sound with its picture. Challenged once (remake the caption), remade once (the file was also lowered 1.40 dB to sit under the house ceiling), second verdict keep. Nobody has heard it. See challenge.md beside this file.
+
+**What each piece claims, written before it was made:**
+- one-drop-a-second: Asked in words for one drop a second, the model does not keep the rate: more onsets than were asked, bunched in bursts. Asked for a single drop, it gives one that the hand can cut and place on a one-second grid, so the rate is kept by the hand, exactly by construction. (On the page: this sentence, 'place it at the rate yourself', and the recipe it points to.)
+
+**Each piece, and who has heard or seen it:**
+- **one-drop-a-second**, for Stable Audio Open, A rate or a count asked for in words is not held either. "One single drop falling into water every second" came back with 40 to 69 onsets in 26 s over four seeds. Generate one event and place it at the rate yourself (§ Recipes). · Stable Audio Open (small-sfx): the drip as asked in words, seed 1935, 26 s; one drop alone over seeds 1932-1935, 4 s → hand (Sound from Code): cut one drop by third.py's rule, place it once a second, join the halves, measure on the saved file → Drawn SVG: two lanes from the same arrays, onsets by the page's own detector → hand (ffmpeg's role, by afconvert): the m4a · nobody has heard or seen this yet
+
+Nobody has heard or seen this yet.
+
+**Artifacts:**
+- [one-drop-a-second: one-drop-a-second.m4a](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/one-drop-a-second.m4a)
+- [one-drop-a-second: one-drop-a-second-picture.svg](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/one-drop-a-second-picture.svg)
+- [one-drop-a-second: one-drop-a-second-picture.png](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/one-drop-a-second-picture.png)
+- [one-drop-a-second: report.json](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/report.json)
+- [what made each file, and who has heard or seen it](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/provenance.json)
+- [the jobs as written](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/jobs.json)
+
+<sub>sketch, 1 job · every job made through the bench, 4 batches from 2026-11-17 by SAO light maker at 23d00f98 · folder Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/ · presented 2026-11-17 by the bench (Shop/shop.mjs present) on Drawn SVG's scroll</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shop-search-before-you-build" -->
+### 2026-11-17 — the second light enrichment round
+
+the second light enrichment round: Search Before You Build
+
+The job same-miss is the piece: placed on 2026-11-17 as a proposal in Search Before You Build's rich face, after a second verdict of keep. The job upstream is the first version; its challenger sent it back, and its claim that the bracket was written again from scratch is wrong. It is kept here, not placed. See challenge.md beside this file.
+
+**What each piece claims, written before it was made:**
+- upstream: The answer was already in the palace's records before the miss: the near/far bracket was committed to bench.py 25 days before 2026-07-09 (and copied into two more proofs), and lib/comfy.py 13 days before. The 25 and 13 days are the maker's count from git, not the page's.
+- same-miss: Eight days before the 2026-07-09 miss, the same flat depth was hit and fixed in the Figure Rig, and said in words ("depth is flat") in three commit messages on 2026-07-01; the bracket itself had been in code since 2026-06-13. Before the fix, no .md page line both named the range and warned of the flat; the first did so on 2026-07-09 11:48. The claim is the maker's, from git; the page names only bench.py.
+
+**Each piece, and who has seen it:**
+- **upstream**, for Search Before You Build, The knowledge wasn't missing — retrieval was manual, and it made Loudon the index. · hand: make.py reads git log / git grep at 8156fa3d^ and GenAI Camera/renders.json into data.json, and crops two existing depth plates → Drawn SVG: the timeline and the two small plates drawn from data.json, rasterised by headless Chrome at 2x · nobody has seen this yet
+- **same-miss**, for Search Before You Build, The knowledge wasn't missing — retrieval was manual, and it made Loudon the index. · hand: make2.py gather reads git at 8156fa3d^ (code, commit messages, .md lines) into sources-v2.json → Drawn SVG: make2.py draws three lanes (code, commits, pages) from sources-v2.json only, recomputing each number, rasterised by headless Chrome at 2x · nobody has seen this yet
+
+Nobody has seen any of these yet.
+
+**Artifacts:**
+- [upstream: upstream.svg](Enrichment/light-round-2026-11-2/pieces/Search Before You Build/upstream.svg)
+- [upstream: upstream.png](Enrichment/light-round-2026-11-2/pieces/Search Before You Build/upstream.png)
+- [upstream: data.json](Enrichment/light-round-2026-11-2/pieces/Search Before You Build/data.json)
+- [same-miss: same-miss.svg](Enrichment/light-round-2026-11-2/pieces/Search Before You Build/same-miss.svg)
+- [same-miss: same-miss.png](Enrichment/light-round-2026-11-2/pieces/Search Before You Build/same-miss.png)
+- [same-miss: facts-v2.json](Enrichment/light-round-2026-11-2/pieces/Search Before You Build/facts-v2.json)
+- [what made each file, and who has heard or seen it](Enrichment/light-round-2026-11-2/pieces/Search Before You Build/provenance.json)
+- [the jobs as written](Enrichment/light-round-2026-11-2/pieces/Search Before You Build/jobs.json)
+
+<sub>sketch, 2 jobs · every job made through the bench, 4 batches from 2026-11-17 by sbyb-maker at 23d00f98, 8c14d3f6 · folder Enrichment/light-round-2026-11-2/pieces/Search Before You Build/ · presented 2026-11-17 by the bench (Shop/shop.mjs present) on Drawn SVG's scroll</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shop-walk-ceremony" -->
+### 2026-11-17 — the second light enrichment round
+
+the second light enrichment round: Walk Ceremony, one piece
+
+The job one-step is the piece: placed on 2026-11-17 as a proposal in Walk Ceremony's rich face, after a second verdict of keep. The job every-door is the first version; its challenger sent it back (its numbers held, its title and two of its sentences did not) and it is kept here, not placed. See challenge.md beside this file.
+
+**What each piece claims, written before it was made:**
+- every-door: Of the palace's 2,496 typed links (Palace Map, 2026-11-16), nearly half (1,202) are the open connects-to; the three types the page gives a question for are about a fifth (507); about a third (787) are types the page never names.
+- one-step: One step of a walk from this page: its only typed link leads to The Cooperation Path, which has seven ways out — five connects-to, one deepens, one spawned — and each type says what attention to bring; the page gives it for connects-to, SCHEMA's link table for the other two. Across the palace, 1,202 of 2,496 typed links are connects-to (Palace Map, 2026-11-16).
+
+**Each piece, and who has seen it:**
+- **every-door**, for Walk Ceremony, The link type is a suggestion about what kind of attention to bring: a `mirrors` link asks you to hold two things together and feel their structural resonance; an `enables` link asks what becomes possible here that wasn't possible before; a `couples-with` link asks how these two things move together. · hand: the Palace Map full build of 2026-11-16 (_ops/swarm/palace-map.py, built at f2c1efdb), its link table copied here → hand: a second count, the same 333 entries' frontmatter read as YAML at f2c1efdb; the script stops if the two disagree → Drawn SVG → hand: headless Chrome rasterises the SVG to PNG at 2x · nobody has seen this yet
+- **one-step**, for Walk Ceremony, The link type is a suggestion about what kind of attention to bring: a `mirrors` link asks you to hold two things together and feel their structural resonance; an `enables` link asks what becomes possible here that wasn't possible before; a `couples-with` link asks how these two things move together. · hand: the links out of Walk Ceremony and The Cooperation Path from the Palace Map full build of 2026-11-16 (built at f2c1efdb), checked against The Cooperation Path's frontmatter at the same commit → hand: each page's own icon from its bundle, used as a material → Drawn SVG → hand: headless Chrome rasterises the SVG to PNG at 2x · nobody has seen this yet
+
+Nobody has seen any of these yet.
+
+**Artifacts:**
+- [every-door: Walk Ceremony — every door in the palace.svg](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/Walk Ceremony — every door in the palace.svg)
+- [every-door: Walk Ceremony — every door in the palace.png](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/Walk Ceremony — every door in the palace.png)
+- [every-door: counts.json](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/counts.json)
+- [one-step: Walk Ceremony — one step of a walk.svg](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/Walk Ceremony — one step of a walk.svg)
+- [one-step: Walk Ceremony — one step of a walk.png](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/Walk Ceremony — one step of a walk.png)
+- [one-step: step.json](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/step.json)
+- [what made each file, and who has heard or seen it](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/provenance.json)
+- [the jobs as written](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/jobs.json)
+
+<sub>sketch, 2 jobs · every job made through the bench, 2 batches from 2026-11-17 by walk-ceremony maker at 23d00f98 · folder Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/ · presented 2026-11-17 by the bench (Shop/shop.mjs present) on Drawn SVG's scroll</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shop-like-water" -->
+### 2026-11-17 — the second light enrichment round
+
+the second light enrichment round: Like Water
+
+Placed on 2026-11-17 as a proposal in Like Water's rich face. Challenged once (keep, with word fixes), remade once, second verdict keep; see challenge.md beside this file.
+
+**What each piece claims, written before it was made:**
+- one-rule-two-grounds: The detour is not a second rule. Fifteen drops follow one rule, step downhill, on two grounds that differ only by a mound; the code that moves them never names the rock, and the paths bend around it anyway.
+
+**Each piece, and who has seen it:**
+- **one-rule-two-grounds**, for Like Water, Water never tries to go through a rock; it tries to go downward, and the detour around the rock is simply the form that downwardness takes here. · Drawn SVG → hand: make.py builds the height function, runs steepest descent with a fixed step for each drop on both grounds, draws the ground's contours and the paths as SVG, rasterises the PNG at 2x through headless Chrome, and writes the checks · nobody has seen this yet
+
+Nobody has seen this yet.
+
+**Artifacts:**
+- [one-rule-two-grounds: like-water.svg](Enrichment/light-round-2026-11-2/pieces/Like Water/like-water.svg)
+- [one-rule-two-grounds: like-water.png](Enrichment/light-round-2026-11-2/pieces/Like Water/like-water.png)
+- [one-rule-two-grounds: like-water-check.json](Enrichment/light-round-2026-11-2/pieces/Like Water/like-water-check.json)
+- [what made each file, and who has heard or seen it](Enrichment/light-round-2026-11-2/pieces/Like Water/provenance.json)
+- [the jobs as written](Enrichment/light-round-2026-11-2/pieces/Like Water/jobs.json)
+
+<sub>sketch, 1 job · every job made through the bench, 3 batches from 2026-11-17 by Like Water maker at 23d00f98 · folder Enrichment/light-round-2026-11-2/pieces/Like Water/ · presented 2026-11-17 by the bench (Shop/shop.mjs present) on Drawn SVG's scroll</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="tests-2026-11-15" -->
 ### 2026-11-15 — The test list
 

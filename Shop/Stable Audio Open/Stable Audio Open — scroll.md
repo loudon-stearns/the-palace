@@ -65,6 +65,22 @@ Try more kinds of audio, one small render and a listen each, logged in the tunin
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shop-stable-audio-open" -->
+### 2026-11-17 — the second light enrichment round, fifty pieces
+
+Made for this page through the Shop, beside: A rate or a count asked for in words is not held either. "One single drop falling into water every second" came back with 40 to 69 onsets in 26 s over four seeds. Generate one event and place it at the rate yourself (§ Recipes).. Nothing here is wired into the page; that is still the page's call.
+
+The whole round, with what each piece claims and who has heard or seen it, is on [Stable Audio Open's scroll](Shop/Stable Audio Open/Stable Audio Open — scroll.md) and [Drawn SVG's scroll](Shop/Drawn SVG/Drawn SVG — scroll.md). Nobody has heard or seen this yet.
+
+**Artifacts:**
+- [one-drop-a-second: one-drop-a-second.m4a](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/one-drop-a-second.m4a)
+- [one-drop-a-second: one-drop-a-second-picture.svg](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/one-drop-a-second-picture.svg)
+- [one-drop-a-second: one-drop-a-second-picture.png](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/one-drop-a-second-picture.png)
+- [one-drop-a-second: report.json](Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/report.json)
+
+<sub>a link from the Shop · 1 piece for Stable Audio Open · folder Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/ · presented 2026-11-17 by the bench (Shop/shop.mjs present)</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="run-aba3513650" -->
 ### 2026-11-15 — the third Oliveros room with the hum 12 dB lower, re-rendered from the same seeds (`proofs/2026-11-15-oliveros-hum-lowered/`), small-sfx, sketch · nothing new: the same takes were chosen · unheard
 

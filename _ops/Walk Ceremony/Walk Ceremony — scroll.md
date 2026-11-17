@@ -50,6 +50,24 @@ _Loudon's standing direction for this ceremony — never regenerated. It holds u
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shop-walk-ceremony" -->
+### 2026-11-17 — the second light enrichment round
+
+Made for this page through the Shop, beside: The link type is a suggestion about what kind of attention to bring: a `mirrors` link asks you to hold two things together and feel their structural resonance; an `enables` link asks what becomes possible here that wasn't possible before; a `couples-with` link asks how these two things move together.. Nothing here is wired into the page; that is still the page's call.
+
+The whole round, with what each piece claims and who has seen it, is on [Drawn SVG's scroll](Shop/Drawn SVG/Drawn SVG — scroll.md). Nobody has seen any of these yet.
+
+**Artifacts:**
+- [every-door: Walk Ceremony — every door in the palace.svg](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/Walk Ceremony — every door in the palace.svg)
+- [every-door: Walk Ceremony — every door in the palace.png](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/Walk Ceremony — every door in the palace.png)
+- [every-door: counts.json](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/counts.json)
+- [one-step: Walk Ceremony — one step of a walk.svg](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/Walk Ceremony — one step of a walk.svg)
+- [one-step: Walk Ceremony — one step of a walk.png](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/Walk Ceremony — one step of a walk.png)
+- [one-step: step.json](Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/step.json)
+
+<sub>a link from the Shop · 2 pieces for Walk Ceremony · folder Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/ · presented 2026-11-17 by the bench (Shop/shop.mjs present)</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="version-9f9d1cf1b0155086451f55326cf958dc5c487760" -->
 ### 2026-10-15 — the spec moved to v1.3
 
