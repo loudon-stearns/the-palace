@@ -41,3 +41,8 @@ What The Gallery's steward cycles taught the page, and the changes to the house 
 
 4. A sweep one level deep turns umbrella folders into hundreds of candidates, mostly two-file Live sketches, so gather the small ones into one sketchbook a year before they count as works, or the line drowns. *(offered by the steward, cycle 3)*
 - run · 2026-11-17 · cycle 3 · taught item 4
+
+## From cycle 4 — 2026-11-17
+
+5. A palace page's last commit is a last-touched date just like a Dropbox file's: weaves and sweeps edit every page, so end a palace work at a date its own page or scroll names, and treat git's last date as the latest it could be. *(offered by the steward, cycle 4)*
+- run · 2026-11-17 · cycle 4 · taught item 5

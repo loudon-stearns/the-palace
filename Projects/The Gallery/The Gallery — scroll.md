@@ -15,35 +15,36 @@ forward_vector: "I am The Gallery's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-17T13:52:55.145Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T13:56:16.513Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 3 · last ran 2026-11-17 (today)
-- **Plan:** agreed 2026-11-03 (14 days ago) · 5 made things since
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** seed · **Steward:** cycle 4 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-11-03 (14 days ago) · 7 made things since
+- **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-17 (today) — I swept inside the big Dropbox folders and sorted what I found into 149 draft works, from a 2008 synth piece to this month's tracks with Valen. (`the-gallery-steward-008`)
-- **Last commit touching this project:** 2026-11-17 `fee06757` — steward(The Gallery): cycle 2 — SPINNING UP. HOME: [The Gallery](?deck=STATE&entry=Projects/The Gallery…
+- **Last shipped:** 2026-11-17 (today) — The line is as full as files can make it. Can we hold the era-map conversation, about an hour, with the sketch open? (`the-gallery-steward-011`)
+- **Last commit touching this project:** 2026-11-17 `f1584808` — steward(The Gallery): cycle 3 — SPINNING UP. HOME: [The Gallery](?deck=STATE&entry=Projects/The Gallery…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-17 — cycle 3 · taught item 4
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 4 · taught item 5
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 4, from cycle 3 — 2026-11-17 — [[The Gallery — tuning]]
+- **Latest lesson:** item 5, from cycle 4 — 2026-11-17 — [[The Gallery — tuning]]
 
 ### Where this stands
 
-The Gallery is the project that will hold everything you've made, each work dated and sourced and drawn as one line you can walk. Your order was to build the system, fill it from what already exists, then interview you and your collaborators. The media store tool works on a test folder. My question about its first real move into your Dropbox is still open, so this cycle I left the Dropbox untouched and did the filling step instead. I swept one level inside the biggest folders (_Projects Archive, _Projects Current, Emerson, the two Valen years, Classes, _Online, MG Reel) without downloading a file. Then I sorted what turned up into a draft list of 149 works, up from 39, and redrew the sketch…
+The Gallery is the project that will hold everything you've made, with each work dated and sourced and drawn as one line you can walk. Your order was to build the system first, then fill it from what already exists, then interview you and the people you made things with. Earlier today I swept your Dropbox, without downloading a file, into a draft list of 149 works. The media-store tool works on a test folder, and my question about its first real move into your Dropbox is still open. This cycle I finished the filling step from the other side. I added every project in the palace that is a made thing, 41 of them, with dates the palace and git actually hold. Then I drew blue threads from each w…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 2:** Every date is a guess from file dates, and the era-map conversation is still unheld. _(in 2 notes, the latest cycle 3)_
+- **rough since cycle 2:** Every date is a guess from file dates, and the era-map conversation is still unheld. _(in 3 notes, the latest cycle 4)_
 
 ### Open asks
 
 - `the-gallery-steward-006` — directional_decision · posted 2026-11-17 · options: FIRST-PUT · COPY-ONLY · NOT-YET
+- `the-gallery-steward-011` — interactive_session · posted 2026-11-17 · options: NOT-NOW · STEER
 
 ### Answered, not yet consumed
 
@@ -55,6 +56,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 4 · taught item 5
 - 2026-11-17 — cycle 3 · taught item 4
 - 2026-11-17 — cycle 2 · taught item 2, proposed item 3 for canon
 - 2026-11-03 — cycle 1 · taught item 1
@@ -98,6 +100,52 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="the-gallery-steward-011" -->
+### 2026-11-17 — cycle 4 — The line is as full as files can make it. Can we hold the era-map conversation, about an hour, with the sketch open?
+> still working · 190 works and 26 threads drawn · steward leans holding the session soon
+
+The Gallery is your whole life of made things on one line. Your order was to build the system, fill it from what exists, then interview you. The filling is done as far as files can take it: 149 works from the drive and 41 from the palace, with threads showing which led to which. The note I keep leaving rough is the same every time: every old date is a guess, and the era-map conversation hasn't happened yet. That's the one thing I can't do alone. The questions you approved as an agenda on 2026-11-03 are in my workshop. A session beats cards here because each answer changes the next question. You name an era, I redraw it in front of you, and you correct it on the spot. I'll keep working without you if you'd rather wait.
+
+**Artifacts:**
+- [the sketch we would work from](Projects/The Gallery/The Gallery — sketch — timeline.html)
+- [the agenda you approved on 2026-11-03](Projects/The Gallery/workshop/era-map interview — questions — draft.md)
+- [sketch-check-v2.png](Projects/The Gallery/workshop/sketch-check-v2.png)
+<sub>`the-gallery-steward-011` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="the-gallery-steward-010" -->
+### 2026-11-17 — cycle 4 — I added the palace's own 41 projects to the line, 190 works now, and drew 26 threads showing which work led to which.
+> shipped · the fill step now covers Dropbox and the palace · steward leans the era-map conversation next
+
+Your entry says the line should read as the root system under the palace, not as a list of credits. Until today the sketch had no roots. It had bars, but nothing showed one work leading to another. Now it does, and every thread comes from something written down. Eight threads run from old work into the palace. Your synthesis lessons (2009), the Synthesis MOOC (2016) and the Synthesis Notes all lead into Synth Templates. A 2013 voice instrument leads into Talking Keyboard, a 2020 WaveTable Creator into the wavetable libraries, the Emerson thesis into Meaning and the Link, and that paper into the palace. Eighteen more run between palace projects, read from the typed links on their own pages. The busiest root is Generative Sample Libraries, which grew Talking Keyboard, Phoneme Choir, the wavetable libraries and the Splice Forge. Click any bar to light its threads; the card lists what it grew from and what it led to. 'The palace years' zooms to 2026, where the 41 palace projects sit with month marks. Pages that run the palace itself (stewardship, the board, the weaves) fold into the one work 'The Palace'. Idea pages like Wallpaper Groups stay out, because they are ideas, not works.
+
+**Artifacts:**
+- [the sketch, now 190 works with threads; click a bar to light what it grew from and led to](Projects/The Gallery/The Gallery — sketch — timeline.html)
+- [the whole line, 2006 to now: long threads from the drive years into 2026](Projects/The Gallery/workshop/sketch-check-v3.png)
+- [the palace years, zoomed to 2026 by month](Projects/The Gallery/workshop/sketch-check-v3-palace.png)
+- [the draft catalog: 149 from the drive, 41 from the palace, each thread with its reason](Projects/The Gallery/workshop/catalog-draft-v3.json)
+- [the sweep: palace projects into works, and threads only from what the pages say](Projects/The Gallery/workshop/palace-sweep.py)
+- [now draws the v3 catalog by default](Projects/The Gallery/workshop/build-sketch.py)
+
+_Where the 26 threads come from_
+| source | threads | example |
+| --- | --- | --- |
+| drive work → palace, named by me | 8 | Synthesis lessons, 2009 → Synth Templates |
+| palace page → palace page, from its own typed links | 18 | Generative Sample Libraries → Talking Keyboard |
+
+_Left rough:_ Every date is a guess from file dates, and the era-map conversation is still unheld. The palace bars are no better at the far end: a project's last commit is often a sweep's edit, not work on it, so 'finished in November' can just mean touched in November.
+
+_Next moves named:_ Hold the era-map conversation, which only you can do: it turns the amber guesses blue and names the eras the line still lacks. · Once you answer the open media-store question, make the first real move into Dropbox and test one public link. · Ask you, inside that conversation, about the threads I could not see: does the REEL lead to Haptic Handwheel, or the Iris presets to Generative Preset Development? I drew neither, because no page says so.
+<sub>`the-gallery-steward-010` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-de417ca12c" -->
+### 2026-11-17 — cycle 4
+
+taught item 5
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="the-gallery-steward-008" -->
 ### 2026-11-17 — cycle 3 — I swept inside the big Dropbox folders and sorted what I found into 149 draft works, from a 2008 synth piece to this month's tracks with Valen.
 > shipped · catalog drafted, sketch redrawn · store question still open · steward leans era-map next
