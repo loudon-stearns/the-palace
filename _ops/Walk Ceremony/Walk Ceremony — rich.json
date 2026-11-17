@@ -1,0 +1,83 @@
+{
+  "title": "Walk Ceremony — rich",
+  "born": "2026-11-17",
+  "links": [
+    {
+      "target": "[[Walk Ceremony]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Light Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Walk Ceremony's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Walk Ceremony",
+  "tier": "sketch",
+  "made": "2026-11-17",
+  "round": 1,
+  "note": "A light face, from the second light round (2026-11-17): one small thing beside one sentence. Made as if it were the only page: one maker who read the page whole, one challenger who was given nothing of the maker's reasoning, one remake, and a second verdict by the same challenger. Made in Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/, where the script, the job and its provenance stay; placed here by the Concierge, with what made it copied from that provenance and not guessed. Loudon approved the line it was made from (\"Yes, make them\", 2026-11-17, relayed by the working session) and has not seen or heard the finished piece. The section is a proposal until he approves it.",
+  "sections": [
+    {
+      "heading": "How to Walk",
+      "made_against": "4d7c959b3f25",
+      "made": "2026-11-17",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-17",
+        "by": "maker · the walk-ceremony maker, a dispatched child · second light round; placed by the Concierge",
+        "round": "light-round-2026-11-2"
+      },
+      "challenge": {
+        "date": "2026-11-17",
+        "by": "challenger · second light round, one challenger for this one piece · read-only dispatch; condensed by the working session in Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/challenge.md",
+        "verdicts": [
+          {
+            "file": "Walk Ceremony — rich — one step of a walk.png",
+            "verdict": "remake",
+            "why": "Of the first version, \"Every door in the palace\", which stays in the workshop: every number checked out and the words did not. On this page a door is the entry a walk starts from, so the title misled; \"a walker meets it with no instruction\" is false of the palace, since SCHEMA's table and the Jewel give the attention; the 2,497 line gave the wrong reason; it was tall, about seventy words, and mostly a chart."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Walk Ceremony — rich — one step of a walk.png",
+            "date": "2026-11-17",
+            "what": "A new piece in its place, \"One step of a walk\": the one typed link out of this page, to The Cooperation Path, and the seven that lead on from there, each group with the attention its type asks for.",
+            "by": "the walk-ceremony maker, the same maker",
+            "second_verdict": "keep: Judged as a new piece; every link, count and quoted phrase recomputed and matching. The step shows none of the three types the page gives a question for, a cost that is real, owned, and not enough to send it back, since the page's only link was not cherry-picked. SCHEMA's \"traceable lineage\" for `spawned` is a stretch as an attention: SCHEMA gives it as a reason for writing the link. Offered and not required: The Cooperation Path has its own question at each of these five stops, which would give the reader a question per step."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Walk Ceremony — rich — one step of a walk.png",
+          "origin": "made",
+          "by": "hand: the links out of Walk Ceremony and The Cooperation Path from the Palace Map full build of 2026-11-16 (built at f2c1efdb), checked against The Cooperation Path's frontmatter at the same commit → hand: each page's own icon from its bundle, used as a material → Drawn SVG → hand: headless Chrome rasterises the SVG to PNG at 2x · bench job one-step, 2026-11-17, by the walk-ceremony maker · copied from Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/provenance.json · heard or seen by nobody yet",
+          "title": "One step of a walk",
+          "caption": "A walk from this page has one link to follow, and it leads to The Cooperation Path. There, seven typed links lead on. Their types say what attention to bring: five are `connects-to`, which this page says to follow with curiosity rather than expectation; one `deepens` and one `spawned` link get no question from this page, and SCHEMA's link table gives their meaning instead. Across the palace, about half of all typed links are `connects-to` (1,202 of 2,496).",
+          "near": "what kind of attention to bring",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/",
+            "job": "one-step",
+            "output": "Walk Ceremony — one step of a walk.png",
+            "hash": "0c68141b1be62b74",
+            "commit_at_run": "23d00f98"
+          }
+        },
+        {
+          "file": "Walk Ceremony — rich — one step of a walk — what is real.md",
+          "origin": "made",
+          "by": "the maker's own lines, whole, from Enrichment/light-round-2026-11-2/pieces/Walk Ceremony/lines.md; workshop-only paragraphs left out; placed by the Concierge",
+          "title": "What is real and what is a choice",
+          "caption": "The maker's account of the piece above: what was measured, what was chosen, and what leaked in from a neighbour.",
+          "near": "what kind of attention to bring",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-17"
+    }
+  ]
+}

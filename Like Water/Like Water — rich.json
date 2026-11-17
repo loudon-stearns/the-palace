@@ -1,0 +1,83 @@
+{
+  "title": "Like Water — rich",
+  "born": "2026-11-17",
+  "links": [
+    {
+      "target": "[[Like Water]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Light Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Like Water's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Like Water",
+  "tier": "sketch",
+  "made": "2026-11-17",
+  "round": 1,
+  "note": "A light face, from the second light round (2026-11-17): one small thing beside one sentence. Made as if it were the only page: one maker who read the page whole, one challenger who was given nothing of the maker's reasoning, one remake, and a second verdict by the same challenger. Made in Enrichment/light-round-2026-11-2/pieces/Like Water/, where the script, the job and its provenance stay; placed here by the Concierge, with what made it copied from that provenance and not guessed. Loudon approved the line it was made from (\"Yes, make them\", 2026-11-17, relayed by the working session) and has not seen or heard the finished piece. The section is a proposal until he approves it.",
+  "sections": [
+    {
+      "heading": "Cross-Domain Resonance",
+      "made_against": "6a2927d8eb25",
+      "made": "2026-11-17",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-17",
+        "by": "maker · the Like Water maker, a dispatched child · second light round; placed by the Concierge",
+        "round": "light-round-2026-11-2"
+      },
+      "challenge": {
+        "date": "2026-11-17",
+        "by": "challenger · second light round, one challenger for this one piece · read-only dispatch; condensed by the working session in Enrichment/light-round-2026-11-2/pieces/Like Water/challenge.md",
+        "verdicts": [
+          {
+            "file": "Like Water — rich — one rule, two grounds.png",
+            "verdict": "keep",
+            "why": "Keep, with three word fixes before placing; picture and script unchanged. Every number recomputed by an independent descent and matching. The caption said the code \"never reads the rock\", but it reads heights and the heights include the mound; the honest line did not own that the rule itself is a choice, or that the frame ends before the two streams rejoin."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Like Water — rich — one rule, two grounds.png",
+            "date": "2026-11-17",
+            "what": "Words, and small things in the picture: the caption now says \"never names the rock\" and ends on the page's own \"One nature, manifesting differently depending on context\"; two honest lines added (the rule is a choice; where the frame ends) and a third, that the rock reaches the rule only as heights; the footer inside the picture removed; \"downhill\" set larger.",
+            "by": "the Like Water maker, the same maker",
+            "second_verdict": "keep: Checked against the files, not the maker's report. Constants unchanged and every value in the new check file matches an independent recount. On the page \"one nature\" is self-coherence across six moral domains, and a downhill rule is only a physical image of it; not counted as overclaiming. Still unowned and trivial: about 5% vertical squash in each panel."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Like Water — rich — one rule, two grounds.png",
+          "origin": "made",
+          "by": "Drawn SVG → hand: make.py builds the height function, runs steepest descent with a fixed step for each drop on both grounds, draws the ground's contours and the paths as SVG, rasterises the PNG at 2x through headless Chrome, and writes the checks · bench job one-rule-two-grounds, 2026-11-17, by the Like Water maker · copied from Enrichment/light-round-2026-11-2/pieces/Like Water/provenance.json · heard or seen by nobody yet",
+          "title": "One rule, two grounds",
+          "caption": "The detour is not a second rule. Each drop does one thing, step downhill, and the code that moves it never names the rock; put a rise in the ground and the same rule bends around it. One nature, manifesting differently depending on context.",
+          "near": "the detour around the rock is simply the form that downwardness takes here",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Like Water/",
+            "job": "one-rule-two-grounds",
+            "output": "like-water.png",
+            "hash": "bcfc6c9c3db95bd8",
+            "commit_at_run": "23d00f98"
+          }
+        },
+        {
+          "file": "Like Water — rich — one rule, two grounds — what is real.md",
+          "origin": "made",
+          "by": "the maker's own lines, whole, from Enrichment/light-round-2026-11-2/pieces/Like Water/lines.md; workshop-only paragraphs left out; placed by the Concierge",
+          "title": "What is real and what is a choice",
+          "caption": "The maker's account of the piece above: what was measured, what was chosen, and what leaked in from a neighbour.",
+          "near": "the detour around the rock is simply the form that downwardness takes here",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-17"
+    }
+  ]
+}

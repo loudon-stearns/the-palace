@@ -1,0 +1,83 @@
+{
+  "title": "Search Before You Build — rich",
+  "born": "2026-11-17",
+  "links": [
+    {
+      "target": "[[Search Before You Build]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Light Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Search Before You Build's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Search Before You Build",
+  "tier": "sketch",
+  "made": "2026-11-17",
+  "round": 1,
+  "note": "A light face, from the second light round (2026-11-17): one small thing beside one sentence. Made as if it were the only page: one maker who read the page whole, one challenger who was given nothing of the maker's reasoning, one remake, and a second verdict by the same challenger. Made in Enrichment/light-round-2026-11-2/pieces/Search Before You Build/, where the script, the job and its provenance stay; placed here by the Concierge, with what made it copied from that provenance and not guessed. Loudon approved the line it was made from (\"Yes, make them\", 2026-11-17, relayed by the working session) and has not seen or heard the finished piece. The section is a proposal until he approves it.",
+  "sections": [
+    {
+      "heading": "Why it exists (the miss it fixes)",
+      "made_against": "93c3dbdedfb3",
+      "made": "2026-11-17",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-17",
+        "by": "maker · the sbyb-maker, a dispatched child · second light round; placed by the Concierge",
+        "round": "light-round-2026-11-2"
+      },
+      "challenge": {
+        "date": "2026-11-17",
+        "by": "challenger · second light round, one challenger for this one piece · read-only dispatch; condensed by the working session in Enrichment/light-round-2026-11-2/pieces/Search Before You Build/challenge.md",
+        "verdicts": [
+          {
+            "file": "Search Before You Build — rich — the same flat depth, eight days earlier.png",
+            "verdict": "remake",
+            "why": "Of the first version, \"upstream\", which stays in the workshop: the dates were right, but the headline said the bracket was rewritten when the depth pass was written without it; half the picture was two plates that look the same unstretched; about 75 words at 11 to 13 px; inputs were not hashed. The challenger offered a better piece, that no prose named the bracket until 9 July."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Search Before You Build — rich — the same flat depth, eight days earlier.png",
+            "date": "2026-11-17",
+            "what": "The maker checked the offered claim before drawing it and it did not hold as stated: a Shop gotcha named the range on 13 June, three commit messages named the symptom on 1 July, and the bracket was in four files from 13 June, not three from 14 June. A new piece draws the narrower thing that does hold: no page warned of the flat before 9 July. After the second verdict, three small edits it asked for were applied by the maker and seen by the working session, with no third verdict, as the challenger said none was needed: a caption phrase, the 1 July code mark drawn as a square labelled subject_depth_range(), and the Figure Rig fact checked, three parts holding and one not.",
+            "by": "the sbyb-maker, the same maker",
+            "second_verdict": "keep: Keep, after three small edits. The challenger confirmed it had been wrong on both points: its own variant search had failed without saying so. All recomputed and matching, by a broader search than the maker's. Now a join, not a repeat: the lesson sits in code and in commit words and in no page until the day of the fix, which is the page's Forward Vectors sentence."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Search Before You Build — rich — the same flat depth, eight days earlier.png",
+          "origin": "made",
+          "by": "hand: make2.py gather reads git at 8156fa3d^ (code, commit messages, .md lines) into sources-v2.json → Drawn SVG: make2.py draws three lanes (code, commits, pages) from sources-v2.json only, recomputing each number, rasterised by headless Chrome at 2x · bench job same-miss, 2026-11-17, by the sbyb-maker · copied from Enrichment/light-round-2026-11-2/pieces/Search Before You Build/provenance.json · heard or seen by nobody yet",
+          "title": "The same flat depth, 8 days earlier",
+          "caption": "The miss had happened before. On 1 July the same flat depth was found and fixed in another project, and three commit messages said so in plain words. No page did. A builder reading the pages on 9 July would have found nothing that warned of it. A builder who also read the commits would have.",
+          "near": "The knowledge wasn't missing",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Search Before You Build/",
+            "job": "same-miss",
+            "output": "same-miss.png",
+            "hash": "fc8a8a77f17d9844",
+            "commit_at_run": "8c14d3f6"
+          }
+        },
+        {
+          "file": "Search Before You Build — rich — the same flat depth, eight days earlier — what is real.md",
+          "origin": "made",
+          "by": "the maker's own lines, whole, from Enrichment/light-round-2026-11-2/pieces/Search Before You Build/lines.md; workshop-only paragraphs left out; placed by the Concierge",
+          "title": "What is real and what is a choice",
+          "caption": "The maker's account of the piece above: what was measured, what was chosen, and what leaked in from a neighbour.",
+          "near": "The knowledge wasn't missing",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-17"
+    }
+  ]
+}

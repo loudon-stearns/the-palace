@@ -1,0 +1,106 @@
+{
+  "title": "Stable Audio Open — rich",
+  "born": "2026-11-17",
+  "links": [
+    {
+      "target": "[[Stable Audio Open]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Light Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Stable Audio Open's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Stable Audio Open",
+  "tier": "sketch",
+  "made": "2026-11-17",
+  "round": 1,
+  "note": "A light face, from the second light round (2026-11-17): one small thing beside one sentence. Made as if it were the only page: one maker who read the page whole, one challenger who was given nothing of the maker's reasoning, one remake, and a second verdict by the same challenger. Made in Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/, where the script, the job and its provenance stay; placed here by the Concierge, with what made it copied from that provenance and not guessed. Loudon approved the line it was made from (\"Yes, make them\", 2026-11-17, relayed by the working session) and has not seen or heard the finished piece. The section is a proposal until he approves it.",
+  "sections": [
+    {
+      "heading": "Gotchas",
+      "made_against": "20f62c8be18a",
+      "made": "2026-11-17",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-17",
+        "by": "maker · the SAO light maker, a dispatched child · second light round; placed by the Concierge",
+        "round": "light-round-2026-11-2"
+      },
+      "challenge": {
+        "date": "2026-11-17",
+        "by": "challenger · second light round, one challenger for this one piece · read-only dispatch; condensed by the working session in Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/challenge.md",
+        "verdicts": [
+          {
+            "file": "Stable Audio Open — rich — one drop a second.m4a",
+            "verdict": "remake",
+            "why": "Remake the caption only; sound and picture stand. \"The same model keeps the rate\" was wrong: the model keeps nothing, the hand placed one drop on a grid, so the second half is exact by construction. The caption leaned on the smallest gap, which is likely one drop and its splash and moves with the detector's window. The honest line did not say the count also depends on where the windows start. Not stated: true peak −0.1 dBTP."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Stable Audio Open — rich — one drop a second.m4a",
+            "date": "2026-11-17",
+            "what": "Past words: the true peak broke Sound from Code's house ceiling of −1 dBTP, so the whole file was lowered 1.40 dB by one gain and rerun through the bench. The caption now leads with the count, gives the largest gap, and says the second half's rate is kept by the hand, not the model. The honest lines gained the window-start counts and that the placed half is construction, not measurement.",
+            "by": "the SAO light maker, the same maker",
+            "second_verdict": "keep: Re-measured on the new m4a, all matching; exactly −1.40 dB below the first version, sample by sample. 7.5 LU under the house −16 LUFS is accepted and owned: reaching it would mean limiting about 7 dB off the attacks the piece is about. Three notes for the placer, carried into \"what is real\" at placing: the halves differ by 6.6 LU; 44.1 kHz where the house line says 48 kHz stereo; provenance's chain text does not name the lowering step. Nobody has heard it."
+          },
+          {
+            "file": "Stable Audio Open — rich — one drop a second — picture.png",
+            "date": "2026-11-17",
+            "what": "Past words: the true peak broke Sound from Code's house ceiling of −1 dBTP, so the whole file was lowered 1.40 dB by one gain and rerun through the bench. The caption now leads with the count, gives the largest gap, and says the second half's rate is kept by the hand, not the model. The honest lines gained the window-start counts and that the placed half is construction, not measurement.",
+            "by": "the SAO light maker, the same maker",
+            "second_verdict": "keep: Re-measured on the new m4a, all matching; exactly −1.40 dB below the first version, sample by sample. 7.5 LU under the house −16 LUFS is accepted and owned: reaching it would mean limiting about 7 dB off the attacks the piece is about. Three notes for the placer, carried into \"what is real\" at placing: the halves differ by 6.6 LU; 44.1 kHz where the house line says 48 kHz stereo; provenance's chain text does not name the lowering step. Nobody has heard it."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Stable Audio Open — rich — one drop a second.m4a",
+          "origin": "made",
+          "by": "Stable Audio Open (small-sfx): the drip as asked in words, seed 1935, 26 s; one drop alone over seeds 1932-1935, 4 s → hand (Sound from Code): cut one drop by third.py's rule, place it once a second, join the halves, measure on the saved file → Drawn SVG: two lanes from the same arrays, onsets by the page's own detector → hand (ffmpeg's role, by afconvert): the m4a · bench job one-drop-a-second, 2026-11-17, by the SAO light maker · copied from Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/provenance.json · heard or seen by nobody yet",
+          "title": "One drop a second",
+          "caption": "Press play; the picture beneath says what you are hearing. Nobody has heard it yet: it was checked by measurement only.",
+          "near": "A rate or a count asked for in words is not held either",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/",
+            "job": "one-drop-a-second",
+            "output": "one-drop-a-second.m4a",
+            "hash": "e170f194fb2aaf7e",
+            "commit_at_run": "23d00f98"
+          }
+        },
+        {
+          "file": "Stable Audio Open — rich — one drop a second — picture.png",
+          "origin": "made",
+          "by": "Stable Audio Open (small-sfx): the drip as asked in words, seed 1935, 26 s; one drop alone over seeds 1932-1935, 4 s → hand (Sound from Code): cut one drop by third.py's rule, place it once a second, join the halves, measure on the saved file → Drawn SVG: two lanes from the same arrays, onsets by the page's own detector → hand (ffmpeg's role, by afconvert): the m4a · bench job one-drop-a-second, 2026-11-17, by the SAO light maker · copied from Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/provenance.json · heard or seen by nobody yet",
+          "title": "One drop a second · drawn",
+          "caption": "Asked in words for one drop a second, Stable Audio Open's small-sfx model gave 19 onsets in ten seconds where ten were asked, bunched in bursts, with gaps of up to 1.34 s. Asked for a single drop, it gave one that the hand cut out and placed on a one-second grid. The rate in the second half is kept by the hand, not the model, and is exact because it was placed there.",
+          "near": "A rate or a count asked for in words is not held either",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/",
+            "job": "one-drop-a-second",
+            "output": "one-drop-a-second-picture.png",
+            "hash": "4be116f7cc368d89",
+            "commit_at_run": "23d00f98"
+          }
+        },
+        {
+          "file": "Stable Audio Open — rich — one drop a second — what is real.md",
+          "origin": "made",
+          "by": "the maker's own lines, whole, from Enrichment/light-round-2026-11-2/pieces/Stable Audio Open/lines.md; workshop-only paragraphs left out; placed by the Concierge",
+          "title": "What is real and what is a choice",
+          "caption": "The maker's account of the piece above: what was measured, what was chosen, and what leaked in from a neighbour.",
+          "near": "A rate or a count asked for in words is not held either",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-17"
+    }
+  ]
+}

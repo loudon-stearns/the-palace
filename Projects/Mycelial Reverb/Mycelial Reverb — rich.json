@@ -1,0 +1,106 @@
+{
+  "title": "Mycelial Reverb — rich",
+  "born": "2026-11-17",
+  "links": [
+    {
+      "target": "[[Mycelial Reverb]]",
+      "type": "connects-to",
+      "label": "rich-face-of"
+    },
+    {
+      "target": "[[Light Enrichment]]",
+      "type": "connects-to",
+      "label": "made-by"
+    }
+  ],
+  "forward_vector": "I am the manifest of Mycelial Reverb's rich face: what was made for each section, and the fingerprint of the words each piece was made against, so the page can say when a piece may lag the text. I grow when the entry is enriched again; I never hold the entry's words.",
+  "entry": "Mycelial Reverb",
+  "tier": "sketch",
+  "made": "2026-11-17",
+  "round": 1,
+  "note": "A light face, from the second light round (2026-11-17): one small thing beside one sentence. Made as if it were the only page: one maker who read the page whole, one challenger who was given nothing of the maker's reasoning, one remake, and a second verdict by the same challenger. Made in Enrichment/light-round-2026-11-2/pieces/Mycelial Reverb/, where the script, the job and its provenance stay; placed here by the Concierge, with what made it copied from that provenance and not guessed. Loudon approved the line it was made from (\"Yes, make them\", 2026-11-17, relayed by the working session) and has not seen or heard the finished piece. The section is a proposal until he approves it.",
+  "sections": [
+    {
+      "heading": "Mycelial Reverb",
+      "made_against": "94a7c6343d0e",
+      "made": "2026-11-17",
+      "status": "proposal",
+      "proposed": {
+        "date": "2026-11-17",
+        "by": "maker · the mycelial maker, a dispatched child · second light round; placed by the Concierge",
+        "round": "light-round-2026-11-2"
+      },
+      "challenge": {
+        "date": "2026-11-17",
+        "by": "challenger · second light round, one challenger for this one piece · read-only dispatch; condensed by the working session in Enrichment/light-round-2026-11-2/pieces/Mycelial Reverb/challenge.md",
+        "verdicts": [
+          {
+            "file": "Mycelial Reverb — rich — one knock, five rooms.m4a",
+            "verdict": "remake",
+            "why": "Remake, words only; the sound and the picture stand. The harness was rebuilt and every array came out byte-identical; the maker's finding about the frost is robust. But \"121 threads, all joined up\" is wrong, 51 of them are bridges on no loop; the line about where each grey shape starts is false of the newborn; two \"because\" lines were untested; \"a line fitted\" is a line through two points; \"tips keep 0.8\" reads as absorbing."
+          }
+        ],
+        "remade": [
+          {
+            "file": "Mycelial Reverb — rich — one knock, five rooms.m4a",
+            "date": "2026-11-17",
+            "what": "The words and the picture changed; the sound did not. The caption says \"no dead end is left\"; the grey and red measures are described as two; the maker tested the challenger's own explanation for the quieter rooms with a probe, and it did not hold, so both \"because\" lines are withdrawn and the drop is left unexplained. The picture gained the newborn dish at ×7, a tick at each RT60, a 0 to 3 s axis and a label on each lane's zero.",
+            "by": "the mycelial maker, the same maker",
+            "second_verdict": "keep: The probe holds, and the challenger was wrong: rebuilt in scratch, byte-identical, and the tap rule \"alone accounting for\" the drop was a coincidence of numbers. Red curves and ticks are what they say. Three small fixes, none blocking, since made: a figure corrected to 14.8, the picture given its own bench job so the check passes, and each lane's zero labelled. Nobody has heard it."
+          },
+          {
+            "file": "Mycelial Reverb — rich — one knock, five rooms — picture.png",
+            "date": "2026-11-17",
+            "what": "The words and the picture changed; the sound did not. The caption says \"no dead end is left\"; the grey and red measures are described as two; the maker tested the challenger's own explanation for the quieter rooms with a probe, and it did not hold, so both \"because\" lines are withdrawn and the drop is left unexplained. The picture gained the newborn dish at ×7, a tick at each RT60, a 0 to 3 s axis and a label on each lane's zero.",
+            "by": "the mycelial maker, the same maker",
+            "second_verdict": "keep: The probe holds, and the challenger was wrong: rebuilt in scratch, byte-identical, and the tap rule \"alone accounting for\" the drop was a coincidence of numbers. Red curves and ticks are what they say. Three small fixes, none blocking, since made: a figure corrected to 14.8, the picture given its own bench job so the check passes, and each lane's zero labelled. Nobody has heard it."
+          }
+        ]
+      },
+      "pieces": [
+        {
+          "file": "Mycelial Reverb — rich — one knock, five rooms.m4a",
+          "origin": "made",
+          "by": "hand: Mycelial Reverb plugin engine (Algorithm.h), the project's own instrument, read through rooms.cpp (the bench has no roster line for a project's instrument, so it goes as hand) → Sound from Code → Drawn SVG · bench job one-knock-five-rooms, 2026-11-17, by the mycelial maker · copied from Enrichment/light-round-2026-11-2/pieces/Mycelial Reverb/provenance.json · heard or seen by nobody yet",
+          "title": "One knock, five rooms",
+          "caption": "Press play; the picture beneath says what you are hearing. Nobody has heard it yet: it was checked by measurement only.",
+          "near": "the network that grows is the room you hear",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Mycelial Reverb/",
+            "job": "one-knock-five-rooms",
+            "output": "one-knock-five-rooms.m4a",
+            "hash": "15f2d170ee3378ca",
+            "commit_at_run": "8c14d3f6"
+          }
+        },
+        {
+          "file": "Mycelial Reverb — rich — one knock, five rooms — picture.png",
+          "origin": "made",
+          "by": "Drawn SVG · bench job one-knock-five-rooms-picture, 2026-11-17, by the mycelial maker · copied from Enrichment/light-round-2026-11-2/pieces/Mycelial Reverb/provenance.json · heard or seen by nobody yet",
+          "title": "One knock, five rooms · drawn",
+          "caption": "**Growing the network changes the room.** One knock is sent into one colony five times as it grows. At 3 threads it rings for 0.40 s. At 25, 60 and 170 threads it rings for 1.27, 1.76 and 2.29 s. Frost it until no dead end is left (121 threads) and it rings for 2.68 s. The colony is all that changed between the five. Each number is RT60, the time a sound takes to fall by 60 dB, measured on this one colony with the plugin's own engine. Nobody has heard it yet.",
+          "near": "the network that grows is the room you hear",
+          "place": "band",
+          "made_in": {
+            "workshop": "Enrichment/light-round-2026-11-2/pieces/Mycelial Reverb/",
+            "job": "one-knock-five-rooms-picture",
+            "output": "one-knock-five-rooms.png",
+            "hash": "affe3c60fb71cf92",
+            "commit_at_run": "8c14d3f6"
+          }
+        },
+        {
+          "file": "Mycelial Reverb — rich — one knock, five rooms — what is real.md",
+          "origin": "made",
+          "by": "the maker's own lines, whole, from Enrichment/light-round-2026-11-2/pieces/Mycelial Reverb/lines.md; workshop-only paragraphs left out; placed by the Concierge",
+          "title": "What is real and what is a choice",
+          "caption": "The maker's account of the piece above: what was measured, what was chosen, and what leaked in from a neighbour.",
+          "near": "the network that grows is the room you hear",
+          "place": "band"
+        }
+      ],
+      "stamped": "2026-11-17"
+    }
+  ]
+}
