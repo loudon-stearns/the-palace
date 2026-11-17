@@ -1,0 +1,47 @@
+{
+ "source": "palace-map-full-2026-11-16.tsv (copied here), built at f2c1efdb; checked against The Cooperation Path.md at f2c1efdb",
+ "first_step": [
+  [
+   "connects-to",
+   "The Cooperation Path"
+  ]
+ ],
+ "ways_out": [
+  [
+   "connects-to",
+   "1 from 2"
+  ],
+  [
+   "connects-to",
+   "Cooperation Yields Agency"
+  ],
+  [
+   "connects-to",
+   "Endosymbiosis"
+  ],
+  [
+   "connects-to",
+   "Spinoza Conatus"
+  ],
+  [
+   "connects-to",
+   "Hilaritas Generator"
+  ],
+  [
+   "deepens",
+   "SUBSTRATE"
+  ],
+  [
+   "spawned",
+   "Modes of Collaboration"
+  ]
+ ],
+ "by_type_here": {
+  "connects-to": 5,
+  "deepens": 1,
+  "spawned": 1
+ },
+ "palace_connects_to": 1202,
+ "palace_total": 2496,
+ "height": 576
+}

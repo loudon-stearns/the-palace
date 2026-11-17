@@ -1,0 +1,54 @@
+{
+ "code_days": [
+  "2026-06-13",
+  "2026-06-14",
+  "2026-06-17",
+  "2026-06-18",
+  "2026-07-01"
+ ],
+ "bracket_days": [
+  "2026-06-13",
+  "2026-06-14",
+  "2026-06-17",
+  "2026-06-18"
+ ],
+ "func_days": [
+  "2026-07-01"
+ ],
+ "page_named_day": "2026-06-13",
+ "page_named_files": [
+  "Shop/Blender/tests/gotchas-2026-06-13.md",
+  "Shop/Blender/tests/test-plan.md"
+ ],
+ "n_code_files": 6,
+ "n_bracket_files": 4,
+ "bracket_born": "2026-06-13",
+ "n_messages": 3,
+ "message_days": [
+  "2026-07-01"
+ ],
+ "first_message": {
+  "commit": "50251a81",
+  "when": "2026-07-01T01:20:47-04:00",
+  "subject": "fix(Figure Rig faces): eyes track per subject + depth contour + child framing",
+  "said": [
+   "Loudon: eyes drift for young_man+, depth is flat. Root cause: eye/landmark/camera code read",
+   "~0.2 m, not the old fixed 0.2–3.5) → real head contour instead of flat grey."
+  ]
+ },
+ "quote": "depth is flat",
+ "days_message_to_miss": 8,
+ "days_bracket_to_miss": 26,
+ "n_page_warnings_before": 0,
+ "page_naming_files": [
+  "Projects/BLUELINE/BLUELINE — Board Record Schema.md",
+  "Projects/BLUELINE/proofs/blender-handdrawn/followups/redraw-posed-figure/report.md",
+  "Projects/BLUELINE/proofs/m1-animatic/m1-report.md",
+  "Projects/BLUELINE/proofs/seam-a-roundtrip/seam-a-roundtrip-report.md",
+  "Shop/Blender/tests/gotchas-2026-06-13.md",
+  "Shop/Blender/tests/test-plan.md",
+  "Shop/Figure Rig/Figure Rig — conditioning stack and scene expansion.md",
+  "Trickster Commit.md"
+ ],
+ "fix_time": "11:48"
+}

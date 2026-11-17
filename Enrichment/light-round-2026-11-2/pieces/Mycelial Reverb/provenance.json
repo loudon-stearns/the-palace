@@ -1,0 +1,159 @@
+{
+  "note": "Written by Shop/shop.mjs run. What made each piece here, and who has heard or seen it.",
+  "jobs": {
+    "one-knock-five-rooms": {
+      "page": "Mycelial Reverb",
+      "sentence": "Feed it sound and threads reach out, branch, and fuse where they meet; the network that grows is the room you hear.",
+      "claim": "One knock, sent through one colony as it grows (3, 25, 60, 170 threads, then frosted until no dead ends are left), comes back from a longer room each time, and the frosted dish rings longest. The general claim is the page's (its opening and the frost row of How it grows); the figures are this piece's own, measured on one colony, with the piece check's twelve-colony medians leaking in from Biomechanical Synthesis's workshop for comparison.",
+      "chain": [
+        "hand: Mycelial Reverb plugin engine (Algorithm.h), the project's own instrument, read through rooms.cpp (the bench has no roster line for a project's instrument, so it goes as hand)",
+        "Sound from Code",
+        "Drawn SVG"
+      ],
+      "run": "python3 make.py sound",
+      "seed": 21,
+      "inputs": {
+        "rooms.cpp": "2d25f8a7b8caedcf",
+        "make.py": "8a43f22cf0960ad1",
+        "../../../../Projects/Mycelial Reverb/plugin/src/Algorithm.h": "b6dbdf68b14651b2"
+      },
+      "outputs": {
+        "one-knock-five-rooms.m4a": "15f2d170ee3378ca",
+        "one-knock-five-rooms.wav": "f2086aac38e3d552",
+        "out/rooms.json": "8668dca183da39ae",
+        "out/measure.json": "3958e538a26d49bf"
+      },
+      "made": "2026-11-17T11:53:36.852Z",
+      "seconds": 4.6,
+      "host": "mac",
+      "commit_at_run": "8c14d3f6",
+      "by": "mycelial maker",
+      "runs": 2,
+      "heard_by": null,
+      "verdict": null
+    },
+    "one-frost-survey": {
+      "page": "Mycelial Reverb",
+      "sentence": "A frost kills every dead end one thread back | The lossy tips go; what is left rings longer",
+      "claim": "Not a piece: a check of the table row the piece leans on. Over the piece check's twelve growth seeds, does one frost make a full dish ring longer, or does it take frosting until no dead ends are left?",
+      "chain": [
+        "hand: Mycelial Reverb plugin engine (Algorithm.h), the project's own instrument, read through survey.cpp (the bench has no roster line for a project's instrument, so it goes as hand)"
+      ],
+      "run": "clang++ -std=c++20 -O2 -ffp-contract=off -I '../../../../Projects/Mycelial Reverb/plugin/src' -I '../../../../Projects/VST Template/machinery/src' survey.cpp -o out/survey && ./out/survey > out/survey.jsonl",
+      "seed": 21,
+      "inputs": {
+        "survey.cpp": "cbcbba2c651aff3f",
+        "../../../../Projects/Mycelial Reverb/plugin/src/Algorithm.h": "b6dbdf68b14651b2"
+      },
+      "outputs": {
+        "out/survey.jsonl": "e0fb7f41164a61b0"
+      },
+      "made": "2026-11-17T11:39:09.629Z",
+      "seconds": 33.5,
+      "host": "mac",
+      "commit_at_run": "23d00f98",
+      "by": "mycelial maker",
+      "runs": 2,
+      "heard_by": null,
+      "verdict": null
+    },
+    "one-knock-five-rooms-picture": {
+      "page": "Mycelial Reverb",
+      "sentence": "Feed it sound and threads reach out, branch, and fuse where they meet; the network that grows is the room you hear.",
+      "claim": "The remake's picture: the same five rooms, now with each click's decay curve and an RT60 tick beside the heard shape, so the two measures read as two; the newborn dish shown again at ×7; a 0 to 3 s axis. Drawn from the saved wav and the engine's saved arrays; nothing is rendered again.",
+      "chain": [
+        "Drawn SVG"
+      ],
+      "run": "python3 make.py picture",
+      "seed": 21,
+      "inputs": {
+        "make.py": "8a43f22cf0960ad1",
+        "one-knock-five-rooms.wav": "f2086aac38e3d552",
+        "out/rooms.json": "8668dca183da39ae",
+        "out/measure.json": "3958e538a26d49bf"
+      },
+      "outputs": {
+        "one-knock-five-rooms.svg": "4fa3490a637a474a",
+        "one-knock-five-rooms.png": "affe3c60fb71cf92"
+      },
+      "made": "2026-11-17T11:53:38.021Z",
+      "seconds": 1.2,
+      "host": "mac",
+      "commit_at_run": "8c14d3f6",
+      "by": "mycelial maker",
+      "runs": 2,
+      "heard_by": null,
+      "verdict": null
+    },
+    "tap-rule-probe": {
+      "page": "Mycelial Reverb",
+      "sentence": "Fruiting bodies rise at busy junctions | New listening points",
+      "claim": "Not a piece: a test of whether the engine's tap rule (spore at 0.45 once fruiting bodies exist) explains why the grown rooms are quieter. Each stage's knock is rendered as built and with the spore alone at the newborn's gain.",
+      "chain": [
+        "hand: Mycelial Reverb plugin engine (Algorithm.h), the project's own instrument, read through probe.cpp (the bench has no roster line for a project's instrument, so it goes as hand)"
+      ],
+      "run": "clang++ -std=c++20 -O2 -ffp-contract=off -I '../../../../Projects/Mycelial Reverb/plugin/src' -I '../../../../Projects/VST Template/machinery/src' probe.cpp -o out/probe && ./out/probe > out/probe.jsonl",
+      "seed": 21,
+      "inputs": {
+        "probe.cpp": "8ac8100e8a2a9fc9",
+        "../../../../Projects/Mycelial Reverb/plugin/src/Algorithm.h": "b6dbdf68b14651b2"
+      },
+      "outputs": {
+        "out/probe.jsonl": "580c97845ce19ff8"
+      },
+      "made": "2026-11-17T11:53:40.644Z",
+      "seconds": 2.6,
+      "host": "mac",
+      "commit_at_run": "8c14d3f6",
+      "by": "mycelial maker",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    }
+  },
+  "batches": [
+    {
+      "at": "2026-11-17T11:38:26.634Z",
+      "jobs": [
+        "one-knock-five-rooms",
+        "one-frost-survey"
+      ],
+      "by": "mycelial maker",
+      "ledgers": {
+        "Sound from Code": "one line on Shop/Sound from Code/Sound from Code — tuning.md",
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:39:09.632Z",
+      "jobs": [
+        "one-frost-survey"
+      ],
+      "by": "mycelial maker",
+      "ledgers": {}
+    },
+    {
+      "at": "2026-11-17T11:48:59.825Z",
+      "jobs": [
+        "one-knock-five-rooms-picture"
+      ],
+      "by": "mycelial maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:53:40.645Z",
+      "jobs": [
+        "one-knock-five-rooms",
+        "one-knock-five-rooms-picture",
+        "tap-rule-probe"
+      ],
+      "by": "mycelial maker",
+      "ledgers": {
+        "Sound from Code": "one line on Shop/Sound from Code/Sound from Code — tuning.md",
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    }
+  ]
+}

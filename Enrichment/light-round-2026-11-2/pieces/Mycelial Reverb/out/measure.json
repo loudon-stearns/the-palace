@@ -1,0 +1,104 @@
+{
+ "seed": 21,
+ "knock_seed": 7,
+ "length_s": 20.25,
+ "sample_peak_dbfs": -1.000151903819357,
+ "gain_db": -4.723985988779248,
+ "raw_peak": 1.5353213861584663,
+ "room_starts_s": [
+  0.25,
+  4.25,
+  8.25,
+  12.25,
+  16.25
+ ],
+ "integrated_lufs": -26.0,
+ "true_peak_dbfs": -1.0,
+ "m4a": {
+  "integrated_lufs": -26.1,
+  "true_peak_dbfs": -0.9
+ },
+ "stages": [
+  {
+   "name": "grown to 3",
+   "threads": 3,
+   "loops": 0,
+   "dead_ends": 3,
+   "fruit": 0,
+   "fed_s": 0.0,
+   "frost_killed": 0,
+   "rt60_s": 0.40095833333333336,
+   "heard": true,
+   "room_peak_dbfs": -1.000151903819357,
+   "tail_rms_after_100ms_dbfs": -43.47356728713541,
+   "left_right_rms_db": 0.0
+  },
+  {
+   "name": "grown to 25",
+   "threads": 25,
+   "loops": 1,
+   "dead_ends": 7,
+   "fruit": 1,
+   "fed_s": 2.752,
+   "frost_killed": 0,
+   "rt60_s": 1.266875,
+   "heard": true,
+   "room_peak_dbfs": -6.728309380554231,
+   "tail_rms_after_100ms_dbfs": -40.340112089495115,
+   "left_right_rms_db": -1.1479153848851147
+  },
+  {
+   "name": "grown to 60",
+   "threads": 60,
+   "loops": 3,
+   "dead_ends": 10,
+   "fruit": 3,
+   "fed_s": 14.005,
+   "frost_killed": 0,
+   "rt60_s": 1.7555833333333333,
+   "heard": true,
+   "room_peak_dbfs": -10.086898102874757,
+   "tail_rms_after_100ms_dbfs": -41.952043907970406,
+   "left_right_rms_db": 0.6837660360447945
+  },
+  {
+   "name": "grown to 170",
+   "threads": 170,
+   "loops": 13,
+   "dead_ends": 14,
+   "fruit": 5,
+   "fed_s": 34.475,
+   "frost_killed": 0,
+   "rt60_s": 2.291,
+   "heard": true,
+   "room_peak_dbfs": -10.086898102874757,
+   "tail_rms_after_100ms_dbfs": -43.61174423865474,
+   "left_right_rms_db": 0.25812984757652957
+  },
+  {
+   "name": "after one frost",
+   "threads": 156,
+   "loops": 13,
+   "dead_ends": 12,
+   "fruit": 5,
+   "fed_s": 34.475,
+   "frost_killed": 14,
+   "rt60_s": 2.2904166666666668,
+   "heard": false
+  },
+  {
+   "name": "after 9 frosts",
+   "threads": 121,
+   "loops": 13,
+   "dead_ends": 0,
+   "fruit": 5,
+   "fed_s": 34.475,
+   "frost_killed": 49,
+   "rt60_s": 2.6775416666666665,
+   "heard": true,
+   "room_peak_dbfs": -10.086898102874757,
+   "tail_rms_after_100ms_dbfs": -42.61401251804993,
+   "left_right_rms_db": 0.281275256100599
+  }
+ ]
+}

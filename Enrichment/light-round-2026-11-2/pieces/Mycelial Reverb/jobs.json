@@ -1,0 +1,92 @@
+{
+  "made_for": "the second light enrichment round: Mycelial Reverb's one piece",
+  "tier": "sketch",
+  "jobs": [
+    {
+      "name": "one-knock-five-rooms",
+      "page": "Mycelial Reverb",
+      "sentence": "Feed it sound and threads reach out, branch, and fuse where they meet; the network that grows is the room you hear.",
+      "claim": "One knock, sent through one colony as it grows (3, 25, 60, 170 threads, then frosted until no dead ends are left), comes back from a longer room each time, and the frosted dish rings longest. The general claim is the page's (its opening and the frost row of How it grows); the figures are this piece's own, measured on one colony, with the piece check's twelve-colony medians leaking in from Biomechanical Synthesis's workshop for comparison.",
+      "chain": [
+        "hand: Mycelial Reverb plugin engine (Algorithm.h), the project's own instrument, read through rooms.cpp (the bench has no roster line for a project's instrument, so it goes as hand)",
+        "Sound from Code",
+        "Drawn SVG"
+      ],
+      "seed": 21,
+      "run": "python3 make.py sound",
+      "outputs": [
+        "one-knock-five-rooms.m4a",
+        "one-knock-five-rooms.wav",
+        "out/rooms.json",
+        "out/measure.json"
+      ],
+      "inputs": [
+        "rooms.cpp",
+        "make.py",
+        "../../../../Projects/Mycelial Reverb/plugin/src/Algorithm.h"
+      ],
+      "heard_by": null
+    },
+    {
+      "name": "one-frost-survey",
+      "page": "Mycelial Reverb",
+      "sentence": "A frost kills every dead end one thread back | The lossy tips go; what is left rings longer",
+      "claim": "Not a piece: a check of the table row the piece leans on. Over the piece check's twelve growth seeds, does one frost make a full dish ring longer, or does it take frosting until no dead ends are left?",
+      "chain": [
+        "hand: Mycelial Reverb plugin engine (Algorithm.h), the project's own instrument, read through survey.cpp (the bench has no roster line for a project's instrument, so it goes as hand)"
+      ],
+      "seed": 21,
+      "run": "clang++ -std=c++20 -O2 -ffp-contract=off -I '../../../../Projects/Mycelial Reverb/plugin/src' -I '../../../../Projects/VST Template/machinery/src' survey.cpp -o out/survey && ./out/survey > out/survey.jsonl",
+      "outputs": [
+        "out/survey.jsonl"
+      ],
+      "inputs": [
+        "survey.cpp",
+        "../../../../Projects/Mycelial Reverb/plugin/src/Algorithm.h"
+      ],
+      "heard_by": null
+    },
+    {
+      "name": "one-knock-five-rooms-picture",
+      "page": "Mycelial Reverb",
+      "sentence": "Feed it sound and threads reach out, branch, and fuse where they meet; the network that grows is the room you hear.",
+      "claim": "The remake's picture: the same five rooms, now with each click's decay curve and an RT60 tick beside the heard shape, so the two measures read as two; the newborn dish shown again at ×7; a 0 to 3 s axis. Drawn from the saved wav and the engine's saved arrays; nothing is rendered again.",
+      "chain": [
+        "Drawn SVG"
+      ],
+      "seed": 21,
+      "run": "python3 make.py picture",
+      "outputs": [
+        "one-knock-five-rooms.svg",
+        "one-knock-five-rooms.png"
+      ],
+      "inputs": [
+        "make.py",
+        "one-knock-five-rooms.wav",
+        "out/rooms.json",
+        "out/measure.json"
+      ],
+      "heard_by": null
+    },
+    {
+      "name": "tap-rule-probe",
+      "page": "Mycelial Reverb",
+      "sentence": "Fruiting bodies rise at busy junctions | New listening points",
+      "claim": "Not a piece: a test of whether the engine's tap rule (spore at 0.45 once fruiting bodies exist) explains why the grown rooms are quieter. Each stage's knock is rendered as built and with the spore alone at the newborn's gain.",
+      "chain": [
+        "hand: Mycelial Reverb plugin engine (Algorithm.h), the project's own instrument, read through probe.cpp (the bench has no roster line for a project's instrument, so it goes as hand)"
+      ],
+      "seed": 21,
+      "run": "clang++ -std=c++20 -O2 -ffp-contract=off -I '../../../../Projects/Mycelial Reverb/plugin/src' -I '../../../../Projects/VST Template/machinery/src' probe.cpp -o out/probe && ./out/probe > out/probe.jsonl",
+      "outputs": [
+        "out/probe.jsonl"
+      ],
+      "inputs": [
+        "probe.cpp",
+        "../../../../Projects/Mycelial Reverb/plugin/src/Algorithm.h"
+      ],
+      "heard_by": null
+    }
+  ],
+  "notes": "The jobs one-knock-five-rooms and one-knock-five-rooms-picture are the piece: placed on 2026-11-17 as a proposal in Mycelial Reverb's rich face. The frost survey and the tap-rule probe are its evidence and stay in the workshop. Challenged once (remake the words), remade once, second verdict keep. Nobody has heard it. See challenge.md beside this file."
+}

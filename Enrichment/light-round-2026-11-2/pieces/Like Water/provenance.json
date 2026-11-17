@@ -1,0 +1,62 @@
+{
+  "note": "Written by Shop/shop.mjs run. What made each piece here, and who has heard or seen it.",
+  "jobs": {
+    "one-rule-two-grounds": {
+      "page": "Like Water",
+      "sentence": "Water never tries to go through a rock; it tries to go downward, and the detour around the rock is simply the form that downwardness takes here.",
+      "claim": "The detour is not a second rule. Fifteen drops follow one rule, step downhill, on two grounds that differ only by a mound; the code that moves them never names the rock, and the paths bend around it anyway.",
+      "chain": [
+        "Drawn SVG",
+        "hand: make.py builds the height function, runs steepest descent with a fixed step for each drop on both grounds, draws the ground's contours and the paths as SVG, rasterises the PNG at 2x through headless Chrome, and writes the checks"
+      ],
+      "run": "python3 make.py",
+      "seed": 8,
+      "inputs": {},
+      "outputs": {
+        "like-water.svg": "2bf2cc1e2539ccf5",
+        "like-water.png": "bcfc6c9c3db95bd8",
+        "like-water-check.json": "e3c22b2e84b6aedc"
+      },
+      "made": "2026-11-17T11:38:26.208Z",
+      "seconds": 2,
+      "host": "mac",
+      "commit_at_run": "23d00f98",
+      "by": "Like Water maker",
+      "runs": 3,
+      "heard_by": null,
+      "verdict": null
+    }
+  },
+  "batches": [
+    {
+      "at": "2026-11-17T11:34:06.019Z",
+      "jobs": [
+        "one-rule-two-grounds"
+      ],
+      "by": "Like Water maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:38:17.046Z",
+      "jobs": [
+        "one-rule-two-grounds"
+      ],
+      "by": "Like Water maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:38:26.213Z",
+      "jobs": [
+        "one-rule-two-grounds"
+      ],
+      "by": "Like Water maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    }
+  ]
+}

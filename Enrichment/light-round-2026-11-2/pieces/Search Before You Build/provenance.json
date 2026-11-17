@@ -1,0 +1,100 @@
+{
+  "note": "Written by Shop/shop.mjs run. What made each piece here, and who has heard or seen it.",
+  "jobs": {
+    "upstream": {
+      "page": "Search Before You Build",
+      "sentence": "The knowledge wasn't missing — retrieval was manual, and it made Loudon the index.",
+      "claim": "The answer was already in the palace's records before the miss: the near/far bracket was committed to bench.py 25 days before 2026-07-09 (and copied into two more proofs), and lib/comfy.py 13 days before. The 25 and 13 days are the maker's count from git, not the page's.",
+      "chain": [
+        "hand: make.py reads git log / git grep at 8156fa3d^ and GenAI Camera/renders.json into data.json, and crops two existing depth plates",
+        "Drawn SVG: the timeline and the two small plates drawn from data.json, rasterised by headless Chrome at 2x"
+      ],
+      "run": "python3 make.py",
+      "seed": 0,
+      "inputs": {},
+      "outputs": {
+        "upstream.svg": "00d2484ef163feb6",
+        "upstream.png": "bd70f66814634f6f",
+        "data.json": "1191264bd88893c6"
+      },
+      "made": "2026-11-17T11:34:09.314Z",
+      "seconds": 2,
+      "host": "mac",
+      "commit_at_run": "23d00f98",
+      "by": "sbyb-maker",
+      "runs": 1,
+      "heard_by": null,
+      "verdict": null
+    },
+    "same-miss": {
+      "page": "Search Before You Build",
+      "sentence": "The knowledge wasn't missing — retrieval was manual, and it made Loudon the index.",
+      "claim": "Eight days before the 2026-07-09 miss, the same flat depth was hit and fixed in the Figure Rig, and said in words (\"depth is flat\") in three commit messages on 2026-07-01; the bracket itself had been in code since 2026-06-13. Before the fix, no .md page line both named the range and warned of the flat; the first did so on 2026-07-09 11:48. The claim is the maker's, from git; the page names only bench.py.",
+      "chain": [
+        "hand: make2.py gather reads git at 8156fa3d^ (code, commit messages, .md lines) into sources-v2.json",
+        "Drawn SVG: make2.py draws three lanes (code, commits, pages) from sources-v2.json only, recomputing each number, rasterised by headless Chrome at 2x"
+      ],
+      "run": "python3 make2.py",
+      "seed": 0,
+      "inputs": {
+        "sources-v2.json": "df40f7f1a951bd9f",
+        "make2.py": "205e85546e409a74"
+      },
+      "outputs": {
+        "same-miss.svg": "f44f262c9e8e575d",
+        "same-miss.png": "fc8a8a77f17d9844",
+        "facts-v2.json": "1ad4d7b6d51f0f3b"
+      },
+      "made": "2026-11-17T11:50:57.870Z",
+      "seconds": 1,
+      "host": "mac",
+      "commit_at_run": "8c14d3f6",
+      "by": "sbyb-maker",
+      "runs": 3,
+      "heard_by": null,
+      "verdict": null
+    }
+  },
+  "batches": [
+    {
+      "at": "2026-11-17T11:34:09.317Z",
+      "jobs": [
+        "upstream"
+      ],
+      "by": "sbyb-maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:45:33.232Z",
+      "jobs": [
+        "same-miss"
+      ],
+      "by": "sbyb-maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:50:46.689Z",
+      "jobs": [
+        "same-miss"
+      ],
+      "by": "sbyb-maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:50:57.873Z",
+      "jobs": [
+        "same-miss"
+      ],
+      "by": "sbyb-maker",
+      "ledgers": {
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    }
+  ]
+}

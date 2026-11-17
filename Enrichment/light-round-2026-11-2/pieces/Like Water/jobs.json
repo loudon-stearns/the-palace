@@ -1,0 +1,26 @@
+{
+  "made_for": "the second light enrichment round: Like Water",
+  "tier": "sketch",
+  "jobs": [
+    {
+      "name": "one-rule-two-grounds",
+      "page": "Like Water",
+      "sentence": "Water never tries to go through a rock; it tries to go downward, and the detour around the rock is simply the form that downwardness takes here.",
+      "claim": "The detour is not a second rule. Fifteen drops follow one rule, step downhill, on two grounds that differ only by a mound; the code that moves them never names the rock, and the paths bend around it anyway.",
+      "chain": [
+        "Drawn SVG",
+        "hand: make.py builds the height function, runs steepest descent with a fixed step for each drop on both grounds, draws the ground's contours and the paths as SVG, rasterises the PNG at 2x through headless Chrome, and writes the checks"
+      ],
+      "seed": 8,
+      "run": "python3 make.py",
+      "outputs": [
+        "like-water.svg",
+        "like-water.png",
+        "like-water-check.json"
+      ],
+      "inputs": [],
+      "heard_by": null
+    }
+  ],
+  "notes": "Placed on 2026-11-17 as a proposal in Like Water's rich face. Challenged once (keep, with word fixes), remade once, second verdict keep; see challenge.md beside this file."
+}

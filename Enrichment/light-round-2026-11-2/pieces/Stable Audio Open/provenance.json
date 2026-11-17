@@ -1,0 +1,79 @@
+{
+  "note": "Written by Shop/shop.mjs run. What made each piece here, and who has heard or seen it.",
+  "jobs": {
+    "one-drop-a-second": {
+      "page": "Stable Audio Open",
+      "sentence": "A rate or a count asked for in words is not held either. \"One single drop falling into water every second\" came back with 40 to 69 onsets in 26 s over four seeds. Generate one event and place it at the rate yourself (§ Recipes).",
+      "claim": "Asked in words for one drop a second, the model does not keep the rate: more onsets than were asked, bunched in bursts. Asked for a single drop, it gives one that the hand can cut and place on a one-second grid, so the rate is kept by the hand, exactly by construction. (On the page: this sentence, 'place it at the rate yourself', and the recipe it points to.)",
+      "chain": [
+        "Stable Audio Open (small-sfx): the drip as asked in words, seed 1935, 26 s; one drop alone over seeds 1932-1935, 4 s",
+        "hand (Sound from Code): cut one drop by third.py's rule, place it once a second, join the halves, measure on the saved file",
+        "Drawn SVG: two lanes from the same arrays, onsets by the page's own detector",
+        "hand (ffmpeg's role, by afconvert): the m4a"
+      ],
+      "run": "\"../../../../_tools/stable-audio-3/.venv/bin/python\" make.py",
+      "seed": 1935,
+      "inputs": {},
+      "outputs": {
+        "one-drop-a-second.m4a": "e170f194fb2aaf7e",
+        "one-drop-a-second-picture.svg": "387f8d5c8d564b45",
+        "one-drop-a-second-picture.png": "4be116f7cc368d89",
+        "report.json": "5fbae0ef7974566d"
+      },
+      "made": "2026-11-17T11:41:15.657Z",
+      "seconds": 27.1,
+      "host": "mac",
+      "commit_at_run": "23d00f98",
+      "by": "SAO light maker",
+      "runs": 4,
+      "heard_by": null,
+      "verdict": null
+    }
+  },
+  "batches": [
+    {
+      "at": "2026-11-17T11:33:41.648Z",
+      "jobs": [
+        "one-drop-a-second"
+      ],
+      "by": "SAO light maker",
+      "ledgers": {
+        "Stable Audio Open": "one line on Shop/Stable Audio Open/Stable Audio Open — tuning.md",
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:35:10.947Z",
+      "jobs": [
+        "one-drop-a-second"
+      ],
+      "by": "SAO light maker",
+      "ledgers": {
+        "Stable Audio Open": "one line on Shop/Stable Audio Open/Stable Audio Open — tuning.md",
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:36:09.958Z",
+      "jobs": [
+        "one-drop-a-second"
+      ],
+      "by": "SAO light maker",
+      "ledgers": {
+        "Stable Audio Open": "one line on Shop/Stable Audio Open/Stable Audio Open — tuning.md",
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    },
+    {
+      "at": "2026-11-17T11:41:15.670Z",
+      "jobs": [
+        "one-drop-a-second"
+      ],
+      "by": "SAO light maker",
+      "ledgers": {
+        "Stable Audio Open": "one line on Shop/Stable Audio Open/Stable Audio Open — tuning.md",
+        "Drawn SVG": "one line on Shop/Drawn SVG/Drawn SVG — tuning.md"
+      }
+    }
+  ]
+}

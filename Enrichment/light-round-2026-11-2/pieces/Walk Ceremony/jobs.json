@@ -1,0 +1,53 @@
+{
+  "made_for": "the second light enrichment round: Walk Ceremony, one piece",
+  "tier": "sketch",
+  "jobs": [
+    {
+      "name": "every-door",
+      "page": "Walk Ceremony",
+      "sentence": "The link type is a suggestion about what kind of attention to bring: a `mirrors` link asks you to hold two things together and feel their structural resonance; an `enables` link asks what becomes possible here that wasn't possible before; a `couples-with` link asks how these two things move together.",
+      "claim": "Of the palace's 2,496 typed links (Palace Map, 2026-11-16), nearly half (1,202) are the open connects-to; the three types the page gives a question for are about a fifth (507); about a third (787) are types the page never names.",
+      "chain": [
+        "hand: the Palace Map full build of 2026-11-16 (_ops/swarm/palace-map.py, built at f2c1efdb), its link table copied here",
+        "hand: a second count, the same 333 entries' frontmatter read as YAML at f2c1efdb; the script stops if the two disagree",
+        "Drawn SVG",
+        "hand: headless Chrome rasterises the SVG to PNG at 2x"
+      ],
+      "seed": null,
+      "run": "python3 make.py",
+      "outputs": [
+        "Walk Ceremony — every door in the palace.svg",
+        "Walk Ceremony — every door in the palace.png",
+        "counts.json"
+      ],
+      "inputs": [
+        "palace-map-full-2026-11-16.tsv"
+      ],
+      "heard_by": null
+    },
+    {
+      "name": "one-step",
+      "page": "Walk Ceremony",
+      "sentence": "The link type is a suggestion about what kind of attention to bring: a `mirrors` link asks you to hold two things together and feel their structural resonance; an `enables` link asks what becomes possible here that wasn't possible before; a `couples-with` link asks how these two things move together.",
+      "claim": "One step of a walk from this page: its only typed link leads to The Cooperation Path, which has seven ways out — five connects-to, one deepens, one spawned — and each type says what attention to bring; the page gives it for connects-to, SCHEMA's link table for the other two. Across the palace, 1,202 of 2,496 typed links are connects-to (Palace Map, 2026-11-16).",
+      "chain": [
+        "hand: the links out of Walk Ceremony and The Cooperation Path from the Palace Map full build of 2026-11-16 (built at f2c1efdb), checked against The Cooperation Path's frontmatter at the same commit",
+        "hand: each page's own icon from its bundle, used as a material",
+        "Drawn SVG",
+        "hand: headless Chrome rasterises the SVG to PNG at 2x"
+      ],
+      "seed": null,
+      "run": "python3 make-step.py",
+      "outputs": [
+        "Walk Ceremony — one step of a walk.svg",
+        "Walk Ceremony — one step of a walk.png",
+        "step.json"
+      ],
+      "inputs": [
+        "palace-map-full-2026-11-16.tsv"
+      ],
+      "heard_by": null
+    }
+  ],
+  "notes": "The job one-step is the piece: placed on 2026-11-17 as a proposal in Walk Ceremony's rich face, after a second verdict of keep. The job every-door is the first version; its challenger sent it back (its numbers held, its title and two of its sentences did not) and it is kept here, not placed. See challenge.md beside this file."
+}

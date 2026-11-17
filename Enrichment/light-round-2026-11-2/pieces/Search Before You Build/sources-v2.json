@@ -1,0 +1,222 @@
+{
+ "read_on": "2026-11-17",
+ "tree": "8156fa3d^",
+ "miss": "2026-07-09",
+ "code": [
+  {
+   "pattern": "min(dists)*0.82",
+   "files": [
+    "Projects/BLUELINE/proofs/blender-gallery/gallery.py",
+    "Projects/BLUELINE/proofs/m3-warped-noise/pair.py",
+    "Projects/BLUELINE/proofs/track-IV-bench/bench.py"
+   ],
+   "first_commit": "4b1aee0e",
+   "first_when": "2026-06-14T10:37:57-04:00",
+   "lines": [
+    "Projects/BLUELINE/proofs/blender-gallery/gallery.py:256:    dists=[(p-cam.location).length for p in J.values()]; near,far=min(dists)*0.82, max(dists)*1.12",
+    "Projects/BLUELINE/proofs/m3-warped-noise/pair.py:64:    dists=[(p-camloc).length for p in J.values()]; near,far=min(dists)*0.82, max(dists)*1.12",
+    "Projects/BLUELINE/proofs/track-IV-bench/bench.py:169:    dists=[(p-cam.location).length for p in J.values()]; near,far=min(dists)*0.82, max(dists)*1.12"
+   ]
+  },
+  {
+   "pattern": "min(dists) * 0.82",
+   "files": [
+    "Shop/Blender/tests/blocking/pose_and_emit.py"
+   ],
+   "first_commit": "5e2cbb94",
+   "first_when": "2026-06-13T08:54:19-04:00",
+   "lines": [
+    "Shop/Blender/tests/blocking/pose_and_emit.py:154:NEAR, FAR = min(dists) * 0.82, max(dists) * 1.12"
+   ]
+  },
+  {
+   "pattern": "def subject_depth_range",
+   "files": [
+    "Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/faces_rig.py",
+    "Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/hands_rig.py"
+   ],
+   "first_commit": "50251a81",
+   "first_when": "2026-07-01T01:20:47-04:00",
+   "lines": [
+    "Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/faces_rig.py:319:def subject_depth_range(objs, cam):",
+    "Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/hands_rig.py:155:def subject_depth_range(objs, cam):"
+   ]
+  }
+ ],
+ "per_file": [
+  {
+   "file": "Projects/BLUELINE/proofs/blender-gallery/gallery.py",
+   "pattern": "min(dists)*0.82",
+   "commit": "489512fd",
+   "when": "2026-06-17T12:27:09-04:00"
+  },
+  {
+   "file": "Projects/BLUELINE/proofs/m3-warped-noise/pair.py",
+   "pattern": "min(dists)*0.82",
+   "commit": "b43a7327",
+   "when": "2026-06-18T15:47:24-04:00"
+  },
+  {
+   "file": "Projects/BLUELINE/proofs/track-IV-bench/bench.py",
+   "pattern": "min(dists)*0.82",
+   "commit": "4b1aee0e",
+   "when": "2026-06-14T10:37:57-04:00"
+  },
+  {
+   "file": "Shop/Blender/tests/blocking/pose_and_emit.py",
+   "pattern": "min(dists) * 0.82",
+   "commit": "5e2cbb94",
+   "when": "2026-06-13T08:54:19-04:00"
+  },
+  {
+   "file": "Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/faces_rig.py",
+   "pattern": "def subject_depth_range",
+   "commit": "50251a81",
+   "when": "2026-07-01T01:20:47-04:00"
+  },
+  {
+   "file": "Projects/BLUELINE/proofs/blender-handdrawn/followups/rig-openpose/hands_rig.py",
+   "pattern": "def subject_depth_range",
+   "commit": "6710ddc7",
+   "when": "2026-07-01T01:24:17-04:00"
+  }
+ ],
+ "commit_messages": [
+  {
+   "commit": "21d2405d",
+   "when": "2026-07-01T07:46:08-04:00",
+   "subject": "fix(Figure Rig): real MakeHuman eyes + gaze control; depth in-frame auto-fit",
+   "said": [
+    "- Depth was flat: the range was measured over the WHOLE body (feet/back), so a closeup head"
+   ]
+  },
+  {
+   "commit": "6710ddc7",
+   "when": "2026-07-01T01:24:17-04:00",
+   "subject": "fix(Figure Rig hands): add shaded+color plates + depth auto-fit; batch → shaded→canny",
+   "said": [
+    "hand (subject_depth_range) → real finger/wrist contour instead of a flat 0.2–3.5 m map."
+   ]
+  },
+  {
+   "commit": "50251a81",
+   "when": "2026-07-01T01:20:47-04:00",
+   "subject": "fix(Figure Rig faces): eyes track per subject + depth contour + child framing",
+   "said": [
+    "Loudon: eyes drift for young_man+, depth is flat. Root cause: eye/landmark/camera code read",
+    "~0.2 m, not the old fixed 0.2–3.5) → real head contour instead of flat grey."
+   ]
+  }
+ ],
+ "page_lines_naming_the_range": [
+  {
+   "file": "Projects/BLUELINE/BLUELINE — Board Record Schema.md",
+   "line": 75,
+   "text": "# swapped/merged hand stops being the estimator's GUESS — we declare it. NEAR/FAR"
+  },
+  {
+   "file": "Projects/BLUELINE/proofs/blender-handdrawn/followups/redraw-posed-figure/report.md",
+   "line": 20,
+   "text": "| **Depth** | `depth_plate.png` | Depth ControlNet (camera-distance gradient via `ShaderNodeCameraData` → `MapRange`, near=white) | no compositor needed |"
+  },
+  {
+   "file": "Projects/BLUELINE/proofs/m1-animatic/m1-report.md",
+   "line": 77,
+   "text": "**Deferred to the next structural pass (proposed):** **near/far** limb ordering (which limb is toward"
+  },
+  {
+   "file": "Projects/BLUELINE/proofs/seam-a-roundtrip/seam-a-roundtrip-report.md",
+   "line": 55,
+   "text": "(schema: NEAR/FAR rides DEPTH). `roundtrip.py` now emits per-keypoint camera depth, and the diff **exempts**"
+  },
+  {
+   "file": "Shop/Blender/tests/gotchas-2026-06-13.md",
+   "line": 89,
+   "text": "- **Depth** = a material-swap emission shader (`CameraData → MapRange → Emission`), near/far"
+  },
+  {
+   "file": "Shop/Blender/tests/gotchas-2026-06-13.md",
+   "line": 90,
+   "text": "**auto-ranged** from joint distances (logged in `pose_keypoints.json`). Cleaner than MiDaS/depth-"
+  },
+  {
+   "file": "Shop/Blender/tests/test-plan.md",
+   "line": 36,
+   "text": "| Camera authorship (worm's-eye, foreshortened, OTS) | auto-fit low 3/4 camera frames the figure | PASS — `cam_lens_mm`/framing captured in `pose_keypoints.json` |"
+  },
+  {
+   "file": "Shop/Blender/tests/test-plan.md",
+   "line": 37,
+   "text": "| Depth pass | camera-Z grayscale, near=white→far=black, auto-ranged | PASS — `depth.png`, front/back limb ordering visible |"
+  },
+  {
+   "file": "Shop/Blender/tests/test-plan.md",
+   "line": 60,
+   "text": "- **Depth range clipping:** depth near/far is auto-derived from joint distances; logged in JSON."
+  },
+  {
+   "file": "Shop/Figure Rig/Figure Rig — conditioning stack and scene expansion.md",
+   "line": 35,
+   "text": "depth:     strength 0.45, end_percent 0.7    # near/far kept, loosely"
+  },
+  {
+   "file": "Shop/Figure Rig/Figure Rig — conditioning stack and scene expansion.md",
+   "line": 61,
+   "text": "near/far — read best when a guide is **isolated**, not merely removed. A single-guide pass"
+  },
+  {
+   "file": "Trickster Commit.md",
+   "line": 46,
+   "text": "- Does the grounding belong *in* the commit (auto-derived subject at write time) or *after* it (the trickster digest reads yesterday's `Palace-Author: trickster` trail and grounds the batch in prose)? Deferring it is the more trickster-shaped answer — meaning arrives sideways and late — but it leaves a window where the LOG carries weirdness no one has read."
+  }
+ ],
+ "page_lines_naming_range_and_symptom": [],
+ "naming_first_commit": {
+  "Projects/BLUELINE/BLUELINE — Board Record Schema.md": [
+   "cc4d84fd",
+   "2026-06-16T21:49:02-04:00"
+  ],
+  "Projects/BLUELINE/proofs/blender-handdrawn/followups/redraw-posed-figure/report.md": [
+   "dba15706",
+   "2026-06-26T13:10:33-04:00"
+  ],
+  "Projects/BLUELINE/proofs/m1-animatic/m1-report.md": [
+   "cc4d84fd",
+   "2026-06-16T21:49:02-04:00"
+  ],
+  "Projects/BLUELINE/proofs/seam-a-roundtrip/seam-a-roundtrip-report.md": [
+   "a69bde0a",
+   "2026-06-18T14:38:26-04:00"
+  ],
+  "Shop/Blender/tests/gotchas-2026-06-13.md": [
+   "5e2cbb94",
+   "2026-06-13T08:54:19-04:00"
+  ],
+  "Shop/Blender/tests/test-plan.md": [
+   "5e2cbb94",
+   "2026-06-13T08:54:19-04:00"
+  ],
+  "Shop/Figure Rig/Figure Rig — conditioning stack and scene expansion.md": [
+   "75603864",
+   "2026-07-01T08:59:50-04:00"
+  ],
+  "Trickster Commit.md": [
+   "e5fe0ebd",
+   "2026-06-09T17:33:23-04:00"
+  ]
+ },
+ "fix": {
+  "commit": "8156fa3d",
+  "when": "2026-07-09T11:48:47-04:00",
+  "subject": "edit(genai-camera-depth): auto-range depth (Track-IV lesson) + reproducible blender_panel.py"
+ },
+ "fix_page_line": [
+  "`proofs/track-IV-bench/bench.py`)*. A depth pass reads **flat — a silhouette, not volume** — if the"
+ ],
+ "depth_files_in_proofs_case_insensitive": 199,
+ "regexes": {
+  "message": "depth (is|was) flat|flat grey|flat 0\\.2",
+  "range": "near/far|maprange|depth range|auto-rang|auto-fit|auto-derived",
+  "symptom": "\\b(flat|silhouette|grey|gray|compress\\w*)\\b"
+ }
+}

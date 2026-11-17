@@ -1,0 +1,23 @@
+{
+  "made_for": "the second light enrichment round, fifty pieces",
+  "tier": "sketch",
+  "jobs": [
+    {
+      "name": "example",
+      "page": "the entry this piece is for",
+      "sentence": "the sentence it sits beside",
+      "claim": "what the piece will show, written before it is made",
+      "chain": [
+        "a Specialist from the menu, by name",
+        "hand: what your own script does with it"
+      ],
+      "seed": 1,
+      "run": "python3 make.py example",
+      "outputs": [
+        "example.m4a"
+      ],
+      "inputs": [],
+      "heard_by": null
+    }
+  ]
+}

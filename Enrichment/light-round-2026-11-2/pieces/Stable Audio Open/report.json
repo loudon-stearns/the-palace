@@ -1,0 +1,130 @@
+{
+  "made": "2026-11-17",
+  "model": "stable-audio-3 small-sfx, steps 8, cfg 1.0 (defaults)",
+  "asked": {
+    "prompt": "slow water drip, one single drop falling into water every second, silence between the drops, close and dry, no rain, no stream",
+    "seed": 1935,
+    "duration_sec": 26,
+    "gen_sec": 8.22,
+    "lr_corr": 1.0,
+    "page_detector_onsets_whole_26s": 40,
+    "on_2026_11_14_same_seed": 40
+  },
+  "placed": {
+    "prompt": "a single drop of water falling into a full sink, one drop, close microphone, then silence",
+    "seeds": [
+      1932,
+      1933,
+      1934,
+      1935
+    ],
+    "takes": [
+      {
+        "seed": 1932,
+        "cut_sec": 0.249,
+        "isolation_db": 52.7,
+        "gen_sec": 1.06
+      },
+      {
+        "seed": 1933,
+        "cut_sec": 0.489,
+        "isolation_db": 29.9,
+        "gen_sec": 0.79
+      },
+      {
+        "seed": 1934,
+        "cut_sec": 0.224,
+        "isolation_db": 54.4,
+        "gen_sec": 0.69
+      },
+      {
+        "seed": 1935,
+        "cut_sec": 0.424,
+        "isolation_db": 58.1,
+        "gen_sec": 0.85
+      }
+    ],
+    "chosen_seed": 1935,
+    "chosen_by": "the cut whose onset stands furthest above the 0.3 s before it (third.py)",
+    "placed_at_sec": [
+      0.5,
+      1.5,
+      2.5,
+      3.5,
+      4.5,
+      5.5,
+      6.5,
+      7.5,
+      8.5,
+      9.5
+    ],
+    "same_drop_every_time": true
+  },
+  "measured_on_saved_file": {
+    "length_sec": 21.013,
+    "peak_dbfs": -2.35,
+    "integrated_lufs": -23.5,
+    "true_peak_dbtp": -1.4,
+    "true_peak_before_lowering_dbtp": -0.1,
+    "measured_on": "the m4a, decoded",
+    "asked_first_10s": {
+      "page_detector_onsets": 19,
+      "by_window": {
+        "10ms": 28,
+        "20ms": 19,
+        "40ms": 13
+      },
+      "gap_sec_min": 0.04,
+      "gap_sec_max": 1.34
+    },
+    "placed_10s": {
+      "page_detector_onsets": 10,
+      "by_window": {
+        "10ms": 10,
+        "20ms": 10,
+        "40ms": 10
+      },
+      "gap_sec_mean": 1.002,
+      "gap_sec_sd": 0.011
+    },
+    "page_detector_times_asked": [
+      0.36,
+      0.5,
+      0.54,
+      1.26,
+      1.96,
+      2.04,
+      2.72,
+      3.12,
+      3.18,
+      3.98,
+      5.32,
+      6.54,
+      7.66,
+      8.06,
+      8.2,
+      8.3,
+      8.84,
+      8.9,
+      8.98
+    ],
+    "page_detector_times_placed": [
+      0.46,
+      1.48,
+      2.46,
+      3.46,
+      4.48,
+      5.48,
+      6.48,
+      7.48,
+      8.48,
+      9.48
+    ]
+  },
+  "sha256": {
+    "one-drop-a-second-picture.png": "4be116f7cc368d89",
+    "one-drop-a-second-picture.svg": "387f8d5c8d564b45",
+    "one-drop-a-second.m4a": "e170f194fb2aaf7e"
+  },
+  "heard_by": null
+}

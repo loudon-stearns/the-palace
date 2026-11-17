@@ -1,0 +1,48 @@
+{
+ "read_on": "2026-11-17",
+ "sources": [
+  "git log / git grep at 8156fa3d^",
+  "GenAI Camera/renders.json",
+  "Search Before You Build.md"
+ ],
+ "bracket_files": [
+  {
+   "path": "Projects/BLUELINE/proofs/track-IV-bench/bench.py",
+   "commit": "4b1aee0e",
+   "when": "2026-06-14T10:37:57-04:00"
+  },
+  {
+   "path": "Projects/BLUELINE/proofs/blender-gallery/gallery.py",
+   "commit": "489512fd",
+   "when": "2026-06-17T12:27:09-04:00"
+  },
+  {
+   "path": "Projects/BLUELINE/proofs/m3-warped-noise/pair.py",
+   "commit": "b43a7327",
+   "when": "2026-06-18T15:47:24-04:00"
+  }
+ ],
+ "comfy_client": {
+  "path": "Projects/BLUELINE/proofs/track-VI-elemental-motion/lib/comfy.py",
+  "commit": "3952e9ac",
+  "when": "2026-06-26T10:08:26-04:00"
+ },
+ "fix": {
+  "commit": "8156fa3d",
+  "when": "2026-07-09T11:48:47-04:00",
+  "subject": "edit(genai-camera-depth): auto-range depth (Track-IV lesson) + reproducible blender_panel.py"
+ },
+ "flat_render": {
+  "n": 5,
+  "ts": "2026-07-09 11:35",
+  "plate": "GenAI Camera/renders/render_005_depth.png"
+ },
+ "bracketed_render": {
+  "n": 8,
+  "ts": "2026-07-09 11:47",
+  "plate": "GenAI Camera/renders/render_008_depth.png"
+ },
+ "miss_day": "2026-07-09",
+ "days_bracket_waited": 25,
+ "days_comfy_waited": 13
+}

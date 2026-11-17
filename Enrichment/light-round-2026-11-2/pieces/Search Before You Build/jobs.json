@@ -1,0 +1,52 @@
+{
+  "made_for": "the second light enrichment round: Search Before You Build",
+  "tier": "sketch",
+  "jobs": [
+    {
+      "name": "upstream",
+      "page": "Search Before You Build",
+      "sentence": "The knowledge wasn't missing — retrieval was manual, and it made Loudon the index.",
+      "claim": "The answer was already in the palace's records before the miss: the near/far bracket was committed to bench.py 25 days before 2026-07-09 (and copied into two more proofs), and lib/comfy.py 13 days before. The 25 and 13 days are the maker's count from git, not the page's.",
+      "chain": [
+        "hand: make.py reads git log / git grep at 8156fa3d^ and GenAI Camera/renders.json into data.json, and crops two existing depth plates",
+        "Drawn SVG: the timeline and the two small plates drawn from data.json, rasterised by headless Chrome at 2x"
+      ],
+      "seed": 0,
+      "run": "python3 make.py",
+      "outputs": [
+        "upstream.svg",
+        "upstream.png",
+        "data.json"
+      ],
+      "inputs": [
+        "GenAI Camera/renders.json",
+        "GenAI Camera/renders/render_005_depth.png",
+        "GenAI Camera/renders/render_008_depth.png"
+      ],
+      "heard_by": null
+    },
+    {
+      "name": "same-miss",
+      "page": "Search Before You Build",
+      "sentence": "The knowledge wasn't missing — retrieval was manual, and it made Loudon the index.",
+      "claim": "Eight days before the 2026-07-09 miss, the same flat depth was hit and fixed in the Figure Rig, and said in words (\"depth is flat\") in three commit messages on 2026-07-01; the bracket itself had been in code since 2026-06-13. Before the fix, no .md page line both named the range and warned of the flat; the first did so on 2026-07-09 11:48. The claim is the maker's, from git; the page names only bench.py.",
+      "chain": [
+        "hand: make2.py gather reads git at 8156fa3d^ (code, commit messages, .md lines) into sources-v2.json",
+        "Drawn SVG: make2.py draws three lanes (code, commits, pages) from sources-v2.json only, recomputing each number, rasterised by headless Chrome at 2x"
+      ],
+      "seed": 0,
+      "run": "python3 make2.py",
+      "outputs": [
+        "same-miss.svg",
+        "same-miss.png",
+        "facts-v2.json"
+      ],
+      "inputs": [
+        "sources-v2.json",
+        "make2.py"
+      ],
+      "heard_by": null
+    }
+  ],
+  "notes": "The job same-miss is the piece: placed on 2026-11-17 as a proposal in Search Before You Build's rich face, after a second verdict of keep. The job upstream is the first version; its challenger sent it back, and its claim that the bracket was written again from scratch is wrong. It is kept here, not placed. See challenge.md beside this file."
+}

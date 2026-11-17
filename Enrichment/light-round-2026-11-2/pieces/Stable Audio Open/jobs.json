@@ -1,0 +1,29 @@
+{
+  "made_for": "the second light enrichment round, fifty pieces",
+  "tier": "sketch",
+  "jobs": [
+    {
+      "name": "one-drop-a-second",
+      "page": "Stable Audio Open",
+      "sentence": "A rate or a count asked for in words is not held either. \"One single drop falling into water every second\" came back with 40 to 69 onsets in 26 s over four seeds. Generate one event and place it at the rate yourself (§ Recipes).",
+      "claim": "Asked in words for one drop a second, the model does not keep the rate: more onsets than were asked, bunched in bursts. Asked for a single drop, it gives one that the hand can cut and place on a one-second grid, so the rate is kept by the hand, exactly by construction. (On the page: this sentence, 'place it at the rate yourself', and the recipe it points to.)",
+      "chain": [
+        "Stable Audio Open (small-sfx): the drip as asked in words, seed 1935, 26 s; one drop alone over seeds 1932-1935, 4 s",
+        "hand (Sound from Code): cut one drop by third.py's rule, place it once a second, join the halves, measure on the saved file",
+        "Drawn SVG: two lanes from the same arrays, onsets by the page's own detector",
+        "hand (ffmpeg's role, by afconvert): the m4a"
+      ],
+      "seed": 1935,
+      "run": "\"../../../../_tools/stable-audio-3/.venv/bin/python\" make.py",
+      "outputs": [
+        "one-drop-a-second.m4a",
+        "one-drop-a-second-picture.svg",
+        "one-drop-a-second-picture.png",
+        "report.json"
+      ],
+      "inputs": [],
+      "heard_by": null
+    }
+  ],
+  "notes": "Placed on 2026-11-17 as a proposal in Stable Audio Open's rich face, the sound with its picture. Challenged once (remake the caption), remade once (the file was also lowered 1.40 dB to sit under the house ceiling), second verdict keep. Nobody has heard it. See challenge.md beside this file."
+}

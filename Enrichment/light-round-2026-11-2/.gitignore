@@ -1,0 +1,11 @@
+# Workshop data too large or too raw to belong in git. The scripts beside them rebuild every one.
+# Mycelial Reverb: the engine's arrays and the compiled harnesses; the wav (the m4a is tracked).
+pieces/*/out/*.f32
+pieces/*/out/rooms
+pieces/*/out/survey
+pieces/*/out/probe
+pieces/*/*.wav
+# Stable Audio Open: raw generator takes.
+pieces/*/*.npy
+# The round's single page of embedded media, when it is built.
+all pieces.html
