@@ -15,32 +15,31 @@ forward_vector: "I am SMPTE LTC's scroll — the one page that always opens on w
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-17T13:31:50.847Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T13:40:50.858Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 4 · last ran 2026-11-17 (today)
-- **Plan:** agreed 2026-11-08 (9 days ago) · 3 made things since · **a proposed revision is waiting on you**
+- **Status:** active · **Stage:** growing · **Steward:** cycle 5 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-11-08 (9 days ago) · 4 made things since · **a proposed revision is waiting on you**
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-17 (today) — A new LTC reader that keeps its own clock instead of timing crossings: 23 of 26 hostile files, the noise file nobody passed, no wrong frame anywhere. (`smpte-ltc-steward-011`)
-- **Last commit touching this project:** 2026-11-17 `748f086c` — steward(SMPTE LTC): cycle 3 — SPINNING UP. HOME: [SMPTE LTC](?deck=STATE&entry=Projects/SMPTE LTC.md)…
+- **Last shipped:** 2026-11-17 (today) — The chase room: your TIMECODE track sent down a cable to three desks, showing which cues land, which come late, and which fire after the show stops. (`smpte-ltc-steward-013`)
+- **Last commit touching this project:** 2026-11-17 `4dbdbece` — steward(SMPTE LTC): cycle 4 — SPINNING UP. HOME: [SMPTE LTC](?deck=STATE&entry=Projects/SMPTE LTC.md)…
 - **Signal:** steady
-- **Left uncommitted:** ⚠ 1 file in the bundle that no cycle declared, so no cycle commits it — `Projects/SMPTE LTC/hostile/report.py`. Look, then commit or clear it.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-17 — cycle 4 · taught item 7, proposed item 8 for canon
+- **Runs:** 5 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 5 · taught item 9, proposed item 10 for canon
 - **Owed in the ledger:** nothing
-- **Proposed for canon:** 1 — item 8; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 8, from cycle 4 — 2026-11-17 — [[SMPTE LTC — tuning]]
+- **Proposed for canon:** 2 — items 8, 10; waiting on Loudon's review, and the page has not changed
+- **Latest lesson:** item 10, from cycle 5 — 2026-11-17 — [[SMPTE LTC — tuning]]
 
 ### Where this stands
 
-SMPTE LTC is your page on timecode as sound. GoButton's ltc.js is the specification every other build is held to. In November I built the hostile gauntlet, 26 LTC files each broken one way, and put four readers through it. The best of them read no wrong frames but passed only 22 files. Noise 6 dB down, a resonant EQ and a 32 kbps MP3 beat every reader. The plan's second step is to get readers through those files. This cycle I built a different kind of reader. Every earlier reader times the gap between two zero crossings. This one keeps its own clock and adds up the signal over each half bit, which is the filter matched to the bit. It passes 23 of 26, takes the 6 dB noise file and reads no w…
+SMPTE LTC is your page on timecode as sound, with GoButton's ltc.js as the specification every build is held to. Through November I built a set of 26 deliberately broken LTC files and put five readers through them. The best reads no wrong frame and passes 23. On 8 November you said the page shows how the protocol works but not how it is used. That is a standing order, and a plan revision adding a 'how it is used' step is waiting on you. This cycle acted on the order. I measured when each reader names a frame (after a cold start, a dropout, a cut between songs), not just whether it does. Then I built the chase room: a show on GoButton's TIMECODE track, read by GoButton's reader and chased by…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** No hardware reader has heard any of these files, so 'passes' means passes against ltc.js's own encoder, not against a desk. _(in 4 notes, the latest cycle 4)_
+- **rough since cycle 1:** No hardware reader has heard any of these files, and no real desk has chased the show; _(in 5 notes, the latest cycle 5)_
 - **rough since cycle 1:** The rich face's Read step still runs the unchecked reader. _(in 2 notes, the latest cycle 2)_
 - **rough since cycle 1:** The resonant EQ still defeats every reader. _(in 4 notes, the latest cycle 4)_
 
@@ -59,6 +58,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 5 · taught item 9, proposed item 10 for canon
 - 2026-11-17 — cycle 4 · taught item 7, proposed item 8 for canon
 - 2026-11-17 — cycle 3 · taught item 6
 - 2026-11-05 — cycle 2 · taught item 4, proposed item 5 for canon
@@ -73,6 +73,7 @@ _Nothing owed._
 _Changes the steward wants in the house, kept in its tuning ledger until Loudon's review. Its cycles work as if they hold; the pages have not changed._
 
 - **8.** 2026-11-17 · [[SMPTE LTC]] · § The builds, the hostile gauntlet bullet, appended after its last sentence — The stopwatch-versus-clock contrast is the deepest reading lesson the project has found, and the page's gauntlet bullet stops at four readers.
+- **10.** 2026-11-17 · [[SMPTE LTC]] · a new section, ## In a show, after § Every form — The standing order asks the page to show LTC used, and the page has no section on what happens downstream of the cable; this one starts from Loudon's own rig and carries only what the chase room measured.
 
 <!-- scroll:now:end -->
 
@@ -99,6 +100,58 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="smpte-ltc-steward-013" -->
+### 2026-11-17 — cycle 5 — Off plan — The chase room: your TIMECODE track sent down a cable to three desks, showing which cues land, which come late, and which fire after the show stops.
+> shipped · first move on 'all the way up' · steward leans adopting the waiting plan revision
+
+_Off plan — the 'all the way up' step in the plan revision waiting on you, acted on now under your standing order of 2026-11-08. Offered as proof of a different direction; the plan stands unless Loudon agrees to change it._
+
+What I measured (hostile/chase.mjs, 30 fps, 48 kHz, every reader in the hostile folder). From silence, a reader names its first frame 2 or 3 frames after the signal starts, and the frame it names is one behind the frame playing. After a dropout of 1, 3, 10 or 30 frames, it names a frame again the same 2 or 3 frames after the signal comes back; the length of the gap doesn't matter. A cut from one song's clip straight into the next costs GoButton's reader 1 frame and the checked readers 2. No wrong frame anywhere, clean or with noise 20 dB down. The readers differ by a frame; desk settings differ by ten.
+
+So the room's subject is the desk. The chase room builds the show the way GoButton does: L.runs() turns clips named 'Pre-Roll', '01:00:00:00' and '02:00:00:00' into runs. ltc.js's encoder sends it, a fault is cut into the cable at 01:00:03:00, and GoButton's decodeSample reads it sample by sample. Three made-up desks chase what the reader names: a lighting desk (trusts after 3 frames, runs on alone for 1 s, shows the frame now), a video server (10 frames, 8 frames, the frame now) and a DAW (4 frames, no time, the frame it read). Every setting can be changed. A canvas shows the track, the wire, every frame the reader named, and each desk's state (waiting, locking, locked, running on alone, lost). The cue table gives each desk's verdict. Play sends the real LTC to the speakers at −30 dB with the playhead running; nothing sounds before the click.
+
+The five lessons, pinned in use/check.mjs, which fails if any verdict moves: no Pre-Roll, the first cue is 4, 11 and 5 frames late; 2 s of Pre-Roll, everyone on time except the DAW, a frame late on every cue; a 10-frame dropout is ridden by the lighting desk's second of running on alone and costs the others 11 and 5 frames; when the show stops at 01:00:03:00, that same second of running on alone fires the hit at 01:00:03:10 into a silent room; a cut between songs costs each desk its trust again (3, 10 and 4 frames). Conform and web-smoke pass: 0 errors and 0 warnings at two widths, and no console errors in headless Chromium.
+
+**Artifacts:**
+- [the chase room: pick a lesson or set your own Pre-Roll, fault and desk settings; play sends the real LTC, quietly.](Projects/SMPTE LTC/use/the chase room.html)
+- [the show-stops lesson: the lighting desk fires the hit after the wire has gone silent.](Projects/SMPTE LTC/use/the chase room.png)
+- [the piece's source; make.mjs inlines ltc.js, the core and the lessons.](Projects/SMPTE LTC/use/the chase room.src.html)
+- [the show, wire, reader and desks; all the LTC is ltc.js, only the desk is modelled.](Projects/SMPTE LTC/use/chase-core.js)
+- [the three desks and five lessons, each pinning the verdicts its words claim.](Projects/SMPTE LTC/use/lessons.js)
+- [runs the lessons in Node through the same core; fails if a verdict moves.](Projects/SMPTE LTC/use/check.mjs)
+- [builds the self-contained piece.](Projects/SMPTE LTC/use/make.mjs)
+- [what the use folder holds and what it measured.](Projects/SMPTE LTC/use/README.md)
+- [times every reader at a cold start, after dropouts and across a cut.](Projects/SMPTE LTC/hostile/chase.mjs)
+- [those timings.](Projects/SMPTE LTC/hostile/chase.json)
+- [now lists chase.mjs.](Projects/SMPTE LTC/hostile/README.md)
+- [cycle 4's change, adding the matched reader to the report; it was left undeclared, so it rides now.](Projects/SMPTE LTC/hostile/report.py)
+
+_the five lessons, as check.mjs prints them (lighting desk · video server · DAW)_
+| lesson | the cue that tells | lighting desk | video server | DAW |
+| --- | --- | --- | --- | --- |
+| no Pre-Roll | 01:00:00:00 house to black | 4 frames late | 11 frames late | 5 frames late |
+| 2 s of Pre-Roll | every cue | on time | on time | 1 frame late |
+| 10-frame dropout | 01:00:03:10 the hit | on time | 11 frames late | 5 frames late |
+| the show stops | 01:00:03:10 the hit | fired after the show stopped | never played, never fired | never played, never fired |
+| cut between songs | 02:00:00:00 song 2 | 3 frames late | 10 frames late | 4 frames late |
+
+_Changed in the workshop:_ README — new workshop folder for how LTC is used: the chase room and its check.
+_Changed in the workshop:_ README — lists chase.mjs, the readers timed the way a show uses them.
+_Proposed for canon:_ SMPTE LTC (a new section, ## In a show, after § Every form) — The standing order asks the page to show LTC used, and the page has no section on what happens downstream of the cable; this one starts from Loudon's own rig and carries only what the chase room measured.; owed in the tuning ledger until Loudon's review
+
+_Left rough:_ No hardware reader has heard any of these files, and no real desk has chased the show; the desk settings are not any brand's numbers. The resonant EQ and the 32 kbps MP3 still beat every reader, untouched this cycle.
+
+_Next moves named:_ Take the room on set and in post: jam sync and a camera drifting from the slate; syncing two recorders by timecode; the broadcast-WAV timestamp that is not timecode; 23.976 against 24. · In the DAW: LTC converted to MIDI timecode, eight quarter-frames per time, so a MIDI chaser waits two frames. · Back on the readers: the resonant EQ, where the matched reader's clock settles a quarter bit early.
+<sub>`smpte-ltc-steward-013` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-a3ac019263" -->
+### 2026-11-17 — cycle 5
+
+taught item 9, proposed item 10 for canon
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="smpte-ltc-steward-011" -->
 ### 2026-11-17 — cycle 4 — A new LTC reader that keeps its own clock instead of timing crossings: 23 of 26 hostile files, the noise file nobody passed, no wrong frame anywhere.
 > shipped · the readers step of the plan, two files still unbeaten · steward leans the MP3 next

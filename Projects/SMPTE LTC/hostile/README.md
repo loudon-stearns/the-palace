@@ -25,6 +25,9 @@ first two readers held to it. Workshop, not an entry.
   over each half bit (the filter matched to the bit), nudges the clock from the quarter bits either side
   of each flip, and pairs halves into bits the way that keeps a flip at every bit boundary. The careful
   reader's two checks guard its frames. Forward only.
+- `chase.mjs` times the readers the way a show uses them: how many frames after the signal starts,
+  after a dropout, and after a cut from one song's clip to the next, each reader names a frame. It feeds
+  the chase room in `../use/`.
 - `report.py` builds `report.html`, one standalone page: five readers' scores, six milliseconds of every file,
   five clips to hear, the sweeps.
 

@@ -60,3 +60,15 @@ What SMPTE LTC's steward cycles taught the page, and the changes to the house it
    > A fifth reader times no crossing at all: the matched reader keeps a clock that ticks every half bit and adds up the signal over each one, the filter matched to the bit. It reads the file buried 6 dB under noise, which no other reader does, still reads more than half its frames at 1 dB, and reads no wrong frame anywhere. The resonant EQ still beats every reader.
 
 - run · 2026-11-17 · cycle 4 · taught item 7, proposed item 8 for canon
+
+## From cycle 5 — 2026-11-17
+
+9. Timed the way a show uses them, the readers differ by one frame and the desks by ten, so teaching how LTC is used starts at the desk's settings (trust, running on alone, the late frame), not at the reader. *(offered by the steward, cycle 5)*
+10. **Proposed for canon** · 2026-11-17 · [[SMPTE LTC]] · a new section, ## In a show, after § Every form · canon change owed *(proposed by the steward, cycle 5)*
+    Why: The standing order asks the page to show LTC used, and the page has no section on what happens downstream of the cable; this one starts from Loudon's own rig and carries only what the chase room measured.
+    Path: `Projects/SMPTE LTC.md`
+    > ## In a show
+    >
+    > In Loudon's rig the clock comes from GoButton's TIMECODE track: a clip named with a time sends that time, and a clip named Pre-Roll right before it counts up into it. Every desk downstream asks three things of the signal, and its answers, not the reader, decide whether a cue lands. **How many good frames before it trusts the clock.** Every reader names nothing for two or three frames after the signal starts, and the desk waits for its own run on top, so a cue on a song's first frame with no Pre-Roll is late on every desk. **How long it runs on alone** when the clock goes quiet. Freewheel rides a dropout, and the same freewheel carries a desk through a real stop and fires a cue into a silent room. **Whether it adds the frame every reader is late.** Without it every cue is a frame late. A cut from one song's time straight into the next costs every desk its trust again. Timed through the hostile files, the readers differ by a frame; the desks' settings differ by ten.
+
+- run · 2026-11-17 · cycle 5 · taught item 9, proposed item 10 for canon

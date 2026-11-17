@@ -1,0 +1,337 @@
+{
+ "rate": "30",
+ "sampleRate": 48000,
+ "start": "00:59:55:00",
+ "readers": {
+  "GoButton": {
+   "cold": {
+    "clean": {
+     "lockFrames": 2,
+     "named": "00:59:55:01",
+     "playing": "00:59:55:02",
+     "behind": 1
+    },
+    "noise 20 dB": {
+     "lockFrames": 2,
+     "named": "00:59:55:01",
+     "playing": "00:59:55:02",
+     "behind": 1
+    }
+   },
+   "dropout": {
+    "clean": {
+     "1": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 2,
+      "wrong": 0
+     }
+    },
+    "noise 20 dB": {
+     "1": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 2,
+      "wrong": 0
+     }
+    }
+   },
+   "jump": {
+    "clean": {
+     "frames": 1,
+     "named": "02:00:00:00",
+     "wrong": 0
+    },
+    "noise 20 dB": {
+     "frames": 1,
+     "named": "02:00:00:00",
+     "wrong": 0
+    }
+   }
+  },
+  "GoButton + checks": {
+   "cold": {
+    "clean": {
+     "lockFrames": 3,
+     "named": "00:59:55:02",
+     "playing": "00:59:55:03",
+     "behind": 1
+    },
+    "noise 20 dB": {
+     "lockFrames": 3,
+     "named": "00:59:55:02",
+     "playing": "00:59:55:03",
+     "behind": 1
+    }
+   },
+   "dropout": {
+    "clean": {
+     "1": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 3,
+      "wrong": 0
+     }
+    },
+    "noise 20 dB": {
+     "1": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 3,
+      "wrong": 0
+     }
+    }
+   },
+   "jump": {
+    "clean": {
+     "frames": 2,
+     "named": "02:00:00:01",
+     "wrong": 0
+    },
+    "noise 20 dB": {
+     "frames": 2,
+     "named": "02:00:00:01",
+     "wrong": 0
+    }
+   }
+  },
+  "careful": {
+   "cold": {
+    "clean": {
+     "lockFrames": 3,
+     "named": "00:59:55:02",
+     "playing": "00:59:55:03",
+     "behind": 1
+    },
+    "noise 20 dB": {
+     "lockFrames": 3,
+     "named": "00:59:55:02",
+     "playing": "00:59:55:03",
+     "behind": 1
+    }
+   },
+   "dropout": {
+    "clean": {
+     "1": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 3,
+      "wrong": 0
+     }
+    },
+    "noise 20 dB": {
+     "1": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 3,
+      "wrong": 0
+     }
+    }
+   },
+   "jump": {
+    "clean": {
+     "frames": 2,
+     "named": "02:00:00:01",
+     "wrong": 0
+    },
+    "noise 20 dB": {
+     "frames": 2,
+     "named": "02:00:00:01",
+     "wrong": 0
+    }
+   }
+  },
+  "room, checked": {
+   "cold": {
+    "clean": {
+     "lockFrames": 3,
+     "named": "00:59:55:02",
+     "playing": "00:59:55:03",
+     "behind": 1
+    },
+    "noise 20 dB": {
+     "lockFrames": 2,
+     "named": "00:59:55:01",
+     "playing": "00:59:55:02",
+     "behind": 1
+    }
+   },
+   "dropout": {
+    "clean": {
+     "1": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 2,
+      "wrong": 0
+     }
+    },
+    "noise 20 dB": {
+     "1": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 2,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 2,
+      "wrong": 0
+     }
+    }
+   },
+   "jump": {
+    "clean": {
+     "frames": 2,
+     "named": "02:00:00:01",
+     "wrong": 0
+    },
+    "noise 20 dB": {
+     "frames": 2,
+     "named": "02:00:00:01",
+     "wrong": 0
+    }
+   }
+  },
+  "matched": {
+   "cold": {
+    "clean": {
+     "lockFrames": 3,
+     "named": "00:59:55:02",
+     "playing": "00:59:55:03",
+     "behind": 1
+    },
+    "noise 20 dB": {
+     "lockFrames": 3,
+     "named": "00:59:55:02",
+     "playing": "00:59:55:03",
+     "behind": 1
+    }
+   },
+   "dropout": {
+    "clean": {
+     "1": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 3,
+      "wrong": 0
+     }
+    },
+    "noise 20 dB": {
+     "1": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "3": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "10": {
+      "relockFrames": 3,
+      "wrong": 0
+     },
+     "30": {
+      "relockFrames": 3,
+      "wrong": 0
+     }
+    }
+   },
+   "jump": {
+    "clean": {
+     "frames": 2,
+     "named": "02:00:00:01",
+     "wrong": 0
+    },
+    "noise 20 dB": {
+     "frames": 2,
+     "named": "02:00:00:01",
+     "wrong": 0
+    }
+   }
+  }
+ }
+}

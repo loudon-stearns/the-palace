@@ -1,0 +1,201 @@
+<!doctype html>
+<!--
+  the chase room — how a show uses LTC (workshop draft, not yet a face)
+  built by make.mjs from this file, chase-core.js, lessons.js and the rich face's ltc.js (inlined whole)
+  sound: nothing plays until Play is clicked; the AudioContext is made on that click.
+  check: Projects/SMPTE LTC/use/check.mjs runs the same core and lessons in Node.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="">
+<title>SMPTE LTC · the chase room</title>
+<link rel="stylesheet" href="../../../_ops/loudon-live/design-system/colors_and_type.css">
+<style>
+  :root { color-scheme: dark; --bg0: var(--bg, #0a0a0f); --e1: var(--bg-elev-1, #12121a); --e2: var(--bg-elev-2, #1a1a28);
+    --f1: var(--fg-1, #e8e8f0); --f2: var(--fg-2, #c8c8d8); --f3: var(--fg-3, #8a8aa0); --f4: var(--fg-4, #4a4a5a);
+    --ac: var(--accent, #e8b84a); --line: var(--border, #4a4a5e); --mono: var(--font-mono, 'JetBrains Mono', ui-monospace, Menlo, monospace); }
+  body { margin: 0; background: var(--bg0); color: var(--f1); font: 15px/1.5 var(--font-sans, system-ui, sans-serif); }
+  main { max-width: 1040px; margin: 0 auto; padding: 20px 18px 28px; }
+  h1 { font-size: 22px; margin: 0 0 4px; font-weight: 600; }
+  .lede { color: var(--f2); margin: 0 0 14px; max-width: 760px; }
+  .eyebrow { font: 11px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--f3); margin: 14px 0 6px; }
+  .lessons { display: flex; flex-wrap: wrap; gap: 6px; }
+  button { font: 13px var(--mono); color: var(--f1); background: var(--e2); border: 1px solid var(--line); border-radius: 2px; padding: 6px 10px; cursor: pointer; }
+  button:hover { border-color: rgba(232,184,74,.55); }
+  button.on { background: rgba(232,184,74,.12); border-color: var(--ac); color: var(--ac); }
+  .say { min-height: 3em; color: var(--f2); margin: 10px 0 4px; max-width: 820px; }
+  .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 16px; margin: 6px 0; }
+  label { font: 12px var(--mono); color: var(--f3); display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+  select { font: 12px var(--mono); background: var(--e1); color: var(--f1); border: 1px solid var(--line); border-radius: 2px; padding: 3px 4px; }
+  .desks { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 8px; margin-top: 6px; }
+  .desk { background: var(--e1); border: 1px solid rgba(255,255,255,.06); padding: 8px 10px; }
+  .desk h3 { margin: 0 0 6px; font: 13px var(--mono); color: var(--f1); display: flex; justify-content: space-between; }
+  .desk .tc { font: 22px var(--mono); letter-spacing: .04em; }
+  .desk .mode { font: 11px var(--mono); text-transform: uppercase; letter-spacing: .12em; }
+  .desk .row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+  .wire { display: flex; gap: 18px; align-items: baseline; margin: 10px 0 4px; flex-wrap: wrap; }
+  .wire .tc { font: 26px var(--mono); color: var(--ac); }
+  canvas { width: 100%; height: 300px; display: block; background: var(--e1); border: 1px solid rgba(255,255,255,.06); cursor: crosshair; }
+  table { border-collapse: collapse; width: 100%; margin-top: 10px; font: 13px var(--mono); }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid rgba(255,255,255,.06); }
+  th { color: var(--f3); font-weight: 400; }
+  .ok { color: #7fd19b; } .late { color: var(--ac); } .bad { color: #ff6b6b; } .dim { color: var(--f4); }
+  .play { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .note { color: var(--f3); font-size: 13px; margin-top: 12px; max-width: 820px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>The chase room</h1>
+  <p class="lede">A show on GoButton's TIMECODE track, sent down one cable to three desks that chase it. Two songs: 01:00:00:00, then 02:00:00:00. Three cues. Pick a lesson, or set it up yourself, and see which cues land, which come late, and which fire into a silent room. Everything about the timecode is GoButton's own ltc.js: its Pre-Roll, its encoder, its reader.</p>
+
+  <div class="eyebrow">lessons</div>
+  <div class="lessons" id="lessons"></div>
+  <p class="say" id="say"></p>
+
+  <div class="eyebrow">the show and the cable</div>
+  <div class="controls">
+    <label>Pre-Roll before song 1 <select id="preRoll"><option value="0">none</option><option value="0.1">3 frames</option><option value="0.5">half a second</option><option value="2">2 seconds</option></select></label>
+    <label>between the songs <select id="betweenPreRoll"><option value="0">a cut, no Pre-Roll</option><option value="1">1 second of Pre-Roll</option></select></label>
+    <label>the cable at 01:00:03:00 <select id="fault"><option value="none">clean</option><option value="dropout-3">drops out 3 frames</option><option value="dropout-10">drops out 10 frames</option><option value="dropout-1s">drops out 1 second</option><option value="stop">the show stops there</option></select></label>
+    <label>the reader <select id="check"><option value="0">GoButton's, as it is</option><option value="1">trusts a frame only if it follows</option></select></label>
+  </div>
+
+  <div class="wire"><span class="eyebrow" style="margin:0">on the wire</span><span class="tc" id="wireTc">--:--:--:--</span>
+    <span class="play"><button id="play">▶ play</button><label>level <input id="level" type="range" min="-48" max="-12" value="-30"></label><span class="dim" id="lvl">−30 dB · LTC is a harsh buzz</span></span></div>
+  <canvas id="tl" width="1040" height="300"></canvas>
+
+  <div class="eyebrow">the desks — made up, each set the way a real one can be</div>
+  <div class="desks" id="desks"></div>
+
+  <table id="table"></table>
+  <p class="note">Real desks call these settings lock frames or chase threshold (how many good frames in a row before it believes the clock), freewheel or drop-out time (how long it runs on alone when the clock goes quiet), and offset (whether it adds the frame every reader is late). The numbers here are not any brand's; check your own desk's manual. Measured in Node over the same code, every reader in the hostile folder names its first frame two or three frames after the signal starts, and finds the time again the same two or three frames after a dropout of any length (<code>hostile/chase.mjs</code>).</p>
+</main>
+<script>/*@LTC*/</script>
+<script>/*@CORE*/</script>
+<script>/*@LESSONS*/</script>
+<script>
+(() => {
+  const L = window.Ltc, $ = (id) => document.getElementById(id);
+  const desks = DESKS.map((d) => ({ ...d }));
+  const COLORS = { waiting: '#4a4a5a', locking: '#8a6d2a', locked: '#4f9d6b', freewheel: '#c9962e', lost: '#b54848' };
+  let r = null, head = 0, ctx = null, src = null, t0 = 0, raf = 0, lesson = null;
+
+  // lessons
+  for (const l of LESSONS) {
+    const b = document.createElement('button'); b.textContent = l.title.split(':')[0]; b.dataset.id = l.id;
+    b.onclick = () => apply(l); $('lessons').appendChild(b);
+  }
+  function apply(l) {
+    lesson = l; $('say').textContent = l.say;
+    $('preRoll').value = String(l.settings.preRoll); $('betweenPreRoll').value = String(l.settings.betweenPreRoll);
+    $('fault').value = l.settings.fault; $('check').value = l.settings.check ? '1' : '0';
+    desks.forEach((d, i) => Object.assign(d, DESKS[i])); drawDeskControls(); run();
+  }
+  for (const id of ['preRoll', 'betweenPreRoll', 'fault', 'check']) $(id).onchange = () => { lesson = null; $('say').textContent = 'Your own setup.'; run(); };
+
+  // desk cards
+  function drawDeskControls() {
+    $('desks').innerHTML = '';
+    desks.forEach((d, i) => {
+      const el = document.createElement('div'); el.className = 'desk';
+      const sel = (key, opts) => `<label>${key === 'trust' ? 'trusts after' : key === 'freewheel' ? 'freewheels for' : 'shows'} <select data-k="${key}">${opts.map(([v, t]) => `<option value="${v}"${String(d[key]) === String(v) ? ' selected' : ''}>${t}</option>`).join('')}</select></label>`;
+      el.innerHTML = `<h3><span>${d.name}</span><span class="mode" id="mode${i}">waiting</span></h3><div class="tc" id="tc${i}">--:--:--:--</div>
+        <div class="row">${sel('trust', [[1, '1 frame'], [3, '3 frames'], [4, '4 frames'], [10, '10 frames']])}
+        ${sel('freewheel', [[0, 'no time'], [8, '8 frames'], [30, '1 second'], [90, '3 seconds']])}
+        ${sel('present', [[true, 'the frame now'], [false, 'the frame it read']])}</div>`;
+      el.querySelectorAll('select').forEach((s) => s.onchange = () => { const k = s.dataset.k; d[k] = k === 'present' ? s.value === 'true' : Number(s.value); lesson = null; $('say').textContent = 'Your own setup.'; run(); });
+      $('desks').appendChild(el);
+    });
+  }
+
+  function run() {
+    stop();
+    document.querySelectorAll('#lessons button').forEach((b) => b.classList.toggle('on', lesson && b.dataset.id === lesson.id));
+    r = chaseShow(L, { preRoll: Number($('preRoll').value), betweenPreRoll: Number($('betweenPreRoll').value), fault: $('fault').value, check: $('check').value === '1', desks });
+    head = Math.min(head, r.length - 1);
+    table(); draw(); readouts();
+  }
+
+  function table() {
+    const cls = (v) => v === 'on time' ? 'ok' : /late/.test(v) ? 'late' : /never played/.test(v) ? 'dim' : 'bad';
+    $('table').innerHTML = `<tr><th>cue</th>${r.desks.map((d) => `<th>${d.name}</th>`).join('')}</tr>` +
+      r.cues.map((c, j) => `<tr><td>${r.text(c.n)} · ${c.name}</td>${r.desks.map((d) => `<td class="${cls(d.report[j].verdict)}">${d.report[j].verdict}</td>`).join('')}</tr>`).join('');
+  }
+
+  // the timeline
+  const cv = $('tl'), g = cv.getContext('2d');
+  function draw() {
+    const W = cv.width = cv.clientWidth * devicePixelRatio, H = cv.height = 300 * devicePixelRatio, s = devicePixelRatio;
+    g.clearRect(0, 0, W, H); g.font = `${11 * s}px ui-monospace, Menlo, monospace`; g.textBaseline = 'middle';
+    const L0 = 110 * s, X = (i) => L0 + (W - L0 - 8 * s) * i / r.length, lane = (k) => (14 + k * 46) * s, LH = 26 * s;
+    const names = ['TIMECODE track', 'the wire', 'the reader', ...r.desks.map((d) => d.name)];
+    names.forEach((n, k) => { g.fillStyle = '#8a8aa0'; g.fillText(n, 6 * s, lane(k) + LH / 2); });
+    // clips
+    for (const c of r.clips) {
+      const a = X(c.start * 0.5 * r.SR), b = X(c.end * 0.5 * r.SR), pre = /pre/i.test(c.name);
+      g.fillStyle = pre ? 'rgba(232,184,74,.18)' : 'rgba(232,184,74,.45)'; g.fillRect(a, lane(0), b - a - 1, LH);
+      g.fillStyle = '#e8e8f0'; g.fillText(c.name, a + 4 * s, lane(0) + LH / 2);
+    }
+    // the wire: level, 400 columns
+    const cols = Math.floor((W - L0) / (2 * s)), per = r.length / cols;
+    g.fillStyle = '#c8c8d8';
+    for (let c = 0; c < cols; c++) { let m = 0; for (let i = Math.floor(c * per); i < (c + 1) * per; i += 8) m = Math.max(m, Math.abs(r.y[i] || 0)); const h = m * LH * 1.6; g.fillRect(X(c * per), lane(1) + LH / 2 - h / 2, Math.max(1, s), h); }
+    // the reader: a tick for every frame it named
+    g.fillStyle = '#7fb3ff'; for (const e of r.named) g.fillRect(X(e.at), lane(2) + 4 * s, Math.max(1, s * 0.7), LH - 8 * s);
+    // desks: state bands, fired cues
+    r.desks.forEach((d, k) => {
+      const y0 = lane(3 + k);
+      d.states.forEach((st, j) => { const b = j + 1 < d.states.length ? d.states[j + 1].from : r.length; g.fillStyle = COLORS[st.mode]; g.fillRect(X(st.from), y0, X(b) - X(st.from), LH); });
+      d.report.forEach((rep) => { if (rep.at === undefined) return; const x = X(rep.at); g.fillStyle = rep.late === 0 ? '#7fd19b' : rep.late === null ? '#ff6b6b' : '#e8b84a';
+        g.beginPath(); g.arc(x, y0 + LH / 2, 5 * s, 0, 7); g.fill(); g.fillStyle = '#0a0a0f'; g.fillRect(x - 0.5 * s, y0 + LH / 2 - 2 * s, s, 4 * s);
+        if (rep.late) { g.fillStyle = '#e8e8f0'; g.fillText('+' + rep.late, x + 7 * s, y0 + LH / 2); } else if (rep.late === null) { g.fillStyle = '#e8e8f0'; g.fillText('no show', x + 7 * s, y0 + LH / 2); } });
+    });
+    // cues: when each cue's frame starts on the wire
+    for (const c of r.cues) { let at = -1; for (let i = 0; i < r.length; i += 40) if (r.playing[i] === c.n) { at = i; break; }
+      if (at < 0) continue; g.strokeStyle = 'rgba(232,232,240,.35)'; g.setLineDash([3 * s, 3 * s]); g.beginPath(); g.moveTo(X(at), lane(1)); g.lineTo(X(at), H - 4 * s); g.stroke(); g.setLineDash([]); }
+    // the fault
+    if ($('fault').value !== 'none') { g.fillStyle = '#ff6b6b'; g.fillText('⚡', X(r.faultAt) - 4 * s, lane(1) - 6 * s); }
+    // playhead
+    g.fillStyle = '#e8b84a'; g.fillRect(X(head), 4 * s, 1.5 * s, H - 8 * s);
+    draw.X = X; draw.L0 = L0;
+  }
+  cv.onclick = (ev) => { const b = cv.getBoundingClientRect(), x = (ev.clientX - b.left) * devicePixelRatio; head = Math.max(0, Math.min(r.length - 1, Math.round((x - draw.L0) / (cv.width - draw.L0 - 8 * devicePixelRatio) * r.length)));
+    if (src) { stop(); play(); } else { draw(); readouts(); } };
+  addEventListener('resize', () => r && draw());
+
+  function readouts() {
+    $('wireTc').textContent = r.playing[head] >= 0 ? r.text(r.playing[head]) : '— silence —';
+    r.desks.forEach((d, i) => {
+      let mode = 'waiting'; for (const st of d.states) if (st.from <= head) mode = st.mode;
+      const t = d.shown[Math.floor(head / 160)];
+      $('tc' + i).textContent = t >= 0 ? r.text(Math.floor(t + 1e-6)) : '--:--:--:--';
+      $('tc' + i).style.color = COLORS[mode] === COLORS.waiting ? '#8a8aa0' : COLORS[mode];
+      const m = $('mode' + i); m.textContent = mode; m.style.color = COLORS[mode];
+    });
+  }
+
+  // sound, only on a click
+  function play() {
+    if (!ctx) ctx = new AudioContext();
+    ctx.resume();
+    const buf = ctx.createBuffer(1, r.length, r.SR); buf.copyToChannel(r.y, 0);
+    const gain = ctx.createGain(); gain.gain.value = 10 ** (Number($('level').value) / 20); play.gain = gain;
+    src = ctx.createBufferSource(); src.buffer = buf; src.connect(gain).connect(ctx.destination);
+    const from = head; t0 = ctx.currentTime - from / r.SR; src.start(0, from / r.SR);
+    src.onended = () => { if (src) { src = null; $('play').textContent = '▶ play'; cancelAnimationFrame(raf); } };
+    $('play').textContent = '■ stop';
+    const tick = () => { head = Math.min(r.length - 1, Math.round((ctx.currentTime - t0) * r.SR)); draw(); readouts(); if (src) raf = requestAnimationFrame(tick); };
+    tick();
+  }
+  function stop() { if (src) { const s = src; src = null; try { s.stop(); } catch (e) {} } cancelAnimationFrame(raf); $('play').textContent = '▶ play'; }
+  $('play').onclick = () => { if (src) stop(); else { if (head >= r.length - 2) head = 0; play(); } };
+  $('level').oninput = () => { $('lvl').textContent = '−' + Math.abs($('level').value) + ' dB · LTC is a harsh buzz'; if (play.gain) play.gain.gain.value = 10 ** (Number($('level').value) / 20); };
+
+  apply(LESSONS[0]);
+})();
+</script>
+</body>
+</html>
