@@ -11,37 +11,37 @@ forward_vector: "I carry the in-progress move on [[Adopt the Craft, Author the S
 # Baton: Adopt the Craft, Author the Seam
 
 ## Move
-Carry the Daily Page's *Hand the Groove* roughs toward the page's rich face through [[Enrichment]]. Along the way, land the two small edits the morning found owed, and bring Loudon the open question his reading raised, for him to decide.
+Carry the Daily Page's *Hand the Groove* roughs on through [[Enrichment]], into the rich face that already exists, and bring its two lagging sections back in step with the tuned page.
 
 ## Why this move matters
-The page claims its move works in any craft, and until 2026-10-19 it had been tested in only one: BLUELINE. The morning's rough tested it in music, Loudon's home craft, which the page names and never works through. It held well enough that he played it on his notes and called the match-by-ear game a great ear-training quiz for students. In the sit he also offered a reading that may give the page its missing half. Right now the rough lives in a proofs folder and the reading lives on the scroll. Without this baton, neither has a next session.
+The page now says what the morning's rough found. On Loudon's "(yes)" of 2026-11-11 it carries two senses of seam: the swap, where a reader with taste gives way to a reader with defaults, and the edge of the norm, where the author works (`f7754cd3`). The groove test is where the two meet, and it is the page's first evidence outside BLUELINE. The face has not caught up with the words.
 
-## Cold start
-COLD START. No enrichment has begun. The rich face has not been started and the open question has not been decided. Two roughs exist and are the material, not part of this commission: `Adopt the Craft, Author the Seam/proofs/2026-10-19-hand-the-groove-to-a-machine/` (rough one, the ancestor, and rough two, *Hand the Groove, Loosened*, made on his notes, with `outside-read.md` beside them).
+## Current state
+As of 2026-11-17, board card `adopt-the-craft-author-the-seam-remainder-20261117T114809Z`:
+- **Landed.** The new section § The edge of the norm; the lead reworded to taste and defaults; a paragraph naming both senses; [[Simondon]] named beside "One vocabulary, three jobs"; [[Blocked, Not Prompted]] `exemplifies` this page with its sentence; the forward vector asks to be tried in a third craft. The third-swap question stays open on the page.
+- **The rich face exists.** Three pieces at proposal: "match it by ear", "where it stops being a groove", "which one is the drummer". Two sections now lag the text: "One vocabulary, three jobs" and "The generalization" (`node _ops/rich-face/fingerprint.mjs "Adopt the Craft, Author the Seam"`). `— rich — challenge.md` quotes the old lead, "requires exactness", as the page's words.
+- **The roughs are the material.** `proofs/2026-10-19-hand-the-groove-to-a-machine/`, rough one and rough two, with `outside-read.md`.
+- **Not checked.** Nobody played the roughs for the tune. "The groove limps, then comes loose" rests on the scroll's trail entry. "[[Comic and Cinema — Two Ways of Seeing]] already uses the word this way" is a reading of that page, whose line 38 still credits the join to this page's old sense.
 
 ## Next move
-1. Read the scroll's Now section and its two trail entries, then play rough two.
-2. **Bring the open question to Loudon. Do not settle it.** Here is his reading from the sit. A craft's norms are how art communicates clearly: risers, the ii–V–I, the plagal cadence, comic frames. The artist's voice lives in breaking those norms, at the craft's edges and where crafts join. Break too far and the communication fails; break too little and it isn't art. Maybe authorship is that zone between the norm and the breaking point. Harmony's "rules" are historical studies of what people did, so you read the rules on purpose to find the seams of authorship. The page reads the seam as the point where a loose human reader is replaced by an exact machine reader. His reading is a second seam: the edge of the norm, where the author works. It may be the page's missing half, and it may also answer the page's own third-seam question. The morning's verdict was **open** for exactly this reason: his reading about voice at the edge of the norm is what would decide it. A `tune` of the page waits on his yes. Until then the page's text stays as it is.
-3. **The two owed edits.** These are small, but they change the house, so they are an elder's to write on Loudon's read:
-   - [[Blocked, Not Prompted]] → `exemplifies` → [[Adopt the Craft, Author the Seam]], with one sentence in its body. The page's forward vector asks for this. Blocked, Not Prompted's links today are BLUELINE, The Flow Field is the Spine, Shop/Blender and Shop/ComfyUI (`Blocked, Not Prompted.md:9-21`).
-   - Name [[Simondon]] in the body beside "One vocabulary, three jobs". One feature serving several functions is concretization, and today only the frontmatter makes that link (`Adopt the Craft, Author the Seam.md:24-26`).
-4. Then enrich. Ask Enrichment's one question of the roughs: what can only be heard or played here? The limping/coming-loose ranges and the hidden-groove game are where the norm and its breaking point can actually be played. If Loudon takes his reading, that is the strongest candidate for the rich face's centre. Put each new proof in its own dated folder under `proofs/`, and add a trail entry to the scroll.
+1. Read the scroll's Now and its trail, then play rough two.
+2. Enrich. Ask Enrichment's one question of the roughs: what can only be heard or played here? The limping and coming-loose ranges and the hidden-groove game are where the norm and its breaking point can be played, and § The edge of the norm is now the strongest candidate for the face's centre. Each new proof goes in its own dated folder under `proofs/`, with a trail entry on the scroll.
+3. Bring the two lagging sections back in step: read each piece against the new text, then re-stamp or remake.
+4. Offer, words first: one sentence on [[Comic and Cinema — Two Ways of Seeing]] line 38, pointing its seam at § The edge of the norm.
 
-## Calibrations from this session
-- The test outside BLUELINE worked because it *tested* the claim and did not illustrate it. The machine plays "swing, laid back" straight because nothing in it reads swing. That is [[Blocked, Not Prompted]]'s centred portrait, in sound. Two numbers (the swing ratio and the backbeat's lay-back) are the authored seam, and they also do the page's "one vocabulary, three jobs".
-- The outside read's sharper version of the seam: the machine does not read *exactly*. It reads loosely and falls back on its *defaults*. The seam is where a reader with taste is replaced by a reader with defaults, and exact input is the price of overriding those defaults (`outside-read.md`, § Where it would teach badly). This sits close to Loudon's norm-and-breaking reading. Hold both in view.
-- "Seam" has drifted between pages. Here it means a reader-swap; in [[Comic and Cinema — Two Ways of Seeing]] it means a boundary between two registers. If his reading lands, the page will carry two senses on purpose. Name them, so a reader does not take them for one claim.
-- Do not fold into [[Search Before You Build]]. The morning's read was to keep both: one is a practice, this one is a concept (`outside-read.md`, § Nearest sibling).
-- The outside read calls `[[Shop/Blender]]` a forward ghost. **That is wrong.** `Shop/Blender.md` exists (a `specialist`, added 2026-06-13), and `[[Shop/…]]` is how the house links Shop pages (`SCHEMA.md:80`). The link resolves, so no edit is owed. The false ghost most likely came from the dealer, whose resolver looks links up by title and misses path-qualified ones ([[The Daily Page — tuning]] item 59).
-- BLUELINE's `proofs/seam-a-roundtrip/` already tests seam 1. The depth-slider piece the page asked for when woken mostly exists there, so don't rebuild it.
+## Calibrations
+- "Seam" carries two senses here on purpose. The page says "second sense", not "second seam", because seam 1 and seam 2 already name BLUELINE's two swaps.
+- The taste-and-defaults wording came from the outside read (§ Where it would teach badly). Loudon approved it with the tune on 2026-11-17.
+- Do not fold into [[Search Before You Build]]: one is a practice, this one is a concept.
+- BLUELINE's `proofs/seam-a-roundtrip/` already tests seam 1. Don't rebuild the depth-slider piece.
 - Write HTML with Bash heredocs or `cp`, never the Write tool: Write opens the file in the browser pane ([[The Daily Page — tuning]] items 19 and 27).
 
 ## Load these files first
 1. `Adopt the Craft, Author the Seam/Adopt the Craft, Author the Seam — scroll.md`
 2. `Adopt the Craft, Author the Seam.md`
-3. `Adopt the Craft, Author the Seam/proofs/2026-10-19-hand-the-groove-to-a-machine/hand-the-groove-to-a-machine-2.html`
-4. `Adopt the Craft, Author the Seam/proofs/2026-10-19-hand-the-groove-to-a-machine/outside-read.md`
-5. `Enrichment.md`, and `_ops/loudon-live/design-system/SKILL.md` before anything visual
+3. `Adopt the Craft, Author the Seam/Adopt the Craft, Author the Seam — rich.json` and `— rich — challenge.md`
+4. `Adopt the Craft, Author the Seam/proofs/2026-10-19-hand-the-groove-to-a-machine/hand-the-groove-to-a-machine-2.html` and `outside-read.md`
+5. `Enrichment.md`, and the design manifest before anything visual
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the

@@ -6,38 +6,39 @@ links:
     type: connects-to
     label: "baton-for"
 forward_vector: "I carry the in-progress move on [[The Lens]] across a boundary, waiting to be caught by the next Claude and deleted once the move is picked up."
-session_thread: "Remainder of the-lens-handoff-2026-10-23, closed --partial on 483afc32; board card the-lens-remainder-20261104T050135Z"
+session_thread: "Remainder of the-lens-remainder-20261104T050135Z, closed --partial on 011905d8; board card the-lens-remainder-20261117T114808Z"
 ---
 
 # Baton: The Lens
 
 ## Move
-Finish what the bold mandate left: carry its register move to enchanted pages, write § The Fidelity Test's paragraph on the woken glasses once Loudon rules on rich-face offer 3, and get his ruling on whether a glass for a living person may invent a scene.
+Find out whether a woken glass obeys the attribution rule it has now been given. Both steps cost money and wait for Loudon's yes.
 
 ## Why this move matters
-Loudon's verdict on Woken Glasses was "a clear 'go for bold' direction", and the mandate now reads boldly (a145f1a4). But the page's own test section still describes only the hand-written games, the voice move has not reached the enchanted pages that "lack" it, and the mandate licenses every glass, living people included, to invent a scene. Each of the three waits on a decision, not on code.
+Loudon's two rulings are on the page and in the mandate (`011905d8`): rich-face offer 3 is taken, and a glass may invent a scene or give a real person words they never said, only with attribution, marked where the invented line stands. The words are written. No glass has been run under them, so nobody knows yet whether a woken glass marks its inventions or only says so in the check at the end.
 
 ## Current state
-As of 483afc32 (the landing of lens/bold-mandate):
-- **(f), carried.** The 2026-10-25 line from the Palace To-Do, in Loudon's call: "if the bold mandate holds, the same register move is the voice guidance enchanted pages lack, minus the veracity licence." The bold mandate held. Nothing has been carried to [[Palace Enchantment]] § Voice Rules When Addressing the Human (`Projects/Palace Enchantment.md:315`).
-- **§ The Fidelity Test.** Untouched on purpose. It is stamped in `The Lens/The Lens — rich.json` (`made_against: ff646abd58ff`, three pieces, status `proposal`), so any edit marks "move the glass" and both 2026-10-23 games as lagging. Rich-face offer 3 (open) asks to change this same section's test sentence: "the change that counts is in what the glass brings, not the words it borrows." The mandate already says so (`_ops/stigmergy/orchestrator/src/lens-mandate.js:120`: "a borrower can pass it, so it is not enough alone").
-- **The person-glass ruling.** [[The Lens — tuning]] item 13, owed, Loudon's ruling. The licence is at `lens-mandate.js:108-110`; canon forbids fabricated quotes ([[Making a Palace Citizen]]) and says nothing about invented scenes.
-- **Self-check owed.** At the 2026-11-07 close, `node _ops/self-description-test/due.mjs` exited 2. Scenario S1 is at risk through `_ops/stigmergy/orchestrator/src/ephemeral-prompt.js`, which this move changed (a145f1a4); the run is `node _ops/self-description-test/birth.mjs --scenario S1 --ref HEAD`. A birth costs money and waits for Loudon's yes. A1, D1, E7, G4, G5 and the floor are owed too, for CHILD.md and SCHEMA.md changes by other sessions; they are not this baton's to pay.
+As of 2026-11-17:
+- **Landed.** § The Fidelity Test carries offer 3's test sentence and the paragraph on the woken glasses; § Shipped carries the attribution rule; `_ops/stigmergy/orchestrator/src/lens-mandate.js` tells a woken glass the same, with a test (18 of 18 with the ephemeral-prompt tests); [[Palace Enchantment]] § Voice Rules gained "Plain is not generic". The Fidelity Test section is re-stamped, offer 3 is marked taken, and [[The Lens — tuning]] item 13 holds the ruling in Loudon's words (`acf0b6e2`).
+- **Not run.** No lensing under the new line. A reading and its check can travel apart (code-review finding 2), which is why the rule asks for the mark beside the line.
+- **Self-check owed.** `node _ops/self-description-test/due.mjs` exited 2 at the 2026-11-07 close. Scenario S1 is at risk through `_ops/stigmergy/orchestrator/src/ephemeral-prompt.js`; the run is `node _ops/self-description-test/birth.mjs --scenario S1 --ref HEAD`. A1, D1, E7, G4, G5 and the floor are owed too, for changes by other sessions; they are not this baton's to pay.
+- **A review note waits.** Loudon's Woken Glasses answers of 2026-11-07 are open on this page (`node _ops/loudon-eval/read-answers.mjs --page "The Lens" --open`). Read them before the run.
+- **Rich face.** Offers 1 and 2 are still open. "many eyes" and "the glass on a page" hang on the top section as proposals.
 
 ## Next move
-Put the two rulings to Loudon together, plainly: rich-face offer 3 (yes / no / reworded), and item 13 (may a glass for a living person invent a scene, and ever put new words in their mouth as a quotation?). Then, on his answers, write the Fidelity Test paragraph and the offer-3 sentence in one edit and re-stamp the section (`node _ops/rich-face/fingerprint.mjs "The Lens" --stamp "The Fidelity Test (generalized)"`). (f) can go in parallel: draft the voice line for Palace Enchantment and show it before writing.
+1. Ask Loudon for a yes on one paid lensing: a glass for a real person, bold, over a page of his choosing. Read the result for one thing: is each invented line marked where it stands, and named again in the check?
+2. On the same yes or a second one, run the S1 birth.
+3. Offer, words first: [[Palace Enchantment]] now names The Lens in a rule and has no typed link to it. `connects-to`, label `register-without-licence`, from Palace Enchantment's side.
 
-## Calibrations from this session
-- Loudon, 2026-11-03: he played four of the five pairs and "MUCH preferred the bold"; "yes to the cost, no need to read the notes, the result is a clear 'go for bold' direction".
-- The § Fidelity Test paragraph should carry his verdict, and the cost the fact-check found: every bold distortion check missed a small bend of its own ([[The Lens — tuning]] items 8, 9).
-- He has not ruled on the person-page line. Do not take "go for bold" as that ruling.
+## Calibrations
+- Loudon's "yes with attribution" (2026-11-11) was read as: mark the invention where it stands, for the living and the dead alike. He approved the words that say so on 2026-11-17. If a run shows the mark beside the line is too heavy, that is his to loosen, not the catcher's.
+- [[Making a Palace Citizen]] was left alone on purpose. Its rule governs a person's own page; a glass's reading is never the record.
 
 ## Load these files first
 1. [[The Lens — tuning]], items 8–13.
-2. [[The Lens]], § The Fidelity Test and § Shipped; then `The Lens/The Lens — rich.json`, the `offers` list (offer 3).
-3. `The Lens/proofs/2026-11-03-bold-mandate/` (judge-blind.md, fact-check.md, code-review.md finding 5).
-4. `_ops/stigmergy/orchestrator/src/lens-mandate.js:100-125`.
-5. [[Palace Enchantment]] § Voice Rules When Addressing the Human.
+2. [[The Lens]], § The Fidelity Test and § Shipped.
+3. `_ops/stigmergy/orchestrator/src/lens-mandate.js:100-125`.
+4. `The Lens/proofs/2026-11-03-bold-mandate/` (fact-check.md, code-review.md).
 
 ## On pickup (fixed — the catcher's checklist; do not rewrite per session)
 *Identical in every baton. It rides along because the catching Claude loads the
