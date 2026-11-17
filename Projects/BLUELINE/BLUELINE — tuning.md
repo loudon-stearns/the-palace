@@ -36,3 +36,7 @@ What BLUELINE's steward cycles taught the page, and the changes to the house its
 
 3. A board record's FRAME is the frame of absolute song time, but a cut that starts at an in-point has to round again from that in-point, because the in-point usually falls between frames and the audio is laid from it. Keep the record absolute and let the cutter re-round, never subtract the two rounded frames. *(offered by the steward, cycle 2)*
 - run · 2026-11-05 · cycle 2 · taught item 3
+
+## Offered from outside the project — 2026-11-17
+
+- offered · 2026-11-17 · from the light round's piece for [[Animate the Background]], carried here by the Concierge; an offer for the steward and for Loudon, and no change to the plan · Shot 02's source file, `new-story/out/02_hero-on-sedan-pointing.png`, is gone from disk and from git; the piece's challenger counted eleven `blender-fire` scripts that still point at it (`git grep` finds the name in 13 tracked files under the project). The image is not lost: the left half of the tracked `Projects/BLUELINE/proofs/blender-fire/renders/proof/03_depth_ordering.png` is the shot, equal on all 1,011,712 pixels to the piece's rebuild, by the maker's check and the challenger's. The working is in `Enrichment/light-round-2026-11-2/pieces/Animate the Background/`. The Concierge checked only that the proof image is tracked and that the name is still referenced. · owed a review

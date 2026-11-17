@@ -50,6 +50,95 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shop-animate-the-background" -->
+### 2026-11-17 — the second light enrichment round
+
+the second light enrichment round: Animate the Background
+
+Placed on 2026-11-17 as a proposal in Animate the Background's rich face: the loop, with its peak frame held still beside it. Challenged once (remake the lines only), second verdict keep; the WebP never changed. The files under project/ are copies of BLUELINE's tracked files, used as inputs. See challenge.md beside this file.
+
+**What each piece claims, written before it was made:**
+- tear-at-the-edge: On BLUELINE shot 02, the project's own ink warp run with the infill step skipped drags a copy of the man's head out past his edge (up to 19 px in the 832 px frame, in 21 of the loop's 64 frames at the threshold used); the same warp over LaMa's plate leaves his edge clean to the eye. The claim is on the page; the mechanism is the project's (ink_flames.py: infill 'so the moving layer has no head to smear').
+
+**Each piece, and who has seen it:**
+- **tear-at-the-edge**, for Animate the Background, Skip this and a moving background tears at the figure's edge. · hand: ink_flames (BLUELINE's own warp, run from this folder by ink_flames_here.py, paths changed only), twice: over the plate and over the un-infilled shot → LaMa: the clean plate, rerun through Shop/LaMa's lama_fill.py on the rebuilt shot with the project's mask (feather > 100, 11 px dilation) → Drawn SVG: overlay.svg (labels, crop box, the ring), rasterised by Playwright's Chromium with a transparent ground → hand: make.py lays the two crops and the thumbnail under the overlay and writes the animated WebP (64 frames, 70 ms, the project's timing) · nobody has seen this yet
+
+Nobody has seen this yet.
+
+**Artifacts:**
+- [tear-at-the-edge: tear-at-the-edge.webp](Enrichment/light-round-2026-11-2/pieces/Animate the Background/tear-at-the-edge.webp)
+- [tear-at-the-edge: tear-at-the-edge-still.png](Enrichment/light-round-2026-11-2/pieces/Animate the Background/tear-at-the-edge-still.png)
+- [tear-at-the-edge: overlay.svg](Enrichment/light-round-2026-11-2/pieces/Animate the Background/overlay.svg)
+- [tear-at-the-edge: tear.json](Enrichment/light-round-2026-11-2/pieces/Animate the Background/tear.json)
+- [tear-at-the-edge: sources.json](Enrichment/light-round-2026-11-2/pieces/Animate the Background/sources.json)
+- [tear-at-the-edge: rebuild-check.json](Enrichment/light-round-2026-11-2/pieces/Animate the Background/rebuild-check.json)
+- [tear-at-the-edge: lama-check.json](Enrichment/light-round-2026-11-2/pieces/Animate the Background/lama-check.json)
+- [what made each file, and who has heard or seen it](Enrichment/light-round-2026-11-2/pieces/Animate the Background/provenance.json)
+- [the jobs as written](Enrichment/light-round-2026-11-2/pieces/Animate the Background/jobs.json)
+
+<sub>sketch, 1 job · every job made through the bench, 3 batches from 2026-11-17 by maker: Animate the Background at 56c9f98f · folder Enrichment/light-round-2026-11-2/pieces/Animate the Background/ · presented 2026-11-17 by the bench (Shop/shop.mjs present) on Drawn SVG's scroll</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shop-kokoro" -->
+### 2026-11-17 — the second light enrichment round
+
+the second light enrichment round: Kokoro's one piece
+
+The sound from the job two-commas and the picture from the job two-commas-remake are the piece: placed on 2026-11-17 as a proposal in Kokoro's rich face. The first picture (two-commas-picture) was sent back and is kept here, not placed. The piece's measurement differs from the page's sentence beside it and is offered to the page, not settled. Nobody has heard it. See challenge.md beside this file.
+
+**What each piece claims, written before it was made:**
+- two-commas: Two commas in the text add a pause before K that the bare sentence does not have. Measured by the maker over 40 takes (four voices, ten seeds each): a quiet stretch of 50 ms or more before K in 0 of 40 bare takes and 40 of 40 with commas. Both versions already have a pause after K, 220 to 360 ms bare. On the page: punctuation changes prosody (Iteration Character, step 1; the Charter) and the comma fix itself; Loudon's recorded words in tuning item 7 ask for the pause 'before the variable name'. The direction (before, not after) is the maker's finding and differs from the page's wording 'runs into the next word'.
+- two-commas-remake: The remake after the challenge: the sound stands. The picture marks the quiet after K as in both reads and the quiet before K as only with commas, and states the evidence as four voices of this one sentence, one at the 50 ms line. Two checks behind the words: the 2026-05-26 takes re-rendered so Kokoro's word timings lie on the takes that were heard, and the comma test with ten letters in two sentences.
+
+**Each piece, and who has heard or seen it:**
+- **two-commas**, for Kokoro, Put commas around a bare variable letter. "The coupling constant, K, is…" — without the breaks the letter runs into the next word. Fix it in the text, not with overrides. · Kokoro: the sentence bare and with commas, af_heart, af_bella, am_michael, am_adam, torch seeds 1 to 10, speed 1.0, with Kokoro's own word timings → Sound from Code: the quiet-run detector, the survey, the choice of takes, the join → ffmpeg: two-pass loudnorm on the joined file, once; measures on the saved m4a (afconvert writes the AAC) → Drawn SVG: two lanes from the decoded m4a and the word timings, PNG through headless Chrome · nobody has heard or seen this yet
+- **two-commas-remake**, for Kokoro, Put commas around a bare variable letter. "The coupling constant, K, is…" — without the breaks the letter runs into the next word. Fix it in the text, not with overrides. · Kokoro: the two 2026-05-26 paragraphs re-rendered (af_heart, 0.25 s between chunks), and the letter probe (10 letters, 2 sentences, 4 voices, seed 1), with word timings → Sound from Code: the quiet-run detector on the git takes and the probe → Drawn SVG: two-commas-picture-2, from the saved m4a and the survey's word timings · nobody has seen this yet
+
+Nobody has heard or seen any of these yet.
+
+**Artifacts:**
+- [two-commas: two-commas.m4a](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas.m4a)
+- [two-commas: two-commas-picture.svg](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture.svg)
+- [two-commas: two-commas-picture.png](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture.png)
+- [two-commas: report.json](Enrichment/light-round-2026-11-2/pieces/Kokoro/report.json)
+- [two-commas: survey.json](Enrichment/light-round-2026-11-2/pieces/Kokoro/survey.json)
+- [two-commas-remake: two-commas-picture-2.svg](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture-2.svg)
+- [two-commas-remake: two-commas-picture-2.png](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture-2.png)
+- [two-commas-remake: report-2.json](Enrichment/light-round-2026-11-2/pieces/Kokoro/report-2.json)
+- [what made each file, and who has heard or seen it](Enrichment/light-round-2026-11-2/pieces/Kokoro/provenance.json)
+- [the jobs as written](Enrichment/light-round-2026-11-2/pieces/Kokoro/jobs.json)
+
+<sub>study, 2 jobs · every job made through the bench, 3 batches from 2026-11-17 by Kokoro maker at 59e56890, 56c9f98f · folder Enrichment/light-round-2026-11-2/pieces/Kokoro/ · presented 2026-11-17 by the bench (Shop/shop.mjs present) on Drawn SVG's scroll</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="shop-marcus-aurelius" -->
+### 2026-11-17 — the second light enrichment round
+
+the second light enrichment round: Marcus Aurelius
+
+The job met-on-paper-2 is the piece: placed on 2026-11-17 as a proposal in Marcus Aurelius's rich face, after a second verdict of keep and one fix it required. The job met-on-paper is the first version; its challenger sent it back (its "turned to philosophy at 25" does not hold as fact) and it is kept here, not placed. See challenge.md beside this file.
+
+**What each piece claims, written before it was made:**
+- met-on-paper: Why a book: Epictetus died around 135, in Greece, when Marcus was about fourteen and in Rome; Marcus turned to philosophy at twenty-five (146/147), about eleven years later, and came to know Epictetus through notes of his lectures lent by Rusticus (year not recorded). The Meditations were written later still, on campaign, inside the plague years and the northern war. 'From a book' is the page's; the why, and the two lives on one axis, are the maker's, every date from two sources in dates.json.
+- met-on-paper-2: Why it was a book: Marcus was never Epictetus's pupil. For about fourteen years (121 to c. 135) both were alive, the boy in Rome, the teacher at Nicopolis in Greece, and the boy took up a philosopher's cloak at twelve within those years; what reached Marcus of Epictetus was notes of his lectures, lent by Rusticus, in a year no source gives. 'From a book' is the page's; the why and the two lines are the maker's, every date from two sources in dates-2.json.
+
+**Each piece, and who has seen it:**
+- **met-on-paper**, for Marcus Aurelius, He learned his Stoicism from a book — his tutor Rusticus handed him the *Discourses* of Epictetus, a former *slave*, and the emperor took a slave's philosophy as his own. · Drawn SVG → hand: make.py reads dates.json, refuses to draw any date with fewer than two sources, draws the two lifelines, the bands and the axis as SVG with soft ends for uncertain dates, and rasterises the PNG at 2x through headless Chrome · nobody has seen this yet
+- **met-on-paper-2**, for Marcus Aurelius, He learned his Stoicism from a book — his tutor Rusticus handed him the *Discourses* of Epictetus, a former *slave*, and the emperor took a slave's philosophy as his own. · Drawn SVG → hand: make2.py reads dates-2.json only, refuses a date with fewer than two sources or a label carrying its own digits, formats every printed number from the data, draws two lifelines and the undated path of the notes to Marcus's name, and rasterises the PNG at 2x through headless Chrome · nobody has seen this yet
+
+Nobody has seen any of these yet.
+
+**Artifacts:**
+- [met-on-paper: met-on-paper.svg](Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/met-on-paper.svg)
+- [met-on-paper: met-on-paper.png](Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/met-on-paper.png)
+- [met-on-paper-2: met-on-paper-2.svg](Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/met-on-paper-2.svg)
+- [met-on-paper-2: met-on-paper-2.png](Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/met-on-paper-2.png)
+- [what made each file, and who has heard or seen it](Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/provenance.json)
+- [the jobs as written](Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/jobs.json)
+
+<sub>sketch, 2 jobs · every job made through the bench, 4 batches from 2026-11-17 by Marcus Aurelius maker, light round 2 at 90576ebe, c4d7141f · folder Enrichment/light-round-2026-11-2/pieces/Marcus Aurelius/ · presented 2026-11-17 by the bench (Shop/shop.mjs present) on Drawn SVG's scroll</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="shop-stable-audio-open" -->
 ### 2026-11-17 — the second light enrichment round, fifty pieces
 

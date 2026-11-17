@@ -51,6 +51,26 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shop-kokoro" -->
+### 2026-11-17 — the second light enrichment round
+
+Made for this page through the Shop, beside: Put commas around a bare variable letter. "The coupling constant, K, is…" — without the breaks the letter runs into the next word. Fix it in the text, not with overrides.. Nothing here is wired into the page; that is still the page's call.
+
+The whole round, with what each piece claims and who has heard or seen it, is on [Kokoro's scroll](Shop/Kokoro/Kokoro — scroll.md) and [Sound from Code's scroll](Shop/Sound from Code/Sound from Code — scroll.md) and [ffmpeg's scroll](Shop/ffmpeg/ffmpeg — scroll.md) and [Drawn SVG's scroll](Shop/Drawn SVG/Drawn SVG — scroll.md). Nobody has heard or seen any of these yet.
+
+**Artifacts:**
+- [two-commas: two-commas.m4a](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas.m4a)
+- [two-commas: two-commas-picture.svg](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture.svg)
+- [two-commas: two-commas-picture.png](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture.png)
+- [two-commas: report.json](Enrichment/light-round-2026-11-2/pieces/Kokoro/report.json)
+- [two-commas: survey.json](Enrichment/light-round-2026-11-2/pieces/Kokoro/survey.json)
+- [two-commas-remake: two-commas-picture-2.svg](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture-2.svg)
+- [two-commas-remake: two-commas-picture-2.png](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture-2.png)
+- [two-commas-remake: report-2.json](Enrichment/light-round-2026-11-2/pieces/Kokoro/report-2.json)
+
+<sub>a link from the Shop · 2 pieces for Kokoro · folder Enrichment/light-round-2026-11-2/pieces/Kokoro/ · presented 2026-11-17 by the bench (Shop/shop.mjs present)</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="test-2026-11-15-beats-teaching-clip" -->
 ### 2026-11-15 — Beats: a teaching clip made by three Specialists, each for what it does best
 

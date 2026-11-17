@@ -50,6 +50,35 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shop-animate-the-background" -->
+### 2026-11-17 — the second light enrichment round
+
+the second light enrichment round: Animate the Background
+
+Placed on 2026-11-17 as a proposal in Animate the Background's rich face: the loop, with its peak frame held still beside it. Challenged once (remake the lines only), second verdict keep; the WebP never changed. The files under project/ are copies of BLUELINE's tracked files, used as inputs. See challenge.md beside this file.
+
+**What each piece claims, written before it was made:**
+- tear-at-the-edge: On BLUELINE shot 02, the project's own ink warp run with the infill step skipped drags a copy of the man's head out past his edge (up to 19 px in the 832 px frame, in 21 of the loop's 64 frames at the threshold used); the same warp over LaMa's plate leaves his edge clean to the eye. The claim is on the page; the mechanism is the project's (ink_flames.py: infill 'so the moving layer has no head to smear').
+
+**Each piece, and who has seen it:**
+- **tear-at-the-edge**, for Animate the Background, Skip this and a moving background tears at the figure's edge. · hand: ink_flames (BLUELINE's own warp, run from this folder by ink_flames_here.py, paths changed only), twice: over the plate and over the un-infilled shot → LaMa: the clean plate, rerun through Shop/LaMa's lama_fill.py on the rebuilt shot with the project's mask (feather > 100, 11 px dilation) → Drawn SVG: overlay.svg (labels, crop box, the ring), rasterised by Playwright's Chromium with a transparent ground → hand: make.py lays the two crops and the thumbnail under the overlay and writes the animated WebP (64 frames, 70 ms, the project's timing) · nobody has seen this yet
+
+Nobody has seen this yet.
+
+**Artifacts:**
+- [tear-at-the-edge: tear-at-the-edge.webp](Enrichment/light-round-2026-11-2/pieces/Animate the Background/tear-at-the-edge.webp)
+- [tear-at-the-edge: tear-at-the-edge-still.png](Enrichment/light-round-2026-11-2/pieces/Animate the Background/tear-at-the-edge-still.png)
+- [tear-at-the-edge: overlay.svg](Enrichment/light-round-2026-11-2/pieces/Animate the Background/overlay.svg)
+- [tear-at-the-edge: tear.json](Enrichment/light-round-2026-11-2/pieces/Animate the Background/tear.json)
+- [tear-at-the-edge: sources.json](Enrichment/light-round-2026-11-2/pieces/Animate the Background/sources.json)
+- [tear-at-the-edge: rebuild-check.json](Enrichment/light-round-2026-11-2/pieces/Animate the Background/rebuild-check.json)
+- [tear-at-the-edge: lama-check.json](Enrichment/light-round-2026-11-2/pieces/Animate the Background/lama-check.json)
+- [what made each file, and who has heard or seen it](Enrichment/light-round-2026-11-2/pieces/Animate the Background/provenance.json)
+- [the jobs as written](Enrichment/light-round-2026-11-2/pieces/Animate the Background/jobs.json)
+
+<sub>sketch, 1 job · every job made through the bench, 3 batches from 2026-11-17 by maker: Animate the Background at 56c9f98f · folder Enrichment/light-round-2026-11-2/pieces/Animate the Background/ · presented 2026-11-17 by the bench (Shop/shop.mjs present) on LaMa's scroll</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="tests-2026-11-15" -->
 ### 2026-11-15 — The test list
 

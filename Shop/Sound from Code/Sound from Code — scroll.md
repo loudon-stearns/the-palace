@@ -51,6 +51,38 @@ _Loudon's standing direction for this page — never regenerated. A steward, if 
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="shop-kokoro" -->
+### 2026-11-17 — the second light enrichment round
+
+the second light enrichment round: Kokoro's one piece
+
+The sound from the job two-commas and the picture from the job two-commas-remake are the piece: placed on 2026-11-17 as a proposal in Kokoro's rich face. The first picture (two-commas-picture) was sent back and is kept here, not placed. The piece's measurement differs from the page's sentence beside it and is offered to the page, not settled. Nobody has heard it. See challenge.md beside this file.
+
+**What each piece claims, written before it was made:**
+- two-commas: Two commas in the text add a pause before K that the bare sentence does not have. Measured by the maker over 40 takes (four voices, ten seeds each): a quiet stretch of 50 ms or more before K in 0 of 40 bare takes and 40 of 40 with commas. Both versions already have a pause after K, 220 to 360 ms bare. On the page: punctuation changes prosody (Iteration Character, step 1; the Charter) and the comma fix itself; Loudon's recorded words in tuning item 7 ask for the pause 'before the variable name'. The direction (before, not after) is the maker's finding and differs from the page's wording 'runs into the next word'.
+- two-commas-remake: The remake after the challenge: the sound stands. The picture marks the quiet after K as in both reads and the quiet before K as only with commas, and states the evidence as four voices of this one sentence, one at the 50 ms line. Two checks behind the words: the 2026-05-26 takes re-rendered so Kokoro's word timings lie on the takes that were heard, and the comma test with ten letters in two sentences.
+
+**Each piece, and who has heard or seen it:**
+- **two-commas**, for Kokoro, Put commas around a bare variable letter. "The coupling constant, K, is…" — without the breaks the letter runs into the next word. Fix it in the text, not with overrides. · Kokoro: the sentence bare and with commas, af_heart, af_bella, am_michael, am_adam, torch seeds 1 to 10, speed 1.0, with Kokoro's own word timings → Sound from Code: the quiet-run detector, the survey, the choice of takes, the join → ffmpeg: two-pass loudnorm on the joined file, once; measures on the saved m4a (afconvert writes the AAC) → Drawn SVG: two lanes from the decoded m4a and the word timings, PNG through headless Chrome · nobody has heard or seen this yet
+- **two-commas-remake**, for Kokoro, Put commas around a bare variable letter. "The coupling constant, K, is…" — without the breaks the letter runs into the next word. Fix it in the text, not with overrides. · Kokoro: the two 2026-05-26 paragraphs re-rendered (af_heart, 0.25 s between chunks), and the letter probe (10 letters, 2 sentences, 4 voices, seed 1), with word timings → Sound from Code: the quiet-run detector on the git takes and the probe → Drawn SVG: two-commas-picture-2, from the saved m4a and the survey's word timings · nobody has seen this yet
+
+Nobody has heard or seen any of these yet.
+
+**Artifacts:**
+- [two-commas: two-commas.m4a](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas.m4a)
+- [two-commas: two-commas-picture.svg](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture.svg)
+- [two-commas: two-commas-picture.png](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture.png)
+- [two-commas: report.json](Enrichment/light-round-2026-11-2/pieces/Kokoro/report.json)
+- [two-commas: survey.json](Enrichment/light-round-2026-11-2/pieces/Kokoro/survey.json)
+- [two-commas-remake: two-commas-picture-2.svg](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture-2.svg)
+- [two-commas-remake: two-commas-picture-2.png](Enrichment/light-round-2026-11-2/pieces/Kokoro/two-commas-picture-2.png)
+- [two-commas-remake: report-2.json](Enrichment/light-round-2026-11-2/pieces/Kokoro/report-2.json)
+- [what made each file, and who has heard or seen it](Enrichment/light-round-2026-11-2/pieces/Kokoro/provenance.json)
+- [the jobs as written](Enrichment/light-round-2026-11-2/pieces/Kokoro/jobs.json)
+
+<sub>study, 2 jobs · every job made through the bench, 3 batches from 2026-11-17 by Kokoro maker at 59e56890, 56c9f98f · folder Enrichment/light-round-2026-11-2/pieces/Kokoro/ · presented 2026-11-17 by the bench (Shop/shop.mjs present) on Sound from Code's scroll</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="test-list-2026-11-15" -->
 ### 2026-11-15 — Born, and the open tests
 
