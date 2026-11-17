@@ -13,6 +13,9 @@ links:
   - target: "[[Blender]]"
     type: exemplifies
     label: the-keystone
+  - target: "[[Adopt the Craft, Author the Seam]]"
+    type: exemplifies
+    label: the-render-seam
 tags: [concept, generative, controlnet, staging, blueline, seed]
 ---
 
@@ -28,7 +31,7 @@ Prompt-only image generation defaults to a centered, front-on portrait — it ch
 
 ## Why it works
 
-Diffusion models are unreliable at *choosing* bold composition but reliable at *filling* a given structure. Blocking plays to the second and removes the first. It also makes the result **editable** — the block is a scene you can nudge, not a prompt you can only re-roll. This is the staging-AI half of [[BLUELINE]]'s two-AI split: cheap, structured, reliable.
+Diffusion models are unreliable at *choosing* bold composition but reliable at *filling* a given structure. Blocking plays to the second and removes the first. It also makes the result **editable** — the block is a scene you can nudge, not a prompt you can only re-roll. This is the staging-AI half of [[BLUELINE]]'s two-AI split: cheap, structured, reliable. It is also the render seam of [[Adopt the Craft, Author the Seam]] worked out: an illustrator read a loose brief with taste, the model reads it and falls back on the centred portrait, and the block is the exact input that overrides that default.
 
 ## The one rule it inherits
 
