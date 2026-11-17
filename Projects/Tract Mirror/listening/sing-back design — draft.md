@@ -13,6 +13,12 @@ You sing a vowel into Tract Mirror. It listens, finds the tube that would sing t
 3. **The mirror read backwards is a starting guess, not the answer.** Reflection coefficients taken straight from LPC (Wakita) are beautiful on a clean echo and fragile on a sung vowel. Useful as a seed when it lands; not trusted alone.
 4. **Gate on the audio path.** Every fit is scored on the as-sung model, lip filter on (tuning item 1).
 
+## What the browser probe added (cycle 4)
+
+5. **The ear has to find the throat too.** It assumed Tract Mirror's own pulse; give it a different throat and F1 drifts up to 55%. A sixteen-throat grid searched first brings F1 to 5% (worst 10%) and F2 to 1%. The mouth shape stays loose (6–8 dB). For a real voice, "hear the vowel" is in reach; "hear the mouth" waits on a better throat model (a continuous pulse fit, or LF).
+6. **Pitch by comb.** The capture step finds f0 by harmonic-over-valley contrast across the spectrum, not autocorrelation.
+7. **It runs in a page.** `sing-back.html` is the feature without the plugin: capture, hear, show the tube moving, sing back, save in vowels.json format. A real voice can test it today.
+
 ## The shape of the feature
 
 - **Capture.** One button, "listen": record up to 2 seconds, keep the steadiest half (the probe's `steady_part`), find f0.
@@ -29,7 +35,7 @@ The fit is about 40 seconds per vowel in Python across seven starting mouths. In
 
 - **The Max pause doesn't touch this.** It is JUCE and C++, not Max.
 - **The vowel refit comes first.** If the refit goes in, user tubes and built-in tubes are scored the same way. If not, they disagree by up to 14% on F1, and a heard vowel would sound brighter than its built-in neighbour.
-- **Your real voice is the missing test.** Every good number so far is Tract Mirror hearing itself. On the two macOS voices the sing-along ear fails, but those clips are a quarter second of gliding speech, not a held vowel, so they don't say much either way. A recording of you singing a-e-i-o-u at a comfortable pitch, and one higher, is the next input the ear needs.
+- **Your real voice is the missing test.** The page for it exists now: `sing-back.html`. Before that: Every good number so far is Tract Mirror hearing itself. On the two macOS voices the sing-along ear fails, but those clips are a quarter second of gliding speech, not a held vowel, so they don't say much either way. A recording of you singing a-e-i-o-u at a comfortable pitch, and one higher, is the next input the ear needs.
 
 ## Open
 

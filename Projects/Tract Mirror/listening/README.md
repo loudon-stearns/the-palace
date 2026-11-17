@@ -50,3 +50,30 @@ Run: `ear.py` (about 4 minutes), then `singalong.py` (about 12 minutes on 10 cor
    gliding pitch; the pitch finder reads Daniel at 364 Hz, and the fits land nowhere sensible
    (Samantha /a/ at F1 96 Hz). A sustained sung vowel is the input this ear needs next.
    Read harmonics by band energy, not peak height: vibrato smears a high harmonic's peak.
+
+## Sing back in the browser (2026-11-17, cycle 4)
+
+`sing-back.html` is the sing-along ear carried into one page: sing a held vowel into the
+microphone (or load a recording), watch the tube being found, hear it sung back at your pitch,
+save it in vowels.json's format. `?selftest=e,110` runs a self-test on load. Opened on its own in
+Chrome it asks for the microphone itself; inside the rich face it would need a `grants.json` line.
+
+Checks: `sing-back-check.py` then `node sing-back-check.mjs` (about 3 minutes);
+`other-source.py` then `node other-source-check.mjs` (about 4 minutes).
+
+10. **The port is the same ear.** Tube levels at the harmonics agree with `tract_response` to
+    0.003 dB, the source exactly, the rendered voice to 1e-4. On Tract Mirror's own six vowels at
+    four pitches it hears what `singalong.py` heard: F1 within about 1% from G2 to A3, the /u/
+    and /i/ misses at E4. A fit takes 3–11 s in Node, on the page about the same.
+11. **The ear depended on knowing the throat.** Sing the same six tubes through a different pulse
+    (tension 0.85, open quotient 0.45, breath 0.08) and the ear that assumes its own pulse hears
+    F1 up to 55% off (/i/ and /u/ worst); the free slope doesn't help (`other-source-results.json`,
+    `other-source-errors.png`). A pulse's spectrum has ripples a slope can't follow.
+12. **Finding the throat first fixes the vowel, not the mouth.** Try sixteen throats against a
+    quick fit, keep the best, then search tubes with it: F1 within 5% on average (worst 10%),
+    F2 about 1%. The grid doesn't contain the true throat. Mouth shape comes back only loosely,
+    6–8 dB, where a known throat gave under 1 dB.
+13. **Pitch from the comb, not the waveform.** Autocorrelation locked onto F1's ringing (an /e/ at
+    three times its pitch, an /o/ an octave off). The page scores each candidate pitch by its
+    harmonics over the valleys between them, takes the lowest strong one, then tunes it against the
+    whole comb. Every test vowel now reads within 0.3%.

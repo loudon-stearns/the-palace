@@ -1,0 +1,611 @@
+<!doctype html>
+<!--
+  Tract Mirror — sing back (workshop probe, cycle 4, 2026-11-17)
+  What it is: the sing-along ear from singalong.py, carried into the browser so a real voice can
+    finally be tested. Sing a held vowel (or load a recording); the page finds the tube that would
+    sing it, drawing every step of the search, then sings that tube back at your pitch.
+  Engine: the script marked id="tm-ear" is a port of listening/singalong.py (heard_harmonics,
+    source_db, the as-sung state with the lip lowpass, the objective) and of the reference engine
+    (fit_vowels cosine tube, kl_reference KellyLochbaumTract.step and glottal_source with breath 0,
+    make_renders.render_sustained_vowel). The state solve is banded (bandwidth 2), not an
+    eigendecomposition; it is the same transfer function.
+  Checks: listening/sing-back-check.mjs pulls id="tm-ear" out of this file and holds it against
+    the Python numbers in sing-back-check.json (make it with sing-back-check.py).
+  Microphone: declared below. Inside the rich face it needs a grants.json line on Loudon's yes;
+    opened on its own in Chrome it asks the browser directly. Load-a-recording and the self-test
+    need nothing.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="piece:needs" content="microphone">
+<title>Tract Mirror — sing it back</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Manrope:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root { --bg:#0a0a0f; --e1:#12121a; --e2:#1a1a28; --border:#4a4a5e; --soft:rgba(255,255,255,.06);
+    --fg1:#e8e8f0; --fg2:#c8c8d8; --fg3:#8a8aa0; --fg4:#4a4a5a; --amber:#e8b84a; --amberline:rgba(232,184,74,.5);
+    --cyan:#6aa8e8; --cyanline:rgba(106,168,232,.55);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace; --sans:'Manrope',system-ui,sans-serif; --serif:'Cormorant Garamond',Georgia,serif; }
+  html,body { margin:0; background:var(--bg); color:var(--fg2); font:15px/1.55 var(--sans); }
+  main { max-width:980px; margin:0 auto; padding:28px 22px 40px; }
+  h1 { font:300 34px/1.15 var(--serif); color:var(--fg1); margin:0 0 6px; }
+  .lede { color:var(--fg3); margin:0 0 20px; max-width:62ch; }
+  .row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:10px 0; }
+  button, select, label.file { font:500 13px var(--mono); color:var(--fg1); background:var(--e2); border:1px solid var(--border);
+    padding:8px 12px; cursor:pointer; border-radius:2px; }
+  button:hover, label.file:hover { border-color:var(--amber); }
+  button.go { border-color:var(--amberline); color:var(--amber); }
+  button:disabled { opacity:.4; cursor:default; }
+  label.file input { display:none; }
+  .tilt { font:12px var(--mono); color:var(--fg3); display:flex; gap:6px; align-items:center; }
+  .panel { background:var(--e1); border:1px solid var(--soft); padding:14px; margin:14px 0; }
+  .panel h2 { font:500 12px var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--fg3); margin:0 0 8px; }
+  canvas { width:100%; display:block; }
+  #status { font:13px var(--mono); color:var(--amber); min-height:1.5em; }
+  .read { font:12.5px var(--mono); color:var(--fg2); display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:6px 18px; }
+  .read b { color:var(--fg1); font-weight:500; }
+  .key { font:12px var(--mono); color:var(--fg3); }
+  .key i { font-style:normal; color:var(--amber); } .key em { font-style:normal; color:var(--cyan); }
+  .eq { font:13px var(--mono); color:var(--fg2); margin:4px 0; }
+  .eq.w { color:var(--fg3); }
+  .note { color:var(--fg3); font-size:13.5px; max-width:70ch; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Sing me a vowel. I'll find your tube and sing it back.</h1>
+  <p class="lede">Hold one vowel for about two seconds, steady, at a comfortable pitch. I don't pick formants out of it. I sing along: for each tube I try, I work out exactly which harmonics I would make at your pitch, and I reshape the tube until mine line up with yours. You watch the tube move while I listen.</p>
+
+  <div class="row">
+    <button class="go" id="rec">● Listen (2.5 s)</button>
+    <label class="file">Load a recording<input type="file" id="file" accept="audio/*"></label>
+    <span class="key">or test me on my own voice:</span>
+    <select id="selfv"></select>
+    <select id="selff"><option>98</option><option selected>110</option><option>147</option><option>220</option><option>330</option></select>
+    <button id="self">Self-test</button>
+  </div>
+  <div class="row">
+    <label class="tilt"><input type="checkbox" id="throat" checked> your throat isn't my pulse: find it first (leave on for a real voice; about 10 s more)</label>
+    <label class="tilt"><input type="checkbox" id="tilt"> also fit a free slope (for a bright or dull microphone)</label>
+  </div>
+  <div id="status">Ready.</div>
+
+  <div class="panel">
+    <h2>The tube I hear — glottis on the left, lips on the right</h2>
+    <canvas id="tube" height="230"></canvas>
+    <div class="key"><i>amber</i> the tube as I find it · <em>cyan</em> the true tube, in a self-test · grey: the nearest of my six vowels</div>
+  </div>
+
+  <div class="panel">
+    <h2>Your harmonics and mine</h2>
+    <canvas id="spec" height="210"></canvas>
+    <div class="key">dots: the level of each harmonic I heard · <i>amber</i>: what this tube sings at your pitch, one gain (and slope) aside</div>
+  </div>
+
+  <div class="panel">
+    <h2>What I heard</h2>
+    <div class="read" id="read"><span>nothing yet</span></div>
+    <div class="row">
+      <button id="playin" disabled>▶ what I heard</button>
+      <button id="playout" disabled>▶ me, singing your tube</button>
+      <button id="playboth" disabled>▶ both, one after the other</button>
+      <button id="save" disabled>save the tube (vowels.json format)</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>How I listen</h2>
+    <div class="eq">err(tube) = Σₖ wₖ · ( Hₖ − [ Sₖ + Tₖ(tube) ] − g − s·log₂fₖ )²  /  Σₖ wₖ  +  0.02 · Σ (Δ² log A)²</div>
+    <div class="eq w">error = Σ over harmonics weightₖ · ( heard_dBₖ − [ my_pulse_dBₖ + tube_dBₖ ] − gain − slope·octaveₖ )² / Σ weightₖ + 0.02 · Σ (bend of log area)²</div>
+    <p class="note">wₖ = 1/√k leans on the formant region. T is the tube exactly as it sings, lip lowpass on. S is a glottal pulse; for a real voice I first try sixteen throats (how long the pulse stays open, how sharply it shuts) and keep the one that fits best. In a self-test I know the throat, and the numbers match what singalong.py measured. On a throat that isn't mine (tested on my own tubes, sung through a different pulse with breath), I get F2 within about 1% and F1 within 5% on average, 10% at worst, but the mouth shape only loosely. On a real voice nobody has checked me yet. That is what this page is for.</p>
+  </div>
+</main>
+
+<script id="tm-ear">
+// ---- The sing-along ear and the singing tube (port of singalong.py and the reference engine) ----
+const TM = (() => {
+  const FS = 44100, N = 22, CP = 64, NCOS = 18, A_MIN = 0.1, A_MAX = 12.0;
+  const KG = 0.97, KLIP = -0.9, LOSS = 0.996, LP = 0.75;
+  const FMAX = 4500, OQ = 0.6, TENSION = 0.55, PEAK = Math.pow(10, -3 / 20);
+  const VOWELS = {"a":[2.7189,2.5441,2.1222,1.6507,1.2589,0.9737,0.7702,0.6166,0.4943,0.3981,0.3294,0.2892,0.2761,0.2887,0.3269,0.3921,0.4884,0.624,0.8114,1.0619,1.3715,1.7053,2.0011,2.2076,2.3242,2.3982,2.4842,2.6084,2.7583,2.8995,3.013,3.1294,3.3298,3.7226,4.4173,5.4941,6.9472,8.6293,10.2829,11.6714,12.0,12.0,12.0,12.0,11.3377,9.7871,8.3428,7.3022,6.7711,6.7163,7.0304,7.5806,8.2872,9.2366,10.7623,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0],"e":[0.3266,0.3294,0.337,0.3482,0.3613,0.3747,0.3883,0.403,0.4213,0.4461,0.4804,0.5273,0.5898,0.6717,0.778,0.916,1.0942,1.3215,1.6034,1.9393,2.3201,2.7304,3.1535,3.5757,3.9867,4.3752,4.7263,5.0246,5.2641,5.4555,5.6245,5.7993,5.9934,6.1939,6.3624,6.4519,6.4339,6.3174,6.1456,5.9724,5.8359,5.7453,5.6815,5.61,5.4987,5.3321,5.1149,4.8639,4.5948,4.3154,4.0258,3.725,3.4165,3.1108,2.822,2.5627,2.3404,2.1566,2.0089,1.8932,1.8057,1.7441,1.7073,1.6951],"i":[0.4855,0.4972,0.5315,0.5866,0.6597,0.7489,0.8558,0.988,1.1591,1.3877,1.6944,2.0994,2.6207,3.2767,4.088,5.0746,6.2366,7.5228,8.8092,9.9293,10.7635,11.3258,11.7616,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,12.0,11.6024,10.823,10.0399,9.1772,8.225,7.2412,6.3021,5.4536,4.6991,4.0198,3.4021,2.8508,2.382,2.0066,1.7209,1.5077,1.3443,1.21,1.093,0.9916,0.9107,0.8568,0.8339,0.8425,0.8792,0.938,1.0101,1.0858,1.1556,1.2115,1.2475,1.26],"o":[2.1533,2.0027,1.6409,1.2436,0.9291,0.7248,0.6099,0.5518,0.5178,0.4786,0.4176,0.3404,0.268,0.218,0.1975,0.2087,0.255,0.3372,0.437,0.5084,0.5131,0.4668,0.4202,0.4143,0.4726,0.6096,0.8089,0.9805,1.001,0.8627,0.6863,0.5774,0.5777,0.7184,1.0609,1.6744,2.5356,3.4797,4.3865,5.4023,6.9046,9.2781,12.0,12.0,12.0,12.0,10.304,7.3334,5.4653,4.4782,3.9709,3.5775,3.0591,2.411,1.8064,1.3948,1.2203,1.2939,1.6812,2.5494,4.1178,6.3774,8.6368,9.6231],"u":[12.0,12.0,12.0,12.0,12.0,12.0,10.8945,9.1193,7.1721,5.3546,3.8753,2.7957,2.0717,1.6217,1.3712,1.2689,1.2864,1.4102,1.6306,1.9294,2.2761,2.6399,3.0125,3.4177,3.8956,4.4671,5.0989,5.6915,6.1173,6.2986,6.2565,6.0812,5.8625,5.6477,5.4461,5.2591,5.1049,5.0189,5.0339,5.1588,5.3696,5.6213,5.8794,6.1513,6.4857,6.9282,7.449,7.8806,7.9344,7.3702,6.224,4.8214,3.5285,2.5368,1.8579,1.4222,1.1541,0.9989,0.9223,0.9032,0.9253,0.9697,1.0121,1.0296],"schwa":[3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067,3.0067]};
+  const SEEDS = { a:[0.8,0.8,1.0,1.5,3.0,6.0,8.0,9.0], e:[1.5,1.2,2.0,3.0,4.0,3.0,2.0,3.0],
+    i:[2.0,3.0,5.0,6.0,4.0,1.0,0.5,1.5], o:[1.0,1.0,1.5,4.0,5.0,2.0,1.0,0.8],
+    u:[2.0,3.0,4.0,5.0,3.0,1.0,0.4,0.6], schwa:[3,3,3,3,3,3,3,3] };
+  const ORDER = ['a','e','i','o','u','schwa'];
+
+  const linspace = (a, b, n) => Array.from({length:n}, (_, i) => n === 1 ? a : a + (b - a) * i / (n - 1));
+  function interp(xd, xs, ys) {               // np.interp, xs increasing
+    const out = new Float64Array(xd.length); let j = 0;
+    for (let i = 0; i < xd.length; i++) {
+      const x = xd[i];
+      if (x <= xs[0]) { out[i] = ys[0]; continue; }
+      if (x >= xs[xs.length - 1]) { out[i] = ys[ys.length - 1]; continue; }
+      while (xs[j + 1] < x) j++;
+      out[i] = ys[j] + (ys[j + 1] - ys[j]) * (x - xs[j]) / (xs[j + 1] - xs[j]);
+    }
+    return out;
+  }
+  const clip = (v) => Math.min(A_MAX, Math.max(A_MIN, v));
+
+  // cosine tube: A(x) = clip(exp(Σ c_m cos(mπx)))
+  const XC = linspace(0, 1, CP);
+  const BASIS = XC.map(x => Array.from({length:NCOS + 1}, (_, m) => m === 0 ? 1 : Math.cos(m * Math.PI * x)));
+  function coeffsToArea(c) {
+    const a = new Float64Array(CP);
+    for (let i = 0; i < CP; i++) { let s = 0; for (let m = 0; m <= NCOS; m++) s += BASIS[i][m] * c[m]; a[i] = clip(Math.exp(s)); }
+    return a;
+  }
+  function solveDense(A, b) {                 // small Gaussian elimination, partial pivoting
+    const n = b.length; A = A.map(r => r.slice()); b = b.slice();
+    for (let j = 0; j < n; j++) {
+      let p = j; for (let r = j + 1; r < n; r++) if (Math.abs(A[r][j]) > Math.abs(A[p][j])) p = r;
+      [A[j], A[p]] = [A[p], A[j]]; [b[j], b[p]] = [b[p], b[j]];
+      for (let r = j + 1; r < n; r++) { const f = A[r][j] / A[j][j]; for (let c = j; c < n; c++) A[r][c] -= f * A[j][c]; b[r] -= f * b[j]; }
+    }
+    const x = new Array(n).fill(0);
+    for (let i = n - 1; i >= 0; i--) { let s = b[i]; for (let c = i + 1; c < n; c++) s -= A[i][c] * x[c]; x[i] = s / A[i][i]; }
+    return x;
+  }
+  function areaToCoeffs(area) {               // least squares on log area
+    const M = NCOS + 1, G = Array.from({length:M}, () => new Array(M).fill(0)), r = new Array(M).fill(0);
+    for (let i = 0; i < CP; i++) {
+      const la = Math.log(clip(area[i]));
+      for (let p = 0; p < M; p++) { r[p] += BASIS[i][p] * la; for (let q = 0; q < M; q++) G[p][q] += BASIS[i][p] * BASIS[i][q]; }
+    }
+    return Float64Array.from(solveDense(G, r));
+  }
+  function seedArea(name) {
+    const s = SEEDS[name];
+    return interp(XC, linspace(0, 1, s.length), s.map(Math.log)).map(Math.exp);
+  }
+  function resampleArea(a, n) {
+    return interp(linspace(0, 1, n), linspace(0, 1, a.length), Array.from(a, v => Math.log(v))).map(Math.exp);
+  }
+
+  // ---- the source: one Rosenberg period, its harmonics, and lip radiation ----
+  function rosenberg(P, oq = OQ, tension = TENSION) {
+    const p = new Float64Array(P);
+    const open = Math.max(2, Math.round(oq * P));
+    const cf = Math.min(0.8, Math.max(0.1, 0.2 + 0.6 * (1 - tension)));
+    let Tp = Math.round(open * (1 - cf)); Tp = Math.max(1, Math.min(Tp, open - 1));
+    for (let n = 0; n < Tp; n++) p[n] = 0.5 * (1 - Math.cos(Math.PI * n / Tp));
+    const tc = open - Tp;
+    for (let n = Tp; n < open; n++) p[n] = Math.cos(0.5 * Math.PI * (n - Tp) / tc);
+    return p;
+  }
+  function sourceDb(f0, hf, oq = OQ, tension = TENSION) {
+    const P = Math.round(FS / f0), p = rosenberg(P, oq, tension);
+    let mean = 0; for (const v of p) mean += v; mean /= P;
+    return hf.map((f, idx) => {
+      const k = idx + 1; let re = 0, im = 0;
+      for (let n = 0; n < P; n++) { const ph = -2 * Math.PI * k * n / P; re += (p[n] - mean) * Math.cos(ph); im += (p[n] - mean) * Math.sin(ph); }
+      const om = 2 * Math.PI * f / FS, rr = 1 - Math.cos(om), ri = Math.sin(om);   // 1 - e^{-jω}
+      const xr = re * rr - im * ri, xi = re * ri + im * rr;
+      return 20 * Math.log10(Math.hypot(xr, xi) + 1e-12);
+    });
+  }
+
+  // ---- the tube as it sings: (zI - M) x = g, M the as-sung state (lip lowpass is one more state) ----
+  // States interleaved f0,b0,f1,b1,…,lp so the system is banded (2 below, 2 above the diagonal).
+  const NS = 2 * N + 1, ARe = new Float64Array(NS * NS), AIm = new Float64Array(NS * NS);
+  const BRe = new Float64Array(NS), BIm = new Float64Array(NS);
+  function tractDb(area64, hf) {
+    const A = resampleArea(Array.from(area64, clip), N);
+    const k = new Float64Array(N - 1);
+    for (let i = 0; i < N - 1; i++) k[i] = (A[i] - A[i + 1]) / (A[i] + A[i + 1]);
+    const F = i => 2 * i, B = i => 2 * i + 1, L = 2 * N;
+    const out = new Float64Array(hf.length);
+    for (let h = 0; h < hf.length; h++) {
+      const w = 2 * Math.PI * hf[h] / FS, zr = Math.cos(w), zi = Math.sin(w);
+      ARe.fill(0); AIm.fill(0); BRe.fill(0); BIm.fill(0);
+      const set = (r, c, v) => { ARe[r * NS + c] -= v; };          // A = zI - M
+      for (let d = 0; d < NS; d++) { ARe[d * NS + d] += zr; AIm[d * NS + d] += zi; }
+      set(F(0), B(0), KG);
+      for (let i = 0; i < N - 1; i++) {
+        set(F(i + 1), F(i), LOSS * (1 + k[i])); set(F(i + 1), B(i + 1), -LOSS * k[i]);
+        set(B(i), B(i + 1), LOSS * (1 - k[i])); set(B(i), F(i), LOSS * k[i]);
+      }
+      set(B(N - 1), F(N - 1), KLIP * (1 - LP)); set(B(N - 1), L, KLIP * LP);
+      set(L, F(N - 1), 1 - LP); set(L, L, LP);
+      BRe[F(0)] = 1;
+      // banded elimination with partial pivoting: pivot within 2 rows, fill reaches 4 columns
+      for (let j = 0; j < NS; j++) {
+        const rEnd = Math.min(NS - 1, j + 2), cEnd = Math.min(NS - 1, j + 4);
+        let p = j, best = Math.hypot(ARe[j * NS + j], AIm[j * NS + j]);
+        for (let r = j + 1; r <= rEnd; r++) { const m = Math.hypot(ARe[r * NS + j], AIm[r * NS + j]); if (m > best) { best = m; p = r; } }
+        if (p !== j) {
+          for (let c = j; c <= cEnd; c++) {
+            let t = ARe[j * NS + c]; ARe[j * NS + c] = ARe[p * NS + c]; ARe[p * NS + c] = t;
+            t = AIm[j * NS + c]; AIm[j * NS + c] = AIm[p * NS + c]; AIm[p * NS + c] = t;
+          }
+          let t = BRe[j]; BRe[j] = BRe[p]; BRe[p] = t; t = BIm[j]; BIm[j] = BIm[p]; BIm[p] = t;
+        }
+        const pr = ARe[j * NS + j], pi = AIm[j * NS + j], pd = pr * pr + pi * pi;
+        for (let r = j + 1; r <= rEnd; r++) {
+          const ar = ARe[r * NS + j], ai = AIm[r * NS + j];
+          if (ar === 0 && ai === 0) continue;
+          const fr = (ar * pr + ai * pi) / pd, fi = (ai * pr - ar * pi) / pd;
+          for (let c = j; c <= cEnd; c++) {
+            const xr = ARe[j * NS + c], xi = AIm[j * NS + c];
+            ARe[r * NS + c] -= fr * xr - fi * xi; AIm[r * NS + c] -= fr * xi + fi * xr;
+          }
+          BRe[r] -= fr * BRe[j] - fi * BIm[j]; BIm[r] -= fr * BIm[j] + fi * BRe[j];
+        }
+      }
+      const xr = new Float64Array(NS), xi = new Float64Array(NS);
+      for (let i = NS - 1; i >= 0; i--) {
+        let sr = BRe[i], si = BIm[i];
+        for (let c = i + 1; c <= Math.min(NS - 1, i + 4); c++) {
+          const ar = ARe[i * NS + c], ai = AIm[i * NS + c];
+          sr -= ar * xr[c] - ai * xi[c]; si -= ar * xi[c] + ai * xr[c];
+        }
+        const pr = ARe[i * NS + i], pi = AIm[i * NS + i], pd = pr * pr + pi * pi;
+        xr[i] = (sr * pr + si * pi) / pd; xi[i] = (si * pr - sr * pi) / pd;
+      }
+      out[h] = 20 * Math.log10((1 + KLIP) * Math.hypot(xr[F(N - 1)], xi[F(N - 1)]) + 1e-12);
+    }
+    return out;
+  }
+
+  // ---- what is heard: f0, then band energy of every harmonic up to 4.5 kHz ----
+  function steadyPart(y, keep = 0.5) {
+    const hop = Math.floor(0.01 * FS), win = Math.floor(0.03 * FS), e = [];
+    for (let i = 0; i < y.length - win; i += hop) { let s = 0; for (let j = i; j < i + win; j++) s += y[j] * y[j]; e.push(s); }
+    const mx = Math.max(...e), thr = mx * Math.pow(10, -12 / 10);
+    let first = -1, last = -1; e.forEach((v, i) => { if (v > thr) { if (first < 0) first = i; last = i; } });
+    const a = first * hop, b = last * hop + win, mid = Math.floor((a + b) / 2), half = Math.floor((b - a) * keep / 2);
+    return y.slice(mid - half, mid + half);
+  }
+  function findF0(y, lo = 70, hi = 500) {
+    const n = Math.min(y.length, Math.floor(0.2 * FS)); let mean = 0;
+    for (let i = 0; i < n; i++) mean += y[i]; mean /= n;
+    const x = new Float64Array(n); for (let i = 0; i < n; i++) x[i] = y[i] - mean;
+    const a = Math.floor(FS / hi), b = Math.floor(FS / lo);
+    const r = lag => { let s = 0; for (let i = 0; i + lag < n; i++) s += x[i] * x[i + lag]; return s; };
+    const R = []; let bv = -Infinity; for (let l = a - 1; l <= b; l++) { R[l] = r(l); if (l >= a && l < b && R[l] > bv) bv = R[l]; }
+    // the shortest lag that is a peak nearly as tall as the tallest: the tallest can be an octave low
+    let bi = a; for (let l = a; l < b; l++) if (R[l] >= 0.85 * bv && R[l] >= R[l - 1] && R[l] >= R[l + 1]) { bi = l; break; }
+    let i = bi; const r0 = R[i - 1], r1 = R[i], r2 = R[i + 1];
+    if (i > 0) i = i + (r0 - r2) / (2 * (r0 - 2 * r1 + r2));
+    return FS / i;
+  }
+  function fftMag(x, nfft) {                  // radix-2, returns |X| for bins 0..nfft/2
+    const re = new Float64Array(nfft), im = new Float64Array(nfft); re.set(x);
+    for (let i = 1, j = 0; i < nfft; i++) { let bit = nfft >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit; if (i < j) { [re[i], re[j]] = [re[j], re[i]]; } }
+    for (let len = 2; len <= nfft; len <<= 1) {
+      const ang = -2 * Math.PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+      for (let i = 0; i < nfft; i += len) {
+        let cr = 1, ci = 0;
+        for (let j = 0; j < len / 2; j++) {
+          const ur = re[i + j], ui = im[i + j], a = i + j + len / 2;
+          const vr = re[a] * cr - im[a] * ci, vi = re[a] * ci + im[a] * cr;
+          re[i + j] = ur + vr; im[i + j] = ui + vi; re[a] = ur - vr; im[a] = ui - vi;
+          const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t;
+        }
+      }
+    }
+    const m = new Float64Array(nfft / 2 + 1); for (let i = 0; i <= nfft / 2; i++) m[i] = Math.hypot(re[i], im[i]);
+    return m;
+  }
+  // refine f0 against the whole comb: a 1% error puts the 30th harmonic at the edge of its band
+  function sieve(f0, S, df) {
+    let best = f0, bs = -Infinity;
+    for (let u = -0.03; u <= 0.03 + 1e-9; u += 0.0005) {
+      const f = f0 * (1 + u); let sc = 0;
+      for (let k = 1; k * f < FMAX; k++) {
+        let e = 0; for (let b = Math.ceil((k - 0.12) * f / df); b * df < (k + 0.12) * f; b++) e += S[b] * S[b];
+        sc += Math.log(e + 1e-12);
+      }
+      if (sc > bs) { bs = sc; best = f; }
+    }
+    return best;
+  }
+  // pitch from the comb, not the waveform: autocorrelation can lock onto a formant's ringing
+  // (an /e/ heard at three times its pitch). For each candidate, the mean height of the harmonics
+  // over the valleys between them; an octave low halves it, so take the lowest candidate within
+  // 80% of the best (a multiple of the true pitch scores as well as the truth does).
+  function combF0(S, df, lo = 70, hi = 500) {
+    const peakDb = f => { let m = 0; for (let b = Math.round(0.97 * f / df); b <= Math.round(1.03 * f / df); b++) m = Math.max(m, S[b] || 0); return 20 * Math.log10(m + 1e-12); };
+    const cands = []; for (let f = lo; f <= hi; f *= 1.004) cands.push(f);
+    const sc = cands.map(f => { let c = 0, n = 0; for (let k = 1; k * f < 3000; k++) { c += peakDb(k * f) - peakDb((k - 0.5) * f); n++; } return c / n; });
+    const mx = Math.max(...sc);
+    for (let i = 0; i < cands.length; i++) if (sc[i] >= 0.8 * mx && (i === 0 || sc[i] >= sc[i - 1]) && (i === cands.length - 1 || sc[i] >= sc[i + 1])) return cands[i];
+    return cands[sc.indexOf(mx)];
+  }
+  function heardHarmonics(y) {
+    const n = y.length, w = new Float64Array(n);
+    for (let i = 0; i < n; i++) w[i] = y[i] * (0.5 - 0.5 * Math.cos(2 * Math.PI * i / (n - 1)));
+    const nfft = 1 << Math.ceil(Math.log2(n * 4)), S = fftMag(w, nfft), df = FS / nfft;
+    const f0 = sieve(combF0(S, df), S, df);
+    const hf = [], hl = [];
+    for (let k = 1; k * f0 < FMAX; k++) {
+      let s = 0; const lo = (k - 0.3) * f0, hi = (k + 0.3) * f0;
+      for (let b = Math.ceil(lo / df); b * df < hi && b < S.length; b++) if (b * df > lo) s += S[b] * S[b];
+      hf.push(k * f0); hl.push(10 * Math.log10(s + 1e-12));
+    }
+    return { f0, hf, hl };
+  }
+
+  // ---- the sing-along fit ----
+  function makeObjective(hf, target, src, tilt, smoothW = 0.02) {
+    const K = hf.length, w = hf.map((_, i) => 1 / Math.sqrt(i + 1)), sw = w.reduce((a, b) => a + b, 0);
+    const lx = hf.map(f => Math.log2(f));
+    let sx = 0, sxx = 0; for (const v of lx) { sx += v; sxx += v * v; }
+    const det = K * sxx - sx * sx;
+    return (c) => {
+      const area = coeffsToArea(c), T = tractDb(area, hf), d = new Float64Array(K);
+      for (let i = 0; i < K; i++) d[i] = target[i] - (src[i] + T[i]);
+      if (tilt) {                             // free gain and slope per octave (plain least squares)
+        let sy = 0, sxy = 0; for (let i = 0; i < K; i++) { sy += d[i]; sxy += lx[i] * d[i]; }
+        const g = (sxx * sy - sx * sxy) / det, s = (K * sxy - sx * sy) / det;
+        for (let i = 0; i < K; i++) d[i] -= g + s * lx[i];
+      } else { let m = 0; for (const v of d) m += v; m /= K; for (let i = 0; i < K; i++) d[i] -= m; }
+      let e = 0; for (let i = 0; i < K; i++) e += w[i] * d[i] * d[i]; e /= sw;
+      let r = 0; for (let i = 1; i < CP - 1; i++) { const v = Math.log(area[i + 1]) - 2 * Math.log(area[i]) + Math.log(area[i - 1]); r += v * v; }
+      return e + smoothW * r;
+    };
+  }
+  // L-BFGS with forward-difference gradients; a generator, so the page can draw each step.
+  function* lbfgs(f, x0, maxIter = 400, m = 8) {
+    let x = Float64Array.from(x0), fx = f(x), g = grad(f, x, fx);
+    const S = [], Y = [];
+    for (let it = 0; it < maxIter; it++) {
+      const q = Float64Array.from(g), al = [];
+      for (let i = S.length - 1; i >= 0; i--) { const rho = 1 / dot(Y[i], S[i]), a = rho * dot(S[i], q); al[i] = a; axpy(q, Y[i], -a); }
+      if (S.length) { const gam = dot(S[S.length - 1], Y[Y.length - 1]) / dot(Y[Y.length - 1], Y[Y.length - 1]); for (let i = 0; i < q.length; i++) q[i] *= gam; }
+      else { const gn = Math.sqrt(dot(g, g)) || 1; for (let i = 0; i < q.length; i++) q[i] *= 0.1 / gn; }
+      for (let i = 0; i < S.length; i++) { const rho = 1 / dot(Y[i], S[i]), b = rho * dot(Y[i], q); axpy(q, S[i], al[i] - b); }
+      const dir = q.map(v => -v); let slope = dot(dir, g);
+      if (slope >= 0) { for (let i = 0; i < dir.length; i++) dir[i] = -g[i]; slope = -dot(g, g); S.length = 0; Y.length = 0; }
+      let t = 1, xn, fn;
+      for (let ls = 0; ls < 30; ls++) { xn = x.map((v, i) => v + t * dir[i]); fn = f(xn); if (fn <= fx + 1e-4 * t * slope) break; t *= 0.5; }
+      if (!(fn < fx)) break;
+      const gn = grad(f, xn, fn), s = xn.map((v, i) => v - x[i]), y = gn.map((v, i) => v - g[i]);
+      if (dot(s, y) > 1e-12) { S.push(s); Y.push(y); if (S.length > m) { S.shift(); Y.shift(); } }
+      const df = fx - fn; x = xn; fx = fn; g = gn;
+      yield { x, fx, it };
+      if (df < 1e-9 * Math.max(1, Math.abs(fx)) || Math.sqrt(dot(g, g)) < 1e-6) break;
+    }
+    return { x, fx };
+  }
+  const dot = (a, b) => { let s = 0; for (let i = 0; i < a.length; i++) s += a[i] * b[i]; return s; };
+  const axpy = (y, x, a) => { for (let i = 0; i < y.length; i++) y[i] += a * x[i]; };
+  function grad(f, x, fx, h = 1e-6) {
+    const g = new Float64Array(x.length), xp = Float64Array.from(x);
+    for (let i = 0; i < x.length; i++) { xp[i] = x[i] + h; g[i] = (f(xp) - fx) / h; xp[i] = x[i]; }
+    return g;
+  }
+  // every start the Python ear uses: the uniform tube, then each mouth sketch
+  function starts() { return [['uniform', new Float64Array(CP).fill(3.0)], ...ORDER.map(v => [v, seedArea(v)])]; }
+  // the whole ear, as a generator: yields {start, area, fx} while it works, returns the best
+  // fitThroat: a real voice is not my pulse. First try a small grid of throats (open quotient and
+  // tension of the pulse) against a quick fit from the uniform tube, keep the best throat, then do
+  // the full search with it.
+  const THROATS = []; for (const oq of [0.4, 0.5, 0.6, 0.7]) for (const t of [0.4, 0.6, 0.8, 1.0]) THROATS.push([oq, t]);
+  function* singAlong(y, tilt, fitThroat = false) {
+    const { f0, hf, hl } = heardHarmonics(y);
+    let throat = [OQ, TENSION];
+    if (fitThroat) {
+      let tb = null;
+      for (const [oq, t] of THROATS) {
+        const ts = sourceDb(f0, hf, oq, t), o = makeObjective(hf, hl, ts, tilt), run = lbfgs(o, areaToCoeffs(new Float64Array(CP).fill(3.0)), 150);
+        let r, last = null;
+        while (!(r = run.next()).done) { last = r.value; yield { start: `throat ${oq}/${t}`, area: coeffsToArea(last.x), fx: last.fx, f0, hf, hl, src: ts }; }
+        if (last && (!tb || last.fx < tb.fx)) tb = { fx: last.fx, throat: [oq, t] };
+      }
+      throat = tb.throat;
+    }
+    const src = sourceDb(f0, hf, ...throat);
+    const obj = makeObjective(hf, hl, src, tilt);
+    let best = null;
+    for (const [name, a0] of starts()) {
+      const run = lbfgs(obj, areaToCoeffs(a0)); let r, last = { x: areaToCoeffs(a0), fx: obj(areaToCoeffs(a0)) };
+      while (!(r = run.next()).done) { last = r.value; yield { start: name, area: coeffsToArea(last.x), fx: last.fx, f0, hf, hl, src, best }; }
+      if (!best || last.fx < best.fx) best = { start: name, x: last.x, fx: last.fx };
+    }
+    const area = coeffsToArea(best.x);
+    return { area, f0, hf, hl, src, throat, start: best.start, rms: Math.sqrt(best.fx), model: tractDb(area, hf) };
+  }
+  function shapeErrorDb(a, b) {
+    const d = Array.from(a, (v, i) => Math.log(v) - Math.log(b[i])), m = d.reduce((s, v) => s + v, 0) / d.length;
+    return Math.sqrt(d.reduce((s, v) => s + (v - m) * (v - m), 0) / d.length) * 20 / Math.LN10;
+  }
+  function peaks(area, n = 3) {               // formants as the as-sung response's peaks (fine grid)
+    const fr = []; for (let f = 80; f <= 4200; f += 5) fr.push(f);
+    const T = tractDb(area, fr), out = [];
+    for (let i = 1; i < T.length - 1 && out.length < n; i++) if (T[i] > T[i - 1] && T[i] >= T[i + 1]) {
+      const d = (T[i - 1] - T[i + 1]) / (2 * (T[i - 1] - 2 * T[i] + T[i + 1])); out.push(fr[i] + 5 * d);
+    }
+    return out;
+  }
+
+  // ---- the singing tube: render_sustained_vowel, breath 0 ----
+  function glottal(n, f0arr) {
+    const v = new Float64Array(n); let phase = 0, start = 0;
+    for (let i = 0; i < n; i++) {
+      phase += f0arr[i] / FS;
+      if (phase >= 1) { phase -= 1; const plen = i - start + 1; if (plen >= 2) v.set(rosenberg(plen).subarray(0, plen), start); start = i + 1; }
+    }
+    if (start < n) { const plen = n - start; if (plen >= 2) v.set(rosenberg(Math.round(FS / Math.max(f0arr[n - 1], 1))).subarray(0, plen), start); }
+    let m = 0; for (const s of v) m += s; m /= n; let r = 0; for (let i = 0; i < n; i++) { v[i] -= m; r += v[i] * v[i]; }
+    r = Math.sqrt(r / n) + 1e-12; for (let i = 0; i < n; i++) v[i] /= r;
+    return v;
+  }
+  function sing(area64, f0 = 110, dur = 2.0) {
+    const n = Math.floor(dur * FS), f0arr = new Float64Array(n);
+    for (let i = 0; i < n; i++) f0arr[i] = f0 * (1 + 0.006 * Math.sin(2 * Math.PI * 5 * i / FS));
+    const exc = glottal(n, f0arr), A = resampleArea(Array.from(area64, clip), N), k = new Float64Array(N - 1);
+    for (let i = 0; i < N - 1; i++) k[i] = (A[i] - A[i + 1]) / (A[i] + A[i + 1]);
+    let f = new Float64Array(N), b = new Float64Array(N), nf = new Float64Array(N), nb = new Float64Array(N);
+    let lp = 0, prev = 0; const y = new Float64Array(n);
+    for (let s = 0; s < n; s++) {
+      nf[0] = KG * b[0] + exc[s];
+      for (let i = 0; i < N - 1; i++) { const w = k[i] * (f[i] - b[i + 1]); nf[i + 1] = (f[i] + w) * LOSS; nb[i] = (b[i + 1] + w) * LOSS; }
+      const fl = f[N - 1]; lp = (1 - LP) * fl + LP * lp; nb[N - 1] = KLIP * lp;
+      const tr = (1 + KLIP) * fl; y[s] = tr - prev; prev = tr;
+      [f, nf] = [nf, f]; [b, nb] = [nb, b];
+    }
+    fade(y, 2 * Math.floor(FS * 15 / 1000) < n ? Math.floor(FS * 15 / 1000) : 0);   // fade, then normalize, as Python does
+    let mx = 0; for (const v of y) mx = Math.max(mx, Math.abs(v)); for (let i = 0; i < n; i++) y[i] *= PEAK / (mx || 1);
+    return y;
+  }
+  function fade(y, nf) {
+    for (let i = 0; i < nf; i++) { const w = 0.5 * (1 - Math.cos(Math.PI * i / nf)); y[i] *= w; y[y.length - 1 - i] *= w; }
+    return y;
+  }
+
+  return { FS, N, CP, VOWELS, ORDER, coeffsToArea, areaToCoeffs, seedArea, tractDb, sourceDb, steadyPart,
+    findF0, heardHarmonics, makeObjective, lbfgs, singAlong, shapeErrorDb, peaks, sing, rosenberg };
+})();
+if (typeof module !== 'undefined') module.exports = TM;
+</script>
+
+<script>
+(() => {
+  if (typeof document === 'undefined') return;
+  const $ = id => document.getElementById(id);
+  const ink = { bg:'#12121a', fg1:'#e8e8f0', fg3:'#8a8aa0', fg4:'#4a4a5a', amber:'#e8b84a', cyan:'#6aa8e8', grey:'rgba(200,200,216,.28)' };
+  let ctx = null, heard = null, result = null, truth = null, busy = false;
+  const audio = () => (ctx ||= new AudioContext({ sampleRate: TM.FS }));
+
+  for (const v of TM.ORDER) $('selfv').append(new Option(v === 'schwa' ? 'ə (schwa)' : '/' + v + '/', v));
+  $('selfv').value = 'e';
+
+  function fit(canvas) {
+    const r = canvas.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+    canvas.width = r.width * dpr; canvas.height = canvas.getAttribute('height') * dpr;
+    const g = canvas.getContext('2d'); g.scale(dpr, dpr); return [g, r.width, +canvas.getAttribute('height')];
+  }
+  function nearest(area) {
+    let best = null; for (const v of TM.ORDER) { const e = TM.shapeErrorDb(area, TM.VOWELS[v]); if (!best || e < best[1]) best = [v, e]; }
+    return best;
+  }
+  function drawTube(area, ghost, near) {
+    const [g, W, H] = fit($('tube')); g.fillStyle = ink.bg; g.fillRect(0, 0, W, H);
+    const mid = H / 2, x0 = 40, x1 = W - 20, rmax = H * 0.42, sc = rmax / Math.sqrt(12);
+    g.strokeStyle = ink.fg4; g.lineWidth = 1; g.beginPath(); g.moveTo(x0, mid); g.lineTo(x1, mid); g.stroke();
+    g.fillStyle = ink.fg3; g.font = '11px JetBrains Mono, monospace'; g.fillText('glottis', 2, 14); g.fillText('lips', x1 - 22, 14);
+    const outline = (a, col, lw, dash) => {
+      if (!a) return; g.strokeStyle = col; g.lineWidth = lw; g.setLineDash(dash || []);
+      for (const sgn of [-1, 1]) { g.beginPath(); a.forEach((v, i) => { const x = x0 + (x1 - x0) * i / (a.length - 1), y = mid + sgn * Math.sqrt(v) * sc; i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke(); }
+      g.setLineDash([]);
+    };
+    if (near) outline(TM.VOWELS[near], ink.grey, 1, [4, 4]);
+    if (ghost) outline(ghost, ink.cyan, 1.5);
+    if (area) {
+      // the 22 sections as cylinders: each one sample of travel, each joint a reflection
+      const A = Array.from({ length: TM.N }, (_, i) => { const t = i / (TM.N - 1) * (area.length - 1), j = Math.min(area.length - 2, Math.floor(t)), u = t - j; return Math.exp(Math.log(area[j]) * (1 - u) + Math.log(area[j + 1]) * u); });
+      const sw = (x1 - x0) / TM.N;
+      A.forEach((v, i) => { const r = Math.sqrt(v) * sc, x = x0 + i * sw; g.fillStyle = 'rgba(232,184,74,.13)'; g.fillRect(x + 1, mid - r, sw - 2, 2 * r); g.strokeStyle = 'rgba(232,184,74,.35)'; g.strokeRect(x + 1, mid - r, sw - 2, 2 * r); });
+      outline(area, ink.amber, 2);
+    }
+  }
+  function drawSpec(s) {
+    const [g, W, H] = fit($('spec')); g.fillStyle = ink.bg; g.fillRect(0, 0, W, H);
+    if (!s) return;
+    const x0 = 40, x1 = W - 12, y0 = 12, y1 = H - 22, fmax = 4500;
+    const X = f => x0 + (x1 - x0) * f / fmax;
+    // align the model to the heard levels with the same gain/slope the fit uses
+    const model = s.model.map((v, i) => v + s.src[i]);
+    const d = s.hl.map((v, i) => v - model[i]), K = d.length, lx = s.hf.map(Math.log2);
+    let al;
+    if (s.tilt) { let sx = 0, sxx = 0, sy = 0, sxy = 0; for (let i = 0; i < K; i++) { sx += lx[i]; sxx += lx[i] ** 2; sy += d[i]; sxy += lx[i] * d[i]; }
+      const det = K * sxx - sx * sx, gg = (sxx * sy - sx * sxy) / det, sl = (K * sxy - sx * sy) / det; al = model.map((v, i) => v + gg + sl * lx[i]); }
+    else { const m = d.reduce((a, b) => a + b, 0) / K; al = model.map(v => v + m); }
+    const all = [...s.hl, ...al], top = Math.max(...all) + 3, bot = top - 60;
+    const Y = v => y0 + (y1 - y0) * (top - Math.max(bot, v)) / (top - bot);
+    g.strokeStyle = ink.fg4; g.fillStyle = ink.fg3; g.font = '10px JetBrains Mono, monospace';
+    for (let f = 0; f <= fmax; f += 1000) { g.beginPath(); g.moveTo(X(f), y0); g.lineTo(X(f), y1); g.stroke(); g.fillText(f / 1000 + 'k', X(f) - 6, H - 6); }
+    for (let v = 0; v <= 60; v += 20) g.fillText(v ? '−' + v : '0', 4, Y(top - v) + 3);
+    g.strokeStyle = ink.amber; g.lineWidth = 1.6; g.beginPath(); al.forEach((v, i) => { const x = X(s.hf[i]), y = Y(v); i ? g.lineTo(x, y) : g.moveTo(x, y); }); g.stroke();
+    g.fillStyle = ink.fg1; s.hl.forEach((v, i) => { g.beginPath(); g.arc(X(s.hf[i]), Y(v), 2.6, 0, 7); g.fill(); });
+  }
+  const say = t => { $('status').textContent = t; };
+
+  async function listen(y, tiltOn, throatOn, label) {
+    if (busy) return; busy = true; result = null;
+    ['playin', 'playout', 'playboth', 'save'].forEach(id => $(id).disabled = true);
+    heard = y;
+    const steady = TM.steadyPart(y), part = steady.length > TM.FS ? steady.slice(0, TM.FS) : steady;
+    if (part.length < 0.15 * TM.FS) { say('That was too short or too quiet to hold onto. Try a longer, steadier vowel.'); busy = false; return; }
+    const run = TM.singAlong(part, tiltOn, throatOn); const t0 = performance.now(); let r, n = 0;
+    const step = () => {
+      const until = performance.now() + 30;
+      while (performance.now() < until) {
+        r = run.next(); if (r.done) break; n++;
+      }
+      if (!r.done) {
+        const v = r.value; say(`${label} · ${v.f0.toFixed(1)} Hz · singing along from the ${v.start} mouth · step ${n} · mismatch ${Math.sqrt(v.fx).toFixed(2)} dB`);
+        drawTube(v.area, truth); drawSpec({ ...v, model: TM.tractDb(v.area, v.hf), tilt: tiltOn });
+        if (v.start.startsWith('throat')) say(`${label} · ${v.f0.toFixed(1)} Hz · finding your throat: trying pulse ${v.start.slice(7)} (open/sharpness) · step ${n}`);
+        requestAnimationFrame(step); return;
+      }
+      result = r.value; result.tilt = tiltOn; busy = false;
+      const near = nearest(result.area), pk = TM.peaks(result.area);
+      drawTube(result.area, truth, near[0]); drawSpec(result);
+      const rows = [
+        ['pitch heard', result.f0.toFixed(1) + ' Hz'], ['harmonics used', result.hf.length + ' (to 4.5 kHz)'],
+        ['harmonic mismatch', result.rms.toFixed(2) + ' dB rms'], ['best start', result.start + ' mouth'],
+        ['throat', throatOn ? `open ${result.throat[0]}, sharpness ${result.throat[1]} (found)` : `open ${result.throat[0]}, sharpness ${result.throat[1]} (mine, assumed)`],
+        ['formants of the heard tube', pk.map(f => Math.round(f)).join(' · ') + ' Hz'],
+        ['nearest of my vowels', (near[0] === 'schwa' ? 'ə' : '/' + near[0] + '/') + ', ' + near[1].toFixed(1) + ' dB of shape away'],
+        ['time', ((performance.now() - t0) / 1000).toFixed(1) + ' s'] ];
+      if (truth) rows.push(['shape error vs the true tube', TM.shapeErrorDb(result.area, truth).toFixed(2) + ' dB']);
+      $('read').innerHTML = rows.map(([k, v]) => `<span>${k}: <b>${v}</b></span>`).join('');
+      say(`Heard. Found your tube in ${n} steps.`);
+      ['playin', 'playout', 'playboth', 'save'].forEach(id => $(id).disabled = false);
+    };
+    requestAnimationFrame(step);
+  }
+
+  function play(arrs) {
+    const c = audio(), len = arrs.reduce((s, a) => s + a.length, 0) + (arrs.length - 1) * Math.floor(0.4 * TM.FS);
+    const buf = c.createBuffer(1, len, TM.FS), d = buf.getChannelData(0); let o = 0;
+    arrs.forEach(a => { d.set(a, o); o += a.length + Math.floor(0.4 * TM.FS); });
+    const s = c.createBufferSource(); s.buffer = buf; s.connect(c.destination); c.resume(); s.start();
+  }
+  const norm = y => { let m = 0; for (const v of y) m = Math.max(m, Math.abs(v)); return y.map(v => v * 0.708 / (m || 1)); };
+  $('playin').onclick = () => play([norm(heard.slice(0, 2 * TM.FS))]);
+  $('playout').onclick = () => play([TM.sing(result.area, result.f0, 2)]);
+  $('playboth').onclick = () => play([norm(heard.slice(0, 2 * TM.FS)), TM.sing(result.area, result.f0, 2)]);
+  $('save').onclick = () => {
+    const pk = TM.peaks(result.area);
+    const blob = new Blob([JSON.stringify({ heard: { area_cm2: Array.from(result.area, v => +v.toFixed(5)), f0_hz: +result.f0.toFixed(2),
+      formants_as_sung_hz: pk.map(Math.round), harmonic_mismatch_db: +result.rms.toFixed(3), when: new Date().toISOString() } }, null, 1)], { type: 'application/json' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'heard-tube.json'; a.click();
+  };
+  $('self').onclick = () => {
+    const v = $('selfv').value, f0 = +$('selff').value; truth = TM.VOWELS[v];
+    say('Singing my own ' + v + ' at ' + f0 + ' Hz, then listening to it…');
+    setTimeout(() => listen(TM.sing(truth, f0, 1.2), false, false, 'my ' + v), 30);
+  };
+  $('file').onchange = async e => {
+    const f = e.target.files[0]; if (!f) return; truth = null;
+    const b = await audio().decodeAudioData(await f.arrayBuffer());
+    listen(mono(b), $('tilt').checked, $('throat').checked, f.name);
+  };
+  function mono(b) { const y = new Float32Array(b.length); for (let c = 0; c < b.numberOfChannels; c++) { const d = b.getChannelData(c); for (let i = 0; i < y.length; i++) y[i] += d[i] / b.numberOfChannels; } return y; }
+  $('rec').onclick = async () => {
+    if (busy) return; truth = null;
+    let stream;
+    try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
+    catch (err) { say('I can’t reach a microphone here (' + err.name + '). Open this page on its own in Chrome, or load a recording instead.'); return; }
+    const rec = new MediaRecorder(stream), chunks = []; rec.ondataavailable = e => chunks.push(e.data);
+    rec.onstop = async () => {
+      stream.getTracks().forEach(t => t.stop());
+      const b = await audio().decodeAudioData(await new Blob(chunks).arrayBuffer());
+      listen(mono(b), $('tilt').checked, $('throat').checked, 'your voice');
+    };
+    let left = 2.5; say('Sing now — hold it steady… 2.5'); rec.start();
+    const iv = setInterval(() => { left -= 0.5; if (left > 0) say('Sing now — hold it steady… ' + left.toFixed(1)); else { clearInterval(iv); say('Got it. Listening…'); rec.stop(); } }, 500);
+  };
+  drawTube(null); drawSpec(null);
+  const q = new URLSearchParams(location.search).get('selftest');   // ?selftest=e or ?selftest=e,220
+  if (q) { const [v, f] = q.split(','); if (TM.VOWELS[v]) { $('selfv').value = v; if (f) $('selff').value = f; $('self').click(); } }
+  window.addEventListener('resize', () => { if (result) { drawTube(result.area, truth, nearest(result.area)[0]); drawSpec(result); } });
+})();
+</script>
+</body>
+</html>

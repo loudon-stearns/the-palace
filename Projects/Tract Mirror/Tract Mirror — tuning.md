@@ -36,3 +36,8 @@ What Tract Mirror's steward cycles taught the page, and the changes to the house
 
 3. Hear with the instrument's own source inside the model: matching harmonic band energies to Tract Mirror's exact sung spectrum cancels the glottal pull that biases every formant picker, and recovers tube shape that three formants can't. *(offered by the steward, cycle 3)*
 - run · 2026-11-17 · cycle 3 · taught item 3
+
+## From cycle 4 — 2026-11-17
+
+4. A sing-along ear is only as good as its throat model: on a pulse that isn't Tract Mirror's, assuming its own pulse throws F1 up to 55% off and a free slope can't absorb the ripple, so search the throat before the tube. *(offered by the steward, cycle 4)*
+- run · 2026-11-17 · cycle 4 · taught item 4

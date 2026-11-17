@@ -1,0 +1,588 @@
+{
+ "model": [
+  {
+   "vowel": "a",
+   "f0": 110,
+   "tube_db_maxdiff": 0.00152,
+   "source_db_maxdiff": 1.67e-11,
+   "render_maxdiff": 0.0000716,
+   "peak_vs_pole_pct": [
+    1.3,
+    -1.44,
+    0.21
+   ],
+   "pass": true
+  },
+  {
+   "vowel": "a",
+   "f0": 220,
+   "tube_db_maxdiff": 0.00152,
+   "source_db_maxdiff": 1.28e-12,
+   "render_maxdiff": 0.0000801,
+   "peak_vs_pole_pct": [
+    1.3,
+    -1.44,
+    0.21
+   ],
+   "pass": true
+  },
+  {
+   "vowel": "e",
+   "f0": 110,
+   "tube_db_maxdiff": 0.00251,
+   "source_db_maxdiff": 1.67e-11,
+   "render_maxdiff": 0.000078,
+   "peak_vs_pole_pct": [
+    -0.19,
+    0.26,
+    -0.17
+   ],
+   "pass": true
+  },
+  {
+   "vowel": "e",
+   "f0": 220,
+   "tube_db_maxdiff": 0.00251,
+   "source_db_maxdiff": 1.28e-12,
+   "render_maxdiff": 0.0000951,
+   "peak_vs_pole_pct": [
+    -0.19,
+    0.26,
+    -0.17
+   ],
+   "pass": true
+  },
+  {
+   "vowel": "i",
+   "f0": 110,
+   "tube_db_maxdiff": 0.00113,
+   "source_db_maxdiff": 1.67e-11,
+   "render_maxdiff": 0.000062,
+   "peak_vs_pole_pct": [
+    -1.39,
+    0.5,
+    1.23
+   ],
+   "pass": true
+  },
+  {
+   "vowel": "i",
+   "f0": 220,
+   "tube_db_maxdiff": 0.00108,
+   "source_db_maxdiff": 1.28e-12,
+   "render_maxdiff": 0.0000386,
+   "peak_vs_pole_pct": [
+    -1.39,
+    0.5,
+    1.23
+   ],
+   "pass": true
+  }
+ ],
+ "ear": [
+  {
+   "vowel": "a",
+   "f0": 98,
+   "f0_heard": 97.7,
+   "shape_err_db": 1.16,
+   "F_heard": [
+    716,
+    1001,
+    2339
+   ],
+   "F_true": [
+    717,
+    1002,
+    2346
+   ],
+   "F1_err_pct": -0.21,
+   "mismatch_db": 0.1,
+   "start": "a",
+   "steps": 2154,
+   "seconds": 11.2
+  },
+  {
+   "vowel": "a",
+   "f0": 147,
+   "f0_heard": 147,
+   "shape_err_db": 0.82,
+   "F_heard": [
+    719,
+    1002,
+    2345
+   ],
+   "F_true": [
+    717,
+    1002,
+    2346
+   ],
+   "F1_err_pct": 0.24,
+   "mismatch_db": 0.05,
+   "start": "o",
+   "steps": 2007,
+   "seconds": 6.8
+  },
+  {
+   "vowel": "a",
+   "f0": 220,
+   "f0_heard": 220,
+   "shape_err_db": 0.82,
+   "F_heard": [
+    716,
+    1002,
+    2345
+   ],
+   "F_true": [
+    717,
+    1002,
+    2346
+   ],
+   "F1_err_pct": -0.16,
+   "mismatch_db": 0.06,
+   "start": "e",
+   "steps": 2013,
+   "seconds": 4.9
+  },
+  {
+   "vowel": "a",
+   "f0": 330,
+   "f0_heard": 329.8,
+   "shape_err_db": 0.76,
+   "F_heard": [
+    722,
+    995,
+    2350
+   ],
+   "F_true": [
+    717,
+    1002,
+    2346
+   ],
+   "F1_err_pct": 0.69,
+   "mismatch_db": 0.09,
+   "start": "a",
+   "steps": 1960,
+   "seconds": 3.5
+  },
+  {
+   "vowel": "e",
+   "f0": 98,
+   "f0_heard": 97.7,
+   "shape_err_db": 0.31,
+   "F_heard": [
+    457,
+    1806,
+    2400
+   ],
+   "F_true": [
+    457,
+    1810,
+    2406
+   ],
+   "F1_err_pct": -0.12,
+   "mismatch_db": 0.08,
+   "start": "a",
+   "steps": 1994,
+   "seconds": 9.6
+  },
+  {
+   "vowel": "e",
+   "f0": 147,
+   "f0_heard": 147,
+   "shape_err_db": 0.29,
+   "F_heard": [
+    457,
+    1811,
+    2406
+   ],
+   "F_true": [
+    457,
+    1810,
+    2406
+   ],
+   "F1_err_pct": 0.04,
+   "mismatch_db": 0.03,
+   "start": "o",
+   "steps": 2140,
+   "seconds": 7.5
+  },
+  {
+   "vowel": "e",
+   "f0": 220,
+   "f0_heard": 220,
+   "shape_err_db": 0.23,
+   "F_heard": [
+    458,
+    1810,
+    2406
+   ],
+   "F_true": [
+    457,
+    1810,
+    2406
+   ],
+   "F1_err_pct": 0.19,
+   "mismatch_db": 0.07,
+   "start": "u",
+   "steps": 1780,
+   "seconds": 4.5
+  },
+  {
+   "vowel": "e",
+   "f0": 330,
+   "f0_heard": 329.9,
+   "shape_err_db": 1.75,
+   "F_heard": [
+    456,
+    1807,
+    2406
+   ],
+   "F_true": [
+    457,
+    1810,
+    2406
+   ],
+   "F1_err_pct": -0.17,
+   "mismatch_db": 0.19,
+   "start": "e",
+   "steps": 1951,
+   "seconds": 3.3
+  },
+  {
+   "vowel": "i",
+   "f0": 98,
+   "f0_heard": 97.7,
+   "shape_err_db": 0.65,
+   "F_heard": [
+    243,
+    2259,
+    2937
+   ],
+   "F_true": [
+    245,
+    2265,
+    2949
+   ],
+   "F1_err_pct": -0.67,
+   "mismatch_db": 0.07,
+   "start": "e",
+   "steps": 1673,
+   "seconds": 8.5
+  },
+  {
+   "vowel": "i",
+   "f0": 147,
+   "f0_heard": 147,
+   "shape_err_db": 0.16,
+   "F_heard": [
+    245,
+    2265,
+    2949
+   ],
+   "F_true": [
+    245,
+    2265,
+    2949
+   ],
+   "F1_err_pct": 0,
+   "mismatch_db": 0.05,
+   "start": "i",
+   "steps": 1860,
+   "seconds": 6.2
+  },
+  {
+   "vowel": "i",
+   "f0": 220,
+   "f0_heard": 220,
+   "shape_err_db": 0.26,
+   "F_heard": [
+    246,
+    2266,
+    2954
+   ],
+   "F_true": [
+    245,
+    2265,
+    2949
+   ],
+   "F1_err_pct": 0.39,
+   "mismatch_db": 0.06,
+   "start": "u",
+   "steps": 2406,
+   "seconds": 5.4
+  },
+  {
+   "vowel": "i",
+   "f0": 330,
+   "f0_heard": 329.9,
+   "shape_err_db": 13.08,
+   "F_heard": [
+    236,
+    2282,
+    2979
+   ],
+   "F_true": [
+    245,
+    2265,
+    2949
+   ],
+   "F1_err_pct": -3.83,
+   "mismatch_db": 0.18,
+   "start": "uniform",
+   "steps": 2309,
+   "seconds": 3.7
+  },
+  {
+   "vowel": "o",
+   "f0": 98,
+   "f0_heard": 97.7,
+   "shape_err_db": 2.67,
+   "F_heard": [
+    564,
+    810,
+    2384
+   ],
+   "F_true": [
+    565,
+    812,
+    2390
+   ],
+   "F1_err_pct": -0.17,
+   "mismatch_db": 0.12,
+   "start": "u",
+   "steps": 2661,
+   "seconds": 13
+  },
+  {
+   "vowel": "o",
+   "f0": 147,
+   "f0_heard": 147.1,
+   "shape_err_db": 3.12,
+   "F_heard": [
+    567,
+    813,
+    2390
+   ],
+   "F_true": [
+    565,
+    812,
+    2390
+   ],
+   "F1_err_pct": 0.31,
+   "mismatch_db": 0.09,
+   "start": "e",
+   "steps": 2749,
+   "seconds": 8.2
+  },
+  {
+   "vowel": "o",
+   "f0": 220,
+   "f0_heard": 220,
+   "shape_err_db": 3.43,
+   "F_heard": [
+    565,
+    812,
+    2392
+   ],
+   "F_true": [
+    565,
+    812,
+    2390
+   ],
+   "F1_err_pct": 0.05,
+   "mismatch_db": 0.1,
+   "start": "o",
+   "steps": 2433,
+   "seconds": 4.6
+  },
+  {
+   "vowel": "o",
+   "f0": 330,
+   "f0_heard": 329.9,
+   "shape_err_db": 4.53,
+   "F_heard": [
+    562,
+    821,
+    2389
+   ],
+   "F_true": [
+    565,
+    812,
+    2390
+   ],
+   "F1_err_pct": -0.43,
+   "mismatch_db": 0.18,
+   "start": "o",
+   "steps": 2382,
+   "seconds": 3.1
+  },
+  {
+   "vowel": "u",
+   "f0": 98,
+   "f0_heard": 97.7,
+   "shape_err_db": 4.67,
+   "F_heard": [
+    260,
+    837,
+    2205
+   ],
+   "F_true": [
+    261,
+    839,
+    2210
+   ],
+   "F1_err_pct": -0.5,
+   "mismatch_db": 0.1,
+   "start": "o",
+   "steps": 2521,
+   "seconds": 10.2
+  },
+  {
+   "vowel": "u",
+   "f0": 147,
+   "f0_heard": 147,
+   "shape_err_db": 1.39,
+   "F_heard": [
+    261,
+    839,
+    2210
+   ],
+   "F_true": [
+    261,
+    839,
+    2210
+   ],
+   "F1_err_pct": -0.02,
+   "mismatch_db": 0.06,
+   "start": "u",
+   "steps": 2429,
+   "seconds": 8.1
+  },
+  {
+   "vowel": "u",
+   "f0": 220,
+   "f0_heard": 220,
+   "shape_err_db": 1.7,
+   "F_heard": [
+    258,
+    837,
+    2211
+   ],
+   "F_true": [
+    261,
+    839,
+    2210
+   ],
+   "F1_err_pct": -1.21,
+   "mismatch_db": 0.06,
+   "start": "e",
+   "steps": 2800,
+   "seconds": 5.9
+  },
+  {
+   "vowel": "u",
+   "f0": 330,
+   "f0_heard": 329.8,
+   "shape_err_db": 5.01,
+   "F_heard": [
+    287,
+    847,
+    2213
+   ],
+   "F_true": [
+    261,
+    839,
+    2210
+   ],
+   "F1_err_pct": 9.72,
+   "mismatch_db": 0.12,
+   "start": "uniform",
+   "steps": 2591,
+   "seconds": 3.9
+  },
+  {
+   "vowel": "schwa",
+   "f0": 98,
+   "f0_heard": 97.7,
+   "shape_err_db": 0.41,
+   "F_heard": [
+    469,
+    1416,
+    2384
+   ],
+   "F_true": [
+    469,
+    1419,
+    2390
+   ],
+   "F1_err_pct": -0.12,
+   "mismatch_db": 0.09,
+   "start": "e",
+   "steps": 1081,
+   "seconds": 5.6
+  },
+  {
+   "vowel": "schwa",
+   "f0": 147,
+   "f0_heard": 147,
+   "shape_err_db": 0.25,
+   "F_heard": [
+    469,
+    1418,
+    2390
+   ],
+   "F_true": [
+    469,
+    1419,
+    2390
+   ],
+   "F1_err_pct": 0.03,
+   "mismatch_db": 0.03,
+   "start": "o",
+   "steps": 1084,
+   "seconds": 3.4
+  },
+  {
+   "vowel": "schwa",
+   "f0": 220,
+   "f0_heard": 220,
+   "shape_err_db": 0.36,
+   "F_heard": [
+    470,
+    1420,
+    2390
+   ],
+   "F_true": [
+    469,
+    1419,
+    2390
+   ],
+   "F1_err_pct": 0.28,
+   "mismatch_db": 0.05,
+   "start": "o",
+   "steps": 1201,
+   "seconds": 2.9
+  },
+  {
+   "vowel": "schwa",
+   "f0": 330,
+   "f0_heard": 329.9,
+   "shape_err_db": 4.16,
+   "F_heard": [
+    469,
+    1418,
+    2394
+   ],
+   "F_true": [
+    469,
+    1419,
+    2390
+   ],
+   "F1_err_pct": 0.03,
+   "mismatch_db": 0.19,
+   "start": "e",
+   "steps": 1818,
+   "seconds": 2.9
+  }
+ ]
+}

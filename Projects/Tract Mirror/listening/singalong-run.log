@@ -1,0 +1,122 @@
+/Users/loudonstearns/Documents/The Palace/Projects/Tract Mirror/listening/../reference/fit_vowels.py:92: RuntimeWarning: overflow encountered in exp
+  area = np.exp(log_area)
+a·now 220.0 [np.float64(-0.2), np.float64(-0.1), np.float64(-0.0)] 0.81
+e·now 220.0 [np.float64(0.2), np.float64(-0.0), np.float64(0.0)] 0.24
+a·now 98.0 [np.float64(0.0), np.float64(0.0), np.float64(-0.0)] 0.57
+i·now 98.0 [np.float64(-0.1), np.float64(-0.1), np.float64(-0.1)] 0.23
+e·now 98.0 [np.float64(0.1), np.float64(-0.1), np.float64(-0.1)] 0.13
+u·now 98.0 [np.float64(0.0), np.float64(0.1), np.float64(0.1)] 2.67
+i·now 220.0 [np.float64(0.3), np.float64(0.1), np.float64(0.1)] 0.26
+u·now 220.0 [np.float64(-0.9), np.float64(-0.3), np.float64(0.1)] 1.83
+o·now 220.0 [np.float64(0.2), np.float64(-0.0), np.float64(0.0)] 2.35
+o·now 98.0 [np.float64(0.1), np.float64(0.0), np.float64(-0.0)] 2.29
+e·now 147.0 [np.float64(0.1), np.float64(0.0), np.float64(0.0)] 0.29
+a·now 147.0 [np.float64(0.2), np.float64(-0.0), np.float64(-0.0)] 0.86
+i·now 147.0 [np.float64(0.0), np.float64(0.0), np.float64(-0.0)] 0.16
+a·now 330.0 [np.float64(0.9), np.float64(-0.6), np.float64(0.3)] 0.87
+schwa·now 98.0 [np.float64(0.1), np.float64(-0.0), np.float64(-0.0)] 0.08
+e·now 330.0 [np.float64(-0.2), np.float64(-0.2), np.float64(-0.0)] 1.68
+u·now 147.0 [np.float64(-0.0), np.float64(0.1), np.float64(0.0)] 1.48
+schwa·now 220.0 [np.float64(0.3), np.float64(0.1), np.float64(0.1)] 0.38
+schwa·now 147.0 [np.float64(0.0), np.float64(-0.0), np.float64(-0.0)] 0.26
+i·now 330.0 [np.float64(-3.4), np.float64(0.6), np.float64(0.5)] 4.8
+o·now 330.0 [np.float64(-0.2), np.float64(0.9), np.float64(-0.0)] 5.6
+a·refit 98.0 [np.float64(0.0), np.float64(0.0), np.float64(-0.0)] 0.2
+a·refit 220.0 [np.float64(-0.1), np.float64(-0.2), np.float64(-0.0)] 0.51
+e·refit 98.0 [np.float64(0.0), np.float64(-0.1), np.float64(-0.1)] 0.21
+schwa·now 330.0 [np.float64(0.1), np.float64(-0.0), np.float64(0.2)] 4.18
+i·refit 98.0 [np.float64(-0.1), np.float64(-0.1), np.float64(-0.1)] 0.26
+e·refit 220.0 [np.float64(0.2), np.float64(-0.0), np.float64(0.0)] 0.67
+o·now 147.0 [np.float64(0.2), np.float64(0.0), np.float64(-0.0)] 2.09
+u·now 330.0 [np.float64(10.6), np.float64(1.0), np.float64(0.2)] 6.11
+i·refit 220.0 [np.float64(1.9), np.float64(-0.0), np.float64(0.1)] 10.77
+a·refit 147.0 [np.float64(0.2), np.float64(0.0), np.float64(0.0)] 0.36
+a·refit 330.0 [np.float64(0.6), np.float64(-0.5), np.float64(0.2)] 0.71
+i·refit 147.0 [np.float64(-0.0), np.float64(-0.0), np.float64(-0.0)] 0.21
+e·refit 147.0 [np.float64(0.1), np.float64(0.0), np.float64(-0.0)] 0.41
+schwa·refit 98.0 [np.float64(0.1), np.float64(-0.0), np.float64(-0.0)] 0.12
+u·refit 98.0 [np.float64(0.1), np.float64(0.0), np.float64(0.0)] 3.41
+e·refit 330.0 [np.float64(0.2), np.float64(-0.1), np.float64(-0.0)] 2.59
+schwa·refit 220.0 [np.float64(0.3), np.float64(0.1), np.float64(0.0)] 0.75
+o·refit 220.0 [np.float64(0.1), np.float64(-0.1), np.float64(0.0)] 2.49
+schwa·refit 147.0 [np.float64(0.1), np.float64(-0.0), np.float64(-0.0)] 0.51
+o·refit 98.0 [np.float64(0.1), np.float64(0.0), np.float64(-0.0)] 1.56
+i·refit 330.0 [np.float64(-3.5), np.float64(0.5), np.float64(0.7)] 7.77
+u·refit 220.0 [np.float64(-0.4), np.float64(-0.4), np.float64(0.1)] 3.37
+schwa·refit 330.0 [np.float64(0.1), np.float64(0.1), np.float64(0.1)] 6.45
+u·refit 147.0 [np.float64(-0.1), np.float64(0.1), np.float64(0.0)] 1.55
+o·refit 330.0 [np.float64(-0.2), np.float64(0.9), np.float64(-0.0)] 4.28
+o·refit 147.0 [np.float64(0.2), np.float64(0.1), np.float64(-0.0)] 1.99
+u·refit 330.0 [np.float64(17.1), np.float64(1.3), np.float64(0.1)] 2.34
+   367s  own tubes done
+/Users/loudonstearns/Documents/The Palace/Projects/Tract Mirror/listening/listen.py:59: WavFileWarning: Chunk (non-data) not understood, skipping it.
+  fs, y = wavfile.read(path)
+{
+ "98": {
+  "sing_along_mean_abs_F1_F2_F3": [
+   0.1,
+   0.0,
+   0.0
+  ],
+  "sing_along_worst_F1": 0.1,
+  "plain_LPC_mean_abs_F1_F2_F3": [
+   14.0,
+   1.1,
+   0.4
+  ],
+  "plain_LPC_worst_F1": 24.7,
+  "sing_along_mean_shape_err_db": 0.98
+ },
+ "147": {
+  "sing_along_mean_abs_F1_F2_F3": [
+   0.1,
+   0.0,
+   0.0
+  ],
+  "sing_along_worst_F1": 0.2,
+  "plain_LPC_mean_abs_F1_F2_F3": [
+   7.1,
+   1.8,
+   0.4
+  ],
+  "plain_LPC_worst_F1": 19.2,
+  "sing_along_mean_shape_err_db": 0.85
+ },
+ "220": {
+  "sing_along_mean_abs_F1_F2_F3": [
+   0.4,
+   0.1,
+   0.0
+  ],
+  "sing_along_worst_F1": 1.9,
+  "plain_LPC_mean_abs_F1_F2_F3": [
+   9.2,
+   2.5,
+   0.7
+  ],
+  "plain_LPC_worst_F1": 22.2,
+  "sing_along_mean_shape_err_db": 2.04
+ },
+ "330": {
+  "sing_along_mean_abs_F1_F2_F3": [
+   3.1,
+   0.6,
+   0.2
+  ],
+  "sing_along_worst_F1": 17.1,
+  "plain_LPC_mean_abs_F1_F2_F3": [
+   17.1,
+   35.9,
+   14.8
+  ],
+  "plain_LPC_worst_F1": 43.2,
+  "sing_along_mean_shape_err_db": 3.95
+ }
+}
+Daniel a {'f0_heard': np.float64(364.1), 'plain_LPC_heard': [685.0, 1111.0, 2622.0], 'plain_fit_sings': [685.0, 1111.0, 2622.0], 'sing_along_sings': [591.0, 1092.0, 2747.0], 'spectral_fit_rms_db': 3.04}
+Daniel i {'f0_heard': np.float64(162.6), 'plain_LPC_heard': [314.0, 2164.0, 2512.0], 'plain_fit_sings': [314.0, 2163.0, 2512.0], 'sing_along_sings': [440.0, 2113.0, 2437.0], 'spectral_fit_rms_db': 4.71}
+Daniel u {'f0_heard': np.float64(457.0), 'plain_LPC_heard': [455.0, 1174.0, 2321.0], 'plain_fit_sings': [455.0, 1174.0, 2322.0], 'sing_along_sings': [567.0, 1358.0, 2327.0], 'spectral_fit_rms_db': 0.98}
+Samantha a {'f0_heard': np.float64(139.3), 'plain_LPC_heard': [904.0, 1818.0, 2964.0], 'plain_fit_sings': [898.0, 1802.0, 2956.0], 'sing_along_sings': [96.0, 895.0, 1814.0], 'spectral_fit_rms_db': 2.69}
+Samantha i {'f0_heard': np.float64(164.2), 'plain_LPC_heard': [328.0, 2663.0, 2999.0], 'plain_fit_sings': [328.0, 2663.0, 2999.0], 'sing_along_sings': [475.0, 1238.0, 2549.0], 'spectral_fit_rms_db': 2.87}
+Samantha u {'f0_heard': np.float64(198.7), 'plain_LPC_heard': [652.0, 1180.0, 2986.0], 'plain_fit_sings': [652.0, 1180.0, 2985.0], 'sing_along_sings': [171.0, 611.0, 1224.0], 'spectral_fit_rms_db': 3.63}
+done in 693s

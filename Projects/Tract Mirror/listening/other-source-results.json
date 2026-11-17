@@ -1,0 +1,439 @@
+{
+ "summary_key": "slope/throat_fitted",
+ "summary": {
+  "false/false": {
+   "mean_abs_F1_pct": 18.8,
+   "worst_F1_pct": 55.5,
+   "mean_abs_F2_pct": 1.2,
+   "mean_shape_db": 11.5
+  },
+  "true/false": {
+   "mean_abs_F1_pct": 34,
+   "worst_F1_pct": 85.1,
+   "mean_abs_F2_pct": 9,
+   "mean_shape_db": 13.3
+  },
+  "false/true": {
+   "mean_abs_F1_pct": 5,
+   "worst_F1_pct": 10.2,
+   "mean_abs_F2_pct": 1.2,
+   "mean_shape_db": 6.6
+  },
+  "true/true": {
+   "mean_abs_F1_pct": 4.8,
+   "worst_F1_pct": 10.8,
+   "mean_abs_F2_pct": 1,
+   "mean_shape_db": 8.1
+  }
+ },
+ "rows": [
+  {
+   "vowel": "a",
+   "slope": false,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    0.7,
+    -2.3,
+    -1.5
+   ],
+   "shape_err_db": 7.7,
+   "mismatch_db": 3.88
+  },
+  {
+   "vowel": "a",
+   "slope": true,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    -3.5,
+    -5.4,
+    0.8
+   ],
+   "shape_err_db": 7.35,
+   "mismatch_db": 3.09
+  },
+  {
+   "vowel": "a",
+   "slope": false,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.4,
+    0.8
+   ],
+   "F_err_pct": [
+    -1.5,
+    0.8,
+    0.1
+   ],
+   "shape_err_db": 5.18,
+   "mismatch_db": 0.79
+  },
+  {
+   "vowel": "a",
+   "slope": true,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.4,
+    0.8
+   ],
+   "F_err_pct": [
+    -0.9,
+    1.7,
+    -0.6
+   ],
+   "shape_err_db": 6.2,
+   "mismatch_db": 0.67
+  },
+  {
+   "vowel": "e",
+   "slope": false,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    -0.2,
+    0.8,
+    -1
+   ],
+   "shape_err_db": 12.75,
+   "mismatch_db": 3.24
+  },
+  {
+   "vowel": "e",
+   "slope": true,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    -2.8,
+    2.2,
+    -0.1
+   ],
+   "shape_err_db": 14.63,
+   "mismatch_db": 2.15
+  },
+  {
+   "vowel": "e",
+   "slope": false,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.4,
+    0.8
+   ],
+   "F_err_pct": [
+    0,
+    0.5,
+    0.6
+   ],
+   "shape_err_db": 6.54,
+   "mismatch_db": 0.72
+  },
+  {
+   "vowel": "e",
+   "slope": true,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    1
+   ],
+   "F_err_pct": [
+    -10.8,
+    0.3,
+    0.4
+   ],
+   "shape_err_db": 8.55,
+   "mismatch_db": 0.63
+  },
+  {
+   "vowel": "i",
+   "slope": false,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    55.5,
+    0.1,
+    -0.5
+   ],
+   "shape_err_db": 11.34,
+   "mismatch_db": 1.55
+  },
+  {
+   "vowel": "i",
+   "slope": true,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    57.2,
+    0,
+    -0.2
+   ],
+   "shape_err_db": 13.48,
+   "mismatch_db": 1.52
+  },
+  {
+   "vowel": "i",
+   "slope": false,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.7,
+    1
+   ],
+   "F_err_pct": [
+    10.2,
+    0,
+    0.6
+   ],
+   "shape_err_db": 8.54,
+   "mismatch_db": 0.66
+  },
+  {
+   "vowel": "i",
+   "slope": true,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.4,
+    0.8
+   ],
+   "F_err_pct": [
+    -3.7,
+    0,
+    -1.2
+   ],
+   "shape_err_db": 7.19,
+   "mismatch_db": 0.65
+  },
+  {
+   "vowel": "o",
+   "slope": false,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    -4.1,
+    2.1,
+    -0.4
+   ],
+   "shape_err_db": 10.28,
+   "mismatch_db": 3.9
+  },
+  {
+   "vowel": "o",
+   "slope": true,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    -85.1,
+    -40.5,
+    -67.1
+   ],
+   "shape_err_db": 15.54,
+   "mismatch_db": 2.6
+  },
+  {
+   "vowel": "o",
+   "slope": false,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    1
+   ],
+   "F_err_pct": [
+    -5.2,
+    -0.9,
+    0
+   ],
+   "shape_err_db": 8.03,
+   "mismatch_db": 0.83
+  },
+  {
+   "vowel": "o",
+   "slope": true,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.4,
+    0.8
+   ],
+   "F_err_pct": [
+    4.1,
+    -0.5,
+    -0.1
+   ],
+   "shape_err_db": 9.05,
+   "mismatch_db": 0.7
+  },
+  {
+   "vowel": "u",
+   "slope": false,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    49.2,
+    0.7,
+    0.4
+   ],
+   "shape_err_db": 14.81,
+   "mismatch_db": 1.52
+  },
+  {
+   "vowel": "u",
+   "slope": true,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    50.3,
+    1,
+    0.2
+   ],
+   "shape_err_db": 14.71,
+   "mismatch_db": 1.51
+  },
+  {
+   "vowel": "u",
+   "slope": false,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.4,
+    0.8
+   ],
+   "F_err_pct": [
+    -4.9,
+    -0.8,
+    0.2
+   ],
+   "shape_err_db": 6.42,
+   "mismatch_db": 0.66
+  },
+  {
+   "vowel": "u",
+   "slope": true,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.4,
+    0.8
+   ],
+   "F_err_pct": [
+    -7.2,
+    -1.2,
+    0.5
+   ],
+   "shape_err_db": 7.85,
+   "mismatch_db": 0.65
+  },
+  {
+   "vowel": "schwa",
+   "slope": false,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    -3,
+    -1.4,
+    -1.8
+   ],
+   "shape_err_db": 12.06,
+   "mismatch_db": 3.57
+  },
+  {
+   "vowel": "schwa",
+   "slope": true,
+   "throat_fitted": false,
+   "f0_heard": 147.09,
+   "throat": [
+    0.6,
+    0.55
+   ],
+   "F_err_pct": [
+    -5.3,
+    -5.1,
+    0
+   ],
+   "shape_err_db": 13.85,
+   "mismatch_db": 2.17
+  },
+  {
+   "vowel": "schwa",
+   "slope": false,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.5,
+    1
+   ],
+   "F_err_pct": [
+    -8,
+    4.3,
+    -0.7
+   ],
+   "shape_err_db": 5.15,
+   "mismatch_db": 0.71
+  },
+  {
+   "vowel": "schwa",
+   "slope": true,
+   "throat_fitted": true,
+   "f0_heard": 147.09,
+   "throat": [
+    0.5,
+    0.8
+   ],
+   "F_err_pct": [
+    -2.1,
+    -2.3,
+    -0.6
+   ],
+   "shape_err_db": 9.75,
+   "mismatch_db": 0.54
+  }
+ ]
+}

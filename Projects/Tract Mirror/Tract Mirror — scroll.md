@@ -15,36 +15,37 @@ forward_vector: "I am Tract Mirror's scroll — the one page that always opens o
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-17T12:00:06.880Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T12:28:11.932Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** growing · **Steward:** cycle 3 · last ran 2026-11-17 (today)
-- **Plan:** agreed 2026-09-25 (52 days ago) · 5 made things since
-- **Waiting on you:** 1 open ask
+- **Status:** active · **Stage:** growing · **Steward:** cycle 4 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-09-25 (52 days ago) · 7 made things since
+- **Waiting on you:** 2 open asks
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-17 (today) — I can now hear my own vowels almost exactly, and recover the mouth shape too, by singing along with them, not picking formants. (`tract-mirror-steward-008`)
-- **Last commit touching this project:** 2026-11-17 `d17390cc` — steward(Tract Mirror): cycle 2 — SPINNING UP. HOME: [Tract Mirror](?deck=STATE&entry=Projects/Tract Mirr…
+- **Last shipped:** 2026-11-17 (today) — Will you sing five vowels into my new page, and should it get the microphone inside the board too? (`tract-mirror-steward-011`)
+- **Last commit touching this project:** 2026-11-17 `b67afdbf` — steward(Tract Mirror): cycle 3 — SPINNING UP. HOME: [Tract Mirror](?deck=STATE&entry=Projects/Tract Mirr…
 - **Signal:** steady
-- **Left uncommitted:** ⚠ 1 file in the bundle that no cycle declared, so no cycle commits it — `Projects/Tract Mirror/listening/singalong-run.log`. Look, then commit or clear it.
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-17 — cycle 3 · taught item 3
+- **Runs:** 4 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 4 · taught item 4
 - **Owed in the ledger:** nothing
-- **Latest lesson:** item 3, from cycle 3 — 2026-11-17 — [[Tract Mirror — tuning]]
+- **Latest lesson:** item 4, from cycle 4 — 2026-11-17 — [[Tract Mirror — tuning]]
 
 ### Where this stands
 
-Tract Mirror is the palace's first native plugin: a one-voice singing synth for Ableton whose 3D tubes are the filter itself. The first build shipped in June. The plan's last move is to learn to speak by listening: sing into it and it sings back with your own mouth shape. Two things are open from earlier cycles. A refit of the six vowels (they sang up to 14% flat) is waiting for your ears before it goes into the plugin. And the listener's ear was weak: it heard the lowest formant 3–18% low. This cycle fixed the ear. It no longer guesses formants. It sings along, adjusting a tube until Tract Mirror's own exact spectrum matches what it heard. On my own vowels that is now within a fraction of…
+Tract Mirror is the palace's first native plugin: a one-voice singing synth for Ableton whose 3D tubes are the filter itself. The first build shipped in June. The plan's last move is learning to speak by listening: you sing into it, and it sings back with your own mouth shape. Earlier today I fixed my listener: instead of picking out formants, it sings along, reshaping a tube until my exact harmonics match what it heard. This cycle moved that listener into one web page. You sing a held vowel, watch the tube take shape, hear me sing it back at your pitch, and can save the tube. On my own vowels it hears what the Python version heard. Then I tested it on a throat that isn't mine. That broke i…
 
 ### Left rough, again and again
 
 _What the trail's left-rough notes keep saying, oldest first, in its latest words._
 
-- **rough since cycle 1:** Nobody has heard the refit yet, me included: it's tuned to the numbers, not to an ear. _(in 3 notes, the latest cycle 3)_
+- **rough since cycle 1:** Nobody has heard the refit yet, me included: it's tuned to the numbers, not to an ear. _(in 4 notes, the latest cycle 4)_
 - **rough since cycle 1:** Wiring it in also means recomputing the plugin's vowel loudness matching, which was built from the old shapes. _(in 2 notes, the latest cycle 2)_
+- **rough since cycle 3:** Nobody has sung into it yet, me included: every number is my own tubes, through my pulse or one other made-up throat. _(in 2 notes, the latest cycle 4)_
 
 ### Open asks
 
 - `tract-mirror-steward-006` — directional_decision · posted 2026-11-17 · options: WIRE-IN · KEEP-AS-IS · ADJUST
+- `tract-mirror-steward-011` — microphone_grant · posted 2026-11-17 · options: OPEN-ALONE · GRANT-MIC · NOT-NOW
 
 ### Answered, not yet consumed
 
@@ -56,6 +57,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 4 · taught item 4
 - 2026-11-17 — cycle 3 · taught item 3
 - 2026-11-17 — cycle 2 · taught item 2
 - 2026-11-05 — cycle 1 · taught item 1
@@ -90,6 +92,71 @@ Decided by Loudon on 2026-06-09, carried over from the build plan's locked decis
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="tract-mirror-steward-011" -->
+### 2026-11-17 — cycle 4 — Will you sing five vowels into my new page, and should it get the microphone inside the board too?
+> still working · sing-back page shipped, untested on a real voice · steward leans OPEN-ALONE
+
+Tract Mirror is learning to sing back what it hears. This cycle I made a page where you hold a vowel and I find the tube that makes it, then sing it back. On my own voice it is nearly exact. On a throat I invented it gets the vowel within about 5% but the mouth shape only loosely. Your voice is the test nothing so far can stand in for. There are two ways to reach it. You can open the page on its own in Chrome, one click below; the browser asks for the microphone and nothing in the palace changes. Or you can let it use the microphone inside the board, which means a line in the palace's grants list (only on your yes; an elder writes it). I lean toward opening it on its own for now and leaving the grant until the page has earned a place on my rich face. I keep working either way. [Open the page](open:Projects/Tract Mirror/listening/sing-back.html).
+
+**Artifacts:**
+- [The page to sing into.](Projects/Tract Mirror/listening/sing-back.html)
+- [What a finished listen looks like (my own /e/).](Projects/Tract Mirror/listening/sing-back-selftest.png)
+- [singalong-errors.png](Projects/Tract Mirror/listening/singalong-errors.png)
+- [singalong-replay.wav](Projects/Tract Mirror/listening/singalong-replay.wav)
+- [ear-errors.png](Projects/Tract Mirror/listening/ear-errors.png)
+- [ear-singback.wav](Projects/Tract Mirror/listening/ear-singback.wav)
+<sub>`tract-mirror-steward-011` · RESOURCE_REQUEST on TRICKSTER</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="tract-mirror-steward-010" -->
+### 2026-11-17 — cycle 4 — You can now sing a vowel into me in the browser, watch me find your tube, and hear me sing it back.
+> shipped · works on my own voice, untested on yours · steward leans you sing into it
+
+What I built: [the sing-back page](open:Projects/Tract Mirror/listening/sing-back.html). It holds the whole listener and the singing tube in one file. Press Listen and hold a vowel for 2.5 seconds, or load a recording. The amber tube reshapes while I search, and the harmonics panel shows your levels against mine. When it's done I list the pitch, the throat I found, the formants of the tube, and the nearest of my six vowels. The buttons play your take, me singing it, or both, and save the tube in the plugin's vowel format. Adding ?selftest=e,110 to the address runs a self-test.
+
+Checked against the Python: tube levels agree to 0.003 dB and the rendered voice to 1e-4. On my six vowels at four pitches, F1 comes back within about 1% from G2 to A3, with the same two misses at E4 (/u/ and /i/, whose F1 sits below the pitch). One fit takes 3–11 s.
+
+What broke: I sang my own six tubes through a different throat (a sharper, shorter glottal pulse with some breath). The listener that assumes my pulse heard F1 up to 55% off, and fitting a free slope didn't help. A pulse's spectrum has ripples a slope can't follow. The fix was to find the throat first: try sixteen throats on a quick fit, keep the best, then search tubes with it. F1 comes back within 5% on average (worst 10%) and F2 within about 1%, even though the true throat isn't one of the sixteen. The mouth shape stays loose: 6–8 dB of shape error, against under 1 dB when I know the throat.
+
+The pitch finder broke too. Autocorrelation locked onto the first formant's ringing and heard one /e/ at three times its pitch. Pitch now comes from the spectrum (harmonics standing above the valleys between them), and every test vowel reads within 0.3%.
+
+**Artifacts:**
+- [The sing-back page. Its microphone works when opened on its own in Chrome; inside the board, load a recording or run the self-test.](Projects/Tract Mirror/listening/sing-back.html)
+- [The page after a self-test on my /e/ at 110 Hz: tube found within 0.27 dB of shape, harmonics matched to 0.04 dB.](Projects/Tract Mirror/listening/sing-back-selftest.png)
+- [A throat that isn't mine: F1 and F2 error per vowel, four ways of listening. Finding the throat first is the amber bar.](Projects/Tract Mirror/listening/other-source-errors.png)
+- [Holds the page's listener against the Python, then runs the own-voice test at four pitches.](Projects/Tract Mirror/listening/sing-back-check.mjs)
+- [Writes the Python reference numbers for that check.](Projects/Tract Mirror/listening/sing-back-check.py)
+- [The Python reference numbers.](Projects/Tract Mirror/listening/sing-back-check.json)
+- [Check results: model all PASS; the 24 self-test rows.](Projects/Tract Mirror/listening/sing-back-check-results.json)
+- [Sings my six tubes through the other throat (writes other-source.json, not kept: it takes seconds to make).](Projects/Tract Mirror/listening/other-source.py)
+- [Listens to them four ways.](Projects/Tract Mirror/listening/other-source-check.mjs)
+- [The numbers behind the table and chart.](Projects/Tract Mirror/listening/other-source-results.json)
+- [Last cycle's sing-along run log, left undeclared then; kept now.](Projects/Tract Mirror/listening/singalong-run.log)
+
+_My six tubes sung through a throat that isn't mine, 147 Hz: how far off I hear them_
+| how I listen | F1 off, average | F1 off, worst | F2 off, average | mouth shape off |
+| --- | --- | --- | --- | --- |
+| assume my own pulse | 18.8% | 55.5% | 1.2% | 11.5 dB |
+| my pulse + free slope | 34.0% | 85.1% | 9.0% | 13.3 dB |
+| find the throat first | 5.0% | 10.2% | 1.2% | 6.6 dB |
+| find the throat + slope | 4.8% | 10.8% | 1.0% | 8.1 dB |
+
+_Changed in the workshop:_ README — Added the browser probe's findings: the port matches, the throat matters, finding it fixes the vowel but not the mouth, pitch by comb.
+_Changed in the workshop:_ sing-back design — draft — The design now finds the throat before the tube and finds pitch from the harmonics; the real-voice test has a page.
+
+_Left rough:_ Nobody has sung into it yet, me included: every number is my own tubes, through my pulse or one other made-up throat. The mouth shape on an unknown throat is loose (6–8 dB), and the throat search is a coarse grid of sixteen, not a real fit. Nobody has heard the refit yet, me included: it's tuned to the numbers, not to an ear. That one, and wiring it in, wait on your answer to the open wire-in ask.
+
+_Next moves named:_ Your voice: a held a-e-i-o-u at a comfortable pitch, then higher, through the page. Save each tube and leave the JSON files in listening/. · Replace the sixteen-throat grid with a smooth throat fit (open quotient and sharpness as continuous parameters, or an LF pulse), to tighten the mouth shape. · Then the plugin side: a background listen job in the JUCE engine, starting from the nearest built-in vowel, writing into a user slot on the vowel pad.
+<sub>`tract-mirror-steward-010` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-4b15d67e13" -->
+### 2026-11-17 — cycle 4
+
+taught item 4
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="tract-mirror-steward-008" -->
 ### 2026-11-17 — cycle 3 — I can now hear my own vowels almost exactly, and recover the mouth shape too, by singing along with them, not picking formants.
 > shipped · listening ear fixed on my own voice, untested on yours · steward leans record-Loudon-next
