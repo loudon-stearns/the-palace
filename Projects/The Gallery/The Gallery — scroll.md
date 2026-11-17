@@ -15,25 +15,31 @@ forward_vector: "I am The Gallery's scroll — the one page that always opens on
 <!-- scroll:now:start -->
 ## Now
 
-> _Regenerated 2026-11-17T13:48:38.567Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
+> _Regenerated 2026-11-17T13:52:55.145Z from the board, the steward's runtime, the entry's frontmatter, its tuning ledger and git. This zone is machine-owned — the project is steered by the **Plan** and **Standing Orders** below, never here._
 
-- **Status:** active · **Stage:** seed · **Steward:** cycle 2 · last ran 2026-11-17 (today)
-- **Plan:** agreed 2026-11-03 (14 days ago) · 4 made things since
+- **Status:** active · **Stage:** seed · **Steward:** cycle 3 · last ran 2026-11-17 (today)
+- **Plan:** agreed 2026-11-03 (14 days ago) · 5 made things since
 - **Waiting on you:** 1 open ask
 - **Ready to advance:** no unread answers
-- **Last shipped:** 2026-11-17 (today) — May I make the store's first real move: one ignored render into Dropbox/Palace, with the tool moved to _ops/store? (`the-gallery-steward-006`)
-- **Last commit touching this project:** 2026-11-11 `cacc58f7` — Weave — 2026-11-11 — quick: 6 links added, 12 links cut, 1 retyped, 2 pages composted, 6 flags closed, 3 carried, 1 declined
+- **Last shipped:** 2026-11-17 (today) — I swept inside the big Dropbox folders and sorted what I found into 149 draft works, from a 2008 synth piece to this month's tracks with Valen. (`the-gallery-steward-008`)
+- **Last commit touching this project:** 2026-11-17 `fee06757` — steward(The Gallery): cycle 2 — SPINNING UP. HOME: [The Gallery](?deck=STATE&entry=Projects/The Gallery…
 - **Signal:** steady
 - **Drift:** no consolidation marker on the entry — nothing to measure against.
-- **Runs:** 2 runs on 2 days, counted from the ledger's run lines
-- **Last run:** 2026-11-17 — cycle 2 · taught item 2, proposed item 3 for canon
+- **Runs:** 3 runs on 2 days, counted from the ledger's run lines
+- **Last run:** 2026-11-17 — cycle 3 · taught item 4
 - **Owed in the ledger:** nothing
 - **Proposed for canon:** 1 — item 3; waiting on Loudon's review, and the page has not changed
-- **Latest lesson:** item 3, from cycle 2 — 2026-11-17 — [[The Gallery — tuning]]
+- **Latest lesson:** item 4, from cycle 3 — 2026-11-17 — [[The Gallery — tuning]]
 
 ### Where this stands
 
-The Gallery is the project that will hold everything you've made since school, each work dated and sourced and playable where a copy survives, drawn as one line you can walk. Your order was to build the system, fill it from what already exists, then interview you and your collaborators. The hour-long conversation where you name your eras hasn't happened yet as far as I can see, so I built the parts that don't need you. The first is a working slice of the media store: one tool that moves a file into a mirror of the palace inside Dropbox, records it in a manifest, and checks it later. The second is a sweep that lists every folder in your Dropbox by its file dates without opening a single file…
+The Gallery is the project that will hold everything you've made, each work dated and sourced and drawn as one line you can walk. Your order was to build the system, fill it from what already exists, then interview you and your collaborators. The media store tool works on a test folder. My question about its first real move into your Dropbox is still open, so this cycle I left the Dropbox untouched and did the filling step instead. I swept one level inside the biggest folders (_Projects Archive, _Projects Current, Emerson, the two Valen years, Classes, _Online, MG Reel) without downloading a file. Then I sorted what turned up into a draft list of 149 works, up from 39, and redrew the sketch…
+
+### Left rough, again and again
+
+_What the trail's left-rough notes keep saying, oldest first, in its latest words._
+
+- **rough since cycle 2:** Every date is a guess from file dates, and the era-map conversation is still unheld. _(in 2 notes, the latest cycle 3)_
 
 ### Open asks
 
@@ -49,6 +55,7 @@ _None._
 
 ### Runs
 
+- 2026-11-17 — cycle 3 · taught item 4
 - 2026-11-17 — cycle 2 · taught item 2, proposed item 3 for canon
 - 2026-11-03 — cycle 1 · taught item 1
 
@@ -91,6 +98,46 @@ _Loudon's standing direction for this project. The steward reads this zone every
 ## The making
 
 <!-- scroll:making:start -->
+<!-- scroll:entry id="the-gallery-steward-008" -->
+### 2026-11-17 — cycle 3 — I swept inside the big Dropbox folders and sorted what I found into 149 draft works, from a 2008 synth piece to this month's tracks with Valen.
+> shipped · catalog drafted, sketch redrawn · store question still open · steward leans era-map next
+
+The sweep read 477 folders in four seconds, and 335 of them hold a Live, Pro Tools or Logic session or a patch. Most of those are two-file Live sketches, so I sorted them three ways. Folders that are plainly one work became one entry: thirteen Harmonic Looper patches from August–September 2019 are one instrument, and forty-two numbered track folders from 2026 are one body of work with Valen. Folders big or named enough to stand alone got their own entry, like Granular Poem, AlgoVRhythm, The REEL, Track a day, the Zakir Hussain folder, the 2019 commencement, WaveTable Creator and the Emerson Thesis. The other 144 went into one sketchbook per year, so a hundred small ideas read as a practice and not as a hundred works. The old umbrella entries (Classes, _Online, Emerson, With Valen) are replaced by what was inside them. What the line shows now: the oldest made folder is February 2008 ('Comp for synth'), the busiest stretch is 2010–2019, and before 2008 there is still nothing. Twelve works now point at a palace page they may have seeded. Five are new guesses, worded as questions on the work: a 2013 voice instrument thirteen years before Talking Keyboard, a 2020 WaveTable Creator before the wavetable libraries, the Synthesis MOOC and 2009 synthesis lessons before Synthesis Notes, and the Emerson Thesis before Meaning and the Link. I listed Max patches by name only and never opened them, since Max work is still paused.
+
+**Artifacts:**
+- [the sketch, redrawn: 149 works in lanes by kind. Short works are dots, and a click shows what each one is and the question it asks.](Projects/The Gallery/The Gallery — sketch — timeline.html)
+- [a still of the redrawn sketch, checked in headless Chrome.](Projects/The Gallery/workshop/sketch-check-v2.png)
+- [the 149 draft works, each with an assumed date, kind, source folders, file count and the question it asks.](Projects/The Gallery/workshop/catalog-draft-v2.json)
+- [the deeper sweep: 477 folders inside the big folders, by file dates only.](Projects/The Gallery/workshop/inventory/deep-2026-11-17.jsonl)
+- [the sorting rules: named groups, works that stand alone, and a sketchbook per year. Rerun it after the interview.](Projects/The Gallery/workshop/inventory/triage.py)
+- [now takes a catalog path and draws the v2 catalog by default.](Projects/The Gallery/workshop/build-sketch.py)
+
+_The 149 draft works, by kind_
+| kind | works | for example |
+| --- | --- | --- |
+| recording | 71 | Granular Poem (2009–2011), Track a day (~2021), the numbered tracks with Valen (2026), 18 sketchbooks |
+| course | 41 | Synthesis lessons (2009), Synthesis MOOC (2016), BIM MOOC (2018), CPEM 2 revision |
+| instrument | 14 | The L-Don loopers (2011–2012), AlgoVRhythm (2013), The REEL, Harmonic Looper (2019), WIND |
+| performance | 8 | Black Box (2013), Shanghai (2017), commencement (2019), Zakir Hussain (2019) |
+| talk | 6 | SXSW (2012), Novation clinic (2014), Jam Symposium (2015), the chats (2019–2020) |
+| tool | 4 | WaveTable Creator (2020), MIDI clip info (2023), the palace |
+| writing and paper | 5 | Interactive fiction, Meaning and the Link, the Emerson Thesis, 1 from 2 |
+
+_Changed in the workshop:_ build-sketch.py — takes a catalog path, so the sketch draws the v2 list
+
+_Left rough:_ Every date is a guess from file dates, and the era-map conversation is still unheld. Who Valen, Ramon, MG and Spencer are, and whether Emerson was study or teaching, are open questions only you can answer. 'Online Chats' in the Berklee backup carries the shared 2003 library date, so its own date says nothing.
+
+_Next moves named:_ Rewrite the era-map question sheet from the 149-work list, so the hour goes to the twenty biggest questions (Valen, MG and the REEL, Emerson, the chats, what came before 2008). · Once you answer the store question, make the first real move into Dropbox/Palace and teach the resolver to find stored files. · Draft the first three work pages, as proposals with their dates marked as guesses, for the works the palace already holds: Meaning and the Link, Synthesis Notes, 1 from 2.
+<sub>`the-gallery-steward-008` · BROADCAST on GENERAL</sub>
+<!-- /scroll:entry -->
+
+<!-- scroll:entry id="run-4aa3abdbf5" -->
+### 2026-11-17 — cycle 3
+
+taught item 4
+<sub>a run · its line in the tuning ledger</sub>
+<!-- /scroll:entry -->
+
 <!-- scroll:entry id="the-gallery-steward-006" -->
 ### 2026-11-17 — cycle 2 — May I make the store's first real move: one ignored render into Dropbox/Palace, with the tool moved to _ops/store?
 > still working · store tested on a scratch folder only · steward leans FIRST-PUT

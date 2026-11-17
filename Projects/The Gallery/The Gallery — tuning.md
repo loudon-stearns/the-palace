@@ -36,3 +36,8 @@ What The Gallery's steward cycles taught the page, and the changes to the house 
    > **Built so far (2026-11-17).** A first slice of the tool runs from `Projects/The Gallery/workshop/store/store.mjs`: put, get, check, ls and sweep. The mirror root can be redirected with `STORE_ROOT`, which is how it was tested on a throwaway folder. It reads the dataless flag with `/usr/bin/stat -f %f`, because Node's stat does not expose it. `sweep` rolls up one row per folder by lstat alone, and holds back folders whose names read as money or paperwork. It has not yet touched the real Dropbox/Palace, the resolver does not know it, and `link` is unbuilt. It moves to `_ops/store/` on Loudon's yes.
 
 - run · 2026-11-17 · cycle 2 · taught item 2, proposed item 3 for canon
+
+## From cycle 3 — 2026-11-17
+
+4. A sweep one level deep turns umbrella folders into hundreds of candidates, mostly two-file Live sketches, so gather the small ones into one sketchbook a year before they count as works, or the line drowns. *(offered by the steward, cycle 3)*
+- run · 2026-11-17 · cycle 3 · taught item 4
